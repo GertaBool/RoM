@@ -1,0 +1,1010 @@
+[
+  {
+    "path": "Assets/Python/AbandonCityEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/AugustusAIProfiler.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUFFY/Buffy.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUFFY/GameSetUpCheck.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/AttitudeUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugConfig.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugConfigTracker.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugCore.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugData.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugDll.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugFile.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugGameUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugHelp.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugInit.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugOptions.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugOptionsScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugPath.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugTypes.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugUnitPlot.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugUpdateChecker.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/BugUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/CityUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/ColorUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/DealUtil.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/DiplomacyUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/FontUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/GGUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/GPUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/GameUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/InputUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/PlayerUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/ProgressBarUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/RawYields.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/ReligionUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Scoreboard.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/SpyUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/SvnUtil.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugACOOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugAdvisorOptionsTab \u2013 backup.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugAdvisorOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugAlertsOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugAutologOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugCityScreenOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugConfigTrackerTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugCreditsOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugErrorOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugGeneralOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugMapOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugNJAGCOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugPleOptionsTab.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugScoreOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugSystemOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/BugUnitNameOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/RevDCMOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/Tabs/RoMOptionsTab.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/TechPrefs.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/TechUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/TradeUtil.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/TraitUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/UnitGrouper.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/UnitPlotListUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/UnitUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/WidgetUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/BUG/configobj.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/AStarTools.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/AutoSave.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Civ4lerts.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/CvAllErasDawnOfManScreenEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/CvModFolder.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/CvModName.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/CvOverlayScreenUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/CvStrategyOverlay.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/EspionageEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/EventSigns.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/FavoriteCivicDetector.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/MapFinder.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/MapFinderStatusScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/MonkeyTools.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/MoreCiv4lerts.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/MovieMod.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/PlotListEnhancements.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/RandomNameUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/ReminderEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/RevDCM.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/RevDCMReligionControl.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Roman.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/RuffEcho.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/SdToolKit.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaBonus.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaBuilding.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaCivic.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaCivilization.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaCorporation old.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaCorporation.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaFeature.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaHistory.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaImprovement.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaIndex.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaLeader.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaMain.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaProject.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaPromotion.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaReligion old.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaReligion.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaSpecialist.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaTech.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaTerrain.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaTrait.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaUnit.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaUnitChart.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoPediaUtil.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/Sevopedia/SevoScreenEnums.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/StatusDump.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/StatusDumpEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/TechWindow.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/TechWindowWide.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/UnitNameEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/UnitUpgradesGraph.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/autolog.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Contrib/autologEventManager.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/CvAdvisorUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/CvConfigParser.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/CvDiplomacy.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/CvMapGeneratorUtil.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/CvUtil.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EnhancedTechConquestUtils/EnhancedTechConquest.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EntryPoints/CvAppInterface.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EntryPoints/CvEventInterface.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EntryPoints/CvGameInterfaceFile.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EntryPoints/CvOptionsScreenCallbackInterface.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EntryPoints/CvRandomEventInterface.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EntryPoints/CvScreenUtilsInterface.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EntryPoints/CvScreensInterface.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/EntryPoints/CvWBInterface.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/GodsOfOld.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/ModTools/ModTools.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/ModTools/ModToolsUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/OOSLogger.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/PyHelpers.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Development/ChangePlayer.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Development/Tester.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Gameready/AIAutoPlay.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Gameready/BarbarianCiv.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Gameready/DynamicCivNames.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Gameready/Revolt.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Gameready/Revolution.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Gameready/StartAsMinors.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/Gameready/TechDiffusion.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/LeaderCivNames.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RebelTypes.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevBuildingsUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevCivicsUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevData.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevDefs.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevEvents.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevInstances.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevTraitsUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevUtils.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/RevolutionInit.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Revolution/TextUtils.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/RoMEventManager.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/RoMGameUtils.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/BugFinanceAdvisor.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvBUGMilitaryAdvisor.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvCivicsScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvCorporationScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvCustomizableDomesticAdvisor.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvDawnOfMan.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvDotMapOverlayScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvEspionageAdvisor.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvExoticForeignAdvisor.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvForeignAdvisor.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvHallOfFameScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvInfoScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvMainInterface-PLE.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvMainInterface.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvPediaHistory.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvPediaMain.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvReligionScreen.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvScreenEnums.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvTechChooser.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/CvVictoryScreen.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/IconGrid.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/IconGrid_BUG.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/PLE.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/Screens/RevolutionWatchAdvisor.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/SdToolKitCustom.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/SettlementTrainingProfiler.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Assets/Python/zCivics.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "CvAltRoot.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Docs/combined mods/BUG mod Info/CvAltRoot.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Arboria.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Archipelago.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Balanced.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Big_and_Small.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Boreal.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Continents.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Custom_Continents.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Donut.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Earth2.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Fantasy_Realm.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Fractal.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Full_of_Resources_3_00.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Global_Highlands.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Great_Plains.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Hemispheres.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Highlands.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Hub.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Ice_Age.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Inland_Sea.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Islands.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Lakes.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Maze.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Medium_and_Small.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Mirror.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Oasis.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Pangaea.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_PerfectWorld.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_PerfectWorld2.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Planet_Generator_0_68.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Rainforest.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_RandomScriptMap.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Ring.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Shuffle.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_SmartMap.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Team_Battleground.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Tectonics.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Terra.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Tilted_Axis.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "PrivateMaps/RoM_Wheel.py",
+    "result": "Legacy grammar accepted"
+  },
+  {
+    "path": "Tools/SettlementModel/combine_autorun_csv.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/SettlementModel/train_pairwise_ranker.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/analyze_rom_save_header.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/check_dll_line_endings.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/run_regression_suite.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_agenda_model.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_context.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_decisions.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_diplomacy.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_economic_recovery.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_governors.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_layer_contracts.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_load_override.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_maritime.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_ai_reinforcements.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_source_integrity.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_victory_conditions.py",
+    "result": "Python 3 grammar accepted"
+  },
+  {
+    "path": "Tools/test_xml_integrity.py",
+    "result": "Python 3 grammar accepted"
+  }
+]

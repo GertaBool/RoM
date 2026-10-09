@@ -1,0 +1,212 @@
+{
+  "simultaneous_team_selection": {
+    "evidence": "Actual source block compiled against minimal team interface; 3 of 7 nonempty three-team configurations activate no team.",
+    "cases": [
+      {
+        "alive_mask": 1,
+        "expected_first_alive": 0,
+        "actual": 0
+      },
+      {
+        "alive_mask": 2,
+        "expected_first_alive": 1,
+        "actual": -1
+      },
+      {
+        "alive_mask": 3,
+        "expected_first_alive": 0,
+        "actual": 0
+      },
+      {
+        "alive_mask": 4,
+        "expected_first_alive": 2,
+        "actual": -1
+      },
+      {
+        "alive_mask": 5,
+        "expected_first_alive": 0,
+        "actual": 0
+      },
+      {
+        "alive_mask": 6,
+        "expected_first_alive": 1,
+        "actual": -1
+      },
+      {
+        "alive_mask": 7,
+        "expected_first_alive": 0,
+        "actual": 0
+      }
+    ]
+  },
+  "sparse_city_ids": {
+    "evidence": "Actual onBeginPlayerTurn handler with narrow engine-contract fakes; control and sparse-ID case.",
+    "cases": [
+      {
+        "city_ids": [
+          0,
+          1
+        ],
+        "bank_city": 1,
+        "initial_gold": 1000,
+        "actual_gold": 1010,
+        "expected_gold": 1010
+      },
+      {
+        "city_ids": [
+          0,
+          2
+        ],
+        "bank_city": 2,
+        "initial_gold": 1000,
+        "actual_gold": 1000,
+        "expected_gold": 1010
+      }
+    ]
+  },
+  "event_callback_bindings": {
+    "evidence": "Exact, case-sensitive definitions in CvRandomEventInterface plus verified exports from recursively loaded BUG configs; no whole-module execution.",
+    "resolved_exports": [
+      {
+        "name": "applyLandmarkFromEvent",
+        "module": "EventSigns",
+        "configuration": "Assets/Config/EventSigns.xml"
+      },
+      {
+        "name": "applySaltpeter",
+        "module": "EventSigns",
+        "configuration": "Assets/Config/EventSigns.xml"
+      },
+      {
+        "name": "canTriggerTheVedicAryans",
+        "module": "Buffy",
+        "configuration": "Assets/Config/BUFFY.xml"
+      }
+    ],
+    "missing": [
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_FARM_BANDITS_2",
+        "tag": "PythonHelp",
+        "function": "getHelpFarmBandit2",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_SMOKELESS_POWDER_1",
+        "tag": "PythonCallback",
+        "function": "applySmokelessPowder",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_STRONGER_FITTINGS_1",
+        "tag": "PythonCallback",
+        "function": "applyStrongerFittings",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_FIRING_PINS_1",
+        "tag": "PythonCallback",
+        "function": "applyFiringPins",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_RIFLED_CANNON_1",
+        "tag": "PythonCallback",
+        "function": "applyRifledCannon",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_METAL_DECKS_1",
+        "tag": "PythonCallback",
+        "function": "applyMetalDecks",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_LONG_RANGE_FIGHTERS_1",
+        "tag": "PythonCallback",
+        "function": "applyLongRangeFighters",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_HALBERD_1",
+        "tag": "PythonCallback",
+        "function": "applyHalberd",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_REINFORCED_HULL_1",
+        "tag": "PythonCallback",
+        "function": "applyReinforcedHull",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_THE_GOTHS_1",
+        "tag": "PythonHelp",
+        "function": "getHelpTheGoths1",
+        "similar_names": [
+          "getHelpThGoths1"
+        ]
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_HERESY_2",
+        "tag": "PythonCallback",
+        "function": "applyHeresy2",
+        "similar_names": []
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_OVERWHELM_DONE_1",
+        "tag": "PythonCallback",
+        "function": "applyOverwhelmDone1",
+        "similar_names": [
+          "applyOverwhelmDone3",
+          "canApplyOverwhelmDone3"
+        ]
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_OVERWHELM_DONE_1",
+        "tag": "PythonCanDo",
+        "function": "canApplyOverwhelmDone1",
+        "similar_names": [
+          "canApplyOverwhelmDone3",
+          "applyOverwhelmDone3"
+        ]
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_OVERWHELM_DONE_1",
+        "tag": "PythonHelp",
+        "function": "getHelpOverwhelmDone1",
+        "similar_names": [
+          "getHelpOverwhelmDone3",
+          "getHelpOverwhelm1"
+        ]
+      },
+      {
+        "path": "Assets/XML/Events/CIV4EventInfos.xml",
+        "type": "EVENT_BILLIONS_AND_BILLIONS_2",
+        "tag": "PythonCanDo",
+        "function": "canapplyBillionsandBillions2",
+        "similar_names": [
+          "canApplyBillionsandBillions2"
+        ]
+      }
+    ]
+  },
+  "telemetry_documentation": {
+    "profiler_schema": 4,
+    "trainer_requires_schema": 4,
+    "documented_example_schema": 3
+  }
+}

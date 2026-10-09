@@ -1,0 +1,27 @@
+{
+  "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+  "commit": "1ab4f99a76adb530f86b278390ab8139ef41cc96",
+  "files": {
+    "REVIEW.md": "7e0ca89b56be3f7c2fd807b05b4e966ac9dee854864c8769d0690e7172d1d0c8",
+    "GAMEFLOW_MODEL.md": "a4bc577645a2c702dfb1ca50c3db7f3b348d6243aa246b95a512204502d1a5c8",
+    "explorer.html": "f47bf0c663e3fcd390b2f89ddd02f0d8306512a95279d75c3a55c2eed5aee6cc",
+    "architecture.svg": "8f113f8d57925288011e5c45d17b7f18cab81962a4c3de8475b5e86fa70c1413",
+    "architecture.dot": "9a7b3ee3a1371116f4f9b3ecabfd9c1ac2a6868fc1a1e55712b4cc58b8925371",
+    "FILE_CATALOG.md": "3c12ecf0eb599124d354662741b7ae180cb42380722268a67e037a3c3d974749",
+    "file-inventory.csv": "019c692b550ec9a69383dc705ffd5465447d7e467360d96c3a6ca677e5fe9741",
+    "inventory.json": "9a5273baf3b1b9e45adf5e05046f2226a810381092b503627abb99e5f3104857",
+    "summary.json": "24fe9885e39cfaf050f6b0260c2559ef4dbfbf7477c35f837ad32eaa12c44e20",
+    "dependency-edges.json": "dd04200265922b6e8a72d55a668cedf1e6477e2a327d930641acd645fc165eff",
+    "xml-symbols.json": "239a2354778c16700c861d488cb1382a85a452dbd91cfc12eceb8beb65b8ae0c",
+    "python-grammar.json": "dfbd1650dd06f7adcfe76424f72a87ebad357fb1a1e4728d730757e6299a6eab",
+    "archive-inventory.json": "a5075d9570cafe874d2ddd784469b8bb2e8b65c0d7727c1d95069a3d8da61e97",
+    "audit-findings.json": "8236b02f7e751b9a8293682f44fdc0762c5e9feccf2d2ff22220e9ac5206ccf6",
+    "regression.log": "c7eccff919e5741755e1e81dbf3f81e80806f686997e4a3499d074726a83b31f",
+    "audit.log": "1a296789ca0d6b978b7f693e9f0459ef92aedb715b5020de3f26dfda5ec002d8",
+    "analyze.py": "30795bff5980ad89f91ac058afad4e5091ef9a560506b8ddb9e84f9aa9f3a2c6",
+    "audit_checks.py": "4a8489c783fbccff755fa64c7f2aaf762cdb4e4b290923ae3fc715fdc9552ba9",
+    "build_explorer.py": "252db03ac58cdf7eaefcaf8cf0013addcc8bdd054f5eee44822704b76d1454a1",
+    "explorer-validation.json": "1914d4d6eb7c1f4727fc562574c16b2cb3a700d8ed88e4ed2958112d77fe7a86",
+    "explorer-preview.png": "4de39f6f668c09629d33d6970f36ac461fe571050c61462bd9665b4203db31d0"
+  }
+}

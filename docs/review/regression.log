@@ -1,0 +1,114 @@
+
+[1/14] python3 Tools/test_source_integrity.py
+PASS: 480 native/Python source files contain no NULs or merge markers
+
+[2/14] python3 Tools/check_dll_line_endings.py
+checked 246 files; line endings and Unicode line bytes are safe
+
+[3/14] python3 Tools/test_xml_integrity.py
+PASS: parsed 948 gameplay, configuration, schema and module XML files
+
+[4/14] python3 Tools/test_ai_context.py
+PASS: strategic snapshot defaults, identity, 200,100 runway cases, 20,301 trade-cap cases, and free-list city iteration passed
+PASS: agenda and all technology consumers share every declared snapshot field
+
+[5/14] python3 Tools/test_ai_diplomacy.py
+PASS: 1,000,000 diplomacy conversion pairs and overflow boundaries passed
+PASS: all four counterproposal lump-gold conversions use the bounded policy
+
+[6/14] python3 Tools/test_ai_economic_recovery.py
+PASS: per-turn civic-cost boundaries and 5,151 monotonic states passed
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_economic_recovery.py", line 93, in <module>
+    assert "AI_CIVIC_ECONOMIC_HORIZON_TURNS" not in defines
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+[7/14] python3 Tools/test_ai_agenda_model.py
+agenda model: 8 scenarios, hysteresis boundaries, and 10000 randomized states passed
+
+[8/14] python3 Tools/test_ai_decisions.py
+test_agenda_adjusted_unit_probability_reaches_all_city_rolls (__main__.DecisionTests.test_agenda_adjusted_unit_probability_reaches_all_city_rolls) ... ok
+test_anarchy_preserves_ai_production_queue (__main__.DecisionTests.test_anarchy_preserves_ai_production_queue) ... ok
+test_archer_fire_after_assault (__main__.DecisionTests.test_archer_fire_after_assault) ... ok
+test_bombard_dispatch_reachable (__main__.DecisionTests.test_bombard_dispatch_reachable) ... ok
+test_bounded_reinforcement_delivery (__main__.DecisionTests.test_bounded_reinforcement_delivery) ... ok
+test_career_migration_and_cooldown (__main__.DecisionTests.test_career_migration_and_cooldown) ... ok
+test_civic_value_reaches_technology_scoring (__main__.DecisionTests.test_civic_value_reaches_technology_scoring) ... ok
+test_commerce_repair_after_city_deserialization (__main__.DecisionTests.test_commerce_repair_after_city_deserialization) ... ok
+test_compiled_policy_and_actual_record_code (__main__.DecisionTests.test_compiled_policy_and_actual_record_code) ... C++03 policies: 40,401 EWMA pairs; spending/recovery/siege boundaries; actual v4/v5 record readers/writers passed
+ok
+test_hurry_legality_and_timing (__main__.DecisionTests.test_hurry_legality_and_timing) ... ok
+test_ready_numerator_excludes_support (__main__.DecisionTests.test_ready_numerator_excludes_support) ... ok
+test_recovery_dispatch_precedes_role_dispatch (__main__.DecisionTests.test_recovery_dispatch_precedes_role_dispatch) ... ok
+test_stuck_group_recovery_exhausts_every_member (__main__.DecisionTests.test_stuck_group_recovery_exhausts_every_member) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.693s
+
+OK
+
+[9/14] python3 Tools/test_ai_governors.py
+test_city_integration_and_save_version (__main__.GovernorPolicyTests.test_city_integration_and_save_version) ... ok
+test_feedback_is_bounded_and_precedes_hard_overrides (__main__.GovernorPolicyTests.test_feedback_is_bounded_and_precedes_hard_overrides) ... ok
+test_policy_gates_terms_performance_and_determinism (__main__.GovernorPolicyTests.test_policy_gates_terms_performance_and_determinism) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.408s
+
+OK
+
+[10/14] python3 Tools/test_ai_layer_contracts.py
+test_agenda_precedes_its_turn_consumers (__main__.LayerContractTests.test_agenda_precedes_its_turn_consumers) ... ok
+test_documented_comparison_sources_are_primary (__main__.LayerContractTests.test_documented_comparison_sources_are_primary) ... ERROR
+test_feedback_cannot_bypass_emergency_selection (__main__.LayerContractTests.test_feedback_cannot_bypass_emergency_selection) ... ok
+test_operation_control_precedes_generic_role_dispatch (__main__.LayerContractTests.test_operation_control_precedes_generic_role_dispatch) ... ok
+test_operation_demand_counts_supply_pipeline (__main__.LayerContractTests.test_operation_demand_counts_supply_pipeline) ... ok
+
+======================================================================
+ERROR: test_documented_comparison_sources_are_primary (__main__.LayerContractTests.test_documented_comparison_sources_are_primary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_layer_contracts.py", line 55, in test_documented_comparison_sources_are_primary
+    assessment = (ROOT / "Docs" / "CODEBASE_ASSESSMENT.md").read_text()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/rise-of-mankind/Docs/CODEBASE_ASSESSMENT.md'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.020s
+
+FAILED (errors=1)
+
+[11/14] python3 Tools/test_ai_load_override.py
+PASS: production AI_load declarations/definition override and dispatch in C++03
+
+[12/14] python3 Tools/test_ai_maritime.py
+PASS: 1,000,000 route pairs; 10,201 worker pairs; 249,500 strength pairs and overflow boundaries
+PASS: spending, worker export, chosen transport, embarkation, landing and naval bombard contracts
+
+[13/14] python3 Tools/test_ai_reinforcements.py
+PASS: 1595880 reinforcement combinations and overflow boundary passed
+PASS: cached supply accounting and all five field-role delivery hooks checked
+
+[14/14] python3 Tools/test_victory_conditions.py
+test_boolean_gate_truth_table (__main__.VictoryTests.test_boolean_gate_truth_table) ... ok
+test_every_declared_victory_prerequisite_exists (__main__.VictoryTests.test_every_declared_victory_prerequisite_exists) ... ok
+test_score_conquest_diplomatic_religious_and_culture_edges (__main__.VictoryTests.test_score_conquest_diplomatic_religious_and_culture_edges) ... ok
+test_source_uses_wide_products_and_countdown_guards (__main__.VictoryTests.test_source_uses_wide_products_and_countdown_guards) ... ok
+test_threshold_references_and_ranges (__main__.VictoryTests.test_threshold_references_and_ranges) ... ok
+test_victory_types_are_unique_and_have_a_real_gate (__main__.VictoryTests.test_victory_types_are_unique_and_have_a_real_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.133s
+
+OK
+
+Ran 14 isolated checks in 7.76s; 2 failed.
+FAIL (1): python3 Tools/test_ai_economic_recovery.py
+FAIL (1): python3 Tools/test_ai_layer_contracts.py

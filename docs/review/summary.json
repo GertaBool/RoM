@@ -1,0 +1,215 @@
+{
+  "commit": "1ab4f99a76adb530f86b278390ab8139ef41cc96",
+  "tracked_files": 7269,
+  "extensions": {
+    "": 22,
+    ".exe": 3,
+    ".txt": 54,
+    ".xml": 956,
+    ".dll": 1,
+    ".h": 146,
+    ".cpp": 107,
+    ".rc": 1,
+    ".sdf": 1,
+    ".sln": 1,
+    ".suo": 1,
+    ".vcxproj": 1,
+    ".user": 1,
+    ".inl": 2,
+    ".project": 1,
+    ".settings": 8,
+    ".cc": 19,
+    ".o": 12,
+    ".d": 1,
+    ".common": 1,
+    ".install": 1,
+    ".options": 1,
+    ".vc6": 1,
+    ".mk": 5,
+    ".me": 2,
+    ".macros": 1,
+    ".out": 8,
+    ".sh": 5,
+    ".c": 3,
+    ".htm": 9,
+    ".1": 1,
+    ".docbook": 1,
+    ".html": 2,
+    ".pdf": 1,
+    ".sgml": 1,
+    ".spec": 1,
+    ".script": 1,
+    ".cmd": 1,
+    ".dds": 3046,
+    ".nif": 1283,
+    ".kfm": 96,
+    ".kf": 771,
+    ".tga": 66,
+    ".bmp": 4,
+    ".db": 5,
+    ".nif2": 1,
+    ".dds2": 1,
+    ".jpg": 9,
+    ".png": 9,
+    ".psd": 1,
+    ".kf8": 2,
+    ".jar": 2,
+    ".py": 252,
+    ".fpk": 3,
+    ".wav": 170,
+    ".mp3": 10,
+    ".bik": 50,
+    ".mov": 4,
+    ".ods": 4,
+    ".xls": 3,
+    ".chm": 5,
+    ".rtf": 3,
+    ".doc": 1,
+    ".gz": 2,
+    ".civbeyondswordwbsave": 44,
+    ".md": 3,
+    ".ini": 33,
+    ".bak": 1,
+    ".json": 1
+  },
+  "source_files": 1485,
+  "counts": {
+    "xml": 956,
+    "h": 146,
+    "cpp": 107,
+    "inl": 2,
+    "cc": 19,
+    "c": 3,
+    "py": 252
+  },
+  "lines": {
+    "c": 1252,
+    "cc": 2079,
+    "cpp": 280423,
+    "h": 36223,
+    "inl": 844,
+    "py": 175678,
+    "xml": 864873
+  },
+  "xml_errors": [
+    {
+      "path": "Assets/XML/BasicInfos/README_CIV4AttitudeInfos.xml",
+      "error": "no element found: line 8, column 79"
+    },
+    {
+      "path": "Assets/XML/BasicInfos/README_CIV4CalendarInfos.xml",
+      "error": "no element found: line 8, column 79"
+    },
+    {
+      "path": "Assets/XML/BasicInfos/README_CIV4CityTabInfos.xml",
+      "error": "no element found: line 8, column 79"
+    },
+    {
+      "path": "Assets/XML/BasicInfos/README_CIV4DenialInfos.xml",
+      "error": "no element found: line 8, column 79"
+    },
+    {
+      "path": "Assets/XML/BasicInfos/README_CIV4DomainInfos.xml",
+      "error": "no element found: line 8, column 79"
+    },
+    {
+      "path": "Assets/XML/GameInfo/README_CIV4PlayerOptionInfos.xml",
+      "error": "no element found: line 8, column 79"
+    }
+  ],
+  "xml_callback_count": 393,
+  "xml_callbacks_without_local_definition": [
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonHelp",
+      "function": "getHelpFarmBandit2",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applySmokelessPowder",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyStrongerFittings",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyFiringPins",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyRifledCannon",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyMetalDecks",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyLongRangeFighters",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyHalberd",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyReinforcedHull",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonHelp",
+      "function": "getHelpTheGoths1",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyHeresy2",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCallback",
+      "function": "applyOverwhelmDone1",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCanDo",
+      "function": "canApplyOverwhelmDone1",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonHelp",
+      "function": "getHelpOverwhelmDone1",
+      "candidates": []
+    },
+    {
+      "path": "Assets/XML/Events/CIV4EventInfos.xml",
+      "tag": "PythonCanDo",
+      "function": "canapplyBillionsandBillions2",
+      "candidates": []
+    }
+  ],
+  "engine_importing_python": 196,
+  "note": "Whole-tree lexical/structural inventory. Not a complete call graph, engine loader, schema validator, or behavioral proof. Imports, callbacks and definitions may be inactive, inherited from BTS, dynamic, or ambiguous."
+}
