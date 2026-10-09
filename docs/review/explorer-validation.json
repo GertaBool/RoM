@@ -4,6 +4,7 @@
   "python_count": 252,
   "callback_search_count": 1,
   "selection": true,
+  "binary_provenance_notice": true,
   "javascript_errors": [],
   "render_method": "Chromium set_content; local file navigation is disabled by browser policy"
 }

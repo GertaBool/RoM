@@ -1,0 +1,25 @@
+{
+  "source_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+  "reviewed_source_commit": "1ab4f99a76adb530f86b278390ab8139ef41cc96",
+  "bundled_binary": {
+    "path": "Assets/CvGameCoreDLL.dll",
+    "sha256": "65388986f4b5190354217ce041bf65b19a99c3701ea62daf30d9f9281ac4ba64",
+    "source_relationship": "Older than the reviewed source, confirmed by the repository owner in this review session",
+    "producing_source_commit": null,
+    "executed_in_this_review": false
+  },
+  "review_evidence": [
+    "whole-tree structural inventory",
+    "focused source behavioral inspection",
+    "existing regression programs",
+    "isolated actual-source diagnostics"
+  ],
+  "required_for_source_engine_comparison": [
+    "recorded rebuild source commit and clean/dirty status",
+    "compiler, linker, SDK and build flags",
+    "produced DLL hash",
+    "BTS version and effective rules/options",
+    "binary-specific engine traces"
+  ],
+  "notes": "Do not infer binary behavior or binary defects from the source assessment without a matching build."
+}

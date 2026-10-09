@@ -1,0 +1,544 @@
+{
+  "commit": "1ab4f99a76adb530f86b278390ab8139ef41cc96",
+  "scope": "Static dispatch, including conditional alternatives and shared cases",
+  "role_count": 41,
+  "roles": [
+    {
+      "role": "UNITAI_UNKNOWN",
+      "dispatch_line": 276,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L276",
+      "candidate_methods": [],
+      "direct_skip": true
+    },
+    {
+      "role": "UNITAI_ANIMAL",
+      "dispatch_line": 280,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L280",
+      "candidate_methods": [
+        {
+          "method": "AI_animalMove",
+          "line": 1254,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L1254"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_SETTLE",
+      "dispatch_line": 284,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L284",
+      "candidate_methods": [
+        {
+          "method": "AI_settleMove",
+          "line": 1281,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L1281"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_WORKER",
+      "dispatch_line": 288,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L288",
+      "candidate_methods": [
+        {
+          "method": "AI_workerMove",
+          "line": 1541,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L1541"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ATTACK",
+      "dispatch_line": 292,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L292",
+      "candidate_methods": [
+        {
+          "method": "AI_barbAttackMove",
+          "line": 1924,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L1924"
+        },
+        {
+          "method": "AI_attackMove",
+          "line": 2139,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L2139"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ATTACK_CITY",
+      "dispatch_line": 303,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L303",
+      "candidate_methods": [
+        {
+          "method": "AI_attackCityMove",
+          "line": 2794,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L2794"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_COLLATERAL",
+      "dispatch_line": 307,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L307",
+      "candidate_methods": [
+        {
+          "method": "AI_collateralMove",
+          "line": 3510,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L3510"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_PILLAGE",
+      "dispatch_line": 311,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L311",
+      "candidate_methods": [
+        {
+          "method": "AI_pillageMove",
+          "line": 3712,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L3712"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_RESERVE",
+      "dispatch_line": 315,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L315",
+      "candidate_methods": [
+        {
+          "method": "AI_reserveMove",
+          "line": 3859,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L3859"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_COUNTER",
+      "dispatch_line": 319,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L319",
+      "candidate_methods": [
+        {
+          "method": "AI_counterMove",
+          "line": 4050,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4050"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_PARADROP",
+      "dispatch_line": 323,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L323",
+      "candidate_methods": [
+        {
+          "method": "AI_paratrooperMove",
+          "line": 2651,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L2651"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_CITY_DEFENSE",
+      "dispatch_line": 327,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L327",
+      "candidate_methods": [
+        {
+          "method": "AI_cityDefenseMove",
+          "line": 4237,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4237"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_CITY_COUNTER",
+      "dispatch_line": 331,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L331",
+      "candidate_methods": [
+        {
+          "method": "AI_cityDefenseExtraMove",
+          "line": 4470,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4470"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_CITY_SPECIAL",
+      "dispatch_line": 332,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L332",
+      "candidate_methods": [
+        {
+          "method": "AI_cityDefenseExtraMove",
+          "line": 4470,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4470"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_EXPLORE",
+      "dispatch_line": 336,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L336",
+      "candidate_methods": [
+        {
+          "method": "AI_exploreMove",
+          "line": 4590,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4590"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_MISSIONARY",
+      "dispatch_line": 340,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L340",
+      "candidate_methods": [
+        {
+          "method": "AI_missionaryMove",
+          "line": 4730,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4730"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_PROPHET",
+      "dispatch_line": 344,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L344",
+      "candidate_methods": [
+        {
+          "method": "AI_prophetMove",
+          "line": 4814,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4814"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ARTIST",
+      "dispatch_line": 348,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L348",
+      "candidate_methods": [
+        {
+          "method": "AI_artistMove",
+          "line": 4920,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4920"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_SCIENTIST",
+      "dispatch_line": 352,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L352",
+      "candidate_methods": [
+        {
+          "method": "AI_scientistMove",
+          "line": 5031,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L5031"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_GENERAL",
+      "dispatch_line": 356,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L356",
+      "candidate_methods": [
+        {
+          "method": "AI_generalMove",
+          "line": 5147,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L5147"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_MERCHANT",
+      "dispatch_line": 360,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L360",
+      "candidate_methods": [
+        {
+          "method": "AI_merchantMove",
+          "line": 5330,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L5330"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ENGINEER",
+      "dispatch_line": 364,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L364",
+      "candidate_methods": [
+        {
+          "method": "AI_engineerMove",
+          "line": 5420,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L5420"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_SPY",
+      "dispatch_line": 368,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L368",
+      "candidate_methods": [
+        {
+          "method": "AI_spyMove",
+          "line": 5535,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L5535"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ICBM",
+      "dispatch_line": 372,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L372",
+      "candidate_methods": [
+        {
+          "method": "AI_ICBMMove",
+          "line": 5726,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L5726"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_WORKER_SEA",
+      "dispatch_line": 376,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L376",
+      "candidate_methods": [
+        {
+          "method": "AI_workerSeaMove",
+          "line": 5817,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L5817"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ATTACK_SEA",
+      "dispatch_line": 380,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L380",
+      "candidate_methods": [
+        {
+          "method": "AI_barbAttackSeaMove",
+          "line": 5933,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L5933"
+        },
+        {
+          "method": "AI_attackSeaMove",
+          "line": 6161,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L6161"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_RESERVE_SEA",
+      "dispatch_line": 391,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L391",
+      "candidate_methods": [
+        {
+          "method": "AI_reserveSeaMove",
+          "line": 6439,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L6439"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ESCORT_SEA",
+      "dispatch_line": 395,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L395",
+      "candidate_methods": [
+        {
+          "method": "AI_escortSeaMove",
+          "line": 6654,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L6654"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_EXPLORE_SEA",
+      "dispatch_line": 399,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L399",
+      "candidate_methods": [
+        {
+          "method": "AI_exploreSeaMove",
+          "line": 6889,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L6889"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ASSAULT_SEA",
+      "dispatch_line": 403,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L403",
+      "candidate_methods": [
+        {
+          "method": "AI_assaultSeaMove",
+          "line": 7071,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L7071"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_SETTLER_SEA",
+      "dispatch_line": 407,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L407",
+      "candidate_methods": [
+        {
+          "method": "AI_settlerSeaMove",
+          "line": 7757,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L7757"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_MISSIONARY_SEA",
+      "dispatch_line": 411,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L411",
+      "candidate_methods": [
+        {
+          "method": "AI_missionarySeaMove",
+          "line": 8138,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L8138"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_SPY_SEA",
+      "dispatch_line": 415,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L415",
+      "candidate_methods": [
+        {
+          "method": "AI_spySeaMove",
+          "line": 8243,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L8243"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_CARRIER_SEA",
+      "dispatch_line": 419,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L419",
+      "candidate_methods": [
+        {
+          "method": "AI_carrierSeaMove",
+          "line": 8356,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L8356"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_MISSILE_CARRIER_SEA",
+      "dispatch_line": 423,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L423",
+      "candidate_methods": [
+        {
+          "method": "AI_missileCarrierSeaMove",
+          "line": 8479,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L8479"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_PIRATE_SEA",
+      "dispatch_line": 427,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L427",
+      "candidate_methods": [
+        {
+          "method": "AI_pirateSeaMove",
+          "line": 6063,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L6063"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ATTACK_AIR",
+      "dispatch_line": 431,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L431",
+      "candidate_methods": [
+        {
+          "method": "AI_attackAirMove",
+          "line": 8578,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L8578"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_DEFENSE_AIR",
+      "dispatch_line": 435,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L435",
+      "candidate_methods": [
+        {
+          "method": "AI_defenseAirMove",
+          "line": 8922,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L8922"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_CARRIER_AIR",
+      "dispatch_line": 439,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L439",
+      "candidate_methods": [
+        {
+          "method": "AI_carrierAirMove",
+          "line": 9224,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L9224"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_MISSILE_AIR",
+      "dispatch_line": 443,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L443",
+      "candidate_methods": [
+        {
+          "method": "AI_missileAirMove",
+          "line": 9309,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L9309"
+        }
+      ],
+      "direct_skip": false
+    },
+    {
+      "role": "UNITAI_ATTACK_CITY_LEMMING",
+      "dispatch_line": 447,
+      "dispatch_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L447",
+      "candidate_methods": [
+        {
+          "method": "AI_attackCityLemmingMove",
+          "line": 3466,
+          "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/1ab4f99a76adb530f86b278390ab8139ef41cc96/Assets/CvGameCoreDLL/CvUnitAI.cpp#L3466"
+        }
+      ],
+      "direct_skip": false
+    }
+  ]
+}

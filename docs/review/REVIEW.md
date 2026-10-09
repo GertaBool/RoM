@@ -2,6 +2,8 @@
 
 Reviewed `aretemaxxing-group/rise-of-mankind`, default branch `main`, commit **`1ab4f99a76adb530f86b278390ab8139ef41cc96`**. The checkout is `/workspace/rise-of-mankind`. Review artifacts are outside it, in `/workspace/rom-review`; the game source was not changed.
 
+Publication: these artifacts are maintained in `GertaBool/RoM/docs/review`. The repository owner confirmed that the bundled DLL is older than the source. Behavioral findings here refer to the pinned source and isolated source tests, not verified behavior of that DLL. See [binary provenance](source-binary-provenance.json) and the expanded [AI and game-logic guide](AI_AND_GAME_LOGIC.md).
+
 **The best foundation for a headless simulator is already present: production C++ policy functions, an event-driven Python layer, and declarative XML rules. The difficult part is faithfully reproducing their scheduling, configuration and engine services.** A Python-only model of XML values would miss native AI, combat and turn processing, while a C++-only model would miss Python changes to buildings, money, revolutions and technology.
 
 Start with [the simulator contract](GAMEFLOW_MODEL.md). Use [the interactive source explorer](explorer.html) to search every indexed file and its candidate connections. [The complete file catalog](FILE_CATALOG.md) links each file to this exact GitLab revision.

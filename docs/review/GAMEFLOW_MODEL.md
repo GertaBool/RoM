@@ -2,6 +2,8 @@
 
 This is a **proposed simulator specification derived from `main@1ab4f99`**, not an implementation or claim of full engine equivalence. It models the native/Python/XML boundary explicitly. Read [the source assessment](REVIEW.md) for findings and [the architecture diagram](architecture.svg) for component relationships.
 
+**Binary/source distinction:** the repository owner confirmed that the bundled DLL is older than this source. Treat source-contract tests and binary-specific engine traces as separate evidence. Record the source commit, toolchain/build settings and produced DLL hash for a rebuild before using its engine traces as a reference for this specification. The existing DLL's producing revision is unknown; see [provenance](source-binary-provenance.json). The [detailed behavior guide](AI_AND_GAME_LOGIC.md) expands AI, diplomacy, operations and pathfinding.
+
 ## 1. Model a transition system with ordered effects
 
 Use
@@ -117,7 +119,8 @@ BeginPlayerTurn
   -> AI_doTurnPre: context, agenda, research, commerce, military, civics, religion
   -> timers and counters; working-plot assignment; commerce verification
   -> gold -> research -> espionage points
-  -> centralized production planning -> gold hurry allocation
+  -> centralized-production call (unconditional early return; no planning)
+  -> gold hurry allocation
   -> each city doTurn, in native collection order
   -> optional DCM opportunity fire / active defense
   -> golden-age/anarchy timers; civics verification; trade routes; war weariness
@@ -204,7 +207,7 @@ Keep map RNG and Soren RNG separate. Enhanced Tech Conquest consumes **map RNG d
 
 Python 2 integer `/` and C++ signed `/` have different negative rounding behavior; Python 3 `/` introduces floats. Preserve each source expression's semantics. Match integer widths, truncation, clamps, percentage scaling, overflow behavior that is defined, iteration order and tie-breaking. Where production has undefined behavior, record a defect rather than inventing a portable meaning.
 
-A reproducible run requires more than a seed: source/DLL/rules hashes, resolved options, mode, initial state, player observation masks, input ordering, callbacks and RNG sequence all matter. AI observation should expose only information that production can see. Giving a model the complete hidden map changes the policy being tested.
+A reproducible run requires more than a seed: source/DLL/rules hashes, resolved options, mode, initial state, player observation masks, input ordering, callbacks and RNG sequence all matter. Match each routine's actual information access, including its AI/human asymmetries. For example, native movement cost and territory checks have human-only revealed-information branches. Neither exposing all hidden state indiscriminately nor imposing a uniformly restricted fog-of-war model reproduces those source semantics. Keep alternative fair-information experiments explicitly separate from compatibility tests.
 
 ## 8. Trace format and differential comparison
 
