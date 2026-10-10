@@ -1,0 +1,234 @@
+{
+  "source_commit": "1ab4f99a76adb530f86b278390ab8139ef41cc96",
+  "binary_executed": false,
+  "meaning_of_success": "All documented defect observations reproduced",
+  "compiler": "14.2.0",
+  "compiler_flags": [
+    "-std=c++03",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=undefined"
+  ],
+  "source_files": {
+    "Assets/CvGameCoreDLL/AIHierarchyPolicy.h": "a93abd4c85e23d5dbd1721855f90cb0b2c4d6d0825b6bafa1cdfb1d25d0ff16c",
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": "e6f9567f401054e7da09bf56771d7f12f10869c7716bb1a50f8d83dcd7b3ebee",
+    "Assets/CvGameCoreDLL/CvPlayerAI.h": "98e9069726d29f452434232c63d79fd9c5662d95fdbb080db0dccee17643f21b",
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": "592a60b3365bd63aa1b35b39144cab619a1ff6a8f42892973dec7e3087bb728e",
+    "Assets/CvGameCoreDLL/FFreeListTrashArray.h": "e095317520678d2acae09dab14723567f6ddbae100dc18a55e7c2bc49a903d28",
+    "Assets/Python/BUG/BugEventManager.py": "dcf4e24e5b8859aa0b6c56444bde33e657df8bbd7156afcfa7b95f52437bdb1e",
+    "Assets/Python/RoMEventManager.py": "d280e6612b0cba89d2391f183324b67c3efeaa2c856da9a9472b696c1ff8900b",
+    "Assets/XML/GlobalDefinesAlt.xml": "36ea3d3f0476d7688444054770964a282951c172d584fe4d81dc2146b8d4e83e",
+    "Assets/XML/Technologies/CIV4TechInfos.xml": "7221869d0cb7889e779e706e030cb00d5161f858610252392ebd99c717297d64"
+  },
+  "extracted_fragments": [
+    {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "start_line": 24505,
+      "line_count": 1,
+      "normalized_fragment_sha256": "cf0f090373c6293b1fe04936089efdc076bd814ff7ea88b522dab96b36bb5384"
+    },
+    {
+      "path": "Assets/CvGameCoreDLL/CvUnitAI.cpp",
+      "start_line": 19338,
+      "line_count": 7,
+      "normalized_fragment_sha256": "d103640003e27b8c12dfaae998e41b2fe737ea0871ac7b20948fdf32738b42e3"
+    },
+    {
+      "path": "Assets/CvGameCoreDLL/CvUnitAI.cpp",
+      "start_line": 19347,
+      "line_count": 27,
+      "normalized_fragment_sha256": "42416a8afe925f81587c4f6dc0b32628b2965dbff1e9bc85c9d9ab1b409b64ca"
+    },
+    {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "start_line": 18695,
+      "line_count": 24,
+      "normalized_fragment_sha256": "d5cf595a936abaf81170eb23aa88c5a41f93c263d5db8804b2172d25c7d95745"
+    },
+    {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "start_line": 4840,
+      "line_count": 14,
+      "normalized_fragment_sha256": "2dad9f7a12f44bfb57d7a5c5fe0d9352d36a12f7fac3b6cf36778da75d2ea685"
+    },
+    {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "start_line": 5170,
+      "line_count": 55,
+      "normalized_fragment_sha256": "c61dc260eb02ff455dadfb2c6b02f57bed297032bb1cb3dd0754f3120861d25b"
+    },
+    {
+      "path": "Assets/Python/RoMEventManager.py",
+      "start_line": 71,
+      "line_count": 64,
+      "normalized_fragment_sha256": "254f50a0ab536fa96a493155d2a9f80208ba827a4a2691075638a0a3f5484854"
+    },
+    {
+      "path": "Assets/Python/RoMEventManager.py",
+      "start_line": 245,
+      "line_count": 23,
+      "normalized_fragment_sha256": "36c4eb191384da38aaeaa50138a531c8b92998f59e0f57ac7286074257ef10a3"
+    },
+    {
+      "path": "Assets/CvGameCoreDLL/FFreeListTrashArray.h",
+      "start_line": 247,
+      "line_count": 24,
+      "normalized_fragment_sha256": "479dbca5085a6746cad0e3575fdb100ef1f3394d58c4ef3bd4c741344299c568"
+    },
+    {
+      "path": "Assets/Python/BUG/BugEventManager.py",
+      "start_line": 357,
+      "line_count": 8,
+      "normalized_fragment_sha256": "4db70c05075542c8ef4181dba33f65b92cd437afa1656c0956894b15915e6c68"
+    }
+  ],
+  "findings": [
+    {
+      "id": "D01",
+      "title": "Canal-only fort value cannot enter candidate evaluation",
+      "evidence_level": "compiled_source_expression_and_inspected_consumer",
+      "cases": [
+        {
+          "second_water_area_tiles": 1,
+          "value": -10
+        },
+        {
+          "second_water_area_tiles": 2,
+          "value": 0
+        },
+        {
+          "second_water_area_tiles": 3,
+          "value": 0
+        },
+        {
+          "second_water_area_tiles": 10,
+          "value": 0
+        },
+        {
+          "second_water_area_tiles": 100,
+          "value": 0
+        },
+        {
+          "second_water_area_tiles": 1000,
+          "value": 0
+        }
+      ],
+      "boundary": "Prior canal guards only return zero; no pathfinding or game execution needed for the nonpositive-value conclusion."
+    },
+    {
+      "id": "D02",
+      "title": "Fort build loop loses location utility and depends on candidate order",
+      "evidence_level": "compiled_actual_candidate_loop",
+      "cases": [
+        {
+          "first_time": 1000,
+          "second_time": 2000,
+          "location_value": 500,
+          "selected_time": 2000,
+          "remaining_value": 4
+        },
+        {
+          "first_time": 2000,
+          "second_time": 1000,
+          "location_value": 500,
+          "selected_time": 2000,
+          "remaining_value": 9
+        },
+        {
+          "first_time": 1000,
+          "second_time": 2000,
+          "location_value": 10,
+          "selected_time": 2000,
+          "remaining_value": 4
+        }
+      ],
+      "boundary": "Adapter gives both builds equal defensive properties and legal status. Real fort upgrades differ in defense; this probe establishes overwritten utility, order dependence and inverse-time minimization, not a universal preference for the basic fort."
+    },
+    {
+      "id": "D03",
+      "title": "Loading discards agenda hysteresis and derived strategic intent",
+      "evidence_level": "compiled_actual_reset_and_hysteresis_blocks_plus_production_policy",
+      "before": {
+        "agenda_after_review": "EXPAND_LAND",
+        "prefer_sea": true,
+        "naval_priority": 900
+      },
+      "after_reset": {
+        "agenda_after_review": "SCIENCE",
+        "prefer_sea": false,
+        "naval_priority": 0
+      },
+      "fixture_scores": {
+        "EXPAND_LAND": 1000,
+        "SCIENCE": 1100
+      },
+      "xml_hysteresis": {
+        "minimum_margin": 150,
+        "percent": 12
+      },
+      "boundary": "Controlled branch inputs; no full save file or engine continuation. Direct getters do not rebuild intent. Exact in-game divergence timing still needs a matching DLL trace."
+    },
+    {
+      "id": "D04",
+      "title": "Research path heuristic counts shared prerequisites repeatedly",
+      "evidence_level": "compiled_actual_helper_with_base_xml_dependencies",
+      "unknown_techs": [
+        "TECH_ANIMAL_HUSBANDRY",
+        "TECH_THE_WHEEL",
+        "TECH_CHARIOTRY"
+      ],
+      "known_prerequisites": "All others in this fixture",
+      "reported_steps": 4,
+      "distinct_required_techs": 3,
+      "reported_cost": 268,
+      "distinct_base_cost": 218,
+      "boundary": "Uses base XML costs as mocked team research costs; runtime modifiers and module overlays are excluded. This is a heuristic distortion, not a claim that research charges the treasury twice."
+    },
+    {
+      "id": "D05",
+      "title": "Repeated OnLoad appends duplicate building-upgrade pairs",
+      "evidence_level": "executed_actual_python_initializer_and_OnLoad_method",
+      "pair_counts_after_load": [
+        83,
+        166,
+        249
+      ],
+      "unique_pairs": 81,
+      "boundary": "Same manager instance; profiler and info lookups are adapters. Confirms growth and duplicate work, not an accumulating gameplay bonus."
+    }
+  ],
+  "verified_contracts": [
+    {
+      "id": "C01",
+      "title": "Native full-ID lookup rejects stale generations; slot-only lookup accepts current occupant",
+      "evidence_level": "compiled_actual_getAt_body",
+      "initial_id": 8192,
+      "replacement_id": 24576,
+      "slot": 0,
+      "all_six_checks_passed": true,
+      "boundary": "Adapter replaces a slot occupant directly; native allocation/removal, overflow and save I/O are not executed."
+    },
+    {
+      "id": "C02",
+      "title": "Ordinary BUG dispatch preserves partial effects and continues after a handler exception",
+      "evidence_level": "executed_actual_default_dispatch_method",
+      "trace": [
+        {
+          "handler": "first",
+          "gold": 1010
+        },
+        {
+          "exception_logged": true
+        },
+        {
+          "handler": "second_observes",
+          "gold": 1010
+        }
+      ],
+      "final_gold": 1015,
+      "boundary": "Synthetic handlers and a dict.has_key compatibility adapter; no native callback bridge or Python 2 interpreter execution."
+    }
+  ]
+}

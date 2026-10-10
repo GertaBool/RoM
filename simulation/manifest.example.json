@@ -1,0 +1,25 @@
+{
+  "kind": "manifest",
+  "schema_version": 1,
+  "run_id": "source-probes-v1",
+  "source_commit": "1ab4f99a76adb530f86b278390ab8139ef41cc96",
+  "claim": "source_contract",
+  "binary": {
+    "sha256": null,
+    "relation": "unbuilt"
+  },
+  "rules": {
+    "mode": "base_only",
+    "digest": null,
+    "module_order": []
+  },
+  "capabilities": {
+    "policy_kernel": "source_extracted",
+    "fixture_world": "modeled",
+    "host_pathfinding": "unsupported",
+    "bts_save_loader": "unsupported"
+  },
+  "seed_policy": "source_seeded",
+  "engine_reference": null,
+  "provenance_statement": "Hand-authored contract examples for source probes. No engine trace, rebuilt DLL or effective merged rules are claimed."
+}

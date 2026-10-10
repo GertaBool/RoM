@@ -4,6 +4,8 @@ This is a **proposed simulator specification derived from `main@1ab4f99`**, not 
 
 **Binary/source distinction:** the repository owner confirmed that the bundled DLL is older than this source. Treat source-contract tests and binary-specific engine traces as separate evidence. Record the source commit, toolchain/build settings and produced DLL hash for a rebuild before using its engine traces as a reference for this specification. The existing DLL's producing revision is unknown; see [provenance](source-binary-provenance.json). The [detailed behavior guide](AI_AND_GAME_LOGIC.md) expands AI, diplomacy, operations and pathfinding.
 
+The follow-up [implementation plan and interchange contracts](../../simulation/README.md) make the milestones and failure boundaries concrete. [Deeper probes](DEEP_FINDINGS.md) show that native save/load discards agenda history and that ordinary Python event dispatch preserves partial effects after exceptions. Those behaviors constrain the model below.
+
 ## 1. Model a transition system with ordered effects
 
 Use
@@ -35,7 +37,7 @@ Separate two questions: (a) does the current implementation behave as recorded, 
 | Python state | BUG/SdToolKit namespaces, Revolution player/city records, spawn/revolt queues, registered handlers and runtime options | `BugData`, `SdToolKitCustom`, `RevData`, `RevInstances` |
 | Interaction state | Pending event choice, diplomacy, human revolt response, network/mod message and decision context | Message/popup classes and Python handlers |
 
-Entity collections must be ID maps with iteration semantics, not arrays indexed by population count. IDs may be sparse and may be recycled. A trace key should include run identity, owner, native ID and a generation/founding identity when necessary. Snapshot references need validation after city acquisition, unit death, rebel spawning and group reassignment.
+Entity collections must preserve native IDs and iteration semantics, not use arrays indexed by population count. Native `FFreeListTrashArray` IDs already combine a generation component with a 13-bit slot; full-ID lookup rejects a stale generation, while slot-only lookup can access the current occupant. Slots may be sparse or reused. Preserve full native handles, free-list metadata and the distinction between those lookup forms. A trace key also needs run identity and owner. Snapshot references need validation after city acquisition, unit death, rebel spawning and group reassignment.
 
 Store rule symbols in interchange data alongside captured numeric IDs. IDs alone are not portable across modular load orders. Record field provenance for XML merges. Derived caches may be rebuilt only at the source's documented lifecycle boundaries; a stale-cache bug is otherwise invisible to a simulator that eagerly recomputes everything.
 
@@ -251,7 +253,8 @@ Do not depend on existing profiler CSVs as complete state snapshots. Extend inst
 | P0 | Production completion | One completion changes the queue/native state once, emits one event, removes appropriate obsolete buildings and applies Python side effects once |
 | P0 | Repeatability | Same manifest/state/commands/host answers yields identical trace and RNG end state |
 | P1 | XML resolution | Base + enabled MLF overlays match a captured effective registry; disabled modules never contribute; defaults/arrays/dependencies preserve native semantics |
-| P1 | Save/load | Mid-phase supported snapshot round trip matches uninterrupted continuation, including Python state and both RNG streams |
+| P1 | Simulator checkpoint | Round trip at a supported quiescent boundary matches uninterrupted continuation, including AI history, Python state and both RNG streams; arbitrary mid-function checkpoints require explicit continuation support |
+| P1 | Native save/load | Reproduce source read/write and lifecycle behavior, including the agenda-history loss in D03; keep desired lossless save behavior as a separate assertion |
 | P1 | Initialization idempotence | Repeated load/reload does not duplicate handlers or building-upgrade lookup pairs |
 | P1 | Entity lifecycle | Capture/raze/revolt/death/group reassignment leaves no dangling owner/entity references; recycled IDs do not inherit old identity |
 | P1 | Economy | Treasury/research/production changes reconcile to explicit ordered effects; modifiers, hurry, anarchy and event grants applied once |

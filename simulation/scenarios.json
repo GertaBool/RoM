@@ -1,0 +1,239 @@
+{
+  "kind": "scenario_catalog",
+  "schema_version": 1,
+  "scenarios": [
+    {
+      "id": "canal-positive-gate",
+      "manifest_id": "source-probes-v1",
+      "status": "source_evidence_available",
+      "contract": "D01",
+      "phase": "action",
+      "fixture": {
+        "second_water_area_tiles": [
+          1,
+          2,
+          3,
+          10,
+          100,
+          1000
+        ],
+        "canal": true,
+        "airbase": false
+      },
+      "expectations": [
+        {
+          "track": "compatibility",
+          "assertion": "Canal values are [-10,0,0,0,0,0]; none passes the positive candidate gate."
+        },
+        {
+          "track": "intended",
+          "assertion": "A useful legal connection should be eligible under an explicitly specified corrected canal policy."
+        }
+      ],
+      "evidence": [
+        "../docs/review/deep-findings.json#D01"
+      ]
+    },
+    {
+      "id": "fort-order",
+      "manifest_id": "source-probes-v1",
+      "status": "source_evidence_available",
+      "contract": "D02",
+      "phase": "action",
+      "fixture": {
+        "candidate_time_orders": [
+          [
+            1000,
+            2000
+          ],
+          [
+            2000,
+            1000
+          ]
+        ],
+        "equal_defense": 50,
+        "all_legal": true,
+        "location_value": 500
+      },
+      "expectations": [
+        {
+          "track": "compatibility",
+          "assertion": "Selected time is 2000 in both orders; residual location value changes from 4 to 9."
+        },
+        {
+          "track": "intended",
+          "assertion": "A unique-utility winner and its utility should survive candidate permutation."
+        }
+      ],
+      "evidence": [
+        "../docs/review/deep-findings.json#D02"
+      ]
+    },
+    {
+      "id": "agenda-native-load",
+      "manifest_id": "source-probes-v1",
+      "status": "source_evidence_available",
+      "contract": "D03",
+      "phase": "load",
+      "fixture": {
+        "incumbent": "EXPAND_LAND",
+        "scores": {
+          "EXPAND_LAND": 1000,
+          "SCIENCE": 1100
+        },
+        "switch_minimum": 150,
+        "switch_percent": 12,
+        "naval_priority_before": 900
+      },
+      "expectations": [
+        {
+          "track": "compatibility",
+          "assertion": "Uninterrupted hysteresis retains expansion; reset state selects science. Native load clears naval priority."
+        },
+        {
+          "track": "intended",
+          "assertion": "A simulator checkpoint preserves incumbent, cadence and priorities; native-load emulation still reproduces source loss."
+        }
+      ],
+      "evidence": [
+        "../docs/review/deep-findings.json#D03"
+      ]
+    },
+    {
+      "id": "research-diamond",
+      "manifest_id": "source-probes-v1",
+      "status": "source_evidence_available",
+      "contract": "D04",
+      "phase": "player_ai_pre",
+      "fixture": {
+        "unknown": [
+          "TECH_ANIMAL_HUSBANDRY",
+          "TECH_THE_WHEEL",
+          "TECH_CHARIOTRY"
+        ],
+        "other_prerequisites_known": true,
+        "cost_mode": "base_xml_as_team_cost"
+      },
+      "expectations": [
+        {
+          "track": "compatibility",
+          "assertion": "Native helper reports 4 steps and cost 268."
+        },
+        {
+          "track": "intended",
+          "assertion": "Independent legal-package accounting reports 3 distinct technologies and cost 218."
+        }
+      ],
+      "evidence": [
+        "../docs/review/deep-findings.json#D04"
+      ]
+    },
+    {
+      "id": "retained-python-manager",
+      "manifest_id": "source-probes-v1",
+      "status": "source_evidence_available",
+      "contract": "D05",
+      "phase": "load",
+      "fixture": {
+        "manager_lifetime": "retained",
+        "events": [
+          "OnLoad",
+          "OnLoad",
+          "OnLoad"
+        ]
+      },
+      "expectations": [
+        {
+          "track": "compatibility",
+          "assertion": "Upgrade pair counts are 83,166,249."
+        },
+        {
+          "track": "intended",
+          "assertion": "An idempotent rebuild retains one complete 83-pair mapping."
+        }
+      ],
+      "evidence": [
+        "../docs/review/deep-findings.json#D05"
+      ]
+    },
+    {
+      "id": "nested-handler-error",
+      "manifest_id": "source-probes-v1",
+      "status": "source_evidence_available",
+      "contract": "C02",
+      "phase": "city",
+      "fixture": {
+        "handler_order": [
+          "mutate_then_raise",
+          "observe_and_mutate"
+        ],
+        "dispatch": "ordinary_bug_event",
+        "initial_gold": 1000,
+        "first_delta_before_exception": 10,
+        "second_delta": 5
+      },
+      "expectations": [
+        {
+          "track": "compatibility",
+          "assertion": "First handler partial effects remain; exception is recorded; second handler observes 1010 and leaves gold at 1015."
+        },
+        {
+          "track": "intended",
+          "assertion": "The harness must neither roll back nor hide the exception."
+        }
+      ],
+      "evidence": [
+        "../docs/review/deep-findings.json#C02"
+      ]
+    },
+    {
+      "id": "sequential-end",
+      "manifest_id": "source-probes-v1",
+      "status": "planned",
+      "contract": "scheduler",
+      "phase": "action",
+      "fixture": {
+        "turn_mode": "sequential",
+        "actor_alive": true,
+        "actor_active": true,
+        "elapsed_turns": 5,
+        "command": "deactivate"
+      },
+      "expectations": [
+        {
+          "track": "compatibility",
+          "assertion": "Economic settlement follows deactivation before normal next-player handoff."
+        },
+        {
+          "track": "intended",
+          "assertion": "Exactly one eligible economic settlement and a traceable handoff occur."
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "operation-embarked",
+      "manifest_id": "source-probes-v1",
+      "status": "planned",
+      "contract": "military_operation",
+      "phase": "player_ai_pre",
+      "fixture": {
+        "operation_state": "ADVANCING",
+        "group_head_is_cargo": true,
+        "target_valid": true,
+        "general_present": true
+      },
+      "expectations": [
+        {
+          "track": "compatibility",
+          "assertion": "Cargo branch refreshes progress/state clocks and bypasses ordinary land-readiness evaluation."
+        },
+        {
+          "track": "intended",
+          "assertion": "Sea transit alone must not trigger the land-stall timeout."
+        }
+      ],
+      "evidence": []
+    }
+  ]
+}

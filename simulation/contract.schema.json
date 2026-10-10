@@ -1,0 +1,664 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rom:simulation:contract:1",
+  "title": "RoM simulation experiment and trace envelopes",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/manifest"
+    },
+    {
+      "$ref": "#/$defs/catalog"
+    },
+    {
+      "$ref": "#/$defs/event"
+    }
+  ],
+  "$defs": {
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "manifest"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "source_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "claim": {
+          "enum": [
+            "source_contract",
+            "model_experiment",
+            "engine_differential"
+          ]
+        },
+        "binary": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sha256": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "relation": {
+              "enum": [
+                "unbuilt",
+                "older",
+                "matched",
+                "unknown"
+              ]
+            }
+          },
+          "required": [
+            "sha256",
+            "relation"
+          ]
+        },
+        "rules": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "enum": [
+                "synthetic",
+                "base_only",
+                "effective_export"
+              ]
+            },
+            "digest": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "module_order": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "mode",
+            "digest",
+            "module_order"
+          ]
+        },
+        "capabilities": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "enum": [
+              "source_extracted",
+              "engine_recorded",
+              "modeled",
+              "unsupported"
+            ]
+          }
+        },
+        "seed_policy": {
+          "enum": [
+            "source_seeded",
+            "recorded_trace"
+          ]
+        },
+        "engine_reference": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provenance_statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "run_id",
+        "source_commit",
+        "claim",
+        "binary",
+        "rules",
+        "capabilities",
+        "seed_policy",
+        "engine_reference",
+        "provenance_statement"
+      ]
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "manifest_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "source_evidence_available",
+            "engine_evidence_available"
+          ]
+        },
+        "contract": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phase": {
+          "enum": [
+            "global_begin",
+            "team_turn",
+            "map_turn",
+            "activation",
+            "unit_refresh",
+            "action",
+            "player_begin",
+            "player_ai_pre",
+            "accounting",
+            "city",
+            "player_ai_post",
+            "player_end",
+            "global_end",
+            "load",
+            "checkpoint"
+          ]
+        },
+        "fixture": {
+          "type": "object"
+        },
+        "expectations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "track": {
+                "enum": [
+                  "compatibility",
+                  "intended"
+                ]
+              },
+              "assertion": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "track",
+              "assertion"
+            ]
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "manifest_id",
+        "status",
+        "contract",
+        "phase",
+        "fixture",
+        "expectations",
+        "evidence"
+      ]
+    },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "scenario_catalog"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "scenarios": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/scenario"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "scenarios"
+      ]
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "trace_event"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "turn": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "slice": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "phase": {
+          "enum": [
+            "global_begin",
+            "team_turn",
+            "map_turn",
+            "activation",
+            "unit_refresh",
+            "action",
+            "player_begin",
+            "player_ai_pre",
+            "accounting",
+            "city",
+            "player_ai_post",
+            "player_end",
+            "global_end",
+            "load",
+            "checkpoint"
+          ]
+        },
+        "type": {
+          "enum": [
+            "enter",
+            "exit",
+            "decision",
+            "mutation",
+            "rng",
+            "unsupported",
+            "exception",
+            "checkpoint"
+          ]
+        },
+        "span_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parent_span_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "detail": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "run_id",
+        "seq",
+        "turn",
+        "slice",
+        "phase",
+        "type",
+        "span_id",
+        "parent_span_id",
+        "detail"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "enter"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detail": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "operation"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "exit"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detail": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "outcome": {
+                    "enum": [
+                      "completed",
+                      "yielded",
+                      "unsupported",
+                      "failed"
+                    ]
+                  }
+                },
+                "required": [
+                  "outcome"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "decision"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detail": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "policy": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "selected": {},
+                  "inputs_digest": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "policy",
+                  "selected",
+                  "inputs_digest"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "mutation"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detail": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "target": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "field": {
+                    "type": "string",
+                    "pattern": "^/"
+                  },
+                  "old": {},
+                  "new": {}
+                },
+                "required": [
+                  "target",
+                  "field",
+                  "old",
+                  "new"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "rng"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detail": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "stream": {
+                    "enum": [
+                      "soren",
+                      "map"
+                    ]
+                  },
+                  "supplied_bound": {
+                    "type": "integer"
+                  },
+                  "native_bound": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535
+                  },
+                  "before_u32": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  "after_u32": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  "value": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535
+                  }
+                },
+                "required": [
+                  "stream",
+                  "supplied_bound",
+                  "native_bound",
+                  "before_u32",
+                  "after_u32",
+                  "value"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "unsupported"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detail": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "capability": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "capability",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "exception"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detail": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "handler": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "error_type": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "policy": {
+                    "enum": [
+                      "propagate",
+                      "catch_and_continue"
+                    ]
+                  }
+                },
+                "required": [
+                  "handler",
+                  "error_type",
+                  "message",
+                  "policy"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "checkpoint"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detail": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "state_digest": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "scope": {
+                    "enum": [
+                      "complete_supported_state",
+                      "partial"
+                    ]
+                  },
+                  "boundary": {
+                    "const": "quiescent"
+                  }
+                },
+                "required": [
+                  "state_digest",
+                  "scope",
+                  "boundary"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

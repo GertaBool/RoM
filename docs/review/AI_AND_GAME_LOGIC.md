@@ -4,6 +4,8 @@ This guide describes **the source at GitLab commit `1ab4f99a76adb530f86b278390ab
 
 The [whole-tree assessment](REVIEW.md) covers the inventory, Python/XML integration and reproduced findings. The [game-flow specification](GAMEFLOW_MODEL.md) defines a prospective simulator. This guide expands the behavioral model. Source links are pinned; statements about conditional behavior assume its native guards and configured options allow it.
 
+Follow-up [source probes](DEEP_FINDINGS.md) confirm canal/fort scoring problems, agenda state loss on load, shared research prerequisite overcounting and repeated Python mapping growth. Read the [implementation plan](../../simulation/README.md) for the resulting checkpoint, identity and callback contracts.
+
 ## 1. The architecture is a stateful hierarchy with several decision mechanisms
 
 The core is a Civilization IV: Beyond the Sword native game DLL, extended by Python handlers and XML rules. The BTS executable supplies hosting, interfaces and some algorithms. Python is consequential gameplay code, but most strategic and tactical AI lives in C++.
