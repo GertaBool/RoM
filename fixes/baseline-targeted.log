@@ -1,0 +1,211 @@
+test_agenda_extension_round_trip_and_legacy_stream_alignment (__main__.NativeTests.test_agenda_extension_round_trip_and_legacy_stream_alignment) ... FAIL
+test_canal_value_and_existing_guards (__main__.NativeTests.test_canal_value_and_existing_guards) ... test: /tmp/rom-correctness-n6k736ix/test.cpp:82: int main(): Assertion `p.AI_getPlotCanalValue(&plot)==0' failed.
+ERROR
+test_fort_selection_preserves_utility_and_handles_large_scores (__main__.NativeTests.test_fort_selection_preserves_utility_and_handles_large_scores) ... test: /tmp/rom-correctness-wtsc5gmj/test.cpp:51: void run(int, int, int, bool, int): Assertion `GC.builds[eBestTempBuild].time==expectedTime' failed.
+ERROR
+test_team_rollover_skips_dead_slots (__main__.NativeTests.test_team_rollover_skips_dead_slots) ... test: /tmp/rom-correctness-85kcub87/test.cpp:24: int main(): Assertion `teams[i].activations==(i==first?1:0)' failed.
+ERROR
+test_failed_rebuild_preserves_previous_pair_arrays (__main__.PythonTests.test_failed_rebuild_preserves_previous_pair_arrays) ... FAIL
+test_no_obsolete_tech_and_empty_empire (__main__.PythonTests.test_no_obsolete_tech_and_empty_empire) ... FAIL
+test_obsolete_bank_does_not_pay (__main__.PythonTests.test_obsolete_bank_does_not_pay) ... ok
+test_repeated_load_and_start_are_idempotent (__main__.PythonTests.test_repeated_load_and_start_are_idempotent) ... FAIL
+test_sparse_city_receives_bank_interest (__main__.PythonTests.test_sparse_city_receives_bank_interest) ... FAIL
+test_sparse_city_spawns_crusader (__main__.PythonTests.test_sparse_city_spawns_crusader) ... FAIL
+
+======================================================================
+ERROR: test_canal_value_and_existing_guards (__main__.NativeTests.test_canal_value_and_existing_guards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 53, in test_canal_value_and_existing_guards
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-n6k736ix/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_fort_selection_preserves_utility_and_handles_large_scores (__main__.NativeTests.test_fort_selection_preserves_utility_and_handles_large_scores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 103, in test_fort_selection_preserves_utility_and_handles_large_scores
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-wtsc5gmj/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_team_rollover_skips_dead_slots (__main__.NativeTests.test_team_rollover_skips_dead_slots)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 145, in test_team_rollover_skips_dead_slots
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-85kcub87/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+FAIL: test_agenda_extension_round_trip_and_legacy_stream_alignment (__main__.NativeTests.test_agenda_extension_round_trip_and_legacy_stream_alignment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 166, in test_agenda_extension_round_trip_and_legacy_stream_alignment
+    self.assertRegex(writer, r'uint uiFlag\s*=\s*6;')
+AssertionError: Regex didn't match: 'uint uiFlag\\s*=\\s*6;' not found in '\n\tCvPlayer::write(pStream);\t// write base class data first\n\n/************************************************************************************************/\n/* BETTER_BTS_AI_MOD                      03/18/10                                jdog5000      */\n/*                                                                                              */\n/* Victory Strategy AI                                                                          */\n/************************************************************************************************/\n/*\n\tuint uiFlag=0;\n*/\n\t// Flag for type of save\n\tuint uiFlag=5;\n/************************************************************************************************/\n/* BETTER_BTS_AI_MOD                       END                                                  */\n/************************************************************************************************/\t\t\n\tpStream->Write(uiFlag);\t\t// flag for expansion\n\n\tpStream->Write(m_iPeaceWeight);\n\tpStream->Write(m_iEspionageWeight);\n\tpStream->Write(m_iAttackOddsChange);\n\tpStream->Write(m_iCivicTimer);\n\tpStream->Write(m_iReligionTimer);\n\tpStream->Write(m_iExtraGoldTarget);\n\n\tpStream->Write(m_iStrategyHash);\n\tpStream->Write(m_iStrategyHashCacheTurn);\n/************************************************************************************************/\n/* BETTER_BTS_AI_MOD                      03/18/10                                jdog5000      */\n/*                                                                                              */\n/* Victory Strategy AI                                                                          */\n/************************************************************************************************/\n\tpStream->Write(m_iStrategyRand);\n\tpStream->Write(m_iVictoryStrategyHash);\n\tpStream->Write(m_iVictoryStrategyHashCacheTurn);\n/************************************************************************************************/\n/* BETTER_BTS_AI_MOD                       END                                                  */\n/************************************************************************************************/\t\t\n/************************************************************************************************/\n/* RevDCM\t                  Start\t\t 12/9/09                                                */\n/*                                                                                              */\n/* Inquisitions                                                                                 */\n/************************************************************************************************/\n\tpStream->Write(m_bPushReligiousVictory);\n\tpStream->Write(m_bConsiderReligiousVictory);\n\tpStream->Write(m_bHasInquisitionTarget);\n/************************************************************************************************/\n/* RevDCM\t                     END                                                            */\n/************************************************************************************************/\n\tpStream->Write(m_iAveragesCacheTurn);\n\tpStream->Write(m_iAverageGreatPeopleMultiplier);\n\n\tpStream->Write(NUM_YIELD_TYPES, m_aiAverageYieldMultiplier);\n\tpStream->Write(NUM_COMMERCE_TYPES, m_aiAverageCommerceMultiplier);\n\tpStream->Write(NUM_COMMERCE_TYPES, m_aiAverageCommerceExchange);\n\n\tpStream->Write(m_iUpgradeUnitsCacheTurn);\n\tpStream->Write(m_iUpgradeUnitsCachedExpThreshold);\n\tpStream->Write(m_iUpgradeUnitsCachedGold);\n\n\tpStream->Write(NUM_UNITAI_TYPES, m_aiNumTrainAIUnits);\n\tpStream->Write(NUM_UNITAI_TYPES, m_aiNumAIUnits);\n\tpStream->Write(MAX_PLAYERS, m_aiSameReligionCounter);\n\tpStream->Write(MAX_PLAYERS, m_aiDifferentReligionCounter);\n\tpStream->Write(MAX_PLAYERS, m_aiFavoriteCivicCounter);\n\tpStream->Write(MAX_PLAYERS, m_aiBonusTradeCounter);\n\tpStream->Write(MAX_PLAYERS, m_aiPeacetimeTradeValue);\n\tpStream->Write(MAX_PLAYERS, m_aiPeacetimeGrantValue);\n\tpStream->Write(MAX_PLAYERS, m_aiGoldTradedTo);\n\tpStream->Write(MAX_PLAYERS, m_aiAttitudeExtra);\n\n\tpStream->Write(MAX_PLAYERS, m_abFirstContact);\n\n\tfor (int i = 0; i < MAX_PLAYERS; i++)\n\t{\n\t\tpStream->Write(NUM_CONTACT_TYPES, m_aaiContactTimer[i]);\n\t}\n\tfor (int i = 0; i < MAX_PLAYERS; i++)\n\t{\n\t\tpStream->Write(NUM_MEMORY_TYPES, m_aaiMemoryCount[i]);\n\t}\n\n\tpStream->Write(m_bWasFinancialTrouble);\n\tpStream->Write(m_iTurnLastProductionDirty);\n\t\n\t{\n\t\tuint iSize = m_aiAICitySites.size();\n\t\tpStream->Write(iSize);\n\t\tstd::vector<int>::iterator it;\n\t\tfor (it = m_aiAICitySites.begin(); it != m_aiAICitySites.end(); ++it)\n\t\t{\n\t\t\tpStream->Write((*it));\n\t\t}\n\t}\n\n\tpStream->Write(GC.getNumBonusInfos(), m_aiBonusValue);\n\tpStream->Write(GC.getNumUnitClassInfos(), m_aiUnitClassWeights);\n\tpStream->Write(GC.getNumUnitCombatInfos(), m_aiUnitCombatWeights);\n\tpStream->Write(MAX_PLAYERS, m_aiCloseBordersAttitudeCache);\n\n\tuint iOperationCount = (uint)m_aiMilitaryOperations.size();\n\tpStream->Write(iOperationCount);\n\tfor (uint iOperation = 0; iOperation < iOperationCount; ++iOperation)\n\t{\n\t\tconst AIOperationData& kOperation = m_aiMilitaryOperations[iOperation];\n\t\tpStream->Write(kOperation.iID);\n\t\tpStream->Write(kOperation.iGeneralUnitID);\n\t\tpStream->Write(kOperation.iGeneralUnitType);\n\t\tpStream->Write(kOperation.iGroupID);\n\t\tpStream->Write(kOperation.iTargetOwner);\n\t\tpStream->Write(kOperation.iTargetCityID);\n\t\tpStream->Write(kOperation.iTargetX);\n\t\tpStream->Write(kOperation.iTargetY);\n\t\tpStream->Write(kOperation.iPersonality);\n\t\tpStream->Write(kOperation.iState);\n\t\tpStream->Write(kOperation.iAuthority);\n\t\tpStream->Write(kOperation.iPerformance);\n\t\tpStream->Write(kOperation.iStartTurn);\n\t\tpStream->Write(kOperation.iLastProgressTurn);\n\t\tpStream->Write(kOperation.iLastGroupSize);\n\t\tpStream->Write(kOperation.iLastDistance);\n\t\tpStream->Write(NUM_UNITAI_TYPES, kOperation.aiDesiredRoles);\n        pStream->Write(kOperation.iStateTurn);\n        pStream->Write(kOperation.iLastHealthPercent);\n        pStream->Write(kOperation.iLastDefenseDamage);\n        pStream->Write(kOperation.iSiegeStartTurn);\n        pStream->Write(kOperation.iSiegeUrgency);\n\t}\n    uint iCareerCount = (uint)m_aiGeneralCareers.size();\n    pStream->Write(iCareerCount);\n    for (uint i = 0; i < iCareerCount; ++i)\n    {\n        const AIGeneralCareer& kCareer = m_aiGeneralCareers[i];\n        pStream->Write(kCareer.iAvailableTurn);\n        pStream->Write(kCareer.iUnitID);\n        pStream->Write(kCareer.iPersonality);\n        pStream->Write(kCareer.iAuthority);\n        pStream->Write(kCareer.iPerformance);\n    }\n\n'
+
+======================================================================
+FAIL: test_failed_rebuild_preserves_previous_pair_arrays (__main__.PythonTests.test_failed_rebuild_preserves_previous_pair_arrays)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 281, in test_failed_rebuild_preserves_previous_pair_arrays
+    self.assertEqual(self.manager.aiBuildingUpgradeLine_Upgrade_InfoTypeNum,old_up)
+AssertionError: Lists differ: [0, 2[254 chars], 47, 50, 50, 50, 54, 54, 54, 55, 55, 55, 56, 58, 60, 60, 0, 2] != [0, 2[254 chars], 47, 50, 50, 50, 54, 54, 54, 55, 55, 55, 56, 58, 60, 60]
+
+First list contains 2 additional elements.
+First extra element 83:
+0
+
+  [0,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   5,
+   5,
+   5,
+   5,
+   6,
+   6,
+   9,
+   9,
+   9,
+   10,
+   10,
+   10,
+   10,
+   11,
+   13,
+   13,
+   14,
+   16,
+   16,
+   17,
+   17,
+   17,
+   18,
+   18,
+   21,
+   21,
+   24,
+   24,
+   25,
+   25,
+   25,
+   24,
+   24,
+   24,
+   26,
+   28,
+   29,
+   29,
+   29,
+   30,
+   30,
+   30,
+   30,
+   31,
+   31,
+   31,
+   31,
+   31,
+   32,
+   34,
+   34,
+   37,
+   39,
+   40,
+   42,
+   42,
+   43,
+   43,
+   43,
+   23,
+   47,
+   47,
+   47,
+   50,
+   50,
+   50,
+   54,
+   54,
+   54,
+   55,
+   55,
+   55,
+   56,
+   58,
+   60,
+-  60,
+?    ^
+
++  60]
+?    ^
+
+-  0,
+-  2]
+
+======================================================================
+FAIL: test_no_obsolete_tech_and_empty_empire (__main__.PythonTests.test_no_obsolete_tech_and_empty_empire)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 323, in test_no_obsolete_tech_and_empty_empire
+    self.assertEqual(self.turn_fixture([(2,True)])[0],1010)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 316, in turn_fixture
+    self.manager.onBeginPlayerTurn((4,0))
+  File "<string>", line 11, in onBeginPlayerTurn
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 295, in tech
+    if t<0:raise AssertionError('NO_TECH must never be queried')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: NO_TECH must never be queried
+
+======================================================================
+FAIL: test_repeated_load_and_start_are_idempotent (__main__.PythonTests.test_repeated_load_and_start_are_idempotent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 266, in test_repeated_load_and_start_are_idempotent
+    self.assertEqual(len(pairs),83)
+AssertionError: 166 != 83
+
+======================================================================
+FAIL: test_sparse_city_receives_bank_interest (__main__.PythonTests.test_sparse_city_receives_bank_interest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 320, in test_sparse_city_receives_bank_interest
+    self.assertEqual(self.turn_fixture([(0,False),(2,True)],obsolete=999)[0],1010)
+AssertionError: 1000 != 1010
+
+======================================================================
+FAIL: test_sparse_city_spawns_crusader (__main__.PythonTests.test_sparse_city_spawns_crusader)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 330, in test_sparse_city_spawns_crusader
+    gold,spawn=self.turn_fixture([(0,False),(2,True)],crusade=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 316, in turn_fixture
+    self.manager.onBeginPlayerTurn((4,0))
+  File "<string>", line 34, in onBeginPlayerTurn
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 295, in tech
+    if t<0:raise AssertionError('NO_TECH must never be queried')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: NO_TECH must never be queried
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.398s
+
+FAILED (failures=6, errors=3)

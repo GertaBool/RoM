@@ -1,0 +1,710 @@
+From c5cb68778f4da58ecdd8ecd218a829da1e09cc2f Mon Sep 17 00:00:00 2001
+From: Otto Gregor <mobiltelefonalex@gmail.com>
+Date: Sat, 10 Oct 2026 12:58:15 +0000
+Subject: [PATCH] Fix worker scoring, AI save history, event lifecycle and team
+ rollover
+
+---
+ .gitattributes                      |   2 +
+ Assets/CvGameCoreDLL/CvGame.cpp     |   3 +-
+ Assets/CvGameCoreDLL/CvPlayerAI.cpp |  36 ++-
+ Assets/CvGameCoreDLL/CvUnitAI.cpp   |  15 +-
+ Assets/Python/RoMEventManager.py    |  38 ++--
+ Assets/XML/GlobalDefinesAlt.xml     |   5 -
+ Docs/SOURCE_CORRECTNESS_FIXES.md    |  68 ++++++
+ Tools/regression_manifest.json      |   4 +
+ Tools/test_ai_decisions.py          |   2 +-
+ Tools/test_ai_layer_contracts.py    |   9 +-
+ Tools/test_review_correctness.py    | 337 ++++++++++++++++++++++++++++
+ 11 files changed, 479 insertions(+), 40 deletions(-)
+ create mode 100644 Docs/SOURCE_CORRECTNESS_FIXES.md
+ create mode 100644 Tools/test_review_correctness.py
+
+diff --git a/.gitattributes b/.gitattributes
+index 9f851deb8e4080eec75bad59924f02c3e71223e1..348c9489fc436ec892c8c099b4f363fcf66b4a69 100644
+--- a/.gitattributes
++++ b/.gitattributes
+@@ -8,3 +8,5 @@ Assets/CvGameCoreDLL/*.cpp whitespace=cr-at-eol
+ Assets/CvGameCoreDLL/*.h whitespace=cr-at-eol
+ # Shipped Civ XML also uses CRLF; do not report its CR as trailing whitespace.
+ *.xml whitespace=cr-at-eol
++# Preserve the shipped Python files' CRLF endings as well.
++Assets/Python/*.py whitespace=cr-at-eol
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index cd3c32895ca0fcdf5a8fa7da19309cc5f97714a8..64f0f7a4942d019185595a7a29fbe63311a2f89c 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -6007,9 +6007,8 @@ void CvGame::doTurn()
+ 			{
+ 				kTeam.setTurnActive(true);
+ 				FAssert(getNumGameTurnActive() == kTeam.getAliveCount());
++				break;
+ 			}
+-
+-			break;
+ 		}
+ 	}
+ 	else
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index d77294530928a282ac4652bec3819443ce45f1b4..d562b41d018f5fb056d0d0c30d5db6cd024a35f0 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -18899,6 +18899,23 @@ void CvPlayerAI::read(FDataStreamBase* pStream)
+             AI_rememberGeneral(m_aiMilitaryOperations[i]);
+     }
+ 
++	// Version 6 preserves decision history; older saves retain the defaults above.
++	if (uiFlag >= 6)
++	{
++		pStream->Read(&m_iAIAgenda);
++		pStream->Read(&m_iAIAgendaScore);
++		pStream->Read(&m_iAIAgendaUpdateTurn);
++		pStream->Read(&m_iBadStartMask);
++		pStream->Read(&m_iBadStartScore);
++		pStream->Read(&m_iAINavalPriority);
++		pStream->Read(&m_iAILogisticsPriority);
++		pStream->Read(&m_iAIStrategicRiskTolerance);
++		pStream->Read(&m_iAIExpansionHorizon);
++		pStream->Read(&m_iAIWarPosture);
++		pStream->Read(&m_iAIIntentAtWar);
++		pStream->Read(NUM_AI_BUDGET_TYPES, m_aiAIAgendaBudget);
++	}
++
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                      09/03/09                       poyuzhe & jdog5000     */
+ /*                                                                                              */
+@@ -18931,7 +18948,7 @@ void CvPlayerAI::write(FDataStreamBase* pStream)
+ 	uint uiFlag=0;
+ */
+ 	// Flag for type of save
+-	uint uiFlag=5;
++	uint uiFlag=6;
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/		
+@@ -19059,6 +19076,20 @@ void CvPlayerAI::write(FDataStreamBase* pStream)
+         pStream->Write(kCareer.iPerformance);
+     }
+ 
++	// Keep this extension in the same order as the version-6 reader.
++	pStream->Write(m_iAIAgenda);
++	pStream->Write(m_iAIAgendaScore);
++	pStream->Write(m_iAIAgendaUpdateTurn);
++	pStream->Write(m_iBadStartMask);
++	pStream->Write(m_iBadStartScore);
++	pStream->Write(m_iAINavalPriority);
++	pStream->Write(m_iAILogisticsPriority);
++	pStream->Write(m_iAIStrategicRiskTolerance);
++	pStream->Write(m_iAIExpansionHorizon);
++	pStream->Write(m_iAIWarPosture);
++	pStream->Write(m_iAIIntentAtWar);
++	pStream->Write(NUM_AI_BUDGET_TYPES, m_aiAIAgendaBudget);
++
+ }
+ 
+ 
+@@ -24502,7 +24533,8 @@ int CvPlayerAI::AI_getPlotCanalValue(CvPlot* pPlot) const
+ 		return 0;
+ 	}
+ 	
+-	return 10 * std::min(0, pSecondWaterArea->getNumTiles() - 2);
++	// Ignore tiny lakes; useful connections must contribute a positive value.
++	return 10 * std::max(0, pSecondWaterArea->getNumTiles() - 2);
+ }
+ 
+ //This returns a positive number equal approximately to the sum
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 1c9b02d7a0ac4bc7a602fa6dfc1f37c1a79d5b8e..f1bba29f2905f70216b6af3dfd7810cea5fb88b8 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -19357,13 +19357,12 @@ bool CvUnitAI::AI_fortTerritory(bool bCanal, bool bAirbase)
+ 								    {
+                                         if (canBuild(pLoopPlot, eBuild))
+                                         {
+-                                            iValue = 10000;
+-
+-                                            iValue /= (GC.getBuildInfo(eBuild).getTime() + 1);
+-
+-                                            if (iValue < iBestTempBuildValue)
++                                            // Canal/airbase access needs a legal fort, not a slower upgrade.
++                                            // Keep the location benefit separate from construction cost.
++                                            const int iBuildTime = std::max(0, GC.getBuildInfo(eBuild).getTime());
++                                            if (eBestTempBuild == NO_BUILD || iBuildTime < iBestTempBuildValue)
+                                             {
+-                                                iBestTempBuildValue = iValue;
++                                                iBestTempBuildValue = iBuildTime;
+                                                 eBestTempBuild = eBuild;
+                                             }
+                                         }
+@@ -19399,8 +19398,8 @@ bool CvUnitAI::AI_fortTerritory(bool bCanal, bool bAirbase)
+ 										int iPathTurns;
+ 										if (generatePath(pLoopPlot, 0, true, &iPathTurns))
+ 										{
+-											iValue *= 1000;
+-											iValue /= (iPathTurns + 1);
++											const __int64 iPathValue = (__int64)iValue * 1000 / ((__int64)iPathTurns + 1);
++											iValue = (int)std::min((__int64)MAX_INT, iPathValue);
+ 
+ 											if (iValue > iBestValue)
+ 											{
+diff --git a/Assets/Python/RoMEventManager.py b/Assets/Python/RoMEventManager.py
+index 627e26283c1f1d05196f475694be94db2015108c..ba87adaffbdc6317bd07785a3853da3459576e70 100644
+--- a/Assets/Python/RoMEventManager.py
++++ b/Assets/Python/RoMEventManager.py
+@@ -242,15 +242,23 @@ class RoMEventManager:
+ 			if pCity.canConstruct(iUniqueBuilding, False, True, False):
+ 				pCity.setNumRealBuilding(iUniqueBuilding, 1)
+ 				
++	def _rebuildBuildingUpgradeLines(self):
++		# Load/start may reuse this manager. Publish both fresh arrays together.
++		upgrades = []
++		obsolete = []
++		for iBuildingUpgradeLine_OuterItem in range(self.asBuildingUpgradeLine_Upgrade_Name.__len__()):
++			for iBuildingUpgradeLine_InnerItem_Upgrade in range(self.asBuildingUpgradeLine_Upgrade_Name[iBuildingUpgradeLine_OuterItem].__len__()):
++				for iBuildingUpgradeLine_InnerItem_Obsolete in range(self.asBuildingUpgradeLine_Obsolete_Name[iBuildingUpgradeLine_OuterItem].__len__()):
++					upgrades.append(CvUtil.findInfoTypeNum(gc.getBuildingInfo, gc.getNumBuildingInfos(), self.asBuildingUpgradeLine_Upgrade_Name[iBuildingUpgradeLine_OuterItem][iBuildingUpgradeLine_InnerItem_Upgrade]))
++					obsolete.append(CvUtil.findInfoTypeNum(gc.getBuildingInfo, gc.getNumBuildingInfos(), self.asBuildingUpgradeLine_Obsolete_Name[iBuildingUpgradeLine_OuterItem][iBuildingUpgradeLine_InnerItem_Obsolete]))
++		self.aiBuildingUpgradeLine_Upgrade_InfoTypeNum = upgrades
++		self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum = obsolete
++
+ 	def onLoadGame(self, argsList):
+ 		self.augustusAIProfiler.initialize(False)
+ 		self.settlementTrainingProfiler.initialize(False)
+ 
+-		for iBuildingUpgradeLine_OuterItem in range(self.asBuildingUpgradeLine_Upgrade_Name.__len__()):
+-			for iBuildingUpgradeLine_InnerItem_Upgrade in range(self.asBuildingUpgradeLine_Upgrade_Name[iBuildingUpgradeLine_OuterItem].__len__()):
+-				for iBuildingUpgradeLine_InnerItem_Obsolete in range(self.asBuildingUpgradeLine_Obsolete_Name[iBuildingUpgradeLine_OuterItem].__len__()):
+-					self.aiBuildingUpgradeLine_Upgrade_InfoTypeNum.append(CvUtil.findInfoTypeNum(gc.getBuildingInfo, gc.getNumBuildingInfos(), self.asBuildingUpgradeLine_Upgrade_Name[iBuildingUpgradeLine_OuterItem][iBuildingUpgradeLine_InnerItem_Upgrade]))
+-					self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum.append(CvUtil.findInfoTypeNum(gc.getBuildingInfo, gc.getNumBuildingInfos(), self.asBuildingUpgradeLine_Obsolete_Name[iBuildingUpgradeLine_OuterItem][iBuildingUpgradeLine_InnerItem_Obsolete]))
++		self._rebuildBuildingUpgradeLines()
+ 
+ 		self.iBUILDING_CRUSADE = gc.getInfoTypeForString("BUILDING_CRUSADE")
+ 		self.iBUILDING_DJENNE = gc.getInfoTypeForString("BUILDING_DJENNE")
+@@ -271,11 +279,7 @@ class RoMEventManager:
+ 		self.settlementTrainingProfiler.initialize(True)
+ 
+ 		# init building upgrade lines, can not be done earlier as the game inits python before it inits xml...
+-		for iBuildingUpgradeLine_OuterItem in range(self.asBuildingUpgradeLine_Upgrade_Name.__len__()):
+-			for iBuildingUpgradeLine_InnerItem_Upgrade in range(self.asBuildingUpgradeLine_Upgrade_Name[iBuildingUpgradeLine_OuterItem].__len__()):
+-				for iBuildingUpgradeLine_InnerItem_Obsolete in range(self.asBuildingUpgradeLine_Obsolete_Name[iBuildingUpgradeLine_OuterItem].__len__()):
+-					self.aiBuildingUpgradeLine_Upgrade_InfoTypeNum.append(CvUtil.findInfoTypeNum(gc.getBuildingInfo, gc.getNumBuildingInfos(), self.asBuildingUpgradeLine_Upgrade_Name[iBuildingUpgradeLine_OuterItem][iBuildingUpgradeLine_InnerItem_Upgrade]))
+-					self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum.append(CvUtil.findInfoTypeNum(gc.getBuildingInfo, gc.getNumBuildingInfos(), self.asBuildingUpgradeLine_Obsolete_Name[iBuildingUpgradeLine_OuterItem][iBuildingUpgradeLine_InnerItem_Obsolete]))
++		self._rebuildBuildingUpgradeLines()
+ 		# def onBuildingBuilt / Additional tests variable
+ 		self.iBUILDING_CRUSADE = gc.getInfoTypeForString("BUILDING_CRUSADE")
+ 		self.iBUILDING_DJENNE = gc.getInfoTypeForString("BUILDING_DJENNE")
+@@ -295,14 +299,12 @@ class RoMEventManager:
+ 		iGameTurn, iPlayer = argsList
+ 		self.augustusAIProfiler.recordTurn(iGameTurn, iPlayer)
+ 		self.settlementTrainingProfiler.recordTurn(iGameTurn, iPlayer)
+-		pPlayer = gc.getPlayer(iPlayer)
+-		
+ 		pPlayer = gc.getPlayer(iPlayer)
+ 		if gc.getTeam(pPlayer.getTeam()).isHasTech(self.iTECH_APPLIED_ECONOMICS):
+ 			obsoleteTech = gc.getBuildingInfo(self.iBUILDING_WORLD_BANK).getObsoleteTech()
+-			if ( gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech) == false or obsoleteTech == -1 ):
+-				for iCity in range(pPlayer.getNumCities()):
+-					ppCity = pPlayer.getCity(iCity)
++			if ( obsoleteTech == -1 or not gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech) ):
++				for pyCity in PyPlayer(iPlayer).getCityList():
++					ppCity = pyCity.GetCy()
+ 					if ppCity.getNumActiveBuilding(self.iBUILDING_WORLD_BANK) == true:
+ 						#pPID = pPlayer.getID()
+ 						iGold = pPlayer.getGold( )
+@@ -323,10 +325,10 @@ class RoMEventManager:
+ #		BugUtil.info ( "crusade test: %d", test) 
+ 		if gc.getTeam(pPlayer.getTeam()).isHasTech(self.iTECH_FUNDAMENTALISM):
+ 			obsoleteTech = gc.getBuildingInfo(self.iBUILDING_CRUSADE).getObsoleteTech()
+-			if ( gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech) == false or obsoleteTech == -1 ):
++			if ( obsoleteTech == -1 or not gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech) ):
+ #				BugUtil.info("RoM - crusader spawn, tech check passed")
+-				for iCity in range(pPlayer.getNumCities()):
+-					ppCity = pPlayer.getCity(iCity)
++				for pyCity in PyPlayer(iPlayer).getCityList():
++					ppCity = pyCity.GetCy()
+ 					if ppCity.getNumActiveBuilding(self.iBUILDING_CRUSADE) == true:
+ 						iX = ppCity.getX()
+ 						iY = ppCity.getY()
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index 72554dd89f02aa224aba33bf2a51f96452f305bc..dbb58545e5febdc5b9042881c95732bc4cd93e12 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -823,11 +823,6 @@
+ 		<DefineName>AI_CIVIC_SWITCH_THRESHOLD_PERCENT</DefineName>
+ 		<iDefineIntVal>5</iDefineIntVal>
+ 	</Define>
+-	<!-- Added: recurring civic costs and benefits use an explicit finite horizon. -->
+-	<Define>
+-		<DefineName>AI_CIVIC_ECONOMIC_HORIZON_TURNS</DefineName>
+-		<iDefineIntVal>20</iDefineIntVal>
+-	</Define>
+ 
+ <!-- Deterministic empire-agenda planner. Values are turns, score, percent, score. -->
+ 	<Define>
+diff --git a/Docs/SOURCE_CORRECTNESS_FIXES.md b/Docs/SOURCE_CORRECTNESS_FIXES.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f502923367cba03b0d90da0633fde3f65dd8de51
+--- /dev/null
++++ b/Docs/SOURCE_CORRECTNESS_FIXES.md
+@@ -0,0 +1,68 @@
++# Source correctness fixes
++
++Base revision: `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
++
++## Runtime changes
++
++* Canal utility clamps the small-water-area penalty at zero with `max`, making
++  connections to a second water area larger than two tiles eligible for worker
++  evaluation. Existing ownership, city-work and adjacent-city guards remain.
++* Fort construction chooses the shortest legal base build time, retaining native
++  enumeration order for ties. The fort's canal/airbase location benefit is kept
++  separate from build choice. Distance scaling uses a wide intermediate and a
++  saturated result. This policy obtains the required access quickly; it does not
++  attempt to optimize defensive upgrades or total worker travel/build time.
++* `CvPlayerAI` save format 6 appends the agenda, score, update turn, bad-start
++  evidence, naval/logistics priorities, risk, expansion horizon, posture,
++  observed war state and all five agenda budgets. The reader retains its previous
++  defaults for versions 0–5. Disposable observation/path caches remain invalidated.
++* Python start/load handlers rebuild upgrade mappings once and replace both
++  arrays only after all lookups succeed. Repeated loads no longer append copies.
++* World Bank interest and Crusade spawning iterate actual owned cities through
++  `PyPlayer.getCityList`, including sparse native IDs. Their obsolescence guards
++  check `NO_TECH` before calling the native technology query.
++* Simultaneous-team rollover skips dead team slots and activates the first living
++  team. It stops searching only after a team has been activated.
++
++## Save and binary compatibility
++
++The source reader supports the older per-player AI formats through the existing
++version guards. Old saves cannot recover agenda history that was never recorded;
++they retain the documented default state until the usual update occurs.
++
++**Saves written by version 6 require an updated DLL. Older DLLs cannot consume the
++new extension safely.** Keep original saves when switching builds. The bundled
++DLL predates even the reviewed source and has not been replaced by these changes.
++Build the updated DLL and record its source revision and hash before engine tests.
++
++## Validation
++
++Run from the mod root with Python 3 and a C++03-capable `g++` with UBSan:
++
++```sh
++python3 Tools/test_review_correctness.py
++python3 Tools/run_regression_suite.py
++```
++
++Ten targeted tests execute actual native methods/fragments and Python handler
++bodies under narrow adapters. They cover canal guards, fort ordering/cost/score
++boundaries, all 16 live/dead arrangements of four team slots, save-extension field
++round trips and stream sentinels, agenda hysteresis after restoration, legacy
++extension defaults, repeated and failed mapping rebuilds, sparse city interest,
++obsolescence and Crusade spawning. Nine reject the original source; the obsolete
++bank control already passes. The new tests are registered in the full suite.
++
++The complete suite runs 15 isolated programs. Its former dead-document assertion
++now checks strategic budgets reaching city production; an unused civic-horizon
++XML define was removed without weakening the economic regression assertion. The
++existing serializer test now expects version 6 and retains its v4/v5 operation
++record tests. CRLF bytes are preserved in legacy runtime files.
++
++These checks do not build the complete Windows DLL or load a real BTS save.
++The stream adapter tests the appended extension and existing reset statements,
++not the full engine save container. Python handler tests run selected compatible
++bodies in Python 3, not the embedded Python 2 interpreter.
++
++The research prerequisite heuristic remains unchanged. Replacing recursive
++costs with a deduplicated AND/OR research-package search needs a separately
++specified algorithm and performance validation; a naive set union is insufficient.
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index 20956d6b40158aa92fbb1dab8db3a860f6671184..4712b9bfa7ff715aba680abc56efea768c1c6319 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -1,5 +1,9 @@
+ {
+   "tests": [
++    {
++      "command": ["python3", "Tools/test_review_correctness.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/Python/RoMEventManager.py", "Assets/Python/PyHelpers.py"]
++    },
+     {
+       "command": ["python3", "Tools/test_source_integrity.py"],
+       "patterns": ["Assets/CvGameCoreDLL/*.cpp", "Assets/CvGameCoreDLL/*.h", "Assets/CvGameCoreDLL/*.inl", "Assets/Python/*.py", "Assets/Python/**/*.py", "PrivateMaps/*.py"]
+diff --git a/Tools/test_ai_decisions.py b/Tools/test_ai_decisions.py
+index 5ecf16a36e66bd637c0427f471af926132cbb230..af9cffd32439623aa3146bbf91453c23ad5cb4f1 100644
+--- a/Tools/test_ai_decisions.py
++++ b/Tools/test_ai_decisions.py
+@@ -140,7 +140,7 @@ int main(){
+   self.assertNotIn('3*iCityCaptureCount',s)
+  def test_career_migration_and_cooldown(self):
+   p=src('CvPlayerAI.cpp');read=function(p,'void CvPlayerAI::read(');write=function(p,'void CvPlayerAI::write(')
+-  self.assertIn('uint uiFlag=5',write);self.assertIn('if (uiFlag >= 4)',read)
++  self.assertIn('uint uiFlag=6',write);self.assertIn('if (uiFlag >= 4)',read)
+   self.assertIn('AI_rememberGeneral(m_aiMilitaryOperations[i])',read)
+   op=function(p,'void CvPlayerAI::AI_updateMilitaryOperations()')
+   self.assertIn('kOperation.iAuthority = kCareer.iAuthority',op)
+diff --git a/Tools/test_ai_layer_contracts.py b/Tools/test_ai_layer_contracts.py
+index 35f8cf545540d786b3e5fe671caa73ba6fb22a70..83b69274f6885dd26bcf643d2b3d60d246d661c1 100644
+--- a/Tools/test_ai_layer_contracts.py
++++ b/Tools/test_ai_layer_contracts.py
+@@ -51,10 +51,11 @@ class LayerContractTests(unittest.TestCase):
+         self.assertLess(feedback, selection)
+         self.assertLess(selection, strike)
+ 
+-    def test_documented_comparison_sources_are_primary(self):
+-        assessment = (ROOT / "Docs" / "CODEBASE_ASSESSMENT.md").read_text()
+-        self.assertIn("https://github.com/karadoc/Civ4-K-Mod", assessment)
+-        self.assertIn("https://github.com/f1rpo/AdvCiv", assessment)
++    def test_city_production_consumes_strategic_budgets(self):
++        # The comparison document was removed; validate a live layer contract.
++        production = function(source("CvCityAI.cpp"), "void CvCityAI::AI_chooseProduction()")
++        self.assertIn("AI_getAgendaBudget(AI_BUDGET_MILITARY)", production)
++        self.assertIn("AI_getAgendaBudget(AI_BUDGET_EXPANSION)", production)
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/Tools/test_review_correctness.py b/Tools/test_review_correctness.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..65fb22875f6edd1a83b3b93f32625861d13a2357
+--- /dev/null
++++ b/Tools/test_review_correctness.py
+@@ -0,0 +1,337 @@
++#!/usr/bin/env python3
++"""Execute production fragments with narrow adapters; no BTS/DLL run is claimed.
++
++--source can point at an exported baseline to verify these tests detect the bugs.
++"""
++import argparse
++from pathlib import Path
++import re
++import subprocess
++import tempfile
++import textwrap
++import types
++import unittest
++
++parser = argparse.ArgumentParser(add_help=False)
++parser.add_argument('--source', type=Path, default=Path(__file__).resolve().parents[1])
++args, remaining = parser.parse_known_args()
++ROOT = args.source
++DLL = ROOT / 'Assets/CvGameCoreDLL'
++
++
++def block(text, signature):
++    start = text.index(signature)
++    clean = re.sub(r'"(?:\\.|[^"\\])*"|/\*[\s\S]*?\*/|//[^\n]*',
++                   lambda m: re.sub(r'[^\n]', ' ', m[0]), text)
++    begin = clean.index('{', start)
++    depth, end = 1, begin + 1
++    while depth:
++        depth += (clean[end] == '{') - (clean[end] == '}')
++        end += 1
++    return text[start:end]
++
++
++def body(text, signature):
++    result = block(text, signature)
++    return result[result.index('{') + 1:-1]
++
++
++def compile_run(program):
++    with tempfile.TemporaryDirectory(prefix='rom-correctness-') as folder:
++        cpp, exe = Path(folder) / 'test.cpp', Path(folder) / 'test'
++        cpp.write_text(program)
++        subprocess.run(['g++', '-std=c++03', '-Wall', '-Wextra', '-Werror',
++                        '-fsanitize=undefined', '-fno-sanitize-recover=undefined',
++                        '-I', str(DLL), str(cpp), '-o', str(exe)], check=True)
++        subprocess.run([str(exe)], check=True)
++
++
++class NativeTests(unittest.TestCase):
++    def test_canal_value_and_existing_guards(self):
++        method = block((DLL / 'CvPlayerAI.cpp').read_text(),
++                       'int CvPlayerAI::AI_getPlotCanalValue(')
++        compile_run(r'''
++#include <algorithm>
++#include <cassert>
++#include <cstddef>
++#define PROFILE_FUNC() ((void)0)
++#define FAssert(x) assert(x)
++typedef int DirectionTypes;
++enum {NO_BUILD=-1, NO_IMPROVEMENT=-1, NUM_DIRECTION_TYPES=8};
++struct CvArea {int tiles; int getNumTiles()const{return tiles;}};
++struct CvPlot;
++struct CvCity {int build; int AI_getBestBuild(int)const{return build;}
++ int getCityPlotIndex(CvPlot*)const{return 0;}};
++struct CvImprovementInfo {bool city; bool isActsAsCity()const{return city;}};
++struct Globals {CvImprovementInfo info;
++ CvImprovementInfo& getImprovementInfo(int){return info;}} GC;
++struct CvPlot {
++ bool owned,radius,city; int team,improvement; CvArea* water; CvCity* working;
++ CvPlot():owned(false),radius(false),city(false),team(0),improvement(-1),water(NULL),working(NULL){}
++ bool isOwned()const{return owned;} int getTeam()const{return team;}
++ bool isCityRadius()const{return radius;} CvCity* getWorkingCity()const{return working;}
++ int getImprovementType()const{return improvement;}
++ int getX_INLINE()const{return 0;} int getY_INLINE()const{return 0;}
++ bool isCity(bool)const{return city;} CvArea* secondWaterArea()const{return water;}
++};
++CvPlot* neighbor=NULL;
++CvPlot* plotDirection(int,int,int){return neighbor;}
++struct CvPlayerAI {int getTeam()const{return 0;} int AI_getPlotCanalValue(CvPlot*)const;};
++METHOD
++int main(){CvPlayerAI p;CvPlot plot;CvArea water={1};plot.water=&water;
++ assert(p.AI_getPlotCanalValue(&plot)==0);
++ water.tiles=2;assert(p.AI_getPlotCanalValue(&plot)==0);
++ water.tiles=3;assert(p.AI_getPlotCanalValue(&plot)==10);
++ water.tiles=100;assert(p.AI_getPlotCanalValue(&plot)==980);
++ plot.water=NULL;assert(p.AI_getPlotCanalValue(&plot)==0);plot.water=&water;
++ plot.owned=true;plot.team=1;assert(p.AI_getPlotCanalValue(&plot)==0);plot.team=0;
++ CvCity city={0};plot.radius=true;plot.working=&city;
++ assert(p.AI_getPlotCanalValue(&plot)==0);city.build=-1;
++ plot.improvement=0;GC.info.city=false;assert(p.AI_getPlotCanalValue(&plot)==0);
++ GC.info.city=true;assert(p.AI_getPlotCanalValue(&plot)==980);
++ CvPlot adjacent;adjacent.city=true;neighbor=&adjacent;
++ assert(p.AI_getPlotCanalValue(&plot)==0);
++}
++'''.replace('METHOD', method))
++
++    def test_fort_selection_preserves_utility_and_handles_large_scores(self):
++        method = block((DLL / 'CvUnitAI.cpp').read_text(), 'bool CvUnitAI::AI_fortTerritory(')
++        loop = block(method, 'for (int iJ = 0; iJ < GC.getNumBuildInfos(); iJ++)')
++        start = method.index('if (generatePath(pLoopPlot, 0, true, &iPathTurns))')
++        scoring = body(method[start:], 'if (generatePath')
++        scoring = scoring[:scoring.index('if (iValue > iBestValue)')]
++        compile_run(r'''
++#include <algorithm>
++#include <cassert>
++#include <climits>
++#define MAX_INT INT_MAX
++#define __int64 long long
++#define FAssertMsg(x,y) assert(x)
++typedef int BuildTypes;typedef int ImprovementTypes;
++enum {NO_IMPROVEMENT=-1,NO_BUILD=-1};
++struct CvPlot {};
++struct Build {int time; bool legal; int getImprovement()const{return 0;}
++ int getTime()const{return time;}};
++struct Improvement {bool isActsAsCity()const{return true;}int getDefenseModifier()const{return 50;}};
++struct Globals {Build builds[2]; Improvement imp; int getNumBuildInfos()const{return 2;}
++ const Build& getBuildInfo(int i)const{return builds[i];}
++ const Improvement& getImprovementInfo(int)const{return imp;}} GC;
++bool canBuild(CvPlot*,BuildTypes i){return GC.builds[i].legal;}
++void run(int first,int second,int strategic,bool firstLegal,int expectedTime){
++ GC.builds[0].time=first;GC.builds[1].time=second;
++ GC.builds[0].legal=firstLegal;GC.builds[1].legal=true;
++ CvPlot plot;CvPlot* pLoopPlot=&plot;int iValue=strategic;
++ int iBestTempBuildValue=MAX_INT;BuildTypes eBestTempBuild=NO_BUILD;
++ LOOP
++ assert(eBestTempBuild!=NO_BUILD);
++ assert(GC.builds[eBestTempBuild].time==expectedTime);
++ assert(iValue==strategic);
++ if(first==second && firstLegal)assert(eBestTempBuild==0);
++}
++int score(int iValue,int iPathTurns){SCORING return iValue;}
++int main(){run(1000,2000,500,true,1000);run(2000,1000,500,true,1000);
++ run(1000,2000,10,true,1000);run(1000,2000,500,false,2000);
++ run(0,1000,500,true,0);run(20000,30000,500,true,20000);
++ run(1000,1000,500,true,1000);run(INT_MAX,INT_MAX,500,true,INT_MAX);
++ assert(score(500,1)==250000);assert(score(10,1)==5000);
++ assert(score(INT_MAX,0)==INT_MAX);assert(score(INT_MAX,INT_MAX)==999);
++}
++'''.replace('LOOP', loop).replace('SCORING', scoring))
++
++    def test_team_rollover_skips_dead_slots(self):
++        game = (DLL / 'CvGame.cpp').read_text()
++        branch = block(block(game, 'void CvGame::doTurn()'), 'else if (isSimultaneousTeamTurns())')
++        loop = block(branch, 'for (iI = 0; iI < MAX_TEAMS; iI++)')
++        compile_run(r'''
++#include <cassert>
++enum {MAX_TEAMS=4};typedef int TeamTypes;
++struct CvTeam {bool alive;int activations;bool isAlive()const{return alive;}
++ void setTurnActive(bool b){assert(b);++activations;}int getAliveCount()const{return 1;}};
++CvTeam teams[MAX_TEAMS];
++#define GET_TEAM(i) teams[i]
++#define FAssert(x) assert(x)
++int getNumGameTurnActive(){int n=0;for(int j=0;j<MAX_TEAMS;++j)n+=teams[j].activations;return n;}
++void activate(){int iI;LOOP}
++int main(){for(int mask=0;mask<16;++mask){
++ int first=-1;for(int i=0;i<MAX_TEAMS;++i){teams[i].alive=(mask&(1<<i))!=0;
++ teams[i].activations=0;if(first<0&&teams[i].alive)first=i;}
++ activate();for(int i=0;i<MAX_TEAMS;++i)assert(teams[i].activations==(i==first?1:0));
++}}
++'''.replace('LOOP', loop))
++
++    def test_agenda_extension_round_trip_and_legacy_stream_alignment(self):
++        source = (DLL / 'CvPlayerAI.cpp').read_text()
++        reader = body(source, 'void CvPlayerAI::read(')
++        writer = body(source, 'void CvPlayerAI::write(')
++        self.assertRegex(writer, r'uint uiFlag\s*=\s*6;')
++        read_extension = block(reader, 'if (uiFlag >= 6)')
++        write_extension = writer[writer.index('pStream->Write(m_iAIAgenda);'):]
++        agenda = body(source, 'void CvPlayerAI::AI_updateAgenda(')
++        hysteresis = agenda[agenda.index('AIAgendaTypes eOldAgenda'):agenda.index('m_iAIAgenda = eBestAgenda;')]
++        agenda_enum = block((DLL/'CvPlayerAI.h').read_text(), 'enum AIAgendaTypes')+';'
++        reset = reader[reader.index('m_iAIAgenda ='):reader.index('uint uiFlag=0;')]
++        variables = sorted(set(re.findall(r'\bm_\w+', reset)))
++        vectors = set(re.findall(r'(m_\w+)\.clear\(\)', reset))
++        fields = ['m_iAIAgenda', 'm_iAIAgendaScore', 'm_iAIAgendaUpdateTurn',
++                  'm_iBadStartMask', 'm_iBadStartScore', 'm_iAINavalPriority',
++                  'm_iAILogisticsPriority', 'm_iAIStrategicRiskTolerance',
++                  'm_iAIExpansionHorizon', 'm_iAIWarPosture', 'm_iAIIntentAtWar']
++        declarations = '\n'.join('std::vector<int> '+v+';' if v in vectors else
++                                 'int '+v+('[NUM_AI_BUDGET_TYPES]' if v=='m_aiAIAgendaBudget' else '')+';'
++                                 for v in variables)
++        assignments = '\n'.join('a.%s=%d;' % (v, i+10) for i,v in enumerate(fields))
++        equality = '\n'.join('assert(a.%s==b.%s);' % (v,v) for v in fields)
++        compile_run(r'''
++#include <cassert>
++#include <algorithm>
++#include <cstdlib>
++#include <cstring>
++#include <vector>
++#include "AIHierarchyPolicy.h"
++AGENDA_ENUM
++enum {AI_BAD_START_NONE=0,NUM_AI_BUDGET_TYPES=5};
++int range(int n,int lo,int hi){return std::max(lo,std::min(n,hi));}
++struct Globals {int getDefineINT(const char* name)const{
++ return std::strcmp(name,"AI_AGENDA_SWITCH_MIN_MARGIN")==0?150:12;}} GC;
++struct Stream {std::vector<int> data;unsigned int pos;Stream():pos(0){}
++ void Write(int x){data.push_back(x);}void Read(int* x){assert(pos<data.size());*x=data[pos++];}
++ void Write(int n,const int* a){for(int i=0;i<n;++i)Write(a[i]);}
++ void Read(int n,int* a){for(int i=0;i<n;++i)Read(a+i);}};
++struct State {DECLS
++ State(){RESET}
++ void save(Stream* pStream){WRITE}
++ void load(Stream* pStream,unsigned int uiFlag){RESET READ}
++ int select(){bool bEmergency=false,bBadStartDirective=false;
++ int aiScore[NUM_AI_AGENDA_TYPES]={0};aiScore[AI_AGENDA_EXPAND_LAND]=1000;aiScore[AI_AGENDA_SCIENCE]=1100;
++ AIAgendaTypes eBestAgenda=AI_AGENDA_SCIENCE;int iBestScore=1100;
++ HYSTERESIS
++ return eBestAgenda;}
++};
++int main(){State a,b;ASSIGN
++ for(int i=0;i<NUM_AI_BUDGET_TYPES;++i)a.m_aiAIAgendaBudget[i]=100+i;
++ Stream stream;a.save(&stream);stream.Write(1234567);
++ b.load(&stream,6);EQUAL
++ for(int i=0;i<NUM_AI_BUDGET_TYPES;++i)assert(a.m_aiAIAgendaBudget[i]==b.m_aiAIAgendaBudget[i]);
++ int sentinel;stream.Read(&sentinel);assert(sentinel==1234567);assert(stream.pos==stream.data.size());
++ for(unsigned int version=0;version<=5;++version){Stream old;old.Write(7654321);
++ b.m_iAIAgenda=7;b.m_iAINavalPriority=900;b.load(&old,version);
++ assert(old.pos==0);assert(b.m_iAIAgenda==NO_AI_AGENDA);assert(b.m_iAINavalPriority==0);
++ assert(b.m_iAIAgendaUpdateTurn==-1);assert(b.m_iAIStrategicRiskTolerance==500);
++ for(int i=0;i<NUM_AI_BUDGET_TYPES;++i)assert(b.m_aiAIAgendaBudget[i]==200);
++ old.Read(&sentinel);assert(sentinel==7654321);}
++ // Decision-bearing naval intent also survives the round trip.
++ a.m_iAIAgenda=AI_AGENDA_EXPAND_LAND;a.m_iAINavalPriority=900;
++ Stream decision;a.save(&decision);b.load(&decision,6);
++ assert(a.select()==AI_AGENDA_EXPAND_LAND);assert(b.select()==a.select());
++ assert(AIHierarchyPolicy::preferSeaSettlement(100,100,b.m_iAINavalPriority));
++}
++'''.replace('DECLS', declarations).replace('RESET', reset).replace('WRITE', write_extension)
++            .replace('READ', read_extension).replace('ASSIGN', assignments).replace('EQUAL', equality)
++            .replace('HYSTERESIS', hysteresis).replace('AGENDA_ENUM', agenda_enum))
++
++
++def python_method(source, name):
++    start = source.index('\tdef '+name+'(')
++    end = source.find('\n\tdef ', start + 1)
++    method = source[start:end if end>=0 else len(source)]
++    return '\n'.join(line[1:] if line.startswith('\t') else line for line in method.splitlines())+'\n'
++
++
++class PythonTests(unittest.TestCase):
++    def setUp(self):
++        self.source = (ROOT/'Assets/Python/RoMEventManager.py').read_text()
++        self.ids = {}
++        self.lookup = lambda name: self.ids.setdefault(name, len(self.ids))
++        self.gc = types.SimpleNamespace(getInfoTypeForString=self.lookup,
++                                        getBuildingInfo=lambda i:i,getNumBuildingInfos=lambda:1000)
++        self.ns = {'gc':self.gc, 'CvUtil':types.SimpleNamespace(
++            findInfoTypeNum=lambda _f,_n,name:self.lookup(name)), 'true':True,'false':False}
++        self.manager = types.SimpleNamespace()
++        profiler=types.SimpleNamespace(initialize=lambda _:None,recordTurn=lambda *_:None)
++        self.manager.augustusAIProfiler=self.manager.settlementTrainingProfiler=profiler
++        a=self.source.index('\t\tself.asBuildingUpgradeLine_Upgrade_Name =')
++        b=self.source.index('\t\tself.iBUILDING_CRUSADE =',a)
++        exec(textwrap.dedent(self.source[a:b]), {'self':self.manager})
++        for name in ('_rebuildBuildingUpgradeLines','onLoadGame','onGameStart','onBeginPlayerTurn'):
++            if '\tdef '+name+'(' in self.source:
++                exec(python_method(self.source,name),self.ns)
++                setattr(self.manager,name,types.MethodType(self.ns[name],self.manager))
++
++    def test_repeated_load_and_start_are_idempotent(self):
++        expected=None
++        for event in ('onLoadGame','onLoadGame','onGameStart','onLoadGame'):
++            getattr(self.manager,event)(())
++            pairs=list(zip(self.manager.aiBuildingUpgradeLine_Upgrade_InfoTypeNum,
++                           self.manager.aiBuildingUpgradeLine_Obsolete_InfoTypeNum))
++            self.assertEqual(len(pairs),83)
++            if expected is not None:self.assertEqual(pairs,expected)
++            expected=pairs
++
++    def test_failed_rebuild_preserves_previous_pair_arrays(self):
++        self.manager.onLoadGame(())
++        old_up=self.manager.aiBuildingUpgradeLine_Upgrade_InfoTypeNum[:]
++        old_ob=self.manager.aiBuildingUpgradeLine_Obsolete_InfoTypeNum[:]
++        calls=[0]
++        def fail_late(_f,_n,name):
++            calls[0]+=1
++            if calls[0]==4:raise ValueError('fixture lookup failure')
++            return self.lookup(name)
++        self.ns['CvUtil'].findInfoTypeNum=fail_late
++        with self.assertRaises(ValueError):self.manager.onLoadGame(())
++        self.assertEqual(self.manager.aiBuildingUpgradeLine_Upgrade_InfoTypeNum,old_up)
++        self.assertEqual(self.manager.aiBuildingUpgradeLine_Obsolete_InfoTypeNum,old_ob)
++
++    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False):
++        self.manager.onLoadGame(())
++        bank=self.manager.iBUILDING_WORLD_BANK;church=self.manager.iBUILDING_CRUSADE
++        owned={}
++        for slot,has_building in cities:
++            owned[8192+slot]=types.SimpleNamespace(isNone=lambda:False,getOwner=lambda:0,
++                getID=lambda slot=slot:8192+slot,
++                getNumActiveBuilding=lambda b,yes=has_building:int(yes and b==(church if crusade else bank)),
++                getX=lambda slot=slot:slot,getY=lambda:9)
++        ordered=list(owned.values());gold=[1000];spawn=[]
++        def tech(t):
++            if t<0:raise AssertionError('NO_TECH must never be queried')
++            if t==obsolete:return has_obsolete
++            return t==(self.manager.iTECH_FUNDAMENTALISM if crusade else self.manager.iTECH_APPLIED_ECONOMICS)
++        player=types.SimpleNamespace(getTeam=lambda:0,getID=lambda:0,getGold=lambda:gold[0],
++            changeGold=lambda delta:gold.__setitem__(0,gold[0]+delta),getNumCities=lambda:len(ordered),
++            getCity=lambda ident:owned.get(ident,types.SimpleNamespace(getNumActiveBuilding=lambda _:0)),
++            firstCity=lambda _:((ordered[0] if ordered else None),1),
++            nextCity=lambda it,_:((ordered[it] if it<len(ordered) else None),it+1),
++            initUnit=lambda *values:spawn.append(values))
++        self.gc.getPlayer=lambda _:player
++        self.gc.getTeam=lambda _:types.SimpleNamespace(isHasTech=tech)
++        self.gc.getBuildingInfo=lambda _:types.SimpleNamespace(getObsoleteTech=lambda:obsolete)
++        # Execute the production free-list wrapper, not a dense-index fake.
++        helper=(ROOT/'Assets/Python/PyHelpers.py').read_text()
++        helper_ns={'false':False,'PyCity':lambda owner,ident:types.SimpleNamespace(GetCy=lambda:owned[ident])}
++        exec(python_method(helper,'getCityList'),helper_ns)
++        wrapper=types.SimpleNamespace(player=player,getID=lambda:0)
++        wrapper.getCityList=types.MethodType(helper_ns['getCityList'],wrapper)
++        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:300),
++                       UnitAITypes=types.SimpleNamespace(UNITAI_ATTACK_CITY=1),
++                       DirectionTypes=types.SimpleNamespace(NO_DIRECTION=-1))
++        self.manager.onBeginPlayerTurn((4,0))
++        return gold[0],spawn
++
++    def test_sparse_city_receives_bank_interest(self):
++        self.assertEqual(self.turn_fixture([(0,False),(2,True)],obsolete=999)[0],1010)
++
++    def test_no_obsolete_tech_and_empty_empire(self):
++        self.assertEqual(self.turn_fixture([(2,True)])[0],1010)
++        self.assertEqual(self.turn_fixture([])[0],1000)
++
++    def test_obsolete_bank_does_not_pay(self):
++        self.assertEqual(self.turn_fixture([(2,True)],obsolete=999,has_obsolete=True)[0],1000)
++
++    def test_sparse_city_spawns_crusader(self):
++        gold,spawn=self.turn_fixture([(0,False),(2,True)],crusade=True)
++        self.assertEqual(gold,1000)
++        self.assertEqual(len(spawn),1)
++        self.assertEqual(spawn[0][1:3],(2,9))
++
++
++if __name__=='__main__':
++    unittest.main(argv=[__file__]+remaining,verbosity=2)
+-- 
+2.52.0
+

@@ -1,7 +1,8 @@
-# Rise of Mankind architecture research
+# Rise of Mankind research and source fixes
 
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
 
+- [Tested source fixes: patch, application helper and validation](fixes/README.md)
 - [Detailed AI, turns, pathfinding, combat and diplomacy guide](docs/review/AI_AND_GAME_LOGIC.md)
 - [Deeper findings with reproducible source probes](docs/review/DEEP_FINDINGS.md)
 - [Simulation implementation plan, contracts and scenario backlog](simulation/README.md)
@@ -12,7 +13,7 @@ Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https:
 - [Interactive source explorer](docs/review/explorer.html) — download the HTML and open it in a browser; GitHub's file view displays its source.
 - [Regression output](docs/review/regression.log) and [reproduced findings](docs/review/audit-findings.json)
 
-The reviewed revision contains 252 Python files, 956 XML files and 277 native source/header files. The review combines whole-tree structural analysis with focused behavioral inspection. The existing regression suite has 12 passing programs and 2 failing programs. The BTS executable and a complete headless simulator were not run.
+The reviewed revision contains 252 Python files, 956 XML files and 277 native source/header files. The review combines whole-tree structural analysis with focused behavioral inspection. The original regression baseline had 12 passing programs and 2 failing programs; the patched source passes all 15 programs, including the new targeted regressions. The BTS executable and a complete headless simulator were not run.
 
 **The bundled DLL is older than the source**, as confirmed by the repository owner. These reports assess the pinned source. In-game comparisons require a rebuilt DLL with recorded source/build provenance; the existing binary is not an oracle for the reviewed code. See [the provenance record](docs/review/source-binary-provenance.json).
 

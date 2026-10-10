@@ -1,0 +1,73 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "1ab4f99a76adb530f86b278390ab8139ef41cc96",
+  "tested_source_commit": "c5cb68778f4da58ecdd8ecd218a829da1e09cc2f",
+  "patch": "0001-source-correctness.patch",
+  "patch_sha256": "df4ff6bb9a9f3d1a17c019356cbc3b2551981fd8778a9b326aca8f413f0c353c",
+  "binary_rebuilt": false,
+  "save_format": {
+    "old": 5,
+    "new": 6,
+    "older_readers_can_read_new_saves": false
+  },
+  "validation": {
+    "targeted_tests": 10,
+    "targeted_failures_on_fixed_source": 0,
+    "full_suite_programs": 15,
+    "full_suite_failures": 0,
+    "original_targeted": {
+      "tests": 10,
+      "passed": 1,
+      "failures": 6,
+      "errors": 3
+    },
+    "patch_application_verified": true,
+    "python2_grammar_parsed": true
+  },
+  "files": {
+    ".gitattributes": {
+      "before_sha256": "72fe2f6fcd22e1be59d5500d41527ada792531b4e3d8f077422bb92758c5011b",
+      "after_sha256": "da7c44f2f5b7511c378d040257eb206502b949b193b1a2aee68f257e1ff60227"
+    },
+    "Assets/CvGameCoreDLL/CvGame.cpp": {
+      "before_sha256": "2f53a7df07e3fd6d9ffc8de0324a65aeb3da7a0ca8ee47cc751147595cf20cef",
+      "after_sha256": "ab2376e8c1fe0d8179befcd9766c6cb4bde676dd80cc1927dc8495308a62b4b8"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "e6f9567f401054e7da09bf56771d7f12f10869c7716bb1a50f8d83dcd7b3ebee",
+      "after_sha256": "e5849e0937378a03e8825f0a65a4f03162dfe88da23a7e65e47a1ad644063024"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "592a60b3365bd63aa1b35b39144cab619a1ff6a8f42892973dec7e3087bb728e",
+      "after_sha256": "3a5113a564ac60b5b1432e41a205b1e2dbbbaaadbc18a7b0fa22de6ce9e5db53"
+    },
+    "Assets/Python/RoMEventManager.py": {
+      "before_sha256": "d280e6612b0cba89d2391f183324b67c3efeaa2c856da9a9472b696c1ff8900b",
+      "after_sha256": "975b6c3b3ef35478c27a4403bfafb99bf499a575fa73d947e2766593960483b0"
+    },
+    "Assets/XML/GlobalDefinesAlt.xml": {
+      "before_sha256": "36ea3d3f0476d7688444054770964a282951c172d584fe4d81dc2146b8d4e83e",
+      "after_sha256": "3677f0f95120dfa93ecd3d1690115fa365ff0af059dfcf424e32d0196bd8b360"
+    },
+    "Docs/SOURCE_CORRECTNESS_FIXES.md": {
+      "before_sha256": null,
+      "after_sha256": "704f3b38c54d05184013ba8c8db9e58baa94358c2caf29d1939ca9339acfbf4c"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "76535c9d5e8c4ecba9bea7e73d970f58ec2860e531c6a6c306d236a7908bc309",
+      "after_sha256": "8b5f67d2439ba7fc1023b683e2de4181118b0fedc61a98ce844c97648debc388"
+    },
+    "Tools/test_ai_decisions.py": {
+      "before_sha256": "9ab588d4338886bd99544fca23626259ce6f5361a81e8615a72c7a651362df3a",
+      "after_sha256": "3808f0fb1de3d35cb7e4c4fada3eeb5bd677a12e0acfec836a36a76600440175"
+    },
+    "Tools/test_ai_layer_contracts.py": {
+      "before_sha256": "80c8c61683d7e8841e9f499652a68594cb980115bc8220160c5eb144e3806252",
+      "after_sha256": "d15e103368ceca06aff2f5eb8b52f82fa30e049098f371cff0462aa22e5c7f64"
+    },
+    "Tools/test_review_correctness.py": {
+      "before_sha256": null,
+      "after_sha256": "3d3c988cc46cd14b8721834002d1e2dcb2b69c19c72b30424c39ef1e46dd7934"
+    }
+  }
+}

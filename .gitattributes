@@ -1,0 +1,2 @@
+# Patch context and CRLF source bytes must remain exact; check applied source instead.
+fixes/*.patch -text -whitespace

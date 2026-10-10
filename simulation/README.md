@@ -1,5 +1,7 @@
 # Headless simulation: implementation and validation plan
 
+Source corrections are now available in [the tested patch](../fixes/README.md). Keep its behavior and source identity separate from the original baseline below; in particular, its version-6 saves preserve agenda history. Compatibility scenarios must declare which revision they target.
+
 Status: **specification, validated interchange examples, and source probes; no game simulator yet.** Source target: `1ab4f99a76adb530f86b278390ab8139ef41cc96`. The bundled DLL is older. Read the [behavior guide](../docs/review/AI_AND_GAME_LOGIC.md), [game-flow model](../docs/review/GAMEFLOW_MODEL.md) and [new findings](../docs/review/DEEP_FINDINGS.md) together.
 
 The first useful deliverable should answer a narrow question reproducibly: *given this source revision, explicit state, actor-visible inputs, rule configuration and host answers, why did this decision or transition occur?* A whole-game win-rate comparison is a later deliverable.

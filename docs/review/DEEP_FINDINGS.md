@@ -1,5 +1,7 @@
 # Deeper source findings and their simulation consequences
 
+Update: [tested source patches](../../fixes/README.md) address D01, D02, D03 and D05, plus sparse-city effects and team rollover. D04 remains open. The observations below and their reproduction script deliberately retain the original source baseline.
+
 Reviewed source: `1ab4f99a76adb530f86b278390ab8139ef41cc96`. **The bundled DLL is older than this source. None of these findings was reproduced in that binary or a complete BTS run.** The evidence below is extracted native source compiled with C++03 and undefined-behavior sanitization, or original Python bodies executed with narrow adapters.
 
 Reproduce all five observations:

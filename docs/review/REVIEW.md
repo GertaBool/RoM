@@ -1,5 +1,7 @@
 # Rise of Mankind: architecture and source assessment
 
+Update: [source fixes and regression evidence](../../fixes/README.md) are now available as an apply-ready patch against this reviewed revision. This report records the original baseline.
+
 Reviewed `aretemaxxing-group/rise-of-mankind`, default branch `main`, commit **`1ab4f99a76adb530f86b278390ab8139ef41cc96`**. The checkout is `/workspace/rise-of-mankind`. Review artifacts are outside it, in `/workspace/rom-review`; the game source was not changed.
 
 Publication: these artifacts are maintained in `GertaBool/RoM/docs/review`. The repository owner confirmed that the bundled DLL is older than the source. Behavioral findings here refer to the pinned source and isolated source tests, not verified behavior of that DLL. See [binary provenance](source-binary-provenance.json) and the expanded [AI and game-logic guide](AI_AND_GAME_LOGIC.md).
