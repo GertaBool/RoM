@@ -1,0 +1,32 @@
+{
+  "source_commit": "1ab4f99a76adb530f86b278390ab8139ef41cc96",
+  "path": "Assets/XML/Technologies/CIV4TechInfos.xml",
+  "sha256": "7221869d0cb7889e779e706e030cb00d5161f858610252392ebd99c717297d64",
+  "normalization": "Only the three listed technologies are unknown; all other prerequisites are owned. Base XML costs stand in for frozen team costs.",
+  "technologies": {
+    "TECH_ANIMAL_HUSBANDRY": {
+      "cost": 50,
+      "and": [],
+      "or": [
+        "TECH_HUNTING",
+        "TECH_AGRICULTURE"
+      ]
+    },
+    "TECH_THE_WHEEL": {
+      "cost": 48,
+      "and": [
+        "TECH_ANIMAL_HUSBANDRY"
+      ],
+      "or": []
+    },
+    "TECH_CHARIOTRY": {
+      "cost": 120,
+      "and": [
+        "TECH_ANIMAL_HUSBANDRY"
+      ],
+      "or": [
+        "TECH_THE_WHEEL"
+      ]
+    }
+  }
+}

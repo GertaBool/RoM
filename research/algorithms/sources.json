@@ -1,0 +1,125 @@
+{
+  "research_date": "2026-10-11",
+  "review_scope": "Selected algorithm documentation, interfaces and relevant implementation sections, not whole-project audits. Research code was read but not linked into or executed as part of the game.",
+  "inspected_sources": [
+    {
+      "repository": "google/or-tools",
+      "commit": "100f66e6242ab8bf8d32feb8f3bf086db66ae2b5",
+      "path": "ortools/graph/min_cost_flow.h",
+      "url": "https://raw.githubusercontent.com/google/or-tools/100f66e6242ab8bf8d32feb8f3bf086db66ae2b5/ortools/graph/min_cost_flow.h",
+      "bytes": 31348,
+      "sha256": "e88b03b9ef13f7228fd1bdb3247780c3ab51dcdff16fffe147b70d397e64153a"
+    },
+    {
+      "repository": "google/or-tools",
+      "commit": "100f66e6242ab8bf8d32feb8f3bf086db66ae2b5",
+      "path": "ortools/algorithms/knapsack_solver.h",
+      "url": "https://raw.githubusercontent.com/google/or-tools/100f66e6242ab8bf8d32feb8f3bf086db66ae2b5/ortools/algorithms/knapsack_solver.h",
+      "bytes": 28672,
+      "sha256": "210e3af9bfe0c79f4e09fb0cc8e1600af3f1d325d20193856413f630a260f631"
+    },
+    {
+      "repository": "google/or-tools",
+      "commit": "100f66e6242ab8bf8d32feb8f3bf086db66ae2b5",
+      "path": "ortools/graph/linear_assignment.h",
+      "url": "https://raw.githubusercontent.com/google/or-tools/100f66e6242ab8bf8d32feb8f3bf086db66ae2b5/ortools/graph/linear_assignment.h",
+      "bytes": 62409,
+      "sha256": "55d869cce4a18d7dd567c26e95f327ca313824bde435fb1e9a22c805d5a830a4"
+    },
+    {
+      "repository": "google-deepmind/open_spiel",
+      "commit": "48401890ee9857e611678302371378175a8e4c6b",
+      "path": "open_spiel/algorithms/mcts.h",
+      "url": "https://raw.githubusercontent.com/google-deepmind/open_spiel/48401890ee9857e611678302371378175a8e4c6b/open_spiel/algorithms/mcts.h",
+      "bytes": 9297,
+      "sha256": "e1d8b82889cdb985abb7299f9c37390f646fe14472a3bf6f3b1340a6d5a6630d"
+    },
+    {
+      "repository": "google-deepmind/open_spiel",
+      "commit": "48401890ee9857e611678302371378175a8e4c6b",
+      "path": "docs/algorithms.md",
+      "url": "https://raw.githubusercontent.com/google-deepmind/open_spiel/48401890ee9857e611678302371378175a8e4c6b/docs/algorithms.md",
+      "bytes": 27949,
+      "sha256": "a74226813009ab391acdba406f4b664e2d2915b41b5662c3e1b0812d93f1f1a5"
+    },
+    {
+      "repository": "CMA-ES/pycma",
+      "commit": "48a821b166eceef544847a0b9b66113ac26f1530",
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/CMA-ES/pycma/48a821b166eceef544847a0b9b66113ac26f1530/README.md",
+      "bytes": 15568,
+      "sha256": "b65e18c92e74c4f31b4410dfdb1412e540786ffcd83ae21763478d01610bc4a4"
+    },
+    {
+      "repository": "CMA-ES/pycma",
+      "commit": "48a821b166eceef544847a0b9b66113ac26f1530",
+      "path": "cma/evolution_strategy.py",
+      "url": "https://raw.githubusercontent.com/CMA-ES/pycma/48a821b166eceef544847a0b9b66113ac26f1530/cma/evolution_strategy.py",
+      "bytes": 268595,
+      "sha256": "77076e97a1df36a9c744b4820adebc6acbf8288599263c119804827f89070700"
+    },
+    {
+      "repository": "sbpl/sbpl",
+      "commit": "4d654845aa3b92aa1b4282a342e9011bac95aeb9",
+      "path": "src/planners/araplanner.cpp",
+      "url": "https://raw.githubusercontent.com/sbpl/sbpl/4d654845aa3b92aa1b4282a342e9011bac95aeb9/src/planners/araplanner.cpp",
+      "bytes": 44393,
+      "sha256": "92bcf6ac9c8016d53e9d51f864a1d6be19d98737baaf6c44681f8da07dd78523"
+    },
+    {
+      "repository": "sbpl/sbpl",
+      "commit": "4d654845aa3b92aa1b4282a342e9011bac95aeb9",
+      "path": "src/include/sbpl/planners/araplanner.h",
+      "url": "https://raw.githubusercontent.com/sbpl/sbpl/4d654845aa3b92aa1b4282a342e9011bac95aeb9/src/include/sbpl/planners/araplanner.h",
+      "bytes": 12195,
+      "sha256": "29ed2eedebe774095552b4525078c98e63fc8eed3e0d73688ded17330898e75b"
+    },
+    {
+      "repository": "sbpl/sbpl",
+      "commit": "4d654845aa3b92aa1b4282a342e9011bac95aeb9",
+      "path": "src/planners/adplanner.cpp",
+      "url": "https://raw.githubusercontent.com/sbpl/sbpl/4d654845aa3b92aa1b4282a342e9011bac95aeb9/src/planners/adplanner.cpp",
+      "bytes": 50507,
+      "sha256": "a0dd5ba0c35b813cb37711832dc4ef169792ef1c704b4e65588d29ef0de163e8"
+    },
+    {
+      "repository": "anyoptimization/pymoo",
+      "commit": "23110c155aa8f31b5f1b86928227fb3931ba7f00",
+      "path": "pymoo/algorithms/moo/nsga2.py",
+      "url": "https://raw.githubusercontent.com/anyoptimization/pymoo/23110c155aa8f31b5f1b86928227fb3931ba7f00/pymoo/algorithms/moo/nsga2.py",
+      "bytes": 4524,
+      "sha256": "d507e408459389bc99e9ce1c0d6380472d2aef99f58d0751c5ecf44ebf18ff6c"
+    },
+    {
+      "repository": "google-deepmind/open_spiel",
+      "commit": "48401890ee9857e611678302371378175a8e4c6b",
+      "path": "open_spiel/algorithms/minimax.h",
+      "url": "https://raw.githubusercontent.com/google-deepmind/open_spiel/48401890ee9857e611678302371378175a8e4c6b/open_spiel/algorithms/minimax.h",
+      "bytes": 3281,
+      "sha256": "192c5ca1715aaa49d3edad6f8d326c0ca15e1067e6d6a69e653a81fa50d13681"
+    }
+  ],
+  "direct_paper_access_failures": [
+    {
+      "url": "https://arxiv.org/abs/1604.00772",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "url": "https://repository.essex.ac.uk/4117/1/MCTS-Survey.pdf",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "url": "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "url": "https://www.sztaki.hu/~szcsaba/papers/ecml06.pdf",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "url": "https://webdocs.cs.ualberta.ca/~mmueller/ps/hpastar.pdf",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    }
+  ],
+  "evidence_separation": "README separates source-derived recommendations, mathematical analysis, inspected implementation contracts and isolated lab measurements."
+}
