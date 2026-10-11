@@ -34,7 +34,7 @@ index ae2f4e2..5633a27 100644
 +
 +// Straight-line reject before a path query. distance is plots, movesPerTurn
 +// is whole tiles per turn, horizonTurns is the logistics window. Neutral or
-// enemy ground is still in range; plot ownership is not an input.
++// enemy ground is still in range; plot ownership is not an input.
 +inline bool supplyReachable(int distance, int movesPerTurn, int horizonTurns)
 +{
 +	if (distance < 0 || horizonTurns < 0) return false;
