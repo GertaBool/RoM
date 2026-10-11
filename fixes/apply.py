@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check or apply/stage the reviewed patch on a clean, pinned source checkout."""
+"""Check or apply/stage a reviewed patch on a clean, pinned source checkout."""
 import argparse
 import hashlib
 import json
@@ -12,11 +12,14 @@ HERE = Path(__file__).resolve().parent
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source', type=Path)
+    parser.add_argument('--manifest', type=Path, default=HERE/'manifest.json',
+                        help='patch manifest (defaults to the original source-correctness patch)')
     parser.add_argument('--check', action='store_true', help='validate without modifying the checkout')
     args = parser.parse_args()
     source = args.source.resolve()
-    manifest = json.loads((HERE/'manifest.json').read_text())
-    patch = HERE/manifest['patch']
+    manifest_path = args.manifest.resolve()
+    manifest = json.loads(manifest_path.read_text())
+    patch = manifest_path.parent/manifest['patch']
 
     def git(*command):
         return subprocess.check_output(['git', '-C', str(source)]+list(command), text=True).strip()
@@ -45,7 +48,10 @@ def main():
             raise SystemExit('Post-application mismatch: '+name+'; inspect staged changes')
     print('Applied and staged the source fixes; every changed file matches the tested content.')
     print('Run python3 Tools/run_regression_suite.py in the source checkout.')
-    print('The bundled DLL is unchanged. New version-6 saves require a rebuilt DLL.')
+    if manifest.get('save_format', {}).get('older_readers_can_read_new_saves') is False:
+        print('The bundled DLL is unchanged. New version-6 saves require a rebuilt DLL.')
+    else:
+        print('This applies source changes only; it does not rebuild the DLL.')
 
 
 if __name__ == '__main__':

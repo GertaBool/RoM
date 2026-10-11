@@ -1,0 +1,753 @@
+diff --git a/Assets/CvGameCoreDLL/AIDecisionPolicy.h b/Assets/CvGameCoreDLL/AIDecisionPolicy.h
+index 344a3a7322bb43ba218399fe486de57c8bf531bb..e55d09e799e2c6e7dd14c57582b11045c7a8ad30 100644
+--- a/Assets/CvGameCoreDLL/AIDecisionPolicy.h
++++ b/Assets/CvGameCoreDLL/AIDecisionPolicy.h
+@@ -15,21 +15,17 @@ inline int deficitReserve(int goldRate, int runwayTurns)
+ 	return deficit * runwayTurns;
+ }
+ 
+-// gold minus (reserve * percent / 100). Same quotient as the 32-bit
+-// multiply-then-divide when that product fits; otherwise the reserve consumes
+-// a non-negative stock instead of overflowing the subtraction.
+-inline int goldAfterReserve(int gold, int reserve, int percent)
+-{
+-	if (reserve <= 0 || percent <= 0) return gold;
+-	const int quot = reserve / 100;
+-	const int rem = reserve % 100;
+-	if (quot > INT_MAX / percent) return gold > 0 ? 0 : gold;
+-	const int mainPart = quot * percent;
+-	const int extra = rem * percent / 100;
+-	if (mainPart > INT_MAX - extra) return gold > 0 ? 0 : gold;
+-	const int buffer = mainPart + extra;
+-	if (gold <= buffer) return gold > 0 ? 0 : gold;
+-	return gold - buffer;
++// Apply the speed percentage before clamping to the available gold. The
++// unscaled deficit fits in 64 bits; its product with percent need not. Check
++// the exact depletion threshold first, so the final multiply is bounded by
++// gold * 100 and preserves integer rounding without intermediate saturation.
++inline int goldAfterDeficitReserve(int gold, int goldRate, int runwayTurns, int percent)
++{
++	if (gold <= 0 || goldRate >= 0 || runwayTurns <= 0 || percent <= 0) return gold;
++	const long long reserve = -(long long)goldRate * runwayTurns;
++	const long long depletionThreshold = ((long long)gold * 100 + percent - 1) / percent;
++	if (reserve >= depletionThreshold) return 0;
++	return gold - (int)(reserve * percent / 100);
+ }
+ 
+ // Career rows are keyed by unit id, and the free list reuses a dead id.
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index ae959688d790b957e49043e36c5e56a1a378ab16..c7cdda9568a7e9f33e85d7ea60be5b1db1e01479 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -4018,12 +4018,8 @@ BuildingTypes CvCityAI::AI_bestBuildingThreshold(int iFocusFlags, int iMaxTurns,
+ /*                                                                                              */
+ /* City AI                                                                                      */
+ /************************************************************************************************/
+-				// BBAI TODO: Temp testing, remove once centralized building is working
+-				bool bWonderOk = false;
+-				//if( isHuman() || getOwner()%2 == 1 )
+-				//{
+-					bWonderOk = ((iFocusFlags == 0) || (iFocusFlags & BUILDINGFOCUS_WONDEROK) || (iFocusFlags & BUILDINGFOCUS_WORLDWONDER));
+-				//}
++				// City-local focus flags control whether wonder candidates are allowed.
++				const bool bWonderOk = ((iFocusFlags == 0) || (iFocusFlags & BUILDINGFOCUS_WONDEROK) || (iFocusFlags & BUILDINGFOCUS_WORLDWONDER));
+ 
+ 				if( bWonderOk ||
+ /************************************************************************************************/
+@@ -5822,89 +5818,6 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 			}
+ 		}
+ 	}
+-//	
+-//	// obsolete checks
+-//	bool bCanResearchObsoleteTech = false;
+-//	int iErasUntilObsolete = MAX_INT;
+-//	if (kBuilding.getObsoleteTech() != NO_TECH)
+-//	{
+-//		TechTypes eObsoleteTech = (TechTypes) kBuilding.getObsoleteTech();
+-//		FAssertMsg(eObsoleteTech == NO_TECH || !(GET_TEAM(getTeam()).isHasTech(eObsoleteTech)), "Team expected to not have the tech that obsoletes eBuilding");
+-//		iErasUntilObsolete = GC.getTechInfo(eObsoleteTech).getEra() - kOwner.getCurrentEra();
+-//		bCanResearchObsoleteTech = kOwner.canResearch(eObsoleteTech);
+-//	}
+-//
+-//	if (kBuilding.getSpecialBuildingType() != NO_SPECIALBUILDING)
+-//	{
+-//		TechTypes eSpecialBldgObsoleteTech = (TechTypes) GC.getSpecialBuildingInfo((SpecialBuildingTypes)(kBuilding.getSpecialBuildingType())).getObsoleteTech();
+-//		FAssertMsg(eSpecialBldgObsoleteTech == NO_TECH || !(GET_TEAM(getTeam()).isHasTech(eSpecialBldgObsoleteTech)), "Team expected to not have the tech that obsoletes eBuilding");
+-//		if (eSpecialBldgObsoleteTech != NO_TECH)
+-//		{
+-//			int iSpecialBldgErasUntilObsolete = GC.getTechInfo(eSpecialBldgObsoleteTech).getEra() - kOwner.getCurrentEra();
+-//
+-//			if (iSpecialBldgErasUntilObsolete < iErasUntilObsolete)
+-//			{
+-//				iErasUntilObsolete = iSpecialBldgErasUntilObsolete;
+-//			}
+-//
+-//			if (!bCanResearchObsoleteTech)
+-//			{
+-//				bCanResearchObsoleteTech = kOwner.canResearch(eSpecialBldgObsoleteTech);
+-//			}
+-//		}
+-//	}
+-//	
+-//	// tech path method commented out, it would be more accurate if we want to be so.
+-//	//int iObsoleteTechPathLength = 0;
+-//	//if (kBuilding.getObsoleteTech() != NO_TECH)
+-//	//{
+-//	//	iObsoleteTechPathLength = findPathLength(kBuilding.getObsoleteTech(), false);
+-//	//}
+-//
+-//	//if (kBuilding.getSpecialBuildingType() != NO_SPECIALBUILDING)
+-//	//{
+-//	//	TechTypes eSpecialBldgObsoleteTech = GC.getSpecialBuildingInfo((SpecialBuildingTypes)(kBuilding.getSpecialBuildingType())).getObsoleteTech();
+-//	//	int iSpecialBldgObsoleteTechPathLength = findPathLength(eSpecialBldgObsoleteTech, false);
+-//
+-//	//	if (iSpecialBldgObsoleteTechPathLength < iObsoleteTechPathLength)
+-//	//	{
+-//	//		iObsoleteTechPathLength = iSpecialBldgObsoleteTechPathLength;
+-//	//	}
+-//	//}
+-//	
+-//	// if we can research obsolete tech, then this almost no value
+-//	if (bCanResearchObsoleteTech)
+-//	{
+-//		iValue = std::min(16, (iValue + 31) / 32);
+-//	}
+-//	// if we are going obsolete in the next era, the current era, or even previous eras...
+-//	else if (iErasUntilObsolete < 2)
+-//	{
+-//		// do not care about obsolete if we are going cultural and there is a culture benefit post obsolesence
+-//		if (!bCulturalVictory1 || (kBuilding.getObsoleteSafeCommerceChange(COMMERCE_CULTURE) <= 0))
+-//		{
+-//			iValue++;
+-//			iValue /= 2;
+-//		}
+-//	}
+-
+-//	for (iI = 0; iI < GC.getNumBuildingInfos(); iI++)
+-//	{
+-//		if (!GET_TEAM(getTeam()).isHasTech((TechTypes)(GC.getBuildingInfo((BuildingTypes)iI).getObsoleteTech())))
+-//		{
+-//			if (GC.getBuildingInfo((BuildingTypes)iI).isBuildingClassNeededInCity(kBuilding.getBuildingClassType()))
+-//			{
+-//				iValue += AI_buildingValue((BuildingTypes)iI, iFocusFlags);
+-//			}
+-//
+-//			int iNumPrereqs = kOwner.getBuildingClassPrereqBuilding((BuildingTypes)iI, (BuildingClassTypes)kBuilding.getBuildingClassType()) - kOwner.getBuildingClassCount((BuildingClassTypes)kBuilding.getBuildingClassType());
+-//			if (iNumPrereqs > 0)
+-//			{
+-//				iValue += AI_buildingValue((BuildingTypes)iI, iFocusFlags) / iNumPrereqs;
+-//			}
+-//		}
+-//	}
+-
+ 	if (!canConstruct(eBuilding))
+ 	{
+ 		//This building is being constructed in some special way, 
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index e04d588d314877e295888193a56ce6c99dfa75a7..fc29bac366d09c7437d4757315b38103647afe62 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -3971,18 +3971,8 @@ void CvPlayer::doTurn()
+ 
+ 	doEspionagePoints();
+ 
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      05/08/09                                jdog5000      */
+-/*                                                                                              */
+-/* City AI                                                                                      */
+-/************************************************************************************************/
+-    // New function to handle wonder construction in a centralized manner
+-	GET_PLAYER(getID()).AI_doCentralizedProduction();
+ 	// Allocate liquid gold before city production resolves this turn.
+ 	GET_PLAYER(getID()).AI_doGoldHurry();
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                       END                                                  */
+-/************************************************************************************************/
+ 
+ 	for (pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
+ 	{
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.h b/Assets/CvGameCoreDLL/CvPlayer.h
+index d7712c01a5c63e5308bcc27887cdeeaee717484e..bcf49c8263a916da4438794aee0bae650c71e4e5 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.h
++++ b/Assets/CvGameCoreDLL/CvPlayer.h
+@@ -1188,15 +1188,6 @@ public:
+ 	virtual void AI_assignWorkingPlots() = 0;
+ 	virtual void AI_updateAssignWork() = 0;
+ 	virtual void AI_makeProductionDirty() = 0;
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      05/08/09                                jdog5000      */
+-/*                                                                                              */
+-/* City AI                                                                                      */
+-/************************************************************************************************/
+-	//virtual void AI_doCentralizedProduction() = 0;
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                       END                                                  */
+-/************************************************************************************************/
+ 	virtual void AI_conquerCity(CvCity* pCity) = 0;
+ 	virtual int AI_foundValue(int iX, int iY, int iMinUnitRange = -1, bool bStartingLoc = false) const = 0; // Exposed to Python
+ 	virtual bool AI_isCommercePlot(CvPlot* pPlot) const = 0;
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index decc2c5931c8d725e2081dc6d1c4cc07689bbd06..1133eb12bb6263199239ac95549147f315f632d2 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -1667,131 +1667,6 @@ void CvPlayerAI::AI_updateAssignWork()
+ 	}
+ }
+ 
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      05/08/09                                jdog5000      */
+-/*                                                                                              */
+-/* City AI                                                                                      */
+-/************************************************************************************************/
+-void CvPlayerAI::AI_doCentralizedProduction()
+-{
+-	PROFILE_FUNC();
+-
+-	CvCity* pLoopCity;
+-	int iLoop;
+-	int iI;
+-
+-	if( isHuman() )
+-	{
+-		return;
+-	}
+-
+-	if( isBarbarian() )
+-	{
+-		return;
+-	}
+-
+-	// BBAI TODO: Temp testing
+-	//if( getID() % 2 == 1 )
+-	//{
+-		return;
+-	//}
+-	
+-	// Determine number of cities player can use building wonders currently
+-	int iMaxNumWonderCities = 1 + getNumCities()/5;
+-	bool bIndustrious = (getMaxPlayerBuildingProductionModifier() > 0);
+-	bool bAtWar = (GET_TEAM(getTeam()).getAtWarCount(true) > 0);
+-
+-	if( bIndustrious )
+-	{
+-		iMaxNumWonderCities += 1;
+-	}
+-
+-	// Dagger?
+-	// Power?
+-	// Research?
+-
+-	if( bAtWar )
+-	{
+-		int iWarCapRatio = GET_TEAM(getTeam()).AI_getWarSuccessCapitulationRatio();
+-		if( iWarCapRatio < -90 )
+-		{
+-			iMaxNumWonderCities = 0;
+-		}
+-		else 
+-		{
+-			if( iWarCapRatio < 30 )
+-			{
+-				iMaxNumWonderCities -= 1;
+-			}
+-			if( iWarCapRatio < -50 )
+-			{
+-				iMaxNumWonderCities /= 2;
+-			}
+-		}
+-	}
+-
+-	if( isMinorCiv() && (GET_TEAM(getTeam()).getHasMetCivCount(false) > 1) )
+-	{
+-		iMaxNumWonderCities /= 2;
+-	}
+-
+-	iMaxNumWonderCities = std::min(iMaxNumWonderCities, getNumCities());
+-
+-	// Gather city statistics
+-	// Could rank cities based on gold, production here, could be O(n) instead of O(n^2)
+-	int iWorldWonderCities = 0;
+-	int iLimitedWonderCities = 0;
+-	int iNumDangerCities = 0;
+-	for (pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
+-	{
+-		if( pLoopCity->isProductionBuilding() )
+-		{
+-			if( isLimitedWonderClass((BuildingClassTypes)(GC.getBuildingInfo(pLoopCity->getProductionBuilding()).getBuildingClassType())))
+-			{
+-				iLimitedWonderCities++;
+-
+-				if (isWorldWonderClass((BuildingClassTypes)(GC.getBuildingInfo(pLoopCity->getProductionBuilding()).getBuildingClassType())))
+-				{
+-					iWorldWonderCities++;
+-				}
+-			}
+-		}
+-
+-		if( pLoopCity->isProductionProject() )
+-		{
+-			if( isLimitedProject(pLoopCity->getProductionProject()))
+-			{
+-				iLimitedWonderCities++;
+-				if( isWorldProject(pLoopCity->getProductionProject()))
+-				{
+-					iWorldWonderCities++;
+-				}
+-			}
+-		}
+-	}
+-
+-	// Check for any global wonders to build
+-	for (iI = 0; iI < GC.getNumBuildingClassInfos(); iI++)
+-	{
+-		if (isWorldWonderClass((BuildingClassTypes)iI))
+-		{
+-
+-			//canConstruct(
+-		}
+-	}
+-
+-	// Check for any projects to build
+-	for (iI = 0; iI < GC.getNumProjectInfos(); iI++)
+-	{
+-		
+-	}
+-
+-	// Check for any national/team wonders to build
+-	
+-}
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                       END                                                  */
+-/************************************************************************************************/
+ 
+ 
+ void CvPlayerAI::AI_makeProductionDirty()
+@@ -9734,7 +9609,6 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ int CvPlayerAI::AI_maxGoldTrade(PlayerTypes ePlayer) const
+ {
+ 	int iMaxGold;
+-	int iResearchBuffer;
+ 
+ 	FAssert(ePlayer != getID());
+ 
+@@ -9753,9 +9627,9 @@ int CvPlayerAI::AI_maxGoldTrade(PlayerTypes ePlayer) const
+ 
+ 		iMaxGold -= AI_getGoldTradedTo(ePlayer);
+ 
+-        iResearchBuffer = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();
+-		iMaxGold = std::min(iMaxGold, AIDecisionPolicy::goldAfterReserve(getGold(),
+-			AIDecisionPolicy::deficitReserve(calculateGoldRate(), 12), iResearchBuffer));
++		const int iResearchPercent = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();
++		iMaxGold = std::min(iMaxGold, AIDecisionPolicy::goldAfterDeficitReserve(
++			getGold(), calculateGoldRate(), 12, iResearchPercent));
+ 
+ 		iMaxGold = std::min(iMaxGold, getGold());
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.h b/Assets/CvGameCoreDLL/CvPlayerAI.h
+index 93467da93414b794f2e39258eec0844e8b2ba3a6..6ce5562a8d8ca3d41aa7d3fce80a5e5e80d1d2e9 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.h
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.h
+@@ -163,15 +163,6 @@ public:
+ 
+ 	void AI_makeProductionDirty();
+ 
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      05/08/09                                jdog5000      */
+-/*                                                                                              */
+-/* City AI                                                                                      */
+-/************************************************************************************************/
+-	void AI_doCentralizedProduction();
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                       END                                                  */
+-/************************************************************************************************/
+ 
+ 	void AI_conquerCity(CvCity* pCity);
+ 
+@@ -663,8 +654,7 @@ protected:
+ 	// exposed through CyPlayer.
+ 	mutable AIStrategicContextPolicy::Snapshot m_kAIStrategicContext;
+ 
+-	// Transient deterministic plan cache. It is rebuilt after loading, so this
+-	// first implementation does not alter the save-stream layout.
++	// Decision history and commitments, persisted by read/write.
+ 	int m_iAIAgenda;
+ 	int m_iAIAgendaScore;
+ 	int m_iAIAgendaUpdateTurn;
+diff --git a/Assets/Python/RoMEventManager.py b/Assets/Python/RoMEventManager.py
+index ba87adaffbdc6317bd07785a3853da3459576e70..ef3fec41b6ea83a59e1d227f6d41225d3abc7b4a 100644
+--- a/Assets/Python/RoMEventManager.py
++++ b/Assets/Python/RoMEventManager.py
+@@ -254,45 +254,27 @@ class RoMEventManager:
+ 		self.aiBuildingUpgradeLine_Upgrade_InfoTypeNum = upgrades
+ 		self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum = obsolete
+ 
+-	def onLoadGame(self, argsList):
+-		self.augustusAIProfiler.initialize(False)
+-		self.settlementTrainingProfiler.initialize(False)
+-
++	def _initializeGameData(self, newGame):
++		# XML is ready at load/start, but not when this manager is constructed.
++		self.augustusAIProfiler.initialize(newGame)
++		self.settlementTrainingProfiler.initialize(newGame)
+ 		self._rebuildBuildingUpgradeLines()
+-
+ 		self.iBUILDING_CRUSADE = gc.getInfoTypeForString("BUILDING_CRUSADE")
+ 		self.iBUILDING_DJENNE = gc.getInfoTypeForString("BUILDING_DJENNE")
+ 		self.iBUILDING_WORLD_BANK = gc.getInfoTypeForString("BUILDING_WORLD_BANK")
+-#		self.iBUILDING_ASCENSION_GATE = gc.getInfoTypeForString("BUILDING_ASCENSION_GATE")
+ 		self.iTECH_KNOWLEDGE_MANAGEMENT = gc.getInfoTypeForString("TECH_KNOWLEDGE_MANAGEMENT")
+ 		self.iTECH_APPLIED_ECONOMICS = gc.getInfoTypeForString("TECH_APPLIED_ECONOMICS")
+ 		self.iTECH_SENTIENT_EARTH = gc.getInfoTypeForString("TECH_SENTIENT_EARTH")
+ 		self.iPROJECT_EDEN = gc.getInfoTypeForString("PROJECT_EDEN")
+-#		self.iVICTORY_SCIENTIFIC = gc.getInfoTypeForString("VICTORY_SCIENTIFIC")
+ 		self.iUNIT_CRUSADER = gc.getInfoTypeForString("UNIT_CRUSADER")
+ 		self.iBUILDING_NANITE_DEFUSER = gc.getInfoTypeForString("BUILDING_NANITE_DEFUSER")
+ 		self.iTECH_FUNDAMENTALISM = gc.getInfoTypeForString("TECH_FUNDAMENTALISM")
+ 
+-	def onGameStart(self, argsList):
+-		'Called at the start of the game'
+-		self.augustusAIProfiler.initialize(True)
+-		self.settlementTrainingProfiler.initialize(True)
++	def onLoadGame(self, argsList):
++		self._initializeGameData(False)
+ 
+-		# init building upgrade lines, can not be done earlier as the game inits python before it inits xml...
+-		self._rebuildBuildingUpgradeLines()
+-		# def onBuildingBuilt / Additional tests variable
+-		self.iBUILDING_CRUSADE = gc.getInfoTypeForString("BUILDING_CRUSADE")
+-		self.iBUILDING_DJENNE = gc.getInfoTypeForString("BUILDING_DJENNE")
+-		self.iBUILDING_WORLD_BANK = gc.getInfoTypeForString("BUILDING_WORLD_BANK")
+-#		self.iBUILDING_ASCENSION_GATE = gc.getInfoTypeForString("BUILDING_ASCENSION_GATE")
+-		self.iTECH_KNOWLEDGE_MANAGEMENT = gc.getInfoTypeForString("TECH_KNOWLEDGE_MANAGEMENT")
+-		self.iTECH_APPLIED_ECONOMICS = gc.getInfoTypeForString("TECH_APPLIED_ECONOMICS")
+-		self.iTECH_SENTIENT_EARTH = gc.getInfoTypeForString("TECH_SENTIENT_EARTH")
+-		self.iPROJECT_EDEN = gc.getInfoTypeForString('PROJECT_EDEN')
+-#		self.iVICTORY_SCIENTIFIC = gc.getInfoTypeForString("VICTORY_SCIENTIFIC")
+-		self.iUNIT_CRUSADER = gc.getInfoTypeForString("UNIT_CRUSADER")
+-		self.iBUILDING_NANITE_DEFUSER = gc.getInfoTypeForString("BUILDING_NANITE_DEFUSER")
+-		self.iTECH_FUNDAMENTALISM = gc.getInfoTypeForString("TECH_FUNDAMENTALISM")
++	def onGameStart(self, argsList):
++		self._initializeGameData(True)
+ 
+ 	def onBeginPlayerTurn(self, argsList):
+ 		'Called at the beginning of a players turn'
+@@ -310,19 +292,7 @@ class RoMEventManager:
+ 						iGold = pPlayer.getGold( )
+ 						pPlayer.changeGold( iGold//100 )
+ 		
+-		# Scientific Victory when Ascension Gate is found from player city ie. it has been built
+-# Rise of Mankind 2.92 - obsolete code block
+-#		if CyGame().isVictoryValid(self.iVICTORY_SCIENTIFIC) :
+-#			if gc.getTeam(pPlayer.getTeam()).isHasTech(self.iTECH_SENTIENT_EARTH):
+-#				for iCity in range(pPlayer.getNumCities()):
+-#					ppCity = pPlayer.getCity(iCity)
+-#					if ppCity.getNumActiveBuilding(self.iBUILDING_ASCENSION_GATE) == true:
+-#						CyGame().setWinner(pPlayer.getTeam(), self.iVICTORY_SCIENTIFIC)
+-# Rise of Mankind 2.92
+-
+-		# Crusade Start ##
+-#		test = ( iGameTurn % 14 )
+-#		BugUtil.info ( "crusade test: %d", test) 
++		# Crusade reinforcements follow the existing game-length cadence.
+ 		if gc.getTeam(pPlayer.getTeam()).isHasTech(self.iTECH_FUNDAMENTALISM):
+ 			obsoleteTech = gc.getBuildingInfo(self.iBUILDING_CRUSADE).getObsoleteTech()
+ 			if ( obsoleteTech == -1 or not gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech) ):
+@@ -333,35 +303,20 @@ class RoMEventManager:
+ 						iX = ppCity.getX()
+ 						iY = ppCity.getY()
+ 						estiEnd = CyGame().getEstimateEndTurn()
+-						if ( estiEnd >= 1800 ):
+-							if ( iGameTurn % 16 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 1400 ):
+-							if ( iGameTurn % 14 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 1000 ):
+-							if ( iGameTurn % 12 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 700 ):
+-							if ( iGameTurn % 8 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 500 ):
+-							if ( iGameTurn % 6 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 300 ):
+-							if ( iGameTurn % 4 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
++						if estiEnd >= 1800:
++							interval = 16
++						elif estiEnd >= 1400:
++							interval = 14
++						elif estiEnd >= 1000:
++							interval = 12
++						elif estiEnd >= 700:
++							interval = 8
++						elif estiEnd >= 500:
++							interval = 6
+ 						else:
+-							if ( iGameTurn % 4 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-		# Crusade End #
++							interval = 4
++						if iGameTurn % interval == 0:
++							pPlayer.initUnit(self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION)
+ 
+ 	def onBuildingBuilt(self, argsList):
+ 		'Building Completed'
+diff --git a/Docs/OPERATION_SUPPLY_FIXES.md b/Docs/OPERATION_SUPPLY_FIXES.md
+index b605e0bc3459be241424ae9747fe2909940aa982..2676ddf5ecd2d67d5ce77634f2eda9d2876f6f9b 100644
+--- a/Docs/OPERATION_SUPPLY_FIXES.md
++++ b/Docs/OPERATION_SUPPLY_FIXES.md
+@@ -41,13 +41,15 @@ random draw. The draw count does not change. A failed roll and a failed
+ `AI_doGoldHurry` negated `calculateGoldRate` and multiplied by the runway.
+ `AI_maxGoldTrade` did the same with a 12-turn buffer and then the speed
+ percent. Negating `INT_MIN` is undefined, and the products overflow signed
+-32-bit. `deficitReserve` and `goldAfterReserve` saturate. For values that
+-already fit, both match the old multiply-then-divide.
++32-bit. `deficitReserve` saturates the hurry reserve. The follow-up cleanup
++uses `goldAfterDeficitReserve` for trade: it applies the speed percentage
++before clamping, avoids overflow even in the fractional remainder, and
++preserves integer rounding. See `SOURCE_CLEANUP.md` for the reproduced cases.
+ 
+ ## Not changed on purpose
+ 
+ Commissioning and resurrecting great generals with `initUnit`, without
+ spending great-person points, is explicit in `AI_updateMilitaryOperations`.
+ That is a balance choice, not an accidental inverted condition. Removing it
+-is a design change and is not in this patch. `AI_doCentralizedProduction`
+-still returns immediately; the body below it is unfinished.
++is a design change and is not in this patch. The subsequent cleanup removes
++the unconditionally disabled `AI_doCentralizedProduction` stub and its caller.
+diff --git a/Docs/SOURCE_CLEANUP.md b/Docs/SOURCE_CLEANUP.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..280963dc52ba697a4dd912e48b081a19006fc70d
+--- /dev/null
++++ b/Docs/SOURCE_CLEANUP.md
+@@ -0,0 +1,41 @@
++# Cleanup following the current upstream fixes
++
++Base: GitLab `5e6d03591731f64d589661f4f329aa28e8c71a7d`. This includes the
++source-correctness fixes and the newer operation-supply, general-career and
++gold-reserve changes. Do not apply the older standalone supply patch over it.
++
++Removed the disabled centralized-production method, its declaration and caller,
++the commented virtual declaration, and abandoned commented building valuations.
++City-local wonder eligibility and the active gold-hurry phase remain in place.
++The removed method returned before its unfinished planning body; its profiling
++entry also disappears. No object fields, virtual slots or save fields change.
++
++Load and game-start initialization now share one method, preserving profiler
++flags and call order, fresh upgrade-pair rebuilding, and runtime type lookups.
++Crusade spawning selects the existing interval once and uses one spawn call:
++4 turns below an estimated 500-turn game, then 6/8/12/14/16 at thresholds
++500/700/1000/1400/1800. City iteration and the obsolete-tech guard are preserved.
++
++## Reserve arithmetic correction
++
++The upstream tests passed, but two additional cases failed:
++
++* `goldAfterReserve(INT_MAX, 99, INT_MAX)` overflowed in `rem * percent`.
++* Gold 2,000,000,000, rate -250,000,000, runway 12 and speed 50% left
++  926,258,177 available instead of 500,000,000 because the unscaled deficit
++  was saturated before applying the percentage.
++
++The replacement computes the unscaled deficit in 64 bits and compares it with
++`ceil(gold * 100 / percent)` before the final multiplication. Below that cutoff,
++the product is less than `gold * 100`; at or above it, available gold is zero.
++Thus it evaluates the intended integer formula without overflowing even when
++the unrestricted three-factor product would exceed 64 bits. Nonpositive gold,
++nonnegative rates, and nonpositive runway/percentage retain the existing guards.
++
++## Validation
++
++Run `python3 Tools/run_regression_suite.py`. The suite includes 4,352 reserve
++cases against an independent Python integer oracle, with C++03 and fatal UBSan
++checks, and 70 Crusade boundary scenarios plus lifecycle-order checks.
++These isolated tests do not build the Windows DLL or execute the BTS host.
++The source remains on save format 6; this cleanup adds no format migration.
+diff --git a/Tools/test_operation_supply.py b/Tools/test_operation_supply.py
+index ed365a29489dc52bd146a8c6c7399e8e1ec10bf9..484cbd9f025ba5a97f1e9c8cc895ea95d80c6f63 100644
+--- a/Tools/test_operation_supply.py
++++ b/Tools/test_operation_supply.py
+@@ -1,6 +1,8 @@
+ #!/usr/bin/env python3
+ """Field supply, dead-commander memory, and saturating gold reserves."""
+ from pathlib import Path
++import itertools
++import random
+ import subprocess
+ import tempfile
+ import unittest
+@@ -70,7 +72,8 @@ class OperationSupplyTests(unittest.TestCase):
+         )
+         self.assertIn("deficitReserve(", hurry)
+         self.assertNotIn("-calculateGoldRate()", hurry)
+-        self.assertIn("goldAfterReserve(", trade)
++        self.assertIn("goldAfterDeficitReserve(", trade)
++        self.assertNotIn("deficitReserve(", trade)
+         self.assertNotIn("-calculateGoldRate()", trade)
+ 
+     def test_compiled_boundaries(self):
+@@ -85,13 +88,14 @@ int main() {
+     assert(AIDecisionPolicy::deficitReserve(-10, 0) == 0);
+     assert(AIDecisionPolicy::deficitReserve(INT_MIN, 4) == INT_MAX);
+     assert(AIDecisionPolicy::deficitReserve(-2000000000, 3) == INT_MAX);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 120, 100) == 80);
+-    assert(AIDecisionPolicy::goldAfterReserve(100, 120, 100) == 0);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 0, 300) == 200);
+-    assert(AIDecisionPolicy::goldAfterReserve(50, 10, 0) == 50);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 120, 300) == 0);
+-    assert(AIDecisionPolicy::goldAfterReserve(-5, 120, 100) == -5);
+-    assert(AIDecisionPolicy::goldAfterReserve(100, INT_MAX, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, -10, 12, 100) == 80);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(100, -10, 12, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, 0, 12, 300) == 200);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(50, -10, 12, 0) == 50);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, -10, 12, 300) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(-5, -10, 12, 100) == -5);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(100, INT_MIN, 12, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(2000000000, -250000000, 12, 50) == 500000000);
+     assert(AIDecisionPolicy::nextLossCareerKey(0) == -1);
+     assert(AIDecisionPolicy::nextLossCareerKey(4) == -1);
+     assert(AIDecisionPolicy::nextLossCareerKey(-1) == -2);
+@@ -116,12 +120,50 @@ int main() {
+             compiled = Path(tmp) / "supply"
+             result = subprocess.run(
+                 ["g++", "-std=c++03", "-Wall", "-Wextra", "-Werror", "-fsanitize=undefined",
++                 "-fno-sanitize-recover=undefined",
+                  "-I" + str(DLL), "-o", str(compiled), str(path)],
+                 capture_output=True, text=True)
+             self.assertEqual(result.returncode, 0, result.stderr)
+             ran = subprocess.run([str(compiled)], capture_output=True, text=True)
+             self.assertEqual(ran.returncode, 0, ran.stderr + ran.stdout)
+ 
++    def test_gold_trade_reserve_matches_integer_oracle(self):
++        low,high=-(2**31),2**31-1
++        cases=list(itertools.product(
++            (low,-5,0,1,50,200,2000000000,high),
++            (low,-250000000,-100,-1,0,1,high),
++            (-1,0,1,3,12,high),(-1,0,1,50,100,300,high)))
++        rng=random.Random(20261011)
++        cases.extend((rng.randrange(1,high+1),-rng.randrange(1,high+2),
++                      rng.choice((1,3,12,10000,high)),rng.choice((1,25,50,100,300,high)))
++                     for _ in range(2000))
++        # Python integers give an independent exact reference, including products
++        # too large for signed 64-bit arithmetic before the final clamp.
++        expected=[gold if gold<=0 or rate>=0 or turns<=0 or percent<=0 else
++                  max(0,gold-((-rate)*turns*percent//100))
++                  for gold,rate,turns,percent in cases]
++        program='''
++#include "AIDecisionPolicy.h"
++#include <iostream>
++int main(){int gold,rate,turns,percent;
++    while(std::cin>>gold>>rate>>turns>>percent)
++        std::cout<<AIDecisionPolicy::goldAfterDeficitReserve(gold,rate,turns,percent)<<"\\n";
++}
++'''
++        with tempfile.TemporaryDirectory() as tmp:
++            path,exe=Path(tmp)/'reserve.cpp',Path(tmp)/'reserve'
++            path.write_text(program)
++            subprocess.run(['g++','-std=c++03','-Wall','-Wextra','-Werror',
++                            '-fsanitize=undefined','-fno-sanitize-recover=undefined',
++                            '-I'+str(DLL),str(path),'-o',str(exe)],check=True)
++            data=''.join(' '.join(map(str,case))+'\n' for case in cases)
++            ran=subprocess.run([str(exe)],input=data,text=True,capture_output=True,check=True)
++            actual=[int(line) for line in ran.stdout.splitlines()]
++        self.assertEqual(len(actual),len(cases))
++        for case,want,got in zip(cases,expected,actual):
++            self.assertEqual(got,want,case)
++        print('Verified %d gold-reserve cases against exact integer arithmetic.'%len(cases))
++
+ 
+ if __name__ == "__main__":
+     unittest.main(verbosity=2)
+diff --git a/Tools/test_review_correctness.py b/Tools/test_review_correctness.py
+index 65fb22875f6edd1a83b3b93f32625861d13a2357..5c5396de5e8d32dd306ca26c6298280fd6cb7c87 100644
+--- a/Tools/test_review_correctness.py
++++ b/Tools/test_review_correctness.py
+@@ -252,7 +252,7 @@ class PythonTests(unittest.TestCase):
+         a=self.source.index('\t\tself.asBuildingUpgradeLine_Upgrade_Name =')
+         b=self.source.index('\t\tself.iBUILDING_CRUSADE =',a)
+         exec(textwrap.dedent(self.source[a:b]), {'self':self.manager})
+-        for name in ('_rebuildBuildingUpgradeLines','onLoadGame','onGameStart','onBeginPlayerTurn'):
++        for name in ('_rebuildBuildingUpgradeLines','_initializeGameData','onLoadGame','onGameStart','onBeginPlayerTurn'):
+             if '\tdef '+name+'(' in self.source:
+                 exec(python_method(self.source,name),self.ns)
+                 setattr(self.manager,name,types.MethodType(self.ns[name],self.manager))
+@@ -281,7 +281,35 @@ class PythonTests(unittest.TestCase):
+         self.assertEqual(self.manager.aiBuildingUpgradeLine_Upgrade_InfoTypeNum,old_up)
+         self.assertEqual(self.manager.aiBuildingUpgradeLine_Obsolete_InfoTypeNum,old_ob)
+ 
+-    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False):
++    def test_load_and_start_preserve_profiler_and_lookup_order(self):
++        events=[]
++        self.manager.augustusAIProfiler=types.SimpleNamespace(
++            initialize=lambda fresh:events.append(('augustus',fresh)))
++        self.manager.settlementTrainingProfiler=types.SimpleNamespace(
++            initialize=lambda fresh:events.append(('settlement',fresh)))
++        def upgrade_lookup(_f,_n,name):
++            events.append(('upgrade',name))
++            return self.lookup(name)
++        def type_lookup(name):
++            events.append(('type',name))
++            return self.lookup(name)
++        self.ns['CvUtil'].findInfoTypeNum=upgrade_lookup
++        self.gc.getInfoTypeForString=type_lookup
++        expected_types=['BUILDING_CRUSADE','BUILDING_DJENNE','BUILDING_WORLD_BANK',
++            'TECH_KNOWLEDGE_MANAGEMENT','TECH_APPLIED_ECONOMICS','TECH_SENTIENT_EARTH',
++            'PROJECT_EDEN','UNIT_CRUSADER','BUILDING_NANITE_DEFUSER','TECH_FUNDAMENTALISM']
++        previous=None
++        for event,fresh in (('onLoadGame',False),('onGameStart',True),('onLoadGame',False)):
++            events[:]=[]
++            getattr(self.manager,event)(())
++            self.assertEqual(events[:2],[('augustus',fresh),('settlement',fresh)])
++            self.assertEqual([kind for kind,_ in events[2:168]],['upgrade']*166)
++            self.assertEqual(events[168:],[('type',name) for name in expected_types])
++            if previous is not None:self.assertEqual(events[2:],previous)
++            previous=events[2:]
++
++    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False,
++                     turn=4, estimated_end=300):
+         self.manager.onLoadGame(())
+         bank=self.manager.iBUILDING_WORLD_BANK;church=self.manager.iBUILDING_CRUSADE
+         owned={}
+@@ -310,10 +338,10 @@ class PythonTests(unittest.TestCase):
+         exec(python_method(helper,'getCityList'),helper_ns)
+         wrapper=types.SimpleNamespace(player=player,getID=lambda:0)
+         wrapper.getCityList=types.MethodType(helper_ns['getCityList'],wrapper)
+-        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:300),
++        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:estimated_end),
+                        UnitAITypes=types.SimpleNamespace(UNITAI_ATTACK_CITY=1),
+                        DirectionTypes=types.SimpleNamespace(NO_DIRECTION=-1))
+-        self.manager.onBeginPlayerTurn((4,0))
++        self.manager.onBeginPlayerTurn((turn,0))
+         return gold[0],spawn
+ 
+     def test_sparse_city_receives_bank_interest(self):
+@@ -332,6 +360,18 @@ class PythonTests(unittest.TestCase):
+         self.assertEqual(len(spawn),1)
+         self.assertEqual(spawn[0][1:3],(2,9))
+ 
++    def test_crusade_cadence_at_game_length_boundaries(self):
++        for end,interval in ((0,4),(299,4),(300,4),(499,4),(500,6),(699,6),
++                             (700,8),(999,8),(1000,12),(1399,12),(1400,14),
++                             (1799,14),(1800,16),(4000,16)):
++            for turn in (0,interval-1,interval,interval+1,2*interval):
++                with self.subTest(estimated_end=end,turn=turn):
++                    gold,spawn=self.turn_fixture([(0,True),(2,True)],crusade=True,
++                                                 turn=turn,estimated_end=end)
++                    self.assertEqual(gold,1000)
++                    expected=[] if turn in (interval-1,interval+1) else [(0,9),(2,9)]
++                    self.assertEqual([unit[1:3] for unit in spawn],expected)
++
+ 
+ if __name__=='__main__':
+     unittest.main(argv=[__file__]+remaining,verbosity=2)

@@ -1,5 +1,56 @@
 # Tested source fixes
 
+## Current source cleanup
+
+GitLab `main` was reviewed at
+[`5e6d035`](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/commit/5e6d03591731f64d589661f4f329aa28e8c71a7d).
+It already contains the original correctness fixes and newer supply, career and
+reserve corrections. The older patches below are historical; do not apply them
+over this revision. In particular, GitLab has superseded patch 0002's unsafe
+distance shortcut and added further career/reserve handling.
+
+[0003-current-source-cleanup.patch](0003-current-source-cleanup.patch) builds on
+that current source. It removes **291 net runtime-source lines**:
+
+* Delete the disabled centralized-production stub, caller and declarations.
+* Remove abandoned commented building valuations and obsolete event code.
+* Share load/start initialization while preserving profiler and lookup order.
+* Collapse Crusade spawning to one call with the existing cadence and city order.
+* Correct two reserve-arithmetic edge cases: overflow in the fractional remainder
+  and premature clamping before speed scaling. Supply-demand, military operation,
+  general-loss and save read/write bodies remain unchanged.
+
+The earlier reserve code left 926,258,177 gold available in a case whose exact
+result is 500,000,000; an extreme percentage also triggered UBSan. See
+[the reproduced failures](current-reserve-before.log).
+
+From this GitHub checkout, against a clean GitLab checkout at exactly `5e6d035`:
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/current-source-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/current-source-manifest.json
+```
+
+The helper verifies base revision, clean state, patch checksum and file digests;
+it applies and stages the patch. Run `python3 Tools/run_regression_suite.py` from
+the source checkout. Omitting `--manifest` still selects the original patch below.
+
+Both the [upstream baseline](current-upstream-regression.log) and
+[updated source](current-cleanup-regression.log) pass all **16 regression programs**.
+Updated checks include 4,352 reserve cases against an independent exact-integer
+oracle, 70 Crusade boundary scenarios, and load/start ordering. Native arithmetic
+tests use C++03 and fatal UBSan checks. [Structural checks](current-cleanup-structure.log)
+verify the removal's scope and preservation of the new upstream operation logic.
+The [manifest](current-source-manifest.json) records all changed file digests;
+[application validation](current-patch-validation.log) checks the staged tree
+against the tested source commit.
+
+This patch is source commit `a95a654dab1613f611592dd91b873358c1830d9e`, represented
+here as an apply-ready diff. It has not been pushed to GitLab. There is no DLL
+build or BTS engine run, and no additional save-format change beyond version 6.
+
+## Historical source-correctness patch
+
 These patches fix six groups of source defects against GitLab revision
 `1ab4f99a76adb530f86b278390ab8139ef41cc96`. They have been applied and tested in
 the source checkout. This GitHub repository holds the apply-ready patch, its
@@ -87,7 +138,10 @@ implementation. Unresolved XML callbacks, profiler schema issues and suspected
 cache/pathfinding behavior also remain in the assessment backlog. The historical
 review and its reproduction scripts still describe the original pinned source.
 
-## Operation supply
+## Historical operation-supply patch
+
+**Superseded by current GitLab source.** Retained with its original bytes for
+provenance; use the current-source cleanup instructions above for `5e6d035`.
 
 [0002-operation-supply.patch](0002-operation-supply.patch) is independent of the patch above. The hunks do not overlap, so either order works on revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`. It does not change the save format, and `fixes/apply.py` does not install it.
 

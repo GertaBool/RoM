@@ -2,6 +2,8 @@
 
 Source corrections are now available in [the tested patch](../fixes/README.md). Keep its behavior and source identity separate from the original baseline below; in particular, its version-6 saves preserve agenda history. Compatibility scenarios must declare which revision they target.
 
+The [latest source cleanup](../fixes/README.md#current-source-cleanup) is based on GitLab `5e6d035`, including its newer supply/career fixes. It preserves save format 6 and consolidates event initialization and Crusade spawning; use its manifest when targeting that source rather than the historical baseline below.
+
 The [algorithm study](../research/algorithms/README.md) maps exact optimization, bounded search and offline learning to these simulation milestones, with complexity analysis and reproducible C++03 experiments.
 
 The [architecture critique](../research/architecture/README.md) adds measured decision-routine sizes, probes of hidden query effects and callback failure semantics, and a staged design for separating observation, planning and execution.

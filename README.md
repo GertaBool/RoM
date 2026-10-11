@@ -2,8 +2,10 @@
 
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
 
-- [Tested source fixes: patch, application helper and validation](fixes/README.md)
-- [Operation supply, dead-general careers, and saturating gold reserve](fixes/0002-operation-supply.patch) — independent of the save-format patch; sha256 `fb4deb2b3563eaa7a1169ff66b4ab812f246b2127ac2fe0e5da1015be23a2a52`; four contract tests; no save bump and no DLL
+The latest cleanup targets newer GitLab revision `5e6d03591731f64d589661f4f329aa28e8c71a7d`, which includes the recent supply/career fixes and the original correctness patch. The historical assessments retain their original source identity.
+
+- [Current source cleanup: 291 fewer runtime lines, reserve correction, 16 passing regression programs](fixes/README.md#current-source-cleanup)
+- [Original source fixes and operation-supply patch history](fixes/README.md#historical-source-correctness-patch)
 - [Critical architecture assessment: hidden state, rule ownership and staged refactoring](research/architecture/README.md)
 - [AI algorithm study: exact optimization, bounded search, evolutionary methods and C++03 costs](research/algorithms/README.md)
 - [Detailed AI, turns, pathfinding, combat and diplomacy guide](docs/review/AI_AND_GAME_LOGIC.md)
@@ -16,7 +18,7 @@ Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https:
 - [Interactive source explorer](docs/review/explorer.html) — download the HTML and open it in a browser; GitHub's file view displays its source.
 - [Regression output](docs/review/regression.log) and [reproduced findings](docs/review/audit-findings.json)
 
-The reviewed revision contains 252 Python files, 956 XML files and 277 native source/header files. The review combines whole-tree structural analysis with focused behavioral inspection. The original regression baseline had 12 passing programs and 2 failing programs; the patched source passes all 15 programs, including the new targeted regressions. The BTS executable and a complete headless simulator were not run.
+The reviewed revision contains 252 Python files, 956 XML files and 277 native source/header files. The review combines whole-tree structural analysis with focused behavioral inspection. The original regression baseline had 12 passing programs and 2 failing programs; the first correctness patch passed all 15 programs. The current upstream and cleanup revisions pass 16 programs. The BTS executable and a complete headless simulator were not run.
 
 **The bundled DLL is older than the source**, as confirmed by the repository owner. These reports assess the pinned source. In-game comparisons require a rebuilt DLL with recorded source/build provenance; the existing binary is not an oracle for the reviewed code. See [the provenance record](docs/review/source-binary-provenance.json).
 

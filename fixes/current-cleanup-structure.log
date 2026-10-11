@@ -1,0 +1,7 @@
+CvCityAI.cpp: remaining token sequence matches the intended local cleanup
+CvPlayer.cpp: remaining token sequence matches the intended local cleanup
+CvPlayer.h: remaining token sequence matches the intended local cleanup
+CvPlayerAI.h: remaining token sequence matches the intended local cleanup
+CvPlayerAI.cpp: all tokens outside the removed no-op and corrected gold-trade method are preserved
+Save read/write, military operations, general loss records and supply-demand bodies are byte-identical after newline normalization
+Python 2-compatible grammar parse passed for RoMEventManager.py

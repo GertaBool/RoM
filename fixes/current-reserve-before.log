@@ -1,0 +1,5 @@
+premature_saturation exit=0
+926258177
+remainder_overflow exit=1
+/workspace/rise-of-mankind/Assets/CvGameCoreDLL/AIDecisionPolicy.h:28:24: runtime error: signed integer overflow: 99 * 2147483647 cannot be represented in type 'int'
+Exact intended remaining gold for the first case: 500000000. Source: GitLab 5e6d035.

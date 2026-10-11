@@ -12,6 +12,11 @@ is discussed separately. The executable bodies used by the three new probes are
 unchanged in patched revision `c5cb68778f4da58ecdd8ecd218a829da1e09cc2f`.
 The bundled DLL is older than the source; no engine run or rebuilt DLL is claimed.
 
+The subsequent [current-source cleanup](../../fixes/README.md#current-source-cleanup)
+removes the disabled production stub and redundant event code on GitLab `5e6d035`,
+while preserving its newer supply/career changes. The measurements and probes
+below remain an assessment of the original pinned revision.
+
 Read this alongside the [behavior guide](../../docs/review/AI_AND_GAME_LOGIC.md),
 [algorithm study](../algorithms/README.md), and [simulation contracts](../../simulation/README.md).
 The critique distinguishes three kinds of evidence:
