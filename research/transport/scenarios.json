@@ -1,0 +1,78 @@
+{
+  "source_base": "19e4d59e0a8fc5dc138de5108d8e921e95d28ba1",
+  "tested_source_commit": "a9003cae719e69456e698905d44a28a4f508199a",
+  "engine_replayed": false,
+  "required_trace_fields": [
+    "game_turn",
+    "player_id",
+    "unit_update_order",
+    "unit_id_with_generation",
+    "group_id",
+    "transport_id",
+    "cargo_ids_and_roles",
+    "remaining_moves",
+    "mission_type",
+    "mission_plot",
+    "incoming_load_claims",
+    "visible_enemies",
+    "candidate_site_values",
+    "host_route_results",
+    "transition_reason"
+  ],
+  "scenarios": [
+    {
+      "id": "split_manifest",
+      "given": "One settler on hull A; four attack escorts on idle hull B at same port; spare capacity and optional claimant for A.",
+      "expect": "One escort transfers to A; party groups; surplus claim clears; A sails to a committed reachable site.",
+      "fragment_checked": true
+    },
+    {
+      "id": "boarding_then_landing",
+      "given": "Escort exhausts movement while loading; ship can sail.",
+      "expect": "Sail now; wait at coast until all cargo can move; land settler and escort together.",
+      "fragment_checked": true
+    },
+    {
+      "id": "same_landmass",
+      "given": "Same coastal site: 12 turns walking, two sailing plus transfers.",
+      "expect": "Ferry wins; area identity alone cannot unload the settler.",
+      "fragment_checked": true
+    },
+    {
+      "id": "group_head",
+      "given": "Escort-only civilian head hull with loaded settler follower.",
+      "expect": "Follower separates, retains destination and runs civilian dispatch independently.",
+      "fragment_checked": true
+    },
+    {
+      "id": "opening",
+      "given": "Turn-zero city has actionable water improvement, trainable workboat, no guards or local enemy attack.",
+      "expect": "Workboat considered before javelineer/first-garrison branch.",
+      "fragment_checked": true
+    },
+    {
+      "id": "scheduler_permutations",
+      "given": "Permute settler, donor hull, recipient hull and escort updates at port.",
+      "expect": "No duplicate claims, lost parties, repeated unload/reload loop or unreasoned idle turn.",
+      "fragment_checked": false
+    },
+    {
+      "id": "route_invalidation",
+      "given": "Host border, enemy, terrain or settlement changes after commitment; save/reload in transit.",
+      "expect": "Mission persistence and replanning agree with engine trace; no illegal landing.",
+      "fragment_checked": false
+    },
+    {
+      "id": "pickup_timeout",
+      "given": "Required escort never arrives; no alternate assignment.",
+      "expect": "Measure and eliminate unbounded legacy pickup retries with a persistent lease/cooldown policy.",
+      "fragment_checked": false
+    },
+    {
+      "id": "fleet_demand",
+      "given": "Several idle galleys, feasible civilian jobs and pending production.",
+      "expect": "Assign compatible idle capacity before ordering additional hulls; demand tied to jobs.",
+      "fragment_checked": false
+    }
+  ]
+}

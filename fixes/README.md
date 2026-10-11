@@ -1,8 +1,43 @@
 # Tested source fixes
 
+## Opening development and settler voyages
+
+[0005-opening-settler-voyages.patch](0005-opening-settler-voyages.patch) targets
+**clean GitLab `19e4d59e0a8fc5dc138de5108d8e921e95d28ba1`**. GitLab advanced during
+this investigation: that revision already includes the previous runtime fixes.
+Use this patch on the new base; do not stack the historical patches below.
+It also restores their regression tests, which the new upstream commit omitted.
+
+The [investigation and algorithm](../research/transport/README.md) cover why
+settler ships can stall: incompatible role gates, optional loading reservations,
+per-hull/group confusion and destination selection that ignores sailing time.
+The replacement assembles a party, compares delivery routes, commits a site,
+sails without waiting for optional cargo, and keeps the landing party together.
+Opening work boats/workers are considered before the first-garrison branch.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/voyages-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/voyages-manifest.json
+```
+
+Then run `python3 Tools/run_regression_suite.py` in the source checkout and
+rebuild the Windows DLL. The helper verifies the clean base and hashes, then
+applies **and stages** the source changes. Save format 6 is unchanged.
+
+Validation: **19 regression programs pass**, including six new opening/transport
+tests. The native probes execute production fragments using C++03, warnings as
+errors and fatal UBSan. See the [manifest](voyages-manifest.json),
+[suite output](voyages-regression.log), and [application verification](voyages-patch-validation.log).
+A clean application must reproduce source commit `a9003cae719e69456e698905d44a28a4f508199a`.
+
+**No full DLL build or BTS replay was performed.** Distant pickup, idle-fleet
+demand, persistent retry limits and engine scheduling remain explicit validation
+or implementation work. Runtime commits have not been pushed to GitLab.
+
+
 ## Carthage autoplay coordination
 
-[0004-autoplay-coordination.patch](0004-autoplay-coordination.patch) is the latest
+[0004-autoplay-coordination.patch](0004-autoplay-coordination.patch) is the historical
 **cumulative** patch for clean GitLab source at
 `5e6d03591731f64d589661f4f329aa28e8c71a7d`. It includes all of patch 0003 below;
 apply 0004 directly to that base, not on top of 0003.

@@ -1,0 +1,6 @@
+{
+  "departure": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/19e4d59e0a8fc5dc138de5108d8e921e95d28ba1/Assets/CvGameCoreDLL/CvUnitAI.cpp#L7761",
+  "destination": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/19e4d59e0a8fc5dc138de5108d8e921e95d28ba1/Assets/CvGameCoreDLL/CvUnitAI.cpp#L17855",
+  "boarding": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/19e4d59e0a8fc5dc138de5108d8e921e95d28ba1/Assets/CvGameCoreDLL/CvUnit.cpp#L12154",
+  "landing": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/19e4d59e0a8fc5dc138de5108d8e921e95d28ba1/Assets/CvGameCoreDLL/CvSelectionGroup.cpp#L4973"
+}

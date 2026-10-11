@@ -1,0 +1,95 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "19e4d59e0a8fc5dc138de5108d8e921e95d28ba1",
+  "tested_source_commit": "a9003cae719e69456e698905d44a28a4f508199a",
+  "tested_source_tree": "ff3abab6af83f806a5bfb34e0466b6b620f4ae2d",
+  "patch": "0005-opening-settler-voyages.patch",
+  "patch_sha256": "9cbbb6be2bc21aa2d7e5dd197be3f682e7b7c832629f3f300c78d07c2e471b1c",
+  "prior_runtime_fixes_already_in_base": true,
+  "binary_rebuilt": false,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "validation": {
+    "suite_programs": 19,
+    "suite_failures": 0,
+    "new_opening_transport_tests": 6,
+    "native_standard": "C++03",
+    "undefined_behavior_sanitizer": "fatal",
+    "save_replayed": false,
+    "patch_application_verified": true,
+    "applied_tree_equals_tested_tree": true
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/AIDecisionPolicy.h": {
+      "before_sha256": "7b2ecbe5238124f0b5394065569110cc8614302eaae5870ddd0e5e8a4d5b3922",
+      "after_sha256": "fa2b6a8ebaa96ce6a794b5d19d01592f3ce6851891ca512ad068166eeb9c7d0f"
+    },
+    "Assets/CvGameCoreDLL/CvCityAI.cpp": {
+      "before_sha256": "9f3069fe1f1ccbc5b13b5a4aade1d7f98a53bc8c3d7e1c18c30973ab87618e2a",
+      "after_sha256": "4466efdae262322269d03402289a6d4e9e05b35dd8c90e4289fd76ea2ed0c6bc"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "1ed12f46cd322b5ce39152235c262deb05f4251993d8e5a83eeb53f1849ba1f4",
+      "after_sha256": "315d309512afc13d3e42be0d5344b61fcaee10d2c43015ad711805d66479227a"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.h": {
+      "before_sha256": "12e1bd80d88273eddcb9f8e9a4374c672e93adb13907259c4d21c8b89a06d077",
+      "after_sha256": "8585201d328558fd8a74ecee3c4de4dfbcf75427156343cdf4a04534f3c9950d"
+    },
+    "Docs/AI_COORDINATION_FIXES.md": {
+      "before_sha256": null,
+      "after_sha256": "8d8d3da30d17c4b8282574c85c023f4e11fcd7924abe55150cb315f8d948a17d"
+    },
+    "Docs/AI_SETTLER_VOYAGES.md": {
+      "before_sha256": null,
+      "after_sha256": "e4fb33aad933184e915b22bd2fd2e8828660b8c2f31cfddc3a4c9b813c2c4ce6"
+    },
+    "Docs/OPERATION_SUPPLY_FIXES.md": {
+      "before_sha256": "e4eab4aeb5b4f7dc3d8a0064a6fbab995c4ffc384316fc8b43fbfdeace178ab8",
+      "after_sha256": "e0c9b407c48840b68e381f72414fa18e4d7fdd96bd9cb30d081398839e438933"
+    },
+    "Docs/SOURCE_CLEANUP.md": {
+      "before_sha256": null,
+      "after_sha256": "9b24a6ffe86f819b292f41710fbc618d3bdcbba2b6b6f68024ab3b65b71bdd6e"
+    },
+    "Tools/TESTING.md": {
+      "before_sha256": "a862140ab1de38869a54489dae35a425d68048425513776bdc3437d2283663c5",
+      "after_sha256": "8e8cfabab1620a4684194bd09bf18d93614348d55ee565e9f3226f6a85571627"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "6a9ac411c09b6a917014f4e328b7c25d0526f7f596ea0eb1ac5d8024ab945386",
+      "after_sha256": "965574970e1d9bf1b2fdebcafc0d80cd193a382bb0b8785c9924f6cf0fe135e2"
+    },
+    "Tools/test_ai_coordination.py": {
+      "before_sha256": null,
+      "after_sha256": "ab7c856ba8da77ebc86be5d791796b1a3cc639b07b2f1b49581056c0698a95d0"
+    },
+    "Tools/test_ai_economic_recovery.py": {
+      "before_sha256": "5b00922dead7370d9a6e7947317ea1da69e8caaf04df4577ea8fb3abb2e7824e",
+      "after_sha256": "45eff496c2bdb4e86d7377b28de59ff468e894ec43d3977d8e852d608d4d9f64"
+    },
+    "Tools/test_ai_maritime.py": {
+      "before_sha256": "347d7e2713a8eaf58049f09a53462496d98da44829cf6bdb68d8efcc233b6f1b",
+      "after_sha256": "8a1a001f20dbf36142cde739b1c451d7815b112ea51abec6c4622a34439b7f4d"
+    },
+    "Tools/test_ai_opening_ferry.py": {
+      "before_sha256": null,
+      "after_sha256": "ad123d263afad4cb191361b9013690454f7e42214af1ae1e1757576bb4e103cf"
+    },
+    "Tools/test_ai_settler_dispatch.py": {
+      "before_sha256": null,
+      "after_sha256": "2c9ef0fb32c48380067451f8c254b6fb690600d6e397d2799344d60cc3abb6ba"
+    },
+    "Tools/test_operation_supply.py": {
+      "before_sha256": "c61bd77974d2b809c91dddf3c4ad2687c58cb2f02295ac53232172883af1fc9c",
+      "after_sha256": "971a874ce225e2f2ff6385585f531ead58de616f208e29aac14e14628d3212fe"
+    },
+    "Tools/test_review_correctness.py": {
+      "before_sha256": "3d3c988cc46cd14b8721834002d1e2dcb2b69c19c72b30424c39ef1e46dd7934",
+      "after_sha256": "e4ab70981126da6e3a6f170c9afde8c456c3b7a849bc60f73d5c9ae82d619f90"
+    }
+  }
+}

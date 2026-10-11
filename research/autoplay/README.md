@@ -1,5 +1,9 @@
 # Carthage autoplay: decisions, defects and the next simulation slice
 
+Follow-up: [opening development and the settler voyage dispatcher](../transport/README.md)
+targets newer GitLab `19e4d59`, which incorporates this report's runtime fixes.
+This report retains its original source and observation provenance.
+
 The reports expose a coordination problem: producing useful pieces does not
 ensure that they form a useful sequence. The current source also contains
 reproducible local bugs. This review fixes those bugs and defines the experiments

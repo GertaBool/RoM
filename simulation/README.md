@@ -14,6 +14,13 @@ transport expedition, followed by workboat and civic economic comparisons. It
 includes current-source defects, tested corrections, trace fields and scenario
 acceptance criteria. Those source-contract tests do not constitute a game replay.
 
+The [settler voyage dispatcher](../research/transport/README.md) is the latest
+implemented native slice, based on GitLab `19e4d59`. Its
+[scenario backlog](../research/transport/scenarios.json) covers port update order,
+boarding/sailing/landing, route invalidation, pickup timeout and idle-fleet demand.
+Six new source-fragment tests cover opening and dispatch behavior; host A* and
+engine mission execution are still separate validation work.
+
 Status: **specification, validated interchange examples, and source probes; no game simulator yet.** Source target: `1ab4f99a76adb530f86b278390ab8139ef41cc96`. The bundled DLL is older. Read the [behavior guide](../docs/review/AI_AND_GAME_LOGIC.md), [game-flow model](../docs/review/GAMEFLOW_MODEL.md) and [new findings](../docs/review/DEEP_FINDINGS.md) together.
 
 The first useful deliverable should answer a narrow question reproducibly: *given this source revision, explicit state, actor-visible inputs, rule configuration and host answers, why did this decision or transition occur?* A whole-game win-rate comparison is a later deliverable.
