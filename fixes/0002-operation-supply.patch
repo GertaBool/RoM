@@ -1,1 +1,242 @@
-PLACEHOLDER
+diff --git a/Assets/CvGameCoreDLL/AIDecisionPolicy.h b/Assets/CvGameCoreDLL/AIDecisionPolicy.h
+index d71e694..51a0f24 100644
+--- a/Assets/CvGameCoreDLL/AIDecisionPolicy.h
++++ b/Assets/CvGameCoreDLL/AIDecisionPolicy.h
+@@ -1,8 +1,20 @@
+ // Shared deterministic C++03 policies. No engine dependencies or RNG.
+ #ifndef AI_DECISION_POLICY_H
+ #define AI_DECISION_POLICY_H
++#include <climits>
+ namespace AIDecisionPolicy
+ {
++// Gold-rate deficit times a runway. Saturates instead of negating INT_MIN
++// or overflowing the 32-bit product. A non-negative rate has no deficit.
++inline int deficitReserve(int goldRate, int runwayTurns)
++{
++	if (goldRate >= 0 || runwayTurns <= 0) return 0;
++	if (goldRate == INT_MIN) return INT_MAX;
++	const int deficit = -goldRate;
++	if (deficit > INT_MAX / runwayTurns) return INT_MAX;
++	return deficit * runwayTurns;
++}
++
+ inline int clamp(int v, int lo, int hi) { return v < lo ? lo : (v > hi ? hi : v); }
+ inline int workerHurryValue(int needed, int have)
+ {
+diff --git a/Assets/CvGameCoreDLL/AIHierarchyPolicy.h b/Assets/CvGameCoreDLL/AIHierarchyPolicy.h
+index ae2f4e2..5633a27 100644
+--- a/Assets/CvGameCoreDLL/AIHierarchyPolicy.h
++++ b/Assets/CvGameCoreDLL/AIHierarchyPolicy.h
+@@ -160,5 +160,17 @@ inline int operationRoleTarget(int areaRoleCount, int requested, int training,
+ 	const int deficit = clamp(boundedRequest - clamp(training, 0, 6), 0, 6);
+ 	return deficit > 0 ? clamp(areaRoleCount, 0, INT_MAX - deficit) + deficit : 0;
+ }
++
++// Straight-line reject before a path query. distance is plots, movesPerTurn
++// is whole tiles per turn, horizonTurns is the logistics window. Neutral or
+// enemy ground is still in range; plot ownership is not an input.
++inline bool supplyReachable(int distance, int movesPerTurn, int horizonTurns)
++{
++	if (distance < 0 || horizonTurns < 0) return false;
++	const int moves = movesPerTurn < 1 ? 1 : (movesPerTurn > 100 ? 100 : movesPerTurn);
++	const int horizon = horizonTurns > 10000 ? 10000 : horizonTurns;
++	if (horizon > 0 && moves > INT_MAX / horizon) return true;
++	return distance <= horizon * moves;
++}
+ }
+ #endif
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index d772945..263a44c 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -501,9 +501,8 @@ void CvPlayerAI::AI_doGoldHurry()
+ {
+     if (isHuman() || isBarbarian() || isMinorCiv() || !isAlive() || isAnarchy())
+         return;
+-    const int iDeficit = std::max(0, -calculateGoldRate());
+-    const int iReserve = std::max(AI_goldTarget(), iDeficit *
+-        std::max(3, GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent() / 100));
++    const int iRunwayTurns = std::max(3, GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent() / 100);
++    const int iReserve = std::max(AI_goldTarget(), AIDecisionPolicy::deficitReserve(calculateGoldRate(), iRunwayTurns));
+     // No speculative queues: every candidate must be legal and currently useful.
+     // A finite cap bounds both runtime and one-turn spending concentration.
+     for (int iPurchase = 0; iPurchase < std::min(8, getNumCities()); ++iPurchase)
+@@ -15431,9 +15430,17 @@ int CvPlayerAI::AI_getOperationRoleTarget(UnitAITypes eRole, CvArea* pArea, CvCi
+ 		if (pGroup != NULL && pGroup->getHeadUnit() != NULL && pGroup->area() == pArea)
+ 		{
+             if (kOperation.aiDesiredRoles[eRole] <= 0) continue;
+-            // Only publish demand to cities that can plausibly deliver locally.
+-            // This prevents a remote/unreachable army from creating endless queues.
+-            if (pSourceCity == NULL || pGroup->plot()->getOwnerINLINE() != getID()) continue;
++            // Reachability, not plot ownership. A stack on neutral or enemy
++            // ground is when replacements matter. The path and horizon checks
++            // below still refuse an undeliverable queue; the distance gate
++            // keeps a distant army from forcing A* out of every city.
++            if (pSourceCity == NULL) continue;
++            if (!AIHierarchyPolicy::supplyReachable(
++                    plotDistance(pSourceCity->getX_INLINE(), pSourceCity->getY_INLINE(),
++                        pGroup->getX(), pGroup->getY()),
++                    pGroup->getHeadUnit()->baseMoves(),
++                    AIHierarchyPolicy::operationDeliveryHorizon(AI_getLogisticsPriority())))
++                continue;
+ 			int iDeliveryTurns = 0;
+ 			bool bReachable = false;
+ 			bool bCached = false;
+@@ -15540,7 +15547,9 @@ int CvPlayerAI::AI_countIncomingOperationRole(CvSelectionGroup* pOperationGroup,
+ 
+ void CvPlayerAI::AI_rememberGeneral(const AIOperationData& kOperation)
+ {
+-    if (getUnit(kOperation.iGeneralUnitID) == NULL) return;
++    // Death is evidence. A missing unit must not drop the career: the agenda
++    // reads it after the operation is erased. A live unit inherits the record
++    // only when it still carries the doctrine badge.
+     AIGeneralCareer kCareer;
+     kCareer.iAvailableTurn = GC.getGameINLINE().getGameTurn();
+     if (kOperation.iState == AI_OPERATION_RECOVERING)
+diff --git a/Docs/OPERATION_SUPPLY_FIXES.md b/Docs/OPERATION_SUPPLY_FIXES.md
+new file mode 100644
+index 0000000..5cb9a64
+--- /dev/null
++++ b/Docs/OPERATION_SUPPLY_FIXES.md
+@@ -0,0 +1,41 @@
++# Operation supply and reserve fixes
++
++Against GitLab `1ab4f99a76adb530f86b278390ab8139ef41cc96`. These are source fixes.
++They do not rebuild `CvGameCoreDLL.dll`. Apply after or independently of
++`fixes/0001-source-correctness.patch`; the hunks do not overlap.
++
++## Field armies published no reinforcement demand
++
++`AI_getOperationRoleTarget` skipped any operation whose stack was not standing
++on a plot owned by the same player. A stack on a road between two of your
++cities, on neutral ground, or inside enemy territory therefore created no
++replacement demand. The path query and logistics horizon already reject an
++undeliverable queue. The ownership test was the wrong proxy, and it fired
++exactly when replacements matter.
++
++The replacement is `AIHierarchyPolicy::supplyReachable`: straight-line distance
++against `horizon * baseMoves`, then the existing safe-path and horizon checks.
++A continent-away army does not force an A* from every city.
++
++## A dead commander deleted his own record
++
++`AI_rememberGeneral` returned immediately when `getUnit` failed. Every death
++path calls it and then erases the operation, so the loss never reached the
++agenda. The comment above the career sweep says a death is operational
++evidence. The function now records the career anyway. A later live unit copies
++that record only if it still has the doctrine badge.
++
++## Gold-hurry reserve could overflow
++
++`AI_doGoldHurry` computed `max(0, -calculateGoldRate())` and multiplied by the
++runway. Negating `INT_MIN` is undefined, and a large late-game deficit times
++the speed multiplier overflows signed 32-bit before the comparison with
++`AI_goldTarget`. `AIDecisionPolicy::deficitReserve` saturates.
++
++## Not changed on purpose
++
++Commissioning and resurrecting great generals with `initUnit`, without spending
++great-person points, is explicit in `AI_updateMilitaryOperations`. It is a
++balance defect, not an accidental inverted condition. Removing it is a design
++change and is not in this patch. `AI_doCentralizedProduction` still returns
++immediately; the body below it is unfinished, not a dormant switch.
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index 20956d6..c6f4da6 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -48,6 +48,10 @@
+       "command": ["python3", "Tools/test_ai_maritime.py"],
+       "patterns": ["Assets/CvGameCoreDLL/AIDecisionPolicy.h", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvCityAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*"]
+     },
++    {
++      "command": ["python3", "Tools/test_operation_supply.py"],
++      "patterns": ["Assets/CvGameCoreDLL/AIDecisionPolicy.h", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/CvGameCoreDLL/CvPlayerAI.*"]
++    },
+     {
+       "command": ["python3", "Tools/test_ai_reinforcements.py"],
+       "patterns": ["Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*"]
+diff --git a/Tools/test_operation_supply.py b/Tools/test_operation_supply.py
+new file mode 100755
+index 0000000..14eb4dd
+--- /dev/null
++++ b/Tools/test_operation_supply.py
+@@ -0,0 +1,79 @@
++#!/usr/bin/env python3
++"""Supply-demand, dead-commander memory, and gold-reserve contracts."""
++from pathlib import Path
++import subprocess
++import tempfile
++import unittest
++
++ROOT = Path(__file__).resolve().parents[1]
++DLL = ROOT / "Assets" / "CvGameCoreDLL"
++
++
++def source(name):
++    return (DLL / name).read_text(encoding="latin1")
++
++
++class OperationSupplyTests(unittest.TestCase):
++    def test_field_armies_are_not_rejected_for_standing_off_owned_land(self):
++        body = source("CvPlayerAI.cpp")
++        start = body.index("int CvPlayerAI::AI_getOperationRoleTarget(")
++        end = body.index("int CvPlayerAI::AI_countIncomingOperationRole(", start)
++        fn = body[start:end]
++        self.assertNotIn("getOwnerINLINE() != getID()", fn)
++        self.assertIn("supplyReachable(", fn)
++        self.assertIn("pSourceCity == NULL", fn)
++        self.assertIn("generatePath(pSourceCity->plot(), pGroup->plot()", fn)
++
++    def test_dead_general_career_is_recorded(self):
++        body = source("CvPlayerAI.cpp")
++        start = body.index("void CvPlayerAI::AI_rememberGeneral(")
++        end = body.index("CvSelectionGroup* CvPlayerAI::AI_getOperationReinforcementGroup(", start)
++        fn = body[start:end]
++        self.assertNotIn("getUnit(kOperation.iGeneralUnitID) == NULL) return", fn)
++        self.assertIn("kCareer.iUnitID = kOperation.iGeneralUnitID", fn)
++
++    def test_gold_reserve_uses_saturating_deficit(self):
++        body = source("CvPlayerAI.cpp")
++        start = body.index("void CvPlayerAI::AI_doGoldHurry()")
++        end = body.index("void CvPlayerAI::AI_doTurnPost()", start)
++        fn = body[start:end]
++        self.assertIn("deficitReserve(", fn)
++        self.assertNotIn("-calculateGoldRate()", fn)
++
++    def test_compiled_boundaries(self):
++        src = r'''
++#include "AIDecisionPolicy.h"
++#include "AIHierarchyPolicy.h"
++#include <cassert>
++#include <climits>
++int main() {
++    assert(AIDecisionPolicy::deficitReserve(0, 4) == 0);
++    assert(AIDecisionPolicy::deficitReserve(5, 4) == 0);
++    assert(AIDecisionPolicy::deficitReserve(-10, 4) == 40);
++    assert(AIDecisionPolicy::deficitReserve(-10, 0) == 0);
++    assert(AIDecisionPolicy::deficitReserve(INT_MIN, 4) == INT_MAX);
++    assert(AIDecisionPolicy::deficitReserve(-2000000000, 3) == INT_MAX);
++    assert(AIHierarchyPolicy::supplyReachable(8, 2, 4));
++    assert(!AIHierarchyPolicy::supplyReachable(9, 2, 4));
++    assert(AIHierarchyPolicy::supplyReachable(0, 1, 4));
++    assert(!AIHierarchyPolicy::supplyReachable(-1, 2, 4));
++    assert(AIHierarchyPolicy::supplyReachable(4, 0, 4));
++    assert(!AIHierarchyPolicy::supplyReachable(100, 1, 4));
++    return 0;
++}
++'''
++        with tempfile.TemporaryDirectory() as tmp:
++            path = Path(tmp) / "supply.cpp"
++            path.write_text(src)
++            compiled = Path(tmp) / "supply"
++            result = subprocess.run(
++                ["g++", "-std=c++03", "-Wall", "-Wextra", "-Werror", "-I" + str(DLL),
++                 "-o", str(compiled), str(path)],
++                capture_output=True, text=True)
++            self.assertEqual(result.returncode, 0, result.stderr)
++            ran = subprocess.run([str(compiled)], capture_output=True, text=True)
++            self.assertEqual(ran.returncode, 0, ran.stderr)
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)
