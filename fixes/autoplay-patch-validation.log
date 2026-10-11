@@ -1,0 +1,9 @@
+dry run
+Patch checksum, base files and indexed application check passed; no files changed.
+application
+Applied and staged the source fixes; every changed file matches the tested content.
+Run python3 Tools/run_regression_suite.py in the source checkout.
+This applies source changes only; it does not rebuild the DLL.
+PASS: staged tree equals tested source tree 34ea102fffc7d761c3fe15e931461a60bd7e793b
+PASS: repeat application refuses staged changes without modification
+PASS: staged tree remains identical after refusal

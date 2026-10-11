@@ -8,6 +8,12 @@ The [algorithm study](../research/algorithms/README.md) maps exact optimization,
 
 The [architecture critique](../research/architecture/README.md) adds measured decision-routine sizes, probes of hidden query effects and callback failure semantics, and a staged design for separating observation, planning and execution.
 
+The [Carthage autoplay investigation](../research/autoplay/README.md) targets
+GitLab `5e6d035` and specifies the next concrete slice: a reserved settler/escort/
+transport expedition, followed by workboat and civic economic comparisons. It
+includes current-source defects, tested corrections, trace fields and scenario
+acceptance criteria. Those source-contract tests do not constitute a game replay.
+
 Status: **specification, validated interchange examples, and source probes; no game simulator yet.** Source target: `1ab4f99a76adb530f86b278390ab8139ef41cc96`. The bundled DLL is older. Read the [behavior guide](../docs/review/AI_AND_GAME_LOGIC.md), [game-flow model](../docs/review/GAMEFLOW_MODEL.md) and [new findings](../docs/review/DEEP_FINDINGS.md) together.
 
 The first useful deliverable should answer a narrow question reproducibly: *given this source revision, explicit state, actor-visible inputs, rule configuration and host answers, why did this decision or transition occur?* A whole-game win-rate comparison is a later deliverable.

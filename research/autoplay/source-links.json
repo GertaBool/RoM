@@ -1,0 +1,112 @@
+{
+  "AI_workerMove": {
+    "file": "CvUnitAI.cpp",
+    "line": 1541,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvUnitAI.cpp#L1541"
+  },
+  "AI_improveBonus": {
+    "file": "CvUnitAI.cpp",
+    "line": 19435,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvUnitAI.cpp#L19435"
+  },
+  "AI_cityDefenseMove": {
+    "file": "CvUnitAI.cpp",
+    "line": 4237,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvUnitAI.cpp#L4237"
+  },
+  "AI_settlerSeaMove": {
+    "file": "CvUnitAI.cpp",
+    "line": 7757,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvUnitAI.cpp#L7757"
+  },
+  "AI_load": {
+    "file": "CvUnitAI.cpp",
+    "line": 10879,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvUnitAI.cpp#L10879"
+  },
+  "AI_settleMove": {
+    "file": "CvUnitAI.cpp",
+    "line": 1281,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvUnitAI.cpp#L1281"
+  },
+  "AI_settlerSeaTransport": {
+    "file": "CvUnitAI.cpp",
+    "line": 17851,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvUnitAI.cpp#L17851"
+  },
+  "AI_chooseProduction": {
+    "file": "CvCityAI.cpp",
+    "line": 705,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvCityAI.cpp#L705"
+  },
+  "AI_bestUnit": {
+    "file": "CvCityAI.cpp",
+    "line": 3425,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvCityAI.cpp#L3425"
+  },
+  "AI_bestUnitAI": {
+    "file": "CvCityAI.cpp",
+    "line": 3737,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvCityAI.cpp#L3737"
+  },
+  "AI_bestPlotBuild": {
+    "file": "CvCityAI.cpp",
+    "line": 11148,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvCityAI.cpp#L11148"
+  },
+  "AI_neededSeaWorkers": {
+    "file": "CvCityAI.cpp",
+    "line": 6138,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvCityAI.cpp#L6138"
+  },
+  "AI_doCivics": {
+    "file": "CvPlayerAI.cpp",
+    "line": 16709,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L16709"
+  },
+  "AI_civicValue": {
+    "file": "CvPlayerAI.cpp",
+    "line": 12927,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L12927"
+  },
+  "AI_foundValue": {
+    "file": "CvPlayerAI.cpp",
+    "line": 2401,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L2401"
+  },
+  "AI_updateCitySites": {
+    "file": "CvPlayerAI.cpp",
+    "line": 23866,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L23866"
+  },
+  "AI_totalUnitAIs": {
+    "file": "CvPlayerAI.cpp",
+    "line": 11898,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L11898"
+  },
+  "AI_totalAreaUnitAIs": {
+    "file": "CvPlayerAI.cpp",
+    "line": 11904,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L11904"
+  },
+  "AI_totalWaterAreaUnitAIs": {
+    "file": "CvPlayerAI.cpp",
+    "line": 11910,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L11910"
+  },
+  "setAIAutoPlay": {
+    "file": "CvGame.cpp",
+    "line": 4046,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvGame.cpp#L4046"
+  },
+  "setHumanDisabled": {
+    "file": "CvPlayer.cpp",
+    "line": 3422,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayer.cpp#L3422"
+  },
+  "isOption": {
+    "file": "CvPlayer.cpp",
+    "line": 13461,
+    "url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/5e6d03591731f64d589661f4f329aa28e8c71a7d/Assets/CvGameCoreDLL/CvPlayer.cpp#L13461"
+  }
+}

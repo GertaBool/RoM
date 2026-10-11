@@ -1,0 +1,1326 @@
+diff --git a/Assets/CvGameCoreDLL/AIDecisionPolicy.h b/Assets/CvGameCoreDLL/AIDecisionPolicy.h
+index 344a3a7322bb43ba218399fe486de57c8bf531bb..e55d09e799e2c6e7dd14c57582b11045c7a8ad30 100644
+--- a/Assets/CvGameCoreDLL/AIDecisionPolicy.h
++++ b/Assets/CvGameCoreDLL/AIDecisionPolicy.h
+@@ -15,21 +15,17 @@ inline int deficitReserve(int goldRate, int runwayTurns)
+ 	return deficit * runwayTurns;
+ }
+ 
+-// gold minus (reserve * percent / 100). Same quotient as the 32-bit
+-// multiply-then-divide when that product fits; otherwise the reserve consumes
+-// a non-negative stock instead of overflowing the subtraction.
+-inline int goldAfterReserve(int gold, int reserve, int percent)
+-{
+-	if (reserve <= 0 || percent <= 0) return gold;
+-	const int quot = reserve / 100;
+-	const int rem = reserve % 100;
+-	if (quot > INT_MAX / percent) return gold > 0 ? 0 : gold;
+-	const int mainPart = quot * percent;
+-	const int extra = rem * percent / 100;
+-	if (mainPart > INT_MAX - extra) return gold > 0 ? 0 : gold;
+-	const int buffer = mainPart + extra;
+-	if (gold <= buffer) return gold > 0 ? 0 : gold;
+-	return gold - buffer;
++// Apply the speed percentage before clamping to the available gold. The
++// unscaled deficit fits in 64 bits; its product with percent need not. Check
++// the exact depletion threshold first, so the final multiply is bounded by
++// gold * 100 and preserves integer rounding without intermediate saturation.
++inline int goldAfterDeficitReserve(int gold, int goldRate, int runwayTurns, int percent)
++{
++	if (gold <= 0 || goldRate >= 0 || runwayTurns <= 0 || percent <= 0) return gold;
++	const long long reserve = -(long long)goldRate * runwayTurns;
++	const long long depletionThreshold = ((long long)gold * 100 + percent - 1) / percent;
++	if (reserve >= depletionThreshold) return 0;
++	return gold - (int)(reserve * percent / 100);
+ }
+ 
+ // Career rows are keyed by unit id, and the free list reuses a dead id.
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index ae959688d790b957e49043e36c5e56a1a378ab16..3f01b4abc45f82e0a261a2dad1de4c010403d870 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -968,11 +968,8 @@ void CvCityAI::AI_chooseProduction()
+ 		}
+ 	}
+     int iNumWaterAreaCitySites = (pWaterSettlerArea == NULL) ? 0 : kPlayer.AI_getNumAdjacentAreaCitySites(pWaterSettlerArea->getID(), getArea(), iWaterAreaBestFoundValue);
+-    const int iActiveSettlers = kPlayer.AI_totalUnitAIs(UNITAI_SETTLE);
+-	// Production is an empire contract: a settler already queued in another
+-	// city must consume a slot immediately or several cities can answer the same
+-	// deficit during one player turn.
+-    const int iNumSettlers = iActiveSettlers + kPlayer.AI_getNumTrainAIUnits(UNITAI_SETTLE);
++    // AI_totalUnitAIs already includes production commitments.
++    const int iNumSettlers = kPlayer.AI_totalUnitAIs(UNITAI_SETTLE);
+     
+     bool bIsCapitalArea = false;
+ 	int iNumCapitalAreaCities = 0;
+@@ -1780,8 +1777,7 @@ void CvCityAI::AI_chooseProduction()
+ 
+ 			int iDesiredTransports = std::min(std::max(1, kPlayer.countNumCoastalCitiesByArea(pWaterArea)),
+ 				(iMobileLandUnits + iCapacityDivisor - 1) / iCapacityDivisor);
+-			int iExistingTransports = kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ASSAULT_SEA) +
+-				pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_ASSAULT_SEA);
++			int iExistingTransports = kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ASSAULT_SEA);
+ 
+ 			if (iMobileLandUnits >= 3 && iExistingTransports < iDesiredTransports)
+ 			{
+@@ -1809,9 +1805,7 @@ void CvCityAI::AI_chooseProduction()
+ 			const int iDesiredWarships = std::min(kPlayer.countNumCoastalCitiesByArea(pWaterArea),
+ 				1 + kPlayer.AI_getNavalPriority() / 250);
+ 			const int iWarships = kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ATTACK_SEA) +
+-				kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_RESERVE_SEA) +
+-				pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_ATTACK_SEA) +
+-				pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_RESERVE_SEA);
++				kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_RESERVE_SEA);
+ 			if (iWarships < iDesiredWarships && AI_chooseUnit(UNITAI_ATTACK_SEA, 55))
+ 			{
+ 				if (gCityLogLevel >= 2) logBBAI("      City %S maintains naval contract %d/%d",
+@@ -2396,11 +2390,8 @@ void CvCityAI::AI_chooseProduction()
+ 
+         if (!bLandWar && !bDanger && !bFinancialTrouble)
+         {
+-			// Removed: counting only completed explorers. Multiple cities could all
+-			// see the same deficit and queue scouts concurrently.
+-			// Added: queued explorers are supply, so production stops at demand.
+-			if (kPlayer.AI_totalAreaUnitAIs(pArea, UNITAI_EXPLORE) +
+-				kPlayer.AI_getNumTrainAIUnits(UNITAI_EXPLORE) < kPlayer.AI_neededExplorers(pArea))
++			// The area total includes queued scouts; other land areas are separate demands.
++			if (kPlayer.AI_totalAreaUnitAIs(pArea, UNITAI_EXPLORE) < kPlayer.AI_neededExplorers(pArea))
+ 			{
+ 				if (AI_chooseUnit(UNITAI_EXPLORE))
+ 				{
+@@ -3484,12 +3475,7 @@ UnitTypes CvCityAI::AI_bestUnit(bool bAsync, AdvisorTypes eIgnoreAdvisor, UnitAI
+ 	{
+ 		aiUnitAIVal[iI] = 0;
+ 	}
+-	// Added: the generic role selector must observe the same explorer pipeline
+-	// as the explicit early-production check above. This is deliberately global:
+-	// a queued scout can be reassigned after completion, and overproduction is
+-	// more damaging than waiting one turn for a different land area.
+-	aiUnitAIVal[UNITAI_EXPLORE] -=
+-		GET_PLAYER(getOwnerINLINE()).AI_getNumTrainAIUnits(UNITAI_EXPLORE);
++	// The common supply subtraction below includes queued units in this area.
+ 
+ 	if (!bFinancialTrouble && ((bPrimaryArea) ? (GET_PLAYER(getOwnerINLINE()).findBestFoundValue() > 0) : (area()->getBestFoundValue(getOwnerINLINE()) > 0)))
+ 	{
+@@ -4018,12 +4004,8 @@ BuildingTypes CvCityAI::AI_bestBuildingThreshold(int iFocusFlags, int iMaxTurns,
+ /*                                                                                              */
+ /* City AI                                                                                      */
+ /************************************************************************************************/
+-				// BBAI TODO: Temp testing, remove once centralized building is working
+-				bool bWonderOk = false;
+-				//if( isHuman() || getOwner()%2 == 1 )
+-				//{
+-					bWonderOk = ((iFocusFlags == 0) || (iFocusFlags & BUILDINGFOCUS_WONDEROK) || (iFocusFlags & BUILDINGFOCUS_WORLDWONDER));
+-				//}
++				// City-local focus flags control whether wonder candidates are allowed.
++				const bool bWonderOk = ((iFocusFlags == 0) || (iFocusFlags & BUILDINGFOCUS_WONDEROK) || (iFocusFlags & BUILDINGFOCUS_WORLDWONDER));
+ 
+ 				if( bWonderOk ||
+ /************************************************************************************************/
+@@ -5822,89 +5804,6 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 			}
+ 		}
+ 	}
+-//	
+-//	// obsolete checks
+-//	bool bCanResearchObsoleteTech = false;
+-//	int iErasUntilObsolete = MAX_INT;
+-//	if (kBuilding.getObsoleteTech() != NO_TECH)
+-//	{
+-//		TechTypes eObsoleteTech = (TechTypes) kBuilding.getObsoleteTech();
+-//		FAssertMsg(eObsoleteTech == NO_TECH || !(GET_TEAM(getTeam()).isHasTech(eObsoleteTech)), "Team expected to not have the tech that obsoletes eBuilding");
+-//		iErasUntilObsolete = GC.getTechInfo(eObsoleteTech).getEra() - kOwner.getCurrentEra();
+-//		bCanResearchObsoleteTech = kOwner.canResearch(eObsoleteTech);
+-//	}
+-//
+-//	if (kBuilding.getSpecialBuildingType() != NO_SPECIALBUILDING)
+-//	{
+-//		TechTypes eSpecialBldgObsoleteTech = (TechTypes) GC.getSpecialBuildingInfo((SpecialBuildingTypes)(kBuilding.getSpecialBuildingType())).getObsoleteTech();
+-//		FAssertMsg(eSpecialBldgObsoleteTech == NO_TECH || !(GET_TEAM(getTeam()).isHasTech(eSpecialBldgObsoleteTech)), "Team expected to not have the tech that obsoletes eBuilding");
+-//		if (eSpecialBldgObsoleteTech != NO_TECH)
+-//		{
+-//			int iSpecialBldgErasUntilObsolete = GC.getTechInfo(eSpecialBldgObsoleteTech).getEra() - kOwner.getCurrentEra();
+-//
+-//			if (iSpecialBldgErasUntilObsolete < iErasUntilObsolete)
+-//			{
+-//				iErasUntilObsolete = iSpecialBldgErasUntilObsolete;
+-//			}
+-//
+-//			if (!bCanResearchObsoleteTech)
+-//			{
+-//				bCanResearchObsoleteTech = kOwner.canResearch(eSpecialBldgObsoleteTech);
+-//			}
+-//		}
+-//	}
+-//	
+-//	// tech path method commented out, it would be more accurate if we want to be so.
+-//	//int iObsoleteTechPathLength = 0;
+-//	//if (kBuilding.getObsoleteTech() != NO_TECH)
+-//	//{
+-//	//	iObsoleteTechPathLength = findPathLength(kBuilding.getObsoleteTech(), false);
+-//	//}
+-//
+-//	//if (kBuilding.getSpecialBuildingType() != NO_SPECIALBUILDING)
+-//	//{
+-//	//	TechTypes eSpecialBldgObsoleteTech = GC.getSpecialBuildingInfo((SpecialBuildingTypes)(kBuilding.getSpecialBuildingType())).getObsoleteTech();
+-//	//	int iSpecialBldgObsoleteTechPathLength = findPathLength(eSpecialBldgObsoleteTech, false);
+-//
+-//	//	if (iSpecialBldgObsoleteTechPathLength < iObsoleteTechPathLength)
+-//	//	{
+-//	//		iObsoleteTechPathLength = iSpecialBldgObsoleteTechPathLength;
+-//	//	}
+-//	//}
+-//	
+-//	// if we can research obsolete tech, then this almost no value
+-//	if (bCanResearchObsoleteTech)
+-//	{
+-//		iValue = std::min(16, (iValue + 31) / 32);
+-//	}
+-//	// if we are going obsolete in the next era, the current era, or even previous eras...
+-//	else if (iErasUntilObsolete < 2)
+-//	{
+-//		// do not care about obsolete if we are going cultural and there is a culture benefit post obsolesence
+-//		if (!bCulturalVictory1 || (kBuilding.getObsoleteSafeCommerceChange(COMMERCE_CULTURE) <= 0))
+-//		{
+-//			iValue++;
+-//			iValue /= 2;
+-//		}
+-//	}
+-
+-//	for (iI = 0; iI < GC.getNumBuildingInfos(); iI++)
+-//	{
+-//		if (!GET_TEAM(getTeam()).isHasTech((TechTypes)(GC.getBuildingInfo((BuildingTypes)iI).getObsoleteTech())))
+-//		{
+-//			if (GC.getBuildingInfo((BuildingTypes)iI).isBuildingClassNeededInCity(kBuilding.getBuildingClassType()))
+-//			{
+-//				iValue += AI_buildingValue((BuildingTypes)iI, iFocusFlags);
+-//			}
+-//
+-//			int iNumPrereqs = kOwner.getBuildingClassPrereqBuilding((BuildingTypes)iI, (BuildingClassTypes)kBuilding.getBuildingClassType()) - kOwner.getBuildingClassCount((BuildingClassTypes)kBuilding.getBuildingClassType());
+-//			if (iNumPrereqs > 0)
+-//			{
+-//				iValue += AI_buildingValue((BuildingTypes)iI, iFocusFlags) / iNumPrereqs;
+-//			}
+-//		}
+-//	}
+-
+ 	if (!canConstruct(eBuilding))
+ 	{
+ 		//This building is being constructed in some special way, 
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index e04d588d314877e295888193a56ce6c99dfa75a7..fc29bac366d09c7437d4757315b38103647afe62 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -3971,18 +3971,8 @@ void CvPlayer::doTurn()
+ 
+ 	doEspionagePoints();
+ 
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      05/08/09                                jdog5000      */
+-/*                                                                                              */
+-/* City AI                                                                                      */
+-/************************************************************************************************/
+-    // New function to handle wonder construction in a centralized manner
+-	GET_PLAYER(getID()).AI_doCentralizedProduction();
+ 	// Allocate liquid gold before city production resolves this turn.
+ 	GET_PLAYER(getID()).AI_doGoldHurry();
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                       END                                                  */
+-/************************************************************************************************/
+ 
+ 	for (pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
+ 	{
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.h b/Assets/CvGameCoreDLL/CvPlayer.h
+index d7712c01a5c63e5308bcc27887cdeeaee717484e..bcf49c8263a916da4438794aee0bae650c71e4e5 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.h
++++ b/Assets/CvGameCoreDLL/CvPlayer.h
+@@ -1188,15 +1188,6 @@ public:
+ 	virtual void AI_assignWorkingPlots() = 0;
+ 	virtual void AI_updateAssignWork() = 0;
+ 	virtual void AI_makeProductionDirty() = 0;
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      05/08/09                                jdog5000      */
+-/*                                                                                              */
+-/* City AI                                                                                      */
+-/************************************************************************************************/
+-	//virtual void AI_doCentralizedProduction() = 0;
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                       END                                                  */
+-/************************************************************************************************/
+ 	virtual void AI_conquerCity(CvCity* pCity) = 0;
+ 	virtual int AI_foundValue(int iX, int iY, int iMinUnitRange = -1, bool bStartingLoc = false) const = 0; // Exposed to Python
+ 	virtual bool AI_isCommercePlot(CvPlot* pPlot) const = 0;
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index decc2c5931c8d725e2081dc6d1c4cc07689bbd06..33c1e7e2007ac36439e8ec027d7d747da05f909f 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -1667,131 +1667,6 @@ void CvPlayerAI::AI_updateAssignWork()
+ 	}
+ }
+ 
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      05/08/09                                jdog5000      */
+-/*                                                                                              */
+-/* City AI                                                                                      */
+-/************************************************************************************************/
+-void CvPlayerAI::AI_doCentralizedProduction()
+-{
+-	PROFILE_FUNC();
+-
+-	CvCity* pLoopCity;
+-	int iLoop;
+-	int iI;
+-
+-	if( isHuman() )
+-	{
+-		return;
+-	}
+-
+-	if( isBarbarian() )
+-	{
+-		return;
+-	}
+-
+-	// BBAI TODO: Temp testing
+-	//if( getID() % 2 == 1 )
+-	//{
+-		return;
+-	//}
+-	
+-	// Determine number of cities player can use building wonders currently
+-	int iMaxNumWonderCities = 1 + getNumCities()/5;
+-	bool bIndustrious = (getMaxPlayerBuildingProductionModifier() > 0);
+-	bool bAtWar = (GET_TEAM(getTeam()).getAtWarCount(true) > 0);
+-
+-	if( bIndustrious )
+-	{
+-		iMaxNumWonderCities += 1;
+-	}
+-
+-	// Dagger?
+-	// Power?
+-	// Research?
+-
+-	if( bAtWar )
+-	{
+-		int iWarCapRatio = GET_TEAM(getTeam()).AI_getWarSuccessCapitulationRatio();
+-		if( iWarCapRatio < -90 )
+-		{
+-			iMaxNumWonderCities = 0;
+-		}
+-		else 
+-		{
+-			if( iWarCapRatio < 30 )
+-			{
+-				iMaxNumWonderCities -= 1;
+-			}
+-			if( iWarCapRatio < -50 )
+-			{
+-				iMaxNumWonderCities /= 2;
+-			}
+-		}
+-	}
+-
+-	if( isMinorCiv() && (GET_TEAM(getTeam()).getHasMetCivCount(false) > 1) )
+-	{
+-		iMaxNumWonderCities /= 2;
+-	}
+-
+-	iMaxNumWonderCities = std::min(iMaxNumWonderCities, getNumCities());
+-
+-	// Gather city statistics
+-	// Could rank cities based on gold, production here, could be O(n) instead of O(n^2)
+-	int iWorldWonderCities = 0;
+-	int iLimitedWonderCities = 0;
+-	int iNumDangerCities = 0;
+-	for (pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
+-	{
+-		if( pLoopCity->isProductionBuilding() )
+-		{
+-			if( isLimitedWonderClass((BuildingClassTypes)(GC.getBuildingInfo(pLoopCity->getProductionBuilding()).getBuildingClassType())))
+-			{
+-				iLimitedWonderCities++;
+-
+-				if (isWorldWonderClass((BuildingClassTypes)(GC.getBuildingInfo(pLoopCity->getProductionBuilding()).getBuildingClassType())))
+-				{
+-					iWorldWonderCities++;
+-				}
+-			}
+-		}
+-
+-		if( pLoopCity->isProductionProject() )
+-		{
+-			if( isLimitedProject(pLoopCity->getProductionProject()))
+-			{
+-				iLimitedWonderCities++;
+-				if( isWorldProject(pLoopCity->getProductionProject()))
+-				{
+-					iWorldWonderCities++;
+-				}
+-			}
+-		}
+-	}
+-
+-	// Check for any global wonders to build
+-	for (iI = 0; iI < GC.getNumBuildingClassInfos(); iI++)
+-	{
+-		if (isWorldWonderClass((BuildingClassTypes)iI))
+-		{
+-
+-			//canConstruct(
+-		}
+-	}
+-
+-	// Check for any projects to build
+-	for (iI = 0; iI < GC.getNumProjectInfos(); iI++)
+-	{
+-		
+-	}
+-
+-	// Check for any national/team wonders to build
+-	
+-}
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                       END                                                  */
+-/************************************************************************************************/
+ 
+ 
+ void CvPlayerAI::AI_makeProductionDirty()
+@@ -9734,7 +9609,6 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
+ int CvPlayerAI::AI_maxGoldTrade(PlayerTypes ePlayer) const
+ {
+ 	int iMaxGold;
+-	int iResearchBuffer;
+ 
+ 	FAssert(ePlayer != getID());
+ 
+@@ -9753,9 +9627,9 @@ int CvPlayerAI::AI_maxGoldTrade(PlayerTypes ePlayer) const
+ 
+ 		iMaxGold -= AI_getGoldTradedTo(ePlayer);
+ 
+-        iResearchBuffer = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();
+-		iMaxGold = std::min(iMaxGold, AIDecisionPolicy::goldAfterReserve(getGold(),
+-			AIDecisionPolicy::deficitReserve(calculateGoldRate(), 12), iResearchBuffer));
++		const int iResearchPercent = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();
++		iMaxGold = std::min(iMaxGold, AIDecisionPolicy::goldAfterDeficitReserve(
++			getGold(), calculateGoldRate(), 12, iResearchPercent));
+ 
+ 		iMaxGold = std::min(iMaxGold, getGold());
+ 
+@@ -23846,7 +23720,7 @@ int CvPlayerAI::AI_getMinFoundValue() const
+ 	int iSolvencyDenominator = std::max(std::max(1, iNetCommerce / 4), iNetCommerce - iNetExpenses);
+ 	// The old ratio could approach four times the base threshold at the same
+ 	// moment candidate maintenance was also reducing every site. Cap broad empire
+-	// caution at 2.5x; site-specific affordability remains in AI_foundValue.
++	// caution at 2.5x; spatial site ranking is evaluated separately.
+ 	int iSolvencyPercent = (100 * iNetCommerce) / iSolvencyDenominator;
+ 	iSolvencyPercent = std::max(100, std::min(250, iSolvencyPercent));
+ 	iValue *= iSolvencyPercent;
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.h b/Assets/CvGameCoreDLL/CvPlayerAI.h
+index 93467da93414b794f2e39258eec0844e8b2ba3a6..6ce5562a8d8ca3d41aa7d3fce80a5e5e80d1d2e9 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.h
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.h
+@@ -163,15 +163,6 @@ public:
+ 
+ 	void AI_makeProductionDirty();
+ 
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      05/08/09                                jdog5000      */
+-/*                                                                                              */
+-/* City AI                                                                                      */
+-/************************************************************************************************/
+-	void AI_doCentralizedProduction();
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                       END                                                  */
+-/************************************************************************************************/
+ 
+ 	void AI_conquerCity(CvCity* pCity);
+ 
+@@ -663,8 +654,7 @@ protected:
+ 	// exposed through CyPlayer.
+ 	mutable AIStrategicContextPolicy::Snapshot m_kAIStrategicContext;
+ 
+-	// Transient deterministic plan cache. It is rebuilt after loading, so this
+-	// first implementation does not alter the save-stream layout.
++	// Decision history and commitments, persisted by read/write.
+ 	int m_iAIAgenda;
+ 	int m_iAIAgendaScore;
+ 	int m_iAIAgendaUpdateTurn;
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index f1bba29f2905f70216b6af3dfd7810cea5fb88b8..ec86225282808fe740963fc14c307fd1928e4379 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -1321,6 +1321,7 @@ void CvUnitAI::AI_settleMove()
+ 				return;
+ 			}
+ 			getGroup()->pushMission(MISSION_SKIP);
++			return;
+ 		}
+ 	}
+ 
+@@ -4303,11 +4304,14 @@ void CvUnitAI::AI_cityDefenseMove()
+ 		return;
+ 	}
+ 	
++	// An unescorted settler needs a defender even when a larger transport has
++	// several empty slots. Admit one CITY_DEFENSE escort, without waiting for
++	// workers to fill the hold first. Existing city-defense guards still apply.
+ 	if (!bDanger)
+ 	{
+ 		if (plot()->getOwnerINLINE() == getOwnerINLINE())
+ 		{
+-			if (AI_load(UNITAI_SETTLER_SEA, MISSIONAI_LOAD_SETTLER, UNITAI_SETTLE, -1, -1, 1, -1, MOVE_SAFE_TERRITORY, 1))
++			if (AI_load(UNITAI_SETTLER_SEA, MISSIONAI_LOAD_SETTLER, UNITAI_SETTLE, -1, -1, -1, 0, MOVE_SAFE_TERRITORY, 1))
+ 			{
+ 				return;
+ 			}
+@@ -4338,7 +4342,7 @@ void CvUnitAI::AI_cityDefenseMove()
+ 
+ 		if (plot()->getOwnerINLINE() == getOwnerINLINE())
+ 		{
+-			if (AI_load(UNITAI_SETTLER_SEA, MISSIONAI_LOAD_SETTLER, UNITAI_SETTLE, -1, -1, 1, -1, MOVE_SAFE_TERRITORY))
++			if (AI_load(UNITAI_SETTLER_SEA, MISSIONAI_LOAD_SETTLER, UNITAI_SETTLE, -1, -1, -1, 0, MOVE_SAFE_TERRITORY))
+ 			{
+ 				return;
+ 			}
+@@ -19487,24 +19491,13 @@ bool CvUnitAI::AI_improveBonus(int iMinValue, CvPlot** ppBestPlot, BuildTypes* p
+                     {
+                         eImprovement = pLoopPlot->getImprovementType();
+ 
+-                        bool bDoImprove = false;
+-                        
+-                        if (eImprovement == NO_IMPROVEMENT)
+-                        {
+-                            bDoImprove = true;
+-                        }
+-                        else if (GC.getImprovementInfo(eImprovement).isActsAsCity() || GC.getImprovementInfo(eImprovement).isImprovementBonusTrade(eNonObsoleteBonus))
+-                        {
+-                        	bDoImprove = false;
+-                        }
+-                        else if (eImprovement == (ImprovementTypes)(GC.getDefineINT("RUINS_IMPROVEMENT")))
+-                        {
+-                            bDoImprove = true;
+-                        }
+-                        else if (!GET_PLAYER(getOwnerINLINE()).isOption(PLAYEROPTION_SAFE_AUTOMATION))
+-                        {
+-                        	bDoImprove = true;
+-                        }
++                        // Safe automation preserves useful improvements, but must allow
++                        // a revealed resource's non-connecting improvement to be replaced.
++                        // This matches AI_bestPlotBuild and groupBuild's resource exception.
++                        // Actual build legality and forest preservation are checked below.
++                        bool bDoImprove = (eImprovement == NO_IMPROVEMENT ||
++                            !(GC.getImprovementInfo(eImprovement).isActsAsCity() ||
++                              GC.getImprovementInfo(eImprovement).isImprovementBonusTrade(eNonObsoleteBonus)));
+ 
+                         iBestTempBuildValue = MAX_INT;
+                         eBestTempBuild = NO_BUILD;
+@@ -19523,13 +19516,12 @@ bool CvUnitAI::AI_improveBonus(int iMinValue, CvPlot** ppBestPlot, BuildTypes* p
+                                         {
+                                         	if ((pLoopPlot->getFeatureType() == NO_FEATURE) || !GC.getBuildInfo(eBuild).isFeatureRemove(pLoopPlot->getFeatureType()) || !GET_PLAYER(getOwnerINLINE()).isOption(PLAYEROPTION_LEAVE_FORESTS))
+                                         	{
+-												iValue = 10000;
+-
+-												iValue /= (GC.getBuildInfo(eBuild).getTime() + 1);
++												// Compare build times directly; minimizing their reciprocal chose the slowest build.
++												iValue = GC.getBuildInfo(eBuild).getTime();
+ 
+ 												// XXX feature production???
+ 
+-												if (iValue < iBestTempBuildValue)
++												if (eBestTempBuild == NO_BUILD || iValue < iBestTempBuildValue)
+ 												{
+ 													iBestTempBuildValue = iValue;
+ 													eBestTempBuild = eBuild;
+diff --git a/Assets/Python/RoMEventManager.py b/Assets/Python/RoMEventManager.py
+index ba87adaffbdc6317bd07785a3853da3459576e70..ef3fec41b6ea83a59e1d227f6d41225d3abc7b4a 100644
+--- a/Assets/Python/RoMEventManager.py
++++ b/Assets/Python/RoMEventManager.py
+@@ -254,45 +254,27 @@ class RoMEventManager:
+ 		self.aiBuildingUpgradeLine_Upgrade_InfoTypeNum = upgrades
+ 		self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum = obsolete
+ 
+-	def onLoadGame(self, argsList):
+-		self.augustusAIProfiler.initialize(False)
+-		self.settlementTrainingProfiler.initialize(False)
+-
++	def _initializeGameData(self, newGame):
++		# XML is ready at load/start, but not when this manager is constructed.
++		self.augustusAIProfiler.initialize(newGame)
++		self.settlementTrainingProfiler.initialize(newGame)
+ 		self._rebuildBuildingUpgradeLines()
+-
+ 		self.iBUILDING_CRUSADE = gc.getInfoTypeForString("BUILDING_CRUSADE")
+ 		self.iBUILDING_DJENNE = gc.getInfoTypeForString("BUILDING_DJENNE")
+ 		self.iBUILDING_WORLD_BANK = gc.getInfoTypeForString("BUILDING_WORLD_BANK")
+-#		self.iBUILDING_ASCENSION_GATE = gc.getInfoTypeForString("BUILDING_ASCENSION_GATE")
+ 		self.iTECH_KNOWLEDGE_MANAGEMENT = gc.getInfoTypeForString("TECH_KNOWLEDGE_MANAGEMENT")
+ 		self.iTECH_APPLIED_ECONOMICS = gc.getInfoTypeForString("TECH_APPLIED_ECONOMICS")
+ 		self.iTECH_SENTIENT_EARTH = gc.getInfoTypeForString("TECH_SENTIENT_EARTH")
+ 		self.iPROJECT_EDEN = gc.getInfoTypeForString("PROJECT_EDEN")
+-#		self.iVICTORY_SCIENTIFIC = gc.getInfoTypeForString("VICTORY_SCIENTIFIC")
+ 		self.iUNIT_CRUSADER = gc.getInfoTypeForString("UNIT_CRUSADER")
+ 		self.iBUILDING_NANITE_DEFUSER = gc.getInfoTypeForString("BUILDING_NANITE_DEFUSER")
+ 		self.iTECH_FUNDAMENTALISM = gc.getInfoTypeForString("TECH_FUNDAMENTALISM")
+ 
+-	def onGameStart(self, argsList):
+-		'Called at the start of the game'
+-		self.augustusAIProfiler.initialize(True)
+-		self.settlementTrainingProfiler.initialize(True)
++	def onLoadGame(self, argsList):
++		self._initializeGameData(False)
+ 
+-		# init building upgrade lines, can not be done earlier as the game inits python before it inits xml...
+-		self._rebuildBuildingUpgradeLines()
+-		# def onBuildingBuilt / Additional tests variable
+-		self.iBUILDING_CRUSADE = gc.getInfoTypeForString("BUILDING_CRUSADE")
+-		self.iBUILDING_DJENNE = gc.getInfoTypeForString("BUILDING_DJENNE")
+-		self.iBUILDING_WORLD_BANK = gc.getInfoTypeForString("BUILDING_WORLD_BANK")
+-#		self.iBUILDING_ASCENSION_GATE = gc.getInfoTypeForString("BUILDING_ASCENSION_GATE")
+-		self.iTECH_KNOWLEDGE_MANAGEMENT = gc.getInfoTypeForString("TECH_KNOWLEDGE_MANAGEMENT")
+-		self.iTECH_APPLIED_ECONOMICS = gc.getInfoTypeForString("TECH_APPLIED_ECONOMICS")
+-		self.iTECH_SENTIENT_EARTH = gc.getInfoTypeForString("TECH_SENTIENT_EARTH")
+-		self.iPROJECT_EDEN = gc.getInfoTypeForString('PROJECT_EDEN')
+-#		self.iVICTORY_SCIENTIFIC = gc.getInfoTypeForString("VICTORY_SCIENTIFIC")
+-		self.iUNIT_CRUSADER = gc.getInfoTypeForString("UNIT_CRUSADER")
+-		self.iBUILDING_NANITE_DEFUSER = gc.getInfoTypeForString("BUILDING_NANITE_DEFUSER")
+-		self.iTECH_FUNDAMENTALISM = gc.getInfoTypeForString("TECH_FUNDAMENTALISM")
++	def onGameStart(self, argsList):
++		self._initializeGameData(True)
+ 
+ 	def onBeginPlayerTurn(self, argsList):
+ 		'Called at the beginning of a players turn'
+@@ -310,19 +292,7 @@ class RoMEventManager:
+ 						iGold = pPlayer.getGold( )
+ 						pPlayer.changeGold( iGold//100 )
+ 		
+-		# Scientific Victory when Ascension Gate is found from player city ie. it has been built
+-# Rise of Mankind 2.92 - obsolete code block
+-#		if CyGame().isVictoryValid(self.iVICTORY_SCIENTIFIC) :
+-#			if gc.getTeam(pPlayer.getTeam()).isHasTech(self.iTECH_SENTIENT_EARTH):
+-#				for iCity in range(pPlayer.getNumCities()):
+-#					ppCity = pPlayer.getCity(iCity)
+-#					if ppCity.getNumActiveBuilding(self.iBUILDING_ASCENSION_GATE) == true:
+-#						CyGame().setWinner(pPlayer.getTeam(), self.iVICTORY_SCIENTIFIC)
+-# Rise of Mankind 2.92
+-
+-		# Crusade Start ##
+-#		test = ( iGameTurn % 14 )
+-#		BugUtil.info ( "crusade test: %d", test) 
++		# Crusade reinforcements follow the existing game-length cadence.
+ 		if gc.getTeam(pPlayer.getTeam()).isHasTech(self.iTECH_FUNDAMENTALISM):
+ 			obsoleteTech = gc.getBuildingInfo(self.iBUILDING_CRUSADE).getObsoleteTech()
+ 			if ( obsoleteTech == -1 or not gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech) ):
+@@ -333,35 +303,20 @@ class RoMEventManager:
+ 						iX = ppCity.getX()
+ 						iY = ppCity.getY()
+ 						estiEnd = CyGame().getEstimateEndTurn()
+-						if ( estiEnd >= 1800 ):
+-							if ( iGameTurn % 16 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 1400 ):
+-							if ( iGameTurn % 14 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 1000 ):
+-							if ( iGameTurn % 12 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 700 ):
+-							if ( iGameTurn % 8 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 500 ):
+-							if ( iGameTurn % 6 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-						elif ( estiEnd >= 300 ):
+-							if ( iGameTurn % 4 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
++						if estiEnd >= 1800:
++							interval = 16
++						elif estiEnd >= 1400:
++							interval = 14
++						elif estiEnd >= 1000:
++							interval = 12
++						elif estiEnd >= 700:
++							interval = 8
++						elif estiEnd >= 500:
++							interval = 6
+ 						else:
+-							if ( iGameTurn % 4 ) == 0:
+-								for i in range(1):
+-									pNewUnit = pPlayer.initUnit( self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION )
+-		# Crusade End #
++							interval = 4
++						if iGameTurn % interval == 0:
++							pPlayer.initUnit(self.iUNIT_CRUSADER, iX, iY, UnitAITypes.UNITAI_ATTACK_CITY, DirectionTypes.NO_DIRECTION)
+ 
+ 	def onBuildingBuilt(self, argsList):
+ 		'Building Completed'
+diff --git a/Docs/AI_COORDINATION_FIXES.md b/Docs/AI_COORDINATION_FIXES.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..78ea58107afafd6a11181ec42c13418e1a4f819a
+--- /dev/null
++++ b/Docs/AI_COORDINATION_FIXES.md
+@@ -0,0 +1,74 @@
++# Carthage autoplay: worker, cargo and production coordination
++
++Reviewed against GitLab `5e6d03591731f64d589661f4f329aa28e8c71a7d`.
++These changes follow the separately documented source cleanup. Neither change
++alters the save layout or bundled DLL. Rebuild the DLL to use them in-game.
++
++## Corrected behavior
++
++* `AI_improveBonus`: permit replacing a non-connecting improvement on a revealed,
++  non-obsolete resource even with safe automation enabled. This matches the
++  resource exception already implemented in `AI_bestPlotBuild` and `groupBuild`.
++  Keep connecting improvements and acts-as-city improvements; keep actual build
++  legality and forest-preservation checks. The change does not allow arbitrary
++  rebuilding of non-resource plots. Autoplay retains the player's option flags.
++* The same resource selector now minimizes base build time directly. Previously
++  it minimized `10000 / (time + 1)`, favoring slower alternatives and losing
++  distinctions through integer rounding. Equal times retain XML iteration order.
++  This is not a full travel/progress/yield optimizer.
++* The two early settler-transport loading calls in `AI_cityDefenseMove` accept a
++  transport with any free capacity and no existing CITY_DEFENSE cargo. Previously
++  they required at most one free slot: RoM's four-slot galley containing just a
++  settler was rejected. Existing danger, best-garrison and subsequent minimum-
++  defense ordering remains intact. Other reinforcement paths remain unchanged.
++* Settler, explorer and naval production use aggregate supply APIs once. Those
++  APIs already include training units. A queued settler no longer consumes two
++  slots; a scout queued on a separate land area no longer suppresses local
++  demand. The generic explorer selector uses the common area-supply subtraction.
++  Redundant water-area queue additions are also removed; those counters are
++  often zero because ordinary ship production belongs to coastal land cities.
++* `AI_settleMove` returns after its danger branch issues MISSION_SKIP. Previously
++  it could continue to site selection, loading or founding in that invocation.
++
++## Evidence and limits
++
++`python3 Tools/test_ai_coordination.py` compiles actual methods/fragments as C++03
++with fatal UBSan, plus checks the relevant base XML. Eight tests cover:
++
++* 32 resource replacement combinations, including safe automation;
++* 2,401 build-time/legality combinations, plus forest and non-connecting controls;
++* 64 settler active/queued combinations;
++* 64 local/remote explorer combinations across both production paths;
++* 16 naval water/port queue combinations, including foreign-port ownership;
++* escort cargo gates at capacities 2 through 8 and the real departure predicate;
++* danger skip, retreat, safety and no-danger control paths;
++* four-slot galley, camp/mine Copper connection and civic XML facts.
++
++Seven tests reject the pre-fix GitLab source through native assertion failures;
++the XML control already passes. Two old lexical assertions demanded the extra
++queue queries that caused duplicate accounting. They now check aggregate wiring;
++the new numerical tests execute that accounting.
++
++These are source-contract tests with narrow adapters. They do not load a save,
++execute the Windows DLL, resolve real paths, or prove that an expedition succeeds.
++The cargo test covers an available CITY_DEFENSE escort and a settler aboard a
++SETTLER_SEA transport. It does not prove the reported escort-only cargo sequence
++has the same cause. The safe-automation flag in the supplied save is unverified.
++
++## Remaining gameplay questions
++
++The existing early workboat priority already follows one physical defender, but
++can be bypassed by danger, turtle strategy, an existing settler's escort demand,
++or earlier special branches. Ocean-wide worker counts also do not establish
++timely service to this city's resources. Compare build sequences and first
++usable yields, not just priority weights.
++
++Pastoral is not pasture-only: relative to Hunter-Gatherer it removes -25 worker
++speed and -25 military production modifiers and improves the trade-yield modifier
++from -50 to -30. It introduces low upkeep and may cost anarchy. Its timing needs
++an economic counterfactual, including integer rounding and the current package.
++
++Naval hull demand still uses army/coastal-city proxies rather than named voyages.
++Settlement scoring still separates site quality, affordability, production,
++escort assignment and route execution. Improving these requires coordinated
++operation records and engine traces, not more unrelated hard priority branches.
+diff --git a/Docs/OPERATION_SUPPLY_FIXES.md b/Docs/OPERATION_SUPPLY_FIXES.md
+index b605e0bc3459be241424ae9747fe2909940aa982..2676ddf5ecd2d67d5ce77634f2eda9d2876f6f9b 100644
+--- a/Docs/OPERATION_SUPPLY_FIXES.md
++++ b/Docs/OPERATION_SUPPLY_FIXES.md
+@@ -41,13 +41,15 @@ random draw. The draw count does not change. A failed roll and a failed
+ `AI_doGoldHurry` negated `calculateGoldRate` and multiplied by the runway.
+ `AI_maxGoldTrade` did the same with a 12-turn buffer and then the speed
+ percent. Negating `INT_MIN` is undefined, and the products overflow signed
+-32-bit. `deficitReserve` and `goldAfterReserve` saturate. For values that
+-already fit, both match the old multiply-then-divide.
++32-bit. `deficitReserve` saturates the hurry reserve. The follow-up cleanup
++uses `goldAfterDeficitReserve` for trade: it applies the speed percentage
++before clamping, avoids overflow even in the fractional remainder, and
++preserves integer rounding. See `SOURCE_CLEANUP.md` for the reproduced cases.
+ 
+ ## Not changed on purpose
+ 
+ Commissioning and resurrecting great generals with `initUnit`, without
+ spending great-person points, is explicit in `AI_updateMilitaryOperations`.
+ That is a balance choice, not an accidental inverted condition. Removing it
+-is a design change and is not in this patch. `AI_doCentralizedProduction`
+-still returns immediately; the body below it is unfinished.
++is a design change and is not in this patch. The subsequent cleanup removes
++the unconditionally disabled `AI_doCentralizedProduction` stub and its caller.
+diff --git a/Docs/SOURCE_CLEANUP.md b/Docs/SOURCE_CLEANUP.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..280963dc52ba697a4dd912e48b081a19006fc70d
+--- /dev/null
++++ b/Docs/SOURCE_CLEANUP.md
+@@ -0,0 +1,41 @@
++# Cleanup following the current upstream fixes
++
++Base: GitLab `5e6d03591731f64d589661f4f329aa28e8c71a7d`. This includes the
++source-correctness fixes and the newer operation-supply, general-career and
++gold-reserve changes. Do not apply the older standalone supply patch over it.
++
++Removed the disabled centralized-production method, its declaration and caller,
++the commented virtual declaration, and abandoned commented building valuations.
++City-local wonder eligibility and the active gold-hurry phase remain in place.
++The removed method returned before its unfinished planning body; its profiling
++entry also disappears. No object fields, virtual slots or save fields change.
++
++Load and game-start initialization now share one method, preserving profiler
++flags and call order, fresh upgrade-pair rebuilding, and runtime type lookups.
++Crusade spawning selects the existing interval once and uses one spawn call:
++4 turns below an estimated 500-turn game, then 6/8/12/14/16 at thresholds
++500/700/1000/1400/1800. City iteration and the obsolete-tech guard are preserved.
++
++## Reserve arithmetic correction
++
++The upstream tests passed, but two additional cases failed:
++
++* `goldAfterReserve(INT_MAX, 99, INT_MAX)` overflowed in `rem * percent`.
++* Gold 2,000,000,000, rate -250,000,000, runway 12 and speed 50% left
++  926,258,177 available instead of 500,000,000 because the unscaled deficit
++  was saturated before applying the percentage.
++
++The replacement computes the unscaled deficit in 64 bits and compares it with
++`ceil(gold * 100 / percent)` before the final multiplication. Below that cutoff,
++the product is less than `gold * 100`; at or above it, available gold is zero.
++Thus it evaluates the intended integer formula without overflowing even when
++the unrestricted three-factor product would exceed 64 bits. Nonpositive gold,
++nonnegative rates, and nonpositive runway/percentage retain the existing guards.
++
++## Validation
++
++Run `python3 Tools/run_regression_suite.py`. The suite includes 4,352 reserve
++cases against an independent Python integer oracle, with C++03 and fatal UBSan
++checks, and 70 Crusade boundary scenarios plus lifecycle-order checks.
++These isolated tests do not build the Windows DLL or execute the BTS host.
++The source remains on save format 6; this cleanup adds no format migration.
+diff --git a/Tools/TESTING.md b/Tools/TESTING.md
+index 01bc41023e660f1a8c3a1b334cfed1ccd9acbd68..99199a5e69ebcc4ad84c164dd895578a41993b8e 100644
+--- a/Tools/TESTING.md
++++ b/Tools/TESTING.md
+@@ -20,6 +20,12 @@ unrelated broad pattern.
+ 
+ ## Layers and guarantees
+ 
++`test_ai_coordination.py` covers the Carthage autoplay findings using executed
++production fragments: resource replacement, shortest legal base build time,
++single-count production commitments, escort cargo gates and terminating a
++settler's danger decision. See [the scope and limitations](../Docs/AI_COORDINATION_FIXES.md).
++Pass `--source PATH` to compare the same tests with exported pre-fix source.
++
+ 1. **Lexical and data validity** checks NUL/conflict bytes, legacy DLL line
+    endings, unsafe Unicode line bytes, and parses every XML document except the
+    six intentionally fragmentary `README_CIV4*.xml` warnings.
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index ffdcb7f815709bbc5be15e9bd901670f53cb2736..58fd887486535c86da3e18ae626381ff31af9d6f 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -1,5 +1,9 @@
+ {
+   "tests": [
++    {
++      "command": ["python3", "Tools/test_ai_coordination.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvCityAI.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/XML/Units/CIV4UnitInfos.xml", "Assets/XML/Terrain/CIV4ImprovementInfos.xml", "Assets/XML/GameInfo/CIV4CivicInfos.xml"]
++    },
+     {
+       "command": ["python3", "Tools/test_review_correctness.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/Python/RoMEventManager.py", "Assets/Python/PyHelpers.py"]
+diff --git a/Tools/test_ai_coordination.py b/Tools/test_ai_coordination.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..95bbe054d1442513db58e33f554c66bd88ad001d
+--- /dev/null
++++ b/Tools/test_ai_coordination.py
+@@ -0,0 +1,271 @@
++#!/usr/bin/env python3
++"""Execute current production fragments for the Carthage autoplay review.
++
++Narrow adapters supply counts and path answers; this is not a BTS save replay.
++Use --source PATH to verify that the pre-fix source rejects these scenarios.
++"""
++import re
++import unittest
++import xml.etree.ElementTree as ET
++from test_review_correctness import ROOT, DLL, remaining, block, compile_run
++
++
++def source(name):
++    return (DLL / name).read_text()
++
++
++def uncomment(text):
++    return re.sub(r'/\*.*?\*/|//[^\n]*', '', text, flags=re.S)
++
++
++class CoordinationTests(unittest.TestCase):
++    def test_safe_automation_allows_connecting_a_blocked_resource(self):
++        method = block(source('CvUnitAI.cpp'), 'bool CvUnitAI::AI_improveBonus(')
++        start = method.index('eImprovement = pLoopPlot->getImprovementType();')
++        fragment = method[start:method.index('iBestTempBuildValue = MAX_INT;', start)]
++        compile_run(r'''
++#include <cassert>
++typedef int ImprovementTypes;
++enum {NO_IMPROVEMENT=-1,PLAYEROPTION_SAFE_AUTOMATION};
++struct Improvement {bool city,trade;bool isActsAsCity(){return city;}
++ bool isImprovementBonusTrade(int){return trade;}} info;
++struct Globals {int getDefineINT(const char*){return 2;}
++ Improvement& getImprovementInfo(int){return info;}} GC;
++struct Plot {int improvement;int getImprovementType(){return improvement;}} tile;
++struct Player {bool safe;bool isOption(int){return safe;}} player;
++#define GET_PLAYER(x) player
++int getOwnerINLINE(){return 0;}
++bool eligible(){Plot* pLoopPlot=&tile;int eImprovement=NO_IMPROVEMENT,eNonObsoleteBonus=0;
++ FRAGMENT
++ return bDoImprove;}
++int main(){for(int safe=0;safe<2;++safe){player.safe=safe!=0;
++ for(int imp=-1;imp<3;++imp)for(int city=0;city<2;++city)for(int trade=0;trade<2;++trade){
++  tile.improvement=imp;info.city=city!=0;info.trade=trade!=0;
++  assert(eligible()==(imp==NO_IMPROVEMENT || (!city && !trade)));
++ }}}
++'''.replace('FRAGMENT', fragment))
++
++    def test_bonus_build_selector_chooses_shortest_legal_build(self):
++        method = block(source('CvUnitAI.cpp'), 'bool CvUnitAI::AI_improveBonus(')
++        loop = block(method, 'for (iJ = 0; iJ < GC.getNumBuildInfos(); iJ++)')
++        compile_run(r'''
++#include <algorithm>
++#include <cassert>
++#include <climits>
++typedef int BuildTypes; typedef int ImprovementTypes;
++enum {NO_IMPROVEMENT=-1, NO_BUILD=-1, NO_FEATURE=-1, PLAYEROPTION_LEAVE_FORESTS};
++struct Build {int time; bool legal,remove,connect;
++ int getImprovement()const{return 0;} int getTime()const{return time;}
++ bool isFeatureRemove(int)const{return remove;}};
++struct Improvement {bool connect; bool isImprovementBonusTrade(int)const{return connect;}
++ bool isActsAsCity()const{return false;}};
++struct Globals {Build builds[3]; int selected;
++ int getNumBuildInfos()const{return 3;}
++ Build& getBuildInfo(int i){selected=i;return builds[i];}
++ Improvement getImprovementInfo(int)const{Improvement v={builds[selected].connect};return v;}} GC;
++struct Plot {bool radius; int feature; bool isCityRadius()const{return radius;}
++ int getFeatureType()const{return feature;}};
++struct Player {bool leave; bool isOption(int)const{return leave;}} player;
++#define GET_PLAYER(x) player
++int getOwnerINLINE(){return 0;}
++bool canBuild(Plot*,int b){return GC.builds[b].legal;}
++int select(Plot* pLoopPlot){int iJ=0,iValue=0,iBestTempBuildValue=INT_MAX;
++ int eBuild=NO_BUILD,eBestTempBuild=NO_BUILD,eNonObsoleteBonus=0;
++ LOOP
++ return eBestTempBuild;}
++int main(){Plot plot={true,NO_FEATURE};player.leave=false;
++ const int times[]={0,1,400,401,600,10000,INT_MAX};
++ for(int a=0;a<7;++a)for(int b=0;b<7;++b)for(int c=0;c<7;++c){
++  int t[]={times[a],times[b],times[c]};
++  for(int mask=1;mask<8;++mask){int expected=-1;
++   for(int i=0;i<3;++i){Build v={t[i],(mask&(1<<i))!=0,false,true};GC.builds[i]=v;
++    if(v.legal && (expected<0 || t[i]<t[expected]))expected=i;}
++   assert(select(&plot)==expected);
++  }
++ }
++ Build first={100,true,true,true},second={400,true,false,true},third={1,true,false,false};
++ GC.builds[0]=first;GC.builds[1]=second;GC.builds[2]=third;
++ plot.feature=0;player.leave=true;assert(select(&plot)==1);
++ player.leave=false;assert(select(&plot)==0);
++ GC.builds[0].legal=false;GC.builds[1].legal=false;assert(select(&plot)==NO_BUILD);
++}
++'''.replace('LOOP', loop))
++
++    def test_settler_supply_counts_each_queued_unit_once(self):
++        city = block(source('CvCityAI.cpp'), 'void CvCityAI::AI_chooseProduction()')
++        start = city.index('const int iActiveSettlers') if 'const int iActiveSettlers' in city else city.index('const int iNumSettlers')
++        end = city.index(';', city.index('const int iNumSettlers')) + 1
++        declarations = city[start:end]
++        total = block(source('CvPlayerAI.cpp'), 'int CvPlayerAI::AI_totalUnitAIs(')
++        compile_run(r'''
++#include <cassert>
++typedef int UnitAITypes; enum {UNITAI_SETTLE};
++struct CvPlayerAI {int active,queued;
++ int AI_getNumTrainAIUnits(int)const{return queued;}
++ int AI_getNumAIUnits(int)const{return active;}
++ int AI_totalUnitAIs(UnitAITypes)const;};
++TOTAL
++int supply(CvPlayerAI& kPlayer){DECLARATIONS return iNumSettlers;}
++int main(){for(int a=0;a<8;++a)for(int q=0;q<8;++q){
++ CvPlayerAI p={a,q};assert(supply(p)==a+q);}}
++'''.replace('TOTAL', total).replace('DECLARATIONS', declarations))
++
++    def test_explorer_supply_is_local_and_counted_once(self):
++        city = uncomment(source('CvCityAI.cpp'))
++        explicit = re.search(r'if \((kPlayer\.AI_totalAreaUnitAIs\(pArea, UNITAI_EXPLORE\).*?) < kPlayer\.AI_neededExplorers\(pArea\)\)', city, re.S)[1]
++        # Execute the generic selector's initial accounting and common subtraction.
++        init = re.search(r'aiUnitAIVal\[UNITAI_EXPLORE\]\s*-=\s*GET_PLAYER\(getOwnerINLINE\(\)\)\.AI_getNumTrainAIUnits\(UNITAI_EXPLORE\);', city)
++        subtract = re.search(r'aiUnitAIVal\[iI\] -= GET_PLAYER\(getOwnerINLINE\(\)\)\.AI_totalAreaUnitAIs\(area\(\), \(\(UnitAITypes\)iI\)\);', city)[0]
++        total = block(source('CvPlayerAI.cpp'), 'int CvPlayerAI::AI_totalAreaUnitAIs(')
++        compile_run(r'''
++#include <cassert>
++typedef int UnitAITypes;enum {UNITAI_EXPLORE,NUM_UNITAI_TYPES};
++struct CvArea {int active,queued;
++ int getNumTrainAIUnits(int,int)const{return queued;}
++ int getNumAIUnits(int,int)const{return active;}};
++struct CvPlayerAI {int globalQueued; int getID()const{return 0;}
++ int AI_getNumTrainAIUnits(int)const{return globalQueued;}
++ int AI_totalAreaUnitAIs(CvArea*,UnitAITypes)const;} kPlayer;
++TOTAL
++CvArea local; CvArea* area(){return &local;}
++#define GET_PLAYER(x) kPlayer
++int getOwnerINLINE(){return 0;}
++int explicitSupply(CvArea* pArea){return EXPRESSION;}
++int genericDeficit(int need){int aiUnitAIVal[NUM_UNITAI_TYPES]={0};
++ INITIAL
++ aiUnitAIVal[UNITAI_EXPLORE]+=need;int iI=UNITAI_EXPLORE;
++ SUBTRACT
++ return aiUnitAIVal[UNITAI_EXPLORE];}
++int main(){for(int a=0;a<4;++a)for(int q=0;q<4;++q)for(int remote=0;remote<4;++remote){
++ local.active=a;local.queued=q;kPlayer.globalQueued=q+remote;
++ assert(explicitSupply(&local)==a+q);assert(genericDeficit(8)==8-a-q);}}
++'''.replace('TOTAL', total).replace('EXPRESSION', explicit).replace('INITIAL', init[0] if init else '').replace('SUBTRACT', subtract))
++
++    def test_settler_danger_skip_ends_decision(self):
++        method = block(source('CvUnitAI.cpp'), 'void CvUnitAI::AI_settleMove()')
++        danger = block(method, 'if (iDanger > 0)')
++        compile_run(r'''
++#include <cassert>
++#include <cstddef>
++enum {MISSION_SKIP};
++struct CvUnitAI {bool owned,retreat,safe;int skips,after,ungrouped;
++ CvUnitAI():owned(true),retreat(false),safe(false),skips(0),after(0),ungrouped(0){}
++ CvUnitAI* plot(){return this;} CvUnitAI* getGroup(){return this;}
++ int getOwnerINLINE(){return owned?0:1;}
++ void joinGroup(void*){++ungrouped;} bool AI_retreatToCity(){return retreat;}
++ bool AI_safety(){return safe;} void pushMission(int){++skips;}
++ void run(int iDanger){DANGER ++after;}};
++int main(){CvUnitAI a;a.run(3);assert(a.skips==1 && a.after==0);
++ CvUnitAI b;b.retreat=true;b.run(3);assert(b.skips==0 && b.after==0);
++ CvUnitAI c;c.safe=true;c.run(3);assert(c.skips==0 && c.after==0);
++ CvUnitAI d;d.run(0);assert(d.after==1 && d.ungrouped==0);}
++'''.replace('DANGER', danger))
++
++    def test_naval_supply_counts_water_and_port_queues_once(self):
++        city = block(source('CvCityAI.cpp'), 'void CvCityAI::AI_chooseProduction()')
++        declarations = '\n'.join(re.search(r'(?:const )?int ' + name + r' = [^;]+;', city)[0]
++                                 for name in ['iExistingTransports', 'iWarships'])
++        player = source('CvPlayerAI.cpp')
++        methods = '\n'.join(block(player, signature) for signature in [
++            'int CvPlayerAI::AI_totalAreaUnitAIs(', 'int CvPlayerAI::AI_totalWaterAreaUnitAIs('])
++        compile_run(r'''
++#include <cassert>
++#include <cstddef>
++typedef int UnitAITypes; typedef int PlayerTypes;
++enum {UNITAI_ASSAULT_SEA,UNITAI_ATTACK_SEA,UNITAI_RESERVE_SEA,MAX_PLAYERS=2,PUF_isUnitAIType=0};
++struct CvArea {int active,queued;
++ int getNumTrainAIUnits(int,int)const{return queued;}
++ int getNumAIUnits(int,int)const{return active;}} water;
++struct Plot {int units;int plotCount(int,int,int,int){return units;}};
++struct CvCity {int owner,queued;CvArea* sea;Plot tile;
++ CvArea* waterArea(){return sea;}Plot* plot(){return &tile;}
++ int getOwnerINLINE(){return owner;}int getNumTrainUnitAI(int){return queued;}};
++struct CvPlayerAI {CvCity city;int id;
++ int getID()const{return id;}bool isAlive(){return true;}
++ CvCity* firstCity(int* i){*i=0;return &city;}CvCity* nextCity(int*){return NULL;}
++ int AI_totalAreaUnitAIs(CvArea*,UnitAITypes)const;
++ int AI_totalWaterAreaUnitAIs(CvArea*,UnitAITypes)const;} players[MAX_PLAYERS];
++#define GET_PLAYER(i) players[i]
++METHODS
++int getOwnerINLINE(){return 0;}
++int main(){CvPlayerAI& kPlayer=players[0];CvArea* pWaterArea=&water;
++ players[0].id=0;players[1].id=1;
++ for(int q=0;q<4;++q)for(int port=0;port<4;++port){
++  water.active=2;water.queued=q;
++  for(int i=0;i<2;++i){players[i].city.owner=i;players[i].city.sea=&water;
++   players[i].city.tile.units=1;players[i].city.queued=port;}
++  DECLARATIONS
++  const int expected=2+q+2+port; // foreign port's production is not our supply
++  assert(iExistingTransports==expected);assert(iWarships==2*expected);
++ }}
++'''.replace('METHODS', methods).replace('DECLARATIONS', declarations))
++
++    def test_city_defender_can_board_four_slot_settler_transport(self):
++        unit = source('CvUnitAI.cpp')
++        defense = uncomment(block(unit, 'void CvUnitAI::AI_cityDefenseMove()'))
++        calls = re.findall(r'AI_load\(UNITAI_SETTLER_SEA, MISSIONAI_LOAD_SETTLER, UNITAI_SETTLE, -1,[^()\n]+\)', defense)
++        self.assertEqual(len(calls), 2)
++        load = block(unit, 'bool CvUnitAI::AI_load(')
++        gate = block(load, 'if ((eTransportedUnitAI == NO_UNITAI)')
++        # Preserve the production cargo filters; path/mission side effects follow
++        # after this point and are deliberately outside this adapter.
++        cut = gate.index('// Don\'t block city defense')
++        gate = gate[:cut] + 'return true;\n' + '}' * 5
++        sea = block(unit, 'void CvUnitAI::AI_settlerSeaMove()')
++        departure = block(sea, 'if ((iSettlerCount > 0) && (isFull() ||')
++        compile_run(r'''
++#include <cassert>
++enum {UNITAI_SETTLER_SEA,UNITAI_SETTLE,UNITAI_CITY_DEFENSE,MISSIONAI_LOAD_SETTLER,MOVE_SAFE_TERRITORY,NO_UNITAI=-1};
++struct Ship {int capacity,settlers,defenders,workers;
++ int getCargo()const{return settlers+defenders+workers;}
++ int getUnitAICargo(int role)const{return role==UNITAI_SETTLE?settlers:(role==UNITAI_CITY_DEFENSE?defenders:0);}} ship;
++int AI_getUnitAIType(){return UNITAI_CITY_DEFENSE;}
++bool AI_load(int,int,int eTransportedUnitAI,int iMinCargo,int iMinCargoSpace,
++ int iMaxCargoSpace,int iMaxCargoOurUnitAI,int,int=999){
++ Ship* pLoopUnit=&ship;int iCargoSpaceAvailable=ship.capacity-ship.getCargo();
++ if(iCargoSpaceAvailable<=0)return false;
++ GATE
++ return false;}
++struct Player {int incoming;int AI_unitTargetMissionAIs(void*,int){return incoming;}} player;
++#define GET_PLAYER(x) player
++struct Boat {int getOwnerINLINE(){return 0;}bool isFull(){return ship.getCargo()==ship.capacity;}
++ int getUnitAICargo(int role){return ship.getUnitAICargo(role);}
++ bool AI_settlerSeaTransport(){departed=true;return true;}bool departed;
++ void run(){int iSettlerCount=ship.settlers;DEPARTURE}};
++int main(){for(int capacity=2;capacity<=8;++capacity){
++ ship.capacity=capacity;ship.settlers=1;ship.defenders=0;ship.workers=0;
++ assert(CALL0);assert(CALL1);
++ ship.defenders=1;assert(!(CALL0));assert(!(CALL1));
++ player.incoming=0;Boat b;b.departed=false;b.run();assert(b.departed);
++ if(capacity>2){player.incoming=1;b.departed=false;b.run();assert(!b.departed);}
++ ship.settlers=0;ship.defenders=0;assert(!(CALL0));assert(!(CALL1));
++ ship.settlers=capacity;assert(!(CALL0));assert(!(CALL1));
++}}
++'''.replace('GATE', gate).replace('DEPARTURE', departure).replace('CALL0', calls[0]).replace('CALL1', calls[1]))
++        # Keep the existing city-safety precedence while changing the cargo gate.
++        self.assertLess(defense.index('AI_guardCityBestDefender()'), defense.index(calls[0]))
++        self.assertLess(defense.index('AI_guardCityMinDefender(true)'), defense.index(calls[1]))
++
++    def test_reported_xml_facts(self):
++        def record(file, tag, name):
++            root = ET.parse(ROOT / 'Assets/XML' / file).getroot()
++            for node in root.iter():
++                node.tag = node.tag.rsplit('}', 1)[-1]
++            return next(n for n in root.iter(tag) if n.findtext('Type') == name)
++        galley = record('Units/CIV4UnitInfos.xml','UnitInfo','UNIT_GALLEY')
++        self.assertEqual(galley.findtext('iCargo'), '4')
++        camp = record('Terrain/CIV4ImprovementInfos.xml','ImprovementInfo','IMPROVEMENT_CAMP')
++        mine = record('Terrain/CIV4ImprovementInfos.xml','ImprovementInfo','IMPROVEMENT_MINE')
++        def copper_trade(node):
++            return any(b.findtext('BonusType') == 'BONUS_COPPER' and b.findtext('bBonusTrade') == '1'
++                       for b in node.findall('./BonusTypeStructs/BonusTypeStruct'))
++        self.assertFalse(copper_trade(camp)); self.assertTrue(copper_trade(mine))
++        hunter = record('GameInfo/CIV4CivicInfos.xml','CivicInfo','CIVIC_HUNTER_GATHERER')
++        pastoral = record('GameInfo/CIV4CivicInfos.xml','CivicInfo','CIVIC_PASTORAL')
++        for key in ['iWorkerSpeedModifier','iMilitaryProductionModifier']:
++            self.assertEqual(hunter.findtext(key), '-25')
++            self.assertEqual(pastoral.findtext(key), '0')
++
++
++if __name__ == '__main__':
++    unittest.main(argv=[__file__] + remaining, verbosity=2)
+diff --git a/Tools/test_ai_economic_recovery.py b/Tools/test_ai_economic_recovery.py
+index 694c061f02d80570dcd9b80b89b5eda229aafc79..8413ac249de35b118585223a4d4aad419905b290 100644
+--- a/Tools/test_ai_economic_recovery.py
++++ b/Tools/test_ai_economic_recovery.py
+@@ -95,5 +95,8 @@ assert "getGoldPerUnit() -" in civic
+ assert "getGoldPerMilitaryUnit() -" in civic
+ assert civic.count("eCurrentCivic = getCivics(") == 1
+ assert "pCurrentCivic->getTradeYieldModifier(iYield)" in civic
+-assert city.count("AI_getNumTrainAIUnits(UNITAI_EXPLORE)") >= 2
++assert "kPlayer.AI_totalAreaUnitAIs(pArea, UNITAI_EXPLORE) < kPlayer.AI_neededExplorers(pArea)" in city
++# The aggregate already includes production. Numerical coverage for both city
++# selectors lives in test_ai_coordination.py; requiring an extra queue query
++# here previously protected double counting.
+ print("PASS: Masonry package, Mercenaries cost, and explorer-pipeline wiring verified")
+diff --git a/Tools/test_ai_maritime.py b/Tools/test_ai_maritime.py
+index 806c10ad5acb99a63db48c9286eacf6f61aac114..85854c1c7214ed5d4e4386886ee3ae8080e4a53c 100644
+--- a/Tools/test_ai_maritime.py
++++ b/Tools/test_ai_maritime.py
+@@ -107,6 +107,6 @@ assert 'maintains naval contract' in c
+ agenda=function(p,'void CvPlayerAI::AI_updateAgenda(')
+ assert '!bWarStateChanged' in agenda
+ assert 'm_iAIIntentAtWar = bAtWar ? 1 : 0' in agenda
+-assert c.count('pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_ASSAULT_SEA)')==1
+-assert 'pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_ATTACK_SEA)' in c
++assert 'kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ASSAULT_SEA)' in c
++assert 'kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ATTACK_SEA)' in c
+ print('PASS: spending, worker export, chosen transport, embarkation, landing and naval bombard contracts')
+diff --git a/Tools/test_operation_supply.py b/Tools/test_operation_supply.py
+index ed365a29489dc52bd146a8c6c7399e8e1ec10bf9..484cbd9f025ba5a97f1e9c8cc895ea95d80c6f63 100644
+--- a/Tools/test_operation_supply.py
++++ b/Tools/test_operation_supply.py
+@@ -1,6 +1,8 @@
+ #!/usr/bin/env python3
+ """Field supply, dead-commander memory, and saturating gold reserves."""
+ from pathlib import Path
++import itertools
++import random
+ import subprocess
+ import tempfile
+ import unittest
+@@ -70,7 +72,8 @@ class OperationSupplyTests(unittest.TestCase):
+         )
+         self.assertIn("deficitReserve(", hurry)
+         self.assertNotIn("-calculateGoldRate()", hurry)
+-        self.assertIn("goldAfterReserve(", trade)
++        self.assertIn("goldAfterDeficitReserve(", trade)
++        self.assertNotIn("deficitReserve(", trade)
+         self.assertNotIn("-calculateGoldRate()", trade)
+ 
+     def test_compiled_boundaries(self):
+@@ -85,13 +88,14 @@ int main() {
+     assert(AIDecisionPolicy::deficitReserve(-10, 0) == 0);
+     assert(AIDecisionPolicy::deficitReserve(INT_MIN, 4) == INT_MAX);
+     assert(AIDecisionPolicy::deficitReserve(-2000000000, 3) == INT_MAX);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 120, 100) == 80);
+-    assert(AIDecisionPolicy::goldAfterReserve(100, 120, 100) == 0);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 0, 300) == 200);
+-    assert(AIDecisionPolicy::goldAfterReserve(50, 10, 0) == 50);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 120, 300) == 0);
+-    assert(AIDecisionPolicy::goldAfterReserve(-5, 120, 100) == -5);
+-    assert(AIDecisionPolicy::goldAfterReserve(100, INT_MAX, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, -10, 12, 100) == 80);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(100, -10, 12, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, 0, 12, 300) == 200);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(50, -10, 12, 0) == 50);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, -10, 12, 300) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(-5, -10, 12, 100) == -5);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(100, INT_MIN, 12, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(2000000000, -250000000, 12, 50) == 500000000);
+     assert(AIDecisionPolicy::nextLossCareerKey(0) == -1);
+     assert(AIDecisionPolicy::nextLossCareerKey(4) == -1);
+     assert(AIDecisionPolicy::nextLossCareerKey(-1) == -2);
+@@ -116,12 +120,50 @@ int main() {
+             compiled = Path(tmp) / "supply"
+             result = subprocess.run(
+                 ["g++", "-std=c++03", "-Wall", "-Wextra", "-Werror", "-fsanitize=undefined",
++                 "-fno-sanitize-recover=undefined",
+                  "-I" + str(DLL), "-o", str(compiled), str(path)],
+                 capture_output=True, text=True)
+             self.assertEqual(result.returncode, 0, result.stderr)
+             ran = subprocess.run([str(compiled)], capture_output=True, text=True)
+             self.assertEqual(ran.returncode, 0, ran.stderr + ran.stdout)
+ 
++    def test_gold_trade_reserve_matches_integer_oracle(self):
++        low,high=-(2**31),2**31-1
++        cases=list(itertools.product(
++            (low,-5,0,1,50,200,2000000000,high),
++            (low,-250000000,-100,-1,0,1,high),
++            (-1,0,1,3,12,high),(-1,0,1,50,100,300,high)))
++        rng=random.Random(20261011)
++        cases.extend((rng.randrange(1,high+1),-rng.randrange(1,high+2),
++                      rng.choice((1,3,12,10000,high)),rng.choice((1,25,50,100,300,high)))
++                     for _ in range(2000))
++        # Python integers give an independent exact reference, including products
++        # too large for signed 64-bit arithmetic before the final clamp.
++        expected=[gold if gold<=0 or rate>=0 or turns<=0 or percent<=0 else
++                  max(0,gold-((-rate)*turns*percent//100))
++                  for gold,rate,turns,percent in cases]
++        program='''
++#include "AIDecisionPolicy.h"
++#include <iostream>
++int main(){int gold,rate,turns,percent;
++    while(std::cin>>gold>>rate>>turns>>percent)
++        std::cout<<AIDecisionPolicy::goldAfterDeficitReserve(gold,rate,turns,percent)<<"\\n";
++}
++'''
++        with tempfile.TemporaryDirectory() as tmp:
++            path,exe=Path(tmp)/'reserve.cpp',Path(tmp)/'reserve'
++            path.write_text(program)
++            subprocess.run(['g++','-std=c++03','-Wall','-Wextra','-Werror',
++                            '-fsanitize=undefined','-fno-sanitize-recover=undefined',
++                            '-I'+str(DLL),str(path),'-o',str(exe)],check=True)
++            data=''.join(' '.join(map(str,case))+'\n' for case in cases)
++            ran=subprocess.run([str(exe)],input=data,text=True,capture_output=True,check=True)
++            actual=[int(line) for line in ran.stdout.splitlines()]
++        self.assertEqual(len(actual),len(cases))
++        for case,want,got in zip(cases,expected,actual):
++            self.assertEqual(got,want,case)
++        print('Verified %d gold-reserve cases against exact integer arithmetic.'%len(cases))
++
+ 
+ if __name__ == "__main__":
+     unittest.main(verbosity=2)
+diff --git a/Tools/test_review_correctness.py b/Tools/test_review_correctness.py
+index 65fb22875f6edd1a83b3b93f32625861d13a2357..5c5396de5e8d32dd306ca26c6298280fd6cb7c87 100644
+--- a/Tools/test_review_correctness.py
++++ b/Tools/test_review_correctness.py
+@@ -252,7 +252,7 @@ class PythonTests(unittest.TestCase):
+         a=self.source.index('\t\tself.asBuildingUpgradeLine_Upgrade_Name =')
+         b=self.source.index('\t\tself.iBUILDING_CRUSADE =',a)
+         exec(textwrap.dedent(self.source[a:b]), {'self':self.manager})
+-        for name in ('_rebuildBuildingUpgradeLines','onLoadGame','onGameStart','onBeginPlayerTurn'):
++        for name in ('_rebuildBuildingUpgradeLines','_initializeGameData','onLoadGame','onGameStart','onBeginPlayerTurn'):
+             if '\tdef '+name+'(' in self.source:
+                 exec(python_method(self.source,name),self.ns)
+                 setattr(self.manager,name,types.MethodType(self.ns[name],self.manager))
+@@ -281,7 +281,35 @@ class PythonTests(unittest.TestCase):
+         self.assertEqual(self.manager.aiBuildingUpgradeLine_Upgrade_InfoTypeNum,old_up)
+         self.assertEqual(self.manager.aiBuildingUpgradeLine_Obsolete_InfoTypeNum,old_ob)
+ 
+-    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False):
++    def test_load_and_start_preserve_profiler_and_lookup_order(self):
++        events=[]
++        self.manager.augustusAIProfiler=types.SimpleNamespace(
++            initialize=lambda fresh:events.append(('augustus',fresh)))
++        self.manager.settlementTrainingProfiler=types.SimpleNamespace(
++            initialize=lambda fresh:events.append(('settlement',fresh)))
++        def upgrade_lookup(_f,_n,name):
++            events.append(('upgrade',name))
++            return self.lookup(name)
++        def type_lookup(name):
++            events.append(('type',name))
++            return self.lookup(name)
++        self.ns['CvUtil'].findInfoTypeNum=upgrade_lookup
++        self.gc.getInfoTypeForString=type_lookup
++        expected_types=['BUILDING_CRUSADE','BUILDING_DJENNE','BUILDING_WORLD_BANK',
++            'TECH_KNOWLEDGE_MANAGEMENT','TECH_APPLIED_ECONOMICS','TECH_SENTIENT_EARTH',
++            'PROJECT_EDEN','UNIT_CRUSADER','BUILDING_NANITE_DEFUSER','TECH_FUNDAMENTALISM']
++        previous=None
++        for event,fresh in (('onLoadGame',False),('onGameStart',True),('onLoadGame',False)):
++            events[:]=[]
++            getattr(self.manager,event)(())
++            self.assertEqual(events[:2],[('augustus',fresh),('settlement',fresh)])
++            self.assertEqual([kind for kind,_ in events[2:168]],['upgrade']*166)
++            self.assertEqual(events[168:],[('type',name) for name in expected_types])
++            if previous is not None:self.assertEqual(events[2:],previous)
++            previous=events[2:]
++
++    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False,
++                     turn=4, estimated_end=300):
+         self.manager.onLoadGame(())
+         bank=self.manager.iBUILDING_WORLD_BANK;church=self.manager.iBUILDING_CRUSADE
+         owned={}
+@@ -310,10 +338,10 @@ class PythonTests(unittest.TestCase):
+         exec(python_method(helper,'getCityList'),helper_ns)
+         wrapper=types.SimpleNamespace(player=player,getID=lambda:0)
+         wrapper.getCityList=types.MethodType(helper_ns['getCityList'],wrapper)
+-        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:300),
++        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:estimated_end),
+                        UnitAITypes=types.SimpleNamespace(UNITAI_ATTACK_CITY=1),
+                        DirectionTypes=types.SimpleNamespace(NO_DIRECTION=-1))
+-        self.manager.onBeginPlayerTurn((4,0))
++        self.manager.onBeginPlayerTurn((turn,0))
+         return gold[0],spawn
+ 
+     def test_sparse_city_receives_bank_interest(self):
+@@ -332,6 +360,18 @@ class PythonTests(unittest.TestCase):
+         self.assertEqual(len(spawn),1)
+         self.assertEqual(spawn[0][1:3],(2,9))
+ 
++    def test_crusade_cadence_at_game_length_boundaries(self):
++        for end,interval in ((0,4),(299,4),(300,4),(499,4),(500,6),(699,6),
++                             (700,8),(999,8),(1000,12),(1399,12),(1400,14),
++                             (1799,14),(1800,16),(4000,16)):
++            for turn in (0,interval-1,interval,interval+1,2*interval):
++                with self.subTest(estimated_end=end,turn=turn):
++                    gold,spawn=self.turn_fixture([(0,True),(2,True)],crusade=True,
++                                                 turn=turn,estimated_end=end)
++                    self.assertEqual(gold,1000)
++                    expected=[] if turn in (interval-1,interval+1) else [(0,9),(2,9)]
++                    self.assertEqual([unit[1:3] for unit in spawn],expected)
++
+ 
+ if __name__=='__main__':
+     unittest.main(argv=[__file__]+remaining,verbosity=2)

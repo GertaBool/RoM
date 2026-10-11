@@ -1,0 +1,104 @@
+test_bonus_build_selector_chooses_shortest_legal_build (__main__.CoordinationTests.test_bonus_build_selector_chooses_shortest_legal_build) ... test: /tmp/rom-correctness-4xum_qib/test.cpp:60: int main(): Assertion `select(&plot)==expected' failed.
+ERROR
+test_city_defender_can_board_four_slot_settler_transport (__main__.CoordinationTests.test_city_defender_can_board_four_slot_settler_transport) ... test: /tmp/rom-correctness-pmbppf6g/test.cpp:45: int main(): Assertion `AI_load(UNITAI_SETTLER_SEA, MISSIONAI_LOAD_SETTLER, UNITAI_SETTLE, -1, -1, 1, -1, MOVE_SAFE_TERRITORY, 1)' failed.
+ERROR
+test_explorer_supply_is_local_and_counted_once (__main__.CoordinationTests.test_explorer_supply_is_local_and_counted_once) ... test: /tmp/rom-correctness-xvhpxwn7/test.cpp:27: int main(): Assertion `explicitSupply(&local)==a+q' failed.
+ERROR
+test_naval_supply_counts_water_and_port_queues_once (__main__.CoordinationTests.test_naval_supply_counts_water_and_port_queues_once) ... test: /tmp/rom-correctness-4d6c8n7d/test.cpp:68: int main(): Assertion `iExistingTransports==expected' failed.
+ERROR
+test_reported_xml_facts (__main__.CoordinationTests.test_reported_xml_facts) ... ok
+test_safe_automation_allows_connecting_a_blocked_resource (__main__.CoordinationTests.test_safe_automation_allows_connecting_a_blocked_resource) ... test: /tmp/rom-correctness-4geudfbl/test.cpp:40: int main(): Assertion `eligible()==(imp==NO_IMPROVEMENT || (!city && !trade))' failed.
+ERROR
+test_settler_danger_skip_ends_decision (__main__.CoordinationTests.test_settler_danger_skip_ends_decision) ... test: /tmp/rom-correctness-qn5vem9r/test.cpp:27: int main(): Assertion `a.skips==1 && a.after==0' failed.
+ERROR
+test_settler_supply_counts_each_queued_unit_once (__main__.CoordinationTests.test_settler_supply_counts_each_queued_unit_once) ... test: /tmp/rom-correctness-5h_q9o3t/test.cpp:18: int main(): Assertion `supply(p)==a+q' failed.
+ERROR
+
+======================================================================
+ERROR: test_bonus_build_selector_chooses_shortest_legal_build (__main__.CoordinationTests.test_bonus_build_selector_chooses_shortest_legal_build)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_coordination.py", line 51, in test_bonus_build_selector_chooses_shortest_legal_build
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-4xum_qib/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_city_defender_can_board_four_slot_settler_transport (__main__.CoordinationTests.test_city_defender_can_board_four_slot_settler_transport)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_coordination.py", line 216, in test_city_defender_can_board_four_slot_settler_transport
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-pmbppf6g/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_explorer_supply_is_local_and_counted_once (__main__.CoordinationTests.test_explorer_supply_is_local_and_counted_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_coordination.py", line 120, in test_explorer_supply_is_local_and_counted_once
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-xvhpxwn7/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_naval_supply_counts_water_and_port_queues_once (__main__.CoordinationTests.test_naval_supply_counts_water_and_port_queues_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_coordination.py", line 171, in test_naval_supply_counts_water_and_port_queues_once
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-4d6c8n7d/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_safe_automation_allows_connecting_a_blocked_resource (__main__.CoordinationTests.test_safe_automation_allows_connecting_a_blocked_resource)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_coordination.py", line 26, in test_safe_automation_allows_connecting_a_blocked_resource
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-4geudfbl/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_settler_danger_skip_ends_decision (__main__.CoordinationTests.test_settler_danger_skip_ends_decision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_coordination.py", line 147, in test_settler_danger_skip_ends_decision
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-qn5vem9r/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_settler_supply_counts_each_queued_unit_once (__main__.CoordinationTests.test_settler_supply_counts_each_queued_unit_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_coordination.py", line 100, in test_settler_supply_counts_each_queued_unit_once
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-5h_q9o3t/test']' died with <Signals.SIGABRT: 6>.
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.105s
+
+FAILED (errors=7)

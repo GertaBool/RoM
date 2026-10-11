@@ -1,6 +1,51 @@
 # Tested source fixes
 
+## Carthage autoplay coordination
+
+[0004-autoplay-coordination.patch](0004-autoplay-coordination.patch) is the latest
+**cumulative** patch for clean GitLab source at
+`5e6d03591731f64d589661f4f329aa28e8c71a7d`. It includes all of patch 0003 below;
+apply 0004 directly to that base, not on top of 0003.
+
+The new changes correct resource replacement under safe automation, reversed
+resource build-time selection, four-slot settler transport escort gates, duplicate
+queued-unit accounting, and a settler danger branch that failed to return after
+skipping. Runtime edits remove another 22 net lines after the earlier cleanup.
+The [investigation](../research/autoplay/README.md) distinguishes these defects
+from unresolved settlement, fleet demand, civic and opening-production questions,
+and supplies the next simulation scenarios.
+
+From this GitHub checkout:
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/autoplay-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/autoplay-manifest.json
+```
+
+This verifies the exact revision, clean state, patch checksum and file digests,
+then applies **and stages** the source changes. Run the suite in the source
+checkout, then rebuild the Windows DLL to use the fixes in-game:
+
+```sh
+python3 Tools/run_regression_suite.py
+```
+
+Validation: **8 new tests pass; 7 reject the upstream source**, while the XML
+control already passed. All **17 regression programs pass**. See the
+[before-fix failures](autoplay-before.log), [fixed suite](autoplay-regression.log),
+[manifest](autoplay-manifest.json) and [application checks](autoplay-patch-validation.log).
+Native probes execute production methods/fragments in C++03 with fatal UBSan
+and narrow adapters. A clean application reproduces tested source commit
+`4b730c2cda091e25237d4ed418fddeefe562cbff` exactly.
+
+No full DLL build, game replay, XML balance change or save-layout change is
+claimed. The user compiled the reported autoplay DLL from current GitLab source;
+it is distinct from the older bundled binary. These source commits have not
+been pushed to GitLab. The raw uploaded save remains local.
+
 ## Current source cleanup
+
+Patch 0003 remains available separately; its changes are included in 0004 above.
 
 GitLab `main` was reviewed at
 [`5e6d035`](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/commit/5e6d03591731f64d589661f4f329aa28e8c71a7d).

@@ -2,8 +2,10 @@
 
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
 
-The latest cleanup targets newer GitLab revision `5e6d03591731f64d589661f4f329aa28e8c71a7d`, which includes the recent supply/career fixes and the original correctness patch. The historical assessments retain their original source identity.
+The latest fixes target newer GitLab revision `5e6d03591731f64d589661f4f329aa28e8c71a7d`, which includes the recent supply/career fixes and the original correctness patch. The historical assessments retain their original source identity.
 
+- [Carthage autoplay: worker/cargo defects, production accounting, civic tradeoffs and coordinated simulation](research/autoplay/README.md)
+- [Latest cumulative source patch: autoplay fixes plus cleanup, 17 passing regression programs](fixes/README.md#carthage-autoplay-coordination)
 - [Current source cleanup: 291 fewer runtime lines, reserve correction, 16 passing regression programs](fixes/README.md#current-source-cleanup)
 - [Original source fixes and operation-supply patch history](fixes/README.md#historical-source-correctness-patch)
 - [Critical architecture assessment: hidden state, rule ownership and staged refactoring](research/architecture/README.md)
@@ -18,9 +20,11 @@ The latest cleanup targets newer GitLab revision `5e6d03591731f64d589661f4f329aa
 - [Interactive source explorer](docs/review/explorer.html) — download the HTML and open it in a browser; GitHub's file view displays its source.
 - [Regression output](docs/review/regression.log) and [reproduced findings](docs/review/audit-findings.json)
 
-The reviewed revision contains 252 Python files, 956 XML files and 277 native source/header files. The review combines whole-tree structural analysis with focused behavioral inspection. The original regression baseline had 12 passing programs and 2 failing programs; the first correctness patch passed all 15 programs. The current upstream and cleanup revisions pass 16 programs. The BTS executable and a complete headless simulator were not run.
+The reviewed revision contains 252 Python files, 956 XML files and 277 native source/header files. The review combines whole-tree structural analysis with focused behavioral inspection. The original regression baseline had 12 passing programs and 2 failing programs; the first correctness patch passed all 15 programs. The current upstream and cleanup revisions pass 16 programs; the autoplay fixes pass 17. The BTS executable and a complete headless simulator were not run.
 
 **The bundled DLL is older than the source**, as confirmed by the repository owner. These reports assess the pinned source. In-game comparisons require a rebuilt DLL with recorded source/build provenance; the existing binary is not an oracle for the reviewed code. See [the provenance record](docs/review/source-binary-provenance.json).
+
+The new Carthage autoplay report concerns a DLL the user compiled locally from current GitLab source, not that older bundled binary. Its save metadata and provenance limits are documented separately.
 
 The reports include fixed-revision source links, a state-transition model, deterministic replay requirements, engine boundaries and proposed tests. The machine-readable inventories and review scripts are in `docs/review/`.
 

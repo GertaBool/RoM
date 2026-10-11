@@ -1,0 +1,140 @@
+
+[1/17] python3 Tools/test_ai_coordination.py
+test_bonus_build_selector_chooses_shortest_legal_build (__main__.CoordinationTests.test_bonus_build_selector_chooses_shortest_legal_build) ... ok
+test_city_defender_can_board_four_slot_settler_transport (__main__.CoordinationTests.test_city_defender_can_board_four_slot_settler_transport) ... ok
+test_explorer_supply_is_local_and_counted_once (__main__.CoordinationTests.test_explorer_supply_is_local_and_counted_once) ... ok
+test_naval_supply_counts_water_and_port_queues_once (__main__.CoordinationTests.test_naval_supply_counts_water_and_port_queues_once) ... ok
+test_reported_xml_facts (__main__.CoordinationTests.test_reported_xml_facts) ... ok
+test_safe_automation_allows_connecting_a_blocked_resource (__main__.CoordinationTests.test_safe_automation_allows_connecting_a_blocked_resource) ... ok
+test_settler_danger_skip_ends_decision (__main__.CoordinationTests.test_settler_danger_skip_ends_decision) ... ok
+test_settler_supply_counts_each_queued_unit_once (__main__.CoordinationTests.test_settler_supply_counts_each_queued_unit_once) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.326s
+
+OK
+
+[2/17] python3 Tools/test_review_correctness.py
+test_agenda_extension_round_trip_and_legacy_stream_alignment (__main__.NativeTests.test_agenda_extension_round_trip_and_legacy_stream_alignment) ... ok
+test_canal_value_and_existing_guards (__main__.NativeTests.test_canal_value_and_existing_guards) ... ok
+test_fort_selection_preserves_utility_and_handles_large_scores (__main__.NativeTests.test_fort_selection_preserves_utility_and_handles_large_scores) ... ok
+test_team_rollover_skips_dead_slots (__main__.NativeTests.test_team_rollover_skips_dead_slots) ... ok
+test_crusade_cadence_at_game_length_boundaries (__main__.PythonTests.test_crusade_cadence_at_game_length_boundaries) ... ok
+test_failed_rebuild_preserves_previous_pair_arrays (__main__.PythonTests.test_failed_rebuild_preserves_previous_pair_arrays) ... ok
+test_load_and_start_preserve_profiler_and_lookup_order (__main__.PythonTests.test_load_and_start_preserve_profiler_and_lookup_order) ... ok
+test_no_obsolete_tech_and_empty_empire (__main__.PythonTests.test_no_obsolete_tech_and_empty_empire) ... ok
+test_obsolete_bank_does_not_pay (__main__.PythonTests.test_obsolete_bank_does_not_pay) ... ok
+test_repeated_load_and_start_are_idempotent (__main__.PythonTests.test_repeated_load_and_start_are_idempotent) ... ok
+test_sparse_city_receives_bank_interest (__main__.PythonTests.test_sparse_city_receives_bank_interest) ... ok
+test_sparse_city_spawns_crusader (__main__.PythonTests.test_sparse_city_spawns_crusader) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.797s
+
+OK
+
+[3/17] python3 Tools/test_source_integrity.py
+PASS: 480 native/Python source files contain no NULs or merge markers
+
+[4/17] python3 Tools/check_dll_line_endings.py
+checked 246 files; line endings and Unicode line bytes are safe
+
+[5/17] python3 Tools/test_xml_integrity.py
+PASS: parsed 948 gameplay, configuration, schema and module XML files
+
+[6/17] python3 Tools/test_ai_context.py
+PASS: strategic snapshot defaults, identity, 200,100 runway cases, 20,301 trade-cap cases, and free-list city iteration passed
+PASS: agenda and all technology consumers share every declared snapshot field
+
+[7/17] python3 Tools/test_ai_diplomacy.py
+PASS: 1,000,000 diplomacy conversion pairs and overflow boundaries passed
+PASS: all four counterproposal lump-gold conversions use the bounded policy
+
+[8/17] python3 Tools/test_ai_economic_recovery.py
+PASS: per-turn civic-cost boundaries and 5,151 monotonic states passed
+PASS: Masonry package, Mercenaries cost, and explorer-pipeline wiring verified
+
+[9/17] python3 Tools/test_ai_agenda_model.py
+agenda model: 8 scenarios, hysteresis boundaries, and 10000 randomized states passed
+
+[10/17] python3 Tools/test_ai_decisions.py
+test_agenda_adjusted_unit_probability_reaches_all_city_rolls (__main__.DecisionTests.test_agenda_adjusted_unit_probability_reaches_all_city_rolls) ... ok
+test_anarchy_preserves_ai_production_queue (__main__.DecisionTests.test_anarchy_preserves_ai_production_queue) ... ok
+test_archer_fire_after_assault (__main__.DecisionTests.test_archer_fire_after_assault) ... ok
+test_bombard_dispatch_reachable (__main__.DecisionTests.test_bombard_dispatch_reachable) ... ok
+test_bounded_reinforcement_delivery (__main__.DecisionTests.test_bounded_reinforcement_delivery) ... ok
+test_career_migration_and_cooldown (__main__.DecisionTests.test_career_migration_and_cooldown) ... ok
+test_civic_value_reaches_technology_scoring (__main__.DecisionTests.test_civic_value_reaches_technology_scoring) ... ok
+test_commerce_repair_after_city_deserialization (__main__.DecisionTests.test_commerce_repair_after_city_deserialization) ... ok
+test_compiled_policy_and_actual_record_code (__main__.DecisionTests.test_compiled_policy_and_actual_record_code) ... C++03 policies: 40,401 EWMA pairs; spending/recovery/siege boundaries; actual v4/v5 record readers/writers passed
+ok
+test_hurry_legality_and_timing (__main__.DecisionTests.test_hurry_legality_and_timing) ... ok
+test_ready_numerator_excludes_support (__main__.DecisionTests.test_ready_numerator_excludes_support) ... ok
+test_recovery_dispatch_precedes_role_dispatch (__main__.DecisionTests.test_recovery_dispatch_precedes_role_dispatch) ... ok
+test_stuck_group_recovery_exhausts_every_member (__main__.DecisionTests.test_stuck_group_recovery_exhausts_every_member) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.694s
+
+OK
+
+[11/17] python3 Tools/test_ai_governors.py
+test_city_integration_and_save_version (__main__.GovernorPolicyTests.test_city_integration_and_save_version) ... ok
+test_feedback_is_bounded_and_precedes_hard_overrides (__main__.GovernorPolicyTests.test_feedback_is_bounded_and_precedes_hard_overrides) ... ok
+test_policy_gates_terms_performance_and_determinism (__main__.GovernorPolicyTests.test_policy_gates_terms_performance_and_determinism) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.128s
+
+OK
+
+[12/17] python3 Tools/test_ai_layer_contracts.py
+test_agenda_precedes_its_turn_consumers (__main__.LayerContractTests.test_agenda_precedes_its_turn_consumers) ... ok
+test_city_production_consumes_strategic_budgets (__main__.LayerContractTests.test_city_production_consumes_strategic_budgets) ... ok
+test_feedback_cannot_bypass_emergency_selection (__main__.LayerContractTests.test_feedback_cannot_bypass_emergency_selection) ... ok
+test_operation_control_precedes_generic_role_dispatch (__main__.LayerContractTests.test_operation_control_precedes_generic_role_dispatch) ... ok
+test_operation_demand_counts_supply_pipeline (__main__.LayerContractTests.test_operation_demand_counts_supply_pipeline) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.014s
+
+OK
+
+[13/17] python3 Tools/test_ai_load_override.py
+PASS: production AI_load declarations/definition override and dispatch in C++03
+
+[14/17] python3 Tools/test_ai_maritime.py
+PASS: 1,000,000 route pairs; 10,201 worker pairs; 249,500 strength pairs and overflow boundaries
+PASS: spending, worker export, chosen transport, embarkation, landing and naval bombard contracts
+
+[15/17] python3 Tools/test_operation_supply.py
+test_compiled_boundaries (__main__.OperationSupplyTests.test_compiled_boundaries) ... ok
+test_death_is_recorded_before_the_id_can_be_recycled (__main__.OperationSupplyTests.test_death_is_recorded_before_the_id_can_be_recycled) ... ok
+test_field_armies_are_not_rejected_for_standing_off_owned_land (__main__.OperationSupplyTests.test_field_armies_are_not_rejected_for_standing_off_owned_land) ... ok
+test_gold_reserve_does_not_negate_or_multiply_in_place (__main__.OperationSupplyTests.test_gold_reserve_does_not_negate_or_multiply_in_place) ... ok
+test_gold_trade_reserve_matches_integer_oracle (__main__.OperationSupplyTests.test_gold_trade_reserve_matches_integer_oracle) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.293s
+
+OK
+Verified 4352 gold-reserve cases against exact integer arithmetic.
+
+[16/17] python3 Tools/test_ai_reinforcements.py
+PASS: 1595880 reinforcement combinations and overflow boundary passed
+PASS: cached supply accounting and all five field-role delivery hooks checked
+
+[17/17] python3 Tools/test_victory_conditions.py
+test_boolean_gate_truth_table (__main__.VictoryTests.test_boolean_gate_truth_table) ... ok
+test_every_declared_victory_prerequisite_exists (__main__.VictoryTests.test_every_declared_victory_prerequisite_exists) ... ok
+test_score_conquest_diplomatic_religious_and_culture_edges (__main__.VictoryTests.test_score_conquest_diplomatic_religious_and_culture_edges) ... ok
+test_source_uses_wide_products_and_countdown_guards (__main__.VictoryTests.test_source_uses_wide_products_and_countdown_guards) ... ok
+test_threshold_references_and_ranges (__main__.VictoryTests.test_threshold_references_and_ranges) ... ok
+test_victory_types_are_unique_and_have_a_real_gate (__main__.VictoryTests.test_victory_types_are_unique_and_have_a_real_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.081s
+
+OK
+
+Ran 17 isolated checks in 8.37s; 0 failed.

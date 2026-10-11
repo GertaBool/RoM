@@ -1,0 +1,20 @@
+{
+  "file": "Masinissa BC-0785.CivBeyondSwordSave",
+  "bytes": 447908,
+  "sha256": "012202a23feac6fe992a81d4554fae4f6589b963cefeeede1f8a24f8ded5968a",
+  "save_version": 302,
+  "mod_path": "Mods\\Rise of Mankind\\",
+  "map_script": "PAE Europe IV Medium.CivBeyondSwordWBSave",
+  "game_speed": 1,
+  "game_turn": 241,
+  "source_commit_reviewed": "5e6d03591731f64d589661f4f329aa28e8c71a7d",
+  "module_count": 53,
+  "user_report": {
+    "controller": "AI autoplay",
+    "civilization": "Carthage",
+    "build": "Compiled locally on 2026-10-11 from the latest GitLab commit"
+  },
+  "dll_hash": null,
+  "scope": "Outer-header metadata and user-reported provenance; no decoded city/unit state or engine replay",
+  "raw_save_published": false
+}
