@@ -3,6 +3,7 @@
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
 
 - [Tested source fixes: patch, application helper and validation](fixes/README.md)
+- [Critical architecture assessment: hidden state, rule ownership and staged refactoring](research/architecture/README.md)
 - [AI algorithm study: exact optimization, bounded search, evolutionary methods and C++03 costs](research/algorithms/README.md)
 - [Detailed AI, turns, pathfinding, combat and diplomacy guide](docs/review/AI_AND_GAME_LOGIC.md)
 - [Deeper findings with reproducible source probes](docs/review/DEEP_FINDINGS.md)

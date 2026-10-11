@@ -12,6 +12,10 @@ experiments. Source references use the original GitLab revision
 [correctness patch](../../fixes/README.md) remains separate. No algorithm in this
 study has been installed in the DLL. Research pass: 11 October 2026.
 
+The follow-up [architecture critique](../architecture/README.md) identifies the
+state, query and execution boundaries that these algorithms need, with three
+reproducible probes of existing behavior.
+
 ## 1. Define what “optimal” means
 
 Three different claims must stay separate:
