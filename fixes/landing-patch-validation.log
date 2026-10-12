@@ -1,0 +1,5 @@
+Patch checksum, base files and indexed application check passed; no files changed.
+Applied and staged the source fixes; every changed file matches the tested content.
+Run python3 Tools/run_regression_suite.py in the source checkout.
+This applies source changes only; it does not rebuild the DLL.
+Applied tree exactly equals tested tree: 6466c559d31980bc9eac3993f0d7bfaaa61d849d

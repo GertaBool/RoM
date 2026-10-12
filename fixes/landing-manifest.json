@@ -1,0 +1,63 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "b8c379c1ffad9cd5408ca0e43dca88daf8ba85ee",
+  "tested_source_commit": "61360511b716c80e4e36f80bc893452676c92069",
+  "tested_source_tree": "6466c559d31980bc9eac3993f0d7bfaaa61d849d",
+  "patch": "0008-settler-landing.patch",
+  "patch_sha256": "882e50699022ad4171219844e17d339e72d982bc5f044f25b6e2a082214adcdf",
+  "relationship_to_prior_patch": "Incremental on b8c379c, which already imported patch 0007; do not reapply earlier cumulative patches.",
+  "binary_rebuilt": false,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "validation": {
+    "suite_programs": 17,
+    "suite_failures": 0,
+    "landing_cases": 14,
+    "before_landing_failures": 8,
+    "before_landing_controls_passed": 6,
+    "before_suite_programs": 16,
+    "before_stale_test_program_failures": 4,
+    "native_standard": "C++03",
+    "undefined_behavior_sanitizer": "fatal",
+    "save_replayed": false,
+    "patch_application_verified": true,
+    "applied_tree_equals_tested_tree": true
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "d69cb7cbe01287a6f3b868ea6f67c895f261b611ed7d7e094e78ce4057265ff6",
+      "after_sha256": "47df3d55cc263e3dea18b0134522b6a0177a2a95b8c30a3d6a73d1b15d6f19e6"
+    },
+    "Docs/SETTLER_LANDING_FIX.md": {
+      "before_sha256": null,
+      "after_sha256": "4a9e53586a58c0ad2452f86733f35e572663580de085ea473dd21a93f3e56c9b"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "6a9ac411c09b6a917014f4e328b7c25d0526f7f596ea0eb1ac5d8024ab945386",
+      "after_sha256": "f2694dd22ed4e2c65aa0f03f2501c90c4c1af3e63ec0c0505447e10a7b356705"
+    },
+    "Tools/test_ai_economic_recovery.py": {
+      "before_sha256": "5b00922dead7370d9a6e7947317ea1da69e8caaf04df4577ea8fb3abb2e7824e",
+      "after_sha256": "b140fb5120cd28547aa1664a358a6a8622f1979baac26b4c5c1a674f563cac7d"
+    },
+    "Tools/test_ai_maritime.py": {
+      "before_sha256": "347d7e2713a8eaf58049f09a53462496d98da44829cf6bdb68d8efcc233b6f1b",
+      "after_sha256": "46cbdd2a2eeb7085e728a670f04d780ee1962155ff350c5ba3799a146c176c3b"
+    },
+    "Tools/test_operation_supply.py": {
+      "before_sha256": "c61bd77974d2b809c91dddf3c4ad2687c58cb2f02295ac53232172883af1fc9c",
+      "after_sha256": "971a874ce225e2f2ff6385585f531ead58de616f208e29aac14e14628d3212fe"
+    },
+    "Tools/test_review_correctness.py": {
+      "before_sha256": "3d3c988cc46cd14b8721834002d1e2dcb2b69c19c72b30424c39ef1e46dd7934",
+      "after_sha256": "a4d2ae9f26269fecfb5cc0da711de9e6ba8e887451a33b231b8d473a9df7d2f1"
+    },
+    "Tools/test_settler_landing.py": {
+      "before_sha256": null,
+      "after_sha256": "17d2040632bff03e650b8cbdc9b78b0cccb7520021a5076104bfffe48a1fbea3"
+    }
+  }
+}

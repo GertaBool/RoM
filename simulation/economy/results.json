@@ -1,0 +1,286 @@
+{
+  "named_cases": [
+    {
+      "id": "unit_overflow_normalized",
+      "phase": "unit_completion",
+      "result": {
+        "status": "unit_creation_required",
+        "progress": 0,
+        "overflow": 2,
+        "gold": 0
+      }
+    },
+    {
+      "id": "unit_cap_and_gold_rounding",
+      "phase": "unit_completion",
+      "result": {
+        "status": "unit_creation_required",
+        "progress": 0,
+        "overflow": 6,
+        "gold": 7
+      }
+    },
+    {
+      "id": "unit_no_excess",
+      "phase": "unit_completion",
+      "result": {
+        "status": "unit_creation_required",
+        "progress": 0,
+        "overflow": 0,
+        "gold": 0
+      }
+    },
+    {
+      "id": "unit_zero_modifier",
+      "phase": "unit_completion",
+      "result": {
+        "status": "unit_creation_required",
+        "progress": 0,
+        "overflow": 300,
+        "gold": 0
+      }
+    },
+    {
+      "id": "unit_existing_overflow",
+      "phase": "unit_completion",
+      "result": {
+        "status": "unit_creation_required",
+        "progress": 0,
+        "overflow": 9,
+        "gold": 0
+      }
+    },
+    {
+      "id": "ordinary_growth",
+      "phase": "growth",
+      "result": {
+        "status": "applied",
+        "population": 2,
+        "food": 11,
+        "food_kept": 7,
+        "difference": 3,
+        "grew": 0
+      }
+    },
+    {
+      "id": "granary_growth",
+      "phase": "growth",
+      "result": {
+        "status": "population_effects_required",
+        "population": 3,
+        "food": 14,
+        "food_kept": 12,
+        "difference": 3,
+        "grew": 1
+      }
+    },
+    {
+      "id": "avoid_growth",
+      "phase": "growth",
+      "result": {
+        "status": "applied",
+        "population": 2,
+        "food": 24,
+        "food_kept": 7,
+        "difference": 3,
+        "grew": 0
+      }
+    },
+    {
+      "id": "starvation",
+      "phase": "growth",
+      "result": {
+        "status": "population_effects_required",
+        "population": 1,
+        "food": 0,
+        "food_kept": 0,
+        "difference": -3,
+        "grew": 0
+      }
+    },
+    {
+      "id": "population_one_floor",
+      "phase": "growth",
+      "result": {
+        "status": "applied",
+        "population": 1,
+        "food": 0,
+        "food_kept": 4,
+        "difference": 0,
+        "grew": 0
+      }
+    },
+    {
+      "id": "settler_stops_food_storage",
+      "phase": "growth",
+      "result": {
+        "status": "applied",
+        "population": 2,
+        "food": 8,
+        "food_kept": 4,
+        "difference": 0,
+        "grew": 0
+      }
+    },
+    {
+      "id": "settler_can_still_starve",
+      "phase": "growth",
+      "result": {
+        "status": "population_effects_required",
+        "population": 1,
+        "food": 0,
+        "food_kept": 1,
+        "difference": -3,
+        "grew": 0
+      }
+    },
+    {
+      "id": "disorder_freezes_difference",
+      "phase": "growth",
+      "result": {
+        "status": "applied",
+        "population": 2,
+        "food": 8,
+        "food_kept": 4,
+        "difference": 0,
+        "grew": 0
+      }
+    },
+    {
+      "id": "stored_food_can_grow_in_disorder",
+      "phase": "growth",
+      "result": {
+        "status": "population_effects_required",
+        "population": 3,
+        "food": 4,
+        "food_kept": 4,
+        "difference": 0,
+        "grew": 1
+      }
+    },
+    {
+      "id": "production_rounds_once",
+      "phase": "production",
+      "result": {
+        "status": "applied",
+        "progress": 4,
+        "overflow": 0,
+        "feature": 0,
+        "difference": 4
+      }
+    },
+    {
+      "id": "food_not_production_multiplied",
+      "phase": "production",
+      "result": {
+        "status": "applied",
+        "progress": 7,
+        "overflow": 0,
+        "feature": 0,
+        "difference": 7
+      }
+    },
+    {
+      "id": "ignore_angry_for_food_production",
+      "phase": "production",
+      "result": {
+        "status": "applied",
+        "progress": 9,
+        "overflow": 0,
+        "feature": 0,
+        "difference": 9
+      }
+    },
+    {
+      "id": "overflow_and_chop_multiplied",
+      "phase": "production",
+      "result": {
+        "status": "applied",
+        "progress": 12,
+        "overflow": 0,
+        "feature": 0,
+        "difference": 12
+      }
+    },
+    {
+      "id": "completion_boundary",
+      "phase": "production",
+      "result": {
+        "status": "completion_effects_required",
+        "progress": 43,
+        "overflow": 0,
+        "feature": 0,
+        "difference": 4
+      }
+    },
+    {
+      "id": "disorder_preserves_overflow",
+      "phase": "production",
+      "result": {
+        "status": "applied",
+        "progress": 0,
+        "overflow": 2,
+        "feature": 3,
+        "difference": 0
+      }
+    },
+    {
+      "id": "idle_normalizes_overflow",
+      "phase": "production",
+      "result": {
+        "status": "applied",
+        "progress": 0,
+        "overflow": 4,
+        "feature": 3,
+        "difference": 4
+      }
+    },
+    {
+      "id": "idle_disallowed",
+      "phase": "production",
+      "result": {
+        "status": "applied",
+        "progress": 0,
+        "overflow": 2,
+        "feature": 3,
+        "difference": 0
+      }
+    },
+    {
+      "id": "zero_modifier_food_only",
+      "phase": "production",
+      "result": {
+        "status": "applied",
+        "progress": 3,
+        "overflow": 0,
+        "feature": 0,
+        "difference": 3
+      }
+    }
+  ],
+  "random_differential_cases": 10000,
+  "random_seed": 912621,
+  "random_unit_completion_cases": 5000,
+  "unit_completion_seed": 912622,
+  "scope": "Arithmetic and stop boundaries compared with six extracted native methods and unit-completion arithmetic; not a DLL replay",
+  "tests_run": 12,
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "flags": "C++03, Wall/Wextra/Werror, O1, fatal UBSan; native fragments suppress unused-parameter warnings",
+  "artifact_sha256": {
+    "city_economy.h": "491fe810454c54ebb0db5787ead776bab866d072447b7516494ca8357eeb0310",
+    "native_oracle.py": "be9dd039d7e88c3e9f89bd5af2694cf2c2aab770d65f5df2269beb30ffc4aee5",
+    "run.py": "5286ef7686401107c1f439826851d732e8efb33d79915548f346ca7c9561111a",
+    "runner.cpp": "85b4440a8cbb4fcc6e272de545a9cb0f5a8068fa14a03a5c6e15301a0740f4f2",
+    "snapshot_adapter.h": "bbd53f7a8489dd6b79f8bb894f58e9aff438ea40e36020959c22b173dec3f1a8",
+    "test_economy.py": "775c095b03ee008da674b2e22b966f3c61414c2d152e2a25b25402f78677ab6a"
+  },
+  "source_contract_sha256": "2ed1a01d25e63756820ddfbb753189d17e1288b1952a9a39fa9f4523030a6e2c",
+  "unsupported_engine_work": [
+    "population/citizen effects",
+    "culture and plot ownership",
+    "order completion and callbacks",
+    "trade/maintenance/research",
+    "worker travel and improvement completion",
+    "whole-turn orchestration"
+  ]
+}

@@ -1,5 +1,7 @@
 # C++ integration specification
 
+Implementation progress: the [first economic arithmetic slice](../../simulation/economy/README.md) is executable and source-fragment checked. Full native effects/export and policy integration remain pending. The [landing handoff correction](../landing/README.md) separately fixes a concrete execution boundary in current GitLab source.
+
 These interfaces and milestones are proposed. The executable artifact in this directory is the independent scheduling lab. No planner described here has silently been installed in the DLL.
 
 ## 1. Integrate around existing decision points

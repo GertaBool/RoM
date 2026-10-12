@@ -1,9 +1,41 @@
 # Tested source fixes
 
+## Settler landing
+
+[0008-settler-landing.patch](0008-settler-landing.patch) is the current incremental
+fix for clean GitLab **`b8c379c1ffad9cd5408ca0e43dca88daf8ba85ee`**. That revision
+already includes patch 0007's runtime changes; do not reapply older patches.
+
+The civilian dispatcher now hands the last shore step directly to its selected
+settler/escort group, preserves `MISSIONAI_FOUND`, and prevents unrelated or
+immobile cargo from blocking a ready party. Busy parties wait, failed landing
+paths request recovery, and passenger IDs are rechecked after movement callbacks.
+Shared military amphibious logic, save layout and XML are unchanged.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/landing-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/landing-manifest.json
+```
+
+The helper verifies and **stages** the patch. Run `python3 Tools/run_regression_suite.py`
+in the patched source and rebuild the DLL. **17 regression programs pass**, including
+**14 landing cases**; eight of those fail assertions against unmodified upstream.
+Four stale upstream test programs are also aligned with previously imported fixes.
+The runtime change is confined to one function in `CvUnitAI.cpp`.
+
+[Investigation and audit](../research/landing/README.md) ·
+[Manifest](landing-manifest.json) · [Before](landing-before.log) ·
+[Current suite](landing-regression.log) ·
+[Upstream's stale tests](landing-upstream-regression.log) ·
+[Patch verification](landing-patch-validation.log).
+
+The landing cases execute native dispatch, amphibious forwarding and group movement
+with explicit host adapters. No full DLL build or autoplay-save replay is claimed.
+
 ## Joint settlement search
 
 [0007-joint-settlement-planning.patch](0007-joint-settlement-planning.patch) is the
-latest cumulative patch for clean GitLab **`6222511c1a81649445fa69e8ca6dca79cf60c975`**.
+earlier cumulative patch for clean GitLab **`6222511c1a81649445fa69e8ca6dca79cf60c975`**.
 It includes 0006 below; apply 0007 directly to the clean base, not on top of 0006.
 
 Actual settlers now search the complete independent candidate snapshot and compare

@@ -1,0 +1,732 @@
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 9c105de..8614d1e 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -17856,7 +17856,8 @@ bool CvUnitAI::AI_settlerSeaTransport()
+ 	for (size_t i = 0; i < aCargo.size(); ++i)
+ 	{
+ 		if (aCargo[i]->AI_getUnitAIType() == UNITAI_SETTLE && pSettler == NULL) pSettler = aCargo[i];
+-		if (aCargo[i]->getDomainType() == DOMAIN_LAND && aCargo[i]->canDefend()) pEscort = aCargo[i];
++		if (aCargo[i]->getDomainType() == DOMAIN_LAND && aCargo[i]->canDefend() &&
++			(pEscort == NULL || aCargo[i]->canMove() || !pEscort->canMove())) pEscort = aCargo[i];
+ 	}
+ 	if (pSettler == NULL) return false;
+ 	const bool bPort = plot()->isCity() && plot()->getOwnerINLINE() == getOwnerINLINE();
+@@ -17868,7 +17869,8 @@ bool CvUnitAI::AI_settlerSeaTransport()
+ 		getGroup()->AI_setMissionAI(eJob, pTarget, NULL);
+ 	}
+ 	// Evaluate walking with the actual loaded party's movement capabilities.
+-	if (pEscort != NULL && pEscort->getGroup() != pSettler->getGroup())
++	if (pEscort != NULL && pEscort->getGroup() != pSettler->getGroup() &&
++		!pEscort->getGroup()->isBusy() && !pSettler->getGroup()->isBusy())
+ 		pEscort->joinGroup(pSettler->getGroup());
+ 	
+ 	CvPlayerAI& kPlayer = GET_PLAYER(getOwnerINLINE());
+@@ -17998,15 +18000,66 @@ bool CvUnitAI::AI_settlerSeaTransport()
+ 	}
+ 
+ 	// Keep the landing party together after disembarkation as well.
+-	if (pEscort->getGroup() != pSettler->getGroup()) pEscort->joinGroup(pSettler->getGroup());
++	if (pEscort->getGroup() != pSettler->getGroup() &&
++		!pEscort->getGroup()->isBusy() && !pSettler->getGroup()->isBusy()) pEscort->joinGroup(pSettler->getGroup());
+ 
+ 	// A ready manifest owns the boat. Optional/stale inbound reservations must
+ 	// neither delay departure nor make their units chase a departing vessel.
+ 	AI_clearSettlerSeaLoads();
+ 
+-	// Boarding consumes passenger moves. Sailing can start now; landing waits
+-	// until the entire cargo can move, so the settler cannot land alone.
+-	if (pNext == NULL || atPlot(pNext) || (pNext == pSite && !canCargoAllMove()))
++	// At the coast the land party owns the last step, not the ship's pathfinder.
++	// Generic amphibious forwarding drops MISSIONAI_FOUND and waits on cargo
++	// outside this expedition. Keep precisely this settler and escort together.
++	if (pNext == pSite)
++	{
++		if (!pSettler->getGroup()->isBusy() && !pEscort->getGroup()->isBusy() &&
++			(pSettler->getGroup() != pEscort->getGroup() || pSettler->getGroup()->getNumUnits() != 2))
++		{
++			pSettler->joinGroup(NULL);
++			pEscort->joinGroup(pSettler->getGroup());
++		}
++		CvSelectionGroup* pParty = pSettler->getGroup();
++		if (pParty != pEscort->getGroup() || pParty->getNumUnits() != 2 || !pParty->canAllMove() || pParty->isBusy())
++		{
++			if (gUnitLogLevel >= 2) logBBAI("    Settler transport %d: WAIT_LANDING_PARTY", getID());
++			getGroup()->pushMission(MISSION_SKIP, -1, -1, 0, false, false, MISSIONAI_FOUND, pSite);
++			return true;
++		}
++
++		// Use the same danger flag as native groupAmphibMove. Both passengers'
++		// entry legality and the absence of visible enemies were checked above.
++		const int iLandingFlags = MOVE_NO_ENEMY_TERRITORY | MOVE_IGNORE_DANGER;
++		int iLandingTurns;
++		if (!pSettler->generatePath(pSite, iLandingFlags, true, &iLandingTurns))
++		{
++			if (gUnitLogLevel >= 2) logBBAI("    Settler transport %d: LANDING_PATH_BLOCKED at %d,%d", getID(), pSite->getX_INLINE(), pSite->getY_INLINE());
++			getGroup()->AI_setMissionAI(NO_MISSIONAI, NULL, NULL);
++			if (AI_retreatToCity()) return true;
++			getGroup()->pushMission(MISSION_SKIP);
++			return true;
++		}
++		const IDInfo kSettlerID = pSettler->getIDInfo();
++		const IDInfo kEscortID = pEscort->getIDInfo();
++		pParty->pushMission(MISSION_MOVE_TO, pSite->getX_INLINE(), pSite->getY_INLINE(),
++			iLandingFlags, false, false, MISSIONAI_FOUND, pSite);
++		// Movement callbacks can replace groups or remove passengers. Reacquire
++		// by full native IDs; do not dereference the old group after pushMission.
++		pSettler = ::getUnit(kSettlerID);
++		pEscort = ::getUnit(kEscortID);
++		const bool bDelivered = pSettler != NULL && pEscort != NULL &&
++			!pSettler->isCargo() && pSettler->atPlot(pSite) &&
++			!pEscort->isCargo() && pEscort->atPlot(pSite);
++		const bool bPending = pSettler != NULL && pEscort != NULL &&
++			pSettler->getTransportUnit() == this && pEscort->getTransportUnit() == this;
++		if (gUnitLogLevel >= 2) logBBAI("    Settler transport %d: %s at %d,%d", getID(),
++			bDelivered ? "LANDED_PARTY" : (bPending ? "LANDING_QUEUED" : "LANDING_PARTY_CHANGED"), pSite->getX_INLINE(), pSite->getY_INLINE());
++		getGroup()->pushMission(MISSION_SKIP, -1, -1, 0, false, false,
++			bPending ? MISSIONAI_FOUND : NO_MISSIONAI, bPending ? pSite : NULL);
++		return true;
++	}
++
++	// Boarding consumes passenger moves but need not delay sailing.
++	if (pNext == NULL || atPlot(pNext))
+ 	{
+ 		if (gUnitLogLevel >= 2) logBBAI("    Settler transport %d: WAIT_MOVES", getID());
+ 		getGroup()->pushMission(MISSION_SKIP, -1, -1, 0, false, false, MISSIONAI_FOUND, pSite);
+diff --git a/Docs/SETTLER_LANDING_FIX.md b/Docs/SETTLER_LANDING_FIX.md
+new file mode 100644
+index 0000000..631e5c0
+--- /dev/null
++++ b/Docs/SETTLER_LANDING_FIX.md
+@@ -0,0 +1,58 @@
++# Settler landing: complete the handoff to the land party
++
++This fix targets GitLab **`b8c379c1ffad9cd5408ca0e43dca88daf8ba85ee`**, including the user's imports of settlement placement and joint settlement planning. It changes only `CvUnitAI::AI_settlerSeaTransport` at runtime. Apply [patch 0008](https://github.com/GertaBool/RoM/blob/main/fixes/0008-settler-landing.patch) with its [manifest](https://github.com/GertaBool/RoM/blob/main/fixes/landing-manifest.json); do not reapply 0007 to this base.
++
++## What the investigation establishes
++
++The old dispatcher correctly finds an adjacent water approach, but its final action is another **ship** `MISSION_MOVE_TO`, aimed at the land site. That request must pass the carrier's path machinery and then `CvSelectionGroup::groupAmphibMove`, which creates separate passenger movement orders.
++
++Three concrete source problems occur at this boundary:
++
++1. The dispatcher waits for `canCargoAllMove()`, including passengers outside the chosen settler/escort party. Escort selection also overwrites its choice with the last defender, even if that defender cannot move and another can.
++2. Passenger selection groups can contain units outside this hull's manifest. Native `canJoinGroup` checks owner, plot and domain, not transport identity. The generic amphibious code then checks whether the **entire cargo group** can move. An immobile member on another ship can block the selected pair.
++3. `groupAmphibMove` forwards the passenger move without mission-AI arguments. Their default is `NO_MISSIONAI`, so the land party loses the founding destination. Reaching land and preserving the accepted settlement plan are separate requirements.
++
++The new tests reproduce these failures against unmodified `b8c379c`. They execute the real dispatcher, `isAmphibPlot`, `groupAmphibMove` and `groupMove`, with explicit host adapters. These establish faulty source mechanisms consistent with the report; they do **not** identify the exact cause of the user's stalled galley without a matching engine trace.
++
++The earlier voyage fixtures stopped after inspecting the ship's queued mission. They did not execute this handoff, so passing them was insufficient evidence of successful landing. This is a correction to that coverage gap.
++
++## Narrow correction
++
++Once the chosen water approach is reached:
++
++- Prefer a movable defending passenger over an immobile alternative. Preserve the previous last-defender tie order when readiness is equal.
++- Restrict the landing group to the selected settler and escort; unrelated cargo stays aboard its own carrier. Do not restructure a busy party.
++- Wait for that party's readiness. Boarding exhaustion still permits sailing; an exhausted required escort still prevents a partial landing.
++- Validate the party's landing path and issue its move **directly to the land group**, carrying `MISSIONAI_FOUND` and the destination.
++- Use native group movement to enter land and detach cargo. Do not call `unloadAll` on water, teleport units, change movement allowances, or alter global amphibious behavior.
++- Hold the ship while movement is queued. After synchronous execution, reacquire passengers by full native IDs before inspecting them, because movement callbacks can change groups or remove units.
++- If the landing path is rejected, release the failed commitment and request the existing retreat-to-city recovery. When no recovery route exists, remain aboard and expose the blocked state; no movement through illegal terrain is invented.
++
++The flags match native amphibious passenger forwarding: `MOVE_NO_ENEMY_TERRITORY | MOVE_IGNORE_DANGER`. Existing destination validation still requires a foundable site, no visible enemy unit, and entry legality for both passengers. This patch does not introduce a new blanket safety policy or preference for boats over walking.
++
++## Validation and audit boundaries
++
++The registered source suite has **17 passing programs**, including **14 landing cases**. Against clean upstream, **8 of those 14 landing cases fail assertions**; the six controls pass. Tests cover preserved founding intent, extra immobile cargo, foreign group members, required-escort exhaustion, queued movement, busy groups, movement callback removal, path rejection/recovery, invalid destinations, passenger-first holds, departure after boarding, walking preference and stable sea commitments.
++
++Path graphs, scheduling, busy state and per-unit movement effects remain controlled adapters. A simulated callback removes an ID from lookup; it is not execution of the Python event system. No full DLL compilation, host A* replay or autoplay-save replay is claimed.
++
++The clean upstream's existing 16-program suite had four failures before the fix: tests still referenced removed reserve/sea-preference helpers or expected queue double counting. This patch restores their previously tested assertions for the already imported runtime changes. It adds coverage rather than changing runtime economics to satisfy stale tests. The six previously published regression files not imported into GitLab are not silently counted in the 17-program total.
++
++Review passes performed:
++
++| Pass | Evidence / conclusion |
++|---|---|
++| Current-source audit | Refreshed GitLab and reviewed `b8c379c`; no assumption that the user still runs `6222511` |
++| Native handoff audit | Traced movement, cargo readiness, grouping, mission defaults and cargo detachment; avoided changing the shared military amphibious handler |
++| Mutation/recovery audit | Checked busy parties, synchronous/deferred movement, full-ID lookup after callbacks and failed-path recovery |
++| Regression/application audit | C++03 with fatal UBSan, failing upstream controls, current suite, byte-preserving patch application and exact tree comparison |
++
++Runtime work remains local to the selected expedition: the existing cargo scan, constant-size party handling and one explicit adjacent landing-path check. There is no additional whole-map search, new per-turn empire scan, save state or XML change. Native mission execution can query a path again; no measured claim of zero performance regression is made without Windows DLL profiles.
++
++This is the highest-confidence narrow correction supported by this session's source evidence. It is **not** a claim that naval transport has no remaining gaps. Distant pickup, multi-stop voyages, hidden-information strategy and engine-specific scheduling still require their own evidence. The economic planner is also separate from this runtime fix.
++
++## Engine acceptance run
++
++Rebuild the DLL from the manifest's applied tree and record its hash. Resume a save with a settler and escort already off the chosen coast, then repeat with an extra immobile defender and with manually rearranged cargo. Verify actual land positions, cleared transport references, retained founding destination and eventual founding. Also test a blocked destination and a faster walking option.
++
++At unit log level 2, the dispatcher emits `WAIT_LANDING_PARTY`, `LANDING_PATH_BLOCKED`, `LANDING_QUEUED`, `LANDED_PARTY` or `LANDING_PARTY_CHANGED`. A queued order is not reported as a delivered party. Report a remaining stall with these transitions and the rebuilt DLL/source identity.
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index ffdcb7f..ab566d9 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -1,5 +1,9 @@
+ {
+   "tests": [
++    {
++      "command": ["python3", "Tools/test_settler_landing.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvUnit.*", "Assets/CvGameCoreDLL/AISettlementPolicy.h"]
++    },
+     {
+       "command": ["python3", "Tools/test_review_correctness.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/Python/RoMEventManager.py", "Assets/Python/PyHelpers.py"]
+diff --git a/Tools/test_ai_economic_recovery.py b/Tools/test_ai_economic_recovery.py
+index 694c061..31cdb0d 100644
+--- a/Tools/test_ai_economic_recovery.py
++++ b/Tools/test_ai_economic_recovery.py
+@@ -95,5 +95,7 @@ assert "getGoldPerUnit() -" in civic
+ assert "getGoldPerMilitaryUnit() -" in civic
+ assert civic.count("eCurrentCivic = getCivics(") == 1
+ assert "pCurrentCivic->getTradeYieldModifier(iYield)" in civic
+-assert city.count("AI_getNumTrainAIUnits(UNITAI_EXPLORE)") >= 2
++assert "kPlayer.AI_totalAreaUnitAIs(pArea, UNITAI_EXPLORE) < kPlayer.AI_neededExplorers(pArea)" in city
++# The aggregate already includes production; requiring another queue query
++# here previously protected double counting.
+ print("PASS: Masonry package, Mercenaries cost, and explorer-pipeline wiring verified")
+diff --git a/Tools/test_ai_maritime.py b/Tools/test_ai_maritime.py
+index 806c10a..4951e9e 100644
+--- a/Tools/test_ai_maritime.py
++++ b/Tools/test_ai_maritime.py
+@@ -46,13 +46,10 @@ int main() {
+  AIHierarchyPolicy::Intent seaIntent=AIHierarchyPolicy::derive(sea);
+  assert(seaIntent.navalPriority>landIntent.navalPriority);
+  assert(seaIntent.logisticsPriority>landIntent.logisticsPriority);
+- assert(AIHierarchyPolicy::seaSettlementThreshold(seaIntent.navalPriority)<
+-  AIHierarchyPolicy::seaSettlementThreshold(landIntent.navalPriority));
++ assert(AIHierarchyPolicy::transportCapacityDivisor(seaIntent.navalPriority)<
++  AIHierarchyPolicy::transportCapacityDivisor(landIntent.navalPriority));
+  assert(AIHierarchyPolicy::transportCapacityDivisor(seaIntent.navalPriority)<=
+   AIHierarchyPolicy::transportCapacityDivisor(landIntent.navalPriority));
+- assert(AIHierarchyPolicy::preferSeaSettlement(100,100,1000));
+- assert(!AIHierarchyPolicy::preferSeaSettlement(100,100,0));
+- assert(AIHierarchyPolicy::preferSeaSettlement(INT_MAX,INT_MAX,1000));
+  assert(AIHierarchyPolicy::routeAdjustedValue(100,2,1000,1000)>
+   AIHierarchyPolicy::routeAdjustedValue(100,8,1000,1000));
+  assert(AIHierarchyPolicy::routeAdjustedValue(INT_MAX,0,1000,1000)==INT_MAX);
+@@ -94,12 +91,16 @@ delivery=function(p,'int CvPlayerAI::AI_getOperationRoleTarget(')
+ assert 'm_aiOperationDeliveryCache' in delivery
+ assert delivery.index('if (!bCached)') < delivery.index('generatePath(')
+ settle=function(u,'void CvUnitAI::AI_settleMove()')
+-assert 'preferSeaSettlement' in settle
++assert 'preferSeaSettlement' not in settle
++assert 'AI_found()' in settle
++found=function(u,'bool CvUnitAI::AI_found()')
++assert 'AI_getNumSettlementCandidates' in found
++assert 'AI_findSettlementTransport' in found
+ sea_start=u.index('bool CvUnitAI::AI_settlerSeaTransport()')
+ sea_end=u.index('bool CvUnitAI::AI_settlerSeaFerry()',sea_start)
+ sea_transport=u[sea_start:sea_end]
+ assert 'AI_getExpansionHorizon()' in sea_transport
+-assert 'routeAdjustedValue' in sea_transport
++assert 'AISettlementPolicy::deliveryValue' in sea_transport
+ worker=function(u,'void CvUnitAI::AI_workerMove()')
+ assert worker.index('AI_getLogisticsPriority() >= 650') < worker.index('AI_routeTerritory(true)')
+ assert 'transportCapacityDivisor' in c
+@@ -107,6 +108,6 @@ assert 'maintains naval contract' in c
+ agenda=function(p,'void CvPlayerAI::AI_updateAgenda(')
+ assert '!bWarStateChanged' in agenda
+ assert 'm_iAIIntentAtWar = bAtWar ? 1 : 0' in agenda
+-assert c.count('pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_ASSAULT_SEA)')==1
+-assert 'pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_ATTACK_SEA)' in c
++assert 'kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ASSAULT_SEA)' in c
++assert 'kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ATTACK_SEA)' in c
+ print('PASS: spending, worker export, chosen transport, embarkation, landing and naval bombard contracts')
+diff --git a/Tools/test_operation_supply.py b/Tools/test_operation_supply.py
+index ed365a2..484cbd9 100644
+--- a/Tools/test_operation_supply.py
++++ b/Tools/test_operation_supply.py
+@@ -1,6 +1,8 @@
+ #!/usr/bin/env python3
+ """Field supply, dead-commander memory, and saturating gold reserves."""
+ from pathlib import Path
++import itertools
++import random
+ import subprocess
+ import tempfile
+ import unittest
+@@ -70,7 +72,8 @@ class OperationSupplyTests(unittest.TestCase):
+         )
+         self.assertIn("deficitReserve(", hurry)
+         self.assertNotIn("-calculateGoldRate()", hurry)
+-        self.assertIn("goldAfterReserve(", trade)
++        self.assertIn("goldAfterDeficitReserve(", trade)
++        self.assertNotIn("deficitReserve(", trade)
+         self.assertNotIn("-calculateGoldRate()", trade)
+ 
+     def test_compiled_boundaries(self):
+@@ -85,13 +88,14 @@ int main() {
+     assert(AIDecisionPolicy::deficitReserve(-10, 0) == 0);
+     assert(AIDecisionPolicy::deficitReserve(INT_MIN, 4) == INT_MAX);
+     assert(AIDecisionPolicy::deficitReserve(-2000000000, 3) == INT_MAX);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 120, 100) == 80);
+-    assert(AIDecisionPolicy::goldAfterReserve(100, 120, 100) == 0);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 0, 300) == 200);
+-    assert(AIDecisionPolicy::goldAfterReserve(50, 10, 0) == 50);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 120, 300) == 0);
+-    assert(AIDecisionPolicy::goldAfterReserve(-5, 120, 100) == -5);
+-    assert(AIDecisionPolicy::goldAfterReserve(100, INT_MAX, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, -10, 12, 100) == 80);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(100, -10, 12, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, 0, 12, 300) == 200);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(50, -10, 12, 0) == 50);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, -10, 12, 300) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(-5, -10, 12, 100) == -5);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(100, INT_MIN, 12, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(2000000000, -250000000, 12, 50) == 500000000);
+     assert(AIDecisionPolicy::nextLossCareerKey(0) == -1);
+     assert(AIDecisionPolicy::nextLossCareerKey(4) == -1);
+     assert(AIDecisionPolicy::nextLossCareerKey(-1) == -2);
+@@ -116,12 +120,50 @@ int main() {
+             compiled = Path(tmp) / "supply"
+             result = subprocess.run(
+                 ["g++", "-std=c++03", "-Wall", "-Wextra", "-Werror", "-fsanitize=undefined",
++                 "-fno-sanitize-recover=undefined",
+                  "-I" + str(DLL), "-o", str(compiled), str(path)],
+                 capture_output=True, text=True)
+             self.assertEqual(result.returncode, 0, result.stderr)
+             ran = subprocess.run([str(compiled)], capture_output=True, text=True)
+             self.assertEqual(ran.returncode, 0, ran.stderr + ran.stdout)
+ 
++    def test_gold_trade_reserve_matches_integer_oracle(self):
++        low,high=-(2**31),2**31-1
++        cases=list(itertools.product(
++            (low,-5,0,1,50,200,2000000000,high),
++            (low,-250000000,-100,-1,0,1,high),
++            (-1,0,1,3,12,high),(-1,0,1,50,100,300,high)))
++        rng=random.Random(20261011)
++        cases.extend((rng.randrange(1,high+1),-rng.randrange(1,high+2),
++                      rng.choice((1,3,12,10000,high)),rng.choice((1,25,50,100,300,high)))
++                     for _ in range(2000))
++        # Python integers give an independent exact reference, including products
++        # too large for signed 64-bit arithmetic before the final clamp.
++        expected=[gold if gold<=0 or rate>=0 or turns<=0 or percent<=0 else
++                  max(0,gold-((-rate)*turns*percent//100))
++                  for gold,rate,turns,percent in cases]
++        program='''
++#include "AIDecisionPolicy.h"
++#include <iostream>
++int main(){int gold,rate,turns,percent;
++    while(std::cin>>gold>>rate>>turns>>percent)
++        std::cout<<AIDecisionPolicy::goldAfterDeficitReserve(gold,rate,turns,percent)<<"\\n";
++}
++'''
++        with tempfile.TemporaryDirectory() as tmp:
++            path,exe=Path(tmp)/'reserve.cpp',Path(tmp)/'reserve'
++            path.write_text(program)
++            subprocess.run(['g++','-std=c++03','-Wall','-Wextra','-Werror',
++                            '-fsanitize=undefined','-fno-sanitize-recover=undefined',
++                            '-I'+str(DLL),str(path),'-o',str(exe)],check=True)
++            data=''.join(' '.join(map(str,case))+'\n' for case in cases)
++            ran=subprocess.run([str(exe)],input=data,text=True,capture_output=True,check=True)
++            actual=[int(line) for line in ran.stdout.splitlines()]
++        self.assertEqual(len(actual),len(cases))
++        for case,want,got in zip(cases,expected,actual):
++            self.assertEqual(got,want,case)
++        print('Verified %d gold-reserve cases against exact integer arithmetic.'%len(cases))
++
+ 
+ if __name__ == "__main__":
+     unittest.main(verbosity=2)
+diff --git a/Tools/test_review_correctness.py b/Tools/test_review_correctness.py
+index 65fb228..54da72a 100644
+--- a/Tools/test_review_correctness.py
++++ b/Tools/test_review_correctness.py
+@@ -223,7 +223,7 @@ int main(){State a,b;ASSIGN
+  a.m_iAIAgenda=AI_AGENDA_EXPAND_LAND;a.m_iAINavalPriority=900;
+  Stream decision;a.save(&decision);b.load(&decision,6);
+  assert(a.select()==AI_AGENDA_EXPAND_LAND);assert(b.select()==a.select());
+- assert(AIHierarchyPolicy::preferSeaSettlement(100,100,b.m_iAINavalPriority));
++ assert(AIHierarchyPolicy::transportCapacityDivisor(b.m_iAINavalPriority)==4);
+ }
+ '''.replace('DECLS', declarations).replace('RESET', reset).replace('WRITE', write_extension)
+             .replace('READ', read_extension).replace('ASSIGN', assignments).replace('EQUAL', equality)
+@@ -252,7 +252,7 @@ class PythonTests(unittest.TestCase):
+         a=self.source.index('\t\tself.asBuildingUpgradeLine_Upgrade_Name =')
+         b=self.source.index('\t\tself.iBUILDING_CRUSADE =',a)
+         exec(textwrap.dedent(self.source[a:b]), {'self':self.manager})
+-        for name in ('_rebuildBuildingUpgradeLines','onLoadGame','onGameStart','onBeginPlayerTurn'):
++        for name in ('_rebuildBuildingUpgradeLines','_initializeGameData','onLoadGame','onGameStart','onBeginPlayerTurn'):
+             if '\tdef '+name+'(' in self.source:
+                 exec(python_method(self.source,name),self.ns)
+                 setattr(self.manager,name,types.MethodType(self.ns[name],self.manager))
+@@ -281,7 +281,35 @@ class PythonTests(unittest.TestCase):
+         self.assertEqual(self.manager.aiBuildingUpgradeLine_Upgrade_InfoTypeNum,old_up)
+         self.assertEqual(self.manager.aiBuildingUpgradeLine_Obsolete_InfoTypeNum,old_ob)
+ 
+-    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False):
++    def test_load_and_start_preserve_profiler_and_lookup_order(self):
++        events=[]
++        self.manager.augustusAIProfiler=types.SimpleNamespace(
++            initialize=lambda fresh:events.append(('augustus',fresh)))
++        self.manager.settlementTrainingProfiler=types.SimpleNamespace(
++            initialize=lambda fresh:events.append(('settlement',fresh)))
++        def upgrade_lookup(_f,_n,name):
++            events.append(('upgrade',name))
++            return self.lookup(name)
++        def type_lookup(name):
++            events.append(('type',name))
++            return self.lookup(name)
++        self.ns['CvUtil'].findInfoTypeNum=upgrade_lookup
++        self.gc.getInfoTypeForString=type_lookup
++        expected_types=['BUILDING_CRUSADE','BUILDING_DJENNE','BUILDING_WORLD_BANK',
++            'TECH_KNOWLEDGE_MANAGEMENT','TECH_APPLIED_ECONOMICS','TECH_SENTIENT_EARTH',
++            'PROJECT_EDEN','UNIT_CRUSADER','BUILDING_NANITE_DEFUSER','TECH_FUNDAMENTALISM']
++        previous=None
++        for event,fresh in (('onLoadGame',False),('onGameStart',True),('onLoadGame',False)):
++            events[:]=[]
++            getattr(self.manager,event)(())
++            self.assertEqual(events[:2],[('augustus',fresh),('settlement',fresh)])
++            self.assertEqual([kind for kind,_ in events[2:168]],['upgrade']*166)
++            self.assertEqual(events[168:],[('type',name) for name in expected_types])
++            if previous is not None:self.assertEqual(events[2:],previous)
++            previous=events[2:]
++
++    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False,
++                     turn=4, estimated_end=300):
+         self.manager.onLoadGame(())
+         bank=self.manager.iBUILDING_WORLD_BANK;church=self.manager.iBUILDING_CRUSADE
+         owned={}
+@@ -310,10 +338,10 @@ class PythonTests(unittest.TestCase):
+         exec(python_method(helper,'getCityList'),helper_ns)
+         wrapper=types.SimpleNamespace(player=player,getID=lambda:0)
+         wrapper.getCityList=types.MethodType(helper_ns['getCityList'],wrapper)
+-        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:300),
++        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:estimated_end),
+                        UnitAITypes=types.SimpleNamespace(UNITAI_ATTACK_CITY=1),
+                        DirectionTypes=types.SimpleNamespace(NO_DIRECTION=-1))
+-        self.manager.onBeginPlayerTurn((4,0))
++        self.manager.onBeginPlayerTurn((turn,0))
+         return gold[0],spawn
+ 
+     def test_sparse_city_receives_bank_interest(self):
+@@ -332,6 +360,18 @@ class PythonTests(unittest.TestCase):
+         self.assertEqual(len(spawn),1)
+         self.assertEqual(spawn[0][1:3],(2,9))
+ 
++    def test_crusade_cadence_at_game_length_boundaries(self):
++        for end,interval in ((0,4),(299,4),(300,4),(499,4),(500,6),(699,6),
++                             (700,8),(999,8),(1000,12),(1399,12),(1400,14),
++                             (1799,14),(1800,16),(4000,16)):
++            for turn in (0,interval-1,interval,interval+1,2*interval):
++                with self.subTest(estimated_end=end,turn=turn):
++                    gold,spawn=self.turn_fixture([(0,True),(2,True)],crusade=True,
++                                                 turn=turn,estimated_end=end)
++                    self.assertEqual(gold,1000)
++                    expected=[] if turn in (interval-1,interval+1) else [(0,9),(2,9)]
++                    self.assertEqual([unit[1:3] for unit in spawn],expected)
++
+ 
+ if __name__=='__main__':
+     unittest.main(argv=[__file__]+remaining,verbosity=2)
+diff --git a/Tools/test_settler_landing.py b/Tools/test_settler_landing.py
+new file mode 100644
+index 0000000..757dbb4
+--- /dev/null
++++ b/Tools/test_settler_landing.py
+@@ -0,0 +1,305 @@
++#!/usr/bin/env python3
++"""Execute civilian dispatch plus native amphibious forwarding and group movement.
++
++Path graphs, scheduling and per-unit movement side effects are explicit adapters;
++this is not a full engine replay. Unlike earlier dispatch tests, cargo is moved.
++"""
++import unittest
++from test_review_correctness import DLL, remaining, block, compile_run
++
++HOST = r'''
++#include <cassert>
++#include <climits>
++#include <cstddef>
++#include <vector>
++#include <algorithm>
++#include "AISettlementPolicy.h"
++using std::size_t;
++const int MAX_INT=INT_MAX;
++const int NO_PLAYER=-1;typedef unsigned int uint;
++const int MOVE_IGNORE_DANGER=16;
++int stepDistance(int x,int y,int a,int b){return std::max(abs(x-a),abs(y-b));}
++#include <cstdlib>
++enum {NO_MISSIONAI,MISSIONAI_FOUND,MISSIONAI_LOAD_SETTLER,MISSIONAI_PICKUP,MISSIONAI_ASSAULT,MISSIONAI_GUARD_CITY};
++enum {UNITAI_SETTLE,UNITAI_WORKER,UNITAI_ATTACK,UNITAI_CITY_DEFENSE,UNITAI_SETTLER_SEA,UNITAI_ASSAULT_SEA};
++enum {DOMAIN_LAND,DOMAIN_SEA,MISSION_MOVE_TO,MISSION_SKIP,MOVE_NO_ENEMY_TERRITORY,MOVE_SAFE_TERRITORY,NUM_DIRECTION_TYPES=2};
++typedef int MissionAITypes;typedef int DirectionTypes;
++struct CvUnit;struct CvPlot;struct CvSelectionGroup;
++typedef CvUnit* IDInfo;
++template<class T>struct CLLNode {T m_data;CLLNode* next;};
++struct CvPlot {int x,owner,found,landTurns,seaTurns;bool city,water,enemy,coastal,legal,enter;CvPlot* approach[2];
++ CLLNode<IDInfo>* head;
++ CvPlot():x(0),owner(0),found(100),landTurns(-1),seaTurns(-1),city(false),water(false),enemy(false),
++ coastal(false),legal(true),enter(true),head(NULL){approach[0]=approach[1]=NULL;}
++ bool isCity()const{return city;}bool isWater()const{return water;}bool isCoastalLand()const{return coastal;}
++ bool isVisibleEnemyUnit(CvUnit*){return enemy;}int getOwnerINLINE(){return owner;}
++ int getX_INLINE(){return x;}int getY_INLINE(){return 0;}int getFoundValue(int){return found;}bool isFriendlyCity(const CvUnit&,bool)const{return city;}bool isEnemyCity(const CvUnit&){return false;}
++ CLLNode<IDInfo>* headUnitNode(){return head;}CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* n){return n->next;}};
++CvPlot* plots[64];bool landingPathAvailable=true;
++CvPlot* plotDirection(int x,int,int d){return plots[x]->approach[d];}
++struct CvSelectionGroup {int job,mission,count,clears;CvPlot* target;CvUnit* unit;bool movable,busy;CLLNode<IDInfo>* head;
++ CvSelectionGroup():job(NO_MISSIONAI),mission(-1),count(1),clears(0),target(NULL),unit(NULL),movable(true),busy(false),head(NULL){}
++ CLLNode<IDInfo>* headUnitNode(){return head;}CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* n){return n->next;}
++ int AI_getMissionAIType(){return job;}CvPlot* AI_getMissionAIPlot(){return target;}
++ CvUnit* AI_getMissionAIUnit(){return unit;}int getNumUnits();
++ CvUnit* getHeadUnit()const;int getOwnerINLINE(){return 0;}int getDomainType()const;int getX();int getY(){return 0;}
++ bool canMoveAllTerrain()const{return false;}bool groupDeclareWar(CvPlot*){return false;}bool isHuman(){return false;}
++ bool isLastPathPlotRevealed(){return true;}bool at(int x,int y){return getX()==x&&getY()==y;}
++ bool isAmphibPlot(const CvPlot*)const;bool groupAmphibMove(CvPlot*,int);void groupMove(CvPlot*,bool,CvUnit*,bool);
++ bool canAllMove();bool isBusy(){return busy;}
++
++ void clearMissionQueue(){++clears;mission=-1;}
++ void AI_setMissionAI(int j,CvPlot* p,CvUnit* u){job=j;target=p;unit=u;}
++ void pushMission(int m,int x=-1,int y=-1,int flags=0,bool=false,bool=false,int j=NO_MISSIONAI,CvPlot* p=NULL);
++};
++CvSelectionGroup detachedGroups[64];int nextGroup=0;
++std::vector<CvUnit*> units;
++struct CvUnit {CvPlot* position;CvSelectionGroup group;CvSelectionGroup* activeGroup;
++ CvUnit* transport;CvPlot* lastPath;int role,domain,capacity,owner,unloads;bool defense,movable;
++ CvUnit():position(NULL),activeGroup(&group),transport(NULL),lastPath(NULL),role(UNITAI_ATTACK),domain(DOMAIN_LAND),
++ capacity(4),owner(0),unloads(0),defense(false),movable(true){units.push_back(this);}
++ IDInfo getIDInfo(){return this;}bool canMove(){return movable;}bool isNoCapture(){return false;}bool canMoveOrAttackInto(CvPlot* p){return canMoveInto(p);}
++ int domainCargo(){return DOMAIN_LAND;}int getCargo(){std::vector<CvUnit*> v;getCargoUnits(v);return v.size();}
++ void move(CvPlot* p,bool){assert(canMove()&&canMoveInto(p));position=p;transport=NULL;movable=false;}
++ void ExecuteMove(float,bool){}
++ CvPlot* plot(){return position;}int getOwnerINLINE(){return owner;}int getID(){return 1;}
++ void AI_setUnitAIType(int r){role=r;}int AI_getUnitAIType(){return role;}int getDomainType(){return domain;}
++ bool canDefend(){return defense;}bool canFound(CvPlot* p){return p->legal;}
++ bool canMoveInto(CvPlot* p){return p->enter;}
++ CvSelectionGroup* getGroup(){return activeGroup;}
++ bool isCargo(){return transport!=NULL;}CvUnit* getTransportUnit(){return transport;}
++ bool atPlot(CvPlot* p){return position==p;}
++ void getCargoUnits(std::vector<CvUnit*>& out){out.clear();for(size_t i=0;i<units.size();++i)if(units[i]->transport==this)out.push_back(units[i]);}
++ int getUnitAICargo(int r){int n=0;for(size_t i=0;i<units.size();++i)if(units[i]->transport==this&&units[i]->role==r)++n;return n;}
++ bool isFull(){std::vector<CvUnit*> c;getCargoUnits(c);return int(c.size())>=capacity;}
++ bool canLoadUnit(CvUnit* ship,CvPlot* p){return position==p&&ship->position==p&&!ship->isFull();}
++ void setTransportUnit(CvUnit* ship){transport=ship;movable=false;activeGroup=&group;}
++ void joinGroup(CvSelectionGroup* g,bool=false){assert(nextGroup<64);activeGroup=g?g:&detachedGroups[nextGroup++];}
++ void unloadAll(){++unloads;for(size_t i=0;i<units.size();++i)if(units[i]->transport==this)units[i]->transport=NULL;}
++ bool canCargoAllMove(){for(size_t i=0;i<units.size();++i)if(units[i]->transport==this&&!units[i]->movable)return false;return true;}
++ bool generatePath(CvPlot* p,int,bool,int* turns){*turns=domain==DOMAIN_SEA?p->seaTurns:(isCargo()&&position==p->approach[0]?(p->enter&&landingPathAvailable?1:-1):p->landTurns);lastPath=p;return *turns>=0;}
++ CvPlot* getPathEndTurnPlot(){return lastPath;}
++};
++CvUnit* removedUnit=NULL;CvUnit* removeOnLanding=NULL;
++CvUnit* getUnit(IDInfo id){return id==removedUnit?NULL:id;}
++struct CvPlayerAI {int horizon;std::vector<CvPlot*> sites;std::vector<CvSelectionGroup*> groups;
++ CvPlayerAI():horizon(20){}int AI_getExpansionHorizon(){return horizon;}int AI_getLogisticsPriority(){return 500;}
++ int AI_getNumSettlementCandidates(){return sites.size();}
++ CvPlot* AI_getSettlementCandidate(int i,int& value){value=sites[i]->found;return sites[i];}
++ int AI_plotTargetMissionAIs(CvPlot*,int,CvSelectionGroup*,int){return 0;}
++ CvSelectionGroup* firstSelectionGroup(int* i){*i=0;return groups.empty()?NULL:groups[0];}
++ CvSelectionGroup* nextSelectionGroup(int* i){++*i;return size_t(*i)<groups.size()?groups[*i]:NULL;}
++} player;
++struct MissionInfo {int getTime(){return 0;}};struct Globals {int getMIN_CITY_RANGE(){return 1;}MissionInfo getMissionInfo(int){return MissionInfo();}} GC;
++struct DLL {int getMillisecsPerTurn(){return 0;}} dll;DLL* gDLL=&dll;
++#define FAssert(x) assert(x)
++#define FAssertMsg(x,msg) assert(x)
++#define GET_PLAYER(x) player
++#define PROFILE_FUNC() ((void)0)
++void logBBAI(const char*,...){}
++int gUnitLogLevel=0;
++struct CvUnitAI: CvUnit {int pickups,retreats;CvUnitAI():pickups(0),retreats(0){domain=DOMAIN_SEA;role=UNITAI_SETTLER_SEA;}
++ void AI_clearSettlerSeaLoads();
++ bool AI_settlerSeaPath(CvPlot*,CvPlot*&,int&);bool AI_settlerSeaTransport();
++ bool AI_retreatToCity(){++retreats;return false;}bool AI_pickup(int){++pickups;return false;}
++};
++struct Fixture {CvPlot port,site,approach;CvUnitAI boat,donor;CvUnit settler,escort;
++ CvSelectionGroup incoming;CLLNode<IDInfo> escortNode;
++ Fixture(){player=CvPlayerAI();units.clear();units.push_back(&boat);units.push_back(&donor);units.push_back(&settler);units.push_back(&escort);
++ port.city=true;site.x=10;approach.x=11;site.coastal=true;approach.water=true;approach.seaTurns=2;
++ site.approach[0]=&approach;plots[10]=&site;plots[11]=&approach;
++ boat.position=donor.position=settler.position=escort.position=&port;
++ settler.role=UNITAI_SETTLE;settler.transport=&boat;escort.defense=true;escort.transport=&donor;
++ escortNode.m_data=&escort;escortNode.next=NULL;port.head=&escortNode;
++ incoming.job=MISSIONAI_LOAD_SETTLER;incoming.unit=&boat;
++ player.sites.push_back(&site);player.groups.push_back(&incoming);}
++};
++
++CvUnit* CvSelectionGroup::getHeadUnit()const{for(size_t i=0;i<units.size();++i)if(units[i]->getGroup()==this)return units[i];return NULL;}
++int CvSelectionGroup::getDomainType()const{return getHeadUnit()->getDomainType();}
++int CvSelectionGroup::getNumUnits(){int n=0;for(size_t i=0;i<units.size();++i)if(units[i]->getGroup()==this)++n;return n;}
++int CvSelectionGroup::getX(){return getHeadUnit()->plot()->getX_INLINE();}
++bool CvSelectionGroup::canAllMove(){for(size_t i=0;i<units.size();++i)if(units[i]->getGroup()==this&&!units[i]->canMove())return false;return getNumUnits()>0;}
++// Refresh linked group membership before running the actual groupMove/Amphib methods.
++CLLNode<IDInfo> nodePool[128];int nextNode=0;
++void linkGroup(CvSelectionGroup* group){
++ CLLNode<IDInfo>* tail=NULL;group->head=NULL;
++ for(size_t i=0;i<units.size();++i)if(units[i]->getGroup()==group){
++  assert(nextNode<128);CLLNode<IDInfo>* n=&nodePool[nextNode++];n->m_data=units[i];n->next=NULL;
++  if(tail)tail->next=n;else group->head=n;tail=n;
++ }
++}
++bool deferLanding=false;
++void CvSelectionGroup::pushMission(int m,int x,int,int flags,bool,bool,int j,CvPlot* p){
++ if(isBusy())return;
++ mission=m;job=j;target=p;
++ if(m!=MISSION_MOVE_TO)return;
++ CvPlot* destination=plots[x];linkGroup(this);
++ if(getDomainType()==DOMAIN_SEA){
++  if(destination->isCoastalLand())groupAmphibMove(destination,flags);
++ }else if(!deferLanding && landingPathAvailable && canAllMove()){groupMove(destination,false,NULL,true);removedUnit=removeOnLanding;}
++}
++void atCoast(Fixture& f){
++ nextNode=0;f.escort.transport=&f.boat;
++ f.boat.position=f.settler.position=f.escort.position=&f.approach;
++ f.boat.group.job=MISSIONAI_FOUND;f.boat.group.target=&f.site;
++}
++'''
++
++def program():
++    unit=(DLL/'CvUnitAI.cpp').read_text()
++    group=(DLL/'CvSelectionGroup.cpp').read_text()
++    return HOST+'\n'+'\n'.join([
++        block(unit,'void CvUnitAI::AI_clearSettlerSeaLoads()'),
++        block(unit,'bool CvUnitAI::AI_settlerSeaPath('),
++        block(unit,'bool CvUnitAI::AI_settlerSeaTransport()'),
++        block(group,'bool CvSelectionGroup::isAmphibPlot('),
++        block(group,'bool CvSelectionGroup::groupAmphibMove('),
++        block(group,'void CvSelectionGroup::groupMove(')])
++
++class LandingTests(unittest.TestCase):
++    def test_landing_preserves_found_job(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(!f.settler.isCargo()&&!f.escort.isCargo());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(f.settler.getGroup()==f.escort.getGroup());
++ assert(f.settler.getGroup()->AI_getMissionAIType()==MISSIONAI_FOUND);
++ assert(f.settler.getGroup()->AI_getMissionAIPlot()==&f.site);
++ assert(f.boat.atPlot(&f.approach));
++}
++''')
++
++    def test_unrelated_immobile_cargo_cannot_veto_party(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);CvUnit spare;
++ spare.position=&f.approach;spare.transport=&f.boat;spare.movable=false;spare.defense=true;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(spare.transport==&f.boat&&spare.atPlot(&f.approach));
++}
++''')
++
++    def test_foreign_group_members_do_not_join_the_landing(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);CvUnit outsider;
++ outsider.position=&f.approach;outsider.transport=&f.donor;outsider.movable=false;
++ outsider.joinGroup(f.settler.getGroup());
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(outsider.transport==&f.donor&&outsider.atPlot(&f.approach));
++}
++''')
++
++    def test_wait_for_actual_escort_then_land(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);f.escort.movable=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ assert(f.boat.group.job==MISSIONAI_FOUND&&f.boat.group.target==&f.site);
++ f.escort.movable=true;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(!f.settler.isCargo()&&!f.escort.isCargo());
++}
++''')
++
++    def test_queued_landing_keeps_both_commitments(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);deferLanding=true;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ assert(f.settler.getGroup()->job==MISSIONAI_FOUND&&f.settler.getGroup()->target==&f.site);
++ assert(f.boat.group.job==MISSIONAI_FOUND&&f.boat.group.target==&f.site);
++}
++''')
++
++    def test_invalid_site_does_not_unload_offshore(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);f.site.legal=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo()&&f.boat.unloads==0);
++}
++''')
++
++    def test_blocked_landing_releases_commitment_and_requests_recovery(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);landingPathAvailable=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ assert(f.boat.retreats==1&&f.boat.group.job==NO_MISSIONAI);
++}
++''')
++
++    def test_busy_party_is_not_overwritten(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);f.escort.joinGroup(f.settler.getGroup());
++ f.settler.getGroup()->busy=true;f.settler.getGroup()->mission=99;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ assert(f.settler.getGroup()->mission==99);
++ assert(f.boat.group.job==MISSIONAI_FOUND);
++}
++''')
++
++    def test_movement_callback_removes_passenger(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);removeOnLanding=&f.escort;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(getUnit(f.escort.getIDInfo())==NULL);
++ assert(f.boat.group.job==NO_MISSIONAI);
++}
++''')
++
++    def test_passenger_hold_does_not_prevent_landing(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);
++ f.settler.getGroup()->pushMission(MISSION_SKIP);f.escort.getGroup()->pushMission(MISSION_SKIP);
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(f.settler.getGroup()->job==MISSIONAI_FOUND);
++}
++''')
++
++    def test_boarding_moves_do_not_delay_sailing(self):
++        compile_run(program()+r'''
++int main(){Fixture f;f.escort.transport=&f.boat;f.settler.movable=f.escort.movable=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.boat.group.mission==MISSION_MOVE_TO&&f.boat.group.target==&f.site);
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++}
++''')
++
++    def test_faster_walk_remains_available(self):
++        compile_run(program()+r'''
++int main(){Fixture f;f.escort.transport=&f.boat;
++ f.site.x=1;plots[1]=&f.site;f.site.landTurns=1;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.boat.unloads==1&&f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(f.settler.getGroup()->job==MISSIONAI_FOUND);
++}
++''')
++
++    def test_valid_sea_commitment_is_not_rescored(self):
++        compile_run(program()+r'''
++int main(){Fixture f;f.escort.transport=&f.boat;f.site.landTurns=1;
++ f.boat.group.job=MISSIONAI_FOUND;f.boat.group.target=&f.site;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.boat.unloads==0&&f.boat.group.mission==MISSION_MOVE_TO);
++}
++''')
++
++    def test_busy_separate_escort_is_not_regrouped(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);CvSelectionGroup* original=f.escort.getGroup();
++ original->busy=true;original->mission=99;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.escort.getGroup()==original&&original->mission==99);
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ original->busy=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++}
++''')
++
++if __name__=='__main__':unittest.main(argv=[__file__]+remaining,verbosity=2)

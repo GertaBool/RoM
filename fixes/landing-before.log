@@ -1,0 +1,123 @@
+test_blocked_landing_releases_commitment_and_requests_recovery (__main__.LandingTests.test_blocked_landing_releases_commitment_and_requests_recovery) ... test: /tmp/rom-correctness-xu4ey2ln/test.cpp:494: int main(): Assertion `f.boat.retreats==1&&f.boat.group.job==NO_MISSIONAI' failed.
+ERROR
+test_boarding_moves_do_not_delay_sailing (__main__.LandingTests.test_boarding_moves_do_not_delay_sailing) ... ok
+test_busy_party_is_not_overwritten (__main__.LandingTests.test_busy_party_is_not_overwritten) ... ok
+test_busy_separate_escort_is_not_regrouped (__main__.LandingTests.test_busy_separate_escort_is_not_regrouped) ... test: /tmp/rom-correctness-k9esuf8l/test.cpp:494: int main(): Assertion `f.escort.getGroup()==original&&original->mission==99' failed.
+ERROR
+test_faster_walk_remains_available (__main__.LandingTests.test_faster_walk_remains_available) ... ok
+test_foreign_group_members_do_not_join_the_landing (__main__.LandingTests.test_foreign_group_members_do_not_join_the_landing) ... test: /tmp/rom-correctness-uvc52puh/test.cpp:495: int main(): Assertion `f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site)' failed.
+ERROR
+test_invalid_site_does_not_unload_offshore (__main__.LandingTests.test_invalid_site_does_not_unload_offshore) ... ok
+test_landing_preserves_found_job (__main__.LandingTests.test_landing_preserves_found_job) ... test: /tmp/rom-correctness-cilivkfo/test.cpp:496: int main(): Assertion `f.settler.getGroup()->AI_getMissionAIType()==MISSIONAI_FOUND' failed.
+ERROR
+test_movement_callback_removes_passenger (__main__.LandingTests.test_movement_callback_removes_passenger) ... test: /tmp/rom-correctness-gq27e4o6/test.cpp:494: int main(): Assertion `f.boat.group.job==NO_MISSIONAI' failed.
+ERROR
+test_passenger_hold_does_not_prevent_landing (__main__.LandingTests.test_passenger_hold_does_not_prevent_landing) ... test: /tmp/rom-correctness-qclhqpvt/test.cpp:495: int main(): Assertion `f.settler.getGroup()->job==MISSIONAI_FOUND' failed.
+ERROR
+test_queued_landing_keeps_both_commitments (__main__.LandingTests.test_queued_landing_keeps_both_commitments) ... test: /tmp/rom-correctness-162cvuu4/test.cpp:494: int main(): Assertion `f.settler.getGroup()->job==MISSIONAI_FOUND&&f.settler.getGroup()->target==&f.site' failed.
+ERROR
+test_unrelated_immobile_cargo_cannot_veto_party (__main__.LandingTests.test_unrelated_immobile_cargo_cannot_veto_party) ... test: /tmp/rom-correctness-hnxhrd43/test.cpp:494: int main(): Assertion `f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site)' failed.
+ERROR
+test_valid_sea_commitment_is_not_rescored (__main__.LandingTests.test_valid_sea_commitment_is_not_rescored) ... ok
+test_wait_for_actual_escort_then_land (__main__.LandingTests.test_wait_for_actual_escort_then_land) ... ok
+
+======================================================================
+ERROR: test_blocked_landing_releases_commitment_and_requests_recovery (__main__.LandingTests.test_blocked_landing_releases_commitment_and_requests_recovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_settler_landing.py", line 226, in test_blocked_landing_releases_commitment_and_requests_recovery
+    compile_run(program()+r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-xu4ey2ln/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_busy_separate_escort_is_not_regrouped (__main__.LandingTests.test_busy_separate_escort_is_not_regrouped)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_settler_landing.py", line 293, in test_busy_separate_escort_is_not_regrouped
+    compile_run(program()+r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-k9esuf8l/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_foreign_group_members_do_not_join_the_landing (__main__.LandingTests.test_foreign_group_members_do_not_join_the_landing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_settler_landing.py", line 185, in test_foreign_group_members_do_not_join_the_landing
+    compile_run(program()+r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-uvc52puh/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_landing_preserves_found_job (__main__.LandingTests.test_landing_preserves_found_job)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_settler_landing.py", line 162, in test_landing_preserves_found_job
+    compile_run(program()+r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-cilivkfo/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_movement_callback_removes_passenger (__main__.LandingTests.test_movement_callback_removes_passenger)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_settler_landing.py", line 246, in test_movement_callback_removes_passenger
+    compile_run(program()+r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-gq27e4o6/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_passenger_hold_does_not_prevent_landing (__main__.LandingTests.test_passenger_hold_does_not_prevent_landing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_settler_landing.py", line 255, in test_passenger_hold_does_not_prevent_landing
+    compile_run(program()+r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-qclhqpvt/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_queued_landing_keeps_both_commitments (__main__.LandingTests.test_queued_landing_keeps_both_commitments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_settler_landing.py", line 208, in test_queued_landing_keeps_both_commitments
+    compile_run(program()+r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-162cvuu4/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_unrelated_immobile_cargo_cannot_veto_party (__main__.LandingTests.test_unrelated_immobile_cargo_cannot_veto_party)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_settler_landing.py", line 175, in test_unrelated_immobile_cargo_cannot_veto_party
+    compile_run(program()+r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-hnxhrd43/test']' died with <Signals.SIGABRT: 6>.
+
+----------------------------------------------------------------------
+Ran 14 tests in 8.136s
+
+FAILED (errors=8)

@@ -1,0 +1,275 @@
+
+[1/16] python3 Tools/test_review_correctness.py
+test_agenda_extension_round_trip_and_legacy_stream_alignment (__main__.NativeTests.test_agenda_extension_round_trip_and_legacy_stream_alignment) ... In file included from /usr/include/c++/14/cassert:44,
+                 from /tmp/rom-correctness-1p02i0m_/test.cpp:2:
+/tmp/rom-correctness-1p02i0m_/test.cpp: In function ‘int main()’:
+/tmp/rom-correctness-1p02i0m_/test.cpp:179:28: error: ‘preferSeaSettlement’ is not a member of ‘AIHierarchyPolicy’
+  179 |  assert(AIHierarchyPolicy::preferSeaSettlement(100,100,b.m_iAINavalPriority));
+      |                            ^~~~~~~~~~~~~~~~~~~
+ERROR
+test_canal_value_and_existing_guards (__main__.NativeTests.test_canal_value_and_existing_guards) ... ok
+test_fort_selection_preserves_utility_and_handles_large_scores (__main__.NativeTests.test_fort_selection_preserves_utility_and_handles_large_scores) ... ok
+test_team_rollover_skips_dead_slots (__main__.NativeTests.test_team_rollover_skips_dead_slots) ... ok
+test_failed_rebuild_preserves_previous_pair_arrays (__main__.PythonTests.test_failed_rebuild_preserves_previous_pair_arrays) ... ERROR
+test_no_obsolete_tech_and_empty_empire (__main__.PythonTests.test_no_obsolete_tech_and_empty_empire) ... ERROR
+test_obsolete_bank_does_not_pay (__main__.PythonTests.test_obsolete_bank_does_not_pay) ... ERROR
+test_repeated_load_and_start_are_idempotent (__main__.PythonTests.test_repeated_load_and_start_are_idempotent) ... ERROR
+test_sparse_city_receives_bank_interest (__main__.PythonTests.test_sparse_city_receives_bank_interest) ... ERROR
+test_sparse_city_spawns_crusader (__main__.PythonTests.test_sparse_city_spawns_crusader) ... ERROR
+
+======================================================================
+ERROR: test_agenda_extension_round_trip_and_legacy_stream_alignment (__main__.NativeTests.test_agenda_extension_round_trip_and_legacy_stream_alignment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 184, in test_agenda_extension_round_trip_and_legacy_stream_alignment
+    compile_run(r'''
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 43, in compile_run
+    subprocess.run(['g++', '-std=c++03', '-Wall', '-Wextra', '-Werror',
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['g++', '-std=c++03', '-Wall', '-Wextra', '-Werror', '-fsanitize=undefined', '-fno-sanitize-recover=undefined', '-I', '/workspace/rise-of-mankind/Assets/CvGameCoreDLL', '/tmp/rom-correctness-1p02i0m_/test.cpp', '-o', '/tmp/rom-correctness-1p02i0m_/test']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_failed_rebuild_preserves_previous_pair_arrays (__main__.PythonTests.test_failed_rebuild_preserves_previous_pair_arrays)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 271, in test_failed_rebuild_preserves_previous_pair_arrays
+    self.manager.onLoadGame(())
+  File "<string>", line 2, in onLoadGame
+AttributeError: 'types.SimpleNamespace' object has no attribute '_initializeGameData'
+
+======================================================================
+ERROR: test_no_obsolete_tech_and_empty_empire (__main__.PythonTests.test_no_obsolete_tech_and_empty_empire)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 323, in test_no_obsolete_tech_and_empty_empire
+    self.assertEqual(self.turn_fixture([(2,True)])[0],1010)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 285, in turn_fixture
+    self.manager.onLoadGame(())
+  File "<string>", line 2, in onLoadGame
+AttributeError: 'types.SimpleNamespace' object has no attribute '_initializeGameData'
+
+======================================================================
+ERROR: test_obsolete_bank_does_not_pay (__main__.PythonTests.test_obsolete_bank_does_not_pay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 327, in test_obsolete_bank_does_not_pay
+    self.assertEqual(self.turn_fixture([(2,True)],obsolete=999,has_obsolete=True)[0],1000)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 285, in turn_fixture
+    self.manager.onLoadGame(())
+  File "<string>", line 2, in onLoadGame
+AttributeError: 'types.SimpleNamespace' object has no attribute '_initializeGameData'
+
+======================================================================
+ERROR: test_repeated_load_and_start_are_idempotent (__main__.PythonTests.test_repeated_load_and_start_are_idempotent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 263, in test_repeated_load_and_start_are_idempotent
+    getattr(self.manager,event)(())
+  File "<string>", line 2, in onLoadGame
+AttributeError: 'types.SimpleNamespace' object has no attribute '_initializeGameData'
+
+======================================================================
+ERROR: test_sparse_city_receives_bank_interest (__main__.PythonTests.test_sparse_city_receives_bank_interest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 320, in test_sparse_city_receives_bank_interest
+    self.assertEqual(self.turn_fixture([(0,False),(2,True)],obsolete=999)[0],1010)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 285, in turn_fixture
+    self.manager.onLoadGame(())
+  File "<string>", line 2, in onLoadGame
+AttributeError: 'types.SimpleNamespace' object has no attribute '_initializeGameData'
+
+======================================================================
+ERROR: test_sparse_city_spawns_crusader (__main__.PythonTests.test_sparse_city_spawns_crusader)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 330, in test_sparse_city_spawns_crusader
+    gold,spawn=self.turn_fixture([(0,False),(2,True)],crusade=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/rise-of-mankind/Tools/test_review_correctness.py", line 285, in turn_fixture
+    self.manager.onLoadGame(())
+  File "<string>", line 2, in onLoadGame
+AttributeError: 'types.SimpleNamespace' object has no attribute '_initializeGameData'
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.707s
+
+FAILED (errors=7)
+
+[2/16] python3 Tools/test_source_integrity.py
+PASS: 480 native/Python source files contain no NULs or merge markers
+
+[3/16] python3 Tools/check_dll_line_endings.py
+checked 246 files; line endings and Unicode line bytes are safe
+
+[4/16] python3 Tools/test_xml_integrity.py
+PASS: parsed 948 gameplay, configuration, schema and module XML files
+
+[5/16] python3 Tools/test_ai_context.py
+PASS: strategic snapshot defaults, identity, 200,100 runway cases, 20,301 trade-cap cases, and free-list city iteration passed
+PASS: agenda and all technology consumers share every declared snapshot field
+
+[6/16] python3 Tools/test_ai_diplomacy.py
+PASS: 1,000,000 diplomacy conversion pairs and overflow boundaries passed
+PASS: all four counterproposal lump-gold conversions use the bounded policy
+
+[7/16] python3 Tools/test_ai_economic_recovery.py
+PASS: per-turn civic-cost boundaries and 5,151 monotonic states passed
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_economic_recovery.py", line 98, in <module>
+    assert city.count("AI_getNumTrainAIUnits(UNITAI_EXPLORE)") >= 2
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+[8/16] python3 Tools/test_ai_agenda_model.py
+agenda model: 8 scenarios, hysteresis boundaries, and 10000 randomized states passed
+
+[9/16] python3 Tools/test_ai_decisions.py
+test_agenda_adjusted_unit_probability_reaches_all_city_rolls (__main__.DecisionTests.test_agenda_adjusted_unit_probability_reaches_all_city_rolls) ... ok
+test_anarchy_preserves_ai_production_queue (__main__.DecisionTests.test_anarchy_preserves_ai_production_queue) ... ok
+test_archer_fire_after_assault (__main__.DecisionTests.test_archer_fire_after_assault) ... ok
+test_bombard_dispatch_reachable (__main__.DecisionTests.test_bombard_dispatch_reachable) ... ok
+test_bounded_reinforcement_delivery (__main__.DecisionTests.test_bounded_reinforcement_delivery) ... ok
+test_career_migration_and_cooldown (__main__.DecisionTests.test_career_migration_and_cooldown) ... ok
+test_civic_value_reaches_technology_scoring (__main__.DecisionTests.test_civic_value_reaches_technology_scoring) ... ok
+test_commerce_repair_after_city_deserialization (__main__.DecisionTests.test_commerce_repair_after_city_deserialization) ... ok
+test_compiled_policy_and_actual_record_code (__main__.DecisionTests.test_compiled_policy_and_actual_record_code) ... C++03 policies: 40,401 EWMA pairs; spending/recovery/siege boundaries; actual v4/v5 record readers/writers passed
+ok
+test_hurry_legality_and_timing (__main__.DecisionTests.test_hurry_legality_and_timing) ... ok
+test_ready_numerator_excludes_support (__main__.DecisionTests.test_ready_numerator_excludes_support) ... ok
+test_recovery_dispatch_precedes_role_dispatch (__main__.DecisionTests.test_recovery_dispatch_precedes_role_dispatch) ... ok
+test_stuck_group_recovery_exhausts_every_member (__main__.DecisionTests.test_stuck_group_recovery_exhausts_every_member) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.315s
+
+OK
+
+[10/16] python3 Tools/test_ai_governors.py
+test_city_integration_and_save_version (__main__.GovernorPolicyTests.test_city_integration_and_save_version) ... ok
+test_feedback_is_bounded_and_precedes_hard_overrides (__main__.GovernorPolicyTests.test_feedback_is_bounded_and_precedes_hard_overrides) ... ok
+test_policy_gates_terms_performance_and_determinism (__main__.GovernorPolicyTests.test_policy_gates_terms_performance_and_determinism) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.098s
+
+OK
+
+[11/16] python3 Tools/test_ai_layer_contracts.py
+test_agenda_precedes_its_turn_consumers (__main__.LayerContractTests.test_agenda_precedes_its_turn_consumers) ... ok
+test_city_production_consumes_strategic_budgets (__main__.LayerContractTests.test_city_production_consumes_strategic_budgets) ... ok
+test_feedback_cannot_bypass_emergency_selection (__main__.LayerContractTests.test_feedback_cannot_bypass_emergency_selection) ... ok
+test_operation_control_precedes_generic_role_dispatch (__main__.LayerContractTests.test_operation_control_precedes_generic_role_dispatch) ... ok
+test_operation_demand_counts_supply_pipeline (__main__.LayerContractTests.test_operation_demand_counts_supply_pipeline) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.015s
+
+OK
+
+[12/16] python3 Tools/test_ai_load_override.py
+PASS: production AI_load declarations/definition override and dispatch in C++03
+
+[13/16] python3 Tools/test_ai_maritime.py
+In file included from /usr/include/c++/14/cassert:44,
+                 from /tmp/tmp2dczt7_e/test.cpp:4:
+/tmp/tmp2dczt7_e/test.cpp: In function ‘int main()’:
+/tmp/tmp2dczt7_e/test.cpp:41:28: error: ‘seaSettlementThreshold’ is not a member of ‘AIHierarchyPolicy’
+   41 |  assert(AIHierarchyPolicy::seaSettlementThreshold(seaIntent.navalPriority)<
+      |                            ^~~~~~~~~~~~~~~~~~~~~~
+/tmp/tmp2dczt7_e/test.cpp:42:22: error: ‘seaSettlementThreshold’ is not a member of ‘AIHierarchyPolicy’
+   42 |   AIHierarchyPolicy::seaSettlementThreshold(landIntent.navalPriority));
+      |                      ^~~~~~~~~~~~~~~~~~~~~~
+/tmp/tmp2dczt7_e/test.cpp:45:28: error: ‘preferSeaSettlement’ is not a member of ‘AIHierarchyPolicy’
+   45 |  assert(AIHierarchyPolicy::preferSeaSettlement(100,100,1000));
+      |                            ^~~~~~~~~~~~~~~~~~~
+/tmp/tmp2dczt7_e/test.cpp:46:29: error: ‘preferSeaSettlement’ is not a member of ‘AIHierarchyPolicy’
+   46 |  assert(!AIHierarchyPolicy::preferSeaSettlement(100,100,0));
+      |                             ^~~~~~~~~~~~~~~~~~~
+/tmp/tmp2dczt7_e/test.cpp:47:28: error: ‘preferSeaSettlement’ is not a member of ‘AIHierarchyPolicy’
+   47 |  assert(AIHierarchyPolicy::preferSeaSettlement(INT_MAX,INT_MAX,1000));
+      |                            ^~~~~~~~~~~~~~~~~~~
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_ai_maritime.py", line 69, in <module>
+    subprocess.run(['g++','-std=c++03','-Wall','-Wextra','-Werror','-fsanitize=undefined','-I',str(DLL),str(source),'-o',str(binary)],check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['g++', '-std=c++03', '-Wall', '-Wextra', '-Werror', '-fsanitize=undefined', '-I', '/workspace/rise-of-mankind/Assets/CvGameCoreDLL', '/tmp/tmp2dczt7_e/test.cpp', '-o', '/tmp/tmp2dczt7_e/test']' returned non-zero exit status 1.
+
+[14/16] python3 Tools/test_operation_supply.py
+test_compiled_boundaries (__main__.OperationSupplyTests.test_compiled_boundaries) ... FAIL
+test_death_is_recorded_before_the_id_can_be_recycled (__main__.OperationSupplyTests.test_death_is_recorded_before_the_id_can_be_recycled) ... ok
+test_field_armies_are_not_rejected_for_standing_off_owned_land (__main__.OperationSupplyTests.test_field_armies_are_not_rejected_for_standing_off_owned_land) ... ok
+test_gold_reserve_does_not_negate_or_multiply_in_place (__main__.OperationSupplyTests.test_gold_reserve_does_not_negate_or_multiply_in_place) ... FAIL
+
+======================================================================
+FAIL: test_compiled_boundaries (__main__.OperationSupplyTests.test_compiled_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_operation_supply.py", line 121, in test_compiled_boundaries
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : In file included from /usr/include/c++/14/cassert:44,
+                 from /tmp/tmp4mksao_6/supply.cpp:3:
+/tmp/tmp4mksao_6/supply.cpp: In function ‘int main()’:
+/tmp/tmp4mksao_6/supply.cpp:12:30: error: ‘goldAfterReserve’ is not a member of ‘AIDecisionPolicy’; did you mean ‘goldAfterDeficitReserve’?
+   12 |     assert(AIDecisionPolicy::goldAfterReserve(200, 120, 100) == 80);
+      |                              ^~~~~~~~~~~~~~~~
+/tmp/tmp4mksao_6/supply.cpp:13:30: error: ‘goldAfterReserve’ is not a member of ‘AIDecisionPolicy’; did you mean ‘goldAfterDeficitReserve’?
+   13 |     assert(AIDecisionPolicy::goldAfterReserve(100, 120, 100) == 0);
+      |                              ^~~~~~~~~~~~~~~~
+/tmp/tmp4mksao_6/supply.cpp:14:30: error: ‘goldAfterReserve’ is not a member of ‘AIDecisionPolicy’; did you mean ‘goldAfterDeficitReserve’?
+   14 |     assert(AIDecisionPolicy::goldAfterReserve(200, 0, 300) == 200);
+      |                              ^~~~~~~~~~~~~~~~
+/tmp/tmp4mksao_6/supply.cpp:15:30: error: ‘goldAfterReserve’ is not a member of ‘AIDecisionPolicy’; did you mean ‘goldAfterDeficitReserve’?
+   15 |     assert(AIDecisionPolicy::goldAfterReserve(50, 10, 0) == 50);
+      |                              ^~~~~~~~~~~~~~~~
+/tmp/tmp4mksao_6/supply.cpp:16:30: error: ‘goldAfterReserve’ is not a member of ‘AIDecisionPolicy’; did you mean ‘goldAfterDeficitReserve’?
+   16 |     assert(AIDecisionPolicy::goldAfterReserve(200, 120, 300) == 0);
+      |                              ^~~~~~~~~~~~~~~~
+/tmp/tmp4mksao_6/supply.cpp:17:30: error: ‘goldAfterReserve’ is not a member of ‘AIDecisionPolicy’; did you mean ‘goldAfterDeficitReserve’?
+   17 |     assert(AIDecisionPolicy::goldAfterReserve(-5, 120, 100) == -5);
+      |                              ^~~~~~~~~~~~~~~~
+/tmp/tmp4mksao_6/supply.cpp:18:30: error: ‘goldAfterReserve’ is not a member of ‘AIDecisionPolicy’; did you mean ‘goldAfterDeficitReserve’?
+   18 |     assert(AIDecisionPolicy::goldAfterReserve(100, INT_MAX, 100) == 0);
+      |                              ^~~~~~~~~~~~~~~~
+
+
+======================================================================
+FAIL: test_gold_reserve_does_not_negate_or_multiply_in_place (__main__.OperationSupplyTests.test_gold_reserve_does_not_negate_or_multiply_in_place)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/rise-of-mankind/Tools/test_operation_supply.py", line 73, in test_gold_reserve_does_not_negate_or_multiply_in_place
+    self.assertIn("goldAfterReserve(", trade)
+AssertionError: 'goldAfterReserve(' not found in 'int CvPlayerAI::AI_maxGoldTrade(PlayerTypes ePlayer) const\n{\n\tint iMaxGold;\n\n\tFAssert(ePlayer != getID());\n\n\tif (isHuman() || (GET_PLAYER(ePlayer).getTeam() == getTeam()))\n\t{\n\t\tiMaxGold = getGold();\n\t}\n\telse\n\t{\n\t\tiMaxGold = getTotalPopulation();\n\n\t\tiMaxGold *= (GET_TEAM(getTeam()).AI_getHasMetCounter(GET_PLAYER(ePlayer).getTeam()) + 10);\n\n\t\tiMaxGold *= GC.getLeaderHeadInfo(getPersonalityType()).getMaxGoldTradePercent();\n\t\tiMaxGold /= 100;\n\n\t\tiMaxGold -= AI_getGoldTradedTo(ePlayer);\n\n        const int iResearchPercent = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();\n\t\tiMaxGold = std::min(iMaxGold, AIDecisionPolicy::goldAfterDeficitReserve(\n\t\t\tgetGold(), calculateGoldRate(), 12, iResearchPercent));\n\n\t\tiMaxGold = std::min(iMaxGold, getGold());\n\n\t\tiMaxGold -= (iMaxGold % GC.getDefineINT("DIPLOMACY_VALUE_REMAINDER"));\n\t}\n\n\treturn std::max(0, iMaxGold);\n}\n\n\n'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.025s
+
+FAILED (failures=2)
+
+[15/16] python3 Tools/test_ai_reinforcements.py
+PASS: 1595880 reinforcement combinations and overflow boundary passed
+PASS: cached supply accounting and all five field-role delivery hooks checked
+
+[16/16] python3 Tools/test_victory_conditions.py
+test_boolean_gate_truth_table (__main__.VictoryTests.test_boolean_gate_truth_table) ... ok
+test_every_declared_victory_prerequisite_exists (__main__.VictoryTests.test_every_declared_victory_prerequisite_exists) ... ok
+test_score_conquest_diplomatic_religious_and_culture_edges (__main__.VictoryTests.test_score_conquest_diplomatic_religious_and_culture_edges) ... ok
+test_source_uses_wide_products_and_countdown_guards (__main__.VictoryTests.test_source_uses_wide_products_and_countdown_guards) ... ok
+test_threshold_references_and_ranges (__main__.VictoryTests.test_threshold_references_and_ranges) ... ok
+test_victory_types_are_unique_and_have_a_real_gate (__main__.VictoryTests.test_victory_types_are_unique_and_have_a_real_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.065s
+
+OK
+
+Ran 16 isolated checks in 3.88s; 4 failed.
+FAIL (1): python3 Tools/test_review_correctness.py
+FAIL (1): python3 Tools/test_ai_economic_recovery.py
+FAIL (1): python3 Tools/test_ai_maritime.py
+FAIL (1): python3 Tools/test_operation_supply.py

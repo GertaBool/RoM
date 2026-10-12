@@ -1,5 +1,7 @@
 # Headless simulation: implementation and validation plan
 
+The [implemented economic slice](economy/README.md) now executes growth stocks, production accrual and unit-completion overflow/gold arithmetic, verified against native source fragments in 15,000 seeded cases. It stops at unmodelled effects and does not yet provide a whole-turn simulator or engine trace exporter.
+
 The [current competence study](../research/competence/README.md) adds a [C++03 scheduling lab](../research/competence/MODEL.md), [native integration specification](../research/competence/IMPLEMENTATION.md), and [evaluation catalog](../research/competence/evaluation.json). Its 165 exhaustive-oracle cases validate an abstract planning mechanism; the faithful economic adapter and engine replay remain implementation work.
 
 Source corrections are now available in [the tested patch](../fixes/README.md). Keep its behavior and source identity separate from the original baseline below; in particular, its version-6 saves preserve agenda history. Compatibility scenarios must declare which revision they target.

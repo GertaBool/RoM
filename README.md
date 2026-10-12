@@ -2,8 +2,10 @@
 
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
 
-The latest fixes target GitLab revision `6222511c1a81649445fa69e8ca6dca79cf60c975`. Patch 0007 includes the preceding settlement/transport corrections and replaces premature destination pruning with joint destination and route search. The historical assessments retain their original source identity.
+The latest fix targets GitLab revision `b8c379c1ffad9cd5408ca0e43dca88daf8ba85ee`, which already includes joint settlement planning. Patch 0008 corrects the final handoff from ship to settler/escort. Historical patches and assessments retain their original source identity.
 
+- [Settler landing fix: cargo readiness, retained founding jobs and executed movement tests](research/landing/README.md)
+- [Implemented C++03 city-economy arithmetic: 15,000 native-fragment comparisons](simulation/economy/README.md)
 - [New AI competence study: economic project planning, transport ownership, 165-case C++03 lab and integration plan](research/competence/README.md)
 - [Implemented joint settlement search: complete candidates, route comparison and bound pruning](research/settlement-search/README.md)
 - [Latest cumulative source patch: joint planning; 22 passing regression programs](fixes/README.md#joint-settlement-search)

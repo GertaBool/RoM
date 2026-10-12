@@ -1,0 +1,36 @@
+{
+  "upstream_commit": "6222511c1a81649445fa69e8ca6dca79cf60c975",
+  "reviewed_source_commit": "8edb23b96c7b9f6369a54d18d0a84a62c799b841",
+  "path": "Assets/CvGameCoreDLL/CvCity.cpp",
+  "methods": {
+    "int CvCity::foodDifference(bool bBottom) const": {
+      "sha256_lf": "927f852d798928f637e3aeade5d37e0ec9b8814af71078a6bb685676ca83acfc",
+      "line": 5322
+    },
+    "void CvCity::doGrowth()": {
+      "sha256_lf": "5812d168d65dba7213ff20f55f3a817061b19a6405728a3772372aeaff2e8334",
+      "line": 13380
+    },
+    "int CvCity::getProductionDifference(": {
+      "sha256_lf": "e888793ca2f2a81b2ab06c8bca9b79f00ff2dc366bc56a6971459c20dfffa10e",
+      "line": 3718
+    },
+    "int CvCity::getCurrentProductionDifference(": {
+      "sha256_lf": "9a177e03c34bdc3bcbe22b17081137c5a05cdd4682d401506dfd67bee95fab3d",
+      "line": 3734
+    },
+    "void CvCity::changeOverflowProduction(": {
+      "sha256_lf": "8f95d5d9a8bf8d74c84e58c7a9c16b00331c481e267398b95b5f0d4c1aeac3c8",
+      "line": 8013
+    },
+    "void CvCity::doProduction(bool bAllowNoProduction)": {
+      "sha256_lf": "78e76d2f21db188082b1e5dd9f4b66724e66b76160ecfcb5876f3fd8d896e1db",
+      "line": 13682
+    },
+    "unit completion arithmetic before initUnit in CvCity::popOrder": {
+      "sha256_lf": "6ffe5bea98a4773390762d819cc93749cc3249b17871c2213231d778f4760514",
+      "line": 12912
+    }
+  },
+  "scope": "Six native methods and one unit-completion arithmetic block compiled with explicit getter adapters; stop at population effects, popOrder and unit creation. Not a DLL replay."
+}

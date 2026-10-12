@@ -1,5 +1,7 @@
 # Making RoM's AI competent: plans, opportunity costs and execution
 
+Subsequent implementation: [economic arithmetic kernel](../../simulation/economy/README.md) and [settler landing handoff fix](../landing/README.md). The dated research below retains its original source identity.
+
 **Recommendation: build a shared economic/project planner and reliable job execution, then use specialized search and learning where they earn their cost.** The next major improvement should compare complete, feasible ways to obtain a capability—not add another personality weight or recruit more units because a local branch runs first.
 
 Research pass: 12 October 2026. GitLab remains at `6222511`; GitHub contains cumulative patch 0007. This study inspects local patched source `8edb23b96c7b9f6369a54d18d0a84a62c799b841`. [Pinned source map](source-map.json), [retrieved literature and implementation ledger](sources.json), [implementation specification](IMPLEMENTATION.md), [evaluation scenarios](evaluation.json).
