@@ -1,0 +1,69 @@
+# Patch 0009 application check on a fresh clone of GitLab d8cedd5 (2026-10-12T21:28Z)
+(sparse clone: runtime source, Python, XML and tools; art binaries and sounds omitted)
+HEAD d8cedd551212c9a769230d66c219860c901798dd
+$ python3 Tools/run_regression_suite.py (clean upstream)
+Ran 16 isolated checks in 3.80s; 4 failed.
+FAIL (1): python3 Tools/test_review_correctness.py
+FAIL (1): python3 Tools/test_ai_economic_recovery.py
+FAIL (1): python3 Tools/test_ai_maritime.py
+FAIL (1): python3 Tools/test_operation_supply.py
+$ python3 fixes/apply.py <clone> --manifest fixes/turn-time-manifest.json --check
+Patch checksum, base files and indexed application check passed; no files changed.
+exit 0
+$ python3 fixes/apply.py <clone> --manifest fixes/turn-time-manifest.json
+Applied and staged the source fixes; every changed file matches the tested content.
+Run python3 Tools/run_regression_suite.py in the source checkout.
+This applies source changes only; it does not rebuild the DLL.
+exit 0
+$ second application (must be refused)
+apply.py: error: Use a clean checkout; preserve or commit existing work first
+exit 2
+staged tree   bd60d2c644e9d669c8c7e1541ff17b005031efcd
+tested tree   bd60d2c644e9d669c8c7e1541ff17b005031efcd
+$ python3 Tools/run_regression_suite.py (patched)
+[1/21] python3 Tools/test_settler_landing.py
+[2/21] python3 Tools/test_review_correctness.py
+[3/21] python3 Tools/test_source_integrity.py
+PASS: 444 native/Python source files contain no NULs or merge markers
+[4/21] python3 Tools/check_dll_line_endings.py
+[5/21] python3 Tools/test_xml_integrity.py
+PASS: parsed 949 gameplay, configuration, schema and module XML files
+[6/21] python3 Tools/test_ai_context.py
+PASS: strategic snapshot defaults, identity, 200,100 runway cases, 20,301 trade-cap cases, and free-list city iteration passed
+PASS: agenda and all technology consumers share every declared snapshot field
+[7/21] python3 Tools/test_ai_diplomacy.py
+PASS: 1,000,000 diplomacy conversion pairs and overflow boundaries passed
+PASS: all four counterproposal lump-gold conversions use the bounded policy
+[8/21] python3 Tools/test_ai_economic_recovery.py
+PASS: per-turn civic-cost boundaries and 5,151 monotonic states passed
+PASS: Masonry package, Mercenaries cost, and explorer-pipeline wiring verified
+[9/21] python3 Tools/test_ai_agenda_model.py
+[10/21] python3 Tools/test_ai_decisions.py
+[11/21] python3 Tools/test_ai_governors.py
+[12/21] python3 Tools/test_ai_layer_contracts.py
+[13/21] python3 Tools/test_ai_load_override.py
+PASS: production AI_load declarations/definition override and dispatch in C++03
+[14/21] python3 Tools/test_ai_maritime.py
+PASS: 1,000,000 route pairs; 10,201 worker pairs; 249,500 strength pairs and overflow boundaries
+PASS: spending, worker export, chosen transport, embarkation, landing and naval bombard contracts
+[15/21] python3 Tools/test_operation_supply.py
+[16/21] python3 Tools/test_ai_reinforcements.py
+PASS: 1595880 reinforcement combinations and overflow boundary passed
+PASS: cached supply accounting and all five field-role delivery hooks checked
+[17/21] python3 Tools/test_victory_conditions.py
+[18/21] python3 Tools/test_static_findings.py
+[19/21] python3 Tools/test_mission_target_index.py
+INFO: whole-map scan, 13824 plots x 600 groups: group scan 280.831 ms, index (including rebuild) 0.904 ms
+PASS: 240000 queries matched the original scan (90060 via plot buckets, 149940 via entry scan)
+PASS: every membership, group-set and mission-target change invalidates the index
+[20/21] python3 Tools/test_python_callbacks.py
+[21/21] python3 Tools/test_research_plan.py
+INFO: deepest target from scratch: 219 techs planned in 0.3504 ms; the former recursion would make 1090348606 calls
+PASS: 44396 plans valid, irredundant and resolved once per technology; 44396 proved optimal by branch and bound
+PASS: largest plan 219 techs; the replaced tree recursion counted up to 1090348606 (and undercounted 63 plans through unresearchable alternatives)
+INFO: the original queue rule failed on 0 reachable targets; elsewhere it was dearer 7159, equal 37237, cheaper 0 (worst +0%)
+INFO: targets inside AI_bestTech's horizon: depth 3 5436 -> 5486, depth 6 7806 -> 8343 (former tree count -> plan size)
+INFO: exhaustive optimum matched in 10420 of 10420 small cases (worst +0%)
+PASS: queueing, path length and AI valuation share one research plan
+PASS: technology help reports the queued plan in every shipped language
+Ran 21 isolated checks in 20.72s; 0 failed.

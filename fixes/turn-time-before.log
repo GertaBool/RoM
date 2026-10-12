@@ -1,0 +1,75 @@
+# New regression programs run against unmodified GitLab d8cedd5 (2026-10-12T21:29Z)
+# (only the test files are copied in; the runtime source is upstream's)
+
+$ python3 Tools/test_static_findings.py
+test_bad_feature_removal_uses_intended_odds ... odds: /tmp/tmp4wg3xtug/odds.cpp:9: int main(): Assertion `((2 + (pLoopPlot->getBonusType() == NO_BONUS) ? 0 : 2)) == 2' failed.
+test_danger_guard_covers_both_era_tests ... FAIL
+test_event_tech_progress_message_selects_team_members ... FAIL
+test_executive_value_tests_external_value_and_counts_rivals ... FAIL
+test_info_streams_write_values_and_match_reads ... FAIL
+test_pickup_path_turns_initialized_before_optional_path_query ... ERROR
+test_python_text_manager_keeps_supplied_pointer ... FAIL
+test_strategic_context_counts_settlers_once ... FAIL
+test_tech_brokering_reads_receiver_research ... FAIL
+test_variadic_text_receives_c_strings ... FAIL
+ERROR: test_bad_feature_removal_uses_intended_odds
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/tmp4wg3xtug/odds']' died with <Signals.SIGABRT: 6>.
+ERROR: test_pickup_path_turns_initialized_before_optional_path_query
+ValueError: substring not found
+FAIL: test_danger_guard_covers_both_era_tests
+AssertionError: 'if (!bDanger && ((kPlayer.getCurrentEra() > (GC.getGame().getStartEra() + iProductionRank / 2)) || (kPlayer.getCurrentEra() > (GC.getNumEraInfos() / 2))))' not found in '\n\n#include "CvGameCoreDLL.h"\n#include "AIDecisionP
+FAIL: test_event_tech_progress_message_selects_team_members
+AssertionError: 'getTeam() == getTeam()' not found in 'changeResearchProgressPercent(eBestTech, kEvent.getTechPercent(), getID());\n\n\t\t\tif (iBeakers > 0)\n\t\t\t{\n\t\t\t\tfor (int iI = 0; iI < MAX_CIV_PLAYERS; iI++)\n\t\t\t\t{\n\t\t\t\
+FAIL: test_executive_value_tests_external_value_and_counts_rivals
+AssertionError: 'if (iSpreadExternalValue == 0)' not found in '\n\tCvTeam& kTeam = GET_TEAM(getTeam());\n\tCvGame& kGame = GC.getGame();\n\tCvCorporationInfo& kCorp = GC.getCorporationInfo(eCorporation);\n\n\tint iSpreadInternalValue = 100;
+FAIL: test_info_streams_write_values_and_match_reads
+AssertionError: Regex matched: 'stream->Write(&' matches 'stream->Write\\(\\s*&' in '\n\n\n\n\n\n\n\n\n\n\n#include "CvGameCoreDLL.h"\n#include "CvInfos.h"\n#include "CvGlobals.h"\n#include "CvArtFileMgr.h"\n#include "CvXMLLoadUtility.h"\n#
+FAIL: test_python_text_manager_keeps_supplied_pointer
+AssertionError: 'm_pGameTextMgr(pGameTextMgr)' not found in '//\n// Python wrapper class for CyGameTextMgr \n// \n#include "CvGameCoreDLL.h"\n#include "CvGameTextMgr.h"\n#include "CyGameTextMgr.h"\n#include "CyCity.h"\n#include "CyDeal.h"\n
+FAIL: test_strategic_context_counts_settlers_once
+AssertionError: 'AI_getNumTrainAIUnits' unexpectedly found in 'kContext.settlers = std::max(0, AI_totalUnitAIs(UNITAI_SETTLE) +\n\t\tAI_getNumTrainAIUnits(UNITAI_SETTLE))' : AI_totalUnitAIs already includes training
+FAIL: test_tech_brokering_reads_receiver_research
+AssertionError: 'eCurrentResearch' unexpectedly found in '\n\tPROFILE_FUNC();\n\n\tAttitudeTypes eAttitude;\n\tint iNoTechTradeThreshold;\n\tint iTechTradeKnownPercent;\n\tint iKnownCount;\n\tint iPossibleKnownCount;\n\tint iI, iJ;\n\n\tFAs
+FAIL: test_variadic_text_receives_c_strings
+AssertionError: 'pBestUnit->getName(0).GetCString(), szString.GetCString());' not found in '// unitAI.cpp\n\n#include "CvGameCoreDLL.h"\n#include "AIDecisionPolicy.h"\n#include "AIHierarchyPolicy.h"\n#include "AISettlementPolicy.h"\n#includ
+Ran 10 tests in 0.117s
+FAILED (failures=8, errors=2)
+exit 1
+
+$ python3 Tools/test_mission_target_index.py
+/tmp/tmpktj6t25k/mission_index.cpp:2:10: fatal error: AIMissionTargetIndex.h: No such file or directory
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['g++', '-std=c++03', '-Wall', '-Wextra', '-Werror', '-fsanitize=undefined', '-fno-sanitize-recover=all', '-I', '/home/user/src/before-clean/Assets/CvGameCoreDLL', '/tmp/tmpktj6t25k/mission_index.cpp'
+exit 1
+
+$ python3 Tools/test_python_callbacks.py
+test_djenne_discount_is_constant_time ... FAIL
+test_independent_civic_discounts ... FAIL
+test_missionary_cost_uses_cached_lookups ... FAIL
+test_observatory_requires_hill_in_own_radius ... ERROR
+test_replicator_upgrade_price_halves_the_normal_price_once ... FAIL
+test_upgrade_line_matches_original_algorithm ... ERROR
+test_zcivics_lookups ... ERROR
+ERROR: test_observatory_requires_hill_in_own_radius
+AttributeError: 'City' object has no attribute 'getX'
+ERROR: test_upgrade_line_matches_original_algorithm
+AttributeError: 'RoMGameUtils' object has no attribute 'dSupersededBy'
+ERROR: test_zcivics_lookups
+FAIL: test_djenne_discount_is_constant_time
+AssertionError: 82 != 0
+FAIL: test_independent_civic_discounts
+AssertionError: -1 != 75
+FAIL: test_missionary_cost_uses_cached_lookups
+AssertionError: 6 != 0
+FAIL: test_replicator_upgrade_price_halves_the_normal_price_once
+AssertionError: None != -1
+Ran 7 tests in 0.004s
+FAILED (failures=4, errors=3)
+exit 1
+
+$ python3 Tools/test_research_plan.py
+/tmp/tmplp6budl6/research_plan.cpp:2:10: fatal error: ResearchPathPlan.h: No such file or directory
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['g++', '-std=c++03', '-O2', '-Wall', '-Wextra', '-Werror', '-fsanitize=undefined', '-fno-sanitize-recover=all', '-I', '/home/user/src/before-clean/Assets/CvGameCoreDLL', '/tmp/tmplp6budl6/research_pl
+exit 1

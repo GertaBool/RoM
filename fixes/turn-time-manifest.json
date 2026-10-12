@@ -1,0 +1,181 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "d8cedd551212c9a769230d66c219860c901798dd",
+  "tested_source_commit": "a081fc7fba3c17cda149fae434a882faf9d98722",
+  "tested_source_tree": "bd60d2c644e9d669c8c7e1541ff17b005031efcd",
+  "patch": "0009-turn-time-and-research-planning.patch",
+  "patch_sha256": "fe8b974e63d30beea8e942154fb2138d95a41e275567ee62cab76ac92e723f03",
+  "relationship_to_prior_patch": "Incremental on d8cedd5, which imported patch 0008's runtime change; restores 0008's tests and documentation that the import omitted. Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "validation": {
+    "suite_programs": 21,
+    "suite_failures": 0,
+    "upstream_suite_programs": 16,
+    "upstream_suite_failures": 4,
+    "new_test_programs": [
+      "Tools/test_static_findings.py",
+      "Tools/test_mission_target_index.py",
+      "Tools/test_python_callbacks.py",
+      "Tools/test_research_plan.py"
+    ],
+    "static_finding_tests_failing_upstream": 9,
+    "mission_index_queries_equal_to_original": 240000,
+    "mission_index_mutants_caught": 9,
+    "research_plans_checked": 44396,
+    "research_plans_proved_optimal": 44396,
+    "research_plans_cheaper_than_former_rule": 7159,
+    "research_plans_dearer_than_former_rule": 0,
+    "research_small_cases_equal_to_exhaustive_optimum": "10420/10420",
+    "native_standard": "C++03",
+    "undefined_behavior_sanitizer": "fatal",
+    "whole_dll_clang_gate": {
+      "translation_units": 104,
+      "new_diagnostics": 0,
+      "resolved_diagnostics": 36
+    },
+    "msvc_build": {
+      "compiler": "Microsoft C/C++ 13.10.3077 (Visual C++ Toolkit 2003)",
+      "sdk": "Platform SDK for Windows Server 2003 SP1 (5.2.3790.1830.15)",
+      "host": "Wine 9.0 (32-bit prefix)",
+      "errors": 0,
+      "warnings": 0,
+      "exports": 2452,
+      "exports_equal_to_shipped_dll": true
+    },
+    "save_replayed": false,
+    "game_executable_run": false,
+    "patch_application_verified": true,
+    "applied_tree_equals_tested_tree": true
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/AIMissionTargetIndex.h": {
+      "before_sha256": null,
+      "after_sha256": "e9d10e9f6a7d8ecc30719f793dc30b88d1cf8b11bbe1738fea07b6b54a1b112c"
+    },
+    "Assets/CvGameCoreDLL/CvCityAI.cpp": {
+      "before_sha256": "fdde6aacdc674d08563593d46a166f618b70851057b8d9e1474fea954cb222db",
+      "after_sha256": "132d64e9440177b5178ddce73af754f362c66fa025db08bfb3f84b6a3ccbd535"
+    },
+    "Assets/CvGameCoreDLL/CvDLLWidgetData.cpp": {
+      "before_sha256": "8d5a22d4f33d967440aae46c94d4a58a425f5a71911357746ef7e0446f8c4bf9",
+      "after_sha256": "e12130e73e392d9a78d53a4c97b6dbcb894110cd02f5870af708688975f232cc"
+    },
+    "Assets/CvGameCoreDLL/CvGame.cpp": {
+      "before_sha256": "ab2376e8c1fe0d8179befcd9766c6cb4bde676dd80cc1927dc8495308a62b4b8",
+      "after_sha256": "bccc98dd6cfb61e9e9a04f35656a6acc4a88fe19341d7ca5297a1a65c97142ee"
+    },
+    "Assets/CvGameCoreDLL/CvGameTextMgr.cpp": {
+      "before_sha256": "50e25a9d94273dd36735155d32a420fb5a53081903d069b91f994bccfd9a63be",
+      "after_sha256": "3e595c175205b4ec6581851e8bcb3acc6d82f8c5fafbcd13031fb1572403db30"
+    },
+    "Assets/CvGameCoreDLL/CvInfos.cpp": {
+      "before_sha256": "d3e80e246662b2d12371252e0cd5641e48916e5f3cbca6694f6617ae94fb3747",
+      "after_sha256": "0be20aa894805fdf925405053b946cbae7b4c834f734440f3a5cb1f4fd4a5779"
+    },
+    "Assets/CvGameCoreDLL/CvPlayer.cpp": {
+      "before_sha256": "00afa87106ec552c14d79bd6dc49cc3af156a8b877897c70d642f1c1350e972b",
+      "after_sha256": "8c900c1d0d9f3bfc12857fb0c64879599cde73bc89daff4a3d21d92ddbc98b52"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "1def5f15b0021d31c9c41bdd2b748db14c2d1a57503c1eedd4fd1e97d79124f3",
+      "after_sha256": "cad1a9c44f5eef64404eb7ab42c6e40287746b85a78748bd76a0c77e2d036f50"
+    },
+    "Assets/CvGameCoreDLL/CvResearchGraph.h": {
+      "before_sha256": null,
+      "after_sha256": "54a8d6429231b41d3743a1e4da6204bd92a062543f4645f3c2131809f6d069fd"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroup.cpp": {
+      "before_sha256": "51ada214ea578497f20b72c91ff04a82c64252d74038c1e63973f37c6ceabb17",
+      "after_sha256": "c1c26cd9935657e2f7a044321df99c55505f95e33e713249db5f4dea0a6ad697"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroup.h": {
+      "before_sha256": "5e62a01ffb3709260e857ffe2da2740e6033067183cc56acf40f0d5fe7e8b84f",
+      "after_sha256": "3e7151509ee5ee634c7b2b635c9b2de035227ecaf78ca4494d4130eb6e40e0ec"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp": {
+      "before_sha256": "c99a947a978863473b146fe1288c2e533422efe4c4711b2584e7a943a7be970b",
+      "after_sha256": "d06c8d90b050f68437f05cb7d7c31c309b6928ee0473ed403abd8716e73174e7"
+    },
+    "Assets/CvGameCoreDLL/CvTeamAI.cpp": {
+      "before_sha256": "78af49229367232fb369b35fa5e69cfbb9c01a63ee54b87f2e631d08f42c5147",
+      "after_sha256": "e60d0ae974d88f6e1a62d3aa2818fc78ecee61d0501c26b14a2f65d187c15d55"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "47df3d55cc263e3dea18b0134522b6a0177a2a95b8c30a3d6a73d1b15d6f19e6",
+      "after_sha256": "6364ee07572d558501e752fceec1cededb82e1e5bf220ff0c45fa82e87094961"
+    },
+    "Assets/CvGameCoreDLL/CyGameTextMgr.cpp": {
+      "before_sha256": "4bd888f3682740edc3135c21ab97b2ea364a6252eecb1df7f90061f950177bba",
+      "after_sha256": "58911df2eab39b00d7fff4bb35eda3641f9eb1a34df539bbedd4276e9e5cf95b"
+    },
+    "Assets/CvGameCoreDLL/ResearchPathPlan.h": {
+      "before_sha256": null,
+      "after_sha256": "900da3d532defc20d21a957f29babfb3b30739e678ac6d0f8c3cea19f823cf0c"
+    },
+    "Assets/Python/RoMGameUtils.py": {
+      "before_sha256": "e76a4a09d03855664dbae099fb8fc45c005da3bfafd46806d1fa0fb74a2e819e",
+      "after_sha256": "ca01320d1e603fd4ba42a41d6f052b48975b7556371781759dbdebf96d082a63"
+    },
+    "Assets/Python/zCivics.py": {
+      "before_sha256": "65f13940ebcdc01584421900ede8e73250f3bb2f1ad72427f305306df6b81b81",
+      "after_sha256": "7309e6cd223d242f0e25c5dd2e8faefe0b0d078a22299dfab95ec22b58b6a113"
+    },
+    "Assets/XML/Text/RoM_GameText_ResearchPlan.xml": {
+      "before_sha256": null,
+      "after_sha256": "3bbbde9a2e119f7e90faef0021347cab4fd4a97918c49cd3ff827c6eb11761ae"
+    },
+    "Docs/SETTLER_LANDING_FIX.md": {
+      "before_sha256": null,
+      "after_sha256": "4a9e53586a58c0ad2452f86733f35e572663580de085ea473dd21a93f3e56c9b"
+    },
+    "Docs/TURN_TIME_AND_RESEARCH_PLANNING.md": {
+      "before_sha256": null,
+      "after_sha256": "e4bfccd1cc57343bebacf8455e864c1a98f35522e9899164ecaeb2c09710acdd"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "6a9ac411c09b6a917014f4e328b7c25d0526f7f596ea0eb1ac5d8024ab945386",
+      "after_sha256": "709bcb3164ef624ea65a07f29ff0ef51f6f739b6dbd3ce04bc17b313467ea563"
+    },
+    "Tools/test_ai_economic_recovery.py": {
+      "before_sha256": "5b00922dead7370d9a6e7947317ea1da69e8caaf04df4577ea8fb3abb2e7824e",
+      "after_sha256": "b140fb5120cd28547aa1664a358a6a8622f1979baac26b4c5c1a674f563cac7d"
+    },
+    "Tools/test_ai_maritime.py": {
+      "before_sha256": "347d7e2713a8eaf58049f09a53462496d98da44829cf6bdb68d8efcc233b6f1b",
+      "after_sha256": "46cbdd2a2eeb7085e728a670f04d780ee1962155ff350c5ba3799a146c176c3b"
+    },
+    "Tools/test_mission_target_index.py": {
+      "before_sha256": null,
+      "after_sha256": "bf6d982e33b465552d7c641e7370d55f047ab7e3a1c6601ab64fddc6d6525988"
+    },
+    "Tools/test_operation_supply.py": {
+      "before_sha256": "c61bd77974d2b809c91dddf3c4ad2687c58cb2f02295ac53232172883af1fc9c",
+      "after_sha256": "971a874ce225e2f2ff6385585f531ead58de616f208e29aac14e14628d3212fe"
+    },
+    "Tools/test_python_callbacks.py": {
+      "before_sha256": null,
+      "after_sha256": "33c759af58a07ed682c2059099db529d41bb3ea76fca949dff1704ac767bd9f9"
+    },
+    "Tools/test_research_plan.py": {
+      "before_sha256": null,
+      "after_sha256": "79bcc9bdd30d8865873ccd8b42f10c51fa4ba5e269f18d351b6df5144328d956"
+    },
+    "Tools/test_review_correctness.py": {
+      "before_sha256": "3d3c988cc46cd14b8721834002d1e2dcb2b69c19c72b30424c39ef1e46dd7934",
+      "after_sha256": "a4d2ae9f26269fecfb5cc0da711de9e6ba8e887451a33b231b8d473a9df7d2f1"
+    },
+    "Tools/test_settler_landing.py": {
+      "before_sha256": null,
+      "after_sha256": "17d2040632bff03e650b8cbdc9b78b0cccb7520021a5076104bfffe48a1fbea3"
+    },
+    "Tools/test_static_findings.py": {
+      "before_sha256": null,
+      "after_sha256": "8dc1f8490654aef0876c77f509396f9d8ce06809bc22a219aa8ed47538ac554b"
+    }
+  }
+}

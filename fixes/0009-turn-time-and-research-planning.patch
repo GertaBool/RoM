@@ -228,6 +228,51 @@ index 64f0f7a..6f2ce53 100644
  					}
  /************************************************************************************************/
  /* BETTER_BTS_AI_MOD                       END                                                  */
+diff --git a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
+index e9b9489..e6eb29f 100644
+--- a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
++++ b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
+@@ -21,6 +21,7 @@
+ #include "CvCity.h"
+ #include "CvPlayerAI.h"
+ #include "CvTeamAI.h"
++#include "CvResearchGraph.h"
+ #include "CvGameAI.h"
+ #include "CvSelectionGroup.h"
+ #include "CvMap.h"
+@@ -8755,6 +8756,32 @@ void CvGameTextMgr::setTechTradeHelp(CvWStringBuffer &szBuffer, TechTypes eTech,
+ 
+ 			szTempBuffer.Format(L" (%d/%d %c)", GET_TEAM(GC.getGameINLINE().getActiveTeam()).getResearchProgress(eTech), GET_TEAM(GC.getGameINLINE().getActiveTeam()).getResearchCost(eTech), GC.getCommerceInfo(COMMERCE_RESEARCH).getChar());
+ 			szBuffer.append(szTempBuffer);
++
++			// The plan that selecting this technology queues, when it needs prerequisites.
++			const CvPlayer& kActivePlayer = GET_PLAYER(GC.getGameINLINE().getActivePlayer());
++			CvResearchGraph kGraph(kActivePlayer);
++			CvResearchPlanner kPlanner(kGraph);
++			std::vector<int> aiPlan;
++			if (kPlanner.plan(eTech, aiPlan) && aiPlan.size() > 1)
++			{
++				__int64 iBeakers = 0;
++				for (int iStep = 0; iStep < (int)aiPlan.size(); ++iStep)
++				{
++					iBeakers += std::max(0, GET_TEAM(GC.getGameINLINE().getActiveTeam()).getResearchLeft((TechTypes)aiPlan[iStep]));
++				}
++				const int iShownBeakers = (int)std::min((__int64)MAX_INT, iBeakers);
++				const int iRate = kActivePlayer.calculateResearchRate();
++				szBuffer.append(NEWLINE);
++				if (iRate > 0)
++				{
++					const int iTurns = (int)std::min((__int64)MAX_INT, (iBeakers + iRate - 1) / iRate);
++					szBuffer.append(gDLL->getText("TXT_KEY_TECH_RESEARCH_PLAN", (int)aiPlan.size(), iShownBeakers, iTurns));
++				}
++				else
++				{
++					szBuffer.append(gDLL->getText("TXT_KEY_TECH_RESEARCH_PLAN_NO_RATE", (int)aiPlan.size(), iShownBeakers));
++				}
++			}
+ 		}
+ 	}
+ 
 diff --git a/Assets/CvGameCoreDLL/CvInfos.cpp b/Assets/CvGameCoreDLL/CvInfos.cpp
 index 8530418..ee85ca7 100644
 --- a/Assets/CvGameCoreDLL/CvInfos.cpp
@@ -299,10 +344,18 @@ index 8530418..ee85ca7 100644
  /* REVOLUTION_MOD                          END                                                  */
  /************************************************************************************************/
 diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
-index 298e219..f4b2bc3 100644
+index 298e219..f77e5a7 100644
 --- a/Assets/CvGameCoreDLL/CvPlayer.cpp
 +++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
-@@ -12171,7 +12171,7 @@ void CvPlayer::setTurnActive(bool bNewValue, bool bDoTurn)
+@@ -25,6 +25,7 @@
+ #include "CyPlot.h"
+ #include "CyUnit.h"
+ #include "CvEventReporter.h"
++#include "CvResearchGraph.h"
+ 
+ #include "CvDLLInterfaceIFaceBase.h"
+ #include "CvDLLEntityIFaceBase.h"
+@@ -12171,7 +12172,7 @@ void CvPlayer::setTurnActive(bool bNewValue, bool bDoTurn)
  				{
  					CvWStringBuffer szBuffer;
  					GAMETEXT.setScoreHelp(szBuffer, getID());
@@ -311,7 +364,194 @@ index 298e219..f4b2bc3 100644
  
  					int iGameTurn = GC.getGameINLINE().getGameTurn();
  					logBBAI("  Total Score: %d, Population Score: %d (%d total pop), Land Score: %d, Tech Score: %d, Wonder Score: %d", calculateScore(), getPopScore(false), getTotalPopulation(), getLandScore(false), getTechScore(), getWondersScore());
-@@ -20798,7 +20798,7 @@ void CvPlayer::applyEvent(EventTypes eEvent, int iEventTriggeredId, bool bUpdate
+@@ -14548,61 +14549,13 @@ CLLNode<int>* CvPlayer::tailGroupCycleNode() const
+ //	Finds the path length from this tech type to one you already know
+ int CvPlayer::findPathLength(TechTypes eTech, bool bCost) const
+ {
+-	int i;
+-	int iNumSteps = 0;
+-	int iShortestPath = 0;
+-	int iPathLength = 0;
+-	TechTypes ePreReq;
+-	TechTypes eShortestOr;
+-
+-	if (GET_TEAM(getTeam()).isHasTech(eTech) || isResearchingTech(eTech))
+-	{
+-		//	We have this tech, no reason to add this to the pre-reqs
+-		//	Base case return 0, we know it...
+-		return 0;
+-	}
+-
+-	//	Cycle through the and paths and add up their tech lengths
+-	for (i = 0; i < GC.getNUM_AND_TECH_PREREQS(); i++)
+-	{
+-		ePreReq = (TechTypes)GC.getTechInfo(eTech).getPrereqAndTechs(i);
+-
+-		if (ePreReq != NO_TECH)
+-		{
+-			iPathLength += findPathLength(ePreReq, bCost);
+-		}
+-	}
+-
+-	eShortestOr = NO_TECH;
+-	iShortestPath = MAX_INT;
+-	//	Find the shortest OR tech
+-	for (i = 0; i < GC.getNUM_OR_TECH_PREREQS(); i++)
+-	{
+-		//	Grab the tech
+-		ePreReq = (TechTypes)GC.getTechInfo(eTech).getPrereqOrTechs(i);
+-
+-		//	If this is a valid tech
+-		if (ePreReq != NO_TECH)
+-		{
+-			//	Recursively find the path length (takes into account all ANDs)
+-			iNumSteps = findPathLength(ePreReq, bCost);
+-
+-			//	If the prereq is a valid tech and its the current shortest, mark it as such
+-			if (iNumSteps < iShortestPath)
+-			{
+-				eShortestOr = ePreReq;
+-				iShortestPath = iNumSteps;
+-			}
+-		}
+-	}
+-
+-	//	If the shortest OR is a valid tech, add the steps to it...
+-	if (eShortestOr != NO_TECH)
+-	{
+-		iPathLength += iShortestPath;
+-	}
+-
+-	return (iPathLength + ((bCost) ? GET_TEAM(getTeam()).getResearchCost(eTech) : 1));
++	// Distinct missing technologies (or their total cost) on the plan that
++	// pushResearch would queue. The former recursion expanded the prerequisite
++	// graph as a tree: shared ancestors were counted once per route, and the
++	// number of routes grows exponentially with depth.
++	CvResearchGraph kGraph(*this);
++	CvResearchPlanner kPlanner(kGraph);
++	return bCost ? kPlanner.cost(eTech) : kPlanner.steps(eTech);
+ }
+ 
+ 
+@@ -14650,13 +14603,6 @@ void CvPlayer::clearResearchQueue()
+ //	research immediately and should be used with clear.  Clear will clear the entire queue.
+ bool CvPlayer::pushResearch(TechTypes eTech, bool bClear)
+ {
+-	int i;
+-	int iNumSteps;
+-	int iShortestPath;
+-	bool bOrPrereqFound;
+-	TechTypes ePreReq;
+-  TechTypes eShortestOr;
+-
+ 	FAssertMsg(eTech != NO_TECH, "Tech is not assigned a valid value");
+ 
+ 	if (GET_TEAM(getTeam()).isHasTech(eTech) || isResearchingTech(eTech))
+@@ -14676,84 +14622,39 @@ bool CvPlayer::pushResearch(TechTypes eTech, bool bClear)
+ 		clearResearchQueue();
+ 	}
+ 
+-	//	Add in all the pre-reqs for the and techs...
+-	for (i = 0; i < GC.getNUM_AND_TECH_PREREQS(); i++)
++	// Queue the whole plan, prerequisites first. Each technology is planned
++	// once (no exponential path search) and the AI values this same plan.
++	std::vector<int> aiPlan;
+ 	{
+-		ePreReq = (TechTypes)GC.getTechInfo(eTech).getPrereqAndTechs(i);
+-
+-		if (ePreReq != NO_TECH)
++		CvResearchGraph kGraph(*this);
++		CvResearchPlanner kPlanner(kGraph);
++		if (!kPlanner.plan(eTech, aiPlan))
+ 		{
+-			if (!pushResearch(ePreReq))
+-			{
+-				return false;
+-			}
++			return false;
+ 		}
+ 	}
+ 
+-	// Will return the shortest path of all the or techs.  Tie breaker goes to the first one...
+-	eShortestOr = NO_TECH;
+-	iShortestPath = MAX_INT;
+-	bOrPrereqFound = false;
+-	//	Cycle through all the OR techs
+-	for (i = 0; i < GC.getNUM_OR_TECH_PREREQS(); i++)
++	for (int iI = 0; iI < (int)aiPlan.size(); ++iI)
+ 	{
+-		ePreReq = (TechTypes)GC.getTechInfo(eTech).getPrereqOrTechs(i);
++		const TechTypes eStep = (TechTypes)aiPlan[iI];
+ 
+-		if (ePreReq != NO_TECH)
+-		{
+-			bOrPrereqFound = true;
+-
+-			//	If the pre-req exists, and we have it, it is the shortest path, get out, we're done
+-			if (GET_TEAM(getTeam()).isHasTech(ePreReq))
+-			{
+-				eShortestOr = ePreReq;
+-				break;
+-			}
++		//	Insert this tech at the end of the queue
++		m_researchQueue.insertAtEnd(eStep);
+ 
+-			if (canEverResearch(ePreReq))
+-			{
+-				//	Find the length of the path to this pre-req
+-				iNumSteps = findPathLength(ePreReq);
++		setResearchingTech(eStep, true);
+ 
+-				//	If this pre-req is a valid tech, and its the shortest current path, set it as such
+-				if (iNumSteps < iShortestPath)
+-				{
+-					eShortestOr = ePreReq;
+-					iShortestPath = iNumSteps;
+-				}
+-			}
+-		}
+-	}
+-
+-	//	If the shortest path tech is valid, push it (and its children) on to the research queue recursively
+-	if (eShortestOr != NO_TECH)
+-	{
+-		if (!pushResearch(eShortestOr))
++		//	Set the dirty bits
++		if (getTeam() == GC.getGameINLINE().getActiveTeam())
+ 		{
+-			return false;
++			gDLL->getInterfaceIFace()->setDirty(ResearchButtons_DIRTY_BIT, true);
++			gDLL->getInterfaceIFace()->setDirty(GameData_DIRTY_BIT, true);
++			gDLL->getInterfaceIFace()->setDirty(Score_DIRTY_BIT, true);
+ 		}
+-	}
+-	else if (bOrPrereqFound)
+-	{
+-		return false;
+-	}
+-
+-	//	Insert this tech at the end of the queue
+-	m_researchQueue.insertAtEnd(eTech);
+ 
+-	setResearchingTech(eTech, true);
+-
+-	//	Set the dirty bits
+-	if (getTeam() == GC.getGameINLINE().getActiveTeam())
+-	{
+-		gDLL->getInterfaceIFace()->setDirty(ResearchButtons_DIRTY_BIT, true);
+-		gDLL->getInterfaceIFace()->setDirty(GameData_DIRTY_BIT, true);
+-		gDLL->getInterfaceIFace()->setDirty(Score_DIRTY_BIT, true);
++		// ONEVENT - Tech selected (any); previously raised once per recursive push
++		CvEventReporter::getInstance().techSelected(eStep, getID());
+ 	}
+ 
+-	// ONEVENT - Tech selected (any)
+-	CvEventReporter::getInstance().techSelected(eTech, getID());
+-
+ 	return true;
+ }
+ 
+@@ -20798,7 +20699,7 @@ void CvPlayer::applyEvent(EventTypes eEvent, int iEventTriggeredId, bool bUpdate
  				{
  					if (GET_PLAYER((PlayerTypes)iI).isAlive())
  					{
@@ -321,18 +561,131 @@ index 298e219..f4b2bc3 100644
  							CvWString szBuffer = gDLL->getText("TXT_KEY_MISC_PROGRESS_TOWARDS_TECH", iBeakers, GC.getTechInfo(eBestTech).getTextKeyWide());
  
 diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
-index 0227f13..98f916a 100644
+index 0227f13..a692c51 100644
 --- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
 +++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
-@@ -7,6 +7,7 @@
+@@ -7,8 +7,10 @@
  #include "AIFeedbackPolicy.h"
  #include "AIFlavorPolicy.h"
  #include "AIHierarchyPolicy.h"
 +#include "AIMissionTargetIndex.h"
  #include "AIProductionChainPolicy.h"
  #include "AIResearchPolicy.h"
++#include "CvResearchGraph.h"
  #include "AISettlementPolicy.h"
-@@ -12288,15 +12289,16 @@ int CvPlayerAI::AI_executiveValue(CvArea* pArea, CorporationTypes eCorporation,
+ #include "AIStrategicContextPolicy.h" // Added: shared per-turn evidence policy.
+ #include "AIWellbeingPolicy.h"
+@@ -4372,8 +4374,8 @@ const AIStrategicContextPolicy::Snapshot& CvPlayerAI::AI_getStrategicContext() c
+ 	kContext.teamCities = std::max(0, GET_TEAM(getTeam()).getNumCities());
+ 	kContext.population = std::max(0, getTotalPopulation());
+ 	kContext.workers = std::max(0, AI_totalUnitAIs(UNITAI_WORKER));
+-	kContext.settlers = std::max(0, AI_totalUnitAIs(UNITAI_SETTLE) +
+-		AI_getNumTrainAIUnits(UNITAI_SETTLE));
++	// AI_totalUnitAIs already includes settlers in training.
++	kContext.settlers = std::max(0, AI_totalUnitAIs(UNITAI_SETTLE));
+ 	kContext.citySites = std::max(0, AI_getNumCitySites());
+ 	kContext.coastalCities = std::max(0, countNumCoastalCities());
+ 	kContext.foreignTradeCities = std::max(0, countPotentialForeignTradeCitiesConnected());
+@@ -5044,64 +5046,6 @@ int CvPlayerAI::AI_getTechAgendaValue(TechTypes eTech) const
+ 	return range(iValue, 0, std::max(0, GC.getDefineINT("AI_AGENDA_MAX_TECH_VALUE")));
+ }
+ 
+-namespace
+-{
+-	int AI_cachedTechPathLength(const CvPlayerAI& kPlayer, TechTypes eTech, bool bCost,
+-		std::vector<int>& aiCache, std::vector<char>& abVisiting)
+-	{
+-		const int iTech = (int)eTech;
+-		if (GET_TEAM(kPlayer.getTeam()).isHasTech(eTech) || kPlayer.isResearchingTech(eTech))
+-		{
+-			return 0;
+-		}
+-		if (aiCache[iTech] >= 0)
+-		{
+-			return aiCache[iTech];
+-		}
+-		if (abVisiting[iTech])
+-		{
+-			// Invalid XML cycles must not recurse forever or become attractive.
+-			return MAX_INT;
+-		}
+-
+-		abVisiting[iTech] = 1;
+-		__int64 iPathLength = bCost ? std::max(0, GET_TEAM(kPlayer.getTeam()).getResearchCost(eTech)) : 1;
+-		for (int iI = 0; iI < GC.getNUM_AND_TECH_PREREQS(); ++iI)
+-		{
+-			const TechTypes ePrereq = (TechTypes)GC.getTechInfo(eTech).getPrereqAndTechs(iI);
+-			if (ePrereq != NO_TECH)
+-			{
+-				iPathLength += AI_cachedTechPathLength(kPlayer, ePrereq, bCost, aiCache, abVisiting);
+-				if (iPathLength >= MAX_INT)
+-				{
+-					iPathLength = MAX_INT;
+-					break;
+-				}
+-			}
+-		}
+-
+-		int iShortestOr = MAX_INT;
+-		bool bHasOrPrereq = false;
+-		for (int iI = 0; iI < GC.getNUM_OR_TECH_PREREQS(); ++iI)
+-		{
+-			const TechTypes ePrereq = (TechTypes)GC.getTechInfo(eTech).getPrereqOrTechs(iI);
+-			if (ePrereq != NO_TECH)
+-			{
+-				bHasOrPrereq = true;
+-				iShortestOr = std::min(iShortestOr,
+-					AI_cachedTechPathLength(kPlayer, ePrereq, bCost, aiCache, abVisiting));
+-			}
+-		}
+-		if (bHasOrPrereq)
+-		{
+-			iPathLength = std::min((__int64)MAX_INT, iPathLength + iShortestOr);
+-		}
+-
+-		abVisiting[iTech] = 0;
+-		aiCache[iTech] = (int)std::min((__int64)MAX_INT, iPathLength);
+-		return aiCache[iTech];
+-	}
+-}
+ 
+ 
+ /************************************************************************************************/
+@@ -5119,11 +5063,10 @@ TechTypes CvPlayerAI::AI_bestTech(int iMaxPathLength, bool bIgnoreCost, bool bAs
+ 	int iPathLength;
+ 	CvTeam& kTeam = GET_TEAM(getTeam());
+ 
+-	const int iTechCount = GC.getNumTechInfos();
+-	std::vector<int> aiPathSteps(iTechCount, -1);
+-	std::vector<int> aiPathCosts(iTechCount, -1);
+-	std::vector<char> abStepVisiting(iTechCount, 0);
+-	std::vector<char> abCostVisiting(iTechCount, 0);
++	// One plan per candidate, shared prerequisites counted once; pushResearch
++	// queues exactly the plan valued here.
++	CvResearchGraph kResearchGraph(*this);
++	CvResearchPlanner kResearchPlanner(kResearchGraph);
+ 
+ 	
+ 	int* paiBonusClassRevealed;
+@@ -5184,7 +5127,7 @@ TechTypes CvPlayerAI::AI_bestTech(int iMaxPathLength, bool bIgnoreCost, bool bAs
+ 					{
+ 						if (GC.getTechInfo((TechTypes)iI).getEra() <= (getCurrentEra() + 1))
+ 						{
+-							iPathLength = AI_cachedTechPathLength(*this, (TechTypes)iI, false, aiPathSteps, abStepVisiting);
++							iPathLength = kResearchPlanner.steps(iI);
+ 
+ 							if (iPathLength <= iMaxPathLength)
+ 							{
+@@ -5199,7 +5142,7 @@ TechTypes CvPlayerAI::AI_bestTech(int iMaxPathLength, bool bIgnoreCost, bool bAs
+ 									// a configurable share of that prerequisite cost. The share
+ 									// is below 100 because prerequisites have useful unlocks too.
+ 									int iTargetResearchLeft = std::max(1, kTeam.getResearchLeft((TechTypes)iI));
+-									int iFullPathCost = AI_cachedTechPathLength(*this, (TechTypes)iI, true, aiPathCosts, abCostVisiting);
++									int iFullPathCost = kResearchPlanner.cost(iI);
+ 									int iTargetFullCost = kTeam.getResearchCost((TechTypes)iI);
+ 									int iPrerequisiteCost = std::max(0, iFullPathCost - iTargetFullCost);
+ 									int iPrerequisitePercent = std::max(0,
+@@ -12288,15 +12231,16 @@ int CvPlayerAI::AI_executiveValue(CvArea* pArea, CorporationTypes eCorporation,
  	
  	for (int iCorp = 0; iCorp < GC.getNumCorporationInfos(); iCorp++)
  	{
@@ -352,7 +705,7 @@ index 0227f13..98f916a 100644
  			}
  		}
  	}
-@@ -12304,7 +12306,7 @@ int CvPlayerAI::AI_executiveValue(CvArea* pArea, CorporationTypes eCorporation,
+@@ -12304,7 +12248,7 @@ int CvPlayerAI::AI_executiveValue(CvArea* pArea, CorporationTypes eCorporation,
  	if (iOurCitiesHave >= iOurCitiesCount)
  	{
  		iSpreadInternalValue = 0;
@@ -361,7 +714,7 @@ index 0227f13..98f916a 100644
  		{
  			return 0;
  		}
-@@ -12500,45 +12502,67 @@ int CvPlayerAI::AI_plotTargetMissionAIs(CvPlot* pPlot, MissionAITypes eMissionAI
+@@ -12500,45 +12444,67 @@ int CvPlayerAI::AI_plotTargetMissionAIs(CvPlot* pPlot, MissionAITypes eMissionAI
  	return AI_plotTargetMissionAIs(pPlot, &eMissionAI, 1, iClosestTargetRange, pSkipSelectionGroup, iRange);
  }
  
@@ -453,6 +806,58 @@ index 0227f13..98f916a 100644
  }
  
  /************************************************************************************************/
+diff --git a/Assets/CvGameCoreDLL/CvResearchGraph.h b/Assets/CvGameCoreDLL/CvResearchGraph.h
+new file mode 100644
+index 0000000..0007ffb
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/CvResearchGraph.h
+@@ -0,0 +1,46 @@
++#ifndef CV_RESEARCH_GRAPH_H
++#define CV_RESEARCH_GRAPH_H
++
++#include "CvGlobals.h"
++#include "CvInfos.h"
++#include "CvPlayer.h"
++#include "CvTeamAI.h"
++#include "ResearchPathPlan.h"
++
++// Technology data as seen by one player, for ResearchPathPlan. A technology is
++// satisfied when the team knows it or the player has already queued it.
++class CvResearchGraph
++{
++public:
++	explicit CvResearchGraph(const CvPlayer& kPlayer) :
++		m_kPlayer(kPlayer), m_kTeam(GET_TEAM(kPlayer.getTeam()))
++	{
++	}
++
++	int numTechs() const { return GC.getNumTechInfos(); }
++	int numAndPrereqs() const { return GC.getNUM_AND_TECH_PREREQS(); }
++	int numOrPrereqs() const { return GC.getNUM_OR_TECH_PREREQS(); }
++	int andPrereq(int iTech, int i) const { return GC.getTechInfo((TechTypes)iTech).getPrereqAndTechs(i); }
++	int orPrereq(int iTech, int i) const { return GC.getTechInfo((TechTypes)iTech).getPrereqOrTechs(i); }
++
++	bool satisfied(int iTech) const
++	{
++		return m_kTeam.isHasTech((TechTypes)iTech) || m_kPlayer.isResearchingTech((TechTypes)iTech);
++	}
++
++	bool researchable(int iTech) const { return m_kPlayer.canEverResearch((TechTypes)iTech); }
++
++	int cost(int iTech) const
++	{
++		const int iCost = m_kTeam.getResearchCost((TechTypes)iTech);
++		return iCost > 0 ? iCost : 0;
++	}
++
++private:
++	const CvPlayer& m_kPlayer;
++	const CvTeam& m_kTeam;
++};
++
++typedef ResearchPathPlan::Planner<CvResearchGraph> CvResearchPlanner;
++
++#endif
 diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
 index d293e0c..9074fb3 100644
 --- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
@@ -659,6 +1064,719 @@ index 3e13e2b..6e9f003 100644
  {}
  
  void CyGameTextMgr::Reset()
+diff --git a/Assets/CvGameCoreDLL/ResearchPathPlan.h b/Assets/CvGameCoreDLL/ResearchPathPlan.h
+new file mode 100644
+index 0000000..c04dc89
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/ResearchPathPlan.h
+@@ -0,0 +1,707 @@
++#ifndef RESEARCH_PATH_PLAN_H
++#define RESEARCH_PATH_PLAN_H
++
++#include <limits.h>
++#include <vector>
++
++// Research planning: the set of missing technologies needed for a target,
++// shared by queueing (CvPlayer::pushResearch), path length queries
++// (CvPlayer::findPathLength) and AI research valuation (AI_bestTech).
++//
++// Model. With K the known or queued technologies, a plan for target t is a set
++// S containing t such that, for every x in S, each AND prerequisite of x is in
++// S or K, and if x has OR prerequisites one of them is in S or K. Its cost is
++// the sum of research costs over S. Minimizing it is a minimum-cost AND/OR
++// closure: NP-hard in general (Set Cover reduces to it: one AND-requirement per
++// element whose OR alternatives are the sets containing it).
++//
++// The former code computed f(x) = c(x) + sum f(AND) + min f(OR), which is exact
++// only if no technology is shared; otherwise each shared ancestor is charged
++// once per route to it. Unmemoized, it also visited every route: for the last
++// technology of Rise of Mankind's tree that is more than 10^9 nodes, for a plan
++// of 226 distinct technologies.
++//
++// Method, per target (memoized per planner):
++//  1. Feasibility and a standalone closure per technology, bottom-up, as
++//     bitsets: O(T * D * T/32) word operations for T techs, D prerequisites.
++//  2. Forced closure F(x): x, its AND prerequisites' forced closures and, for an
++//     unsatisfied OR group with exactly one feasible alternative, that
++//     alternative's. Every plan containing x contains F(x); unions of forced
++//     closures are again closed under these rules.
++//  3. Two greedy plans in pushResearch's order (an OR group already satisfied by
++//     K or the plan adds nothing): "marginal" adds the alternative whose
++//     standalone closure adds least cost; "classic" is the former rule (fewest
++//     tree-expanded steps, planned techs free, first listed on ties) evaluated
++//     with a per-decision memo. The cheaper one is the incumbent, so a plan never
++//     costs more than the former rule's queue.
++//  4. Branch and bound from F(t) over open OR groups (>= 2 feasible alternatives,
++//     unsatisfied). Lower bound: max over open groups of min over alternatives o
++//     of cost(F(o) \ S), which any completion must pay; branch on the group
++//     attaining it, cheapest alternative first. A search that finishes within the
++//     node budget proves the plan optimal; otherwise the best plan found is kept.
++//  5. The queue is a post-order of the chosen set from the target that follows
++//     only needed prerequisites, so no queued technology is redundant.
++namespace ResearchPathPlan
++{
++	// Graph must provide:
++	//   int numTechs() const;
++	//   int numAndPrereqs() const;  int andPrereq(int iTech, int i) const;  (-1 = none)
++	//   int numOrPrereqs() const;   int orPrereq(int iTech, int i) const;   (-1 = none)
++	//   bool satisfied(int iTech) const;    known, or already queued
++	//   bool researchable(int iTech) const; canEverResearch
++	//   int cost(int iTech) const;          research cost, >= 0
++	template <class Graph>
++	class Planner
++	{
++	public:
++		typedef std::vector<unsigned int> Bits;
++
++		explicit Planner(const Graph& kGraph, const int iNodeBudget = 256) :
++			m_kGraph(kGraph),
++			m_iTechs(kGraph.numTechs()),
++			m_iWords((kGraph.numTechs() + 31) / 32),
++			m_iNodeBudget(iNodeBudget),
++			m_aeState(kGraph.numTechs(), UNRESOLVED),
++			m_auiClosure(kGraph.numTechs() * ((kGraph.numTechs() + 31) / 32), 0u),
++			m_aiSteps(kGraph.numTechs(), 0),
++			m_abForced(kGraph.numTechs(), 0),
++			m_auiForced(kGraph.numTechs() * ((kGraph.numTechs() + 31) / 32), 0u),
++			m_aiPlanSteps(kGraph.numTechs(), -1),
++			m_aiPlanCost(kGraph.numTechs(), 0),
++			m_abPlanOptimal(kGraph.numTechs(), 0),
++			m_aiTreeSteps(kGraph.numTechs(), 0),
++			m_aiTreeStamp(kGraph.numTechs(), 0),
++			m_iTreeStamp(0),
++			m_iResolved(0),
++			m_iNodes(0)
++		{
++		}
++
++		bool reachable(const int iTech)
++		{
++			return resolve(iTech) != INFEASIBLE;
++		}
++
++		// Distinct missing technologies including the target; INT_MAX if unreachable.
++		int steps(const int iTech)
++		{
++			return measure(iTech) ? m_aiPlanSteps[iTech] : INT_MAX;
++		}
++
++		// Total research cost of those technologies; INT_MAX if unreachable (saturating).
++		int cost(const int iTech)
++		{
++			return measure(iTech) ? m_aiPlanCost[iTech] : INT_MAX;
++		}
++
++		// True when the branch and bound finished: the plan has minimum cost.
++		bool provedOptimal(const int iTech)
++		{
++			return measure(iTech) && m_abPlanOptimal[iTech] != 0;
++		}
++
++		// Missing technologies, prerequisites first. False if unreachable.
++		bool plan(const int iTech, std::vector<int>& aiOrder)
++		{
++			bool bOptimal = false;
++			return plan(iTech, aiOrder, bOptimal);
++		}
++
++		int resolvedCount() const { return m_iResolved; }
++		int searchNodes() const { return m_iNodes; }
++
++	private:
++		enum State { UNRESOLVED, VISITING, FEASIBLE, INFEASIBLE };
++
++		// ---- bitset helpers -------------------------------------------------
++
++		static bool has(const Bits& auiBits, const int iTech)
++		{
++			return (auiBits[iTech / 32] & (1u << (iTech % 32))) != 0u;
++		}
++
++		static void set(Bits& auiBits, const int iTech)
++		{
++			auiBits[iTech / 32] |= (1u << (iTech % 32));
++		}
++
++		static int lowestBit(const unsigned int uiBits)
++		{
++			int iBit = 0;
++			while (((uiBits >> iBit) & 1u) == 0u)
++			{
++				++iBit;
++			}
++			return iBit;
++		}
++
++		const unsigned int* closure(const int iTech) const { return &m_auiClosure[iTech * m_iWords]; }
++		const unsigned int* forced(const int iTech) const { return &m_auiForced[iTech * m_iWords]; }
++
++		void merge(Bits& auiPlan, const unsigned int* auiOther) const
++		{
++			for (int iWord = 0; iWord < m_iWords; ++iWord)
++			{
++				auiPlan[iWord] |= auiOther[iWord];
++			}
++		}
++
++		// Cost and count of auiOther's members not yet in auiPlan.
++		void marginal(const Bits& auiPlan, const unsigned int* auiOther, long long& iCost, int& iSteps) const
++		{
++			for (int iWord = 0; iWord < m_iWords; ++iWord)
++			{
++				for (unsigned int uiBits = auiOther[iWord] & ~auiPlan[iWord]; uiBits != 0; uiBits &= uiBits - 1)
++				{
++					++iSteps;
++					iCost += m_kGraph.cost(iWord * 32 + lowestBit(uiBits));
++				}
++			}
++		}
++
++		long long costOf(const std::vector<int>& aiOrder) const
++		{
++			long long iCost = 0;
++			for (int iI = 0; iI < (int)aiOrder.size(); ++iI)
++			{
++				iCost += m_kGraph.cost(aiOrder[iI]);
++			}
++			return iCost;
++		}
++
++		// ---- 1. feasibility and standalone closures -------------------------
++
++		State resolve(const int iTech)
++		{
++			if (iTech < 0 || iTech >= m_iTechs)
++			{
++				return INFEASIBLE;
++			}
++			if (m_aeState[iTech] == FEASIBLE || m_aeState[iTech] == INFEASIBLE)
++			{
++				return m_aeState[iTech];
++			}
++			if (m_aeState[iTech] == VISITING)
++			{
++				return INFEASIBLE;	// a prerequisite cycle in XML can never be completed
++			}
++			++m_iResolved;
++			if (m_kGraph.satisfied(iTech))
++			{
++				m_aeState[iTech] = FEASIBLE;	// empty closure, no cost
++				return FEASIBLE;
++			}
++			if (!m_kGraph.researchable(iTech))
++			{
++				m_aeState[iTech] = INFEASIBLE;
++				return INFEASIBLE;
++			}
++
++			m_aeState[iTech] = VISITING;
++			Bits auiPlan(m_iWords, 0u);
++			set(auiPlan, iTech);
++			for (int iI = 0; iI < m_kGraph.numAndPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.andPrereq(iTech, iI);
++				if (iPrereq < 0)
++				{
++					continue;
++				}
++				if (resolve(iPrereq) == INFEASIBLE)
++				{
++					m_aeState[iTech] = INFEASIBLE;
++					return INFEASIBLE;
++				}
++				merge(auiPlan, closure(iPrereq));
++			}
++
++			bool bHasOr = false;
++			bool bOrSatisfied = false;
++			int iBestChoice = -1;
++			long long iBestCost = 0;
++			int iBestSteps = 0;
++			for (int iI = 0; iI < m_kGraph.numOrPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.orPrereq(iTech, iI);
++				if (iPrereq < 0)
++				{
++					continue;
++				}
++				bHasOr = true;
++				if (resolve(iPrereq) == INFEASIBLE)
++				{
++					continue;
++				}
++				if (m_aiSteps[iPrereq] == 0 || has(auiPlan, iPrereq))
++				{
++					bOrSatisfied = true;
++					break;
++				}
++				long long iAddedCost = 0;
++				int iAddedSteps = 0;
++				marginal(auiPlan, closure(iPrereq), iAddedCost, iAddedSteps);
++				if (iBestChoice < 0 || iAddedCost < iBestCost ||
++					(iAddedCost == iBestCost && iAddedSteps < iBestSteps))
++				{
++					iBestChoice = iPrereq;
++					iBestCost = iAddedCost;
++					iBestSteps = iAddedSteps;
++				}
++			}
++			if (bHasOr && !bOrSatisfied)
++			{
++				if (iBestChoice < 0)
++				{
++					m_aeState[iTech] = INFEASIBLE;
++					return INFEASIBLE;
++				}
++				merge(auiPlan, closure(iBestChoice));
++			}
++
++			int iSteps = 0;
++			unsigned int* auiClosure = &m_auiClosure[iTech * m_iWords];
++			for (int iWord = 0; iWord < m_iWords; ++iWord)
++			{
++				auiClosure[iWord] = auiPlan[iWord];
++				for (unsigned int uiBits = auiPlan[iWord]; uiBits != 0; uiBits &= uiBits - 1)
++				{
++					++iSteps;
++				}
++			}
++			m_aiSteps[iTech] = iSteps;
++			m_aeState[iTech] = FEASIBLE;
++			return FEASIBLE;
++		}
++
++		bool known(const int iTech)
++		{
++			return resolve(iTech) == FEASIBLE && m_aiSteps[iTech] == 0;
++		}
++
++		// Feasible, unknown alternatives of iTech's OR group; bSatisfied when an
++		// alternative is already known or queued.
++		void alternatives(const int iTech, std::vector<int>& aiAlternatives, bool& bHasOr, bool& bSatisfied)
++		{
++			aiAlternatives.clear();
++			bHasOr = false;
++			bSatisfied = false;
++			for (int iI = 0; iI < m_kGraph.numOrPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.orPrereq(iTech, iI);
++				if (iPrereq < 0)
++				{
++					continue;
++				}
++				bHasOr = true;
++				if (resolve(iPrereq) == INFEASIBLE)
++				{
++					continue;
++				}
++				if (known(iPrereq))
++				{
++					bSatisfied = true;
++					return;
++				}
++				aiAlternatives.push_back(iPrereq);
++			}
++		}
++
++		// ---- 2. forced closures ----------------------------------------------
++
++		// Requires resolve(iTech) == FEASIBLE.
++		void computeForced(const int iTech)
++		{
++			if (m_abForced[iTech])
++			{
++				return;
++			}
++			m_abForced[iTech] = 1;	// acyclic once feasible; also guards recursion
++			if (known(iTech))
++			{
++				return;	// empty
++			}
++			Bits auiForced(m_iWords, 0u);
++			set(auiForced, iTech);
++			for (int iI = 0; iI < m_kGraph.numAndPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.andPrereq(iTech, iI);
++				if (iPrereq >= 0)
++				{
++					computeForced(iPrereq);
++					merge(auiForced, forced(iPrereq));
++				}
++			}
++			std::vector<int> aiAlternatives;
++			bool bHasOr = false;
++			bool bSatisfied = false;
++			alternatives(iTech, aiAlternatives, bHasOr, bSatisfied);
++			if (bHasOr && !bSatisfied && aiAlternatives.size() == 1)
++			{
++				computeForced(aiAlternatives[0]);
++				merge(auiForced, forced(aiAlternatives[0]));
++			}
++			unsigned int* auiOut = &m_auiForced[iTech * m_iWords];
++			for (int iWord = 0; iWord < m_iWords; ++iWord)
++			{
++				auiOut[iWord] = auiForced[iWord];
++			}
++		}
++
++		// ---- 3. greedy incumbents ----------------------------------------------
++
++		// Steps of iTech's graph expanded as a tree, planned technologies free:
++		// the former findPathLength measure, memoized for one decision.
++		long long treeSteps(const int iTech, const Bits& auiPlanned)
++		{
++			if (m_kGraph.satisfied(iTech) || has(auiPlanned, iTech))
++			{
++				return 0;
++			}
++			if (m_aiTreeStamp[iTech] == m_iTreeStamp)
++			{
++				return m_aiTreeSteps[iTech];
++			}
++			const long long iCap = 1LL << 40;
++			m_aiTreeStamp[iTech] = m_iTreeStamp;	// an XML cycle reads as unbounded
++			m_aiTreeSteps[iTech] = iCap;
++			long long iSteps = 1;
++			for (int iI = 0; iI < m_kGraph.numAndPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.andPrereq(iTech, iI);
++				if (iPrereq >= 0)
++				{
++					iSteps += treeSteps(iPrereq, auiPlanned);
++				}
++			}
++			long long iShortest = -1;
++			for (int iI = 0; iI < m_kGraph.numOrPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.orPrereq(iTech, iI);
++				if (iPrereq >= 0)	// as findPathLength did: researchability is checked by the caller
++				{
++					const long long iOr = treeSteps(iPrereq, auiPlanned);
++					if (iShortest < 0 || iOr < iShortest)
++					{
++						iShortest = iOr;
++					}
++				}
++			}
++			if (iShortest > 0)
++			{
++				iSteps += iShortest;
++			}
++			m_aiTreeSteps[iTech] = iSteps < iCap ? iSteps : iCap;
++			return m_aiTreeSteps[iTech];
++		}
++
++		// Depth-first in pushResearch's order; iTech is feasible.
++		void visit(const int iTech, Bits& auiPlanned, std::vector<int>& aiOrder, const bool bClassic)
++		{
++			if (known(iTech) || has(auiPlanned, iTech))
++			{
++				return;
++			}
++			for (int iI = 0; iI < m_kGraph.numAndPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.andPrereq(iTech, iI);
++				if (iPrereq >= 0)
++				{
++					visit(iPrereq, auiPlanned, aiOrder, bClassic);
++				}
++			}
++
++			if (bClassic)
++			{
++				++m_iTreeStamp;
++			}
++			bool bHasOr = false;
++			int iBestChoice = -1;
++			long long iBestCost = 0;
++			int iBestSteps = 0;
++			for (int iI = 0; iI < m_kGraph.numOrPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.orPrereq(iTech, iI);
++				if (iPrereq < 0 || resolve(iPrereq) == INFEASIBLE)
++				{
++					continue;
++				}
++				bHasOr = true;
++				if (known(iPrereq) || has(auiPlanned, iPrereq))
++				{
++					iBestChoice = -1;	// known, queued, or already planned
++					break;
++				}
++				long long iAddedCost = 0;
++				int iAddedSteps = 0;
++				if (bClassic)
++				{
++					iAddedCost = treeSteps(iPrereq, auiPlanned);
++				}
++				else
++				{
++					marginal(auiPlanned, closure(iPrereq), iAddedCost, iAddedSteps);
++				}
++				if (iBestChoice < 0 || iAddedCost < iBestCost ||
++					(iAddedCost == iBestCost && iAddedSteps < iBestSteps))
++				{
++					iBestChoice = iPrereq;
++					iBestCost = iAddedCost;
++					iBestSteps = iAddedSteps;
++				}
++			}
++			if (bHasOr && iBestChoice >= 0)
++			{
++				visit(iBestChoice, auiPlanned, aiOrder, bClassic);
++			}
++
++			set(auiPlanned, iTech);
++			aiOrder.push_back(iTech);
++		}
++
++		// ---- 4. branch and bound ------------------------------------------------
++
++		void search(const Bits& auiSet, const long long iSetCost, long long& iBestCost, Bits& auiBest, bool& bExhausted)
++		{
++			if (++m_iNodes > m_iNodeBudget)
++			{
++				bExhausted = true;
++				return;
++			}
++			// Open groups and the admissible bound.
++			int iBranch = -1;
++			long long iBound = 0;
++			std::vector<int> aiAlternatives;
++			std::vector<int> aiBranchAlternatives;
++			for (int iWord = 0; iWord < m_iWords; ++iWord)
++			{
++				for (unsigned int uiBits = auiSet[iWord]; uiBits != 0; uiBits &= uiBits - 1)
++				{
++					const int iTech = iWord * 32 + lowestBit(uiBits);
++					bool bHasOr = false;
++					bool bSatisfied = false;
++					alternatives(iTech, aiAlternatives, bHasOr, bSatisfied);
++					if (!bHasOr || bSatisfied)
++					{
++						continue;
++					}
++					bool bInSet = false;
++					for (int iI = 0; iI < (int)aiAlternatives.size(); ++iI)
++					{
++						if (has(auiSet, aiAlternatives[iI]))
++						{
++							bInSet = true;	// satisfied inside the set
++							break;
++						}
++					}
++					if (bInSet || aiAlternatives.empty())
++					{
++						continue;	// (a feasible member always has a feasible alternative)
++					}
++					long long iCheapest = -1;
++					for (int iI = 0; iI < (int)aiAlternatives.size(); ++iI)
++					{
++						computeForced(aiAlternatives[iI]);
++						long long iAdded = 0;
++						int iSteps = 0;
++						marginal(auiSet, forced(aiAlternatives[iI]), iAdded, iSteps);
++						if (iCheapest < 0 || iAdded < iCheapest)
++						{
++							iCheapest = iAdded;
++						}
++					}
++					if (iBranch < 0 || iCheapest > iBound)
++					{
++						iBranch = iTech;
++						iBound = iCheapest;
++						aiBranchAlternatives = aiAlternatives;
++					}
++				}
++			}
++			if (iBranch < 0)
++			{
++				if (iSetCost < iBestCost)
++				{
++					iBestCost = iSetCost;
++					auiBest = auiSet;
++				}
++				return;
++			}
++			if (iSetCost + iBound >= iBestCost)
++			{
++				return;
++			}
++			// Cheapest alternative first.
++			std::vector<long long> aiAdded(aiBranchAlternatives.size(), 0);
++			for (int iI = 0; iI < (int)aiBranchAlternatives.size(); ++iI)
++			{
++				int iSteps = 0;
++				marginal(auiSet, forced(aiBranchAlternatives[iI]), aiAdded[iI], iSteps);
++			}
++			std::vector<char> abTried(aiBranchAlternatives.size(), 0);
++			for (int iRound = 0; iRound < (int)aiBranchAlternatives.size(); ++iRound)
++			{
++				int iPick = -1;
++				for (int iI = 0; iI < (int)aiBranchAlternatives.size(); ++iI)
++				{
++					if (!abTried[iI] && (iPick < 0 || aiAdded[iI] < aiAdded[iPick]))
++					{
++						iPick = iI;
++					}
++				}
++				abTried[iPick] = 1;
++				if (iSetCost + aiAdded[iPick] >= iBestCost)
++				{
++					break;	// remaining alternatives cost at least as much
++				}
++				Bits auiNext(auiSet);
++				merge(auiNext, forced(aiBranchAlternatives[iPick]));
++				search(auiNext, iSetCost + aiAdded[iPick], iBestCost, auiBest, bExhausted);
++				if (bExhausted)
++				{
++					return;
++				}
++			}
++		}
++
++		// ---- 5. irredundant queue order ----------------------------------------
++
++		void emit(const int iTech, const Bits& auiSet, Bits& auiEmitted, std::vector<int>& aiOrder)
++		{
++			if (known(iTech) || has(auiEmitted, iTech))
++			{
++				return;
++			}
++			set(auiEmitted, iTech);
++			for (int iI = 0; iI < m_kGraph.numAndPrereqs(); ++iI)
++			{
++				const int iPrereq = m_kGraph.andPrereq(iTech, iI);
++				if (iPrereq >= 0)
++				{
++					emit(iPrereq, auiSet, auiEmitted, aiOrder);
++				}
++			}
++			std::vector<int> aiAlternatives;
++			bool bHasOr = false;
++			bool bSatisfied = false;
++			alternatives(iTech, aiAlternatives, bHasOr, bSatisfied);
++			if (bHasOr && !bSatisfied)
++			{
++				int iChoice = -1;
++				for (int iI = 0; iI < (int)aiAlternatives.size(); ++iI)
++				{
++					if (has(auiEmitted, aiAlternatives[iI]))
++					{
++						iChoice = -1;	// already provided by an earlier prerequisite
++						break;
++					}
++					if (iChoice < 0 && has(auiSet, aiAlternatives[iI]))
++					{
++						iChoice = aiAlternatives[iI];
++					}
++				}
++				if (iChoice >= 0)
++				{
++					emit(iChoice, auiSet, auiEmitted, aiOrder);
++				}
++			}
++			aiOrder.push_back(iTech);
++		}
++
++		bool plan(const int iTech, std::vector<int>& aiOrder, bool& bOptimal)
++		{
++			aiOrder.clear();
++			bOptimal = false;
++			if (!reachable(iTech))
++			{
++				return false;
++			}
++			if (known(iTech))
++			{
++				bOptimal = true;
++				return true;
++			}
++
++			std::vector<int> aiClassic;
++			{
++				Bits auiMarginal(m_iWords, 0u);
++				visit(iTech, auiMarginal, aiOrder, false);
++				Bits auiClassic(m_iWords, 0u);
++				visit(iTech, auiClassic, aiClassic, true);
++			}
++			long long iBestCost = costOf(aiOrder);
++			const long long iClassicCost = costOf(aiClassic);
++			if (iClassicCost < iBestCost ||
++				(iClassicCost == iBestCost && aiClassic.size() < aiOrder.size()))
++			{
++				aiOrder.swap(aiClassic);
++				iBestCost = iClassicCost;
++			}
++
++			computeForced(iTech);
++			Bits auiStart(forced(iTech), forced(iTech) + m_iWords);
++			long long iStartCost = 0;
++			int iStartSteps = 0;
++			Bits auiEmpty(m_iWords, 0u);
++			marginal(auiEmpty, forced(iTech), iStartCost, iStartSteps);
++
++			Bits auiBest;
++			long long iFound = iBestCost;
++			bool bExhausted = false;
++			const int iNodesBefore = m_iNodes;
++			m_iNodes = 0;
++			search(auiStart, iStartCost, iFound, auiBest, bExhausted);
++			m_iNodes += iNodesBefore;
++			if (iFound < iBestCost)
++			{
++				Bits auiEmitted(m_iWords, 0u);
++				std::vector<int> aiSearched;
++				emit(iTech, auiBest, auiEmitted, aiSearched);
++				if (costOf(aiSearched) <= iFound)
++				{
++					aiOrder.swap(aiSearched);
++				}
++			}
++			bOptimal = !bExhausted;
++			return true;
++		}
++
++		bool measure(const int iTech)
++		{
++			if (!reachable(iTech))
++			{
++				return false;
++			}
++			if (m_aiPlanSteps[iTech] < 0)
++			{
++				std::vector<int> aiOrder;
++				bool bOptimal = false;
++				plan(iTech, aiOrder, bOptimal);
++				const long long iCost = costOf(aiOrder);
++				m_aiPlanSteps[iTech] = (int)aiOrder.size();
++				m_aiPlanCost[iTech] = (int)(iCost > INT_MAX ? INT_MAX : iCost);
++				m_abPlanOptimal[iTech] = bOptimal ? 1 : 0;
++			}
++			return true;
++		}
++
++		const Graph& m_kGraph;
++		const int m_iTechs;
++		const int m_iWords;
++		const int m_iNodeBudget;
++		std::vector<State> m_aeState;
++		std::vector<unsigned int> m_auiClosure;
++		std::vector<int> m_aiSteps;
++		std::vector<char> m_abForced;
++		std::vector<unsigned int> m_auiForced;
++		std::vector<int> m_aiPlanSteps;
++		std::vector<int> m_aiPlanCost;
++		std::vector<char> m_abPlanOptimal;
++		std::vector<long long> m_aiTreeSteps;
++		std::vector<int> m_aiTreeStamp;
++		int m_iTreeStamp;
++		int m_iResolved;
++		int m_iNodes;
++	};
++}
++
++#endif
 diff --git a/Assets/Python/RoMGameUtils.py b/Assets/Python/RoMGameUtils.py
 index 0667395..c8f7ce2 100644
 --- a/Assets/Python/RoMGameUtils.py
@@ -922,6 +2040,32 @@ index fc6a371..c3f8836 100644
  				return True
  		return False
 \ No newline at end of file
+diff --git a/Assets/XML/Text/RoM_GameText_ResearchPlan.xml b/Assets/XML/Text/RoM_GameText_ResearchPlan.xml
+new file mode 100644
+index 0000000..fe94218
+--- /dev/null
++++ b/Assets/XML/Text/RoM_GameText_ResearchPlan.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="ISO-8859-1"?>
++<!-- Rise of Mankind: research plan shown in technology help -->
++<Civ4GameText xmlns="http://www.firaxis.com">
++	<TEXT>
++		<Tag>TXT_KEY_TECH_RESEARCH_PLAN</Tag>
++		<English>Research plan: %d1 technologies, %d2[ICON_RESEARCH], about %d3 turns</English>
++		<French>Plan de recherche : %d1 technologies, %d2[ICON_RESEARCH], environ %d3 tours</French>
++		<German>Forschungsplan: %d1 Technologien, %d2[ICON_RESEARCH], etwa %d3 Runden</German>
++		<Italian>Piano di ricerca: %d1 tecnologie, %d2[ICON_RESEARCH], circa %d3 turni</Italian>
++		<Spanish>Plan de investigación: %d1 tecnologías, %d2[ICON_RESEARCH], unos %d3 turnos</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_TECH_RESEARCH_PLAN_NO_RATE</Tag>
++		<English>Research plan: %d1 technologies, %d2[ICON_RESEARCH]</English>
++		<French>Plan de recherche : %d1 technologies, %d2[ICON_RESEARCH]</French>
++		<German>Forschungsplan: %d1 Technologien, %d2[ICON_RESEARCH]</German>
++		<Italian>Piano di ricerca: %d1 tecnologie, %d2[ICON_RESEARCH]</Italian>
++		<Spanish>Plan de investigación: %d1 tecnologías, %d2[ICON_RESEARCH]</Spanish>
++	</TEXT>
++</Civ4GameText>
 diff --git a/Docs/SETTLER_LANDING_FIX.md b/Docs/SETTLER_LANDING_FIX.md
 new file mode 100644
 index 0000000..631e5c0
@@ -986,8 +2130,83 @@ index 0000000..631e5c0
 +Rebuild the DLL from the manifest's applied tree and record its hash. Resume a save with a settler and escort already off the chosen coast, then repeat with an extra immobile defender and with manually rearranged cargo. Verify actual land positions, cleared transport references, retained founding destination and eventual founding. Also test a blocked destination and a faster walking option.
 +
 +At unit log level 2, the dispatcher emits `WAIT_LANDING_PARTY`, `LANDING_PATH_BLOCKED`, `LANDING_QUEUED`, `LANDED_PARTY` or `LANDING_PARTY_CHANGED`. A queued order is not reported as a delivered party. Report a remaining stall with these transitions and the rebuilt DLL/source identity.
+diff --git a/Docs/TURN_TIME_AND_RESEARCH_PLANNING.md b/Docs/TURN_TIME_AND_RESEARCH_PLANNING.md
+new file mode 100644
+index 0000000..7c981bc
+--- /dev/null
++++ b/Docs/TURN_TIME_AND_RESEARCH_PLANNING.md
+@@ -0,0 +1,69 @@
++# Turn time, research planning and compiler-found defects
++
++These changes were made against GitLab `d8cedd5` and verified by building the
++DLL with Visual C++ Toolkit 2003 and the Platform SDK for Windows Server 2003 SP1
++(the toolchain the game requires), plus a clang whole-DLL diagnostic pass.
++Save format and XML rules are unchanged; one text file is added.
++
++## Defects found by compiling the whole DLL
++
++- `AI_executiveValue`: `if (iSpreadExternalValue = 0)` assigned instead of
++  testing, discarding the foreign-spread value of a headquarters owner; the
++  competing-corporation loop counted the corporation itself instead of rivals.
++- `CvUnitInfo::write`, `CvCivicInfo::write`: `stream->Write(&m_x)` wrote a
++  constant `true` byte instead of the field (25 fields), misaligning every
++  later field for the matching `read`.
++- `CvTeamAI::AI_techTrade`: the No Tech Brokering check read an uninitialized
++  `eCurrentResearch` (our team's, when set); it now uses the receiver's research.
++- `CvPlayer::applyEvent`: tech-progress messages compared a player's team with a
++  player ID, so team games notified the wrong players.
++- `CvUnitAI::AI_pickupStranded`: a transport already at the pickup plot used a
++  stale path-turn count, including as a divisor.
++- `CvCityAI::AI_chooseProduction`: operator precedence let mid/late-game cities
++  in danger build production buildings or workers before defenders.
++- `CvGame` starting-plot normalization: `(2 + cond) ? 0 : 2` always asked for
++  `getSorenRandNum(0)`, so bad features were always removed instead of with
++  probability 1/2 (no bonus) or 1/4 (bonus).
++- Variadic logging/text calls received string objects instead of C strings;
++  `CyGameTextMgr(CvGameTextMgr*)` initialized its member from itself.
++- The strategic context counted training settlers twice.
++
++## Turn-time complexity
++
++- `AI_plotTargetMissionAIs` walked every selection group per call and is called
++  per plot in whole-map unit scans: O(plots x groups). `AIMissionTargetIndex.h`
++  buckets mission targets by plot; an epoch bumped on every membership, group-set
++  and mission-target change invalidates it. Results are identical.
++- `CvPlayer::findPathLength` expanded the prerequisite graph as a tree without
++  memoization; for the deepest technology that is over 10^9 calls. It is now a
++  plan query (below), polynomial in the number of technologies.
++- Python `getBuildingCostMod` scanned every city for Djenne on every building
++  cost query; `getUnitCostMod` searched the info tables twice per query;
++  `cannotConstruct` copied and re-searched lists per query. All are now constant
++  time per query, with lookups resolved once.
++
++## Research planning
++
++`ResearchPathPlan.h` treats a research target as a minimum-cost AND/OR closure:
++forced closures, two greedy incumbents (including the former rule), and bounded
++branch and bound with an admissible bound. `pushResearch`, `findPathLength` and
++`AI_bestTech` share the same plan, so the AI values exactly what it queues. On
++the current tree every tested plan is proved optimal, and no plan costs more
++than the former queue rule. Technology help shows the plan's size, remaining
++beakers and an estimate in turns.
++
++## Python callback rules corrected
++
++- Corporate building discounts applied only if Imperium was not the leadership civic.
++- The Fortification-only castle discount tested the administration civic option.
++- The Replicators upgrade price halved the AI price four times, skipped
++  Leonardo's modifier and the promotion discount, and returned `None` without
++  the resource.
++- Observatory and Djenne terrain checks now use the city's own radius.
++
++## Tests
++
++`Tools/test_static_findings.py`, `Tools/test_mission_target_index.py`,
++`Tools/test_python_callbacks.py` and `Tools/test_research_plan.py` are mapped in
++`Tools/regression_manifest.json`; `python3 Tools/run_regression_suite.py` runs
++all programs.
 diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
-index ffdcb7f..220a530 100644
+index ffdcb7f..62bd83b 100644
 --- a/Tools/regression_manifest.json
 +++ b/Tools/regression_manifest.json
 @@ -1,5 +1,9 @@
@@ -1000,7 +2219,7 @@ index ffdcb7f..220a530 100644
      {
        "command": ["python3", "Tools/test_review_correctness.py"],
        "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/Python/RoMEventManager.py", "Assets/Python/PyHelpers.py"]
-@@ -63,6 +67,18 @@
+@@ -63,6 +67,22 @@
      {
        "command": ["python3", "Tools/test_victory_conditions.py"],
        "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvTeam.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/XML/GameInfo/CIV4VictoryInfo.xml", "Assets/XML/GameInfo/CIV4ProjectInfo.xml", "Assets/XML/Buildings/CIV4BuildingClassInfos.xml", "Assets/XML/Buildings/CIV4BuildingInfos.xml"]
@@ -1016,6 +2235,10 @@ index ffdcb7f..220a530 100644
 +    {
 +      "command": ["python3", "Tools/test_python_callbacks.py"],
 +      "patterns": ["Assets/Python/RoMGameUtils.py", "Assets/Python/zCivics.py"]
++    },
++    {
++      "command": ["python3", "Tools/test_research_plan.py"],
++      "patterns": ["Assets/CvGameCoreDLL/ResearchPathPlan.h", "Assets/CvGameCoreDLL/CvResearchGraph.h", "Assets/CvGameCoreDLL/CvPlayer.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvGameTextMgr.*", "Assets/XML/Technologies/CIV4TechInfos.xml", "Assets/XML/Text/RoM_GameText_ResearchPlan.xml"]
      }
    ]
  }
@@ -1082,10 +2305,10 @@ index 806c10a..4951e9e 100644
  print('PASS: spending, worker export, chosen transport, embarkation, landing and naval bombard contracts')
 diff --git a/Tools/test_mission_target_index.py b/Tools/test_mission_target_index.py
 new file mode 100644
-index 0000000..e252068
+index 0000000..35982af
 --- /dev/null
 +++ b/Tools/test_mission_target_index.py
-@@ -0,0 +1,227 @@
+@@ -0,0 +1,258 @@
 +#!/usr/bin/env python3
 +"""Prove the mission-target index returns exactly what the original group scan did.
 +
@@ -1123,6 +2346,7 @@ index 0000000..e252068
 +#include <cassert>
 +#include <climits>
 +#include <cstdlib>
++#include <ctime>
 +#include <iostream>
 +#include <vector>
 +
@@ -1241,6 +2465,36 @@ index 0000000..e252068
 +            if (range >= 0 && side <= m.w && side <= m.h && side * side <= index.numEntries()) ++indexed; else ++scanned;
 +            ++queries;
 +        }
++    }
++    // Informational timing: one whole-map scan (one query per plot) on a
++    // 144x96 wrapped map with 600 groups, as the unit AI performs per unit.
++    {
++        const Map big = { 144, 96, true, false };
++        std::vector<Group> fleet(600);
++        for (size_t g = 0; g < fleet.size(); ++g)
++        {
++            Group k = { rnd(big.w), rnd(big.h), true, (MissionAITypes)rnd(4), 1 + rnd(3) };
++            fleet[g] = k;
++        }
++        MissionAITypes build = MISSIONAI_B;
++        int closest = 0;
++        long checksumA = 0, checksumB = 0;
++        std::clock_t start = std::clock();
++        for (int y = 0; y < big.h; ++y)
++            for (int x = 0; x < big.w; ++x)
++                checksumA += original(big, fleet, x, y, &build, 1, closest, (const Group*)0, 0);
++        const double scan = double(std::clock() - start) / CLOCKS_PER_SEC;
++        start = std::clock();
++        index.begin(9, ++epoch, big.w * big.h);
++        for (size_t g = 0; g < fleet.size(); ++g)
++            index.add(fleet[g].y * big.w + fleet[g].x, fleet[g].x, fleet[g].y, fleet[g].mission, fleet[g].units, &fleet[g]);
++        for (int y = 0; y < big.h; ++y)
++            for (int x = 0; x < big.w; ++x)
++                checksumB += index.count(big, x, y, &build, 1, NO_MISSIONAI, (const void*)0, 0, closest);
++        const double indexed = double(std::clock() - start) / CLOCKS_PER_SEC;
++        assert(checksumA == checksumB);
++        std::cout << "INFO: whole-map scan, 13824 plots x 600 groups: group scan " << scan * 1000.0
++                  << " ms, index (including rebuild) " << indexed * 1000.0 << " ms\n";
 +    }
 +    // A rebuild of the same size must not expose entries from the previous build.
 +    const Map m = { 8, 8, false, false };
@@ -1746,6 +3000,336 @@ index 0000000..3636b54
 +
 +if __name__ == "__main__":
 +    unittest.main(verbosity=2)
+diff --git a/Tools/test_research_plan.py b/Tools/test_research_plan.py
+new file mode 100644
+index 0000000..ffa61a5
+--- /dev/null
++++ b/Tools/test_research_plan.py
+@@ -0,0 +1,324 @@
++#!/usr/bin/env python3
++"""Check research plans on Rise of Mankind's real technology tree.
++
++The production ResearchPathPlan.h is compiled in C++03 with UBSan and run on
++CIV4TechInfos.xml from random reachable research states. Every plan must be a
++valid prerequisite-first queue with no known, duplicate or redundant entry, and
++each technology is resolved at most once per planner. The test also measures
++what the replaced tree recursion counted, compares plan cost with the original
++pushResearch rule, and against an exhaustive optimum on small instances.
++Source contracts require queueing, path length and AI valuation to share it.
++"""
++from pathlib import Path
++import re
++import subprocess
++import tempfile
++import xml.etree.ElementTree as ET
++from test_ai_decisions import function
++
++ROOT = Path(__file__).resolve().parents[1]
++DLL = ROOT / "Assets" / "CvGameCoreDLL"
++XML = ROOT / "Assets" / "XML" / "Technologies" / "CIV4TechInfos.xml"
++
++
++def local(tag):
++    return tag.rsplit("}", 1)[-1]
++
++
++def child(node, name):
++    for item in node:
++        if local(item.tag) == name:
++            return item
++    return None
++
++
++techs = []
++for info in ET.parse(XML).getroot().iter():
++    if local(info.tag) != "TechInfo":
++        continue
++    def prereqs(group):
++        node = child(info, group)
++        return [] if node is None else [item.text for item in node if item.text]
++    disable = child(info, "bDisable")
++    techs.append((child(info, "Type").text, int(child(info, "iCost").text),
++                  prereqs("AndPreReqs"), prereqs("OrPreReqs"),
++                  disable is not None and disable.text.strip() == "1"))
++index = dict((name, i) for i, (name, _, _, _, _) in enumerate(techs))
++max_and = max(len(t[2]) for t in techs) or 1
++max_or = max(len(t[3]) for t in techs) or 1
++
++
++def row(values, width):
++    return "{" + ", ".join(str(v) for v in (values + [-1] * width)[:width]) + "}"
++
++
++data = "\n".join([
++    "const int N = %d, MAX_AND = %d, MAX_OR = %d;" % (len(techs), max_and, max_or),
++    "const int COST[N] = {%s};" % ", ".join(str(t[1]) for t in techs),
++    "const int DISABLED[N] = {%s};" % ", ".join("1" if t[4] else "0" for t in techs),
++    "const int AND_[N][MAX_AND] = {%s};" % ", ".join(row([index[p] for p in t[2]], max_and) for t in techs),
++    "const int OR_[N][MAX_OR] = {%s};" % ", ".join(row([index[p] for p in t[3]], max_or) for t in techs),
++])
++
++program = r'''
++#include "ResearchPathPlan.h"
++#include <cassert>
++#include <climits>
++#include <ctime>
++#include <iostream>
++#include <vector>
++DATA
++
++struct Graph
++{
++    std::vector<char> known;
++    int numTechs() const { return N; }
++    int numAndPrereqs() const { return MAX_AND; }
++    int numOrPrereqs() const { return MAX_OR; }
++    int andPrereq(int t, int i) const { return AND_[t][i]; }
++    int orPrereq(int t, int i) const { return OR_[t][i]; }
++    bool satisfied(int t) const { return known[t] != 0; }
++    bool researchable(int t) const { return !DISABLED[t]; }
++    int cost(int t) const { return COST[t]; }
++};
++
++unsigned int seed = 2026u;
++int rnd(int n) { seed = seed * 1664525u + 1013904223u; return (int)((seed >> 8) % (unsigned int)n); }
++
++bool canResearchNow(const std::vector<char>& known, int t)
++{
++    if (known[t] || DISABLED[t]) return false;
++    bool hasOr = false, orOk = false;
++    for (int i = 0; i < MAX_AND; ++i) if (AND_[t][i] >= 0 && !known[AND_[t][i]]) return false;
++    for (int i = 0; i < MAX_OR; ++i) if (OR_[t][i] >= 0) { hasOr = true; if (known[OR_[t][i]]) orOk = true; }
++    return !hasOr || orOk;
++}
++
++// What CvPlayer::findPathLength(eTech, false) used to return (tree expansion).
++long long treeSteps(const std::vector<char>& known, int t, std::vector<long long>& memo)
++{
++    if (known[t]) return 0;
++    if (memo[t] >= 0) return memo[t];
++    long long s = 1;
++    for (int i = 0; i < MAX_AND; ++i) if (AND_[t][i] >= 0) s += treeSteps(known, AND_[t][i], memo);
++    long long best = LLONG_MAX;
++    for (int i = 0; i < MAX_OR; ++i) if (OR_[t][i] >= 0) { long long v = treeSteps(known, OR_[t][i], memo); if (v < best) best = v; }
++    if (best != LLONG_MAX) s += best;
++    if (s > (1LL << 50)) s = 1LL << 50;
++    return memo[t] = s;
++}
++
++// The original recursive pushResearch rule: AND prerequisites, then the OR
++// alternative with the shortest tree path (first on ties; a known one wins).
++// Returns false where pushResearch failed: an unresearchable technology on the route.
++bool originalPush(std::vector<char>& queued, int t, std::vector<long long>& memo, const std::vector<char>& known)
++{
++    if (queued[t]) return true;
++    if (DISABLED[t]) return false;
++    for (int i = 0; i < MAX_AND; ++i) if (AND_[t][i] >= 0 && !originalPush(queued, AND_[t][i], memo, known)) return false;
++    int bestOr = -1; long long best = LLONG_MAX;
++    for (int i = 0; i < MAX_OR; ++i)
++    {
++        const int o = OR_[t][i];
++        if (o < 0) continue;
++        if (known[o]) { bestOr = o; break; }
++        if (DISABLED[o]) continue;
++        std::vector<long long> fresh(N, -1);	// findPathLength saw the queue as it stood
++        const long long v = queued[o] ? 0 : treeSteps(queued, o, fresh);
++        if (v < best) { best = v; bestOr = o; }
++    }
++    if (bestOr >= 0 && !originalPush(queued, bestOr, memo, known)) return false;
++    queued[t] = 1;
++    return true;
++}
++
++// Exhaustive minimum-cost plan for small instances.
++long long bestCost;
++void exhaustive(std::vector<char>& have, std::vector<int>& open, long long cost)
++{
++    if (cost >= bestCost) return;
++    while (!open.empty() && have[open.back()]) open.pop_back();
++    if (open.empty()) { bestCost = cost; return; }
++    const int t = open.back(); open.pop_back();
++    have[t] = 1;
++    std::vector<int> base = open;
++    for (int i = 0; i < MAX_AND; ++i) if (AND_[t][i] >= 0) base.push_back(AND_[t][i]);
++    bool hasOr = false, orOk = false;
++    for (int i = 0; i < MAX_OR; ++i) if (OR_[t][i] >= 0) { hasOr = true; if (have[OR_[t][i]]) orOk = true; }
++    if (!hasOr || orOk) { std::vector<int> next = base; exhaustive(have, next, cost + COST[t]); }
++    else for (int i = 0; i < MAX_OR; ++i)
++    {
++        const int o = OR_[t][i];
++        if (o < 0 || DISABLED[o]) continue;
++        std::vector<int> next = base; next.push_back(o);
++        exhaustive(have, next, cost + COST[t]);
++    }
++    have[t] = 0;
++    open.push_back(t);
++}
++
++int main()
++{
++    long long plans = 0, better = 0, same = 0, worse = 0, smallCases = 0, optimal = 0, undercounts = 0, originalFailed = 0, proved = 0;
++    long long inOld[2] = {0, 0}, inNew[2] = {0, 0};
++    long long maxTree = 0; int maxPlan = 0; double worstGap = 0.0, worstOriginalGap = 0.0;
++    for (int state = 0; state < 300; ++state)
++    {
++        Graph g; g.known.assign(N, 0);
++        const int progress = rnd(N);
++        for (int step = 0; step < progress; ++step)
++        {
++            std::vector<int> options;
++            for (int t = 0; t < N; ++t) if (canResearchNow(g.known, t)) options.push_back(t);
++            if (options.empty()) break;
++            g.known[options[rnd((int)options.size())]] = 1;
++        }
++        ResearchPathPlan::Planner<Graph> planner(g);
++        for (int target = 0; target < N; ++target)
++        {
++            if (g.known[target]) { assert(planner.steps(target) == 0); continue; }
++            std::vector<int> plan;
++            if (!planner.plan(target, plan)) { assert(planner.steps(target) == INT_MAX); continue; }
++            ++plans;
++            assert(!plan.empty() && plan.back() == target);
++            assert((int)plan.size() == planner.steps(target));
++            std::vector<char> have = g.known, needed(N, 0);
++            long long cost = 0;
++            for (size_t i = 0; i < plan.size(); ++i)
++            {
++                const int t = plan[i];
++                assert(!have[t]);
++                assert(canResearchNow(have, t));
++                have[t] = 1; cost += COST[t];
++            }
++            assert(cost == planner.cost(target));
++            // Irredundant: every entry is the target or a prerequisite some later entry used.
++            needed[target] = 1;
++            for (int i = (int)plan.size() - 1; i >= 0; --i)
++            {
++                const int t = plan[i];
++                assert(needed[t]);
++                std::vector<char> before = g.known;
++                for (int j = 0; j < i; ++j) before[plan[j]] = 1;
++                for (int k = 0; k < MAX_AND; ++k) if (AND_[t][k] >= 0) needed[AND_[t][k]] = 1;
++                bool orKnown = false; int firstPlanned = -1;
++                for (int k = 0; k < MAX_OR; ++k) if (OR_[t][k] >= 0) { if (g.known[OR_[t][k]]) orKnown = true; else if (before[OR_[t][k]] && firstPlanned < 0) firstPlanned = OR_[t][k]; }
++                if (!orKnown && firstPlanned >= 0)
++                    for (int k = 0; k < MAX_OR; ++k) if (OR_[t][k] >= 0 && before[OR_[t][k]]) needed[OR_[t][k]] = 1;
++            }
++            std::vector<long long> memo(N, -1);
++            const long long tree = treeSteps(g.known, target, memo);
++            // The old count ignored unresearchable OR alternatives, so it can
++            // also undercount a route that cannot actually be queued.
++            if (tree < (long long)plan.size()) ++undercounts;
++            if (tree > maxTree) maxTree = tree;
++            for (int h = 0; h < 2; ++h)
++            {
++                const int horizon = h == 0 ? 3 : 6;
++                if (tree <= horizon) ++inOld[h];
++                if ((long long)plan.size() <= horizon) ++inNew[h];
++            }
++            if ((int)plan.size() > maxPlan) maxPlan = (int)plan.size();
++
++            std::vector<char> queued = g.known; std::vector<long long> memo2(N, -1);
++            if (!originalPush(queued, target, memo2, g.known)) { ++originalFailed; continue; }
++            long long originalCost = 0;
++            for (int t = 0; t < N; ++t) if (queued[t] && !g.known[t]) originalCost += COST[t];
++            if (cost < originalCost) ++better; else if (cost == originalCost) ++same; else ++worse;
++            if (cost > originalCost && (double)cost / originalCost - 1.0 > worstOriginalGap) worstOriginalGap = (double)cost / originalCost - 1.0;
++
++            if (planner.provedOptimal(target)) ++proved;
++            if (plan.size() <= 9)
++            {
++                bestCost = LLONG_MAX; std::vector<char> h = g.known; std::vector<int> open(1, target);
++                exhaustive(h, open, 0);
++                assert(bestCost <= cost);
++                if (planner.provedOptimal(target)) assert(bestCost == cost);
++                ++smallCases; if (bestCost == cost) ++optimal;
++                const double gap = (double)cost / (double)bestCost - 1.0;
++                if (gap > worstGap) worstGap = gap;
++            }
++        }
++        assert(planner.resolvedCount() <= N);
++    }
++    {
++        // Informational timing: the deepest plan from the opening state, fresh planner each time.
++        Graph g; g.known.assign(N, 0);
++        int deepest = 0; long long deepestTree = 0;
++        for (int t = 0; t < N; ++t)
++        {
++            std::vector<long long> memo(N, -1);
++            const long long tree = treeSteps(g.known, t, memo);
++            if (tree > deepestTree) { deepestTree = tree; deepest = t; }
++        }
++        const std::clock_t start = std::clock();
++        int stepsTotal = 0;
++        for (int repeat = 0; repeat < 20; ++repeat)
++        {
++            ResearchPathPlan::Planner<Graph> fresh(g);
++            stepsTotal += fresh.steps(deepest);
++        }
++        const double each = double(std::clock() - start) / CLOCKS_PER_SEC / 20.0;
++        std::cout << "INFO: deepest target from scratch: " << stepsTotal / 20 << " techs planned in "
++                  << each * 1000.0 << " ms; the former recursion would make " << deepestTree << " calls\n";
++    }
++    std::cout << "PASS: " << plans << " plans valid, irredundant and resolved once per technology; "
++              << proved << " proved optimal by branch and bound\n";
++    std::cout << "PASS: largest plan " << maxPlan << " techs; the replaced tree recursion counted up to " << maxTree
++              << " (and undercounted " << undercounts << " plans through unresearchable alternatives)\n";
++    std::cout << "INFO: the original queue rule failed on " << originalFailed << " reachable targets; elsewhere it was dearer "
++              << better << ", equal " << same << ", cheaper " << worse << " (worst +" << (int)(worstOriginalGap * 100 + 0.5) << "%)\n";
++    std::cout << "INFO: targets inside AI_bestTech's horizon: depth 3 " << inOld[0] << " -> " << inNew[0]
++              << ", depth 6 " << inOld[1] << " -> " << inNew[1] << " (former tree count -> plan size)\n";
++    std::cout << "INFO: exhaustive optimum matched in " << optimal << " of " << smallCases
++              << " small cases (worst +" << (int)(worstGap * 100 + 0.5) << "%)\n";
++    return 0;
++}
++'''.replace("DATA", data)
++
++with tempfile.TemporaryDirectory() as directory:
++    source = Path(directory) / "research_plan.cpp"
++    binary = Path(directory) / "research_plan"
++    source.write_text(program)
++    subprocess.run(["g++", "-std=c++03", "-O2", "-Wall", "-Wextra", "-Werror", "-fsanitize=undefined",
++                    "-fno-sanitize-recover=all", "-I", str(DLL), str(source), "-o", str(binary)], check=True)
++    subprocess.run([str(binary)], check=True, timeout=600)
++
++
++def code(text):
++    return re.sub(r"/\*.*?\*/|//[^\n]*", "", text, flags=re.S)
++
++
++player = code((DLL / "CvPlayer.cpp").read_text(errors="replace"))
++player_ai = code((DLL / "CvPlayerAI.cpp").read_text(errors="replace"))
++find = function(player, "int CvPlayer::findPathLength(TechTypes eTech, bool bCost) const")
++assert "CvResearchPlanner" in find and "findPathLength(" not in find
++push = function(player, "bool CvPlayer::pushResearch(TechTypes eTech, bool bClear)")
++assert "kPlanner.plan(eTech, aiPlan)" in push and "pushResearch(" not in push and "findPathLength(" not in push
++loop = push[push.index("for (int iI = 0; iI < (int)aiPlan.size(); ++iI)"):]
++for needle in ("m_researchQueue.insertAtEnd(eStep);", "setResearchingTech(eStep, true);",
++               "ResearchButtons_DIRTY_BIT", "techSelected(eStep, getID());"):
++    assert needle in loop, needle
++assert push.index("clearResearchQueue();") < push.index("kPlanner.plan(")
++best = function(player_ai, "TechTypes CvPlayerAI::AI_bestTech(")
++assert "kResearchPlanner.steps(iI)" in best and "kResearchPlanner.cost(iI)" in best
++assert "AI_cachedTechPathLength" not in player_ai
++graph = (DLL / "CvResearchGraph.h").read_text()
++assert "isHasTech" in graph and "isResearchingTech" in graph and "canEverResearch" in graph
++print("PASS: queueing, path length and AI valuation share one research plan")
++
++# Technology help shows the same plan that selecting the technology queues.
++text_mgr = code((DLL / "CvGameTextMgr.cpp").read_text(errors="replace"))
++help_text = function(text_mgr, "void CvGameTextMgr::setTechTradeHelp(")
++plan_help = help_text[help_text.index("CvResearchPlanner kPlanner(kGraph);"):]
++assert "kPlanner.plan(eTech, aiPlan) && aiPlan.size() > 1" in plan_help
++assert "getResearchLeft((TechTypes)aiPlan[iStep])" in plan_help
++assert "TXT_KEY_TECH_RESEARCH_PLAN" in plan_help and "TXT_KEY_TECH_RESEARCH_PLAN_NO_RATE" in plan_help
++strings = ET.parse(ROOT / "Assets" / "XML" / "Text" / "RoM_GameText_ResearchPlan.xml").getroot()
++for entry in strings:
++    tag = child(entry, "Tag").text
++    expected = ["%d1", "%d2", "%d3"] if tag == "TXT_KEY_TECH_RESEARCH_PLAN" else ["%d1", "%d2"]
++    for language in ("English", "French", "German", "Italian", "Spanish"):
++        found = re.findall(r"%d\d", child(entry, language).text)
++        assert found == expected, (tag, language, found)
++print("PASS: technology help reports the queued plan in every shipped language")
 diff --git a/Tools/test_review_correctness.py b/Tools/test_review_correctness.py
 index 65fb228..54da72a 100644
 --- a/Tools/test_review_correctness.py
@@ -2150,10 +3734,10 @@ index 0000000..757dbb4
 +if __name__=='__main__':unittest.main(argv=[__file__]+remaining,verbosity=2)
 diff --git a/Tools/test_static_findings.py b/Tools/test_static_findings.py
 new file mode 100644
-index 0000000..07cec82
+index 0000000..50fc792
 --- /dev/null
 +++ b/Tools/test_static_findings.py
-@@ -0,0 +1,127 @@
+@@ -0,0 +1,133 @@
 +#!/usr/bin/env python3
 +"""Regression checks for defects found by compiling the whole DLL with clang
 +diagnostics and the clang static analyzer.
@@ -2274,6 +3858,12 @@ index 0000000..07cec82
 +        }
 +        for name, needle in checks.items():
 +            self.assertIn(needle, src(name), name)
++
++    def test_strategic_context_counts_settlers_once(self):
++        body = code(function(src("CvPlayerAI.cpp"), "CvPlayerAI::AI_getStrategicContext()"))
++        line = body[body.index("kContext.settlers"):body.index(";", body.index("kContext.settlers"))]
++        self.assertIn("AI_totalUnitAIs(UNITAI_SETTLE)", line)
++        self.assertNotIn("AI_getNumTrainAIUnits", line, "AI_totalUnitAIs already includes training")
 +
 +    def test_python_text_manager_keeps_supplied_pointer(self):
 +        self.assertIn("m_pGameTextMgr(pGameTextMgr)", src("CyGameTextMgr.cpp"))
