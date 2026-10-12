@@ -1,5 +1,7 @@
 # Headless simulation: implementation and validation plan
 
+The [current competence study](../research/competence/README.md) adds a [C++03 scheduling lab](../research/competence/MODEL.md), [native integration specification](../research/competence/IMPLEMENTATION.md), and [evaluation catalog](../research/competence/evaluation.json). Its 165 exhaustive-oracle cases validate an abstract planning mechanism; the faithful economic adapter and engine replay remain implementation work.
+
 Source corrections are now available in [the tested patch](../fixes/README.md). Keep its behavior and source identity separate from the original baseline below; in particular, its version-6 saves preserve agenda history. Compatibility scenarios must declare which revision they target.
 
 The [earlier source cleanup](../fixes/README.md#current-source-cleanup) is based on GitLab `5e6d035`, including its newer supply/career fixes. It preserves save format 6 and consolidates event initialization and Crusade spawning; use its manifest when targeting that source rather than the historical baseline below.

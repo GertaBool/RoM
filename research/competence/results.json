@@ -1,0 +1,491 @@
+{
+  "scope": "Abstract scheduling model, not a DLL or engine replay",
+  "random_seed": 73219,
+  "cpp_sha256": "0d660320f70ada940cb09ee4dfe90c3c9e9fa35c6624bb0460e0014bd914f1bb",
+  "runner_sha256": "3d49ae2b57aec6fefb17ce3eddd83f4011c7e57e11274b7c082553495229df53",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "clock": "Python time.perf_counter wall time",
+  "oracle": "Independent exhaustive enumeration of absolute job start calendars",
+  "oracle_cases": 165,
+  "native_standard": "C++03",
+  "ubsan": "fatal",
+  "beam_comparison": {
+    "1": {
+      "budget_limited_cases": 165,
+      "feasible_optimum_but_no_plan": 0,
+      "suboptimal_feasible_cases": 13,
+      "max_utility_regret": 4
+    },
+    "8": {
+      "budget_limited_cases": 117,
+      "feasible_optimum_but_no_plan": 0,
+      "suboptimal_feasible_cases": 0,
+      "max_utility_regret": 0
+    },
+    "32": {
+      "budget_limited_cases": 27,
+      "feasible_optimum_but_no_plan": 0,
+      "suboptimal_feasible_cases": 0,
+      "max_utility_regret": 0
+    }
+  },
+  "fixtures": [
+    {
+      "model": {
+        "name": "investment_delivers_defender_sooner",
+        "jobs": [
+          [
+            0,
+            1,
+            4,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            1,
+            0,
+            4,
+            3,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            12,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "horizon": 8,
+        "production": 2,
+        "income": 1,
+        "required": 4,
+        "deadline": 5
+      },
+      "exact": {
+        "search": {
+          "feasible": true,
+          "exact": true,
+          "utility": 23,
+          "transitions": 280,
+          "peak": 14,
+          "start": [
+            0,
+            2,
+            2
+          ],
+          "finish": [
+            2,
+            3,
+            5
+          ]
+        },
+        "greedy": {
+          "feasible": false,
+          "exact": false,
+          "utility": 0,
+          "transitions": 0,
+          "peak": 0,
+          "start": [
+            -1,
+            -1,
+            -1
+          ],
+          "finish": [
+            -1,
+            -1,
+            -1
+          ]
+        }
+      },
+      "beam_1": {
+        "feasible": true,
+        "exact": false,
+        "utility": 23,
+        "transitions": 64,
+        "peak": 4,
+        "start": [
+          0,
+          2,
+          2
+        ],
+        "finish": [
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "model": {
+        "name": "imminent_attack_requires_guard_first",
+        "jobs": [
+          [
+            0,
+            1,
+            4,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            1,
+            0,
+            4,
+            3,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            6,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "horizon": 8,
+        "production": 2,
+        "income": 1,
+        "required": 4,
+        "deadline": 3
+      },
+      "exact": {
+        "search": {
+          "feasible": true,
+          "exact": true,
+          "utility": 14,
+          "transitions": 184,
+          "peak": 5,
+          "start": [
+            3,
+            5,
+            0
+          ],
+          "finish": [
+            5,
+            6,
+            3
+          ]
+        },
+        "greedy": {
+          "feasible": true,
+          "exact": false,
+          "utility": 14,
+          "transitions": 0,
+          "peak": 0,
+          "start": [
+            3,
+            5,
+            0
+          ],
+          "finish": [
+            5,
+            6,
+            3
+          ]
+        }
+      },
+      "beam_1": {
+        "feasible": true,
+        "exact": false,
+        "utility": 14,
+        "transitions": 24,
+        "peak": 3,
+        "start": [
+          3,
+          5,
+          0
+        ],
+        "finish": [
+          5,
+          6,
+          3
+        ]
+      }
+    },
+    {
+      "model": {
+        "name": "peace_has_no_mandatory_guard",
+        "jobs": [
+          [
+            0,
+            1,
+            4,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            1,
+            0,
+            4,
+            3,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            6,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "horizon": 8,
+        "production": 2,
+        "income": 1,
+        "required": 0,
+        "deadline": 0
+      },
+      "exact": {
+        "search": {
+          "feasible": true,
+          "exact": true,
+          "utility": 23,
+          "transitions": 584,
+          "peak": 14,
+          "start": [
+            0,
+            2,
+            -1
+          ],
+          "finish": [
+            2,
+            3,
+            -1
+          ]
+        },
+        "greedy": {
+          "feasible": true,
+          "exact": false,
+          "utility": 23,
+          "transitions": 0,
+          "peak": 0,
+          "start": [
+            0,
+            2,
+            2
+          ],
+          "finish": [
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      "beam_1": {
+        "feasible": true,
+        "exact": false,
+        "utility": 23,
+        "transitions": 64,
+        "peak": 4,
+        "start": [
+          0,
+          2,
+          2
+        ],
+        "finish": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "model": {
+        "name": "civic_with_no_payoff",
+        "jobs": [
+          [
+            0,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "horizon": 8,
+        "production": 2,
+        "income": 1,
+        "required": 0,
+        "deadline": 0
+      },
+      "exact": {
+        "search": {
+          "feasible": true,
+          "exact": true,
+          "utility": 8,
+          "transitions": 42,
+          "peak": 3,
+          "start": [
+            -1
+          ],
+          "finish": [
+            -1
+          ]
+        },
+        "greedy": {
+          "feasible": true,
+          "exact": false,
+          "utility": 6,
+          "transitions": 0,
+          "peak": 0,
+          "start": [
+            0
+          ],
+          "finish": [
+            2
+          ]
+        }
+      },
+      "beam_1": {
+        "feasible": true,
+        "exact": false,
+        "utility": 8,
+        "transitions": 16,
+        "peak": 2,
+        "start": [
+          -1
+        ],
+        "finish": [
+          -1
+        ]
+      }
+    },
+    {
+      "model": {
+        "name": "mine_connection_then_recruit",
+        "jobs": [
+          [
+            0,
+            2,
+            2,
+            0,
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            3,
+            1,
+            8,
+            1,
+            0,
+            0,
+            15,
+            0
+          ]
+        ],
+        "horizon": 6,
+        "production": 2,
+        "income": 1,
+        "required": 4,
+        "deadline": 0
+      },
+      "exact": {
+        "search": {
+          "feasible": true,
+          "exact": true,
+          "utility": 21,
+          "transitions": 168,
+          "peak": 6,
+          "start": [
+            0,
+            2,
+            3
+          ],
+          "finish": [
+            2,
+            3,
+            5
+          ]
+        },
+        "greedy": {
+          "feasible": true,
+          "exact": false,
+          "utility": 21,
+          "transitions": 0,
+          "peak": 0,
+          "start": [
+            0,
+            2,
+            3
+          ],
+          "finish": [
+            2,
+            3,
+            5
+          ]
+        }
+      },
+      "beam_1": {
+        "feasible": true,
+        "exact": false,
+        "utility": 21,
+        "transitions": 48,
+        "peak": 2,
+        "start": [
+          0,
+          2,
+          3
+        ],
+        "finish": [
+          2,
+          3,
+          5
+        ]
+      }
+    }
+  ],
+  "timing": {
+    "scope": "165-case optimized subprocess batch including serialization and Python witness checks; no native engine calls",
+    "runs_ms": [
+      10.080514999572188,
+      9.994104999350384,
+      11.926702994969673,
+      12.021646005450748,
+      9.569456000463106,
+      10.132051989785396,
+      11.184861999936402
+    ],
+    "median_ms": 10.132051989785396
+  }
+}

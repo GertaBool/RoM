@@ -1,0 +1,185 @@
+{
+  "research_date": "2026-10-12",
+  "papers": [
+    {
+      "id": "build_order",
+      "url": "https://ojs.aaai.org/index.php/AIIDE/article/download/12435/12294",
+      "retrieved_url": "https://ojs.aaai.org/index.php/AIIDE/article/download/12435/12294",
+      "bytes": 505086,
+      "sha256": "aac28f97291ad3ba85b4b53b7350cecbed6b80ecb030d90d30408ccd1fec10c5",
+      "content_type": "application/pdf",
+      "retrieved_utc": "2026-10-12T13:25:02.513090+00:00",
+      "status": "retrieved",
+      "title": "Churchill and Buro, Build Order Optimization in StarCraft (2011)",
+      "inspected_scope": "Resource classes, concurrent actions, depth-first branch-and-bound, abstraction and goal-selection limits; algorithm and abstractions sections.",
+      "evidence": "Retrieved full text; inspected the named sections"
+    },
+    {
+      "id": "shop2",
+      "url": "https://jair.org/index.php/jair/article/download/10362/24790",
+      "retrieved_url": "https://jair.org/index.php/jair/article/download/10362/24790",
+      "bytes": 238848,
+      "sha256": "c0f8baa06b0a3e167237752697c8d02a98d4c9b2eda5363c770a8cd37d439378",
+      "content_type": "application/pdf",
+      "retrieved_utc": "2026-10-12T13:25:02.420381+00:00",
+      "status": "retrieved",
+      "title": "Nau et al., SHOP2: An HTN Planning System (2003)",
+      "inspected_scope": "Methods/operators, partial ordering, temporal bookkeeping, heuristic ordering versus optimality; sections 2\u20134.",
+      "evidence": "Retrieved full text; inspected the named sections"
+    },
+    {
+      "id": "mcts_survey",
+      "url": "https://repository.essex.ac.uk/4117/1/MCTS-Survey.pdf",
+      "retrieved_url": "https://repository.essex.ac.uk/4117/1/MCTS-Survey.pdf",
+      "bytes": 2465222,
+      "sha256": "aadb1de8efbbeeef71609ba6b0b3f3d933658efd8d4cdd752abcadc4e827b3a7",
+      "content_type": "application/pdf",
+      "retrieved_utc": "2026-10-12T13:25:02.534638+00:00",
+      "status": "retrieved",
+      "title": "Browne et al., A Survey of Monte Carlo Tree Search Methods (2012)",
+      "inspected_scope": "UCT, finite-budget limitations, multi-agent and imperfect-information extensions; sections 3\u20135.",
+      "evidence": "Retrieved full text; inspected the named sections"
+    },
+    {
+      "id": "dstar_lite",
+      "url": "https://www.cs.cmu.edu/~maxim/files/dlite_icra02.pdf",
+      "retrieved_url": "https://www.cs.cmu.edu/~maxim/files/dlite_icra02.pdf",
+      "bytes": 136067,
+      "sha256": "c6ad5fa26ec4594d5d9561e0b137b5279430c703c859a971709ad3de5227cadc",
+      "content_type": "application/pdf",
+      "retrieved_utc": "2026-10-12T13:25:01.084360+00:00",
+      "status": "retrieved",
+      "title": "Koenig and Likhachev, Improved Fast Replanning for Robot Navigation in Unknown Terrain (2002)",
+      "inspected_scope": "Incremental shortest-path repair for a moving robot; abstract and algorithm discussion. This is the ICRA paper, not misidentified as the AAAI D* Lite paper.",
+      "evidence": "Retrieved full text; inspected the named sections"
+    },
+    {
+      "id": "pomcp",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2010/file/edfbe1afcf9246bb0d40eb4d8027d90f-Paper.pdf",
+      "retrieved_url": "https://proceedings.neurips.cc/paper_files/paper/2010/file/edfbe1afcf9246bb0d40eb4d8027d90f-Paper.pdf",
+      "bytes": 450446,
+      "sha256": "fa4c2e0d4a42c82b22bf4163a0096a95ea0cffa000ce81dc33e0aa97146fc92f",
+      "content_type": "application/pdf",
+      "retrieved_utc": "2026-10-12T13:25:01.398181+00:00",
+      "status": "retrieved",
+      "title": "Silver and Veness, Monte-Carlo Planning in Large POMDPs (2010)",
+      "inspected_scope": "Black-box generative model, root sampling, particle beliefs and conditional convergence; introduction and section 3.",
+      "evidence": "Retrieved full text; inspected the named sections"
+    },
+    {
+      "id": "cma_tutorial",
+      "url": "https://arxiv.org/pdf/1604.00772",
+      "retrieved_url": "https://arxiv.org/pdf/1604.00772",
+      "bytes": 857878,
+      "sha256": "96645df3058f229084eb70fd9531c601665c1c118a49929aa3b6ceadbf36a223",
+      "content_type": "application/pdf",
+      "retrieved_utc": "2026-10-12T13:25:01.236437+00:00",
+      "status": "retrieved",
+      "title": "Hansen, The CMA Evolution Strategy: A Tutorial (arXiv v2, 2023)",
+      "inspected_scope": "Black-box scope, search cost, sampling/recombination/covariance; sections 0.3 and 1\u20133.",
+      "evidence": "Retrieved full text; inspected the named sections"
+    },
+    {
+      "id": "mpc_book",
+      "url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/MPC-book-2nd-edition-5th-printing.pdf",
+      "retrieved_url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/MPC-book-2nd-edition-5th-printing.pdf",
+      "bytes": 3837012,
+      "sha256": "34f26377117a6aedfc4c48767034c1ba4ed6a758dc68d142fcd5eeef2b37a061",
+      "content_type": "application/pdf",
+      "retrieved_utc": "2026-10-12T13:25:04.722085+00:00",
+      "status": "retrieved",
+      "title": "Rawlings, Mayne and Diehl, Model Predictive Control: Theory, Computation, and Design, 2nd ed., 5th printing (2024)",
+      "inspected_scope": "Selected introductory/receding-horizon and economic-MPC passages; stability assumptions do not transfer to RoM. Not a cover-to-cover review.",
+      "evidence": "Retrieved full text; inspected the named sections"
+    },
+    {
+      "id": "rhea",
+      "url": "https://arxiv.org/pdf/2003.12331",
+      "sha256": "e160b0f9891a8b8f1c22f35feabaf810229ff530ab25f8634ce2693e080809a4",
+      "bytes": 1712714,
+      "status": "retrieved",
+      "title": "Gaina et al., Rolling Horizon Evolutionary Algorithms for General Video Game Playing (arXiv 2003.12331; journal DOI 10.1109/TG.2021.3060282)",
+      "inspected_scope": "Forward-model requirement, population/horizon/budget interactions, shift buffer and parameter sensitivity; abstract and algorithm/extension sections.",
+      "evidence": "Retrieved full text; inspected the named sections"
+    }
+  ],
+  "implementations": [
+    {
+      "repository": "freeciv/freeciv",
+      "commit": "0695957ae339ec1db15a98e65f8d981ecf16fa0f",
+      "path": "ai/default/aiferry.c",
+      "url": "https://github.com/freeciv/freeciv/blob/0695957ae339ec1db15a98e65f8d981ecf16fa0f/ai/default/aiferry.c",
+      "sha256": "ceeb71a20ea2a2de18696ff889636e270550586f8a75dd3ee21343d6dc32f9a0",
+      "bytes": 47194,
+      "status": "retrieved",
+      "evidence": "Inspected source excerpts, not executed or benchmarked"
+    },
+    {
+      "repository": "freeciv/freeciv",
+      "commit": "0695957ae339ec1db15a98e65f8d981ecf16fa0f",
+      "path": "ai/default/daicity.c",
+      "url": "https://github.com/freeciv/freeciv/blob/0695957ae339ec1db15a98e65f8d981ecf16fa0f/ai/default/daicity.c",
+      "sha256": "6f4cffb578395e50b03622ad62c912ea6adef416b484af9bdd7e8001ee75275a",
+      "bytes": 82025,
+      "status": "retrieved",
+      "evidence": "Inspected source excerpts, not executed or benchmarked"
+    },
+    {
+      "repository": "yairm210/Unciv",
+      "commit": "8e03dc2667234d2388abefd69ccaa1710893600e",
+      "path": "core/src/com/unciv/logic/automation/city/ConstructionAutomation.kt",
+      "url": "https://github.com/yairm210/Unciv/blob/8e03dc2667234d2388abefd69ccaa1710893600e/core/src/com/unciv/logic/automation/city/ConstructionAutomation.kt",
+      "sha256": "c6ce166bb16527d93d18f7a4993e31466054ca67275ddb54d2426eacaf1c8171",
+      "bytes": 23131,
+      "status": "retrieved",
+      "evidence": "Inspected source excerpts, not executed or benchmarked"
+    },
+    {
+      "repository": "yairm210/Unciv",
+      "commit": "8e03dc2667234d2388abefd69ccaa1710893600e",
+      "path": "core/src/com/unciv/logic/automation/unit/WorkerAutomation.kt",
+      "url": "https://github.com/yairm210/Unciv/blob/8e03dc2667234d2388abefd69ccaa1710893600e/core/src/com/unciv/logic/automation/unit/WorkerAutomation.kt",
+      "sha256": "31c56f0cd7ce0ab7e455f352a4b0d659bfbb3a8c3f250d2cbbd09b313505d02c",
+      "bytes": 35251,
+      "status": "retrieved",
+      "evidence": "Inspected source excerpts, not executed or benchmarked"
+    },
+    {
+      "repository": "OpenRA/OpenRA",
+      "commit": "e180e3225f3930272dd451917467631618f8976f",
+      "path": "OpenRA.Mods.Common/Traits/BotModules/SquadManagerBotModule.cs",
+      "url": "https://github.com/OpenRA/OpenRA/blob/e180e3225f3930272dd451917467631618f8976f/OpenRA.Mods.Common/Traits/BotModules/SquadManagerBotModule.cs",
+      "sha256": "1d764c247c5858175319213fc4cdac2e5140f0457175ca1769328cbd4ec0933e",
+      "bytes": 22201,
+      "status": "retrieved",
+      "evidence": "Inspected source excerpts, not executed or benchmarked"
+    },
+    {
+      "repository": "facebookresearch/diplomacy_cicero",
+      "commit": "e85afeddb34f5b7c1ea0827203b425a0f7e68ead",
+      "path": "fairdiplomacy/agents/bqre1p_agent.py",
+      "url": "https://github.com/facebookresearch/diplomacy_cicero/blob/e85afeddb34f5b7c1ea0827203b425a0f7e68ead/fairdiplomacy/agents/bqre1p_agent.py",
+      "sha256": "53012af5143945f4894a3b65b2ce5684b5dbf6e23cd98bdec0e981427bde517b",
+      "bytes": 53863,
+      "status": "retrieved",
+      "evidence": "Inspected source excerpts, not executed or benchmarked"
+    },
+    {
+      "repository": "facebookresearch/diplomacy_cicero",
+      "commit": "e85afeddb34f5b7c1ea0827203b425a0f7e68ead",
+      "path": "README.md",
+      "url": "https://github.com/facebookresearch/diplomacy_cicero/blob/e85afeddb34f5b7c1ea0827203b425a0f7e68ead/README.md",
+      "sha256": "eddb1fce531208a9f9e299f7daf460724b5ca8b46bbf14b0952829724be5a0e4",
+      "bytes": 11488,
+      "status": "retrieved",
+      "evidence": "Inspected source excerpts, not executed or benchmarked"
+    }
+  ],
+  "access_notes": [
+    "Crossref discovery returned HTTP 429 for two queries; primary URLs/metadata were used instead.",
+    "A guessed Freeciv ferry path returned 404; repository-tree lookup resolved aiferry.c.",
+    "Portfolio Greedy Search paper metadata was found, but the open-access PDF timed out; no full-text claims rely on it.",
+    "Earlier research-pass PDF access limits no longer apply to the eight texts retrieved in this pass."
+  ],
+  "raw_documents_published": false
+}

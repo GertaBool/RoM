@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "status": "Proposed engine evaluation; executable model evidence explicitly identified below",
+  "source": {
+    "upstream": "6222511c1a81649445fa69e8ca6dca79cf60c975",
+    "reviewed_patch": "../../fixes/0007-joint-settlement-planning.patch",
+    "local_reviewed_commit": "8edb23b96c7b9f6369a54d18d0a84a62c799b841"
+  },
+  "evidence_levels": {
+    "source_regression": "Extracted native source or policy contract, not engine replay. See existing patch manifests.",
+    "abstract_model": "Independent scheduling/assignment/package models with small exhaustive oracles. Does not establish game fidelity.",
+    "native_differential": "Matching DLL trace versus adapter transition; pending.",
+    "engine_scenario": "Controlled save/map with matching DLL and recorded outcomes; pending.",
+    "campaign": "Paired held-out full games against varied opponents; pending."
+  },
+  "required_run_identity": [
+    "source commit and cumulative patch hash",
+    "DLL SHA-256 and compiler/build flags",
+    "effective XML and Python/module hashes; mod and game options",
+    "map/save hash, game speed, era, difficulty and turn mode",
+    "player/civilization, autoplay boundary, all relevant RNG states",
+    "algorithm configuration, model version, deterministic budgets and observations allowed"
+  ],
+  "trace_contract": [
+    "turn/phase/player and evidence revisions",
+    "proposal, objective components, incumbent, chosen first action and rejection reasons",
+    "job owner, stable participants, target, resource/time reservations and lifecycle",
+    "actual cargo, native mission/group identity, expected next progress and blocker reason",
+    "forecast and actual food, production, gold, population, connection and completion changes",
+    "nodes, candidates, forward transitions, path queries, cache invalidations and elapsed time"
+  ],
+  "scenarios": [
+    {
+      "id": "opening_economic_defense_tradeoff",
+      "variants": [
+        "productive reachable water; no required guard",
+        "investment accelerates later defender",
+        "observed attack before investment pays back",
+        "no improvable water or no available citizen"
+      ],
+      "acceptance": [
+        "Do not impose a guard goal from an empty garrison alone.",
+        "Compare completed development and force-arrival schedules under the same observation contract.",
+        "Reverse the choice when threat timing or realized improvement payoff changes."
+      ],
+      "model_evidence": [
+        "results.json: investment_delivers_defender_sooner",
+        "results.json: imminent_attack_requires_guard_first",
+        "results.json: peace_has_no_mandatory_guard"
+      ],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "civic_realized_payoff",
+      "variants": [
+        "Pastoral without worked or planned pasture",
+        "pasture completes later; defer revolution",
+        "joint civic effects, anarchy and upkeep",
+        "switch cooldown or callback unsupported"
+      ],
+      "acceptance": [
+        "Compare keeping, switching now and switching later on equal horizons.",
+        "Count anarchy and upkeep exactly; do not assume all potential tiles are worked.",
+        "Return unsupported for unmodelled material callbacks."
+      ],
+      "model_evidence": [
+        "results.json: civic_with_no_payoff"
+      ],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "copper_capability_chain",
+      "variants": [
+        "camp on Copper; legal mine available",
+        "mine technology missing",
+        "mine exists but resource disconnected",
+        "worker killed, reassigned or tile lost"
+      ],
+      "acceptance": [
+        "Separate worked yields from connected strategic-resource access.",
+        "Request and schedule missing prerequisites; verify actual trainability after completion.",
+        "Reconcile failed worker jobs and release their reservations."
+      ],
+      "model_evidence": [
+        "results.json: mine_connection_then_recruit (abstract prerequisites only)"
+      ],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "cargo_reconciliation",
+      "variants": [
+        "settler and escorts split between ships",
+        "manual unload/reload during autoplay pause",
+        "full ship with no settler",
+        "passenger-first and ship-first updates",
+        "selection group replaced or role changed",
+        "passenger or carrier dies; reload save"
+      ],
+      "acceptance": [
+        "Resolve each surviving party to one owner and feasible manifest.",
+        "No duplicate simultaneous escort or cargo-capacity reservation.",
+        "Preserve or explicitly cancel the destination across membership changes.",
+        "Reach the destination or emit a specific blocker and dated recovery; never silently idle."
+      ],
+      "model_evidence": [],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "route_choice_and_liveness",
+      "variants": [
+        "walking wins",
+        "sailing wins including rendezvous and landing cost",
+        "blocked strait or changed borders",
+        "legitimate long voyage",
+        "movement refresh wait",
+        "generic exploration competing with accepted delivery"
+      ],
+      "acceptance": [
+        "Choose by complete-plan value without a mode preference.",
+        "Record progress or a concrete blocker at each scheduled review.",
+        "Do not cancel valid long voyages solely because a fixed timeout elapsed.",
+        "Prevent unowned role logic from overwriting accepted delivery missions."
+      ],
+      "model_evidence": [],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "unsupported_transport_methods",
+      "variants": [
+        "distant pickup rendezvous",
+        "sea landing then inland founding",
+        "multi-stop multi-ship party delivery"
+      ],
+      "acceptance": [
+        "Declare supported route methods explicitly.",
+        "Unsupported does not mean no reachable destination.",
+        "Only enable methods after pickup, landing, inland movement and cancellation are validated."
+      ],
+      "model_evidence": [],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "fleet_marginal_demand",
+      "variants": [
+        "no useful deliveries",
+        "one useful party and one available ship",
+        "additional hull improves a feasible schedule",
+        "missing escort makes an extra hull useless"
+      ],
+      "acceptance": [
+        "Compare delivery schedules with and without a hull.",
+        "Measure completed worthwhile settlements and opportunity cost, not fleet size or utilization alone."
+      ],
+      "model_evidence": [],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "shared_resource_conflicts",
+      "variants": [
+        "two cities need one worker",
+        "two parties need one escort",
+        "two cargo bundles compete for a ship interval",
+        "overlapping city sites or worked plots",
+        "two packages consume the same treasury"
+      ],
+      "acceptance": [
+        "Evaluate compatible bundles jointly where additive matching is invalid.",
+        "Never promise the same scarce asset twice in overlapping intervals.",
+        "Charge displaced jobs and shared maintenance to marginal empire value."
+      ],
+      "model_evidence": [],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "settlement_development_value",
+      "variants": [
+        "rich radius with one citizen versus accessible food",
+        "delayed culture or technology",
+        "high maintenance distant site",
+        "same site with different arrival date and worker support",
+        "multiple candidate cities sharing tiles"
+      ],
+      "acceptance": [
+        "Use available citizens, dated improvements and actual access.",
+        "Compare against continuing the incumbent expansion plan.",
+        "Check tiny-map exhaustive optima and report misses under search budgets.",
+        "Retire any pruning bound invalidated by a new utility function."
+      ],
+      "model_evidence": [],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "research_package_execution",
+      "variants": [
+        "shared AND prerequisite",
+        "alternative OR branches shared across goals",
+        "technology trade changes costs",
+        "team research changes completion dates"
+      ],
+      "acceptance": [
+        "Charge each required technology once under fixed-cost model.",
+        "Queue the prerequisite package and ordering actually evaluated.",
+        "Invalidate stale cost assumptions after trades or team changes."
+      ],
+      "model_evidence": [
+        "prerequisite-assignment-results.json: 300 random research oracle cases and XML fixtures"
+      ],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "operation_opportunities",
+      "variants": [
+        "reinforcement or technology timing window",
+        "pillage disconnects strategic resource",
+        "attack ordering must preserve capturer",
+        "withdraw from losing siege race",
+        "scouting changes the best action",
+        "diplomatic access beats a detour"
+      ],
+      "acceptance": [
+        "Compare meaningful macro-actions by delivered capability and losses.",
+        "Restrict decisions to player observations; inspect hidden-state leakage.",
+        "Report threat calibration and counterfactual plan value, not only attack count."
+      ],
+      "model_evidence": [],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    },
+    {
+      "id": "forecast_and_search_integrity",
+      "variants": [
+        "growth and starvation",
+        "food-production units and overflow",
+        "anarchy and callback order",
+        "short horizon procrastination",
+        "search budget exhausted",
+        "within-turn border and cargo changes"
+      ],
+      "acceptance": [
+        "Differential-check forecast transitions against rebuilt-engine traces.",
+        "Return a validated feasible incumbent when one exists; distinguish unsupported, bounded search failure and proven infeasibility.",
+        "Use deterministic operation budgets and revision-aware caches.",
+        "Keep snapshot extraction and shadow planning free of live RNG or queue mutations."
+      ],
+      "model_evidence": [
+        "results.json: 165 scheduling oracle cases and separately replayed witnesses",
+        "results.json: beam width 1 is suboptimal in 13 cases"
+      ],
+      "engine_status": "pending: requires matching rebuilt DLL and trace/replay adapter"
+    }
+  ],
+  "campaign_protocol": {
+    "paired_design": "Pair map seeds and starting positions, rotate civilizations and opponents; fix gameplay rules. Policy changes alter RNG consumption, so shared seeds alone do not provide identical later stochastic events.",
+    "holdout": "Split by map/seed lineage and opponent configuration before tuning; hold out eras and map types. Do not score training maps as validation.",
+    "statistics": "Use game or paired map block as the independent sampling unit; confidence intervals clustered by block. Predeclare metrics, minimum useful effect and sample size from pilot variance. Do not treat unit turns as independent games.",
+    "outcomes": [
+      "victory rate with uncertainty and opponent breakdown",
+      "resource connection and useful improvement dates",
+      "founding dates and realized city payoff including maintenance",
+      "completed worthwhile voyages; unexplained stalled jobs and blocker recovery time",
+      "force arrival versus target window; losses and city losses",
+      "food/commerce/production trajectories and avoided idle assets",
+      "unsupported and infeasible predictions; forecast error and threat calibration"
+    ],
+    "performance": [
+      "early/mid/late-game p50/p95/p99 AI turn time under identical profiling conditions",
+      "path queries, allocations, forward steps and candidate counts",
+      "total time includes snapshot extraction and native services"
+    ],
+    "proposed_runtime_gate": {
+      "status": "Proposal, unmeasured in a DLL; revise from pilot profiles before locking acceptance",
+      "p95_relative_overhead_limit": 0.1,
+      "additional_requirement": "Report absolute p99 and largest-map stalls; average overhead alone is insufficient."
+    }
+  },
+  "ablations": [
+    "economic planner versus legacy proposal ranking with identical executor",
+    "persistent expedition ownership versus role-driven execution with identical route values",
+    "raw found value versus development rollout with identical candidates and path budgets",
+    "governor/career feedback and flavor multipliers independently disabled",
+    "beam versus RHEA versus useful scripted portfolios at equal forward-transition budgets and separately equal wall time",
+    "short versus longer horizon and terminal-value variants",
+    "joint compatible bundle selection versus greedy assignment"
+  ],
+  "release_gates": [
+    "Native accounting fidelity before policy claims.",
+    "Cargo/ownership/save compatibility and deterministic replay before enabling job persistence.",
+    "Required scenario reversals and no unexplained reservation violations.",
+    "Held-out benefit plus acceptable measured runtime; publish failures and unsupported cases.",
+    "A model optimum is never labelled an optimal game policy."
+  ]
+}

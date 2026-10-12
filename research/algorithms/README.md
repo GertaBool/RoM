@@ -1,5 +1,7 @@
 # Algorithms for Rise of Mankind's AI
 
+The [12 October competence study](../competence/README.md) revisits these priorities against current patched source, inspects eight primary texts and four game implementations, and adds a tested C++03 economic scheduling model. It prioritizes economic sequencing and reliable expedition execution; see its [implementation plan](../competence/IMPLEMENTATION.md). This report retains its original dated evidence below.
+
 **Recommendation: combine exact local optimization, bounded strategic search, and
 offline learning.** A genetic algorithm, MCTS, or an A* search over entire turns
 would not be a good universal replacement for this AI. Different decisions have

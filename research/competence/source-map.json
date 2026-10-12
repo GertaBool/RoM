@@ -1,0 +1,133 @@
+{
+  "upstream_commit": "6222511c1a81649445fa69e8ca6dca79cf60c975",
+  "reviewed_local_source": "8edb23b96c7b9f6369a54d18d0a84a62c799b841",
+  "local_patch": "../../fixes/0007-joint-settlement-planning.patch",
+  "methods": {
+    "turn_economy": {
+      "path": "Assets/CvGameCoreDLL/CvPlayer.cpp",
+      "signature": "void CvPlayer::doTurn()",
+      "local_start_line": 3916,
+      "upstream_start_line": 3916,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "583bb8a02faccf8b03a679130ccb52ac584b270c084cf5728be11da7cd63e350",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayer.cpp#L3916"
+    },
+    "turn_units": {
+      "path": "Assets/CvGameCoreDLL/CvPlayer.cpp",
+      "signature": "void CvPlayer::doTurnUnits()",
+      "local_start_line": 4066,
+      "upstream_start_line": 4066,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "830625a105b1447187d2a4aa00197dfda32fb57bc0dac35daa71f8f644578844",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayer.cpp#L4066"
+    },
+    "agenda": {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "signature": "void CvPlayerAI::AI_updateAgenda(",
+      "local_start_line": 4471,
+      "upstream_start_line": 4466,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "808d56003727ef038e1cb3acbde225911aa5224e5182eb1e65387d8390bc0ac5",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L4466"
+    },
+    "snapshot": {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "signature": "const AIStrategicContextPolicy::Snapshot& CvPlayerAI::AI_getStrategicContext()",
+      "local_start_line": 4357,
+      "upstream_start_line": 4352,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "1fb62e007c27e2f0fa1574a3799b049b87442a3e9b6978bbe7f6bc48a905ad66",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L4352"
+    },
+    "production": {
+      "path": "Assets/CvGameCoreDLL/CvCityAI.cpp",
+      "signature": "void CvCityAI::AI_chooseProduction()",
+      "local_start_line": 705,
+      "upstream_start_line": 705,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "f239137a148644859efbe3f6e7a00325e9f9e9261a49e7a24fed5543b190a915",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvCityAI.cpp#L705"
+    },
+    "citizens": {
+      "path": "Assets/CvGameCoreDLL/CvCityAI.cpp",
+      "signature": "void CvCityAI::AI_assignWorkingPlots()",
+      "local_start_line": 244,
+      "upstream_start_line": 244,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "104682eac67aa436a85575d94c80069562a10386b9a0d191bdb195e1a6c59685",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvCityAI.cpp#L244"
+    },
+    "governor": {
+      "path": "Assets/CvGameCoreDLL/CvCityAI.cpp",
+      "signature": "void CvCityAI::AI_updateLocalGovernor()",
+      "local_start_line": 10936,
+      "upstream_start_line": 10936,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "18707a1e0264f08c462dd10ea5154d6291156fb4112703b45ced146af4e5bc26",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvCityAI.cpp#L10936"
+    },
+    "civics": {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "signature": "void CvPlayerAI::AI_doCivics()",
+      "local_start_line": 16588,
+      "upstream_start_line": 16583,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "1496ceef32578fc93f6d1c8d4fee6099170ac1fc58c0e93e904d68d73feb9b93",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L16583"
+    },
+    "research": {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "signature": "int AI_cachedTechPathLength(",
+      "local_start_line": 5049,
+      "upstream_start_line": 5044,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "c61dc260eb02ff455dadfb2c6b02f57bed297032bb1cb3dd0754f3120861d25b",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L5044"
+    },
+    "worker": {
+      "path": "Assets/CvGameCoreDLL/CvUnitAI.cpp",
+      "signature": "void CvUnitAI::AI_workerMove()",
+      "local_start_line": 1413,
+      "upstream_start_line": 1549,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "dd29f2e538df8a49033df5012bbf74a234fd808133a4d7b6c503ddaa3a211b1e",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvUnitAI.cpp#L1549"
+    },
+    "operation": {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "signature": "void CvPlayerAI::AI_updateMilitaryOperations()",
+      "local_start_line": 15518,
+      "upstream_start_line": 15513,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "25ecb9a2a41cca5d2dfc4c6b4c0aa6624ca90447c77accc9f7f36e58c45155f2",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L15513"
+    },
+    "diplomacy": {
+      "path": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+      "signature": "void CvPlayerAI::AI_doDiplo()",
+      "local_start_line": 16793,
+      "upstream_start_line": 16788,
+      "same_method_as_upstream": true,
+      "method_sha256_normalized_lf": "5ac823041612e356dca479a89e57ab58d97eccb7faf4fb5f8562764fa60baf53",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L16788"
+    },
+    "shore_settlement": {
+      "path": "Assets/CvGameCoreDLL/CvUnitAI.cpp",
+      "signature": "bool CvUnitAI::AI_found()",
+      "local_start_line": 16821,
+      "upstream_start_line": 16903,
+      "same_method_as_upstream": false,
+      "method_sha256_normalized_lf": "dcfd93310d57cb8454333b6fdfa4c5cc398d57ff4ba47d5c11f46673f2b433af",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvUnitAI.cpp#L16903"
+    },
+    "loaded_transport": {
+      "path": "Assets/CvGameCoreDLL/CvUnitAI.cpp",
+      "signature": "bool CvUnitAI::AI_settlerSeaTransport()",
+      "local_start_line": 17848,
+      "upstream_start_line": 17948,
+      "same_method_as_upstream": false,
+      "method_sha256_normalized_lf": "25b7da7072d675786e92b2a4d5517d70a062866e04976fe23385cd8612eeaae2",
+      "upstream_url": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvUnitAI.cpp#L17948"
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "scope": "isolated synthetic algorithms and a base-XML graph fixture; no DLL/game timings",
+  "source_sha256": "21728dfb23203e4eeca5a6dd96c36e2896f4da4524b5425cde6b4c85a8abeeb0",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "verification_flags": [
+    "-std=c++03",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=undefined"
+  ],
+  "measurement_flags": [
+    "-std=c++03",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O2"
+  ],
+  "warmup_runs": 1,
+  "measured_runs": 7,
+  "clock": "C clock() process CPU time",
+  "xml_fixture_checked": true,
+  "verification": {
+    "kind": "verification",
+    "research_random_oracle_cases": 300,
+    "assignment_random_oracle_cases": 160,
+    "chariot_scalar": 268,
+    "chariot_exact": 218,
+    "shared_or_local": 11,
+    "shared_or_exact": 9,
+    "greedy_assignment_utility": 10,
+    "exact_assignment_utility": 18,
+    "passed": true
+  },
+  "measurements": [
+    {
+      "kind": "research_stress",
+      "k": 8,
+      "scanned": 256,
+      "expanded": 128,
+      "candidate_checks": 1024,
+      "table_bytes": 3072,
+      "cpu_ms_median": 0.008,
+      "cpu_ms_samples": [
+        0.008,
+        0.007,
+        0.008,
+        0.008,
+        0.007,
+        0.007,
+        0.008
+      ]
+    },
+    {
+      "kind": "research_stress",
+      "k": 12,
+      "scanned": 4096,
+      "expanded": 2048,
+      "candidate_checks": 24576,
+      "table_bytes": 49152,
+      "cpu_ms_median": 0.106,
+      "cpu_ms_samples": [
+        0.118,
+        0.279,
+        0.106,
+        0.104,
+        0.104,
+        0.102,
+        0.153
+      ]
+    },
+    {
+      "kind": "research_stress",
+      "k": 16,
+      "scanned": 65536,
+      "expanded": 32768,
+      "candidate_checks": 524288,
+      "table_bytes": 786432,
+      "cpu_ms_median": 1.834,
+      "cpu_ms_samples": [
+        1.857,
+        1.834,
+        1.824,
+        2.298,
+        1.776,
+        1.887,
+        1.831
+      ]
+    },
+    {
+      "kind": "research_stress",
+      "k": 20,
+      "scanned": 1048576,
+      "expanded": 524288,
+      "candidate_checks": 10485760,
+      "table_bytes": 12582912,
+      "cpu_ms_median": 36.711,
+      "cpu_ms_samples": [
+        36.711,
+        40.052,
+        35.717,
+        37.179,
+        36.536,
+        37.196,
+        36.632
+      ]
+    },
+    {
+      "kind": "assignment_stress",
+      "n": 16,
+      "edge_checks": 704,
+      "matrix_bytes": 1024,
+      "cost": -135032,
+      "cpu_ms_median": 0.007,
+      "cpu_ms_samples": [
+        0.007,
+        0.008,
+        0.007,
+        0.007,
+        0.007,
+        0.007,
+        0.028
+      ]
+    },
+    {
+      "kind": "assignment_stress",
+      "n": 32,
+      "edge_checks": 3011,
+      "matrix_bytes": 4096,
+      "cost": -299121,
+      "cpu_ms_median": 0.018,
+      "cpu_ms_samples": [
+        0.019,
+        0.018,
+        0.018,
+        0.018,
+        0.038,
+        0.018,
+        0.022
+      ]
+    },
+    {
+      "kind": "assignment_stress",
+      "n": 64,
+      "edge_checks": 19095,
+      "matrix_bytes": 16384,
+      "cost": -607227,
+      "cpu_ms_median": 0.098,
+      "cpu_ms_samples": [
+        0.114,
+        0.098,
+        0.097,
+        0.097,
+        0.098,
+        0.098,
+        0.097
+      ]
+    },
+    {
+      "kind": "assignment_stress",
+      "n": 128,
+      "edge_checks": 101715,
+      "matrix_bytes": 65536,
+      "cost": -1248994,
+      "cpu_ms_median": 0.472,
+      "cpu_ms_samples": [
+        0.459,
+        0.431,
+        0.503,
+        0.541,
+        0.445,
+        0.472,
+        0.519
+      ]
+    }
+  ]
+}
