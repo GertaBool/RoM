@@ -1,0 +1,2283 @@
+diff --git a/Assets/CvGameCoreDLL/AIMissionTargetIndex.h b/Assets/CvGameCoreDLL/AIMissionTargetIndex.h
+new file mode 100644
+index 0000000..3780dd5
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/AIMissionTargetIndex.h
+@@ -0,0 +1,175 @@
++#ifndef AI_MISSION_TARGET_INDEX_H
++#define AI_MISSION_TARGET_INDEX_H
++
++#include <limits.h>
++#include <vector>
++
++// Exact index for CvPlayerAI::AI_plotTargetMissionAIs.
++//
++// The original query walks every selection group of the player and counts
++// the units of groups whose mission plot lies within a step range of the
++// queried plot. Unit AI calls it inside whole-map scans, which costs
++// O(plots x groups) per scan. This index buckets each group with a mission
++// plot under that plot once, in O(groups); a query then inspects only the
++// (2r+1)^2 plots within its range, or the compact entry list when that is
++// smaller. Results, including the closest matching range, are identical.
++//
++// The caller owns invalidation: rebuild whenever group membership, the set
++// of groups or any mission target may have changed (see the epoch kept by
++// CvSelectionGroup). The index holds no game state and is never saved.
++namespace AIMissionTargetIndex
++{
++	struct Entry
++	{
++		const void* pGroup;
++		int iMissionAI;
++		int iUnits;
++		int iX;
++		int iY;
++		int iNext;
++	};
++
++	class Index
++	{
++	public:
++		Index() : m_iOwner(-1), m_uiEpoch(0), m_iStamp(0) {}
++
++		bool isCurrent(const int iOwner, const unsigned int uiEpoch, const int iNumPlots) const
++		{
++			return m_iOwner == iOwner && m_uiEpoch == uiEpoch && (int)m_aiHead.size() == iNumPlots;
++		}
++
++		void begin(const int iOwner, const unsigned int uiEpoch, const int iNumPlots)
++		{
++			m_iOwner = iOwner;
++			m_uiEpoch = uiEpoch;
++			m_aEntries.clear();
++			if ((int)m_aiHead.size() != iNumPlots || m_iStamp == INT_MAX)
++			{
++				m_aiHead.assign(iNumPlots, -1);
++				m_aiStamp.assign(iNumPlots, 0);
++				m_iStamp = 0;
++			}
++			++m_iStamp;
++		}
++
++		void invalidate()
++		{
++			m_iOwner = -1;
++		}
++
++		void add(const int iPlot, const int iX, const int iY, const int iMissionAI,
++			const int iUnits, const void* pGroup)
++		{
++			Entry kEntry;
++			kEntry.pGroup = pGroup;
++			kEntry.iMissionAI = iMissionAI;
++			kEntry.iUnits = iUnits;
++			kEntry.iX = iX;
++			kEntry.iY = iY;
++			kEntry.iNext = head(iPlot);
++			m_aiStamp[iPlot] = m_iStamp;
++			m_aiHead[iPlot] = (int)m_aEntries.size();
++			m_aEntries.push_back(kEntry);
++		}
++
++		int numEntries() const
++		{
++			return (int)m_aEntries.size();
++		}
++
++		// Map must provide:
++		//   int plotIndex(int iX, int iY, int iDX, int iDY) const  (-1 when off a non-wrapping edge)
++		//   int stepDistance(int iX1, int iY1, int iX2, int iY2) const
++		//   int width() const; int height() const;
++		// eNoMissionAI is the wildcard value (NO_MISSIONAI) that matches every group.
++		template <class Map, class MissionAI>
++		int count(const Map& kMap, const int iX, const int iY, const MissionAI* aeMissionAI,
++			const int iMissionAICount, const MissionAI eNoMissionAI, const void* pSkipGroup,
++			const int iRange, int& iClosestTargetRange) const
++		{
++			iClosestTargetRange = INT_MAX;
++			if (iRange < 0)
++			{
++				return 0;
++			}
++
++			int iCount = 0;
++			const int iSide = 2 * iRange + 1;
++			// Offsets alias on a wrapped axis narrower than the window, and a wide
++			// window can visit more plots than there are entries: scan entries then.
++			if (iSide > kMap.width() || iSide > kMap.height() ||
++				iSide > 46340 || iSide * iSide > (int)m_aEntries.size())
++			{
++				for (int iEntry = 0; iEntry < (int)m_aEntries.size(); ++iEntry)
++				{
++					accumulate(kMap, m_aEntries[iEntry], iX, iY, aeMissionAI, iMissionAICount,
++						eNoMissionAI, pSkipGroup, iRange, iCount, iClosestTargetRange);
++				}
++				return iCount;
++			}
++
++			for (int iDX = -iRange; iDX <= iRange; ++iDX)
++			{
++				for (int iDY = -iRange; iDY <= iRange; ++iDY)
++				{
++					const int iPlot = kMap.plotIndex(iX, iY, iDX, iDY);
++					if (iPlot < 0)
++					{
++						continue;
++					}
++					for (int iEntry = head(iPlot); iEntry != -1; iEntry = m_aEntries[iEntry].iNext)
++					{
++						accumulate(kMap, m_aEntries[iEntry], iX, iY, aeMissionAI, iMissionAICount,
++							eNoMissionAI, pSkipGroup, iRange, iCount, iClosestTargetRange);
++					}
++				}
++			}
++			return iCount;
++		}
++
++	private:
++		int head(const int iPlot) const
++		{
++			return (m_aiStamp[iPlot] == m_iStamp) ? m_aiHead[iPlot] : -1;
++		}
++
++		// Mirrors the original inner loop: a group contributes once for every
++		// requested mission type it matches, and NO_MISSIONAI matches any group.
++		template <class Map, class MissionAI>
++		static void accumulate(const Map& kMap, const Entry& kEntry, const int iX, const int iY,
++			const MissionAI* aeMissionAI, const int iMissionAICount, const MissionAI eNoMissionAI,
++			const void* pSkipGroup, const int iRange, int& iCount, int& iClosestTargetRange)
++		{
++			if (kEntry.pGroup == pSkipGroup)
++			{
++				return;
++			}
++			const int iDistance = kMap.stepDistance(iX, iY, kEntry.iX, kEntry.iY);
++			if (iDistance > iRange)
++			{
++				return;
++			}
++			for (int iIndex = 0; iIndex < iMissionAICount; ++iIndex)
++			{
++				if (kEntry.iMissionAI == (int)aeMissionAI[iIndex] || aeMissionAI[iIndex] == eNoMissionAI)
++				{
++					iCount += kEntry.iUnits;
++					if (iDistance < iClosestTargetRange)
++					{
++						iClosestTargetRange = iDistance;
++					}
++				}
++			}
++		}
++
++		int m_iOwner;
++		unsigned int m_uiEpoch;
++		int m_iStamp;
++		std::vector<int> m_aiHead;
++		std::vector<int> m_aiStamp;
++		std::vector<Entry> m_aEntries;
++	};
++}
++
++#endif
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index c2d0963..d6e6dbb 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -1892,7 +1892,8 @@ void CvCityAI::AI_chooseProduction()
+ 		}
+ 	}
+ 	
+-	if (!bDanger && ((kPlayer.getCurrentEra() > (GC.getGame().getStartEra() + iProductionRank / 2))) || (kPlayer.getCurrentEra() > (GC.getNumEraInfos() / 2)))
++	// The danger guard covers both era tests; cities under threat build defense first.
++	if (!bDanger && ((kPlayer.getCurrentEra() > (GC.getGame().getStartEra() + iProductionRank / 2)) || (kPlayer.getCurrentEra() > (GC.getNumEraInfos() / 2))))
+ 	{
+ 		if (AI_chooseBuilding(BUILDINGFOCUS_PRODUCTION, 20 - iWarTroubleThreshold, 15, ((bLandWar || bAssault) ? 25 : -1)))
+ 		{
+diff --git a/Assets/CvGameCoreDLL/CvDLLWidgetData.cpp b/Assets/CvGameCoreDLL/CvDLLWidgetData.cpp
+index 0e887d2..010a71f 100644
+--- a/Assets/CvGameCoreDLL/CvDLLWidgetData.cpp
++++ b/Assets/CvGameCoreDLL/CvDLLWidgetData.cpp
+@@ -1962,7 +1962,7 @@ void CvDLLWidgetData::parseHurryHelp(CvWidgetDataStruct &widgetDataStruct, CvWSt
+ 						bFirst = false;
+ 					}
+ 					szBuffer.append(NEWLINE);
+-					szBuffer.append(gDLL->getText("TXT_KEY_MISC_HURRY_OVERFLOW", szOverflowBuffer));
++					szBuffer.append(gDLL->getText("TXT_KEY_MISC_HURRY_OVERFLOW", szOverflowBuffer.getCString()));
+ 				}
+ 			}
+ 		}
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 64f0f7a..6f2ce53 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -1402,7 +1402,7 @@ void CvGame::normalizeRemoveBadFeatures()
+ 										}
+ 										else
+ 										{
+-											if (!(iDistance == iMaxRange) && (getSorenRandNum((2 + (pLoopPlot->getBonusType() == NO_BONUS) ? 0 : 2), "Remove Bad Feature") == 0))
++											if (!(iDistance == iMaxRange) && (getSorenRandNum((2 + ((pLoopPlot->getBonusType() == NO_BONUS) ? 0 : 2)), "Remove Bad Feature") == 0))
+ 											{
+ 												pLoopPlot->setFeatureType(NO_FEATURE);                                            
+ 											}
+@@ -7924,7 +7924,7 @@ void CvGame::processVote(const VoteTriggeredData& kData, int iChange)
+ /************************************************************************************************/
+ 					if( gTeamLogLevel >= 1 )
+ 					{
+-						logBBAI("  Vote for assigning %S to %d (%S) passes", pCity->getName(), GET_PLAYER(kData.kVoteOption.eOtherPlayer).getTeam(), GET_PLAYER(kData.kVoteOption.eOtherPlayer).getCivilizationDescription(0) );
++						logBBAI("  Vote for assigning %S to %d (%S) passes", pCity->getName().GetCString(), GET_PLAYER(kData.kVoteOption.eOtherPlayer).getTeam(), GET_PLAYER(kData.kVoteOption.eOtherPlayer).getCivilizationDescription(0) );
+ 					}
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+diff --git a/Assets/CvGameCoreDLL/CvInfos.cpp b/Assets/CvGameCoreDLL/CvInfos.cpp
+index 8530418..ee85ca7 100644
+--- a/Assets/CvGameCoreDLL/CvInfos.cpp
++++ b/Assets/CvGameCoreDLL/CvInfos.cpp
+@@ -5832,11 +5832,11 @@ void CvUnitInfo::write(FDataStreamBase* stream)
+ /*                                                                                              */
+ /* CoreComponent                                                                                */
+ /************************************************************************************************/
+-	stream->Write(&m_bInquisitor);
+-	stream->Write(&m_bCanBeRebel);
+-	stream->Write(&m_bCanRebelCapture);
+-	stream->Write(&m_bCannotDefect);
+-	stream->Write(&m_bCanQuellRebellion);
++	stream->Write(m_bInquisitor);
++	stream->Write(m_bCanBeRebel);
++	stream->Write(m_bCanRebelCapture);
++	stream->Write(m_bCannotDefect);
++	stream->Write(m_bCanQuellRebellion);
+ /************************************************************************************************/
+ /* REVOLUTION_MOD                          END                                                  */
+ /************************************************************************************************/
+@@ -8047,27 +8047,27 @@ void CvCivicInfo::write(FDataStreamBase* stream)
+ /*                                                                                              */
+ /* RevCivic Effects                                                                             */
+ /************************************************************************************************/
+-	stream->Write(&m_bUpgradeAnywhere);
+-	stream->Write(&m_bAllowInquisitions);
+-	stream->Write(&m_bDisallowInquisitions);
+-	stream->Write(&m_iRevIdxLocal);
+-	stream->Write(&m_iRevIdxNational);
+-	stream->Write(&m_iRevIdxDistanceModifier);
+-	stream->Write(&m_iRevIdxHolyCityGood);
+-	stream->Write(&m_iRevIdxHolyCityBad);
+-	stream->Write(&m_iRevIdxSwitchTo);
+-	stream->Write(&m_fRevIdxNationalityMod);
+-	stream->Write(&m_fRevIdxBadReligionMod);
+-	stream->Write(&m_fRevIdxGoodReligionMod);
+-	stream->Write(&m_fRevViolentMod);
+-	stream->Write(&m_iRevReligiousFreedom);
+-	stream->Write(&m_iRevLaborFreedom);
+-	stream->Write(&m_iRevEnvironmentalProtection);
+-	stream->Write(&m_iRevDemocracyLevel);
+-
+-	stream->Write(&m_bCommunism);
+-	stream->Write(&m_bFreeSpeech);
+-	stream->Write(&m_bCanDoElection);
++	stream->Write(m_bUpgradeAnywhere);
++	stream->Write(m_bAllowInquisitions);
++	stream->Write(m_bDisallowInquisitions);
++	stream->Write(m_iRevIdxLocal);
++	stream->Write(m_iRevIdxNational);
++	stream->Write(m_iRevIdxDistanceModifier);
++	stream->Write(m_iRevIdxHolyCityGood);
++	stream->Write(m_iRevIdxHolyCityBad);
++	stream->Write(m_iRevIdxSwitchTo);
++	stream->Write(m_fRevIdxNationalityMod);
++	stream->Write(m_fRevIdxBadReligionMod);
++	stream->Write(m_fRevIdxGoodReligionMod);
++	stream->Write(m_fRevViolentMod);
++	stream->Write(m_iRevReligiousFreedom);
++	stream->Write(m_iRevLaborFreedom);
++	stream->Write(m_iRevEnvironmentalProtection);
++	stream->Write(m_iRevDemocracyLevel);
++
++	stream->Write(m_bCommunism);
++	stream->Write(m_bFreeSpeech);
++	stream->Write(m_bCanDoElection);
+ /************************************************************************************************/
+ /* REVOLUTION_MOD                          END                                                  */
+ /************************************************************************************************/
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index 298e219..f4b2bc3 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -12171,7 +12171,7 @@ void CvPlayer::setTurnActive(bool bNewValue, bool bDoTurn)
+ 				{
+ 					CvWStringBuffer szBuffer;
+ 					GAMETEXT.setScoreHelp(szBuffer, getID());
+-					logBBAI("%S", szBuffer);
++					logBBAI("%S", szBuffer.getCString());
+ 
+ 					int iGameTurn = GC.getGameINLINE().getGameTurn();
+ 					logBBAI("  Total Score: %d, Population Score: %d (%d total pop), Land Score: %d, Tech Score: %d, Wonder Score: %d", calculateScore(), getPopScore(false), getTotalPopulation(), getLandScore(false), getTechScore(), getWondersScore());
+@@ -20798,7 +20798,7 @@ void CvPlayer::applyEvent(EventTypes eEvent, int iEventTriggeredId, bool bUpdate
+ 				{
+ 					if (GET_PLAYER((PlayerTypes)iI).isAlive())
+ 					{
+-						if (GET_PLAYER((PlayerTypes)iI).getTeam() == getID())
++						if (GET_PLAYER((PlayerTypes)iI).getTeam() == getTeam())
+ 						{
+ 							CvWString szBuffer = gDLL->getText("TXT_KEY_MISC_PROGRESS_TOWARDS_TECH", iBeakers, GC.getTechInfo(eBestTech).getTextKeyWide());
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 0227f13..98f916a 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -7,6 +7,7 @@
+ #include "AIFeedbackPolicy.h"
+ #include "AIFlavorPolicy.h"
+ #include "AIHierarchyPolicy.h"
++#include "AIMissionTargetIndex.h"
+ #include "AIProductionChainPolicy.h"
+ #include "AIResearchPolicy.h"
+ #include "AISettlementPolicy.h"
+@@ -12288,15 +12289,16 @@ int CvPlayerAI::AI_executiveValue(CvArea* pArea, CorporationTypes eCorporation,
+ 	
+ 	for (int iCorp = 0; iCorp < GC.getNumCorporationInfos(); iCorp++)
+ 	{
+-		if (kGame.isCompetingCorporation(eCorporation, (CorporationTypes)iCorp))
++		// A corporation competes with itself (shared resources); count rivals once each.
++		if (iCorp != eCorporation && kGame.isCompetingCorporation(eCorporation, (CorporationTypes)iCorp))
+ 		{
+ 			if (NULL == pArea)
+ 			{
+-				iOurCitiesHave += kTeam.getHasCorporationCount(eCorporation);
++				iOurCitiesHave += kTeam.getHasCorporationCount((CorporationTypes)iCorp);
+ 			}
+ 			else
+ 			{
+-				iOurCitiesHave += pArea->countHasCorporation(eCorporation, getID());
++				iOurCitiesHave += pArea->countHasCorporation((CorporationTypes)iCorp, getID());
+ 			}
+ 		}
+ 	}
+@@ -12304,7 +12306,7 @@ int CvPlayerAI::AI_executiveValue(CvArea* pArea, CorporationTypes eCorporation,
+ 	if (iOurCitiesHave >= iOurCitiesCount)
+ 	{
+ 		iSpreadInternalValue = 0;
+-		if (iSpreadExternalValue = 0)
++		if (iSpreadExternalValue == 0)
+ 		{
+ 			return 0;
+ 		}
+@@ -12500,45 +12502,67 @@ int CvPlayerAI::AI_plotTargetMissionAIs(CvPlot* pPlot, MissionAITypes eMissionAI
+ 	return AI_plotTargetMissionAIs(pPlot, &eMissionAI, 1, iClosestTargetRange, pSkipSelectionGroup, iRange);
+ }
+ 
++namespace
++{
++	// Players' units update in turn, so one shared index is nearly always the
++	// one the next query needs; any change to groups or missions invalidates it.
++	AIMissionTargetIndex::Index s_kMissionTargetIndex;
++
++	struct MissionTargetMap
++	{
++		int plotIndex(int iX, int iY, int iDX, int iDY) const
++		{
++			const CvPlot* pPlot = plotXY(iX, iY, iDX, iDY);
++			return (pPlot == NULL) ? -1 : GC.getMapINLINE().plotNumINLINE(pPlot->getX_INLINE(), pPlot->getY_INLINE());
++		}
++		int stepDistance(int iX1, int iY1, int iX2, int iY2) const
++		{
++			return ::stepDistance(iX1, iY1, iX2, iY2);
++		}
++		int width() const
++		{
++			return GC.getMapINLINE().getGridWidthINLINE();
++		}
++		int height() const
++		{
++			return GC.getMapINLINE().getGridHeightINLINE();
++		}
++	};
++}
++
++// Same result as scanning every group, but whole-map unit scans now cost
++// O(plots + groups) instead of O(plots * groups).
+ int CvPlayerAI::AI_plotTargetMissionAIs(CvPlot* pPlot, MissionAITypes* aeMissionAI, int iMissionAICount, int& iClosestTargetRange, CvSelectionGroup* pSkipSelectionGroup, int iRange) const
+ {
+ 	PROFILE_FUNC();
+ 
+-	int iCount = 0;
+ 	iClosestTargetRange = MAX_INT;
++	if (pPlot == NULL)
++	{
++		FAssertMsg(false, "AI_plotTargetMissionAIs requires a plot");
++		return 0;
++	}
+ 
+-	int iLoop;
+-	for(CvSelectionGroup* pLoopSelectionGroup = firstSelectionGroup(&iLoop); pLoopSelectionGroup; pLoopSelectionGroup = nextSelectionGroup(&iLoop))
++	CvMap& kMap = GC.getMapINLINE();
++	const unsigned int uiEpoch = CvSelectionGroup::getMissionTargetsEpoch();
++	if (!s_kMissionTargetIndex.isCurrent(getID(), uiEpoch, kMap.numPlotsINLINE()))
+ 	{
+-		if (pLoopSelectionGroup != pSkipSelectionGroup)
++		s_kMissionTargetIndex.begin(getID(), uiEpoch, kMap.numPlotsINLINE());
++		int iLoop;
++		for (CvSelectionGroup* pLoopSelectionGroup = firstSelectionGroup(&iLoop); pLoopSelectionGroup; pLoopSelectionGroup = nextSelectionGroup(&iLoop))
+ 		{
+ 			CvPlot* pMissionPlot = pLoopSelectionGroup->AI_getMissionAIPlot();
+-
+ 			if (pMissionPlot != NULL)
+ 			{
+-				MissionAITypes eGroupMissionAI = pLoopSelectionGroup->AI_getMissionAIType();
+-				int iDistance = stepDistance(pPlot->getX_INLINE(), pPlot->getY_INLINE(), pMissionPlot->getX_INLINE(), pMissionPlot->getY_INLINE());
+-
+-				if (iDistance <= iRange)
+-				{
+-					for (int iMissionAIIndex = 0; iMissionAIIndex < iMissionAICount; iMissionAIIndex++)
+-					{
+-						if (eGroupMissionAI == aeMissionAI[iMissionAIIndex] || aeMissionAI[iMissionAIIndex] == NO_MISSIONAI)
+-						{
+-							iCount += pLoopSelectionGroup->getNumUnits();
+-
+-							if (iDistance < iClosestTargetRange)
+-							{
+-								iClosestTargetRange = iDistance;
+-							}
+-						}
+-					}
+-				}
++				s_kMissionTargetIndex.add(kMap.plotNumINLINE(pMissionPlot->getX_INLINE(), pMissionPlot->getY_INLINE()),
++					pMissionPlot->getX_INLINE(), pMissionPlot->getY_INLINE(), pLoopSelectionGroup->AI_getMissionAIType(),
++					pLoopSelectionGroup->getNumUnits(), pLoopSelectionGroup);
+ 			}
+ 		}
+ 	}
+ 
+-	return iCount;
++	return s_kMissionTargetIndex.count(MissionTargetMap(), pPlot->getX_INLINE(), pPlot->getY_INLINE(),
++		aeMissionAI, iMissionAICount, NO_MISSIONAI, pSkipSelectionGroup, iRange, iClosestTargetRange);
+ }
+ 
+ /************************************************************************************************/
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+index d293e0c..9074fb3 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+@@ -39,6 +39,21 @@
+ 
+ // Public Functions...
+ 
++namespace
++{
++	unsigned int s_uiMissionTargetsEpoch = 0;
++}
++
++void CvSelectionGroup::noteMissionTargetsChanged()
++{
++	++s_uiMissionTargetsEpoch;
++}
++
++unsigned int CvSelectionGroup::getMissionTargetsEpoch()
++{
++	return s_uiMissionTargetsEpoch;
++}
++
+ CvSelectionGroup::CvSelectionGroup()
+ {
+ 	reset(0, NO_PLAYER, true);
+@@ -68,6 +83,7 @@ void CvSelectionGroup::init(int iID, PlayerTypes eOwner)
+ 
+ void CvSelectionGroup::uninit()
+ {
++	noteMissionTargetsChanged();
+ 	m_units.clear();
+ 
+ 	m_missionQueue.clear();
+@@ -5446,6 +5462,7 @@ bool CvSelectionGroup::addUnit(CvUnit* pUnit, bool bMinimalChange)
+ 			  ((pUnit->AI_groupFirstVal() == pLoopUnit->AI_groupFirstVal()) &&
+ 				 (pUnit->AI_groupSecondVal() > pLoopUnit->AI_groupSecondVal())))
+ 		{
++			noteMissionTargetsChanged();
+ 			m_units.insertBefore(pUnit->getIDInfo(), pUnitNode);
+ 			bAdded = true;
+ 			break;
+@@ -5455,6 +5472,7 @@ bool CvSelectionGroup::addUnit(CvUnit* pUnit, bool bMinimalChange)
+ 
+ 	if (!bAdded)
+ 	{
++		noteMissionTargetsChanged();
+ 		m_units.insertAtEnd(pUnit->getIDInfo());
+ 	}
+ 
+@@ -5524,6 +5542,7 @@ CLLNode<IDInfo>* CvSelectionGroup::deleteUnitNode(CLLNode<IDInfo>* pNode)
+ 		}
+ 	}
+ 
++	noteMissionTargetsChanged();
+ 	pNextUnitNode = m_units.deleteNode(pNode);
+ 
+ 	return pNextUnitNode;
+@@ -6081,6 +6100,7 @@ void CvSelectionGroup::read(FDataStreamBase* pStream)
+ 	pStream->Read((int*)&m_eActivityType);
+ 	pStream->Read((int*)&m_eAutomateType);
+ 
++	noteMissionTargetsChanged();
+ 	m_units.Read(pStream);
+ 	m_missionQueue.Read(pStream);
+ }
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.h b/Assets/CvGameCoreDLL/CvSelectionGroup.h
+index f1078b1..6d7321a 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.h
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.h
+@@ -200,6 +200,11 @@ public:
+ 	bool allMatch(UnitTypes eUnit) const;
+ // BUG - All Units Actions - end
+ 
++	// Invalidates every player's mission-target index (AIMissionTargetIndex.h).
++	// Called whenever group membership, the set of groups or a mission target changes.
++	static void noteMissionTargetsChanged();
++	static unsigned int getMissionTargetsEpoch();
++
+ 	// for serialization
+ 	virtual void read(FDataStreamBase* pStream);
+ 	virtual void write(FDataStreamBase* pStream);
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp b/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
+index 2069aa4..e0b54c0 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
+@@ -55,6 +55,8 @@ void CvSelectionGroupAI::AI_reset()
+ 	m_bGroupAttack = false;
+ 	m_iGroupAttackX = -1;
+ 	m_iGroupAttackY = -1;
++
++	noteMissionTargetsChanged();
+ }
+ 
+ 
+@@ -803,19 +805,17 @@ void CvSelectionGroupAI::AI_setMissionAI(MissionAITypes eNewMissionAI, CvPlot* p
+ {
+ 	//PROFILE_FUNC();
+ 
+-	m_eMissionAIType = eNewMissionAI;
+-
+-	if (pNewPlot != NULL)
++	const int iNewX = (pNewPlot != NULL) ? pNewPlot->getX_INLINE() : INVALID_PLOT_COORD;
++	const int iNewY = (pNewPlot != NULL) ? pNewPlot->getY_INLINE() : INVALID_PLOT_COORD;
++	if (eNewMissionAI != m_eMissionAIType || iNewX != m_iMissionAIX || iNewY != m_iMissionAIY)
+ 	{
+-		m_iMissionAIX = pNewPlot->getX_INLINE();
+-		m_iMissionAIY = pNewPlot->getY_INLINE();
+-	}
+-	else
+-	{
+-		m_iMissionAIX = INVALID_PLOT_COORD;
+-		m_iMissionAIY = INVALID_PLOT_COORD;
++		noteMissionTargetsChanged();
+ 	}
+ 
++	m_eMissionAIType = eNewMissionAI;
++	m_iMissionAIX = iNewX;
++	m_iMissionAIY = iNewY;
++
+ 	if (pNewUnit != NULL)
+ 	{
+ 		m_missionAIUnit = pNewUnit->getIDInfo();
+@@ -964,6 +964,8 @@ void CvSelectionGroupAI::read(FDataStreamBase* pStream)
+ 	pStream->Read(&m_bGroupAttack);
+ 	pStream->Read(&m_iGroupAttackX);
+ 	pStream->Read(&m_iGroupAttackY);
++
++	noteMissionTargetsChanged();
+ }
+ 
+ 
+diff --git a/Assets/CvGameCoreDLL/CvTeamAI.cpp b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+index 1fb763d..3fa4f8e 100644
+--- a/Assets/CvGameCoreDLL/CvTeamAI.cpp
++++ b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+@@ -1744,17 +1744,17 @@ DenialTypes CvTeamAI::AI_techTrade(TechTypes eTech, TeamTypes eTeam) const
+ /*                                                                                              */
+ /*                                                                                              */
+ /************************************************************************************************/
+-    TechTypes eCurrentResearch;
+-    TeamTypes eStrongestTeam = (TeamTypes)0;
++    // The brokering check below concerns the receiving team's own research.
++    // (Previously this read our team's research, and left it uninitialized
++    // whenever team 0 was at least as strong as we are.)
++    bool bReceiverResearching = false;
+     for (iI = 0; iI < MAX_PLAYERS; iI++)
+     {
+-        if (GET_PLAYER((PlayerTypes)iI).getTeam() == getID())
++        const CvPlayer& kLoopPlayer = GET_PLAYER((PlayerTypes)iI);
++        if (kLoopPlayer.isAlive() && kLoopPlayer.getTeam() == eTeam && kLoopPlayer.getCurrentResearch() == eTech)
+         {
+-            if (GET_TEAM((GET_PLAYER((PlayerTypes)iI)).getTeam()).getPower(true) > GET_TEAM(eStrongestTeam).getPower(true))
+-            {
+-                eCurrentResearch = GET_PLAYER((PlayerTypes)iI).getCurrentResearch();
+-                eStrongestTeam = GET_PLAYER((PlayerTypes)iI).getTeam();
+-            }
++            bReceiverResearching = true;
++            break;
+         }
+     }
+     
+@@ -1767,7 +1767,7 @@ DenialTypes CvTeamAI::AI_techTrade(TechTypes eTech, TeamTypes eTeam) const
+         {
+             if (!kTeam.isHuman())
+             {
+-                if ((eTech == eCurrentResearch) || (GC.getGameINLINE().isOption(GAMEOPTION_NO_TECH_DIFFUSION)))
++                if (bReceiverResearching || (GC.getGameINLINE().isOption(GAMEOPTION_NO_TECH_DIFFUSION)))
+                 {
+                     if (2 * kTeam.getResearchProgress(eTech) > kTeam.getResearchCost(eTech))
+                     {
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 8614d1e..e6a05f3 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -13459,7 +13459,7 @@ bool CvUnitAI::AI_lead(std::vector<UnitAITypes>& aeUnitAITypes)
+ 				CvWString szString;
+ 				getUnitAIString(szString, pBestUnit->AI_getUnitAIType());
+ 
+-				logBBAI("      Great general %d for %S chooses to lead %S with UNITAI %S", getID(), GET_PLAYER(getOwner()).getCivilizationDescription(0), pBestUnit->getName(0).GetCString(), szString);
++				logBBAI("      Great general %d for %S chooses to lead %S with UNITAI %S", getID(), GET_PLAYER(getOwner()).getCivilizationDescription(0), pBestUnit->getName(0).GetCString(), szString.GetCString());
+ 			}
+ 			getGroup()->pushMission(MISSION_LEAD, pBestUnit->getID());
+ 			return true;
+@@ -20741,6 +20741,8 @@ bool CvUnitAI::AI_pickupStranded(UnitAITypes eUnitAI, int iMaxPath)
+ 			if( 1000*iCount > iBestValue )
+ 			{
+ 				pPickupPlot = NULL;
++				// Already at the pickup plot: no path query, so no stale turn count.
++				iPathTurns = 0;
+ 				if( atPlot(pLoopPlot) || (AI_plotValid(pLoopPlot) && generatePath(pLoopPlot, 0, true, &iPathTurns)) )
+ 				{
+ 					pPickupPlot = pLoopPlot;
+diff --git a/Assets/CvGameCoreDLL/CyGameTextMgr.cpp b/Assets/CvGameCoreDLL/CyGameTextMgr.cpp
+index 3e13e2b..6e9f003 100644
+--- a/Assets/CvGameCoreDLL/CyGameTextMgr.cpp
++++ b/Assets/CvGameCoreDLL/CyGameTextMgr.cpp
+@@ -15,7 +15,7 @@ m_pGameTextMgr(NULL)
+ }
+ 
+ CyGameTextMgr::CyGameTextMgr(CvGameTextMgr* pGameTextMgr) : 
+-m_pGameTextMgr(m_pGameTextMgr)
++m_pGameTextMgr(pGameTextMgr)
+ {}
+ 
+ void CyGameTextMgr::Reset()
+diff --git a/Assets/Python/RoMGameUtils.py b/Assets/Python/RoMGameUtils.py
+index 0667395..c8f7ce2 100644
+--- a/Assets/Python/RoMGameUtils.py
++++ b/Assets/Python/RoMGameUtils.py
+@@ -224,6 +224,25 @@ class RoMGameUtils:
+ 		self.iRapidPrototyping = gc.getInfoTypeForString("TECH_RAPID_PROTOTYPING")
+ 		self.iReplicators = gc.getInfoTypeForString("BONUS_PERSONAL_REPLICATORS")
+ 
++		# The cost and construction callbacks run for every candidate unit or
++		# building in every city, so resolve their lookups once here.
++		self.iStateReligionCivic = CvUtil.findInfoTypeNum(gc.getCivicInfo,gc.getNumCivicInfos(),'CIVIC_STATE_RELIGION')
++		self.setMissionaries = set(self.aiMissionaryList)
++		self.setCathedrals = set(self.aiCathedralList)
++		self.iDjenneClass = -1
++		if self.iDjenne >= 0:
++			self.iDjenneClass = gc.getBuildingInfo(self.iDjenne).getBuildingClassType()
++		# building -> buildings of the same upgrade line that make it unbuildable
++		self.dSupersededBy = {}
++		for iPair in range(len(self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum)):
++			eObsolete = self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum[iPair]
++			eUpgrade = self.aiBuildingUpgradeLine_Upgrade_InfoTypeNum[iPair]
++			if eObsolete >= 0 and eUpgrade >= 0:
++				if eObsolete not in self.dSupersededBy:
++					self.dSupersededBy[eObsolete] = []
++				if eUpgrade not in self.dSupersededBy[eObsolete]:
++					self.dSupersededBy[eObsolete].append(eUpgrade)
++
+ # Rise of Mankind 2.92 - obsolete code block
+ #	def isVictory(self, argsList):
+ #		eVictory = argsList[0]
+@@ -233,34 +252,27 @@ class RoMGameUtils:
+ #		return True
+ # Rise of Mankind 2.92
+ 
++	def _city_owned_radius_plots(self, pCity):
++		# This city's own workable radius; the old 5x5 square also accepted
++		# corner tiles that belong to a neighbouring city's radius.
++		iTeam = pCity.getTeam()
++		aPlots = []
++		for iIndex in range(gc.getNUM_CITY_PLOTS()):
++			pPlot = pCity.getCityIndexPlot(iIndex)
++			if pPlot is not None and not pPlot.isNone() and pPlot.getTeam() == iTeam:
++				aPlots.append(pPlot)
++		return aPlots
++
+ 	def _city_has_peak_or_hill(self, pCity):
+-		pPlayer = gc.getPlayer(pCity.getOwner())
+-		iPID = pPlayer.getID()
+-		iTID = pPlayer.getTeam()
+-		iX = pCity.getX()
+-		iY = pCity.getY()
+-
+-		for iXLoop in range(iX - 2, iX + 3):
+-			for iYLoop in range(iY - 2, iY + 3):
+-				pPlot = CyMap().plot(iXLoop, iYLoop)
+-				if pPlot.isPlayerCityRadius(iPID) and pPlot.getTeam() == iTID:
+-					if pPlot.isPeak() or pPlot.isHills():
+-						return True
++		for pPlot in self._city_owned_radius_plots(pCity):
++			if pPlot.isPeak() or pPlot.isHills():
++				return True
+ 		return False
+ 
+ 	def _city_has_desert_in_radius(self, pCity):
+-		pPlayer = gc.getPlayer(pCity.getOwner())
+-		iPID = pPlayer.getID()
+-		iTID = pPlayer.getTeam()
+-		iX = pCity.getX()
+-		iY = pCity.getY()
+-
+-		for iXLoop in range(iX - 2, iX + 3):
+-			for iYLoop in range(iY - 2, iY + 3):
+-				pPlot = CyMap().plot(iXLoop, iYLoop)
+-				if pPlot.isPlayerCityRadius(iPID) and pPlot.getTeam() == iTID:
+-					if pPlot.getTerrainType() == self.iTerrainDesert:
+-						return True
++		for pPlot in self._city_owned_radius_plots(pCity):
++			if pPlot.getTerrainType() == self.iTerrainDesert:
++				return True
+ 		return False
+ 
+ 
+@@ -281,14 +293,10 @@ class RoMGameUtils:
+ 		bTestVisible = argsList[3]
+ 		bIgnoreCost = argsList[4]
+ 
+-		# Reverse building upgrade line check
+-		if self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum.count(eBuilding) > 0:
+-			aiBuildingUpgradeLine_Upgrade_InfoTypeNum_Temp = self.aiBuildingUpgradeLine_Upgrade_InfoTypeNum[:]
+-			aiBuildingUpgradeLine_Obsolete_InfoTypeNum_Temp = self.aiBuildingUpgradeLine_Obsolete_InfoTypeNum[:]
+-			while aiBuildingUpgradeLine_Obsolete_InfoTypeNum_Temp.count(eBuilding) > 0:
+-				iBuildingUpgradeLine_Item_Index = aiBuildingUpgradeLine_Obsolete_InfoTypeNum_Temp.index(eBuilding)
+-				aiBuildingUpgradeLine_Obsolete_InfoTypeNum_Temp.remove(eBuilding)
+-				if pCity.getNumRealBuilding(aiBuildingUpgradeLine_Upgrade_InfoTypeNum_Temp.pop(iBuildingUpgradeLine_Item_Index)) > 0:
++		# Reverse building upgrade line check: a built upgrade supersedes this building.
++		if eBuilding in self.dSupersededBy:
++			for eUpgrade in self.dSupersededBy[eBuilding]:
++				if pCity.getNumRealBuilding(eUpgrade) > 0:
+ 					return True
+ 		
+ 		# observatories
+@@ -399,16 +407,8 @@ class RoMGameUtils:
+ 		# start - extra civic modifiers		
+ 
+ 		# if player has State religion civic active, missionaries cost is reduced by 25%
+-		iReligionCivicOption = CvUtil.findInfoTypeNum(gc.getCivicOptionInfo,gc.getNumCivicOptionInfos(),'CIVICOPTION_RELIGION')
+-		iStateRel = CvUtil.findInfoTypeNum(gc.getCivicInfo,gc.getNumCivicInfos(),'CIVIC_STATE_RELIGION')
+-
+-		pUnitInfo = gc.getUnitInfo(iUnit)
+-		pPlayer = gc.getPlayer(iPlayer)
+-
+-		iReligionCivic = pPlayer.getCivics(iReligionCivicOption)
+-
+-		if (iReligionCivic == iStateRel):
+-			if (iUnit in self.aiMissionaryList):
++		if iUnit in self.setMissionaries:
++			if gc.getPlayer(iPlayer).getCivics(self.iReligionCivicOption) == self.iStateReligionCivic:
+ 				return 75	# 75% of normal cost
+ 		
+ 		# if player has Superhuman civic active, reduce cost of clone units by 50%
+@@ -424,19 +424,17 @@ class RoMGameUtils:
+ 	def getBuildingCostMod(self, argsList):
+ 		iPlayer, iCityID, iBuilding = argsList
+ 		pPlayer = gc.getPlayer(iPlayer)
+-		pCity = pPlayer.getCity(iCityID)
+ 		
+ 		iCostMod = -1 # Any value > 0 will be used
+ 		
+-		# Djenne start
+-		pPlayer1 = gc.getPlayer(pCity.plot().getOwner())
+-		obsoleteTech = gc.getBuildingInfo(self.iDjenne).getObsoleteTech()
+-		if ( gc.getTeam(pPlayer1.getTeam()).isHasTech(obsoleteTech) == false or obsoleteTech == -1 ):
+-			for iCity in range(pPlayer1.getNumCities()):
+-				ppCity = pPlayer1.getCity(iCity)
+-				if ppCity.getNumActiveBuilding(self.iDjenne) == true:
+-					if (iBuilding in self.aiCathedralList):
+-						return 50	# 50% of normal cost
++		# Djenne start: cathedrals cost 50% while their owner holds a non-obsolete Djenne.
++		# (Checked per query for every building in every city: test the cheap
++		# conditions first and use the player's building-class count, not a city scan.)
++		if iBuilding in self.setCathedrals and self.iDjenneClass >= 0:
++			if pPlayer.getBuildingClassCount(self.iDjenneClass) > 0:
++				obsoleteTech = gc.getBuildingInfo(self.iDjenne).getObsoleteTech()
++				if obsoleteTech == -1 or not gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech):
++					return 50	# 50% of normal cost
+ 		# Djenne end
+ 
+ 		# start extra civic modifiers
+@@ -464,7 +462,8 @@ class RoMGameUtils:
+ 				return 75
+ 		
+ 		# if player has Corporate active, cost of corporation specific buildings is reduced by 25%
+-		elif (iEconomyCivic == self.iCorporate):
++		# (an independent economy civic: formerly skipped whenever Imperium was the leadership civic)
++		if (iEconomyCivic == self.iCorporate):
+ 			if ( iBuildingClass in self.iCorporateBuildingList):
+ 				return 75
+ 		
+@@ -475,15 +474,13 @@ class RoMGameUtils:
+ 		
+ 		# if player has Feudal and Monarchy civic active, cost of castle is reduced by 50%
+ 		# if only one of those civics is active, cost is reduced by 25%
+-		if (iLeadershipCivic == self.iMonarchy):
+-			if ( iBuildingClass in self.iMonarchyBuildingList):
+-				if (iMilitaryCivic == self.iFortification):
+-					return 50
+-				else: 
+-					return 75
+-					
+-		elif (iLeadershipCivic != self.iMonarchy and iAdminCivic == self.iFortification):
+-			if ( iBuildingClass in self.iMonarchyBuildingList):
++		# (Fortification is a military civic; it was formerly tested as an administration civic.)
++		if ( iBuildingClass in self.iMonarchyBuildingList):
++			bMonarchy = (iLeadershipCivic == self.iMonarchy)
++			bFortification = (iMilitaryCivic == self.iFortification)
++			if bMonarchy and bFortification:
++				return 50
++			if bMonarchy or bFortification:
+ 				return 75
+ 		
+ 		# if player has Barter Works active, cost of certain commerce buildings is reduced by 25%
+@@ -498,22 +495,24 @@ class RoMGameUtils:
+ 	def getUpgradePriceOverride(self, argsList):
+ 		iPlayer, iUnitID, iUnitTypeUpgrade = argsList
+ 
++		# Personal Replicators (with Rapid Prototyping) halve the normal upgrade price.
++		# The normal price mirrors CvUnit::upgradePrice and is halved once. Previously the
++		# AI price was halved four times, Leonardo's modifier and (for humans) the
++		# promotion discount were skipped, and owners without the resource returned None.
+ 		pPlayer = gc.getPlayer(iPlayer)
+-		pUnit = pPlayer.getUnit(iUnitID)
+-
+-		if ( gc.getTeam(pPlayer.getTeam()).isHasTech(self.iRapidPrototyping)):
+-			if pPlayer.hasBonus(self.iReplicators):
+-				iPrice = ((gc.getDefineINT("BASE_UNIT_UPGRADE_COST"))/2)
+-				iPrice += (((max(0, (pPlayer.getUnitProductionNeeded(iUnitTypeUpgrade) - pPlayer.getUnitProductionNeeded(pUnit.getUnitType()))) * gc.getDefineINT("UNIT_UPGRADE_COST_PER_PRODUCTION")))/2)
+-
+-				if ((not pPlayer.isHuman()) and (not pPlayer.isBarbarian())):
+-					pHandicapInfo = gc.getHandicapInfo(gc.getGame().getHandicapType())
+-					iPrice = ((iPrice * pHandicapInfo.getAIUnitUpgradePercent() / 100)/2)
+-					iPrice = ((iPrice * max(0, ((pHandicapInfo.getAIPerEraModifier() * pPlayer.getCurrentEra()) + 100)) / 100)/2)
+-
+-					iPrice = ((iPrice - ((iPrice * pUnit.getUpgradeDiscount()) / 100))/2)
+-		
+-				return iPrice
+-		else:
++		if pPlayer.isBarbarian() or self.iRapidPrototyping < 0 or self.iReplicators < 0:
++			return -1
++		if not gc.getTeam(pPlayer.getTeam()).isHasTech(self.iRapidPrototyping) or not pPlayer.hasBonus(self.iReplicators):
+ 			return -1	# Any value 0 or above will be used
++
++		pUnit = pPlayer.getUnit(iUnitID)
++		iPrice = gc.getDefineINT("BASE_UNIT_UPGRADE_COST")
++		iPrice += max(0, pPlayer.getUnitProductionNeeded(iUnitTypeUpgrade) - pPlayer.getUnitProductionNeeded(pUnit.getUnitType())) * gc.getDefineINT("UNIT_UPGRADE_COST_PER_PRODUCTION")
++		if not pPlayer.isHuman():
++			pHandicapInfo = gc.getHandicapInfo(gc.getGame().getHandicapType())
++			iPrice = iPrice * pHandicapInfo.getAIUnitUpgradePercent() / 100
++			iPrice = iPrice * max(0, (pHandicapInfo.getAIPerEraModifier() * pPlayer.getCurrentEra()) + 100) / 100
++		iPrice = iPrice * (100 + pPlayer.getUnitUpgradePriceModifier()) / 100
++		iPrice -= (iPrice * pUnit.getUpgradeDiscount()) / 100
++		return max(0, iPrice / 2)
+ 			
+diff --git a/Assets/Python/zCivics.py b/Assets/Python/zCivics.py
+index fc6a371..c3f8836 100644
+--- a/Assets/Python/zCivics.py
++++ b/Assets/Python/zCivics.py
+@@ -15,6 +15,7 @@ class zCivics:
+ 		self.civicInfo = dict()
+ 		self.unitInfo = dict()
+ 		self.buildingInfo = dict()
++		self.buildingCivic = None
+ ########################################################################################################
+ ################			Add Your Code Below Here			################
+ ########################################################################################################
+@@ -46,6 +47,8 @@ class zCivics:
+ 			self.civicInfo[szCivic] = ("", bNewValue)
+ 
+ 	def cannotDoCivic(self, iPlayer, iCivic):
++		if not self.civicInfo:
++			return False	# no civic prerequisites or locks are configured
+ 		civicType = gc.getCivicInfo(iCivic).getType()
+ 		if self.civicInfo.has_key(civicType):
+ 			if self.civicInfo[civicType][0] != "":
+@@ -69,8 +72,15 @@ class zCivics:
+ 		return False
+ 
+ 	def cannotConstructBuilding(self, iPlayer, iBuilding):
+-		buildingType = gc.getBuildingInfo(iBuilding).getType()
+-		if self.buildingInfo.has_key(buildingType):
+-			if not gc.getPlayer(iPlayer).isCivic(gc.getInfoTypeForString(self.buildingInfo[buildingType])):
++		# Called for every building query: resolve the configured type names once
++		# (lazily, because XML is not loaded when this module is imported).
++		if self.buildingCivic is None:
++			self.buildingCivic = {}
++			for szBuilding, szCivic in self.buildingInfo.items():
++				eBuilding = gc.getInfoTypeForString(szBuilding)
++				if eBuilding >= 0:
++					self.buildingCivic[eBuilding] = gc.getInfoTypeForString(szCivic)
++		if iBuilding in self.buildingCivic:
++			if not gc.getPlayer(iPlayer).isCivic(self.buildingCivic[iBuilding]):
+ 				return True
+ 		return False
+\ No newline at end of file
+diff --git a/Docs/SETTLER_LANDING_FIX.md b/Docs/SETTLER_LANDING_FIX.md
+new file mode 100644
+index 0000000..631e5c0
+--- /dev/null
++++ b/Docs/SETTLER_LANDING_FIX.md
+@@ -0,0 +1,58 @@
++# Settler landing: complete the handoff to the land party
++
++This fix targets GitLab **`b8c379c1ffad9cd5408ca0e43dca88daf8ba85ee`**, including the user's imports of settlement placement and joint settlement planning. It changes only `CvUnitAI::AI_settlerSeaTransport` at runtime. Apply [patch 0008](https://github.com/GertaBool/RoM/blob/main/fixes/0008-settler-landing.patch) with its [manifest](https://github.com/GertaBool/RoM/blob/main/fixes/landing-manifest.json); do not reapply 0007 to this base.
++
++## What the investigation establishes
++
++The old dispatcher correctly finds an adjacent water approach, but its final action is another **ship** `MISSION_MOVE_TO`, aimed at the land site. That request must pass the carrier's path machinery and then `CvSelectionGroup::groupAmphibMove`, which creates separate passenger movement orders.
++
++Three concrete source problems occur at this boundary:
++
++1. The dispatcher waits for `canCargoAllMove()`, including passengers outside the chosen settler/escort party. Escort selection also overwrites its choice with the last defender, even if that defender cannot move and another can.
++2. Passenger selection groups can contain units outside this hull's manifest. Native `canJoinGroup` checks owner, plot and domain, not transport identity. The generic amphibious code then checks whether the **entire cargo group** can move. An immobile member on another ship can block the selected pair.
++3. `groupAmphibMove` forwards the passenger move without mission-AI arguments. Their default is `NO_MISSIONAI`, so the land party loses the founding destination. Reaching land and preserving the accepted settlement plan are separate requirements.
++
++The new tests reproduce these failures against unmodified `b8c379c`. They execute the real dispatcher, `isAmphibPlot`, `groupAmphibMove` and `groupMove`, with explicit host adapters. These establish faulty source mechanisms consistent with the report; they do **not** identify the exact cause of the user's stalled galley without a matching engine trace.
++
++The earlier voyage fixtures stopped after inspecting the ship's queued mission. They did not execute this handoff, so passing them was insufficient evidence of successful landing. This is a correction to that coverage gap.
++
++## Narrow correction
++
++Once the chosen water approach is reached:
++
++- Prefer a movable defending passenger over an immobile alternative. Preserve the previous last-defender tie order when readiness is equal.
++- Restrict the landing group to the selected settler and escort; unrelated cargo stays aboard its own carrier. Do not restructure a busy party.
++- Wait for that party's readiness. Boarding exhaustion still permits sailing; an exhausted required escort still prevents a partial landing.
++- Validate the party's landing path and issue its move **directly to the land group**, carrying `MISSIONAI_FOUND` and the destination.
++- Use native group movement to enter land and detach cargo. Do not call `unloadAll` on water, teleport units, change movement allowances, or alter global amphibious behavior.
++- Hold the ship while movement is queued. After synchronous execution, reacquire passengers by full native IDs before inspecting them, because movement callbacks can change groups or remove units.
++- If the landing path is rejected, release the failed commitment and request the existing retreat-to-city recovery. When no recovery route exists, remain aboard and expose the blocked state; no movement through illegal terrain is invented.
++
++The flags match native amphibious passenger forwarding: `MOVE_NO_ENEMY_TERRITORY | MOVE_IGNORE_DANGER`. Existing destination validation still requires a foundable site, no visible enemy unit, and entry legality for both passengers. This patch does not introduce a new blanket safety policy or preference for boats over walking.
++
++## Validation and audit boundaries
++
++The registered source suite has **17 passing programs**, including **14 landing cases**. Against clean upstream, **8 of those 14 landing cases fail assertions**; the six controls pass. Tests cover preserved founding intent, extra immobile cargo, foreign group members, required-escort exhaustion, queued movement, busy groups, movement callback removal, path rejection/recovery, invalid destinations, passenger-first holds, departure after boarding, walking preference and stable sea commitments.
++
++Path graphs, scheduling, busy state and per-unit movement effects remain controlled adapters. A simulated callback removes an ID from lookup; it is not execution of the Python event system. No full DLL compilation, host A* replay or autoplay-save replay is claimed.
++
++The clean upstream's existing 16-program suite had four failures before the fix: tests still referenced removed reserve/sea-preference helpers or expected queue double counting. This patch restores their previously tested assertions for the already imported runtime changes. It adds coverage rather than changing runtime economics to satisfy stale tests. The six previously published regression files not imported into GitLab are not silently counted in the 17-program total.
++
++Review passes performed:
++
++| Pass | Evidence / conclusion |
++|---|---|
++| Current-source audit | Refreshed GitLab and reviewed `b8c379c`; no assumption that the user still runs `6222511` |
++| Native handoff audit | Traced movement, cargo readiness, grouping, mission defaults and cargo detachment; avoided changing the shared military amphibious handler |
++| Mutation/recovery audit | Checked busy parties, synchronous/deferred movement, full-ID lookup after callbacks and failed-path recovery |
++| Regression/application audit | C++03 with fatal UBSan, failing upstream controls, current suite, byte-preserving patch application and exact tree comparison |
++
++Runtime work remains local to the selected expedition: the existing cargo scan, constant-size party handling and one explicit adjacent landing-path check. There is no additional whole-map search, new per-turn empire scan, save state or XML change. Native mission execution can query a path again; no measured claim of zero performance regression is made without Windows DLL profiles.
++
++This is the highest-confidence narrow correction supported by this session's source evidence. It is **not** a claim that naval transport has no remaining gaps. Distant pickup, multi-stop voyages, hidden-information strategy and engine-specific scheduling still require their own evidence. The economic planner is also separate from this runtime fix.
++
++## Engine acceptance run
++
++Rebuild the DLL from the manifest's applied tree and record its hash. Resume a save with a settler and escort already off the chosen coast, then repeat with an extra immobile defender and with manually rearranged cargo. Verify actual land positions, cleared transport references, retained founding destination and eventual founding. Also test a blocked destination and a faster walking option.
++
++At unit log level 2, the dispatcher emits `WAIT_LANDING_PARTY`, `LANDING_PATH_BLOCKED`, `LANDING_QUEUED`, `LANDED_PARTY` or `LANDING_PARTY_CHANGED`. A queued order is not reported as a delivered party. Report a remaining stall with these transitions and the rebuilt DLL/source identity.
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index ffdcb7f..220a530 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -1,5 +1,9 @@
+ {
+   "tests": [
++    {
++      "command": ["python3", "Tools/test_settler_landing.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvUnit.*", "Assets/CvGameCoreDLL/AISettlementPolicy.h"]
++    },
+     {
+       "command": ["python3", "Tools/test_review_correctness.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/Python/RoMEventManager.py", "Assets/Python/PyHelpers.py"]
+@@ -63,6 +67,18 @@
+     {
+       "command": ["python3", "Tools/test_victory_conditions.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvTeam.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/XML/GameInfo/CIV4VictoryInfo.xml", "Assets/XML/GameInfo/CIV4ProjectInfo.xml", "Assets/XML/Buildings/CIV4BuildingClassInfos.xml", "Assets/XML/Buildings/CIV4BuildingInfos.xml"]
++    },
++    {
++      "command": ["python3", "Tools/test_static_findings.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvInfos.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvTeamAI.*", "Assets/CvGameCoreDLL/CvPlayer.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvCityAI.*", "Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvDLLWidgetData.*", "Assets/CvGameCoreDLL/CyGameTextMgr.*"]
++    },
++    {
++      "command": ["python3", "Tools/test_mission_target_index.py"],
++      "patterns": ["Assets/CvGameCoreDLL/AIMissionTargetIndex.h", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvSelectionGroupAI.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvGameCoreUtils.h", "Assets/CvGameCoreDLL/CvMap.h"]
++    },
++    {
++      "command": ["python3", "Tools/test_python_callbacks.py"],
++      "patterns": ["Assets/Python/RoMGameUtils.py", "Assets/Python/zCivics.py"]
+     }
+   ]
+ }
+diff --git a/Tools/test_ai_economic_recovery.py b/Tools/test_ai_economic_recovery.py
+index 694c061..31cdb0d 100644
+--- a/Tools/test_ai_economic_recovery.py
++++ b/Tools/test_ai_economic_recovery.py
+@@ -95,5 +95,7 @@ assert "getGoldPerUnit() -" in civic
+ assert "getGoldPerMilitaryUnit() -" in civic
+ assert civic.count("eCurrentCivic = getCivics(") == 1
+ assert "pCurrentCivic->getTradeYieldModifier(iYield)" in civic
+-assert city.count("AI_getNumTrainAIUnits(UNITAI_EXPLORE)") >= 2
++assert "kPlayer.AI_totalAreaUnitAIs(pArea, UNITAI_EXPLORE) < kPlayer.AI_neededExplorers(pArea)" in city
++# The aggregate already includes production; requiring another queue query
++# here previously protected double counting.
+ print("PASS: Masonry package, Mercenaries cost, and explorer-pipeline wiring verified")
+diff --git a/Tools/test_ai_maritime.py b/Tools/test_ai_maritime.py
+index 806c10a..4951e9e 100644
+--- a/Tools/test_ai_maritime.py
++++ b/Tools/test_ai_maritime.py
+@@ -46,13 +46,10 @@ int main() {
+  AIHierarchyPolicy::Intent seaIntent=AIHierarchyPolicy::derive(sea);
+  assert(seaIntent.navalPriority>landIntent.navalPriority);
+  assert(seaIntent.logisticsPriority>landIntent.logisticsPriority);
+- assert(AIHierarchyPolicy::seaSettlementThreshold(seaIntent.navalPriority)<
+-  AIHierarchyPolicy::seaSettlementThreshold(landIntent.navalPriority));
++ assert(AIHierarchyPolicy::transportCapacityDivisor(seaIntent.navalPriority)<
++  AIHierarchyPolicy::transportCapacityDivisor(landIntent.navalPriority));
+  assert(AIHierarchyPolicy::transportCapacityDivisor(seaIntent.navalPriority)<=
+   AIHierarchyPolicy::transportCapacityDivisor(landIntent.navalPriority));
+- assert(AIHierarchyPolicy::preferSeaSettlement(100,100,1000));
+- assert(!AIHierarchyPolicy::preferSeaSettlement(100,100,0));
+- assert(AIHierarchyPolicy::preferSeaSettlement(INT_MAX,INT_MAX,1000));
+  assert(AIHierarchyPolicy::routeAdjustedValue(100,2,1000,1000)>
+   AIHierarchyPolicy::routeAdjustedValue(100,8,1000,1000));
+  assert(AIHierarchyPolicy::routeAdjustedValue(INT_MAX,0,1000,1000)==INT_MAX);
+@@ -94,12 +91,16 @@ delivery=function(p,'int CvPlayerAI::AI_getOperationRoleTarget(')
+ assert 'm_aiOperationDeliveryCache' in delivery
+ assert delivery.index('if (!bCached)') < delivery.index('generatePath(')
+ settle=function(u,'void CvUnitAI::AI_settleMove()')
+-assert 'preferSeaSettlement' in settle
++assert 'preferSeaSettlement' not in settle
++assert 'AI_found()' in settle
++found=function(u,'bool CvUnitAI::AI_found()')
++assert 'AI_getNumSettlementCandidates' in found
++assert 'AI_findSettlementTransport' in found
+ sea_start=u.index('bool CvUnitAI::AI_settlerSeaTransport()')
+ sea_end=u.index('bool CvUnitAI::AI_settlerSeaFerry()',sea_start)
+ sea_transport=u[sea_start:sea_end]
+ assert 'AI_getExpansionHorizon()' in sea_transport
+-assert 'routeAdjustedValue' in sea_transport
++assert 'AISettlementPolicy::deliveryValue' in sea_transport
+ worker=function(u,'void CvUnitAI::AI_workerMove()')
+ assert worker.index('AI_getLogisticsPriority() >= 650') < worker.index('AI_routeTerritory(true)')
+ assert 'transportCapacityDivisor' in c
+@@ -107,6 +108,6 @@ assert 'maintains naval contract' in c
+ agenda=function(p,'void CvPlayerAI::AI_updateAgenda(')
+ assert '!bWarStateChanged' in agenda
+ assert 'm_iAIIntentAtWar = bAtWar ? 1 : 0' in agenda
+-assert c.count('pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_ASSAULT_SEA)')==1
+-assert 'pWaterArea->getNumTrainAIUnits(getOwnerINLINE(), UNITAI_ATTACK_SEA)' in c
++assert 'kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ASSAULT_SEA)' in c
++assert 'kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_ATTACK_SEA)' in c
+ print('PASS: spending, worker export, chosen transport, embarkation, landing and naval bombard contracts')
+diff --git a/Tools/test_mission_target_index.py b/Tools/test_mission_target_index.py
+new file mode 100644
+index 0000000..e252068
+--- /dev/null
++++ b/Tools/test_mission_target_index.py
+@@ -0,0 +1,227 @@
++#!/usr/bin/env python3
++"""Prove the mission-target index returns exactly what the original group scan did.
++
++The production AIMissionTargetIndex.h is compiled in C++03 with UBSan and compared
++with the original AI_plotTargetMissionAIs loop over randomized groups, wrapped and
++bounded maps, ranges (including the aliasing fallback), skipped groups, repeated
++mission types and the NO_MISSIONAI wildcard. Map wrapping and step distance are
++taken verbatim from the production headers. Source contracts then require every
++change to group membership, the group set or a mission target to invalidate it.
++"""
++from pathlib import Path
++import re
++import subprocess
++import tempfile
++from test_ai_decisions import function
++
++ROOT = Path(__file__).resolve().parents[1]
++DLL = ROOT / "Assets" / "CvGameCoreDLL"
++
++
++def inline_function(text, signature):
++    start = text.index(signature)
++    return text[start:text.index("{", start)] + "{" + function(text[start:], signature) + "}"
++
++
++utils = (DLL / "CvGameCoreUtils.h").read_text(errors="replace")
++cvmap = (DLL / "CvMap.h").read_text(errors="replace")
++production_geometry = "\n".join([
++    inline_function(cvmap, "inline int coordRange(int iCoord, int iRange, bool bWrap)"),
++    inline_function(utils, "inline int coordDistance(int iFrom, int iTo, int iRange, bool bWrap)"),
++])
++
++program = r'''
++#include "AIMissionTargetIndex.h"
++#include <cassert>
++#include <climits>
++#include <cstdlib>
++#include <iostream>
++#include <vector>
++
++enum MissionAITypes { NO_MISSIONAI = -1, MISSIONAI_A, MISSIONAI_B, MISSIONAI_C, MISSIONAI_D, MISSIONAI_UNUSED };
++
++GEOMETRY
++
++struct Map
++{
++    int w, h; bool wx, wy;
++    // CvMap::plotINLINE: wrap each axis, reject coordinates off a bounded edge.
++    int plotIndex(int iX, int iY, int iDX, int iDY) const
++    {
++        const int x = coordRange(iX + iDX, w, wx), y = coordRange(iY + iDY, h, wy);
++        return (x >= 0 && x < w && y >= 0 && y < h) ? y * w + x : -1;
++    }
++    int stepDistance(int x1, int y1, int x2, int y2) const
++    {
++        const int dx = coordDistance(x1, x2, w, wx), dy = coordDistance(y1, y2, h, wy);
++        return dx > dy ? dx : dy;
++    }
++    int width() const { return w; }
++    int height() const { return h; }
++};
++
++struct Group { int x, y; bool hasPlot; MissionAITypes mission; int units; };
++
++// The original CvPlayerAI::AI_plotTargetMissionAIs loop, verbatim apart from adapters.
++int original(const Map& m, const std::vector<Group>& groups, int px, int py,
++    const MissionAITypes* aeMissionAI, int iMissionAICount, int& iClosestTargetRange,
++    const Group* pSkipSelectionGroup, int iRange)
++{
++    int iCount = 0;
++    iClosestTargetRange = INT_MAX;
++    for (size_t g = 0; g < groups.size(); ++g)
++    {
++        const Group* pLoopSelectionGroup = &groups[g];
++        if (pLoopSelectionGroup != pSkipSelectionGroup && pLoopSelectionGroup->hasPlot)
++        {
++            const MissionAITypes eGroupMissionAI = pLoopSelectionGroup->mission;
++            const int iDistance = m.stepDistance(px, py, pLoopSelectionGroup->x, pLoopSelectionGroup->y);
++            if (iDistance <= iRange)
++            {
++                for (int iMissionAIIndex = 0; iMissionAIIndex < iMissionAICount; iMissionAIIndex++)
++                {
++                    if (eGroupMissionAI == aeMissionAI[iMissionAIIndex] || aeMissionAI[iMissionAIIndex] == NO_MISSIONAI)
++                    {
++                        iCount += pLoopSelectionGroup->units;
++                        if (iDistance < iClosestTargetRange)
++                            iClosestTargetRange = iDistance;
++                    }
++                }
++            }
++        }
++    }
++    return iCount;
++}
++
++unsigned int seed = 12345u;
++int rnd(int n) { seed = seed * 1103515245u + 12345u; return (int)((seed >> 16) % (unsigned int)n); }
++
++int main()
++{
++    const int sizes[][2] = { {3, 3}, {5, 4}, {9, 7}, {24, 16}, {60, 40} };
++    long queries = 0, indexed = 0, scanned = 0;
++    AIMissionTargetIndex::Index index;
++    unsigned int epoch = 0;
++    for (int s = 0; s < 5; ++s)
++    for (int wrap = 0; wrap < 4; ++wrap)
++    for (int trial = 0; trial < 60; ++trial)
++    {
++        const Map m = { sizes[s][0], sizes[s][1], (wrap & 1) != 0, (wrap & 2) != 0 };
++        std::vector<Group> groups(rnd(40));
++        for (size_t g = 0; g < groups.size(); ++g)
++        {
++            Group& k = groups[g];
++            k.x = rnd(m.w); k.y = rnd(m.h);
++            if (rnd(4) == 0) { k.x = groups[rnd((int)g + 1)].x; k.y = groups[rnd((int)g + 1)].y; }
++            k.hasPlot = rnd(5) != 0;
++            k.mission = (MissionAITypes)(rnd(5) - 1);
++            k.units = rnd(6);
++        }
++        // Rebuild exactly as CvPlayerAI does: one entry per group with a mission plot.
++        ++epoch;
++        assert(!index.isCurrent(1, epoch, m.w * m.h));
++        index.begin(1, epoch, m.w * m.h);
++        for (size_t g = 0; g < groups.size(); ++g)
++            if (groups[g].hasPlot)
++                index.add(groups[g].y * m.w + groups[g].x, groups[g].x, groups[g].y,
++                    groups[g].mission, groups[g].units, &groups[g]);
++        assert(index.isCurrent(1, epoch, m.w * m.h));
++        assert(!index.isCurrent(2, epoch, m.w * m.h));
++        assert(!index.isCurrent(1, epoch + 1, m.w * m.h));
++
++        for (int q = 0; q < 200; ++q)
++        {
++            MissionAITypes missions[4];
++            const int count = 1 + rnd(4);
++            for (int i = 0; i < count; ++i)
++                missions[i] = (MissionAITypes)(rnd(6) - 1);
++            const int ranges[] = { -1, 0, 0, 0, 1, 2, 3, 4, 6, 30 };
++            const int range = ranges[rnd(10)];
++            const Group* skip = groups.empty() || rnd(3) == 0 ? (const Group*)0 : &groups[rnd((int)groups.size())];
++            const int px = rnd(m.w), py = rnd(m.h);
++            int expectedClosest = 0, actualClosest = 0;
++            const int expected = original(m, groups, px, py, missions, count, expectedClosest, skip, range);
++            const int actual = index.count(m, px, py, missions, count, NO_MISSIONAI, skip, range, actualClosest);
++            if (expected != actual || expectedClosest != actualClosest)
++            {
++                std::cerr << "mismatch size " << m.w << "x" << m.h << " wrap " << wrap << " range " << range
++                          << " expected " << expected << "/" << expectedClosest
++                          << " actual " << actual << "/" << actualClosest << "\n";
++                return 1;
++            }
++            const int side = 2 * range + 1;
++            if (range >= 0 && side <= m.w && side <= m.h && side * side <= index.numEntries()) ++indexed; else ++scanned;
++            ++queries;
++        }
++    }
++    // A rebuild of the same size must not expose entries from the previous build.
++    const Map m = { 8, 8, false, false };
++    Group a = { 2, 2, true, MISSIONAI_A, 3 };
++    index.begin(7, ++epoch, 64);
++    index.add(2 * 8 + 2, 2, 2, a.mission, a.units, &a);
++    index.begin(7, ++epoch, 64);
++    MissionAITypes any = NO_MISSIONAI;
++    int closest = 0;
++    assert(index.count(m, 2, 2, &any, 1, NO_MISSIONAI, (const void*)0, 0, closest) == 0);
++    assert(closest == INT_MAX);
++    std::cout << "PASS: " << queries << " queries matched the original scan ("
++              << indexed << " via plot buckets, " << scanned << " via entry scan)\n";
++    return 0;
++}
++'''.replace("GEOMETRY", production_geometry)
++
++with tempfile.TemporaryDirectory() as directory:
++    source = Path(directory) / "mission_index.cpp"
++    binary = Path(directory) / "mission_index"
++    source.write_text(program)
++    subprocess.run([
++        "g++", "-std=c++03", "-Wall", "-Wextra", "-Werror", "-fsanitize=undefined",
++        "-fno-sanitize-recover=all", "-I", str(DLL), str(source), "-o", str(binary),
++    ], check=True)
++    subprocess.run([str(binary)], check=True, timeout=120)
++
++
++def code(text):
++    return re.sub(r"/\*.*?\*/|//[^\n]*", "", text, flags=re.S)
++
++
++group = code((DLL / "CvSelectionGroup.cpp").read_text(errors="replace"))
++group_ai = code((DLL / "CvSelectionGroupAI.cpp").read_text(errors="replace"))
++player_ai = code((DLL / "CvPlayerAI.cpp").read_text(errors="replace"))
++
++# Every membership mutation is immediately preceded by invalidation.
++mutations = re.findall(r"([^;{}]*;)\s*([^;{}]*\bm_units\.(?:insertBefore|insertAtEnd|insertAfter|deleteNode|clear|Read)\([^;]*;)", group)
++assert len(mutations) == 5, mutations
++for before, mutation in mutations:
++    assert before.strip() == "noteMissionTargetsChanged();", (before, mutation)
++assert "uninit();" in function(group, "CvSelectionGroup::~CvSelectionGroup()")
++
++# No other translation unit edits group membership or mission targets directly.
++for path in DLL.glob("*.cpp"):
++    if path.name in ("CvSelectionGroup.cpp", "CvSelectionGroupAI.cpp"):
++        continue
++    text = code(path.read_text(errors="replace"))
++    assert not re.search(r"\bm_units\.(insert|delete|clear|Read)", text) or "CvSelectionGroup" not in path.name, path
++    assert not re.search(r"\bm_(eMissionAIType|iMissionAIX|iMissionAIY)\s*=", text), path
++
++# Mission fields change only where the epoch is bumped.
++for name in ("void CvSelectionGroupAI::AI_reset()", "void CvSelectionGroupAI::read(",
++             "void CvSelectionGroupAI::AI_setMissionAI("):
++    assert "noteMissionTargetsChanged();" in function(group_ai, name), name
++assigners = set()
++for match in re.finditer(r"\bm_(eMissionAIType|iMissionAIX|iMissionAIY)\s*=|Read\(\(int\*\)&m_eMissionAIType\)|Read\(&m_iMissionAI[XY]\)", group_ai):
++    owner = group_ai.rfind("CvSelectionGroupAI::", 0, match.start())
++    assigners.add(group_ai[owner:group_ai.index("(", owner)])
++assert assigners == {"CvSelectionGroupAI::AI_reset", "CvSelectionGroupAI::AI_setMissionAI",
++                     "CvSelectionGroupAI::read"}, assigners
++setter = function(group_ai, "void CvSelectionGroupAI::AI_setMissionAI(")
++assert setter.index("noteMissionTargetsChanged();") < setter.index("m_eMissionAIType = eNewMissionAI;")
++
++# The query rebuilds from the same group data the original loop read.
++query = function(player_ai, "int CvPlayerAI::AI_plotTargetMissionAIs(CvPlot* pPlot, MissionAITypes* aeMissionAI")
++for needle in ("CvSelectionGroup::getMissionTargetsEpoch()", "isCurrent(getID(), uiEpoch",
++               "begin(getID(), uiEpoch", "AI_getMissionAIPlot()", "AI_getMissionAIType()",
++               "getNumUnits()", "s_kMissionTargetIndex.count(", "NO_MISSIONAI, pSkipSelectionGroup, iRange"):
++    assert needle in query, needle
++assert "firstSelectionGroup(&iLoop)" in query
++print("PASS: every membership, group-set and mission-target change invalidates the index")
+diff --git a/Tools/test_operation_supply.py b/Tools/test_operation_supply.py
+index ed365a2..484cbd9 100644
+--- a/Tools/test_operation_supply.py
++++ b/Tools/test_operation_supply.py
+@@ -1,6 +1,8 @@
+ #!/usr/bin/env python3
+ """Field supply, dead-commander memory, and saturating gold reserves."""
+ from pathlib import Path
++import itertools
++import random
+ import subprocess
+ import tempfile
+ import unittest
+@@ -70,7 +72,8 @@ class OperationSupplyTests(unittest.TestCase):
+         )
+         self.assertIn("deficitReserve(", hurry)
+         self.assertNotIn("-calculateGoldRate()", hurry)
+-        self.assertIn("goldAfterReserve(", trade)
++        self.assertIn("goldAfterDeficitReserve(", trade)
++        self.assertNotIn("deficitReserve(", trade)
+         self.assertNotIn("-calculateGoldRate()", trade)
+ 
+     def test_compiled_boundaries(self):
+@@ -85,13 +88,14 @@ int main() {
+     assert(AIDecisionPolicy::deficitReserve(-10, 0) == 0);
+     assert(AIDecisionPolicy::deficitReserve(INT_MIN, 4) == INT_MAX);
+     assert(AIDecisionPolicy::deficitReserve(-2000000000, 3) == INT_MAX);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 120, 100) == 80);
+-    assert(AIDecisionPolicy::goldAfterReserve(100, 120, 100) == 0);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 0, 300) == 200);
+-    assert(AIDecisionPolicy::goldAfterReserve(50, 10, 0) == 50);
+-    assert(AIDecisionPolicy::goldAfterReserve(200, 120, 300) == 0);
+-    assert(AIDecisionPolicy::goldAfterReserve(-5, 120, 100) == -5);
+-    assert(AIDecisionPolicy::goldAfterReserve(100, INT_MAX, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, -10, 12, 100) == 80);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(100, -10, 12, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, 0, 12, 300) == 200);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(50, -10, 12, 0) == 50);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(200, -10, 12, 300) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(-5, -10, 12, 100) == -5);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(100, INT_MIN, 12, 100) == 0);
++    assert(AIDecisionPolicy::goldAfterDeficitReserve(2000000000, -250000000, 12, 50) == 500000000);
+     assert(AIDecisionPolicy::nextLossCareerKey(0) == -1);
+     assert(AIDecisionPolicy::nextLossCareerKey(4) == -1);
+     assert(AIDecisionPolicy::nextLossCareerKey(-1) == -2);
+@@ -116,12 +120,50 @@ int main() {
+             compiled = Path(tmp) / "supply"
+             result = subprocess.run(
+                 ["g++", "-std=c++03", "-Wall", "-Wextra", "-Werror", "-fsanitize=undefined",
++                 "-fno-sanitize-recover=undefined",
+                  "-I" + str(DLL), "-o", str(compiled), str(path)],
+                 capture_output=True, text=True)
+             self.assertEqual(result.returncode, 0, result.stderr)
+             ran = subprocess.run([str(compiled)], capture_output=True, text=True)
+             self.assertEqual(ran.returncode, 0, ran.stderr + ran.stdout)
+ 
++    def test_gold_trade_reserve_matches_integer_oracle(self):
++        low,high=-(2**31),2**31-1
++        cases=list(itertools.product(
++            (low,-5,0,1,50,200,2000000000,high),
++            (low,-250000000,-100,-1,0,1,high),
++            (-1,0,1,3,12,high),(-1,0,1,50,100,300,high)))
++        rng=random.Random(20261011)
++        cases.extend((rng.randrange(1,high+1),-rng.randrange(1,high+2),
++                      rng.choice((1,3,12,10000,high)),rng.choice((1,25,50,100,300,high)))
++                     for _ in range(2000))
++        # Python integers give an independent exact reference, including products
++        # too large for signed 64-bit arithmetic before the final clamp.
++        expected=[gold if gold<=0 or rate>=0 or turns<=0 or percent<=0 else
++                  max(0,gold-((-rate)*turns*percent//100))
++                  for gold,rate,turns,percent in cases]
++        program='''
++#include "AIDecisionPolicy.h"
++#include <iostream>
++int main(){int gold,rate,turns,percent;
++    while(std::cin>>gold>>rate>>turns>>percent)
++        std::cout<<AIDecisionPolicy::goldAfterDeficitReserve(gold,rate,turns,percent)<<"\\n";
++}
++'''
++        with tempfile.TemporaryDirectory() as tmp:
++            path,exe=Path(tmp)/'reserve.cpp',Path(tmp)/'reserve'
++            path.write_text(program)
++            subprocess.run(['g++','-std=c++03','-Wall','-Wextra','-Werror',
++                            '-fsanitize=undefined','-fno-sanitize-recover=undefined',
++                            '-I'+str(DLL),str(path),'-o',str(exe)],check=True)
++            data=''.join(' '.join(map(str,case))+'\n' for case in cases)
++            ran=subprocess.run([str(exe)],input=data,text=True,capture_output=True,check=True)
++            actual=[int(line) for line in ran.stdout.splitlines()]
++        self.assertEqual(len(actual),len(cases))
++        for case,want,got in zip(cases,expected,actual):
++            self.assertEqual(got,want,case)
++        print('Verified %d gold-reserve cases against exact integer arithmetic.'%len(cases))
++
+ 
+ if __name__ == "__main__":
+     unittest.main(verbosity=2)
+diff --git a/Tools/test_python_callbacks.py b/Tools/test_python_callbacks.py
+new file mode 100644
+index 0000000..3636b54
+--- /dev/null
++++ b/Tools/test_python_callbacks.py
+@@ -0,0 +1,331 @@
++#!/usr/bin/env python3
++"""Execute the RoM Python game-utility callbacks against a stubbed game API.
++
++These callbacks run for every candidate unit or building in every city, so the
++tests check both the rules and that a query no longer scales with the number
++of cities. The production module source is executed unchanged except that
++Python 2 semantics are restored (integer ``/`` floors; ``d.has_key(k)``), because
++the game embeds Python 2.4.
++"""
++from pathlib import Path
++import ast
++import random
++import sys
++import types
++import unittest
++
++ROOT = Path(__file__).resolve().parents[1]
++PY = ROOT / "Assets" / "Python"
++
++TYPES = {}
++
++
++def info_type(name):
++    if name not in TYPES:
++        TYPES[name] = len(TYPES)
++    return TYPES[name]
++
++
++class Info:
++    def __init__(self, name, **fields):
++        self.name = name
++        self.fields = fields
++
++    def getType(self):
++        return self.name
++
++    def __getattr__(self, attr):
++        if attr.startswith("get") and attr[3:] in self.fields:
++            return lambda: self.fields[attr[3:]]
++        raise AttributeError(attr)
++
++
++class Plot:
++    def __init__(self, team, terrain="TERRAIN_GRASS", hills=False, peak=False, none=False):
++        self.team, self.terrain, self.hills, self.peak, self.none = team, terrain, hills, peak, none
++
++    def isNone(self): return self.none
++    def getTeam(self): return self.team
++    def isHills(self): return self.hills
++    def isPeak(self): return self.peak
++    def getTerrainType(self): return info_type(self.terrain)
++
++
++class City:
++    def __init__(self, team, buildings=(), plots=None):
++        self.team = team
++        self.buildings = set(buildings)
++        self.plots = plots or [Plot(team) for _ in range(21)]
++
++    def getTeam(self): return self.team
++    def getOwner(self): return 0
++    def plot(self): return types.SimpleNamespace(getOwner=lambda: 0)
++    def getNumActiveBuilding(self, e): return 1 if e in self.buildings else 0
++    def getNumRealBuilding(self, e): return 1 if e in self.buildings else 0
++    def getCityIndexPlot(self, i): return self.plots[i]
++
++
++class Team:
++    def __init__(self):
++        self.techs = set()
++
++    def isHasTech(self, e): return e == -1 or e in self.techs
++
++
++class Unit:
++    def __init__(self, unit_type, discount=0):
++        self.unit_type, self.discount = unit_type, discount
++
++    def getUnitType(self): return self.unit_type
++    def getUpgradeDiscount(self): return self.discount
++
++
++class Player:
++    def __init__(self):
++        self.civics = {}
++        self.class_counts = {}
++        self.cities = []
++        self.city_queries = 0
++        self.bonuses = set()
++        self.human = True
++        self.era = 2
++        self.upgrade_modifier = 0
++        self.units = {}
++        self.production = {}
++
++    def getCivics(self, option): return self.civics.get(option, -1)
++    def isCivic(self, civic): return civic in self.civics.values()
++    def getBuildingClassCount(self, c): return self.class_counts.get(c, 0)
++    def getTeam(self): return 0
++    def getID(self): return 0
++    def getNumCities(self): return len(self.cities)
++    def isHuman(self): return self.human
++    def isBarbarian(self): return False
++    def hasBonus(self, b): return b in self.bonuses
++    def getCurrentEra(self): return self.era
++    def getUnitUpgradePriceModifier(self): return self.upgrade_modifier
++    def getUnit(self, i): return self.units[i]
++    def getUnitProductionNeeded(self, u): return self.production[u]
++
++    def getCity(self, i):
++        self.city_queries += 1
++        return self.cities[i]
++
++
++class Handicap:
++    def getAIUnitUpgradePercent(self): return 80
++    def getAIPerEraModifier(self): return -5
++
++
++class GlobalContext:
++    def __init__(self):
++        self.player = Player()
++        self.team = Team()
++        self.buildings = {}
++        self.defines = {"BASE_UNIT_UPGRADE_COST": 20, "UNIT_UPGRADE_COST_PER_PRODUCTION": 3}
++
++    def getInfoTypeForString(self, s): return info_type(s)
++    def getPlayer(self, i): return self.player
++    def getTeam(self, i): return self.team
++    def getGame(self): return types.SimpleNamespace(isOption=lambda o: False, getHandicapType=lambda: 0)
++    def getHandicapInfo(self, i): return Handicap()
++    def getDefineINT(self, s): return self.defines[s]
++    def getNUM_CITY_PLOTS(self): return 21
++
++    def getBuildingInfo(self, e):
++        if e not in self.buildings:
++            name = next(k for k, v in TYPES.items() if v == e)
++            self.buildings[e] = Info(name, BuildingClassType=info_type(name.replace("BUILDING_", "BUILDINGCLASS_")), ObsoleteTech=-1)
++        return self.buildings[e]
++
++    def getCivicInfo(self, e): return Info(next(k for k, v in TYPES.items() if v == e), CivicOptionType=0)
++    def getUnitInfo(self, e): return Info(next(k for k, v in TYPES.items() if v == e))
++    def getNumBuildingInfos(self): return 0
++    def getNumUnitInfos(self): return 0
++    def getNumCivicInfos(self): return 0
++    def getNumCivicOptionInfos(self): return 0
++    def getCivicOptionInfo(self, e): return None
++
++
++GC = GlobalContext()
++LOOKUPS = {"count": 0}
++
++
++def find_info_type_num(getter, count, name):
++    LOOKUPS["count"] += 1
++    return info_type(name)
++
++
++def stub(name, **attrs):
++    module = types.ModuleType(name)
++    module.__dict__.update(attrs)
++    sys.modules[name] = module
++    return module
++
++
++# The engine's CvPythonExtensions also exports lowercase true/false (vanilla
++# Firaxis scripts rely on them).
++extensions = stub("CvPythonExtensions", CyGlobalContext=lambda: GC,
++                  GameOptionTypes=types.SimpleNamespace(GAMEOPTION_NO_REVOLUTION=0),
++                  true=True, false=False)
++extensions.__all__ = ["CyGlobalContext", "GameOptionTypes", "true", "false"]
++stub("CvUtil", findInfoTypeNum=find_info_type_num)
++for empty in ("CvEventInterface", "Popup", "BugOptions", "BugCore", "RevInstances", "RevDCM", "PlayerUtil"):
++    stub(empty)
++stub("PyHelpers", PyPlayer=None, PyInfo=None, PyCity=None, PyGame=None)
++stub("BugUtil", fixSets=lambda g: None)
++
++
++class Python2Semantics(ast.NodeTransformer):
++    """Integer ``/`` floors and ``d.has_key(k)`` means ``k in d`` in Python 2."""
++
++    def visit_BinOp(self, node):
++        self.generic_visit(node)
++        if isinstance(node.op, ast.Div):
++            node.op = ast.FloorDiv()
++        return node
++
++    def visit_Call(self, node):
++        self.generic_visit(node)
++        if isinstance(node.func, ast.Attribute) and node.func.attr == "has_key" and len(node.args) == 1:
++            return ast.copy_location(ast.Compare(left=node.args[0], ops=[ast.In()], comparators=[node.func.value]), node)
++        return node
++
++
++def load(name):
++    tree = Python2Semantics().visit(ast.parse((PY / (name + ".py")).read_text()))
++    module = types.ModuleType(name)
++    sys.modules[name] = module
++    exec(compile(ast.fix_missing_locations(tree), str(PY / (name + ".py")), "exec"), module.__dict__)
++    return module
++
++
++zCivics = load("zCivics")
++RoM = load("RoMGameUtils")
++UTILS = RoM.RoMGameUtils()
++T = info_type
++
++
++class CallbackTests(unittest.TestCase):
++    def setUp(self):
++        GC.player = Player()
++        GC.player.cities = [City(0)]
++        GC.team = Team()
++        LOOKUPS["count"] = 0
++
++    def civics(self, **chosen):
++        options = {"LEADERSHIP": UTILS.iLeadershipCivicOption, "ADMIN": UTILS.iAdminCivicOption,
++                   "RELIGION": UTILS.iReligionCivicOption, "TAX": UTILS.iTaxCivicOption,
++                   "ECONOMY": UTILS.iEconomyCivicOption, "MILITARY": UTILS.iMilitaryCivicOption}
++        for option, civic in chosen.items():
++            GC.player.civics[options[option]] = T(civic)
++
++    def cost(self, building):
++        return UTILS.getBuildingCostMod((0, 0, T(building)))
++
++    def test_djenne_discount_is_constant_time(self):
++        GC.player.cities = [City(0) for _ in range(39)] + [City(0, [T("BUILDING_DJENNE")])]
++        GC.player.class_counts[T("BUILDINGCLASS_DJENNE")] = 1
++        self.assertEqual(self.cost("BUILDING_CHRISTIAN_CATHEDRAL"), 50)
++        self.assertEqual(self.cost("BUILDING_LIBRARY"), -1)
++        self.assertEqual(GC.player.city_queries, 0)
++        GC.buildings[T("BUILDING_DJENNE")].fields["ObsoleteTech"] = T("TECH_X")
++        GC.team.techs.add(T("TECH_X"))
++        self.assertEqual(self.cost("BUILDING_CHRISTIAN_CATHEDRAL"), -1)
++        GC.player.class_counts.clear()
++        GC.player.cities = [City(0) for _ in range(40)]
++        GC.team.techs.clear()
++        self.assertEqual(self.cost("BUILDING_CHRISTIAN_CATHEDRAL"), -1)
++
++    def test_independent_civic_discounts(self):
++        self.civics(LEADERSHIP="CIVIC_IMPERIUM", ECONOMY="CIVIC_CORPORATE")
++        self.assertEqual(self.cost("BUILDING_SID_SUSHI_RESTAURANT"), 75)
++        self.assertEqual(self.cost("BUILDING_PUBLIC_TRANSPORTATION"), 75)
++        self.civics(LEADERSHIP="CIVIC_HEREDITARY_RULE", MILITARY="CIVIC_FORTIFICATION")
++        self.assertEqual(self.cost("BUILDING_CASTLE"), 50)
++        self.civics(LEADERSHIP="CIVIC_IMPERIUM", MILITARY="CIVIC_FORTIFICATION")
++        self.assertEqual(self.cost("BUILDING_CASTLE"), 75)
++        self.civics(LEADERSHIP="CIVIC_HEREDITARY_RULE", MILITARY="CIVIC_NONE")
++        self.assertEqual(self.cost("BUILDING_CASTLE"), 75)
++        self.civics(LEADERSHIP="CIVIC_IMPERIUM", MILITARY="CIVIC_NONE", ECONOMY="CIVIC_BARTER")
++        self.assertEqual(self.cost("BUILDING_CASTLE"), -1)
++        self.assertEqual(self.cost("BUILDING_MARKET"), 75)
++
++    def test_missionary_cost_uses_cached_lookups(self):
++        self.civics(RELIGION="CIVIC_STATE_RELIGION")
++        self.assertEqual(UTILS.getUnitCostMod((0, T("UNIT_CHRISTIAN_MISSIONARY"))), 75)
++        self.assertEqual(UTILS.getUnitCostMod((0, T("UNIT_WARRIOR"))), -1)
++        self.civics(RELIGION="CIVIC_FOLKLORE")
++        self.assertEqual(UTILS.getUnitCostMod((0, T("UNIT_CHRISTIAN_MISSIONARY"))), -1)
++        self.assertEqual(LOOKUPS["count"], 0)
++
++    def test_upgrade_line_matches_original_algorithm(self):
++        upgrades = UTILS.aiBuildingUpgradeLine_Upgrade_InfoTypeNum
++        obsolete = UTILS.aiBuildingUpgradeLine_Obsolete_InfoTypeNum
++
++        def original(city, building):
++            up, old = upgrades[:], obsolete[:]
++            while old.count(building) > 0:
++                index = old.index(building)
++                old.remove(building)
++                if city.getNumRealBuilding(up.pop(index)) > 0:
++                    return True
++            return False
++
++        rng = random.Random(9)
++        candidates = sorted(set(upgrades) | set(obsolete))
++        for _ in range(400):
++            city = City(0, rng.sample(candidates, rng.randint(0, 6)))
++            for building in candidates:
++                expected = original(city, building)
++                actual = bool(UTILS.dSupersededBy.get(building)) and any(
++                    city.getNumRealBuilding(u) > 0 for u in UTILS.dSupersededBy[building])
++                self.assertEqual(expected, actual, building)
++
++    def test_observatory_requires_hill_in_own_radius(self):
++        plots = [Plot(0) for _ in range(21)]
++        city = City(0, plots=plots)
++        self.assertFalse(UTILS._city_has_peak_or_hill(city))
++        plots[20] = Plot(1, hills=True)
++        self.assertFalse(UTILS._city_has_peak_or_hill(city))
++        plots[19] = Plot(0, none=True, hills=True)
++        self.assertFalse(UTILS._city_has_peak_or_hill(city))
++        plots[5] = Plot(0, peak=True)
++        self.assertTrue(UTILS._city_has_peak_or_hill(city))
++        plots[6] = Plot(0, terrain="TERRAIN_DESERT")
++        self.assertTrue(UTILS._city_has_desert_in_radius(city))
++
++    def test_replicator_upgrade_price_halves_the_normal_price_once(self):
++        player = GC.player
++        player.units[1] = Unit(T("UNIT_OLD"), discount=10)
++        player.production = {T("UNIT_OLD"): 100, T("UNIT_NEW"): 160}
++        args = (0, 1, T("UNIT_NEW"))
++        self.assertEqual(UTILS.getUpgradePriceOverride(args), -1)
++        GC.team.techs.add(T("TECH_RAPID_PROTOTYPING"))
++        self.assertEqual(UTILS.getUpgradePriceOverride(args), -1)
++        player.bonuses.add(T("BONUS_PERSONAL_REPLICATORS"))
++        player.upgrade_modifier = -20
++
++        def normal(human):
++            price = 20 + 60 * 3
++            if not human:
++                price = price * 80 // 100
++                price = price * (100 - 5 * 2) // 100
++            price = price * (100 - 20) // 100
++            return price - price * 10 // 100
++
++        self.assertEqual(UTILS.getUpgradePriceOverride(args), normal(True) // 2)
++        player.human = False
++        self.assertEqual(UTILS.getUpgradePriceOverride(args), normal(False) // 2)
++
++    def test_zcivics_lookups(self):
++        civics = zCivics.zCivics()
++        self.assertFalse(civics.cannotDoCivic(0, T("CIVIC_SLAVERY")))
++        self.assertTrue(civics.cannotConstructBuilding(0, T("BUILDING_SLAVE_MARKET")))
++        GC.player.civics[0] = T("CIVIC_SLAVERY")
++        self.assertFalse(civics.cannotConstructBuilding(0, T("BUILDING_SLAVE_MARKET")))
++        self.assertFalse(civics.cannotConstructBuilding(0, T("BUILDING_LIBRARY")))
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)
+diff --git a/Tools/test_review_correctness.py b/Tools/test_review_correctness.py
+index 65fb228..54da72a 100644
+--- a/Tools/test_review_correctness.py
++++ b/Tools/test_review_correctness.py
+@@ -223,7 +223,7 @@ int main(){State a,b;ASSIGN
+  a.m_iAIAgenda=AI_AGENDA_EXPAND_LAND;a.m_iAINavalPriority=900;
+  Stream decision;a.save(&decision);b.load(&decision,6);
+  assert(a.select()==AI_AGENDA_EXPAND_LAND);assert(b.select()==a.select());
+- assert(AIHierarchyPolicy::preferSeaSettlement(100,100,b.m_iAINavalPriority));
++ assert(AIHierarchyPolicy::transportCapacityDivisor(b.m_iAINavalPriority)==4);
+ }
+ '''.replace('DECLS', declarations).replace('RESET', reset).replace('WRITE', write_extension)
+             .replace('READ', read_extension).replace('ASSIGN', assignments).replace('EQUAL', equality)
+@@ -252,7 +252,7 @@ class PythonTests(unittest.TestCase):
+         a=self.source.index('\t\tself.asBuildingUpgradeLine_Upgrade_Name =')
+         b=self.source.index('\t\tself.iBUILDING_CRUSADE =',a)
+         exec(textwrap.dedent(self.source[a:b]), {'self':self.manager})
+-        for name in ('_rebuildBuildingUpgradeLines','onLoadGame','onGameStart','onBeginPlayerTurn'):
++        for name in ('_rebuildBuildingUpgradeLines','_initializeGameData','onLoadGame','onGameStart','onBeginPlayerTurn'):
+             if '\tdef '+name+'(' in self.source:
+                 exec(python_method(self.source,name),self.ns)
+                 setattr(self.manager,name,types.MethodType(self.ns[name],self.manager))
+@@ -281,7 +281,35 @@ class PythonTests(unittest.TestCase):
+         self.assertEqual(self.manager.aiBuildingUpgradeLine_Upgrade_InfoTypeNum,old_up)
+         self.assertEqual(self.manager.aiBuildingUpgradeLine_Obsolete_InfoTypeNum,old_ob)
+ 
+-    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False):
++    def test_load_and_start_preserve_profiler_and_lookup_order(self):
++        events=[]
++        self.manager.augustusAIProfiler=types.SimpleNamespace(
++            initialize=lambda fresh:events.append(('augustus',fresh)))
++        self.manager.settlementTrainingProfiler=types.SimpleNamespace(
++            initialize=lambda fresh:events.append(('settlement',fresh)))
++        def upgrade_lookup(_f,_n,name):
++            events.append(('upgrade',name))
++            return self.lookup(name)
++        def type_lookup(name):
++            events.append(('type',name))
++            return self.lookup(name)
++        self.ns['CvUtil'].findInfoTypeNum=upgrade_lookup
++        self.gc.getInfoTypeForString=type_lookup
++        expected_types=['BUILDING_CRUSADE','BUILDING_DJENNE','BUILDING_WORLD_BANK',
++            'TECH_KNOWLEDGE_MANAGEMENT','TECH_APPLIED_ECONOMICS','TECH_SENTIENT_EARTH',
++            'PROJECT_EDEN','UNIT_CRUSADER','BUILDING_NANITE_DEFUSER','TECH_FUNDAMENTALISM']
++        previous=None
++        for event,fresh in (('onLoadGame',False),('onGameStart',True),('onLoadGame',False)):
++            events[:]=[]
++            getattr(self.manager,event)(())
++            self.assertEqual(events[:2],[('augustus',fresh),('settlement',fresh)])
++            self.assertEqual([kind for kind,_ in events[2:168]],['upgrade']*166)
++            self.assertEqual(events[168:],[('type',name) for name in expected_types])
++            if previous is not None:self.assertEqual(events[2:],previous)
++            previous=events[2:]
++
++    def turn_fixture(self, cities, obsolete=-1, has_obsolete=False, crusade=False,
++                     turn=4, estimated_end=300):
+         self.manager.onLoadGame(())
+         bank=self.manager.iBUILDING_WORLD_BANK;church=self.manager.iBUILDING_CRUSADE
+         owned={}
+@@ -310,10 +338,10 @@ class PythonTests(unittest.TestCase):
+         exec(python_method(helper,'getCityList'),helper_ns)
+         wrapper=types.SimpleNamespace(player=player,getID=lambda:0)
+         wrapper.getCityList=types.MethodType(helper_ns['getCityList'],wrapper)
+-        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:300),
++        self.ns.update(PyPlayer=lambda _:wrapper,CyGame=lambda:types.SimpleNamespace(getEstimateEndTurn=lambda:estimated_end),
+                        UnitAITypes=types.SimpleNamespace(UNITAI_ATTACK_CITY=1),
+                        DirectionTypes=types.SimpleNamespace(NO_DIRECTION=-1))
+-        self.manager.onBeginPlayerTurn((4,0))
++        self.manager.onBeginPlayerTurn((turn,0))
+         return gold[0],spawn
+ 
+     def test_sparse_city_receives_bank_interest(self):
+@@ -332,6 +360,18 @@ class PythonTests(unittest.TestCase):
+         self.assertEqual(len(spawn),1)
+         self.assertEqual(spawn[0][1:3],(2,9))
+ 
++    def test_crusade_cadence_at_game_length_boundaries(self):
++        for end,interval in ((0,4),(299,4),(300,4),(499,4),(500,6),(699,6),
++                             (700,8),(999,8),(1000,12),(1399,12),(1400,14),
++                             (1799,14),(1800,16),(4000,16)):
++            for turn in (0,interval-1,interval,interval+1,2*interval):
++                with self.subTest(estimated_end=end,turn=turn):
++                    gold,spawn=self.turn_fixture([(0,True),(2,True)],crusade=True,
++                                                 turn=turn,estimated_end=end)
++                    self.assertEqual(gold,1000)
++                    expected=[] if turn in (interval-1,interval+1) else [(0,9),(2,9)]
++                    self.assertEqual([unit[1:3] for unit in spawn],expected)
++
+ 
+ if __name__=='__main__':
+     unittest.main(argv=[__file__]+remaining,verbosity=2)
+diff --git a/Tools/test_settler_landing.py b/Tools/test_settler_landing.py
+new file mode 100644
+index 0000000..757dbb4
+--- /dev/null
++++ b/Tools/test_settler_landing.py
+@@ -0,0 +1,305 @@
++#!/usr/bin/env python3
++"""Execute civilian dispatch plus native amphibious forwarding and group movement.
++
++Path graphs, scheduling and per-unit movement side effects are explicit adapters;
++this is not a full engine replay. Unlike earlier dispatch tests, cargo is moved.
++"""
++import unittest
++from test_review_correctness import DLL, remaining, block, compile_run
++
++HOST = r'''
++#include <cassert>
++#include <climits>
++#include <cstddef>
++#include <vector>
++#include <algorithm>
++#include "AISettlementPolicy.h"
++using std::size_t;
++const int MAX_INT=INT_MAX;
++const int NO_PLAYER=-1;typedef unsigned int uint;
++const int MOVE_IGNORE_DANGER=16;
++int stepDistance(int x,int y,int a,int b){return std::max(abs(x-a),abs(y-b));}
++#include <cstdlib>
++enum {NO_MISSIONAI,MISSIONAI_FOUND,MISSIONAI_LOAD_SETTLER,MISSIONAI_PICKUP,MISSIONAI_ASSAULT,MISSIONAI_GUARD_CITY};
++enum {UNITAI_SETTLE,UNITAI_WORKER,UNITAI_ATTACK,UNITAI_CITY_DEFENSE,UNITAI_SETTLER_SEA,UNITAI_ASSAULT_SEA};
++enum {DOMAIN_LAND,DOMAIN_SEA,MISSION_MOVE_TO,MISSION_SKIP,MOVE_NO_ENEMY_TERRITORY,MOVE_SAFE_TERRITORY,NUM_DIRECTION_TYPES=2};
++typedef int MissionAITypes;typedef int DirectionTypes;
++struct CvUnit;struct CvPlot;struct CvSelectionGroup;
++typedef CvUnit* IDInfo;
++template<class T>struct CLLNode {T m_data;CLLNode* next;};
++struct CvPlot {int x,owner,found,landTurns,seaTurns;bool city,water,enemy,coastal,legal,enter;CvPlot* approach[2];
++ CLLNode<IDInfo>* head;
++ CvPlot():x(0),owner(0),found(100),landTurns(-1),seaTurns(-1),city(false),water(false),enemy(false),
++ coastal(false),legal(true),enter(true),head(NULL){approach[0]=approach[1]=NULL;}
++ bool isCity()const{return city;}bool isWater()const{return water;}bool isCoastalLand()const{return coastal;}
++ bool isVisibleEnemyUnit(CvUnit*){return enemy;}int getOwnerINLINE(){return owner;}
++ int getX_INLINE(){return x;}int getY_INLINE(){return 0;}int getFoundValue(int){return found;}bool isFriendlyCity(const CvUnit&,bool)const{return city;}bool isEnemyCity(const CvUnit&){return false;}
++ CLLNode<IDInfo>* headUnitNode(){return head;}CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* n){return n->next;}};
++CvPlot* plots[64];bool landingPathAvailable=true;
++CvPlot* plotDirection(int x,int,int d){return plots[x]->approach[d];}
++struct CvSelectionGroup {int job,mission,count,clears;CvPlot* target;CvUnit* unit;bool movable,busy;CLLNode<IDInfo>* head;
++ CvSelectionGroup():job(NO_MISSIONAI),mission(-1),count(1),clears(0),target(NULL),unit(NULL),movable(true),busy(false),head(NULL){}
++ CLLNode<IDInfo>* headUnitNode(){return head;}CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* n){return n->next;}
++ int AI_getMissionAIType(){return job;}CvPlot* AI_getMissionAIPlot(){return target;}
++ CvUnit* AI_getMissionAIUnit(){return unit;}int getNumUnits();
++ CvUnit* getHeadUnit()const;int getOwnerINLINE(){return 0;}int getDomainType()const;int getX();int getY(){return 0;}
++ bool canMoveAllTerrain()const{return false;}bool groupDeclareWar(CvPlot*){return false;}bool isHuman(){return false;}
++ bool isLastPathPlotRevealed(){return true;}bool at(int x,int y){return getX()==x&&getY()==y;}
++ bool isAmphibPlot(const CvPlot*)const;bool groupAmphibMove(CvPlot*,int);void groupMove(CvPlot*,bool,CvUnit*,bool);
++ bool canAllMove();bool isBusy(){return busy;}
++
++ void clearMissionQueue(){++clears;mission=-1;}
++ void AI_setMissionAI(int j,CvPlot* p,CvUnit* u){job=j;target=p;unit=u;}
++ void pushMission(int m,int x=-1,int y=-1,int flags=0,bool=false,bool=false,int j=NO_MISSIONAI,CvPlot* p=NULL);
++};
++CvSelectionGroup detachedGroups[64];int nextGroup=0;
++std::vector<CvUnit*> units;
++struct CvUnit {CvPlot* position;CvSelectionGroup group;CvSelectionGroup* activeGroup;
++ CvUnit* transport;CvPlot* lastPath;int role,domain,capacity,owner,unloads;bool defense,movable;
++ CvUnit():position(NULL),activeGroup(&group),transport(NULL),lastPath(NULL),role(UNITAI_ATTACK),domain(DOMAIN_LAND),
++ capacity(4),owner(0),unloads(0),defense(false),movable(true){units.push_back(this);}
++ IDInfo getIDInfo(){return this;}bool canMove(){return movable;}bool isNoCapture(){return false;}bool canMoveOrAttackInto(CvPlot* p){return canMoveInto(p);}
++ int domainCargo(){return DOMAIN_LAND;}int getCargo(){std::vector<CvUnit*> v;getCargoUnits(v);return v.size();}
++ void move(CvPlot* p,bool){assert(canMove()&&canMoveInto(p));position=p;transport=NULL;movable=false;}
++ void ExecuteMove(float,bool){}
++ CvPlot* plot(){return position;}int getOwnerINLINE(){return owner;}int getID(){return 1;}
++ void AI_setUnitAIType(int r){role=r;}int AI_getUnitAIType(){return role;}int getDomainType(){return domain;}
++ bool canDefend(){return defense;}bool canFound(CvPlot* p){return p->legal;}
++ bool canMoveInto(CvPlot* p){return p->enter;}
++ CvSelectionGroup* getGroup(){return activeGroup;}
++ bool isCargo(){return transport!=NULL;}CvUnit* getTransportUnit(){return transport;}
++ bool atPlot(CvPlot* p){return position==p;}
++ void getCargoUnits(std::vector<CvUnit*>& out){out.clear();for(size_t i=0;i<units.size();++i)if(units[i]->transport==this)out.push_back(units[i]);}
++ int getUnitAICargo(int r){int n=0;for(size_t i=0;i<units.size();++i)if(units[i]->transport==this&&units[i]->role==r)++n;return n;}
++ bool isFull(){std::vector<CvUnit*> c;getCargoUnits(c);return int(c.size())>=capacity;}
++ bool canLoadUnit(CvUnit* ship,CvPlot* p){return position==p&&ship->position==p&&!ship->isFull();}
++ void setTransportUnit(CvUnit* ship){transport=ship;movable=false;activeGroup=&group;}
++ void joinGroup(CvSelectionGroup* g,bool=false){assert(nextGroup<64);activeGroup=g?g:&detachedGroups[nextGroup++];}
++ void unloadAll(){++unloads;for(size_t i=0;i<units.size();++i)if(units[i]->transport==this)units[i]->transport=NULL;}
++ bool canCargoAllMove(){for(size_t i=0;i<units.size();++i)if(units[i]->transport==this&&!units[i]->movable)return false;return true;}
++ bool generatePath(CvPlot* p,int,bool,int* turns){*turns=domain==DOMAIN_SEA?p->seaTurns:(isCargo()&&position==p->approach[0]?(p->enter&&landingPathAvailable?1:-1):p->landTurns);lastPath=p;return *turns>=0;}
++ CvPlot* getPathEndTurnPlot(){return lastPath;}
++};
++CvUnit* removedUnit=NULL;CvUnit* removeOnLanding=NULL;
++CvUnit* getUnit(IDInfo id){return id==removedUnit?NULL:id;}
++struct CvPlayerAI {int horizon;std::vector<CvPlot*> sites;std::vector<CvSelectionGroup*> groups;
++ CvPlayerAI():horizon(20){}int AI_getExpansionHorizon(){return horizon;}int AI_getLogisticsPriority(){return 500;}
++ int AI_getNumSettlementCandidates(){return sites.size();}
++ CvPlot* AI_getSettlementCandidate(int i,int& value){value=sites[i]->found;return sites[i];}
++ int AI_plotTargetMissionAIs(CvPlot*,int,CvSelectionGroup*,int){return 0;}
++ CvSelectionGroup* firstSelectionGroup(int* i){*i=0;return groups.empty()?NULL:groups[0];}
++ CvSelectionGroup* nextSelectionGroup(int* i){++*i;return size_t(*i)<groups.size()?groups[*i]:NULL;}
++} player;
++struct MissionInfo {int getTime(){return 0;}};struct Globals {int getMIN_CITY_RANGE(){return 1;}MissionInfo getMissionInfo(int){return MissionInfo();}} GC;
++struct DLL {int getMillisecsPerTurn(){return 0;}} dll;DLL* gDLL=&dll;
++#define FAssert(x) assert(x)
++#define FAssertMsg(x,msg) assert(x)
++#define GET_PLAYER(x) player
++#define PROFILE_FUNC() ((void)0)
++void logBBAI(const char*,...){}
++int gUnitLogLevel=0;
++struct CvUnitAI: CvUnit {int pickups,retreats;CvUnitAI():pickups(0),retreats(0){domain=DOMAIN_SEA;role=UNITAI_SETTLER_SEA;}
++ void AI_clearSettlerSeaLoads();
++ bool AI_settlerSeaPath(CvPlot*,CvPlot*&,int&);bool AI_settlerSeaTransport();
++ bool AI_retreatToCity(){++retreats;return false;}bool AI_pickup(int){++pickups;return false;}
++};
++struct Fixture {CvPlot port,site,approach;CvUnitAI boat,donor;CvUnit settler,escort;
++ CvSelectionGroup incoming;CLLNode<IDInfo> escortNode;
++ Fixture(){player=CvPlayerAI();units.clear();units.push_back(&boat);units.push_back(&donor);units.push_back(&settler);units.push_back(&escort);
++ port.city=true;site.x=10;approach.x=11;site.coastal=true;approach.water=true;approach.seaTurns=2;
++ site.approach[0]=&approach;plots[10]=&site;plots[11]=&approach;
++ boat.position=donor.position=settler.position=escort.position=&port;
++ settler.role=UNITAI_SETTLE;settler.transport=&boat;escort.defense=true;escort.transport=&donor;
++ escortNode.m_data=&escort;escortNode.next=NULL;port.head=&escortNode;
++ incoming.job=MISSIONAI_LOAD_SETTLER;incoming.unit=&boat;
++ player.sites.push_back(&site);player.groups.push_back(&incoming);}
++};
++
++CvUnit* CvSelectionGroup::getHeadUnit()const{for(size_t i=0;i<units.size();++i)if(units[i]->getGroup()==this)return units[i];return NULL;}
++int CvSelectionGroup::getDomainType()const{return getHeadUnit()->getDomainType();}
++int CvSelectionGroup::getNumUnits(){int n=0;for(size_t i=0;i<units.size();++i)if(units[i]->getGroup()==this)++n;return n;}
++int CvSelectionGroup::getX(){return getHeadUnit()->plot()->getX_INLINE();}
++bool CvSelectionGroup::canAllMove(){for(size_t i=0;i<units.size();++i)if(units[i]->getGroup()==this&&!units[i]->canMove())return false;return getNumUnits()>0;}
++// Refresh linked group membership before running the actual groupMove/Amphib methods.
++CLLNode<IDInfo> nodePool[128];int nextNode=0;
++void linkGroup(CvSelectionGroup* group){
++ CLLNode<IDInfo>* tail=NULL;group->head=NULL;
++ for(size_t i=0;i<units.size();++i)if(units[i]->getGroup()==group){
++  assert(nextNode<128);CLLNode<IDInfo>* n=&nodePool[nextNode++];n->m_data=units[i];n->next=NULL;
++  if(tail)tail->next=n;else group->head=n;tail=n;
++ }
++}
++bool deferLanding=false;
++void CvSelectionGroup::pushMission(int m,int x,int,int flags,bool,bool,int j,CvPlot* p){
++ if(isBusy())return;
++ mission=m;job=j;target=p;
++ if(m!=MISSION_MOVE_TO)return;
++ CvPlot* destination=plots[x];linkGroup(this);
++ if(getDomainType()==DOMAIN_SEA){
++  if(destination->isCoastalLand())groupAmphibMove(destination,flags);
++ }else if(!deferLanding && landingPathAvailable && canAllMove()){groupMove(destination,false,NULL,true);removedUnit=removeOnLanding;}
++}
++void atCoast(Fixture& f){
++ nextNode=0;f.escort.transport=&f.boat;
++ f.boat.position=f.settler.position=f.escort.position=&f.approach;
++ f.boat.group.job=MISSIONAI_FOUND;f.boat.group.target=&f.site;
++}
++'''
++
++def program():
++    unit=(DLL/'CvUnitAI.cpp').read_text()
++    group=(DLL/'CvSelectionGroup.cpp').read_text()
++    return HOST+'\n'+'\n'.join([
++        block(unit,'void CvUnitAI::AI_clearSettlerSeaLoads()'),
++        block(unit,'bool CvUnitAI::AI_settlerSeaPath('),
++        block(unit,'bool CvUnitAI::AI_settlerSeaTransport()'),
++        block(group,'bool CvSelectionGroup::isAmphibPlot('),
++        block(group,'bool CvSelectionGroup::groupAmphibMove('),
++        block(group,'void CvSelectionGroup::groupMove(')])
++
++class LandingTests(unittest.TestCase):
++    def test_landing_preserves_found_job(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(!f.settler.isCargo()&&!f.escort.isCargo());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(f.settler.getGroup()==f.escort.getGroup());
++ assert(f.settler.getGroup()->AI_getMissionAIType()==MISSIONAI_FOUND);
++ assert(f.settler.getGroup()->AI_getMissionAIPlot()==&f.site);
++ assert(f.boat.atPlot(&f.approach));
++}
++''')
++
++    def test_unrelated_immobile_cargo_cannot_veto_party(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);CvUnit spare;
++ spare.position=&f.approach;spare.transport=&f.boat;spare.movable=false;spare.defense=true;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(spare.transport==&f.boat&&spare.atPlot(&f.approach));
++}
++''')
++
++    def test_foreign_group_members_do_not_join_the_landing(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);CvUnit outsider;
++ outsider.position=&f.approach;outsider.transport=&f.donor;outsider.movable=false;
++ outsider.joinGroup(f.settler.getGroup());
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(outsider.transport==&f.donor&&outsider.atPlot(&f.approach));
++}
++''')
++
++    def test_wait_for_actual_escort_then_land(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);f.escort.movable=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ assert(f.boat.group.job==MISSIONAI_FOUND&&f.boat.group.target==&f.site);
++ f.escort.movable=true;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(!f.settler.isCargo()&&!f.escort.isCargo());
++}
++''')
++
++    def test_queued_landing_keeps_both_commitments(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);deferLanding=true;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ assert(f.settler.getGroup()->job==MISSIONAI_FOUND&&f.settler.getGroup()->target==&f.site);
++ assert(f.boat.group.job==MISSIONAI_FOUND&&f.boat.group.target==&f.site);
++}
++''')
++
++    def test_invalid_site_does_not_unload_offshore(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);f.site.legal=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo()&&f.boat.unloads==0);
++}
++''')
++
++    def test_blocked_landing_releases_commitment_and_requests_recovery(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);landingPathAvailable=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ assert(f.boat.retreats==1&&f.boat.group.job==NO_MISSIONAI);
++}
++''')
++
++    def test_busy_party_is_not_overwritten(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);f.escort.joinGroup(f.settler.getGroup());
++ f.settler.getGroup()->busy=true;f.settler.getGroup()->mission=99;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ assert(f.settler.getGroup()->mission==99);
++ assert(f.boat.group.job==MISSIONAI_FOUND);
++}
++''')
++
++    def test_movement_callback_removes_passenger(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);removeOnLanding=&f.escort;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(getUnit(f.escort.getIDInfo())==NULL);
++ assert(f.boat.group.job==NO_MISSIONAI);
++}
++''')
++
++    def test_passenger_hold_does_not_prevent_landing(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);
++ f.settler.getGroup()->pushMission(MISSION_SKIP);f.escort.getGroup()->pushMission(MISSION_SKIP);
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(f.settler.getGroup()->job==MISSIONAI_FOUND);
++}
++''')
++
++    def test_boarding_moves_do_not_delay_sailing(self):
++        compile_run(program()+r'''
++int main(){Fixture f;f.escort.transport=&f.boat;f.settler.movable=f.escort.movable=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.boat.group.mission==MISSION_MOVE_TO&&f.boat.group.target==&f.site);
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++}
++''')
++
++    def test_faster_walk_remains_available(self):
++        compile_run(program()+r'''
++int main(){Fixture f;f.escort.transport=&f.boat;
++ f.site.x=1;plots[1]=&f.site;f.site.landTurns=1;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.boat.unloads==1&&f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++ assert(f.settler.getGroup()->job==MISSIONAI_FOUND);
++}
++''')
++
++    def test_valid_sea_commitment_is_not_rescored(self):
++        compile_run(program()+r'''
++int main(){Fixture f;f.escort.transport=&f.boat;f.site.landTurns=1;
++ f.boat.group.job=MISSIONAI_FOUND;f.boat.group.target=&f.site;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.boat.unloads==0&&f.boat.group.mission==MISSION_MOVE_TO);
++}
++''')
++
++    def test_busy_separate_escort_is_not_regrouped(self):
++        compile_run(program()+r'''
++int main(){Fixture f;atCoast(f);CvSelectionGroup* original=f.escort.getGroup();
++ original->busy=true;original->mission=99;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.escort.getGroup()==original&&original->mission==99);
++ assert(f.settler.isCargo()&&f.escort.isCargo());
++ original->busy=false;
++ assert(f.boat.AI_settlerSeaTransport());
++ assert(f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site));
++}
++''')
++
++if __name__=='__main__':unittest.main(argv=[__file__]+remaining,verbosity=2)
+diff --git a/Tools/test_static_findings.py b/Tools/test_static_findings.py
+new file mode 100644
+index 0000000..07cec82
+--- /dev/null
++++ b/Tools/test_static_findings.py
+@@ -0,0 +1,127 @@
++#!/usr/bin/env python3
++"""Regression checks for defects found by compiling the whole DLL with clang
++diagnostics and the clang static analyzer.
++
++Each check targets the defective construct itself: serialized info streams must
++be symmetric, conditions must test rather than assign, enum comparisons must use
++the same kind of ID, variadic logging must receive C strings, and values must be
++initialized on every path that reads them.
++"""
++from pathlib import Path
++import re
++import subprocess
++import tempfile
++import unittest
++from test_ai_decisions import function
++
++ROOT = Path(__file__).resolve().parents[1]
++DLL = ROOT / "Assets" / "CvGameCoreDLL"
++
++
++def src(name):
++    return (DLL / name).read_text(errors="replace")
++
++
++def code(text):
++    return re.sub(r"/\*.*?\*/|//[^\n]*", "", text, flags=re.S)
++
++
++def stream_fields(body, operation):
++    fields = []
++    for match in re.finditer(r"stream->%s\((.*?)\);" % operation, body):
++        fields.append(re.sub(r"\s+", "", match.group(1)).lstrip("&"))
++    return fields
++
++
++class StaticFindingTests(unittest.TestCase):
++    def test_info_streams_write_values_and_match_reads(self):
++        infos = code(src("CvInfos.cpp"))
++        self.assertNotRegex(infos, r"stream->Write\(\s*&", "a pointer converts to bool true")
++        for cls in ("CvUnitInfo", "CvCivicInfo", "CvBuildingInfo"):
++            read = stream_fields(function(infos, "void %s::read(FDataStreamBase* stream)" % cls), "Read")
++            write = stream_fields(function(infos, "void %s::write(FDataStreamBase* stream)" % cls), "Write")
++            revolution = [f for f in read if re.match(r"m_[a-z]+(Rev|Inquisit|CanBeRebel|CanRebel|CannotDefect|CanQuell|UpgradeAnywhere|AllowInq|DisallowInq|Communism|FreeSpeech|CanDoElection)", f)]
++            self.assertTrue(revolution or cls == "CvBuildingInfo", cls)
++            for field in revolution:
++                self.assertIn(field, write, (cls, field))
++            positions = [write.index(f) for f in revolution]
++            self.assertEqual(positions, sorted(positions), cls)
++            self.assertEqual(len(read), len(write), cls)
++
++    def test_executive_value_tests_external_value_and_counts_rivals(self):
++        body = code(function(src("CvPlayerAI.cpp"), "int CvPlayerAI::AI_executiveValue("))
++        self.assertIn("if (iSpreadExternalValue == 0)", body)
++        self.assertNotRegex(body, r"if \(\s*iSpreadExternalValue\s*=\s*0\s*\)")
++        loop = body[body.index("for (int iCorp"):body.index("if (iOurCitiesHave >= iOurCitiesCount)")]
++        self.assertIn("iCorp != eCorporation", loop)
++        self.assertIn("getHasCorporationCount((CorporationTypes)iCorp)", loop)
++        self.assertIn("countHasCorporation((CorporationTypes)iCorp, getID())", loop)
++        self.assertNotIn("(eCorporation", loop.replace("isCompetingCorporation(eCorporation", ""))
++
++    def test_tech_brokering_reads_receiver_research(self):
++        body = code(function(src("CvTeamAI.cpp"), "DenialTypes CvTeamAI::AI_techTrade("))
++        self.assertNotIn("eCurrentResearch", body)
++        prelude = body[:body.index("GAMEOPTION_NO_TECH_BROKERING")]
++        self.assertIn("kLoopPlayer.getTeam() == eTeam", prelude)
++        self.assertIn("kLoopPlayer.getCurrentResearch() == eTech", prelude)
++        self.assertIn("if (bReceiverResearching ||", body)
++
++    def test_event_tech_progress_message_selects_team_members(self):
++        body = code(function(src("CvPlayer.cpp"), "void CvPlayer::applyEvent("))
++        block = body[body.index("changeResearchProgressPercent"):body.index("TXT_KEY_MISC_PROGRESS_TOWARDS_TECH")]
++        self.assertIn("getTeam() == getTeam()", block)
++        self.assertNotIn("getTeam() == getID()", block)
++
++    def test_pickup_path_turns_initialized_before_optional_path_query(self):
++        body = code(function(src("CvUnitAI.cpp"), "bool CvUnitAI::AI_pickupStranded("))
++        reset = body.index("iPathTurns = 0;")
++        check = body.index("if( atPlot(pLoopPlot) ||")
++        self.assertLess(reset, check)
++        self.assertLess(body.rfind("pPickupPlot = NULL;", 0, check), reset)
++
++    def test_danger_guard_covers_both_era_tests(self):
++        body = code(src("CvCityAI.cpp"))
++        self.assertIn("if (!bDanger && ((kPlayer.getCurrentEra() > (GC.getGame().getStartEra() + iProductionRank / 2)) || "
++                      "(kPlayer.getCurrentEra() > (GC.getNumEraInfos() / 2))))", body)
++
++    def test_bad_feature_removal_uses_intended_odds(self):
++        game = src("CvGame.cpp")
++        line = next(l for l in game.splitlines() if '"Remove Bad Feature"' in l and "getBonusType" in l)
++        expression = re.search(r"getSorenRandNum\((.*), \"Remove Bad Feature\"\)", line).group(1)
++        program = r'''
++#include <cassert>
++enum { NO_BONUS = -1 };
++struct Plot { int bonus; int getBonusType() const { return bonus; } };
++int main()
++{
++    Plot plain = { NO_BONUS }, resource = { 3 };
++    const Plot* pLoopPlot = &plain;
++    assert((EXPR) == 2);
++    pLoopPlot = &resource;
++    assert((EXPR) == 4);
++}
++'''.replace("EXPR", expression)
++        with tempfile.TemporaryDirectory() as directory:
++            source = Path(directory) / "odds.cpp"
++            binary = Path(directory) / "odds"
++            source.write_text(program)
++            subprocess.run(["g++", "-std=c++03", "-Wall", "-Wextra", "-Werror", "-fsanitize=undefined",
++                            "-fno-sanitize-recover=all", str(source), "-o", str(binary)], check=True)
++            subprocess.run([str(binary)], check=True)
++
++    def test_variadic_text_receives_c_strings(self):
++        checks = {
++            "CvUnitAI.cpp": "pBestUnit->getName(0).GetCString(), szString.GetCString());",
++            "CvGame.cpp": "pCity->getName().GetCString(),",
++            "CvPlayer.cpp": 'logBBAI("%S", szBuffer.getCString());',
++            "CvDLLWidgetData.cpp": '"TXT_KEY_MISC_HURRY_OVERFLOW", szOverflowBuffer.getCString()',
++        }
++        for name, needle in checks.items():
++            self.assertIn(needle, src(name), name)
++
++    def test_python_text_manager_keeps_supplied_pointer(self):
++        self.assertIn("m_pGameTextMgr(pGameTextMgr)", src("CyGameTextMgr.cpp"))
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)

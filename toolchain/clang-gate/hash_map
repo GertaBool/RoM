@@ -1,0 +1,9 @@
+#pragma once
+#include <ext/hash_map>
+#include <string>
+namespace __gnu_cxx {
+template<> struct hash<std::string> { size_t operator()(const std::string& s) const { return __stl_hash_string(s.c_str()); } };
+template<> struct hash<std::wstring> { size_t operator()(const std::wstring& s) const { size_t h = 0; for (size_t i = 0; i < s.size(); ++i) h = 5*h + s[i]; return h; } };
+}
+namespace stdext { using __gnu_cxx::hash_map; using __gnu_cxx::hash; }
+namespace std { using __gnu_cxx::hash_map; }
