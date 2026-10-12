@@ -2,7 +2,7 @@
 
 Source corrections are now available in [the tested patch](../fixes/README.md). Keep its behavior and source identity separate from the original baseline below; in particular, its version-6 saves preserve agenda history. Compatibility scenarios must declare which revision they target.
 
-The [latest source cleanup](../fixes/README.md#current-source-cleanup) is based on GitLab `5e6d035`, including its newer supply/career fixes. It preserves save format 6 and consolidates event initialization and Crusade spawning; use its manifest when targeting that source rather than the historical baseline below.
+The [earlier source cleanup](../fixes/README.md#current-source-cleanup) is based on GitLab `5e6d035`, including its newer supply/career fixes. It preserves save format 6 and consolidates event initialization and Crusade spawning; use its manifest when targeting that source rather than the historical baseline below.
 
 The [algorithm study](../research/algorithms/README.md) maps exact optimization, bounded search and offline learning to these simulation milestones, with complexity analysis and reproducible C++03 experiments.
 
@@ -14,12 +14,25 @@ transport expedition, followed by workboat and civic economic comparisons. It
 includes current-source defects, tested corrections, trace fields and scenario
 acceptance criteria. Those source-contract tests do not constitute a game replay.
 
-The [settler voyage dispatcher](../research/transport/README.md) is the latest
+The [settler voyage dispatcher](../research/transport/README.md) is an
 implemented native slice, based on GitLab `19e4d59`. Its
 [scenario backlog](../research/transport/scenarios.json) covers port update order,
 boarding/sailing/landing, route invalidation, pickup timeout and idle-fleet demand.
 Six new source-fragment tests cover opening and dispatch behavior; host A* and
 engine mission execution are still separate validation work.
+
+The [settlement placement review](../research/settlement/README.md) specifies a
+population-constrained development rollout and compatible city portfolio search.
+It also records seven tested corrections and the remaining candidate-pruning,
+overlap, resource-center and maintenance problems. Reuse the existing settlement
+profiler and controlled pairwise-training workflow for engine comparisons.
+
+The [transport entry correction](../research/transport-entry/README.md) targets
+GitLab `6222511`, confirmed as the user's rebuilt DLL source. New fixtures cover
+manual boarding and passenger/ship update order, including assault-role carriers
+and mission preservation through group replacement. Success means completing a
+worthwhile settlement plan; either walking or sailing can be correct. These
+adapters do not establish engine-level transport competence.
 
 Status: **specification, validated interchange examples, and source probes; no game simulator yet.** Source target: `1ab4f99a76adb530f86b278390ab8139ef41cc96`. The bundled DLL is older. Read the [behavior guide](../docs/review/AI_AND_GAME_LOGIC.md), [game-flow model](../docs/review/GAMEFLOW_MODEL.md) and [new findings](../docs/review/DEEP_FINDINGS.md) together.
 

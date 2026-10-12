@@ -2,10 +2,13 @@
 
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
 
-The latest fixes target GitLab revision `19e4d59e0a8fc5dc138de5108d8e921e95d28ba1`, which incorporates the earlier runtime cleanup and autoplay fixes. The new patch adds opening development and coordinated settler voyages, and restores the accompanying regression tests. The historical assessments retain their original source identity.
+The latest fixes target GitLab revision `6222511c1a81649445fa69e8ca6dca79cf60c975`, which incorporates the previous opening and voyage runtime changes. The new patch corrects settlement scoring and transport entry after manual boarding, and restores accompanying regression tests. The historical assessments retain their original source identity.
 
+- [Transport entry: loaded passengers, ship roles and autoplay update order](research/transport-entry/README.md)
+- [Settlement placement: scoring defects, architectural criticism and a development-plan optimizer](research/settlement/README.md)
+- [Latest source patch: settlement and transport entry; 21 passing programs](fixes/README.md#settlement-placement)
 - [Settler transport: root causes, voyage dispatcher, opening development and engine test scenarios](research/transport/README.md)
-- [Current-source patch for GitLab 19e4d59: 19 passing regression programs](fixes/README.md#opening-development-and-settler-voyages)
+- [Previous opening/voyage patch for GitLab 19e4d59: 19 passing regression programs](fixes/README.md#opening-development-and-settler-voyages)
 - [Carthage autoplay: worker/cargo defects, production accounting, civic tradeoffs and coordinated simulation](research/autoplay/README.md)
 - [Historical autoplay patch: fixes plus cleanup, 17 passing regression programs](fixes/README.md#carthage-autoplay-coordination)
 - [Current source cleanup: 291 fewer runtime lines, reserve correction, 16 passing regression programs](fixes/README.md#current-source-cleanup)
@@ -22,7 +25,7 @@ The latest fixes target GitLab revision `19e4d59e0a8fc5dc138de5108d8e921e95d28ba
 - [Interactive source explorer](docs/review/explorer.html) — download the HTML and open it in a browser; GitHub's file view displays its source.
 - [Regression output](docs/review/regression.log) and [reproduced findings](docs/review/audit-findings.json)
 
-The reviewed revision contains 252 Python files, 956 XML files and 277 native source/header files. The review combines whole-tree structural analysis with focused behavioral inspection. The original regression baseline had 12 passing programs and 2 failing programs; the first correctness patch passed all 15 programs. The current upstream and cleanup revisions pass 16 programs; the autoplay fixes pass 17, and the current opening/transport changes pass 19. The BTS executable and a complete headless simulator were not run.
+The reviewed revision contains 252 Python files, 956 XML files and 277 native source/header files. The review combines whole-tree structural analysis with focused behavioral inspection. The original regression baseline had 12 passing programs and 2 failing programs; the first correctness patch passed all 15 programs. The current upstream and cleanup revisions pass 16 programs; the autoplay fixes pass 17, and the opening/transport changes pass 19 and the settlement changes pass 20. The BTS executable and a complete headless simulator were not run.
 
 **The bundled DLL is older than the source**, as confirmed by the repository owner. These reports assess the pinned source. In-game comparisons require a rebuilt DLL with recorded source/build provenance; the existing binary is not an oracle for the reviewed code. See [the provenance record](docs/review/source-binary-provenance.json).
 

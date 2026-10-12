@@ -1,0 +1,51 @@
+{
+  "scope": "Illustrative production-stage counterexamples, not whole-city scores or save observations",
+  "examples": [
+    {
+      "id": "third_resource",
+      "before_subtotal": 3000,
+      "new_resource_contribution": 100,
+      "old_stage_result": 2583,
+      "corrected_stage_result": 3100
+    },
+    {
+      "id": "compact_city",
+      "nearest_city_distance": 2,
+      "input_subtotal": 3000,
+      "old_fixed_spacing_result": -1000,
+      "corrected_fixed_spacing_result": 3000,
+      "minimum_city_range_xml": 1
+    },
+    {
+      "id": "core_distance",
+      "nearest_city_distance": 3,
+      "max_existing_capital_distance": 10,
+      "candidate_capital_distances": [
+        5,
+        13
+      ],
+      "old_bonus_percent": [
+        135,
+        135
+      ],
+      "corrected_bonus_percent": [
+        125,
+        100
+      ]
+    },
+    {
+      "id": "queued_settlers",
+      "active": 0,
+      "queued": 2,
+      "old_portfolio_size": 5,
+      "corrected_portfolio_size": 3
+    },
+    {
+      "id": "coastal_fish",
+      "synthetic_nature_food": 3,
+      "xml_fishing_boat_bonus_food": 3,
+      "old_resource_branch_food": 0,
+      "corrected_resource_branch_food": 6
+    }
+  ]
+}

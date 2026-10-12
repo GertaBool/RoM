@@ -1,0 +1,7 @@
+{
+  "tile_scoring": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L2276",
+  "portfolio": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlayerAI.cpp#L23740",
+  "founding_controller": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvUnitAI.cpp#L1281",
+  "native_founding": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvCity.cpp#L156",
+  "resource_connection": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/blob/6222511c1a81649445fa69e8ca6dca79cf60c975/Assets/CvGameCoreDLL/CvPlot.cpp#L1096"
+}

@@ -1,0 +1,12 @@
+Validation against clean GitLab 6222511c1a81649445fa69e8ca6dca79cf60c975
+Patch checksum, base files and indexed application check passed; no files changed.
+
+Applied and staged the source fixes; every changed file matches the tested content.
+Run python3 Tools/run_regression_suite.py in the source checkout.
+This applies source changes only; it does not rebuild the DLL.
+
+Applied tree equals tested source tree: ab05213f1efa8ff4b5fc32d5e56e0f10ed5ae1a9
+Repeated application correctly refused staged changes.
+usage: apply.py [-h] [--manifest MANIFEST] [--check] source
+apply.py: error: Use a clean checkout; preserve or commit existing work first
+

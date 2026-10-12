@@ -1,5 +1,49 @@
 # Tested source fixes
 
+## Settlement placement
+
+[0006-settlement-placement.patch](0006-settlement-placement.patch) targets clean
+GitLab **`6222511c1a81649445fa69e8ca6dca79cf60c975`**. That base already contains
+patch 0005's runtime changes. Apply 0006 directly to this clean base; the patch
+also restores regression tests and documentation omitted from the upstream import.
+
+The [transport entry investigation](../research/transport-entry/README.md) addresses
+loaded parties bypassing the voyage controller after manual boarding or autoplay
+changes. Passengers defer to their carrier; loaded ships enter civilian transport
+control regardless of their previous role; destinations survive role changes.
+Walking remains an eligible choice. The objective is competent settlement delivery,
+not more boat use. Land decisions now log their destination and route scores.
+
+The [settlement assessment](../research/settlement/README.md) traces the placement
+pipeline and criticizes static scoring, premature pruning and missing development
+plans. Corrections cover omitted sea-resource/base-improvement value, whole-city
+resource-count penalties, duplicate close-spacing penalties, capital distance,
+settler-demand counting and an opportunistic founding shortcut.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/settlement-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/settlement-manifest.json
+```
+
+The helper verifies the base/hashes and applies **and stages** the changes.
+Run `python3 Tools/run_regression_suite.py` from that source checkout and rebuild
+the DLL. Save layout and XML rules are unchanged.
+
+**21 regression programs pass.** Seven settlement checks and two transport-entry
+checks were added. Against base `6222511`, five settlement checks fail native
+assertions and one fails the founding-path contract; the XML control already
+passes. See [before](settlement-before.log), [after](settlement-regression.log),
+[manifest](settlement-manifest.json) and [patch verification](settlement-patch-validation.log).
+Clean application reproduces tested source commit `9b140263c46e9545a6226595ce2fde561c845e38`.
+
+These are executed C++03 fragments and source/XML contracts, not a DLL build or
+BTS replay. The transport fixtures cover manual boarding, update order and role
+changes using explicit host adapters. Full engine scheduling, distant pickup,
+retry limits and transport demand remain unresolved. The settlement report's
+population-constrained rollout optimizer is proposed, not implemented.
+These runtime commits have not been pushed to GitLab.
+
+
 ## Opening development and settler voyages
 
 [0005-opening-settler-voyages.patch](0005-opening-settler-voyages.patch) targets
