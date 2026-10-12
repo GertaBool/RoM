@@ -43,7 +43,7 @@
     },
     "host": "wine-9.0 (Ubuntu 9.0~repack-4build3) with a 32-bit prefix on Ubuntu 24.04",
     "recipe": "toolchain/build_dll.sh: the repository's GNUmakefile, TARGET=release (/O2 /Oy /Oi /G7 /DNDEBUG /DFINAL_RELEASE /MD /GR /Gy /EHsc; link /LARGEADDRESSAWARE /OPT:REF /OPT:ICF); no _MOD_* switches, matching the shipped DLL",
-    "reproducibility": "Not byte-reproducible: the PE header and debug directory carry build timestamps. Compare exports and behaviour, not hashes, across builds.",
+    "reproducibility": "Not byte-reproducible: the PE header and the export directory carry build timestamps (4 bytes). Compare exports and section contents, not file hashes, across builds.",
     "errors": 0,
     "warnings": 0
   },

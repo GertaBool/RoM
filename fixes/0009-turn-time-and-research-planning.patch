@@ -229,7 +229,7 @@ index 64f0f7a..6f2ce53 100644
  /************************************************************************************************/
  /* BETTER_BTS_AI_MOD                       END                                                  */
 diff --git a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
-index e9b9489..e6eb29f 100644
+index e9b9489..5fa1f75 100644
 --- a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
 +++ b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
 @@ -21,6 +21,7 @@
@@ -240,6 +240,17 @@ index e9b9489..e6eb29f 100644
  #include "CvGameAI.h"
  #include "CvSelectionGroup.h"
  #include "CvMap.h"
+@@ -4059,8 +4060,8 @@ It is fine for a human player mouse-over (which is what it is used for).
+ void createTestFontString(CvWStringBuffer& szString)
+ {
+ 	int iI;
+-	szString.assign(L"!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[×]^_`abcdefghijklmnopqrstuvwxyz\n");
+-	szString.append(L"{}~\\ßÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŸßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ¿¡«»°ŠŒŽšœž™©®€£¢”‘“…’");
++	szString.assign(L"!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\327]^_`abcdefghijklmnopqrstuvwxyz\n");
++	szString.append(L"{}~\\\337\300\301\302\303\304\305\306\307\310\311\312\313\314\315\316\317\320\321\322\323\324\325\326\330\331\332\333\334\335\336\570\337\340\341\342\343\344\345\346\347\350\351\352\353\354\355\356\357\360\361\362\363\364\365\366\367\370\371\372\373\374\375\376\377\277\241\253\273\260\540\522\575\541\523\576\x2122\251\256\x20AC\243\242\x201D\x2018\x201C\x2026\x2019");
+ 	for (iI=0;iI<NUM_YIELD_TYPES;++iI)
+ 		szString.append(CvWString::format(L"%c", GC.getYieldInfo((YieldTypes) iI).getChar()));
+ 
 @@ -8755,6 +8756,32 @@ void CvGameTextMgr::setTechTradeHelp(CvWStringBuffer &szBuffer, TechTypes eTech,
  
  			szTempBuffer.Format(L" (%d/%d %c)", GET_TEAM(GC.getGameINLINE().getActiveTeam()).getResearchProgress(eTech), GET_TEAM(GC.getGameINLINE().getActiveTeam()).getResearchCost(eTech), GC.getCommerceInfo(COMMERCE_RESEARCH).getChar());
@@ -2042,7 +2053,7 @@ index fc6a371..c3f8836 100644
 \ No newline at end of file
 diff --git a/Assets/XML/Text/RoM_GameText_ResearchPlan.xml b/Assets/XML/Text/RoM_GameText_ResearchPlan.xml
 new file mode 100644
-index 0000000..fe94218
+index 0000000..db83e25
 --- /dev/null
 +++ b/Assets/XML/Text/RoM_GameText_ResearchPlan.xml
 @@ -0,0 +1,20 @@
@@ -2055,7 +2066,7 @@ index 0000000..fe94218
 +		<French>Plan de recherche : %d1 technologies, %d2[ICON_RESEARCH], environ %d3 tours</French>
 +		<German>Forschungsplan: %d1 Technologien, %d2[ICON_RESEARCH], etwa %d3 Runden</German>
 +		<Italian>Piano di ricerca: %d1 tecnologie, %d2[ICON_RESEARCH], circa %d3 turni</Italian>
-+		<Spanish>Plan de investigación: %d1 tecnologías, %d2[ICON_RESEARCH], unos %d3 turnos</Spanish>
++		<Spanish>Plan de investigaci&#243;n: %d1 tecnolog&#237;as, %d2[ICON_RESEARCH], unos %d3 turnos</Spanish>
 +	</TEXT>
 +	<TEXT>
 +		<Tag>TXT_KEY_TECH_RESEARCH_PLAN_NO_RATE</Tag>
@@ -2063,7 +2074,7 @@ index 0000000..fe94218
 +		<French>Plan de recherche : %d1 technologies, %d2[ICON_RESEARCH]</French>
 +		<German>Forschungsplan: %d1 Technologien, %d2[ICON_RESEARCH]</German>
 +		<Italian>Piano di ricerca: %d1 tecnologie, %d2[ICON_RESEARCH]</Italian>
-+		<Spanish>Plan de investigación: %d1 tecnologías, %d2[ICON_RESEARCH]</Spanish>
++		<Spanish>Plan de investigaci&#243;n: %d1 tecnolog&#237;as, %d2[ICON_RESEARCH]</Spanish>
 +	</TEXT>
 +</Civ4GameText>
 diff --git a/Docs/SETTLER_LANDING_FIX.md b/Docs/SETTLER_LANDING_FIX.md

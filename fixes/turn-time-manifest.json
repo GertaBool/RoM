@@ -1,10 +1,17 @@
 {
   "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
   "base_commit": "d8cedd551212c9a769230d66c219860c901798dd",
-  "tested_source_commit": "a081fc7fba3c17cda149fae434a882faf9d98722",
-  "tested_source_tree": "bd60d2c644e9d669c8c7e1541ff17b005031efcd",
+  "tested_source_commit": "d8ca8b35eae148b6f8141a6aa233c2a7906217bc",
+  "tested_source_tree": "e3cbb9a89e237c29f80a9eb321de3cb3d6c149fd",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!34",
+    "main_commit": "a9b1fce2a958c3597caf5418ea2c50737091c154",
+    "main_tree_equals_tested_tree": true
+  },
+  "ascii_source_note": "The text file and createTestFontString's font-test literals are spelled in ASCII (character references and escapes) so web-API commits cannot re-encode them; MSVC 2003 produces identical strings and the rebuilt DLL differs from the earlier build only in timestamps.",
   "patch": "0009-turn-time-and-research-planning.patch",
-  "patch_sha256": "fe8b974e63d30beea8e942154fb2138d95a41e275567ee62cab76ac92e723f03",
+  "patch_sha256": "a1d2721e8db6fe7356979906e590231a8e7d269702235ee2ef84f3b07baefc64",
   "relationship_to_prior_patch": "Incremental on d8cedd5, which imported patch 0008's runtime change; restores 0008's tests and documentation that the import omitted. Do not reapply earlier patches.",
   "binary_rebuilt": true,
   "save_format": {
@@ -23,7 +30,7 @@
       "Tools/test_python_callbacks.py",
       "Tools/test_research_plan.py"
     ],
-    "static_finding_tests_failing_upstream": 9,
+    "static_finding_tests_failing_upstream": 10,
     "mission_index_queries_equal_to_original": 240000,
     "mission_index_mutants_caught": 9,
     "research_plans_checked": 44396,
@@ -36,7 +43,8 @@
     "whole_dll_clang_gate": {
       "translation_units": 104,
       "new_diagnostics": 0,
-      "resolved_diagnostics": 36
+      "resolved_diagnostics": 36,
+      "recheck_after_respelling": "CvGameTextMgr.cpp: 0 new diagnostics"
     },
     "msvc_build": {
       "compiler": "Microsoft C/C++ 13.10.3077 (Visual C++ Toolkit 2003)",
@@ -44,7 +52,7 @@
       "host": "Wine 9.0 (32-bit prefix)",
       "errors": 0,
       "warnings": 0,
-      "exports": 2452,
+      "exports": 2451,
       "exports_equal_to_shipped_dll": true
     },
     "save_replayed": false,
@@ -71,7 +79,7 @@
     },
     "Assets/CvGameCoreDLL/CvGameTextMgr.cpp": {
       "before_sha256": "50e25a9d94273dd36735155d32a420fb5a53081903d069b91f994bccfd9a63be",
-      "after_sha256": "3e595c175205b4ec6581851e8bcb3acc6d82f8c5fafbcd13031fb1572403db30"
+      "after_sha256": "bd2e0e11e34a498bd0e4c96704be755f7815c278601a6e5cb4671adc026ce378"
     },
     "Assets/CvGameCoreDLL/CvInfos.cpp": {
       "before_sha256": "d3e80e246662b2d12371252e0cd5641e48916e5f3cbca6694f6617ae94fb3747",
@@ -127,7 +135,7 @@
     },
     "Assets/XML/Text/RoM_GameText_ResearchPlan.xml": {
       "before_sha256": null,
-      "after_sha256": "3bbbde9a2e119f7e90faef0021347cab4fd4a97918c49cd3ff827c6eb11761ae"
+      "after_sha256": "4ce8db10aa32ed00bfec30b73052ccaa37320af0a9d6429a920f329a9610938f"
     },
     "Docs/SETTLER_LANDING_FIX.md": {
       "before_sha256": null,

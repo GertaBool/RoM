@@ -1,8 +1,50 @@
 # Tested source fixes
 
+## Turn time and research planning
+
+[0009-turn-time-and-research-planning.patch](0009-turn-time-and-research-planning.patch)
+is the current incremental patch for clean GitLab **`d8cedd551212c9a769230d66c219860c901798dd`**,
+which already contains 0008's runtime change. It has **landed on GitLab `main`**
+([!34](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/34), merge commit
+`a9b1fce`, tree `e3cbb9a8` = the tested tree). A clone of current `main` needs nothing applied.
+
+- **Defects from compiling the whole DLL**: the executive-value assignment and self-count,
+  25 constant `Write(&field)` calls, No Tech Brokering reading uninitialized research,
+  team/player ID mix-up in event messages, stale pickup path turns, the danger-guard
+  precedence, always-taken bad-feature odds, objects passed to variadic logging, the
+  self-initialized `CyGameTextMgr` member and double-counted settlers.
+- **Turn time**: `AI_plotTargetMissionAIs` uses an epoch-invalidated plot index. A whole-map
+  scan drops from Θ(plots·groups) to Θ(plots+groups), with identical results.
+  `findPathLength` no longer expands the prerequisite tree (up to 1.09·10⁹ calls).
+  Python cost callbacks no longer scan cities or search tables per query.
+- **Research planning**: one minimum-cost AND/OR plan is shared by `pushResearch`,
+  `findPathLength` and `AI_bestTech`. All 44,396 tested plans are proved optimal, and
+  none costs more than the old queue rule.
+- **Feature**: technology help shows the plan's size, beakers and turns.
+- **Python rules**: corrected Corporate, Fortification-castle and Replicators prices,
+  and the Observatory/Djenne radius.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/turn-time-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/turn-time-manifest.json
+```
+
+**21 regression programs pass**. Upstream had 16 programs with 4 stale failures,
+whose 0008 assertions this patch restores. Four new programs cover the static
+findings, the mission index, the Python callbacks and the research plan. The DLL is
+built with MSVC 2003: 0 errors, 0 warnings, exports identical to the shipped DLL.
+Use [`builds/0009/CvGameCoreDLL.dll`](../builds/0009/CvGameCoreDLL.dll); a
+[baseline build](../builds/d8cedd5-baseline/) of unmodified `d8cedd5` is there for A/B
+comparison. The save format is unchanged. The game executable was not run.
+
+[Investigation, math and interaction audit](../research/turn-time/README.md) ·
+[Manifest](turn-time-manifest.json) · [Before](turn-time-before.log) ·
+[Suite](turn-time-regression.log) · [Patch verification](turn-time-patch-validation.log) ·
+[Build provenance](../builds/0009/provenance.json) · [Toolchain](../toolchain/README.md).
+
 ## Settler landing
 
-[0008-settler-landing.patch](0008-settler-landing.patch) is the current incremental
+[0008-settler-landing.patch](0008-settler-landing.patch) is the earlier incremental
 fix for clean GitLab **`b8c379c1ffad9cd5408ca0e43dca88daf8ba85ee`**. That revision
 already includes patch 0007's runtime changes; do not reapply older patches.
 

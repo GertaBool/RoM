@@ -1,11 +1,19 @@
 {
-  "source": "GitLab d8cedd5 + fixes/0009-turn-time-and-research-planning.patch (tested source commit)",
-  "source_commit": "a081fc7fba3c17cda149fae434a882faf9d98722",
-  "source_tree": "bd60d2c644e9d669c8c7e1541ff17b005031efcd",
-  "dll_sha256": "3c1aeb670a79ccace7c477a83548a10bc9faac82f039fc58f362bda37f89cba7",
+  "source": "GitLab main a9b1fce (merge request !34) = GitLab d8cedd5 + fixes/0009-turn-time-and-research-planning.patch",
+  "source_commit": "d8ca8b35eae148b6f8141a6aa233c2a7906217bc",
+  "source_tree": "e3cbb9a89e237c29f80a9eb321de3cb3d6c149fd",
+  "gitlab_main_commit": "a9b1fce2a958c3597caf5418ea2c50737091c154",
+  "gitlab_main_tree_equals_source_tree": true,
+  "dll_sha256": "e07a920c6fa1520285e17091ebb835813e8e3cdb820962be4524ddee5b7eb734",
   "dll_size": 6078464,
   "exports": 2451,
   "exports_identical_to_shipped_dll": true,
+  "previous_build": {
+    "source_tree": "bd60d2c644e9d669c8c7e1541ff17b005031efcd",
+    "dll_sha256": "3c1aeb670a79ccace7c477a83548a10bc9faac82f039fc58f362bda37f89cba7",
+    "source_difference": "Two connector-safe spellings: the research plan text uses &#243;/&#237;, and createTestFontString writes its Latin-1/cp1252 characters as escapes (an MSVC 2003 test program showed identical wide strings).",
+    "binary_difference": "4 bytes: the PE header TimeDateStamp (offset 0x108) and the export directory TimeDateStamp (offset 0x4F41C4); every section is otherwise identical"
+  },
   "build": {
     "compiler": "Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 13.10.3077 (Visual C++ Toolkit 2003)",
     "toolkit_source": {
@@ -43,7 +51,7 @@
     },
     "host": "wine-9.0 (Ubuntu 9.0~repack-4build3) with a 32-bit prefix on Ubuntu 24.04",
     "recipe": "toolchain/build_dll.sh: the repository's GNUmakefile, TARGET=release (/O2 /Oy /Oi /G7 /DNDEBUG /DFINAL_RELEASE /MD /GR /Gy /EHsc; link /LARGEADDRESSAWARE /OPT:REF /OPT:ICF); no _MOD_* switches, matching the shipped DLL",
-    "reproducibility": "Not byte-reproducible: the PE header and debug directory carry build timestamps. Compare exports and behaviour, not hashes, across builds.",
+    "reproducibility": "Not byte-reproducible: the PE header and the export directory carry build timestamps (4 bytes). Compare exports and section contents, not file hashes, across builds.",
     "errors": 0,
     "warnings": 0
   },

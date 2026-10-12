@@ -16,7 +16,7 @@ test_valid_sea_commitment_is_not_rescored (__main__.LandingTests.test_valid_sea_
 test_wait_for_actual_escort_then_land (__main__.LandingTests.test_wait_for_actual_escort_then_land) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 8.380s
+Ran 14 tests in 8.372s
 
 OK
 
@@ -35,7 +35,7 @@ test_sparse_city_receives_bank_interest (__main__.PythonTests.test_sparse_city_r
 test_sparse_city_spawns_crusader (__main__.PythonTests.test_sparse_city_spawns_crusader) ... ok
 
 ----------------------------------------------------------------------
-Ran 12 tests in 0.772s
+Ran 12 tests in 0.756s
 
 OK
 
@@ -80,7 +80,7 @@ test_recovery_dispatch_precedes_role_dispatch (__main__.DecisionTests.test_recov
 test_stuck_group_recovery_exhausts_every_member (__main__.DecisionTests.test_stuck_group_recovery_exhausts_every_member) ... ok
 
 ----------------------------------------------------------------------
-Ran 13 tests in 0.318s
+Ran 13 tests in 0.334s
 
 OK
 
@@ -90,7 +90,7 @@ test_feedback_is_bounded_and_precedes_hard_overrides (__main__.GovernorPolicyTes
 test_policy_gates_terms_performance_and_determinism (__main__.GovernorPolicyTests.test_policy_gates_terms_performance_and_determinism) ... ok
 
 ----------------------------------------------------------------------
-Ran 3 tests in 0.112s
+Ran 3 tests in 0.140s
 
 OK
 
@@ -122,7 +122,7 @@ test_gold_trade_reserve_matches_integer_oracle (__main__.OperationSupplyTests.te
 ok
 
 ----------------------------------------------------------------------
-Ran 5 tests in 0.287s
+Ran 5 tests in 0.319s
 
 OK
 
@@ -139,7 +139,7 @@ test_threshold_references_and_ranges (__main__.VictoryTests.test_threshold_refer
 test_victory_types_are_unique_and_have_a_real_gate (__main__.VictoryTests.test_victory_types_are_unique_and_have_a_real_gate) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.080s
+Ran 6 tests in 0.075s
 
 OK
 
@@ -156,12 +156,12 @@ test_tech_brokering_reads_receiver_research (__main__.StaticFindingTests.test_te
 test_variadic_text_receives_c_strings (__main__.StaticFindingTests.test_variadic_text_receives_c_strings) ... ok
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.113s
+Ran 10 tests in 0.119s
 
 OK
 
 [19/21] python3 Tools/test_mission_target_index.py
-INFO: whole-map scan, 13824 plots x 600 groups: group scan 236.112 ms, index (including rebuild) 0.77 ms
+INFO: whole-map scan, 13824 plots x 600 groups: group scan 247.516 ms, index (including rebuild) 0.816 ms
 PASS: 240000 queries matched the original scan (90060 via plot buckets, 149940 via entry scan)
 PASS: every membership, group-set and mission-target change invalidates the index
 
@@ -175,12 +175,12 @@ test_upgrade_line_matches_original_algorithm (__main__.CallbackTests.test_upgrad
 test_zcivics_lookups (__main__.CallbackTests.test_zcivics_lookups) ... ok
 
 ----------------------------------------------------------------------
-Ran 7 tests in 0.079s
+Ran 7 tests in 0.084s
 
 OK
 
 [21/21] python3 Tools/test_research_plan.py
-INFO: deepest target from scratch: 219 techs planned in 0.3417 ms; the former recursion would make 1090348606 calls
+INFO: deepest target from scratch: 219 techs planned in 0.32745 ms; the former recursion would make 1090348606 calls
 PASS: 44396 plans valid, irredundant and resolved once per technology; 44396 proved optimal by branch and bound
 PASS: largest plan 219 techs; the replaced tree recursion counted up to 1090348606 (and undercounted 63 plans through unresearchable alternatives)
 INFO: the original queue rule failed on 0 reachable targets; elsewhere it was dearer 7159, equal 37237, cheaper 0 (worst +0%)
@@ -189,4 +189,4 @@ INFO: exhaustive optimum matched in 10420 of 10420 small cases (worst +0%)
 PASS: queueing, path length and AI valuation share one research plan
 PASS: technology help reports the queued plan in every shipped language
 
-Ran 21 isolated checks in 20.46s; 0 failed.
+Ran 21 isolated checks in 20.71s; 0 failed.
