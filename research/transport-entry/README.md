@@ -1,5 +1,9 @@
 # Transport ownership after manual boarding or autoplay changes
 
+**Implemented follow-up:** [Joint destination and route search](../settlement-search/README.md)
+removes premature portfolio pruning and land-first ferry selection. This report
+records the preceding investigation.
+
 Base: GitLab `6222511` (“AI decisionmaking reworked. New sea transport fixes”).
 The user confirms the latest autoplay run used a DLL rebuilt from that commit.
 This report therefore concerns the patched source, not an older bundled DLL.

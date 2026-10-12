@@ -1,0 +1,130 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "6222511c1a81649445fa69e8ca6dca79cf60c975",
+  "tested_source_commit": "8edb23b96c7b9f6369a54d18d0a84a62c799b841",
+  "tested_source_tree": "12f5f773bc5455bd72e88695945bcc77f95341f0",
+  "patch": "0007-joint-settlement-planning.patch",
+  "patch_sha256": "cc219fa4ef7df2a9464c8f892b12ef6b5d1e3beff0166ed0a67cca1dfa7e51f7",
+  "includes_prior_patch": "0006-settlement-placement.patch",
+  "binary_rebuilt": false,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "validation": {
+    "suite_programs": 22,
+    "suite_failures": 0,
+    "new_search_tests": 3,
+    "exhaustive_oracle_cases": 1000,
+    "before_source_commit": "9b140263c46e9545a6226595ce2fde561c845e38",
+    "before_land_first_counterexample_reproduced": true,
+    "native_standard": "C++03",
+    "undefined_behavior_sanitizer": "fatal",
+    "save_replayed": false,
+    "patch_application_verified": true,
+    "applied_tree_equals_tested_tree": true
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/AIHierarchyPolicy.h": {
+      "before_sha256": "a93abd4c85e23d5dbd1721855f90cb0b2c4d6d0825b6bafa1cdfb1d25d0ff16c",
+      "after_sha256": "2823d14fe28d84e7263bbbf028a1629a9330179b709b0c32986f2b1ec2fbef83"
+    },
+    "Assets/CvGameCoreDLL/AISettlementPolicy.h": {
+      "before_sha256": "693340d85f606c8a5d3ef76eeb166d9ebc54e8557c82c5240c10f3f9918b84e4",
+      "after_sha256": "226a760b34ebc0c0bd2a3ae334db4b8dab84b8de98f0367952dcd35a26413802"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "90049e64b39daa9bec85ff2b2611427541cc6eeddd563ea87da28a343415abaa",
+      "after_sha256": "b11eca365bbadcae8dc3a238395604d833c34045709c710ccef1ca5a33b299ea"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.h": {
+      "before_sha256": "6f7fb548d4a58d3a4448accff18dc8f356c95ebd906b3f0b7dd26383172f7916",
+      "after_sha256": "9a900aaaae59f33df988f2f4a8e58e54316a02bc8b88c4a248e62cbc8d5bef57"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "f9c9569b7e7d8c375084eb8340578d4b51c9b56d3b29f48922890332ee637524",
+      "after_sha256": "88eaf1b66ee3ffef450380da0f29c65a59b1ee81b162d907528888021d5632e0"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.h": {
+      "before_sha256": "8585201d328558fd8a74ecee3c4de4dfbcf75427156343cdf4a04534f3c9950d",
+      "after_sha256": "682fb85242474379ba2c2ecc92a87ec96fd7b7c1c425a42118d4f540f0a3ccbe"
+    },
+    "Docs/AI_COORDINATION_FIXES.md": {
+      "before_sha256": null,
+      "after_sha256": "8d8d3da30d17c4b8282574c85c023f4e11fcd7924abe55150cb315f8d948a17d"
+    },
+    "Docs/AI_SETTLER_VOYAGES.md": {
+      "before_sha256": null,
+      "after_sha256": "e4fb33aad933184e915b22bd2fd2e8828660b8c2f31cfddc3a4c9b813c2c4ce6"
+    },
+    "Docs/JOINT_SETTLEMENT_SEARCH.md": {
+      "before_sha256": null,
+      "after_sha256": "907f83d13c0b3c14bdb2bd4242efdf69f8e7f01ea28f7d003f43f9458c5ff60d"
+    },
+    "Docs/OPERATION_SUPPLY_FIXES.md": {
+      "before_sha256": "e4eab4aeb5b4f7dc3d8a0064a6fbab995c4ffc384316fc8b43fbfdeace178ab8",
+      "after_sha256": "e0c9b407c48840b68e381f72414fa18e4d7fdd96bd9cb30d081398839e438933"
+    },
+    "Docs/SETTLEMENT_PLACEMENT_REVIEW.md": {
+      "before_sha256": null,
+      "after_sha256": "62326d94b226b32afe830b1f3621baeae70c5fe7a1819c8c5b572e771440f30e"
+    },
+    "Docs/SOURCE_CLEANUP.md": {
+      "before_sha256": null,
+      "after_sha256": "9b24a6ffe86f819b292f41710fbc618d3bdcbba2b6b6f68024ab3b65b71bdd6e"
+    },
+    "Docs/TRANSPORT_ENTRY_FIX.md": {
+      "before_sha256": null,
+      "after_sha256": "6141047702d7ff1cc0b8be34e995b6d273a728a55471b1df61d52346403e02af"
+    },
+    "Tools/TESTING.md": {
+      "before_sha256": "a862140ab1de38869a54489dae35a425d68048425513776bdc3437d2283663c5",
+      "after_sha256": "a31e097869e869a85f3fbd7a3db1c4bb36fad09a7936dfaf5d622ae637af683e"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "6a9ac411c09b6a917014f4e328b7c25d0526f7f596ea0eb1ac5d8024ab945386",
+      "after_sha256": "4da88f88cee65e59e80f64a0002ba4c937d53173a140ad24bb97eae55eb13128"
+    },
+    "Tools/test_ai_coordination.py": {
+      "before_sha256": null,
+      "after_sha256": "ab7c856ba8da77ebc86be5d791796b1a3cc639b07b2f1b49581056c0698a95d0"
+    },
+    "Tools/test_ai_economic_recovery.py": {
+      "before_sha256": "5b00922dead7370d9a6e7947317ea1da69e8caaf04df4577ea8fb3abb2e7824e",
+      "after_sha256": "45eff496c2bdb4e86d7377b28de59ff468e894ec43d3977d8e852d608d4d9f64"
+    },
+    "Tools/test_ai_maritime.py": {
+      "before_sha256": "347d7e2713a8eaf58049f09a53462496d98da44829cf6bdb68d8efcc233b6f1b",
+      "after_sha256": "46cbdd2a2eeb7085e728a670f04d780ee1962155ff350c5ba3799a146c176c3b"
+    },
+    "Tools/test_ai_opening_ferry.py": {
+      "before_sha256": null,
+      "after_sha256": "85df0ae3f219e94a7c6bd9a24fac54fffc23d52d809ef349372f894dc4c65c05"
+    },
+    "Tools/test_ai_settler_dispatch.py": {
+      "before_sha256": null,
+      "after_sha256": "59fe9d3b393741a33e18f33ba29e7c07f420dd2b74a0c952150204e5a006fef2"
+    },
+    "Tools/test_operation_supply.py": {
+      "before_sha256": "c61bd77974d2b809c91dddf3c4ad2687c58cb2f02295ac53232172883af1fc9c",
+      "after_sha256": "971a874ce225e2f2ff6385585f531ead58de616f208e29aac14e14628d3212fe"
+    },
+    "Tools/test_review_correctness.py": {
+      "before_sha256": "3d3c988cc46cd14b8721834002d1e2dcb2b69c19c72b30424c39ef1e46dd7934",
+      "after_sha256": "a4d2ae9f26269fecfb5cc0da711de9e6ba8e887451a33b231b8d473a9df7d2f1"
+    },
+    "Tools/test_settlement_placement.py": {
+      "before_sha256": null,
+      "after_sha256": "36dd1d1c698c30d7c1af8fadbf7c0847cbdee9b81e001dcc36554262c9579755"
+    },
+    "Tools/test_settlement_search.py": {
+      "before_sha256": null,
+      "after_sha256": "ccf51c9a783f9a6aa46e2016f4c1f85e0be75883a8712d2f2270cd4343752f35"
+    },
+    "Tools/test_settler_transport_entry.py": {
+      "before_sha256": null,
+      "after_sha256": "a68a4f515cc3c7fb4dfef99a8d873103c4db87648a6f51d3a06d4b396598210b"
+    }
+  }
+}

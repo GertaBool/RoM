@@ -1,0 +1,10 @@
+Counterexample compiled from pre-search source 9b14026 (patch 0006).
+Narrow host adapter supplies route table and boarding outcome. No BTS run.
+before:
+decided=1, selected=inland, transport=0
+Independent route utilities: inland=270, island=584
+Exit status: 1
+after:
+decided=1, selected=island, transport=1
+Independent route utilities: inland=270, island=584
+Exit status: 0

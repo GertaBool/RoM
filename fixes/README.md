@@ -1,6 +1,48 @@
 # Tested source fixes
 
+## Joint settlement search
+
+[0007-joint-settlement-planning.patch](0007-joint-settlement-planning.patch) is the
+latest cumulative patch for clean GitLab **`6222511c1a81649445fa69e8ca6dca79cf60c975`**.
+It includes 0006 below; apply 0007 directly to the clean base, not on top of 0006.
+
+Actual settlers now search the complete independent candidate snapshot and compare
+destination–route pairs. Hypothetical production sites no longer suppress their
+alternatives. Branch-and-bound stops only when the remaining site values cannot
+beat a feasible delivery plan. Shore parties can choose a worthwhile island before
+committing to a land destination; loaded transports use the same candidate pool.
+Accepted land jobs persist, and obsolete naval-preference/shortlist shortcuts are
+removed. This follow-up removes **92 net runtime lines** relative to 0006.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/joint-settlement-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/joint-settlement-manifest.json
+```
+
+Then run `python3 Tools/run_regression_suite.py` in the patched source and rebuild
+the DLL. Application verifies checksums and **stages** the patch. No save-layout
+or XML change is introduced.
+
+**22 regression programs pass**, including 1,000 joint-search cases checked against
+an exhaustive route oracle. The old function demonstrably chooses a 270-utility
+land plan over an available 584-utility island plan; the replacement chooses the
+island, with separate tests ensuring better walking plans win.
+
+[Algorithm and complexity](../research/settlement-search/README.md) ·
+[Before/after evidence](joint-settlement-before.log) ·
+[Full suite](joint-settlement-regression.log) ·
+[Manifest](joint-settlement-manifest.json) ·
+[Patch application verification](joint-settlement-patch-validation.log).
+
+The applied tree matches tested source `8edb23b96c7b9f6369a54d18d0a84a62c799b841`.
+Tests compile production fragments with explicit path/mission adapters in C++03;
+no full DLL build or BTS replay is claimed. The utility still uses the corrected
+native found-value heuristic, not a complete city-economy rollout. Runtime changes
+have not been pushed directly to GitLab.
+
 ## Settlement placement
+
+Superseded by cumulative patch 0007 above; retained for provenance.
 
 [0006-settlement-placement.patch](0006-settlement-placement.patch) targets clean
 GitLab **`6222511c1a81649445fa69e8ca6dca79cf60c975`**. That base already contains

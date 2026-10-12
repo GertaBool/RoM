@@ -1,5 +1,9 @@
 # Settlement placement: findings, corrections and the next optimizer
 
+**Implemented follow-up:** [Joint destination and route search](../settlement-search/README.md)
+removes premature portfolio pruning and land-first ferry selection. This report
+records the preceding investigation.
+
 Reviewed GitLab base: `19e4d59e0a8fc5dc138de5108d8e921e95d28ba1`, with the opening
 and voyage changes from local source `a9003cae719e69456e698905d44a28a4f508199a`.
 Publication targets newer GitLab `6222511`, which incorporates those voyage runtime changes.

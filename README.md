@@ -2,11 +2,13 @@
 
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
 
-The latest fixes target GitLab revision `6222511c1a81649445fa69e8ca6dca79cf60c975`, which incorporates the previous opening and voyage runtime changes. The new patch corrects settlement scoring and transport entry after manual boarding, and restores accompanying regression tests. The historical assessments retain their original source identity.
+The latest fixes target GitLab revision `6222511c1a81649445fa69e8ca6dca79cf60c975`. Patch 0007 includes the preceding settlement/transport corrections and replaces premature destination pruning with joint destination and route search. The historical assessments retain their original source identity.
 
+- [Implemented joint settlement search: complete candidates, route comparison and bound pruning](research/settlement-search/README.md)
+- [Latest cumulative source patch: joint planning; 22 passing regression programs](fixes/README.md#joint-settlement-search)
 - [Transport entry: loaded passengers, ship roles and autoplay update order](research/transport-entry/README.md)
 - [Settlement placement: scoring defects, architectural criticism and a development-plan optimizer](research/settlement/README.md)
-- [Latest source patch: settlement and transport entry; 21 passing programs](fixes/README.md#settlement-placement)
+- [Previous settlement and transport-entry patch; 21 passing programs](fixes/README.md#settlement-placement)
 - [Settler transport: root causes, voyage dispatcher, opening development and engine test scenarios](research/transport/README.md)
 - [Previous opening/voyage patch for GitLab 19e4d59: 19 passing regression programs](fixes/README.md#opening-development-and-settler-voyages)
 - [Carthage autoplay: worker/cargo defects, production accounting, civic tradeoffs and coordinated simulation](research/autoplay/README.md)
