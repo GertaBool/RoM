@@ -4,6 +4,12 @@
   "base_tree": "e3cbb9a89e237c29f80a9eb321de3cb3d6c149fd",
   "tested_source_commit": "04d99792ba7f491bedfad3d61a85123d3d2a83a2",
   "tested_source_tree": "147f6d1fbc5eedc26c115c561d104ec66733e386",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!35",
+    "main_commit": "86af2ab47fa7cc4b2edc536b788402bc62c1becb",
+    "main_tree_equals_tested_tree": true
+  },
   "patch": "0010-pathing-transport-and-siege.patch",
   "patch_sha256": "5d53a4edef27b83b211ee99a5d05fc0006a73cf1fd760a195128a6c944e8972c",
   "relationship_to_prior_patch": "Incremental on GitLab main after merge request !34 (patch 0009). Do not reapply earlier patches.",

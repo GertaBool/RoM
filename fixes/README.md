@@ -3,7 +3,10 @@
 ## Pathfinding, transport and siege
 
 [0010-pathing-transport-and-siege.patch](0010-pathing-transport-and-siege.patch) is the
-current incremental patch for GitLab **`main` at `a9b1fce`** (patch 0009 merged).
+current incremental patch for GitLab **`main` at `a9b1fce`** (patch 0009 merged). It has
+**landed on GitLab `main`** ([!35](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/35),
+merge commit `86af2ab`, tree `147f6d1f` = the tested tree). A clone of current `main` needs
+nothing applied; only the DLL below has to be installed.
 
 - **Path searches stay reusable.** Queries about other groups (`AI_cityTargetUnitsByPath`,
   `AI_unitTargetMissionAIs`, `AI_isPlotThreatened`, synchronized landings, ship searches

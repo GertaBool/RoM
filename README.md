@@ -2,10 +2,10 @@
 
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.
 
-The latest work, patch 0010, targets GitLab `main` after patch 0009 ([!34](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/34)). It keeps AI path searches reusable, indexes escort grouping, and fixes siege positioning, synchronized landings, worker targeting and settlers abandoning a reached site. Patch 0009 targeted GitLab revision `d8cedd551212c9a769230d66c219860c901798dd`. It fixes defects found by compiling the whole DLL and removes two turn-time hot spots. It also plans research as a minimum-cost prerequisite closure that the AI, the queue and technology help share. It ships an MSVC 2003-built DLL with provenance. Historical patches and assessments retain their original source identity.
+The latest work, patch 0010, targets GitLab `main` after patch 0009 ([!34](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/34)) and has landed there as [!35](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/35). It keeps AI path searches reusable, indexes escort grouping, and fixes siege positioning, synchronized landings, worker targeting and settlers abandoning a reached site. Patch 0009 targeted GitLab revision `d8cedd551212c9a769230d66c219860c901798dd`. It fixes defects found by compiling the whole DLL and removes two turn-time hot spots. It also plans research as a minimum-cost prerequisite closure that the AI, the queue and technology help share. It ships an MSVC 2003-built DLL with provenance. Historical patches and assessments retain their original source identity.
 
 - [Pathfinding, naval transport, settlers and siege: reusable searches, grouping index and four decision fixes](research/pathing/README.md)
-- [Patch 0010 and its DLL: 24 passing regression programs](fixes/README.md#pathfinding-transport-and-siege)
+- [Patch 0010 and its DLL: 24 passing regression programs; landed on GitLab main](fixes/README.md#pathfinding-transport-and-siege)
 - [Turn time, research planning and compiler-found defects: math, measurements and interaction audit](research/turn-time/README.md)
 - [Patch 0009: 21 passing regression programs; landed on GitLab main](fixes/README.md#turn-time-and-research-planning)
 - [Built DLLs: patch 0009 and the unmodified baseline, with provenance](builds/0009/provenance.json)

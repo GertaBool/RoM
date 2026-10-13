@@ -2,7 +2,9 @@
 
 This is the investigation behind [patch 0010](../../fixes/0010-pathing-transport-and-siege.patch).
 It targets GitLab **`main` at `a9b1fce`** (patch 0009 merged, tree `e3cbb9a8`). The
-applied tree is `147f6d1f`. The DLL built from it is
+applied tree is `147f6d1f`. It landed on GitLab `main` as
+[!35](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/35) (merge commit
+`86af2ab`, same tree). The DLL built from it is
 [`builds/0010/CvGameCoreDLL.dll`](../../builds/0010/CvGameCoreDLL.dll).
 
 The request was to look for ways to improve pathfinding, naval transport, settler
