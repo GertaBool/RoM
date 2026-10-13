@@ -69,8 +69,10 @@ for top in ('XML',):
 write('GameInfo', 'CIV4CursorInfo', sorted(cursors))
 write('GameInfo', 'CIV4TurnTimerInfo', ['TURNTIMER_STATIC', 'TURNTIMER_SNAIL', 'TURNTIMER_SLOW', 'TURNTIMER_MEDIUM',
                                         'TURNTIMER_FAST', 'TURNTIMER_BLAZING'])
+# Six types, as in BTS: the count sizes CvCityAI's saved emphasis array, so
+# saves only load with exactly these (AdvCiv adds GOLD and CULTURE).
 write('GameInfo', 'CIV4EmphasizeInfo', ['EMPHASIZE_AVOID_GROWTH', 'EMPHASIZE_FOOD', 'EMPHASIZE_PRODUCTION', 'EMPHASIZE_COMMERCE',
-                                        'EMPHASIZE_GOLD', 'EMPHASIZE_RESEARCH', 'EMPHASIZE_CULTURE', 'EMPHASIZE_GREAT_PEOPLE'])
+                                        'EMPHASIZE_RESEARCH', 'EMPHASIZE_GREAT_PEOPLE'])
 upkeep = {'UPKEEP_LOW': (5, 50), 'UPKEEP_MEDIUM': (10, 100), 'UPKEEP_HIGH': (15, 150)}
 write('GameInfo', 'CIV4UpkeepInfo', ['UPKEEP_LOW', 'UPKEEP_MEDIUM', 'UPKEEP_HIGH'],
       lambda t: '\t\t\t<iPopulationPercent>%d</iPopulationPercent>\n\t\t\t<iCityPercent>%d</iCityPercent>\n' % upkeep[t])

@@ -2,6 +2,7 @@
 // executable normally provides to CvGameCoreDLL.
 #pragma once
 #include <string>
+#include <cstdio>
 
 struct HarnessConfig
 {
@@ -14,3 +15,5 @@ class CvDLLUtilityIFaceBase;
 CvDLLUtilityIFaceBase* harnessEngine(const HarnessConfig& cfg);
 void harnessLog(const char* fmt, ...);
 long harnessPathSearches();
+void harnessProfileReset();
+void harnessProfileDump(FILE* f, int iTop);

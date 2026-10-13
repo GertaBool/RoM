@@ -44,6 +44,15 @@ namespace
 	std::string resolveAsset(const char* path)
 	{
 		std::string rel = normalize(path);
+		// The game does not apply res\Fonts\GameFont_GlobalDefines.xml: its saves
+		// carry the unpadded religion and corporation counts (16 and 27, not the
+		// file's 138). Without this the harness cannot read real saves.
+		// HARNESS_GAMEFONT=1 loads the file anyway.
+		if (strstr(rel.c_str(), "GameFont_GlobalDefines") != NULL)
+		{
+			const char* szOn = getenv("HARNESS_GAMEFONT");
+			if (szOn == NULL || strcmp(szOn, "1") != 0) return std::string();
+		}
 		if (fileExists(rel)) return rel;
 		std::string low = rel;
 		for (size_t i = 0; i < low.size(); ++i) low[i] = (char)tolower(low[i]);
@@ -466,8 +475,29 @@ static long argInt(void* pArgs, size_t i)
 	const char* szType = ((const char**)o->ob_type)[3];   // tp_name
 	return (szType && strcmp(szType, "int") == 0) ? ((long*)o)[2] : 0;
 }
+// Wrapped C++ objects (CyCity*, CyPlot*, CyUnit*) arrive as "ptr" objects from
+// the Boost.Python stub; each Cy wrapper's only member is the game object.
+static void* argGameObject(void* pArgs, size_t i)
+{
+	HarnessArgs* a = (HarnessArgs*)pArgs;
+	if (a == NULL || i >= a->items.size() || a->items[i] == NULL) return NULL;
+	PyObject* o = a->items[i];
+	const char* szType = ((const char**)o->ob_type)[3];   // tp_name
+	if (szType == NULL || strcmp(szType, "ptr") != 0) return NULL;
+	void* pWrapper = ((void**)o)[2];
+	return pWrapper ? *(void**)pWrapper : NULL;
+}
+
+// Implemented in the harness DLL build (HarnessScenario.cpp), mirroring the scripts.
+extern "C" __declspec(dllimport) int HH_pyCalculateScore(int, int, int);
+extern "C" __declspec(dllimport) int HH_pyCityCaptureGold(void*);
+extern "C" __declspec(dllimport) int HH_pyPillageGold(void*, void*);
+
 static long pythonDefault(const char* fxn, void* args)
 {
+	if (strcmp(fxn, "calculateScore") == 0) return HH_pyCalculateScore(argInt(args, 0), argInt(args, 1), argInt(args, 2));
+	if (strcmp(fxn, "doCityCaptureGold") == 0) return HH_pyCityCaptureGold(argGameObject(args, 0));
+	if (strcmp(fxn, "doPillageGold") == 0) return HH_pyPillageGold(argGameObject(args, 0), argGameObject(args, 1));
 	static const char* aszMinusOne[] = { "getUpgradePriceOverride", "getUnitCostMod", "getBuildingCostMod",
 		"getConscriptUnitType", "AI_chooseTech", "getFirstRecommendedTech", "getSecondRecommendedTech",
 		"getRecommendedUnit", "getRecommendedBuilding", "getCityFoundValue" };
@@ -511,9 +541,61 @@ class EntityIFace : public CvDLLEntityIFaceBase {};
 //////////////////////////////////////////////////////////////////////////////
 // Utility: the root interface handed to CvGlobals::setDLLIFace.
 //////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+// Profiler: the DLL's PROFILE/PROFILE_FUNC scopes (in builds made with
+// FP_PROFILE_ENABLE) call BeginSample/EndSample. Inclusive time counts only the
+// outermost activation of a recursive sample; self time excludes child samples.
+//////////////////////////////////////////////////////////////////////////////
+namespace
+{
+	struct ProfStat { std::string name; double incl, self; unsigned long calls; int depth; ProfStat() : incl(0), self(0), calls(0), depth(0) {} };
+	struct ProfFrame { ProfileSample* s; LONGLONG t0; double child; };
+	std::map<ProfileSample*, ProfStat> g_prof;
+	std::vector<ProfFrame> g_profStack;
+	double g_profFreq = 0;
+	LONGLONG profNow() { LARGE_INTEGER t; QueryPerformanceCounter(&t); return t.QuadPart; }
+}
+
+void harnessProfileReset() { g_prof.clear(); g_profStack.clear(); }
+
+void harnessProfileDump(FILE* f, int iTop)
+{
+	// HARNESS_PROFILE_SORT=incl sorts by inclusive time (callers), default self time.
+	const char* szSort = getenv("HARNESS_PROFILE_SORT");
+	const bool bIncl = szSort != NULL && strcmp(szSort, "incl") == 0;
+	std::vector<std::pair<double, ProfStat*> > v;
+	for (std::map<ProfileSample*, ProfStat>::iterator it = g_prof.begin(); it != g_prof.end(); ++it) v.push_back(std::make_pair(bIncl ? it->second.incl : it->second.self, &it->second));
+	std::sort(v.begin(), v.end());
+	std::reverse(v.begin(), v.end());
+	fprintf(f, "%10s %10s %12s  %s\n", "self ms", "incl ms", "calls", "sample");
+	for (size_t i = 0; i < v.size() && (int)i < iTop; ++i)
+		fprintf(f, "%10.1f %10.1f %12lu  %s\n", v[i].second->self * 1000, v[i].second->incl * 1000, v[i].second->calls, v[i].second->name.c_str());
+}
+
 class Utility : public S_CvDLLUtilityIFaceBase
 {
 public:
+	void BeginSample(ProfileSample* pSample)
+	{
+		if (g_profFreq == 0) { LARGE_INTEGER q; QueryPerformanceFrequency(&q); g_profFreq = (double)q.QuadPart; }
+		ProfFrame fr = { pSample, profNow(), 0 };
+		g_profStack.push_back(fr);
+		ProfStat& st = g_prof[pSample];
+		if (st.name.empty()) st.name = pSample->Name;
+		++st.calls;
+		++st.depth;
+	}
+	void EndSample(ProfileSample* pSample)
+	{
+		if (g_profStack.empty() || g_profStack.back().s != pSample) return;
+		const ProfFrame fr = g_profStack.back();
+		g_profStack.pop_back();
+		const double dt = (profNow() - fr.t0) / g_profFreq;
+		ProfStat& st = g_prof[pSample];
+		st.self += dt - fr.child;
+		if (--st.depth == 0) st.incl += dt;
+		if (!g_profStack.empty()) g_profStack.back().child += dt;
+	}
 	EntityIFace entity;
 	S_CvDLLInterfaceIFaceBase iface;
 	S_CvDLLEngineIFaceBase engine;

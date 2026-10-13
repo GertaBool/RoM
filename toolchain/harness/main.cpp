@@ -1,5 +1,8 @@
 // Headless driver for CvGameCoreDLL: boots the DLL, loads the mod's XML, sets
-// up a scripted map and lets the AI play. usage: harness.exe <scenario> [turns] [plain]
+// up a map and lets the AI play. usage:
+//   harness.exe <islands|mid|far> [turns] [plain]
+//   harness.exe scenario <scn> <speed|-> <handicap> <seed> <turns> <out.jsonl> [detailEvery]
+//   harness.exe save <init> <game> <turns> <out.jsonl> [detailEvery] [stuckUpdates]
 #include "CvGameCoreDLL.h"
 #include "CvXMLLoadUtility.h"
 #include "CvArtFileMgr.h"
@@ -7,6 +10,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <vector>
 
 #define HH extern "C" __declspec(dllimport)
 HH int HH_type(const char*);
@@ -29,6 +33,16 @@ HH int HH_probePath(int, int, int, int, char*, int);
 HH void HH_setGold(int, int);
 HH void HH_setCityPopulation(int, int, int);
 HH int HH_economy(int, char*, int);
+HH int HH_loadScenario(const char*, const char*, const char*, unsigned int, char*, int);
+HH void HH_telemetryReset();
+HH int HH_telemetryHeader(char*, int);
+HH int HH_telemetry(char*, int, int, int);
+HH int HH_gameState();
+HH int HH_loadSave(const char*, const char*, char*, int);
+HH int HH_stuckReport(char*, int);
+HH int HH_infoCounts(char*, int);
+HH int HH_autoPlayHumans(int);
+HH int HH_dumpState(const char*);
 
 static bool loadXml()
 {
@@ -125,6 +139,113 @@ static void islandsScenario(int iTurns, int iEastX, bool bPlain)
 	harnessLog("RESULT turn %d: player 0 has %d cities, %d on the east island\n", HH_gameTurn(), HH_numCities(0), eastCities);
 }
 
+// A WorldBuilder scenario converted by wbs2scn.py, played by AI players only.
+// Writes one JSON line per game turn to szOut (header line first).
+static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHandicap, unsigned int uiSeed,
+	int iTurns, const char* szOut, int iDetailEvery)
+{
+	char log[8192];
+	const int iPlayers = HH_loadScenario(szScn, szSpeed, szHandicap, uiSeed, log, sizeof(log));
+	harnessLog("scenario %s: %d players, seed %u\n%s", szScn, iPlayers, uiSeed, log);
+	if (iPlayers <= 0) return;
+	FILE* f = fopen(szOut, "w");
+	if (f == NULL) { harnessLog("cannot write %s\n", szOut); return; }
+	static std::vector<char> buf(1 << 20);
+	HH_telemetryReset();
+	int n = HH_telemetryHeader(&buf[0], (int)buf.size());
+	fwrite(&buf[0], 1, n, f); fputc('\n', f); fflush(f);
+	const int iStart = HH_gameTurn();
+	int iLastTurn = -1;
+	DWORD uiTurnStart = GetTickCount();
+	long iUpdates = 0;
+	for (;;)
+	{
+		const int iTurn = HH_gameTurn();
+		if (iTurn != iLastTurn)
+		{
+			const DWORD uiNow = GetTickCount();
+			const int iMs = iLastTurn < 0 ? 0 : (int)(uiNow - uiTurnStart);
+			uiTurnStart = uiNow;
+			iLastTurn = iTurn;
+			iUpdates = 0;
+			const int iDetail = (iDetailEvery > 0 && (iTurn - iStart) % iDetailEvery == 0) ? 1 : 0;
+			for (;;)
+			{
+				n = HH_telemetry(&buf[0], (int)buf.size(), iDetail, iMs);
+				if (n >= 0) break;
+				buf.resize(-n * 2);
+			}
+			fwrite(&buf[0], 1, n, f); fputc('\n', f); fflush(f);
+			if (iTurn - iStart >= iTurns || HH_gameState() != 0) break;
+		}
+		HH_update();
+		if (++iUpdates > 100000) { harnessLog("turn %d did not finish after %ld updates\n", iTurn, iUpdates); break; }
+	}
+	fclose(f);
+	harnessLog("RESULT scenario turn %d state %d\n", HH_gameTurn(), HH_gameState());
+}
+
+// A save split by sav2dat.py: load it, play iTurns turns and record telemetry.
+// When a turn does not end, report the groups that keep it open.
+static void saveRun(const char* szInit, const char* szGame, int iTurns, const char* szOut, int iDetailEvery, long iStuckUpdates)
+{
+	static char log[1 << 16];
+	HH_infoCounts(log, sizeof(log));
+	harnessLog("info counts: %s", log);
+	const int iAlive = HH_loadSave(szInit, szGame, log, sizeof(log));
+	harnessLog("save %s: result %d\n%s", szGame, iAlive, log);
+	if (iAlive <= 0) return;
+	// The harness cannot press "end turn": human seats play as AI (autorun).
+	harnessLog("autoplay: %d human seat(s) handed to the AI\n", HH_autoPlayHumans(iTurns + 1));
+	const std::string szState0 = std::string(szOut) + ".state0.json", szState1 = std::string(szOut) + ".state1.json";
+	HH_dumpState(szState0.c_str());
+	FILE* f = fopen(szOut, "w");
+	if (f == NULL) { harnessLog("cannot write %s\n", szOut); return; }
+	static std::vector<char> buf(1 << 20);
+	HH_telemetryReset();
+	int n = HH_telemetryHeader(&buf[0], (int)buf.size());
+	fwrite(&buf[0], 1, n, f); fputc('\n', f); fflush(f);
+	const int iStart = HH_gameTurn();
+	int iLastTurn = -1;
+	DWORD uiTurnStart = GetTickCount();
+	long iUpdates = 0;
+	harnessProfileReset();
+	for (;;)
+	{
+		const int iTurn = HH_gameTurn();
+		if (iTurn != iLastTurn)
+		{
+			const DWORD uiNow = GetTickCount();
+			const int iMs = iLastTurn < 0 ? 0 : (int)(uiNow - uiTurnStart);
+			harnessLog("turn %d (%d ms, %ld updates)\n", iTurn, iMs, iUpdates);
+			uiTurnStart = uiNow;
+			iLastTurn = iTurn;
+			iUpdates = 0;
+			const int iDetail = (iDetailEvery > 0 && (iTurn - iStart) % iDetailEvery == 0) ? 1 : 0;
+			for (;;)
+			{
+				n = HH_telemetry(&buf[0], (int)buf.size(), iDetail, iMs);
+				if (n >= 0) break;
+				buf.resize(-n * 2);
+			}
+			fwrite(&buf[0], 1, n, f); fputc('\n', f); fflush(f);
+			if (iTurn - iStart >= iTurns || HH_gameState() != 0) break;
+		}
+		HH_update();
+		++iUpdates;
+		if (iUpdates == iStuckUpdates || iUpdates == iStuckUpdates * 2 || iUpdates == iStuckUpdates * 4)
+		{
+			HH_stuckReport(log, sizeof(log));
+			harnessLog("STUCK turn %d after %ld updates (%d ms):\n%s", iTurn, iUpdates, (int)(GetTickCount() - uiTurnStart), log);
+		}
+		if (iUpdates > iStuckUpdates * 4) { harnessLog("ABORT: turn %d did not end\n", iTurn); break; }
+	}
+	fclose(f);
+	HH_dumpState(szState1.c_str());
+	harnessLog("RESULT save turn %d state %d\n", HH_gameTurn(), HH_gameState());
+	harnessProfileDump(stdout, 60);
+}
+
 int main(int argc, char** argv)
 {
 	char exe[MAX_PATH];
@@ -141,6 +262,20 @@ int main(int argc, char** argv)
 	CvGlobals::getInstance().setDLLIFace(harnessEngine(cfg));
 	GC.init();
 	if (!loadXml()) harnessLog("continuing despite XML errors\n");
+	if (argc > 1 && strcmp(argv[1], "scenario") == 0)
+	{
+		// harness.exe scenario <file.scn> <GAMESPEED_...|-> <HANDICAP_...> <seed> <turns> <out.jsonl> [detail every N turns]
+		if (argc < 8) { harnessLog("usage: harness.exe scenario <scn> <speed|-> <handicap> <seed> <turns> <out.jsonl> [detailEvery]\n"); return 2; }
+		scenarioRun(argv[2], argv[3], argv[4], (unsigned int)strtoul(argv[5], NULL, 10), atoi(argv[6]), argv[7], argc > 8 ? atoi(argv[8]) : 10);
+		return 0;
+	}
+	if (argc > 1 && strcmp(argv[1], "save") == 0)
+	{
+		// harness.exe save <file.init> <file.game> <turns> <out.jsonl> [detailEvery] [stuckUpdates]
+		if (argc < 6) { harnessLog("usage: harness.exe save <init> <game> <turns> <out.jsonl> [detailEvery] [stuckUpdates]\n"); return 2; }
+		saveRun(argv[2], argv[3], atoi(argv[4]), argv[5], argc > 6 ? atoi(argv[6]) : 10, argc > 7 ? atol(argv[7]) : 5000);
+		return 0;
+	}
 	const char* scenario = argc > 1 ? argv[1] : "islands";
 	const int turns = argc > 2 ? atoi(argv[2]) : 30;
 	const bool plain = argc > 3 && strcmp(argv[3], "plain") == 0;

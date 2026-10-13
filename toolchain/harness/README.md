@@ -24,10 +24,13 @@ from the real ones. In this harness those engine functions are the real DLL code
 | Graphics, sound, network, interface | Neutral return values (`engine_stubs.h`, generated from the SDK interface headers) |
 | Map and starting units | Placed through `HarnessHooks.cpp`, extra DLL exports compiled only into harness builds; they call the DLL's normal setup functions |
 
-Limits: Python game logic (RoM event handlers, Python AI overrides) does not run.
-Only one player is on the map. Barbarians, huts and events are off. The map is
-scripted, not generated. Results show what the DLL's code does; they do not prove
-that the game client behaves the same everywhere.
+Limits: Python game logic (RoM event handlers, Python AI overrides) does not run;
+the three callbacks whose results the DLL uses during AI turns (`calculateScore`,
+`doCityCaptureGold`, `doPillageGold`) are computed in C++ the way the RoM Python
+does (`HarnessScenario.cpp`, `HH_py*`). In the scripted islands mode only one
+player is on the map and barbarians, huts and events are off. Results show what
+the DLL's code does; they do not prove that the game client behaves the same
+everywhere.
 
 ## Inputs
 
@@ -45,7 +48,7 @@ cd toolchain/harness
 # once: engine stubs, base-game XML, inert python24/boost_python DLLs
 ./setup.sh <rom>/Assets/CvGameCoreDLL <advciv>/Assets/XML ../../builds/0011/CvGameCoreDLL.dll
 # a harness DLL per source tree to compare ("log" turns on BBAI logging)
-./build_dll.sh <rom-before>/Assets/CvGameCoreDLL work/b-before log
+./build_dll.sh <rom-before>/Assets/CvGameCoreDLL work/b-before log   # or "profile"
 ./build_dll.sh <rom-after>/Assets/CvGameCoreDLL work/b-after log
 ./build_harness.sh work/b-after
 ./compare.sh 30 <rom-after> before=work/b-before after=work/b-after
@@ -75,14 +78,71 @@ By default the start has Settler difficulty, 1000 gold and a size-3 capital, so
 unit upkeep cannot disband the ship or escort mid-test. `MODE=plain` uses Noble
 difficulty without either. Both modes gave the same landing results.
 
+## Real saves
+
+A `.CivBeyondSwordSave` from the game (save format 302) loads into the DLL's own
+`read()` functions, in the order the executable uses: `CvInitCore`, game, map,
+teams, players.
+
+```sh
+python3 sav2dat.py "My Game.CivBeyondSwordSave" work/mygame   # -> mygame.init, mygame.game
+cp work/mygame.init work/mygame.game work/root-after/
+cd work/root-after
+wine harness.exe save mygame.init mygame.game 10 run.jsonl 5 20000
+```
+
+Arguments: turns to play, telemetry file, a detailed telemetry line every N
+turns, and the number of `CvGame::update` calls after which a turn counts as
+stuck. Human seats are handed to the AI (autorun). For every turn the log prints
+`turn T (ms, updates)`; a turn that does not end prints `STUCK` reports naming
+the groups that keep it open, and stops after four times the limit. The run
+writes `run.jsonl.state0.json` and `.state1.json`: every player's economy,
+techs, civics, cities (buildings, current order) and settlers.
+
+The game reads `res/Fonts/GameFont_GlobalDefines.xml` differently from the
+harness; saves record 16 religions and 27 corporations, so the harness skips that
+file unless `HARNESS_GAMEFONT=1`.
+
+Diagnostics in the state files, off by default because they run extra searches:
+
+| Variable | Adds |
+|---|---|
+| `HARNESS_SETTLER_DIAG=1` | per settler: escort, horizon, and for the eight best settlement candidates every filter `AI_found` applies (can found, enemy units, other parties, path with and without `MOVE_SAFE_TERRITORY`, delivery region) and the transport of a settler at sea |
+| `HARNESS_VALUE_DIAG=1` | per AI city: the twelve buildings with the highest `AI_buildingValue`, with cost and turns |
+
+## WorldBuilder scenarios
+
+`wbs2scn.py` converts a `.CivBeyondSwordWBSave` (version 11) into a flat file
+that `HH_loadScenario` applies in the order `CvWBDesc.py` does: plots, teams,
+players, units, cities. All players are AI.
+
+```sh
+python3 wbs2scn.py Mediterranean.CivBeyondSwordWBSave work/med.scn
+wine harness.exe scenario med.scn GAMESPEED_EPIC HANDICAP_NOBLE 1 200 med.jsonl 10
+```
+
+Arguments: speed (`-` keeps the file's), difficulty, map random seed, turns,
+telemetry file, detailed line every N turns.
+
+## Profiling
+
+`./build_dll.sh <src> <out> profile` builds with `FP_PROFILE_ENABLE`: every
+`PROFILE` scope reports to the harness, and a save run ends with a table of self
+and inclusive time and call counts (`HARNESS_PROFILE_SORT=incl` sorts by
+inclusive time). Profiled builds are several times slower; use them for shares,
+plain builds for timings.
+
 ## Files
 
 | File | Purpose |
 |---|---|
-| `main.cpp` | Driver: loads XML, builds the scenario, runs turns, prints snapshots and the result |
+| `main.cpp` | Driver: loads XML, builds the islands map, a WorldBuilder scenario or a save, runs turns, prints snapshots and the result |
 | `engine.cpp`, `engine.h` | Engine interfaces: A*, XML, Python defaults, logging, text |
 | `xmldom.cpp`, `xmldom.h` | XML parser behind `FXml` |
 | `HarnessHooks.cpp` | Extra exports for setup and inspection (map, units, gold, snapshots, path probes) |
+| `HarnessScenario.cpp` | Scenario and save loading, per-turn telemetry, stuck-turn reports, the C++ forms of the Python callbacks |
+| `HarnessState.cpp` | The state files and their diagnostics |
+| `sav2dat.py`, `wbs2scn.py` | Save and WorldBuilder converters |
 | `gen_stubs.py` | Generates `engine_stubs.h` from the SDK's `CvDLL*IFaceBase.h` |
 | `gen_bts_xml.py` | Generates the base-game XML folder |
 | `pystub/python24.c`, `bpstub/gen_bpstub.py` | Inert Python 2.4 and Boost.Python DLLs |
