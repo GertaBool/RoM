@@ -1,9 +1,42 @@
 # Tested source fixes
 
+## Pathfinding, transport and siege
+
+[0010-pathing-transport-and-siege.patch](0010-pathing-transport-and-siege.patch) is the
+current incremental patch for GitLab **`main` at `a9b1fce`** (patch 0009 merged).
+
+- **Path searches stay reusable.** Queries about other groups (`AI_cityTargetUnitsByPath`,
+  `AI_unitTargetMissionAIs`, `AI_isPlotThreatened`, synchronized landings, ship searches
+  for coastal attacks) ran on the planner's A* and discarded its incremental search. They
+  now use a second finder. Reuse is admitted only for the same group, membership, turn
+  and moves, because the engine checks only the start plot and flags. The threat check
+  searches each enemy group once, not once per unit.
+- **Escort and stack grouping.** `AI_group` was Θ(candidates × groups) per call; a
+  unit-target index answers repeated queries. A `MAX_INT + 1` overflow counted
+  unreachable groups as "joining soon" for waiting transports.
+- **Decisions.** `AI_choke` used the last reachable plot instead of the best. Synchronized
+  landings ignored their own "can the cargo fight there" check. Workers compared raw value
+  against value per turn. A settler whose escort fell on arrival walked home instead of
+  founding.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/pathing-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/pathing-manifest.json
+```
+
+**24 regression programs pass**. The 13 new test cases all fail on unmodified `main`.
+The DLL is built with MSVC 2003: 0 errors, 0 warnings, exports identical to the shipped
+DLL. Use [`builds/0010/CvGameCoreDLL.dll`](../builds/0010/CvGameCoreDLL.dll); the save
+format is unchanged. The game executable was not run.
+
+[Investigation](../research/pathing/README.md) · [Manifest](pathing-manifest.json) ·
+[Before](pathing-before.log) · [Suite](pathing-regression.log) ·
+[Patch verification](pathing-patch-validation.log) · [Build provenance](../builds/0010/provenance.json).
+
 ## Turn time and research planning
 
 [0009-turn-time-and-research-planning.patch](0009-turn-time-and-research-planning.patch)
-is the current incremental patch for clean GitLab **`d8cedd551212c9a769230d66c219860c901798dd`**,
+is the previous incremental patch for clean GitLab **`d8cedd551212c9a769230d66c219860c901798dd`**,
 which already contains 0008's runtime change. It has **landed on GitLab `main`**
 ([!34](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/34), merge commit
 `a9b1fce`, tree `e3cbb9a8` = the tested tree). A clone of current `main` needs nothing applied.

@@ -1,0 +1,34 @@
+# Patch 0010 tests on unmodified GitLab main (tree e3cbb9a8, 2026-10-13T05:45Z)
+$ python3 Tools/test_unit_ai_corrections.py
+test_best_city_build_compares_value_per_turn (__main__.UnitAICorrectionTests.test_best_city_build_compares_value_per_turn) ... test: test.cpp:213: int main(): Assertion `pBest == &plots[0] && eBest == 10' failed.
+ERROR
+test_choke_keeps_the_best_plot (__main__.UnitAICorrectionTests.test_choke_keeps_the_best_plot) ... test: test.cpp:185: int main(): Assertion `pushed[0].iX == -1 && pushed[0].iY == -1' failed.
+ERROR
+test_reinforcement_respects_the_landing_check (__main__.UnitAICorrectionTests.test_reinforcement_respects_the_landing_check) ... test: test.cpp:592: int main(): Assertion `!transport.AI_assaultSeaReinforce(false) && push
+ERROR
+test_settler_on_its_site_founds_without_escort (__main__.UnitAICorrectionTests.test_settler_on_its_site_founds_without_escort) ... test: test.cpp:203: int main(): Assertion `pushed.size() == 1 && pushed[0].eMission == MI
+ERROR
+Ran 4 tests in 1.369s
+FAILED (errors=4)
+$ python3 Tools/test_group_queries.py
+test_repeated_queries_build_the_index_once (__main__.GroupQueryTests.test_repeated_queries_build_the_index_once) ... FAIL
+test_threat_check_searches_each_enemy_group_once (__main__.GroupQueryTests.test_threat_check_searches_each_enemy_group_once) ... test: test.cpp:161: int main(): Assertion `g_pathQueries - before <= (moves ? (long)distinc
+ERROR
+test_unit_target_counts_match_the_original_walk (__main__.GroupQueryTests.test_unit_target_counts_match_the_original_walk) ... test.cpp:70:17: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented 
+ERROR
+AssertionError: AI_unitTargetMissionAIs walks every group on every query
+Ran 3 tests in 0.816s
+FAILED (failures=1, errors=2)
+$ python3 Tools/test_path_queries.py
+test_answers_equal_fresh_searches_for_the_querying_group (__main__.PathQueryTests.test_answers_equal_fresh_searches_for_the_querying_group) ... ERROR
+test_finder_lifecycle (__main__.PathQueryTests.test_finder_lifecycle) ... FAIL
+test_other_group_queries_use_the_second_finder (__main__.PathQueryTests.test_other_group_queries_use_the_second_finder) ... FAIL
+test_other_groups_no_longer_discard_the_planners_search (__main__.PathQueryTests.test_other_groups_no_longer_discard_the_planners_search) ... ERROR
+test_reuse_owner_rules (__main__.PathQueryTests.test_reuse_owner_rules) ... test.cpp:3:10: fatal error: AIPathReuse.h: No such file or directory
+ERROR
+test_unguarded_reuse_gives_stale_turns (__main__.PathQueryTests.test_unguarded_reuse_gives_stale_turns) ... test.cpp:7:10: fatal error: AIPathReuse.h: No such file or directory
+ERROR
+AssertionError: 'CvSelectionGroup::initSecondaryPathFinder(getGridWidthINLINE(), getGridHeightINLINE(), isWrapXINLINE(), isWrapYINLINE());' not found in 'void CvMap::setup()\n{\n\tPROFILE("CvMap::setup");\n\n\tgDLL->getF
+AssertionError: 'pLoopSelectionGroup->generatePathSecondary(' not found in 'int CvPlayerAI::AI_cityTargetUnitsByPath(CvCity* pCity, CvSelectionGroup* pSkipSelectionGroup, int iMaxPathTurns) const\n{\n\tPROFILE_FUNC();\n\
+Ran 6 tests in 0.116s
+FAILED (failures=2, errors=4)

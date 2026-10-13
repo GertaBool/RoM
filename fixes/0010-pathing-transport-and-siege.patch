@@ -1,0 +1,1842 @@
+diff --git a/Assets/CvGameCoreDLL/AIMissionTargetIndex.h b/Assets/CvGameCoreDLL/AIMissionTargetIndex.h
+index 3780dd5..353f100 100644
+--- a/Assets/CvGameCoreDLL/AIMissionTargetIndex.h
++++ b/Assets/CvGameCoreDLL/AIMissionTargetIndex.h
+@@ -170,6 +170,126 @@ namespace AIMissionTargetIndex
+ 		std::vector<int> m_aiStamp;
+ 		std::vector<Entry> m_aEntries;
+ 	};
++
++	// Exact index for CvPlayerAI::AI_unitTargetMissionAIs: the groups whose
++	// mission targets a unit, bucketed by that unit's owner and ID. AI_group asks
++	// it once per candidate group, so walking every group made one AI_group call
++	// O(candidates x groups). Same invalidation contract as Index.
++	//
++	// The first query of an epoch is answered by the caller's own walk (no
++	// build); a second query in the same epoch builds the index in O(groups).
++	// One query per epoch therefore costs what it did before, and loops pay for
++	// one walk and one build instead of one walk per query.
++	struct UnitEntry
++	{
++		void* pGroup;
++		int iTargetOwner;
++		int iTargetID;
++		int iMissionAI;
++		int iUnits;
++		int iNext;
++	};
++
++	class UnitIndex
++	{
++	public:
++		enum { NUM_BUCKETS = 1024 };
++
++		UnitIndex() : m_iOwner(-1), m_uiEpoch(0), m_iQueries(0), m_bBuilt(false), m_iStamp(1),
++			m_aiHead(NUM_BUCKETS, -1), m_aiStamp(NUM_BUCKETS, 0) {}
++
++		// Records a query; true when the index should answer it.
++		bool noteQuery(const int iOwner, const unsigned int uiEpoch)
++		{
++			if (m_iOwner != iOwner || m_uiEpoch != uiEpoch)
++			{
++				m_iOwner = iOwner;
++				m_uiEpoch = uiEpoch;
++				m_iQueries = 0;
++				m_bBuilt = false;
++			}
++			++m_iQueries;
++			return m_iQueries > 1;
++		}
++
++		bool isBuilt() const
++		{
++			return m_bBuilt;
++		}
++
++		void begin()
++		{
++			m_aEntries.clear();
++			if (m_iStamp == INT_MAX)
++			{
++				m_aiStamp.assign(NUM_BUCKETS, 0);
++				m_iStamp = 0;
++			}
++			++m_iStamp;
++			m_bBuilt = true;
++		}
++
++		void invalidate()
++		{
++			m_iOwner = -1;
++			m_bBuilt = false;
++		}
++
++		void add(const int iTargetOwner, const int iTargetID, const int iMissionAI, const int iUnits, void* pGroup)
++		{
++			const int iBucket = bucket(iTargetOwner, iTargetID);
++			UnitEntry kEntry;
++			kEntry.pGroup = pGroup;
++			kEntry.iTargetOwner = iTargetOwner;
++			kEntry.iTargetID = iTargetID;
++			kEntry.iMissionAI = iMissionAI;
++			kEntry.iUnits = iUnits;
++			kEntry.iNext = head(iBucket);
++			m_aiStamp[iBucket] = m_iStamp;
++			m_aiHead[iBucket] = (int)m_aEntries.size();
++			m_aEntries.push_back(kEntry);
++		}
++
++		int numEntries() const
++		{
++			return (int)m_aEntries.size();
++		}
++
++		// Calls kVisitor(const UnitEntry&) for every group aimed at the unit.
++		template <class Visitor>
++		void visit(const int iTargetOwner, const int iTargetID, Visitor& kVisitor) const
++		{
++			for (int iEntry = head(bucket(iTargetOwner, iTargetID)); iEntry != -1; iEntry = m_aEntries[iEntry].iNext)
++			{
++				const UnitEntry& kEntry = m_aEntries[iEntry];
++				if (kEntry.iTargetOwner == iTargetOwner && kEntry.iTargetID == iTargetID)
++				{
++					kVisitor(kEntry);
++				}
++			}
++		}
++
++	private:
++		static int bucket(const int iTargetOwner, const int iTargetID)
++		{
++			const unsigned int uiKey = (unsigned int)iTargetID * 2654435761u + (unsigned int)iTargetOwner * 40503u;
++			return (int)((uiKey >> 16) % NUM_BUCKETS);
++		}
++
++		int head(const int iBucket) const
++		{
++			return (m_aiStamp[iBucket] == m_iStamp) ? m_aiHead[iBucket] : -1;
++		}
++
++		int m_iOwner;
++		unsigned int m_uiEpoch;
++		int m_iQueries;
++		bool m_bBuilt;
++		int m_iStamp;
++		std::vector<int> m_aiHead;
++		std::vector<int> m_aiStamp;
++		std::vector<UnitEntry> m_aEntries;
++	};
+ }
+ 
+ #endif
+diff --git a/Assets/CvGameCoreDLL/AIPathReuse.h b/Assets/CvGameCoreDLL/AIPathReuse.h
+new file mode 100644
+index 0000000..ba9594d
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/AIPathReuse.h
+@@ -0,0 +1,64 @@
++#ifndef AI_PATH_REUSE_H
++#define AI_PATH_REUSE_H
++
++// Who may continue a path finder's previous search.
++//
++// The engine's A* (FAStar) continues its last search tree when asked to reuse
++// and the start plot and flags are unchanged. That tree, including the moves
++// the group had when it was started, describes one group in one state. Reusing
++// it for another group, for the same group after its membership changed, after
++// it spent moves without moving (pillage, fortify) or on a later turn gives
++// stale turn counts. Owner admits reuse only when all of that is unchanged.
++//
++// Each finder has its own Owner. Queries made on behalf of a group other than
++// the one that is planning go to a second finder, so the planner's incremental
++// search survives them (CvSelectionGroup::generatePathSecondary).
++namespace AIPathReuse
++{
++	struct Key
++	{
++		const void* pGroup;
++		unsigned int uiGroupsEpoch;	// bumped on any group membership or mission change
++		int iTurn;
++		int iMovesLeft;			// least moves left in the group: the start node's moves
++	};
++
++	inline bool sameKey(const Key& kA, const Key& kB)
++	{
++		return kA.pGroup == kB.pGroup && kA.uiGroupsEpoch == kB.uiGroupsEpoch &&
++			kA.iTurn == kB.iTurn && kA.iMovesLeft == kB.iMovesLeft;
++	}
++
++	class Owner
++	{
++	public:
++		Owner() : m_bValid(false)
++		{
++			m_kLast.pGroup = 0;
++			m_kLast.uiGroupsEpoch = 0;
++			m_kLast.iTurn = 0;
++			m_kLast.iMovesLeft = 0;
++		}
++
++		// Whether the caller's reuse request may be passed to the engine. The
++		// finder will hold kKey's search afterwards, so it becomes the owner.
++		bool admit(const Key& kKey, const bool bReuse)
++		{
++			const bool bAdmit = bReuse && m_bValid && sameKey(m_kLast, kKey);
++			m_kLast = kKey;
++			m_bValid = true;
++			return bAdmit;
++		}
++
++		void invalidate()
++		{
++			m_bValid = false;
++		}
++
++	private:
++		Key m_kLast;
++		bool m_bValid;
++	};
++}
++
++#endif
+diff --git a/Assets/CvGameCoreDLL/CvGlobals.cpp b/Assets/CvGameCoreDLL/CvGlobals.cpp
+index ac4c36a..5e2e993 100644
+--- a/Assets/CvGameCoreDLL/CvGlobals.cpp
++++ b/Assets/CvGameCoreDLL/CvGlobals.cpp
+@@ -7,6 +7,7 @@
+ #include "CvGameAI.h"
+ #include "CvDLLInterfaceIFaceBase.h"
+ #include "CvMap.h"
++#include "CvSelectionGroup.h"
+ #include "CvPlayerAI.h"
+ #include "CvTeamAI.h"
+ #include "CvInfos.h"
+@@ -549,6 +550,7 @@ void CvGlobals::uninit()
+ 	SAFE_DELETE(m_initCore);
+ 	SAFE_DELETE(m_loadedInitCore);
+ 	SAFE_DELETE(m_iniInitCore);
++	CvSelectionGroup::releaseSecondaryPathFinder();	// the DLL's own finder, while the engine is still up
+ 	gDLL->uninitGlobals();	// free globals allocated outside the dll
+ 	SAFE_DELETE(m_VarSystem);
+ 
+diff --git a/Assets/CvGameCoreDLL/CvMap.cpp b/Assets/CvGameCoreDLL/CvMap.cpp
+index 933ed95..df094f4 100644
+--- a/Assets/CvGameCoreDLL/CvMap.cpp
++++ b/Assets/CvGameCoreDLL/CvMap.cpp
+@@ -12,6 +12,7 @@
+ #include "CvMap.h"
+ #include "CvCity.h"
+ #include "CvPlotGroup.h"
++#include "CvSelectionGroup.h"
+ #include "CvGlobals.h"
+ #include "CvGameAI.h"
+ #include "CvPlayerAI.h"
+@@ -251,6 +252,7 @@ void CvMap::setup()
+ 	gDLL->getFAStarIFace()->Initialize(&GC.getBorderFinder(), getGridWidthINLINE(), getGridHeightINLINE(), isWrapXINLINE(), isWrapYINLINE(), NULL, NULL, NULL, borderValid, NULL, NULL, NULL);
+ 	gDLL->getFAStarIFace()->Initialize(&GC.getAreaFinder(), getGridWidthINLINE(), getGridHeightINLINE(), isWrapXINLINE(), isWrapYINLINE(), NULL, NULL, NULL, areaValid, NULL, joinArea, NULL);
+ 	gDLL->getFAStarIFace()->Initialize(&GC.getPlotGroupFinder(), getGridWidthINLINE(), getGridHeightINLINE(), isWrapXINLINE(), isWrapYINLINE(), NULL, NULL, NULL, plotGroupValid, NULL, countPlotGroup, NULL);
++	CvSelectionGroup::initSecondaryPathFinder(getGridWidthINLINE(), getGridHeightINLINE(), isWrapXINLINE(), isWrapYINLINE());
+ }
+ 
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index a692c51..8a89f60 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -12532,7 +12532,9 @@ int CvPlayerAI::AI_cityTargetUnitsByPath(CvCity* pCity, CvSelectionGroup* pSkipS
+ 
+ 				if (iDistance <= 1)
+ 				{
+-					if( pLoopSelectionGroup->generatePath(pLoopSelectionGroup->plot(), pMissionPlot, 0, true, &iPathTurns) )
++					// Another group's route: the second finder keeps the caller's
++					// reusable search (AI_pickTargetCity scores every city with it).
++					if( pLoopSelectionGroup->generatePathSecondary(pLoopSelectionGroup->plot(), pMissionPlot, 0, true, &iPathTurns) )
+ 					{
+ 						if( !(pLoopSelectionGroup->canAllMove()) )
+ 						{
+@@ -12562,46 +12564,104 @@ int CvPlayerAI::AI_unitTargetMissionAIs(CvUnit* pUnit, MissionAITypes* aeMission
+ 	return AI_unitTargetMissionAIs(pUnit, aeMissionAI, iMissionAICount, pSkipSelectionGroup, -1);
+ }
+ 
+-int CvPlayerAI::AI_unitTargetMissionAIs(CvUnit* pUnit, MissionAITypes* aeMissionAI, int iMissionAICount, CvSelectionGroup* pSkipSelectionGroup, int iMaxPathTurns) const
++namespace
+ {
+-	PROFILE_FUNC();
+-
+-	CvSelectionGroup* pLoopSelectionGroup;
+-	int iCount;
+-	int iLoop;
++	AIMissionTargetIndex::UnitIndex s_kUnitTargetIndex;
+ 
+-	iCount = 0;
+-
+-	for(pLoopSelectionGroup = firstSelectionGroup(&iLoop); pLoopSelectionGroup; pLoopSelectionGroup = nextSelectionGroup(&iLoop))
++	// One group's contribution to AI_unitTargetMissionAIs.
++	int unitTargetGroupCount(CvSelectionGroup* pGroup, CvUnit* pUnit, MissionAITypes* aeMissionAI,
++		int iMissionAICount, int iMaxPathTurns)
+ 	{
+-		if (pLoopSelectionGroup != pSkipSelectionGroup)
++		const MissionAITypes eGroupMissionAI = pGroup->AI_getMissionAIType();
++		int iPathTurns = MAX_INT;
++
++		if (iMaxPathTurns >= 0 && pUnit->plot() != NULL && pGroup->plot() != NULL)
+ 		{
+-			if (pLoopSelectionGroup->AI_getMissionAIUnit() == pUnit)
++			// Another group's route: keep the caller's search on the primary finder.
++			// Without a path the turns stay MAX_INT; incrementing that overflowed
++			// and counted an unreachable group as arriving.
++			if (pGroup->generatePathSecondary(pGroup->plot(), pUnit->plot(), 0, false, &iPathTurns) &&
++				!pGroup->canAllMove())
+ 			{
+-				MissionAITypes eGroupMissionAI = pLoopSelectionGroup->AI_getMissionAIType();
+-				int iPathTurns = MAX_INT;
++				iPathTurns++;
++			}
++		}
+ 
+-				if( iMaxPathTurns >= 0 && (pUnit->plot() != NULL) && (pLoopSelectionGroup->plot() != NULL))
++		int iCount = 0;
++		if ((iMaxPathTurns == -1) || (iPathTurns <= iMaxPathTurns))
++		{
++			for (int iMissionAIIndex = 0; iMissionAIIndex < iMissionAICount; iMissionAIIndex++)
++			{
++				if (eGroupMissionAI == aeMissionAI[iMissionAIIndex] || NO_MISSIONAI == aeMissionAI[iMissionAIIndex])
+ 				{
+-					pLoopSelectionGroup->generatePath(pLoopSelectionGroup->plot(), pUnit->plot(), 0, false, &iPathTurns);
+-					if( !(pLoopSelectionGroup->canAllMove()) )
+-					{
+-						iPathTurns++;
+-					}
++					iCount += pGroup->getNumUnits();
+ 				}
++			}
++		}
++		return iCount;
++	}
++
++	struct UnitTargetCounter
++	{
++		CvUnit* pUnit;
++		MissionAITypes* aeMissionAI;
++		int iMissionAICount;
++		const CvSelectionGroup* pSkipSelectionGroup;
++		int iMaxPathTurns;
++		int iCount;
++
++		void operator()(const AIMissionTargetIndex::UnitEntry& kEntry)
++		{
++			if (kEntry.pGroup != pSkipSelectionGroup)
++			{
++				iCount += unitTargetGroupCount(static_cast<CvSelectionGroup*>(kEntry.pGroup), pUnit,
++					aeMissionAI, iMissionAICount, iMaxPathTurns);
++			}
++		}
++	};
++}
++
++// AI_group asks this once per candidate group: the index answers repeated
++// queries without walking every group again (AIMissionTargetIndex.h).
++int CvPlayerAI::AI_unitTargetMissionAIs(CvUnit* pUnit, MissionAITypes* aeMissionAI, int iMissionAICount, CvSelectionGroup* pSkipSelectionGroup, int iMaxPathTurns) const
++{
++	PROFILE_FUNC();
+ 
+-				if ((iMaxPathTurns == -1) || (iPathTurns <= iMaxPathTurns))
++	int iLoop;
++	// A NULL unit matches groups without a target unit; only the walk handles that.
++	if (pUnit != NULL && s_kUnitTargetIndex.noteQuery(getID(), CvSelectionGroup::getMissionTargetsEpoch()))
++	{
++		if (!s_kUnitTargetIndex.isBuilt())
++		{
++			s_kUnitTargetIndex.begin();
++			for (CvSelectionGroup* pLoopSelectionGroup = firstSelectionGroup(&iLoop); pLoopSelectionGroup; pLoopSelectionGroup = nextSelectionGroup(&iLoop))
++			{
++				CvUnit* pTarget = pLoopSelectionGroup->AI_getMissionAIUnit();
++				if (pTarget != NULL)
+ 				{
+-					for (int iMissionAIIndex = 0; iMissionAIIndex < iMissionAICount; iMissionAIIndex++)
+-					{
+-						if (eGroupMissionAI == aeMissionAI[iMissionAIIndex] || NO_MISSIONAI == aeMissionAI[iMissionAIIndex])
+-						{
+-							iCount += pLoopSelectionGroup->getNumUnits();
+-						}
+-					}
++					s_kUnitTargetIndex.add(pTarget->getOwnerINLINE(), pTarget->getID(),
++						pLoopSelectionGroup->AI_getMissionAIType(), pLoopSelectionGroup->getNumUnits(), pLoopSelectionGroup);
+ 				}
+ 			}
+ 		}
++		UnitTargetCounter kCounter;
++		kCounter.pUnit = pUnit;
++		kCounter.aeMissionAI = aeMissionAI;
++		kCounter.iMissionAICount = iMissionAICount;
++		kCounter.pSkipSelectionGroup = pSkipSelectionGroup;
++		kCounter.iMaxPathTurns = iMaxPathTurns;
++		kCounter.iCount = 0;
++		s_kUnitTargetIndex.visit(pUnit->getOwnerINLINE(), pUnit->getID(), kCounter);
++		return kCounter.iCount;
++	}
++
++	int iCount = 0;
++	for (CvSelectionGroup* pLoopSelectionGroup = firstSelectionGroup(&iLoop); pLoopSelectionGroup; pLoopSelectionGroup = nextSelectionGroup(&iLoop))
++	{
++		if (pLoopSelectionGroup != pSkipSelectionGroup && pLoopSelectionGroup->AI_getMissionAIUnit() == pUnit)
++		{
++			iCount += unitTargetGroupCount(pLoopSelectionGroup, pUnit, aeMissionAI, iMissionAICount, iMaxPathTurns);
++		}
+ 	}
+ 
+ 	return iCount;
+@@ -24545,6 +24605,11 @@ bool CvPlayerAI::AI_isPlotThreatened(CvPlot* pPlot, int iRange, bool bTestMoves)
+ 		iRange = DANGER_RANGE;
+ 	}
+ 
++	// Every unit of an enemy stack asked the same group the same question; each
++	// group is searched once per call (on the second finder: the caller is often
++	// in the middle of its own path scoring).
++	std::vector<std::pair<const CvSelectionGroup*, int> > aGroupTurns;
++
+ 	for (int iDX = -iRange; iDX <= iRange; iDX++)
+ 	{
+ 		for (int iDY = -iRange; iDY <= iRange; iDY++)
+@@ -24565,9 +24630,24 @@ bool CvPlayerAI::AI_isPlotThreatened(CvPlot* pPlot, int iRange, bool bTestMoves)
+ 								int iPathTurns = 0;
+ 								if (bTestMoves)
+ 								{
+-									if (!pLoopUnit->getGroup()->generatePath(pLoopPlot, pPlot, MOVE_MAX_MOVES | MOVE_IGNORE_DANGER, false, &iPathTurns))
++									const CvSelectionGroup* pGroup = pLoopUnit->getGroup();
++									bool bKnown = false;
++									for (size_t iGroup = 0; iGroup < aGroupTurns.size(); ++iGroup)
+ 									{
+-										iPathTurns = MAX_INT;
++										if (aGroupTurns[iGroup].first == pGroup)
++										{
++											iPathTurns = aGroupTurns[iGroup].second;
++											bKnown = true;
++											break;
++										}
++									}
++									if (!bKnown)
++									{
++										if (!pGroup->generatePathSecondary(pLoopPlot, pPlot, MOVE_MAX_MOVES | MOVE_IGNORE_DANGER, false, &iPathTurns))
++										{
++											iPathTurns = MAX_INT;
++										}
++										aGroupTurns.push_back(std::make_pair(pGroup, iPathTurns));
+ 									}
+ 								}
+ 
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+index 9074fb3..3bc762b 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+@@ -22,6 +22,7 @@
+ #include "CvDLLPythonIFaceBase.h"
+ #include <set>
+ #include "CvEventReporter.h"
++#include "AIPathReuse.h"
+ 
+ // BUG - start
+ #include "CvBugOptions.h"
+@@ -42,6 +43,53 @@
+ namespace
+ {
+ 	unsigned int s_uiMissionTargetsEpoch = 0;
++
++	AIPathReuse::Owner s_kPathFinderOwner;
++	AIPathReuse::Owner s_kSecondaryFinderOwner;
++	// Created by the DLL (the engine owns the others); see generatePathSecondary.
++	FAStar* s_pSecondaryPathFinder = NULL;
++
++	AIPathReuse::Key pathReuseKey(const CvSelectionGroup& kGroup)
++	{
++		AIPathReuse::Key kKey;
++		kKey.pGroup = &kGroup;
++		kKey.uiGroupsEpoch = CvSelectionGroup::getMissionTargetsEpoch();
++		kKey.iTurn = GC.getGameINLINE().getGameTurn();
++		kKey.iMovesLeft = MAX_INT;
++		for (CLLNode<IDInfo>* pUnitNode = kGroup.headUnitNode(); pUnitNode != NULL; pUnitNode = kGroup.nextUnitNode(pUnitNode))
++		{
++			const CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
++			if (pLoopUnit != NULL)
++			{
++				kKey.iMovesLeft = std::min(kKey.iMovesLeft, pLoopUnit->movesLeft());
++			}
++		}
++		return kKey;
++	}
++
++	bool generatePathOn(FAStar& kFinder, AIPathReuse::Owner& kOwner, const CvSelectionGroup& kGroup,
++		const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags, bool bReuse, int* piPathTurns)
++	{
++		const bool bAdmitReuse = kOwner.admit(pathReuseKey(kGroup), bReuse);
++
++		gDLL->getFAStarIFace()->SetData(&kFinder, &kGroup);
++		const bool bSuccess = gDLL->getFAStarIFace()->GeneratePath(&kFinder, pFromPlot->getX_INLINE(), pFromPlot->getY_INLINE(),
++			pToPlot->getX_INLINE(), pToPlot->getY_INLINE(), false, iFlags, bAdmitReuse);
++
++		if (piPathTurns != NULL)
++		{
++			*piPathTurns = MAX_INT;
++			if (bSuccess)
++			{
++				FAStarNode* pNode = gDLL->getFAStarIFace()->GetLastNode(&kFinder);
++				if (pNode != NULL)
++				{
++					*piPathTurns = pNode->m_iData2;
++				}
++			}
++		}
++		return bSuccess;
++	}
+ }
+ 
+ void CvSelectionGroup::noteMissionTargetsChanged()
+@@ -5392,29 +5440,43 @@ bool CvSelectionGroup::generatePath( const CvPlot* pFromPlot, const CvPlot* pToP
+ {
+ 	PROFILE("CvSelectionGroup::generatePath()")
+ 
+-	FAStarNode* pNode;
+-	bool bSuccess;
++	return generatePathOn(GC.getPathFinder(), s_kPathFinderOwner, *this, pFromPlot, pToPlot, iFlags, bReuse, piPathTurns);
++}
+ 
+-	gDLL->getFAStarIFace()->SetData(&GC.getPathFinder(), this);
+ 
+-	bSuccess = gDLL->getFAStarIFace()->GeneratePath(&GC.getPathFinder(), pFromPlot->getX_INLINE(), pFromPlot->getY_INLINE(), pToPlot->getX_INLINE(), pToPlot->getY_INLINE(), false, iFlags, bReuse);
++bool CvSelectionGroup::generatePathSecondary(const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags, bool bReuse, int* piPathTurns) const
++{
++	PROFILE("CvSelectionGroup::generatePathSecondary()")
+ 
+-	if (piPathTurns != NULL)
++	if (s_pSecondaryPathFinder == NULL)
+ 	{
+-		*piPathTurns = MAX_INT;
++		FAssertMsg(false, "secondary path finder used before CvMap::setup");
++		return generatePath(pFromPlot, pToPlot, iFlags, false, piPathTurns);
++	}
++	return generatePathOn(*s_pSecondaryPathFinder, s_kSecondaryFinderOwner, *this, pFromPlot, pToPlot, iFlags, bReuse, piPathTurns);
++}
+ 
+-		if (bSuccess)
+-		{
+-			pNode = getPathLastNode();
+ 
+-			if (pNode != NULL)
+-			{
+-				*piPathTurns = pNode->m_iData2;
+-			}
+-		}
++void CvSelectionGroup::initSecondaryPathFinder(int iWidth, int iHeight, bool bWrapX, bool bWrapY)
++{
++	if (s_pSecondaryPathFinder == NULL)
++	{
++		s_pSecondaryPathFinder = gDLL->getFAStarIFace()->create();
+ 	}
++	gDLL->getFAStarIFace()->Initialize(s_pSecondaryPathFinder, iWidth, iHeight, bWrapX, bWrapY, pathDestValid, pathHeuristic, pathCost, pathValid, pathAdd, NULL, NULL);
++	s_kSecondaryFinderOwner.invalidate();
++	s_kPathFinderOwner.invalidate();
++}
+ 
+-	return bSuccess;
++
++void CvSelectionGroup::releaseSecondaryPathFinder()
++{
++	if (s_pSecondaryPathFinder != NULL)
++	{
++		gDLL->getFAStarIFace()->destroy(s_pSecondaryPathFinder);
++		s_pSecondaryPathFinder = NULL;
++	}
++	s_kSecondaryFinderOwner.invalidate();
+ }
+ 
+ 
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.h b/Assets/CvGameCoreDLL/CvSelectionGroup.h
+index 6d7321a..8fb5fef 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.h
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.h
+@@ -164,6 +164,12 @@ public:
+ 	CvPlot* getPathFirstPlot() const;																																		// Exposed to Python
+ 	CvPlot* getPathEndTurnPlot() const;																																	// Exposed to Python
+ 	bool generatePath( const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL) const;	// Exposed to Python
++	// The same query for a group other than the one that is planning. It runs on a
++	// second finder, so the planner's reusable search survives it. Only the result
++	// and turns are returned; getPathLastNode() and friends describe the primary finder.
++	bool generatePathSecondary(const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL) const;
++	static void initSecondaryPathFinder(int iWidth, int iHeight, bool bWrapX, bool bWrapY);
++	static void releaseSecondaryPathFinder();
+ 	void resetPath();																																										// Exposed to Python
+ 
+ 	DllExport void clearUnits();
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp b/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
+index e0b54c0..f404f77 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
+@@ -807,7 +807,13 @@ void CvSelectionGroupAI::AI_setMissionAI(MissionAITypes eNewMissionAI, CvPlot* p
+ 
+ 	const int iNewX = (pNewPlot != NULL) ? pNewPlot->getX_INLINE() : INVALID_PLOT_COORD;
+ 	const int iNewY = (pNewPlot != NULL) ? pNewPlot->getY_INLINE() : INVALID_PLOT_COORD;
+-	if (eNewMissionAI != m_eMissionAIType || iNewX != m_iMissionAIX || iNewY != m_iMissionAIY)
++	IDInfo kNewUnit;
++	if (pNewUnit != NULL)
++	{
++		kNewUnit = pNewUnit->getIDInfo();
++	}
++	if (eNewMissionAI != m_eMissionAIType || iNewX != m_iMissionAIX || iNewY != m_iMissionAIY ||
++		!(kNewUnit == m_missionAIUnit))
+ 	{
+ 		noteMissionTargetsChanged();
+ 	}
+@@ -815,15 +821,7 @@ void CvSelectionGroupAI::AI_setMissionAI(MissionAITypes eNewMissionAI, CvPlot* p
+ 	m_eMissionAIType = eNewMissionAI;
+ 	m_iMissionAIX = iNewX;
+ 	m_iMissionAIY = iNewY;
+-
+-	if (pNewUnit != NULL)
+-	{
+-		m_missionAIUnit = pNewUnit->getIDInfo();
+-	}
+-	else
+-	{
+-		m_missionAIUnit.reset();
+-	}
++	m_missionAIUnit = kNewUnit;
+ }
+ 
+ 
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index e6a05f3..3f0a84b 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -1010,9 +1010,14 @@ bool CvUnitAI::AI_bestCityBuild(CvCity* pCity, CvPlot** ppBestPlot, BuildTypes*
+ 													//when deciding whether to stack.
+ 													iValue /= iPathTurns;
+ 
+-													iBestValue = iValue;
+-													pBestPlot = pLoopPlot;
+-													eBestBuild = eBuild;
++													// iBestValue holds value per turn: compare like with like.
++													// The raw-value test above only prunes (per turn <= raw).
++													if (iValue > iBestValue)
++													{
++														iBestValue = iValue;
++														pBestPlot = pLoopPlot;
++														eBestBuild = eBuild;
++													}
+ 												}
+ 											}
+ 										}
+@@ -1334,6 +1339,19 @@ void CvUnitAI::AI_settleMove()
+ 		}
+ 	}
+ 
++	// A settler standing on its accepted site founds now, before the escort rule
++	// below: walking home because the escort fell or was split off on arrival
++	// would discard the whole trip (BTS also founded in place before that rule).
++	if (getGroup()->AI_getMissionAIType() == MISSIONAI_FOUND)
++	{
++		CvPlot* pSite = getGroup()->AI_getMissionAIPlot();
++		if (pSite != NULL && atPlot(pSite) && canFound(pSite))
++		{
++			getGroup()->pushMission(MISSION_FOUND, -1, -1, 0, false, false, MISSIONAI_FOUND, pSite);
++			return;
++		}
++	}
++
+ 	// Destination and delivery are selected together in AI_found. Do not found,
+ 	// scrap, or board based on the hypothetical production portfolio first.
+ 
+@@ -10760,7 +10778,9 @@ bool CvUnitAI::AI_loadForCoastalAttack(CvCity* pTargetCity)
+ 					continue;
+ 				}
+ 				int iSailTurns;
+-				if (pTransport->generatePath(pWaterApproach, 0, true, &iSailTurns))
++				// The ship's route runs on the second finder: our boarding search
++				// (MOVE_SAFE_TERRITORY from our plot) stays reusable across ships.
++				if (pTransport->getGroup()->generatePathSecondary(pTransport->plot(), pWaterApproach, 0, true, &iSailTurns))
+ 				{
+ 					if (iBoardTurns + iSailTurns + 1 < iBestCombinedTurns)
+                     {
+@@ -17483,7 +17503,9 @@ bool CvUnitAI::AI_assaultSeaReinforce(bool bBarbarian)
+ 												CvPlot* pEndTurnPlot = getPathEndTurnPlot();
+ 											
+ 												int iOtherPathTurns = MAX_INT;
+-												if (pLoopSelectionGroup->generatePath(pLoopSelectionGroup->plot(), pLoopPlot, MOVE_AVOID_ENEMY_WEIGHT_3, true, &iOtherPathTurns))
++												// The other fleet's route runs on the second finder so our
++												// own search stays reusable for the next candidate.
++												if (pLoopSelectionGroup->generatePathSecondary(pLoopSelectionGroup->plot(), pLoopPlot, MOVE_AVOID_ENEMY_WEIGHT_3, true, &iOtherPathTurns))
+ 												{
+ 													// We need to get there the turn after they do, +1 required whether
+ 													// they move first or we do
+@@ -17514,7 +17536,9 @@ bool CvUnitAI::AI_assaultSeaReinforce(bool bBarbarian)
+ 															//CvUnit* pDefender = pLoopPlot->getBestDefender(NO_PLAYER, pAttacker->getOwnerINLINE(), pAttacker, true);
+ 															//if (pDefender == NULL || !pAttacker->canAttack(*pDefender))
+ 															// modified
+-															if (!pLoopPlot->hasDefender(true, NO_PLAYER, pAttacker->getOwnerINLINE(), pAttacker, true))
++															// As in AI_assaultSeaTransport: defenders matter only when
++															// some are visible (an empty city is simply taken).
++															if (iVisibleEnemyDefenders > 0 && !pLoopPlot->hasDefender(true, NO_PLAYER, pAttacker->getOwnerINLINE(), pAttacker, true))
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+@@ -17534,6 +17558,13 @@ bool CvUnitAI::AI_assaultSeaReinforce(bool bBarbarian)
+ 														}
+ 													}
+ 
++													// This result used to be computed and then ignored, so
++													// transports joined landings their cargo could not make.
++													if (!bCanCargoAllUnload)
++													{
++														continue;
++													}
++
+ 													iValue = (iAssaultsHere * 5);
+ 													iValue += iTargetCities*10;
+ 
+@@ -24088,7 +24119,10 @@ bool CvUnitAI::AI_choke(int iRange, bool bDefensive)
+ 								iValue /= std::max(1, (pLoopPlot->getNumDefenders(getOwnerINLINE()) + ((pLoopPlot == plot()) ? 0 : getGroup()->getNumUnits())));
+ 							}
+ 
+-							if (generatePath(pLoopPlot))
++							// Keep the best plot. Previously every reachable plot replaced
++							// the last, so the scan order (not defence or yield) chose
++							// where a siege stack stood. One reusable search serves all.
++							if (iValue > iBestValue && generatePath(pLoopPlot, 0, true))
+ 							{
+ 								pBestPlot = getPathEndTurnPlot();
+ 								iBestValue = iValue;
+diff --git a/Docs/PATHFINDING_TRANSPORT_AND_SIEGE.md b/Docs/PATHFINDING_TRANSPORT_AND_SIEGE.md
+new file mode 100644
+index 0000000..a3ef2ac
+--- /dev/null
++++ b/Docs/PATHFINDING_TRANSPORT_AND_SIEGE.md
+@@ -0,0 +1,72 @@
++# Pathfinding, transport, siege and settler corrections
++
++These changes apply to GitLab `main` after merge request !34 (tree `e3cbb9a8`). They
++were built with Visual C++ Toolkit 2003 and the Platform SDK for Windows Server 2003
++SP1 and checked with a clang whole-DLL diagnostic pass. Save format, XML and Python
++are unchanged.
++
++## Path searches stay reusable
++
++The engine's A* continues its previous search when a query passes `bReuse` and the
++start plot and flags match. AI loops rely on that: `AI_pickTargetCity` scores every
++enemy city with one incremental search. Two problems undid it.
++
++- **Other groups' queries ran on the same finder.** `AI_cityTargetUnitsByPath`,
++  `AI_unitTargetMissionAIs` (with a path limit), `AI_isPlotThreatened`, the
++  synchronized-landing check in `AI_assaultSeaReinforce` and the ship search in
++  `AI_loadForCoastalAttack` all queried another group's route between the planning
++  group's own queries. Each one discarded the planner's search, so the next candidate
++  started from scratch. With 12 visible enemy cities and 5 stacks around them, that
++  is 72 full searches where one incremental search suffices. These queries now use
++  `CvSelectionGroup::generatePathSecondary`, which runs on a second finder created in
++  `CvMap::setup` and released in `CvGlobals::uninit`.
++- **Reuse ignored who the stored search belonged to.** The engine compares only the
++  start plot and flags. Another group, the same group after its members changed or it
++  spent moves without moving (pillage, fortify), or the same group on a later turn
++  could continue a search tree that describes other units, and so get stale turn
++  counts. `AIPathReuse.h` records each finder's owner (group, membership epoch, turn
++  and the group's least moves left) and passes reuse to the engine only when all of
++  these match.
++
++`AI_isPlotThreatened` used to run one fresh search per enemy unit, so a 20-unit stack
++cost 20 identical searches. It now searches each enemy group once per call.
++
++## Mission lookups by target unit
++
++`AI_group` (escort and stack grouping) calls `AI_unitTargetMissionAIs` once per
++candidate group, and each call walked every group of the player. That made one
++`AI_group` call cost candidates x groups. A unit-target index
++(`AIMissionTargetIndex::UnitIndex`) now answers repeated queries in the same epoch.
++The first query of an epoch still walks the groups, so a single query costs what it
++did before. The epoch now also changes when a group's target unit changes. The path
++variant used to compute `MAX_INT + 1` for a group with no path that could not all
++move, which counted that group as arriving soon. A loaded transport could then wait
++in port for a group that could never reach it. Such a group no longer counts.
++
++## Decision corrections
++
++- **Siege positioning (`AI_choke`).** Every reachable candidate replaced the previous
++  one, so the stack went to the last plot in scan order rather than the best defensive
++  or choke plot. The best value now wins, and one reusable search serves all
++  candidates (each candidate used to start a fresh search).
++- **Joining a synchronized landing (`AI_assaultSeaReinforce`).** The check "can all
++  cargo fight at the landing plot" was computed and then ignored. Transports carrying
++  artillery joined landings on unseen cities, and transports joined landings whose
++  visible defenders their cargo could not attack. The check is now applied, with the
++  same rule as `AI_assaultSeaTransport`: an empty city is not rejected for lacking
++  defenders.
++- **Worker target choice (`AI_bestCityBuild`).** When the first choice was taken,
++  the second pass compared a plot's raw value against the best value per turn of
++  travel. A distant plot with a slightly higher raw value displaced a near plot worth
++  far more per turn. Both sides are now per-turn values.
++- **Settler on its site (`AI_settleMove`).** A settler whose escort died or was split
++  off on arrival walked back to a city, discarding the trip. It now founds when it
++  stands on its accepted site. The danger check still runs first, and the escort rule
++  still applies everywhere else.
++
++## Tests
++
++`Tools/test_path_queries.py`, `Tools/test_group_queries.py` and
++`Tools/test_unit_ai_corrections.py` compile the production functions against host
++adapters. They are mapped in `Tools/regression_manifest.json`; run all programs with
++`python3 Tools/run_regression_suite.py`.
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index 62bd83b..ffeb954 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -83,6 +83,18 @@
+     {
+       "command": ["python3", "Tools/test_research_plan.py"],
+       "patterns": ["Assets/CvGameCoreDLL/ResearchPathPlan.h", "Assets/CvGameCoreDLL/CvResearchGraph.h", "Assets/CvGameCoreDLL/CvPlayer.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvGameTextMgr.*", "Assets/XML/Technologies/CIV4TechInfos.xml", "Assets/XML/Text/RoM_GameText_ResearchPlan.xml"]
++    },
++    {
++      "command": ["python3", "Tools/test_path_queries.py"],
++      "patterns": ["Assets/CvGameCoreDLL/AIPathReuse.h", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvMap.cpp", "Assets/CvGameCoreDLL/CvGlobals.cpp", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*"]
++    },
++    {
++      "command": ["python3", "Tools/test_group_queries.py"],
++      "patterns": ["Assets/CvGameCoreDLL/AIMissionTargetIndex.h", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvSelectionGroup*"]
++    },
++    {
++      "command": ["python3", "Tools/test_unit_ai_corrections.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvUnitAI.*"]
+     }
+   ]
+ }
+diff --git a/Tools/test_group_queries.py b/Tools/test_group_queries.py
+new file mode 100644
+index 0000000..b43cfb6
+--- /dev/null
++++ b/Tools/test_group_queries.py
+@@ -0,0 +1,295 @@
++#!/usr/bin/env python3
++"""Group queries used by escort grouping, transport waiting and threat checks.
++
++* CvPlayerAI::AI_unitTargetMissionAIs (asked once per candidate group by
++  AI_group) is compared with the original walk over randomized group sets,
++  mission types, skip groups, wildcard requests and path limits, with the world
++  mutating between queries. The index must answer repeated queries of an epoch
++  after one walk and one build. A group with no path that cannot all move this
++  turn used to overflow MAX_INT + 1 and count as arriving; it must not count.
++* CvPlayerAI::AI_isPlotThreatened is compared with the original per-unit loop;
++  each enemy group may be searched only once per call.
++
++The production functions are compiled from CvPlayerAI.cpp against host adapters.
++"""
++import re
++import unittest
++from test_review_correctness import DLL, remaining, block, compile_run
++
++PLAYER_CPP = (DLL / "CvPlayerAI.cpp").read_text(errors="replace")
++
++
++def unit_target_source():
++    parts = []
++    if "int unitTargetGroupCount(" in PLAYER_CPP:
++        parts.append(block(PLAYER_CPP, "namespace\n{\n\tAIMissionTargetIndex::UnitIndex s_kUnitTargetIndex;"))
++    parts.append(block(PLAYER_CPP, "int CvPlayerAI::AI_unitTargetMissionAIs(CvUnit* pUnit, MissionAITypes* aeMissionAI, "
++                                   "int iMissionAICount, CvSelectionGroup* pSkipSelectionGroup, int iMaxPathTurns) const"))
++    return "\n".join(parts)
++
++
++HOST = r'''
++#include <algorithm>
++#include <cassert>
++#include <climits>
++#include <cstdlib>
++#include <cstddef>
++#include <utility>
++#include <vector>
++#include "AIMissionTargetIndex.h"
++#define PROFILE_FUNC() ((void)0)
++const int MAX_INT = INT_MAX;
++enum MissionAITypes { NO_MISSIONAI = -1, MISSIONAI_A, MISSIONAI_B, MISSIONAI_C };
++enum { MOVE_MAX_MOVES = 1, MOVE_IGNORE_DANGER = 2, DANGER_RANGE = 4 };
++unsigned int g_epoch = 0;
++long g_pathQueries = 0;
++struct CvPlot { int x, y; int area; int getX_INLINE() const { return x; } int getY_INLINE() const { return y; } int area_() const { return area; } };
++struct CvUnit;
++struct CvSelectionGroup
++{
++	int id; CvPlot* pAt; CvUnit* pTarget; MissionAITypes eAI; int iUnits; bool bAllMove; int iTurns;	// iTurns < 0: no path
++	CvUnit* AI_getMissionAIUnit() const { return pTarget; }
++	MissionAITypes AI_getMissionAIType() const { return eAI; }
++	int getNumUnits() const { return iUnits; }
++	CvPlot* plot() const { return pAt; }
++	bool canAllMove() const { return bAllMove; }
++	bool query(int* piTurns) const { ++g_pathQueries; *piTurns = iTurns < 0 ? MAX_INT : iTurns; return iTurns >= 0; }
++	bool generatePath(const CvPlot*, const CvPlot*, int, bool, int* piTurns) const { return query(piTurns); }
++	bool generatePathSecondary(const CvPlot*, const CvPlot*, int, bool, int* piTurns) const { return query(piTurns); }
++	static unsigned int getMissionTargetsEpoch() { return g_epoch; }
++};
++struct CvUnit
++{
++	int owner, id; CvPlot* pAt; CvSelectionGroup* pGroup; bool enemy, attack, invisible, canEnter;
++	int getOwnerINLINE() const { return owner; } int getID() const { return id; }
++	CvPlot* plot() const { return pAt; }
++	CvSelectionGroup* getGroup() const { return pGroup; }
++};
++std::vector<CvSelectionGroup*> g_groups;
++struct CvPlayerAI
++{
++	int getID() const { return 0; }
++	CvSelectionGroup* firstSelectionGroup(int* p) const { *p = 0; return g_groups.empty() ? NULL : g_groups[0]; }
++	CvSelectionGroup* nextSelectionGroup(int* p) const { ++*p; return (size_t)*p < g_groups.size() ? g_groups[*p] : NULL; }
++	int AI_unitTargetMissionAIs(CvUnit* pUnit, MissionAITypes* aeMissionAI, int iMissionAICount, CvSelectionGroup* pSkipSelectionGroup, int iMaxPathTurns) const;
++};
++'''
++
++REFERENCE = r'''
++// The original walk, with the overflow removed (no path keeps MAX_INT).
++int reference(CvUnit* pUnit, MissionAITypes* ae, int n, CvSelectionGroup* pSkip, int iMax)
++{
++	int iCount = 0;
++	for (size_t g = 0; g < g_groups.size(); ++g)
++	{
++		CvSelectionGroup* p = g_groups[g];
++		if (p == pSkip || p->AI_getMissionAIUnit() != pUnit) continue;
++		long long iTurns = MAX_INT;
++		if (iMax >= 0 && pUnit->plot() != NULL && p->plot() != NULL)
++		{
++			if (p->iTurns >= 0) iTurns = p->iTurns + (p->bAllMove ? 0 : 1);
++		}
++		if (iMax == -1 || iTurns <= iMax)
++			for (int i = 0; i < n; ++i)
++				if (p->eAI == ae[i] || ae[i] == NO_MISSIONAI) iCount += p->iUnits;
++	}
++	return iCount;
++}
++unsigned int seed = 31337u;
++int rnd(int n) { seed = seed * 1664525u + 1013904223u; return (int)((seed >> 8) % (unsigned int)n); }
++'''
++
++
++class GroupQueryTests(unittest.TestCase):
++    def test_unit_target_counts_match_the_original_walk(self):
++        compile_run(HOST + unit_target_source() + REFERENCE + r'''
++int main()
++{
++	CvPlot here = { 0, 0, 0 };
++	std::vector<CvUnit> units(30);
++	for (int i = 0; i < 30; ++i) { CvUnit u = { i % 3, 100 + i * 7, &here, NULL, false, false, false, false }; units[i] = u; }
++	std::vector<CvSelectionGroup> pool(60);
++	CvPlayerAI player;
++	long queries = 0;
++	for (int round = 0; round < 400; ++round)
++	{
++		g_groups.clear();
++		const int n = rnd(60);
++		for (int g = 0; g < n; ++g)
++		{
++			CvSelectionGroup k = { g, rnd(5) ? &here : NULL, rnd(4) ? &units[rnd(30)] : NULL,
++				(MissionAITypes)(rnd(4) - 1), 1 + rnd(5), rnd(2) == 0, rnd(4) - 1 };
++			pool[g] = k; g_groups.push_back(&pool[g]);
++		}
++		++g_epoch;
++		for (int q = 0; q < 25; ++q)
++		{
++			if (rnd(6) == 0 && n > 0) { pool[rnd(n)].pTarget = rnd(3) ? &units[rnd(30)] : NULL; ++g_epoch; }
++			MissionAITypes ae[3]; const int count = 1 + rnd(3);
++			for (int i = 0; i < count; ++i) ae[i] = (MissionAITypes)(rnd(4) - 1);
++			CvUnit* pUnit = &units[rnd(30)];
++			CvSelectionGroup* pSkip = (n > 0 && rnd(3) == 0) ? g_groups[rnd(n)] : NULL;
++			const int iMax = rnd(3) == 0 ? -1 : rnd(4);
++			const long before = g_pathQueries;
++			assert(player.AI_unitTargetMissionAIs(pUnit, ae, count, pSkip, iMax) == reference(pUnit, ae, count, pSkip, iMax));
++			// Path queries are only made for groups aimed at the unit.
++			int aimed = 0;
++			for (int g = 0; g < n; ++g) if (g_groups[g] != pSkip && g_groups[g]->pTarget == pUnit) ++aimed;
++			assert(g_pathQueries - before <= (iMax >= 0 ? aimed : 0));
++			++queries;
++		}
++	}
++	assert(queries == 400 * 25);
++
++	// The overflow case: no path, cannot all move, a path limit.
++	g_groups.clear();
++	CvSelectionGroup stuck = { 0, &here, &units[0], MISSIONAI_A, 4, false, -1 };
++	g_groups.push_back(&stuck);
++	MissionAITypes any = NO_MISSIONAI;
++	++g_epoch;
++	assert(player.AI_unitTargetMissionAIs(&units[0], &any, 1, NULL, 3) == 0);
++}
++''')
++
++    def test_repeated_queries_build_the_index_once(self):
++        if "int unitTargetGroupCount(" not in PLAYER_CPP:
++            self.fail("AI_unitTargetMissionAIs walks every group on every query")
++        compile_run(HOST + unit_target_source() + r'''
++int main()
++{
++	CvPlot here = { 0, 0, 0 };
++	std::vector<CvUnit> units(10);
++	for (int i = 0; i < 10; ++i) { CvUnit u = { 0, i, &here, NULL, false, false, false, false }; units[i] = u; }
++	std::vector<CvSelectionGroup> pool(500);
++	for (int g = 0; g < 500; ++g) { CvSelectionGroup k = { g, &here, &units[g % 10], MISSIONAI_A, 1, true, 1 }; pool[g] = k; g_groups.push_back(&pool[g]); }
++	CvPlayerAI player;
++	MissionAITypes a = MISSIONAI_A;
++	++g_epoch;
++	for (int i = 0; i < 10; ++i) assert(player.AI_unitTargetMissionAIs(&units[i], &a, 1, NULL, -1) == 50);
++	assert(s_kUnitTargetIndex.isBuilt() && s_kUnitTargetIndex.numEntries() == 500);
++	++g_epoch;	// a change: the next first query walks, the second rebuilds
++	assert(player.AI_unitTargetMissionAIs(&units[0], &a, 1, NULL, -1) == 50 && !s_kUnitTargetIndex.isBuilt());
++	assert(player.AI_unitTargetMissionAIs(&units[1], &a, 1, NULL, -1) == 50 && s_kUnitTargetIndex.isBuilt());
++}
++''')
++
++    def test_threat_check_searches_each_enemy_group_once(self):
++        method = block(PLAYER_CPP, "bool CvPlayerAI::AI_isPlotThreatened(CvPlot* pPlot, int iRange, bool bTestMoves) const")
++        compile_run(r'''
++#include <algorithm>
++#include <cassert>
++#include <climits>
++#include <cstddef>
++#include <utility>
++#include <vector>
++#define PROFILE_FUNC() ((void)0)
++const int MAX_INT = INT_MAX;
++enum { MOVE_MAX_MOVES = 1, MOVE_IGNORE_DANGER = 2, DANGER_RANGE = 4 };
++long g_pathQueries = 0;
++struct CvArea { int id; };
++CvArea areas[2] = { {0}, {1} };
++struct CvUnit;
++template <class T> struct CLLNode { T m_data; CLLNode* next; };
++struct IDInfo { CvUnit* p; };
++CvUnit* getUnit(const IDInfo& k) { return k.p; }
++struct CvPlot;
++struct CvSelectionGroup
++{
++	int iTurns;	// < 0: no path
++	bool query(int* piTurns) const { ++g_pathQueries; *piTurns = iTurns < 0 ? MAX_INT : iTurns; return iTurns >= 0; }
++	bool generatePath(const CvPlot*, const CvPlot*, int, bool, int* piTurns) const { return query(piTurns); }
++	bool generatePathSecondary(const CvPlot*, const CvPlot*, int, bool, int* piTurns) const { return query(piTurns); }
++};
++struct CvPlot
++{
++	int x, y, iArea; std::vector<CLLNode<IDInfo> > nodes;
++	CvArea* area() const { return &areas[iArea]; }
++	int getX_INLINE() const { return x; } int getY_INLINE() const { return y; }
++	CLLNode<IDInfo>* headUnitNode() const { return nodes.empty() ? NULL : const_cast<CLLNode<IDInfo>*>(&nodes[0]); }
++	CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* p) const { return p->next; }
++};
++CvPlot grid[9][9];
++CvPlot* plotXY(int x, int y, int dx, int dy) { int i = x + dx, j = y + dy; return (i < 0 || j < 0 || i > 8 || j > 8) ? NULL : &grid[i][j]; }
++struct CvUnit
++{
++	CvSelectionGroup* pGroup; bool enemy, attack, invisible, canEnter;
++	bool isEnemy(int) const { return enemy; } bool canAttack() const { return attack; }
++	bool isInvisible(int, bool) const { return invisible; }
++	bool canMoveOrAttackInto(const CvPlot*) const { return canEnter; }
++	CvSelectionGroup* getGroup() const { return pGroup; }
++};
++struct CvPlayerAI
++{
++	int getTeam() const { return 0; }
++	bool AI_isPlotThreatened(CvPlot* pPlot, int iRange, bool bTestMoves) const;
++};
++''' + method + r'''
++unsigned int seed = 7u;
++int rnd(int n) { seed = seed * 1664525u + 1013904223u; return (int)((seed >> 8) % (unsigned int)n); }
++// The original loop: one path query per qualifying unit.
++bool reference(CvPlot* pPlot, int iRange, bool bTestMoves)
++{
++	for (int dx = -iRange; dx <= iRange; ++dx) for (int dy = -iRange; dy <= iRange; ++dy)
++	{
++		CvPlot* p = plotXY(pPlot->x, pPlot->y, dx, dy);
++		if (p == NULL || p->iArea != pPlot->iArea) continue;
++		for (size_t i = 0; i < p->nodes.size(); ++i)
++		{
++			CvUnit* u = p->nodes[i].m_data.p;
++			if (!u->enemy || !u->attack || u->invisible || !u->canEnter) continue;
++			int turns = 0;
++			if (bTestMoves) turns = u->pGroup->iTurns < 0 ? MAX_INT : u->pGroup->iTurns;
++			if (turns <= 1) return true;
++		}
++	}
++	return false;
++}
++int main()
++{
++	CvPlayerAI player;
++	std::vector<CvUnit> units(400); std::vector<CvSelectionGroup> groups(80);
++	for (int round = 0; round < 3000; ++round)
++	{
++		for (int i = 0; i < 9; ++i) for (int j = 0; j < 9; ++j) { grid[i][j].x = i; grid[i][j].y = j; grid[i][j].iArea = rnd(6) == 0; grid[i][j].nodes.clear(); }
++		for (size_t g = 0; g < groups.size(); ++g) groups[g].iTurns = rnd(4) - 1;
++		int u = 0;
++		std::vector<CvSelectionGroup*> used;
++		for (int s = 0; s < 10; ++s)
++		{
++			CvPlot& at = grid[rnd(9)][rnd(9)];
++			CvSelectionGroup* g = &groups[rnd(80)];
++			const int size = 1 + rnd(12);
++			for (int k = 0; k < size && u < 400; ++k, ++u)
++			{
++				CvUnit unit = { g, rnd(5) != 0, rnd(6) != 0, rnd(8) == 0, rnd(4) != 0 };
++				units[u] = unit;
++				CLLNode<IDInfo> node = { { &units[u] }, NULL };
++				at.nodes.push_back(node);
++			}
++		}
++		for (int i = 0; i < 9; ++i) for (int j = 0; j < 9; ++j)
++			for (size_t n = 0; n < grid[i][j].nodes.size(); ++n)
++				grid[i][j].nodes[n].next = n + 1 < grid[i][j].nodes.size() ? &grid[i][j].nodes[n + 1] : NULL;
++		CvPlot* target = &grid[4][4];
++		const int range = rnd(5);
++		const bool moves = rnd(4) != 0;
++		// Distinct qualifying groups bound the searches.
++		std::vector<CvSelectionGroup*> distinct;
++		for (int dx = -range; dx <= range; ++dx) for (int dy = -range; dy <= range; ++dy)
++		{
++			CvPlot* p = plotXY(4, 4, dx, dy);
++			if (p == NULL || p->iArea != target->iArea) continue;
++			for (size_t i = 0; i < p->nodes.size(); ++i) { CvUnit* x = p->nodes[i].m_data.p;
++				if (x->enemy && x->attack && !x->invisible && x->canEnter &&
++					std::find(distinct.begin(), distinct.end(), x->pGroup) == distinct.end()) distinct.push_back(x->pGroup); }
++		}
++		const long before = g_pathQueries;
++		assert(player.AI_isPlotThreatened(target, range, moves) == reference(target, range, moves));
++		assert(g_pathQueries - before <= (moves ? (long)distinct.size() : 0));
++	}
++}
++''')
++
++
++if __name__ == "__main__":
++    unittest.main(argv=[__file__] + remaining, verbosity=2)
+diff --git a/Tools/test_path_queries.py b/Tools/test_path_queries.py
+new file mode 100644
+index 0000000..3dd20b6
+--- /dev/null
++++ b/Tools/test_path_queries.py
+@@ -0,0 +1,301 @@
++#!/usr/bin/env python3
++"""Path finder reuse ownership and the second finder for other groups' queries.
++
++The engine's A* continues its previous search when asked to reuse and the start
++plot and flags match; it cannot know which group or which unit state the stored
++tree describes. The production generatePath code from CvSelectionGroup.cpp is
++compiled against a mock engine with exactly that rule. The mock answers a reused
++query from the stored tree, so a tree reused for the wrong group or state shows
++up as a wrong turn count. The tests check that:
++
++* reuse is admitted only for the same group, membership epoch, turn and moves;
++* every answer equals a fresh search for the querying group;
++* queries for other groups no longer discard the planner's reusable search
++  (the AI_pickTargetCity pattern: one search per city before, one in total now);
++* the call sites that query other groups use the second finder, and the second
++  finder is created with the others and released before the engine shuts down.
++"""
++from pathlib import Path
++import re
++import unittest
++from test_review_correctness import DLL, block, compile_run
++
++GROUP_CPP = (DLL / "CvSelectionGroup.cpp").read_text(errors="replace")
++PLAYER_CPP = (DLL / "CvPlayerAI.cpp").read_text(errors="replace")
++UNIT_CPP = (DLL / "CvUnitAI.cpp").read_text(errors="replace")
++
++
++def code(text):
++    return re.sub(r"/\*.*?\*/|//[^\n]*", "", text, flags=re.S)
++
++
++def production():
++    names = block(GROUP_CPP, "namespace\n{\n\tunsigned int s_uiMissionTargetsEpoch = 0;")
++    parts = [names]
++    for signature in ("void CvSelectionGroup::noteMissionTargetsChanged()",
++                      "unsigned int CvSelectionGroup::getMissionTargetsEpoch()",
++                      "bool CvSelectionGroup::generatePath(",
++                      "bool CvSelectionGroup::generatePathSecondary(",
++                      "void CvSelectionGroup::initSecondaryPathFinder(",
++                      "void CvSelectionGroup::releaseSecondaryPathFinder()"):
++        parts.append(block(GROUP_CPP, signature))
++    return "\n".join(parts)
++
++
++HOST = r'''
++#include <algorithm>
++#include <cassert>
++#include <climits>
++#include <cstddef>
++#include <vector>
++#include "AIPathReuse.h"
++#define PROFILE(x) ;	/* the engine macro is a statement; the source omits the semicolon */
++#define FAssertMsg(x, m) assert(x)
++const int MAX_INT = INT_MAX;
++
++struct IDInfo { int iID; };
++template <class T> struct CLLNode { T m_data; CLLNode* next; };
++struct CvUnit { int iMoves; int movesLeft() const { return iMoves; } };
++std::vector<CvUnit*> g_units;
++CvUnit* getUnit(const IDInfo& kInfo) { return g_units[kInfo.iID]; }
++
++struct CvPlot { int x, y; int getX_INLINE() const { return x; } int getY_INLINE() const { return y; } };
++struct FAStarNode { int m_iData1, m_iData2; };
++
++class CvSelectionGroup;
++// Engine model: a group's turns to a destination are distance / speed, where the
++// speed is fixed when a search is started (the start node's moves).
++struct FAStar
++{
++	bool bTree; int iStartX, iStartY, iFlags; int iTreeSpeed; FAStarNode kLast;
++	const void* pData; int iFresh, iReused;
++	FAStar() : bTree(false), iStartX(0), iStartY(0), iFlags(0), iTreeSpeed(1), pData(NULL), iFresh(0), iReused(0) {}
++};
++int speedOf(const void* pGroup);
++struct FAStarIFace
++{
++	void SetData(FAStar* p, const void* pData) { p->pData = pData; }
++	bool GeneratePath(FAStar* p, int x1, int y1, int x2, int y2, bool, int iFlags, bool bReuse)
++	{
++		if (bReuse && p->bTree && p->iStartX == x1 && p->iStartY == y1 && p->iFlags == iFlags)
++		{
++			++p->iReused;		// continue the stored tree: its speed is whatever it was
++		}
++		else
++		{
++			++p->iFresh;
++			p->bTree = true; p->iStartX = x1; p->iStartY = y1; p->iFlags = iFlags;
++			p->iTreeSpeed = speedOf(p->pData);
++		}
++		const int iDistance = std::max(std::abs(x2 - x1), std::abs(y2 - y1));
++		p->kLast.m_iData1 = 0;
++		p->kLast.m_iData2 = (iDistance + p->iTreeSpeed - 1) / p->iTreeSpeed;
++		return true;
++	}
++	FAStarNode* GetLastNode(FAStar* p) { return &p->kLast; }
++	FAStar* create() { return new FAStar(); }
++	void destroy(FAStar*& p, bool = true) { delete p; p = NULL; }
++	void Initialize(FAStar* p, int, int, bool, bool, void*, void*, void*, void*, void*, void*, void*) { p->bTree = false; }
++};
++struct DLL { FAStarIFace kStar; FAStarIFace* getFAStarIFace() { return &kStar; } } g_dll;
++DLL* gDLL = &g_dll;
++struct Game { int iTurn; int getGameTurn() const { return iTurn; } };
++struct Globals
++{
++	Game kGame; FAStar kPathFinder;
++	Game& getGameINLINE() { return kGame; }
++	FAStar& getPathFinder() { return kPathFinder; }
++} GC;
++void* pathDestValid = 0; void* pathHeuristic = 0; void* pathCost = 0; void* pathValid = 0; void* pathAdd = 0;
++
++class CvSelectionGroup
++{
++public:
++	std::vector<CLLNode<IDInfo> > aNodes;
++	CLLNode<IDInfo>* headUnitNode() const { return aNodes.empty() ? NULL : const_cast<CLLNode<IDInfo>*>(&aNodes[0]); }
++	CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* p) const { return p->next; }
++	void setUnits(const std::vector<int>& aiUnits)
++	{
++		aNodes.resize(aiUnits.size());
++		for (size_t i = 0; i < aiUnits.size(); ++i)
++		{
++			aNodes[i].m_data.iID = aiUnits[i];
++			aNodes[i].next = (i + 1 < aiUnits.size()) ? &aNodes[i + 1] : NULL;
++		}
++	}
++	static void noteMissionTargetsChanged();
++	static unsigned int getMissionTargetsEpoch();
++	bool generatePath(const CvPlot*, const CvPlot*, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL) const;
++	bool generatePathSecondary(const CvPlot*, const CvPlot*, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL) const;
++	static void initSecondaryPathFinder(int, int, bool, bool);
++	static void releaseSecondaryPathFinder();
++};
++int speedOf(const void* pGroup)
++{
++	const CvSelectionGroup* g = static_cast<const CvSelectionGroup*>(pGroup);
++	int iSpeed = INT_MAX;
++	for (CLLNode<IDInfo>* p = g->headUnitNode(); p != NULL; p = g->nextUnitNode(p)) iSpeed = std::min(iSpeed, ::getUnit(p->m_data)->iMoves);
++	return std::max(1, iSpeed);
++}
++'''
++
++
++def program(main):
++    return HOST + production() + "\n" + main
++
++
++class PathQueryTests(unittest.TestCase):
++    def test_reuse_owner_rules(self):
++        compile_run(r'''
++#include <cassert>
++#include "AIPathReuse.h"
++int main()
++{
++	int a = 0, b = 0;
++	AIPathReuse::Key k = { &a, 7, 3, 120 };
++	AIPathReuse::Owner o;
++	assert(!o.admit(k, true));		// nothing stored yet
++	assert(o.admit(k, true));
++	assert(!o.admit(k, false));		// the caller did not ask
++	assert(o.admit(k, true));
++	AIPathReuse::Key other = k; other.pGroup = &b;
++	assert(!o.admit(other, true)); assert(!o.admit(k, true)); assert(o.admit(k, true));
++	AIPathReuse::Key moved = k; moved.uiGroupsEpoch = 8;
++	assert(!o.admit(moved, true));
++	AIPathReuse::Key nextTurn = moved; nextTurn.iTurn = 4;
++	assert(!o.admit(nextTurn, true));
++	AIPathReuse::Key spent = nextTurn; spent.iMovesLeft = 60;
++	assert(!o.admit(spent, true)); assert(o.admit(spent, true));
++	o.invalidate(); assert(!o.admit(spent, true));
++}
++''')
++
++    def test_answers_equal_fresh_searches_for_the_querying_group(self):
++        compile_run(program(r'''
++unsigned int seed = 99u;
++int rnd(int n) { seed = seed * 1103515245u + 12345u; return (int)((seed >> 16) % (unsigned int)n); }
++int main()
++{
++	CvSelectionGroup::initSecondaryPathFinder(10, 10, false, false);
++	for (int i = 0; i < 12; ++i) { CvUnit* u = new CvUnit(); u->iMoves = 1 + rnd(4); g_units.push_back(u); }
++	CvSelectionGroup groups[4];
++	for (int g = 0; g < 4; ++g) { std::vector<int> a; a.push_back(3 * g); a.push_back(3 * g + 1); groups[g].setUnits(a); }
++	CvPlot plots[6] = { {0, 0}, {5, 5}, {9, 2}, {3, 8}, {7, 7}, {1, 6} };
++	// What may validly be continued, per finder: same group, start, flags, epoch, turn and moves.
++	struct Last { const void* g; int x, y, flags; unsigned int epoch; int turn, speed; bool set; } last[2];
++	last[0].set = last[1].set = false;
++	int expectedReuse = 0;
++	for (int step = 0; step < 20000; ++step)
++	{
++		CvSelectionGroup& g = groups[rnd(4)];
++		const CvPlot& from = plots[rnd(2)];
++		const CvPlot& to = plots[2 + rnd(4)];
++		const int flags = rnd(2);
++		switch (rnd(12))		// the world changes between some queries
++		{
++		case 0: CvSelectionGroup::noteMissionTargetsChanged(); break;
++		case 1: ++GC.kGame.iTurn; break;
++		case 2: g_units[rnd(12)]->iMoves = 1 + rnd(4); break;
++		case 3: { std::vector<int> a; a.push_back(rnd(12)); if (rnd(2)) a.push_back(rnd(12)); groups[rnd(4)].setUnits(a);
++			CvSelectionGroup::noteMissionTargetsChanged(); break; }
++		default: break;
++		}
++		const int expect = (std::max(std::abs(to.x - from.x), std::abs(to.y - from.y)) + speedOf(&g) - 1) / speedOf(&g);
++		int turns = -1;
++		const int secondary = rnd(3) == 0 ? 1 : 0;
++		Last now = { &g, from.x, from.y, flags, CvSelectionGroup::getMissionTargetsEpoch(), GC.kGame.iTurn, speedOf(&g), true };
++		Last& prev = last[secondary];
++		if (prev.set && prev.g == now.g && prev.x == now.x && prev.y == now.y && prev.flags == now.flags &&
++			prev.epoch == now.epoch && prev.turn == now.turn && prev.speed == now.speed) ++expectedReuse;
++		prev = now;
++		assert(secondary ? g.generatePathSecondary(&from, &to, flags, true, &turns) : g.generatePath(&from, &to, flags, true, &turns));
++		assert(turns == expect);
++	}
++	// Reuse happens exactly when it is valid: never more (stale), never less (lost speed).
++	assert(GC.kPathFinder.iReused + s_pSecondaryPathFinder->iReused == expectedReuse);
++	assert(expectedReuse > 100);
++	CvSelectionGroup::releaseSecondaryPathFinder();
++}
++'''))
++
++    def test_unguarded_reuse_gives_stale_turns(self):
++        # Control: the engine rule alone (start plot and flags) continues another
++        # group's tree, which is what the ownership key prevents.
++        compile_run(HOST + r'''
++int main()
++{
++	CvUnit fast = {4}, slow = {1}; g_units.push_back(&fast); g_units.push_back(&slow);
++	CvSelectionGroup a, b; std::vector<int> ua(1, 0), ub(1, 1); a.setUnits(ua); b.setUnits(ub);
++	FAStar& f = GC.getPathFinder();
++	gDLL->getFAStarIFace()->SetData(&f, &a); gDLL->getFAStarIFace()->GeneratePath(&f, 0, 0, 8, 0, false, 0, true);
++	gDLL->getFAStarIFace()->SetData(&f, &b); gDLL->getFAStarIFace()->GeneratePath(&f, 0, 0, 8, 0, false, 0, true);
++	assert(f.kLast.m_iData2 == 2);	// the slow group needs 8 turns, the stale tree says 2
++}
++''')
++
++    def test_other_groups_no_longer_discard_the_planners_search(self):
++        compile_run(program(r'''
++int main()
++{
++	CvSelectionGroup::initSecondaryPathFinder(10, 10, false, false);
++	CvUnit me = {2}; g_units.push_back(&me);
++	CvSelectionGroup planner; std::vector<int> u(1, 0); planner.setUnits(u);
++	std::vector<CvSelectionGroup> others(5);
++	for (int i = 0; i < 5; ++i) { CvUnit* p = new CvUnit(); p->iMoves = 1 + i; g_units.push_back(p);
++		std::vector<int> a(1, 1 + i); others[i].setUnits(a); }
++	CvPlot home = {0, 0}, otherHome[5] = { {9, 9}, {8, 1}, {2, 7}, {6, 6}, {4, 0} };
++	CvPlot cities[12];
++	for (int c = 0; c < 12; ++c) { cities[c].x = c % 10; cities[c].y = (3 * c) % 10; }
++	int turns;
++	// Before: AI_cityTargetUnitsByPath queried other groups on the shared finder
++	// between the planner's per-city queries (AI_pickTargetCity).
++	FAStar& f = GC.getPathFinder();
++	for (int c = 0; c < 12; ++c)
++	{
++		gDLL->getFAStarIFace()->SetData(&f, &planner); gDLL->getFAStarIFace()->GeneratePath(&f, 0, 0, cities[c].x, cities[c].y, false, 0, true);
++		for (int o = 0; o < 5; ++o) { gDLL->getFAStarIFace()->SetData(&f, &others[o]);
++			gDLL->getFAStarIFace()->GeneratePath(&f, otherHome[o].x, otherHome[o].y, cities[c].x, cities[c].y, false, 0, true); }
++	}
++	const int iFreshBefore = f.iFresh;
++	f = FAStar();
++	// After: the same queries through the production code.
++	for (int c = 0; c < 12; ++c)
++	{
++		assert(planner.generatePath(&home, &cities[c], 0, true, &turns));
++		for (int o = 0; o < 5; ++o) assert(others[o].generatePathSecondary(&otherHome[o], &cities[c], 0, true, &turns));
++	}
++	assert(iFreshBefore == 12 + 12 * 5);
++	assert(f.iFresh == 1 && f.iReused == 11);	// one incremental search for all 12 cities
++}
++'''))
++
++    def test_finder_lifecycle(self):
++        setup = block((DLL / "CvMap.cpp").read_text(errors="replace"), "void CvMap::setup()")
++        self.assertIn("CvSelectionGroup::initSecondaryPathFinder(getGridWidthINLINE(), getGridHeightINLINE(), "
++                      "isWrapXINLINE(), isWrapYINLINE());", setup)
++        uninit = block((DLL / "CvGlobals.cpp").read_text(errors="replace"), "void CvGlobals::uninit()")
++        self.assertLess(uninit.index("CvSelectionGroup::releaseSecondaryPathFinder();"),
++                        uninit.index("gDLL->uninitGlobals();"))
++        init = code(block(GROUP_CPP, "void CvSelectionGroup::initSecondaryPathFinder("))
++        self.assertIn("pathDestValid, pathHeuristic, pathCost, pathValid, pathAdd, NULL, NULL", init)
++
++    def test_other_group_queries_use_the_second_finder(self):
++        sites = [
++            (PLAYER_CPP, "int CvPlayerAI::AI_cityTargetUnitsByPath(", "pLoopSelectionGroup->generatePathSecondary("),
++            (PLAYER_CPP, "int unitTargetGroupCount(", "pGroup->generatePathSecondary("),
++            (PLAYER_CPP, "bool CvPlayerAI::AI_isPlotThreatened(", "pGroup->generatePathSecondary("),
++            (UNIT_CPP, "bool CvUnitAI::AI_assaultSeaReinforce(", "pLoopSelectionGroup->generatePathSecondary("),
++            (UNIT_CPP, "bool CvUnitAI::AI_loadForCoastalAttack(", "pTransport->getGroup()->generatePathSecondary("),
++        ]
++        for text, signature, needle in sites:
++            body = code(block(text, signature))
++            self.assertIn(needle, body, signature)
++            # No other object's query may run on the planner's finder.
++            self.assertIsNone(re.search(r"\w+(->|\.)generatePath\(", body), signature)
++        for name in ("generatePath(", "generatePathSecondary("):
++            body = code(block(GROUP_CPP, "bool CvSelectionGroup::" + name))
++            self.assertIn("generatePathOn(", body)
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)
+diff --git a/Tools/test_unit_ai_corrections.py b/Tools/test_unit_ai_corrections.py
+new file mode 100644
+index 0000000..2ac95de
+--- /dev/null
++++ b/Tools/test_unit_ai_corrections.py
+@@ -0,0 +1,421 @@
++#!/usr/bin/env python3
++"""Execute corrected unit AI decisions with explicit host adapters.
++
++* AI_choke: a siege stack keeps the best choke plot (formerly the last reachable
++  plot in scan order) and scores every plot with one reusable path search.
++* AI_assaultSeaReinforce: a synchronized landing is joined only when the cargo
++  can fight there (the check was computed and ignored); an empty city is not
++  rejected for lacking defenders.
++* AI_bestCityBuild: plots are compared by value per turn of travel.
++* AI_settleMove: a settler standing on its accepted site founds even when its
++  escort is gone, instead of walking home; the danger and escort rules still
++  apply everywhere else.
++"""
++import unittest
++from test_review_correctness import DLL, remaining, block, compile_run
++
++UNIT_CPP = (DLL / "CvUnitAI.cpp").read_text(errors="replace")
++
++COMMON = r'''
++#include <algorithm>
++#include <cassert>
++#include <climits>
++#include <cstdlib>
++#include <cstddef>
++#include <vector>
++#define PROFILE_FUNC() ((void)0)
++#define FAssert(x) assert(x)
++#define FAssertMsg(x, m) assert(x)
++const int MAX_INT = INT_MAX;
++enum MissionTypes { MISSION_MOVE_TO, MISSION_SKIP, MISSION_PILLAGE, MISSION_FOUND };
++enum MissionAITypes { NO_MISSIONAI = -1, MISSIONAI_FOUND, MISSIONAI_ASSAULT, MISSIONAI_GROUP, MISSIONAI_BUILD,
++	MISSIONAI_LOAD_SETTLER };
++enum UnitAITypes { NO_UNITAI = -1, UNITAI_SETTLE, UNITAI_ATTACK_CITY, UNITAI_ASSAULT_SEA, UNITAI_SETTLER_SEA };
++enum { NO_PLAYER = -1, NO_BONUS = -1, NO_BUILD = -1, NO_IMPROVEMENT = -1 };
++enum { MOVE_AVOID_ENEMY_WEIGHT_3 = 1, MOVE_NO_ENEMY_TERRITORY = 2 };
++enum YieldTypes { YIELD_FOOD, YIELD_PRODUCTION, YIELD_COMMERCE };
++typedef int BuildTypes; typedef int BonusTypes; typedef int PlayerTypes; typedef int TeamTypes;
++int gUnitLogLevel = 0;
++void logBBAI(const char*, ...) {}
++struct Pushed { MissionTypes eMission; int iX, iY, iFlags; MissionAITypes eAI; const void* pAIPlot; };
++std::vector<Pushed> pushed;
++'''
++
++
++# Upstream's defects are "set but not used" variables; allow them so the old code
++# compiles and fails on behaviour rather than on the warning.
++LENIENT = '#pragma GCC diagnostic ignored "-Wunused-but-set-variable"\n'
++
++
++def choke_program(main):
++    return LENIENT + COMMON + r'''
++struct IDInfo { int i; };
++template <class T> struct CLLNode { T m_data; CLLNode* next; };
++struct CvUnit { bool noDefensiveBonus() const { return false; } };
++CvUnit* getUnit(const IDInfo&) { return NULL; }
++struct CvCity { int iTeam; int getTeam() const { return iTeam; } };
++struct CvPlot
++{
++	int x, y, team, owner, defense, food, prod, commerce, defenders; bool enemyUnit, reachable; CvCity* pCity;
++	int getX() const { return x; } int getY() const { return y; }
++	int getTeam() const { return team; } int getOwnerINLINE() const { return owner; }
++	bool isVisibleEnemyUnit(const void*) const { return enemyUnit; }
++	CvCity* getWorkingCity() const { return pCity; }
++	int defenseModifier(int, bool) const { return defense; }
++	int getBonusType(int = -1) const { return NO_BONUS; }
++	int getYield(YieldTypes e) const { return e == YIELD_FOOD ? food : e == YIELD_PRODUCTION ? prod : commerce; }
++	int getNumDefenders(int) const { return defenders; }
++};
++CvPlot grid[3][3];
++CvPlot* plotXY(int x, int y, int dx, int dy) { int i = x + dx + 1, j = y + dy + 1; return (i < 0 || j < 0 || i > 2 || j > 2) ? NULL : &grid[i][j]; }
++struct Player { int AI_bonusVal(int, int) const { return 0; } } player;
++#define GET_PLAYER(x) player
++struct Game { int getBestLandUnitCombat() const { return 10; } };
++struct Globals { Game kGame; Game& getGame() { return kGame; } } GC;
++struct Call { const CvPlot* pTo; int iFlags; bool bReuse; };
++std::vector<Call> calls;
++struct CvSelectionGroup
++{
++	int iUnits;
++	int getNumUnits() const { return iUnits; }
++	CLLNode<IDInfo>* headUnitNode() const { return NULL; }
++	CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* p) const { return p->next; }
++	void pushMission(MissionTypes e, int x = -1, int y = -1, int f = 0, bool = false, bool = false, MissionAITypes ai = NO_MISSIONAI, const void* p = NULL)
++	{ Pushed k = { e, x, y, f, ai, p }; pushed.push_back(k); }
++} group;
++struct CvUnitAI
++{
++	CvPlot* pPlot; CvPlot* pLastPath;
++	bool noDefensiveBonus() const { return false; }
++	CvSelectionGroup* getGroup() const { return &group; }
++	int getX_INLINE() const { return pPlot->x; } int getY_INLINE() const { return pPlot->y; }
++	bool isEnemy(int iTeam) const { return iTeam == 2; }
++	int getTeam() const { return 1; } int getOwnerINLINE() const { return 1; }
++	CvPlot* plot() const { return pPlot; }
++	int baseCombatStr() const { return 5; }
++	bool generatePath(const CvPlot* p, int iFlags = 0, bool bReuse = false)
++	{ Call c = { p, iFlags, bReuse }; calls.push_back(c); pLastPath = const_cast<CvPlot*>(p); return p->reachable; }
++	CvPlot* getPathEndTurnPlot() const { return pLastPath; }
++	bool atPlot(const CvPlot* p) const { return p == pPlot; }
++	bool canPillage(const CvPlot*) const { return false; }
++	bool AI_choke(int iRange, bool bDefensive);
++};
++''' + block(UNIT_CPP, "bool CvUnitAI::AI_choke(") + r'''
++CvCity enemyCity = { 2 };
++void reset()
++{
++	pushed.clear(); calls.clear();
++	for (int i = 0; i < 3; ++i) for (int j = 0; j < 3; ++j)
++	{
++		CvPlot p = { i - 1, j - 1, 2, 2, 0, 1, 1, 1, 0, false, true, &enemyCity };
++		grid[i][j] = p;
++	}
++	group.iUnits = 3;
++}
++''' + main
++
++
++class UnitAICorrectionTests(unittest.TestCase):
++    def test_choke_keeps_the_best_plot(self):
++        compile_run(choke_program(r'''
++int main()
++{
++	CvUnitAI unit; unit.pPlot = &grid[1][1]; unit.pLastPath = NULL;
++	reset();
++	grid[0][0].defense = 50;	// a hill first in scan order
++	grid[2][2].defense = 25;	// a forest last in scan order
++	assert(unit.AI_choke(1, true));
++	assert(pushed.size() == 1 && pushed[0].eMission == MISSION_MOVE_TO);
++	assert(pushed[0].iX == -1 && pushed[0].iY == -1);
++	for (size_t i = 0; i < calls.size(); ++i) assert(calls[i].bReuse);
++	assert(calls.size() == 1);	// the forest cannot beat the hill: no query for it
++
++	reset();
++	grid[0][0].defense = 50; grid[0][0].reachable = false;	// best plot unreachable
++	grid[2][2].defense = 25; grid[1][0].defense = 10;
++	assert(unit.AI_choke(1, true));
++	assert(pushed[0].iX == 1 && pushed[0].iY == 1);	// the reachable forest beats the woods
++
++	reset();	// open ground everywhere: nothing worth choking from
++	assert(!unit.AI_choke(1, true) && pushed.empty() && calls.empty());
++}
++'''))
++
++    def test_best_city_build_compares_value_per_turn(self):
++        compile_run(COMMON + r'''
++enum { PLAYEROPTION_SAFE_AUTOMATION, NUM_CITY_PLOTS = 3 };
++struct CvPlot
++{
++	int iImprovement, iTurns, iWorkers; bool bEnemy;
++	int getImprovementType() const { return iImprovement; }
++	bool isCity() const { return false; }
++	bool isVisibleEnemyUnit(const void*) const { return bEnemy; }
++};
++CvPlot plots[NUM_CITY_PLOTS];
++struct CvCity
++{
++	int aiValue[NUM_CITY_PLOTS];
++	int getX_INLINE() const { return 0; } int getY_INLINE() const { return 0; }
++	int AI_getBestBuildValue(int i) const { return aiValue[i]; }
++	BuildTypes AI_getBestBuild(int i) const { return 10 + i; }
++};
++CvPlot* plotCity(int, int, int i) { return &plots[i]; }
++struct Player { bool isOption(int) const { return false; } int AI_plotTargetMissionAIs(const CvPlot* p, MissionAITypes, const void*) const { return p->iWorkers; } } player;
++#define GET_PLAYER(x) player
++struct Globals { int getDefineINT(const char*) const { return 99; } int getNumBuildInfos() const { return 100; } } GC;
++struct FAStarNode { int m_iData1, m_iData2; } node;
++struct CvSelectionGroup {} group;
++struct CvUnit { CvPlot* plot() const { return NULL; } };
++struct CvUnitAI
++{
++	int getOwnerINLINE() const { return 1; }
++	CvSelectionGroup* getGroup() const { return &group; }
++	bool AI_plotValid(const CvPlot*) const { return true; }
++	bool canBuild(const CvPlot*, BuildTypes) const { return true; }
++	bool generatePath(const CvPlot* p, int, bool, int* piTurns) { *piTurns = p->iTurns; node.m_iData1 = 1; node.m_iData2 = p->iTurns; return true; }
++	FAStarNode* getPathLastNode() const { return &node; }
++	int AI_calculatePlotWorkersNeeded(const CvPlot*, BuildTypes) const { return 1; }
++	bool AI_bestCityBuild(CvCity* pCity, CvPlot** ppBestPlot, BuildTypes* peBestBuild, CvPlot* pIgnorePlot, CvUnit* pUnit);
++};
++''' + block(UNIT_CPP, "bool CvUnitAI::AI_bestCityBuild(") + r'''
++int main()
++{
++	CvUnitAI unit;
++	CvCity city;
++	// Pass 0 picks plot 2 (raw 150) but another worker is already on it, so pass 1
++	// runs: plot 0 earns 100 in 1 turn, plot 1 earns 120 over 4 turns (30/turn).
++	CvPlot p0 = { NO_IMPROVEMENT, 1, 0, false }, p1 = { NO_IMPROVEMENT, 4, 0, false }, p2 = { NO_IMPROVEMENT, 1, 1, false };
++	plots[0] = p0; plots[1] = p1; plots[2] = p2;
++	city.aiValue[0] = 100; city.aiValue[1] = 120; city.aiValue[2] = 150;
++	CvPlot* pBest = NULL; BuildTypes eBest = NO_BUILD;
++	assert(unit.AI_bestCityBuild(&city, &pBest, &eBest, NULL, NULL));
++	assert(pBest == &plots[0] && eBest == 10);	// formerly plot 1: 120 raw > 100 per turn
++}
++''')
++
++    def test_reinforcement_respects_the_landing_check(self):
++        # The source has no-op statements "iPathTurns;" that -Werror rejects.
++        method = "\n".join(l for l in block(UNIT_CPP, "bool CvUnitAI::AI_assaultSeaReinforce(").split("\n")
++                           if l.strip() != "iPathTurns;")
++        # The production function also keeps two unused locals (bIsAttackCity, iCargo).
++        compile_run(LENIENT + '#pragma GCC diagnostic ignored "-Wunused-variable"\n' + COMMON + r'''
++enum AreaAITypes { AREAAI_NEUTRAL, AREAAI_OFFENSIVE, AREAAI_MASSING, AREAAI_DEFENSIVE };
++enum { NO_TEAM = -1 };
++enum { MAX_CIV_TEAMS = 2, MAX_CIV_PLAYERS = 2 };
++struct CvArea
++{
++	int getCitiesPerPlayer(int) const { return 1; }
++	int getPower(int) const { return 1; }
++	AreaAITypes getAreaAIType(int) const { return AREAAI_NEUTRAL; }
++};
++CvArea theArea, theWaterArea;
++struct CvUnit;
++template <class T> struct CLLNode { T m_data; CLLNode* next; };
++struct IDInfo { int i; };
++struct CvSelectionGroup;
++struct CvPlot
++{
++	int x, y; bool owned, city, visible; int visibleDefenders; bool attackable;
++	CLLNode<IDInfo>* pHead;
++	int getX_INLINE() const { return x; } int getY_INLINE() const { return y; }
++	bool isOwned() const { return owned; } int getTeam() const { return 2; } int getOwnerINLINE() const { return 2; }
++	bool isAdjacentToArea(const CvArea*) const { return true; }
++	CvArea* area() const { return &theArea; } CvArea* waterArea() const { return &theWaterArea; }
++	bool isCity(bool = false, int = -1) const { return city; }
++	bool isVisible(int, bool) const { return visible; }
++	int getNumVisibleEnemyDefenders(const void*) const { return visibleDefenders; }
++	bool hasDefender(bool, int, int, const void*, bool) const { return attackable; }
++	int getNumDefenders(int) const { return 0; }
++	bool isImpassable() const { return false; }
++	CLLNode<IDInfo>* headUnitNode() const { return pHead; }
++	CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* p) const { return p->next; }
++};
++struct CvSelectionGroup
++{
++	MissionAITypes eAI; CvPlot* pTarget; int iCargo; CvPlot* pAt;
++	MissionAITypes AI_getMissionAIType() const { return eAI; }
++	CvPlot* AI_getMissionAIPlot() const { return pTarget; }
++	int getCargo() const { return iCargo; }
++	CvPlot* plot() const { return pAt; }
++	bool hasCargo() const { return iCargo > 0; }
++	bool canAllMove() const { return true; }
++	bool canMoveAllTerrain() const { return false; }
++	UnitAITypes getHeadUnitAI() const { return UNITAI_ASSAULT_SEA; }
++	CvUnit* AI_getMissionAIUnit() const { return NULL; }
++	void clearMissionQueue() {}
++	void unloadAll() {}
++	bool generatePathSecondary(const CvPlot*, const CvPlot*, int, bool, int* piTurns) const { *piTurns = 1; return true; }
++	bool generatePath(const CvPlot*, const CvPlot*, int, bool, int* piTurns) const { *piTurns = 1; return true; }
++	void pushMission(MissionTypes e, int x = -1, int y = -1, int f = 0, bool = false, bool = false, MissionAITypes ai = NO_MISSIONAI, const void* p = NULL)
++	{ Pushed k = { e, x, y, f, ai, p }; pushed.push_back(k); }
++};
++struct CvUnit
++{
++	CvSelectionGroup* pGroup; CvUnit* pTransport; int iCombatLimit;
++	CvUnit* getTransportUnit() const { return pTransport; }
++	CvSelectionGroup* getGroup() const { return pGroup; }
++	int getOwnerINLINE() const { return 1; }
++	int combatLimit() const { return iCombatLimit; }
++};
++std::vector<CvUnit*> unitTable;
++CvUnit* getUnit(const IDInfo& k) { return unitTable[k.i]; }
++std::vector<CvSelectionGroup*> groups;
++enum { BARBARIAN_PLAYER = 3 };
++struct CvCity
++{
++	CvPlot* plot() const { return NULL; } CvArea* area() const { return &theArea; }
++	CvArea* waterArea(bool = false) const { return &theWaterArea; } CvArea* secondWaterArea() const { return NULL; }
++	bool AI_isDanger() const { return false; } int getGameTurnAcquired() const { return 0; }
++	int getPreviousOwner() const { return NO_PLAYER; } int AI_cityThreat() const { return 0; }
++};
++struct Player
++{
++	CvSelectionGroup* firstSelectionGroup(int* p) const { *p = 0; return groups.empty() ? NULL : groups[0]; }
++	CvSelectionGroup* nextSelectionGroup(int* p) const { ++*p; return (size_t)*p < groups.size() ? groups[*p] : NULL; }
++	CvCity* firstCity(int*) const { return NULL; } CvCity* nextCity(int*) const { return NULL; }
++	int AI_adjacentPotentialAttackers(const CvPlot*) const { return 0; }
++	int AI_plotTargetMissionAIs(const CvPlot*, MissionAITypes, const void*) const { return 0; }
++	int getTeam() const { return 1; }
++} player;
++typedef Player CvPlayer;
++struct Team
++{
++	bool isAVassal() const { return false; } bool isVassal(int) const { return false; } bool isOpenBorders(int) const { return false; }
++	int countEnemyPowerByArea(const CvArea*) const { return 0; }
++	int countPowerByArea(const CvArea*) const { return 0; }
++} team;
++#define GET_PLAYER(x) player
++#define GET_TEAM(x) team
++struct Game { int getSorenRandNum(int, const char*) { return 0; } int getGameTurn() const { return 10; } };
++struct Globals { Game kGame; Game& getGameINLINE() { return kGame; } } GC;
++int stepDistance(int a, int b, int c, int d) { return std::max(std::abs(a - c), std::abs(b - d)); }
++CvPlot* plotXY(int, int, int, int) { return NULL; }	// no enemy stacks nearby
++struct CvUnitAI
++{
++	CvSelectionGroup* pGroup; CvPlot* pPlot; CvPlot* pLastPath;
++	int getUnitAICargo(UnitAITypes) const { return 1; }
++	CvSelectionGroup* getGroup() const { return pGroup; }
++	bool canCargoAllMove() const { return true; }
++	CvPlot* plot() const { return pPlot; }
++	int getTeam() const { return 1; } int getOwnerINLINE() const { return 1; }
++	int getX_INLINE() const { return pPlot->x; } int getY_INLINE() const { return pPlot->y; }
++	int maxMoves() const { return 2; }
++	CvArea* area() const { return &theArea; }
++	bool isEnemy(int, const CvPlot*) const { return true; }
++	bool isPotentialEnemy(int, const CvPlot*) const { return true; }
++	bool generatePath(const CvPlot* p, int, bool, int* piTurns) { pLastPath = const_cast<CvPlot*>(p); *piTurns = 2; return true; }
++	CvPlot* getPathEndTurnPlot() const { return pLastPath; }
++	bool atPlot(const CvPlot* p) const { return p == pPlot; }
++	UnitAITypes AI_getUnitAIType() const { return UNITAI_ASSAULT_SEA; }
++	bool AI_assaultSeaReinforce(bool bBarbarian);
++};
++''' + method + r'''
++int main()
++{
++	CvPlot port = { 0, 0, false, false, true, 0, true, NULL };
++	CvSelectionGroup mine = { NO_MISSIONAI, NULL, 3, &port };
++	CvUnitAI transport; transport.pGroup = &mine; transport.pPlot = &port; transport.pLastPath = NULL;
++	CvUnit catapult = { NULL, NULL, 75 };	// siege cargo cannot capture
++	CvUnit dummyShip = { &mine, NULL, 100 };
++	catapult.pTransport = &dummyShip;
++	unitTable.push_back(&catapult);
++	CLLNode<IDInfo> node = { { 0 }, NULL };
++	port.pHead = &node;
++	// Another fleet's synchronized landing at an unseen enemy city.
++	CvPlot hiddenCity = { 6, 0, true, true, false, 0, true, NULL };
++	CvSelectionGroup fleet = { MISSIONAI_ASSAULT, &hiddenCity, 3, &port };
++	groups.push_back(&mine); groups.push_back(&fleet);
++	assert(!transport.AI_assaultSeaReinforce(false) && pushed.empty());	// cannot invade with artillery
++
++	// A seen city emptied of defenders: an attacker-free landing is valid.
++	catapult.iCombatLimit = 100;
++	CvPlot emptyCity = { 6, 0, true, true, true, 0, false, NULL };
++	fleet.pTarget = &emptyCity;
++	assert(transport.AI_assaultSeaReinforce(false));
++	assert(pushed.size() == 1 && pushed[0].eAI == MISSIONAI_ASSAULT && pushed[0].pAIPlot == &emptyCity);
++
++	// Visible defenders the cargo cannot attack.
++	pushed.clear();
++	CvPlot guarded = { 6, 0, true, true, true, 2, false, NULL };
++	fleet.pTarget = &guarded;
++	assert(!transport.AI_assaultSeaReinforce(false) && pushed.empty());
++}
++''')
++
++    def test_settler_on_its_site_founds_without_escort(self):
++        method = block(UNIT_CPP, "void CvUnitAI::AI_settleMove()")
++        program = COMMON + r'''
++enum GameOptionTypes { GAMEOPTION_ALWAYS_PEACE, GAMEOPTION_AGGRESSIVE_AI };
++struct CvPlot { int owner; bool city; int getOwnerINLINE() const { return owner; } bool isCity() const { return city; } };
++struct CvSelectionGroup
++{
++	MissionAITypes eAI; CvPlot* pSite; bool bDefend; int iUnits;
++	MissionAITypes AI_getMissionAIType() const { return eAI; }
++	CvPlot* AI_getMissionAIPlot() const { return pSite; }
++	bool canDefend() const { return bDefend; }
++	int getNumUnits() const { return iUnits; }
++	bool isStranded() const { return false; }
++	void pushMission(MissionTypes e, int x = -1, int y = -1, int f = 0, bool = false, bool = false, MissionAITypes ai = NO_MISSIONAI, const void* p = NULL)
++	{ Pushed k = { e, x, y, f, ai, p }; pushed.push_back(k); }
++};
++struct Player
++{
++	int iDanger;
++	int getNumCities() const { return 3; }
++	int AI_getPlotDanger(const CvPlot*, int) const { return iDanger; }
++	bool AI_getAnyPlotDanger(const CvPlot*) const { return iDanger > 0; }
++} player;
++#define GET_PLAYER(x) player
++struct Game { bool isOption(GameOptionTypes) const { return false; } int getMaxCityElimination() const { return 0; } };
++struct Globals { Game kGame; Game& getGameINLINE() { return kGame; } } GC;
++std::vector<const char*> actions;
++struct CvUnit { CvSelectionGroup* pGroup; CvSelectionGroup* getGroup() const { return pGroup; } };
++struct CvUnitAI
++{
++	CvSelectionGroup* pGroup; CvPlot* pPlot; bool bFoundable;
++	bool isCargo() const { return false; }
++	CvUnit* getTransportUnit() const { return NULL; }
++	CvSelectionGroup* getGroup() const { return pGroup; }
++	CvPlot* plot() const { return pPlot; }
++	int getOwnerINLINE() const { return 1; }
++	bool canFound(const CvPlot*) const { return bFoundable; }
++	bool atPlot(const CvPlot* p) const { return p == pPlot; }
++	void joinGroup(void*) { actions.push_back("split"); }
++	bool AI_retreatToCity() { actions.push_back("retreat"); return true; }
++	bool AI_safety() { actions.push_back("safety"); return true; }
++	bool AI_found() { actions.push_back("found-search"); return true; }
++	bool AI_load(UnitAITypes, MissionAITypes, UnitAITypes, int, int, int, int, int, int = -1) { actions.push_back("load"); return false; }
++	void AI_settleMove();
++};
++''' + method + r'''
++int main()
++{
++	CvPlot site = { -1, false }, elsewhere = { -1, false };
++	CvSelectionGroup alone = { MISSIONAI_FOUND, &site, false, 1 };
++	CvUnitAI settler; settler.pGroup = &alone; settler.pPlot = &site; settler.bFoundable = true;
++	player.iDanger = 0;
++	settler.AI_settleMove();
++	assert(pushed.size() == 1 && pushed[0].eMission == MISSION_FOUND && pushed[0].pAIPlot == &site);
++	assert(actions.empty());	// formerly: retreat home from the reached site
++
++	// Not yet at the site: the escort rule still applies.
++	pushed.clear(); actions.clear(); settler.pPlot = &elsewhere;
++	settler.AI_settleMove();
++	assert(pushed.empty() && actions.size() == 1 && actions[0] == std::string("retreat"));
++
++	// At the site but it is no longer legal: the normal rules decide.
++	pushed.clear(); actions.clear(); settler.pPlot = &site; settler.bFoundable = false;
++	settler.AI_settleMove();
++	assert(pushed.empty() && actions[0] == std::string("retreat"));
++
++	// Danger on our own plot is still handled first.
++	pushed.clear(); actions.clear(); settler.bFoundable = true; site.owner = 1; player.iDanger = 1;
++	settler.AI_settleMove();
++	assert(pushed.empty() && actions[0] == std::string("split") && actions[1] == std::string("retreat"));
++}
++'''
++        compile_run(program.replace("#include <vector>", "#include <vector>\n#include <string>", 1))
++
++
++if __name__ == "__main__":
++    unittest.main(argv=[__file__] + remaining, verbosity=2)
