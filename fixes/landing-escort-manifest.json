@@ -1,0 +1,101 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "86af2ab47fa7cc4b2edc536b788402bc62c1becb",
+  "base_tree": "147f6d1fbc5eedc26c115c561d104ec66733e386",
+  "tested_source_commit": "77ccaff6bbe36fe52e03d28d8fd52e6b6e422c9e",
+  "tested_source_tree": "2f144cfdb48af5235a35f29eebd019ef495f368f",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!36",
+    "main_commit": "9b6c47c889d6210c2d158cce925b44ee1648b30d",
+    "main_tree_equals_tested_tree": true,
+    "docs_followup": {
+      "commit": "dcbae97119c07384439c94550dcf88659d8ad559",
+      "tree": "069f58a3c25bdb57588ac2d185c100076cfe6c3a",
+      "change": "Docs/SETTLER_LANDING_FIX.md: one sentence on how the stalled voyage starts; no source or test change"
+    }
+  },
+  "patch": "0011-settler-landing-escort.patch",
+  "patch_sha256": "9e9bbe36dc315177cf1264f3db77a68fa6d912bee4f2cd21a4bec5b17d72e67b",
+  "relationship_to_prior_patch": "Incremental on GitLab main after merge request !35 (patch 0010). Corrects patch 0008, whose landing code never ran in the game. Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "root_cause": {
+    "defect": "CvUnitAI::AI_settlerSeaTransport recognised escorts with canDefend(); with no plot argument CvUnit::canDefend tests the unit's own plot, and a land unit aboard a ship at sea fails isValidDomainForAction (LAND_UNITS_CAN_ATTACK_WATER_CITIES is 0)",
+    "symptom": "after the first leg the ship logged MISSING_ESCORT_OR_CAPACITY each turn and skipped on the water tile next to the site",
+    "second_defect": "CvUnit::setXY moves each disembarking cargo unit into a new group, so the landed settler and escort were split and lost MISSIONAI_FOUND",
+    "why_tests_passed": "the test stand-in canDefend() ignored the plot and move() kept groups intact"
+  },
+  "validation": {
+    "real_dll_harness": {
+      "description": "headless driver loading this DLL, the mod XML and BTS base XML; scripted two-island map; AI plays 30 turns; real A* and XML parsing; Python callbacks return the BTS/RoM defaults",
+      "scenarios": {
+        "site_6_tiles": {
+          "before": "no city; 29 MISSING_ESCORT_OR_CAPACITY waits",
+          "after": "landed turn 2, founded turn 3"
+        },
+        "site_10_tiles": {
+          "before": "no city; 28 waits",
+          "after": "landed turn 3, founded turn 4"
+        },
+        "site_16_tiles": {
+          "before": "no city; site beyond the settlement candidate range",
+          "after": "same (not a transport case)"
+        }
+      },
+      "modes": [
+        "Settler difficulty with 1000 gold and capital population 3",
+        "Noble difficulty without reserve (plain)"
+      ],
+      "escort_change_only": "same landing and founding turns; the regroup keeps the founding destination deterministic"
+    },
+    "landing_tests": {
+      "cases": 14,
+      "failing_on_previous_main": 9,
+      "failing_with_escort_change_only": 2,
+      "failing_with_patch": 0
+    },
+    "suite_programs": 24,
+    "suite_failures": 0,
+    "native_standard": "C++03",
+    "undefined_behavior_sanitizer": "fatal",
+    "clang_gate": {
+      "translation_units": [
+        "CvUnitAI.cpp"
+      ],
+      "baseline": "0 errors/21 warnings",
+      "patched": "0 errors/21 warnings",
+      "new_diagnostics": 0
+    },
+    "msvc_build": {
+      "compiler": "Microsoft C/C++ 13.10.3077 (Visual C++ Toolkit 2003)",
+      "sdk": "Platform SDK for Windows Server 2003 SP1 (5.2.3790.1830.15)",
+      "host": "Wine 9.0 (32-bit prefix)",
+      "errors": 0,
+      "warnings": 0,
+      "exports": 2451,
+      "exports_equal_to_shipped_dll": true,
+      "dll_sha256": "84fc6a7009051e0a22e8240099f4b2a9baafeb434a573246cdc2956978bb7b2e"
+    },
+    "save_replayed": false,
+    "game_executable_run": false
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "2771131d2b6902c590675540b6a2aafa1b3ca944902d1ab28b6ba80f247e3cd9",
+      "after_sha256": "7b948643f203e6d3ba9dda16a31c94ec87049fb6c0f0bc48591ac4f56e740885"
+    },
+    "Docs/SETTLER_LANDING_FIX.md": {
+      "before_sha256": "4a9e53586a58c0ad2452f86733f35e572663580de085ea473dd21a93f3e56c9b",
+      "after_sha256": "c217224b1dfb78675ff8095138e695d2092e41f53adfd2381e248c9f10a8c94a"
+    },
+    "Tools/test_settler_landing.py": {
+      "before_sha256": "17d2040632bff03e650b8cbdc9b78b0cccb7520021a5076104bfffe48a1fbea3",
+      "after_sha256": "e7ab98e9923c5a4512c1778ad2383461e7503f8dc591518d66aff900c50d35c3"
+    }
+  }
+}

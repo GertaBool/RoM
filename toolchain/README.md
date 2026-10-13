@@ -63,3 +63,10 @@ toolchain/clang-gate/diffcheck.sh <baseline>/Assets/CvGameCoreDLL <patched>/Asse
   parentheses, non-POD varargs, …). It exits non-zero if the patched tree adds an error.
 
 The gate is a diagnostic aid. MSVC 2003 remains the compiler of record.
+
+## Headless harness
+
+[`harness/`](harness/README.md) runs a built DLL without the game: under Wine, a
+small driver loads the DLL and the mod's XML, sets up a scripted map and lets the
+AI play. It is used to check AI behaviour against the real code rather than
+against unit-test stand-ins for engine functions.

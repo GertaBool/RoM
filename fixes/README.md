@@ -1,12 +1,51 @@
 # Tested source fixes
 
+## Settler landing: escorts at sea
+
+[0011-settler-landing-escort.patch](0011-settler-landing-escort.patch) is the current
+incremental patch for GitLab **`main` at `86af2ab`** (patch 0010 merged). It has **landed on
+GitLab `main`** ([!36](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/36),
+merge commit `9b6c47c`, tree `2f144cfd` = the tested tree), followed by a documentation-only
+correction (`dcbae97`). A clone of current `main` needs nothing applied; only the DLL below
+has to be installed.
+
+It fixes the reported failure: the galley sailed to the tile in front of the site and
+stayed there with the settler and escort aboard. Patch 0008 did not fix this.
+
+- **Escort at sea.** `AI_settlerSeaTransport` recognised the escort with `canDefend()`,
+  which tests the unit's own plot. A land unit aboard a ship at sea cannot defend water,
+  so the ship never had an escort and skipped every turn (`MISSING_ESCORT_OR_CAPACITY`).
+  It now uses `canFight()`.
+- **Landed party.** `CvUnit::setXY` puts each unit leaving a ship into a new group. The
+  escort now rejoins the settler, and the group gets its founding destination back.
+- **Tests.** The landing tests' stand-ins now behave like the engine on both points.
+  Against the previous source 9 of 14 cases fail.
+
+The fix was checked by running the real DLL headlessly
+([toolchain/harness](../toolchain/harness/README.md)). Before: the galley waits next to
+the site for 28 to 29 turns and no city is founded. After: the party lands on turn 2 or 3
+and founds the next turn.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/landing-escort-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/landing-escort-manifest.json
+```
+
+**24 regression programs pass.** The DLL is built with MSVC 2003: 0 errors, 0 warnings,
+the same 2451 exports. Use [`builds/0011/CvGameCoreDLL.dll`](../builds/0011/CvGameCoreDLL.dll);
+the save format is unchanged. The game executable was not run.
+
+[Investigation](../research/landing-engine/README.md) · [Manifest](landing-escort-manifest.json) ·
+[Before](landing-escort-before.log) · [Suite](landing-escort-regression.log) ·
+[Patch verification](landing-escort-patch-validation.log) · [Build provenance](../builds/0011/provenance.json).
+
 ## Pathfinding, transport and siege
 
 [0010-pathing-transport-and-siege.patch](0010-pathing-transport-and-siege.patch) is the
-current incremental patch for GitLab **`main` at `a9b1fce`** (patch 0009 merged). It has
+previous incremental patch for GitLab **`main` at `a9b1fce`** (patch 0009 merged). It has
 **landed on GitLab `main`** ([!35](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/35),
-merge commit `86af2ab`, tree `147f6d1f` = the tested tree). A clone of current `main` needs
-nothing applied; only the DLL below has to be installed.
+merge commit `86af2ab`, tree `147f6d1f` = the tested tree). Its DLL is superseded by
+[`builds/0011`](../builds/0011/CvGameCoreDLL.dll).
 
 - **Path searches stay reusable.** Queries about other groups (`AI_cityTargetUnitsByPath`,
   `AI_unitTargetMissionAIs`, `AI_isPlotThreatened`, synchronized landings, ship searches

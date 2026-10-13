@@ -12,7 +12,9 @@
 set -e
 src=$1; out=$2; jobs=${3:-8}
 : "${VCTOOLKIT_DIR:?}" "${PSDK_DIR:?}" "${BTS_SDK_DIR:?}" "${WINEPREFIX:?}"
-winpath() { echo "Z:$(readlink -f "$1")"; }
+# realpath -s: absolute without resolving symlinks; setup_toolchain.sh links vctk to a
+# folder whose name contains spaces, which the GNUmakefile cannot pass to cl.
+winpath() { echo "Z:$(realpath -s "$1")"; }
 rm -rf "$out"; mkdir -p "$out"
 cp "$src"/*.cpp "$src"/*.h "$src"/*.inl "$src"/GNUmakefile "$src"/gensourcelist "$out"/
 ln -s "$BTS_SDK_DIR/Boost-1.32.0" "$out/Boost-1.32.0"

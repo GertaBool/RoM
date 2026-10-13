@@ -1,0 +1,257 @@
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\GlobalDefinesAlt.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\BBAI_AI_Variables_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\BBAI_Game_Options_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\TechDiffusion_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\LeadFromBehind_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\PythonCallbackDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: res\Fonts\GameFont_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to Technologies cache. 
+ Current XML file is: xml\Technologies/CIV4TechInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Units cache. 
+ Current XML file is: xml\Units/CIV4PromotionInfos.xml
+[MessageBox] XML Caching Error: Failed writing to GameInfo cache. 
+ Current XML file is: xml\GameInfo/CIV4HandicapInfo.xml
+[MessageBox] XML Caching Error: Failed writing to Terrain cache. 
+ Current XML file is: Modules\Projects\Vincentz\Guilds\Guilds_CIV4BonusInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Terrain cache. 
+ Current XML file is: Modules\Builds\JungleCamp\JUNGLECAMP_CIV4ImprovementInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Buildings cache. 
+ Current XML file is: Modules\Projects\Vincentz\Guilds\Guilds_CIV4BuildingInfos.xml
+[MessageBox] XML Caching Error: Failed writing to GameInfo cache. 
+ Current XML file is: Modules\Projects\Vincentz\Guilds\Guilds_CIV4CivicInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Civilizations cache. 
+ Current XML file is: Modules\Custom Leaderheads\Wilhelmina\Wilhelmina_CIV4LeaderHeadInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Units cache. 
+ Current XML file is: Modules\Projects\Vincentz\Guilds\Guilds_CIV4UnitInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Civilizations cache. 
+ Current XML file is: Modules\Custom Leaderheads\Wilhelmina\Wilhelmina_CIV4CivilizationInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Events cache. 
+ Current XML file is: xml\Events/CIV4EventInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Events cache. 
+ Current XML file is: xml\Events/CIV4EventTriggerInfos.xml
+[MessageBox] XML Caching Error: Failed writing to GameInfo cache. 
+ Current XML file is: Modules\Custom Leaderheads\Wilhelmina\Wilhelmina_CIV4DiplomacyInfos.xml
+XML loaded (ok)
+units: settler 8192 escort 16385 ship 32771
+== turn 0: 1 cities
+  city 8192 at 11,7 pop 3 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 0/240 group 8192 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport -1 activity 0
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI -1 -> -1,-1 cargo 0 transport -1 activity 0
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 24578 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport -1 activity 0
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI -1 -> -1,-1 cargo 0 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 3 worked 1, trouble 0
+  horizon 20, logistics 0, candidates 0, min found 600
+  probe unit 32771 (11,7)->(26,7): canMoveInto 1 destValid 1 path 1 turns 4 last 02B32B38 water 1 area 32770->16384 domain 0
+== turn 1: 1 cities
+  city 8192 at 11,7 pop 2 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 57348 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 65536 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 3, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 2 worked 3, trouble 0
+== turn 2: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 73728 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 81922 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 2, trouble 0
+== turn 3: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 90114 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 98308 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 4: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 106500 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 114688 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 5: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 122880 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 131074 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 6: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 139266 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 147460 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 7: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 155652 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 163840 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 8: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 172032 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 180226 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 9: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 188418 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 196612 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 10: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 204804 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 212992 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 11: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 221184 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 229378 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 12: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 237570 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 245764 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 13: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 253956 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 262144 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 14: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 270336 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 278530 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 15: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 286722 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 294916 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 1, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 16: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 303108 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 311296 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 17: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 319488 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 327682 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 18: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 335874 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 344068 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 19: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 352260 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 360448 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 20: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 368640 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 376834 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 21: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 385026 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 393220 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 22: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 401412 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 409600 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 23: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 417792 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 425986 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 24: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 434178 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 442372 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 25: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 450564 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 458752 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 26: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 466944 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 475138 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 27: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 483330 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 491524 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 28: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 499716 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 507904 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+== turn 29: 1 cities
+  city 8192 at 11,7 pop 1 area 32770
+  unit 8192 UNIT_SETTLER ai 2 at 11,7 moves 240/240 group 516096 (1 units, head 8192) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 16385 UNIT_WARRIOR ai 10 at 11,7 moves 0/120 group 16385 (1 units, head 16385) missionAI 5 -> -1,-1 cargo 0 transport -1 activity 1
+  unit 24578 UNIT_WARRIOR ai 10 at 11,7 moves 120/120 group 524290 (1 units, head 24578) missionAI -1 -> -1,-1 cargo 0 transport 32771 activity 2
+  unit 32771 UNIT_GALLEY ai 29 at 11,7 moves 0/480 group 32771 (1 units, head 32771) missionAI 22 -> 11,7 cargo 2 transport -1 activity 0
+  economy: gold 1000, gold rate 0, research rate 2, gold/turn 0, %gold 0 %research 100, inflated costs 0 (units 0, supply 0, maintenance 0, civics 0), pop 1 worked 1, trouble 0
+RESULT turn 30: player 0 has 1 cities, 0 on the east island
