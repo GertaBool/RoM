@@ -1,0 +1,11 @@
+# Tools/test_upkeep_traps.py against the source before the patch (3553b8c)
+Etest: /tmp/rom-correctness-o5wf0xpb/test.cpp:333: int main(): Assertion `p.AI_disbandUnit(1, false)' failed.
+ERROR: test_terms_in_gold_per_turn (__main__.CivicValueTermsTests.test_terms_in_gold_per_turn)
+ERROR: test_birth_experience_does_not_exempt_a_unit (__main__.DisbandTests.test_birth_experience_does_not_exempt_a_unit)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness-o5wf0xpb/test']' died with <Signals.SIGABRT: 6>.
+FAIL: test_civic_value_uses_the_terms (__main__.CivicValueTermsTests.test_civic_value_uses_the_terms)
+AssertionError: 'freeExperienceValuePerTurn' not found in 'int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const\n{\n\tPROFILE_FUNC();\n\n\tbool bWarPlan;\n\tint iConnectedForeignCities;\n\tint iTota ...
+FAIL: test_surplus_explorer_retires_before_exploring (__main__.ExplorerTests.test_surplus_explorer_retires_before_exploring)
+AssertionError: 927 not less than 515
+Ran 4 tests in 0.812s
+FAILED (failures=2, errors=2)

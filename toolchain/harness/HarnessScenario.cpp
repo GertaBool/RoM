@@ -4,6 +4,7 @@
 // the game's CvWBDesc.py: game options and slots, map, plots, teams, players,
 // units, cities.
 #include "CvGameCoreDLL.h"
+#include <cstdlib>
 #include "CvGameAI.h"
 #include "CvMap.h"
 #include "CvPlot.h"
@@ -730,6 +731,14 @@ extern "C" __declspec(dllexport) int HH_loadSave(const char* szInit, const char*
 	int iAlive = 0;
 	for (int i = 0; i < MAX_PLAYERS; ++i) { GET_PLAYER((PlayerTypes)i).read(&sg); if (GET_PLAYER((PlayerTypes)i).isAlive()) ++iAlive; }
 	o << "players: at " << sg.GetPosition() << " of " << sg.GetEOF() << ", alive " << iAlive << (sg.m_bOverrun ? " (OVERRUN)" : "") << "\n";
+	// HARNESS_RESEED=n: another continuation of the same save (the game's
+	// synchronized random sequence restarts from n).
+	if (getenv("HARNESS_RESEED") != NULL)
+	{
+		const unsigned long ulSeed = strtoul(getenv("HARNESS_RESEED"), NULL, 10);
+		GC.getGameINLINE().getSorenRand().reseed(ulSeed);
+		o << "sync random reseeded with " << ulSeed << "\n";
+	}
 	for (int i = 0; i < MAX_PLAYERS; ++i)
 	{
 		CvPlayerAI& k = GET_PLAYER((PlayerTypes)i);

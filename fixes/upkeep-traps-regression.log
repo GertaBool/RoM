@@ -1,0 +1,264 @@
+
+[1/28] python3 Tools/test_settler_landing.py
+test_blocked_landing_releases_commitment_and_requests_recovery (__main__.LandingTests.test_blocked_landing_releases_commitment_and_requests_recovery) ... ok
+test_boarding_moves_do_not_delay_sailing (__main__.LandingTests.test_boarding_moves_do_not_delay_sailing) ... ok
+test_busy_party_is_not_overwritten (__main__.LandingTests.test_busy_party_is_not_overwritten) ... ok
+test_busy_separate_escort_is_not_regrouped (__main__.LandingTests.test_busy_separate_escort_is_not_regrouped) ... ok
+test_faster_walk_remains_available (__main__.LandingTests.test_faster_walk_remains_available) ... ok
+test_foreign_group_members_do_not_join_the_landing (__main__.LandingTests.test_foreign_group_members_do_not_join_the_landing) ... ok
+test_invalid_site_does_not_unload_offshore (__main__.LandingTests.test_invalid_site_does_not_unload_offshore) ... ok
+test_landing_preserves_found_job (__main__.LandingTests.test_landing_preserves_found_job) ... ok
+test_movement_callback_removes_passenger (__main__.LandingTests.test_movement_callback_removes_passenger) ... ok
+test_passenger_hold_does_not_prevent_landing (__main__.LandingTests.test_passenger_hold_does_not_prevent_landing) ... ok
+test_queued_landing_keeps_both_commitments (__main__.LandingTests.test_queued_landing_keeps_both_commitments) ... ok
+test_unrelated_immobile_cargo_cannot_veto_party (__main__.LandingTests.test_unrelated_immobile_cargo_cannot_veto_party) ... ok
+test_valid_sea_commitment_is_not_rescored (__main__.LandingTests.test_valid_sea_commitment_is_not_rescored) ... ok
+test_wait_for_actual_escort_then_land (__main__.LandingTests.test_wait_for_actual_escort_then_land) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 10.145s
+
+OK
+
+[2/28] python3 Tools/test_turn_end_guard.py
+test_attack_order_still_attacks (__main__.TurnEndGuardTests.test_attack_order_still_attacks) ... ok
+test_free_step_still_moves (__main__.TurnEndGuardTests.test_free_step_still_moves) ... ok
+test_lone_worker_onto_enemy_tile_ends_mission (__main__.TurnEndGuardTests.test_lone_worker_onto_enemy_tile_ends_mission) ... ok
+test_mixed_group_moves_and_splits_the_blocked_unit (__main__.TurnEndGuardTests.test_mixed_group_moves_and_splits_the_blocked_unit) ... ok
+test_watchdog_trips_after_twenty_losses_per_turn (__main__.TurnEndGuardTests.test_watchdog_trips_after_twenty_losses_per_turn) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.097s
+
+OK
+
+[3/28] python3 Tools/test_settle_reach.py
+test_city_walled_in_by_foreign_borders_cannot_reach_open_land (__main__.SettleReachTests.test_city_walled_in_by_foreign_borders_cannot_reach_open_land) ... ok
+test_sea_delivery_needs_a_transport_we_have_or_can_train (__main__.SettleReachTests.test_sea_delivery_needs_a_transport_we_have_or_can_train) ... ok
+test_transport_terrain_limits_follow_the_team_techs (__main__.SettleReachTests.test_transport_terrain_limits_follow_the_team_techs) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.672s
+
+OK
+
+[4/28] python3 Tools/test_gold_target_speed.py
+test_marathon_reserve_follows_prices_not_turn_count (__main__.GoldTargetSpeedTests.test_marathon_reserve_follows_prices_not_turn_count) ... ok
+test_normal_speed_keeps_the_bts_formula (__main__.GoldTargetSpeedTests.test_normal_speed_keeps_the_bts_formula) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.500s
+
+OK
+
+[5/28] python3 Tools/test_upkeep_traps.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.696s
+
+OK
+
+[6/28] python3 Tools/test_review_correctness.py
+test_agenda_extension_round_trip_and_legacy_stream_alignment (__main__.NativeTests.test_agenda_extension_round_trip_and_legacy_stream_alignment) ... ok
+test_canal_value_and_existing_guards (__main__.NativeTests.test_canal_value_and_existing_guards) ... ok
+test_fort_selection_preserves_utility_and_handles_large_scores (__main__.NativeTests.test_fort_selection_preserves_utility_and_handles_large_scores) ... ok
+test_team_rollover_skips_dead_slots (__main__.NativeTests.test_team_rollover_skips_dead_slots) ... ok
+test_crusade_cadence_at_game_length_boundaries (__main__.PythonTests.test_crusade_cadence_at_game_length_boundaries) ... ok
+test_failed_rebuild_preserves_previous_pair_arrays (__main__.PythonTests.test_failed_rebuild_preserves_previous_pair_arrays) ... ok
+test_load_and_start_preserve_profiler_and_lookup_order (__main__.PythonTests.test_load_and_start_preserve_profiler_and_lookup_order) ... ok
+test_no_obsolete_tech_and_empty_empire (__main__.PythonTests.test_no_obsolete_tech_and_empty_empire) ... ok
+test_obsolete_bank_does_not_pay (__main__.PythonTests.test_obsolete_bank_does_not_pay) ... ok
+test_repeated_load_and_start_are_idempotent (__main__.PythonTests.test_repeated_load_and_start_are_idempotent) ... ok
+test_sparse_city_receives_bank_interest (__main__.PythonTests.test_sparse_city_receives_bank_interest) ... ok
+test_sparse_city_spawns_crusader (__main__.PythonTests.test_sparse_city_spawns_crusader) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.933s
+
+OK
+
+[7/28] python3 Tools/test_source_integrity.py
+PASS: 445 native/Python source files contain no NULs or merge markers
+
+[8/28] python3 Tools/check_dll_line_endings.py
+checked 250 files; line endings and Unicode line bytes are safe
+
+[9/28] python3 Tools/test_xml_integrity.py
+PASS: parsed 949 gameplay, configuration, schema and module XML files
+
+[10/28] python3 Tools/test_ai_context.py
+PASS: strategic snapshot defaults, identity, 200,100 runway cases, 20,301 trade-cap cases, and free-list city iteration passed
+PASS: agenda and all technology consumers share every declared snapshot field
+
+[11/28] python3 Tools/test_ai_diplomacy.py
+PASS: 1,000,000 diplomacy conversion pairs and overflow boundaries passed
+PASS: all four counterproposal lump-gold conversions use the bounded policy
+
+[12/28] python3 Tools/test_ai_economic_recovery.py
+PASS: per-turn civic-cost boundaries and 5,151 monotonic states passed
+PASS: Masonry package, Mercenaries cost, and explorer-pipeline wiring verified
+
+[13/28] python3 Tools/test_ai_agenda_model.py
+agenda model: 8 scenarios, hysteresis boundaries, and 10000 randomized states passed
+
+[14/28] python3 Tools/test_ai_decisions.py
+test_agenda_adjusted_unit_probability_reaches_all_city_rolls (__main__.DecisionTests.test_agenda_adjusted_unit_probability_reaches_all_city_rolls) ... ok
+test_anarchy_preserves_ai_production_queue (__main__.DecisionTests.test_anarchy_preserves_ai_production_queue) ... ok
+test_archer_fire_after_assault (__main__.DecisionTests.test_archer_fire_after_assault) ... ok
+test_bombard_dispatch_reachable (__main__.DecisionTests.test_bombard_dispatch_reachable) ... ok
+test_bounded_reinforcement_delivery (__main__.DecisionTests.test_bounded_reinforcement_delivery) ... ok
+test_career_migration_and_cooldown (__main__.DecisionTests.test_career_migration_and_cooldown) ... ok
+test_civic_value_reaches_technology_scoring (__main__.DecisionTests.test_civic_value_reaches_technology_scoring) ... ok
+test_commerce_repair_after_city_deserialization (__main__.DecisionTests.test_commerce_repair_after_city_deserialization) ... ok
+test_compiled_policy_and_actual_record_code (__main__.DecisionTests.test_compiled_policy_and_actual_record_code) ... C++03 policies: 40,401 EWMA pairs; spending/recovery/siege boundaries; actual v4/v5 record readers/writers passed
+ok
+test_hurry_legality_and_timing (__main__.DecisionTests.test_hurry_legality_and_timing) ... ok
+test_ready_numerator_excludes_support (__main__.DecisionTests.test_ready_numerator_excludes_support) ... ok
+test_recovery_dispatch_precedes_role_dispatch (__main__.DecisionTests.test_recovery_dispatch_precedes_role_dispatch) ... ok
+test_stuck_group_recovery_exhausts_every_member (__main__.DecisionTests.test_stuck_group_recovery_exhausts_every_member) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.484s
+
+OK
+
+[15/28] python3 Tools/test_ai_governors.py
+test_city_integration_and_save_version (__main__.GovernorPolicyTests.test_city_integration_and_save_version) ... ok
+test_feedback_is_bounded_and_precedes_hard_overrides (__main__.GovernorPolicyTests.test_feedback_is_bounded_and_precedes_hard_overrides) ... ok
+test_policy_gates_terms_performance_and_determinism (__main__.GovernorPolicyTests.test_policy_gates_terms_performance_and_determinism) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.165s
+
+OK
+
+[16/28] python3 Tools/test_ai_layer_contracts.py
+test_agenda_precedes_its_turn_consumers (__main__.LayerContractTests.test_agenda_precedes_its_turn_consumers) ... ok
+test_city_production_consumes_strategic_budgets (__main__.LayerContractTests.test_city_production_consumes_strategic_budgets) ... ok
+test_feedback_cannot_bypass_emergency_selection (__main__.LayerContractTests.test_feedback_cannot_bypass_emergency_selection) ... ok
+test_operation_control_precedes_generic_role_dispatch (__main__.LayerContractTests.test_operation_control_precedes_generic_role_dispatch) ... ok
+test_operation_demand_counts_supply_pipeline (__main__.LayerContractTests.test_operation_demand_counts_supply_pipeline) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.031s
+
+OK
+
+[17/28] python3 Tools/test_ai_load_override.py
+PASS: production AI_load declarations/definition override and dispatch in C++03
+
+[18/28] python3 Tools/test_ai_maritime.py
+PASS: 1,000,000 route pairs; 10,201 worker pairs; 249,500 strength pairs and overflow boundaries
+PASS: spending, worker export, chosen transport, embarkation, landing and naval bombard contracts
+
+[19/28] python3 Tools/test_operation_supply.py
+test_compiled_boundaries (__main__.OperationSupplyTests.test_compiled_boundaries) ... ok
+test_death_is_recorded_before_the_id_can_be_recycled (__main__.OperationSupplyTests.test_death_is_recorded_before_the_id_can_be_recycled) ... ok
+test_field_armies_are_not_rejected_for_standing_off_owned_land (__main__.OperationSupplyTests.test_field_armies_are_not_rejected_for_standing_off_owned_land) ... ok
+test_gold_reserve_does_not_negate_or_multiply_in_place (__main__.OperationSupplyTests.test_gold_reserve_does_not_negate_or_multiply_in_place) ... ok
+test_gold_trade_reserve_matches_integer_oracle (__main__.OperationSupplyTests.test_gold_trade_reserve_matches_integer_oracle) ... Verified 4352 gold-reserve cases against exact integer arithmetic.
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.400s
+
+OK
+
+[20/28] python3 Tools/test_ai_reinforcements.py
+PASS: 1595880 reinforcement combinations and overflow boundary passed
+PASS: cached supply accounting and all five field-role delivery hooks checked
+
+[21/28] python3 Tools/test_victory_conditions.py
+test_boolean_gate_truth_table (__main__.VictoryTests.test_boolean_gate_truth_table) ... ok
+test_every_declared_victory_prerequisite_exists (__main__.VictoryTests.test_every_declared_victory_prerequisite_exists) ... ok
+test_score_conquest_diplomatic_religious_and_culture_edges (__main__.VictoryTests.test_score_conquest_diplomatic_religious_and_culture_edges) ... ok
+test_source_uses_wide_products_and_countdown_guards (__main__.VictoryTests.test_source_uses_wide_products_and_countdown_guards) ... ok
+test_threshold_references_and_ranges (__main__.VictoryTests.test_threshold_references_and_ranges) ... ok
+test_victory_types_are_unique_and_have_a_real_gate (__main__.VictoryTests.test_victory_types_are_unique_and_have_a_real_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.088s
+
+OK
+
+[22/28] python3 Tools/test_static_findings.py
+test_bad_feature_removal_uses_intended_odds (__main__.StaticFindingTests.test_bad_feature_removal_uses_intended_odds) ... ok
+test_danger_guard_covers_both_era_tests (__main__.StaticFindingTests.test_danger_guard_covers_both_era_tests) ... ok
+test_event_tech_progress_message_selects_team_members (__main__.StaticFindingTests.test_event_tech_progress_message_selects_team_members) ... ok
+test_executive_value_tests_external_value_and_counts_rivals (__main__.StaticFindingTests.test_executive_value_tests_external_value_and_counts_rivals) ... ok
+test_info_streams_write_values_and_match_reads (__main__.StaticFindingTests.test_info_streams_write_values_and_match_reads) ... ok
+test_pickup_path_turns_initialized_before_optional_path_query (__main__.StaticFindingTests.test_pickup_path_turns_initialized_before_optional_path_query) ... ok
+test_python_text_manager_keeps_supplied_pointer (__main__.StaticFindingTests.test_python_text_manager_keeps_supplied_pointer) ... ok
+test_strategic_context_counts_settlers_once (__main__.StaticFindingTests.test_strategic_context_counts_settlers_once) ... ok
+test_tech_brokering_reads_receiver_research (__main__.StaticFindingTests.test_tech_brokering_reads_receiver_research) ... ok
+test_variadic_text_receives_c_strings (__main__.StaticFindingTests.test_variadic_text_receives_c_strings) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.144s
+
+OK
+
+[23/28] python3 Tools/test_mission_target_index.py
+INFO: whole-map scan, 13824 plots x 600 groups: group scan 258.934 ms, index (including rebuild) 0.943 ms
+PASS: 240000 queries matched the original scan (90060 via plot buckets, 149940 via entry scan)
+PASS: every membership, group-set and mission-target change invalidates the index
+
+[24/28] python3 Tools/test_python_callbacks.py
+test_djenne_discount_is_constant_time (__main__.CallbackTests.test_djenne_discount_is_constant_time) ... ok
+test_independent_civic_discounts (__main__.CallbackTests.test_independent_civic_discounts) ... ok
+test_missionary_cost_uses_cached_lookups (__main__.CallbackTests.test_missionary_cost_uses_cached_lookups) ... ok
+test_observatory_requires_hill_in_own_radius (__main__.CallbackTests.test_observatory_requires_hill_in_own_radius) ... ok
+test_replicator_upgrade_price_halves_the_normal_price_once (__main__.CallbackTests.test_replicator_upgrade_price_halves_the_normal_price_once) ... ok
+test_upgrade_line_matches_original_algorithm (__main__.CallbackTests.test_upgrade_line_matches_original_algorithm) ... ok
+test_zcivics_lookups (__main__.CallbackTests.test_zcivics_lookups) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.107s
+
+OK
+
+[25/28] python3 Tools/test_research_plan.py
+INFO: deepest target from scratch: 219 techs planned in 0.61205 ms; the former recursion would make 1090348606 calls
+PASS: 44396 plans valid, irredundant and resolved once per technology; 44396 proved optimal by branch and bound
+PASS: largest plan 219 techs; the replaced tree recursion counted up to 1090348606 (and undercounted 63 plans through unresearchable alternatives)
+INFO: the original queue rule failed on 0 reachable targets; elsewhere it was dearer 7159, equal 37237, cheaper 0 (worst +0%)
+INFO: targets inside AI_bestTech's horizon: depth 3 5436 -> 5486, depth 6 7806 -> 8343 (former tree count -> plan size)
+INFO: exhaustive optimum matched in 10420 of 10420 small cases (worst +0%)
+PASS: queueing, path length and AI valuation share one research plan
+PASS: technology help reports the queued plan in every shipped language
+
+[26/28] python3 Tools/test_path_queries.py
+test_answers_equal_fresh_searches_for_the_querying_group (__main__.PathQueryTests.test_answers_equal_fresh_searches_for_the_querying_group) ... ok
+test_finder_lifecycle (__main__.PathQueryTests.test_finder_lifecycle) ... ok
+test_other_group_queries_use_the_second_finder (__main__.PathQueryTests.test_other_group_queries_use_the_second_finder) ... ok
+test_other_groups_no_longer_discard_the_planners_search (__main__.PathQueryTests.test_other_groups_no_longer_discard_the_planners_search) ... ok
+test_reuse_owner_rules (__main__.PathQueryTests.test_reuse_owner_rules) ... ok
+test_unguarded_reuse_gives_stale_turns (__main__.PathQueryTests.test_unguarded_reuse_gives_stale_turns) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.562s
+
+OK
+
+[27/28] python3 Tools/test_group_queries.py
+test_repeated_queries_build_the_index_once (__main__.GroupQueryTests.test_repeated_queries_build_the_index_once) ... ok
+test_threat_check_searches_each_enemy_group_once (__main__.GroupQueryTests.test_threat_check_searches_each_enemy_group_once) ... ok
+test_unit_target_counts_match_the_original_walk (__main__.GroupQueryTests.test_unit_target_counts_match_the_original_walk) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.549s
+
+OK
+
+[28/28] python3 Tools/test_unit_ai_corrections.py
+test_best_city_build_compares_value_per_turn (__main__.UnitAICorrectionTests.test_best_city_build_compares_value_per_turn) ... ok
+test_choke_keeps_the_best_plot (__main__.UnitAICorrectionTests.test_choke_keeps_the_best_plot) ... ok
+test_reinforcement_respects_the_landing_check (__main__.UnitAICorrectionTests.test_reinforcement_respects_the_landing_check) ... ok
+test_settler_on_its_site_founds_without_escort (__main__.UnitAICorrectionTests.test_settler_on_its_site_founds_without_escort) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.359s
+
+OK
+
+Ran 28 isolated checks in 37.76s; 0 failed.

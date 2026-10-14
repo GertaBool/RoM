@@ -1,0 +1,109 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "3553b8cc294f547386d9cb47d8e1976da981d637",
+  "base_tree": "c56ade1249adbbe0a1a6f3deb41b314635007208",
+  "base_note": "tree of GitLab main abf8471 (merge of !37)",
+  "tested_source_commit": "7f72bd4d7efc4ce5a88d5333f258ed1f81355833",
+  "tested_source_tree": "5b4dd66843e5280c5f1f6190a8bee0bfd8df121b",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!38",
+    "main_commit": "93ae873fffa1f2677a16c80e68c4f2992267e5c0",
+    "main_tree_equals_tested_tree": true,
+    "uploaded_as": "5 hunk commits on claude/upkeep-traps (GitLab API); branch tree compared with the tested tree before merging"
+  },
+  "patch": "0013-upkeep-traps.patch",
+  "patch_sha256": "5d25df5a9241738212560c1ed6ffd5b2db0f8fae00c3e8ba2e3ecb3d540ed6c6",
+  "relationship_to_prior_patch": "Incremental on GitLab main after merge request !37 (patch 0012). Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "reported": "Follow-up questions on the Masinissa Marathon autorun save (410 BC): settler overproduction, and Rome without Writing at 410 BC",
+  "root_causes": {
+    "rome": "Mercenaries from turn 144: unit charges 45 of 96 commerce, financial trouble, slider 95% gold, research 3 beakers, settler allowance 0 with a site of value 3777 open",
+    "civic_free_experience": "AI_civicValue valued free experience as experience x population x 30% (war plan) x production multiplier: 45 per turn for Rome, more than the 31 gold the civic cost",
+    "civic_unit_charges": "projected unit charges not scaled by the handicap, AI and per-era percents and inflation (twice the real gold on Noble, 1.7x on Deity)",
+    "civic_military_happiness": "three military units assumed in every city",
+    "disband": "AI_disbandUnit(1) skipped every unit with more than 1 experience; Mercenaries gives 5 at birth, so nothing could be disbanded",
+    "explorers": "surplus explorers were scrapped only after AI_explore failed, which on a large map never happens (Rome: 14 scouts, need 3)",
+    "settlers": "141 settlers created over the game, 122 cities founded, 18 alive at 410 BC: idle settlers, not overproduction; the causes were fixed by patch 0012"
+  },
+  "not_changed": {
+    "civic_switch_horizon": "AI_doCivics horizon is 2 x AI_CIVIC_CHANGE_DELAY at every speed while anarchy doubles on Marathon; scaling it raised anarchy from 33.5 to 45.5 player-turns per 40 turns (6 seeds) without measurable gain, so it was left for a longer study"
+  },
+  "validation": {
+    "suite_programs": 28,
+    "suite_failures": 0,
+    "new_tests": [
+      "Tools/test_upkeep_traps.py"
+    ],
+    "new_test_against_base": "all four test cases fail (disband test by its assertion)",
+    "native_standard": "C++03",
+    "clang_gate": {
+      "translation_units": [
+        "CvPlayerAI.cpp",
+        "CvUnitAI.cpp"
+      ],
+      "baseline": "0 errors/51 warnings",
+      "patched": "0 errors/51 warnings",
+      "new_diagnostics": 0
+    },
+    "msvc_build": {
+      "compiler": "Microsoft C/C++ 13.10.3077 (Visual C++ Toolkit 2003)",
+      "errors": 0,
+      "warnings": 0,
+      "exports": 2451,
+      "exports_equal_to_shipped_dll": true
+    },
+    "real_dll_harness": {
+      "description": "the 410 BC save continued 40 turns, six reseeded continuations per build, all seats AI",
+      "patch_0012": {
+        "research": "95281 +- 6251",
+        "techs_gained": "119.5 +- 7.5",
+        "cities": "148.0 +- 4.0",
+        "financial_trouble_player_turns": "22.8 +- 3.7",
+        "scouts": "51.8 +- 7.2",
+        "rome_unit_cost_end": 22.3
+      },
+      "patch_0013": {
+        "research": "95818 +- 3383",
+        "techs_gained": "130.8 +- 11.1",
+        "cities": "151.7 +- 2.3",
+        "financial_trouble_player_turns": "16.2 +- 2.1",
+        "scouts": "28.2 +- 2.7",
+        "rome_unit_cost_end": 12.5
+      }
+    },
+    "save_replayed": true,
+    "game_executable_run": false
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/AICivicPolicy.h": {
+      "before_sha256": "ad3f948954e0c2ae182b2deb6f3e854d3e9adea15ffccbc02ba907721a4a1bf3",
+      "after_sha256": "4d55c97072351d212f67d84ad585bdf88c8396f1c9a6123627bc8ded294fc833"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "37d3794f5aebaa9f5bd11b662f6b998dfbbccd50067940c273ce2b7d79afe75a",
+      "after_sha256": "07ac7d738eb7d070407e98fc4b4d6cb0e52169e59aba9fb31bb2fbf834b18329"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "8d6279dadbb0e412dda7bc8de1f01a185a6ee077818001e49b8ea3409b144358",
+      "after_sha256": "a60b5d96e6a26557ad2fca6b993700fb80d6fd82e011ea169ac3d52108634fdf"
+    },
+    "Docs/UPKEEP_TRAPS.md": {
+      "before_sha256": null,
+      "after_sha256": "0788ecd06990182260011346dd3fd618a8655910c06f167876d4c586da70297c"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "94743bc93cc751570f4f048f2d3707106982ed56b69fe0bec0a1beafcfe217d1",
+      "after_sha256": "f2f375b73659dd0bfcf549177bb932d7cbb07f65efb9f0351d60752abad055a2"
+    },
+    "Tools/test_upkeep_traps.py": {
+      "before_sha256": null,
+      "after_sha256": "a4c87655901085fdb259c2b2f17709897aeccde8c6775d4a62eaa694177b35f0"
+    }
+  }
+}

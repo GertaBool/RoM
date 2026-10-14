@@ -1,0 +1,145 @@
+# What the save remembers (HARNESS_HISTORY_DIAG on the 410 BC save, game turn 269)
+
+## Rome: history series every 10 turns (CvPlayer score/economy/industry/agriculture/power history)
+turn score econ ind agr power
+0 17 16 1 4 4
+10 17 16 2 7 4
+20 20 16 2 7 4
+30 25 18 3 11 5
+40 26 23 3 11 5
+50 36 23 5 12 9
+60 38 21 5 12 9
+70 38 22 3 16 9
+80 39 26 6 15 11
+90 39 26 6 15 11
+100 41 24 6 15 15
+110 51 20 14 19 16
+120 51 24 11 24 16
+130 61 21 13 28 25
+140 71 26 24 37 34
+150 76 23 23 40 38
+160 87 26 28 46 39
+170 92 34 31 46 39
+180 102 34 33 46 40
+190 104 37 34 56 55
+200 109 25 50 60 72
+210 114 28 42 61 88
+220 119 19 43 71 120
+230 140 16 57 77 168
+240 146 26 71 76 176
+250 153 22 67 71 193
+260 159 26 74 84 201
+
+## Economy (total commerce) history of every civilization at turns 50/100/150/200/250/268
+HENRY_VIII             [19, 27, 43, 111, 158, 175]
+BRENNUS                [21, 27, 39, 53, 90, 123]
+PERICLES               [28, 33, 57, 78, 110, 170]
+AUGUSTUS               [23, 24, 23, 25, 22, 42]
+IVAN                   [23, 21, 33, 37, 51, 59]
+CHARLEMAGNE            [21, 19, 28, 23, 117, 173]
+MASINISSA              [19, 33, 49, 82, 162, 209]
+WILLEM_VAN_ORANJE      [25, 31, 36, 31, 112, 255]
+SUPPI                  [19, 18, 28, 35, 51, 71]
+JOAO                   [22, 32, 35, 46, 90, 106]
+RAMESSES               [25, 25, 35, 88, 202, 288]
+HANNIBAL               [24, 31, 52, 60, 118, 110]
+CHARLES_V              [19, 22, 34, 34, 76, 69]
+HAMMURABI              [21, 33, 59, 137, 277, 364]
+AFONSO                 [22, 25, 32, 1, 63, 53]
+PETER                  [22, 24, 27, 45, 98, 127]
+LEONIDAS               [24, 28, 29, 53, 106, 119]
+ALEXANDER              [21, 23, 38, 36, 68, 140]
+
+## Cities founded (replay messages): turn of each founding
+HENRY_VIII             [0, 91, 130, 235]
+BRENNUS                [0, 93, 136, 188, 212, 233, 240]
+PERICLES               [0, 119, 139, 207, 213]
+AUGUSTUS               [0, 106, 124, 260]
+IVAN                   [0, 118, 161, 188, 216, 227, 237]
+CHARLEMAGNE            [0, 98, 138, 170, 240, 255, 267, 268]
+MASINISSA              [0, 112, 132, 210, 227, 241, 246]
+WILLEM_VAN_ORANJE      [0, 89, 114, 159, 189, 213, 237]
+SUPPI                  [0, 158, 196, 257]
+JOAO                   [0, 104, 138, 160, 176, 199, 224, 241, 252, 265, 266]
+RAMESSES               [0, 98, 130, 223, 227, 233, 251]
+HANNIBAL               [0, 114, 150, 168, 197, 234, 256, 260]
+CHARLES_V              [0, 112, 151, 177, 189, 194, 223, 248, 263]
+HAMMURABI              [0, 105, 126, 176, 201, 216, 228, 237, 239, 253, 259, 260, 264]
+AFONSO                 [0, 129, 215, 250, 251]
+PETER                  [0, 114, 152, 240, 264, 267]
+LEONIDAS               [0, 91, 133, 224, 233, 251]
+ALEXANDER              [0, 108, 144, 158]
+
+## Military civic adoptions (replay messages)
+73 Pericles adopts Fortification!
+78 Ramesses II adopts Fortification!
+92 Leonidas I adopts Fortification!
+97 Hammurabi adopts Fortification!
+122 Maglocunus adopts Fortification!
+144 Augustus Caesar adopts Mercenaries!
+153 Charles V adopts Fortification!
+157 Willem van Oranje adopts Mercenaries!
+162 Masinissa adopts Mercenaries!
+168 Minos adopts Mercenaries!
+170 Afonso I adopts Fortification!
+176 Charlemagne adopts Mercenaries!
+177 Alexander adopts Mercenaries!
+183 Peter adopts Fortification!
+186 Ivan IV adopts Mercenaries!
+188 Hiram adopts Mercenaries!
+190 Vercingetorix adopts Mercenaries!
+209 Suppiluliuma adopts Mercenaries!
+225 Vercingetorix adopts Fortification!
+253 Suppiluliuma adopts Fortification!
+260 Alexander adopts Fortification!
+264 Charlemagne adopts Fortification!
+269 Maglocunus adopts Fortification!
+
+## Rome replay events
+32 Augustus Caesar adopts Elders!
+32 Augustus Caesar adopts Spiritism!
+101 Augustus Caesar adopts Tablets!
+144 Augustus Caesar adopts Pastoral!
+144 Augustus Caesar adopts Mercenaries!
+175 Augustus Caesar converts to Celtic Myths!
+217 Augustus Caesar adopts Coastal!
+251 Augustus Caesar adopts Junta!
+253 Wang Anshi (Great Merchant) has been born in Rome (Augustus Caesar)!
+261 Augustus Caesar declares war on Pericles!
+264 Augustus Caesar adopts Priesthood!
+
+## Costs at 410 BC (gold per turn) and military civic
+                       cities units military unitCost totalCosts commerce slider(gold,research) finTrouble civic
+HENRY_VIII                  5    56       44        0          0        0 [15, 70] 0 ['CIVIC_FORTIFICATION']
+BRENNUS                     6    56       46       18         56      162 [75, 25] 0 ['CIVIC_FORTIFICATION']
+PERICLES                    6    40       31       10         41      208 [15, 70] 0 ['CIVIC_FORTIFICATION']
+AUGUSTUS                    4    45       39       45         58       96 [95, 5] 1 ['CIVIC_MERCENARIES']
+IVAN                        7    39       29       29         77      116 [45, 55] 1 ['CIVIC_MERCENARIES']
+CHARLEMAGNE                 8    45       35       12         63      234 [50, 50] 0 ['CIVIC_FORTIFICATION']
+MASINISSA                   7    57       44        8         63      227 [15, 85] 0 ['CIVIC_RAIDERS']
+WILLEM_VAN_ORANJE           7    51       39       42         88      271 [40, 60] 0 ['CIVIC_MERCENARIES']
+SUPPI                       3    22       18        3          7       60 [20, 80] 0 ['CIVIC_FORTIFICATION']
+JOAO                       11    40       27       29        113      179 [70, 30] 1 ['CIVIC_MERCENARIES']
+RAMESSES                    7    73       67       25         78      320 [20, 80] 0 ['CIVIC_FORTIFICATION']
+HANNIBAL                    8    30       23       18         72      159 [40, 60] 0 ['CIVIC_MERCENARIES']
+CHARLES_V                   7    47       36       14         44      105 [85, 15] 0 ['CIVIC_FORTIFICATION']
+HAMMURABI                  13    65       47        5        136      422 [20, 80] 0 ['CIVIC_MILITIA']
+AFONSO                      4    26       19        5         18       53 [30, 70] 0 ['CIVIC_FORTIFICATION']
+PETER                       6    36       29        9         42      140 [40, 60] 0 ['CIVIC_FORTIFICATION']
+LEONIDAS                    5    19       13        0         26      105 [20, 80] 0 ['CIVIC_FORTIFICATION']
+ALEXANDER                   4    43       35       13         31      123 [10, 90] 0 ['CIVIC_FORTIFICATION']
+
+## Rome units at 410 BC by type and role (experience values)
+SCOUT          explore       14 xp [5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 8, 8, 8]
+VELITES        attack         7 xp [0, 8, 8, 8, 8, 8, 11]
+RAM            attack city    7 xp [5, 5, 5, 5, 8, 8, 8]
+GALLEY         assault sea    7 xp [5, 5, 5, 5, 5, 8, 8]
+WORKER         worker         4 xp [0, 0, 0, 0]
+VELITES        city counter   3 xp [0, 5, 5]
+GREAT_GENERAL  general        1 xp [0]
+VELITES        pillage        1 xp [0]
+MERCHANT       merchant       1 xp [0]
+
+## Units created in the whole game (all players, CvGame::getUnitCreatedCount; includes the 18 starting settlers)
+[('UNIT_SPEARMAN', 313), ('UNIT_WORKER', 177), ('UNIT_JAVELINEER', 167), ('UNIT_SETTLER', 141), ('UNIT_WORKBOAT', 140), ('UNIT_GALLEY', 95), ('UNIT_SCOUT', 74), ('UNIT_RAM', 69), ('UNIT_AXEMAN', 28), ('UNIT_GREAT_GENERAL', 25), ('UNIT_PROPHET', 16), ('UNIT_VELITES', 15)]
+cities alive 118 ; foundings in replay 122 ; settlers alive 18

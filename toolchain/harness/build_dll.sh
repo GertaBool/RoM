@@ -14,6 +14,8 @@ case "$log" in
   profile) export CFLAGS="/DFP_PROFILE_ENABLE" ;;
   logprofile) export CFLAGS="/DLOG_AI /DFP_PROFILE_ENABLE" ;;
 esac
+# Diagnostics that need the settlement delivery regions (patch 0012 and later).
+if grep -q AI_canDeliverSettler "$src/CvPlayerAI.h"; then export CFLAGS="${CFLAGS:-} /DHARNESS_SETTLE_REACH"; fi
 "$H/../build_dll.sh" "$tmp" "$out" 8
 rm -rf "$tmp"
 ls -la "$out/release/CvGameCoreDLL.dll"

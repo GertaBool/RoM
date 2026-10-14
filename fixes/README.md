@@ -1,12 +1,53 @@
 # Tested source fixes
 
+## Upkeep traps: Rome without Writing, settlers
+
+[0013-upkeep-traps.patch](0013-upkeep-traps.patch) is the current incremental patch for
+GitLab **`main` at `abf8471`** (patch 0012 merged). It has **landed on GitLab `main`**
+([!38](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/38),
+merge commit `93ae873`, tree `5b4dd668` = the tested tree). A clone of current `main`
+needs nothing applied; only the DLL below has to be installed.
+
+It answers two questions on the same Masinissa save. Rome kept the Mercenaries civic for
+125 turns: unit charges took 45 of its 96 commerce, research ran at 3 beakers a turn and,
+in financial trouble, it trained no settler, so it had no Writing at 410 BC. The settlers
+standing around at 410 BC were idle ones (141 created in the game, 122 cities founded),
+whose causes patch 0012 already fixed.
+
+- **Civic value.** Free experience was priced from population (Mercenaries' five points
+  were worth 45 a turn to Rome); now by the promotions it buys on the hammers going into
+  military units. Unit charges are projected in real gold (they were twice that on
+  Noble), and military happiness uses the actual garrisons instead of three per city.
+- **Disbanding.** `AI_disbandUnit(1, ...)` skipped every unit with more than one
+  experience point, and Mercenaries gives five at birth; the threshold now counts from
+  the experience a unit would be trained with today.
+- **Explorers.** A surplus explorer now retires before searching (Rome kept 14 scouts
+  against a need of three).
+
+Six 40-turn continuations of the save per build: player-turns in financial trouble
+22.8 to 16.2, scouts 52 to 28, research and cities unchanged within noise.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/upkeep-traps-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/upkeep-traps-manifest.json
+```
+
+**28 regression programs pass.** The DLL is built with MSVC 2003: 0 errors, 0 warnings,
+the same 2451 exports. Use [`builds/0013/CvGameCoreDLL.dll`](../builds/0013/CvGameCoreDLL.dll);
+the save format is unchanged. The game executable was not run.
+
+[Investigation](../research/rome-and-settlers/README.md) · [Manifest](upkeep-traps-manifest.json) ·
+[Before](upkeep-traps-before.log) · [Suite](upkeep-traps-regression.log) ·
+[Patch verification](upkeep-traps-patch-validation.log) · [Clang gate](upkeep-traps-clang-gate.log) ·
+[Build provenance](../builds/0013/provenance.json).
+
 ## Autorun fixes: endless turn, turn time, settlers and AI economy
 
-[0012-autorun-fixes.patch](0012-autorun-fixes.patch) is the current incremental patch for
+[0012-autorun-fixes.patch](0012-autorun-fixes.patch) is the previous incremental patch for
 GitLab **`main` at `dcbae97`** (patch 0011 and its documentation follow-up). It has
 **landed on GitLab `main`** ([!37](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/37),
 merge commit `abf8471`, tree `c56ade12` = the tested tree). A clone of current `main`
-needs nothing applied; only the DLL below has to be installed.
+needs nothing applied.
 
 It answers the autorun report as Masinissa (Marathon save at 410 BC, game turn 269).
 Everything was checked by loading that save into the real DLL in the
@@ -40,8 +81,8 @@ python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/autorun-manifes
 ```
 
 **27 regression programs pass.** The DLL is built with MSVC 2003: 0 errors, 0 warnings,
-the same 2451 exports. Use [`builds/0012/CvGameCoreDLL.dll`](../builds/0012/CvGameCoreDLL.dll);
-the save format is unchanged. The game executable was not run.
+the same 2451 exports ([`builds/0012/CvGameCoreDLL.dll`](../builds/0012/CvGameCoreDLL.dll), superseded
+by [`builds/0013`](../builds/0013/CvGameCoreDLL.dll)); the save format is unchanged. The game executable was not run.
 
 [Investigation](../research/autorun-masinissa/README.md) · [Manifest](autorun-manifest.json) ·
 [Before](autorun-before.log) · [Suite](autorun-regression.log) ·

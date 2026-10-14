@@ -99,6 +99,10 @@ the groups that keep it open, and stops after four times the limit. The run
 writes `run.jsonl.state0.json` and `.state1.json`: every player's economy,
 techs, civics, cities (buildings, current order) and settlers.
 
+`HARNESS_RESEED=n` restarts the game's synchronized random sequence from `n`
+after loading, so one save gives several independent continuations (for
+comparing builds by more than one trajectory).
+
 The game reads `res/Fonts/GameFont_GlobalDefines.xml` differently from the
 harness; saves record 16 religions and 27 corporations, so the harness skips that
 file unless `HARNESS_GAMEFONT=1`.
@@ -109,6 +113,7 @@ Diagnostics in the state files, off by default because they run extra searches:
 |---|---|
 | `HARNESS_SETTLER_DIAG=1` | per settler: escort, horizon, and for the eight best settlement candidates every filter `AI_found` applies (can found, enemy units, other parties, path with and without `MOVE_SAFE_TERRITORY`, delivery region) and the transport of a settler at sea |
 | `HARNESS_VALUE_DIAG=1` | per AI city: the twelve buildings with the highest `AI_buildingValue`, with cost and turns |
+| `HARNESS_HISTORY_DIAG=1` | what the save remembers: each player's per-turn score, economy, industry, agriculture, power and culture history from turn 0, research progress and queue, cost terms, every unit (type, role, experience, position), the AI's value of every civic it may adopt; for the game, the replay messages (city foundings, civic adoptions, wars, first techs) and the number of units of each type created |
 
 ## WorldBuilder scenarios
 

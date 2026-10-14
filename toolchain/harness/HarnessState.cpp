@@ -31,7 +31,29 @@ namespace
 		default: return "-";
 		}
 	}
+
+	// Replay text and the like: plain ASCII inside a JSON string.
+	void writeJsonText(FILE* f, const wchar_t* sz)
+	{
+		fputc('"', f);
+		for (; sz != NULL && *sz != 0; ++sz)
+		{
+			const wchar_t ch = *sz;
+			if (ch == L'"' || ch == L'\\') { fputc('\\', f); fputc((char)ch, f); }
+			else if (ch >= 32 && ch < 127) fputc((char)ch, f);
+			else fputc(' ', f);
+		}
+		fputc('"', f);
+	}
 }
+
+// Settlement delivery regions exist from patch 0012 on; build_dll.sh defines
+// HARNESS_SETTLE_REACH when the source has them, so older sources still build.
+#ifdef HARNESS_SETTLE_REACH
+#define HH_SETTLE_REACH(k, u, p) ((k).AI_canDeliverSettler((u)->plot(), (p)) ? 1 : 0) + ((k).AI_isSettleSiteDeliverable(p) ? 2 : 0)
+#else
+#define HH_SETTLE_REACH(k, u, p) (-1)
+#endif
 
 extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 {
@@ -63,6 +85,76 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 			k.isHuman() ? -1 : k.AI_goldTarget(), k.AI_getExtraGoldTarget(), iCommerceTotal, k.calculateGoldRate(), k.calculateResearchRate(),
 			k.calculateInflatedCosts(), k.isAnarchy() ? 1 : 0, k.AI_avoidScience() ? 1 : 0, k.AI_isFinancialTrouble() ? 1 : 0,
 			kT.getAtWarCount(true), kT.getChosenWarCount(true), k.getNumCities());
+		if (getenv("HARNESS_HISTORY_DIAG") != NULL)
+		{
+			// What the save remembers about the past: the per-turn history
+			// series, partial research, the research queue and the cost terms.
+			fprintf(f, "\"costs\":{\"unit\":%d,\"supply\":%d,\"maint\":%d,\"civic\":%d,\"pre\":%d,\"inflation\":%d,"
+				"\"military\":%d,\"units\":%d},",
+				k.calculateUnitCost(), k.calculateUnitSupply(), k.getTotalMaintenance(), k.getCivicUpkeep(),
+				k.calculatePreInflatedCosts(), k.calculateInflationRate(), k.getNumMilitaryUnits(), k.getNumUnits());
+			fprintf(f, "\"progress\":[");
+			bool bFirstP = true;
+			for (int t = 0; t < GC.getNumTechInfos(); ++t)
+			{
+				const int iProgress = kT.getResearchProgress((TechTypes)t);
+				const int iQueue = k.getQueuePosition((TechTypes)t);
+				if (kT.isHasTech((TechTypes)t) || (iProgress <= 0 && iQueue <= 0)) continue;
+				fprintf(f, "%s[\"%s\",%d,%d,%d,%d]", bFirstP ? "" : ",", GC.getTechInfo((TechTypes)t).getType(), iProgress,
+					kT.getResearchCost((TechTypes)t), iQueue, k.canResearch((TechTypes)t) ? 1 : 0);
+				bFirstP = false;
+			}
+			fprintf(f, "],\"hist\":{");
+			const char* aszSeries[] = {"score", "econ", "ind", "agr", "pow", "cult"};
+			for (int s = 0; s < 6; ++s)
+			{
+				fprintf(f, "%s\"%s\":[", s ? "," : "", aszSeries[s]);
+				for (int iT = 0; iT <= g.getGameTurn(); ++iT)
+				{
+					int iV = 0;
+					switch (s)
+					{
+					case 0: iV = k.getScoreHistory(iT); break;
+					case 1: iV = k.getEconomyHistory(iT); break;
+					case 2: iV = k.getIndustryHistory(iT); break;
+					case 3: iV = k.getAgricultureHistory(iT); break;
+					case 4: iV = k.getPowerHistory(iT); break;
+					default: iV = k.getCultureHistory(iT); break;
+					}
+					fprintf(f, "%s%d", iT ? "," : "", iV);
+				}
+				fprintf(f, "]");
+			}
+			fprintf(f, "},");
+			// The AI's per-turn value of every civic it may adopt now.
+			fprintf(f, "\"civicValues\":[");
+			bool bFirstC = true;
+			for (int c = 0; c < GC.getNumCivicInfos(); ++c)
+			{
+				if (!k.canDoCivics((CivicTypes)c)) continue;
+				fprintf(f, "%s[\"%s\",%d,%d]", bFirstC ? "" : ",", GC.getCivicInfo((CivicTypes)c).getType(),
+					GC.getCivicInfo((CivicTypes)c).getCivicOptionType(), k.isHuman() ? 0 : k.AI_civicValue((CivicTypes)c));
+				bFirstC = false;
+			}
+			fprintf(f, "],");
+			// Every unit: type, role, experience and where it stands.
+			fprintf(f, "\"unitList\":[");
+			int iUnitLoop;
+			bool bFirstU = true;
+			for (CvUnit* u = k.firstUnit(&iUnitLoop); u != NULL; u = k.nextUnit(&iUnitLoop))
+			{
+				CvWString w;
+				getUnitAIString(w, u->AI_getUnitAIType());
+				CvSelectionGroup* pG = u->getGroup();
+				fprintf(f, "%s[\"%s\",\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]", bFirstU ? "" : ",",
+					GC.getUnitInfo(u->getUnitType()).getType() + 5, CvString(w).GetCString(), u->getExperience(), u->getLevel(),
+					u->canFight() ? 1 : 0, u->getX_INLINE(), u->getY_INLINE(), u->getArea(), g.getGameTurn() - u->getGameTurnCreated(),
+					pG != NULL ? pG->getNumUnits() : 0, pG != NULL ? (int)pG->AI_getMissionAIType() : -1,
+					u->plot()->getOwnerINLINE(), u->isCargo() ? 1 : 0);
+				bFirstU = false;
+			}
+			fprintf(f, "],");
+		}
 		fprintf(f, "\"techs\":[");
 		bool bFirst = true;
 		for (int t = 0; t < GC.getNumTechInfos(); ++t)
@@ -169,10 +261,11 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 						c ? "," : "", p->getX_INLINE(), p->getY_INLINE(), iFound, p->getArea(), u->canFound(p) ? 1 : 0,
 						p->isVisibleEnemyUnit(u) ? 1 : 0,
 						k.AI_plotTargetMissionAIs(p, MISSIONAI_FOUND, pGroup, GC.getMIN_CITY_RANGE()),
-						k.AI_plotTargetMissionAIs(p, MISSIONAI_GUARD_CITY), (int)p->getOwnerINLINE(), (k.AI_canDeliverSettler(u->plot(), p) ? 1 : 0) + (k.AI_isSettleSiteDeliverable(p) ? 2 : 0),
+						k.AI_plotTargetMissionAIs(p, MISSIONAI_GUARD_CITY), (int)p->getOwnerINLINE(), HH_SETTLE_REACH(k, u, p),
 						bPath ? 1 : 0, bPath ? iTurns : -1, bPathAny ? 1 : 0, bPathAny ? iTurnsAny : -1);
 				}
 				fprintf(f, "]");
+#ifdef HARNESS_SETTLE_REACH
 				// The deliverable candidates (any rank) and why AI_found passes them by.
 				fprintf(f, ",\"deliverable\":[");
 				int iShown = 0;
@@ -240,6 +333,7 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 					}
 					fprintf(f, "]");
 				}
+#endif
 				CvUnit* pTr = u->getTransportUnit();
 				if (pTr != NULL)
 				{
@@ -259,7 +353,31 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 		}
 		fprintf(f, "]}");
 	}
-	fprintf(f, "\n]}\n");
+	fprintf(f, "\n]");
+	if (getenv("HARNESS_HISTORY_DIAG") != NULL)
+	{
+		// Units of each type created in the whole game (all players).
+		fprintf(f, ",\"created\":{");
+		bool bFirstT = true;
+		for (int t = 0; t < GC.getNumUnitInfos(); ++t)
+		{
+			const int iCreated = g.getUnitCreatedCount((UnitTypes)t);
+			if (iCreated <= 0) continue;
+			fprintf(f, "%s\"%s\":%d", bFirstT ? "" : ",", GC.getUnitInfo((UnitTypes)t).getType(), iCreated);
+			bFirstT = false;
+		}
+		fprintf(f, "}");
+		fprintf(f, ",\"replay\":[");
+		for (uint r = 0; r < g.getNumReplayMessages(); ++r)
+		{
+			fprintf(f, "%s\n[%d,%d,%d,", r ? "," : "", g.getReplayMessageTurn(r), (int)g.getReplayMessagePlayer(r),
+				(int)g.getReplayMessageType(r));
+			writeJsonText(f, g.getReplayMessageText(r));
+			fprintf(f, "]");
+		}
+		fprintf(f, "]");
+	}
+	fprintf(f, "}\n");
 	fclose(f);
 	return 0;
 }
