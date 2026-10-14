@@ -138,43 +138,56 @@ on the previous source); see [fixes/README.md](../../fixes/README.md).
 
 ## Measured: patch 0013 against patch 0014
 
-**Epic, six pairs** (Mediterranean and Earth 12, seeds 1 to 3, 300 turns). The last
+**Epic, ten pairs** (Mediterranean and Earth 12, seeds 1 to 5, 300 turns). The last
 column counts the pairs where 0014 is higher or lower.
 
 | Per 100 turns unless noted | 0013 | 0014 | 0014 higher / lower |
 |---|---|---|---|
-| All trades | 134.0 | 98.4 | 1/5 |
-| Resource swaps | 44.7 | 23.4 | 0/6 |
-| Tech for tech | 6.5 | 6.0 | 3/3 |
-| Tech for gold | 20.8 | 22.1 | 4/2 |
-| Resource for gold per turn (new) | 0 | 0.3 | 2/0 |
-| One-sided (gifts, tribute, help) | 13.8 | 6.6 | 1/5 |
-| Open borders signed | 33.8 | 30.5 | 1/5 |
-| Wars declared | 7.8 | 6.5 | 1/4 |
-| Median war length (turns) | 27.3 | 24.4 | 1/5 |
-| Median power ratio, declarer to target | 1.20 | 1.39 | 4/2 |
-| Cities taken by the declarer per war | 1.01 | 1.17 | 5/1 |
-| Wars in which the declarer took a city | 36 % | 43 % | 4/2 |
-| Vassal pairs at the end | 2.2 | 1.2 | 1/4 |
-| Mean techs at the end | 49.3 | 47.8 | 3/3 |
-| Cities at the end | 137.8 | 138.0 | 3/3 |
-| Player-turns in financial trouble | 3.2 % | 4.4 % | 4/2 |
+| All trades | 131.5 | 99.7 | 1/9 |
+| Resource swaps | 46.0 | 22.2 | 0/10 |
+| Tech for tech | 6.4 | 5.9 | 4/6 |
+| Tech for gold | 20.2 | 21.6 | 5/3 |
+| Resource for gold per turn (new) | 0 | 0.4 | 5/0 |
+| Gifts | 11.3 | 9.0 | 4/6 |
+| Open borders signed | 32.9 | 30.3 | 2/8 |
+| Wars declared | 8.0 | 6.9 | 2/7 |
+| Median war length (turns) | 26.6 | 26.8 | 3/7 |
+| Median power ratio, declarer to target | 1.14 | 1.31 | 7/3 |
+| Cities taken by the declarer per war | 0.95 | 1.10 | 7/3 |
+| Wars in which the declarer took a city | 33 % | 41 % | 7/3 |
+| Vassal pairs at the end | 2.1 | 1.7 | 3/5 |
+| Mean techs at the end | 49.6 | 48.0 | 4/6 |
+| Cities at the end | 138.6 | 137.3 | 4/6 |
+| Player-turns in financial trouble | 3.1 % | 4.1 % | 6/4 |
 
 What the table shows:
 
-- **Value-checked trades.** Fewer swaps go through, and fewer one-sided deals.
-- **More deliberate wars.** Fewer and shorter wars, declared at better odds, and more
-  often successful.
-- **Fewer vassals.** Fewer vassal relationships form. The corrected surrender and
-  capitulation valuations are the likely cause, but this was not traced case by case.
-- **Economy unchanged within noise.** Techs and cities do not move. Financial trouble
-  rises a little, but in different runs and for different leaders, and its sign is
-  mixed (4/2).
+- **Value-checked trades.** Resource swaps halve, in all ten pairs.
+- **More deliberate wars.** Slightly fewer wars, declared at better odds and more
+  often successful (7 of 10 pairs).
+- **Fewer vassals.** The corrected surrender and capitulation valuations are the likely
+  cause, but this was not traced case by case.
+- **Economy unchanged within noise.** Techs and cities do not move; financial trouble
+  is mixed (6/4). All these runs used the harness's stand-in base-game XML, which
+  overstated civic upkeep (see the harness corrections below). Both builds had the same
+  stand-ins, so the comparison holds; absolute gold figures do not.
 
-Six pairs separate only the large effects. Seeds 4 and 5 and the Marathon pairs
-follow below.
+**Marathon, three pairs** (Mediterranean seed 1, Earth 12 seeds 1 and 2, up to 590
+turns). The fourth pair is left out: the 0014 game crashed on turn 415. The cause was a
+use-after-free when an AI razes a city, which patch 0016 fixes (below).
 
-<!-- MARATHON -->
+| | 0013 | 0014 | 0014 higher / lower |
+|---|---|---|---|
+| Resource swaps per 100 turns | 31.7 | 13.5 | 0/3 |
+| Wars declared per 100 turns | 5.8 | 7.0 | 2/1 |
+| Median power ratio, declarer to target | 1.71 | 2.05 | 3/0 |
+| Top player's share of the total score at the end | 0.60 | 0.82 | 3/0 |
+| Victory (turn) | Mediterranean 551; Earth 12: none, none | Mediterranean 525; Earth 12: none, 574 | |
+
+On Marathon the better-informed wars help the strongest AI most: it picks targets it
+clearly outclasses and grows faster, and nobody turns on it. Patch 0014 makes the AIs
+individually more competent and so makes the missing balance of power (proposal 2)
+more visible.
 
 ## What else the campaign shows
 
@@ -257,10 +270,70 @@ save does not carry:
    - Fixed in patch 0015: only the queried plot and team are flagged, and the flags are
      cleared each turn.
 
+**Why that worker wanted a fort.** It did not really want one. The fort roll
+in `CvUnitAI::AI_workerMove` comes after every job search has failed. Four times in
+five the worker then looks for a fort site, but only if a canal or airbase fort is
+worth anything. A canal counts when the worker's landmass holds under 85 % of all
+cities. In the running game, worker 57346 of player 3 at (42,24) on turn 150 had a
+real job: improving its own resource at (45,20). That plot carried a stale
+border-danger flag, so `pathDestValid` refused it as a destination. City tiles were
+already taken by other workers (`iMaxWorkers`), so the worker fell through to the
+roll. The flag dated from turn 132. Player 1, at war with player 3's team, had
+asked about danger on two unowned plots, (47,18) and (47,19). The old code then
+flagged (45,20), two tiles away along a road, for player 3's team, although no
+enemy land was near. The flag stayed for 18 turns. After a reload the flag is
+gone, the worker takes the resource job, and it never reaches the roll. Patch 0015
+removed the wrong flags; idle workers rolling for forts are otherwise expected.
+
 With both fixes, continuations from a snapshot are identical to the running game for 12
 turns on Mediterranean (turns 150 to 162) and 25 turns on Earth 12 (turns 200 to 225).
 In multiplayer, the old behaviour could put a rejoining player out of sync. In single
 player it made a reloaded game play differently.
+
+## The crash at turn 415 (patch 0016)
+
+With the memory leak fixed, one Marathon game still crashed: Mediterranean, seed 2,
+patch 0014, turn 415. A build with debug symbols traced it to
+`CvPlayerAI::AI_conquerCity`. After `pCity->doTask(TASK_RAZE)` deletes the city,
+the function calls `pCity->getName()` for a log line. Those arguments are evaluated
+even with AI logging off. While the freed memory still reads as an empty string,
+nothing happens. Once the heap has reused the block, the game crashes. In the real
+game this is a rare, random crash when an AI razes a city. The same audit found two
+more such cases: the worker-bribe espionage mission read a unit's type after
+deleting the unit, and `CvCity::liberate` used a city outside its NULL check. With
+the fix, the game is identical through turn 415 and plays on to turn 430. Landed as
+[!41](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/41).
+
+## Python in the real game
+
+The harness answers the DLL's Python calls in C++, so its turn times leave out
+Python. `HARNESS_PY_COUNTS` now counts these calls. At the turn-400 Marathon snapshot,
+the DLL makes about **107,000 Python calls per turn**:
+
+| Call | Per turn | What the Python does |
+|---|---|---|
+| `getUnitCostMod` | 41,700 | One rule: missionaries cost 75 % under the state-religion civic |
+| `getExtraCost` | 34,400 | Nothing (returns 0). The DLL calls it with no switch from `calculatePreInflatedCosts`, which the AI's gold checks call constantly |
+| `getUpgradePriceOverride` | 20,600 | One rule: Personal Replicators halve upgrade prices |
+| `cannotConstruct` | 4,500 | Building upgrade lines, terrain rules, zCivics prerequisites |
+| `getBuildingCostMod` | 1,750 | Civic and Djenne cost discounts |
+| `getExperienceNeeded` | 1,270 | The stock BTS formula |
+| Events (unit moves, `UnitSetXY`, production, ...) | 2,600 | Event handlers of BUG, RoM and Revolution |
+
+Every one of these calls builds an argument tuple and goes through the game's Python
+entry point and BUG's dispatcher before reaching a few lines of rules. Their cost
+in the game has not been measured yet. Even a few microseconds each would add up to
+a sizeable part of a late-game turn. The three largest are simple enough to compute
+in C++: a missionary discount, a constant zero and an upgrade discount. Moving them
+into the DLL (with an XML switch for `getExtraCost`, as BTS has for the others) would
+remove nine calls in ten.
+
+The game files supplied for this study show how the game calls Python. The
+executable (BTS 3.19, build 128100) imports `PyImport_ImportModule`,
+`PyModule_GetDict` and `PyObject_CallObject` from `python24.dll`. It is flagged
+large-address-aware, so on 64-bit Windows the game can use 4 GB of address space
+instead of 2. Its code section is encrypted by copy protection, so it was neither
+disassembled nor run.
 
 ## Proposals
 
@@ -286,14 +359,22 @@ implemented yet.
    asking for joint war or extending the dogpile plan to a leader not yet at war.
    Medium cost, 100 to 200 lines. Needs campaign tuning so that it does not turn into
    a permanent dogpile of the human.
-3. **Personality as bias, not dice.** Recommendations R1 to R11 in
+3. **Personality that shapes judgement, with room for surprise.** The goal is not
+   uniform or predictable AIs. Randomness and personality should keep making leaders
+   and games differ. They should stop overriding the situation, as a die does when it
+   makes a leader ignore that it is losing a war. Recommendations R1 to R11 in
    [personality-map.md](code-maps/personality-map.md#6-recommendations-personality-should-bias-situational-judgements-not-replace-them):
-   - attack odds without the optimism dice;
-   - raze by value;
-   - war and peace as thresholds on the war value, with a hazard scaled by game speed;
+   - attack odds: real combat odds plus a personality risk appetite, with bounded
+     noise, instead of a flat optimism roll;
+   - raze: decided by the city's value, weighted by personality, still with some
+     chance;
+   - war and peace: personality thresholds on the war value, with random timing (a
+     hazard scaled by game speed), so the same leader does not always strike on the
+     same turn;
    - victory stages re-evaluated for feasibility.
 
-   Medium to large. Each item can land and be measured on its own.
+   Medium to large. Each item can land and be measured on its own, including whether
+   behaviour still varies enough between leaders and games.
 4. **Lump-sum and liberation deals.** Allow one-shot plus annual mixes in AI
    proposals: gold or tech for a resource, gold for liberating a city. This needs the
    `updateTradeList` rule relaxed for AI-to-AI deals only, so that the trade screen is
@@ -317,6 +398,8 @@ implemented yet.
 | RoM's Python building rules not applied: upgrade lines, observatory, Djenne, zCivics prerequisites, cost modifiers, Djenne, World Bank and Crusade effects | Late-game cities stacked every tier: 54 pop per city and 924,000 gold in total at turn 480 on Marathon, against 12.5 and 28,000 with the rules | `HarnessRoM.cpp`, with tables generated from the mod's Python |
 | A Python stand-in allocated memory per callback | The process reached 4 GB and crashed around turn 450 to 520 on Marathon | Nothing is allocated per call |
 | Telemetry refreshed AI caches (attitude, strategy, victory, city closeness) and could roll the synchronized generator | The same seed gave a different game from turn 38 on | `HarnessPeek.h` restores caches and seeds; full and minimal telemetry now give the same game |
+| Base-game XML that RoM does not ship was generated: AdvCiv's goodies, whip (24 instead of 30 production per population) and Apostolic Palace production; placeholder civic upkeep of 50/100/150 % per city instead of 40/50/60 %; city emphases without effects, in another order | Civic upkeep too high in every run, so absolute gold and financial-trouble figures are off (A/B comparisons used the same files on both sides); AI cities never emphasized research or Great People; emphases misread in loaded saves | `overlay_game_xml.py` puts the game's own files in place when copies are given to `setup.sh` |
+| RoM's Revolution components (Revolution, BarbarianCiv, TechDiffusion) run in Python and are not run by the harness | Scenarios that leave them on (Mediterranean leaves Revolution on) play without revolutions in the harness | Open: needs the real Python in the harness |
 
 The harness also gained snapshots, a random-number log and building counts in the
 telemetry ([toolchain/harness/README.md](../../toolchain/harness/README.md)).

@@ -2,14 +2,17 @@
 # Generate the engine stubs and the base-game XML, and build the inert
 # python24.dll and boost_python DLL replacements.
 # usage: setup.sh <mod Assets/CvGameCoreDLL> <AdvCiv Assets/XML> <any built CvGameCoreDLL.dll>
-#   The DLL only supplies the list of Boost.Python imports to provide.
+#                 [<original game Assets/XML> <BTS Assets/XML>]
+#   The DLL only supplies the list of Boost.Python imports to provide. With the
+#   game's two XML folders, their files replace the generated ones.
 # needs: python3, objdump, llvm-undname, lld-link
 set -e
-src=$1; advciv=$2; refdll=$3
+src=$1; advciv=$2; refdll=$3; basexml=$4; btsxml=$5
 source "$(dirname "$0")/env.sh"
 python3 "$H/gen_stubs.py" "$BTS_SDK_DIR" "$WORK/engine_stubs.h"
 rm -rf "$WORK/btsxml"
 python3 "$H/gen_bts_xml.py" "$src" "$advciv" "$WORK/btsxml"
+[ -n "$btsxml" ] && python3 "$H/overlay_game_xml.py" "$WORK/btsxml" "$basexml" "$btsxml"
 objdump -p "$refdll" | awk '/DLL Name: boost/{f=1;next} /DLL Name/{f=0} f' | awk '{print $NF}' | grep '^?' > "$WORK/bp_imports.txt"
 python3 "$H/bpstub/gen_bpstub.py" "$WORK/bp_imports.txt" "$WORK/bpstub.c" "$WORK/boost_python.def"
 mkdir -p "$WORK/out" "$WORK/obj"
