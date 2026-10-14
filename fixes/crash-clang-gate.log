@@ -1,0 +1,3 @@
+clang differential gate (toolchain/clang-gate/diffcheck.sh, tree of b88a5c0 vs patched 2de2b4b) on CvPlayerAI.cpp CvPlayer.cpp CvCity.cpp
+baseline: 11 errors/57 warnings; patched: 11 errors/57 warnings; new: 0; resolved: 0
+rc=0

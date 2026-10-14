@@ -1,12 +1,49 @@
 # Tested source fixes
 
+## Crash fixes: objects used after they were deleted
+
+[0016-crash-fixes.patch](0016-crash-fixes.patch) is the current incremental patch for
+GitLab **`main` at `b88a5c0`** (patch 0015 merged). It has **landed on GitLab `main`**
+([!41](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/41),
+merge commit `59fcd61`, tree `a955d238` = the tested tree). A clone of current `main`
+needs nothing applied; only the DLL below has to be installed.
+
+- **Razing a captured city.** A Mediterranean Marathon game in the harness crashed on
+  turn 415. The crash was a NULL `wcslen` inside `CvWString`'s copy constructor. A
+  build with debug symbols traced it to `CvPlayerAI::AI_conquerCity`. After
+  `pCity->doTask(TASK_RAZE)` deletes the city, the function still calls
+  `pCity->getName()` for a `logBBAI` line, and those arguments are evaluated even with
+  AI logging off. Usually the freed memory still reads as an empty string and nothing
+  happens. Once the heap has reused the block, the game crashes. That makes it a rare,
+  random crash in real games whenever an AI razes a city. The line is now logged
+  before the raze, and only when logging is on.
+- **Bribing a worker** (espionage) read the unit's type after `kill(false)`, which
+  deletes the unit at once. The type is now read before the kill.
+- **`CvCity::liberate`** gave conscripted defenders to the city outside its NULL check.
+
+The crashing build with only the raze change replays the same game: the telemetry is
+identical through turn 415, apart from timing, and the game continues to turn 430.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/crash-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/crash-manifest.json
+```
+
+**31 regression programs pass**; `Tools/test_crash_fixes.py` fails 3 of 3 on the old
+tree. The DLL is built with MSVC 2003: 0 errors, the same 2451 exports. Use
+[`builds/0016/CvGameCoreDLL.dll`](../builds/0016/CvGameCoreDLL.dll) (it includes patches
+0014 and 0015); the save format is unchanged. The game executable was not run.
+
+[Manifest](crash-manifest.json) · [Before](crash-before.log) · [Suite](crash-regression.log) ·
+[Patch verification](crash-patch-validation.log) · [Clang gate](crash-clang-gate.log) ·
+[Build provenance](../builds/0016/provenance.json).
+
 ## Late-game turn time and save consistency
 
-[0015-late-game.patch](0015-late-game.patch) is the current incremental patch for
+[0015-late-game.patch](0015-late-game.patch) was the incremental patch for
 GitLab **`main` at `005988c`** (patch 0014 merged). It has **landed on GitLab `main`**
 ([!40](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/40),
-merge commit `b88a5c0`, tree `1bff86a8` = the tested tree). A clone of current `main`
-needs nothing applied; only the DLL below has to be installed.
+merge commit `b88a5c0`, tree `1bff86a8` = the tested tree).
 
 - **Turn time.** From a Mediterranean Marathon snapshot at turn 400 (342 cities, about
   1,800 units), `CvCity::canTrain` took a fifth of the turn.

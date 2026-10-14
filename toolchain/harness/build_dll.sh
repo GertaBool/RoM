@@ -36,6 +36,13 @@ insert('CvEventReporter.cpp', 'void CvEventReporter::buildingBuilt(', '{\r\n',
        '\tHH_buildingBuilt(pCity, eBuilding);', 'void HH_buildingBuilt(CvCity* pCity, BuildingTypes eBuilding);', after=True)
 insert('CvEventReporter.cpp', 'void CvEventReporter::beginPlayerTurn(', '{\r\n',
        '\tHH_beginPlayerTurn(iGameTurn, ePlayer);', 'void HH_beginPlayerTurn(int iGameTurn, PlayerTypes ePlayer);', after=True)
+# Count the Python events the DLL reports (the harness runs without Python).
+import re
+p = d + '/CvDllPythonEvents.cpp'
+s = open(p, 'rb').read().decode('latin-1')
+s, n = re.subn(r'(void CvDllPythonEvents::report(\w+)\([^)]*\)\r\n\{\r\n)', lambda m: m.group(1) + '\tHH_countEvent("' + m.group(2) + '");\r\n', s)
+s = s.replace('#include "CvGameCoreDLL.h"\r\n', '#include "CvGameCoreDLL.h"\r\nvoid HH_countEvent(const char* szEvent);\r\n', 1)
+open(p, 'wb').write(s.encode('latin-1'))
 # HarnessPeek (HarnessPeek.h) reads and restores the AI's caches.
 for name, anchor in (('CvPlayerAI.h', 'class CvPlayerAI : public CvPlayer\r\n{\r\n'),
                      ('CvCityAI.h', 'class CvCityAI : public CvCity\r\n{\r\n'),

@@ -503,8 +503,14 @@ static FARPROC harnessDllProc(const char* szName)
 	return hDll != NULL ? GetProcAddress(hDll, szName) : NULL;
 }
 
+// HARNESS_PY_COUNTS=1: how often the DLL called each Python function (in the
+// game every call runs the mod's Python); printed at the end of the run.
+std::map<std::string, long> g_pyCallCounts;
+static void countPyCall(const char* fxn) { if (fxn != NULL) ++g_pyCallCounts[fxn]; }
+
 static long pythonDefault(const char* fxn, void* args)
 {
+	countPyCall(fxn);
 	if (strcmp(fxn, "calculateScore") == 0) return HH_pyCalculateScore(argInt(args, 0), argInt(args, 1), argInt(args, 2));
 	if (strcmp(fxn, "doCityCaptureGold") == 0) return HH_pyCityCaptureGold(argGameObject(args, 0));
 	if (strcmp(fxn, "doPillageGold") == 0) return HH_pyPillageGold(argGameObject(args, 0), argGameObject(args, 1));
@@ -545,14 +551,14 @@ public:
 		a->items.assign((PyObject**)args, (PyObject**)args + std::max(0, argc));
 		return (PyObject*)a;
 	}
-	bool callFunction(const char*, const char*, void*) { return false; }
+	bool callFunction(const char*, const char* fxn, void*) { countPyCall(fxn); return false; }
 	bool callFunction(const char*, const char* fxn, void* arg, long* result) { if (result) *result = pythonDefault(fxn, arg); return false; }
-	bool callFunction(const char*, const char*, void*, CvString* result) { if (result) *result = ""; return false; }
-	bool callFunction(const char*, const char*, void*, CvWString* result) { if (result) *result = L""; return false; }
-	bool callFunction(const char*, const char*, void*, std::vector<byte>* pList) { if (pList) pList->clear(); return false; }
-	bool callFunction(const char*, const char*, void*, std::vector<int>* pList) { if (pList) pList->clear(); return false; }
-	bool callFunction(const char*, const char*, void*, int*, int* piSize) { if (piSize) *piSize = 0; return false; }
-	bool callFunction(const char*, const char*, void*, std::vector<float>* pList) { if (pList) pList->clear(); return false; }
+	bool callFunction(const char*, const char* fxn, void*, CvString* result) { countPyCall(fxn); if (result) *result = ""; return false; }
+	bool callFunction(const char*, const char* fxn, void*, CvWString* result) { countPyCall(fxn); if (result) *result = L""; return false; }
+	bool callFunction(const char*, const char* fxn, void*, std::vector<byte>* pList) { countPyCall(fxn); if (pList) pList->clear(); return false; }
+	bool callFunction(const char*, const char* fxn, void*, std::vector<int>* pList) { countPyCall(fxn); if (pList) pList->clear(); return false; }
+	bool callFunction(const char*, const char* fxn, void*, int*, int* piSize) { countPyCall(fxn); if (piSize) *piSize = 0; return false; }
+	bool callFunction(const char*, const char* fxn, void*, std::vector<float>* pList) { countPyCall(fxn); if (pList) pList->clear(); return false; }
 	bool callPythonFunction(const char*, const char* fxn, int iArg, long* result) { if (result) *result = pythonDefault(fxn, NULL); (void)iArg; return false; }
 };
 

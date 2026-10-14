@@ -11,6 +11,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <map>
+#include <string>
 
 #define HH extern "C" __declspec(dllimport)
 HH int HH_type(const char*);
@@ -176,6 +178,28 @@ static void maybeSnapshot(const char* szOut, int iTurn)
 	harnessLog("snapshot turn %d: %s, %d bytes\n", iTurn, szGame, pfnSave(szInit, szGame));
 }
 
+extern std::map<std::string, long> g_pyCallCounts;
+// HARNESS_PY_COUNTS=1: Python callbacks (engine.cpp) and events (the DLL) of the run.
+static void printPythonCounts(int iTurns)
+{
+	if (getenv("HARNESS_PY_COUNTS") == NULL) return;
+	const int iPer = iTurns > 0 ? iTurns : 1;
+	harnessLog("python callbacks over %d turns (total, per turn):\n", iPer);
+	for (std::map<std::string, long>::const_iterator it = g_pyCallCounts.begin(); it != g_pyCallCounts.end(); ++it)
+		harnessLog("  callback %-32s %10ld %10ld\n", it->first.c_str(), it->second, it->second / iPer);
+	typedef int (*CountFn)(char*, int);
+	HMODULE hDll = GetModuleHandleA("CvGameCoreDLL.dll");
+	const CountFn pfn = hDll != NULL ? (CountFn)GetProcAddress(hDll, "HH_eventCounts") : NULL;
+	if (pfn == NULL) return;
+	static char buf[1 << 16];
+	pfn(buf, sizeof(buf));
+	char* p = buf;
+	char szName[256];
+	long n;
+	int iRead;
+	while (sscanf(p, "%255s %ld%n", szName, &n, &iRead) == 2) { harnessLog("  event    %-32s %10ld %10ld\n", szName, n, n / iPer); p += iRead; }
+}
+
 static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHandicap, unsigned int uiSeed,
 	int iTurns, const char* szOut, int iDetailEvery)
 {
@@ -218,6 +242,7 @@ static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHa
 		if (++iUpdates > 100000) { harnessLog("turn %d did not finish after %ld updates\n", iTurn, iUpdates); break; }
 	}
 	fclose(f);
+	printPythonCounts(HH_gameTurn() - iStart);
 	harnessLog("RESULT scenario turn %d state %d\n", HH_gameTurn(), HH_gameState());
 }
 
@@ -279,6 +304,7 @@ static void saveRun(const char* szInit, const char* szGame, int iTurns, const ch
 	}
 	fclose(f);
 	HH_dumpState(szState1.c_str());
+	printPythonCounts(HH_gameTurn() - iStart);
 	harnessLog("RESULT save turn %d state %d\n", HH_gameTurn(), HH_gameState());
 	harnessProfileDump(stdout, 60);
 }

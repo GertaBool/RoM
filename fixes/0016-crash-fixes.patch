@@ -1,0 +1,127 @@
+diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
+index e490b37..59e3f08 100644
+--- a/Assets/CvGameCoreDLL/CvCity.cpp
++++ b/Assets/CvGameCoreDLL/CvCity.cpp
+@@ -15890,13 +15890,13 @@ void CvCity::liberate(bool bConquest)
+ 			if (NULL != pCity)
+ 			{
+ 				pCity->setCultureTimes100(ePlayer, pCity->getCultureTimes100(ePlayer) + iOldOwnerCulture / 2, true, true);
+-			}
+ 
+-			if (GET_TEAM(GET_PLAYER(ePlayer).getTeam()).isAVassal())
+-			{
+-				for (int i = 0; i < GC.getDefineINT("COLONY_NUM_FREE_DEFENDERS"); ++i)
++				if (GET_TEAM(GET_PLAYER(ePlayer).getTeam()).isAVassal())
+ 				{
+-					pCity->initConscriptedUnit();
++					for (int i = 0; i < GC.getDefineINT("COLONY_NUM_FREE_DEFENDERS"); ++i)
++					{
++						pCity->initConscriptedUnit();
++					}
+ 				}
+ 			}
+ 		}
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index ce9946b..a5620be 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -16312,8 +16312,10 @@ bool CvPlayer::doEspionageMission(EspionageMissionTypes eMission, PlayerTypes eT
+ 
+ 						int iX = pTargetUnit->getX_INLINE();
+ 						int iY = pTargetUnit->getY_INLINE();
++						UnitTypes eTargetUnitType = pTargetUnit->getUnitType();
+ 						pTargetUnit->kill(false, getID());
+-						CvUnit* acquiredWorker = initUnit(pTargetUnit->getUnitType(), iX, iY, UNITAI_WORKER);
++						pTargetUnit = NULL; // deleted by kill(false)
++						CvUnit* acquiredWorker = initUnit(eTargetUnitType, iX, iY, UNITAI_WORKER);
+ 						CvCity* pCapital = this->getCapitalCity();
+ 						if (NULL != pCapital)
+ 						{
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 007ccfe..64f5f41 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -1929,8 +1929,12 @@ void CvPlayerAI::AI_conquerCity(CvCity* pCity)
+             if (GC.getGameINLINE().getSorenRandNum(100, "AI Raze City") < iRazeValue)
+ 			{
+ 				bRaze = true;
++				// Log first: the raze deletes pCity
++				if( gPlayerLogLevel >= 1 )
++				{
++					logBBAI("    Player %d (%S) decides to raze city %S", getID(), getCivilizationDescription(0), pCity->getName().GetCString() );
++				}
+ 				pCity->doTask(TASK_RAZE);
+-				logBBAI("    Player %d (%S) decides to to raze city %S!!!", getID(), getCivilizationDescription(0), pCity->getName().GetCString() );
+ 			}
+ 		}		
+ 	}
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index ae20861..0f3d631 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -20,6 +20,10 @@
+       "command": ["python3", "Tools/test_diplomacy_fixes.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvTeamAI.*", "Assets/CvGameCoreDLL/AIDiplomacyPolicy.h"]
+     },
++    {
++      "command": ["python3", "Tools/test_crash_fixes.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvPlayer.*", "Assets/CvGameCoreDLL/CvCity.*"]
++    },
+     {
+       "command": ["python3", "Tools/test_late_game_fixes.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvCityAI.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvGame.*"]
+diff --git a/Tools/test_crash_fixes.py b/Tools/test_crash_fixes.py
+new file mode 100644
+index 0000000..6bf617f
+--- /dev/null
++++ b/Tools/test_crash_fixes.py
+@@ -0,0 +1,49 @@
++#!/usr/bin/env python3
++"""Objects used after they were deleted.
++
++Found in the GertaBool/RoM toolchain/harness: a Marathon game crashed on turn
++415 inside CvWString's copy constructor. AI_conquerCity razed a captured city
++and then logged the city's name: CvPlayer::raze deletes the city, and the
++arguments of logBBAI are evaluated even when AI logging is off, so the name was
++read from freed memory. Usually the freed block still looks like an empty
++string; once the heap has reused it the game crashes.
++
++The espionage mission that bribes a worker read the unit's type after
++kill(false), which deletes the unit at once. CvCity::liberate gave conscripted
++defenders to the city it had just checked for NULL, outside the check.
++"""
++import unittest
++from test_review_correctness import DLL, block
++
++
++def src(name):
++    return (DLL / name).read_text(encoding='latin-1')
++
++
++class UseAfterDeleteTests(unittest.TestCase):
++    def test_raze_logged_before_the_city_is_deleted(self):
++        method = block(src('CvPlayerAI.cpp'), 'void CvPlayerAI::AI_conquerCity(')
++        raze = method.index('pCity->doTask(TASK_RAZE);')
++        self.assertNotIn('pCity->', method[raze + len('pCity->doTask(TASK_RAZE);'):].split('if (!bRaze)')[0])
++        self.assertIn('decides to raze city', method[:raze])
++
++    def test_bribed_worker_type_read_before_kill(self):
++        method = block(src('CvPlayer.cpp'), 'bool CvPlayer::doEspionageMission(')
++        kill = method.index('pTargetUnit->kill(false, getID());')
++        self.assertIn('UnitTypes eTargetUnitType = pTargetUnit->getUnitType();', method[:kill])
++        self.assertIn('initUnit(eTargetUnitType, iX, iY, UNITAI_WORKER)', method[kill:])
++        self.assertNotIn('pTargetUnit->getUnitType()', method[kill:])
++
++    def test_liberated_city_checked_before_conscripts(self):
++        method = block(src('CvCity.cpp'), 'void CvCity::liberate(')
++        check = method.index('if (NULL != pCity)')
++        depth, i = 0, method.index('{', check)
++        for i in range(i, len(method)):
++            depth += {'{': 1, '}': -1}.get(method[i], 0)
++            if depth == 0:
++                break
++        self.assertIn('pCity->initConscriptedUnit();', method[check:i])
++
++
++if __name__ == '__main__':
++    unittest.main()

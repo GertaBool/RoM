@@ -791,6 +791,22 @@ extern "C" __declspec(dllexport) int HH_loadSave(const char* szInit, const char*
 	return (si.m_bOverrun || sg.m_bOverrun) ? -2 : iAlive;
 }
 
+// Python events the DLL reports (CvDllPythonEvents::report*), counted because the
+// harness runs without Python: build_dll.sh adds a call at the top of each one.
+// In the game each becomes a Python call with wrapped arguments.
+namespace { std::map<std::string, long> g_eventCounts; }
+void HH_countEvent(const char* szEvent) { ++g_eventCounts[szEvent]; }
+extern "C" __declspec(dllexport) int HH_eventCounts(char* szBuf, int iSize)
+{
+	std::ostringstream o;
+	for (std::map<std::string, long>::const_iterator it = g_eventCounts.begin(); it != g_eventCounts.end(); ++it)
+		o << it->first << " " << it->second << "\n";
+	const std::string s = o.str();
+	_snprintf(szBuf, iSize, "%s", s.c_str());
+	szBuf[iSize - 1] = 0;
+	return (int)s.size();
+}
+
 // A snapshot in the format HH_loadSave reads: the init core and the game
 // stream (game, map, teams, players), as the engine writes a save. Returns the
 // size of the game stream, or -1 if a file cannot be written.
