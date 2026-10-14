@@ -13,10 +13,15 @@
 #include "CvUnit.h"
 #include "CvCity.h"
 #include "CvDeal.h"
+#include "CvCityAI.h"
+#include "CvUnitAI.h"
+#include "CvSelectionGroupAI.h"
+#include "CvPlotGroup.h"
 #include "CvInfos.h"
 #include "CvInitCore.h"
 #include "CvGameCoreUtils.h"
 #include "AI_Defines.h"
+#include "HarnessPeek.h"
 #include <cstdio>
 #include <cstring>
 #include <string>
@@ -275,14 +280,6 @@ namespace
 	std::map<int, int> g_cityOwner;     // plot index -> owner
 	std::set<int> g_alive;
 
-	// AI_getStrategyHash is protected; the public per-flag query gives the same bits.
-	int strategyBits(const CvPlayerAI& k)
-	{
-		int iBits = 0;
-		for (int i = 0; i < 31; ++i) if (k.AI_isDoStrategy(1 << i)) iBits |= (1 << i);
-		return iBits;
-	}
-
 	void items(std::ostringstream& o, const CLinkList<TradeData>* pList)
 	{
 		o << "[";
@@ -355,6 +352,10 @@ extern "C" __declspec(dllexport) int HH_telemetryHeader(char* szBuf, int iSize)
 // Returns the length written, or -(needed size) if the buffer is too small.
 extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iDetail, int iTurnMs)
 {
+	const HarnessPeekGuard kNoSideEffects;
+	// HARNESS_TELEMETRY_MINIMAL=1 leaves out attitudes, their components and
+	// memories (to check that the full telemetry does not change the game).
+	static const bool bMinimal = getenv("HARNESS_TELEMETRY_MINIMAL") != NULL;
 	CvGame& kGame = GC.getGameINLINE();
 	std::ostringstream o;
 	o << "{\"t\":" << kGame.getGameTurn() << ",\"y\":" << kGame.getGameTurnYear() << ",\"ms\":" << iTurnMs
@@ -372,25 +373,31 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		CvTeamAI& kT = GET_TEAM(k.getTeam());
 		int iTechs = 0;
 		for (int t = 0; t < GC.getNumTechInfos(); ++t) if (kT.isHasTech((TechTypes)t)) ++iTechs;
+		int iBuildings = 0;   // real buildings in all cities
+		int iCityLoop;
+		for (CvCity* pCity = k.firstCity(&iCityLoop); pCity != NULL; pCity = k.nextCity(&iCityLoop))
+		{
+			for (int iB = 0; iB < GC.getNumBuildingInfos(); ++iB) iBuildings += pCity->getNumRealBuilding((BuildingTypes)iB);
+		}
 		o << (a ? "," : "") << "{\"id\":" << aiP[a] << ",\"score\":" << kGame.getPlayerScore(k.getID())
 		  << ",\"cities\":" << k.getNumCities() << ",\"pop\":" << k.getTotalPopulation() << ",\"land\":" << k.getTotalLand()
 		  << ",\"techs\":" << iTechs << ",\"power\":" << k.getPower() << ",\"mil\":" << k.getNumMilitaryUnits()
-		  << ",\"units\":" << k.getNumUnits() << ",\"gold\":" << k.getGold()
+		  << ",\"units\":" << k.getNumUnits() << ",\"gold\":" << k.getGold() << ",\"bld\":" << iBuildings
 		  << ",\"gr\":" << k.getCommerceRate(COMMERCE_GOLD) << ",\"rr\":" << k.getCommerceRate(COMMERCE_RESEARCH)
 		  << ",\"cr\":" << k.getCommerceRate(COMMERCE_CULTURE) << ",\"er\":" << k.getCommerceRate(COMMERCE_ESPIONAGE)
 		  << ",\"culture\":" << k.countTotalCulture() << ",\"rel\":" << (int)k.getStateReligion()
 		  << ",\"agenda\":" << (int)k.AI_getAgenda() << ",\"agendaScore\":" << k.AI_getAgendaScore()
-		  << ",\"vic\":" << k.AI_getVictoryStrategyHash() << ",\"strat\":" << strategyBits(k)
+		  << ",\"vic\":" << HarnessPeek::victoryHash(k) << ",\"strat\":" << HarnessPeek::strategyHash(k)
 		  << ",\"trouble\":" << (k.AI_isFinancialTrouble() ? 1 : 0) << ",\"att\":[";
 		for (size_t b = 0; b < aiP.size(); ++b)
 		{
 			const PlayerTypes eO = (PlayerTypes)aiP[b];
 			if (b) o << ",";
-			if (eO == k.getID() || !kT.isHasMet(GET_PLAYER(eO).getTeam())) o << "null";
+			if (eO == k.getID() || !kT.isHasMet(GET_PLAYER(eO).getTeam()) || bMinimal) o << "null";
 			else o << k.AI_getAttitudeVal(eO);
 		}
 		o << "]";
-		if (iDetail > 0)
+		if (iDetail > 0 && !bMinimal)
 		{
 			// Attitude components toward each met player, in a fixed order
 			// (see the analysis scripts), then the non-zero memory counts.
@@ -665,12 +672,22 @@ namespace
 		unsigned int GetSizeLeft() const { return (unsigned int)m_data.size() - m_pos; }
 		void CopyToMem(void* mem) { if (!m_data.empty()) memcpy(mem, &m_data[0], m_data.size()); }
 
-		unsigned int WriteString(const wchar*) { return 0; }
-		unsigned int WriteString(const char*) { return 0; }
-		unsigned int WriteString(const std::string&) { return 0; }
-		unsigned int WriteString(const std::wstring&) { return 0; }
-		unsigned int WriteString(int, std::string[]) { return 0; }
-		unsigned int WriteString(int, std::wstring[]) { return 0; }
+		// Writing appends at the end (snapshots are written front to back).
+		void put(const void* p, unsigned int n) { const char* c = (const char*)p; m_data.insert(m_data.end(), c, c + n); m_pos = (unsigned int)m_data.size(); }
+		void putLen(int n) { put(&n, 4); }
+		bool save(const char* szPath) const
+		{
+			FILE* f = fopen(szPath, "wb");
+			if (f == NULL) return false;
+			const bool bOk = m_data.empty() || fwrite(&m_data[0], 1, m_data.size(), f) == m_data.size();
+			return fclose(f) == 0 && bOk;
+		}
+		unsigned int WriteString(const wchar* sz) { const int n = sz ? (int)wcslen(sz) : 0; putLen(n); put(sz, n * 2); return n; }
+		unsigned int WriteString(const char* sz) { const int n = sz ? (int)strlen(sz) : 0; putLen(n); put(sz, n); return n; }
+		unsigned int WriteString(const std::string& sz) { return WriteString(sz.c_str()); }
+		unsigned int WriteString(const std::wstring& sz) { return WriteString(sz.c_str()); }
+		unsigned int WriteString(int count, std::string values[]) { for (int i = 0; i < count; ++i) WriteString(values[i]); return count; }
+		unsigned int WriteString(int count, std::wstring values[]) { for (int i = 0; i < count; ++i) WriteString(values[i]); return count; }
 
 		unsigned int ReadString(char* sz) { const int n = len(); raw(sz, n); sz[n] = 0; return n; }
 		unsigned int ReadString(wchar* sz) { const int n = len(); raw(sz, n * 2); sz[n] = 0; return n; }
@@ -710,28 +727,28 @@ namespace
 		void Read(double* v) { raw(v, 8); }
 		void Read(int count, double values[]) { raw(values, count * 8); }
 
-		void Write(char) {}
-		void Write(byte) {}
-		void Write(int, const char[]) {}
-		void Write(int, const byte[]) {}
-		void Write(bool) {}
-		void Write(int, const bool[]) {}
-		void Write(short) {}
-		void Write(unsigned short) {}
-		void Write(int, const short[]) {}
-		void Write(int, const unsigned short[]) {}
-		void Write(int) {}
-		void Write(unsigned int) {}
-		void Write(int, const int[]) {}
-		void Write(int, const unsigned int[]) {}
-		void Write(long) {}
-		void Write(unsigned long) {}
-		void Write(int, const long[]) {}
-		void Write(int, const unsigned long[]) {}
-		void Write(float) {}
-		void Write(int, const float[]) {}
-		void Write(double) {}
-		void Write(int, const double[]) {}
+		void Write(char v) { put(&v, 1); }
+		void Write(byte v) { put(&v, 1); }
+		void Write(int count, const char values[]) { put(values, count); }
+		void Write(int count, const byte values[]) { put(values, count); }
+		void Write(bool v) { put(&v, 1); }
+		void Write(int count, const bool values[]) { put(values, count); }
+		void Write(short v) { put(&v, 2); }
+		void Write(unsigned short v) { put(&v, 2); }
+		void Write(int count, const short values[]) { put(values, count * 2); }
+		void Write(int count, const unsigned short values[]) { put(values, count * 2); }
+		void Write(int v) { put(&v, 4); }
+		void Write(unsigned int v) { put(&v, 4); }
+		void Write(int count, const int values[]) { put(values, count * 4); }
+		void Write(int count, const unsigned int values[]) { put(values, count * 4); }
+		void Write(long v) { put(&v, 4); }
+		void Write(unsigned long v) { put(&v, 4); }
+		void Write(int count, const long values[]) { put(values, count * 4); }
+		void Write(int count, const unsigned long values[]) { put(values, count * 4); }
+		void Write(float v) { put(&v, 4); }
+		void Write(int count, const float values[]) { put(values, count * 4); }
+		void Write(double v) { put(&v, 8); }
+		void Write(int count, const double values[]) { put(values, count * 8); }
 	};
 }
 
@@ -774,11 +791,70 @@ extern "C" __declspec(dllexport) int HH_loadSave(const char* szInit, const char*
 	return (si.m_bOverrun || sg.m_bOverrun) ? -2 : iAlive;
 }
 
+// A snapshot in the format HH_loadSave reads: the init core and the game
+// stream (game, map, teams, players), as the engine writes a save. Returns the
+// size of the game stream, or -1 if a file cannot be written.
+extern "C" __declspec(dllexport) int HH_saveState(const char* szInit, const char* szGame)
+{
+	MemStream si, sg;
+	std::ostringstream idx;   // where each part ends, for comparing snapshots
+	GC.getInitCore().write(&si);
+	GC.getGameINLINE().write(&sg);
+	idx << "game " << sg.GetEOF() << "\n";
+	GC.getMapINLINE().write(&sg);
+	idx << "map " << sg.GetEOF() << "\n";
+	for (int i = 0; i < MAX_TEAMS; ++i) { GET_TEAM((TeamTypes)i).write(&sg); idx << "team" << i << " " << sg.GetEOF() << "\n"; }
+	for (int i = 0; i < MAX_PLAYERS; ++i) { GET_PLAYER((PlayerTypes)i).write(&sg); idx << "player" << i << " " << sg.GetEOF() << "\n"; }
+	if (!si.save(szInit) || !sg.save(szGame)) return -1;
+	FILE* f = fopen((std::string(szGame) + ".idx").c_str(), "w");
+	if (f != NULL) { fputs(idx.str().c_str(), f); fclose(f); }
+	// HARNESS_SNAPSHOT_OBJECTS=1: every plot group, city, unit and selection
+	// group written on its own (<game>.obj, index in <game>.objidx), to locate
+	// a difference between two snapshots.
+	if (getenv("HARNESS_SNAPSHOT_OBJECTS") != NULL)
+	{
+		MemStream so;
+		std::ostringstream oidx;
+		for (int i = 0; i < MAX_PLAYERS; ++i)
+		{
+			CvPlayerAI& k = GET_PLAYER((PlayerTypes)i);
+			if (!k.isAlive()) continue;
+			int iLoop;
+			unsigned int uiStart;
+			for (CvPlotGroup* pGroup = k.firstPlotGroup(&iLoop); pGroup != NULL; pGroup = k.nextPlotGroup(&iLoop))
+			{
+				uiStart = so.GetEOF(); pGroup->write(&so);
+				oidx << i << " plotgroup " << pGroup->getID() << " " << uiStart << " " << so.GetEOF() << "\n";
+			}
+			for (CvCity* pCity = k.firstCity(&iLoop); pCity != NULL; pCity = k.nextCity(&iLoop))
+			{
+				uiStart = so.GetEOF(); static_cast<CvCityAI*>(pCity)->write(&so);
+				oidx << i << " city " << pCity->getID() << " " << uiStart << " " << so.GetEOF() << "\n";
+			}
+			for (CvUnit* pUnit = k.firstUnit(&iLoop); pUnit != NULL; pUnit = k.nextUnit(&iLoop))
+			{
+				uiStart = so.GetEOF(); static_cast<CvUnitAI*>(pUnit)->write(&so);
+				oidx << i << " unit " << pUnit->getID() << " " << uiStart << " " << so.GetEOF() << "\n";
+			}
+			for (CvSelectionGroup* pSel = k.firstSelectionGroup(&iLoop); pSel != NULL; pSel = k.nextSelectionGroup(&iLoop))
+			{
+				uiStart = so.GetEOF(); static_cast<CvSelectionGroupAI*>(pSel)->write(&so);
+				oidx << i << " group " << pSel->getID() << " " << uiStart << " " << so.GetEOF() << "\n";
+			}
+		}
+		so.save((std::string(szGame) + ".obj").c_str());
+		FILE* fo = fopen((std::string(szGame) + ".objidx").c_str(), "w");
+		if (fo != NULL) { fputs(oidx.str().c_str(), fo); fclose(fo); }
+	}
+	return (int)sg.GetEOF();
+}
+
 // For players whose turn is still open: their turn flags and every group that
 // is ready to move or busy (head unit, UnitAI, position, moves, activity,
 // mission queue head, mission AI). Used when a turn does not end.
 extern "C" __declspec(dllexport) int HH_stuckReport(char* szBuf, int iSize)
 {
+	const HarnessPeekGuard kNoSideEffects;
 	std::ostringstream o;
 	for (int i = 0; i < MAX_PLAYERS; ++i)
 	{

@@ -1,7 +1,8 @@
 /* Minimal python24.dll replacement for running CvGameCoreDLL headlessly.
  * The harness reports Python as uninitialized, so events and callbacks are
  * skipped; these functions only need to return well-formed inert objects for
- * the argument lists the DLL still builds before calling into the engine. */
+ * the argument lists the DLL still builds before calling into the engine.
+ * Nothing here allocates per call (see inert and PyInt_FromLong). */
 #include <stdlib.h>
 #include <string.h>
 
@@ -23,13 +24,11 @@ static PyTypeObject Int_Type = { 1 << 30, 0, 0, "int", 0, 0, inert_dealloc };
 typedef struct { int ob_refcnt; PyTypeObject* ob_type; long ob_ival; } IntObj;
 __declspec(dllexport) PyObject _Py_NoneStruct = { 1 << 30, &Inert_Type };
 
-static PyObject* inert(void)
-{
-	PyObject* o = (PyObject*)calloc(1, 64);
-	o->ob_refcnt = 1 << 30;	/* never reaches zero: nothing is freed */
-	o->ob_type = &Inert_Type;
-	return o;
-}
+/* One shared inert object: nothing reads it, and its type's dealloc is a no-op.
+ * (A fresh allocation per call leaked a few hundred bytes for every Python
+ * callback the DLL prepares, which exhausted the address space late in long games.) */
+static PyObject g_inert = { 1 << 30, &Inert_Type };
+static PyObject* inert(void) { return &g_inert; }
 
 typedef struct { int ob_refcnt; PyTypeObject* ob_type; int ob_size; PyObject* ob_item[1]; } TupleObj;
 typedef struct { int ob_refcnt; PyTypeObject* ob_type; int ob_size; PyObject** ob_item; int allocated; } ListObj;
@@ -72,9 +71,13 @@ __declspec(dllexport) PyObject* PyString_FromStringAndSize(const char* s, int n)
 __declspec(dllexport) PyObject* PyUnicodeUCS2_FromWideChar(const unsigned short* s, int n) { (void)s; (void)n; return inert(); }
 __declspec(dllexport) PyObject* PyString_FromString(const char* s) { (void)s; return inert(); }
 __declspec(dllexport) PyObject* PyFloat_FromDouble(double d) { (void)d; return inert(); }
+/* Integers come from a ring: an argument list is read by the harness right after
+ * the DLL builds it, long before the ring wraps. */
+static IntObj g_ints[1 << 16];
+static unsigned g_nextInt;
 __declspec(dllexport) PyObject* PyInt_FromLong(long v)
 {
-	IntObj* o = (IntObj*)calloc(1, sizeof(IntObj));
+	IntObj* o = &g_ints[g_nextInt++ & ((1 << 16) - 1)];
 	o->ob_refcnt = 1 << 30; o->ob_type = &Int_Type; o->ob_ival = v;
 	return (PyObject*)o;
 }

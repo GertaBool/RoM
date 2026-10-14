@@ -141,6 +141,41 @@ static void islandsScenario(int iTurns, int iEastX, bool bPlain)
 
 // A WorldBuilder scenario converted by wbs2scn.py, played by AI players only.
 // Writes one JSON line per game turn to szOut (header line first).
+// HARNESS_SNAPSHOT=t1,t2,...: at the start of each listed game turn write
+// <out>.t<turn>.init and <out>.t<turn>.game, which "harness.exe save" loads.
+// Looked up at run time: older DLL builds lack HH_saveState.
+static void maybeSnapshot(const char* szOut, int iTurn)
+{
+	// HARNESS_RAND_LOG=t: from game turn t on, log every random number the DLL
+	// draws, with its purpose, to logs\rand.log (to find where two runs part).
+	const char* szRandFrom = getenv("HARNESS_RAND_LOG");
+	if (szRandFrom != NULL && iTurn >= atoi(szRandFrom))
+	{
+		GC.getLogging() = true;
+		GC.getRandLogging() = true;
+	}
+	const char* szList = getenv("HARNESS_SNAPSHOT");
+	if (szList == NULL) return;
+	bool bListed = false;
+	for (const char* p = szList; *p != 0; )
+	{
+		char* pEnd;
+		const long iListed = strtol(p, &pEnd, 10);
+		if (pEnd == p) break;
+		if (iListed == iTurn) bListed = true;
+		p = (*pEnd == ',') ? pEnd + 1 : pEnd;
+	}
+	if (!bListed) return;
+	typedef int (*SaveFn)(const char*, const char*);
+	HMODULE hDll = GetModuleHandleA("CvGameCoreDLL.dll");
+	const SaveFn pfnSave = hDll != NULL ? (SaveFn)GetProcAddress(hDll, "HH_saveState") : NULL;
+	if (pfnSave == NULL) { harnessLog("snapshot turn %d: this DLL build cannot write snapshots\n", iTurn); return; }
+	char szInit[1024], szGame[1024];
+	_snprintf(szInit, sizeof(szInit), "%s.t%d.init", szOut, iTurn); szInit[sizeof(szInit) - 1] = 0;
+	_snprintf(szGame, sizeof(szGame), "%s.t%d.game", szOut, iTurn); szGame[sizeof(szGame) - 1] = 0;
+	harnessLog("snapshot turn %d: %s, %d bytes\n", iTurn, szGame, pfnSave(szInit, szGame));
+}
+
 static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHandicap, unsigned int uiSeed,
 	int iTurns, const char* szOut, int iDetailEvery)
 {
@@ -176,6 +211,7 @@ static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHa
 				buf.resize(-n * 2);
 			}
 			fwrite(&buf[0], 1, n, f); fputc('\n', f); fflush(f);
+			maybeSnapshot(szOut, iTurn);
 			if (iTurn - iStart >= iTurns || HH_gameState() != 0) break;
 		}
 		HH_update();
@@ -229,6 +265,7 @@ static void saveRun(const char* szInit, const char* szGame, int iTurns, const ch
 				buf.resize(-n * 2);
 			}
 			fwrite(&buf[0], 1, n, f); fputc('\n', f); fflush(f);
+			maybeSnapshot(szOut, iTurn);
 			if (iTurn - iStart >= iTurns || HH_gameState() != 0) break;
 		}
 		HH_update();

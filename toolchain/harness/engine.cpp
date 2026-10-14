@@ -492,13 +492,29 @@ static void* argGameObject(void* pArgs, size_t i)
 extern "C" __declspec(dllimport) int HH_pyCalculateScore(int, int, int);
 extern "C" __declspec(dllimport) int HH_pyCityCaptureGold(void*);
 extern "C" __declspec(dllimport) int HH_pyPillageGold(void*, void*);
+// The RoM mirrors (HarnessRoM.cpp) are looked up at run time, so this harness
+// still runs DLL builds made before they existed (the callbacks then keep their
+// "no effect" defaults).
+typedef int (*HHFnPtrInt)(void*, int);
+typedef int (*HHFnIntInt)(int, int);
+static FARPROC harnessDllProc(const char* szName)
+{
+	HMODULE hDll = GetModuleHandleA("CvGameCoreDLL.dll");
+	return hDll != NULL ? GetProcAddress(hDll, szName) : NULL;
+}
 
 static long pythonDefault(const char* fxn, void* args)
 {
 	if (strcmp(fxn, "calculateScore") == 0) return HH_pyCalculateScore(argInt(args, 0), argInt(args, 1), argInt(args, 2));
 	if (strcmp(fxn, "doCityCaptureGold") == 0) return HH_pyCityCaptureGold(argGameObject(args, 0));
 	if (strcmp(fxn, "doPillageGold") == 0) return HH_pyPillageGold(argGameObject(args, 0), argGameObject(args, 1));
-	static const char* aszMinusOne[] = { "getUpgradePriceOverride", "getUnitCostMod", "getBuildingCostMod",
+	static const HHFnPtrInt pfnCannotConstruct = (HHFnPtrInt)harnessDllProc("HH_pyCannotConstruct");
+	static const HHFnIntInt pfnBuildingCostMod = (HHFnIntInt)harnessDllProc("HH_pyBuildingCostMod");
+	static const HHFnIntInt pfnUnitCostMod = (HHFnIntInt)harnessDllProc("HH_pyUnitCostMod");
+	if (strcmp(fxn, "cannotConstruct") == 0) return pfnCannotConstruct ? pfnCannotConstruct(argGameObject(args, 0), argInt(args, 1)) : 0;
+	if (strcmp(fxn, "getBuildingCostMod") == 0) return pfnBuildingCostMod ? pfnBuildingCostMod(argInt(args, 0), argInt(args, 2)) : -1;
+	if (strcmp(fxn, "getUnitCostMod") == 0) return pfnUnitCostMod ? pfnUnitCostMod(argInt(args, 0), argInt(args, 1)) : -1;
+	static const char* aszMinusOne[] = { "getUpgradePriceOverride",
 		"getConscriptUnitType", "AI_chooseTech", "getFirstRecommendedTech", "getSecondRecommendedTech",
 		"getRecommendedUnit", "getRecommendedBuilding", "getCityFoundValue" };
 	static const char* aszTrue[] = { "isPlayerResearch", "canDeclareWar", "canRazeCity", "isVictory", "isVictoryTest",
@@ -521,8 +537,12 @@ public:
 	bool pythonUsingDefaultImpl() { return true; }
 	PyObject* MakeFunctionArgs(void** args, int argc)
 	{
-		HarnessArgs* a = new HarnessArgs();   // leaked deliberately: the DLL never frees argument tuples itself
-		for (int i = 0; i < argc; ++i) a->items.push_back((PyObject*)args[i]);
+		// The DLL never frees argument tuples (the game's Python releases them
+		// after the call), and the harness reads them right away: reuse a ring.
+		static HarnessArgs s_aRing[256];
+		static unsigned s_iNext = 0;
+		HarnessArgs* a = &s_aRing[s_iNext++ & 255];
+		a->items.assign((PyObject**)args, (PyObject**)args + std::max(0, argc));
 		return (PyObject*)a;
 	}
 	bool callFunction(const char*, const char*, void*) { return false; }
@@ -665,6 +685,9 @@ public:
 	bool cacheWrite(CvCacheObject*) { return false; }
 	void destroyCache(CvCacheObject*& p) { p = NULL; }
 	bool fileManagerEnabled() { return false; }
+
+	// Random-number log of the DLL (CvRandom::get), on with HARNESS_RAND_LOG=1.
+	void messageControlLog(char* s) { logMsg("rand.log", s, false, false); }
 
 	void logMsg(const TCHAR* file, const TCHAR* buf, bool, bool)
 	{

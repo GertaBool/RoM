@@ -10,6 +10,7 @@
 #include "CvUnit.h"
 #include "CvCity.h"
 #include "CvCityAI.h"
+#include "HarnessPeek.h"
 #include <algorithm>
 #include <vector>
 #include "CvInfos.h"
@@ -57,6 +58,7 @@ namespace
 
 extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 {
+	const HarnessPeekGuard kNoSideEffects;
 	FILE* f = fopen(szPath, "w");
 	if (f == NULL) return -1;
 	CvGame& g = GC.getGameINLINE();
