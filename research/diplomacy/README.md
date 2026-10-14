@@ -221,8 +221,9 @@ cities, about 1,800 units), the profile of three turns:
 
 Patch 0015 removes the redundant `canTrain` work. `AI_buildingValueThreshold` now
 checks a building's combat-type experience before asking whether the city can train
-that combat type, and `AI_bestUnitAI` reuses its first pass. Calls fall to 1.3 million,
-the turns take 17 % less time, and the game is identical.
+that combat type, and `AI_bestUnitAI` reuses its first pass. Calls fall to 1.3 million
+and the game is identical. Five turns from the snapshot take 17.1 s instead of 21.0 s in
+a normal build (mean of two repetitions; 17 % less in the profiling build).
 
 Bounding path searches by the turn limit the caller wants is the next large saving.
 It would change which path the finder returns in some cases, so it is a pathfinder
@@ -278,8 +279,13 @@ implemented yet.
      requirement.
 
    Lets AIs form coalitions against a runaway, the missing behaviour behind the
-   Augustus conquest. Medium cost, 100 to 200 lines. Needs campaign tuning so that it
-   does not turn into a permanent dogpile of the human.
+   Augustus conquest. `AI_startWarVal` already raises the value of a target close to
+   victory (its victory strategy at level 3 or 4). The war decision, however, is gated
+   on beating the target alone, and the runaway is the one opponent nobody can beat
+   alone. A coalition term would let several AIs commit together, for example by
+   asking for joint war or extending the dogpile plan to a leader not yet at war.
+   Medium cost, 100 to 200 lines. Needs campaign tuning so that it does not turn into
+   a permanent dogpile of the human.
 3. **Personality as bias, not dice.** Recommendations R1 to R11 in
    [personality-map.md](code-maps/personality-map.md#6-recommendations-personality-should-bias-situational-judgements-not-replace-them):
    - attack odds without the optimism dice;
