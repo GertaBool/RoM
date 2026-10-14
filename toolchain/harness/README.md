@@ -129,6 +129,15 @@ wine harness.exe scenario med.scn GAMESPEED_EPIC HANDICAP_NOBLE 1 200 med.jsonl 
 Arguments: speed (`-` keeps the file's), difficulty, map random seed, turns,
 telemetry file, detailed line every N turns.
 
+Each turn line holds every player's economy, attitude toward each met player and,
+on detailed lines, the attitude components and memories; the team matrix (met,
+war, open borders, defensive pact, vassal, war plan, war success); and the turn's
+events: standing deals opened and ended, cities founded, captured or razed,
+eliminations, and every trade as it is agreed (`{"trade":[a,b],"ai":[...],"bi":[...]}`,
+items as `[TradeableItems, data]`). One-time trades (techs, gold, maps, cities)
+never stand as deals, so `build_dll.sh` adds a call to `HH_noteTrade` at the top
+of its copy of `CvDeal::addTrades`; the source tree is not changed.
+
 ## Profiling
 
 `./build_dll.sh <src> <out> profile` builds with `FP_PROFILE_ENABLE`: every

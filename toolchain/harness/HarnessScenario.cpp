@@ -269,6 +269,9 @@ extern "C" __declspec(dllexport) int HH_loadScenario(const char* szPath, const c
 namespace
 {
 	std::set<int> g_seenDeals;
+	// Every trade as it is agreed (build_dll.sh adds the call to the harness copy
+	// of CvDeal::addTrades); one-time items never appear as a standing deal.
+	std::vector<std::string> g_tradeLog;
 	std::map<int, int> g_cityOwner;     // plot index -> owner
 	std::set<int> g_alive;
 
@@ -293,8 +296,21 @@ namespace
 	}
 }
 
+void HH_noteTrade(PlayerTypes eFirst, PlayerTypes eSecond, const CLinkList<TradeData>* pFirst,
+	const CLinkList<TradeData>* pSecond)
+{
+	std::ostringstream o;
+	o << "{\"trade\":[" << (int)eFirst << "," << (int)eSecond << "],\"ai\":";
+	if (pFirst != NULL) items(o, pFirst); else o << "[]";
+	o << ",\"bi\":";
+	if (pSecond != NULL) items(o, pSecond); else o << "[]";
+	o << "}";
+	g_tradeLog.push_back(o.str());
+}
+
 extern "C" __declspec(dllexport) void HH_telemetryReset()
 {
+	g_tradeLog.clear();
 	g_seenDeals.clear();
 	g_cityOwner.clear();
 	g_alive.clear();
@@ -464,6 +480,12 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		bFirstEv = false;
 	}
 	g_seenDeals = current;
+	for (size_t i = 0; i < g_tradeLog.size(); ++i)
+	{
+		o << (bFirstEv ? "" : ",") << g_tradeLog[i];
+		bFirstEv = false;
+	}
+	g_tradeLog.clear();
 
 	std::map<int, int> owners;
 	for (size_t a = 0; a <= aiP.size(); ++a)

@@ -9,6 +9,20 @@ source "$(dirname "$0")/env.sh"
 tmp=$(mktemp -d "$WORK/dllsrc.XXXX")
 cp "$src"/*.cpp "$src"/*.h "$src"/*.inl "$src"/GNUmakefile "$src"/gensourcelist "$tmp"/
 cp "$H"/Harness*.cpp "$tmp"/
+# Harness-only instrumentation of the copy: CvDeal::addTrades reports every
+# agreed trade to the telemetry (HH_noteTrade). The source tree is not touched.
+python3 - "$tmp/CvDeal.cpp" <<'PYEOF'
+import sys
+p = sys.argv[1]
+s = open(p, 'rb').read().decode('latin-1')
+anchor = '\tTeamTypes eFirstTeam = GET_PLAYER(getFirstPlayer()).getTeam();'
+start = s.index('void CvDeal::addTrades(')
+i = s.index(anchor, start)
+s = s[:i] + '\tHH_noteTrade(getFirstPlayer(), getSecondPlayer(), pFirstList, pSecondList);\r\n' + s[i:]
+decl = 'void HH_noteTrade(PlayerTypes eFirst, PlayerTypes eSecond, const CLinkList<TradeData>* pFirst, const CLinkList<TradeData>* pSecond);\r\n'
+s = s[:start] + decl + s[start:]
+open(p, 'wb').write(s.encode('latin-1'))
+PYEOF
 case "$log" in
   log) export CFLAGS="/DLOG_AI" ;;
   profile) export CFLAGS="/DFP_PROFILE_ENABLE" ;;
