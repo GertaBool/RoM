@@ -1,0 +1,561 @@
+files: 24; LeaderHeadInfo entries: 83; non-barbarian: 82
+core: 59  modules: 23
+
+## Per-field stats (absent => 0, as the DLL loads it)
+field                                                   present    min    max     mean       sd nDist
+AdoptCivicRefuseAttitudeThreshold                            82      1      3     2.11     0.49     3
+ContactDelay:CONTACT_ASK_FOR_HELP                            82     10     50    49.51     4.39     2
+ContactDelay:CONTACT_CIVIC_PRESSURE                          82     10     50    49.51     4.39     2
+ContactDelay:CONTACT_DEFENSIVE_PACT                          82     10     30    20.24     2.20     3
+ContactDelay:CONTACT_DEMAND_TRIBUTE                          82     10     50    49.51     4.39     2
+ContactDelay:CONTACT_GIVE_HELP                               82     10     50    49.51     4.39     2
+ContactDelay:CONTACT_JOIN_WAR                                82     10     20    19.88     1.10     2
+ContactDelay:CONTACT_OPEN_BORDERS                            82     10     20    19.88     1.10     2
+ContactDelay:CONTACT_PEACE_TREATY                            82     10     20    10.37     1.88     2
+ContactDelay:CONTACT_PERMANENT_ALLIANCE                      82     10     40    20.61     3.93     3
+ContactDelay:CONTACT_RELIGION_PRESSURE                       82     10     50    49.51     4.39     2
+ContactDelay:CONTACT_STOP_TRADING                            82     10     20    19.88     1.10     2
+ContactDelay:CONTACT_TRADE_BONUS                             82     10     20    19.88     1.10     2
+ContactDelay:CONTACT_TRADE_MAP                               82     10     50    49.51     4.39     2
+ContactDelay:CONTACT_TRADE_TECH                              82     10     30    29.76     2.20     2
+ContactRand:CONTACT_ASK_FOR_HELP                             82     25   1000   285.37   261.47     7
+ContactRand:CONTACT_CIVIC_PRESSURE                           82     50  10000   660.98  1509.93     6
+ContactRand:CONTACT_DEFENSIVE_PACT                           82     80     80    80.00     0.00     1
+ContactRand:CONTACT_DEMAND_TRIBUTE                           82     25  10000   704.57  1099.40     7
+ContactRand:CONTACT_GIVE_HELP                                82     25  10000   350.91  1097.48     7
+ContactRand:CONTACT_JOIN_WAR                                 82     10    100    20.24     9.24     3
+ContactRand:CONTACT_OPEN_BORDERS                             82      2     80    20.51     6.90     3
+ContactRand:CONTACT_PEACE_TREATY                             82     20   1000    31.95   107.56     2
+ContactRand:CONTACT_PERMANENT_ALLIANCE                       82     80  10000   203.90  1088.61     3
+ContactRand:CONTACT_RELIGION_PRESSURE                        82     50  10000   446.95  1074.72     8
+ContactRand:CONTACT_STOP_TRADING                             82     50    100    50.61     5.49     2
+ContactRand:CONTACT_TRADE_BONUS                              82      1     50     6.33     7.37     6
+ContactRand:CONTACT_TRADE_MAP                                82      2     20    19.78     1.98     2
+ContactRand:CONTACT_TRADE_TECH                               82      1     20     5.23     2.57     5
+ConvertReligionRefuseAttitudeThreshold                       82      1      4     2.09     0.67     4
+DeclareWarRefuseAttitudeThreshold                            82      1      3     2.01     0.72     3
+DeclareWarThemRefuseAttitudeThreshold                        82      1      4     2.38     0.76     4
+DefensivePactRefuseAttitudeThreshold                         82      0      3     2.78     0.52     4
+DemandTributeAttitudeThreshold                               82      2      3     2.01     0.11     2
+Flavor:FLAVOR_CULTURE                                        20      0     10     1.06     2.19     5
+Flavor:FLAVOR_GOLD                                           19      0      5     0.93     1.81     4
+Flavor:FLAVOR_GROWTH                                         24      0      5     0.90     1.57     5
+Flavor:FLAVOR_MILITARY                                       45      0     10     2.51     2.86     6
+Flavor:FLAVOR_PRODUCTION                                     14      0     10     0.67     1.73     5
+Flavor:FLAVOR_RELIGION                                       21      0     10     0.85     1.91     4
+Flavor:FLAVOR_SCIENCE                                        12      0      5     0.55     1.42     5
+HappinessBonusRefuseAttitudeThreshold                        82     -1      3     0.51     0.67     5
+HealthBonusRefuseAttitudeThreshold                           82     -1      3     0.44     0.68     5
+ImprovementWeight:IMPROVEMENT_FARM                           31      0     20     7.56     9.70     2
+ImprovementWeight:IMPROVEMENT_GREENFACILITY                   1      0     20     0.24     2.20     2
+ImprovementWeight:IMPROVEMENT_TOWN                           12      0     20     2.93     7.07     2
+ImprovementWeight:IMPROVEMENT_VERTICAL_FARM                  20      0     30     7.32    12.88     2
+ImprovementWeight:IMPROVEMENT_WATERMILL                       4      0     20     0.98     4.31     2
+ImprovementWeight:IMPROVEMENT_WINDMILL                       29      0     20     7.07     9.56     2
+ImprovementWeight:IMPROVEMENT_WINDTRAP                       20      0     30     7.32    12.88     2
+ImprovementWeight:IMPROVEMENT_WORKSHOP                        5      0     20     1.22     4.79     2
+MapRefuseAttitudeThreshold                                   82     -1      4     1.78     1.09     6
+MemoryAtt:MEMORY_ACCEPTED_CIVIC                              82    100    200   101.22    10.98     2
+MemoryAtt:MEMORY_ACCEPTED_RELIGION                           82    100    100   100.00     0.00     1
+MemoryAtt:MEMORY_ACCEPTED_STOP_TRADING                       82     50     55    50.06     0.55     2
+MemoryAtt:MEMORY_ACCEPT_DEMAND                               82    100    100   100.00     0.00     1
+MemoryAtt:MEMORY_DECLARED_WAR                                82   -400   -300  -301.22    10.98     2
+MemoryAtt:MEMORY_DECLARED_WAR_ON_FRIEND                      82   -200   -100  -101.83    12.21     3
+MemoryAtt:MEMORY_DENIED_CIVIC                                81   -200      0  -115.49    39.08     4
+MemoryAtt:MEMORY_DENIED_JOIN_WAR                             81   -200      0  -107.32    30.37     3
+MemoryAtt:MEMORY_DENIED_RELIGION                             81   -200      0  -109.88    38.81     6
+MemoryAtt:MEMORY_DENIED_STOP_TRADING                         81   -200      0  -107.32    30.37     3
+MemoryAtt:MEMORY_EVENT_BAD_TO_US                             82   -100   -100  -100.00     0.00     1
+MemoryAtt:MEMORY_EVENT_GOOD_TO_US                            82    100    110   100.37     1.88     2
+MemoryAtt:MEMORY_GIVE_HELP                                   82    100    100   100.00     0.00     1
+MemoryAtt:MEMORY_HIRED_TRADE_EMBARGO                         81   -100      0   -98.78    10.98     2
+MemoryAtt:MEMORY_HIRED_WAR_ALLY                              82   -200   -100  -192.07    26.45     3
+MemoryAtt:MEMORY_INQUISITION                                 82   -100   -100  -100.00     0.00     1
+MemoryAtt:MEMORY_LIBERATED_CITIES                            82    100    180   150.49     7.95     3
+MemoryAtt:MEMORY_MADE_DEMAND                                 81   -200      0  -109.76    33.53     3
+MemoryAtt:MEMORY_NUKED_FRIEND                                82   -200   -100  -101.22    10.98     2
+MemoryAtt:MEMORY_NUKED_US                                    82   -250   -200  -200.61     5.49     2
+MemoryAtt:MEMORY_RAZED_CITY                                  82   -300   -250  -250.61     5.49     2
+MemoryAtt:MEMORY_RAZED_HOLY_CITY                             82   -200   -100  -198.78    10.98     2
+MemoryAtt:MEMORY_REFUSED_HELP                                81   -200      0  -114.51    38.70     4
+MemoryAtt:MEMORY_REJECTED_DEMAND                             81   -200      0  -112.20    36.26     3
+MemoryAtt:MEMORY_SPY_CAUGHT                                  82   -200   -100  -102.44    15.43     2
+MemoryAtt:MEMORY_STOPPED_TRADING                             81   -100      0   -98.78    10.98     2
+MemoryAtt:MEMORY_TRADED_TECH_TO_US                           82      5     20     9.74     3.95     5
+MemoryAtt:MEMORY_VOTED_AGAINST_US                            82   -200   -200  -200.00     0.00     1
+MemoryAtt:MEMORY_VOTED_FOR_US                                82    200    200   200.00     0.00     1
+MemoryDecay:MEMORY_ACCEPTED_CIVIC                            82    100    200   101.22    10.98     2
+MemoryDecay:MEMORY_ACCEPTED_JOIN_WAR                         82    150    150   150.00     0.00     1
+MemoryDecay:MEMORY_ACCEPTED_RELIGION                         82     80    100    99.76     2.20     2
+MemoryDecay:MEMORY_ACCEPTED_STOP_TRADING                     82    100    100   100.00     0.00     1
+MemoryDecay:MEMORY_ACCEPT_DEMAND                             82     50     50    50.00     0.00     1
+MemoryDecay:MEMORY_CANCELLED_OPEN_BORDERS                    82     10     10    10.00     0.00     1
+MemoryDecay:MEMORY_DENIED_CIVIC                              82     50    150    51.22    10.98     2
+MemoryDecay:MEMORY_DENIED_JOIN_WAR                           82    100    100   100.00     0.00     1
+MemoryDecay:MEMORY_DENIED_RELIGION                           82     50     50    50.00     0.00     1
+MemoryDecay:MEMORY_DENIED_STOP_TRADING                       82     50     50    50.00     0.00     1
+MemoryDecay:MEMORY_EVENT_BAD_TO_US                           82     50     50    50.00     0.00     1
+MemoryDecay:MEMORY_EVENT_GOOD_TO_US                          82     50     50    50.00     0.00     1
+MemoryDecay:MEMORY_GIVE_HELP                                 82    200    200   200.00     0.00     1
+MemoryDecay:MEMORY_INQUISITION                               82     25     25    25.00     0.00     1
+MemoryDecay:MEMORY_MADE_DEMAND_RECENT                        82     20     20    20.00     0.00     1
+MemoryDecay:MEMORY_RECEIVED_TECH_FROM_ANY                    82     20     20    20.00     0.00     1
+MemoryDecay:MEMORY_REFUSED_HELP                              82    100    100   100.00     0.00     1
+MemoryDecay:MEMORY_REJECTED_DEMAND                           82    150    150   150.00     0.00     1
+MemoryDecay:MEMORY_STOPPED_TRADING_RECENT                    82     30     30    30.00     0.00     1
+MemoryDecay:MEMORY_TRADED_TECH_TO_US                         82    100    100   100.00     0.00     1
+MemoryDecay:MEMORY_VOTED_AGAINST_US                          82     10     20    10.85     2.79     2
+MemoryDecay:MEMORY_VOTED_FOR_US                              82     10     20    10.85     2.79     2
+NoGiveHelpAttitudeThreshold                                  82      2      3     2.01     0.11     2
+NoWarProb:ATTITUDE_ANNOYED                                   66      0     50    13.72    10.29     7
+NoWarProb:ATTITUDE_CAUTIOUS                                  82     20     90    54.21    17.45     9
+NoWarProb:ATTITUDE_FRIENDLY                                  82    100    100   100.00     0.00     1
+NoWarProb:ATTITUDE_PLEASED                                   82     50    100    91.52     9.03     5
+OpenBordersRefuseAttitudeThreshold                           82     -1      2     0.78     0.61     4
+PermanentAllianceRefuseAttitudeThreshold                     82      2      4     2.96     0.29     3
+StopTradingRefuseAttitudeThreshold                           82      1      3     2.00     0.73     3
+StopTradingThemRefuseAttitudeThreshold                       82      0      3     1.51     0.65     4
+StrategicBonusRefuseAttitudeThreshold                        82      1      3     1.71     0.53     3
+TechRefuseAttitudeThreshold                                  82     -1      3     0.78     0.70     5
+UnitAIWeight:UNITAI_ASSAULT_SEA                               2      0    100     1.59    11.42     3
+UnitAIWeight:UNITAI_ATTACK                                   15      0    100    18.29    38.66     2
+UnitAIWeight:UNITAI_ATTACK_CITY                               9      0    100    10.49    30.16     3
+UnitAIWeight:UNITAI_ATTACK_SEA                                4      0    100     3.96    18.91     3
+UnitAIWeight:UNITAI_CITY_COUNTER                              4      0    100     4.88    21.54     2
+UnitAIWeight:UNITAI_CITY_DEFENSE                             10      0    100    11.22    31.25     3
+UnitAIWeight:UNITAI_COLLATERAL                                9      0    100    10.18    29.78     3
+UnitAIWeight:UNITAI_COUNTER                                  15      0    100    17.44    37.61     3
+UnitAIWeight:UNITAI_EXPLORE                                   2      0    100     2.44    15.43     2
+UnitAIWeight:UNITAI_EXPLORE_SEA                               2      0    100     2.44    15.43     2
+UnitAIWeight:UNITAI_ICBM                                      1      0    100     1.22    10.98     2
+UnitAIWeight:UNITAI_PILLAGE                                   5      0    100     6.10    23.93     2
+UnitAIWeight:UNITAI_RESERVE                                   5      0    100     5.06    21.56     3
+UnitAIWeight:UNITAI_RESERVE_SEA                               2      0    100     1.46    11.17     3
+UnitAIWeight:UNITAI_WORKER                                    3      0    100     3.66    18.77     2
+VassalRefuseAttitudeThreshold                                82     -1      4     2.54     0.95     5
+iAtPeaceAttitudeChangeLimit                                  82      1      1     1.00     0.00     1
+iAtPeaceAttitudeDivisor                                      82     50     70    59.88     1.91     3
+iAtWarAttitudeChangeLimit                                    82      5      5     5.00     0.00     1
+iAtWarAttitudeDivisor                                        82     -5     -5    -5.00     0.00     1
+iAttackOddsChangeRand                                        82      6     10     8.07     0.49     3
+iBaseAttackOddsChange                                        82      0      6     1.67     1.71     5
+iBaseAttitude                                                82     -1      2     0.17     0.78     4
+iBasePeaceWeight                                             82      0     10     3.96     2.99    10
+iBetterRankDifferenceAttitudeChange                          82     -1      4     0.90     1.14     6
+iBonusTradeAttitudeChangeLimit                               82      2      2     2.00     0.00     1
+iBonusTradeAttitudeDivisor                                   82     50     60    50.12     1.10     2
+iBuildUnitProb                                               82     15     40    28.21     5.44     7
+iCloseBordersAttitudeChange                                  82     -5     -1    -2.77     0.94     5
+iConquestVictoryWeight                                       82      0     85    30.61    18.29    16
+iCultureVictoryWeight                                        82      0     70    28.60    17.24    15
+iDeclareWarTradeRand                                         82     30     60    40.12     2.47     3
+iDefensivePactAttitudeChangeLimit                            82      2      2     2.00     0.00     1
+iDefensivePactAttitudeDivisor                                82     12     12    12.00     0.00     1
+iDemandRebukedSneakProb                                      82      0    100    39.45    24.07    10
+iDemandRebukedWarProb                                        82      0     50    17.74    14.40     8
+iDifferentReligionAttitudeChange                             82     -2      0    -1.01     0.82     3
+iDifferentReligionAttitudeChangeLimit                        82     -1     -1    -1.00     0.00     1
+iDifferentReligionAttitudeDivisor                            82     -5     -5    -5.00     0.00     1
+iDiplomacyVictoryWeight                                      82      0     70    27.20    18.21    15
+iDogpileWarRand                                              82     20    150    58.96    30.99     8
+iDominationVictoryWeight                                     82      0     70    27.01    17.42    15
+iEspionageWeight                                             82     50    150   103.05    17.37    11
+iFavoriteCivicAttitudeChange                                 82      1      1     1.00     0.00     1
+iFavoriteCivicAttitudeChangeLimit                            82      1      6     3.55     1.21     6
+iFavoriteCivicAttitudeDivisor                                82     10     10    10.00     0.00     1
+iFreedomAppreciation                                         82     10     10    10.00     0.00     1
+iLimitedWarPowerRatio                                        82     80    130   103.29    11.59     6
+iLimitedWarRand                                              82     40    200   106.89    49.27    10
+iLostWarAttitudeChange                                       82     -1     -1    -1.00     0.00     1
+iMakePeaceRand                                               82     10    120    36.46    26.80     8
+iMaxGoldPerTurnTradePercent                                  82     10     15    10.18     0.94     2
+iMaxGoldTradePercent                                         82      5     20     8.41     4.34     4
+iMaxWarDistantPowerRatio                                     82      0    100    56.59    18.82     9
+iMaxWarMinAdjacentLandPercent                                82      0      4     1.50     1.21     5
+iMaxWarNearbyPowerRatio                                      82     80    130   103.60    12.03     7
+iMaxWarRand                                                  82     50    400   158.90    88.65     9
+iNoTechTradeThreshold                                        82      5     20     9.48     4.43     5
+iOpenBordersAttitudeChangeLimit                              82      2      2     2.00     0.00     1
+iOpenBordersAttitudeDivisor                                  82     25     25    25.00     0.00     1
+iPeaceWeightRand                                             82      3      3     3.00     0.00     1
+iRazeCityProb                                                82      0     75     9.76    17.32     7
+iRefuseToTalkWarThreshold                                    82      5     12     8.23     1.50     5
+iSameReligionAttitudeChange                                  82      1      1     1.00     0.00     1
+iSameReligionAttitudeChangeLimit                             82      1      7     3.98     1.49     7
+iSameReligionAttitudeDivisor                                 82     10     10    10.00     0.00     1
+iShareWarAttitudeChange                                      82      1      1     1.00     0.00     1
+iShareWarAttitudeChangeLimit                                 82      2      6     3.23     0.82     5
+iShareWarAttitudeDivisor                                     82      6      8     7.98     0.22     2
+iSpaceVictoryWeight                                          82      0     70    23.41    17.35    15
+iTechTradeKnownPercent                                       82      0    100    37.80    19.63    12
+iVassalPowerModifier                                         82    -20     50     3.41    12.90     6
+iWarmongerRespect                                            82      0      2     1.00     0.84     3
+iWonderConstructRand                                         82      0     50    23.17    11.54     7
+iWorseRankDifferenceAttitudeChange                           82     -3      1    -0.94     0.97     5
+
+## Histograms (value: count)
+iCultureVictoryWeight: {0: 5, 5: 7, 10: 7, 15: 4, 20: 1, 25: 16, 30: 12, 35: 7, 40: 5, 45: 7, 50: 3, 55: 2, 60: 3, 65: 2, 70: 1}
+iSpaceVictoryWeight: {0: 7, 5: 9, 10: 13, 15: 5, 20: 7, 25: 13, 30: 9, 35: 4, 40: 1, 45: 3, 50: 4, 55: 3, 60: 2, 65: 1, 70: 1}
+iConquestVictoryWeight: {0: 3, 5: 4, 10: 10, 15: 5, 20: 8, 25: 9, 30: 9, 35: 5, 40: 5, 45: 8, 50: 5, 55: 5, 60: 3, 65: 1, 70: 1, 85: 1}
+iDominationVictoryWeight: {0: 4, 5: 6, 10: 15, 15: 5, 20: 4, 25: 6, 30: 11, 35: 11, 40: 5, 45: 4, 50: 3, 55: 3, 60: 2, 65: 2, 70: 1}
+iDiplomacyVictoryWeight: {0: 6, 5: 6, 10: 10, 15: 5, 20: 5, 25: 17, 30: 5, 35: 6, 40: 6, 45: 2, 50: 4, 55: 3, 60: 3, 65: 3, 70: 1}
+iMaxWarRand: {50: 9, 70: 1, 90: 1, 100: 33, 120: 1, 200: 23, 250: 2, 300: 9, 400: 3}
+iLimitedWarRand: {40: 7, 55: 1, 60: 16, 80: 13, 100: 11, 120: 12, 140: 1, 150: 1, 160: 10, 200: 10}
+iDogpileWarRand: {20: 2, 25: 22, 40: 2, 50: 27, 75: 3, 80: 3, 100: 22, 150: 1}
+iMakePeaceRand: {10: 14, 20: 28, 30: 3, 40: 18, 50: 2, 60: 5, 80: 9, 120: 3}
+iBasePeaceWeight: {0: 11, 1: 9, 2: 17, 3: 3, 4: 10, 5: 2, 6: 12, 8: 12, 9: 5, 10: 1}
+iPeaceWeightRand: {3: 82}
+iBuildUnitProb: {15: 1, 20: 11, 25: 24, 30: 32, 35: 8, 38: 1, 40: 5}
+iRazeCityProb: {0: 54, 5: 3, 10: 5, 20: 3, 25: 8, 50: 8, 75: 1}
+iWarmongerRespect: {0: 29, 1: 24, 2: 29}
+iBaseAttitude: {-1: 17, 0: 36, 1: 27, 2: 2}
+iEspionageWeight: {50: 1, 60: 2, 70: 2, 80: 4, 90: 9, 100: 32, 110: 14, 120: 12, 130: 3, 140: 1, 150: 2}
+iWonderConstructRand: {0: 3, 10: 17, 15: 2, 20: 26, 30: 21, 40: 10, 50: 3}
+iDeclareWarTradeRand: {30: 1, 40: 80, 60: 1}
+iMaxWarNearbyPowerRatio: {80: 2, 90: 19, 100: 28, 110: 19, 120: 8, 125: 1, 130: 5}
+iMaxWarDistantPowerRatio: {0: 2, 30: 7, 40: 8, 50: 24, 60: 19, 70: 6, 80: 11, 90: 3, 100: 2}
+iMaxWarMinAdjacentLandPercent: {0: 19, 1: 29, 2: 13, 3: 16, 4: 5}
+iLimitedWarPowerRatio: {80: 5, 90: 6, 100: 47, 110: 11, 120: 7, 130: 6}
+iFreedomAppreciation: {10: 82}
+iVassalPowerModifier: {-20: 5, -10: 3, 0: 56, 10: 4, 20: 11, 50: 3}
+iTechTradeKnownPercent: {0: 2, 10: 3, 15: 3, 20: 7, 30: 30, 40: 17, 45: 1, 50: 7, 60: 4, 70: 1, 80: 5, 100: 2}
+iNoTechTradeThreshold: {5: 35, 10: 22, 12: 1, 15: 22, 20: 2}
+iRefuseToTalkWarThreshold: {5: 1, 6: 14, 8: 45, 10: 19, 12: 3}
+iBaseAttackOddsChange: {0: 35, 2: 28, 3: 1, 4: 15, 6: 3}
+iAttackOddsChangeRand: {6: 1, 8: 77, 10: 4}
+iDemandRebukedSneakProb: {0: 12, 10: 1, 20: 12, 25: 1, 30: 2, 40: 22, 50: 6, 60: 20, 80: 4, 100: 2}
+iDemandRebukedWarProb: {0: 15, 5: 9, 10: 14, 15: 1, 20: 14, 25: 15, 40: 10, 50: 4}
+iMaxGoldTradePercent: {5: 42, 10: 30, 15: 4, 20: 6}
+iMaxGoldPerTurnTradePercent: {10: 79, 15: 3}
+NoWarProb:ATTITUDE_ANNOYED: {0: 16, 10: 30, 15: 1, 20: 29, 30: 3, 40: 1, 50: 2}
+NoWarProb:ATTITUDE_CAUTIOUS: {20: 7, 30: 8, 40: 2, 50: 29, 55: 1, 60: 4, 70: 26, 80: 3, 90: 2}
+NoWarProb:ATTITUDE_PLEASED: {50: 1, 80: 17, 85: 3, 90: 26, 100: 35}
+NoWarProb:ATTITUDE_FRIENDLY: {100: 82}
+ContactRand:CONTACT_TRADE_TECH: {1: 3, 2: 8, 5: 62, 10: 8, 20: 1}
+ContactRand:CONTACT_DEMAND_TRIBUTE: {25: 7, 50: 9, 250: 9, 500: 21, 700: 2, 1000: 33, 10000: 1}
+ContactRand:CONTACT_OPEN_BORDERS: {2: 1, 20: 80, 80: 1}
+
+## Attitude thresholds histograms (0=FURIOUS..4=FRIENDLY, -1 none)
+AdoptCivicRefuseAttitudeThreshold: {1: 6, 2: 61, 3: 15}
+ConvertReligionRefuseAttitudeThreshold: {1: 13, 2: 51, 3: 16, 4: 2}
+DeclareWarRefuseAttitudeThreshold: {1: 21, 2: 39, 3: 22}
+DeclareWarThemRefuseAttitudeThreshold: {1: 11, 2: 32, 3: 36, 4: 3}
+DefensivePactRefuseAttitudeThreshold: {0: 1, 1: 1, 2: 13, 3: 67}
+DemandTributeAttitudeThreshold: {2: 81, 3: 1}
+HappinessBonusRefuseAttitudeThreshold: {-1: 3, 0: 38, 1: 38, 2: 2, 3: 1}
+HealthBonusRefuseAttitudeThreshold: {-1: 3, 0: 45, 1: 30, 2: 3, 3: 1}
+MapRefuseAttitudeThreshold: {-1: 1, 0: 7, 1: 30, 2: 18, 3: 23, 4: 3}
+NoGiveHelpAttitudeThreshold: {2: 81, 3: 1}
+OpenBordersRefuseAttitudeThreshold: {-1: 3, 0: 17, 1: 57, 2: 5}
+PermanentAllianceRefuseAttitudeThreshold: {2: 5, 3: 75, 4: 2}
+StopTradingRefuseAttitudeThreshold: {1: 22, 2: 38, 3: 22}
+StopTradingThemRefuseAttitudeThreshold: {0: 5, 1: 32, 2: 43, 3: 2}
+StrategicBonusRefuseAttitudeThreshold: {1: 27, 2: 52, 3: 3}
+TechRefuseAttitudeThreshold: {-1: 4, 0: 18, 1: 53, 2: 6, 3: 1}
+VassalRefuseAttitudeThreshold: {-1: 3, 1: 6, 2: 17, 3: 53, 4: 3}
+
+## Flavors
+Flavor:FLAVOR_CULTURE: {0: 62, 2: 7, 3: 1, 5: 10, 10: 2}
+Flavor:FLAVOR_GOLD: {0: 63, 2: 6, 4: 1, 5: 12}
+Flavor:FLAVOR_GROWTH: {0: 58, 2: 13, 3: 3, 4: 1, 5: 7}
+Flavor:FLAVOR_MILITARY: {0: 37, 2: 13, 3: 2, 4: 1, 5: 24, 10: 5}
+Flavor:FLAVOR_PRODUCTION: {0: 68, 2: 6, 3: 1, 5: 6, 10: 1}
+Flavor:FLAVOR_RELIGION: {0: 61, 2: 15, 5: 4, 10: 2}
+Flavor:FLAVOR_SCIENCE: {0: 70, 2: 4, 3: 1, 4: 1, 5: 6}
+flavor L1 mass: min 7 max 10 mean 7.48 distinct [7, 8, 10]
+number of nonzero flavors per leader: {1: 10, 2: 71, 3: 1}
+
+victory weight sum per leader: min 0 max 165 mean 136.8
+leaders with all victory weights 0: ['LEADER_CETSHWAYO']
+leaders with any victory weight >= 100 (auto-on at stage 1): []
+leaders with any negative victory weight: []
+
+## Expected share of leaders with each victory stage-1 flag (mean of w/100, clipped)
+iCultureVictoryWeight: mean P = 28.6%
+iSpaceVictoryWeight: mean P = 23.4%
+iConquestVictoryWeight: mean P = 30.6%
+iDominationVictoryWeight: mean P = 27.0%
+iDiplomacyVictoryWeight: mean P = 27.2%
+number of victory stage-1 flags simultaneously on (roster x 100 rolls): {0: '9.8%', 1: '47.6%', 2: '38.6%', 3: '4.0%'}
+
+## Pearson correlation matrix (selected)
+            MaxWarRand LimitedWar DogpileWar MakePeaceR BasePeaceW BuildUnitP RazeCityPr WarmongerR ConquestVi Domination CultureVic SpaceVicto DiplomacyV   MILITARY    CULTURE    SCIENCE EspionageW WonderCons BaseAttitu   CAUTIOUS    PLEASED
+  MaxWarRand      1.00       0.55       0.23      -0.43       0.57      -0.63      -0.41      -0.43      -0.33      -0.26       0.30       0.20       0.35      -0.36       0.20      -0.00      -0.10       0.10       0.58       0.06       0.04
+  LimitedWar      0.55       1.00       0.51      -0.05       0.77      -0.36      -0.31      -0.78      -0.13      -0.18       0.27       0.16       0.24      -0.26       0.16       0.01      -0.07       0.25       0.44       0.35       0.33
+  DogpileWar      0.23       0.51       1.00      -0.23       0.54      -0.15      -0.32      -0.57      -0.22      -0.03       0.16       0.23       0.11      -0.13       0.08       0.14       0.09       0.28       0.30       0.47       0.38
+  MakePeaceR     -0.43      -0.05      -0.23       1.00      -0.25       0.54       0.70       0.11       0.36       0.16      -0.32      -0.25      -0.16       0.37      -0.26      -0.12       0.03      -0.25      -0.53       0.08      -0.04
+  BasePeaceW      0.57       0.77       0.54      -0.25       1.00      -0.38      -0.41      -0.78      -0.26      -0.16       0.21       0.22       0.24      -0.33       0.18       0.02      -0.02       0.14       0.47       0.39       0.27
+  BuildUnitP     -0.63      -0.36      -0.15       0.54      -0.38       1.00       0.45       0.33       0.29       0.22      -0.27      -0.25      -0.22       0.52      -0.17      -0.16       0.11      -0.22      -0.56       0.04      -0.03
+  RazeCityPr     -0.41      -0.31      -0.32       0.70      -0.41       0.45       1.00       0.36       0.32       0.12      -0.25      -0.20      -0.03       0.47      -0.17      -0.13       0.02      -0.36      -0.63       0.01       0.06
+  WarmongerR     -0.43      -0.78      -0.57       0.11      -0.78       0.33       0.36       1.00       0.28       0.10      -0.26      -0.19      -0.23       0.36      -0.06       0.00       0.05      -0.18      -0.43      -0.44      -0.31
+  ConquestVi     -0.33      -0.13      -0.22       0.36      -0.26       0.29       0.32       0.28       1.00       0.33      -0.37      -0.37      -0.45       0.21      -0.15      -0.15      -0.08      -0.06      -0.30      -0.24      -0.21
+  Domination     -0.26      -0.18      -0.03       0.16      -0.16       0.22       0.12       0.10       0.33       1.00      -0.36      -0.13      -0.48       0.20      -0.24      -0.02       0.09       0.01      -0.27      -0.14      -0.03
+  CultureVic      0.30       0.27       0.16      -0.32       0.21      -0.27      -0.25      -0.26      -0.37      -0.36       1.00      -0.10       0.21      -0.20       0.47      -0.20      -0.22       0.19       0.36       0.01       0.05
+  SpaceVicto      0.20       0.16       0.23      -0.25       0.22      -0.25      -0.20      -0.19      -0.37      -0.13      -0.10       1.00       0.15      -0.24      -0.03       0.21       0.12       0.04       0.17       0.23       0.23
+  DiplomacyV      0.35       0.24       0.11      -0.16       0.24      -0.22      -0.03      -0.23      -0.45      -0.48       0.21       0.15       1.00      -0.16       0.16      -0.01      -0.06      -0.08       0.26       0.25       0.21
+    MILITARY     -0.36      -0.26      -0.13       0.37      -0.33       0.52       0.47       0.36       0.21       0.20      -0.20      -0.24      -0.16       1.00      -0.25      -0.23       0.18      -0.30      -0.40      -0.01       0.01
+     CULTURE      0.20       0.16       0.08      -0.26       0.18      -0.17      -0.17      -0.06      -0.15      -0.24       0.47      -0.03       0.16      -0.25       1.00      -0.15      -0.17       0.21       0.19       0.04       0.12
+     SCIENCE     -0.00       0.01       0.14      -0.12       0.02      -0.16      -0.13       0.00      -0.15      -0.02      -0.20       0.21      -0.01      -0.23      -0.15       1.00      -0.09       0.06      -0.04       0.13       0.07
+  EspionageW     -0.10      -0.07       0.09       0.03      -0.02       0.11       0.02       0.05      -0.08       0.09      -0.22       0.12      -0.06       0.18      -0.17      -0.09       1.00       0.13      -0.20       0.07       0.02
+  WonderCons      0.10       0.25       0.28      -0.25       0.14      -0.22      -0.36      -0.18      -0.06       0.01       0.19       0.04      -0.08      -0.30       0.21       0.06       0.13       1.00       0.37      -0.08      -0.07
+  BaseAttitu      0.58       0.44       0.30      -0.53       0.47      -0.56      -0.63      -0.43      -0.30      -0.27       0.36       0.17       0.26      -0.40       0.19      -0.04      -0.20       0.37       1.00       0.01       0.01
+    CAUTIOUS      0.06       0.35       0.47       0.08       0.39       0.04       0.01      -0.44      -0.24      -0.14       0.01       0.23       0.25      -0.01       0.04       0.13       0.07      -0.08       0.01       1.00       0.84
+     PLEASED      0.04       0.33       0.38      -0.04       0.27      -0.03       0.06      -0.31      -0.21      -0.03       0.05       0.23       0.21       0.01       0.12       0.07       0.02      -0.07       0.01       0.84       1.00
+
+## Strongest |r| pairs among all scalar/array fields with >2 distinct values
++1.00  MemoryAtt:MEMORY_DENIED_JOIN_WAR  ~  MemoryAtt:MEMORY_DENIED_STOP_TRADING
++0.99  ContactRand:CONTACT_PERMANENT_ALLIANCE  ~  ContactRand:CONTACT_RELIGION_PRESSURE
++0.98  MemoryAtt:MEMORY_DENIED_CIVIC  ~  MemoryAtt:MEMORY_REFUSED_HELP
++0.97  ContactDelay:CONTACT_DEFENSIVE_PACT  ~  ContactDelay:CONTACT_PERMANENT_ALLIANCE
++0.96  ContactRand:CONTACT_JOIN_WAR  ~  ContactRand:CONTACT_PERMANENT_ALLIANCE
++0.95  MemoryAtt:MEMORY_DENIED_RELIGION  ~  MemoryAtt:MEMORY_REJECTED_DEMAND
++0.95  ContactRand:CONTACT_JOIN_WAR  ~  ContactRand:CONTACT_RELIGION_PRESSURE
++0.93  ContactRand:CONTACT_GIVE_HELP  ~  ContactRand:CONTACT_OPEN_BORDERS
++0.92  MemoryAtt:MEMORY_REFUSED_HELP  ~  MemoryAtt:MEMORY_REJECTED_DEMAND
++0.91  MemoryAtt:MEMORY_MADE_DEMAND  ~  MemoryAtt:MEMORY_REJECTED_DEMAND
++0.90  MemoryAtt:MEMORY_DENIED_CIVIC  ~  MemoryAtt:MEMORY_REJECTED_DEMAND
++0.89  NoWarProb:ATTITUDE_ANNOYED  ~  NoWarProb:ATTITUDE_CAUTIOUS
++0.86  MemoryAtt:MEMORY_DENIED_RELIGION  ~  MemoryAtt:MEMORY_MADE_DEMAND
++0.84  NoWarProb:ATTITUDE_CAUTIOUS  ~  NoWarProb:ATTITUDE_PLEASED
+-0.84  ContactRand:CONTACT_DEMAND_TRIBUTE  ~  MemoryAtt:MEMORY_DECLARED_WAR_ON_FRIEND
++0.83  MemoryAtt:MEMORY_MADE_DEMAND  ~  MemoryAtt:MEMORY_REFUSED_HELP
++0.82  MemoryAtt:MEMORY_DENIED_CIVIC  ~  MemoryAtt:MEMORY_MADE_DEMAND
++0.80  MemoryAtt:MEMORY_DENIED_RELIGION  ~  MemoryAtt:MEMORY_REFUSED_HELP
+-0.78  iLimitedWarRand  ~  iWarmongerRespect
+-0.78  iBasePeaceWeight  ~  iWarmongerRespect
++0.77  iBasePeaceWeight  ~  iLimitedWarRand
++0.74  MemoryAtt:MEMORY_DENIED_STOP_TRADING  ~  MemoryAtt:MEMORY_REFUSED_HELP
++0.74  MemoryAtt:MEMORY_DENIED_JOIN_WAR  ~  MemoryAtt:MEMORY_REFUSED_HELP
++0.74  MemoryAtt:MEMORY_DENIED_CIVIC  ~  MemoryAtt:MEMORY_DENIED_RELIGION
++0.73  ContactDelay:CONTACT_PERMANENT_ALLIANCE  ~  ContactRand:CONTACT_TRADE_BONUS
++0.73  MemoryAtt:MEMORY_DENIED_CIVIC  ~  MemoryAtt:MEMORY_DENIED_STOP_TRADING
++0.73  MemoryAtt:MEMORY_DENIED_CIVIC  ~  MemoryAtt:MEMORY_DENIED_JOIN_WAR
++0.72  ContactRand:CONTACT_GIVE_HELP  ~  ContactRand:CONTACT_TRADE_TECH
+-0.70  DeclareWarThemRefuseAttitudeThreshold  ~  NoWarProb:ATTITUDE_CAUTIOUS
++0.70  iMakePeaceRand  ~  iRazeCityProb
++0.69  ContactDelay:CONTACT_PERMANENT_ALLIANCE  ~  MemoryAtt:MEMORY_LIBERATED_CITIES
++0.69  ContactRand:CONTACT_CIVIC_PRESSURE  ~  ContactRand:CONTACT_PERMANENT_ALLIANCE
++0.68  iMakePeaceRand  ~  iRefuseToTalkWarThreshold
++0.67  HappinessBonusRefuseAttitudeThreshold  ~  StrategicBonusRefuseAttitudeThreshold
++0.66  ContactRand:CONTACT_CIVIC_PRESSURE  ~  ContactRand:CONTACT_RELIGION_PRESSURE
++0.66  ContactDelay:CONTACT_DEFENSIVE_PACT  ~  ContactRand:CONTACT_TRADE_BONUS
+-0.65  DeclareWarThemRefuseAttitudeThreshold  ~  NoWarProb:ATTITUDE_ANNOYED
++0.65  NoWarProb:ATTITUDE_ANNOYED  ~  NoWarProb:ATTITUDE_PLEASED
+-0.63  iBuildUnitProb  ~  iMaxWarRand
+-0.63  iBaseAttitude  ~  iRazeCityProb
+
+## Copy-paste detection
+identical full numeric profiles (excluding flavors/unitAI/improvement weights): []
+ContactRand:   distinct blocks:  31; largest identical group: 26
+ContactDelay:  distinct blocks:   3; largest identical group: 78
+MemoryDecay:   distinct blocks:   3; largest identical group: 74
+MemoryAtt:     distinct blocks:  15; largest identical group: 31
+NoWarProb:     distinct blocks:  18; largest identical group: 26
+attitude scalar block distinct: 64; largest identical group 3
+
+nearest-neighbour count of differing numeric fields (excluding flavors/unitAI/improvement):
+  LEADER_FRANCO                closest LEADER_JUSTINIAN             differs in 4 of 159 fields
+  LEADER_JUSTINIAN             closest LEADER_FRANCO                differs in 4 of 159 fields
+  LEADER_CATHERINE             closest LEADER_KANGXI                differs in 5 of 159 fields
+  LEADER_CHARLEMAGNE           closest LEADER_HIROHITO              differs in 5 of 159 fields
+  LEADER_HIROHITO              closest LEADER_CHARLEMAGNE           differs in 5 of 159 fields
+  LEADER_KANGXI                closest LEADER_CATHERINE             differs in 5 of 159 fields
+  LEADER_BRENNUS               closest LEADER_JOANOFARC             differs in 6 of 159 fields
+  LEADER_IVAN                  closest LEADER_MONTEZUMA             differs in 6 of 159 fields
+  LEADER_JOANOFARC             closest LEADER_BRENNUS               differs in 6 of 159 fields
+  LEADER_MONTEZUMA             closest LEADER_IVAN                  differs in 6 of 159 fields
+  LEADER_HENRY_VIII            closest LEADER_CHARLEMAGNE           differs in 7 of 159 fields
+  LEADER_LEONIDAS              closest LEADER_QIN_SHI_HUANG         differs in 7 of 159 fields
+  LEADER_MASINISSA             closest LEADER_SULEIMAN              differs in 7 of 159 fields
+  LEADER_NEBUCHADREZZAR        closest LEADER_STALIN                differs in 7 of 159 fields
+  LEADER_QIN_SHI_HUANG         closest LEADER_LEONIDAS              differs in 7 of 159 fields
+  LEADER_STALIN                closest LEADER_NEBUCHADREZZAR        differs in 7 of 159 fields
+  LEADER_SULEIMAN              closest LEADER_MASINISSA             differs in 7 of 159 fields
+  LEADER_CHURCHILL             closest LEADER_CLEOPATRA             differs in 8 of 159 fields
+  LEADER_CLEOPATRA             closest LEADER_CHURCHILL             differs in 8 of 159 fields
+  LEADER_JAYAVARMAN            closest LEADER_SEJONG                differs in 8 of 159 fields
+  LEADER_SEJONG                closest LEADER_JAYAVARMAN            differs in 8 of 159 fields
+  LEADER_BISMARCK              closest LEADER_LENIN                 differs in 9 of 159 fields
+  LEADER_CYRUS                 closest LEADER_DIDO                  differs in 9 of 159 fields
+  LEADER_DIDO                  closest LEADER_CYRUS                 differs in 9 of 159 fields
+  LEADER_LENIN                 closest LEADER_BISMARCK              differs in 9 of 159 fields
+
+## Fields absent from module leaders (=> 0 at load)
+  LEADER_BASIL: 1 missing: ['NoWarProb:ATTITUDE_ANNOYED']
+  LEADER_IVAN: 1 missing: ['NoWarProb:ATTITUDE_ANNOYED']
+  LEADER_KANGXI: 1 missing: ['NoWarProb:ATTITUDE_ANNOYED']
+  LEADER_LEONIDAS: 1 missing: ['NoWarProb:ATTITUDE_ANNOYED']
+  LEADER_SEJONG: 1 missing: ['NoWarProb:ATTITUDE_ANNOYED']
+
+## Favourite civic / religion
+FavoriteCivic: {'CIVIC_IMPERIUM': 15, 'CIVIC_DIVINE_RULE': 8, 'CIVIC_HEREDITARY_RULE': 6, 'CIVIC_SACRIFICE_CULT': 6, 'CIVIC_COLONIAL': 5, 'CIVIC_FANATICISM': 5, 'CIVIC_USURY': 4, 'CIVIC_HUMANISTIC': 4, 'CIVIC_PATRICIAN': 3, 'CIVIC_TRADE_SCHOOL': 2, 'CIVIC_PROTECTIONISM': 2, 'CIVIC_PROFESSIONAL_ARMY': 2, 'CIVIC_NATIONAL_SOCIALISM': 2, 'CIVIC_PANTHEON': 1, 'CIVIC_PASTORAL': 1, 'CIVIC_SPIRITISM': 1, 'CIVIC_PEASANTRY': 1, 'CIVIC_CONSCRIPTION': 1, 'CIVIC_ASSEMBLY': 1, 'CIVIC_CORPORATE': 1, 'CIVIC_STATE_RELIGION': 1, 'CIVIC_PLANNED': 1, 'CIVIC_RAIDERS': 1, 'CIVIC_KEYNESIAN': 1, 'CIVIC_HUNTER_GATHERER': 1, 'CIVIC_PLANNED_ALLOCATION': 1, 'CIVIC_FRATERNITY': 1, 'CIVIC_SLAVERY': 1, 'CIVIC_GUILDS': 1, 'CIVIC_LABOR_ALLOCATION': 1, 'CIVIC_ACADEMIES': 1}
+FavoriteReligion: {'RELIGION_CHRISTIANITY': 28, 'NONE': 14, 'RELIGION_BUDDHISM': 6, 'RELIGION_ISLAM': 6, 'RELIGION_HELLENISM': 5, 'RELIGION_ZOROASTRIANISM': 3, 'RELIGION_SUMER': 3, 'RELIGION_EGYPT_MYTHOLOGY': 3, 'RELIGION_MESOAMERICANISM': 3, 'RELIGION_CONFUCIANISM': 3, 'RELIGION_CELTIC': 2, 'RELIGION_HINDUISM': 2, 'RELIGION_PHOEN': 2, 'RELIGION_TAOISM': 1, 'RELIGION_NORDIC': 1}
+
+## UnitAI / Improvement weight modifiers in use
+ImprovementWeight:IMPROVEMENT_FARM {'LEADER_BISMARCK': 20, 'LEADER_BOUDICA': 20, 'LEADER_BRENNUS': 20, 'LEADER_CHURCHILL': 20, 'LEADER_CYRUS': 20, 'LEADER_DE_GAULLE': 20, 'LEADER_HAMMURABI': 20, 'LEADER_ISABELLA': 20, 'LEADER_JOAO': 20, 'LEADER_MEHMED': 20, 'LEADER_NAPOLEON': 20, 'LEADER_PACAL': 20, 'LEADER_PERICLES': 20, 'LEADER_PETER': 20, 'LEADER_SHAKA': 20, 'LEADER_SULEIMAN': 20, 'LEADER_WASHINGTON': 20, 'LEADER_WILLEM_VAN_ORANJE': 20, 'LEADER_ASHUR': 20, 'LEADER_RAMKHAM': 20, 'LEADER_ABUBAKR': 20, 'LEADER_AFONSO': 20, 'LEADER_CETSHWAYO': 20, 'LEADER_CLEOPATRA': 20, 'LEADER_DIDO': 20, 'LEADER_JOANOFARC': 20, 'LEADER_LENIN': 20, 'LEADER_MASINISSA': 20, 'LEADER_NEFERTITI': 20, 'LEADER_RICHELIEU': 20, 'LEADER_WILHELMINA': 20}
+ImprovementWeight:IMPROVEMENT_GREENFACILITY {'LEADER_BISMARCK': 20}
+ImprovementWeight:IMPROVEMENT_TOWN {'LEADER_DARIUS': 20, 'LEADER_ELIZABETH': 20, 'LEADER_FREDERICK': 20, 'LEADER_GANDHI': 20, 'LEADER_HANNIBAL': 20, 'LEADER_HUAYNA_CAPAC': 20, 'LEADER_LINCOLN': 20, 'LEADER_MANSA_MUSA': 20, 'LEADER_RAGNAR': 20, 'LEADER_VICTORIA': 20, 'LEADER_WANGKON': 20, 'LEADER_SEJONG': 20}
+ImprovementWeight:IMPROVEMENT_VERTICAL_FARM {'LEADER_BISMARCK': 30, 'LEADER_BOUDICA': 30, 'LEADER_BRENNUS': 30, 'LEADER_CHURCHILL': 30, 'LEADER_CYRUS': 30, 'LEADER_DE_GAULLE': 30, 'LEADER_HAMMURABI': 30, 'LEADER_ISABELLA': 30, 'LEADER_JOAO': 30, 'LEADER_MEHMED': 30, 'LEADER_NAPOLEON': 30, 'LEADER_PACAL': 30, 'LEADER_PERICLES': 30, 'LEADER_PETER': 30, 'LEADER_SHAKA': 30, 'LEADER_SULEIMAN': 30, 'LEADER_WASHINGTON': 30, 'LEADER_WILLEM_VAN_ORANJE': 30, 'LEADER_ASHUR': 30, 'LEADER_RAMKHAM': 30}
+ImprovementWeight:IMPROVEMENT_WATERMILL {'LEADER_CHINESE_LEADER': 20, 'LEADER_STALIN': 20, 'LEADER_SELASSIE': 20, 'LEADER_NEBUCHADREZZAR': 20}
+ImprovementWeight:IMPROVEMENT_WINDMILL {'LEADER_BOUDICA': 20, 'LEADER_BRENNUS': 20, 'LEADER_CHURCHILL': 20, 'LEADER_CYRUS': 20, 'LEADER_ELIZABETH': 20, 'LEADER_GANDHI': 20, 'LEADER_HAMMURABI': 20, 'LEADER_HANNIBAL': 20, 'LEADER_ISABELLA': 20, 'LEADER_JOAO': 20, 'LEADER_LINCOLN': 20, 'LEADER_MANSA_MUSA': 20, 'LEADER_MEHMED': 20, 'LEADER_NAPOLEON': 20, 'LEADER_PACAL': 20, 'LEADER_PERICLES': 20, 'LEADER_PETER': 20, 'LEADER_SULEIMAN': 20, 'LEADER_WASHINGTON': 20, 'LEADER_WILLEM_VAN_ORANJE': 20, 'LEADER_ABUBAKR': 20, 'LEADER_AFONSO': 20, 'LEADER_CETSHWAYO': 20, 'LEADER_CLEOPATRA': 20, 'LEADER_DIDO': 20, 'LEADER_JOANOFARC': 20, 'LEADER_MASINISSA': 20, 'LEADER_RICHELIEU': 20, 'LEADER_WILHELMINA': 20}
+ImprovementWeight:IMPROVEMENT_WINDTRAP {'LEADER_BOUDICA': 30, 'LEADER_BRENNUS': 30, 'LEADER_CHURCHILL': 30, 'LEADER_CYRUS': 30, 'LEADER_ELIZABETH': 30, 'LEADER_GANDHI': 30, 'LEADER_HAMMURABI': 30, 'LEADER_HANNIBAL': 30, 'LEADER_ISABELLA': 30, 'LEADER_JOAO': 30, 'LEADER_LINCOLN': 30, 'LEADER_MANSA_MUSA': 30, 'LEADER_MEHMED': 30, 'LEADER_NAPOLEON': 30, 'LEADER_PACAL': 30, 'LEADER_PERICLES': 30, 'LEADER_PETER': 30, 'LEADER_SULEIMAN': 30, 'LEADER_WASHINGTON': 30, 'LEADER_WILLEM_VAN_ORANJE': 30}
+ImprovementWeight:IMPROVEMENT_WORKSHOP {'LEADER_CHINESE_LEADER': 20, 'LEADER_STALIN': 20, 'LEADER_SELASSIE': 20, 'LEADER_NEBUCHADREZZAR': 20, 'LEADER_NEFERTITI': 20}
+UnitAIWeight:UNITAI_ASSAULT_SEA {'LEADER_AUGUSTUS': 30, 'LEADER_RAGNAR': 100}
+UnitAIWeight:UNITAI_ATTACK {'LEADER_ALEXANDER': 100, 'LEADER_BRENNUS': 100, 'LEADER_CYRUS': 100, 'LEADER_HANNIBAL': 100, 'LEADER_JUSTINIAN': 100, 'LEADER_MONTEZUMA': 100, 'LEADER_STALIN': 100, 'LEADER_RAMKHAM': 100, 'LEADER_ABUBAKR': 100, 'LEADER_DIDO': 100, 'LEADER_FRANCO': 100, 'LEADER_IVAN': 100, 'LEADER_JOANOFARC': 100, 'LEADER_NEBUCHADREZZAR': 100, 'LEADER_RICHELIEU': 100}
+UnitAIWeight:UNITAI_ATTACK_CITY {'LEADER_AUGUSTUS': 60, 'LEADER_CHARLEMAGNE': 100, 'LEADER_KUBLAI_KHAN': 100, 'LEADER_LOUIS_XIV': 100, 'LEADER_SULEIMAN': 100, 'LEADER_DEGANAWIDA': 100, 'LEADER_HENRY_VIII': 100, 'LEADER_HIROHITO': 100, 'LEADER_MASINISSA': 100}
+UnitAIWeight:UNITAI_ATTACK_SEA {'LEADER_AUGUSTUS': 25, 'LEADER_ISABELLA': 100, 'LEADER_PERICLES': 100, 'LEADER_PETER': 100}
+UnitAIWeight:UNITAI_CITY_COUNTER {'LEADER_DARIUS': 100, 'LEADER_HUAYNA_CAPAC': 100, 'LEADER_LINCOLN': 100, 'LEADER_TOKUGAWA': 100}
+UnitAIWeight:UNITAI_CITY_DEFENSE {'LEADER_AUGUSTUS': 20, 'LEADER_CHURCHILL': 100, 'LEADER_GILGAMESH': 100, 'LEADER_HAMMURABI': 100, 'LEADER_SITTING_BULL': 100, 'LEADER_ZARA_YAQOB': 100, 'LEADER_BASIL': 100, 'LEADER_CLEOPATRA': 100, 'LEADER_MARCUS': 100, 'LEADER_NEFERTITI': 100}
+UnitAIWeight:UNITAI_COLLATERAL {'LEADER_AUGUSTUS': 35, 'LEADER_BISMARCK': 100, 'LEADER_MEHMED': 100, 'LEADER_QIN_SHI_HUANG': 100, 'LEADER_ASHUR': 100, 'LEADER_JAYAVARMAN': 100, 'LEADER_LENIN': 100, 'LEADER_LEONIDAS': 100, 'LEADER_SEJONG': 100}
+UnitAIWeight:UNITAI_COUNTER {'LEADER_AUGUSTUS': 30, 'LEADER_CATHERINE': 100, 'LEADER_JULIUS_CAESAR': 100, 'LEADER_NAPOLEON': 100, 'LEADER_FRANKLIN_ROOSEVELT': 100, 'LEADER_SALADIN': 100, 'LEADER_WANGKON': 100, 'LEADER_WILLEM_VAN_ORANJE': 100, 'LEADER_SUPPI': 100, 'LEADER_MONGKUT': 100, 'LEADER_AFONSO': 100, 'LEADER_CETSHWAYO': 100, 'LEADER_CHARLES_V': 100, 'LEADER_KANGXI': 100, 'LEADER_WILHELMINA': 100}
+UnitAIWeight:UNITAI_EXPLORE {'LEADER_MANSA_MUSA': 100, 'LEADER_MENELIK': 100}
+UnitAIWeight:UNITAI_EXPLORE_SEA {'LEADER_ELIZABETH': 100, 'LEADER_JOAO': 100}
+UnitAIWeight:UNITAI_ICBM {'LEADER_DE_GAULLE': 100}
+UnitAIWeight:UNITAI_PILLAGE {'LEADER_BOUDICA': 100, 'LEADER_GENGHIS_KHAN': 100, 'LEADER_CHINESE_LEADER': 100, 'LEADER_SHAKA': 100, 'LEADER_SELASSIE': 100}
+UnitAIWeight:UNITAI_RESERVE {'LEADER_ASOKA': 100, 'LEADER_AUGUSTUS': 15, 'LEADER_RAMESSES': 100, 'LEADER_SURYAVARMAN': 100, 'LEADER_WASHINGTON': 100}
+UnitAIWeight:UNITAI_RESERVE_SEA {'LEADER_AUGUSTUS': 20, 'LEADER_VICTORIA': 100}
+UnitAIWeight:UNITAI_WORKER {'LEADER_FREDERICK': 100, 'LEADER_GANDHI': 100, 'LEADER_PACAL': 100}
+
+
+# Additional leader statistics
+
+## Fields constant across all 82 leaders
+44 ['ContactRand:CONTACT_DEFENSIVE_PACT', 'MemoryAtt:MEMORY_ACCEPTED_RELIGION', 'MemoryAtt:MEMORY_ACCEPT_DEMAND', 'MemoryAtt:MEMORY_EVENT_BAD_TO_US', 'MemoryAtt:MEMORY_GIVE_HELP', 'MemoryAtt:MEMORY_INQUISITION', 'MemoryAtt:MEMORY_VOTED_AGAINST_US', 'MemoryAtt:MEMORY_VOTED_FOR_US', 'MemoryDecay:MEMORY_ACCEPTED_JOIN_WAR', 'MemoryDecay:MEMORY_ACCEPTED_STOP_TRADING', 'MemoryDecay:MEMORY_ACCEPT_DEMAND', 'MemoryDecay:MEMORY_CANCELLED_OPEN_BORDERS', 'MemoryDecay:MEMORY_DENIED_JOIN_WAR', 'MemoryDecay:MEMORY_DENIED_RELIGION', 'MemoryDecay:MEMORY_DENIED_STOP_TRADING', 'MemoryDecay:MEMORY_EVENT_BAD_TO_US', 'MemoryDecay:MEMORY_EVENT_GOOD_TO_US', 'MemoryDecay:MEMORY_GIVE_HELP', 'MemoryDecay:MEMORY_INQUISITION', 'MemoryDecay:MEMORY_MADE_DEMAND_RECENT', 'MemoryDecay:MEMORY_RECEIVED_TECH_FROM_ANY', 'MemoryDecay:MEMORY_REFUSED_HELP', 'MemoryDecay:MEMORY_REJECTED_DEMAND', 'MemoryDecay:MEMORY_STOPPED_TRADING_RECENT', 'MemoryDecay:MEMORY_TRADED_TECH_TO_US', 'NoWarProb:ATTITUDE_FRIENDLY', 'iAtPeaceAttitudeChangeLimit', 'iAtWarAttitudeChangeLimit', 'iAtWarAttitudeDivisor', 'iBonusTradeAttitudeChangeLimit', 'iDefensivePactAttitudeChangeLimit', 'iDefensivePactAttitudeDivisor', 'iDifferentReligionAttitudeChangeLimit', 'iDifferentReligionAttitudeDivisor', 'iFavoriteCivicAttitudeChange', 'iFavoriteCivicAttitudeDivisor', 'iFreedomAppreciation', 'iLostWarAttitudeChange', 'iOpenBordersAttitudeChangeLimit', 'iOpenBordersAttitudeDivisor', 'iPeaceWeightRand', 'iSameReligionAttitudeChange', 'iSameReligionAttitudeDivisor', 'iShareWarAttitudeChange']
+
+## Fields where one value covers >= 90% of leaders (but not all)
+  ContactDelay:CONTACT_ASK_FOR_HELP: 50 x81  others={10: 1, 50: 81}
+  ContactDelay:CONTACT_CIVIC_PRESSURE: 50 x81  others={10: 1, 50: 81}
+  ContactDelay:CONTACT_DEFENSIVE_PACT: 20 x78  others={10: 1, 20: 78, 30: 3}
+  ContactDelay:CONTACT_DEMAND_TRIBUTE: 50 x81  others={10: 1, 50: 81}
+  ContactDelay:CONTACT_GIVE_HELP: 50 x81  others={10: 1, 50: 81}
+  ContactDelay:CONTACT_JOIN_WAR: 20 x81  others={10: 1, 20: 81}
+  ContactDelay:CONTACT_OPEN_BORDERS: 20 x81  others={10: 1, 20: 81}
+  ContactDelay:CONTACT_PEACE_TREATY: 10 x79  others={10: 79, 20: 3}
+  ContactDelay:CONTACT_PERMANENT_ALLIANCE: 20 x78  others={10: 1, 20: 78, 40: 3}
+  ContactDelay:CONTACT_RELIGION_PRESSURE: 50 x81  others={10: 1, 50: 81}
+  ContactDelay:CONTACT_STOP_TRADING: 20 x81  others={10: 1, 20: 81}
+  ContactDelay:CONTACT_TRADE_BONUS: 20 x81  others={10: 1, 20: 81}
+  ContactDelay:CONTACT_TRADE_MAP: 50 x81  others={10: 1, 50: 81}
+  ContactDelay:CONTACT_TRADE_TECH: 30 x81  others={10: 1, 30: 81}
+  ContactRand:CONTACT_JOIN_WAR: 20 x75  others={100: 1, 20: 75, 10: 6}
+  ContactRand:CONTACT_OPEN_BORDERS: 20 x80  others={2: 1, 20: 80, 80: 1}
+  ContactRand:CONTACT_PEACE_TREATY: 20 x81  others={1000: 1, 20: 81}
+  ContactRand:CONTACT_PERMANENT_ALLIANCE: 80 x79  others={10000: 1, 80: 79, 200: 2}
+  ContactRand:CONTACT_STOP_TRADING: 50 x81  others={100: 1, 50: 81}
+  ContactRand:CONTACT_TRADE_MAP: 20 x81  others={2: 1, 20: 81}
+  DemandTributeAttitudeThreshold: 2 x81  others={3: 1, 2: 81}
+  ImprovementWeight:IMPROVEMENT_GREENFACILITY: 0 x81  others={0: 81, 20: 1}
+  ImprovementWeight:IMPROVEMENT_WATERMILL: 0 x78  others={0: 78, 20: 4}
+  ImprovementWeight:IMPROVEMENT_WORKSHOP: 0 x77  others={0: 77, 20: 5}
+  MemoryAtt:MEMORY_ACCEPTED_CIVIC: 100 x81  others={100: 81, 200: 1}
+  MemoryAtt:MEMORY_ACCEPTED_STOP_TRADING: 50 x81  others={50: 81, 55: 1}
+  MemoryAtt:MEMORY_DECLARED_WAR: -300 x81  others={-300: 81, -400: 1}
+  MemoryAtt:MEMORY_DECLARED_WAR_ON_FRIEND: -100 x80  others={-100: 80, -200: 1, -150: 1}
+  MemoryAtt:MEMORY_DENIED_JOIN_WAR: -100 x74  others={-100: 74, -200: 7, 0: 1}
+  MemoryAtt:MEMORY_DENIED_STOP_TRADING: -100 x74  others={-100: 74, -200: 7, 0: 1}
+  MemoryAtt:MEMORY_EVENT_GOOD_TO_US: 100 x79  others={100: 79, 110: 3}
+  MemoryAtt:MEMORY_HIRED_TRADE_EMBARGO: -100 x81  others={-100: 81, 0: 1}
+  MemoryAtt:MEMORY_HIRED_WAR_ALLY: -200 x75  others={-200: 75, -100: 6, -150: 1}
+  MemoryAtt:MEMORY_LIBERATED_CITIES: 150 x78  others={150: 78, 100: 1, 180: 3}
+  MemoryAtt:MEMORY_NUKED_FRIEND: -100 x81  others={-100: 81, -200: 1}
+  MemoryAtt:MEMORY_NUKED_US: -200 x81  others={-200: 81, -250: 1}
+  MemoryAtt:MEMORY_RAZED_CITY: -250 x81  others={-250: 81, -300: 1}
+  MemoryAtt:MEMORY_RAZED_HOLY_CITY: -200 x81  others={-200: 81, -100: 1}
+  MemoryAtt:MEMORY_SPY_CAUGHT: -100 x80  others={-100: 80, -200: 2}
+  MemoryAtt:MEMORY_STOPPED_TRADING: -100 x81  others={-100: 81, 0: 1}
+  MemoryDecay:MEMORY_ACCEPTED_CIVIC: 100 x81  others={100: 81, 200: 1}
+  MemoryDecay:MEMORY_ACCEPTED_RELIGION: 100 x81  others={100: 81, 80: 1}
+  MemoryDecay:MEMORY_DENIED_CIVIC: 50 x81  others={50: 81, 150: 1}
+  MemoryDecay:MEMORY_VOTED_AGAINST_US: 10 x75  others={10: 75, 20: 7}
+  MemoryDecay:MEMORY_VOTED_FOR_US: 10 x75  others={10: 75, 20: 7}
+  NoGiveHelpAttitudeThreshold: 2 x81  others={3: 1, 2: 81}
+  PermanentAllianceRefuseAttitudeThreshold: 3 x75  others={3: 75, 2: 5, 4: 2}
+  UnitAIWeight:UNITAI_ASSAULT_SEA: 0 x80  others={0: 80, 30: 1, 100: 1}
+  UnitAIWeight:UNITAI_ATTACK_SEA: 0 x78  others={0: 78, 25: 1, 100: 3}
+  UnitAIWeight:UNITAI_CITY_COUNTER: 0 x78  others={0: 78, 100: 4}
+  UnitAIWeight:UNITAI_EXPLORE: 0 x80  others={0: 80, 100: 2}
+  UnitAIWeight:UNITAI_EXPLORE_SEA: 0 x80  others={0: 80, 100: 2}
+  UnitAIWeight:UNITAI_ICBM: 0 x81  others={0: 81, 100: 1}
+  UnitAIWeight:UNITAI_PILLAGE: 0 x77  others={0: 77, 100: 5}
+  UnitAIWeight:UNITAI_RESERVE: 0 x77  others={0: 77, 100: 4, 15: 1}
+  UnitAIWeight:UNITAI_RESERVE_SEA: 0 x80  others={0: 80, 20: 1, 100: 1}
+  UnitAIWeight:UNITAI_WORKER: 0 x79  others={0: 79, 100: 3}
+  iAtPeaceAttitudeDivisor: 60 x79  others={60: 79, 50: 2, 70: 1}
+  iAttackOddsChangeRand: 8 x77  others={8: 77, 10: 4, 6: 1}
+  iBonusTradeAttitudeDivisor: 50 x81  others={50: 81, 60: 1}
+  iDeclareWarTradeRand: 40 x80  others={40: 80, 30: 1, 60: 1}
+  iMaxGoldPerTurnTradePercent: 10 x79  others={10: 79, 15: 3}
+  iShareWarAttitudeDivisor: 8 x81  others={8: 81, 6: 1}
+
+## Pair diffs for nearest clones
+  LEADER_FRANCO vs LEADER_JUSTINIAN: 4 diffs: {'iConquestVictoryWeight': (45, 10), 'iCultureVictoryWeight': (5, 30), 'iDiplomacyVictoryWeight': (10, 50), 'iSpaceVictoryWeight': (10, 25)}
+  LEADER_KANGXI vs LEADER_CATHERINE: 7 diffs: {'ConvertReligionRefuseAttitudeThreshold': (3, 2), 'Flavor:FLAVOR_CULTURE': (2, 5), 'Flavor:FLAVOR_MILITARY': (5, 2), 'iConquestVictoryWeight': (60, 55), 'iDominationVictoryWeight': (15, 30), 'iEspionageWeight': (100, 130), 'iSpaceVictoryWeight': (10, 25)}
+  LEADER_HIROHITO vs LEADER_CHARLEMAGNE: 5 diffs: {'iConquestVictoryWeight': (30, 20), 'iCultureVictoryWeight': (5, 45), 'iDiplomacyVictoryWeight': (5, 25), 'iDominationVictoryWeight': (55, 45), 'iSpaceVictoryWeight': (10, 15)}
+  LEADER_JOANOFARC vs LEADER_BRENNUS: 8 diffs: {'ImprovementWeight:IMPROVEMENT_VERTICAL_FARM': (0, 30), 'ImprovementWeight:IMPROVEMENT_WINDTRAP': (0, 30), 'iCultureVictoryWeight': (35, 0), 'iDiplomacyVictoryWeight': (10, 55), 'iDominationVictoryWeight': (5, 35), 'iEspionageWeight': (100, 110), 'iSpaceVictoryWeight': (5, 30), 'iVassalPowerModifier': (10, 0)}
+  LEADER_IVAN vs LEADER_MONTEZUMA: 6 diffs: {'MemoryDecay:MEMORY_VOTED_AGAINST_US': (20, 10), 'MemoryDecay:MEMORY_VOTED_FOR_US': (20, 10), 'iConquestVictoryWeight': (30, 70), 'iDiplomacyVictoryWeight': (15, 25), 'iDominationVictoryWeight': (10, 30), 'iSpaceVictoryWeight': (10, 0)}
+  LEADER_CETSHWAYO vs LEADER_SHAKA: 66 diffs: {'AdoptCivicRefuseAttitudeThreshold': (3, 2), 'ContactDelay:CONTACT_DEFENSIVE_PACT': (30, 20), 'ContactDelay:CONTACT_PEACE_TREATY': (20, 10), 'ContactDelay:CONTACT_PERMANENT_ALLIANCE': (40, 20), 'ContactRand:CONTACT_ASK_FOR_HELP': (350, 250), 'ContactRand:CONTACT_DEMAND_TRIBUTE': (700, 1000), 'ContactRand:CONTACT_PERMANENT_ALLIANCE': (200, 80), 'ContactRand:CONTACT_TRADE_BONUS': (50, 5), 'ConvertReligionRefuseAttitudeThreshold': (3, 1), 'DeclareWarRefuseAttitudeThreshold': (2, 1), 'DefensivePactRefuseAttitudeThreshold': (2, 3), 'Flavor:FLAVOR_MILITARY': (3, 10), 'Flavor:FLAVOR_SCIENCE': (5, 0), 'HappinessBonusRefuseAttitudeThreshold': (2, 1), 'HealthBonusRefuseAttitudeThreshold': (2, 0), 'ImprovementWeight:IMPROVEMENT_VERTICAL_FARM': (0, 30), 'ImprovementWeight:IMPROVEMENT_WINDMILL': (20, 0), 'MapRefuseAttitudeThreshold': (4, 1), 'MemoryAtt:MEMORY_DENIED_CIVIC': (-200, -100), 'MemoryAtt:MEMORY_DENIED_JOIN_WAR': (-200, -100), 'MemoryAtt:MEMORY_DENIED_RELIGION': (-50, -100), 'MemoryAtt:MEMORY_DENIED_STOP_TRADING': (-200, -100), 'MemoryAtt:MEMORY_EVENT_GOOD_TO_US': (110, 100), 'MemoryAtt:MEMORY_HIRED_WAR_ALLY': (-100, -200), 'MemoryAtt:MEMORY_LIBERATED_CITIES': (180, 150), 'MemoryAtt:MEMORY_REFUSED_HELP': (-200, -100), 'MemoryAtt:MEMORY_TRADED_TECH_TO_US': (8, 5), 'MemoryDecay:MEMORY_VOTED_AGAINST_US': (20, 10), 'MemoryDecay:MEMORY_VOTED_FOR_US': (20, 10), 'NoWarProb:ATTITUDE_ANNOYED': (10, 0), 'NoWarProb:ATTITUDE_CAUTIOUS': (50, 40), 'NoWarProb:ATTITUDE_PLEASED': (85, 90), 'OpenBordersRefuseAttitudeThreshold': (2, 1), 'PermanentAllianceRefuseAttitudeThreshold': (4, 3), 'StopTradingThemRefuseAttitudeThreshold': (3, 2), 'StrategicBonusRefuseAttitudeThreshold': (3, 2), 'UnitAIWeight:UNITAI_COUNTER': (100, 0), 'UnitAIWeight:UNITAI_PILLAGE': (0, 100), 'VassalRefuseAttitudeThreshold': (2, 3), 'iBaseAttackOddsChange': (0, 4), 'iBasePeaceWeight': (1, 2), 'iBetterRankDifferenceAttitudeChange': (1, 0), 'iBuildUnitProb': (30, 40), 'iCloseBordersAttitudeChange': (-3, -4), 'iConquestVictoryWeight': (0, 60), 'iCultureVictoryWeight': (0, 25), 'iDemandRebukedSneakProb': (60, 40), 'iDemandRebukedWarProb': (25, 40), 'iDifferentReligionAttitudeChange': (-1, 0), 'iDiplomacyVictoryWeight': (0, 15), 'iDogpileWarRand': (25, 50), 'iDominationVictoryWeight': (0, 35), 'iFavoriteCivicAttitudeChangeLimit': (5, 2), 'iLimitedWarRand': (60, 160), 'iMakePeaceRand': (40, 80), 'iMaxWarDistantPowerRatio': (30, 50), 'iMaxWarMinAdjacentLandPercent': (4, 0), 'iMaxWarNearbyPowerRatio': (100, 90), 'iMaxWarRand': (100, 50), 'iRazeCityProb': (0, 50), 'iRefuseToTalkWarThreshold': (8, 10), 'iSpaceVictoryWeight': (0, 15), 'iTechTradeKnownPercent': (100, 50), 'iVassalPowerModifier': (0, 20), 'iWonderConstructRand': (20, 10), 'iWorseRankDifferenceAttitudeChange': (0, -2)}
+
+## AI-AI peace-weight attitude term 4-|pwA-pwB| (pw = iBasePeaceWeight + rand(iPeaceWeightRand))
+  min -8 max 4 mean 0.44
+  share <= -3 (alone enough for ANNOYED from 0): 15.7%; share >= 3 (alone PLEASED): 26.3%
+  warmonger-respect term min(a,b): mean 0.54 dist {0: 3886, 1: 1944, 2: 812}
+
+## Victory stage>=1 activation over the 100 equiprobable values of StrategyRand%100 (no game options)
+  P(no victory inclination at all) per leader: min 0% max 100% mean 9.8%
+  leaders with >=50%% chance of no inclination: [('LEADER_CETSHWAYO', 100)]
+  with AGGRESSIVE_AI: mean P(stage1) = Culture 12.2%, Space 8.7%, Conquest 50.5%, Domination 47.0%, Diplomacy 11.3%
+  with ALWAYS_PEACE: mean P(stage1) = Culture 58.6%, Space 53.4%, Conquest 0.0%, Domination 0.0%, Diplomacy 57.2%
+
+## corr(conquest weight, per-turn total+limited war trigger prob) = 0.37
+## corr(culture weight, flavor culture) = 0.47
+## corr(space weight, flavor science) = 0.21
+
+## Expected war-plan dice successes per game if eligible every turn (threshold 0: P=1/rand)
+  most warlike (min MaxWarRand): LEADER_GENGHIS_KHAN per-turn total 2.00% limited 2.45% dogpile 1.91%
+  least warlike: LEADER_GANDHI per-turn total 0.25% limited 0.50% dogpile 0.99%
+  roster mean per-turn P(any war dice success) = 4.25%
+   Blitz       215 turns: roster-mean expected successes    9.1; most-warlike   17.8; least   3.2
+   Quick       352 turns: roster-mean expected successes   15.0; most-warlike   29.1; least   5.3
+   Normal      700 turns: roster-mean expected successes   29.8; most-warlike   57.9; least  10.4
+   Epic       1050 turns: roster-mean expected successes   44.6; most-warlike   86.9; least  15.7
+   Marathon   1470 turns: roster-mean expected successes   62.5; most-warlike  121.6; least  21.9
+   Snail      3000 turns: roster-mean expected successes  127.5; most-warlike  248.2; least  44.8
+  makePeace per-turn gate P: min 0.8% max 10.0% mean 4.4%
+
+## Memory decay: expected turns per decrement (=rand) vs game length
+  MEMORY_ACCEPTED_CIVIC: rand values [100, 200]
+  MEMORY_ACCEPTED_JOIN_WAR: rand values [150]
+  MEMORY_ACCEPTED_RELIGION: rand values [80, 100]
+  MEMORY_ACCEPTED_STOP_TRADING: rand values [100]
+  MEMORY_ACCEPT_DEMAND: rand values [50]
+  MEMORY_CANCELLED_OPEN_BORDERS: rand values [10]
+  MEMORY_DENIED_CIVIC: rand values [50, 150]
+  MEMORY_DENIED_JOIN_WAR: rand values [100]
+  MEMORY_DENIED_RELIGION: rand values [50]
+  MEMORY_DENIED_STOP_TRADING: rand values [50]
+  MEMORY_EVENT_BAD_TO_US: rand values [50]
+  MEMORY_EVENT_GOOD_TO_US: rand values [50]
+  MEMORY_GIVE_HELP: rand values [200]
+  MEMORY_INQUISITION: rand values [25]
+  MEMORY_MADE_DEMAND_RECENT: rand values [20]
+  MEMORY_RECEIVED_TECH_FROM_ANY: rand values [20]
+  MEMORY_REFUSED_HELP: rand values [100]
+  MEMORY_REJECTED_DEMAND: rand values [150]
+  MEMORY_STOPPED_TRADING_RECENT: rand values [30]
+  MEMORY_TRADED_TECH_TO_US: rand values [100]
+  MEMORY_VOTED_AGAINST_US: rand values [10, 20]
+  MEMORY_VOTED_FOR_US: rand values [10, 20]
+  memories with attitude but no decay entry (permanent): ['MEMORY_DECLARED_WAR', 'MEMORY_DECLARED_WAR_ON_FRIEND', 'MEMORY_HIRED_TRADE_EMBARGO', 'MEMORY_HIRED_WAR_ALLY', 'MEMORY_LIBERATED_CITIES', 'MEMORY_MADE_DEMAND', 'MEMORY_NUKED_FRIEND', 'MEMORY_NUKED_US', 'MEMORY_RAZED_CITY', 'MEMORY_RAZED_HOLY_CITY', 'MEMORY_SPY_CAUGHT', 'MEMORY_STOPPED_TRADING']
+
+## Tech flavor bonus (affinity*20*35/100) added to AI_techValue
+  over all leader x tech: min 0 max 700 mean 92.8
+  per-tech spread across leaders (max-min): mean 266.7 max 700
+  buildings with flavors (core XML): 370; building affinity added to AI_buildingValue: min 0 max 100 mean 8.7
+  building flavor magnitudes: {1: 8, 2: 18, 3: 13, 4: 28, 5: 19, 6: 21, 7: 11, 8: 27, 9: 1, 10: 359, 15: 3, 20: 7}
+
+## Strategy-hash flavor thresholds
+  FLAVOR_PRODUCTION>=2 (AI_STRATEGY_PRODUCTION): 14 leaders
+  dagger personality part 12000/max(100,50+MaxWarRand): values [26, 34, 40, 48, 70, 80, 85, 100, 120] (then *(rand%11)/10; +5*min(8,MIL) -> [0, 10, 15, 20, 25, 40] )
+  civic iWarmongerPercent 25000/max(100,100+MaxWarRand): {50: 3, 62: 9, 71: 2, 83: 23, 113: 1, 125: 33, 131: 1, 147: 1, 166: 9}
+  city iMaxUnitSpending base 3+BuildUnitProb/3 (non-aggressive): {8: 1, 9: 11, 11: 24, 13: 32, 14: 8, 15: 1, 16: 5}
+  attack-odds optimism: base range 0..6, mean of base+2*E[rand] = 8.7

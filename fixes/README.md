@@ -1,12 +1,112 @@
 # Tested source fixes
 
+## Late-game turn time and save consistency
+
+[0015-late-game.patch](0015-late-game.patch) is the current incremental patch for
+GitLab **`main` at `005988c`** (patch 0014 merged). It has **landed on GitLab `main`**
+([!40](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/40),
+merge commit `b88a5c0`, tree `1bff86a8` = the tested tree). A clone of current `main`
+needs nothing applied; only the DLL below has to be installed.
+
+- **Turn time.** From a Mediterranean Marathon snapshot at turn 400 (342 cities, about
+  1,800 units), `CvCity::canTrain` took a fifth of the turn.
+  `AI_buildingValueThreshold` asked, for every building and every unit combat type,
+  whether the city could train any unit of that type (a scan over all unit classes)
+  before checking whether the building gives that type any experience. `AI_bestUnitAI`
+  asked `canTrain` and `AI_unitValue` twice for every unit. Both give the same answers
+  with fewer calls. The snapshot plays out identically, `canTrain` calls drop from 3.8
+  to 1.3 million, and the turns take 17 % less time.
+- **Reloaded games.** A game saved at the start of a turn and loaded again played
+  differently from the game that saved it. `AI_getAnyPlotDanger` flagged plots as
+  border danger for the enemy team, and on the enemy's plot, without knowing either. The
+  flags are not saved and were cleared only by war, peace or a nearby change of owner, so
+  the running game kept marking safe plots as dangerous and a reloaded game did not.
+  Now only the queried plot and team are flagged, and the flags are cleared every turn.
+  With patch 0014's attitude fix, a game reloaded from a turn-start snapshot plays
+  exactly like the running game: checked over 12 turns on Mediterranean and 25 turns
+  on Earth 12. Before these fixes, a multiplayer player who rejoined could go out of sync.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/late-game-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/late-game-manifest.json
+```
+
+**30 regression programs pass.** The DLL is built with MSVC 2003: 0 errors, 0 warnings,
+the same 2451 exports. Use [`builds/0015/CvGameCoreDLL.dll`](../builds/0015/CvGameCoreDLL.dll)
+(it includes patch 0014); the save format is unchanged. The game executable was not run.
+
+[Investigation](../research/diplomacy/README.md) · [Manifest](late-game-manifest.json) ·
+[Before](late-game-before.log) · [Suite](late-game-regression.log) ·
+[Patch verification](late-game-patch-validation.log) · [Clang gate](late-game-clang-gate.log) ·
+[Build provenance](../builds/0015/provenance.json).
+
+## Diplomacy: power overflow, deal valuation, attitude lag, new deal shapes
+
+[0014-diplomacy.patch](0014-diplomacy.patch) is the previous incremental patch, for
+GitLab **`main` at `93ae873`** (patch 0013 merged). It has **landed on GitLab `main`**
+([!39](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/39),
+merge commit `005988c`, tree `64beca6f` = the tested tree).
+
+Defects found by mapping the AI's deal, attitude and personality code
+([research/diplomacy](../research/diplomacy/README.md)):
+
+- **Overflow.** Team power reaches 10^5 and more in RoM's later eras. Power products
+  in the peace, surrender, offer and paranoia valuations overflowed 32 bits. Peace
+  values became garbage, and capitulation was refused once both powers passed about
+  33,000. These products are now computed in 64 bits.
+- **Deal valuation.**
+  - A received resource was valued as a spare copy, a fifth of its value.
+  - AI-to-AI resource swaps had no value check. Each side must now gain at least two
+    thirds of what the other gains.
+  - Peace gold was counted 1:1, while the deal valuation prices gold at 2 to 3 value
+    per gold.
+  - The second tech of a war-hire deal was compared with the wrong best value.
+  - An embargo was priced from all of the target's deals, not just those with the
+    embargoed team.
+- **Personality and attitude.**
+  - Help and tribute thresholds were read from the other player's leader.
+  - Favourite religion and espionage weight were read from the leader, not the
+    personality.
+  - A victory flag was tested against the strategy bits.
+  - Leaders with MaxWarRand below 100 refused every capitulation.
+  - Memories and gifts did not refresh the cached attitude.
+  - Team counters (turns at war, at peace, shared war) advanced a turn before the
+    attitudes that use them.
+  - The "do not bother" path rolled the asynchronous generator inside the synchronous
+    AI turn, a multiplayer desync.
+- **New deal shapes.** AI vassals are asked about tribute. The AI sells a tech for gold
+  and pays gold per turn for a resource.
+
+Six Epic pairs in the corrected harness, 0013 against 0014:
+
+| Measure | 0013 | 0014 |
+|---|---|---|
+| AI-to-AI resource swaps per 100 turns | 44.7 | 23.4 (lower in all 6) |
+| Wars per 100 turns | 7.8 | 6.5 |
+| Median power ratio when declaring | 1.20 | 1.39 |
+| Cities taken per war | 1.01 | 1.17 |
+
+Techs and cities stay within noise.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/diplomacy-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/diplomacy-manifest.json
+```
+
+**29 regression programs pass.** MSVC 2003: 0 errors, 0 warnings, the same 2451 exports
+([`builds/0014/CvGameCoreDLL.dll`](../builds/0014/CvGameCoreDLL.dll), superseded by
+[`builds/0015`](../builds/0015/CvGameCoreDLL.dll)); the save format is unchanged.
+
+[Manifest](diplomacy-manifest.json) · [Before](diplomacy-before.log) ·
+[Suite](diplomacy-regression.log) · [Patch verification](diplomacy-patch-validation.log) ·
+[Clang gate](diplomacy-clang-gate.log) · [Build provenance](../builds/0014/provenance.json).
+
 ## Upkeep traps: Rome without Writing, settlers
 
-[0013-upkeep-traps.patch](0013-upkeep-traps.patch) is the current incremental patch for
+[0013-upkeep-traps.patch](0013-upkeep-traps.patch) is an earlier incremental patch, for
 GitLab **`main` at `abf8471`** (patch 0012 merged). It has **landed on GitLab `main`**
 ([!38](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/38),
-merge commit `93ae873`, tree `5b4dd668` = the tested tree). A clone of current `main`
-needs nothing applied; only the DLL below has to be installed.
+merge commit `93ae873`, tree `5b4dd668` = the tested tree).
 
 It answers two questions on the same Masinissa save. Rome kept the Mercenaries civic for
 125 turns: unit charges took 45 of its 96 commerce, research ran at 3 beakers a turn and,
@@ -33,8 +133,8 @@ python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/upkeep-traps-ma
 ```
 
 **28 regression programs pass.** The DLL is built with MSVC 2003: 0 errors, 0 warnings,
-the same 2451 exports. Use [`builds/0013/CvGameCoreDLL.dll`](../builds/0013/CvGameCoreDLL.dll);
-the save format is unchanged. The game executable was not run.
+the same 2451 exports ([`builds/0013/CvGameCoreDLL.dll`](../builds/0013/CvGameCoreDLL.dll), superseded
+by [`builds/0015`](../builds/0015/CvGameCoreDLL.dll)); the save format is unchanged. The game executable was not run.
 
 [Investigation](../research/rome-and-settlers/README.md) · [Manifest](upkeep-traps-manifest.json) ·
 [Before](upkeep-traps-before.log) · [Suite](upkeep-traps-regression.log) ·

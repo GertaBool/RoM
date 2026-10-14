@@ -187,8 +187,12 @@ from one replay message the load adds and the slot claims `CvInitCore::read`
 converts. A game continued from a snapshot should play exactly like the game
 that wrote it; where it does not, the DLL keeps state between turns that a save
 does not carry, and in multiplayer a rejoining player would go out of sync.
-Found this way: the team counters (turns at war, at peace, shared war) advanced
-a turn before the attitudes that use them were refreshed (fixed in patch 0014).
+Found this way, with the random-number log locating the first differing draw:
+the team counters (turns at war, at peace, shared war) advanced a turn before the
+attitudes that use them were refreshed (fixed in patch 0014), and the AI's
+border-danger flags were set where nothing was known and never cleared (fixed in
+patch 0015). With both fixes a continuation from a turn-start snapshot is identical
+to the running game (`research/diplomacy/tools/roundtrip.sh`).
 
 ## Profiling
 

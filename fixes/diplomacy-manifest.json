@@ -1,0 +1,89 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "93ae873fffa1f2677a16c80e68c4f2992267e5c0",
+  "base_tree": "5b4dd66843e5280c5f1f6190a8bee0bfd8df121b",
+  "base_note": "GitLab main after merge request !38 (patch 0013); same tree as the tested base 7f72bd4",
+  "tested_source_commit": "81ae534ecb474b0e203693f418cd4e4e4482fd21",
+  "tested_source_tree": "64beca6f676d0f6fe2333b1f44e5679405123011",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!39",
+    "main_commit": "005988c9144d00bfe273a4f924ebb28c8c9951da",
+    "main_tree_equals_tested_tree": true,
+    "uploaded_as": "24 hunk commits on claude/diplomacy-fixes (GitLab API); each round checked against the planned state, branch tree compared with the tested tree before merging"
+  },
+  "patch": "0014-diplomacy.patch",
+  "patch_sha256": "12185b7ff857dc49e5e64e41c9abfaeb450a8672184cad01f76c58740438a936",
+  "relationship_to_prior_patch": "Incremental on GitLab main after merge request !38 (patch 0013). Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "reported": "Diplomacy and leaderhead research: make AI opponents competent in deals, war and peace",
+  "root_causes": {
+    "power_overflow": "team power reaches 10^5+ in later eras (unit power up to 2100); 32-bit power products in AI_endWarVal, AI_surrenderTrade, AI_considerOffer and the paranoia term overflowed; capitulation was refused once both powers passed ~33,000",
+    "received_resource": "a received resource was valued with iChange -1 (a spare copy, a fifth of its value)",
+    "ai_resource_swaps": "AI-to-AI resource swaps had no value check",
+    "peace_gold": "AI_doPeace counted gold 1:1 while AI_dealVal prices it at AI_goldTradeValuePercent (2-3 value per gold)",
+    "war_hire": "the second war-hire tech was compared with the first tech's best value",
+    "embargo": "AI_stopTradingTradeVal priced all of the target's cancellable deals, not those with the embargoed team",
+    "thresholds": "give-help and tribute thresholds were read from the other player's leader",
+    "personality": "favourite religion and espionage weight were read from the leader, not the personality",
+    "victory_flag": "AI_getCloseBordersAttitude tested AI_VICTORY_CONQUEST3 against the strategy bits (bit 7 = AI_STRATEGY_FINAL_WAR)",
+    "capitulation": "AI_acceptSurrender required >= MaxWarRand/100 valuable cities; for MaxWarRand < 100 the bound was 0 and every capitulation was refused",
+    "attitude_cache": "memories and peacetime grants did not refresh the attitude cache; team counters advanced at turn rollover while member attitude caches were cleared only at the end of each player's next turn (attitudes lagged a turn; a reloaded game played differently)",
+    "async_roll": "the 'do not bother' path of AI_beginDiplomacy rolled the asynchronous generator in the synchronous AI turn",
+    "vassal_tribute": "AI vassals were never asked about tribute (only human vassals)",
+    "missing_deal_shapes": "the AI never offered a tech for gold or gold per turn for a resource"
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/AIDiplomacyPolicy.h": {
+      "before_sha256": "61e58342dbe4a8a166182c98f68adb97634805a0b183c4491dffde510e190559",
+      "after_sha256": "20f9391332b1b3457d3022eb7dff07d0ac51a46f24526b5db576d438bf780dfe"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "07ac7d738eb7d070407e98fc4b4d6cb0e52169e59aba9fb31bb2fbf834b18329",
+      "after_sha256": "a6c66958261288b9ceb861491449c63f916ee15efa06a8a1cce927f74c7d0bb3"
+    },
+    "Assets/CvGameCoreDLL/CvTeamAI.cpp": {
+      "before_sha256": "e60d0ae974d88f6e1a62d3aa2818fc78ecee61d0501c26b14a2f65d187c15d55",
+      "after_sha256": "4f3470d5d971a00cd5c79554028ab5013ea4d10bdee398664f76d85867dbe086"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "f2f375b73659dd0bfcf549177bb932d7cbb07f65efb9f0351d60752abad055a2",
+      "after_sha256": "208e6e8335df01b99b385c98502004f33c7adde3279d2601d0d1e3e893bf2bb1"
+    },
+    "Tools/test_diplomacy_fixes.py": {
+      "before_sha256": null,
+      "after_sha256": "cde7453606b65aab67b21c9d41d43542f8c5446b541b3580157b71d1870af26c"
+    }
+  },
+  "validation": {
+    "suite_programs": 29,
+    "suite_failures": 0,
+    "new_tests": [
+      "Tools/test_diplomacy_fixes.py"
+    ],
+    "new_test_against_base": "all 14 test cases fail (13 failures, 1 error: scaleByRatio undefined)",
+    "native_standard": "C++03",
+    "clang_gate": {
+      "translation_units": [
+        "CvPlayerAI.cpp",
+        "CvTeamAI.cpp"
+      ],
+      "baseline": "0 errors/35 warnings",
+      "patched": "0 errors/35 warnings",
+      "new_diagnostics": 0
+    },
+    "msvc_build": {
+      "compiler": "Microsoft C/C++ 13.10.3077 (Visual C++ Toolkit 2003)",
+      "errors": 0,
+      "warnings": 0,
+      "exports": 2451,
+      "exports_equal_to_previous_release": true
+    },
+    "real_dll_harness": "research/diplomacy: corrected harness campaign, 0013 vs 0014 on Mediterranean and Earth 12 WorldBuilder scenarios (Epic 300 turns, Marathon 590 turns), and the save/reload determinism check"
+  }
+}
