@@ -1,13 +1,60 @@
 # Tested source fixes
 
+## Autorun fixes: endless turn, turn time, settlers and AI economy
+
+[0012-autorun-fixes.patch](0012-autorun-fixes.patch) is the current incremental patch for
+GitLab **`main` at `dcbae97`** (patch 0011 and its documentation follow-up). It has
+**landed on GitLab `main`** ([!37](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/37),
+merge commit `abf8471`, tree `c56ade12` = the tested tree). A clone of current `main`
+needs nothing applied; only the DLL below has to be installed.
+
+It answers the autorun report as Masinissa (Marathon save at 410 BC, game turn 269).
+Everything was checked by loading that save into the real DLL in the
+[headless harness](../toolchain/harness/README.md) and playing on with every seat on AI.
+
+- **"Waiting for other players" forever.** A lone Javelineer with a worker job pathed onto
+  a tile holding an enemy unit. `groupMove` put it into a new group on every update slice
+  and the player's unit loop stopped at it, so the turn never ended, also after reloading.
+  `groupPathTo` now ends a mission no unit can step on, the worker searches skip tiles
+  with visible enemies, and a watchdog ends the moves of a unit that keeps losing its
+  group. Before: turn 269 never ends. After: turns 269 to 299 played.
+- **Turn time** (turns 270 to 279): 9.6 s per turn on every build since `d8cedd5`, 2.6 s
+  now. `pathValid` remembers its parent-plot tests per expansion, exploration searches
+  candidates best bound first and skips plots out of range (both exact: identical game
+  state), upgrade reachability is cached, and trade denial is tested last.
+- **Settlers.** Settlement sites count only if a settler can be delivered there from its
+  region (own or unclaimed land; sea reached by a transport the player can build).
+  Settlers with nothing deliverable are disbanded after max(20, scaled 10) turns, lone
+  settlers recruit a spare defender, a transport at sea without escort returns to port,
+  and a city with a waiting settler builds a boat when only overseas sites remain.
+  Chronic idle settlers: 8 without the changes, 3 with.
+- **Buildings and technologies.** Cities that cannot train a city-defence unit (no
+  Archery or Bronze Working) trained Spearmen at every decision, because Spearmen never
+  count as garrison; they now do in that case. `AI_goldTarget` scaled slow speeds twice
+  and hoarded gold at low research. Over 30 turns: research +21 %, 100 techs against 79,
+  347 buildings against 238.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/autorun-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/autorun-manifest.json
+```
+
+**27 regression programs pass.** The DLL is built with MSVC 2003: 0 errors, 0 warnings,
+the same 2451 exports. Use [`builds/0012/CvGameCoreDLL.dll`](../builds/0012/CvGameCoreDLL.dll);
+the save format is unchanged. The game executable was not run.
+
+[Investigation](../research/autorun-masinissa/README.md) · [Manifest](autorun-manifest.json) ·
+[Before](autorun-before.log) · [Suite](autorun-regression.log) ·
+[Patch verification](autorun-patch-validation.log) · [Clang gate](autorun-clang-gate.log) ·
+[Build provenance](../builds/0012/provenance.json).
+
 ## Settler landing: escorts at sea
 
-[0011-settler-landing-escort.patch](0011-settler-landing-escort.patch) is the current
+[0011-settler-landing-escort.patch](0011-settler-landing-escort.patch) is the previous
 incremental patch for GitLab **`main` at `86af2ab`** (patch 0010 merged). It has **landed on
 GitLab `main`** ([!36](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/36),
 merge commit `9b6c47c`, tree `2f144cfd` = the tested tree), followed by a documentation-only
-correction (`dcbae97`). A clone of current `main` needs nothing applied; only the DLL below
-has to be installed.
+correction (`dcbae97`). Its DLL is superseded by [`builds/0012`](../builds/0012/CvGameCoreDLL.dll).
 
 It fixes the reported failure: the galley sailed to the tile in front of the site and
 stayed there with the settler and escort aboard. Patch 0008 did not fix this.
@@ -32,7 +79,7 @@ python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/landing-escort-
 ```
 
 **24 regression programs pass.** The DLL is built with MSVC 2003: 0 errors, 0 warnings,
-the same 2451 exports. Use [`builds/0011/CvGameCoreDLL.dll`](../builds/0011/CvGameCoreDLL.dll);
+the same 2451 exports ([`builds/0011/CvGameCoreDLL.dll`](../builds/0011/CvGameCoreDLL.dll), superseded);
 the save format is unchanged. The game executable was not run.
 
 [Investigation](../research/landing-engine/README.md) · [Manifest](landing-escort-manifest.json) ·

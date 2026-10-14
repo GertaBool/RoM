@@ -1,0 +1,69 @@
+# Settlers per civilization: start of the save (turn 269) -> end of run.
+# 10 turns without and with the settler changes (economy changes not yet in either), then the final patch over 30 turns.
+== without settler changes (10 turns) end turn 279
+  AFONSO                     cities  4 ->  4  settlers 0 idle 0 oldest 0
+  ALEXANDER                  cities  4 ->  6  settlers 0 idle 0 oldest 0
+  AUGUSTUS                   cities  4 ->  4  settlers 0 idle 0 oldest 0
+  BRENNUS                    cities  6 ->  6  settlers 4 idle 3 oldest 36
+  CHARLEMAGNE                cities  8 ->  8  settlers 0 idle 0 oldest 0
+  CHARLES_V                  cities  7 ->  7  settlers 0 idle 0 oldest 0
+  HAMMURABI                  cities 13 -> 15  settlers 5 idle 5 oldest 22
+  HANNIBAL                   cities  8 ->  7  settlers 1 idle 1 oldest 9
+  HENRY_VIII                 cities  5 ->  5  settlers 0 idle 0 oldest 0
+  IVAN                       cities  7 ->  7  settlers 4 idle 4 oldest 44
+  JOAO                       cities 11 -> 11  settlers 2 idle 1 oldest 74
+  LEONIDAS                   cities  5 ->  5  settlers 1 idle 1 oldest 14
+  MASINISSA                  cities  7 ->  9  settlers 2 idle 0 oldest 4
+  PERICLES                   cities  6 ->  6  settlers 1 idle 1 oldest 27
+  PETER                      cities  6 ->  6  settlers 0 idle 0 oldest 0
+  RAMESSES                   cities  7 ->  7  settlers 2 idle 2 oldest 7
+  SUPPI                      cities  3 ->  2  settlers 0 idle 0 oldest 0
+  WILLEM_VAN_ORANJE          cities  7 ->  7  settlers 2 idle 0 oldest 35
+  TOTAL cities 118 -> 122, settlers 24, idle 18
+== with settler changes (10 turns) end turn 279
+  AFONSO                     cities  4 ->  4  settlers 0 idle 0 oldest 0
+  ALEXANDER                  cities  4 ->  5  settlers 1 idle 1 oldest 3
+  AUGUSTUS                   cities  4 ->  4  settlers 0 idle 0 oldest 0
+  BRENNUS                    cities  6 ->  6  settlers 4 idle 3 oldest 36
+  CHARLEMAGNE                cities  8 ->  8  settlers 0 idle 0 oldest 0
+  CHARLES_V                  cities  7 ->  7  settlers 0 idle 0 oldest 0
+  HAMMURABI                  cities 13 -> 15  settlers 5 idle 5 oldest 22
+  HANNIBAL                   cities  8 ->  7  settlers 1 idle 1 oldest 9
+  HENRY_VIII                 cities  5 ->  5  settlers 0 idle 0 oldest 0
+  IVAN                       cities  7 ->  7  settlers 2 idle 2 oldest 25
+  JOAO                       cities 11 -> 11  settlers 2 idle 1 oldest 74
+  LEONIDAS                   cities  5 ->  5  settlers 1 idle 1 oldest 14
+  MASINISSA                  cities  7 ->  9  settlers 2 idle 1 oldest 5
+  PERICLES                   cities  6 ->  6  settlers 1 idle 0 oldest 27
+  PETER                      cities  6 ->  6  settlers 0 idle 0 oldest 0
+  RAMESSES                   cities  7 ->  8  settlers 1 idle 1 oldest 1
+  SUPPI                      cities  3 ->  2  settlers 0 idle 0 oldest 0
+  WILLEM_VAN_ORANJE          cities  7 ->  7  settlers 2 idle 0 oldest 35
+  TOTAL cities 118 -> 122, settlers 22, idle 16
+== patch 0012 (30 turns) end turn 299
+  AFONSO                     cities  4 ->  4  settlers 0 idle 0 oldest 0
+  ALEXANDER                  cities  4 ->  6  settlers 0 idle 0 oldest 0
+  AUGUSTUS                   cities  4 ->  4  settlers 0 idle 0 oldest 0
+  BRENNUS                    cities  6 ->  9  settlers 1 idle 0 oldest 45
+  CHARLEMAGNE                cities  8 ->  8  settlers 0 idle 0 oldest 0
+  CHARLES_V                  cities  7 ->  7  settlers 0 idle 0 oldest 0
+  HAMMURABI                  cities 13 -> 22  settlers 5 idle 5 oldest 11
+  HANNIBAL                   cities  8 ->  5  settlers 1 idle 1 oldest 29
+  HENRY_VIII                 cities  5 ->  5  settlers 2 idle 1 oldest 4
+  IVAN                       cities  7 ->  7  settlers 0 idle 0 oldest 0
+  JOAO                       cities 11 -> 13  settlers 0 idle 0 oldest 0
+  LEONIDAS                   cities  5 ->  5  settlers 0 idle 0 oldest 0
+  MASINISSA                  cities  7 -> 15  settlers 0 idle 0 oldest 0
+  PERICLES                   cities  6 ->  7  settlers 2 idle 2 oldest 16
+  PETER                      cities  6 ->  8  settlers 3 idle 3 oldest 3
+  RAMESSES                   cities  7 ->  9  settlers 1 idle 1 oldest 4
+  SUPPI                      cities  3 ->  3  settlers 0 idle 0 oldest 0
+  WILLEM_VAN_ORANJE          cities  7 ->  7  settlers 2 idle 2 oldest 55
+  TOTAL cities 118 -> 144, settlers 17, idle 15
+
+# Chronic cases: in a city (or aboard a ship), no destination, older than 20 turns
+save, turn 269                        5  [('JOAO', 64), ('IVAN', 34), ('IVAN', 28), ('WILLEM_VAN_ORANJE', 25), ('BRENNUS', 22)]
+without settler changes, turn 279     8  [('JOAO', 74), ('IVAN', 44), ('IVAN', 38), ('PERICLES', 27), ('BRENNUS', 26), ('IVAN', 25), ('HAMMURABI', 22), ('IVAN', 21)]
+with settler changes, turn 279        5  [('JOAO', 74), ('PERICLES', 27), ('IVAN', 25), ('HAMMURABI', 22), ('IVAN', 21)]
+with settler changes, turn 299        1  [('HANNIBAL', 29)]
+patch 0012, turn 299                  3  [('WILLEM_VAN_ORANJE', 55), ('WILLEM_VAN_ORANJE', 38), ('HANNIBAL', 29)]

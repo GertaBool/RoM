@@ -1,0 +1,2330 @@
+From 3553b8cc294f547386d9cb47d8e1976da981d637 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 13 Oct 2026 22:39:56 +0000
+Subject: [PATCH] Autorun fixes: endless turn, turn time, settler delivery,
+ garrison and gold
+
+Found by loading the reported save (Marathon, 410 BC) into the real DLL in a
+headless harness and letting every player play on.
+
+- Endless turn: groupPathTo ends a mission whose next step no unit can take as
+  a move; groupMove split the lone unit into a new group on every update
+  slice. Worker jobs skip plots with visible enemies; a per-turn watchdog ends
+  the moves of a unit that keeps losing its group.
+- Turn time (9.6 s -> 2.6 s per turn on the save): pathValid keeps its
+  parent-plot answer while the A* expands that plot; AI_explore searches
+  candidates best bound first; AI_exploreRange skips plots out of range by a
+  path-turn lower bound; upgrade reachability is computed once; canTradeItem
+  tests validity before denial; Himeji lookup in the gold callbacks.
+- Settlers: land and sea delivery regions from our cities and ports; only
+  deliverable sites count for production and are searched; settlers without
+  any deliverable site are disbanded after a grace period; lone settlers take
+  a spare defender; a transport without escort returns to port; cities build
+  a transport for a waiting settler whose sites need one.
+- Garrison: a city that cannot train a city-defence unit counts all its land
+  defenders (endless Spearmen otherwise).
+- Gold target: elapsed turns at the standard speed's pace and a calendar-based
+  liquidity cap; Marathon AIs no longer bank gold at 5-25% research.
+
+New tests: test_turn_end_guard, test_settle_reach, test_gold_target_speed.
+See Docs/MASINISSA_AUTORUN_FIXES.md.
+---
+ Assets/CvGameCoreDLL/CvCityAI.cpp         |  37 ++-
+ Assets/CvGameCoreDLL/CvGameCoreUtils.cpp  | 209 +++++++------
+ Assets/CvGameCoreDLL/CvGameCoreUtils.h    |   2 +
+ Assets/CvGameCoreDLL/CvGameInterface.cpp  |   1 +
+ Assets/CvGameCoreDLL/CvPlayer.cpp         |   8 +-
+ Assets/CvGameCoreDLL/CvPlayerAI.cpp       | 340 +++++++++++++++++++++-
+ Assets/CvGameCoreDLL/CvPlayerAI.h         |  19 +-
+ Assets/CvGameCoreDLL/CvSelectionGroup.cpp |  27 +-
+ Assets/CvGameCoreDLL/CvUnit.cpp           |  57 ++++
+ Assets/CvGameCoreDLL/CvUnitAI.cpp         | 266 +++++++++++++++--
+ Assets/CvGameCoreDLL/CvUnitAI.h           |  15 +
+ Assets/Python/RoMGameUtils.py             |  82 ++----
+ Docs/MASINISSA_AUTORUN_FIXES.md           | 155 ++++++++++
+ Tools/regression_manifest.json            |  12 +
+ Tools/test_gold_target_speed.py           | 100 +++++++
+ Tools/test_path_queries.py                |   1 +
+ Tools/test_settle_reach.py                | 192 ++++++++++++
+ Tools/test_settler_landing.py             |   1 +
+ Tools/test_turn_end_guard.py              | 127 ++++++++
+ Tools/test_unit_ai_corrections.py         |  32 +-
+ 20 files changed, 1479 insertions(+), 204 deletions(-)
+ create mode 100644 Docs/MASINISSA_AUTORUN_FIXES.md
+ create mode 100644 Tools/test_gold_target_speed.py
+ create mode 100644 Tools/test_settle_reach.py
+ create mode 100644 Tools/test_turn_end_guard.py
+
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index d6e6dbb..dd7341c 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -954,7 +954,8 @@ void CvCityAI::AI_chooseProduction()
+     int iTargetCulturePerTurn = AI_calculateTargetCulturePerTurn();
+     
+     int iAreaBestFoundValue;
+-    int iNumAreaCitySites = kPlayer.AI_getNumAreaCitySites(getArea(), iAreaBestFoundValue);
++    // Only sites a settler trained here can be delivered to.
++    int iNumAreaCitySites = kPlayer.AI_getNumAreaCitySites(getArea(), iAreaBestFoundValue, plot());
+     
+     int iWaterAreaBestFoundValue = 0;
+ 	CvArea* pWaterSettlerArea = pWaterArea;
+@@ -967,7 +968,7 @@ void CvCityAI::AI_chooseProduction()
+ 			pWaterSettlerArea = NULL;
+ 		}
+ 	}
+-    int iNumWaterAreaCitySites = (pWaterSettlerArea == NULL) ? 0 : kPlayer.AI_getNumAdjacentAreaCitySites(pWaterSettlerArea->getID(), getArea(), iWaterAreaBestFoundValue);
++    int iNumWaterAreaCitySites = (pWaterSettlerArea == NULL) ? 0 : kPlayer.AI_getNumAdjacentAreaCitySites(pWaterSettlerArea->getID(), getArea(), iWaterAreaBestFoundValue, plot());
+     // AI_totalUnitAIs already includes production commitments.
+     const int iNumSettlers = kPlayer.AI_totalUnitAIs(UNITAI_SETTLE);
+     
+@@ -1574,16 +1575,15 @@ void CvCityAI::AI_chooseProduction()
+ 	int iPlotCityDefenderCount = plot()->plotCount(PUF_isUnitAIType, UNITAI_CITY_DEFENSE, -1, getOwnerINLINE());
+ 	const int iPlotAnyDefenderCount = plot()->plotCount(PUF_canDefend, -1, -1,
+ 		getOwnerINLINE(), NO_TEAM, PUF_isDomainType, DOMAIN_LAND);
+-	if( kPlayer.getCurrentEra() == 0 )
++	// A city that cannot train any UNITAI_CITY_DEFENSE unit counts every land
++	// defender it has. Otherwise each garrison check fails again: the city falls
++	// back to an attack-role unit (RoM Spearmen have no city defence role), that
++	// unit never counts, and the city trains one after another. BBAI did this
++	// for the first era only (Warriors); without Archery or Bronze Working most
++	// civilizations stay in this state well into the Classical era.
++	if (iPlotCityDefenderCount < iPlotAnyDefenderCount && kPlayer.AI_bestCityUnitAIValue(UNITAI_CITY_DEFENSE, this) == 0)
+ 	{
+-		// Warriors are blocked from UNITAI_CITY_DEFENSE, in early game this confuses AI city building
+-		if( kPlayer.AI_totalUnitAIs(UNITAI_CITY_DEFENSE) <= kPlayer.getNumCities() )
+-		{
+-			if( kPlayer.AI_bestCityUnitAIValue(UNITAI_CITY_DEFENSE, this) == 0 )
+-			{
+-				iPlotCityDefenderCount = plot()->plotCount(PUF_canDefend, -1, -1, getOwnerINLINE(), NO_TEAM, PUF_isDomainType, DOMAIN_LAND);
+-			}
+-		}
++		iPlotCityDefenderCount = iPlotAnyDefenderCount;
+ 	}
+ 
+ 	//minimal defense.
+@@ -1606,6 +1606,19 @@ void CvCityAI::AI_chooseProduction()
+ 			return;
+ 		}
+ 	}
++
++	// A settler waits here and every site it could still be delivered to needs
++	// a boat; settlers board any settler transport they can reach.
++	if (iPlotSettlerCount > 0 && !bDanger && pWaterArea != NULL &&
++		kPlayer.AI_totalWaterAreaUnitAIs(pWaterArea, UNITAI_SETTLER_SEA) == 0 &&
++		kPlayer.AI_countSeaOnlySettlementSites(plot()) > 0)
++	{
++		if (AI_chooseUnit(UNITAI_SETTLER_SEA))
++		{
++			if( gCityLogLevel >= 2 ) logBBAI("      City %S uses transport for waiting settler", getName().GetCString());
++			return;
++		}
++	}
+ 	
+ 
+ 	// Compound infrastructure before force multiplication by bodies. Production
+@@ -1753,7 +1766,7 @@ void CvCityAI::AI_chooseProduction()
+     if (bDanger) 
+     {
+ 		int iAttackNeeded = 4;
+-		iAttackNeeded += std::max(0, AI_neededDefenders() - plot()->plotCount(PUF_isUnitAIType, UNITAI_CITY_DEFENSE, -1, getOwnerINLINE()));
++		iAttackNeeded += std::max(0, AI_neededDefenders() - iPlotCityDefenderCount);
+ 
+ 		if( kPlayer.AI_totalAreaUnitAIs(pArea, UNITAI_ATTACK) <  iAttackNeeded)
+ 		{
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index e8e0f17..f0289fb 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -2004,137 +2004,182 @@ int pathCost(FAStarNode* parent, FAStarNode* node, int data, const void* pointer
+ }
+ 
+ 
+-int pathValid(FAStarNode* parent, FAStarNode* node, int data, const void* pointer, FAStar* finder)
+-{
+-	PROFILE_FUNC();
+-
+-	CvSelectionGroup* pSelectionGroup;
+-	CvPlot* pFromPlot;
+-	CvPlot* pToPlot;
+-	bool bAIControl;
+-
+-	if (parent == NULL)
+-	{
+-		return TRUE;
+-	}
+-
+-	pFromPlot = GC.getMapINLINE().plotSorenINLINE(parent->m_iX, parent->m_iY);
+-	FAssert(pFromPlot != NULL);
+-	pToPlot = GC.getMapINLINE().plotSorenINLINE(node->m_iX, node->m_iY);
+-	FAssert(pToPlot != NULL);
+-
+-	pSelectionGroup = ((CvSelectionGroup *)pointer);
+-/************************************************************************************************/
+-/* BETTER_BTS_AI_MOD                      03/03/10                                jdog5000      */
+-/*                                                                                              */
+-/* Efficiency                                                                                   */
+-/************************************************************************************************/
+-	// XXX might want to take this out...
+-	if (pSelectionGroup->getDomainType() == DOMAIN_SEA)
+-	{
+-		PROFILE("pathValid domain sea");
++namespace
++{
++	// Every test in pathValid but the sea-diagonal one looks only at the parent
++	// plot, and FAStar asks once for each neighbour of the node it expands.
++	// The game cannot change during one search, so the parent part is kept for
++	// the node being expanded and dropped whenever a search starts.
++	struct PathValidMemo
++	{
++		const FAStar* pFinder;
++		const FAStarNode* pParent;
++		const void* pGroup;
++		int iX;
++		int iY;
++		int iInfo;
++		bool bTurnStart;
++		int iResult;
++	};
++	PathValidMemo s_kPathValidMemo = { NULL, NULL, NULL, -1, -1, 0, false, FALSE };
++
++	int pathValidFrom(CvSelectionGroup* pSelectionGroup, CvPlot* pFromPlot, int iInfo, bool bTurnStart)
++	{
++		if (pSelectionGroup->atPlot(pFromPlot))
++		{
++			return TRUE;
++		}
+ 
+-		if (pFromPlot->isWater() && pToPlot->isWater())
++		if (iInfo & MOVE_SAFE_TERRITORY)
+ 		{
+-			if (!(GC.getMapINLINE().plotINLINE(parent->m_iX, node->m_iY)->isWater()) && !(GC.getMapINLINE().plotINLINE(node->m_iX, parent->m_iY)->isWater()))
++			PROFILE("pathValid move save");
++
++			if (pFromPlot->isOwned())
+ 			{
+-				if( !(pSelectionGroup->canMoveAllTerrain()) )
++				if (pFromPlot->getTeam() != pSelectionGroup->getHeadTeam())
+ 				{
+ 					return FALSE;
+ 				}
+ 			}
+-		}
+-	}
+-
+-	if (pSelectionGroup->atPlot(pFromPlot))
+-	{
+-		return TRUE;
+-	}
+-
+-	if (gDLL->getFAStarIFace()->GetInfo(finder) & MOVE_SAFE_TERRITORY)
+-	{
+-		PROFILE("pathValid move save");
+ 
+-		if (pFromPlot->isOwned())
+-		{
+-			if (pFromPlot->getTeam() != pSelectionGroup->getHeadTeam())
++			if (!(pFromPlot->isRevealed(pSelectionGroup->getHeadTeam(), false)))
+ 			{
+ 				return FALSE;
+ 			}
+ 		}
+ 
+-		if (!(pFromPlot->isRevealed(pSelectionGroup->getHeadTeam(), false)))
++		if (iInfo & MOVE_NO_ENEMY_TERRITORY)
+ 		{
+-			return FALSE;
+-		}
+-	}
+-
+-	if (gDLL->getFAStarIFace()->GetInfo(finder) & MOVE_NO_ENEMY_TERRITORY)
+-	{
+-		PROFILE("pathValid no enemy");
++			PROFILE("pathValid no enemy");
+ 
+-		if (pFromPlot->isOwned())
+-		{
+-			if (atWar(pFromPlot->getTeam(), pSelectionGroup->getHeadTeam()))
++			if (pFromPlot->isOwned())
+ 			{
+-				return FALSE;
++				if (atWar(pFromPlot->getTeam(), pSelectionGroup->getHeadTeam()))
++				{
++					return FALSE;
++				}
+ 			}
+ 		}
+-	}
+ 
+-	bAIControl = pSelectionGroup->AI_isControlled();
++		const bool bAIControl = pSelectionGroup->AI_isControlled();
+ 
+-	if (bAIControl)
+-	{
+-		PROFILE("pathValid danger & invisible");
+-		if ((parent->m_iData2 > 1) || (parent->m_iData1 == 0))
++		if (bAIControl)
+ 		{
+-			if (!(gDLL->getFAStarIFace()->GetInfo(finder) & MOVE_IGNORE_DANGER))
++			PROFILE("pathValid danger & invisible");
++			if (bTurnStart)
+ 			{
+-				if (!(pSelectionGroup->canFight()) && !(pSelectionGroup->alwaysInvisible()))
++				if (!(iInfo & MOVE_IGNORE_DANGER))
+ 				{
++					if (!(pSelectionGroup->canFight()) && !(pSelectionGroup->alwaysInvisible()))
++					{
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                      08/20/09                                jdog5000      */
+ /*                                                                                              */
+ /* Unit AI, Efficiency                                                                          */
+ /************************************************************************************************/
+-					//if (GET_PLAYER(pSelectionGroup->getHeadOwner()).AI_getPlotDanger(pFromPlot) > 0)
+-					if (GET_PLAYER(pSelectionGroup->getHeadOwner()).AI_getAnyPlotDanger(pFromPlot))
++						//if (GET_PLAYER(pSelectionGroup->getHeadOwner()).AI_getPlotDanger(pFromPlot) > 0)
++						if (GET_PLAYER(pSelectionGroup->getHeadOwner()).AI_getAnyPlotDanger(pFromPlot))
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+-					{
+-						return FALSE;
++						{
++							return FALSE;
++						}
+ 					}
+ 				}
+ 			}
+ 		}
+-	}
+-
+-	if (bAIControl || pFromPlot->isRevealed(pSelectionGroup->getHeadTeam(), false))
+-	{
+-		PROFILE("pathValid move through");
+ 
+-		if (gDLL->getFAStarIFace()->GetInfo(finder) & MOVE_THROUGH_ENEMY)
++		if (bAIControl || pFromPlot->isRevealed(pSelectionGroup->getHeadTeam(), false))
+ 		{
+-			if (!(pSelectionGroup->canMoveOrAttackInto(pFromPlot)))
++			PROFILE("pathValid move through");
++
++			if (iInfo & MOVE_THROUGH_ENEMY)
+ 			{
+-				return FALSE;
++				if (!(pSelectionGroup->canMoveOrAttackInto(pFromPlot)))
++				{
++					return FALSE;
++				}
++			}
++			else
++			{
++				if (!(pSelectionGroup->canMoveThrough(pFromPlot)))
++				{
++					return FALSE;
++				}
+ 			}
+ 		}
+-		else
++		return TRUE;
++	}
++}
++
++void pathValidResetMemo()
++{
++	s_kPathValidMemo.pFinder = NULL;
++}
++
++int pathValid(FAStarNode* parent, FAStarNode* node, int data, const void* pointer, FAStar* finder)
++{
++	PROFILE_FUNC();
++
++	CvSelectionGroup* pSelectionGroup;
++	CvPlot* pFromPlot;
++	CvPlot* pToPlot;
++
++	if (parent == NULL)
++	{
++		pathValidResetMemo();
++		return TRUE;
++	}
++
++	pFromPlot = GC.getMapINLINE().plotSorenINLINE(parent->m_iX, parent->m_iY);
++	FAssert(pFromPlot != NULL);
++	pToPlot = GC.getMapINLINE().plotSorenINLINE(node->m_iX, node->m_iY);
++	FAssert(pToPlot != NULL);
++
++	pSelectionGroup = ((CvSelectionGroup *)pointer);
++/************************************************************************************************/
++/* BETTER_BTS_AI_MOD                      03/03/10                                jdog5000      */
++/*                                                                                              */
++/* Efficiency                                                                                   */
++/************************************************************************************************/
++	// XXX might want to take this out...
++	if (pSelectionGroup->getDomainType() == DOMAIN_SEA)
++	{
++		PROFILE("pathValid domain sea");
++
++		if (pFromPlot->isWater() && pToPlot->isWater())
+ 		{
+-			if (!(pSelectionGroup->canMoveThrough(pFromPlot)))
++			if (!(GC.getMapINLINE().plotINLINE(parent->m_iX, node->m_iY)->isWater()) && !(GC.getMapINLINE().plotINLINE(node->m_iX, parent->m_iY)->isWater()))
+ 			{
+-				return FALSE;
++				if( !(pSelectionGroup->canMoveAllTerrain()) )
++				{
++					return FALSE;
++				}
+ 			}
+ 		}
+ 	}
++
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+ 
+-	return TRUE;
++	const int iInfo = gDLL->getFAStarIFace()->GetInfo(finder);
++	const bool bTurnStart = (parent->m_iData2 > 1) || (parent->m_iData1 == 0);
++	PathValidMemo& kMemo = s_kPathValidMemo;
++	if (kMemo.pFinder != finder || kMemo.pParent != parent || kMemo.pGroup != pointer || kMemo.iX != parent->m_iX ||
++		kMemo.iY != parent->m_iY || kMemo.iInfo != iInfo || kMemo.bTurnStart != bTurnStart)
++	{
++		kMemo.iResult = pathValidFrom(pSelectionGroup, pFromPlot, iInfo, bTurnStart);
++		kMemo.pFinder = finder;
++		kMemo.pParent = parent;
++		kMemo.pGroup = pointer;
++		kMemo.iX = parent->m_iX;
++		kMemo.iY = parent->m_iY;
++		kMemo.iInfo = iInfo;
++		kMemo.bTurnStart = bTurnStart;
++	}
++	return kMemo.iResult;
+ }
+ 
+ 
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index f01806e..a976c1c 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -344,6 +344,8 @@ int pathDestValid(int iToX, int iToY, const void* pointer, FAStar* finder);
+ int pathHeuristic(int iFromX, int iFromY, int iToX, int iToY);
+ int pathCost(FAStarNode* parent, FAStarNode* node, int data, const void* pointer, FAStar* finder);
+ int pathValid(FAStarNode* parent, FAStarNode* node, int data, const void* pointer, FAStar* finder);
++// Call before a pathValid search that may follow a change to the game.
++void pathValidResetMemo();
+ int pathAdd(FAStarNode* parent, FAStarNode* node, int data, const void* pointer, FAStar* finder);
+ int stepDestValid(int iToX, int iToY, const void* pointer, FAStar* finder);
+ int stepHeuristic(int iFromX, int iFromY, int iToX, int iToY);
+diff --git a/Assets/CvGameCoreDLL/CvGameInterface.cpp b/Assets/CvGameCoreDLL/CvGameInterface.cpp
+index c325502..0606e60 100644
+--- a/Assets/CvGameCoreDLL/CvGameInterface.cpp
++++ b/Assets/CvGameCoreDLL/CvGameInterface.cpp
+@@ -2228,6 +2228,7 @@ void CvGame::startFlyoutMenu(const CvPlot* pPlot, std::vector<CvFlyoutMenuData>&
+ 	if (pHeadSelectedUnit != NULL && !pHeadSelectedUnit->atPlot(pPlot))
+ 	{
+ 		gDLL->getFAStarIFace()->SetData(&GC.getInterfacePathFinder(), gDLL->getInterfaceIFace()->getSelectionList());
++		pathValidResetMemo();
+ 		if ((pHeadSelectedUnit->getDomainType() == DOMAIN_AIR) || gDLL->getFAStarIFace()->GeneratePath(&GC.getInterfacePathFinder(), pHeadSelectedUnit->getX(), pHeadSelectedUnit->getY(), pPlot->getX(), pPlot->getY(), false, MOVE_DECLARE_WAR, true))
+ 		{
+ 			if (pHeadSelectedUnit->getDomainType() == DOMAIN_AIR)
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index f77e5a7..ce9946b 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -5412,12 +5412,12 @@ bool CvPlayer::canTradeItem(PlayerTypes eWhoTo, TradeData item, bool bTestDenial
+ {
+ 	CvCity *pOurCapitalCity;
+ 
++	// Validity first, then the denial: the result is the same, but the denial is
++	// the expensive part (for technologies AI_techTrade scans every unit and
++	// building) and most items asked about are not tradeable at all.
+ 	if (bTestDenial)
+ 	{
+-		if (getTradeDenial(eWhoTo, item) != NO_DENIAL)
+-		{
+-			return false;
+-		}
++		return canTradeItem(eWhoTo, item, false) && getTradeDenial(eWhoTo, item) == NO_DENIAL;
+ 	}
+ 
+ 	switch (item.m_eItemType)
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 8a89f60..4dedc71 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -332,6 +332,9 @@ void CvPlayerAI::AI_reset(bool bConstructor)
+ 	m_iUpgradeUnitsCachedGold = 0;
+ 	m_iFoundValuesCacheTurn = -1;
+ 	m_aSettlementCandidates.clear();
++	m_aiSettleLandRegion.clear();
++	m_aiSettleSeaRegion.clear();
++	m_aSettlePortLinks.clear();
+ 	
+ 	m_iAIWellbeingGeneration = 0;
+ 	m_iAIWellbeingCacheGeneration = -1;
+@@ -1276,6 +1279,16 @@ void CvPlayerAI::AI_updateFoundValues(bool bStartingLoc) const
+ 				}
+ 			}
+ 		}
++		if (isBarbarian())
++		{
++			m_aiSettleLandRegion.clear();
++			m_aiSettleSeaRegion.clear();
++			m_aSettlePortLinks.clear();
++		}
++		else
++		{
++			AI_updateSettleReach();
++		}
+ 		// Capture independent alternatives before the production portfolio marks
+ 		// hypothetical cities occupied and suppresses their neighbors. Parties
+ 		// choose routes from this complete set, not from the production count.
+@@ -1635,8 +1648,22 @@ void CvPlayerAI::AI_unitUpdate()
+ 
+ 				if (NULL != pLoopSelectionGroup)  // group might have been killed by a previous group update
+ 				{
++					CvUnit* pHead = pLoopSelectionGroup->getHeadUnit();
++					const IDInfo kHead = (pHead != NULL) ? pHead->getIDInfo() : IDInfo();
++					const int iGroupID = pLoopSelectionGroup->getID();
+ 					if (pLoopSelectionGroup->AI_update())
+ 					{
++						// A group can die in its own update while its units live on with
++						// moves (groupMove splits off units that cannot enter the next
++						// plot). Every such update stops this loop here, so if the same
++						// unit keeps doing it the turn never ends. End its moves instead.
++						CvUnit* pAfter = (pHead != NULL) ? ::getUnit(kHead) : NULL;
++						if (pAfter != NULL && getSelectionGroup(iGroupID) == NULL && pAfter->canMove() &&
++							static_cast<CvUnitAI*>(pAfter)->AI_noteGroupLostAndLooping())
++						{
++							FAssertMsg(false, "AI unit kept losing its group without moving; ending its turn");
++							pAfter->finishMoves();
++						}
+ 						break; // pointers could become invalid...
+ 					}
+ 				}
+@@ -4133,6 +4160,34 @@ bool CvPlayerAI::AI_isFinancialTrouble() const
+ }
+ 
+ 
++namespace
++{
++	// Game turns in a speed's calendar (the sum of its turn increments).
++	int calendarTurns(GameSpeedTypes eSpeed)
++	{
++		int iTurns = 0;
++		const CvGameSpeedInfo& kSpeed = GC.getGameSpeedInfo(eSpeed);
++		for (int i = 0; i < kSpeed.getNumTurnIncrements(); ++i)
++		{
++			iTurns += kSpeed.getGameTurnInfo(i).iNumGameTurnsPerIncrement;
++		}
++		return std::max(1, iTurns);
++	}
++
++	// Turns of this game's speed per 100 turns of the standard speed, for the
++	// same stretch of history (Marathon in RoM: 1470 / 700 -> 210).
++	int calendarTurnsPercent()
++	{
++		const GameSpeedTypes eSpeed = GC.getGameINLINE().getGameSpeedType();
++		const GameSpeedTypes eStandard = (GameSpeedTypes)GC.getDefineINT("STANDARD_GAMESPEED");
++		if (eStandard < 0 || eStandard >= GC.getNumGameSpeedInfos())
++		{
++			return 100;
++		}
++		return std::max(1, (100 * calendarTurns(eSpeed)) / calendarTurns(eStandard));
++	}
++}
++
+ int CvPlayerAI::AI_goldTarget() const
+ {
+ 	int iGold = 0;
+@@ -4158,7 +4213,12 @@ int CvPlayerAI::AI_goldTarget() const
+ 
+ 		iGold += ((getNumCities() * 3) + (getTotalPopulation() / 3));
+ 
+-		iGold += (GC.getGameINLINE().getElapsedGameTurns() / 2);
++		// Elapsed turns stand for how far the game has come. Prices are scaled by
++		// iMultiplier below, so count the turns at the standard speed's pace; BTS
++		// scaled them twice, which on Marathon multiplied this term by about 8
++		// and held several AIs at 5-25% research while their gold piled up.
++		const int iTurnsPercent = calendarTurnsPercent();
++		iGold += (GC.getGameINLINE().getElapsedGameTurns() * 50) / iTurnsPercent;
+ 
+ 		iGold *= iMultiplier;
+ 		iGold /= 100;
+@@ -4190,7 +4250,7 @@ int CvPlayerAI::AI_goldTarget() const
+ 		int iUpgradeReserve = AI_goldToUpgradeAllUnits() / (bAtWar ? 1 : 2);
+ 		int iUpgradeReserveTurns = GC.getDefineINT(bAtWar ?
+ 			"AI_GOLD_UPGRADE_RESERVE_TURNS_WAR" : "AI_GOLD_UPGRADE_RESERVE_TURNS_PEACE");
+-		iUpgradeReserveTurns *= GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();
++		iUpgradeReserveTurns *= iTurnsPercent;
+ 		iUpgradeReserveTurns /= 100;
+ 		int iUpgradeReserveCap = std::max(1, iUpgradeReserveTurns) * std::max(1, iCommercePerTurn);
+ 		iGold += std::min(iUpgradeReserve, iUpgradeReserveCap);
+@@ -4201,10 +4261,10 @@ int CvPlayerAI::AI_goldTarget() const
+ 		// Gold has no intrinsic yield. Keep only one turn of peaceful liquidity;
+ 		// two turns during actual war/avoid-science covers disruption without banking
+ 		// a material fraction of an early technology indefinitely.
++		// A turn of liquidity at the standard speed is iTurnsPercent / 100 turns
++		// here (the research percent, 600 on Marathon, overstated it threefold).
+ 		int iTargetRunway = (bAtWar || AI_avoidScience()) ? 2 : 1;
+-		iTargetRunway *= GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();
+-		iTargetRunway /= 100;
+-		iGold = std::min(iGold, std::max(20, std::max(1, iTargetRunway) * std::max(1, iCommercePerTurn)));
++		iGold = std::min(iGold, std::max(20, (std::max(100, iTargetRunway * iTurnsPercent) * std::max(1, iCommercePerTurn)) / 100));
+ 
+ 		CorporationTypes eActiveCorporation = NO_CORPORATION;
+ 		for (int iI = 0; iI < GC.getNumCorporationInfos(); iI++)
+@@ -17103,7 +17163,7 @@ void CvPlayerAI::AI_doDiplo()
+ 								{
+ 									for (iJ = 0; iJ < GC.getNumTechInfos(); iJ++)
+ 									{
+-										if (GET_TEAM(getTeam()).AI_techTrade((TechTypes)iJ, GET_PLAYER((PlayerTypes)iI).getTeam()) == NO_DENIAL)
++										// canTradeItem(.., true) includes this team's tech-trade denial.
+ 										{
+ 											setTradeItem(&item, TRADE_TECHNOLOGIES, iJ);
+ 
+@@ -18623,6 +18683,9 @@ void CvPlayerAI::read(FDataStreamBase* pStream)
+ 	// after load so old saves remain compatible and cannot inherit a stale turn.
+ 	m_iFoundValuesCacheTurn = -1;
+ 	m_aSettlementCandidates.clear();
++	m_aiSettleLandRegion.clear();
++	m_aiSettleSeaRegion.clear();
++	m_aSettlePortLinks.clear();
+ 	// Added transient value: loaded games rebuild current evidence instead of
+ 	// inheriting non-serialized observations from a reused player object.
+ 	m_kAIStrategicContext = AIStrategicContextPolicy::Snapshot();
+@@ -23795,7 +23858,10 @@ void CvPlayerAI::AI_updateCitySites(int iMinFoundValueThreshold, int iMaxSites)
+ 		{
+ 			CvPlot* pLoopPlot = GC.getMapINLINE().plotByIndex(aiCandidates[iCandidate]);
+ 			const int iFoundValue = pLoopPlot->getFoundValue(getID());
+-			if (iFoundValue <= iMinFoundValueThreshold || AI_isPlotCitySite(pLoopPlot))
++			// A site no party of ours can reach would only make cities train
++			// settlers that wait for it forever.
++			if (iFoundValue <= iMinFoundValueThreshold || AI_isPlotCitySite(pLoopPlot) ||
++				!AI_isSettleSiteDeliverable(pLoopPlot))
+ 			{
+ 				continue;
+ 			}				
+@@ -23841,6 +23907,258 @@ CvPlot* CvPlayerAI::AI_getSettlementCandidate(int iIndex, int& iValue) const
+ 	return GC.getMapINLINE().plotByIndex(kCandidate.plotIndex);
+ }
+ 
++void CvPlayerAI::AI_updateSettleReach() const
++{
++	PROFILE_FUNC();
++
++	CvMap& kMap = GC.getMapINLINE();
++	const int iNumPlots = kMap.numPlotsINLINE();
++	const TeamTypes eTeam = getTeam();
++	m_aiSettleLandRegion.assign(iNumPlots, -1);
++	m_aiSettleSeaRegion.assign(iNumPlots, -1);
++	m_aSettlePortLinks.clear();
++	std::vector<int> aiQueue;
++	aiQueue.reserve(iNumPlots);
++
++	// Land regions: from each of our cities through revealed land that is ours
++	// or unclaimed, the plots a MOVE_SAFE_TERRITORY path may cross.
++	int iLoop;
++	int iRegions = 0;
++	for (CvCity* pCity = firstCity(&iLoop); pCity != NULL; pCity = nextCity(&iLoop))
++	{
++		const int iStart = kMap.plotNumINLINE(pCity->getX_INLINE(), pCity->getY_INLINE());
++		if (m_aiSettleLandRegion[iStart] >= 0)
++		{
++			continue;
++		}
++		const int iRegion = iRegions++;
++		m_aiSettleLandRegion[iStart] = iRegion;
++		aiQueue.clear();
++		aiQueue.push_back(iStart);
++		for (size_t iHead = 0; iHead < aiQueue.size(); ++iHead)
++		{
++			const CvPlot* pPlot = kMap.plotByIndexINLINE(aiQueue[iHead]);
++			for (int iDir = 0; iDir < NUM_DIRECTION_TYPES; ++iDir)
++			{
++				CvPlot* pAdj = plotDirection(pPlot->getX_INLINE(), pPlot->getY_INLINE(), (DirectionTypes)iDir);
++				if (pAdj == NULL || pAdj->isWater() || pAdj->isImpassable() || !pAdj->isRevealed(eTeam, false) ||
++					(pAdj->isOwned() && pAdj->getTeam() != eTeam))
++				{
++					continue;
++				}
++				const int iAdj = kMap.plotNumINLINE(pAdj->getX_INLINE(), pAdj->getY_INLINE());
++				if (m_aiSettleLandRegion[iAdj] < 0)
++				{
++					m_aiSettleLandRegion[iAdj] = iRegion;
++					aiQueue.push_back(iAdj);
++				}
++			}
++		}
++	}
++
++	// Sea regions: the transports we have or can train, and the water they may enter.
++	std::vector<UnitTypes> aeTransports;
++	for (int iClass = 0; iClass < GC.getNumUnitClassInfos(); ++iClass)
++	{
++		const UnitTypes eUnit = (UnitTypes)GC.getCivilizationInfo(getCivilizationType()).getCivilizationUnits(iClass);
++		if (eUnit == NO_UNIT || GC.getUnitInfo(eUnit).getDomainType() != DOMAIN_SEA ||
++			GC.getUnitInfo(eUnit).getCargoSpace() <= 0 || !GC.getUnitInfo(eUnit).getUnitAIType(UNITAI_SETTLER_SEA))
++		{
++			continue;
++		}
++		bool bAvailable = getUnitClassCount((UnitClassTypes)iClass) > 0;
++		for (CvCity* pCity = firstCity(&iLoop); pCity != NULL && !bAvailable; pCity = nextCity(&iLoop))
++		{
++			bAvailable = pCity->isCoastal(GC.getMIN_WATER_SIZE_FOR_OCEAN()) && pCity->canTrain(eUnit);
++		}
++		if (bAvailable)
++		{
++			aeTransports.push_back(eUnit);
++		}
++	}
++	if (aeTransports.empty())
++	{
++		return;
++	}
++	const CvTeam& kTeam = GET_TEAM(eTeam);
++	std::vector<bool> abTerrain(GC.getNumTerrainInfos(), false);
++	std::vector<bool> abFeature(GC.getNumFeatureInfos(), false);
++	for (size_t iUnit = 0; iUnit < aeTransports.size(); ++iUnit)
++	{
++		const CvUnitInfo& kUnit = GC.getUnitInfo(aeTransports[iUnit]);
++		for (int iTerrain = 0; iTerrain < GC.getNumTerrainInfos(); ++iTerrain)
++		{
++			const TechTypes eTech = (TechTypes)kUnit.getTerrainPassableTech(iTerrain);
++			if (!kUnit.getTerrainImpassable(iTerrain) || (eTech != NO_TECH && kTeam.isHasTech(eTech)))
++			{
++				abTerrain[iTerrain] = true;
++			}
++		}
++		for (int iFeature = 0; iFeature < GC.getNumFeatureInfos(); ++iFeature)
++		{
++			const TechTypes eTech = (TechTypes)kUnit.getFeaturePassableTech(iFeature);
++			if (!kUnit.getFeatureImpassable(iFeature) || (eTech != NO_TECH && kTeam.isHasTech(eTech)))
++			{
++				abFeature[iFeature] = true;
++			}
++		}
++	}
++	iRegions = 0;
++	for (CvCity* pCity = firstCity(&iLoop); pCity != NULL; pCity = nextCity(&iLoop))
++	{
++		const int iLandRegion = m_aiSettleLandRegion[kMap.plotNumINLINE(pCity->getX_INLINE(), pCity->getY_INLINE())];
++		for (int iPortDir = 0; iPortDir < NUM_DIRECTION_TYPES; ++iPortDir)
++		{
++			CvPlot* pWater = plotDirection(pCity->getX_INLINE(), pCity->getY_INLINE(), (DirectionTypes)iPortDir);
++			if (pWater == NULL || !pWater->isWater() || !pWater->isRevealed(eTeam, false) || pWater->isImpassable() ||
++				!abTerrain[pWater->getTerrainType()] ||
++				(pWater->getFeatureType() != NO_FEATURE && !abFeature[pWater->getFeatureType()]) ||
++				(pWater->isOwned() && atWar(pWater->getTeam(), eTeam)))
++			{
++				continue;
++			}
++			const int iStart = kMap.plotNumINLINE(pWater->getX_INLINE(), pWater->getY_INLINE());
++			if (m_aiSettleSeaRegion[iStart] < 0)
++			{
++				const int iRegion = iRegions++;
++				m_aiSettleSeaRegion[iStart] = iRegion;
++				aiQueue.clear();
++				aiQueue.push_back(iStart);
++				for (size_t iHead = 0; iHead < aiQueue.size(); ++iHead)
++				{
++					const CvPlot* pPlot = kMap.plotByIndexINLINE(aiQueue[iHead]);
++					for (int iDir = 0; iDir < NUM_DIRECTION_TYPES; ++iDir)
++					{
++						CvPlot* pAdj = plotDirection(pPlot->getX_INLINE(), pPlot->getY_INLINE(), (DirectionTypes)iDir);
++						if (pAdj == NULL || !pAdj->isWater() || !pAdj->isRevealed(eTeam, false) || pAdj->isImpassable() ||
++							!abTerrain[pAdj->getTerrainType()] ||
++							(pAdj->getFeatureType() != NO_FEATURE && !abFeature[pAdj->getFeatureType()]) ||
++							(pAdj->isOwned() && atWar(pAdj->getTeam(), eTeam)))
++						{
++							continue;
++						}
++						const int iAdj = kMap.plotNumINLINE(pAdj->getX_INLINE(), pAdj->getY_INLINE());
++						if (m_aiSettleSeaRegion[iAdj] < 0)
++						{
++							m_aiSettleSeaRegion[iAdj] = iRegion;
++							aiQueue.push_back(iAdj);
++						}
++					}
++				}
++			}
++			const std::pair<int, int> kLink(iLandRegion, m_aiSettleSeaRegion[iStart]);
++			if (std::find(m_aSettlePortLinks.begin(), m_aSettlePortLinks.end(), kLink) == m_aSettlePortLinks.end())
++			{
++				m_aSettlePortLinks.push_back(kLink);
++			}
++		}
++	}
++	// A party lands from the water next to its site; record that water's region
++	// on the land plot (land plots carry no sea region otherwise).
++	for (int iPlot = 0; iPlot < iNumPlots; ++iPlot)
++	{
++		const CvPlot* pPlot = kMap.plotByIndexINLINE(iPlot);
++		if (!pPlot->isWater() || m_aiSettleSeaRegion[iPlot] < 0)
++		{
++			continue;
++		}
++		for (int iDir = 0; iDir < NUM_DIRECTION_TYPES; ++iDir)
++		{
++			CvPlot* pAdj = plotDirection(pPlot->getX_INLINE(), pPlot->getY_INLINE(), (DirectionTypes)iDir);
++			if (pAdj != NULL && !pAdj->isWater() && pAdj->isRevealed(eTeam, false) &&
++				(!pAdj->isOwned() || pAdj->getTeam() == eTeam))
++			{
++				const int iAdj = kMap.plotNumINLINE(pAdj->getX_INLINE(), pAdj->getY_INLINE());
++				if (m_aiSettleSeaRegion[iAdj] < 0)
++				{
++					m_aiSettleSeaRegion[iAdj] = m_aiSettleSeaRegion[iPlot];
++				}
++			}
++		}
++	}
++}
++
++bool CvPlayerAI::AI_canDeliverSettler(const CvPlot* pFrom, const CvPlot* pSite, bool* pbByLand) const
++{
++	if (pbByLand != NULL)
++	{
++		*pbByLand = false;
++	}
++	CvMap& kMap = GC.getMapINLINE();
++	const int iFrom = kMap.plotNumINLINE(pFrom->getX_INLINE(), pFrom->getY_INLINE());
++	const int iSite = kMap.plotNumINLINE(pSite->getX_INLINE(), pSite->getY_INLINE());
++	// Not computed (barbarians, no found values yet), or a party outside the
++	// land joined to our cities (at sea, landed abroad): do not limit it.
++	if ((int)m_aiSettleLandRegion.size() != kMap.numPlotsINLINE() || pFrom->isWater() ||
++		m_aiSettleLandRegion[iFrom] < 0)
++	{
++		if (pbByLand != NULL)
++		{
++			*pbByLand = true;
++		}
++		return true;
++	}
++	if (m_aiSettleLandRegion[iSite] == m_aiSettleLandRegion[iFrom])
++	{
++		if (pbByLand != NULL)
++		{
++			*pbByLand = true;
++		}
++		return true;
++	}
++	if (m_aiSettleSeaRegion.empty() || m_aiSettleSeaRegion[iSite] < 0)
++	{
++		return false;
++	}
++	const std::pair<int, int> kLink(m_aiSettleLandRegion[iFrom], m_aiSettleSeaRegion[iSite]);
++	return std::find(m_aSettlePortLinks.begin(), m_aSettlePortLinks.end(), kLink) != m_aSettlePortLinks.end();
++}
++
++bool CvPlayerAI::AI_isSettleSiteDeliverable(const CvPlot* pSite) const
++{
++	CvMap& kMap = GC.getMapINLINE();
++	const int iSite = kMap.plotNumINLINE(pSite->getX_INLINE(), pSite->getY_INLINE());
++	if ((int)m_aiSettleLandRegion.size() != kMap.numPlotsINLINE())
++	{
++		return true;
++	}
++	return m_aiSettleLandRegion[iSite] >= 0 || (!m_aiSettleSeaRegion.empty() && m_aiSettleSeaRegion[iSite] >= 0);
++}
++
++bool CvPlayerAI::AI_hasDeliverableSettlementSite(const CvPlot* pFrom) const
++{
++	const int iCandidates = AI_getNumSettlementCandidates();
++	for (int i = 0; i < iCandidates; ++i)
++	{
++		int iFound;
++		if (AI_canDeliverSettler(pFrom, AI_getSettlementCandidate(i, iFound)))
++		{
++			return true;
++		}
++	}
++	return false;
++}
++
++// Sites a party at pFrom can only reach by boat; 0 when one can be walked to.
++int CvPlayerAI::AI_countSeaOnlySettlementSites(const CvPlot* pFrom) const
++{
++	int iSeaSites = 0;
++	const int iCandidates = AI_getNumSettlementCandidates();
++	for (int i = 0; i < iCandidates; ++i)
++	{
++		int iFound;
++		bool bByLand;
++		if (AI_canDeliverSettler(pFrom, AI_getSettlementCandidate(i, iFound), &bByLand))
++		{
++			if (bByLand)
++			{
++				return 0;
++			}
++			++iSeaSites;
++		}
++	}
++	return iSeaSites;
++}
+ 
+ int CvPlayerAI::AI_getNumCitySites() const
+ {
+@@ -23864,7 +24182,7 @@ bool CvPlayerAI::AI_isPlotCitySite(CvPlot* pPlot) const
+ 	
+ }
+ 
+-int CvPlayerAI::AI_getNumAreaCitySites(int iAreaID, int& iBestValue) const
++int CvPlayerAI::AI_getNumAreaCitySites(int iAreaID, int& iBestValue, const CvPlot* pFrom) const
+ {
+ 	std::vector<int>::iterator it;
+ 	int iCount = 0;
+@@ -23873,7 +24191,7 @@ int CvPlayerAI::AI_getNumAreaCitySites(int iAreaID, int& iBestValue) const
+ 	for (it = m_aiAICitySites.begin(); it != m_aiAICitySites.end(); it++)
+ 	{
+ 		CvPlot* pCitySitePlot = GC.getMapINLINE().plotByIndex((*it));
+-		if (pCitySitePlot->getArea() == iAreaID)
++		if (pCitySitePlot->getArea() == iAreaID && (pFrom == NULL || AI_canDeliverSettler(pFrom, pCitySitePlot)))
+ 		{
+ 			iCount++;
+ 			iBestValue = std::max(iBestValue, pCitySitePlot->getFoundValue(getID()));
+@@ -23882,7 +24200,7 @@ int CvPlayerAI::AI_getNumAreaCitySites(int iAreaID, int& iBestValue) const
+ 	return iCount;
+ }
+ 
+-int CvPlayerAI::AI_getNumAdjacentAreaCitySites(int iWaterAreaID, int iExcludeArea, int& iBestValue) const
++int CvPlayerAI::AI_getNumAdjacentAreaCitySites(int iWaterAreaID, int iExcludeArea, int& iBestValue, const CvPlot* pFrom) const
+ {
+ 	std::vector<int>::iterator it;	
+ 	int iCount = 0;
+@@ -23891,7 +24209,7 @@ int CvPlayerAI::AI_getNumAdjacentAreaCitySites(int iWaterAreaID, int iExcludeAre
+ 	for (it = m_aiAICitySites.begin(); it != m_aiAICitySites.end(); it++)
+ 	{
+ 		CvPlot* pCitySitePlot = GC.getMapINLINE().plotByIndex((*it));
+-		if (pCitySitePlot->getArea() != iExcludeArea)
++		if (pCitySitePlot->getArea() != iExcludeArea && (pFrom == NULL || AI_canDeliverSettler(pFrom, pCitySitePlot)))
+ 		{
+ 			if (pCitySitePlot->isAdjacentToArea(iWaterAreaID))
+ 			{
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.h b/Assets/CvGameCoreDLL/CvPlayerAI.h
+index fe9885f..a93ad14 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.h
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.h
+@@ -524,11 +524,22 @@ public:
+ 	void AI_updateCitySites(int iMinFoundValueThreshold, int iMaxSites) const;
+ 	void AI_invalidateCitySites(int iMinFoundValueThreshold) const;
+ 	bool AI_isPlotCitySite(CvPlot* pPlot) const;
+-	int AI_getNumAreaCitySites(int iAreaID, int& iBestValue) const;
+-	int AI_getNumAdjacentAreaCitySites(int iWaterAreaID, int iExcludeArea, int& iBestValue) const;
++	// pFrom: count only the sites a party starting there can be delivered to.
++	int AI_getNumAreaCitySites(int iAreaID, int& iBestValue, const CvPlot* pFrom = NULL) const;
++	int AI_getNumAdjacentAreaCitySites(int iWaterAreaID, int iExcludeArea, int& iBestValue, const CvPlot* pFrom = NULL) const;
+ 	
+ 	int AI_getNumSettlementCandidates() const;
+ 	CvPlot* AI_getSettlementCandidate(int iIndex, int& iValue) const;
++	// Where a settler party can be delivered, rebuilt with the found values.
++	// Land regions are the revealed land, ours or unclaimed, that a
++	// MOVE_SAFE_TERRITORY path crosses, joined to our cities; sea regions are
++	// the water a transport we have or can train can sail from our ports.
++	// A party is delivered by land within its region, or by sea from a port of
++	// its region to a site next to that water. Unknown origins are not limited.
++	bool AI_canDeliverSettler(const CvPlot* pFrom, const CvPlot* pSite, bool* pbByLand = NULL) const;
++	bool AI_isSettleSiteDeliverable(const CvPlot* pSite) const;
++	bool AI_hasDeliverableSettlementSite(const CvPlot* pFrom) const;
++	int AI_countSeaOnlySettlementSites(const CvPlot* pFrom) const;
+ 	int AI_getNumCitySites() const;
+ 	CvPlot* AI_getCitySite(int iIndex) const;
+ 	
+@@ -715,6 +726,10 @@ protected:
+ 	mutable std::vector<int> m_aiAICitySites;
+ 	// Transient alternatives for actual parties; never serialized as commitments.
+ 	mutable std::vector<AISettlementPolicy::Candidate> m_aSettlementCandidates;
++	mutable std::vector<int> m_aiSettleLandRegion;
++	mutable std::vector<int> m_aiSettleSeaRegion;
++	mutable std::vector<std::pair<int, int> > m_aSettlePortLinks;
++	void AI_updateSettleReach() const;
+ 	
+ 	bool m_bWasFinancialTrouble;
+ 	int m_iTurnLastProductionDirty;
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+index 3bc762b..acb0d82 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+@@ -73,6 +73,7 @@ namespace
+ 		const bool bAdmitReuse = kOwner.admit(pathReuseKey(kGroup), bReuse);
+ 
+ 		gDLL->getFAStarIFace()->SetData(&kFinder, &kGroup);
++		pathValidResetMemo();
+ 		const bool bSuccess = gDLL->getFAStarIFace()->GeneratePath(&kFinder, pFromPlot->getX_INLINE(), pFromPlot->getY_INLINE(),
+ 			pToPlot->getX_INLINE(), pToPlot->getY_INLINE(), false, iFlags, bAdmitReuse);
+ 
+@@ -4692,8 +4693,30 @@ bool CvSelectionGroup::groupPathTo(int iX, int iY, int iFlags)
+ 	bool bEndMove = false;
+ 	if(pPathPlot == pDestPlot)
+ 		bEndMove = true;
+-    
+-	groupMove(pPathPlot, iFlags & MOVE_THROUGH_ENEMY, NULL, bEndMove);
++
++	// The path finder accepts a step a unit could only take by attacking. If no
++	// unit can take it as a move, end the mission: groupMove would split each
++	// unit into a new group, the old group would die, and the AI would retry the
++	// same order on every update slice without spending moves, so the turn
++	// never ends (a worker-AI javelineer routing onto an enemy-held tile).
++	const bool bCombat = (iFlags & MOVE_THROUGH_ENEMY) != 0;
++	bool bAnyCanStep = false;
++	CLLNode<IDInfo>* pUnitNode = headUnitNode();
++	while (pUnitNode != NULL && !bAnyCanStep)
++	{
++		CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
++		pUnitNode = nextUnitNode(pUnitNode);
++		// The same test groupMove applies to each unit.
++		bAnyCanStep = pLoopUnit != NULL && pLoopUnit->canMove() &&
++			((bCombat && (!pLoopUnit->isNoCapture() || !pPathPlot->isEnemyCity(*pLoopUnit))) ?
++				pLoopUnit->canMoveOrAttackInto(pPathPlot) : pLoopUnit->canMoveInto(pPathPlot));
++	}
++	if (!bAnyCanStep)
++	{
++		return false;
++	}
++
++	groupMove(pPathPlot, bCombat, NULL, bEndMove);
+ 
+ 	return true;
+ }
+diff --git a/Assets/CvGameCoreDLL/CvUnit.cpp b/Assets/CvGameCoreDLL/CvUnit.cpp
+index 6f2d34e..fecb0ca 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.cpp
++++ b/Assets/CvGameCoreDLL/CvUnit.cpp
+@@ -7911,8 +7911,65 @@ int CvUnit::upgradePrice(UnitTypes eUnit) const
+ }
+ 
+ 
++namespace
++{
++	// Unit classes reachable from each unit by upgrading through one
++	// civilization's units, built once per (civilization, unit) on first use.
++	// The XML upgrade graph has many shared branches; the plain recursive
++	// search re-walked them for every query (several ms per AI unit per turn).
++	std::vector<std::vector<std::vector<bool> > > g_aaabUpgradeReach;
++
++	const std::vector<bool>& upgradeReach(CivilizationTypes eCiv, UnitTypes eFromUnit)
++	{
++		const int iUnits = GC.getNumUnitInfos();
++		const int iClasses = GC.getNumUnitClassInfos();
++		if ((int)g_aaabUpgradeReach.size() != GC.getNumCivilizationInfos())
++		{
++			g_aaabUpgradeReach.assign(GC.getNumCivilizationInfos(), std::vector<std::vector<bool> >());
++		}
++		std::vector<std::vector<bool> >& kCiv = g_aaabUpgradeReach[eCiv];
++		if ((int)kCiv.size() != iUnits)
++		{
++			kCiv.assign(iUnits, std::vector<bool>());
++		}
++		std::vector<bool>& abReach = kCiv[eFromUnit];
++		if ((int)abReach.size() != iClasses)
++		{
++			abReach.assign(iClasses, false);
++			std::vector<bool> abSeen(iUnits, false);
++			std::vector<UnitTypes> aeOpen(1, eFromUnit);
++			abSeen[eFromUnit] = true;
++			while (!aeOpen.empty())
++			{
++				const CvUnitInfo& kUnit = GC.getUnitInfo(aeOpen.back());
++				aeOpen.pop_back();
++				for (int iI = 0; iI < iClasses; iI++)
++				{
++					if (!kUnit.getUpgradeUnitClass(iI))
++					{
++						continue;
++					}
++					abReach[iI] = true;
++					const UnitTypes eNext = (UnitTypes)GC.getCivilizationInfo(eCiv).getCivilizationUnits(iI);
++					if (eNext != NO_UNIT && !abSeen[eNext])
++					{
++						abSeen[eNext] = true;
++						aeOpen.push_back(eNext);
++					}
++				}
++			}
++		}
++		return abReach;
++	}
++}
++
+ bool CvUnit::upgradeAvailable(UnitTypes eFromUnit, UnitClassTypes eToUnitClass, int iCount) const
+ {
++	if (iCount == 0 && eFromUnit != NO_UNIT && eToUnitClass != NO_UNITCLASS)
++	{
++		return upgradeReach(getCivilizationType(), eFromUnit)[eToUnitClass];
++	}
++
+ 	UnitTypes eLoopUnit;
+ 	int iI;
+ 	int numUnitClassInfos = GC.getNumUnitClassInfos();
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 5256c58..5f46f92 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -108,6 +108,86 @@ void CvUnitAI::AI_reset(UnitAITypes eUnitAI)
+ 	m_eUnitAIType = eUnitAI;
+ 	
+ 	m_iAutomatedAbortTurn = -1;
++
++	m_iGroupLossTurn = -1;
++	m_iGroupLossCount = 0;
++}
++
++bool CvUnitAI::AI_noteGroupLostAndLooping()
++{
++	const int iTurn = GC.getGameINLINE().getGameTurn();
++	if (m_iGroupLossTurn != iTurn)
++	{
++		m_iGroupLossTurn = iTurn;
++		m_iGroupLossCount = 0;
++	}
++	return ++m_iGroupLossCount > 20;
++}
++
++// A lower bound on generatePath's turn count, for skipping candidates a search
++// cannot pick without changing its result. Every step costs at least the
++// cheapest step, and a unit may still step while any move is left, so it takes
++// at most ceil(moves / cheapest step) steps per turn; a target iDist plots away
++// needs at least ceil(iDist / that) turns. The cheapest step is the lowest cost
++// any route now on the map could give this team, or half a move (double-move
++// terrain).
++int CvUnitAI::AI_minPathStepsPerTurn() const
++{
++	int iMaxMoves = 0;
++	int iMinBaseMoves = MAX_INT;
++	CLLNode<IDInfo>* pUnitNode = getGroup()->headUnitNode();
++	while (pUnitNode != NULL)
++	{
++		const CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
++		pUnitNode = getGroup()->nextUnitNode(pUnitNode);
++		if (pLoopUnit != NULL)
++		{
++			iMaxMoves = std::max(iMaxMoves, pLoopUnit->maxMoves());
++			iMinBaseMoves = std::min(iMinBaseMoves, pLoopUnit->baseMoves());
++		}
++	}
++	if (iMaxMoves <= 0 || iMinBaseMoves == MAX_INT)
++	{
++		return MAX_INT;
++	}
++
++	std::vector<bool> abRoutePresent(GC.getNumRouteInfos(), false);
++	CvMap& kMap = GC.getMapINLINE();
++	for (int iI = 0; iI < kMap.numPlotsINLINE(); iI++)
++	{
++		const RouteTypes eRoute = kMap.plotByIndexINLINE(iI)->getRouteType();
++		if (eRoute != NO_ROUTE)
++		{
++			abRoutePresent[eRoute] = true;
++		}
++	}
++	int iMinStep = std::max(1, GC.getMOVE_DENOMINATOR() / 2);
++	const CvTeam& kTeam = GET_TEAM(getTeam());
++	for (int iI = 0; iI < GC.getNumRouteInfos(); iI++)
++	{
++		if (abRoutePresent[iI])
++		{
++			const CvRouteInfo& kRoute = GC.getRouteInfo((RouteTypes)iI);
++			const int iRouteStep = std::min(kRoute.getMovementCost() + kTeam.getRouteChange((RouteTypes)iI),
++				kRoute.getFlatMovementCost() * std::max(0, iMinBaseMoves));
++			iMinStep = std::min(iMinStep, std::max(1, iRouteStep));
++		}
++	}
++	return (iMaxMoves + iMinStep - 1) / iMinStep;
++}
++
++int CvUnitAI::AI_minPathTurns(const CvPlot* pTo, int iStepsPerTurn) const
++{
++	const int iDist = stepDistance(getX_INLINE(), getY_INLINE(), pTo->getX_INLINE(), pTo->getY_INLINE());
++	if (iDist == 0)
++	{
++		return 0;
++	}
++	if (iStepsPerTurn == MAX_INT)
++	{
++		return 1;
++	}
++	return std::max(1, (iDist + iStepsPerTurn - 1) / iStepsPerTurn);
+ }
+ 
+ // AI_update returns true when we should abort the loop and wait until next slice
+@@ -529,6 +609,14 @@ void CvUnitAI::AI_upgrade()
+ 	FAssertMsg(!isHuman(), "isHuman did not return false as expected");
+ 	FAssertMsg(AI_getUnitAIType() != NO_UNITAI, "AI_getUnitAIType() is not expected to be equal with NO_UNITAI");
+ 
++	// Nothing below can succeed for a unit that may not upgrade this turn
++	// (out of moves, or outside its territory); canUpgrade would reject every
++	// candidate after the whole scan.
++	if (!isReadyForUpgrade())
++	{
++		return;
++	}
++
+ 	CvPlayerAI& kPlayer = GET_PLAYER(getOwnerINLINE());
+ 	UnitAITypes eUnitAI = AI_getUnitAIType();
+ 	CvArea* pArea = area();
+@@ -551,7 +639,9 @@ void CvUnitAI::AI_upgrade()
+ 		for (int iI = 0; iI < GC.getNumUnitClassInfos(); iI++)
+ 		{
+ 			eLoopUnit = UnitTypes(kCivilization.getCivilizationUnits(iI));
+-			if(eLoopUnit != NO_UNIT)
++			// Only classes in this unit's upgrade tree can pass canUpgrade; the
++			// cached reachability test is far cheaper than AI_unitValue.
++			if(eLoopUnit != NO_UNIT && upgradeAvailable(getUnitType(), (UnitClassTypes)iI))
+ 			{
+ 				CvUnitInfo& kUnit = GC.getUnitInfo(eLoopUnit);
+ 
+@@ -562,15 +652,14 @@ void CvUnitAI::AI_upgrade()
+ 						int iNewValue = kPlayer.AI_unitValue(eLoopUnit, eUnitAI, pArea);
+ 						if ((iPass == 0 || iNewValue > 0) && iNewValue > iCurrentValue)
+ 						{
+-							if (canUpgrade(eLoopUnit))
++							// Take the most valuable upgrade (it used to be a random one
++							// among those better than the current unit); chance only
++							// breaks ties.
++							if ((eBestUnit == NO_UNIT || iNewValue > iBestValue || (iNewValue == iBestValue && GC.getGameINLINE().getSorenRandNum(2, "AI Upgrade tie") == 0)) &&
++								canUpgrade(eLoopUnit))
+ 							{
+-								int iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Upgrade"));
+-
+-								if (iValue > iBestValue)
+-								{
+-									iBestValue = iValue;
+-									eBestUnit = (eLoopUnit);
+-								}
++								iBestValue = iNewValue;
++								eBestUnit = (eLoopUnit);
+ 							}
+ /************************************************************************************************/
+ /* RevDCM	                     END                                                            */
+@@ -1319,6 +1408,21 @@ void CvUnitAI::AI_settleMove()
+ 		}
+ 	}
+ 	
++	// No site can be reached from here, by land or by a boat we have or can
++	// train. Keeping the settler only pays its upkeep and counts it against the
++	// settlers the cities may train once land opens up again. (BTS scrapped a
++	// settler without sites after 20 turns as well; slow speeds wait longer.)
++	// Checked before danger: a city under threat for the whole wait would
++	// otherwise keep such a settler forever.
++	if (!isCargo() && GC.getGameINLINE().getGameTurn() - getGameTurnCreated() > std::max(20, AIDecisionPolicy::scaledTurns(10,
++			GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getTrainPercent())) &&
++		GET_PLAYER(getOwnerINLINE()).getNumCities() > 0 && !GET_PLAYER(getOwnerINLINE()).AI_hasDeliverableSettlementSite(plot()))
++	{
++		if (gUnitLogLevel >= 2) logBBAI("    Settler %d: no deliverable site, disbanded at %d,%d", getID(), getX_INLINE(), getY_INLINE());
++		scrap();
++		return;
++	}
++
+ 	int iDanger = GET_PLAYER(getOwnerINLINE()).AI_getPlotDanger(plot(), 3);
+ 	
+ 	if (iDanger > 0)
+@@ -1357,7 +1461,7 @@ void CvUnitAI::AI_settleMove()
+ 
+ 	if (!GC.getGameINLINE().isOption(GAMEOPTION_ALWAYS_PEACE) && !GC.getGameINLINE().isOption(GAMEOPTION_AGGRESSIVE_AI) && !getGroup()->canDefend())
+ 	{
+-		if (AI_retreatToCity())
++		if (!AI_recruitSettlerEscort() && AI_retreatToCity())
+ 		{
+ 			return;
+ 		}
+@@ -10882,6 +10986,60 @@ bool CvUnitAI::AI_findSettlementTransport(CvPlot* pDestination, int& iBestSeaTur
+ 	return pBestTransport != NULL;
+ }
+ 
++// A lone settler in one of our cities takes a spare defender along: one above
++// the city's minimum garrison, alone in its group and idle or guarding this
++// city. Defenders join settlers on their own only when no danger is near, so a
++// city near a war never released one and its settlers waited indefinitely.
++bool CvUnitAI::AI_recruitSettlerEscort()
++{
++	CvCity* pCity = plot()->getPlotCity();
++	if (pCity == NULL || pCity->getOwnerINLINE() != getOwnerINLINE() || isCargo() ||
++		getGroup()->canDefend() || !GET_PLAYER(getOwnerINLINE()).AI_hasDeliverableSettlementSite(plot()))
++	{
++		return false;
++	}
++	const int iDefenders = plot()->plotCount(PUF_canDefend, -1, -1, getOwnerINLINE(), NO_TEAM, PUF_isDomainType, DOMAIN_LAND);
++	if (iDefenders <= static_cast<CvCityAI*>(pCity)->AI_minDefenders())
++	{
++		return false;
++	}
++	CvUnit* pBest = NULL;
++	int iBestValue = 0;
++	CLLNode<IDInfo>* pNode = plot()->headUnitNode();
++	while (pNode != NULL)
++	{
++		CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
++		pNode = plot()->nextUnitNode(pNode);
++		if (pLoopUnit == NULL || pLoopUnit->getOwnerINLINE() != getOwnerINLINE() || pLoopUnit->getDomainType() != DOMAIN_LAND ||
++			!pLoopUnit->canDefend() || pLoopUnit->isCargo() || pLoopUnit->getGroup()->getNumUnits() != 1 ||
++			pLoopUnit->getGroup()->isBusy())
++		{
++			continue;
++		}
++		const MissionAITypes eJob = pLoopUnit->getGroup()->AI_getMissionAIType();
++		if (eJob != NO_MISSIONAI && !(eJob == MISSIONAI_GUARD_CITY && pLoopUnit->getGroup()->AI_getMissionAIPlot() == plot()))
++		{
++			continue;
++		}
++		// Prefer a unit that is not the garrison, then one that can leave now,
++		// then the stronger one.
++		const int iValue = 1 + (pLoopUnit->AI_getUnitAIType() != UNITAI_CITY_DEFENSE ? 2000000 : 0) +
++			(pLoopUnit->canMove() ? 1000000 : 0) + std::min(999999, pLoopUnit->currEffectiveStr(NULL, NULL));
++		if (iValue > iBestValue)
++		{
++			iBestValue = iValue;
++			pBest = pLoopUnit;
++		}
++	}
++	if (pBest == NULL)
++	{
++		return false;
++	}
++	pBest->joinGroup(getGroup());
++	if (gUnitLogLevel >= 2) logBBAI("    Settler %d: ESCORT %d from %S", getID(), pBest->getID(), pCity->getName().GetCString());
++	return getGroup()->canDefend();
++}
++
+ bool CvUnitAI::AI_loadForSettlement(CvPlot* pDestination, int iLandTurns)
+ {
+ 	const int iPartySize = getGroup()->getNumUnits();
+@@ -14827,9 +14985,17 @@ bool CvUnitAI::AI_explore()
+ 	iBestValue = 0;
+ 	pBestPlot = NULL;
+ 	pBestExplorePlot = NULL;
+-	
++
+ 	bool bNoContact = (GC.getGameINLINE().countCivTeamsAlive() > GET_TEAM(getTeam()).getHasMetCivCount(true));
+ 
++	// Score the candidates first, then search paths best-bound first. A path's
++	// value is at most the candidate's value with the largest random draw over
++	// 3 + the fewest turns it could take, so once that bound cannot beat the
++	// best found, no later candidate can either. (This used to run one path
++	// search per candidate on the whole map, the largest cost of an AI turn.)
++	std::vector<std::pair<int, std::pair<int, int> > > aCandidates; // (bound, (plot index, value))
++	const int iStepsPerTurn = AI_minPathStepsPerTurn();
++
+ 	for (iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
+ 	{
+ 		PROFILE("AI_explore 1");
+@@ -14880,33 +15046,59 @@ bool CvUnitAI::AI_explore()
+ 					{
+ 						if (GET_PLAYER(getOwnerINLINE()).AI_plotTargetMissionAIs(pLoopPlot, MISSIONAI_EXPLORE, getGroup(), 3) == 0)
+ 						{
+-							if (!atPlot(pLoopPlot) && generatePath(pLoopPlot, MOVE_NO_ENEMY_TERRITORY, true, &iPathTurns))
++							if (!atPlot(pLoopPlot))
+ 							{
+-								iValue += GC.getGameINLINE().getSorenRandNum(250 * abs(xDistance(getX_INLINE(), pLoopPlot->getX_INLINE())) + abs(yDistance(getY_INLINE(), pLoopPlot->getY_INLINE())), "AI explore");
+-
++								const int iRandRange = 250 * abs(xDistance(getX_INLINE(), pLoopPlot->getX_INLINE())) + abs(yDistance(getY_INLINE(), pLoopPlot->getY_INLINE()));
++								int iBound = iValue + std::max(0, iRandRange - 1);
+ 								if (pLoopPlot->isAdjacentToLand())
+ 								{
+-									iValue += 10000;
++									iBound += 10000;
+ 								}
+-
+ 								if (pLoopPlot->isOwned())
+ 								{
+-									iValue += 5000;
+-								}
+-
+-								iValue /= 3 + std::max(1, iPathTurns);
+-
+-								if (iValue > iBestValue)
+-								{
+-									iBestValue = iValue;
+-									pBestPlot = pLoopPlot->isRevealedGoody(getTeam()) ? getPathEndTurnPlot() : pLoopPlot;
+-									pBestExplorePlot = pLoopPlot;
++									iBound += 5000;
+ 								}
++								iBound /= 3 + std::max(1, AI_minPathTurns(pLoopPlot, iStepsPerTurn));
++								aCandidates.push_back(std::make_pair(iBound, std::make_pair(iI, iValue)));
+ 							}
+ 						}
+ 					}
+ 				}
+-			}		
++			}
++		}
++	}
++
++	std::sort(aCandidates.begin(), aCandidates.end());
++	for (int iC = (int)aCandidates.size() - 1; iC >= 0; iC--)
++	{
++		if (aCandidates[iC].first <= iBestValue)
++		{
++			break;
++		}
++		pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(aCandidates[iC].second.first);
++		iValue = aCandidates[iC].second.second;
++		if (generatePath(pLoopPlot, MOVE_NO_ENEMY_TERRITORY, true, &iPathTurns))
++		{
++			iValue += GC.getGameINLINE().getSorenRandNum(250 * abs(xDistance(getX_INLINE(), pLoopPlot->getX_INLINE())) + abs(yDistance(getY_INLINE(), pLoopPlot->getY_INLINE())), "AI explore");
++
++			if (pLoopPlot->isAdjacentToLand())
++			{
++				iValue += 10000;
++			}
++
++			if (pLoopPlot->isOwned())
++			{
++				iValue += 5000;
++			}
++
++			iValue /= 3 + std::max(1, iPathTurns);
++
++			if (iValue > iBestValue)
++			{
++				iBestValue = iValue;
++				pBestPlot = pLoopPlot->isRevealedGoody(getTeam()) ? getPathEndTurnPlot() : pLoopPlot;
++				pBestExplorePlot = pLoopPlot;
++			}
+ 		}
+ 	}
+ 
+@@ -14944,6 +15136,7 @@ bool CvUnitAI::AI_exploreRange(int iRange)
+ 	pBestExplorePlot = NULL;
+ 
+ 	int iImpassableCount = GET_PLAYER(getOwnerINLINE()).AI_unitImpassableCount(getUnitType());
++	const int iStepsPerTurn = AI_minPathStepsPerTurn();
+ 
+ 	for (iDX = -(iSearchRange); iDX <= iSearchRange; iDX++)
+ 	{
+@@ -14994,7 +15187,10 @@ bool CvUnitAI::AI_exploreRange(int iRange)
+ 							{
+ 								PROFILE("AI_exploreRange 4");
+ 
+-								if (!atPlot(pLoopPlot) && generatePath(pLoopPlot, MOVE_NO_ENEMY_TERRITORY, true, &iPathTurns))
++								// Beyond iRange turns at best: the range test below rejects it
++								// and no random number is drawn, so skipping is exact.
++								if (!atPlot(pLoopPlot) && AI_minPathTurns(pLoopPlot, iStepsPerTurn) <= iRange &&
++									generatePath(pLoopPlot, MOVE_NO_ENEMY_TERRITORY, true, &iPathTurns))
+ 								{
+ 									if (iPathTurns <= iRange)
+ 									{
+@@ -16876,7 +17072,8 @@ bool CvUnitAI::AI_found()
+ 			// never prunes subsequent candidates. No fixed top-K cutoff is used.
+ 			if (iFound <= iBestValue) break;
+ 			++iExamined;
+-			if (!canFound(pCandidate) || pCandidate->isVisibleEnemyUnit(this) ||
++			if (!kPlayer.AI_canDeliverSettler(plot(), pCandidate) ||
++				!canFound(pCandidate) || pCandidate->isVisibleEnemyUnit(this) ||
+ 				kPlayer.AI_plotTargetMissionAIs(pCandidate, MISSIONAI_FOUND, getGroup(), GC.getMIN_CITY_RANGE()) > 0) continue;
+ 			int iLandTurns = MAX_INT;
+ 			if ((pCandidate->getArea() == getArea() || canMoveAllTerrain()) &&
+@@ -17932,7 +18129,8 @@ bool CvUnitAI::AI_settlerSeaTransport()
+ 			CvPlot* pCandidate = kPlayer.AI_getSettlementCandidate(i, iFound);
+ 			if (iFound <= std::max(iBestLandValue, iBestSeaValue)) break;
+ 			++iExamined;
+-			if (!pSettler->canFound(pCandidate) || pCandidate->isVisibleEnemyUnit(this) ||
++			if (!kPlayer.AI_canDeliverSettler(plot(), pCandidate) ||
++				!pSettler->canFound(pCandidate) || pCandidate->isVisibleEnemyUnit(this) ||
+ 				kPlayer.AI_plotTargetMissionAIs(pCandidate, MISSIONAI_FOUND, getGroup(), GC.getMIN_CITY_RANGE()) > 0) continue;
+ 			int iTurns;
+ 			// Compare delivery times using the same utility scale for both modes.
+@@ -18029,6 +18227,8 @@ bool CvUnitAI::AI_settlerSeaTransport()
+ 		// rather than retain an impossible manifest indefinitely.
+ 		if (bPort && isFull()) { AI_clearSettlerSeaLoads(); unloadAll(); getGroup()->pushMission(MISSION_SKIP); return true; }
+ 		if (AI_pickup(UNITAI_CITY_DEFENSE)) return true;
++		// No escort can board at sea: sail to a port, where one can.
++		if (!bPort && AI_retreatToCity()) return true;
+ 		getGroup()->pushMission(MISSION_SKIP, -1, -1, 0, false, false, MISSIONAI_FOUND, pSite);
+ 		return true;
+ 	}
+@@ -18902,7 +19102,9 @@ bool CvUnitAI::AI_improveLocalPlot(int iRange, CvCity* pIgnoreCity)
+ 				{
+ 					if ((NULL == pIgnoreCity) || (pCity != pIgnoreCity))
+ 					{
+-						if (AI_plotValid(pLoopPlot))
++						// Like AI_bestCityBuild: a tile held by visible enemy units cannot be
++						// worked, and a combat-capable worker's path would end in an attack.
++						if (AI_plotValid(pLoopPlot) && !pLoopPlot->isVisibleEnemyUnit(this))
+ 						{
+ 							int iIndex = pCity->getCityPlotIndex(pLoopPlot);
+ 							if (iIndex != CITY_HOME_PLOT)
+@@ -19481,7 +19683,7 @@ bool CvUnitAI::AI_improveBonus(int iMinValue, CvPlot** ppBestPlot, BuildTypes* p
+ 	{
+ 		pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+ 
+-		if (pLoopPlot->getOwnerINLINE() == getOwnerINLINE() && AI_plotValid(pLoopPlot))
++		if (pLoopPlot->getOwnerINLINE() == getOwnerINLINE() && AI_plotValid(pLoopPlot) && !pLoopPlot->isVisibleEnemyUnit(this))
+ 		{
+ 			bool bCanImprove = (pLoopPlot->area() == area());
+ 			if (!bCanImprove)
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.h b/Assets/CvGameCoreDLL/CvUnitAI.h
+index 5828d17..eaf2bdc 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.h
++++ b/Assets/CvGameCoreDLL/CvUnitAI.h
+@@ -32,6 +32,7 @@ public:
+ 	bool AI_loadForCoastalAttack(CvCity* pTargetCity);
+ 	bool AI_findSettlementTransport(CvPlot* pDestination, int& iSeaTurns, CvUnit*& pTransport, CvPlot*& pApproach);
+ 	bool AI_loadForSettlement(CvPlot* pDestination, int iLandTurns);
++	bool AI_recruitSettlerEscort();
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+@@ -57,6 +58,16 @@ public:
+ 
+ 	int AI_sacrificeValue(const CvPlot* pPlot) const;
+ 
++	// Counts, per turn, how often this unit's group dies during its own AI
++	// update while the unit can still move. Returns true once that repeats
++	// often enough to be a loop that would keep the turn from ending.
++	bool AI_noteGroupLostAndLooping();
++
++	// Fewest turns generatePath could report from this group's plot to pTo,
++	// given AI_minPathStepsPerTurn() (computed once per search).
++	int AI_minPathStepsPerTurn() const;
++	int AI_minPathTurns(const CvPlot* pTo, int iStepsPerTurn) const;
++
+ 	void read(FDataStreamBase* pStream);
+ 	void write(FDataStreamBase* pStream);
+ 
+@@ -68,6 +79,10 @@ protected:
+ 
+ 	int m_iAutomatedAbortTurn;
+ 
++	// Not saved: a fresh count after loading only delays the cutoff.
++	int m_iGroupLossTurn;
++	int m_iGroupLossCount;
++
+ 	void AI_animalMove();
+ 	void AI_settleMove();
+ 	void AI_workerMove();
+diff --git a/Assets/Python/RoMGameUtils.py b/Assets/Python/RoMGameUtils.py
+index c8f7ce2..f9a5f24 100644
+--- a/Assets/Python/RoMGameUtils.py
++++ b/Assets/Python/RoMGameUtils.py
+@@ -325,56 +325,44 @@ class RoMGameUtils:
+ 		return False
+ 
+ 	
++	def hasActiveHimeji(self, iPlayer):
++		"True if the player owns Himeji Samurai Castle and has not made it obsolete"
++		if iPlayer < 0 or self.iHimejiCastle < 0:
++			return False
++		pPlayer = gc.getPlayer(iPlayer)
++		kCastle = gc.getBuildingInfo(self.iHimejiCastle)
++		obsoleteTech = kCastle.getObsoleteTech()
++		if obsoleteTech != -1 and gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech):
++			return False
++		return pPlayer.getBuildingClassCount(kCastle.getBuildingClassType()) > 0
++
+ 	def doPillageGold(self, argsList):
+ 		"controls the gold result of pillaging"
+ 		pPlot = argsList[0]
+ 		pUnit = argsList[1]
+-		
+-		iPillageGold = 0
+-		iPillageGold = CyGame().getSorenRandNum(gc.getImprovementInfo(pPlot.getImprovementType()).getPillageGold(), "Pillage Gold 1")
+-		iPillageGold += CyGame().getSorenRandNum(gc.getImprovementInfo(pPlot.getImprovementType()).getPillageGold(), "Pillage Gold 2")
+ 
++		iPillage = gc.getImprovementInfo(pPlot.getImprovementType()).getPillageGold()
++		iPillageGold = CyGame().getSorenRandNum(iPillage, "Pillage Gold 1")
++		iPillageGold += CyGame().getSorenRandNum(iPillage, "Pillage Gold 2")
+ 		iPillageGold += (pUnit.getPillageChange() * iPillageGold) / 100
+-		
+-		# Himeji Samurai Castle Start #
+-
+-		pPlayer = gc.getPlayer( pUnit.getOwner( ) )
+-		pPlayer2 = gc.getPlayer( pPlot.getOwner( ) )
+-		obsoleteTech = gc.getBuildingInfo(self.iHimejiCastle).getObsoleteTech()
+-		if ( gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech) == false or obsoleteTech == -1 ):
+-			for iCity in range(pPlayer.getNumCities()):
+-				ppCity = pPlayer.getCity(iCity)
+-				if ppCity.getNumActiveBuilding(self.iHimejiCastle) == true:
+-					iPillageGold = ( ( 0 ) * 2 ) 
+-					iPillageGold = ( ( CyGame().getSorenRandNum(gc.getImprovementInfo(pPlot.getImprovementType()).getPillageGold(), "Pillage Gold 1") ) * 2 )
+-					iPillageGold += ( ( CyGame().getSorenRandNum(gc.getImprovementInfo(pPlot.getImprovementType()).getPillageGold(), "Pillage Gold 2") ) * 2 )
+-
+-					iPillageGold += ( ( (pUnit.getPillageChange() * iPillageGold) / 100 ) * 2 )
+-
+-				else:
+-					iPillageGold = 0
+-					iPillageGold = CyGame().getSorenRandNum(gc.getImprovementInfo(pPlot.getImprovementType()).getPillageGold(), "Pillage Gold 1")
+-					iPillageGold += CyGame().getSorenRandNum(gc.getImprovementInfo(pPlot.getImprovementType()).getPillageGold(), "Pillage Gold 2")
+-
+-					iPillageGold += (pUnit.getPillageChange() * iPillageGold) / 100
+-
+-		if pPlot.getOwner( ) >= 0:
+-			if ( gc.getTeam(pPlayer2.getTeam()).isHasTech(obsoleteTech) == false or obsoleteTech == -1 ):
+-				for iCity in range(pPlayer2.getNumCities()):
+-					ppCity = pPlayer2.getCity(iCity)
+-					if ppCity.getNumActiveBuilding(self.iHimejiCastle) == true:
+-						iPillageGold = 0
+-		# Himeji Samurai Castle End #
+-		
++
++		# Himeji Samurai Castle: the pillager's castle doubles the gold and the
++		# victim's castle prevents it. (This used to loop over the pillager's
++		# cities, re-rolling the gold for each, so only the last city decided.)
++		if self.hasActiveHimeji(pUnit.getOwner()):
++			iPillageGold *= 2
++		if self.hasActiveHimeji(pPlot.getOwner()):
++			iPillageGold = 0
++
+ 		return iPillageGold
+-	
++
+ 	def doCityCaptureGold(self, argsList):
+ 		"controls the gold result of capturing a city"
+-		
++
+ 		pOldCity = argsList[0]
+-		
++
+ 		iCaptureGold = 0
+-		
++
+ 		iCaptureGold += gc.getDefineINT("BASE_CAPTURE_GOLD")
+ 		iCaptureGold += (pOldCity.getPopulation() * gc.getDefineINT("CAPTURE_GOLD_PER_POPULATION"))
+ 		iCaptureGold += CyGame().getSorenRandNum(gc.getDefineINT("CAPTURE_GOLD_RAND1"), "Capture Gold 1")
+@@ -383,21 +371,11 @@ class RoMGameUtils:
+ 		if (gc.getDefineINT("CAPTURE_GOLD_MAX_TURNS") > 0):
+ 			iCaptureGold *= cyIntRange((CyGame().getGameTurn() - pOldCity.getGameTurnAcquired()), 0, gc.getDefineINT("CAPTURE_GOLD_MAX_TURNS"))
+ 			iCaptureGold /= gc.getDefineINT("CAPTURE_GOLD_MAX_TURNS")
+-			
+-		# Himeji Samurai Castle Start 
+-
+-		pPlayer = gc.getPlayer( pOldCity.getOwner( ) )
+ 
+-		obsoleteTech = gc.getBuildingInfo(self.iHimejiCastle).getObsoleteTech()
++		# Himeji Samurai Castle: the defender's castle denies capture gold.
++		if self.hasActiveHimeji(pOldCity.getOwner()):
++			iCaptureGold = 0
+ 
+-		if ( gc.getTeam(pPlayer.getTeam()).isHasTech(obsoleteTech) == false or obsoleteTech == -1 ):
+-			for iCity in range(pPlayer.getNumCities()):
+-				ppCity = pPlayer.getCity(iCity)
+-				if ppCity.getNumActiveBuilding(self.iHimejiCastle) == true:
+-					iCaptureGold = 0
+-		
+-		# Himeji Samurai Castle End 
+-		
+ 		return iCaptureGold
+ 	
+ 	def getUnitCostMod(self, argsList):
+diff --git a/Docs/MASINISSA_AUTORUN_FIXES.md b/Docs/MASINISSA_AUTORUN_FIXES.md
+new file mode 100644
+index 0000000..70af519
+--- /dev/null
++++ b/Docs/MASINISSA_AUTORUN_FIXES.md
+@@ -0,0 +1,155 @@
++# Autorun as Masinissa: endless turn, turn time, settlers, economy
++
++Reported on a Marathon game played on autorun as Masinissa, with the save
++`Masinissa BC-0410.CivBeyondSwordSave` (410 BC, game turn 269):
++
++1. Landing fix works.
++2. Settler mechanics still unripe.
++3. AI still not valuing key buildings and technologies properly.
++4. "Waiting for other players" at end of turn never ends, even after reloading.
++5. Worse time complexity.
++
++Every finding below comes from loading that save into the real DLL built from
++this source and letting all players (Masinissa on autoplay) play on: a headless
++harness runs `CvGameCoreDLL.dll` under Wine with the mod's XML, reads the save
++through the DLL's own `read()` functions and records every turn
++(GertaBool/RoM, `toolchain/harness`). The game executable was not run.
++
++## 4. The turn that never ends
++
++At turn 269 the unfixed DLL calls `CvGame::update` forever: one AI group is
++updated, reports that it acted, and the next slice starts with the same group.
++
++The group is a single Javelineer with the worker-style job of improving a plot.
++Its path ends on a tile held by an enemy unit. The path finder accepts that step
++(a combat unit could take it by attacking), but `groupMove` without
++`MOVE_THROUGH_ENEMY` moves each unit that cannot enter the tile into a new
++group. A lone unit thus leaves its group, the old group dies, the new group has
++moves left and gets the same order again. No moves are ever spent, so the turn
++cannot end. Reloading recreates the same state.
++
++- `CvSelectionGroup::groupPathTo` ends the mission when no unit of the group
++  can take the next step as the move it was asked for (the same test
++  `groupMove` applies).
++- `AI_improveLocalPlot` and `AI_improveBonus` skip plots with visible enemy
++  units, so such a job is not chosen in the first place.
++- Watchdog: when one unit loses its group more than 20 times in one turn while
++  it can still move, its moves end (and a debug assert fires).
++
++With the fix the save plays on (turns 269 to 299 checked).
++`Tools/test_turn_end_guard.py` compiles `groupPathTo` and the watchdog from
++this source with the engine's group-splitting rule.
++
++## 5. Turn time
++
++On the save, turns 270 to 279 took 9.6 s each with the previous DLLs (d8cedd5
++through patch 0011; they did not differ) and take 2.6 s now (harness timings,
++same machine). The profile showed most of the time in path searches. Changes,
++in order of effect:
++
++- `pathValid` looks at the parent plot only, except for one sea-corner test,
++  and the A* asks once for every neighbour of the plot it expands. The parent
++  part is now kept for the plot being expanded and dropped whenever a search
++  starts. Same answers: the game state after ten turns is byte-identical.
++- `AI_explore` used to run a path search to every candidate plot on the map.
++  Candidates are now searched best bound first, and the search stops once no
++  remaining candidate can win (the bound uses the largest possible random
++  draw and the fewest turns the path could take).
++- `AI_exploreRange` skips plots that cannot be reached within the range, using
++  a lower bound on path turns from the group's moves and the map's cheapest
++  route. Exact: same game state.
++- `CvUnit::upgradeAvailable` searched the upgrade tree recursively on every
++  call; the reachable classes are now computed once per civilization and unit.
++  `AI_upgrade` returns early when the unit cannot upgrade now, scans only
++  classes in the unit's upgrade tree, and takes the most valuable upgrade
++  (it used to pick a random one among those better than the unit).
++- `CvPlayer::canTradeItem(..., bTestDenial)` checks whether the item is
++  tradeable before computing the denial (the denial is the expensive part).
++- `RoMGameUtils.py`: the pillage and capture gold callbacks no longer loop over
++  every building of the player to find Himeji Castle.
++
++## 2. Settlers
++
++At 410 BC 18 settlers existed and 15 had no destination; one had been aboard
++a galley for 64 turns. For each of them the harness evaluated every test `AI_found` applies:
++
++- **Unreachable sites.** Ivan's four settlers (11 to 34 turns old) had one
++  candidate, behind other civilizations' borders: no `MOVE_SAFE_TERRITORY`
++  path and no boat. Willem's settlers sat in a city walled in by foreign
++  borders; the sites were reachable only from his other cities. The cities
++  kept training settlers for such sites because the site count did not ask
++  whether a settler could get there, and since the settlement rework a settler
++  without a site was never disbanded.
++- **No escort.** Lone settlers wait in a city for an escort. Defenders join
++  them only when no danger is near, so in a city near a war none ever came.
++- **Galley at sea without escort.** Joao's galley had carried a settler for 64
++  turns: with no escort aboard it skipped every turn at sea, where none can
++  board.
++- **Islands.** Settlers whose sites need a boat waited for one nobody built.
++
++Changes:
++
++- `CvPlayerAI::AI_updateSettleReach` (with the found values, once per update):
++  land regions grow from each of our cities through revealed land that is ours
++  or unclaimed, the plots a `MOVE_SAFE_TERRITORY` path may cross; sea regions
++  grow from our ports over water that a transport we have or can train may
++  enter (its terrain and feature limits and the team's techs). A party is
++  delivered by land within its region, or by sea from a port of its region to
++  a coastal site next to that water. A party outside these regions (at sea,
++  landed abroad) is not limited.
++- The production portfolio and the city's settler counts only count sites a
++  settler trained there can be delivered to. `AI_found` and the settler
++  transport skip the others (also saving their failing path searches).
++- A settler older than max(20, 10 turns scaled by the train percent) with no
++  deliverable site is disbanded (BTS did this after 20 turns), checked before
++  the danger rules so a threatened city cannot keep it forever.
++- A lone settler in our city takes a spare defender along: one above the
++  city's minimum garrison, alone and idle or guarding this city.
++- A settler transport at sea without an escort sails to a port.
++- A city with a waiting settler whose deliverable sites all need a boat
++  builds a settler transport when none serves that water.
++
++`Tools/test_settle_reach.py` compiles the region code with a grid map: a city
++behind foreign borders, sea delivery with and without a trainable transport,
++and terrain the transport may only enter with a tech.
++
++## 3. Buildings and technologies
++
++Two defects explain most of what the harness shows at 410 BC:
++
++- **The Spearman pump.** The minimal-garrison rule counts only units with the
++  `UNITAI_CITY_DEFENSE` role. A unit qualifies through its XML or a city
++  defence bonus. Spearmen have neither, and 9 of the 18 civilizations had
++  neither Archery nor Bronze Working. A city that cannot train such a unit
++  failed the garrison test at every production decision, fell back to an
++  attack-role unit (a Spearman) that never counted, and built the next one:
++  54 of about 150 production choices in five turns were Spearmen, and 12
++  civilizations had no city-defence unit at all. BBAI handled this for Warriors in the first era only. A
++  city that cannot train any city-defence unit now counts all its land
++  defenders, in every era.
++- **Gold hoarding on slow speeds.** `AI_goldTarget` adds half the elapsed turns
++  and then scales by the speed's price multiplier, but a slow speed already
++  has more turns for the same stretch of history: on Marathon the term was
++  about 8 times its Normal size, and the commerce cap used the research
++  percent (600) as turns of liquidity. Targets of 640 to 1270 gold against
++  50 to 420 commerce per turn held several AIs at 5 to 25 percent research
++  (Charles V: 473 gold banked, 15 percent research). Elapsed turns now count at
++  the standard speed's pace and the cap uses the calendar ratio (2.1 turns on
++  Marathon). Normal speed is unchanged. `Tools/test_gold_target_speed.py`
++  checks both.
++
++Over 30 turns from the save, compared with the same source without these two
++changes: research +21 percent (cumulative beakers), technologies gained 100
++instead of 79, buildings completed 347 instead of 238, 857 instead of 915
++military units at the end.
++
++Not changed: the technology values themselves looked sensible (for example
++Rome ranked Writing, Seafaring and Bronze Working highest). The Brewery has the
++highest building value in every city that can build it (about 1700, from the
++free Alcohol resource counted for every city), but hardly any are built, so it
++does not drive production.
++
++## Compatibility
++
++No saved data changed; existing saves load. New members are transient and
++rebuilt after loading. The DLL exports the same 2451 symbols.
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index ffeb954..25067a7 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -4,6 +4,18 @@
+       "command": ["python3", "Tools/test_settler_landing.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvUnit.*", "Assets/CvGameCoreDLL/AISettlementPolicy.h"]
+     },
++    {
++      "command": ["python3", "Tools/test_turn_end_guard.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvPlayerAI.*"]
++    },
++    {
++      "command": ["python3", "Tools/test_settle_reach.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*"]
++    },
++    {
++      "command": ["python3", "Tools/test_gold_target_speed.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*"]
++    },
+     {
+       "command": ["python3", "Tools/test_review_correctness.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/Python/RoMEventManager.py", "Assets/Python/PyHelpers.py"]
+diff --git a/Tools/test_gold_target_speed.py b/Tools/test_gold_target_speed.py
+new file mode 100644
+index 0000000..0da593d
+--- /dev/null
++++ b/Tools/test_gold_target_speed.py
+@@ -0,0 +1,100 @@
++#!/usr/bin/env python3
++"""The AI's gold reserve follows prices, not the number of turns a speed has.
++
++CvPlayerAI::AI_goldTarget is compiled from the DLL source with stand-ins for
++the game. Elapsed turns were added to the target and then scaled by the
++speed's price multiplier, although a slow speed already has more turns for the
++same stretch of history; on RoM Marathon (1470 turns, 600/300/200 percent) that
++term was about eight times its Normal value, and the turn-runway cap used the
++600 percent research factor. AIs then kept research at 5-25% for many turns
++while banking gold (seen on a real Marathon save replayed in the GertaBool/RoM
++toolchain/harness).
++"""
++import unittest
++from test_review_correctness import DLL, remaining, block, compile_run
++
++HOST = r'''
++#include <cassert>
++#include <algorithm>
++#include <cstring>
++enum GameSpeedTypes { NORMAL = 0, MARATHON = 1 };
++enum CommerceTypes { NUM_COMMERCE_TYPES = 4 };
++enum CorporationTypes { NO_CORPORATION = -1 };
++struct GameTurnInfo { int iMonthIncrement; int iNumGameTurnsPerIncrement; };
++struct CvGameSpeedInfo
++{
++	int research, train, construct; GameTurnInfo turns[2];
++	int getResearchPercent() const { return research; } int getTrainPercent() const { return train; }
++	int getConstructPercent() const { return construct; } int getNumTurnIncrements() const { return 2; }
++	GameTurnInfo& getGameTurnInfo(int i) const { return const_cast<GameTurnInfo&>(turns[i]); }
++} speeds[2];
++struct CvCorporationInfo { int getSpreadCost() const { return 0; } } corp;
++struct CvGame { GameSpeedTypes speed; int elapsed;
++	GameSpeedTypes getGameSpeedType() const { return speed; } int getElapsedGameTurns() const { return elapsed; } } game;
++struct Globals
++{
++	CvGame& getGameINLINE() { return game; }
++	const CvGameSpeedInfo& getGameSpeedInfo(int i) { return speeds[i]; }
++	int getNumGameSpeedInfos() { return 2; }
++	int getDefineINT(const char* s) { return strcmp(s, "STANDARD_GAMESPEED") == 0 ? NORMAL :
++		strcmp(s, "AI_GOLD_UPGRADE_RESERVE_TURNS_WAR") == 0 ? 2 : strcmp(s, "AI_GOLD_UPGRADE_RESERVE_TURNS_PEACE") == 0 ? 1 : 1; }
++	int getNumCorporationInfos() { return 0; }
++	CvCorporationInfo& getCorporationInfo(int) { return corp; }
++} GC;
++struct CvTeam { int wars; int getAtWarCount(bool) const { return wars; } } team;
++CvTeam& GET_TEAM(int) { return team; }
++struct CvPlayerAI
++{
++	int cities, pop, commerce, upgrades;
++	int getNumCities() const { return cities; } int getTotalPopulation() const { return pop; }
++	int getTeam() const { return 0; } bool AI_avoidScience() const { return false; }
++	int getCommerceRate(CommerceTypes) const { return commerce / 4; }
++	int AI_goldToUpgradeAllUnits() const { return upgrades; }
++	int getHasCorporationCount(int) const { return 0; } int calculateInflationRate() const { return 0; }
++	int AI_getExtraGoldTarget() const { return 0; }
++	int AI_goldTarget() const;
++};
++'''
++
++
++def program(tail):
++    src = (DLL / 'CvPlayerAI.cpp').read_text(encoding='latin-1')
++    helpers = block(src, 'int calendarTurns(GameSpeedTypes eSpeed)') + '\n' + block(src, 'int calendarTurnsPercent()')
++    return HOST + helpers + '\n' + block(src, 'int CvPlayerAI::AI_goldTarget() const') + r'''
++void setSpeeds() {
++ speeds[NORMAL].research = 100; speeds[NORMAL].train = 100; speeds[NORMAL].construct = 100;
++ speeds[NORMAL].turns[0].iNumGameTurnsPerIncrement = 300; speeds[NORMAL].turns[1].iNumGameTurnsPerIncrement = 400;
++ speeds[MARATHON].research = 600; speeds[MARATHON].train = 300; speeds[MARATHON].construct = 200;
++ speeds[MARATHON].turns[0].iNumGameTurnsPerIncrement = 630; speeds[MARATHON].turns[1].iNumGameTurnsPerIncrement = 840;
++}
++''' + tail
++
++
++class GoldTargetSpeedTests(unittest.TestCase):
++    def test_normal_speed_keeps_the_bts_formula(self):
++        compile_run(program(r'''
++int main() { setSpeeds(); game.speed = NORMAL; game.elapsed = 128; team.wars = 0;
++ CvPlayerAI p; p.cities = 6; p.pop = 33; p.commerce = 4000; p.upgrades = 0;
++ // (6 * 3 + 33 / 3 + 128 / 2) * 100 / 100
++ assert(p.AI_goldTarget() == 93);
++ p.commerce = 40; // one turn of commerce caps the peaceful reserve
++ assert(p.AI_goldTarget() == 40); }
++'''))
++
++    def test_marathon_reserve_follows_prices_not_turn_count(self):
++        compile_run(program(r'''
++int main() { setSpeeds(); team.wars = 0;
++ CvPlayerAI p; p.cities = 6; p.pop = 33; p.commerce = 100000; p.upgrades = 0;
++ game.speed = NORMAL; game.elapsed = 128; const int iNormal = p.AI_goldTarget();
++ // The same point of history on Marathon: 210 turns for every 100 Normal turns.
++ game.speed = MARATHON; game.elapsed = 128 * 1470 / 700; const int iMarathon = p.AI_goldTarget();
++ // Prices on Marathon are (600 + 300 + 200) / 3 = 366 percent of Normal.
++ assert(iMarathon >= iNormal * 366 / 100 - 4 && iMarathon <= iNormal * 366 / 100 + 4);
++ // The liquidity cap is 2.1 turns of commerce in peace (was 6, the research percent).
++ p.commerce = 100; assert(p.AI_goldTarget() == 210);
++ team.wars = 1; assert(p.AI_goldTarget() == 420); }
++'''))
++
++
++if __name__ == '__main__':
++    unittest.main(argv=[__file__] + remaining, verbosity=2)
+diff --git a/Tools/test_path_queries.py b/Tools/test_path_queries.py
+index 3dd20b6..112f697 100644
+--- a/Tools/test_path_queries.py
++++ b/Tools/test_path_queries.py
+@@ -72,6 +72,7 @@ struct FAStar
+ 	FAStar() : bTree(false), iStartX(0), iStartY(0), iFlags(0), iTreeSpeed(1), pData(NULL), iFresh(0), iReused(0) {}
+ };
+ int speedOf(const void* pGroup);
++void pathValidResetMemo() {}
+ struct FAStarIFace
+ {
+ 	void SetData(FAStar* p, const void* pData) { p->pData = pData; }
+diff --git a/Tools/test_settle_reach.py b/Tools/test_settle_reach.py
+new file mode 100644
+index 0000000..07f013b
+--- /dev/null
++++ b/Tools/test_settle_reach.py
+@@ -0,0 +1,192 @@
++#!/usr/bin/env python3
++"""Settlers are trained for, and sent to, sites a party can actually reach.
++
++CvPlayerAI::AI_updateSettleReach and the delivery checks built on it are
++compiled from the DLL source with a small grid map. Land regions grow from our
++cities through land that is ours or unclaimed (the MOVE_SAFE_TERRITORY rule);
++sea regions grow from our ports over water a transport we have or can train
++may enter. Before this, a civilization whose only site lay behind a
++neighbour's borders kept training settlers for it and the settlers waited in
++their cities for 40+ turns (seen on a real save replayed in the GertaBool/RoM
++toolchain/harness).
++"""
++import unittest
++from test_review_correctness import DLL, remaining, block, compile_run
++
++HOST = r'''
++#include <cassert>
++#include <cstddef>
++#include <vector>
++#include <utility>
++#include <algorithm>
++#define PROFILE_FUNC()
++enum TeamTypes { NO_TEAM = -1 };
++enum DirectionTypes { NO_DIRECTION = -1 };
++enum UnitTypes { NO_UNIT = -1 };
++enum UnitClassTypes { NO_UNITCLASS = -1 };
++enum TechTypes { NO_TECH = -1 };
++enum FeatureTypes { NO_FEATURE = -1 };
++enum DomainTypes { DOMAIN_SEA = 0, DOMAIN_LAND = 2 };
++enum UnitAITypes { UNITAI_SETTLER_SEA = 7 };
++enum CivilizationTypes { CIV = 0 };
++const int NUM_DIRECTION_TYPES = 8;
++const int W = 8, H = 5;
++const int OCEAN = 1, COAST = 0;
++
++struct CvPlot
++{
++	int x, y; bool water, impassable, revealed; int owner, terrain;
++	CvPlot(): x(0), y(0), water(false), impassable(false), revealed(true), owner(-1), terrain(COAST) {}
++	int getX_INLINE() const { return x; } int getY_INLINE() const { return y; }
++	bool isWater() const { return water; } bool isImpassable() const { return impassable; }
++	bool isRevealed(TeamTypes, bool) const { return revealed; }
++	bool isOwned() const { return owner >= 0; } TeamTypes getTeam() const { return (TeamTypes)owner; }
++	int getTerrainType() const { return terrain; } int getFeatureType() const { return NO_FEATURE; }
++};
++struct CvMap
++{
++	CvPlot plots[W * H];
++	CvMap() { for (int i = 0; i < W * H; ++i) { plots[i].x = i % W; plots[i].y = i / W; } }
++	int numPlotsINLINE() const { return W * H; }
++	CvPlot* plotByIndexINLINE(int i) { return &plots[i]; }
++	int plotNumINLINE(int x, int y) const { return y * W + x; }
++	CvPlot* at(int x, int y) { return &plots[y * W + x]; }
++} theMap;
++CvPlot* plotDirection(int x, int y, DirectionTypes d)
++{
++	static const int dx[8] = { 0, 1, 1, 1, 0, -1, -1, -1 }, dy[8] = { 1, 1, 0, -1, -1, -1, 0, 1 };
++	const int nx = x + dx[d], ny = y + dy[d];
++	return (nx < 0 || ny < 0 || nx >= W || ny >= H) ? NULL : theMap.at(nx, ny);
++}
++struct CvUnitInfo
++{
++	bool impassableOcean; int oceanTech;
++	int getDomainType() const { return DOMAIN_SEA; } int getCargoSpace() const { return 2; }
++	bool getUnitAIType(int) const { return true; }
++	int getTerrainPassableTech(int t) const { return t == OCEAN ? oceanTech : NO_TECH; }
++	bool getTerrainImpassable(int t) const { return t == OCEAN && impassableOcean; }
++	int getFeaturePassableTech(int) const { return NO_TECH; } bool getFeatureImpassable(int) const { return false; }
++} galley;
++struct CvCivilizationInfo { int getCivilizationUnits(int) const { return 0; } } civInfo;
++struct Globals
++{
++	CvMap& getMapINLINE() { return theMap; }
++	int getNumUnitClassInfos() { return 1; }
++	CvCivilizationInfo& getCivilizationInfo(int) { return civInfo; }
++	CvUnitInfo& getUnitInfo(int) { return galley; }
++	int getNumTerrainInfos() { return 2; } int getNumFeatureInfos() { return 1; }
++	int getMIN_WATER_SIZE_FOR_OCEAN() { return 1; }
++} GC;
++struct CvTeam { bool tech; bool isHasTech(TechTypes) const { return tech; } } theTeam;
++CvTeam& GET_TEAM(TeamTypes) { return theTeam; }
++bool atWar(TeamTypes, TeamTypes) { return false; }
++struct CvCity
++{
++	int x, y; bool canBuildBoat;
++	int getX_INLINE() const { return x; } int getY_INLINE() const { return y; }
++	bool isCoastal(int) const { return true; } bool canTrain(UnitTypes) const { return canBuildBoat; }
++};
++struct Candidate { int plot, value; };
++struct CvPlayerAI
++{
++	std::vector<CvCity> cities; std::vector<Candidate> candidates; int boats;
++	mutable std::vector<int> m_aiSettleLandRegion;
++	mutable std::vector<int> m_aiSettleSeaRegion;
++	mutable std::vector<std::pair<int, int> > m_aSettlePortLinks;
++	CvPlayerAI(): boats(0) {}
++	TeamTypes getTeam() const { return (TeamTypes)0; }
++	CivilizationTypes getCivilizationType() const { return CIV; }
++	int getUnitClassCount(UnitClassTypes) const { return boats; }
++	CvCity* firstCity(int* i) const { *i = 0; return cities.empty() ? NULL : const_cast<CvCity*>(&cities[0]); }
++	CvCity* nextCity(int* i) const { ++*i; return *i < (int)cities.size() ? const_cast<CvCity*>(&cities[*i]) : NULL; }
++	int AI_getNumSettlementCandidates() const { return (int)candidates.size(); }
++	CvPlot* AI_getSettlementCandidate(int i, int& v) const { v = candidates[i].value; return theMap.plotByIndexINLINE(candidates[i].plot); }
++	void AI_updateSettleReach() const;
++	bool AI_canDeliverSettler(const CvPlot* pFrom, const CvPlot* pSite, bool* pbByLand = NULL) const;
++	bool AI_isSettleSiteDeliverable(const CvPlot* pSite) const;
++	bool AI_hasDeliverableSettlementSite(const CvPlot* pFrom) const;
++	int AI_countSeaOnlySettlementSites(const CvPlot* pFrom) const;
++};
++'''
++
++FUNCTIONS = ['void CvPlayerAI::AI_updateSettleReach() const',
++             'bool CvPlayerAI::AI_canDeliverSettler(',
++             'bool CvPlayerAI::AI_isSettleSiteDeliverable(',
++             'bool CvPlayerAI::AI_hasDeliverableSettlementSite(',
++             'int CvPlayerAI::AI_countSeaOnlySettlementSites(']
++
++# Columns 0-2 land (west), column 3 water, columns 4-7 land (east).
++MAP = r'''
++void sea() { for (int y = 0; y < H; ++y) theMap.at(3, y)->water = true; }
++CvCity city(int x, int y, bool boat) { CvCity c; c.x = x; c.y = y; c.canBuildBoat = boat; return c; }
++Candidate site(int x, int y) { Candidate c; c.plot = theMap.plotNumINLINE(x, y); c.value = 1000; return c; }
++'''
++
++
++def program(tail):
++    src = (DLL / 'CvPlayerAI.cpp').read_text(encoding='latin-1')
++    return HOST + ''.join(block(src, f) + '\n' for f in FUNCTIONS) + MAP + tail
++
++
++class SettleReachTests(unittest.TestCase):
++    def test_city_walled_in_by_foreign_borders_cannot_reach_open_land(self):
++        compile_run(program(r'''
++int main() {
++ CvPlayerAI p;
++ // Our city at (0,2) is ringed by a neighbour's land; our city at (6,2) is not.
++ for (int x = 0; x <= 2; ++x) for (int y = 0; y < H; ++y) if (!(x == 0 && y == 2)) theMap.at(x, y)->owner = 1;
++ theMap.at(0, 2)->owner = 0; theMap.at(6, 2)->owner = 0;
++ p.cities.push_back(city(0, 2, false)); p.cities.push_back(city(6, 2, false));
++ p.candidates.push_back(site(5, 0));
++ p.AI_updateSettleReach();
++ bool bLand;
++ assert(!p.AI_canDeliverSettler(theMap.at(0, 2), theMap.at(5, 0), &bLand));
++ assert(p.AI_canDeliverSettler(theMap.at(6, 2), theMap.at(5, 0), &bLand) && bLand);
++ assert(p.AI_isSettleSiteDeliverable(theMap.at(5, 0)));
++ assert(!p.AI_hasDeliverableSettlementSite(theMap.at(0, 2)));
++ assert(p.AI_hasDeliverableSettlementSite(theMap.at(6, 2)));
++ // A party outside our regions (abroad, at sea) is not limited.
++ assert(p.AI_canDeliverSettler(theMap.at(1, 1), theMap.at(5, 0)));
++}
++'''))
++
++    def test_sea_delivery_needs_a_transport_we_have_or_can_train(self):
++        compile_run(program(r'''
++int main() {
++ sea();
++ CvPlayerAI p; p.cities.push_back(city(2, 2, false)); p.candidates.push_back(site(4, 1));
++ p.AI_updateSettleReach();
++ assert(!p.AI_isSettleSiteDeliverable(theMap.at(4, 1)));
++ assert(!p.AI_hasDeliverableSettlementSite(theMap.at(2, 2)));
++ p.cities[0].canBuildBoat = true;
++ p.AI_updateSettleReach();
++ bool bLand = true;
++ assert(p.AI_canDeliverSettler(theMap.at(2, 2), theMap.at(4, 1), &bLand) && !bLand);
++ assert(p.AI_countSeaOnlySettlementSites(theMap.at(2, 2)) == 1);
++ // A site that can be walked to takes priority: no boat is wanted.
++ p.candidates.push_back(site(0, 0));
++ assert(p.AI_countSeaOnlySettlementSites(theMap.at(2, 2)) == 0);
++ // Only the landing next to the site matters: inland sites are not served by sea.
++ p.candidates.clear(); p.candidates.push_back(site(7, 1));
++ assert(!p.AI_hasDeliverableSettlementSite(theMap.at(2, 2)));
++}
++'''))
++
++    def test_transport_terrain_limits_follow_the_team_techs(self):
++        compile_run(program(r'''
++int main() {
++ sea();
++ for (int y = 0; y < H; ++y) theMap.at(3, y)->terrain = OCEAN;
++ galley.impassableOcean = true; galley.oceanTech = 5; theTeam.tech = false;
++ CvPlayerAI p; p.boats = 1; p.cities.push_back(city(2, 2, false)); p.candidates.push_back(site(4, 1));
++ p.AI_updateSettleReach();
++ assert(!p.AI_hasDeliverableSettlementSite(theMap.at(2, 2)));
++ theTeam.tech = true;
++ p.AI_updateSettleReach();
++ assert(p.AI_hasDeliverableSettlementSite(theMap.at(2, 2)));
++}
++'''))
++
++
++if __name__ == '__main__':
++    unittest.main(argv=[__file__] + remaining, verbosity=2)
+diff --git a/Tools/test_settler_landing.py b/Tools/test_settler_landing.py
+index 1f18dc1..efe915a 100644
+--- a/Tools/test_settler_landing.py
++++ b/Tools/test_settler_landing.py
+@@ -96,6 +96,7 @@ struct CvPlayerAI {int horizon;std::vector<CvPlot*> sites;std::vector<CvSelectio
+  CvPlayerAI():horizon(20){}int AI_getExpansionHorizon(){return horizon;}int AI_getLogisticsPriority(){return 500;}
+  int AI_getNumSettlementCandidates(){return sites.size();}
+  CvPlot* AI_getSettlementCandidate(int i,int& value){value=sites[i]->found;return sites[i];}
++ bool AI_canDeliverSettler(const CvPlot*,const CvPlot*,bool* =NULL){return true;}
+  int AI_plotTargetMissionAIs(CvPlot*,int,CvSelectionGroup*,int){return 0;}
+  CvSelectionGroup* firstSelectionGroup(int* i){*i=0;return groups.empty()?NULL:groups[0];}
+  CvSelectionGroup* nextSelectionGroup(int* i){++*i;return size_t(*i)<groups.size()?groups[*i]:NULL;}
+diff --git a/Tools/test_turn_end_guard.py b/Tools/test_turn_end_guard.py
+new file mode 100644
+index 0000000..1955166
+--- /dev/null
++++ b/Tools/test_turn_end_guard.py
+@@ -0,0 +1,127 @@
++#!/usr/bin/env python3
++"""A blocked path step must end the mission, not loop the AI turn forever.
++
++CvSelectionGroup::groupPathTo is compiled from the DLL source with stand-ins
++whose movement rules follow the engine: canMoveInto() refuses a tile held by
++enemy units, canMoveOrAttackInto() accepts it for a unit that can attack, and
++groupMove() splits off every unit that cannot take the step. Before the fix a
++lone combat unit with a worker order onto an enemy-held tile was split into a
++new group on every update slice and the turn never ended (seen on a real save
++replayed in the GertaBool/RoM toolchain/harness). The watchdog counter
++CvUnitAI::AI_noteGroupLostAndLooping is compiled from source too.
++"""
++import unittest
++from test_review_correctness import DLL, remaining, block, compile_run
++
++HOST = r'''
++#include <cassert>
++#include <cstddef>
++#include <vector>
++enum { MOVE_THROUGH_ENEMY = 8, DOMAIN_LAND = 0, DOMAIN_AIR = 2 };
++enum MissionAITypes { NO_MISSIONAI = -1, MISSIONAI_BUILD = 19, MISSIONAI_BLOCKADE = 16, MISSIONAI_PILLAGE = 17 };
++#define FAssert(x) ((void)0)
++#define FAssertMsg(x, m) ((void)0)
++#define NO_PLAYER -1
++struct CvUnit;
++typedef CvUnit* IDInfo;
++template<class T> struct CLLNode { T m_data; CLLNode* next; };
++CvUnit* getUnit(IDInfo i) { return i; }
++struct CvPlot { bool enemy, city; int x, y; CvPlot(): enemy(false), city(false), x(0), y(0) {}
++	bool isEnemyCity(const CvUnit&) const { return city && enemy; } int getX_INLINE() { return x; } int getY_INLINE() { return y; } };
++struct CvUnit { bool attacker, moves, noCapture; CvUnit(): attacker(false), moves(true), noCapture(false) {}
++	bool canMove() const { return moves; }
++	bool isNoCapture() const { return noCapture; }
++	bool canMoveInto(CvPlot* p) const { return !p->enemy; }
++	bool canMoveOrAttackInto(CvPlot* p) const { return !p->enemy || attacker; } };
++struct Map { CvPlot plots[4]; CvPlot* plotINLINE(int x, int) { return &plots[x]; } } theMap;
++struct Globals { Map& getMapINLINE() { return theMap; } } GC;
++struct CvSelectionGroup {
++	std::vector<CLLNode<IDInfo> > nodes; CvPlot* where; CvPlot* firstStep; int moves, splits;
++	MissionAITypes job;
++	CvSelectionGroup(): where(&theMap.plots[0]), firstStep(&theMap.plots[1]), moves(0), splits(0), job(MISSIONAI_BUILD) {}
++	void add(CvUnit* u) { CLLNode<IDInfo> n; n.m_data = u; n.next = NULL; nodes.push_back(n);
++		for (size_t i = 0; i + 1 < nodes.size(); ++i) nodes[i].next = &nodes[i + 1]; }
++	CLLNode<IDInfo>* headUnitNode() { return nodes.empty() ? NULL : &nodes[0]; }
++	CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* n) { return n->next; }
++	bool at(int x, int) { return where->x == x; }
++	bool isBusy() { return false; }
++	int getOwnerINLINE() { return 0; }
++	void* headMissionQueueNode() { return this; }
++	bool canAllMove() { return true; }
++	int getDomainType() { return DOMAIN_LAND; }
++	bool canMoveInto(CvPlot*) { return true; }
++	CvPlot* plot() { return where; }
++	bool generatePath(CvPlot*, CvPlot*, int) { return true; }
++	CvPlot* getPathFirstPlot() { return firstStep; }
++	bool groupAmphibMove(CvPlot*, int) { return false; }
++	MissionAITypes AI_getMissionAIType() { return job; }
++	bool groupDeclareWar(CvPlot*, bool) { return false; }
++	// Engine rule: each unit that cannot take the step leaves for a new group.
++	void groupMove(CvPlot* p, bool bCombat, CvUnit*, bool) {
++		++moves;
++		for (size_t i = 0; i < nodes.size(); ++i) {
++			CvUnit* u = nodes[i].m_data;
++			if (!(u->canMove() && (bCombat ? u->canMoveOrAttackInto(p) : u->canMoveInto(p)))) ++splits;
++		}
++	}
++	bool groupPathTo(int iX, int iY, int iFlags);
++};
++'''
++
++UNIT_AI = r'''
++#include <cassert>
++struct Game { int turn; int getGameTurn() { return turn; } } theGame;
++struct Globals { Game& getGameINLINE() { return theGame; } } GC;
++struct CvUnitAI { int m_iGroupLossTurn, m_iGroupLossCount; CvUnitAI(): m_iGroupLossTurn(-1), m_iGroupLossCount(0) {}
++	bool AI_noteGroupLostAndLooping(); };
++'''
++
++
++def program(tail):
++    group = (DLL / 'CvSelectionGroup.cpp').read_text(encoding='latin-1')
++    return HOST + block(group, 'bool CvSelectionGroup::groupPathTo(') + tail
++
++
++class TurnEndGuardTests(unittest.TestCase):
++    def test_lone_worker_onto_enemy_tile_ends_mission(self):
++        compile_run(program(r'''
++int main() { CvSelectionGroup g; CvUnit javelineer; javelineer.attacker = true; g.add(&javelineer);
++ theMap.plots[1].enemy = true; theMap.plots[1].x = 1;
++ assert(!g.groupPathTo(1, 0, 0));
++ assert(g.moves == 0 && g.splits == 0); }
++'''))
++
++    def test_free_step_still_moves(self):
++        compile_run(program(r'''
++int main() { CvSelectionGroup g; CvUnit worker; g.add(&worker); theMap.plots[1].x = 1;
++ assert(g.groupPathTo(1, 0, 0));
++ assert(g.moves == 1 && g.splits == 0); }
++'''))
++
++    def test_mixed_group_moves_and_splits_the_blocked_unit(self):
++        compile_run(program(r'''
++int main() { CvSelectionGroup g; CvUnit a, b; b.moves = false; g.add(&a); g.add(&b); theMap.plots[1].x = 1;
++ assert(g.groupPathTo(1, 0, 0));
++ assert(g.moves == 1 && g.splits == 1); }
++'''))
++
++    def test_attack_order_still_attacks(self):
++        compile_run(program(r'''
++int main() { CvSelectionGroup g; CvUnit axe; axe.attacker = true; g.add(&axe);
++ theMap.plots[1].enemy = true; theMap.plots[1].x = 1;
++ assert(g.groupPathTo(1, 0, MOVE_THROUGH_ENEMY));
++ assert(g.moves == 1 && g.splits == 0); }
++'''))
++
++    def test_watchdog_trips_after_twenty_losses_per_turn(self):
++        unit_ai = (DLL / 'CvUnitAI.cpp').read_text(encoding='latin-1')
++        compile_run(UNIT_AI + block(unit_ai, 'bool CvUnitAI::AI_noteGroupLostAndLooping(') + r'''
++int main() { CvUnitAI u; theGame.turn = 5;
++ for (int i = 0; i < 20; ++i) assert(!u.AI_noteGroupLostAndLooping());
++ assert(u.AI_noteGroupLostAndLooping());
++ theGame.turn = 6; assert(!u.AI_noteGroupLostAndLooping()); }
++''')
++
++
++if __name__ == '__main__':
++    unittest.main(argv=[__file__] + remaining, verbosity=2)
+diff --git a/Tools/test_unit_ai_corrections.py b/Tools/test_unit_ai_corrections.py
+index 2ac95de..959e2d7 100644
+--- a/Tools/test_unit_ai_corrections.py
++++ b/Tools/test_unit_ai_corrections.py
+@@ -360,14 +360,18 @@ struct CvSelectionGroup
+ };
+ struct Player
+ {
+-	int iDanger;
++	int iDanger; bool bDeliverable;
+ 	int getNumCities() const { return 3; }
+ 	int AI_getPlotDanger(const CvPlot*, int) const { return iDanger; }
+ 	bool AI_getAnyPlotDanger(const CvPlot*) const { return iDanger > 0; }
++	bool AI_hasDeliverableSettlementSite(const CvPlot*) const { return bDeliverable; }
+ } player;
+ #define GET_PLAYER(x) player
+-struct Game { bool isOption(GameOptionTypes) const { return false; } int getMaxCityElimination() const { return 0; } };
+-struct Globals { Game kGame; Game& getGameINLINE() { return kGame; } } GC;
++struct Game { int iTurn; bool isOption(GameOptionTypes) const { return false; } int getMaxCityElimination() const { return 0; }
++	int getGameTurn() const { return iTurn; } int getGameSpeedType() const { return 0; } };
++struct SpeedInfo { int getTrainPercent() const { return 100; } };
++struct Globals { Game kGame; SpeedInfo kSpeed; Game& getGameINLINE() { return kGame; } SpeedInfo& getGameSpeedInfo(int) { return kSpeed; } } GC;
++namespace AIDecisionPolicy { inline int scaledTurns(int iTurns, int iPercent) { return iTurns * iPercent / 100; } }
+ std::vector<const char*> actions;
+ struct CvUnit { CvSelectionGroup* pGroup; CvSelectionGroup* getGroup() const { return pGroup; } };
+ struct CvUnitAI
+@@ -380,6 +384,10 @@ struct CvUnitAI
+ 	int getOwnerINLINE() const { return 1; }
+ 	bool canFound(const CvPlot*) const { return bFoundable; }
+ 	bool atPlot(const CvPlot* p) const { return p == pPlot; }
++	int getGameTurnCreated() const { return 0; }
++	int getID() const { return 1; } int getX_INLINE() const { return 0; } int getY_INLINE() const { return 0; }
++	void scrap() { actions.push_back("scrap"); }
++	bool AI_recruitSettlerEscort() { actions.push_back("recruit"); return false; }
+ 	void joinGroup(void*) { actions.push_back("split"); }
+ 	bool AI_retreatToCity() { actions.push_back("retreat"); return true; }
+ 	bool AI_safety() { actions.push_back("safety"); return true; }
+@@ -393,25 +401,35 @@ int main()
+ 	CvPlot site = { -1, false }, elsewhere = { -1, false };
+ 	CvSelectionGroup alone = { MISSIONAI_FOUND, &site, false, 1 };
+ 	CvUnitAI settler; settler.pGroup = &alone; settler.pPlot = &site; settler.bFoundable = true;
+-	player.iDanger = 0;
++	player.iDanger = 0; player.bDeliverable = true; GC.kGame.iTurn = 10;
+ 	settler.AI_settleMove();
+ 	assert(pushed.size() == 1 && pushed[0].eMission == MISSION_FOUND && pushed[0].pAIPlot == &site);
+ 	assert(actions.empty());	// formerly: retreat home from the reached site
+ 
+-	// Not yet at the site: the escort rule still applies.
++	// Not yet at the site: the escort rule still applies (after trying to
++	// take a spare defender along).
+ 	pushed.clear(); actions.clear(); settler.pPlot = &elsewhere;
+ 	settler.AI_settleMove();
+-	assert(pushed.empty() && actions.size() == 1 && actions[0] == std::string("retreat"));
++	assert(pushed.empty() && actions.size() == 2 && actions[0] == std::string("recruit") && actions[1] == std::string("retreat"));
+ 
+ 	// At the site but it is no longer legal: the normal rules decide.
+ 	pushed.clear(); actions.clear(); settler.pPlot = &site; settler.bFoundable = false;
+ 	settler.AI_settleMove();
+-	assert(pushed.empty() && actions[0] == std::string("retreat"));
++	assert(pushed.empty() && actions[0] == std::string("recruit") && actions[1] == std::string("retreat"));
+ 
+ 	// Danger on our own plot is still handled first.
+ 	pushed.clear(); actions.clear(); settler.bFoundable = true; site.owner = 1; player.iDanger = 1;
+ 	settler.AI_settleMove();
+ 	assert(pushed.empty() && actions[0] == std::string("split") && actions[1] == std::string("retreat"));
++
++	// An old settler with nowhere it can be delivered is disbanded, even under
++	// threat; a young one waits.
++	pushed.clear(); actions.clear(); player.bDeliverable = false;
++	settler.AI_settleMove();
++	assert(actions[0] == std::string("split"));
++	pushed.clear(); actions.clear(); GC.kGame.iTurn = 21;
++	settler.AI_settleMove();
++	assert(actions.size() == 1 && actions[0] == std::string("scrap") && pushed.empty());
+ }
+ '''
+         compile_run(program.replace("#include <vector>", "#include <vector>\n#include <string>", 1))
+-- 
+2.43.0
+

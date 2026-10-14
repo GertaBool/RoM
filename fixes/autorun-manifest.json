@@ -1,0 +1,177 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "dcbae97119c07384439c94550dcf88659d8ad559",
+  "base_tree": "069f58a3c25bdb57588ac2d185c100076cfe6c3a",
+  "tested_source_commit": "3553b8cc294f547386d9cb47d8e1976da981d637",
+  "tested_source_tree": "c56ade1249adbbe0a1a6f3deb41b314635007208",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!37",
+    "main_commit": "abf84717c819ac8028d115df7b58b856d8809664",
+    "main_tree_equals_tested_tree": true,
+    "uploaded_as": "13 hunk commits on claude/autorun-fixes (GitLab API); branch tree compared with the tested tree before merging"
+  },
+  "patch": "0012-autorun-fixes.patch",
+  "patch_sha256": "e9155788c2e352b97bb04093f29a9e1e882b3437437915824ab462979911808a",
+  "relationship_to_prior_patch": "Incremental on GitLab main after merge request !36 (patch 0011) and its documentation follow-up dcbae97. Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "reported": "Autorun as Masinissa, Marathon, save 'Masinissa BC-0410.CivBeyondSwordSave' (410 BC, game turn 269): landing works; settler mechanics unripe; AI not valuing key buildings and technologies; endless 'Waiting for other players'; worse time complexity",
+  "root_causes": {
+    "endless_turn": "a lone Javelineer with a worker job pathed onto an enemy-held tile; groupMove without MOVE_THROUGH_ENEMY split it into a new group each update slice, CvPlayerAI::AI_unitUpdate stopped at it every slice and no moves were spent",
+    "turn_time": "path searches: pathValid recomputed the parent-plot tests for every neighbour; AI_explore ran a whole-map search per candidate; AI_exploreRange searched plots beyond its range; recursive upgrade-tree walks",
+    "settlers": "site counts and AI_found ignored whether a site could be reached from the settler's region (foreign borders, no transport); settlers without sites were never disbanded; lone settlers in threatened cities got no escort; a transport without escort at sea waited forever",
+    "spearman_pump": "the minimal-garrison rule counts only UNITAI_CITY_DEFENSE units; Spearmen cannot take that role, so cities without Archery or Bronze Working trained attack-role Spearmen at every production decision",
+    "gold_target": "AI_goldTarget scaled elapsed turns by the speed's price multiplier although slow speeds already have more turns; the liquidity cap used the research percent"
+  },
+  "validation": {
+    "real_dll_harness": {
+      "description": "the reported save loaded through the DLL's own read() functions in toolchain/harness; all seats AI (autoplay); real A* and XML; Python callbacks the DLL uses during AI turns computed as RoM does",
+      "endless_turn": {
+        "before": "turn 269 never ends (STUCK reports)",
+        "after": "turns 269 to 299 played"
+      },
+      "turn_time_ms_turns_270_279": {
+        "d8cedd5_to_0011": 9600,
+        "patch_0012": 2600
+      },
+      "path_memo_and_range_bound_exact": "state after 10 turns byte-identical with and without each change",
+      "economy_30_turns": {
+        "without_garrison_and_gold_fixes": {
+          "cumulative_research": 51278,
+          "techs_gained": 79,
+          "buildings_completed": 238,
+          "military_units_end": 915
+        },
+        "with": {
+          "cumulative_research": 62176,
+          "techs_gained": 100,
+          "buildings_completed": 347,
+          "military_units_end": 857
+        }
+      }
+    },
+    "suite_programs": 27,
+    "suite_failures": 0,
+    "new_tests": [
+      "Tools/test_turn_end_guard.py",
+      "Tools/test_settle_reach.py",
+      "Tools/test_gold_target_speed.py"
+    ],
+    "native_standard": "C++03",
+    "undefined_behavior_sanitizer": "fatal",
+    "clang_gate": {
+      "translation_units": [
+        "CvCityAI.cpp",
+        "CvGameCoreUtils.cpp",
+        "CvGameInterface.cpp",
+        "CvPlayer.cpp",
+        "CvPlayerAI.cpp",
+        "CvSelectionGroup.cpp",
+        "CvUnit.cpp",
+        "CvUnitAI.cpp"
+      ],
+      "baseline": "11 errors/114 warnings",
+      "patched": "11 errors/114 warnings",
+      "new_diagnostics": 0
+    },
+    "msvc_build": {
+      "compiler": "Microsoft C/C++ 13.10.3077 (Visual C++ Toolkit 2003)",
+      "sdk": "Platform SDK for Windows Server 2003 SP1 (5.2.3790.1830.15)",
+      "host": "Wine 9.0 (32-bit prefix)",
+      "errors": 0,
+      "warnings": 0,
+      "exports": 2451,
+      "exports_equal_to_shipped_dll": true,
+      "dll_sha256": "f9049f8402f9af3f27f8e7e4cd18c1914a6a28306094b09e769bc59e1b4a5d27"
+    },
+    "save_replayed": true,
+    "game_executable_run": false
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/CvCityAI.cpp": {
+      "before_sha256": "132d64e9440177b5178ddce73af754f362c66fa025db08bfb3f84b6a3ccbd535",
+      "after_sha256": "4186edac7f714fce48b7fa60f0ab0f04c477d7bf6620bc76020f6c7e9800bcdd"
+    },
+    "Assets/CvGameCoreDLL/CvGameCoreUtils.cpp": {
+      "before_sha256": "549f670441efd362e501e8f3a3a0eb574884b88e0949cf10f674ce38fd1ef073",
+      "after_sha256": "f7cc23a0db9ca7a7c0f0e46bd14f7077b1cc47c495778e1e9d14755cc7e79fad"
+    },
+    "Assets/CvGameCoreDLL/CvGameCoreUtils.h": {
+      "before_sha256": "70d888015e591379fb66043e9881070b95d868cf877d278d7fef7c2f81e1be02",
+      "after_sha256": "6d9e224d9e1e1cb38023480da3fdec85fd21434f4bff08536d5f358c267772c3"
+    },
+    "Assets/CvGameCoreDLL/CvGameInterface.cpp": {
+      "before_sha256": "ffb2bcb2d3f132b658f048844b7ec825a60293b2925c5aa86880e019496cbc12",
+      "after_sha256": "9c1a6d568f2d0fe9ad19b5b9e28e4de7dbb1f1943cff03922d71cf2f52e32d17"
+    },
+    "Assets/CvGameCoreDLL/CvPlayer.cpp": {
+      "before_sha256": "8c900c1d0d9f3bfc12857fb0c64879599cde73bc89daff4a3d21d92ddbc98b52",
+      "after_sha256": "e399f31624db3bdf6b5fa06829ebb5385a4718b263c35acdfe1e5c18764fec94"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "628d1739ca081d6e48def96eaece0290e1b8e0a70daff167fdc4466d8f1e57c4",
+      "after_sha256": "37d3794f5aebaa9f5bd11b662f6b998dfbbccd50067940c273ce2b7d79afe75a"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.h": {
+      "before_sha256": "9a900aaaae59f33df988f2f4a8e58e54316a02bc8b88c4a248e62cbc8d5bef57",
+      "after_sha256": "d5511b1b099f8bcf0e14c1965b532cf1a9cb2dbccf1ef4e39b63954c34e64179"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroup.cpp": {
+      "before_sha256": "e72b96e842b516c4155866c79877a5069431c9f0b89cb978c71add386a6d5e7f",
+      "after_sha256": "e85ca8b225c5883d9fc046b24f3345d48653b1bbbbd3853ba6878db8a9657a55"
+    },
+    "Assets/CvGameCoreDLL/CvUnit.cpp": {
+      "before_sha256": "9281b637d5f0114e20e02e4113e86120fb33330a8e83b99c920a5a21f1394d8f",
+      "after_sha256": "75fe79f821ff6e888b5b2ad2661cb349056747e9aea369e641dec58f54c6a0da"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "7b948643f203e6d3ba9dda16a31c94ec87049fb6c0f0bc48591ac4f56e740885",
+      "after_sha256": "8d6279dadbb0e412dda7bc8de1f01a185a6ee077818001e49b8ea3409b144358"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.h": {
+      "before_sha256": "682fb85242474379ba2c2ecc92a87ec96fd7b7c1c425a42118d4f540f0a3ccbe",
+      "after_sha256": "13cce9dff52d12ba046c068ab159968f8f171928890c84be8c769b68700b36bd"
+    },
+    "Assets/Python/RoMGameUtils.py": {
+      "before_sha256": "ca01320d1e603fd4ba42a41d6f052b48975b7556371781759dbdebf96d082a63",
+      "after_sha256": "61555f0accd192f966eb600b43c18b3107e66a670a83672a253a9bcc10edcc6d"
+    },
+    "Docs/MASINISSA_AUTORUN_FIXES.md": {
+      "before_sha256": null,
+      "after_sha256": "eaf80653eede8cea9a8dae9939725c8e507a48b26ebe722ab0cb99f43cb03c0c"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "837eaca5c2297c58ecd6669362026f33d50cee719ec4dd058d74c4c9f2ccd0ae",
+      "after_sha256": "94743bc93cc751570f4f048f2d3707106982ed56b69fe0bec0a1beafcfe217d1"
+    },
+    "Tools/test_gold_target_speed.py": {
+      "before_sha256": null,
+      "after_sha256": "49b66f522e587b99262c548026eaa3eab867aa92942a733def6eb12b123096ba"
+    },
+    "Tools/test_path_queries.py": {
+      "before_sha256": "38c96120334410061d22ba3431c3d03b15447d0c7a8c3142ac0b518e0cf20fa4",
+      "after_sha256": "4a6c5a884c88220249b413d6e2f782c44f3c724e12b96451f953c22ff956e5fc"
+    },
+    "Tools/test_settle_reach.py": {
+      "before_sha256": null,
+      "after_sha256": "44ef70d04b1db1cb0f0b01f517703399de5e82f9468ef1007d88620311029ba1"
+    },
+    "Tools/test_settler_landing.py": {
+      "before_sha256": "e7ab98e9923c5a4512c1778ad2383461e7503f8dc591518d66aff900c50d35c3",
+      "after_sha256": "8c4f79d69871b7ed4198635dfc168070218811ec4dc9d002df21e0e00906cd7c"
+    },
+    "Tools/test_turn_end_guard.py": {
+      "before_sha256": null,
+      "after_sha256": "79df93544c8c30e795647726bd50b79e974bf648e31369a0f523a26313bdc583"
+    },
+    "Tools/test_unit_ai_corrections.py": {
+      "before_sha256": "eb2cc5fe209913b7327ce67634459811ff06695299afb3df81c9e069e2cdf3df",
+      "after_sha256": "bcc37ec9ed6cf94f465760e8f5c2ddb9585e033b05ab00e9b4e7294d5adfd0ea"
+    }
+  }
+}

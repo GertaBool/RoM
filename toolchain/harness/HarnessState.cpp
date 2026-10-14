@@ -173,6 +173,24 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 						bPath ? 1 : 0, bPath ? iTurns : -1, bPathAny ? 1 : 0, bPathAny ? iTurnsAny : -1);
 				}
 				fprintf(f, "]");
+				// The deliverable candidates (any rank) and why AI_found passes them by.
+				fprintf(f, ",\"deliverable\":[");
+				int iShown = 0;
+				for (int c = 0; c < iCands && iShown < 6; ++c)
+				{
+					int iFound; bool bByLand = false;
+					CvPlot* p = k.AI_getSettlementCandidate(c, iFound);
+					if (!k.AI_canDeliverSettler(u->plot(), p, &bByLand)) continue;
+					int iTurns = -1;
+					const bool bPath = u->generatePath(p, MOVE_SAFE_TERRITORY, false, &iTurns);
+					fprintf(f, "%s{\"rank\":%d,\"x\":%d,\"y\":%d,\"v\":%d,\"land\":%d,\"canFound\":%d,\"enemy\":%d,\"otherFound\":%d,"
+						"\"coastal\":%d,\"path\":%d,\"turns\":%d}",
+						iShown ? "," : "", c, p->getX_INLINE(), p->getY_INLINE(), iFound, bByLand ? 1 : 0, u->canFound(p) ? 1 : 0,
+						p->isVisibleEnemyUnit(u) ? 1 : 0, k.AI_plotTargetMissionAIs(p, MISSIONAI_FOUND, pGroup, GC.getMIN_CITY_RANGE()),
+						p->isCoastalLand() ? 1 : 0, bPath ? 1 : 0, bPath ? iTurns : -1);
+					++iShown;
+				}
+				fprintf(f, "]");
 				// Where a land-reachable site has no MOVE_SAFE_TERRITORY path: the
 				// plots of the settler's land region the path search cannot reach
 				// although a neighbour in the region can be reached.
