@@ -184,9 +184,29 @@ Wars and battles are recorded the same way, through calls `build_dll.sh` adds to
   tenths of a percent; `group` sums the attacking group sizes.
 - Captures add the city's population before and after and its wonders; razings
   add the population.
+- `cb` has two more counts: attacks by a unit with a class bonus over the
+  defender, and attacks on an already damaged defender.
+- `{"as":[attacker,defender,cityPlot],...}`: one city assault (one attacking team
+  against one city in one turn):
+  - attacks and wins (`n`, `w`), predicted odds (`odds`), and attacks with a class
+    bonus (`bon`);
+  - collateral attacks (`col`) and whether a collateral unit opened (`col1`);
+  - bombardments of the city (`bomb`): city defence, DCM ranged bombard, DCM
+    archer bombard, ranged strike;
+  - city defence (`def`): full, at the first event, and at the first attack;
+  - defenders (`defs`) and their health when hit (`hp`, sum and count);
+  - the attacking stacks (`grp`, `units`) and their composition by unit combat
+    class (`st`), with collateral (`cu`), bombard (`bu`), DCM ranged (`ru`) and
+    ranged-strike (`rs`) units;
+  - the attackers by unit AI (`ua`) and class (`uc`).
+
+  `build_dll.sh` adds the calls to `CvUnit::bombard`, `bombardRanged`,
+  `archerBombard` and `rangeStrike`.
+- `{"fb":[team,kind,count]}`: bombards and ranged strikes on units outside cities.
 
 `research/ai-strategy/tools/war-analysis.py` turns these into wars and their
-outcomes.
+outcomes, `assault-analysis.py` into what took cities, and `ab-compare.py`
+compares arms of an experiment.
 
 The telemetry does not change the game. Many AI getters fill a per-turn cache
 on first use (attitudes, strategy and victory hashes, upgrade costs, city

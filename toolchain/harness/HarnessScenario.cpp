@@ -281,6 +281,62 @@ namespace
 	// by units with collateral damage.
 	std::map<std::pair<int, int>, std::vector<int> > g_combat;
 	std::map<int, std::pair<int, int> > g_pendingCombat;   // attacker unit -> (team pair key, city attack)
+	// City assaults since the previous record, by (attacker team, city plot): what
+	// the attacking stacks were made of and how they were used.
+	struct HHAssault
+	{
+		int iDefTeam, iAttacks, iWins, iCollateralAttacks, iCollateralFirst, iOddsSum, iBonusAttacks;
+		int aiBombard[4];                 // city defence bombard, DCM ranged bombard, DCM archer bombard, range strike
+		int iDefenceMax, iDefenceAtFirstEvent, iDefenceAtFirstAttack, iDefenders, iHpSum, iHpCount;
+		std::set<int> groups;             // attacking and bombarding groups, counted once
+		std::map<std::string, int> composition, attackerAI, attackerCombat;
+		int iCollateralUnits, iBombardUnits, iRangedUnits, iRangeStrikeUnits, iUnits;
+		HHAssault() : iDefTeam(-1), iAttacks(0), iWins(0), iCollateralAttacks(0), iCollateralFirst(0), iOddsSum(0), iBonusAttacks(0),
+			iDefenceMax(-1), iDefenceAtFirstEvent(-1), iDefenceAtFirstAttack(-1), iDefenders(-1), iHpSum(0), iHpCount(0),
+			iCollateralUnits(0), iBombardUnits(0), iRangedUnits(0), iRangeStrikeUnits(0), iUnits(0) { aiBombard[0] = aiBombard[1] = aiBombard[2] = aiBombard[3] = 0; }
+	};
+	std::map<std::pair<int, int>, HHAssault> g_assault;
+	std::map<int, std::pair<int, int> > g_pendingAssault;   // attacker unit -> (attacker team, city plot)
+	std::map<std::pair<int, int>, int> g_fieldBombard;      // (team, kind) -> DCM bombards of units outside cities
+
+	std::string shortType(const char* szType, const char* szPrefix)
+	{
+		std::string s = szType != NULL ? szType : "NONE";
+		const size_t n = strlen(szPrefix);
+		return s.compare(0, n, szPrefix) == 0 ? s.substr(n) : s;
+	}
+	std::string combatName(UnitCombatTypes e)
+	{
+		return e == NO_UNITCOMBAT ? std::string("NONE") : shortType(GC.getUnitCombatInfo(e).getType(), "UNITCOMBAT_");
+	}
+
+	HHAssault& assaultFor(const CvUnit* pUnit, const CvPlot* pPlot)
+	{
+		HHAssault& a = g_assault[std::make_pair((int)pUnit->getTeam(), GC.getMapINLINE().plotNum(pPlot->getX_INLINE(), pPlot->getY_INLINE()))];
+		const CvCity* pCity = pPlot->getPlotCity();
+		if (a.iDefTeam < 0)
+		{
+			a.iDefTeam = (int)pPlot->getTeam();
+			a.iDefenceMax = pCity != NULL ? pCity->getTotalDefense(false) : 0;
+			a.iDefenceAtFirstEvent = pCity != NULL ? pCity->getDefenseModifier(false) : 0;
+		}
+		const CvSelectionGroup* pGroup = pUnit->getGroup();
+		if (pGroup != NULL && a.groups.insert(pGroup->getID()).second)
+		{
+			for (CLLNode<IDInfo>* pNode = pGroup->headUnitNode(); pNode != NULL; pNode = pGroup->nextUnitNode(pNode))
+			{
+				const CvUnit* pLoop = ::getUnit(pNode->m_data);
+				if (pLoop == NULL) continue;
+				++a.iUnits;
+				++a.composition[combatName(pLoop->getUnitCombatType())];
+				if (pLoop->collateralDamage() > 0) ++a.iCollateralUnits;
+				if (pLoop->bombardRate() > 0) ++a.iBombardUnits;
+				if (pLoop->getDCMBombRange() > 0) ++a.iRangedUnits;
+				if (pLoop->canRangeStrike()) ++a.iRangeStrikeUnits;
+			}
+		}
+		return a;
+	}
 	std::vector<std::string> g_warLog;                       // declarations and peace since the previous record
 	int unitKey(const CvUnit* pUnit) { return ((int)pUnit->getOwnerINLINE() << 22) ^ pUnit->getID(); }
 	// Every trade as it is agreed (build_dll.sh adds the call to the harness copy
@@ -330,18 +386,66 @@ void HH_noteCombatStart(CvUnit* pAttacker, CvUnit* pDefender)
 	v[4] += iStack;
 	if (bCity) ++v[5];
 	if (pAttacker->collateralDamage() > 0) ++v[7];
+	if (v.size() < 10) v.resize(10, 0);
+	const bool bBonus = pDefender->getUnitCombatType() != NO_UNITCOMBAT && pAttacker->unitCombatModifier(pDefender->getUnitCombatType()) > 0;
+	if (bBonus) ++v[8];
+	if (pDefender->currHitPoints() < pDefender->maxHitPoints()) ++v[9];
 	g_pendingCombat[unitKey(pAttacker)] = std::make_pair(kPair.first * 64 + kPair.second, bCity ? 1 : 0);
+	if (!bCity) return;
+	CvPlot* pPlot = pDefender->plot();
+	HHAssault& a = assaultFor(pAttacker, pPlot);
+	if (a.iAttacks == 0)
+	{
+		a.iDefenceAtFirstAttack = pPlot->getPlotCity()->getDefenseModifier(false);
+		a.iDefenders = 0;
+		for (CLLNode<IDInfo>* pNode = pPlot->headUnitNode(); pNode != NULL; pNode = pPlot->nextUnitNode(pNode))
+		{
+			const CvUnit* pLoop = ::getUnit(pNode->m_data);
+			if (pLoop != NULL && pLoop->getTeam() == pDefender->getTeam() && pLoop->canDefend()) ++a.iDefenders;
+		}
+		if (pAttacker->collateralDamage() > 0) a.iCollateralFirst = 1;
+	}
+	++a.iAttacks;
+	a.iOddsSum += getCombatOdds(pAttacker, pDefender);
+	if (bBonus) ++a.iBonusAttacks;
+	if (pAttacker->collateralDamage() > 0) ++a.iCollateralAttacks;
+	else
+	{
+		a.iHpSum += pDefender->currHitPoints() * 100 / std::max(1, pDefender->maxHitPoints());
+		++a.iHpCount;
+	}
+	++a.attackerAI[shortType(GC.getUnitAIInfo(pAttacker->AI_getUnitAIType()).getType(), "UNITAI_")];
+	++a.attackerCombat[combatName(pAttacker->getUnitCombatType())];
+	g_pendingAssault[unitKey(pAttacker)] = std::make_pair((int)pAttacker->getTeam(), GC.getMapINLINE().plotNum(pPlot->getX_INLINE(), pPlot->getY_INLINE()));
+}
+
+// Called by the DLL when a unit bombards: 0 city defence (CvUnit::bombard), 1 DCM
+// ranged bombard, 2 DCM archer bombard, 3 range strike (CvUnit::rangeStrike). Reads only.
+void HH_noteBombard(CvUnit* pUnit, CvPlot* pPlot, int iKind)
+{
+	if (pUnit == NULL || pPlot == NULL || iKind < 0 || iKind > 3) return;
+	if (pPlot->isCity() && pPlot->getTeam() != pUnit->getTeam())
+		++assaultFor(pUnit, pPlot).aiBombard[iKind];
+	else
+		++g_fieldBombard[std::make_pair((int)pUnit->getTeam(), iKind)];
 }
 
 // Called by the DLL when a battle ends; the attacker is the unit with a pending record.
 void HH_noteCombatResult(CvUnit* pWinner, CvUnit* pLoser)
 {
 	if (pWinner == NULL || pLoser == NULL) return;
+	std::map<int, std::pair<int, int> >::iterator ita = g_pendingAssault.find(unitKey(pWinner));
+	if (ita != g_pendingAssault.end())
+	{
+		++g_assault[ita->second].iWins;
+		g_pendingAssault.erase(ita);
+	}
+	g_pendingAssault.erase(unitKey(pLoser));
 	std::map<int, std::pair<int, int> >::iterator it = g_pendingCombat.find(unitKey(pWinner));
 	if (it != g_pendingCombat.end())
 	{
 		std::vector<int>& v = g_combat[std::make_pair(it->second.first / 64, it->second.first % 64)];
-		if (v.empty()) v.resize(8, 0);
+		if (v.size() < 10) v.resize(10, 0);
 		++v[1];
 		if (it->second.second) ++v[6];
 		g_pendingCombat.erase(it);
@@ -401,6 +505,9 @@ extern "C" __declspec(dllexport) void HH_telemetryReset()
 	g_unitPlots.clear();
 	g_combat.clear();
 	g_pendingCombat.clear();
+	g_assault.clear();
+	g_pendingAssault.clear();
+	g_fieldBombard.clear();
 	g_warLog.clear();
 	g_cityOwner.clear();
 	g_cityPop.clear();
@@ -647,6 +754,40 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		bFirstEv = false;
 	}
 	g_combat.clear();
+	for (std::map<std::pair<int, int>, HHAssault>::const_iterator it = g_assault.begin(); it != g_assault.end(); ++it)
+	{
+		const HHAssault& a = it->second;
+		o << (bFirstEv ? "" : ",") << "{\"as\":[" << it->first.first << "," << a.iDefTeam << "," << it->first.second << "]"
+		  << ",\"n\":" << a.iAttacks << ",\"w\":" << a.iWins << ",\"odds\":" << a.iOddsSum << ",\"bon\":" << a.iBonusAttacks
+		  << ",\"col\":" << a.iCollateralAttacks << ",\"col1\":" << a.iCollateralFirst
+		  << ",\"bomb\":[" << a.aiBombard[0] << "," << a.aiBombard[1] << "," << a.aiBombard[2] << "," << a.aiBombard[3] << "]"
+		  << ",\"def\":[" << a.iDefenceMax << "," << a.iDefenceAtFirstEvent << "," << a.iDefenceAtFirstAttack << "]"
+		  << ",\"defs\":" << a.iDefenders << ",\"hp\":[" << a.iHpSum << "," << a.iHpCount << "]"
+		  << ",\"grp\":" << (int)a.groups.size() << ",\"units\":" << a.iUnits
+		  << ",\"cu\":" << a.iCollateralUnits << ",\"bu\":" << a.iBombardUnits << ",\"ru\":" << a.iRangedUnits << ",\"rs\":" << a.iRangeStrikeUnits;
+		const std::map<std::string, int>* apMaps[3] = { &a.composition, &a.attackerAI, &a.attackerCombat };
+		const char* aszKeys[3] = { "st", "ua", "uc" };
+		for (int m = 0; m < 3; ++m)
+		{
+			o << ",\"" << aszKeys[m] << "\":{";
+			bool bFirstKey = true;
+			for (std::map<std::string, int>::const_iterator k = apMaps[m]->begin(); k != apMaps[m]->end(); ++k)
+			{
+				o << (bFirstKey ? "" : ",") << "\"" << k->first << "\":" << k->second;
+				bFirstKey = false;
+			}
+			o << "}";
+		}
+		o << "}";
+		bFirstEv = false;
+	}
+	g_assault.clear();
+	for (std::map<std::pair<int, int>, int>::const_iterator it = g_fieldBombard.begin(); it != g_fieldBombard.end(); ++it)
+	{
+		o << (bFirstEv ? "" : ",") << "{\"fb\":[" << it->first.first << "," << it->first.second << "," << it->second << "]}";
+		bFirstEv = false;
+	}
+	g_fieldBombard.clear();
 
 	std::map<int, int> owners, pops, wonders;
 	for (size_t a = 0; a <= aiP.size(); ++a)

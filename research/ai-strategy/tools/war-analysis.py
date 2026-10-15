@@ -57,7 +57,7 @@ def wars_of(path):
                      'others': e.get('others', 0), 'vassal': e.get('vassal', 0),
                      'dOther': sum(1 for (a, b) in (prev or set()) if a == d and b != x),
                      'onLeader': x == leader, 'dLeader': d == leader,
-                     'caps': [], 'lost': [], 'razed': 0, 'cb': {'d': [0] * 8, 'x': [0] * 8}}
+                     'caps': [], 'lost': [], 'razed': 0, 'cb': {'d': [0] * 10, 'x': [0] * 10}}
                 open_wars[key] = w
                 wars.append(w)
             elif 'peace' in e:
@@ -81,7 +81,7 @@ def wars_of(path):
                 w = open_wars.get(frozenset((a, b)))
                 if w:
                     side = 'd' if a == w['d'] else 'x'
-                    for k in range(8):
+                    for k in range(min(10, len(e['cb']) - 2)):
                         w['cb'][side][k] += e['cb'][2 + k]
         prev = at_war
     for w in wars:
@@ -131,11 +131,14 @@ def main(paths):
     print('  stalemates (50+ turns, no city changed hands): %d of %d' % (len(stale), n))
     print('\n# Battles')
     for side, label in (('d', 'declarer attacking'), ('x', 'target attacking')):
-        v = [sum(w['cb'][side][k] for w in main_w) for k in range(8)]
+        v = [sum(w['cb'][side][k] for w in main_w) for k in range(10)]
         if not v[0]:
             continue
         print('  %s: %d attacks, won %.0f%%, mean predicted odds %.0f%%, lone attackers %.0f%%, mean group %.1f, on cities %.0f%% (won %.0f%%), collateral units %.0f%%'
               % (label, v[0], pct(v[1], v[0]), v[2] / 10.0 / v[0], pct(v[3], v[0]), v[4] / v[0], pct(v[5], v[0]), pct(v[6], v[5]), pct(v[7], v[0])))
+        if v[0]:
+            b = [sum(w['cb'][side][k] for w in main_w) for k in (8, 9)]
+            print('    with a class bonus over the defender %.0f%%; defender already damaged %.0f%%' % (pct(b[0], v[0]), pct(b[1], v[0])))
     dl = sum((w['cb']['d'][0] - w['cb']['d'][1]) + w['cb']['x'][1] for w in main_w)
     xl = sum(w['cb']['d'][1] + (w['cb']['x'][0] - w['cb']['x'][1]) for w in main_w)
     print('  units lost in battle: declarers %d, targets %d (exchange ratio %.2f)' % (dl, xl, xl / max(1, dl)))

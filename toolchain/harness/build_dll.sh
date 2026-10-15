@@ -41,6 +41,13 @@ insert('CvUnit.cpp', 'void CvUnit::updateCombat(', 'setMadeAttack(true);',
        ' HH_noteCombatStart(this, pDefender);', 'void HH_noteCombatStart(CvUnit* pAttacker, CvUnit* pDefender);', after=True)
 insert('CvEventReporter.cpp', 'void CvEventReporter::combatResult(', '{\r\n',
        '\tHH_noteCombatResult(pWinner, pLoser);', 'void HH_noteCombatResult(CvUnit* pWinner, CvUnit* pLoser);', after=True)
+for function, anchor, kind, after in (('bool CvUnit::bombard()', 'CvPlot* pTargetPlot = pBombardCity->plot();', 0, True),
+                                      ('bool CvUnit::bombardRanged(', 'int modified_accuracy = GC.getDefineINT("DCM_RB_CITY_INACCURACY");', 1, False),
+                                      ('bool CvUnit::archerBombard(', '// RevolutionDCM - getBestDefender() now used in all cases', 2, False),
+                                      ('bool CvUnit::rangeStrike(', 'pDefender = airStrikeTarget(pPlot);', 3, True)):
+    target = 'pTargetPlot' if kind == 0 else 'pPlot'
+    insert('CvUnit.cpp', function, anchor, ' HH_noteBombard(this, %s, %d);' % (target, kind),
+           'void HH_noteBombard(CvUnit* pUnit, CvPlot* pPlot, int iKind);', after=after)
 insert('CvEventReporter.cpp', 'void CvEventReporter::changeWar(', '{\r\n',
        '\tHH_noteChangeWar(bWar, eTeam, eOtherTeam);', 'void HH_noteChangeWar(bool bWar, TeamTypes eTeam, TeamTypes eOtherTeam);', after=True)
 # Count the Python events the DLL reports (the harness runs without Python).
