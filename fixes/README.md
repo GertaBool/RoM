@@ -1,9 +1,76 @@
 # Tested source fixes
 
+## War AI: choose, join, end and fight wars like a strategist
+
+[0018-war-ai.patch](0018-war-ai.patch) is the current incremental patch for GitLab
+**`main` at `69a610f`** (patch 0017 merged). It has **landed on GitLab `main`**
+([!43](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/43),
+merge commit `d241fe4`, tree `2cab4125` = the tested tree). A clone of current `main`
+needs nothing applied; only the DLL below has to be installed. The DLL reads the
+switches from `BBAI_AI_Variables_GlobalDefines.xml`, which comes with `main`. In an
+older install without that define, the DLL plays as the patch 0017 AI.
+
+The patch adds seven switches, the bits of `AI_CUNNING_FLAGS` in
+`Assets/XML/BBAI_AI_Variables_GlobalDefines.xml`. The default is 111: every switch
+except 16. At 0 the old AI plays unchanged: a Mediterranean Marathon game replays
+the patch 0017 game identically over 451 turns.
+
+| Bit | The AI ... |
+|---|---|
+| 1 | declares a prepared war once 40 to 70 % of its offensive land units stand within three plots of the target |
+| 2 | chooses war targets by the land power each side has in the target's areas; joins dogpiles only with its own forces in reach |
+| 4 | reviews each war once per period by its progress, instead of a peace die every turn |
+| 8 | bombards with any unit of the stack that can; a collateral unit opens assaults while defenders are unhurt |
+| 16 | puts collateral units into city attack stacks and trains them for invasions (off by default) |
+| 32 | pays for, and accepts, help in a war only from teams near the enemy |
+| 64 | fires ranged strikes from a city's archers and siege at enemy units next to it |
+
+Measured in the harness: Mediterranean and Earth 12, Marathon, Noble, turns 0 to
+450, 16 games for the old AI and for all switches:
+
+| | Old AI | All switches |
+|---|---|---|
+| Wars that take a city | 40 % | 54 % |
+| Net cities per war | 0.75 | 1.08 |
+| Stalemates (50+ turns, no city) per game | 3.4 | 1.5 |
+| Wars declared with nothing near | 24 % | 10 % |
+| Wars declared against a stronger team | 30 % | 21 % |
+| Late turn time | 4.99 s | 4.63 s |
+
+The default 111 against the old AI, 8 games each:
+- **Wars:** 53 % take a city instead of 39 %, and they gain 1.26 net cities each
+  instead of 0.75.
+- **Units:** the AI loses 5.2 units per city taken instead of 7.4.
+- **Battles:** the enemy loses 1.25 units for each unit the AI loses, against 1.06
+  before.
+
+The [prototype report](../research/ai-strategy/prototypes.md) has each switch alone,
+the combinations, and what did not work.
+
+**Save format.** `CvTeamAI` now saves its war success at the last review, under
+expansion flag 1. Older saves load. Saves written with this DLL do not load in older
+DLLs. A game saved at turn 300 and reloaded plays turns 301 to 320 identically to the
+running game.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/war-ai-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/war-ai-manifest.json
+```
+
+**33 regression programs pass.** `Tools/test_patch_0018.py` fails 11 of 11 on the
+old tree. The clang gate finds no new warnings. The DLL is built with MSVC 2003: 0
+errors, 0 warnings, the same 2451 exports. Use
+[`builds/0018/CvGameCoreDLL.dll`](../builds/0018/CvGameCoreDLL.dll); it includes
+patches 0014 to 0017. The game executable was not run.
+
+[Manifest](war-ai-manifest.json) · [Before](war-ai-before.log) ·
+[Suite](war-ai-regression.log) · [Patch verification](war-ai-patch-validation.log) ·
+[Clang gate](war-ai-clang-gate.log) · [Build provenance](../builds/0018/provenance.json).
+
 ## Settler without cities, interface redraws and turn time
 
-[0017-settler-ui-turn-time.patch](0017-settler-ui-turn-time.patch) is the current
-incremental patch for GitLab **`main` at `59fcd61`** (patch 0016 merged). It has
+[0017-settler-ui-turn-time.patch](0017-settler-ui-turn-time.patch) is the incremental
+patch for GitLab **`main` at `59fcd61`** (patch 0016 merged). It has
 **landed on GitLab `main`**
 ([!42](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/42),
 merge commit `69a610f`, tree `b59649d4` = the tested tree). A clone of current `main`

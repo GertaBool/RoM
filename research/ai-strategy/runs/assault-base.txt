@@ -1,0 +1,35 @@
+assault turns (team against city, with at least one attack): 519; cities taken in them: 196
+stack composition over all assaults: MELEE 62%, SIEGE 21%, ARCHER 13%, MOUNTED 2%, ANIMAL 2%
+median stack 4 units; walls bombarded first in 3%; ranged strikes in 8%; collateral first in 46%; assaults with no siege or collateral unit 42%
+attackers by unit AI: ATTACK_CITY 1166, COUNTER 657, ATTACK 610, COLLATERAL 136, PILLAGE 97, RESERVE 22
+
+# What took cities
+  all                                          assaults   519  took the city  37.8%  battles won  46%  units lost per city taken   7.4
+  walls at most a quarter of full at the first attack assaults   106  took the city  36.8%  battles won  41%  units lost per city taken   8.7
+  walls above half at the first attack         assaults   404  took the city  38.1%  battles won  47%  units lost per city taken   6.9
+  walls bombarded this turn                    assaults    14  took the city  14.3%  battles won  23%  units lost per city taken  42.0
+  ranged strikes this turn                     assaults    41  took the city  12.2%  battles won  34%  units lost per city taken  18.0
+  collateral attack first                      assaults   240  took the city  41.2%  battles won  43%  units lost per city taken   9.7
+  no collateral attack                         assaults   252  took the city  32.9%  battles won  51%  units lost per city taken   5.0
+  defenders at 60% health or less when hit     assaults   105  took the city  60.0%  battles won  42%  units lost per city taken   8.9
+  defenders above 90% health when hit          assaults   284  took the city  23.9%  battles won  50%  units lost per city taken   5.3
+  stack has siege                              assaults   202  took the city  46.0%  battles won  40%  units lost per city taken  10.7
+  stack has no siege and no collateral unit    assaults   216  took the city  31.5%  battles won  57%  units lost per city taken   4.1
+  stack has archers                            assaults   120  took the city  40.0%  battles won  49%  units lost per city taken   7.8
+  stack of 1-1 units                           assaults   131  took the city  11.5%  battles won  55%  units lost per city taken   3.9
+  stack of 2-5 units                           assaults   162  took the city  35.2%  battles won  46%  units lost per city taken   4.1
+  stack of 6-15 units                          assaults   154  took the city  46.1%  battles won  45%  units lost per city taken   7.6
+  stack of 16-999 units                        assaults    72  took the city  73.6%  battles won  47%  units lost per city taken  11.8
+  1-2 defenders                                assaults   236  took the city  45.3%  battles won  38%  units lost per city taken   3.7
+  3-4 defenders                                assaults   102  took the city  41.2%  battles won  46%  units lost per city taken   6.7
+  5-99 defenders                               assaults   177  took the city  26.6%  battles won  50%  units lost per city taken  16.6
+  attacker had a class bonus in most attacks   assaults   133  took the city  33.1%  battles won  57%  units lost per city taken   4.7
+
+# Composition and use at the same stack size (took the city %, assaults)
+                                         1-3 units             4-9 units             10+ units
+  siege in stack yes|no       14% ( 29)| 24% (204)  37% ( 67)| 45% ( 74)  60% (106)| 56% ( 39)
+  collateral unit in stack yes|no  16% ( 80)| 25% (153)  42% ( 81)| 40% ( 60)  61% (116)| 52% ( 29)
+  archers in stack yes|no     21% ( 42)| 23% (191)  50% ( 30)| 39% (111)  50% ( 48)| 64% ( 97)
+  walls at most 1/4 yes|no    26% ( 54)| 21% (179)  47% ( 30)| 40% (111)  50% ( 22)| 61% (123)
+  ranged strikes yes|no        0% (  3)| 23% (230)   6% ( 16)| 46% (125)  18% ( 22)| 67% (123)
+  collateral first yes|no     15% ( 75)| 26% (158)  39% ( 64)| 43% ( 77)  62% (101)| 52% ( 44)

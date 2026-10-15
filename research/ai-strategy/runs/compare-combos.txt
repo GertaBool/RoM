@@ -1,0 +1,29 @@
+                                                  base_s14       f46      f110      f111  f127_s14
+games                                                    8         8         8         8         8
+wars per game                                         17.8      15.0      15.0      14.8      13.0
+declared below power ratio 1.0 %                      30.3      20.8      20.0      16.9      17.3
+declared with nothing near %                          26.1      12.5      10.8      10.2      8.65
+army near target at declaration, median %             15.8      23.9      20.5      20.0      23.0
+dogpiles %                                            33.1      20.0      21.7      19.5      11.5
+wars that take a city %                               38.7      42.5      44.2      53.4      58.7
+net cities per war                                    0.75      0.68      0.87      1.26      1.15
+turns to first capture, median                           9         5         4         5         5
+ended wars: median length                               35      27.0        25        28      29.0
+ended wars with no city changing hands %              53.5      48.5      46.5      40.7      38.5
+stalemates (50+ turns, no city) per game              2.75      1.88      2.00      1.50      1.50
+declarer battles won %                                57.6      60.3      61.7      63.8      59.5
+declarer lone attacks %                               31.8      32.9      35.3      38.7      38.6
+exchange ratio (target losses per declarer loss)      1.06      1.10      1.12      1.25      1.13
+assault turns per game                                64.9      51.6      58.0      64.0      52.5
+assaults that take the city %                         37.8      41.4      42.7      43.8      44.8
+units lost per city taken in assaults                 7.43      5.91      5.32      5.15      5.73
+assaults with walls bombarded that turn %             2.70      1.45      2.37      2.93      2.38
+assaults with walls at most 1/4 %                     10.4      10.9      13.1      9.77      7.86
+assaults with ranged strikes %                        7.90      5.81      6.47      8.20      6.67
+assaults opened by collateral %                       46.2      42.4      44.4      43.9      50.7
+assaults with siege or collateral in stack %          58.4      53.0      53.2      56.4      62.6
+median assault stack                                     4         4      4.00      5.00      4.00
+cities captured between civs per game                 27.5      25.6      27.8      30.6      26.4
+civs eliminated per game                                 2      1.50      1.38      2.25      1.88
+leader score share at the end %                       29.9      26.2      25.5      28.6      30.1
+turn time, last 50 turns (ms)                       4875.1    4248.2    4004.4    5071.6    4219.3

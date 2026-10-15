@@ -17,8 +17,9 @@ patch 0017 game identically over all 451 turns.
 ## Method
 
 - **Games:** Mediterranean and Earth 12, map seeds 1 to 4, Marathon, Noble, turn 0 to
-  450. The same 8 games per arm.
-- **Arms:** the patch 0017 DLL (baseline), all switches on, and each switch alone.
+  450. The same 8 games per arm. The baseline and all switches together also ran
+  seeds 5 to 8, which gives 16 games each.
+- **Arms:** the patch 0017 DLL (baseline), each switch alone, and four combinations.
 - **Telemetry:** the harness now also records every city assault. That covers the
   attacking stacks' composition by unit class, bombardment and ranged strikes, the
   walls left at the first attack, whether a collateral unit opened, the defenders'
@@ -143,7 +144,95 @@ civilizations.
 
 ## All switches together
 
-Measurement of the combinations is still running; this section follows with it.
+The switches act on different stages of a war, so their effects mostly add up. One
+interaction stands out: the massing gate (1) hurt alone but helps on top of 2 and 32.
+Alone it mostly delayed bought wars, which had no army to mass. Once 32 removes the
+bought wars and 2 picks targets the army can reach, the wait only applies to wars
+that have an army to gather.
+
+Combinations, 8 games each (seeds 1 to 4):
+
+| | Base | 2+4+8+32 | + 64 | + 1 (default, 111) | + 16 (all, 127) |
+|---|---|---|---|---|---|
+| Wars per game | 17.8 | 15.0 | 15.0 | 14.8 | 13.0 |
+| Declared against a stronger team | 30 % | 21 % | 20 % | 17 % | 17 % |
+| Declared with nothing near | 26 % | 13 % | 11 % | 10 % | 9 % |
+| Dogpiles | 33 % | 20 % | 22 % | 20 % | 12 % |
+| Wars that take a city | 39 % | 43 % | 44 % | 53 % | 59 % |
+| Net cities per war | 0.75 | 0.68 | 0.87 | **1.26** | 1.15 |
+| Stalemates per game | 2.8 | 1.9 | 2.0 | 1.5 | 1.5 |
+| Exchange ratio (enemy losses per own loss) | 1.06 | 1.10 | 1.12 | **1.25** | 1.13 |
+| Units lost per city taken | 7.4 | 5.9 | 5.3 | 5.2 | 5.7 |
+| Cities captured per game | 27.5 | 25.6 | 27.8 | **30.6** | 26.4 |
+| Late turn time (s) | 4.9 | 4.2 | 4.0 | 5.1 | 4.2 |
+
+The old AI against all switches, 16 games each (seeds 1 to 8), the firmest comparison
+in this report:
+
+| | Old AI | All switches |
+|---|---|---|
+| Wars per game | 18.4 | 14.4 |
+| Bought wars per game | 4.8 | 1.8 |
+| Declared against a stronger team | 30 % | 21 % |
+| Declared with nothing near | 24 % | 10 % |
+| Dogpiles | 31 % | 14 % |
+| Wars that take a city | 40 % | 54 % |
+| Net cities per war | 0.75 | 1.08 |
+| Ended wars with no city changing hands | 53 % | 44 % |
+| Stalemates (50+ turns, no city) per game | 3.4 | 1.5 |
+| Units lost per city taken | 6.6 | 5.9 |
+| Cities captured per game | 29.6 | 28.8 |
+| Late turn time (s) | 4.99 | 4.63 |
+
+The AI conquers about as many cities as before with a fifth fewer wars. It spends
+fewer units on each city and half as many wars stall for 50 turns. Bought wars,
+when they still happen, take a city 43 % of the time instead of 8 %. The exchange
+ratio over whole wars hardly moves (1.09 against 1.07): the gain comes from choosing
+wars and ending them, not from winning individual battles.
+
+**The default is 111: every switch except 16.** In the combinations, adding 16 made
+wars take a city more often, but they gained fewer cities each and the units lost
+rose. That repeats what 16 did alone. Switch 16 stays in the code for players who
+want siege-heavy stacks.
+
+Raw outputs are in [runs/](runs/):
+- [compare-all.txt](runs/compare-all.txt): each switch alone.
+- [compare-combos.txt](runs/compare-combos.txt): the combinations.
+- [compare-16.txt](runs/compare-16.txt): 16 games, old AI against all switches.
+- [warsrc-all.txt](runs/warsrc-all.txt) and
+  [warsrc-combos.txt](runs/warsrc-combos.txt): bought wars against the AI's own.
+- [assault-base.txt](runs/assault-base.txt): the baseline assault analysis.
+
+## Is a stack's quality worth more than its size?
+
+Partly. For a single assault, size decides most: 12 % of one-unit attacks take the
+city, 74 % of attacks with 16 or more units. At the same size, composition and use
+add about ten points: collateral units in the stack, a collateral unit attacking
+first, and defenders already worn down. Three findings follow:
+
+- **Use what is in the stack before adding more.** Switch 8 makes the stack bombard
+  with any unit that can and lets a collateral unit open when the odds are poor. It
+  gave the best cost per city of any single switch (5.1 units against 7.4). Switch 16
+  adds collateral units to stacks, and it made whole wars worse: those units were
+  missing from the roles they had before.
+- **Archers belong on the walls, not in the field stack.** Stacks of 10+ with archers
+  took the city in 50 % of assaults, without archers in 64 %. Their ranged strike costs
+  their move, and a moving stack then leaves them behind. In a city that cost does not
+  exist (switch 64).
+- **The strategic choices pay more than the tactical ones.** Which war to fight,
+  whether the army can reach it, and when to stop (switches 2, 4 and 32) moved the
+  results more than any change to how an assault is fought. A good stack sent into a
+  war it cannot win is still wasted.
+
+The measured bombardment barely changed. Even with switch 8, walls were bombarded on
+the assault turn in about 3 % of assaults, and walls at a quarter or less were no
+more common at the first attack. The AI's own rules skip bombarding when the attack
+odds are already good, and the earlier version that forced the walls down made the
+AI worse (below). The share of assaults opened by a collateral unit also stayed about
+the same (45 % against 46 %). What switch 8 changes is when one opens: only while two
+or more defenders are unhurt, where collateral damage spreads widest. The telemetry
+does not separate that effect from chance in 8 games. The 16-game comparison still
+shows fewer units lost per city taken (6.6 against 5.9).
 
 ## What did not work, and why
 

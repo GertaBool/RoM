@@ -1,0 +1,104 @@
+# Tools/test_patch_0018.py on GitLab main 69a610f (tree b59649d4), before the patch; lines over 300 characters are cut
+FEFFFFFFFFF
+======================================================================
+ERROR: test_city_ranged_units_fire_at_besiegers (__main__.StackTests.test_city_ranged_units_fire_at_besiegers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 83, in test_city_ranged_units_fire_at_besiegers
+    i = method.index('isAICunning(64)')
+ValueError: substring not found
+
+======================================================================
+FAIL: test_any_siege_unit_bombards (__main__.StackTests.test_any_siege_unit_bombards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 79, in test_any_siege_unit_bombards
+    self.assertIn('pBombarder->bombardTarget(plot())', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'pBombarder->bombardTarget(plot())' not found in 'bool CvUnitAI::AI_bombardCity()\n{\n\tPROFILE_FUNC();\n\n\tCvCity* pBombardCity;\n\n\tif (canBombard(plot()))\n\t{\n\t\tpBombardCity = bombardTarget(plot());\n\t\tFAssertMsg(pBombardCity != NULL, "BombardCity is not assigned a valid v [...]
+
+======================================================================
+FAIL: test_collateral_opens_ai_assaults (__main__.StackTests.test_collateral_opens_ai_assaults)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 89, in test_collateral_opens_ai_assaults
+    self.assertIn('(!isHuman() && isAICunning(8)) ? pickCollateralAttacker(', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '(!isHuman() && isAICunning(8)) ? pickCollateralAttacker(' not found in 'bool CvSelectionGroup::groupAttack(int iX, int iY, int iFlags, bool& bFailedAlreadyFighting)\n{\n/************************************************************************************************/\n/* DCM         [...]
+
+======================================================================
+FAIL: test_collateral_units_join_stacks (__main__.StackTests.test_collateral_units_join_stacks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 93, in test_collateral_units_join_stacks
+    self.assertIn('AI_group(UNITAI_ATTACK_CITY', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'AI_group(UNITAI_ATTACK_CITY' not found in 'void CvUnitAI::AI_collateralMove()\n{\n\tPROFILE_FUNC();\n\tif (AI_reinforceOperation()) return;\n\t\n\tif (AI_leaveAttack(1, 20, 100))\n\t{\n\t\treturn;\n\t}\n\n\tif (AI_guardCity(false, true, 1))\n\t{\n\t\treturn;\n\t}\n\n\tif (AI_heal(30 [...]
+
+======================================================================
+FAIL: test_every_switch_is_used (__main__.SwitchTests.test_every_switch_is_used)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 37, in test_every_switch_is_used
+    self.assertIn('isAICunning(%d)' % flag, text)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'isAICunning(1)' not found in '// teamAI.cpp\n\n#include "CvGameCoreDLL.h"\n#include "CvTeamAI.h"\n#include "CvPlayerAI.h"\n#include "CvRandom.h"\n#include "CvGlobals.h"\n#include "CvGameCoreUtils.h"\n#include "CvMap.h"\n#include "CvPlot.h"\n#include "CvDLLInterfaceIFaceBase.h"\n#inc [...]
+
+======================================================================
+FAIL: test_switch_default (__main__.SwitchTests.test_switch_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 30, in test_switch_default
+    self.assertIsNotNone(m)
+    ~~~~~~~~~~~~~~~~~~~~^^^
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_peace_by_review_not_dice (__main__.WarDecisionTests.test_peace_by_review_not_dice)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 55, in test_peace_by_review_not_dice
+    self.assertIn('AI_reviewWars();', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'AI_reviewWars();' not found in 'void CvTeamAI::AI_doWar()\n{\n\tPROFILE_FUNC();\n\n\tCvArea* pLoopArea;\n\tTeamTypes eBestTeam;\n\tbool bAreaValid;\n\tbool bShareValid;\n\tint iNoWarRoll;\n\tint iOurPower;\n\tint iDogpilePower;\n\tint iValue;\n\tint iBestValue;\n\tint iPass;\n\tint  [...]
+
+======================================================================
+FAIL: test_prepared_war_waits_for_the_strike_force (__main__.WarDecisionTests.test_prepared_war_waits_for_the_strike_force)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 43, in test_prepared_war_waits_for_the_strike_force
+    self.assertEqual(method.count('AI_isStrikeForceReady((TeamTypes)iI)'), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2
+
+======================================================================
+FAIL: test_review_state_is_saved (__main__.WarDecisionTests.test_review_state_is_saved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 63, in test_review_state_is_saved
+    self.assertIn('if (uiFlag >= 1)', read)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'if (uiFlag >= 1)' not found in 'void CvTeamAI::read(FDataStreamBase* pStream)\n{\n\tCvTeam::read(pStream);\n\n\tuint uiFlag=0;\n\tpStream->Read(&uiFlag);\t// flags for expansion\n\n\tpStream->Read(MAX_TEAMS, m_aiWarPlanStateCounter);\n\tpStream->Read(MAX_TEAMS, m_aiAtWarCounter);\n\ [...]
+
+======================================================================
+FAIL: test_targets_compared_by_reachable_power (__main__.WarDecisionTests.test_targets_compared_by_reachable_power)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 49, in test_targets_compared_by_reachable_power
+    self.assertIn('AI_getReachableDefence()', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'AI_getReachableDefence()' not found in 'void CvTeamAI::AI_doWar()\n{\n\tPROFILE_FUNC();\n\n\tCvArea* pLoopArea;\n\tTeamTypes eBestTeam;\n\tbool bAreaValid;\n\tbool bShareValid;\n\tint iNoWarRoll;\n\tint iOurPower;\n\tint iDogpilePower;\n\tint iValue;\n\tint iBestValue;\n\tint iPass; [...]
+
+======================================================================
+FAIL: test_war_requests_need_own_reach (__main__.WarDecisionTests.test_war_requests_need_own_reach)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base18/Tools/test_patch_0018.py", line 70, in test_war_requests_need_own_reach
+    self.assertIn('if (bConsiderPower && isAICunning(32))', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'if (bConsiderPower && isAICunning(32))' not found in 'DenialTypes CvTeamAI::AI_declareWarTrade(TeamTypes eWarTeam, TeamTypes eTeam, bool bConsiderPower) const\n{\n\tPROFILE_FUNC();\n\n\tAttitudeTypes eAttitude;\n\tAttitudeTypes eAttitudeThem;\n\tbool bLandTarget;\n\tint iI;\n\n\tFAs [...]
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.194s
+
+FAILED (failures=10, errors=1)
