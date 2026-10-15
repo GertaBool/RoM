@@ -168,6 +168,26 @@ items as `[TradeableItems, data]`). One-time trades (techs, gold, maps, cities)
 never stand as deals, so `build_dll.sh` adds a call to `HH_noteTrade` at the top
 of its copy of `CvDeal::addTrades`; the source tree is not changed.
 
+Wars and battles are recorded the same way, through calls `build_dll.sh` adds to
+`CvUnit::updateCombat` and `CvEventReporter::combatResult` and `changeWar`:
+
+- `{"war":[declarer,target],"plan","pow":[a,b],"near":[n,m],"others","vassal"}`:
+  - the declarer's war plan against the target (`WarPlanTypes`);
+  - both teams' power;
+  - how many of the declarer's `m` land units stand within two plots of the
+    target's territory;
+  - the target's other wars;
+  - whether the declarer joined as a vassal.
+- `{"peace":[a,b]}` when a war ends.
+- `{"cb":[attacker,defender,attacks,wins,odds,lone,group,cityAttacks,cityWins,collateral]}`:
+  battles per pair of teams in the turn. `odds` sums the predicted odds in
+  tenths of a percent; `group` sums the attacking group sizes.
+- Captures add the city's population before and after and its wonders; razings
+  add the population.
+
+`research/ai-strategy/tools/war-analysis.py` turns these into wars and their
+outcomes.
+
 The telemetry does not change the game. Many AI getters fill a per-turn cache
 on first use (attitudes, strategy and victory hashes, upgrade costs, city
 closeness and yield ranks), and `AI_getStrategyRand` may draw a synchronized

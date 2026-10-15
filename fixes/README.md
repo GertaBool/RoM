@@ -1,12 +1,67 @@
 # Tested source fixes
 
+## Settler without cities, interface redraws and turn time
+
+[0017-settler-ui-turn-time.patch](0017-settler-ui-turn-time.patch) is the current
+incremental patch for GitLab **`main` at `59fcd61`** (patch 0016 merged). It has
+**landed on GitLab `main`**
+([!42](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/42),
+merge commit `69a610f`, tree `b59649d4` = the tested tree). A clone of current `main`
+needs nothing applied; only the DLL below has to be installed.
+
+- **A civilization that never founded a city.** On Earth 12, Genghis Khan's start
+  plot is plains without fresh water or coast, where RoM allows no city. His settler
+  walks two plots; China then founds next to that plot. From then on
+  `CvUnitAI::AI_found` accepted a land site only for a settler with an escort, and a
+  player without cities can never train one. He had no city in any Earth 12 game,
+  and the original RoM DLL behaves the same. A player without cities now lets its
+  settler travel alone, and Genghis founds on turn 1.
+- **Plot list redraws.** Five places compared a unit's plot with the selection plot.
+  With nothing selected both are NULL, so every unit birth or death redrew the Python
+  plot list. They now require a plot.
+- **Hover help.** Hovering over a stack of more than 15 units cleared a 21 MB table
+  of promotion counts (423 unit types x 51 players x 244 promotions) and kept it
+  allocated. Rows are now allocated and cleared only for the unit types on the plot,
+  and `DeInitialize` empties the table.
+- **Score update.** `CvGame::updateScore` called the Python `calculateScore`
+  players x players times. Each score is now computed once, and the ranks are
+  unchanged.
+- **Turn time.**
+  - `CvPlayer::canBuild` tests the cheap tech requirement before the plot.
+  - `getBestRoute` scans only the route builds, best first, with the same result.
+  - `calculatePreInflatedCosts` called the Python `getExtraCost`, which returns 0 in
+    RoM, about 34,000 times a late turn. It is now called only when
+    `PythonCallbackDefines.xml` sets `USE_GET_EXTRA_COST_CALLBACK`, which the patch
+    adds with the value 0.
+
+Measured in the harness:
+- **Identical games.** Two Mediterranean Marathon games to turn 450 play
+  identically with and without the patch. Only the settler change alters a game, and
+  only where a player has no city.
+- **Turn time.** 10 turns from the turn-400 snapshot take 8 % less time (two
+  repetitions each). The harness answers Python callbacks in C++, so the skipped
+  `getExtraCost` calls save more in the game itself.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/settler-ui-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/settler-ui-manifest.json
+```
+
+**32 regression programs pass**; `Tools/test_patch_0017.py` fails 7 of 7 on the old
+tree. The DLL is built with MSVC 2003: 0 errors, the same 2451 exports. Use
+[`builds/0017/CvGameCoreDLL.dll`](../builds/0017/CvGameCoreDLL.dll) (it includes
+patches 0014 to 0016); the save format is unchanged. The game executable was not run.
+
+[Manifest](settler-ui-manifest.json) · [Before](settler-ui-before.log) ·
+[Suite](settler-ui-regression.log) · [Patch verification](settler-ui-patch-validation.log) ·
+[Clang gate](settler-ui-clang-gate.log) · [Build provenance](../builds/0017/provenance.json).
+
 ## Crash fixes: objects used after they were deleted
 
-[0016-crash-fixes.patch](0016-crash-fixes.patch) is the current incremental patch for
+[0016-crash-fixes.patch](0016-crash-fixes.patch) was the incremental patch for
 GitLab **`main` at `b88a5c0`** (patch 0015 merged). It has **landed on GitLab `main`**
 ([!41](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/41),
-merge commit `59fcd61`, tree `a955d238` = the tested tree). A clone of current `main`
-needs nothing applied; only the DLL below has to be installed.
+merge commit `59fcd61`, tree `a955d238` = the tested tree).
 
 - **Razing a captured city.** A Mediterranean Marathon game in the harness crashed on
   turn 415. The crash was a NULL `wcslen` inside `CvWString`'s copy constructor. A
@@ -30,7 +85,7 @@ python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/crash-manifest.
 ```
 
 **31 regression programs pass**; `Tools/test_crash_fixes.py` fails 3 of 3 on the old
-tree. The DLL is built with MSVC 2003: 0 errors, the same 2451 exports. Use
+tree. The DLL is built with MSVC 2003: 0 errors, the same 2451 exports:
 [`builds/0016/CvGameCoreDLL.dll`](../builds/0016/CvGameCoreDLL.dll) (it includes patches
 0014 and 0015); the save format is unchanged. The game executable was not run.
 

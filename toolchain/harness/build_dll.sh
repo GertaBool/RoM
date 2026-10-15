@@ -36,6 +36,13 @@ insert('CvEventReporter.cpp', 'void CvEventReporter::buildingBuilt(', '{\r\n',
        '\tHH_buildingBuilt(pCity, eBuilding);', 'void HH_buildingBuilt(CvCity* pCity, BuildingTypes eBuilding);', after=True)
 insert('CvEventReporter.cpp', 'void CvEventReporter::beginPlayerTurn(', '{\r\n',
        '\tHH_beginPlayerTurn(iGameTurn, ePlayer);', 'void HH_beginPlayerTurn(int iGameTurn, PlayerTypes ePlayer);', after=True)
+# Battles and wars, for the war telemetry (HarnessScenario.cpp).
+insert('CvUnit.cpp', 'void CvUnit::updateCombat(', 'setMadeAttack(true);',
+       ' HH_noteCombatStart(this, pDefender);', 'void HH_noteCombatStart(CvUnit* pAttacker, CvUnit* pDefender);', after=True)
+insert('CvEventReporter.cpp', 'void CvEventReporter::combatResult(', '{\r\n',
+       '\tHH_noteCombatResult(pWinner, pLoser);', 'void HH_noteCombatResult(CvUnit* pWinner, CvUnit* pLoser);', after=True)
+insert('CvEventReporter.cpp', 'void CvEventReporter::changeWar(', '{\r\n',
+       '\tHH_noteChangeWar(bWar, eTeam, eOtherTeam);', 'void HH_noteChangeWar(bool bWar, TeamTypes eTeam, TeamTypes eOtherTeam);', after=True)
 # Count the Python events the DLL reports (the harness runs without Python).
 import re
 p = d + '/CvDllPythonEvents.cpp'

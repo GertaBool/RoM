@@ -47,6 +47,10 @@ The largest costs we can reduce:
 | Yield symbols | Rebuilt on every plot when yields change, visible or not | Rebuild when revealed |
 | City and unit models | Up to about 106 building models in a size-40 city; settlers draw 7 figures (stock BTS: 4) | `GAME_CITY_SIZE_EXP_MODIFIER` and unit group sizes in XML; visual only |
 
+Patch 0017 makes the plot list, hover help and `updateScore` changes, along with
+tech-first `canBuild` and the route-build scan in `getBestRoute`
+([fixes](../../fixes/README.md#settler-without-cities-interface-redraws-and-turn-time)).
+
 ## Turn time
 
 Profile of three turns from the turn-400 Marathon snapshot (342 cities, about 1,800

@@ -1,0 +1,402 @@
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index c39c4d0..1504569 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -2246,9 +2246,13 @@ void CvGame::updateScore(bool bForce)
+ 
+ 	setScoreDirty(false);
+ 
++	// Each score once: calculateScore calls Python. The selection below then
++	// ranks exactly as computing it per comparison did.
++	int aiPlayerScore[MAX_CIV_PLAYERS];
+ 	for (iI = 0; iI < MAX_CIV_PLAYERS; iI++)
+ 	{
+ 		abPlayerScored[iI] = false;
++		aiPlayerScore[iI] = GET_PLAYER((PlayerTypes)iI).calculateScore(false);
+ 	}
+ 
+ 	for (iI = 0; iI < MAX_CIV_PLAYERS; iI++)
+@@ -2260,7 +2264,7 @@ void CvGame::updateScore(bool bForce)
+ 		{
+ 			if (!abPlayerScored[iJ])
+ 			{
+-				iScore = GET_PLAYER((PlayerTypes)iJ).calculateScore(false);
++				iScore = aiPlayerScore[iJ];
+ 
+ 				if (iScore >= iBestScore)
+ 				{
+diff --git a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
+index 5fa1f75..d8a0ce5 100644
+--- a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
++++ b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
+@@ -103,6 +103,7 @@ void CvGameTextMgr::DeInitialize()
+ 	{
+ 		delete [] m_apbPromotion[i];
+ 	}
++	m_apbPromotion.clear();
+ }
+ 
+ //----------------------------------------------------------------------------
+@@ -1808,12 +1809,12 @@ void CvGameTextMgr::setPlotListHelp(CvWStringBuffer &szString, CvPlot* pPlot, bo
+ 		aiUnitStrength.erase(aiUnitStrength.begin(), aiUnitStrength.end());
+ 		aiUnitMaxStrength.erase(aiUnitMaxStrength.begin(), aiUnitMaxStrength.end());
+ 
++		// One promotion row per (unit type, owner), allocated when first used
++		// and cleared when first counted in a call (a full table was 21 MB,
++		// cleared on every hover).
+ 		if (m_apbPromotion.size() == 0)
+ 		{
+-			for (int iI = 0; iI < (GC.getNumUnitInfos() * MAX_PLAYERS); ++iI)
+-			{
+-				m_apbPromotion.push_back(new int[numPromotionInfos]);
+-			}
++			m_apbPromotion.resize(GC.getNumUnitInfos() * MAX_PLAYERS, NULL);
+ 		}
+ 
+ 		for (int iI = 0; iI < (GC.getNumUnitInfos() * MAX_PLAYERS); ++iI)
+@@ -1821,10 +1822,6 @@ void CvGameTextMgr::setPlotListHelp(CvWStringBuffer &szString, CvPlot* pPlot, bo
+ 			aiUnitNumbers.push_back(0);
+ 			aiUnitStrength.push_back(0);
+ 			aiUnitMaxStrength.push_back(0);
+-			for (int iJ = 0; iJ < numPromotionInfos; iJ++)
+-			{
+-				m_apbPromotion[iI][iJ] = 0;
+-			}
+ 		}
+ 	}
+ 
+@@ -1843,6 +1840,14 @@ void CvGameTextMgr::setPlotListHelp(CvWStringBuffer &szString, CvPlot* pPlot, bo
+ 				if (aiUnitNumbers[iIndex] == 0)
+ 				{
+ 					++iCount;
++					if (m_apbPromotion[iIndex] == NULL)
++					{
++						m_apbPromotion[iIndex] = new int[numPromotionInfos];
++					}
++					for (int iJ = 0; iJ < numPromotionInfos; iJ++)
++					{
++						m_apbPromotion[iIndex][iJ] = 0;
++					}
+ 				}
+ 				++aiUnitNumbers[iIndex];
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index a5620be..3f0c171 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -7833,11 +7833,7 @@ bool CvPlayer::canBuild(const CvPlot* pPlot, BuildTypes eBuild, bool bTestEra, b
+ {
+ 	PROFILE_FUNC();
+ 
+-	if (!(pPlot->canBuild(eBuild, getID(), bTestVisible)))
+-	{
+-		return false;
+-	}
+-
++	// The tech test first: it is far cheaper than the plot test, and both must pass.
+ 	if (GC.getBuildInfo(eBuild).getTechPrereq() != NO_TECH)
+ 	{
+ 		if (!(GET_TEAM(getTeam()).isHasTech((TechTypes)GC.getBuildInfo(eBuild).getTechPrereq())))
+@@ -7849,6 +7845,11 @@ bool CvPlayer::canBuild(const CvPlot* pPlot, BuildTypes eBuild, bool bTestEra, b
+ 		}
+ 	}
+ 
++	if (!(pPlot->canBuild(eBuild, getID(), bTestVisible)))
++	{
++		return false;
++	}
++
+ 	if (!bTestVisible)
+ 	{
+ 		if (pPlot->getFeatureType() != NO_FEATURE)
+@@ -7888,39 +7889,42 @@ RouteTypes CvPlayer::getBestRoute(CvPlot* pPlot) const
+ {
+ 	PROFILE_FUNC();
+ 
+-	RouteTypes eRoute;
+-	RouteTypes eBestRoute;
+-	int iValue;
+-	int iBestValue;
+-	int iI;
+-
+-	iBestValue = 0;
+-	eBestRoute = NO_ROUTE;
+-
+-	// BBAI TODO: Efficiency: Could cache this, decent savings on large maps
+-	// Perhaps save best route type per player each turn, then just check that
+-	// one first and only check others if can't do best.
+-
+-	for (iI = 0; iI < GC.getNumBuildInfos(); iI++)
++	// The builds that make a route, best route value first and in index order
++	// among equal values: the first usable one is the route a scan over all
++	// builds picks (the highest value above 0, the lowest index among ties).
++	static std::vector<BuildTypes> aeRouteBuilds;
++	static int iCachedBuilds = -1;
++	if (iCachedBuilds != GC.getNumBuildInfos())
+ 	{
+-		eRoute = ((RouteTypes)(GC.getBuildInfo((BuildTypes)iI).getRoute()));
+-
+-		if (eRoute != NO_ROUTE)
++		std::vector<std::pair<int, int> > aOrder;
++		for (int iI = 0; iI < GC.getNumBuildInfos(); iI++)
+ 		{
+-			if ((pPlot != NULL) ? ((pPlot->getRouteType() == eRoute) || canBuild(pPlot, ((BuildTypes)iI))) : GET_TEAM(getTeam()).isHasTech((TechTypes)(GC.getBuildInfo((BuildTypes)iI).getTechPrereq())))
++			const RouteTypes eRoute = (RouteTypes)GC.getBuildInfo((BuildTypes)iI).getRoute();
++			if (eRoute != NO_ROUTE && GC.getRouteInfo(eRoute).getValue() > 0)
+ 			{
+-				iValue = GC.getRouteInfo(eRoute).getValue();
+-
+-				if (iValue > iBestValue)
+-				{
+-					iBestValue = iValue;
+-					eBestRoute = eRoute;
+-				}
++				aOrder.push_back(std::make_pair(-GC.getRouteInfo(eRoute).getValue(), iI));
+ 			}
+ 		}
++		std::sort(aOrder.begin(), aOrder.end());
++		aeRouteBuilds.clear();
++		for (size_t i = 0; i < aOrder.size(); i++)
++		{
++			aeRouteBuilds.push_back((BuildTypes)aOrder[i].second);
++		}
++		iCachedBuilds = GC.getNumBuildInfos();
++	}
++
++	for (size_t i = 0; i < aeRouteBuilds.size(); i++)
++	{
++		const BuildTypes eBuild = aeRouteBuilds[i];
++		const RouteTypes eRoute = (RouteTypes)GC.getBuildInfo(eBuild).getRoute();
++		if ((pPlot != NULL) ? ((pPlot->getRouteType() == eRoute) || canBuild(pPlot, eBuild)) : GET_TEAM(getTeam()).isHasTech((TechTypes)(GC.getBuildInfo(eBuild).getTechPrereq())))
++		{
++			return eRoute;
++		}
+ 	}
+ 
+-	return eBestRoute;
++	return NO_ROUTE;
+ }
+ 
+ 
+@@ -8229,10 +8233,21 @@ int CvPlayer::calculateUnitSupply(int& iPaidUnits, int& iBaseSupplyCost) const
+ 
+ int CvPlayer::calculatePreInflatedCosts() const
+ {
+-	CyArgsList argsList;
+-	argsList.add(getID());
+-	long lResult;
+-	gDLL->getPythonIFace()->callFunction(PYGameModule, "getExtraCost", argsList.makeFunctionArgs(), &lResult);
++	// The AI's gold checks call this tens of thousands of times a turn. RoM's
++	// Python adds nothing (BUG's default is 0), so the call is made only when
++	// PythonCallbackDefines.xml sets USE_GET_EXTRA_COST_CALLBACK.
++	static int iUseCallback = -1;
++	if (iUseCallback < 0)
++	{
++		iUseCallback = GC.getDefineINT("USE_GET_EXTRA_COST_CALLBACK") != 0 ? 1 : 0;
++	}
++	long lResult = 0;
++	if (iUseCallback)
++	{
++		CyArgsList argsList;
++		argsList.add(getID());
++		gDLL->getPythonIFace()->callFunction(PYGameModule, "getExtraCost", argsList.makeFunctionArgs(), &lResult);
++	}
+ 
+ 	return (calculateUnitCost() + calculateUnitSupply() + getTotalMaintenance() + getCivicUpkeep() + (int)lResult);
+ }
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+index acb0d82..9595dcf 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+@@ -5339,7 +5339,7 @@ void CvSelectionGroup::setActivityType(ActivityTypes eNewValue)
+ 			}
+ 		}
+ 
+-		if (pPlot == gDLL->getInterfaceIFace()->getSelectionPlot())
++		if (pPlot != NULL && pPlot == gDLL->getInterfaceIFace()->getSelectionPlot())
+ 		{
+ 			gDLL->getInterfaceIFace()->setDirty(PlotListButtons_DIRTY_BIT, true);
+ 			gDLL->getInterfaceIFace()->setDirty(SelectionButtons_DIRTY_BIT, true);
+diff --git a/Assets/CvGameCoreDLL/CvUnit.cpp b/Assets/CvGameCoreDLL/CvUnit.cpp
+index fecb0ca..0446341 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.cpp
++++ b/Assets/CvGameCoreDLL/CvUnit.cpp
+@@ -10420,7 +10420,7 @@ void CvUnit::joinGroup(CvSelectionGroup* pSelectionGroup, bool bRemoveSelected,
+ 				}
+ 			}
+ 
+-			if (pPlot == gDLL->getInterfaceIFace()->getSelectionPlot())
++			if (pPlot != NULL && pPlot == gDLL->getInterfaceIFace()->getSelectionPlot())
+ 			{
+ 				gDLL->getInterfaceIFace()->setDirty(PlotListButtons_DIRTY_BIT, true);
+ 			}
+@@ -11059,7 +11059,7 @@ void CvUnit::setDamage(int iNewValue, PlayerTypes ePlayer, bool bNotifyEntity)
+ 			gDLL->getInterfaceIFace()->setDirty(InfoPane_DIRTY_BIT, true);
+ 		}
+ 
+-		if (plot() == gDLL->getInterfaceIFace()->getSelectionPlot())
++		if (plot() != NULL && plot() == gDLL->getInterfaceIFace()->getSelectionPlot())
+ 		{
+ 			gDLL->getInterfaceIFace()->setDirty(PlotListButtons_DIRTY_BIT, true);
+ 		}
+@@ -11111,7 +11111,7 @@ void CvUnit::setMoves(int iNewValue)
+ 			gDLL->getInterfaceIFace()->setDirty(InfoPane_DIRTY_BIT, true);
+ 		}
+ 
+-		if (pPlot == gDLL->getInterfaceIFace()->getSelectionPlot())
++		if (pPlot != NULL && pPlot == gDLL->getInterfaceIFace()->getSelectionPlot())
+ 		{
+ 			gDLL->getInterfaceIFace()->setDirty(PlotListButtons_DIRTY_BIT, true);
+ 		}
+@@ -12177,7 +12177,7 @@ void CvUnit::setCombatUnit(CvUnit* pCombatUnit, bool bAttacking)
+ 				gDLL->getInterfaceIFace()->setDirty(InfoPane_DIRTY_BIT, true);
+ 			}
+ 
+-			if (plot() == gDLL->getInterfaceIFace()->getSelectionPlot())
++			if (plot() != NULL && plot() == gDLL->getInterfaceIFace()->getSelectionPlot())
+ 			{
+ 				gDLL->getInterfaceIFace()->setDirty(PlotListButtons_DIRTY_BIT, true);
+ 			}
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index d97069b..9ec8243 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -17057,6 +17057,9 @@ bool CvUnitAI::AI_found()
+ 	int iBestLandTurns = MAX_INT;
+ 	bool bBestSea = false;
+ 	const int iHorizon = kPlayer.AI_getExpansionHorizon();
++	// A player without cities has no city to train an escort in: its settler
++	// travels alone (otherwise it would wait forever).
++	const bool bEscortOptional = kPlayer.getNumCities() == 0;
+ 
+ 	// Continue a legal accepted land job. In particular, a party unloaded by
+ 	// its carrier must not pick a different destination on its next update.
+@@ -17064,7 +17067,7 @@ bool CvUnitAI::AI_found()
+ 		getGroup()->AI_getMissionAIPlot() : NULL;
+ 	int iPathTurns;
+ 	if (pCommitted != NULL && canFound(pCommitted) && !pCommitted->isVisibleEnemyUnit(this) &&
+-		(getGroup()->canDefend() || kPlayer.AI_plotTargetMissionAIs(pCommitted, MISSIONAI_GUARD_CITY) > 0) &&
++		(bEscortOptional || getGroup()->canDefend() || kPlayer.AI_plotTargetMissionAIs(pCommitted, MISSIONAI_GUARD_CITY) > 0) &&
+ 		kPlayer.AI_plotTargetMissionAIs(pCommitted, MISSIONAI_FOUND, getGroup()) == 0 &&
+ 		generatePath(pCommitted, MOVE_SAFE_TERRITORY, true, &iPathTurns) &&
+ 		iPathTurns >= 0 && iPathTurns <= iHorizon)
+@@ -17089,7 +17092,7 @@ bool CvUnitAI::AI_found()
+ 				kPlayer.AI_plotTargetMissionAIs(pCandidate, MISSIONAI_FOUND, getGroup(), GC.getMIN_CITY_RANGE()) > 0) continue;
+ 			int iLandTurns = MAX_INT;
+ 			if ((pCandidate->getArea() == getArea() || canMoveAllTerrain()) &&
+-				(getGroup()->canDefend() || kPlayer.AI_plotTargetMissionAIs(pCandidate, MISSIONAI_GUARD_CITY) > 0) &&
++				(bEscortOptional || getGroup()->canDefend() || kPlayer.AI_plotTargetMissionAIs(pCandidate, MISSIONAI_GUARD_CITY) > 0) &&
+ 				generatePath(pCandidate, MOVE_SAFE_TERRITORY, true, &iPathTurns) &&
+ 				iPathTurns >= 0 && iPathTurns <= iHorizon)
+ 			{
+diff --git a/Assets/XML/PythonCallbackDefines.xml b/Assets/XML/PythonCallbackDefines.xml
+index ab9d177..f4607e5 100644
+--- a/Assets/XML/PythonCallbackDefines.xml
++++ b/Assets/XML/PythonCallbackDefines.xml
+@@ -157,6 +157,10 @@
+ 		<DefineName>USE_CAN_DO_RESEARCH_CALLBACK</DefineName>
+ 		<iDefineIntVal>0</iDefineIntVal>
+ 	</Define>
++	<Define>
++		<DefineName>USE_GET_EXTRA_COST_CALLBACK</DefineName>
++		<iDefineIntVal>0</iDefineIntVal>
++	</Define>
+ 	<Define>
+ 		<DefineName>USE_UPGRADE_UNIT_PRICE_CALLBACK</DefineName>
+ 		<iDefineIntVal>1</iDefineIntVal>
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index 0f3d631..bd159c9 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -20,6 +20,10 @@
+       "command": ["python3", "Tools/test_diplomacy_fixes.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvTeamAI.*", "Assets/CvGameCoreDLL/AIDiplomacyPolicy.h"]
+     },
++    {
++      "command": ["python3", "Tools/test_patch_0017.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvUnit.*", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvGameTextMgr.*", "Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayer.*", "Assets/XML/PythonCallbackDefines.xml"]
++    },
+     {
+       "command": ["python3", "Tools/test_crash_fixes.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvPlayer.*", "Assets/CvGameCoreDLL/CvCity.*"]
+diff --git a/Tools/test_patch_0017.py b/Tools/test_patch_0017.py
+new file mode 100644
+index 0000000..9f24ad4
+--- /dev/null
++++ b/Tools/test_patch_0017.py
+@@ -0,0 +1,75 @@
++#!/usr/bin/env python3
++"""A settler that waited forever, and work the interface and AI did for nothing.
++
++Found in the GertaBool/RoM toolchain/harness over whole Marathon games:
++- On Earth 12, Genghis Khan never founded a city. His start plot cannot hold a
++  city in RoM, China founded next to the plot his settler walked to, and from
++  then on AI_found accepted a site only for a settler with an escort, which a
++  player without cities can never train. The original RoM DLL does the same.
++- Every unit birth or death redrew the Python plot list while the human had
++  nothing selected: the plot was compared with the selection plot, and both
++  were NULL.
++- Hovering over a stack of more than 15 units cleared a 21 MB table of
++  promotion counts (423 unit types x 51 players x 244 promotions).
++- CvGame::updateScore called calculateScore (a Python callback) once per
++  comparison, players x players times.
++- CvPlayer::canBuild tested the plot before the cheaper tech requirement, and
++  getBestRoute scanned every build; calculatePreInflatedCosts called Python
++  getExtraCost, which returns 0 in RoM, tens of thousands of times a turn.
++"""
++import unittest
++from test_review_correctness import DLL, block
++
++
++def src(name):
++    return (DLL / name).read_text(encoding='latin-1')
++
++
++class SettlerTests(unittest.TestCase):
++    def test_settler_without_cities_travels_alone(self):
++        method = block(src('CvUnitAI.cpp'), 'bool CvUnitAI::AI_found(')
++        self.assertIn('const bool bEscortOptional = kPlayer.getNumCities() == 0;', method)
++        self.assertEqual(method.count('(bEscortOptional || getGroup()->canDefend() ||'), 2)
++
++
++class InterfaceTests(unittest.TestCase):
++    def test_no_plot_list_redraw_without_a_plot(self):
++        for name in ('CvUnit.cpp', 'CvSelectionGroup.cpp'):
++            text = src(name)
++            self.assertNotIn('if (pPlot == gDLL->getInterfaceIFace()->getSelectionPlot())\r\n\t\t\t{\r\n\t\t\t\tgDLL->getInterfaceIFace()->setDirty(PlotListButtons_DIRTY_BIT', text)
++            self.assertNotIn('if (plot() == gDLL->getInterfaceIFace()->getSelectionPlot())', text)
++        self.assertEqual(src('CvUnit.cpp').count('!= NULL && pPlot == gDLL->getInterfaceIFace()->getSelectionPlot()') +
++                         src('CvUnit.cpp').count('plot() != NULL && plot() == gDLL->getInterfaceIFace()->getSelectionPlot()'), 4)
++
++    def test_hover_help_allocates_rows_on_demand(self):
++        method = block(src('CvGameTextMgr.cpp'), 'void CvGameTextMgr::setPlotListHelp(')
++        self.assertIn('m_apbPromotion.resize(GC.getNumUnitInfos() * MAX_PLAYERS, NULL);', method)
++        self.assertNotIn('m_apbPromotion.push_back(new int[numPromotionInfos]);', method)
++        self.assertNotIn('m_apbPromotion[iI][iJ] = 0;', method)
++        self.assertIn('m_apbPromotion.clear();', block(src('CvGameTextMgr.cpp'), 'void CvGameTextMgr::DeInitialize('))
++
++    def test_score_computed_once_per_player(self):
++        method = block(src('CvGame.cpp'), 'void CvGame::updateScore(')
++        self.assertEqual(method.count('calculateScore(false)'), 1)
++        self.assertIn('iScore = aiPlayerScore[iJ];', method)
++
++
++class TurnTimeTests(unittest.TestCase):
++    def test_can_build_tests_tech_before_plot(self):
++        method = block(src('CvPlayer.cpp'), 'bool CvPlayer::canBuild(')
++        self.assertLess(method.index('getTechPrereq()'), method.index('pPlot->canBuild('))
++
++    def test_best_route_scans_route_builds_only(self):
++        method = block(src('CvPlayer.cpp'), 'RouteTypes CvPlayer::getBestRoute(')
++        self.assertIn('aeRouteBuilds', method)
++        self.assertNotIn('for (iI = 0; iI < GC.getNumBuildInfos(); iI++)', method)
++
++    def test_extra_cost_callback_behind_switch(self):
++        method = block(src('CvPlayer.cpp'), 'int CvPlayer::calculatePreInflatedCosts(')
++        self.assertIn('USE_GET_EXTRA_COST_CALLBACK', method)
++        xml = (DLL.parent / 'XML' / 'PythonCallbackDefines.xml').read_text(encoding='latin-1')
++        self.assertIn('<DefineName>USE_GET_EXTRA_COST_CALLBACK</DefineName>', xml)
++
++
++if __name__ == '__main__':
++    unittest.main()

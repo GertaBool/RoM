@@ -52,8 +52,9 @@ of all earlier campaigns. Those games had 11 working civilizations, not 12.
   train an escort and no other unit, so the settler waits forever.
 - The original RoM DLL from before these patches (d8cedd5) behaves the same.
 
-**Fix, prototyped and tested:** a player without cities lets its settler travel alone.
-Genghis then founds his capital on turn 1. Three lines in `AI_found`.
+**Fixed in patch 0017** ([fixes](../../fixes/README.md#settler-without-cities-interface-redraws-and-turn-time)):
+a player without cities lets its settler travel alone. Genghis then founds his capital
+on turn 1. Three lines in `AI_found`.
 
 ### 2. Expansion starts late, and settlers wait
 
@@ -136,7 +137,7 @@ From the [AI hot-loop map](../engine/ai-hotloops-map.md#6-ai-behaviour-faults-no
 
 ## What to fix first
 
-1. **The no-city settler deadlock.** Tested, 3 lines.
+1. **The no-city settler deadlock.** Fixed in patch 0017.
 2. **Settler escorts:** send the settler alone when no danger is in range, or let the
    city's defender go when the city is not threatened. Measure expansion speed and
    settler losses to animals.

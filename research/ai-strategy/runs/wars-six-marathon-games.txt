@@ -1,0 +1,144 @@
+games 6, turns 2700, wars declared 104 (3.9 per 100 game turns), joined as vassal 8
+
+# Decision to fight
+  war plan at declaration: {'limited': 20, 'total': 51, 'dogpile': 33}
+  power ratio declarer/target: median 1.55; below 1.0 in 31%; above 2.0 in 33%
+  target already at war with others: 58%; declarer already at war elsewhere: 16%
+  wars on the score leader: 6%; wars by the score leader: 21%
+
+# Preparation and concentration
+  declarer land units within 2 plots of the target at declaration: median 23% (6 units); none in 21%
+
+# Conduct and outcome
+  wars with at least one city taken by the declarer: 46%; turns to the first capture: median 7.5
+  cities taken per war: declarer 1.11, target 0.41; razed during wars (either side) 0.49 per war
+  length (ended wars): median 33 turns; ended wars with no city taken by either side: 45%; ongoing at the end 51
+  stalemates (50+ turns, no city changed hands): 18 of 104
+
+# Battles
+  declarer attacking: 2961 attacks, won 59%, mean predicted odds 65%, lone attackers 44%, mean group 8.1, on cities 49% (won 48%), collateral units 25%
+  target attacking: 1633 attacks, won 68%, mean predicted odds 71%, lone attackers 66%, mean group 3.3, on cities 19% (won 57%), collateral units 20%
+  units lost in battle: declarers 2323, targets 2271 (exchange ratio 0.98)
+
+# What predicts success (declarer took a city; net cities; exchange ratio)
+  power ratio 0.0-1.0                wars  32  took a city  28%  net cities -0.28  exchange 0.67
+  power ratio 1.0-1.5                wars  18  took a city  44%  net cities +0.00  exchange 0.71
+  power ratio 1.5-2.0                wars  19  took a city  53%  net cities +0.89  exchange 0.89
+  power ratio 2.0-99.0               wars  35  took a city  60%  net cities +1.83  exchange 1.30
+  massed: 50%+ of army near target   wars  15  took a city  47%  net cities +0.80  exchange 0.75
+  partly: 1-49% near                 wars  67  took a city  60%  net cities +0.87  exchange 1.03
+  nothing near                       wars  22  took a city   5%  net cities +0.09  exchange 0.66
+  plan limited                       wars  20  took a city  50%  net cities +1.00  exchange 1.07
+  plan total                         wars  51  took a city  59%  net cities +0.94  exchange 0.95
+  plan dogpile                       wars  33  took a city  24%  net cities +0.12  exchange 1.00
+  target already at war              wars  60  took a city  35%  net cities +0.50  exchange 0.99
+  target at peace with others        wars  44  took a city  61%  net cities +0.95  exchange 0.97
+  declarer on two fronts             wars  17  took a city  76%  net cities +1.47  exchange 1.28
+  mostly lone attackers (10+ attacks) wars  24  took a city  71%  net cities +0.50  exchange 0.96
+  mostly stacks (10+ attacks)        wars  33  took a city  76%  net cities +2.06  exchange 1.04
+
+# Wars (start, declarer->target, plan, power ratio, near, caps/lost, length)
+  earth12-1 t155 9->10 limited ratio 1.04 near 80% caps 0 lost 0 len 247
+  earth12-1 t181 2->0 limited ratio 0.69 near 33% caps 0 lost 0 len 89
+  earth12-1 t277 4->5 total ratio 6.52 near 40% caps 1 lost 0 len 173 ongoing
+  earth12-1 t279 2->1 total ratio 0.73 near 41% caps 0 lost 0 len 13
+  earth12-1 t304 2->3 limited ratio 0.98 near 0% caps 0 lost 0 len 102
+  earth12-1 t316 4->1 limited ratio 1.32 near 13% caps 2 lost 2 len 40
+  earth12-1 t338 11->10 total ratio 1.90 near 27% caps 0 lost 0 len 20
+  earth12-1 t350 7->1 dogpile ratio 0.65 near 0% caps 0 lost 0 len 22
+  earth12-1 t368 11->10 total ratio 2.72 near 51% caps 7 lost 1 len 82 ongoing
+  earth12-1 t391 7->4 total ratio 0.55 near 57% caps 1 lost 0 len 32
+  earth12-1 t395 0->3 total ratio 1.29 near 33% caps 2 lost 1 len 23
+  earth12-1 t404 11->8 total ratio 3.76 near 10% caps 4 lost 0 len 33
+  earth12-1 t404 9->8 dogpile ratio 0.50 near 0% caps 0 lost 0 len 37
+  earth12-1 t411 4->1 total ratio 1.45 near 24% caps 3 lost 9 len 39 ongoing
+  earth12-1 t417 2->3 dogpile ratio 0.76 near 0% caps 0 lost 0 len 33 ongoing
+  earth12-1 t435 0->3 total ratio 2.42 near 18% caps 3 lost 1 len 15 ongoing
+  earth12-1 t435 7->3 dogpile ratio 0.58 near 0% caps 0 lost 0 len 15 ongoing
+  earth12-1 t437 6->3 dogpile ratio 0.01 near 0% caps 0 lost 0 len 13 ongoing
+  earth12-1 t443 0->4 limited ratio 1.85 near 10% caps 1 lost 0 len 7 ongoing
+  earth12-1 t448 11->8 limited ratio 6.32 near 29% caps 0 lost 0 len 2 ongoing
+  earth12-2 t177 9->8 limited ratio 1.29 near 25% caps 0 lost 0 len 13
+  earth12-2 t286 7->2 total ratio 2.00 near 28% caps 0 lost 0 len 146
+  earth12-2 t300 8->9 limited ratio 1.78 near 23% caps 1 lost 0 len 139
+  earth12-2 t307 1->3 limited ratio 2.37 near 15% caps 1 lost 0 len 22
+  earth12-2 t354 11->8 total ratio 1.59 near 23% caps 0 lost 0 len 96 ongoing
+  earth12-2 t379 0->1 total ratio 1.81 near 39% caps 2 lost 0 len 17
+  earth12-2 t415 0->1 limited ratio 2.10 near 11% caps 2 lost 0 len 16
+  earth12-2 t415 4->1 total ratio 0.91 near 21% caps 1 lost 0 len 24
+  earth12-2 t416 5->4 dogpile ratio 0.08 near 100% caps 0 lost 2 len 34 ongoing
+  earth12-2 t418 3->0 dogpile ratio 0.18 near 27% caps 1 lost 5 len 32 ongoing
+  earth12-2 t418 10->8 dogpile ratio 2.45 near 20% caps 0 lost 0 len 32 ongoing
+  earth12-2 t442 0->1 total ratio 2.80 near 28% caps 2 lost 0 len 8 ongoing
+  earth12-2 t445 2->3 total ratio 0.79 near 7% caps 0 lost 0 len 5 ongoing
+  earth12-1 t188 4->5 total ratio 4.31 near 50% caps 0 lost 0 len 262 ongoing
+  earth12-1 t277 4->3 total ratio 2.41 near 21% caps 1 lost 0 len 147
+  earth12-1 t277 2->3 dogpile ratio 0.96 near 0% caps 0 lost 0 len 70
+  earth12-1 t284 1->4 total ratio 0.74 near 28% caps 2 lost 0 len 100
+  earth12-1 t284 0->4 dogpile ratio 0.48 near 0% caps 0 lost 0 len 71
+  earth12-1 t301 8->9 total ratio 1.40 near 62% caps 0 lost 1 len 30
+  earth12-1 t310 7->6 limited ratio 1.51 near 26% caps 3 lost 0 len 140 ongoing
+  earth12-1 t321 11->8 total ratio 1.93 near 23% caps 1 lost 0 len 129 ongoing
+  earth12-1 t345 9->8 total ratio 0.80 near 71% caps 0 lost 0 len 20
+  earth12-1 t367 0->6 dogpile ratio 3.54 near 0% caps 0 lost 0 len 83 ongoing
+  earth12-1 t379 9->8 total ratio 1.35 near 63% caps 1 lost 0 len 71 ongoing
+  earth12-1 t413 11->10 total ratio 1.07 near 60% caps 1 lost 0 len 36
+  earth12-1 t420 9->10 dogpile ratio 0.46 near 40% caps 1 lost 0 len 30 ongoing
+  earth12-1 t438 2->3 total ratio 1.26 near 23% caps 0 lost 0 len 12 ongoing
+  earth12-1 t447 4->1 total ratio 1.02 near 40% caps 2 lost 0 len 3 ongoing
+  earth12-1 t450 0->4 total ratio 2.20 near 22% caps 0 lost 0 len 0 ongoing
+  earth12-2 t181 0->2 limited ratio 1.64 near 20% caps 4 lost 1 len 269 ongoing
+  earth12-2 t203 4->5 limited ratio 4.69 near 81% caps 0 lost 0 len 247 ongoing
+  earth12-2 t230 11->8 total ratio 3.04 near 50% caps 3 lost 0 len 220 ongoing
+  earth12-2 t241 4->6 total ratio 3.07 near 50% caps 1 lost 0 len 209 ongoing
+  earth12-2 t262 9->8 limited ratio 0.97 near 25% caps 0 lost 1 len 78
+  earth12-2 t307 0->3 total ratio 2.76 near 41% caps 0 lost 0 len 62
+  earth12-2 t308 4->7 total ratio 1.87 near 15% caps 1 lost 0 len 106
+  earth12-2 t365 11->10 total ratio 1.69 near 55% caps 0 lost 0 len 17
+  earth12-2 t383 0->3 limited ratio 4.23 near 3% caps 4 lost 0 len 67 ongoing
+  earth12-2 t403 1->2 total ratio 1.78 near 10% caps 0 lost 0 len 47 ongoing
+  earth12-2 t418 11->10 limited ratio 1.90 near 78% caps 2 lost 0 len 12
+  earth12-2 t418 9->10 dogpile ratio 0.16 near 100% caps 0 lost 0 len 32 ongoing
+  earth12-2 t424 7->2 dogpile ratio 2.01 near 0% caps 0 lost 0 len 26 ongoing
+  earth12-2 t439 0->1 dogpile ratio 2.57 near 26% caps 3 lost 1 len 11 ongoing
+  med-1 t248 5->6 total ratio 1.60 near 33% caps 0 lost 0 len 202 ongoing
+  med-1 t256 2->0 total ratio 1.50 near 35% caps 2 lost 0 len 33
+  med-1 t278 4->0 dogpile ratio 0.72 near 0% caps 0 lost 0 len 109
+  med-1 t279 8->4 dogpile ratio 1.74 near 0% caps 0 lost 0 len 10
+  med-1 t279 9->0 dogpile ratio 1.23 near 0% caps 0 lost 0 len 48
+  med-1 t282 7->4 dogpile ratio 1.92 near 0% caps 0 lost 0 len 14
+  med-1 t320 1->2 total ratio 1.29 near 7% caps 0 lost 0 len 21
+  med-1 t339 3->4 limited ratio 2.09 near 10% caps 4 lost 0 len 111 ongoing
+  med-1 t349 5->9 total ratio 1.22 near 11% caps 1 lost 0 len 22
+  med-1 t351 1->3 total ratio 0.86 near 40% caps 2 lost 1 len 18
+  med-1 t351 8->4 dogpile ratio 1.31 near 0% caps 0 lost 0 len 16
+  med-1 t360 7->4 dogpile ratio 0.96 near 33% caps 4 lost 0 len 90 ongoing
+  med-1 t376 1->4 limited ratio 2.05 near 31% caps 0 lost 0 len 74 ongoing
+  med-1 t380 3->1 total ratio 2.53 near 21% caps 7 lost 1 len 43
+  med-1 t380 5->1 dogpile ratio 0.50 near 22% caps 3 lost 0 len 43
+  med-1 t380 9->1 dogpile ratio 0.45 near 36% caps 0 lost 1 len 43
+  med-1 t388 8->9 dogpile ratio 2.18 near 0% caps 2 lost 0 len 38
+  med-1 t406 3->8 dogpile ratio 2.83 near 14% caps 5 lost 0 len 22
+  med-1 t407 0->4 dogpile ratio 0.98 near 0% caps 0 lost 0 len 43 ongoing
+  med-1 t424 0->9 dogpile ratio 0.38 near 0% caps 0 lost 0 len 26 ongoing
+  med-1 t433 3->9 dogpile ratio 10.17 near 25% caps 4 lost 0 len 17 ongoing
+  med-1 t444 7->5 total ratio 2.26 near 7% caps 3 lost 0 len 6 ongoing
+  med-1 t449 3->7 dogpile ratio 3.29 near 2% caps 0 lost 0 len 1 ongoing
+  med-2 t189 8->2 total ratio 0.80 near 40% caps 0 lost 2 len 79
+  med-2 t261 5->7 total ratio 0.81 near 33% caps 1 lost 0 len 29
+  med-2 t272 1->4 total ratio 2.61 near 37% caps 6 lost 0 len 178 ongoing
+  med-2 t272 8->4 dogpile ratio 1.10 near 0% caps 0 lost 0 len 178 ongoing
+  med-2 t312 7->4 dogpile ratio 1.16 near 0% caps 0 lost 0 len 138 ongoing
+  med-2 t330 2->8 total ratio 2.17 near 43% caps 3 lost 0 len 120 ongoing
+  med-2 t331 5->7 total ratio 1.07 near 37% caps 1 lost 0 len 21
+  med-2 t331 9->5 dogpile ratio 1.06 near 0% caps 0 lost 0 len 86
+  med-2 t353 0->4 limited ratio 5.42 near 6% caps 0 lost 0 len 97 ongoing
+  med-2 t355 3->1 total ratio 0.59 near 16% caps 0 lost 3 len 61
+  med-2 t382 7->1 dogpile ratio 0.25 near 46% caps 0 lost 10 len 63
+  med-2 t386 0->5 total ratio 2.26 near 28% caps 0 lost 0 len 15
+  med-2 t404 6->5 total ratio 0.96 near 7% caps 0 lost 0 len 11
+  med-2 t416 50->10 limited ratio 64.00 near 0% caps 0 lost 0 len 34 ongoing
+  med-2 t430 5->7 total ratio 1.68 near 39% caps 0 lost 0 len 15
+  med-2 t438 3->2 total ratio 1.89 near 14% caps 1 lost 0 len 12 ongoing
+  med-2 t439 6->5 total ratio 1.77 near 11% caps 0 lost 0 len 11 ongoing
+  med-2 t440 1->9 total ratio 3.16 near 15% caps 2 lost 0 len 10 ongoing

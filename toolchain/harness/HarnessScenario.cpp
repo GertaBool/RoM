@@ -275,10 +275,19 @@ namespace
 {
 	std::set<int> g_seenDeals;
 	std::map<int, std::pair<int, int> > g_unitPlots;   // HARNESS_UNIT_ACTIVITY: unit -> (plot, since turn)
+	// Battles since the previous record, by (attacker team, defender team):
+	// attacks, attacker wins, sum of attacker odds (per mille), lone attackers,
+	// sum of attacking group sizes, attacks on cities, city attacks won, attacks
+	// by units with collateral damage.
+	std::map<std::pair<int, int>, std::vector<int> > g_combat;
+	std::map<int, std::pair<int, int> > g_pendingCombat;   // attacker unit -> (team pair key, city attack)
+	std::vector<std::string> g_warLog;                       // declarations and peace since the previous record
+	int unitKey(const CvUnit* pUnit) { return ((int)pUnit->getOwnerINLINE() << 22) ^ pUnit->getID(); }
 	// Every trade as it is agreed (build_dll.sh adds the call to the harness copy
 	// of CvDeal::addTrades); one-time items never appear as a standing deal.
 	std::vector<std::string> g_tradeLog;
 	std::map<int, int> g_cityOwner;     // plot index -> owner
+	std::map<int, int> g_cityPop;       // plot index -> population at the previous record
 	std::set<int> g_alive;
 
 	void items(std::ostringstream& o, const CLinkList<TradeData>* pList)
@@ -306,12 +315,95 @@ void HH_noteTrade(PlayerTypes eFirst, PlayerTypes eSecond, const CLinkList<Trade
 	g_tradeLog.push_back(o.str());
 }
 
+// Called by the DLL (build_dll.sh) when a unit starts an attack. Reads only.
+void HH_noteCombatStart(CvUnit* pAttacker, CvUnit* pDefender)
+{
+	if (pAttacker == NULL || pDefender == NULL) return;
+	const std::pair<int, int> kPair((int)pAttacker->getTeam(), (int)pDefender->getTeam());
+	std::vector<int>& v = g_combat[kPair];
+	if (v.empty()) v.resize(8, 0);
+	const bool bCity = pDefender->plot() != NULL && pDefender->plot()->isCity();
+	const int iStack = pAttacker->getGroup() != NULL ? pAttacker->getGroup()->getNumUnits() : 1;
+	++v[0];
+	v[2] += getCombatOdds(pAttacker, pDefender);
+	if (iStack == 1) ++v[3];
+	v[4] += iStack;
+	if (bCity) ++v[5];
+	if (pAttacker->collateralDamage() > 0) ++v[7];
+	g_pendingCombat[unitKey(pAttacker)] = std::make_pair(kPair.first * 64 + kPair.second, bCity ? 1 : 0);
+}
+
+// Called by the DLL when a battle ends; the attacker is the unit with a pending record.
+void HH_noteCombatResult(CvUnit* pWinner, CvUnit* pLoser)
+{
+	if (pWinner == NULL || pLoser == NULL) return;
+	std::map<int, std::pair<int, int> >::iterator it = g_pendingCombat.find(unitKey(pWinner));
+	if (it != g_pendingCombat.end())
+	{
+		std::vector<int>& v = g_combat[std::make_pair(it->second.first / 64, it->second.first % 64)];
+		if (v.empty()) v.resize(8, 0);
+		++v[1];
+		if (it->second.second) ++v[6];
+		g_pendingCombat.erase(it);
+		return;
+	}
+	g_pendingCombat.erase(unitKey(pLoser));
+}
+
+// Called by the DLL when a team declares war on another or makes peace. For a
+// declaration: the declarer's war plan, both powers, the declarer's military
+// land units within two plots of the target's land against all of them, and how
+// many other wars the target is fighting.
+void HH_noteChangeWar(bool bWar, TeamTypes eTeam, TeamTypes eOther)
+{
+	CvGame& kGame = GC.getGameINLINE();
+	std::ostringstream o;
+	o << "{\"" << (bWar ? "war" : "peace") << "\":[" << (int)eTeam << "," << (int)eOther << "],\"t\":" << kGame.getGameTurn();
+	if (bWar && eTeam != NO_TEAM && eOther != NO_TEAM)
+	{
+		CvTeamAI& kT = GET_TEAM(eTeam);
+		CvTeamAI& kO = GET_TEAM(eOther);
+		int iOtherWars = 0;
+		for (int t = 0; t < MAX_CIV_TEAMS; ++t)
+			if (t != eTeam && t != eOther && GET_TEAM((TeamTypes)t).isAlive() && kO.isAtWar((TeamTypes)t)) ++iOtherWars;
+		int iNear = 0, iMilitary = 0;
+		for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+		{
+			CvPlayerAI& kP = GET_PLAYER((PlayerTypes)i);
+			if (!kP.isAlive() || kP.getTeam() != eTeam) continue;
+			int iLoop;
+			for (CvUnit* pUnit = kP.firstUnit(&iLoop); pUnit != NULL; pUnit = kP.nextUnit(&iLoop))
+			{
+				if (!pUnit->canAttack() || pUnit->getDomainType() != DOMAIN_LAND || pUnit->plot() == NULL) continue;
+				++iMilitary;
+				bool bNear = false;
+				for (int dx = -2; dx <= 2 && !bNear; ++dx)
+					for (int dy = -2; dy <= 2 && !bNear; ++dy)
+					{
+						const CvPlot* pLoop = plotXY(pUnit->getX_INLINE(), pUnit->getY_INLINE(), dx, dy);
+						if (pLoop != NULL && pLoop->getTeam() == eOther) bNear = true;
+					}
+				if (bNear) ++iNear;
+			}
+		}
+		o << ",\"plan\":" << (int)kT.AI_getWarPlan(eOther) << ",\"pow\":[" << kT.getPower(true) << "," << kO.getPower(true) << "]"
+		  << ",\"near\":[" << iNear << "," << iMilitary << "],\"others\":" << iOtherWars
+		  << ",\"vassal\":" << (kT.isAVassal() ? 1 : 0);
+	}
+	o << "}";
+	g_warLog.push_back(o.str());
+}
+
 extern "C" __declspec(dllexport) void HH_telemetryReset()
 {
 	g_tradeLog.clear();
 	g_seenDeals.clear();
 	g_unitPlots.clear();
+	g_combat.clear();
+	g_pendingCombat.clear();
+	g_warLog.clear();
 	g_cityOwner.clear();
+	g_cityPop.clear();
 	g_alive.clear();
 }
 
@@ -541,13 +633,32 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		bFirstEv = false;
 	}
 	g_tradeLog.clear();
+	for (size_t i = 0; i < g_warLog.size(); ++i)
+	{
+		o << (bFirstEv ? "" : ",") << g_warLog[i];
+		bFirstEv = false;
+	}
+	g_warLog.clear();
+	for (std::map<std::pair<int, int>, std::vector<int> >::const_iterator it = g_combat.begin(); it != g_combat.end(); ++it)
+	{
+		o << (bFirstEv ? "" : ",") << "{\"cb\":[" << it->first.first << "," << it->first.second;
+		for (size_t i = 0; i < it->second.size(); ++i) o << "," << it->second[i];
+		o << "]}";
+		bFirstEv = false;
+	}
+	g_combat.clear();
 
-	std::map<int, int> owners;
+	std::map<int, int> owners, pops, wonders;
 	for (size_t a = 0; a <= aiP.size(); ++a)
 	{
 		const PlayerTypes eP = a < aiP.size() ? (PlayerTypes)aiP[a] : BARBARIAN_PLAYER;
 		for (CvCity* pCity = GET_PLAYER(eP).firstCity(&iLoop); pCity != NULL; pCity = GET_PLAYER(eP).nextCity(&iLoop))
-			owners[GC.getMapINLINE().plotNum(pCity->getX_INLINE(), pCity->getY_INLINE())] = (int)eP;
+		{
+			const int iPlot = GC.getMapINLINE().plotNum(pCity->getX_INLINE(), pCity->getY_INLINE());
+			owners[iPlot] = (int)eP;
+			pops[iPlot] = pCity->getPopulation();
+			wonders[iPlot] = pCity->getNumWorldWonders();
+		}
 	}
 	for (std::map<int, int>::const_iterator it = owners.begin(); it != owners.end(); ++it)
 	{
@@ -559,17 +670,19 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		}
 		else if (old->second != it->second)
 		{
-			o << (bFirstEv ? "" : ",") << "{\"capture\":" << it->first << ",\"from\":" << old->second << ",\"by\":" << it->second << "}";
+			o << (bFirstEv ? "" : ",") << "{\"capture\":" << it->first << ",\"from\":" << old->second << ",\"by\":" << it->second
+			  << ",\"pop\":" << pops[it->first] << ",\"prevPop\":" << g_cityPop[it->first] << ",\"wonders\":" << wonders[it->first] << "}";
 			bFirstEv = false;
 		}
 	}
 	for (std::map<int, int>::const_iterator it = g_cityOwner.begin(); it != g_cityOwner.end(); ++it)
 	{
 		if (owners.count(it->first)) continue;
-		o << (bFirstEv ? "" : ",") << "{\"razed\":" << it->first << ",\"owner\":" << it->second << "}";
+		o << (bFirstEv ? "" : ",") << "{\"razed\":" << it->first << ",\"owner\":" << it->second << ",\"prevPop\":" << g_cityPop[it->first] << "}";
 		bFirstEv = false;
 	}
 	g_cityOwner = owners;
+	g_cityPop = pops;
 	std::set<int> alive(aiP.begin(), aiP.end());
 	for (std::set<int>::const_iterator it = g_alive.begin(); it != g_alive.end(); ++it)
 	{
