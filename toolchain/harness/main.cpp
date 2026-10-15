@@ -13,6 +13,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <algorithm>
 
 #define HH extern "C" __declspec(dllimport)
 HH int HH_type(const char*);
@@ -179,7 +180,10 @@ static void maybeSnapshot(const char* szOut, int iTurn)
 }
 
 extern std::map<std::string, long> g_pyCallCounts;
-// HARNESS_PY_COUNTS=1: Python callbacks (engine.cpp) and events (the DLL) of the run.
+extern std::map<std::string, long> g_engineCallCounts;
+extern long g_dirtyCounts[];
+// HARNESS_PY_COUNTS=1: Python callbacks (engine.cpp), events (the DLL) and calls
+// into the inert engine interfaces (rendering, interface) of the run.
 static void printPythonCounts(int iTurns)
 {
 	if (getenv("HARNESS_PY_COUNTS") == NULL) return;
@@ -198,6 +202,15 @@ static void printPythonCounts(int iTurns)
 	long n;
 	int iRead;
 	while (sscanf(p, "%255s %ld%n", szName, &n, &iRead) == 2) { harnessLog("  event    %-32s %10ld %10ld\n", szName, n, n / iPer); p += iRead; }
+	// Engine interface calls, most frequent first; dirty bits by CvEnums.h index.
+	std::vector<std::pair<long, std::string> > v;
+	for (std::map<std::string, long>::const_iterator it = g_engineCallCounts.begin(); it != g_engineCallCounts.end(); ++it)
+		if (it->second > 0) v.push_back(std::make_pair(it->second, it->first));
+	std::sort(v.begin(), v.end());
+	for (int i = (int)v.size() - 1; i >= 0; --i)
+		harnessLog("  engine   %-40s %10ld %10ld\n", v[i].second.c_str(), v[i].first, v[i].first / iPer);
+	for (int i = 0; i < NUM_INTERFACE_DIRTY_BITS; ++i)
+		if (g_dirtyCounts[i] > 0) harnessLog("  dirty    %-40d %10ld %10ld\n", i, g_dirtyCounts[i], g_dirtyCounts[i] / iPer);
 }
 
 static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHandicap, unsigned int uiSeed,

@@ -1,0 +1,152 @@
+# Prototypes (not landed), base patch 0016:
+# - CvPlayer::getBestRoute scans route builds sorted by value: identical game, -0.27 s over 3 late turns.
+# - AI_guardCity path searches bounded by the caller's turn limit (g_iPathTurnLimit in pathValid,
+#   no path reuse into or out of a bounded search): -2.0 s over the same turns; the game diverges.
+diff -ru 0016/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp proto/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp	2026-10-14 18:56:07.000000000 +0000
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp	2026-10-14 21:34:37.899302792 +0000
+@@ -2118,6 +2118,8 @@
+ 	s_kPathValidMemo.pFinder = NULL;
+ }
+ 
++int g_iPathTurnLimit = MAX_INT;
++
+ int pathValid(FAStarNode* parent, FAStarNode* node, int data, const void* pointer, FAStar* finder)
+ {
+ 	PROFILE_FUNC();
+@@ -2132,6 +2134,12 @@
+ 		return TRUE;
+ 	}
+ 
++	// A bounded search: nothing beyond the caller's turn limit is expanded.
++	if (parent->m_iData2 > g_iPathTurnLimit)
++	{
++		return FALSE;
++	}
++
+ 	pFromPlot = GC.getMapINLINE().plotSorenINLINE(parent->m_iX, parent->m_iY);
+ 	FAssert(pFromPlot != NULL);
+ 	pToPlot = GC.getMapINLINE().plotSorenINLINE(node->m_iX, node->m_iY);
+diff -ru 0016/Assets/CvGameCoreDLL/CvGameCoreUtils.h proto/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h	2026-10-14 18:56:07.000000000 +0000
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h	2026-10-14 21:34:37.899708283 +0000
+@@ -343,6 +343,8 @@
+ int pathDestValid(int iToX, int iToY, const void* pointer, FAStar* finder);
+ int pathHeuristic(int iFromX, int iFromY, int iToX, int iToY);
+ int pathCost(FAStarNode* parent, FAStarNode* node, int data, const void* pointer, FAStar* finder);
++// Turn limit of the current path search (MAX_INT: none).
++extern int g_iPathTurnLimit;
+ int pathValid(FAStarNode* parent, FAStarNode* node, int data, const void* pointer, FAStar* finder);
+ // Call before a pathValid search that may follow a change to the game.
+ void pathValidResetMemo();
+diff -ru 0016/Assets/CvGameCoreDLL/CvPlayer.cpp proto/Assets/CvGameCoreDLL/CvPlayer.cpp
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp	2026-10-14 18:56:07.000000000 +0000
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp	2026-10-14 21:30:43.727295457 +0000
+@@ -7888,39 +7888,42 @@
+ {
+ 	PROFILE_FUNC();
+ 
+-	RouteTypes eRoute;
+-	RouteTypes eBestRoute;
+-	int iValue;
+-	int iBestValue;
+-	int iI;
+-
+-	iBestValue = 0;
+-	eBestRoute = NO_ROUTE;
+-
+-	// BBAI TODO: Efficiency: Could cache this, decent savings on large maps
+-	// Perhaps save best route type per player each turn, then just check that
+-	// one first and only check others if can't do best.
+-
+-	for (iI = 0; iI < GC.getNumBuildInfos(); iI++)
++	// The builds that make a route, best route value first and in index order
++	// among equal values: the first usable one is the route a scan over all
++	// builds would pick (the highest value above 0, the lowest index among ties).
++	static std::vector<BuildTypes> aeRouteBuilds;
++	static int iCachedBuilds = -1;
++	if (iCachedBuilds != GC.getNumBuildInfos())
+ 	{
+-		eRoute = ((RouteTypes)(GC.getBuildInfo((BuildTypes)iI).getRoute()));
+-
+-		if (eRoute != NO_ROUTE)
++		std::vector<std::pair<int, int> > aOrder;
++		for (int iI = 0; iI < GC.getNumBuildInfos(); iI++)
+ 		{
+-			if ((pPlot != NULL) ? ((pPlot->getRouteType() == eRoute) || canBuild(pPlot, ((BuildTypes)iI))) : GET_TEAM(getTeam()).isHasTech((TechTypes)(GC.getBuildInfo((BuildTypes)iI).getTechPrereq())))
++			const RouteTypes eRoute = (RouteTypes)GC.getBuildInfo((BuildTypes)iI).getRoute();
++			if (eRoute != NO_ROUTE && GC.getRouteInfo(eRoute).getValue() > 0)
+ 			{
+-				iValue = GC.getRouteInfo(eRoute).getValue();
+-
+-				if (iValue > iBestValue)
+-				{
+-					iBestValue = iValue;
+-					eBestRoute = eRoute;
+-				}
++				aOrder.push_back(std::make_pair(-GC.getRouteInfo(eRoute).getValue(), iI));
+ 			}
+ 		}
++		std::sort(aOrder.begin(), aOrder.end());
++		aeRouteBuilds.clear();
++		for (size_t i = 0; i < aOrder.size(); i++)
++		{
++			aeRouteBuilds.push_back((BuildTypes)aOrder[i].second);
++		}
++		iCachedBuilds = GC.getNumBuildInfos();
++	}
++
++	for (size_t i = 0; i < aeRouteBuilds.size(); i++)
++	{
++		const BuildTypes eBuild = aeRouteBuilds[i];
++		const RouteTypes eRoute = (RouteTypes)GC.getBuildInfo(eBuild).getRoute();
++		if ((pPlot != NULL) ? ((pPlot->getRouteType() == eRoute) || canBuild(pPlot, eBuild)) : GET_TEAM(getTeam()).isHasTech((TechTypes)(GC.getBuildInfo(eBuild).getTechPrereq())))
++		{
++			return eRoute;
++		}
+ 	}
+ 
+-	return eBestRoute;
++	return NO_ROUTE;
+ }
+ 
+ 
+diff -ru 0016/Assets/CvGameCoreDLL/CvSelectionGroup.cpp proto/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp	2026-10-14 18:56:07.000000000 +0000
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp	2026-10-14 21:34:37.901459484 +0000
+@@ -70,7 +70,8 @@
+ 	bool generatePathOn(FAStar& kFinder, AIPathReuse::Owner& kOwner, const CvSelectionGroup& kGroup,
+ 		const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags, bool bReuse, int* piPathTurns)
+ 	{
+-		const bool bAdmitReuse = kOwner.admit(pathReuseKey(kGroup), bReuse);
++		const bool bBounded = g_iPathTurnLimit != MAX_INT;
++		const bool bAdmitReuse = !bBounded && kOwner.admit(pathReuseKey(kGroup), bReuse);
+ 
+ 		gDLL->getFAStarIFace()->SetData(&kFinder, &kGroup);
+ 		pathValidResetMemo();
+@@ -89,6 +90,10 @@
+ 				}
+ 			}
+ 		}
++		if (bBounded)
++		{
++			kOwner.invalidate();
++		}
+ 		return bSuccess;
+ 	}
+ }
+diff -ru 0016/Assets/CvGameCoreDLL/CvUnitAI.cpp proto/Assets/CvGameCoreDLL/CvUnitAI.cpp
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp	2026-10-14 18:56:07.000000000 +0000
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp	2026-10-14 21:34:37.902269811 +0000
+@@ -11608,7 +11608,10 @@
+ 					{
+ 						if ((GC.getGame().getGameTurn() - pLoopCity->getGameTurnAcquired() < 10) || GET_PLAYER(getOwnerINLINE()).AI_plotTargetMissionAIs(pLoopCity->plot(), MISSIONAI_GUARD_CITY, getGroup()) < 2)
+ 						{
+-							if (!atPlot(pLoopCity->plot()) && generatePath(pLoopCity->plot(), 0, true, &iPathTurns))
++							g_iPathTurnLimit = iMaxPath;
++							const bool bPath = !atPlot(pLoopCity->plot()) && generatePath(pLoopCity->plot(), 0, true, &iPathTurns);
++							g_iPathTurnLimit = MAX_INT;
++							if (bPath)
+ 							{
+ 								if (iPathTurns <= iMaxPath)
+ 								{

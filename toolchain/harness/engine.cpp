@@ -8,6 +8,16 @@
 #include "FAStarNode.h"
 #include "CvInitCore.h"
 #include "CvDLLEntityIFaceBase.h"
+#include <map>
+#include <string>
+
+// Calls into the inert engine interfaces, by method (and dirty bit), printed
+// with HARNESS_PY_COUNTS: what the DLL asks the renderer and interface to do.
+std::map<std::string, long> g_engineCallCounts;
+long g_dirtyCounts[NUM_INTERFACE_DIRTY_BITS];
+static long& engineCounter(const char* szName) { return g_engineCallCounts[szName]; }
+#define HH_COUNT(name) { static long& s_lCount = engineCounter(name); ++s_lCount; }
+#define HH_COUNT_DIRTY(bit) { if ((int)(bit) >= 0 && (int)(bit) < NUM_INTERFACE_DIRTY_BITS) ++g_dirtyCounts[bit]; }
 #include "engine_stubs.h"
 #include "engine.h"
 #include "xmldom.h"
@@ -562,7 +572,7 @@ public:
 	bool callPythonFunction(const char*, const char* fxn, int iArg, long* result) { if (result) *result = pythonDefault(fxn, NULL); (void)iArg; return false; }
 };
 
-class EntityIFace : public CvDLLEntityIFaceBase {};
+class EntityIFace : public S_CvDLLEntityIFaceBase {};
 
 //////////////////////////////////////////////////////////////////////////////
 // Utility: the root interface handed to CvGlobals::setDLLIFace.

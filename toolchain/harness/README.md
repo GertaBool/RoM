@@ -187,7 +187,8 @@ same with and without it.
 | `HARNESS_SNAPSHOT=t1,t2,...` | At the start of each listed game turn (scenario or save mode) write `<telemetry>.t<turn>.init` and `.game`, which `harness.exe save` loads like a converted save; `.game.idx` lists where the game, map, each team and each player end in the stream |
 | `HARNESS_SNAPSHOT_OBJECTS=1` | With a snapshot, also write every plot group, city, unit and selection group on its own (`.game.obj`, index `.game.objidx`) to locate a difference between two snapshots |
 | `HARNESS_RAND_LOG=t` | From game turn `t` on, log every random number the DLL draws, with its purpose, to `logs\rand.log`: two runs can be compared draw by draw |
-| `HARNESS_PY_COUNTS=1` | At the end of the run, print how often the DLL called each Python callback and reported each Python event (total and per turn). The harness answers these in C++; in the game each one runs the mod's Python |
+| `HARNESS_PY_COUNTS=1` | At the end of the run, print how often the DLL called each Python callback and reported each Python event (total and per turn). The harness answers these in C++; in the game each one runs the mod's Python. Also prints every call into the engine interfaces (unit entities, symbols, flags, interface queries) and each interface dirty bit set, by `CvEnums.h` index: what the DLL asks the renderer and HUD to do. Graphics count as not initialised, so these are a lower bound |
+| `HARNESS_UNIT_ACTIVITY=1` | Adds `ua` to each telemetry record: per player and unit AI type, the units, those in a city, asleep or fortified, moved since the previous record, unmoved for 10+ and 50+ turns, and in a group of 2+ (`research/ai-behavior/tools/unit-activity.py`) |
 
 A snapshot taken late in a game can be continued many times (with
 `HARNESS_RESEED`) and with different builds, without replaying the turns before

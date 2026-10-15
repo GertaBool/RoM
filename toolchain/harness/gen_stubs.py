@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Generate default implementations of the engine interfaces the DLL calls.
 
-Every pure virtual method of the SDK's CvDLL*IFaceBase classes gets a body that
-returns a neutral value. Hand-written subclasses in engine.cpp override the
-methods that matter for simulation (path finding, XML, text, logging, memory).
+Every virtual method of the SDK's CvDLL*IFaceBase classes gets a body that
+returns a neutral value and counts the call (HH_COUNT, defined in engine.cpp;
+printed with HARNESS_PY_COUNTS). Hand-written subclasses in engine.cpp override
+the methods that matter for simulation (path finding, XML, text, logging,
+memory). The counts show what the DLL asks the renderer and interface to do.
 """
 import re, sys, glob, os
 
@@ -39,15 +41,21 @@ for path in sorted(glob.glob(os.path.join(SDK, 'CvDLL*IFaceBase.h'))):
     for cm in re.finditer(r'class\s+(CvDLL\w+IFaceBase)\s*(?::[^{]*)?\{(.*?)\n\};', txt, re.S):
         name, body = cm.group(1), cm.group(2)
         methods = []
-        for m in re.finditer(r'virtual\s+([^;{]*?)\s*=\s*0\s*;', body, re.S):
+        # Pure virtuals ("= 0;") and virtuals with an inline body (the entity
+        # interface's bodies only assert).
+        for m in re.finditer(r'virtual\s+([^;{]*?\))\s*(const)?\s*(?:=\s*0\s*;|\{)', body, re.S):
             decl = ' '.join(m.group(1).split())
-            mm = re.match(r'(.*?)\b(\w+)\s*\((.*)\)\s*(const)?$', decl)
-            ret, fn, args, const = mm.group(1), mm.group(2), mm.group(3), mm.group(4) or ''
+            mm = re.match(r'(.*?)\b(\w+)\s*\((.*)\)$', decl)
+            ret, fn, args, const = mm.group(1), mm.group(2), mm.group(3), m.group(2) or ''
             if fn == 'getText' and '...' in args:
                 # Variadic: forwarded by the hand-written class.
                 methods.append('\tvirtual %s %s(%s) %s { return szIDTag; }' % (ret, fn, args, const))
                 continue
-            methods.append('\tvirtual %s %s(%s) %s %s' % (ret, fn, args, const, default_body(ret)))
+            count = 'HH_COUNT("%s::%s");' % (name[5:-9], fn)
+            if fn == 'setDirty' and name == 'CvDLLInterfaceIFaceBase':
+                count = 'if (bNewValue) HH_COUNT_DIRTY(eDirtyItem);'
+            body_ = default_body(ret)
+            methods.append('\tvirtual %s %s(%s) %s { %s %s }' % (ret, fn, args, const, count, body_[1:-1].strip()))
         if not methods:
             continue
         classes.append(name)

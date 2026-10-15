@@ -274,6 +274,7 @@ extern "C" __declspec(dllexport) int HH_loadScenario(const char* szPath, const c
 namespace
 {
 	std::set<int> g_seenDeals;
+	std::map<int, std::pair<int, int> > g_unitPlots;   // HARNESS_UNIT_ACTIVITY: unit -> (plot, since turn)
 	// Every trade as it is agreed (build_dll.sh adds the call to the harness copy
 	// of CvDeal::addTrades); one-time items never appear as a standing deal.
 	std::vector<std::string> g_tradeLog;
@@ -309,6 +310,7 @@ extern "C" __declspec(dllexport) void HH_telemetryReset()
 {
 	g_tradeLog.clear();
 	g_seenDeals.clear();
+	g_unitPlots.clear();
 	g_cityOwner.clear();
 	g_alive.clear();
 }
@@ -462,6 +464,52 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		o << "]";
 	}
 	o << "]";
+
+	// HARNESS_UNIT_ACTIVITY=1: what each player's units are doing, by unit AI type:
+	// [unitAI, units, in a city, asleep or fortified, moved since the last record,
+	//  on the same plot for 10+ turns, for 50+ turns, in a group of 2+].
+	static const bool bUnitActivity = getenv("HARNESS_UNIT_ACTIVITY") != NULL;
+	if (bUnitActivity)
+	{
+		o << ",\"ua\":{";
+		std::map<int, std::pair<int, int> > seen;   // unit key -> (plot index, on that plot since turn)
+		for (size_t a = 0; a < aiP.size(); ++a)
+		{
+			CvPlayerAI& k = GET_PLAYER((PlayerTypes)aiP[a]);
+			std::map<int, std::vector<int> > byAI;
+			int iUnitLoop;
+			for (CvUnit* pUnit = k.firstUnit(&iUnitLoop); pUnit != NULL; pUnit = k.nextUnit(&iUnitLoop))
+			{
+				if (pUnit->plot() == NULL) continue;
+				const int iKey = (aiP[a] << 22) ^ pUnit->getID();
+				const int iPlot = GC.getMapINLINE().plotNumINLINE(pUnit->getX_INLINE(), pUnit->getY_INLINE());
+				std::map<int, std::pair<int, int> >::const_iterator it = g_unitPlots.find(iKey);
+				const bool bMoved = it == g_unitPlots.end() || it->second.first != iPlot;
+				const int iSince = bMoved ? kGame.getGameTurn() : it->second.second;
+				seen[iKey] = std::make_pair(iPlot, iSince);
+				std::vector<int>& v = byAI[(int)pUnit->AI_getUnitAIType()];
+				if (v.empty()) v.resize(7, 0);
+				const ActivityTypes eActivity = pUnit->getGroup()->getActivityType();
+				++v[0];
+				if (pUnit->plot()->isCity()) ++v[1];
+				if (eActivity == ACTIVITY_SLEEP || pUnit->isFortifyable() && pUnit->getFortifyTurns() > 0) ++v[2];
+				if (bMoved) ++v[3];
+				if (kGame.getGameTurn() - iSince >= 10) ++v[4];
+				if (kGame.getGameTurn() - iSince >= 50) ++v[5];
+				if (pUnit->getGroup()->getNumUnits() >= 2) ++v[6];
+			}
+			o << (a ? "," : "") << "\"" << aiP[a] << "\":[";
+			for (std::map<int, std::vector<int> >::const_iterator b = byAI.begin(); b != byAI.end(); ++b)
+			{
+				o << (b != byAI.begin() ? "," : "") << "[" << b->first;
+				for (size_t i = 0; i < b->second.size(); ++i) o << "," << b->second[i];
+				o << "]";
+			}
+			o << "]";
+		}
+		o << "}";
+		g_unitPlots.swap(seen);
+	}
 
 	// Events since the previous call: new and ended deals, city ownership changes, eliminations.
 	o << ",\"ev\":[";

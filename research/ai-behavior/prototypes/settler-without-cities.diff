@@ -1,0 +1,32 @@
+# Prototype (not landed): a player without cities lets its settler travel alone.
+# Tested: Genghis Khan founds his capital on turn 1 of Earth 12. Base: patch 0016.
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp	2026-10-14 18:56:07.000000000 +0000
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp	2026-10-15 03:47:43.683151561 +0000
+@@ -17057,6 +17057,9 @@
+ 	int iBestLandTurns = MAX_INT;
+ 	bool bBestSea = false;
+ 	const int iHorizon = kPlayer.AI_getExpansionHorizon();
++	// A player without cities has no city to train an escort in: its settler
++	// travels alone (otherwise it would wait forever).
++	const bool bEscortOptional = kPlayer.getNumCities() == 0;
+ 
+ 	// Continue a legal accepted land job. In particular, a party unloaded by
+ 	// its carrier must not pick a different destination on its next update.
+@@ -17064,7 +17067,7 @@
+ 		getGroup()->AI_getMissionAIPlot() : NULL;
+ 	int iPathTurns;
+ 	if (pCommitted != NULL && canFound(pCommitted) && !pCommitted->isVisibleEnemyUnit(this) &&
+-		(getGroup()->canDefend() || kPlayer.AI_plotTargetMissionAIs(pCommitted, MISSIONAI_GUARD_CITY) > 0) &&
++		(bEscortOptional || getGroup()->canDefend() || kPlayer.AI_plotTargetMissionAIs(pCommitted, MISSIONAI_GUARD_CITY) > 0) &&
+ 		kPlayer.AI_plotTargetMissionAIs(pCommitted, MISSIONAI_FOUND, getGroup()) == 0 &&
+ 		generatePath(pCommitted, MOVE_SAFE_TERRITORY, true, &iPathTurns) &&
+ 		iPathTurns >= 0 && iPathTurns <= iHorizon)
+@@ -17089,7 +17092,7 @@
+ 				kPlayer.AI_plotTargetMissionAIs(pCandidate, MISSIONAI_FOUND, getGroup(), GC.getMIN_CITY_RANGE()) > 0) continue;
+ 			int iLandTurns = MAX_INT;
+ 			if ((pCandidate->getArea() == getArea() || canMoveAllTerrain()) &&
+-				(getGroup()->canDefend() || kPlayer.AI_plotTargetMissionAIs(pCandidate, MISSIONAI_GUARD_CITY) > 0) &&
++				(bEscortOptional || getGroup()->canDefend() || kPlayer.AI_plotTargetMissionAIs(pCandidate, MISSIONAI_GUARD_CITY) > 0) &&
+ 				generatePath(pCandidate, MOVE_SAFE_TERRITORY, true, &iPathTurns) &&
+ 				iPathTurns >= 0 && iPathTurns <= iHorizon)
+ 			{
