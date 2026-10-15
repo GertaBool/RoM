@@ -490,6 +490,16 @@ void HH_noteChangeWar(bool bWar, TeamTypes eTeam, TeamTypes eOther)
 				if (bNear) ++iNear;
 			}
 		}
+		int aiIndustry[2] = { 0, 0 };
+		for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+		{
+			CvPlayerAI& kP = GET_PLAYER((PlayerTypes)i);
+			if (!kP.isAlive() || (kP.getTeam() != eTeam && kP.getTeam() != eOther)) continue;
+			int iCityLoop;
+			for (CvCity* pCity = kP.firstCity(&iCityLoop); pCity != NULL; pCity = kP.nextCity(&iCityLoop))
+				aiIndustry[kP.getTeam() == eTeam ? 0 : 1] += pCity->getYieldRate(YIELD_PRODUCTION);
+		}
+		o << ",\"ind\":[" << aiIndustry[0] << "," << aiIndustry[1] << "]";
 		o << ",\"plan\":" << (int)kT.AI_getWarPlan(eOther) << ",\"pow\":[" << kT.getPower(true) << "," << kO.getPower(true) << "]"
 		  << ",\"near\":[" << iNear << "," << iMilitary << "],\"others\":" << iOtherWars
 		  << ",\"vassal\":" << (kT.isAVassal() ? 1 : 0);
@@ -575,6 +585,12 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		int iTechs = 0;
 		for (int t = 0; t < GC.getNumTechInfos(); ++t) if (kT.isHasTech((TechTypes)t)) ++iTechs;
 		int iBuildings = 0;   // real buildings in all cities
+		int iProduction = 0;
+		{
+			int iCityLoop;
+			for (CvCity* pCity = k.firstCity(&iCityLoop); pCity != NULL; pCity = k.nextCity(&iCityLoop))
+				iProduction += pCity->getYieldRate(YIELD_PRODUCTION);
+		}
 		int iCityLoop;
 		for (CvCity* pCity = k.firstCity(&iCityLoop); pCity != NULL; pCity = k.nextCity(&iCityLoop))
 		{
@@ -586,6 +602,7 @@ extern "C" __declspec(dllexport) int HH_telemetry(char* szBuf, int iSize, int iD
 		  << ",\"units\":" << k.getNumUnits() << ",\"gold\":" << k.getGold() << ",\"bld\":" << iBuildings
 		  << ",\"gr\":" << k.getCommerceRate(COMMERCE_GOLD) << ",\"rr\":" << k.getCommerceRate(COMMERCE_RESEARCH)
 		  << ",\"cr\":" << k.getCommerceRate(COMMERCE_CULTURE) << ",\"er\":" << k.getCommerceRate(COMMERCE_ESPIONAGE)
+		  << ",\"prod\":" << iProduction
 		  << ",\"culture\":" << k.countTotalCulture() << ",\"rel\":" << (int)k.getStateReligion()
 		  << ",\"agenda\":" << (int)k.AI_getAgenda() << ",\"agendaScore\":" << k.AI_getAgendaScore()
 		  << ",\"vic\":" << HarnessPeek::victoryHash(k) << ",\"strat\":" << HarnessPeek::strategyHash(k)
