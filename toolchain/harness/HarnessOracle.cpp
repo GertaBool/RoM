@@ -272,6 +272,9 @@ namespace
 			const int iOld = d.p->maxHitPoints() - d.iHP;
 			const int iNew = std::max(iOld, std::min(iOld + std::max(0, iDamage), iMax));
 			d.iHP = d.p->maxHitPoints() - iNew;
+			// A collateral limit of 100 % (RoM's mounted units) can kill: CvUnit::setDamage
+			// kills at full damage when the attacker's collateral strength reaches the target's.
+			if (d.iHP <= 0) { d.iHP = 0; d.bDead = true; d.bOut = true; }
 		}
 	}
 
@@ -338,6 +341,9 @@ namespace
 				if (j < 0) break;
 				strike(A[i], D, j, pPlot);
 				A[i].bOut = true;
+				iAlive = 0;
+				for (size_t k = 0; k < D.size(); ++k) if (!D[k].bOut) ++iAlive;
+				if (iAlive == 0) break;
 			}
 			// collateral units, strongest collateral first
 			std::vector<std::pair<int, int> > siege;
@@ -352,6 +358,9 @@ namespace
 				const int j = bestDefender(a, D, pPlot, bNoCityDefence);
 				if (j < 0) break;
 				collateral(a, D, j);
+				iAlive = 0;
+				for (size_t k = 0; k < D.size(); ++k) if (!D[k].bOut) ++iAlive;
+				if (D[j].bOut) { a.bOut = true; continue; }
 				if (fight(a, D[j], pPlot, bNoCityDefence)) --iAlive;
 				a.bOut = true;
 			}
