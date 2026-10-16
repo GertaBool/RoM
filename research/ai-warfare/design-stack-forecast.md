@@ -1,99 +1,77 @@
-# Design: stack assault forecast (gap 5)
+# Design: exact stack assault forecast (gap 5)
 
-**Status:** proposed, awaiting the user's approval. It will be built behind a switch,
-`AI_STACK_FORECAST`, off by default.
+**Status:** built behind a switch, `AI_STACK_FORECAST`, off by default (0). The value is
+the capture chance needed, per mille. The first version used sampling; on the user's
+direction it was replaced by the exact computation below.
 
 ## Problem
 
-`AI_stackAttackCity` attacks when the sum of the stack's strength, divided by the sum of
-the defenders' strength, reaches the attack ratio.
+`AI_stackAttackCity` attacks when the stack's summed strength over the defenders' summed
+strength reaches the attack ratio.
 - Modifiers are counted, but the sum is linear and combat is not. In game 2, 8 Javelineers
-  attacked at 0.1–39 % per fight, lost 5 units and took nothing.
+  attacked at 0.1–39 % per fight, lost 5 and took nothing.
 - About 200 of 2,659 AI attacks in 4 headless games were non-siege attacks under 5 %.
-- Odds of one fight alone are also wrong for this decision. A stack can take a city even
-  when most single fights are poor. Defenders keep their damage, so later attackers face
-  weaker defenders, and one or two lucky wins can break through.
+- Single-fight odds alone are also wrong for this decision. Defenders keep their damage,
+  so a few lucky wins can break through.
 
-## Rule
+## Mathematics
 
-Attack when the chance that this turn's attacks take the city is high enough for the
-leader's appetite for risk. That chance comes from playing the attacks forward with the
-engine's own combat rules.
+**One fight.** The inputs are what `resolveCombat` uses:
+- A is the attacker's strength; D is the defender's strength against that attacker, with
+  every modifier, scaled by its current hit points.
+- The defender wins a round with probability q = ⌊1000·D/(A+D)⌋/1000, as the engine's die
+  roll gives; the attacker wins one with p = 1 − q.
+- Damage per round follows the firepower formula with `COMBAT_DAMAGE`. So the attacker
+  needs n_A hits (to kill, or to reach its combat limit), and the defender needs n_D.
 
-## Method: Monte Carlo over the engine's rules
+With no first strikes:
+- The attacker wins with probability Σ_{k<n_D} C(n_A−1+k, k) · p^{n_A} · q^k.
+- The attacker loses after dealing exactly m hits (m < n_A) with probability
+  C(n_D−1+m, m) · q^{n_D} · p^m. This is the exact distribution of the defender's
+  remaining hit points.
+- A losing attacker dies with probability 1 − withdrawal; otherwise it withdraws.
 
-**Input.**
-- The group's units that can still attack the plot this turn.
-- The visible defenders on the plot, with their current damage.
+**First strikes.** Each side's first-strike count is uniform over [fixed, fixed + chance],
+as the engine rolls it. The difference f is the number of free rounds. The hits made in
+those rounds are binomial (f, p) for the attacker, or (f, q) for the defender, and the
+normal rounds follow with the hits still needed. This is the decomposition
+`getCombatOdds` uses.
 
-**Per pair (attacker, defender), computed once with the engine's functions:**
-- the defender's modified strength against that attacker
-  (`kDefender.maxCombatStr(pPlot, pAttacker)`), which holds every modifier that applies:
-  city defence, fortification, terrain, promotions, and the attacker's own attack bonuses;
-- the attacker's strength (`maxCombatStr(NULL, NULL)`, as `resolveCombat` uses);
-- firepower, first strikes (fixed and chance), withdrawal chance and combat limit;
-- each siege unit's collateral damage: amount, number of units and limit.
+**The stack's turn: dynamic programming over the defenders' hit points.**
+- The state is the vector of defender hit points, and its probability.
+- Attackers go in a fixed order: siege units first, then by single-fight win chance
+  against the strongest defender.
+- In each state the attacker meets the defender with the highest current strength
+  against it, as the engine picks. A siege unit first applies collateral damage, by the
+  engine's formula, to the defenders with the most hit points.
+- Each fight splits the state by the exact distribution above.
+- A state in which every defender is dead counts as a capture if a unit can still move
+  in: one that has not attacked, or the last winner if it has more than one move.
+- States below 10⁻⁹ are dropped, and at most 2,048 states are kept per step.
 
-**Per sample (64 samples, about 13,000 combat rounds at most for 10 attackers):**
-1. Copy the hit points.
-2. Pick the next attacker: the unused one with the best strength ratio against the current
-   best defender (close to the engine's Lead From Behind choice). Pick the defender with
-   the highest current strength against it.
-3. **Siege units:** their collateral damage is applied first. They stop at their combat
-   limit, as in the engine.
-4. **Play the fight round by round, as `resolveCombat` does:**
-   - Strength scales with hit points at the start of the fight.
-   - Each round the defender wins with probability D/(A+D).
-   - Damage per round follows the firepower formula with `COMBAT_DAMAGE`.
-   - First strikes are rounds in which only the striker can deal damage.
-   - The attacker may withdraw from a lethal hit, with its withdrawal chance.
-5. The sample counts as a capture if every defender dies and an attacker remains that can
-   still move in: one that has not attacked, or the winner if it has moves left.
+**Result:**
+- the exact capture chance (per mille);
+- the expected attackers lost.
 
-**Randomness.**
-- The forecast uses its own small generator, seeded from the turn, the group and the plot.
-- It never draws from the game's random numbers. The game stays in sync in multiplayer
-  and a replay of the game is unchanged.
-
-**Output:**
-- the chance of capture;
-- the expected attackers lost;
-- the expected defenders killed.
+**Simplifications, to be checked by test:**
+- The attack order is fixed at the start. The engine re-picks after each fight.
+- Collateral damage targets the healthiest defenders. The engine picks at random,
+  weighted by hit points.
 
 ## Decision
 
-- **Rule:** attack if the chance of capture is at least the threshold T.
-  - T starts at 50 %.
-  - It is shifted by the leader's personality: the existing `BaseAttackOddsChange`
-    (a more aggressive leader accepts lower odds), and the same random spread the AI
-    already uses for single attacks.
-- **Siege units** keep attacking for collateral damage when the stack is next to the city,
-  as now. Their effect is included in the forecast.
-- **Where it applies:** first only in `AI_stackAttackCity`, which is the city assault. The
-  linear ratio stays as a cheap pre-filter for distant cities. The forecast decides only
-  next to the city.
-
-## Cost
-
-- At most a few hundred forecasts per turn: once per assault decision, next to a city.
-- Each forecast is microseconds to a millisecond.
-- The change in turn time will be measured.
+Next to the city, the stack starts its attack if the capture chance is at least
+`AI_STACK_FORECAST` − 10 × the leader's attack-odds change. The attack-odds change is
+the existing personality value: base 0–6 plus a random 0–16, with 8 the most common. An
+aggressive leader therefore accepts lower odds. Further from the city, the summed ratio
+still decides whether to move towards it.
 
 ## Tests
 
-1. **Accuracy.** For every fight in a headless game, log the forecast's single-fight win
-   chance next to the engine's `getCombatOdds`. They must agree within sampling error
-   (about ±6 points at 64 samples).
-2. **Effect.** Play 4 headless games with the switch off and 4 with it on, and compare:
-   - non-siege attacks under 5 %;
-   - units lost per city captured;
-   - cities captured;
-   - turn time.
-3. **Replay.** With the switch off, the game must be identical to the current DLL.
-
-## Risks
-
-- **Too cautious:** stacks wait while the defender heals or reinforces. To watch: cities
-  captured must not fall.
-- **The attacker choice differs from the engine's actual choice.** The real attacks are
-  still made by the engine. Only the decision to start uses the forecast.
+1. **Accuracy.** For every fight in headless games, the forecast's single-fight win chance
+   is logged next to the engine's `getCombatOdds` (test build only). They should match
+   exactly, apart from rounding.
+2. **Effect.** 4 headless games with the switch off (0) and 4 with it on (500). Compare
+   non-siege attacks under 5 %, units lost per city captured, cities captured, and turn
+   time.
+3. **Off means unchanged.** With the switch at 0, the forecast code is never reached.
