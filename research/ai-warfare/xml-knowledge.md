@@ -44,6 +44,70 @@ Earlier hand-written readers had two errors, both corrected here:
 - They took `WAR_SUCCESS_CITY_CAPTURING` as 25. The game's value is 22, because the BBAI
   file is read after `GlobalDefines.xml`.
 
+## The configuration: GlobalDefines.xml and GlobalDefinesAlt.xml
+
+These two files set most of the game's rules: 405 and 181 defines. All 587 are listed in
+[xml-defines.md](xml-defines.md) with value, comment and where the DLL or Python reads each.
+63 are read by neither, mostly camera and render settings the executable handles.
+
+**What they set for war:**
+
+| Area | Defines | Values |
+|---|---|---|
+| Combat | `COMBAT_DAMAGE`, `COMBAT_DIE_SIDES`, `MAX_HIT_POINTS` | 20, 1000, 100 |
+| Ranged and collateral | `RANGE_COMBAT_DAMAGE`, `COLLATERAL_COMBAT_DAMAGE`, `RANGED_ATTACKS_USE_MOVES` | 30, 10; a strike uses the attack, not the moves |
+| Withdrawal, evasion | `MAX_WITHDRAWAL_PROBABILITY`, `MAX_EVASION_PROBABILITY` | 90 % each |
+| Terrain | hills, river, amphibious | +25, −25, −50 |
+| Fortification | per turn, turns | 5 % for 5 turns |
+| Healing | enemy, neutral, friendly, city; building cap | 5 / 10 / 15 / 20; 30 |
+| City defence | `MAX_CITY_DEFENSE_DAMAGE`, heal rate | 100; 5 a turn when not bombarded |
+| Movement | `MOVE_DENOMINATOR`, `HILLS_EXTRA_MOVEMENT` | 120, 1 |
+| Vision | plot, unit, recon | 1, 1, 5; hills and peaks see further |
+
+**Experience.** 1–10 per combat, 3 from a withdrawal, full XP inside own borders, 25 kept
+after an upgrade. `WARLORD_EXTRA_EXPERIENCE_PER_UNIT_PERCENT` is 0.
+
+**Great Generals.** The threshold is 30 and rises by 50 with each one.
+
+**War weariness.**
+- Own attacker killed 3, own defender killed 2, killing an attacker 2, killing a defender 1.
+- City captured 6, unit captured 2; base multiplier 2.
+- Decay 1 a turn, 99 % at peace. Forced wars (pacts, votes) −50 %.
+
+**Unhappiness.**
+- A city without a military unit: `NO_MILITARY_PERCENT_ANGER` 334.
+- Citizens of the enemy's culture at war: +50 %.
+- Conscription: 3 anger, pop ≥ 5, 10 % culture.
+
+**Cities that change hands.**
+- Occupation lasts 3 turns + 50 % of population.
+- Revolt tests run at 10 %, with 1 + 15 % free rebel units.
+- Razing is allowed under 25 % culture.
+- Capture gold is read by Python only.
+
+**War success.** Attack 4, defence 3, unit captured 1, city captured 22. The BBAI file
+overrides `GlobalDefines`' 25.
+
+**Upkeep.**
+- 4 free units, 2 free military, 24 % / 12 % of population free.
+- Units outside the borders cost as above.
+- Production decays after 10 idle turns for units, 50 for buildings.
+- Upgrades cost 20 + 1 gold per hammer.
+
+**Peace and diplomacy.**
+- Peace treaty 10 turns.
+- Vassal revolt factors 50 / 0; free vassal 50 % land and population.
+
+**GlobalDefinesAlt: DCM, IDW, Super Spies, global warming, and RoM's AI settings.**
+- DCM: battle effects (−1 food and −1 commerce on combat tiles for up to 6 turns) and naval
+  bombard are on; range bombard, stack attack, opportunity fire, active defence, archer
+  bombard and air bombing are off.
+- IDW: on, with no emergency draft, pillage influence on, barbarian and naval influence on.
+- Super Spies: on; spies gain experience and promotions. Bribe and assassinate are off.
+- `CITY_BUILDING_HEAL_RATE_CAP` 30.
+- AI gold reserve for upgrades: 1 turn at peace, 3 at war.
+- RoM's own AI planners: tech, civic and agenda intervals and thresholds.
+
 ## Time: how long a military advantage lasts
 
 **Game speed sets research against production.** Research is several times dearer
@@ -98,12 +162,46 @@ it is open.
 | Modern road | 4 | Diesel |
 | Railroad | about 10 | Steel and coal, oil or diesel |
 
-**Enemy roads cannot be used** (`CvPlot::isValidRoute`), unless a promotion grants
-`bEnemyRoute` (five do). Inside his own land the defender moves reserves two to four times
-faster than the invader advances, and the invader pays full terrain cost on every enemy tile.
-- A one-move siege train advances one tile a turn in enemy land, roads or not.
-- Influence Driven War shifts plot culture after won battles, and pillaging shifts it too.
-  Tiles that become the invader's give him their roads.
+**Enemy roads.** `CvPlot::isValidRoute` lets a unit use a road in the land of a team it is
+at war with only if the unit has `bEnemyRoute`. These promotions grant it:
+
+| Promotion | Needs | Free on |
+|---|---|---|
+| Commando | Military Science, after Combat IV | Rome's Legionary, Comitatenses and Centurio from the classical era; Special Forces; spies |
+| Crusader | Fundamentalism, a unit led by a Great General | The Crusader and all nine knightly-order units |
+| Rapid Deployment II | | Robots |
+| Logistics II | | Spies |
+| Operation General Raider | | Badge the AI's operations layer gives its own generals |
+
+A group moves at its slowest unit's pace: `pathCost` takes the worst moves left across the
+group. So a stack uses enemy roads only if **every** unit in it has the promotion. One
+catapult in a legion stack drops it to terrain speed.
+
+- **Without the promotion,** the defender moves reserves two to four times faster than the
+  invader advances, and the invader pays full terrain cost on every enemy tile. A one-move
+  siege train advances one tile a turn.
+- **With it,** Rome's legions (which also get March, healing while they move) and the
+  knightly orders strike at road speed. So does any Commando army from the industrial era.
+
+**Influence Driven War takes ground.** `CvUnit::doVictoryInfluence` and `influencePlots` move
+culture from the loser to the winner on every plot within 2 tiles of the battle, attack or
+defence:
+
+> 4.0 × √(game-speed construct % × start-era construct %) × (0.6 / 0.4 / 0.2 by distance)
+> × (1 + XP/100) × 1.3 with a warlord × √(the loser's culture on the plot)
+
+- On Marathon the speed factor is √2.
+- A plot changes hands when the invader's culture on it passes the owner's, and with it its
+  roads and resources. A victory on a 10,000-culture plot moves about 340.
+- City plots take ×0.2. Pillaging moves influence too (2.0).
+- An empty city falling counts ×2.5, a captured fort ×2.0.
+- Two bugs:
+  - `IDW_EXPERIENCE_FACTOR` (0.03) is read but not used; 0.01 is hard-coded.
+  - The city-plot ×0.2 compounds onto every plot looped after a city plot.
+
+**Supply abroad.** Each unit outside its owner's borders beyond the first four costs half a
+gold a turn (`INITIAL_FREE_OUTSIDE_UNITS`, `INITIAL_OUTSIDE_UNIT_GOLD_PERCENT`). AI players pay
+50 % of that.
 
 **Ground.** Collateral damage ignores terrain, so collateral is what dislodges stacks.
 Other defensive ground:
