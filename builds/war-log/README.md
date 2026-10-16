@@ -1,8 +1,7 @@
 # Recording games for the war-AI work
 
-This DLL is built from GitLab `main` after !46. It is the 0018 war AI with the fixes and
-!45, plus an optional log of everything that happens in war and every command a human
-player gives.
+This DLL is the current GitLab `main` (after !47). It can also write a log of your game,
+which is how I learn from the way you beat the AI.
 
 ## Setup (once)
 
@@ -39,9 +38,11 @@ The log has one tab-separated line per event, in `Logs/WarLog.log`. The size is 
 | `B` | Bombard: city defence before and after |
 | `K`, `Z` | City captured; razed |
 | `U` | Unit built |
+| `N` | Building built |
+| `Y` | City state, for both sides when a war starts and every turn for a player at war with a human: population, hammers, current build, defenders, best defender, defence, the AI's danger count, foreign land units within 2 plots |
 | `X` | Tech acquired |
 | `G` | After a player's moves, each of its stacks near or in enemy land: composition, role and target. AI stacks of 3+ military units, human stacks of 2+ |
-| `A` | Every command of a human player: unit missions (moves, attacks, worker builds, pillage), unit commands (upgrade, promote, disband), grouping, city orders and tasks, research, civics, sliders, espionage, war, votes |
+| `A` | Every command of a human player: unit missions (moves, attacks, worker builds by name, pillage), unit commands (upgrade, promote, disband, by name), grouping, city orders and tasks, research, civics, sliders, espionage, war, votes |
 | `D`, `E` | Deals a human is part of; diplomacy answers involving a human |
 
 Logging happens only when something happens, so it should not slow the game.
