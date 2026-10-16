@@ -198,6 +198,9 @@ Wars and battles are recorded the same way, through calls `build_dll.sh` adds to
   - the attacking stacks (`grp`, `units`) and their composition by unit combat
     class (`st`), with collateral (`cu`), bombard (`bu`), DCM ranged (`ru`) and
     ranged-strike (`rs`) units;
+  - "collateral" means collateral that does damage. `CvUnit::collateralCombat`
+    works on integers, so an archer's 25 % of strength 3 does none. Records
+    written before this change also counted archers and horsemen.
   - the attackers by unit AI (`ua`) and class (`uc`).
 
   `build_dll.sh` adds the calls to `CvUnit::bombard`, `bombardRanged`,
@@ -228,6 +231,7 @@ same with and without it.
 | `HARNESS_SNAPSHOT_OBJECTS=1` | With a snapshot, also write every plot group, city, unit and selection group on its own (`.game.obj`, index `.game.objidx`) to locate a difference between two snapshots |
 | `HARNESS_RAND_LOG=t` | From game turn `t` on, log every random number the DLL draws, with its purpose, to `logs\rand.log`: two runs can be compared draw by draw |
 | `HARNESS_PY_COUNTS=1` | At the end of the run, print how often the DLL called each Python callback and reported each Python event (total and per turn). The harness answers these in C++; in the game each one runs the mod's Python. Also prints every call into the engine interfaces (unit entities, symbols, flags, interface queries) and each interface dirty bit set, by `CvEnums.h` index: what the DLL asks the renderer and HUD to do. Graphics count as not initialised, so these are a lower bound |
+| `HARNESS_ORACLE=<file>` | Expert oracle (`HarnessOracle.cpp`, section "Expert oracle"): one JSON line per decision record in `<file>` |
 | `HARNESS_UNIT_ACTIVITY=1` | Adds `ua` to each telemetry record: per player and unit AI type, the units, those in a city, asleep or fortified, moved since the previous record, unmoved for 10+ and 50+ turns, and in a group of 2+ (`research/ai-behavior/tools/unit-activity.py`) |
 
 A snapshot taken late in a game can be continued many times (with
@@ -252,6 +256,51 @@ and inclusive time and call counts (`HARNESS_PROFILE_SORT=incl` sorts by
 inclusive time). Profiled builds are several times slower; use them for shares,
 plain builds for timings.
 
+## Expert oracle
+
+`HARNESS_ORACLE=<file>` scores the war AI's tactical decisions against a fixed
+one-turn expert policy. Each position is played with the DLL's own combat rules:
+
+1. ranged strikes first, since they risk nothing;
+2. then collateral units, counting only collateral that does damage;
+3. then the best-odds attacks while they are more likely to win than not, or at
+   30 %+ when the trade pays in production.
+
+**Records.**
+- `after`, after each player's moves while at war: what the policy could destroy
+  next turn with the enemy units that can reach each of the player's plots, and at
+  what cost; the chance it takes a reachable city of the player. For enemy cities
+  the player's stacks stand next to: the capture chance next turn, with the defences
+  as they are and with them bombarded to zero.
+- `before`: what the policy could destroy with the player's own units this turn.
+  `after` adds what the player actually destroyed.
+- `atk`, at each attack: the odds of the attacker chosen, the best odds of another
+  unit on its plot, unused collateral or bombard, and the oracle's own odds for the
+  same battle (`my`).
+
+`research/ai-strategy/tools/oracle-analysis.py` summarises the records.
+
+**What it is not.** It is a narrow tactical check with a fixed greedy policy, a
+lower bound on what an opponent could punish in the next turn. It has no
+multi-turn planning, baiting, timing, economy or reading of the opponent, so it is
+not a model of an expert player. Use it to detect specific errors and as a
+regression check, next to game outcomes and human play.
+
+**Checks.**
+- **It reads only.** Battle hit points stay in local arrays, random numbers come
+  from a local generator, and reach is a bounded search on
+  `CvPlot::movementCost`, which leaves the pathfinder caches alone. Eight games
+  with the oracle replay the same games without it over all 451 turns.
+- **Its odds agree with the DLL.** Over 2,192 attacks they differ from
+  `getCombatOdds` by 0.6 per mille on average, and 99 % agree within 2 points.
+
+**Approximations.**
+- The attacker's river and amphibious penalties come from its current plot.
+- The defender is the strongest against the attacker; Lead From Behind can hold
+  back a valuable unit.
+- Flanking strikes are not played.
+- All units are visible to it.
+
 ## Files
 
 | File | Purpose |
@@ -262,6 +311,7 @@ plain builds for timings.
 | `HarnessHooks.cpp` | Extra exports for setup and inspection (map, units, gold, snapshots, path probes) |
 | `HarnessScenario.cpp` | Scenario and save loading, per-turn telemetry, stuck-turn reports, the C++ forms of the score and gold callbacks |
 | `HarnessRoM.cpp`, `gen_rom_tables.py` | The C++ forms of RoM's building rules and events, and the table generator |
+| `HarnessOracle.cpp` | The expert oracle: decision records scored against a one-turn expert policy |
 | `HarnessPeek.h` | Saves and restores the AI's caches around the telemetry and diagnostics |
 | `HarnessState.cpp` | The state files and their diagnostics |
 | `sav2dat.py`, `wbs2scn.py` | Save and WorldBuilder converters |

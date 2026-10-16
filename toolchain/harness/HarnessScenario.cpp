@@ -310,6 +310,13 @@ namespace
 		return e == NO_UNITCOMBAT ? std::string("NONE") : shortType(GC.getUnitCombatInfo(e).getType(), "UNITCOMBAT_");
 	}
 
+	// Whether a unit's attacks do collateral damage (CvUnit::collateralCombat works on
+	// integers: an archer's 3 x 25 % gives strength 0 and no damage).
+	bool dealsCollateral(const CvUnit* p)
+	{
+		return p->baseCombatStr() * p->collateralDamage() / 100 > 0 || p->getExtraCollateralDamage() > 0;
+	}
+
 	HHAssault& assaultFor(const CvUnit* pUnit, const CvPlot* pPlot)
 	{
 		HHAssault& a = g_assault[std::make_pair((int)pUnit->getTeam(), GC.getMapINLINE().plotNum(pPlot->getX_INLINE(), pPlot->getY_INLINE()))];
@@ -329,7 +336,7 @@ namespace
 				if (pLoop == NULL) continue;
 				++a.iUnits;
 				++a.composition[combatName(pLoop->getUnitCombatType())];
-				if (pLoop->collateralDamage() > 0) ++a.iCollateralUnits;
+				if (dealsCollateral(pLoop)) ++a.iCollateralUnits;
 				if (pLoop->bombardRate() > 0) ++a.iBombardUnits;
 				if (pLoop->getDCMBombRange() > 0) ++a.iRangedUnits;
 				if (pLoop->canRangeStrike()) ++a.iRangeStrikeUnits;
@@ -371,10 +378,14 @@ void HH_noteTrade(PlayerTypes eFirst, PlayerTypes eSecond, const CLinkList<Trade
 	g_tradeLog.push_back(o.str());
 }
 
+void HH_oracleAttack(CvUnit* pAttacker, CvUnit* pDefender);           // HarnessOracle.cpp
+void HH_oracleCombatResult(CvUnit* pWinner, CvUnit* pLoser);
+
 // Called by the DLL (build_dll.sh) when a unit starts an attack. Reads only.
 void HH_noteCombatStart(CvUnit* pAttacker, CvUnit* pDefender)
 {
 	if (pAttacker == NULL || pDefender == NULL) return;
+	HH_oracleAttack(pAttacker, pDefender);
 	const std::pair<int, int> kPair((int)pAttacker->getTeam(), (int)pDefender->getTeam());
 	std::vector<int>& v = g_combat[kPair];
 	if (v.empty()) v.resize(8, 0);
@@ -385,7 +396,7 @@ void HH_noteCombatStart(CvUnit* pAttacker, CvUnit* pDefender)
 	if (iStack == 1) ++v[3];
 	v[4] += iStack;
 	if (bCity) ++v[5];
-	if (pAttacker->collateralDamage() > 0) ++v[7];
+	if (dealsCollateral(pAttacker)) ++v[7];
 	if (v.size() < 10) v.resize(10, 0);
 	const bool bBonus = pDefender->getUnitCombatType() != NO_UNITCOMBAT && pAttacker->unitCombatModifier(pDefender->getUnitCombatType()) > 0;
 	if (bBonus) ++v[8];
@@ -403,12 +414,12 @@ void HH_noteCombatStart(CvUnit* pAttacker, CvUnit* pDefender)
 			const CvUnit* pLoop = ::getUnit(pNode->m_data);
 			if (pLoop != NULL && pLoop->getTeam() == pDefender->getTeam() && pLoop->canDefend()) ++a.iDefenders;
 		}
-		if (pAttacker->collateralDamage() > 0) a.iCollateralFirst = 1;
+		if (dealsCollateral(pAttacker)) a.iCollateralFirst = 1;
 	}
 	++a.iAttacks;
 	a.iOddsSum += getCombatOdds(pAttacker, pDefender);
 	if (bBonus) ++a.iBonusAttacks;
-	if (pAttacker->collateralDamage() > 0) ++a.iCollateralAttacks;
+	if (dealsCollateral(pAttacker)) ++a.iCollateralAttacks;
 	else
 	{
 		a.iHpSum += pDefender->currHitPoints() * 100 / std::max(1, pDefender->maxHitPoints());
@@ -434,6 +445,7 @@ void HH_noteBombard(CvUnit* pUnit, CvPlot* pPlot, int iKind)
 void HH_noteCombatResult(CvUnit* pWinner, CvUnit* pLoser)
 {
 	if (pWinner == NULL || pLoser == NULL) return;
+	HH_oracleCombatResult(pWinner, pLoser);
 	std::map<int, std::pair<int, int> >::iterator ita = g_pendingAssault.find(unitKey(pWinner));
 	if (ita != g_pendingAssault.end())
 	{

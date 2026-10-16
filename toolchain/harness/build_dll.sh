@@ -48,6 +48,12 @@ for function, anchor, kind, after in (('bool CvUnit::bombard()', 'CvPlot* pTarge
     target = 'pTargetPlot' if kind == 0 else 'pPlot'
     insert('CvUnit.cpp', function, anchor, ' HH_noteBombard(this, %s, %d);' % (target, kind),
            'void HH_noteBombard(CvUnit* pUnit, CvPlot* pPlot, int iKind);', after=after)
+# The expert oracle (HarnessOracle.cpp): CvPlayer::doTurn reports the begin-turn
+# event after the player's units moved; setTurnActive restores their moves first.
+insert('CvEventReporter.cpp', 'void CvEventReporter::beginPlayerTurn(', '{\r\n',
+       '\tHH_oracleAfterMoves(ePlayer);', 'void HH_oracleAfterMoves(PlayerTypes ePlayer);', after=True)
+insert('CvPlayer.cpp', 'void CvPlayer::setTurnActive(', 'doTurnUnits();',
+       ' HH_oracleBeforeMoves(getID());', 'void HH_oracleBeforeMoves(PlayerTypes ePlayer);', after=True)
 insert('CvEventReporter.cpp', 'void CvEventReporter::changeWar(', '{\r\n',
        '\tHH_noteChangeWar(bWar, eTeam, eOtherTeam);', 'void HH_noteChangeWar(bool bWar, TeamTypes eTeam, TeamTypes eOtherTeam);', after=True)
 # Count the Python events the DLL reports (the harness runs without Python).
