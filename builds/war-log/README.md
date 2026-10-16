@@ -1,6 +1,6 @@
 # Recording games for the war-AI work
 
-This DLL is GitLab `main` after !47, plus the four fixes below (going to GitLab as the next merge request). It writes a log of your game (with `WAR_LOG` = 1),
+This DLL is GitLab `main` after !48: the war log plus the four AI fixes below. It writes a log of your game (with `WAR_LOG` = 1),
 which is how I learn from the way you beat the AI, and it has four AI fixes, all on:
 
 | Fix | What changes | Switch in `GlobalDefinesAlt.xml` (default; 0 = off) |
