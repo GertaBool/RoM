@@ -10,14 +10,13 @@ which is how I learn from the way you beat the AI, and it has four AI fixes, all
 | Sacrifice choice | A cheap unit is sent first to wear a defender down only when that has the higher expected value. Before, it was sent whenever the best attacker had under 68 % | `AI_SACRIFICE_EV` (1) |
 | Visible armies | Land units of another civ that the AI sees inside its borders raise its alert level whatever its attitude. A human's intent counts as at least an even chance of war | `AI_THREAT_VISIBLE_ARMY` (40) |
 
-The switches work even if your `GlobalDefinesAlt.xml` does not list them; these
-defaults then apply.
 
 ## Setup (once)
 
 1. Copy `CvGameCoreDLL.dll` over `Assets/CvGameCoreDLL.dll` in the mod. Back up the old
    one first.
-2. In `Assets/XML/GlobalDefinesAlt.xml`, set `WAR_LOG` to `1`.
+2. Copy `GlobalDefinesAlt.xml` over `Assets/XML/GlobalDefinesAlt.xml`. It is GitLab
+   `main`'s file with `WAR_LOG` set to `1`; the AI fix switches are in it too.
 3. In `My Documents/My Games/Beyond the Sword/CivilizationIV.ini`, set
    `LoggingEnabled = 1`. The engine writes log files only with this set.
 4. Optional: set `AutoSaveInterval = 5` in the same file, for a save every 5 turns.
