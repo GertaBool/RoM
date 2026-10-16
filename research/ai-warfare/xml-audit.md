@@ -1,5 +1,7 @@
 # RoM combat XML audit
 
+The complete, schema-driven reading of all XML is [xml-knowledge.md](xml-knowledge.md); its tables are [xml-war-tables.md](xml-war-tables.md). This audit covers land units, promotions and city defences only.
+
 ## What the XML says, for the war-AI design
 
 Read from the XML itself (all modules are loaded), with the DLL code checked where a value's effect depends on it.

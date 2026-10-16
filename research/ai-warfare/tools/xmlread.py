@@ -13,6 +13,7 @@ module directories under Assets/Modules that their MLF_CIV4ModularLoadingControl
 files load, in MLF order; Assets/Unloaded Modules is never read. A module record whose
 Type already exists is merged as copyNonDefaults does: its non-default values replace
 the old ones; lists are merged by their first value, the module's entry winning.
+Defines follow SetGlobalDefines' file order, and a later value replaces an earlier one.
 
 usage: xmlread.py <Assets dir> <out dir>
 writes <out>/records.json (per record type: resolved records) and <out>/files.json
@@ -200,10 +201,27 @@ def merge(old, new):
     return out
 
 
+# Defines are read by CvXMLLoadUtility::SetGlobalDefines in this file order, and each
+# value replaces the previous one (FVariableSystem::SetValue), whatever it is.
+DEFINE_FILES = ['XML/GlobalDefines.xml', 'XML/GlobalDefinesAlt.xml', 'XML/BBAI_AI_Variables_GlobalDefines.xml',
+                'XML/BBAI_Game_Options_GlobalDefines.xml', 'XML/TechDiffusion_GlobalDefines.xml',
+                'XML/LeadFromBehind_GlobalDefines.xml', 'XML/PythonCallbackDefines.xml', 'res/Fonts/GameFont_GlobalDefines.xml']
+
+
+def load_key(r):
+    pos, rel = r[0], r[1]
+    if r[2] == 'Define':
+        return (DEFINE_FILES.index(rel) if rel in DEFINE_FILES else len(DEFINE_FILES) + pos, rel)
+    return (pos, rel)
+
+
 records = {}
-for pos, rel, rtype, key, rec in sorted(raw, key=lambda r: r[0]):
+for pos, rel, rtype, key, rec in sorted(raw, key=load_key):
     table = records.setdefault(rtype, {})
-    if key in table:
+    if key in table and rtype == 'Define':
+        rec['_sources'] = table[key]['_sources'] + [rel]
+        table[key] = rec
+    elif key in table:
         table[key] = merge(table[key], rec)
         table[key]['_sources'] = table[key].get('_sources', []) + [rel]
     else:
