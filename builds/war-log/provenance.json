@@ -1,9 +1,8 @@
 {
-  "source": "GitLab main after merge request !47 (war log, second version)",
-  "source_commit": "1e95fac7f10053137723f6671111848ff13479db",
-  "dll_sha256": "3fe75f68ad13be0b7b46b12e371fd1106bd6b69a72ed5a1f083c1c3606f98e59",
-  "dll_size": 6119424,
+  "source": "GitLab main after !47, plus the local commit 6e13a17: exact assault forecast, true-odds attack floor, expected-value sacrifice, visible-army threat, economy log line",
+  "dll_sha256": "d638d317c03739d63000db90d66c655cb9a24e080d2bacac17e5519996670279",
+  "dll_size": 6139904,
   "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
-  "tested_headless": "one 260-turn Marathon game, 10 AIs, WAR_LOG=1: no error",
-  "tested_in_game": "the first version (!46) was used in a real game; this version not yet"
+  "tested_headless": "450-turn Marathon game, 10 AIs, Mediterranean seed 1, the mod's XML without the new defines (code defaults on): no error, turn time 333 s against 350 s with the fixes off; forecast win chance equal to the engine's getCombatOdds in all 1,777 fights of an earlier test",
+  "tested_in_game": false
 }
