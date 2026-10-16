@@ -90,8 +90,9 @@ How the baseline AI uses these units:
 - **Archers.** RoM gives 11 archer and 13 siege units a ranged strike. The AI fires
   it only by chance, from `AI_anyAttack`. City defenders, the usual role for
   archers, never fire at all.
-- **Dale's combat mod.** Its archer bombard is switched off. Its ranged bombard is
-  switched on, but no unit has a range, and the AI's calls to it are blocked.
+- **Dale's combat mod.** Its archer bombard is switched off. Its ranged bombard is not
+  used in play, because it was dysfunctional; no unit here has a bombard range, and the
+  AI's calls to it are blocked.
 
 ## The switches
 
