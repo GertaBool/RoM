@@ -93,14 +93,35 @@ production choice or lack of production.
 
 ## Gap 4: few counter-attacks (rank 4)
 
-There was one AI attack in 32 battles. With strength-3 units against strength-6 Warbands,
-not attacking is mostly correct. This gap mostly follows from gap 1, so it is not worked
+There was one AI attack in 32 battles. Javelineers attacking promoted, healthy Warbands
+would have had low win chances, so not attacking is mostly correct. Its one attack was
+on a Warband with 20 % health left, at a 77 % win chance. This gap mostly follows from gap 1, so it is not worked
 on now.
+
+## Gap 5: stack attacks at hopeless odds (rank 2, from game 2)
+
+See [games/game2-greece.md](games/game2-greece.md).
+- **Facts:** in 4 headless games, about 200 of 2,659 AI attacks were made by non-siege
+  units at win chances under 5 %. In game 2 Rome lost 5 of 8 Javelineers on one city in
+  one turn, at 0.1–39 % per fight, and took nothing.
+- **Cause:** `AI_compareStacks` adds up the modified strengths of the whole stack and of
+  all defenders. Modifiers are counted, but the sum is linear and combat is not.
+- **Correct decision:** decide from the engine's per-fight win chances, played out through
+  the attack sequence. Attack when the expected result kills every defender and leaves an
+  attacker to take the city. Siege units keep attacking for splash damage as now.
+
+## Underlying: the AI's research is half the expert's
+
+The human had about twice the AIs' techs in both games (21 against 12–18 at turn 217; 36
+against 9–19 at turn 235), at Noble, where the AI gets no bonuses. Unit quality follows
+from techs. No war decision makes up for a whole tier of units. This is the AI's
+economy, outside war logic, and it needs a decision on scope (see the report).
 
 ## Order of work
 
 1. ~~Gap 1~~: tested, dropped (above).
-2. Gap 3 diagnosis from the next human game's `Y` lines: what threatened cities build,
+2. Gap 5 (hopeless stack attacks): design note, then build behind a switch.
+3. Gap 3 diagnosis from the next human game's `Y` lines: what threatened cities build,
    and with how many hammers.
-3. Gap 2 design, together with gap 3: defenders sized to the threat that stands next to a
+4. Gap 2 design, together with gap 3: defenders sized to the threat that stands next to a
    city, including armies of civs at peace.
