@@ -1,0 +1,171 @@
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index 40ad54d..4a90310 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -6,6 +6,14 @@ bool isAICunning(int iFlag)
+ {
+ 	return (GC.getDefineINT("AI_CUNNING_FLAGS") & iFlag) != 0;
+ }
++
++// Collateral strength as CvUnit::collateralCombat applies it: an integer, so 25 % of
++// strength 3 (an archer) is nothing at all.
++int effectiveCollateral(const CvUnit* pUnit)
++{
++	const int iStrength = pUnit->baseCombatStr() * pUnit->collateralDamage() / 100;
++	return (iStrength == 0 && pUnit->getExtraCollateralDamage() > 0) ? 1 : iStrength;
++}
+ #include <algorithm>
+ #include "CvUnit.h"
+ #include "CvGameAI.h"
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index 65b268e..bbe1916 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -411,5 +411,6 @@ int calculateLevel(int iExperience, PlayerTypes ePlayer);								// Exposed to P
+ // 32 ask and accept war help only from teams near the target, 64 city archers and
+ // siege fire ranged strikes at enemies next to the city.
+ bool isAICunning(int iFlag);
++int effectiveCollateral(const CvUnit* pUnit);
+ 
+ #endif
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index b4bf096..27abb64 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -797,7 +797,9 @@ void CvPlayerAI::AI_doTurnUnitsPost()
+ 									if ((pLoopUnit->getDomainType() != DOMAIN_LAND) || pLoopUnit->plot()->plotCount(PUF_isMilitaryHappiness, -1, -1, getID()) > 1)
+ 									{
+ 										//if ((calculateUnitCost() > 0) && (AI_getPlotDanger( pLoopUnit->plot(), 2, false) == 0))
+-										if ((calculateUnitCost() > 0) && (AI_getAnyPlotDanger( pLoopUnit->plot(), 2, false)))
++										// Disband for a retrained unit only where it is safe (the BTS intent; the
++										// BBAI port had inverted the danger check).
++										if ((calculateUnitCost() > 0) && !AI_getAnyPlotDanger( pLoopUnit->plot(), 2, false))
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/	
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+index dff291c..39f0462 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+@@ -4369,7 +4369,14 @@ static CvUnit* pickCollateralAttacker(CvSelectionGroup* pGroup, const CvPlot* pP
+ 		{
+ 			continue;
+ 		}
+-		const int iValue = pLoopUnit->collateralDamage() * std::min(iHealthy - 1, std::max(1, pLoopUnit->collateralDamageMaxUnits())) *
++		// Only units whose collateral does real damage open (not archers or horsemen,
++		// whose 25 % of a small strength is 0 or 1), ranked by that strength.
++		const int iCollateral = effectiveCollateral(pLoopUnit);
++		if (iCollateral < 2)
++		{
++			continue;
++		}
++		const int iValue = iCollateral * std::min(iHealthy - 1, std::max(1, pLoopUnit->collateralDamageMaxUnits())) *
+ 			pLoopUnit->currHitPoints() / std::max(1, pLoopUnit->maxHitPoints());
+ 		if (iValue > iBestValue)
+ 		{
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 6dd46dd..b973445 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -24972,15 +24972,12 @@ void CvUnitAI::LFBgetBetterAttacker(CvUnit** ppAttacker, const CvPlot* pPlot, bo
+ 	iAIOdds += GET_PLAYER(getOwnerINLINE()).AI_getAttackOddsChange();
+ 	iAIOdds = std::max(1, std::min(iAIOdds, 99));
+ 
+-	if (collateralDamage() > 0)
++	// Only collateral that does damage counts, and it scales the odds, not the
++	// rank's +10000 offset (which made any collateral unit outrank every other).
++	const int iPossibleTargets = std::min((pPlot->getNumVisibleEnemyDefenders(pThis) - 1), collateralDamageMaxUnits());
++	if (iPossibleTargets > 0 && effectiveCollateral(this) > 0)
+ 	{
+-		int iPossibleTargets = std::min((pPlot->getNumVisibleEnemyDefenders(pThis) - 1), collateralDamageMaxUnits());
+-
+-		if (iPossibleTargets > 0)
+-		{
+-			iValue *= (100 + ((collateralDamage() * iPossibleTargets) / 5));
+-			iValue /= 100;
+-		}
++		iValue = 10000 + ((iValue - 10000) * (100 + (collateralDamage() * iPossibleTargets) / 5)) / 100;
+ 	}
+ 
+ 	// Nothing to compare against - we're obviously better
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index 7d7f14e..cd2f7fc 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -20,6 +20,10 @@
+       "command": ["python3", "Tools/test_diplomacy_fixes.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvTeamAI.*", "Assets/CvGameCoreDLL/AIDiplomacyPolicy.h"]
+     },
++    {
++      "command": ["python3", "Tools/test_war_ai_fixes.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvGameCoreUtils.*"]
++    },
+     {
+       "command": ["python3", "Tools/test_patch_0018.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvTeamAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvCityAI.*", "Assets/CvGameCoreDLL/CvGameCoreUtils.*", "Assets/XML/BBAI_AI_Variables_GlobalDefines.xml"]
+diff --git a/Tools/test_war_ai_fixes.py b/Tools/test_war_ai_fixes.py
+new file mode 100755
+index 0000000..9abb069
+--- /dev/null
++++ b/Tools/test_war_ai_fixes.py
+@@ -0,0 +1,60 @@
++#!/usr/bin/env python3
++"""Three corrections to the war AI, outside any switch.
++
++- Units in a city were disbanded for a retrained unit exactly when enemies stood
++  within two plots: the BBAI port had inverted the BTS danger check.
++- Lead From Behind scaled its whole attacker rank, including the +10000 offset,
++  by collateral, so any unit with collateral outranked every other attacker, even
++  one whose collateral does no damage.
++- The unit that opens an assault was ranked by its collateral percentage, not by
++  the collateral strength the battle applies (an integer: 25 % of strength 3 is 0).
++"""
++import unittest
++from test_review_correctness import DLL, block
++
++
++def src(name):
++    return (DLL / name).read_text(encoding='latin-1')
++
++
++def effective_collateral(base, percent, extra=0):
++    s = base * percent // 100
++    return 1 if s == 0 and extra > 0 else s
++
++
++def lfb_rank(rank, percent, targets, base):
++    if targets > 0 and effective_collateral(base, percent) > 0:
++        return 10000 + ((rank - 10000) * (100 + (percent * targets) // 5)) // 100
++    return rank
++
++
++class WarAIFixTests(unittest.TestCase):
++    def test_retrain_disband_only_when_safe(self):
++        method = block(src('CvPlayerAI.cpp'), 'void CvPlayerAI::AI_doTurnUnitsPost(')
++        self.assertIn('(calculateUnitCost() > 0) && !AI_getAnyPlotDanger( pLoopUnit->plot(), 2, false))', method)
++
++    def test_effective_collateral_is_integer_strength(self):
++        text = src('CvGameCoreUtils.cpp')
++        self.assertIn('pUnit->baseCombatStr() * pUnit->collateralDamage() / 100', text)
++        self.assertIn('int effectiveCollateral(const CvUnit* pUnit);', src('CvGameCoreUtils.h'))
++        self.assertEqual(effective_collateral(3, 25), 0)    # archer
++        self.assertEqual(effective_collateral(7, 100), 7)   # knight
++        self.assertEqual(effective_collateral(3, 25, 10), 1)
++
++    def test_lead_from_behind_scales_odds_not_offset(self):
++        method = block(src('CvUnitAI.cpp'), 'void CvUnitAI::LFBgetBetterAttacker(')
++        self.assertIn('effectiveCollateral(this) > 0', method)
++        self.assertIn('iValue = 10000 + ((iValue - 10000) *', method)
++        # A catapult at 30 % odds no longer outranks an axeman at 70 %, and an
++        # archer's collateral (none) adds nothing.
++        self.assertLess(lfb_rank(10300, 100, 3, 5), lfb_rank(10700, 0, 3, 5))
++        self.assertEqual(lfb_rank(10400, 25, 3, 3), 10400)
++
++    def test_assault_opener_needs_real_collateral(self):
++        method = block(src('CvSelectionGroup.cpp'), 'static CvUnit* pickCollateralAttacker(')
++        self.assertIn('const int iCollateral = effectiveCollateral(pLoopUnit);', method)
++        self.assertIn('if (iCollateral < 2)', method)
++
++
++if __name__ == '__main__':
++    unittest.main()

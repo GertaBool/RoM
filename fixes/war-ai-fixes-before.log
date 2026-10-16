@@ -1,0 +1,6 @@
+FAIL: test_assault_opener_needs_real_collateral (__main__.WarAIFixTests.test_assault_opener_needs_real_collateral)
+FAIL: test_effective_collateral_is_integer_strength (__main__.WarAIFixTests.test_effective_collateral_is_integer_strength)
+FAIL: test_lead_from_behind_scales_odds_not_offset (__main__.WarAIFixTests.test_lead_from_behind_scales_odds_not_offset)
+FAIL: test_retrain_disband_only_when_safe (__main__.WarAIFixTests.test_retrain_disband_only_when_safe)
+Ran 4 tests in 0.099s
+FAILED (failures=4)

@@ -1,8 +1,55 @@
 # Tested source fixes
 
+## War AI fixes: retraining disband, collateral counted only when it does damage
+
+[0019-war-ai-fixes.patch](0019-war-ai-fixes.patch) applies on top of patch 0018. It has
+**landed on GitLab `main`**
+([!44](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/44),
+merge commit `f989c93`). A clone of current `main` needs nothing applied; only the DLL
+below has to be installed. The patch fixes three bugs, at every value of
+`AI_CUNNING_FLAGS`:
+
+| Where | Bug | Now |
+|---|---|---|
+| `CvPlayerAI::AI_doTurnUnitsPost` | Units in a city were disbanded and retrained exactly when enemies stood within two plots. The BBAI port had inverted the BTS check. | Units are disbanded only when the city is safe. |
+| `CvUnitAI::LFBgetBetterAttacker` (Lead From Behind) | Collateral scaled the whole attacker rank, including its +10000 offset, so any unit with collateral attacked first. An archer at 40 % odds went before an axeman at 70 %. | Collateral scales only the odds, and only if it does damage. |
+| `pickCollateralAttacker` | The unit that opens an assault was ranked by collateral percentage. | It is ranked by collateral strength as the battle applies it: base strength × % / 100, an integer. An archer's 25 % of strength 3 is 0. |
+
+These changes are exactly the experimental switch 4096. With the default flags, this
+tree replays that switch's games turn for turn: game state is identical over
+Mediterranean and Earth 12 Marathon games, seeds 1 and 2.
+
+Measured against the shipped 0018, over 8 Marathon games, with the
+[expert oracle](../toolchain/harness/README.md#expert-oracle):
+- the chance that an expert takes a reachable AI city next turn falls from 13.4 % to
+  8.9 %;
+- the production the AI leaves exposed to an expert falls by 20 %;
+- turns are 22 % faster.
+
+Clear attacker mistakes are not reduced. They come from sacrificing spearmen and
+hypaspists in group attacks, not from the choice of attacker.
+
+**Save format.** Unchanged: saves move freely between the 0018 and 0019 DLLs.
+
+```sh
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/war-ai-fixes-manifest.json --check
+python3 fixes/apply.py /path/to/rise-of-mankind --manifest fixes/war-ai-fixes-manifest.json
+```
+
+`apply.py` expects the local 0018 commit `d64465d`. On a clone of GitLab `d241fe4`,
+which has the same tree, use `git apply`.
+
+**34 regression programs pass.** `Tools/test_war_ai_fixes.py` fails 4 of 4 on the
+patch 0018 tree. The DLL is built with MSVC 2003: 0 errors, 0 warnings, the same
+2451 exports. Use [`builds/0019/CvGameCoreDLL.dll`](../builds/0019/CvGameCoreDLL.dll);
+it includes patches 0014 to 0018. The game executable was not run.
+
+[Manifest](war-ai-fixes-manifest.json) · [Before](war-ai-fixes-before.log) ·
+[Suite](war-ai-fixes-regression.log) · [Build provenance](../builds/0019/provenance.json).
+
 ## War AI: choose, join, end and fight wars like a strategist
 
-[0018-war-ai.patch](0018-war-ai.patch) is the current incremental patch for GitLab
+[0018-war-ai.patch](0018-war-ai.patch) is the incremental patch for GitLab
 **`main` at `69a610f`** (patch 0017 merged). It has **landed on GitLab `main`**
 ([!43](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/43),
 merge commit `d241fe4`, tree `2cab4125` = the tested tree). A clone of current `main`
