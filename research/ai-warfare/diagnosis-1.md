@@ -44,6 +44,26 @@ stronger than you, is worth more than a resource you cannot yet use.
 best current land unit, scaled by threat (neighbours' power against its own, and
 attitude) and by the leader's military flavour.
 
+**Tested and dropped.** I built the term behind a switch (`AI_TECH_STRENGTH_GAIN_VALUE`)
+and played 450-turn headless Marathon games of 10–12 AIs: Mediterranean seeds 1–3, and
+Earth seed 1. The table gives the median turn the AIs got each tech, and the average number
+of techs at turn 450.
+
+| Weight | Metal Casting | Bronze Working | Masonry | Techs (Mediterranean / Earth) |
+|---|---|---|---|---|
+| 0 (off) | 226–255 | 303–329 | 211–282 | 38.8–42.4 / 31.8 |
+| 10,000 | 207–235 | 298–312 | 257–294 | 40.0–43.0 / 29.8 |
+| 30,000 | 183–226 | 278–306 | 239–344 | 37.4–44.3 / 27.3 |
+
+- The gain is 10–25 turns, far from the human's turn 170.
+- The stronger weight pushes Masonry (walls) 40–90 turns later on the Mediterranean map.
+- The AIs are slow at all research, not only at ordering it: 12–18 techs by turn 217 in
+  game 1, against the human's 21.
+- Reordering techs cannot close a 130-turn gap, so this lever is dropped. The prototype
+  is kept on a local branch only (`tech-gain`) and is not shipped.
+- What follows: the AI has to survive the window with the units it has. That means
+  enough defenders where a threat stands (gaps 2 and 3).
+
 ## Gap 2: no danger from armies of civs at peace (rank 2)
 
 **Facts.**
@@ -79,7 +99,8 @@ on now.
 
 ## Order of work
 
-1. Gap 1, behind a switch (off by default), measured in headless games: when the AIs get
-   Bronze Working and Masonry, and what it costs their economy (techs, cities, score).
-2. Gap 3 diagnosis from the next human game's `Y` lines.
-3. Gap 2 design.
+1. ~~Gap 1~~: tested, dropped (above).
+2. Gap 3 diagnosis from the next human game's `Y` lines: what threatened cities build,
+   and with how many hammers.
+3. Gap 2 design, together with gap 3: defenders sized to the threat that stands next to a
+   city, including armies of civs at peace.
