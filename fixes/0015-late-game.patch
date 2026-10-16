@@ -1,0 +1,183 @@
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index dd7341c..8afeecb 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -3777,6 +3777,9 @@ UnitTypes CvCityAI::AI_bestUnitAI(UnitAITypes eUnitAI, bool bAsync, AdvisorTypes
+ 		}
+ 	}
+ 	iBestOriginalValue = 0;
++	// The second pass needs the same canTrain and AI_unitValue answers as the
++	// first (neither changes the game), so the first pass records them.
++	std::vector<int> aiOriginalValue(GC.getNumUnitClassInfos(), -1);
+ 
+ 	for (iI = 0; iI < GC.getNumUnitClassInfos(); iI++)
+ 	{
+@@ -3793,7 +3796,8 @@ UnitTypes CvCityAI::AI_bestUnitAI(UnitAITypes eUnitAI, bool bAsync, AdvisorTypes
+ 					{
+ 						if (canTrain(eLoopUnit))
+ 						{
+-							iOriginalValue = GET_PLAYER(getOwnerINLINE()).AI_unitValue(eLoopUnit, eUnitAI, area());
++							iOriginalValue = std::max(0, GET_PLAYER(getOwnerINLINE()).AI_unitValue(eLoopUnit, eUnitAI, area()));
++							aiOriginalValue[iI] = iOriginalValue;
+ 
+ 							if (iOriginalValue > iBestOriginalValue)
+ 							{
+@@ -3822,9 +3826,9 @@ UnitTypes CvCityAI::AI_bestUnitAI(UnitAITypes eUnitAI, bool bAsync, AdvisorTypes
+ 				    
+ 					if (!(bGrowMore && isFoodProduction(eLoopUnit)))
+ 					{
+-						if (canTrain(eLoopUnit))
++						if (aiOriginalValue[iI] >= 0)
+ 						{
+-							iValue = GET_PLAYER(getOwnerINLINE()).AI_unitValue(eLoopUnit, eUnitAI, area());
++							iValue = aiOriginalValue[iI];
+ 
+ 							if ((iValue > ((iBestOriginalValue * 2) / 3)) && ((eUnitAI != UNITAI_EXPLORE) || (iValue >= iBestOriginalValue)))
+ 							{
+@@ -4609,7 +4613,9 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 
+ 				for (iI = 0; iI < GC.getNumUnitCombatInfos(); iI++)
+ 				{
+-					if (canTrain((UnitCombatTypes)iI))
++					// Test the building first: canTrain(UnitCombatTypes) scans every unit
++					// class, and almost no building gives experience to a given combat type.
++					if (kBuilding.getUnitCombatFreeExperience(iI) != 0 && canTrain((UnitCombatTypes)iI))
+ 					{
+ 						iValue += (kBuilding.getUnitCombatFreeExperience(iI) * ((iHasMetCount > 0) ? 6 : 3));
+ 					}
+@@ -4647,7 +4653,7 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
+ 					{
+ 						CvUnitInfo& kUnitInfo = GC.getUnitInfo(eUnit);
+ 						int iCombatType = kUnitInfo.getUnitCombatType();
+-						if (kUnitInfo.getDomainType() == DOMAIN_SEA && canTrain(eUnit) && iCombatType != NO_UNITCOMBAT)
++						if (iCombatType != NO_UNITCOMBAT && kBuilding.getUnitCombatFreeExperience(iCombatType) != 0 && kUnitInfo.getDomainType() == DOMAIN_SEA && canTrain(eUnit))
+ 						{
+ 							iValue += (kBuilding.getUnitCombatFreeExperience(iCombatType) * ((iHasMetCount > 0) ? 6 : 3));
+ 						}
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 6f2ce53..c39c4d0 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -5926,6 +5926,13 @@ void CvGame::doTurn()
+ 
+ 	doUpdateCacheOnTurn();
+ 
++	// The AI's border-danger flags also depend on routes (an enemy road two
++	// plots away), which change without clearing them: start each turn afresh.
++	for (iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
++	{
++		GC.getMapINLINE().plotByIndexINLINE(iI)->invalidateIsTeamBorderCache();
++	}
++
+ 	updateScore();
+ 
+ 	doDeals();
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 103f196..007ccfe 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -3713,21 +3713,14 @@ bool CvPlayerAI::AI_getAnyPlotDanger(CvPlot* pPlot, int iRange, bool bTestMoves)
+ 					{
+ 						if (atWar(pLoopPlot->getTeam(), eTeam))
+ 						{
+-							// Border cache is reversible, set for both team and enemy
+-							if (iDistance == 1)
++							// Only this plot and this team are known to be at the border. The
++							// flags formerly also set for the enemy team and on the enemy plot do
++							// not follow (an unowned plot next to the enemy is no border for the
++							// enemy); they marked safe plots as dangerous until the next war or
++							// peace, and a reloaded game, whose flags start empty, played differently.
++							if (iDistance == 1 || ((iDistance == 2) && (pLoopPlot->isRoute())))
+ 							{
+ 								pPlot->setIsTeamBorderCache(eTeam, true);
+-								pPlot->setIsTeamBorderCache(pLoopPlot->getTeam(), true);
+-								pLoopPlot->setIsTeamBorderCache(eTeam, true);
+-								pLoopPlot->setIsTeamBorderCache(pLoopPlot->getTeam(), true);
+-								return true;
+-							}
+-							else if ((iDistance == 2) && (pLoopPlot->isRoute()))
+-							{
+-								pPlot->setIsTeamBorderCache(eTeam, true);
+-								pPlot->setIsTeamBorderCache(pLoopPlot->getTeam(), true);
+-								pLoopPlot->setIsTeamBorderCache(eTeam, true);
+-								pLoopPlot->setIsTeamBorderCache(pLoopPlot->getTeam(), true);
+ 								return true;
+ 							}
+ 						}
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index bf935ea..ae20861 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -20,6 +20,10 @@
+       "command": ["python3", "Tools/test_diplomacy_fixes.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvTeamAI.*", "Assets/CvGameCoreDLL/AIDiplomacyPolicy.h"]
+     },
++    {
++      "command": ["python3", "Tools/test_late_game_fixes.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvCityAI.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvGame.*"]
++    },
+     {
+       "command": ["python3", "Tools/test_upkeep_traps.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AICivicPolicy.h", "Assets/CvGameCoreDLL/CvEnums.h"]
+diff --git a/Tools/test_late_game_fixes.py b/Tools/test_late_game_fixes.py
+new file mode 100644
+index 0000000..ec5b830
+--- /dev/null
++++ b/Tools/test_late_game_fixes.py
+@@ -0,0 +1,56 @@
++#!/usr/bin/env python3
++"""Late-game turn time, and a reloaded game that plays like the running one.
++
++Measured in the GertaBool/RoM toolchain/harness from a Marathon snapshot at turn
++400 (342 cities, 1,800 units): CvCity::canTrain took a fifth of the turn.
++AI_buildingValueThreshold asked, for every building and every unit combat
++type, whether the city could train any unit of that type (a scan over all unit
++classes) before looking at whether the building gives that type any
++experience; AI_bestUnitAI asked canTrain and AI_unitValue twice for every unit.
++Both now give the same answers with half the calls or fewer (the snapshot
++plays out identically; the turn takes 17 percent less time).
++
++A game saved at the start of a turn and loaded again played differently from
++the game that saved it. AI_getAnyPlotDanger flagged plots as border danger for
++the enemy team and on the enemy's plot, where nothing was known; the flags
++are not saved and were cleared only by war, peace or a nearby owner change, so
++the running game kept marking safe plots as dangerous and a reloaded game did
++not. In multiplayer a rejoining player would go out of sync.
++"""
++import unittest
++from test_review_correctness import DLL, block
++
++
++def src(name):
++    return (DLL / name).read_text(encoding='latin-1')
++
++
++class TurnTimeTests(unittest.TestCase):
++    def test_building_experience_checked_before_can_train(self):
++        method = block(src('CvCityAI.cpp'), 'int CvCityAI::AI_buildingValueThreshold(')
++        self.assertIn('kBuilding.getUnitCombatFreeExperience(iI) != 0 && canTrain((UnitCombatTypes)iI)', method)
++        self.assertIn('kBuilding.getUnitCombatFreeExperience(iCombatType) != 0 && kUnitInfo.getDomainType() == DOMAIN_SEA && canTrain(eUnit)',
++                      method)
++
++    def test_best_unit_asks_once_per_unit(self):
++        method = block(src('CvCityAI.cpp'), 'UnitTypes CvCityAI::AI_bestUnitAI(')
++        self.assertEqual(method.count('canTrain(eLoopUnit)'), 1)
++        self.assertEqual(method.count('AI_unitValue(eLoopUnit, eUnitAI, area())'), 1)
++        self.assertIn('if (aiOriginalValue[iI] >= 0)', method)
++
++
++class SaveConsistencyTests(unittest.TestCase):
++    def test_border_danger_flags_only_what_is_known(self):
++        method = block(src('CvPlayerAI.cpp'), 'bool CvPlayerAI::AI_getAnyPlotDanger(')
++        self.assertEqual(method.count('setIsTeamBorderCache('), 1)
++        self.assertIn('pPlot->setIsTeamBorderCache(eTeam, true);', method)
++        self.assertNotIn('pLoopPlot->setIsTeamBorderCache', method)
++
++    def test_border_danger_flags_cleared_each_turn(self):
++        method = block(src('CvGame.cpp'), 'void CvGame::doTurn()')
++        self.assertIn('->invalidateIsTeamBorderCache();', method)
++        self.assertLess(method.index('->invalidateIsTeamBorderCache();'), method.index('GET_TEAM((TeamTypes)iI).doTurn();'))
++
++
++if __name__ == '__main__':
++    unittest.main()

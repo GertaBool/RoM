@@ -1,0 +1,157 @@
+From 77ccaff6bbe36fe52e03d28d8fd52e6b6e422c9e Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 13 Oct 2026 13:16:55 +0000
+Subject: [PATCH] Settler transport: recognise escorts at sea and keep the
+ landed party together
+
+AI_settlerSeaTransport recognised the escort with canDefend(), which asks
+about the unit's current plot; a land unit aboard a ship at sea cannot defend
+water, so after the first leg the ship found no escort and waited next to the
+site indefinitely. Use canFight(). After landing, rejoin the escort to the
+settler (CvUnit::setXY splits disembarking cargo into new groups) and restore
+MISSIONAI_FOUND on the site.
+
+The landing tests' canDefend() stand-in ignored the plot and their move()
+kept groups intact; both now follow the engine.
+---
+ Assets/CvGameCoreDLL/CvUnitAI.cpp | 17 +++++++++++-
+ Docs/SETTLER_LANDING_FIX.md       | 44 +++++++++++++++++++++++++++++++
+ Tools/test_settler_landing.py     | 16 ++++++++---
+ 3 files changed, 73 insertions(+), 4 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 3f0a84b..5256c58 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -17887,7 +17887,10 @@ bool CvUnitAI::AI_settlerSeaTransport()
+ 	for (size_t i = 0; i < aCargo.size(); ++i)
+ 	{
+ 		if (aCargo[i]->AI_getUnitAIType() == UNITAI_SETTLE && pSettler == NULL) pSettler = aCargo[i];
+-		if (aCargo[i]->getDomainType() == DOMAIN_LAND && aCargo[i]->canDefend() &&
++		// canFight, not canDefend: canDefend() asks about the unit's current plot,
++		// and a land unit aboard a ship at sea cannot defend water. After the
++		// first leg every escort stopped counting and the ship waited forever.
++		if (aCargo[i]->getDomainType() == DOMAIN_LAND && aCargo[i]->canFight() &&
+ 			(pEscort == NULL || aCargo[i]->canMove() || !pEscort->canMove())) pEscort = aCargo[i];
+ 	}
+ 	if (pSettler == NULL) return false;
+@@ -18084,6 +18087,18 @@ bool CvUnitAI::AI_settlerSeaTransport()
+ 			pSettler->getTransportUnit() == this && pEscort->getTransportUnit() == this;
+ 		if (gUnitLogLevel >= 2) logBBAI("    Settler transport %d: %s at %d,%d", getID(),
+ 			bDelivered ? "LANDED_PARTY" : (bPending ? "LANDING_QUEUED" : "LANDING_PARTY_CHANGED"), pSite->getX_INLINE(), pSite->getY_INLINE());
++		if (bDelivered)
++		{
++			// CvUnit::setXY moves every disembarking cargo unit into a new group of
++			// its own, so the party arrives split and its new groups carry no
++			// destination. Re-form it and restore the accepted site; AI_settleMove
++			// founds there next turn (landing from water costs all moves).
++			if (pEscort->getGroup() != pSettler->getGroup())
++			{
++				pEscort->joinGroup(pSettler->getGroup());
++			}
++			pSettler->getGroup()->AI_setMissionAI(MISSIONAI_FOUND, pSite, NULL);
++		}
+ 		getGroup()->pushMission(MISSION_SKIP, -1, -1, 0, false, false,
+ 			bPending ? MISSIONAI_FOUND : NO_MISSIONAI, bPending ? pSite : NULL);
+ 		return true;
+diff --git a/Docs/SETTLER_LANDING_FIX.md b/Docs/SETTLER_LANDING_FIX.md
+index 631e5c0..9ba3dbf 100644
+--- a/Docs/SETTLER_LANDING_FIX.md
++++ b/Docs/SETTLER_LANDING_FIX.md
+@@ -1,5 +1,49 @@
+ # Settler landing: complete the handoff to the land party
+ 
++## Correction: why the ship still waited offshore
++
++The fix described below did not make settlers land. In the game the galley
++sailed to the water tile next to the chosen site and stayed there, settler and
++escort aboard. Running the real DLL headlessly (a harness that loads this DLL,
++the mod's XML and a scripted two-island map, and lets the AI play) shows why.
++Each turn after the first leg the ship logged `MISSING_ESCORT_OR_CAPACITY` and
++skipped.
++
++`AI_settlerSeaTransport` recognised the escort with `canDefend()`. Without a
++plot argument, `CvUnit::canDefend` asks about the unit's own plot, and a land
++unit aboard a ship at sea is on water. `isValidDomainForAction` fails there,
++and `LAND_UNITS_CAN_ATTACK_WATER_CITIES` is 0, so the answer is false. In port
++the escort counted and the ship sailed. At sea, including on the tile in front
++of the site, the ship had no escort, and the landing code below never ran. The
++tests passed because their stand-in `canDefend()` ignored the plot.
++
++A second engine detail broke the hand-off once landing worked. `CvUnit::setXY`
++moves every unit that leaves a transport into a new group of its own. The
++settler and escort reached land as two groups without `MISSIONAI_FOUND`, which
++contradicts what the tests asserted.
++
++Changes:
++
++- Escorts aboard are recognised with `canFight()`, which is what `canDefend()`
++  checks apart from the plot.
++- After a delivered landing, the escort rejoins the settler's group and the
++  group gets `MISSIONAI_FOUND` and the site again. `AI_settleMove` founds there
++  next turn (landing from water uses all of a unit's moves).
++- `Tools/test_settler_landing.py` now models both engine rules. Against the
++  previous source 9 of its 14 cases fail; with only the escort change, the 2
++  cases that check the destination survives landing still fail; with both
++  changes all 14 pass.
++
++Real DLL, 30 AI turns, settler, warrior escort and galley on a one-city island:
++
++| Build | Site 6 tiles away | Site 10 tiles away |
++|---|---|---|
++| Before | galley waits next to the site for 29 turns, no city | waits 28 turns, no city |
++| After | lands turn 2, founds turn 3 | lands turn 3, founds turn 4 |
++
++The rest of this document describes the earlier change, which remains in
++place.
++
+ This fix targets GitLab **`b8c379c1ffad9cd5408ca0e43dca88daf8ba85ee`**, including the user's imports of settlement placement and joint settlement planning. It changes only `CvUnitAI::AI_settlerSeaTransport` at runtime. Apply [patch 0008](https://github.com/GertaBool/RoM/blob/main/fixes/0008-settler-landing.patch) with its [manifest](https://github.com/GertaBool/RoM/blob/main/fixes/landing-manifest.json); do not reapply 0007 to this base.
+ 
+ ## What the investigation establishes
+diff --git a/Tools/test_settler_landing.py b/Tools/test_settler_landing.py
+index 757dbb4..1f18dc1 100644
+--- a/Tools/test_settler_landing.py
++++ b/Tools/test_settler_landing.py
+@@ -3,6 +3,11 @@
+ 
+ Path graphs, scheduling and per-unit movement side effects are explicit adapters;
+ this is not a full engine replay. Unlike earlier dispatch tests, cargo is moved.
++The adapters must keep the engine's semantics that decide the outcome: an
++earlier version let canDefend() ignore the unit's plot and let disembarking
++cargo keep its group, so every test passed while the real game left the ship
++waiting offshore. The end-to-end check runs the real DLL headlessly
++(GertaBool/RoM toolchain/harness; see Docs/SETTLER_LANDING_FIX.md).
+ """
+ import unittest
+ from test_review_correctness import DLL, remaining, block, compile_run
+@@ -23,7 +28,7 @@ int stepDistance(int x,int y,int a,int b){return std::max(abs(x-a),abs(y-b));}
+ enum {NO_MISSIONAI,MISSIONAI_FOUND,MISSIONAI_LOAD_SETTLER,MISSIONAI_PICKUP,MISSIONAI_ASSAULT,MISSIONAI_GUARD_CITY};
+ enum {UNITAI_SETTLE,UNITAI_WORKER,UNITAI_ATTACK,UNITAI_CITY_DEFENSE,UNITAI_SETTLER_SEA,UNITAI_ASSAULT_SEA};
+ enum {DOMAIN_LAND,DOMAIN_SEA,MISSION_MOVE_TO,MISSION_SKIP,MOVE_NO_ENEMY_TERRITORY,MOVE_SAFE_TERRITORY,NUM_DIRECTION_TYPES=2};
+-typedef int MissionAITypes;typedef int DirectionTypes;
++const int MISSION_FOUND=40;typedef int MissionAITypes;typedef int DirectionTypes;
+ struct CvUnit;struct CvPlot;struct CvSelectionGroup;
+ typedef CvUnit* IDInfo;
+ template<class T>struct CLLNode {T m_data;CLLNode* next;};
+@@ -60,11 +65,16 @@ struct CvUnit {CvPlot* position;CvSelectionGroup group;CvSelectionGroup* activeG
+  capacity(4),owner(0),unloads(0),defense(false),movable(true){units.push_back(this);}
+  IDInfo getIDInfo(){return this;}bool canMove(){return movable;}bool isNoCapture(){return false;}bool canMoveOrAttackInto(CvPlot* p){return canMoveInto(p);}
+  int domainCargo(){return DOMAIN_LAND;}int getCargo(){std::vector<CvUnit*> v;getCargoUnits(v);return v.size();}
+- void move(CvPlot* p,bool){assert(canMove()&&canMoveInto(p));position=p;transport=NULL;movable=false;}
++ // CvUnit::setXY: a unit that leaves a transport is moved into a new group of
++ // its own (joinGroup(NULL)), losing the party's mission AI.
++ void move(CvPlot* p,bool){assert(canMove()&&canMoveInto(p));if(isCargo())joinGroup(NULL);position=p;transport=NULL;movable=false;}
+  void ExecuteMove(float,bool){}
+  CvPlot* plot(){return position;}int getOwnerINLINE(){return owner;}int getID(){return 1;}
+  void AI_setUnitAIType(int r){role=r;}int AI_getUnitAIType(){return role;}int getDomainType(){return domain;}
+- bool canDefend(){return defense;}bool canFound(CvPlot* p){return p->legal;}
++ // CvUnit::canDefend(NULL) asks about the current plot: a land unit aboard a
++ // ship at sea cannot defend water (LAND_UNITS_CAN_ATTACK_WATER_CITIES is 0).
++ bool canFight(){return defense;}
++ bool canDefend(){return canFight()&&!(domain==DOMAIN_LAND&&position!=NULL&&position->water);}bool canFound(CvPlot* p){return p->legal;}
+  bool canMoveInto(CvPlot* p){return p->enter;}
+  CvSelectionGroup* getGroup(){return activeGroup;}
+  bool isCargo(){return transport!=NULL;}CvUnit* getTransportUnit(){return transport;}
+-- 
+2.43.0
+

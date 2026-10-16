@@ -1,0 +1,10 @@
+f46      trade wars  18  took a city  22%  net cities -0.06  exchange 0.95  ratio<1  67%  nothing near  28%  battles by declarer per war 8.0
+f46      own   wars 102  took a city  46%  net cities +0.81  exchange 1.11  ratio<1  13%  nothing near  10%  battles by declarer per war 28.0
+f110     trade wars  19  took a city  21%  net cities +0.05  exchange 0.82  ratio<1  63%  nothing near  21%  battles by declarer per war 8.6
+f110     own   wars 101  took a city  49%  net cities +1.02  exchange 1.15  ratio<1  12%  nothing near   9%  battles by declarer per war 28.9
+f111     trade wars  11  took a city  27%  net cities +0.36  exchange 0.97  ratio<1  45%  nothing near  27%  battles by declarer per war 6.5
+f111     own   wars 107  took a city  56%  net cities +1.36  exchange 1.25  ratio<1  14%  nothing near   8%  battles by declarer per war 36.7
+base     trade wars  77  took a city   8%  net cities -0.05  exchange 1.03  ratio<1  58%  nothing near  73%  battles by declarer per war 7.7
+base     own   wars 217  took a city  52%  net cities +1.03  exchange 1.09  ratio<1  20%  nothing near   6%  battles by declarer per war 32.5
+f127     trade wars  28  took a city  43%  net cities +0.54  exchange 1.07  ratio<1  57%  nothing near  25%  battles by declarer per war 15.4
+f127     own   wars 202  took a city  55%  net cities +1.16  exchange 1.07  ratio<1  16%  nothing near   8%  battles by declarer per war 31.4

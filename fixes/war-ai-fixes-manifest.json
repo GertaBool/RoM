@@ -1,0 +1,77 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "d64465d9fbee398d2ac5cb00e59ccefbace20192",
+  "base_tree": "2cab41257f72cc37d230345c87c1e83ef37c2251",
+  "base_note": "Local commit of patch 0018; GitLab main d241fe4 (merge request !43) has the same tree. fixes/apply.py checks the commit, so apply on d64465d or use git apply on a clean d241fe4 checkout.",
+  "tested_source_commit": "2df8f75e405efe505ed9e6f1e173d2f664855b7e",
+  "tested_source_tree": "1d38f16b4c75c0f1a7932b6c31ad9f168fdb8f42",
+  "patch": "0019-war-ai-fixes.patch",
+  "patch_sha256": "bca91461d07c6e69154a103eead982f18459bb3a290b76767f0d754eb5050127",
+  "relationship_to_prior_patch": "Incremental on patch 0018 (GitLab main d241fe4). Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false,
+    "older_readers_can_read_new_saves": true,
+    "note": "No saved state changes; saves move freely between this DLL and the 0018 DLL."
+  },
+  "fixes": {
+    "retrain_disband": "CvPlayerAI::AI_doTurnUnitsPost disbanded city units for a retrained unit exactly when enemies stood within two plots (BBAI port inverted the BTS check); now only when the city is safe.",
+    "lead_from_behind": "CvUnitAI::LFBgetBetterAttacker scaled the whole rank, including its +10000 offset, by collateral, so any collateral unit outranked every other attacker; now it scales the odds part only, and only for collateral that does damage.",
+    "assault_opener": "pickCollateralAttacker (CvSelectionGroup.cpp) ranks units by effective collateral strength, base strength x collateral % / 100 as an integer, and skips units below 2."
+  },
+  "switches": "None. The fixes act at every AI_CUNNING_FLAGS value; at 0 the AI is the 0017 AI with these three fixes.",
+  "measured": {
+    "equivalence": "With AI_CUNNING_FLAGS 111 this tree replays, turn for turn, the earlier experimental arm 4207 (111 + a switch 4096 that gated exactly these three changes): identical game state over Mediterranean and Earth 12 Marathon games, seeds 1 and 2.",
+    "oracle_8_games": {
+      "games": "Mediterranean and Earth 12, Marathon, Noble, seeds 1-4, turns 0-450, against the shipped 0018 (111)",
+      "expert_takes_reachable_ai_city_next_turn": "13.4 % -> 8.9 %",
+      "production_exposed_to_expert": "-20 %",
+      "turn_time": "-22 %",
+      "clear_attacker_mistakes": "unchanged; they come from sacrifices of spearmen and hypaspists, not the attacker choice"
+    }
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/CvGameCoreUtils.cpp": {
+      "before_sha256": "d84029c4802faa7cff7270509c6686d72c542ac4400d07a67dea56e3f6b2b17e",
+      "after_sha256": "2c9c41e607941e09a7ad44bc4e0d6eb9fe17bdaccd569f63a9ee6d8e0aabc60d"
+    },
+    "Assets/CvGameCoreDLL/CvGameCoreUtils.h": {
+      "before_sha256": "0ad40503906ed5fbb8bc6e526624eadea9ac3f86b860adb8a3804f4fb2034549",
+      "after_sha256": "13975c5e977ae065ca9defbd9f9d3d2f9cd2bf3bb9baae5b57a52407ba95f35b"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "ad88c0e82cdea8f3c5ad7c1de3e2a85ad861bd442df428196a85f08804fbd883",
+      "after_sha256": "6b627979628afd8970240438c5cd1a4d686159b749e13f75a88132450ecc390d"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroup.cpp": {
+      "before_sha256": "4e0b309231bbcf6d3824cae2491a52e5dc87cb13d7db9d5632a55a5ea25469c4",
+      "after_sha256": "068790f5c1125b0bbcfc419e30bbf58610b87bd5f1e383fff795d2d14dcc6f17"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "6d92df2585c8971a34857aded7db934f64db8e26feb72b432d90f2ec3624c335",
+      "after_sha256": "5558b9fafb9e0cf41ba347ed8452b0e061dbfe1187bc6dc236af5b1d9a9623aa"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "5bb3a66684a16c0f69011da81828e3e0f5524c11034e01c2472140230701ffa0",
+      "after_sha256": "80a5cc879fb06939f693fac56515318e1faeb9866bb269a0e7813a66a09268a2"
+    },
+    "Tools/test_war_ai_fixes.py": {
+      "before_sha256": null,
+      "after_sha256": "731bdb0341d45af0cf3e9ac13f18c4d3eec7567be4780d7f3a984ca7e5045f51"
+    }
+  },
+  "validation": {
+    "regression_suite": "34 isolated checks pass on the tested tree (fixes/war-ai-fixes-regression.log)",
+    "tests_fail_before": "all 4 tests of Tools/test_war_ai_fixes.py fail on the base (fixes/war-ai-fixes-before.log)",
+    "build": "MSVC 2003 release, 0 errors, 0 warnings, 2451 exports identical to 0018"
+  },
+  "landed": {
+    "merge_request": "https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/44",
+    "commit": "76f44dff94086e95c2c2fe0035accd2ae33092e5",
+    "merge_commit": "f989c93a69c1b7e8b8d28c1265c141b472bb8373",
+    "note": "GitLab's commit carries the same diff as the tested commit."
+  },
+  "build": "builds/0019/provenance.json"
+}

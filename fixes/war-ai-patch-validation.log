@@ -1,0 +1,13 @@
+# fixes/apply.py on a clean checkout of GitLab main 69a610f (tree b59649d4)
+Patch checksum, base files and indexed application check passed; no files changed.
+check exit 0
+Applied and staged the source fixes; every changed file matches the tested content.
+Run python3 Tools/run_regression_suite.py in the source checkout.
+The bundled DLL is unchanged. New version-6 saves require a rebuilt DLL.
+apply exit 0
+tree after apply: 2cab41257f72cc37d230345c87c1e83ef37c2251
+tested tree:      2cab41257f72cc37d230345c87c1e83ef37c2251
+
+# regression suite on the applied tree
+
+Ran 33 isolated checks in 39.08s; 0 failed.

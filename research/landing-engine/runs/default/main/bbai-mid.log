@@ -1,0 +1,578 @@
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 0
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 0 cities, 0 pop, 0 power, 0 tech percent
+    Team 0 has met: 
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 0
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 1
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 2
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 3
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 4
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 5
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 6
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 7
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 8
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 9
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 10
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 11
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 12
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 13
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 14
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 15
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 16
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 17
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 18
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 19
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 20
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 21
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 22
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 23
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 24
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 25
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 26
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 27
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 28
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 29
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 30
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 31
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 32
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 33
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 34
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 35
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 36
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 37
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 38
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 39
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 40
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 41
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 42
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 43
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 44
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 45
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 46
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 47
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 48
+  Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) declares war on team 49
+    Team 0 (TXT_KEY_CIV_ENGLAND_DESC) acquires tech TXT_KEY_TECH_FISHING
+    Team 0 (TXT_KEY_CIV_ENGLAND_DESC) acquires tech TXT_KEY_TECH_THE_WHEEL
+    Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) acquires tech TXT_KEY_TECH_THE_WHEEL
+    Team 0 (TXT_KEY_CIV_ENGLAND_DESC) acquires tech TXT_KEY_TECH_AGRICULTURE
+    Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) acquires tech TXT_KEY_TECH_AGRICULTURE
+    Team 0 (TXT_KEY_CIV_ENGLAND_DESC) acquires tech TXT_KEY_TECH_HUNTING
+    Team 0 (TXT_KEY_CIV_ENGLAND_DESC) acquires tech TXT_KEY_TECH_MINING
+    Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) acquires tech TXT_KEY_TECH_MINING
+    Settler 8192: SETTLEMENT_SEARCH candidates 11, examined 11, utility 412, sea 1
+    Settler ferry to 21,6: walking 2147483647, sea including transfers 5
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) agenda -1 -> 2 score 580 on turn 0
+      Player 0 unit TXT_KEY_UNIT_SLAVE delivery readiness 35% for tech TXT_KEY_TECH_SLAVERY
+      Player 0 agenda 2 adds 175 to tech TXT_KEY_TECH_SLAVERY
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_SLAVERY: value 209789, base 209789, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_MYSTICISM: value 1165473, base 1165473, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_NATUROPATHY: value 892421, base 892421, path 1, effective turns x100 0
+      Player 0 trade building TXT_KEY_BUILDING_PETRA from tech TXT_KEY_TECH_PRIESTHOOD: eligible 1, routes 1, weightedYield100 80, value 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_PRIESTHOOD: value 100199, base 130695, path 2, effective turns x100 3000
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_BLOOD_CULT: value 13939, base 17622, path 2, effective turns x100 3350
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_CASTE_SYSTEM: value 36971, base 45745, path 3, effective turns x100 7300
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_POTTERY: value 172075, base 172075, path 1, effective turns x100 0
+      Player 0 trade building TXT_KEY_BUILDING_MARKET from tech TXT_KEY_TECH_TRADE: eligible 1, routes 0, weightedYield100 0, value 0
+      Player 0 trade building TXT_KEY_BUILDING_SILK_ROAD from tech TXT_KEY_TECH_TRADE: eligible 1, routes 1, weightedYield100 80, value 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_TRADE: value 124506, base 193774, path 3, effective turns x100 5525
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_FERMENTATION: value 23753, base 34564, path 3, effective turns x100 5675
+      Player 0 trade building TXT_KEY_BUILDING_LIGHTHOUSE from tech TXT_KEY_TECH_SAILING: eligible 1, routes 0, weightedYield100 0, value 0
+      Player 0 trade building TXT_KEY_BUILDING_RIVER_PORT from tech TXT_KEY_TECH_SAILING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_SAILING: value 279641, base 279641, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_NAVAL_WARFARE: value 19524, base 33083, path 3, effective turns x100 6100
+      Player 0 trade building TXT_KEY_BUILDING_HARBOR from tech TXT_KEY_TECH_SEAFARING: eligible 1, routes 2, weightedYield100 160, value 8
+      Player 0 trade building TXT_KEY_BUILDING_GREAT_LIGHTHOUSE from tech TXT_KEY_TECH_SEAFARING: eligible 1, routes 1, weightedYield100 80, value 1
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_SEAFARING: value 50926, base 104868, path 4, effective turns x100 7825
+      Player 0 trade building TXT_KEY_BUILDING_COURIER_SYSTEM from tech TXT_KEY_TECH_WRITING: eligible 1, routes 1, weightedYield100 80, value 1
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_WRITING: value 98477, base 227256, path 6, effective turns x100 9000
+      Player 0 unit TXT_KEY_UNIT_ARCHER delivery readiness 35% for tech TXT_KEY_TECH_ARCHERY
+      Player 0 unique unit TXT_KEY_UNIT_ENGLISH_LONGBOWMAN from tech TXT_KEY_TECH_ARCHERY: quality 10, urgency 100, value 500
+      Player 0 unit TXT_KEY_UNIT_ARCHER_ROME delivery readiness 35% for tech TXT_KEY_TECH_ARCHERY
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_ARCHERY: value 45018, base 45018, path 1, effective turns x100 0
+      Player 0 trade building TXT_KEY_BUILDING_TEMPEL_ENLIL from tech TXT_KEY_TECH_MASONRY: eligible 1, routes 1, weightedYield100 80, value 3
+      Player 0 trade building TXT_KEY_TOWN_ESSENTIALS from tech TXT_KEY_TECH_MASONRY: eligible 1, routes 1, weightedYield100 80, value 4
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_MASONRY: value 233163, base 233163, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_CEREMONIAL_BURIAL: value 76028, base 95381, path 2, effective turns x100 3450
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_SCULPTURE: value 4642, base 6770, path 3, effective turns x100 7000
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_ANIMAL_HUSBANDRY: value 567304, base 567304, path 1, effective turns x100 0
+      Player 0 unit TXT_KEY_UNIT_CHARIOT delivery readiness 21% for tech TXT_KEY_TECH_CHARIOTRY
+      Player 0 unit TXT_KEY_UNIT_CELTIC_CHARIOT delivery readiness 60% for tech TXT_KEY_TECH_CHARIOTRY
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_CHARIOTRY: value 31245, base 37104, path 2, effective turns x100 5700
+      Player 0 unit TXT_KEY_UNIT_AXEMAN delivery readiness 60% for tech TXT_KEY_TECH_BRONZE_WORKING
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_BRONZE_WORKING: value 14784, base 26848, path 5, effective turns x100 11350
+      Player 0 unit TXT_KEY_UNIT_WARDOG delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 unit TXT_KEY_UNIT_SEARAIDER delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 unit TXT_KEY_UNIT_CELTIC_SWORDSMAN delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 unit TXT_KEY_UNIT_WARLORDIS delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 unit TXT_KEY_UNIT_WARLORDI delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_MILITARY_TRAINING: value 31411, base 68250, path 6, effective turns x100 14775
+      Player 0 unit TXT_KEY_UNIT_HORSEMAN delivery readiness 21% for tech TXT_KEY_TECH_HORSEBACK_RIDING
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_HORSEBACK_RIDING: value 3753, base 5694, path 3, effective turns x100 8950
+      Player 0 unit TXT_KEY_UNIT_ELEPHANT_RIDER delivery readiness 21% for tech TXT_KEY_TECH_ELEPHANT_RIDING
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_ELEPHANT_RIDING: value 2903, base 3280, path 2, effective turns x100 7850
+      Player 0 trade building TXT_KEY_BUILDING_JEWELLERY from tech TXT_KEY_TECH_METAL_CASTING: eligible 1, routes 0, weightedYield100 0, value 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_METAL_CASTING: value 174624, base 339810, path 4, effective turns x100 7200
+      Player 0 trade building TXT_KEY_BUILDING_CELTIC_SHRINE from tech TXT_KEY_TECH_RELIGION_CELTIC: eligible 1, routes 1, weightedYield100 80, value 16
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_RELIGION_CELTIC: value 160843, base 233483, path 2, effective turns x100 2250
+  Player 0 (TXT_KEY_CIV_ENGLAND_DESC) selects tech TXT_KEY_TECH_MYSTICISM with value 1165473
+      City TXT_KEY_CITY_NAME_LONDON pop 2 considering new production: iProdRank 1, iBuildUnitProb 0
+    City TXT_KEY_CITY_NAME_LONDON pushes production of building TXT_KEY_SETTLEMENT_ESSENTIALS
+      City TXT_KEY_CITY_NAME_LONDON uses choose BUILDINGFOCUS_FOOD 1
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 0
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 207 (207 with others reduction)
+      Player 50 unit TXT_KEY_UNIT_SLAVE delivery readiness 35% for tech TXT_KEY_TECH_SLAVERY
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_SLAVERY: value 25399, base 34073, path 2, effective turns x100 5500
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_MYSTICISM: value 228073, base 228073, path 1, effective turns x100 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_NATUROPATHY: value 180017, base 241487, path 2, effective turns x100 5500
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_PRIESTHOOD: value 5417, base 7408, path 2, effective turns x100 6700
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_POLYTHEISM: value 9, base 12, path 2, effective turns x100 9500
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_CASTE_SYSTEM: value 1122, base 1446, path 3, effective turns x100 17900
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_FISHING: value 278818, base 278818, path 1, effective turns x100 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_POTTERY: value 34593, base 34593, path 1, effective turns x100 0
+      Player 50 trade building TXT_KEY_BUILDING_MARKET from tech TXT_KEY_TECH_TRADE: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_TRADE: value 16155, base 26050, path 3, effective turns x100 12900
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_FERMENTATION: value 8060, base 13344, path 4, effective turns x100 14900
+      Player 50 trade building TXT_KEY_BUILDING_LIGHTHOUSE from tech TXT_KEY_TECH_SAILING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 trade building TXT_KEY_BUILDING_RIVER_PORT from tech TXT_KEY_TECH_SAILING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_SAILING: value 32428, base 38324, path 2, effective turns x100 9100
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_NAVAL_WARFARE: value 1834, base 3821, path 5, effective turns x100 17500
+      Player 50 trade building TXT_KEY_BUILDING_HARBOR from tech TXT_KEY_TECH_SEAFARING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_SEAFARING: value 1989, base 4609, path 5, effective turns x100 20150
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_WRITING: value 16096, base 38472, path 6, effective turns x100 21750
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_HUNTING: value 341606, base 341606, path 1, effective turns x100 0
+      Player 50 unit TXT_KEY_UNIT_ARCHER delivery readiness 35% for tech TXT_KEY_TECH_ARCHERY
+      Player 50 unit TXT_KEY_UNIT_ARCHER_ROME delivery readiness 35% for tech TXT_KEY_TECH_ARCHERY
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_ARCHERY: value 36287, base 44898, path 2, effective turns x100 7300
+      Player 50 trade building TXT_KEY_BUILDING_TEMPEL_ENLIL from tech TXT_KEY_TECH_MASONRY: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 trade building TXT_KEY_TOWN_ESSENTIALS from tech TXT_KEY_TECH_MASONRY: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_MASONRY: value 45241, base 45241, path 1, effective turns x100 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_CEREMONIAL_BURIAL: value 2511, base 3241, path 2, effective turns x100 8000
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_SCULPTURE: value 5, base 8, path 3, effective turns x100 16850
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_ANIMAL_HUSBANDRY: value 66755, base 66755, path 1, effective turns x100 0
+      Player 50 unit TXT_KEY_UNIT_CELTIC_CHARIOT delivery readiness 60% for tech TXT_KEY_TECH_CHARIOTRY
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_CHARIOTRY: value 10895, base 13017, path 2, effective turns x100 13500
+      Player 50 unit TXT_KEY_UNIT_AXEMAN delivery readiness 60% for tech TXT_KEY_TECH_BRONZE_WORKING
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_BRONZE_WORKING: value 10308, base 19060, path 5, effective turns x100 27550
+      Player 50 unit TXT_KEY_UNIT_HORSEMAN delivery readiness 21% for tech TXT_KEY_TECH_HORSEBACK_RIDING
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_HORSEBACK_RIDING: value 980, base 1517, path 3, effective turns x100 21500
+      Player 50 unit TXT_KEY_UNIT_ELEPHANT_RIDER delivery readiness 21% for tech TXT_KEY_TECH_ELEPHANT_RIDING
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_ELEPHANT_RIDING: value 1115, base 1263, path 2, effective turns x100 18900
+      Player 50 trade building TXT_KEY_BUILDING_JEWELLERY from tech TXT_KEY_TECH_METAL_CASTING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_METAL_CASTING: value 55888, base 112764, path 4, effective turns x100 17150
+  Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) selects tech TXT_KEY_TECH_HUNTING with value 341606
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 1
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 2 pop, 17 power, 100 tech percent
+    Team 0 has met: 
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+      City TXT_KEY_CITY_NAME_LONDON pop 1 considering new production: iProdRank 1, iBuildUnitProb 0
+    City TXT_KEY_CITY_NAME_LONDON pushes production of unit TXT_KEY_UNIT_WORKER with UNITAI worker
+      City TXT_KEY_CITY_NAME_LONDON satisfies foundation worker contract
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 1
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 2
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 2
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 3
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 3
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 4
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 4
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 5
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 5
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 6
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 6
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 7
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 7
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 8
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 8
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 9
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 9
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 10
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 10
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 11
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 11
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 12
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 12
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 13
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 13
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 14
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 14
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 15
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 15
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 16
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 16
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 17
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 17
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 18
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 18
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 19
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 19
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 20
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 20
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 21
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    City TXT_KEY_CITY_NAME_LONDON finishes production of unit TXT_KEY_UNIT_WORKER with UNITAI worker
+      City TXT_KEY_CITY_NAME_LONDON pop 1 considering new production: iProdRank 1, iBuildUnitProb 0
+    City TXT_KEY_CITY_NAME_LONDON pushes production of building TXT_KEY_SETTLEMENT_ESSENTIALS
+      City TXT_KEY_CITY_NAME_LONDON uses choose BUILDINGFOCUS_FOOD 1
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 21
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 22
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 22
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 23
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Team 0 (TXT_KEY_CIV_ENGLAND_DESC) acquires tech TXT_KEY_TECH_MYSTICISM
+      City TXT_KEY_CITY_NAME_LONDON pop 1 considering new production: iProdRank 1, iBuildUnitProb 0
+    City TXT_KEY_CITY_NAME_LONDON pushes production of building TXT_KEY_BUILDING_MONUMENT
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 23
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 24
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+      Player 0 unit TXT_KEY_UNIT_SLAVE delivery readiness 35% for tech TXT_KEY_TECH_SLAVERY
+      Player 0 agenda 2 adds 175 to tech TXT_KEY_TECH_SLAVERY
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_SLAVERY: value 112303, base 112303, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_NATUROPATHY: value 676212, base 676212, path 1, effective turns x100 0
+      Player 0 trade building TXT_KEY_BUILDING_PETRA from tech TXT_KEY_TECH_PRIESTHOOD: eligible 1, routes 1, weightedYield100 80, value 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_PRIESTHOOD: value 73317, base 73317, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_BLOOD_CULT: value 9729, base 9729, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_CASTE_SYSTEM: value 13148, base 14778, path 2, effective turns x100 12700
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_MONARCHY: value 3412, base 5726, path 6, effective turns x100 29700
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_POTTERY: value 95000, base 95000, path 1, effective turns x100 0
+      Player 0 trade building TXT_KEY_BUILDING_MARKET from tech TXT_KEY_TECH_TRADE: eligible 1, routes 0, weightedYield100 0, value 0
+      Player 0 trade building TXT_KEY_BUILDING_SILK_ROAD from tech TXT_KEY_TECH_TRADE: eligible 1, routes 1, weightedYield100 80, value 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_TRADE: value 33355, base 53318, path 3, effective turns x100 10550
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_FERMENTATION: value 12423, base 18465, path 3, effective turns x100 10850
+      Player 0 trade building TXT_KEY_BUILDING_LIGHTHOUSE from tech TXT_KEY_TECH_SAILING: eligible 1, routes 0, weightedYield100 0, value 0
+      Player 0 trade building TXT_KEY_BUILDING_RIVER_PORT from tech TXT_KEY_TECH_SAILING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_SAILING: value 156709, base 156709, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_NAVAL_WARFARE: value 10179, base 17776, path 3, effective turns x100 11700
+      Player 0 trade building TXT_KEY_BUILDING_HARBOR from tech TXT_KEY_TECH_SEAFARING: eligible 1, routes 2, weightedYield100 160, value 8
+      Player 0 trade building TXT_KEY_BUILDING_GREAT_LIGHTHOUSE from tech TXT_KEY_TECH_SEAFARING: eligible 1, routes 1, weightedYield100 80, value 1
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_SEAFARING: value 26303, base 56126, path 4, effective turns x100 15150
+      Player 0 trade building TXT_KEY_BUILDING_COURIER_SYSTEM from tech TXT_KEY_TECH_WRITING: eligible 1, routes 1, weightedYield100 80, value 1
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_WRITING: value 55049, base 121410, path 5, effective turns x100 16100
+      Player 0 unit TXT_KEY_UNIT_BALLISTA delivery readiness 35% for tech TXT_KEY_TECH_MATHEMATICS
+      Player 0 unit TXT_KEY_UNIT_BALLISTA_ROME delivery readiness 35% for tech TXT_KEY_TECH_MATHEMATICS
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_MATHEMATICS: value 7419, base 12313, path 6, effective turns x100 30700
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_ALPHABET: value 786, base 1329, path 6, effective turns x100 29900
+      Player 0 unit TXT_KEY_UNIT_ARCHER delivery readiness 35% for tech TXT_KEY_TECH_ARCHERY
+      Player 0 unique unit TXT_KEY_UNIT_ENGLISH_LONGBOWMAN from tech TXT_KEY_TECH_ARCHERY: quality 10, urgency 100, value 500
+      Player 0 unit TXT_KEY_UNIT_ARCHER_ROME delivery readiness 35% for tech TXT_KEY_TECH_ARCHERY
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_ARCHERY: value 24854, base 24854, path 1, effective turns x100 0
+      Player 0 trade building TXT_KEY_BUILDING_TEMPEL_ENLIL from tech TXT_KEY_TECH_MASONRY: eligible 1, routes 1, weightedYield100 80, value 3
+      Player 0 trade building TXT_KEY_TOWN_ESSENTIALS from tech TXT_KEY_TECH_MASONRY: eligible 1, routes 1, weightedYield100 80, value 4
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_MASONRY: value 128240, base 128240, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_CEREMONIAL_BURIAL: value 52460, base 52460, path 1, effective turns x100 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_SCULPTURE: value 2407, base 3571, path 3, effective turns x100 13500
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_ANIMAL_HUSBANDRY: value 368609, base 368609, path 1, effective turns x100 0
+      Player 0 unit TXT_KEY_UNIT_CHARIOT delivery readiness 21% for tech TXT_KEY_TECH_CHARIOTRY
+      Player 0 unit TXT_KEY_UNIT_CELTIC_CHARIOT delivery readiness 60% for tech TXT_KEY_TECH_CHARIOTRY
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_CHARIOTRY: value 16339, base 19571, path 2, effective turns x100 10900
+      Player 0 unit TXT_KEY_UNIT_AXEMAN delivery readiness 60% for tech TXT_KEY_TECH_BRONZE_WORKING
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_BRONZE_WORKING: value 7558, base 13983, path 5, effective turns x100 22200
+      Player 0 unit TXT_KEY_UNIT_WARDOG delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 unit TXT_KEY_UNIT_SEARAIDER delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 unit TXT_KEY_UNIT_CELTIC_SWORDSMAN delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 unit TXT_KEY_UNIT_WARLORDIS delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 unit TXT_KEY_UNIT_WARLORDI delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_MILITARY_TRAINING: value 14323, base 31763, path 6, effective turns x100 29050
+      Player 0 unit TXT_KEY_UNIT_HORSEMAN delivery readiness 21% for tech TXT_KEY_TECH_HORSEBACK_RIDING
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_HORSEBACK_RIDING: value 1930, base 2973, path 3, effective turns x100 17400
+      Player 0 unit TXT_KEY_UNIT_ELEPHANT_RIDER delivery readiness 21% for tech TXT_KEY_TECH_ELEPHANT_RIDING
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_ELEPHANT_RIDING: value 1499, base 1701, path 2, effective turns x100 15200
+      Player 0 trade building TXT_KEY_BUILDING_JEWELLERY from tech TXT_KEY_TECH_METAL_CASTING: eligible 1, routes 0, weightedYield100 0, value 0
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_METAL_CASTING: value 73186, base 147434, path 4, effective turns x100 13900
+      Player 0 trade building TXT_KEY_BUILDING_CELTIC_SHRINE from tech TXT_KEY_TECH_RELIGION_CELTIC: eligible 1, routes 1, weightedYield100 80, value 16
+      Player 0 (TXT_KEY_CIV_ENGLAND_DESC) consider tech TXT_KEY_TECH_RELIGION_CELTIC: value 199115, base 199115, path 1, effective turns x100 0
+  Player 0 (TXT_KEY_CIV_ENGLAND_DESC) selects tech TXT_KEY_TECH_NATUROPATHY with value 676212
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 24
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 25
+
+  Total Score: 0, Population Score: 1 (1 total pop), Land Score: 6, Tech Score: 6, Wonder Score: 0
+  Economy avg: 1,  Industry avg: 2,  Agriculture avg: 3
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 25
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 26
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 26
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 27
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 27
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 6 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 195 (195 with others reduction)
+    Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) acquires tech TXT_KEY_TECH_FISHING
+    Team 50 (TXT_KEY_CIV_BARBARIAN_DESC) acquires tech TXT_KEY_TECH_HUNTING
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 28
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 28
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 8 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 146 (146 with others reduction)
+      Player 50 unit TXT_KEY_UNIT_SLAVE delivery readiness 35% for tech TXT_KEY_TECH_SLAVERY
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_SLAVERY: value 34073, base 34073, path 1, effective turns x100 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_MYSTICISM: value 259750, base 259750, path 1, effective turns x100 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_NATUROPATHY: value 241487, base 241487, path 1, effective turns x100 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_PRIESTHOOD: value 5417, base 7408, path 2, effective turns x100 6700
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_POLYTHEISM: value 9, base 12, path 2, effective turns x100 9500
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_CASTE_SYSTEM: value 1148, base 1446, path 3, effective turns x100 17500
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_POTTERY: value 34593, base 34593, path 1, effective turns x100 0
+      Player 50 trade building TXT_KEY_BUILDING_MARKET from tech TXT_KEY_TECH_TRADE: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_TRADE: value 16155, base 26050, path 3, effective turns x100 12900
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_FERMENTATION: value 8896, base 13344, path 3, effective turns x100 13500
+      Player 50 trade building TXT_KEY_BUILDING_LIGHTHOUSE from tech TXT_KEY_TECH_SAILING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 trade building TXT_KEY_BUILDING_RIVER_PORT from tech TXT_KEY_TECH_SAILING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_SAILING: value 38324, base 38324, path 1, effective turns x100 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_NAVAL_WARFARE: value 2183, base 3821, path 3, effective turns x100 14700
+      Player 50 trade building TXT_KEY_BUILDING_HARBOR from tech TXT_KEY_TECH_SEAFARING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_SEAFARING: value 2138, base 4609, path 4, effective turns x100 18750
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_WRITING: value 16096, base 38472, path 6, effective turns x100 21750
+      Player 50 unit TXT_KEY_UNIT_ARCHER delivery readiness 35% for tech TXT_KEY_TECH_ARCHERY
+      Player 50 unit TXT_KEY_UNIT_ARCHER_ROME delivery readiness 35% for tech TXT_KEY_TECH_ARCHERY
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_ARCHERY: value 44898, base 44898, path 1, effective turns x100 0
+      Player 50 trade building TXT_KEY_BUILDING_TEMPEL_ENLIL from tech TXT_KEY_TECH_MASONRY: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 trade building TXT_KEY_TOWN_ESSENTIALS from tech TXT_KEY_TECH_MASONRY: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_MASONRY: value 45241, base 45241, path 1, effective turns x100 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_CEREMONIAL_BURIAL: value 2511, base 3241, path 2, effective turns x100 8000
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_SCULPTURE: value 5, base 8, path 3, effective turns x100 16850
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_ANIMAL_HUSBANDRY: value 66755, base 66755, path 1, effective turns x100 0
+      Player 50 unit TXT_KEY_UNIT_CELTIC_CHARIOT delivery readiness 60% for tech TXT_KEY_TECH_CHARIOTRY
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_CHARIOTRY: value 10895, base 13017, path 2, effective turns x100 13500
+      Player 50 unit TXT_KEY_UNIT_AXEMAN delivery readiness 60% for tech TXT_KEY_TECH_BRONZE_WORKING
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_BRONZE_WORKING: value 10308, base 19060, path 5, effective turns x100 27550
+      Player 50 unit TXT_KEY_UNIT_WARDOG delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 50 unit TXT_KEY_UNIT_SEARAIDER delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 50 unit TXT_KEY_UNIT_CELTIC_SWORDSMAN delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 50 unit TXT_KEY_UNIT_WARLORDIS delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 50 unit TXT_KEY_UNIT_WARLORDI delivery readiness 60% for tech TXT_KEY_TECH_MILITARY_TRAINING
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_MILITARY_TRAINING: value 6580, base 14595, path 6, effective turns x100 36150
+      Player 50 unit TXT_KEY_UNIT_HORSEMAN delivery readiness 21% for tech TXT_KEY_TECH_HORSEBACK_RIDING
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_HORSEBACK_RIDING: value 980, base 1517, path 3, effective turns x100 21500
+      Player 50 unit TXT_KEY_UNIT_ELEPHANT_RIDER delivery readiness 21% for tech TXT_KEY_TECH_ELEPHANT_RIDING
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_ELEPHANT_RIDING: value 1115, base 1263, path 2, effective turns x100 18900
+      Player 50 trade building TXT_KEY_BUILDING_JEWELLERY from tech TXT_KEY_TECH_METAL_CASTING: eligible 0, routes 0, weightedYield100 0, value 0
+      Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) consider tech TXT_KEY_TECH_METAL_CASTING: value 55888, base 112764, path 4, effective turns x100 17150
+  Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) selects tech TXT_KEY_TECH_MYSTICISM with value 259750
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 29
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 29
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 8 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 146 (146 with others reduction)
+Player 0 (TXT_KEY_CIV_ENGLAND_DESC) setTurnActive for turn 30
+    Player 0 (TXT_KEY_CIV_ENGLAND_DESC) has 1 cities, 1 pop, 16 power, 100 tech percent
+    Team 0 has met: 
+    Settler transport 32771: MISSING_ESCORT_OR_CAPACITY
+    Passenger 24578: WAIT_TRANSPORT 32771, ship role 29, mission 18
+    Passenger 8192: WAIT_TRANSPORT 32771, ship role 29, mission 18
+Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) setTurnActive for turn 30
+    Player 50 (TXT_KEY_CIV_BARBARIAN_DESC) has 0 cities, 0 pop, 8 power, 0 tech percent
+    Team 50 has met: 0,;  at war with: 0,;  planning war with: 
+    Enemy power perc: 146 (146 with others reduction)

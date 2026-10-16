@@ -1,0 +1,785 @@
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index 8afeecb..355975e 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -2947,6 +2947,10 @@ void CvCityAI::AI_chooseProduction()
+ 			invaderTypes.push_back(std::make_pair(UNITAI_COUNTER, 50));
+ 			invaderTypes.push_back(std::make_pair(UNITAI_ATTACK, 40));
+ 			invaderTypes.push_back(std::make_pair(UNITAI_PARADROP, (kPlayer.AI_isDoStrategy(AI_STRATEGY_AIR_BLITZ) ? 30 : 20) / (bAssault ? 2 : 1)));
++			if (isAICunning(16))
++			{
++				invaderTypes.push_back(std::make_pair(UNITAI_COLLATERAL, 40));
++			}
+ 			if (!bAssault)
+ 			{
+ 				if (kPlayer.AI_totalAreaUnitAIs(pArea, UNITAI_PILLAGE) <= ((iNumCitiesInArea + 1) / 2))
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index f0289fb..40ad54d 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -1,6 +1,11 @@
+ #include "CvGameCoreDLL.h"
+ #include "AIPathPolicy.h"
+ #include "CvGameCoreUtils.h"
++
++bool isAICunning(int iFlag)
++{
++	return (GC.getDefineINT("AI_CUNNING_FLAGS") & iFlag) != 0;
++}
+ #include <algorithm>
+ #include "CvUnit.h"
+ #include "CvGameAI.h"
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index a976c1c..65b268e 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -404,4 +404,12 @@ int calculateExperience(int iLevel, PlayerTypes ePlayer);								// Exposed to P
+ int calculateLevel(int iExperience, PlayerTypes ePlayer);								// Exposed to Python
+ // BUG - Unit Experience - end
+ 
++// War AI switches (AI_CUNNING_FLAGS in BBAI_AI_Variables_GlobalDefines.xml; 0 is the old AI):
++// 1 declare when the strike force is massed, 2 compare power that can reach the target,
++// 4 review wars by their progress, 8 employ the stack (any siege unit bombards,
++// collateral units open the assault), 16 compose the stack (collateral units join it),
++// 32 ask and accept war help only from teams near the target, 64 city archers and
++// siege fire ranged strikes at enemies next to the city.
++bool isAICunning(int iFlag);
++
+ #endif
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 64f5f41..b4bf096 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -18711,7 +18711,9 @@ void CvPlayerAI::AI_doDiplo()
+ 														{
+ 															setTradeItem(&item, TRADE_WAR, iJ);
+ 
+-															if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true))
++															// Pay only allies who can fight the enemy themselves.
++															if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true) &&
++																(!isAICunning(32) || GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).AI_isNearTarget((TeamTypes)iJ)))
+ 															{
+ 																iValue = (1 + GC.getGameINLINE().getSorenRandNum(1000, "AI Declare War Trading"));
+ 																
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+index 9595dcf..dff291c 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+@@ -4325,6 +4325,61 @@ bool CvSelectionGroup::groupDeclareWar(CvPlot* pPlot, bool bForce)
+ 
+ 
+ // Returns true if attack was made...
++// The unit to open an AI assault with: while at least two defenders on the plot
++// are unhurt and the best attacker's true odds are below 80, the healthy unit with
++// the most collateral damage softens the stack before the main attackers go in.
++static CvUnit* pickCollateralAttacker(CvSelectionGroup* pGroup, const CvPlot* pPlot, int iTrueOdds, bool bNoBlitz)
++{
++	if (iTrueOdds >= 80)
++	{
++		return NULL;
++	}
++	int iHealthy = 0;
++	CLLNode<IDInfo>* pNode = pPlot->headUnitNode();
++	while (pNode != NULL)
++	{
++		const CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
++		pNode = pPlot->nextUnitNode(pNode);
++		if (pLoopUnit != NULL && pLoopUnit->canDefend() && pLoopUnit->getDamage() == 0 &&
++			GET_TEAM(pGroup->getTeam()).isAtWar(pLoopUnit->getTeam()))
++		{
++			iHealthy++;
++		}
++	}
++	if (iHealthy < 2)
++	{
++		return NULL;
++	}
++	CvUnit* pBest = NULL;
++	int iBestValue = 0;
++	pNode = pGroup->headUnitNode();
++	while (pNode != NULL)
++	{
++		CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
++		pNode = pGroup->nextUnitNode(pNode);
++		if (pLoopUnit == NULL || pLoopUnit->isDead() || pLoopUnit->collateralDamage() <= 0 || !pLoopUnit->canAttack() || !pLoopUnit->canMove())
++		{
++			continue;
++		}
++		if (bNoBlitz && pLoopUnit->isBlitz() && pLoopUnit->isMadeAttack())
++		{
++			continue;
++		}
++		if (pLoopUnit->getDamage() * 2 > pLoopUnit->maxHitPoints() || !pLoopUnit->canMoveInto(pPlot, true))
++		{
++			continue;
++		}
++		const int iValue = pLoopUnit->collateralDamage() * std::min(iHealthy - 1, std::max(1, pLoopUnit->collateralDamageMaxUnits())) *
++			pLoopUnit->currHitPoints() / std::max(1, pLoopUnit->maxHitPoints());
++		if (iValue > iBestValue)
++		{
++			iBestValue = iValue;
++			pBest = pLoopUnit;
++		}
++	}
++	return pBest;
++}
++
+ bool CvSelectionGroup::groupAttack(int iX, int iY, int iFlags, bool& bFailedAlreadyFighting)
+ {
+ /************************************************************************************************/
+@@ -4519,7 +4574,13 @@ bool CvSelectionGroup::groupAttack(int iX, int iY, int iFlags, bool& bFailedAlre
+ 							break;
+ 						}
+ 
+-						if (iAttackOdds < 68)
++						CvUnit* pSoftener = (!isHuman() && isAICunning(8)) ? pickCollateralAttacker(this, pDestPlot,
++							iAttackOdds - GET_PLAYER(getOwnerINLINE()).AI_getAttackOddsChange(), bNoBlitz) : NULL;
++						if (pSoftener != NULL)
++						{
++							pBestAttackUnit = pSoftener;
++						}
++						else if (iAttackOdds < 68)
+ 						{
+ 						    CvUnit * pBestSacrifice = AI_getBestGroupSacrifice(pDestPlot, false, false, bNoBlitz);
+ 						    if (pBestSacrifice != NULL)
+diff --git a/Assets/CvGameCoreDLL/CvTeamAI.cpp b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+index a7622c0..6c3f65f 100644
+--- a/Assets/CvGameCoreDLL/CvTeamAI.cpp
++++ b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+@@ -63,6 +63,8 @@ CvTeamAI::CvTeamAI()
+ 	m_aiDefensivePactCounter = new int[MAX_TEAMS];
+ 	m_aiShareWarCounter = new int[MAX_TEAMS];
+ 	m_aiWarSuccess = new int[MAX_TEAMS];
++	m_aiWarSuccessAtReview = new int[MAX_TEAMS];
++	m_aiEnemyWarSuccessAtReview = new int[MAX_TEAMS];
+ 	m_aiEnemyPeacetimeTradeValue = new int[MAX_TEAMS];
+ 	m_aiEnemyPeacetimeGrantValue = new int[MAX_TEAMS];
+ 	m_aeWarPlan = new WarPlanTypes[MAX_TEAMS];
+@@ -84,6 +86,8 @@ CvTeamAI::~CvTeamAI()
+ 	SAFE_DELETE_ARRAY(m_aiDefensivePactCounter);
+ 	SAFE_DELETE_ARRAY(m_aiShareWarCounter);
+ 	SAFE_DELETE_ARRAY(m_aiWarSuccess);
++	SAFE_DELETE_ARRAY(m_aiWarSuccessAtReview);
++	SAFE_DELETE_ARRAY(m_aiEnemyWarSuccessAtReview);
+ 	SAFE_DELETE_ARRAY(m_aiEnemyPeacetimeTradeValue);
+ 	SAFE_DELETE_ARRAY(m_aiEnemyPeacetimeGrantValue);
+ 	SAFE_DELETE_ARRAY(m_aeWarPlan);
+@@ -120,6 +124,8 @@ void CvTeamAI::AI_reset(bool bConstructor)
+ 		m_aiDefensivePactCounter[iI] = 0;
+ 		m_aiShareWarCounter[iI] = 0;
+ 		m_aiWarSuccess[iI] = 0;
++		m_aiWarSuccessAtReview[iI] = 0;
++		m_aiEnemyWarSuccessAtReview[iI] = 0;
+ 		m_aiEnemyPeacetimeTradeValue[iI] = 0;
+ 		m_aiEnemyPeacetimeGrantValue[iI] = 0;
+ 		m_aeWarPlan[iI] = NO_WARPLAN;
+@@ -3339,7 +3345,24 @@ DenialTypes CvTeamAI::AI_declareWarTrade(TeamTypes eWarTeam, TeamTypes eTeam, bo
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+ 
+-	if (bConsiderPower)
++	if (bConsiderPower && isAICunning(32))
++	{
++		// Join only if we can fight the target ourselves: cities near its cities, or at
++		// least half its defence already in its areas. And only if our forces and the
++		// ally's together match its defence where it can be fought.
++		const int iDefence = GET_TEAM(eWarTeam).AI_getReachableDefence();
++		const int iOurReach = AI_getReachablePower(eWarTeam);
++		const int iAllyReach = atWar(eWarTeam, eTeam) ? GET_TEAM(eTeam).AI_getReachablePower(eWarTeam) : 0;
++		if (!AI_isNearTarget(eWarTeam) && 2 * iOurReach < iDefence)
++		{
++			return DENIAL_NO_GAIN;
++		}
++		if (iDefence > iOurReach + iAllyReach)
++		{
++			return AI_isAllyLandTarget(eWarTeam) ? DENIAL_POWER_THEM : DENIAL_NO_GAIN;
++		}
++	}
++	else if (bConsiderPower)
+ 	{
+ 		bLandTarget = AI_isAllyLandTarget(eWarTeam);
+ 
+@@ -3939,6 +3962,212 @@ bool CvTeamAI::AI_isSneakAttackReady(TeamTypes eIndex) const
+ 	return (AI_isChosenWar(eIndex) && !(AI_isSneakAttackPreparing(eIndex)));
+ }
+ 
++// Whether enough of the strike force stands at the target's border to start the
++// war: the share of our offensive land units, in areas that hold the target's
++// cities, within three plots of the target's territory. Leaders who want a larger
++// power edge before a war (a lower nearby power ratio) also want more of the army
++// in place: 40 to 70 percent, and at least four units. Overseas targets keep the
++// timer, since their armies gather on transports.
++bool CvTeamAI::AI_isStrikeForceReady(TeamTypes eTarget) const
++{
++	if (!AI_isLandTarget(eTarget))
++	{
++		return true;
++	}
++
++	int iTotal = 0;
++	int iNear = 0;
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; iPlayer++)
++	{
++		CvPlayerAI& kPlayer = GET_PLAYER((PlayerTypes)iPlayer);
++		if (!kPlayer.isAlive() || kPlayer.getTeam() != getID())
++		{
++			continue;
++		}
++		int iLoop;
++		for (CvUnit* pUnit = kPlayer.firstUnit(&iLoop); pUnit != NULL; pUnit = kPlayer.nextUnit(&iLoop))
++		{
++			if (pUnit->getDomainType() != DOMAIN_LAND || pUnit->plot() == NULL || !pUnit->canAttack())
++			{
++				continue;
++			}
++			const UnitAITypes eAI = pUnit->AI_getUnitAIType();
++			if (eAI != UNITAI_ATTACK_CITY && eAI != UNITAI_ATTACK && eAI != UNITAI_COLLATERAL && eAI != UNITAI_COUNTER)
++			{
++				continue;
++			}
++			CvArea* pArea = pUnit->area();
++			if (pArea == NULL || GET_TEAM(eTarget).countNumCitiesByArea(pArea) == 0)
++			{
++				continue;
++			}
++			iTotal++;
++			bool bNear = false;
++			for (int iDX = -3; iDX <= 3 && !bNear; iDX++)
++			{
++				for (int iDY = -3; iDY <= 3 && !bNear; iDY++)
++				{
++					const CvPlot* pLoopPlot = plotXY(pUnit->getX_INLINE(), pUnit->getY_INLINE(), iDX, iDY);
++					bNear = (pLoopPlot != NULL && pLoopPlot->getTeam() == eTarget && pLoopPlot->area() == pArea);
++				}
++			}
++			if (bNear)
++			{
++				iNear++;
++			}
++		}
++	}
++
++	const int iShare = range(40 + (30 * (130 - AI_maxWarNearbyPowerRatio())) / 50, 40, 70);
++	return (iNear >= 4) && (iNear * 100 >= iShare * iTotal);
++}
++
++// Whether we can fight eTarget on land soon: a shared border, or one of our cities
++// within eight plots of one of its cities on the same landmass. A large unclaimed
++// continent makes AI_isLandTarget true for every team on it; this does not.
++bool CvTeamAI::AI_isNearTarget(TeamTypes eTarget) const
++{
++	if (AI_calculateAdjacentLandPlots(eTarget) >= 8)
++	{
++		return true;
++	}
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; iPlayer++)
++	{
++		CvPlayer& kPlayer = GET_PLAYER((PlayerTypes)iPlayer);
++		if (!kPlayer.isAlive() || kPlayer.getTeam() != getID())
++		{
++			continue;
++		}
++		int iLoop;
++		for (CvCity* pCity = kPlayer.firstCity(&iLoop); pCity != NULL; pCity = kPlayer.nextCity(&iLoop))
++		{
++			for (int iOther = 0; iOther < MAX_CIV_PLAYERS; iOther++)
++			{
++				CvPlayer& kOther = GET_PLAYER((PlayerTypes)iOther);
++				if (!kOther.isAlive() || kOther.getTeam() != eTarget)
++				{
++					continue;
++				}
++				int iOtherLoop;
++				for (CvCity* pOther = kOther.firstCity(&iOtherLoop); pOther != NULL; pOther = kOther.nextCity(&iOtherLoop))
++				{
++					if (pOther->area() == pCity->area() &&
++						plotDistance(pCity->getX_INLINE(), pCity->getY_INLINE(), pOther->getX_INLINE(), pOther->getY_INLINE()) <= 8)
++					{
++						return true;
++					}
++				}
++			}
++		}
++	}
++	return false;
++}
++
++namespace
++{
++	// Land unit power of a team and its vassals in the land areas that hold eTarget's cities.
++	int powerInTargetAreas(TeamTypes eTeam, TeamTypes eTarget)
++	{
++		int iPower = 0;
++		int iLoop;
++		for (CvArea* pArea = GC.getMapINLINE().firstArea(&iLoop); pArea != NULL; pArea = GC.getMapINLINE().nextArea(&iLoop))
++		{
++			if (pArea->isWater() || GET_TEAM(eTarget).countNumCitiesByArea(pArea) == 0)
++			{
++				continue;
++			}
++			for (int iTeam = 0; iTeam < MAX_CIV_TEAMS; iTeam++)
++			{
++				const CvTeam& kLoopTeam = GET_TEAM((TeamTypes)iTeam);
++				if (kLoopTeam.isAlive() && (iTeam == eTeam || kLoopTeam.isVassal(eTeam)))
++				{
++					iPower += kLoopTeam.countPowerByArea(pArea);
++				}
++			}
++		}
++		return iPower;
++	}
++}
++
++// The power we can bring against eTarget on land: our units (and our vassals') in
++// the land areas that hold its cities. Garrisons on other continents do not count.
++int CvTeamAI::AI_getReachablePower(TeamTypes eTarget) const
++{
++	return powerInTargetAreas(getID(), eTarget);
++}
++
++// Our defence on land where we can be attacked: the units of the teams in
++// getDefensivePower (ourselves, our master, our defensive pacts, with vassals) in
++// the land areas that hold our cities.
++int CvTeamAI::AI_getReachableDefence() const
++{
++	int iPower = 0;
++	for (int iI = 0; iI < MAX_CIV_TEAMS; iI++)
++	{
++		const CvTeam& kLoopTeam = GET_TEAM((TeamTypes)iI);
++		if (kLoopTeam.isAlive() && !kLoopTeam.isAVassal())
++		{
++			if (getID() == iI || isVassal((TeamTypes)iI) || isDefensivePact((TeamTypes)iI))
++			{
++				iPower += powerInTargetAreas((TeamTypes)iI, getID());
++			}
++		}
++	}
++	return iPower;
++}
++
++// Review each war we chose by its progress, once per review period instead of on a
++// die roll. Patient leaders (a high make-peace rand) review less often. A war that
++// gained us at least a city's worth of war success since the last review, and more
++// than the enemy gained, goes on. Otherwise we make peace if both sides value peace
++// at least half as much as the other does (the "long draw" test).
++void CvTeamAI::AI_reviewWars()
++{
++	const int iPeriod = std::max(1, ((6 + AI_makePeaceRand() / 6) * (50 + GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getTrainPercent())) / 150);
++	const int iCityValue = std::max(1, GC.getDefineINT("WAR_SUCCESS_CITY_CAPTURING"));
++
++	for (int iI = 0; iI < MAX_CIV_TEAMS; iI++)
++	{
++		const TeamTypes eTeam = (TeamTypes)iI;
++		CvTeamAI& kTeam = GET_TEAM(eTeam);
++		if (!kTeam.isAlive() || eTeam == getID() || kTeam.isHuman() || !canContact(eTeam) || !isAtWar(eTeam))
++		{
++			continue;
++		}
++		const int iCounter = AI_getAtWarCounter(eTeam);
++		if (iCounter < iPeriod || (iCounter % iPeriod) != 0)
++		{
++			continue;
++		}
++		const bool bFirst = (iCounter == iPeriod);
++		const int iOurGain = std::max(0, AI_getWarSuccess(eTeam) - (bFirst ? 0 : m_aiWarSuccessAtReview[eTeam]));
++		const int iTheirGain = std::max(0, kTeam.AI_getWarSuccess(getID()) - (bFirst ? 0 : m_aiEnemyWarSuccessAtReview[eTeam]));
++		m_aiWarSuccessAtReview[eTeam] = AI_getWarSuccess(eTeam);
++		m_aiEnemyWarSuccessAtReview[eTeam] = kTeam.AI_getWarSuccess(getID());
++
++		if (!AI_isChosenWar(eTeam))
++		{
++			continue;   // wars made on us end through AI_doPeace
++		}
++		const bool bAloneInDogpile = (AI_getWarPlan(eTeam) == WARPLAN_DOGPILE) && (kTeam.getAtWarCount(true) == 1);
++		if (iOurGain >= iCityValue && iOurGain > iTheirGain && !bAloneInDogpile)
++		{
++			continue;
++		}
++		const int iOurValue = AI_endWarVal(eTeam);
++		const int iTheirValue = kTeam.AI_endWarVal(getID());
++		if (iTheirValue > iOurValue / 2 && (bAloneInDogpile || iOurValue > iTheirValue / 2))
++		{
++			if( gTeamLogLevel >= 1 )
++			{
++				logBBAI("  Team %d (%S) making peace after review: gain %d vs %d over %d turns, endWarVal %d vs their %d", getID(), GET_PLAYER(getLeaderID()).getCivilizationDescription(0), iOurGain, iTheirGain, iPeriod, iOurValue, iTheirValue);
++			}
++			makePeace(eTeam);
++			break;
++		}
++	}
++}
++
+ 
+ void CvTeamAI::AI_setWarPlan(TeamTypes eIndex, WarPlanTypes eNewValue, bool bWar)
+ {
+@@ -4032,6 +4261,11 @@ void CvTeamAI::read(FDataStreamBase* pStream)
+ 
+ 	pStream->Read(MAX_TEAMS, (int*)m_aeWarPlan);
+ 	pStream->Read((int*)&m_eWorstEnemy);
++	if (uiFlag >= 1)
++	{
++		pStream->Read(MAX_TEAMS, m_aiWarSuccessAtReview);
++		pStream->Read(MAX_TEAMS, m_aiEnemyWarSuccessAtReview);
++	}
+ }
+ 
+ 
+@@ -4039,7 +4273,7 @@ void CvTeamAI::write(FDataStreamBase* pStream)
+ {
+ 	CvTeam::write(pStream);
+ 
+-	uint uiFlag=0;
++	uint uiFlag=1;
+ 	pStream->Write(uiFlag);		// flag for expansion
+ 
+ 	pStream->Write(MAX_TEAMS, m_aiWarPlanStateCounter);
+@@ -4055,6 +4289,8 @@ void CvTeamAI::write(FDataStreamBase* pStream)
+ 
+ 	pStream->Write(MAX_TEAMS, (int*)m_aeWarPlan);
+ 	pStream->Write(m_eWorstEnemy);
++	pStream->Write(MAX_TEAMS, m_aiWarSuccessAtReview);
++	pStream->Write(MAX_TEAMS, m_aiEnemyWarSuccessAtReview);
+ }
+ 
+ // Protected Functions...
+@@ -4590,7 +4826,16 @@ void CvTeamAI::AI_doWar()
+ 				{
+ 					FAssert(canEventuallyDeclareWar((TeamTypes)iI));
+ 
+-					if (AI_getWarPlanStateCounter((TeamTypes)iI) > ((5 * iTimeModifier) / (bEnemyVictoryLevel4 ? 400 : 100)))
++					if (AI_getWarPlanStateCounter((TeamTypes)iI) > ((5 * iTimeModifier) / (bEnemyVictoryLevel4 ? 400 : 100))
++						&& isAICunning(1) && !bEnemyVictoryLevel4 && !AI_isStrikeForceReady((TeamTypes)iI))
++					{
++						// Wait for the strike force; give the plan up if it never gathers.
++						if (AI_getWarPlanStateCounter((TeamTypes)iI) > ((20 * iAbandonTimeModifier) / 100))
++						{
++							AI_setWarPlan(((TeamTypes)iI), NO_WARPLAN);
++						}
++					}
++					else if (AI_getWarPlanStateCounter((TeamTypes)iI) > ((5 * iTimeModifier) / (bEnemyVictoryLevel4 ? 400 : 100)))
+ 					{
+ 						if( gTeamLogLevel >= 1 )
+ 						{
+@@ -4674,7 +4919,12 @@ void CvTeamAI::AI_doWar()
+ 							}
+ 						}
+ 
+-						if ( (bAreaValid && iEnemyPowerPercent < 140) || (!bShareValid && iEnemyPowerPercent < 110) || (GET_TEAM((TeamTypes)iI).AI_getLowestVictoryCountdown() >= 0) )
++						bool bSwitch = (bAreaValid && iEnemyPowerPercent < 140) || (!bShareValid && iEnemyPowerPercent < 110);
++						if (bSwitch && isAICunning(1) && !bEnemyVictoryLevel4)
++						{
++							bSwitch = AI_isStrikeForceReady((TeamTypes)iI);
++						}
++						if ( bSwitch || (GET_TEAM((TeamTypes)iI).AI_getLowestVictoryCountdown() >= 0) )
+ 						{
+ 							if( gTeamLogLevel >= 1 )
+ 							{
+@@ -4758,7 +5008,11 @@ void CvTeamAI::AI_doWar()
+ 	
+ 	
+ 	// if at war, check for making peace
+-	if (getAtWarCount(true) > 0) // XXX
++	if (getAtWarCount(true) > 0 && isAICunning(4))
++	{
++		AI_reviewWars();
++	}
++	else if (getAtWarCount(true) > 0) // XXX
+ 	{
+ 		if (GC.getGameINLINE().getSorenRandNum(AI_makePeaceRand(), "AI Make Peace") == 0)
+ 		{
+@@ -5005,8 +5259,15 @@ void CvTeamAI::AI_doWar()
+ 										if (iNoWarRoll >= AI_noWarAttitudeProb(AI_getAttitude((TeamTypes)iI)))
+ 										{
+ 											int iDefensivePower = (GET_TEAM((TeamTypes)iI).getDefensivePower() * 2) / 3;
+-											
+-											if (iDefensivePower < ((iOurPower * ((iPass > 1) ? AI_maxWarDistantPowerRatio() : AI_maxWarNearbyPowerRatio())) / 100))
++											int iCompare = iOurPower;
++											if (isAICunning(2) && iPass <= 1)
++											{
++												// Land war: only the power in the target's areas counts, on both sides.
++												iDefensivePower = GET_TEAM((TeamTypes)iI).AI_getReachableDefence();
++												iCompare = (int)(((__int64)AI_getReachablePower((TeamTypes)iI) * iOurPower) / std::max(1, getPower(true)));
++											}
++
++											if (iDefensivePower < ((iCompare * ((iPass > 1) ? AI_maxWarDistantPowerRatio() : AI_maxWarNearbyPowerRatio())) / 100))
+ 											{
+ 												// XXX make sure they share an area....
+ 
+@@ -5087,7 +5348,10 @@ void CvTeamAI::AI_doWar()
+ 									{
+ 										if (AI_isLandTarget((TeamTypes)iI) || (AI_isAnyCapitalAreaAlone() && GET_TEAM((TeamTypes)iI).AI_isAnyCapitalAreaAlone()))
+ 										{
+-											if (GET_TEAM((TeamTypes)iI).getDefensivePower() < ((iOurPower * AI_limitedWarPowerRatio()) / 100))
++											const bool bReach = isAICunning(2);
++											const int iLimitedDefence = bReach ? GET_TEAM((TeamTypes)iI).AI_getReachableDefence() : GET_TEAM((TeamTypes)iI).getDefensivePower();
++											const int iLimitedCompare = bReach ? (int)(((__int64)AI_getReachablePower((TeamTypes)iI) * iOurPower) / std::max(1, getPower(true))) : iOurPower;
++											if (iLimitedDefence < ((iLimitedCompare * AI_limitedWarPowerRatio()) / 100))
+ 											{
+ 												iValue = AI_startWarVal((TeamTypes)iI);
+ 
+@@ -5151,7 +5415,9 @@ void CvTeamAI::AI_doWar()
+ 										{
+ 											if (AI_isLandTarget((TeamTypes)iI) || GET_TEAM((TeamTypes)iI).AI_isAnyMemberDoVictoryStrategyLevel4())
+ 											{
+-												iDogpilePower = iOurPower;
++												const bool bReach = isAICunning(2);
++												const int iOurReach = bReach ? (int)(((__int64)AI_getReachablePower((TeamTypes)iI) * iOurPower) / std::max(1, getPower(true))) : iOurPower;
++												iDogpilePower = iOurReach;
+ 
+ 												for (iJ = 0; iJ < MAX_CIV_TEAMS; iJ++)
+ 												{
+@@ -5161,7 +5427,7 @@ void CvTeamAI::AI_doWar()
+ 														{
+ 															if (atWar(((TeamTypes)iJ), ((TeamTypes)iI)))
+ 															{
+-																iDogpilePower += GET_TEAM((TeamTypes)iJ).getPower(false);
++																iDogpilePower += bReach ? GET_TEAM((TeamTypes)iJ).AI_getReachablePower((TeamTypes)iI) : GET_TEAM((TeamTypes)iJ).getPower(false);
+ 															}
+ 														}
+ 													}
+@@ -5169,7 +5435,9 @@ void CvTeamAI::AI_doWar()
+ 
+ 												FAssert(GET_TEAM((TeamTypes)iI).getPower(true) == GET_TEAM((TeamTypes)iI).getDefensivePower() || GET_TEAM((TeamTypes)iI).isAVassal());
+ 
+-												if (((GET_TEAM((TeamTypes)iI).getDefensivePower() * 3) / 2) < iDogpilePower)
++												const int iDogpileDefence = bReach ? GET_TEAM((TeamTypes)iI).AI_getReachableDefence() : GET_TEAM((TeamTypes)iI).getDefensivePower();
++												// Join only if we can fight it ourselves: a shared border or half its defence in reach.
++												if (((iDogpileDefence * 3) / 2) < iDogpilePower && (!bReach || AI_isNearTarget((TeamTypes)iI) || 2 * iOurReach >= iDogpileDefence))
+ 												{
+ 													iValue = AI_startWarVal((TeamTypes)iI);
+ 
+diff --git a/Assets/CvGameCoreDLL/CvTeamAI.h b/Assets/CvGameCoreDLL/CvTeamAI.h
+index 9022b17..9aa804e 100644
+--- a/Assets/CvGameCoreDLL/CvTeamAI.h
++++ b/Assets/CvGameCoreDLL/CvTeamAI.h
+@@ -198,6 +198,11 @@ public:
+ 	bool AI_isChosenWar(TeamTypes eIndex) const;
+ 	bool AI_isSneakAttackPreparing(TeamTypes eIndex) const;
+ 	bool AI_isSneakAttackReady(TeamTypes eIndex) const;
++	bool AI_isStrikeForceReady(TeamTypes eTarget) const;
++	bool AI_isNearTarget(TeamTypes eTarget) const;
++	int AI_getReachablePower(TeamTypes eTarget) const;
++	int AI_getReachableDefence() const;
++	void AI_reviewWars();
+ 	void AI_setWarPlan(TeamTypes eIndex, WarPlanTypes eNewValue, bool bWar = true);
+ 
+ 	int AI_teamCloseness(TeamTypes eIndex, int iMaxDistance = -1) const;
+@@ -229,6 +234,8 @@ protected:
+ 	int* m_aiDefensivePactCounter;
+ 	int* m_aiShareWarCounter;
+ 	int* m_aiWarSuccess;
++	int* m_aiWarSuccessAtReview;          // our war success against each team at the last war review
++	int* m_aiEnemyWarSuccessAtReview;     // their war success against us at the last war review
+ 	int* m_aiEnemyPeacetimeTradeValue;
+ 	int* m_aiEnemyPeacetimeGrantValue;
+ 
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 9ec8243..6dd46dd 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -246,6 +246,17 @@ bool CvUnitAI::AI_update()
+ 		return false;
+ 	}
+ 
++	// Units in our cities that have a ranged strike (archers, siege) fire at enemy
++	// units next to the city. The strike does not move them, and they still defend.
++	if (isAICunning(64) && !getGroup()->isAutomated() && getDomainType() == DOMAIN_LAND &&
++		plot()->isCity() && plot()->getOwnerINLINE() == getOwnerINLINE() && canRangeStrike())
++	{
++		if (AI_rangeAttack(1))
++		{
++			return false;
++		}
++	}
++
+ 	if (getGroup()->isAutomated())
+ 	{
+ 		switch (getGroup()->getAutomateType())
+@@ -3526,6 +3537,18 @@ void CvUnitAI::AI_collateralMove()
+ 		return;
+ 	}
+ 
++	// Collateral units (catapults, archers, horse archers) ride with the city attack stacks.
++	if (isAICunning(16))
++	{
++		const AreaAITypes eAreaAI = area()->getAreaAIType(getTeam());
++		if (eAreaAI == AREAAI_OFFENSIVE || eAreaAI == AREAAI_MASSING)
++		{
++			if (AI_group(UNITAI_ATTACK_CITY, /*iMaxGroup*/ -1, /*iMaxOwnUnitAI*/ 2, -1, false, /*bIgnoreOwnUnitType*/ true, /*bStackOfDoom*/ true, /*iMaxPath*/ 5))
++			{
++				return;
++			}
++		}
++	}
+ /************************************************************************************************/
+ /* REVOLUTIONDCM                             05/24/08                                Glider1    */
+ /*                                                                                              */
+@@ -15739,9 +15762,26 @@ bool CvUnitAI::AI_bombardCity()
+ 
+ 	CvCity* pBombardCity;
+ 
+-	if (canBombard(plot()))
++	// The stack bombards if any of its units can, not only when the head unit is a siege unit.
++	const CvUnit* pBombarder = this;
++	if (!canBombard(plot()) && isAICunning(8))
++	{
++		pBombarder = NULL;
++		CLLNode<IDInfo>* pBombardNode = getGroup()->headUnitNode();
++		while (pBombardNode != NULL && pBombarder == NULL)
++		{
++			const CvUnit* pLoopUnit = ::getUnit(pBombardNode->m_data);
++			pBombardNode = getGroup()->nextUnitNode(pBombardNode);
++			if (pLoopUnit != NULL && pLoopUnit->canBombard(plot()))
++			{
++				pBombarder = pLoopUnit;
++			}
++		}
++	}
++
++	if (pBombarder != NULL && pBombarder->canBombard(plot()))
+ 	{
+-		pBombardCity = bombardTarget(plot());
++		pBombardCity = pBombarder->bombardTarget(plot());
+ 		FAssertMsg(pBombardCity != NULL, "BombardCity is not assigned a valid value");
+ 
+ 		// do not bombard cities with no defenders
+diff --git a/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml b/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
+index 988affb..b11b065 100644
+--- a/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
++++ b/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
+@@ -47,4 +47,15 @@
+ 		<DefineName>BBAI_BOMBARD_ATTACK_CITY_MAX_STACK_FRACTION</DefineName>
+ 		<iDefineIntVal>50</iDefineIntVal>
+ 	</Define>
++	<Define>
++		<!-- War AI switches, a sum of: 1 declare war once the strike force is massed at the border;
++		2 compare the power that can reach the target, not the whole empire's; 4 review wars by
++		their progress instead of a peace die; 8 employ the stack (any siege unit bombards, collateral
++		units open the assault); 16 compose the stack (collateral units join city attack stacks and
++		are trained for invasions); 32 ask and accept help in a war only from teams near the enemy;
++		64 archers and siege in cities fire ranged strikes at enemies next to the city. Default: 111
++		(all but 16, which did not help whole wars in the measured games); 0 restores the old AI. -->
++		<DefineName>AI_CUNNING_FLAGS</DefineName>
++		<iDefineIntVal>111</iDefineIntVal>
++	</Define>
+ </Civ4Defines>
+\ No newline at end of file
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index bd159c9..7d7f14e 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -20,6 +20,10 @@
+       "command": ["python3", "Tools/test_diplomacy_fixes.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvTeamAI.*", "Assets/CvGameCoreDLL/AIDiplomacyPolicy.h"]
+     },
++    {
++      "command": ["python3", "Tools/test_patch_0018.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvTeamAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvCityAI.*", "Assets/CvGameCoreDLL/CvGameCoreUtils.*", "Assets/XML/BBAI_AI_Variables_GlobalDefines.xml"]
++    },
+     {
+       "command": ["python3", "Tools/test_patch_0017.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/CvUnit.*", "Assets/CvGameCoreDLL/CvSelectionGroup.*", "Assets/CvGameCoreDLL/CvGameTextMgr.*", "Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayer.*", "Assets/XML/PythonCallbackDefines.xml"]
+diff --git a/Tools/test_patch_0018.py b/Tools/test_patch_0018.py
+new file mode 100644
+index 0000000..c48b58e
+--- /dev/null
++++ b/Tools/test_patch_0018.py
+@@ -0,0 +1,98 @@
++#!/usr/bin/env python3
++"""War AI switches (AI_CUNNING_FLAGS), measured in the GertaBool/RoM harness.
++
++Seven behaviours, each behind one bit of AI_CUNNING_FLAGS in
++BBAI_AI_Variables_GlobalDefines.xml, so that each can be measured alone. The
++default, 111, enables all but 16; 0 restores the previous AI exactly:
++- 1: a prepared war starts only when the strike force stands at the border.
++- 2: war targets are chosen by the power each side has in the target's land areas.
++- 4: wars are reviewed by their progress once per period, not on a peace die.
++- 8: the stack bombards with any unit that can, and collateral units open AI
++  assaults.
++- 16: collateral units join city attack stacks and are trained for invasions.
++- 32: an AI at war pays only allies near the enemy to join, and accepts such a
++  request only if it is near the target itself.
++- 64: archers and siege in a city fire ranged strikes at enemies next to it.
++"""
++import re
++import unittest
++from test_review_correctness import DLL, block
++
++
++def src(name):
++    return (DLL / name).read_text(encoding='latin-1')
++
++
++class SwitchTests(unittest.TestCase):
++    def test_switch_default(self):
++        xml = (DLL.parent / 'XML' / 'BBAI_AI_Variables_GlobalDefines.xml').read_text(encoding='latin-1')
++        m = re.search(r'<DefineName>AI_CUNNING_FLAGS</DefineName>\s*<iDefineIntVal>(\d+)</iDefineIntVal>', xml)
++        self.assertIsNotNone(m)
++        self.assertEqual(m.group(1), '111')
++        self.assertIn('GC.getDefineINT("AI_CUNNING_FLAGS") & iFlag', src('CvGameCoreUtils.cpp'))
++
++    def test_every_switch_is_used(self):
++        text = ''.join(src(n) for n in ('CvTeamAI.cpp', 'CvUnitAI.cpp', 'CvSelectionGroup.cpp', 'CvPlayerAI.cpp', 'CvCityAI.cpp'))
++        for flag in (1, 2, 4, 8, 16, 32, 64):
++            self.assertIn('isAICunning(%d)' % flag, text)
++
++
++class WarDecisionTests(unittest.TestCase):
++    def test_prepared_war_waits_for_the_strike_force(self):
++        method = block(src('CvTeamAI.cpp'), 'void CvTeamAI::AI_doWar(')
++        self.assertEqual(method.count('AI_isStrikeForceReady((TeamTypes)iI)'), 2)
++        ready = block(src('CvTeamAI.cpp'), 'bool CvTeamAI::AI_isStrikeForceReady(')
++        self.assertIn('range(40 + (30 * (130 - AI_maxWarNearbyPowerRatio())) / 50, 40, 70)', ready)
++
++    def test_targets_compared_by_reachable_power(self):
++        method = block(src('CvTeamAI.cpp'), 'void CvTeamAI::AI_doWar(')
++        self.assertIn('AI_getReachableDefence()', method)
++        self.assertIn('AI_getReachablePower((TeamTypes)iI)', method)
++        self.assertIn('GET_TEAM((TeamTypes)iJ).AI_getReachablePower((TeamTypes)iI)', method)
++
++    def test_peace_by_review_not_dice(self):
++        method = block(src('CvTeamAI.cpp'), 'void CvTeamAI::AI_doWar(')
++        self.assertIn('AI_reviewWars();', method)
++        review = block(src('CvTeamAI.cpp'), 'void CvTeamAI::AI_reviewWars(')
++        self.assertNotIn('getSorenRandNum', review)
++        self.assertIn('m_aiWarSuccessAtReview[eTeam] = AI_getWarSuccess(eTeam);', review)
++
++    def test_review_state_is_saved(self):
++        read = block(src('CvTeamAI.cpp'), 'void CvTeamAI::read(')
++        write = block(src('CvTeamAI.cpp'), 'void CvTeamAI::write(')
++        self.assertIn('if (uiFlag >= 1)', read)
++        self.assertIn('m_aiEnemyWarSuccessAtReview', read)
++        self.assertIn('uint uiFlag=1;', write)
++        self.assertIn('m_aiEnemyWarSuccessAtReview', write)
++
++    def test_war_requests_need_own_reach(self):
++        method = block(src('CvTeamAI.cpp'), 'DenialTypes CvTeamAI::AI_declareWarTrade(')
++        self.assertIn('if (bConsiderPower && isAICunning(32))', method)
++        self.assertIn('!AI_isNearTarget(eWarTeam) && 2 * iOurReach < iDefence', method)
++        ask = block(src('CvPlayerAI.cpp'), 'void CvPlayerAI::AI_doDiplo(')
++        self.assertIn('AI_isNearTarget((TeamTypes)iJ)', ask)
++
++
++class StackTests(unittest.TestCase):
++    def test_any_siege_unit_bombards(self):
++        method = block(src('CvUnitAI.cpp'), 'bool CvUnitAI::AI_bombardCity(')
++        self.assertIn('pBombarder->bombardTarget(plot())', method)
++
++    def test_city_ranged_units_fire_at_besiegers(self):
++        method = block(src('CvUnitAI.cpp'), 'bool CvUnitAI::AI_update(')
++        i = method.index('isAICunning(64)')
++        self.assertIn('plot()->getOwnerINLINE() == getOwnerINLINE()', method[i:i + 300])
++        self.assertIn('AI_rangeAttack(1)', method[i:i + 400])
++
++    def test_collateral_opens_ai_assaults(self):
++        method = block(src('CvSelectionGroup.cpp'), 'bool CvSelectionGroup::groupAttack(')
++        self.assertIn('(!isHuman() && isAICunning(8)) ? pickCollateralAttacker(', method)
++
++    def test_collateral_units_join_stacks(self):
++        method = block(src('CvUnitAI.cpp'), 'void CvUnitAI::AI_collateralMove(')
++        self.assertIn('AI_group(UNITAI_ATTACK_CITY', method)
++        self.assertIn('invaderTypes.push_back(std::make_pair(UNITAI_COLLATERAL, 40));', src('CvCityAI.cpp'))
++
++
++if __name__ == '__main__':
++    unittest.main()

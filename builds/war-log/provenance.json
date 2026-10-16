@@ -1,0 +1,9 @@
+{
+  "source": "GitLab main after merge request !46 (war log), on top of !45",
+  "source_commit": "c8673f5c1c5b28b696e0fade949a63af92400fe9",
+  "dll_sha256": "dfea5e98f8d01b9cb444fa4a79a6e2d1368bb9d03cd40e7966c07df17e448c29",
+  "dll_size": 6119424,
+  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
+  "tested_headless": "one 450-turn Marathon game, 10 AIs, WAR_LOG=1: no error, 204 KB log",
+  "tested_in_game": false
+}

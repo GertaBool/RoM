@@ -1,0 +1,423 @@
+# Diplomacy and leader personalities
+
+What the Rise of Mankind AI does in diplomacy, where it gets it wrong, and what it
+would take to make opponents that are dangerous and still play plausibly. Method:
+read the code, then measure with the real DLL in the
+[headless harness](../../toolchain/harness/README.md) on the mod's WorldBuilder
+scenarios. Every seat is played by the AI.
+
+Short answers:
+
+- **Defects.** The deal, attitude and personality code had 14 defects, from 32-bit
+  overflow in the peace and surrender valuations to tribute thresholds read from the
+  wrong leader. They are fixed in patch 0014 (GitLab
+  [!39](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/39)).
+  Measured against patch 0013, the AIs fight fewer wars, at better odds, and win more
+  of them. AI-to-AI resource swaps are halved now that they are value-checked.
+- **Harness.** The harness itself first had to become trustworthy, because the
+  earlier campaign numbers were wrong:
+  - It did not apply RoM's Python building rules, so late-game cities stacked every
+    tier of a building line.
+  - It leaked memory on every Python callback. That, not slow DLL code, was the
+    Marathon crash at turn 491.
+  - Its telemetry changed the games it observed.
+
+  All three are fixed, and the earlier campaign was re-run.
+- **Save and reload.** A game reloaded from a save played differently from the game
+  that saved it. The two causes were stale attitude caches and wrong border-danger
+  flags, fixed in patches 0014 and 0015
+  ([!40](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/40)).
+  Reloaded games now play identically to the running game.
+- **Turn time.** Late-game turns are mostly path finding and unit-training queries.
+  Patch 0015 removes redundant `canTrain` work: 17 % less time on a turn-400 Marathon
+  position, with an identical game.
+- **What still limits the AI:**
+  - Every AI-to-AI deal is proposed by one side and never evaluated by the other.
+  - No AI ever signed a defensive pact.
+  - Almost no war targets the score leader, so a runaway conquers unopposed: in one
+    Marathon game Augustus won by conquest at turn 501.
+  - Personalities act as dice rather than as biases on a judgement.
+
+  The proposals at the end are ranked by how much they would add to the opponents'
+  competence and what they cost.
+
+## Method
+
+**Code maps.** Three read-only maps of the source at GitLab `main` 93ae873 (with
+patch 0013) were checked line by line against the tree:
+
+- [trade-map.md](code-maps/trade-map.md): every tradeable item, every deal the AI
+  proposes or accepts, every valuation.
+- [personality-map.md](code-maps/personality-map.md): every leaderhead field, who reads
+  it and what it decides. Statistics over all 82 leaders are in
+  [data/leader-stats.txt](data/leader-stats.txt) and [data/leaders.json](data/leaders.json).
+- [open-borders-map.md](code-maps/open-borders-map.md): everything Open Borders
+  touches, as groundwork for splitting it.
+
+**Campaign.** Two WorldBuilder scenarios were converted with `wbs2scn.py`:
+
+- Mediterranean, standard size, 10 civilizations.
+- Earth with 12 preset civilizations, standard size.
+
+They were played at Noble: Epic (300 turns) with seeds 1 to 5, and Marathon (590 turns)
+with seeds 1 and 2.
+Every seed was played with patch 0013 and with patch 0014: same scenario, same seed,
+different DLL. The telemetry records each turn: every player's economy, building and
+unit counts, attitudes, the team relations matrix (war, open borders, pacts, vassals,
+war plans), and every trade as it is agreed. [tools/dipl-compare.py](tools/dipl-compare.py)
+pairs the runs and reports the mean paired difference and in how many pairs the
+difference has each sign.
+
+**Harness corrections made first.** These invalidated the earlier campaign (see the
+section at the end).
+
+## What the AI does in diplomacy
+
+The full maps are linked above. The points that matter most for competence:
+
+1. **AI-to-AI deals are one-sided.**
+   - The proposer checks only the partner's denials, then calls `implementDeal`. The
+     partner's `AI_considerOffer` runs only when a human makes the offer.
+   - Before patch 0014, resource swaps between AIs had no value check at all.
+2. **The AI uses a narrow set of deal shapes.** It proposes only:
+   - tech for tech or gold;
+   - resource for resource;
+   - map for map;
+   - open borders, defensive pacts and permanent alliances, each for the same item;
+   - peace with tech, gold or a city;
+   - tech and gold to hire a war;
+   - liberation gifts and vassal offers.
+
+   Patch 0014 adds tech for gold and gold per turn for a resource.
+
+   One rule in `CvPlayer::updateTradeList` forbids mixing annual items (resources, gold
+   per turn, agreements) with one-shot items (gold, tech, maps, cities) in any trade
+   involving an AI. That rule alone blocks "lump-sum gold for a resource" and "pay me
+   to liberate this city", both for proposals and for the AI's counter-proposals.
+3. **Personality is mostly dice.**
+   - War and peace are per-turn rolls against MaxWarRand and similar fields. They do
+     not depend on opportunity and do not scale with game speed.
+   - Victory inclinations and the DAGGER strategy are rolled once per game, with no
+     feasibility check.
+   - Attack odds get an optimism bonus of up to 20 points (27 with the conquest agenda).
+   - Raze chances go up to 75 % with no value term.
+   - Leaders with a wonder-construction rand of 0 effectively never start a wonder.
+   - 44 of the leaderhead fields are identical for all 82 leaders.
+4. **Rate limits are few.** Between AIs, contact timers are never advanced. The only
+   limit is a per-turn roll on the leader's `ContactRand`:
+
+   | Proposal | ContactRand |
+   |---|---|
+   | Tech and resource | 5 |
+   | Open borders | 20 |
+   | Defensive pact | 80 |
+
+   On top of that, a defensive pact needs Pleased attitude on both sides.
+
+## Defects fixed (patch 0014)
+
+| Defect | Effect |
+|---|---|
+| 32-bit power products in `AI_endWarVal` (5 sites), `AI_surrenderTrade` (3), `AI_considerOffer` (2), paranoia | Team power passes 10^5 in later eras (RoM unit power reaches 2100). Peace values became garbage, and capitulation was refused once both powers passed about 33,000. |
+| Received resource valued with `iChange -1` | Valued as a spare copy, a fifth of its worth. |
+| No value check on AI-to-AI resource swaps | An AI gave away resources for much less in return. |
+| Peace gold counted 1:1 | `AI_dealVal` prices gold at 2 to 3 value per gold, so peace cost several times too much gold. |
+| Second war-hire tech compared with the first one's best | Wrong tech offered. |
+| Embargo priced from all the target's deals | Embargo requests were refused or accepted on the wrong value. |
+| Help and tribute thresholds read from the other leader | A warmonger asked for tribute with a pacifist's patience, and the reverse. |
+| Favourite religion and espionage weight read from the leader, not the personality | Wrong with random personalities. |
+| `AI_isDoStrategy(AI_VICTORY_CONQUEST3)` | Tested the strategy bit 7 (FINAL_WAR) instead of the victory flag. |
+| `AI_acceptSurrender` bound `MaxWarRand/100` | 0 for eleven leaders, who then refused every capitulation. |
+| Memories and gifts did not refresh the attitude cache | A gift and a request in the same turn met the old mood. |
+| Team counters advanced before the attitudes that use them | Attitudes lagged a turn, and reloaded games diverged. |
+| `AI_demandRebukedWar` on the asynchronous generator in the synchronous turn | The war could start on some multiplayer machines only. |
+| AI vassals never asked about tribute | Tribute was simply taken. |
+
+Each fix has a test in `Tools/test_diplomacy_fixes.py` on GitLab (14 tests, all failing
+on the previous source); see [fixes/README.md](../../fixes/README.md).
+
+## Measured: patch 0013 against patch 0014
+
+**Epic, ten pairs** (Mediterranean and Earth 12, seeds 1 to 5, 300 turns). The last
+column counts the pairs where 0014 is higher or lower.
+
+| Per 100 turns unless noted | 0013 | 0014 | 0014 higher / lower |
+|---|---|---|---|
+| All trades | 131.5 | 99.7 | 1/9 |
+| Resource swaps | 46.0 | 22.2 | 0/10 |
+| Tech for tech | 6.4 | 5.9 | 4/6 |
+| Tech for gold | 20.2 | 21.6 | 5/3 |
+| Resource for gold per turn (new) | 0 | 0.4 | 5/0 |
+| Gifts | 11.3 | 9.0 | 4/6 |
+| Open borders signed | 32.9 | 30.3 | 2/8 |
+| Wars declared | 8.0 | 6.9 | 2/7 |
+| Median war length (turns) | 26.6 | 26.8 | 3/7 |
+| Median power ratio, declarer to target | 1.14 | 1.31 | 7/3 |
+| Cities taken by the declarer per war | 0.95 | 1.10 | 7/3 |
+| Wars in which the declarer took a city | 33 % | 41 % | 7/3 |
+| Vassal pairs at the end | 2.1 | 1.7 | 3/5 |
+| Mean techs at the end | 49.6 | 48.0 | 4/6 |
+| Cities at the end | 138.6 | 137.3 | 4/6 |
+| Player-turns in financial trouble | 3.1 % | 4.1 % | 6/4 |
+
+What the table shows:
+
+- **Value-checked trades.** Resource swaps halve, in all ten pairs.
+- **More deliberate wars.** Slightly fewer wars, declared at better odds and more
+  often successful (7 of 10 pairs).
+- **Fewer vassals.** The corrected surrender and capitulation valuations are the likely
+  cause, but this was not traced case by case.
+- **Economy unchanged within noise.** Techs and cities do not move; financial trouble
+  is mixed (6/4). All these runs used the harness's stand-in base-game XML, which
+  overstated civic upkeep (see the harness corrections below). Both builds had the same
+  stand-ins, so the comparison holds; absolute gold figures do not.
+
+**Marathon, three pairs** (Mediterranean seed 1, Earth 12 seeds 1 and 2, up to 590
+turns). The fourth pair is left out: the 0014 game crashed on turn 415. The cause was a
+use-after-free when an AI razes a city, which patch 0016 fixes (below).
+
+| | 0013 | 0014 | 0014 higher / lower |
+|---|---|---|---|
+| Resource swaps per 100 turns | 31.7 | 13.5 | 0/3 |
+| Wars declared per 100 turns | 5.8 | 7.0 | 2/1 |
+| Median power ratio, declarer to target | 1.71 | 2.05 | 3/0 |
+| Top player's share of the total score at the end | 0.60 | 0.82 | 3/0 |
+| Victory (turn) | Mediterranean 551; Earth 12: none, none | Mediterranean 525; Earth 12: none, 574 | |
+
+On Marathon the better-informed wars help the strongest AI most: it picks targets it
+clearly outclasses and grows faster, and nobody turns on it. Patch 0014 makes the AIs
+individually more competent and so makes the missing balance of power (proposal 2)
+more visible.
+
+## What else the campaign shows
+
+These appear in both builds:
+
+- **No defensive pact in any run.** Pacts need Political Philosophy, a Pleased attitude
+  on both sides, and a 1-in-80 roll per pair and turn. Attitudes are spread around 0
+  (median 0 to 1; 30 % at +5 or more), so the rolls rarely meet two Pleased partners.
+- **Nobody gangs up on the leader.** Only 4 to 5 % of wars are declared on the
+  player with the highest score; with 10 to 12 players, random targets would give about
+  10 %. The AI picks targets it can beat, which is individually rational. Collectively
+  it lets a runaway grow. In a Marathon test game Augustus held 99 cities and won by
+  conquest at turn 501, with the rest reduced to 2 to 5 cities each.
+- **Gold piles up.** At turn 300 on Epic the median AI holds 1,100 to 1,200 gold, and
+  the largest hoards reach 18,000 to 31,000. Research is already at its maximum share
+  and the surplus comes from gold earned outside the slider. The AI's gold-hurry planner
+  needs a civic that allows buying production, so without one the surplus does nothing.
+- **Armies are large.** About 14 units per city at turn 300 on Epic, 12.6 of them
+  military, and the unit count drives the late-game turn time (below).
+
+## Turn time and the crash at turn 491 (patch 0015)
+
+The Marathon runs of the first campaign crashed between turns 450 and 520. Memory
+sampling on an identical game settled the cause:
+
+| Turn | Old harness | Fixed harness |
+|---|---|---|
+| 287 | 520 MB | 67 MB |
+| 415 | 1.9 GB | 75 MB |
+| 491 | 4.09 GB, then a crash | 90 MB |
+
+The fixed harness ran on to the conquest victory at turn 518. The harness's stand-in
+Python objects allocated memory for every callback the DLL prepared and never freed
+it. The DLL itself stays under 100 MB even in this late-game state.
+
+Turn time is the real cost of the late game. From a turn-400 Marathon snapshot (342
+cities, about 1,800 units), the profile of three turns:
+
+- Path finding: 52 % of the time inclusive. Most of it comes from unit AI that searches
+  a path to each candidate city and rejects the result afterwards: `AI_guardCity` alone
+  takes 16 %, and its searches run to completion even when only paths under one to three
+  turns are wanted.
+- `CvCity::canTrain`: 20 % of the time, 3.8 million calls in three turns.
+
+Patch 0015 removes the redundant `canTrain` work. `AI_buildingValueThreshold` now
+checks a building's combat-type experience before asking whether the city can train
+that combat type, and `AI_bestUnitAI` reuses its first pass. Calls fall to 1.3 million
+and the game is identical. Five turns from the snapshot take 17.1 s instead of 21.0 s in
+a normal build (mean of two repetitions; 17 % less in the profiling build).
+
+Bounding path searches by the turn limit the caller wants is the next large saving.
+It would change which path the finder returns in some cases, so it is a pathfinder
+project, not part of this patch.
+
+## Reloaded games now play like the running game
+
+A harness snapshot (`HARNESS_SNAPSHOT`) writes the game exactly as a save does, and the
+harness can load it again. Writing a loaded snapshot back gives the same bytes, apart
+from one replay message the load adds. Yet a game continued from a snapshot diverged
+from the game that wrote it within two turns. The divergence came from state that a
+save does not carry:
+
+1. **Attitudes lagged the team counters by a turn.**
+   - `CvTeamAI::AI_doCounter` advances the at-war, at-peace and shared-war counters at
+     turn rollover.
+   - The members' attitude caches were cleared only at the end of each player's next
+     turn.
+   - A reloaded game starts with empty caches, so the first difference was player 2's
+     attitude toward player 0: −6 after reload against a cached −5.
+   - Fixed in patch 0014.
+2. **Border-danger flags were wrong and never cleared.**
+   - `AI_getAnyPlotDanger` flags plots next to enemy territory as dangerous (`CvPlot`'s
+     team border cache, not saved). It also flagged them for the enemy team and on the
+     enemy's plot, where nothing was known.
+   - The flags were cleared only by war, peace or a nearby change of owner, so the
+     running game kept marking safe plots as dangerous for a worker.
+   - The random-number log (`HARNESS_RAND_LOG`) showed the first differing draw: a
+     worker rolling "build Fort with Priority" in one game only.
+   - A [static audit](code-maps/unsaved-state-audit.md) of every unsaved member found the cache.
+   - Fixed in patch 0015: only the queried plot and team are flagged, and the flags are
+     cleared each turn.
+
+**Why that worker wanted a fort.** It did not really want one. The fort roll
+in `CvUnitAI::AI_workerMove` comes after every job search has failed. Four times in
+five the worker then looks for a fort site, but only if a canal or airbase fort is
+worth anything. A canal counts when the worker's landmass holds under 85 % of all
+cities. In the running game, worker 57346 of player 3 at (42,24) on turn 150 had a
+real job: improving its own resource at (45,20). That plot carried a stale
+border-danger flag, so `pathDestValid` refused it as a destination. City tiles were
+already taken by other workers (`iMaxWorkers`), so the worker fell through to the
+roll. The flag dated from turn 132. Player 1, at war with player 3's team, had
+asked about danger on two unowned plots, (47,18) and (47,19). The old code then
+flagged (45,20), two tiles away along a road, for player 3's team, although no
+enemy land was near. The flag stayed for 18 turns. After a reload the flag is
+gone, the worker takes the resource job, and it never reaches the roll. Patch 0015
+removed the wrong flags; idle workers rolling for forts are otherwise expected.
+
+With both fixes, continuations from a snapshot are identical to the running game for 12
+turns on Mediterranean (turns 150 to 162) and 25 turns on Earth 12 (turns 200 to 225).
+In multiplayer, the old behaviour could put a rejoining player out of sync. In single
+player it made a reloaded game play differently.
+
+## The crash at turn 415 (patch 0016)
+
+With the memory leak fixed, one Marathon game still crashed: Mediterranean, seed 2,
+patch 0014, turn 415. A build with debug symbols traced it to
+`CvPlayerAI::AI_conquerCity`. After `pCity->doTask(TASK_RAZE)` deletes the city,
+the function calls `pCity->getName()` for a log line. Those arguments are evaluated
+even with AI logging off. While the freed memory still reads as an empty string,
+nothing happens. Once the heap has reused the block, the game crashes. In the real
+game this is a rare, random crash when an AI razes a city. The same audit found two
+more such cases: the worker-bribe espionage mission read a unit's type after
+deleting the unit, and `CvCity::liberate` used a city outside its NULL check. With
+the fix, the game is identical through turn 415 and plays on to turn 430. Landed as
+[!41](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/41).
+
+## Python in the real game
+
+The harness answers the DLL's Python calls in C++, so its turn times leave out
+Python. `HARNESS_PY_COUNTS` now counts these calls. At the turn-400 Marathon snapshot,
+the DLL makes about **107,000 Python calls per turn**:
+
+| Call | Per turn | What the Python does |
+|---|---|---|
+| `getUnitCostMod` | 41,700 | One rule: missionaries cost 75 % under the state-religion civic |
+| `getExtraCost` | 34,400 | Nothing (returns 0). The DLL calls it with no switch from `calculatePreInflatedCosts`, which the AI's gold checks call constantly |
+| `getUpgradePriceOverride` | 20,600 | One rule: Personal Replicators halve upgrade prices |
+| `cannotConstruct` | 4,500 | Building upgrade lines, terrain rules, zCivics prerequisites |
+| `getBuildingCostMod` | 1,750 | Civic and Djenne cost discounts |
+| `getExperienceNeeded` | 1,270 | The stock BTS formula |
+| Events (unit moves, `UnitSetXY`, production, ...) | 2,600 | Event handlers of BUG, RoM and Revolution |
+
+Every one of these calls builds an argument tuple and goes through the game's Python
+entry point and BUG's dispatcher before reaching a few lines of rules. Their cost
+in the game has not been measured yet. Even a few microseconds each would add up to
+a sizeable part of a late-game turn. The three largest are simple enough to compute
+in C++: a missionary discount, a constant zero and an upgrade discount. Moving them
+into the DLL (with an XML switch for `getExtraCost`, as BTS has for the others) would
+remove nine calls in ten.
+
+The game files supplied for this study show how the game calls Python. The
+executable (BTS 3.19, build 128100) imports `PyImport_ImportModule`,
+`PyModule_GetDict` and `PyObject_CallObject` from `python24.dll`. It is flagged
+large-address-aware, so on 64-bit Windows the game can use 4 GB of address space
+instead of 2. Its code section is encrypted by copy protection, so it was neither
+disassembled nor run.
+
+## Proposals
+
+Ranked by what they add to the opponents' competence, with cost and risk. None is
+implemented yet.
+
+1. **Let the partner judge AI-to-AI deals.** Run the receiving AI's `AI_considerOffer`
+   on every AI proposal, as a human's offer gets. The value checks now differ by deal
+   type; this replaces them with one rule and removes give-aways at the source. Small,
+   around 30 lines in `AI_doDiplo` and `AI_doPeace`. Risk: trade volume falls further,
+   which needs measuring.
+2. **Balance of power.**
+   - In war-target selection (`AI_startWarVal`, dogpile plans), add a term for the
+     target's share of score or land when it leads by a margin.
+   - In defensive pact acceptance, count a shared threat in place of the Pleased
+     requirement.
+
+   Lets AIs form coalitions against a runaway, the missing behaviour behind the
+   Augustus conquest. `AI_startWarVal` already raises the value of a target close to
+   victory (its victory strategy at level 3 or 4). The war decision, however, is gated
+   on beating the target alone, and the runaway is the one opponent nobody can beat
+   alone. A coalition term would let several AIs commit together, for example by
+   asking for joint war or extending the dogpile plan to a leader not yet at war.
+   Medium cost, 100 to 200 lines. Needs campaign tuning so that it does not turn into
+   a permanent dogpile of the human.
+3. **Personality that shapes judgement, with room for surprise.** The goal is not
+   uniform or predictable AIs. Randomness and personality should keep making leaders
+   and games differ. They should stop overriding the situation, as a die does when it
+   makes a leader ignore that it is losing a war. Recommendations R1 to R11 in
+   [personality-map.md](code-maps/personality-map.md#6-recommendations-personality-should-bias-situational-judgements-not-replace-them):
+   - attack odds: real combat odds plus a personality risk appetite, with bounded
+     noise, instead of a flat optimism roll;
+   - raze: decided by the city's value, weighted by personality, still with some
+     chance;
+   - war and peace: personality thresholds on the war value, with random timing (a
+     hazard scaled by game speed), so the same leader does not always strike on the
+     same turn;
+   - victory stages re-evaluated for feasibility.
+
+   Medium to large. Each item can land and be measured on its own, including whether
+   behaviour still varies enough between leaders and games.
+4. **Lump-sum and liberation deals.** Allow one-shot plus annual mixes in AI
+   proposals: gold or tech for a resource, gold for liberating a city. This needs the
+   `updateTradeList` rule relaxed for AI-to-AI deals only, so that the trade screen is
+   unaffected. Medium, and only the AI side can be tested headless.
+5. **Split Open Borders** into trade rights, civilian access and military access
+   ([open-borders-map.md](code-maps/open-borders-map.md)): about 700 to 1,000 DLL lines
+   in about 20 files, plus 150 to 250 Python lines. Risk is medium to high: the trade
+   screen lives in the game executable and can only be tested in game, and existing
+   saves need converting. Best done after 1 and 2.
+6. **Surplus gold.** When gold exceeds the target by several turns of income and no
+   gold-hurry civic is active, value civics that allow buying production more highly,
+   or spend on upgrades and tech purchases. Small to medium.
+7. **Bounded path searches** for unit-AI candidate loops (`AI_guardCity` and similar):
+   pass the caller's turn limit into the path finder. Large turn-time saving; medium
+   risk, because results change at the margin.
+
+## Harness corrections made during this study
+
+| Problem | Effect on earlier numbers | Fix |
+|---|---|---|
+| RoM's Python building rules not applied: upgrade lines, observatory, Djenne, zCivics prerequisites, cost modifiers, Djenne, World Bank and Crusade effects | Late-game cities stacked every tier: 54 pop per city and 924,000 gold in total at turn 480 on Marathon, against 12.5 and 28,000 with the rules | `HarnessRoM.cpp`, with tables generated from the mod's Python |
+| A Python stand-in allocated memory per callback | The process reached 4 GB and crashed around turn 450 to 520 on Marathon | Nothing is allocated per call |
+| Telemetry refreshed AI caches (attitude, strategy, victory, city closeness) and could roll the synchronized generator | The same seed gave a different game from turn 38 on | `HarnessPeek.h` restores caches and seeds; full and minimal telemetry now give the same game |
+| Base-game XML that RoM does not ship was generated: AdvCiv's goodies, whip (24 instead of 30 production per population) and Apostolic Palace production; placeholder civic upkeep of 50/100/150 % per city instead of 40/50/60 %; city emphases without effects, in another order | Civic upkeep too high in every run, so absolute gold and financial-trouble figures are off (A/B comparisons used the same files on both sides); AI cities never emphasized research or Great People; emphases misread in loaded saves | `overlay_game_xml.py` puts the game's own files in place when copies are given to `setup.sh` |
+| RoM's Revolution components (Revolution, BarbarianCiv, TechDiffusion) run in Python and are not run by the harness | Scenarios that leave them on (Mediterranean leaves Revolution on) play without revolutions in the harness | Open: needs the real Python in the harness |
+
+The harness also gained snapshots, a random-number log and building counts in the
+telemetry ([toolchain/harness/README.md](../../toolchain/harness/README.md)).
+
+## Files
+
+- [code-maps/](code-maps/): the three code maps.
+- [data/](data/): leader statistics.
+- [tools/](tools/):
+  - `runscn.sh`: one scenario run.
+  - `roundtrip.sh`: the reload check.
+  - `memsample.sh`: process memory per turn.
+  - `dipl-analyze.py`: trades, wars and relations per run.
+  - `dipl-compare.py`: paired comparison of two builds.
+  - `fidelity.py`: economy totals per turn.
+  - `snapdiff.py`: snapshot comparison by part.
+  - `leader-stats.py` and `leader-extra.py`: leaderhead statistics.
+- [runs/](runs/): the campaign comparisons.
+
+Timings and outcomes are harness runs with every seat on AI; the game executable was
+not run.

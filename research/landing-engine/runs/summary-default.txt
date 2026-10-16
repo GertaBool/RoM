@@ -1,0 +1,9 @@
+main   islands  RESULT turn 30: player 0 has 1 cities, 0 on the east island | missing-escort waits: 29 | no overseas city
+main   mid      RESULT turn 30: player 0 has 1 cities, 0 on the east island | missing-escort waits: 28 | no overseas city
+main   far      RESULT turn 30: player 0 has 1 cities, 0 on the east island | missing-escort waits: 0 | no overseas city
+fix    islands  RESULT turn 30: player 0 has 2 cities, 1 on the east island | missing-escort waits: 0 | TXT_KEY_CITY_NAME_YORK at 17, 6
+fix    mid      RESULT turn 30: player 0 has 2 cities, 1 on the east island | missing-escort waits: 0 | TXT_KEY_CITY_NAME_YORK at 21, 6
+fix    far      RESULT turn 30: player 0 has 1 cities, 0 on the east island | missing-escort waits: 0 | no overseas city
+abl1   islands  RESULT turn 30: player 0 has 2 cities, 1 on the east island | missing-escort waits: 0 | TXT_KEY_CITY_NAME_YORK at 17, 6
+abl1   mid      RESULT turn 30: player 0 has 2 cities, 1 on the east island | missing-escort waits: 0 | TXT_KEY_CITY_NAME_YORK at 21, 6
+abl1   far      RESULT turn 30: player 0 has 1 cities, 0 on the east island | missing-escort waits: 0 | no overseas city

@@ -1,0 +1,25 @@
+# Patch 0012 new tests against the unpatched source (GitLab main dcbae97), 2026-10-14T05:16Z
+$ python3 Tools/test_turn_end_guard.py --source <main dcbae97>
+test_attack_order_still_attacks (__main__.TurnEndGuardTests.test_attack_order_still_attacks) ... ok
+test_free_step_still_moves (__main__.TurnEndGuardTests.test_free_step_still_moves) ... ok
+test_lone_worker_onto_enemy_tile_ends_mission (__main__.TurnEndGuardTests.test_lone_worker_onto_enemy_tile_ends_mission) ... test: <tmp>/test.cpp:119: int main(): Assertion `!g.groupPathTo(1, 0, 0)' failed.
+test_mixed_group_moves_and_splits_the_blocked_unit (__main__.TurnEndGuardTests.test_mixed_group_moves_and_splits_the_blocked_unit) ... ok
+test_watchdog_trips_after_twenty_losses_per_turn (__main__.TurnEndGuardTests.test_watchdog_trips_after_twenty_losses_per_turn) ... ERROR
+Ran 5 tests in 2.237s
+FAILED (errors=2)
+$ python3 Tools/test_settle_reach.py --source <main dcbae97>
+test_city_walled_in_by_foreign_borders_cannot_reach_open_land (__main__.SettleReachTests.test_city_walled_in_by_foreign_borders_cannot_reach_open_land) ... ERROR
+test_sea_delivery_needs_a_transport_we_have_or_can_train (__main__.SettleReachTests.test_sea_delivery_needs_a_transport_we_have_or_can_train) ... ERROR
+test_transport_terrain_limits_follow_the_team_techs (__main__.SettleReachTests.test_transport_terrain_limits_follow_the_team_techs) ... ERROR
+Ran 3 tests in 0.008s
+FAILED (errors=3)
+$ python3 Tools/test_gold_target_speed.py --source <main dcbae97>
+test_marathon_reserve_follows_prices_not_turn_count (__main__.GoldTargetSpeedTests.test_marathon_reserve_follows_prices_not_turn_count) ... ERROR
+test_normal_speed_keeps_the_bts_formula (__main__.GoldTargetSpeedTests.test_normal_speed_keeps_the_bts_formula) ... ERROR
+Ran 2 tests in 0.015s
+FAILED (errors=2)
+
+Note: test_lone_worker_onto_enemy_tile_ends_mission fails on the old source by its
+assertion (groupPathTo moved the lone unit into the enemy-held step). The other
+errors are "substring not found": the functions under test (the turn watchdog,
+the settlement regions, calendarTurns) do not exist before the patch.

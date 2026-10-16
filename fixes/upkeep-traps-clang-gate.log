@@ -1,0 +1,2 @@
+clang differential gate (toolchain/clang-gate/diffcheck.sh 3553b8c vs patched) on CvPlayerAI.cpp CvUnitAI.cpp
+baseline: 0 errors/51 warnings; patched: 0 errors/51 warnings; new: 0; resolved: 0

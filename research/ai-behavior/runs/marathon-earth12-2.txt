@@ -1,0 +1,72 @@
+# Marathon earth12-2, turns 1-400, patch 0016 DLL, game XML
+turns      civs ms/turn cities  techs    rr    gold goldmax u/city troub%  wars   top%
+1-50       12.0      42    1.0    3.4     9       0       0    0.5    0.0   0.0   11.6
+51-100     12.0      60    1.0    5.0    12       0       0    1.7    0.0   0.0   10.7
+101-150    12.0     136    1.1    7.0    14       0     167    2.7    0.0   0.0   11.2
+151-200    12.0     256    1.9    9.3    16       0     175    2.8    0.0   0.3   12.4
+201-250    12.0     370    2.7   11.1    18       0     118    3.2    0.0   0.0   13.5
+251-300    12.0     557    3.8   13.8    27       1      23    3.5    1.5   0.3   16.4
+301-350    12.0     872    5.8   16.7    39      42     420    4.0    7.2   2.5   15.8
+351-400    12.0    1460    7.8   20.9    74     189    1243    5.0    2.8   3.3   18.4
+
+   unit AI            units  city%  sleep% moved%  10t+%  50t+%   grp%
+   SETTLE                12      0       0    100      0      0      0
+== turns 1-100 (100 records): 12 units, 1.1 per city
+   unit AI            units  city%  sleep% moved%  10t+%  50t+%   grp%
+   WORKER                 6     13       0     20      4      0      0
+   CITY_COUNTER           4    100      95      3     76      8      0
+== turns 101-200 (100 records): 53 units, 2.8 per city
+   unit AI            units  city%  sleep% moved%  10t+%  50t+%   grp%
+   WORKER                14     30       0     23     15      2      0
+   ATTACK                12     79      63     23     54     14      4
+   CITY_COUNTER          11    100     100      0     98     84      0
+   EXPLORE                6      1       0     88      0      0      0
+   SETTLE                 4     64       0     12     53     27     13
+   EXPLORE_SEA            2      2       0     87      0      0      0
+== turns 201-300 (100 records): 140 units, 3.3 per city
+   unit AI            units  city%  sleep% moved%  10t+%  50t+%   grp%
+   WORKER                32     13       2     32     15      0      0
+   ATTACK                31     84      75     17     64     31      3
+   ASSAULT_SEA           14     99       0      3     77     24      0
+   CITY_COUNTER          13     98      97      2     89     70      1
+   ATTACK_CITY            9     83      52     15     59     14     42
+   SETTLE                 9     71       1     20     47     13     15
+   SETTLER_SEA            8     80       0     24     37      0      0
+   EXPLORE                8      5       0     83      0      0      0
+   EXPLORE_SEA            6      2       0     82      0      0      0
+   COUNTER                4     83      69     18     50      2     17
+   RESERVE                2     82      72     20     44      4     13
+== turns 301-400 (100 records): 423 units, 4.6 per city
+   unit AI            units  city%  sleep% moved%  10t+%  50t+%   grp%
+   WORKER                91      7       1     37      9      1      0
+   ATTACK                89     58      46     44     34     12     15
+   ASSAULT_SEA           41     97       0      8     64     18      3
+   CITY_DEFENSE          36     97      89      7     59      1      0
+   CITY_COUNTER          32     95      90      7     75     29      3
+   COUNTER               25     58      48     43     23      2     45
+   ATTACK_CITY           24     58      56     33     37      7     55
+   RESERVE               22     74      68     26     43     11      7
+   SETTLER_SEA           20     72       0     35     21      1      0
+   SETTLE                13     55       2     46     24     12     27
+   GENERAL                8     72       0     19     47     19      0
+   EXPLORE_SEA            7      7       0     89      0      0      0
+   PILLAGE                5     58      44     49     30      9     11
+   ATTACK_SEA             5     46       0     62     13      0     67
+   EXPLORE                3      9       0     95      0      0      0
+
+# Python calls over the game (total, per turn)
+  callback getUnitCostMod                      3594263       8985
+  callback getExtraCost                        3211771       8029
+  callback getUpgradePriceOverride             1780751       4451
+  callback cannotDoCivic                        118616        296
+  callback cannotConstruct                       87492        218
+  callback getExperienceNeeded                   80249        200
+  callback calculateScore                        74802        187
+  event    UnitSetXY                             43800        109
+  event    UnitMove                              38941         97
+  callback getBuildingCostMod                    16716         41
+  event    CityProduction                        16330         40
+  event    PlotRevealed                          15233         38
+  event    UnitBuildImprovement                   8976         22
+  event    EndPlayerTurn                          5200         13
+  event    BeginPlayerTurn                        5200         13

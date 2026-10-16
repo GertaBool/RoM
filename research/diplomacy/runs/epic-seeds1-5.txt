@@ -1,0 +1,329 @@
+== earth12-EPIC-1 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     114.0       82.0
+    tech swap                                      5.67       6.67
+    tech for gold                                  18.0      16.33
+    resource swap                                 39.67      28.67
+    resource for gold/turn                          0.0        0.0
+    gift                                           9.67        0.0
+    peace                                          4.33       1.67
+    open borders                                  27.33      23.33
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                        2.0        2.0
+    maps                                            0.0        0.0
+    other                                          7.33       3.33
+  wars/100t                                        7.67       5.67
+  war length (median)                              35.0       26.0
+  power ratio at declaration (median)              1.62       2.04
+  cities taken by attacker per war                 0.74       1.53
+  wars won by attacker (took a city)                0.3       0.41
+  share of wars declared on the score leader        0.0        0.0
+  top score share at end                           0.24       0.26
+  players alive at end                               11          9
+  vassal pairs at end                                 2          0
+  open borders pairs at end                          25         14
+  defensive pacts at end                              0          0
+  mean techs at end                                43.4       45.2
+  total cities at end                               158        159
+  player-turns in financial trouble %               6.1        4.2
+  victory                                             -          -
+== earth12-EPIC-2 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     113.7       83.3
+    tech swap                                       4.0        5.0
+    tech for gold                                 17.33       20.0
+    resource swap                                 43.33       22.0
+    resource for gold/turn                          0.0        0.0
+    gift                                            9.0        2.0
+    peace                                           3.0        4.0
+    open borders                                  27.33       26.0
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                        2.0       0.67
+    maps                                           0.33        0.0
+    other                                          7.33       3.67
+  wars/100t                                        8.33        7.0
+  war length (median)                              23.0       22.5
+  power ratio at declaration (median)              1.55        1.5
+  cities taken by attacker per war                 1.24       1.62
+  wars won by attacker (took a city)                0.4       0.48
+  share of wars declared on the score leader        0.0        0.0
+  top score share at end                           0.52       0.33
+  players alive at end                               10         13
+  vassal pairs at end                                 2          0
+  open borders pairs at end                          19         28
+  defensive pacts at end                              0          0
+  mean techs at end                                44.3       37.8
+  total cities at end                               159        156
+  player-turns in financial trouble %               1.3        5.1
+  victory                                             -          -
+== earth12-EPIC-3 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     148.0      100.0
+    tech swap                                      5.33        7.0
+    tech for gold                                 19.67      23.67
+    resource swap                                 54.33      23.33
+    resource for gold/turn                          0.0        0.0
+    gift                                          19.67       4.67
+    peace                                          1.33       2.67
+    open borders                                  39.33      30.67
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                       1.33       1.67
+    maps                                            0.0        0.0
+    other                                           7.0       6.33
+  wars/100t                                        5.33       5.33
+  war length (median)                              33.5         22
+  power ratio at declaration (median)              1.38       1.04
+  cities taken by attacker per war                  0.5       0.69
+  wars won by attacker (took a city)               0.31        0.5
+  share of wars declared on the score leader        0.0        0.0
+  top score share at end                           0.16       0.17
+  players alive at end                               12         12
+  vassal pairs at end                                 2          2
+  open borders pairs at end                          36         30
+  defensive pacts at end                              0          0
+  mean techs at end                                46.7       45.1
+  total cities at end                               160        163
+  player-turns in financial trouble %               3.2        2.5
+  victory                                             -          -
+== earth12-EPIC-4 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     155.7      102.3
+    tech swap                                      4.67       8.33
+    tech for gold                                  22.0      20.67
+    resource swap                                 53.67       26.0
+    resource for gold/turn                          0.0       0.33
+    gift                                          26.33       8.67
+    peace                                          1.67        4.0
+    open borders                                  34.67       26.0
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                        2.0       1.33
+    maps                                            0.0        0.0
+    other                                         10.67        7.0
+  wars/100t                                        10.0       6.67
+  war length (median)                                19       29.0
+  power ratio at declaration (median)              1.13       1.26
+  cities taken by attacker per war                 0.67        1.2
+  wars won by attacker (took a city)                0.2        0.5
+  share of wars declared on the score leader        0.0        0.0
+  top score share at end                           0.29       0.25
+  players alive at end                               12         11
+  vassal pairs at end                                 5          1
+  open borders pairs at end                          21         27
+  defensive pacts at end                              0          0
+  mean techs at end                                  49       45.1
+  total cities at end                               161        158
+  player-turns in financial trouble %               3.5        3.3
+  victory                                             -          -
+== earth12-EPIC-5 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     104.3       70.0
+    tech swap                                      5.33       3.33
+    tech for gold                                  16.0       16.0
+    resource swap                                 44.33      17.33
+    resource for gold/turn                          0.0        0.0
+    gift                                           2.33        4.0
+    peace                                           4.0       1.67
+    open borders                                  25.33       22.0
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                        2.0       1.67
+    maps                                            0.0        0.0
+    other                                           5.0        4.0
+  wars/100t                                         8.0       6.33
+  war length (median)                                36       35.0
+  power ratio at declaration (median)              1.02       1.16
+  cities taken by attacker per war                 1.25       1.05
+  wars won by attacker (took a city)               0.29       0.42
+  share of wars declared on the score leader       0.04       0.05
+  top score share at end                           0.35       0.21
+  players alive at end                               10         10
+  vassal pairs at end                                 1          1
+  open borders pairs at end                          11         17
+  defensive pacts at end                              0          0
+  mean techs at end                                43.9       41.8
+  total cities at end                               166        156
+  player-turns in financial trouble %               1.7        2.6
+  victory                                             -          -
+== med-EPIC-1 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     129.3      131.7
+    tech swap                                     11.67        6.0
+    tech for gold                                 14.67       21.0
+    resource swap                                  50.0      22.67
+    resource for gold/turn                          0.0       0.67
+    gift                                            1.0       29.0
+    peace                                          5.67       1.67
+    open borders                                  34.67      42.67
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                        3.0       1.67
+    maps                                            0.0        0.0
+    other                                          8.67       6.33
+  wars/100t                                         9.0       9.33
+  war length (median)                              30.0       26.0
+  power ratio at declaration (median)              1.07 1.5699999999999998
+  cities taken by attacker per war                 1.41       1.61
+  wars won by attacker (took a city)               0.48       0.46
+  share of wars declared on the score leader       0.19       0.04
+  top score share at end                           0.28       0.37
+  players alive at end                                8          9
+  vassal pairs at end                                 1          4
+  open borders pairs at end                          13         21
+  defensive pacts at end                              0          0
+  mean techs at end                                52.9       53.7
+  total cities at end                               114        120
+  player-turns in financial trouble %               2.9        3.8
+  victory                                             -          -
+== med-EPIC-2 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     153.0       88.7
+    tech swap                                      5.33        5.0
+    tech for gold                                 28.33      21.33
+    resource swap                                 40.67      20.33
+    resource for gold/turn                          0.0        0.0
+    gift                                           26.0       3.33
+    peace                                           3.0       3.33
+    open borders                                  37.33       28.0
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                       1.67       1.67
+    maps                                            0.0        0.0
+    other                                         10.67       5.67
+  wars/100t                                        8.33       6.67
+  war length (median)                                20         31
+  power ratio at declaration (median)               0.7 1.3050000000000002
+  cities taken by attacker per war                 1.04        1.1
+  wars won by attacker (took a city)               0.24       0.45
+  share of wars declared on the score leader       0.12        0.0
+  top score share at end                           0.26       0.29
+  players alive at end                               11          9
+  vassal pairs at end                                 4          1
+  open borders pairs at end                          24         24
+  defensive pacts at end                              0          0
+  mean techs at end                                54.6       50.1
+  total cities at end                               116        112
+  player-turns in financial trouble %               3.1        5.0
+  victory                                             -          -
+== med-EPIC-3 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     146.0      104.7
+    tech swap                                      6.67        6.0
+    tech for gold                                  27.0       30.0
+    resource swap                                  40.0      23.33
+    resource for gold/turn                          0.0        1.0
+    gift                                          17.33       0.33
+    peace                                          4.33       3.67
+    open borders                                  36.67       32.0
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                       3.67        1.0
+    maps                                            0.0        0.0
+    other                                         10.33       7.33
+  wars/100t                                         8.0        5.0
+  war length (median)                              22.5         19
+  power ratio at declaration (median)             0.895        0.9
+  cities taken by attacker per war                 1.12       0.47
+  wars won by attacker (took a city)               0.46       0.27
+  share of wars declared on the score leader        0.0        0.2
+  top score share at end                           0.31       0.15
+  players alive at end                               11         10
+  vassal pairs at end                                 2          0
+  open borders pairs at end                          33         30
+  defensive pacts at end                              0          0
+  mean techs at end                                53.7       54.9
+  total cities at end                               120        118
+  player-turns in financial trouble %               2.8        5.6
+  victory                                             -          -
+== med-EPIC-4 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     123.0      113.0
+    tech swap                                       6.0        5.0
+    tech for gold                                  17.0      25.33
+    resource swap                                  50.0       22.0
+    resource for gold/turn                          0.0       0.33
+    gift                                           1.33       16.0
+    peace                                           3.0       2.67
+    open borders                                   34.0      33.33
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                        3.0       1.67
+    maps                                            0.0        0.0
+    other                                          8.67       6.67
+  wars/100t                                        7.67       6.33
+  war length (median)                                20       31.5
+  power ratio at declaration (median)              1.34       0.79
+  cities taken by attacker per war                 1.39       0.53
+  wars won by attacker (took a city)               0.48       0.21
+  share of wars declared on the score leader        0.0       0.05
+  top score share at end                            0.3       0.32
+  players alive at end                                7         10
+  vassal pairs at end                                 2          3
+  open borders pairs at end                          13         26
+  defensive pacts at end                              0          0
+  mean techs at end                                  53       55.4
+  total cities at end                               121        119
+  player-turns in financial trouble %               3.0        5.6
+  victory                                             -          -
+== med-EPIC-5 (13 vs 14b)
+  turns                                             300        300
+  trades/100t                                     128.3      121.7
+    tech swap                                      9.67       6.67
+    tech for gold                                 21.67      21.67
+    resource swap                                  44.0      16.33
+    resource for gold/turn                          0.0        2.0
+    gift                                           0.33      21.67
+    peace                                           5.0       3.67
+    open borders                                  32.67      39.33
+    defensive pact                                  0.0        0.0
+    vassal/capitulation                             0.0        0.0
+    war hire                                       3.33        3.0
+    maps                                            0.0        0.0
+    other                                         11.67       7.33
+  wars/100t                                         8.0      10.33
+  war length (median)                                27         26
+  power ratio at declaration (median)             0.665       1.52
+  cities taken by attacker per war                 0.17       1.16
+  wars won by attacker (took a city)               0.12       0.45
+  share of wars declared on the score leader       0.38        0.1
+  top score share at end                           0.16       0.44
+  players alive at end                                9         10
+  vassal pairs at end                                 0          5
+  open borders pairs at end                          21         22
+  defensive pacts at end                              0          0
+  mean techs at end                                54.7       50.5
+  total cities at end                               111        112
+  player-turns in financial trouble %               3.7        3.1
+  victory                                             -          -
+== paired over 10 runs: mean of 13, mean of 14b, mean difference, runs with 14b higher / lower
+  turns                                          300.00     300.00     +0.00   0/0
+  trades/100t                                    131.53      99.74    -31.79   1/9
+    tech swap                                      6.43       5.90     -0.53   4/6
+    tech for gold                                 20.17      21.60     +1.43   5/3
+    resource swap                                 46.00      22.20    -23.80   0/10
+    resource for gold/turn                         0.00       0.43     +0.43   5/0
+    gift                                          11.30       8.97     -2.33   4/6
+    peace                                          3.53       2.90     -0.63   4/6
+    open borders                                  32.93      30.33     -2.60   2/8
+    defensive pact                                 0.00       0.00     +0.00   0/0
+    vassal/capitulation                            0.00       0.00     +0.00   0/0
+    war hire                                       2.40       1.64     -0.76   1/7
+    maps                                           0.03       0.00     -0.03   0/1
+    other                                          8.73       5.77     -2.97   0/10
+  wars/100t                                        8.03       6.87     -1.17   2/7
+  war length (median)                             26.60      26.80     +0.20   3/7
+  power ratio at declaration (median)              1.14       1.31     +0.17   7/3
+  cities taken by attacker per war                 0.95       1.10     +0.14   7/3
+  wars won by attacker (took a city)               0.33       0.41     +0.09   7/3
+  share of wars declared on the score leader       0.07       0.04     -0.03   3/3
+  top score share at end                           0.29       0.28     -0.01   6/4
+  players alive at end                            10.10      10.30     +0.20   4/4
+  vassal pairs at end                              2.10       1.70     -0.40   3/5
+  open borders pairs at end                       21.60      23.90     +2.30   6/3
+  defensive pacts at end                           0.00       0.00     +0.00   0/0
+  mean techs at end                               49.62      47.96     -1.66   4/6
+  total cities at end                            138.60     137.30     -1.30   4/6
+  player-turns in financial trouble %              3.13       4.08     +0.95   6/4

@@ -1,0 +1,62 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "b88a5c056ac7af14da88485aaba1820ddb88c068",
+  "base_tree": "1bff86a821b779d63607d9d5bd39c5ee6a07a8c0",
+  "base_note": "GitLab main after merge request !40 (patch 0015)",
+  "tested_source_commit": "2de2b4bd3bac801170e88f34cde877005ce19d16",
+  "tested_source_tree": "a955d238588c95b59aeb37a6d66ffed17fbd1307",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!41",
+    "main_commit": "59fcd61",
+    "main_tree_equals_tested_tree": true,
+    "uploaded_as": "1 commit on claude/crash-use-after-free (GitLab API); branch tree compared with the tested tree before merging"
+  },
+  "patch": "0016-crash-fixes.patch",
+  "patch_sha256": "f9e52ce1638c8834a2fb8d31f519a70752aaea860b5b046c4cf9028760bab97d",
+  "relationship_to_prior_patch": "Incremental on GitLab main after merge request !40 (patch 0015). Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "reported": "Crash on turn 415 of a Mediterranean Marathon harness game (seed 2, patch 0014 DLL): page fault in wcslen under CvWString's copy constructor",
+  "root_causes": {
+    "raze_log": "CvPlayerAI::AI_conquerCity called pCity->getName() for a logBBAI line after pCity->doTask(TASK_RAZE) had deleted the city; logBBAI's arguments are evaluated even with AI logging off",
+    "worker_bribe": "CvPlayer::doEspionageMission read pTargetUnit->getUnitType() after kill(false), which deletes the unit immediately",
+    "liberate": "CvCity::liberate called pCity->initConscriptedUnit() outside its NULL check"
+  },
+  "measured": {
+    "crash": "harness scenario Mediterranean, Standard; GAMESPEED_MARATHON; HANDICAP_NOBLE; seed 2; DLL from patch 0014 with debug symbols: unhandled page fault on turn 415; return addresses resolve to CvWString::CvWString(const CvWString&) <- CvCity::getName <- AI_conquerCity (after CvPlayer::raze)",
+    "fixed": "same build with only the AI_conquerCity change: telemetry identical to the crashing run through turn 415 apart from timing; game continues to turn 430 without a fault",
+    "game_identical": true
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/CvCity.cpp": {
+      "before_sha256": "2efc5589f8f48beb448105e97591512b1b755dd5f37cd0a6531d370ea661d226",
+      "after_sha256": "6bca17d20c6edd491698efe46080a5abecb7713fbda047e67dd0632b432385b0"
+    },
+    "Assets/CvGameCoreDLL/CvPlayer.cpp": {
+      "before_sha256": "e399f31624db3bdf6b5fa06829ebb5385a4718b263c35acdfe1e5c18764fec94",
+      "after_sha256": "76cd9f14de4b4ca7dc1b5bb99e89acd1175d3075e9c04a05d96fa235d1bace70"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "5570a35bd6cb3c0c979bfdd162ac42fa898d398acd4ce1d4e37e1c66f9e998f4",
+      "after_sha256": "5531b3de687f329517aa8e8cc125377159a8b59f656b45f55693a88d9fc070e1"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "6bfd7dddc99b1f503c28468d696785fc4f16120df2034059bfd9761ada9f4632",
+      "after_sha256": "07ff40423e01705f18a02be536ee9f18f4f2b28953dede890aad8ef5c3aafe0c"
+    },
+    "Tools/test_crash_fixes.py": {
+      "before_sha256": null,
+      "after_sha256": "8466f8c5aa099e5762683e029afd8a3b9196c2300083c156c8f18a6918ddb6db"
+    }
+  },
+  "validation": {
+    "regression_suite": "31 isolated checks pass on the tested tree",
+    "tests_fail_before": "Tools/test_crash_fixes.py: 3 of 3 fail on GitLab main b88a5c0",
+    "build": "MSVC 2003 (VC++ Toolkit 2003) release build, 0 errors"
+  }
+}

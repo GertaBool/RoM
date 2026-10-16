@@ -1,0 +1,91 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "005988c9144d00bfe273a4f924ebb28c8c9951da",
+  "base_tree": "64beca6f676d0f6fe2333b1f44e5679405123011",
+  "base_note": "GitLab main after merge request !39 (patch 0014); same tree as the tested base 81ae534",
+  "tested_source_commit": "11251b20730a654922363830f986451d5a0fb2f4",
+  "tested_source_tree": "1bff86a821b779d63607d9d5bd39c5ee6a07a8c0",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!40",
+    "main_commit": "b88a5c056ac7af14da88485aaba1820ddb88c068",
+    "main_tree_equals_tested_tree": true,
+    "uploaded_as": "2 hunk commits on claude/late-game-turn-time (GitLab API); branch tree compared with the tested tree before merging"
+  },
+  "patch": "0015-late-game.patch",
+  "patch_sha256": "24993455559577e11086ccbe4bff34e4f4ea0ce019697c7dd53f0ca5a8c7bec3",
+  "relationship_to_prior_patch": "Incremental on GitLab main after merge request !39 (patch 0014). Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "reported": "Late-game turn time (\"the crash can also come from underoptimized code\"), found while profiling a Marathon snapshot at turn 400; save/reload divergence found with the harness reload check",
+  "root_causes": {
+    "building_value": "AI_buildingValueThreshold called canTrain(UnitCombatTypes) (a scan over all unit classes) for every unit combat type and building before testing whether the building gives that combat type experience",
+    "best_unit": "AI_bestUnitAI called canTrain and AI_unitValue twice per unit (two passes with identical answers)",
+    "border_danger": "AI_getAnyPlotDanger set unsaved border-danger flags for the enemy team and on the enemy plot without knowing they held; cleared only on war, peace or a nearby owner change, so the running game kept stale flags that a reloaded game did not have"
+  },
+  "measured": {
+    "position": "Mediterranean Marathon, turn-400 snapshot (342 cities, about 1,800 units), three turns, profiling build, equal load",
+    "turn_time_ms": {
+      "before": 28356,
+      "after": 23523
+    },
+    "canTrain_calls": {
+      "before": 3767489,
+      "after": 1279382
+    },
+    "game_identical": true,
+    "reload_check": "snapshot at turn 150 (Mediterranean, seed 7) reloaded and played 12 turns; snapshot at turn 200 (Earth 12, seed 2) reloaded and played 25 turns: telemetry identical to the running game (with patch 0014's attitude fix)"
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/CvCityAI.cpp": {
+      "before_sha256": "4186edac7f714fce48b7fa60f0ab0f04c477d7bf6620bc76020f6c7e9800bcdd",
+      "after_sha256": "8374f5f4301a84d5370fa28096ae0ad2358561490d3ffde80dd9d81b84643feb"
+    },
+    "Assets/CvGameCoreDLL/CvGame.cpp": {
+      "before_sha256": "bccc98dd6cfb61e9e9a04f35656a6acc4a88fe19341d7ca5297a1a65c97142ee",
+      "after_sha256": "4cdc00ea124960acbc1b82202a767705b0447e712b4bd79b1f26f7e847d570db"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "a6c66958261288b9ceb861491449c63f916ee15efa06a8a1cce927f74c7d0bb3",
+      "after_sha256": "5570a35bd6cb3c0c979bfdd162ac42fa898d398acd4ce1d4e37e1c66f9e998f4"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "208e6e8335df01b99b385c98502004f33c7adde3279d2601d0d1e3e893bf2bb1",
+      "after_sha256": "6bfd7dddc99b1f503c28468d696785fc4f16120df2034059bfd9761ada9f4632"
+    },
+    "Tools/test_late_game_fixes.py": {
+      "before_sha256": null,
+      "after_sha256": "cc0b23ea5c2e1d720c0ccd9efc0e64112eb01ba836ebc490e4f2b5d2a2d8bd76"
+    }
+  },
+  "validation": {
+    "suite_programs": 30,
+    "suite_failures": 0,
+    "new_tests": [
+      "Tools/test_late_game_fixes.py"
+    ],
+    "new_test_against_base": "all 4 test cases fail",
+    "native_standard": "C++03",
+    "clang_gate": {
+      "translation_units": [
+        "CvPlayerAI.cpp",
+        "CvCityAI.cpp",
+        "CvGame.cpp"
+      ],
+      "baseline": "4 errors/58 warnings (clang-only, pre-existing)",
+      "patched": "4 errors/58 warnings",
+      "new_diagnostics": 0
+    },
+    "msvc_build": {
+      "compiler": "Microsoft C/C++ 13.10.3077 (Visual C++ Toolkit 2003)",
+      "errors": 0,
+      "warnings": 0,
+      "exports": 2451,
+      "exports_equal_to_previous_release": true
+    }
+  }
+}

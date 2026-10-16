@@ -1,0 +1,81 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "59fcd61f23b2616c21e836b1502e2da2d3da1f44",
+  "base_tree": "a955d238588c95b59aeb37a6d66ffed17fbd1307",
+  "base_note": "GitLab main after merge request !41 (patch 0016)",
+  "tested_source_commit": "7c71f6874fce3793281460a73b6acc6c520e42fd",
+  "tested_source_tree": "b59649d43dc02006ce82255c0f99d243dc97f24e",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!42",
+    "main_commit": "69a610f",
+    "main_tree_equals_tested_tree": true,
+    "uploaded_as": "3 commits on claude/0017-settler-ui-turn-time (GitLab API), squashed on merge; branch tree compared with the tested tree before merging"
+  },
+  "patch": "0017-settler-ui-turn-time.patch",
+  "patch_sha256": "f963c7119dcee2ca82cfddf08a2c843306a5bb35daff438af83e6d99904eb9f5",
+  "relationship_to_prior_patch": "Incremental on GitLab main after merge request !41 (patch 0016). Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "changes": {
+    "settler_without_cities": "CvUnitAI::AI_found: a player without cities lets its settler travel without an escort. On Earth 12, Genghis Khan's start plot cannot hold a city, China founds next to the plot his settler walks to, and the settler then waited forever for an escort no city could train. Present in the original RoM DLL (d8cedd5).",
+    "plot_list_redraw": "CvUnit (4 sites) and CvSelectionGroup (1 site) set the PlotListButtons dirty bit when the unit's plot equals the selection plot; with nothing selected both are NULL. They now require a plot.",
+    "hover_help": "CvGameTextMgr::setPlotListHelp cleared a 423 x 51 x 244 promotion table (about 21 MB) on every hover over a stack of more than 15 units; rows are now allocated and cleared only for unit types on the plot, and DeInitialize empties the table.",
+    "update_score": "CvGame::updateScore called Python calculateScore players x players times; each score is computed once, ranks unchanged.",
+    "can_build": "CvPlayer::canBuild tests the tech requirement before the plot.",
+    "best_route": "CvPlayer::getBestRoute scans the route builds sorted by route value, first usable wins; same result.",
+    "extra_cost": "CvPlayer::calculatePreInflatedCosts calls Python getExtraCost (returns 0 in RoM) only when PythonCallbackDefines.xml sets USE_GET_EXTRA_COST_CALLBACK; the patch adds it with value 0."
+  },
+  "measured": {
+    "identical_games": "harness, Mediterranean Marathon Noble, seeds 1 and 2, to turn 450: telemetry identical between the 0016 and 0017 DLLs apart from timing",
+    "earth12": "Earth 12 Marathon Noble seeds 1 and 2: Genghis Khan founds his capital on turn 1 (before: no city in any game); the games differ from turn 1 on as a result",
+    "turn_time": "10 turns from the turn-400 Mediterranean Marathon snapshot, two repetitions each: 34.3 and 35.3 s (0016) vs 32.2 and 31.7 s (0017), -8 %; the harness does not run RoM's Python, so the skipped getExtraCost calls save more in the game"
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/CvGame.cpp": {
+      "before_sha256": "4cdc00ea124960acbc1b82202a767705b0447e712b4bd79b1f26f7e847d570db",
+      "after_sha256": "6e8db5ae0fe547cf3d20c80c827ddb288a2e412b2d4f5668837e5558a3278a84"
+    },
+    "Assets/CvGameCoreDLL/CvGameTextMgr.cpp": {
+      "before_sha256": "bd2e0e11e34a498bd0e4c96704be755f7815c278601a6e5cb4671adc026ce378",
+      "after_sha256": "b5666f003283694109f1242cc192789b90e98682269d703ccc3bb2bb564baf85"
+    },
+    "Assets/CvGameCoreDLL/CvPlayer.cpp": {
+      "before_sha256": "76cd9f14de4b4ca7dc1b5bb99e89acd1175d3075e9c04a05d96fa235d1bace70",
+      "after_sha256": "ca75cdc7ae4dc62cbf662e0213128b87e3ab3d08fcd0af02931fddf84d8a8ade"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroup.cpp": {
+      "before_sha256": "e85ca8b225c5883d9fc046b24f3345d48653b1bbbbd3853ba6878db8a9657a55",
+      "after_sha256": "2db22818aa7379388e665d3f7acf364dbe7ac0908dd60084bb21447a3f18f202"
+    },
+    "Assets/CvGameCoreDLL/CvUnit.cpp": {
+      "before_sha256": "75fe79f821ff6e888b5b2ad2661cb349056747e9aea369e641dec58f54c6a0da",
+      "after_sha256": "c0c3b7630f56af9722dacde682f1aae16ffde9f4468ffb5f602366f6b38d39b8"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "a60b5d96e6a26557ad2fca6b993700fb80d6fd82e011ea169ac3d52108634fdf",
+      "after_sha256": "990f9ce1433670d4b291203cfcbf730ee8b9705a62385f97c4dfa0bbf340b823"
+    },
+    "Assets/XML/PythonCallbackDefines.xml": {
+      "before_sha256": "5740bd5ffb8643621952d9d5c552e6f463d7c3c120dbd24db969867136589ac9",
+      "after_sha256": "e2b303bcb8767f976097b262274e89f2d34a3e43d73ba117e6ac6a40bd2f2bda"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "07ff40423e01705f18a02be536ee9f18f4f2b28953dede890aad8ef5c3aafe0c",
+      "after_sha256": "4de98aacd59fc85ba24f2e5bfb0df2521ac7ad08fa16bb0f34ffaef730e3c603"
+    },
+    "Tools/test_patch_0017.py": {
+      "before_sha256": null,
+      "after_sha256": "130978ddc1fc0fc118908c763e084722221fcf6c454e648cd9712aa43aa9bdb7"
+    }
+  },
+  "validation": {
+    "regression_suite": "32 isolated checks pass on the tested tree",
+    "tests_fail_before": "Tools/test_patch_0017.py: 7 of 7 fail on GitLab main 59fcd61",
+    "build": "MSVC 2003 (VC++ Toolkit 2003) release build, 0 errors"
+  }
+}

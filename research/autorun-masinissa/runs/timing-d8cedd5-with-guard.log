@@ -1,0 +1,86 @@
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\GlobalDefinesAlt.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\BBAI_AI_Variables_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\BBAI_Game_Options_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\TechDiffusion_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\LeadFromBehind_GlobalDefines.xml
+[MessageBox] XML Caching Error: Failed writing to global defines cache. 
+ Current XML file is: xml\PythonCallbackDefines.xml
+XML missing: Assets//res\Fonts\GameFont_GlobalDefines.xml
+[MessageBox] XML Load Error: LoadXML call failed for res\Fonts\GameFont_GlobalDefines.xml 
+ Current XML file is: xml\PythonCallbackDefines.xml
+[MessageBox] XML Caching Error: Failed writing to Technologies cache. 
+ Current XML file is: xml\Technologies/CIV4TechInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Units cache. 
+ Current XML file is: xml\Units/CIV4PromotionInfos.xml
+[MessageBox] XML Caching Error: Failed writing to GameInfo cache. 
+ Current XML file is: xml\GameInfo/CIV4HandicapInfo.xml
+[MessageBox] XML Caching Error: Failed writing to Terrain cache. 
+ Current XML file is: Modules\Projects\Vincentz\Guilds\Guilds_CIV4BonusInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Terrain cache. 
+ Current XML file is: Modules\Builds\JungleCamp\JUNGLECAMP_CIV4ImprovementInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Buildings cache. 
+ Current XML file is: Modules\Projects\Vincentz\Guilds\Guilds_CIV4BuildingInfos.xml
+[MessageBox] XML Caching Error: Failed writing to GameInfo cache. 
+ Current XML file is: Modules\Projects\Vincentz\Guilds\Guilds_CIV4CivicInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Civilizations cache. 
+ Current XML file is: Modules\Custom Leaderheads\Wilhelmina\Wilhelmina_CIV4LeaderHeadInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Units cache. 
+ Current XML file is: Modules\Projects\Vincentz\Guilds\Guilds_CIV4UnitInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Civilizations cache. 
+ Current XML file is: Modules\Custom Leaderheads\Wilhelmina\Wilhelmina_CIV4CivilizationInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Events cache. 
+ Current XML file is: xml\Events/CIV4EventInfos.xml
+[MessageBox] XML Caching Error: Failed writing to Events cache. 
+ Current XML file is: xml\Events/CIV4EventTriggerInfos.xml
+[MessageBox] XML Caching Error: Failed writing to GameInfo cache. 
+ Current XML file is: Modules\Custom Leaderheads\Wilhelmina\Wilhelmina_CIV4DiplomacyInfos.xml
+XML loaded (ok)
+info counts: units 422 unitclasses 311 buildingclasses 413 buildings 428 projects 17 civics 69 votes 23 religions 16 corporations 27 votesources 2 specialunits 6 specialbuildings 11 techs 308 bonuses 73 improvements 54 features 8 terrains 10 routes 9 promotions 244 civs 41 leaders 83 handicaps 9 speeds 6 eras 8 specialists 18 hurries 2 upkeeps 3 cultures 7 emphasize 6 events 517 eventtriggers 310 espionagemissions 20 builds 56 gameoptions 32 players 51
+init core: read 9071 of 9071
+game: at 129317, turn 269
+save m410.game: result 19
+init core: read 9071 of 9071
+game: at 129317, turn 269
+map: at 3766612, 84x46
+teams: at 4414057
+players: at 11013733 of 11143401, alive 19
+  player 0 LEADER_HENRY_VIII cities 5 units 56 turnActive 0
+  player 1 LEADER_BRENNUS cities 6 units 56 turnActive 1
+  player 2 LEADER_PERICLES cities 6 units 40 turnActive 0
+  player 3 LEADER_AUGUSTUS cities 4 units 45 turnActive 0
+  player 4 LEADER_IVAN cities 7 units 39 turnActive 0
+  player 5 LEADER_CHARLEMAGNE cities 8 units 45 turnActive 0
+  player 6 LEADER_MASINISSA HUMAN cities 7 units 57 turnActive 0
+  player 7 LEADER_WILLEM_VAN_ORANJE cities 7 units 51 turnActive 0
+  player 8 LEADER_SUPPI cities 3 units 22 turnActive 0
+  player 9 LEADER_JOAO cities 11 units 40 turnActive 0
+  player 10 LEADER_RAMESSES cities 7 units 73 turnActive 0
+  player 11 LEADER_HANNIBAL cities 8 units 30 turnActive 0
+  player 12 LEADER_CHARLES_V cities 7 units 47 turnActive 0
+  player 13 LEADER_HAMMURABI cities 13 units 65 turnActive 0
+  player 14 LEADER_AFONSO cities 4 units 26 turnActive 0
+  player 15 LEADER_PETER cities 6 units 36 turnActive 0
+  player 16 LEADER_LEONIDAS cities 5 units 19 turnActive 0
+  player 17 LEADER_ALEXANDER cities 4 units 43 turnActive 0
+  player 50 LEADER_BARBARIAN cities 0 units 0 turnActive 0
+autoplay: 1 human seat(s) handed to the AI
+turn 269 (0 ms, 0 updates)
+turn 270 (8735 ms, 24 updates)
+turn 271 (9615 ms, 22 updates)
+turn 272 (9152 ms, 26 updates)
+turn 273 (10091 ms, 18 updates)
+turn 274 (8271 ms, 19 updates)
+turn 275 (10273 ms, 32 updates)
+turn 276 (9840 ms, 36 updates)
+turn 277 (9790 ms, 23 updates)
+turn 278 (9758 ms, 23 updates)
+turn 279 (11135 ms, 30 updates)
+RESULT save turn 279 state 0
+   self ms    incl ms        calls  sample

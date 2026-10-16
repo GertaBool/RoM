@@ -1,0 +1,295 @@
+# Patch 0011 landing tests on unmodified GitLab main 86af2ab (tree 147f6d1f) and on the escort change alone (2026-10-13T13:22Z)
+$ python3 Tools/test_settler_landing.py --source <main 86af2ab>
+test_blocked_landing_releases_commitment_and_requests_recovery (__main__.LandingTests.test_blocked_landing_releases_commitment_and_requests_recovery) ... test: /tmp/rom-correctness/test.cpp:552: int main(): Assertion `f.boat.retreats==1&&f.boat.group.job==NO_MISSIONAI' failed.
+ERROR
+test_boarding_moves_do_not_delay_sailing (__main__.LandingTests.test_boarding_moves_do_not_delay_sailing) ... ok
+test_busy_party_is_not_overwritten (__main__.LandingTests.test_busy_party_is_not_overwritten) ... ok
+test_busy_separate_escort_is_not_regrouped (__main__.LandingTests.test_busy_separate_escort_is_not_regrouped) ... test: /tmp/rom-correctness/test.cpp:556: int main(): Assertion `f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site)' failed.
+ERROR
+test_faster_walk_remains_available (__main__.LandingTests.test_faster_walk_remains_available) ... ok
+test_foreign_group_members_do_not_join_the_landing (__main__.LandingTests.test_foreign_group_members_do_not_join_the_landing) ... test: /tmp/rom-correctness/test.cpp:553: int main(): Assertion `f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site)' failed.
+ERROR
+test_invalid_site_does_not_unload_offshore (__main__.LandingTests.test_invalid_site_does_not_unload_offshore) ... ok
+test_landing_preserves_found_job (__main__.LandingTests.test_landing_preserves_found_job) ... test: /tmp/rom-correctness/test.cpp:551: int main(): Assertion `!f.settler.isCargo()&&!f.escort.isCargo()' failed.
+ERROR
+test_movement_callback_removes_passenger (__main__.LandingTests.test_movement_callback_removes_passenger) ... test: /tmp/rom-correctness/test.cpp:551: int main(): Assertion `getUnit(f.escort.getIDInfo())==NULL' failed.
+ERROR
+test_passenger_hold_does_not_prevent_landing (__main__.LandingTests.test_passenger_hold_does_not_prevent_landing) ... test: /tmp/rom-correctness/test.cpp:552: int main(): Assertion `f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site)' failed.
+ERROR
+test_queued_landing_keeps_both_commitments (__main__.LandingTests.test_queued_landing_keeps_both_commitments) ... test: /tmp/rom-correctness/test.cpp:552: int main(): Assertion `f.settler.getGroup()->job==MISSIONAI_FOUND&&f.settler.getGroup()->target==&f.site' failed.
+ERROR
+test_unrelated_immobile_cargo_cannot_veto_party (__main__.LandingTests.test_unrelated_immobile_cargo_cannot_veto_party) ... test: /tmp/rom-correctness/test.cpp:552: int main(): Assertion `f.settler.atPlot(&f.site)&&f.escort.atPlot(&f.site)' failed.
+ERROR
+test_valid_sea_commitment_is_not_rescored (__main__.LandingTests.test_valid_sea_commitment_is_not_rescored) ... ok
+test_wait_for_actual_escort_then_land (__main__.LandingTests.test_wait_for_actual_escort_then_land) ... test: /tmp/rom-correctness/test.cpp:555: int main(): Assertion `!f.settler.isCargo()&&!f.escort.isCargo()' failed.
+ERROR
+
+======================================================================
+ERROR: test_blocked_landing_releases_commitment_and_requests_recovery (__main__.LandingTests.test_blocked_landing_releases_commitment_and_requests_recovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 236, in test_blocked_landing_releases_commitment_and_requests_recovery
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);landingPathAvailable=false;
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_busy_separate_escort_is_not_regrouped (__main__.LandingTests.test_busy_separate_escort_is_not_regrouped)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 303, in test_busy_separate_escort_is_not_regrouped
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);CvSelectionGroup* original=f.escort.getGroup();
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_foreign_group_members_do_not_join_the_landing (__main__.LandingTests.test_foreign_group_members_do_not_join_the_landing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 195, in test_foreign_group_members_do_not_join_the_landing
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);CvUnit outsider;
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_landing_preserves_found_job (__main__.LandingTests.test_landing_preserves_found_job)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 172, in test_landing_preserves_found_job
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_movement_callback_removes_passenger (__main__.LandingTests.test_movement_callback_removes_passenger)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 256, in test_movement_callback_removes_passenger
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);removeOnLanding=&f.escort;
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_passenger_hold_does_not_prevent_landing (__main__.LandingTests.test_passenger_hold_does_not_prevent_landing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 265, in test_passenger_hold_does_not_prevent_landing
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_queued_landing_keeps_both_commitments (__main__.LandingTests.test_queued_landing_keeps_both_commitments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 218, in test_queued_landing_keeps_both_commitments
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);deferLanding=true;
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_unrelated_immobile_cargo_cannot_veto_party (__main__.LandingTests.test_unrelated_immobile_cargo_cannot_veto_party)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 185, in test_unrelated_immobile_cargo_cannot_veto_party
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);CvUnit spare;
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_wait_for_actual_escort_then_land (__main__.LandingTests.test_wait_for_actual_escort_then_land)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 206, in test_wait_for_actual_escort_then_land
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);f.escort.movable=false;
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+----------------------------------------------------------------------
+Ran 14 tests in 10.456s
+
+FAILED (errors=9)
+
+$ python3 Tools/test_settler_landing.py --source <main + canFight escort change only, no regroup>
+test_blocked_landing_releases_commitment_and_requests_recovery (__main__.LandingTests.test_blocked_landing_releases_commitment_and_requests_recovery) ... ok
+test_boarding_moves_do_not_delay_sailing (__main__.LandingTests.test_boarding_moves_do_not_delay_sailing) ... ok
+test_busy_party_is_not_overwritten (__main__.LandingTests.test_busy_party_is_not_overwritten) ... ok
+test_busy_separate_escort_is_not_regrouped (__main__.LandingTests.test_busy_separate_escort_is_not_regrouped) ... ok
+test_faster_walk_remains_available (__main__.LandingTests.test_faster_walk_remains_available) ... ok
+test_foreign_group_members_do_not_join_the_landing (__main__.LandingTests.test_foreign_group_members_do_not_join_the_landing) ... ok
+test_invalid_site_does_not_unload_offshore (__main__.LandingTests.test_invalid_site_does_not_unload_offshore) ... ok
+test_landing_preserves_found_job (__main__.LandingTests.test_landing_preserves_found_job) ... test: /tmp/rom-correctness/test.cpp:556: int main(): Assertion `f.settler.getGroup()==f.escort.getGroup()' failed.
+ERROR
+test_movement_callback_removes_passenger (__main__.LandingTests.test_movement_callback_removes_passenger) ... ok
+test_passenger_hold_does_not_prevent_landing (__main__.LandingTests.test_passenger_hold_does_not_prevent_landing) ... test: /tmp/rom-correctness/test.cpp:556: int main(): Assertion `f.settler.getGroup()->job==MISSIONAI_FOUND' failed.
+ERROR
+test_queued_landing_keeps_both_commitments (__main__.LandingTests.test_queued_landing_keeps_both_commitments) ... ok
+test_unrelated_immobile_cargo_cannot_veto_party (__main__.LandingTests.test_unrelated_immobile_cargo_cannot_veto_party) ... ok
+test_valid_sea_commitment_is_not_rescored (__main__.LandingTests.test_valid_sea_commitment_is_not_rescored) ... ok
+test_wait_for_actual_escort_then_land (__main__.LandingTests.test_wait_for_actual_escort_then_land) ... ok
+
+======================================================================
+ERROR: test_landing_preserves_found_job (__main__.LandingTests.test_landing_preserves_found_job)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 172, in test_landing_preserves_found_job
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+======================================================================
+ERROR: test_passenger_hold_does_not_prevent_landing (__main__.LandingTests.test_passenger_hold_does_not_prevent_landing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/src/rom-upstream/Tools/test_settler_landing.py", line 265, in test_passenger_hold_does_not_prevent_landing
+            compile_run(program()+r'''
+            ~~~~~~~~~~~^^^^^^^^^^^^^^^
+    int main(){Fixture f;atCoast(f);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    }
+    ^
+    ''')
+    ^^^^
+  File "/home/user/src/rom-upstream/Tools/test_review_correctness.py", line 46, in compile_run
+    subprocess.run([str(exe)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/rom-correctness/test']' died with <Signals.SIGABRT: 6>.
+
+----------------------------------------------------------------------
+Ran 14 tests in 9.711s
+
+FAILED (errors=2)

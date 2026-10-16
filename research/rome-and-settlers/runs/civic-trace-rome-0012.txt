@@ -1,0 +1,28 @@
+# CvPlayerAI::AI_civicValue for Rome at 410 BC, patch 0012 source, traced term by term
+# (a diagnostic copy of the source logged the running value after each block)
+CIVIC_TRIBAL_WARFARE   base: cities*6, anarchy, civic upkeep               20
+CIVIC_TRIBAL_WARFARE   maintenance modifiers                               20
+CIVIC_TRIBAL_WARFARE   (before free experience)                            20
+CIVIC_TRIBAL_WARFARE   + free experience, free units                       20
+CIVIC_TRIBAL_WARFARE   - unit charges (raw, before handicap percent)       -8
+CIVIC_TRIBAL_WARFARE   health terms                                        -8
+CIVIC_TRIBAL_WARFARE   war weariness, free specialists                     -8
+CIVIC_TRIBAL_WARFARE   trade routes                                        -7
+CIVIC_TRIBAL_WARFARE   (before happiness per military unit)                -7
+CIVIC_TRIBAL_WARFARE   + happiness per military unit                       -7
+CIVIC_TRIBAL_WARFARE   other happiness                                     -7
+CIVIC_TRIBAL_WARFARE   hurry, specialists, favourite civic                 -7
+CIVIC_TRIBAL_WARFARE   final (Revolution effects)                          -7
+CIVIC_MERCENARIES      base: cities*6, anarchy, civic upkeep               17
+CIVIC_MERCENARIES      maintenance modifiers                               17
+CIVIC_MERCENARIES      (before free experience)                            17
+CIVIC_MERCENARIES      + free experience, free units                       62
+CIVIC_MERCENARIES      - unit charges (raw, before handicap percent)      -29
+CIVIC_MERCENARIES      health terms                                       -29
+CIVIC_MERCENARIES      war weariness, free specialists                    -29
+CIVIC_MERCENARIES      trade routes                                       -28
+CIVIC_MERCENARIES      (before happiness per military unit)               -28
+CIVIC_MERCENARIES      + happiness per military unit                       -4
+CIVIC_MERCENARIES      other happiness                                     -4
+CIVIC_MERCENARIES      hurry, specialists, favourite civic                 -4
+CIVIC_MERCENARIES      final (Revolution effects)                          -4

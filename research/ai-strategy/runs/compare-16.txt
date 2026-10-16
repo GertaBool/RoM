@@ -1,0 +1,29 @@
+                                                      base      f127
+games                                                   16        16
+wars per game                                         18.4      14.4
+declared below power ratio 1.0 %                      29.9      20.9
+declared with nothing near %                          23.5      10.0
+army near target at declaration, median %             20.0      22.9
+dogpiles %                                            31.0      13.9
+wars that take a city %                               40.1      53.9
+net cities per war                                    0.75      1.08
+turns to first capture, median                        6.00      5.00
+ended wars: median length                             35.0        28
+ended wars with no city changing hands %              53.2      44.3
+stalemates (50+ turns, no city) per game              3.44      1.50
+declarer battles won %                                58.7      57.7
+declarer lone attacks %                               34.5      39.1
+exchange ratio (target losses per declarer loss)      1.09      1.07
+assault turns per game                                66.1      58.9
+assaults that take the city %                         39.8      42.7
+units lost per city taken in assaults                 6.59      5.88
+assaults with walls bombarded that turn %             2.46      2.76
+assaults with walls at most 1/4 %                     12.8      9.23
+assaults with ranged strikes %                        6.91      9.44
+assaults opened by collateral %                       46.1      48.9
+assaults with siege or collateral in stack %          58.8      62.1
+median assault stack                                     4         4
+cities captured between civs per game                 29.6      28.8
+civs eliminated per game                                 2      1.81
+leader score share at the end %                       30.5      28.2
+turn time, last 50 turns (ms)                       4989.2    4634.7

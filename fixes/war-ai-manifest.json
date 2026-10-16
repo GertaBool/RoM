@@ -1,0 +1,145 @@
+{
+ "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+ "base_commit": "69a610fcdda7de54a01b26c03745d59c99e2dba9",
+ "base_tree": "b59649d43dc02006ce82255c0f99d243dc97f24e",
+ "base_note": "GitLab main after merge request !42 (patch 0017)",
+ "tested_source_commit": "d64465d9fbee398d2ac5cb00e59ccefbace20192",
+ "tested_source_tree": "2cab41257f72cc37d230345c87c1e83ef37c2251",
+ "patch": "0018-war-ai.patch",
+ "patch_sha256": "f55171ae94bd0b09cf32111c250147e6ef2b4c9e4ba4271c541977498ef9268b",
+ "relationship_to_prior_patch": "Incremental on GitLab main after merge request !42 (patch 0017). Do not reapply earlier patches.",
+ "binary_rebuilt": true,
+ "save_format": {
+  "old": 6,
+  "new": 6,
+  "layout_changed": true,
+  "older_readers_can_read_new_saves": false,
+  "note": "CvTeamAI writes its expansion flag as 1 and two arrays of war success at the last war review; saves from older DLLs (flag 0) load, saves written by this DLL do not load in older DLLs."
+ },
+ "switch": {
+  "define": "AI_CUNNING_FLAGS",
+  "file": "Assets/XML/BBAI_AI_Variables_GlobalDefines.xml",
+  "default": 111,
+  "bits": {
+   "1": "declare a prepared war once 40-70 % of the offensive land units stand within three plots of the target",
+   "2": "choose war targets by the land power each side has in the target's land areas; dogpiles only with own forces in reach",
+   "4": "review each chosen war once per period by its progress instead of a per-turn peace die",
+   "8": "bombard with any unit of the stack that can; collateral units open AI assaults",
+   "16": "collateral units join city attack stacks and are trained for invasions (off by default)",
+   "32": "pay and accept help in a war only from teams near the enemy",
+   "64": "archers and siege in a city fire ranged strikes at enemy units next to it"
+  },
+  "off_identical": "With the define at 0, a Mediterranean Marathon game replays the patch 0017 game identically over 451 turns."
+ },
+ "measured": {
+  "games": "harness, Mediterranean and Earth 12, map seeds 1-8, Marathon, Noble, turn 0 to 450; 16 games for the baseline and for all switches, 8 for each single switch and combination",
+  "baseline_vs_all_16_games": {
+   "wars_that_take_a_city_pct": [
+    40.1,
+    53.9
+   ],
+   "net_cities_per_war": [
+    0.75,
+    1.08
+   ],
+   "stalemates_per_game": [
+    3.44,
+    1.5
+   ],
+   "declared_with_nothing_near_pct": [
+    23.5,
+    10.0
+   ],
+   "declared_against_stronger_pct": [
+    29.9,
+    20.9
+   ],
+   "turn_time_last_50_turns_s": [
+    4.99,
+    4.63
+   ]
+  },
+  "baseline_vs_default_111_8_games": {
+   "wars_that_take_a_city_pct": [
+    38.7,
+    53.4
+   ],
+   "net_cities_per_war": [
+    0.75,
+    1.26
+   ],
+   "exchange_ratio": [
+    1.06,
+    1.25
+   ],
+   "units_lost_per_city_taken": [
+    7.43,
+    5.15
+   ],
+   "cities_captured_per_game": [
+    27.5,
+    30.6
+   ]
+  },
+  "reload": "a game with all switches saved at turn 300 and reloaded plays turns 301-320 identically to the running game"
+ },
+ "files": {
+  "Assets/CvGameCoreDLL/CvCityAI.cpp": {
+   "before_sha256": "8374f5f4301a84d5370fa28096ae0ad2358561490d3ffde80dd9d81b84643feb",
+   "after_sha256": "29d9ca67c48c630a76b1003d6555055682ab1a19b5f1f437c78cafdab186883c"
+  },
+  "Assets/CvGameCoreDLL/CvGameCoreUtils.cpp": {
+   "before_sha256": "f7cc23a0db9ca7a7c0f0e46bd14f7077b1cc47c495778e1e9d14755cc7e79fad",
+   "after_sha256": "d84029c4802faa7cff7270509c6686d72c542ac4400d07a67dea56e3f6b2b17e"
+  },
+  "Assets/CvGameCoreDLL/CvGameCoreUtils.h": {
+   "before_sha256": "6d9e224d9e1e1cb38023480da3fdec85fd21434f4bff08536d5f358c267772c3",
+   "after_sha256": "0ad40503906ed5fbb8bc6e526624eadea9ac3f86b860adb8a3804f4fb2034549"
+  },
+  "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+   "before_sha256": "5531b3de687f329517aa8e8cc125377159a8b59f656b45f55693a88d9fc070e1",
+   "after_sha256": "ad88c0e82cdea8f3c5ad7c1de3e2a85ad861bd442df428196a85f08804fbd883"
+  },
+  "Assets/CvGameCoreDLL/CvSelectionGroup.cpp": {
+   "before_sha256": "2db22818aa7379388e665d3f7acf364dbe7ac0908dd60084bb21447a3f18f202",
+   "after_sha256": "4e0b309231bbcf6d3824cae2491a52e5dc87cb13d7db9d5632a55a5ea25469c4"
+  },
+  "Assets/CvGameCoreDLL/CvTeamAI.cpp": {
+   "before_sha256": "4f3470d5d971a00cd5c79554028ab5013ea4d10bdee398664f76d85867dbe086",
+   "after_sha256": "c38b16c55bc93b00444aa51198f32b1d696bf42c82505dc238fb5fd2b4e3baff"
+  },
+  "Assets/CvGameCoreDLL/CvTeamAI.h": {
+   "before_sha256": "74176767b3e69a21afcd942d5d5714a0f0fb35b94e2ecc3b571eab50c1e4ebc6",
+   "after_sha256": "fe4c1ecd8eec1b29c6bec145fb8ebfef2da6875f7b61a303942400760a3c2c41"
+  },
+  "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+   "before_sha256": "990f9ce1433670d4b291203cfcbf730ee8b9705a62385f97c4dfa0bbf340b823",
+   "after_sha256": "6d92df2585c8971a34857aded7db934f64db8e26feb72b432d90f2ec3624c335"
+  },
+  "Assets/XML/BBAI_AI_Variables_GlobalDefines.xml": {
+   "before_sha256": "acac201ede56218562c1f2a2600735b5b5c9f568583a68614ec676bf13817a2b",
+   "after_sha256": "988be0a8985ad6449fdaa595dd838f0003b7704482a5176ddcac13c909081b35"
+  },
+  "Tools/regression_manifest.json": {
+   "before_sha256": "4de98aacd59fc85ba24f2e5bfb0df2521ac7ad08fa16bb0f34ffaef730e3c603",
+   "after_sha256": "5bb3a66684a16c0f69011da81828e3e0f5524c11034e01c2472140230701ffa0"
+  },
+  "Tools/test_patch_0018.py": {
+   "before_sha256": null,
+   "after_sha256": "eb73b08b3f689d11095c2407ba9adfa1fae8fd3ec4e062be81c939a22f3e033e"
+  }
+ },
+ "validation": {
+  "regression_suite": "33 isolated checks pass on the tested tree",
+  "tests_fail_before": "Tools/test_patch_0018.py: 11 of 11 fail on GitLab main 69a610f",
+  "build": "MSVC 2003 (VC++ Toolkit 2003) release build, 0 errors, 0 warnings"
+ },
+ "landed": {
+  "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+  "merge_request": "!43",
+  "main_commit": "d241fe4",
+  "main_tree_equals_tested_tree": true,
+  "uploaded_as": "5 commits on claude/0018-war-ai (GitLab API), squashed on merge; branch tree compared with the tested tree before merging"
+ },
+ "build": "builds/0018/CvGameCoreDLL.dll"
+}

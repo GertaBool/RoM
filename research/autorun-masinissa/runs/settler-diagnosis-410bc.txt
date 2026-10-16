@@ -1,0 +1,129 @@
+# Every settler at 410 BC (turn 269) and, for its best 8 candidates, the tests AI_found applies.
+# path: MOVE_SAFE_TERRITORY path exists (turns); any: path with no flags; reach: 1 deliverable from here, 2 from some city
+BRENNUS settler 376865 at (10,38) age 26 group 2 canDefend 1 mission -1 cargo 0 horizon 21
+    (9,25) value 5962 canFound 1 enemy 1 otherParty 0 path 1/13 any 1/13
+    (7,26) value 4722 canFound 1 enemy 0 otherParty 3 path 1/12 any 1/12
+    (9,24) value 4600 canFound 1 enemy 0 otherParty 0 path 1/14 any 1/14
+    (8,26) value 3690 canFound 1 enemy 0 otherParty 3 path 1/12 any 1/12
+    (5,25) value 2548 canFound 1 enemy 0 otherParty 0 path 1/13 any 1/13
+    (8,23) value 2482 canFound 1 enemy 0 otherParty 0 path 1/15 any 1/15
+    (10,25) value 2015 canFound 1 enemy 0 otherParty 0 path 1/13 any 1/13
+    (12,30) value 1684 canFound 1 enemy 0 otherParty 0 path 1/8 any 1/8
+BRENNUS settler 409637 at (9,39) age 22 group 1 canDefend 0 mission -1 cargo 0 horizon 21
+    (9,25) value 5962 canFound 1 enemy 1 otherParty 0 path 0/-1 any 0/-1
+    (7,26) value 4722 canFound 1 enemy 0 otherParty 3 path 0/-1 any 0/-1
+    (9,24) value 4600 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (8,26) value 3690 canFound 1 enemy 0 otherParty 3 path 0/-1 any 0/-1
+    (5,25) value 2548 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (8,23) value 2482 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (10,25) value 2015 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (12,30) value 1684 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+BRENNUS settler 475181 at (9,39) age 16 group 1 canDefend 0 mission -1 cargo 0 horizon 21
+    (9,25) value 5962 canFound 1 enemy 1 otherParty 0 path 0/-1 any 0/-1
+    (7,26) value 4722 canFound 1 enemy 0 otherParty 3 path 0/-1 any 0/-1
+    (9,24) value 4600 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (8,26) value 3690 canFound 1 enemy 0 otherParty 3 path 0/-1 any 0/-1
+    (5,25) value 2548 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (8,23) value 2482 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (10,25) value 2015 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (12,30) value 1684 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+BRENNUS settler 483374 at (15,35) age 15 group 3 canDefend 1 mission 18 cargo 0 horizon 21
+    (9,25) value 5962 canFound 1 enemy 1 otherParty 0 path 1/11 any 1/11
+    (7,26) value 4722 canFound 1 enemy 0 otherParty 0 path 1/10 any 1/10
+    (9,24) value 4600 canFound 1 enemy 0 otherParty 0 path 1/12 any 1/12
+    (8,26) value 3690 canFound 1 enemy 0 otherParty 0 path 1/10 any 1/10
+    (5,25) value 2548 canFound 1 enemy 0 otherParty 0 path 1/11 any 1/11
+    (8,23) value 2482 canFound 1 enemy 0 otherParty 0 path 1/13 any 1/13
+    (10,25) value 2015 canFound 1 enemy 0 otherParty 0 path 1/11 any 1/11
+    (12,30) value 1684 canFound 1 enemy 0 otherParty 0 path 1/5 any 1/5
+PERICLES settler 811043 at (48,21) age 17 group 1 canDefend 0 mission -1 cargo 0 horizon 21
+    (14,15) value 4628 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (58,35) value 4516 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (35,28) value 3487 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (59,34) value 3231 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (61,35) value 2993 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (58,34) value 2781 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (40,38) value 2375 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (45,28) value 2362 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+IVAN settler 278550 at (45,43) age 34 group 2 canDefend 1 mission -1 cargo 0 horizon 22
+    (82,10) value 2266 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+IVAN settler 303127 at (45,43) age 28 group 2 canDefend 1 mission -1 cargo 0 horizon 22
+    (82,10) value 2266 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+IVAN settler 368669 at (48,44) age 15 group 2 canDefend 1 mission -1 cargo 0 horizon 22
+    (82,10) value 2266 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+IVAN settler 385055 at (41,44) age 11 group 3 canDefend 1 mission -1 cargo 0 horizon 22
+    (82,10) value 2266 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+WILLEM_VAN_ORANJE settler 393245 at (20,44) age 25 group 2 canDefend 1 mission -1 cargo 0 horizon 21
+    (9,25) value 7731 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/25
+    (7,26) value 6787 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/27
+    (9,24) value 6444 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/25
+    (8,26) value 5409 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/26
+    (19,28) value 4176 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/17
+    (5,25) value 3907 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/29
+    (8,23) value 3477 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/26
+    (18,29) value 3220 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/16
+WILLEM_VAN_ORANJE settler 507938 at (20,44) age 8 group 2 canDefend 1 mission 3 cargo 0 horizon 21
+    (9,25) value 7731 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/25
+    (7,26) value 6787 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/27
+    (9,24) value 6444 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/25
+    (8,26) value 5409 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/26
+    (19,28) value 4176 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/17
+    (5,25) value 3907 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/29
+    (8,23) value 3477 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/26
+    (18,29) value 3220 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/16
+JOAO settler 229394 at (24,28) age 64 group 1 canDefend 0 mission -1 cargo 1 horizon 12
+    (82,10) value 4303 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (52,1) value 4167 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (52,2) value 3960 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (53,1) value 3861 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (53,2) value 3652 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (61,35) value 3221 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (62,15) value 3220 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (59,13) value 3043 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+JOAO settler 466979 at (58,22) age 6 group 1 canDefend 0 mission -1 cargo 0 horizon 12
+    (82,10) value 4303 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/14
+    (52,1) value 4167 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/12
+    (52,2) value 3960 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/12
+    (53,1) value 3861 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/12
+    (53,2) value 3652 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/11
+    (61,35) value 3221 canFound 1 enemy 0 otherParty 0 path 1/7 any 1/7
+    (62,15) value 3220 canFound 1 enemy 0 otherParty 0 path 1/6 any 1/6
+    (59,13) value 3043 canFound 1 enemy 0 otherParty 0 path 1/6 any 1/6
+HAMMURABI settler 598056 at (71,31) age 10 group 3 canDefend 1 mission 18 cargo 0 horizon 12
+    (82,10) value 8108 canFound 1 enemy 0 otherParty 0 path 1/22 any 1/22
+    (71,32) value 3459 canFound 1 enemy 0 otherParty 0 path 1/2 any 1/2
+    (74,39) value 2945 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (81,11) value 2900 canFound 1 enemy 0 otherParty 0 path 1/21 any 1/21
+    (71,31) value 2696 canFound 1 enemy 0 otherParty 0 path 1/1 any 1/1
+    (52,1) value 2663 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/32
+    (69,8) value 2612 canFound 1 enemy 0 otherParty 0 path 1/24 any 1/24
+    (73,40) value 2584 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+HAMMURABI settler 655405 at (69,25) age 5 group 2 canDefend 1 mission -1 cargo 0 horizon 12
+    (82,10) value 8108 canFound 1 enemy 0 otherParty 0 path 1/16 any 1/16
+    (71,32) value 3459 canFound 1 enemy 0 otherParty 3 path 1/8 any 1/8
+    (74,39) value 2945 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (81,11) value 2900 canFound 1 enemy 0 otherParty 0 path 1/15 any 1/15
+    (71,31) value 2696 canFound 1 enemy 0 otherParty 3 path 1/7 any 1/7
+    (52,1) value 2663 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/28
+    (69,8) value 2612 canFound 1 enemy 0 otherParty 0 path 1/18 any 1/18
+    (73,40) value 2584 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+HAMMURABI settler 565296 at (68,17) age 12 group 1 canDefend 0 mission -1 cargo 0 horizon 12
+    (82,10) value 8108 canFound 1 enemy 0 otherParty 0 path 1/8 any 1/8
+    (71,32) value 3459 canFound 1 enemy 0 otherParty 3 path 1/8 any 1/8
+    (74,39) value 2945 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (81,11) value 2900 canFound 1 enemy 0 otherParty 0 path 1/8 any 1/8
+    (71,31) value 2696 canFound 1 enemy 0 otherParty 3 path 1/7 any 1/7
+    (52,1) value 2663 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/13
+    (69,8) value 2612 canFound 1 enemy 0 otherParty 0 path 1/7 any 1/7
+    (73,40) value 2584 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+HAMMURABI settler 688190 at (69,21) age 2 group 1 canDefend 0 mission -1 cargo 0 horizon 12
+    (82,10) value 8108 canFound 1 enemy 0 otherParty 0 path 1/8 any 1/8
+    (71,32) value 3459 canFound 1 enemy 0 otherParty 3 path 1/6 any 1/6
+    (74,39) value 2945 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+    (81,11) value 2900 canFound 1 enemy 0 otherParty 0 path 1/8 any 1/8
+    (71,31) value 2696 canFound 1 enemy 0 otherParty 3 path 1/5 any 1/5
+    (52,1) value 2663 canFound 1 enemy 0 otherParty 0 path 0/-1 any 1/14
+    (69,8) value 2612 canFound 1 enemy 0 otherParty 0 path 1/9 any 1/9
+    (73,40) value 2584 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1
+LEONIDAS settler 663569 at (29,19) age 4 group 1 canDefend 0 mission -1 cargo 0 horizon 21
+    (30,16) value 5437 canFound 1 enemy 0 otherParty 0 path 0/-1 any 0/-1

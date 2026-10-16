@@ -1,0 +1,4 @@
+clang differential gate (toolchain/clang-gate/diffcheck.sh, tree of GitLab main 59fcd61 vs patched 7c71f68) on CvGame.cpp CvGameTextMgr.cpp CvPlayer.cpp CvSelectionGroup.cpp CvUnit.cpp CvUnitAI.cpp
+baseline: 16 errors/116 warnings; patched: 16 errors/116 warnings; new: 0; resolved: 0
+rc=0
+

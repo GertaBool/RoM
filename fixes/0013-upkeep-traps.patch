@@ -1,0 +1,461 @@
+diff --git a/Assets/CvGameCoreDLL/AICivicPolicy.h b/Assets/CvGameCoreDLL/AICivicPolicy.h
+index 16df857..64fda83 100644
+--- a/Assets/CvGameCoreDLL/AICivicPolicy.h
++++ b/Assets/CvGameCoreDLL/AICivicPolicy.h
+@@ -25,6 +25,29 @@ namespace AICivicPolicy
+ 		return iPerTurnCost > INT_MAX ? INT_MAX : (int)iPerTurnCost;
+ 	}
+ 
++	// Added: the gold a unit-support projection really costs. calculateUnitCost
++	// scales the per-unit charges by the handicap (and for AI players by the AI
++	// unit cost and per-era percents); inflation then applies to all costs.
++	inline int scaleCostPercent(const int iCost, const int iPercent)
++	{
++		const long long iResult = ((long long)std::max(0, iCost) * std::max(0, iPercent)) / 100;
++		return iResult > INT_MAX ? INT_MAX : (int)iResult;
++	}
++
++	// Added: per-turn value of free experience. It buys every new military unit
++	// iPromotions promotions (at most three counted), each worth a fixed share of
++	// the unit's hammers, on the share of production that goes into such units.
++	inline int freeExperienceValuePerTurn(const int iProduction, const int iMilitarySharePercent,
++		const int iPromotions)
++	{
++		const int iPromotionValuePercent = 15;
++		const long long iHammers = ((long long)std::max(0, iProduction) *
++			std::max(0, std::min(100, iMilitarySharePercent))) / 100;
++		const long long iValue = (iHammers * std::max(0, std::min(3, iPromotions)) *
++			iPromotionValuePercent) / 100;
++		return iValue > INT_MAX ? INT_MAX : (int)iValue;
++	}
++
+ 	// Added: applying a saturated per-turn cost must not overflow the surrounding
+ 	// per-turn civic score when that score is already negative.
+ 	inline int applyPenalty(const int iValue, const int iPenalty)
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 4dedc71..47b3ced 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -13040,13 +13040,29 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 	iTemp = kCivic.getFreeExperience();
+ 	if( iTemp > 0 )
+ 	{
+-		// Free experience increases value of hammers spent on units, population is an okay measure of base hammer production
+-		iTempValue = (iTemp * getTotalPopulation() * (bWarPlan ? 30 : 12))/100;
+-		iTempValue *= AI_averageYieldMultiplier(YIELD_PRODUCTION);
+-		iTempValue /= 100;
+-		iTempValue *= iWarmongerPercent;
+-		iTempValue /= 100;
+-		iValue += iTempValue;
++		// Removed: experience * population * 30% (12% in peace), scaled by the
++		// production multiplier. It valued Mercenaries' five points at 45 per
++		// turn for a four-city empire with 96 commerce, more than the 31 gold the
++		// civic's unit charges cost it, so such empires kept the civic for good.
++		// Added: the promotions the experience buys, on the hammers that go into
++		// military units (two fifths of production with a war plan, one fifth
++		// otherwise).
++		const int iPromotions = calculateLevel(iTemp, getID()) - 1;
++		if (iPromotions > 0)
++		{
++			int iProduction = 0;
++			int iProductionLoop;
++			for (CvCity* pProductionCity = firstCity(&iProductionLoop); pProductionCity != NULL;
++				pProductionCity = nextCity(&iProductionLoop))
++			{
++				iProduction += pProductionCity->getYieldRate(YIELD_PRODUCTION);
++			}
++			iTempValue = AICivicPolicy::freeExperienceValuePerTurn(iProduction, bWarPlan ? 40 : 20,
++				iPromotions);
++			iTempValue *= iWarmongerPercent;
++			iTempValue /= 100;
++			iValue += iTempValue;
++		}
+ 	}
+ 
+ 	iValue += ((kCivic.getWorkerSpeedModifier() * AI_getNumAIUnits(UNITAI_WORKER)) / 15);
+@@ -13091,10 +13107,21 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ 	const int iCandidateGoldPerMilitaryUnit = getGoldPerMilitaryUnit() -
+ 		(pCurrentCivic == NULL ? 0 : pCurrentCivic->getGoldPerMilitaryUnit()) +
+ 		kCivic.getGoldPerMilitaryUnit();
+-	iValue = AICivicPolicy::applyPenalty(iValue,
++	// Added: in gold, as calculateUnitCost and calculateInflatedCosts charge it.
++	// The raw charge is twice the real cost on Noble and 1.7 times it on Deity.
++	int iUnitCostPercent = GC.getHandicapInfo(getHandicapType()).getUnitCostPercent();
++	if (!isHuman())
++	{
++		const CvHandicapInfo& kGameHandicap = GC.getHandicapInfo(GC.getGameINLINE().getHandicapType());
++		iUnitCostPercent = (iUnitCostPercent * kGameHandicap.getAIUnitCostPercent()) / 100;
++		iUnitCostPercent = (iUnitCostPercent *
++			std::max(0, kGameHandicap.getAIPerEraModifier() * getCurrentEra() + 100)) / 100;
++	}
++	iUnitCostPercent = (iUnitCostPercent * std::max(0, 100 + calculateInflationRate())) / 100;
++	iValue = AICivicPolicy::applyPenalty(iValue, AICivicPolicy::scaleCostPercent(
+ 		AICivicPolicy::recurringUnitCostPerTurn(getNumUnits(), getNumMilitaryUnits(),
+ 			iCandidateFreeUnits, iCandidateFreeMilitaryUnits, iCandidateGoldPerUnit,
+-			iCandidateGoldPerMilitaryUnit));
++			iCandidateGoldPerMilitaryUnit), iUnitCostPercent));
+ 
+ /************************************************************************************************/
+ /* Afforess	                  Start		 01/16/10                                               */
+@@ -13344,7 +13371,21 @@ int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const
+ /************************************************************************************************/
+ 	}
+ 			
+-	iTempValue = kCivic.getHappyPerMilitaryUnit() * 3;
++	// Removed: three military units assumed in every city.
++	// Added: the cities' actual average (rounded), as CvCity counts them.
++	iTempValue = 0;
++	if (kCivic.getHappyPerMilitaryUnit() != 0 && getNumCities() > 0)
++	{
++		int iMilitaryHappinessUnits = 0;
++		int iHappinessLoop;
++		for (CvCity* pHappinessCity = firstCity(&iHappinessLoop); pHappinessCity != NULL;
++			pHappinessCity = nextCity(&iHappinessLoop))
++		{
++			iMilitaryHappinessUnits += pHappinessCity->getMilitaryHappinessUnits();
++		}
++		iTempValue = kCivic.getHappyPerMilitaryUnit() *
++			((iMilitaryHappinessUnits + getNumCities() / 2) / getNumCities());
++	}
+ 	if (iTempValue != 0)
+ 	{
+ /************************************************************************************************/
+@@ -19828,6 +19869,10 @@ bool CvPlayerAI::AI_disbandUnit(int iExpThreshold, bool bObsolete)
+ 	iBestValue = MAX_INT;
+ 	pBestUnit = NULL;
+ 
++	// Experience a unit of each type gets when trained now (the most any of our
++	// cities gives), filled on first use.
++	std::vector<int> aiBirthExperience;
++
+ 	for(pLoopUnit = firstUnit(&iLoop); pLoopUnit != NULL; pLoopUnit = nextUnit(&iLoop))
+ 	{
+ 		if (!(pLoopUnit->hasCargo()))
+@@ -19836,7 +19881,33 @@ bool CvPlayerAI::AI_disbandUnit(int iExpThreshold, bool bObsolete)
+ 			{
+ 				if (pLoopUnit->getUnitInfo().getProductionCost() > 0)
+ 				{
+-					if ((iExpThreshold == -1) || (pLoopUnit->canFight() && pLoopUnit->getExperience() <= iExpThreshold))
++					// Removed: a fixed experience threshold. Civics and buildings
++					// give new units their experience at birth (Mercenaries five),
++					// so in RoM every unit trained under them was exempt and an AI
++					// in financial trouble could not disband anything.
++					// Added: the threshold counts from the experience the unit
++					// would be trained with today.
++					int iBirthExperience = 0;
++					if (iExpThreshold != -1 && pLoopUnit->canFight())
++					{
++						if (aiBirthExperience.empty())
++						{
++							aiBirthExperience.assign(GC.getNumUnitInfos(), -1);
++						}
++						int& iCached = aiBirthExperience[pLoopUnit->getUnitType()];
++						if (iCached < 0)
++						{
++							iCached = 0;
++							int iCityLoop;
++							for (CvCity* pCity = firstCity(&iCityLoop); pCity != NULL; pCity = nextCity(&iCityLoop))
++							{
++								iCached = std::max(iCached, pCity->getProductionExperience(pLoopUnit->getUnitType()));
++							}
++						}
++						iBirthExperience = iCached;
++					}
++					if ((iExpThreshold == -1) || (pLoopUnit->canFight() &&
++						pLoopUnit->getExperience() <= iExpThreshold + iBirthExperience))
+ 					{
+ 						if (!(pLoopUnit->isMilitaryHappiness()) || !(pLoopUnit->plot()->isCity()) || (pLoopUnit->plot()->plotCount(PUF_isMilitaryHappiness, -1, -1, getID()) > 2))
+ 						{
+diff --git a/Assets/CvGameCoreDLL/CvUnitAI.cpp b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+index 5f46f92..d97069b 100644
+--- a/Assets/CvGameCoreDLL/CvUnitAI.cpp
++++ b/Assets/CvGameCoreDLL/CvUnitAI.cpp
+@@ -4623,6 +4623,18 @@ void CvUnitAI::AI_exploreMove()
+ 		}
+ 	}
+ 
++	// Added: a surplus explorer retires before it looks for more to explore.
++	// The check below this function's search ran only when nothing was left,
++	// which on a large map is never: one civilization kept 14 scouts against a
++	// need of three, paying upkeep for each.
++	if (!isHuman() && AI_getUnitAIType() == UNITAI_EXPLORE && !isCargo() &&
++		GET_PLAYER(getOwnerINLINE()).AI_totalAreaUnitAIs(area(), UNITAI_EXPLORE) > GET_PLAYER(getOwnerINLINE()).AI_neededExplorers(area()) &&
++		GET_PLAYER(getOwnerINLINE()).calculateUnitCost() > 0)
++	{
++		scrap();
++		return;
++	}
++
+ 	if (AI_goody(4))
+ 	{
+ 		return;
+diff --git a/Docs/UPKEEP_TRAPS.md b/Docs/UPKEEP_TRAPS.md
+new file mode 100644
+index 0000000..d7c5ece
+--- /dev/null
++++ b/Docs/UPKEEP_TRAPS.md
+@@ -0,0 +1,69 @@
++# Upkeep traps: why Rome had no Writing at 410 BC
++
++Follow-up to `MASINISSA_AUTORUN_FIXES.md`, from the same Marathon autorun save
++(`Masinissa BC-0410`, game turn 269), replayed headlessly with the real DLL in
++the GertaBool/RoM `toolchain/harness`. The full investigation, with logs, is in
++that repository under `research/rome-and-settlers`.
++
++## What happened to Rome
++
++The save keeps per-turn history. Rome's total commerce stayed between 16 and 37
++from turn 0 to turn 260 while other civilizations grew four- to tenfold. It
++founded its second and third city on turns 106 and 124 and its fourth on turn
++260. On turn 144 it adopted Mercenaries and kept it. At 410 BC it had 4 cities
++and 45 units (14 of them scouts); unit charges took 45 of its 96 commerce, the
++AI was in financial trouble, the slider stood at 95 percent gold, research made
++3 beakers a turn, and the capital logged an open settlement site (value 3777)
++with a settler allowance of 0 because of the financial trouble. Rome had
++Priesthood and Trade, so Writing was available; it was never affordable.
++
++The same pattern (Mercenaries, the highest unit charges, financial trouble)
++holds for every civilization still on Mercenaries at 410 BC.
++
++## Causes in the current source
++
++1. `AI_civicValue`, free experience: `experience * population * 30%` (12% in
++   peace) times the production multiplier. For Rome the five points were worth
++   45 a turn, half its commerce, and more than the 31 gold a turn the civic's
++   unit charges cost. Now: the promotions the experience buys (BTS thresholds:
++   five points are two promotions), at 15 percent of a unit each, on the hammers
++   that go into military units (two fifths of production with a war plan, one
++   fifth otherwise).
++2. `AI_civicValue`, unit charges: the projected cost was the raw per-unit
++   charge. `calculateUnitCost` multiplies it by the handicap's unit cost percent
++   and, for AIs, by the AI unit cost and per-era percents, and inflation applies
++   to all costs. Now the projection is in that gold.
++3. `AI_civicValue`, happiness per military unit: three units were assumed in
++   every city. Now the cities' actual average is used.
++4. `AI_disbandUnit(1, ...)`: only units with at most one experience point could
++   be disbanded. Units trained under Mercenaries have five at birth, so an AI in
++   financial trouble had nothing it could disband. Now the threshold counts from
++   the experience a unit of that type would be trained with today.
++5. `AI_exploreMove`: a surplus explorer (more in the area than
++   `AI_neededExplorers`) was scrapped only after the search for something to
++   explore failed, which on a large map never happens. Rome kept 14 scouts. The
++   check now comes first.
++
++Not changed: `AI_doCivics` weighs a switch over a horizon of twice
++`AI_CIVIC_CHANGE_DELAY` turns at every speed while anarchy lasts twice as long
++on Marathon. Scaling the horizon with the anarchy percent was tried; over 40
++turns from the save (six seeds) it raised anarchy from 34 to 46 player-turns
++without a measurable gain, so it needs a longer study first.
++
++## Settlers
++
++Over the whole game 141 settlers were created (18 at the start) and 122 cities
++founded; 18 settlers were alive at 410 BC. Settlers were not built faster than
++they were used; about one in eight was standing idle, for the reasons patch
++`MASINISSA_AUTORUN_FIXES.md` addresses (sites behind foreign borders counted for
++production, no retirement, no escort, a transport waiting at sea). Over 30 turns
++from the save, the code before that patch trained 27 settlers for 20 new cities
++and ended with 21 waiting; the current code trains 32 for 26 and ends with 17,
++mostly younger than 17 turns. Willem's two settlers in a border city under
++constant threat still wait.
++
++## Tests
++
++`Tools/test_upkeep_traps.py`: the civic terms with Rome's numbers,
++`AI_disbandUnit` compiled with stand-ins (a unit with its birth experience is
++disbanded, a veteran is not), and the order of the explorer check.
+diff --git a/Tools/regression_manifest.json b/Tools/regression_manifest.json
+index 25067a7..fb552bc 100644
+--- a/Tools/regression_manifest.json
++++ b/Tools/regression_manifest.json
+@@ -16,6 +16,10 @@
+       "command": ["python3", "Tools/test_gold_target_speed.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*"]
+     },
++    {
++      "command": ["python3", "Tools/test_upkeep_traps.py"],
++      "patterns": ["Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AICivicPolicy.h", "Assets/CvGameCoreDLL/CvEnums.h"]
++    },
+     {
+       "command": ["python3", "Tools/test_review_correctness.py"],
+       "patterns": ["Assets/CvGameCoreDLL/CvGame.*", "Assets/CvGameCoreDLL/CvPlayerAI.*", "Assets/CvGameCoreDLL/CvUnitAI.*", "Assets/CvGameCoreDLL/AIHierarchyPolicy.h", "Assets/Python/RoMEventManager.py", "Assets/Python/PyHelpers.py"]
+diff --git a/Tools/test_upkeep_traps.py b/Tools/test_upkeep_traps.py
+new file mode 100644
+index 0000000..564bdf2
+--- /dev/null
++++ b/Tools/test_upkeep_traps.py
+@@ -0,0 +1,174 @@
++#!/usr/bin/env python3
++"""An AI in financial trouble must be able to shed upkeep it does not need.
++
++Seen on a real Marathon save replayed in the GertaBool/RoM toolchain/harness:
++Rome kept the Mercenaries civic for 125 turns. Its unit charges took 45 of its
++96 commerce, research ran at 5 percent, and with financial trouble its cities
++trained no settler although a good site was open; at 410 BC it had four cities
++and no Writing. Three valuation terms kept the civic ahead of the default one
++(free experience priced from population, unit charges counted without the
++handicap percent, three military units assumed in every city), the disband
++routine skipped every unit with more than one experience point although the
++civic gives five at birth, and 14 scouts against a need of three kept exploring
++because the surplus check ran only when nothing was left to explore.
++
++AICivicPolicy is compiled as it is; CvPlayerAI::AI_disbandUnit is compiled from
++the DLL source with stand-ins for units, cities and the game.
++"""
++import unittest
++from test_review_correctness import DLL, block, compile_run
++
++
++def unit_ai_enum():
++    text = (DLL / 'CvEnums.h').read_text(encoding='latin-1')
++    start = text.index('UNITAI_UNKNOWN,')
++    body = text[start:text.index('}', start)]
++    return 'enum UnitAITypes { NO_UNITAI = -1, ' + body + '};\n'
++
++
++class CivicValueTermsTests(unittest.TestCase):
++    def test_terms_in_gold_per_turn(self):
++        compile_run(r'''
++#include <cassert>
++#include "AICivicPolicy.h"
++using namespace AICivicPolicy;
++int main() {
++ // Rome at 410 BC: 45 units, 39 military; free 17 and 4; Mercenaries charges
++ // one gold per unit and one per military unit on top of the base one.
++ const int iMercenaries = recurringUnitCostPerTurn(45, 39, 17, 4, 2, 1);
++ const int iTribal = recurringUnitCostPerTurn(45, 39, 17, 4, 1, 0);
++ assert(iMercenaries == 91 && iTribal == 28);
++ // Noble: unit cost percent 50 (the AI percent is 100): the 45 gold Rome pays,
++ // 31 more than under the default civic.
++ assert(scaleCostPercent(iMercenaries, 50) == 45);
++ assert(scaleCostPercent(iMercenaries, 50) - scaleCostPercent(iTribal, 50) == 31);
++ assert(scaleCostPercent(-5, 50) == 0 && scaleCostPercent(5, -50) == 0);
++ assert(scaleCostPercent(2000000000, 300) == 2147483647);
++ // Five points buy two promotions (2 and 5 experience). Rome's 85 hammers with a
++ // war plan: 34 go to military units, each promotion worth 15 percent.
++ assert(freeExperienceValuePerTurn(85, 40, 2) == 10);
++ assert(freeExperienceValuePerTurn(85, 20, 2) == 5);
++ // The removed population term: 5 * 23 * 30 / 100 * 130 / 100.
++ assert((5 * 23 * 30 / 100) * 130 / 100 == 44);
++ assert(freeExperienceValuePerTurn(85, 40, 9) == freeExperienceValuePerTurn(85, 40, 3));
++ assert(freeExperienceValuePerTurn(85, 400, 1) == freeExperienceValuePerTurn(85, 100, 1));
++ assert(freeExperienceValuePerTurn(-1, 40, 2) == 0 && freeExperienceValuePerTurn(85, 40, -2) == 0);
++ assert(freeExperienceValuePerTurn(2000000000, 100, 3) == 900000000);
++ return 0;
++}
++''')
++
++    def test_civic_value_uses_the_terms(self):
++        src = (DLL / 'CvPlayerAI.cpp').read_text(encoding='latin-1')
++        method = block(src, 'int CvPlayerAI::AI_civicValue(CivicTypes eCivic) const')
++        self.assertIn('freeExperienceValuePerTurn', method)
++        self.assertNotIn('getTotalPopulation() * (bWarPlan ? 30 : 12)', method)
++        self.assertIn('scaleCostPercent(', method)
++        self.assertIn('getAIUnitCostPercent()', method)
++        self.assertIn('getMilitaryHappinessUnits()', method)
++        self.assertNotIn('getHappyPerMilitaryUnit() * 3;', method)
++
++
++DISBAND_HOST = r'''
++#include <cassert>
++#include <vector>
++#include <string>
++#include <algorithm>
++#include <climits>
++#pragma GCC diagnostic ignored "-Wunused-parameter"
++#pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
++#define FAssert(x) ((void)0)
++#define MAX_INT INT_MAX
++#define gPlayerLogLevel 0
++void logBBAI(const char*, ...) {}
++''' + '%s' + r'''
++struct CvWString { const wchar_t* GetCString() const { return L""; } };
++void getUnitAIString(CvWString&, UnitAITypes) {}
++enum { PUF_isMilitaryHappiness = 0 };
++struct CvUnitInfo { int cost, extra; int getProductionCost() const { return cost; } int getExtraCost() const { return extra; } };
++struct CvCity;
++struct CvPlot {
++	bool city; int team; CvCity* pCity; int militaryHere;
++	CvPlot(): city(true), team(0), pCity(NULL), militaryHere(0) {}
++	bool isCity() const { return city; } int getTeam() const { return team; }
++	CvCity* getPlotCity() const { return pCity; }
++	int plotCount(int, int, int, int) const { return militaryHere; }
++};
++struct CvUnit {
++	CvUnitInfo info; int xp, level, type, created; bool fight, killed; UnitAITypes ai; CvPlot* where;
++	CvUnit(): xp(0), level(1), type(0), created(0), fight(true), killed(false), ai(UNITAI_ATTACK), where(NULL) { info.cost = 30; info.extra = 0; }
++	bool hasCargo() const { return false; } bool isGoldenAge() const { return false; }
++	const CvUnitInfo& getUnitInfo() const { return info; }
++	bool canFight() const { return fight; } int getExperience() const { return xp; } int getLevel() const { return level; }
++	int getUnitType() const { return type; } bool isMilitaryHappiness() const { return false; }
++	CvPlot* plot() const { return where; } int getTeam() const { return 0; } bool canDefend() const { return fight; }
++	UnitAITypes AI_getUnitAIType() const { return ai; } int getGameTurnCreated() const { return created; }
++	CvWString getName() const { return CvWString(); }
++	void kill(bool) { killed = true; }
++};
++struct CvCity { int birthXp; int AI_getWorkersNeeded() const { return 0; }
++	int getProductionExperience(int) { return birthXp; } };
++struct CvGame { int getSorenRandNum(int, const char*) { return 0; } int getGameTurn() const { return 100; } } game;
++struct CvTeam { int getAnyWarPlanCount(bool) const { return 0; } } team;
++CvTeam& GET_TEAM(int) { return team; }
++struct Globals { CvGame& getGameINLINE() { return game; } CvGame& getGame() { return game; } int getNumUnitInfos() { return 4; } } GC;
++struct CvPlayerAI {
++	std::vector<CvUnit*> units; std::vector<CvCity*> cities;
++	CvUnit* firstUnit(int* i) { *i = 0; return units.empty() ? NULL : units[0]; }
++	CvUnit* nextUnit(int* i) { ++*i; return *i < (int)units.size() ? units[*i] : NULL; }
++	CvCity* firstCity(int* i) { *i = 0; return cities.empty() ? NULL : cities[0]; }
++	CvCity* nextCity(int* i) { ++*i; return *i < (int)cities.size() ? cities[*i] : NULL; }
++	int getTeam() const { return 0; } int getID() const { return 0; }
++	const wchar_t* getCivilizationDescription(int) const { return L""; }
++	bool AI_disbandUnit(int iExpThreshold, bool bObsolete);
++};
++'''
++
++
++def disband_program(tail):
++    src = (DLL / 'CvPlayerAI.cpp').read_text(encoding='latin-1')
++    method = block(src, 'bool CvPlayerAI::AI_disbandUnit(int iExpThreshold, bool bObsolete)')
++    return (DISBAND_HOST % unit_ai_enum()) + method + tail
++
++
++class DisbandTests(unittest.TestCase):
++    def test_birth_experience_does_not_exempt_a_unit(self):
++        compile_run(disband_program(r'''
++int main() {
++ CvPlot home; CvCity rome; rome.birthXp = 5; home.pCity = &rome;
++ CvPlayerAI p; p.cities.push_back(&rome);
++ CvUnit fresh, veteran, worker;
++ fresh.xp = 5; fresh.level = 3; fresh.where = &home;        // trained under Mercenaries
++ veteran.xp = 9; veteran.level = 3; veteran.where = &home;  // four points from combat
++ worker.fight = false; worker.ai = UNITAI_WORKER; worker.where = &home;
++ p.units.push_back(&veteran); p.units.push_back(&worker); p.units.push_back(&fresh);
++ assert(p.AI_disbandUnit(1, false));
++ assert(fresh.killed && !veteran.killed && !worker.killed);
++ // Without free experience the old threshold holds: two points protect.
++ CvPlayerAI q; CvCity plain; plain.birthXp = 0; q.cities.push_back(&plain);
++ CvUnit one, two; one.xp = 1; one.where = &home; two.xp = 2; two.where = &home;
++ q.units.push_back(&two); q.units.push_back(&one);
++ assert(q.AI_disbandUnit(1, false) && one.killed && !two.killed);
++ CvPlayerAI r; r.cities.push_back(&plain); CvUnit vet; vet.xp = 2; vet.where = &home; r.units.push_back(&vet);
++ assert(!r.AI_disbandUnit(1, false) && !vet.killed);
++ // -1 still means any unit.
++ assert(r.AI_disbandUnit(-1, false) && vet.killed);
++ return 0;
++}
++'''))
++
++
++class ExplorerTests(unittest.TestCase):
++    def test_surplus_explorer_retires_before_exploring(self):
++        src = (DLL / 'CvUnitAI.cpp').read_text(encoding='latin-1')
++        method = block(src, 'void CvUnitAI::AI_exploreMove()')
++        check = method.index('AI_totalAreaUnitAIs(area(), UNITAI_EXPLORE) > GET_PLAYER(getOwnerINLINE()).AI_neededExplorers(area())')
++        self.assertLess(check, method.index('AI_goody(4)'))
++        self.assertLess(check, method.index('AI_exploreRange(3)'))
++        self.assertLess(check, method.index('AI_explore()'))
++        self.assertIn('scrap();', method[check:method.index('AI_goody(4)')])
++        self.assertIn('calculateUnitCost() > 0', method[check:method.index('AI_goody(4)')])
++
++
++if __name__ == '__main__':
++    unittest.main()

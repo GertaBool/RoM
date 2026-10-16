@@ -1,0 +1,51 @@
+{
+  "source": "GitLab main a9b1fce + fixes/0010-pathing-transport-and-siege.patch (tested source commit)",
+  "source_commit": "04d99792ba7f491bedfad3d61a85123d3d2a83a2",
+  "source_tree": "147f6d1fbc5eedc26c115c561d104ec66733e386",
+  "dll_sha256": "4ebc575ef105a0da5cafd42f571c53be7d90d9100709165c040ef13a35d5e05f",
+  "dll_size": 6082560,
+  "exports": 2451,
+  "exports_identical_to_shipped_dll": true,
+  "build": {
+    "compiler": "Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 13.10.3077 (Visual C++ Toolkit 2003)",
+    "toolkit_source": {
+      "file": "Install_Civ4_Microsoft_Windows_SDK_Visual_C_Toolkit.exe (community Inno Setup bundle, unpacked with innoextract; not executed)",
+      "sha256": "bf37b18eb095de7dad3b7e8508bbfbab23c0d5db21c8f0371502eb61914481a3",
+      "binary_sha256": {
+        "cl.exe": "2ecf86a3edfd3deae498e08298e210e984537ce9e11759930561e43f40bd2515",
+        "c1.dll": "11f452af93f8e686b36b348763b33d32ae2766f1b0c360a447053bf44ec50fcc",
+        "c1xx.dll": "353f3d5dcd050b876e1c044b99c4bf47958d255f395a4919f406a19921be4dfa",
+        "c2.dll": "bcd28f39b1798b07989c30a1df471cf87fc20e3802d130901a08f83800e6b81e",
+        "link.exe": "0d5f9712d0da843d787bf4ce4e678abc6b737940996706b2c86101eac9df3e3c",
+        "mspdb71.dll": "85ebd7dcbe1b9fa756f23e5f811d7dfeccdac0de14271f2c18affbf918d8cb79",
+        "msobj71.dll": "19ce191c44e783e70c762ef13c1e918fc07745c8f64fcfc7b217e73ef667c168",
+        "msvcr71.dll": "8094af5ee310714caebccaeee7769ffb08048503ba478b879edfef5f1a24fefe",
+        "msvcp71.dll": "df96156f6a548fd6fe5672918de5ae4509d3c810a57bffd2a91de45a3ed5b23b"
+      },
+      "runtime_import_libraries_sha256": {
+        "msvcrt.lib": "e888617fbd2e153645b92122deab1c6ec437905431243c43aa7310164c0e7779",
+        "msvcprt.lib": "b481ce2150f0a0dc747f2811a94de18ed5f2c4e3cf7a09e4d64141f07ffc502c",
+        "oldnames.lib": "ace6ebf2ef319936a64b7e1a27f508a2c03c4838908f12e790b6c198845cc6cb"
+      },
+      "authenticode": "none embedded in the 2003 binaries; origin not cryptographically verifiable"
+    },
+    "platform_sdk": {
+      "file": "5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img",
+      "size": 414361600,
+      "sha256": "7ef138b07a8ed2e008371d8602900eb68e86ac2a832d16b53f462a9e64f24d53",
+      "extracted_with": "7z + msiextract (Setup/PSDK-x86.msi)",
+      "signature": "Microsoft Corporation Authenticode on the MSI and CABs; the 8 CABs carrying headers/libraries match their signed digests; the 2005 certificate chain cannot be validated against current roots"
+    },
+    "bts_sdk": {
+      "file": "beyond-the-sword-sdk-develop-functional.tar.gz (GitLab repository root)",
+      "sha256": "754039328d2e8484d28fcbb8142989a13c6ed9c56cbdcb6910e9b92f99166743",
+      "used": "Boost-1.32.0 and Python24 headers and import libraries"
+    },
+    "host": "wine-9.0 (Ubuntu 9.0~repack-4build3) with a 32-bit prefix on Ubuntu 24.04",
+    "recipe": "toolchain/build_dll.sh: the repository's GNUmakefile, TARGET=release (/O2 /Oy /Oi /G7 /DNDEBUG /DFINAL_RELEASE /MD /GR /Gy /EHsc; link /LARGEADDRESSAWARE /OPT:REF /OPT:ICF); no _MOD_* switches, matching the shipped DLL",
+    "reproducibility": "Not byte-reproducible: the PE header and the export directory carry build timestamps (4 bytes). Compare exports and section contents, not file hashes, across builds.",
+    "errors": 0,
+    "warnings": 0
+  },
+  "tested_in_game": false
+}

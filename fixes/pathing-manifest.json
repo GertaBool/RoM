@@ -1,0 +1,114 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "a9b1fce2a958c3597caf5418ea2c50737091c154",
+  "base_tree": "e3cbb9a89e237c29f80a9eb321de3cb3d6c149fd",
+  "tested_source_commit": "04d99792ba7f491bedfad3d61a85123d3d2a83a2",
+  "tested_source_tree": "147f6d1fbc5eedc26c115c561d104ec66733e386",
+  "landed": {
+    "repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind",
+    "merge_request": "!35",
+    "main_commit": "86af2ab47fa7cc4b2edc536b788402bc62c1becb",
+    "main_tree_equals_tested_tree": true
+  },
+  "patch": "0010-pathing-transport-and-siege.patch",
+  "patch_sha256": "5d53a4edef27b83b211ee99a5d05fc0006a73cf1fd760a195128a6c944e8972c",
+  "relationship_to_prior_patch": "Incremental on GitLab main after merge request !34 (patch 0009). Do not reapply earlier patches.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "old": 6,
+    "new": 6,
+    "layout_changed": false
+  },
+  "validation": {
+    "suite_programs": 24,
+    "suite_failures": 0,
+    "new_test_programs": [
+      "Tools/test_path_queries.py",
+      "Tools/test_group_queries.py",
+      "Tools/test_unit_ai_corrections.py"
+    ],
+    "new_tests_failing_upstream": "13 of 13 (4 behavioural assertions, 1 UBSan signed overflow, 1 repeated-search assertion, 1 missing unit-target index, 6 missing reuse guard or second finder)",
+    "path_reuse_random_queries_equal_to_fresh_search": 20000,
+    "unit_target_queries_equal_to_original_walk": 10000,
+    "threat_checks_equal_to_original_loop": 3000,
+    "native_standard": "C++03",
+    "undefined_behavior_sanitizer": "fatal",
+    "whole_dll_clang_gate": {
+      "translation_units": 104,
+      "new_diagnostics": 0
+    },
+    "set_but_unused_defects_resolved": [
+      "CvUnitAI::AI_choke iBestValue",
+      "CvUnitAI::AI_assaultSeaReinforce bCanCargoAllUnload"
+    ],
+    "msvc_build": {
+      "compiler": "Microsoft C/C++ 13.10.3077 (Visual C++ Toolkit 2003)",
+      "sdk": "Platform SDK for Windows Server 2003 SP1 (5.2.3790.1830.15)",
+      "host": "Wine 9.0 (32-bit prefix)",
+      "errors": 0,
+      "warnings": 0,
+      "exports": 2451,
+      "exports_equal_to_shipped_dll": true
+    },
+    "save_replayed": false,
+    "game_executable_run": false
+  },
+  "files": {
+    "Assets/CvGameCoreDLL/AIMissionTargetIndex.h": {
+      "before_sha256": "e9d10e9f6a7d8ecc30719f793dc30b88d1cf8b11bbe1738fea07b6b54a1b112c",
+      "after_sha256": "f8e6e31aca58b46cfe325b5b4178f3a4d3eaf358b88bf308e9f317c3bd80ed6f"
+    },
+    "Assets/CvGameCoreDLL/AIPathReuse.h": {
+      "before_sha256": null,
+      "after_sha256": "c3a6eacb45c43ab2a16435812cd7a736bbab5be46547c51d94245c4c29868441"
+    },
+    "Assets/CvGameCoreDLL/CvGlobals.cpp": {
+      "before_sha256": "09a101097d478ce48894df27604a059cba8ca39644025063fc19dd30c82c3e96",
+      "after_sha256": "30edd35c5ec440884507527b480fa1c800cc7df9d87517e793e615203d0457d8"
+    },
+    "Assets/CvGameCoreDLL/CvMap.cpp": {
+      "before_sha256": "ff4c150e24556444de9d1e4c19689db83e197ea9a7e637c50905dd1678eb8a81",
+      "after_sha256": "3ef324b8dbdf8c7ef1f307e3977f08e80ff602d51aed8ebd48db3805d9dba4a1"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "cad1a9c44f5eef64404eb7ab42c6e40287746b85a78748bd76a0c77e2d036f50",
+      "after_sha256": "628d1739ca081d6e48def96eaece0290e1b8e0a70daff167fdc4466d8f1e57c4"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroup.cpp": {
+      "before_sha256": "c1c26cd9935657e2f7a044321df99c55505f95e33e713249db5f4dea0a6ad697",
+      "after_sha256": "e72b96e842b516c4155866c79877a5069431c9f0b89cb978c71add386a6d5e7f"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroup.h": {
+      "before_sha256": "3e7151509ee5ee634c7b2b635c9b2de035227ecaf78ca4494d4130eb6e40e0ec",
+      "after_sha256": "9558288a2ea11335560dc02f05df75e8744e4cd935936659a3e0ee99b0139648"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp": {
+      "before_sha256": "d06c8d90b050f68437f05cb7d7c31c309b6928ee0473ed403abd8716e73174e7",
+      "after_sha256": "abbb0223ee6c025bb9ed2ad0cb435717421c27a73647685c06ad4f9fc8ba0735"
+    },
+    "Assets/CvGameCoreDLL/CvUnitAI.cpp": {
+      "before_sha256": "6364ee07572d558501e752fceec1cededb82e1e5bf220ff0c45fa82e87094961",
+      "after_sha256": "2771131d2b6902c590675540b6a2aafa1b3ca944902d1ab28b6ba80f247e3cd9"
+    },
+    "Docs/PATHFINDING_TRANSPORT_AND_SIEGE.md": {
+      "before_sha256": null,
+      "after_sha256": "ab899f0c18c90bedc3ce9f43fe9c65123749e90fa657e8878af9818b1fc540b3"
+    },
+    "Tools/regression_manifest.json": {
+      "before_sha256": "709bcb3164ef624ea65a07f29ff0ef51f6f739b6dbd3ce04bc17b313467ea563",
+      "after_sha256": "837eaca5c2297c58ecd6669362026f33d50cee719ec4dd058d74c4c9f2ccd0ae"
+    },
+    "Tools/test_group_queries.py": {
+      "before_sha256": null,
+      "after_sha256": "21d7f3f1bacde406010c5885a71d5a9e0e75ef92d55260e8492aecf0f212eccf"
+    },
+    "Tools/test_path_queries.py": {
+      "before_sha256": null,
+      "after_sha256": "38c96120334410061d22ba3431c3d03b15447d0c7a8c3142ac0b518e0cf20fa4"
+    },
+    "Tools/test_unit_ai_corrections.py": {
+      "before_sha256": null,
+      "after_sha256": "eb2cc5fe209913b7327ce67634459811ff06695299afb3df81c9e069e2cdf3df"
+    }
+  }
+}

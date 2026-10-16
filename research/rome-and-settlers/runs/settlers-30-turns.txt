@@ -1,0 +1,47 @@
+# Settler balance over 30 turns from the 410 BC save (logging builds, same save, same seed)
+
+## Patch 0011 code (dcbae97) + groupPathTo guard
+player      cities  settlers@start trained disbanded settlers@end  cityDelta
+ 0 HENRY_VIII   5        0        1        0        1        0
+ 1 BRENNUS      6        4        0        0        1        3
+ 2 PERICLES     6        1        0        0        0        1
+ 3 AUGUSTUS     4        0        0        0        0       -1
+ 4 IVAN         7        4        0        0        3       -1
+ 5 CHARLEMAGN   8        0        0        0        0        0
+ 6 MASINISSA    7        0        3        0        1        3
+ 7 WILLEM_VAN   7        2        3        0        4        0
+ 8 SUPPI        3        0        0        0        0        0
+ 9 JOAO        11        2        0        0        1        1
+10 RAMESSES     7        0        5        0        2        3
+11 HANNIBAL     8        0        1        0        1       -2
+12 CHARLES_V    7        0        1        0        1        0
+13 HAMMURABI   13        4       10        0        5       10
+14 AFONSO       4        0        0        0        0        0
+15 PETER        6        0        1        0        1       -1
+16 LEONIDAS     5        1        0        0        0        1
+17 ALEXANDER    4        0        2        0        0        3
+total                   18       27        0       21       20
+{'build settler 1': 22, 'build settler 2': 6, 'early expansion settler': 1}
+
+## Patch 0012 (GitLab main abf8471)
+player      cities  settlers@start trained disbanded settlers@end  cityDelta
+ 0 HENRY_VIII   5        0        2        0        2        0
+ 1 BRENNUS      6        4        0        0        1        3
+ 2 PERICLES     6        1        2        0        2        1
+ 3 AUGUSTUS     4        0        0        0        0        0
+ 4 IVAN         7        4        0        4        0        0
+ 5 CHARLEMAGN   8        0        0        0        0        0
+ 6 MASINISSA    7        0        6        0        0        8
+ 7 WILLEM_VAN   7        2        0        0        2        0
+ 8 SUPPI        3        0        1        0        0        0
+ 9 JOAO        11        2        0        0        0        2
+10 RAMESSES     7        0        3        0        1        2
+11 HANNIBAL     8        0        1        0        1       -3
+12 CHARLES_V    7        0        0        0        0        0
+13 HAMMURABI   13        4       10        0        5        9
+14 AFONSO       4        0        0        0        0        0
+15 PETER        6        0        5        0        3        2
+16 LEONIDAS     5        1        0        1        0        0
+17 ALEXANDER    4        0        2        0        0        2
+total                   18       32        5       17       26
+{'build settler 1': 31, 'transport for waiting settler': 4, 'build settler 2': 4, 'early expansion settler': 1}

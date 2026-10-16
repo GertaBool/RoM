@@ -1,0 +1,69 @@
+# Tools/test_patch_0017.py on GitLab main 59fcd61 (tree a955d238), before the patch; lines over 300 characters are cut
+FFFFFFF
+======================================================================
+FAIL: test_hover_help_allocates_rows_on_demand (__main__.InterfaceTests.test_hover_help_allocates_rows_on_demand)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base17/Tools/test_patch_0017.py", line 46, in test_hover_help_allocates_rows_on_demand
+    self.assertIn('m_apbPromotion.resize(GC.getNumUnitInfos() * MAX_PLAYERS, NULL);', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'm_apbPromotion.resize(GC.getNumUnitInfos() * MAX_PLAYERS, NULL);' not found in 'void CvGameTextMgr::setPlotListHelp(CvWStringBuffer &szString, CvPlot* pPlot, bool bOneLine, bool bShort)\n{\n\tPROFILE_FUNC();\n\n\tint numPromotionInfos = GC.getNumPromotionInfos();\n\t\n\t// if cheatm [...]
+
+======================================================================
+FAIL: test_no_plot_list_redraw_without_a_plot (__main__.InterfaceTests.test_no_plot_list_redraw_without_a_plot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base17/Tools/test_patch_0017.py", line 40, in test_no_plot_list_redraw_without_a_plot
+    self.assertNotIn('if (plot() == gDLL->getInterfaceIFace()->getSelectionPlot())', text)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'if (plot() == gDLL->getInterfaceIFace()->getSelectionPlot())' unexpectedly found in '// unit.cpp\n\n#include "CvGameCoreDLL.h"\n#include "CvUnit.h"\n#include "CvArea.h"\n#include "CvPlot.h"\n#include "CvCity.h"\n#include "CvGlobals.h"\n#include "CvGameCoreUtils.h"\n#include "CvGameA [...]
+
+======================================================================
+FAIL: test_score_computed_once_per_player (__main__.InterfaceTests.test_score_computed_once_per_player)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base17/Tools/test_patch_0017.py", line 54, in test_score_computed_once_per_player
+    self.assertIn('iScore = aiPlayerScore[iJ];', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'iScore = aiPlayerScore[iJ];' not found in 'void CvGame::updateScore(bool bForce)\n{\n\tbool abPlayerScored[MAX_CIV_PLAYERS];\n\tbool abTeamScored[MAX_CIV_TEAMS];\n\tint iScore;\n\tint iBestScore;\n\tPlayerTypes eBestPlayer;\n\tTeamTypes eBestTeam;\n\tint iI, iJ, iK;\n\n\tif (!isScor [...]
+
+======================================================================
+FAIL: test_settler_without_cities_travels_alone (__main__.SettlerTests.test_settler_without_cities_travels_alone)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base17/Tools/test_patch_0017.py", line 31, in test_settler_without_cities_travels_alone
+    self.assertIn('const bool bEscortOptional = kPlayer.getNumCities() == 0;', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'const bool bEscortOptional = kPlayer.getNumCities() == 0;' not found in 'bool CvUnitAI::AI_found()\n{\n\tPROFILE_FUNC();\n\n\tCvPlayerAI& kPlayer = GET_PLAYER(getOwnerINLINE());\n\tCvPlot* pBestFoundPlot = NULL;\n\tCvPlot* pBestPlot = NULL;\n\tint iBestValue = 0;\n\tint iBestLandTur [...]
+
+======================================================================
+FAIL: test_best_route_scans_route_builds_only (__main__.TurnTimeTests.test_best_route_scans_route_builds_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base17/Tools/test_patch_0017.py", line 64, in test_best_route_scans_route_builds_only
+    self.assertIn('aeRouteBuilds', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'aeRouteBuilds' not found in "RouteTypes CvPlayer::getBestRoute(CvPlot* pPlot) const\n{\n\tPROFILE_FUNC();\n\n\tRouteTypes eRoute;\n\tRouteTypes eBestRoute;\n\tint iValue;\n\tint iBestValue;\n\tint iI;\n\n\tiBestValue = 0;\n\teBestRoute = NO_ROUTE;\n\n\t// BBAI TODO: Efficiency: Coul [...]
+
+======================================================================
+FAIL: test_can_build_tests_tech_before_plot (__main__.TurnTimeTests.test_can_build_tests_tech_before_plot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base17/Tools/test_patch_0017.py", line 60, in test_can_build_tests_tech_before_plot
+    self.assertLess(method.index('getTechPrereq()'), method.index('pPlot->canBuild('))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 232 not less than 131
+
+======================================================================
+FAIL: test_extra_cost_callback_behind_switch (__main__.TurnTimeTests.test_extra_cost_callback_behind_switch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/wt-base17/Tools/test_patch_0017.py", line 69, in test_extra_cost_callback_behind_switch
+    self.assertIn('USE_GET_EXTRA_COST_CALLBACK', method)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'USE_GET_EXTRA_COST_CALLBACK' not found in 'int CvPlayer::calculatePreInflatedCosts() const\n{\n\tCyArgsList argsList;\n\targsList.add(getID());\n\tlong lResult;\n\tgDLL->getPythonIFace()->callFunction(PYGameModule, "getExtraCost", argsList.makeFunctionArgs(), &lResult);\n\n\treturn  [...]
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.128s
+
+FAILED (failures=7)

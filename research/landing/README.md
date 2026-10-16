@@ -1,5 +1,12 @@
 # Settler landing: complete the handoff to the land party
 
+> **Correction.** On its own this change did not make settlers land in the game. Its landing
+> code never ran there: aboard a ship at sea no land unit counted as an escort, so the ship
+> waited in front of the site indefinitely. The tests missed this because their stand-in for
+> `canDefend()` ignored the unit's plot. Patch 0011 fixes the escort check and the landed
+> party's grouping, and was checked by running the real DLL; see
+> [research/landing-engine](../landing-engine/README.md). The landing code below is still used.
+
 This fix targets GitLab **`b8c379c1ffad9cd5408ca0e43dca88daf8ba85ee`**, including the user's imports of settlement placement and joint settlement planning. It changes only `CvUnitAI::AI_settlerSeaTransport` at runtime. Apply [patch 0008](../../fixes/0008-settler-landing.patch) with its [manifest](../../fixes/landing-manifest.json); do not reapply 0007 to this base.
 
 ## What the investigation establishes
