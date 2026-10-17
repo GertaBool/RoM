@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Every field of one game's sources into one DuckDB database, with a conservation check.
 
-usage: extract.py <WarLog.log> <out.duckdb> [--state state0.json] [--oracle oracle.jsonl] [--manifest extract.json]
+usage: extract.py <WarLog.log> <out.duckdb> [--state state0.json] [--oracle oracle.jsonl] [--records records.json]
+                  [--enums CvEnums.h]
+                  [--manifest extract.json]
 
 War log: one table per line type, with `seq` (the line's position in the log, so "known before
 a decision" is `seq <` the decision's seq), columns named after the format strings in the DLL
@@ -11,6 +13,13 @@ Save dump (HARNESS_HISTORY_DIAG): players, econ, costs, hist (long: player, seri
 value), units (every unit), cities, tiles (with their city-plot order), civic_values, created,
 replay, progress. Oracle (HARNESS_ORACLE, turns played after the save): one table per record kind
 (oracle_after, oracle_before, oracle_atk), scalar fields as columns, lists kept as JSON text.
+Dumps from the extended harness (toolchain/analysis/dump.sh) add: plots (every map plot), bonuses,
+diplo and memory (relations of every living civ to every other), unit id, damage, moves,
+fortify turns and promotions, city trade routes. players.human comes from humanSeat there,
+because the harness hands human seats to the AI and the dump's own flag is then 0.
+Records (records.json): build_info (build, improvement, route, time) and improvement_info
+(improvement, upgrade, upgrade_time), for joining orders to what stands on the map.
+Enums (CvEnums.h): enums (enum, idx, name) for the enums whose numbers the log and dump print.
 
 Running check (framework.md, section 3): the rows of each war-log table equal the lines of its
 type, and their sum equals the non-empty lines read; each dump table equals its source count.
@@ -56,7 +65,7 @@ def sha(p):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('log'); ap.add_argument('db')
-    ap.add_argument('--state'); ap.add_argument('--manifest'); ap.add_argument('--oracle')
+    ap.add_argument('--state'); ap.add_argument('--manifest'); ap.add_argument('--oracle'); ap.add_argument('--records'); ap.add_argument('--enums')
     a = ap.parse_args()
     rows = collections.defaultdict(list)
     seen = collections.Counter(); other = 0; total = 0
@@ -131,7 +140,7 @@ def main():
         table('players', [('player', 'BIGINT'), ('leader', 'VARCHAR'), ('human', 'BIGINT'), ('gold', 'BIGINT'),
                           ('gold_rate', 'BIGINT'), ('research_rate', 'BIGINT'), ('culture_rate', 'BIGINT'),
                           ('research', 'VARCHAR'), ('era', 'BIGINT'), ('vic', 'BIGINT'), ('agenda', 'BIGINT')],
-              [[p['id'], p['leader'], int(bool(p['human'])), p['gold'], p['goldRate'], p['researchRate'], p['cultureRate'],
+              [[p['id'], p['leader'], int(p['id'] == d['humanSeat']) if 'humanSeat' in d else int(bool(p['human'])), p['gold'], p['goldRate'], p['researchRate'], p['cultureRate'],
                 str(p['research']), p['era'], p['vic'], p['agenda']] for p in P])
         ek = [k for k, v in P[0]['econ'].items() if not isinstance(v, list)]
         table('econ', [('player', 'BIGINT')] + [(k, 'BIGINT') for k in ek], [[p['id']] + [p['econ'][k] for k in ek] for p in P])
@@ -142,17 +151,31 @@ def main():
         vec = lambda x: x if isinstance(x, list) else [x]
         h = [[p['id'], s, t, k, v] for p in P for s, ser in p['hist'].items() for t, x in enumerate(ser) for k, v in enumerate(vec(x))]
         table('hist', [('player', 'BIGINT'), ('series', 'VARCHAR'), ('turn', 'BIGINT'), ('k', 'BIGINT'), ('value', 'BIGINT')], h)
-        ucols = 'unit ai xp level can_fight x y area age group_size mission_ai plot_owner cargo'.split()
-        table('units', [('player', 'BIGINT')] + [(c, 'VARCHAR' if c in ('unit', 'ai') else 'BIGINT') for c in ucols],
-              [[p['id']] + u for p in P for u in p['unitList']])
+        ucols = 'unit ai xp level can_fight x y area age group_size mission_ai plot_owner cargo id damage moves fortify promotions'.split()
+        table('units', [('player', 'BIGINT')] + [(c, 'VARCHAR' if c in ('unit', 'ai', 'promotions') else 'BIGINT') for c in ucols],
+              [[p['id']] + (u + [None] * len(ucols))[:len(ucols)] for p in P for u in p['unitList']])
+        table('unit_promotions', [('player', 'BIGINT'), ('id', 'BIGINT'), ('unit', 'VARCHAR'), ('promotion', 'VARCHAR')],
+              [[p['id'], u[13], u[0], pr] for p in P for u in p['unitList'] if len(u) > 17 and u[17] for pr in u[17].split('|')])
+        table('bonuses', [('player', 'BIGINT'), ('bonus', 'VARCHAR'), ('available', 'BIGINT'), ('imported', 'BIGINT'), ('exported', 'BIGINT')],
+              [[p['id']] + b for p in P for b in p.get('bonuses', [])])
+        dcols = 'met war warplan open_borders def_pact weariness war_success attitude attitude_val'.split()
+        table('diplo', [('player', 'BIGINT'), ('other', 'BIGINT')] + [(c, 'BIGINT') for c in dcols] + [('worst_enemy', 'BIGINT')],
+              [[p['id']] + r[:10] + [p.get('worstEnemy')] for p in P for r in p.get('diplo', [])])
+        mt = d.get('memoryTypes', [])
+        table('memory', [('player', 'BIGINT'), ('other', 'BIGINT'), ('memory', 'VARCHAR'), ('n', 'BIGINT')],
+              [[p['id'], r[0], mt[m][7:], v] for p in P for r in p.get('diplo', []) for m, v in enumerate(r[10]) if v])
+        pcols = ('x y terrain plot_type feature bonus improvement route owner wc_owner wc_x wc_y upgrade_progress river '
+                 'irrigated worked food hammers commerce revealed_human seen_improvement_human').split()
+        table('plots', [(c, 'VARCHAR' if c in ('terrain', 'feature', 'bonus', 'improvement', 'route', 'seen_improvement_human') else 'BIGINT')
+                        for c in pcols], d.get('plots', []))
         table('cities', [('player', 'BIGINT'), ('x', 'BIGINT'), ('y', 'BIGINT'), ('pop', 'BIGINT'), ('founded', 'BIGINT'),
                          ('food', 'BIGINT'), ('prod', 'BIGINT'), ('commerce', 'BIGINT'), ('culture', 'BIGINT'),
                          ('happy', 'BIGINT'), ('unhappy', 'BIGINT'), ('good', 'BIGINT'), ('bad', 'BIGINT'), ('spec', 'BIGINT'),
                          ('improved', 'BIGINT'), ('radius', 'BIGINT'), ('order', 'VARCHAR'), ('order_turns', 'BIGINT'),
-                         ('buildings', 'BIGINT')],
+                         ('buildings', 'BIGINT'), ('trade_routes', 'BIGINT'), ('trade_commerce', 'BIGINT')],
               [[p['id'], c['x'], c['y'], c['pop'], c['founded'], c['food'], c['prod'], c['commerce'], c.get('culture'),
                 c.get('happy'), c.get('unhappy'), c.get('good'), c.get('bad'), c['spec'], c['improved'], c['radius'],
-                str(c['order']), c.get('orderTurns'), len(c['buildings'])] for p in P for c in p['cities']])
+                str(c['order']), c.get('orderTurns'), len(c['buildings'])] + (c.get('trade') or [None, None]) for p in P for c in p['cities']])
         table('city_buildings', [('player', 'BIGINT'), ('x', 'BIGINT'), ('y', 'BIGINT'), ('building', 'VARCHAR')],
               [[p['id'], c['x'], c['y'], str(b)] for p in P for c in p['cities'] for b in c['buildings']])
         tcols = 'worked terrain feature improvement hills river bonus food hammers commerce'.split()
@@ -168,9 +191,37 @@ def main():
               [list(r[:3]) + [str(r[3])] for r in d.get('replay', [])])
         want = {'players': len(P), 'units': sum(len(p['unitList']) for p in P), 'cities': sum(len(p['cities']) for p in P),
                 'tiles': sum(len(c.get('tiles', [])) for p in P for c in p['cities']), 'replay': len(d.get('replay', [])),
-                'hist': sum(len(vec(x)) for p in P for ser in p['hist'].values() for x in ser)}
+                'hist': sum(len(vec(x)) for p in P for ser in p['hist'].values() for x in ser), 'plots': len(d.get('plots', [])),
+                'diplo': sum(len(p.get('diplo', [])) for p in P)}
         errs += [f'{k}: {counts[k]} rows, {v} in the dump' for k, v in want.items() if counts[k] != v]
         src['state_turn'] = d['turn']
+    if a.records:
+        R = json.load(open(a.records))
+        table('build_info', [('build', 'VARCHAR'), ('improvement', 'VARCHAR'), ('route', 'VARCHAR'), ('time', 'BIGINT')],
+              [[k, (v.get('ImprovementType') or 'NONE').replace('IMPROVEMENT_', ''), (v.get('RouteType') or 'NONE').replace('ROUTE_', ''),
+                v.get('iTime')] for k, v in sorted(R['BuildInfo'].items())])
+        table('improvement_info', [('improvement', 'VARCHAR'), ('upgrade', 'VARCHAR'), ('upgrade_time', 'BIGINT')],
+              [[k[12:], (v.get('ImprovementUpgrade') or 'NONE').replace('IMPROVEMENT_', ''), v.get('iUpgradeTime')]
+               for k, v in sorted(R['ImprovementInfo'].items())])
+    if a.enums:
+        src_e = re.sub(r'//[^\n]*|/\*.*?\*/', '', open(a.enums, encoding='latin-1').read(), flags=re.S)
+        er = []
+        for name in ('TradeableItems', 'DiploEventTypes', 'AttitudeTypes', 'WarPlanTypes', 'MissionAITypes', 'MemoryTypes',
+                     'OrderTypes', 'PlotTypes', 'CommerceTypes', 'TaskTypes', 'AutomateTypes', 'UnitAITypes'):
+            m = re.search(r'enum\s+' + name + r'\b[^{]*\{(.*?)\}', src_e, re.S)
+            if not m: raise SystemExit(f'enum {name} not found')
+            i = 0
+            for item in m.group(1).split(','):
+                item = '\n'.join(l for l in item.split('\n') if not l.strip().startswith('#')).strip()
+                if not item: continue
+                k, _, v = item.partition('=')
+                k = k.strip()
+                if v.strip():
+                    try: i = int(v.strip(), 0)
+                    except ValueError: continue
+                if k.startswith('NUM_'): continue
+                er.append([name, i, k]); i += 1
+        table('enums', [('enum', 'VARCHAR'), ('idx', 'BIGINT'), ('name', 'VARCHAR')], er)
     if a.oracle:
         recs = collections.defaultdict(list)
         for l in open(a.oracle):
@@ -183,7 +234,7 @@ def main():
             if counts['oracle_' + kind] != len(rs): errs.append(f'oracle_{kind}: {counts["oracle_" + kind]} rows, {len(rs)} records')
         src['oracle_records'] = {k: len(v) for k, v in recs.items()}
     con.close()
-    man = {'inputs': {os.path.basename(p): sha(p) for p in (a.log, a.state, a.oracle) if p},
+    man = {'inputs': {os.path.basename(p): sha(p) for p in (a.log, a.state, a.oracle, a.records, a.enums) if p},
            'source': src, 'tables': counts, 'errors': errs}
     if a.manifest: json.dump(man, open(a.manifest, 'w'), indent=1, sort_keys=True)
     print(f'{len(counts)} tables, {sum(counts.values())} rows; {total} log lines; errors: {len(errs)}', file=sys.stderr)

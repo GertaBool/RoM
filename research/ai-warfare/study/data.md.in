@@ -1,0 +1,178 @@
+<!-- registry: data.fig.json as d -->
+# Tiles, diplomacy, trade, units and combat: game 3 and game 4
+
+The data behind `study/human.md`, from sources not used before:
+- the extended save dump (`toolchain/analysis/dump.sh`), which adds every map plot, the relations
+  between all players, resources, unit promotions and city trade;
+- every line of the war log (`tools/extract.py`).
+
+The queries are declared in `study/queries.json` and turned into figures by `tools/sqlfig.py`.
+Each table states what it counts, who, when, and from which source. Facts come first; the
+readings are in the last section.
+
+## 1. Tiles
+
+### 1.1 What became of the human's build orders
+
+Each plot and build ordered is counted once and compared with what stands on that plot at the
+save.
+
+{{table:d.game4_build_outcome}}
+
+{{table:d.game3_build_outcome}}
+
+Ordered improvements now replaced by another, and whether a later order of the human explains
+it:
+
+{{table:d.game4_replacements}}
+
+{{table:d.game3_replacements}}
+
+### 1.2 Land use at the save
+
+{{table:d.game4_land_use}}
+
+{{table:d.game3_land_use}}
+
+Yields of worked tiles (food, hammers and commerce as separate means):
+
+{{table:d.game4_worked_yield}}
+
+{{table:d.game3_worked_yield}}
+
+Every improvement on owned land:
+
+{{table:d.game4_improvements_owned}}
+
+{{table:d.game3_improvements_owned}}
+
+The cottage line (progress in turns of worked growth):
+
+{{table:d.game4_cottage_line}}
+
+{{table:d.game3_cottage_line}}
+
+### 1.3 What the human's map shows
+
+Plots the human has revealed where the improvement it sees differs from the one there:
+
+{{table:d.game4_stale_map}}
+
+{{table:d.game3_stale_map}}
+
+## 2. Diplomacy
+
+Each AI's attitude toward the human at the save, against its mean attitude value toward the
+other AIs it has met:
+
+{{table:d.game4_attitude_to_human}}
+
+{{table:d.game3_attitude_to_human}}
+
+What the AIs remember of the human, against what they remember of each other:
+
+{{table:d.game4_memory_of_human}}
+
+{{table:d.game3_memory_of_human}}
+
+Diplomatic events with the human:
+
+{{table:d.game4_diplo_events}}
+
+{{table:d.game3_diplo_events}}
+
+## 3. Trade
+
+Deals with the human, by item and direction:
+
+{{table:d.game4_deals}}
+
+{{table:d.game3_deals}}
+
+Resources and trade routes at the save:
+
+{{table:d.game4_resources}}
+
+{{table:d.game3_resources}}
+
+{{table:d.game4_trade_routes}}
+
+{{table:d.game3_trade_routes}}
+
+## 4. Units and combat
+
+Combat by side. The result is the R line written directly after the C line; with no R line, no
+unit died:
+
+{{table:d.game4_combat}}
+
+{{table:d.game3_combat}}
+
+Attacks by odds band:
+
+{{table:d.game4_attack_odds}}
+
+{{table:d.game3_attack_odds}}
+
+Promotions at the save:
+
+{{table:d.game4_promotion_depth}}
+
+{{table:d.game3_promotion_depth}}
+
+{{table:d.game4_promotions}}
+
+{{table:d.game3_promotions}}
+
+The human's move orders, by group size:
+
+{{table:d.game4_moves}}
+
+{{table:d.game3_moves}}
+
+Stacks near or in enemy land:
+
+{{table:d.game4_stacks}}
+
+{{table:d.game3_stacks}}
+
+## 5. Readings
+
+Each reading names its facts and what would refute it. All rest on two games.
+
+1. **Tiles are re-planned as techs arrive.**
+   - Facts: nearly every ordered improvement now replaced was replaced by a later order of the
+     human (section 1.1). The largest group is cottages that became mines in game 4.
+   - Refuted if: in a further game, the replacements are mostly not the human's own later
+     orders.
+2. **Working every cottage holds in game 4 only.**
+   - Game 4: no cottage remains on the human's land, and every hamlet and village is worked.
+   - Game 3: many of the human's cottages are unworked, while the AI works most of its own
+     (section 1.2). The game 4 pattern is not a rule.
+   - Refuted: as a general rule, by game 3.
+3. **Commerce comes from trade, not only from tiles.**
+   - Facts: the human's cities have about twice the AI's trade routes per city, and much more
+     trade commerce (section 3).
+   - Not yet separated from city size and position; that is open.
+4. **The human almost never attacks at under even odds, and the AIs almost never attack the
+   human.**
+   - Facts: the column for attacks under one half, and the attacks by the AI on the human, in
+     both combat tables (section 4).
+   - Not supported: that the human's median odds are higher than the AI's. Game 3's are lower
+     than the AI-against-AI median.
+   - Refuted if: in a further game, the human attacks under even odds as often as the AI does.
+5. **Experience is concentrated in few units.**
+   - Facts: the human's fighting units carry several times the AI's promotions and experience
+     per unit (section 4).
+6. **The human sells technology.**
+   - Facts: in both games it gives more tech items than it receives, and receives gold (section 3).
+7. **The human's map of foreign land is out of date in places.** It plays with partial
+   information, which `study/human.md` respects by using only lines before each decision.
+   - Facts: section 1.3.
+
+## 6. Open
+
+- Trade commerce against city size and position.
+- Combat against the units and terrain involved: the C lines carry both.
+- What the AIs' memories did to their requests and deals with the human (the E and D lines
+  over time).

@@ -187,7 +187,7 @@ Human units by role at the save: counter 32, worker 7, explore 2, general 1.
 | Turn | City | Attacks | Sequence (unit, experience, health, odds) | First has the most experience | Won |
 |---|---|---|---|---|---|
 | 211 | 20,44 | 4 | WARBAND 6xp 100hp 80% → WARBAND 6xp 100hp 80% → WARBAND 6xp 100hp 80% → WARBAND 6xp 100hp 76% | yes | 4 |
-| 213 | 20,44 | 3 | WARBAND 7xp 100hp 82% → WARBAND 7xp 100hp 91% → WARBAND 10xp 86hp 94% | no | 3 |
+| 213 | 20,44 | 3 | WARBAND 7xp 100hp 82% → WARBAND 7xp 100hp 91% → WARBAND 10xp 86hp 94% | no | 2 |
 
 ## 11. Size of the groups the human moves (MISSION_MOVE_TO, military units)
 

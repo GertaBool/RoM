@@ -8,8 +8,11 @@ are the records of the source tree the games ran on.
 wars, deals, battles), never what was weighed. Every rule below is a model of the outcomes:
 the simplest rule that reproduces the choices, with a rival rule and the cases that go
 against it. The sample is one player and four games. Games 1–2 have no economy, city-state or
-deal lines; games 3–4 have them. Game 2's attack odds are suspect: on turn 109 three
-Javelineer attacks at 3.7–9.9 % were all logged as won, about a 1-in-10⁴ outcome.
+deal lines; games 3–4 have them. (Corrected: an earlier version said game 2's attack odds were
+suspect because three Javelineer attacks at 3.7–9.9 % on turn 109 were all won. They were not won:
+no unit died in them. `gamedata.py` had matched results to combats by unit type instead of log
+position; fixed, and every battles.csv regenerated. Win counts below that came from the old
+tables are stated again in `study/` where they are used.)
 
 ## 1. Description
 

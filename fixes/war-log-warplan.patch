@@ -1,0 +1,15 @@
+diff --git a/Assets/CvGameCoreDLL/CvTeam.cpp b/Assets/CvGameCoreDLL/CvTeam.cpp
+index e69aa33..853a593 100644
+--- a/Assets/CvGameCoreDLL/CvTeam.cpp
++++ b/Assets/CvGameCoreDLL/CvTeam.cpp
+@@ -1423,7 +1423,9 @@ void CvTeam::declareWar(TeamTypes eTeam, bool bNewDiplo, WarPlanTypes eWarPlan,
+ 
+ 	if (!isAtWar(eTeam))
+ 	{
+-		warLogWar(getID(), eTeam, eWarPlan, false);
++		// War log: the plan passed in, else the plan this team holds toward eTeam as it declares (most
++		// callers pass NO_WARPLAN and leave the plan they prepared in place; it is set below).
++		warLogWar(getID(), eTeam, (eWarPlan != NO_WARPLAN) ? eWarPlan : AI_getWarPlan(eTeam), false);
+ 		//FAssertMsg((isHuman() || isMinorCiv() || GET_TEAM(eTeam).isMinorCiv() || isBarbarian() || GET_TEAM(eTeam).isBarbarian() || AI_isSneakAttackReady(eTeam) || (GET_TEAM(eTeam).getAtWarCount(true) > 0) || !(GC.getGameINLINE().isFinalInitialized()) || gDLL->GetWorldBuilderMode() || getVassalCount() > 0  || isAVassal() || GET_TEAM(eTeam).getVassalCount() > 0  || GET_TEAM(eTeam).isAVassal() || getDefensivePactCount() > 0), "Possibly accidental AI war!!!");
+ 
+ /************************************************************************************************/

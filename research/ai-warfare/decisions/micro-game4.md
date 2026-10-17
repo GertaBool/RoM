@@ -238,16 +238,16 @@ Human units by role at the save: counter 27, attack city 23, attack 13, worker 1
 
 | Turn | City | Attacks | Sequence (unit, experience, health, odds) | First has the most experience | Won |
 |---|---|---|---|---|---|
-| 257 | 33,29 | 3 | HASTATI 9xp 100hp 76% → HASTATI 6xp 100hp 92% → HASTATI 8xp 100hp 100% | yes | 3 |
-| 271 | 38,23 | 6 | ROME_LEG 13xp 100hp 98% → ROME_LEG 6xp 100hp 92% → ROME_LEG 6xp 100hp 97% → ROME_LEG 6xp 100hp 97% → ROME_LEG 6xp 100hp 97% → ROME_LEG 12xp 100hp 98% | yes | 6 |
+| 257 | 33,29 | 3 | HASTATI 9xp 100hp 76% → HASTATI 6xp 100hp 92% → HASTATI 8xp 100hp 100% | yes | 1 |
+| 271 | 38,23 | 6 | ROME_LEG 13xp 100hp 98% → ROME_LEG 6xp 100hp 92% → ROME_LEG 6xp 100hp 97% → ROME_LEG 6xp 100hp 97% → ROME_LEG 6xp 100hp 97% → ROME_LEG 12xp 100hp 98% | yes | 5 |
 | 272 | 38,23 | 6 | ROME_LEG 15xp 100hp 92% → ROME_LEG 9xp 100hp 92% → ROME_LEG 16xp 85hp 99% → ROME_LEG 9xp 67hp 96% → ROME_LEG 10xp 67hp 59% → AUXILIAR 6xp 100hp 99% | no | 6 |
 | 273 | 39,20 | 7 | ROME_LEG 19xp 99hp 100% → ROME_LEG 18xp 100hp 100% → ROME_LEG 13xp 99hp 100% → ROME_LEG 12xp 98hp 100% → ROME_LEG 9xp 70hp 100% → ROME_LEG 13xp 100hp 100% → ROME_LEG 13xp 100hp 100% | yes | 7 |
-| 279 | 42,22 | 11 | ROME_LEG 15xp 100hp 36% → ROME_LEG 14xp 100hp 37% → ROME_LEG 15xp 100hp 72% → ROME_LEG 13xp 100hp 42% → ROME_LEG 14xp 100hp 91% → ROME_LEG 12xp 100hp 99% → ROME_LEG 21xp 100hp 100% → ROME_LEG 21xp 100hp 100% → ROME_LEG 19xp 100hp 100% → ROME_LEG 19xp 100hp 100% → CENTURIO 29xp 69hp 100% | no | 11 |
-| 281 | 43,25 | 4 | ROME_LEG 19xp 100hp 57% → ROME_LEG 15xp 100hp 98% → CENTURIO 19xp 100hp 100% → ROME_LEG 13xp 100hp 100% | yes | 4 |
+| 279 | 42,22 | 11 | ROME_LEG 15xp 100hp 36% → ROME_LEG 14xp 100hp 37% → ROME_LEG 15xp 100hp 72% → ROME_LEG 13xp 100hp 42% → ROME_LEG 14xp 100hp 91% → ROME_LEG 12xp 100hp 99% → ROME_LEG 21xp 100hp 100% → ROME_LEG 21xp 100hp 100% → ROME_LEG 19xp 100hp 100% → ROME_LEG 19xp 100hp 100% → CENTURIO 29xp 69hp 100% | no | 9 |
+| 281 | 43,25 | 4 | ROME_LEG 19xp 100hp 57% → ROME_LEG 15xp 100hp 98% → CENTURIO 19xp 100hp 100% → ROME_LEG 13xp 100hp 100% | yes | 3 |
 | 282 | 37,26 | 3 | ROME_LEG 19xp 100hp 65% → HASTATI 10xp 100hp 74% → AUXILIAR 3xp 100hp 87% | yes | 2 |
 | 284 | 46,25 | 5 | CENTURIO 33xp 91hp 92% → ROME_LEG 15xp 100hp 57% → ROME_LEG 18xp 77hp 93% → ROME_LEG 18xp 77hp 92% → ROME_LEG 19xp 77hp 96% | yes | 5 |
-| 284 | 24,17 | 6 | ROME_LEG 19xp 100hp 81% → ROME_LEG 19xp 100hp 91% → ROME_LEG 13xp 100hp 90% → ROME_LEG 13xp 100hp 98% → ROME_LEG 15xp 100hp 100% → ROME_LEG 15xp 100hp 100% | yes | 6 |
-| 285 | 47,23 | 5 | ROME_LEG 19xp 100hp 77% → CENTURIO 41xp 92hp 98% → ROME_LEG 23xp 100hp 82% → ROME_LEG 21xp 100hp 84% → ROME_LEG 23xp 100hp 100% | no | 5 |
+| 284 | 24,17 | 6 | ROME_LEG 19xp 100hp 81% → ROME_LEG 19xp 100hp 91% → ROME_LEG 13xp 100hp 90% → ROME_LEG 13xp 100hp 98% → ROME_LEG 15xp 100hp 100% → ROME_LEG 15xp 100hp 100% | yes | 5 |
+| 285 | 47,23 | 5 | ROME_LEG 19xp 100hp 77% → CENTURIO 41xp 92hp 98% → ROME_LEG 23xp 100hp 82% → ROME_LEG 21xp 100hp 84% → ROME_LEG 23xp 100hp 100% | no | 4 |
 
 ## 11. Size of the groups the human moves (MISSION_MOVE_TO, military units)
 

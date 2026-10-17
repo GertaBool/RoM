@@ -1,8 +1,10 @@
 {
  "errors": [],
  "inputs": {
+  "CvEnums.h": "7a8a4769d01feaeb9c7e975631764b89532a20b6405b7b3fda861f38fe989a70",
   "WarLog.log": "7cde98c718bcc23fcd18a9d897fd3158cbd7d89da8fbc8decd90e2aa38541a14",
-  "run.jsonl.state0.json": "c2f2b94c373ac9a82a74666c4b4c63ce78ba1959360bc6d7276fc51f9ce58acc"
+  "records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152",
+  "state0.json": "e6efbbfb832c73b97151e2957c85c287c422193f11b0ac8f6de342bfd23fd32e"
  },
  "source": {
   "log_lines": 8925,
@@ -32,6 +34,8 @@
   "state_turn": 266
  },
  "tables": {
+  "bonuses": 252,
+  "build_info": 56,
   "cities": 129,
   "city_buildings": 492,
   "civic_values": 506,
@@ -39,13 +43,19 @@
   "costs": 18,
   "created": 27,
   "deal_items": 177,
+  "diplo": 306,
   "econ": 18,
   "econ_pct": 144,
+  "enums": 194,
   "hist": 28836,
+  "improvement_info": 54,
+  "memory": 363,
   "players": 18,
+  "plots": 3864,
   "replay": 2551,
   "techs": 370,
   "tiles": 1655,
+  "unit_promotions": 1011,
   "units": 706,
   "wl_A": 1301,
   "wl_B": 1,

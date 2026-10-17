@@ -148,12 +148,48 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 				CvWString w;
 				getUnitAIString(w, u->AI_getUnitAIType());
 				CvSelectionGroup* pG = u->getGroup();
-				fprintf(f, "%s[\"%s\",\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]", bFirstU ? "" : ",",
+				// then: unit id, damage, moves used, fortify turns, promotions ('|'-separated)
+				CvString szPromos;
+				for (int iPr = 0; iPr < GC.getNumPromotionInfos(); ++iPr)
+				{
+					if (!u->isHasPromotion((PromotionTypes)iPr)) continue;
+					if (!szPromos.empty()) szPromos += "|";
+					szPromos += GC.getPromotionInfo((PromotionTypes)iPr).getType() + 10;
+				}
+				fprintf(f, "%s[\"%s\",\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,\"%s\"]", bFirstU ? "" : ",",
 					GC.getUnitInfo(u->getUnitType()).getType() + 5, CvString(w).GetCString(), u->getExperience(), u->getLevel(),
 					u->canFight() ? 1 : 0, u->getX_INLINE(), u->getY_INLINE(), u->getArea(), g.getGameTurn() - u->getGameTurnCreated(),
 					pG != NULL ? pG->getNumUnits() : 0, pG != NULL ? (int)pG->AI_getMissionAIType() : -1,
-					u->plot()->getOwnerINLINE(), u->isCargo() ? 1 : 0);
+					u->plot()->getOwnerINLINE(), u->isCargo() ? 1 : 0, u->getID(), u->getDamage(), u->getMoves(),
+					u->getFortifyTurns(), szPromos.c_str());
 				bFirstU = false;
+			}
+			fprintf(f, "],");
+			// Resources: available, imported, exported (non-zero only).
+			fprintf(f, "\"bonuses\":[");
+			bool bFirstB = true;
+			for (int iB = 0; iB < GC.getNumBonusInfos(); ++iB)
+			{
+				const int iAv = k.getNumAvailableBonuses((BonusTypes)iB), iIm = k.getBonusImport((BonusTypes)iB), iEx = k.getBonusExport((BonusTypes)iB);
+				if (iAv == 0 && iIm == 0 && iEx == 0) continue;
+				fprintf(f, "%s[\"%s\",%d,%d,%d]", bFirstB ? "" : ",", GC.getBonusInfo((BonusTypes)iB).getType() + 6, iAv, iIm, iEx);
+				bFirstB = false;
+			}
+			// Relations with every other living civilisation: met, war, war plan, open borders, defensive
+			// pact, war weariness, war success, attitude and its value (AI only, else -99), memory counts.
+			fprintf(f, "],\"worstEnemy\":%d,\"diplo\":[", k.isHuman() ? -1 : (int)kT.AI_getWorstEnemy());
+			bool bFirstD = true;
+			for (int j = 0; j < MAX_CIV_PLAYERS; ++j)
+			{
+				CvPlayerAI& kJ = GET_PLAYER((PlayerTypes)j);
+				if (j == i || !kJ.isAlive()) continue;
+				const TeamTypes eTJ = kJ.getTeam();
+				fprintf(f, "%s[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,[", bFirstD ? "" : ",", j, kT.isHasMet(eTJ) ? 1 : 0, kT.isAtWar(eTJ) ? 1 : 0,
+					(int)kT.AI_getWarPlan(eTJ), kT.isOpenBorders(eTJ) ? 1 : 0, kT.isDefensivePact(eTJ) ? 1 : 0, kT.getWarWeariness(eTJ),
+					kT.AI_getWarSuccess(eTJ), k.isHuman() ? -99 : (int)k.AI_getAttitude((PlayerTypes)j), k.isHuman() ? -99 : k.AI_getAttitudeVal((PlayerTypes)j));
+				for (int m = 0; m < NUM_MEMORY_TYPES; ++m) fprintf(f, "%s%d", m ? "," : "", k.AI_getMemoryCount((PlayerTypes)j, (MemoryTypes)m));
+				fprintf(f, "]]");
+				bFirstD = false;
 			}
 			fprintf(f, "],");
 		}
@@ -214,7 +250,8 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 					pP->getYield(YIELD_FOOD), pP->getYield(YIELD_PRODUCTION), pP->getYield(YIELD_COMMERCE));
 				bFirstT = false;
 			}
-			fprintf(f, "],\"spec\":%d,\"improved\":%d,\"radius\":%d", c->getSpecialistPopulation(), iImproved, iRadius);
+			fprintf(f, "],\"spec\":%d,\"improved\":%d,\"radius\":%d,\"trade\":[%d,%d]", c->getSpecialistPopulation(), iImproved, iRadius,
+				c->getTradeRoutes(), c->getTradeYield(YIELD_COMMERCE));
 			if (getenv("HARNESS_VALUE_DIAG") != NULL && !k.isHuman())
 			{
 				// The city AI's own building values (AI_buildingValue draws no
@@ -390,6 +427,37 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 			bFirstT = false;
 		}
 		fprintf(f, "}");
+		// Every plot: x, y, terrain, plot type, feature, resource, improvement, route, owner, working city
+		// (owner, x, y), upgrade progress, river, irrigated, worked, food, hammers, commerce, revealed to the
+		// first human team, the improvement that team sees there.
+		// A loaded save has its human seats handed to the AI (HarnessHooks.cpp), so isHuman() is false
+		// here: HARNESS_HUMAN=<player> names the seat that was human (initcore.py reads it from the save).
+		TeamTypes eHumanTeam = NO_TEAM;
+		const char* szHuman = getenv("HARNESS_HUMAN");
+		if (szHuman != NULL && atoi(szHuman) >= 0 && atoi(szHuman) < MAX_CIV_PLAYERS) eHumanTeam = GET_PLAYER((PlayerTypes)atoi(szHuman)).getTeam();
+		fprintf(f, ",\"humanSeat\":%d", szHuman != NULL ? atoi(szHuman) : -1);
+		fprintf(f, ",\"plots\":[");
+		CvMap& kMap = GC.getMapINLINE();
+		for (int iP = 0; iP < kMap.numPlotsINLINE(); ++iP)
+		{
+			CvPlot* pP = kMap.plotByIndexINLINE(iP);
+			CvCity* pW = pP->getWorkingCity();
+			const ImprovementTypes eRI = eHumanTeam != NO_TEAM ? pP->getRevealedImprovementType(eHumanTeam, false) : NO_IMPROVEMENT;
+			fprintf(f, "%s\n[%d,%d,\"%s\",%d,\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,\"%s\"]", iP ? "," : "",
+				pP->getX_INLINE(), pP->getY_INLINE(), GC.getTerrainInfo(pP->getTerrainType()).getType() + 8, (int)pP->getPlotType(),
+				pP->getFeatureType() != NO_FEATURE ? GC.getFeatureInfo(pP->getFeatureType()).getType() + 8 : "-",
+				pP->getBonusType() != NO_BONUS ? GC.getBonusInfo(pP->getBonusType()).getType() + 6 : "-",
+				pP->getImprovementType() != NO_IMPROVEMENT ? GC.getImprovementInfo(pP->getImprovementType()).getType() + 12 : "-",
+				pP->getRouteType() != NO_ROUTE ? GC.getRouteInfo(pP->getRouteType()).getType() + 6 : "-",
+				pP->getOwnerINLINE(), pW ? (int)pW->getOwnerINLINE() : -1, pW ? pW->getX_INLINE() : -1, pW ? pW->getY_INLINE() : -1,
+				pP->getUpgradeProgress(), pP->isRiver() ? 1 : 0, pP->isIrrigated() ? 1 : 0, pP->isBeingWorked() ? 1 : 0,
+				pP->getYield(YIELD_FOOD), pP->getYield(YIELD_PRODUCTION), pP->getYield(YIELD_COMMERCE),
+				eHumanTeam != NO_TEAM && pP->isRevealed(eHumanTeam, false) ? 1 : 0,
+				eRI != NO_IMPROVEMENT ? GC.getImprovementInfo(eRI).getType() + 12 : "-");
+		}
+		fprintf(f, "],\"memoryTypes\":[");
+		for (int m = 0; m < NUM_MEMORY_TYPES; ++m) fprintf(f, "%s\"%s\"", m ? "," : "", GC.getMemoryInfo((MemoryTypes)m).getType());
+		fprintf(f, "]");
 		fprintf(f, ",\"replay\":[");
 		for (uint r = 0; r < g.getNumReplayMessages(); ++r)
 		{

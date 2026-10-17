@@ -1,7 +1,9 @@
 {
  "errors": [],
  "inputs": {
-  "WarLog.log": "66506c98af2eee656a3a93dd3b82ae4e9821cedfce0b69cc50969446939c34f0"
+  "CvEnums.h": "7a8a4769d01feaeb9c7e975631764b89532a20b6405b7b3fda861f38fe989a70",
+  "WarLog.log": "66506c98af2eee656a3a93dd3b82ae4e9821cedfce0b69cc50969446939c34f0",
+  "records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152"
  },
  "source": {
   "log_lines": 2633,
@@ -25,7 +27,10 @@
   "log_unknown_type": 0
  },
  "tables": {
+  "build_info": 56,
   "deal_items": 95,
+  "enums": 194,
+  "improvement_info": 54,
   "wl_A": 1363,
   "wl_B": 0,
   "wl_C": 35,

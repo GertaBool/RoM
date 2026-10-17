@@ -127,12 +127,17 @@ write('buildings.csv', ['turn', 'player', 'who', 'building', 'x', 'y', 'world_wo
 write('wars.csv', ['kind', 'turn', 'a', 'b', 'x', 'y', 'pop'],
       [[{'W': 'war', 'Q': 'peace', 'K': 'captured', 'Z': 'razed'}[l[0]], l[1], l[2], l[3]] + (l[4:7] if l[0] in 'KZ' else ['', '', ''])
        for l in L if l[0] in 'WQKZ'])
-res = {}
-for l in by['R']: res.setdefault((l[1], l[2], l[3], l[5], l[6]), []).append(l)
+# A combat's result is the R line written directly after its C line (CvUnit::updateCombat raises the
+# combat-result event only when a unit dies, CvEventReporter::combatResult). No R line next: no unit
+# died (a withdrawal). Matching by turn, owners and unit types instead gives a combat the result of
+# another fight between the same types that turn.
 bat = []
-for l in by['C']:
-    rr = res.get((l[1], l[2], l[3], l[6], l[7])) or []
-    won = 'attacker' if rr else ('defender' if res.get((l[1], l[6], l[7], l[2], l[3])) else 'withdrew/unknown')
+for i, l in enumerate(L):
+    if l[0] != 'C': continue
+    nx = L[i + 1] if i + 1 < len(L) else None
+    won = 'no death'
+    if nx is not None and nx[0] == 'R':
+        won = 'attacker' if (nx[2], nx[3]) == (l[2], l[3]) else ('defender' if (nx[2], nx[3]) == (l[6], l[7]) else 'no death')
     bat.append([l[1], l[2], who(l[2]), l[3], l[4], l[5], l[6], who(l[6]), l[7], l[8], l[9], l[10], l[11], l[12], l[13],
                 l[14], l[15], int(l[16]) / 10, l[17], won])
 write('battles.csv', ['turn', 'att', 'att_who', 'att_unit', 'att_hp', 'att_xp', 'def', 'def_who', 'def_unit', 'def_hp', 'def_xp',
