@@ -51,14 +51,17 @@ toolchain/harness/*.cpp`).
 | Tool | Use | Checked against |
 |---|---|---|
 | `tools/figlib.py`, `docs.py`, `check_all.py` | figures with unit, actor, turn and source; rendered documents; the commit gate | its own self-test of seven faults |
-| `tools/q.py <game> "<sql>"` | exact SQL (DuckDB) over a game's CSVs, plus a `cmd` view of the A lines; for exploration, not for documents | builders of build orders, game 4: Worker 202, Javelineer 46 |
+| `tools/extract.py <log> <db> [--state] [--oracle]` | every field of every war-log line (named from the DLL's format strings), the whole save dump and oracle records into one DuckDB file; each table's rows checked against its source lines | games 1–4: 0 conservation errors; matches `economy.csv` (5406), `battles.csv` (234) and the build orders (276) |
+| `toolchain/analysis/seeds.sh <save dir> <out> <turns> <a> <b>` | seeded continuations of a save on all cores, with the oracle; hard-linked copies, own `logs/` per run | same seed twice: identical; template files unchanged |
+| `tools/seedmetrics.py <out> <metric>` | one value per seed (kills available and made, kill share, exposed value, city fall) for `exper.py` | a sample against itself: p = 1, P = 0.5 |
+| `tools/q.py <game dir or db> "<sql>"` | exact SQL (DuckDB) over an `extract.py` database, or over a game's CSVs plus a `cmd` view of the A lines; for exploration, not for documents | builders of build orders, game 4: Worker 202, Javelineer 46 |
 | `tools/exper.py a.txt b.txt` | Welch's t-test on ranks, and P(A beats B); refuses fewer than 30 runs a side | Luke's worked example: tied ranks 4.5 and 9 |
 | `tools/divaudit.py <DLL src>` | integer divisions by 100; lists small-base cases as candidates, not bugs | finds `CvPlayer::getImprovementUpgradeRate` (19 of 805 divisions listed) |
 | SciPy, scikit-learn | tests; rival models (trees, regression) for the cue models | — |
 | Hypothesis, pytest | property tests with constructed inputs for producers | — |
 | tree-sitter (C++), libclang | syntax and AST queries over the DLL source | — |
 | hyperfine | repeated timing with spread, for turn-time comparisons | — |
-| GNU parallel | seeded harness runs on all four cores | — |
+| GNU parallel | general use; not for Wine: the harness aborts (`free(): invalid pointer`) under it, so `seeds.sh` uses `xargs -P` | — |
 | universal-ctags, sqlite3 | symbol index of the DLL; plain SQL from the shell | — |
 
 **Session tools:**
@@ -154,3 +157,12 @@ Ranked by what they fix per hour.
    time instead of only at the save.
 6. **One script per game** that runs steps 1–7 of section 2 in order, so the tables never
    come from different versions of a tool.
+
+## 7. Data gaps found in the audit of every source against the scripts
+
+| Gap | Fact | Remedy |
+|---|---|---|
+| Lines never extracted before `extract.py` | G (stacks), S (ranged strikes), B (bombards); the dump's turn-by-turn history, units, replay messages, costs and economy split | now in the database |
+| War plan never recorded | the W lines carry `-1` in all 19 declarations of game 4: `warLogWar` logs the argument of `CvTeam::declareWar` (`CvTeam.cpp:1426`), which most callers pass as `NO_WARPLAN`; the plan is set afterwards (`CvTeam.cpp:1515–1535`) | log `AI_getWarPlan(eTeam)` after that block: a change to the war-log DLL, the user's decision |
+| Plots of tiles | the dump's tiles carry no coordinates | coordinates in `HarnessState.cpp`: a harness rebuild, the user's decision |
+| AI decisions in the human's war | not measured before | the oracle on seeded continuations of the user's saves (`seeds.sh`) |

@@ -1,0 +1,50 @@
+{
+ "errors": [],
+ "inputs": {
+  "WarLog.log": "802df1aadb0251fd5405ed4de13d2d45225ded0bd372042ee1d42bb76d36e003"
+ },
+ "source": {
+  "log_lines": 2887,
+  "log_types": {
+   "A": 1309,
+   "C": 53,
+   "D": 53,
+   "E": 118,
+   "G": 33,
+   "H": 1,
+   "K": 10,
+   "P": 19,
+   "Q": 3,
+   "R": 45,
+   "T": 236,
+   "U": 674,
+   "W": 7,
+   "X": 326
+  },
+  "log_unknown_type": 0
+ },
+ "tables": {
+  "deal_items": 112,
+  "wl_A": 1309,
+  "wl_B": 0,
+  "wl_C": 53,
+  "wl_D": 53,
+  "wl_E": 118,
+  "wl_G": 33,
+  "wl_H": 1,
+  "wl_K": 10,
+  "wl_M": 0,
+  "wl_N": 0,
+  "wl_P": 19,
+  "wl_Q": 3,
+  "wl_R": 45,
+  "wl_S": 0,
+  "wl_T": 236,
+  "wl_U": 674,
+  "wl_V": 0,
+  "wl_W": 7,
+  "wl_X": 326,
+  "wl_Y": 0,
+  "wl_Z": 0
+ }
+}
