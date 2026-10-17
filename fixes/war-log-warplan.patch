@@ -1,3 +1,20 @@
+From 19d9e2a46491d637041546c0bce137799e28aa3c Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sat, 17 Oct 2026 23:22:57 +0000
+Subject: [PATCH] War log: W lines carry the declaring team's war plan
+
+warLogWar logged the eWarPlan argument of CvTeam::declareWar, which most callers pass as
+NO_WARPLAN, so every W line read -1. It now logs the argument when one is given, else the plan
+the team holds toward the target as it declares. Logging only: on a 20-turn continuation of a
+saved game the three AI declarations show WARPLAN_LIMITED and WARPLAN_TOTAL, and every other
+war-log line is identical. Tools tests: 146 passed. Release build: 0 errors, 0 warnings.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_015smokgQ1KvKFbApTvkeH68
+---
+ Assets/CvGameCoreDLL/CvTeam.cpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
 diff --git a/Assets/CvGameCoreDLL/CvTeam.cpp b/Assets/CvGameCoreDLL/CvTeam.cpp
 index e69aa33..853a593 100644
 --- a/Assets/CvGameCoreDLL/CvTeam.cpp
@@ -13,3 +30,6 @@ index e69aa33..853a593 100644
  		//FAssertMsg((isHuman() || isMinorCiv() || GET_TEAM(eTeam).isMinorCiv() || isBarbarian() || GET_TEAM(eTeam).isBarbarian() || AI_isSneakAttackReady(eTeam) || (GET_TEAM(eTeam).getAtWarCount(true) > 0) || !(GC.getGameINLINE().isFinalInitialized()) || gDLL->GetWorldBuilderMode() || getVassalCount() > 0  || isAVassal() || GET_TEAM(eTeam).getVassalCount() > 0  || GET_TEAM(eTeam).isAVassal() || getDefensivePactCount() > 0), "Possibly accidental AI war!!!");
  
  /************************************************************************************************/
+-- 
+2.43.0
+

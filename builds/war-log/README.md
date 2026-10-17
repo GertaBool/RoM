@@ -40,7 +40,7 @@ The log has one tab-separated line per event, in `Logs/WarLog.log`. The size is 
 |---|---|
 | `H`, `P` | Header: speed, difficulty, map size; then one line per player (civilization, leader, human or not) |
 | `T` | Turn and year |
-| `W`, `Q` | War declared (with the AI's war plan); peace |
+| `W`, `Q` | War declared, with the declaring team's war plan (`WarPlanTypes`; `-1` when it held none; DLLs before !50 always wrote `-1`); peace |
 | `C` | Combat: attacker and defender (owner, unit, health, experience), plot (terrain, feature, hills), city defence, odds per mille, units on the plot |
 | `R` | Combat result: winner (with health left) and loser |
 | `S` | Ranged strike and damage |

@@ -12,7 +12,7 @@ gone wrong, and what to change so it does not happen again.
 | Setup block (`<save>.init`) → `initcore.py` | Options, victories, custom names, civ, leader, team, handicap per slot | Game start | — |
 | Scenario map (`.CivBeyondSwordWBSave`) | Starting terrain, plot type, feature, river, resource per plot | Turn 0 | Chopping, new improvements, roads |
 | RoM XML → `xmlread.py` → `records.json` | Every record and field, with `_index` in load order | Fixed | Base BTS files the mod does not ship (HurryInfo and others) |
-| DLL source (`/home/user/src/rom-0018b`) | The rules: formulas, conditions, defines | Fixed | — |
+| DLL source (`/home/user/src/rom-0018b`, branch `claude/war-log-warplan` = GitLab main e843ab5 + !50) | The rules: formulas, conditions, defines | Fixed | — |
 | BBAI log (harness replay) | Which AI code branch made each choice | Turns after the save | The human; the turns before the save |
 
 Per game:
@@ -166,7 +166,7 @@ Ranked by what they fix per hour.
 | Gap | Fact | Remedy |
 |---|---|---|
 | Lines never extracted before `extract.py` | G (stacks), S (ranged strikes), B (bombards); the dump's turn-by-turn history, units, replay messages, costs and economy split | now in the database |
-| War plan never recorded | the W lines carried `-1` in every declaration: `warLogWar` logged the argument of `CvTeam::declareWar`, which most callers pass as `NO_WARPLAN` | fixed: the plan the team holds as it declares is logged (`fixes/war-log-warplan.patch`). Verified on a 20-turn continuation of game 3: the three declarations show plans 4 and 5 (limited, total) instead of `-1`, and every other line of the log is identical. In the harness builds now; for the DLL the user plays it needs a GitLab merge (the shipped DLL's commit is not in the local clone, so it is not rebuilt here) |
+| War plan never recorded | the W lines carried `-1` in every declaration: `warLogWar` logged the argument of `CvTeam::declareWar`, which most callers pass as `NO_WARPLAN` | fixed: the plan the team holds as it declares is logged (`fixes/war-log-warplan.patch`). Verified on a 20-turn continuation of game 3: the three declarations show plans 4 and 5 (limited, total) instead of `-1`, and every other line of the log is identical. Reconciled with GitLab: the local DLL code equals main's (only an XML comment and `Tools/test_war_ai_fixes.py` were behind); the fix is one commit on top of main e843ab5, merge request !50 (fast-forward, 146 tests passed); `builds/war-log/` holds the release DLL built from that tree |
 | Plots of tiles | the dump had no coordinates | fixed: `HarnessState.cpp` writes every plot (`toolchain/analysis/dump.sh`; `HARNESS_HUMAN` names the human seat, which the harness hands to the AI) |
 | Combat results | `gamedata.py` matched results to combats by turn, owners and unit types: a fight inherited the result of another between the same types that turn (game 4: 204 attacker wins counted, 163 true; 20 were withdrawals with no death) | fixed: the result is the R line written directly after the C line; every `battles.csv` regenerated |
 | AI decisions in the human's war | not measured before | the oracle on seeded continuations of the user's saves (`seeds.sh`) |
