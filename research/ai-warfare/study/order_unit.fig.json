@@ -94,7 +94,8 @@
     "logit",
     "cart"
    ],
-   "stat": "result"
+   "stat": "result",
+   "xml_values": null
   },
   "order_unit_by_game": {
    "kind": "table",
@@ -156,7 +157,8 @@
     "game3",
     "game4"
    ],
-   "stat": "result"
+   "stat": "result",
+   "xml_values": null
   },
   "order_unit_fft_rule": {
    "kind": "value",

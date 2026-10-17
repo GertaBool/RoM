@@ -56,6 +56,78 @@ namespace
 #define HH_SETTLE_REACH(k, u, p) (-1)
 #endif
 
+// Totals of one player after a full recalculation: commerce, research, gold per turn, food, hammers.
+static void HH_totals(CvPlayer& k, int* aiOut)
+{
+	k.updateMaintenance(); k.updateTradeRoutes(); k.updateYield(); k.updateCommerce();
+	aiOut[0] = k.calculateTotalCommerce(); aiOut[1] = k.calculateResearchRate(); aiOut[2] = k.calculateGoldRate();
+	aiOut[3] = k.calculateTotalYield(YIELD_FOOD); aiOut[4] = k.calculateTotalYield(YIELD_PRODUCTION);
+}
+
+// Civic probe: for every civic option of ePlayer and every civic it could adopt there, the totals with
+// that civic in place of the current one (worked tiles unchanged), then the civic put back; the
+// baseline is measured again after each swap ("restored" is 1 when it came back exactly).
+// Tech values: for every AI, AI_techValue (path 1) of every tech it can research now.
+static void HH_probe(const char* szPath, PlayerTypes ePlayer)
+{
+	FILE* f = fopen(szPath, "w");
+	if (f == NULL) return;
+	CvPlayerAI& k = GET_PLAYER(ePlayer);
+	int aiBase[5], aiNow[5], aiBack[5];
+	HH_totals(k, aiBase);
+	fprintf(f, "{\"player\":%d,\"baseline\":[%d,%d,%d,%d,%d],\"civics\":[", (int)ePlayer, aiBase[0], aiBase[1], aiBase[2], aiBase[3], aiBase[4]);
+	bool bFirst = true;
+	for (int iO = 0; iO < GC.getNumCivicOptionInfos(); ++iO)
+	{
+		const CivicOptionTypes eO = (CivicOptionTypes)iO;
+		const CivicTypes eCur = k.getCivics(eO);
+		for (int iC = 0; iC < GC.getNumCivicInfos(); ++iC)
+		{
+			const CivicTypes eC = (CivicTypes)iC;
+			if (GC.getCivicInfo(eC).getCivicOptionType() != iO || eC == eCur || !k.canDoCivics(eC)) continue;
+			k.setCivics(eO, eC); HH_totals(k, aiNow);
+			k.setCivics(eO, eCur); HH_totals(k, aiBack);
+			bool bOk = true;
+			for (int j = 0; j < 5; ++j) if (aiBack[j] != aiBase[j]) bOk = false;
+			fprintf(f, "%s\n[\"%s\",\"%s\",\"%s\",%d,%d,%d,%d,%d,%d]", bFirst ? "" : ",", GC.getCivicOptionInfo(eO).getType(),
+				eCur != NO_CIVIC ? GC.getCivicInfo(eCur).getType() : "-", GC.getCivicInfo(eC).getType(),
+				aiNow[0], aiNow[1], aiNow[2], aiNow[3], aiNow[4], bOk ? 1 : 0);
+			bFirst = false;
+		}
+	}
+	fprintf(f, "],\"techValues\":[");
+	bFirst = true;
+	int* aiRev = new int[GC.getNumBonusClassInfos()];
+	int* aiUnrev = new int[GC.getNumBonusClassInfos()];
+	int* aiHave = new int[GC.getNumBonusClassInfos()];
+	for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+	{
+		CvPlayerAI& kA = GET_PLAYER((PlayerTypes)i);
+		if (!kA.isAlive() || i == (int)ePlayer) continue;
+		CvTeam& kTA = GET_TEAM(kA.getTeam());
+		// the bonus-class counts AI_bestTech prepares (CvPlayerAI.cpp)
+		for (int b = 0; b < GC.getNumBonusClassInfos(); ++b) { aiRev[b] = 0; aiUnrev[b] = 0; aiHave[b] = 0; }
+		for (int b = 0; b < GC.getNumBonusInfos(); ++b)
+		{
+			const TechTypes eR = (TechTypes)GC.getBonusInfo((BonusTypes)b).getTechReveal();
+			const int eBC = GC.getBonusInfo((BonusTypes)b).getBonusClassType();
+			if (eR == NO_TECH) continue;
+			if (kTA.isHasTech(eR)) aiRev[eBC]++; else aiUnrev[eBC]++;
+			if (kA.getNumAvailableBonuses((BonusTypes)b) > 0 || kA.countOwnedBonuses((BonusTypes)b) > 0) aiHave[eBC]++;
+		}
+		for (int t = 0; t < GC.getNumTechInfos(); ++t)
+		{
+			if (!kA.canResearch((TechTypes)t)) continue;
+			fprintf(f, "%s\n[%d,\"%s\",%d,%d]", bFirst ? "" : ",", i, GC.getTechInfo((TechTypes)t).getType(),
+				kA.AI_techValue((TechTypes)t, 1, false, false, aiRev, aiUnrev, aiHave), kA.getCurrentResearch() == (TechTypes)t ? 1 : 0);
+			bFirst = false;
+		}
+	}
+	delete [] aiRev; delete [] aiUnrev; delete [] aiHave;
+	fprintf(f, "]}\n");
+	fclose(f);
+}
+
 extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 {
 	const HarnessPeekGuard kNoSideEffects;
@@ -470,5 +542,14 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 	}
 	fprintf(f, "}\n");
 	fclose(f);
+	// HARNESS_PROBE=<file> (with HARNESS_HUMAN): counterfactual civics of the human seat and the AIs'
+	// tech values, inside the guard above, so random seeds and AI caches are restored afterwards.
+	const char* szProbe = getenv("HARNESS_PROBE");
+	static bool bProbed = false;
+	if (szProbe != NULL && !bProbed && getenv("HARNESS_HUMAN") != NULL)
+	{
+		bProbed = true;
+		HH_probe(szProbe, (PlayerTypes)atoi(getenv("HARNESS_HUMAN")));
+	}
 	return 0;
 }

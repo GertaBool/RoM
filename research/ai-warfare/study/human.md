@@ -36,7 +36,8 @@ page; the table at the end gives each figure's unit, actor, turn and source.
   gold share whenever gold plus income would go below zero. The M-line slider is therefore not
   the human's choice; only the clicks are. The remaining mismatches are clicks made after the
   M line, which show in the next one.
-- **War plans.** The W lines carry no war plan (`toolkit.md`, section 7).
+- **War plans.** The W lines of the logged games carry no war plan: the DLL wrote `-1` until
+  GitLab `!50` (`toolkit.md`, section 7).
 - **Log versions.** Game 1 and game 2 used the first log version, which has no M lines. Only
   decisions without economy cues can be studied there.
 

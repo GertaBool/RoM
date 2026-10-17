@@ -1,5 +1,5 @@
 {
-  "source": "GitLab branch claude/war-log-warplan (merge request !50): main e843ab5 (!49 merged) plus the war-plan field of the W lines",
+  "source": "GitLab main d51ff25 (merge request !50 merged; its tree equals the branch commit 19d9e2a): main e843ab5 (!49) plus the war-plan field of the W lines",
   "source_commit": "19d9e2a46491d637041546c0bce137799e28aa3c",
   "base_commit": "e843ab5bd3b580580730be7f13c7ddc703d28b5a",
   "dll_sha256": "934fd4850751a80934b423f9e7021e6a9da991b13f92d63f699003c45ba4f054",
@@ -8,5 +8,6 @@
   "tests": "GitLab Tools tests (python3 -m unittest discover -s Tools -p 'test_*.py'): 146 passed, as on main",
   "tested_headless": "harness build of the same DLL source: a 20-turn continuation of game 3's save, same seed, with and without the change; W lines carry WARPLAN_LIMITED / WARPLAN_TOTAL, every other war-log line identical. The release DLL itself was not run headless",
   "tested_in_game": false,
-  "previous": "7a2288cb9f9257be122d8e720d6f7504c3a97c7cd507787b021aaf293b480f17 (GitLab main after !49, commit 679e9271)"
+  "previous": "7a2288cb9f9257be122d8e720d6f7504c3a97c7cd507787b021aaf293b480f17 (GitLab main after !49, commit 679e9271)",
+  "merged_commit": "d51ff25"
 }

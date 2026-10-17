@@ -3,6 +3,7 @@
  "inputs": {
   "CvEnums.h": "7a8a4769d01feaeb9c7e975631764b89532a20b6405b7b3fda861f38fe989a70",
   "WarLog.log": "2f4f6e7188116ac2870aeeb92d374203c0d3018986aab7f54e480b9e3e803dff",
+  "probe.json": "94faed5497632495f962e21a495bcc315c2714d95e1e8edb5811fe81bb1f26f0",
   "records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152",
   "state0.json": "69db430513898e7b03efadba436164147b7b0a00e4ae959e534d5ad5dd0fa175"
  },
@@ -39,6 +40,7 @@
   "build_info": 56,
   "cities": 205,
   "city_buildings": 949,
+  "civic_probe": 28,
   "civic_values": 544,
   "civics": 144,
   "costs": 18,
@@ -53,7 +55,9 @@
   "memory": 420,
   "players": 18,
   "plots": 5376,
+  "probe_baseline": 1,
   "replay": 4249,
+  "tech_values": 310,
   "techs": 457,
   "tiles": 2460,
   "unit_promotions": 1482,

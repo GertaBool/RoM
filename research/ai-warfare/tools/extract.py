@@ -2,7 +2,7 @@
 """Every field of one game's sources into one DuckDB database, with a conservation check.
 
 usage: extract.py <WarLog.log> <out.duckdb> [--state state0.json] [--oracle oracle.jsonl] [--records records.json]
-                  [--enums CvEnums.h]
+                  [--enums CvEnums.h] [--probe probe.json]
                   [--manifest extract.json]
 
 War log: one table per line type, with `seq` (the line's position in the log, so "known before
@@ -19,6 +19,9 @@ fortify turns and promotions, city trade routes. players.human comes from humanS
 because the harness hands human seats to the AI and the dump's own flag is then 0.
 Records (records.json): build_info (build, improvement, route, time) and improvement_info
 (improvement, upgrade, upgrade_time), for joining orders to what stands on the map.
+Probe (dump.sh's probe.json): civic_probe (the human seat's totals with each civic swapped in,
+and whether the baseline came back), probe_baseline, tech_values (every AI's AI_techValue for each
+tech it can research at the save, its rank, and whether it is researching it).
 Enums (CvEnums.h): enums (enum, idx, name) for the enums whose numbers the log and dump print.
 
 Running check (framework.md, section 3): the rows of each war-log table equal the lines of its
@@ -65,7 +68,7 @@ def sha(p):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('log'); ap.add_argument('db')
-    ap.add_argument('--state'); ap.add_argument('--manifest'); ap.add_argument('--oracle'); ap.add_argument('--records'); ap.add_argument('--enums')
+    ap.add_argument('--state'); ap.add_argument('--manifest'); ap.add_argument('--oracle'); ap.add_argument('--records'); ap.add_argument('--enums'); ap.add_argument('--probe')
     a = ap.parse_args()
     rows = collections.defaultdict(list)
     seen = collections.Counter(); other = 0; total = 0
@@ -222,6 +225,21 @@ def main():
                 if k.startswith('NUM_'): continue
                 er.append([name, i, k]); i += 1
         table('enums', [('enum', 'VARCHAR'), ('idx', 'BIGINT'), ('name', 'VARCHAR')], er)
+    if a.probe:
+        pr = json.load(open(a.probe))
+        b0 = pr['baseline']
+        table('probe_baseline', [('player', 'BIGINT'), ('commerce', 'BIGINT'), ('research', 'BIGINT'), ('gold', 'BIGINT'),
+                                 ('food', 'BIGINT'), ('hammers', 'BIGINT')], [[pr['player']] + b0])
+        table('civic_probe', [('option', 'VARCHAR'), ('current', 'VARCHAR'), ('alternative', 'VARCHAR'), ('commerce', 'BIGINT'),
+                              ('research', 'BIGINT'), ('gold', 'BIGINT'), ('food', 'BIGINT'), ('hammers', 'BIGINT'), ('restored', 'BIGINT')],
+              [[o.removeprefix('CIVICOPTION_'), c.removeprefix('CIVIC_'), al.removeprefix('CIVIC_')] + v for o, c, al, *v in pr['civics']])
+        tv = sorted(pr['techValues'], key=lambda r: (r[0], -r[2], r[1]))
+        rank, last = [], None
+        for r in tv:
+            n = 1 if r[0] != last else n + 1; last = r[0]; rank.append(n)
+        table('tech_values', [('player', 'BIGINT'), ('tech', 'VARCHAR'), ('value', 'BIGINT'), ('researching', 'BIGINT'), ('rank', 'BIGINT')],
+              [[r[0], r[1].removeprefix('TECH_'), r[2], r[3], k] for r, k in zip(tv, rank)])
+        if any(not c[-1] for c in pr['civics']): errs.append('civic_probe: a swapped civic did not restore the baseline')
     if a.oracle:
         recs = collections.defaultdict(list)
         for l in open(a.oracle):
@@ -234,7 +252,7 @@ def main():
             if counts['oracle_' + kind] != len(rs): errs.append(f'oracle_{kind}: {counts["oracle_" + kind]} rows, {len(rs)} records')
         src['oracle_records'] = {k: len(v) for k, v in recs.items()}
     con.close()
-    man = {'inputs': {os.path.basename(p): sha(p) for p in (a.log, a.state, a.oracle, a.records, a.enums) if p},
+    man = {'inputs': {os.path.basename(p): sha(p) for p in (a.log, a.state, a.oracle, a.records, a.enums, a.probe) if p},
            'source': src, 'tables': counts, 'errors': errs}
     if a.manifest: json.dump(man, open(a.manifest, 'w'), indent=1, sort_keys=True)
     print(f'{len(counts)} tables, {sum(counts.values())} rows; {total} log lines; errors: {len(errs)}', file=sys.stderr)

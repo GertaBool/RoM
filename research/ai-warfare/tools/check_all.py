@@ -35,22 +35,27 @@ def selftest():
         rows = [{'a': 'X', 'g': '1'}, {'a': 'Y', 'g': '2'}, {'a': 'X', 'g': '2'}]
         R.census_table('t', rows, 'a', 'tiles at save', 'all', 'save 285', 'tiles.csv', group='g', xml='ImprovementInfo')
         R.census_table('t2', rows, 'a', 'tiles at save', 'all', 'save 285', 'tiles.csv', show=['X'], reason='test')
+        R.result_table('rt', ['k', 'type'], [['a', 'X'], ['b', 'Y']], 'orders', 'all', 'save 285', 'q', ['a', 'b'], n=2,
+                       xml='ImprovementInfo', xml_vals=['X', 'Y'])
         for bad, why in ((lambda: R.fig('u', 1, 'yield per tile', 'h', '1', 's'), 'unit outside UNITS'),
                          (lambda: R.fig('w', 1, 'orders', '', '1', 's'), 'missing who'),
                          (lambda: R.census_table('s', rows, 'a', 'tiles at save', 'h', '1', 's', show=['X']), 'dropped values, no reason'),
                          (lambda: R.census_table('x', rows + [{'a': 'Z', 'g': '1'}], 'a', 'tiles at save', 'h', '1', 's', xml='ImprovementInfo'), 'type without record'),
                          (lambda: R.fig('sh', 1, 'share', 'h', '1', 's'), 'share without n'),
                          (lambda: R.census_table('m', rows, 'a', 'turn', 'h', '1', 's', value=len, stat='mean'), 'mean on an ordinal scale'),
-                         (lambda: R.census_table('m2', rows, 'a', 'tiles at save', 'h', '1', 's', value=len), 'value without stat')):
+                         (lambda: R.census_table('m2', rows, 'a', 'tiles at save', 'h', '1', 's', value=len), 'value without stat'),
+                         (lambda: R.result_table('rx', ['k', 'type'], [['a', 'Z']], 'orders', 'h', '1', 's', ['a'], n=1,
+                                                 xml='ImprovementInfo', xml_vals=['Z']), 'result type without record')):
             try: bad(); errs.append(f'selftest: figlib accepted {why}')
             except figlib.FigureError: pass
         R.save()
         cases = {
-            'good': ('{{n}} orders ([[§17 Satz 1]], [[pp. 18–19]]).\n\n{{table:t}}\n\n{{effects:t}}\n\n{{table:t2}}\n', None),
+            'good': ('{{n}} orders ([[§17 Satz 1]], [[pp. 18–19]]).\n\n{{table:t}}\n\n{{effects:t}}\n\n{{table:t2}}\n\n{{table:rt}}\n\n{{effects:rt}}\n', None),
             'number': ('The human gave 35 orders.\n', 'number:'),
             'cite': ('A figure hidden in a citation: [[35 orders]].\n', 'number:'),
             'id': ('{{nope}}\n', 'id:'),
             'effects': ('{{table:t}}\n', 'effects:'),
+            'result_effects': ('{{table:rt}}\n', 'effects:'),
         }
         for name, (body, want) in cases.items():
             p = os.path.join(d, name + '.md.in'); open(p, 'w').write('<!-- registry: r.json -->\n' + body)

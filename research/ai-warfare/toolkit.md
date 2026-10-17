@@ -12,7 +12,7 @@ gone wrong, and what to change so it does not happen again.
 | Setup block (`<save>.init`) → `initcore.py` | Options, victories, custom names, civ, leader, team, handicap per slot | Game start | — |
 | Scenario map (`.CivBeyondSwordWBSave`) | Starting terrain, plot type, feature, river, resource per plot | Turn 0 | Chopping, new improvements, roads |
 | RoM XML → `xmlread.py` → `records.json` | Every record and field, with `_index` in load order | Fixed | Base BTS files the mod does not ship (HurryInfo and others) |
-| DLL source (`/home/user/src/rom-0018b`, branch `claude/war-log-warplan` = GitLab main e843ab5 + !50) | The rules: formulas, conditions, defines | Fixed | — |
+| DLL source (`/home/user/src/rom-0018b`, GitLab main d51ff25: e843ab5 + !50, merged) | The rules: formulas, conditions, defines | Fixed | — |
 | BBAI log (harness replay) | Which AI code branch made each choice | Turns after the save | The human; the turns before the save |
 
 Per game:
@@ -50,11 +50,11 @@ toolchain/harness/*.cpp`).
 
 | Tool | Use | Checked against |
 |---|---|---|
-| `tools/figlib.py`, `docs.py`, `check_all.py` | figures with unit, actor, turn and source; rendered documents; the commit gate | its own self-test of seven faults |
+| `tools/figlib.py`, `docs.py`, `check_all.py` | figures with unit, actor, turn and source; rendered documents; the commit gate | its own self-test: typed numbers, ids, units, coverage, missing XML effects (census and result tables), stale inputs, duplicate ids |
 | `tools/extract.py <log> <db> [--state] [--oracle]` | every field of every war-log line (named from the DLL's format strings), the whole save dump and oracle records into one DuckDB file; each table's rows checked against its source lines | games 1–4: 0 conservation errors; matches `economy.csv` (5406), `battles.csv` (234) and the build orders (276) |
 | `toolchain/analysis/seeds.sh <save dir> <out> <turns> <a> <b>` | seeded continuations of a save on all cores, with the oracle; hard-linked copies, own `logs/` per run | same seed twice: identical; template files unchanged |
-| `toolchain/analysis/dump.sh <save dir> <out> <human> [dll]` | the full save dump: plots, relations and memories, resources, unit promotions, city trade | old sections byte-identical to the earlier dump |
-| `tools/sqlfig.py <spec> <registry> name=db ...` | declared SQL queries (`study/queries.json`) as checked figure tables; one thread and total orders, so reruns are identical | two runs identical; reproduced at every commit |
+| `toolchain/analysis/dump.sh <save dir> <out> <human> [dll]` | the full save dump: plots, relations and memories, resources, unit promotions, city trade; with `HARNESS_PROBE`, `probe.json`: the human's totals with each civic swapped for each alternative, and every AI's `AI_techValue` of each tech it can research | old sections byte-identical to the earlier dump; `extract.py` refuses a probe whose swap did not restore the baseline |
+| `tools/sqlfig.py <spec> <registry> [records=…] name=db ...` | declared SQL queries (`study/queries.json`, `queries_win.json`) as checked figure tables; one thread and total orders, so reruns are identical; a query's `xml` names the columns that list game types, whose records docs.py then requires | two runs identical; reproduced at every commit |
 | `toolchain/analysis/rebuild.sh` | every database, case table, model test and query figure, in order, then render and check (55 s) | `check_all`: 0 errors |
 | `tools/seedmetrics.py <out> <metric>` | one value per seed (kills available and made, kill share, exposed value, city fall) for `exper.py` | a sample against itself: p = 1, P = 0.5 |
 | `tools/q.py <game dir or db> "<sql>"` | exact SQL (DuckDB) over an `extract.py` database, or over a game's CSVs plus a `cmd` view of the A lines; for exploration, not for documents | builders of build orders, game 4: Worker 202, Javelineer 46 |
@@ -166,7 +166,7 @@ Ranked by what they fix per hour.
 | Gap | Fact | Remedy |
 |---|---|---|
 | Lines never extracted before `extract.py` | G (stacks), S (ranged strikes), B (bombards); the dump's turn-by-turn history, units, replay messages, costs and economy split | now in the database |
-| War plan never recorded | the W lines carried `-1` in every declaration: `warLogWar` logged the argument of `CvTeam::declareWar`, which most callers pass as `NO_WARPLAN` | fixed: the plan the team holds as it declares is logged (`fixes/war-log-warplan.patch`). Verified on a 20-turn continuation of game 3: the three declarations show plans 4 and 5 (limited, total) instead of `-1`, and every other line of the log is identical. Reconciled with GitLab: the local DLL code equals main's (only an XML comment and `Tools/test_war_ai_fixes.py` were behind); the fix is one commit on top of main e843ab5, merge request !50 (fast-forward, 146 tests passed); `builds/war-log/` holds the release DLL built from that tree |
+| War plan never recorded | the W lines carried `-1` in every declaration: `warLogWar` logged the argument of `CvTeam::declareWar`, which most callers pass as `NO_WARPLAN` | fixed: the plan the team holds as it declares is logged (`fixes/war-log-warplan.patch`). Verified on a 20-turn continuation of game 3: the three declarations show plans 4 and 5 (limited, total) instead of `-1`, and every other line of the log is identical. Reconciled with GitLab: the local DLL code equals main's (only an XML comment and `Tools/test_war_ai_fixes.py` were behind); the fix is one commit on top of main e843ab5, merge request !50 (146 tests passed), merged as main d51ff25, whose tree equals the branch commit; `builds/war-log/` holds the release DLL built from that tree |
 | Plots of tiles | the dump had no coordinates | fixed: `HarnessState.cpp` writes every plot (`toolchain/analysis/dump.sh`; `HARNESS_HUMAN` names the human seat, which the harness hands to the AI) |
 | Combat results | `gamedata.py` matched results to combats by turn, owners and unit types: a fight inherited the result of another between the same types that turn (game 4: 204 attacker wins counted, 163 true; 20 were withdrawals with no death) | fixed: the result is the R line written directly after the C line; every `battles.csv` regenerated |
 | AI decisions in the human's war | not measured before | the oracle on seeded continuations of the user's saves (`seeds.sh`) |

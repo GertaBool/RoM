@@ -15,7 +15,7 @@ and takes every number from them:
 
 Checks (each failure is an error):
   number   a number typed in the text (outside {{ }}, `code`, links, heading and list numbers,
-           and after 'game', 'section', 'step', 'rule', 'chapter')
+           and after 'game', 'section', 'step', 'rule', 'reading', 'chapter')
   id       a placeholder naming no figure, or a figure without unit, who, turn or source
   cover    a table showing fewer values than it counted, without a reason
   effects  a table with an XML record type whose {{effects:id}} is not in the document
@@ -32,7 +32,7 @@ PH = re.compile(r'\{\{([^{}]+)\}\}')
 # A source locator: [[chapters 2–12]], [[§17 Satz 1]], [[pp. 18–19]]. Only locator words, numbers and
 # punctuation are allowed inside, so it cannot carry a figure; it renders as its text.
 CITE = re.compile(r'\[\[((?:§|chapters?|sections?|pp?\.|Satz|Corollar|Definition|Theorem|Algorithm|rules?|Analysis|and|[\d.,–\- ])+)\]\]')
-ALLOW_BEFORE = re.compile(r'(?:(?:game|games|section|sections|step|steps|rule|rules|chapter|chapters|Chapter|Game|Section|Step|Rule|Definition|Theorem|Example|Figure|Satz|Corollar|Algorithm|page|p\.)\s+|§\s*)$')
+ALLOW_BEFORE = re.compile(r'(?:(?:game|games|section|sections|step|steps|rule|rules|reading|readings|chapter|chapters|Chapter|Game|Reading|Section|Step|Rule|Definition|Theorem|Example|Figure|Satz|Corollar|Algorithm|page|p\.)\s+|§\s*)$')
 NUM = re.compile(r'(?<![A-Za-z_\d.])\d+(?:[.,]\d+)*(?![A-Za-z_\d])')
 SKIP_FIELDS = {'ArtDefineTag', 'Civilopedia', 'Description', 'Help', 'Strategy', 'Button', 'HotKey', 'EntityEvent',
                'WorldSoundscapeAudioScript', '_sources', '_index', 'bGraphicalOnly', 'bUseLSystem', 'Type'}
@@ -95,7 +95,7 @@ def render_ph(key, figs, xml, used, errs):
         if not f or not f.get('xml'): errs.append(f'id: {id} has no XML record type'); return '?'
         recs = xml.get(f['xml'], {})
         lines = [f'| {f["xml"]} | Fields set (records.json) |', '|---|---|']
-        for v in f['values']:
+        for v in f.get('xml_values') or f['values']:
             if v in figlib.NONE_VALUES: lines.append(f'| {v} | (none: no record) |'); continue
             if v not in recs: errs.append(f'effects: {id}: no record for {v}'); continue
             lines.append(f'| {v} | ' + '; '.join(f'`{k}` {compact(x)}' for k, x in set_fields(recs[v])) + ' |')
