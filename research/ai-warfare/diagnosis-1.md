@@ -1,7 +1,7 @@
 # Diagnosis 1: why the AI lost game 1
 
 Evidence:
-- [games/game1-england.md](games/game1-england.md);
+- [games/game1/analysis.md](games/game1/analysis.md);
 - one 450-turn and one 200-turn headless game of 10 AIs (Mediterranean, Marathon,
   Noble), the second with the AI's tech scores logged;
 - a test copy of the DLL that logs each part of every tech score.
@@ -100,7 +100,7 @@ on now.
 
 ## Gap 5: stack attacks at hopeless odds (rank 2, from game 2)
 
-See [games/game2-greece.md](games/game2-greece.md).
+See [games/game2/analysis.md](games/game2/analysis.md).
 - **Facts:** in 4 headless games, about 200 of 2,659 AI attacks were made by non-siege
   units at win chances under 5 %. In game 2 Rome lost 5 of 8 Javelineers on one city in
   one turn, at 0.1–39 % per fight, and took nothing.

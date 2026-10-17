@@ -194,6 +194,27 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 				bFirstB = false;
 			}
 			fprintf(f, "]");
+			// City tiles: worked (1/0), terrain, feature, improvement, hills, river, bonus, food, hammers,
+			// commerce; then specialists and the improved tiles the city works or could work.
+			fprintf(f, ",\"tiles\":[");
+			bool bFirstT = true;
+			int iImproved = 0, iRadius = 0;
+			for (int iP = 0; iP < NUM_CITY_PLOTS; ++iP)
+			{
+				CvPlot* pP = c->getCityIndexPlot(iP);
+				if (pP == NULL || pP->getWorkingCity() != c) continue;
+				++iRadius;
+				if (pP->getImprovementType() != NO_IMPROVEMENT) ++iImproved;
+				const BonusTypes eB = pP->getBonusType(k.getTeam());
+				fprintf(f, "%s[%d,\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",%d,%d,%d]", bFirstT ? "" : ",", c->isWorkingPlot(iP) ? 1 : 0,
+					GC.getTerrainInfo(pP->getTerrainType()).getType() + 8,
+					pP->getFeatureType() != NO_FEATURE ? GC.getFeatureInfo(pP->getFeatureType()).getType() + 8 : "-",
+					pP->getImprovementType() != NO_IMPROVEMENT ? GC.getImprovementInfo(pP->getImprovementType()).getType() + 12 : "-",
+					pP->isHills() ? 1 : 0, pP->isRiver() ? 1 : 0, eB != NO_BONUS ? GC.getBonusInfo(eB).getType() + 6 : "-",
+					pP->getYield(YIELD_FOOD), pP->getYield(YIELD_PRODUCTION), pP->getYield(YIELD_COMMERCE));
+				bFirstT = false;
+			}
+			fprintf(f, "],\"spec\":%d,\"improved\":%d,\"radius\":%d", c->getSpecialistPopulation(), iImproved, iRadius);
 			if (getenv("HARNESS_VALUE_DIAG") != NULL && !k.isHuman())
 			{
 				// The city AI's own building values (AI_buildingValue draws no

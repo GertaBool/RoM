@@ -1,0 +1,1501 @@
+turn,player,who,kind,item,category,hammers,cost_source
+7,3,ai,unit,WORKBOAT,workboats,30,observed
+7,4,ai,unit,WORKBOAT,workboats,30,observed
+7,7,ai,unit,WORKBOAT,workboats,30,observed
+7,9,ai,unit,WORKBOAT,workboats,30,observed
+7,14,ai,unit,WORKBOAT,workboats,30,observed
+7,15,ai,unit,WORKBOAT,workboats,30,observed
+7,16,ai,unit,WORKBOAT,workboats,30,observed
+8,0,ai,unit,WORKBOAT,workboats,30,observed
+9,17,ai,unit,WORKBOAT,workboats,30,observed
+12,2,ai,unit,WORKBOAT,workboats,30,observed
+18,9,ai,unit,WORKER,workers,75,observed
+18,14,ai,unit,WORKER,workers,75,observed
+19,0,ai,unit,WORKER,workers,75,observed
+19,11,ai,unit,WORKBOAT,workboats,30,observed
+20,15,ai,unit,WORKER,workers,75,observed
+21,1,ai,unit,WORKER,workers,75,observed
+21,5,ai,unit,WORKER,workers,75,observed
+22,3,ai,unit,WORKBOAT,workboats,30,observed
+22,4,ai,unit,WORKER,workers,75,observed
+22,7,ai,unit,WORKER,workers,75,observed
+22,16,ai,unit,WORKBOAT,workboats,30,observed
+23,6,ai,unit,WORKER,workers,75,observed
+23,10,ai,unit,WORKER,workers,75,observed
+24,12,human,unit,WORKER,workers,75,observed
+24,17,ai,unit,WORKER,workers,75,observed
+30,2,ai,unit,WORKBOAT,workboats,30,observed
+34,13,ai,unit,JAVELINEER,land military,75,observed
+37,11,ai,unit,WORKBOAT,workboats,30,observed
+39,7,ai,unit,WORKBOAT,workboats,30,observed
+41,2,ai,unit,WORKBOAT,workboats,30,observed
+45,10,ai,unit,JAVELINEER,land military,75,observed
+48,0,ai,unit,JAVELINEER,land military,75,observed
+48,1,ai,unit,JAVELINEER,land military,75,observed
+48,11,ai,unit,WORKBOAT,workboats,30,observed
+49,5,ai,unit,JAVELINEER,land military,75,observed
+50,3,ai,unit,JAVELINEER,land military,75,observed
+51,0,ai,unit,WORKBOAT,workboats,30,observed
+51,16,ai,unit,JAVELINEER,land military,75,observed
+52,9,ai,unit,JAVELINEER,land military,75,observed
+53,12,human,unit,JAVELINEER,land military,75,observed
+53,17,ai,unit,JAVELINEER,land military,75,observed
+57,6,ai,unit,JAVELINEER,land military,75,observed
+57,7,ai,unit,JAVELINEER,land military,75,observed
+57,14,ai,unit,JAVELINEER,land military,75,observed
+57,16,ai,unit,WORKBOAT,workboats,30,observed
+59,11,ai,unit,WORKER,workers,75,observed
+60,3,ai,unit,WORKER,workers,75,observed
+60,9,ai,unit,WORKBOAT,workboats,30,observed
+60,10,ai,unit,JAVELINEER,land military,75,observed
+61,13,ai,unit,WORKER,workers,75,observed
+61,15,ai,unit,JAVELINEER,land military,75,observed
+61,17,ai,unit,WORKBOAT,workboats,30,observed
+63,2,ai,unit,JAVELINEER,land military,75,observed
+63,16,ai,unit,WORKER,workers,75,observed
+64,4,ai,unit,JAVELINEER,land military,75,observed
+65,1,ai,unit,JAVELINEER,land military,75,observed
+65,5,ai,unit,JAVELINEER,land military,75,observed
+66,14,ai,unit,WORKBOAT,workboats,30,observed
+67,8,ai,unit,JAVELINEER,land military,75,observed
+68,9,ai,unit,WORKER,workers,75,observed
+69,3,ai,unit,WORKER,workers,75,observed
+69,6,ai,unit,WORKBOAT,workboats,30,observed
+69,11,ai,unit,WORKBOAT,workboats,30,observed
+69,12,human,unit,JAVELINEER,land military,75,observed
+70,10,ai,unit,SCOUT,land military,45,xml
+71,2,ai,unit,WORKER,workers,75,observed
+75,0,ai,unit,SETTLER,settlers,280,observed
+75,7,ai,unit,SETTLER,settlers,280,observed
+76,13,ai,unit,JAVELINEER,land military,75,observed
+76,15,ai,unit,JAVELINEER,land military,75,observed
+77,10,ai,unit,WORKER,workers,75,observed
+79,6,ai,unit,WORKBOAT,workboats,30,observed
+79,12,human,unit,JAVELINEER,land military,75,observed
+80,0,ai,unit,WORKER,workers,75,observed
+81,4,ai,unit,JAVELINEER,land military,75,observed
+82,13,ai,unit,WORKER,workers,75,observed
+83,11,ai,unit,GALLEY,navy,75,observed
+84,9,ai,unit,SETTLER,settlers,280,observed
+85,5,ai,unit,SETTLER,settlers,280,observed
+85,17,ai,unit,SETTLER,settlers,280,observed
+86,2,ai,unit,JAVELINEER,land military,75,observed
+86,7,ai,unit,JAVELINEER,land military,75,observed
+87,3,ai,unit,SETTLER,settlers,280,observed
+87,12,human,unit,JAVELINEER,land military,75,observed
+87,16,ai,unit,SETTLER,settlers,280,observed
+89,0,ai,unit,JAVELINEER,land military,75,observed
+89,1,ai,unit,SETTLER,settlers,280,observed
+89,15,ai,unit,WORKER,workers,75,observed
+89,16,ai,unit,JAVELINEER,land military,75,observed
+91,17,ai,unit,WORKER,workers,75,observed
+92,0,ai,unit,WORKBOAT,workboats,30,observed
+93,7,ai,unit,SCOUT,land military,45,xml
+94,2,ai,unit,WORKER,workers,75,observed
+94,5,ai,unit,JAVELINEER,land military,75,observed
+94,12,human,unit,JAVELINEER,land military,75,observed
+95,6,ai,unit,SETTLER,settlers,280,observed
+96,0,ai,unit,WORKER,workers,75,observed
+96,9,ai,unit,JAVELINEER,land military,75,observed
+98,14,ai,unit,SETTLER,settlers,280,observed
+98,15,ai,unit,JAVELINEER,land military,75,observed
+99,3,ai,unit,JAVELINEER,land military,75,observed
+100,16,ai,unit,WORKER,workers,75,observed
+101,13,ai,unit,SETTLER,settlers,280,observed
+102,16,ai,unit,WORKBOAT,workboats,30,observed
+102,17,ai,unit,JAVELINEER,land military,75,observed
+103,0,ai,unit,WORKBOAT,workboats,30,observed
+103,10,ai,unit,SETTLER,settlers,280,observed
+104,11,ai,unit,SETTLER,settlers,280,observed
+104,12,human,unit,SETTLER,settlers,280,observed
+105,1,ai,unit,JAVELINEER,land military,75,observed
+106,2,ai,unit,SETTLER,settlers,280,observed
+106,5,ai,unit,WORKER,workers,75,observed
+106,16,ai,unit,JAVELINEER,land military,75,observed
+107,7,ai,unit,SETTLER,settlers,280,observed
+108,11,ai,unit,JAVELINEER,land military,75,observed
+109,2,ai,unit,SCOUT,land military,45,xml
+109,12,human,unit,JAVELINEER,land military,75,observed
+110,3,ai,unit,JAVELINEER,land military,75,observed
+110,6,ai,unit,JAVELINEER,land military,75,observed
+111,0,ai,unit,SETTLER,settlers,280,observed
+112,4,ai,unit,SETTLER,settlers,280,observed
+112,5,ai,unit,SETTLER,settlers,280,observed
+112,8,ai,unit,SETTLER,settlers,280,observed
+112,13,ai,unit,WORKER,workers,75,observed
+113,0,ai,unit,WORKBOAT,workboats,30,observed
+113,16,ai,unit,JAVELINEER,land military,75,observed
+114,3,ai,unit,WORKER,workers,75,observed
+114,7,ai,unit,GALLEY,navy,75,observed
+114,11,ai,unit,GALLEY,navy,75,observed
+115,12,human,unit,JAVELINEER,land military,75,observed
+116,1,ai,unit,JAVELINEER,land military,75,observed
+116,5,ai,unit,SCOUT,land military,45,xml
+116,10,ai,unit,WORKER,workers,75,observed
+117,0,ai,unit,JAVELINEER,land military,75,observed
+117,16,ai,unit,SCOUT,land military,45,xml
+118,9,ai,unit,SETTLER,settlers,280,observed
+119,4,ai,unit,JAVELINEER,land military,75,observed
+119,6,ai,unit,SETTLER,settlers,280,observed
+119,14,ai,unit,JAVELINEER,land military,75,observed
+120,1,ai,unit,WORKER,workers,75,observed
+121,2,ai,unit,SETTLER,settlers,280,observed
+121,2,ai,unit,WORKBOAT,workboats,30,observed
+121,3,ai,unit,JAVELINEER,land military,75,observed
+122,6,ai,unit,WORKER,workers,75,observed
+122,7,ai,unit,JAVELINEER,land military,75,observed
+122,15,ai,unit,SETTLER,settlers,280,observed
+122,16,ai,unit,JAVELINEER,land military,75,observed
+122,17,ai,unit,SETTLER,settlers,280,observed
+123,12,human,unit,SETTLER,settlers,280,observed
+124,11,ai,unit,SETTLER,settlers,280,observed
+125,17,ai,unit,WORKER,workers,75,observed
+126,1,ai,unit,JAVELINEER,land military,75,observed
+126,2,ai,unit,JAVELINEER,land military,75,observed
+126,6,ai,unit,WORKBOAT,workboats,30,observed
+127,8,ai,unit,WORKER,workers,75,observed
+127,10,ai,unit,WORKBOAT,workboats,30,observed
+127,11,ai,unit,JAVELINEER,land military,75,observed
+127,12,human,unit,JAVELINEER,land military,75,observed
+128,7,ai,unit,WORKBOAT,workboats,30,observed
+128,9,ai,unit,JAVELINEER,land military,75,observed
+129,4,ai,unit,WORKER,workers,75,observed
+129,5,ai,unit,SETTLER,settlers,280,observed
+129,6,ai,unit,JAVELINEER,land military,75,observed
+129,10,ai,unit,SETTLER,settlers,280,observed
+129,11,ai,unit,WORKER,workers,75,observed
+130,0,ai,unit,JAVELINEER,land military,75,observed
+130,15,ai,unit,JAVELINEER,land military,75,observed
+131,4,ai,unit,WORKER,workers,75,observed
+132,11,ai,unit,WORKER,workers,75,observed
+133,2,ai,unit,JAVELINEER,land military,75,observed
+133,4,ai,unit,WORKBOAT,workboats,30,observed
+134,3,ai,unit,SETTLER,settlers,280,observed
+134,7,ai,unit,WORKER,workers,75,observed
+134,9,ai,unit,GALLEY,navy,75,observed
+134,10,ai,unit,JAVELINEER,land military,75,observed
+134,13,ai,unit,SCOUT,land military,45,xml
+134,17,ai,unit,JAVELINEER,land military,75,observed
+135,5,ai,unit,JAVELINEER,land military,75,observed
+135,6,ai,unit,GALLEY,navy,75,observed
+135,16,ai,unit,SETTLER,settlers,280,observed
+137,11,ai,unit,SETTLER,settlers,280,observed
+137,17,ai,unit,SCOUT,land military,45,xml
+138,2,ai,unit,JAVELINEER,land military,75,observed
+139,6,ai,unit,SCOUT,land military,45,xml
+139,13,ai,unit,SETTLER,settlers,280,observed
+139,14,ai,unit,WORKBOAT,workboats,30,observed
+140,11,ai,unit,JAVELINEER,land military,75,observed
+140,13,ai,unit,JAVELINEER,land military,75,observed
+141,1,ai,unit,SETTLER,settlers,280,observed
+141,17,ai,unit,SCOUT,land military,45,xml
+142,6,ai,unit,SCOUT,land military,45,xml
+143,0,ai,unit,JAVELINEER,land military,75,observed
+143,0,ai,unit,WORKER,workers,75,observed
+143,2,ai,unit,JAVELINEER,land military,75,observed
+143,5,ai,unit,SCOUT,land military,45,xml
+143,9,ai,unit,SETTLER,settlers,280,observed
+143,11,ai,unit,GALLEY,navy,75,observed
+143,12,human,unit,SETTLER,settlers,280,observed
+144,3,ai,unit,SETTLER,settlers,280,observed
+144,6,ai,unit,WORKBOAT,workboats,30,observed
+144,7,ai,unit,GALLEY,navy,75,observed
+144,10,ai,unit,SETTLER,settlers,280,observed
+145,1,ai,unit,JAVELINEER,land military,75,observed
+145,4,ai,unit,SETTLER,settlers,280,observed
+145,9,ai,unit,SCOUT,land military,45,xml
+145,12,human,unit,JAVELINEER,land military,75,observed
+146,2,ai,unit,GALLEY,navy,75,observed
+146,16,ai,unit,GALLEY,navy,75,observed
+146,17,ai,unit,WORKBOAT,workboats,30,observed
+147,13,ai,unit,SETTLER,settlers,280,observed
+148,0,ai,unit,GALLEY,navy,75,observed
+148,2,ai,unit,WORKBOAT,workboats,30,observed
+148,3,ai,unit,JAVELINEER,land military,75,observed
+148,11,ai,unit,GALLEY,navy,75,observed
+148,12,human,unit,JAVELINEER,land military,75,observed
+149,3,ai,unit,SCOUT,land military,45,xml
+149,5,ai,unit,JAVELINEER,land military,75,observed
+149,8,ai,unit,JAVELINEER,land military,75,observed
+149,9,ai,unit,JAVELINEER,land military,75,observed
+150,3,ai,unit,WORKBOAT,workboats,30,observed
+150,6,ai,unit,GALLEY,navy,75,observed
+150,10,ai,unit,JAVELINEER,land military,75,observed
+150,12,human,unit,WORKER,workers,75,observed
+150,14,ai,unit,SETTLER,settlers,280,observed
+150,16,ai,unit,WORKER,workers,75,observed
+150,17,ai,unit,JAVELINEER,land military,75,observed
+151,1,ai,unit,JAVELINEER,land military,75,observed
+151,2,ai,unit,JAVELINEER,land military,75,observed
+151,7,ai,unit,SETTLER,settlers,280,observed
+151,7,ai,unit,WORKBOAT,workboats,30,observed
+151,13,ai,unit,JAVELINEER,land military,75,observed
+152,2,ai,unit,GALLEY,navy,75,observed
+152,12,human,unit,SCOUT,land military,45,xml
+152,15,ai,unit,SETTLER,settlers,280,observed
+153,3,ai,unit,JAVELINEER,land military,75,observed
+154,2,ai,unit,GALLEY,navy,75,observed
+154,9,ai,unit,SCOUT,land military,45,xml
+155,4,ai,unit,GALLEY,navy,75,observed
+155,6,ai,unit,WORKBOAT,workboats,30,observed
+155,7,ai,unit,SETTLER,settlers,280,observed
+155,8,ai,unit,SCOUT,land military,45,xml
+155,11,ai,unit,SETTLER,settlers,280,observed
+155,13,ai,unit,JAVELINEER,land military,75,observed
+155,15,ai,unit,WORKBOAT,workboats,30,observed
+155,16,ai,unit,WORKER,workers,75,observed
+156,1,ai,unit,JAVELINEER,land military,75,observed
+156,2,ai,unit,GALLEY,navy,75,observed
+156,13,ai,unit,JAVELINEER,land military,75,observed
+156,17,ai,unit,JAVELINEER,land military,75,observed
+158,10,ai,unit,SCOUT,land military,45,xml
+158,11,ai,unit,SPEARMAN,land military,105,observed
+158,11,ai,unit,WORKBOAT,workboats,30,observed
+158,13,ai,unit,WORKBOAT,workboats,30,observed
+158,17,ai,unit,JAVELINEER,land military,75,observed
+159,2,ai,unit,WORKBOAT,workboats,30,observed
+159,7,ai,unit,JAVELINEER,land military,75,observed
+159,16,ai,unit,WORKER,workers,75,observed
+160,1,ai,unit,WORKBOAT,workboats,30,observed
+160,11,ai,unit,GALLEY,navy,75,observed
+160,12,human,unit,SETTLER,settlers,280,observed
+160,13,ai,unit,JAVELINEER,land military,75,observed
+160,15,ai,unit,GALLEY,navy,75,observed
+161,1,ai,unit,JAVELINEER,land military,75,observed
+161,1,ai,unit,JAVELINEER,land military,75,observed
+162,4,ai,unit,SCOUT,land military,45,xml
+162,6,ai,unit,SETTLER,settlers,280,observed
+162,8,ai,unit,WORKER,workers,75,observed
+162,9,ai,unit,SETTLER,settlers,280,observed
+162,17,ai,unit,JAVELINEER,land military,75,observed
+164,5,ai,unit,WORKER,workers,75,observed
+164,11,ai,unit,WORKBOAT,workboats,30,observed
+165,2,ai,unit,SETTLER,settlers,280,observed
+165,4,ai,unit,SCOUT,land military,45,xml
+165,6,ai,unit,JAVELINEER,land military,75,observed
+165,13,ai,unit,SPEARMAN,land military,105,observed
+165,17,ai,unit,JAVELINEER,land military,75,observed
+166,1,ai,unit,JAVELINEER,land military,75,observed
+166,2,ai,unit,RAM,land military,45,xml
+166,5,ai,unit,SETTLER,settlers,280,observed
+166,9,ai,unit,JAVELINEER,land military,75,observed
+166,12,human,unit,TRADE_CARAVAN,land military,180,xml
+166,13,ai,unit,WORKBOAT,workboats,30,observed
+166,16,ai,unit,WORKBOAT,workboats,30,observed
+166,17,ai,unit,JAVELINEER,land military,75,observed
+167,7,ai,unit,JAVELINEER,land military,75,observed
+167,14,ai,unit,JAVELINEER,land military,75,observed
+169,3,ai,unit,WORKER,workers,75,observed
+170,0,ai,unit,JAVELINEER,land military,75,observed
+170,1,ai,unit,JAVELINEER,land military,75,observed
+170,5,ai,unit,JAVELINEER,land military,75,observed
+170,5,ai,unit,SETTLER,settlers,280,observed
+171,6,ai,unit,GALLEY,navy,75,observed
+171,15,ai,unit,JAVELINEER,land military,75,observed
+171,16,ai,unit,JAVELINEER,land military,75,observed
+172,7,ai,unit,JAVELINEER,land military,75,observed
+172,10,ai,unit,RAM,land military,45,xml
+172,13,ai,unit,RAM,land military,45,xml
+173,0,ai,unit,GALLEY,navy,75,observed
+173,1,ai,unit,JAVELINEER,land military,75,observed
+173,9,ai,unit,GALLEY,navy,75,observed
+173,11,ai,unit,SETTLER,settlers,280,observed
+174,1,ai,unit,JAVELINEER,land military,75,observed
+174,2,ai,unit,GALLEY,navy,75,observed
+174,5,ai,unit,JAVELINEER,land military,75,observed
+175,8,ai,unit,WORKBOAT,workboats,30,observed
+175,9,ai,unit,WORKBOAT,workboats,30,observed
+175,16,ai,unit,WORKBOAT,workboats,30,observed
+176,4,ai,unit,JAVELINEER,land military,75,observed
+176,7,ai,unit,JAVELINEER,land military,75,observed
+176,16,ai,unit,WORKER,workers,75,observed
+177,2,ai,unit,WORKER,workers,75,observed
+178,1,ai,unit,JAVELINEER,land military,75,observed
+178,9,ai,unit,WORKER,workers,75,observed
+178,13,ai,unit,WORKBOAT,workboats,30,observed
+178,14,ai,unit,JAVELINEER,land military,75,observed
+179,0,ai,unit,GALLEY,navy,75,observed
+179,2,ai,unit,WORKER,workers,75,observed
+179,11,ai,unit,SPEARMAN,land military,105,observed
+179,16,ai,unit,WORKBOAT,workboats,30,observed
+180,2,ai,unit,WORKER,workers,75,observed
+180,2,ai,unit,WORKBOAT,workboats,30,observed
+180,6,ai,unit,GALLEY,navy,75,observed
+180,6,ai,unit,WORKER,workers,75,observed
+180,7,ai,unit,GALLEY,navy,75,observed
+180,7,ai,unit,WORKER,workers,75,observed
+181,1,ai,unit,JAVELINEER,land military,75,observed
+181,4,ai,unit,SETTLER,settlers,280,observed
+181,5,ai,unit,JAVELINEER,land military,75,observed
+181,6,ai,unit,SETTLER,settlers,280,observed
+181,9,ai,unit,WORKER,workers,75,observed
+181,11,ai,unit,WORKER,workers,75,observed
+181,17,ai,unit,SETTLER,settlers,280,observed
+182,13,ai,unit,SPEARMAN,land military,105,observed
+182,16,ai,unit,WORKBOAT,workboats,30,observed
+183,2,ai,unit,GALLEY,navy,75,observed
+183,2,ai,unit,SETTLER,settlers,280,observed
+183,3,ai,unit,SETTLER,settlers,280,observed
+183,9,ai,unit,WORKER,workers,75,observed
+183,10,ai,unit,SETTLER,settlers,280,observed
+183,14,ai,unit,WORKER,workers,75,observed
+183,14,ai,unit,JAVELINEER,land military,75,observed
+183,17,ai,unit,JAVELINEER,land military,75,observed
+184,1,ai,unit,JAVELINEER,land military,75,observed
+184,7,ai,unit,JAVELINEER,land military,75,observed
+184,8,ai,unit,SETTLER,settlers,280,observed
+184,10,ai,unit,SETTLER,settlers,280,observed
+185,1,ai,unit,JAVELINEER,land military,75,observed
+185,3,ai,unit,JAVELINEER,land military,75,observed
+185,3,ai,unit,JAVELINEER,land military,75,observed
+185,6,ai,unit,SPEARMAN,land military,105,observed
+185,10,ai,unit,SPEARMAN,land military,105,observed
+185,13,ai,unit,WORKBOAT,workboats,30,observed
+186,2,ai,unit,WORKBOAT,workboats,30,observed
+186,2,ai,unit,SPEARMAN,land military,105,observed
+186,5,ai,unit,SETTLER,settlers,280,observed
+186,6,ai,unit,RAM,land military,45,xml
+186,7,ai,unit,WORKER,workers,75,observed
+186,10,ai,unit,WORKBOAT,workboats,30,observed
+186,12,human,unit,SPEARMAN,land military,105,observed
+187,2,ai,unit,SPEARMAN,land military,105,observed
+187,6,ai,unit,WORKBOAT,workboats,30,observed
+188,1,ai,unit,JAVELINEER,land military,75,observed
+188,3,ai,unit,WORKBOAT,workboats,30,observed
+189,3,ai,unit,VELITES,land military,90,xml
+189,5,ai,unit,WORKER,workers,75,observed
+189,7,ai,unit,JAVELINEER,land military,75,observed
+189,9,ai,unit,SETTLER,settlers,280,observed
+189,11,ai,unit,SETTLER,settlers,280,observed
+189,12,human,unit,TRADE_CARAVAN,land military,180,xml
+189,16,ai,unit,JAVELINEER,land military,75,observed
+190,3,ai,unit,WORKBOAT,workboats,30,observed
+190,13,ai,unit,RAM,land military,45,xml
+190,17,ai,unit,SETTLER,settlers,280,observed
+191,3,ai,unit,VELITES,land military,90,xml
+191,4,ai,unit,GALLEY,navy,75,observed
+191,7,ai,unit,JAVELINEER,land military,75,observed
+191,14,ai,unit,GALLEY,navy,75,observed
+192,5,ai,unit,WORKER,workers,75,observed
+192,6,ai,unit,SETTLER,settlers,280,observed
+192,12,human,unit,TRADE_CARAVAN,land military,180,xml
+192,13,ai,unit,SPEARMAN,land military,105,observed
+192,14,ai,unit,WORKBOAT,workboats,30,observed
+192,16,ai,unit,WORKBOAT,workboats,30,observed
+193,1,ai,unit,JAVELINEER,land military,75,observed
+193,3,ai,unit,WORKBOAT,workboats,30,observed
+193,9,ai,unit,SPEARMAN,land military,105,observed
+193,11,ai,unit,SPEARMAN,land military,105,observed
+194,1,ai,unit,JAVELINEER,land military,75,observed
+194,9,ai,unit,RAM,land military,45,xml
+194,12,human,unit,WARBAND,land military,135,observed
+194,13,ai,unit,SPEARMAN,land military,105,observed
+194,15,ai,unit,SETTLER,settlers,280,observed
+194,17,ai,unit,SPEARMAN,land military,105,observed
+195,0,ai,unit,RAM,land military,45,xml
+195,6,ai,unit,SETTLER,settlers,280,observed
+195,7,ai,unit,JAVELINEER,land military,75,observed
+196,2,ai,unit,SPEARMAN,land military,105,observed
+196,8,ai,unit,JAVELINEER,land military,75,observed
+196,12,human,unit,WARBAND,land military,135,observed
+197,0,ai,unit,SETTLER,settlers,280,observed
+197,1,ai,unit,SPEARMAN,land military,105,observed
+197,1,ai,unit,WORKER,workers,75,observed
+197,3,ai,unit,VELITES,land military,90,xml
+197,5,ai,unit,SPEARMAN,land military,105,observed
+198,0,ai,unit,SETTLER,settlers,280,observed
+198,7,ai,unit,JAVELINEER,land military,75,observed
+198,9,ai,unit,GALLEY,navy,75,observed
+199,2,ai,unit,SPEARMAN,land military,105,observed
+199,7,ai,unit,JAVELINEER,land military,75,observed
+199,10,ai,unit,SPEARMAN,land military,105,observed
+200,2,ai,unit,RAM,land military,45,xml
+200,4,ai,unit,GALLEY,navy,75,observed
+200,6,ai,unit,GALLEY,navy,75,observed
+200,8,ai,unit,WORKBOAT,workboats,30,observed
+200,13,ai,unit,SETTLER,settlers,280,observed
+200,14,ai,unit,GALLEY,navy,75,observed
+200,16,ai,unit,GALLEY,navy,75,observed
+201,0,ai,unit,GALLEY,navy,75,observed
+201,3,ai,unit,VELITES,land military,90,xml
+201,4,ai,unit,JAVELINEER,land military,75,observed
+201,5,ai,unit,SETTLER,settlers,280,observed
+201,5,ai,unit,WORKER,workers,75,observed
+201,7,ai,unit,JAVELINEER,land military,75,observed
+201,12,human,unit,WARBAND,land military,135,observed
+202,1,ai,unit,SPEARMAN,land military,105,observed
+202,1,ai,unit,WORKER,workers,75,observed
+202,2,ai,unit,SPEARMAN,land military,105,observed
+202,10,ai,unit,SETTLER,settlers,280,observed
+202,11,ai,unit,GALLEY,navy,75,observed
+202,17,ai,unit,WORKBOAT,workboats,30,observed
+203,0,ai,unit,WORKER,workers,75,observed
+203,9,ai,unit,GALLEY,navy,75,observed
+203,12,human,unit,WARBAND,land military,135,observed
+203,14,ai,unit,SETTLER,settlers,280,observed
+203,16,ai,unit,JAVELINEER,land military,75,observed
+203,17,ai,unit,SETTLER,settlers,280,observed
+204,4,ai,unit,JAVELINEER,land military,75,observed
+204,7,ai,unit,JAVELINEER,land military,75,observed
+204,11,ai,unit,WORKBOAT,workboats,30,observed
+205,2,ai,unit,WORKER,workers,75,observed
+205,3,ai,unit,RAM,land military,45,xml
+205,3,ai,unit,VELITES,land military,90,xml
+205,9,ai,unit,WORKER,workers,75,observed
+205,11,ai,unit,SETTLER,settlers,280,observed
+205,15,ai,unit,JAVELINEER,land military,75,observed
+206,0,ai,unit,EXPLORER,land military,135,xml
+206,0,ai,unit,SPEARMAN,land military,105,observed
+206,1,ai,unit,RAM,land military,45,xml
+206,2,ai,unit,WORKER,workers,75,observed
+206,6,ai,unit,SETTLER,settlers,280,observed
+206,10,ai,unit,SPEARMAN,land military,105,observed
+207,0,ai,unit,RAM,land military,45,xml
+207,0,ai,unit,WORKBOAT,workboats,30,observed
+207,2,ai,unit,GALLEY,navy,75,observed
+207,3,ai,unit,SCOUT,land military,45,xml
+207,9,ai,unit,GALLEY,navy,75,observed
+207,11,ai,unit,WORKER,workers,75,observed
+207,14,ai,unit,SCOUT,land military,45,xml
+207,16,ai,unit,WORKBOAT,workboats,30,observed
+208,1,ai,unit,RAM,land military,45,xml
+208,1,ai,unit,GALLEY,navy,75,observed
+208,2,ai,unit,SPEARMAN,land military,105,observed
+208,10,ai,unit,GALLEY,navy,75,observed
+208,10,ai,unit,WORKBOAT,workboats,30,observed
+208,12,human,unit,WARBAND,land military,135,observed
+208,13,ai,unit,EXPLORER,land military,135,xml
+208,16,ai,unit,WORKER,workers,75,observed
+208,17,ai,unit,WORKBOAT,workboats,30,observed
+209,0,ai,unit,GALLEY,navy,75,observed
+209,1,ai,unit,WORKER,workers,75,observed
+209,3,ai,unit,SCOUT,land military,45,xml
+209,12,human,unit,WARBAND,land military,135,observed
+210,1,ai,unit,WORKER,workers,75,observed
+210,1,ai,unit,WORKBOAT,workboats,30,observed
+210,2,ai,unit,WORKER,workers,75,observed
+210,2,ai,unit,SPEARMAN,land military,105,observed
+210,4,ai,unit,JAVELINEER,land military,75,observed
+210,6,ai,unit,SPEARMAN,land military,105,observed
+210,6,ai,unit,SPEARMAN,land military,105,observed
+210,7,ai,unit,JAVELINEER,land military,75,observed
+210,12,human,unit,WARBAND,land military,135,observed
+210,13,ai,unit,SETTLER,settlers,280,observed
+210,15,ai,unit,JAVELINEER,land military,75,observed
+210,15,ai,unit,GALLEY,navy,75,observed
+211,0,ai,unit,GALLEY,navy,75,observed
+211,11,ai,unit,GREEK_PHALANX,land military,180,observed
+211,17,ai,unit,WORKBOAT,workboats,30,observed
+212,0,ai,unit,GALLEY,navy,75,observed
+212,1,ai,unit,SPEARMAN,land military,105,observed
+212,2,ai,unit,WORKER,workers,75,observed
+212,2,ai,unit,GALLEY,navy,75,observed
+212,6,ai,unit,WORKER,workers,75,observed
+212,7,ai,unit,WORKER,workers,75,observed
+212,10,ai,unit,SETTLER,settlers,280,observed
+212,12,human,unit,WARBAND,land military,135,observed
+212,17,ai,unit,SPEARMAN,land military,105,observed
+213,2,ai,unit,WORKER,workers,75,observed
+213,7,ai,unit,WORKER,workers,75,observed
+213,11,ai,unit,GALLEY,navy,75,observed
+213,12,human,unit,WARBAND,land military,135,observed
+213,16,ai,unit,WORKBOAT,workboats,30,observed
+213,17,ai,unit,RAM,land military,45,xml
+213,17,ai,unit,SLAVE,workers,75,xml
+214,0,ai,unit,SPEARMAN,land military,105,observed
+214,2,ai,unit,SETTLER,settlers,280,observed
+214,4,ai,unit,WORKER,workers,75,observed
+214,6,ai,unit,WORKER,workers,75,observed
+214,10,ai,unit,SPEARMAN,land military,105,observed
+214,10,ai,unit,GALLEY,navy,75,observed
+214,12,human,unit,WARBAND,land military,135,observed
+214,17,ai,unit,RAM,land military,45,xml
+215,0,ai,unit,GALLEY,navy,75,observed
+215,1,ai,unit,GALLEY,navy,75,observed
+215,2,ai,unit,WORKER,workers,75,observed
+215,2,ai,unit,RAM,land military,45,xml
+215,6,ai,unit,WORKER,workers,75,observed
+215,10,ai,unit,RAM,land military,45,xml
+216,0,ai,unit,SPEARMAN,land military,105,observed
+216,0,ai,unit,SPEARMAN,land military,105,observed
+216,2,ai,unit,WORKBOAT,workboats,30,observed
+216,3,ai,unit,VELITES,land military,90,xml
+216,8,ai,unit,SCOUT,land military,45,xml
+216,11,ai,unit,GREEK_PHALANX,land military,180,observed
+216,11,ai,unit,WORKER,workers,75,observed
+216,12,human,unit,SETTLER,settlers,280,observed
+216,17,ai,unit,SPEARMAN,land military,105,observed
+217,0,ai,unit,SPEARMAN,land military,105,observed
+217,0,ai,unit,RAM,land military,45,xml
+217,1,ai,unit,GALLEY,navy,75,observed
+217,2,ai,unit,WORKER,workers,75,observed
+217,6,ai,unit,WORKER,workers,75,observed
+217,12,human,unit,WARBAND,land military,135,observed
+217,15,ai,unit,SPEARMAN,land military,105,observed
+218,1,ai,unit,SPEARMAN,land military,105,observed
+218,3,ai,unit,VELITES,land military,90,xml
+218,4,ai,unit,JAVELINEER,land military,75,observed
+218,6,ai,unit,SETTLER,settlers,280,observed
+218,11,ai,unit,GALLEY,navy,75,observed
+218,16,ai,unit,WORKBOAT,workboats,30,observed
+219,0,ai,unit,SPEARMAN,land military,105,observed
+219,0,ai,unit,WORKBOAT,workboats,30,observed
+219,10,ai,unit,SETTLER,settlers,280,observed
+219,14,ai,unit,EXPLORER,land military,135,xml
+219,14,ai,unit,SETTLER,settlers,280,observed
+219,15,ai,unit,SPEARMAN,land military,105,observed
+220,1,ai,unit,WORKBOAT,workboats,30,observed
+220,2,ai,unit,SPEARMAN,land military,105,observed
+220,2,ai,unit,SPEARMAN,land military,105,observed
+220,2,ai,unit,SPEARMAN,land military,105,observed
+220,3,ai,unit,VELITES,land military,90,xml
+220,3,ai,unit,VELITES,land military,90,xml
+220,4,ai,unit,JAVELINEER,land military,75,observed
+220,6,ai,unit,WORKER,workers,75,observed
+220,11,ai,unit,WORKER,workers,75,observed
+220,12,human,unit,WARBAND,land military,135,observed
+220,16,ai,unit,JAVELINEER,land military,75,observed
+221,0,ai,unit,SPEARMAN,land military,105,observed
+221,9,ai,unit,SETTLER,settlers,280,observed
+221,9,ai,unit,SETTLER,settlers,280,observed
+221,10,ai,unit,SPEARMAN,land military,105,observed
+221,13,ai,unit,SPEARMAN,land military,105,observed
+222,0,ai,unit,WORKBOAT,workboats,30,observed
+222,2,ai,unit,WORKER,workers,75,observed
+222,3,ai,unit,VELITES,land military,90,xml
+222,6,ai,unit,SPEARMAN,land military,105,observed
+222,9,ai,unit,SPEARMAN,land military,105,observed
+222,9,ai,unit,RAM,land military,45,xml
+222,10,ai,unit,SPEARMAN,land military,105,observed
+222,10,ai,unit,SPEARMAN,land military,105,observed
+222,11,ai,unit,GREEK_PHALANX,land military,180,observed
+222,11,ai,unit,WORKBOAT,workboats,30,observed
+222,12,human,unit,SETTLER,settlers,280,observed
+222,15,ai,unit,SPEARMAN,land military,105,observed
+222,17,ai,unit,SPEARMAN,land military,105,observed
+222,17,ai,unit,SPEARMAN,land military,105,observed
+223,0,ai,unit,RAM,land military,45,xml
+223,2,ai,unit,WORKER,workers,75,observed
+223,4,ai,unit,SETTLER,settlers,280,observed
+223,6,ai,unit,SPEARMAN,land military,105,observed
+223,13,ai,unit,SETTLER,settlers,280,observed
+223,16,ai,unit,SPEARMAN,land military,105,observed
+223,17,ai,unit,SPEARMAN,land military,105,observed
+224,0,ai,unit,RAM,land military,45,xml
+224,2,ai,unit,WORKER,workers,75,observed
+224,2,ai,unit,WORKER,workers,75,observed
+224,6,ai,unit,WORKER,workers,75,observed
+224,11,ai,unit,WORKBOAT,workboats,30,observed
+224,15,ai,unit,SPEARMAN,land military,105,observed
+225,0,ai,unit,SPEARMAN,land military,105,observed
+225,2,ai,unit,WORKER,workers,75,observed
+225,2,ai,unit,SETTLER,settlers,280,observed
+225,3,ai,unit,SCOUT,land military,45,xml
+225,6,ai,unit,SPEARMAN,land military,105,observed
+225,7,ai,unit,WORKER,workers,75,observed
+225,9,ai,unit,SPEARMAN,land military,105,observed
+225,12,human,unit,WARBAND,land military,135,observed
+225,14,ai,unit,SPEARMAN,land military,105,observed
+225,14,ai,unit,SPEARMAN,land military,105,observed
+225,14,ai,unit,WORKBOAT,workboats,30,observed
+225,15,ai,unit,SPEARMAN,land military,105,observed
+226,0,ai,unit,GALLEY,navy,75,observed
+226,2,ai,unit,WORKER,workers,75,observed
+226,3,ai,unit,SCOUT,land military,45,xml
+226,6,ai,unit,RAM,land military,45,xml
+226,10,ai,unit,SETTLER,settlers,280,observed
+226,12,human,unit,WORKER,workers,75,observed
+226,13,ai,unit,SETTLER,settlers,280,observed
+226,15,ai,unit,WORKBOAT,workboats,30,observed
+226,17,ai,unit,WORKER,workers,75,observed
+227,0,ai,unit,SPEARMAN,land military,105,observed
+227,1,ai,unit,WORKBOAT,workboats,30,observed
+227,3,ai,unit,SCOUT,land military,45,xml
+227,11,ai,unit,GALLEY,navy,75,observed
+227,12,human,unit,WARBAND,land military,135,observed
+228,0,ai,unit,SPEARMAN,land military,105,observed
+228,2,ai,unit,GREEK_PHALANX,land military,180,observed
+228,8,ai,unit,SCOUT,land military,45,xml
+228,10,ai,unit,SPEARMAN,land military,105,observed
+228,11,ai,unit,GALLEY,navy,75,observed
+228,12,human,unit,WARBAND,land military,135,observed
+228,17,ai,unit,GALLEY,navy,75,observed
+229,0,ai,unit,WORKER,workers,75,observed
+229,3,ai,unit,GALLEY,navy,75,observed
+229,3,ai,unit,WORKBOAT,workboats,30,observed
+229,11,ai,unit,WORKER,workers,75,observed
+229,11,ai,unit,WORKBOAT,workboats,30,observed
+229,12,human,unit,WORKER,workers,75,observed
+229,13,ai,unit,SETTLER,settlers,280,observed
+229,14,ai,unit,SPEARMAN,land military,105,observed
+229,15,ai,unit,GALLEY,navy,75,observed
+229,17,ai,unit,WORKBOAT,workboats,30,observed
+229,17,ai,unit,WORKBOAT,workboats,30,observed
+230,0,ai,unit,SPEARMAN,land military,105,observed
+230,7,ai,unit,WORKBOAT,workboats,30,observed
+230,10,ai,unit,SLAVE,workers,75,xml
+230,11,ai,unit,WORKER,workers,75,observed
+230,13,ai,unit,SPEARMAN,land military,105,observed
+230,13,ai,unit,WORKBOAT,workboats,30,observed
+230,17,ai,unit,GALLEY,navy,75,observed
+231,0,ai,unit,SPEARMAN,land military,105,observed
+231,0,ai,unit,SETTLER,settlers,280,observed
+231,1,ai,unit,WORKER,workers,75,observed
+231,1,ai,unit,SPEARMAN,land military,105,observed
+231,2,ai,unit,GREEK_PHALANX,land military,180,observed
+231,2,ai,unit,GREEK_PHALANX,land military,180,observed
+231,3,ai,unit,GALLEY,navy,75,observed
+231,6,ai,unit,SPEARMAN,land military,105,observed
+231,9,ai,unit,SETTLER,settlers,280,observed
+231,10,ai,unit,RAM,land military,45,xml
+231,11,ai,unit,GALLEY,navy,75,observed
+231,16,ai,unit,SETTLER,settlers,280,observed
+231,16,ai,unit,GALLEY,navy,75,observed
+232,1,ai,unit,WORKER,workers,75,observed
+232,2,ai,unit,GREEK_PHALANX,land military,180,observed
+232,9,ai,unit,SPEARMAN,land military,105,observed
+232,10,ai,unit,SPEARMAN,land military,105,observed
+232,13,ai,unit,SPEARMAN,land military,105,observed
+232,13,ai,unit,SPEARMAN,land military,105,observed
+233,0,ai,unit,SPEARMAN,land military,105,observed
+233,2,ai,unit,GREEK_PHALANX,land military,180,observed
+233,5,ai,unit,SETTLER,settlers,280,observed
+233,6,ai,unit,GALLEY,navy,75,observed
+233,13,ai,unit,SPEARMAN,land military,105,observed
+233,14,ai,unit,GALLEY,navy,75,observed
+233,15,ai,unit,SETTLER,settlers,280,observed
+233,17,ai,unit,GALLEY,navy,75,observed
+234,0,ai,unit,WORKER,workers,75,observed
+234,1,ai,unit,SPEARMAN,land military,105,observed
+234,2,ai,unit,GREEK_PHALANX,land military,180,observed
+234,6,ai,unit,SPEARMAN,land military,105,observed
+234,8,ai,unit,JAVELINEER,land military,75,observed
+234,9,ai,unit,GALLEY,navy,75,observed
+234,11,ai,unit,SETTLER,settlers,280,observed
+234,11,ai,unit,GREEK_PHALANX,land military,180,observed
+234,12,human,unit,WARBAND,land military,135,observed
+234,14,ai,unit,WORKBOAT,workboats,30,observed
+234,15,ai,unit,WORKER,workers,75,observed
+234,16,ai,unit,GALLEY,navy,75,observed
+235,0,ai,unit,AXEMAN,land military,120,xml
+235,1,ai,unit,SPEARMAN,land military,105,observed
+235,2,ai,unit,GREEK_PHALANX,land military,180,observed
+235,4,ai,unit,WORKBOAT,workboats,30,observed
+235,4,ai,unit,SPEARMAN,land military,105,observed
+235,9,ai,unit,SPEARMAN,land military,105,observed
+235,10,ai,unit,SETTLER,settlers,280,observed
+235,10,ai,unit,SETTLER,settlers,280,observed
+235,10,ai,unit,WORKBOAT,workboats,30,observed
+235,12,human,unit,WARBAND,land military,135,observed
+235,13,ai,unit,SETTLER,settlers,280,observed
+236,4,ai,unit,SPEARMAN,land military,105,observed
+236,8,ai,unit,WORKER,workers,75,observed
+236,9,ai,unit,WORKER,workers,75,observed
+236,10,ai,unit,WORKER,workers,75,observed
+236,10,ai,unit,WORKER,workers,75,observed
+236,10,ai,unit,SPEARMAN,land military,105,observed
+236,13,ai,unit,SPEARMAN,land military,105,observed
+236,13,ai,unit,SPEARMAN,land military,105,observed
+236,17,ai,unit,GALLEY,navy,75,observed
+237,0,ai,unit,AXEMAN,land military,120,xml
+237,0,ai,unit,SETTLER,settlers,280,observed
+237,1,ai,unit,SPEARMAN,land military,105,observed
+237,2,ai,unit,GREEK_PHALANX,land military,180,observed
+237,4,ai,unit,WORKBOAT,workboats,30,observed
+237,10,ai,unit,WORKER,workers,75,observed
+237,10,ai,unit,WORKER,workers,75,observed
+237,11,ai,unit,WORKER,workers,75,observed
+237,13,ai,unit,SPEARMAN,land military,105,observed
+237,17,ai,unit,SETTLER,settlers,280,observed
+238,0,ai,unit,AXEMAN,land military,120,xml
+238,2,ai,unit,GREEK_PHALANX,land military,180,observed
+238,6,ai,unit,SETTLER,settlers,280,observed
+238,6,ai,unit,SPEARMAN,land military,105,observed
+238,6,ai,unit,RAM,land military,45,xml
+238,9,ai,unit,GALLEY,navy,75,observed
+238,10,ai,unit,WORKER,workers,75,observed
+238,10,ai,unit,WORKBOAT,workboats,30,observed
+238,11,ai,unit,GREEK_PHALANX,land military,180,observed
+238,16,ai,unit,GALLEY,navy,75,observed
+239,0,ai,unit,WORKER,workers,75,observed
+239,2,ai,unit,WORKBOAT,workboats,30,observed
+239,3,ai,unit,WORKBOAT,workboats,30,observed
+239,6,ai,unit,WORKBOAT,workboats,30,observed
+239,8,ai,unit,WORKER,workers,75,observed
+239,9,ai,unit,SETTLER,settlers,280,observed
+239,10,ai,unit,WORKER,workers,75,observed
+239,10,ai,unit,WORKBOAT,workboats,30,observed
+239,10,ai,unit,WORKBOAT,workboats,30,observed
+239,12,human,unit,WARBAND,land military,135,observed
+239,15,ai,unit,EXPLORER,land military,135,xml
+239,17,ai,unit,SPEARMAN,land military,105,observed
+240,0,ai,unit,AXEMAN,land military,120,xml
+240,1,ai,unit,GALLEY,navy,75,observed
+240,2,ai,unit,GREEK_PHALANX,land military,180,observed
+240,8,ai,unit,JAVELINEER,land military,75,observed
+240,11,ai,unit,GREEK_PHALANX,land military,180,observed
+240,12,human,unit,WARBAND,land military,135,observed
+240,13,ai,unit,WORKER,workers,75,observed
+240,14,ai,unit,WORKER,workers,75,observed
+240,17,ai,unit,GALLEY,navy,75,observed
+240,17,ai,unit,GALLEY,navy,75,observed
+241,3,ai,unit,GALLEY,navy,75,observed
+241,15,ai,unit,WORKBOAT,workboats,30,observed
+241,17,ai,unit,RAM,land military,45,xml
+241,17,ai,unit,RAM,land military,45,xml
+242,0,ai,unit,EXPLORER,land military,135,xml
+242,0,ai,unit,AXEMAN,land military,120,xml
+242,9,ai,unit,SETTLER,settlers,280,observed
+242,10,ai,unit,AXEMAN,land military,120,xml
+242,10,ai,unit,SLAVE,workers,75,xml
+242,11,ai,unit,GREEK_PHALANX,land military,180,observed
+242,13,ai,unit,WORKER,workers,75,observed
+242,13,ai,unit,WORKER,workers,75,observed
+242,13,ai,unit,WORKER,workers,75,observed
+243,0,ai,unit,GALLEY,navy,75,observed
+243,1,ai,unit,RAM,land military,45,xml
+243,2,ai,unit,GREEK_PHALANX,land military,180,observed
+243,6,ai,unit,SETTLER,settlers,280,observed
+243,6,ai,unit,RAM,land military,45,xml
+243,6,ai,unit,GALLEY,navy,75,observed
+243,10,ai,unit,AXEMAN,land military,120,xml
+243,11,ai,unit,WORKBOAT,workboats,30,observed
+243,13,ai,unit,AXEMAN,land military,120,xml
+243,15,ai,unit,SETTLER,settlers,280,observed
+243,16,ai,unit,SETTLER,settlers,280,observed
+243,17,ai,unit,BALLISTA,land military,180,xml
+243,17,ai,unit,SPEARMAN,land military,105,observed
+244,0,ai,unit,EXPLORER,land military,135,xml
+244,0,ai,unit,WORKER,workers,75,observed
+244,2,ai,unit,SETTLER,settlers,280,observed
+244,6,ai,unit,RAM,land military,45,xml
+244,10,ai,unit,SPEARMAN,land military,105,observed
+244,11,ai,unit,GREEK_PHALANX,land military,180,observed
+244,12,human,unit,WARBAND,land military,135,observed
+244,13,ai,unit,SETTLER,settlers,280,observed
+244,13,ai,unit,WORKBOAT,workboats,30,observed
+244,15,ai,unit,WORKER,workers,75,observed
+244,17,ai,unit,WORKER,workers,75,observed
+245,0,ai,unit,GALLEY,navy,75,observed
+245,0,ai,unit,AXEMAN,land military,120,xml
+245,2,ai,unit,WORKBOAT,workboats,30,observed
+245,2,ai,unit,GREEK_PHALANX,land military,180,observed
+245,2,ai,unit,GALLEY,navy,75,observed
+245,3,ai,unit,GALLEY,navy,75,observed
+245,10,ai,unit,AXEMAN,land military,120,xml
+245,13,ai,unit,AXEMAN,land military,120,xml
+245,13,ai,unit,AXEMAN,land military,120,xml
+245,17,ai,unit,GALLEY,navy,75,observed
+245,17,ai,unit,RAM,land military,45,xml
+246,0,ai,unit,WORKBOAT,workboats,30,observed
+246,1,ai,unit,SETTLER,settlers,280,observed
+246,2,ai,unit,GREEK_PHALANX,land military,180,observed
+246,3,ai,unit,VELITES,land military,90,xml
+246,4,ai,unit,SPEARMAN,land military,105,observed
+246,8,ai,unit,JAVELINEER,land military,75,observed
+246,9,ai,unit,SPEARMAN,land military,105,observed
+246,11,ai,unit,SETTLER,settlers,280,observed
+246,12,human,unit,WARBAND,land military,135,observed
+246,12,human,unit,WARBAND,land military,135,observed
+246,13,ai,unit,WORKBOAT,workboats,30,observed
+246,13,ai,unit,AXEMAN,land military,120,xml
+246,16,ai,unit,SETTLER,settlers,280,observed
+246,17,ai,unit,SPEARMAN,land military,105,observed
+247,0,ai,unit,WORKER,workers,75,observed
+247,1,ai,unit,RAM,land military,45,xml
+247,3,ai,unit,VELITES,land military,90,xml
+247,5,ai,unit,SPEARMAN,land military,105,observed
+247,6,ai,unit,SETTLER,settlers,280,observed
+247,13,ai,unit,SETTLER,settlers,280,observed
+247,13,ai,unit,WORKER,workers,75,observed
+247,17,ai,unit,BALLISTA,land military,180,xml
+248,0,ai,unit,EXPLORER,land military,135,xml
+248,1,ai,unit,WORKBOAT,workboats,30,observed
+248,2,ai,unit,GREEK_PHALANX,land military,180,observed
+248,2,ai,unit,WORKBOAT,workboats,30,observed
+248,6,ai,unit,SETTLER,settlers,280,observed
+248,9,ai,unit,SETTLER,settlers,280,observed
+248,14,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+249,0,ai,unit,EXPLORER,land military,135,xml
+249,0,ai,unit,AXEMAN,land military,120,xml
+249,2,ai,unit,GALLEY,navy,75,observed
+249,4,ai,unit,GALLEY,navy,75,observed
+249,4,ai,unit,SPEARMAN,land military,105,observed
+249,4,ai,unit,SPEARMAN,land military,105,observed
+249,9,ai,unit,SPEARMAN,land military,105,observed
+249,11,ai,unit,GREEK_PHALANX,land military,180,observed
+249,13,ai,unit,AXEMAN,land military,120,xml
+249,13,ai,unit,AXEMAN,land military,120,xml
+249,15,ai,unit,GALLEY,navy,75,observed
+249,16,ai,unit,SPEARMAN,land military,105,observed
+249,17,ai,unit,BALLISTA,land military,180,xml
+250,0,ai,unit,EXPLORER,land military,135,xml
+250,0,ai,unit,WORKER,workers,75,observed
+250,1,ai,unit,SPEARMAN,land military,105,observed
+250,2,ai,unit,GREEK_PHALANX,land military,180,observed
+250,4,ai,unit,RAM,land military,45,xml
+250,5,ai,unit,SPEARMAN,land military,105,observed
+250,10,ai,unit,GALLEY,navy,75,observed
+250,14,ai,unit,RAM,land military,45,xml
+250,15,ai,unit,SETTLER,settlers,280,observed
+250,17,ai,unit,WORKBOAT,workboats,30,observed
+250,17,ai,unit,SETTLER,settlers,280,observed
+250,17,ai,unit,SPEARMAN,land military,105,observed
+251,0,ai,unit,GALLEY,navy,75,observed
+251,1,ai,unit,WORKBOAT,workboats,30,observed
+251,3,ai,unit,BALLISTA_ROME,land military,180,xml
+251,6,ai,unit,SPEARMAN,land military,105,observed
+251,6,ai,unit,SETTLER,settlers,280,observed
+251,8,ai,unit,WORKBOAT,workboats,30,observed
+251,13,ai,unit,AXEMAN,land military,120,xml
+251,14,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+251,15,ai,unit,EXPLORER,land military,135,xml
+251,17,ai,unit,BALLISTA,land military,180,xml
+251,17,ai,unit,RAM,land military,45,xml
+252,0,ai,unit,EXPLORER,land military,135,xml
+252,2,ai,unit,GALLEY,navy,75,observed
+252,4,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+252,4,ai,unit,RAM,land military,45,xml
+252,6,ai,unit,GALLEY,navy,75,observed
+252,6,ai,unit,RAM,land military,45,xml
+252,13,ai,unit,AXEMAN,land military,120,xml
+252,13,ai,unit,AXEMAN,land military,120,xml
+252,13,ai,unit,AXEMAN,land military,120,xml
+252,17,ai,unit,RAM,land military,45,xml
+253,0,ai,unit,WORKBOAT,workboats,30,observed
+253,2,ai,unit,SETTLER,settlers,280,observed
+253,3,ai,unit,GALLEY,navy,75,observed
+253,6,ai,unit,RAM,land military,45,xml
+253,10,ai,unit,SETTLER,settlers,280,observed
+253,10,ai,unit,GALLEY,navy,75,observed
+253,10,ai,unit,GALLEY,navy,75,observed
+253,11,ai,unit,GREEK_PHALANX,land military,180,observed
+253,11,ai,unit,GREEK_PHALANX,land military,180,observed
+253,17,ai,unit,BALLISTA,land military,180,xml
+253,17,ai,unit,WORKBOAT,workboats,30,observed
+254,0,ai,unit,EXPLORER,land military,135,xml
+254,0,ai,unit,WORKER,workers,75,observed
+254,1,ai,unit,SPEARMAN,land military,105,observed
+254,1,ai,unit,SPEARMAN,land military,105,observed
+254,1,ai,unit,WORKBOAT,workboats,30,observed
+254,2,ai,unit,GREEK_PHALANX,land military,180,observed
+254,3,ai,unit,BALLISTA_ROME,land military,180,xml
+254,3,ai,unit,WORKER,workers,75,observed
+254,6,ai,unit,SPEARMAN,land military,105,observed
+254,8,ai,unit,JAVELINEER,land military,75,observed
+254,9,ai,unit,SPEARMAN,land military,105,observed
+254,10,ai,unit,AXEMAN,land military,120,xml
+254,11,ai,unit,WORKER,workers,75,observed
+254,13,ai,unit,SETTLER,settlers,280,observed
+254,13,ai,unit,AXEMAN,land military,120,xml
+254,14,ai,unit,SPEARMAN,land military,105,observed
+254,15,ai,unit,WORKER,workers,75,observed
+254,15,ai,unit,WORKER,workers,75,observed
+255,0,ai,unit,GALLEY,navy,75,observed
+255,1,ai,unit,SPEARMAN,land military,105,observed
+255,2,ai,unit,GREEK_PHALANX,land military,180,observed
+255,6,ai,unit,SPEARMAN,land military,105,observed
+255,10,ai,unit,AXEMAN,land military,120,xml
+255,11,ai,unit,GREEK_PHALANX,land military,180,observed
+255,11,ai,unit,WORKER,workers,75,observed
+255,13,ai,unit,WORKER,workers,75,observed
+255,14,ai,unit,RAM,land military,45,xml
+255,17,ai,unit,BALLISTA,land military,180,xml
+256,0,ai,unit,EXPLORER,land military,135,xml
+256,0,ai,unit,GALLEY,navy,75,observed
+256,0,ai,unit,AXEMAN,land military,120,xml
+256,2,ai,unit,GREEK_PHALANX,land military,180,observed
+256,2,ai,unit,GREEK_PHALANX,land military,180,observed
+256,2,ai,unit,GREEK_PHALANX,land military,180,observed
+256,2,ai,unit,WORKER,workers,75,observed
+256,3,ai,unit,BALLISTA_ROME,land military,180,xml
+256,3,ai,unit,BALLISTA_ROME,land military,180,xml
+256,3,ai,unit,VELITES,land military,90,xml
+256,5,ai,unit,RAM,land military,45,xml
+256,6,ai,unit,SPEARMAN,land military,105,observed
+256,6,ai,unit,RAM,land military,45,xml
+256,9,ai,unit,WORKER,workers,75,observed
+256,9,ai,unit,SPEARMAN,land military,105,observed
+256,10,ai,unit,AXEMAN,land military,120,xml
+256,11,ai,unit,GREEK_PHALANX,land military,180,observed
+256,13,ai,unit,WORKER,workers,75,observed
+256,15,ai,unit,SETTLER,settlers,280,observed
+256,16,ai,unit,SPEARMAN,land military,105,observed
+257,0,ai,unit,EXPLORER,land military,135,xml
+257,0,ai,unit,GALLEY,navy,75,observed
+257,1,ai,unit,AXEMAN,land military,120,xml
+257,1,ai,unit,SPEARMAN,land military,105,observed
+257,3,ai,unit,VELITES,land military,90,xml
+257,4,ai,unit,SPEARMAN,land military,105,observed
+257,4,ai,unit,WORKBOAT,workboats,30,observed
+257,8,ai,unit,JAVELINEER,land military,75,observed
+257,10,ai,unit,AXEMAN,land military,120,xml
+257,11,ai,unit,SETTLER,settlers,280,observed
+257,13,ai,unit,WORKER,workers,75,observed
+257,13,ai,unit,WORKER,workers,75,observed
+257,14,ai,unit,WORKER,workers,75,observed
+258,0,ai,unit,EXPLORER,land military,135,xml
+258,1,ai,unit,AXEMAN,land military,120,xml
+258,1,ai,unit,WORKER,workers,75,observed
+258,1,ai,unit,WORKBOAT,workboats,30,observed
+258,3,ai,unit,VELITES,land military,90,xml
+258,3,ai,unit,WORKER,workers,75,observed
+258,9,ai,unit,GALLEY,navy,75,observed
+258,10,ai,unit,AXEMAN,land military,120,xml
+258,11,ai,unit,WORKER,workers,75,observed
+258,13,ai,unit,WORKER,workers,75,observed
+258,15,ai,unit,GALLEY,navy,75,observed
+258,17,ai,unit,GALLEY,navy,75,observed
+259,0,ai,unit,WORKBOAT,workboats,30,observed
+259,0,ai,unit,GALLEY,navy,75,observed
+259,1,ai,unit,AXEMAN,land military,120,xml
+259,2,ai,unit,GREEK_PHALANX,land military,180,observed
+259,4,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+259,11,ai,unit,WORKBOAT,workboats,30,observed
+259,13,ai,unit,SETTLER,settlers,280,observed
+259,13,ai,unit,SETTLER,settlers,280,observed
+259,13,ai,unit,AXEMAN,land military,120,xml
+259,14,ai,unit,AXEMAN,land military,120,xml
+259,14,ai,unit,AXEMAN,land military,120,xml
+259,14,ai,unit,WORKER,workers,75,observed
+259,16,ai,unit,GALLEY,navy,75,observed
+260,0,ai,unit,EXPLORER,land military,135,xml
+260,1,ai,unit,AXEMAN,land military,120,xml
+260,2,ai,unit,GALLEY,navy,75,observed
+260,5,ai,unit,SPEARMAN,land military,105,observed
+260,10,ai,unit,GALLEY,navy,75,observed
+260,11,ai,unit,WORKER,workers,75,observed
+260,11,ai,unit,WORKBOAT,workboats,30,observed
+260,12,human,unit,WARLORDI,land military,300,xml
+260,14,ai,unit,WORKER,workers,75,observed
+260,15,ai,unit,WORKBOAT,workboats,30,observed
+261,0,ai,unit,WORKBOAT,workboats,30,observed
+261,0,ai,unit,EXPLORER,land military,135,xml
+261,0,ai,unit,AXEMAN,land military,120,xml
+261,1,ai,unit,AXEMAN,land military,120,xml
+261,1,ai,unit,WORKER,workers,75,observed
+261,1,ai,unit,WORKBOAT,workboats,30,observed
+261,2,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+261,3,ai,unit,BALLISTA_ROME,land military,180,xml
+261,4,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+261,4,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+261,9,ai,unit,SETTLER,settlers,280,observed
+261,9,ai,unit,SETTLER,settlers,280,observed
+261,9,ai,unit,WORKER,workers,75,observed
+261,10,ai,unit,SETTLER,settlers,280,observed
+261,11,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+261,13,ai,unit,AXEMAN,land military,120,xml
+261,16,ai,unit,WORKER,workers,75,observed
+261,16,ai,unit,WORKBOAT,workboats,30,observed
+262,0,ai,unit,WORKBOAT,workboats,30,observed
+262,1,ai,unit,AXEMAN,land military,120,xml
+262,3,ai,unit,GALLEY,navy,75,observed
+262,4,ai,unit,SPEARMAN,land military,105,observed
+262,9,ai,unit,SPEARMAN,land military,105,observed
+262,10,ai,unit,AXEMAN,land military,120,xml
+262,10,ai,unit,AXEMAN,land military,120,xml
+262,11,ai,unit,GREEK_PHALANX,land military,180,observed
+262,13,ai,unit,AXEMAN,land military,120,xml
+262,15,ai,unit,SPEARMAN,land military,105,observed
+262,16,ai,unit,RAM,land military,45,xml
+262,17,ai,unit,GREEK_PHALANX,land military,180,observed
+263,1,ai,unit,AXEMAN,land military,120,xml
+263,5,ai,unit,RAM,land military,45,xml
+263,6,ai,unit,SPEARMAN,land military,105,observed
+263,7,ai,unit,SPEARMAN,land military,105,observed
+263,9,ai,unit,WORKBOAT,workboats,30,observed
+263,10,ai,unit,AXEMAN,land military,120,xml
+263,10,ai,unit,GALLEY,navy,75,observed
+263,11,ai,unit,GREEK_PHALANX,land military,180,observed
+263,13,ai,unit,AXEMAN,land military,120,xml
+263,17,ai,unit,SPEARMAN,land military,105,observed
+263,17,ai,unit,WORKBOAT,workboats,30,observed
+264,1,ai,unit,AXEMAN,land military,120,xml
+264,1,ai,unit,AXEMAN,land military,120,xml
+264,1,ai,unit,WORKER,workers,75,observed
+264,2,ai,unit,GALLEY,navy,75,observed
+264,3,ai,unit,GALLEY,navy,75,observed
+264,6,ai,unit,SETTLER,settlers,280,observed
+264,6,ai,unit,GALLEY,navy,75,observed
+264,6,ai,unit,WORKBOAT,workboats,30,observed
+264,9,ai,unit,RAM,land military,45,xml
+264,9,ai,unit,SETTLER,settlers,280,observed
+264,10,ai,unit,AXEMAN,land military,120,xml
+264,11,ai,unit,TRADE_MERCHANT_MAN,navy,240,observed
+264,13,ai,unit,AXEMAN,land military,120,xml
+264,13,ai,unit,SETTLER,settlers,280,observed
+265,1,ai,unit,WORKBOAT,workboats,30,observed
+265,1,ai,unit,AXEMAN,land military,120,xml
+265,1,ai,unit,AXEMAN,land military,120,xml
+265,4,ai,unit,GALLEY,navy,75,observed
+265,5,ai,unit,RAM,land military,45,xml
+265,9,ai,unit,WORKBOAT,workboats,30,observed
+265,9,ai,unit,SPEARMAN,land military,105,observed
+265,10,ai,unit,SPEARMAN,land military,105,observed
+265,10,ai,unit,AXEMAN,land military,120,xml
+265,10,ai,unit,AXEMAN,land military,120,xml
+265,11,ai,unit,WORKER,workers,75,observed
+265,12,human,unit,WARBAND,land military,135,observed
+265,15,ai,unit,SPEARMAN,land military,105,observed
+265,16,ai,unit,GALLEY,navy,75,observed
+265,17,ai,unit,GALLEY,navy,75,observed
+265,17,ai,unit,GREEK_PHALANX,land military,180,observed
+266,0,ai,unit,AXEMAN,land military,120,xml
+266,3,ai,unit,HASTATI,land military,150,xml
+266,3,ai,unit,WORKBOAT,workboats,30,observed
+266,6,ai,unit,SPEARMAN,land military,105,observed
+266,11,ai,unit,WORKBOAT,workboats,30,observed
+266,11,ai,unit,GREEK_PHALANX,land military,180,observed
+112,10,ai,building,EGYPTIAN_OBELISK,buildings,60,xml
+122,16,ai,building,WALLS,buildings,100,observed
+123,0,ai,building,WALLS,buildings,100,observed
+125,13,ai,building,OBELISK,buildings,60,observed
+128,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+131,3,ai,building,OBELISK,buildings,60,observed
+132,13,ai,building,SUMER_SHRINE,buildings,200,xml
+135,0,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+136,9,ai,building,OBELISK,buildings,60,observed
+136,12,human,building,WALLS,buildings,100,observed
+137,5,ai,building,OBELISK,buildings,60,observed
+137,5,ai,building,OBELISK,buildings,60,observed
+137,12,human,building,OBELISK,buildings,60,observed
+139,2,ai,building,WALLS,buildings,100,observed
+140,1,ai,building,OBELISK,buildings,60,observed
+141,17,ai,building,OBELISK,buildings,60,observed
+143,0,ai,building,OBELISK,buildings,60,observed
+144,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+146,11,ai,building,SLAVE_MARKET,buildings,80,observed
+146,11,ai,building,OBELISK,buildings,60,observed
+147,0,ai,building,OBELISK,buildings,60,observed
+149,12,human,building,OBELISK,buildings,60,observed
+149,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+152,5,ai,building,WALLS,buildings,100,observed
+152,6,ai,building,OBELISK,buildings,60,observed
+153,17,ai,building,OBELISK,buildings,60,observed
+154,9,ai,building,RIVER_PORT,buildings,140,observed
+155,12,human,building,OBELISK,buildings,60,observed
+156,5,ai,building,WALLS,buildings,100,observed
+156,6,ai,building,RIVER_PORT,buildings,140,observed
+156,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+159,2,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+160,0,ai,building,RIVER_PORT,buildings,140,observed
+161,17,ai,building,OBELISK,buildings,60,observed
+164,3,ai,building,OBELISK,buildings,60,observed
+164,4,ai,building,OBELISK,buildings,60,observed
+164,14,ai,building,OBELISK,buildings,60,observed
+165,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+166,0,ai,building,LIGHTHOUSE,buildings,120,xml
+166,10,ai,building,EGYPTIAN_OBELISK,buildings,60,xml
+167,9,ai,building,OBELISK,buildings,60,observed
+167,12,human,building,OBELISK,buildings,60,observed
+168,6,ai,building,SLAVE_MARKET,buildings,80,observed
+169,0,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+169,6,ai,building,OBELISK,buildings,60,observed
+169,9,ai,building,OBELISK,buildings,60,observed
+169,10,ai,building,SPHINX,buildings,500,xml
+169,12,human,building,WALLS,buildings,100,observed
+170,17,ai,building,SLAVE_MARKET,buildings,80,observed
+171,0,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+171,4,ai,building,OBELISK,buildings,60,observed
+172,10,ai,building,SLAVE_MARKET,buildings,80,observed
+173,3,ai,building,OBELISK,buildings,60,observed
+173,10,ai,building,EGYPTIAN_OBELISK,buildings,60,xml
+174,12,human,building,MARKET,buildings,300,observed
+175,0,ai,building,OBELISK,buildings,60,observed
+175,2,ai,building,RIVER_PORT,buildings,140,observed
+175,4,ai,building,RIVER_PORT,buildings,140,observed
+175,17,ai,building,SLAVE_MARKET,buildings,80,observed
+176,13,ai,building,OBELISK,buildings,60,observed
+177,1,ai,building,OBELISK,buildings,60,observed
+177,5,ai,building,WALLS,buildings,100,observed
+178,5,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+178,5,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+178,12,human,building,FORGE,buildings,120,observed
+179,10,ai,building,MARKET,buildings,300,observed
+180,3,ai,building,ROMAN_FORUM,buildings,300,xml
+181,11,ai,building,OBELISK,buildings,60,observed
+181,12,human,building,JEWELLERY,buildings,120,observed
+184,2,ai,building,WALLS,buildings,100,observed
+184,11,ai,building,OBELISK,buildings,60,observed
+184,12,human,building,RIVER_PORT,buildings,140,observed
+185,0,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+185,12,human,building,WALLS,buildings,100,observed
+186,9,ai,building,RIVER_PORT,buildings,140,observed
+186,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+187,9,ai,building,RIVER_PORT,buildings,140,observed
+187,11,ai,building,LIGHTHOUSE,buildings,120,xml
+189,5,ai,building,WALLS,buildings,100,observed
+189,13,ai,building,HANGING_GARDEN,buildings,600,xml
+190,0,ai,building,JEWELLERY,buildings,120,observed
+190,4,ai,building,LIGHTHOUSE,buildings,120,xml
+191,5,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+191,11,ai,building,OBELISK,buildings,60,observed
+192,2,ai,building,LIGHTHOUSE,buildings,120,xml
+192,12,human,building,WALLS,buildings,100,observed
+193,0,ai,building,FORGE,buildings,120,observed
+194,1,ai,building,OBELISK,buildings,60,observed
+194,13,ai,building,OBELISK,buildings,60,observed
+195,4,ai,building,OBELISK,buildings,60,observed
+195,11,ai,building,LIGHTHOUSE,buildings,120,xml
+195,12,human,building,MARKET,buildings,300,observed
+196,5,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+196,11,ai,building,LIGHTHOUSE,buildings,120,xml
+196,15,ai,building,OBELISK,buildings,60,observed
+197,2,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+197,9,ai,building,OBELISK,buildings,60,observed
+197,10,ai,building,PETRA,buildings,600,xml
+198,0,ai,building,CELTIC_SHRINE,buildings,-2,xml
+198,2,ai,building,WALLS,buildings,100,observed
+199,0,ai,building,COURIER_SYSTEM,buildings,400,observed
+199,2,ai,building,SLAVE_MARKET,buildings,80,observed
+200,3,ai,building,FORGE,buildings,120,observed
+200,5,ai,building,OBELISK,buildings,60,observed
+200,6,ai,building,LIGHTHOUSE,buildings,120,xml
+200,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+201,12,human,building,FORGE,buildings,120,observed
+201,17,ai,building,FORGE,buildings,120,observed
+201,17,ai,building,SLAVE_MARKET,buildings,80,observed
+202,0,ai,building,STONEHENGE,buildings,240,xml
+202,1,ai,building,RIVER_PORT,buildings,140,observed
+202,3,ai,building,OBELISK,buildings,60,observed
+203,12,human,building,OBELISK,buildings,60,observed
+204,0,ai,building,CELTIC_TEMPLE,buildings,160,xml
+204,2,ai,building,JEWELLERY,buildings,120,observed
+204,3,ai,building,JEWELLERY,buildings,120,observed
+204,8,ai,building,WALLS,buildings,100,observed
+204,12,human,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+205,2,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+205,6,ai,building,OBELISK,buildings,60,observed
+206,2,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+206,5,ai,building,WALLS,buildings,100,observed
+206,12,human,building,COURIER_SYSTEM,buildings,400,observed
+206,12,human,building,NORDIC_TEMPLE,buildings,160,observed
+206,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+207,6,ai,building,OBELISK,buildings,60,observed
+207,12,human,building,FORGE,buildings,120,observed
+207,15,ai,building,OBELISK,buildings,60,observed
+208,10,ai,building,RIVER_PORT,buildings,140,observed
+208,14,ai,building,OBELISK,buildings,60,observed
+208,17,ai,building,JEWELLERY,buildings,120,observed
+209,1,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+209,10,ai,building,SLAVE_MARKET,buildings,80,observed
+209,10,ai,building,EGYPTIAN_OBELISK,buildings,60,xml
+210,17,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+211,8,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+211,9,ai,building,SLAVE_MARKET,buildings,80,observed
+211,12,human,building,OBELISK,buildings,60,observed
+212,12,human,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+212,12,human,building,NORDIC_TEMPLE,buildings,160,observed
+213,3,ai,building,WALLS,buildings,100,observed
+214,6,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+214,12,human,building,OBELISK,buildings,60,observed
+214,12,human,building,OBELISK,buildings,60,observed
+214,17,ai,building,OBELISK,buildings,60,observed
+215,3,ai,building,FORGE,buildings,120,observed
+215,3,ai,building,OBELISK,buildings,60,observed
+215,11,ai,building,OBELISK,buildings,60,observed
+216,10,ai,building,WALLS,buildings,100,observed
+216,12,human,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+216,12,human,building,OBELISK,buildings,60,observed
+216,13,ai,building,SILK_ROAD,buildings,800,xml
+217,10,ai,building,RIVER_PORT,buildings,140,observed
+217,12,human,building,JEWELLERY,buildings,120,observed
+217,12,human,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+217,12,human,building,WALLS,buildings,100,observed
+217,13,ai,building,RIVER_PORT,buildings,140,observed
+217,13,ai,building,RIVER_PORT,buildings,140,observed
+219,1,ai,building,MARKET,buildings,300,observed
+219,1,ai,building,CELTIC_DUN,buildings,100,xml
+219,2,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+219,3,ai,building,WALLS,buildings,100,observed
+219,6,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+219,13,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+219,13,ai,building,OBELISK,buildings,60,observed
+220,3,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+220,6,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+220,8,ai,building,OBELISK,buildings,60,observed
+220,9,ai,building,OBELISK,buildings,60,observed
+220,12,human,building,FORGE,buildings,120,observed
+220,13,ai,building,SLAVE_MARKET,buildings,80,observed
+221,0,ai,building,LIGHTHOUSE,buildings,120,xml
+221,1,ai,building,CELTIC_DUN,buildings,100,xml
+221,2,ai,building,RIVER_PORT,buildings,140,observed
+222,12,human,building,OBELISK,buildings,60,observed
+223,5,ai,building,WALLS,buildings,100,observed
+223,6,ai,building,OBELISK,buildings,60,observed
+223,8,ai,building,OBELISK,buildings,60,observed
+223,10,ai,building,JEWELLERY,buildings,120,observed
+223,13,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+224,12,human,building,BREWERY,buildings,200,xml
+224,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+224,13,ai,building,RIVER_PORT,buildings,140,observed
+224,14,ai,building,RIVER_PORT,buildings,140,observed
+224,17,ai,building,WALLS,buildings,100,observed
+225,3,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+225,9,ai,building,SLAVE_MARKET,buildings,80,observed
+225,11,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+225,12,human,building,RIVER_PORT,buildings,140,observed
+225,12,human,building,RIVER_PORT,buildings,140,observed
+225,12,human,building,OBELISK,buildings,60,observed
+225,17,ai,building,OBELISK,buildings,60,observed
+226,4,ai,building,OBELISK,buildings,60,observed
+226,6,ai,building,OBELISK,buildings,60,observed
+226,11,ai,building,OBELISK,buildings,60,observed
+226,12,human,building,FORGE,buildings,120,observed
+226,12,human,building,FORGE,buildings,120,observed
+226,12,human,building,WALLS,buildings,100,observed
+226,13,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+226,17,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+227,0,ai,building,CELTIC_TEMPLE,buildings,160,xml
+227,1,ai,building,RIVER_PORT,buildings,140,observed
+227,3,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+227,12,human,building,JEWELLERY,buildings,120,observed
+227,16,ai,building,WALLS,buildings,100,observed
+228,2,ai,building,OBELISK,buildings,60,observed
+228,3,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+228,12,human,building,FORGE,buildings,120,observed
+228,12,human,building,FORGE,buildings,120,observed
+228,13,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+228,13,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+228,17,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+229,1,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+229,3,ai,building,WALLS,buildings,100,observed
+230,8,ai,building,WALLS,buildings,100,observed
+230,10,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+230,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+230,12,human,building,NORDIC_TEMPLE,buildings,160,observed
+230,12,human,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+230,12,human,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+231,3,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+231,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+231,11,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+231,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+231,13,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+232,1,ai,building,COURIER_SYSTEM,buildings,400,observed
+232,4,ai,building,SLAVE_MARKET,buildings,80,observed
+232,6,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+232,11,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+232,12,human,building,FORGE,buildings,120,observed
+232,12,human,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+232,14,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+232,17,ai,building,RIVER_PORT,buildings,140,observed
+233,1,ai,building,CELTIC_DUN,buildings,100,xml
+233,3,ai,building,LIGHTHOUSE,buildings,120,xml
+233,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+233,12,human,building,MARKET,buildings,300,observed
+233,12,human,building,WALLS,buildings,100,observed
+233,13,ai,building,ARCHIVE,buildings,200,xml
+234,3,ai,building,LIGHTHOUSE,buildings,120,xml
+234,5,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+234,12,human,building,RIVER_PORT,buildings,140,observed
+234,17,ai,building,LIGHTHOUSE,buildings,120,xml
+235,12,human,building,RIVER_PORT,buildings,140,observed
+235,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+236,6,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+236,9,ai,building,MARKET,buildings,300,observed
+236,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+236,12,human,building,RIVER_PORT,buildings,140,observed
+236,14,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+236,14,ai,building,OBELISK,buildings,60,observed
+237,1,ai,building,JEWELLERY,buildings,120,observed
+237,4,ai,building,MARKET,buildings,300,observed
+237,10,ai,building,MARKET,buildings,300,observed
+237,12,human,building,LIGHTHOUSE,buildings,120,xml
+238,2,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+238,6,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+238,12,human,building,TREASURY,buildings,300,xml
+238,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+238,14,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+238,14,ai,building,RIVER_PORT,buildings,140,observed
+238,17,ai,building,WALLS,buildings,100,observed
+239,1,ai,building,FORGE,buildings,120,observed
+239,6,ai,building,OBELISK,buildings,60,observed
+239,9,ai,building,WALLS,buildings,100,observed
+239,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+239,11,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+239,12,human,building,WALLS,buildings,100,observed
+239,12,human,building,FORGE,buildings,120,observed
+239,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+239,17,ai,building,RIVER_PORT,buildings,140,observed
+240,3,ai,building,RIVER_PORT,buildings,140,observed
+240,4,ai,building,SLAVE_MARKET,buildings,80,observed
+240,10,ai,building,EGYPT_MYTH_SHRINE,buildings,-2,xml
+240,12,human,building,RIVER_PORT,buildings,140,observed
+240,13,ai,building,SLAVE_MARKET,buildings,80,observed
+240,13,ai,building,HARBOR,buildings,160,observed
+241,0,ai,building,TREASURY,buildings,300,xml
+241,6,ai,building,RIVER_PORT,buildings,140,observed
+241,13,ai,building,MARKET,buildings,300,observed
+242,1,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+242,2,ai,building,RIVER_PORT,buildings,140,observed
+242,9,ai,building,WALLS,buildings,100,observed
+242,15,ai,building,SLAVE_MARKET,buildings,80,observed
+243,3,ai,building,RIVER_PORT,buildings,140,observed
+244,3,ai,building,COURIER_SYSTEM,buildings,400,observed
+244,9,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+244,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+244,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+244,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+244,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+244,14,ai,building,HARBOR,buildings,160,observed
+244,17,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+245,6,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+245,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+245,12,human,building,WALLS,buildings,100,observed
+245,12,human,building,TOWN_ESSENTIALS,buildings,140,observed
+245,12,human,building,OBELISK,buildings,60,observed
+245,13,ai,building,OBELISK,buildings,60,observed
+245,17,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+246,10,ai,building,EGYPTIAN_OBELISK,buildings,60,xml
+246,15,ai,building,RIVER_PORT,buildings,140,observed
+247,0,ai,building,WALLS,buildings,100,observed
+247,1,ai,building,MARKET,buildings,300,observed
+247,2,ai,building,MARKET,buildings,300,observed
+247,8,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+247,10,ai,building,CITY_ESSENTIALS,buildings,400,xml
+247,10,ai,building,EGYPTIAN_OBELISK,buildings,60,xml
+247,11,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+247,12,human,building,BARRACKS,buildings,100,xml
+247,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+247,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+248,3,ai,building,ROMAN_FORUM,buildings,300,xml
+248,3,ai,building,RIVER_PORT,buildings,140,observed
+248,5,ai,building,WALLS,buildings,100,observed
+248,6,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+248,9,ai,building,MARKET,buildings,300,observed
+248,11,ai,building,RIVER_PORT,buildings,140,observed
+248,12,human,building,BARRACKS,buildings,100,xml
+249,1,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+249,3,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+249,3,ai,building,RIVER_PORT,buildings,140,observed
+249,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+249,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+249,14,ai,building,OBELISK,buildings,60,observed
+250,1,ai,building,TREASURY,buildings,300,xml
+250,2,ai,building,SLAVE_MARKET,buildings,80,observed
+250,6,ai,building,OBELISK,buildings,60,observed
+250,10,ai,building,IRRIGATION_CANALS,buildings,200,xml
+250,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+250,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+250,13,ai,building,JEWELLERY,buildings,120,observed
+250,13,ai,building,OBELISK,buildings,60,observed
+251,0,ai,building,JEWELLERY,buildings,120,observed
+251,6,ai,building,JEWELLERY,buildings,120,observed
+251,12,human,building,MARKET,buildings,300,observed
+251,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+251,13,ai,building,OBELISK,buildings,60,observed
+251,16,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+252,1,ai,building,CELTIC_DUN,buildings,100,xml
+252,3,ai,building,JEWELLERY,buildings,120,observed
+252,3,ai,building,LIGHTHOUSE,buildings,120,xml
+252,8,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+252,11,ai,building,SLAVE_MARKET,buildings,80,observed
+252,12,human,building,JEWELLERY,buildings,120,observed
+252,12,human,building,JEWELLERY,buildings,120,observed
+252,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+252,12,human,building,FORGE,buildings,120,observed
+252,12,human,building,FORGE,buildings,120,observed
+252,16,ai,building,RIVER_PORT,buildings,140,observed
+253,0,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+253,0,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+253,1,ai,building,BREWERY,buildings,200,xml
+253,6,ai,building,SLAVE_MARKET,buildings,80,observed
+253,8,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+253,10,ai,building,CITY_ESSENTIALS,buildings,400,xml
+253,14,ai,building,HARBOR,buildings,160,observed
+254,0,ai,building,FORGE,buildings,120,observed
+254,1,ai,building,FORGE,buildings,120,observed
+254,9,ai,building,LIGHTHOUSE,buildings,120,xml
+254,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+254,13,ai,building,SLAVE_MARKET,buildings,80,observed
+254,17,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+254,17,ai,building,WALLS,buildings,100,observed
+255,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+255,12,human,building,BARRACKS,buildings,100,xml
+255,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+255,12,human,building,MARKET,buildings,300,observed
+256,9,ai,building,RIVER_PORT,buildings,140,observed
+256,11,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+256,12,human,building,COURTHOUSE,buildings,240,xml
+256,12,human,building,BARRACKS,buildings,100,xml
+256,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+256,12,human,building,WALLS,buildings,100,observed
+256,17,ai,building,LIGHTHOUSE,buildings,120,xml
+256,17,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+257,1,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+257,10,ai,building,CITY_ESSENTIALS,buildings,400,xml
+257,12,human,building,ARCHERY_RANGE,buildings,80,xml
+257,12,human,building,COURTHOUSE,buildings,240,xml
+257,12,human,building,BARRACKS,buildings,100,xml
+257,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+257,12,human,building,COURTHOUSE,buildings,240,xml
+257,12,human,building,COURTHOUSE,buildings,240,xml
+257,13,ai,building,RIVER_PORT,buildings,140,observed
+257,16,ai,building,RIVER_PORT,buildings,140,observed
+258,2,ai,building,SLAVE_MARKET,buildings,80,observed
+258,9,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+258,12,human,building,ARCHERY_RANGE,buildings,80,xml
+258,12,human,building,ARCHERY_RANGE,buildings,80,xml
+258,12,human,building,MARKET,buildings,300,observed
+258,12,human,building,CELTIC_TEMPLE,buildings,160,xml
+258,12,human,building,RIVER_PORT,buildings,140,observed
+258,13,ai,building,OBELISK,buildings,60,observed
+258,17,ai,building,COURIER_SYSTEM,buildings,400,observed
+259,10,ai,building,IRRIGATION_CANALS,buildings,200,xml
+259,12,human,building,ARCHERY_RANGE,buildings,80,xml
+259,12,human,building,FORGE,buildings,120,observed
+259,12,human,building,JEWELLERY,buildings,120,observed
+260,9,ai,building,SLAVE_MARKET,buildings,80,observed
+260,9,ai,building,LIGHTHOUSE,buildings,120,xml
+260,12,human,building,NORDIC_SHRINE,buildings,-2,xml
+260,12,human,building,COURTHOUSE,buildings,240,xml
+260,12,human,building,IRRIGATION_CANALS,buildings,200,xml
+260,12,human,building,COURTHOUSE,buildings,240,xml
+260,12,human,building,COURTHOUSE,buildings,240,xml
+260,12,human,building,BROTHEL,buildings,150,xml
+261,0,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+261,2,ai,building,HARBOR,buildings,160,observed
+261,2,ai,building,WALLS,buildings,100,observed
+261,3,ai,building,TREASURY,buildings,300,xml
+261,3,ai,building,LIGHTHOUSE,buildings,120,xml
+261,8,ai,building,WALLS,buildings,100,observed
+261,10,ai,building,IRRIGATION_CANALS,buildings,200,xml
+261,10,ai,building,EGYPTIAN_OBELISK,buildings,60,xml
+261,11,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+262,1,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+262,1,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+262,2,ai,building,COURIER_SYSTEM,buildings,400,observed
+262,2,ai,building,HARBOR,buildings,160,observed
+262,2,ai,building,SLAVE_MARKET,buildings,80,observed
+262,2,ai,building,WALLS,buildings,100,observed
+262,14,ai,building,HARBOR,buildings,160,observed
+263,3,ai,building,EARLY_BARRACKS,buildings,80,xml
+263,10,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+263,11,ai,building,MARKET,buildings,300,observed
+263,12,human,building,COURTHOUSE,buildings,240,xml
+263,12,human,building,COURTHOUSE,buildings,240,xml
+263,12,human,building,WALLS,buildings,100,observed
+263,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+263,13,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+263,13,ai,building,TOWN_ESSENTIALS,buildings,140,observed
+263,16,ai,building,LIGHTHOUSE,buildings,120,xml
+263,17,ai,building,RIVER_PORT,buildings,140,observed
+264,3,ai,building,SCHOOL_OF_SCRIBES,buildings,120,observed
+264,9,ai,building,JEWELLERY,buildings,120,observed
+264,12,human,building,LIBRARY,buildings,180,xml
+264,12,human,building,LIBRARY,buildings,180,xml
+264,12,human,building,LIBRARY,buildings,180,xml
+264,12,human,building,CITY_ESSENTIALS,buildings,400,xml
+264,17,ai,building,TREASURY,buildings,300,xml
+265,1,ai,building,OBELISK,buildings,60,observed
+265,1,ai,building,CELTIC_TEMPLE,buildings,160,xml
+265,3,ai,building,EARLY_BARRACKS,buildings,80,xml
+265,3,ai,building,EARLY_BARRACKS,buildings,80,xml
+265,9,ai,building,SLAVE_MARKET,buildings,80,observed
+265,12,human,building,LIBRARY,buildings,180,xml
+265,12,human,building,RIVER_PORT,buildings,140,observed
+265,12,human,building,RIVER_PORT,buildings,140,observed
+265,12,human,building,COURTHOUSE,buildings,240,xml
+266,1,ai,building,CELTIC_TEMPLE,buildings,160,xml
+266,3,ai,building,EARLY_BARRACKS,buildings,80,xml
+266,8,ai,building,JEWELLERY,buildings,120,observed

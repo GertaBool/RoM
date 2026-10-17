@@ -1,5 +1,7 @@
 # Game 2: Greece against 17 AIs
 
+Tables: [summary.md](summary.md) and the CSV files in this folder (`tools/gamedata.py`). This game used the first log version, so it has no economy, city-state, building or great-person tables.
+
 Source: `WarLog.log` from the user's game (the save is not published).
 - **Setup:** map 84×46, Marathon, Noble, 18 players. The human is player 2, Greece
   (Pericles). The log covers turns 0–235 (6000 BC to 875 BC).
