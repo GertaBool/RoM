@@ -1,6 +1,6 @@
 # Recording games for the war-AI work
 
-This DLL is GitLab `main` after !48: the war log plus the four AI fixes below. It writes a log of your game (with `WAR_LOG` = 1),
+This DLL is GitLab `main` after !49: the war log plus the four AI fixes below. It writes a log of your game (with `WAR_LOG` = 1),
 which is how I learn from the way you beat the AI, and it has four AI fixes, all on:
 
 | Fix | What changes | Switch in `GlobalDefinesAlt.xml` (default; 0 = off) |
@@ -49,6 +49,7 @@ The log has one tab-separated line per event, in `Logs/WarLog.log`. The size is 
 | `U` | Unit built |
 | `N` | Building built |
 | `M` | Each player each turn: cities, population, land, food, hammers, commerce, research, gold per turn, gold, military units, power, score, research slider, golden-age turns left |
+| `V` | Great person born, or used: golden age, discover, join a city, build, hurry, trade, great work |
 | `Y` | City state, for both sides when a war starts and every turn for a player at war with a human: population, hammers, current build, defenders, best defender, defence, the AI's danger count, foreign land units within 2 plots |
 | `X` | Tech acquired |
 | `G` | After a player's moves, each of its stacks near or in enemy land: composition, role and target. AI stacks of 3+ military units, human stacks of 2+ |

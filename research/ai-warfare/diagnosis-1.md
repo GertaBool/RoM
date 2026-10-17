@@ -112,10 +112,39 @@ See [games/game2-greece.md](games/game2-greece.md).
 
 ## Underlying: the AI's research is half the expert's
 
-The human had about twice the AIs' techs in both games (21 against 12–18 at turn 217; 36
-against 9–19 at turn 235), at Noble, where the AI gets no bonuses. Unit quality follows
-from techs. No war decision makes up for a whole tier of units. This is the AI's
-economy, outside war logic, and it needs a decision on scope (see the report).
+**Facts from the user's games.**
+- The human had about twice the AIs' techs: 21 against 12–18 at turn 217 in game 1, and 36
+  against 9–19 at turn 235 in game 2.
+- In game 2 the gap opened late. At turn 100 the human had 10 techs to the AIs' 7.9 on
+  average, and at turn 169 it was 17 to 10.6. Between turns 169 and 235 the human gained
+  19 techs, the AIs about 5. That stretch held two golden ages (one started by a Great
+  Engineer on turn 201) and a civics switch on turn 205.
+- **Not from tech trading:** 2 tech deals in each game, both gifts from the human.
+- **Not from expansion:** the AIs' first Settler came around turn 100 (median), before the
+  human's in game 2 (turn 119).
+
+**Facts from one 450-turn headless game of 10 AIs** (Mediterranean, seed 1):
+- **Golden ages:** one AI had one, from turn 399.
+- **Great people:** 81, none before turn 219. They were 34 Generals, 28 Prophets,
+  9 Merchants, 5 Warlords, 3 Artists, 2 Scientists, and no Engineers. 48 joined cities and
+  1 started a golden age.
+- **Wonders:** 10 in all, the first on turn 254, the Colossus on turn 399. The first
+  buildings giving great-person points came on turn 230.
+- **Research slider:** 100 % to turn 150, then an average of 66–75 % from turn 200 on.
+
+**Code.**
+- A great person starts a golden age when its value beats 60 % of a free tech.
+- That value counts only the yield bonus (yield × population × length). It gives no credit
+  for the free civics switch: anarchy is 0 during a golden age (`getCivicAnarchyLength`).
+
+**What this suggests (to be measured against the human).**
+- The AI gets great people late and spends them on joining cities, so it never builds the
+  bursts the human used.
+- Wonders and great-person buildings come late because the techs they need come late.
+  This compounds the slow start.
+
+**Missing:** the human's own economy, by turn. The `M` and `V` lines (GitLab !48, !49)
+record it, so the next human game gives both sides on the same map.
 
 ## Order of work
 
