@@ -1,0 +1,168 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/models.py",
+  "slider_dir",
+  "@repo/research/ai-warfare/study/slider_dir.fig.json",
+  "@repo/research/ai-warfare/games",
+  "game3",
+  "game4"
+ ],
+ "inputs": {
+  "../games/game3/cases_slider_dir.csv": "74ef1f553a2d0e97c5234c452c3170179d6f689c0263e2722c7a8054d2edfdb6",
+  "../games/game4/cases_slider_dir.csv": "dc4d0729ab1f952f4d7d4853991d6119365bb16040e1e0174220ed9426cbb6f8"
+ },
+ "figures": {
+  "slider_dir_models": {
+   "kind": "table",
+   "head": [
+    "model",
+    "hits",
+    "n",
+    "hit rate",
+    "balanced",
+    "p vs base"
+   ],
+   "rows": [
+    [
+     "base",
+     17,
+     39,
+     "0.436",
+     "0.439",
+     "-"
+    ],
+    [
+     "single",
+     35,
+     39,
+     "0.897",
+     "0.895",
+     "0.000121"
+    ],
+    [
+     "fft",
+     32,
+     39,
+     "0.821",
+     "0.816",
+     "0.00408"
+    ],
+    [
+     "tally",
+     32,
+     39,
+     "0.821",
+     "0.816",
+     "0.00408"
+    ],
+    [
+     "logit",
+     35,
+     39,
+     "0.897",
+     "0.895",
+     "0.000121"
+    ],
+    [
+     "cart",
+     35,
+     39,
+     "0.897",
+     "0.895",
+     "0.000121"
+    ]
+   ],
+   "unit": "share",
+   "who": "human",
+   "turn": "all turns of game3, game4",
+   "source": "models.py, leave one game out over game3, game4",
+   "n": 39,
+   "values_total": 6,
+   "values_shown": 6,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "base",
+    "single",
+    "fft",
+    "tally",
+    "logit",
+    "cart"
+   ],
+   "stat": "result"
+  },
+  "slider_dir_by_game": {
+   "kind": "table",
+   "head": [
+    "held-out game",
+    "n",
+    "base hits",
+    "single hits",
+    "fft hits",
+    "logit hits"
+   ],
+   "rows": [
+    [
+     "game3",
+     14,
+     6,
+     12,
+     12,
+     12
+    ],
+    [
+     "game4",
+     25,
+     11,
+     23,
+     20,
+     23
+    ]
+   ],
+   "unit": "turns",
+   "who": "human",
+   "turn": "all turns of game3, game4",
+   "source": "models.py, each game held out in turn",
+   "n": 39,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "game3",
+    "game4"
+   ],
+   "stat": "result"
+  },
+  "slider_dir_fft_rule": {
+   "kind": "value",
+   "value": "if gold_rate_neg = 1 then y = 1; if at_war = 0 then y = 0; if declared_3 = 1 then y = 1; else y = 1 exactly when slider_high = 1",
+   "unit": "category",
+   "who": "human",
+   "turn": "all turns of game3, game4",
+   "source": "models.py, fft fitted on all games",
+   "n": null
+  },
+  "slider_dir_single_rule": {
+   "kind": "value",
+   "value": "y = 1 exactly when gold_rate_neg = 1",
+   "unit": "category",
+   "who": "human",
+   "turn": "all turns of game3, game4",
+   "source": "models.py, single cue on all games",
+   "n": null
+  },
+  "slider_dir_cues": {
+   "kind": "value",
+   "value": "gold_rate_neg, at_war, declared_3, slider_high",
+   "unit": "category",
+   "who": "human",
+   "turn": "-",
+   "source": "cases_slider_dir.csv header",
+   "n": null
+  }
+ },
+ "xml": {}
+}

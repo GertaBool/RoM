@@ -1,0 +1,168 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/models.py",
+  "upgrade_turn",
+  "@repo/research/ai-warfare/study/upgrade_turn.fig.json",
+  "@repo/research/ai-warfare/games",
+  "game3",
+  "game4"
+ ],
+ "inputs": {
+  "../games/game3/cases_upgrade_turn.csv": "b3f02190010e4a71b73b2541a9b83a3fd0f9f1e0dcc1e030eb55f4d706d56e93",
+  "../games/game4/cases_upgrade_turn.csv": "05e662985f81c09939361af9d89ac65edf65dfa9ae1108722ea57ed5c929a92b"
+ },
+ "figures": {
+  "upgrade_turn_models": {
+   "kind": "table",
+   "head": [
+    "model",
+    "hits",
+    "n",
+    "hit rate",
+    "balanced",
+    "p vs base"
+   ],
+   "rows": [
+    [
+     "base",
+     528,
+     549,
+     "0.962",
+     "0.500",
+     "-"
+    ],
+    [
+     "single",
+     521,
+     549,
+     "0.949",
+     "0.608",
+     "0.143"
+    ],
+    [
+     "fft",
+     521,
+     549,
+     "0.949",
+     "0.562",
+     "0.0923"
+    ],
+    [
+     "tally",
+     525,
+     549,
+     "0.956",
+     "0.520",
+     "0.375"
+    ],
+    [
+     "logit",
+     528,
+     549,
+     "0.962",
+     "0.500",
+     "1"
+    ],
+    [
+     "cart",
+     528,
+     549,
+     "0.962",
+     "0.546",
+     "1"
+    ]
+   ],
+   "unit": "share",
+   "who": "human",
+   "turn": "all turns of game3, game4",
+   "source": "models.py, leave one game out over game3, game4",
+   "n": 549,
+   "values_total": 6,
+   "values_shown": 6,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "base",
+    "single",
+    "fft",
+    "tally",
+    "logit",
+    "cart"
+   ],
+   "stat": "result"
+  },
+  "upgrade_turn_by_game": {
+   "kind": "table",
+   "head": [
+    "held-out game",
+    "n",
+    "base hits",
+    "single hits",
+    "fft hits",
+    "logit hits"
+   ],
+   "rows": [
+    [
+     "game3",
+     265,
+     261,
+     261,
+     261,
+     261
+    ],
+    [
+     "game4",
+     284,
+     267,
+     260,
+     260,
+     267
+    ]
+   ],
+   "unit": "turns",
+   "who": "human",
+   "turn": "all turns of game3, game4",
+   "source": "models.py, each game held out in turn",
+   "n": 549,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "game3",
+    "game4"
+   ],
+   "stat": "result"
+  },
+  "upgrade_turn_fft_rule": {
+   "kind": "value",
+   "value": "if declared_1 = 0 then y = 0; if gold_rate_pos = 1 then y = 0; if at_war = 1 then y = 1; if gold_doubled_10 = 1 then y = 1; else y = 1 exactly when tech_3 = 1",
+   "unit": "category",
+   "who": "human",
+   "turn": "all turns of game3, game4",
+   "source": "models.py, fft fitted on all games",
+   "n": null
+  },
+  "upgrade_turn_single_rule": {
+   "kind": "value",
+   "value": "y = 1 exactly when declared_1 = 1",
+   "unit": "category",
+   "who": "human",
+   "turn": "all turns of game3, game4",
+   "source": "models.py, single cue on all games",
+   "n": null
+  },
+  "upgrade_turn_cues": {
+   "kind": "value",
+   "value": "declared_1, at_war, gold_rate_pos, gold_doubled_10, tech_3",
+   "unit": "category",
+   "who": "human",
+   "turn": "-",
+   "source": "cases_upgrade_turn.csv header",
+   "n": null
+  }
+ },
+ "xml": {}
+}

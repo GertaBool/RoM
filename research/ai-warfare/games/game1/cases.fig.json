@@ -1,0 +1,55 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/cases.py",
+  "/root/.cache/rom-ana/db/game1.duckdb",
+  "0",
+  "@repo/research/ai-warfare/games/game1",
+  "@repo/research/ai-warfare/games/game1/cases.fig.json"
+ ],
+ "inputs": {
+  "/root/.cache/rom-ana/db/game1.duckdb": "97a42c28c271656ca46b638c1a5df3770d37be47b4b949889619821080c0d7cc",
+  "cases_slider_turn.csv": "9298d83542a6ce8ac5275570606f8f8b288bfb14b24d97745aa69ae4901f37e5",
+  "cases_slider_dir.csv": "8643c7e4dd90df8984a00e98a8ec605018f0f8d2d4a7ec888cef2c9d01a91231",
+  "cases_upgrade_turn.csv": "02aa2ff24916f2cc5cd98b15a6fdba06f77ce5c773e54c58944ce38129e60460",
+  "cases_order_unit.csv": "633d3c4183a32a79d866f2eaaf0885fc4a3fe9891f738447503298535da146d4"
+ },
+ "figures": {
+  "order_unit_n": {
+   "kind": "value",
+   "value": 153,
+   "unit": "orders",
+   "who": "human (player 0)",
+   "turn": "0-217",
+   "source": "cases_order_unit.csv",
+   "n": null
+  },
+  "order_unit_pos": {
+   "kind": "value",
+   "value": 68,
+   "unit": "orders",
+   "who": "human (player 0)",
+   "turn": "0-217",
+   "source": "cases_order_unit.csv, y = 1",
+   "n": null
+  },
+  "cmds_after_own_M": {
+   "kind": "value",
+   "value": 0,
+   "unit": "orders",
+   "who": "human (player 0)",
+   "turn": "all turns",
+   "source": "wl_A rows after the human's own wl_M row of the same turn",
+   "n": null
+  },
+  "capital": {
+   "kind": "value",
+   "value": "14,44",
+   "unit": "category",
+   "who": "human (player 0)",
+   "turn": "0",
+   "source": "first MISSION_FOUND of the human",
+   "n": null
+  }
+ },
+ "xml": {}
+}

@@ -57,6 +57,12 @@ def selftest():
             _, e = docs.process(p)
             if want is None and e: errs.append(f'selftest: correct document rejected: {e}')
             if want and not any(x.startswith(want) for x in e): errs.append(f'selftest: {name} fault not caught: {e}')
+        dup = os.path.join(d, 'dup.md.in')
+        open(dup, 'w').write('<!-- registry: r.json -->\n<!-- registry: r.json -->\n{{n}}\n')
+        if not any('two registries' in x for x in docs.process(dup)[1]): errs.append('selftest: duplicate ids across registries not caught')
+        al = os.path.join(d, 'alias.md.in')
+        open(al, 'w').write('<!-- registry: r.json as one -->\n<!-- registry: r.json as two -->\n{{one.n}} {{two.n}}\n')
+        if docs.process(al)[1]: errs.append(f'selftest: aliased registries rejected: {docs.process(al)[1]}')
         open(inp, 'a').write('Z,3\n')
         _, e = docs.process(os.path.join(d, 'good.md.in'))
         if not any(x.startswith('stale:') for x in e): errs.append('selftest: changed input not caught')
@@ -73,7 +79,8 @@ def reproduce(path):
     with tempfile.TemporaryDirectory() as t:
         out = os.path.join(t, 'r.fig.json'); me = '@repo/' + os.path.relpath(path, REPO)
         args = [out if a == me else (os.path.join(REPO, a[6:]) if a.startswith('@repo/') else a) for a in cmd]
-        r = subprocess.run([sys.executable] + args, capture_output=True, text=True, cwd=REPO)
+        py = os.path.expanduser('~/.cache/rom-ana/bin/python')   # the analysis toolkit (toolchain/analysis)
+        r = subprocess.run([py if os.path.exists(py) else sys.executable] + args, capture_output=True, text=True, cwd=REPO)
         if r.returncode: return [f'{me}: producer failed: {r.stderr.strip()[-300:]}']
         e = json.load(open(out))
         return [f'{me}: not reproduced by its command ({k} differ)' for k in ('figures', 'xml') if e.get(k) != d.get(k)]

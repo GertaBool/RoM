@@ -148,6 +148,16 @@ class Registry:
                              left_out=[v for v in vals if v not in shown], xml=xml, values=vals, stat=stat or 'count')
         return allv
 
+    def result_table(self, id, head, rows, unit, who, turn, source, over, n=None):
+        """A table whose rows are a declared, complete list (`over`: the models or classes evaluated),
+        not a census. Every row's first cell must be the matching member of `over`, in order."""
+        self._check(id, unit, who, turn, source, n)
+        if [r[0] for r in rows] != list(over): raise FigureError(f'{id}: rows {[r[0] for r in rows]} are not {list(over)}')
+        if any(len(r) != len(head) for r in rows): raise FigureError(f'{id}: a row does not match the header')
+        self.figs[id] = dict(kind='table', head=list(head), rows=[list(r) for r in rows], unit=unit, who=who, turn=str(turn),
+                             source=source, n=n, values_total=len(rows), values_shown=len(rows), reason=None,
+                             left_out=[], xml=None, values=list(over), stat='result')
+
     def save(self):
         with open(self.path, 'w') as f:
             json.dump({'command': self.command, 'inputs': self.inputs, 'figures': self.figs, 'xml': self.xml}, f, indent=1, default=str)

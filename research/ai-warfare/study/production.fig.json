@@ -1,0 +1,159 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/production.py",
+  "@repo/research/ai-warfare/study/production.fig.json",
+  "/root/.cache/rom-ana/db/game3.duckdb:12",
+  "/root/.cache/rom-ana/db/game4.duckdb:3"
+ ],
+ "inputs": {
+  "/root/.cache/rom-ana/db/game3.duckdb": "c43098edf00d4221a061404ab0e386c7f0dd0880f75bc836c6ac773a8e31a211",
+  "/root/.cache/rom-ana/db/game4.duckdb": "d6185fe10c11e0af68cd21ff53f1654a37c79ee83bfefb6e67246e3c3035e377"
+ },
+ "figures": {
+  "game3_human_capital_unit_share": {
+   "kind": "value",
+   "value": 0.73,
+   "unit": "share",
+   "who": "human",
+   "turn": "7-266",
+   "source": "wl_U and wl_N completions; capital = BUILDING_PALACE at the save",
+   "n": 63
+  },
+  "game3_human_capital_n": {
+   "kind": "value",
+   "value": 63,
+   "unit": "units built",
+   "who": "human",
+   "turn": "7-266",
+   "source": "wl_U plus wl_N rows (completions)",
+   "n": null
+  },
+  "game3_human_other_unit_share": {
+   "kind": "value",
+   "value": 0.026,
+   "unit": "share",
+   "who": "human",
+   "turn": "7-266",
+   "source": "wl_U and wl_N completions; capital = BUILDING_PALACE at the save",
+   "n": 116
+  },
+  "game3_human_other_n": {
+   "kind": "value",
+   "value": 116,
+   "unit": "units built",
+   "who": "human",
+   "turn": "7-266",
+   "source": "wl_U plus wl_N rows (completions)",
+   "n": null
+  },
+  "game3_ai_capital_unit_share": {
+   "kind": "value",
+   "value": 0.835,
+   "unit": "share",
+   "who": "ai",
+   "turn": "7-266",
+   "source": "wl_U and wl_N completions; capital = BUILDING_PALACE at the save",
+   "n": 641
+  },
+  "game3_ai_capital_n": {
+   "kind": "value",
+   "value": 641,
+   "unit": "units built",
+   "who": "ai",
+   "turn": "7-266",
+   "source": "wl_U plus wl_N rows (completions)",
+   "n": null
+  },
+  "game3_ai_other_unit_share": {
+   "kind": "value",
+   "value": 0.681,
+   "unit": "share",
+   "who": "ai",
+   "turn": "7-266",
+   "source": "wl_U and wl_N completions; capital = BUILDING_PALACE at the save",
+   "n": 680
+  },
+  "game3_ai_other_n": {
+   "kind": "value",
+   "value": 680,
+   "unit": "units built",
+   "who": "ai",
+   "turn": "7-266",
+   "source": "wl_U plus wl_N rows (completions)",
+   "n": null
+  },
+  "game4_human_capital_unit_share": {
+   "kind": "value",
+   "value": 0.679,
+   "unit": "share",
+   "who": "human",
+   "turn": "6-285",
+   "source": "wl_U and wl_N completions; capital = BUILDING_PALACE at the save",
+   "n": 84
+  },
+  "game4_human_capital_n": {
+   "kind": "value",
+   "value": 84,
+   "unit": "units built",
+   "who": "human",
+   "turn": "6-285",
+   "source": "wl_U plus wl_N rows (completions)",
+   "n": null
+  },
+  "game4_human_other_unit_share": {
+   "kind": "value",
+   "value": 0.261,
+   "unit": "share",
+   "who": "human",
+   "turn": "6-285",
+   "source": "wl_U and wl_N completions; capital = BUILDING_PALACE at the save",
+   "n": 261
+  },
+  "game4_human_other_n": {
+   "kind": "value",
+   "value": 261,
+   "unit": "units built",
+   "who": "human",
+   "turn": "6-285",
+   "source": "wl_U plus wl_N rows (completions)",
+   "n": null
+  },
+  "game4_ai_capital_unit_share": {
+   "kind": "value",
+   "value": 0.816,
+   "unit": "share",
+   "who": "ai",
+   "turn": "6-285",
+   "source": "wl_U and wl_N completions; capital = BUILDING_PALACE at the save",
+   "n": 900
+  },
+  "game4_ai_capital_n": {
+   "kind": "value",
+   "value": 900,
+   "unit": "units built",
+   "who": "ai",
+   "turn": "6-285",
+   "source": "wl_U plus wl_N rows (completions)",
+   "n": null
+  },
+  "game4_ai_other_unit_share": {
+   "kind": "value",
+   "value": 0.693,
+   "unit": "share",
+   "who": "ai",
+   "turn": "6-285",
+   "source": "wl_U and wl_N completions; capital = BUILDING_PALACE at the save",
+   "n": 1875
+  },
+  "game4_ai_other_n": {
+   "kind": "value",
+   "value": 1875,
+   "unit": "units built",
+   "who": "ai",
+   "turn": "6-285",
+   "source": "wl_U plus wl_N rows (completions)",
+   "n": null
+  }
+ },
+ "xml": {}
+}

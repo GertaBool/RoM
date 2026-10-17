@@ -3,7 +3,8 @@
 
 usage: extract.py <WarLog.log> <out.duckdb> [--state state0.json] [--oracle oracle.jsonl] [--manifest extract.json]
 
-War log: one table per line type, columns named after the format strings in the DLL
+War log: one table per line type, with `seq` (the line's position in the log, so "known before
+a decision" is `seq <` the decision's seq), columns named after the format strings in the DLL
 (CvGameCoreUtils.cpp, warLog*), all fields kept. A lines keep kind and all fields (a1..a12);
 D lines are also exploded into deal_items (side 1 = first player gives, 2 = second gives).
 Save dump (HARNESS_HISTORY_DIAG): players, econ, costs, hist (long: player, series, turn, k,
@@ -67,13 +68,13 @@ def main():
         t = f[0]
         seen[t] += 1
         if t == 'A':
-            rows['A'].append([num(f[1]), num(f[2]), f[3]] + (f[4:] + [None] * A_MAX)[:A_MAX])
+            rows['A'].append([total, num(f[1]), num(f[2]), f[3]] + (f[4:] + [None] * A_MAX)[:A_MAX])
         elif t in WL:
             n = len(WL[t].split())
             vals = [num(x) for x in f[1:]]
             if t == 'D' and len(vals) == n - 1: vals.append('')
             if len(vals) != n: raise SystemExit(f'{t}: {len(vals)} fields, expected {n}: {line[:120]}')
-            rows[t].append(vals)
+            rows[t].append([total] + vals)
         else:
             other += 1
     if os.path.exists(a.db): os.remove(a.db)
@@ -90,29 +91,35 @@ def main():
             os.remove(tf.name)
         counts[name] = con.execute(f'select count(*) from {name}').fetchone()[0]
 
+    # text fields of the format strings (%s); every other field is %d. An empty table gets these
+    # types too, so queries that compare numbers work on games without that line type.
+    TEXT = set('speed handicap civ leader att_unit def_unit terrain feature winner_unit loser_unit unit building '
+               'orders best_defender head_ai units action tech items_first items_second'.split())
+
     def cols_of(data, names):
         out = []
         for i, c in enumerate(names):
             vs = [r[i] for r in data if r[i] is not None and r[i] != '']
-            out.append((c, 'BIGINT' if vs and all(isinstance(v, int) for v in vs) else 'VARCHAR'))
+            num_ok = all(isinstance(v, int) for v in vs) and c not in TEXT
+            out.append((c, 'BIGINT' if num_ok else 'VARCHAR'))
         return out
 
     for t, spec in WL.items():
-        names = spec.split()
+        names = ['seq'] + spec.split()
         data = [[None if v == '' else v for v in r] if t != 'D' else r for r in rows[t]]
         data = [[v if (isinstance(v, int) or v is None) else str(v) for v in r] for r in data]
         cl = cols_of(data, names)
         data = [[(str(v) if typ == 'VARCHAR' and v is not None else v) for v, (_, typ) in zip(r, cl)] for r in data]
         table('wl_' + t, cl, data)
-    acols = [('turn', 'BIGINT'), ('player', 'BIGINT'), ('kind', 'VARCHAR')] + [(f'a{i + 1}', 'VARCHAR') for i in range(A_MAX)]
-    table('wl_A', acols, [r[:3] + [None if v is None else str(v) for v in r[3:]] for r in rows['A']])
+    acols = [('seq', 'BIGINT'), ('turn', 'BIGINT'), ('player', 'BIGINT'), ('kind', 'VARCHAR')] + [(f'a{i + 1}', 'VARCHAR') for i in range(A_MAX)]
+    table('wl_A', acols, [r[:4] + [None if v is None else str(v) for v in r[4:]] for r in rows['A']])
     di = []
     for r in rows['D']:
-        for side, items in ((1, r[3]), (2, r[4])):
+        for side, items in ((1, r[4]), (2, r[5])):
             for it in str(items).split(','):
                 if ':' in it:
-                    k, v = it.split(':'); di.append([r[0], r[1], r[2], side, int(k), int(v)])
-    table('deal_items', [('turn', 'BIGINT'), ('first', 'BIGINT'), ('second', 'BIGINT'), ('side', 'BIGINT'),
+                    k, v = it.split(':'); di.append([r[0], r[1], r[2], r[3], side, int(k), int(v)])
+    table('deal_items', [('seq', 'BIGINT'), ('turn', 'BIGINT'), ('first', 'BIGINT'), ('second', 'BIGINT'), ('side', 'BIGINT'),
                          ('item', 'BIGINT'), ('data', 'BIGINT')], di)
     errs = [f'wl_{t}: {counts["wl_" + t]} rows, {seen[t]} lines' for t in list(WL) + ['A'] if counts['wl_' + t] != seen[t]]
     if sum(counts['wl_' + t] for t in list(WL) + ['A']) + other != total: errs.append('war-log rows do not sum to the lines read')

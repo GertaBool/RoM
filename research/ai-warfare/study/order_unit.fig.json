@@ -1,0 +1,190 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/models.py",
+  "order_unit",
+  "@repo/research/ai-warfare/study/order_unit.fig.json",
+  "@repo/research/ai-warfare/games",
+  "game1",
+  "game2",
+  "game3",
+  "game4"
+ ],
+ "inputs": {
+  "../games/game1/cases_order_unit.csv": "633d3c4183a32a79d866f2eaaf0885fc4a3fe9891f738447503298535da146d4",
+  "../games/game2/cases_order_unit.csv": "a2daf2d67d14c9ba9a7f072a8a228149ac533979c272e00beee936251a783790",
+  "../games/game3/cases_order_unit.csv": "d9bd05944c0a9c8fa47f7179d31129b752b97e55efe9048b5e9db74dee329b43",
+  "../games/game4/cases_order_unit.csv": "36cbcddd46b9cdbe0cb3d7d81de24de2436107191d6c80c89717e8e7e495704b"
+ },
+ "figures": {
+  "order_unit_models": {
+   "kind": "table",
+   "head": [
+    "model",
+    "hits",
+    "n",
+    "hit rate",
+    "balanced",
+    "p vs base"
+   ],
+   "rows": [
+    [
+     "base",
+     585,
+     905,
+     "0.646",
+     "0.500",
+     "-"
+    ],
+    [
+     "single",
+     702,
+     905,
+     "0.776",
+     "0.739",
+     "1.48e-12"
+    ],
+    [
+     "fft",
+     702,
+     905,
+     "0.776",
+     "0.739",
+     "1.48e-12"
+    ],
+    [
+     "tally",
+     673,
+     905,
+     "0.744",
+     "0.679",
+     "7.49e-10"
+    ],
+    [
+     "logit",
+     702,
+     905,
+     "0.776",
+     "0.739",
+     "1.48e-12"
+    ],
+    [
+     "cart",
+     702,
+     905,
+     "0.776",
+     "0.739",
+     "1.48e-12"
+    ]
+   ],
+   "unit": "share",
+   "who": "human",
+   "turn": "all turns of game1, game2, game3, game4",
+   "source": "models.py, leave one game out over game1, game2, game3, game4",
+   "n": 905,
+   "values_total": 6,
+   "values_shown": 6,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "base",
+    "single",
+    "fft",
+    "tally",
+    "logit",
+    "cart"
+   ],
+   "stat": "result"
+  },
+  "order_unit_by_game": {
+   "kind": "table",
+   "head": [
+    "held-out game",
+    "n",
+    "base hits",
+    "single hits",
+    "fft hits",
+    "logit hits"
+   ],
+   "rows": [
+    [
+     "game1",
+     153,
+     85,
+     122,
+     122,
+     122
+    ],
+    [
+     "game2",
+     170,
+     109,
+     129,
+     129,
+     129
+    ],
+    [
+     "game3",
+     199,
+     147,
+     174,
+     174,
+     174
+    ],
+    [
+     "game4",
+     383,
+     244,
+     277,
+     277,
+     277
+    ]
+   ],
+   "unit": "orders",
+   "who": "human",
+   "turn": "all turns of game1, game2, game3, game4",
+   "source": "models.py, each game held out in turn",
+   "n": 905,
+   "values_total": 4,
+   "values_shown": 4,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "game1",
+    "game2",
+    "game3",
+    "game4"
+   ],
+   "stat": "result"
+  },
+  "order_unit_fft_rule": {
+   "kind": "value",
+   "value": "if capital = 0 then y = 0; if captured_city = 0 then y = 1; if at_war = 0 then y = 1; if declared_3 = 0 then y = 1; else y = 1 exactly when young_city = 0",
+   "unit": "category",
+   "who": "human",
+   "turn": "all turns of game1, game2, game3, game4",
+   "source": "models.py, fft fitted on all games",
+   "n": null
+  },
+  "order_unit_single_rule": {
+   "kind": "value",
+   "value": "y = 1 exactly when capital = 1",
+   "unit": "category",
+   "who": "human",
+   "turn": "all turns of game1, game2, game3, game4",
+   "source": "models.py, single cue on all games",
+   "n": null
+  },
+  "order_unit_cues": {
+   "kind": "value",
+   "value": "at_war, declared_3, capital, captured_city, young_city",
+   "unit": "category",
+   "who": "human",
+   "turn": "-",
+   "source": "cases_order_unit.csv header",
+   "n": null
+  }
+ },
+ "xml": {}
+}

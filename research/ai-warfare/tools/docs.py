@@ -6,6 +6,7 @@ usage: docs.py render <template.md.in>     writes <name>.md next to it
 
 A template names its registries (tools/figlib.py) in header lines, relative to itself:
   <!-- registry: ../games/game4/workers.fig.json -->
+  <!-- registry: ../games/game3/cases.fig.json as game3 -->   (its ids become game3.<id>)
 and takes every number from them:
   {{id}}            a value figure
   {{table:id}}      a census table, with what it counts, and what it leaves out and why
@@ -40,9 +41,10 @@ SKIP_FIELDS = {'ArtDefineTag', 'Civilopedia', 'Description', 'Help', 'Strategy',
 def load(tpl):
     text = open(tpl, encoding='utf-8').read()
     base = os.path.dirname(os.path.abspath(tpl))
-    regs = [os.path.normpath(os.path.join(base, m)) for m in re.findall(r'<!--\s*registry:\s*(\S+)\s*-->', text)]
+    regs = [(os.path.normpath(os.path.join(base, m)), al) for m, al in
+            re.findall(r'<!--\s*registry:\s*(\S+)(?:\s+as\s+(\w+))?\s*-->', text)]
     figs, xml, errs = {}, {}, []
-    for r in regs:
+    for r, al in regs:
         if not os.path.exists(r): errs.append(f'stale: registry {r} missing'); continue
         d = json.load(open(r))
         rb = os.path.dirname(r)
@@ -51,7 +53,10 @@ def load(tpl):
             if os.path.isabs(p) and not os.path.exists(a): continue   # outside the repository, not here
             if not os.path.exists(a): errs.append(f'stale: {r}: input {p} missing')
             elif figlib.sha(a) != h: errs.append(f'stale: {r}: input {p} changed since the figures were made')
-        figs.update(d['figures'])
+        for k, v in d['figures'].items():
+            key = f'{al}.{k}' if al else k
+            if key in figs: errs.append(f'id: {key} defined by two registries; load one of them "as" a name')
+            figs[key] = v
         for t, recs in d.get('xml', {}).items(): xml.setdefault(t, {}).update(recs)
     return text, figs, xml, errs
 
@@ -100,7 +105,7 @@ def render_ph(key, figs, xml, used, errs):
     if key.startswith('eff:'):
         _, id, v, field = key.split(':', 3)
         f = figs.get(id)
-        rec = xml.get(f['xml'], {}).get(v) if f and f.get('xml') else None
+        rec = xml.get(f['xml'], {}).get(v) if f and f.get('xml') else None   # (an aliased id works the same)
         if rec is None or field not in rec: errs.append(f'effects: {key} not found'); return '?'
         used.append(id)
         return compact(rec[field])
