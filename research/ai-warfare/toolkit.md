@@ -44,6 +44,23 @@ Harness switches: `HARNESS_HISTORY_DIAG`, `HARNESS_VALUE_DIAG`, `HARNESS_SETTLER
 `HARNESS_RESEED`, `HARNESS_ORACLE`, `HARNESS_UNIT_ACTIVITY` and others (`grep getenv
 toolchain/harness/*.cpp`).
 
+**Analysis toolkit.** Installed by `toolchain/analysis/setup.sh` at every session start (the
+`SessionStart` hook in `.claude/settings.json`), with pinned versions in
+`toolchain/analysis/requirements.txt`. Python tools run with `~/.cache/rom-ana/bin/python`.
+
+| Tool | Use | Checked against |
+|---|---|---|
+| `tools/figlib.py`, `docs.py`, `check_all.py` | figures with unit, actor, turn and source; rendered documents; the commit gate | its own self-test of seven faults |
+| `tools/q.py <game> "<sql>"` | exact SQL (DuckDB) over a game's CSVs, plus a `cmd` view of the A lines; for exploration, not for documents | builders of build orders, game 4: Worker 202, Javelineer 46 |
+| `tools/exper.py a.txt b.txt` | Welch's t-test on ranks, and P(A beats B); refuses fewer than 30 runs a side | Luke's worked example: tied ranks 4.5 and 9 |
+| `tools/divaudit.py <DLL src>` | integer divisions by 100; lists small-base cases as candidates, not bugs | finds `CvPlayer::getImprovementUpgradeRate` (19 of 805 divisions listed) |
+| SciPy, scikit-learn | tests; rival models (trees, regression) for the cue models | — |
+| Hypothesis, pytest | property tests with constructed inputs for producers | — |
+| tree-sitter (C++), libclang | syntax and AST queries over the DLL source | — |
+| hyperfine | repeated timing with spread, for turn-time comparisons | — |
+| GNU parallel | seeded harness runs on all four cores | — |
+| universal-ctags, sqlite3 | symbol index of the DLL; plain SQL from the shell | — |
+
 **Session tools:**
 - shell: python3, wine with MSVC 2003, clang;
 - file read, search and edit;
