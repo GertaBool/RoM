@@ -18,10 +18,80 @@ can be recomputed from them.
 - In RoM, the Slavery civic gives no way to rush production. No civic in RoM's XML does.
 - 6 of the human's 13 cities at turn 265 were captured, and their improvements cannot be
   credited to either side. Tile figures below are for the 7 cities the human founded.
+- An earlier draft said the human "expanded to about 5 cities, then stopped". The
+  founding stopped because the land shared with Holy Rome was full (Part 1).
 
-## Part 1. The human's play, reconstructed as an algorithm
+## Part 1. The human's play, reconstructed
 
-### 1. Pick civics first, and research the techs that unlock them
+The map explains most of the play. Founding turns are from the save (`founded` in the city
+dump); positions are from `cities.csv`.
+
+### The situation: three civilizations in one corner
+
+- The human's capital (27,44) is on the north edge of the map (height 46).
+- Holy Rome's capital (26,40) was 4 tiles south of it, and the Dutch capital (20,44) 7 tiles
+  west. Both were founded on turn 0.
+- Holy Rome and the human then took turns settling the same land. Each new city was 2–3
+  tiles from the other side's:
+
+  | Turn | Holy Rome founds | The human founds |
+  |---|---|---|
+  | 88 | 23,40 | |
+  | 108 | | 32,44 |
+  | 115 | 28,40 | |
+  | 127 | | 31,41 |
+  | 142 | 33,39 | |
+  | 146 | | 24,43 |
+  | 165 | | 35,44 |
+  | 177 | 36,39 | |
+
+- Neither side founded another city there until the wars. *Interpretation:* the shared
+  land was full by turn 177.
+- To the west, the Celts took 2 of the 3 Dutch cities, on turns 161 and 201 (`wars.csv`).
+
+### The plan
+
+**1. One city does everything (turns 0–108).**
+- Tribute: +25 % food, hammers and commerce in the capital, −10 % food in other cities.
+  With one city, the cost is nothing.
+- Peasantry: cottages also give hammers, so the capital can grow without losing
+  production.
+
+**2. Hold the border.**
+- Javelineers on turns 25–110 (A ORDER lines): a garrison for each new city, plus spares.
+  No battle involved the human before turn 203 (`battles.csv`).
+- Walls in the cities facing Holy Rome: 31,41 (its first order, turn 127, 2 tiles from
+  Holy Rome's 33,39), the capital (129), 32,44 (150) and 24,43 (156).
+- Folklore and Oligarchy give every new unit 6 experience, so each garrison unit is a
+  veteran.
+
+**3. Race Holy Rome for the land (turns 108–177).** The capital built the Settlers (turns
+95, 116, 138, 153). The human's last founding in the corner was turn 165, Holy Rome's 177.
+
+**4. When the land is full, take the neighbour's.**
+- **The unit:** Bronze Working on turn 192 gave the Warband (strength 6, no resource).
+  The neighbours' defenders were Javelineers.
+- **The army:** the border garrison, upgraded with gold (8 upgrades on turns 193–204),
+  plus Warbands from the capital (74 hammers per turn on turn 203).
+- **The gold:** Trade Caravans traded in the nearest foreign cities, the Dutch and Holy
+  Roman capitals. On turn 192 a trade raised gold from 25 to 126, and the upgrade on turn
+  193 brought it down to 45 (M lines). Later upgrades used gold from captured cities.
+- **Holy Rome (turn 203):** all 5 of its cities in the corner, its capital among them, in
+  3 turns; peace on turn 206. Holy Rome kept only its cities to the south-west, founded on
+  turn 184 or later.
+- **The Dutch (turn 209):** their capital (population 9) was the last Dutch city the
+  Celts had not taken. Taken on turn 213; peace on turn 214.
+- *Interpretation:* each war aimed at the corner's land, not at the enemy, and peace came
+  once that land was taken.
+
+**5. Use the land.**
+- **Captured cities:** first an Obelisk (+1 culture, 30 hammers in the XML, destroyed on
+  capture), then a Forge or Walls.
+- **Settlers into the gaps the wars opened:** 20,40 on turn 221 and 30,37 on turn 225.
+- **Then buildings everywhere and gold civics:** Accounting on turn 218; Fiscus and
+  Coinage on 241; Bookkeeping on 261.
+
+### Civics, by turn
 
 | Turn | Tech arrives (X line) | Civic adopted (A CIVICS line) | What it gives (CivicInfo XML) |
 |---|---|---|---|
@@ -37,83 +107,23 @@ can be recomputed from them.
 | 252 → 253 | Code of Laws | Patrician | |
 | 260 → 261 | Literature | Bookkeeping | +30 % gold |
 
-Rule: when a tech unlocks a better civic, switch on the turn it arrives. Every RoM civic has
-1 turn of anarchy (`iAnarchyLength` 1).
+Every RoM civic has 1 turn of anarchy (`iAnarchyLength` 1).
 
-### 2. Run the capital as the production centre
-
-- **Tribute** gave the capital +25 % on everything from turn 32. Until turn 108 the capital
-  was the whole empire.
-- **Capital orders** (A ORDER lines):
-  - Worker on turn 0;
-  - Javelineers on turns 25, 54, 70, 80, 88, 105 and 110;
-  - Settlers on turns 95, 116, 138, 153, 215 and 221;
-  - Trade Caravans on turns 161, 187 and 190;
-  - then a stream of Warbands from turn 193.
-- **Result:** at turn 203 the capital had population 11 and made 74 hammers (Y line). Holy
-  Rome's best city made 26.
-
-### 3. Grow the land with cottages under Peasantry
+### Other figures
 
 - **Worker builds** (A MISSION_BUILD): Track 51, Cottage 38, Road 28, Farm 21, Mine 16,
-  Camp 8, Quarry 2.
-  - First of each: Camp on turn 26, Farm 34, Cottage 68, Mine 85.
-  - Only 4 Workers were built in 265 turns, and 7 were alive at the save.
-- **The human's 7 founded cities at the save** (tile dump):
-  - 72 % of city land improved;
-  - worked tiles: Farm 20 %, Hamlet 17 %, Mine 17 %, Village 15 %;
-  - 61 % of city land is forest.
-- **Rule:** connect with tracks first, then cottages. Under Peasantry they grow into
-  Hamlets and Villages that yield hammers as well as food.
-
-### 4. Expand to about 5 cities, then stop founding and start conquering
-
-- **Cities founded** (MISSION_FOUND): turns 0, 108, 127, 146 and 165, one about every
-  19 turns. Then turns 221 and 225, after the wars.
-- **The AIs:** first Settler around turn 100 (median), about as early as the human.
-
-### 5. Wait for a power unit, bank units to upgrade, then strike
-
-- **The power unit:** Warband, strength 6, needs Bronze Working plus the Nordic religion
-  tech, and no resource. The human got Religion (Nordic) on turn 138 and Bronze Working on
-  turn 192.
-- **The units in waiting:** 7 Javelineers built from turn 25. On turns 193–204, eight were
-  upgraded to Warbands with gold (COMMAND_UPGRADE).
-- **The gold:** Trade Caravans traded in the cities later attacked: the Dutch capital
-  (20,44) on turn 171, and Holy Rome's 26,40 on turns 192 and 195 (MISSION_TRADE). The
-  last two came just as the upgrades began, which suggests, though the log does not
-  prove, that they helped pay for them.
-- **Experience stacking:** Oligarchy (+3) plus Folklore (+3) means Warbands enter battle
-  with 6 experience (C lines), enough for a promotion at once.
-  - Promotions chosen: Combat I 32, Guerilla III 27, Guerilla II 11, Shock 10.
-- **Targets:**
-  - Holy Rome on turn 203, with half the human's power (71 against 143, M lines).
-  - The Dutch on turn 209. They were down to 1 city after losing 2 to the Celts on turns
-    161 and 201 (K lines).
-- **Tempo:**
-  - Holy Rome: 5 cities in 3 turns, peace on turn 206.
-  - The Dutch: their population-9 capital in 4 turns, peace on turn 214.
-  - 12 battles won and 2 lost (R lines), at win chances of 71–94 % (C lines).
-- **Consolidation:** every captured city's first order was an Obelisk, then a Forge or
-  Walls. A Great General born in the war was used to build at once (V line, turn 206).
-
-### 6. Build infrastructure in every non-capital city, and fine-tune the economy
-
+  Camp 8, Quarry 2. Only 4 Workers were built in 265 turns.
+- **The 7 founded cities at the save** (tile dump): 72 % of city land improved; 61 % under
+  forest; worked tiles Farm 20 %, Hamlet 17 %, Mine 17 %, Village 15 %.
+- **Promotions:** Combat I 32, Guerilla III 27, Guerilla II 11, Shock 10.
+- **Battles:** 12 won and 2 lost (R lines), at win chances of 71–94 % (C lines).
 - **Buildings:** 17 by turn 200 against the AIs' average of 5.2; 126 by turn 265 against
   18.5 (N lines).
-- **Spending to turn 200** (U and N lines, priced at the costs the game reported):
-  buildings 42 %, land military 33 %, Settlers 22 %, Workers 3 %.
-- **Research slider:** 21 small changes, mostly ±5 points (A PERCENT). Gold stayed near
-  zero per turn until the war gold arrived.
-- **Late game:** waves of the same building everywhere once a tech allowed it. Libraries
-  went up on turns 261–266, after Literature on turn 260. Wealth or research processes ran
-  where nothing was worth building.
-
-### 7. Diplomacy
-
-- Open borders with most AIs, on turns 145–156 (D lines).
-- The human turned down AI requests: to stop trading with someone, to join a war, and for
-  help (E lines).
+- **Spending to turn 200** (U and N lines, at the costs the game reported): buildings
+  42 %, land military 33 %, Settlers 22 %, Workers 3 %.
+- **Research slider:** 21 small changes, mostly ±5 points (A PERCENT).
+- **Diplomacy:** open borders with most AIs on turns 145–156 (D lines). The human turned
+  down AI requests to stop trading with someone, to join a war, and for help (E lines).
 
 ## Part 2. Evidence tree: why the AI lost
 
