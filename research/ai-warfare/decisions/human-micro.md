@@ -52,36 +52,9 @@ Caveats:
 
 ## 3. Workers
 
-- **Order of builds (game 4):** camps and tracks first (16 of the first 20 builds), then
-  mines. Then roads and paved roads replace tracks: tracks 69, roads 48, paved 14.
-- **What goes where** (starting terrain, before chopping):
-  - mines on hills (42 of 42);
-  - farms on grassland and marsh;
-  - camps, wineries, quarries and pastures on their resources;
-  - cottages mostly on chopped forest hills (16 of 35).
-- **Worked land tiles at the save (game 4):**
-
-  | Group | Improved | Mines | Yield per tile |
-  |---|---|---|---|
-  | Human-founded cities | 84 % | 31 % | 9.32 |
-  | Captured cities | 43 % | 17 % | 6.93 |
-  | AI cities | 75 % | 25 % | 7.89 |
-
-  Game 3: human-founded 88 % improved and 7.92 per tile, against the AI's 74 % and 7.65.
-- **Roads toward the next target.** Route builds within 4 steps of the target's cities, in
-  the 30 turns before the declaration against the 30 turns before that:
-
-  | Declared | Before the war | Earlier |
-  |---|---|---|
-  | 238 | 11 of 28 | 2 of 5 |
-  | 252 | 8 of 36 | 1 of 18 |
-  | 268 | 19 of 36 | 1 of 28 |
-
-  Not before turns 257, 271, 272, 277 or 283. Those wars started from roads already built
-  or by sea.
-- **Reading:** the worker plan follows the terrain, and the hills-and-forest start is
-  turned into hammers (mines) before commerce. Logistics are prepared for the first push
-  into each new region.
+Replaced by [workers-game4.md](workers-game4.md), which is rendered from checked figures. The
+earlier text here left out improvement types, counted orders as improvements and summed
+unlike yields.
 
 ## 4. The research slider: one cue
 

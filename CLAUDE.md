@@ -15,3 +15,14 @@ Hard rules (details in the protocol):
 5. **Turns:** every figure carries its turn. Never use the save's state for an earlier turn.
 6. **Fresh starts:** when told to start over, replace the old text; do not patch it.
 7. **Work through to the end without mid-way questions.** Mark unknowns *open*. Deliver once.
+8. **Figures only through the figure system.**
+   - Every number in an analysis document comes from a registry written by
+     `tools/figlib.py`. A registry refuses a figure without a unit (from `figlib.UNITS`), an
+     actor, a turn and a source, and refuses a table that drops values without a reason.
+   - Documents are templates (`.md.in`) rendered by `tools/docs.py`, which rejects typed
+     numbers and requires the XML effects of every type a table counts.
+   - `tools/check_all.py` runs before every commit (`.claude/settings.json`;
+     `.githooks/pre-commit`, enabled with `git config core.hooksPath .githooks`). A failure
+     blocks the commit.
+   - Documents written before the system are listed in `research/ai-warfare/UNCHECKED`. That
+     list may only shrink.

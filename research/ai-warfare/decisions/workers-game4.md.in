@@ -1,0 +1,97 @@
+<!-- registry: ../games/game4/workers.fig.json -->
+# Workers, game 4
+
+Figures from `tools/workers.py` (registry `games/game4/workers.fig.json`). Every number below comes
+from that registry; the table at the end gives each figure's unit, actor, turn and source.
+
+## Description
+
+**Build orders, by build and by the unit that was ordered.** These are orders. The war log
+does not record whether an order was completed.
+
+{{table:builds}}
+
+What each build is (every build ordered):
+
+{{effects:builds}}
+
+**The same orders, each plot and build counted once:**
+
+{{table:builds_distinct}}
+
+**Route-to orders** (a road along a path):
+
+{{table:route_to}}
+
+**Automation orders:**
+
+{{table:automate}}
+
+**Work rates of the units that were ordered to build.** Rates are per turn, against a build's
+`iTime` scaled by Marathon's `iBuildPercent` {{build_pct}} (`CvPlot::getBuildTime`):
+
+| Unit | `iWorkRate` |
+|---|---|
+| Worker | {{workrate_WORKER}} |
+| Javelineer | {{workrate_JAVELINEER}} |
+| Workboat | {{workrate_WORKBOAT}} |
+| Rome Legionary | {{workrate_ROME_LEGIONARY}} |
+| Hastati | {{workrate_HASTATI}} |
+| Principes | {{workrate_PRINCIPES}} |
+
+At the game handicap (Monarch) the AI's work rate is raised by {{ai_workrate_mod}} %
+(`iAIWorkRateModifier`, `CvUnit::workRate`).
+
+**Improvements on every city tile at the save, land and water, worked and unworked:**
+
+{{table:impr}}
+
+What each improvement is (every improvement present):
+
+{{effects:impr}}
+
+**Yields of worked tiles at the save**, by improvement. Food, hammers and commerce are given
+separately:
+
+{{table:yield_food}}
+
+{{table:yield_hammers}}
+
+{{table:yield_commerce}}
+
+**The cottage line.** The chain is {{cottage_chain}}. Turns of worked progress per step on
+Marathon: cottage {{upgrade_turns_COTTAGE}}, hamlet {{upgrade_turns_HAMLET}}, village
+{{upgrade_turns_VILLAGE}}. Progress grows only on a tile that is being worked
+(`CvPlot::doImprovementUpgrade`).
+
+**Upgrade rate.**
+- The only record type that sets `iImprovementUpgradeRateModifier` is: {{rate_setters}}.
+- The human's civics at the save give a modifier of {{rate_mod_human}} %.
+- `CvPlayer::getImprovementUpgradeRate` computes `1 × (100 + modifier) / 100` in integer
+  arithmetic. The rate is {{rate_human}}: a modifier under `100` % changes nothing.
+- AI players with cities whose rate is above one: {{rate_ai_above1}} of {{n_ai}}.
+
+## Readings
+
+Each reading names the facts it rests on and what would refute it.
+
+1. **Cottages are built where they will be worked.**
+   - Facts: the impr table. No human city tile holds a cottage at the save. Every hamlet and
+     village in the human's cities is worked. On the AI's side, most cottages are on unworked
+     tiles, where they cannot grow.
+   - Refuted if: the human's cottage orders went mostly to plots that no city worked
+     afterwards. This is open, because the save dump has no plot coordinates
+     (`toolkit.md`, section 5.2).
+2. **Roman infantry are road builders.**
+   - Facts: the builds table and the work rates. Legionaries, Hastati and Principes work
+     faster than a Worker, and were given road and paved-road orders.
+   - Refuted if: their build orders were not on routes.
+3. **Most camp orders and over half the track orders went to Javelineers, not Workers** (builds table).
+   - Refuted if: those orders were cancelled. Completions are not logged, so this is open.
+
+## Open
+
+- Which orders were completed. This needs plot coordinates in the save dump or an outcome
+  line in the war log (`toolkit.md`, section 6).
+- Roads before wars: not restated here. The earlier figure had no control for the human's
+  own new cities.
