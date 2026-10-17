@@ -115,8 +115,8 @@ for l in by['U'] + by['N']:
     if l[2] == '50': continue
     c, src = cost(l[0], l[3], l[2] == H)
     sp_rows.append([l[1], l[2], who(l[2]), 'unit' if l[0] == 'U' else 'building', l[3],
-                    ucat(l[3]) if l[0] == 'U' else 'buildings', round(c), src])
-write('spending.csv', ['turn', 'player', 'who', 'kind', 'item', 'category', 'hammers', 'cost_source'], sp_rows)
+                    ucat(l[3]) if l[0] == 'U' else 'buildings', round(c), src] + (l[4:6] if len(l) > 5 else ['', '']))
+write('spending.csv', ['turn', 'player', 'who', 'kind', 'item', 'category', 'hammers', 'cost_source', 'x', 'y'], sp_rows)
 
 # ---- buildings, wars, battles, cities in war, great people ----
 def world(b):
