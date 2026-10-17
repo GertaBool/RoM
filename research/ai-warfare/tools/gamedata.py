@@ -197,12 +197,12 @@ if a.state:
         pid = str(p['id'])
         for c in p['cities']:
             grp = 'ai' if pid != H else ('human_captured' if iscap(c) else 'human_founded')
-            crows.append([pid, grp, c['x'], c['y'], c['pop'], c['food'], c['prod'], c['commerce'], c['spec'], c['order'], len(c['buildings'])])
+            crows.append([pid, grp, c['x'], c['y'], c['founded'], c['pop'], c['food'], c['prod'], c['commerce'], c['spec'], c['order'], len(c['buildings'])])
             for t in c.get('tiles', []):
                 trows.append([pid, grp, c['x'], c['y']] + t)
         for cv in p.get('civicValues', []):
             if pid != H: cvrows.append([pid, cv[0], cv[1], cv[2], int(cv[0] in p['civics'])])
-    write('cities.csv', ['player', 'group', 'x', 'y', 'pop', 'food_surplus', 'hammers', 'commerce', 'specialists', 'order', 'buildings'], crows)
+    write('cities.csv', ['player', 'group', 'x', 'y', 'founded', 'pop', 'food_surplus', 'hammers', 'commerce', 'specialists', 'order', 'buildings'], crows)
     write('tiles.csv', ['player', 'group', 'city_x', 'city_y', 'worked', 'terrain', 'feature', 'improvement', 'hills', 'river', 'bonus',
                         'food', 'hammers', 'commerce'], trows)
     write('civic_scores.csv', ['player', 'civic', 'option', 'score', 'in_force'], cvrows)
@@ -210,9 +210,9 @@ if a.state:
         T = [r for r in trows if r[1] == grp]; W = [r for r in T if r[4] == 1]
         cs = [r for r in crows if r[1] == grp]
         if not cs: continue
-        pop = sum(r[4] for r in cs); th = sum(r[12] for r in W); tc = sum(r[13] for r in W)
-        summ_state.append((grp, len(cs), pop, sum(r[6] for r in cs) / max(1, pop), sum(r[7] for r in cs) / max(1, pop),
-                           sum(r[6] for r in cs) / max(1, th), sum(r[7] for r in cs) / max(1, tc),
+        pop = sum(r[5] for r in cs); th = sum(r[12] for r in W); tc = sum(r[13] for r in W)
+        summ_state.append((grp, len(cs), pop, sum(r[7] for r in cs) / max(1, pop), sum(r[8] for r in cs) / max(1, pop),
+                           sum(r[7] for r in cs) / max(1, th), sum(r[8] for r in cs) / max(1, tc),
                            sum(1 for r in T if r[7] != '-') / max(1, len(T)), sum(1 for r in T if r[6] == 'FOREST') / max(1, len(T))))
 
 # ---- scenario and setup: starts, room, starting techs and units, names, handicaps ----
