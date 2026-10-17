@@ -20,6 +20,9 @@ can be recomputed from them.
   credited to either side. Tile figures below are for the 7 cities the human founded.
 - An earlier draft said the human "expanded to about 5 cities, then stopped". The
   founding stopped because the land shared with Holy Rome was full (Part 1).
+- Earlier drafts read the civic effects from notes instead of the XML. Peasantry also
+  takes commerce from cottages, and Tribute's −10 % food applies in every city. Tribute's
+  third capital bonus is culture, not research (commerce index 2).
 
 ## Part 1. The human's play, reconstructed
 
@@ -52,10 +55,22 @@ dump); positions are from `cities.csv`.
 ### The plan
 
 **1. One city does everything (turns 0–108).**
-- Tribute: +25 % food, hammers and commerce in the capital, −10 % food in other cities.
-  With one city, the cost is nothing.
-- Peasantry: cottages also give hammers, so the capital can grow without losing
-  production.
+- **Tribute:**
+  - in the capital: +25 % food, hammers and commerce, and +25 % culture;
+  - in every city, the capital included: −10 % food, so the capital nets +15 % food;
+  - +10 % maintenance per city, +25 % distance maintenance;
+  - +50 % war weariness.
+  With one city, the maintenance costs little.
+- **Peasantry** turns the cottage line from commerce into food and hammers:
+
+  | | Base | Under Peasantry |
+  |---|---|---|
+  | Cottage | 0/0/1 | 1/1/0 |
+  | Hamlet | 0/0/2 | 2/2/1 |
+  | Village | 0/0/3 | 2/3/1 |
+  | Town | 0/0/4 | 2/4/2 |
+
+  Yields are food/hammers/commerce. Improvements also grow 50 % faster.
 
 **2. Hold the border.**
 - Javelineers on turns 25–110 (A ORDER lines): a garrison for each new city, plus spares.
@@ -95,15 +110,15 @@ dump); positions are from `cities.csv`.
 
 | Turn | Tech arrives (X line) | Civic adopted (A CIVICS line) | What it gives (CivicInfo XML) |
 |---|---|---|---|
-| 2 | Agriculture (start) | Peasantry | Cottage +1 food +1 hammer; Hamlet +2/+2; Village +2/+3 |
+| 2 | Agriculture (start) | Peasantry | Cottage +1 food +1 hammer −1 commerce; Hamlet +2/+2/−1; Village +2/+3/−2; Town +2/+4/−2; improvements grow 50 % faster |
 | 2 | — | Folklore | +3 experience for new units |
-| 31 → 32 | Slavery (tech) | Oligarchy, Tribute | +3 experience; capital +25 % food, hammers, commerce, and +25 % research there |
+| 31 → 32 | Slavery (tech) | Oligarchy, Tribute | Oligarchy: +3 experience. Tribute: capital +25 % food, hammers, commerce and culture; −10 % food in every city; more maintenance; +50 % war weariness |
 | 65 → 66 | Pottery | Tablets | lower distance maintenance |
 | 129 → 130 | Mysticism | Elders | +25 % great people |
 | 155 → 156 | Trade | Barter, Spiritism | faster improvement growth; +25 % great people |
 | 197 | Writing | Standardized Tablets, Tutors | Tutors: +10 % food, hammers, commerce |
 | 217 → 218 | Mathematics | Accounting | +25 % gold |
-| 240 → 241 | Currency | Fiscus, Coinage, Proletariat | +50 % gold; +1 trade route; farm +1 food |
+| 240 → 241 | Currency | Fiscus, Coinage, Proletariat | +50 % gold; +1 trade route; Proletariat replaces Peasantry: farm +1 food, mine +1 hammer, cottages back to full commerce |
 | 252 → 253 | Code of Laws | Patrician | |
 | 260 → 261 | Literature | Bookkeeping | +30 % gold |
 
@@ -113,7 +128,8 @@ Every RoM civic has 1 turn of anarchy (`iAnarchyLength` 1).
 
 - **Worker builds** (A MISSION_BUILD): Track 51, Cottage 38, Road 28, Farm 21, Mine 16,
   Camp 8, Quarry 2. Only 4 Workers were built in 265 turns.
-- **The 7 founded cities at the save** (tile dump): 72 % of city land improved; 61 % under
+- **The 7 founded cities at the save** (tile dump, turn 265, under Proletariat, so without
+  Peasantry's yields): 72 % of city land improved; 61 % under
   forest; worked tiles Farm 20 %, Hamlet 17 %, Mine 17 %, Village 15 %.
 - **Promotions:** Combat I 32, Guerilla III 27, Guerilla II 11, Shock 10.
 - **Battles:** 12 won and 2 lost (R lines), at win chances of 71–94 % (C lines).
