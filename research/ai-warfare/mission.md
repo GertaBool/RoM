@@ -2,9 +2,11 @@
 
 ## 1. Mission
 
-Make Rise of Mankind's AI opponents lethally competent in war against an expert human,
-while keeping their room to make plausible, personality-driven decisions. Ship this as
-reliable, documented changes to the RoM DLL on GitLab `main`.
+Make Rise of Mankind's AI opponents competent enough to beat an expert human at a fair
+difficulty (Noble: the AI gets no bonuses), while each leader keeps making plausible,
+personality-driven decisions. The work also shows how much the AI needs: every weakness is
+found, explained and fixed. War and the economy are both in scope. Ship this as reliable,
+documented changes to the RoM DLL on GitLab `main`.
 
 ## 2. Goals and how each is judged
 
@@ -16,8 +18,12 @@ reliable, documented changes to the RoM DLL on GitLab `main`.
 | G4 | **Turn time** no worse | Turn time of the deterministic game |
 | G5 | **Traceability**: every change has its facts, rule, tests and provenance | Design note, patch, manifest, DLL provenance |
 
-Self-play outcomes such as "wins more wars" are not goals. Every civilization runs the
-same AI.
+| G6 | **Closing the gap with the expert** | Measured in the user's logged games: hopeless attacks, cities defended against armies they can see, research compared with the human's |
+
+**The benchmark is the user's games.** Each logged game is checked decision by decision
+against the engine's own mathematics. Self-play hides weaknesses that both sides share, so
+headless AI games check only safety, side effects and turn time. Self-play outcomes such as
+"wins more wars" are not goals. Every civilization runs the same AI.
 
 **Constraints.**
 - GitLab through the connector: source only, few commits, ASCII.
@@ -95,5 +101,8 @@ recorded.
 - Reuse the tools. Scripts live in files, not in one-off command lines.
 - Run independent queries in parallel.
 - No background agents unless the work is independent, parallel and agreed.
-- Test in proportion; no self-play campaigns unless an effect is uncertain and large.
+- Before any test, state what result would change the next step; otherwise skip it.
+  Usually one headless game is enough.
+- Use the simplest means that is enough, usually the mathematics the game already has.
+- Read the user's intent, not only their words.
 - Report facts, decision and next step, briefly.
