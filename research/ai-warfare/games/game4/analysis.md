@@ -401,14 +401,21 @@ the player who then attacked them.**
 
 ## 6. Open data and caveats
 
-- The user's `GlobalDefines.xml` is not known: the README installs only the DLL and
-  `GlobalDefinesAlt.xml`.
-  - GitLab `main` from !45 sets `COLLATERAL_COMBAT_DAMAGE` to 100; older RoM sets 10.
-  - Collateral damage is not in the `C`/`R` lines, so this game cannot settle which.
-- The harness's mod overlay lacks the four AI switch defines that the user's
-  `GlobalDefinesAlt.xml` sets (`AI_STACK_FORECAST` 500, `AI_THREAT_VISIBLE_ARMY` 40,
-  `AI_ATTACK_ODDS_FLOOR` 5, `AI_SACRIFICE_EV` 1). A replay for BBAI logs must use the user's
-  file.
+- The user plays with GitLab `main`'s files, with `WAR_LOG` set to 1 (the user, after this
+  analysis was first written). What that means for this game:
+  - The log has `V` lines, which only the !49 DLL writes, and is one session (one `H` line).
+    So the game ran on files from `main` at or after !49 (`e843ab5b`).
+  - `main`'s `GlobalDefines.xml` sets `COLLATERAL_COMBAT_DAMAGE` to 100 from merge
+    `54e6c128` (!45) on, so collateral damage in this game was 100.
+  - `main`'s `GlobalDefinesAlt.xml` sets `AI_STACK_FORECAST` 500, `AI_THREAT_VISIBLE_ARMY` 40,
+    `AI_ATTACK_ODDS_FLOOR` 5 and `AI_SACRIFICE_EV` 1, and `WAR_LOG` 0.
+    `builds/war-log/GlobalDefinesAlt.xml` equals the `rom-0018b` copy except `WAR_LOG` 1, and
+    the `rom-0018b` copy matches `main`: 885 lines, the same switch values.
+  - The records used here come from `rom-0018b`, so the effects quoted are the ones the game
+    ran with.
+- The harness's mod overlay had an older `GlobalDefinesAlt.xml` without the four AI switches.
+  It has been replaced with `builds/war-log/GlobalDefinesAlt.xml`, so replays now run with
+  the user's settings. The save dump used here does not depend on these defines.
 - Replay messages: 3,632 of 4,249 have empty text in the dump; foundings come from the
   save's city founding turns instead.
 
