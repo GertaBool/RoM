@@ -106,9 +106,19 @@ Neither the save nor the raw log is published. Only derived tables are.
 It also writes `summary.md`, with figures only and no interpretation.
 
 ```sh
+python3 -I toolchain/harness/initcore.py save.init <src>/Assets/CvGameCoreDLL/CvEnums.h <src>/Assets/XML > init.json
 python3 -I tools/gamedata.py WarLog.log games/gameN --human <player> --records <xmldb>/records.json \
-    [--state run.jsonl.state0.json] [--scenario <map>.CivBeyondSwordWBSave] [--bbai logs/BBAI.log]
+    [--state run.jsonl.state0.json] [--scenario <map>.CivBeyondSwordWBSave] [--init init.json] [--bbai logs/BBAI.log]
 ```
+
+- `initcore.py` reads the save's setup block (written by `sav2dat.py`): the real options and
+  victories, custom names and handicaps. The scenario file only gives the defaults.
+- Deal and diplomacy lines print game indices. `xmlread.py` writes each record's `_index`
+  (load order), and `gamedata.py` uses it for techs and resources.
+- `xmlread.py` reads only the mod's Assets. Base-game XML that RoM does not replace (for
+  example `CIV4HurryInfo.xml`) is read from the BTS install.
+- Run `xmlread.py` on a real directory: `os.walk` does not follow the symlinked folders of a
+  harness mod root.
 
 ## Layout
 

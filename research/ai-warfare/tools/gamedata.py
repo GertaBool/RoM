@@ -2,13 +2,18 @@
 """Turn one logged game into a fixed set of tables (the same for every game).
 
 usage: gamedata.py <WarLog.log> <out dir> --human N --records records.json
-                   [--state state0.json] [--bbai BBAI.log] [--cuts 50,100,...]
+                   [--state state0.json] [--scenario map.CivBeyondSwordWBSave] [--init init.json]
+                   [--bbai BBAI.log] [--cuts 50,100,...]
 
 Inputs:
   WarLog.log    the game's war log (WAR_LOG = 1); timestamps and CRLF are stripped
   records.json  xmlread.py output, for unit roles and XML costs
   state0.json   optional: the save loaded and dumped by the headless harness
                 (cities, every city tile, units, civics, civic and building scores)
+  map.CivBeyondSwordWBSave  optional: the scenario the game started from (named in the save);
+                its starting Settlers give the starts, its teams the starting techs
+  init.json     optional: toolchain/harness/initcore.py output for the save: the game's real
+                options, victories, custom names and each player's handicap
   BBAI.log      optional: AI decision log from turns replayed from the save
 
 Outputs in <out dir>, one CSV per table, plus summary.md with the main figures:
@@ -23,9 +28,14 @@ Outputs in <out dir>, one CSV per table, plus summary.md with the main figures:
   human_orders.csv / human_builds.csv / human_civics.csv / human_research.csv /
   human_commands.csv   the human's A lines, by kind
   great_people.csv V lines
+  deals.csv        D lines, one row per item: who gives what to whom (techs and resources by
+                   name, from the records' load-order index)
+  diplomacy.csv    E lines: diplomacy answers involving the human (event names from CvEnums.h)
   tiles.csv        (with --state) every city tile: owner, group, worked, yields
   cities.csv       (with --state) every city: pop, yields, buildings, order
   civic_scores.csv (with --state) each AI's own score for every civic
+  players.csv      (with --scenario) start, nearest starts, room, starting techs and units;
+                   with --init also custom names and handicap
   ai_choices.csv   (with --bbai) production choices by branch of AI_chooseProduction
 Nothing here infers; summary.md states figures only.
 """
@@ -35,7 +45,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument('log'); ap.add_argument('out')
 ap.add_argument('--human', type=int, required=True)
 ap.add_argument('--records', required=True)
-ap.add_argument('--state'); ap.add_argument('--bbai')
+ap.add_argument('--state'); ap.add_argument('--bbai'); ap.add_argument('--scenario'); ap.add_argument('--init')
 ap.add_argument('--cuts', default='50,100,150,200,250')
 a = ap.parse_args()
 os.makedirs(a.out, exist_ok=True)
@@ -131,6 +141,32 @@ write('cities_war.csv', ['turn', 'owner', 'who', 'x', 'y', 'pop', 'hammers', 'or
                          'best_defender', 'defence_pct', 'danger', 'foreign_units'], [[l[1], l[2], who(l[2])] + l[3:] for l in by['Y']])
 write('great_people.csv', ['turn', 'player', 'who', 'unit', 'x', 'y', 'action'], [[l[1], l[2], who(l[2])] + l[3:] for l in by['V']])
 
+# ---- deals and diplomacy (D, E) ----
+# Item codes: TradeableItems in CvEnums.h. Tech and resource numbers are game indices.
+TRADE = ['gold', 'gold_per_turn', 'maps', 'vassal', 'surrender', 'open_borders', 'defensive_pact', 'alliance',
+         'peace_treaty', 'tech', 'resource', 'city', 'peace', 'war', 'embargo', 'civic', 'religion']
+DIPLO = ['contact', 'ai_contact', 'failed_contact', 'give_help', 'refused_help', 'accept_demand', 'rejected_demand',
+         'demand_war', 'convert', 'no_convert', 'revolution', 'no_revolution', 'join_war', 'no_join_war', 'stop_trading',
+         'no_stop_trading', 'ask_help', 'made_demand', 'research_tech', 'target_city', 'made_demand_vassal',
+         'do_not_bother', 'resume_bother']
+idx = lambda t: {int(r['_index']): k for k, r in R.get(t, {}).items() if '_index' in r}
+TECHN, BONN = idx('TechInfo'), idx('BonusInfo')
+def item(code, data):
+    n = TRADE[code] if 0 <= code < len(TRADE) else str(code)
+    if n == 'tech': return n, TECHN.get(data, str(data))[5:]
+    if n == 'resource': return n, BONN.get(data, str(data))[6:]
+    return n, str(data)
+drows = []
+for l in by['D']:
+    for side, (giver, taker) in enumerate(((l[2], l[3]), (l[3], l[2]))):
+        for x in (l[4 + side] if len(l) > 4 + side else '').split(','):
+            if ':' in x:
+                n, v = item(*map(int, x.split(':')))
+                drows.append([l[1], giver, who(giver), taker, who(taker), n, v])
+write('deals.csv', ['turn', 'giver', 'giver_who', 'taker', 'taker_who', 'item', 'value'], drows)
+write('diplomacy.csv', ['turn', 'from', 'to', 'event', 'data1', 'data2'],
+      [[l[1], l[2], l[3], DIPLO[int(l[4])] if 0 <= int(l[4]) < len(DIPLO) else l[4], l[5], l[6]] for l in by['E']])
+
 # ---- the human's commands ----
 A = [l for l in by['A'] if l[2] == H]
 write('human_commands.csv', ['turn', 'kind', 'fields'], [[l[1], l[3], '|'.join(l[4:])] for l in A])
@@ -150,12 +186,17 @@ write('human_civics.csv', ['turn', 'adopted'], civ_rows)
 summ_state = []
 if a.state:
     d = json.load(open(a.state))
-    cap = {(int(l[4]), int(l[5])) for l in by['K'] if l[3] == H}
+    # Captured: the human took a city at this plot on or after the city's founding turn
+    # (a city the human founds on a plot where it razed one is a founded city).
+    capt = collections.defaultdict(list)
+    for l in by['K']:
+        if l[3] == H: capt[(int(l[4]), int(l[5]))].append(int(l[1]))
+    iscap = lambda c: any(t >= c['founded'] for t in capt.get((c['x'], c['y']), []))
     trows, crows, cvrows = [], [], []
     for p in d['players']:
         pid = str(p['id'])
         for c in p['cities']:
-            grp = 'ai' if pid != H else ('human_captured' if (c['x'], c['y']) in cap else 'human_founded')
+            grp = 'ai' if pid != H else ('human_captured' if iscap(c) else 'human_founded')
             crows.append([pid, grp, c['x'], c['y'], c['pop'], c['food'], c['prod'], c['commerce'], c['spec'], c['order'], len(c['buildings'])])
             for t in c.get('tiles', []):
                 trows.append([pid, grp, c['x'], c['y']] + t)
@@ -174,6 +215,46 @@ if a.state:
                            sum(r[6] for r in cs) / max(1, th), sum(r[7] for r in cs) / max(1, tc),
                            sum(1 for r in T if r[7] != '-') / max(1, len(T)), sum(1 for r in T if r[6] == 'FOREST') / max(1, len(T))))
 
+# ---- scenario and setup: starts, room, starting techs and units, names, handicaps ----
+scen = None
+if a.scenario:
+    wp, wt, plot_type, settler, units, cur, blk = [], [], {}, {}, collections.defaultdict(collections.Counter), None, None
+    for raw in open(a.scenario, encoding='latin-1'):
+        s_ = raw.strip()
+        if s_ in ('BeginPlayer', 'BeginTeam', 'BeginPlot'): blk = {'k': s_, 'techs': []}
+        elif s_ in ('EndPlayer', 'EndTeam', 'EndPlot'):
+            if s_ == 'EndPlayer': wp.append(blk)
+            elif s_ == 'EndTeam': wt.append(blk['techs'])
+            blk = None
+        elif blk is None: continue
+        elif blk['k'] == 'BeginPlot' and s_.startswith('x=') and ',y=' in s_:
+            x, y = s_.split(','); cur = (int(x[2:]), int(y[2:]))
+        elif blk['k'] == 'BeginPlot' and s_.startswith('PlotType='): plot_type[cur] = int(s_[9:])
+        elif blk['k'] == 'BeginPlot' and s_.startswith('UnitType='):
+            ut, own = s_.split(',')[0][len('UnitType=UNIT_'):], s_.split('UnitOwner=')[1].split(',')[0]
+            units[own][ut] += 1
+            if ut == 'SETTLER': settler[own] = cur
+        elif blk['k'] == 'BeginTeam' and s_.startswith('Tech='): blk['techs'].append(s_[10:])
+        elif '=' in s_: blk.setdefault(s_.split('=')[0], s_.split('=', 1)[1].split(',')[0])
+    init = json.load(open(a.init)) if a.init else None
+    ip = {str(q['id']): q for q in init['players']} if init else {}
+    steps = lambda p, q: max(abs(p[0] - q[0]), abs(p[1] - q[1]))
+    room = collections.Counter()  # flat or hill land within 8 steps, nearer to one start than to any other
+    for xy, pt in plot_type.items():
+        if pt not in (1, 2): continue
+        ds = sorted((steps(xy, s0), o) for o, s0 in settler.items())
+        if ds[0][0] <= 8 and (len(ds) == 1 or ds[0][0] < ds[1][0]): room[ds[0][1]] += 1
+    prow = []
+    for o, s0 in sorted(settler.items(), key=lambda kv: int(kv[0])):
+        b = wp[int(o)]; q = ip.get(o, {})
+        near = sorted((steps(s0, t), qq) for qq, t in settler.items() if qq != o)[:2]
+        prow.append([o, players.get(o, {}).get('civ', '?'), players.get(o, {}).get('leader', '?'), q.get('leaderName', ''),
+                     q.get('civDesc', ''), q.get('handicap', '')[9:], s0[0], s0[1], near[0][1], near[0][0], near[1][1], near[1][0],
+                     room[o], ' '.join(wt[int(b['Team'])]), ' '.join(f'{k} {v}' for k, v in sorted(units[o].items()))])
+    write('players.csv', ['player', 'civ', 'leader', 'leader_name', 'civ_name', 'handicap', 'start_x', 'start_y', 'nearest',
+                          'steps', 'second', 'steps2', 'room', 'starting_techs', 'starting_units'], prow)
+    scen = (os.path.basename(a.scenario), init, prow)
+
 # ---- AI decision log ----
 if a.bbai:
     cnt = collections.Counter(m.group(1).strip() for m in re.finditer(r'City \S+ uses (.+?)(?: with .*)?$', open(a.bbai, errors='replace').read(), re.M))
@@ -185,7 +266,27 @@ def ai_mean(t, i):
     return st.mean(v) if v else float('nan')
 out = [f'# Game data summary (human = player {H}, {players.get(H, {}).get("civ", "?")})', '',
        f'Generated by `tools/gamedata.py` from the war log' + (', the save dump' if a.state else '') + (', the AI decision log' if a.bbai else '') + '.',
-       'Tables are in this folder; every figure below can be recomputed from them.', '']
+       'Tables are in this folder; every figure below can be recomputed from them.', f'The last full turn is {last_turn}.', '']
+if scen:
+    init = scen[1]
+    out += [f'## Setup: {scen[0]}', '']
+    if init:
+        out += ['Options (save): ' + ', '.join(o[len('GAMEOPTION_'):] for o in init['options']) + '.',
+                'Victories (save): ' + ', '.join(v[len('VICTORY_'):] for v in init['victories']) + '.', '']
+    out += ['| Player | Civ | Leader | Name | Civ name | Handicap | Start | Nearest starts (steps) | Room | Starting techs |',
+            '|---|---|---|---|---|---|---|---|---|---|']
+    out += [f'| {r[0]} | {r[1]} | {r[2]} | {r[3]} | {r[4]} | {r[5]} | {r[6]},{r[7]} | {r[8]} ({r[9]}), {r[10]} ({r[11]}) | {r[12]} | {r[13]} |'
+            for r in scen[2]]
+    out += ['', 'Room: flat or hill land within 8 steps that is nearer to this start than to any other.', '']
+pl = sorted({p for (t, p) in eco if p != '50'}, key=int)
+for i, name in ((0, 'cities'), (1, 'pop'), (4, 'hammers'), (5, 'commerce'), (10, 'power'), (11, 'score'), (None, 'techs')):
+    out += [f'## All players: {name} by turn ({"X" if i is None else "M"} lines)', '',
+            '| Player | Leader | ' + ' | '.join(map(str, cuts)) + ' |', '|---|---|' + '---|' * len(cuts)]
+    for p in pl:
+        row = [str(sum(1 for l in by['X'] if l[2] == p and int(l[1]) <= t)) if i is None else str(eco[(t, p)][i]) if (t, p) in eco else '-'
+               for t in cuts]
+        out.append(f'| {p} | {players.get(p, {}).get("leader", "?")} | ' + ' | '.join(row) + ' |')
+    out.append('')
 # Mission metric at the last full turn: K cities the human took, L cities it lost,
 # R human techs / best AI techs, S human score / best AI score (needs M lines).
 ntech = collections.Counter(l[2] for l in by['X'] if int(l[1]) <= last_turn)
@@ -226,7 +327,7 @@ hum_b = [b for b in bat if H in (b[1], b[6])]
 if hum_b:
     out.append(f'- Battles involving the human: {len(hum_b)}; human attacks at win chances {min(b[17] for b in hum_b if b[1] == H):.0f}–{max(b[17] for b in hum_b if b[1] == H):.0f} %' if any(b[1] == H for b in hum_b) else '')
 caps = [l for l in by['K'] if l[3] == H]
-out.append(f'- Cities captured by the human: {len(caps)}')
+out.append(f'- Cities captured by the human: {K} to turn {last_turn}, {len(caps)} in the whole log')
 nonsiege = [b for b in bat if b[2] == 'ai' and b[7] != 'barbarian' and b[17] < 5 and not any(s in b[3] for s in ('CATAPULT', 'RAM', 'BALLISTA', 'TREBUCHET'))]
 out.append(f'- AI non-siege attacks under 5 %: {len(nonsiege)} of {sum(1 for b in bat if b[2] == "ai")}')
 out += ['', '## Great people (V lines)', '', f'- Born: human {sum(1 for l in by["V"] if l[2] == H and l[6] == "BORN")}, AIs {sum(1 for l in by["V"] if l[2] != H and l[6] == "BORN")}',
