@@ -1,4 +1,13 @@
 {
+ "command": [
+  "@repo/research/ai-warfare/tools/workers.py",
+  "@repo/research/ai-warfare/games/game4",
+  "3",
+  "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/ev/g4/run.jsonl.state0.json",
+  "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/xmldb2/records.json",
+  "/home/user/src/rom-0018b/Assets/CvGameCoreDLL/CvEnums.h",
+  "@repo/research/ai-warfare/games/game4/workers.fig.json"
+ ],
  "inputs": {
   "human_commands.csv": "2d84b67b14921b6596e3b6fbfd7fb1155a12c985fedcc9429f4244f2de8af848",
   "tiles.csv": "56803454f2ec5383ef0c2965a8aa4170797f8131e120ea0b312760bcde06ec08",
@@ -170,7 +179,8 @@
     "BUILD_PASTURE",
     "BUILD_WORKSHOP",
     "BUILD_OLIVE_FARM"
-   ]
+   ],
+   "stat": "count"
   },
   "builds_distinct": {
    "kind": "table",
@@ -260,7 +270,8 @@
     "BUILD_PASTURE",
     "BUILD_WORKSHOP",
     "BUILD_OLIVE_FARM"
-   ]
+   ],
+   "stat": "count"
   },
   "route_to": {
    "kind": "table",
@@ -290,7 +301,8 @@
    "xml": null,
    "values": [
     "WORKER"
-   ]
+   ],
+   "stat": "count"
   },
   "automate": {
    "kind": "table",
@@ -347,7 +359,8 @@
     "SCOUT",
     "JAVELINEER",
     "EXPLORER"
-   ]
+   ],
+   "stat": "count"
   },
   "impr": {
    "kind": "table",
@@ -572,7 +585,8 @@
     "SILK_FARM",
     "CITY_RUINS",
     "FORT"
-   ]
+   ],
+   "stat": "count"
   },
   "yield_food": {
    "kind": "table",
@@ -714,7 +728,8 @@
     "WINERY",
     "SHAFT_MINE",
     "SILK_FARM"
-   ]
+   ],
+   "stat": "mean"
   },
   "yield_hammers": {
    "kind": "table",
@@ -856,7 +871,8 @@
     "WINERY",
     "SHAFT_MINE",
     "SILK_FARM"
-   ]
+   ],
+   "stat": "mean"
   },
   "yield_commerce": {
    "kind": "table",
@@ -998,7 +1014,8 @@
     "WINERY",
     "SHAFT_MINE",
     "SILK_FARM"
-   ]
+   ],
+   "stat": "mean"
   },
   "workrate_HASTATI": {
    "kind": "value",

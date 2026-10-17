@@ -1,0 +1,135 @@
+# A framework for the game data: truth, cost, and models of the human
+
+**Draft.** To be revised once the six books in the latest Drive archive have been read in full.
+
+This document defines what a figure is, when a statement about a game is true, how tables are
+computed, and how models of the human's decisions are tested. Each part names the source it is
+taken from. *Implemented* means enforced by `tools/figlib.py`, `tools/docs.py` and
+`tools/check_all.py`; *open* means specified here but not built yet.
+
+## 1. Objects
+
+- **Events.** The war log is a sequence `E = (e_1, …, e_N)`, ordered as written. Each event is
+  `e_i = (t_i, τ_i, a_i)`: a turn, a line type from H to E (`builds/war-log/README.md`), and the
+  line's attributes.
+- **Snapshot.** The save dump `S_T` holds the state at the save's turn `T` only.
+- **Rules.** The XML records `X` (`records.json`) and the DLL source `C`.
+- **Tables.** Every table is a relation: a set of tuples, that is, a subset of a Cartesian
+  product of attribute sets. It is computed by a total function of `E`, `S_T` and `X`
+  (Velleman, *How to Prove It*, chapter 4 on relations and chapter 5 on functions).
+
+## 2. Statements and their truth
+
+- **Figures.** A figure is a closed term `q(E, S_T, X)` with a value `v`. The statement
+  "`q = v`" is true when evaluating `q` on the same inputs gives `v`. The inputs are fixed by
+  their hashes.
+  *Implemented:* registries store the input hashes and the producing command. `check_all.py`
+  runs the command again and requires identical figures. Altering a figure by hand fails the
+  check; this was tested.
+- **Counted claims.** "`k` of `n`" means `|{x ∈ A : P(x)}| = k` and `|A| = n`. Both numbers are
+  figures.
+- **Universal claims.** A claim of the form `∀x ∈ A P(x)` holds exactly when `k = n`. One
+  counterexample refutes it (Velleman, section 3.1: a claim is accepted only with a proof).
+  The earlier statement "mines on hills, all of them" was such a claim, made about orders and
+  never checked as one.
+- **Readings.** A reading is a conditional "facts `F` imply `P`". It states in advance the
+  observation that would show `¬P`. A reading may be wrong while its facts are true, so facts
+  and readings are kept apart.
+- **Optimisations.** A faster or smaller computation replaces the old one only if it gives
+  identical outputs on every game. Equality of outputs is the proof that truth is preserved.
+  *Implemented* for census tables: switching to one pass left the workers registry unchanged.
+
+## 3. Census as a partition
+
+- **The key.** A key `κ : A → V` (improvement, build, unit type) defines the relation
+  `a ~ b ⇔ κ(a) = κ(b)`. This relation is reflexive, symmetric and transitive: an equivalence
+  relation (Velleman, Definition 4.5.1).
+- **The classes.** Its classes `A/~` are a partition of `A` (Velleman, Theorem 4.5.4). Every
+  row lies in exactly one class.
+- **Conservation.** It follows that `Σ_v |A_v| = |A|`.
+  *Implemented:* a table whose cells do not sum to its rows is refused.
+- **Coverage.** A table shows a set `S ⊆ κ(A)`. It is complete exactly when `S = κ(A)`.
+  *Implemented:* showing fewer values requires a stated reason, which is printed with the
+  table. Leaving out cottages and fishing boats was a violation of this condition.
+- **Cross tables.** With one-hot matrices `K ∈ {0,1}^{N×V}` (row by value) and
+  `G ∈ {0,1}^{N×g}` (row by group), the contingency table is `C = KᵀG`. A per-cell mean of a
+  column `y` is `(Kᵀ diag(y) G) ⊘ C` (Linear Algebra with Python, chapter 4, matrix products).
+- **Cost.** `K` and `G` each hold `N` non-zeros, so `C` costs one pass over the rows:
+  `O(N)` time and `O(nnz(C)) ≤ O(min(N, V·g))` space, with a hash map of cells.
+  *Implemented:* `figlib.census_table`. The earlier version filtered all rows once per cell,
+  which costs `O(N·V·g)`.
+
+## 4. Units
+
+- **Typed figures.** Every figure has a unit `u ∈ U`. Addition and means are defined only
+  within one unit. A ratio of two counts is a share and carries its `n`.
+- **No sum across unlike yields.** Food, hammers and commerce have no common unit, so they are
+  never added (Mises, *Die Gemeinwirtschaft*: "Rechnen kann man nur mit Einheiten").
+  *Implemented:* `figlib.UNITS` has no unit for such a sum. The earlier "yield per tile" broke
+  this rule.
+
+## 5. Time and viewpoint
+
+- **State.** The state follows from the events by a left fold: `s_t = δ(s_{t−1}, E_t)`, where
+  `E_t` are turn `t`'s events. The save is `s_T`.
+- **Earlier turns.** A claim about turn `t < T` uses `s_t`. That is either folded forward from
+  the events, or rolled back from `s_T` only for attributes where `δ` can be inverted (city
+  owners through the K lines: `cities_at` in `decisions.py`). Never `s_T` itself.
+- **Viewpoint.** The human decides from an information set `I_t ⊆ s_t`: what was visible on
+  that turn. A decision is explained from `I_t`, not from later outcomes (Chladenius on the
+  viewpoint, *Hermeneutics Reader*).
+  *Open:* building `I_t` (own units and cities, visible foreign units from the G and Y lines,
+  known techs).
+- **Windows.** Events are ordered by turn. With offsets `o_t` (the first event of turn `t`), the
+  events of `[t0, t1)` are `E[o_{t0} : o_{t1}]`. Prefix counts per key give the count of a
+  window in `O(1)` after `O(N)` preprocessing; an interval such as a war is found by bisection
+  in `O(log N)`.
+  *Open:* no tool needs this at the present scale (see section 7).
+- **Event time.** Activity comes in bursts: the human's commands concentrate on war turns.
+  Turns are therefore not independent samples. Rates are measured per command or per event,
+  and burst data are described by their whole distribution or quantiles, not a mean
+  (Mandelbrot, *The (Mis)Behavior of Markets*: rule II, trouble runs in streaks, and rule V,
+  trading time).
+
+## 6. Models of the human
+
+- **Decisions.** A decision is a choice at turn `t` among options `O_t`. Each option has a cue
+  profile `x ∈ {0,1}^n`, computed from `I_t` (Gigerenzer, Hertwig and Pachur, *Heuristics*,
+  chapter 14).
+- **Candidate models**, each written as search, stopping and decision rules (chapter 1):
+  - take-the-best: search cues by validity, stop at the first cue that discriminates, decide
+    by it;
+  - a fast-and-frugal tree: one exit per cue;
+  - tallying: unit weights (chapter 13, Hogarth);
+  - a weighted rival.
+- **Cue validity.** `v_i = R_i / (R_i + W_i)`: right inferences over discriminating cases.
+- **Selection by prediction.** Fit on one game, predict another (game 3 to game 4, and back),
+  and report hits out of `n`. A model is kept only if it beats its rivals out of sample.
+  Fitting and testing on the same data favours models that overfit (chapter 1:
+  cross-validation, the bias–variance dilemma).
+  The rules R1–R9 and the one-cue slider rule were fitted and judged on the same data; they
+  stand as unvalidated until they pass this test.
+- **Sequences** (optional). The human's command types form a Markov chain with a transition
+  matrix `P` satisfying conditions M1 and M2 (Linear Algebra with Python, section 9.4). It
+  describes order and switching (orders, then moves, then promotions) without assuming
+  turns are independent.
+- *Open:* cue profiles and the cross-game test. The first targets are war declaration, war
+  target, research choice and slider changes, the decisions with the most cases.
+
+## 7. Cost: what to optimise
+
+There are three costs:
+- **machine time and memory:** each tool runs in under a second on game 4, measured;
+- **reading cost:** the context spent reading data;
+- **error cost:** a wrong statement, and the user's time spent finding it.
+
+At this scale the last two dominate, and the framework spends machine work to save them:
+- The machine computes exact sufficient statistics (cells, counts, means per cell) in one pass.
+  Raw rows are not read into the conversation; the census and rendered documents are.
+- A figure is recomputed only when an input hash changes (*implemented* as a check; caching by
+  `H(command, inputs)` is *open*).
+- Outputs are deterministic: values sorted by count and then by order seen, fixed formats. Byte
+  equality is then a valid test.
+- A committed tool output must be exactly what the tool writes. *Open:* `micro-game4.md` and
+  `figures.md` carry headers added by hand. They are in `UNCHECKED` until their tools write
+  through `figlib`.

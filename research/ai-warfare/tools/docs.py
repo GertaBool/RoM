@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import figlib
 
 PH = re.compile(r'\{\{([^{}]+)\}\}')
-ALLOW_BEFORE = re.compile(r'(?:game|games|section|sections|step|steps|rule|rules|chapter|Game|Section|Step|Rule)\s+$')
+ALLOW_BEFORE = re.compile(r'(?:game|games|section|sections|step|steps|rule|rules|chapter|Chapter|Game|Section|Step|Rule|Definition|Theorem|Example|Figure)\s+$')
 NUM = re.compile(r'(?<![A-Za-z_\d.])\d+(?:[.,]\d+)*(?![A-Za-z_\d])')
 SKIP_FIELDS = {'ArtDefineTag', 'Civilopedia', 'Description', 'Help', 'Strategy', 'Button', 'HotKey', 'EntityEvent',
                'WorldSoundscapeAudioScript', '_sources', '_index', 'bGraphicalOnly', 'bUseLSystem', 'Type'}

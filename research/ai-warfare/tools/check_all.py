@@ -9,7 +9,9 @@ usage: check_all.py            all checks, exit 1 on any error
    without a reason, a table of XML types without their effects, a stale input, a counted type
    with no XML record) and must pass a correct document.
 2. Every <name>.md.in renders without errors, and <name>.md equals what it renders.
-3. Every other .md is listed in UNCHECKED (documents written before the figure system), and
+3. Every registry (*.fig.json) whose inputs are all present is produced again by its recorded
+   command into a temporary file, and must equal the committed one: figures are reproducible.
+4. Every other .md is listed in UNCHECKED (documents written before the figure system), and
    UNCHECKED gains no entry against the last commit: a new document goes through a template.
 Run by .claude/hooks/precommit.py and .githooks/pre-commit.
 """
@@ -37,7 +39,9 @@ def selftest():
                          (lambda: R.fig('w', 1, 'orders', '', '1', 's'), 'missing who'),
                          (lambda: R.census_table('s', rows, 'a', 'tiles at save', 'h', '1', 's', show=['X']), 'dropped values, no reason'),
                          (lambda: R.census_table('x', rows + [{'a': 'Z', 'g': '1'}], 'a', 'tiles at save', 'h', '1', 's', xml='ImprovementInfo'), 'type without record'),
-                         (lambda: R.fig('sh', 1, 'share', 'h', '1', 's'), 'share without n')):
+                         (lambda: R.fig('sh', 1, 'share', 'h', '1', 's'), 'share without n'),
+                         (lambda: R.census_table('m', rows, 'a', 'turn', 'h', '1', 's', value=len, stat='mean'), 'mean on an ordinal scale'),
+                         (lambda: R.census_table('m2', rows, 'a', 'tiles at save', 'h', '1', 's', value=len), 'value without stat')):
             try: bad(); errs.append(f'selftest: figlib accepted {why}')
             except figlib.FigureError: pass
         R.save()
@@ -56,6 +60,22 @@ def selftest():
         _, e = docs.process(os.path.join(d, 'good.md.in'))
         if not any(x.startswith('stale:') for x in e): errs.append('selftest: changed input not caught')
     return errs
+
+
+def reproduce(path):
+    d = json.load(open(path))
+    cmd = d.get('command')
+    if not cmd: return [f'{os.path.relpath(path, ROOT)}: no recorded command']
+    for p in d['inputs']:
+        a = p if os.path.isabs(p) else os.path.join(os.path.dirname(path), p)
+        if not os.path.exists(a): return []          # inputs not on this machine: not checkable here
+    with tempfile.TemporaryDirectory() as t:
+        out = os.path.join(t, 'r.fig.json'); me = '@repo/' + os.path.relpath(path, REPO)
+        args = [out if a == me else (os.path.join(REPO, a[6:]) if a.startswith('@repo/') else a) for a in cmd]
+        r = subprocess.run([sys.executable] + args, capture_output=True, text=True, cwd=REPO)
+        if r.returncode: return [f'{me}: producer failed: {r.stderr.strip()[-300:]}']
+        e = json.load(open(out))
+        return [f'{me}: not reproduced by its command ({k} differ)' for k in ('figures', 'xml') if e.get(k) != d.get(k)]
 
 
 def git_head(path):
@@ -78,6 +98,8 @@ def main():
     for dp, dn, fn in os.walk(ROOT):
         for f in sorted(fn):
             p = os.path.join(dp, f); rel = os.path.relpath(p, ROOT)
+            if f.endswith('.fig.json'):
+                errs += reproduce(p)
             if f.endswith('.md.in'):
                 body, e = docs.process(p)
                 errs += [f'{rel}: {x}' for x in e]

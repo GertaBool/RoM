@@ -13,27 +13,34 @@ import collections, hashlib, json, os
 
 # A unit names one kind of thing. There is deliberately no unit for a sum of food, hammers
 # and commerce: they are counted apart.
+# Scale (Stevens' levels, as in the Formelsammlung's "metrische, ordinale oder nominale"
+# Realisierungen): a mean is defined only on a metric scale; counts are metric.
 UNITS = {
-    'orders': 'commands the human gave (A lines); not outcomes',
-    'distinct plots': 'plots, each counted once',
-    'tiles at save': 'city tiles in the save dump',
-    'cities at save': 'cities in the save dump',
-    'units at save': 'units in the save dump',
-    'food per tile': 'mean food of the tiles counted',
-    'hammers per tile': 'mean hammers of the tiles counted',
-    'commerce per tile': 'mean commerce of the tiles counted',
-    'turns': 'game turns',
-    'turn': 'a game turn',
-    'battles': 'C/R line pairs',
-    'cities': 'cities (K, Z or M lines)',
-    'units built': 'U lines',
-    'techs': 'techs',
-    'deals': 'D lines',
-    'gold': 'gold',
-    'per mille': 'parts per thousand',
-    'share': 'a fraction of n; n is required',
-    'xml': 'a value read from records.json',
-    'derived xml': 'a value computed from records.json by a rule cited in source',
+    'orders': ('metric', 'commands the human gave (A lines); not outcomes'),
+    'distinct plots': ('metric', 'plots, each counted once'),
+    'tiles at save': ('metric', 'city tiles in the save dump'),
+    'cities at save': ('metric', 'cities in the save dump'),
+    'units at save': ('metric', 'units in the save dump'),
+    'food per tile': ('metric', 'mean food of the tiles counted'),
+    'hammers per tile': ('metric', 'mean hammers of the tiles counted'),
+    'commerce per tile': ('metric', 'mean commerce of the tiles counted'),
+    'turns': ('metric', 'a number of game turns'),
+    'turn': ('ordinal', 'a game turn: ordered; differences are turns, a mean of turns is not used'),
+    'battles': ('metric', 'C/R line pairs'),
+    'cities': ('metric', 'cities (K, Z or M lines)'),
+    'units built': ('metric', 'U lines'),
+    'techs': ('metric', 'techs'),
+    'deals': ('metric', 'D lines'),
+    'gold': ('metric', 'gold'),
+    'per mille': ('metric', 'parts per thousand'),
+    'share': ('metric', 'a fraction of n; n is required'),
+    'rank': ('ordinal', 'a position in an order'),
+    'category': ('nominal', 'a type name; only counted, never averaged'),
+    'xml': ('nominal', 'a value read from records.json, as written there'),
+    'derived xml': ('metric', 'a value computed from records.json by a rule cited in source'),
+    'seconds': ('metric', 'wall-clock time of one run'),
+    'bytes': ('metric', 'size'),
+    'lines': ('metric', 'lines of a file'),
 }
 
 
@@ -63,6 +70,12 @@ class Registry:
             a = os.path.abspath(p)
             self.inputs[os.path.relpath(a, base) if a.startswith(REPO) else a] = sha(p)
         self.figs, self.records, self.xml = {}, records, {}
+        # The command that wrote the registry, so check_all.py --reproduce can run it again.
+        import sys
+        # Paths inside the repository are written as '@repo/<path>', everything else as given.
+        rel = lambda a: '@repo/' + os.path.relpath(os.path.abspath(a), REPO) if (
+            os.path.exists(a) or a == path) and os.path.abspath(a).startswith(REPO) else a
+        self.command = [rel(a) for a in sys.argv]
 
     def _xml(self, id, rtype, vals):
         if self.records is None: raise FigureError(f'{id}: xml={rtype} needs records')
@@ -91,37 +104,50 @@ class Registry:
         return value
 
     def census_table(self, id, rows, col, unit, who, turn, source, group=None, groups=None, show=None,
-                     reason=None, xml=None, value=None, fmt='{}', label=None):
+                     reason=None, xml=None, value=None, fmt='{}', label=None, stat=None):
         """Count every value of rows[col] (one column per group if group is given). show limits the
         values listed and requires reason; the rendered table states what was left out and why.
         value(rows) -> number replaces the count (for a mean per value). xml names the record type
         whose effects docs.py must render for every value counted."""
         self._check(id, unit, who, turn, source, None)
+        if value is not None:
+            if stat not in ('mean', 'median'): raise FigureError(f'{id}: a value function needs stat="mean" or "median"')
+            if stat == 'mean' and UNITS[unit][0] != 'metric': raise FigureError(f'{id}: a mean of {unit} ({UNITS[unit][0]} scale)')
         keyf = col if callable(col) else (lambda r: r[col])
-        allv = collections.Counter(keyf(r) for r in rows)
+        gkey = (lambda r: r[group]) if group else (lambda r: 'all')
+        # One pass: the cells of the contingency table K^T G (K, G one-hot), sparse, with the
+        # rows of each cell kept only when a value function needs them.
+        allv, cells, members, gsize = collections.Counter(), collections.Counter(), collections.defaultdict(list), collections.Counter()
+        for r in rows:
+            v, g = keyf(r), gkey(r)
+            allv[v] += 1; cells[v, g] += 1; gsize[g] += 1
+            if value: members[v, g].append(r)
+        # The classes of the key partition the rows (each row has one value), so the cells sum
+        # to the number of rows. A failure means the key or the grouping is wrong.
+        if sum(allv.values()) != len(rows) or sum(cells.values()) != len(rows):
+            raise FigureError(f'{id}: counts do not sum to the {len(rows)} rows')
         vals = [v for v, _ in allv.most_common()]
         if show is not None:
             if not reason: raise FigureError(f'{id}: showing {len(show)} of {len(vals)} values needs a reason')
             missing = [v for v in show if v not in allv]
             if missing: raise FigureError(f'{id}: shown values not in the data: {missing}')
         shown = vals if show is None else list(show)
-        gs = groups or (sorted({r[group] for r in rows}) if group else ['all'])
+        gs = groups or (sorted(gsize) if group else ['all'])
+        if groups and set(gsize) - set(groups):
+            raise FigureError(f'{id}: groups in the data but not in the table: {sorted(set(gsize) - set(groups))}')
         body = []
         for v in shown:
-            line = [v]
-            for g in gs:
-                sub = [r for r in rows if keyf(r) == v and (group is None or r[group] == g)]
-                line.append(fmt.format(value(sub)) if value and sub else (len(sub) if not value else '-'))
-            body.append(line)
-        tot = ['all values'] + [len([r for r in rows if group is None or r[group] == g]) for g in gs]
+            if value: body.append([v] + [fmt.format(value(members[v, g])) if members[v, g] else '-' for g in gs])
+            else: body.append([v] + [cells[v, g] for g in gs])
+        tot = ['all values'] + [gsize[g] for g in gs]
         if value is None: body.append(tot)
         if xml: self._xml(id, xml, vals)
         self.figs[id] = dict(kind='table', head=[label or (col if isinstance(col, str) else 'value')] + gs, rows=body,
                              unit=unit, who=who, turn=str(turn), source=source, n=len(rows),
                              values_total=len(vals), values_shown=len(shown), reason=reason,
-                             left_out=[v for v in vals if v not in shown], xml=xml, values=vals)
+                             left_out=[v for v in vals if v not in shown], xml=xml, values=vals, stat=stat or 'count')
         return allv
 
     def save(self):
         with open(self.path, 'w') as f:
-            json.dump({'inputs': self.inputs, 'figures': self.figs, 'xml': self.xml}, f, indent=1, default=str)
+            json.dump({'command': self.command, 'inputs': self.inputs, 'figures': self.figs, 'xml': self.xml}, f, indent=1, default=str)

@@ -45,7 +45,7 @@ W = [r for r in TI if r['worked'] == '1']
 for y, u in (('food', 'food per tile'), ('hammers', 'hammers per tile'), ('commerce', 'commerce per tile')):
     reg.census_table(f'yield_{y}', W, 'improvement', u, 'all players', f'save {T}', 'tiles.csv, worked tiles',
                      group='group', groups=['human_founded', 'human_captured', 'ai'],
-                     value=lambda s, y=y: st.mean(int(r[y]) for r in s), fmt='{:.2f}')
+                     value=lambda s, y=y: st.mean(int(r[y]) for r in s), fmt='{:.2f}', stat='mean')
 
 # the rules: work rate, build time, upgrade time and rate (code cited in each source)
 for u in sorted({b['unit'] for b in B}):
