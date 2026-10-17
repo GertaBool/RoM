@@ -46,8 +46,9 @@ def selftest():
             except figlib.FigureError: pass
         R.save()
         cases = {
-            'good': ('{{n}} orders.\n\n{{table:t}}\n\n{{effects:t}}\n\n{{table:t2}}\n', None),
+            'good': ('{{n}} orders ([[§17 Satz 1]], [[pp. 18–19]]).\n\n{{table:t}}\n\n{{effects:t}}\n\n{{table:t2}}\n', None),
             'number': ('The human gave 35 orders.\n', 'number:'),
+            'cite': ('A figure hidden in a citation: [[35 orders]].\n', 'number:'),
             'id': ('{{nope}}\n', 'id:'),
             'effects': ('{{table:t}}\n', 'effects:'),
         }

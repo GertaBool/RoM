@@ -28,7 +28,10 @@ sys.path.insert(0, os.path.dirname(__file__))
 import figlib
 
 PH = re.compile(r'\{\{([^{}]+)\}\}')
-ALLOW_BEFORE = re.compile(r'(?:game|games|section|sections|step|steps|rule|rules|chapter|Chapter|Game|Section|Step|Rule|Definition|Theorem|Example|Figure)\s+$')
+# A source locator: [[chapters 2–12]], [[§17 Satz 1]], [[pp. 18–19]]. Only locator words, numbers and
+# punctuation are allowed inside, so it cannot carry a figure; it renders as its text.
+CITE = re.compile(r'\[\[((?:§|chapters?|sections?|pp?\.|Satz|Corollar|Definition|Theorem|Algorithm|rules?|Analysis|and|[\d.,–\- ])+)\]\]')
+ALLOW_BEFORE = re.compile(r'(?:(?:game|games|section|sections|step|steps|rule|rules|chapter|chapters|Chapter|Game|Section|Step|Rule|Definition|Theorem|Example|Figure|Satz|Corollar|Algorithm|page|p\.)\s+|§\s*)$')
 NUM = re.compile(r'(?<![A-Za-z_\d.])\d+(?:[.,]\d+)*(?![A-Za-z_\d])')
 SKIP_FIELDS = {'ArtDefineTag', 'Civilopedia', 'Description', 'Help', 'Strategy', 'Button', 'HotKey', 'EntityEvent',
                'WorldSoundscapeAudioScript', '_sources', '_index', 'bGraphicalOnly', 'bUseLSystem', 'Type'}
@@ -118,6 +121,8 @@ def prose_numbers(text):
         if line.strip().startswith('```'): infence = not infence; continue
         if infence or line.strip().startswith('<!--'): continue
         s = PH.sub(' ', line)
+        s = CITE.sub(' ', s)
+        if '[[' in s: out.append((i, '[[', 'a [[ ]] citation holds text other than a locator: ' + line.strip()[:60]))
         s = re.sub(r'`[^`]*`', ' ', s)
         s = re.sub(r'\]\([^)]*\)', ']', s)
         s = re.sub(r'^\s*#+\s*[\d.]*', '', s)
@@ -134,6 +139,7 @@ def process(tpl):
         errs.append(f'number: line {i}: {n!r} typed by hand: {l}')
     used = []
     body = PH.sub(lambda m: render_ph(m.group(1).strip(), figs, xml, used, errs), text)
+    body = CITE.sub(lambda m: m.group(1), body)
     for id, f in figs.items():
         if f['kind'] == 'table' and f.get('xml') and f'{{{{effects:{id}}}}}' not in text and f'table:{id}' in text:
             errs.append(f'effects: table {id} counts {f["xml"]} values; {{{{effects:{id}}}}} is missing')
