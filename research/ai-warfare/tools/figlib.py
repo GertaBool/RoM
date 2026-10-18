@@ -45,6 +45,7 @@ UNITS = {
     'seconds': ('metric', 'wall-clock time of one run'),
     'bytes': ('metric', 'size'),
     'lines': ('metric', 'lines of a file'),
+    'log score': ('metric', 'sum over cases of the natural log of the chance a model gave to what happened; higher is better'),
 }
 
 

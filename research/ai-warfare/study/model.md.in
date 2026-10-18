@@ -1,0 +1,121 @@
+# Model of the human's war decisions: method
+
+Written before the data from the war-log snapshot DLL arrive (`builds/war-log/README.md`), so
+that each game can be analysed as soon as it comes in. It fixes the questions, the rules
+compared, how they are judged, and what would refute each one. No figure is stated here: the
+results go to their own document, through the registries the tools write.
+
+## 1. Purpose
+
+The model stands in for the human in the human's seat. It has two uses:
+- **A fixed opponent.** AI changes are judged against it (`framework.md`, section 7).
+- **A measure of the gap.** The same lines are written for an AI seat, so the human's
+  decisions and the AI's can be set side by side in the same terms.
+
+It is a small set of decision rules, each fitted on the human's decisions and judged on games
+not used to fit it. It does not copy moves. The earlier war model (`HarnessHuman.cpp`) is
+retired for the reasons in section 2: its thresholds were correlates tuned on pilot runs.
+
+## 2. What the literature sets
+
+- **Satisficing.** Simon, as given in *Heuristics* (Gigerenzer, Hertwig and Pachur, chapter 1):
+  a person sets an aspiration level and takes the first option that meets it. The declaration
+  rule takes this form: declare at the first turn start at which the chance of taking a city
+  in reach meets an aspiration level `q`. That is one parameter.
+- **Few parameters.** The bias–variance dilemma (*Heuristics*, chapter 1): with few decisions,
+  a rule with one free parameter predicts better than one with many. Every rule here has at
+  most two parameters, and enters the model only if it beats the base rate on held-out games.
+- **The cue is computed, not estimated.** Lanchester's law of one-to-one combat (*Aircraft in
+  Warfare*, chapter V): an assault is a sequence of duels. The chance of taking a city is the
+  engine's own forecast (`AI_assaultForecast`), written into each `J` line.
+- **Strategy classification.** Bröder (*Heuristics*, chapter 17), as in `tools/strategy.py`:
+  the target choice is explained by the strategy under which the observed choices are most
+  likely, against guessing.
+- **The game is the unit.** Mandelbrot and Wallis (Noah, Joseph and operational hydrology):
+  decisions within one game are one record, not independent draws. Every rule is fitted
+  leaving one game out and scored on that game. Pooled tests are read with this caveat.
+- **Errors compound off the human's path.** Ross, Gordon and Bagnell (a reduction of imitation
+  learning to no-regret online learning): a policy fitted on an expert's states can make errors
+  that grow with the square of the horizon, because it reaches states the expert never saw.
+  Fidelity on the human's own states is therefore necessary but not enough (section 5).
+- **Training and test.** Luke (*Essentials of Metaheuristics*, section 11): the games and seeds
+  used to fit the model are never used to judge it. Outcomes need at least `30` seeded runs,
+  compared by ranks.
+
+## 3. Decision classes
+
+The state of a decision is what the human had and saw as the turn began: the `I` header of the
+turn start and the `L`, `J` and `O` lines after it. The decision is what the human did before
+the next turn start. `tools/hmwar.py` builds the cases; each class has a label `y`.
+
+| Class | Case | `y` | Cues | Rules compared | Refuted if |
+|---|---|---|---|---|---|
+| Declare | A turn start with a team met, at peace, holding a city in reach (`J`) | War declared on any team (`W`) | Best capture chance within one and within three plots; own units near that city; already at war; open borders with that team; that team at war elsewhere | Satisficing on the capture chance (`q`); a hazard logistic in it; `models.py`'s trees and tallies on the binary cues; the base rate | No rule beats the base rate on held-out games |
+| Target | A declaration | The team declared on | Per candidate team: best capture chance, own units near | Highest capture chance; most units near; satisficing (most units near among those reaching `q`); guessing | Guessing is as likely as every strategy |
+| Assault | A turn start at war, with own units next to an enemy city | That city attacked (`C`) | Capture chance within one plot; city defence; defence fallen since the last turn (bombarded); own siege unit adjacent | Satisficing on the capture chance; the hazard; the trees; the base rate | As for Declare |
+| Peace | A turn start at war with a team | Peace made (`Q`) | A city of that team in reach at an even chance; a city of it taken in this war | The trees on the binary cues; the base rate | As for Declare |
+
+A declaration on a team with no city in reach is counted, not compared. Many of them would
+refute "the human declares when the army is in place".
+
+## 4. Fitting and judging
+
+1. `hmwar.py` writes the cases per game, fits the satisficing level and the hazard leaving one
+   game out, and classifies the target choices.
+2. `models.py` scores the base rate, the single best cue, fast-and-frugal trees, tallying,
+   logistic regression and a classification tree on the same cases, leaving one game out, with
+   McNemar's test against the base rate.
+3. A rule enters the model if it has more held-out hits than the base rate (McNemar). Where it
+   gives chances, its held-out log score must also beat the base rate's. Otherwise the decision
+   stays with the AI's own code, and the model says so.
+4. The model is then frozen: no parameter changes after test results have been seen.
+
+## 5. The model in its own states
+
+The rules are built into the harness's human seat. With `WAR_LOG_SEAT` set to that seat, the
+harness writes the same lines a human game does, so `hmwar.py` builds the same cases from the
+model's runs. Compared on the same classes:
+- **The fitted levels.** The `q` refitted on the model's own decisions must fall within the
+  range the human's games give.
+- **The states reached.** The share of the model's decision states whose cues lie outside the
+  range of the human's states measures how far the model drifts from the human's path.
+- **Outcomes.** Cities taken and lost by fixed turns, over at least `30` fresh seeds, against the
+  AI in the same seat (`framework.md`, section 7).
+
+Correcting drift needs the human's decisions in states the model reaches. *Open:* a harness
+state cannot yet become a save the human can load (`sav2dat.py` converts in one direction only).
+Until it can, the human's own autosaves from the turns before a war serve as decision probes.
+
+## 6. What stays descriptive
+
+These inform the rules' inputs but are not decision classes yet, and the tool does not compute
+them yet (*open*):
+- **Fights:** the odds of each attack, the order of attacks on one city in one turn (siege
+  first, best odds first), and each attacker's experience and promotions (`C` joined to `L` by
+  unit id).
+- **Build-up:** the human's units by combat class, with their experience, by turn before each
+  declaration (`L`, `U`, and the upgrade and promotion commands in `A`).
+- **Staging:** where the units of the first attacks stood and where their moves were heading in
+  the turns before the declaration (`L` positions and queued missions), and whether ships
+  carried them (`transport`).
+
+## 7. When a game arrives
+
+1. `tools/extract.py <WarLog.log> <game.duckdb>`, with the save dump of its last save
+   (`toolchain/analysis/dump.sh`) as `--state`.
+2. `tools/hmwar.py <cases dir> <registry> <game.duckdb>:<human player> ...` over every game
+   with snapshot lines.
+3. `tools/models.py <class> <registry> <cases dir> <games>` for Declare, Assault and Peace.
+4. The results document is written from those registries.
+
+## 8. Assumptions and open questions
+
+- **What the human sees.** The forecast is the engine's own calculation, and the human never
+  sees it; the human sees the odds of each single attack. The forecast stands in for the
+  human's own estimate. This is refuted if the odds of the best single attack predict the
+  declarations better than the forecast does; those odds are not logged at the turn start yet.
+- **Reach.** Cities further than three plots from the army have no `J` line, so a target still
+  far away is out of reach at the declaration. The count of such declarations (section 3)
+  shows whether three plots is too short.
+- **Sample.** Each game is one record. More games matter more than longer ones, and decision
+  probes add the most decisions per hour of play.

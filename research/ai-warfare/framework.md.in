@@ -282,6 +282,8 @@ Mathematical readings for the human model's war rule (`toolchain/harness/Harness
 - **Gigerenzer, Hertwig and Pachur, *Heuristics*, chapter 1.**
   - Taken: the bias–variance dilemma. A rule with many fitted thresholds varies more between
     samples than a rule with one; a handful of observed wars cannot fix many thresholds.
+  - Taken: Simon's satisficing, as the chapter gives it: an aspiration level, and the first
+    option that meets it. It is the form of the declaration rule (`study/model.md`).
 - **Mandelbrot and Hudson, *The Misbehavior of Markets*.**
   - Read in full: the abstract for the scientific reader, and the passages on mild and wild
     chance.
@@ -297,6 +299,14 @@ Mathematical readings for the human model's war rule (`toolchain/harness/Harness
     sample it was fitted on; fit the slow features first and the fast ones later. Wars in one game
     form one record, not independent draws, so between-game questions have about as many
     observations as there are games.
+- **Ross, Gordon and Bagnell, "A Reduction of Imitation Learning and Structured Prediction to
+  No-Regret Online Learning" ([arXiv](https://arxiv.org/abs/1011.0686)).**
+  - Read in full: the abstract, and the statement of the error bound for a policy trained on the
+    expert's states.
+  - Not used: the algorithm and its proofs, which need the expert to label states the learner
+    reaches, not yet possible here.
+  - Taken: errors compound off the expert's path, so the model is judged in its own states
+    as well as in the human's (`study/model.md`, section 5).
 - ***Linear Algebra with Python*.**
   - Read in full: [[section 9.4]] (Markov chains).
   - Not used: the rest, which is matrix computation without a question here.
