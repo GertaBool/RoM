@@ -556,6 +556,11 @@
      "the lower of the games' 10th percentiles of the odds (per mille) of the human's attacks (C lines; game3: 726 of 14 attacks), rounded down to tens; the seat attacks whenever its odds reach this"
     ],
     [
+     "stage_distance",
+     2,
+     "the median over 1 wars of the median distance, on the declaration day, from the first city taken to the plots from which the human's fighting land units were ordered onto it or next to it (A lines MISSION_MOVE_TO): the strike group gathers this far from the objective and closes in on the declaration"
+    ],
+    [
      "war_gap_turns",
      3,
      "the shortest time from a peace to the next declaration of the same game (1 gaps)"
@@ -659,10 +664,10 @@
    "unit": "turns",
    "who": "human",
    "turn": "whole game",
-   "source": "W, Q, K, M, A, C and Y lines and deal items of the human in game3; turns except: decl_ratio_pct (per cent), trade_min_gold (gold), ai_every (choices), strike_margin and home_keep (units), target_max_distance and next_target_max_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)",
+   "source": "W, Q, K, M, A, C and Y lines and deal items of the human in game3; turns except: decl_ratio_pct (per cent), trade_min_gold (gold), ai_every (choices), strike_margin and home_keep (units), target_max_distance, next_target_max_distance and stage_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)",
    "n": 2,
-   "values_total": 24,
-   "values_shown": 24,
+   "values_total": 25,
+   "values_shown": 25,
    "reason": null,
    "left_out": [],
    "xml": null,
@@ -671,6 +676,7 @@
     "prep_ratio_pct",
     "decl_ratio_pct",
     "attack_min_odds",
+    "stage_distance",
     "war_gap_turns",
     "strike_margin",
     "target_max_distance",

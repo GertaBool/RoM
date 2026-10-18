@@ -69,6 +69,7 @@ PARAM war_min_turn 193
 PARAM prep_ratio_pct 100
 PARAM decl_ratio_pct 200
 PARAM attack_min_odds 710
+PARAM stage_distance 2
 PARAM war_gap_turns 3
 PARAM strike_margin 2
 PARAM target_max_distance 6

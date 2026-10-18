@@ -218,6 +218,21 @@ for w in wars:
     for (x, y), (dfn, fo) in tc.items():
         od = [o for (o,) in q(g, 'select odds from wl_C where att=? and def=? and x=? and y=? and turn between ? and ?', pl, tpl, x, y, w['t'], end)]
         if any(o < 500 for o in od): siege.append((dfn, min(od)))
+stage = []
+for w in wars:
+    g = w['g']; pl, team, _ = H[g]
+    tpl = dict((t_, p_) for p_, t_ in q(g, 'select player, team from wl_P'))[w['target']]
+    end = w['peace'] if w['peace'] is not None else LAST[g]
+    fc = q(g, 'select x, y from wl_K where old_owner=? and new_owner=? and turn between ? and ? order by seq limit 1', tpl, pl, w['t'], end)
+    if not fc: continue
+    cx, cy = fc[0]
+    ds = []
+    for u, x, y, tx, ty in q(g, "select a1, a2, a3, a6, a7 from wl_A where player=? and turn=? and kind='MISSION' and a5='MISSION_MOVE_TO'", pl, w['t']):
+        ui = q(g, 'select default_ai, domain from unit_info where unit=?', u)
+        if ui and ui[0][1] == 'LAND' and ui[0][0] not in ('WORKER', 'SETTLE', 'EXPLORE', 'MERCHANT') and max(abs(int(tx) - cx), abs(int(ty) - cy)) <= 1:
+            ds.append(max(abs(int(x) - cx), abs(int(y) - cy)))
+    if ds: stage.append(statistics.median(ds))
+P['stage_distance'] = (round(statistics.median(stage)), f'the median over {len(stage)} wars of the median distance, on the declaration day, from the first city taken to the plots from which the human\'s fighting land units were ordered onto it or next to it (A lines MISSION_MOVE_TO): the strike group gathers this far from the objective and closes in on the declaration')
 P['war_gap_turns'] = (min(peace_gaps), f'the shortest time from a peace to the next declaration of the same game ({len(peace_gaps)} gaps)')
 P['strike_margin'] = (round(statistics.median(margins)), f'the median, over the {len(margins)} wars whose first city taken had at most two defenders (raids), of the land units of other players within two plots of it (Y lines, the declaration turn) less its defenders; the strike group is the defenders plus this')
 P['target_max_distance'] = (max(first_d), f'the farthest, from the human\'s cities (Y lines, the declaration turn), of the first cities taken in the {len(first_d)} wars')
@@ -257,8 +272,8 @@ P['max_cities'] = (99, 'no limit')
 prow = [[k, v, why] for k, (v, why) in P.items()]
 reg.result_table('hm_params', ['parameter', 'value', 'rule'], prow, 'turns', 'human', 'whole game',
                  f'W, Q, K, M, A, C and Y lines and deal items of the human in {gl}; turns except: decl_ratio_pct (per cent), trade_min_gold '
-                 '(gold), ai_every (choices), strike_margin and home_keep (units), target_max_distance and '
-                 'next_target_max_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)', list(P), n=len(wars))
+                 '(gold), ai_every (choices), strike_margin and home_keep (units), target_max_distance, '
+                 'next_target_max_distance and stage_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)', list(P), n=len(wars))
 wrows = [[f'{w["g"]} {w["t"]}', w['target'], round(w['ratio'], 2) if w['ratio'] else '', w['peace'] if w['peace'] is not None else '-',
           w['caps'], w['last'] if w['last'] is not None else '-'] for w in wars]
 reg.result_table('hm_wars', ['declaration', 'target_team', 'power_ratio', 'peace_turn', 'cities_taken', 'last_capture_turn'], wrows, 'turn',
