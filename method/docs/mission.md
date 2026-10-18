@@ -37,7 +37,7 @@ headless AI games check only safety, side effects and turn time. Self-play outco
 
 | Phase | Output | Gate |
 |---|---|---|
-| P0 Knowledge | The rules of the game: [xml-knowledge.md](xml-knowledge.md), [xml-defines.md](xml-defines.md), [xml-war-tables.md](xml-war-tables.md), [strategy.md](strategy.md) | Done; maintained as facts change |
+| P0 Knowledge | The rules of the game: [xml-knowledge.md](../../research/ai-warfare/xml-knowledge.md), [xml-defines.md](../../research/ai-warfare/xml-defines.md), [xml-war-tables.md](../../research/ai-warfare/xml-war-tables.md), [strategy.md](../../research/ai-warfare/strategy.md) | Done; maintained as facts change |
 | P1 Diagnosis | For each decision area: what the AI does today (code path) against what the rules make correct, giving a ranked gap list | The user reviews the gap list |
 | P2 Design | Per gap, one short note: facts → rule → decision → code location → personality inputs → tests → risk | The user approves the note |
 | P3 Build | The smallest change that closes the gap: rule fixes unconditional, behaviour changes behind a switch until verified | Suite passes, 0 warnings |
@@ -68,8 +68,8 @@ recorded.
 2. **Chain of requisites.** List the layers it depends on: XML field → DLL code that reads it
    → Python overrides → defines → AI code that uses it.
 3. **Resolve each link with a narrow query,** against the single source for its layer:
-   - XML: `tools/xmlread.py`'s resolved records;
-   - defines: [xml-defines.md](xml-defines.md);
+   - XML: `research/ai-warfare/tools/xmlread.py`'s resolved records;
+   - defines: [xml-defines.md](../../research/ai-warfare/xml-defines.md);
    - code: the DLL and Python source, by grep or a bounded read.
 4. **Describe the facts** in a few lines before any inference.
 5. **Infer.** Mark assumptions, and name what would falsify each one.
