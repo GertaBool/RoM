@@ -1,16 +1,7 @@
 #!/usr/bin/env python3
-"""PreToolUse hook (Bash): before any git commit, run research/ai-warfare/tools/check_all.py.
-A failing check blocks the commit (exit 2); its errors go back to Claude on stderr."""
-import json, os, re, subprocess, sys
+"""Moved to method/hooks/claude_precommit.py. Kept so that a session started with the old hook
+path keeps working."""
+import os, runpy
 
-d = json.load(sys.stdin)
-cmd = d.get('tool_input', {}).get('command', '')
-if not re.search(r'\bgit\b[^\n|;&]*\bcommit\b', cmd):
-    sys.exit(0)
-root = os.environ.get('CLAUDE_PROJECT_DIR') or d.get('cwd') or '.'
-r = subprocess.run([sys.executable, os.path.join(root, 'research/ai-warfare/tools/check_all.py')],
-                   capture_output=True, text=True)
-if r.returncode != 0:
-    sys.stderr.write(r.stdout + r.stderr + '\nCommit blocked: research/ai-warfare/tools/check_all.py failed.\n')
-    sys.exit(2)
-sys.exit(0)
+root = os.environ.get('CLAUDE_PROJECT_DIR') or os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+runpy.run_path(os.path.join(root, 'method/hooks/claude_precommit.py'), run_name='__main__')

@@ -4,7 +4,7 @@
 
 The human's wars in game 3 and game 4, one by one: from the build-up before the declaration, through the
 march and the assault, to the peace. Game 3 is Germany, game 4 Rome (P lines). These are the two
-games with city-state (Y) lines. Method: `framework.md`. Every table is written by
+games with city-state (Y) lines. Method: `method/docs/framework.md`. Every table is written by
 `tools/warstudy.py` from the war logs, and the tool's header gives each table's source. Section 8
 gives the readings, separately from the facts, and section 9 sets them against the literature.
 
@@ -187,7 +187,7 @@ Each reading names the facts it rests on and what would contradict it.
 
 ## 9. The readings and the literature
 
-Each reading is set against a classic of military thought, read for this study (`framework.md`,
+Each reading is set against a classic of military thought, read for this study (`method/docs/framework.md`,
 section 9). A text supports a reading only where the logged facts already show it, and the
 literature adds one test of its own.
 

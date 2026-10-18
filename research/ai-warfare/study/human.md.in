@@ -9,7 +9,7 @@
 <!-- registry: production.fig.json as prod -->
 # The human's decisions: a study across the four logged games
 
-Method: `framework.md`. Every number comes from the registries named in the source of this
+Method: `method/docs/framework.md`. Every number comes from the registries named in the source of this
 page; the table at the end gives each figure's unit, actor, turn and source.
 
 ## 1. Questions
@@ -179,7 +179,7 @@ Each reading names its facts and what would refute it.
 ## 7. Limits
 
 - **The p values are optimistic.** Cases within one game are not independent: decisions come in
-  streaks (`framework.md`, section 5).
+  streaks (`method/docs/framework.md`, section 5).
 - **Few games.** The economy classes rest on two games, so every reading is a hypothesis tested
   on one held-out game in each direction. The city-order reading rests on four.
 - **The capital cue is the first city founded,** not the palace's position at the time.
@@ -210,4 +210,4 @@ Each reading names its facts and what would refute it.
   cost.
 - **Attacks:** studying when the human attacks needs the options it had on its turn, which the
   log does not hold. A harness replay of the human's turns from a save would give them.
-- **Credibility pooling across games** (`framework.md`, section 6), once a fifth game exists.
+- **Credibility pooling across games** (`method/docs/framework.md`, section 6), once a fifth game exists.

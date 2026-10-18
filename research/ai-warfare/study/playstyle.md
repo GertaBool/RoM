@@ -1,4 +1,4 @@
-<!-- Rendered by tools/docs.py from playstyle.md.in. Do not edit; edit the template. -->
+<!-- Rendered by method/docs.py from playstyle.md.in. Do not edit; edit the template. -->
 # The human's playstyle in detail
 
 The four logged games, read as one way of playing. Game 3 is Germany (Charles V) and game 4 is

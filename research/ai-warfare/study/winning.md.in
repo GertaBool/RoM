@@ -1,7 +1,7 @@
 <!-- registry: win.fig.json as w -->
 # Why the human wins: the four logged games
 
-Method: `framework.md`. The queries are declared in `study/queries_win.json` and turned into
+Method: `method/docs/framework.md`. The queries are declared in `study/queries_win.json` and turned into
 figures by `tools/sqlfig.py`. Each table states what it counts, who, when, and from which
 source. Facts come first, readings in section 7. The decision rules behind the human's play are
 in `study/human.md`, and the tiles, trade and combat data in `study/data.md`.
@@ -240,7 +240,7 @@ the war readings on four.
 - **Coinage on an AI's empire** (reading 3): the civic probe on AI seats, with Coinage, Fiscus
   and Proletariat set in place although the AI lacks Currency. A change to the cap or to
   `AI_civicValue` is an AI change and is judged by experiment: seeded runs per arm in the number
-  `framework.md` sets, fixed opponents, ranks compared.
+  `method/docs/framework.md` sets, fixed opponents, ranks compared.
 - **A dynamic civic counterfactual** (reading 2): the same replay from a save with and without the
   switch.
 - **Trade against city size and position**, and **combat against unit and terrain**, as in

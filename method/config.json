@@ -1,0 +1,17 @@
+{
+  "about": "Configuration of the method (method/README.md). Changing it is a method change: commits need a Method trailer.",
+  "register_dir": "method/mission",
+  "legacy_register_dirs": ["research/ai-warfare/mission"],
+  "variables_module": "method/variables.py",
+  "gated": ["toolchain/", "builds/", "fixes/", "research/ai-warfare/tools/"],
+  "method": ["method/", ".githooks/", ".claude/",
+             "research/ai-warfare/tools/ledger.py", "research/ai-warfare/tools/check_all.py",
+             "research/ai-warfare/tools/figlib.py", "research/ai-warfare/tools/docs.py",
+             "research/ai-warfare/tools/exper.py", "research/ai-warfare/mission/variables.json"],
+  "provenance": "builds/*/provenance.json",
+  "doc_roots": ["research/ai-warfare", "method/docs"],
+  "analysis_python": "~/.cache/rom-ana/bin/python",
+  "stall_commits": 10,
+  "max_depth": 2,
+  "min_runs": 30
+}

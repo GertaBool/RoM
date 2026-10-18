@@ -1,0 +1,5 @@
+# Documents written before the figure system (method/figlib.py, method/docs.py), moved here
+# unchanged from research/ai-warfare. This list may only shrink (method/check_all.py); an entry may
+# move between lists only with its content unchanged.
+data-protocol.md
+mission.md

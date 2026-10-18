@@ -1,7 +1,7 @@
-<!-- Rendered by tools/docs.py from operations.md.in. Do not edit; edit the template. -->
+<!-- Rendered by method/docs.py from operations.md.in. Do not edit; edit the template. -->
 # Workers, tile improvements, city builds and unit movement: the human and the AI
 
-Method: `framework.md`. The queries are declared in `study/queries_ops.json` and turned into
+Method: `method/docs/framework.md`. The queries are declared in `study/queries_ops.json` and turned into
 figures by `tools/sqlfig.py`; each table states what it counts, who, when and from which source.
 Facts come first, readings in section 6. The outcome of the human's build orders at the save
 (what still stands, what was replaced) is in `study/data.md`, section 1. The decision rules

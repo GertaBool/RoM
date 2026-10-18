@@ -1,0 +1,4 @@
+#!/bin/sh
+# git pre-commit: every check (method/check_all.py). Enabled by method/setup.sh
+# (git config core.hooksPath method/hooks).
+exec python3 "$(git rev-parse --show-toplevel)/method/check_all.py"

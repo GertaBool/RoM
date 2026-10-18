@@ -8,7 +8,7 @@ results go to their own document, through the registries the tools write.
 ## 1. Purpose
 
 The model stands in for the human in the human's seat. It has two uses:
-- **A fixed opponent.** AI changes are judged against it (`framework.md`, section 7).
+- **A fixed opponent.** AI changes are judged against it (`method/docs/framework.md`, section 7).
 - **A measure of the gap.** The same lines are written for an AI seat, so the human's
   decisions and the AI's can be set side by side in the same terms.
 
@@ -80,7 +80,7 @@ model's runs. Compared on the same classes:
 - **The states reached.** The share of the model's decision states whose cues lie outside the
   range of the human's states measures how far the model drifts from the human's path.
 - **Outcomes.** Cities taken and lost by fixed turns, over at least `30` fresh seeds, against the
-  AI in the same seat (`framework.md`, section 7).
+  AI in the same seat (`method/docs/framework.md`, section 7).
 
 Correcting drift needs the human's decisions in states the model reaches. *Open:* a harness
 state cannot yet become a save the human can load (`sav2dat.py` converts in one direction only).

@@ -1,5 +1,0 @@
-#!/bin/sh
-# The commit gate (research/ai-warfare/tools/ledger.py): trailers against the staged change.
-# Enabled by the SessionStart hook in .claude/settings.json (git config core.hooksPath .githooks).
-py="$HOME/.cache/rom-ana/bin/python"; [ -x "$py" ] || py=python3
-exec "$py" "$(git rev-parse --show-toplevel)/research/ai-warfare/tools/ledger.py" commit-msg "$1"

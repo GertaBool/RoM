@@ -1,7 +1,7 @@
 # Working rules for this repository
 
-The mission is in `research/ai-warfare/mission.md`. The method for analysing a game, and for
-every AI change built from one, is in `research/ai-warfare/data-protocol.md`. Read both before
+The mission is in `method/docs/mission.md`. The method for analysing a game, and for
+every AI change built from one, is in `method/docs/data-protocol.md`. Read both before
 starting.
 
 Hard rules (details in the protocol):
@@ -17,22 +17,25 @@ Hard rules (details in the protocol):
 7. **Work through to the end without mid-way questions.** Mark unknowns *open*. Deliver once.
 8. **Figures only through the figure system.**
    - Every number in an analysis document comes from a registry written by
-     `tools/figlib.py`. A registry refuses a figure without a unit (from `figlib.UNITS`), an
+     `method/figlib.py`. A registry refuses a figure without a unit (from `figlib.UNITS`), an
      actor, a turn and a source, and refuses a table that drops values without a reason.
-   - Documents are templates (`.md.in`) rendered by `tools/docs.py`, which rejects typed
+   - Documents are templates (`.md.in`) rendered by `method/docs.py`, which rejects typed
      numbers and requires the XML effects of every type a table counts.
-   - `tools/check_all.py` runs before every commit (`.claude/settings.json`;
-     `.githooks/pre-commit`, enabled with `git config core.hooksPath .githooks`). A failure
+   - `method/check_all.py` runs before every commit (`.claude/settings.json`;
+     `method/hooks/pre-commit`, enabled by `sh method/setup.sh`). A failure
      blocks the commit.
-   - Documents written before the system are listed in `research/ai-warfare/UNCHECKED`. That
+   - Documents written before the system are listed in the `UNCHECKED` file of their folder. That
      list may only shrink.
-9. **AI changes are judged by experiment** (`research/ai-warfare/framework.md`, section 7).
+9. **AI changes are judged by experiment** (`method/docs/framework.md`, section 7).
    - An effect that follows from a formula is computed, not simulated.
    - Otherwise each variant gets at least `30` independent seeded runs (`HARNESS_RESEED`),
      tested with Welch's test on ranks against the best existing version, and judged against
      fixed opponents, never by self-play alone.
    - Fewer runs give an anecdote, not a result.
-10. **Changes are gated by predictions** (`research/ai-warfare/tools/ledger.py`, run by `check_all.py` and
+10. **Changes are gated by predictions** (`method/ledger.py`, run by `method/check_all.py` and
     the `commit-msg` hook). A commit to code, tools, builds or patches carries `Serves: P..` naming a
-    registered prediction (`research/ai-warfare/mission/register.json`, append-only) on an essential
+    registered prediction (`method/mission/register.json`, append-only) on an essential
     variable, made before its evidence; changes to the checks carry `Method: <reason>`.
+
+Everything the checks and the gate need is in `method/` (see `method/README.md`); a new session or
+clone enables it with `sh method/setup.sh` (the SessionStart hook runs it).
