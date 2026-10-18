@@ -32,3 +32,7 @@ Hard rules (details in the protocol):
      tested with Welch's test on ranks against the best existing version, and judged against
      fixed opponents, never by self-play alone.
    - Fewer runs give an anecdote, not a result.
+10. **Changes are gated by predictions** (`research/ai-warfare/tools/ledger.py`, run by `check_all.py` and
+    the `commit-msg` hook). A commit to code, tools, builds or patches carries `Serves: P..` naming a
+    registered prediction (`research/ai-warfare/mission/register.json`, append-only) on an essential
+    variable, made before its evidence; changes to the checks carry `Method: <reason>`.

@@ -13,6 +13,8 @@ usage: check_all.py            all checks, exit 1 on any error
    command into a temporary file, and must equal the committed one: figures are reproducible.
 4. Every other .md is listed in UNCHECKED (documents written before the figure system), and
    UNCHECKED gains no entry against the last commit: a new document goes through a template.
+5. The prediction register and commit gate (ledger.py): its self-test passes, the register and
+   variables are valid and append-only, and every commit since the anchor keeps the commit rules.
 Run by .claude/hooks/precommit.py and .githooks/pre-commit.
 """
 import json, os, subprocess, sys, tempfile
@@ -124,6 +126,12 @@ def main():
                 errs.append(f'{rel}: neither rendered from a template nor listed in UNCHECKED')
     for n in sorted(listed):
         if not os.path.exists(os.path.join(ROOT, n)): errs.append(f'UNCHECKED: {n} does not exist; remove it from the list')
+    # 5. The prediction register and commit gate (ledger.py): its self-test, then its checks.
+    py = os.path.expanduser('~/.cache/rom-ana/bin/python')
+    for args in (['--selftest'], ['check']):
+        r = subprocess.run([py if os.path.exists(py) else sys.executable, os.path.join(HERE, 'ledger.py')] + args, capture_output=True, text=True)
+        if r.returncode:
+            errs += [l for l in r.stdout.splitlines() if l.strip()] or [f'ledger.py {args[0]}: {r.stderr.strip()[-400:]}']
     for e in errs: print(e, file=sys.stderr)
     print(f'check_all: {len(errs)} error(s)', file=sys.stderr)
     sys.exit(1 if errs else 0)

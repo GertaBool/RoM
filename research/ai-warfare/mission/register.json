@@ -1,0 +1,43 @@
+[
+ {
+  "id": "H1",
+  "type": "hypothesis",
+  "line": "war-ai-fixes",
+  "text": "The four war-AI fixes in builds/war-log (exact assault forecast, true-odds attack floor, sacrifice by expected value, visible armies raise the alert; GitLab !48 and !49, on by default) make the AI harder for the human to conquer. Assumption, not checked: games 1-3 were played with DLLs before these fixes."
+ },
+ {
+  "id": "P1",
+  "type": "prediction",
+  "line": "war-ai-fixes",
+  "hypotheses": [
+   "H1"
+  ],
+  "variable": "taken",
+  "evidence": "games",
+  "change": "builds/war-log DLL sha256 bc9edfe04e7cf341... (GitLab main d51ff25 plus !51); the log does not name its DLL, so a game counts by having turn-start lines, which every later DLL also writes: a later DLL with AI changes must add its build to the log first",
+  "claim": {
+   "turn": 217,
+   "handicap": "HANDICAP_NOBLE",
+   "requires_snapshot": true,
+   "op": "<",
+   "reference": [
+    [
+     "game1",
+     "66506c98af2eee656a3a93dd3b82ae4e9821cedfce0b69cc50969446939c34f0",
+     10
+    ],
+    [
+     "game2",
+     "802df1aadb0251fd5405ed4de13d2d45225ded0bd372042ee1d42bb76d36e003",
+     1
+    ],
+    [
+     "game3",
+     "7cde98c718bcc23fcd18a9d897fd3158cbd7d89da8fbc8decd90e2aa38541a14",
+     6
+    ]
+   ],
+   "min_n": 2
+  }
+ }
+]
