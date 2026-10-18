@@ -67,6 +67,10 @@ def at(by_t, taken, lost, wars, seat, t):
                 wars_begun=sum(v for k, v in wars.items() if k <= t))
 
 
+# hm.log lines of the war and attack rules (HarnessHuman.cpp), counted per run
+WAR_STEPS = [('preparations', ' prepare against '), ('declared_by_rule', ' declare on '), ('wars_entered', ' at war with '),
+             ('given_up', 'no declaration in time'), ('peace_made', 'peace made'), ('attacks', ' attack '),
+             ('into_empty_city', 'empty city')]
 METRICS = ['score_rank', 'cities', 'pop', 'land', 'techs', 'power', 'score', 'taken', 'lost', 'wars_begun']
 LOWER_BETTER = {'score_rank', 'lost'}
 
@@ -83,13 +87,17 @@ def extract(camp, out, seats):
         lg = d + '.hm.log'
         if os.path.exists(lg):
             seen, fw, slider = {}, None, []
+            steps = collections.Counter()
             for line in open(lg):
                 f = line.split()
+                for k, pat in WAR_STEPS:
+                    if pat in line: steps[k] += 1
                 if len(f) > 1 and f[1] == 'civics':
                     for c in f[2:]: seen.setdefault(c.removeprefix('CIVIC_'), int(f[0]))
                 if len(f) > 2 and f[1] == 'at' and f[2] == 'war' and fw is None: fw = int(f[0])
             run['civics'] = seen
             run['first_war'] = fw
+            run['war_steps'] = dict(steps)
         res.append(run)
     json.dump(res, open(out, 'w'), indent=0)
     print(f'{len(res)} runs', file=sys.stderr)
@@ -230,6 +238,28 @@ reg.result_table('hm_trajectory', ['map_turn_side', 'runs', 'score_rank', 'citie
                  'turns 100, 150, 200 and 250', 'human: its M lines at the turn (cities, pop, score; rank among players with a city) and X lines '
                  '(techs held); arms: medians over runs of the seat in the telemetry at the turn; pop in citizens, techs in techs, score_rank a rank',
                  jover, n=len(jrows))
+
+# the war rules step by step (hm.log), against the human's own wars and attacks
+hrows, hover = [], []
+for mp in maps:
+    db, seat, hturn = MAPS[mp]
+    con = duckdb.connect(db, read_only=True)
+    hp, team = con.execute('select player, team from wl_P where human=1').fetchone()
+    human = dict(declared_by_rule=con.execute('select count(*) from wl_W where team=?', [team]).fetchone()[0],
+                 peace_made=con.execute('select count(*) from wl_Q where team=?', [team]).fetchone()[0],
+                 attacks=con.execute('select count(*) from wl_C where att=?', [hp]).fetchone()[0])
+    for arm in arms:
+        rl = [r[3] for r in runs.get((mp, arm), []) if 'war_steps' in r[3]]
+        if not rl: continue
+        for k, _ in WAR_STEPS:
+            v = [r['war_steps'].get(k, 0) for r in rl]
+            hover.append(f'{mp} {arm} {k}')
+            hrows.append([f'{mp} {arm} {k}', len(v), human.get(k, '-'), med(v), min(v), max(v), sum(v)])
+reg.result_table('hm_war_steps', ['map_arm_step', 'runs', 'human', 'runs_median', 'runs_min', 'runs_max', 'runs_total'], hrows, 'turns',
+                 'model seat and human', 'whole game', 'per run, the hm.log lines of each step of the war and attack rules (preparations '
+                 'begun, declarations by the rule, wars entered whoever declared, preparations given up, peace made by the rule, attacks '
+                 'and walks into empty cities by the attack rule); the human: its declarations (W lines), peace made (Q lines of its team) '
+                 'and attacks (C lines) over its whole game; every column counts events', hover, n=len(hrows))
 
 # decision timing (hm.log) against the human: civic adoptions and the first war
 CI = {k.removeprefix('CIVIC_'): v['CivicOptionType'] for k, v in R['CivicInfo'].items()}
