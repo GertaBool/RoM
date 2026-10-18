@@ -385,6 +385,16 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 				}
 				fprintf(f, "]");
 			}
+			if (getenv("HARNESS_DEFENCE_DIAG") != NULL && !k.isHuman())
+			{
+				// City defence: land defenders on the plot, the defenders the city AI wants, the staged forecast
+				// of change S with all defenders and with the weakest left out (per mille), the city's danger
+				// flag (AI_isDanger), and the owner's staged-forecast threshold. Reads only.
+				CvCityAI* pAI = static_cast<CvCityAI*>(c);
+				fprintf(f, ",\"def\":[%d,%d,%d,%d,%d,%d]", c->plot()->plotCount(PUF_canDefend, -1, -1, c->getOwnerINLINE(), NO_TEAM, PUF_isDomainType, DOMAIN_LAND),
+					pAI->AI_neededDefenders(), pAI->AI_stagedForecast(false), pAI->AI_stagedForecast(true), pAI->AI_isDanger() ? 1 : 0,
+					GC.getDefineINT("AI_STAGED_FORECAST", 0) + 10 * GET_PLAYER(c->getOwnerINLINE()).AI_getAttackOddsChange());
+			}
 			fprintf(f, "}");
 		}
 		fprintf(f, "],\"units\":{");

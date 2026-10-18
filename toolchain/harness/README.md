@@ -142,6 +142,7 @@ Diagnostics in the state files, off by default because they run extra searches:
 |---|---|
 | `HARNESS_SETTLER_DIAG=1` | per settler: escort, horizon, and for the eight best settlement candidates every filter `AI_found` applies (can found, enemy units, other parties, path with and without `MOVE_SAFE_TERRITORY`, delivery region) and the transport of a settler at sea |
 | `HARNESS_VALUE_DIAG=1` | per AI city: the twelve buildings with the highest `AI_buildingValue`, with cost and turns |
+| `HARNESS_DEFENCE_DIAG=1` | per AI city, `def`: its land defenders, the defenders it wants (`AI_neededDefenders`), the staged-force forecast of `AI_STAGED_FORECAST` (`CvCityAI::AI_stagedForecast`, per mille) with all defenders and with the weakest left out, the danger flag (`AI_isDanger`), and the owner's threshold |
 | `HARNESS_HISTORY_DIAG=1` | what the save remembers: each player's per-turn score, economy, industry, agriculture, power and culture history from turn 0, research progress and queue, cost terms, every unit (type, role, experience, position), the AI's value of every civic it may adopt; for the game, the replay messages (city foundings, civic adoptions, wars, first techs) and the number of units of each type created |
 
 ## WorldBuilder scenarios
