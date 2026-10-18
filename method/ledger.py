@@ -164,6 +164,8 @@ def validate(reg, variables):
             if v['kind'] == 'runs' and c.get('min_n', 0) < MIN_RUNS: errs.append(f'{e["id"]}: fewer than {MIN_RUNS} runs per arm (framework.md, section 7)')
             if v['kind'] == 'games' and not all(k in c for k in ('turn', 'op', 'reference', 'min_n')):
                 errs.append(f'{e["id"]}: a games claim needs turn, op, reference, min_n')
+            if v['kind'] == 'games' and 'builds' in c and not (c['builds'] == 'served' or isinstance(c['builds'], list)):
+                errs.append(f'{e["id"]}: builds is a list of build ids or "served"')
             if v['kind'] == 'games' and not all(isinstance(r, list) and len(r) == 3 for r in c.get('reference', [])):
                 errs.append(f'{e["id"]}: reference games are [game, war log sha256, value]')
         elif t == 'withdrawal':
@@ -367,7 +369,7 @@ def evaluate(root, verify=True):
                 game, sha, val = row[0], row[1], float(row[2])
                 if sha in refs: res['rejected'].append(f'{game}: a reference game'); continue
                 if len(row) > 3 and not os.path.exists(row[3]): res['unverified'] += 1
-                if c.get('builds') and len(row) > 4 and row[4] not in c['builds']: res['rejected'].append(f'{game}: build {row[4]}'); continue
+                if c.get('builds') and len(row) > 4 and row[4] not in claim_builds(root, p, c): res['rejected'].append(f'{game}: build {row[4]}'); continue
                 if c.get('builds') and len(row) <= 4: res['rejected'].append(f'{game}: no build recorded'); continue
                 if verify and len(row) > 3 and os.path.exists(row[3]):
                     if hashlib.sha256(open(row[3], 'rb').read()).hexdigest() != sha: raise LedgerError(f'{p}: {row[3]} changed')
@@ -498,6 +500,25 @@ def external(root, message, files):
     return errs
 
 
+def served_builds(root, pid):
+    """The DLL builds made under pid: the build_id of each provenance file a commit serving pid
+    touched, as that commit left it."""
+    import fnmatch
+    out = set()
+    for s, par, files, msg in commits(root):
+        if pid not in trailers(msg)[0]: continue
+        for f in files:
+            if fnmatch.fnmatch(f, CFG['provenance']):
+                d = load(root, f, s)
+                if d and d.get('build_id'): out.add(d['build_id'])
+    return out
+
+
+def claim_builds(root, pid, claim):
+    b = claim.get('builds')
+    return served_builds(root, pid) if b == 'served' else set(b or [])
+
+
 def log_build(log):
     """The DLL build a war log names in its H line (seventh field; logs before it have none)."""
     for f in VARMOD.log_lines(log):
@@ -543,7 +564,7 @@ def add_game(root, pid, log, name):
     sha = hashlib.sha256(open(log, 'rb').read()).hexdigest()
     if sha in {r[1] for r in e['claim']['reference']}: raise LedgerError(f'{log}: a reference game of {pid}')
     build = log_build(log)
-    if e['claim'].get('builds') and build not in e['claim']['builds']:
+    if e['claim'].get('builds') and build not in claim_builds(root, pid, e['claim']):
         raise LedgerError(f'{log}: written by build {build}, not one of {pid}\'s')
     p = os.path.join(root, EVD, pid)
     os.makedirs(p, exist_ok=True)
@@ -680,6 +701,18 @@ def selftest():
         w('fixes/x.patch', 'Subject: x\n\nno trailer\n---\n diff\n')
         commit('build\n\nServes: PE')
         assert any('does not serve PE' in x for x in check(d)), check(d)
+        # "served": the builds made under the prediction, from the provenance its commits recorded
+        HS = dict(id='HS', type='hypothesis', line='served', text='hs')
+        PS = dict(PG, id='PS', line='served', hypotheses=['HS'], claim=dict(PG['claim'], builds='served', min_n=1), paths=['builds/s/'])
+        w(REG, load(d, REG) + [HS, PS]); commit('register PS')
+        w('builds/s/provenance.json', dict(serves=['PS'], patch='fixes/s.patch', build_id='B1'))
+        w('fixes/s.patch', 'Subject: s\n\nServes: PS\n---\n')
+        assert served_builds(d, 'PS') == set()
+        g('add', '-A'); r3 = subprocess.run(['git', '-C', d, 'commit', '-q', '-m', 'build s\n\nServes: PS'], capture_output=True, text=True)
+        assert served_builds(d, 'PS') == {'B1'}, served_builds(d, 'PS')
+        try: add_game(d, 'PS', os.path.join(d, 'b2.log'), 'b2'); assert False
+        except LedgerError as x: assert 'build B2' in str(x), x
+        add_game(d, 'PS', os.path.join(d, 'b1.log'), 'b1')
         print('ledger selftest: ok')
     finally:
         shutil.rmtree(d)
