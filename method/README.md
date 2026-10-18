@@ -32,7 +32,9 @@ registries whose inputs exist on the machine.
    the `claim` and the `change`. A runs claim gives `direction` (`a<b` or `a>b`), `alpha`,
    `min_effect` (Vargha-Delaney A), `min_n` and `seat`. A games claim gives `turn`, `handicap`,
    `requires_snapshot`, `op`, `reference` (`[game, war log sha256, value]`) and `min_n`. A prediction
-   on a non-essential variable names the prediction it `serves`.
+   on a non-essential variable names the prediction it `serves`. A new hypothesis names the
+   `principle` (a `D..` item) and the `gap` (an `R..` reading) of the doctrine
+   (`research/ai-warfare/study/doctrine.md.in`, config `doctrine`) that it starts from.
 2. **Commit with a trailer.** `Serves: P7` for code, tools, builds, patches or evidence;
    `Method: <reason>` for anything in `method/`, `.claude/` or the forwarders. A build's
    `provenance.json` lists `"serves"`.
@@ -68,6 +70,9 @@ registries whose inputs exist on the machine.
   move a line's state.
 - **Detours:** a non-essential variable needs a chain to an essential one within `max_depth`; a
   line with `stall_commits` code commits since its last decision accepts only evidence.
+- **Ideas to code to more code:** a hypothesis must start from a principle of the doctrine and its
+  measured gap, and once a prediction is decided (not as an anecdote) the doctrine must state
+  `P..: <status>` before any further commit, so the view from the principles is taken again.
 - **Degeneration:** two failed predictions in a row block a line until evidence or a new line.
 - **Old or unfit games:** a game counts only if logged from turn 0 to the claim's turn, at its
   handicap, with turn-start lines when required, and not as one of its references. Logs are

@@ -364,7 +364,14 @@ garrison. Lakatos's test applies to this sequence of changes: it is progressive 
 predicts something new that then holds. P2 and P4 (S2) predict fewer captures by the human; neither is
 judged yet, because only one game so far has the snapshot lines a judgment needs.
 
-## 7. Open
+## 7. Judged predictions
+
+The gate (`method/ledger.py`, config `doctrine`) holds every new hypothesis to a principle of
+section 2 and a reading of section 5. Each prediction decided by enough evidence to move its
+line is stated here as `P..: <status>`, with what it changes in section 5 and section 6. None is decided
+yet: P2 and P4 are open.
+
+## 8. Open
 
 - Boyd's texts (section 1).
 - D7: where the AIs' armies stood when their cities fell, beyond game 5 (needs `L` lines).

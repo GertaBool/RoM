@@ -32,5 +32,6 @@
   "max_depth": 2,
   "min_runs": 30,
   "min_games_state": 5,
-  "external_prefix": "gitlab:"
+  "external_prefix": "gitlab:",
+  "doctrine": {"doc": "research/ai-warfare/study/doctrine.md.in", "grandfathered": ["H1", "H2"]}
 }
