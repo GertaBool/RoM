@@ -37,7 +37,7 @@ import duckdb
 # field names after the line type, from the DLL's format strings. Fields after '|' were appended
 # later (war-log snapshot change): older logs end before them, and they read as NULL there.
 WL = {
-    'H': 'turn speed handicap width height',
+    'H': 'turn speed handicap width height | build',
     'P': 'player team civ leader human',
     'T': 'turn year',
     'W': 'turn team target warplan', 'Q': 'turn team target warplan',
@@ -124,7 +124,7 @@ def main():
     # text fields of the format strings (%s); every other field is %d. An empty table gets these
     # types too, so queries that compare numbers work on games without that line type.
     TEXT = set('speed handicap civ leader att_unit def_unit terrain feature winner_unit loser_unit unit building '
-               'orders best_defender head_ai units action tech items_first items_second promotions'.split())
+               'orders best_defender head_ai units action tech items_first items_second promotions build'.split())
 
     def cols_of(data, names):
         out = []

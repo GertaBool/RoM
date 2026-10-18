@@ -23,12 +23,24 @@ winpath() { echo "Z:$(realpath -s "$1")"; }
 mkdir -p "$out"
 header_changed=0
 for f in "$src"/*.cpp "$src"/*.h "$src"/*.inl "$src"/GNUmakefile "$src"/gensourcelist; do
+  case "$f" in */WarLogBuild.h) continue;; esac
   t="$out/$(basename "$f")"
   if ! cmp -s "$f" "$t"; then
     cp -p "$f" "$t"
     case "$f" in *.h|*.inl|*GNUmakefile) header_changed=1;; esac
   fi
 done
+# The build the war log names (WarLogBuild.h): the git tree of the source folder, 12 hex digits,
+# with "+dirty" when the folder differs from it; "unknown" for a folder git does not track (the
+# harness builds from a temporary copy).
+build=unknown
+git -C "$src" ls-files --error-unmatch CvGameCoreUtils.cpp >/dev/null 2>&1 &&
+  build=$(git -C "$src" rev-parse --short=12 HEAD:./)
+[ "$build" != unknown ] && [ -n "$(git -C "$src" status --porcelain -- .)" ] && build="$build+dirty"
+printf '#define WAR_LOG_BUILD "%s"\r\n' "$build" > "$out/WarLogBuild.h.new"
+if cmp -s "$out/WarLogBuild.h.new" "$out/WarLogBuild.h"; then rm "$out/WarLogBuild.h.new"
+else mv "$out/WarLogBuild.h.new" "$out/WarLogBuild.h"; header_changed=1; fi
+echo "war log build: $build"
 [ "$header_changed" = 1 ] && rm -rf "$out/release"
 [ -e "$out/Boost-1.32.0" ] || ln -s "$BTS_SDK_DIR/Boost-1.32.0" "$out/Boost-1.32.0"
 [ -e "$out/Python24" ] || ln -s "$BTS_SDK_DIR/Python24" "$out/Python24"

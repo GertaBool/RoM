@@ -1,7 +1,8 @@
 # Recording games for the war-AI work
 
 This DLL is GitLab `main` (d51ff25) plus the war-log snapshot change (branch
-`claude/war-log-snapshot`, merge request !51, patch `fixes/war-log-snapshot.patch`): the war log, which now also
+`claude/war-log-snapshot`, merge request !51, patches `fixes/war-log-snapshot.patch` and
+`fixes/war-log-build-id.patch`), build `7c35ba03ea0e`: the war log, which now also
 records, as each of your turns begins, every unit you have, every foreign city near your
 army with its defenders and the engine's own chance of taking it, and your relations to
 every civilization you have met. It writes a log of your game (with `WAR_LOG` = 1), which
@@ -26,6 +27,9 @@ is how I learn from the way you beat the AI, and it has four AI fixes, all on:
    `LoggingEnabled = 1`. The engine writes log files only with this set.
 4. Optional: set `AutoSaveInterval = 5` in the same file, for a save every 5 turns.
 
+Start each game you record with this DLL, from turn 0. Only such games count as evidence for
+the war-AI fixes: the log must cover the whole game, and its `H` line must name this build.
+
 ## After each game
 
 Put these in the shared Drive folder, or in a `.tar`:
@@ -45,7 +49,7 @@ turns of game 3), growing with the number of your units: a few MB for a whole ga
 
 | Line | Content |
 |---|---|
-| `H`, `P` | Header: speed, difficulty, map size; then one line per player (civilization, leader, human or not) |
+| `H`, `P` | Header: speed, difficulty, map size and the build that writes the log (`7c35ba03ea0e` for this DLL; earlier DLLs leave it out); then one line per player (civilization, leader, human or not) |
 | `T` | Turn and year |
 | `W`, `Q` | War declared, with the declaring team's war plan (`WarPlanTypes`; `-1` when it held none; DLLs before !50 always wrote `-1`); peace |
 | `C` | Combat: attacker and defender (owner, unit, health, experience), plot (terrain, feature, hills), city defence, odds per mille, units on the plot |

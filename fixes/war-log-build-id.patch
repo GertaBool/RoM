@@ -1,0 +1,58 @@
+From 0f8973282133536778602d1e3df1b12db3a70259 Mon Sep 17 00:00:00 2001
+From: Otto Gregor <mobiltelefonalex@gmail.com>
+Date: Sun, 18 Oct 2026 17:37:01 +0000
+Subject: [PATCH] War log: the H line names the build that writes the log
+
+WarLogBuild.h defines WAR_LOG_BUILD, appended to the H line as its seventh
+field. As committed it is "source"; the research toolchain writes the git
+tree of the source folder into its build copy, so a log can be tied to the
+DLL that played the game.
+
+Serves: P2
+---
+ Assets/CvGameCoreDLL/CvGameCoreUtils.cpp | 6 ++++--
+ Assets/CvGameCoreDLL/WarLogBuild.h       | 6 ++++++
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+ create mode 100644 Assets/CvGameCoreDLL/WarLogBuild.h
+
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index 7212919..72402fe 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -24,6 +24,7 @@ int effectiveCollateral(const CvUnit* pUnit)
+ #include <algorithm>
+ #include "CvUnit.h"
+ #include "CvSelectionGroupAI.h"
++#include "WarLogBuild.h"
+ #include "CvGameAI.h"
+ #include "CvPlayerAI.h"
+ #include "CvMap.h"
+@@ -3382,10 +3383,11 @@ static void warLogLine(const CvString& szLine)
+ 	{
+ 		bHeader = true;
+ 		CvString szHead;
+-		szHead.Format("H\t%d\t%s\t%s\t%d\t%d", GC.getGameINLINE().getGameTurn(),
++		// H: turn, speed, handicap, map width and height, and the build that writes the log (WarLogBuild.h).
++		szHead.Format("H\t%d\t%s\t%s\t%d\t%d\t%s", GC.getGameINLINE().getGameTurn(),
+ 			GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getType(),
+ 			GC.getHandicapInfo(GC.getGameINLINE().getHandicapType()).getType(),
+-			GC.getMapINLINE().getGridWidthINLINE(), GC.getMapINLINE().getGridHeightINLINE());
++			GC.getMapINLINE().getGridWidthINLINE(), GC.getMapINLINE().getGridHeightINLINE(), WAR_LOG_BUILD);
+ 		gDLL->logMsg("WarLog.log", szHead);
+ 		for (int iI = 0; iI < MAX_PLAYERS; iI++)
+ 		{
+diff --git a/Assets/CvGameCoreDLL/WarLogBuild.h b/Assets/CvGameCoreDLL/WarLogBuild.h
+new file mode 100644
+index 0000000..bc93dcd
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/WarLogBuild.h
+@@ -0,0 +1,6 @@
++// The build a war log names in its H line: the source tree a release was built from.
++// The research toolchain (toolchain/build_dll.sh) writes that tree's hash into its build copy
++// of this file; built from the file as committed, a DLL names itself "source".
++#ifndef WAR_LOG_BUILD
++#define WAR_LOG_BUILD "source"
++#endif
+-- 
+2.43.0
+

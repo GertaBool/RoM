@@ -1,15 +1,21 @@
 {
-  "source": "GitLab main d51ff25 plus one commit, branch claude/war-log-snapshot (fixes/war-log-snapshot.patch): the war log's turn-start lines I, L, J, O, the F lines, ids appended to C, U and A lines, AI_assaultForecast on explicit unit lists, the WAR_LOG_SEAT define",
-  "source_commit": "3af6c89bbbf1a61a6b7afc056a63a2f64ae1194b",
-  "source_tree": "7fc5c7e57e22ab4101320fa4439bdf878439f659",
-  "base_commit": "d51ff25",
-  "dll_sha256": "bc9edfe04e7cf3410d2bc0138f8eb5ad6b886b57f8a0c276cfb0c3f420175a5b",
-  "dll_size": 6144000,
-  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
-  "tests": "GitLab Tools tests (python3 -m unittest discover -s Tools -p 'test_*.py'): 146 passed; clang gate on the changed files: no error main does not have",
-  "tested_headless": "harness builds of the same source and of main d51ff25: a 20-turn continuation of game 3's save, same seed, WAR_LOG_SEAT = 13 (seat 12 tracked). Telemetry identical (22 lines); every war-log line of the types main writes identical (1187) once the appended fields are cut; 19 turn starts with 1674 L, 49 J, 310 O lines, parsed by research/ai-warfare/tools/extract.py with 0 errors; the first snapshot agrees with the save's unit dump in type, experience, level and promotions for every unit in both; all 89 units built and all 49 combats' ids join the unit lines. Turn time: 73.3 s against 70.2 s (one run each); profile: the turn-start logging is under 1.6 % of turn time. The release DLL itself was not run headless",
-  "tested_in_game": false,
-  "previous": "934fd4850751a80934b423f9e7021e6a9da991b13f92d63f699003c45ba4f054 (GitLab main d51ff25, commit 19d9e2a)",
-  "merge_request": "aretemaxxing-group/rise-of-mankind!51 (open): branch claude/war-log-snapshot, commit 6c2dffb on main d51ff25, tree 7fc5c7e equal to the tested source commit 3af6c89",
-  "gitlab_commit": "6c2dffb71a8ffac8e6a865f895f1b981a1f6fc94"
+ "serves": [
+  "P2"
+ ],
+ "patch": "fixes/war-log-build-id.patch",
+ "build_id": "7c35ba03ea0e",
+ "source": "GitLab main d51ff25 plus two commits on branch claude/war-log-snapshot: the war-log snapshot (fixes/war-log-snapshot.patch: turn-start lines I, L, J, O, the F lines, ids appended to C, U and A lines, AI_assaultForecast on explicit unit lists, the WAR_LOG_SEAT define) and the build id (fixes/war-log-build-id.patch: WarLogBuild.h, the H line's seventh field)",
+ "source_commit": "0f8973282133536778602d1e3df1b12db3a70259",
+ "source_tree": "5be474bb38058fae6da3879d00af00e0d4ae6188",
+ "build_id_is": "the git tree of Assets/CvGameCoreDLL at source_commit, 12 hex digits (git rev-parse --short=12 <commit>:Assets/CvGameCoreDLL), written into the build copy of WarLogBuild.h by toolchain/build_dll.sh; the release DLL holds the string and its war logs end the H line with it",
+ "base_commit": "d51ff25",
+ "dll_sha256": "3eff119c7c8e694c2e94f651e256f10de31e884047c4e9185c52ae1b48d2609a",
+ "dll_size": 6144000,
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
+ "tests": "clang gate on CvGameCoreUtils.cpp against the snapshot commit 3af6c89: 0 new diagnostics. The GitLab Tools tests (Python) were not rerun: the change is C++ only. Snapshot commit: GitLab Tools tests 146 passed; clang gate on its changed files: no error main does not have",
+ "tested_headless": "Build id: a harness build of source_commit, 2 turns of game 3's save: the H line has seven fields, the seventh 'unknown' (harness builds compile a temporary copy that git does not track); research/ai-warfare/tools/extract.py reads it into wl_H.build, and reads game 3's log (six fields) with build NULL, 0 errors each. Snapshot (commit 3af6c89): harness builds of the same source and of main d51ff25: a 20-turn continuation of game 3's save, same seed, WAR_LOG_SEAT = 13 (seat 12 tracked). Telemetry identical (22 lines); every war-log line of the types main writes identical (1187) once the appended fields are cut; 19 turn starts with 1674 L, 49 J, 310 O lines, parsed by research/ai-warfare/tools/extract.py with 0 errors; the first snapshot agrees with the save's unit dump in type, experience, level and promotions for every unit in both; all 89 units built and all 49 combats' ids join the unit lines. Turn time: 73.3 s against 70.2 s (one run each); profile: the turn-start logging is under 1.6 % of turn time. The release DLL itself was not run headless",
+ "tested_in_game": false,
+ "previous": "bc9edfe04e7cf3410d2bc0138f8eb5ad6b886b57f8a0c276cfb0c3f420175a5b (snapshot commit 3af6c89, no build id); before it 934fd4850751a80934b423f9e7021e6a9da991b13f92d63f699003c45ba4f054 (GitLab main d51ff25)",
+ "merge_request": "aretemaxxing-group/rise-of-mankind!51 (open): branch claude/war-log-snapshot, commit 6c2dffb (the snapshot). The build-id commit is not yet on GitLab",
+ "gitlab_commit": "6c2dffb71a8ffac8e6a865f895f1b981a1f6fc94"
 }
