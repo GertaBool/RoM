@@ -189,7 +189,7 @@ for w in wars:
     if a and b and b[0][0]: r30.append(a[0][0] / b[0][0])
 r30.sort()
 P['prep_ratio_pct'] = (int(100 * r30[1]) // 10 * 10, f'the second-lowest power ratio of the human to its target thirty turns before the declaration (M lines) over {len(r30)} wars, rounded down to tens: the preparation begins against a team the seat matches this far')
-P['decl_ratio_pct'] = (int(100 * ratios[1]) // 10 * 10, f'the second-lowest power ratio (M lines, the turn before) of the {len(ratios)} declarations, rounded down to tens: all but one were at least this')
+P['decl_ratio_pct'] = (int(100 * ratios[0]) // 10 * 10, f'the lowest power ratio (M lines, the turn before) of the {len(ratios)} declarations, rounded down to tens: every declaration was at least this (most were at twice the power or more, hm_wars)')
 p10 = {g: q(g, 'select quantile_cont(odds, 0.1), count(*) from wl_C where att=?', H[g][0])[0] for g in games}
 P['attack_min_odds'] = (int(min(v for v, _ in p10.values())) // 10 * 10, 'the lower of the games\' 10th percentiles of the odds (per mille) of the human\'s attacks (C lines; ' + ', '.join(f'{g}: {round(v)} of {n} attacks' for g, (v, n) in p10.items()) + '), rounded down to tens; the seat attacks whenever its odds reach this')
 # the war model (study/war.md, section 10): the first city taken in each war and the cities taken after it

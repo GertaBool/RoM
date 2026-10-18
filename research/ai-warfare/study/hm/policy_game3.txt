@@ -48,7 +48,7 @@ BUILD BUILDINGCLASS_COURTHOUSE
 BUILD BUILDINGCLASS_BARRACKS
 PARAM war_min_turn 193
 PARAM prep_ratio_pct 160
-PARAM decl_ratio_pct 310
+PARAM decl_ratio_pct 200
 PARAM attack_min_odds 720
 PARAM stage_distance 2
 PARAM war_gap_turns 3

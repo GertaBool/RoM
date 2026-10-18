@@ -789,8 +789,8 @@
     ],
     [
      "decl_ratio_pct",
-     200,
-     "the second-lowest power ratio (M lines, the turn before) of the 10 declarations, rounded down to tens: all but one were at least this"
+     120,
+     "the lowest power ratio (M lines, the turn before) of the 10 declarations, rounded down to tens: every declaration was at least this (most were at twice the power or more, hm_wars)"
     ],
     [
      "attack_min_odds",

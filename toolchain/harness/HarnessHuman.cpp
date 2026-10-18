@@ -65,17 +65,17 @@ namespace
 		int iObjX, iObjY;      // the objective: a city of the target team
 		int iStageX, iStageY;  // the staging plot, next to the objective
 		int iSince;            // turn the state began
-		int iTargetCities;     // the target's cities at the last turn of the war
-		int iCaptures;         // cities the target lost in this war
+		int iCaptures;         // the target's cities (at the declaration) the seat holds now
 		int iLastCaptureTurn;
 		int iLastPeaceTry;
 		int iIdleSince;        // turn the last war or preparation ended
 		int iLastSale;
 		int iLastOpenBorders;  // turn of the last round of open-borders offers
 		std::set<int> strike;  // unit ids of the strike group
+		std::vector<std::pair<int, int> > targetCities;   // the target's city plots at the declaration
 		std::map<int, int> aiPicks;   // city id -> template picks since the AI's last pick
 		Policy() : bLoaded(false), bActive(false), iPlayer(-1), log(NULL), iState(0), iTarget(-1), iObjX(-1), iObjY(-1), iStageX(-1),
-			iStageY(-1), iSince(0), iTargetCities(0), iCaptures(0), iLastCaptureTurn(0), iLastPeaceTry(-100), iIdleSince(-100),
+			iStageY(-1), iSince(0), iCaptures(0), iLastCaptureTurn(0), iLastPeaceTry(-100), iIdleSince(-100),
 			iLastSale(-100), iLastOpenBorders(-100) {}
 	};
 	Policy g;
@@ -257,6 +257,30 @@ namespace
 		}
 	}
 
+	// The target's cities at the declaration, and how many of them the seat holds now.
+	void recordTargetCities(TeamTypes eTarget)
+	{
+		g.targetCities.clear();
+		int iLoop;
+		for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+		{
+			CvPlayer& kP = GET_PLAYER((PlayerTypes)i);
+			if (!kP.isAlive() || kP.getTeam() != eTarget) continue;
+			for (CvCity* c = kP.firstCity(&iLoop); c != NULL; c = kP.nextCity(&iLoop)) g.targetCities.push_back(std::make_pair(c->getX_INLINE(), c->getY_INLINE()));
+		}
+	}
+
+	int targetCitiesTaken(TeamTypes eMe)
+	{
+		int n = 0;
+		for (size_t i = 0; i < g.targetCities.size(); ++i)
+		{
+			CvPlot* q = GC.getMapINLINE().plot(g.targetCities[i].first, g.targetCities[i].second);
+			if (q != NULL && q->isCity() && q->getTeam() == eMe) ++n;
+		}
+		return n;
+	}
+
 	void endWar(CvTeamAI& t, const char* szWhy)
 	{
 		if (g.iTarget >= 0 && !t.isAtWar((TeamTypes)g.iTarget) && offensivePlan(t.AI_getWarPlan((TeamTypes)g.iTarget)))
@@ -354,8 +378,9 @@ namespace
 
 	// The objective: among the cities of teams the seat may attack and outweighs by prep_ratio_pct, with
 	// open borders (or already at war), on a landmass where the seat has a city, within target_max_distance
-	// of its cities, and that one of its strike candidates would attack at attack_min_odds (the human took
-	// cities only at such odds): the nearest, then the one with most of its units within two plots.
+	// of its cities, and that one of its strike candidates within stage_max_turns plots would attack at
+	// attack_min_odds (the human took cities only at such odds): the nearest, then the one with most of its
+	// units within two plots.
 	CvCity* chooseObjective(CvTeamAI& t, CvPlayerAI& kMe, int iOnlyTeam)
 	{
 		CvCity* pBest = NULL; int iBestD = MAX_INT, iBestNear = -1;
@@ -387,7 +412,8 @@ namespace
 				if (d > iBestD) continue;   // the nearest wins: a farther city needs no odds test
 				bool bWin = false; int iUnit;
 				for (CvUnit* u = kMe.firstUnit(&iUnit); u != NULL && !bWin; u = kMe.nextUnit(&iUnit))
-					bWin = strikeCandidate(u, kMe.getID()) && oddsAgainst(u, c) >= Param("attack_min_odds", 710);
+					bWin = strikeCandidate(u, kMe.getID()) && plotDistance(u->getX_INLINE(), u->getY_INLINE(), c->getX_INLINE(), c->getY_INLINE()) <=
+						Param("stage_max_turns", 10) && oddsAgainst(u, c) >= Param("attack_min_odds", 710);
 				if (!bWin) continue;
 				++nWinnable;
 				const int nr = ownUnitsNear(kMe, c->getX_INLINE(), c->getY_INLINE(), 2);
@@ -612,8 +638,8 @@ bool HH_hmDoWar(CvTeamAI* t)
 		if (g.iState == 3)
 		{
 			if (!t->isAtWar((TeamTypes)g.iTarget)) { endWar(*t, "peace"); return false; }
-			if (kT.getNumCities() < g.iTargetCities) { g.iCaptures += g.iTargetCities - kT.getNumCities(); g.iLastCaptureTurn = iTurn; }
-			g.iTargetCities = kT.getNumCities();
+			const int iTaken = targetCitiesTaken(t->getID());   // only the seat's own captures count
+			if (iTaken > g.iCaptures) { g.iCaptures = iTaken; g.iLastCaptureTurn = iTurn; }
 			if (bObjHeld)
 			{
 				CvCity* pNext = chooseObjective(*t, kMe, g.iTarget);
@@ -640,7 +666,7 @@ bool HH_hmDoWar(CvTeamAI* t)
 		if (t->isAtWar((TeamTypes)g.iTarget))
 		{
 			note("at war with %d before the declaration (declared on the seat)", g.iTarget);
-			g.iState = 3; g.iSince = iTurn; g.iCaptures = 0; g.iLastCaptureTurn = iTurn; g.iTargetCities = kT.getNumCities();
+			g.iState = 3; g.iSince = iTurn; g.iCaptures = 0; g.iLastCaptureTurn = iTurn; recordTargetCities((TeamTypes)g.iTarget);
 			return false;
 		}
 		if (bObjHeld || !t->canDeclareWar((TeamTypes)g.iTarget)) { endWar(*t, "objective lost or war barred"); return false; }
@@ -660,7 +686,7 @@ bool HH_hmDoWar(CvTeamAI* t)
 		{
 			note("declare on %d at %d,%d: %d of the strike group near, %d of them at the odds, %d defenders, power ratio %d", g.iTarget, g.iObjX, g.iObjY, iThere, iCapable, iDef, iRatio);
 			t->declareWar((TeamTypes)g.iTarget, true, WARPLAN_TOTAL);
-			g.iState = 3; g.iSince = iTurn; g.iCaptures = 0; g.iLastCaptureTurn = iTurn; g.iTargetCities = kT.getNumCities();
+			g.iState = 3; g.iSince = iTurn; g.iCaptures = 0; g.iLastCaptureTurn = iTurn; recordTargetCities((TeamTypes)g.iTarget);
 			CvPlot* pAttack = stagingPlot(kMe, pCity, 1);
 			if (pAttack != NULL) { g.iStageX = pAttack->getX_INLINE(); g.iStageY = pAttack->getY_INLINE(); }
 			releaseMarch();

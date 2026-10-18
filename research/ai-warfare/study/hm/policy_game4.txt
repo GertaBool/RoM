@@ -63,7 +63,7 @@ BUILD BUILDINGCLASS_LEGION_BARRACKS
 BUILD BUILDINGCLASS_STABLE
 PARAM war_min_turn 228
 PARAM prep_ratio_pct 100
-PARAM decl_ratio_pct 210
+PARAM decl_ratio_pct 120
 PARAM attack_min_odds 710
 PARAM stage_distance 2
 PARAM war_gap_turns 3
