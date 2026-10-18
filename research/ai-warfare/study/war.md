@@ -245,6 +245,27 @@ gives the readings, separately from the facts, and section 9 sets them against t
   human's units already stood within two plots of the first city it took in most wars. The
   exceptions are game 3's second war and game 4's last: no unit was near, and the first capture
   came later.
+- **Access.** Units cannot enter another player's land in peace without an open-borders agreement.
+  The human had made one with every target before the war, long before in most cases. For game 4's
+  seventh war it was signed again the turn after the previous peace with that AI. It had one
+  with nearly every AI it had met. Open borders are a standing policy, not a deal for one war, and
+  they are what let the army stand next to the target's cities before the declaration.
+
+| war | last_open_borders_deal_with_target | turns_before_declaration | ais_with_an_open_borders_deal | ais_met |
+|---|---|---|---|---|
+| game3 203 | 156 | 47 | 15 | 17 |
+| game3 209 | 156 | 53 | 16 | 17 |
+| game4 238 | 174 | 64 | 16 | 18 |
+| game4 252 | 138 | 114 | 16 | 18 |
+| game4 257 | 182 | 75 | 16 | 18 |
+| game4 268 | 153 | 115 | 16 | 18 |
+| game4 271 | 174 | 97 | 17 | 18 |
+| game4 272 | 145 | 127 | 17 | 18 |
+| game4 277 | 255 | 22 | 17 | 18 |
+| game4 283 | 153 | 130 | 17 | 18 |
+
+*turns; who: human; turn: each declaration turn; rows counted: 10; source: warstudy.py on the war logs of game3, game4: deal items TRADE_OPEN_BORDERS (D lines) between the human and the target before the declaration; open borders let units enter another's land in peace, and a declaration ends them; ais_with_an_open_borders_deal: the AIs with any such deal with the human before the declaration; ais_met: those and the AIs the human had met by the save (diplo). Every value counted (10).*
+
 - **Groups and ships.** Group commands and naval moves were few before the early wars, and grew
   over game 4's wars. Orders given to land units standing on water show sea landings:
   - in single cases before game 4's first three wars;
@@ -564,8 +585,7 @@ literature adds one test of its own.
     about 4.2 would be expected. The exact chance of at least as many is
     0.0127.
   - *Caveat:* the cue was proposed after these wars were read, among several possible cues, and
-    wars older than the first W line of a log are not seen. It is a hypothesis for the model and
-    for further games, not a finding.
+    wars older than the first W line of a log are not seen.
 
 | war | target_at_war_elsewhere | other_teams_at_war | other_teams | share_at_war |
 |---|---|---|---|---|
@@ -582,6 +602,30 @@ literature adds one test of its own.
 
 *cities; who: every team; turn: each declaration turn; rows counted: 10; source: warstudy.py on the war logs of game3, game4: a team is at war with another when a W line of the pair precedes the declaration and no Q line of the pair ends it before; wars before the first W line of the log are not seen; other teams: teams other than the human's with a city in M lines the turn before; share_at_war: the chance that a team picked at random among them was at war, the expected count of targets at war being the sum of these shares. Every value counted (10).*
 
+  - **The test, at the choice of team.** `tools/strategy.py` classifies each declaration among the
+    AIs the human could have attacked. Its options and cues are in its header.
+    - "Engaged" alone matches many choices, but at a high error rate: many AIs were at war at once,
+      so it rarely singles one out.
+    - Used after nearness, as a tie-breaker, it adds little to "nearest" alone. Compare the two
+      rows of the table.
+    - So the excess of engaged targets is largely explained by nearness: the nearest AIs were often
+      at war. The model takes nearness as its rule and leaves "engaged" out.
+
+| strategy | choices_matched | decisions | error_rate | log_likelihood | bic |
+|---|---|---|---|---|---|
+| weakest | 0 | 10 | 1.0 | -27.83 | 57.96 |
+| nearest | 6 | 10 | 0.4 | -21.47 | 45.25 |
+| nearest_then_weak | 3 | 10 | 0.7 | -25.56 | 53.42 |
+| weak_of_near_half | 0 | 10 | 1.0 | -27.83 | 57.96 |
+| most_cities | 0 | 10 | 1.0 | -27.83 | 57.96 |
+| weakest_ratio | 0 | 10 | 1.0 | -27.83 | 57.96 |
+| engaged | 8 | 10 | 0.2 | -24.93 | 52.16 |
+| nearest_then_engaged | 6 | 10 | 0.4 | -21.25 | 44.81 |
+| engaged_then_nearest | 5 | 10 | 0.5 | -24.23 | 50.76 |
+| guessing |  | 10 |  | -28.43 | 56.86 |
+
+*category; who: human; turn: each declaration of the human; rows counted: 10; source: strategy.py: maximum-likelihood classification over the declarations of every game given. Every value counted (10).*
+
 ## 10. What a model of this must do
 
 The harness model's war rule (`study/humanmodel.md` in preparation) is one rule: a fixed power
@@ -592,14 +636,18 @@ each to be checked against the logged wars before any campaign:
 1. **Choose a city, not a team.**
    - Among the cities of teams the seat outweighs, take the nearest, preferring the one with the
      most of its units near (the classification of section 5).
-   - Test as a further cue whether the team is already at war (section 9).
+   - Whether the team is already at war adds little at the choice of team (section 9), and is
+     left out.
    - The objective is that city and the cities nearest it that fall the same way.
 2. **Build up for it.**
    - Upgrade the army to the newest classes and promote it, in the thirty turns before.
    - Build transports when the city lies across water, and siege units and warships for a large
      city.
-3. **Stage.** Move a strike group to within two plots of the city, by land or by transport. Its
-   size is set by the city's defenders, as in the assault table. Declare when it stands there.
+3. **Stage.**
+   - Keep open borders with every AI met (section 4).
+   - Move a strike group to within two plots of the city, by land or by transport. Its size is set
+     by the city's defenders, as in the assault table.
+   - Declare when it stands there.
 4. **Assault.**
    - Attack in order of odds against a small city.
    - Against a large city: open with the strongest unit, accept losses at low odds while the
@@ -667,6 +715,7 @@ The Y lines record a city's defenders, not what the human could see of them.
 | `wr.war_upgrades` | table, 6 values | orders | human | the 30 turns before each declaration | 297 | warstudy.py on the war logs of game3, game4: A lines COMMAND_UPGRADE, the unit type upgraded to |
 | `wr.war_approach` | table, 110 values | orders | human | the ten days before each declaration that took a city, and the declaration | 110 | warstudy.py on the war logs of game3, game4: A lines MISSION_MOVE_TO of the human's land units other than workers, settlers, explorers and merchants (DefaultUnitAI); units: group sizes; near: the target plot within two plots of a city the human took in that war; distances in grid plots from the unit's plot and from its target plot to the nearest such city |
 | `wr.war_staging` | table, 10 values | orders | human | the declaration turn and the ten before | 10 | warstudy.py on the war logs of game3, game4: Y lines of the target's cities on the declaration turn ("foreign": other players' land units within two plots, before the human moves); A lines of the human: MISSION_MOVE_TO on the declaration turn (units: their group sizes), those from ten turns before to the declaration by land units standing on water (COAST, OCEAN) and by ships, and GROUP commands |
+| `wr.war_access` | table, 10 values | turns | human | each declaration turn | 10 | warstudy.py on the war logs of game3, game4: deal items TRADE_OPEN_BORDERS (D lines) between the human and the target before the declaration; open borders let units enter another's land in peace, and a declaration ends them; ais_with_an_open_borders_deal: the AIs with any such deal with the human before the declaration; ais_met: those and the AIs the human had met by the save (diplo) |
 | `wr.war_targets` | table, 65 values | cities | the human's targets | each declaration turn | 65 | warstudy.py on the war logs of game3, game4: the first Y line of each city of the target on the declaration turn; distance: grid plots to the nearest city of the human that turn (its Y lines); day_taken: days after the declaration that the human took it in this war (K lines) |
 | `wr.war_choice` | table, 11 values | cities | human | each city taken | 17 | warstudy.py on the war logs of game3, game4: each city the human took (K lines) with more than one city of the target that turn (Y lines); options: those cities; a cue's best options: its least value (defenders, defence modifier, distance to the human's cities including those taken before in the war, size) or most foreign units near; a pair of cues: the second decides among the first's best (take-the-best, Gigerenzer, Heuristics, chapter 14); maximum-likelihood classification with one error rate per cue (Bröder, in Heuristics, chapter 17), e on a grid of hundredths; guessing: each option 1/m; chosen_was_best counts ties as hits |
 | `wr.war_days` | table, 27 values | battles | human | each day with an attack or capture, and the declaration | 27 | warstudy.py on the war logs of game3, game4: C lines with the human attacking the target (odds per mille; siege units: DefaultUnitAI ATTACK_CITY; ships: SEA domain), B lines of the human, R lines with the human losing, K lines |
@@ -679,3 +728,4 @@ The Y lines record a city's defenders, not what the human could see of them.
 | `wr.targets_at_war_expected` | 4.2 | cities | the human's targets | each declaration turn | 10 | war_engaged: sum over wars of share_at_war, the count expected if targets were picked without regard to their wars |
 | `wr.targets_at_war_p` | 0.0127 | share | the human's targets | each declaration turn | 10 | war_engaged: the chance of at least as many targets at war elsewhere if each war's target were a random other team (Poisson-binomial over the wars' shares, computed exactly) |
 | `wr.war_engaged` | table, 10 values | cities | every team | each declaration turn | 10 | warstudy.py on the war logs of game3, game4: a team is at war with another when a W line of the pair precedes the declaration and no Q line of the pair ends it before; wars before the first W line of the log are not seen; other teams: teams other than the human's with a city in M lines the turn before; share_at_war: the chance that a team picked at random among them was at war, the expected count of targets at war being the sum of these shares |
+| `tg.war_target_strategies_pooled` | table, 10 values | category | human | each declaration of the human | 10 | strategy.py: maximum-likelihood classification over the declarations of every game given |

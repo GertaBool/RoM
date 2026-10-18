@@ -1030,9 +1030,12 @@ What the tables show:
 | weak_of_near_half | 0 | 10 | 1.0 | -27.83 | 57.96 |
 | most_cities | 0 | 10 | 1.0 | -27.83 | 57.96 |
 | weakest_ratio | 0 | 10 | 1.0 | -27.83 | 57.96 |
+| engaged | 8 | 10 | 0.2 | -24.93 | 52.16 |
+| nearest_then_engaged | 6 | 10 | 0.4 | -21.25 | 44.81 |
+| engaged_then_nearest | 5 | 10 | 0.5 | -24.23 | 50.76 |
 | guessing |  | 10 |  | -28.43 | 56.86 |
 
-*category; who: human; turn: each declaration of the human; rows counted: 10; source: strategy.py: maximum-likelihood classification over the declarations of every game given. Every value counted (7).*
+*category; who: human; turn: each declaration of the human; rows counted: 10; source: strategy.py: maximum-likelihood classification over the declarations of every game given. Every value counted (10).*
 
 ### 7.2 Before the declaration
 
@@ -1701,7 +1704,7 @@ experiment (CLAUDE.md, rule 9):
 | `gr.game3_food_buildings` | table, 4 values | cities at save | every player | save | 129 | growth.py: buildings with iFoodKept, a food RiverPlotYieldChanges or SeaPlotYieldChanges, or a food YieldModifiers or YieldChanges (BuildingInfo), and the cities holding each, real or free |
 | `tg.game3_war_targets` | table, 2 values | rank | human | each declaration of the human (cues from the turn before) | 2 | strategy.py: W lines of game3; options: AIs with an M line the turn before, holding a city, not at war with the human, not unmet at the save; rank 1 = the least power, the least distance, the most cities |
 | `tg.game4_war_targets` | table, 8 values | rank | human | each declaration of the human (cues from the turn before) | 8 | strategy.py: W lines of game4; options: AIs with an M line the turn before, holding a city, not at war with the human, not unmet at the save; rank 1 = the least power, the least distance, the most cities |
-| `tg.war_target_strategies_pooled` | table, 7 values | category | human | each declaration of the human | 10 | strategy.py: maximum-likelihood classification over the declarations of every game given |
+| `tg.war_target_strategies_pooled` | table, 10 values | category | human | each declaration of the human | 10 | strategy.py: maximum-likelihood classification over the declarations of every game given |
 | `st.game1_war_preparation` | table, 3 values | orders | human | the ten turns before each declaration, against the fifty before those | 3 | A lines of the human: unit city orders (ORDER type 0), upgrades (COMMAND_UPGRADE) and move orders (MISSION_MOVE_TO) in the ten turns before each W line it declared, against the mean per ten turns over the fifty turns before those [game1] |
 | `st.game2_war_preparation` | table, 3 values | orders | human | the ten turns before each declaration, against the fifty before those | 3 | A lines of the human: unit city orders (ORDER type 0), upgrades (COMMAND_UPGRADE) and move orders (MISSION_MOVE_TO) in the ten turns before each W line it declared, against the mean per ten turns over the fifty turns before those [game2] |
 | `st.game3_war_preparation` | table, 2 values | orders | human | the ten turns before each declaration, against the fifty before those | 2 | A lines of the human: unit city orders (ORDER type 0), upgrades (COMMAND_UPGRADE) and move orders (MISSION_MOVE_TO) in the ten turns before each W line it declared, against the mean per ten turns over the fifty turns before those [game3] |
