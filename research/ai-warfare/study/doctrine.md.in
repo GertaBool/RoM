@@ -1,0 +1,377 @@
+<!-- registry: doctrine.fig.json as d -->
+# Doctrine: what the literature asks of the AI, and where it falls short in the logged games
+
+Method: `method/docs/framework.md`. The queries are declared in `study/queries_doctrine.json` and
+turned into figures by `tools/sqlfig.py` over the five logged games. Code facts name their file and
+line in the DLL source as of the S2 commit (GitLab `e4679cd`, local `38bfd86`). The facts come first
+(section 3 and section 4). The readings in section 5 each give the facts they rest on and what would
+contradict them. Section 6 ranks the gaps and judges S2 from the higher stations.
+
+This document is the "eagle's view" the work lacked. Each AI change so far was derived from the
+game before it, one level down: from a case, to the code, to more code. Here the principles come
+first, from the literature, each with its source. Each is then held against measured facts from the
+games and located in the AI code. A change should come from a principle and its measured gap, and
+after the change it goes back up to the principle to be judged again (Clausewitz, II.5: "the same
+means which appeared advisable at one station, when looked at from the next above it may have to be
+rejected").
+
+## 1. Sources read
+
+Primary texts, read in full where marked, otherwise in the chapters cited:
+
+- Clausewitz, *On War* (Graham translation): I.1, I.2, II.5, III.8 to III.18, VI.1 to VI.5, VII.4,
+  VII.5, VII.22, VIII.4.
+- Sun Tzu, *The Art of War* (Giles translation): all thirteen chapters.
+- Jomini, *The Art of War* (Mendell and Craighill translation): Art. IV, Art. X, the fundamental
+  principle of chapter III, Art. XII, Art. XL.
+- Lanchester, *Aircraft in Warfare*: chapters V and VI (concentration, the N-square law).
+- Corbett, *Some Principles of Maritime Strategy*: Part I, chapter 4 to chapter 6 (limited war); Part II,
+  chapter 1 (command of the sea); Part III, chapter 3 (fleet in being, minor counter-attacks).
+- Mahan, *The Influence of Sea Power upon History*: the introductory chapters on concentration and
+  coast defence, commerce-destroying.
+- Adam Smith, *The Wealth of Nations*: Book II, chapter 3 (accumulation of capital); Book V,
+  chapter 1, part I (the expense of defence).
+- Sinha, Fang, An, Kiekintveld, Tambe: the IJCAI survey of Stackelberg security games.
+- Branavan, Silver, Barzilay: *Learning to Win by Reading Manuals in a Monte-Carlo Framework* (JAIR).
+- Lakatos, the methodology of scientific research programmes (the SEP entry).
+
+John Boyd (*Patterns of Conflict*, *Destruction and Creation*) is *open*: every host that serves the
+texts failed from this machine, and the doctrine does not quote him from memory.
+
+## 2. Principles and questions
+
+Each principle is stated with its sources, then the question it puts to the games and the source
+that answers it.
+
+- **D1. The weak must always be armed: readiness, not the enemy's not coming.**
+  - Sun Tzu VIII.11: "rely not on the likelihood of the enemy's not coming, but on our own readiness
+    to receive him".
+  - Clausewitz VI.5: "it is just the weak, or that side which must defend itself, which should be
+    always armed in order not to be taken by surprise".
+  - Corbett III.3, on the surprise attack made before declaration: relations "had been highly
+    strained ... the Russians had taken no precautions", and "the great power of even the flimsiest
+    defence against such attacks".
+  - Question: do the human's targets fall before they can react? Answered in `staging.md` from the
+    `W`, `K` and `Y` lines; S2 (prediction P4) is the change built from it.
+- **D2. Time favours the side whose economy compounds, so the other side must act before.**
+  - Clausewitz I.1 §13: if waiting favours one side, "the other has a manifest interest to act
+    without delay".
+  - Clausewitz III.16: the tame mode of war works "only under the tacit condition that the adversary
+    does no better".
+  - Smith II.3: "Parsimony, and not industry, is the immediate cause of the increase of capital".
+  - Smith V.1.1: "an industrious, and, upon that account, a wealthy nation, is of all nations the
+    most likely to be attacked". And in modern war the expense of arms favours "the nation which can
+    best afford that expense".
+  - Question: when does the human's economy pull away from the AIs'? Source: `M` lines.
+- **D3. The balance of power: the leader's victims find friends.**
+  - Clausewitz VII.22: the danger that threatens the state "rouses other powers to its protection".
+  - Clausewitz VIII.4: "envy, jealousy, anxiety for self ... raise up for him on the one hand
+    friends".
+  - Jomini Art. X: a state at war with two "will be extremely unfortunate if it does not find an ally
+    to come to its aid, with a view to its own safety and the maintenance of the political
+    equilibrium".
+  - Sun Tzu XI.54 and XI.55, from the leader's side: prevent the joining of allies; do not "foster
+    the power of other states".
+  - Questions: do the AIs ever declare on the human, or on the leader? Did a third party with the
+    power to intervene stand by when the human struck? Sources: `W` and `M` lines.
+- **D4. Defence includes the counterstroke; a limited war is answered at the heart.**
+  - Clausewitz VI.5: the counterstroke, "the flashing sword of vengeance", is "the most brilliant
+    point in the defensive".
+  - Corbett I.4: against a limited war between neighbours, the enemy can "pass to unlimited war ...
+    and, ignoring the territorial objective, to strike at the heart" (Austerlitz).
+  - Corbett I.6: limited war succeeds by controlling the force the enemy brings, which depends on
+    "the nature and extent of his preoccupations elsewhere".
+  - Mahan: coast defence that goes "to meet the enemy's fleet".
+  - The security-games survey: defence is "a combination of defensive actions, offensive actions,
+    and information seeking actions".
+  - Question: do the AIs fight back, or take back what they lost? Sources: `C` and `K` lines.
+- **D5. Concentration, in place and in time; force spent piecemeal is wasted.**
+  - Lanchester §28: forces met separately count as the square root of the sum of their squares, so
+    junction is the whole matter.
+  - Lanchester §34 and §35: forces brought in successively are worth only the hypotenuse; a small
+    force facing an overwhelming one is impotent "in the open", but not when "dug in".
+  - Clausewitz III.11 and III.12: keep the forces concentrated, and apply them simultaneously.
+  - Jomini, the fundamental principle: throw the mass upon the decisive point.
+  - Question: how do the two sides attack: many blows on one plot in one turn, or single ones?
+    Source: `C` lines. The game's combat is a series of duels, but damage persists until the unit
+    heals at the start of its owner's turn (`CvUnit::doTurn`, `CvUnit.cpp:730`, which calls
+    `doHeal` at `CvUnit.cpp:776`), and each attack meets the plot's best defender afresh
+    (`CvUnit.cpp:1382`). So blows concentrated in one turn wear a garrison down, as fire does in
+    Lanchester's model.
+- **D6. Read the adversary from what he does and what he prepares.**
+  - Clausewitz I.1 §7: each side forms an opinion of the other "from what he is and what he does".
+  - Clausewitz III.18: tension begins with preparations alone.
+  - Sun Tzu IX.24: "humble words and increased preparations are signs that the enemy is about to
+    advance".
+  - The security-games survey: the attacker "is able to observe and learn the defender's strategy",
+    and a bounded-rational attacker's choices can be fitted from its observed attacks.
+  - Question: how does the human manage the AIs' attitudes while it prepares? Sources: `D` lines
+    (deals), `E` lines (diplomacy events), the save's memory table.
+- **D7. Economy of force: no part idle.**
+  - Clausewitz III.14: whoever has forces where the enemy does not employ them "is a bad manager of
+    his forces".
+  - Smith V.1.1: the late empire dispersed its legions "in small bodies through the different
+    provincial towns", and they decayed into a militia.
+  - Jomini Art. XL: do not try to cover every point; arrange signals, and rapidly concentrate all
+    the disposable force at the point of landing.
+  - Question: where were the AIs' armies when their cities fell? *Open* beyond Frisia in game 5
+    (`staging.md`, section 2.4): unit positions come only from the `L` lines, which only game 5 has.
+
+## 3. The facts
+
+Setup, from the `H` lines and each game's analysis (`games/game1` to `games/game5`): every game is
+played at Marathon speed and at Noble, except game 4 at Monarch. Game 5's header was written during
+setup and lacks the map size (`games/game5/analysis.md`). In every game a single human plays against
+AI players on their own teams.
+
+### 3.1 The economies over time (D2)
+
+The human against the living AI players at fixed turns. Game 1 and game 2 have no `M` lines.
+
+{{table:d.game3_economy}}
+
+{{table:d.game4_economy}}
+
+{{table:d.game5_economy}}
+
+### 3.2 The AIs' declarations of war (D3)
+
+Every declaration by an AI team, with the score leader of that turn, where known:
+
+{{table:d.game1_ai_declarations}}
+
+{{table:d.game2_ai_declarations}}
+
+{{table:d.game3_ai_declarations}}
+
+{{table:d.game4_ai_declarations}}
+
+{{table:d.game5_ai_declarations}}
+
+### 3.3 The third parties when the human struck (D3)
+
+At each declaration of the human: its power, the target's, and that of the strongest AI outside the
+war.
+
+{{table:d.game3_third_parties}}
+
+{{table:d.game4_third_parties}}
+
+{{table:d.game5_third_parties}}
+
+### 3.4 Who fought whom (D4)
+
+Per AI team that fought the human: the attacks of each side and the cities each side took.
+
+{{table:d.game1_fighting}}
+
+{{table:d.game2_fighting}}
+
+{{table:d.game3_fighting}}
+
+{{table:d.game4_fighting}}
+
+{{table:d.game5_fighting}}
+
+### 3.5 How each side attacked (D5)
+
+Attacks grouped by the plot attacked and the turn:
+
+{{table:d.game1_concentration}}
+
+{{table:d.game2_concentration}}
+
+{{table:d.game3_concentration}}
+
+{{table:d.game4_concentration}}
+
+{{table:d.game5_concentration}}
+
+### 3.6 Deals and diplomacy with the human (D6)
+
+The items exchanged in deals:
+
+{{table:d.game1_deals}}
+
+{{table:d.game2_deals}}
+
+{{table:d.game3_deals}}
+
+{{table:d.game4_deals}}
+
+{{table:d.game5_deals}}
+
+The deals in which one side gave nothing:
+
+{{table:d.game1_one_sided}}
+
+{{table:d.game2_one_sided}}
+
+{{table:d.game3_one_sided}}
+
+{{table:d.game4_one_sided}}
+
+{{table:d.game5_one_sided}}
+
+The diplomacy events between the human and the AIs:
+
+{{table:d.game1_diplo_events}}
+
+{{table:d.game2_diplo_events}}
+
+{{table:d.game3_diplo_events}}
+
+{{table:d.game4_diplo_events}}
+
+{{table:d.game5_diplo_events}}
+
+What the AIs remembered of the human when the log ended:
+
+{{table:d.game3_memories}}
+
+{{table:d.game4_memories}}
+
+{{table:d.game5_memories}}
+
+## 4. The code at each principle
+
+- **Where an AI chooses a war** (D2, D3): `CvTeamAI::AI_doWar` (`CvTeamAI.cpp:4746`). Each of its
+  three paths needs the target to be weaker than the AI:
+  - a total war needs the target's defensive power (two thirds of it, or its reachable defence in
+    cunning mode) below a ratio of the AI's own (`CvTeamAI.cpp:5259` to `CvTeamAI.cpp:5270`);
+  - a limited war has the same test with the limited-war ratio (`CvTeamAI.cpp:5347` to
+    `CvTeamAI.cpp:5354`);
+  - a dogpile war is the only coalition path: it adds the power of every team already at war with
+    the target, and needs that sum to exceed one and a half times the target's defence
+    (`CvTeamAI.cpp:5412` to `CvTeamAI.cpp:5440`).
+
+  Every path first needs a random roll at or above the leader's `NoWarAttitudeProbs` for its
+  attitude to the target (`AI_noWarAttitudeProb`, `CvTeamAI.cpp:4598`, from the `LeaderHeadInfo`
+  records). The pleasanter the attitude, the less likely the war.
+- **What makes a target attractive** (D3): `CvTeamAI::AI_startWarVal` (`CvTeamAI.cpp:1232`). It
+  counts plot value, capital proximity, closeness and resources. A target is weighted for being
+  ahead only when it pursues a victory strategy at level three or four. When the AI is already at
+  war, or follows the early conquest strategy, the value is scaled by the AI's power over the
+  target's defensive power, so weak targets are preferred.
+- **Envy of the leader** (D3): the attitude term on rank (`CvPlayerAI::AI_getAttitudeVal`,
+  `CvPlayerAI.cpp:7444`). It is the leader's `iWorseRankDifferenceAttitudeChange` times the rank
+  difference, divided by the number of civilisations ever alive plus one, so its size is bounded by
+  that one field.
+- **Open borders** (D6): `CvTeamAI::AI_openBordersTrade` (`CvTeamAI.cpp:3446`) refuses only after a
+  recent cancellation, to the worst enemy, or below the leader's attitude threshold. Neither the
+  other side's power, nor its units near the border, nor its rank count.
+- **Posture in an area at war** (D4): `CvTeamAI::AI_calculateAreaAIType` (`CvTeamAI.cpp:409`).
+  - The area turns defensive when the AI's power there is below the enemy's and the AI has been
+    losing (`CvTeamAI.cpp:518`), or below half the enemy's (`CvTeamAI.cpp:529`).
+  - After a recent attack it masses only if its power there exceeds the enemy's, and otherwise turns
+    defensive (`CvTeamAI.cpp:619`).
+- **City danger and defenders** (D1): `staging.md`, section 2.3, and the S2 change
+  (`AI_stagedForecast`, `builds/staging/README.md`).
+
+## 5. Readings
+
+- **R1. Time is on the human's side: its lead in hammers comes early, its lead in commerce between
+  the last two rows of each economy table** (D2).
+  - Facts: section 3.1. In the first rows the human's commerce is near the AI median. Its hammers
+    are ahead of the median from the second row. In the last row its commerce is several times the
+    median and above the best AI's, its hammers several times the median, and its cities have
+    multiplied.
+  - In game 4 and game 5 the human is first or second in score from the middle rows on. Those last rows come
+    after its wars (`staging.md`, section 2.1), so the cities it took feed the lead (Sun Tzu II:
+    "using the conquered foe to augment one's own strength").
+  - Contradicted if a game shows the human's commerce pulling away before its first war, or the AI
+    median keeping pace after it.
+- **R2. No balance of power ever forms against the human** (D3).
+  - Facts: section 3.2. The AI teams declared war among themselves in every game, never on the
+    human, even on turns when the human was the score leader (`human_leads`).
+  - Section 3.3 (game 3 to game 5): when the human struck, the target was always weaker than the human, and in the
+    early wars of game 4 at least one AI outside the war was stronger than the human. None of them
+    joined.
+  - Code: section 4. Every war path wants a weaker target. The only coalition path (dogpile) adds
+    the target's enemies' power, but it is gated by attitude like the others. A target counts for
+    being ahead only near a victory.
+  - Contradicted if a game shows an AI declaring on the human, or joining one of the human's wars.
+- **R3. The human keeps the AIs pleased while it prepares** (D6).
+  - Facts: section 3.6. It holds open borders with almost every AI. Its one-sided deals are
+    technologies it gives (`GIVE_HELP`): the AI asks and the human grants some requests and refuses
+    others (`REFUSED_HELP`).
+  - Overall it gives more technologies than it receives. That is Sun Tzu's "humble words and
+    increased preparations" (IX.24), not fostering the human's power through trade (XI.55): the AIs
+    do not feed the human; the human buys their attitude.
+  - In the code, attitude decides the war roll and open borders (section 4). The open borders also
+    give the human passage and sight for staging (`staging.md`).
+  - What the AIs remember of the human at the end includes `DECLARED_WAR_ON_FRIEND`, held by several
+    AIs in each game: they keep the grievance and do nothing about it.
+  - Contradicted if the human's gifts do not come before its wars or do not go to the AIs that could
+    have joined against it. That timing is not yet measured and is *open*.
+- **R4. The AI never strikes back** (D4).
+  - Facts: section 3.4. In every war the AI side attacked the human's units almost never, and took
+    no city back. The human's attacks are many times the AI's.
+  - The human's wars are limited wars in Corbett's sense. It chooses targets preoccupied elsewhere
+    (`staging.md`, section 2.1), takes a few cities, and is never answered at its own cities.
+  - Code: the area posture turns defensive whenever the enemy's power in the area exceeds the AI's
+    (section 4).
+  - Why the AI's units did not attack is *open*. The war log does not record the area AI type or the
+    units' missions, except game 5's `L` lines.
+  - Contradicted if the BBAI log of a replayed war shows the AI's area offensive or massing while its
+    units still did not attack.
+- **R5. The human concentrates in time; the AI attacks alone** (D5).
+  - Facts: section 3.5. Most of the human's attacks go into cities. In game 4 most of them, and in
+    game 3 half, are made in groups of three or more on one plot in one turn. Its median odds are high:
+    "the victorious strategist only seeks battle after the victory has been won" (Sun Tzu IV.15).
+  - The AI's few attacks were each the only attack on their plot that turn, and in game 4 and game 5
+    at odds below even. That is Lanchester's piecemeal force.
+  - Contradicted if more games show AI attacks on the human in groups.
+
+## 6. Ranking the gaps, and S2 seen from above
+
+The ranking criterion is the mission: beat an expert human at Noble while each leader keeps its
+character. A gap ranks higher the more of the human's method it would defeat, and the earlier in the
+game it acts.
+
+1. **D3, the balance against the leader (R2, with R3).** It is the only gap that acts before the
+   human's lead compounds (R1). It also turns the human's preferred target, an AI preoccupied
+   elsewhere, from an opportunity into a risk. Today the attitude the human can buy decides it.
+   Each leader's character survives a fix: attitude and war probabilities stay per leader, and the
+   question is whether being the leader, or striking a neighbour, enters the calculation at all.
+2. **D4, the counterstroke (R4).** A limited war is cheap only while no one answers it at the heart
+   (Corbett I.4). An AI that strikes the human's own cities, or recaptures, makes every war cost
+   the human what it gains.
+3. **D1, readiness (S2).** It denies the capture on the declaration turn, the human's cheapest win.
+   Without it, D3 and D4 come too late, because a city taken at once cannot be defended afterwards.
+4. **D5, concentration (R5).** It matters once the AI does attack (D4), so it comes after it.
+5. **D2, the economy (R1).** It is not a separate lever. The human's economic lead follows from its
+   conquests, so closing D1, D3 and D4 closes much of it. Building better on its own does not:
+   Smith's wealthy nation without "some new measure for the public defence" is the most attacked.
+6. **D6 and D7** are means for the others: reading the human's preparations serves D1 and D3, and
+   economy of force serves D4.
+
+**S2, judged from each station.**
+
+- At the station of the city it is right. In the harness replay of the game 6 save, the Sumerian
+  city facing a Persian force at peace raises its defenders and its forecast falls; with S2 off it
+  stays at one defender (`builds/staging/provenance.json`, `tested_headless`).
+- At the station of the war it is necessary but not sufficient. A garrison in every threatened city
+  is the late empire's militia (Smith V.1.1), and it makes the AI "everywhere weak" (Sun Tzu VI.18).
+  It needs the mobile counterstroke behind it (D4) and the warning that tells that force where to go
+  (Jomini XL; D6).
+- At the station of the game it does not touch the cause. The human chooses when to fight because no
+  one makes it fight earlier (D3).
+
+So S2 was the right first move, because it is the lowest station and the others build on it. It was
+not chosen from this view, and the next changes should be D3 and then D4, not more refinement of the
+garrison. Lakatos's test applies to this sequence of changes: it is progressive only if each change
+predicts something new that then holds. P2 and P4 (S2) predict fewer captures by the human; neither is
+judged yet, because only one game so far has the snapshot lines a judgment needs.
+
+## 7. Open
+
+- Boyd's texts (section 1).
+- D7: where the AIs' armies stood when their cities fell, beyond game 5 (needs `L` lines).
+- R3: the timing of the human's gifts relative to its wars, and to whom they went.
+- R4: why the AI's units did not attack (needs the area AI and missions per turn, from a replay with
+  the BBAI log).
+- The meaning of the `TRADE_PEACE_TREATY` items in deals with players the human never fought
+  (game 5).
+- Game 6 (Ragnar) is a save without a war log, so it enters only through the S2 test of its save.
+- Game 1 and game 2 have no `M` lines, so D2 and the leader column of D3 rest on game 3 to game 5.

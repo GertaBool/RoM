@@ -1,0 +1,98 @@
+[
+ {
+  "id": "economy",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4",
+   "game5"
+  ],
+  "unit": "category",
+  "who": "the human and the living AI players (players below 50, with at least one city)",
+  "turn": "turns 50, 100, 150, 200 and 250, where logged",
+  "source": "M lines (end of each player turn): commerce, hammers, cities, power and score; the human's rank by score among the living players (1 = highest). Game 1 and game 2 have no M lines",
+  "sql": "with h as (select player from wl_P where human=1), m as (select turn, player, commerce, hammers, cities, power, score, rank() over (partition by turn order by score desc) srank from wl_M where player<50 and cities>0 and turn in (50, 100, 150, 200, 250)) select turn, max(case when player=(select player from h) then commerce end) human_commerce, median(case when player<>(select player from h) then commerce end) ai_median_commerce, max(case when player<>(select player from h) then commerce end) ai_max_commerce, max(case when player=(select player from h) then hammers end) human_hammers, median(case when player<>(select player from h) then hammers end) ai_median_hammers, max(case when player=(select player from h) then cities end) human_cities, median(case when player<>(select player from h) then cities end) ai_median_cities, max(case when player=(select player from h) then power end) human_power, max(case when player<>(select player from h) then power end) ai_max_power, max(case when player=(select player from h) then srank end) human_score_rank, count(*) players from m group by turn order by turn"
+ },
+ {
+  "id": "ai_declarations",
+  "db": "*",
+  "unit": "category",
+  "who": "every AI team's declaration of war",
+  "turn": "each AI declaration",
+  "source": "W lines whose declaring team is not the human's; the score leader of that turn from M lines (highest score, ties to the lower player id; -1 where the log has no M lines: game 1 and game 2). A player's team is its P line's team, or its id where the log has no P line for it (game 5)",
+  "sql": "with h as (select player, team from wl_P where human=1), l as (select turn, player from (select turn, player, row_number() over (partition by turn order by score desc, player) r from wl_M where player<50 and cities>0) where r=1) select w.turn, w.team, w.target, case when w.target=(select team from h) then 1 else 0 end on_human, coalesce((select coalesce((select team from wl_P p where p.player=l.player), l.player) from l where l.turn=w.turn), -1) leader_team, case when (select player from l where l.turn=w.turn)=(select player from h) then 1 else 0 end human_leads from wl_W w where w.team<>(select team from h) order by w.seq"
+ },
+ {
+  "id": "third_parties",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4",
+   "game5"
+  ],
+  "unit": "category",
+  "who": "the human, the target of each of its declarations, and the other AI players",
+  "turn": "the turn of each declaration of the human",
+  "source": "W lines declared by the human's team; M lines of that turn: power of the human, summed power of the target team's players, the largest power of an AI player outside the target team, and how many such players had more power than the human. Team of a player as in ai_declarations",
+  "sql": "with h as (select player, team from wl_P where human=1), m as (select turn, player, power, coalesce((select team from wl_P p where p.player=wl_M.player), wl_M.player) team from wl_M where player<50 and cities>0), w as (select seq, turn, target from wl_W where team=(select team from h)) select w.turn, w.target, (select power from m where m.turn=w.turn and m.player=(select player from h)) human_power, (select sum(power) from m where m.turn=w.turn and m.team=w.target) target_power, (select max(power) from m where m.turn=w.turn and m.player<>(select player from h) and m.team<>w.target) largest_other_ai_power, (select count(*) from m where m.turn=w.turn and m.player<>(select player from h) and m.team<>w.target and m.power>(select power from m m2 where m2.turn=w.turn and m2.player=(select player from h))) others_stronger_than_human from w order by w.seq"
+ },
+ {
+  "id": "fighting",
+  "db": "*",
+  "unit": "category",
+  "who": "each AI team that fought the human (barbarians excluded)",
+  "turn": "the whole log",
+  "source": "C lines between the human's units and an AI team's (attacks by each side, the turns on which the AI attacked), K lines between them (cities taken by each side), first and last combat turn. Team of a player as in ai_declarations",
+  "sql": "with h as (select player, team from wl_P where human=1), c as (select turn, att, def, coalesce((select team from wl_P p where p.player=case when att=(select player from h) then def else att end), case when att=(select player from h) then def else att end) ai_team, case when att=(select player from h) then 1 else 0 end by_human from wl_C where (att=(select player from h) or def=(select player from h)) and att<50 and def<50), k as (select turn, case when new_owner=(select player from h) then 1 else 0 end by_human, coalesce((select team from wl_P p where p.player=case when new_owner=(select player from h) then old_owner else new_owner end), case when new_owner=(select player from h) then old_owner else new_owner end) ai_team from wl_K where (new_owner=(select player from h) or old_owner=(select player from h)) and old_owner<50 and new_owner<50), t as (select ai_team from c union select ai_team from k) select t.ai_team, (select count(*) from c where c.ai_team=t.ai_team and by_human=1) human_attacks, (select count(*) from c where c.ai_team=t.ai_team and by_human=0) ai_attacks, (select count(distinct turn) from c where c.ai_team=t.ai_team and by_human=0) ai_attack_turns, (select count(*) from k where k.ai_team=t.ai_team and by_human=1) cities_human_took, (select count(*) from k where k.ai_team=t.ai_team and by_human=0) cities_ai_took, coalesce((select min(turn) from c where c.ai_team=t.ai_team), -1) first_combat, coalesce((select max(turn) from c where c.ai_team=t.ai_team), -1) last_combat from t order by t.ai_team"
+ },
+ {
+  "id": "concentration",
+  "db": "*",
+  "unit": "category",
+  "who": "the human's attacks on AI units, and AI attacks on the human's units (barbarians excluded)",
+  "turn": "the whole log",
+  "source": "C lines: attacks grouped by side and by (turn, plot attacked); plot-turns attacked once, attacks made in groups of three or more on one plot in one turn, attacks into a city (city defence modifier logged), and the median attacker's odds (getCombatOdds, per thousand)",
+  "sql": "with h as (select player from wl_P where human=1), c as (select turn, x, y, city_def, odds, case when att=(select player from h) then 'human attacks' else 'AI attacks on the human' end side from wl_C where (att=(select player from h) or def=(select player from h)) and att<50 and def<50), p as (select side, turn, x, y, count(*) n from c group by side, turn, x, y) select side, (select count(*) from c where c.side=s.side) attacks, (select count(*) from p where p.side=s.side) plot_turns, (select count(*) from p where p.side=s.side and n=1) plot_turns_attacked_once, (select coalesce(sum(n), 0) from p where p.side=s.side and n>=3) attacks_in_groups_of_3_plus, (select count(*) from c where c.side=s.side and city_def>=0) attacks_into_cities, (select median(odds) from c where c.side=s.side) median_odds from (select distinct side from c) s order by side"
+ },
+ {
+  "id": "deals",
+  "db": "*",
+  "unit": "category",
+  "who": "deals between the human and AI players (the war log writes no deal between two AIs: warLogDeal, CvGameCoreUtils.cpp:3714)",
+  "turn": "the whole log",
+  "source": "D lines exploded into deal_items (side 1 = first player gives, 2 = second gives); item names from CvEnums.h (TradeableItems). Direction: who gives; partners: distinct AI players on the other side",
+  "sql": "with h as (select player from wl_P where human=1), d as (select item, case when side=1 then first else second end giver, case when side=1 then second else first end receiver from deal_items) select e.name item, case when d.giver=(select player from h) then 'human gives' else 'AI gives' end direction, count(*) items, count(distinct case when d.giver=(select player from h) then d.receiver else d.giver end) partners from d join enums e on e.enum='TradeableItems' and e.idx=d.item group by 1, 2 order by 1, 2"
+ },
+ {
+  "id": "one_sided",
+  "db": "*",
+  "unit": "category",
+  "who": "deals between the human and AI players",
+  "turn": "the whole log",
+  "source": "D lines: deals in which one side gives nothing (gift, tribute or demand) and the others, by direction; deals whose given side holds a technology (item 9 of TradeableItems); partners: distinct AI players",
+  "sql": "with h as (select player from wl_P where human=1), d as (select first, second, coalesce(items_first, '') a, coalesce(items_second, '') b from wl_D), k as (select case when (first=(select player from h) and a<>'' and b='') or (second=(select player from h) and b<>'' and a='') then 'human gives, nothing back' when (first=(select player from h) and a='' and b<>'') or (second=(select player from h) and b='' and a<>'') then 'AI gives, nothing back' else 'exchange' end kind, case when first=(select player from h) then a else b end human_side, case when first=(select player from h) then b else a end ai_side, case when first=(select player from h) then second else first end partner from d) select kind, count(*) deals, sum(case when human_side like '9:%' or human_side like '%,9:%' then 1 else 0 end) human_gives_tech, sum(case when ai_side like '9:%' or ai_side like '%,9:%' then 1 else 0 end) ai_gives_tech, count(distinct partner) partners from k group by 1 order by 1"
+ },
+ {
+  "id": "diplo_events",
+  "db": "*",
+  "unit": "category",
+  "who": "diplomacy between the human and AI players",
+  "turn": "the whole log",
+  "source": "E lines (CvPlayer::handleDiploEvent) with the human as sender or receiver, by event (DiploEventTypes from CvEnums.h); senders: distinct players sending it",
+  "sql": "with h as (select player from wl_P where human=1) select e.name diplo_event, count(*) events, count(distinct w.sender) senders from wl_E w join enums e on e.enum='DiploEventTypes' and e.idx=w.event where w.sender=(select player from h) or w.receiver=(select player from h) group by 1 order by 1"
+ },
+ {
+  "id": "memories",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4",
+   "game5"
+  ],
+  "unit": "category",
+  "who": "the AI players' memories of the human",
+  "turn": "at the save the log ends with",
+  "source": "save dump, memory table (AI_getMemoryCount of each AI towards the human): memory type, AI players holding it, summed count",
+  "sql": "select memory, count(*) ai_players, sum(n) total from memory where other=(select player from players where human=1) group by 1 order by 1"
+ }
+]

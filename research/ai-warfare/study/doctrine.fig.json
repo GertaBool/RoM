@@ -1,0 +1,2619 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/sqlfig.py",
+  "@repo/research/ai-warfare/study/queries_doctrine.json",
+  "@repo/research/ai-warfare/study/doctrine.fig.json",
+  "records=/root/.cache/rom-ana/data/records.json",
+  "game1=/root/.cache/rom-ana/db/game1.duckdb",
+  "game2=/root/.cache/rom-ana/db/game2.duckdb",
+  "game3=/root/.cache/rom-ana/db/game3.duckdb",
+  "game4=/root/.cache/rom-ana/db/game4.duckdb",
+  "game5=/root/.cache/rom-ana/db/game5.duckdb"
+ ],
+ "inputs": {
+  "queries_doctrine.json": "ff6ea7de1b287a976b331e6c55602e71be25b3e4f575f33ee957e4f477e2c3a5",
+  "/root/.cache/rom-ana/db/game1.duckdb": "db8d50ecb94e029fffc88984afef92e787fb77d05ae71b6c70a1cfdd82482aa7",
+  "/root/.cache/rom-ana/db/game2.duckdb": "6ac8f92dcf25375b8be98ef21ad57842de44d6e1a3da311988024599bafd9a45",
+  "/root/.cache/rom-ana/db/game3.duckdb": "056e11ca34eb6905a32e836ae20bc821cb34f2a44be10546136e42e1a5f7be7f",
+  "/root/.cache/rom-ana/db/game4.duckdb": "8f6fbd76d71407032ba1bfc5fdd3e3298e1a53e895da199d63238aef0fd50c5f",
+  "/root/.cache/rom-ana/db/game5.duckdb": "b742dc1bf88055c9b0ccd5cc3d3a70f8458f7333c8774507bb53cbc167489080",
+  "/root/.cache/rom-ana/data/records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152"
+ },
+ "figures": {
+  "game3_economy": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "human_commerce",
+    "ai_median_commerce",
+    "ai_max_commerce",
+    "human_hammers",
+    "ai_median_hammers",
+    "human_cities",
+    "ai_median_cities",
+    "human_power",
+    "ai_max_power",
+    "human_score_rank",
+    "players"
+   ],
+   "rows": [
+    [
+     50,
+     21,
+     21.0,
+     28,
+     4,
+     3.0,
+     1,
+     1.0,
+     11,
+     11,
+     7,
+     18
+    ],
+    [
+     100,
+     28,
+     24.0,
+     35,
+     20,
+     8.0,
+     1,
+     1.0,
+     34,
+     24,
+     2,
+     18
+    ],
+    [
+     150,
+     55,
+     38.0,
+     60,
+     36,
+     21.0,
+     4,
+     3.0,
+     59,
+     49,
+     2,
+     18
+    ],
+    [
+     200,
+     89,
+     48.0,
+     133,
+     109,
+     47.0,
+     5,
+     4.0,
+     128,
+     118,
+     3,
+     18
+    ],
+    [
+     250,
+     828,
+     111.0,
+     359,
+     522,
+     106.0,
+     13,
+     5.0,
+     483,
+     351,
+     1,
+     18
+    ]
+   ],
+   "unit": "category",
+   "who": "the human and the living AI players (players below 50, with at least one city)",
+   "turn": "turns 50, 100, 150, 200 and 250, where logged",
+   "source": "M lines (end of each player turn): commerce, hammers, cities, power and score; the human's rank by score among the living players (1 = highest). Game 1 and game 2 have no M lines [game3]",
+   "n": 5,
+   "values_total": 5,
+   "values_shown": 5,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    50,
+    100,
+    150,
+    200,
+    250
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_economy": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "human_commerce",
+    "ai_median_commerce",
+    "ai_max_commerce",
+    "human_hammers",
+    "ai_median_hammers",
+    "human_cities",
+    "ai_median_cities",
+    "human_power",
+    "ai_max_power",
+    "human_score_rank",
+    "players"
+   ],
+   "rows": [
+    [
+     50,
+     21,
+     22.5,
+     27,
+     6,
+     3.0,
+     1,
+     1.0,
+     13,
+     15,
+     5,
+     19
+    ],
+    [
+     100,
+     22,
+     30.0,
+     41,
+     21,
+     7.0,
+     3,
+     1.5,
+     25,
+     32,
+     3,
+     19
+    ],
+    [
+     150,
+     43,
+     44.5,
+     65,
+     49,
+     21.0,
+     5,
+     3.0,
+     59,
+     59,
+     1,
+     19
+    ],
+    [
+     200,
+     146,
+     75.5,
+     208,
+     109,
+     46.0,
+     8,
+     5.0,
+     149,
+     146,
+     1,
+     19
+    ],
+    [
+     250,
+     777,
+     173.5,
+     397,
+     532,
+     149.5,
+     11,
+     7.0,
+     441,
+     543,
+     2,
+     19
+    ]
+   ],
+   "unit": "category",
+   "who": "the human and the living AI players (players below 50, with at least one city)",
+   "turn": "turns 50, 100, 150, 200 and 250, where logged",
+   "source": "M lines (end of each player turn): commerce, hammers, cities, power and score; the human's rank by score among the living players (1 = highest). Game 1 and game 2 have no M lines [game4]",
+   "n": 5,
+   "values_total": 5,
+   "values_shown": 5,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    50,
+    100,
+    150,
+    200,
+    250
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_economy": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "human_commerce",
+    "ai_median_commerce",
+    "ai_max_commerce",
+    "human_hammers",
+    "ai_median_hammers",
+    "human_cities",
+    "ai_median_cities",
+    "human_power",
+    "ai_max_power",
+    "human_score_rank",
+    "players"
+   ],
+   "rows": [
+    [
+     50,
+     26,
+     22.0,
+     30,
+     5,
+     3.0,
+     1,
+     1.0,
+     15,
+     15,
+     7,
+     19
+    ],
+    [
+     100,
+     24,
+     25.0,
+     36,
+     16,
+     6.5,
+     1,
+     1.0,
+     28,
+     26,
+     3,
+     19
+    ],
+    [
+     150,
+     37,
+     38.5,
+     56,
+     38,
+     16.5,
+     4,
+     3.0,
+     41,
+     47,
+     2,
+     19
+    ],
+    [
+     200,
+     133,
+     60.5,
+     140,
+     135,
+     43.0,
+     7,
+     4.0,
+     117,
+     143,
+     1,
+     19
+    ],
+    [
+     250,
+     1041,
+     154.5,
+     430,
+     634,
+     120.5,
+     17,
+     7.0,
+     485,
+     443,
+     1,
+     17
+    ]
+   ],
+   "unit": "category",
+   "who": "the human and the living AI players (players below 50, with at least one city)",
+   "turn": "turns 50, 100, 150, 200 and 250, where logged",
+   "source": "M lines (end of each player turn): commerce, hammers, cities, power and score; the human's rank by score among the living players (1 = highest). Game 1 and game 2 have no M lines [game5]",
+   "n": 5,
+   "values_total": 5,
+   "values_shown": 5,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    50,
+    100,
+    150,
+    200,
+    250
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game1_ai_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "team",
+    "target",
+    "on_human",
+    "leader_team",
+    "human_leads"
+   ],
+   "rows": [
+    [
+     152,
+     16,
+     2,
+     0,
+     -1,
+     0
+    ]
+   ],
+   "unit": "category",
+   "who": "every AI team's declaration of war",
+   "turn": "each AI declaration",
+   "source": "W lines whose declaring team is not the human's; the score leader of that turn from M lines (highest score, ties to the lower player id; -1 where the log has no M lines: game 1 and game 2). A player's team is its P line's team, or its id where the log has no P line for it (game 5) [game1]",
+   "n": 1,
+   "values_total": 1,
+   "values_shown": 1,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    152
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_ai_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "team",
+    "target",
+    "on_human",
+    "leader_team",
+    "human_leads"
+   ],
+   "rows": [
+    [
+     150,
+     3,
+     1,
+     0,
+     -1,
+     0
+    ],
+    [
+     159,
+     17,
+     5,
+     0,
+     -1,
+     0
+    ],
+    [
+     172,
+     12,
+     5,
+     0,
+     -1,
+     0
+    ],
+    [
+     184,
+     3,
+     17,
+     0,
+     -1,
+     0
+    ]
+   ],
+   "unit": "category",
+   "who": "every AI team's declaration of war",
+   "turn": "each AI declaration",
+   "source": "W lines whose declaring team is not the human's; the score leader of that turn from M lines (highest score, ties to the lower player id; -1 where the log has no M lines: game 1 and game 2). A player's team is its P line's team, or its id where the log has no P line for it (game 5) [game2]",
+   "n": 4,
+   "values_total": 4,
+   "values_shown": 4,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    150,
+    159,
+    172,
+    184
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_ai_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "team",
+    "target",
+    "on_human",
+    "leader_team",
+    "human_leads"
+   ],
+   "rows": [
+    [
+     124,
+     16,
+     2,
+     0,
+     16,
+     0
+    ],
+    [
+     159,
+     1,
+     7,
+     0,
+     13,
+     0
+    ],
+    [
+     240,
+     14,
+     5,
+     0,
+     12,
+     1
+    ],
+    [
+     245,
+     2,
+     4,
+     0,
+     12,
+     1
+    ],
+    [
+     258,
+     17,
+     2,
+     0,
+     12,
+     1
+    ],
+    [
+     264,
+     15,
+     8,
+     0,
+     12,
+     1
+    ]
+   ],
+   "unit": "category",
+   "who": "every AI team's declaration of war",
+   "turn": "each AI declaration",
+   "source": "W lines whose declaring team is not the human's; the score leader of that turn from M lines (highest score, ties to the lower player id; -1 where the log has no M lines: game 1 and game 2). A player's team is its P line's team, or its id where the log has no P line for it (game 5) [game3]",
+   "n": 6,
+   "values_total": 6,
+   "values_shown": 6,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    124,
+    159,
+    240,
+    245,
+    258,
+    264
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_ai_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "team",
+    "target",
+    "on_human",
+    "leader_team",
+    "human_leads"
+   ],
+   "rows": [
+    [
+     174,
+     14,
+     2,
+     0,
+     3,
+     1
+    ],
+    [
+     187,
+     4,
+     2,
+     0,
+     3,
+     1
+    ],
+    [
+     188,
+     5,
+     10,
+     0,
+     3,
+     1
+    ],
+    [
+     195,
+     6,
+     4,
+     0,
+     3,
+     1
+    ],
+    [
+     198,
+     14,
+     6,
+     0,
+     3,
+     1
+    ],
+    [
+     222,
+     2,
+     14,
+     0,
+     3,
+     1
+    ],
+    [
+     244,
+     15,
+     14,
+     0,
+     3,
+     1
+    ],
+    [
+     246,
+     7,
+     15,
+     0,
+     11,
+     0
+    ],
+    [
+     253,
+     4,
+     6,
+     0,
+     3,
+     1
+    ],
+    [
+     253,
+     8,
+     1,
+     0,
+     3,
+     1
+    ],
+    [
+     253,
+     12,
+     13,
+     0,
+     3,
+     1
+    ]
+   ],
+   "unit": "category",
+   "who": "every AI team's declaration of war",
+   "turn": "each AI declaration",
+   "source": "W lines whose declaring team is not the human's; the score leader of that turn from M lines (highest score, ties to the lower player id; -1 where the log has no M lines: game 1 and game 2). A player's team is its P line's team, or its id where the log has no P line for it (game 5) [game4]",
+   "n": 11,
+   "values_total": 11,
+   "values_shown": 11,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    174,
+    187,
+    188,
+    195,
+    198,
+    222,
+    244,
+    246,
+    253,
+    253,
+    253
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_ai_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "team",
+    "target",
+    "on_human",
+    "leader_team",
+    "human_leads"
+   ],
+   "rows": [
+    [
+     133,
+     14,
+     2,
+     0,
+     0,
+     1
+    ],
+    [
+     207,
+     8,
+     1,
+     0,
+     0,
+     1
+    ],
+    [
+     250,
+     4,
+     2,
+     0,
+     0,
+     1
+    ],
+    [
+     258,
+     6,
+     14,
+     0,
+     0,
+     1
+    ]
+   ],
+   "unit": "category",
+   "who": "every AI team's declaration of war",
+   "turn": "each AI declaration",
+   "source": "W lines whose declaring team is not the human's; the score leader of that turn from M lines (highest score, ties to the lower player id; -1 where the log has no M lines: game 1 and game 2). A player's team is its P line's team, or its id where the log has no P line for it (game 5) [game5]",
+   "n": 4,
+   "values_total": 4,
+   "values_shown": 4,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    133,
+    207,
+    250,
+    258
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_third_parties": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "human_power",
+    "target_power",
+    "largest_other_ai_power",
+    "others_stronger_than_human"
+   ],
+   "rows": [
+    [
+     203,
+     5,
+     157,
+     71,
+     120,
+     0
+    ],
+    [
+     209,
+     7,
+     219,
+     67,
+     133,
+     0
+    ]
+   ],
+   "unit": "category",
+   "who": "the human, the target of each of its declarations, and the other AI players",
+   "turn": "the turn of each declaration of the human",
+   "source": "W lines declared by the human's team; M lines of that turn: power of the human, summed power of the target team's players, the largest power of an AI player outside the target team, and how many such players had more power than the human. Team of a player as in ai_declarations [game3]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    203,
+    209
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_third_parties": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "human_power",
+    "target_power",
+    "largest_other_ai_power",
+    "others_stronger_than_human"
+   ],
+   "rows": [
+    [
+     238,
+     14,
+     362,
+     130,
+     378,
+     1
+    ],
+    [
+     252,
+     2,
+     487,
+     383,
+     594,
+     2
+    ],
+    [
+     257,
+     6,
+     538,
+     235,
+     678,
+     1
+    ],
+    [
+     268,
+     7,
+     999,
+     426,
+     779,
+     0
+    ],
+    [
+     271,
+     14,
+     1199,
+     117,
+     811,
+     0
+    ],
+    [
+     272,
+     10,
+     1283,
+     417,
+     819,
+     0
+    ],
+    [
+     277,
+     2,
+     1597,
+     434,
+     876,
+     0
+    ],
+    [
+     283,
+     7,
+     1884,
+     468,
+     955,
+     0
+    ]
+   ],
+   "unit": "category",
+   "who": "the human, the target of each of its declarations, and the other AI players",
+   "turn": "the turn of each declaration of the human",
+   "source": "W lines declared by the human's team; M lines of that turn: power of the human, summed power of the target team's players, the largest power of an AI player outside the target team, and how many such players had more power than the human. Team of a player as in ai_declarations [game4]",
+   "n": 8,
+   "values_total": 8,
+   "values_shown": 8,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    238,
+    252,
+    257,
+    268,
+    271,
+    272,
+    277,
+    283
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_third_parties": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "human_power",
+    "target_power",
+    "largest_other_ai_power",
+    "others_stronger_than_human"
+   ],
+   "rows": [
+    [
+     210,
+     8,
+     192,
+     126,
+     150,
+     0
+    ]
+   ],
+   "unit": "category",
+   "who": "the human, the target of each of its declarations, and the other AI players",
+   "turn": "the turn of each declaration of the human",
+   "source": "W lines declared by the human's team; M lines of that turn: power of the human, summed power of the target team's players, the largest power of an AI player outside the target team, and how many such players had more power than the human. Team of a player as in ai_declarations [game5]",
+   "n": 1,
+   "values_total": 1,
+   "values_shown": 1,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    210
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game1_fighting": {
+   "kind": "table",
+   "head": [
+    "ai_team",
+    "human_attacks",
+    "ai_attacks",
+    "ai_attack_turns",
+    "cities_human_took",
+    "cities_ai_took",
+    "first_combat",
+    "last_combat"
+   ],
+   "rows": [
+    [
+     1,
+     7,
+     0,
+     0,
+     3,
+     0,
+     194,
+     195
+    ],
+    [
+     7,
+     18,
+     1,
+     1,
+     5,
+     0,
+     186,
+     213
+    ],
+    [
+     14,
+     6,
+     0,
+     0,
+     2,
+     0,
+     206,
+     217
+    ]
+   ],
+   "unit": "category",
+   "who": "each AI team that fought the human (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines between the human's units and an AI team's (attacks by each side, the turns on which the AI attacked), K lines between them (cities taken by each side), first and last combat turn. Team of a player as in ai_declarations [game1]",
+   "n": 3,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    1,
+    7,
+    14
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_fighting": {
+   "kind": "table",
+   "head": [
+    "ai_team",
+    "human_attacks",
+    "ai_attacks",
+    "ai_attack_turns",
+    "cities_human_took",
+    "cities_ai_took",
+    "first_combat",
+    "last_combat"
+   ],
+   "rows": [
+    [
+     9,
+     8,
+     0,
+     0,
+     4,
+     0,
+     230,
+     236
+    ],
+    [
+     11,
+     12,
+     0,
+     0,
+     5,
+     0,
+     229,
+     232
+    ],
+    [
+     16,
+     8,
+     0,
+     0,
+     1,
+     0,
+     92,
+     110
+    ]
+   ],
+   "unit": "category",
+   "who": "each AI team that fought the human (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines between the human's units and an AI team's (attacks by each side, the turns on which the AI attacked), K lines between them (cities taken by each side), first and last combat turn. Team of a player as in ai_declarations [game2]",
+   "n": 3,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    9,
+    11,
+    16
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_fighting": {
+   "kind": "table",
+   "head": [
+    "ai_team",
+    "human_attacks",
+    "ai_attacks",
+    "ai_attack_turns",
+    "cities_human_took",
+    "cities_ai_took",
+    "first_combat",
+    "last_combat"
+   ],
+   "rows": [
+    [
+     5,
+     5,
+     0,
+     0,
+     5,
+     0,
+     203,
+     206
+    ],
+    [
+     7,
+     9,
+     0,
+     0,
+     1,
+     0,
+     211,
+     213
+    ]
+   ],
+   "unit": "category",
+   "who": "each AI team that fought the human (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines between the human's units and an AI team's (attacks by each side, the turns on which the AI attacked), K lines between them (cities taken by each side), first and last combat turn. Team of a player as in ai_declarations [game3]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    5,
+    7
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_fighting": {
+   "kind": "table",
+   "head": [
+    "ai_team",
+    "human_attacks",
+    "ai_attacks",
+    "ai_attack_turns",
+    "cities_human_took",
+    "cities_ai_took",
+    "first_combat",
+    "last_combat"
+   ],
+   "rows": [
+    [
+     2,
+     38,
+     1,
+     1,
+     6,
+     0,
+     252,
+     285
+    ],
+    [
+     6,
+     3,
+     0,
+     0,
+     1,
+     0,
+     257,
+     257
+    ],
+    [
+     7,
+     15,
+     0,
+     0,
+     4,
+     0,
+     268,
+     285
+    ],
+    [
+     10,
+     2,
+     0,
+     0,
+     1,
+     0,
+     272,
+     272
+    ],
+    [
+     14,
+     22,
+     0,
+     0,
+     4,
+     0,
+     238,
+     273
+    ]
+   ],
+   "unit": "category",
+   "who": "each AI team that fought the human (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines between the human's units and an AI team's (attacks by each side, the turns on which the AI attacked), K lines between them (cities taken by each side), first and last combat turn. Team of a player as in ai_declarations [game4]",
+   "n": 5,
+   "values_total": 5,
+   "values_shown": 5,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    2,
+    6,
+    7,
+    10,
+    14
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_fighting": {
+   "kind": "table",
+   "head": [
+    "ai_team",
+    "human_attacks",
+    "ai_attacks",
+    "ai_attack_turns",
+    "cities_human_took",
+    "cities_ai_took",
+    "first_combat",
+    "last_combat"
+   ],
+   "rows": [
+    [
+     8,
+     26,
+     1,
+     1,
+     8,
+     0,
+     210,
+     224
+    ]
+   ],
+   "unit": "category",
+   "who": "each AI team that fought the human (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines between the human's units and an AI team's (attacks by each side, the turns on which the AI attacked), K lines between them (cities taken by each side), first and last combat turn. Team of a player as in ai_declarations [game5]",
+   "n": 1,
+   "values_total": 1,
+   "values_shown": 1,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    8
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game1_concentration": {
+   "kind": "table",
+   "head": [
+    "side",
+    "attacks",
+    "plot_turns",
+    "plot_turns_attacked_once",
+    "attacks_in_groups_of_3_plus",
+    "attacks_into_cities",
+    "median_odds"
+   ],
+   "rows": [
+    [
+     "AI attacks on the human",
+     1,
+     1,
+     1,
+     0,
+     0,
+     765.0
+    ],
+    [
+     "human attacks",
+     31,
+     20,
+     14,
+     9,
+     27,
+     818.0
+    ]
+   ],
+   "unit": "category",
+   "who": "the human's attacks on AI units, and AI attacks on the human's units (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines: attacks grouped by side and by (turn, plot attacked); plot-turns attacked once, attacks made in groups of three or more on one plot in one turn, attacks into a city (city defence modifier logged), and the median attacker's odds (getCombatOdds, per thousand) [game1]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "AI attacks on the human",
+    "human attacks"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_concentration": {
+   "kind": "table",
+   "head": [
+    "side",
+    "attacks",
+    "plot_turns",
+    "plot_turns_attacked_once",
+    "attacks_in_groups_of_3_plus",
+    "attacks_into_cities",
+    "median_odds"
+   ],
+   "rows": [
+    [
+     "human attacks",
+     28,
+     20,
+     16,
+     10,
+     18,
+     996.0
+    ]
+   ],
+   "unit": "category",
+   "who": "the human's attacks on AI units, and AI attacks on the human's units (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines: attacks grouped by side and by (turn, plot attacked); plot-turns attacked once, attacks made in groups of three or more on one plot in one turn, attacks into a city (city defence modifier logged), and the median attacker's odds (getCombatOdds, per thousand) [game2]",
+   "n": 1,
+   "values_total": 1,
+   "values_shown": 1,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "human attacks"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_concentration": {
+   "kind": "table",
+   "head": [
+    "side",
+    "attacks",
+    "plot_turns",
+    "plot_turns_attacked_once",
+    "attacks_in_groups_of_3_plus",
+    "attacks_into_cities",
+    "median_odds"
+   ],
+   "rows": [
+    [
+     "human attacks",
+     14,
+     7,
+     3,
+     7,
+     14,
+     810.5
+    ]
+   ],
+   "unit": "category",
+   "who": "the human's attacks on AI units, and AI attacks on the human's units (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines: attacks grouped by side and by (turn, plot attacked); plot-turns attacked once, attacks made in groups of three or more on one plot in one turn, attacks into a city (city defence modifier logged), and the median attacker's odds (getCombatOdds, per thousand) [game3]",
+   "n": 1,
+   "values_total": 1,
+   "values_shown": 1,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "human attacks"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_concentration": {
+   "kind": "table",
+   "head": [
+    "side",
+    "attacks",
+    "plot_turns",
+    "plot_turns_attacked_once",
+    "attacks_in_groups_of_3_plus",
+    "attacks_into_cities",
+    "median_odds"
+   ],
+   "rows": [
+    [
+     "AI attacks on the human",
+     1,
+     1,
+     1,
+     0,
+     1,
+     471.0
+    ],
+    [
+     "human attacks",
+     80,
+     25,
+     9,
+     63,
+     69,
+     978.0
+    ]
+   ],
+   "unit": "category",
+   "who": "the human's attacks on AI units, and AI attacks on the human's units (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines: attacks grouped by side and by (turn, plot attacked); plot-turns attacked once, attacks made in groups of three or more on one plot in one turn, attacks into a city (city defence modifier logged), and the median attacker's odds (getCombatOdds, per thousand) [game4]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "AI attacks on the human",
+    "human attacks"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_concentration": {
+   "kind": "table",
+   "head": [
+    "side",
+    "attacks",
+    "plot_turns",
+    "plot_turns_attacked_once",
+    "attacks_in_groups_of_3_plus",
+    "attacks_into_cities",
+    "median_odds"
+   ],
+   "rows": [
+    [
+     "AI attacks on the human",
+     1,
+     1,
+     1,
+     0,
+     0,
+     329.0
+    ],
+    [
+     "human attacks",
+     26,
+     17,
+     9,
+     3,
+     22,
+     980.0
+    ]
+   ],
+   "unit": "category",
+   "who": "the human's attacks on AI units, and AI attacks on the human's units (barbarians excluded)",
+   "turn": "the whole log",
+   "source": "C lines: attacks grouped by side and by (turn, plot attacked); plot-turns attacked once, attacks made in groups of three or more on one plot in one turn, attacks into a city (city defence modifier logged), and the median attacker's odds (getCombatOdds, per thousand) [game5]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "AI attacks on the human",
+    "human attacks"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game1_deals": {
+   "kind": "table",
+   "head": [
+    "item",
+    "direction",
+    "items",
+    "partners"
+   ],
+   "rows": [
+    [
+     "TRADE_OPEN_BORDERS",
+     "AI gives",
+     42,
+     14
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "human gives",
+     42,
+     14
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "AI gives",
+     1,
+     1
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "human gives",
+     1,
+     1
+    ],
+    [
+     "TRADE_RESOURCES",
+     "AI gives",
+     2,
+     2
+    ],
+    [
+     "TRADE_RESOURCES",
+     "human gives",
+     4,
+     2
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "AI gives",
+     1,
+     1
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "human gives",
+     2,
+     2
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players (the war log writes no deal between two AIs: warLogDeal, CvGameCoreUtils.cpp:3714)",
+   "turn": "the whole log",
+   "source": "D lines exploded into deal_items (side 1 = first player gives, 2 = second gives); item names from CvEnums.h (TradeableItems). Direction: who gives; partners: distinct AI players on the other side [game1]",
+   "n": 8,
+   "values_total": 8,
+   "values_shown": 8,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "TRADE_OPEN_BORDERS",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_PEACE_TREATY",
+    "TRADE_PEACE_TREATY",
+    "TRADE_RESOURCES",
+    "TRADE_RESOURCES",
+    "TRADE_TECHNOLOGIES",
+    "TRADE_TECHNOLOGIES"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_deals": {
+   "kind": "table",
+   "head": [
+    "item",
+    "direction",
+    "items",
+    "partners"
+   ],
+   "rows": [
+    [
+     "TRADE_GOLD_PER_TURN",
+     "AI gives",
+     1,
+     1
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "AI gives",
+     42,
+     14
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "human gives",
+     42,
+     14
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "AI gives",
+     2,
+     2
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "human gives",
+     2,
+     2
+    ],
+    [
+     "TRADE_RESOURCES",
+     "AI gives",
+     8,
+     5
+    ],
+    [
+     "TRADE_RESOURCES",
+     "human gives",
+     13,
+     5
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "human gives",
+     2,
+     2
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players (the war log writes no deal between two AIs: warLogDeal, CvGameCoreUtils.cpp:3714)",
+   "turn": "the whole log",
+   "source": "D lines exploded into deal_items (side 1 = first player gives, 2 = second gives); item names from CvEnums.h (TradeableItems). Direction: who gives; partners: distinct AI players on the other side [game2]",
+   "n": 8,
+   "values_total": 8,
+   "values_shown": 8,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "TRADE_GOLD_PER_TURN",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_PEACE_TREATY",
+    "TRADE_PEACE_TREATY",
+    "TRADE_RESOURCES",
+    "TRADE_RESOURCES",
+    "TRADE_TECHNOLOGIES"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_deals": {
+   "kind": "table",
+   "head": [
+    "item",
+    "direction",
+    "items",
+    "partners"
+   ],
+   "rows": [
+    [
+     "TRADE_GOLD",
+     "AI gives",
+     4,
+     4
+    ],
+    [
+     "TRADE_GOLD_PER_TURN",
+     "AI gives",
+     1,
+     1
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "AI gives",
+     51,
+     16
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "human gives",
+     51,
+     16
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "AI gives",
+     6,
+     6
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "human gives",
+     6,
+     6
+    ],
+    [
+     "TRADE_RESOURCES",
+     "AI gives",
+     19,
+     7
+    ],
+    [
+     "TRADE_RESOURCES",
+     "human gives",
+     22,
+     7
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "AI gives",
+     4,
+     4
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "human gives",
+     13,
+     10
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players (the war log writes no deal between two AIs: warLogDeal, CvGameCoreUtils.cpp:3714)",
+   "turn": "the whole log",
+   "source": "D lines exploded into deal_items (side 1 = first player gives, 2 = second gives); item names from CvEnums.h (TradeableItems). Direction: who gives; partners: distinct AI players on the other side [game3]",
+   "n": 10,
+   "values_total": 10,
+   "values_shown": 10,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "TRADE_GOLD",
+    "TRADE_GOLD_PER_TURN",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_PEACE_TREATY",
+    "TRADE_PEACE_TREATY",
+    "TRADE_RESOURCES",
+    "TRADE_RESOURCES",
+    "TRADE_TECHNOLOGIES",
+    "TRADE_TECHNOLOGIES"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_deals": {
+   "kind": "table",
+   "head": [
+    "item",
+    "direction",
+    "items",
+    "partners"
+   ],
+   "rows": [
+    [
+     "TRADE_GOLD",
+     "AI gives",
+     8,
+     7
+    ],
+    [
+     "TRADE_GOLD_PER_TURN",
+     "AI gives",
+     3,
+     3
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "AI gives",
+     57,
+     17
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "human gives",
+     57,
+     17
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "AI gives",
+     15,
+     11
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "human gives",
+     15,
+     11
+    ],
+    [
+     "TRADE_RESOURCES",
+     "AI gives",
+     10,
+     4
+    ],
+    [
+     "TRADE_RESOURCES",
+     "human gives",
+     13,
+     4
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "AI gives",
+     7,
+     6
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "human gives",
+     21,
+     13
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players (the war log writes no deal between two AIs: warLogDeal, CvGameCoreUtils.cpp:3714)",
+   "turn": "the whole log",
+   "source": "D lines exploded into deal_items (side 1 = first player gives, 2 = second gives); item names from CvEnums.h (TradeableItems). Direction: who gives; partners: distinct AI players on the other side [game4]",
+   "n": 10,
+   "values_total": 10,
+   "values_shown": 10,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "TRADE_GOLD",
+    "TRADE_GOLD_PER_TURN",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_PEACE_TREATY",
+    "TRADE_PEACE_TREATY",
+    "TRADE_RESOURCES",
+    "TRADE_RESOURCES",
+    "TRADE_TECHNOLOGIES",
+    "TRADE_TECHNOLOGIES"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_deals": {
+   "kind": "table",
+   "head": [
+    "item",
+    "direction",
+    "items",
+    "partners"
+   ],
+   "rows": [
+    [
+     "TRADE_GOLD_PER_TURN",
+     "AI gives",
+     2,
+     2
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "AI gives",
+     42,
+     14
+    ],
+    [
+     "TRADE_OPEN_BORDERS",
+     "human gives",
+     42,
+     14
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "AI gives",
+     5,
+     4
+    ],
+    [
+     "TRADE_PEACE_TREATY",
+     "human gives",
+     5,
+     4
+    ],
+    [
+     "TRADE_RESOURCES",
+     "AI gives",
+     11,
+     5
+    ],
+    [
+     "TRADE_RESOURCES",
+     "human gives",
+     17,
+     6
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "AI gives",
+     3,
+     3
+    ],
+    [
+     "TRADE_TECHNOLOGIES",
+     "human gives",
+     10,
+     7
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players (the war log writes no deal between two AIs: warLogDeal, CvGameCoreUtils.cpp:3714)",
+   "turn": "the whole log",
+   "source": "D lines exploded into deal_items (side 1 = first player gives, 2 = second gives); item names from CvEnums.h (TradeableItems). Direction: who gives; partners: distinct AI players on the other side [game5]",
+   "n": 9,
+   "values_total": 9,
+   "values_shown": 9,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "TRADE_GOLD_PER_TURN",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_OPEN_BORDERS",
+    "TRADE_PEACE_TREATY",
+    "TRADE_PEACE_TREATY",
+    "TRADE_RESOURCES",
+    "TRADE_RESOURCES",
+    "TRADE_TECHNOLOGIES",
+    "TRADE_TECHNOLOGIES"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game1_one_sided": {
+   "kind": "table",
+   "head": [
+    "kind",
+    "deals",
+    "human_gives_tech",
+    "ai_gives_tech",
+    "partners"
+   ],
+   "rows": [
+    [
+     "exchange",
+     46,
+     1,
+     1,
+     14
+    ],
+    [
+     "human gives, nothing back",
+     1,
+     1,
+     0,
+     1
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players",
+   "turn": "the whole log",
+   "source": "D lines: deals in which one side gives nothing (gift, tribute or demand) and the others, by direction; deals whose given side holds a technology (item 9 of TradeableItems); partners: distinct AI players [game1]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "exchange",
+    "human gives, nothing back"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_one_sided": {
+   "kind": "table",
+   "head": [
+    "kind",
+    "deals",
+    "human_gives_tech",
+    "ai_gives_tech",
+    "partners"
+   ],
+   "rows": [
+    [
+     "exchange",
+     51,
+     0,
+     0,
+     14
+    ],
+    [
+     "human gives, nothing back",
+     2,
+     2,
+     0,
+     2
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players",
+   "turn": "the whole log",
+   "source": "D lines: deals in which one side gives nothing (gift, tribute or demand) and the others, by direction; deals whose given side holds a technology (item 9 of TradeableItems); partners: distinct AI players [game2]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "exchange",
+    "human gives, nothing back"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_one_sided": {
+   "kind": "table",
+   "head": [
+    "kind",
+    "deals",
+    "human_gives_tech",
+    "ai_gives_tech",
+    "partners"
+   ],
+   "rows": [
+    [
+     "exchange",
+     82,
+     8,
+     4,
+     16
+    ],
+    [
+     "human gives, nothing back",
+     5,
+     5,
+     0,
+     5
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players",
+   "turn": "the whole log",
+   "source": "D lines: deals in which one side gives nothing (gift, tribute or demand) and the others, by direction; deals whose given side holds a technology (item 9 of TradeableItems); partners: distinct AI players [game3]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "exchange",
+    "human gives, nothing back"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_one_sided": {
+   "kind": "table",
+   "head": [
+    "kind",
+    "deals",
+    "human_gives_tech",
+    "ai_gives_tech",
+    "partners"
+   ],
+   "rows": [
+    [
+     "exchange",
+     91,
+     10,
+     7,
+     17
+    ],
+    [
+     "human gives, nothing back",
+     10,
+     10,
+     0,
+     8
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players",
+   "turn": "the whole log",
+   "source": "D lines: deals in which one side gives nothing (gift, tribute or demand) and the others, by direction; deals whose given side holds a technology (item 9 of TradeableItems); partners: distinct AI players [game4]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "exchange",
+    "human gives, nothing back"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_one_sided": {
+   "kind": "table",
+   "head": [
+    "kind",
+    "deals",
+    "human_gives_tech",
+    "ai_gives_tech",
+    "partners"
+   ],
+   "rows": [
+    [
+     "exchange",
+     61,
+     3,
+     3,
+     14
+    ],
+    [
+     "human gives, nothing back",
+     5,
+     5,
+     0,
+     4
+    ]
+   ],
+   "unit": "category",
+   "who": "deals between the human and AI players",
+   "turn": "the whole log",
+   "source": "D lines: deals in which one side gives nothing (gift, tribute or demand) and the others, by direction; deals whose given side holds a technology (item 9 of TradeableItems); partners: distinct AI players [game5]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "exchange",
+    "human gives, nothing back"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game1_diplo_events": {
+   "kind": "table",
+   "head": [
+    "diplo_event",
+    "events",
+    "senders"
+   ],
+   "rows": [
+    [
+     "DIPLOEVENT_AI_CONTACT",
+     26,
+     15
+    ],
+    [
+     "DIPLOEVENT_CONTACT",
+     17,
+     10
+    ],
+    [
+     "DIPLOEVENT_GIVE_HELP",
+     1,
+     1
+    ],
+    [
+     "DIPLOEVENT_NO_JOIN_WAR",
+     1,
+     1
+    ],
+    [
+     "DIPLOEVENT_NO_REVOLUTION",
+     1,
+     1
+    ],
+    [
+     "DIPLOEVENT_NO_STOP_TRADING",
+     5,
+     4
+    ],
+    [
+     "DIPLOEVENT_REFUSED_HELP",
+     2,
+     2
+    ]
+   ],
+   "unit": "category",
+   "who": "diplomacy between the human and AI players",
+   "turn": "the whole log",
+   "source": "E lines (CvPlayer::handleDiploEvent) with the human as sender or receiver, by event (DiploEventTypes from CvEnums.h); senders: distinct players sending it [game1]",
+   "n": 7,
+   "values_total": 7,
+   "values_shown": 7,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "DIPLOEVENT_AI_CONTACT",
+    "DIPLOEVENT_CONTACT",
+    "DIPLOEVENT_GIVE_HELP",
+    "DIPLOEVENT_NO_JOIN_WAR",
+    "DIPLOEVENT_NO_REVOLUTION",
+    "DIPLOEVENT_NO_STOP_TRADING",
+    "DIPLOEVENT_REFUSED_HELP"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_diplo_events": {
+   "kind": "table",
+   "head": [
+    "diplo_event",
+    "events",
+    "senders"
+   ],
+   "rows": [
+    [
+     "DIPLOEVENT_AI_CONTACT",
+     65,
+     17
+    ],
+    [
+     "DIPLOEVENT_CONTACT",
+     25,
+     12
+    ],
+    [
+     "DIPLOEVENT_GIVE_HELP",
+     2,
+     2
+    ],
+    [
+     "DIPLOEVENT_NO_JOIN_WAR",
+     5,
+     4
+    ],
+    [
+     "DIPLOEVENT_NO_STOP_TRADING",
+     5,
+     4
+    ],
+    [
+     "DIPLOEVENT_REFUSED_HELP",
+     16,
+     14
+    ]
+   ],
+   "unit": "category",
+   "who": "diplomacy between the human and AI players",
+   "turn": "the whole log",
+   "source": "E lines (CvPlayer::handleDiploEvent) with the human as sender or receiver, by event (DiploEventTypes from CvEnums.h); senders: distinct players sending it [game2]",
+   "n": 6,
+   "values_total": 6,
+   "values_shown": 6,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "DIPLOEVENT_AI_CONTACT",
+    "DIPLOEVENT_CONTACT",
+    "DIPLOEVENT_GIVE_HELP",
+    "DIPLOEVENT_NO_JOIN_WAR",
+    "DIPLOEVENT_NO_STOP_TRADING",
+    "DIPLOEVENT_REFUSED_HELP"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_diplo_events": {
+   "kind": "table",
+   "head": [
+    "diplo_event",
+    "events",
+    "senders"
+   ],
+   "rows": [
+    [
+     "DIPLOEVENT_AI_CONTACT",
+     88,
+     17
+    ],
+    [
+     "DIPLOEVENT_CONTACT",
+     42,
+     15
+    ],
+    [
+     "DIPLOEVENT_CONVERT",
+     1,
+     1
+    ],
+    [
+     "DIPLOEVENT_GIVE_HELP",
+     5,
+     5
+    ],
+    [
+     "DIPLOEVENT_NO_JOIN_WAR",
+     6,
+     5
+    ],
+    [
+     "DIPLOEVENT_NO_STOP_TRADING",
+     11,
+     7
+    ],
+    [
+     "DIPLOEVENT_REFUSED_HELP",
+     11,
+     10
+    ]
+   ],
+   "unit": "category",
+   "who": "diplomacy between the human and AI players",
+   "turn": "the whole log",
+   "source": "E lines (CvPlayer::handleDiploEvent) with the human as sender or receiver, by event (DiploEventTypes from CvEnums.h); senders: distinct players sending it [game3]",
+   "n": 7,
+   "values_total": 7,
+   "values_shown": 7,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "DIPLOEVENT_AI_CONTACT",
+    "DIPLOEVENT_CONTACT",
+    "DIPLOEVENT_CONVERT",
+    "DIPLOEVENT_GIVE_HELP",
+    "DIPLOEVENT_NO_JOIN_WAR",
+    "DIPLOEVENT_NO_STOP_TRADING",
+    "DIPLOEVENT_REFUSED_HELP"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_diplo_events": {
+   "kind": "table",
+   "head": [
+    "diplo_event",
+    "events",
+    "senders"
+   ],
+   "rows": [
+    [
+     "DIPLOEVENT_AI_CONTACT",
+     102,
+     18
+    ],
+    [
+     "DIPLOEVENT_CONTACT",
+     66,
+     14
+    ],
+    [
+     "DIPLOEVENT_GIVE_HELP",
+     10,
+     8
+    ],
+    [
+     "DIPLOEVENT_NO_CONVERT",
+     2,
+     2
+    ],
+    [
+     "DIPLOEVENT_NO_JOIN_WAR",
+     9,
+     8
+    ],
+    [
+     "DIPLOEVENT_NO_STOP_TRADING",
+     9,
+     6
+    ],
+    [
+     "DIPLOEVENT_REFUSED_HELP",
+     12,
+     11
+    ]
+   ],
+   "unit": "category",
+   "who": "diplomacy between the human and AI players",
+   "turn": "the whole log",
+   "source": "E lines (CvPlayer::handleDiploEvent) with the human as sender or receiver, by event (DiploEventTypes from CvEnums.h); senders: distinct players sending it [game4]",
+   "n": 7,
+   "values_total": 7,
+   "values_shown": 7,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "DIPLOEVENT_AI_CONTACT",
+    "DIPLOEVENT_CONTACT",
+    "DIPLOEVENT_GIVE_HELP",
+    "DIPLOEVENT_NO_CONVERT",
+    "DIPLOEVENT_NO_JOIN_WAR",
+    "DIPLOEVENT_NO_STOP_TRADING",
+    "DIPLOEVENT_REFUSED_HELP"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_diplo_events": {
+   "kind": "table",
+   "head": [
+    "diplo_event",
+    "events",
+    "senders"
+   ],
+   "rows": [
+    [
+     "DIPLOEVENT_AI_CONTACT",
+     54,
+     15
+    ],
+    [
+     "DIPLOEVENT_CONTACT",
+     13,
+     6
+    ],
+    [
+     "DIPLOEVENT_DO_NOT_BOTHER",
+     2,
+     2
+    ],
+    [
+     "DIPLOEVENT_GIVE_HELP",
+     5,
+     4
+    ],
+    [
+     "DIPLOEVENT_NO_JOIN_WAR",
+     2,
+     2
+    ],
+    [
+     "DIPLOEVENT_NO_STOP_TRADING",
+     2,
+     2
+    ],
+    [
+     "DIPLOEVENT_REFUSED_HELP",
+     7,
+     6
+    ],
+    [
+     "DIPLOEVENT_RESUME_BOTHER",
+     2,
+     2
+    ]
+   ],
+   "unit": "category",
+   "who": "diplomacy between the human and AI players",
+   "turn": "the whole log",
+   "source": "E lines (CvPlayer::handleDiploEvent) with the human as sender or receiver, by event (DiploEventTypes from CvEnums.h); senders: distinct players sending it [game5]",
+   "n": 8,
+   "values_total": 8,
+   "values_shown": 8,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "DIPLOEVENT_AI_CONTACT",
+    "DIPLOEVENT_CONTACT",
+    "DIPLOEVENT_DO_NOT_BOTHER",
+    "DIPLOEVENT_GIVE_HELP",
+    "DIPLOEVENT_NO_JOIN_WAR",
+    "DIPLOEVENT_NO_STOP_TRADING",
+    "DIPLOEVENT_REFUSED_HELP",
+    "DIPLOEVENT_RESUME_BOTHER"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_memories": {
+   "kind": "table",
+   "head": [
+    "memory",
+    "ai_players",
+    "total"
+   ],
+   "rows": [
+    [
+     "ACCEPTED_RELIGION",
+     1,
+     1
+    ],
+    [
+     "DECLARED_WAR",
+     2,
+     2
+    ],
+    [
+     "DECLARED_WAR_ON_FRIEND",
+     12,
+     17
+    ],
+    [
+     "DENIED_JOIN_WAR",
+     4,
+     4
+    ],
+    [
+     "DENIED_STOP_TRADING",
+     6,
+     9
+    ],
+    [
+     "GIVE_HELP",
+     4,
+     4
+    ],
+    [
+     "RECEIVED_TECH_FROM_ANY",
+     7,
+     13
+    ],
+    [
+     "REFUSED_HELP",
+     8,
+     8
+    ],
+    [
+     "TRADED_TECH_TO_US",
+     6,
+     8
+    ]
+   ],
+   "unit": "category",
+   "who": "the AI players' memories of the human",
+   "turn": "at the save the log ends with",
+   "source": "save dump, memory table (AI_getMemoryCount of each AI towards the human): memory type, AI players holding it, summed count [game3]",
+   "n": 9,
+   "values_total": 9,
+   "values_shown": 9,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "ACCEPTED_RELIGION",
+    "DECLARED_WAR",
+    "DECLARED_WAR_ON_FRIEND",
+    "DENIED_JOIN_WAR",
+    "DENIED_STOP_TRADING",
+    "GIVE_HELP",
+    "RECEIVED_TECH_FROM_ANY",
+    "REFUSED_HELP",
+    "TRADED_TECH_TO_US"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_memories": {
+   "kind": "table",
+   "head": [
+    "memory",
+    "ai_players",
+    "total"
+   ],
+   "rows": [
+    [
+     "CANCELLED_OPEN_BORDERS",
+     1,
+     1
+    ],
+    [
+     "DECLARED_WAR",
+     4,
+     6
+    ],
+    [
+     "DECLARED_WAR_ON_FRIEND",
+     15,
+     83
+    ],
+    [
+     "DENIED_JOIN_WAR",
+     6,
+     7
+    ],
+    [
+     "DENIED_STOP_TRADING",
+     3,
+     3
+    ],
+    [
+     "GIVE_HELP",
+     7,
+     7
+    ],
+    [
+     "RECEIVED_TECH_FROM_ANY",
+     17,
+     41
+    ],
+    [
+     "REFUSED_HELP",
+     8,
+     9
+    ],
+    [
+     "TRADED_TECH_TO_US",
+     10,
+     14
+    ]
+   ],
+   "unit": "category",
+   "who": "the AI players' memories of the human",
+   "turn": "at the save the log ends with",
+   "source": "save dump, memory table (AI_getMemoryCount of each AI towards the human): memory type, AI players holding it, summed count [game4]",
+   "n": 9,
+   "values_total": 9,
+   "values_shown": 9,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "CANCELLED_OPEN_BORDERS",
+    "DECLARED_WAR",
+    "DECLARED_WAR_ON_FRIEND",
+    "DENIED_JOIN_WAR",
+    "DENIED_STOP_TRADING",
+    "GIVE_HELP",
+    "RECEIVED_TECH_FROM_ANY",
+    "REFUSED_HELP",
+    "TRADED_TECH_TO_US"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_memories": {
+   "kind": "table",
+   "head": [
+    "memory",
+    "ai_players",
+    "total"
+   ],
+   "rows": [
+    [
+     "DECLARED_WAR_ON_FRIEND",
+     6,
+     6
+    ],
+    [
+     "DENIED_JOIN_WAR",
+     2,
+     2
+    ],
+    [
+     "DENIED_STOP_TRADING",
+     1,
+     1
+    ],
+    [
+     "GIVE_HELP",
+     4,
+     5
+    ],
+    [
+     "RECEIVED_TECH_FROM_ANY",
+     6,
+     11
+    ],
+    [
+     "REFUSED_HELP",
+     4,
+     5
+    ],
+    [
+     "TRADED_TECH_TO_US",
+     6,
+     9
+    ]
+   ],
+   "unit": "category",
+   "who": "the AI players' memories of the human",
+   "turn": "at the save the log ends with",
+   "source": "save dump, memory table (AI_getMemoryCount of each AI towards the human): memory type, AI players holding it, summed count [game5]",
+   "n": 7,
+   "values_total": 7,
+   "values_shown": 7,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "DECLARED_WAR_ON_FRIEND",
+    "DENIED_JOIN_WAR",
+    "DENIED_STOP_TRADING",
+    "GIVE_HELP",
+    "RECEIVED_TECH_FROM_ANY",
+    "REFUSED_HELP",
+    "TRADED_TECH_TO_US"
+   ],
+   "stat": "result",
+   "xml_values": null
+  }
+ },
+ "xml": {}
+}
