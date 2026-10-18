@@ -1,4 +1,5 @@
 <!-- registry: doctrine.fig.json as d -->
+<!-- registry: balance.fig.json as b -->
 # Doctrine: what the literature asks of the AI, and where it falls short in the logged games
 
 Method: `method/docs/framework.md`. The queries are declared in `study/queries_doctrine.json` and
@@ -233,6 +234,29 @@ What the AIs remembered of the human when the log ended:
 
 {{table:d.game5_memories}}
 
+### 3.7 Where each AI's decision to go to war on the human fails (D3)
+
+The gates of `CvTeamAI::AI_doWar` at the saves, computed exactly by `HARNESS_WAR_DIAG` (step 1 of
+`study/d3-design.md`; for game 6 the save the human sent). Per AI team towards the human:
+
+{{table:b.game3_gates_to_human}}
+
+{{table:b.game4_gates_to_human}}
+
+{{table:b.game5_gates_to_human}}
+
+{{table:b.game6_gates_to_human}}
+
+The same gates towards the human and towards every AI team, summed:
+
+{{table:b.game3_gates_summary}}
+
+{{table:b.game4_gates_summary}}
+
+{{table:b.game5_gates_summary}}
+
+{{table:b.game6_gates_summary}}
+
 ## 4. The code at each principle
 
 - **Where an AI chooses a war** (D2, D3): `CvTeamAI::AI_doWar` (`CvTeamAI.cpp:4746`). Each of its
@@ -290,6 +314,12 @@ What the AIs remembered of the human when the log ended:
   - Code: section 4. Every war path wants a weaker target. The only coalition path (dogpile) adds
     the target's enemies' power, but it is gated by attitude like the others. A target counts for
     being ahead only near a victory.
+  - Section 3.7, at the saves: no power test of any AI team towards the human passes, while towards
+    AI teams they pass for many pairs. Many teams would pass the attitude roll towards the human, so
+    at the end of these games the block is power, not attitude. Each AI alone is too weak, and the
+    dogpile test counts only teams already at war with the human. The teams whose roll can pass,
+    taken together, reach the dogpile bar at the saves of game 4 and game 6 but not of game 3 and
+    game 5. These are late saves; the gates at the time of the human's first wars are *open*.
   - Contradicted if a game shows an AI declaring on the human, or joining one of the human's wars.
 - **R3. The human keeps the AIs pleased while it prepares** (D6).
   - Facts: section 3.6. It holds open borders with almost every AI. Its one-sided deals are

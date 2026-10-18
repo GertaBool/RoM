@@ -1,0 +1,20 @@
+[
+ {
+  "id": "gates_to_human",
+  "db": "*",
+  "unit": "category",
+  "who": "each AI team towards the human's team",
+  "turn": "at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent)",
+  "source": "HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it",
+  "sql": "select t.player, m.consider, t.att, t.roll_dogpile, t.can_declare, ((t.total_def < t.cmp*m.nearby/100) or (t.total_def_far < m.our_power*m.distant/100) or (t.lim_def < t.cmp*m.limited/100) or (t.target_wars>0 and t.lim_def*3/2 < t.dogpile and t.dog_reach=1))::int power_test_passes, t.cmp ai_power, t.lim_def human_defence from target t join team m using (player) where t.target=(select human from meta) order by t.player"
+ },
+ {
+  "id": "gates_summary",
+  "db": "*",
+  "unit": "category",
+  "who": "every AI team towards the human, and towards every AI team it has met (vassals excluded)",
+  "turn": "at the save, as gates_to_human",
+  "source": "HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side)",
+  "sql": "with x as (select t.*, m.nearby, m.distant, m.limited, m.our_power, ((t.total_def < t.cmp*m.nearby/100) or (t.total_def_far < m.our_power*m.distant/100) or (t.lim_def < t.cmp*m.limited/100) or (t.target_wars>0 and t.lim_def*3/2 < t.dogpile and t.dog_reach=1)) any_test from target t join team m using (player) where t.vassal=0) select case when target=(select human from meta) then 'towards the human' else 'towards AI teams' end side, count(*) pairs, sum(any_test::int) power_test_passes, sum((roll_dogpile>0)::int) dogpile_roll_can_pass, sum(case when roll_dogpile>0 and can_declare=1 and cmp>0 then cmp else 0 end) willing_power, max(lim_def*3/2) dogpile_bar from x group by 1 order by 1"
+ }
+]

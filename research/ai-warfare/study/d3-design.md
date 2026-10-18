@@ -39,6 +39,21 @@ The decision follows from formulas, so it is computed, not simulated (CLAUDE.md,
 - **Result.** A study table through `sqlfig.py` (the per-team gate that blocks), added to
   `study/doctrine.md` as facts for R2.
 
+## 2a. Step 1 result
+
+Built and run (`HARNESS_WAR_DIAG`; the tables are in `study/doctrine.md`, section 3.7):
+- At the saves of game 3 to game 6, no power test of any AI team towards the human passes. Towards
+  AI teams the tests pass for many pairs.
+- The attitude roll is often not the block: many teams would pass it towards the human.
+- Each AI alone is too weak, partly because its own wars take their share of its power. The dogpile
+  path counts only teams already at war with the human.
+- The teams whose roll can pass, together, reach the dogpile bar at two of the four saves.
+
+So H3 stands, with weight on the power gate and the dogpile count, not on attitude. Of the
+candidates below, (b) is the one the measurement supports. (a) would change little, since the roll
+already passes for many teams. (c) matters only for teams with war plans, which the tables of step 1
+show for many AIs.
+
 ## 3. Step 2: the balance term (shape decided by step 1)
 
 The term is a define `AI_BALANCE_SHARE`: a share of known power, per mille. At zero it is off.
@@ -79,8 +94,17 @@ The term is a define `AI_BALANCE_SHARE`: a share of known power, per mille. At z
 
 ## 5. What is asked
 
-Approval of step 1 as specified. Then, with its result, approval of the shape of step 2 before H3
-and its predictions are registered and anything is built.
+Step 1 is approved and done. Proposed shape of step 2, for approval:
+- Candidate (b), the coalition of the willing, against a hegemon only. In the dogpile test, the AI
+  counts, beside the teams already at war with the hegemon, every team that has met it, can declare
+  war on it, and whose own dogpile roll passes this turn. Each counts with its power in reach of the
+  hegemon, after its own enemies' share, as the tests already count it.
+- Candidate (c) for teams whose war plans are only against teams weaker than the hegemon: they
+  consider the hegemon by the dogpile path alone.
+- Candidate (a) only as the leader's envy term on the no-war roll, so character is kept: leaders
+  with no envy are unchanged.
+- The rolls stay random per team and per turn, so a coalition forms only when enough of its members
+  are willing on the same turn. Each AI still decides alone; no AI is told to join.
 
 ## Figures used
 

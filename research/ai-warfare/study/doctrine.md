@@ -539,6 +539,122 @@ What the AIs remembered of the human when the log ended:
 
 *category; who: the AI players' memories of the human; turn: at the save the log ends with; rows counted: 7; source: save dump, memory table (AI_getMemoryCount of each AI towards the human): memory type, AI players holding it, summed count [game5]. Every value counted (7).*
 
+### 3.7 Where each AI's decision to go to war on the human fails (D3)
+
+The gates of `CvTeamAI::AI_doWar` at the saves, computed exactly by `HARNESS_WAR_DIAG` (step 1 of
+`study/d3-design.md`; for game 6 the save the human sent). Per AI team towards the human:
+
+| player | consider | att | roll_dogpile | can_declare | power_test_passes | ai_power | human_defence |
+|---|---|---|---|---|---|---|---|
+| 0 | 1 | 3 | 0 | 1 | 0 | 18 | 486 |
+| 1 | 0 | 2 | 200 | 1 | 0 | 94 | 486 |
+| 2 | 0 | 2 | 200 | 1 | 0 | -111 | 486 |
+| 3 | 1 | 3 | 400 | 1 | 0 | 334 | 486 |
+| 4 | 0 | 1 | 1000 | 1 | 0 | -217 | 486 |
+| 5 | 0 | 3 | 0 | 1 | 0 | -43 | 486 |
+| 6 | 1 | 3 | 0 | 1 | 0 | 223 | 486 |
+| 7 | 0 | 1 | 800 | 1 | 0 | -146 | 486 |
+| 8 | 0 | 2 | 100 | 1 | 0 | -66 | 486 |
+| 9 | 1 | 3 | 0 | 1 | 0 | 156 | 486 |
+| 10 | 0 | 3 | 0 | 1 | 0 | 133 | 486 |
+| 11 | 1 | 3 | 0 | 1 | 0 | 101 | 486 |
+| 13 | 1 | 3 | 0 | 1 | 0 | 283 | 486 |
+| 14 | 0 | 1 | 800 | 1 | 0 | 26 | 486 |
+| 15 | 0 | 1 | 800 | 1 | 0 | 37 | 486 |
+| 16 | 0 | 2 | 600 | 1 | 0 | 2 | 486 |
+| 17 | 0 | 3 | 100 | 1 | 0 | -84 | 486 |
+
+*category; who: each AI team towards the human's team; turn: at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent); rows counted: 17; source: HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it [game3]. Every value counted (17).*
+
+| player | consider | att | roll_dogpile | can_declare | power_test_passes | ai_power | human_defence |
+|---|---|---|---|---|---|---|---|
+| 0 | 1 | 1 | 600 | 1 | 0 | 28 | 1529 |
+| 1 | 0 | 1 | 600 | 1 | 0 | -358 | 1529 |
+| 2 | 1 | 0 | 1000 | 0 | 0 | 163 | 1529 |
+| 4 | 0 | 1 | 1000 | 1 | 0 | 37 | 1529 |
+| 5 | 1 | 1 | 700 | 1 | 0 | 809 | 1529 |
+| 6 | 0 | 2 | 700 | 0 | 0 | -129 | 1529 |
+| 7 | 0 | 0 | 1000 | 0 | 0 | -1377 | 1529 |
+| 8 | 0 | 3 | 100 | 0 | 0 | 25 | 1529 |
+| 9 | 1 | 1 | 600 | 1 | 0 | 412 | 1529 |
+| 10 | 0 | 0 | 1000 | 0 | 0 | -1136 | 1529 |
+| 11 | 1 | 1 | 600 | 1 | 0 | 900 | 1529 |
+| 12 | 0 | 3 | 0 | 0 | 0 | -230 | 1529 |
+| 13 | 0 | 2 | 400 | 1 | 0 | 372 | 1529 |
+| 15 | 0 | 3 | 50 | 0 | 0 | -123 | 1529 |
+| 16 | 0 | 1 | 700 | 1 | 0 | -110 | 1529 |
+| 17 | 1 | 2 | 200 | 1 | 0 | 680 | 1529 |
+| 18 | 0 | 2 | 200 | 1 | 0 | -240 | 1529 |
+
+*category; who: each AI team towards the human's team; turn: at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent); rows counted: 17; source: HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it [game4]. Every value counted (17).*
+
+| player | consider | att | roll_dogpile | can_declare | power_test_passes | ai_power | human_defence |
+|---|---|---|---|---|---|---|---|
+| 2 | 0 | 3 | 0 | 1 | 0 | -114 | 683 |
+| 3 | 0 | 3 | 0 | 1 | 0 | 83 | 683 |
+| 4 | 0 | 1 | 1000 | 1 | 0 | 87 | 683 |
+| 5 | 1 | 3 | 0 | 1 | 0 | 428 | 683 |
+| 6 | 0 | 3 | 100 | 0 | 0 | 72 | 683 |
+| 7 | 0 | 3 | 0 | 1 | 0 | 115 | 683 |
+| 12 | 1 | 3 | 0 | 1 | 0 | 67 | 683 |
+| 13 | 0 | 2 | 300 | 1 | 0 | 60 | 683 |
+| 14 | 0 | 2 | 600 | 1 | 0 | -74 | 683 |
+| 15 | 1 | 2 | 300 | 1 | 0 | 104 | 683 |
+| 16 | 1 | 2 | 200 | 1 | 0 | 64 | 683 |
+| 17 | 1 | 4 | 0 | 1 | 0 | 390 | 683 |
+| 18 | 0 | 2 | 300 | 1 | 0 | 235 | 683 |
+
+*category; who: each AI team towards the human's team; turn: at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent); rows counted: 13; source: HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it [game5]. Every value counted (13).*
+
+| player | consider | att | roll_dogpile | can_declare | power_test_passes | ai_power | human_defence |
+|---|---|---|---|---|---|---|---|
+| 0 | 1 | 2 | 200 | 1 | 0 | 0 | 360 |
+| 2 | 1 | 2 | 100 | 1 | 0 | 126 | 360 |
+| 3 | 1 | 1 | 800 | 1 | 0 | 226 | 360 |
+| 4 | 0 | 2 | 500 | 1 | 0 | 2 | 360 |
+| 5 | 1 | 2 | 100 | 1 | 0 | 167 | 360 |
+| 6 | 1 | 3 | 100 | 1 | 0 | 163 | 360 |
+| 8 | 0 | 2 | 400 | 1 | 0 | -25 | 360 |
+| 9 | 1 | 2 | 100 | 1 | 0 | 122 | 360 |
+| 10 | 0 | 2 | 100 | 1 | 0 | -25 | 360 |
+| 11 | 1 | 2 | 100 | 0 | 0 | 234 | 360 |
+| 14 | 0 | 2 | 600 | 1 | 0 | -49 | 360 |
+| 15 | 0 | 2 | 400 | 1 | 0 | -46 | 360 |
+| 16 | 1 | 3 | 0 | 1 | 0 | 16 | 360 |
+| 18 | 1 | 2 | 200 | 1 | 0 | 130 | 360 |
+
+*category; who: each AI team towards the human's team; turn: at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent); rows counted: 14; source: HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it [game6]. Every value counted (14).*
+
+The same gates towards the human and towards every AI team, summed:
+
+| side | pairs | power_test_passes | dogpile_roll_can_pass | willing_power | dogpile_bar |
+|---|---|---|---|---|---|
+| towards AI teams | 287 | 110 | 203 | 26232 | 478.5 |
+| towards the human | 17 | 0 | 10 | 493 | 729.0 |
+
+*category; who: every AI team towards the human, and towards every AI team it has met (vassals excluded); turn: at the save, as gates_to_human; rows counted: 2; source: HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side) [game3]. Every value counted (2).*
+
+| side | pairs | power_test_passes | dogpile_roll_can_pass | willing_power | dogpile_bar |
+|---|---|---|---|---|---|
+| towards AI teams | 281 | 89 | 177 | 32162 | 1350.0 |
+| towards the human | 17 | 0 | 16 | 3238 | 2293.5 |
+
+*category; who: every AI team towards the human, and towards every AI team it has met (vassals excluded); turn: at the save, as gates_to_human; rows counted: 2; source: HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side) [game4]. Every value counted (2).*
+
+| side | pairs | power_test_passes | dogpile_roll_can_pass | willing_power | dogpile_bar |
+|---|---|---|---|---|---|
+| towards AI teams | 241 | 98 | 128 | 19497 | 865.5 |
+| towards the human | 13 | 0 | 7 | 550 | 1024.5 |
+
+*category; who: every AI team towards the human, and towards every AI team it has met (vassals excluded); turn: at the save, as gates_to_human; rows counted: 2; source: HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side) [game5]. Every value counted (2).*
+
+| side | pairs | power_test_passes | dogpile_roll_can_pass | willing_power | dogpile_bar |
+|---|---|---|---|---|---|
+| towards AI teams | 244 | 126 | 133 | 11727 | 448.5 |
+| towards the human | 14 | 0 | 13 | 936 | 540.0 |
+
+*category; who: every AI team towards the human, and towards every AI team it has met (vassals excluded); turn: at the save, as gates_to_human; rows counted: 2; source: HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side) [game6]. Every value counted (2).*
+
 ## 4. The code at each principle
 
 - **Where an AI chooses a war** (D2, D3): `CvTeamAI::AI_doWar` (`CvTeamAI.cpp:4746`). Each of its
@@ -596,6 +712,12 @@ What the AIs remembered of the human when the log ended:
   - Code: section 4. Every war path wants a weaker target. The only coalition path (dogpile) adds
     the target's enemies' power, but it is gated by attitude like the others. A target counts for
     being ahead only near a victory.
+  - Section 3.7, at the saves: no power test of any AI team towards the human passes, while towards
+    AI teams they pass for many pairs. Many teams would pass the attitude roll towards the human, so
+    at the end of these games the block is power, not attitude. Each AI alone is too weak, and the
+    dogpile test counts only teams already at war with the human. The teams whose roll can pass,
+    taken together, reach the dogpile bar at the saves of game 4 and game 6 but not of game 3 and
+    game 5. These are late saves; the gates at the time of the human's first wars are *open*.
   - Contradicted if a game shows an AI declaring on the human, or joining one of the human's wars.
 - **R3. The human keeps the AIs pleased while it prepares** (D6).
   - Facts: section 3.6. It holds open borders with almost every AI. Its one-sided deals are
@@ -732,3 +854,11 @@ yet: P2 and P4 are open.
 | `d.game3_memories` | table, 9 values | category | the AI players' memories of the human | at the save the log ends with | 9 | save dump, memory table (AI_getMemoryCount of each AI towards the human): memory type, AI players holding it, summed count [game3] |
 | `d.game4_memories` | table, 9 values | category | the AI players' memories of the human | at the save the log ends with | 9 | save dump, memory table (AI_getMemoryCount of each AI towards the human): memory type, AI players holding it, summed count [game4] |
 | `d.game5_memories` | table, 7 values | category | the AI players' memories of the human | at the save the log ends with | 7 | save dump, memory table (AI_getMemoryCount of each AI towards the human): memory type, AI players holding it, summed count [game5] |
+| `b.game3_gates_to_human` | table, 17 values | category | each AI team towards the human's team | at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent) | 17 | HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it [game3] |
+| `b.game4_gates_to_human` | table, 17 values | category | each AI team towards the human's team | at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent) | 17 | HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it [game4] |
+| `b.game5_gates_to_human` | table, 13 values | category | each AI team towards the human's team | at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent) | 13 | HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it [game5] |
+| `b.game6_gates_to_human` | table, 14 values | category | each AI team towards the human's team | at the save (game 3, game 4 and game 5: the last save; game 6: the save the human sent) | 14 | HARNESS_WAR_DIAG (toolchain/harness, the gates of CvTeamAI::AI_doWar) in the state dump of the save, harness DLL of the S2 source with the diagnostic, S2 on, no turn played; loaded by study/balance_load.sql with STATE set to the dump: considers a new war (no war plan, or enemy power percent below 45); attitude (0 furious to 4 friendly); per-mille chance that the dogpile path's no-war roll passes; can declare war; whether any power test (total near or far, limited, dogpile) passes; the AI's power as the tests count it towards the human (after its enemies' share; negative when its enemies outweigh it); the human's defence as the limited and dogpile tests count it [game6] |
+| `b.game3_gates_summary` | table, 2 values | category | every AI team towards the human, and towards every AI team it has met (vassals excluded) | at the save, as gates_to_human | 2 | HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side) [game3] |
+| `b.game4_gates_summary` | table, 2 values | category | every AI team towards the human, and towards every AI team it has met (vassals excluded) | at the save, as gates_to_human | 2 | HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side) [game4] |
+| `b.game5_gates_summary` | table, 2 values | category | every AI team towards the human, and towards every AI team it has met (vassals excluded) | at the save, as gates_to_human | 2 | HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side) [game5] |
+| `b.game6_gates_summary` | table, 2 values | category | every AI team towards the human, and towards every AI team it has met (vassals excluded) | at the save, as gates_to_human | 2 | HARNESS_WAR_DIAG as gates_to_human: pairs (AI team, target), pairs where any power test passes, pairs where the dogpile no-war roll can pass; willing power: the summed power towards the target of the teams whose dogpile roll can pass, that can declare war and whose power is positive (summed over all targets for the AI side); the dogpile test's bar: one and a half times the target's defence (the largest target's, for the AI side) [game6] |
