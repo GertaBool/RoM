@@ -6,6 +6,7 @@ usage: ledger.py check                 register, history and ledger checks (chec
        ledger.py seeds <P> [n]         the seeds the evidence runs of P must use
        ledger.py collect <P> <arm> <seat> <run dir>...   evidence values of harness runs (dirs s<seed>)
        ledger.py game <P> <WarLog.log> <name>            evidence value of one logged game
+       ledger.py external <message file> <file>...       a commit in another repository (GitLab connector)
        ledger.py --selftest
 
 Why (framework.md, reading record): a programme progresses only if its changes predict what was
@@ -29,13 +30,28 @@ fixed first and a second loop that changes the method when they do not move (Ash
   Lines       untested; progressive (a corroborated prediction among its decided ones, and not the
               rest); degenerating (its last two decided predictions not corroborated); stalled (STALL
               commits serving its open predictions since its last decision, none of them evidence).
+  Paths       a prediction names the paths its change may touch (files, or directories below a
+              gated root; another repository's files prefixed config "external_prefix"). A commit
+              serving it may touch no other gated file. Without paths (predictions registered
+              before scopes): evidence only. A prediction's line is its hypotheses' line, so a new
+              line needs new hypotheses.
   Commits     since the anchor (the commit adding the register), every commit that touches gated
               paths needs a trailer "Serves: P.." naming registered, unwithdrawn predictions whose
               evidence did not exist before it (only evidence commits may serve a prediction with
-              evidence); method paths need "Method: <reason>". A commit that missed its trailer is
-              linked afterwards in mission/late-links.json (append-only), never by rewriting
-              history; the ledger counts those. builds/*/provenance.json names what it serves.
-              A new commit may not serve a degenerating or stalled line, except with evidence.
+              evidence) and whose paths cover it; method paths need "Method: <reason>". A commit
+              that missed its trailer is linked afterwards in late-links.json (append-only), never
+              by rewriting history: a link that makes the commit keep every rule repairs it; one
+              that does not is an acknowledged violation, and the lines it names stall until a
+              decision. A build's provenance.json names what it serves and its patch, whose message
+              serves the same. A new commit may not serve a degenerating or stalled line, except
+              with evidence. A commit in another repository (ledger.py external, run by the Claude
+              hook on the GitLab connector) is held to the same rules before it is made.
+  Games       a games claim may name the DLL builds whose logs count (the H line's build field).
+              Decisions from fewer than config "min_games_state" games are anecdotes: reported,
+              but they do not move a line's state.
+  Judgment    what cannot be computed (is a prediction new, do its paths fit, is a hypothesis a
+              new core, is a method change sound) goes to the human: the Claude hook asks before any
+              commit that adds register entries or changes method files.
 """
 import hashlib, json, os, re, subprocess, sys
 
@@ -43,6 +59,7 @@ import hashlib, json, os, re, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 CFG = json.load(open(os.path.join(HERE, 'config.json')))
 STALL, MAX_DEPTH, MIN_RUNS = CFG['stall_commits'], CFG['max_depth'], CFG['min_runs']
+MIN_GAMES, EXT = CFG['min_games_state'], CFG['external_prefix']
 DIRS = [CFG['register_dir']] + CFG.get('legacy_register_dirs', [])  # current first; history may hold the others
 M = CFG['register_dir']
 REG, VAR, LED, LATE, EVD = (f'{M}/register.json', f'{M}/variables.json', f'{M}/ledger.json', f'{M}/late-links.json', f'{M}/evidence/')
@@ -130,6 +147,9 @@ def validate(reg, variables):
             if v is None: errs.append(f'{e["id"]}: variable {e.get("variable")} not in variables.json'); continue
             for h in e.get('hypotheses', []):
                 if E.get(h, {}).get('type') != 'hypothesis': errs.append(f'{e["id"]}: {h} is not a registered hypothesis')
+                elif E[h]['line'] != e.get('line'):
+                    errs.append(f'{e["id"]}: hypothesis {h} belongs to line {E[h]["line"]}, not {e.get("line")} (a new line needs new hypotheses)')
+            errs += [f'{e["id"]}: {x}' for x in scope_errors(e.get('paths'))]
             if e.get('evidence') != v['kind']: errs.append(f'{e["id"]}: evidence {e.get("evidence")} for a {v["kind"]} variable')
             depth, cur, seen = 0, e, set()
             while not V[cur['variable']].get('essential'):
@@ -230,30 +250,72 @@ def ancestors(root, sha):
     return set((git(root, 'rev-list', sha) or '').split())
 
 
+def scope_errors(paths):
+    """A prediction's paths: what the change it predicts about may touch. Absent (as in predictions
+    registered before scopes): evidence only. Each entry is a file, or a directory below a gated
+    root (never a whole gated root, nor a method path); an external entry (another repository,
+    prefixed EXT) names a file."""
+    if paths is None: return []
+    errs = []
+    if not isinstance(paths, list) or not paths: return ['paths must be a non-empty list']
+    for x in paths:
+        if not isinstance(x, str) or not x: errs.append(f'path {x!r} is not a path'); continue
+        if x.startswith(EXT):
+            if x.endswith('/') or len(x) <= len(EXT): errs.append(f'external path {x} must name a file')
+            continue
+        if kind_of(x.rstrip('/') + ('/' if x.endswith('/') else '')) == 'method' or x.startswith(tuple(CFG['method'])):
+            errs.append(f'path {x} is a method path'); continue
+        if x.endswith('/') and any(g.startswith(x) for g in CFG['gated']):
+            errs.append(f'path {x} is a whole gated root or wider'); continue
+        if kind_of(x) != 'gated' and not any((x.endswith('/') and x.startswith(g)) for g in CFG['gated']):
+            errs.append(f'path {x} is not gated')
+    return errs
+
+
+def covered(f, scope):
+    return any(f == x or (x.endswith('/') and f.startswith(x)) for x in scope)
+
+
+def problems(s, files, serves, method, E, reg_at, ev_at, wd, anc):
+    """The rules one commit breaks, given the trailers it carries (or a late link's)."""
+    prob = []
+    if touches_method(files) and not method: prob.append('method paths without a Method trailer')
+    g = gated(files)
+    if g and not serves: prob.append('gated paths without a Serves trailer')
+    only_ev = only_evidence(files)
+    for p in serves:
+        if E.get(p, {}).get('type') != 'prediction': prob.append(f'serves {p}, not a registered prediction'); continue
+        if reg_at.get(p) not in anc: prob.append(f'serves {p}, registered later'); continue
+        if p in wd and reg_at.get(wd[p]['id']) in anc and reg_at.get(wd[p]['id']) != s: prob.append(f'serves {p}, withdrawn')
+        if not only_ev and any(c in anc and c != s for c in ev_at.get(p, [])): prob.append(f'serves {p}, whose evidence existed')
+    for p in evidence_of(files):
+        if p not in serves: prob.append(f'evidence of {p} without serving it')
+    scope = [x for p in serves for x in E.get(p, {}).get('paths') or []]
+    out = [f for f in g if kind_of(f) == 'gated' and not covered(f, scope)]
+    if serves and out: prob.append(f'outside the paths of {", ".join(serves)}: {", ".join(out[:3])}' + (' ...' if len(out) > 3 else ''))
+    return prob
+
+
 def audit(root, hist, reg_at, ev_at, reg, late):
-    """Violations of the commit rules, minus those linked late (late-links.json)."""
+    """(violations, acknowledged). A violation linked late is repaired if the commit keeps every rule
+    with the link's trailers; otherwise it is acknowledged, and the lines it names stall."""
     E = entries(reg)
     wd = {e['of']: e for e in reg or [] if e.get('type') == 'withdrawal'}
-    linked = {l['commit'] for l in late or []}
-    out = []
+    L = {l['commit']: l for l in late or []}
+    viol, ack = [], []
     for s, par, files, msg in hist:
         if len(par) > 1: continue  # merges bring in other branches' commits, audited there
         serves, method = trailers(msg)
         anc = ancestors(root, s)
-        prob = []
-        if touches_method(files) and not method: prob.append('method paths without a Method trailer')
-        g = gated(files)
-        if g and not serves: prob.append('gated paths without a Serves trailer')
-        only_ev = only_evidence(files)
-        for p in serves:
-            if E.get(p, {}).get('type') != 'prediction': prob.append(f'serves {p}, not a registered prediction'); continue
-            if reg_at.get(p) not in anc: prob.append(f'serves {p}, registered later'); continue
-            if p in wd and reg_at.get(wd[p]['id']) in anc and reg_at.get(wd[p]['id']) != s: prob.append(f'serves {p}, withdrawn')
-            if not only_ev and any(c in anc and c != s for c in ev_at.get(p, [])): prob.append(f'serves {p}, whose evidence existed')
-        for p in evidence_of(files):
-            if p not in serves: prob.append(f'evidence of {p} without serving it')
-        if prob and s not in linked: out.append({'commit': s, 'problems': prob})
-    return out
+        prob = problems(s, files, serves, method, E, reg_at, ev_at, wd, anc)
+        if not prob: continue
+        if s not in L: viol.append({'commit': s, 'problems': prob}); continue
+        l = L[s]
+        again = problems(s, files, l.get('serves') or [], bool(l.get('method')), E, reg_at, ev_at, wd, anc)
+        if again:
+            lines = sorted({E[p]['line'] for p in l.get('serves') or [] if p in E}) or ['(none)']
+            ack.append({'commit': s, 'problems': again, 'lines': lines})
+    return viol, ack
 
 
 # ---------- evaluation ----------
@@ -272,7 +334,7 @@ def evaluate(root, verify=True):
     for e in reg:
         if e.get('type') != 'prediction': continue
         p, c, d = e['id'], e['claim'], os.path.join(root, EVD, e['id'])
-        res = dict(line=e['line'], variable=e['variable'], status='open', n=None, detail='', rejected=[])
+        res = dict(line=e['line'], variable=e['variable'], status='open', n=None, detail='', rejected=[], unverified=0, anecdote=False)
         if V[e['variable']]['kind'] == 'runs':
             ok = set(seeds(e, 4096))
             arms = {}
@@ -283,6 +345,7 @@ def evaluate(root, verify=True):
                     if sd not in ok: res['rejected'].append(f'{arm}: seed {sd} not of {p}'); continue
                     if sd in seen: res['rejected'].append(f'{arm}: seed {sd} twice'); continue
                     seen.add(sd); vals.append(val)
+                    if len(row) > 2 and not os.path.isdir(row[2]): res['unverified'] += 1
                     if verify and len(row) > 2 and os.path.isdir(row[2]):
                         if abs(FUNCS[V[e['variable']]['function']][1](row[2], c['seat']) - val) > 1e-9:
                             raise LedgerError(f'{p}: {row[2]} does not give {val}')
@@ -303,6 +366,9 @@ def evaluate(root, verify=True):
             for row in read_tsv(os.path.join(d, 'games.tsv')):
                 game, sha, val = row[0], row[1], float(row[2])
                 if sha in refs: res['rejected'].append(f'{game}: a reference game'); continue
+                if len(row) > 3 and not os.path.exists(row[3]): res['unverified'] += 1
+                if c.get('builds') and len(row) > 4 and row[4] not in c['builds']: res['rejected'].append(f'{game}: build {row[4]}'); continue
+                if c.get('builds') and len(row) <= 4: res['rejected'].append(f'{game}: no build recorded'); continue
                 if verify and len(row) > 3 and os.path.exists(row[3]):
                     if hashlib.sha256(open(row[3], 'rb').read()).hexdigest() != sha: raise LedgerError(f'{p}: {row[3]} changed')
                     got, why = fn(row[3], c)
@@ -315,30 +381,35 @@ def evaluate(root, verify=True):
                 hit = {'<': a < b, '>': a > b}[c['op']]
                 res['status'] = 'corroborated' if hit else 'not corroborated'
                 res['detail'] = f'median {a} against reference median {b}'
+                res['anecdote'] = len(vals) < MIN_GAMES  # too few games to move the line's state
         if p in wd:
             before = [s for s in ev_at.get(p, []) if s in ancestors(root, reg_at.get(wd[p]['id'], 'HEAD'))]
             res['status'] = 'withdrawn after evidence' if before or res['status'] != 'open' else 'withdrawn'
         res['evidence_commits'] = ev_at.get(p, [])
+        since = [h for h in hist[[x[0] for x in hist].index(reg_at[p]):] if trailers(h[3])[1]] if reg_at.get(p) in [x[0] for x in hist] else []
+        res['method_changes_since_registration'] = [h[0] for h in since if h[0] != reg_at.get(p)]
         preds[p] = res
     lines = {}
     order = [e['id'] for e in reg if e.get('type') == 'prediction']
     decided_states = ('corroborated', 'not corroborated', 'withdrawn after evidence')
+    late = load(root, LATE) or []
+    violations, acknowledged = audit(root, hist, reg_at, ev_at, reg, late)
     for ln in sorted({r['line'] for r in preds.values()}):
         mine = [p for p in order if preds[p]['line'] == ln]
-        dec = [p for p in mine if preds[p]['status'] in decided_states]
+        dec = [p for p in mine if preds[p]['status'] in decided_states and not preds[p]['anecdote']]
         last_dec = max((preds[p]['evidence_commits'][-1] for p in dec if preds[p]['evidence_commits']), default=None,
                        key=lambda s: [h[0] for h in hist].index(s))
         idx = [h[0] for h in hist].index(last_dec) + 1 if last_dec else 0
         openp = {p for p in mine if preds[p]['status'] == 'open'}
         busy = sum(1 for s, par, files, msg in hist[idx:] if len(par) <= 1 and set(trailers(msg)[0]) & openp
                    and not only_evidence(files))
+        acks = [a['commit'] for a in acknowledged if ln in a['lines'] and a['commit'] in [h[0] for h in hist[idx:]]]
         if len(dec) >= 2 and all(preds[p]['status'] != 'corroborated' for p in dec[-2:]): st = 'degenerating'
-        elif busy >= STALL: st = 'stalled'
+        elif busy >= STALL or acks: st = 'stalled'
         elif any(preds[p]['status'] == 'corroborated' for p in dec): st = 'progressive'
         else: st = 'untested'
-        lines[ln] = dict(state=st, predictions=mine, decided=dec, commits_since_decision=busy)
-    late = load(root, LATE) or []
-    return dict(predictions=preds, lines=lines, violations=audit(root, hist, reg_at, ev_at, reg, late), late_links=len(late))
+        lines[ln] = dict(state=st, predictions=mine, decided=dec, commits_since_decision=busy, acknowledged_violations=acks)
+    return dict(predictions=preds, lines=lines, violations=violations, acknowledged=acknowledged, late_links=len(late))
 
 
 # ---------- checks ----------
@@ -358,10 +429,16 @@ def check(root):
     for pv in sorted(glob.glob(os.path.join(root, CFG['provenance']))):
         rel = os.path.relpath(pv, root)
         if git(root, 'log', '-1', '--format=%H', '--', rel).strip() in since:
-            sv = json.load(open(pv)).get('serves')
+            d = json.load(open(pv))
+            sv, patch = d.get('serves'), d.get('patch')
             E = entries(reg)
             if not sv or any(E.get(p, {}).get('type') != 'prediction' for p in sv):
-                errs.append(f'{rel}: "serves" must list registered predictions')
+                errs.append(f'{rel}: "serves" must list registered predictions'); continue
+            if not patch or not os.path.exists(os.path.join(root, patch)):
+                errs.append(f'{rel}: "patch" must name the source change, committed in this repository'); continue
+            msg = open(os.path.join(root, patch), encoding='latin-1').read().split('\n---\n', 1)[0]
+            missing = [p for p in sv if p not in trailers(msg)[0]]
+            if missing: errs.append(f'{rel}: the source change in {patch} does not serve {", ".join(missing)}')
     led = evaluate(root)
     errs += [f'commit {v["commit"][:10]}: {"; ".join(v["problems"])} (link it in late-links.json)' for v in led['violations']]
     return errs
@@ -393,7 +470,39 @@ def commit_msg(root, msgfile):
         if ls in ('degenerating', 'stalled') and not only_ev: errs.append(f'line {E[p]["line"]} is {ls}: only evidence, or a new line')
     for p in evidence_of(files):
         if p not in serves: errs.append(f'evidence of {p} staged without serving it')
+    scope = [x for p in serves for x in E.get(p, {}).get('paths') or []]
+    out = [f for f in g if kind_of(f) == 'gated' and not covered(f, scope)]
+    if serves and out: errs.append(f'staged files outside the paths of {", ".join(serves)}: {", ".join(out[:3])}')
     return errs
+
+
+def external(root, message, files):
+    """A commit made in another repository (the GitLab connector): its trailers must serve open
+    predictions without evidence, on lines neither degenerating nor stalled, whose paths name every
+    file (as EXT + path)."""
+    serves, method = trailers(message)
+    reg = load(root, REG) or []
+    E = entries(reg)
+    errs = [] if serves else ['an external commit needs a "Serves: P.." trailer']
+    led = evaluate(root, verify=False)
+    for p in serves:
+        if E.get(p, {}).get('type') != 'prediction': errs.append(f'{p} is not a registered prediction'); continue
+        st = led['predictions'].get(p, {})
+        if st.get('status', 'open') != 'open': errs.append(f'{p} is {st["status"]}')
+        if st.get('evidence_commits'): errs.append(f'{p} has evidence: no further changes may serve it')
+        ls = led['lines'].get(E[p]['line'], {}).get('state')
+        if ls in ('degenerating', 'stalled'): errs.append(f'line {E[p]["line"]} is {ls}')
+    scope = [x for p in serves for x in E.get(p, {}).get('paths') or []]
+    out = [f for f in files if EXT + f not in scope]
+    if serves and out: errs.append(f'files outside the paths of {", ".join(serves)}: {", ".join(out[:3])}')
+    return errs
+
+
+def log_build(log):
+    """The DLL build a war log names in its H line (seventh field; logs before it have none)."""
+    for f in VARMOD.log_lines(log):
+        if f[0] == 'H': return f[6] if len(f) > 6 else None
+    return None
 
 
 def write_evaluation(root):
@@ -433,10 +542,13 @@ def add_game(root, pid, log, name):
     if why: raise LedgerError(f'{log}: does not count ({why})')
     sha = hashlib.sha256(open(log, 'rb').read()).hexdigest()
     if sha in {r[1] for r in e['claim']['reference']}: raise LedgerError(f'{log}: a reference game of {pid}')
+    build = log_build(log)
+    if e['claim'].get('builds') and build not in e['claim']['builds']:
+        raise LedgerError(f'{log}: written by build {build}, not one of {pid}\'s')
     p = os.path.join(root, EVD, pid)
     os.makedirs(p, exist_ok=True)
     with open(os.path.join(p, 'games.tsv'), 'a') as f:
-        f.write(f'{name}\t{sha}\t{got}\t{os.path.abspath(log)}\n')
+        f.write(f'{name}\t{sha}\t{got}\t{os.path.abspath(log)}\t{build or "-"}\n')
 
 
 # ---------- self-test ----------
@@ -455,7 +567,7 @@ def selftest():
                dict(id='X1', function='turn_seconds', kind='runs', essential=False, text='inter', source_sha=source_sha('turn_seconds'))]
         H = dict(id='H1', type='hypothesis', line='war', text='h')
         P1 = dict(id='P1', type='prediction', line='war', hypotheses=['H1'], variable='E1', evidence='runs', change='c',
-                  claim=dict(direction='a<b', alpha=0.05, min_effect=0.6, min_n=30, seat=1))
+                  claim=dict(direction='a<b', alpha=0.05, min_effect=0.6, min_n=30, seat=1), paths=['research/ai-warfare/tools/x.py'])
         w(VAR, var); w(REG, [H, P1]); w('research/ai-warfare/tools/x.py', '1')
         commit('anchor\n\nMethod: start\nServes: P1')
         led = evaluate(d); assert led['predictions']['P1']['status'] == 'open' and not led['violations'], led
@@ -513,9 +625,10 @@ def selftest():
         for name, first, snap in (('ok', 0, True), ('late', 3, True), ('old', 0, False)):
             open(os.path.join(d, name + '.log'), 'w').write(log(first, snap))
         ref_sha = hashlib.sha256(open(os.path.join(d, 'old.log'), 'rb').read()).hexdigest()
-        PG = dict(id='PG', type='prediction', line='games', hypotheses=['H1'], variable='G1', evidence='games', change='c',
+        HG = dict(id='HG', type='hypothesis', line='games', text='hg')
+        PG = dict(id='PG', type='prediction', line='games', hypotheses=['HG'], variable='G1', evidence='games', change='c',
                   claim=dict(turn=3, handicap='HANDICAP_NOBLE', requires_snapshot=True, op='<', reference=[['old', ref_sha, 2]], min_n=1))
-        w(REG, load(d, REG) + [PG]); commit('register PG\n\nMethod: games variable')
+        w(REG, load(d, REG) + [HG, PG]); commit('register PG\n\nMethod: games variable')
         ctt = VARMOD.cities_taken_by_turn
         assert ctt(os.path.join(d, 'ok.log'), PG['claim']) == (1, None)
         assert 'starts at turn 3' in ctt(os.path.join(d, 'late.log'), PG['claim'])[1]
@@ -526,6 +639,47 @@ def selftest():
         open(os.path.join(d, 'ok.log'), 'a').write('T\t9\t0\n')
         try: evaluate(d); assert False
         except LedgerError as x: assert 'changed' in str(x), x
+        open(os.path.join(d, 'ok.log'), 'w').write(log(0, True))  # restored: the log is as recorded again
+        # scopes: what a prediction may be served with, fixed when it is registered
+        assert any('whole gated root' in x for x in scope_errors(['toolchain/']))
+        assert any('method path' in x for x in scope_errors(['method/ledger.py']))
+        assert any('must name a file' in x for x in scope_errors(['gitlab:Assets/']))
+        assert not scope_errors(['research/ai-warfare/tools/x.py', 'builds/war-log/', 'gitlab:Assets/a.cpp'])
+        assert any('belongs to line' in x for x in validate([H, dict(P1, id='PX', line='other')], var))
+        # a new line, a code change outside its prediction's paths, and a late link that does not repair it
+        H2 = dict(id='H2', type='hypothesis', line='new', text='h2')
+        PN = dict(P1, id='PN', line='new', hypotheses=['H2'], paths=['research/ai-warfare/tools/y.py'])
+        w(REG, load(d, REG) + [H2, PN]); commit('register PN')
+        w('research/ai-warfare/tools/z.py', '1'); commit('out of scope\n\nServes: PN')
+        v = [x for x in evaluate(d)['violations'] if any('outside the paths' in p for p in x['problems'])]
+        assert len(v) == 1, evaluate(d)['violations']
+        w(LATE, load(d, LATE) + [dict(commit=v[0]['commit'], serves=['PN'], reason='still outside')]); commit('late link 3')
+        led = evaluate(d)
+        # the earlier late link for tuning after evidence does not repair its commit either: both are acknowledged
+        assert not led['violations'] and sorted(a['lines'][0] for a in led['acknowledged']) == ['new', 'war'], led['acknowledged']
+        assert led['lines']['new']['state'] == 'stalled', led['lines']['new']
+        # an external commit (another repository) names its files in the prediction's paths
+        PE = dict(P1, id='PE', line='ext', hypotheses=['H3'], paths=['gitlab:Assets/a.cpp'])
+        w(REG, load(d, REG) + [dict(id='H3', type='hypothesis', line='ext', text='h3'), PE]); commit('register PE')
+        assert external(d, 'x\n\nServes: PE\n', ['Assets/a.cpp']) == []
+        assert any('outside the paths' in x for x in external(d, 'x\n\nServes: PE\n', ['Assets/b.cpp']))
+        assert any('needs a "Serves' in x for x in external(d, 'x\n', ['Assets/a.cpp']))
+        # builds: a games claim may name the DLL builds whose logs count
+        open(os.path.join(d, 'b1.log'), 'w').write(log(0, True).replace('46\n', '46\tB1\n', 1))
+        open(os.path.join(d, 'b2.log'), 'w').write(log(0, True).replace('46\n', '46\tB2\n', 1))
+        assert log_build(os.path.join(d, 'b1.log')) == 'B1' and log_build(os.path.join(d, 'ok.log')) is None
+        PB = dict(PG, id='PB', claim=dict(PG['claim'], builds=['B1'], min_n=1))
+        w(REG, load(d, REG) + [PB]); commit('register PB')
+        try: add_game(d, 'PB', os.path.join(d, 'b2.log'), 'b2'); assert False
+        except LedgerError as x: assert 'build B2' in str(x), x
+        add_game(d, 'PB', os.path.join(d, 'b1.log'), 'b1'); commit('evidence PB\n\nServes: PB')
+        r = evaluate(d)['predictions']['PB']
+        assert r['status'] == 'corroborated' and r['anecdote'] and evaluate(d)['lines']['games']['state'] == 'untested', r
+        # a build's provenance names the predictions it serves and its patch, whose message serves them too
+        w('builds/x/provenance.json', dict(serves=['PE'], patch='fixes/x.patch'))
+        w('fixes/x.patch', 'Subject: x\n\nno trailer\n---\n diff\n')
+        commit('build\n\nServes: PE')
+        assert any('does not serve PE' in x for x in check(d)), check(d)
         print('ledger selftest: ok')
     finally:
         shutil.rmtree(d)
@@ -548,6 +702,10 @@ def main():
         print(' '.join(map(str, seeds(entries(load(root, REG))[a[1]], int(a[2]) if len(a) > 2 else 64)))); return
     if a[:1] == ['collect']: collect(root, a[1], a[2], int(a[3]), a[4:]); return
     if a[:1] == ['game']: add_game(root, a[1], a[2], a[3]); return
+    if a[:1] == ['external']:
+        errs = external(root, open(a[1]).read(), a[2:])
+        for e in errs: print(f'ledger: {e}', file=sys.stderr)
+        sys.exit(1 if errs else 0)
     print(__doc__); sys.exit(2)
 
 

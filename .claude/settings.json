@@ -9,6 +9,15 @@
             "command": "python3 \"${CLAUDE_PROJECT_DIR}/method/hooks/claude_precommit.py\""
           }
         ]
+      },
+      {
+        "matcher": "mcp__.*gitlab.*__add_commit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/method/hooks/claude_external.py\""
+          }
+        ]
       }
     ],
     "SessionStart": [

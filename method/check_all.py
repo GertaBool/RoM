@@ -23,6 +23,7 @@ import json, os, subprocess, sys, tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))  # method/
 REPO = os.path.dirname(HERE)
 CFG = json.load(open(os.path.join(HERE, 'config.json')))
+SKIPPED = []  # registries whose inputs are not on this machine
 ROOTS = [os.path.join(REPO, r) for r in CFG['doc_roots']]
 sys.path.insert(0, HERE)
 import docs, figlib
@@ -84,7 +85,8 @@ def reproduce(path):
     if not cmd: return [f'{os.path.relpath(path, REPO)}: no recorded command']
     for p in d['inputs']:
         a = p if os.path.isabs(p) else os.path.join(os.path.dirname(path), p)
-        if not os.path.exists(a): return []          # inputs not on this machine: not checkable here
+        if not os.path.exists(a):                    # inputs not on this machine: not checkable here, and said so
+            SKIPPED.append(os.path.relpath(path, REPO)); return []
     with tempfile.TemporaryDirectory() as t:
         out = os.path.join(t, 'r.fig.json'); me = '@repo/' + os.path.relpath(path, REPO)
         args = [out if a == me else (os.path.join(REPO, a[6:]) if a.startswith('@repo/') else a) for a in cmd]
@@ -158,6 +160,9 @@ def main():
     r = subprocess.run([sys.executable, os.path.join(HERE, 'stats.py')], capture_output=True, text=True)
     if r.returncode: errs.append(f'stats.py: {r.stderr.strip()[-300:]}')
     for e in errs: print(e, file=sys.stderr)
+    if SKIPPED:
+        print(f'check_all: {len(SKIPPED)} registries not reproduced here (their inputs are not on this machine): '
+              + ', '.join(SKIPPED[:5]) + (' ...' if len(SKIPPED) > 5 else ''), file=sys.stderr)
     print(f'check_all: {len(errs)} error(s)', file=sys.stderr)
     sys.exit(1 if errs else 0)
 

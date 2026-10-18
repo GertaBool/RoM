@@ -52,26 +52,39 @@ registries whose inputs exist on the machine.
 - **Evidence before the claim:** run seeds come from the SHA-256 of the prediction's own text.
 - **Tuning on the test:** once evidence exists, only evidence commits may serve the prediction.
 - **Changing the question:** registered entries are append-only; a variable's code is hashed.
+- **Unrelated work under a prediction:** a prediction names its paths when registered; commits
+  serving it may touch nothing else, and a whole gated root is refused as a scope.
+- **Escaping a failing line:** a prediction's line is its hypotheses' line, so leaving a line needs
+  new hypotheses, which the human confirms.
 - **Switching the gate off:** a deleted register is an error; a bypassed hook is caught by the
-  history audit at the next check; a moved register is followed through its earlier directories
-  (`legacy_register_dirs`).
+  history audit at the next check; a moved register is followed through `legacy_register_dirs`.
+- **Whitewashing a violation:** a late link repairs a commit only if the commit then keeps every
+  rule; otherwise it is acknowledged, and its lines stall until a decision.
+- **Commits elsewhere:** the Claude hook checks connector commits (GitLab) against the same rules
+  before they are made; a build's provenance names its patch, whose message serves the same
+  predictions.
+- **Which DLL played a game:** the war log names its build, and a games claim can require builds.
+- **Too few games:** decisions from fewer than `min_games_state` games are anecdotes and do not
+  move a line's state.
 - **Detours:** a non-essential variable needs a chain to an essential one within `max_depth`; a
   line with `stall_commits` code commits since its last decision accepts only evidence.
 - **Degeneration:** two failed predictions in a row block a line until evidence or a new line.
 - **Old or unfit games:** a game counts only if logged from turn 0 to the claim's turn, at its
   handicap, with turn-start lines when required, and not as one of its references. Logs are
   hashed, not the databases rebuilt from them.
+- **Silent skips:** `check_all.py` names the registries it could not reproduce on the machine, and
+  the ledger counts evidence rows whose source is not there to verify.
 - **A stale ledger:** a committed ledger would change the history it summarises, so the gate never
   reads it.
 
-## Limits
+## What stays a judgment, and where it is made
 
-- It checks that a commit cites an open prediction, not that the work serves it. The links are
-  visible in the commit log for review.
-- `Method:` commits can change the checks themselves; they are visible, not preventable.
-- Commits made outside this repository (the GitLab connector) are seen only through the builds
-  they produce.
-- The war log does not name the DLL that wrote it, so a game cannot yet be tied to one build.
+The gate cannot compute whether a prediction is new, whether its paths fit the change, whether a
+hypothesis is a genuinely new core, or whether a method change is sound. These go to the human:
+the Claude hook asks before any commit that adds register entries or changes method files, and
+lists what changes. A commit made outside Claude Code (by hand) is held to every rule but this one;
+its author is then the judge. A `Method:` commit can still change the checks themselves; each one
+is listed per prediction in the report (`method_changes_since_registration`).
 
 ## In another project
 
