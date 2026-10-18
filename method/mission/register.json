@@ -140,5 +140,56 @@
    "toolchain/harness/HarnessState.cpp",
    "toolchain/harness/README.md"
   ]
+ },
+ {
+  "id": "W2",
+  "type": "withdrawal",
+  "of": "P3",
+  "reason": "Before any evidence or build: measured on the saves of games 3 to 5 (HARNESS_DEFENCE_DIAG), raising the defenders a city wants changes them in 6 of 511 AI cities, since city production reads that count only once the city is in danger and about half of all AI cities are already below it. The change is replaced by P4, which also feeds the city's danger flag."
+ },
+ {
+  "id": "P4",
+  "type": "prediction",
+  "line": "staging-defence",
+  "hypotheses": [
+   "H2"
+  ],
+  "variable": "taken",
+  "evidence": "games",
+  "change": "Change S2 on (define AI_STAGED_FORECAST, per mille, off at 0). The staged forecast: the land units able to attack that could reach the city this turn, of teams that are not the owner's, its vassal or its master, counted by their moves (units aboard a ship by the ship's moves), given to AI_assaultForecast against the city's land defenders; an AI at peace counts another AI's units only if its attitude allows war (the test of the paranoia code), a human's always. The threshold is AI_STAGED_FORECAST plus ten times the leader's attack-odds change. While the forecast reaches the threshold, the city is in danger (CvCityAI::AI_isDanger, which city production and the city governor read) and wants one defender more than it has (AI_neededDefenders); while it would reach it with one defender fewer, it keeps the ones it has. Danger as unit moves and workers read it (CvPlayerAI::AI_getPlotDanger) is unchanged. Built on the war-log DLL with the four war-AI fixes (builds/staging); only games written by builds made under P4 count, so games for P2 and for P4 never mix.",
+  "claim": {
+   "turn": 217,
+   "handicap": "HANDICAP_NOBLE",
+   "requires_snapshot": true,
+   "op": "<",
+   "reference": [
+    [
+     "game1",
+     "66506c98af2eee656a3a93dd3b82ae4e9821cedfce0b69cc50969446939c34f0",
+     10
+    ],
+    [
+     "game2",
+     "802df1aadb0251fd5405ed4de13d2d45225ded0bd372042ee1d42bb76d36e003",
+     1
+    ],
+    [
+     "game3",
+     "7cde98c718bcc23fcd18a9d897fd3158cbd7d89da8fbc8decd90e2aa38541a14",
+     6
+    ]
+   ],
+   "min_n": 2,
+   "builds": "served"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.h",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "builds/staging/",
+   "fixes/staging-defence.patch",
+   "toolchain/harness/HarnessState.cpp",
+   "toolchain/harness/README.md"
+  ]
  }
 ]
