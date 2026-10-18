@@ -1,7 +1,7 @@
 # Recording games for the war-AI work
 
 This DLL is GitLab `main` (d51ff25) plus the war-log snapshot change (branch
-`claude/war-log-snapshot`, merge requests !51 (merged) and !52, patches `fixes/war-log-snapshot.patch` and
+`claude/war-log-snapshot`, merge requests !51 and !52 (merged) and !53, patches `fixes/war-log-snapshot.patch` and
 `fixes/war-log-build-id.patch`), build `a1d2e324699d`: the war log, which now also
 records, as each of your turns begins, every unit you have, every foreign city near your
 army with its defenders and the engine's own chance of taking it, and your relations to
