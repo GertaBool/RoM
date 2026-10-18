@@ -288,6 +288,15 @@ Mathematical readings for the human model's war rule (`toolchain/harness/Harness
   - Not used: the price models, which have no counterpart in the game.
   - Taken: when single outcomes can dominate a sample, as one conquest can dominate a game,
     compare runs by rank, not by mean, and never judge from two runs.
+- **Mandelbrot, *Gaussian Self-Affinity and Fractals* (Selecta volume H).**
+  - Read in full: the list of chapters, the preface, and chapter H10 (Mandelbrot and Wallis,
+    "Noah, Joseph, and operational hydrology", [[pp. 236–251]]).
+  - Not used: the chapters on fractional Brownian surfaces, cartoons and R/S estimation. They
+    need long series, and a game gives a few wars.
+  - Taken: a model patched each time a new record breaks it gives "special significance" to the
+    sample it was fitted on; fit the slow features first and the fast ones later. Wars in one game
+    form one record, not independent draws, so between-game questions have about as many
+    observations as there are games.
 - ***Linear Algebra with Python*.**
   - Read in full: [[section 9.4]] (Markov chains).
   - Not used: the rest, which is matrix computation without a question here.
