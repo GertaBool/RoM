@@ -1,0 +1,260 @@
+From 38bfd86fd8ddea329294a5730388ccc792fa9367 Mon Sep 17 00:00:00 2001
+From: Otto Gregor <mobiltelefonalex@gmail.com>
+Date: Sun, 18 Oct 2026 20:29:31 +0000
+Subject: [PATCH] City defence against staged forces (AI_STAGED_FORECAST)
+
+A city's danger counts only units of a team at war and only on the city's
+own area, so an army staged at peace next to it, or aboard ships, counts
+nothing, and the city sizes its garrison as if it were safe; the human takes
+such cities on the turn it declares.
+
+CvCityAI::AI_stagedForecast gives the land units able to attack that could
+reach the city this turn (on land by their moves, aboard a ship by the
+ship's moves), of any team but the owner's, its vassal or master, to the
+exact assault forecast against the city's defenders. An AI at peace counts
+another AI's units only if its attitude allows war; a human's always. While
+the forecast reaches the owner's threshold (AI_STAGED_FORECAST, 250 per
+mille, plus ten per point of the leader's attack-odds change), the city is
+in danger (AI_isDanger) and wants one defender more (AI_neededDefenders);
+while it would with one defender fewer, it keeps the ones it has. The
+answer is kept per city with everything the forecast reads, so the same
+inputs give the same answer. 0 switches it off.
+
+Serves: P4
+---
+ Assets/CvGameCoreDLL/CvCityAI.cpp | 159 +++++++++++++++++++++++++++++-
+ Assets/CvGameCoreDLL/CvCityAI.h   |   5 +
+ Assets/XML/GlobalDefinesAlt.xml   |   8 ++
+ 3 files changed, 171 insertions(+), 1 deletion(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
+index 355975e..c35234b 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.cpp
++++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
+@@ -8,6 +8,7 @@
+ #include "CvGlobals.h"
+ #include "CvGameCoreUtils.h"
+ #include "CvCityAI.h"
++#include "CvSelectionGroupAI.h"
+ #include "CvGameAI.h"
+ #include "CvPlot.h"
+ #include "CvArea.h"
+@@ -6330,8 +6331,157 @@ int CvCityAI::AI_neededDefenders()
+ 	
+ 	iDefenders = std::max(iDefenders, AI_minDefenders());
+ 
++	// AI_STAGED_FORECAST (per mille, 0 = off): the garrison is also sized by the chance that the foreign
++	// land units able to reach the city this turn would take it if they attacked now, at peace or at war,
++	// aboard ships included; the danger counts see neither (AI_getPlotDanger: units at war, same area).
++	// While that chance reaches the owner's threshold the city wants one defender more than it has; while
++	// it would reach it with one defender fewer, it keeps the ones it has. The threshold rises with the
++	// leader's attack-odds change, as the attack threshold AI_STACK_FORECAST falls with it.
++	const int iThreshold = AI_stagedThreshold();
++	if (iThreshold > 0)
++	{
++		const int iHere = plot()->plotCount(PUF_canDefend, -1, -1, getOwnerINLINE(), NO_TEAM, PUF_isDomainType, DOMAIN_LAND);
++		if (AI_stagedForecast(false) >= iThreshold)
++		{
++			iDefenders = std::max(iDefenders, iHere + 1);
++		}
++		else if (iHere > 0 && AI_stagedForecast(true) >= iThreshold)
++		{
++			iDefenders = std::max(iDefenders, iHere);
++		}
++	}
++
+ 	return iDefenders;
+ }
++
++// The chance (per mille) that the foreign land units able to attack and to reach this city this turn
++// would take it from its land defenders now (AI_assaultForecast), with the weakest defender left out
++// if bWithoutWeakest. Counted: units the owner sees, of any team but the owner's, its vassal or its
++// master; of an AI the owner is at peace with only if the owner's attitude to it allows war (the test
++// of the paranoia in AI_updateStrategyHash), of a human always. Reach: a unit on land in the city's
++// area within its moves (one more on a route); a unit aboard a ship within the ship's moves plus one.
++// The plots within STAGED_RANGE are looked at, enough for ships of up to six moves.
++#define STAGED_RANGE 7
++
++// The staged forecast at which a city of this owner is in danger (per mille; 0: AI_STAGED_FORECAST off).
++int CvCityAI::AI_stagedThreshold()
++{
++	const int iStagedForecast = GC.getDefineINT("AI_STAGED_FORECAST", 0);
++	return (iStagedForecast > 0) ? iStagedForecast + 10 * GET_PLAYER(getOwnerINLINE()).AI_getAttackOddsChange() : 0;
++}
++int CvCityAI::AI_stagedForecast(bool bWithoutWeakest)
++{
++	PROFILE_FUNC();
++	const TeamTypes eTeam = getTeam();
++	const CvPlayerAI& kOwner = GET_PLAYER(getOwnerINLINE());
++	std::vector<const CvUnit*> apAttackers;
++	for (int iDX = -STAGED_RANGE; iDX <= STAGED_RANGE; iDX++)
++	{
++		for (int iDY = -STAGED_RANGE; iDY <= STAGED_RANGE; iDY++)
++		{
++			CvPlot* pLoopPlot = plotXY(getX_INLINE(), getY_INLINE(), iDX, iDY);
++			if (pLoopPlot == NULL || pLoopPlot->headUnitNode() == NULL || !pLoopPlot->isVisible(eTeam, false))
++			{
++				continue;
++			}
++			const int iDistance = stepDistance(getX_INLINE(), getY_INLINE(), pLoopPlot->getX_INLINE(), pLoopPlot->getY_INLINE());
++			for (CLLNode<IDInfo>* pNode = pLoopPlot->headUnitNode(); pNode != NULL; pNode = pLoopPlot->nextUnitNode(pNode))
++			{
++				const CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
++				if (pLoopUnit == NULL || pLoopUnit->isDead() || pLoopUnit->getTeam() == eTeam || pLoopUnit->getDomainType() != DOMAIN_LAND ||
++					!pLoopUnit->canAttack() || pLoopUnit->isInvisible(eTeam, false))
++				{
++					continue;
++				}
++				const TeamTypes eTheirs = pLoopUnit->getTeam();
++				if (GET_TEAM(eTheirs).isVassal(eTeam) || GET_TEAM(eTeam).isVassal(eTheirs))
++				{
++					continue;
++				}
++				const CvPlayer& kTheirs = GET_PLAYER(pLoopUnit->getOwnerINLINE());
++				if (!GET_TEAM(eTeam).isAtWar(eTheirs) && !kTheirs.isHuman() && !kTheirs.isBarbarian() &&
++					100 - GC.getLeaderHeadInfo(kOwner.getPersonalityType()).getNoWarAttitudeProb(kOwner.AI_getAttitude(pLoopUnit->getOwnerINLINE())) <= 10)
++				{
++					continue;
++				}
++				const CvUnit* pCarrier = pLoopUnit->getTransportUnit();
++				if (pCarrier != NULL)
++				{
++					if (iDistance > pCarrier->baseMoves() + 1)
++					{
++						continue;
++					}
++				}
++				else if (pLoopPlot->area() != area() || iDistance > pLoopUnit->baseMoves() + (pLoopPlot->isValidRoute(pLoopUnit) ? 1 : 0))
++				{
++					continue;
++				}
++				apAttackers.push_back(pLoopUnit);
++			}
++		}
++	}
++	if (apAttackers.empty())
++	{
++		return 0;
++	}
++	std::vector<const CvUnit*> apDefenders;
++	int iWeakest = -1;
++	int iWeakestStr = MAX_INT;
++	for (CLLNode<IDInfo>* pNode = plot()->headUnitNode(); pNode != NULL; pNode = plot()->nextUnitNode(pNode))
++	{
++		const CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
++		if (pLoopUnit != NULL && !pLoopUnit->isDead() && pLoopUnit->getOwnerINLINE() == getOwnerINLINE() &&
++			pLoopUnit->getDomainType() == DOMAIN_LAND && pLoopUnit->canDefend(plot()))
++		{
++			const int iStr = pLoopUnit->currCombatStr(plot(), NULL);
++			if (iStr < iWeakestStr)
++			{
++				iWeakestStr = iStr;
++				iWeakest = (int)apDefenders.size();
++			}
++			apDefenders.push_back(pLoopUnit);
++		}
++	}
++	if (bWithoutWeakest && iWeakest >= 0)
++	{
++		apDefenders.erase(apDefenders.begin() + iWeakest);
++	}
++	// The forecast is exact and costly, and a city asks it many times a turn: the last answer is kept with
++	// everything the forecast reads (turn, the city's defence modifier, each unit's id, type, hit points,
++	// experience, level, plot, fortification), so the same inputs give the same answer, kept or computed afresh.
++	std::vector<int> aiKey;
++	aiKey.push_back(GC.getGameINLINE().getGameTurn());
++	aiKey.push_back(getDefenseModifier(false));
++	for (size_t iI = 0; iI < apAttackers.size(); iI++)
++	{
++		const CvUnit* pUnit = apAttackers[iI];
++		aiKey.push_back(pUnit->getID());
++		aiKey.push_back(pUnit->getOwnerINLINE());
++		aiKey.push_back(pUnit->getUnitType());
++		aiKey.push_back(pUnit->currHitPoints());
++		aiKey.push_back(pUnit->getExperience());
++		aiKey.push_back(pUnit->getLevel());
++		aiKey.push_back(GC.getMapINLINE().plotNumINLINE(pUnit->getX_INLINE(), pUnit->getY_INLINE()));
++	}
++	aiKey.push_back(-1);
++	for (size_t iI = 0; iI < apDefenders.size(); iI++)
++	{
++		const CvUnit* pUnit = apDefenders[iI];
++		aiKey.push_back(pUnit->getID());
++		aiKey.push_back(pUnit->currHitPoints());
++		aiKey.push_back(pUnit->getExperience());
++		aiKey.push_back(pUnit->getLevel());
++		aiKey.push_back(pUnit->getUnitType());
++		aiKey.push_back(pUnit->getFortifyTurns());
++	}
++	const int iSlot = bWithoutWeakest ? 1 : 0;
++	if (aiKey != m_aiStagedKey[iSlot])
++	{
++		m_aiStagedValue[iSlot] = AI_assaultForecast(plot(), apAttackers, apDefenders, NULL);
++		m_aiStagedKey[iSlot] = aiKey;
++	}
++	return m_aiStagedValue[iSlot];
++}
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/
+@@ -6449,7 +6599,14 @@ bool CvCityAI::AI_isDanger()
+ /* City AI, Efficiency                                                                          */
+ /************************************************************************************************/
+ 	//return GET_PLAYER(getOwnerINLINE()).AI_getPlotDanger(plot(), 2, false);
+-	return GET_PLAYER(getOwnerINLINE()).AI_getAnyPlotDanger(plot(), 2, false);
++	if (GET_PLAYER(getOwnerINLINE()).AI_getAnyPlotDanger(plot(), 2, false))
++	{
++		return true;
++	}
++	// AI_STAGED_FORECAST: a city is also in danger while the foreign units able to reach it this turn,
++	// at peace or aboard ships, would take it now with at least the owner's threshold (AI_stagedForecast).
++	const int iThreshold = AI_stagedThreshold();
++	return iThreshold > 0 && AI_stagedForecast(false) >= iThreshold;
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/	
+diff --git a/Assets/CvGameCoreDLL/CvCityAI.h b/Assets/CvGameCoreDLL/CvCityAI.h
+index 44477c4..16e91d5 100644
+--- a/Assets/CvGameCoreDLL/CvCityAI.h
++++ b/Assets/CvGameCoreDLL/CvCityAI.h
+@@ -68,6 +68,8 @@ public:
+ 	int AI_goldHurryScore(HurryTypes eHurry, int iReserve);
+ 
+ 	int AI_neededDefenders();
++	int AI_stagedForecast(bool bWithoutWeakest);
++	int AI_stagedThreshold();
+ 	int AI_neededAirDefenders();
+ 	int AI_minDefenders();
+ 	int AI_neededFloatingDefenders();
+@@ -167,6 +169,9 @@ public:
+ protected:
+ 
+ 	int m_iEmphasizeAvoidGrowthCount;
++	// AI_stagedForecast's last inputs and answer, with all defenders [0] and the weakest left out [1]; not saved.
++	std::vector<int> m_aiStagedKey[2];
++	int m_aiStagedValue[2];
+ 	int m_iEmphasizeGreatPeopleCount;
+ 
+ 	bool m_bAssignWorkDirty;
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index b983673..ae6a4f0 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -202,6 +202,14 @@
+ 		<DefineName>AI_STACK_FORECAST</DefineName>
+ 		<iDefineIntVal>500</iDefineIntVal>
+ 	</Define>
++	<!-- City defence against staged forces (CvCityAI::AI_isDanger, AI_neededDefenders): the capture chance, per
++	     mille, of the foreign units able to reach a city this turn (at peace too, aboard ships too) at which the
++	     city is in danger and wants one more defender; plus ten per point of the leader's attack-odds change.
++	     0 = off. -->
++	<Define>
++		<DefineName>AI_STAGED_FORECAST</DefineName>
++		<iDefineIntVal>250</iDefineIntVal>
++	</Define>
+ 	<Define>
+ 		<DefineName>AI_THREAT_VISIBLE_ARMY</DefineName>
+ 		<iDefineIntVal>40</iDefineIntVal>
+-- 
+2.43.0
+
