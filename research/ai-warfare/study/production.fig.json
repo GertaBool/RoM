@@ -6,8 +6,8 @@
   "/root/.cache/rom-ana/db/game4.duckdb:3"
  ],
  "inputs": {
-  "/root/.cache/rom-ana/db/game3.duckdb": "bff9c6df9195fc96b4d9090cfccf02cb35460594b49c603aba208167ee163d0e",
-  "/root/.cache/rom-ana/db/game4.duckdb": "60d0c4534a5a1e83562f638e89f4f913f377d8b0a7eec9b44958d89b59fd9425"
+  "/root/.cache/rom-ana/db/game3.duckdb": "05963ec61d33af1a3546a7e3bb66b3d2e03bb1158ccf075c59a3244468e5535b",
+  "/root/.cache/rom-ana/db/game4.duckdb": "bcad6463782958e978ae247307213a766cdbd668b82343c6daa98db6a1b3d7c0"
  },
  "figures": {
   "game3_human_capital_unit_share": {

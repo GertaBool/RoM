@@ -27,9 +27,11 @@
  },
  "tables": {
   "build_info": 56,
+  "building_info": 428,
   "deal_items": 112,
   "enums": 194,
   "improvement_info": 54,
+  "unit_info": 422,
   "wl_A": 1309,
   "wl_B": 0,
   "wl_C": 53,

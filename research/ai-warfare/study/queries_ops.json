@@ -1,0 +1,232 @@
+[
+ {
+  "id": "builder_commands",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), a as (select a1 unit, a5 what from wl_A where player=(select player from h) and kind in ('MISSION', 'COMMAND')), b as (select distinct unit from a where what in ('MISSION_BUILD', 'MISSION_ROUTE_TO')) select a.unit, count(*) filter (where what='MISSION_BUILD') build, count(*) filter (where what='MISSION_ROUTE_TO') route_to, count(*) filter (where what='MISSION_MOVE_TO') move_to, count(*) filter (where what='COMMAND_AUTOMATE') automate, count(*) filter (where what not in ('MISSION_BUILD', 'MISSION_ROUTE_TO', 'MISSION_MOVE_TO', 'COMMAND_AUTOMATE')) other, count(*) all_commands from a join b using (unit) group by 1 order by 7 desc, 1",
+  "unit": "orders",
+  "who": "human",
+  "turn": "whole game",
+  "source": "A lines (MISSION and COMMAND) of every unit type that was given at least one build or route order; the unit is the one the command names, its group may hold others",
+  "xml": [
+   "UnitInfo",
+   [
+    "unit"
+   ]
+  ]
+ },
+ {
+  "id": "build_orders",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), b as (select turn, coalesce((select bi.build from build_info bi where cast(bi.idx as varchar)=a6), a6) build, a2 x, a3 y from wl_A where player=(select player from h) and a5='MISSION_BUILD') select b.build, coalesce(i.improvement, '-') improvement, coalesce(i.route, '-') route, count(*) orders, count(distinct (x, y)) plots, count(*) filter (where turn < 100) turns_0_99, count(*) filter (where turn between 100 and 199) turns_100_199, count(*) filter (where turn >= 200) turns_200_on, min(turn) first_turn, max(turn) last_turn from b left join build_info i on i.build=b.build group by 1, 2, 3 order by 4 desc, 1",
+  "unit": "orders",
+  "who": "human",
+  "turn": "by order turn",
+  "source": "A lines MISSION_BUILD (the build named in the order) at the plot where the unit stood; improvement and route from BuildInfo; the first log version (game 1 and game 2) names the build by its BuildTypes index, mapped by the XML load order (every mapped build's PrereqTech was held before its order, X lines)",
+  "xml": [
+   "BuildInfo",
+   [
+    "build"
+   ]
+  ]
+ },
+ {
+  "id": "build_ring",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), hc as (select x, y, t0, coalesce((select min(z.turn) from wl_Z z where z.x=c.x and z.y=c.y and z.turn>=c.t0), 100000) t1 from (select cast(a2 as int) x, cast(a3 as int) y, turn t0 from wl_A where player=(select player from h) and kind='MISSION' and a5='MISSION_FOUND' union all select x, y, turn from wl_K where new_owner=(select player from h)) c), b as (select turn, coalesce((select bi.build from build_info bi where cast(bi.idx as varchar)=a6), a6) build, cast(a2 as int) x, cast(a3 as int) y from wl_A where player=(select player from h) and a5='MISSION_BUILD'), d as (select b.*, (select min(greatest(abs(b.x-hc.x), abs(b.y-hc.y))) from hc where hc.t0 <= b.turn and b.turn < hc.t1) dist, coalesce((select route from build_info i where i.build=b.build), 'NONE') <> 'NONE' is_route from b) select case when dist is null then 'no city' when dist=0 then '0' when dist=1 then '1' when dist=2 then '2' when dist=3 then '3' else '4+' end distance_to_own_city, count(*) filter (where not is_route) improvement_orders, count(*) filter (where is_route) route_orders, count(*) all_orders from d group by 1 order by 1",
+  "unit": "orders",
+  "who": "human",
+  "turn": "by order turn",
+  "source": "A lines MISSION_BUILD: plots from the order to the nearest city the human held on that turn (founded by a FOUND command or captured, K lines; until razed, Z lines); grid distance, map wrap ignored; the first log version (game 1 and game 2) names the build by its BuildTypes index, mapped by the XML load order (every mapped build's PrereqTech was held before its order, X lines)"
+ },
+ {
+  "id": "workers_at_save",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with w as (select u.player, count(*) n from units u join unit_info i on i.unit=u.unit where i.default_ai='WORKER' group by 1), c as (select player, count(*) cities, sum(pop) pop from cities group by 1), t as (select owner player, count(*) filter (where worked=1 and plot_type<>3) worked_land, count(*) filter (where worked=1 and plot_type<>3 and improvement <> '-') worked_land_improved from plots where owner>=0 group by 1) select c.player, (select human from players p where p.player=c.player) human, c.cities, c.pop, coalesce(w.n, 0) workers, round(coalesce(w.n, 0)*1.0/c.cities, 2) workers_per_city, t.worked_land, t.worked_land_improved from c left join w using (player) left join t using (player) order by 2 desc, 1",
+  "unit": "units at save",
+  "who": "every player",
+  "turn": "save",
+  "source": "units of a type whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), cities and population, and worked plots that are not water (plot_type 3) with and without an improvement, from the save dump"
+ },
+ {
+  "id": "workers_built",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), u as (select w.turn, w.player from wl_U w join unit_info i on i.unit=w.unit where i.default_ai='WORKER'), per as (select cast(floor(turn/50)*50 as int) period_from, player, count(*) n from u group by 1, 2) select x.period_from, coalesce((select n from per where per.period_from=x.period_from and per.player=(select player from h)), 0) human, (select sum(n) from per where per.period_from=x.period_from and per.player<>(select player from h)) all_ais, (select max(n) from per where per.period_from=x.period_from and per.player<>(select player from h)) most_by_one_ai from (select distinct period_from from per) x order by 1",
+  "unit": "units built",
+  "who": "every player",
+  "turn": "by 50-turn period",
+  "source": "U lines of units whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), all domains"
+ },
+ {
+  "id": "improvement_changes",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with s as (select a.x, a.y, a.improvement i0, b.improvement i1, a.route r0, b.route r1, b.owner, (select human from players p where p.player=b.owner) hu from plots a join plots_t10 b using (x, y) where b.owner >= 0) select i0 improvement_before, i1 improvement_after, count(*) plots from s where i0 <> i1 and hu=0 group by 1, 2 order by 3 desc, 1, 2",
+  "unit": "distinct plots",
+  "who": "AI players",
+  "turn": "save to save + 10",
+  "source": "plots whose improvement differs between the save dump and the dump after a harness continuation of ten turns (toolchain/analysis/dump.sh with turns), on plots an AI owns at the end (the human's seat, also played by the AI there, is left out)",
+  "xml": [
+   "ImprovementInfo",
+   [
+    "improvement_before",
+    "improvement_after"
+   ]
+  ]
+ },
+ {
+  "id": "improvement_pace",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with w as (select u.player, count(*) n from units u join unit_info i on i.unit=u.unit where i.default_ai='WORKER' and i.domain='LAND' group by 1), s as (select b.owner player, count(*) filter (where a.improvement<>b.improvement) improvements, count(*) filter (where a.route<>b.route) routes from plots a join plots_t10 b using (x, y) where b.owner >= 0 group by 1) select s.player, coalesce(w.n, 0) land_workers_at_save, s.improvements, s.routes, round((s.improvements + s.routes)*1.0/nullif(w.n, 0), 2) changes_per_worker from s left join w using (player) where (select human from players p where p.player=s.player)=0 order by 1",
+  "unit": "distinct plots",
+  "who": "AI players",
+  "turn": "save to save + 10",
+  "source": "plots of each owner (at the end) whose improvement or route changed in the ten-turn continuation, and the owner's land workers at the save"
+ },
+ {
+  "id": "worker_tasks",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with u0 as (select u.* from units u join unit_info i on i.unit=u.unit where i.default_ai='WORKER' and i.domain='LAND'), j as (select u0.player, u0.mission_ai, u0.x <> b.x or u0.y <> b.y moved, (select human from players p where p.player=u0.player) hu, exists (select 1 from cities c where c.x=u0.x and c.y=u0.y) in_city from u0 left join units_t1 b on b.player=u0.player and b.id=u0.id) select coalesce((select name from enums e where e.enum='MissionAITypes' and e.idx=j.mission_ai), 'NO_MISSIONAI') mission_ai, count(*) filter (where hu=0) ai_workers, count(*) filter (where hu=1) human_workers, count(*) filter (where hu=0 and in_city) ai_in_a_city, count(*) filter (where hu=0 and moved) ai_moved_next_turn from j group by 1 order by 2 desc, 1",
+  "unit": "units at save",
+  "who": "every player (moves: AI players only)",
+  "turn": "save and save + 1",
+  "source": "land workers at the save by the mission the unit's AI holds (CvUnit mission AI in the dump; MissionAITypes, CvEnums.h), whether they stand in a city, and whether the same unit (id) stands elsewhere after one continuation turn"
+ },
+ {
+  "id": "city_orders",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), o as (select a3 order_type, replace(replace(a4, 'UNIT_', ''), 'BUILDING_', '') item, a5 flags from wl_A where player=(select player from h) and kind='ORDER') select case o.order_type when '0' then 'unit: ' || coalesce(i.default_ai, '?') when '1' then 'building' when '2' then 'project' when '3' then 'process' else o.order_type end category, count(*) filter (where flags='000') replace_current, count(*) filter (where substr(flags, 2, 1)='1') append, count(*) filter (where substr(flags, 3, 1)='1' and substr(flags, 2, 1)='0') insert_first, count(*) filter (where substr(flags, 1, 1)='1') repeat, count(*) all_orders from o left join unit_info i on o.order_type='0' and i.unit=o.item group by 1 order by 6 desc, 1",
+  "unit": "orders",
+  "who": "human",
+  "turn": "whole game",
+  "source": "A lines ORDER: the order type (OrderTypes: 0 train, 1 construct, 2 create, 3 maintain), units by their DefaultUnitAI (UnitInfo); flags alt, shift, ctrl as CvNetPushOrder::Execute passes them to CvCity::pushOrder (CvMessageData.cpp:186-192): no flag pops the current order and puts the new one first, shift appends, ctrl puts it first and keeps the current one, alt repeats (CvCity.cpp:12667-12810)"
+ },
+ {
+  "id": "completions",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), c as (select w.player, 'unit: ' || coalesce(i.default_ai, '?') category from wl_U w left join unit_info i on i.unit=w.unit union all select player, 'building' from wl_N) select category, count(*) filter (where player=(select player from h)) human, round(count(*) filter (where player=(select player from h))*1.0/(select count(*) from c where player=(select player from h)), 3) human_share, count(*) filter (where player<>(select player from h)) ais, round(count(*) filter (where player<>(select player from h))*1.0/(select count(*) from c where player<>(select player from h)), 3) ai_share from c group by 1 order by 4 desc, 1",
+  "unit": "units built",
+  "who": "every player",
+  "turn": "whole game",
+  "source": "U lines (units, by DefaultUnitAI in UnitInfo) and N lines (buildings) of every player; shares of each side's completions"
+ },
+ {
+  "id": "ai_orders_under_threat",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with y as (select y.*, case when orders like 'UNIT_%' then 'unit: ' || coalesce((select default_ai from unit_info i where i.unit=replace(y.orders, 'UNIT_', '')), '?') when orders like 'BUILDING_%' then 'building' when orders like 'PROCESS_%' then 'process' when orders like 'PROJECT_%' then 'project' else orders end category from wl_Y y where y.player not in (select player from wl_P where human=1)) select category, count(*) filter (where danger=0 and \"foreign\"=0) quiet, count(*) filter (where \"foreign\">0 and danger=0) foreign_units_near, count(*) filter (where danger>0) danger, count(*) all_city_turns from y group by 1 order by 5 desc, 1",
+  "unit": "turns",
+  "who": "AI players at war with the human",
+  "turn": "every turn of such a war",
+  "source": "Y lines of AI cities (written when a war with the human starts and every turn of it): the order at the head of the queue, by DefaultUnitAI for units; danger: the AI's danger count of the city; foreign: foreign land units within two plots"
+ },
+ {
+  "id": "human_moves",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), wi as (select w.turn t0, case when w.team=(select player from h) then w.target else w.team end opp, coalesce((select min(q.turn) from wl_Q q where q.seq>w.seq and ((q.team=w.team and q.target=w.target) or (q.team=w.target and q.target=w.team))), 100000) t1 from wl_W w where w.team=(select player from h) or w.target=(select player from h)), m as (select turn, a1 unit, cast(a2 as int) x, cast(a3 as int) y, cast(a4 as int) n, cast(a6 as int) tx, cast(a7 as int) ty from wl_A where player=(select player from h) and a5='MISSION_MOVE_TO'), j as (select m.*, coalesce(i.default_ai, '?') ai, greatest(abs(m.x-m.tx), abs(m.y-m.ty)) dist, exists (select 1 from wi where wi.t0 <= m.turn and m.turn <= wi.t1) at_war from m left join unit_info i on i.unit=m.unit) select ai unit_ai, count(*) filter (where not at_war) peace, count(*) filter (where at_war) war, count(*) filter (where n >= 2) group_2_plus, count(*) filter (where n >= 5) group_5_plus, median(dist) median_distance, max(dist) max_distance, count(*) all_moves from j group by 1 order by 8 desc, 1",
+  "unit": "orders",
+  "who": "human",
+  "turn": "whole game",
+  "source": "A lines MISSION_MOVE_TO: the unit named (its DefaultUnitAI in UnitInfo; its group size at the order), from its plot to the target plot (grid distance, map wrap ignored); war: a W line of the human not yet ended by a Q line of the same pair"
+ },
+ {
+  "id": "war_moves",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), wi as (select w.turn t0, case when w.team=(select player from h) then w.target else w.team end opp, coalesce((select min(q.turn) from wl_Q q where q.seq>w.seq and ((q.team=w.team and q.target=w.target) or (q.team=w.target and q.target=w.team))), 100000) t1 from wl_W w where w.team=(select player from h) or w.target=(select player from h)), cp as (select x, y, player owner_at_save, founded from cities), ev as (select x, y, turn, old_owner, 'K' k from wl_K union all select x, y, turn, old_owner, 'Z' from wl_Z), evs as (select *, lag(turn) over (partition by x, y order by turn, k) prev from ev), co as (select e.x, e.y, coalesce(e.prev, (select founded from cp where cp.x=e.x and cp.y=e.y), 0) t0, e.turn t1, e.old_owner holder from evs e union all select cp.x, cp.y, coalesce((select max(turn) from ev where ev.x=cp.x and ev.y=cp.y), cp.founded) t0, 100000 t1, cp.owner_at_save from cp), m as (select seq, turn, cast(a2 as int) x, cast(a3 as int) y, cast(a4 as int) n, cast(a6 as int) tx, cast(a7 as int) ty from wl_A a where player=(select player from h) and a5='MISSION_MOVE_TO' and (select strength from unit_info i where i.unit=a.a1) > 0), e as (select m.seq, min(greatest(abs(m.x-co.x), abs(m.y-co.y))) d0, min(greatest(abs(m.tx-co.x), abs(m.ty-co.y))) d1 from m join co on co.t0 <= m.turn and m.turn < co.t1 join wi on wi.opp=co.holder and wi.t0 <= m.turn and m.turn <= wi.t1 group by 1), j as (select m.*, e.d0, e.d1 from m join e using (seq)) select case when n=1 then '1' when n<=4 then '2-4' else '5+' end group_size, count(*) filter (where d1 < d0) closer, count(*) filter (where d1 = d0) same, count(*) filter (where d1 > d0) farther, count(*) filter (where d1 <= 1) ending_next_to_enemy_city, median(d0) median_start_distance, count(*) all_moves from j group by 1 order by 1",
+  "unit": "orders",
+  "who": "human",
+  "turn": "turns at war",
+  "source": "A lines MISSION_MOVE_TO of fighting units (UnitInfo iCombat above zero) made while at war: grid distance (map wrap ignored) from the start and from the target plot to the nearest city of an AI the human was at war with that turn; city owners over time from the save's cities and the K and Z lines on each plot"
+ },
+ {
+  "id": "stacks",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), g as (select g.*, case when g.player=(select player from h) then 'human' else 'AI' end side from wl_G g) select side, head_ai, count(*) stack_turns, count(distinct turn) turns, median(military) median_military_units, max(military) max_military_units, count(*) filter (where target_x >= 0) with_target from g group by 1, 2 order by 1 desc, 3 desc, 2",
+  "unit": "turns",
+  "who": "every player",
+  "turn": "whole game",
+  "source": "G lines (after a player's moves, each stack near or in enemy land: AI stacks of three or more military units, human stacks of two or more); head_ai: the unit AI of the stack's head; with target: a mission plot set"
+ },
+ {
+  "id": "unit_moves",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with j as (select a.player, a.ai, a.can_fight, (select human from players p where p.player=a.player) hu, greatest(abs(a.x-b.x), abs(a.y-b.y)) d, exists (select 1 from cities c where c.x=a.x and c.y=a.y) in_city0 from units a join units_t1 b on b.player=a.player and b.id=a.id where a.can_fight=1) select ai unit_ai, count(*) filter (where hu=0) ai_units, count(*) filter (where hu=0 and d>0) ai_moved, round(avg(d) filter (where hu=0 and d>0), 2) ai_mean_distance_moved, count(*) filter (where hu=0 and in_city0) ai_in_a_city from j where hu=0 group by 1 order by 2 desc, 1",
+  "unit": "units at save",
+  "who": "AI players",
+  "turn": "save and save + 1",
+  "source": "fighting units (can_fight) at the save that still exist after one continuation turn (same id), by the unit's AI type at the save: moved or not, grid distance moved (map wrap ignored), and whether it started in a city"
+ }
+]

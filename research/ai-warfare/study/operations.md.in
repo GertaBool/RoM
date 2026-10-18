@@ -1,0 +1,313 @@
+<!-- registry: ops.fig.json as o -->
+# Workers, tile improvements, city builds and unit movement: the human and the AI
+
+Method: `framework.md`. The queries are declared in `study/queries_ops.json` and turned into
+figures by `tools/sqlfig.py`; each table states what it counts, who, when and from which source.
+Facts come first, readings in section 6. The outcome of the human's build orders at the save
+(what still stands, what was replaced) is in `study/data.md`, section 1. The decision rules
+fitted to the human's city orders are in `study/human.md`.
+
+## 1. Questions and sources
+
+| Question | Source |
+|---|---|
+| Q1. What do the human's builders do: which units, which commands, which builds, how far from its cities? | A lines (the human's commands); city founding and capture from FOUND commands and K lines |
+| Q2. How many workers do the players have and build, and how much of their worked land is improved? | U lines; the save dump |
+| Q3. What do the AIs' workers do? | Harness continuations from each save (section 1.1) |
+| Q4. What does the human order in its cities, and how? What do all players complete? | A lines (ORDER); U and N lines |
+| Q5. What do AI cities build while at war with the human, with and without danger? | Y lines |
+| Q6. How does the human move its units, alone or grouped, and toward what? | A lines (MOVE_TO); W and Q lines; city owners over time |
+| Q7. How do the AIs move theirs? | G lines; the continuations |
+| Q8. How does the AI code choose builds, worker tasks and attack moves? | `CvCityAI.cpp`, `CvUnitAI.cpp`, `CvPlayerAI.cpp` (GitLab `main`) |
+
+### 1.1 What the sources cannot give
+
+- **Commands, not moves.** An A line is a command. A unit given a far target keeps moving on
+  later turns without a new command, so the number of move commands is not the number of moves.
+- **No unit identity in A lines.** The command names the unit's type, plot and group size, not
+  its id, so one worker cannot be followed from order to order.
+- **The AIs act without commands.** Their worker builds and unit moves are not in the log. Their
+  completions are (U and N lines), and so are their stacks near enemy land (G lines) and the
+  cities at war with a human (Y lines).
+- **One save per game, no autosaves.** To see the AIs' workers and units act, the harness
+  plays on from each save: one turn and ten turns, every seat played by the AI, the human's
+  included (`toolchain/analysis/dump.sh` with a number of turns). The state before is the save
+  dump itself, byte-identical to the one `study/data.md` uses. The continuation tables show the
+  AI players only, and they describe the turns after the save, not the logged game.
+- **Game 1 and game 2** used the first log version: no M, N or Y lines and no save dump, and builds
+  are written as numbers. These are mapped to names by the XML load order. Every order's mapped
+  build has its tech already held before the order (X lines), in all four games.
+- **Distances** are grid distances on the map, without map wrap: the setting is not in the dump.
+
+## 2. Workers and tile improvements
+
+### 2.1 The human's builders
+
+Every unit type that was given a build or route order, with all its commands:
+
+{{table:o.game1_builder_commands}}
+
+{{table:o.game2_builder_commands}}
+
+{{table:o.game3_builder_commands}}
+
+{{table:o.game4_builder_commands}}
+
+Each build ordered, with the improvement or route it makes (BuildInfo, appendix), by period:
+
+{{table:o.game1_build_orders}}
+
+{{table:o.game2_build_orders}}
+
+{{table:o.game3_build_orders}}
+
+{{table:o.game4_build_orders}}
+
+How far each build order was from the nearest city the human held on that turn:
+
+{{table:o.game1_build_ring}}
+
+{{table:o.game2_build_ring}}
+
+{{table:o.game3_build_ring}}
+
+{{table:o.game4_build_ring}}
+
+### 2.2 Workers of every player
+
+Workers built per fifty turns, the human against all AIs together and the AI that built the most:
+
+{{table:o.game1_workers_built}}
+
+{{table:o.game2_workers_built}}
+
+{{table:o.game3_workers_built}}
+
+{{table:o.game4_workers_built}}
+
+Workers, cities and worked land at the save:
+
+{{table:o.game3_workers_at_save}}
+
+{{table:o.game4_workers_at_save}}
+
+### 2.3 What the AIs' workers do
+
+The task each land worker holds at the save, and whether it stood elsewhere one turn later
+(AI players only, for the move):
+
+{{table:o.game3_worker_tasks}}
+
+{{table:o.game4_worker_tasks}}
+
+Plots of each AI whose improvement or route changed in the ten turns after the save, against its
+land workers:
+
+{{table:o.game3_improvement_pace}}
+
+{{table:o.game4_improvement_pace}}
+
+What changed, on AI land. Some changes are not a worker's build: a cottage becomes a hamlet,
+and a hamlet a village, by being worked (`ImprovementUpgrade` and `iUpgradeTime` in the appendix).
+
+{{table:o.game3_improvement_changes}}
+
+{{table:o.game4_improvement_changes}}
+
+## 3. City builds
+
+### 3.1 The human's orders
+
+Every city order by what it orders: units by their XML `DefaultUnitAI`. The columns follow the
+order flags. No flag replaces the current order; shift appends; ctrl puts the order first and
+keeps the current one; alt repeats it (`CvCity::pushOrder`, `CvCity.cpp:12667–12810`).
+
+{{table:o.game1_city_orders}}
+
+{{table:o.game2_city_orders}}
+
+{{table:o.game3_city_orders}}
+
+{{table:o.game4_city_orders}}
+
+### 3.2 What every player completes
+
+Units by `DefaultUnitAI`, and buildings. The first log version has no N lines, so game 1 and
+game 2 show units only:
+
+{{table:o.game1_completions}}
+
+{{table:o.game2_completions}}
+
+{{table:o.game3_completions}}
+
+{{table:o.game4_completions}}
+
+### 3.3 AI cities at war with the human
+
+The order at the head of each AI city's queue on each turn of a war with the human, by threat:
+
+{{table:o.game3_ai_orders_under_threat}}
+
+{{table:o.game4_ai_orders_under_threat}}
+
+## 4. Unit movement
+
+### 4.1 The human
+
+Every move command, by the unit's `DefaultUnitAI`:
+
+{{table:o.game1_human_moves}}
+
+{{table:o.game2_human_moves}}
+
+{{table:o.game3_human_moves}}
+
+{{table:o.game4_human_moves}}
+
+The move commands of fighting units while at war, against the nearest city of an AI the human was
+at war with:
+
+{{table:o.game3_war_moves}}
+
+{{table:o.game4_war_moves}}
+
+### 4.2 Stacks near or in enemy land
+
+{{table:o.game1_stacks}}
+
+{{table:o.game2_stacks}}
+
+{{table:o.game3_stacks}}
+
+{{table:o.game4_stacks}}
+
+### 4.3 The AIs' units in the turn after the save
+
+Fighting units of the AIs, by their unit AI type:
+
+{{table:o.game3_unit_moves}}
+
+{{table:o.game4_unit_moves}}
+
+## 5. How the AI code chooses
+
+All from GitLab `main`; each line was read in the source.
+
+**City production**, `CvCityAI::AI_chooseProduction` (`CvCityAI.cpp:705–3432`). A list of
+conditions in fixed order; the first that holds picks the order. Among them:
+- A worker before defenders when `AIDecisionPolicy::developBeforeReinforcing` holds for the enemy
+  strength within two plots against the city's own, and the area has fewer workers than
+  `AI_neededWorkers` (`CvCityAI.cpp:1504–1519`).
+- City defenders while the city has fewer than `AI_minDefenders()` plus the settlers on its plot
+  (`CvCityAI.cpp:2253–2256`).
+- Late in the list, a unit at all only if unit costs are under the spending cap and the AI is in a
+  land war, has at most three cities in the first sixty turns, or wins a roll against its unit
+  probability (`CvCityAI.cpp:3288–3296`).
+- Many steps are rolls: `AI_chooseUnit` with odds takes the unit only if
+  `getSorenRandNum(100) < iOdds` (`CvCityAI.cpp:9444–9446`).
+
+**Workers.**
+- How many: `CvPlayerAI::AI_neededWorkers` (`CvPlayerAI.cpp:11912–11945`): twice the unimproved
+  bonuses plus three times each city's need, plus one, divided by three, capped by cities and
+  population. A city's need counts two for each unimproved worked plot
+  (`CvCityAI::AI_updateWorkersNeededHere`, `CvCityAI.cpp:13223`, `13323–13325`).
+- What to do: `CvUnitAI::AI_workerMove` (`CvUnitAI.cpp:1546`) works through bonuses, city
+  connections, the plot's own city when it needs workers (`CvUnitAI.cpp:1682–1684`), nearby
+  plots, then other cities. It chooses another city by need over the workers already there
+  (`CvUnitAI.cpp:19322–19325`).
+- Which build: `CvCityAI::AI_bestPlotBuild` (`CvCityAI.cpp:11077`) scores the yield change, with
+  food weighted `100`, production `60` and commerce `40` per cent before city priorities
+  (`CvCityAI.cpp:11536–11540`). The current improvement is kept when nothing scores higher
+  (`CvCityAI.cpp:11773–11777`).
+
+**Attack stacks**, `CvUnitAI::AI_attackCityMove` (`CvUnitAI.cpp:2799`):
+- The stack is ready only from a group size set per AI (`CvUnitAI.cpp:2868–2872`).
+- The target is picked by `AI_pickTargetCity` (`CvUnitAI.cpp:15322`), whose value is divided by
+  four plus the square of the path turns (`CvUnitAI.cpp:15429–15431`).
+- It attacks when its strength against the city's reaches `BBAI_ATTACK_CITY_STACK_RATIO`
+  (`CvUnitAI.cpp:2949`).
+
+## 6. Readings
+
+Each reading names its facts and what would refute it.
+
+1. **The human directs every worker by hand, and lets fighting units build too.**
+   - Facts (section 2.1):
+     - in all four games, no worker was ever set to automate; the automate commands are of
+       boats, scouts, an explorer, warbands and one Javelineer;
+     - Javelineers build camps and tracks in all four games, and in game 4 Legionaries and
+       other infantry build as well (their `Builds`, appendix).
+   - Refuted if: a further game with automated workers doing most of the building.
+2. **The human improves the land next to its cities first, with fewer workers than any AI.**
+   - Facts:
+     - in all four games, most improvement orders are one plot from a city, nearly all within
+       two; the orders further out are mostly routes (section 2.1);
+     - tracks come first; roads and paved roads only late, when their techs arrive;
+     - in no period does the human build more workers than the AI that builds the most, and in
+       the later periods far fewer;
+     - at the save it has fewer workers per city than every AI in both games, yet improves about
+       as large a share of its worked land as they do, or more (section 2.2);
+     - it holds more workers at the save than it built in the whole game, in game 3 and game 4
+       (U lines against the save).
+   - Refuted if: a further game where the human's orders spread evenly over the city radius.
+3. **The human's cities build buildings; its units are few and mostly one kind.**
+   - Facts (section 3):
+     - buildings are the largest category of the human's orders in all four games, and in game 3
+       and game 4 the majority of its completions, against about a quarter of the AIs';
+     - the AIs complete many more workers, settlers, transports and explorers;
+     - the human almost never queues: nearly every order replaces the current one.
+   - With `study/human.md`: the units come mostly from the capital.
+4. **AI cities at war with the human keep building workers and buildings, also under danger.**
+   - Facts (section 3.3):
+     - in game 3, the turns with danger show more worker orders than any other kind;
+     - in game 4, workers come second after counter units;
+     - buildings stay at the head of the queue on many turns with foreign units near.
+   - This fits the worker branch of the AI code, which can come before defenders
+     (section 5).
+   - Refuted if: the danger turns are those of cities the human never reached.
+5. **The human moves units one by one in short steps and converges on the target.** The AIs
+   move large stacks, and most of their units stand still in a given turn.
+   - Facts (section 4):
+     - most human move commands are of single units over one or two plots;
+     - at war, more of its fighting units' moves bring them closer to an enemy city than take
+       them farther;
+     - groups of two to four end next to an enemy city more often than single units;
+     - the human's stacks near enemy land are few: a handful of stack-turns per game;
+     - AI attack stacks near enemy land are many, with a median of five or six units;
+     - in the turn after the save, most AI city-defence units stay in their cities, and few or
+       none of the AIs' city-attack units move.
+   - Refuted if: in a further game, the human's attacks come from stacks formed far from the
+     target.
+
+## 7. Open
+
+- **Where the human's extra workers came from.** Captured workers leave no line in the log.
+- **The AIs' worker builds during the logged games.** Only their outcome at the save, and the
+  continuations, are available. Saves at intervals would show them.
+- **Moves against move commands.** A harness replay of the human's commands would separate
+  orders from the moves they cause.
+- **The AI's choices by branch.** A continuation with the AI's own log on would name the branch
+  of `AI_chooseProduction` behind each order. That needs a harness build with logging.
+
+## Appendix: XML records of the types counted
+
+{{effects:o.game1_builder_commands}}
+
+{{effects:o.game2_builder_commands}}
+
+{{effects:o.game3_builder_commands}}
+
+{{effects:o.game4_builder_commands}}
+
+{{effects:o.game1_build_orders}}
+
+{{effects:o.game2_build_orders}}
+
+{{effects:o.game3_build_orders}}
+
+{{effects:o.game4_build_orders}}
+
+{{effects:o.game3_improvement_changes}}
+
+{{effects:o.game4_improvement_changes}}

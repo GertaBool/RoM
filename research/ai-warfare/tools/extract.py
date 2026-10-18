@@ -69,6 +69,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('log'); ap.add_argument('db')
     ap.add_argument('--state'); ap.add_argument('--manifest'); ap.add_argument('--oracle'); ap.add_argument('--records'); ap.add_argument('--enums'); ap.add_argument('--probe')
+    ap.add_argument('--later', action='append', default=[], help='name=path: a later state of the same game (a harness continuation, '
+                    'after --state): tables plots_<name>, units_<name>, cities_<name>, and a row in snapshots')
     a = ap.parse_args()
     rows = collections.defaultdict(list)
     seen = collections.Counter(); other = 0; total = 0
@@ -198,11 +200,37 @@ def main():
                 'diplo': sum(len(p.get('diplo', [])) for p in P)}
         errs += [f'{k}: {counts[k]} rows, {v} in the dump' for k, v in want.items() if counts[k] != v]
         src['state_turn'] = d['turn']
+    snaps = [['state', d['turn']]] if a.state else []
+    for spec in a.later:
+        nm, path = spec.split('=', 1)
+        if not a.state: errs.append('--later needs --state'); break
+        d1 = json.load(open(path)); P1 = d1['players']
+        table(f'plots_{nm}', [(c, 'VARCHAR' if c in ('terrain', 'feature', 'bonus', 'improvement', 'route', 'seen_improvement_human') else 'BIGINT')
+                              for c in pcols], d1.get('plots', []))
+        table(f'units_{nm}', [('player', 'BIGINT')] + [(c, 'VARCHAR' if c in ('unit', 'ai', 'promotions') else 'BIGINT') for c in ucols],
+              [[p['id']] + (u + [None] * len(ucols))[:len(ucols)] for p in P1 for u in p['unitList']])
+        table(f'cities_{nm}', [('player', 'BIGINT'), ('x', 'BIGINT'), ('y', 'BIGINT'), ('pop', 'BIGINT'), ('founded', 'BIGINT'),
+                               ('improved', 'BIGINT'), ('order', 'VARCHAR')],
+              [[p['id'], c['x'], c['y'], c['pop'], c['founded'], c['improved'], str(c['order'])] for p in P1 for c in p['cities']])
+        snaps.append([nm, d1['turn']])
+        want1 = {f'plots_{nm}': len(d1.get('plots', [])), f'units_{nm}': sum(len(p['unitList']) for p in P1),
+                 f'cities_{nm}': sum(len(p['cities']) for p in P1)}
+        errs += [f'{k}: {counts[k]} rows, {v} in the later dump' for k, v in want1.items() if counts[k] != v]
+        src[f'{nm}_turn'] = d1['turn']
+    if a.later: table('snapshots', [('state', 'VARCHAR'), ('turn', 'BIGINT')], snaps)
     if a.records:
         R = json.load(open(a.records))
-        table('build_info', [('build', 'VARCHAR'), ('improvement', 'VARCHAR'), ('route', 'VARCHAR'), ('time', 'BIGINT')],
+        table('unit_info', [('unit', 'VARCHAR'), ('default_ai', 'VARCHAR'), ('combat', 'VARCHAR'), ('domain', 'VARCHAR'),
+                            ('cost', 'BIGINT'), ('strength', 'BIGINT'), ('moves', 'BIGINT')],
+              [[k.removeprefix('UNIT_'), (v.get('DefaultUnitAI') or 'NONE').removeprefix('UNITAI_'), (v.get('Combat') or 'NONE').removeprefix('UNITCOMBAT_'),
+                (v.get('Domain') or 'NONE').removeprefix('DOMAIN_'), v.get('iCost'), v.get('iCombat'), v.get('iMoves')] for k, v in sorted(R['UnitInfo'].items())])
+        table('building_info', [('building', 'VARCHAR'), ('building_class', 'VARCHAR'), ('cost', 'BIGINT')],
+              [[k.removeprefix('BUILDING_'), (v.get('BuildingClass') or 'NONE').removeprefix('BUILDINGCLASS_'), v.get('iCost')]
+               for k, v in sorted(R['BuildingInfo'].items())])
+        # idx: the BuildTypes index (XML load order), which the first log version wrote instead of the build's name
+        table('build_info', [('build', 'VARCHAR'), ('improvement', 'VARCHAR'), ('route', 'VARCHAR'), ('time', 'BIGINT'), ('idx', 'BIGINT')],
               [[k, (v.get('ImprovementType') or 'NONE').replace('IMPROVEMENT_', ''), (v.get('RouteType') or 'NONE').replace('ROUTE_', ''),
-                v.get('iTime')] for k, v in sorted(R['BuildInfo'].items())])
+                v.get('iTime'), v.get('_index')] for k, v in sorted(R['BuildInfo'].items())])
         table('improvement_info', [('improvement', 'VARCHAR'), ('upgrade', 'VARCHAR'), ('upgrade_time', 'BIGINT')],
               [[k[12:], (v.get('ImprovementUpgrade') or 'NONE').replace('IMPROVEMENT_', ''), v.get('iUpgradeTime')]
                for k, v in sorted(R['ImprovementInfo'].items())])
@@ -257,7 +285,7 @@ def main():
             if counts['oracle_' + kind] != len(rs): errs.append(f'oracle_{kind}: {counts["oracle_" + kind]} rows, {len(rs)} records')
         src['oracle_records'] = {k: len(v) for k, v in recs.items()}
     con.close()
-    man = {'inputs': {os.path.basename(p): sha(p) for p in (a.log, a.state, a.oracle, a.records, a.enums, a.probe) if p},
+    man = {'inputs': {os.path.basename(p): sha(p) for p in [a.log, a.state, a.oracle, a.records, a.enums, a.probe] + [l.split('=', 1)[1] for l in a.later] if p},
            'source': src, 'tables': counts, 'errors': errs}
     if a.manifest: json.dump(man, open(a.manifest, 'w'), indent=1, sort_keys=True)
     print(f'{len(counts)} tables, {sum(counts.values())} rows; {total} log lines; errors: {len(errs)}', file=sys.stderr)
