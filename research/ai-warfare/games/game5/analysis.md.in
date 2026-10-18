@@ -1,0 +1,209 @@
+<!-- registry: game.fig.json -->
+<!-- registry: hm.fig.json as hm -->
+# Game 5: Maglocunus (Britain) on PAE Europe, Noble
+
+Method: `method/docs/framework.md` and `method/docs/data-protocol.md`. The queries are declared in
+`games/game5/queries.json` and turned into figures by `tools/sqlfig.py`; the war-decision cases come
+from `tools/hmwar.py` (`study/model.md`). Facts come first; the readings are in section 7, each with
+the facts it rests on and what would contradict it.
+
+Inputs, from the shared folder of this game: the war log (`WarLog.log`), three autosaves of the
+human's (`Maglocunus BC-0935`, `Maglocunus BC-0725`, `Maglocunus BC-0400`) and the game's Python
+log (`PythonDbg.log`). The last save is dumped with `toolchain/analysis/dump.sh` (the state at its
+turn); the two earlier saves are not used yet.
+
+## 1. Questions
+
+- **Q1. Setup.** Which map, speed, difficulty, options and players? Source: the game setup stored in
+  the last save (`toolchain/harness/initcore.py`), the `H` and `P` lines, the save dump.
+- **Q2. The whole game.** Who grew, who fought whom, who lost cities? Source: `M`, `W`, `Q` and `K`
+  lines; the save's replay messages.
+- **Q3. The human.** Where did its cities come from, and how did its war go? Source: `A`, `K`, `C`
+  and `R` lines, with the queries of `study/winning.md`, `study/playstyle.md` and `study/data.md`
+  applied unchanged.
+- **Q4. The turn-start lines.** This is the first game logged with them. What do they hold before
+  and during the human's war, and can the war-decision cases of `study/model.md` be built from them?
+  Source: `I`, `L`, `J` and `O` lines; `tools/hmwar.py`.
+- **Q5. The mission.** Does the game count as evidence for P2? Source: `method/ledger.py`.
+
+## 2. Setup
+
+From the setup in the last save (read with `initcore.py`):
+- **Map:** the WorldBuilder scenario `PAE Europe V Large`, the map of game 4.
+- **Speed and difficulty:** Marathon; Noble for every player.
+- **Options:** no barbarians, no vassal states, no events, no revolution, no barbarian
+  civilizations, no tech diffusion, dynamic civilization names.
+- **Victories:** score, conquest, religious, space race.
+- **The human:** the first seat of the list: England's civilization with Henry VIII as leader,
+  renamed Maglocunus, "British Tribe". In game 4 on the same map the human played Rome at Monarch.
+- **The AIs:**
+  - Vercingetorix (Gaul) and Willem van Oranje (Frisia), the two civilizations whose cities the
+    human's war took;
+  - Pericles (Athens) and Alexander (Macedon); Julius Caesar (Rome); Ivan (Scythia); Ashur
+    (Assyria); Masinissa (Carthage); Suppi (Hittites); Hiram (Phoenicia); Ramesses (Egypt); Ragnar
+    (Vikings); Charles V (Saxony); Leonidas (Dorian Greece); Afonso (Iberia); Minos (Minoan Tribe);
+    Cyrus (Persia); Gilgamesh (Sumer).
+
+### 2.1 The log's header
+
+{{table:header}}
+
+The header names a map of no width or height, and one player, the human. The lines of every type,
+with the first and last turn each appears:
+
+{{table:log_lines}}
+
+How the header came to be written so, from the code (`CvGameCoreUtils.cpp`, `CvPlayer.cpp`, as of
+commit `0f89732`):
+- the header is written once, before the first line of the log (`warLogLine`);
+- the `P` lines list the players that have ever been alive at that moment (`isEverAlive`);
+- during game setup the first player to come alive gets its turn at once (`CvPlayer::setAlive`
+  calls `setTurnActive(true)` while no turn is active);
+- `setTurnActive` writes the tracked player's turn-start lines (`warLogTurnStart`).
+
+With the human in the first seat, its turn-start lines were the log's first line, written before
+the map and the other players existed. That snapshot holds no units. Game 3 and game 4 were logged
+before the turn-start lines existed, and their headers are complete. The snapshot DLL wrote this
+log. The build that fixes it (`a1d2e324699d`, commit `efcb5e4`,
+[its merge request](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/53))
+writes no turn-start lines before the game has finished its setup.
+
+### 2.2 The players at the save
+
+{{table:players_at_save}}
+
+{{table:eliminations}}
+
+## 3. The whole game
+
+Each player's cities at three turns, and score and power at the last full turn (empty: the player
+was gone by then):
+
+{{table:trajectory_all}}
+
+Every war and peace of the game:
+
+{{table:wars}}
+
+Every city that changed hands:
+
+{{table:captures}}
+
+## 4. The human
+
+Human against the AI median, every fiftieth turn and the last full turn (the query of
+`study/winning.md`):
+
+{{table:trajectory}}
+
+Where its cities came from:
+
+{{table:city_sources}}
+
+Its one war, and the battles in it:
+
+{{table:war_ledger}}
+
+{{table:units_ledger}}
+
+The units it attacked with:
+
+{{table:attack_units}}
+
+{{effects:attack_units}}
+
+Every attack of the game by odds band, the human's and the AIs':
+
+{{table:attack_odds}}
+
+What the human ordered in the turns before its declaration, against the turns before that:
+
+{{table:war_preparation}}
+
+The Python log holds the game's debug messages (interface, BUG mod data, timers); it has no
+error and no traceback.
+
+## 5. The turn-start lines
+
+The lines the human's turn starts wrote, by period:
+
+{{table:snapshot}}
+
+No foreign city came within three plots of the human's attack-capable land units before the turn
+of its declaration: the `J` lines begin then. Its relations at that turn start:
+
+{{table:relations_210}}
+
+Every Frisian city in a `J` line from the declaration to the last capture: its defenders, the
+human's units within one and within three plots and aboard ships nearby, the engine's capture
+chance for the units within one and within three plots, and the turn the human took it:
+
+{{table:war_reach}}
+
+The first capture, from the `L`, `A` and `C` lines of that turn:
+- at the turn start, two Celtic Warbands sat aboard a galley a few plots off the city;
+- the human declared war; its next orders moved the galley beside the city, unloaded it and moved
+  onto the city;
+- both Warbands' attacks won (`C` and `R` lines), and the city fell on the same turn (`K` line).
+
+The `J` line of that turn start lists the two units under "aboard ships". In `warLogTurnStart` a unit
+aboard a ship puts the city in a `J` line but is not given to the forecast, which takes only units on
+land within one or three plots; so the capture chance reads zero for a city that fell that turn.
+
+### 5.1 The war-decision cases
+
+`tools/hmwar.py` built these cases from the game's turn starts (of {{hm.game5_turn_starts}}):
+
+| Class | Cases |
+|---|---|
+| declare | {{hm.game5_declare_cases}} |
+| target | {{hm.game5_target_cases}} |
+| assault | {{hm.game5_assault_cases}} |
+| peace | {{hm.game5_peace_cases}} |
+| declarations on a team without a city in a `J` line | {{hm.game5_declared_out_of_reach}} |
+
+These counts follow from the header. `hmwar.py` takes each player's team from the `P` lines
+(`teams`), and this log has the human's only. No owner of a city in a `J` line then has a known
+team: no city is a candidate for a declaration, none is an enemy city for an assault, and the
+declaration counts as made on a team out of reach. The peace cases come from the `O` lines, which
+name teams, but none of them can show a city within reach for the same reason.
+
+## 6. The mission metric
+
+{{table:mission_metric}}
+
+The prediction P2 counts a game only if its log names a build made under P2 (`ledger.py`,
+`"builds": "served"`). This log names none (the header's build column), so P2 does not count the
+game, although it is logged from the first turn, at Noble, with turn-start lines, and past the
+claim's turn. The withdrawn P1 made the same claim without the build condition and would have
+counted it.
+
+## 7. Readings
+
+- **R1. The human struck when its target was busy.** Facts: the table of wars shows Frisia
+  declaring on Gaul a few turns before the human declared on Frisia, and Frisia taking Gaul's last
+  city during the human's war. Contradicted if, in the human's other wars, the target was mostly at
+  peace with everyone else when the human declared.
+- **R2. The opening strike came from the sea, small and at high odds; the turn-start forecast cannot
+  see it.** Facts: section 5 (two units aboard a galley, both attacks won, capture on the same turn;
+  capture chance zero at that turn start). Contradicted if the human's other declarations come with
+  armies already on land next to the target.
+- **R3. The war was won with one unit type, attacking only at high odds.** Facts: the attack-unit
+  table and the odds bands (most of the human's attacks in the top band), the units ledger.
+  Contradicted if a later game shows the human attacking at odds under an even chance as often as
+  above.
+- **R4. Frisia hardly fought back.** Facts: the war ledger's AI attacks and the units ledger's
+  defending row against the human's attacks. Contradicted if Frisia's units were mostly elsewhere
+  (at war with Gaul); its unit positions are in the save dumps of the earlier saves, not yet read.
+
+## 8. Open
+
+- **The war-decision cases.** They need each player's team from a source other than the `P` lines
+  (the setup in the save, or the `O` lines' teams), in `tools/hmwar.py`. That tool is gated and no
+  registered prediction names it, so the change waits for a prediction of the human-model line.
+  Games logged with build `a1d2e324699d` have a complete header and need no such change.
+- **Models.** `study/model.md` fits each model on all games but one and scores it on the one left
+  out; game 5 is the only game with turn-start lines, so no model can be judged yet.
+- **The forecast and ships.** Whether the turn-start forecast should count units aboard ships next
+  to a city (R2) is a design question for the log; it is not changed here.
+- **The earlier saves** (`BC-0935`, `BC-0725`) are not dumped yet.

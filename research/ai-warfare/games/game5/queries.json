@@ -1,0 +1,170 @@
+[
+ {
+  "id": "header",
+  "db": "game5",
+  "unit": "lines",
+  "who": "the log",
+  "turn": "log start",
+  "source": "H line and the number of P lines that follow it",
+  "sql": "select h.turn, h.speed, h.handicap, h.width, h.height, coalesce(h.build, 'none') build, (select count(*) from wl_P) p_lines, (select count(*) from wl_P where human=1) human_p_lines from wl_H h order by h.seq"
+ },
+ {
+  "id": "log_lines",
+  "db": "game5",
+  "unit": "lines",
+  "who": "all players",
+  "turn": "log start to last logged turn",
+  "source": "every line of the war log by type (extract.py tables wl_<type>), with the first and last turn each type appears (none for P lines, which carry no turn)",
+  "sql": "select 'A' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_A union all select 'C' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_C union all select 'D' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_D union all select 'E' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_E union all select 'F' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_F union all select 'G' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_G union all select 'I' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_I union all select 'J' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_J union all select 'K' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_K union all select 'L' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_L union all select 'M' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_M union all select 'N' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_N union all select 'O' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_O union all select 'P' line, count(*) n, null first_turn, null last_turn from wl_P union all select 'Q' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_Q union all select 'R' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_R union all select 'T' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_T union all select 'U' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_U union all select 'V' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_V union all select 'W' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_W union all select 'X' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_X union all select 'Y' line, count(*) n, min(turn) first_turn, max(turn) last_turn from wl_Y order by 1"
+ },
+ {
+  "id": "players_at_save",
+  "db": "game5",
+  "unit": "category",
+  "who": "all players",
+  "turn": "save (turn 270)",
+  "source": "the save dump (toolchain/analysis/dump.sh): players alive at the save, their leader, human flag, cities and units at the save",
+  "sql": "select p.player, p.leader, p.human, (select count(*) from cities c where c.player=p.player) cities, (select count(*) from units u where u.player=p.player) units from players p order by p.player"
+ },
+ {
+  "id": "eliminations",
+  "db": "game5",
+  "unit": "category",
+  "who": "all players",
+  "turn": "as logged",
+  "source": "replay messages in the save dump (civilization destroyed)",
+  "sql": "select turn, player, text from replay where text like '%has been destroyed%' order by turn, player"
+ },
+ {
+  "id": "trajectory_all",
+  "db": "game5",
+  "unit": "cities",
+  "who": "all players",
+  "turn": "turns 100 and 200 and the last full turn",
+  "source": "M lines (end of each player turn): cities per player at turns 100, 200 and the last full turn, and score and power at the last full turn (empty: no M line, the player was gone)",
+  "sql": "with lt as (select max(turn) - 1 t from wl_M), ps as (select distinct player from wl_M) select ps.player, (select cities from wl_M m where m.player=ps.player and m.turn=100) cities_100, (select cities from wl_M m where m.player=ps.player and m.turn=200) cities_200, (select cities from wl_M m where m.player=ps.player and m.turn=(select t from lt)) cities_last, (select score from wl_M m where m.player=ps.player and m.turn=(select t from lt)) score_last, (select power from wl_M m where m.player=ps.player and m.turn=(select t from lt)) power_last, (select max(turn) from wl_M m where m.player=ps.player) last_m_turn from ps order by ps.player"
+ },
+ {
+  "id": "wars",
+  "db": "game5",
+  "unit": "lines",
+  "who": "all teams",
+  "turn": "as logged",
+  "source": "W lines (declarer team, target team, the declarer's war plan; -1 for a human) and Q lines (peace)",
+  "sql": "select turn, 'war' kind, team, target, warplan from wl_W union all select turn, 'peace', team, target, warplan from wl_Q order by 1, 2, 3, 4"
+ },
+ {
+  "id": "captures",
+  "db": "game5",
+  "unit": "cities",
+  "who": "all players",
+  "turn": "as logged",
+  "source": "K lines: city captured (turn, old owner, new owner, plot, population)",
+  "sql": "select turn, old_owner, new_owner, x, y, pop from wl_K order by turn, x, y"
+ },
+ {
+  "id": "mission_metric",
+  "db": "game5",
+  "unit": "cities",
+  "who": "human",
+  "turn": "by turn 217 and by the last logged turn",
+  "source": "K lines with the human as new owner (taken) or old owner (lost), counted as method/variables.py v_cities counts them (turn <= the claim turn)",
+  "sql": "with h as (select player from wl_P where human=1) select 217 by_turn, (select count(*) from wl_K where turn<=217 and new_owner=(select player from h)) taken, (select count(*) from wl_K where turn<=217 and old_owner=(select player from h)) lost union all select (select max(turn) from wl_T), (select count(*) from wl_K where new_owner=(select player from h)), (select count(*) from wl_K where old_owner=(select player from h)) order by 1"
+ },
+ {
+  "id": "trajectory",
+  "db": "game5",
+  "unit": "cities",
+  "who": "human and AI",
+  "turn": "every 50th turn and the last full turn",
+  "source": "M lines (end of each player's turn): the human's value, the median AI's, and the human's rank among all players by score and by power (study/queries_win.json, trajectory)",
+  "sql": "with h as (select player from wl_P where human=1), lt as (select max(turn) - 1 t from wl_M), m as (select *, rank() over (partition by turn order by score desc) score_rank, rank() over (partition by turn order by power desc) power_rank from wl_M where turn % 50 = 0 or turn = (select t from lt)) select turn, max(case when player=(select player from h) then cities end) human_cities, median(case when player<>(select player from h) then cities end) ai_cities, max(case when player=(select player from h) then commerce end) human_commerce, median(case when player<>(select player from h) then commerce end) ai_commerce, max(case when player=(select player from h) then research end) human_research, median(case when player<>(select player from h) then research end) ai_research, max(case when player=(select player from h) then power end) human_power, median(case when player<>(select player from h) then power end) ai_power, max(case when player=(select player from h) then score_rank end) human_score_rank, max(case when player=(select player from h) then power_rank end) human_power_rank, count(*) players from m group by turn order by turn"
+ },
+ {
+  "id": "city_sources",
+  "db": "game5",
+  "unit": "cities",
+  "who": "human",
+  "turn": "by 50-turn period",
+  "source": "cities the human founded (MISSION_FOUND orders), captured (K lines, new owner) and lost (K lines, old owner) or razed (Z lines) (study/queries_win.json, city_sources)",
+  "sql": "with h as (select player from wl_P where human=1), e as (select turn, 'founded' k from wl_A where player=(select player from h) and kind='MISSION' and a5='MISSION_FOUND' union all select turn, 'captured' from wl_K where new_owner=(select player from h) union all select turn, 'lost' from wl_K where old_owner=(select player from h) union all select turn, 'razed by the human' from wl_Z where new_owner=(select player from h)) select cast(floor(turn/50)*50 as int) period_from, sum(case when k='founded' then 1 else 0 end) founded, sum(case when k='captured' then 1 else 0 end) captured, sum(case when k='lost' then 1 else 0 end) lost, sum(case when k='razed by the human' then 1 else 0 end) razed from e group by 1 order by 1"
+ },
+ {
+  "id": "war_ledger",
+  "db": "game5",
+  "unit": "battles",
+  "who": "human and AI",
+  "turn": "each war of the human",
+  "source": "W/Q lines (wars and peace of the human), K lines (cities), C lines with the R line directly after (battles), M lines (power the turn before; empty without M lines) (study/queries_win.json, war_ledger)",
+  "sql": "with h as (select player from wl_P where human=1), w as (select w.seq, w.turn t_start, case when w.team=(select player from h) then 'human' else 'AI' end declared_by, case when w.team=(select player from h) then w.target else w.team end opp from wl_W w where w.team=(select player from h) or w.target=(select player from h)), we as (select w.*, coalesce((select min(q.turn) from wl_Q q where q.seq>w.seq and ((q.team=w.opp and q.target=(select player from h)) or (q.target=w.opp and q.team=(select player from h)))), (select max(turn) from wl_T)) t_end from w), c as (select c.*, r.winner from wl_C c left join wl_R r on r.seq=c.seq+1) select we.t_start, we.declared_by, we.opp, we.t_end - we.t_start turns, (select count(*) from wl_K k where k.new_owner=(select player from h) and k.old_owner=we.opp and k.turn between we.t_start and we.t_end) cities_taken, (select count(*) from c where c.att=(select player from h) and c.def=we.opp and c.turn between we.t_start and we.t_end) human_attacks, (select count(*) from c where c.att=(select player from h) and c.def=we.opp and c.winner=c.att and c.turn between we.t_start and we.t_end) human_wins, (select count(*) from c where c.att=we.opp and c.def=(select player from h) and c.turn between we.t_start and we.t_end) ai_attacks, (select count(*) from c where ((c.att=(select player from h) and c.winner=c.def) or (c.def=(select player from h) and c.winner=c.att)) and (c.att=we.opp or c.def=we.opp) and c.turn between we.t_start and we.t_end) human_units_lost, (select round(max(case when m.player=(select player from h) then m.power end)*1.0 / nullif(max(case when m.player=we.opp then m.power end), 0), 3) from wl_M m where m.turn=we.t_start-1) power_ratio from we order by we.t_start, we.opp"
+ },
+ {
+  "id": "units_ledger",
+  "db": "game5",
+  "unit": "battles",
+  "who": "human",
+  "turn": "whole game",
+  "source": "C lines with the R line directly after: units the human's attacks and defences killed and lost (study/queries_win.json, units_ledger)",
+  "sql": "with h as (select player from wl_P where human=1), c as (select c.*, r.winner from wl_C c left join wl_R r on r.seq=c.seq+1) select case when att=(select player from h) then 'human attacking' else 'human defending' end side, count(*) battles, sum(case when winner=(select player from h) then 1 else 0 end) enemy_units_killed, sum(case when winner is not null and winner<>(select player from h) then 1 else 0 end) human_units_lost, sum(case when winner is null then 1 else 0 end) no_death from c where att=(select player from h) or def=(select player from h) group by 1 order by 1"
+ },
+ {
+  "id": "war_preparation",
+  "db": "game5",
+  "sql": "with h as (select player from wl_P where human=1), a as (select turn, kind, a3, a5 from wl_A where player=(select player from h)), w as (select turn t, target from wl_W where team=(select player from h)) select w.t turn, w.target, (select count(*) from a where kind='ORDER' and a3='0' and a.turn between w.t-10 and w.t-1) train_10_before, round((select count(*) from a where kind='ORDER' and a3='0' and a.turn between w.t-60 and w.t-11)/5.0, 1) train_per_10_earlier, (select count(*) from a where a5='COMMAND_UPGRADE' and a.turn between w.t-10 and w.t-1) upgrades_10_before, round((select count(*) from a where a5='COMMAND_UPGRADE' and a.turn between w.t-60 and w.t-11)/5.0, 1) upgrades_per_10_earlier, (select count(*) from a where a5='MISSION_MOVE_TO' and a.turn between w.t-10 and w.t-1) moves_10_before, round((select count(*) from a where a5='MISSION_MOVE_TO' and a.turn between w.t-60 and w.t-11)/5.0, 1) moves_per_10_earlier from w order by 1, 2",
+  "unit": "orders",
+  "who": "human",
+  "turn": "the ten turns before each declaration, against the fifty before those",
+  "source": "A lines of the human: unit city orders (ORDER type 0), upgrades (COMMAND_UPGRADE) and move orders (MISSION_MOVE_TO) in the ten turns before each W line it declared, against the mean per ten turns over the fifty turns before those (study/queries_style.json, war_preparation)"
+ },
+ {
+  "id": "attack_units",
+  "db": "game5",
+  "sql": "with h as (select player from wl_P where human=1), c as (select c.*, r.winner from wl_C c left join wl_R r on r.seq=c.seq+1 where c.att=(select player from h)) select att_unit, count(*) battles, count(*) filter (where winner=(select player from h)) won, count(*) filter (where winner is not null and winner<>(select player from h)) lost, median(odds) median_odds_per_mille, median(att_xp) median_experience, count(*) filter (where city_def > 0) against_city_defence from c group by 1 order by 2 desc, 1",
+  "unit": "battles",
+  "who": "human",
+  "turn": "whole game",
+  "source": "C lines with the human attacking and the R line directly after (no R line: no unit died): the attacking unit type, the odds per mille the C line records, the attacker's experience, and battles where the defender had a city defence bonus (study/queries_style.json, attack_units)",
+  "xml": [
+   "UnitInfo",
+   [
+    "att_unit"
+   ]
+  ]
+ },
+ {
+  "id": "attack_odds",
+  "db": "game5",
+  "unit": "battles",
+  "who": "human and AI",
+  "turn": "whole game",
+  "source": "C lines: attacks by odds band (per mille, bands of 200) and who attacked, with the result from the next line (study/queries.json, attack_odds)",
+  "sql": "with h as (select player from players where human=1), c as (select c.*, r.winner from wl_C c left join wl_R r on r.seq=c.seq+1) select cast(floor(least(odds,999)/200)*200 as int) odds_from, sum(case when att=(select player from h) then 1 else 0 end) human_attacks, sum(case when att=(select player from h) and winner=att then 1 else 0 end) human_won, sum(case when att<>(select player from h) then 1 else 0 end) ai_attacks, sum(case when att<>(select player from h) and winner=att then 1 else 0 end) ai_won from c group by 1 order by 1"
+ },
+ {
+  "id": "snapshot",
+  "db": "game5",
+  "unit": "lines",
+  "who": "human",
+  "turn": "each turn start of the human",
+  "source": "I lines (turn-start header: units, J cities, J defenders, O teams), summed by 30-turn period",
+  "sql": "select cast(floor(turn/30)*30 as int) period_from, count(*) turn_starts, sum(own_units) unit_lines, sum(cities) j_lines, sum(defenders) defender_lines, sum(teams) o_lines from wl_I where player=0 group by 1 order by 1"
+ },
+ {
+  "id": "war_reach",
+  "db": "game5",
+  "unit": "lines",
+  "who": "human against the cities of player 8",
+  "turn": "each turn start from the declaration (turn 210) to the last capture (turn 224)",
+  "source": "J lines of the human: each foreign city within 3 plots of one of its land units that can attack, with the engine's assault forecast (capture chance per mille, expected losses x100) for its units within 1 and within 3 plots, and the turn the human took that city (K line), if it did",
+  "sql": "select j.turn, j.x, j.y, j.pop, j.def_mod, j.visible, j.war, j.defenders, j.near1, j.near3, j.on_ships, j.capture1, j.capture3, coalesce((select min(k.turn) from wl_K k where k.x=j.x and k.y=j.y and k.new_owner=0 and k.turn>=j.turn), -1) taken_turn from wl_J j where j.player=0 and j.owner=8 order by j.turn, j.x, j.y"
+ },
+ {
+  "id": "relations_210",
+  "db": "game5",
+  "unit": "category",
+  "who": "human",
+  "turn": "turn start 210 (the declaration turn)",
+  "source": "O lines of the human at its turn start 210: every team met, war, open borders, defensive pact, vassal, war plans both ways, war weariness",
+  "sql": "select team, war, open_borders, def_pact, vassal, plan_theirs, plan_ours, weariness from wl_O where player=0 and turn=210 order by team"
+ }
+]
