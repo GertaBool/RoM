@@ -1,0 +1,427 @@
+From 3af6c89bbbf1a61a6b7afc056a63a2f64ae1194b Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sun, 18 Oct 2026 14:09:12 +0000
+Subject: [PATCH] War log: turn-start snapshot of the human's units, nearby
+ foreign cities and relations
+
+As each tracked player's turn begins (CvPlayer::setTurnActive, after healing and production,
+before its moves), the war log now writes:
+- I: a header with the counts of the lines that follow;
+- L: every unit of the player (id, type, plot, health, experience, level, group, transport,
+  cargo, fortify turns, moves left, activity, automation, first queued mission, promotions);
+- J: every foreign city with one of its land units that can attack within 3 plots: defence,
+  visibility, war, defenders, its units within 1 and 3 plots, and the assault forecast for
+  each (chance of capture, expected losses), followed by the defenders as L lines;
+- O: its relations to every team met (war, open borders, pact, vassal, war plans, weariness).
+F lines record cities founded, and when a log begins, every standing city. C lines add the
+attacker and defender ids, U lines the new unit's id, experience, level and promotions, and
+A unit missions, automations and commands the unit's id, so every combat, unit and order
+joins the unit lines. Tracked players are humans, and player WAR_LOG_SEAT - 1 (new define,
+0 = none) for headless test games.
+
+The assault forecast's model moves into AI_assaultForecast, which takes the two unit lists;
+CvSelectionGroupAI::AI_cityAssaultForecast collects its lists as before and calls it.
+
+Logging only. The new lines read plain getters (no AI cache, no random number). On a 20-turn
+continuation of game 3's save (same seed, seat 12 tracked) the harness telemetry is identical
+to main's and so is every war-log line main writes; the first snapshot matches the save's
+unit dump in type, experience, level and promotions; every new unit and every combat id
+joins the unit lines. Tools tests: 146 passed. Release build: 0 errors, 0 warnings.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_015smokgQ1KvKFbApTvkeH68
+---
+ Assets/CvGameCoreDLL/CvEventReporter.cpp    |   1 +
+ Assets/CvGameCoreDLL/CvGameCoreUtils.cpp    | 207 +++++++++++++++++++-
+ Assets/CvGameCoreDLL/CvGameCoreUtils.h      |   2 +
+ Assets/CvGameCoreDLL/CvMessageData.cpp      |   6 +-
+ Assets/CvGameCoreDLL/CvPlayer.cpp           |   3 +
+ Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp |   7 +
+ Assets/CvGameCoreDLL/CvSelectionGroupAI.h   |   6 +
+ Assets/XML/GlobalDefinesAlt.xml             |   5 +
+ 8 files changed, 230 insertions(+), 7 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvEventReporter.cpp b/Assets/CvGameCoreDLL/CvEventReporter.cpp
+index 6f2bff4..7ee7c9f 100644
+--- a/Assets/CvGameCoreDLL/CvEventReporter.cpp
++++ b/Assets/CvGameCoreDLL/CvEventReporter.cpp
+@@ -202,6 +202,7 @@ void CvEventReporter::gotoPlotSet(CvPlot *pPlot, PlayerTypes ePlayer)
+ 
+ void CvEventReporter::cityBuilt( CvCity *pCity )
+ {
++	warLogFounded(pCity);
+ 	m_kPythonEventMgr.reportCityBuilt(pCity);
+ 	m_kStatistics.cityBuilt(pCity);
+ }
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index e8c604b..7212919 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -23,6 +23,7 @@ int effectiveCollateral(const CvUnit* pUnit)
+ }
+ #include <algorithm>
+ #include "CvUnit.h"
++#include "CvSelectionGroupAI.h"
+ #include "CvGameAI.h"
+ #include "CvPlayerAI.h"
+ #include "CvMap.h"
+@@ -3320,7 +3321,11 @@ int calculateLevel(int iExperience, PlayerTypes ePlayer)
+ // orders and tasks, research, civics, sliders, espionage, war, votes, deals,
+ // diplomacy answers), G a stack near or in enemy land after its owner's moves (AI: 3+ military land
+ // units, human: 2+), U unit built, X tech acquired, N building built, Y city state, M economy,
+-// V great person born or used.
++// V great person born or used, F city founded (and, when a log begins, every standing city).
++// For each tracked player (every human, and player WAR_LOG_SEAT - 1 so that a seat the
++// harness plays writes the same lines; WAR_LOG_SEAT 0 = none), as its turn begins: I header,
++// L each of its units, J each foreign city within 3 plots of its land units that can attack,
++// with the city's defenders as L lines, and O its relations to each team it has met.
+ static bool warLogOn()
+ {
+ 	static int iOn = -1;
+@@ -3336,6 +3341,40 @@ static const char* warUnitName(const CvUnit* pUnit)
+ 	return GC.getUnitInfo(pUnit->getUnitType()).getType() + 5; // skip "UNIT_"
+ }
+ 
++static bool warLogTracked(PlayerTypes ePlayer)
++{
++	static bool bRead = false;
++	static int iSeat = -1;
++	if (!bRead)
++	{
++		bRead = true;
++		iSeat = GC.getDefineINT("WAR_LOG_SEAT") - 1;
++	}
++	return ePlayer != NO_PLAYER && (GET_PLAYER(ePlayer).isHuman() || (int)ePlayer == iSeat);
++}
++
++// The unit's promotions, without "PROMOTION_", comma-separated; "-" for none.
++static CvString warPromotionText(const CvUnit* pUnit)
++{
++	CvString sz;
++	for (int iI = 0; iI < GC.getNumPromotionInfos(); iI++)
++	{
++		if (pUnit->isHasPromotion((PromotionTypes)iI))
++		{
++			if (!sz.empty()) sz += ",";
++			sz += GC.getPromotionInfo((PromotionTypes)iI).getType() + 10;
++		}
++	}
++	return sz.empty() ? CvString("-") : sz;
++}
++
++// F: turn, owner, x, y, turn founded, population.
++static CvString warFoundedText(const CvCity* pCity)
++{
++	return CvString::format("F\t%d\t%d\t%d\t%d\t%d\t%d", GC.getGameINLINE().getGameTurn(), pCity->getOwnerINLINE(),
++		pCity->getX_INLINE(), pCity->getY_INLINE(), pCity->getGameTurnFounded(), pCity->getPopulation());
++}
++
+ static void warLogLine(const CvString& szLine)
+ {
+ 	static bool bHeader = false;
+@@ -3358,6 +3397,16 @@ static void warLogLine(const CvString& szLine)
+ 				gDLL->logMsg("WarLog.log", szHead);
+ 			}
+ 		}
++		// Every standing city, so that a log begun in a saved game knows where the cities are.
++		for (int iI = 0; iI < MAX_PLAYERS; iI++)
++		{
++			int iLoop;
++			for (CvCity* pCity = GET_PLAYER((PlayerTypes)iI).firstCity(&iLoop); pCity != NULL; pCity = GET_PLAYER((PlayerTypes)iI).nextCity(&iLoop))
++			{
++				szHead = warFoundedText(pCity);
++				gDLL->logMsg("WarLog.log", szHead);
++			}
++		}
+ 	}
+ 	gDLL->logMsg("WarLog.log", szLine);
+ }
+@@ -3395,13 +3444,13 @@ void warLogCombat(CvUnit* pAttacker, CvUnit* pDefender)
+ 	const CvPlot* pPlot = pDefender->plot();
+ 	const CvCity* pCity = pPlot->getPlotCity();
+ 	CvString sz;
+-	sz.Format("C\t%d\t%d\t%s\t%d\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%d\t%d\t%d\t%d", GC.getGameINLINE().getGameTurn(),
++	sz.Format("C\t%d\t%d\t%s\t%d\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%s\t%s\t%d\t%d\t%d\t%d\t%d\t%d", GC.getGameINLINE().getGameTurn(),
+ 		pAttacker->getOwnerINLINE(), warUnitName(pAttacker), pAttacker->currHitPoints(), pAttacker->getExperience(),
+ 		pDefender->getOwnerINLINE(), warUnitName(pDefender), pDefender->currHitPoints(), pDefender->getExperience(),
+ 		pPlot->getX_INLINE(), pPlot->getY_INLINE(), GC.getTerrainInfo(pPlot->getTerrainType()).getType() + 8,
+ 		(pPlot->getFeatureType() != NO_FEATURE) ? GC.getFeatureInfo(pPlot->getFeatureType()).getType() + 8 : "-",
+ 		pPlot->isHills() ? 1 : 0, (pCity != NULL) ? pCity->getDefenseModifier(false) : -1,
+-		getCombatOdds(pAttacker, pDefender), pPlot->getNumUnits());
++		getCombatOdds(pAttacker, pDefender), pPlot->getNumUnits(), pAttacker->getID(), pDefender->getID());
+ 	warLogLine(sz);
+ }
+ 
+@@ -3498,7 +3547,8 @@ void warLogBuilt(const CvCity* pCity, const CvUnit* pUnit)
+ {
+ 	if (!warLogOn() || pCity == NULL || pUnit == NULL) return;
+ 	CvString sz;
+-	sz.Format("U\t%d\t%d\t%s\t%d\t%d", GC.getGameINLINE().getGameTurn(), pUnit->getOwnerINLINE(), warUnitName(pUnit), pCity->getX_INLINE(), pCity->getY_INLINE());
++	sz.Format("U\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%s", GC.getGameINLINE().getGameTurn(), pUnit->getOwnerINLINE(), warUnitName(pUnit), pCity->getX_INLINE(), pCity->getY_INLINE(),
++		pUnit->getID(), pUnit->getExperience(), pUnit->getLevel(), warPromotionText(pUnit).c_str());
+ 	warLogLine(sz);
+ }
+ 
+@@ -3684,3 +3734,152 @@ void warLogDiplo(PlayerTypes eFrom, PlayerTypes eTo, int eEvent, int iData1, int
+ 	sz.Format("E\t%d\t%d\t%d\t%d\t%d\t%d", GC.getGameINLINE().getGameTurn(), eFrom, eTo, eEvent, iData1, iData2);
+ 	warLogLine(sz);
+ }
++
++void warLogFounded(const CvCity* pCity)
++{
++	if (!warLogOn() || pCity == NULL) return;
++	warLogLine(warFoundedText(pCity));
++}
++
++// L: turn, viewer (the tracked player whose turn begins), owner, unit id, unit, x, y, hit points,
++// experience, level, id of its group's head unit, group size, id of the unit carrying it (-1),
++// units it carries, fortify turns, moves left (in 1/GC.getMOVE_DENOMINATOR()), group activity
++// (ActivityTypes), automation (AutomateTypes), first queued mission (MissionTypes, -1 for none)
++// with its two data fields (x and y for a move), promotions.
++static CvString warUnitLine(int iTurn, PlayerTypes eViewer, const CvUnit* pUnit)
++{
++	const CvSelectionGroup* pGroup = pUnit->getGroup();
++	const CvUnit* pHead = (pGroup != NULL) ? pGroup->getHeadUnit() : NULL;
++	const CvUnit* pTransport = pUnit->getTransportUnit();
++	const CLLNode<MissionData>* pMission = (pGroup != NULL) ? pGroup->headMissionQueueNode() : NULL;
++	return CvString::format("L\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%s",
++		iTurn, eViewer, pUnit->getOwnerINLINE(), pUnit->getID(), warUnitName(pUnit), pUnit->getX_INLINE(), pUnit->getY_INLINE(),
++		pUnit->currHitPoints(), pUnit->getExperience(), pUnit->getLevel(), (pHead != NULL) ? pHead->getID() : -1,
++		(pGroup != NULL) ? pGroup->getNumUnits() : 1, (pTransport != NULL) ? pTransport->getID() : -1, pUnit->getCargo(),
++		pUnit->getFortifyTurns(), pUnit->movesLeft(), (pGroup != NULL) ? (int)pGroup->getActivityType() : -1,
++		(pGroup != NULL) ? (int)pGroup->getAutomateType() : -1, (pMission != NULL) ? (int)pMission->m_data.eMissionType : -1,
++		(pMission != NULL) ? pMission->m_data.iData1 : -1, (pMission != NULL) ? pMission->m_data.iData2 : -1,
++		warPromotionText(pUnit).c_str());
++}
++
++// Called as a player's turn begins (CvPlayer::setTurnActive; bNewTurn is false when the turn is
++// made active without its start-of-turn processing). Writes, for a tracked player:
++// I: turn, player, new turn (1) or not (0), its units, foreign cities, their defenders, teams.
++// L: each of its units (see warUnitLine).
++// J: each city of another team with at least one of the player's land units that can attack
++//    within 3 plots: turn, player, owner, x, y, population, defence %, visible to the player,
++//    at war, defenders, its units within 1 plot and within 3 (not on a ship), on ships within 3,
++//    then the assault forecast for the units within 1 and within 3 plots: chance of capture
++//    (per mille) and expected units lost (x100), as if they attacked now, at war, one after
++//    another (AI_assaultForecast; a unit further away is taken as it stands). Its defenders
++//    follow as L lines with the city's owner.
++// O: each team met: turn, player, team, at war, open borders, defensive pact, vassal (1 theirs to
++//    us, 2 ours to them, 0 none), their war plan against us and ours against them (WarPlanTypes),
++//    our war weariness against them.
++// Only plain getters are read, no AI cache and no random number, so the log does not change the game.
++void warLogTurnStart(PlayerTypes ePlayer, bool bNewTurn)
++{
++	PROFILE_FUNC();
++	if (!warLogOn() || !warLogTracked(ePlayer)) return;
++	const CvPlayer& kPlayer = GET_PLAYER(ePlayer);
++	if (!kPlayer.isAlive()) return;
++	const TeamTypes eTeam = kPlayer.getTeam();
++	const int iTurn = GC.getGameINLINE().getGameTurn();
++	std::vector<CvString> aszLines;
++	int iUnits = 0;
++	int iCities = 0;
++	int iDefenders = 0;
++	int iTeams = 0;
++	int iLoop;
++	for (CvUnit* pLoopUnit = kPlayer.firstUnit(&iLoop); pLoopUnit != NULL; pLoopUnit = kPlayer.nextUnit(&iLoop))
++	{
++		aszLines.push_back(warUnitLine(iTurn, ePlayer, pLoopUnit));
++		iUnits++;
++	}
++	for (int iP = 0; iP < MAX_PLAYERS; iP++)
++	{
++		const CvPlayer& kOwner = GET_PLAYER((PlayerTypes)iP);
++		if (!kOwner.isAlive() || kOwner.getTeam() == eTeam) continue;
++		int iCityLoop;
++		for (CvCity* pCity = kOwner.firstCity(&iCityLoop); pCity != NULL; pCity = kOwner.nextCity(&iCityLoop))
++		{
++			const CvPlot* pCityPlot = pCity->plot();
++			std::vector<const CvUnit*> apNear1;
++			std::vector<const CvUnit*> apNear3;
++			int iOnShips = 0;
++			for (int iDX = -3; iDX <= 3; iDX++)
++			{
++				for (int iDY = -3; iDY <= 3; iDY++)
++				{
++					const CvPlot* pLoopPlot = plotXY(pCity->getX_INLINE(), pCity->getY_INLINE(), iDX, iDY);
++					if (pLoopPlot == NULL) continue;
++					for (CLLNode<IDInfo>* pNode = pLoopPlot->headUnitNode(); pNode != NULL; pNode = pLoopPlot->nextUnitNode(pNode))
++					{
++						const CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
++						if (pLoopUnit == NULL || pLoopUnit->getOwnerINLINE() != ePlayer || pLoopUnit->isDead() ||
++							pLoopUnit->getDomainType() != DOMAIN_LAND || !pLoopUnit->canAttack())
++						{
++							continue;
++						}
++						if (pLoopUnit->isCargo())
++						{
++							iOnShips++;
++							continue;
++						}
++						apNear3.push_back(pLoopUnit);
++						if (iDX >= -1 && iDX <= 1 && iDY >= -1 && iDY <= 1)
++						{
++							apNear1.push_back(pLoopUnit);
++						}
++					}
++				}
++			}
++			if (apNear3.empty() && iOnShips == 0) continue;
++			std::vector<const CvUnit*> apDefenders;
++			for (CLLNode<IDInfo>* pNode = pCityPlot->headUnitNode(); pNode != NULL; pNode = pCityPlot->nextUnitNode(pNode))
++			{
++				const CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
++				if (pLoopUnit != NULL && pLoopUnit->getTeam() != eTeam && !pLoopUnit->isDead() && pLoopUnit->getDomainType() == DOMAIN_LAND &&
++					pLoopUnit->canDefend(pCityPlot) && !pLoopUnit->isInvisible(eTeam, false))
++				{
++					apDefenders.push_back(pLoopUnit);
++				}
++			}
++			int iLoss1 = 0;
++			int iLoss3 = 0;
++			const int iCapture1 = apNear1.empty() ? 0 : AI_assaultForecast(pCityPlot, apNear1, apDefenders, &iLoss1);
++			int iCapture3 = iCapture1;
++			iLoss3 = iLoss1;
++			if (apNear3.size() != apNear1.size())
++			{
++				iCapture3 = AI_assaultForecast(pCityPlot, apNear3, apDefenders, &iLoss3);
++			}
++			aszLines.push_back(CvString::format("J\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", iTurn, ePlayer,
++				iP, pCity->getX_INLINE(), pCity->getY_INLINE(), pCity->getPopulation(), pCity->getDefenseModifier(false),
++				pCityPlot->isVisible(eTeam, false) ? 1 : 0, GET_TEAM(eTeam).isAtWar(kOwner.getTeam()) ? 1 : 0, (int)apDefenders.size(),
++				(int)apNear1.size(), (int)apNear3.size(), iOnShips, iCapture1, iLoss1, iCapture3, iLoss3));
++			iCities++;
++			for (size_t iD = 0; iD < apDefenders.size(); iD++)
++			{
++				aszLines.push_back(warUnitLine(iTurn, ePlayer, apDefenders[iD]));
++				iDefenders++;
++			}
++		}
++	}
++	const CvTeamAI& kTeam = GET_TEAM(eTeam);
++	for (int iT = 0; iT < MAX_CIV_TEAMS; iT++)
++	{
++		const CvTeamAI& kOther = GET_TEAM((TeamTypes)iT);
++		if (iT == eTeam || !kOther.isAlive() || !kTeam.isHasMet((TeamTypes)iT)) continue;
++		aszLines.push_back(CvString::format("O\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", iTurn, ePlayer, iT,
++			kTeam.isAtWar((TeamTypes)iT) ? 1 : 0, kTeam.isOpenBorders((TeamTypes)iT) ? 1 : 0, kTeam.isDefensivePact((TeamTypes)iT) ? 1 : 0,
++			kOther.isVassal(eTeam) ? 1 : (kTeam.isVassal((TeamTypes)iT) ? 2 : 0), (int)kOther.AI_getWarPlan(eTeam),
++			(int)kTeam.AI_getWarPlan((TeamTypes)iT), kTeam.getWarWeariness((TeamTypes)iT)));
++		iTeams++;
++	}
++	warLogLine(CvString::format("I\t%d\t%d\t%d\t%d\t%d\t%d\t%d", iTurn, ePlayer, bNewTurn ? 1 : 0, iUnits, iCities, iDefenders, iTeams));
++	for (size_t iL = 0; iL < aszLines.size(); iL++)
++	{
++		warLogLine(aszLines[iL]);
++	}
++}
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index 2da64d3..ebafc4d 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -435,5 +435,7 @@ CvString warCityText(PlayerTypes ePlayer, int iCityID);
+ CvString warOrderText(int eOrder, int iData);
+ void warLogDeal(PlayerTypes eFirst, PlayerTypes eSecond, CLinkList<TradeData>* pFirstList, CLinkList<TradeData>* pSecondList);
+ void warLogDiplo(PlayerTypes eFrom, PlayerTypes eTo, int eEvent, int iData1, int iData2);
++void warLogTurnStart(PlayerTypes ePlayer, bool bNewTurn);
++void warLogFounded(const CvCity* pCity);
+ 
+ #endif
+diff --git a/Assets/CvGameCoreDLL/CvMessageData.cpp b/Assets/CvGameCoreDLL/CvMessageData.cpp
+index ff3e2aa..db468ed 100644
+--- a/Assets/CvGameCoreDLL/CvMessageData.cpp
++++ b/Assets/CvGameCoreDLL/CvMessageData.cpp
+@@ -767,7 +767,7 @@ void CvNetPushMission::Debug(char* szAddendum)
+ 
+ void CvNetPushMission::Execute()
+ {
+-	warLogAction(m_ePlayer, CvString::format("MISSION\t%s\t%s\t%s\t%d\t%d\t%d", warUnitText(m_ePlayer, m_iUnitID).c_str(), (m_eMission != NO_MISSION) ? GC.getMissionInfo(m_eMission).getType() : "-", warMissionData(m_eMission, m_iData1).c_str(), m_iData2, m_iFlags, m_bShift));
++	warLogAction(m_ePlayer, CvString::format("MISSION\t%s\t%s\t%s\t%d\t%d\t%d\t%d", warUnitText(m_ePlayer, m_iUnitID).c_str(), (m_eMission != NO_MISSION) ? GC.getMissionInfo(m_eMission).getType() : "-", warMissionData(m_eMission, m_iData1).c_str(), m_iData2, m_iFlags, m_bShift, m_iUnitID));
+ 	if (m_ePlayer != NO_PLAYER)
+ 	{
+ 		CvUnit* pUnit = GET_PLAYER(m_ePlayer).getUnit(m_iUnitID);
+@@ -819,7 +819,7 @@ void CvNetAutoMission::Debug(char* szAddendum)
+ 
+ void CvNetAutoMission::Execute()
+ {
+-	warLogAction(m_ePlayer, CvString::format("AUTOMISSION\t%s", warUnitText(m_ePlayer, m_iUnitID).c_str()));
++	warLogAction(m_ePlayer, CvString::format("AUTOMISSION\t%s\t%d", warUnitText(m_ePlayer, m_iUnitID).c_str(), m_iUnitID));
+ 	if (m_ePlayer != NO_PLAYER)
+ 	{
+ 		CvUnit* pUnit = GET_PLAYER(m_ePlayer).getUnit(m_iUnitID);
+@@ -861,7 +861,7 @@ void CvNetDoCommand::Debug(char* szAddendum)
+ 
+ void CvNetDoCommand::Execute()
+ {
+-	warLogAction(m_ePlayer, CvString::format("COMMAND\t%s\t%s\t%s\t%d\t%d", warUnitText(m_ePlayer, m_iUnitID).c_str(), (m_eCommand != NO_COMMAND) ? GC.getCommandInfo(m_eCommand).getType() : "-", warCommandData(m_eCommand, m_iData1).c_str(), m_iData2, m_bAlt));
++	warLogAction(m_ePlayer, CvString::format("COMMAND\t%s\t%s\t%s\t%d\t%d\t%d", warUnitText(m_ePlayer, m_iUnitID).c_str(), (m_eCommand != NO_COMMAND) ? GC.getCommandInfo(m_eCommand).getType() : "-", warCommandData(m_eCommand, m_iData1).c_str(), m_iData2, m_bAlt, m_iUnitID));
+ 	if (m_ePlayer != NO_PLAYER)
+ 	{
+ 		CvUnit* pUnit = GET_PLAYER(m_ePlayer).getUnit(m_iUnitID);
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index eca7dc4..9c6c34d 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -12357,6 +12357,9 @@ void CvPlayer::setTurnActive(bool bNewValue, bool bDoTurn)
+ 				doWarnings();
+ 			}
+ 
++			// War log: what this player has and sees as its turn begins (tracked players only).
++			warLogTurnStart(getID(), bDoTurn);
++
+ 			if (getID() == GC.getGameINLINE().getActivePlayer())
+ 			{
+ 				if (gDLL->getInterfaceIFace()->getLengthSelectionList() == 0)
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp b/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
+index 5b309a8..b6308e6 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroupAI.cpp
+@@ -1226,6 +1226,13 @@ int CvSelectionGroupAI::AI_cityAssaultForecast(const CvPlot* pPlot, int* piExpec
+ 			apDefenders.push_back(pLoopUnit);
+ 		}
+ 	}
++	return AI_assaultForecast(pPlot, apAttackers, apDefenders, piExpectedLosses100);
++}
++
++int AI_assaultForecast(const CvPlot* pPlot, const std::vector<const CvUnit*>& apAttackers,
++	const std::vector<const CvUnit*>& apDefenders, int* piExpectedLosses100)
++{
++	PROFILE_FUNC();
+ 	if (piExpectedLosses100 != NULL)
+ 	{
+ 		*piExpectedLosses100 = 0;
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroupAI.h b/Assets/CvGameCoreDLL/CvSelectionGroupAI.h
+index ad52cfb..3660c46 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroupAI.h
++++ b/Assets/CvGameCoreDLL/CvSelectionGroupAI.h
+@@ -86,5 +86,11 @@ int AI_forecastFightWinPermille(const CvUnit* pAttacker, const CvUnit* pDefender
+ // True when sending pSacrifice first, then pBest, has a higher expected value (in hammers
+ // of units killed minus units lost) than attacking pDefender with pBest directly.
+ bool AI_isSacrificeWorth(const CvUnit* pSacrifice, const CvUnit* pBest, const CvUnit* pDefender);
++// Chance (per mille) that apAttackers, attacking one after another, take pPlot from apDefenders,
++// and the expected attackers lost (x100): the model of CvSelectionGroupAI::AI_cityAssaultForecast
++// for any two lists. It reads the units only, so it also forecasts an assault that could not be
++// made this turn (units further away, or no war yet).
++int AI_assaultForecast(const CvPlot* pPlot, const std::vector<const CvUnit*>& apAttackers,
++	const std::vector<const CvUnit*>& apDefenders, int* piExpectedLosses100 = NULL);
+ 
+ #endif
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index c9157d4..b983673 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -218,6 +218,11 @@
+ 		<DefineName>WAR_LOG</DefineName>
+ 		<iDefineIntVal>0</iDefineIntVal>
+ 	</Define>
++	<!-- War log: also log the turn-start lines (I, L, J, O) for player WAR_LOG_SEAT - 1, as for a human; 0 = humans only. For headless test games. -->
++	<Define>
++		<DefineName>WAR_LOG_SEAT</DefineName>
++		<iDefineIntVal>0</iDefineIntVal>
++	</Define>
+ <!-- Super Spies -->
+ 	<Define>
+ 		<DefineName>SS_ENABLED</DefineName>
+-- 
+2.43.0
+

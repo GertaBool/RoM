@@ -1,13 +1,14 @@
 {
-  "source": "GitLab main d51ff25 (merge request !50 merged; its tree equals the branch commit 19d9e2a): main e843ab5 (!49) plus the war-plan field of the W lines",
-  "source_commit": "19d9e2a46491d637041546c0bce137799e28aa3c",
-  "base_commit": "e843ab5bd3b580580730be7f13c7ddc703d28b5a",
-  "dll_sha256": "934fd4850751a80934b423f9e7021e6a9da991b13f92d63f699003c45ba4f054",
-  "dll_size": 6139904,
+  "source": "GitLab main d51ff25 plus one commit, branch claude/war-log-snapshot (fixes/war-log-snapshot.patch): the war log's turn-start lines I, L, J, O, the F lines, ids appended to C, U and A lines, AI_assaultForecast on explicit unit lists, the WAR_LOG_SEAT define",
+  "source_commit": "3af6c89bbbf1a61a6b7afc056a63a2f64ae1194b",
+  "source_tree": "7fc5c7e57e22ab4101320fa4439bdf878439f659",
+  "base_commit": "d51ff25",
+  "dll_sha256": "bc9edfe04e7cf3410d2bc0138f8eb5ad6b886b57f8a0c276cfb0c3f420175a5b",
+  "dll_size": 6144000,
   "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
-  "tests": "GitLab Tools tests (python3 -m unittest discover -s Tools -p 'test_*.py'): 146 passed, as on main",
-  "tested_headless": "harness build of the same DLL source: a 20-turn continuation of game 3's save, same seed, with and without the change; W lines carry WARPLAN_LIMITED / WARPLAN_TOTAL, every other war-log line identical. The release DLL itself was not run headless",
+  "tests": "GitLab Tools tests (python3 -m unittest discover -s Tools -p 'test_*.py'): 146 passed; clang gate on the changed files: no error main does not have",
+  "tested_headless": "harness builds of the same source and of main d51ff25: a 20-turn continuation of game 3's save, same seed, WAR_LOG_SEAT = 13 (seat 12 tracked). Telemetry identical (22 lines); every war-log line of the types main writes identical (1187) once the appended fields are cut; 19 turn starts with 1674 L, 49 J, 310 O lines, parsed by research/ai-warfare/tools/extract.py with 0 errors; the first snapshot agrees with the save's unit dump in type, experience, level and promotions for every unit in both; all 89 units built and all 49 combats' ids join the unit lines. Turn time: 73.3 s against 70.2 s (one run each); profile: the turn-start logging is under 1.6 % of turn time. The release DLL itself was not run headless",
   "tested_in_game": false,
-  "previous": "7a2288cb9f9257be122d8e720d6f7504c3a97c7cd507787b021aaf293b480f17 (GitLab main after !49, commit 679e9271)",
-  "merged_commit": "d51ff25"
+  "previous": "934fd4850751a80934b423f9e7021e6a9da991b13f92d63f699003c45ba4f054 (GitLab main d51ff25, commit 19d9e2a)",
+  "merge_request": "not opened: the GitLab connector is not authorized in this session"
 }

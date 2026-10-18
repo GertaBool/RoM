@@ -25,26 +25,29 @@ tech it can research at the save, its rank, and whether it is researching it).
 Enums (CvEnums.h): enums (enum, idx, name) for the enums whose numbers the log and dump print.
 
 Running check (framework.md, section 3): the rows of each war-log table equal the lines of its
-type, and their sum equals the non-empty lines read; each dump table equals its source count.
+type, and their sum equals the non-empty lines read; the I headers' counts equal the L, J and O
+lines; each dump table equals its source count. Logs from DLLs before the snapshot change lack
+the appended fields (NULL here) and the F I L J O lines (empty tables).
 The manifest records these counts and the input hashes. Run with ~/.cache/rom-ana/bin/python.
 """
 import argparse, collections, csv, hashlib, json, os, re, sys, tempfile
 
 import duckdb
 
-# field names after the line type, from the DLL's format strings
+# field names after the line type, from the DLL's format strings. Fields after '|' were appended
+# later (war-log snapshot change): older logs end before them, and they read as NULL there.
 WL = {
     'H': 'turn speed handicap width height',
     'P': 'player team civ leader human',
     'T': 'turn year',
     'W': 'turn team target warplan', 'Q': 'turn team target warplan',
-    'C': 'turn att att_unit att_hp att_xp def def_unit def_hp def_xp x y terrain feature hills city_def odds plot_units',
+    'C': 'turn att att_unit att_hp att_xp def def_unit def_hp def_xp x y terrain feature hills city_def odds plot_units | att_id def_id',
     'R': 'turn winner winner_unit winner_hp loser loser_unit',
     'S': 'turn att att_unit def def_unit damage x y',
     'B': 'turn player unit x y def_before def_after',
     'K': 'turn old_owner new_owner x y pop', 'Z': 'turn old_owner new_owner x y pop',
     'G': 'turn player x y military head_ai mission_ai target_x target_y units',
-    'U': 'turn player unit x y',
+    'U': 'turn player unit x y | id xp level promotions',
     'N': 'turn player building x y',
     'Y': 'turn player x y pop hammers orders stored needed defenders best_defender def_mod danger foreign',
     'M': 'turn player cities pop land food hammers commerce research gold_rate gold military power score slider golden',
@@ -52,7 +55,18 @@ WL = {
     'X': 'turn player tech',
     'D': 'turn first second items_first items_second',
     'E': 'turn sender receiver event data1 data2',
+    'F': 'turn owner x y founded pop',
+    'I': 'turn player new_turn own_units cities defenders teams',
+    'L': 'turn viewer owner id unit x y hp xp level head group_size transport cargo fortify moves activity automate mission '
+         'mission_x mission_y promotions',
+    'J': 'turn player owner x y pop def_mod visible war defenders near1 near3 on_ships capture1 losses1 capture3 losses3',
+    'O': 'turn player team war open_borders def_pact vassal plan_theirs plan_ours weariness',
 }
+
+
+def wl_names(t):
+    req, _, opt = WL[t].partition('|')
+    return req.split(), opt.split()
 A_MAX = 12
 
 
@@ -84,9 +98,11 @@ def main():
         if t == 'A':
             rows['A'].append([total, num(f[1]), num(f[2]), f[3]] + (f[4:] + [None] * A_MAX)[:A_MAX])
         elif t in WL:
-            n = len(WL[t].split())
+            req, opt = wl_names(t)
+            n = len(req) + len(opt)
             vals = [num(x) for x in f[1:]]
             if t == 'D' and len(vals) == n - 1: vals.append('')
+            if opt and len(vals) == len(req): vals += [None] * len(opt)
             if len(vals) != n: raise SystemExit(f'{t}: {len(vals)} fields, expected {n}: {line[:120]}')
             rows[t].append([total] + vals)
         else:
@@ -108,7 +124,7 @@ def main():
     # text fields of the format strings (%s); every other field is %d. An empty table gets these
     # types too, so queries that compare numbers work on games without that line type.
     TEXT = set('speed handicap civ leader att_unit def_unit terrain feature winner_unit loser_unit unit building '
-               'orders best_defender head_ai units action tech items_first items_second'.split())
+               'orders best_defender head_ai units action tech items_first items_second promotions'.split())
 
     def cols_of(data, names):
         out = []
@@ -118,8 +134,8 @@ def main():
             out.append((c, 'BIGINT' if num_ok else 'VARCHAR'))
         return out
 
-    for t, spec in WL.items():
-        names = ['seq'] + spec.split()
+    for t in WL:
+        names = ['seq'] + sum(wl_names(t), [])
         data = [[None if v == '' else v for v in r] if t != 'D' else r for r in rows[t]]
         data = [[v if (isinstance(v, int) or v is None) else str(v) for v in r] for r in data]
         cl = cols_of(data, names)
@@ -137,6 +153,10 @@ def main():
                          ('item', 'BIGINT'), ('data', 'BIGINT')], di)
     errs = [f'wl_{t}: {counts["wl_" + t]} rows, {seen[t]} lines' for t in list(WL) + ['A'] if counts['wl_' + t] != seen[t]]
     if sum(counts['wl_' + t] for t in list(WL) + ['A']) + other != total: errs.append('war-log rows do not sum to the lines read')
+    # each I header announces the L, J and O lines of its turn start
+    hi = con.execute('select coalesce(sum(own_units + defenders), 0), coalesce(sum(cities), 0), coalesce(sum(teams), 0) from wl_I').fetchone()
+    if hi != (counts['wl_L'], counts['wl_J'], counts['wl_O']):
+        errs.append(f'I headers announce {hi[0]} L, {hi[1]} J and {hi[2]} O lines; the log has {counts["wl_L"]}, {counts["wl_J"]}, {counts["wl_O"]}')
     src = {'log_lines': total, 'log_unknown_type': other, 'log_types': dict(seen)}
 
     if a.state:
