@@ -10,5 +10,6 @@
   "tested_headless": "harness builds of the same source and of main d51ff25: a 20-turn continuation of game 3's save, same seed, WAR_LOG_SEAT = 13 (seat 12 tracked). Telemetry identical (22 lines); every war-log line of the types main writes identical (1187) once the appended fields are cut; 19 turn starts with 1674 L, 49 J, 310 O lines, parsed by research/ai-warfare/tools/extract.py with 0 errors; the first snapshot agrees with the save's unit dump in type, experience, level and promotions for every unit in both; all 89 units built and all 49 combats' ids join the unit lines. Turn time: 73.3 s against 70.2 s (one run each); profile: the turn-start logging is under 1.6 % of turn time. The release DLL itself was not run headless",
   "tested_in_game": false,
   "previous": "934fd4850751a80934b423f9e7021e6a9da991b13f92d63f699003c45ba4f054 (GitLab main d51ff25, commit 19d9e2a)",
-  "merge_request": "not opened: the GitLab connector is not authorized in this session"
+  "merge_request": "aretemaxxing-group/rise-of-mankind!51 (open): branch claude/war-log-snapshot, commit 6c2dffb on main d51ff25, tree 7fc5c7e equal to the tested source commit 3af6c89",
+  "gitlab_commit": "6c2dffb71a8ffac8e6a865f895f1b981a1f6fc94"
 }
