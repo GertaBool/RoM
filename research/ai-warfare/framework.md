@@ -142,6 +142,13 @@ was read in each book and what was judged not to apply.
   they pass this test.
 - **Sequences** (optional). Command types as a Markov chain satisfying conditions M1 and M2
   (Linear Algebra with Python, section 9.4).
+- **Choices among options** (Bröder, in *Heuristics*, chapter 17): each candidate strategy is
+  followed with a constant error rate, its likelihood is maximised over that rate, and it must
+  beat guessing; strategies are compared by likelihood and BIC (`tools/strategy.py`).
+- **Phases:** an exact optimal partition of the per-turn activity, with a parsimony penalty per
+  phase, checked at half and twice the penalty (`tools/phases.py`).
+- **Synthesis:** the parts are read from a proposed whole and the whole is checked against each
+  part (Schleiermacher, in Mueller-Vollmer, *The Hermeneutics Reader*, p. 84).
 - *Open:* cue profiles, the cross-game test, the credibility weights.
 
 ## 7. Experiments on AI changes
@@ -221,6 +228,15 @@ For each book: what was read in full, and why the rest was not used.
   - Read in full: the contents and section 8.5.
   - Not used: chapters 7 and 9–12 (special functions, integration, tensors, differential
     equations). The game moves in discrete turns.
+- **Gigerenzer, Hertwig and Pachur, *Heuristics*.**
+  - Read in full: chapters 1, 13, 14 and 17, and in chapter 29 the statement of the decay and
+    circle heuristics (p. 593).
+  - Not used: the recognition and fluency chapters, which need what a person recognises, and the
+    log does not record it.
+- **Mueller-Vollmer, *The Hermeneutics Reader*.**
+  - Read in full: the introduction on the hermeneutic circle, and Schleiermacher's aphorisms on
+    the whole and the parts (p. 84).
+  - Not used: the later texts on language and history, which address the interpretation of texts.
 - **Asimov, *Realm of Algebra*.**
   - Read in full: the contents, the openings of chapters 6 and 13, and the passage in
     chapter 5 that restates the axiom of chapter 2.

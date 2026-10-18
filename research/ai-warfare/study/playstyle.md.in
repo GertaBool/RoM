@@ -1,0 +1,248 @@
+<!-- registry: phases.fig.json as ph -->
+<!-- registry: targets.fig.json as tg -->
+<!-- registry: style.fig.json as st -->
+# The human's playstyle: a synthesis of the four logged games
+
+The studies before this one describe parts: the decisions (`study/human.md`), tiles, trade and
+combat (`study/data.md`), the economy and the wars (`study/winning.md`), and workers, builds
+and movement (`study/operations.md`). This one proposes the whole they belong to, and checks each
+part against it.
+
+## 1. Method
+
+- **The whole and the parts.** Schleiermacher: "each part can be understood only out of the
+  whole to which it belongs, and vice versa", and an interpreter working from "disconnected
+  observations can never reach an independent interpretation" (Mueller-Vollmer, *The
+  Hermeneutics Reader*, [[§20 and 21]], p. 84). Here the whole is a plan. Section 7 states
+  it; every element names the facts it explains and what would refute it. A fact the plan
+  cannot place is listed as such.
+- **Phases.** The human's per-turn activity is cut into phases by an exact optimal partition.
+  Each phase costs a fixed penalty, the parsimony pressure of `framework.md` (section 6), so a
+  phase is kept only when it explains enough (`tools/phases.py`). A boundary that survives with
+  the penalty halved and doubled is taken as real.
+- **Choices among options.** For the choice of whom to attack, candidate rules are compared by
+  maximum-likelihood strategy classification. Each rule is assumed to be followed with errors at
+  a constant rate, and it must beat guessing (Bröder, in Gigerenzer, Hertwig and Pachur,
+  *Heuristics*, chapter 17; `tools/strategy.py`). One candidate is the distance-decay heuristic of
+  geographic profiling: offenders act near home (Snook, Taylor and Bennell, chapter 29, p. 593).
+- **Sources.** Every number comes from the registries named at the top of this page. The
+  readings of the other studies are cited by section and not repeated.
+
+## 2. The phases of a game
+
+{{table:ph.game1_phases}}
+
+{{table:ph.game2_phases}}
+
+{{table:ph.game3_phases}}
+
+{{table:ph.game4_phases}}
+
+Where the phases start with the penalty halved, as set, and doubled:
+
+{{table:ph.game1_phase_beta}}
+
+{{table:ph.game2_phase_beta}}
+
+{{table:ph.game3_phase_beta}}
+
+{{table:ph.game4_phase_beta}}
+
+## 3. Research and civics
+
+Every civic the human adopted after the start, with the tech it requires and when the human
+got that tech:
+
+{{table:st.game3_civic_tech_lag}}
+
+{{table:st.game4_civic_tech_lag}}
+
+Every tech the human acquired, against the AIs:
+
+{{table:st.game3_tech_lead}}
+
+{{table:st.game4_tech_lead}}
+
+## 4. Expansion
+
+The turn of each player's first to eighth founded city, the human against the AI median:
+
+{{table:st.game3_expansion}}
+
+{{table:st.game4_expansion}}
+
+The distance of each new city to the founder's nearest earlier city:
+
+{{table:st.game3_city_spacing}}
+
+{{table:st.game4_city_spacing}}
+
+## 5. War
+
+### 5.1 Whom the human attacks
+
+Each declaration: the options, and the target's rank among them on each cue (the first rank: the
+least power, the least distance, the most cities):
+
+{{table:tg.game3_war_targets}}
+
+{{table:tg.game4_war_targets}}
+
+The candidate rules:
+
+{{table:tg.war_target_strategies_pooled}}
+
+{{table:tg.game3_war_target_strategies}}
+
+{{table:tg.game4_war_target_strategies}}
+
+### 5.2 Before the declaration
+
+City orders for units, upgrades and moves in the ten turns before each declaration, against the
+rate over the fifty turns before those:
+
+{{table:st.game1_war_preparation}}
+
+{{table:st.game2_war_preparation}}
+
+{{table:st.game3_war_preparation}}
+
+{{table:st.game4_war_preparation}}
+
+### 5.3 The attacks
+
+Every battle the human started, by the attacking unit:
+
+{{table:st.game1_attack_units}}
+
+{{table:st.game2_attack_units}}
+
+{{table:st.game3_attack_units}}
+
+{{table:st.game4_attack_units}}
+
+### 5.4 The peace
+
+What the AI gave in the deal made on the day of each peace:
+
+{{table:st.game3_peace_terms}}
+
+{{table:st.game4_peace_terms}}
+
+## 6. Parts from the other studies
+
+| Part | Where |
+|---|---|
+| The capital trains the units; the other cities build | `study/human.md`, section 6, reading 1 |
+| The slider follows the sign of gold per turn | `study/human.md`, section 6, reading 2 |
+| Workers are directed by hand; fighting units build too; the land next to the cities first | `study/operations.md`, section 6, readings on workers |
+| Captured workers make up a large part of the human's workers | `study/operations.md`, section 2.2 |
+| City orders are mostly buildings; the human almost never queues | `study/operations.md`, section 3.1 |
+| Tiles are re-planned as techs arrive; cottages become mines | `study/data.md`, section 5, reading 1 |
+| Trade routes per city are about twice the AI's | `study/data.md`, section 3 |
+| Commerce about doubles at the switch to Coinage, Fiscus and Proletariat | `study/winning.md`, section 7, reading 2 |
+| Tech is sold to the AIs, several times more given than received | `study/winning.md`, section 5 |
+| Wars at a power advantage; the AIs barely strike back | `study/winning.md`, section 6 |
+| Single units in short steps, converging on the target | `study/operations.md`, section 4 |
+
+## 7. The playstyle
+
+The plan the parts fit, in the order a game runs. Each element names its facts and what would
+refute it.
+
+1. **A long, quiet opening.** One city for the first phase, with little activity of any kind.
+   - Facts: the first phase of every game ends with one city (section 2). The AIs found their
+     second city at about the same time (section 4), so this is the game's pace, not the
+     human's choice.
+2. **Research is planned around civics, and each civic is taken the moment it is open.**
+   - Facts:
+     - most civics are adopted on the turn their tech arrives or the next (section 3);
+     - the first target is Slavery, which opens Oligarchy and Tribute, both adopted at once,
+       far earlier than the AIs get Slavery;
+     - the later targets open Accounting (Mathematics) and Coinage, Fiscus and Proletariat
+       (Currency). Their XML effects are in the appendix.
+   - The exceptions fit the same plan. Fortification is taken shortly before or after a war.
+     Metals comes with the start of a golden age, when a switch costs no anarchy
+     (`study/winning.md`, section 3.2).
+   - Mysticism, which the AIs take early, comes after every AI in both games; when it comes, its
+     civics are adopted at once. Animal Husbandry comes only by trade in game 4.
+   - Refuted if: in a further game, civics follow their tech by many turns as a rule.
+3. **Expansion in the middle game, dense and near.**
+   - Facts (section 4):
+     - the human founds its third to fifth city well before the AI median in game 3, and its
+       second to eighth in game 4; in game 3 its later cities come by capture;
+     - it never founds a city six or more plots from its others, while the AIs often do.
+4. **An economy of buildings, worked land and trade, run by hand.**
+   - Facts: section 6, the rows from `study/human.md`, `study/operations.md` and `study/data.md`.
+     The development phase is the longest of every game, with more build orders and building
+     orders than before (section 2).
+5. **Technology is a currency.** The human researches the civic techs itself and sells techs.
+   - Facts: section 3 (research or deal for each tech) and `study/winning.md`, section 5.
+6. **Conquest comes late, against the nearest neighbour, prepared and short.**
+   - Facts:
+     - the fighting starts in the third or fourth phase of every game, and that boundary holds
+       at every penalty (section 2);
+     - the target is best predicted by distance alone: the nearest-neighbour rule matches more
+       declarations than any other rule, with the best likelihood and BIC. The weakest AI is
+       never the target, and the targets' power ranks are spread over the field (section 5.1);
+     - in the ten turns before a declaration, the human gives more unit orders than before in
+       nearly every case, and in game 2, game 3 and game 4 the first declaration of a campaign follows a burst
+       of upgrades (section 5.2);
+     - the attacks are made at high odds with experienced units, and in game 1, game 3 and
+       game 4 mostly with one unit type (section 5.3; promotions in `study/data.md`, section 4);
+     - in game 3 and game 4 the wars are short; in game 4 most of its peace deals pay the human
+       gold (section 5.4; `study/winning.md`, section 6);
+     - captured workers are part of the gain (`study/operations.md`, section 2.2).
+   - Refuted if: a further game where the human attacks a distant AI while a nearer one is
+     open, or declares without a build-up.
+7. **After a conquest: build, or conquer again.** In game 3 the war is followed by a long
+   building phase. In game 4 a second, larger campaign follows within a phase (section 2).
+
+What the plan does not place:
+- Game 2 opens a war in its second phase that lasts most of the game with almost no
+  attacks (section 2; `study/winning.md`, section 6). It reads as a war declared and left
+  open, but nothing in the log says why.
+- The Javelineers' low-odds attacks in game 2 (section 5.3).
+
+## 8. What it implies for the AI
+
+These are the points where the plan meets an AI weakness found in the other studies. Each is
+a candidate for an AI change, judged only by experiment (CLAUDE.md, rule 9).
+- **Civics.** The AIs neither research Currency nor run its civics (`study/winning.md`,
+  reading 3).
+- **The nearest neighbour is the target.** The AI closest to the human is the one attacked
+  (section 5.1). Whether the AI's defence takes account of that is open.
+- **No counter-attack.** The human's wars are won without the AIs attacking its units or
+  cities (`study/winning.md`, reading 5).
+- **The build-up is visible.** Unit orders, and in most campaigns upgrades, rise before a
+  declaration (section 5.2). Those are the human's own commands; what the AI sees of them is its units near the
+  border.
+- **Workers left in reach** are taken (`study/operations.md`, section 2.2).
+- **Peace is bought** with gold in game 4 (section 5.4).
+
+## 9. Open
+
+- **More games.** The war-target rule rests on ten declarations in two games, and the civic
+  timing on two games. Game 1 and game 2 have no M lines and no save dump, so their power and
+  cities cannot be compared.
+- **What the AI sees** of the build-up: units near its border before a declaration, from G lines
+  or saves at intervals.
+- **Why game 2's first war stays open** without fighting.
+
+## Appendix: XML records of the types counted
+
+{{effects:st.game3_civic_tech_lag}}
+
+{{effects:st.game4_civic_tech_lag}}
+
+{{effects:st.game3_tech_lead}}
+
+{{effects:st.game4_tech_lead}}
+
+{{effects:st.game1_attack_units}}
+
+{{effects:st.game2_attack_units}}
+
+{{effects:st.game3_attack_units}}
+
+{{effects:st.game4_attack_units}}

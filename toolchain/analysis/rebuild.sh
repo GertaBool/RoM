@@ -22,4 +22,7 @@ $PY "$T/production.py" "$R/study/production.fig.json" $(for g in $with_state; do
 $PY "$T/sqlfig.py" "$R/study/queries.json" "$R/study/data.fig.json" $(for g in $with_state; do echo "$g=$DB/$g.duckdb"; done)
 $PY "$T/sqlfig.py" "$R/study/queries_win.json" "$R/study/win.fig.json" records="$D/records.json" $(for g in $games; do echo "$g=$DB/$g.duckdb"; done)
 $PY "$T/sqlfig.py" "$R/study/queries_ops.json" "$R/study/ops.fig.json" records="$D/records.json" $(for g in $games; do echo "$g=$DB/$g.duckdb"; done)
+$PY "$T/sqlfig.py" "$R/study/queries_style.json" "$R/study/style.fig.json" records="$D/records.json" $(for g in $games; do echo "$g=$DB/$g.duckdb"; done)
+$PY "$T/phases.py" "$R/study/phases.fig.json" $(for g in $games; do echo "$DB/$g.duckdb"; done)
+$PY "$T/strategy.py" "$R/study/targets.fig.json" $(for g in $with_state; do echo "$DB/$g.duckdb"; done)
 python3 "$T/check_all.py" --render

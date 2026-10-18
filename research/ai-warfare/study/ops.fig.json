@@ -10,11 +10,11 @@
   "game4=/root/.cache/rom-ana/db/game4.duckdb"
  ],
  "inputs": {
-  "queries_ops.json": "fb3289352673e525b42e277a59a23a16ec74cd9757669cad4d5172a0cf136777",
-  "/root/.cache/rom-ana/db/game1.duckdb": "3afcec4018204e78443041d104f65fe97204ca503aac7cc88051e046c159e38f",
-  "/root/.cache/rom-ana/db/game2.duckdb": "ecaf4964cab05d0c1125cbbaf450748485ad24ff9471d68cd2d29cb73dac1876",
-  "/root/.cache/rom-ana/db/game3.duckdb": "05963ec61d33af1a3546a7e3bb66b3d2e03bb1158ccf075c59a3244468e5535b",
-  "/root/.cache/rom-ana/db/game4.duckdb": "bcad6463782958e978ae247307213a766cdbd668b82343c6daa98db6a1b3d7c0",
+  "queries_ops.json": "fc851b7f9c00ddbfbb11f81ecb3b05cc149972b0465fe94db0aa88dd34357353",
+  "/root/.cache/rom-ana/db/game1.duckdb": "80b071f501b09713cc5d216f2af00f0b65b09e96d1e700e91367e2e5d51df0c3",
+  "/root/.cache/rom-ana/db/game2.duckdb": "e40eecfd26f9a92e16b2575a27e86473bc2718e8632fa07b5811d85da206e63b",
+  "/root/.cache/rom-ana/db/game3.duckdb": "aa345ceec938d78d78aed230c2f2269cd83f93c49c20ef7f137a8900e34f4df0",
+  "/root/.cache/rom-ana/db/game4.duckdb": "ef0cbe35b79f6d031746ac4a544780a8c0548fe27b802b63c3fea22678488246",
   "/root/.cache/rom-ana/data/records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152"
  },
  "figures": {
@@ -1959,6 +1959,90 @@
     150,
     200,
     250
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_worker_origins": {
+   "kind": "table",
+   "head": [
+    "side",
+    "workers_at_save",
+    "built_in_a_city",
+    "born_on_a_turn_it_took_a_city",
+    "other"
+   ],
+   "rows": [
+    [
+     "human",
+     7,
+     4,
+     3,
+     0
+    ],
+    [
+     "AI",
+     125,
+     124,
+     1,
+     0
+    ]
+   ],
+   "unit": "units at save",
+   "who": "every player",
+   "turn": "save",
+   "source": "land workers at the save (DefaultUnitAI UNITAI_WORKER), each dated by its creation turn (the save turn minus the dump's age); matched to U lines of a land worker of the same player on that turn, then to K lines of a city the player took that turn; other: neither. A captured worker or slave becomes a new unit of the captor (UnitInfo Capture UNITCLASS_WORKER for both), created on that turn, with no log line [game3]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "human",
+    "AI"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_worker_origins": {
+   "kind": "table",
+   "head": [
+    "side",
+    "workers_at_save",
+    "built_in_a_city",
+    "born_on_a_turn_it_took_a_city",
+    "other"
+   ],
+   "rows": [
+    [
+     "human",
+     11,
+     8,
+     2,
+     1
+    ],
+    [
+     "AI",
+     174,
+     172,
+     0,
+     2
+    ]
+   ],
+   "unit": "units at save",
+   "who": "every player",
+   "turn": "save",
+   "source": "land workers at the save (DefaultUnitAI UNITAI_WORKER), each dated by its creation turn (the save turn minus the dump's age); matched to U lines of a land worker of the same player on that turn, then to K lines of a city the player took that turn; other: neither. A captured worker or slave becomes a new unit of the captor (UnitInfo Capture UNITCLASS_WORKER for both), created on that turn, with no log line [game4]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "human",
+    "AI"
    ],
    "stat": "result",
    "xml_values": null

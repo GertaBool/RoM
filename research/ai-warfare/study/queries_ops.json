@@ -85,6 +85,19 @@
   "source": "U lines of units whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), all domains"
  },
  {
+  "id": "worker_origins",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with w as (select u.player, (select turn from snapshots where state='state') - u.age born, count(*) n from units u join unit_info i on i.unit=u.unit where i.default_ai='WORKER' and i.domain='LAND' group by 1, 2), j as (select w.*, (select count(*) from wl_U b join unit_info i on i.unit=b.unit where b.player=w.player and b.turn=w.born and i.default_ai='WORKER' and i.domain='LAND') nu, (select count(*) from wl_K k where k.new_owner=w.player and k.turn=w.born) nk from w), c as (select *, least(n, nu) built, case when nk > 0 then n - least(n, nu) else 0 end city_capture from j) select case when (select human from players p where p.player=c.player)=1 then 'human' else 'AI' end side, sum(n) workers_at_save, sum(built) built_in_a_city, sum(city_capture) born_on_a_turn_it_took_a_city, sum(n - built - city_capture) other from c group by 1 order by 1 desc",
+  "unit": "units at save",
+  "who": "every player",
+  "turn": "save",
+  "source": "land workers at the save (DefaultUnitAI UNITAI_WORKER), each dated by its creation turn (the save turn minus the dump's age); matched to U lines of a land worker of the same player on that turn, then to K lines of a city the player took that turn; other: neither. A captured worker or slave becomes a new unit of the captor (UnitInfo Capture UNITCLASS_WORKER for both), created on that turn, with no log line"
+ },
+ {
   "id": "improvement_changes",
   "db": "*",
   "dbs": [

@@ -1,0 +1,537 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/phases.py",
+  "@repo/research/ai-warfare/study/phases.fig.json",
+  "/root/.cache/rom-ana/db/game1.duckdb",
+  "/root/.cache/rom-ana/db/game2.duckdb",
+  "/root/.cache/rom-ana/db/game3.duckdb",
+  "/root/.cache/rom-ana/db/game4.duckdb"
+ ],
+ "inputs": {
+  "/root/.cache/rom-ana/db/game1.duckdb": "80b071f501b09713cc5d216f2af00f0b65b09e96d1e700e91367e2e5d51df0c3",
+  "/root/.cache/rom-ana/db/game2.duckdb": "e40eecfd26f9a92e16b2575a27e86473bc2718e8632fa07b5811d85da206e63b",
+  "/root/.cache/rom-ana/db/game3.duckdb": "aa345ceec938d78d78aed230c2f2269cd83f93c49c20ef7f137a8900e34f4df0",
+  "/root/.cache/rom-ana/db/game4.duckdb": "ef0cbe35b79f6d031746ac4a544780a8c0548fe27b802b63c3fea22678488246"
+ },
+ "figures": {
+  "game1_phases": {
+   "kind": "table",
+   "head": [
+    "phase",
+    "turns",
+    "length",
+    "build_per_turn",
+    "move_per_turn",
+    "train_per_turn",
+    "construct_per_turn",
+    "found_per_turn",
+    "attack_per_turn",
+    "war_share",
+    "cities_at_end"
+   ],
+   "rows": [
+    [
+     1,
+     "0-59",
+     60,
+     0.08,
+     0.22,
+     0.08,
+     0.0,
+     0.02,
+     0.0,
+     0.0,
+     1
+    ],
+    [
+     2,
+     "60-167",
+     108,
+     0.53,
+     0.74,
+     0.23,
+     0.26,
+     0.04,
+     0.0,
+     0.0,
+     5
+    ],
+    [
+     3,
+     "168-185",
+     18,
+     0.33,
+     2.61,
+     1.0,
+     0.39,
+     0.11,
+     0.0,
+     0.0,
+     7
+    ],
+    [
+     4,
+     "186-195",
+     10,
+     0.6,
+     8.6,
+     1.2,
+     1.0,
+     0.0,
+     1.9,
+     1.0,
+     13
+    ],
+    [
+     5,
+     "196-217",
+     22,
+     0.86,
+     5.86,
+     0.36,
+     1.82,
+     0.0,
+     0.55,
+     1.0,
+     16
+    ]
+   ],
+   "unit": "orders",
+   "who": "human",
+   "turn": "turns 0-217",
+   "source": "phases.py: exact optimal partition (segments of at least 10 turns, penalty p ln n per segment, p = 7 series: build, move, train, construct, found, attack, war) of the war log of game1; means of the raw series per turn",
+   "n": 218,
+   "values_total": 5,
+   "values_shown": 5,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game1_phase_beta": {
+   "kind": "table",
+   "head": [
+    "penalty_factor",
+    "phase_starts"
+   ],
+   "rows": [
+    [
+     0.5,
+     "60 168 186 196 206"
+    ],
+    [
+     1,
+     "60 168 186 196"
+    ],
+    [
+     2,
+     "186"
+    ]
+   ],
+   "unit": "turn",
+   "who": "human",
+   "turn": "turns 0-217",
+   "source": "phases.py: the turns where a phase starts, with the penalty halved, as set, and doubled",
+   "n": 218,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    0.5,
+    1,
+    2
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_phases": {
+   "kind": "table",
+   "head": [
+    "phase",
+    "turns",
+    "length",
+    "build_per_turn",
+    "move_per_turn",
+    "train_per_turn",
+    "construct_per_turn",
+    "found_per_turn",
+    "attack_per_turn",
+    "war_share",
+    "cities_at_end"
+   ],
+   "rows": [
+    [
+     1,
+     "0-91",
+     92,
+     0.08,
+     0.12,
+     0.08,
+     0.01,
+     0.01,
+     0.0,
+     0.0,
+     1
+    ],
+    [
+     2,
+     "92-198",
+     107,
+     0.65,
+     0.95,
+     0.23,
+     0.42,
+     0.05,
+     0.07,
+     1.0,
+     7
+    ],
+    [
+     3,
+     "199-225",
+     27,
+     1.22,
+     1.78,
+     0.48,
+     1.33,
+     0.0,
+     0.0,
+     1.0,
+     7
+    ],
+    [
+     4,
+     "226-235",
+     10,
+     2.5,
+     9.7,
+     1.6,
+     2.3,
+     0.0,
+     1.8,
+     1.0,
+     15
+    ]
+   ],
+   "unit": "orders",
+   "who": "human",
+   "turn": "turns 0-235",
+   "source": "phases.py: exact optimal partition (segments of at least 10 turns, penalty p ln n per segment, p = 7 series: build, move, train, construct, found, attack, war) of the war log of game2; means of the raw series per turn",
+   "n": 236,
+   "values_total": 4,
+   "values_shown": 4,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_phase_beta": {
+   "kind": "table",
+   "head": [
+    "penalty_factor",
+    "phase_starts"
+   ],
+   "rows": [
+    [
+     0.5,
+     "92 119 199 226"
+    ],
+    [
+     1,
+     "92 199 226"
+    ],
+    [
+     2,
+     "92 226"
+    ]
+   ],
+   "unit": "turn",
+   "who": "human",
+   "turn": "turns 0-235",
+   "source": "phases.py: the turns where a phase starts, with the penalty halved, as set, and doubled",
+   "n": 236,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    0.5,
+    1,
+    2
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_phases": {
+   "kind": "table",
+   "head": [
+    "phase",
+    "turns",
+    "length",
+    "build_per_turn",
+    "move_per_turn",
+    "train_per_turn",
+    "construct_per_turn",
+    "found_per_turn",
+    "attack_per_turn",
+    "war_share",
+    "cities_at_end"
+   ],
+   "rows": [
+    [
+     1,
+     "0-94",
+     95,
+     0.24,
+     0.22,
+     0.06,
+     0.0,
+     0.01,
+     0.0,
+     0.0,
+     1
+    ],
+    [
+     2,
+     "95-202",
+     108,
+     0.66,
+     0.78,
+     0.18,
+     0.21,
+     0.04,
+     0.0,
+     0.0,
+     5
+    ],
+    [
+     3,
+     "203-214",
+     12,
+     1.08,
+     3.33,
+     0.5,
+     1.17,
+     0.0,
+     1.17,
+     0.83,
+     11
+    ],
+    [
+     4,
+     "215-265",
+     51,
+     1.69,
+     1.1,
+     0.37,
+     2.02,
+     0.04,
+     0.0,
+     0.0,
+     13
+    ]
+   ],
+   "unit": "orders",
+   "who": "human",
+   "turn": "turns 0-265",
+   "source": "phases.py: exact optimal partition (segments of at least 10 turns, penalty p ln n per segment, p = 7 series: build, move, train, construct, found, attack, war) of the war log of game3; means of the raw series per turn",
+   "n": 266,
+   "values_total": 4,
+   "values_shown": 4,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_phase_beta": {
+   "kind": "table",
+   "head": [
+    "penalty_factor",
+    "phase_starts"
+   ],
+   "rows": [
+    [
+     0.5,
+     "95 203 215 230"
+    ],
+    [
+     1,
+     "95 203 215"
+    ],
+    [
+     2,
+     "203 215"
+    ]
+   ],
+   "unit": "turn",
+   "who": "human",
+   "turn": "turns 0-265",
+   "source": "phases.py: the turns where a phase starts, with the penalty halved, as set, and doubled",
+   "n": 266,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    0.5,
+    1,
+    2
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_phases": {
+   "kind": "table",
+   "head": [
+    "phase",
+    "turns",
+    "length",
+    "build_per_turn",
+    "move_per_turn",
+    "train_per_turn",
+    "construct_per_turn",
+    "found_per_turn",
+    "attack_per_turn",
+    "war_share",
+    "cities_at_end"
+   ],
+   "rows": [
+    [
+     1,
+     "0-75",
+     76,
+     0.18,
+     0.13,
+     0.11,
+     0.0,
+     0.01,
+     0.0,
+     0.0,
+     1
+    ],
+    [
+     2,
+     "76-237",
+     162,
+     1.09,
+     1.26,
+     0.35,
+     0.48,
+     0.05,
+     0.0,
+     0.0,
+     9
+    ],
+    [
+     3,
+     "238-267",
+     30,
+     2.47,
+     4.1,
+     0.97,
+     2.7,
+     0.07,
+     0.23,
+     0.37,
+     13
+    ],
+    [
+     4,
+     "268-284",
+     17,
+     2.0,
+     10.12,
+     2.47,
+     4.88,
+     0.12,
+     3.59,
+     1.0,
+     24
+    ]
+   ],
+   "unit": "orders",
+   "who": "human",
+   "turn": "turns 0-284",
+   "source": "phases.py: exact optimal partition (segments of at least 10 turns, penalty p ln n per segment, p = 7 series: build, move, train, construct, found, attack, war) of the war log of game4; means of the raw series per turn",
+   "n": 285,
+   "values_total": 4,
+   "values_shown": 4,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_phase_beta": {
+   "kind": "table",
+   "head": [
+    "penalty_factor",
+    "phase_starts"
+   ],
+   "rows": [
+    [
+     0.5,
+     "55 134 238 252 271"
+    ],
+    [
+     1,
+     "76 238 268"
+    ],
+    [
+     2,
+     "76 238 268"
+    ]
+   ],
+   "unit": "turn",
+   "who": "human",
+   "turn": "turns 0-284",
+   "source": "phases.py: the turns where a phase starts, with the penalty halved, as set, and doubled",
+   "n": 285,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    0.5,
+    1,
+    2
+   ],
+   "stat": "result",
+   "xml_values": null
+  }
+ },
+ "xml": {}
+}

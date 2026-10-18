@@ -29,9 +29,11 @@
  "tables": {
   "build_info": 56,
   "building_info": 428,
+  "civic_info": 69,
   "deal_items": 95,
   "enums": 194,
   "improvement_info": 54,
+  "tech_info": 308,
   "unit_info": 422,
   "wl_A": 1363,
   "wl_B": 0,

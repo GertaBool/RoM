@@ -230,6 +230,24 @@ Workers built per fifty turns, the human against all AIs together and the AI tha
 
 *units built; who: every player; turn: by 50-turn period; rows counted: 6; source: U lines of units whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), all domains [game4]. Every value counted (6).*
 
+Where each land worker held at the save came from, dated by its creation turn. A captured worker
+or slave becomes a new unit of the captor on that turn (`Capture` in the appendix), and no line
+is written for it:
+
+| side | workers_at_save | built_in_a_city | born_on_a_turn_it_took_a_city | other |
+|---|---|---|---|---|
+| human | 7 | 4 | 3 | 0 |
+| AI | 125 | 124 | 1 | 0 |
+
+*units at save; who: every player; turn: save; rows counted: 2; source: land workers at the save (DefaultUnitAI UNITAI_WORKER), each dated by its creation turn (the save turn minus the dump's age); matched to U lines of a land worker of the same player on that turn, then to K lines of a city the player took that turn; other: neither. A captured worker or slave becomes a new unit of the captor (UnitInfo Capture UNITCLASS_WORKER for both), created on that turn, with no log line [game3]. Every value counted (2).*
+
+| side | workers_at_save | built_in_a_city | born_on_a_turn_it_took_a_city | other |
+|---|---|---|---|---|
+| human | 11 | 8 | 2 | 1 |
+| AI | 174 | 172 | 0 | 2 |
+
+*units at save; who: every player; turn: save; rows counted: 2; source: land workers at the save (DefaultUnitAI UNITAI_WORKER), each dated by its creation turn (the save turn minus the dump's age); matched to U lines of a land worker of the same player on that turn, then to K lines of a city the player took that turn; other: neither. A captured worker or slave becomes a new unit of the captor (UnitInfo Capture UNITCLASS_WORKER for both), created on that turn, with no log line [game4]. Every value counted (2).*
+
 Workers, cities and worked land at the save:
 
 | player | human | cities | pop | workers | workers_per_city | worked_land | worked_land_improved |
@@ -794,8 +812,10 @@ Each reading names its facts and what would refute it.
        the later periods far fewer;
      - at the save it has fewer workers per city than every AI in both games, yet improves about
        as large a share of its worked land as they do, or more (section 2.2);
-     - it holds more workers at the save than it built in the whole game, in game 3 and game 4
-       (U lines against the save).
+     - a large part of its workers at the save were not built: they were created on turns it
+       took a city, or with no line at all, as a worker captured in the field would be. The
+       AIs' workers were nearly all built (section 2.2). The human never built a slave in
+       game 3 or game 4.
    - Refuted if: a further game where the human's orders spread evenly over the city radius.
 3. **The human's cities build buildings; its units are few and mostly one kind.**
    - Facts (section 3):
@@ -828,7 +848,8 @@ Each reading names its facts and what would refute it.
 
 ## 7. Open
 
-- **Where the human's extra workers came from.** Captured workers leave no line in the log.
+- **Captured workers.** The capture itself leaves no line; section 2.2 dates each worker instead.
+  A log line for captures would make this exact.
 - **The AIs' worker builds during the logged games.** Only their outcome at the save, and the
   continuations, are available. Saves at intervals would show them.
 - **Moves against move commands.** A harness replay of the human's commands would separate
@@ -997,6 +1018,8 @@ Each reading names its facts and what would refute it.
 | `o.game2_workers_built` | table, 5 values | units built | every player | by 50-turn period | 5 | U lines of units whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), all domains [game2] |
 | `o.game3_workers_built` | table, 6 values | units built | every player | by 50-turn period | 6 | U lines of units whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), all domains [game3] |
 | `o.game4_workers_built` | table, 6 values | units built | every player | by 50-turn period | 6 | U lines of units whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), all domains [game4] |
+| `o.game3_worker_origins` | table, 2 values | units at save | every player | save | 2 | land workers at the save (DefaultUnitAI UNITAI_WORKER), each dated by its creation turn (the save turn minus the dump's age); matched to U lines of a land worker of the same player on that turn, then to K lines of a city the player took that turn; other: neither. A captured worker or slave becomes a new unit of the captor (UnitInfo Capture UNITCLASS_WORKER for both), created on that turn, with no log line [game3] |
+| `o.game4_worker_origins` | table, 2 values | units at save | every player | save | 2 | land workers at the save (DefaultUnitAI UNITAI_WORKER), each dated by its creation turn (the save turn minus the dump's age); matched to U lines of a land worker of the same player on that turn, then to K lines of a city the player took that turn; other: neither. A captured worker or slave becomes a new unit of the captor (UnitInfo Capture UNITCLASS_WORKER for both), created on that turn, with no log line [game4] |
 | `o.game3_workers_at_save` | table, 18 values | units at save | every player | save | 18 | units of a type whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), cities and population, and worked plots that are not water (plot_type 3) with and without an improvement, from the save dump [game3] |
 | `o.game4_workers_at_save` | table, 18 values | units at save | every player | save | 18 | units of a type whose DefaultUnitAI is UNITAI_WORKER (UnitInfo), cities and population, and worked plots that are not water (plot_type 3) with and without an improvement, from the save dump [game4] |
 | `o.game3_worker_tasks` | table, 2 values | units at save | every player (moves: AI players only) | save and save + 1 | 2 | land workers at the save by the mission the unit's AI holds (CvUnit mission AI in the dump; MissionAITypes, CvEnums.h), whether they stand in a city, and whether the same unit (id) stands elsewhere after one continuation turn [game3] |

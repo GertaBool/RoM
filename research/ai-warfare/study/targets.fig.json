@@ -1,0 +1,477 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/strategy.py",
+  "@repo/research/ai-warfare/study/targets.fig.json",
+  "/root/.cache/rom-ana/db/game3.duckdb",
+  "/root/.cache/rom-ana/db/game4.duckdb"
+ ],
+ "inputs": {
+  "/root/.cache/rom-ana/db/game3.duckdb": "aa345ceec938d78d78aed230c2f2269cd83f93c49c20ef7f137a8900e34f4df0",
+  "/root/.cache/rom-ana/db/game4.duckdb": "ef0cbe35b79f6d031746ac4a544780a8c0548fe27b802b63c3fea22678488246"
+ },
+ "figures": {
+  "game3_war_targets": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "options",
+    "power_rank",
+    "distance_rank",
+    "cities_rank",
+    "target_power",
+    "least_power",
+    "target_distance",
+    "least_distance"
+   ],
+   "rows": [
+    [
+     203,
+     5,
+     17,
+     8,
+     1,
+     2,
+     71,
+     20,
+     2,
+     2
+    ],
+    [
+     209,
+     7,
+     17,
+     7,
+     1,
+     15,
+     67,
+     23,
+     4,
+     4
+    ]
+   ],
+   "unit": "rank",
+   "who": "human",
+   "turn": "each declaration of the human (cues from the turn before)",
+   "source": "strategy.py: W lines of game3; options: AIs with an M line the turn before, holding a city, not at war with the human, not unmet at the save; rank 1 = the least power, the least distance, the most cities",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    203,
+    209
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_war_target_strategies": {
+   "kind": "table",
+   "head": [
+    "strategy",
+    "choices_matched",
+    "decisions",
+    "error_rate",
+    "log_likelihood",
+    "bic"
+   ],
+   "rows": [
+    [
+     "weakest",
+     0,
+     2,
+     1.0,
+     -5.55,
+     11.78
+    ],
+    [
+     "nearest",
+     2,
+     2,
+     0.0,
+     0.0,
+     0.69
+    ],
+    [
+     "nearest_then_weak",
+     2,
+     2,
+     0.0,
+     0.0,
+     0.69
+    ],
+    [
+     "weak_of_near_half",
+     0,
+     2,
+     1.0,
+     -5.55,
+     11.78
+    ],
+    [
+     "most_cities",
+     0,
+     2,
+     1.0,
+     -5.55,
+     11.78
+    ],
+    [
+     "weakest_ratio",
+     0,
+     2,
+     1.0,
+     -5.55,
+     11.78
+    ],
+    [
+     "guessing",
+     "",
+     2,
+     "",
+     -5.67,
+     11.33
+    ]
+   ],
+   "unit": "category",
+   "who": "human",
+   "turn": "each declaration of the human",
+   "source": "strategy.py: maximum-likelihood classification over the declarations of game3",
+   "n": 2,
+   "values_total": 7,
+   "values_shown": 7,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "weakest",
+    "nearest",
+    "nearest_then_weak",
+    "weak_of_near_half",
+    "most_cities",
+    "weakest_ratio",
+    "guessing"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_war_targets": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "options",
+    "power_rank",
+    "distance_rank",
+    "cities_rank",
+    "target_power",
+    "least_power",
+    "target_distance",
+    "least_distance"
+   ],
+   "rows": [
+    [
+     238,
+     14,
+     18,
+     4,
+     1,
+     11,
+     135,
+     49,
+     3,
+     3
+    ],
+    [
+     252,
+     2,
+     18,
+     15,
+     4,
+     6,
+     379,
+     77,
+     4,
+     2
+    ],
+    [
+     257,
+     6,
+     18,
+     6,
+     3,
+     11,
+     252,
+     93,
+     4,
+     2
+    ],
+    [
+     268,
+     7,
+     18,
+     13,
+     1,
+     9,
+     437,
+     90,
+     3,
+     3
+    ],
+    [
+     271,
+     14,
+     18,
+     2,
+     7,
+     17,
+     153,
+     102,
+     6,
+     3
+    ],
+    [
+     272,
+     10,
+     17,
+     9,
+     13,
+     8,
+     431,
+     108,
+     15,
+     3
+    ],
+    [
+     277,
+     2,
+     16,
+     8,
+     1,
+     13,
+     454,
+     124,
+     3,
+     3
+    ],
+    [
+     283,
+     7,
+     15,
+     6,
+     1,
+     10,
+     456,
+     143,
+     3,
+     3
+    ]
+   ],
+   "unit": "rank",
+   "who": "human",
+   "turn": "each declaration of the human (cues from the turn before)",
+   "source": "strategy.py: W lines of game4; options: AIs with an M line the turn before, holding a city, not at war with the human, not unmet at the save; rank 1 = the least power, the least distance, the most cities",
+   "n": 8,
+   "values_total": 8,
+   "values_shown": 8,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    238,
+    252,
+    257,
+    268,
+    271,
+    272,
+    277,
+    283
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_war_target_strategies": {
+   "kind": "table",
+   "head": [
+    "strategy",
+    "choices_matched",
+    "decisions",
+    "error_rate",
+    "log_likelihood",
+    "bic"
+   ],
+   "rows": [
+    [
+     "weakest",
+     0,
+     8,
+     1.0,
+     -22.29,
+     46.65
+    ],
+    [
+     "nearest",
+     4,
+     8,
+     0.5,
+     -20.29,
+     42.65
+    ],
+    [
+     "nearest_then_weak",
+     1,
+     8,
+     0.875,
+     -22.47,
+     47.01
+    ],
+    [
+     "weak_of_near_half",
+     0,
+     8,
+     1.0,
+     -22.29,
+     46.65
+    ],
+    [
+     "most_cities",
+     0,
+     8,
+     1.0,
+     -22.29,
+     46.65
+    ],
+    [
+     "weakest_ratio",
+     0,
+     8,
+     1.0,
+     -22.29,
+     46.65
+    ],
+    [
+     "guessing",
+     "",
+     8,
+     "",
+     -22.77,
+     45.53
+    ]
+   ],
+   "unit": "category",
+   "who": "human",
+   "turn": "each declaration of the human",
+   "source": "strategy.py: maximum-likelihood classification over the declarations of game4",
+   "n": 8,
+   "values_total": 7,
+   "values_shown": 7,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "weakest",
+    "nearest",
+    "nearest_then_weak",
+    "weak_of_near_half",
+    "most_cities",
+    "weakest_ratio",
+    "guessing"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "war_target_strategies_pooled": {
+   "kind": "table",
+   "head": [
+    "strategy",
+    "choices_matched",
+    "decisions",
+    "error_rate",
+    "log_likelihood",
+    "bic"
+   ],
+   "rows": [
+    [
+     "weakest",
+     0,
+     10,
+     1.0,
+     -27.83,
+     57.96
+    ],
+    [
+     "nearest",
+     6,
+     10,
+     0.4,
+     -21.47,
+     45.25
+    ],
+    [
+     "nearest_then_weak",
+     3,
+     10,
+     0.7,
+     -25.56,
+     53.42
+    ],
+    [
+     "weak_of_near_half",
+     0,
+     10,
+     1.0,
+     -27.83,
+     57.96
+    ],
+    [
+     "most_cities",
+     0,
+     10,
+     1.0,
+     -27.83,
+     57.96
+    ],
+    [
+     "weakest_ratio",
+     0,
+     10,
+     1.0,
+     -27.83,
+     57.96
+    ],
+    [
+     "guessing",
+     "",
+     10,
+     "",
+     -28.43,
+     56.86
+    ]
+   ],
+   "unit": "category",
+   "who": "human",
+   "turn": "each declaration of the human",
+   "source": "strategy.py: maximum-likelihood classification over the declarations of every game given",
+   "n": 10,
+   "values_total": 7,
+   "values_shown": 7,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "weakest",
+    "nearest",
+    "nearest_then_weak",
+    "weak_of_near_half",
+    "most_cities",
+    "weakest_ratio",
+    "guessing"
+   ],
+   "stat": "result",
+   "xml_values": null
+  }
+ },
+ "xml": {}
+}

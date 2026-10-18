@@ -85,6 +85,14 @@ Workers built per fifty turns, the human against all AIs together and the AI tha
 
 {{table:o.game4_workers_built}}
 
+Where each land worker held at the save came from, dated by its creation turn. A captured worker
+or slave becomes a new unit of the captor on that turn (`Capture` in the appendix), and no line
+is written for it:
+
+{{table:o.game3_worker_origins}}
+
+{{table:o.game4_worker_origins}}
+
 Workers, cities and worked land at the save:
 
 {{table:o.game3_workers_at_save}}
@@ -248,8 +256,10 @@ Each reading names its facts and what would refute it.
        the later periods far fewer;
      - at the save it has fewer workers per city than every AI in both games, yet improves about
        as large a share of its worked land as they do, or more (section 2.2);
-     - it holds more workers at the save than it built in the whole game, in game 3 and game 4
-       (U lines against the save).
+     - a large part of its workers at the save were not built: they were created on turns it
+       took a city, or with no line at all, as a worker captured in the field would be. The
+       AIs' workers were nearly all built (section 2.2). The human never built a slave in
+       game 3 or game 4.
    - Refuted if: a further game where the human's orders spread evenly over the city radius.
 3. **The human's cities build buildings; its units are few and mostly one kind.**
    - Facts (section 3):
@@ -282,7 +292,8 @@ Each reading names its facts and what would refute it.
 
 ## 7. Open
 
-- **Where the human's extra workers came from.** Captured workers leave no line in the log.
+- **Captured workers.** The capture itself leaves no line; section 2.2 dates each worker instead.
+  A log line for captures would make this exact.
 - **The AIs' worker builds during the logged games.** Only their outcome at the save, and the
   continuations, are available. Saves at intervals would show them.
 - **Moves against move commands.** A harness replay of the human's commands would separate
