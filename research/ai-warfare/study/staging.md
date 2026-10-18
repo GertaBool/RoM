@@ -4,8 +4,8 @@
 Method: `method/docs/framework.md`. The queries are declared in `study/queries_staging.json` and
 turned into figures by `tools/sqlfig.py` over the five logged games. Code facts name their file and
 line in the GitLab source as of commit `efcb5e4`. Facts come first; the readings are in section 4,
-each with the facts it rests on and what would contradict it. Section 5 is a proposed AI change; it
-is not built.
+each with the facts it rests on and what would contradict it. Section 5 is the AI change proposed from
+it; it was built as S2 under prediction P4 (`builds/staging`), which also feeds the city's danger flag.
 
 This study reads the decisive events of each war: the declaration, the cities that fell at once,
 and what the AI's cities held at that moment. It started from one event of game 5 (`games/game5/
@@ -239,7 +239,13 @@ Its stacks near or in enemy land (all on the Gallic front), and the two sides' m
 - **R5. A threatened city keeps developing.** Facts: section 2.4, with the war-AI fixes on. This is
   defect A of `diagnosis-1.md`, seen again.
 
-## 5. Proposed change (not built)
+## 5. Proposed change
+
+Built as S2 (prediction P4, `builds/staging`, `fixes/staging-defence.patch`). Measured before
+building, raising only the defenders a city wants (as below) changed them in few cities, since city
+production reads that count only once the city is in danger; S2 therefore also makes the city count
+as in danger while the forecast reaches its leader's threshold (P3 withdrawn as W2). The change as
+first proposed:
 
 **S. Defend against staged forces.** In `CvCityAI::AI_neededDefenders`:
 - **What it counts.** Land units able to attack that could reach the city this turn and belong to a
