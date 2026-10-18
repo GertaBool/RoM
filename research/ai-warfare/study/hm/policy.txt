@@ -79,7 +79,6 @@ PARAM ob_every 10
 PARAM home_keep 1
 PARAM stage_max_turns 10
 PARAM prep_max_turns 30
-PARAM max_wars 1
 PARAM war_stall_turns 1
 PARAM war_max_turns 8
 PARAM trade_min_turn 261

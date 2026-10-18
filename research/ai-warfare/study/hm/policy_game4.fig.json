@@ -700,11 +700,6 @@
      "not in the data (every human preparation ended in a declaration): a preparation is given up after this"
     ],
     [
-     "max_wars",
-     1,
-     "one war of its own at a time: the human's rule until its last 15 turns in game 4"
-    ],
-    [
      "war_stall_turns",
      2,
      "the median, rounded up, of turns from the last capture to peace over the 5 ended wars with a capture"
@@ -753,10 +748,10 @@
    "unit": "turns",
    "who": "human",
    "turn": "whole game",
-   "source": "W, Q, K, M, A, C and Y lines and deal items of the human in game4; turns except: decl_ratio_pct (per cent), trade_min_gold (gold), ai_every (choices), max_wars (wars), strike_margin and home_keep (units), target_max_distance and next_target_max_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)",
+   "source": "W, Q, K, M, A, C and Y lines and deal items of the human in game4; turns except: decl_ratio_pct (per cent), trade_min_gold (gold), ai_every (choices), strike_margin and home_keep (units), target_max_distance and next_target_max_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)",
    "n": 8,
-   "values_total": 24,
-   "values_shown": 24,
+   "values_total": 23,
+   "values_shown": 23,
    "reason": null,
    "left_out": [],
    "xml": null,
@@ -775,7 +770,6 @@
     "home_keep",
     "stage_max_turns",
     "prep_max_turns",
-    "max_wars",
     "war_stall_turns",
     "war_max_turns",
     "trade_min_turn",

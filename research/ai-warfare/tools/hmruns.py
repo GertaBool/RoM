@@ -68,9 +68,9 @@ def at(by_t, taken, lost, wars, seat, t):
 
 
 # hm.log lines of the war and attack rules (HarnessHuman.cpp), counted per run
-WAR_STEPS = [('preparations', ' prepare against '), ('declared_by_rule', ' declare on '), ('wars_entered', ' at war with '),
-             ('given_up', 'no declaration in time'), ('peace_made', 'peace made'), ('attacks', ' attack '),
-             ('into_empty_city', 'empty city')]
+WAR_STEPS = [('objectives', ' objective '), ('strike_orders', ' strike '), ('declared_by_rule', ' declare on '),
+             ('wars_entered', ' at war with '), ('given_up', 'no declaration in time'), ('next_objectives', 'next objective'),
+             ('peace_made', 'peace made'), ('attacks', ' attack '), ('into_empty_city', 'empty city'), ('open_borders', 'open borders with')]
 METRICS = ['score_rank', 'cities', 'pop', 'land', 'techs', 'power', 'score', 'taken', 'lost', 'wars_begun']
 LOWER_BETTER = {'score_rank', 'lost'}
 
@@ -94,7 +94,7 @@ def extract(camp, out, seats):
                     if pat in line: steps[k] += 1
                 if len(f) > 1 and f[1] == 'civics':
                     for c in f[2:]: seen.setdefault(c.removeprefix('CIVIC_'), int(f[0]))
-                if len(f) > 2 and f[1] == 'at' and f[2] == 'war' and fw is None: fw = int(f[0])
+                if len(f) > 2 and (f[1] == 'declare' or (f[1] == 'at' and f[2] == 'war')) and fw is None: fw = int(f[0])
             run['civics'] = seen
             run['first_war'] = fw
             run['war_steps'] = dict(steps)
@@ -256,10 +256,10 @@ for mp in maps:
             hover.append(f'{mp} {arm} {k}')
             hrows.append([f'{mp} {arm} {k}', len(v), human.get(k, '-'), med(v), min(v), max(v), sum(v)])
 reg.result_table('hm_war_steps', ['map_arm_step', 'runs', 'human', 'runs_median', 'runs_min', 'runs_max', 'runs_total'], hrows, 'turns',
-                 'model seat and human', 'whole game', 'per run, the hm.log lines of each step of the war and attack rules (preparations '
-                 'begun, declarations by the rule, wars entered whoever declared, preparations given up, peace made by the rule, attacks '
-                 'and walks into empty cities by the attack rule); the human: its declarations (W lines), peace made (Q lines of its team) '
-                 'and attacks (C lines) over its whole game; every column counts events', hover, n=len(hrows))
+                 'model seat and human', 'whole game', 'per run, the hm.log lines of each step of the war rules (objectives chosen, march '
+                 'orders to the strike group, declarations by the rule, wars entered whoever declared, stagings given up, objectives taken '
+                 'after a capture, peace made by the rule, attacks and walks into empty cities, open borders signed); the human: its '
+                 'declarations (W lines), peace made (Q lines of its team) and attacks (C lines) over its whole game; every column counts events', hover, n=len(hrows))
 
 # decision timing (hm.log) against the human: civic adoptions and the first war
 CI = {k.removeprefix('CIVIC_'): v['CivicOptionType'] for k, v in R['CivicInfo'].items()}
@@ -294,7 +294,7 @@ civs = sorted({r[0].split()[-1] for r in drows if not r[0].endswith('first war')
 reg.result_table('hm_timing', ['map_arm_decision', 'human_turn', 'runs_with_it', 'runs', 'runs_median_turn', 'runs_min', 'runs_max'], drows,
                  'turn', 'model seat and human', 'whole game', 'the turn of each civic the human adopted after turn 2 (CIVICS commands, A '
                  'lines; first command naming it) and of its first declaration (W lines), against the model runs\' hm.log: the first '
-                 '"civics" line naming the civic, the first "at war" line', dover, n=len(dover), xml='CivicInfo', xml_vals=civs)
+                 '"civics" line naming the civic, the first "declare on" or "at war" line', dover, n=len(dover), xml='CivicInfo', xml_vals=civs)
 reg.save()
 for k in ('hm_outcomes',):
     for r in reg.figs[k]['rows']: print(r, file=sys.stderr)

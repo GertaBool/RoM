@@ -231,7 +231,6 @@ P['ob_every'] = (10, 'not measured: an AI that refused is asked again after this
 P['home_keep'] = (1, 'not measured: a city keeps at least this many defenders when its units join a strike group (the human\'s cities held one or two; study/war.md, section 7)')
 P['stage_max_turns'] = (10, 'the approach table covers the ten days before a declaration (study/war.md, section 4): units farther than this many turns from the staging plot are not called')
 P['prep_max_turns'] = (30, 'not in the data (every human preparation ended in a declaration): a preparation is given up after this')
-P['max_wars'] = (1, 'one war of its own at a time: the human\'s rule until its last 15 turns in game 4')
 stall = [w['peace'] - w['last'] for w in ended if w['last'] is not None]
 P['war_stall_turns'] = (math.ceil(statistics.median(stall)), f'the median, rounded up, of turns from the last capture to peace over the {len(stall)} ended wars with a capture')
 lens = [w['peace'] - w['t'] for w in ended]
@@ -246,7 +245,7 @@ P['max_cities'] = (99, 'no limit')
 prow = [[k, v, why] for k, (v, why) in P.items()]
 reg.result_table('hm_params', ['parameter', 'value', 'rule'], prow, 'turns', 'human', 'whole game',
                  f'W, Q, K, M, A, C and Y lines and deal items of the human in {gl}; turns except: decl_ratio_pct (per cent), trade_min_gold '
-                 '(gold), ai_every (choices), max_wars (wars), strike_margin and home_keep (units), target_max_distance and '
+                 '(gold), ai_every (choices), strike_margin and home_keep (units), target_max_distance and '
                  'next_target_max_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)', list(P), n=len(wars))
 wrows = [[f'{w["g"]} {w["t"]}', w['target'], round(w['ratio'], 2) if w['ratio'] else '', w['peace'] if w['peace'] is not None else '-',
           w['caps'], w['last'] if w['last'] is not None else '-'] for w in wars]
