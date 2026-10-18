@@ -5,7 +5,7 @@ The human's wars in game 3 and game 4, one by one: from the build-up before the 
 march and the assault, to the peace. Game 3 is Germany, game 4 Rome (P lines). These are the two
 games with city-state (Y) lines. Method: `framework.md`. Every table is written by
 `tools/warstudy.py` from the war logs, and the tool's header gives each table's source. Section 8
-gives the readings, separately from the facts.
+gives the readings, separately from the facts, and section 9 sets them against the literature.
 
 ## 1. Questions
 
@@ -508,7 +508,81 @@ Each reading names the facts it rests on and what would contradict it.
   - *Open:* whether the switch follows the new units, the size of the army, or the end of the weak
     targets nearby.
 
-## 9. What a model of this must do
+## 9. The readings and the literature
+
+Each reading is set against a classic of military thought, read for this study (`framework.md`,
+section 9). A text supports a reading only where the logged facts already show it, and the
+literature adds one test of its own.
+
+- **R1, a raid on one city, and R5, peace once it is held.**
+  - Clausewitz describes the attack "without the view to a great decision", directed at "some
+    secondary object". With its attainment, "the whole falls again into a state of rest and
+    equilibrium" (*On War*, Book VII, chapter XVI).
+  - In such wars the fortress taken is the usual object, valued for "the convenience and facility
+    with which it could be attacked" rather than "the value of the place itself" (same chapter).
+  - The assailant "buys up prospective advantages which are to be turned to account hereafter in
+    negotiations for peace" (Book VII, chapter V). The human's gold at the peace is that account.
+- **R1, the nearest city.**
+  - A conquest weakens the conqueror the less, "the more it is an annex of our own country, being
+    contiguous to or embraced by it" (Book VIII, chapter VII).
+  - Sun Tzu: "You can be sure of succeeding in your attacks if you only attack places which are
+    undefended" (*The Art of War*, chapter VI, §7).
+  - The classification of section 5 has the human choose by nearness first and by
+    defencelessness after. It is one of the two Clausewitzian conditions, and it keeps the conquest
+    an annex.
+- **R1 and R2, staging and timing.**
+  - Jomini's sequence of a campaign:
+    1. a base;
+    2. a first objective point;
+    3. a line of operations toward it;
+    4. "strategic positions" near it;
+    5. the attack (*The Art of War*, chapter III, definition of strategy).
+  - Sun Tzu: "Knowing the place and the time of the coming battle, we may concentrate from the
+    greatest distances in order to fight" (chapter VI, §19).
+  - The approach of section 4 runs through that sequence.
+- **R4, sieges.**
+  - Sun Tzu calls besieging walled cities "the worst policy of all", "if it can possibly be
+    avoided" (chapter III, §3 and 4).
+  - The human took walled cities only once its army was Legionaries and Centurios. Before that,
+    it chose others.
+- **R3, the sea.**
+  - Mahan: changes in the means of transport alter the scale of distance and time, not "the
+    principles which dictated the point at which the army should be concentrated" (*The Influence
+    of Sea Power upon History*, introductory chapter).
+  - Jomini: before gunpowder, "the transports were also the ships of war". In the records here, a
+    galley and a quinquereme carry
+    4 and 4 units
+    (appendix).
+- **R2, gold into an army.** Smith: "the great expense of firearms gives an evident advantage to
+  the nation which can best afford that expense" (*The Wealth of Nations*, Book V, chapter I,
+  part I). The human's commerce bought upgrades just before each war (section 3).
+- **A test from the literature: the target already engaged.**
+  - Jomini names among the cases where a landing can succeed a diversion "against a state already
+    engaged in a great war, whose troops are occupied at a distance" (Article XL).
+  - Of the 10 wars, the target was at war with another team in
+    8. If the targets had been chosen without regard to their wars,
+    about 4.2 would be expected. The exact chance of at least as many is
+    0.0127.
+  - *Caveat:* the cue was proposed after these wars were read, among several possible cues, and
+    wars older than the first W line of a log are not seen. It is a hypothesis for the model and
+    for further games, not a finding.
+
+| war | target_at_war_elsewhere | other_teams_at_war | other_teams | share_at_war |
+|---|---|---|---|---|
+| game3 203 | no | 4 | 17 | 0.24 |
+| game3 209 | yes | 4 | 17 | 0.24 |
+| game4 238 | yes | 3 | 18 | 0.17 |
+| game4 252 | yes | 5 | 18 | 0.28 |
+| game4 257 | yes | 10 | 18 | 0.56 |
+| game4 268 | yes | 10 | 18 | 0.56 |
+| game4 271 | yes | 10 | 18 | 0.56 |
+| game4 272 | no | 10 | 18 | 0.56 |
+| game4 277 | yes | 9 | 17 | 0.53 |
+| game4 283 | yes | 9 | 17 | 0.53 |
+
+*cities; who: every team; turn: each declaration turn; rows counted: 10; source: warstudy.py on the war logs of game3, game4: a team is at war with another when a W line of the pair precedes the declaration and no Q line of the pair ends it before; wars before the first W line of the log are not seen; other teams: teams other than the human's with a city in M lines the turn before; share_at_war: the chance that a team picked at random among them was at war, the expected count of targets at war being the sum of these shares. Every value counted (10).*
+
+## 10. What a model of this must do
 
 The harness model's war rule (`study/humanmodel.md` in preparation) is one rule: a fixed power
 threshold, the AI's own war plan, and a declaration once enough units are near. Its runs gave up
@@ -518,6 +592,7 @@ each to be checked against the logged wars before any campaign:
 1. **Choose a city, not a team.**
    - Among the cities of teams the seat outweighs, take the nearest, preferring the one with the
      most of its units near (the classification of section 5).
+   - Test as a further cue whether the team is already at war (section 9).
    - The objective is that city and the cities nearest it that fall the same way.
 2. **Build up for it.**
    - Upgrade the army to the newest classes and promote it, in the thirty turns before.
@@ -576,6 +651,13 @@ The Y lines record a city's defenders, not what the human could see of them.
 
 *Yield arrays are food, production, commerce; commerce arrays gold, research, culture, espionage.*
 
+| UnitInfo | Fields set (records.json) |
+|---|---|
+| GALLEY | `Advisor` ADVISOR_MILITARY; `Class` UNITCLASS_GALLEY; `Combat` UNITCOMBAT_WOODEN_SHIPS; `DefaultUnitAI` UNITAI_ASSAULT_SEA; `Domain` DOMAIN_SEA; `DomainCargo` DOMAIN_LAND; `FormationType` FORMATION_TYPE_MACHINE; `PrereqTech` TECH_SAILING; `TerrainImpassables` [{"TerrainType":"TERRAIN_OCEAN","bTerrainImpassable":true}]; `UnitAIs` [{"UnitAIType":"UNITAI_ASSAULT_SEA","bUnitAI":true},{"UnitAIType":"UNITAI_SETTLER_SEA","bUnitAI":true},{"UnitAIType":"UNITAI_MISSIONARY_SEA","bUnitAI":true},{"UnitAIType":"UNITAI_SPY_SEA","bUnitAI":true}]; `UnitClassUpgrades` [{"UnitClassUpgradeType":"UNITCLASS_GALLEON","bUnitClassUpgrade":true},{"UnitClassUpgradeType":"UNITCLASS_FLUYT","bUnitClassUpgrade":true},{"UnitClassUpgradeType":"UNITCLASS_COG","bUnitClassUpgrade":true}]; `UnitMeshGroups` {"UnitMeshGroup":[{"EarlyArtDefineTag":"ART_DEF_UNIT_GALLEY","iRequired":1}],"fMaxSpeed":"2.25","fPadTime":"1","iGroupSize":1,"iMeleeWaveSize":1,"iRangedWaveSize":1}; `bMechanized` True; `bMilitaryProduction` True; `bMilitarySupport` True; `bPillage` True; `bRenderBelowWater` True; `iAdvancedStartCost` 100; `iAsset` 1; `iCargo` 4; `iCombat` 3; `iCombatLimit` 100; `iCost` 25; `iMinAreaSize` 20; `iMoves` 4; `iNukeRange` -1; `iPower` 4; `iXPValueAttack` 6; `iXPValueDefense` 3 |
+| QUINQUEREME | `Advisor` ADVISOR_MILITARY; `Class` UNITCLASS_QUINQUEREME; `Combat` UNITCOMBAT_WOODEN_SHIPS; `DefaultUnitAI` UNITAI_ATTACK_SEA; `Domain` DOMAIN_SEA; `DomainCargo` DOMAIN_LAND; `FormationType` FORMATION_TYPE_MACHINE; `PrereqTech` TECH_SHIP_BUILDING; `TechTypes` ["TECH_ROMAN","TECH_SIEGE_WARFARE","NONE"]; `TerrainImpassables` [{"TerrainType":"TERRAIN_OCEAN","bTerrainImpassable":true}]; `UnitAIs` [{"UnitAIType":"UNITAI_RESERVE_SEA","bUnitAI":true},{"UnitAIType":"UNITAI_ATTACK_SEA","bUnitAI":true},{"UnitAIType":"UNITAI_ASSAULT_SEA","bUnitAI":true},{"UnitAIType":"UNITAI_ESCORT_SEA","bUnitAI":true}]; `UnitClassUpgrades` [{"UnitClassUpgradeType":"UNITCLASS_SLOOP","bUnitClassUpgrade":true},{"UnitClassUpgradeType":"UNITCLASS_BRIGANTINE","bUnitClassUpgrade":true}]; `UnitMeshGroups` {"UnitMeshGroup":[{"EarlyArtDefineTag":"ART_DEF_UNIT_QUINQUEREME","iRequired":3}],"fMaxSpeed":"2.25","fPadTime":"1","iGroupSize":1,"iMeleeWaveSize":1,"iRangedWaveSize":1}; `bMechanized` True; `bMilitaryProduction` True; `bMilitarySupport` True; `bRenderBelowWater` True; `iAdvancedStartCost` 100; `iAirCombat` 1; `iAirCombatLimit` 50; `iAirRange` 1; `iAsset` 1; `iBombardRate` 10; `iCargo` 4; `iCombat` 8; `iCombatLimit` 100; `iCost` 60; `iMinAreaSize` 20; `iMoves` 4; `iNukeRange` -1; `iPower` 16; `iXPValueAttack` 6; `iXPValueDefense` 3 |
+
+*Yield arrays are food, production, commerce; commerce arrays gold, research, culture, espionage.*
+
 ## Figures used
 
 | Figure | Value | Unit | Who | Turn | n | Source |
@@ -591,3 +673,9 @@ The Y lines record a city's defenders, not what the human could see of them.
 | `wr.war_assaults` | table, 22 values | battles | human | each city taken | 22 | warstudy.py on the war logs of game3, game4: for each city the human took, its attacks on that plot from the declaration to the capture turn (C lines, in order: unit and odds per mille); defenders: Y lines on the declaration turn |
 | `wr.war_peace` | table, 7 values | turns | human | each peace | 7 | warstudy.py on the war logs of game3, game4: Q lines and the deal items of the peace turn between the two (TRADE_GOLD, TRADE_GOLD_PER_TURN, TRADE_TECHNOLOGIES, TRADE_CITIES; given by side); gold in gold, techs and cities counted |
 | `wr.war_home` | table, 10 values | cities | human | each war | 10 | warstudy.py on the war logs of game3, game4: the human's Y lines on the declaration turn; C lines with the human defending against the target and K lines of cities it lost, during the war |
+| `wr.war_ships` | table, 2 values | xml | human | whole game | 2 | the ships named in section 9 (UnitInfo records) |
+| `wr.wars_counted` | 10 | cities | human | each declaration | 10 | W lines of the human team in the games given |
+| `wr.targets_at_war_elsewhere` | 8 | cities | the human's targets | each declaration turn | 10 | war_engaged: wars whose target was at war with another team (counted per war) |
+| `wr.targets_at_war_expected` | 4.2 | cities | the human's targets | each declaration turn | 10 | war_engaged: sum over wars of share_at_war, the count expected if targets were picked without regard to their wars |
+| `wr.targets_at_war_p` | 0.0127 | share | the human's targets | each declaration turn | 10 | war_engaged: the chance of at least as many targets at war elsewhere if each war's target were a random other team (Poisson-binomial over the wars' shares, computed exactly) |
+| `wr.war_engaged` | table, 10 values | cities | every team | each declaration turn | 10 | warstudy.py on the war logs of game3, game4: a team is at war with another when a W line of the pair precedes the declaration and no Q line of the pair ends it before; wars before the first W line of the log are not seen; other teams: teams other than the human's with a city in M lines the turn before; share_at_war: the chance that a team picked at random among them was at war, the expected count of targets at war being the sum of these shares |

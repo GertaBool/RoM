@@ -243,6 +243,33 @@ For each book: what was read in full, and why the rest was not used.
   - Its manner is taken for documents written for the user: a concrete case first, then the
     general statement, then a check of the result.
 
+The military and economic classics below are Project Gutenberg texts (Graham's Clausewitz,
+Giles's Sun Tzu, Mendell and Craighill's Jomini). They were read for `study/war.md`, where each
+reading of the human's wars is set against them.
+- **Clausewitz, *On War*.**
+  - Read in full: the contents; Book VII, chapters III–V, XVI and XXII; Book VIII,
+    chapters V and VII.
+  - Not used: the defence of mountains, rivers, swamps and forests (Book VI, chapters XV–XXI),
+    since the game's terrain enters only as a defence modifier; night fighting.
+  - Taken: the limited object, the culminating point, contiguity of conquests.
+- **Sun Tzu, *The Art of War*.**
+  - Read in full: chapters II, III and VI, without the commentaries.
+  - Not used: chapters XII and XIII (fire, spies), which have no counterpart in the logs.
+  - Taken: short wars, foraging on the enemy, attacking the undefended, avoiding sieges.
+- **Jomini, *The Art of War*.**
+  - Read in full: the contents; the definition of strategy and the fundamental principle;
+    Articles XXXV and XL (attack of cities, descents).
+  - Not used: orders of battle and formations (chapter VII), which the game's combat does not
+    represent.
+  - Taken: the sequence of a campaign, and the cases where a landing can succeed. The last gave
+    the test of the engaged target (`study/war.md`, section 9).
+- **Mahan, *The Influence of Sea Power upon History*.**
+  - Read in full: the introductory chapter.
+  - Not used: the campaigns of chapters II–XIV, which concern fleets of sailing ships.
+- **Smith, *The Wealth of Nations*.**
+  - Read in full: Book V, chapter I, part I (the expense of defence).
+  - Not used: the rest, which is on production and trade, already measured in the logs.
+
 ## 10. Cost
 
 - Machine time is small: each tool runs in under a second on game 4. Reading and error cost

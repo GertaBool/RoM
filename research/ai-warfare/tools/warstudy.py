@@ -55,6 +55,7 @@ for db in DBS:
     last = q('select max(turn) from wl_T')[0][0]
     water = {(x, y) for x, y in q("select x, y from plots where terrain in ('COAST', 'OCEAN')")}
     ui = {u: (ai, dom) for u, ai, dom in q('select unit, default_ai, domain from unit_info')}
+    ui_all = ui
     role = lambda u: ui.get(u, ('?', '?'))[0]
     dom = lambda u: ui.get(u, ('?', '?'))[1]
 
@@ -80,6 +81,15 @@ for db in DBS:
         T_all['wars'].append([wid, P, round(mp[0][0] / mt[0][0], 2) if mp and mt and mt[0][0] else '', len(tcity), len(caps),
                               caps[0][0] - T if caps else '-', len(attacks), killed, lost, pq - T if pq is not None else 'open'])
         O_all['wars'].append(wid)
+        # --- was the target already at war with another team? (W and Q lines of every other pair)
+        others = q('select team, target, turn from wl_W where team<>? and target<>? and turn<?', team, team, T)
+        atwar = set()
+        for a, b, t0 in others:
+            t1 = q('select min(turn) from wl_Q where ((team=? and target=?) or (team=? and target=?)) and turn>=?', a, b, b, a, t0)[0][0]
+            if t1 is None or t1 >= T: atwar |= {a, b}
+        alive = {t for (t,) in q('select distinct p.team from wl_M m join wl_P p on p.player=m.player where m.turn=? and m.cities>0', T - 1)} - {team}
+        T_all['engaged'].append([wid, 'yes' if tgt in atwar else 'no', len(atwar & alive), len(alive), round(len(atwar & alive) / len(alive), 2) if alive else ''])
+        O_all['engaged'].append(wid)
         # --- build-up
         for lo, hi, lab in ((T - 30, T - 1, 'the 30 turns before'), (T - 60, T - 31, 'the 30 turns before those')):
             built = collections.Counter(role(u) for (u,) in q('select unit from wl_U where player=? and turn between ? and ?', hp, lo, hi))
@@ -192,6 +202,28 @@ reg.result_table('war_approach', ['war_day', 'fighting_moves', 'units_in_them', 
                  'explorers and merchants (DefaultUnitAI); units: group sizes; near: the target plot within two plots of a city the human '
                  'took in that war; distances in grid plots from the unit\'s plot and from its target plot to the nearest such city',
                  O_all['approach'], n=len(O_all['approach']))
+eng = T_all['engaged']
+reg.result_table('war_engaged', ['war', 'target_at_war_elsewhere', 'other_teams_at_war', 'other_teams', 'share_at_war'], eng, 'cities', 'every team',
+                 'each declaration turn', src + ': a team is at war with another when a W line of the pair precedes the declaration and no Q '
+                 'line of the pair ends it before; wars before the first W line of the log are not seen; other teams: teams other than the '
+                 'human\'s with a city in M lines the turn before; share_at_war: the chance that a team picked at random among them was at '
+                 'war, the expected count of targets at war being the sum of these shares', O_all['engaged'], n=len(eng))
+reg.fig('targets_at_war_elsewhere', sum(1 for r in eng if r[1] == 'yes'), 'cities', 'the human\'s targets', 'each declaration turn',
+        'war_engaged: wars whose target was at war with another team (counted per war)', n=len(eng))
+reg.fig('targets_at_war_expected', round(sum(r[4] for r in eng if r[4] != ''), 1), 'cities', 'the human\'s targets', 'each declaration turn',
+        'war_engaged: sum over wars of share_at_war, the count expected if targets were picked without regard to their wars', n=len(eng))
+dist = [1.0]                                        # Poisson-binomial: P(k targets at war) from the shares
+for r in eng:
+    pr = r[4] if r[4] != '' else 0
+    dist = [a * (1 - pr) + (dist[i - 1] * pr if i else 0) for i, a in enumerate(dist + [0.0])]
+k_obs = sum(1 for r in eng if r[1] == 'yes')
+reg.fig('targets_at_war_p', round(sum(dist[k_obs:]), 4), 'share', 'the human\'s targets', 'each declaration turn',
+        'war_engaged: the chance of at least as many targets at war elsewhere if each war\'s target were a random other team '
+        '(Poisson-binomial over the wars\' shares, computed exactly)', n=len(eng))
+ships = sorted({u for u, (ai, d) in ui_all.items() if d == 'SEA' and u in ('GALLEY', 'QUINQUEREME')})
+reg.result_table('war_ships', ['ship'], [[u] for u in ships], 'xml', 'human', 'whole game', 'the ships named in section 9 (UnitInfo records)',
+                 ships, n=len(ships), xml='UnitInfo', xml_vals=ships)
+reg.fig('wars_counted', len(eng), 'cities', 'human', 'each declaration', 'W lines of the human team in the games given', n=len(eng))
 reg.result_table('war_targets', ['war_city', 'pop', 'defenders', 'best_defender', 'defence_pct', 'foreign_units_near', 'distance', 'day_taken'],
                  T_all['targets'], 'cities', 'the human\'s targets', 'each declaration turn', src + ': the first Y line of each city of the '
                  'target on the declaration turn; distance: grid plots to the nearest city of the human that turn (its Y lines); day_taken: '
