@@ -26,6 +26,10 @@ from the save's cities and the K and Z lines on each plot; map wrap ignored). St
   weak_of_near_half  the least power among the options at or under the median distance
   most_cities        the most cities
   weakest_ratio      the least power per city
+  engaged            at war with a team other than the human's (W lines of the pair before the declaration,
+                     no Q line between; wars before a log's first W line are not seen): the test the
+                     literature suggested (Jomini, The Art of War, Article XL; study/war.md, section 9)
+  nearest_then_engaged, engaged_then_nearest   take-the-best with both cues, in either order
 Tables: <game>_war_targets (each decision, the target's rank on each cue), war_target_strategies
 (per game and pooled).
 """
@@ -71,11 +75,15 @@ def decisions(con):
         cities = {}
         for (x, y), t0, t1, o in iv:
             if t0 <= t < t1: cities.setdefault(o, []).append((x, y))
+        engaged = set()   # at war with a team other than the human's: a W line of the pair before, no Q line between
+        for s2, t2, a, b in W:
+            if s2 >= seq or h in (a, b): continue
+            if not any(q[0] > s2 and q[0] < seq and {q[2], q[3]} == {a, b} for q in Q): engaged |= {a, b}
         opts = []
         for p, (pw, c) in m.items():
             if p == h or p in at_war or p in unmet or p not in cities: continue
             d = min(max(abs(a[0] - b[0]), abs(a[1] - b[1])) for a in cities.get(h, []) for b in cities[p]) if cities.get(h) else None
-            opts.append(dict(p=p, power=pw, cities=c, dist=d))
+            opts.append(dict(p=p, power=pw, cities=c, dist=d, engaged=0 if p in engaged else 1))
         out.append(dict(seq=seq, turn=t, target=target, opts=opts))
     return out
 
@@ -86,6 +94,9 @@ def picks(name, opts):
     elif name == 'nearest_then_weak': key = lambda o: (o['dist'], o['power'])
     elif name == 'most_cities': key = lambda o: -o['cities']
     elif name == 'weakest_ratio': key = lambda o: o['power'] / max(1, o['cities'])
+    elif name == 'engaged': key = lambda o: o['engaged']
+    elif name == 'nearest_then_engaged': key = lambda o: (o['dist'], o['engaged'])
+    elif name == 'engaged_then_nearest': key = lambda o: (o['engaged'], o['dist'])
     elif name == 'weak_of_near_half':
         ds = sorted(o['dist'] for o in opts); med = ds[(len(ds) - 1) // 2]
         near = [o for o in opts if o['dist'] <= med]
@@ -95,7 +106,8 @@ def picks(name, opts):
     return {o['p'] for o in opts if key(o) == best}
 
 
-STRATS = ['weakest', 'nearest', 'nearest_then_weak', 'weak_of_near_half', 'most_cities', 'weakest_ratio']
+STRATS = ['weakest', 'nearest', 'nearest_then_weak', 'weak_of_near_half', 'most_cities', 'weakest_ratio', 'engaged',
+          'nearest_then_engaged', 'engaged_then_nearest']
 
 
 def score(ds):

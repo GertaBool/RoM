@@ -1,9 +1,10 @@
 <!-- registry: war.fig.json as wr -->
+<!-- registry: targets.fig.json as tg -->
 # How the human plans, organises and fights its wars
 
 The human's wars in game 3 and game 4, one by one: from the build-up before the declaration, through the
 march and the assault, to the peace. Game 3 is Germany, game 4 Rome (P lines). These are the two
-games with city-state (Y) lines. Method: `framework.md`. Every table is written by
+games with city-state (Y) lines. Method: `method/docs/framework.md`. Every table is written by
 `tools/warstudy.py` from the war logs, and the tool's header gives each table's source. Section 8
 gives the readings, separately from the facts, and section 9 sets them against the literature.
 
@@ -73,6 +74,14 @@ gives the readings, separately from the facts, and section 9 sets them against t
   human's units already stood within two plots of the first city it took in most wars. The
   exceptions are game 3's second war and game 4's last: no unit was near, and the first capture
   came later.
+- **Access.** Units cannot enter another player's land in peace without an open-borders agreement.
+  The human had made one with every target before the war, long before in most cases. For game 4's
+  seventh war it was signed again the turn after the previous peace with that AI. It had one
+  with nearly every AI it had met. Open borders are a standing policy, not a deal for one war, and
+  they are what let the army stand next to the target's cities before the declaration.
+
+{{table:wr.war_access}}
+
 - **Groups and ships.** Group commands and naval moves were few before the early wars, and grew
   over game 4's wars. Orders given to land units standing on water show sea landings:
   - in single cases before game 4's first three wars;
@@ -178,7 +187,7 @@ Each reading names the facts it rests on and what would contradict it.
 
 ## 9. The readings and the literature
 
-Each reading is set against a classic of military thought, read for this study (`framework.md`,
+Each reading is set against a classic of military thought, read for this study (`method/docs/framework.md`,
 section 9). A text supports a reading only where the logged facts already show it, and the
 literature adds one test of its own.
 
@@ -232,10 +241,20 @@ literature adds one test of its own.
     about {{wr.targets_at_war_expected}} would be expected. The exact chance of at least as many is
     {{wr.targets_at_war_p}}.
   - *Caveat:* the cue was proposed after these wars were read, among several possible cues, and
-    wars older than the first W line of a log are not seen. It is a hypothesis for the model and
-    for further games, not a finding.
+    wars older than the first W line of a log are not seen.
 
 {{table:wr.war_engaged}}
+
+  - **The test, at the choice of team.** `tools/strategy.py` classifies each declaration among the
+    AIs the human could have attacked. Its options and cues are in its header.
+    - "Engaged" alone matches many choices, but at a high error rate: many AIs were at war at once,
+      so it rarely singles one out.
+    - Used after nearness, as a tie-breaker, it adds little to "nearest" alone. Compare the two
+      rows of the table.
+    - So the excess of engaged targets is largely explained by nearness: the nearest AIs were often
+      at war. The model takes nearness as its rule and leaves "engaged" out.
+
+{{table:tg.war_target_strategies_pooled}}
 
 ## 10. What a model of this must do
 
@@ -247,14 +266,18 @@ each to be checked against the logged wars before any campaign:
 1. **Choose a city, not a team.**
    - Among the cities of teams the seat outweighs, take the nearest, preferring the one with the
      most of its units near (the classification of [[section 5]]).
-   - Test as a further cue whether the team is already at war ([[section 9]]).
+   - Whether the team is already at war adds little at the choice of team ([[section 9]]), and is
+     left out.
    - The objective is that city and the cities nearest it that fall the same way.
 2. **Build up for it.**
    - Upgrade the army to the newest classes and promote it, in the thirty turns before.
    - Build transports when the city lies across water, and siege units and warships for a large
      city.
-3. **Stage.** Move a strike group to within two plots of the city, by land or by transport. Its
-   size is set by the city's defenders, as in the assault table. Declare when it stands there.
+3. **Stage.**
+   - Keep open borders with every AI met ([[section 4]]).
+   - Move a strike group to within two plots of the city, by land or by transport. Its size is set
+     by the city's defenders, as in the assault table.
+   - Declare when it stands there.
 4. **Assault.**
    - Attack in order of odds against a small city.
    - Against a large city: open with the strongest unit, accept losses at low odds while the

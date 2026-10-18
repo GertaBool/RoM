@@ -2034,6 +2034,112 @@
    "source": "W lines of the human team in the games given",
    "n": 10
   },
+  "war_access": {
+   "kind": "table",
+   "head": [
+    "war",
+    "last_open_borders_deal_with_target",
+    "turns_before_declaration",
+    "ais_with_an_open_borders_deal",
+    "ais_met"
+   ],
+   "rows": [
+    [
+     "game3 203",
+     156,
+     47,
+     15,
+     17
+    ],
+    [
+     "game3 209",
+     156,
+     53,
+     16,
+     17
+    ],
+    [
+     "game4 238",
+     174,
+     64,
+     16,
+     18
+    ],
+    [
+     "game4 252",
+     138,
+     114,
+     16,
+     18
+    ],
+    [
+     "game4 257",
+     182,
+     75,
+     16,
+     18
+    ],
+    [
+     "game4 268",
+     153,
+     115,
+     16,
+     18
+    ],
+    [
+     "game4 271",
+     174,
+     97,
+     17,
+     18
+    ],
+    [
+     "game4 272",
+     145,
+     127,
+     17,
+     18
+    ],
+    [
+     "game4 277",
+     255,
+     22,
+     17,
+     18
+    ],
+    [
+     "game4 283",
+     153,
+     130,
+     17,
+     18
+    ]
+   ],
+   "unit": "turns",
+   "who": "human",
+   "turn": "each declaration turn",
+   "source": "warstudy.py on the war logs of game3, game4: deal items TRADE_OPEN_BORDERS (D lines) between the human and the target before the declaration; open borders let units enter another's land in peace, and a declaration ends them; ais_with_an_open_borders_deal: the AIs with any such deal with the human before the declaration; ais_met: those and the AIs the human had met by the save (diplo)",
+   "n": 10,
+   "values_total": 10,
+   "values_shown": 10,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "game3 203",
+    "game3 209",
+    "game4 238",
+    "game4 252",
+    "game4 257",
+    "game4 268",
+    "game4 271",
+    "game4 272",
+    "game4 277",
+    "game4 283"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
   "war_targets": {
    "kind": "table",
    "head": [

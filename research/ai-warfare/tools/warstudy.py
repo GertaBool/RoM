@@ -90,6 +90,12 @@ for db in DBS:
         alive = {t for (t,) in q('select distinct p.team from wl_M m join wl_P p on p.player=m.player where m.turn=? and m.cities>0', T - 1)} - {team}
         T_all['engaged'].append([wid, 'yes' if tgt in atwar else 'no', len(atwar & alive), len(alive), round(len(atwar & alive) / len(alive), 2) if alive else ''])
         O_all['engaged'].append(wid)
+        # --- access: open-borders deals (D items TRADE_OPEN_BORDERS) with the target and with every AI, before the declaration
+        ob = q('select max(turn), count(distinct seq) from deal_items where item=5 and turn<? and ((first=? and second=?) or (first=? and second=?))', T, hp, P, P, hp)[0]
+        partners = {a if b == hp else b for a, b in q('select distinct first, second from deal_items where item=5 and turn<? and (first=? or second=?)', T, hp, hp)}
+        met = {o for (o,) in q('select other from diplo where player=? and met=1', hp)} | partners
+        T_all['access'].append([wid, ob[0] if ob[0] is not None else '-', T - ob[0] if ob[0] is not None else '-', len(partners), len(met - {hp})])
+        O_all['access'].append(wid)
         # --- build-up
         for lo, hi, lab in ((T - 30, T - 1, 'the 30 turns before'), (T - 60, T - 31, 'the 30 turns before those')):
             built = collections.Counter(role(u) for (u,) in q('select unit from wl_U where player=? and turn between ? and ?', hp, lo, hi))
@@ -224,6 +230,11 @@ ships = sorted({u for u, (ai, d) in ui_all.items() if d == 'SEA' and u in ('GALL
 reg.result_table('war_ships', ['ship'], [[u] for u in ships], 'xml', 'human', 'whole game', 'the ships named in section 9 (UnitInfo records)',
                  ships, n=len(ships), xml='UnitInfo', xml_vals=ships)
 reg.fig('wars_counted', len(eng), 'cities', 'human', 'each declaration', 'W lines of the human team in the games given', n=len(eng))
+reg.result_table('war_access', ['war', 'last_open_borders_deal_with_target', 'turns_before_declaration', 'ais_with_an_open_borders_deal',
+                                 'ais_met'], T_all['access'], 'turns', 'human', 'each declaration turn', src + ': deal items TRADE_OPEN_BORDERS '
+                 '(D lines) between the human and the target before the declaration; open borders let units enter another\'s land in '
+                 'peace, and a declaration ends them; ais_with_an_open_borders_deal: the AIs with any such deal with the human before the '
+                 'declaration; ais_met: those and the AIs the human had met by the save (diplo)', O_all['access'], n=len(O_all['access']))
 reg.result_table('war_targets', ['war_city', 'pop', 'defenders', 'best_defender', 'defence_pct', 'foreign_units_near', 'distance', 'day_taken'],
                  T_all['targets'], 'cities', 'the human\'s targets', 'each declaration turn', src + ': the first Y line of each city of the '
                  'target on the declaration turn; distance: grid plots to the nearest city of the human that turn (its Y lines); day_taken: '

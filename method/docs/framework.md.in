@@ -6,8 +6,8 @@ This document defines:
 - how models of the human's decisions are tested;
 - how changes to the AI are evaluated.
 
-Each part names its source. *Implemented* means enforced by `tools/figlib.py`, `tools/docs.py`
-and `tools/check_all.py`. *Open* means specified here but not built yet. Section 9 records what
+Each part names its source. *Implemented* means enforced by `method/figlib.py`, `method/docs.py`
+and `method/check_all.py`. *Open* means specified here but not built yet. Section 9 records what
 was read in each book and what was judged not to apply.
 
 ## 1. Objects
@@ -54,7 +54,7 @@ was read in each book and what was judged not to apply.
   - at least one independent second derivation of a quantity, such as cities from the M lines
     against cities in the save at `T`.
 
-  *Open* for `workers.py`; the self-test does this for the checker itself.
+  *Open* for `research/ai-warfare/tools/workers.py`; the self-test does this for the checker itself.
 
 ## 3. Census as a partition, with running checks
 
@@ -143,9 +143,9 @@ was read in each book and what was judged not to apply.
   (Linear Algebra with Python, section 9.4).
 - **Choices among options** (Bröder, in *Heuristics*, chapter 17): each candidate strategy is
   followed with a constant error rate, its likelihood is maximised over that rate, and it must
-  beat guessing; strategies are compared by likelihood and BIC (`tools/strategy.py`).
+  beat guessing; strategies are compared by likelihood and BIC (`research/ai-warfare/tools/strategy.py`).
 - **Phases:** an exact optimal partition of the per-turn activity, with a parsimony penalty per
-  phase, checked at half and twice the penalty (`tools/phases.py`).
+  phase, checked at half and twice the penalty (`research/ai-warfare/tools/phases.py`).
 - **Synthesis:** the parts are read from a proposed whole and the whole is checked against each
   part (Schleiermacher, in Mueller-Vollmer, *The Hermeneutics Reader*, p. 84).
 - *Open:* cue profiles, the cross-game test, the credibility weights.
@@ -156,7 +156,7 @@ was read in each book and what was judged not to apply.
   from an explicit formula, from special perturbations, which must be computed numerically
   ([[sections 14.1 and 15.1]]). Where a change acts through a formula, its effect is computed
   exactly, not simulated. The upgrade-rate truncation is an example
-  (`decisions/workers-game4.md`). Simulation is for effects that emerge from play.
+  (`research/ai-warfare/decisions/workers-game4.md`). Simulation is for effects that emerge from play.
 - **Runs.** Each variant gets at least `30` independent runs, each with its own seed (Luke,
   section 11.1.2: "always run each technique at least `30` times"). The harness provides this:
   `HARNESS_RESEED=n` gives independent continuations of one save.
@@ -176,7 +176,7 @@ was read in each book and what was judged not to apply.
   and a drift, after Tatum's periodic and secular perturbations (section 14.1). Only a drift
   is evidence of a lasting effect.
 - **Earlier comparisons.** The earlier AI comparisons ran on one to four seeds
-  (`diagnosis-1.md`, `research/ai-strategy/README.md`). They are anecdotes under this rule.
+  (`research/ai-warfare/diagnosis-1.md`, `research/ai-strategy/README.md`). They are anecdotes under this rule.
 
 ## 8. Formulas of the game
 
@@ -244,7 +244,7 @@ For each book: what was read in full, and why the rest was not used.
     general statement, then a check of the result.
 
 The military and economic classics below are Project Gutenberg texts (Graham's Clausewitz,
-Giles's Sun Tzu, Mendell and Craighill's Jomini). They were read for `study/war.md`, where each
+Giles's Sun Tzu, Mendell and Craighill's Jomini). They were read for `research/ai-warfare/study/war.md`, where each
 reading of the human's wars is set against them.
 - **Clausewitz, *On War*.**
   - Read in full: the contents; Book VII, chapters III–V, XVI and XXII; Book VIII,
@@ -262,13 +262,57 @@ reading of the human's wars is set against them.
   - Not used: orders of battle and formations (chapter VII), which the game's combat does not
     represent.
   - Taken: the sequence of a campaign, and the cases where a landing can succeed. The last gave
-    the test of the engaged target (`study/war.md`, section 9).
+    the test of the engaged target (`research/ai-warfare/study/war.md`, section 9).
 - **Mahan, *The Influence of Sea Power upon History*.**
   - Read in full: the introductory chapter.
   - Not used: the campaigns of chapters II–XIV, which concern fleets of sailing ships.
 - **Smith, *The Wealth of Nations*.**
   - Read in full: Book V, chapter I, part I (the expense of defence).
   - Not used: the rest, which is on production and trade, already measured in the logs.
+
+Mathematical readings for the human model's war rule (`toolchain/harness/HarnessHuman.cpp`):
+- **Lanchester, *Aircraft in Warfare*, chapter V.**
+  - Read in full: [[sections 19–21]], the ancient law of one-to-one combat against the modern
+    law of concentration.
+  - Not used: the chapters on aircraft and naval gunnery.
+  - Taken: combat in the game is a sequence of duels, so the old linear law holds, and the
+    chance of taking a city follows from the combat formula. It is an absorbing Markov chain over
+    the defenders' hit points, which `CvSelectionGroupAI::AI_cityAssaultForecast` already
+    computes.
+- **Gigerenzer, Hertwig and Pachur, *Heuristics*, chapter 1.**
+  - Taken: the bias–variance dilemma. A rule with many fitted thresholds varies more between
+    samples than a rule with one; a handful of observed wars cannot fix many thresholds.
+  - Taken: Simon's satisficing, as the chapter gives it: an aspiration level, and the first
+    option that meets it. It is the form of the declaration rule (`research/ai-warfare/study/model.md`).
+- **Mandelbrot and Hudson, *The Misbehavior of Markets*.**
+  - Read in full: the abstract for the scientific reader, and the passages on mild and wild
+    chance.
+  - Not used: the price models, which have no counterpart in the game.
+  - Taken: when single outcomes can dominate a sample, as one conquest can dominate a game,
+    compare runs by rank, not by mean, and never judge from two runs.
+- **Mandelbrot, *Gaussian Self-Affinity and Fractals* (Selecta volume H).**
+  - Read in full: the list of chapters, the preface, and chapter H10 (Mandelbrot and Wallis,
+    "Noah, Joseph, and operational hydrology", [[pp. 236–251]]).
+  - Not used: the chapters on fractional Brownian surfaces, cartoons and R/S estimation. They
+    need long series, and a game gives a few wars.
+  - Taken: a model patched each time a new record breaks it gives "special significance" to the
+    sample it was fitted on; fit the slow features first and the fast ones later. Wars in one game
+    form one record, not independent draws, so between-game questions have about as many
+    observations as there are games.
+- **Ross, Gordon and Bagnell, "A Reduction of Imitation Learning and Structured Prediction to
+  No-Regret Online Learning" ([arXiv](https://arxiv.org/abs/1011.0686)).**
+  - Read in full: the abstract, and the statement of the error bound for a policy trained on the
+    expert's states.
+  - Not used: the algorithm and its proofs, which need the expert to label states the learner
+    reaches, not yet possible here.
+  - Taken: errors compound off the expert's path, so the model is judged in its own states
+    as well as in the human's (`research/ai-warfare/study/model.md`, section 5).
+- ***Linear Algebra with Python*.**
+  - Read in full: [[section 9.4]] (Markov chains).
+  - Not used: the rest, which is matrix computation without a question here.
+- **Luke, *Essentials of Metaheuristics*, [[section 11]].**
+  - Taken: training and test sets. The seeds used to fix the model are training data, so the
+    model is judged only on fresh seeds and on a held-out game.
 
 ## 10. Cost
 
@@ -277,5 +321,5 @@ reading of the human's wars is set against them.
 - The machine computes exact statistics in one pass. The conversation reads only rendered
   documents, never raw rows.
 - Outputs are deterministic, so byte equality is a valid test.
-- *Open:* `micro-game4.md` and `figures.md` carry headers added by hand. They stay in
+- *Open:* `research/ai-warfare/decisions/micro-game4.md` and `research/ai-warfare/decisions/figures.md` carry headers added by hand. They stay in
   `UNCHECKED` until their tools write through `figlib`.

@@ -47,20 +47,27 @@ BUILD BUILDINGCLASS_MARKET
 BUILD BUILDINGCLASS_COURTHOUSE
 BUILD BUILDINGCLASS_BARRACKS
 PARAM war_min_turn 193
-PARAM decl_ratio_pct 310
-PARAM prep_min_turns 3
-PARAM decl_units 5
+PARAM prep_ratio_pct 160
+PARAM decl_ratio_pct 200
 PARAM attack_min_odds 720
+PARAM stage_distance 2
+PARAM war_gap_turns 3
+PARAM strike_margin 2
+PARAM target_max_distance 4
+PARAM next_target_max_distance 3
+PARAM siege_defenders 999
+PARAM siege_min_odds 720
+PARAM ob_min_turn 145
+PARAM ob_every 10
+PARAM home_keep 1
+PARAM stage_max_turns 10
 PARAM prep_max_turns 30
-PARAM war_gap_turns 0
-PARAM max_wars 1
-PARAM max_distance 999
 PARAM war_stall_turns 1
 PARAM war_max_turns 5
 PARAM trade_min_turn 261
 PARAM trade_every 1
 PARAM trade_min_gold 220
 PARAM ai_every 4
-PARAM ai_every_war 4
+PARAM ai_every_war 1
 PARAM settler_min_pop 3
 PARAM max_cities 99

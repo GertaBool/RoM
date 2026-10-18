@@ -1,0 +1,42 @@
+[
+ {
+  "id": "taken",
+  "function": "cities_taken_by_turn",
+  "kind": "games",
+  "essential": true,
+  "text": "Cities the human took by a given turn of a game logged from turn 0 (K lines). G6: lower is better.",
+  "source_sha": "1413cd882bd96f61d97704d2874cd7ac6bf0358fdb68f1b822c0852e42e43d1a"
+ },
+ {
+  "id": "lost",
+  "function": "cities_lost_by_turn",
+  "kind": "games",
+  "essential": true,
+  "text": "Cities the human lost by a given turn of a game logged from turn 0 (K lines). G6: higher is better.",
+  "source_sha": "0808a0e171342056744821ad03f60aacc3324d0cef2e51410e54cebd0ef9eef8"
+ },
+ {
+  "id": "seat_captures",
+  "function": "seat_captures",
+  "kind": "runs",
+  "essential": false,
+  "text": "Cities the harness seat took in a run (capture events). A proxy for taken: it must serve a prediction on an essential variable.",
+  "source_sha": "739d1ec9df69a319bc99fcb7e27ff1c933f4ddca40cacd697954fc7582037359"
+ },
+ {
+  "id": "turn_seconds",
+  "function": "turn_seconds",
+  "kind": "runs",
+  "essential": true,
+  "text": "Wall-clock seconds of a run (sum of the telemetry ms). G4: no worse.",
+  "source_sha": "0298fa00eea38b69c024a4e4d17637e9aa602a6ed06b3a6d9bad7328a276d67c"
+ },
+ {
+  "id": "completed",
+  "function": "run_completed",
+  "kind": "runs",
+  "essential": true,
+  "text": "1 if the run reached its result line, 0 if it crashed or hung. G1: no regression.",
+  "source_sha": "3c4e2f05d34bbc563052d79d5bec84331fb447468c240a8fae3741e430e6c451"
+ }
+]

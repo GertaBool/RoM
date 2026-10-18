@@ -783,19 +783,14 @@
      "the first declaration of each game (game3 203, game4 238), the earlier less 10 turns for the build-up and the march"
     ],
     [
+     "prep_ratio_pct",
+     100,
+     "the second-lowest power ratio of the human to its target thirty turns before the declaration (M lines) over 10 wars, rounded down to tens: the preparation begins against a team the seat matches this far"
+    ],
+    [
      "decl_ratio_pct",
-     200,
-     "the second-lowest power ratio (M lines, the turn before) of the 10 declarations, rounded down to tens: all but one were at least this"
-    ],
-    [
-     "prep_min_turns",
-     3,
-     "the shortest time from a peace to the next declaration of the same game (5 gaps)"
-    ],
-    [
-     "decl_units",
-     5,
-     "the fewest units the human moved (MISSION_MOVE_TO commands, A lines, by group size) on a turn it declared (10 turns: 5, 6, 7, 8, 8, 10, 12, 16, 18, 26); the seat declares once this many of its fighting land units stand within two plots of the target's cities"
+     120,
+     "the lowest power ratio (M lines, the turn before) of the 10 declarations, rounded down to tens: every declaration was at least this (most were at twice the power or more, hm_wars)"
     ],
     [
      "attack_min_odds",
@@ -803,24 +798,64 @@
      "the lower of the games' 10th percentiles of the odds (per mille) of the human's attacks (C lines; game3: 726 of 14 attacks, game4: 716 of 80 attacks), rounded down to tens; the seat attacks whenever its odds reach this"
     ],
     [
-     "prep_max_turns",
-     30,
-     "not in the data (every human preparation ended in a declaration): a preparation is given up after this"
+     "stage_distance",
+     2,
+     "the median over 8 wars of the median distance, on the declaration day, from the first city taken to the plots from which the human's fighting land units were ordered onto it or next to it (A lines MISSION_MOVE_TO): the strike group gathers this far from the objective and closes in on the declaration"
     ],
     [
      "war_gap_turns",
-     0,
-     "the gap is prep_min_turns"
+     3,
+     "the shortest time from a peace to the next declaration of the same game (5 gaps)"
     ],
     [
-     "max_wars",
+     "strike_margin",
+     2,
+     "the median, over the 6 wars whose first city taken had at most two defenders (raids), of the land units of other players within two plots of it (Y lines, the declaration turn) less its defenders; the strike group is the defenders plus this"
+    ],
+    [
+     "target_max_distance",
+     6,
+     "the farthest, from the human's cities (Y lines, the declaration turn), of the first cities taken in the 10 wars"
+    ],
+    [
+     "next_target_max_distance",
+     3,
+     "the farthest of the 12 later cities taken in a war from the human's cities and those taken before in the same war"
+    ],
+    [
+     "siege_defenders",
+     11,
+     "the fewest defenders (Y lines, the declaration turn) of a city the human attacked at odds under 500 (1 cities); there the strike group may attack at siege_min_odds"
+    ],
+    [
+     "siege_min_odds",
+     350,
+     "the lowest odds (per mille, C lines) of the human's attacks on those cities, rounded down to tens"
+    ],
+    [
+     "ob_min_turn",
+     126,
+     "the first open-borders deal of the human (deal items TRADE_OPEN_BORDERS: game3 145, game4 126), the earlier; from then on the seat offers open borders to every AI met"
+    ],
+    [
+     "ob_every",
+     10,
+     "not measured: an AI that refused is asked again after this many turns"
+    ],
+    [
+     "home_keep",
      1,
-     "one war of its own at a time: the human's rule until its last 15 turns in game 4"
+     "not measured: a city keeps at least this many defenders when its units join a strike group (the human's cities held one or two; study/war.md, section 7)"
     ],
     [
-     "max_distance",
-     999,
-     "no limit: the nearest team qualifying is chosen whatever its distance"
+     "stage_max_turns",
+     10,
+     "the approach table covers the ten days before a declaration (study/war.md, section 4): units farther than this many turns from the staging plot are not called"
+    ],
+    [
+     "prep_max_turns",
+     30,
+     "not in the data (every human preparation ended in a declaration): a preparation is given up after this"
     ],
     [
      "war_stall_turns",
@@ -854,8 +889,8 @@
     ],
     [
      "ai_every_war",
-     3,
-     "as ai_every: no rule from the data for a different share in war"
+     1,
+     "ai_every scaled by the fighting units the human built in the thirty turns before its declarations against the thirty before those (U lines, DefaultUnitAI: 210 against 80), rounded, at least one: during a preparation or war the AI builds the seat's units that much more often"
     ],
     [
      "settler_min_pop",
@@ -871,23 +906,30 @@
    "unit": "turns",
    "who": "human",
    "turn": "whole game",
-   "source": "W, Q, K, M, A and C lines and deal items of the human in game3, game4; turns except: decl_ratio_pct (per cent), trade_min_gold (gold), ai_every (choices), max_wars (wars), decl_units (units), attack_min_odds (per mille)",
+   "source": "W, Q, K, M, A, C and Y lines and deal items of the human in game3, game4; turns except: decl_ratio_pct (per cent), trade_min_gold (gold), ai_every (choices), strike_margin and home_keep (units), target_max_distance, next_target_max_distance and stage_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)",
    "n": 10,
-   "values_total": 18,
-   "values_shown": 18,
+   "values_total": 25,
+   "values_shown": 25,
    "reason": null,
    "left_out": [],
    "xml": null,
    "values": [
     "war_min_turn",
+    "prep_ratio_pct",
     "decl_ratio_pct",
-    "prep_min_turns",
-    "decl_units",
     "attack_min_odds",
-    "prep_max_turns",
+    "stage_distance",
     "war_gap_turns",
-    "max_wars",
-    "max_distance",
+    "strike_margin",
+    "target_max_distance",
+    "next_target_max_distance",
+    "siege_defenders",
+    "siege_min_odds",
+    "ob_min_turn",
+    "ob_every",
+    "home_keep",
+    "stage_max_turns",
+    "prep_max_turns",
     "war_stall_turns",
     "war_max_turns",
     "trade_min_turn",

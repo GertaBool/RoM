@@ -1,0 +1,4 @@
+#!/bin/sh
+# git commit-msg: the commit gate (method/ledger.py) on the message and the staged change.
+# Enabled by method/setup.sh (git config core.hooksPath method/hooks).
+exec python3 "$(git rev-parse --show-toplevel)/method/ledger.py" commit-msg "$1"

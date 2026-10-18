@@ -64,7 +64,7 @@ No step starts before the previous one is written down.
    weaknesses both sides share, so they are not evidence of how the AI fares against the human.
 
 Effects of civics, buildings, units, techs and improvements come from the XML records
-(`tools/xmlread.py`, or its `records.json`).
+(`research/ai-warfare/tools/xmlread.py`, or its `records.json`).
 
 Neither the save nor the raw log is published. Only derived tables are.
 
@@ -95,7 +95,7 @@ Neither the save nor the raw log is published. Only derived tables are.
 
 ## Processing
 
-`tools/gamedata.py` turns one game's files into the same tables every time:
+`research/ai-warfare/tools/gamedata.py` turns one game's files into the same tables every time:
 - economy, techs, spending, buildings, wars and battles;
 - city state during wars, and great people;
 - the human's orders, builds, civics, research and commands;

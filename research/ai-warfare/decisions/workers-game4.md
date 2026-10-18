@@ -1,4 +1,4 @@
-<!-- Rendered by tools/docs.py from workers-game4.md.in. Do not edit; edit the template. -->
+<!-- Rendered by method/docs.py from workers-game4.md.in. Do not edit; edit the template. -->
 # Workers, game 4
 
 Figures from `tools/workers.py` (registry `games/game4/workers.fig.json`). Every number below comes

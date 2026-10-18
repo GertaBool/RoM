@@ -127,6 +127,30 @@
      11.78
     ],
     [
+     "engaged",
+     1,
+     2,
+     0.5,
+     -5.34,
+     11.37
+    ],
+    [
+     "nearest_then_engaged",
+     2,
+     2,
+     0.0,
+     0.0,
+     0.69
+    ],
+    [
+     "engaged_then_nearest",
+     1,
+     2,
+     0.5,
+     -4.16,
+     9.01
+    ],
+    [
      "guessing",
      "",
      2,
@@ -140,8 +164,8 @@
    "turn": "each declaration of the human",
    "source": "strategy.py: maximum-likelihood classification over the declarations of game3",
    "n": 2,
-   "values_total": 7,
-   "values_shown": 7,
+   "values_total": 10,
+   "values_shown": 10,
    "reason": null,
    "left_out": [],
    "xml": null,
@@ -152,6 +176,9 @@
     "weak_of_near_half",
     "most_cities",
     "weakest_ratio",
+    "engaged",
+    "nearest_then_engaged",
+    "engaged_then_nearest",
     "guessing"
    ],
    "stat": "result",
@@ -352,6 +379,30 @@
      46.65
     ],
     [
+     "engaged",
+     7,
+     8,
+     0.125,
+     -18.99,
+     40.05
+    ],
+    [
+     "nearest_then_engaged",
+     4,
+     8,
+     0.5,
+     -20.07,
+     42.22
+    ],
+    [
+     "engaged_then_nearest",
+     4,
+     8,
+     0.5,
+     -20.07,
+     42.22
+    ],
+    [
      "guessing",
      "",
      8,
@@ -365,8 +416,8 @@
    "turn": "each declaration of the human",
    "source": "strategy.py: maximum-likelihood classification over the declarations of game4",
    "n": 8,
-   "values_total": 7,
-   "values_shown": 7,
+   "values_total": 10,
+   "values_shown": 10,
    "reason": null,
    "left_out": [],
    "xml": null,
@@ -377,6 +428,9 @@
     "weak_of_near_half",
     "most_cities",
     "weakest_ratio",
+    "engaged",
+    "nearest_then_engaged",
+    "engaged_then_nearest",
     "guessing"
    ],
    "stat": "result",
@@ -442,6 +496,30 @@
      57.96
     ],
     [
+     "engaged",
+     8,
+     10,
+     0.2,
+     -24.93,
+     52.16
+    ],
+    [
+     "nearest_then_engaged",
+     6,
+     10,
+     0.4,
+     -21.25,
+     44.81
+    ],
+    [
+     "engaged_then_nearest",
+     5,
+     10,
+     0.5,
+     -24.23,
+     50.76
+    ],
+    [
      "guessing",
      "",
      10,
@@ -455,8 +533,8 @@
    "turn": "each declaration of the human",
    "source": "strategy.py: maximum-likelihood classification over the declarations of every game given",
    "n": 10,
-   "values_total": 7,
-   "values_shown": 7,
+   "values_total": 10,
+   "values_shown": 10,
    "reason": null,
    "left_out": [],
    "xml": null,
@@ -467,6 +545,9 @@
     "weak_of_near_half",
     "most_cities",
     "weakest_ratio",
+    "engaged",
+    "nearest_then_engaged",
+    "engaged_then_nearest",
     "guessing"
    ],
    "stat": "result",

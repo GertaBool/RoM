@@ -218,6 +218,11 @@
 		<DefineName>WAR_LOG</DefineName>
 		<iDefineIntVal>1</iDefineIntVal>
 	</Define>
+	<!-- War log: also log the turn-start lines (I, L, J, O) for player WAR_LOG_SEAT - 1, as for a human; 0 = humans only. For headless test games. -->
+	<Define>
+		<DefineName>WAR_LOG_SEAT</DefineName>
+		<iDefineIntVal>0</iDefineIntVal>
+	</Define>
 <!-- Super Spies -->
 	<Define>
 		<DefineName>SS_ENABLED</DefineName>

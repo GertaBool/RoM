@@ -48,6 +48,8 @@ def read_run(path, seat):
                 if e['by'] == seat: taken[r['t']] += 1
                 if e['from'] == seat: lost[r['t']] += 1
             if 'war' in e and e['war'][0] == team: wars[r['t']] += 1
+    by_t['_team'] = {p['id']: p['team'] for p in hdr['players']}
+    by_t['_caps'] = [(r['t'], e['from'], e['by']) for r in turns for e in r.get('ev', []) if 'capture' in e]
     return by_t, taken, lost, wars
 
 
@@ -68,9 +70,9 @@ def at(by_t, taken, lost, wars, seat, t):
 
 
 # hm.log lines of the war and attack rules (HarnessHuman.cpp), counted per run
-WAR_STEPS = [('preparations', ' prepare against '), ('declared_by_rule', ' declare on '), ('wars_entered', ' at war with '),
-             ('given_up', 'no declaration in time'), ('peace_made', 'peace made'), ('attacks', ' attack '),
-             ('into_empty_city', 'empty city')]
+WAR_STEPS = [('objectives', ' objective '), ('strike_orders', ' strike '), ('declared_by_rule', ' declare on '),
+             ('wars_entered', ' at war with '), ('given_up', 'no declaration in time'), ('next_objectives', 'next objective'),
+             ('peace_made', 'peace made'), ('attacks', ' attack '), ('into_empty_city', 'empty city'), ('open_borders', 'open borders with')]
 METRICS = ['score_rank', 'cities', 'pop', 'land', 'techs', 'power', 'score', 'taken', 'lost', 'wars_begun']
 LOWER_BETTER = {'score_rank', 'lost'}
 
@@ -82,7 +84,7 @@ def extract(camp, out, seats):
         if not os.path.isdir(d) or not m or m.group(1) not in seats or not os.path.exists(os.path.join(d, 'run.jsonl')): continue
         seat = seats[m.group(1)]
         data = read_run(d, seat)
-        run = dict(map=m.group(1), arm=m.group(2), seed=int(m.group(3)), last_turn=max(data[0]),
+        run = dict(map=m.group(1), arm=m.group(2), seed=int(m.group(3)), last_turn=max(k for k in data[0] if isinstance(k, int)),
                    at={t: at(*data, seat, t) for t in TURNS if t in data[0]})
         lg = d + '.hm.log'
         if os.path.exists(lg):
@@ -94,10 +96,30 @@ def extract(camp, out, seats):
                     if pat in line: steps[k] += 1
                 if len(f) > 1 and f[1] == 'civics':
                     for c in f[2:]: seen.setdefault(c.removeprefix('CIVIC_'), int(f[0]))
-                if len(f) > 2 and f[1] == 'at' and f[2] == 'war' and fw is None: fw = int(f[0])
+                if len(f) > 2 and (f[1] == 'declare' or (f[1] == 'at' and f[2] == 'war')) and fw is None: fw = int(f[0])
             run['civics'] = seen
             run['first_war'] = fw
             run['war_steps'] = dict(steps)
+            # the seat's own wars: each declaration by the rule, its objective, captures from the target, the peace
+            teams, caps = data[0]['_team'], data[0]['_caps']
+            wars, obj = [], None
+            for line in open(lg):
+                f = line.split()
+                if len(f) < 3: continue
+                if f[1] == 'objective':
+                    obj = dict(dist=int(f[f.index('distance') + 1].rstrip(',')), defenders=int(f[f.index('defenders') + 1].rstrip(',')))
+                elif f[1] == 'declare':
+                    T, team = int(f[0]), int(f[3])
+                    wars.append(dict(t=T, team=team, obj=obj, peace=None, gold=None))
+                elif f[1] == 'peace' and f[2] == 'with' and wars and wars[-1]['peace'] is None:
+                    wars[-1]['peace'] = int(f[0]); wars[-1]['gold'] = int(f[-1])
+                elif f[1] == 'war' and 'ends:' in f and wars and wars[-1]['peace'] is None and int(f[0]) >= wars[-1]['t']:
+                    wars[-1]['peace'] = int(f[0])
+            for w in wars:
+                end = w['peace'] if w['peace'] is not None else run['last_turn']
+                ct = sorted(t for t, fr, by in caps if by == seat and teams.get(fr) == w['team'] and w['t'] <= t <= end)
+                w['taken'] = len(ct); w['first_capture_day'] = ct[0] - w['t'] if ct else None
+            run['wars'] = wars
         res.append(run)
     json.dump(res, open(out, 'w'), indent=0)
     print(f'{len(res)} runs', file=sys.stderr)
@@ -256,10 +278,40 @@ for mp in maps:
             hover.append(f'{mp} {arm} {k}')
             hrows.append([f'{mp} {arm} {k}', len(v), human.get(k, '-'), med(v), min(v), max(v), sum(v)])
 reg.result_table('hm_war_steps', ['map_arm_step', 'runs', 'human', 'runs_median', 'runs_min', 'runs_max', 'runs_total'], hrows, 'turns',
-                 'model seat and human', 'whole game', 'per run, the hm.log lines of each step of the war and attack rules (preparations '
-                 'begun, declarations by the rule, wars entered whoever declared, preparations given up, peace made by the rule, attacks '
-                 'and walks into empty cities by the attack rule); the human: its declarations (W lines), peace made (Q lines of its team) '
-                 'and attacks (C lines) over its whole game; every column counts events', hover, n=len(hrows))
+                 'model seat and human', 'whole game', 'per run, the hm.log lines of each step of the war rules (objectives chosen, march '
+                 'orders to the strike group, declarations by the rule, wars entered whoever declared, stagings given up, objectives taken '
+                 'after a capture, peace made by the rule, attacks and walks into empty cities, open borders signed); the human: its '
+                 'declarations (W lines), peace made (Q lines of its team) and attacks (C lines) over its whole game; every column counts events', hover, n=len(hrows))
+
+# the seat's own wars against the human's (war.md): count, timing, captures, peace
+wrows, wover = [], []
+for mp in maps:
+    db, seat, hturn = MAPS[mp]
+    con = duckdb.connect(db, read_only=True)
+    hp, team = con.execute('select player, team from wl_P where human=1').fetchone()
+    hw = []
+    for T, tgt in con.execute('select turn, target from wl_W where team=? order by seq', [team]).fetchall():
+        pq = con.execute('select min(turn) from wl_Q where team=? and target=? and turn>=?', [team, tgt, T]).fetchone()[0]
+        end = pq if pq is not None else hturn
+        ct = [t for (t,) in con.execute('select turn from wl_K where new_owner=? and old_owner=? and turn between ? and ? order by seq', [hp, tgt, T, end]).fetchall()]
+        hw.append(dict(t=T, taken=len(ct), first_capture_day=ct[0] - T if ct else None, peace=pq))
+    def wrow(label, runs_n, ws, per_run):
+        fc = [w['first_capture_day'] for w in ws if w['first_capture_day'] is not None]
+        pd = [w['peace'] - w['t'] for w in ws if w['peace'] is not None]
+        return [label, runs_n, len(ws), med(per_run), med([w['t'] for w in ws]), med([w['taken'] for w in ws]),
+                sum(1 for w in ws if w['first_capture_day'] is not None and w['first_capture_day'] <= 1), med(fc), med(pd)]
+    wover.append(f'{mp} human'); wrows.append(wrow(f'{mp} human', 1, [w for w in hw if w['t'] <= hturn], [len([w for w in hw if w['t'] <= hturn])]))
+    for arm in arms:
+        rl = [r[3] for r in runs.get((mp, arm), []) if 'wars' in r[3]]
+        if not rl: continue
+        ws = [w for r in rl for w in r['wars'] if w['t'] <= hturn]
+        wover.append(f'{mp} {arm}'); wrows.append(wrow(f'{mp} {arm}', len(rl), ws, [len([w for w in r['wars'] if w['t'] <= hturn]) for r in rl]))
+reg.result_table('hm_own_wars', ['map_side', 'runs', 'wars', 'wars_per_run_median', 'declaration_turn_median', 'cities_taken_median',
+                                 'wars_taking_a_city_by_day_one', 'first_capture_day_median', 'peace_day_median'], wrows, 'turns',
+                 'model seat and human', 'up to the human\'s last full turn', 'the human: W lines of its team, K lines of cities it took from '
+                 'the target until the Q line of the pair (or its last full turn); the runs: each "declare on" line of the model\'s hm.log, '
+                 'captures from the target team in the telemetry until the "peace" or "ends" line; wars declared on the seat are not '
+                 'counted; days from the declaration; turns except wars and cities (counts)', wover, n=len(wrows))
 
 # decision timing (hm.log) against the human: civic adoptions and the first war
 CI = {k.removeprefix('CIVIC_'): v['CivicOptionType'] for k, v in R['CivicInfo'].items()}
@@ -294,7 +346,7 @@ civs = sorted({r[0].split()[-1] for r in drows if not r[0].endswith('first war')
 reg.result_table('hm_timing', ['map_arm_decision', 'human_turn', 'runs_with_it', 'runs', 'runs_median_turn', 'runs_min', 'runs_max'], drows,
                  'turn', 'model seat and human', 'whole game', 'the turn of each civic the human adopted after turn 2 (CIVICS commands, A '
                  'lines; first command naming it) and of its first declaration (W lines), against the model runs\' hm.log: the first '
-                 '"civics" line naming the civic, the first "at war" line', dover, n=len(dover), xml='CivicInfo', xml_vals=civs)
+                 '"civics" line naming the civic, the first "declare on" or "at war" line', dover, n=len(dover), xml='CivicInfo', xml_vals=civs)
 reg.save()
 for k in ('hm_outcomes',):
     for r in reg.figs[k]['rows']: print(r, file=sys.stderr)

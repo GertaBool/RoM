@@ -1,4 +1,4 @@
-<!-- Rendered by tools/docs.py from data.md.in. Do not edit; edit the template. -->
+<!-- Rendered by method/docs.py from data.md.in. Do not edit; edit the template. -->
 # Tiles, diplomacy, trade, units and combat: game 3 and game 4
 
 The data behind `study/human.md`, from sources not used before:
