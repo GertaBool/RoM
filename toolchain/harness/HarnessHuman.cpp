@@ -350,22 +350,40 @@ namespace
 		return pBest;
 	}
 
-	// Strike group for the objective: its defenders plus strike_margin, from the candidates with the shortest
-	// path to the staging plot (at most stage_max_turns); existing members stay.
+	// Strike group for the objective: its defenders plus strike_margin, among the candidates within
+	// stage_max_turns of the staging plot: first those that would attack the city at attack_min_odds (the
+	// human raided with its best attackers), nearest first, then the nearest others; existing members stay.
 	void formStrike(CvPlayerAI& kMe, CvCity* c, CvPlot* pStage)
 	{
 		const int iNeed = c->plot()->getNumDefenders(c->getOwnerINLINE()) + Param("strike_margin", 2);
-		std::vector<std::pair<int, int> > cand;   // (path turns, unit id)
+		std::vector<std::pair<std::pair<int, int>, int> > cand;   // ((not at the odds, path turns), unit id)
 		int iLoop;
 		for (CvUnit* u = kMe.firstUnit(&iLoop); u != NULL; u = kMe.nextUnit(&iLoop))
 		{
 			if (g.strike.count(u->getID()) || !strikeCandidate(u, kMe.getID())) continue;
 			int iTurns = 0;
 			if (u->plot() != pStage && !u->generatePath(pStage, 0, false, &iTurns)) continue;
-			if (iTurns <= Param("stage_max_turns", 15)) cand.push_back(std::make_pair(iTurns, u->getID()));
+			if (iTurns > Param("stage_max_turns", 15)) continue;
+			const int bWeak = oddsAgainst(u, c) >= Param("attack_min_odds", 710) ? 0 : 1;
+			cand.push_back(std::make_pair(std::make_pair(bWeak, iTurns), u->getID()));
 		}
 		std::sort(cand.begin(), cand.end());
-		for (size_t i = 0; i < cand.size() && (int)g.strike.size() < iNeed; ++i) g.strike.insert(cand[i].second);
+		// units at the odds join until they alone make up the group, whatever weaker members it holds
+		int iCapable = 0;
+		for (std::set<int>::const_iterator it = g.strike.begin(); it != g.strike.end(); ++it)
+		{
+			CvUnit* u = kMe.getUnit(*it);
+			if (u != NULL && oddsAgainst(u, c) >= Param("attack_min_odds", 710)) ++iCapable;
+		}
+		for (size_t i = 0; i < cand.size(); ++i)
+		{
+			const bool bCapable = cand[i].first.first == 0;
+			if ((bCapable && iCapable < iNeed) || (!bCapable && (int)g.strike.size() < iNeed))
+			{
+				g.strike.insert(cand[i].second);
+				if (bCapable) ++iCapable;
+			}
+		}
 	}
 }
 
@@ -584,6 +602,9 @@ bool HH_hmDoWar(CvTeamAI* t)
 		const int iThere = strikeNear(g.iObjX, g.iObjY, 2);
 		const int iCapable = strikeCapable(pCity);
 		const int iRatio = std::max(1, t->getPower(true)) * 100 / std::max(1, kT.getPower(true));
+		if ((iTurn - g.iSince) % 5 == 0)
+			note("staging on %d at %d,%d: strike group %d of %d, near %d, at the odds %d of %d, power ratio %d of %d", g.iTarget, g.iObjX, g.iObjY,
+				(int)g.strike.size(), iNeed, iThere, iCapable, std::max(1, iDef), iRatio, Param("decl_ratio_pct", 200));
 		if ((int)g.strike.size() >= iNeed && iThere >= iNeed && iCapable >= std::max(1, iDef) && iRatio >= Param("decl_ratio_pct", 200))
 		{
 			note("declare on %d at %d,%d: %d of the strike group near, %d of them at the odds, %d defenders, power ratio %d", g.iTarget, g.iObjX, g.iObjY, iThere, iCapable, iDef, iRatio);
