@@ -1,0 +1,2554 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/growth.py",
+  "@repo/research/ai-warfare/study/growth.fig.json",
+  "/root/.cache/rom-ana/data/records.json",
+  "/root/.cache/rom-ana/db/game3.duckdb",
+  "/root/.cache/rom-ana/db/game4.duckdb"
+ ],
+ "inputs": {
+  "/root/.cache/rom-ana/data/records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152",
+  "/root/.cache/rom-ana/db/game3.duckdb": "056e11ca34eb6905a32e836ae20bc821cb34f2a44be10546136e42e1a5f7be7f",
+  "/root/.cache/rom-ana/db/game4.duckdb": "8f6fbd76d71407032ba1bfc5fdd3e3298e1a53e895da199d63238aef0fd50c5f"
+ },
+ "figures": {
+  "game3_growth": {
+   "kind": "table",
+   "head": [
+    "cities",
+    "n",
+    "pop",
+    "food",
+    "food_from_tiles",
+    "food_other",
+    "trade_commerce",
+    "trade_food_est",
+    "trade_hammers_est",
+    "surplus",
+    "growing",
+    "threshold",
+    "kept_pct",
+    "food_per_growth",
+    "turns_per_growth",
+    "happy_margin",
+    "health_margin"
+   ],
+   "rows": [
+    [
+     "human capital",
+     1,
+     17,
+     60,
+     39,
+     21,
+     25,
+     5.0,
+     10.0,
+     9,
+     1,
+     400,
+     30,
+     280,
+     32,
+     25,
+     5
+    ],
+    [
+     "human founded",
+     6,
+     5.5,
+     36.0,
+     24.5,
+     12.5,
+     15.0,
+     3.0,
+     6.0,
+     19.5,
+     6,
+     170.0,
+     30.0,
+     119.0,
+     6.5,
+     26.5,
+     16.0
+    ],
+    [
+     "human captured",
+     6,
+     7.5,
+     45.5,
+     31.0,
+     14.5,
+     12.0,
+     2.4,
+     4.8,
+     22.5,
+     6,
+     210.0,
+     30.0,
+     147.0,
+     6.5,
+     22.0,
+     13.5
+    ],
+    [
+     "AI capitals",
+     17,
+     11,
+     42,
+     35,
+     5,
+     11,
+     0.0,
+     0.0,
+     7,
+     14,
+     280,
+     30,
+     196,
+     17.0,
+     8,
+     4
+    ],
+    [
+     "AI other",
+     99,
+     4,
+     18,
+     16,
+     3,
+     2,
+     0.0,
+     0.0,
+     5,
+     81,
+     140,
+     30,
+     98,
+     14,
+     8,
+     10
+    ]
+   ],
+   "unit": "cities at save",
+   "who": "every player",
+   "turn": "save",
+   "source": "growth.py on the save dump of game3 (GAMESPEED_MARATHON, HANDICAP_NOBLE); medians per group; growing: cities with a food surplus; cities in disorder left out",
+   "n": 129,
+   "values_total": 5,
+   "values_shown": 5,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "human capital",
+    "human founded",
+    "human captured",
+    "AI capitals",
+    "AI other"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_food_kept": {
+   "kind": "table",
+   "head": [
+    "cities_by_food_kept",
+    "cities"
+   ],
+   "rows": [
+    [
+     "human, 30 per cent",
+     13
+    ],
+    [
+     "AI, 20 per cent",
+     52
+    ],
+    [
+     "AI, 30 per cent",
+     64
+    ]
+   ],
+   "unit": "cities at save",
+   "who": "every player",
+   "turn": "save",
+   "source": "growth.py: each city's sum of iFoodKept over its buildings, real and free",
+   "n": 129,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "human, 30 per cent",
+    "AI, 20 per cent",
+    "AI, 30 per cent"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_food_buildings": {
+   "kind": "table",
+   "head": [
+    "building",
+    "food_kept_pct",
+    "human_cities",
+    "ai_cities"
+   ],
+   "rows": [
+    [
+     "CITY_ESSENTIALS",
+     30,
+     13,
+     3
+    ],
+    [
+     "IRRIGATION_CANALS",
+     0,
+     10,
+     3
+    ],
+    [
+     "TOWN_ESSENTIALS",
+     30,
+     0,
+     61
+    ],
+    [
+     "SETTLEMENT_ESSENTIALS",
+     20,
+     0,
+     52
+    ]
+   ],
+   "unit": "cities at save",
+   "who": "every player",
+   "turn": "save",
+   "source": "growth.py: buildings with iFoodKept, a food RiverPlotYieldChanges or SeaPlotYieldChanges, or a food YieldModifiers or YieldChanges (BuildingInfo), and the cities holding each, real or free",
+   "n": 129,
+   "values_total": 4,
+   "values_shown": 4,
+   "reason": null,
+   "left_out": [],
+   "xml": "BuildingInfo",
+   "values": [
+    "CITY_ESSENTIALS",
+    "IRRIGATION_CANALS",
+    "TOWN_ESSENTIALS",
+    "SETTLEMENT_ESSENTIALS"
+   ],
+   "stat": "result",
+   "xml_values": [
+    "CITY_ESSENTIALS",
+    "IRRIGATION_CANALS",
+    "SETTLEMENT_ESSENTIALS",
+    "TOWN_ESSENTIALS"
+   ]
+  },
+  "game4_growth": {
+   "kind": "table",
+   "head": [
+    "cities",
+    "n",
+    "pop",
+    "food",
+    "food_from_tiles",
+    "food_other",
+    "trade_commerce",
+    "trade_food_est",
+    "trade_hammers_est",
+    "surplus",
+    "growing",
+    "threshold",
+    "kept_pct",
+    "food_per_growth",
+    "turns_per_growth",
+    "happy_margin",
+    "health_margin"
+   ],
+   "rows": [
+    [
+     "human capital",
+     1,
+     24,
+     124,
+     56,
+     68,
+     88,
+     22.0,
+     44.0,
+     49,
+     1,
+     540,
+     50,
+     270,
+     6,
+     45,
+     -3
+    ],
+    [
+     "human founded",
+     12,
+     10.5,
+     53.0,
+     32.5,
+     20.5,
+     35.0,
+     8.8,
+     17.5,
+     24.5,
+     12,
+     270.0,
+     40.0,
+     162.0,
+     7.0,
+     17.0,
+     9.5
+    ],
+    [
+     "human captured",
+     13,
+     5,
+     26,
+     8,
+     12,
+     6,
+     1.5,
+     3.0,
+     2,
+     7,
+     160,
+     30,
+     112,
+     8,
+     9,
+     11
+    ],
+    [
+     "AI capitals",
+     17,
+     13,
+     60,
+     46,
+     14,
+     19,
+     0.0,
+     0.0,
+     22,
+     16,
+     297,
+     30,
+     208,
+     10.5,
+     15,
+     6
+    ],
+    [
+     "AI other",
+     162,
+     4.0,
+     20.0,
+     16.0,
+     4.0,
+     4.0,
+     0.0,
+     0.0,
+     7.0,
+     146,
+     130.0,
+     30.0,
+     91.0,
+     13.0,
+     11.0,
+     15.0
+    ]
+   ],
+   "unit": "cities at save",
+   "who": "every player",
+   "turn": "save",
+   "source": "growth.py on the save dump of game4 (GAMESPEED_MARATHON, HANDICAP_MONARCH); medians per group; growing: cities with a food surplus; cities in disorder left out",
+   "n": 205,
+   "values_total": 5,
+   "values_shown": 5,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "human capital",
+    "human founded",
+    "human captured",
+    "AI capitals",
+    "AI other"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_food_kept": {
+   "kind": "table",
+   "head": [
+    "cities_by_food_kept",
+    "cities"
+   ],
+   "rows": [
+    [
+     "human, 20 per cent",
+     3
+    ],
+    [
+     "human, 30 per cent",
+     11
+    ],
+    [
+     "human, 40 per cent",
+     11
+    ],
+    [
+     "human, 50 per cent",
+     1
+    ],
+    [
+     "AI, 20 per cent",
+     67
+    ],
+    [
+     "AI, 30 per cent",
+     112
+    ]
+   ],
+   "unit": "cities at save",
+   "who": "every player",
+   "turn": "save",
+   "source": "growth.py: each city's sum of iFoodKept over its buildings, real and free",
+   "n": 205,
+   "values_total": 6,
+   "values_shown": 6,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "human, 20 per cent",
+    "human, 30 per cent",
+    "human, 40 per cent",
+    "human, 50 per cent",
+    "AI, 20 per cent",
+    "AI, 30 per cent"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_food_buildings": {
+   "kind": "table",
+   "head": [
+    "building",
+    "food_kept_pct",
+    "human_cities",
+    "ai_cities"
+   ],
+   "rows": [
+    [
+     "CITY_ESSENTIALS",
+     30,
+     17,
+     44
+    ],
+    [
+     "ROMAN_DEPOT",
+     10,
+     13,
+     0
+    ],
+    [
+     "IRRIGATION_CANALS",
+     0,
+     9,
+     27
+    ],
+    [
+     "TOWN_ESSENTIALS",
+     30,
+     5,
+     68
+    ],
+    [
+     "SETTLEMENT_ESSENTIALS",
+     20,
+     4,
+     67
+    ],
+    [
+     "PRAEFECTURA_ANNONAE",
+     10,
+     1,
+     0
+    ],
+    [
+     "VIKING_TRADING_POST",
+     0,
+     0,
+     4
+    ]
+   ],
+   "unit": "cities at save",
+   "who": "every player",
+   "turn": "save",
+   "source": "growth.py: buildings with iFoodKept, a food RiverPlotYieldChanges or SeaPlotYieldChanges, or a food YieldModifiers or YieldChanges (BuildingInfo), and the cities holding each, real or free",
+   "n": 205,
+   "values_total": 7,
+   "values_shown": 7,
+   "reason": null,
+   "left_out": [],
+   "xml": "BuildingInfo",
+   "values": [
+    "CITY_ESSENTIALS",
+    "ROMAN_DEPOT",
+    "IRRIGATION_CANALS",
+    "TOWN_ESSENTIALS",
+    "SETTLEMENT_ESSENTIALS",
+    "PRAEFECTURA_ANNONAE",
+    "VIKING_TRADING_POST"
+   ],
+   "stat": "result",
+   "xml_values": [
+    "CITY_ESSENTIALS",
+    "IRRIGATION_CANALS",
+    "PRAEFECTURA_ANNONAE",
+    "ROMAN_DEPOT",
+    "SETTLEMENT_ESSENTIALS",
+    "TOWN_ESSENTIALS",
+    "VIKING_TRADING_POST"
+   ]
+  }
+ },
+ "xml": {
+  "BuildingInfo": {
+   "CITY_ESSENTIALS": {
+    "Advisor": "ADVISOR_GROWTH",
+    "AndDependencyTypes": null,
+    "AreaYieldModifiers": null,
+    "ArtDefineTag": "ART_DEF_BUILDING_CITY_ESSENTIALS",
+    "Bonus": "NONE",
+    "BonusHappinessChanges": [
+     {
+      "BonusType": "BONUS_ALCOHOL",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_PEARLS",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_TEA",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_COFFEE",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_BERNSTEIN",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_FUR",
+      "iHappinessChange": 1
+     }
+    ],
+    "BonusHealthChanges": [
+     {
+      "BonusType": "BONUS_SALT",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_CORN",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_RICE",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_WHEAT",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_POTATO",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_INCENSE",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_TEA",
+      "iHealthChange": 1
+     }
+    ],
+    "BonusProductionModifiers": [
+     {
+      "BonusType": "BONUS_MARBLE",
+      "iProductonModifier": 25
+     },
+     {
+      "BonusType": "BONUS_STONE",
+      "iProductonModifier": 25
+     }
+    ],
+    "BonusYieldModifiers": [
+     {
+      "BonusType": "BONUS_WHEAT",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_CORN",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_RICE",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_POTATO",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_DEER",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_COW",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_PIG",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_SHEEP",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_FISH",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_CLAM",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_SHRIMP",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_IVORY",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_SILK",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_SPICES",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_PEARLS",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_BERNSTEIN",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_COFFEE",
+      "YieldModifiers": [
+       0,
+       20,
+       10
+      ]
+     },
+     {
+      "BonusType": "BONUS_TEA",
+      "YieldModifiers": [
+       0,
+       10,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_SALT",
+      "YieldModifiers": [
+       0,
+       10,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_APPLE",
+      "YieldModifiers": [
+       0,
+       0,
+       5
+      ]
+     },
+     {
+      "BonusType": "BONUS_BANANA",
+      "YieldModifiers": [
+       0,
+       0,
+       5
+      ]
+     },
+     {
+      "BonusType": "BONUS_LEMON",
+      "YieldModifiers": [
+       0,
+       0,
+       5
+      ]
+     },
+     {
+      "BonusType": "BONUS_WINE",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_ALCOHOL",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     }
+    ],
+    "BuildingClass": "BUILDINGCLASS_CITY_ESSENTIALS",
+    "BuildingClassNeededs": [
+     {
+      "BuildingClassType": "BUILDINGCLASS_TOWN_ESSENTIALS",
+      "bNeededInCity": true
+     }
+    ],
+    "BuildingHappinessChanges": "",
+    "CivicOption": "NONE",
+    "Civilopedia": "",
+    "CommerceChangeDoubleTimes": "",
+    "CommerceChangeOriginalOwners": "",
+    "CommerceChanges": "",
+    "CommerceFlexibles": "",
+    "CommerceHappinesses": "",
+    "CommerceModifiers": [
+     15
+    ],
+    "ConstructSound": "AS2D_BUILD_COURTHOUSE",
+    "Description": "TXT_KEY_CITY_ESSENTIALS",
+    "DiploVoteType": "NONE",
+    "DomainFreeExperiences": "",
+    "DomainProductionModifiers": [
+     {
+      "DomainType": "DOMAIN_LAND",
+      "iProductionModifier": 15
+     }
+    ],
+    "Flavors": [
+     {
+      "FlavorType": "FLAVOR_PRODUCTION",
+      "iFlavor": 6
+     },
+     {
+      "FlavorType": "FLAVOR_GOLD",
+      "iFlavor": 8
+     },
+     {
+      "FlavorType": "FLAVOR_SCIENCE",
+      "iFlavor": 4
+     },
+     {
+      "FlavorType": "FLAVOR_MILITARY",
+      "iFlavor": 4
+     },
+     {
+      "FlavorType": "FLAVOR_GROWTH",
+      "iFlavor": 10
+     }
+    ],
+    "FoundsCorporation": "NONE",
+    "FreeBonus": "NONE",
+    "FreeBuilding": "NONE",
+    "FreePromotion": "NONE",
+    "FreeSpecialistCounts": "",
+    "FreeStartEra": "NONE",
+    "GlobalCommerceModifiers": "",
+    "GlobalCorporationCommerce": "NONE",
+    "GlobalReligionCommerce": "NONE",
+    "GlobalSeaPlotYieldChanges": "",
+    "GlobalYieldModifiers": null,
+    "GreatPeopleUnitClass": "NONE",
+    "HappinessTraits": "",
+    "Help": null,
+    "HolyCity": "NONE",
+    "HotKey": "",
+    "ImprovementFreeSpecialists": "",
+    "MaxStartEra": "NONE",
+    "MovieDefineTag": "NONE",
+    "NoBonus": "NONE",
+    "NotGameOption": null,
+    "ObsoleteSafeCommerceChanges": "",
+    "ObsoleteTech": "NONE",
+    "OrDependencyTypes": null,
+    "PowerBonus": "NONE",
+    "PowerYieldModifiers": null,
+    "PrereqBonuses": [
+     "BONUS_STONE",
+     "BONUS_MARBLE",
+     "BONUS_COPPER",
+     "BONUS_IRON",
+     "BONUS_LEAD"
+    ],
+    "PrereqBuildingClasses": "",
+    "PrereqCorporation": "NONE",
+    "PrereqGameOption": null,
+    "PrereqReligion": "NONE",
+    "PrereqTech": "TECH_CITY_PLANNING",
+    "ProductionTraits": [
+     {
+      "ProductionTraitType": "TRAIT_IMPERIALIST",
+      "iProductionTrait": 100
+     }
+    ],
+    "ReligionChanges": "",
+    "ReligionType": "NONE",
+    "RiverPlotYieldChanges": "",
+    "SeaPlotYieldChanges": [
+     1,
+     0,
+     0
+    ],
+    "SpecialBuildingType": "NONE",
+    "SpecialistCounts": [
+     {
+      "SpecialistType": "SPECIALIST_MERCHANT",
+      "iSpecialistCount": 3
+     }
+    ],
+    "SpecialistExtraCommerces": "",
+    "SpecialistYieldChanges": "",
+    "StateReligion": "NONE",
+    "StateReligionCommerces": "",
+    "Strategy": "",
+    "TechTypes": [
+     "TECH_BRONZE_WORKING",
+     "TECH_MASONRY",
+     "TECH_SAILING",
+     "NONE"
+    ],
+    "Type": "BUILDING_CITY_ESSENTIALS",
+    "UnitCombatFreeExperiences": "",
+    "VictoryPrereq": "NONE",
+    "YieldChanges": "",
+    "YieldModifiers": null,
+    "_index": 384,
+    "_sources": [
+     "XML/Buildings/CIV4BuildingInfos.xml"
+    ],
+    "bAllowsNukes": false,
+    "bAltDown": false,
+    "bAreaCleanPower": false,
+    "bBorderObstacle": false,
+    "bBuildingOnlyHealthy": false,
+    "bCapital": false,
+    "bCenterInCity": false,
+    "bCtrlDown": false,
+    "bDCMNukesOkay": null,
+    "bDirtyPower": false,
+    "bForceTeamVoteEligible": false,
+    "bGoldenAge": false,
+    "bGovernmentCenter": false,
+    "bMapCentering": false,
+    "bNeverCapture": false,
+    "bNoUnhappiness": false,
+    "bNoUnhealthyPopulation": false,
+    "bNukeImmune": false,
+    "bPower": false,
+    "bPrereqReligion": false,
+    "bRiver": false,
+    "bShiftDown": false,
+    "bStateReligion": false,
+    "bTeamShare": false,
+    "bTypeDependency": null,
+    "bWater": false,
+    "fVisibilityPriority": "1.0",
+    "iAIWeight": 200,
+    "iAdvancedStartCost": 100,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirModifier": 0,
+    "iAirUnitCapacity": 0,
+    "iAirlift": 0,
+    "iAllCityDefense": 0,
+    "iAnarchyModifier": 0,
+    "iAreaFreeSpecialist": 0,
+    "iAreaHappiness": 0,
+    "iAreaHealth": 0,
+    "iAsset": 30,
+    "iBombardDefense": 0,
+    "iCitiesPrereq": 0,
+    "iCoastalTradeRoutes": 0,
+    "iConquestProb": 100,
+    "iCost": 200,
+    "iDCMAirbombMission": 2,
+    "iDefense": 20,
+    "iDomesticGreatGeneralRateModifier": 0,
+    "iEnemyWarWearinessModifier": 0,
+    "iEspionageDefense": 20,
+    "iExperience": 0,
+    "iFoodKept": 30,
+    "iForeignTradeRouteModifier": 0,
+    "iFreeSpecialist": 0,
+    "iFreeTechs": 0,
+    "iGlobalExperience": 0,
+    "iGlobalFreeSpecialist": 0,
+    "iGlobalGreatPeopleRateModifier": 0,
+    "iGlobalHappiness": 0,
+    "iGlobalHealth": 0,
+    "iGlobalHurryModifier": 0,
+    "iGlobalPopulationChange": 0,
+    "iGlobalSpaceProductionModifier": 0,
+    "iGlobalTradeRoutes": 0,
+    "iGlobalWarWearinessModifier": 0,
+    "iGoldenAgeModifier": 0,
+    "iGreatGeneralRateModifier": 0,
+    "iGreatPeopleRateChange": 0,
+    "iGreatPeopleRateModifier": 0,
+    "iHappiness": 5,
+    "iHealRateChange": 9,
+    "iHealth": 6,
+    "iHotKeyPriority": 0,
+    "iHurryAngerModifier": 0,
+    "iHurryCostModifier": 0,
+    "iLevelPrereq": 0,
+    "iMaintenanceModifier": 25,
+    "iMaxLatitude": 90,
+    "iMilitaryProductionModifier": 0,
+    "iMinAreaSize": -1,
+    "iMinLatitude": 0,
+    "iNukeExplosionRand": 0,
+    "iNukeModifier": 0,
+    "iNumFreeBonuses": 0,
+    "iOrderPriority": null,
+    "iPower": 0,
+    "iRevIdxDistanceModifier": null,
+    "iRevIdxLocal": null,
+    "iRevIdxNational": null,
+    "iSpaceProductionModifier": 0,
+    "iStateReligionHappiness": 0,
+    "iTeamsPrereq": 0,
+    "iTradeRouteModifier": 0,
+    "iTradeRoutes": 1,
+    "iUnitUpgradePriceModifier": null,
+    "iWarWearinessModifier": 0,
+    "iWorkerSpeedModifier": 0
+   },
+   "IRRIGATION_CANALS": {
+    "Advisor": "ADVISOR_GROWTH",
+    "AndDependencyTypes": null,
+    "AreaYieldModifiers": null,
+    "ArtDefineTag": "ART_DEF_BUILDING_IRRIGATION_CANALS",
+    "Bonus": "NONE",
+    "BonusHappinessChanges": "",
+    "BonusHealthChanges": "",
+    "BonusProductionModifiers": "",
+    "BonusYieldModifiers": "",
+    "BuildingClass": "BUILDINGCLASS_IRRIGATION_CANALS",
+    "BuildingClassNeededs": "",
+    "BuildingHappinessChanges": "",
+    "CivicOption": "NONE",
+    "Civilopedia": "TXT_KEY_BUILDING_IRRIGATION_CANALS_PEDIA",
+    "CommerceChangeDoubleTimes": "",
+    "CommerceChangeOriginalOwners": "",
+    "CommerceChanges": "",
+    "CommerceFlexibles": "",
+    "CommerceHappinesses": "",
+    "CommerceModifiers": "",
+    "ConstructSound": "AS2D_BUILD_AQUEDUCT",
+    "Description": "TXT_KEY_BUILDING_IRRIGATION_CANALS",
+    "DiploVoteType": "NONE",
+    "DomainFreeExperiences": "",
+    "DomainProductionModifiers": "",
+    "Flavors": [
+     {
+      "FlavorType": "FLAVOR_GROWTH",
+      "iFlavor": 10
+     }
+    ],
+    "FoundsCorporation": "NONE",
+    "FreeBonus": "NONE",
+    "FreeBuilding": "NONE",
+    "FreePromotion": "NONE",
+    "FreeSpecialistCounts": "",
+    "FreeStartEra": "NONE",
+    "GlobalCommerceModifiers": "",
+    "GlobalCorporationCommerce": "NONE",
+    "GlobalReligionCommerce": "NONE",
+    "GlobalSeaPlotYieldChanges": "",
+    "GlobalYieldModifiers": null,
+    "GreatPeopleUnitClass": "NONE",
+    "HappinessTraits": "",
+    "Help": "TXT_KEY_BUILDING_IRRIGATION_CANALS_HELP",
+    "HolyCity": "NONE",
+    "HotKey": "",
+    "ImprovementFreeSpecialists": "",
+    "MaxStartEra": "NONE",
+    "MovieDefineTag": "NONE",
+    "NoBonus": "NONE",
+    "NotGameOption": null,
+    "ObsoleteSafeCommerceChanges": "",
+    "ObsoleteTech": "NONE",
+    "OrDependencyTypes": null,
+    "PowerBonus": "NONE",
+    "PowerYieldModifiers": null,
+    "PrereqBonuses": "",
+    "PrereqBuildingClasses": "",
+    "PrereqCorporation": "NONE",
+    "PrereqGameOption": null,
+    "PrereqReligion": "NONE",
+    "PrereqTech": "TECH_CITY_PLANNING",
+    "ProductionTraits": [
+     {
+      "ProductionTraitType": "TRAIT_AGRICULTURAL",
+      "iProductionTrait": 100
+     }
+    ],
+    "ReligionChanges": "",
+    "ReligionType": "NONE",
+    "RiverPlotYieldChanges": [
+     1,
+     0
+    ],
+    "SeaPlotYieldChanges": "",
+    "SpecialBuildingType": "NONE",
+    "SpecialistCounts": "",
+    "SpecialistExtraCommerces": "",
+    "SpecialistYieldChanges": "",
+    "StateReligion": "NONE",
+    "StateReligionCommerces": "",
+    "Strategy": "TXT_KEY_BUILDING_IRRIGATION_CANALS_STRATEGY",
+    "TechTypes": "",
+    "Type": "BUILDING_IRRIGATION_CANALS",
+    "UnitCombatFreeExperiences": "",
+    "VictoryPrereq": "NONE",
+    "YieldChanges": "",
+    "YieldModifiers": null,
+    "_index": 24,
+    "_sources": [
+     "XML/Buildings/CIV4BuildingInfos.xml"
+    ],
+    "bAllowsNukes": false,
+    "bAltDown": false,
+    "bAreaCleanPower": false,
+    "bBorderObstacle": false,
+    "bBuildingOnlyHealthy": false,
+    "bCapital": false,
+    "bCenterInCity": false,
+    "bCtrlDown": false,
+    "bDCMNukesOkay": null,
+    "bDirtyPower": false,
+    "bForceTeamVoteEligible": false,
+    "bGoldenAge": false,
+    "bGovernmentCenter": false,
+    "bMapCentering": false,
+    "bNeverCapture": false,
+    "bNoUnhappiness": false,
+    "bNoUnhealthyPopulation": false,
+    "bNukeImmune": false,
+    "bPower": false,
+    "bPrereqReligion": false,
+    "bRiver": true,
+    "bShiftDown": false,
+    "bStateReligion": false,
+    "bTeamShare": false,
+    "bTypeDependency": null,
+    "bWater": false,
+    "fVisibilityPriority": "1.0",
+    "iAIWeight": 0,
+    "iAdvancedStartCost": 100,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirModifier": 0,
+    "iAirUnitCapacity": 0,
+    "iAirlift": 0,
+    "iAllCityDefense": 0,
+    "iAnarchyModifier": 0,
+    "iAreaFreeSpecialist": 0,
+    "iAreaHappiness": 0,
+    "iAreaHealth": 0,
+    "iAsset": 3,
+    "iBombardDefense": 0,
+    "iCitiesPrereq": 0,
+    "iCoastalTradeRoutes": 0,
+    "iConquestProb": 90,
+    "iCost": 100,
+    "iDCMAirbombMission": 2,
+    "iDefense": 0,
+    "iDomesticGreatGeneralRateModifier": 0,
+    "iEnemyWarWearinessModifier": 0,
+    "iEspionageDefense": 0,
+    "iExperience": 0,
+    "iFoodKept": 0,
+    "iForeignTradeRouteModifier": 0,
+    "iFreeSpecialist": 0,
+    "iFreeTechs": 0,
+    "iGlobalExperience": 0,
+    "iGlobalFreeSpecialist": 0,
+    "iGlobalGreatPeopleRateModifier": 0,
+    "iGlobalHappiness": 0,
+    "iGlobalHealth": 0,
+    "iGlobalHurryModifier": 0,
+    "iGlobalPopulationChange": 0,
+    "iGlobalSpaceProductionModifier": 0,
+    "iGlobalTradeRoutes": 0,
+    "iGlobalWarWearinessModifier": 0,
+    "iGoldenAgeModifier": 0,
+    "iGreatGeneralRateModifier": 0,
+    "iGreatPeopleRateChange": 0,
+    "iGreatPeopleRateModifier": 0,
+    "iHappiness": 0,
+    "iHealRateChange": 0,
+    "iHealth": 0,
+    "iHotKeyPriority": 0,
+    "iHurryAngerModifier": 0,
+    "iHurryCostModifier": 0,
+    "iLevelPrereq": 0,
+    "iMaintenanceModifier": 0,
+    "iMaxLatitude": 90,
+    "iMilitaryProductionModifier": 0,
+    "iMinAreaSize": -1,
+    "iMinLatitude": 0,
+    "iNukeExplosionRand": 0,
+    "iNukeModifier": 0,
+    "iNumFreeBonuses": 0,
+    "iOrderPriority": null,
+    "iPower": 0,
+    "iRevIdxDistanceModifier": null,
+    "iRevIdxLocal": null,
+    "iRevIdxNational": null,
+    "iSpaceProductionModifier": 0,
+    "iStateReligionHappiness": 0,
+    "iTeamsPrereq": 0,
+    "iTradeRouteModifier": 0,
+    "iTradeRoutes": 0,
+    "iUnitUpgradePriceModifier": null,
+    "iWarWearinessModifier": 0,
+    "iWorkerSpeedModifier": 0
+   },
+   "TOWN_ESSENTIALS": {
+    "Advisor": "ADVISOR_GROWTH",
+    "AndDependencyTypes": null,
+    "AreaYieldModifiers": null,
+    "ArtDefineTag": "ART_DEF_BUILDING_TOWN_ESSENTIALS",
+    "Bonus": "NONE",
+    "BonusHappinessChanges": [
+     {
+      "BonusType": "BONUS_ALCOHOL",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_PEARLS",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_TEA",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_COFFEE",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_BERNSTEIN",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_FUR",
+      "iHappinessChange": 1
+     }
+    ],
+    "BonusHealthChanges": [
+     {
+      "BonusType": "BONUS_SALT",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_CORN",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_RICE",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_WHEAT",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_POTATO",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_INCENSE",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_TEA",
+      "iHealthChange": 1
+     }
+    ],
+    "BonusProductionModifiers": [
+     {
+      "BonusType": "BONUS_MARBLE",
+      "iProductonModifier": 25
+     },
+     {
+      "BonusType": "BONUS_STONE",
+      "iProductonModifier": 25
+     }
+    ],
+    "BonusYieldModifiers": [
+     {
+      "BonusType": "BONUS_WHEAT",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_CORN",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_RICE",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_POTATO",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_DEER",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_COW",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_PIG",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_SHEEP",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_FISH",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_CLAM",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_SHRIMP",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_IVORY",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_SILK",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_SPICES",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_PEARLS",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_ALCOHOL",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_BERNSTEIN",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_COFFEE",
+      "YieldModifiers": [
+       0,
+       20,
+       10
+      ]
+     },
+     {
+      "BonusType": "BONUS_TEA",
+      "YieldModifiers": [
+       0,
+       10,
+       4
+      ]
+     },
+     {
+      "BonusType": "BONUS_SALT",
+      "YieldModifiers": [
+       0,
+       10,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_WINE",
+      "YieldModifiers": [
+       0,
+       0,
+       4
+      ]
+     }
+    ],
+    "BuildingClass": "BUILDINGCLASS_TOWN_ESSENTIALS",
+    "BuildingClassNeededs": [
+     {
+      "BuildingClassType": "BUILDINGCLASS_SETTLEMENT_ESSENTIALS",
+      "bNeededInCity": true
+     }
+    ],
+    "BuildingHappinessChanges": "",
+    "CivicOption": "NONE",
+    "Civilopedia": "",
+    "CommerceChangeDoubleTimes": "",
+    "CommerceChangeOriginalOwners": "",
+    "CommerceChanges": "",
+    "CommerceFlexibles": "",
+    "CommerceHappinesses": "",
+    "CommerceModifiers": [
+     15
+    ],
+    "ConstructSound": "AS2D_BUILD_MARKETPLACE",
+    "Description": "TXT_KEY_TOWN_ESSENTIALS",
+    "DiploVoteType": "NONE",
+    "DomainFreeExperiences": "",
+    "DomainProductionModifiers": [
+     {
+      "DomainType": "DOMAIN_LAND",
+      "iProductionModifier": 15
+     }
+    ],
+    "Flavors": [
+     {
+      "FlavorType": "FLAVOR_PRODUCTION",
+      "iFlavor": 6
+     },
+     {
+      "FlavorType": "FLAVOR_GOLD",
+      "iFlavor": 8
+     },
+     {
+      "FlavorType": "FLAVOR_SCIENCE",
+      "iFlavor": 4
+     },
+     {
+      "FlavorType": "FLAVOR_MILITARY",
+      "iFlavor": 4
+     },
+     {
+      "FlavorType": "FLAVOR_GROWTH",
+      "iFlavor": 10
+     }
+    ],
+    "FoundsCorporation": "NONE",
+    "FreeBonus": "NONE",
+    "FreeBuilding": "NONE",
+    "FreePromotion": "NONE",
+    "FreeSpecialistCounts": "",
+    "FreeStartEra": "NONE",
+    "GlobalCommerceModifiers": "",
+    "GlobalCorporationCommerce": "NONE",
+    "GlobalReligionCommerce": "NONE",
+    "GlobalSeaPlotYieldChanges": "",
+    "GlobalYieldModifiers": null,
+    "GreatPeopleUnitClass": "NONE",
+    "HappinessTraits": "",
+    "Help": null,
+    "HolyCity": "NONE",
+    "HotKey": "",
+    "ImprovementFreeSpecialists": "",
+    "MaxStartEra": "NONE",
+    "MovieDefineTag": "NONE",
+    "NoBonus": "NONE",
+    "NotGameOption": null,
+    "ObsoleteSafeCommerceChanges": "",
+    "ObsoleteTech": "NONE",
+    "OrDependencyTypes": null,
+    "PowerBonus": "NONE",
+    "PowerYieldModifiers": null,
+    "PrereqBonuses": [
+     "BONUS_SALT",
+     "BONUS_BERNSTEIN",
+     "BONUS_FUR",
+     "BONUS_STONE",
+     "BONUS_MARBLE"
+    ],
+    "PrereqBuildingClasses": "",
+    "PrereqCorporation": "NONE",
+    "PrereqGameOption": null,
+    "PrereqReligion": "NONE",
+    "PrereqTech": "TECH_MASONRY",
+    "ProductionTraits": [
+     {
+      "ProductionTraitType": "TRAIT_IMPERIALIST",
+      "iProductionTrait": 100
+     }
+    ],
+    "ReligionChanges": "",
+    "ReligionType": "NONE",
+    "RiverPlotYieldChanges": "",
+    "SeaPlotYieldChanges": [
+     1,
+     0,
+     0
+    ],
+    "SpecialBuildingType": "NONE",
+    "SpecialistCounts": [
+     {
+      "SpecialistType": "SPECIALIST_MERCHANT",
+      "iSpecialistCount": 1
+     }
+    ],
+    "SpecialistExtraCommerces": "",
+    "SpecialistYieldChanges": "",
+    "StateReligion": "NONE",
+    "StateReligionCommerces": "",
+    "Strategy": "",
+    "TechTypes": [
+     "TECH_POTTERY",
+     "NONE",
+     "NONE",
+     "NONE"
+    ],
+    "Type": "BUILDING_TOWN_ESSENTIALS",
+    "UnitCombatFreeExperiences": "",
+    "VictoryPrereq": "NONE",
+    "YieldChanges": "",
+    "YieldModifiers": null,
+    "_index": 383,
+    "_sources": [
+     "XML/Buildings/CIV4BuildingInfos.xml"
+    ],
+    "bAllowsNukes": false,
+    "bAltDown": false,
+    "bAreaCleanPower": false,
+    "bBorderObstacle": false,
+    "bBuildingOnlyHealthy": false,
+    "bCapital": false,
+    "bCenterInCity": false,
+    "bCtrlDown": false,
+    "bDCMNukesOkay": null,
+    "bDirtyPower": false,
+    "bForceTeamVoteEligible": false,
+    "bGoldenAge": false,
+    "bGovernmentCenter": false,
+    "bMapCentering": false,
+    "bNeverCapture": false,
+    "bNoUnhappiness": false,
+    "bNoUnhealthyPopulation": false,
+    "bNukeImmune": false,
+    "bPower": false,
+    "bPrereqReligion": false,
+    "bRiver": false,
+    "bShiftDown": false,
+    "bStateReligion": false,
+    "bTeamShare": false,
+    "bTypeDependency": null,
+    "bWater": false,
+    "fVisibilityPriority": "1.0",
+    "iAIWeight": 200,
+    "iAdvancedStartCost": 100,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirModifier": 0,
+    "iAirUnitCapacity": 0,
+    "iAirlift": 0,
+    "iAllCityDefense": 0,
+    "iAnarchyModifier": 0,
+    "iAreaFreeSpecialist": 0,
+    "iAreaHappiness": 0,
+    "iAreaHealth": 0,
+    "iAsset": 16,
+    "iBombardDefense": 0,
+    "iCitiesPrereq": 0,
+    "iCoastalTradeRoutes": 0,
+    "iConquestProb": 100,
+    "iCost": 70,
+    "iDCMAirbombMission": 2,
+    "iDefense": 10,
+    "iDomesticGreatGeneralRateModifier": 0,
+    "iEnemyWarWearinessModifier": 0,
+    "iEspionageDefense": 10,
+    "iExperience": 0,
+    "iFoodKept": 30,
+    "iForeignTradeRouteModifier": 0,
+    "iFreeSpecialist": 0,
+    "iFreeTechs": 0,
+    "iGlobalExperience": 0,
+    "iGlobalFreeSpecialist": 0,
+    "iGlobalGreatPeopleRateModifier": 0,
+    "iGlobalHappiness": 0,
+    "iGlobalHealth": 0,
+    "iGlobalHurryModifier": 0,
+    "iGlobalPopulationChange": 0,
+    "iGlobalSpaceProductionModifier": 0,
+    "iGlobalTradeRoutes": 0,
+    "iGlobalWarWearinessModifier": 0,
+    "iGoldenAgeModifier": 0,
+    "iGreatGeneralRateModifier": 0,
+    "iGreatPeopleRateChange": 0,
+    "iGreatPeopleRateModifier": 0,
+    "iHappiness": 3,
+    "iHealRateChange": 6,
+    "iHealth": 3,
+    "iHotKeyPriority": 0,
+    "iHurryAngerModifier": 0,
+    "iHurryCostModifier": 0,
+    "iLevelPrereq": 0,
+    "iMaintenanceModifier": 0,
+    "iMaxLatitude": 90,
+    "iMilitaryProductionModifier": 0,
+    "iMinAreaSize": -1,
+    "iMinLatitude": 0,
+    "iNukeExplosionRand": 0,
+    "iNukeModifier": 0,
+    "iNumFreeBonuses": 0,
+    "iOrderPriority": null,
+    "iPower": 0,
+    "iRevIdxDistanceModifier": null,
+    "iRevIdxLocal": null,
+    "iRevIdxNational": null,
+    "iSpaceProductionModifier": 0,
+    "iStateReligionHappiness": 0,
+    "iTeamsPrereq": 0,
+    "iTradeRouteModifier": 0,
+    "iTradeRoutes": 1,
+    "iUnitUpgradePriceModifier": null,
+    "iWarWearinessModifier": 0,
+    "iWorkerSpeedModifier": 0
+   },
+   "SETTLEMENT_ESSENTIALS": {
+    "Advisor": "ADVISOR_GROWTH",
+    "AndDependencyTypes": null,
+    "AreaYieldModifiers": null,
+    "ArtDefineTag": "ART_DEF_BUILDING_SETTLEMENT_ESSENTIALS",
+    "Bonus": "NONE",
+    "BonusHappinessChanges": [
+     {
+      "BonusType": "BONUS_ALCOHOL",
+      "iHappinessChange": 1
+     },
+     {
+      "BonusType": "BONUS_FUR",
+      "iHappinessChange": 1
+     }
+    ],
+    "BonusHealthChanges": [
+     {
+      "BonusType": "BONUS_SALT",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_CORN",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_RICE",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_WHEAT",
+      "iHealthChange": 1
+     },
+     {
+      "BonusType": "BONUS_POTATO",
+      "iHealthChange": 1
+     }
+    ],
+    "BonusProductionModifiers": "",
+    "BonusYieldModifiers": [
+     {
+      "BonusType": "BONUS_DEER",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_COW",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_PIG",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_SHEEP",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_FISH",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_CLAM",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     },
+     {
+      "BonusType": "BONUS_SHRIMP",
+      "YieldModifiers": [
+       3,
+       0,
+       0
+      ]
+     }
+    ],
+    "BuildingClass": "BUILDINGCLASS_SETTLEMENT_ESSENTIALS",
+    "BuildingClassNeededs": "",
+    "BuildingHappinessChanges": "",
+    "CivicOption": "NONE",
+    "Civilopedia": "",
+    "CommerceChangeDoubleTimes": "",
+    "CommerceChangeOriginalOwners": "",
+    "CommerceChanges": "",
+    "CommerceFlexibles": "",
+    "CommerceHappinesses": "",
+    "CommerceModifiers": "",
+    "ConstructSound": "AS2D_BUILD_BUTCHERY",
+    "Description": "TXT_KEY_SETTLEMENT_ESSENTIALS",
+    "DiploVoteType": "NONE",
+    "DomainFreeExperiences": "",
+    "DomainProductionModifiers": "",
+    "Flavors": [
+     {
+      "FlavorType": "FLAVOR_PRODUCTION",
+      "iFlavor": 6
+     },
+     {
+      "FlavorType": "FLAVOR_GOLD",
+      "iFlavor": 2
+     },
+     {
+      "FlavorType": "FLAVOR_SCIENCE",
+      "iFlavor": 4
+     },
+     {
+      "FlavorType": "FLAVOR_MILITARY",
+      "iFlavor": 4
+     },
+     {
+      "FlavorType": "FLAVOR_GROWTH",
+      "iFlavor": 10
+     }
+    ],
+    "FoundsCorporation": "NONE",
+    "FreeBonus": "NONE",
+    "FreeBuilding": "NONE",
+    "FreePromotion": "NONE",
+    "FreeSpecialistCounts": "",
+    "FreeStartEra": "ERA_ANCIENT",
+    "GlobalCommerceModifiers": "",
+    "GlobalCorporationCommerce": "NONE",
+    "GlobalReligionCommerce": "NONE",
+    "GlobalSeaPlotYieldChanges": "",
+    "GlobalYieldModifiers": null,
+    "GreatPeopleUnitClass": "NONE",
+    "HappinessTraits": "",
+    "Help": null,
+    "HolyCity": "NONE",
+    "HotKey": "",
+    "ImprovementFreeSpecialists": "",
+    "MaxStartEra": "NONE",
+    "MovieDefineTag": "NONE",
+    "NoBonus": "NONE",
+    "NotGameOption": null,
+    "ObsoleteSafeCommerceChanges": "",
+    "ObsoleteTech": "NONE",
+    "OrDependencyTypes": null,
+    "PowerBonus": "NONE",
+    "PowerYieldModifiers": null,
+    "PrereqBonuses": "",
+    "PrereqBuildingClasses": "",
+    "PrereqCorporation": "NONE",
+    "PrereqGameOption": null,
+    "PrereqReligion": "NONE",
+    "PrereqTech": "NONE",
+    "ProductionTraits": [
+     {
+      "ProductionTraitType": "TRAIT_IMPERIALIST",
+      "iProductionTrait": 100
+     }
+    ],
+    "ReligionChanges": "",
+    "ReligionType": "NONE",
+    "RiverPlotYieldChanges": "",
+    "SeaPlotYieldChanges": "",
+    "SpecialBuildingType": "NONE",
+    "SpecialistCounts": "",
+    "SpecialistExtraCommerces": "",
+    "SpecialistYieldChanges": "",
+    "StateReligion": "NONE",
+    "StateReligionCommerces": "",
+    "Strategy": "",
+    "TechTypes": "",
+    "Type": "BUILDING_SETTLEMENT_ESSENTIALS",
+    "UnitCombatFreeExperiences": "",
+    "VictoryPrereq": "NONE",
+    "YieldChanges": "",
+    "YieldModifiers": null,
+    "_index": 382,
+    "_sources": [
+     "XML/Buildings/CIV4BuildingInfos.xml"
+    ],
+    "bAllowsNukes": false,
+    "bAltDown": false,
+    "bAreaCleanPower": false,
+    "bBorderObstacle": false,
+    "bBuildingOnlyHealthy": false,
+    "bCapital": false,
+    "bCenterInCity": false,
+    "bCtrlDown": false,
+    "bDCMNukesOkay": null,
+    "bDirtyPower": false,
+    "bForceTeamVoteEligible": false,
+    "bGoldenAge": false,
+    "bGovernmentCenter": false,
+    "bMapCentering": false,
+    "bNeverCapture": false,
+    "bNoUnhappiness": false,
+    "bNoUnhealthyPopulation": false,
+    "bNukeImmune": false,
+    "bPower": false,
+    "bPrereqReligion": false,
+    "bRiver": false,
+    "bShiftDown": false,
+    "bStateReligion": false,
+    "bTeamShare": false,
+    "bTypeDependency": null,
+    "bWater": false,
+    "fVisibilityPriority": "1.0",
+    "iAIWeight": 200,
+    "iAdvancedStartCost": 100,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirModifier": 0,
+    "iAirUnitCapacity": 0,
+    "iAirlift": 0,
+    "iAllCityDefense": 0,
+    "iAnarchyModifier": 0,
+    "iAreaFreeSpecialist": 0,
+    "iAreaHappiness": 0,
+    "iAreaHealth": 0,
+    "iAsset": 10,
+    "iBombardDefense": 0,
+    "iCitiesPrereq": 0,
+    "iCoastalTradeRoutes": 0,
+    "iConquestProb": 100,
+    "iCost": 10,
+    "iDCMAirbombMission": 2,
+    "iDefense": 0,
+    "iDomesticGreatGeneralRateModifier": 0,
+    "iEnemyWarWearinessModifier": 0,
+    "iEspionageDefense": 0,
+    "iExperience": 0,
+    "iFoodKept": 20,
+    "iForeignTradeRouteModifier": 0,
+    "iFreeSpecialist": 0,
+    "iFreeTechs": 0,
+    "iGlobalExperience": 0,
+    "iGlobalFreeSpecialist": 0,
+    "iGlobalGreatPeopleRateModifier": 0,
+    "iGlobalHappiness": 0,
+    "iGlobalHealth": 0,
+    "iGlobalHurryModifier": 0,
+    "iGlobalPopulationChange": 0,
+    "iGlobalSpaceProductionModifier": 0,
+    "iGlobalTradeRoutes": 0,
+    "iGlobalWarWearinessModifier": 0,
+    "iGoldenAgeModifier": 0,
+    "iGreatGeneralRateModifier": 0,
+    "iGreatPeopleRateChange": 0,
+    "iGreatPeopleRateModifier": 0,
+    "iHappiness": 0,
+    "iHealRateChange": 3,
+    "iHealth": 0,
+    "iHotKeyPriority": 0,
+    "iHurryAngerModifier": 0,
+    "iHurryCostModifier": 0,
+    "iLevelPrereq": 0,
+    "iMaintenanceModifier": 0,
+    "iMaxLatitude": 90,
+    "iMilitaryProductionModifier": 0,
+    "iMinAreaSize": -1,
+    "iMinLatitude": 0,
+    "iNukeExplosionRand": 0,
+    "iNukeModifier": 0,
+    "iNumFreeBonuses": 0,
+    "iOrderPriority": null,
+    "iPower": 0,
+    "iRevIdxDistanceModifier": null,
+    "iRevIdxLocal": null,
+    "iRevIdxNational": null,
+    "iSpaceProductionModifier": 0,
+    "iStateReligionHappiness": 0,
+    "iTeamsPrereq": 0,
+    "iTradeRouteModifier": 0,
+    "iTradeRoutes": 0,
+    "iUnitUpgradePriceModifier": null,
+    "iWarWearinessModifier": 0,
+    "iWorkerSpeedModifier": 0
+   },
+   "ROMAN_DEPOT": {
+    "Advisor": "ADVISOR_MILITARY",
+    "AndDependencyTypes": null,
+    "AreaYieldModifiers": null,
+    "ArtDefineTag": "ART_DEF_BUILDING_ROMAN_DEPOT",
+    "Bonus": "NONE",
+    "BonusHappinessChanges": "",
+    "BonusHealthChanges": "",
+    "BonusProductionModifiers": "",
+    "BonusYieldModifiers": "",
+    "BuildingClass": "BUILDINGCLASS_ROMAN_DEPOT",
+    "BuildingClassNeededs": "",
+    "BuildingHappinessChanges": "",
+    "CivicOption": "NONE",
+    "Civilopedia": "TXT_KEY_BUILDING_BARRACKS_PEDIA",
+    "CommerceChangeDoubleTimes": "",
+    "CommerceChangeOriginalOwners": "",
+    "CommerceChanges": "",
+    "CommerceFlexibles": "",
+    "CommerceHappinesses": "",
+    "CommerceModifiers": "",
+    "ConstructSound": "AS2D_BUILD_GRANARY",
+    "Description": "TXT_KEY_BUILDING_ROMAN_DEPOT",
+    "DiploVoteType": "NONE",
+    "DomainFreeExperiences": "",
+    "DomainProductionModifiers": "",
+    "Flavors": [
+     {
+      "FlavorType": "FLAVOR_GROWTH",
+      "iFlavor": 5
+     }
+    ],
+    "FoundsCorporation": "NONE",
+    "FreeBonus": "NONE",
+    "FreeBuilding": "NONE",
+    "FreePromotion": "NONE",
+    "FreeSpecialistCounts": "",
+    "FreeStartEra": "NONE",
+    "GlobalCommerceModifiers": "",
+    "GlobalCorporationCommerce": "NONE",
+    "GlobalReligionCommerce": "NONE",
+    "GlobalSeaPlotYieldChanges": "",
+    "GlobalYieldModifiers": null,
+    "GreatPeopleUnitClass": "NONE",
+    "HappinessTraits": "",
+    "Help": null,
+    "HolyCity": "NONE",
+    "HotKey": "",
+    "ImprovementFreeSpecialists": "",
+    "MaxStartEra": "NONE",
+    "MovieDefineTag": "NONE",
+    "NoBonus": "NONE",
+    "NotGameOption": null,
+    "ObsoleteSafeCommerceChanges": "",
+    "ObsoleteTech": "TECH_INDUSTRIALISM",
+    "OrDependencyTypes": null,
+    "PowerBonus": "NONE",
+    "PowerYieldModifiers": null,
+    "PrereqBonuses": "",
+    "PrereqBuildingClasses": "",
+    "PrereqCorporation": "NONE",
+    "PrereqGameOption": null,
+    "PrereqReligion": "NONE",
+    "PrereqTech": "TECH_CITY_PLANNING",
+    "ProductionTraits": [
+     {
+      "ProductionTraitType": "TRAIT_ORGANIZED",
+      "iProductionTrait": 100
+     }
+    ],
+    "ReligionChanges": "",
+    "ReligionType": "NONE",
+    "RiverPlotYieldChanges": "",
+    "SeaPlotYieldChanges": "",
+    "SpecialBuildingType": "NONE",
+    "SpecialistCounts": "",
+    "SpecialistExtraCommerces": "",
+    "SpecialistYieldChanges": "",
+    "StateReligion": "NONE",
+    "StateReligionCommerces": "",
+    "Strategy": "",
+    "TechTypes": [
+     "TECH_ROMAN"
+    ],
+    "Type": "BUILDING_ROMAN_DEPOT",
+    "UnitCombatFreeExperiences": "",
+    "VictoryPrereq": "NONE",
+    "YieldChanges": "",
+    "YieldModifiers": null,
+    "_index": 376,
+    "_sources": [
+     "XML/Buildings/CIV4BuildingInfos.xml"
+    ],
+    "bAllowsNukes": false,
+    "bAltDown": false,
+    "bAreaCleanPower": false,
+    "bBorderObstacle": false,
+    "bBuildingOnlyHealthy": false,
+    "bCapital": false,
+    "bCenterInCity": false,
+    "bCtrlDown": false,
+    "bDCMNukesOkay": null,
+    "bDirtyPower": false,
+    "bForceTeamVoteEligible": false,
+    "bGoldenAge": false,
+    "bGovernmentCenter": false,
+    "bMapCentering": false,
+    "bNeverCapture": false,
+    "bNoUnhappiness": false,
+    "bNoUnhealthyPopulation": false,
+    "bNukeImmune": false,
+    "bPower": false,
+    "bPrereqReligion": false,
+    "bRiver": false,
+    "bShiftDown": false,
+    "bStateReligion": false,
+    "bTeamShare": false,
+    "bTypeDependency": null,
+    "bWater": false,
+    "fVisibilityPriority": "1.0",
+    "iAIWeight": 0,
+    "iAdvancedStartCost": 100,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirModifier": 0,
+    "iAirUnitCapacity": 0,
+    "iAirlift": 0,
+    "iAllCityDefense": 0,
+    "iAnarchyModifier": 0,
+    "iAreaFreeSpecialist": 0,
+    "iAreaHappiness": 0,
+    "iAreaHealth": 0,
+    "iAsset": 2,
+    "iBombardDefense": 0,
+    "iCitiesPrereq": 0,
+    "iCoastalTradeRoutes": 0,
+    "iConquestProb": 0,
+    "iCost": 60,
+    "iDCMAirbombMission": 2,
+    "iDefense": 10,
+    "iDomesticGreatGeneralRateModifier": 0,
+    "iEnemyWarWearinessModifier": 0,
+    "iEspionageDefense": 0,
+    "iExperience": 0,
+    "iFoodKept": 10,
+    "iForeignTradeRouteModifier": 0,
+    "iFreeSpecialist": 0,
+    "iFreeTechs": 0,
+    "iGlobalExperience": 0,
+    "iGlobalFreeSpecialist": 0,
+    "iGlobalGreatPeopleRateModifier": 0,
+    "iGlobalHappiness": 0,
+    "iGlobalHealth": 0,
+    "iGlobalHurryModifier": 0,
+    "iGlobalPopulationChange": 0,
+    "iGlobalSpaceProductionModifier": 0,
+    "iGlobalTradeRoutes": 0,
+    "iGlobalWarWearinessModifier": 0,
+    "iGoldenAgeModifier": 0,
+    "iGreatGeneralRateModifier": 0,
+    "iGreatPeopleRateChange": 0,
+    "iGreatPeopleRateModifier": 0,
+    "iHappiness": 0,
+    "iHealRateChange": 30,
+    "iHealth": 2,
+    "iHotKeyPriority": 0,
+    "iHurryAngerModifier": 0,
+    "iHurryCostModifier": 0,
+    "iLevelPrereq": 0,
+    "iMaintenanceModifier": 0,
+    "iMaxLatitude": 90,
+    "iMilitaryProductionModifier": 10,
+    "iMinAreaSize": -1,
+    "iMinLatitude": 0,
+    "iNukeExplosionRand": 0,
+    "iNukeModifier": 0,
+    "iNumFreeBonuses": 0,
+    "iOrderPriority": null,
+    "iPower": 5,
+    "iRevIdxDistanceModifier": null,
+    "iRevIdxLocal": null,
+    "iRevIdxNational": null,
+    "iSpaceProductionModifier": 0,
+    "iStateReligionHappiness": 0,
+    "iTeamsPrereq": 0,
+    "iTradeRouteModifier": 0,
+    "iTradeRoutes": 0,
+    "iUnitUpgradePriceModifier": null,
+    "iWarWearinessModifier": -10,
+    "iWorkerSpeedModifier": 0
+   },
+   "PRAEFECTURA_ANNONAE": {
+    "Advisor": "ADVISOR_MILITARY",
+    "AndDependencyTypes": null,
+    "AreaYieldModifiers": null,
+    "ArtDefineTag": "ART_DEF_BUILDING_PRAEFECTURA_ANNONAE",
+    "Bonus": "NONE",
+    "BonusHappinessChanges": "",
+    "BonusHealthChanges": "",
+    "BonusProductionModifiers": "",
+    "BonusYieldModifiers": "",
+    "BuildingClass": "BUILDINGCLASS_PRAEFECTURA_ANNONAE",
+    "BuildingClassNeededs": [
+     {
+      "BuildingClassType": "BUILDINGCLASS_PALACE",
+      "bNeededInCity": true
+     }
+    ],
+    "BuildingHappinessChanges": "",
+    "CivicOption": "NONE",
+    "Civilopedia": "TXT_KEY_BUILDING_PRAEFECTUR_PEDIA",
+    "CommerceChangeDoubleTimes": "",
+    "CommerceChangeOriginalOwners": "",
+    "CommerceChanges": "",
+    "CommerceFlexibles": "",
+    "CommerceHappinesses": "",
+    "CommerceModifiers": "",
+    "ConstructSound": "AS2D_BUILD_GRANARY",
+    "Description": "TXT_KEY_BUILDING_PRAEFECTURA_ANNONAE",
+    "DiploVoteType": "NONE",
+    "DomainFreeExperiences": "",
+    "DomainProductionModifiers": "",
+    "Flavors": [
+     {
+      "FlavorType": "FLAVOR_GROWTH",
+      "iFlavor": 5
+     }
+    ],
+    "FoundsCorporation": "NONE",
+    "FreeBonus": "NONE",
+    "FreeBuilding": "NONE",
+    "FreePromotion": "NONE",
+    "FreeSpecialistCounts": "",
+    "FreeStartEra": "NONE",
+    "GlobalCommerceModifiers": "",
+    "GlobalCorporationCommerce": "NONE",
+    "GlobalReligionCommerce": "NONE",
+    "GlobalSeaPlotYieldChanges": "",
+    "GlobalYieldModifiers": null,
+    "GreatPeopleUnitClass": "NONE",
+    "HappinessTraits": "",
+    "Help": null,
+    "HolyCity": "NONE",
+    "HotKey": "",
+    "ImprovementFreeSpecialists": "",
+    "MaxStartEra": "NONE",
+    "MovieDefineTag": "NONE",
+    "NoBonus": "NONE",
+    "NotGameOption": null,
+    "ObsoleteSafeCommerceChanges": "",
+    "ObsoleteTech": "TECH_INDUSTRIALISM",
+    "OrDependencyTypes": null,
+    "PowerBonus": "NONE",
+    "PowerYieldModifiers": null,
+    "PrereqBonuses": "",
+    "PrereqBuildingClasses": "",
+    "PrereqCorporation": "NONE",
+    "PrereqGameOption": null,
+    "PrereqReligion": "NONE",
+    "PrereqTech": "TECH_CODE_OF_LAWS",
+    "ProductionTraits": [
+     {
+      "ProductionTraitType": "TRAIT_ORGANIZED",
+      "iProductionTrait": 100
+     }
+    ],
+    "ReligionChanges": "",
+    "ReligionType": "NONE",
+    "RiverPlotYieldChanges": "",
+    "SeaPlotYieldChanges": "",
+    "SpecialBuildingType": "NONE",
+    "SpecialistCounts": "",
+    "SpecialistExtraCommerces": "",
+    "SpecialistYieldChanges": "",
+    "StateReligion": "NONE",
+    "StateReligionCommerces": "",
+    "Strategy": "",
+    "TechTypes": [
+     "TECH_ROMAN"
+    ],
+    "Type": "BUILDING_PRAEFECTURA_ANNONAE",
+    "UnitCombatFreeExperiences": "",
+    "VictoryPrereq": "NONE",
+    "YieldChanges": [
+     0,
+     0,
+     0
+    ],
+    "YieldModifiers": [
+     25,
+     10,
+     0
+    ],
+    "_index": 378,
+    "_sources": [
+     "XML/Buildings/CIV4BuildingInfos.xml"
+    ],
+    "bAllowsNukes": false,
+    "bAltDown": false,
+    "bAreaCleanPower": false,
+    "bBorderObstacle": false,
+    "bBuildingOnlyHealthy": false,
+    "bCapital": false,
+    "bCenterInCity": false,
+    "bCtrlDown": false,
+    "bDCMNukesOkay": null,
+    "bDirtyPower": false,
+    "bForceTeamVoteEligible": false,
+    "bGoldenAge": false,
+    "bGovernmentCenter": false,
+    "bMapCentering": false,
+    "bNeverCapture": false,
+    "bNoUnhappiness": false,
+    "bNoUnhealthyPopulation": false,
+    "bNukeImmune": false,
+    "bPower": false,
+    "bPrereqReligion": false,
+    "bRiver": false,
+    "bShiftDown": false,
+    "bStateReligion": false,
+    "bTeamShare": false,
+    "bTypeDependency": null,
+    "bWater": false,
+    "fVisibilityPriority": "1.0",
+    "iAIWeight": 0,
+    "iAdvancedStartCost": 100,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirModifier": 0,
+    "iAirUnitCapacity": 0,
+    "iAirlift": 0,
+    "iAllCityDefense": 0,
+    "iAnarchyModifier": 0,
+    "iAreaFreeSpecialist": 0,
+    "iAreaHappiness": 0,
+    "iAreaHealth": 0,
+    "iAsset": 20,
+    "iBombardDefense": 0,
+    "iCitiesPrereq": 0,
+    "iCoastalTradeRoutes": 0,
+    "iConquestProb": 0,
+    "iCost": 100,
+    "iDCMAirbombMission": 2,
+    "iDefense": 0,
+    "iDomesticGreatGeneralRateModifier": 0,
+    "iEnemyWarWearinessModifier": 0,
+    "iEspionageDefense": 0,
+    "iExperience": 0,
+    "iFoodKept": 10,
+    "iForeignTradeRouteModifier": 0,
+    "iFreeSpecialist": 1,
+    "iFreeTechs": 0,
+    "iGlobalExperience": 0,
+    "iGlobalFreeSpecialist": 0,
+    "iGlobalGreatPeopleRateModifier": 0,
+    "iGlobalHappiness": 0,
+    "iGlobalHealth": 0,
+    "iGlobalHurryModifier": 0,
+    "iGlobalPopulationChange": 0,
+    "iGlobalSpaceProductionModifier": 0,
+    "iGlobalTradeRoutes": 0,
+    "iGlobalWarWearinessModifier": 0,
+    "iGoldenAgeModifier": 0,
+    "iGreatGeneralRateModifier": 0,
+    "iGreatPeopleRateChange": 0,
+    "iGreatPeopleRateModifier": 0,
+    "iHappiness": 0,
+    "iHealRateChange": 0,
+    "iHealth": 0,
+    "iHotKeyPriority": 0,
+    "iHurryAngerModifier": 0,
+    "iHurryCostModifier": 0,
+    "iLevelPrereq": 0,
+    "iMaintenanceModifier": -10,
+    "iMaxLatitude": 90,
+    "iMilitaryProductionModifier": 0,
+    "iMinAreaSize": -1,
+    "iMinLatitude": 0,
+    "iNukeExplosionRand": 0,
+    "iNukeModifier": 0,
+    "iNumFreeBonuses": 0,
+    "iOrderPriority": null,
+    "iPower": 0,
+    "iRevIdxDistanceModifier": null,
+    "iRevIdxLocal": null,
+    "iRevIdxNational": null,
+    "iSpaceProductionModifier": 0,
+    "iStateReligionHappiness": 0,
+    "iTeamsPrereq": 0,
+    "iTradeRouteModifier": 0,
+    "iTradeRoutes": 0,
+    "iUnitUpgradePriceModifier": null,
+    "iWarWearinessModifier": -10,
+    "iWorkerSpeedModifier": 0
+   },
+   "VIKING_TRADING_POST": {
+    "Advisor": "ADVISOR_GROWTH",
+    "AndDependencyTypes": null,
+    "AreaYieldModifiers": null,
+    "ArtDefineTag": "ART_DEF_BUILDING_VIKING_TRADING_POST",
+    "Bonus": "NONE",
+    "BonusHappinessChanges": "",
+    "BonusHealthChanges": "",
+    "BonusProductionModifiers": "",
+    "BonusYieldModifiers": "",
+    "BuildingClass": "BUILDINGCLASS_LIGHTHOUSE",
+    "BuildingClassNeededs": "",
+    "BuildingHappinessChanges": "",
+    "CivicOption": "NONE",
+    "Civilopedia": "TXT_KEY_BUILDING_VIKING_TRADING_POST_PEDIA",
+    "CommerceChangeDoubleTimes": "",
+    "CommerceChangeOriginalOwners": "",
+    "CommerceChanges": "",
+    "CommerceFlexibles": "",
+    "CommerceHappinesses": "",
+    "CommerceModifiers": "",
+    "ConstructSound": "AS2D_BUILD_LIGHTHOUSE",
+    "Description": "TXT_KEY_BUILDING_VIKING_TRADING_POST",
+    "DiploVoteType": "NONE",
+    "DomainFreeExperiences": "",
+    "DomainProductionModifiers": "",
+    "Flavors": [
+     {
+      "FlavorType": "FLAVOR_GROWTH",
+      "iFlavor": 10
+     }
+    ],
+    "FoundsCorporation": "NONE",
+    "FreeBonus": "NONE",
+    "FreeBuilding": "NONE",
+    "FreePromotion": "PROMOTION_COASTAL_ASSAULT1",
+    "FreeSpecialistCounts": "",
+    "FreeStartEra": "ERA_MEDIEVAL",
+    "GlobalCommerceModifiers": "",
+    "GlobalCorporationCommerce": "NONE",
+    "GlobalReligionCommerce": "NONE",
+    "GlobalSeaPlotYieldChanges": "",
+    "GlobalYieldModifiers": null,
+    "GreatPeopleUnitClass": "NONE",
+    "HappinessTraits": "",
+    "Help": "TXT_KEY_BUILDING_LIGHTHOUSE_HELP",
+    "HolyCity": "NONE",
+    "HotKey": "",
+    "ImprovementFreeSpecialists": "",
+    "MaxStartEra": "NONE",
+    "MovieDefineTag": "NONE",
+    "NoBonus": "NONE",
+    "NotGameOption": null,
+    "ObsoleteSafeCommerceChanges": "",
+    "ObsoleteTech": "NONE",
+    "OrDependencyTypes": null,
+    "PowerBonus": "NONE",
+    "PowerYieldModifiers": null,
+    "PrereqBonuses": "",
+    "PrereqBuildingClasses": "",
+    "PrereqCorporation": "NONE",
+    "PrereqGameOption": null,
+    "PrereqReligion": "NONE",
+    "PrereqTech": "TECH_SAILING",
+    "ProductionTraits": [
+     {
+      "ProductionTraitType": "TRAIT_SEAFARING",
+      "iProductionTrait": 100
+     }
+    ],
+    "ReligionChanges": "",
+    "ReligionType": "NONE",
+    "RiverPlotYieldChanges": "",
+    "SeaPlotYieldChanges": [
+     1,
+     0,
+     0
+    ],
+    "SpecialBuildingType": "NONE",
+    "SpecialistCounts": "",
+    "SpecialistExtraCommerces": "",
+    "SpecialistYieldChanges": "",
+    "StateReligion": "NONE",
+    "StateReligionCommerces": "",
+    "Strategy": "TXT_KEY_BUILDING_VIKING_TRADING_POST_STRATEGY",
+    "TechTypes": "",
+    "Type": "BUILDING_VIKING_TRADING_POST",
+    "UnitCombatFreeExperiences": "",
+    "VictoryPrereq": "NONE",
+    "YieldChanges": "",
+    "YieldModifiers": null,
+    "_index": 38,
+    "_sources": [
+     "XML/Buildings/CIV4BuildingInfos.xml"
+    ],
+    "bAllowsNukes": false,
+    "bAltDown": false,
+    "bAreaCleanPower": false,
+    "bBorderObstacle": false,
+    "bBuildingOnlyHealthy": false,
+    "bCapital": false,
+    "bCenterInCity": false,
+    "bCtrlDown": false,
+    "bDCMNukesOkay": null,
+    "bDirtyPower": false,
+    "bForceTeamVoteEligible": false,
+    "bGoldenAge": false,
+    "bGovernmentCenter": false,
+    "bMapCentering": false,
+    "bNeverCapture": false,
+    "bNoUnhappiness": false,
+    "bNoUnhealthyPopulation": false,
+    "bNukeImmune": false,
+    "bPower": false,
+    "bPrereqReligion": false,
+    "bRiver": false,
+    "bShiftDown": false,
+    "bStateReligion": false,
+    "bTeamShare": false,
+    "bTypeDependency": null,
+    "bWater": true,
+    "fVisibilityPriority": "1.0",
+    "iAIWeight": 0,
+    "iAdvancedStartCost": 100,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirModifier": 0,
+    "iAirUnitCapacity": 0,
+    "iAirlift": 0,
+    "iAllCityDefense": 0,
+    "iAnarchyModifier": 0,
+    "iAreaFreeSpecialist": 0,
+    "iAreaHappiness": 0,
+    "iAreaHealth": 0,
+    "iAsset": 3,
+    "iBombardDefense": 0,
+    "iCitiesPrereq": 0,
+    "iCoastalTradeRoutes": 0,
+    "iConquestProb": 75,
+    "iCost": 60,
+    "iDCMAirbombMission": 2,
+    "iDefense": 0,
+    "iDomesticGreatGeneralRateModifier": 0,
+    "iEnemyWarWearinessModifier": 0,
+    "iEspionageDefense": 0,
+    "iExperience": 0,
+    "iFoodKept": 0,
+    "iForeignTradeRouteModifier": 50,
+    "iFreeSpecialist": 0,
+    "iFreeTechs": 0,
+    "iGlobalExperience": 0,
+    "iGlobalFreeSpecialist": 0,
+    "iGlobalGreatPeopleRateModifier": 0,
+    "iGlobalHappiness": 0,
+    "iGlobalHealth": 0,
+    "iGlobalHurryModifier": 0,
+    "iGlobalPopulationChange": 0,
+    "iGlobalSpaceProductionModifier": 0,
+    "iGlobalTradeRoutes": 0,
+    "iGlobalWarWearinessModifier": 0,
+    "iGoldenAgeModifier": 0,
+    "iGreatGeneralRateModifier": 0,
+    "iGreatPeopleRateChange": 0,
+    "iGreatPeopleRateModifier": 0,
+    "iHappiness": 0,
+    "iHealRateChange": 0,
+    "iHealth": 0,
+    "iHotKeyPriority": 0,
+    "iHurryAngerModifier": 0,
+    "iHurryCostModifier": 0,
+    "iLevelPrereq": 0,
+    "iMaintenanceModifier": 0,
+    "iMaxLatitude": 90,
+    "iMilitaryProductionModifier": 0,
+    "iMinAreaSize": 10,
+    "iMinLatitude": 0,
+    "iNukeExplosionRand": 0,
+    "iNukeModifier": 0,
+    "iNumFreeBonuses": 0,
+    "iOrderPriority": null,
+    "iPower": 1,
+    "iRevIdxDistanceModifier": null,
+    "iRevIdxLocal": null,
+    "iRevIdxNational": null,
+    "iSpaceProductionModifier": 0,
+    "iStateReligionHappiness": 0,
+    "iTeamsPrereq": 0,
+    "iTradeRouteModifier": 25,
+    "iTradeRoutes": 0,
+    "iUnitUpgradePriceModifier": null,
+    "iWarWearinessModifier": 0,
+    "iWorkerSpeedModifier": 0
+   }
+  }
+ }
+}

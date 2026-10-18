@@ -411,6 +411,20 @@ order of completions, how soon after its tech, and the same for the AIs' cities:
 ### 4.3 What the city template gives
 
 From the XML records (appendix):
+- **Upgrade lines.** In RoM a building of a line removes the ones it replaces when it is built
+  (`RoMEventManager.py:71` and `RoMEventManager.py:102`, the two lists, applied in
+  `onBuildingBuilt`, `RoMEventManager.py:324`). So a city holds one tier of each line, and the effects of the
+  tiers do not add up:
+  - City Essentials replaces Town Essentials, which replaces Settlement Essentials;
+  - Barracks replaces Early Barracks, and Legion Barracks replaces both;
+  - Port replaces River Port and Harbor;
+  - the Library replaces the School of Scribes;
+  - the Forum is the Roman market.
+- **The Essentials line is also the granary.** Each tier keeps part of the food store when the
+  city grows (`iFoodKept`): Settlement `20`,
+  Town `30`, City
+  `30` per cent. Section 6.5 has the
+  effect on growth.
 - **Town Essentials**, the human's first building in a city in both games (the AIs build
   Walls or the Obelisk first):
   - land-unit production `[{"DomainType":"DOMAIN_LAND","iProductionModifier":15}]`;
@@ -553,6 +567,183 @@ Every build order by the plot's traits:
     section 6);
   - what the cities add on top: the template of section 4 and the civics of section 3.3.
 
+### 5.4 The exact yield of the worked tiles
+
+`tools/tileyield.py` rebuilds every worked plot's yield from the XML with the game's own formula
+(`CvPlot::calculateYield`), and checks it against the yield in the save dump:
+
+| side | worked_plots | food_exact | hammers_exact | commerce_exact | all_three_exact | missed | missed_with_a_battle_there |
+|---|---|---|---|---|---|---|---|
+| human | 109 | 109 | 108 | 108 | 108 | 1 | 0 |
+| AI | 641 | 641 | 641 | 641 | 641 | 0 | 0 |
+
+*tiles at save; who: every player; turn: save; rows counted: 750; source: tileyield.py: the model against CvPlot::getYield in the save dump; a battle there: a C line on the plot in the last ten turns (DCM battle effects, BATTLE_EFFECT_LESS_FOOD and _COMMERCE, are not in the dump). Every value counted (2).*
+
+| side | worked_plots | food_exact | hammers_exact | commerce_exact | all_three_exact | missed | missed_with_a_battle_there |
+|---|---|---|---|---|---|---|---|
+| human | 163 | 157 | 163 | 157 | 157 | 6 | 6 |
+| AI | 1015 | 1012 | 1011 | 1009 | 1008 | 7 | 2 |
+
+*tiles at save; who: every player; turn: save; rows counted: 1178; source: tileyield.py: the model against CvPlot::getYield in the save dump; a battle there: a C line on the plot in the last ten turns (DCM battle effects, BATTLE_EFFECT_LESS_FOOD and _COMMERCE, are not in the dump). Every value counted (2).*
+
+The few misses are plots fought over in the last turns: RoM's battle effects lower food and
+commerce there, and the dump does not record them. For the exactly predicted plots, the mean
+yield of each improvement and the source of every point of it:
+
+| side_improvement_yield | plots | actual | nature | improvement | tech | civic | route | city | bonus |
+|---|---|---|---|---|---|---|---|---|---|
+| human, mine, food | 21 | 1.24 | 0.67 | 0.0 | 0.0 | 0.0 | 0.0 | 0.57 | 0.0 |
+| human, mine, hammers | 21 | 6.67 | 2.67 | 2.0 | 1.0 | 1.0 | 0.0 | 0.0 | 0.0 |
+| human, mine, commerce | 21 | 1.24 | 0.29 | 0.95 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, farm, food | 20 | 7.45 | 1.7 | 2.2 | 2.0 | 1.0 | 0.0 | 0.55 | 0.0 |
+| human, farm, hammers | 20 | 0.4 | 0.4 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, farm, commerce | 20 | 1.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, hamlet, food | 16 | 2.38 | 1.5 | 0.0 | 0.0 | 0.0 | 0.0 | 0.88 | 0.0 |
+| human, hamlet, hammers | 16 | 1.5 | 1.5 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, hamlet, commerce | 16 | 2.06 | 0.06 | 2.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, city plot, food | 13 | 3.0 | 0.92 | 0.0 | 0.0 | 0.0 | 0.0 | 2.08 | 0.0 |
+| human, city plot, hammers | 13 | 2.08 | 1.15 | 0.0 | 0.0 | 0.0 | 0.0 | 0.92 | 0.0 |
+| human, city plot, commerce | 13 | 1.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, other, food | 10 | 6.8 | 1.6 | 2.5 | 1.7 | 0.2 | 0.0 | 0.8 | 0.0 |
+| human, other, hammers | 10 | 2.9 | 1.3 | 1.0 | 0.6 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, other, commerce | 10 | 3.0 | 0.9 | 1.3 | 0.4 | 0.4 | 0.0 | 0.0 | 0.0 |
+| human, village, food | 9 | 1.89 | 1.44 | 0.0 | 0.0 | 0.0 | 0.0 | 0.44 | 0.0 |
+| human, village, hammers | 9 | 1.44 | 1.44 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, village, commerce | 9 | 5.11 | 0.44 | 4.67 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, camp, food | 8 | 3.88 | 1.75 | 1.5 | 0.0 | 0.0 | 0.0 | 0.62 | 0.0 |
+| human, camp, hammers | 8 | 2.0 | 1.5 | 0.5 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, camp, commerce | 8 | 1.0 | 0.5 | 0.5 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, cottage, food | 6 | 2.17 | 1.33 | 0.0 | 0.0 | 0.0 | 0.0 | 0.83 | 0.0 |
+| human, cottage, hammers | 6 | 1.5 | 1.5 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, cottage, commerce | 6 | 1.17 | 0.17 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, water, food | 3 | 5.67 | 2.67 | 2.0 | 0.0 | 0.0 | 0.0 | 1.0 | 0.0 |
+| human, water, hammers | 3 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, water, commerce | 3 | 1.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, none, food | 2 | 2.5 | 1.5 | 0.0 | 0.0 | 0.0 | 0.0 | 1.0 | 0.0 |
+| human, none, hammers | 2 | 1.5 | 1.5 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, none, commerce | 2 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, water, food | 124 | 5.3 | 2.71 | 1.77 | 0.0 | 0.0 | 0.0 | 0.74 | 0.08 |
+| AI, water, hammers | 124 | 0.46 | 0.0 | 0.0 | 0.0 | 0.46 | 0.0 | 0.0 | 0.0 |
+| AI, water, commerce | 124 | 2.08 | 1.05 | 0.55 | 0.0 | 0.46 | 0.0 | 0.0 | 0.02 |
+| AI, city plot, food | 116 | 3.0 | 0.79 | 0.0 | 0.0 | 0.0 | 0.0 | 2.21 | 0.0 |
+| AI, city plot, hammers | 116 | 2.08 | 1.22 | 0.0 | 0.0 | 0.0 | 0.0 | 0.85 | 0.0 |
+| AI, city plot, commerce | 116 | 1.03 | 0.75 | 0.0 | 0.0 | 0.0 | 0.0 | 0.28 | 0.0 |
+| AI, farm, food | 98 | 7.42 | 2.03 | 2.55 | 1.77 | 0.92 | 0.0 | 0.1 | 0.05 |
+| AI, farm, hammers | 98 | 0.72 | 0.72 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, farm, commerce | 98 | 1.14 | 0.87 | 0.0 | 0.0 | 0.28 | 0.0 | 0.0 | 0.0 |
+| AI, other, food | 66 | 5.89 | 1.45 | 2.24 | 1.74 | 0.38 | 0.0 | 0.06 | 0.02 |
+| AI, other, hammers | 66 | 3.15 | 1.89 | 1.02 | 0.24 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, other, commerce | 66 | 2.44 | 0.44 | 1.23 | 0.2 | 0.5 | 0.0 | 0.0 | 0.08 |
+| AI, mine, food | 60 | 0.1 | 0.1 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, mine, hammers | 60 | 6.47 | 2.87 | 1.9 | 0.92 | 0.78 | 0.0 | 0.0 | 0.0 |
+| AI, mine, commerce | 60 | 1.35 | 0.35 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, camp, food | 55 | 3.0 | 1.2 | 1.56 | 0.0 | 0.0 | 0.0 | 0.18 | 0.05 |
+| AI, camp, hammers | 55 | 2.25 | 1.96 | 0.29 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, camp, commerce | 55 | 0.85 | 0.4 | 0.45 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, cottage, food | 51 | 1.75 | 0.8 | 0.0 | 0.0 | 0.94 | 0.0 | 0.0 | 0.0 |
+| AI, cottage, hammers | 51 | 3.04 | 2.1 | 0.0 | 0.0 | 0.94 | 0.0 | 0.0 | 0.0 |
+| AI, cottage, commerce | 51 | 0.33 | 0.27 | 1.0 | 0.0 | -0.94 | 0.0 | 0.0 | 0.0 |
+| AI, hamlet, food | 40 | 2.75 | 1.0 | 0.0 | 0.0 | 1.75 | 0.0 | 0.0 | 0.0 |
+| AI, hamlet, hammers | 40 | 3.5 | 1.75 | 0.0 | 0.0 | 1.75 | 0.0 | 0.0 | 0.0 |
+| AI, hamlet, commerce | 40 | 1.52 | 0.3 | 2.1 | 0.0 | -0.88 | 0.0 | 0.0 | 0.0 |
+| AI, none, food | 18 | 1.67 | 1.67 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, none, hammers | 18 | 1.83 | 1.83 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, none, commerce | 18 | 0.72 | 0.72 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, village, food | 12 | 3.17 | 1.17 | 0.0 | 0.0 | 2.0 | 0.0 | 0.0 | 0.0 |
+| AI, village, hammers | 12 | 4.83 | 1.83 | 0.0 | 0.0 | 3.0 | 0.0 | 0.0 | 0.0 |
+| AI, village, commerce | 12 | 1.33 | 0.0 | 3.33 | 0.0 | -2.0 | 0.0 | 0.0 | 0.0 |
+| AI, workshop, food | 1 | 1.0 | 2.0 | -1.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, workshop, hammers | 1 | 3.0 | 1.0 | 1.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, workshop, commerce | 1 | 1.0 | 0.0 | 0.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+
+*food per tile; who: every player; turn: save; rows counted: 749; source: tileyield.py: exactly predicted worked plots; mean yield per plot and the mean of each source term (food, hammers and commerce rows; the unit applies to each row's own yield). Every value counted (63).*
+
+| side_improvement_yield | plots | actual | nature | improvement | tech | civic | route | city | bonus |
+|---|---|---|---|---|---|---|---|---|---|
+| human, water, food | 40 | 4.65 | 2.55 | 1.27 | 0.0 | 0.0 | 0.0 | 0.82 | 0.0 |
+| human, water, hammers | 40 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, water, commerce | 40 | 1.25 | 1.0 | 0.25 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, mine, food | 35 | 1.2 | 0.74 | 0.0 | 0.0 | 0.0 | 0.0 | 0.46 | 0.0 |
+| human, mine, hammers | 35 | 8.23 | 2.26 | 1.97 | 3.0 | 1.0 | 0.0 | 0.0 | 0.0 |
+| human, mine, commerce | 35 | 0.91 | 0.2 | 0.71 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, farm, food | 21 | 8.9 | 1.9 | 2.38 | 3.0 | 1.0 | 0.0 | 0.62 | 0.0 |
+| human, farm, hammers | 21 | 0.29 | 0.29 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, farm, commerce | 21 | 1.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, city plot, food | 20 | 3.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 | 2.0 | 0.0 |
+| human, city plot, hammers | 20 | 2.0 | 1.15 | 0.0 | 0.0 | 0.0 | 0.0 | 0.85 | 0.0 |
+| human, city plot, commerce | 20 | 1.0 | 0.75 | 0.0 | 0.0 | 0.0 | 0.0 | 0.25 | 0.0 |
+| human, other, food | 16 | 6.0 | 1.62 | 1.88 | 1.56 | 0.44 | 0.0 | 0.5 | 0.0 |
+| human, other, hammers | 16 | 2.88 | 1.31 | 0.81 | 0.75 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, other, commerce | 16 | 3.94 | 0.88 | 1.62 | 0.56 | 0.88 | 0.0 | 0.0 | 0.0 |
+| human, hamlet, food | 8 | 1.25 | 1.25 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, hamlet, hammers | 8 | 1.38 | 1.38 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, hamlet, commerce | 8 | 2.25 | 0.25 | 2.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, village, food | 7 | 1.57 | 0.86 | 0.0 | 0.0 | 0.0 | 0.0 | 0.71 | 0.0 |
+| human, village, hammers | 7 | 2.0 | 2.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, village, commerce | 7 | 4.14 | 0.14 | 4.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, none, food | 6 | 1.33 | 1.33 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, none, hammers | 6 | 2.17 | 2.17 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, none, commerce | 6 | 0.5 | 0.5 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, camp, food | 3 | 5.0 | 2.0 | 2.67 | 0.0 | 0.0 | 0.0 | 0.33 | 0.0 |
+| human, camp, hammers | 3 | 1.67 | 1.67 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, camp, commerce | 3 | 0.67 | 0.33 | 0.33 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| human, workshop, food | 1 | 2.0 | 2.0 | -1.0 | 0.0 | 1.0 | 0.0 | 0.0 | 0.0 |
+| human, workshop, hammers | 1 | 7.0 | 1.0 | 1.0 | 3.0 | 2.0 | 0.0 | 0.0 | 0.0 |
+| human, workshop, commerce | 1 | 1.0 | 0.0 | 0.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, mine, food | 221 | 0.49 | 0.35 | 0.0 | 0.0 | 0.0 | 0.0 | 0.14 | 0.0 |
+| AI, mine, hammers | 221 | 6.64 | 2.53 | 2.14 | 1.0 | 0.97 | 0.0 | 0.0 | 0.0 |
+| AI, mine, commerce | 221 | 0.6 | 0.19 | 0.4 | 0.0 | 0.0 | 0.0 | 0.0 | 0.01 |
+| AI, city plot, food | 177 | 3.0 | 0.83 | 0.0 | 0.0 | 0.0 | 0.0 | 2.17 | 0.0 |
+| AI, city plot, hammers | 177 | 2.05 | 1.19 | 0.0 | 0.0 | 0.0 | 0.0 | 0.86 | 0.0 |
+| AI, city plot, commerce | 177 | 1.01 | 0.62 | 0.0 | 0.0 | 0.0 | 0.0 | 0.4 | 0.0 |
+| AI, farm, food | 175 | 7.92 | 1.99 | 2.54 | 1.88 | 0.97 | 0.0 | 0.31 | 0.23 |
+| AI, farm, hammers | 175 | 0.68 | 0.68 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, farm, commerce | 175 | 0.84 | 0.84 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, water, food | 152 | 5.46 | 2.74 | 1.85 | 0.0 | 0.0 | 0.0 | 0.76 | 0.11 |
+| AI, water, hammers | 152 | 0.54 | 0.0 | 0.0 | 0.0 | 0.54 | 0.0 | 0.0 | 0.0 |
+| AI, water, commerce | 152 | 2.04 | 1.07 | 0.43 | 0.0 | 0.54 | 0.0 | 0.0 | 0.01 |
+| AI, other, food | 115 | 6.21 | 1.67 | 1.95 | 1.82 | 0.45 | 0.0 | 0.22 | 0.1 |
+| AI, other, hammers | 115 | 3.05 | 1.64 | 1.14 | 0.27 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, other, commerce | 115 | 2.62 | 0.58 | 1.15 | 0.2 | 0.68 | 0.0 | 0.0 | 0.01 |
+| AI, camp, food | 67 | 3.66 | 1.63 | 1.79 | 0.0 | 0.0 | 0.0 | 0.18 | 0.06 |
+| AI, camp, hammers | 67 | 2.03 | 1.78 | 0.25 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, camp, commerce | 67 | 0.82 | 0.36 | 0.46 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, none, food | 35 | 1.91 | 1.89 | 0.0 | 0.0 | 0.0 | 0.0 | 0.03 | 0.0 |
+| AI, none, hammers | 35 | 1.49 | 1.49 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, none, commerce | 35 | 0.86 | 0.86 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, cottage, food | 31 | 1.65 | 0.97 | 0.0 | 0.0 | 0.48 | 0.0 | 0.19 | 0.0 |
+| AI, cottage, hammers | 31 | 2.19 | 1.71 | 0.0 | 0.0 | 0.48 | 0.0 | 0.0 | 0.0 |
+| AI, cottage, commerce | 31 | 0.97 | 0.32 | 1.13 | 0.0 | -0.48 | 0.0 | 0.0 | 0.0 |
+| AI, hamlet, food | 17 | 2.35 | 1.29 | 0.0 | 0.0 | 0.82 | 0.0 | 0.24 | 0.0 |
+| AI, hamlet, hammers | 17 | 2.35 | 1.53 | 0.0 | 0.0 | 0.82 | 0.0 | 0.0 | 0.0 |
+| AI, hamlet, commerce | 17 | 2.0 | 0.18 | 2.24 | 0.0 | -0.41 | 0.0 | 0.0 | 0.0 |
+| AI, workshop, food | 15 | 1.0 | 1.6 | -1.0 | 0.0 | 0.0 | 0.0 | 0.4 | 0.0 |
+| AI, workshop, hammers | 15 | 3.47 | 1.47 | 1.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, workshop, commerce | 15 | 1.27 | 0.27 | 0.0 | 1.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| AI, village, food | 3 | 3.0 | 1.0 | 0.0 | 0.0 | 2.0 | 0.0 | 0.0 | 0.0 |
+| AI, village, hammers | 3 | 5.0 | 2.0 | 0.0 | 0.0 | 3.0 | 0.0 | 0.0 | 0.0 |
+| AI, village, commerce | 3 | 1.33 | 0.0 | 3.33 | 0.0 | -2.0 | 0.0 | 0.0 | 0.0 |
+
+*food per tile; who: every player; turn: save; rows counted: 1165; source: tileyield.py: exactly predicted worked plots; mean yield per plot and the mean of each source term (food, hammers and commerce rows; the unit applies to each row's own yield). Every value counted (63).*
+
+What the tables show:
+- **Farms and mines.** In game 4 the human's farms give more food, and its mines more hammers,
+  than the AIs'; in game 3 they are about equal. In game 4 the difference is in two columns:
+  - tech: the improvement's `TechYieldChanges` (for a farm: Fermentation, Mathematics and
+    Waterworks, food each; for a mine: Mathematics, Machinery and Waterworks, hammers each).
+    The human holds these techs earlier (section 3.1);
+  - city: Irrigation Canals, `[1,0]`
+    on every river plot of the city (food, hammers), built in most of the human's cities and few
+    of the AIs' (section 6.5).
+  - The human's mines also carry food: they are on river hills of cities with the canals.
+- **The cottage line.** The AIs' cottages, hamlets and villages carry a civic column of plus
+  food and hammers and minus commerce. That is Peasantry, held by some AIs
+  (`study/winning.md`, section 4), which turns the cottage line into production tiles. The
+  human, under Proletariat, keeps their commerce, and its villages give several times the AIs'.
+- **Water.** The human's water tiles get food from the city column: the Essentials'
+  `SeaPlotYieldChanges`.
+- **Unimproved and city plots** are alike on both sides.
+
 ## 6. Production, gold and the build-up
 
 ### 6.1 Output per city
@@ -676,23 +867,136 @@ Every build order by the plot's traits:
   - Oligarchy, held throughout game 4 and until after the war in game 3, gives every new unit
     `3` experience;
   - Legion Barracks give melee units `[{"UnitCombatType":"UNITCOMBAT_MELEE","iExperience":10},{"UnitCombatType":"UNITCOMBAT_RECON","iExperience":3},{"UnitCombatType":"UNITCOMBAT_ANIMAL","iExperience":2},{"UnitCombatType":"UNITCOMBAT_MOUNTED","iExperience":2},{"UnitCombatType":"UNITCOMBAT_SIEGE","iExperience":1}]`;
-  - Barracks give `[{"UnitCombatType":"UNITCOMBAT_MELEE","iExperience":3},{"UnitCombatType":"UNITCOMBAT_RECON","iExperience":3},{"UnitCombatType":"UNITCOMBAT_ANIMAL","iExperience":2},{"UnitCombatType":"UNITCOMBAT_MOUNTED","iExperience":2},{"UnitCombatType":"UNITCOMBAT_SIEGE","iExperience":1}]`;
+    they need Barracks to be built (`BuildingClassNeededs`) and then replace them (section 4.3),
+    so the Barracks' `[{"UnitCombatType":"UNITCOMBAT_MELEE","iExperience":3},{"UnitCombatType":"UNITCOMBAT_RECON","iExperience":3},{"UnitCombatType":"UNITCOMBAT_ANIMAL","iExperience":2},{"UnitCombatType":"UNITCOMBAT_MOUNTED","iExperience":2},{"UnitCombatType":"UNITCOMBAT_SIEGE","iExperience":1}]` does not add;
   - a Mars Temple gives `3`.
-- **The match with the log.** A melee unit trained under Oligarchy in a city with Barracks and
-  Legion Barracks, the Legion Barracks needing the Barracks (`BuildingClassNeededs`), starts with
-  the sum of the three. The Legionaries that attack in game 4 carry a median experience of the
-  same size (section 7.3). Much of their experience came with the unit, not from fighting. This
-  fits the human's units carrying several times the AIs' promotions (`study/data.md`,
-  section 4).
-- **Production for war.** Military production is raised by Early and Legion Barracks
-  (`25` per cent each),
-  the Roman Depot and the Mars Temple, on top of the land-unit production of the two Essentials.
+- **The match with the log.** A melee unit trained under Oligarchy in a city with Legion
+  Barracks and a Mars Temple starts with the sum of the three. The Legionaries that attack in
+  game 4 carry a median experience of the same size (section 7.3). Much of their experience came
+  with the unit, not from fighting. This fits the human's units carrying several times the AIs'
+  promotions (`study/data.md`, section 4).
+- **Production for war.** Military production is raised by the barracks tier the city holds
+  (Early and Legion Barracks:
+  `25` per cent), the
+  Roman Depot and the Mars Temple. These add to the land-unit production of the Essentials tier
+  the city holds.
 - **Holding Oligarchy.** This explains why the human keeps Oligarchy in game 4 although the probe
   values Patrician higher in commerce (`study/winning.md`, section 3.3). In game 3 it switches to
   Patrician only after its war.
 - **Fortification.** Adopted next to the wars, it gives
   `1` happiness per military
   unit, so a large garrison also keeps the cities content.
+
+### 6.5 Growth
+
+`tools/growth.py` computes, for every city at the save, its growth with the game's rules:
+- the threshold of `CvPlayer::getGrowthThreshold`, lower for the AIs at higher difficulties
+  (`iAIGrowthPercent`);
+- the food kept on growth, the sum of the city's buildings' `iFoodKept`;
+- the food a new citizen then costs, and the turns to it at the present surplus;
+- the city's food, split into the plots it works and the rest. Food from trade routes is
+  estimated from the city's route commerce and the owner's trade-yield modifiers.
+
+| cities | n | pop | food | food_from_tiles | food_other | trade_commerce | trade_food_est | trade_hammers_est | surplus | growing | threshold | kept_pct | food_per_growth | turns_per_growth | happy_margin | health_margin |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| human capital | 1 | 17 | 60 | 39 | 21 | 25 | 5.0 | 10.0 | 9 | 1 | 400 | 30 | 280 | 32 | 25 | 5 |
+| human founded | 6 | 5.5 | 36.0 | 24.5 | 12.5 | 15.0 | 3.0 | 6.0 | 19.5 | 6 | 170.0 | 30.0 | 119.0 | 6.5 | 26.5 | 16.0 |
+| human captured | 6 | 7.5 | 45.5 | 31.0 | 14.5 | 12.0 | 2.4 | 4.8 | 22.5 | 6 | 210.0 | 30.0 | 147.0 | 6.5 | 22.0 | 13.5 |
+| AI capitals | 17 | 11 | 42 | 35 | 5 | 11 | 0.0 | 0.0 | 7 | 14 | 280 | 30 | 196 | 17.0 | 8 | 4 |
+| AI other | 99 | 4 | 18 | 16 | 3 | 2 | 0.0 | 0.0 | 5 | 81 | 140 | 30 | 98 | 14 | 8 | 10 |
+
+*cities at save; who: every player; turn: save; rows counted: 129; source: growth.py on the save dump of game3 (GAMESPEED_MARATHON, HANDICAP_NOBLE); medians per group; growing: cities with a food surplus; cities in disorder left out. Every value counted (5).*
+
+| cities | n | pop | food | food_from_tiles | food_other | trade_commerce | trade_food_est | trade_hammers_est | surplus | growing | threshold | kept_pct | food_per_growth | turns_per_growth | happy_margin | health_margin |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| human capital | 1 | 24 | 124 | 56 | 68 | 88 | 22.0 | 44.0 | 49 | 1 | 540 | 50 | 270 | 6 | 45 | -3 |
+| human founded | 12 | 10.5 | 53.0 | 32.5 | 20.5 | 35.0 | 8.8 | 17.5 | 24.5 | 12 | 270.0 | 40.0 | 162.0 | 7.0 | 17.0 | 9.5 |
+| human captured | 13 | 5 | 26 | 8 | 12 | 6 | 1.5 | 3.0 | 2 | 7 | 160 | 30 | 112 | 8 | 9 | 11 |
+| AI capitals | 17 | 13 | 60 | 46 | 14 | 19 | 0.0 | 0.0 | 22 | 16 | 297 | 30 | 208 | 10.5 | 15 | 6 |
+| AI other | 162 | 4.0 | 20.0 | 16.0 | 4.0 | 4.0 | 0.0 | 0.0 | 7.0 | 146 | 130.0 | 30.0 | 91.0 | 13.0 | 11.0 | 15.0 |
+
+*cities at save; who: every player; turn: save; rows counted: 205; source: growth.py on the save dump of game4 (GAMESPEED_MARATHON, HANDICAP_MONARCH); medians per group; growing: cities with a food surplus; cities in disorder left out. Every value counted (5).*
+
+Cities by the food they keep on growth, and the buildings that give food or keep it:
+
+| cities_by_food_kept | cities |
+|---|---|
+| human, 30 per cent | 13 |
+| AI, 20 per cent | 52 |
+| AI, 30 per cent | 64 |
+
+*cities at save; who: every player; turn: save; rows counted: 129; source: growth.py: each city's sum of iFoodKept over its buildings, real and free. Every value counted (3).*
+
+| cities_by_food_kept | cities |
+|---|---|
+| human, 20 per cent | 3 |
+| human, 30 per cent | 11 |
+| human, 40 per cent | 11 |
+| human, 50 per cent | 1 |
+| AI, 20 per cent | 67 |
+| AI, 30 per cent | 112 |
+
+*cities at save; who: every player; turn: save; rows counted: 205; source: growth.py: each city's sum of iFoodKept over its buildings, real and free. Every value counted (6).*
+
+| building | food_kept_pct | human_cities | ai_cities |
+|---|---|---|---|
+| CITY_ESSENTIALS | 30 | 13 | 3 |
+| IRRIGATION_CANALS | 0 | 10 | 3 |
+| TOWN_ESSENTIALS | 30 | 0 | 61 |
+| SETTLEMENT_ESSENTIALS | 20 | 0 | 52 |
+
+*cities at save; who: every player; turn: save; rows counted: 129; source: growth.py: buildings with iFoodKept, a food RiverPlotYieldChanges or SeaPlotYieldChanges, or a food YieldModifiers or YieldChanges (BuildingInfo), and the cities holding each, real or free. Every value counted (4).*
+
+| building | food_kept_pct | human_cities | ai_cities |
+|---|---|---|---|
+| CITY_ESSENTIALS | 30 | 17 | 44 |
+| ROMAN_DEPOT | 10 | 13 | 0 |
+| IRRIGATION_CANALS | 0 | 9 | 27 |
+| TOWN_ESSENTIALS | 30 | 5 | 68 |
+| SETTLEMENT_ESSENTIALS | 20 | 4 | 67 |
+| PRAEFECTURA_ANNONAE | 10 | 1 | 0 |
+| VIKING_TRADING_POST | 0 | 0 | 4 |
+
+*cities at save; who: every player; turn: save; rows counted: 205; source: growth.py: buildings with iFoodKept, a food RiverPlotYieldChanges or SeaPlotYieldChanges, or a food YieldModifiers or YieldChanges (BuildingInfo), and the cities holding each, real or free. Every value counted (7).*
+
+What the tables show:
+- **Surplus.** The human's founded cities, and in game 3 its captured ones, have a food surplus
+  several times the AIs' ordinary cities'. They grow a citizen in about half the turns, although
+  a citizen costs more food at their larger size. The cities captured in game 4's last turns
+  are still small and nearly stalled.
+- **Food from tiles.** The tiles give the human's cities more food. They work more tiles, and in
+  game 4 each farm and river tile yields more, by the tech and canal columns of section 5.4. RoM
+  sets `FOOD_CONSUMPTION_PER_POPULATION` to `3`, so every food point above a tile's eater
+  counts.
+- **Food from elsewhere.** A large part of the human's food does not come from tiles at all.
+  - Trade routes give food under Coinage
+    (`[25,0,0]` per cent of the route's yield:
+    food, hammers, commerce) and hammers under Proletariat
+    (`[0,50,0]`).
+  - With its many routes per city, that is a large share of the human's food and of its hammers
+    (the trade columns).
+  - The AIs' economy civics (Coastal, Pastoral, Agricultural) give routes no food and cut their
+    commerce, so their trade columns are zero at the median.
+  - The rest of the non-tile food is percentage modifiers (Tutors,
+    `[10,10,10]`, and in Rome's capital the Praefectura
+    Annonae) and specialists.
+- **The granary.**
+  - The human's founded cities keep `30`
+    per cent with City Essentials, and in game 4
+    `10` more with the Roman Depot. The Roman
+    capital adds the Praefectura Annonae.
+  - Most AI cities hold Town or Settlement Essentials.
+  - The difference in food kept is modest; the difference in surplus is not.
+- **Happiness and health.**
+  - The human's cities have a larger happiness margin than the AIs': far larger in game 3, and in
+    game 4 for its founded cities and capital. So they can keep growing.
+  - Fortification's happiness per military unit (section 6.4) and the large garrison are one
+    source.
+  - The capital of game 4 is over its health limit (a negative margin), which adds to its
+    consumption.
+- **Over the game** (section 6.1): in game 4 the human's population per city passes the AI
+  median during the development phase; in game 3 only after the war. Its food per city pulls
+  away with it.
 
 ## 7. War
 
@@ -912,6 +1216,11 @@ A game in the order it runs. Each step names its facts; the refutation follows e
 3. **The economic switch.** Currency is researched and Coinage, Fiscus and Proletariat are
    adopted at once. A switch in a golden age costs no anarchy (section 3.3). Commerce about
    doubles on the same land (`study/winning.md`, reading 2). Courthouses cut maintenance.
+   - Coinage and Proletariat also turn every trade route into food and hammers, on top of
+     its commerce. With several routes per city, this is a large part of the cities' food
+     surplus and production from then on (section 6.5).
+   - With City Planning shortly before, City Essentials (the third granary tier) and Irrigation
+     Canals (food on every river plot) go into most cities (sections 4.1 and 5.4).
    - *Refuted if:* a replay without the switch reaching the same commerce.
 4. **Build-up.** In the turns before a declaration:
    - the military techs arrive and open their units and buildings, used within a turn or two
@@ -948,7 +1257,11 @@ experiment (CLAUDE.md, rule 9):
 - **The city template.** The AIs build few City Essentials, Courthouses or Forges, the
   buildings that raise production, gold and maintenance in every city (section 4.1).
 - **Civic techs.** The AIs neither research Currency nor run its civics (`study/winning.md`,
-  reading 3).
+  reading 3). Their usual economy civics (Coastal, Pastoral, Agricultural) cut trade commerce and
+  give routes no food or hammers (section 6.5).
+- **Growth.** The AIs' cities have a food surplus several times smaller. Irrigation Canals and
+  City Essentials are rare in them, and the yield techs (Mathematics for farms and mines) come
+  later (sections 5.4 and 6.5).
 - **The upgrade economy.** The human's war-time army is bought with gold upgrades of a cheap
   garrison. An AI that sells techs to the human funds this.
 - **Free experience.** Oligarchy and the barracks line are what give the human's units their
@@ -967,6 +1280,9 @@ experiment (CLAUDE.md, rule 9):
   item would. Spending without a command line (for example, group upgrades) is possible and
   would show there.
 - **The war of game 2 that stays open.**
+- **The few worked plots the yield model misses** without a battle on them (section 5.4).
+- **Growth over the game.** The growth model is exact at the save only; the M lines give the
+  population and food per city over time, not per city.
 
 ## Appendix: XML records of the types counted
 
@@ -1249,6 +1565,27 @@ experiment (CLAUDE.md, rule 9):
 
 *Yield arrays are food, production, commerce; commerce arrays gold, research, culture, espionage.*
 
+| BuildingInfo | Fields set (records.json) |
+|---|---|
+| CITY_ESSENTIALS | `Advisor` ADVISOR_GROWTH; `BonusHappinessChanges` [{"BonusType":"BONUS_ALCOHOL","iHappinessChange":1},{"BonusType":"BONUS_PEARLS","iHappinessChange":1},{"BonusType":"BONUS_TEA","iHappinessChange":1},{"BonusType":"BONUS_COFFEE","iHappinessChange":1},{"BonusType":"BONUS_BERNSTEIN","iHappinessChange":1},{"BonusType":"BONUS_FUR","iHappinessChange":1}]; `BonusHealthChanges` [{"BonusType":"BONUS_SALT","iHealthChange":1},{"BonusType":"BONUS_CORN","iHealthChange":1},{"BonusType":"BONUS_RICE","iHealthChange":1},{"BonusType":"BONUS_WHEAT","iHealthChange":1},{"BonusType":"BONUS_POTATO","iHealthChange":1},{"BonusType":"BONUS_INCENSE","iHealthChange":1},{"BonusType":"BONUS_TEA","iHealthChange":1}]; `BonusProductionModifiers` [{"BonusType":"BONUS_MARBLE","iProductonModifier":25},{"BonusType":"BONUS_STONE","iProductonModifier":25}]; `BonusYieldModifiers` [{"BonusType":"BONUS_WHEAT","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CORN","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_RICE","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_POTATO","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_DEER","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_COW","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_PIG","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHEEP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_FISH","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CLAM","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHRIMP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_IVORY","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_SILK","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_SPICES","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_PEARLS","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_BERNSTEIN","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_COFFEE","YieldModifiers":[0,20,10]},{"BonusType":"BONUS_TEA","YieldModifiers":[0,10,4]},{"BonusType":"BONUS_SALT","YieldModifiers":[0,10,0]},{"BonusType":"BONUS_APPLE","YieldModifiers":[0,0,5]},{"BonusType":"BONUS_BANANA","YieldModifiers":[0,0,5]},{"BonusType":"BONUS_LEMON","YieldModifiers":[0,0,5]},{"BonusType":"BONUS_WINE","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_ALCOHOL","YieldModifiers":[0,0,4]}]; `BuildingClass` BUILDINGCLASS_CITY_ESSENTIALS; `BuildingClassNeededs` [{"BuildingClassType":"BUILDINGCLASS_TOWN_ESSENTIALS","bNeededInCity":true}]; `CommerceModifiers` [15]; `ConstructSound` AS2D_BUILD_COURTHOUSE; `DomainProductionModifiers` [{"DomainType":"DOMAIN_LAND","iProductionModifier":15}]; `Flavors` [{"FlavorType":"FLAVOR_PRODUCTION","iFlavor":6},{"FlavorType":"FLAVOR_GOLD","iFlavor":8},{"FlavorType":"FLAVOR_SCIENCE","iFlavor":4},{"FlavorType":"FLAVOR_MILITARY","iFlavor":4},{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `PrereqBonuses` ["BONUS_STONE","BONUS_MARBLE","BONUS_COPPER","BONUS_IRON","BONUS_LEAD"]; `PrereqTech` TECH_CITY_PLANNING; `ProductionTraits` [{"ProductionTraitType":"TRAIT_IMPERIALIST","iProductionTrait":100}]; `SeaPlotYieldChanges` [1,0,0]; `SpecialistCounts` [{"SpecialistType":"SPECIALIST_MERCHANT","iSpecialistCount":3}]; `TechTypes` ["TECH_BRONZE_WORKING","TECH_MASONRY","TECH_SAILING","NONE"]; `fVisibilityPriority` 1.0; `iAIWeight` 200; `iAdvancedStartCost` 100; `iAsset` 30; `iConquestProb` 100; `iCost` 200; `iDCMAirbombMission` 2; `iDefense` 20; `iEspionageDefense` 20; `iFoodKept` 30; `iHappiness` 5; `iHealRateChange` 9; `iHealth` 6; `iMaintenanceModifier` 25; `iMaxLatitude` 90; `iMinAreaSize` -1; `iTradeRoutes` 1 |
+| IRRIGATION_CANALS | `Advisor` ADVISOR_GROWTH; `BuildingClass` BUILDINGCLASS_IRRIGATION_CANALS; `ConstructSound` AS2D_BUILD_AQUEDUCT; `Flavors` [{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `PrereqTech` TECH_CITY_PLANNING; `ProductionTraits` [{"ProductionTraitType":"TRAIT_AGRICULTURAL","iProductionTrait":100}]; `RiverPlotYieldChanges` [1,0]; `bRiver` True; `fVisibilityPriority` 1.0; `iAdvancedStartCost` 100; `iAsset` 3; `iConquestProb` 90; `iCost` 100; `iDCMAirbombMission` 2; `iMaxLatitude` 90; `iMinAreaSize` -1 |
+| SETTLEMENT_ESSENTIALS | `Advisor` ADVISOR_GROWTH; `BonusHappinessChanges` [{"BonusType":"BONUS_ALCOHOL","iHappinessChange":1},{"BonusType":"BONUS_FUR","iHappinessChange":1}]; `BonusHealthChanges` [{"BonusType":"BONUS_SALT","iHealthChange":1},{"BonusType":"BONUS_CORN","iHealthChange":1},{"BonusType":"BONUS_RICE","iHealthChange":1},{"BonusType":"BONUS_WHEAT","iHealthChange":1},{"BonusType":"BONUS_POTATO","iHealthChange":1}]; `BonusYieldModifiers` [{"BonusType":"BONUS_DEER","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_COW","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_PIG","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHEEP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_FISH","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CLAM","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHRIMP","YieldModifiers":[3,0,0]}]; `BuildingClass` BUILDINGCLASS_SETTLEMENT_ESSENTIALS; `ConstructSound` AS2D_BUILD_BUTCHERY; `Flavors` [{"FlavorType":"FLAVOR_PRODUCTION","iFlavor":6},{"FlavorType":"FLAVOR_GOLD","iFlavor":2},{"FlavorType":"FLAVOR_SCIENCE","iFlavor":4},{"FlavorType":"FLAVOR_MILITARY","iFlavor":4},{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `FreeStartEra` ERA_ANCIENT; `ProductionTraits` [{"ProductionTraitType":"TRAIT_IMPERIALIST","iProductionTrait":100}]; `fVisibilityPriority` 1.0; `iAIWeight` 200; `iAdvancedStartCost` 100; `iAsset` 10; `iConquestProb` 100; `iCost` 10; `iDCMAirbombMission` 2; `iFoodKept` 20; `iHealRateChange` 3; `iMaxLatitude` 90; `iMinAreaSize` -1 |
+| TOWN_ESSENTIALS | `Advisor` ADVISOR_GROWTH; `BonusHappinessChanges` [{"BonusType":"BONUS_ALCOHOL","iHappinessChange":1},{"BonusType":"BONUS_PEARLS","iHappinessChange":1},{"BonusType":"BONUS_TEA","iHappinessChange":1},{"BonusType":"BONUS_COFFEE","iHappinessChange":1},{"BonusType":"BONUS_BERNSTEIN","iHappinessChange":1},{"BonusType":"BONUS_FUR","iHappinessChange":1}]; `BonusHealthChanges` [{"BonusType":"BONUS_SALT","iHealthChange":1},{"BonusType":"BONUS_CORN","iHealthChange":1},{"BonusType":"BONUS_RICE","iHealthChange":1},{"BonusType":"BONUS_WHEAT","iHealthChange":1},{"BonusType":"BONUS_POTATO","iHealthChange":1},{"BonusType":"BONUS_INCENSE","iHealthChange":1},{"BonusType":"BONUS_TEA","iHealthChange":1}]; `BonusProductionModifiers` [{"BonusType":"BONUS_MARBLE","iProductonModifier":25},{"BonusType":"BONUS_STONE","iProductonModifier":25}]; `BonusYieldModifiers` [{"BonusType":"BONUS_WHEAT","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CORN","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_RICE","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_POTATO","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_DEER","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_COW","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_PIG","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHEEP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_FISH","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CLAM","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHRIMP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_IVORY","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_SILK","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_SPICES","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_PEARLS","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_ALCOHOL","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_BERNSTEIN","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_COFFEE","YieldModifiers":[0,20,10]},{"BonusType":"BONUS_TEA","YieldModifiers":[0,10,4]},{"BonusType":"BONUS_SALT","YieldModifiers":[0,10,0]},{"BonusType":"BONUS_WINE","YieldModifiers":[0,0,4]}]; `BuildingClass` BUILDINGCLASS_TOWN_ESSENTIALS; `BuildingClassNeededs` [{"BuildingClassType":"BUILDINGCLASS_SETTLEMENT_ESSENTIALS","bNeededInCity":true}]; `CommerceModifiers` [15]; `ConstructSound` AS2D_BUILD_MARKETPLACE; `DomainProductionModifiers` [{"DomainType":"DOMAIN_LAND","iProductionModifier":15}]; `Flavors` [{"FlavorType":"FLAVOR_PRODUCTION","iFlavor":6},{"FlavorType":"FLAVOR_GOLD","iFlavor":8},{"FlavorType":"FLAVOR_SCIENCE","iFlavor":4},{"FlavorType":"FLAVOR_MILITARY","iFlavor":4},{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `PrereqBonuses` ["BONUS_SALT","BONUS_BERNSTEIN","BONUS_FUR","BONUS_STONE","BONUS_MARBLE"]; `PrereqTech` TECH_MASONRY; `ProductionTraits` [{"ProductionTraitType":"TRAIT_IMPERIALIST","iProductionTrait":100}]; `SeaPlotYieldChanges` [1,0,0]; `SpecialistCounts` [{"SpecialistType":"SPECIALIST_MERCHANT","iSpecialistCount":1}]; `TechTypes` ["TECH_POTTERY","NONE","NONE","NONE"]; `fVisibilityPriority` 1.0; `iAIWeight` 200; `iAdvancedStartCost` 100; `iAsset` 16; `iConquestProb` 100; `iCost` 70; `iDCMAirbombMission` 2; `iDefense` 10; `iEspionageDefense` 10; `iFoodKept` 30; `iHappiness` 3; `iHealRateChange` 6; `iHealth` 3; `iMaxLatitude` 90; `iMinAreaSize` -1; `iTradeRoutes` 1 |
+
+*Yield arrays are food, production, commerce; commerce arrays gold, research, culture, espionage.*
+
+| BuildingInfo | Fields set (records.json) |
+|---|---|
+| CITY_ESSENTIALS | `Advisor` ADVISOR_GROWTH; `BonusHappinessChanges` [{"BonusType":"BONUS_ALCOHOL","iHappinessChange":1},{"BonusType":"BONUS_PEARLS","iHappinessChange":1},{"BonusType":"BONUS_TEA","iHappinessChange":1},{"BonusType":"BONUS_COFFEE","iHappinessChange":1},{"BonusType":"BONUS_BERNSTEIN","iHappinessChange":1},{"BonusType":"BONUS_FUR","iHappinessChange":1}]; `BonusHealthChanges` [{"BonusType":"BONUS_SALT","iHealthChange":1},{"BonusType":"BONUS_CORN","iHealthChange":1},{"BonusType":"BONUS_RICE","iHealthChange":1},{"BonusType":"BONUS_WHEAT","iHealthChange":1},{"BonusType":"BONUS_POTATO","iHealthChange":1},{"BonusType":"BONUS_INCENSE","iHealthChange":1},{"BonusType":"BONUS_TEA","iHealthChange":1}]; `BonusProductionModifiers` [{"BonusType":"BONUS_MARBLE","iProductonModifier":25},{"BonusType":"BONUS_STONE","iProductonModifier":25}]; `BonusYieldModifiers` [{"BonusType":"BONUS_WHEAT","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CORN","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_RICE","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_POTATO","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_DEER","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_COW","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_PIG","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHEEP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_FISH","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CLAM","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHRIMP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_IVORY","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_SILK","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_SPICES","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_PEARLS","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_BERNSTEIN","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_COFFEE","YieldModifiers":[0,20,10]},{"BonusType":"BONUS_TEA","YieldModifiers":[0,10,4]},{"BonusType":"BONUS_SALT","YieldModifiers":[0,10,0]},{"BonusType":"BONUS_APPLE","YieldModifiers":[0,0,5]},{"BonusType":"BONUS_BANANA","YieldModifiers":[0,0,5]},{"BonusType":"BONUS_LEMON","YieldModifiers":[0,0,5]},{"BonusType":"BONUS_WINE","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_ALCOHOL","YieldModifiers":[0,0,4]}]; `BuildingClass` BUILDINGCLASS_CITY_ESSENTIALS; `BuildingClassNeededs` [{"BuildingClassType":"BUILDINGCLASS_TOWN_ESSENTIALS","bNeededInCity":true}]; `CommerceModifiers` [15]; `ConstructSound` AS2D_BUILD_COURTHOUSE; `DomainProductionModifiers` [{"DomainType":"DOMAIN_LAND","iProductionModifier":15}]; `Flavors` [{"FlavorType":"FLAVOR_PRODUCTION","iFlavor":6},{"FlavorType":"FLAVOR_GOLD","iFlavor":8},{"FlavorType":"FLAVOR_SCIENCE","iFlavor":4},{"FlavorType":"FLAVOR_MILITARY","iFlavor":4},{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `PrereqBonuses` ["BONUS_STONE","BONUS_MARBLE","BONUS_COPPER","BONUS_IRON","BONUS_LEAD"]; `PrereqTech` TECH_CITY_PLANNING; `ProductionTraits` [{"ProductionTraitType":"TRAIT_IMPERIALIST","iProductionTrait":100}]; `SeaPlotYieldChanges` [1,0,0]; `SpecialistCounts` [{"SpecialistType":"SPECIALIST_MERCHANT","iSpecialistCount":3}]; `TechTypes` ["TECH_BRONZE_WORKING","TECH_MASONRY","TECH_SAILING","NONE"]; `fVisibilityPriority` 1.0; `iAIWeight` 200; `iAdvancedStartCost` 100; `iAsset` 30; `iConquestProb` 100; `iCost` 200; `iDCMAirbombMission` 2; `iDefense` 20; `iEspionageDefense` 20; `iFoodKept` 30; `iHappiness` 5; `iHealRateChange` 9; `iHealth` 6; `iMaintenanceModifier` 25; `iMaxLatitude` 90; `iMinAreaSize` -1; `iTradeRoutes` 1 |
+| IRRIGATION_CANALS | `Advisor` ADVISOR_GROWTH; `BuildingClass` BUILDINGCLASS_IRRIGATION_CANALS; `ConstructSound` AS2D_BUILD_AQUEDUCT; `Flavors` [{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `PrereqTech` TECH_CITY_PLANNING; `ProductionTraits` [{"ProductionTraitType":"TRAIT_AGRICULTURAL","iProductionTrait":100}]; `RiverPlotYieldChanges` [1,0]; `bRiver` True; `fVisibilityPriority` 1.0; `iAdvancedStartCost` 100; `iAsset` 3; `iConquestProb` 90; `iCost` 100; `iDCMAirbombMission` 2; `iMaxLatitude` 90; `iMinAreaSize` -1 |
+| PRAEFECTURA_ANNONAE | `Advisor` ADVISOR_MILITARY; `BuildingClass` BUILDINGCLASS_PRAEFECTURA_ANNONAE; `BuildingClassNeededs` [{"BuildingClassType":"BUILDINGCLASS_PALACE","bNeededInCity":true}]; `ConstructSound` AS2D_BUILD_GRANARY; `Flavors` [{"FlavorType":"FLAVOR_GROWTH","iFlavor":5}]; `ObsoleteTech` TECH_INDUSTRIALISM; `PrereqTech` TECH_CODE_OF_LAWS; `ProductionTraits` [{"ProductionTraitType":"TRAIT_ORGANIZED","iProductionTrait":100}]; `TechTypes` ["TECH_ROMAN"]; `YieldModifiers` [25,10,0]; `fVisibilityPriority` 1.0; `iAdvancedStartCost` 100; `iAsset` 20; `iCost` 100; `iDCMAirbombMission` 2; `iFoodKept` 10; `iFreeSpecialist` 1; `iMaintenanceModifier` -10; `iMaxLatitude` 90; `iMinAreaSize` -1; `iWarWearinessModifier` -10 |
+| ROMAN_DEPOT | `Advisor` ADVISOR_MILITARY; `BuildingClass` BUILDINGCLASS_ROMAN_DEPOT; `ConstructSound` AS2D_BUILD_GRANARY; `Flavors` [{"FlavorType":"FLAVOR_GROWTH","iFlavor":5}]; `ObsoleteTech` TECH_INDUSTRIALISM; `PrereqTech` TECH_CITY_PLANNING; `ProductionTraits` [{"ProductionTraitType":"TRAIT_ORGANIZED","iProductionTrait":100}]; `TechTypes` ["TECH_ROMAN"]; `fVisibilityPriority` 1.0; `iAdvancedStartCost` 100; `iAsset` 2; `iCost` 60; `iDCMAirbombMission` 2; `iDefense` 10; `iFoodKept` 10; `iHealRateChange` 30; `iHealth` 2; `iMaxLatitude` 90; `iMilitaryProductionModifier` 10; `iMinAreaSize` -1; `iPower` 5; `iWarWearinessModifier` -10 |
+| SETTLEMENT_ESSENTIALS | `Advisor` ADVISOR_GROWTH; `BonusHappinessChanges` [{"BonusType":"BONUS_ALCOHOL","iHappinessChange":1},{"BonusType":"BONUS_FUR","iHappinessChange":1}]; `BonusHealthChanges` [{"BonusType":"BONUS_SALT","iHealthChange":1},{"BonusType":"BONUS_CORN","iHealthChange":1},{"BonusType":"BONUS_RICE","iHealthChange":1},{"BonusType":"BONUS_WHEAT","iHealthChange":1},{"BonusType":"BONUS_POTATO","iHealthChange":1}]; `BonusYieldModifiers` [{"BonusType":"BONUS_DEER","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_COW","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_PIG","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHEEP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_FISH","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CLAM","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHRIMP","YieldModifiers":[3,0,0]}]; `BuildingClass` BUILDINGCLASS_SETTLEMENT_ESSENTIALS; `ConstructSound` AS2D_BUILD_BUTCHERY; `Flavors` [{"FlavorType":"FLAVOR_PRODUCTION","iFlavor":6},{"FlavorType":"FLAVOR_GOLD","iFlavor":2},{"FlavorType":"FLAVOR_SCIENCE","iFlavor":4},{"FlavorType":"FLAVOR_MILITARY","iFlavor":4},{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `FreeStartEra` ERA_ANCIENT; `ProductionTraits` [{"ProductionTraitType":"TRAIT_IMPERIALIST","iProductionTrait":100}]; `fVisibilityPriority` 1.0; `iAIWeight` 200; `iAdvancedStartCost` 100; `iAsset` 10; `iConquestProb` 100; `iCost` 10; `iDCMAirbombMission` 2; `iFoodKept` 20; `iHealRateChange` 3; `iMaxLatitude` 90; `iMinAreaSize` -1 |
+| TOWN_ESSENTIALS | `Advisor` ADVISOR_GROWTH; `BonusHappinessChanges` [{"BonusType":"BONUS_ALCOHOL","iHappinessChange":1},{"BonusType":"BONUS_PEARLS","iHappinessChange":1},{"BonusType":"BONUS_TEA","iHappinessChange":1},{"BonusType":"BONUS_COFFEE","iHappinessChange":1},{"BonusType":"BONUS_BERNSTEIN","iHappinessChange":1},{"BonusType":"BONUS_FUR","iHappinessChange":1}]; `BonusHealthChanges` [{"BonusType":"BONUS_SALT","iHealthChange":1},{"BonusType":"BONUS_CORN","iHealthChange":1},{"BonusType":"BONUS_RICE","iHealthChange":1},{"BonusType":"BONUS_WHEAT","iHealthChange":1},{"BonusType":"BONUS_POTATO","iHealthChange":1},{"BonusType":"BONUS_INCENSE","iHealthChange":1},{"BonusType":"BONUS_TEA","iHealthChange":1}]; `BonusProductionModifiers` [{"BonusType":"BONUS_MARBLE","iProductonModifier":25},{"BonusType":"BONUS_STONE","iProductonModifier":25}]; `BonusYieldModifiers` [{"BonusType":"BONUS_WHEAT","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CORN","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_RICE","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_POTATO","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_DEER","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_COW","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_PIG","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHEEP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_FISH","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_CLAM","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_SHRIMP","YieldModifiers":[3,0,0]},{"BonusType":"BONUS_IVORY","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_SILK","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_SPICES","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_PEARLS","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_ALCOHOL","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_BERNSTEIN","YieldModifiers":[0,0,4]},{"BonusType":"BONUS_COFFEE","YieldModifiers":[0,20,10]},{"BonusType":"BONUS_TEA","YieldModifiers":[0,10,4]},{"BonusType":"BONUS_SALT","YieldModifiers":[0,10,0]},{"BonusType":"BONUS_WINE","YieldModifiers":[0,0,4]}]; `BuildingClass` BUILDINGCLASS_TOWN_ESSENTIALS; `BuildingClassNeededs` [{"BuildingClassType":"BUILDINGCLASS_SETTLEMENT_ESSENTIALS","bNeededInCity":true}]; `CommerceModifiers` [15]; `ConstructSound` AS2D_BUILD_MARKETPLACE; `DomainProductionModifiers` [{"DomainType":"DOMAIN_LAND","iProductionModifier":15}]; `Flavors` [{"FlavorType":"FLAVOR_PRODUCTION","iFlavor":6},{"FlavorType":"FLAVOR_GOLD","iFlavor":8},{"FlavorType":"FLAVOR_SCIENCE","iFlavor":4},{"FlavorType":"FLAVOR_MILITARY","iFlavor":4},{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `PrereqBonuses` ["BONUS_SALT","BONUS_BERNSTEIN","BONUS_FUR","BONUS_STONE","BONUS_MARBLE"]; `PrereqTech` TECH_MASONRY; `ProductionTraits` [{"ProductionTraitType":"TRAIT_IMPERIALIST","iProductionTrait":100}]; `SeaPlotYieldChanges` [1,0,0]; `SpecialistCounts` [{"SpecialistType":"SPECIALIST_MERCHANT","iSpecialistCount":1}]; `TechTypes` ["TECH_POTTERY","NONE","NONE","NONE"]; `fVisibilityPriority` 1.0; `iAIWeight` 200; `iAdvancedStartCost` 100; `iAsset` 16; `iConquestProb` 100; `iCost` 70; `iDCMAirbombMission` 2; `iDefense` 10; `iEspionageDefense` 10; `iFoodKept` 30; `iHappiness` 3; `iHealRateChange` 6; `iHealth` 3; `iMaxLatitude` 90; `iMinAreaSize` -1; `iTradeRoutes` 1 |
+| VIKING_TRADING_POST | `Advisor` ADVISOR_GROWTH; `BuildingClass` BUILDINGCLASS_LIGHTHOUSE; `ConstructSound` AS2D_BUILD_LIGHTHOUSE; `Flavors` [{"FlavorType":"FLAVOR_GROWTH","iFlavor":10}]; `FreePromotion` PROMOTION_COASTAL_ASSAULT1; `FreeStartEra` ERA_MEDIEVAL; `PrereqTech` TECH_SAILING; `ProductionTraits` [{"ProductionTraitType":"TRAIT_SEAFARING","iProductionTrait":100}]; `SeaPlotYieldChanges` [1,0,0]; `bWater` True; `fVisibilityPriority` 1.0; `iAdvancedStartCost` 100; `iAsset` 3; `iConquestProb` 75; `iCost` 60; `iDCMAirbombMission` 2; `iForeignTradeRouteModifier` 50; `iMaxLatitude` 90; `iMinAreaSize` 10; `iPower` 1; `iTradeRouteModifier` 25 |
+
+*Yield arrays are food, production, commerce; commerce arrays gold, research, culture, espionage.*
+
 | UnitInfo | Fields set (records.json) |
 |---|---|
 | CELTIC_SWORDSMAN | `Advisor` ADVISOR_MILITARY; `Class` UNITCLASS_CELTIC_SWORDSMAN; `Combat` UNITCOMBAT_MELEE; `DefaultUnitAI` UNITAI_COUNTER; `Domain` DOMAIN_LAND; `FormationType` FORMATION_TYPE_DEFAULT; `FreePromotions` [{"PromotionType":"PROMOTION_GUERILLA1","bFreePromotion":true},{"PromotionType":"PROMOTION_GUERILLA2","bFreePromotion":true},{"PromotionType":"PROMOTION_WOODSMAN1","bFreePromotion":true},{"PromotionType":"PROMOTION_WOODSMAN2","bFreePromotion":true},{"PromotionType":"PROMOTION_WOODSMAN3","bFreePromotion":true},{"PromotionType":"PROMOTION_LOOTER","bFreePromotion":true}]; `PrereqBonuses` ["BONUS_COPPER","BONUS_IRON","BONUS_OBSIDIAN"]; `PrereqTech` TECH_MILITARY_TRAINING; `TechTypes` ["TECH_RELIGION_CELTIC"]; `UnitAIs` [{"UnitAIType":"UNITAI_RESERVE","bUnitAI":true},{"UnitAIType":"UNITAI_COUNTER","bUnitAI":true},{"UnitAIType":"UNITAI_CITY_COUNTER","bUnitAI":true},{"UnitAIType":"UNITAI_ATTACK_CITY","bUnitAI":true},{"UnitAIType":"UNITAI_PILLAGE","bUnitAI":true}]; `UnitClassUpgrades` [{"UnitClassUpgradeType":"UNITCLASS_SWORDSMAN","bUnitClassUpgrade":true}]; `UnitMeshGroups` {"UnitMeshGroup":[{"EarlyArtDefineTag":"ART_DEF_UNIT_SWORDSMAN_CELTIC","iRequired":3}],"fMaxSpeed":"1.75","fPadTime":"1","iGroupSize":3,"iMeleeWaveSize":3,"iRangedWaveSize":0}; `bMilitaryHappiness` True; `bMilitaryProduction` True; `bMilitarySupport` True; `bPillage` True; `iAdvancedStartCost` 100; `iAsset` 2; `iCombat` 7; `iCombatLimit` 100; `iConscription` 3; `iCost` 60; `iCultureGarrison` 4; `iMinAreaSize` -1; `iMoves` 2; `iNukeRange` -1; `iPower` 14; `iXPValueAttack` 6; `iXPValueDefense` 3 |
@@ -1338,12 +1675,17 @@ experiment (CLAUDE.md, rule 9):
 | `st.game4_building_template` | table, 34 values | cities | every player | whole game | 34 | N lines: each building the human completed, the number of its cities that completed it, its median position in each city's order of completions (1: the city's first), the first completion, its distance in turns from the human's X line of the building's PrereqTech (empty when the building needs no tech; its other prerequisites, such as TechTypes, a religion or a building, are not counted); the same count and position for the AIs' cities [game4] |
 | `st.game3_wonders` | table, 2 values | units built | every player | whole game | 2 | N lines of world wonders (BuildingClassInfo iMaxGlobalInstances 1) and national wonders (iMaxPlayerInstances or iMaxTeamInstances 1) [game3] |
 | `st.game4_wonders` | table, 2 values | units built | every player | whole game | 2 | N lines of world wonders (BuildingClassInfo iMaxGlobalInstances 1) and national wonders (iMaxPlayerInstances or iMaxTeamInstances 1) [game4] |
+| `gr.game4_food_buildings` | table, 7 values | cities at save | every player | save | 205 | growth.py: buildings with iFoodKept, a food RiverPlotYieldChanges or SeaPlotYieldChanges, or a food YieldModifiers or YieldChanges (BuildingInfo), and the cities holding each, real or free |
 | `st.game3_city_profile` | table, 5 values | cities at save | every player | save | 5 | cities in the save dump: population, food, hammers, commerce, trade routes and their commerce, and buildings; human cities split into the capital (BUILDING_PALACE), the cities it captured (K lines) and those it founded; AI capitals and other AI cities [game3] |
 | `st.game4_city_profile` | table, 5 values | cities at save | every player | save | 5 | cities in the save dump: population, food, hammers, commerce, trade routes and their commerce, and buildings; human cities split into the capital (BUILDING_PALACE), the cities it captured (K lines) and those it founded; AI capitals and other AI cities [game4] |
 | `st.game3_build_plot_class` | table, 8 values | orders | human | order turns; plot traits at the save | 8 | A lines MISSION_BUILD by the plot's traits in the save dump: hills, flat land on a river or not, water, and a resource on it; terrain type and river do not change in play, a resource can be revealed later [game3] |
 | `st.game4_build_plot_class` | table, 13 values | orders | human | order turns; plot traits at the save | 13 | A lines MISSION_BUILD by the plot's traits in the save dump: hills, flat land on a river or not, water, and a resource on it; terrain type and river do not change in play, a resource can be revealed later [game4] |
 | `st.game3_worked_by_class` | table, 6 values | tiles at save | every player | save | 6 | worked land plots in the save dump by owner and trait (as in build_plot_class), and the improvement on them; cottage line: cottage, hamlet, village, town [game3] |
 | `st.game4_worked_by_class` | table, 6 values | tiles at save | every player | save | 6 | worked land plots in the save dump by owner and trait (as in build_plot_class), and the improvement on them; cottage line: cottage, hamlet, village, town [game4] |
+| `yl.game3_yield_check` | table, 2 values | tiles at save | every player | save | 750 | tileyield.py: the model against CvPlot::getYield in the save dump; a battle there: a C line on the plot in the last ten turns (DCM battle effects, BATTLE_EFFECT_LESS_FOOD and _COMMERCE, are not in the dump) |
+| `yl.game4_yield_check` | table, 2 values | tiles at save | every player | save | 1178 | tileyield.py: the model against CvPlot::getYield in the save dump; a battle there: a C line on the plot in the last ten turns (DCM battle effects, BATTLE_EFFECT_LESS_FOOD and _COMMERCE, are not in the dump) |
+| `yl.game3_yield_sources` | table, 63 values | food per tile | every player | save | 749 | tileyield.py: exactly predicted worked plots; mean yield per plot and the mean of each source term (food, hammers and commerce rows; the unit applies to each row's own yield) |
+| `yl.game4_yield_sources` | table, 63 values | food per tile | every player | save | 1165 | tileyield.py: exactly predicted worked plots; mean yield per plot and the mean of each source term (food, hammers and commerce rows; the unit applies to each row's own yield) |
 | `st.game3_per_city_output` | table, 7 values | yield per turn | every player | every 25th turn from 100 | 7 | M lines: population, hammers, commerce and food of the whole empire divided by its cities; AI: the median over AI players; anarchy turns show commerce 1 [game3] |
 | `st.game4_per_city_output` | table, 8 values | yield per turn | every player | every 25th turn from 100 | 8 | M lines: population, hammers, commerce and food of the whole empire divided by its cities; AI: the median over AI players; anarchy turns show commerce 1 [game4] |
 | `st.game3_gold_ledger` | table, 9 values | gold | human | by period | 9 | M lines of the human: the change of its gold between consecutive M lines is split into the gold per turn of the earlier line (income), the gold of deals that turn (deal_items TRADE_GOLD: on a peace turn, Q lines; on a turn it gave a tech; other), and a residual named by the events of the turn: a city taken (K), a trade mission (MISSION_TRADE), a hurry (TASK 9, TASK_HURRY), an upgrade (COMMAND_UPGRADE), anarchy; the residual on turns with no such event is the check of the ledger (gold per turn changes within a turn) [game3] |
@@ -1352,6 +1694,11 @@ experiment (CLAUDE.md, rule 9):
 | `st.game2_upgrade_targets` | table, 2 values | orders | human | whole game | 2 | A lines COMMAND_UPGRADE: the unit type upgraded to (the first log version gives its UnitInfo index, mapped by XML order: every mapped target but one is in the named unit's UnitClassUpgrades); the named unit can be another member of the group, so the source type is not used; U lines of that type; C lines of the human attacking with it [game2] |
 | `st.game3_upgrade_targets` | table, 1 values | orders | human | whole game | 1 | A lines COMMAND_UPGRADE: the unit type upgraded to (the first log version gives its UnitInfo index, mapped by XML order: every mapped target but one is in the named unit's UnitClassUpgrades); the named unit can be another member of the group, so the source type is not used; U lines of that type; C lines of the human attacking with it [game3] |
 | `st.game4_upgrade_targets` | table, 5 values | orders | human | whole game | 5 | A lines COMMAND_UPGRADE: the unit type upgraded to (the first log version gives its UnitInfo index, mapped by XML order: every mapped target but one is in the named unit's UnitClassUpgrades); the named unit can be another member of the group, so the source type is not used; U lines of that type; C lines of the human attacking with it [game4] |
+| `gr.game3_growth` | table, 5 values | cities at save | every player | save | 129 | growth.py on the save dump of game3 (GAMESPEED_MARATHON, HANDICAP_NOBLE); medians per group; growing: cities with a food surplus; cities in disorder left out |
+| `gr.game4_growth` | table, 5 values | cities at save | every player | save | 205 | growth.py on the save dump of game4 (GAMESPEED_MARATHON, HANDICAP_MONARCH); medians per group; growing: cities with a food surplus; cities in disorder left out |
+| `gr.game3_food_kept` | table, 3 values | cities at save | every player | save | 129 | growth.py: each city's sum of iFoodKept over its buildings, real and free |
+| `gr.game4_food_kept` | table, 6 values | cities at save | every player | save | 205 | growth.py: each city's sum of iFoodKept over its buildings, real and free |
+| `gr.game3_food_buildings` | table, 4 values | cities at save | every player | save | 129 | growth.py: buildings with iFoodKept, a food RiverPlotYieldChanges or SeaPlotYieldChanges, or a food YieldModifiers or YieldChanges (BuildingInfo), and the cities holding each, real or free |
 | `tg.game3_war_targets` | table, 2 values | rank | human | each declaration of the human (cues from the turn before) | 2 | strategy.py: W lines of game3; options: AIs with an M line the turn before, holding a city, not at war with the human, not unmet at the save; rank 1 = the least power, the least distance, the most cities |
 | `tg.game4_war_targets` | table, 8 values | rank | human | each declaration of the human (cues from the turn before) | 8 | strategy.py: W lines of game4; options: AIs with an M line the turn before, holding a city, not at war with the human, not unmet at the save; rank 1 = the least power, the least distance, the most cities |
 | `tg.war_target_strategies_pooled` | table, 7 values | category | human | each declaration of the human | 10 | strategy.py: maximum-likelihood classification over the declarations of every game given |

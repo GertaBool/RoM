@@ -1,6 +1,8 @@
 <!-- registry: phases.fig.json as ph -->
 <!-- registry: targets.fig.json as tg -->
 <!-- registry: style.fig.json as st -->
+<!-- registry: yields.fig.json as yl -->
+<!-- registry: growth.fig.json as gr -->
 # The human's playstyle in detail
 
 The four logged games, read as one way of playing. Game 3 is Germany (Charles V) and game 4 is
@@ -118,6 +120,20 @@ order of completions, how soon after its tech, and the same for the AIs' cities:
 ### 4.3 What the city template gives
 
 From the XML records (appendix):
+- **Upgrade lines.** In RoM a building of a line removes the ones it replaces when it is built
+  (`RoMEventManager.py:71` and `RoMEventManager.py:102`, the two lists, applied in
+  `onBuildingBuilt`, `RoMEventManager.py:324`). So a city holds one tier of each line, and the effects of the
+  tiers do not add up:
+  - City Essentials replaces Town Essentials, which replaces Settlement Essentials;
+  - Barracks replaces Early Barracks, and Legion Barracks replaces both;
+  - Port replaces River Port and Harbor;
+  - the Library replaces the School of Scribes;
+  - the Forum is the Roman market.
+- **The Essentials line is also the granary.** Each tier keeps part of the food store when the
+  city grows (`iFoodKept`): Settlement `{{eff:gr.game4_food_buildings:SETTLEMENT_ESSENTIALS:iFoodKept}}`,
+  Town `{{eff:gr.game4_food_buildings:TOWN_ESSENTIALS:iFoodKept}}`, City
+  `{{eff:gr.game4_food_buildings:CITY_ESSENTIALS:iFoodKept}}` per cent. Section 6.5 has the
+  effect on growth.
 - **Town Essentials**, the human's first building in a city in both games (the AIs build
   Walls or the Obelisk first):
   - land-unit production `{{eff:st.game4_building_template:TOWN_ESSENTIALS:DomainProductionModifiers}}`;
@@ -199,6 +215,41 @@ Every build order by the plot's traits:
     section 6);
   - what the cities add on top: the template of section 4 and the civics of section 3.3.
 
+### 5.4 The exact yield of the worked tiles
+
+`tools/tileyield.py` rebuilds every worked plot's yield from the XML with the game's own formula
+(`CvPlot::calculateYield`), and checks it against the yield in the save dump:
+
+{{table:yl.game3_yield_check}}
+
+{{table:yl.game4_yield_check}}
+
+The few misses are plots fought over in the last turns: RoM's battle effects lower food and
+commerce there, and the dump does not record them. For the exactly predicted plots, the mean
+yield of each improvement and the source of every point of it:
+
+{{table:yl.game3_yield_sources}}
+
+{{table:yl.game4_yield_sources}}
+
+What the tables show:
+- **Farms and mines.** In game 4 the human's farms give more food, and its mines more hammers,
+  than the AIs'; in game 3 they are about equal. In game 4 the difference is in two columns:
+  - tech: the improvement's `TechYieldChanges` (for a farm: Fermentation, Mathematics and
+    Waterworks, food each; for a mine: Mathematics, Machinery and Waterworks, hammers each).
+    The human holds these techs earlier (section 3.1);
+  - city: Irrigation Canals, `{{eff:gr.game4_food_buildings:IRRIGATION_CANALS:RiverPlotYieldChanges}}`
+    on every river plot of the city (food, hammers), built in most of the human's cities and few
+    of the AIs' (section 6.5).
+  - The human's mines also carry food: they are on river hills of cities with the canals.
+- **The cottage line.** The AIs' cottages, hamlets and villages carry a civic column of plus
+  food and hammers and minus commerce. That is Peasantry, held by some AIs
+  (`study/winning.md`, section 4), which turns the cottage line into production tiles. The
+  human, under Proletariat, keeps their commerce, and its villages give several times the AIs'.
+- **Water.** The human's water tiles get food from the city column: the Essentials'
+  `SeaPlotYieldChanges`.
+- **Unimproved and city plots** are alike on both sides.
+
 ## 6. Production, gold and the build-up
 
 ### 6.1 Output per city
@@ -251,23 +302,88 @@ Every build order by the plot's traits:
   - Oligarchy, held throughout game 4 and until after the war in game 3, gives every new unit
     `{{eff:st.game4_civic_tech_lag:OLIGARCHY:iFreeExperience}}` experience;
   - Legion Barracks give melee units `{{eff:st.game4_building_template:LEGION_BARRACKS:UnitCombatFreeExperiences}}`;
-  - Barracks give `{{eff:st.game4_building_template:BARRACKS:UnitCombatFreeExperiences}}`;
+    they need Barracks to be built (`BuildingClassNeededs`) and then replace them (section 4.3),
+    so the Barracks' `{{eff:st.game4_building_template:BARRACKS:UnitCombatFreeExperiences}}` does not add;
   - a Mars Temple gives `{{eff:st.game4_building_template:MARS_TEMPLE:iExperience}}`.
-- **The match with the log.** A melee unit trained under Oligarchy in a city with Barracks and
-  Legion Barracks, the Legion Barracks needing the Barracks (`BuildingClassNeededs`), starts with
-  the sum of the three. The Legionaries that attack in game 4 carry a median experience of the
-  same size (section 7.3). Much of their experience came with the unit, not from fighting. This
-  fits the human's units carrying several times the AIs' promotions (`study/data.md`,
-  section 4).
-- **Production for war.** Military production is raised by Early and Legion Barracks
-  (`{{eff:st.game4_building_template:LEGION_BARRACKS:iMilitaryProductionModifier}}` per cent each),
-  the Roman Depot and the Mars Temple, on top of the land-unit production of the two Essentials.
+- **The match with the log.** A melee unit trained under Oligarchy in a city with Legion
+  Barracks and a Mars Temple starts with the sum of the three. The Legionaries that attack in
+  game 4 carry a median experience of the same size (section 7.3). Much of their experience came
+  with the unit, not from fighting. This fits the human's units carrying several times the AIs'
+  promotions (`study/data.md`, section 4).
+- **Production for war.** Military production is raised by the barracks tier the city holds
+  (Early and Legion Barracks:
+  `{{eff:st.game4_building_template:LEGION_BARRACKS:iMilitaryProductionModifier}}` per cent), the
+  Roman Depot and the Mars Temple. These add to the land-unit production of the Essentials tier
+  the city holds.
 - **Holding Oligarchy.** This explains why the human keeps Oligarchy in game 4 although the probe
   values Patrician higher in commerce (`study/winning.md`, section 3.3). In game 3 it switches to
   Patrician only after its war.
 - **Fortification.** Adopted next to the wars, it gives
   `{{eff:st.game4_civic_tech_lag:FORTIFICATION:iHappyPerMilitaryUnit}}` happiness per military
   unit, so a large garrison also keeps the cities content.
+
+### 6.5 Growth
+
+`tools/growth.py` computes, for every city at the save, its growth with the game's rules:
+- the threshold of `CvPlayer::getGrowthThreshold`, lower for the AIs at higher difficulties
+  (`iAIGrowthPercent`);
+- the food kept on growth, the sum of the city's buildings' `iFoodKept`;
+- the food a new citizen then costs, and the turns to it at the present surplus;
+- the city's food, split into the plots it works and the rest. Food from trade routes is
+  estimated from the city's route commerce and the owner's trade-yield modifiers.
+
+{{table:gr.game3_growth}}
+
+{{table:gr.game4_growth}}
+
+Cities by the food they keep on growth, and the buildings that give food or keep it:
+
+{{table:gr.game3_food_kept}}
+
+{{table:gr.game4_food_kept}}
+
+{{table:gr.game3_food_buildings}}
+
+{{table:gr.game4_food_buildings}}
+
+What the tables show:
+- **Surplus.** The human's founded cities, and in game 3 its captured ones, have a food surplus
+  several times the AIs' ordinary cities'. They grow a citizen in about half the turns, although
+  a citizen costs more food at their larger size. The cities captured in game 4's last turns
+  are still small and nearly stalled.
+- **Food from tiles.** The tiles give the human's cities more food. They work more tiles, and in
+  game 4 each farm and river tile yields more, by the tech and canal columns of section 5.4. RoM
+  sets `FOOD_CONSUMPTION_PER_POPULATION` to `3`, so every food point above a tile's eater
+  counts.
+- **Food from elsewhere.** A large part of the human's food does not come from tiles at all.
+  - Trade routes give food under Coinage
+    (`{{eff:st.game4_civic_tech_lag:COINAGE:TradeYieldModifiers}}` per cent of the route's yield:
+    food, hammers, commerce) and hammers under Proletariat
+    (`{{eff:st.game4_civic_tech_lag:PROLETARIAT:TradeYieldModifiers}}`).
+  - With its many routes per city, that is a large share of the human's food and of its hammers
+    (the trade columns).
+  - The AIs' economy civics (Coastal, Pastoral, Agricultural) give routes no food and cut their
+    commerce, so their trade columns are zero at the median.
+  - The rest of the non-tile food is percentage modifiers (Tutors,
+    `{{eff:st.game4_civic_tech_lag:TUTORS:YieldModifiers}}`, and in Rome's capital the Praefectura
+    Annonae) and specialists.
+- **The granary.**
+  - The human's founded cities keep `{{eff:gr.game4_food_buildings:CITY_ESSENTIALS:iFoodKept}}`
+    per cent with City Essentials, and in game 4
+    `{{eff:gr.game4_food_buildings:ROMAN_DEPOT:iFoodKept}}` more with the Roman Depot. The Roman
+    capital adds the Praefectura Annonae.
+  - Most AI cities hold Town or Settlement Essentials.
+  - The difference in food kept is modest; the difference in surplus is not.
+- **Happiness and health.**
+  - The human's cities have a larger happiness margin than the AIs': far larger in game 3, and in
+    game 4 for its founded cities and capital. So they can keep growing.
+  - Fortification's happiness per military unit (section 6.4) and the large garrison are one
+    source.
+  - The capital of game 4 is over its health limit (a negative margin), which adds to its
+    consumption.
+- **Over the game** (section 6.1): in game 4 the human's population per city passes the AI
+  median during the development phase; in game 3 only after the war. Its food per city pulls
+  away with it.
 
 ## 7. War
 
@@ -360,6 +476,11 @@ A game in the order it runs. Each step names its facts; the refutation follows e
 3. **The economic switch.** Currency is researched and Coinage, Fiscus and Proletariat are
    adopted at once. A switch in a golden age costs no anarchy (section 3.3). Commerce about
    doubles on the same land (`study/winning.md`, reading 2). Courthouses cut maintenance.
+   - Coinage and Proletariat also turn every trade route into food and hammers, on top of
+     its commerce. With several routes per city, this is a large part of the cities' food
+     surplus and production from then on (section 6.5).
+   - With City Planning shortly before, City Essentials (the third granary tier) and Irrigation
+     Canals (food on every river plot) go into most cities ([[sections 4.1 and 5.4]]).
    - *Refuted if:* a replay without the switch reaching the same commerce.
 4. **Build-up.** In the turns before a declaration:
    - the military techs arrive and open their units and buildings, used within a turn or two
@@ -396,7 +517,11 @@ experiment (CLAUDE.md, rule 9):
 - **The city template.** The AIs build few City Essentials, Courthouses or Forges, the
   buildings that raise production, gold and maintenance in every city (section 4.1).
 - **Civic techs.** The AIs neither research Currency nor run its civics (`study/winning.md`,
-  reading 3).
+  reading 3). Their usual economy civics (Coastal, Pastoral, Agricultural) cut trade commerce and
+  give routes no food or hammers (section 6.5).
+- **Growth.** The AIs' cities have a food surplus several times smaller. Irrigation Canals and
+  City Essentials are rare in them, and the yield techs (Mathematics for farms and mines) come
+  later ([[sections 5.4 and 6.5]]).
 - **The upgrade economy.** The human's war-time army is bought with gold upgrades of a cheap
   garrison. An AI that sells techs to the human funds this.
 - **Free experience.** Oligarchy and the barracks line are what give the human's units their
@@ -415,6 +540,9 @@ experiment (CLAUDE.md, rule 9):
   item would. Spending without a command line (for example, group upgrades) is possible and
   would show there.
 - **The war of game 2 that stays open.**
+- **The few worked plots the yield model misses** without a battle on them (section 5.4).
+- **Growth over the game.** The growth model is exact at the save only; the M lines give the
+  population and food per city over time, not per city.
 
 ## Appendix: XML records of the types counted
 
@@ -437,6 +565,10 @@ experiment (CLAUDE.md, rule 9):
 {{effects:st.game3_build_plot_class}}
 
 {{effects:st.game4_build_plot_class}}
+
+{{effects:gr.game3_food_buildings}}
+
+{{effects:gr.game4_food_buildings}}
 
 {{effects:st.game1_upgrade_targets}}
 
