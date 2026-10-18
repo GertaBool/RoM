@@ -72,7 +72,7 @@
    "game3",
    "game4"
   ],
-  "unit": "derived xml",
+  "unit": "yield per turn",
   "who": "human",
   "turn": "save",
   "source": "probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much",
@@ -86,6 +86,19 @@
   ]
  },
  {
+  "id": "civic_value_vs_probe",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from players where human=1), v as (select replace(civic, 'CIVIC_', '') civic, score from civic_values where player=(select player from h)) select p.option, p.current, (select score from v where v.civic=p.current) current_value, p.alternative, (select score from v where v.civic=p.alternative) alternative_value, p.commerce - b.commerce d_commerce, p.hammers - b.hammers d_hammers, p.food - b.food d_food from civic_probe p, probe_baseline b order by 1, 5 desc, 4",
+  "unit": "AI value",
+  "who": "the human seat, valued by the AI code",
+  "turn": "save",
+  "source": "AI_civicValue of each civic for the human's empire (the dump's civicValues, with the seat handed to the AI: HARNESS_HUMAN), against the probe's exact change in commerce, hammers and food when that civic replaces the held one"
+ },
+ {
   "id": "currency_rank",
   "db": "*",
   "dbs": [
@@ -97,6 +110,19 @@
   "turn": "save",
   "source": "probe: every AI's AI_techValue (path 1) of each tech it can research at the save; the rank of CURRENCY among them, its value, the top tech and its value, and what the AI researches",
   "sql": "with t as (select * from tech_values) select c.player, c.rank currency_rank, (select count(*) from t t2 where t2.player=c.player) researchable, c.value currency_value, (select tech from t t2 where t2.player=c.player and t2.rank=1) top_tech, (select value from t t2 where t2.player=c.player and t2.rank=1) top_value, coalesce((select tech from t t2 where t2.player=c.player and t2.researching=1), '-') researching from t c where c.tech='CURRENCY' order by 1"
+ },
+ {
+  "id": "currency_civic_term",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with t as (select player, tech, sum(term) term, sum(term_uncapped) tu, max(divisor) d, max(era_penalty) ep from civic_terms group by 1, 2), v as (select tv.player, tv.tech, tv.value, tv.rank, t.term, t.tu, t.d, coalesce(t.ep, 0) ep, tv.value + coalesce((t.tu - t.term) * 100000.0 / t.d, 0) value_uncapped from tech_values tv left join t using (player, tech)), r as (select *, rank() over (partition by player order by value_uncapped desc, tech) rank_uncapped from v) select r.player, r.value currency_value, round(r.term * 100000.0 / r.d) civic_term, round(r.term * 100000.0 / r.d / r.value, 3) civic_share, r.rank currency_rank, r.rank_uncapped currency_rank_uncapped, r.ep era_penalty, (select string_agg(c.civic || ' ' || c.civic_value || ' vs ' || c.held || ' ' || c.held_value, '; ' order by c.civic) from civic_terms c where c.player = r.player and c.tech = 'CURRENCY') civic_values from r where r.tech = 'CURRENCY' order by 1",
+  "unit": "AI value",
+  "who": "AI players",
+  "turn": "save",
+  "source": "probe.json: civicTerms, the civic block of AI_techValue (CvPlayerAI.cpp:5943-5966) recomputed by the harness for each civic Currency unlocks, scaled by the divisor AI_techValue applies after it (CvPlayerAI.cpp:6141-6152); civic_share: that part of the AI's value of Currency; rank uncapped: Currency's rank if no civic term of any tech were capped at 2400; era_penalty 1: the era-0 penalty may scale the value further, so the share is approximate; civic values: AI_civicValue of the unlocked civic against the one held"
  },
  {
   "id": "economy_civics",

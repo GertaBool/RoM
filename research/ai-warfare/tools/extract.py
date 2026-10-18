@@ -239,6 +239,11 @@ def main():
             n = 1 if r[0] != last else n + 1; last = r[0]; rank.append(n)
         table('tech_values', [('player', 'BIGINT'), ('tech', 'VARCHAR'), ('value', 'BIGINT'), ('researching', 'BIGINT'), ('rank', 'BIGINT')],
               [[r[0], r[1].removeprefix('TECH_'), r[2], r[3], k] for r, k in zip(tv, rank)])
+        table('civic_terms', [('player', 'BIGINT'), ('tech', 'VARCHAR'), ('civic', 'VARCHAR'), ('held', 'VARCHAR'),
+                              ('civic_value', 'BIGINT'), ('held_value', 'BIGINT'), ('term', 'BIGINT'), ('term_uncapped', 'BIGINT'),
+                              ('divisor', 'BIGINT'), ('era_penalty', 'BIGINT')],
+              [[r[0], r[1].removeprefix('TECH_'), r[2].removeprefix('CIVIC_'), r[3].removeprefix('CIVIC_')] + r[4:]
+               for r in pr.get('civicTerms', [])])
         if any(not c[-1] for c in pr['civics']): errs.append('civic_probe: a swapped civic did not restore the baseline')
     if a.oracle:
         recs = collections.defaultdict(list)

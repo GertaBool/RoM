@@ -7,7 +7,7 @@
   "@repo/research/ai-warfare/games/game4/cases.fig.json"
  ],
  "inputs": {
-  "/root/.cache/rom-ana/db/game4.duckdb": "971580d385c1002cc7ed3970c72573a83bbb5fb5d4db25fe114b5d45e7376b1d",
+  "/root/.cache/rom-ana/db/game4.duckdb": "60d0c4534a5a1e83562f638e89f4f913f377d8b0a7eec9b44958d89b59fd9425",
   "cases_slider_turn.csv": "e67945928777d5363e3f6eefe029e58b8424f0b4a279f4632fe8fdcd157e720e",
   "cases_slider_dir.csv": "dc4d0729ab1f952f4d7d4853991d6119365bb16040e1e0174220ed9426cbb6f8",
   "cases_upgrade_turn.csv": "05e662985f81c09939361af9d89ac65edf65dfa9ae1108722ea57ed5c929a92b",

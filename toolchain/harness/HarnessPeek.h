@@ -20,6 +20,8 @@
 
 struct HarnessPeek
 {
+	// CvPlayer::getResearchTurnsLeftTimes100 is protected; AI_techValue divides by it.
+	static int researchTurnsLeftTimes100(const CvPlayerAI& k, TechTypes eTech) { return k.getResearchTurnsLeftTimes100(eTech, false); }
 	struct PlayerCaches
 	{
 		int iStrategyHash, iStrategyHashCacheTurn, iStrategyRand, iVictoryHash, iVictoryHashCacheTurn;

@@ -124,6 +124,47 @@ static void HH_probe(const char* szPath, PlayerTypes ePlayer)
 		}
 	}
 	delete [] aiRev; delete [] aiUnrev; delete [] aiHave;
+	// Civic terms: the civic block of AI_techValue (CvPlayerAI.cpp, "Civic Value") recomputed for every AI,
+	// tech it can research now and civic that tech unlocks: the AI's value of that civic and of the one it
+	// holds in the option, the term with its cap and without, and the divisor AI_techValue applies after
+	// (research turns left times 100 plus latency times the speed's research percent). eraPenalty is 1 when
+	// the era-0 penalty of AI_techValue may scale the value further.
+	fprintf(f, "],\"civicTerms\":[");
+	bFirst = true;
+	const int iLatency = std::max(0, GC.getDefineINT("AI_TECH_COMPLETION_LATENCY_TURNS"));
+	const int iAdjustment = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();
+	for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+	{
+		CvPlayerAI& kA = GET_PLAYER((PlayerTypes)i);
+		if (!kA.isAlive() || i == (int)ePlayer) continue;
+		const CivicTypes eFav = (CivicTypes)GC.getLeaderHeadInfo(kA.getPersonalityType()).getFavoriteCivic();
+		for (int t = 0; t < GC.getNumTechInfos(); ++t)
+		{
+			if (!kA.canResearch((TechTypes)t)) continue;
+			for (int c = 0; c < GC.getNumCivicInfos(); ++c)
+			{
+				if (GC.getCivicInfo((CivicTypes)c).getTechPrereq() != t) continue;
+				const CivicTypes eHeld = kA.getCivics((CivicOptionTypes)GC.getCivicInfo((CivicTypes)c).getCivicOptionType());
+				const int iNew = kA.AI_civicValue((CivicTypes)c);
+				const int iCur = (eHeld != NO_CIVIC) ? kA.AI_civicValue(eHeld) : 0;
+				int iCapped = 200, iUncapped = 200;
+				if (eHeld != NO_CIVIC)
+				{
+					if (iNew > iCur)
+					{
+						iUncapped += (2400 * (iNew - iCur)) / std::max(1, iCur);
+						iCapped += std::min(2400, (2400 * (iNew - iCur)) / std::max(1, iCur));
+					}
+					if ((CivicTypes)c == eFav) { iCapped += 600; iUncapped += 600; }
+				}
+				fprintf(f, "%s\n[%d,\"%s\",\"%s\",\"%s\",%d,%d,%d,%d,%d,%d]", bFirst ? "" : ",", i, GC.getTechInfo((TechTypes)t).getType(),
+					GC.getCivicInfo((CivicTypes)c).getType(), eHeld != NO_CIVIC ? GC.getCivicInfo(eHeld).getType() : "-", iNew, iCur,
+					iCapped, iUncapped, HarnessPeek::researchTurnsLeftTimes100(kA, (TechTypes)t) + iLatency * iAdjustment,
+					(kA.getCurrentEra() == 0 && GC.getTechInfo((TechTypes)t).getEra() > 0) ? 1 : 0);
+				bFirst = false;
+			}
+		}
+	}
 	fprintf(f, "]}\n");
 	fclose(f);
 }

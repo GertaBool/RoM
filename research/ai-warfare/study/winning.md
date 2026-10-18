@@ -219,7 +219,7 @@ they are.
 | TAXATION | FISCUS | CENSUS | -12 | 0 | -8 | 0 | 0 |
 | TAXATION | FISCUS | NO_TAXES | 88 | 97 | -3 | 0 | 0 |
 
-*derived xml; who: human; turn: save; rows counted: 29; source: probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much [game3]. Every value counted (29).*
+*yield per turn; who: human; turn: save; rows counted: 29; source: probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much [game3]. Every value counted (29).*
 
 | option | current | alternative | d_commerce | d_research | d_gold | d_food | d_hammers |
 |---|---|---|---|---|---|---|---|
@@ -252,7 +252,77 @@ they are.
 | TAXATION | FISCUS | CENSUS | -56 | 0 | -49 | 0 | 0 |
 | TAXATION | FISCUS | NO_TAXES | 147 | 193 | -35 | 0 | 0 |
 
-*derived xml; who: human; turn: save; rows counted: 28; source: probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much [game4]. Every value counted (28).*
+*yield per turn; who: human; turn: save; rows counted: 28; source: probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much [game4]. Every value counted (28).*
+
+The same swaps against the AI code's own value of each civic for the human's empire
+(`AI_civicValue`, with the human's seat handed to the AI in the dump):
+
+| option | current | current_value | alternative | alternative_value | d_commerce | d_hammers | d_food |
+|---|---|---|---|---|---|---|---|
+| ADMINISTRATION | BOOKKEEPING | 218 | ACCOUNTING | 171 | -12 | 0 | 0 |
+| ADMINISTRATION | BOOKKEEPING | 218 | STANDARDIZED_TABLETS | 86 | -22 | 0 | 0 |
+| ADMINISTRATION | BOOKKEEPING | 218 | TABLETS | -344 | -84 | -36 | -46 |
+| ADMINISTRATION | BOOKKEEPING | 218 | ORAL_LAW | -843 | -77 | -93 | -110 |
+| ECONOMY | COINAGE | 111 | AGRICULTURAL | 72 | -186 | -35 | -60 |
+| ECONOMY | COINAGE | 111 | PASTORAL | 54 | -223 | -35 | -53 |
+| ECONOMY | COINAGE | 111 | METALS | 41 | -162 | -35 | -25 |
+| ECONOMY | COINAGE | 111 | COASTAL | 38 | -229 | -31 | -60 |
+| ECONOMY | COINAGE | 111 | BARTER | 21 | -204 | -35 | -25 |
+| ECONOMY | COINAGE | 111 | HUNTER_GATHERER | -90 | -304 | -35 | -60 |
+| EDUCATION | TUTORS | 541 | ELDERS | 205 | 0 | -36 | -46 |
+| EDUCATION | TUTORS | 541 | HOMESCHOOLING | 70 | -60 | -36 | -46 |
+| EMPLOYMENT | PROLETARIAT | 829 | PEASANTRY | 813 | -126 | -101 | 48 |
+| EMPLOYMENT | PROLETARIAT | 829 | SLAVERY | 679 | -1 | -168 | 0 |
+| EMPLOYMENT | PROLETARIAT | 829 | ABORIGINAL | -42 | -7 | -241 | -31 |
+| LEADERSHIP | PATRICIAN | 221 | IMPERIUM | 336 | -129 | 0 | 0 |
+| LEADERSHIP | PATRICIAN | 221 | HEREDITARY_RULE | 106 | -116 | 0 | 0 |
+| LEADERSHIP | PATRICIAN | 221 | PRIESTHOOD | 37 | -75 | 0 | 0 |
+| LEADERSHIP | PATRICIAN | 221 | OLIGARCHY | 34 | -116 | 0 | 0 |
+| LEADERSHIP | PATRICIAN | 221 | PATRIARCH | -40 | -127 | 0 | 0 |
+| MILITARY | FORTIFICATION | 253 | STANDING_ARMY | 155 | -13 | 0 | 0 |
+| MILITARY | FORTIFICATION | 253 | MERCENARIES | 139 | -16 | 0 | 0 |
+| MILITARY | FORTIFICATION | 253 | RAIDERS | 131 | 10 | 0 | 0 |
+| MILITARY | FORTIFICATION | 253 | TRIBAL_WARFARE | 70 | 4 | 0 | 0 |
+| RELIGION | SPIRITISM | 279 | STATE_RELIGION | 709 | -14 | 0 | 0 |
+| RELIGION | SPIRITISM | 279 | FOLKLORE | 103 | -6 | 0 | 0 |
+| TAXATION | FISCUS | 405 | CENSUS | 165 | -12 | 0 | 0 |
+| TAXATION | FISCUS | 405 | NO_TAXES | 107 | 88 | 0 | 0 |
+| TAXATION | FISCUS | 405 | TRIBUTE | -61 | -27 | 9 | -35 |
+
+*AI value; who: the human seat, valued by the AI code; turn: save; rows counted: 29; source: AI_civicValue of each civic for the human's empire (the dump's civicValues, with the seat handed to the AI: HARNESS_HUMAN), against the probe's exact change in commerce, hammers and food when that civic replaces the held one [game3]. Every value counted (29).*
+
+| option | current | current_value | alternative | alternative_value | d_commerce | d_hammers | d_food |
+|---|---|---|---|---|---|---|---|
+| ADMINISTRATION | ACCOUNTING | 326 | STANDARDIZED_TABLETS | 137 | -51 | 0 | 0 |
+| ADMINISTRATION | ACCOUNTING | 326 | TABLETS | -729 | -171 | -72 | -78 |
+| ADMINISTRATION | ACCOUNTING | 326 | ORAL_LAW | -1781 | -153 | -193 | -191 |
+| ECONOMY | COINAGE | 200 | COASTAL | 43 | -459 | -27 | -178 |
+| ECONOMY | COINAGE | 200 | PASTORAL | -30 | -493 | -58 | -170 |
+| ECONOMY | COINAGE | 200 | AGRICULTURAL | -31 | -439 | -58 | -178 |
+| ECONOMY | COINAGE | 200 | METALS | -35 | -307 | -58 | -61 |
+| ECONOMY | COINAGE | 200 | BARTER | -79 | -448 | -58 | -61 |
+| ECONOMY | COINAGE | 200 | HUNTER_GATHERER | -330 | -716 | -58 | -178 |
+| EDUCATION | TUTORS | 1051 | ELDERS | 380 | 0 | -72 | -78 |
+| EDUCATION | TUTORS | 1051 | HOMESCHOOLING | 100 | -119 | -72 | -78 |
+| EMPLOYMENT | PROLETARIAT | 1454 | SLAVERY | 993 | 22 | -433 | -1 |
+| EMPLOYMENT | PROLETARIAT | 1454 | PEASANTRY | 686 | -87 | -481 | 0 |
+| EMPLOYMENT | PROLETARIAT | 1454 | ABORIGINAL | -212 | -30 | -546 | -42 |
+| LEADERSHIP | OLIGARCHY | 88 | IMPERIUM | 956 | -35 | 0 | 0 |
+| LEADERSHIP | OLIGARCHY | 88 | PATRICIAN | 364 | 309 | 0 | 0 |
+| LEADERSHIP | OLIGARCHY | 88 | HEREDITARY_RULE | 277 | -4 | 0 | 0 |
+| LEADERSHIP | OLIGARCHY | 88 | PRIESTHOOD | 121 | 46 | 0 | 0 |
+| LEADERSHIP | OLIGARCHY | 88 | PATRIARCH | -72 | -29 | 0 | 0 |
+| MILITARY | FORTIFICATION | 408 | STANDING_ARMY | 283 | -39 | 0 | 0 |
+| MILITARY | FORTIFICATION | 408 | RAIDERS | 244 | 35 | 0 | 0 |
+| MILITARY | FORTIFICATION | 408 | MERCENARIES | 235 | -61 | 0 | 0 |
+| MILITARY | FORTIFICATION | 408 | TRIBAL_WARFARE | 100 | 9 | 0 | 0 |
+| RELIGION | SPIRITISM | 690 | FANATICISM | 1758 | -323 | 0 | 0 |
+| RELIGION | SPIRITISM | 690 | FOLKLORE | 220 | -8 | 0 | 0 |
+| TAXATION | FISCUS | 556 | CENSUS | 243 | -56 | 0 | 0 |
+| TAXATION | FISCUS | 556 | NO_TAXES | 207 | 147 | 0 | 0 |
+| TAXATION | FISCUS | 556 | TRIBUTE | -282 | -119 | 24 | -59 |
+
+*AI value; who: the human seat, valued by the AI code; turn: save; rows counted: 28; source: AI_civicValue of each civic for the human's empire (the dump's civicValues, with the seat handed to the AI: HARNESS_HUMAN), against the probe's exact change in commerce, hammers and food when that civic replaces the held one [game4]. Every value counted (28).*
 
 ## 4. What the AIs adopt and research
 
@@ -391,8 +461,50 @@ So a civic that doubles the value of the one held gets the same term as one that
 better. Currency unlocks Coinage, Fiscus and Proletariat (their `TechPrereq`, appendix), and no
 leader has one of the three as `FavoriteCivic` in `LeaderHeadInfo`. The total is then divided by
 the turns of research left (`CvPlayerAI.cpp:6141–6152`), and a random term is added
-(`CvPlayerAI.cpp:5301–5310`). The probe records only the final value, so the share of the civic
-term in it is not known (section 8).
+(`CvPlayerAI.cpp:5301–5310`).
+
+The harness recomputes that civic block for every AI, with the AI's own civic values, and scales
+it by the same divisor. Its part in the AI's value of Currency, Currency's rank with and without
+the cap (the cap lifted for every tech), and the AI's value of each civic Currency unlocks against
+the civic it holds in that option:
+
+| player | currency_value | civic_term | civic_share | currency_rank | currency_rank_uncapped | era_penalty | civic_values |
+|---|---|---|---|---|---|---|---|
+| 0 | 71774 | 32051.0 | 0.447 | 11 | 11 | 0 | COINAGE 27 vs PASTORAL 52; FISCUS 67 vs CENSUS 48; PROLETARIAT 208 vs PEASANTRY 234 |
+| 1 | 70572 | 49513.0 | 0.702 | 9 | 4 | 0 | COINAGE 24 vs PASTORAL 47; FISCUS 58 vs NO_TAXES 18; PROLETARIAT 252 vs PEASANTRY 402 |
+| 2 | 766 | 235.0 | 0.307 | 13 | 13 | 0 | COINAGE 7 vs COASTAL 93; FISCUS 1 vs CENSUS 83; PROLETARIAT 397 vs SLAVERY 375 |
+| 3 | 97449 | 63762.0 | 0.654 | 10 | 7 | 0 | COINAGE 53 vs COASTAL 56; FISCUS 45 vs NO_TAXES 14; PROLETARIAT 204 vs PEASANTRY 294 |
+| 6 | 65188 | 38137.0 | 0.585 | 9 | 9 | 0 | COINAGE 94 vs COASTAL 107; FISCUS 259 vs CENSUS 154; PROLETARIAT 552 vs SLAVERY 558 |
+| 9 | 48242 | 25014.0 | 0.519 | 13 | 13 | 0 | COINAGE 102 vs COASTAL 87; FISCUS 68 vs NO_TAXES 52; PROLETARIAT 462 vs SLAVERY 473 |
+| 10 | 118076 | 81259.0 | 0.688 | 8 | 8 | 0 | COINAGE 71 vs COASTAL 112; FISCUS 260 vs CENSUS 113; PROLETARIAT 696 vs SLAVERY 592 |
+| 11 | 110360 | 66780.0 | 0.605 | 11 | 2 | 0 | COINAGE 57 vs COASTAL 90; FISCUS 178 vs NO_TAXES 24; PROLETARIAT 492 vs SLAVERY 431 |
+| 13 | 121448 | 78807.0 | 0.649 | 6 | 1 | 0 | COINAGE 99 vs AGRICULTURAL 112; FISCUS 297 vs TRIBUTE 16; PROLETARIAT 594 vs SLAVERY 575 |
+| 15 | 14805 | 4776.0 | 0.323 | 13 | 13 | 0 | COINAGE 29 vs PASTORAL 52; FISCUS -108 vs NO_TAXES 28; PROLETARIAT 244 vs SLAVERY 240 |
+| 16 | 30951 | 14793.0 | 0.478 | 13 | 13 | 0 | COINAGE 39 vs COASTAL 41; FISCUS -75 vs NO_TAXES 18; PROLETARIAT 162 vs PEASANTRY 129 |
+| 17 | 41488 | 18370.0 | 0.443 | 15 | 15 | 0 | COINAGE 28 vs COASTAL 56; FISCUS -68 vs CENSUS 62; PROLETARIAT 324 vs SLAVERY 274 |
+
+*AI value; who: AI players; turn: save; rows counted: 12; source: probe.json: civicTerms, the civic block of AI_techValue (CvPlayerAI.cpp:5943-5966) recomputed by the harness for each civic Currency unlocks, scaled by the divisor AI_techValue applies after it (CvPlayerAI.cpp:6141-6152); civic_share: that part of the AI's value of Currency; rank uncapped: Currency's rank if no civic term of any tech were capped at 2400; era_penalty 1: the era-0 penalty may scale the value further, so the share is approximate; civic values: AI_civicValue of the unlocked civic against the one held [game3]. Every value counted (12).*
+
+| player | currency_value | civic_term | civic_share | currency_rank | currency_rank_uncapped | era_penalty | civic_values |
+|---|---|---|---|---|---|---|---|
+| 0 | 102850 | 69024.0 | 0.671 | 5 | 2 | 0 | COINAGE 115 vs COASTAL 108; FISCUS 307 vs NO_TAXES 56; PROLETARIAT 706 vs SLAVERY 661 |
+| 1 | 46839 | 33438.0 | 0.714 | 5 | 1 | 0 | COINAGE 8 vs PASTORAL 11; FISCUS 37 vs NO_TAXES 7; PROLETARIAT 88 vs SLAVERY 85 |
+| 2 | 87809 | 66847.0 | 0.761 | 4 | 2 | 0 | COINAGE 37 vs COASTAL 28; FISCUS 122 vs CENSUS 36; PROLETARIAT 150 vs SLAVERY 122 |
+| 4 | 84837 | 48260.0 | 0.569 | 11 | 11 | 0 | COINAGE 105 vs COASTAL 140; FISCUS 180 vs CENSUS 128; PROLETARIAT 746 vs SLAVERY 622 |
+| 5 | 124556 | 86693.0 | 0.696 | 9 | 2 | 0 | COINAGE 73 vs PASTORAL 121; FISCUS 303 vs NO_TAXES 50; PROLETARIAT 808 vs SLAVERY 632 |
+| 6 | 43919 | 18972.0 | 0.432 | 13 | 13 | 0 | COINAGE 16 vs PASTORAL 38; FISCUS -16 vs CENSUS 50; PROLETARIAT 336 vs SLAVERY 288 |
+| 7 | 41893 | 16596.0 | 0.396 | 11 | 11 | 0 | COINAGE 47 vs COASTAL 52; FISCUS 38 vs CENSUS 63; PROLETARIAT 281 vs PEASANTRY 257 |
+| 8 | 56757 | 21400.0 | 0.377 | 9 | 9 | 0 | COINAGE 90 vs PASTORAL 147; FISCUS 87 vs CENSUS 134; PROLETARIAT 780 vs SLAVERY 676 |
+| 9 | 139212 | 99638.0 | 0.716 | 2 | 2 | 0 | COINAGE 107 vs PASTORAL 77; FISCUS 180 vs CENSUS 92; PROLETARIAT 530 vs SLAVERY 472 |
+| 10 | 115595 | 84264.0 | 0.729 | 8 | 3 | 0 | COINAGE 66 vs COASTAL 71; FISCUS 132 vs NO_TAXES 19; PROLETARIAT 454 vs SLAVERY 364 |
+| 11 | 136293 | 91202.0 | 0.669 | 4 | 4 | 0 | COINAGE 172 vs COASTAL 181; FISCUS 524 vs CENSUS 210; PROLETARIAT 1217 vs SLAVERY 1075 |
+| 12 | 55116 | 21811.0 | 0.396 | 9 | 9 | 0 | COINAGE 89 vs COASTAL 93; FISCUS -99 vs CENSUS 90; PROLETARIAT 458 vs SLAVERY 385 |
+| 13 | 70444 | 28716.0 | 0.408 | 11 | 11 | 0 | COINAGE 47 vs PASTORAL 100; FISCUS 60 vs CENSUS 79; PROLETARIAT 747 vs SLAVERY 605 |
+| 16 | 112257 | 75158.0 | 0.67 | 7 | 2 | 0 | COINAGE 88 vs COASTAL 95; FISCUS 160 vs NO_TAXES 35; PROLETARIAT 498 vs SLAVERY 419 |
+| 18 | 133589 | 92901.0 | 0.695 | 4 | 2 | 0 | COINAGE 83 vs COASTAL 105; FISCUS 272 vs CENSUS 107; PROLETARIAT 899 vs SLAVERY 742 |
+
+*AI value; who: AI players; turn: save; rows counted: 15; source: probe.json: civicTerms, the civic block of AI_techValue (CvPlayerAI.cpp:5943-5966) recomputed by the harness for each civic Currency unlocks, scaled by the divisor AI_techValue applies after it (CvPlayerAI.cpp:6141-6152); civic_share: that part of the AI's value of Currency; rank uncapped: Currency's rank if no civic term of any tech were capped at 2400; era_penalty 1: the era-0 penalty may scale the value further, so the share is approximate; civic values: AI_civicValue of the unlocked civic against the one held [game4]. Every value counted (15).*
+
 
 An AI that holds the tech switches civics in `CvPlayerAI::AI_doCivics`
 (`CvPlayerAI.cpp:16738–16825`): it scores every civic it can adopt, sums the best of each option
@@ -553,10 +665,20 @@ the war readings on four.
      - in game 3 no AI holds Currency; in game 4 one does, acquired two turns before the last
        M line (X lines);
      - most AIs could research it now, and none ranks it first (section 4).
-   - Candidate cause, not tested: the civic term of `AI_techValue` grows with the relative gain
-     only up to its cap (section 4.1).
-   - Refuted if: the AI's raw tech value, with the civic term at the probe's measured gain, still
-     ranks Currency low (section 8).
+   - What the AI code does (section 4.1):
+     - the civic term is a large part of every AI's value of Currency;
+     - without the cap, Currency would rank first or second for nearly half the AIs in game 4,
+       and for some in game 3. So the cap lowers the rank, but for the other AIs it does not
+       decide it;
+     - most AIs value Coinage below the economy civic they hold. With Currency, `AI_doCivics`
+       would leave them in it. For the human's empire, the same function values Coinage above
+       every alternative, as the probe does (section 3.3).
+   - Open: whether Coinage is worth less on the AIs' empires, which have fewer trade routes per
+     city (`study/data.md`, section 3), or whether `AI_civicValue` undervalues it there.
+     `AI_civicValue` models the added route and the trade modifiers
+     (`CvPlayerAI.cpp:13287–13311`). The test is the civic probe on an AI seat with Coinage set
+     in place.
+   - Refuted if: that probe shows Coinage worth no more than the civic the AI holds.
 4. **The human sells technology.**
    - Facts (section 5): after the first trades, it gives more techs in deals than it receives,
      in both games; by the save, several times as many. The gold it receives is in
@@ -574,11 +696,10 @@ the war readings on four.
 
 ## 8. Open
 
-- **The civic term's weight.** A harness probe that returns the terms of `AI_techValue` before
-  the turn normalisation would show how much of Currency's value comes from its civics, and what
-  it would be with the measured gain. That answers reading 3. A change to the term is an AI change
-  and is judged by experiment: seeded runs per arm in the number `framework.md` sets, fixed
-  opponents, ranks compared.
+- **Coinage on an AI's empire** (reading 3): the civic probe on AI seats, with Coinage, Fiscus
+  and Proletariat set in place although the AI lacks Currency. A change to the cap or to
+  `AI_civicValue` is an AI change and is judged by experiment: seeded runs per arm in the number
+  `framework.md` sets, fixed opponents, ranks compared.
 - **A dynamic civic counterfactual** (reading 2): the same replay from a save with and without the
   switch.
 - **Trade against city size and position**, and **combat against unit and terrain**, as in
@@ -764,14 +885,18 @@ the war readings on four.
 | `w.game4_anarchy_turns` | table, 2 values | turns | every player | turns 51 to the last M line | 2 | wl_M lines with commerce <= 1 (anarchy: CvCity::isDisorder includes the owner's anarchy, CvCity.cpp:4671) [game4] |
 | `w.game3_civic_switches` | table, 10 values | turns | human | each turn with a CIVICS command | 10 | every turn with a CIVICS command of the human (A lines; adopted: the civics of its last command that turn not in the previous one), with its last M line before that turn and its first M line from that turn on that are not anarchy turns (commerce 1), and the anarchy turns between; the M line is written at the end of the turn, after its commands [game3] |
 | `w.game4_civic_switches` | table, 12 values | turns | human | each turn with a CIVICS command | 12 | every turn with a CIVICS command of the human (A lines; adopted: the civics of its last command that turn not in the previous one), with its last M line before that turn and its first M line from that turn on that are not anarchy turns (commerce 1), and the anarchy turns between; the M line is written at the end of the turn, after its commands [game4] |
-| `w.game3_civic_worth` | table, 29 values | derived xml | human | save | 29 | probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much [game3] |
-| `w.game4_civic_worth` | table, 28 values | derived xml | human | save | 28 | probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much [game4] |
+| `w.game3_civic_worth` | table, 29 values | yield per turn | human | save | 29 | probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much [game3] |
+| `w.game4_civic_worth` | table, 28 values | yield per turn | human | save | 28 | probe (HH_probe, CvPlayer::setCivics then a full recalculation, worked tiles unchanged; every swap restored the baseline): the human's totals with each civic it could adopt in place of its current one, minus its actual totals. Negative: the current civic is worth that much [game4] |
+| `w.game3_civic_value_vs_probe` | table, 29 values | AI value | the human seat, valued by the AI code | save | 29 | AI_civicValue of each civic for the human's empire (the dump's civicValues, with the seat handed to the AI: HARNESS_HUMAN), against the probe's exact change in commerce, hammers and food when that civic replaces the held one [game3] |
+| `w.game4_civic_value_vs_probe` | table, 28 values | AI value | the human seat, valued by the AI code | save | 28 | AI_civicValue of each civic for the human's empire (the dump's civicValues, with the seat handed to the AI: HARNESS_HUMAN), against the probe's exact change in commerce, hammers and food when that civic replaces the held one [game4] |
 | `w.game3_economy_civics` | table, 26 values | category | all players | save | 26 | civics at the save (dump): how many players run each civic, the human and the AIs [game3] |
 | `w.game4_economy_civics` | table, 22 values | category | all players | save | 22 | civics at the save (dump): how many players run each civic, the human and the AIs [game4] |
 | `w.game3_economy_techs` | table, 5 values | techs | all players | save | 5 | techs at the save (dump), for the techs that enable the economy and taxation civics in play (TechPrereq of COINAGE, FISCUS, BARTER, METALS, ACCOUNTING, PATRICIAN): players holding each [game3] |
 | `w.game4_economy_techs` | table, 5 values | techs | all players | save | 5 | techs at the save (dump), for the techs that enable the economy and taxation civics in play (TechPrereq of COINAGE, FISCUS, BARTER, METALS, ACCOUNTING, PATRICIAN): players holding each [game4] |
 | `w.game3_currency_rank` | table, 12 values | rank | AI players | save | 12 | probe: every AI's AI_techValue (path 1) of each tech it can research at the save; the rank of CURRENCY among them, its value, the top tech and its value, and what the AI researches [game3] |
 | `w.game4_currency_rank` | table, 15 values | rank | AI players | save | 15 | probe: every AI's AI_techValue (path 1) of each tech it can research at the save; the rank of CURRENCY among them, its value, the top tech and its value, and what the AI researches [game4] |
+| `w.game3_currency_civic_term` | table, 12 values | AI value | AI players | save | 12 | probe.json: civicTerms, the civic block of AI_techValue (CvPlayerAI.cpp:5943-5966) recomputed by the harness for each civic Currency unlocks, scaled by the divisor AI_techValue applies after it (CvPlayerAI.cpp:6141-6152); civic_share: that part of the AI's value of Currency; rank uncapped: Currency's rank if no civic term of any tech were capped at 2400; era_penalty 1: the era-0 penalty may scale the value further, so the share is approximate; civic values: AI_civicValue of the unlocked civic against the one held [game3] |
+| `w.game4_currency_civic_term` | table, 15 values | AI value | AI players | save | 15 | probe.json: civicTerms, the civic block of AI_techValue (CvPlayerAI.cpp:5943-5966) recomputed by the harness for each civic Currency unlocks, scaled by the divisor AI_techValue applies after it (CvPlayerAI.cpp:6141-6152); civic_share: that part of the AI's value of Currency; rank uncapped: Currency's rank if no civic term of any tech were capped at 2400; era_penalty 1: the era-0 penalty may scale the value further, so the share is approximate; civic values: AI_civicValue of the unlocked civic against the one held [game4] |
 | `w.game3_tech_sources` | table, 7 values | techs | human and AI | every 50th turn and the last | 7 | X lines (techs acquired, cumulative) and deal_items (techs received by the human in deals, cumulative) [game3] |
 | `w.game4_tech_sources` | table, 7 values | techs | human and AI | every 50th turn and the last | 7 | X lines (techs acquired, cumulative) and deal_items (techs received by the human in deals, cumulative) [game4] |
 | `w.game1_war_ledger` | table, 3 values | battles | human and AI | each war of the human | 3 | W/Q lines (wars and peace of the human), K lines (cities), C lines with the R line directly after (battles), M lines (power the turn before; empty without M lines) [game1] |

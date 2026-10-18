@@ -76,6 +76,13 @@ they are.
 
 {{table:w.game4_civic_worth}}
 
+The same swaps against the AI code's own value of each civic for the human's empire
+(`AI_civicValue`, with the human's seat handed to the AI in the dump):
+
+{{table:w.game3_civic_value_vs_probe}}
+
+{{table:w.game4_civic_value_vs_probe}}
+
 ## 4. What the AIs adopt and research
 
 Civics held at the save:
@@ -110,8 +117,17 @@ So a civic that doubles the value of the one held gets the same term as one that
 better. Currency unlocks Coinage, Fiscus and Proletariat (their `TechPrereq`, appendix), and no
 leader has one of the three as `FavoriteCivic` in `LeaderHeadInfo`. The total is then divided by
 the turns of research left (`CvPlayerAI.cpp:6141–6152`), and a random term is added
-(`CvPlayerAI.cpp:5301–5310`). The probe records only the final value, so the share of the civic
-term in it is not known (section 8).
+(`CvPlayerAI.cpp:5301–5310`).
+
+The harness recomputes that civic block for every AI, with the AI's own civic values, and scales
+it by the same divisor. Its part in the AI's value of Currency, Currency's rank with and without
+the cap (the cap lifted for every tech), and the AI's value of each civic Currency unlocks against
+the civic it holds in that option:
+
+{{table:w.game3_currency_civic_term}}
+
+{{table:w.game4_currency_civic_term}}
+
 
 An AI that holds the tech switches civics in `CvPlayerAI::AI_doCivics`
 (`CvPlayerAI.cpp:16738–16825`): it scores every civic it can adopt, sums the best of each option
@@ -190,10 +206,20 @@ the war readings on four.
      - in game 3 no AI holds Currency; in game 4 one does, acquired two turns before the last
        M line (X lines);
      - most AIs could research it now, and none ranks it first (section 4).
-   - Candidate cause, not tested: the civic term of `AI_techValue` grows with the relative gain
-     only up to its cap (section 4.1).
-   - Refuted if: the AI's raw tech value, with the civic term at the probe's measured gain, still
-     ranks Currency low (section 8).
+   - What the AI code does (section 4.1):
+     - the civic term is a large part of every AI's value of Currency;
+     - without the cap, Currency would rank first or second for nearly half the AIs in game 4,
+       and for some in game 3. So the cap lowers the rank, but for the other AIs it does not
+       decide it;
+     - most AIs value Coinage below the economy civic they hold. With Currency, `AI_doCivics`
+       would leave them in it. For the human's empire, the same function values Coinage above
+       every alternative, as the probe does (section 3.3).
+   - Open: whether Coinage is worth less on the AIs' empires, which have fewer trade routes per
+     city (`study/data.md`, section 3), or whether `AI_civicValue` undervalues it there.
+     `AI_civicValue` models the added route and the trade modifiers
+     (`CvPlayerAI.cpp:13287–13311`). The test is the civic probe on an AI seat with Coinage set
+     in place.
+   - Refuted if: that probe shows Coinage worth no more than the civic the AI holds.
 4. **The human sells technology.**
    - Facts (section 5): after the first trades, it gives more techs in deals than it receives,
      in both games; by the save, several times as many. The gold it receives is in
@@ -211,11 +237,10 @@ the war readings on four.
 
 ## 8. Open
 
-- **The civic term's weight.** A harness probe that returns the terms of `AI_techValue` before
-  the turn normalisation would show how much of Currency's value comes from its civics, and what
-  it would be with the measured gain. That answers reading 3. A change to the term is an AI change
-  and is judged by experiment: seeded runs per arm in the number `framework.md` sets, fixed
-  opponents, ranks compared.
+- **Coinage on an AI's empire** (reading 3): the civic probe on AI seats, with Coinage, Fiscus
+  and Proletariat set in place although the AI lacks Currency. A change to the cap or to
+  `AI_civicValue` is an AI change and is judged by experiment: seeded runs per arm in the number
+  `framework.md` sets, fixed opponents, ranks compared.
 - **A dynamic civic counterfactual** (reading 2): the same replay from a save with and without the
   switch.
 - **Trade against city size and position**, and **combat against unit and terrain**, as in

@@ -3,7 +3,7 @@
  "inputs": {
   "CvEnums.h": "7a8a4769d01feaeb9c7e975631764b89532a20b6405b7b3fda861f38fe989a70",
   "WarLog.log": "7cde98c718bcc23fcd18a9d897fd3158cbd7d89da8fbc8decd90e2aa38541a14",
-  "probe.json": "6bbf1f848089d7cf4ec2775cd7436e54d2838866f2da325a8718d2ab6761d066",
+  "probe.json": "aaba468baea4de267ee01013b6e6bf89cd4e9925f3f22deddf6bee46c9b068d1",
   "records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152",
   "state0.json": "e6efbbfb832c73b97151e2957c85c287c422193f11b0ac8f6de342bfd23fd32e"
  },
@@ -40,6 +40,7 @@
   "cities": 129,
   "city_buildings": 492,
   "civic_probe": 29,
+  "civic_terms": 184,
   "civic_values": 506,
   "civics": 144,
   "costs": 18,

@@ -35,6 +35,8 @@ UNITS = {
     'per mille': ('metric', 'parts per thousand'),
     'share': ('metric', 'a fraction of n; n is required'),
     'rank': ('ordinal', 'a position in an order'),
+    'yield per turn': ('metric', 'food, hammers or commerce per turn of a whole empire (CvPlayer::calculateTotalYield, calculateTotalCommerce)'),
+    'AI value': ('ordinal', 'a score the AI code computes to compare options (AI_civicValue, AI_techValue); the code compares and scales it, it has no unit'),
     'category': ('nominal', 'a type name; only counted, never averaged'),
     'xml': ('nominal', 'a value read from records.json, as written there'),
     'derived xml': ('metric', 'a value computed from records.json by a rule cited in source'),
