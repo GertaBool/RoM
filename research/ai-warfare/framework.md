@@ -271,6 +271,31 @@ reading of the human's wars is set against them.
   - Read in full: Book V, chapter I, part I (the expense of defence).
   - Not used: the rest, which is on production and trade, already measured in the logs.
 
+Mathematical readings for the human model's war rule (`toolchain/harness/HarnessHuman.cpp`):
+- **Lanchester, *Aircraft in Warfare*, chapter V.**
+  - Read in full: sections 19–21, the ancient law of one-to-one combat against the modern
+    law of concentration.
+  - Not used: the chapters on aircraft and naval gunnery.
+  - Taken: combat in the game is a sequence of duels, so the old linear law holds, and the
+    chance of taking a city follows from the combat formula. It is an absorbing Markov chain over
+    the defenders' hit points, which `CvSelectionGroupAI::AI_cityAssaultForecast` already
+    computes.
+- **Gigerenzer, Hertwig and Pachur, *Heuristics*, chapter 1.**
+  - Taken: the bias–variance dilemma. A rule with many fitted thresholds varies more between
+    samples than a rule with one; a handful of observed wars cannot fix many thresholds.
+- **Mandelbrot and Hudson, *The Misbehavior of Markets*.**
+  - Read in full: the abstract for the scientific reader, and the passages on mild and wild
+    chance.
+  - Not used: the price models, which have no counterpart in the game.
+  - Taken: when single outcomes can dominate a sample, as one conquest can dominate a game,
+    compare runs by rank, not by mean, and never judge from two runs.
+- ***Linear Algebra with Python*.**
+  - Read in full: section 9.4 (Markov chains).
+  - Not used: the rest, which is matrix computation without a question here.
+- **Luke, *Essentials of Metaheuristics*, section 11.**
+  - Taken: training and test sets. The seeds used to fix the model are training data, so the
+    model is judged only on fresh seeds and on a held-out game.
+
 ## 10. Cost
 
 - Machine time is small: each tool runs in under a second on game 4. Reading and error cost
