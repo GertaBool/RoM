@@ -66,6 +66,7 @@ BUILD BUILDINGCLASS_BARRACKS
 BUILD BUILDINGCLASS_LEGION_BARRACKS
 BUILD BUILDINGCLASS_STABLE
 PARAM war_min_turn 193
+PARAM prep_ratio_pct 100
 PARAM decl_ratio_pct 200
 PARAM attack_min_odds 710
 PARAM war_gap_turns 3
@@ -85,6 +86,6 @@ PARAM trade_min_turn 261
 PARAM trade_every 3
 PARAM trade_min_gold 80
 PARAM ai_every 3
-PARAM ai_every_war 3
+PARAM ai_every_war 1
 PARAM settler_min_pop 3
 PARAM max_cities 99

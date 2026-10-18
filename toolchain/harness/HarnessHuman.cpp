@@ -302,7 +302,7 @@ namespace
 		return pBest;
 	}
 
-	// The objective: among the cities of teams the seat may attack and outweighs by decl_ratio_pct, with
+	// The objective: among the cities of teams the seat may attack and outweighs by prep_ratio_pct, with
 	// open borders (or already at war), on a landmass where the seat has a city, within target_max_distance
 	// of its cities, and that one of its strike candidates would attack at attack_min_odds (the human took
 	// cities only at such odds): the nearest, then the one with most of its units within two plots.
@@ -324,7 +324,7 @@ namespace
 				++nDeclarable;
 				if (!t.isOpenBorders(eT)) continue;
 				++nBorders;
-				if (iPow * 100 / std::max(1, GET_TEAM(eT).getPower(true)) < Param("decl_ratio_pct", 200)) continue;
+				if (iPow * 100 / std::max(1, GET_TEAM(eT).getPower(true)) < Param("prep_ratio_pct", 100)) continue;
 				++nOutweighed;
 			}
 			int iLoop;
@@ -457,8 +457,8 @@ bool HH_hmCommerce(CvPlayerAI* p)
 }
 
 // City production: the capital and cities in danger or without a defender are the AI's; so is one
-// choice in every ai_every (ai_every_war during a war or its preparation), which is where the AI
-// builds its units. Every other choice: a settler when the seat has a site and no settler, else the
+// choice in every ai_every, which is where the AI builds its units; during a preparation or war one in
+// every ai_every_war is a fighting unit, the AI's best for the attack. Every other choice: a settler when the seat has a site and no settler, else the
 // first building of the template the city can build, else the AI's.
 bool HH_hmChooseProduction(CvCityAI* c)
 {
@@ -469,7 +469,23 @@ bool HH_hmChooseProduction(CvCityAI* c)
 	if (c->getOrderQueueLength() > 0 && c->getProduction() > 0) return true;     // keep what is under way
 	int& iPicks = g.aiPicks[c->getID()];
 	const int iEvery = inWarMode() ? Param("ai_every_war", 2) : Param("ai_every", 3);
-	if (iEvery > 0 && iPicks >= iEvery - 1) { iPicks = 0; return false; }
+	if (iEvery > 0 && iPicks >= iEvery - 1)
+	{
+		iPicks = 0;
+		if (!inWarMode()) return false;
+		// a preparation or war: the AI's pick is a fighting unit (the AI's best for the role), as the human
+		// built more of them before its wars (study/war.md, section 3); the AI knows of no war plan here
+		const UnitAITypes aeRole[] = { UNITAI_ATTACK, UNITAI_ATTACK_CITY, UNITAI_COUNTER };
+		for (int r = 0; r < 3; ++r)
+		{
+			const UnitTypes eUnit = c->AI_bestUnitAI(aeRole[r]);
+			if (eUnit == NO_UNIT || !c->canTrain(eUnit)) continue;
+			c->pushOrder(ORDER_TRAIN, eUnit, aeRole[r], false, false, false);
+			note("city %d,%d train %s for the war", c->getX_INLINE(), c->getY_INLINE(), GC.getUnitInfo(eUnit).getType());
+			return true;
+		}
+		return false;
+	}
 	const CvCivilizationInfo& kCiv = GC.getCivilizationInfo(k.getCivilizationType());
 	if (on(k.getID(), "expand") && k.AI_getNumCitySites() > 0 && c->getPopulation() >= Param("settler_min_pop", 3)
 		&& k.getNumCities() < Param("max_cities", 40))
@@ -499,12 +515,13 @@ bool HH_hmChooseProduction(CvCityAI* c)
 // War (study/war.md, section 10), before the AI's own war planning (which still keeps the plans and answers
 // wars on the seat, whether or not one of the seat's own is under way). One war of its own at a time, from
 // war_min_turn:
-//   objective   chooseObjective(): the nearest city the seat can reach and outweighs, then the one with most
-//               of its units near
+//   objective   chooseObjective(): the nearest city the seat can reach and win, of a team it matches by
+//               prep_ratio_pct, then the one with most of its units near
 //   staging     a strike group (the city's defenders plus strike_margin) marches to the plot next to the city
 //               and holds there (HH_hmTactics); upgrades and promotions run meanwhile
 //   declaration once the whole group stands within two plots of the city, as many of them as the city has
-//               defenders (at least one) at attack_min_odds; given up after prep_max_turns
+//               defenders (at least one) at attack_min_odds, and the seat outweighs the team by decl_ratio_pct;
+//               given up after prep_max_turns
 //   war         the attack rule; after a capture the next objective is the nearest city of the same target
 //               within next_target_max_distance of the seat's cities; peace once no city has fallen for
 //               war_stall_turns after the first capture, or after war_max_turns, asking the loser for its gold
@@ -566,9 +583,10 @@ bool HH_hmDoWar(CvTeamAI* t)
 		const int iNeed = iDef + Param("strike_margin", 2);
 		const int iThere = strikeNear(g.iObjX, g.iObjY, 2);
 		const int iCapable = strikeCapable(pCity);
-		if ((int)g.strike.size() >= iNeed && iThere >= iNeed && iCapable >= std::max(1, iDef))
+		const int iRatio = std::max(1, t->getPower(true)) * 100 / std::max(1, kT.getPower(true));
+		if ((int)g.strike.size() >= iNeed && iThere >= iNeed && iCapable >= std::max(1, iDef) && iRatio >= Param("decl_ratio_pct", 200))
 		{
-			note("declare on %d at %d,%d: %d of the strike group near, %d of them at the odds, %d defenders", g.iTarget, g.iObjX, g.iObjY, iThere, iCapable, iDef);
+			note("declare on %d at %d,%d: %d of the strike group near, %d of them at the odds, %d defenders, power ratio %d", g.iTarget, g.iObjX, g.iObjY, iThere, iCapable, iDef, iRatio);
 			t->declareWar((TeamTypes)g.iTarget, true, WARPLAN_TOTAL);
 			g.iState = 3; g.iSince = iTurn; g.iCaptures = 0; g.iLastCaptureTurn = iTurn; g.iTargetCities = kT.getNumCities();
 		}

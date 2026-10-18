@@ -783,6 +783,11 @@
      "the first declaration of each game (game3 203, game4 238), the earlier less 10 turns for the build-up and the march"
     ],
     [
+     "prep_ratio_pct",
+     100,
+     "the second-lowest power ratio of the human to its target thirty turns before the declaration (M lines) over 10 wars, rounded down to tens: the preparation begins against a team the seat matches this far"
+    ],
+    [
      "decl_ratio_pct",
      200,
      "the second-lowest power ratio (M lines, the turn before) of the 10 declarations, rounded down to tens: all but one were at least this"
@@ -879,8 +884,8 @@
     ],
     [
      "ai_every_war",
-     3,
-     "as ai_every: no rule from the data for a different share in war"
+     1,
+     "ai_every scaled by the fighting units the human built in the thirty turns before its declarations against the thirty before those (U lines, DefaultUnitAI: 210 against 80), rounded, at least one: during a preparation or war the AI builds the seat's units that much more often"
     ],
     [
      "settler_min_pop",
@@ -898,13 +903,14 @@
    "turn": "whole game",
    "source": "W, Q, K, M, A, C and Y lines and deal items of the human in game3, game4; turns except: decl_ratio_pct (per cent), trade_min_gold (gold), ai_every (choices), strike_margin and home_keep (units), target_max_distance and next_target_max_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)",
    "n": 10,
-   "values_total": 23,
-   "values_shown": 23,
+   "values_total": 24,
+   "values_shown": 24,
    "reason": null,
    "left_out": [],
    "xml": null,
    "values": [
     "war_min_turn",
+    "prep_ratio_pct",
     "decl_ratio_pct",
     "attack_min_odds",
     "war_gap_turns",

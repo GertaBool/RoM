@@ -47,6 +47,7 @@ BUILD BUILDINGCLASS_MARKET
 BUILD BUILDINGCLASS_COURTHOUSE
 BUILD BUILDINGCLASS_BARRACKS
 PARAM war_min_turn 193
+PARAM prep_ratio_pct 160
 PARAM decl_ratio_pct 310
 PARAM attack_min_odds 720
 PARAM war_gap_turns 3
@@ -66,6 +67,6 @@ PARAM trade_min_turn 261
 PARAM trade_every 1
 PARAM trade_min_gold 220
 PARAM ai_every 4
-PARAM ai_every_war 4
+PARAM ai_every_war 1
 PARAM settler_min_pop 3
 PARAM max_cities 99

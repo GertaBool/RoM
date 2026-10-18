@@ -181,6 +181,14 @@ blds = sum(q(g, 'select count(*) from wl_N where player=?', H[g][0])[0][0] for g
 peace_gaps = sorted(b['t'] - a['peace'] for a, b in zip(ended, ended[1:]) if a['g'] == b['g'] and b['t'] >= a['peace'])
 P = collections.OrderedDict()
 P['war_min_turn'] = (min(first.values()) - 10, f'the first declaration of each game ({", ".join(f"{g} {first[g]}" for g in games)}), the earlier less 10 turns for the build-up and the march')
+r30 = []
+for w in wars:
+    g = w['g']; pl, team, _ = H[g]
+    tpl = dict((t_, p_) for p_, t_ in q(g, 'select player, team from wl_P'))[w['target']]
+    a = q(g, 'select power from wl_M where player=? and turn=?', pl, w['t'] - 30); b = q(g, 'select power from wl_M where player=? and turn=?', tpl, w['t'] - 30)
+    if a and b and b[0][0]: r30.append(a[0][0] / b[0][0])
+r30.sort()
+P['prep_ratio_pct'] = (int(100 * r30[1]) // 10 * 10, f'the second-lowest power ratio of the human to its target thirty turns before the declaration (M lines) over {len(r30)} wars, rounded down to tens: the preparation begins against a team the seat matches this far')
 P['decl_ratio_pct'] = (int(100 * ratios[1]) // 10 * 10, f'the second-lowest power ratio (M lines, the turn before) of the {len(ratios)} declarations, rounded down to tens: all but one were at least this')
 p10 = {g: q(g, 'select quantile_cont(odds, 0.1), count(*) from wl_C where att=?', H[g][0])[0] for g in games}
 P['attack_min_odds'] = (int(min(v for v, _ in p10.values())) // 10 * 10, 'the lower of the games\' 10th percentiles of the odds (per mille) of the human\'s attacks (C lines; ' + ', '.join(f'{g}: {round(v)} of {n} attacks' for g, (v, n) in p10.items()) + '), rounded down to tens; the seat attacks whenever its odds reach this')
@@ -239,7 +247,11 @@ P['trade_min_turn'] = (min(t for _, t, _ in sales), f'the first sale of a tech f
 P['trade_every'] = (round(statistics.mean(gaps)), f'the mean of the {len(gaps)} gaps between sales of the same game, rounded')
 P['trade_min_gold'] = (min(gold for _, _, gold in sales), 'the smallest gold received for a tech')
 P['ai_every'] = (round((units + blds) / units), f'one choice in this many is the AI\'s: the human\'s completions ({blds} buildings, N lines; {units} units, U lines) over its unit completions, rounded')
-P['ai_every_war'] = (P['ai_every'][0], 'as ai_every: no rule from the data for a different share in war')
+FIGHT = ('COUNTER', 'ATTACK', 'ATTACK_CITY', 'CITY_DEFENSE', 'ASSAULT_SEA', 'ATTACK_SEA')
+built = lambda g, lo, hi: sum(1 for (u,) in q(g, 'select unit from wl_U where player=? and turn between ? and ?', H[g][0], lo, hi)
+                              if (q(g, 'select default_ai from unit_info where unit=?', u) or [('',)])[0][0] in FIGHT)
+pre_u = sum(built(w['g'], w['t'] - 30, w['t'] - 1) for w in wars); base_u = sum(built(w['g'], w['t'] - 60, w['t'] - 31) for w in wars)
+P['ai_every_war'] = (max(1, round(P['ai_every'][0] * base_u / max(1, pre_u))), f'ai_every scaled by the fighting units the human built in the thirty turns before its declarations against the thirty before those (U lines, DefaultUnitAI: {pre_u} against {base_u}), rounded, at least one: during a preparation or war the AI builds the seat\'s units that much more often')
 P['settler_min_pop'] = (3, 'not measured: a city builds a settler only from this size')
 P['max_cities'] = (99, 'no limit')
 prow = [[k, v, why] for k, (v, why) in P.items()]
