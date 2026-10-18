@@ -221,22 +221,35 @@ def main():
     if a.records:
         R = json.load(open(a.records))
         table('unit_info', [('unit', 'VARCHAR'), ('default_ai', 'VARCHAR'), ('combat', 'VARCHAR'), ('domain', 'VARCHAR'),
-                            ('cost', 'BIGINT'), ('strength', 'BIGINT'), ('moves', 'BIGINT')],
+                            ('cost', 'BIGINT'), ('strength', 'BIGINT'), ('moves', 'BIGINT'), ('tech', 'VARCHAR'), ('unit_class', 'VARCHAR'),
+                            ('idx', 'BIGINT')],
               [[k.removeprefix('UNIT_'), (v.get('DefaultUnitAI') or 'NONE').removeprefix('UNITAI_'), (v.get('Combat') or 'NONE').removeprefix('UNITCOMBAT_'),
-                (v.get('Domain') or 'NONE').removeprefix('DOMAIN_'), v.get('iCost'), v.get('iCombat'), v.get('iMoves')] for k, v in sorted(R['UnitInfo'].items())])
+                (v.get('Domain') or 'NONE').removeprefix('DOMAIN_'), v.get('iCost'), v.get('iCombat'), v.get('iMoves'),
+                (v.get('PrereqTech') or 'NONE').removeprefix('TECH_'), (v.get('Class') or 'NONE').removeprefix('UNITCLASS_'), v.get('_index')]
+               for k, v in sorted(R['UnitInfo'].items())])
+        # unit class upgrades (UnitClassUpgrades): which classes a unit may be upgraded to
+        table('unit_upgrades', [('unit', 'VARCHAR'), ('to_class', 'VARCHAR')],
+              [[k.removeprefix('UNIT_'), u['UnitClassUpgradeType'].removeprefix('UNITCLASS_')] for k, v in sorted(R['UnitInfo'].items())
+               for u in (v.get('UnitClassUpgrades') or []) if isinstance(u, dict) and u.get('bUnitClassUpgrade')])
         table('tech_info', [('tech', 'VARCHAR'), ('idx', 'BIGINT'), ('era', 'VARCHAR'), ('cost', 'BIGINT')],
               [[k.removeprefix('TECH_'), v.get('_index'), (v.get('Era') or 'NONE').removeprefix('ERA_'), v.get('iCost')]
                for k, v in sorted(R['TechInfo'].items())])
         table('civic_info', [('civic', 'VARCHAR'), ('civic_option', 'VARCHAR'), ('tech', 'VARCHAR')],
               [[k.removeprefix('CIVIC_'), (v.get('CivicOptionType') or 'NONE').removeprefix('CIVICOPTION_'), (v.get('TechPrereq') or 'NONE').removeprefix('TECH_')]
                for k, v in sorted(R['CivicInfo'].items())])
-        table('building_info', [('building', 'VARCHAR'), ('building_class', 'VARCHAR'), ('cost', 'BIGINT')],
-              [[k.removeprefix('BUILDING_'), (v.get('BuildingClass') or 'NONE').removeprefix('BUILDINGCLASS_'), v.get('iCost')]
+        BC = R['BuildingClassInfo']
+        # kind: world wonder (iMaxGlobalInstances 1 for its class), national (iMaxPlayerInstances or iMaxTeamInstances 1), else building
+        kind = lambda c: ('world wonder' if BC.get(c, {}).get('iMaxGlobalInstances') == 1 else
+                          'national' if 1 in (BC.get(c, {}).get('iMaxPlayerInstances'), BC.get(c, {}).get('iMaxTeamInstances')) else 'building')
+        table('building_info', [('building', 'VARCHAR'), ('building_class', 'VARCHAR'), ('cost', 'BIGINT'), ('tech', 'VARCHAR'), ('kind', 'VARCHAR')],
+              [[k.removeprefix('BUILDING_'), (v.get('BuildingClass') or 'NONE').removeprefix('BUILDINGCLASS_'), v.get('iCost'),
+                (v.get('PrereqTech') or 'NONE').removeprefix('TECH_'), kind(v.get('BuildingClass'))]
                for k, v in sorted(R['BuildingInfo'].items())])
         # idx: the BuildTypes index (XML load order), which the first log version wrote instead of the build's name
-        table('build_info', [('build', 'VARCHAR'), ('improvement', 'VARCHAR'), ('route', 'VARCHAR'), ('time', 'BIGINT'), ('idx', 'BIGINT')],
+        table('build_info', [('build', 'VARCHAR'), ('improvement', 'VARCHAR'), ('route', 'VARCHAR'), ('time', 'BIGINT'), ('idx', 'BIGINT'),
+                             ('tech', 'VARCHAR')],
               [[k, (v.get('ImprovementType') or 'NONE').replace('IMPROVEMENT_', ''), (v.get('RouteType') or 'NONE').replace('ROUTE_', ''),
-                v.get('iTime'), v.get('_index')] for k, v in sorted(R['BuildInfo'].items())])
+                v.get('iTime'), v.get('_index'), (v.get('PrereqTech') or 'NONE').removeprefix('TECH_')] for k, v in sorted(R['BuildInfo'].items())])
         table('improvement_info', [('improvement', 'VARCHAR'), ('upgrade', 'VARCHAR'), ('upgrade_time', 'BIGINT')],
               [[k[12:], (v.get('ImprovementUpgrade') or 'NONE').replace('IMPROVEMENT_', ''), v.get('iUpgradeTime')]
                for k, v in sorted(R['ImprovementInfo'].items())])

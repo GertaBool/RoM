@@ -1,34 +1,34 @@
 <!-- registry: phases.fig.json as ph -->
 <!-- registry: targets.fig.json as tg -->
 <!-- registry: style.fig.json as st -->
-# The human's playstyle: a synthesis of the four logged games
+# The human's playstyle in detail
 
-The studies before this one describe parts: the decisions (`study/human.md`), tiles, trade and
-combat (`study/data.md`), the economy and the wars (`study/winning.md`), and workers, builds
-and movement (`study/operations.md`). This one proposes the whole they belong to, and checks each
-part against it.
+The four logged games, read as one way of playing. Game 3 is Germany (Charles V) and game 4 is
+Rome (Julius Caesar) (P lines). Most tables are from those two, the games with M lines and a save
+dump. The parts come from the earlier studies: decisions (`study/human.md`), tiles, trade and
+combat (`study/data.md`), economy and wars (`study/winning.md`), and workers, builds and
+movement (`study/operations.md`). New figures are in the tables below. Section 10 puts it all
+together as a sequence of play.
 
 ## 1. Method
 
-- **The whole and the parts.** Schleiermacher: "each part can be understood only out of the
-  whole to which it belongs, and vice versa", and an interpreter working from "disconnected
-  observations can never reach an independent interpretation" (Mueller-Vollmer, *The
-  Hermeneutics Reader*, [[§20 and 21]], p. 84). Here the whole is a plan. Section 7 states
-  it; every element names the facts it explains and what would refute it. A fact the plan
-  cannot place is listed as such.
-- **Phases.** The human's per-turn activity is cut into phases by an exact optimal partition.
-  Each phase costs a fixed penalty, the parsimony pressure of `framework.md` (section 6), so a
-  phase is kept only when it explains enough (`tools/phases.py`). A boundary that survives with
-  the penalty halved and doubled is taken as real.
-- **Choices among options.** For the choice of whom to attack, candidate rules are compared by
-  maximum-likelihood strategy classification. Each rule is assumed to be followed with errors at
-  a constant rate, and it must beat guessing (Bröder, in Gigerenzer, Hertwig and Pachur,
-  *Heuristics*, chapter 17; `tools/strategy.py`). One candidate is the distance-decay heuristic of
-  geographic profiling: offenders act near home (Snook, Taylor and Bennell, chapter 29, p. 593).
-- **Sources.** Every number comes from the registries named at the top of this page. The
-  readings of the other studies are cited by section and not repeated.
+- **The whole and the parts.** "Each part can be understood only out of the whole to which it
+  belongs, and vice versa." An interpreter working from "disconnected observations can never
+  reach an independent interpretation" (Schleiermacher, in Mueller-Vollmer, *The Hermeneutics
+  Reader*, [[§20 and 21]], p. 84). Every mechanism below names the facts it rests on. Section 10
+  states the whole and what would refute each part of it.
+- **What a building, civic, tech or improvement does** is read from its XML record, in the
+  appendix, never from memory (CLAUDE.md, rule 4). A value quoted in the text is taken from that
+  record when the page is rendered.
+- **Phases** come from an exact optimal partition of the human's per-turn activity with a
+  parsimony penalty, checked at half and twice the penalty (`tools/phases.py`). **The choice of
+  target** comes from maximum-likelihood strategy classification against guessing (Bröder, in
+  *Heuristics*, chapter 17; `tools/strategy.py`).
+- **The gold ledger** (section 6.2) splits each change of the human's gold into income, deals and
+  a residual named by the events of the turn. The residual on turns without any event is its
+  running check: it stays small, so the named residuals are spending and windfalls, not error.
 
-## 2. The phases of a game
+## 2. The course of a game
 
 {{table:ph.game1_phases}}
 
@@ -48,58 +48,238 @@ Where the phases start with the penalty halved, as set, and doubled:
 
 {{table:ph.game4_phase_beta}}
 
-## 3. Research and civics
+## 3. The tech tree
 
-Every civic the human adopted after the start, with the tech it requires and when the human
-got that tech:
-
-{{table:st.game3_civic_tech_lag}}
-
-{{table:st.game4_civic_tech_lag}}
-
-Every tech the human acquired, against the AIs:
+### 3.1 Every tech, against the AIs
 
 {{table:st.game3_tech_lead}}
 
 {{table:st.game4_tech_lead}}
 
-## 4. Expansion
+### 3.2 What each tech was used for, and how soon
 
-The turn of each player's first to eighth founded city, the human against the AI median:
+For each tech, the turns until the human first adopted a civic, ordered a building or unit, or
+ordered a build that the tech unlocks:
 
-{{table:st.game3_expansion}}
+{{table:st.game3_tech_use}}
 
-{{table:st.game4_expansion}}
+{{table:st.game4_tech_use}}
 
-The distance of each new city to the founder's nearest earlier city:
+### 3.3 Civics, the moment they open
 
-{{table:st.game3_city_spacing}}
+{{table:st.game3_civic_tech_lag}}
 
-{{table:st.game4_city_spacing}}
+{{table:st.game4_civic_tech_lag}}
 
-## 5. War
+### 3.4 The logic
 
-### 5.1 Whom the human attacks
+- **The order is the same in both games:**
+  1. Slavery, for Oligarchy and Tribute.
+  2. Mining and Pottery, for mines, cottages and Tablets.
+  3. Masonry, for Town Essentials and Walls.
+  4. Mysticism, for the Obelisk and the religion civic.
+  5. Sailing and Trade, for river ports and the market.
+  6. Metal Casting, for the Forge and Jewellery.
+  7. Writing, for Tutors, Standardized Tablets and the School of Scribes.
+  8. Mathematics, for Accounting.
+  9. City Planning, for City Essentials, Irrigation Canals and the Port.
+  10. Currency, for Coinage, Fiscus and Proletariat.
+  11. Code of Laws, for courthouses, Patrician (game 3) or the Senate (game 4).
+  12. Last, a run of military techs.
+- **Each tech is used at once.** The civic or building it opens is usually taken within a few
+  turns ([[sections 3.2 and 3.3]]).
+- **Where the human leads:** it is among the first to the economic gateways (Slavery, Pottery,
+  Masonry, Mathematics, City Planning, Currency). Few or no AIs have them first.
+- **Where it trails, or trades:** the religious and early techs the AIs take first (Mysticism,
+  Animal Husbandry, Priesthood). In game 4, several cheap techs come by deal: Animal Husbandry,
+  Priesthood, Writing, The Wheel, Monarchy.
+- **The military techs come last, just before the campaigns.** Bronze Working, Military Training,
+  Iron Working, Siege Warfare and Construction arrive in the turns before and during the wars in
+  game 4; Bronze Working before the war in game 3. Each opens a unit or building
+  the human orders soon after.
 
-Each declaration: the options, and the target's rank among them on each cue (the first rank: the
-least power, the least distance, the most cities):
+## 4. Buildings and wonders
+
+### 4.1 The order of buildings in each city
+
+Each building the human completed: in how many of its cities, its median place in each city's
+order of completions, how soon after its tech, and the same for the AIs' cities:
+
+{{table:st.game3_building_template}}
+
+{{table:st.game4_building_template}}
+
+### 4.2 Wonders
+
+{{table:st.game3_wonders}}
+
+{{table:st.game4_wonders}}
+
+### 4.3 What the city template gives
+
+From the XML records (appendix):
+- **Town Essentials**, the human's first building in a city in both games (the AIs build
+  Walls or the Obelisk first):
+  - land-unit production `{{eff:st.game4_building_template:TOWN_ESSENTIALS:DomainProductionModifiers}}`;
+  - gold `{{eff:st.game4_building_template:TOWN_ESSENTIALS:CommerceModifiers}}` per cent;
+  - a merchant slot.
+- **City Essentials**, built in nearly every city within a few turns of City Planning; the AIs
+  build it in a minority of their cities:
+  - the same land-unit production `{{eff:st.game4_building_template:CITY_ESSENTIALS:DomainProductionModifiers}}`;
+  - gold `{{eff:st.game4_building_template:CITY_ESSENTIALS:CommerceModifiers}}` per cent;
+  - merchant slots `{{eff:st.game4_building_template:CITY_ESSENTIALS:SpecialistCounts}}`.
+- **The Forge**, early in the order in nearly every city the human founded:
+  - production bonuses from metal resources, `{{eff:st.game4_building_template:FORGE:BonusYieldModifiers}}`;
+  - an engineer slot.
+- **The trade buildings:**
+  - River Port: trade routes `{{eff:st.game4_building_template:RIVER_PORT:iTradeRoutes}}`, route yield
+    `{{eff:st.game4_building_template:RIVER_PORT:iTradeRouteModifier}}` per cent;
+  - Roman Forum: route yield `{{eff:st.game4_building_template:ROMAN_FORUM:iTradeRouteModifier}}` per cent,
+    gold `{{eff:st.game4_building_template:ROMAN_FORUM:CommerceModifiers}}` per cent;
+  - Jewellery: route yield `{{eff:st.game4_building_template:JEWELLERY:iTradeRouteModifier}}` per cent;
+  - Port: trade routes `{{eff:st.game4_building_template:PORT:iTradeRoutes}}`, route yield
+    `{{eff:st.game4_building_template:PORT:iTradeRouteModifier}}` per cent.
+- **The Courthouse**, in most cities soon after Code of Laws (the AIs build almost none):
+  maintenance `{{eff:st.game4_building_template:COURTHOUSE:iMaintenanceModifier}}` per cent.
+- **The military buildings come last:** Barracks, Early Barracks, Legion Barracks, Stable, Siege
+  Workshop. They are built in most cities only in the war phases, one or two turns after their
+  tech.
+- **Wonders.** The human builds world wonders only late, after the city template is in place: a
+  religious shrine in game 3, and in game 4 the Roman wonders of the last phases, which then
+  outnumber any single AI's (section 4.2). It does not race for early wonders; its production
+  goes first into the city template and units.
+
+### 4.4 The result, at the save
+
+{{table:st.game3_city_profile}}
+
+{{table:st.game4_city_profile}}
+
+The human's ordinary founded cities make more hammers and commerce than the AIs' capitals, and
+have more trade routes and many more buildings than the AIs' other cities. Captured cities are
+behind: in game 4 most were taken in the last turns.
+
+## 5. Tiles
+
+### 5.1 What is built where
+
+Every build order by the plot's traits:
+
+{{table:st.game3_build_plot_class}}
+
+{{table:st.game4_build_plot_class}}
+
+### 5.2 The worked land at the save, against the AIs
+
+{{table:st.game3_worked_by_class}}
+
+{{table:st.game4_worked_by_class}}
+
+### 5.3 The logic
+
+- **Part of the rule is the game's.** A farm needs flat land with irrigation, which a river
+  gives (`bRequiresFlatlands`, `bRequiresIrrigation`, `bFreshWaterMakesValid`); a mine needs
+  hills (`bHillsMakesValid`); resource improvements need their resource (appendix).
+  - Every farm the human ordered is on a river flat, and every mine on a hill, in both games.
+- **The choices.**
+  - Resources first: the first orders of game 4 are camps on resources and tracks
+    (`study/operations.md`, section 2.1).
+  - Cottages from Pottery on, on hills as well as on flats: most of game 4's cottages are on
+    hills. Those hill cottages are later replaced by mines when production is wanted, mostly
+    in the last phases (`study/data.md`, section 1.1).
+  - Farms on the river flats.
+  - Mines on hills from Mining on, and in large numbers only in the period before the wars
+    (section 3.2 and `study/operations.md`, section 2.1).
+  - Tracks, then roads, to connect the cities.
+- **The tile mix is not the edge.** At the save, the human's shares of farms on river flats
+  and of mines on hills differ from the AIs' in both directions, by game (section 5.2). No mix
+  of improvements sets it apart. Its edge is elsewhere:
+  - when it builds: early cottages, then mines before the wars;
+  - how close to its cities it works: the first ring first, by hand (`study/operations.md`,
+    section 6);
+  - what the cities add on top: the template of section 4 and the civics of section 3.3.
+
+## 6. Production, gold and the build-up
+
+### 6.1 Output per city
+
+{{table:st.game3_per_city_output}}
+
+{{table:st.game4_per_city_output}}
+
+- **Hammers.** The gap opens in the rows after the middle of the game. By the last rows of both
+  games, the human's hammers per city are more than twice the AI median.
+- **Commerce.** Its commerce per city overtakes the AIs' only from about the same rows. In game 4
+  it is below the AI median before that: the early empire is built for production and growth,
+  not commerce.
+
+### 6.2 Where the gold comes from and where it goes
+
+{{table:st.game3_gold_ledger}}
+
+{{table:st.game4_gold_ledger}}
+
+- **Game 3.** Tech sales bring more gold than the gold per turn. Great Merchant trade missions
+  and city captures add more.
+- **Game 4.**
+  - Income: the gold per turn grows to the largest source after the civic switch. Tech sales,
+    the peace payments and city plunder come on top.
+  - Spending: the largest items are upgrades and hurries in the war phases.
+  - The row of turns without events stays small, so the named rows are real flows.
+
+### 6.3 The army is upgraded, not trained
+
+{{table:st.game1_upgrade_targets}}
+
+{{table:st.game2_upgrade_targets}}
+
+{{table:st.game3_upgrade_targets}}
+
+{{table:st.game4_upgrade_targets}}
+
+- **Game 4.** The units that fight are largely old units upgraded with gold:
+  - Auxiliaries and Triarii are never trained, only upgraded;
+  - the Legionaries are both trained and upgraded;
+  - the upgrades cluster in the turns just before the campaign (section 7.2).
+- **Game 3.** Warbands are trained and upgraded before the war.
+- **The supply.** The garrison was built cheaply in earlier phases: the capital trains units,
+  `study/human.md`, reading 1.
+
+### 6.4 The army is veteran from the start
+
+- **Free experience from the XML:**
+  - Oligarchy, held throughout game 4 and until after the war in game 3, gives every new unit
+    `{{eff:st.game4_civic_tech_lag:OLIGARCHY:iFreeExperience}}` experience;
+  - Legion Barracks give melee units `{{eff:st.game4_building_template:LEGION_BARRACKS:UnitCombatFreeExperiences}}`;
+  - Barracks give `{{eff:st.game4_building_template:BARRACKS:UnitCombatFreeExperiences}}`;
+  - a Mars Temple gives `{{eff:st.game4_building_template:MARS_TEMPLE:iExperience}}`.
+- **The match with the log.** A melee unit trained under Oligarchy in a city with Barracks and
+  Legion Barracks, the Legion Barracks needing the Barracks (`BuildingClassNeededs`), starts with
+  the sum of the three. The Legionaries that attack in game 4 carry a median experience of the
+  same size (section 7.3). Much of their experience came with the unit, not from fighting. This
+  fits the human's units carrying several times the AIs' promotions (`study/data.md`,
+  section 4).
+- **Production for war.** Military production is raised by Early and Legion Barracks
+  (`{{eff:st.game4_building_template:LEGION_BARRACKS:iMilitaryProductionModifier}}` per cent each),
+  the Roman Depot and the Mars Temple, on top of the land-unit production of the two Essentials.
+- **Holding Oligarchy.** This explains why the human keeps Oligarchy in game 4 although the probe
+  values Patrician higher in commerce (`study/winning.md`, section 3.3). In game 3 it switches to
+  Patrician only after its war.
+- **Fortification.** Adopted next to the wars, it gives
+  `{{eff:st.game4_civic_tech_lag:FORTIFICATION:iHappyPerMilitaryUnit}}` happiness per military
+  unit, so a large garrison also keeps the cities content.
+
+## 7. War
+
+### 7.1 Whom the human attacks
 
 {{table:tg.game3_war_targets}}
 
 {{table:tg.game4_war_targets}}
 
-The candidate rules:
-
 {{table:tg.war_target_strategies_pooled}}
 
-{{table:tg.game3_war_target_strategies}}
-
-{{table:tg.game4_war_target_strategies}}
-
-### 5.2 Before the declaration
-
-City orders for units, upgrades and moves in the ten turns before each declaration, against the
-rate over the fifty turns before those:
+### 7.2 Before the declaration
 
 {{table:st.game1_war_preparation}}
 
@@ -109,9 +289,7 @@ rate over the fifty turns before those:
 
 {{table:st.game4_war_preparation}}
 
-### 5.3 The attacks
-
-Every battle the human started, by the attacking unit:
+### 7.3 The attacks
 
 {{table:st.game1_attack_units}}
 
@@ -121,123 +299,152 @@ Every battle the human started, by the attacking unit:
 
 {{table:st.game4_attack_units}}
 
-### 5.4 The peace
-
-What the AI gave in the deal made on the day of each peace:
+### 7.4 The peace
 
 {{table:st.game3_peace_terms}}
 
 {{table:st.game4_peace_terms}}
 
-## 6. Parts from the other studies
+## 8. Expansion
+
+{{table:st.game3_expansion}}
+
+{{table:st.game4_expansion}}
+
+{{table:st.game3_city_spacing}}
+
+{{table:st.game4_city_spacing}}
+
+## 9. Parts from the other studies
 
 | Part | Where |
 |---|---|
 | The capital trains the units; the other cities build | `study/human.md`, section 6, reading 1 |
 | The slider follows the sign of gold per turn | `study/human.md`, section 6, reading 2 |
-| Workers are directed by hand; fighting units build too; the land next to the cities first | `study/operations.md`, section 6, readings on workers |
-| Captured workers make up a large part of the human's workers | `study/operations.md`, section 2.2 |
-| City orders are mostly buildings; the human almost never queues | `study/operations.md`, section 3.1 |
-| Tiles are re-planned as techs arrive; cottages become mines | `study/data.md`, section 5, reading 1 |
-| Trade routes per city are about twice the AI's | `study/data.md`, section 3 |
+| Workers are directed by hand; the land next to the cities first | `study/operations.md`, section 6 |
+| A large part of the workers are captured | `study/operations.md`, section 2.2 |
+| Cottages become mines; tiles are re-planned as techs arrive | `study/data.md`, section 5, reading 1 |
+| Trade routes per city about twice the AI's | `study/data.md`, section 3 |
 | Commerce about doubles at the switch to Coinage, Fiscus and Proletariat | `study/winning.md`, section 7, reading 2 |
-| Tech is sold to the AIs, several times more given than received | `study/winning.md`, section 5 |
 | Wars at a power advantage; the AIs barely strike back | `study/winning.md`, section 6 |
 | Single units in short steps, converging on the target | `study/operations.md`, section 4 |
 
-## 7. The playstyle
+## 10. The playstyle
 
-The plan the parts fit, in the order a game runs. Each element names its facts and what would
-refute it.
+A game in the order it runs. Each step names its facts; the refutation follows each.
 
-1. **A long, quiet opening.** One city for the first phase, with little activity of any kind.
-   - Facts: the first phase of every game ends with one city (section 2). The AIs found their
-     second city at about the same time (section 4), so this is the game's pace, not the
-     human's choice.
-2. **Research is planned around civics, and each civic is taken the moment it is open.**
-   - Facts:
-     - most civics are adopted on the turn their tech arrives or the next (section 3);
-     - the first target is Slavery, which opens Oligarchy and Tribute, both adopted at once,
-       far earlier than the AIs get Slavery;
-     - the later targets open Accounting (Mathematics) and Coinage, Fiscus and Proletariat
-       (Currency). Their XML effects are in the appendix.
-   - The exceptions fit the same plan. Fortification is taken shortly before or after a war.
-     Metals comes with the start of a golden age, when a switch costs no anarchy
-     (`study/winning.md`, section 3.2).
-   - Mysticism, which the AIs take early, comes after every AI in both games; when it comes, its
-     civics are adopted at once. Animal Husbandry comes only by trade in game 4.
-   - Refuted if: in a further game, civics follow their tech by many turns as a rule.
-3. **Expansion in the middle game, dense and near.**
-   - Facts (section 4):
-     - the human founds its third to fifth city well before the AI median in game 3, and its
-       second to eighth in game 4; in game 3 its later cities come by capture;
-     - it never founds a city six or more plots from its others, while the AIs often do.
-4. **An economy of buildings, worked land and trade, run by hand.**
-   - Facts: section 6, the rows from `study/human.md`, `study/operations.md` and `study/data.md`.
-     The development phase is the longest of every game, with more build orders and building
-     orders than before (section 2).
-5. **Technology is a currency.** The human researches the civic techs itself and sells techs.
-   - Facts: section 3 (research or deal for each tech) and `study/winning.md`, section 5.
-6. **Conquest comes late, against the nearest neighbour, prepared and short.**
-   - Facts:
-     - the fighting starts in the third or fourth phase of every game, and that boundary holds
-       at every penalty (section 2);
-     - the target is best predicted by distance alone: the nearest-neighbour rule matches more
-       declarations than any other rule, with the best likelihood and BIC. The weakest AI is
-       never the target, and the targets' power ranks are spread over the field (section 5.1);
-     - in the ten turns before a declaration, the human gives more unit orders than before in
-       nearly every case, and in game 2, game 3 and game 4 the first declaration of a campaign follows a burst
-       of upgrades (section 5.2);
-     - the attacks are made at high odds with experienced units, and in game 1, game 3 and
-       game 4 mostly with one unit type (section 5.3; promotions in `study/data.md`, section 4);
-     - in game 3 and game 4 the wars are short; in game 4 most of its peace deals pay the human
-       gold (section 5.4; `study/winning.md`, section 6);
-     - captured workers are part of the gain (`study/operations.md`, section 2.2).
-   - Refuted if: a further game where the human attacks a distant AI while a nearer one is
-     open, or declares without a build-up.
-7. **After a conquest: build, or conquer again.** In game 3 the war is followed by a long
-   building phase. In game 4 a second, larger campaign follows within a phase (section 2).
+1. **Opening, one city.** The capital is the only city through the first phase, as the AIs'
+   are ([[sections 2 and 8]]). Research goes straight to Slavery, a tech the AIs reach much
+   later; Oligarchy and Tribute follow the next turn (section 3.3).
+   - Tribute's capital yields, `{{eff:st.game4_civic_tech_lag:TRIBUTE:CapitalYieldModifiers}}`,
+     feed the capital that trains the units.
+   - Oligarchy's free experience makes every unit trained from then on a veteran.
+   - The first worker orders are camps on resources and tracks.
+   - *Refuted if:* a further game where the human opens with another government tech.
+2. **Development, the longest phase.** The second city comes with the AIs' second. From the third
+   on, the cities come faster and denser than the AIs' (section 8).
+   - Research follows the economic gateways in a fixed order, and each civic is taken the turn
+     it opens ([[sections 3.3 and 3.4]]).
+   - Every new city gets the same template, in the same order: Town Essentials first, then
+     Obelisk and Walls, then Forge, River Port and School of Scribes, then City Essentials,
+     Jewellery, the market, Irrigation Canals and the Courthouse (section 4.1). Most of them
+     come within a few turns of their tech, and most raise land-unit production, gold or trade
+     routes (section 4.3).
+   - The workers, few and directed by hand, put farms on river flats, cottages on hills and
+     flats, and mines on hills. They work the ring next to each city first (section 5).
+   - The capital trains units, which are kept as a cheap garrison (section 6.3).
+   - Cheap techs the AIs have are bought in deals; the human's own techs are sold for gold
+     (section 3.1; section 6.2).
+   - *Refuted if:* in a further game, the human's cities follow different orders of
+     buildings, or build them long after their techs.
+3. **The economic switch.** Currency is researched and Coinage, Fiscus and Proletariat are
+   adopted at once. A switch in a golden age costs no anarchy (section 3.3). Commerce about
+   doubles on the same land (`study/winning.md`, reading 2). Courthouses cut maintenance.
+   - *Refuted if:* a replay without the switch reaching the same commerce.
+4. **Build-up.** In the turns before a declaration:
+   - the military techs arrive and open their units and buildings, used within a turn or two
+     (section 3.2);
+   - Barracks and Legion Barracks go up in nearly every city the human founded (section 4.1);
+   - unit orders rise, and gold built up by income and tech sales pays for mass upgrades of the
+     old garrison ([[sections 6.2, 6.3 and 7.2]]).
+   - The army that results is large, modern and veteran without having been trained at its
+     current level (section 6.4).
+   - *Refuted if:* a further game where the attacking army is mostly trained new, or the
+     upgrades come after the declaration.
+5. **Conquest of the nearest neighbour.** The war goes to the AI whose cities are closest, not
+   the weakest (section 7.1).
+   - The attacks are made at high odds by veterans, in game 1, game 3 and game 4 mostly with one
+     unit type (section 7.3).
+   - The cities fall within a few turns, and the AIs barely strike back.
+   - Undefended workers are taken.
+   - The peace is sold for gold, in game 4 (section 7.4).
+   - City plunder adds to the gold, which pays for the next upgrades (section 6.2).
+   - *Refuted if:* a further game where the human attacks a distant AI while a nearer one is
+     open.
+6. **After a war: consolidate or go again.** In game 3, a long building phase follows, and
+   the leadership civic moves from Oligarchy to Patrician. In game 4, a second, larger campaign
+   follows at once, against the next nearest neighbours ([[sections 2 and 7.1]]).
 
-What the plan does not place:
-- Game 2 opens a war in its second phase that lasts most of the game with almost no
-  attacks (section 2; `study/winning.md`, section 6). It reads as a war declared and left
-  open, but nothing in the log says why.
-- The Javelineers' low-odds attacks in game 2 (section 5.3).
+What this does not explain:
+- the war of game 2 that stays open for most of the game with almost no fighting;
+- the low-odds Javelineer attacks of game 2.
 
-## 8. What it implies for the AI
+## 11. What it implies for the AI
 
-These are the points where the plan meets an AI weakness found in the other studies. Each is
-a candidate for an AI change, judged only by experiment (CLAUDE.md, rule 9).
-- **Civics.** The AIs neither research Currency nor run its civics (`study/winning.md`,
+Where the plan meets an AI weakness. Each is a candidate for an AI change, judged only by
+experiment (CLAUDE.md, rule 9):
+- **The city template.** The AIs build few City Essentials, Courthouses or Forges, the
+  buildings that raise production, gold and maintenance in every city (section 4.1).
+- **Civic techs.** The AIs neither research Currency nor run its civics (`study/winning.md`,
   reading 3).
-- **The nearest neighbour is the target.** The AI closest to the human is the one attacked
-  (section 5.1). Whether the AI's defence takes account of that is open.
-- **No counter-attack.** The human's wars are won without the AIs attacking its units or
-  cities (`study/winning.md`, reading 5).
-- **The build-up is visible.** Unit orders, and in most campaigns upgrades, rise before a
-  declaration (section 5.2). Those are the human's own commands; what the AI sees of them is its units near the
-  border.
-- **Workers left in reach** are taken (`study/operations.md`, section 2.2).
-- **Peace is bought** with gold in game 4 (section 5.4).
+- **The upgrade economy.** The human's war-time army is bought with gold upgrades of a cheap
+  garrison. An AI that sells techs to the human funds this.
+- **Free experience.** Oligarchy and the barracks line are what give the human's units their
+  promotions.
+- **The nearest neighbour is the target,** and its build-up is visible in the turns before
+  (section 7).
+- **Workers in reach are taken, and peace is bought** ([[sections 7.4 and 6.2]]).
 
-## 9. Open
+## 12. Open
 
-- **More games.** The war-target rule rests on ten declarations in two games, and the civic
-  timing on two games. Game 1 and game 2 have no M lines and no save dump, so their power and
-  cities cannot be compared.
-- **What the AI sees** of the build-up: units near its border before a declaration, from G lines
-  or saves at intervals.
-- **Why game 2's first war stays open** without fighting.
+- **More games.** Most of this rests on game 3 and game 4. Game 1 and game 2 have no M lines
+  and no save dump.
+- **Unlocks the use table cannot see:** buildings that need a tech through `TechTypes` (in
+  RoM, Town Essentials needs Pottery that way) and techs that open later techs.
+- **Hurry turns.** In game 4, the turns with a hurry spend more gold than a hurry of a single
+  item would. Spending without a command line (for example, group upgrades) is possible and
+  would show there.
+- **The war of game 2 that stays open.**
 
 ## Appendix: XML records of the types counted
+
+{{effects:st.game3_tech_lead}}
+
+{{effects:st.game4_tech_lead}}
+
+{{effects:st.game3_tech_use}}
+
+{{effects:st.game4_tech_use}}
 
 {{effects:st.game3_civic_tech_lag}}
 
 {{effects:st.game4_civic_tech_lag}}
 
-{{effects:st.game3_tech_lead}}
+{{effects:st.game3_building_template}}
 
-{{effects:st.game4_tech_lead}}
+{{effects:st.game4_building_template}}
+
+{{effects:st.game3_build_plot_class}}
+
+{{effects:st.game4_build_plot_class}}
+
+{{effects:st.game1_upgrade_targets}}
+
+{{effects:st.game2_upgrade_targets}}
+
+{{effects:st.game3_upgrade_targets}}
+
+{{effects:st.game4_upgrade_targets}}
 
 {{effects:st.game1_attack_units}}
 
