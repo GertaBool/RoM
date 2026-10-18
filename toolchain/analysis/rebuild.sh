@@ -27,4 +27,11 @@ $PY "$T/phases.py" "$R/study/phases.fig.json" $(for g in $games; do echo "$DB/$g
 $PY "$T/strategy.py" "$R/study/targets.fig.json" $(for g in $with_state; do echo "$DB/$g.duckdb"; done)
 $PY "$T/tileyield.py" "$R/study/yields.fig.json" "$D/records.json" $(for g in $with_state; do echo "$DB/$g.duckdb"; done)
 $PY "$T/growth.py" "$R/study/growth.fig.json" "$D/records.json" $(for g in $with_state; do echo "$DB/$g.duckdb"; done)
+# The human model (study/humanmodel.md): its policy from games 3 and 4, pooled and each alone (the
+# harness reads the .txt files), and the seeded campaign's derived per-run table.
+H=$R/study/hm; mkdir -p "$H"
+$PY "$T/hmpolicy.py" "$H/policy.txt" "$R/study/hmpolicy.fig.json" "$D/records.json" "$DB/game3.duckdb" "$DB/game4.duckdb"
+for g in 3 4; do $PY "$T/hmpolicy.py" "$H/policy_game$g.txt" "$H/policy_game$g.fig.json" "$D/records.json" "$DB/game$g.duckdb"; done
+[ -e "$H/runs.json" ] && $PY "$T/hmruns.py" report "$R/study/hmruns.fig.json" "$D/records.json" "$H/runs.json" \
+  g3="$DB/game3.duckdb:12:265" g4="$DB/game4.duckdb:3:284"
 python3 "$T/check_all.py" --render

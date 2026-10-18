@@ -549,8 +549,51 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 		const char* szHuman = getenv("HARNESS_HUMAN");
 		if (szHuman != NULL && atoi(szHuman) >= 0 && atoi(szHuman) < MAX_CIV_PLAYERS) eHumanTeam = GET_PLAYER((PlayerTypes)atoi(szHuman)).getTeam();
 		fprintf(f, ",\"humanSeat\":%d", szHuman != NULL ? atoi(szHuman) : -1);
-		fprintf(f, ",\"plots\":[");
 		CvMap& kMap = GC.getMapINLINE();
+		// What a turn-0 scenario of this map needs (save2scn.py): the map's wrap and size, the game's
+		// options and victories, every seat (team, civilization, leader, handicap, starting plot), and per
+		// plot in plot order the river edges (direction when north / west of a river, else -1) and the
+		// feature variety.
+		fprintf(f, ",\"setup\":{\"w\":%d,\"h\":%d,\"wrapX\":%d,\"wrapY\":%d,\"top\":%d,\"bottom\":%d,\"era\":\"%s\",\"options\":[",
+			kMap.getGridWidthINLINE(), kMap.getGridHeightINLINE(), kMap.isWrapXINLINE() ? 1 : 0, kMap.isWrapYINLINE() ? 1 : 0,
+			kMap.getTopLatitude(), kMap.getBottomLatitude(), GC.getEraInfo(GC.getGameINLINE().getStartEra()).getType());
+		bool bFirstO = true;
+		for (int o = 0; o < NUM_GAMEOPTION_TYPES; ++o)
+		{
+			if (!GC.getGameINLINE().isOption((GameOptionTypes)o)) continue;
+			fprintf(f, "%s\"%s\"", bFirstO ? "" : ",", GC.getGameOptionInfo((GameOptionTypes)o).getType());
+			bFirstO = false;
+		}
+		fprintf(f, "],\"victories\":[");
+		bFirstO = true;
+		for (int v = 0; v < GC.getNumVictoryInfos(); ++v)
+		{
+			if (!GC.getGameINLINE().isVictoryValid((VictoryTypes)v)) continue;
+			fprintf(f, "%s\"%s\"", bFirstO ? "" : ",", GC.getVictoryInfo((VictoryTypes)v).getType());
+			bFirstO = false;
+		}
+		fprintf(f, "],\"seats\":[");
+		bFirstO = true;
+		for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+		{
+			CvPlayer& kS = GET_PLAYER((PlayerTypes)i);
+			if (kS.getCivilizationType() == NO_CIVILIZATION || kS.getLeaderType() == NO_LEADER) continue;
+			const CvPlot* pS = kS.getStartingPlot();
+			fprintf(f, "%s[%d,%d,\"%s\",\"%s\",\"%s\",%d,%d,%d]", bFirstO ? "" : ",", i, (int)kS.getTeam(),
+				GC.getCivilizationInfo(kS.getCivilizationType()).getType(), GC.getLeaderHeadInfo(kS.getLeaderType()).getType(),
+				GC.getHandicapInfo(kS.getHandicapType()).getType(), pS ? pS->getX_INLINE() : -1, pS ? pS->getY_INLINE() : -1,
+				kS.isAlive() ? 1 : 0);
+			bFirstO = false;
+		}
+		fprintf(f, "],\"plotx\":[");
+		for (int iP = 0; iP < kMap.numPlotsINLINE(); ++iP)
+		{
+			CvPlot* pP = kMap.plotByIndexINLINE(iP);
+			fprintf(f, "%s[%d,%d,%d]", iP ? "," : "", pP->isNOfRiver() ? (int)pP->getRiverWEDirection() : -1,
+				pP->isWOfRiver() ? (int)pP->getRiverNSDirection() : -1, pP->getFeatureVariety());
+		}
+		fprintf(f, "]}");
+		fprintf(f, ",\"plots\":[");
 		for (int iP = 0; iP < kMap.numPlotsINLINE(); ++iP)
 		{
 			CvPlot* pP = kMap.plotByIndexINLINE(iP);
