@@ -16,6 +16,7 @@
  "tested_headless": "Build id: a harness build of source_commit, 2 turns of game 3's save: the H line has seven fields, the seventh 'unknown' (harness builds compile a temporary copy that git does not track); research/ai-warfare/tools/extract.py reads it into wl_H.build, and reads game 3's log (six fields) with build NULL, 0 errors each. Snapshot (commit 3af6c89): harness builds of the same source and of main d51ff25: a 20-turn continuation of game 3's save, same seed, WAR_LOG_SEAT = 13 (seat 12 tracked). Telemetry identical (22 lines); every war-log line of the types main writes identical (1187) once the appended fields are cut; 19 turn starts with 1674 L, 49 J, 310 O lines, parsed by research/ai-warfare/tools/extract.py with 0 errors; the first snapshot agrees with the save's unit dump in type, experience, level and promotions for every unit in both; all 89 units built and all 49 combats' ids join the unit lines. Turn time: 73.3 s against 70.2 s (one run each); profile: the turn-start logging is under 1.6 % of turn time. The release DLL itself was not run headless",
  "tested_in_game": false,
  "previous": "bc9edfe04e7cf3410d2bc0138f8eb5ad6b886b57f8a0c276cfb0c3f420175a5b (snapshot commit 3af6c89, no build id); before it 934fd4850751a80934b423f9e7021e6a9da991b13f92d63f699003c45ba4f054 (GitLab main d51ff25)",
- "merge_request": "aretemaxxing-group/rise-of-mankind!51 (open): branch claude/war-log-snapshot, commit 6c2dffb (the snapshot). The build-id commit is not yet on GitLab",
- "gitlab_commit": "6c2dffb71a8ffac8e6a865f895f1b981a1f6fc94"
+ "merge_request": "aretemaxxing-group/rise-of-mankind!52 (open, squash on merge): branch claude/war-log-build-id from main 727e60c (which merged !51, the snapshot), commits 5a04948, 9106142, 0a30006; Assets/CvGameCoreDLL there is tree 7c35ba03ea0e, the build_id",
+ "gitlab_commit": "0a30006b34f3f2995c4d6693b8eb79bb1ab3348d",
+ "gitlab_snapshot": "!51 merged as 727e60c (commit 6c2dffb)"
 }
