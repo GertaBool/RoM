@@ -1,0 +1,89 @@
+<!-- Rendered by method/docs.py from d3-design.md.in. Do not edit; edit the template. -->
+# D3, the balance against the leader: design (not built)
+
+Principle D3 and gap R2 of `study/doctrine.md`. The AI teams declare wars among themselves in every
+logged game, never on the human, even while it leads, and no stronger AI joined any of its wars.
+This note asks for approval of two steps: a measurement, then a change whose final shape the
+measurement decides. Code facts are from the DLL source as of the S2 commit (GitLab `e4679cd`).
+
+## 1. Hypothesis (H3, to be registered with principle D3 and gap R2)
+
+The AIs never move against the human because:
+- every war path of `CvTeamAI::AI_doWar` wants a target weaker than the AI alone;
+- every path passes a no-war roll against the leader's `NoWarAttitudeProbs` for its attitude to the
+  target, and the human keeps that attitude high with gifts and open borders (R3);
+- the one coalition path (dogpile) counts only the power of teams already at war with the target;
+- a team with any war plan does not consider a new war at all.
+
+It would be refuted if, at the saves, the AIs that could have joined were blocked by something
+else, such as the land-target test or the war-rand gates. The change would then take another shape
+(section 3).
+
+## 2. Step 1: where the decision against the human fails (a measurement, not a change)
+
+The decision follows from formulas, so it is computed, not simulated (CLAUDE.md, rule 9).
+
+- **Tool.** `HARNESS_WAR_DIAG` in `toolchain/harness/HarnessState.cpp`, like `HARNESS_DEFENCE_DIAG`.
+  At a loaded save it writes one telemetry line per AI team towards the human's team, with only
+  reads and no change of state:
+  - whether the team considers a new war this turn at all: no war plan, or its enemies' power
+    percent below the threshold (`CvTeamAI.cpp:5126`);
+  - for each path (total, limited, dogpile), the chance this turn of trying it, from
+    `AI_getWarRands` and `AI_getWarThresholds`;
+  - the attitude to the human, its no-war probability (`AI_noWarAttitudeProb`), and the chance the
+    path's roll passes it;
+  - the power test of each path, with both sides of the inequality (`CvTeamAI.cpp:5259`,
+    `CvTeamAI.cpp:5347`, `CvTeamAI.cpp:5412`), and `AI_isLandTarget`;
+  - `AI_startWarVal` towards the human, and its rank among the team's candidate targets.
+- **Saves.** The last saves of game 3, game 4 and game 5, and the game 6 save.
+- **Result.** A study table through `sqlfig.py` (the per-team gate that blocks), added to
+  `study/doctrine.md` as facts for R2.
+
+## 3. Step 2: the balance term (shape decided by step 1)
+
+The term is a define `AI_BALANCE_SHARE`: a share of known power, per mille. At zero it is off.
+- **The hegemon.** A team is the hegemon for an AI when it has the most power of all living teams
+  that AI has met, and its share of their summed power exceeds `AI_BALANCE_SHARE`. The human is
+  never named: the term applies to any team, AI or human.
+- **Character is kept through the leader's own fields.**
+  - The no-war roll against a hegemon is lowered in proportion to the leader's
+    `iWorseRankDifferenceAttitudeChange` (its envy of better-ranked players, from the
+    `LeaderHeadInfo` records). Leaders whose field is zero or positive behave as now.
+  - A leader at `ATTITUDE_FRIENDLY` keeps its no-war probability.
+- **Candidates, chosen by what step 1 finds blocking:**
+  - (a) the no-war roll, as above;
+  - (b) the dogpile power test against a hegemon counts the power, in reach of the hegemon, of every
+    team whose own roll passes against it this turn, not only those already at war (a coalition
+    forms instead of each AI waiting for the others);
+  - (c) a team whose only war plans are against teams weaker than a hegemon also considers the
+    hegemon, with the dogpile path only.
+
+  Step 1 decides which of these is needed. The others are not built.
+- **Where.** `CvTeamAI.cpp` (`AI_doWar`, `AI_noWarAttitudeProb`), `CvTeamAI.h`,
+  `GlobalDefinesAlt.xml`, the harness diagnostic and its README, a new `builds/balance/`, and its
+  patch in `fixes/`.
+
+## 4. How it will be judged (registered before any build)
+
+- **On the mission.** A games prediction on `taken` (cities the human takes by the claim turn, at
+  Noble, against the reference games), like P2 and P4. A second one on `lost` (cities the human
+  loses), since a coalition that never takes a city does not beat the human.
+- **In the harness.** `seat_captures` of the human-model seat over at least thirty seeded runs per
+  arm, with S2 on in both arms and the balance term on in one, judged with the rank-based Welch
+  test (CLAUDE.md, rule 9). It serves the `taken` prediction. Guards: `turn_seconds` no worse,
+  `completed` no regression.
+- **Character.** Reported per leader from the runs, not as a gate: how often each leader declares
+  war, with the term on and off. Leaders whose envy field is zero must not change.
+- **Risk to watch.** Coalitions against an AI hegemon may make AI-AI wars more frequent, so the runs
+  report AI-AI declarations in both arms.
+
+## 5. What is asked
+
+Approval of step 1 as specified. Then, with its result, approval of the shape of step 2 before H3
+and its predictions are registered and anything is built.
+
+## Figures used
+
+| Figure | Value | Unit | Who | Turn | n | Source |
+|---|---|---|---|---|---|---|
+
