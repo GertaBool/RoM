@@ -63,13 +63,19 @@ BUILD BUILDINGCLASS_LEGION_BARRACKS
 BUILD BUILDINGCLASS_STABLE
 PARAM war_min_turn 228
 PARAM decl_ratio_pct 210
-PARAM prep_min_turns 3
-PARAM decl_units 6
 PARAM attack_min_odds 710
+PARAM war_gap_turns 3
+PARAM strike_margin 2
+PARAM target_max_distance 6
+PARAM next_target_max_distance 3
+PARAM siege_defenders 11
+PARAM siege_min_odds 350
+PARAM ob_min_turn 126
+PARAM ob_every 10
+PARAM home_keep 1
+PARAM stage_max_turns 10
 PARAM prep_max_turns 30
-PARAM war_gap_turns 0
 PARAM max_wars 1
-PARAM max_distance 999
 PARAM war_stall_turns 2
 PARAM war_max_turns 8
 PARAM trade_min_turn 264

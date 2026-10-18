@@ -182,19 +182,56 @@ peace_gaps = sorted(b['t'] - a['peace'] for a, b in zip(ended, ended[1:]) if a['
 P = collections.OrderedDict()
 P['war_min_turn'] = (min(first.values()) - 10, f'the first declaration of each game ({", ".join(f"{g} {first[g]}" for g in games)}), the earlier less 10 turns for the build-up and the march')
 P['decl_ratio_pct'] = (int(100 * ratios[1]) // 10 * 10, f'the second-lowest power ratio (M lines, the turn before) of the {len(ratios)} declarations, rounded down to tens: all but one were at least this')
-P['prep_min_turns'] = (min(peace_gaps), f'the shortest time from a peace to the next declaration of the same game ({len(peace_gaps)} gaps)')
-moved = []
-for g in games:
-    pl, team, _ = H[g]
-    for (t,) in q(g, 'select distinct turn from wl_W where team=?', team):
-        moved.append(sum(int(a or 1) for (a,) in q(g, "select a4 from wl_A where player=? and turn=? and kind='MISSION' and a5='MISSION_MOVE_TO'", pl, t)))
-P['decl_units'] = (min(moved), f'the fewest units the human moved (MISSION_MOVE_TO commands, A lines, by group size) on a turn it declared ({len(moved)} turns: {", ".join(map(str, sorted(moved)))}); the seat declares once this many of its fighting land units stand within two plots of the target\'s cities')
 p10 = {g: q(g, 'select quantile_cont(odds, 0.1), count(*) from wl_C where att=?', H[g][0])[0] for g in games}
 P['attack_min_odds'] = (int(min(v for v, _ in p10.values())) // 10 * 10, 'the lower of the games\' 10th percentiles of the odds (per mille) of the human\'s attacks (C lines; ' + ', '.join(f'{g}: {round(v)} of {n} attacks' for g, (v, n) in p10.items()) + '), rounded down to tens; the seat attacks whenever its odds reach this')
+# the war model (study/war.md, section 10): the first city taken in each war and the cities taken after it
+def ycity(g, player, t):
+    out = {}
+    for x, y, d, fo in q(g, 'select x, y, defenders, "foreign" from wl_Y where player=? and turn=? order by seq', player, t):
+        out.setdefault((x, y), (d, fo))
+    return out
+
+
+margins, first_d, next_d, siege = [], [], [], []
+for w in wars:
+    g = w['g']; pl, team, _ = H[g]
+    tpl = dict((t_, p_) for p_, t_ in q(g, 'select player, team from wl_P'))[w['target']]
+    end = w['peace'] if w['peace'] is not None else LAST[g]
+    caps = q(g, 'select turn, x, y from wl_K where old_owner=? and new_owner=? and turn between ? and ? order by seq', tpl, pl, w['t'], end)
+    tc, hc = ycity(g, tpl, w['t']), set(ycity(g, pl, w['t']))
+    own = set(hc)
+    for k, (t_, x, y) in enumerate(caps):
+        d = min(max(abs(x - a), abs(y - b)) for a, b in own) if own else None
+        if k == 0 and (x, y) in tc:
+            first_d.append(d)
+            if tc[(x, y)][0] <= 2: margins.append(tc[(x, y)][1] - tc[(x, y)][0])
+        elif k > 0 and d is not None: next_d.append(d)
+        own.add((x, y))
+    for (x, y), (dfn, fo) in tc.items():
+        od = [o for (o,) in q(g, 'select odds from wl_C where att=? and def=? and x=? and y=? and turn between ? and ?', pl, tpl, x, y, w['t'], end)]
+        if any(o < 500 for o in od): siege.append((dfn, min(od)))
+P['war_gap_turns'] = (min(peace_gaps), f'the shortest time from a peace to the next declaration of the same game ({len(peace_gaps)} gaps)')
+P['strike_margin'] = (round(statistics.median(margins)), f'the median, over the {len(margins)} wars whose first city taken had at most two defenders (raids), of the land units of other players within two plots of it (Y lines, the declaration turn) less its defenders; the strike group is the defenders plus this')
+P['target_max_distance'] = (max(first_d), f'the farthest, from the human\'s cities (Y lines, the declaration turn), of the first cities taken in the {len(first_d)} wars')
+P['next_target_max_distance'] = (max(next_d), f'the farthest of the {len(next_d)} later cities taken in a war from the human\'s cities and those taken before in the same war')
+if siege:
+    P['siege_defenders'] = (min(d for d, _ in siege), f'the fewest defenders (Y lines, the declaration turn) of a city the human attacked at odds under 500 ({len(siege)} cities); there the strike group may attack at siege_min_odds')
+    P['siege_min_odds'] = (min(o for _, o in siege) // 10 * 10, 'the lowest odds (per mille, C lines) of the human\'s attacks on those cities, rounded down to tens')
+else:
+    P['siege_defenders'] = (999, 'no attack of the human at odds under 500 in these games: the siege rule is off')
+    P['siege_min_odds'] = (P['attack_min_odds'][0], 'as attack_min_odds: the siege rule is off')
+ob_first = {g: q(g, 'select min(turn) from deal_items where item=5 and (first=? or second=?)', H[g][0], H[g][0])[0][0] for g in games}
+P['ob_min_turn'] = (min(ob_first.values()), 'the first open-borders deal of the human (deal items TRADE_OPEN_BORDERS: ' + ', '.join(f'{g} {t}' for g, t in ob_first.items()) + '), the earlier; from then on the seat offers open borders to every AI met')
+P['ob_every'] = (10, 'not measured: an AI that refused is asked again after this many turns')
+P['home_keep'] = (1, 'not measured: a city keeps at least this many defenders when its units join a strike group (the human\'s cities held one or two; study/war.md, section 7)')
+P['stage_max_turns'] = (10, 'the approach table covers the ten days before a declaration (study/war.md, section 4): units farther than this many turns from the staging plot are not called')
+ob_first = {g: q(g, 'select min(turn) from deal_items where item=5 and (first=? or second=?)', H[g][0], H[g][0])[0][0] for g in games}
+P['ob_min_turn'] = (min(ob_first.values()), 'the first open-borders deal of the human (deal items TRADE_OPEN_BORDERS: ' + ', '.join(f'{g} {t}' for g, t in ob_first.items()) + '), the earlier; from then on the seat offers open borders to every AI met')
+P['ob_every'] = (10, 'not measured: an AI that refused is asked again after this many turns')
+P['home_keep'] = (1, 'not measured: a city keeps at least this many defenders when its units join a strike group (the human\'s cities held one or two; study/war.md, section 7)')
+P['stage_max_turns'] = (10, 'the approach table covers the ten days before a declaration (study/war.md, section 4): units farther than this many turns from the staging plot are not called')
 P['prep_max_turns'] = (30, 'not in the data (every human preparation ended in a declaration): a preparation is given up after this')
-P['war_gap_turns'] = (0, 'the gap is prep_min_turns')
 P['max_wars'] = (1, 'one war of its own at a time: the human\'s rule until its last 15 turns in game 4')
-P['max_distance'] = (999, 'no limit: the nearest team qualifying is chosen whatever its distance')
 stall = [w['peace'] - w['last'] for w in ended if w['last'] is not None]
 P['war_stall_turns'] = (math.ceil(statistics.median(stall)), f'the median, rounded up, of turns from the last capture to peace over the {len(stall)} ended wars with a capture')
 lens = [w['peace'] - w['t'] for w in ended]
@@ -208,8 +245,9 @@ P['settler_min_pop'] = (3, 'not measured: a city builds a settler only from this
 P['max_cities'] = (99, 'no limit')
 prow = [[k, v, why] for k, (v, why) in P.items()]
 reg.result_table('hm_params', ['parameter', 'value', 'rule'], prow, 'turns', 'human', 'whole game',
-                 f'W, Q, K, M, A and C lines and deal items of the human in {gl}; turns except: decl_ratio_pct (per cent), trade_min_gold (gold), '
-                 'ai_every (choices), max_wars (wars), decl_units (units), attack_min_odds (per mille)', list(P), n=len(wars))
+                 f'W, Q, K, M, A, C and Y lines and deal items of the human in {gl}; turns except: decl_ratio_pct (per cent), trade_min_gold '
+                 '(gold), ai_every (choices), max_wars (wars), strike_margin and home_keep (units), target_max_distance and '
+                 'next_target_max_distance (plots), siege_defenders (units), attack_min_odds and siege_min_odds (per mille)', list(P), n=len(wars))
 wrows = [[f'{w["g"]} {w["t"]}', w['target'], round(w['ratio'], 2) if w['ratio'] else '', w['peace'] if w['peace'] is not None else '-',
           w['caps'], w['last'] if w['last'] is not None else '-'] for w in wars]
 reg.result_table('hm_wars', ['declaration', 'target_team', 'power_ratio', 'peace_turn', 'cities_taken', 'last_capture_turn'], wrows, 'turn',
