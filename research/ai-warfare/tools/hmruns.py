@@ -117,6 +117,21 @@ reg = Registry(REG, [RECS, RUNS] + [v[0] for v in MAPS.values()], R)
 arms = sorted({a for _, a in runs}, key=lambda a: (a != 'control', a != 'model', a))
 maps = sorted(MAPS)
 med = lambda v: round(statistics.median(v), 1) if v else ''
+srows = []
+for mp in maps:
+    db, seat, hturn = MAPS[mp]
+    con = duckdb.connect(db, read_only=True)
+    sp, hc, w, h = con.execute('select speed, handicap, width, height from wl_H').fetchone()
+    civ, leader = con.execute('select civ, leader from wl_P where human=1').fetchone()
+    npl = con.execute("select count(*) from wl_P where civ <> 'CIVILIZATION_BARBARIAN'").fetchone()[0]
+    srows.append([mp, os.path.basename(db).split('.')[0], seat, civ.removeprefix('CIVILIZATION_'), leader.removeprefix('LEADER_'), sp.removeprefix('GAMESPEED_'),
+                  hc.removeprefix('HANDICAP_'), f'{w} x {h}', npl, hturn, END, sum(len(v) for (m, _), v in runs.items() if m == mp)])
+reg.result_table('hm_setup', ['map', 'game', 'seat', 'civilization', 'leader', 'speed', 'game_handicap', 'plots', 'players', 'human_last_turn',
+                              'turns_played', 'runs'], srows, 'turns', 'every player', 'turn 0', 'H and P lines of the game\'s war log (speed, '
+                 'the game\'s handicap, map size, the seats; players: civilizations, the barbarians left out); human_last_turn: its last '
+                 'full turn; turns_played: each run from turn 0; runs: runs reaching it, all arms', maps, n=len(maps))
+reg.fig('end_turn', END, 'turn', 'every player', f'turn {END}', 'the last turn of every run')
+reg.fig('min_runs', 30, 'runs', 'every arm', 'whole campaign', 'runs required per arm and map (CLAUDE.md rule 9; framework.md section 7)')
 rows, over = [], []
 for mp in maps:
     for arm in arms:
@@ -147,6 +162,17 @@ for mp in maps:
             trows.append([f'{mp} {arm} {k}', len(a), len(b), med(a), med(b), round(t, 2) if t is not None else '',
                           round(df, 1) if df is not None else '', f'{p:.3g}' if p is not None else '', round(A, 3),
                           'anecdote' if min(len(a), len(b)) < 30 else 'result'])
+for mp in maps:
+    for arm in arms:
+        rs = runs.get((mp, arm))
+        if not rs: continue
+        for k in ('score_rank', 'cities', 'pop', 'techs', 'taken'):
+            reg.fig(f'med_{mp}_{arm.replace("-", "_").replace("+", "_")}_{k}', med([r[1][k] for r in rs]), {'score_rank': 'rank', 'pop': 'citizens', 'techs': 'techs'}.get(k, 'cities'),
+                    'model seat', f'turn {END}', f'median over the {len(rs)} runs of arm {arm} on map {mp} (hm_outcomes)', n=len(rs))
+for r in trows:
+    key = r[0].replace(' ', '_').replace('-', '_').replace('+', '_')
+    reg.fig(f'p_{key}', r[7] or '-', 'share', 'model seat', f'turn {END}', 'two-tailed p of the rank Welch test (hm_tests)', n=r[1] + r[2])
+    reg.fig(f'A_{key}', r[8], 'share', 'model seat', f'turn {END}', 'chance that an arm run is better than a control run (hm_tests)', n=r[1] + r[2])
 reg.result_table('hm_tests', ['arm_metric', 'n_arm', 'n_control', 'median_arm', 'median_control', 't', 'dof', 'p', 'p_arm_better', 'status'],
                  trows, 'cities', 'model seat', f'turn {END}', 'exper.rank_welch: Welch\'s t-test on pooled ranks, arm against the control '
                  'of the same map; p_arm_better: Vargha-Delaney A, the chance that a run of the arm is better than a control run (lower is better '
@@ -181,6 +207,29 @@ reg.result_table('hm_fidelity', ['map_arm_metric', 'runs', 'human', 'runs_median
                  'held; K lines: cities taken and lost; W lines: declarations by its team); runs_at_or_beyond_human: runs as good as the human '
                  'or better (lower for score_rank and lost); techs in the telemetry and X lines count the same TechInfo records', fover,
                  n=sum(len(v) for v in runs.values()))
+
+# the course of the game: medians of the runs at fixed turns against the human's war log
+jrows, jover = [], []
+for mp in maps:
+    db, seat, hturn = MAPS[mp]
+    con = duckdb.connect(db, read_only=True)
+    hp = con.execute('select player from wl_P where human=1').fetchone()[0]
+    for t in [x for x in TURNS if x <= hturn and x not in (265, 284)]:
+        m = con.execute('select cities, pop, score from wl_M where player=? and turn=?', [hp, t]).fetchone()
+        rk = 1 + con.execute('select count(*) from wl_M where turn=? and score>? and cities>0', [t, m[2]]).fetchone()[0]
+        te = con.execute('select count(distinct tech) from wl_X where player=? and turn<=?', [hp, t]).fetchone()[0]
+        jover.append(f'{mp} {t} human'); jrows.append([f'{mp} {t} human', 1, rk, m[0], m[1], te])
+        for arm in arms:
+            v = [r[3]['at'].get(str(t)) for r in runs.get((mp, arm), [])]
+            v = [x for x in v if x]
+            if not v: continue
+            jover.append(f'{mp} {t} {arm}')
+            jrows.append([f'{mp} {t} {arm}', len(v), med([x['score_rank'] for x in v]), med([x['cities'] for x in v]), med([x['pop'] for x in v]),
+                          med([x['techs'] for x in v])])
+reg.result_table('hm_trajectory', ['map_turn_side', 'runs', 'score_rank', 'cities', 'pop', 'techs'], jrows, 'cities', 'model seat and human',
+                 'turns 100, 150, 200 and 250', 'human: its M lines at the turn (cities, pop, score; rank among players with a city) and X lines '
+                 '(techs held); arms: medians over runs of the seat in the telemetry at the turn; pop in citizens, techs in techs, score_rank a rank',
+                 jover, n=len(jrows))
 
 # decision timing (hm.log) against the human: civic adoptions and the first war
 CI = {k.removeprefix('CIVIC_'): v['CivicOptionType'] for k, v in R['CivicInfo'].items()}

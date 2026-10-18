@@ -30,6 +30,8 @@ UNITS = {
     'cities': ('metric', 'cities (K, Z or M lines)'),
     'units built': ('metric', 'U lines'),
     'techs': ('metric', 'techs'),
+    'citizens': ('metric', 'population points of cities'),
+    'runs': ('metric', 'seeded harness games'),
     'deals': ('metric', 'D lines'),
     'gold': ('metric', 'gold'),
     'per mille': ('metric', 'parts per thousand'),
