@@ -1,0 +1,258 @@
+[
+ {
+  "id": "expansion",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), ev as (select x, y, turn, old_owner from wl_K union all select x, y, turn, old_owner from wl_Z), fc as (select cast(a2 as int) x, cast(a3 as int) y, turn founded, (select player from h) founder from wl_A where player=(select player from h) and kind='MISSION' and a5='MISSION_FOUND' union all select c.x, c.y, c.founded, coalesce((select e.old_owner from ev e where e.x=c.x and e.y=c.y order by e.turn limit 1), c.player) from cities c where coalesce((select e.old_owner from ev e where e.x=c.x and e.y=c.y order by e.turn limit 1), c.player) <> (select player from h)), fk as (select *, row_number() over (partition by founder order by founded, x, y) k from fc) select k city_number, max(case when founder=(select player from h) then founded end) human_turn, median(case when founder<>(select player from h) then founded end) ai_median_turn, count(*) filter (where founder<>(select player from h)) ais_reaching_it from fk where k between 1 and 8 group by 1 order by 1",
+  "unit": "turn",
+  "who": "every player",
+  "turn": "founding turns",
+  "source": "the turn of each player's k-th city founded: the human's from its FOUND commands (A lines), the AIs' from the founding turn of the save's cities, credited to the first owner (the old owner of the first K or Z line on the plot); AI cities razed before the save are not in the save and are missing"
+ },
+ {
+  "id": "city_spacing",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), ev as (select x, y, turn, old_owner from wl_K union all select x, y, turn, old_owner from wl_Z), fc as (select cast(a2 as int) x, cast(a3 as int) y, turn founded, (select player from h) founder from wl_A where player=(select player from h) and kind='MISSION' and a5='MISSION_FOUND' union all select c.x, c.y, c.founded, coalesce((select e.old_owner from ev e where e.x=c.x and e.y=c.y order by e.turn limit 1), c.player) from cities c where coalesce((select e.old_owner from ev e where e.x=c.x and e.y=c.y order by e.turn limit 1), c.player) <> (select player from h)), fk as (select *, row_number() over (partition by founder order by founded, x, y) k from fc), d as (select a.founder, a.k, (select min(greatest(abs(a.x-b.x), abs(a.y-b.y))) from fk b where b.founder=a.founder and b.k < a.k) dist from fk a where a.k >= 2) select case when founder=(select player from h) then 'human' else 'AI' end side, count(*) cities, median(dist) median_distance, count(*) filter (where dist <= 2) d_2_or_less, count(*) filter (where dist = 3) d_3, count(*) filter (where dist = 4) d_4, count(*) filter (where dist = 5) d_5, count(*) filter (where dist >= 6) d_6_plus from d group by 1 order by 1 desc",
+  "unit": "cities",
+  "who": "every player",
+  "turn": "founding turns",
+  "source": "every city after a player's first: grid distance (map wrap ignored) to the nearest city the same player founded before it, as in the expansion table"
+ },
+ {
+  "id": "tech_lead",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), x as (select player, tech, min(turn) t from wl_X group by 1, 2), hx as (select tech, t from x where player=(select player from h) and t > 0), dl as (select t.tech, i.turn from deal_items i join tech_info t on t.idx=i.data where i.item=9 and ((i.side=1 and i.second=(select player from h)) or (i.side=2 and i.first=(select player from h)))) select hx.tech, hx.t human_turn, case when exists (select 1 from dl where dl.tech=hx.tech and dl.turn=hx.t) then 'deal' else 'research' end via, (select median(t) from x where x.player<>(select player from h) and x.tech=hx.tech) ai_median_turn, (select count(*) from x where x.player<>(select player from h) and x.tech=hx.tech) ais_with_it, (select count(*) from x where x.player<>(select player from h) and x.tech=hx.tech and x.t < hx.t) ais_before_human from hx order by 2, 1",
+  "unit": "turn",
+  "who": "every player",
+  "turn": "acquisition turns",
+  "source": "X lines (the first of each player and tech; turn 0 is the start); source: a deal item giving the human that tech on the same turn (deal_items, TRADE_TECHNOLOGIES; the tech index of TechInfo, checked: every such item has the receiver's X line on its turn)",
+  "xml": [
+   "TechInfo",
+   [
+    "tech"
+   ]
+  ]
+ },
+ {
+  "id": "attack_units",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), c as (select c.*, r.winner from wl_C c left join wl_R r on r.seq=c.seq+1 where c.att=(select player from h)) select att_unit, count(*) battles, count(*) filter (where winner=(select player from h)) won, count(*) filter (where winner is not null and winner<>(select player from h)) lost, median(odds) median_odds_per_mille, median(att_xp) median_experience, count(*) filter (where city_def > 0) against_city_defence from c group by 1 order by 2 desc, 1",
+  "unit": "battles",
+  "who": "human",
+  "turn": "whole game",
+  "source": "C lines with the human attacking and the R line directly after (no R line: no unit died): the attacking unit type, the odds per mille the C line records, the attacker's experience, and battles where the defender had a city defence bonus",
+  "xml": [
+   "UnitInfo",
+   [
+    "att_unit"
+   ]
+  ]
+ },
+ {
+  "id": "war_preparation",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), a as (select turn, kind, a3, a5 from wl_A where player=(select player from h)), w as (select turn t, target from wl_W where team=(select player from h)) select w.t turn, w.target, (select count(*) from a where kind='ORDER' and a3='0' and a.turn between w.t-10 and w.t-1) train_10_before, round((select count(*) from a where kind='ORDER' and a3='0' and a.turn between w.t-60 and w.t-11)/5.0, 1) train_per_10_earlier, (select count(*) from a where a5='COMMAND_UPGRADE' and a.turn between w.t-10 and w.t-1) upgrades_10_before, round((select count(*) from a where a5='COMMAND_UPGRADE' and a.turn between w.t-60 and w.t-11)/5.0, 1) upgrades_per_10_earlier, (select count(*) from a where a5='MISSION_MOVE_TO' and a.turn between w.t-10 and w.t-1) moves_10_before, round((select count(*) from a where a5='MISSION_MOVE_TO' and a.turn between w.t-60 and w.t-11)/5.0, 1) moves_per_10_earlier from w order by 1, 2",
+  "unit": "orders",
+  "who": "human",
+  "turn": "the ten turns before each declaration, against the fifty before those",
+  "source": "A lines of the human: unit city orders (ORDER type 0), upgrades (COMMAND_UPGRADE) and move orders (MISSION_MOVE_TO) in the ten turns before each W line it declared, against the mean per ten turns over the fifty turns before those"
+ },
+ {
+  "id": "peace_terms",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), p as (select q.seq, q.turn, case when q.team=(select player from h) then q.target else q.team end opp from wl_Q q where q.team=(select player from h) or q.target=(select player from h)), i as (select p.turn, p.opp, d.item, d.data, case when (d.side=1 and d.first=p.opp) or (d.side=2 and d.second=p.opp) then 'to_human' else 'from_human' end dir from p join deal_items d on d.turn=p.turn and ((d.first=(select player from h) and d.second=p.opp) or (d.second=(select player from h) and d.first=p.opp))) select p.turn, p.opp, coalesce((select sum(data) from i where i.turn=p.turn and i.opp=p.opp and item=0 and dir='to_human'), 0) gold_to_human, coalesce((select sum(data) from i where i.turn=p.turn and i.opp=p.opp and item=1 and dir='to_human'), 0) gold_per_turn_to_human, (select count(*) from i where i.turn=p.turn and i.opp=p.opp and item=9 and dir='to_human') techs_to_human, (select count(*) from i where i.turn=p.turn and i.opp=p.opp and item=11 and dir='to_human') cities_to_human, (select count(*) from i where i.turn=p.turn and i.opp=p.opp and item not in (8) and dir='from_human') items_from_human from p order by 1, 2",
+  "unit": "gold",
+  "who": "human and the AI it made peace with",
+  "turn": "each peace",
+  "source": "Q lines of the human and the deal between the same two players on that turn (deal_items: TRADE_GOLD 0, TRADE_GOLD_PER_TURN 1, TRADE_TECHNOLOGIES 9, TRADE_CITIES 11; the peace treaty items, 8, left out)"
+ },
+ {
+  "id": "civic_tech_lag",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), c as (select turn t, list_filter(string_split(replace(arg_max(a1, seq), 'CIVIC_', ''), ','), x -> x <> '') l from wl_A where player=(select player from h) and kind='CIVICS' group by turn), s as (select t, unnest(list_filter(l, x -> not list_contains(coalesce(lag(l) over (order by t), []), x))) civic from c), x as (select tech, min(turn) t from wl_X where player=(select player from h) group by 1) select s.civic, i.civic_option, i.tech prerequisite, x.t tech_turn, s.t adopted_turn, s.t - x.t lag_turns, (select count(*) from civics v where v.civic='CIVIC_' || s.civic and v.player<>(select player from h)) ais_holding_it_at_save from s join civic_info i on i.civic=s.civic left join x on x.tech=i.tech where s.t > 2 order by s.t, s.civic",
+  "unit": "turns",
+  "who": "human",
+  "turn": "each civic adopted after the start",
+  "source": "civics in each CIVICS command of the human not in its previous one (A lines), the tech each requires (CivicInfo TechPrereq) and the turn the human got it (X lines; turn 0: held from the start), and the AIs holding that civic at the save",
+  "xml": [
+   "CivicInfo",
+   [
+    "civic"
+   ]
+  ]
+ },
+ {
+  "id": "per_city_output",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), m as (select * from wl_M where turn % 25 = 0 and turn >= 100 and cities > 0) select turn, round(max(case when player=(select player from h) then pop*1.0/cities end), 2) human_pop, round(median(case when player<>(select player from h) then pop*1.0/cities end), 2) ai_pop, round(max(case when player=(select player from h) then hammers*1.0/cities end), 2) human_hammers, round(median(case when player<>(select player from h) then hammers*1.0/cities end), 2) ai_hammers, round(max(case when player=(select player from h) then commerce*1.0/cities end), 2) human_commerce, round(median(case when player<>(select player from h) then commerce*1.0/cities end), 2) ai_commerce, round(max(case when player=(select player from h) then food*1.0/cities end), 2) human_food, round(median(case when player<>(select player from h) then food*1.0/cities end), 2) ai_food from m group by 1 order by 1",
+  "unit": "yield per turn",
+  "who": "every player",
+  "turn": "every 25th turn from 100",
+  "source": "M lines: population, hammers, commerce and food of the whole empire divided by its cities; AI: the median over AI players; anarchy turns show commerce 1"
+ },
+ {
+  "id": "gold_ledger",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), m as (select turn, gold, gold_rate, commerce, lag(gold) over (order by turn) g0, lag(gold_rate) over (order by turn) r0 from wl_M where player=(select player from h)), dl as (select turn, sum(case when (side=1 and second=(select player from h)) or (side=2 and first=(select player from h)) then data else -data end) dg from deal_items where item=0 and (first=(select player from h) or second=(select player from h)) group by 1), sold as (select distinct turn from deal_items where item=9 and ((side=1 and first=(select player from h)) or (side=2 and second=(select player from h)))), pc as (select distinct turn from wl_Q where team=(select player from h) or target=(select player from h)), f as (select m.turn, m.r0, coalesce(dl.dg, 0) dg, m.gold - m.g0 - m.r0 - coalesce(dl.dg, 0) res, concat_ws('+', case when exists (select 1 from wl_K k where k.new_owner=(select player from h) and k.turn=m.turn) then 'capture' end, case when exists (select 1 from wl_A a where a.player=(select player from h) and a.turn=m.turn and a.a5='MISSION_TRADE') then 'trade mission' end, case when exists (select 1 from wl_A a where a.player=(select player from h) and a.turn=m.turn and a.kind='TASK' and a.a3='9') then 'hurry' end, case when exists (select 1 from wl_A a where a.player=(select player from h) and a.turn=m.turn and a.a5='COMMAND_UPGRADE') then 'upgrade' end, case when m.commerce <= 1 then 'anarchy' end) ev, case when m.turn in (select turn from pc) then 'peace' when m.turn in (select turn from sold) then 'tech sold' else 'other' end deal_kind from m left join dl using (turn) where m.g0 is not null), rows as (select 'income: gold per turn' item, turn, r0 v from f union all select 'deals: ' || deal_kind, turn, dg from f where dg <> 0 union all select 'residual: ' || coalesce(nullif(ev, ''), 'no event (check)'), turn, res from f) select item, sum(v) filter (where turn < 150) turns_0_149, sum(v) filter (where turn between 150 and 199) turns_150_199, sum(v) filter (where turn between 200 and 249) turns_200_249, sum(v) filter (where turn >= 250) turns_250_on, sum(v) total, count(*) filter (where v <> 0) turns_nonzero from rows group by 1 order by 1",
+  "unit": "gold",
+  "who": "human",
+  "turn": "by period",
+  "source": "M lines of the human: the change of its gold between consecutive M lines is split into the gold per turn of the earlier line (income), the gold of deals that turn (deal_items TRADE_GOLD: on a peace turn, Q lines; on a turn it gave a tech; other), and a residual named by the events of the turn: a city taken (K), a trade mission (MISSION_TRADE), a hurry (TASK 9, TASK_HURRY), an upgrade (COMMAND_UPGRADE), anarchy; the residual on turns with no such event is the check of the ledger (gold per turn changes within a turn)"
+ },
+ {
+  "id": "upgrade_targets",
+  "db": "*",
+  "dbs": [
+   "game1",
+   "game2",
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), u as (select turn, coalesce((select i.unit from unit_info i where cast(i.idx as varchar)=a6), replace(a6, 'UNIT_', '')) to_unit from wl_A where player=(select player from h) and a5='COMMAND_UPGRADE') select to_unit, count(*) upgrades, min(turn) first_turn, max(turn) last_turn, (select count(*) from wl_U b where b.player=(select player from h) and b.unit=u.to_unit) trained, (select count(*) from wl_C c where c.att=(select player from h) and c.att_unit=u.to_unit) attacks_by_that_type from u group by 1 order by 2 desc, 1",
+  "unit": "orders",
+  "who": "human",
+  "turn": "whole game",
+  "source": "A lines COMMAND_UPGRADE: the unit type upgraded to (the first log version gives its UnitInfo index, mapped by XML order: every mapped target but one is in the named unit's UnitClassUpgrades); the named unit can be another member of the group, so the source type is not used; U lines of that type; C lines of the human attacking with it",
+  "xml": [
+   "UnitInfo",
+   [
+    "to_unit"
+   ]
+  ]
+ },
+ {
+  "id": "building_template",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), n as (select n.*, row_number() over (partition by n.x, n.y order by n.seq) k from wl_N n where n.player=(select player from h)), x as (select tech, min(turn) t from wl_X where player=(select player from h) group by 1), an as (select n.*, row_number() over (partition by n.player, n.x, n.y order by n.seq) k from wl_N n where n.player<>(select player from h)) select n.building, b.kind, count(*) human_cities, median(n.k) human_median_rank_in_city, min(n.turn) human_first, min(n.turn) - x.t turns_after_tech, (select count(*) from an where an.building=n.building) ai_cities, (select median(k) from an where an.building=n.building) ai_median_rank_in_city from n join building_info b using (building) left join x on x.tech=b.tech group by n.building, b.kind, x.t order by 4, 3 desc, 1",
+  "unit": "cities",
+  "who": "every player",
+  "turn": "whole game",
+  "source": "N lines: each building the human completed, the number of its cities that completed it, its median position in each city's order of completions (1: the city's first), the first completion, its distance in turns from the human's X line of the building's PrereqTech (empty when the building needs no tech; its other prerequisites, such as TechTypes, a religion or a building, are not counted); the same count and position for the AIs' cities",
+  "xml": [
+   "BuildingInfo",
+   [
+    "building"
+   ]
+  ]
+ },
+ {
+  "id": "tech_use",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), x as (select tech, min(turn) t from wl_X where player=(select player from h) and turn > 0 group by 1), o as (select turn, a3, replace(replace(a4, 'UNIT_', ''), 'BUILDING_', '') item from wl_A where player=(select player from h) and kind='ORDER'), bd as (select turn, coalesce((select bi.build from build_info bi where cast(bi.idx as varchar)=a6), a6) build from wl_A where player=(select player from h) and a5='MISSION_BUILD'), cv as (select turn, unnest(list_filter(string_split(replace(a1, 'CIVIC_', ''), ','), z -> z <> '')) civic from wl_A where player=(select player from h) and kind='CIVICS'), u as (select x.tech, 'civic' kind, (select min(cv.turn) from cv join civic_info ci on ci.civic=cv.civic where ci.tech=x.tech and cv.turn >= x.t) t from x union all select x.tech, 'building', (select min(o.turn) from o join building_info b on b.building=o.item where o.a3='1' and b.tech=x.tech and o.turn >= x.t) from x union all select x.tech, 'unit', (select min(o.turn) from o join unit_info i on i.unit=o.item where o.a3='0' and i.tech=x.tech and o.turn >= x.t) from x union all select x.tech, 'build', (select min(bd.turn) from bd join build_info bi on bi.build=bd.build where bi.tech=x.tech and bd.turn >= x.t) from x) select x.tech, x.t acquired, (select min(t) - x.t from u where u.tech=x.tech and u.kind='civic') civic_after, (select min(t) - x.t from u where u.tech=x.tech and u.kind='building') building_after, (select min(t) - x.t from u where u.tech=x.tech and u.kind='unit') unit_after, (select min(t) - x.t from u where u.tech=x.tech and u.kind='build') build_after from x order by 2, 1",
+  "unit": "turns",
+  "who": "human",
+  "turn": "acquisition turns",
+  "source": "X lines of the human; for each tech, the turns until the human first used what it unlocks: a civic adopted (CIVICS command; CivicInfo TechPrereq), a building ordered (ORDER type 1; BuildingInfo PrereqTech), a unit ordered (ORDER type 0; UnitInfo PrereqTech), a build ordered (MISSION_BUILD; BuildInfo PrereqTech); empty: not used before the save. Unlocks through other fields (TechTypes, AndPreReqs of later techs) are not counted",
+  "xml": [
+   "TechInfo",
+   [
+    "tech"
+   ]
+  ]
+ },
+ {
+  "id": "city_profile",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), ev as (select x, y, min(turn) t from wl_K where new_owner=(select player from h) group by 1, 2), c as (select c.*, case when c.player<>(select player from h) then 'AI' when exists (select 1 from city_buildings b where b.player=c.player and b.x=c.x and b.y=c.y and b.building='BUILDING_PALACE') then 'human capital' when (c.x, c.y) in (select x, y from ev) then 'human captured' else 'human founded' end grp, exists (select 1 from city_buildings b where b.player=c.player and b.x=c.x and b.y=c.y and b.building='BUILDING_PALACE') cap from cities c) select case when grp='AI' and cap then 'AI capitals' when grp='AI' then 'AI other' else grp end city_group, count(*) cities, median(pop) pop, median(food) food, median(prod) hammers, median(commerce) commerce, median(trade_routes) trade_routes, median(trade_commerce) trade_commerce, median(buildings) buildings from c group by 1 order by 1 desc",
+  "unit": "cities at save",
+  "who": "every player",
+  "turn": "save",
+  "source": "cities in the save dump: population, food, hammers, commerce, trade routes and their commerce, and buildings; human cities split into the capital (BUILDING_PALACE), the cities it captured (K lines) and those it founded; AI capitals and other AI cities"
+ },
+ {
+  "id": "build_plot_class",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), b as (select coalesce((select bi.build from build_info bi where cast(bi.idx as varchar)=a6), a6) build, cast(a2 as int) x, cast(a3 as int) y from wl_A where player=(select player from h) and a5='MISSION_BUILD'), j as (select b.build, case when p.plot_type=1 then 'hill' when p.plot_type=2 and p.river=1 then 'flat, river' when p.plot_type=2 then 'flat, dry' when p.plot_type=3 then 'water' else 'peak' end cls, p.bonus <> '-' has_bonus from b join plots p using (x, y)) select build, count(*) orders, count(*) filter (where cls='hill') hill, count(*) filter (where cls='flat, river') flat_river, count(*) filter (where cls='flat, dry') flat_dry, count(*) filter (where cls='water') water, count(*) filter (where has_bonus) with_resource from j group by 1 order by 2 desc, 1",
+  "unit": "orders",
+  "who": "human",
+  "turn": "order turns; plot traits at the save",
+  "source": "A lines MISSION_BUILD by the plot's traits in the save dump: hills, flat land on a river or not, water, and a resource on it; terrain type and river do not change in play, a resource can be revealed later",
+  "xml": [
+   "BuildInfo",
+   [
+    "build"
+   ]
+  ]
+ },
+ {
+  "id": "worked_by_class",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), p as (select p.*, case when p.owner=(select player from h) then 'human' else 'AI' end side, case when p.plot_type=1 then 'hill' when p.plot_type=2 and p.river=1 then 'flat, river' when p.plot_type=2 then 'flat, dry' when p.plot_type=3 then 'water' else 'peak' end cls from plots p where p.owner >= 0 and p.worked=1 and p.plot_type in (1, 2)) select side || ', ' || cls plots, count(*) worked, count(*) filter (where improvement='-') unimproved, count(*) filter (where improvement in ('COTTAGE', 'HAMLET', 'VILLAGE', 'TOWN')) cottage_line, count(*) filter (where improvement in ('MINE', 'SHAFT_MINE')) mines, count(*) filter (where improvement='FARM') farms, count(*) filter (where improvement not in ('-', 'COTTAGE', 'HAMLET', 'VILLAGE', 'TOWN', 'MINE', 'SHAFT_MINE', 'FARM')) other from p group by 1 order by 1 desc",
+  "unit": "tiles at save",
+  "who": "every player",
+  "turn": "save",
+  "source": "worked land plots in the save dump by owner and trait (as in build_plot_class), and the improvement on them; cottage line: cottage, hamlet, village, town"
+ },
+ {
+  "id": "wonders",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4"
+  ],
+  "sql": "with h as (select player from wl_P where human=1), n as (select n.player, b.kind, n.turn from wl_N n join building_info b using (building) where b.kind <> 'building'), per as (select player, kind, count(*) c from n group by 1, 2) select kind, coalesce((select c from per where per.player=(select player from h) and per.kind=k.kind), 0) human, (select min(turn) from n where n.player=(select player from h) and n.kind=k.kind) human_first, coalesce((select sum(c) from per where per.player<>(select player from h) and per.kind=k.kind), 0) all_ais, coalesce((select max(c) from per where per.player<>(select player from h) and per.kind=k.kind), 0) most_by_one_ai from (select distinct kind from n) k order by 1",
+  "unit": "units built",
+  "who": "every player",
+  "turn": "whole game",
+  "source": "N lines of world wonders (BuildingClassInfo iMaxGlobalInstances 1) and national wonders (iMaxPlayerInstances or iMaxTeamInstances 1)"
+ }
+]

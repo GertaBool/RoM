@@ -1,5 +1,7 @@
 # Game 1: England against 17 AIs
 
+Tables: [summary.md](summary.md) and the CSV files in this folder (`tools/gamedata.py`). This game used the first log version, so it has no economy, city-state, building or great-person tables.
+
 Source: `WarLog.log` from the user's game (the save is not published). Map 84×46,
 Marathon, Noble, 18 players. The log covers turns 0–217 (6000 BC to 1145 BC). The human
 is player 0, England.
@@ -63,9 +65,9 @@ of them was an attack on a city at a 1 % chance of winning.
 
 ## What this suggests (inferences, to be tested against the code)
 
-1. **The AI leaves a long window of weakness.** The human's units were twice as strong as
-   the defenders for 16+ turns, because the AI does not research military techs, even
-   cheap ones. Test: read how the AI values techs when it has no war plan, and with a
+1. **The AI leaves a long window of weakness.** The human attacked at win chances of
+   64–100 % (the engine's odds, with promotions, terrain and city defence included) for
+   30 turns. The AI had not reached the techs that unlock better units, even cheap ones. Test: read how the AI values techs when it has no war plan, and with a
    stronger neighbour.
 2. **The AI does not see a threat coming.** Foreign armies stood next to its cities under
    open borders, and nothing changed. Test: read how the AI counts danger from units of

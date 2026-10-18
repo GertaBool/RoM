@@ -56,6 +56,119 @@ namespace
 #define HH_SETTLE_REACH(k, u, p) (-1)
 #endif
 
+// Totals of one player after a full recalculation: commerce, research, gold per turn, food, hammers.
+static void HH_totals(CvPlayer& k, int* aiOut)
+{
+	k.updateMaintenance(); k.updateTradeRoutes(); k.updateYield(); k.updateCommerce();
+	aiOut[0] = k.calculateTotalCommerce(); aiOut[1] = k.calculateResearchRate(); aiOut[2] = k.calculateGoldRate();
+	aiOut[3] = k.calculateTotalYield(YIELD_FOOD); aiOut[4] = k.calculateTotalYield(YIELD_PRODUCTION);
+}
+
+// Civic probe: for every civic option of ePlayer and every civic it could adopt there, the totals with
+// that civic in place of the current one (worked tiles unchanged), then the civic put back; the
+// baseline is measured again after each swap ("restored" is 1 when it came back exactly).
+// Tech values: for every AI, AI_techValue (path 1) of every tech it can research now.
+static void HH_probe(const char* szPath, PlayerTypes ePlayer)
+{
+	FILE* f = fopen(szPath, "w");
+	if (f == NULL) return;
+	CvPlayerAI& k = GET_PLAYER(ePlayer);
+	int aiBase[5], aiNow[5], aiBack[5];
+	HH_totals(k, aiBase);
+	fprintf(f, "{\"player\":%d,\"baseline\":[%d,%d,%d,%d,%d],\"civics\":[", (int)ePlayer, aiBase[0], aiBase[1], aiBase[2], aiBase[3], aiBase[4]);
+	bool bFirst = true;
+	for (int iO = 0; iO < GC.getNumCivicOptionInfos(); ++iO)
+	{
+		const CivicOptionTypes eO = (CivicOptionTypes)iO;
+		const CivicTypes eCur = k.getCivics(eO);
+		for (int iC = 0; iC < GC.getNumCivicInfos(); ++iC)
+		{
+			const CivicTypes eC = (CivicTypes)iC;
+			if (GC.getCivicInfo(eC).getCivicOptionType() != iO || eC == eCur || !k.canDoCivics(eC)) continue;
+			k.setCivics(eO, eC); HH_totals(k, aiNow);
+			k.setCivics(eO, eCur); HH_totals(k, aiBack);
+			bool bOk = true;
+			for (int j = 0; j < 5; ++j) if (aiBack[j] != aiBase[j]) bOk = false;
+			fprintf(f, "%s\n[\"%s\",\"%s\",\"%s\",%d,%d,%d,%d,%d,%d]", bFirst ? "" : ",", GC.getCivicOptionInfo(eO).getType(),
+				eCur != NO_CIVIC ? GC.getCivicInfo(eCur).getType() : "-", GC.getCivicInfo(eC).getType(),
+				aiNow[0], aiNow[1], aiNow[2], aiNow[3], aiNow[4], bOk ? 1 : 0);
+			bFirst = false;
+		}
+	}
+	fprintf(f, "],\"techValues\":[");
+	bFirst = true;
+	int* aiRev = new int[GC.getNumBonusClassInfos()];
+	int* aiUnrev = new int[GC.getNumBonusClassInfos()];
+	int* aiHave = new int[GC.getNumBonusClassInfos()];
+	for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+	{
+		CvPlayerAI& kA = GET_PLAYER((PlayerTypes)i);
+		if (!kA.isAlive() || i == (int)ePlayer) continue;
+		CvTeam& kTA = GET_TEAM(kA.getTeam());
+		// the bonus-class counts AI_bestTech prepares (CvPlayerAI.cpp)
+		for (int b = 0; b < GC.getNumBonusClassInfos(); ++b) { aiRev[b] = 0; aiUnrev[b] = 0; aiHave[b] = 0; }
+		for (int b = 0; b < GC.getNumBonusInfos(); ++b)
+		{
+			const TechTypes eR = (TechTypes)GC.getBonusInfo((BonusTypes)b).getTechReveal();
+			const int eBC = GC.getBonusInfo((BonusTypes)b).getBonusClassType();
+			if (eR == NO_TECH) continue;
+			if (kTA.isHasTech(eR)) aiRev[eBC]++; else aiUnrev[eBC]++;
+			if (kA.getNumAvailableBonuses((BonusTypes)b) > 0 || kA.countOwnedBonuses((BonusTypes)b) > 0) aiHave[eBC]++;
+		}
+		for (int t = 0; t < GC.getNumTechInfos(); ++t)
+		{
+			if (!kA.canResearch((TechTypes)t)) continue;
+			fprintf(f, "%s\n[%d,\"%s\",%d,%d]", bFirst ? "" : ",", i, GC.getTechInfo((TechTypes)t).getType(),
+				kA.AI_techValue((TechTypes)t, 1, false, false, aiRev, aiUnrev, aiHave), kA.getCurrentResearch() == (TechTypes)t ? 1 : 0);
+			bFirst = false;
+		}
+	}
+	delete [] aiRev; delete [] aiUnrev; delete [] aiHave;
+	// Civic terms: the civic block of AI_techValue (CvPlayerAI.cpp, "Civic Value") recomputed for every AI,
+	// tech it can research now and civic that tech unlocks: the AI's value of that civic and of the one it
+	// holds in the option, the term with its cap and without, and the divisor AI_techValue applies after
+	// (research turns left times 100 plus latency times the speed's research percent). eraPenalty is 1 when
+	// the era-0 penalty of AI_techValue may scale the value further.
+	fprintf(f, "],\"civicTerms\":[");
+	bFirst = true;
+	const int iLatency = std::max(0, GC.getDefineINT("AI_TECH_COMPLETION_LATENCY_TURNS"));
+	const int iAdjustment = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getResearchPercent();
+	for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+	{
+		CvPlayerAI& kA = GET_PLAYER((PlayerTypes)i);
+		if (!kA.isAlive() || i == (int)ePlayer) continue;
+		const CivicTypes eFav = (CivicTypes)GC.getLeaderHeadInfo(kA.getPersonalityType()).getFavoriteCivic();
+		for (int t = 0; t < GC.getNumTechInfos(); ++t)
+		{
+			if (!kA.canResearch((TechTypes)t)) continue;
+			for (int c = 0; c < GC.getNumCivicInfos(); ++c)
+			{
+				if (GC.getCivicInfo((CivicTypes)c).getTechPrereq() != t) continue;
+				const CivicTypes eHeld = kA.getCivics((CivicOptionTypes)GC.getCivicInfo((CivicTypes)c).getCivicOptionType());
+				const int iNew = kA.AI_civicValue((CivicTypes)c);
+				const int iCur = (eHeld != NO_CIVIC) ? kA.AI_civicValue(eHeld) : 0;
+				int iCapped = 200, iUncapped = 200;
+				if (eHeld != NO_CIVIC)
+				{
+					if (iNew > iCur)
+					{
+						iUncapped += (2400 * (iNew - iCur)) / std::max(1, iCur);
+						iCapped += std::min(2400, (2400 * (iNew - iCur)) / std::max(1, iCur));
+					}
+					if ((CivicTypes)c == eFav) { iCapped += 600; iUncapped += 600; }
+				}
+				fprintf(f, "%s\n[%d,\"%s\",\"%s\",\"%s\",%d,%d,%d,%d,%d,%d]", bFirst ? "" : ",", i, GC.getTechInfo((TechTypes)t).getType(),
+					GC.getCivicInfo((CivicTypes)c).getType(), eHeld != NO_CIVIC ? GC.getCivicInfo(eHeld).getType() : "-", iNew, iCur,
+					iCapped, iUncapped, HarnessPeek::researchTurnsLeftTimes100(kA, (TechTypes)t) + iLatency * iAdjustment,
+					(kA.getCurrentEra() == 0 && GC.getTechInfo((TechTypes)t).getEra() > 0) ? 1 : 0);
+				bFirst = false;
+			}
+		}
+	}
+	fprintf(f, "]}\n");
+	fclose(f);
+}
+
 extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 {
 	const HarnessPeekGuard kNoSideEffects;
@@ -148,12 +261,48 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 				CvWString w;
 				getUnitAIString(w, u->AI_getUnitAIType());
 				CvSelectionGroup* pG = u->getGroup();
-				fprintf(f, "%s[\"%s\",\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]", bFirstU ? "" : ",",
+				// then: unit id, damage, moves used, fortify turns, promotions ('|'-separated)
+				CvString szPromos;
+				for (int iPr = 0; iPr < GC.getNumPromotionInfos(); ++iPr)
+				{
+					if (!u->isHasPromotion((PromotionTypes)iPr)) continue;
+					if (!szPromos.empty()) szPromos += "|";
+					szPromos += GC.getPromotionInfo((PromotionTypes)iPr).getType() + 10;
+				}
+				fprintf(f, "%s[\"%s\",\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,\"%s\"]", bFirstU ? "" : ",",
 					GC.getUnitInfo(u->getUnitType()).getType() + 5, CvString(w).GetCString(), u->getExperience(), u->getLevel(),
 					u->canFight() ? 1 : 0, u->getX_INLINE(), u->getY_INLINE(), u->getArea(), g.getGameTurn() - u->getGameTurnCreated(),
 					pG != NULL ? pG->getNumUnits() : 0, pG != NULL ? (int)pG->AI_getMissionAIType() : -1,
-					u->plot()->getOwnerINLINE(), u->isCargo() ? 1 : 0);
+					u->plot()->getOwnerINLINE(), u->isCargo() ? 1 : 0, u->getID(), u->getDamage(), u->getMoves(),
+					u->getFortifyTurns(), szPromos.c_str());
 				bFirstU = false;
+			}
+			fprintf(f, "],");
+			// Resources: available, imported, exported (non-zero only).
+			fprintf(f, "\"bonuses\":[");
+			bool bFirstB = true;
+			for (int iB = 0; iB < GC.getNumBonusInfos(); ++iB)
+			{
+				const int iAv = k.getNumAvailableBonuses((BonusTypes)iB), iIm = k.getBonusImport((BonusTypes)iB), iEx = k.getBonusExport((BonusTypes)iB);
+				if (iAv == 0 && iIm == 0 && iEx == 0) continue;
+				fprintf(f, "%s[\"%s\",%d,%d,%d]", bFirstB ? "" : ",", GC.getBonusInfo((BonusTypes)iB).getType() + 6, iAv, iIm, iEx);
+				bFirstB = false;
+			}
+			// Relations with every other living civilisation: met, war, war plan, open borders, defensive
+			// pact, war weariness, war success, attitude and its value (AI only, else -99), memory counts.
+			fprintf(f, "],\"worstEnemy\":%d,\"diplo\":[", k.isHuman() ? -1 : (int)kT.AI_getWorstEnemy());
+			bool bFirstD = true;
+			for (int j = 0; j < MAX_CIV_PLAYERS; ++j)
+			{
+				CvPlayerAI& kJ = GET_PLAYER((PlayerTypes)j);
+				if (j == i || !kJ.isAlive()) continue;
+				const TeamTypes eTJ = kJ.getTeam();
+				fprintf(f, "%s[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,[", bFirstD ? "" : ",", j, kT.isHasMet(eTJ) ? 1 : 0, kT.isAtWar(eTJ) ? 1 : 0,
+					(int)kT.AI_getWarPlan(eTJ), kT.isOpenBorders(eTJ) ? 1 : 0, kT.isDefensivePact(eTJ) ? 1 : 0, kT.getWarWeariness(eTJ),
+					kT.AI_getWarSuccess(eTJ), k.isHuman() ? -99 : (int)k.AI_getAttitude((PlayerTypes)j), k.isHuman() ? -99 : k.AI_getAttitudeVal((PlayerTypes)j));
+				for (int m = 0; m < NUM_MEMORY_TYPES; ++m) fprintf(f, "%s%d", m ? "," : "", k.AI_getMemoryCount((PlayerTypes)j, (MemoryTypes)m));
+				fprintf(f, "]]");
+				bFirstD = false;
 			}
 			fprintf(f, "],");
 		}
@@ -194,6 +343,28 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 				bFirstB = false;
 			}
 			fprintf(f, "]");
+			// City tiles: worked (1/0), terrain, feature, improvement, hills, river, bonus, food, hammers,
+			// commerce; then specialists and the improved tiles the city works or could work.
+			fprintf(f, ",\"tiles\":[");
+			bool bFirstT = true;
+			int iImproved = 0, iRadius = 0;
+			for (int iP = 0; iP < NUM_CITY_PLOTS; ++iP)
+			{
+				CvPlot* pP = c->getCityIndexPlot(iP);
+				if (pP == NULL || pP->getWorkingCity() != c) continue;
+				++iRadius;
+				if (pP->getImprovementType() != NO_IMPROVEMENT) ++iImproved;
+				const BonusTypes eB = pP->getBonusType(k.getTeam());
+				fprintf(f, "%s[%d,\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",%d,%d,%d]", bFirstT ? "" : ",", c->isWorkingPlot(iP) ? 1 : 0,
+					GC.getTerrainInfo(pP->getTerrainType()).getType() + 8,
+					pP->getFeatureType() != NO_FEATURE ? GC.getFeatureInfo(pP->getFeatureType()).getType() + 8 : "-",
+					pP->getImprovementType() != NO_IMPROVEMENT ? GC.getImprovementInfo(pP->getImprovementType()).getType() + 12 : "-",
+					pP->isHills() ? 1 : 0, pP->isRiver() ? 1 : 0, eB != NO_BONUS ? GC.getBonusInfo(eB).getType() + 6 : "-",
+					pP->getYield(YIELD_FOOD), pP->getYield(YIELD_PRODUCTION), pP->getYield(YIELD_COMMERCE));
+				bFirstT = false;
+			}
+			fprintf(f, "],\"spec\":%d,\"improved\":%d,\"radius\":%d,\"trade\":[%d,%d]", c->getSpecialistPopulation(), iImproved, iRadius,
+				c->getTradeRoutes(), c->getTradeYield(YIELD_COMMERCE));
 			if (getenv("HARNESS_VALUE_DIAG") != NULL && !k.isHuman())
 			{
 				// The city AI's own building values (AI_buildingValue draws no
@@ -369,6 +540,80 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 			bFirstT = false;
 		}
 		fprintf(f, "}");
+		// Every plot: x, y, terrain, plot type, feature, resource, improvement, route, owner, working city
+		// (owner, x, y), upgrade progress, river, irrigated, worked, food, hammers, commerce, revealed to the
+		// first human team, the improvement that team sees there.
+		// A loaded save has its human seats handed to the AI (HarnessHooks.cpp), so isHuman() is false
+		// here: HARNESS_HUMAN=<player> names the seat that was human (initcore.py reads it from the save).
+		TeamTypes eHumanTeam = NO_TEAM;
+		const char* szHuman = getenv("HARNESS_HUMAN");
+		if (szHuman != NULL && atoi(szHuman) >= 0 && atoi(szHuman) < MAX_CIV_PLAYERS) eHumanTeam = GET_PLAYER((PlayerTypes)atoi(szHuman)).getTeam();
+		fprintf(f, ",\"humanSeat\":%d", szHuman != NULL ? atoi(szHuman) : -1);
+		CvMap& kMap = GC.getMapINLINE();
+		// What a turn-0 scenario of this map needs (save2scn.py): the map's wrap and size, the game's
+		// options and victories, every seat (team, civilization, leader, handicap, starting plot), and per
+		// plot in plot order the river edges (direction when north / west of a river, else -1) and the
+		// feature variety.
+		fprintf(f, ",\"setup\":{\"w\":%d,\"h\":%d,\"wrapX\":%d,\"wrapY\":%d,\"top\":%d,\"bottom\":%d,\"era\":\"%s\",\"options\":[",
+			kMap.getGridWidthINLINE(), kMap.getGridHeightINLINE(), kMap.isWrapXINLINE() ? 1 : 0, kMap.isWrapYINLINE() ? 1 : 0,
+			kMap.getTopLatitude(), kMap.getBottomLatitude(), GC.getEraInfo(GC.getGameINLINE().getStartEra()).getType());
+		bool bFirstO = true;
+		for (int o = 0; o < NUM_GAMEOPTION_TYPES; ++o)
+		{
+			if (!GC.getGameINLINE().isOption((GameOptionTypes)o)) continue;
+			fprintf(f, "%s\"%s\"", bFirstO ? "" : ",", GC.getGameOptionInfo((GameOptionTypes)o).getType());
+			bFirstO = false;
+		}
+		fprintf(f, "],\"victories\":[");
+		bFirstO = true;
+		for (int v = 0; v < GC.getNumVictoryInfos(); ++v)
+		{
+			if (!GC.getGameINLINE().isVictoryValid((VictoryTypes)v)) continue;
+			fprintf(f, "%s\"%s\"", bFirstO ? "" : ",", GC.getVictoryInfo((VictoryTypes)v).getType());
+			bFirstO = false;
+		}
+		fprintf(f, "],\"seats\":[");
+		bFirstO = true;
+		for (int i = 0; i < MAX_CIV_PLAYERS; ++i)
+		{
+			CvPlayer& kS = GET_PLAYER((PlayerTypes)i);
+			if (kS.getCivilizationType() == NO_CIVILIZATION || kS.getLeaderType() == NO_LEADER) continue;
+			const CvPlot* pS = kS.getStartingPlot();
+			fprintf(f, "%s[%d,%d,\"%s\",\"%s\",\"%s\",%d,%d,%d]", bFirstO ? "" : ",", i, (int)kS.getTeam(),
+				GC.getCivilizationInfo(kS.getCivilizationType()).getType(), GC.getLeaderHeadInfo(kS.getLeaderType()).getType(),
+				GC.getHandicapInfo(kS.getHandicapType()).getType(), pS ? pS->getX_INLINE() : -1, pS ? pS->getY_INLINE() : -1,
+				kS.isAlive() ? 1 : 0);
+			bFirstO = false;
+		}
+		fprintf(f, "],\"plotx\":[");
+		for (int iP = 0; iP < kMap.numPlotsINLINE(); ++iP)
+		{
+			CvPlot* pP = kMap.plotByIndexINLINE(iP);
+			fprintf(f, "%s[%d,%d,%d]", iP ? "," : "", pP->isNOfRiver() ? (int)pP->getRiverWEDirection() : -1,
+				pP->isWOfRiver() ? (int)pP->getRiverNSDirection() : -1, pP->getFeatureVariety());
+		}
+		fprintf(f, "]}");
+		fprintf(f, ",\"plots\":[");
+		for (int iP = 0; iP < kMap.numPlotsINLINE(); ++iP)
+		{
+			CvPlot* pP = kMap.plotByIndexINLINE(iP);
+			CvCity* pW = pP->getWorkingCity();
+			const ImprovementTypes eRI = eHumanTeam != NO_TEAM ? pP->getRevealedImprovementType(eHumanTeam, false) : NO_IMPROVEMENT;
+			fprintf(f, "%s\n[%d,%d,\"%s\",%d,\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,\"%s\"]", iP ? "," : "",
+				pP->getX_INLINE(), pP->getY_INLINE(), GC.getTerrainInfo(pP->getTerrainType()).getType() + 8, (int)pP->getPlotType(),
+				pP->getFeatureType() != NO_FEATURE ? GC.getFeatureInfo(pP->getFeatureType()).getType() + 8 : "-",
+				pP->getBonusType() != NO_BONUS ? GC.getBonusInfo(pP->getBonusType()).getType() + 6 : "-",
+				pP->getImprovementType() != NO_IMPROVEMENT ? GC.getImprovementInfo(pP->getImprovementType()).getType() + 12 : "-",
+				pP->getRouteType() != NO_ROUTE ? GC.getRouteInfo(pP->getRouteType()).getType() + 6 : "-",
+				pP->getOwnerINLINE(), pW ? (int)pW->getOwnerINLINE() : -1, pW ? pW->getX_INLINE() : -1, pW ? pW->getY_INLINE() : -1,
+				pP->getUpgradeProgress(), pP->isRiver() ? 1 : 0, pP->isIrrigated() ? 1 : 0, pP->isBeingWorked() ? 1 : 0,
+				pP->getYield(YIELD_FOOD), pP->getYield(YIELD_PRODUCTION), pP->getYield(YIELD_COMMERCE),
+				eHumanTeam != NO_TEAM && pP->isRevealed(eHumanTeam, false) ? 1 : 0,
+				eRI != NO_IMPROVEMENT ? GC.getImprovementInfo(eRI).getType() + 12 : "-");
+		}
+		fprintf(f, "],\"memoryTypes\":[");
+		for (int m = 0; m < NUM_MEMORY_TYPES; ++m) fprintf(f, "%s\"%s\"", m ? "," : "", GC.getMemoryInfo((MemoryTypes)m).getType());
+		fprintf(f, "]");
 		fprintf(f, ",\"replay\":[");
 		for (uint r = 0; r < g.getNumReplayMessages(); ++r)
 		{
@@ -381,5 +626,14 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 	}
 	fprintf(f, "}\n");
 	fclose(f);
+	// HARNESS_PROBE=<file> (with HARNESS_HUMAN): counterfactual civics of the human seat and the AIs'
+	// tech values, inside the guard above, so random seeds and AI caches are restored afterwards.
+	const char* szProbe = getenv("HARNESS_PROBE");
+	static bool bProbed = false;
+	if (szProbe != NULL && !bProbed && getenv("HARNESS_HUMAN") != NULL)
+	{
+		bProbed = true;
+		HH_probe(szProbe, (PlayerTypes)atoi(getenv("HARNESS_HUMAN")));
+	}
 	return 0;
 }

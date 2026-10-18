@@ -56,6 +56,19 @@ insert('CvPlayer.cpp', 'void CvPlayer::setTurnActive(', 'doTurnUnits();',
        ' HH_oracleBeforeMoves(getID());', 'void HH_oracleBeforeMoves(PlayerTypes ePlayer);', after=True)
 insert('CvEventReporter.cpp', 'void CvEventReporter::changeWar(', '{\r\n',
        '\tHH_noteChangeWar(bWar, eTeam, eOtherTeam);', 'void HH_noteChangeWar(bool bWar, TeamTypes eTeam, TeamTypes eOtherTeam);', after=True)
+# The human model (HarnessHuman.cpp): with HARNESS_HM_PLAYER set, one seat's research, civics,
+# slider, city production, wars, attacks and tech sales follow a policy file; each hook returns at once otherwise.
+# HH_hmAfterWar runs after the AI's war planning, to drop plans the model did not choose.
+for name, function, call, decl in (
+        ('CvPlayerAI.cpp', 'void CvPlayerAI::AI_chooseResearch(', '\tif (HH_hmResearch(this)) return;', 'bool HH_hmResearch(CvPlayerAI* p);'),
+        ('CvPlayerAI.cpp', 'void CvPlayerAI::AI_doCivics(', '\tif (HH_hmCivics(this)) return;', 'bool HH_hmCivics(CvPlayerAI* p);'),
+        ('CvPlayerAI.cpp', 'void CvPlayerAI::AI_doCommerce(', '\tif (HH_hmCommerce(this)) return;', 'bool HH_hmCommerce(CvPlayerAI* p);'),
+        ('CvPlayerAI.cpp', 'void CvPlayerAI::AI_unitUpdate(', '\tif (HH_hmTactics(this)) return;', 'bool HH_hmTactics(CvPlayerAI* p);'),
+        ('CvCityAI.cpp', 'void CvCityAI::AI_chooseProduction(', '\tif (HH_hmChooseProduction(this)) return;', 'bool HH_hmChooseProduction(CvCityAI* c);'),
+        ('CvTeamAI.cpp', 'void CvTeamAI::AI_doWar(', '\tif (HH_hmDoWar(this)) return;', 'bool HH_hmDoWar(CvTeamAI* t);'),
+        ('CvPlayerAI.cpp', 'void CvPlayerAI::AI_doDiplo(', '\tHH_hmDiplo(this);', 'void HH_hmDiplo(CvPlayerAI* p);')):
+    insert(name, function, '{\r\n', call, decl, after=True)
+insert('CvTeamAI.cpp', 'void CvTeamAI::AI_doTurnPost(', 'AI_doWar();', ' HH_hmAfterWar(this);', 'void HH_hmAfterWar(CvTeamAI* t);', after=True)
 # Count the Python events the DLL reports (the harness runs without Python).
 import re
 p = d + '/CvDllPythonEvents.cpp'

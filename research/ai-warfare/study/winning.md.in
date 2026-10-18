@@ -1,0 +1,262 @@
+<!-- registry: win.fig.json as w -->
+# Why the human wins: the four logged games
+
+Method: `framework.md`. The queries are declared in `study/queries_win.json` and turned into
+figures by `tools/sqlfig.py`. Each table states what it counts, who, when, and from which
+source. Facts come first, readings in section 7. The decision rules behind the human's play are
+in `study/human.md`, and the tiles, trade and combat data in `study/data.md`.
+
+## 1. Questions
+
+- **Q1.** When does the human's lead open, and in what: cities, commerce, research or power?
+  Source: M lines (game 3 and game 4; game 1 and game 2 have none) and K lines.
+- **Q2.** What raises the human's commerce: new cities, population, civics, techs or golden ages?
+  Source: M lines, CIVICS commands, X and K lines. The size of each civic's effect comes from the
+  probe in the save dump, which swaps one civic and recalculates (`toolchain/analysis/dump.sh`).
+- **Q3.** Do the AIs take the same civics and techs, and if not, what does their code value
+  instead? Source: the save dump (civics, techs, the AI's tech values) and `CvPlayerAI.cpp`.
+- **Q4.** How do the human's wars go, and what do the AIs do in them? Source: W, Q, C, R, K and
+  G lines.
+
+## 2. The whole game
+
+Cities, commerce, research and power at every fiftieth turn and at the last full turn, human
+against the AI median:
+
+{{table:w.game3_trajectory}}
+
+{{table:w.game4_trajectory}}
+
+Where the human's cities came from, in all four games:
+
+{{table:w.game1_city_sources}}
+
+{{table:w.game2_city_sources}}
+
+{{table:w.game3_city_sources}}
+
+{{table:w.game4_city_sources}}
+
+## 3. Commerce
+
+### 3.1 When it rises
+
+The first turn of each run of turns in which the human's commerce rose by more than a quarter
+over three turns:
+
+{{table:w.game3_commerce_jumps}}
+
+{{table:w.game4_commerce_jumps}}
+
+Anarchy shows in the M lines as commerce and research of one: `CvCity::isDisorder` is true while
+the owner is in anarchy (`CvCity.cpp:4671–4674`), and a city in disorder yields no commerce. These turns
+are left out above, and counted here for every player:
+
+{{table:w.game3_anarchy_turns}}
+
+{{table:w.game4_anarchy_turns}}
+
+### 3.2 Every civic switch of the human
+
+Each turn with a CIVICS command, with the last M line before it and the first after it that is
+not an anarchy turn. The first column lists the civics adopted; the first row is the start:
+
+{{table:w.game3_civic_switches}}
+
+{{table:w.game4_civic_switches}}
+
+### 3.3 What each civic is worth at the save
+
+The probe sets one civic of the human's to an alternative, recalculates the empire, records the
+totals and restores the original. The table gives the change against the human's actual civics
+(negative: the alternative is worse). It is static: the tiles worked and the buildings stay as
+they are.
+
+{{table:w.game3_civic_worth}}
+
+{{table:w.game4_civic_worth}}
+
+The same swaps against the AI code's own value of each civic for the human's empire
+(`AI_civicValue`, with the human's seat handed to the AI in the dump):
+
+{{table:w.game3_civic_value_vs_probe}}
+
+{{table:w.game4_civic_value_vs_probe}}
+
+## 4. What the AIs adopt and research
+
+Civics held at the save:
+
+{{table:w.game3_economy_civics}}
+
+{{table:w.game4_economy_civics}}
+
+The techs that unlock them (the `TechPrereq` of each civic, in the appendix), held at the save:
+
+{{table:w.game3_economy_techs}}
+
+{{table:w.game4_economy_techs}}
+
+Currency in each AI's research ranking at the save: the AI's own `AI_techValue` of every tech it
+can research now, computed by the probe:
+
+{{table:w.game3_currency_rank}}
+
+{{table:w.game4_currency_rank}}
+
+### 4.1 What the AI code values
+
+In `CvPlayerAI::AI_techValue` (`CvPlayerAI.cpp:5943–5966`, GitLab `main`), each civic a tech
+unlocks adds:
+- `200`;
+- `min(2400, 2400 * (new - current) / current)` of the AI's own civic values, when the new civic
+  is valued above the one held;
+- `600` when the civic is the leader's favourite.
+
+So a civic that doubles the value of the one held gets the same term as one that is ten times
+better. Currency unlocks Coinage, Fiscus and Proletariat (their `TechPrereq`, appendix), and no
+leader has one of the three as `FavoriteCivic` in `LeaderHeadInfo`. The total is then divided by
+the turns of research left (`CvPlayerAI.cpp:6141–6152`), and a random term is added
+(`CvPlayerAI.cpp:5301–5310`).
+
+The harness recomputes that civic block for every AI, with the AI's own civic values, and scales
+it by the same divisor. Its part in the AI's value of Currency, Currency's rank with and without
+the cap (the cap lifted for every tech), and the AI's value of each civic Currency unlocks against
+the civic it holds in that option:
+
+{{table:w.game3_currency_civic_term}}
+
+{{table:w.game4_currency_civic_term}}
+
+
+An AI that holds the tech switches civics in `CvPlayerAI::AI_doCivics`
+(`CvPlayerAI.cpp:16738–16825`): it scores every civic it can adopt, sums the best of each option
+against the current set, and switches when `AICivicPolicy::shouldSwitch` accepts the gain against
+the anarchy turns.
+
+## 5. Technology
+
+Techs held, and techs traded with the human in deals, by turn:
+
+{{table:w.game3_tech_sources}}
+
+{{table:w.game4_tech_sources}}
+
+## 6. Wars
+
+Every war between the human and an AI. The power ratio is the human's power over the
+opponent's in the M lines of the turn before the declaration:
+
+{{table:w.game1_war_ledger}}
+
+{{table:w.game2_war_ledger}}
+
+{{table:w.game3_war_ledger}}
+
+{{table:w.game4_war_ledger}}
+
+Every battle the human fought:
+
+{{table:w.game1_units_ledger}}
+
+{{table:w.game2_units_ledger}}
+
+{{table:w.game3_units_ledger}}
+
+{{table:w.game4_units_ledger}}
+
+What the AI the human declared on did during the war (G lines are stacks, logged at the start of
+each player's turn):
+
+{{table:w.game3_ai_response}}
+
+{{table:w.game4_ai_response}}
+
+## 7. Readings
+
+Each reading names its facts and what would refute it. The economic readings rest on two games,
+the war readings on four.
+
+1. **The lead opens late, and commerce grows much faster than cities.**
+   - Facts (section 2):
+     - in the fourth row of each trajectory, the human's commerce and research are below the AI
+       median in game 4 and somewhat above it in game 3; in the fifth, under twice it in both;
+     - in the sixth, they are several times the median, while the human's cities are under three
+       times the median;
+     - the human captures its first city in the period in which the commerce lead opens, in both
+       games.
+   - Refuted if: a further game where the human's commerce per city stays near the AIs' while
+     it conquers.
+2. **Coinage, Fiscus and Proletariat roughly double the human's commerce on the same land.**
+   - Facts:
+     - In game 3, the switch to Fiscus, Coinage and Proletariat leaves cities and population
+       unchanged between the two M lines, while commerce more than doubles (section 3.2).
+     - In game 4, the switch to Coinage and Proletariat comes right after a golden age ended. The
+       commerce after it is above the level before the golden age ended, with the same cities and
+       population.
+     - At the save, the probe values Coinage over every other economy civic in both games, and
+       Proletariat far above Peasantry in hammers in game 4 (section 3.3).
+   - Not separated: the golden age in game 4, which began on the turn of the switch to Metals,
+     and the probe's fixed tiles. A dynamic counterfactual is open.
+   - Refuted if: a replay from the save before the switch, without it, reaching the same
+     commerce within a few turns.
+3. **The AIs neither research Currency nor run these civics.**
+   - Facts:
+     - at the save, no AI holds Coinage, Fiscus or Proletariat in either game;
+     - in game 3 no AI holds Currency; in game 4 one does, acquired two turns before the last
+       M line (X lines);
+     - most AIs could research it now, and none ranks it first (section 4).
+   - What the AI code does (section 4.1):
+     - the civic term is a large part of every AI's value of Currency;
+     - without the cap, Currency would rank first or second for nearly half the AIs in game 4,
+       and for some in game 3. So the cap lowers the rank, but for the other AIs it does not
+       decide it;
+     - most AIs value Coinage below the economy civic they hold. With Currency, `AI_doCivics`
+       would leave them in it. For the human's empire, the same function values Coinage above
+       every alternative, as the probe does (section 3.3).
+   - Open: whether Coinage is worth less on the AIs' empires, which have fewer trade routes per
+     city (`study/data.md`, section 3), or whether `AI_civicValue` undervalues it there.
+     `AI_civicValue` models the added route and the trade modifiers
+     (`CvPlayerAI.cpp:13287–13311`). The test is the civic probe on an AI seat with Coinage set
+     in place.
+   - Refuted if: that probe shows Coinage worth no more than the civic the AI holds.
+4. **The human sells technology.**
+   - Facts (section 5): after the first trades, it gives more techs in deals than it receives,
+     in both games; by the save, several times as many. The gold it receives is in
+     `study/data.md`, section 3.
+5. **The human fights weaker AIs, and the AIs do not strike back.**
+   - Facts (section 6):
+     - every war in all four games was declared by the human;
+     - wherever power is logged (game 3 and game 4), the human had more power than its opponent
+       at the declaration;
+     - in all four games, almost every battle is a human attack, and AI attacks on the human are
+       zero or one in each war;
+     - in game 3 and game 4, AI stacks near the human's cities appear in one war only.
+   - Refuted if: a further game where an AI the human attacks takes cities back, or attacks the
+     human's units in the field as often as it attacks other AIs.
+
+## 8. Open
+
+- **Coinage on an AI's empire** (reading 3): the civic probe on AI seats, with Coinage, Fiscus
+  and Proletariat set in place although the AI lacks Currency. A change to the cap or to
+  `AI_civicValue` is an AI change and is judged by experiment: seeded runs per arm in the number
+  `framework.md` sets, fixed opponents, ranks compared.
+- **A dynamic civic counterfactual** (reading 2): the same replay from a save with and without the
+  switch.
+- **Trade against city size and position**, and **combat against unit and terrain**, as in
+  `study/data.md`.
+- **Game 1 and game 2** have no M lines, so every reading but the fifth rests on two games.
+
+## Appendix: XML records of the types counted
+
+{{effects:w.game3_economy_civics}}
+
+{{effects:w.game4_economy_civics}}
+
+{{effects:w.game3_civic_worth}}
+
+{{effects:w.game4_civic_worth}}
+
+{{effects:w.game3_economy_techs}}
+
+{{effects:w.game4_economy_techs}}

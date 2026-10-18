@@ -1,0 +1,30 @@
+branch,choices
+choose min defender,109
+choose iEconomyFlags 1,63
+choose BUILDINGFOCUS_FOOD 2,53
+choose floating defender 2,33
+choose losing extra defense,28
+choose floating defender 1,22
+choose min defender (attack ai),18
+escort existing settler 1 defense,16
+build settler 1,13
+early sea explore,11
+choose add to city attack stack,10
+special BUILDINGFOCUS_EXPERIENCE 1a,8
+choose building by probability,8
+choose unit by probability,8
+choose panic defender,6
+choose iEconomyFlags 2,6
+danger minimal attack,6
+special BUILDINGFOCUS_EXPERIENCE 1,6
+build assault,5
+minimal naval,5
+escort existing settler 1 attack,3
+no defenders,3
+choose BUILDINGFOCUS_PRODUCTION 2,3
+early settler sea,3
+choose BUILDINGFOCUS_FOOD 1,3
+choose worker 2,3
+choose start city attack stack,2
+choose iEconomyFlags 3,1
+choose worker 1,1

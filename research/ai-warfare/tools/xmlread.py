@@ -226,6 +226,7 @@ for pos, rel, rtype, key, rec in sorted(raw, key=load_key):
         table[key]['_sources'] = table[key].get('_sources', []) + [rel]
     else:
         rec['_sources'] = [rel]
+        rec['_index'] = len(table)  # the record's index in the game (load order); war-log lines print indices
         table[key] = rec
 
 os.makedirs(OUT, exist_ok=True)

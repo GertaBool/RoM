@@ -1,0 +1,280 @@
+<!-- registry: war.fig.json as wr -->
+# How the human plans, organises and fights its wars
+
+The human's wars in game 3 and game 4, one by one: from the build-up before the declaration, through the
+march and the assault, to the peace. Game 3 is Germany, game 4 Rome (P lines). These are the two
+games with city-state (Y) lines. Method: `framework.md`. Every table is written by
+`tools/warstudy.py` from the war logs, and the tool's header gives each table's source. Section 8
+gives the readings, separately from the facts, and section 9 sets them against the literature.
+
+## 1. Questions
+
+- **Q1. Planning.** When does the human go to war, against whom, and with what forces? What does it
+  build, upgrade and promote beforehand? Source: W, Q and M lines; U lines; A lines
+  (COMMAND_UPGRADE, COMMAND_PROMOTION).
+- **Q2. Organisation.** Where is the army when war is declared, how did it get there, and does it
+  use ships? Source: Y lines (other players' units within two plots of each target city); A lines
+  (move orders, group commands, orders of land units standing on water); naval moves.
+- **Q3. Target choice.** Which of the target's cities does it take? Source: Y lines (each city's
+  defenders, defence, size, the units near it), K lines; maximum-likelihood strategy classification
+  (Bröder, in *Heuristics*, chapter 17).
+- **Q4. Execution.** How are the cities taken: how many attacks, at what odds, with which units, in
+  what order? Source: C, R, B and K lines.
+- **Q5. The end.** When does it make peace, for what, and what happens at home meanwhile? Source: Q
+  lines and the peace deal; Y lines of the human's cities; C and K lines with the human defending.
+
+## 2. The wars
+
+{{table:wr.war_overview}}
+
+- **Game 3:** two wars, each against a single target, with peace before the next.
+- **Game 4:** the first four wars run the same way: one target at a time, peace before the next.
+  Each of them took one or two cities and ended in peace a few days after the declaration. From
+  the fifth declaration on, the wars overlap: the human was at war with several AIs at once, until
+  the save.
+- **Power ratio.** It was at least two in every war but one (game 4's second).
+- **First capture.** In most wars the first city fell on the day of the declaration.
+
+## 3. Planning: the build-up (Q1)
+
+{{table:wr.war_buildup}}
+
+- **More of everything before each war.** In the thirty turns before each declaration, the human
+  built more fighting units than in the thirty turns before those. It also gave more upgrade and
+  promotion commands, every time.
+- **New kinds of unit before game 4's later wars.** Siege units (DefaultUnitAI ATTACK_CITY) and
+  warships (ATTACK_SEA) appear only from the fourth war on. Before the first three wars, the
+  ships built are transports (ASSAULT_SEA).
+
+{{table:wr.war_upgrades}}
+
+- **What the upgrades went to.**
+  - Game 3: Warbands, before both wars.
+  - Game 4's first three wars: Velites.
+  - From the fourth war on: Triarii, Principes, Auxiliaries, and from the fifth also Roman
+    Legionaries. These are units of {{eff:wr.war_upgrades:ROME_LEGIONARY:iCombat}} (Legionary) and
+    {{eff:wr.war_upgrades:AUXILIAR:iCombat}} (Auxiliary) strength. Velites have
+    {{eff:wr.war_upgrades:VELITES:iCombat}} (records in the appendix).
+
+## 4. Organisation: the approach and the staging (Q2)
+
+{{table:wr.war_approach}}
+
+- **The approach.** In the days before each declaration, the human's fighting units were ordered
+  toward the cities it then took. In both games' early wars, the moves of the declaration day ended
+  next to those cities, often on them. In game 4's last wars the moves came from further away, and
+  ended further from the cities taken, on several fronts at once.
+- **How the orders were given.** One order sends a unit or group several turns away, so the table
+  shows order days, not every day of the march.
+
+{{table:wr.war_staging}}
+
+- **Staging at the declaration.** At the moment of declaring, before its own moves, several of the
+  human's units already stood within two plots of the first city it took in most wars. The
+  exceptions are game 3's second war and game 4's last: no unit was near, and the first capture
+  came later.
+- **Groups and ships.** Group commands and naval moves were few before the early wars, and grew
+  over game 4's wars. Orders given to land units standing on water show sea landings:
+  - in single cases before game 4's first three wars;
+  - in game 4's last three wars: the most such orders of any wars, and the most naval moves.
+
+## 5. Target choice (Q3)
+
+{{table:wr.war_targets}}
+
+{{table:wr.war_choice}}
+
+- **The choice is spatial.** Of the single cues, the nearest city to the human's own is the best
+  predictor of which city it took, with the lowest error rate. Next come the city with the most of
+  the human's units near it, and the smallest city.
+- **Weakness alone predicts less.** Fewest defenders and the lowest defence modifier predict less,
+  and the largest city less than guessing.
+- **The best rule:** take the nearest city, and among the nearest the one with the most units near
+  it. It has the highest likelihood of the rules tried, each with one parameter.
+- **The rows above show the pattern.**
+  - The cities taken on the day of a declaration were small, near the human's border, defended by
+    one or two units, and had the human's units next to them.
+  - The target's large, walled cities further away were left, until game 4's last wars.
+
+## 6. Execution (Q4)
+
+{{table:wr.war_days}}
+
+{{table:wr.war_assaults}}
+
+- **The early wars** (game 3's first, and game 4's first four) took each city with one to three
+  attacks, or none:
+  - all at high odds, none under five hundred per mille;
+  - by Warbands in game 3, and by Hastati and Principes in game 4.
+- **Game 3's second war** took a city of several defenders. Every attack was at high odds again,
+  over the days of a march.
+- **The later wars of game 4 were sieges of large cities with many defenders.** An assault there:
+  - often opens with a Centurio. It is the strongest unit the human fielded, of strength
+    {{eff:wr.war_assaults:CENTURIO:iCombat}}.
+  - then comes a series of Legionary attacks.
+  - at the largest city, some attacks at low odds came early in the series: units lost to wear the
+    defenders down. The later attacks then won at high odds.
+  - warships attacked as well (`ship_attacks`), and cities fell on consecutive days.
+
+## 7. The end of a war, and the home front (Q5)
+
+{{table:wr.war_peace}}
+
+- **When peace came.** The early wars ended in peace within a few days of the last capture.
+- **What it brought.** In game 4, the peace of the second to fourth wars brought the loser's gold,
+  and the seventh a tech and gold per turn.
+
+{{table:wr.war_home}}
+
+- **The home front.** While at war, the human's own cities kept their usual garrisons, one or two
+  defenders, and several had only one. The targets almost never attacked the human, and it lost no
+  city in any war.
+
+## 8. Readings
+
+Each reading names the facts it rests on and what would contradict it.
+
+- **R1. A war is a raid planned on one city at a time.**
+  - The human chooses a city it can reach and take at once: the nearest, with its army already
+    next to it. It declares only when the army stands there. The power advantage of about two is a
+    precondition, not the trigger.
+  - *Rests on:* [[sections 4 and 5]] (staging, the classification); [[section 2]] (first captures
+    on the declaration day).
+  - *Contradicted by:* declarations with no unit near any target city, followed by a long march.
+    Game 3's second war and game 4's last are such cases.
+- **R2. The build-up is gold turned into an army just before it is used.**
+  - Upgrades and promotions rise sharply in the thirty turns before each war. They raise existing
+    units to the newest class rather than training new ones.
+  - *Rests on:* [[section 3]]; `study/playstyle.md` (the army is upgraded, not trained).
+  - *Contradicted by:* upgrades spread evenly over the game, or coming after the declarations.
+- **R3. The logistics follow the target.**
+  - When the target is across water, the army goes by ship: transports before the early raids,
+    warships and landings in the later wars.
+  - *Rests on:* [[sections 3 and 4]] (transports and warships built, orders of land units at sea,
+    naval moves).
+  - *Contradicted by:* sea landings where a land path existed. Open: the logs do not give the path
+    the units could have taken.
+- **R4. The assault spends units only where the city requires it.**
+  - Small cities are taken by a few attacks at high odds.
+  - Large cities by an opening attack of the strongest unit, accepted losses at low odds, then the
+    main attack.
+  - *Rests on:* [[section 6]].
+  - *Contradicted by:* low-odds attacks on weakly held cities.
+- **R5. Peace is taken as soon as the objective is held, and the loser pays.**
+  - *Rests on:* [[section 7]].
+  - *Contradicted by:* wars continued without further captures.
+- **R6. The home front is left thin, because the AI does not strike back.**
+  - Only the army near the target matters to the human. The AI's counter-attacks, which a thin
+    home front would invite, did not come.
+  - *Rests on:* [[section 7]] (garrisons of one or two, no city lost, almost no attacks on the
+    human).
+  - *Contradicted by:* AI counter-offensives against the human's lightly held cities.
+- **R7. Game 4's later wars are a second mode: a campaign.**
+  - After the army was rebuilt as Legionaries, Auxiliaries and Centurios (with the techs these
+    need), the human fought several AIs at once and besieged large cities.
+  - *Rests on:* [[sections 2, 3 and 6]].
+  - *Open:* whether the switch follows the new units, the size of the army, or the end of the weak
+    targets nearby.
+
+## 9. The readings and the literature
+
+Each reading is set against a classic of military thought, read for this study (`framework.md`,
+section 9). A text supports a reading only where the logged facts already show it, and the
+literature adds one test of its own.
+
+- **R1, a raid on one city, and R5, peace once it is held.**
+  - Clausewitz describes the attack "without the view to a great decision", directed at "some
+    secondary object". With its attainment, "the whole falls again into a state of rest and
+    equilibrium" (*On War*, Book VII, chapter XVI).
+  - In such wars the fortress taken is the usual object, valued for "the convenience and facility
+    with which it could be attacked" rather than "the value of the place itself" (same chapter).
+  - The assailant "buys up prospective advantages which are to be turned to account hereafter in
+    negotiations for peace" (Book VII, chapter V). The human's gold at the peace is that account.
+- **R1, the nearest city.**
+  - A conquest weakens the conqueror the less, "the more it is an annex of our own country, being
+    contiguous to or embraced by it" (Book VIII, chapter VII).
+  - Sun Tzu: "You can be sure of succeeding in your attacks if you only attack places which are
+    undefended" (*The Art of War*, chapter VI, [[§7]]).
+  - The classification of [[section 5]] has the human choose by nearness first and by
+    defencelessness after. It is one of the two Clausewitzian conditions, and it keeps the conquest
+    an annex.
+- **R1 and R2, staging and timing.**
+  - Jomini's sequence of a campaign:
+    1. a base;
+    2. a first objective point;
+    3. a line of operations toward it;
+    4. "strategic positions" near it;
+    5. the attack (*The Art of War*, chapter III, definition of strategy).
+  - Sun Tzu: "Knowing the place and the time of the coming battle, we may concentrate from the
+    greatest distances in order to fight" (chapter VI, [[§19]]).
+  - The approach of [[section 4]] runs through that sequence.
+- **R4, sieges.**
+  - Sun Tzu calls besieging walled cities "the worst policy of all", "if it can possibly be
+    avoided" (chapter III, [[§3 and 4]]).
+  - The human took walled cities only once its army was Legionaries and Centurios. Before that,
+    it chose others.
+- **R3, the sea.**
+  - Mahan: changes in the means of transport alter the scale of distance and time, not "the
+    principles which dictated the point at which the army should be concentrated" (*The Influence
+    of Sea Power upon History*, introductory chapter).
+  - Jomini: before gunpowder, "the transports were also the ships of war". In the records here, a
+    galley and a quinquereme carry
+    {{eff:wr.war_ships:GALLEY:iCargo}} and {{eff:wr.war_ships:QUINQUEREME:iCargo}} units
+    (appendix).
+- **R2, gold into an army.** Smith: "the great expense of firearms gives an evident advantage to
+  the nation which can best afford that expense" (*The Wealth of Nations*, Book V, chapter I,
+  part I). The human's commerce bought upgrades just before each war ([[section 3]]).
+- **A test from the literature: the target already engaged.**
+  - Jomini names among the cases where a landing can succeed a diversion "against a state already
+    engaged in a great war, whose troops are occupied at a distance" (Article XL).
+  - Of the {{wr.wars_counted}} wars, the target was at war with another team in
+    {{wr.targets_at_war_elsewhere}}. If the targets had been chosen without regard to their wars,
+    about {{wr.targets_at_war_expected}} would be expected. The exact chance of at least as many is
+    {{wr.targets_at_war_p}}.
+  - *Caveat:* the cue was proposed after these wars were read, among several possible cues, and
+    wars older than the first W line of a log are not seen. It is a hypothesis for the model and
+    for further games, not a finding.
+
+{{table:wr.war_engaged}}
+
+## 10. What a model of this must do
+
+The harness model's war rule (`study/humanmodel.md` in preparation) is one rule: a fixed power
+threshold, the AI's own war plan, and a declaration once enough units are near. Its runs gave up
+preparations when the AI's stacks never reached a border. The readings above call for these parts,
+each to be checked against the logged wars before any campaign:
+
+1. **Choose a city, not a team.**
+   - Among the cities of teams the seat outweighs, take the nearest, preferring the one with the
+     most of its units near (the classification of [[section 5]]).
+   - Test as a further cue whether the team is already at war ([[section 9]]).
+   - The objective is that city and the cities nearest it that fall the same way.
+2. **Build up for it.**
+   - Upgrade the army to the newest classes and promote it, in the thirty turns before.
+   - Build transports when the city lies across water, and siege units and warships for a large
+     city.
+3. **Stage.** Move a strike group to within two plots of the city, by land or by transport. Its
+   size is set by the city's defenders, as in the assault table. Declare when it stands there.
+4. **Assault.**
+   - Attack in order of odds against a small city.
+   - Against a large city: open with the strongest unit, accept losses at low odds while the
+     defenders are many, then attack at high odds.
+5. **End.** Make peace once the objective is held and no other target is staged, asking for gold.
+   Keep the home garrison as it is.
+
+Data gaps:
+- the units' positions between orders;
+- the paths open to them;
+- the human's view of the AI's defences at the time of each choice.
+
+The Y lines record a city's defenders, not what the human could see of them.
+
+## Appendix: the units named
+
+{{effects:wr.war_targets}}
+
+{{effects:wr.war_upgrades}}
+
+{{effects:wr.war_assaults}}
+
+{{effects:wr.war_ships}}

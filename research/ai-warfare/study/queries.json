@@ -1,0 +1,173 @@
+[
+ {
+  "id": "build_outcome",
+  "db": "*",
+  "unit": "distinct plots",
+  "who": "human",
+  "turn": "orders over the game; plots at the save",
+  "source": "wl_A MISSION_BUILD (distinct plot and build) joined to plots at the save; build_info; improvement_info upgrade chains",
+  "sql": "with recursive h as (select player from players where human=1), chain(base, imp) as (select improvement, improvement from improvement_info union all select c.base, i.upgrade from chain c join improvement_info i on i.improvement=c.imp where i.upgrade<>'NONE'), o as (select distinct cast(a2 as int) x, cast(a3 as int) y, a6 build from wl_A where player=(select player from h) and kind='MISSION' and a5='MISSION_BUILD'), j as (select o.build, b.improvement wi, b.route wr, p.improvement hi, p.route hr, p.owner from o join build_info b on b.build=o.build left join plots p on p.x=o.x and p.y=o.y), k as (select build, case when wr<>'NONE' then (case when (case hr when 'TRACK' then 1 when 'ROAD' then 2 when 'PAVED' then 3 else 0 end) >= (case wr when 'TRACK' then 1 when 'ROAD' then 2 when 'PAVED' then 3 end) then 'route as ordered or better' when hr<>'-' then 'lower route' else 'no route' end) when hi=wi then 'same improvement' when hi in (select imp from chain where base=wi) then 'grown or upgraded' when hi='-' then 'no improvement' else 'other improvement' end outcome, case when owner=(select player from h) then 'human' when owner>=0 then 'other' else 'nobody' end owner_now from j) select build, outcome, owner_now, count(*) plots from k group by 1,2,3 order by 1,4 desc,2,3"
+ },
+ {
+  "id": "replacements",
+  "db": "*",
+  "unit": "distinct plots",
+  "who": "human",
+  "turn": "orders over the game; plots at the save",
+  "source": "ordered improvements now replaced by another (not by their own upgrade): what stands there, and whether the human later ordered that build on the same plot",
+  "sql": "with recursive h as (select player from players where human=1), chain(base, imp) as (select improvement, improvement from improvement_info union all select c.base, i.upgrade from chain c join improvement_info i on i.improvement=c.imp where i.upgrade<>'NONE'), a as (select seq, cast(a2 as int) x, cast(a3 as int) y, a6 build from wl_A where player=(select player from h) and kind='MISSION' and a5='MISSION_BUILD'), o as (select x, y, build, min(seq) first_seq from a group by 1,2,3), j as (select o.*, b.improvement wi, p.improvement hi from o join build_info b on b.build=o.build left join plots p on p.x=o.x and p.y=o.y where b.improvement<>'NONE') select j.build, j.hi now_there, case when exists (select 1 from a a2 join build_info b2 on b2.build=a2.build where a2.x=j.x and a2.y=j.y and a2.seq>j.first_seq and j.hi in (select imp from chain where base=b2.improvement)) then 'own later order' else 'no later order of the human' end cause, count(*) plots from j where j.hi<>j.wi and j.hi not in (select imp from chain where base=j.wi) group by 1,2,3 order by 1,4 desc,2,3"
+ },
+ {
+  "id": "land_use",
+  "db": "*",
+  "unit": "tiles at save",
+  "who": "all players",
+  "turn": "save",
+  "source": "plots at the save, by owner (the human, any AI, nobody) and land or water (plot type 3)",
+  "sql": "with h as (select player from players where human=1) select case when owner=(select player from h) then 'human' when owner>=0 then 'ai' else 'nobody' end owner_class, case when plot_type=3 then 'water' else 'land' end surface, count(*) plots, sum(case when improvement<>'-' then 1 else 0 end) improved, sum(case when route<>'-' then 1 else 0 end) with_route, sum(worked) worked, sum(case when worked=1 and improvement<>'-' then 1 else 0 end) worked_improved, sum(case when worked=1 and improvement='-' then 1 else 0 end) worked_unimproved from plots group by 1,2 order by 1,2"
+ },
+ {
+  "id": "worked_yield",
+  "db": "*",
+  "unit": "food per tile",
+  "who": "all players",
+  "turn": "save",
+  "source": "worked plots at the save; food, hammers and commerce are separate columns (each a mean per worked tile)",
+  "sql": "with h as (select player from players where human=1) select case when owner=(select player from h) then 'human' else 'ai' end owner_class, case when plot_type=3 then 'water' else 'land' end surface, count(*) worked_tiles, round(avg(food),3) food, round(avg(hammers),3) hammers, round(avg(commerce),3) commerce from plots where worked=1 group by 1,2 order by 1,2"
+ },
+ {
+  "id": "improvements_owned",
+  "db": "*",
+  "unit": "tiles at save",
+  "who": "all players",
+  "turn": "save",
+  "source": "plots at the save: every improvement, on land owned by the human or by an AI, worked or not",
+  "sql": "with h as (select player from players where human=1) select improvement, sum(case when owner=(select player from h) and worked=1 then 1 else 0 end) human_worked, sum(case when owner=(select player from h) and worked=0 then 1 else 0 end) human_unworked, sum(case when owner>=0 and owner<>(select player from h) and worked=1 then 1 else 0 end) ai_worked, sum(case when owner>=0 and owner<>(select player from h) and worked=0 then 1 else 0 end) ai_unworked from plots where owner>=0 group by 1 order by human_worked+human_unworked desc, 1"
+ },
+ {
+  "id": "cottage_line",
+  "db": "*",
+  "unit": "tiles at save",
+  "who": "all players",
+  "turn": "save",
+  "source": "plots at the save with a cottage-line improvement; upgrade_progress is in turns of worked progress",
+  "sql": "with h as (select player from players where human=1) select improvement, case when owner=(select player from h) then 'human' else 'ai' end owner_class, count(*) tiles, sum(worked) worked, round(avg(upgrade_progress),3) mean_progress from plots where improvement in ('COTTAGE','HAMLET','VILLAGE','TOWN') group by 1,2 order by 1,2"
+ },
+ {
+  "id": "stale_map",
+  "db": "*",
+  "unit": "tiles at save",
+  "who": "human",
+  "turn": "save",
+  "source": "plots the human has revealed: the improvement it sees against the one there",
+  "sql": "with h as (select player from players where human=1) select case when owner=(select player from h) then 'own land' when owner>=0 then 'foreign land' else 'nobody' end land, count(*) revealed, sum(case when seen_improvement_human<>improvement then 1 else 0 end) seen_differs from plots where revealed_human=1 group by 1 order by 1"
+ },
+ {
+  "id": "attitude_to_human",
+  "db": "*",
+  "unit": "xml",
+  "who": "AI players",
+  "turn": "save",
+  "source": "diplo at the save: each AI's attitude toward the human (AttitudeTypes) and its value, war state and plan (WarPlanTypes), and its mean attitude value toward the other AIs it has met",
+  "sql": "with h as (select player from players where human=1) select d.player, (select name from enums where enum='AttitudeTypes' and idx=d.attitude) attitude, d.attitude_val, d.war, (select name from enums where enum='WarPlanTypes' and idx=d.warplan) warplan, case when d.worst_enemy=(select player from h) then 1 else 0 end worst_enemy_is_human, (select round(avg(e.attitude_val),3) from diplo e where e.player=d.player and e.other<>(select player from h) and e.met=1) mean_val_to_others from diplo d where d.other=(select player from h) and d.met=1 order by d.player"
+ },
+ {
+  "id": "memory_of_human",
+  "db": "*",
+  "unit": "xml",
+  "who": "AI players",
+  "turn": "save",
+  "source": "memory at the save (AI_getMemoryCount): counts held by AIs about the human, and about other AIs, by memory type",
+  "sql": "with h as (select player from players where human=1) select memory, sum(case when other=(select player from h) then n else 0 end) about_human, sum(case when other<>(select player from h) then n else 0 end) about_other_ais from memory where player<>(select player from h) group by 1 order by 2 desc, 3 desc, 1"
+ },
+ {
+  "id": "deals",
+  "db": "*",
+  "unit": "deals",
+  "who": "human",
+  "turn": "whole game",
+  "source": "deal_items (D lines) with the human as one side; data is the amount or index of the item",
+  "sql": "with h as (select player from players where human=1) select (select name from enums where enum='TradeableItems' and idx=i.item) item, case when (i.side=1 and i.first=(select player from h)) or (i.side=2 and i.second=(select player from h)) then 'human gives' else 'human receives' end direction, count(*) items, sum(i.data) data_sum from deal_items i where i.first=(select player from h) or i.second=(select player from h) group by 1,2 order by 1,2"
+ },
+ {
+  "id": "diplo_events",
+  "db": "*",
+  "unit": "deals",
+  "who": "human and AI",
+  "turn": "whole game",
+  "source": "E lines (DiploEventTypes) involving the human, by direction",
+  "sql": "with h as (select player from players where human=1) select (select name from enums where enum='DiploEventTypes' and idx=e.\"event\") diplo_event, case when e.sender=(select player from h) then 'from human' else 'to human' end direction, count(*) n from wl_E e where e.sender=(select player from h) or e.receiver=(select player from h) group by 1,2 order by 3 desc,1,2"
+ },
+ {
+  "id": "resources",
+  "db": "*",
+  "unit": "xml",
+  "who": "all players",
+  "turn": "save",
+  "source": "bonuses at the save: resource kinds available, imported and exported, the human against the mean AI",
+  "sql": "with h as (select player from players where human=1) select case when player=(select player from h) then 'human' else 'ai mean' end who, round(count(distinct player||bonus)*1.0/count(distinct player),3) kinds_available, round(sum(imported)*1.0/count(distinct player),3) imported, round(sum(exported)*1.0/count(distinct player),3) exported from bonuses where available>0 or imported>0 or exported>0 group by 1 order by 1"
+ },
+ {
+  "id": "trade_routes",
+  "db": "*",
+  "unit": "cities at save",
+  "who": "all players",
+  "turn": "save",
+  "source": "cities at the save: trade routes and trade commerce per city",
+  "sql": "with h as (select player from players where human=1) select case when player=(select player from h) then 'human' else 'ai' end who, count(*) cities, round(avg(trade_routes),3) routes_per_city, round(avg(trade_commerce),3) trade_commerce_per_city from cities group by 1 order by 1"
+ },
+ {
+  "id": "combat",
+  "db": "*",
+  "unit": "battles",
+  "who": "all players",
+  "turn": "whole game",
+  "source": "C lines; result from the R line directly after (none: no unit died); odds per mille",
+  "sql": "with h as (select player from players where human=1), c as (select c.*, r.winner from wl_C c left join wl_R r on r.seq=c.seq+1) select case when att=(select player from h) then 'human attacks' when def=(select player from h) then 'AI attacks the human' else 'AI against AI' end side, count(*) battles, sum(case when winner=att then 1 else 0 end) attacker_won, sum(case when winner=def then 1 else 0 end) defender_won, sum(case when winner is null then 1 else 0 end) no_death, round(median(odds),3) median_odds, sum(case when odds<500 then 1 else 0 end) under_half from c group by 1 order by 1"
+ },
+ {
+  "id": "attack_odds",
+  "db": "*",
+  "unit": "battles",
+  "who": "human and AI",
+  "turn": "whole game",
+  "source": "C lines: attacks by odds band (per mille, bands of 200) and who attacked, with the result from the next line",
+  "sql": "with h as (select player from players where human=1), c as (select c.*, r.winner from wl_C c left join wl_R r on r.seq=c.seq+1) select cast(floor(least(odds,999)/200)*200 as int) odds_from, sum(case when att=(select player from h) then 1 else 0 end) human_attacks, sum(case when att=(select player from h) and winner=att then 1 else 0 end) human_won, sum(case when att<>(select player from h) then 1 else 0 end) ai_attacks, sum(case when att<>(select player from h) and winner=att then 1 else 0 end) ai_won from c group by 1 order by 1"
+ },
+ {
+  "id": "promotions",
+  "db": "*",
+  "unit": "units at save",
+  "who": "all players",
+  "turn": "save",
+  "source": "unit_promotions at the save: the ten promotions most held by the human's units, with the AI's count",
+  "sql": "with h as (select player from players where human=1), t as (select promotion, sum(case when player=(select player from h) then 1 else 0 end) human_units, sum(case when player<>(select player from h) then 1 else 0 end) ai_units from unit_promotions group by 1) select * from t order by human_units desc, ai_units desc, promotion limit 10"
+ },
+ {
+  "id": "promotion_depth",
+  "db": "*",
+  "unit": "units at save",
+  "who": "all players",
+  "turn": "save",
+  "source": "units at the save that can fight: promotions per unit, the human against the AIs",
+  "sql": "with h as (select player from players where human=1), u as (select player, id, (case when promotions is null or promotions='' then 0 else length(promotions)-length(replace(promotions,'|',''))+1 end) np, xp from units where can_fight=1) select case when player=(select player from h) then 'human' else 'ai' end who, count(*) units, round(avg(np),3) promotions_per_unit, round(avg(xp),3) xp_per_unit, sum(case when np>=3 then 1 else 0 end) with_three_or_more from u group by 1 order by 1"
+ },
+ {
+  "id": "moves",
+  "db": "*",
+  "unit": "orders",
+  "who": "human",
+  "turn": "whole game",
+  "source": "wl_A MISSION_MOVE_TO: steps from the unit to its target (the larger of the x and y distances) by group size",
+  "sql": "with h as (select player from players where human=1), m as (select cast(a4 as int) g, greatest(abs(cast(a6 as int)-cast(a2 as int)), abs(cast(a7 as int)-cast(a3 as int))) steps from wl_A where player=(select player from h) and kind='MISSION' and a5='MISSION_MOVE_TO') select case when g=1 then '1' when g<=3 then '2-3' when g<=6 then '4-6' else '7+' end group_size, count(*) orders, round(avg(steps),3) mean_steps, round(median(steps),3) median_steps, max(steps) max_steps from m group by 1 order by min(g)"
+ },
+ {
+  "id": "stacks",
+  "db": "*",
+  "unit": "units at save",
+  "who": "all players",
+  "turn": "whole game",
+  "source": "G lines: stacks near or in enemy land after each player's moves (AI stacks of 3+ military units, human stacks of 2+)",
+  "sql": "with h as (select player from players where human=1) select case when player=(select player from h) then 'human' else 'ai' end who, count(*) stacks, count(distinct turn) turns, round(avg(military),3) mean_military, max(military) max_military from wl_G group by 1 order by 1"
+ }
+]

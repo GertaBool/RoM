@@ -1,0 +1,675 @@
+turn,player,who,kind,item,category,hammers,cost_source,x,y
+7,3,ai,unit,WORKBOAT,workboats,10,xml,27,26
+7,4,ai,unit,WORKBOAT,workboats,10,xml,48,44
+7,7,ai,unit,WORKBOAT,workboats,10,xml,20,44
+7,9,ai,unit,WORKBOAT,workboats,10,xml,58,22
+7,14,ai,unit,WORKBOAT,workboats,10,xml,4,18
+7,15,ai,unit,WORKBOAT,workboats,10,xml,57,44
+7,16,ai,unit,WORKBOAT,workboats,10,xml,39,19
+8,0,ai,unit,WORKBOAT,workboats,10,xml,14,44
+9,17,ai,unit,WORKBOAT,workboats,10,xml,39,29
+14,2,human,unit,WORKBOAT,workboats,10,xml,42,22
+18,9,ai,unit,WORKER,workers,25,xml,58,22
+18,14,ai,unit,WORKER,workers,25,xml,4,18
+19,0,ai,unit,WORKER,workers,25,xml,14,44
+19,11,ai,unit,WORKBOAT,workboats,10,xml,44,17
+20,15,ai,unit,WORKER,workers,25,xml,57,44
+21,1,ai,unit,WORKER,workers,25,xml,16,36
+21,5,ai,unit,WORKER,workers,25,xml,26,40
+21,12,ai,unit,WORKER,workers,25,xml,27,44
+22,3,ai,unit,WORKBOAT,workboats,10,xml,27,26
+22,4,ai,unit,WORKER,workers,25,xml,48,44
+22,7,ai,unit,WORKER,workers,25,xml,20,44
+22,16,ai,unit,WORKBOAT,workboats,10,xml,39,19
+23,6,ai,unit,WORKER,workers,25,xml,24,17
+23,10,ai,unit,WORKER,workers,25,xml,57,7
+24,17,ai,unit,WORKER,workers,25,xml,39,29
+34,13,ai,unit,JAVELINEER,land military,25,xml,69,21
+37,11,ai,unit,WORKBOAT,workboats,10,xml,44,17
+39,7,ai,unit,WORKBOAT,workboats,10,xml,20,44
+42,0,ai,unit,JAVELINEER,land military,25,xml,14,44
+45,2,human,unit,JAVELINEER,land military,25,xml,42,22
+45,10,ai,unit,JAVELINEER,land military,25,xml,57,7
+48,1,ai,unit,JAVELINEER,land military,25,xml,16,36
+48,11,ai,unit,WORKBOAT,workboats,10,xml,44,17
+49,0,ai,unit,WORKBOAT,workboats,10,xml,14,44
+49,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+50,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+52,9,ai,unit,JAVELINEER,land military,25,xml,58,22
+53,17,ai,unit,JAVELINEER,land military,25,xml,39,29
+54,16,ai,unit,WORKBOAT,workboats,10,xml,39,19
+55,2,human,unit,WORKBOAT,workboats,10,xml,42,22
+57,6,ai,unit,JAVELINEER,land military,25,xml,24,17
+57,7,ai,unit,JAVELINEER,land military,25,xml,20,44
+57,14,ai,unit,JAVELINEER,land military,25,xml,4,18
+58,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+59,11,ai,unit,WORKER,workers,25,xml,44,17
+60,3,ai,unit,WORKER,workers,25,xml,27,26
+60,9,ai,unit,WORKBOAT,workboats,10,xml,58,22
+60,10,ai,unit,JAVELINEER,land military,25,xml,57,7
+60,16,ai,unit,WORKER,workers,25,xml,39,19
+61,15,ai,unit,JAVELINEER,land military,25,xml,57,44
+61,17,ai,unit,WORKBOAT,workboats,10,xml,39,29
+62,13,ai,unit,WORKER,workers,25,xml,69,21
+63,2,human,unit,WORKBOAT,workboats,10,xml,42,22
+63,16,ai,unit,JAVELINEER,land military,25,xml,39,19
+64,4,ai,unit,JAVELINEER,land military,25,xml,48,44
+65,1,ai,unit,JAVELINEER,land military,25,xml,16,36
+65,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+67,8,ai,unit,JAVELINEER,land military,25,xml,53,31
+68,9,ai,unit,WORKER,workers,25,xml,58,22
+68,16,ai,unit,WORKER,workers,25,xml,39,19
+69,2,human,unit,WORKER,workers,25,xml,42,22
+69,3,ai,unit,WORKER,workers,25,xml,27,26
+69,6,ai,unit,WORKBOAT,workboats,10,xml,24,17
+69,11,ai,unit,WORKBOAT,workboats,10,xml,44,17
+69,14,ai,unit,WORKBOAT,workboats,10,xml,4,18
+70,10,ai,unit,SCOUT,land military,15,xml,57,7
+75,7,ai,unit,SETTLER,settlers,0,xml,20,44
+76,0,ai,unit,SETTLER,settlers,0,xml,14,44
+76,15,ai,unit,JAVELINEER,land military,25,xml,57,44
+77,10,ai,unit,WORKER,workers,25,xml,57,7
+79,6,ai,unit,WORKBOAT,workboats,10,xml,24,17
+80,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+81,4,ai,unit,JAVELINEER,land military,25,xml,48,44
+82,13,ai,unit,JAVELINEER,land military,25,xml,69,21
+83,0,ai,unit,WORKER,workers,25,xml,14,44
+83,11,ai,unit,GALLEY,navy,25,xml,44,17
+84,2,human,unit,JAVELINEER,land military,25,xml,42,22
+84,9,ai,unit,SETTLER,settlers,0,xml,58,22
+85,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+85,5,ai,unit,SETTLER,settlers,0,xml,26,40
+85,16,ai,unit,SETTLER,settlers,0,xml,39,19
+85,17,ai,unit,SETTLER,settlers,0,xml,39,29
+86,7,ai,unit,JAVELINEER,land military,25,xml,20,44
+87,0,ai,unit,JAVELINEER,land military,25,xml,14,44
+88,15,ai,unit,WORKER,workers,25,xml,57,44
+89,1,ai,unit,SETTLER,settlers,0,xml,16,36
+89,4,ai,unit,WORKER,workers,25,xml,48,44
+90,0,ai,unit,WORKBOAT,workboats,10,xml,14,44
+91,17,ai,unit,WORKER,workers,25,xml,39,29
+92,5,ai,unit,WORKER,workers,25,xml,26,40
+93,2,human,unit,JAVELINEER,land military,25,xml,42,22
+93,7,ai,unit,SCOUT,land military,15,xml,20,44
+93,13,ai,unit,WORKER,workers,25,xml,69,21
+94,16,ai,unit,JAVELINEER,land military,25,xml,39,19
+95,6,ai,unit,SETTLER,settlers,0,xml,24,17
+96,9,ai,unit,JAVELINEER,land military,25,xml,58,22
+97,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+97,12,ai,unit,WORKER,workers,25,xml,27,44
+99,2,human,unit,JAVELINEER,land military,25,xml,42,22
+100,0,ai,unit,SCOUT,land military,15,xml,14,44
+101,14,ai,unit,SETTLER,settlers,0,xml,4,18
+102,2,human,unit,JAVELINEER,land military,25,xml,42,22
+102,16,ai,unit,WORKER,workers,25,xml,39,19
+102,17,ai,unit,JAVELINEER,land military,25,xml,39,29
+103,10,ai,unit,SETTLER,settlers,0,xml,57,7
+104,0,ai,unit,WORKER,workers,25,xml,14,44
+104,11,ai,unit,SETTLER,settlers,0,xml,44,17
+106,0,ai,unit,WORKBOAT,workboats,10,xml,9,43
+106,2,human,unit,JAVELINEER,land military,25,xml,42,22
+106,5,ai,unit,WORKBOAT,workboats,10,xml,29,33
+107,5,ai,unit,SETTLER,settlers,0,xml,26,40
+107,7,ai,unit,SETTLER,settlers,0,xml,20,44
+107,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+107,16,ai,unit,WORKER,workers,25,xml,39,19
+108,9,ai,unit,GALLEY,navy,25,xml,58,22
+109,2,human,unit,JAVELINEER,land military,25,xml,42,22
+110,6,ai,unit,JAVELINEER,land military,25,xml,24,17
+110,15,ai,unit,SETTLER,settlers,0,xml,57,44
+112,2,human,unit,JAVELINEER,land military,25,xml,42,22
+112,3,ai,unit,SETTLER,settlers,0,xml,27,26
+112,8,ai,unit,SETTLER,settlers,0,xml,53,31
+114,4,ai,unit,SETTLER,settlers,0,xml,48,44
+114,12,ai,unit,SETTLER,settlers,0,xml,27,44
+116,0,ai,unit,WORKBOAT,workboats,10,xml,9,43
+116,3,ai,unit,SCOUT,land military,15,xml,27,26
+116,7,ai,unit,JAVELINEER,land military,25,xml,20,44
+116,13,ai,unit,SETTLER,settlers,0,xml,69,21
+117,1,ai,unit,SETTLER,settlers,0,xml,16,36
+117,1,ai,unit,WORKER,workers,25,xml,14,34
+117,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+118,0,ai,unit,SETTLER,settlers,0,xml,14,44
+118,7,ai,unit,JAVELINEER,land military,25,xml,19,42
+118,9,ai,unit,SETTLER,settlers,0,xml,58,22
+118,11,ai,unit,GALLEY,navy,25,xml,44,17
+119,2,human,unit,SETTLER,settlers,0,xml,42,22
+120,6,ai,unit,SETTLER,settlers,0,xml,24,17
+121,14,ai,unit,JAVELINEER,land military,25,xml,4,18
+122,17,ai,unit,SETTLER,settlers,0,xml,39,29
+123,6,ai,unit,WORKER,workers,25,xml,24,17
+123,15,ai,unit,JAVELINEER,land military,25,xml,57,44
+124,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+124,7,ai,unit,GALLEY,navy,25,xml,20,44
+124,10,ai,unit,SETTLER,settlers,0,xml,57,7
+124,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+125,0,ai,unit,JAVELINEER,land military,25,xml,14,44
+125,1,ai,unit,JAVELINEER,land military,25,xml,16,36
+125,17,ai,unit,WORKER,workers,25,xml,43,32
+126,13,ai,unit,JAVELINEER,land military,25,xml,69,21
+127,5,ai,unit,SCOUT,land military,15,xml,26,40
+127,6,ai,unit,WORKBOAT,workboats,10,xml,26,15
+127,8,ai,unit,WORKER,workers,25,xml,53,31
+127,9,ai,unit,JAVELINEER,land military,25,xml,58,22
+128,3,ai,unit,SETTLER,settlers,0,xml,27,26
+129,0,ai,unit,WORKER,workers,25,xml,9,43
+129,4,ai,unit,JAVELINEER,land military,25,xml,48,44
+129,7,ai,unit,WORKER,workers,25,xml,20,44
+129,13,ai,unit,WORKER,workers,25,xml,69,21
+130,6,ai,unit,JAVELINEER,land military,25,xml,24,17
+130,11,ai,unit,SETTLER,settlers,0,xml,44,17
+130,14,ai,unit,SCOUT,land military,15,xml,4,18
+132,2,human,unit,SETTLER,settlers,0,xml,42,22
+132,13,ai,unit,WORKBOAT,workboats,10,xml,72,17
+133,6,ai,unit,WORKBOAT,workboats,10,xml,24,17
+133,11,ai,unit,WORKER,workers,25,xml,54,23
+133,17,ai,unit,JAVELINEER,land military,25,xml,39,29
+134,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+134,10,ai,unit,JAVELINEER,land military,25,xml,57,7
+134,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+134,12,ai,unit,SETTLER,settlers,0,xml,27,44
+135,2,human,unit,JAVELINEER,land military,25,xml,42,22
+135,7,ai,unit,JAVELINEER,land military,25,xml,19,42
+136,4,ai,unit,WORKBOAT,workboats,10,xml,51,42
+136,9,ai,unit,WORKBOAT,workboats,10,xml,53,13
+138,6,ai,unit,GALLEY,navy,25,xml,24,17
+138,7,ai,unit,WORKBOAT,workboats,10,xml,14,39
+138,11,ai,unit,GALLEY,navy,25,xml,44,17
+138,13,ai,unit,SETTLER,settlers,0,xml,69,21
+139,4,ai,unit,SETTLER,settlers,0,xml,48,44
+139,5,ai,unit,WORKER,workers,25,xml,26,40
+139,9,ai,unit,SETTLER,settlers,0,xml,58,22
+139,12,ai,unit,WORKER,workers,25,xml,33,39
+139,17,ai,unit,JAVELINEER,land military,25,xml,39,29
+140,1,ai,unit,JAVELINEER,land military,25,xml,16,36
+140,1,ai,unit,SCOUT,land military,15,xml,14,34
+140,2,human,unit,WORKBOAT,workboats,10,xml,39,19
+140,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+140,7,ai,unit,SETTLER,settlers,0,xml,20,44
+140,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+141,5,ai,unit,WORKBOAT,workboats,10,xml,29,33
+141,13,ai,unit,SCOUT,land military,15,xml,69,21
+141,14,ai,unit,WORKBOAT,workboats,10,xml,2,27
+142,17,ai,unit,SCOUT,land military,15,xml,39,29
+143,15,ai,unit,WORKBOAT,workboats,10,xml,61,42
+144,0,ai,unit,JAVELINEER,land military,25,xml,14,44
+144,2,human,unit,PELTIST,land military,30,xml,42,22
+144,7,ai,unit,JAVELINEER,land military,25,xml,19,42
+144,14,ai,unit,JAVELINEER,land military,25,xml,4,18
+145,2,human,unit,PELTIST,land military,30,xml,39,19
+145,5,ai,unit,WORKBOAT,workboats,10,xml,31,31
+145,7,ai,unit,WORKER,workers,25,xml,20,44
+145,10,ai,unit,SETTLER,settlers,0,xml,57,7
+145,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+145,15,ai,unit,SETTLER,settlers,0,xml,57,44
+146,2,human,unit,GALLEY,navy,25,xml,42,22
+146,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+146,3,ai,unit,WORKBOAT,workboats,10,xml,32,25
+146,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+147,17,ai,unit,JAVELINEER,land military,25,xml,39,29
+147,17,ai,unit,SCOUT,land military,15,xml,43,32
+148,6,ai,unit,GALLEY,navy,25,xml,24,17
+148,9,ai,unit,JAVELINEER,land military,25,xml,58,22
+149,7,ai,unit,SCOUT,land military,15,xml,19,42
+149,8,ai,unit,JAVELINEER,land military,25,xml,53,31
+149,11,ai,unit,WORKER,workers,25,xml,54,23
+150,6,ai,unit,SCOUT,land military,15,xml,24,17
+150,9,ai,unit,SCOUT,land military,15,xml,58,22
+150,10,ai,unit,JAVELINEER,land military,25,xml,57,7
+151,0,ai,unit,GALLEY,navy,25,xml,14,44
+151,2,human,unit,SETTLER,settlers,0,xml,42,22
+151,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+151,5,ai,unit,SETTLER,settlers,0,xml,26,40
+151,5,ai,unit,SCOUT,land military,15,xml,29,33
+151,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+152,3,ai,unit,WORKBOAT,workboats,10,xml,32,25
+153,4,ai,unit,JAVELINEER,land military,25,xml,48,44
+153,13,ai,unit,SLAVE,workers,25,xml,69,21
+153,13,ai,unit,SCOUT,land military,15,xml,72,17
+153,13,ai,unit,WORKBOAT,workboats,10,xml,76,17
+153,15,ai,unit,GALLEY,navy,25,xml,57,44
+153,17,ai,unit,JAVELINEER,land military,25,xml,39,29
+154,17,ai,unit,WORKBOAT,workboats,10,xml,39,29
+155,0,ai,unit,JAVELINEER,land military,25,xml,9,43
+155,1,ai,unit,WORKBOAT,workboats,10,xml,10,33
+155,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+155,8,ai,unit,SCOUT,land military,15,xml,53,31
+155,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+156,0,ai,unit,JAVELINEER,land military,25,xml,14,44
+156,11,ai,unit,GALLEY,navy,25,xml,44,17
+157,7,ai,unit,WORKBOAT,workboats,10,xml,19,42
+157,17,ai,unit,JAVELINEER,land military,25,xml,43,32
+158,2,human,unit,PELTIST,land military,30,xml,42,22
+158,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+158,7,ai,unit,SETTLER,settlers,0,xml,20,44
+159,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+159,9,ai,unit,SETTLER,settlers,0,xml,58,22
+159,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+159,17,ai,unit,JAVELINEER,land military,25,xml,39,29
+160,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+160,13,ai,unit,JAVELINEER,land military,25,xml,69,21
+161,3,ai,unit,JAVELINEER,land military,25,xml,24,30
+161,6,ai,unit,JAVELINEER,land military,25,xml,24,17
+161,7,ai,unit,JAVELINEER,land military,25,xml,20,44
+161,7,ai,unit,GALLEY,navy,25,xml,14,39
+162,2,human,unit,PELTIST,land military,30,xml,39,19
+162,9,ai,unit,WORKER,workers,25,xml,58,22
+162,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+163,0,ai,unit,JAVELINEER,land military,25,xml,7,42
+163,1,ai,unit,JAVELINEER,land military,25,xml,16,36
+163,4,ai,unit,GALLEY,navy,25,xml,48,44
+163,7,ai,unit,GALLEY,navy,25,xml,19,42
+164,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+164,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+165,6,ai,unit,SETTLER,settlers,0,xml,26,15
+165,8,ai,unit,WORKER,workers,25,xml,53,31
+166,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+166,5,ai,unit,WORKBOAT,workboats,10,xml,29,33
+166,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+167,6,ai,unit,JAVELINEER,land military,25,xml,24,17
+167,9,ai,unit,JAVELINEER,land military,25,xml,58,22
+167,9,ai,unit,JAVELINEER,land military,25,xml,53,13
+167,10,ai,unit,WORKBOAT,workboats,10,xml,40,11
+167,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+167,13,ai,unit,JAVELINEER,land military,25,xml,72,17
+168,2,human,unit,SETTLER,settlers,0,xml,42,22
+168,3,ai,unit,SCOUT,land military,15,xml,27,26
+168,5,ai,unit,WORKBOAT,workboats,10,xml,31,31
+168,14,ai,unit,SETTLER,settlers,0,xml,4,18
+169,6,ai,unit,JAVELINEER,land military,25,xml,24,17
+169,17,ai,unit,SCOUT,land military,15,xml,39,29
+170,5,ai,unit,JAVELINEER,land military,25,xml,29,33
+170,6,ai,unit,WORKBOAT,workboats,10,xml,24,17
+170,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+172,1,ai,unit,JAVELINEER,land military,25,xml,14,34
+172,3,ai,unit,JAVELINEER,land military,25,xml,24,30
+172,6,ai,unit,SCOUT,land military,15,xml,24,17
+172,7,ai,unit,JAVELINEER,land military,25,xml,14,39
+172,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+173,2,human,unit,WORKBOAT,workboats,10,xml,42,22
+173,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+174,6,ai,unit,WORKER,workers,25,xml,24,17
+174,8,ai,unit,WORKBOAT,workboats,10,xml,56,35
+174,10,ai,unit,SCOUT,land military,15,xml,57,7
+174,12,ai,unit,JAVELINEER,land military,25,xml,27,44
+174,12,ai,unit,JAVELINEER,land military,25,xml,33,39
+175,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+175,7,ai,unit,JAVELINEER,land military,25,xml,20,44
+175,14,ai,unit,JAVELINEER,land military,25,xml,4,18
+175,17,ai,unit,JAVELINEER,land military,25,xml,43,32
+176,15,ai,unit,SETTLER,settlers,0,xml,57,44
+177,0,ai,unit,GALLEY,navy,25,xml,14,44
+177,1,ai,unit,SCOUT,land military,15,xml,16,36
+177,7,ai,unit,WORKBOAT,workboats,10,xml,20,44
+179,9,ai,unit,GALLEY,navy,25,xml,58,20
+179,17,ai,unit,SCOUT,land military,15,xml,43,32
+180,2,human,unit,GALLEY,navy,25,xml,42,22
+180,6,ai,unit,GALLEY,navy,25,xml,24,17
+180,17,ai,unit,SETTLER,settlers,0,xml,39,29
+181,2,human,unit,PELTIST,land military,30,xml,42,22
+181,4,ai,unit,JAVELINEER,land military,25,xml,51,42
+181,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+181,7,ai,unit,JAVELINEER,land military,25,xml,14,39
+181,9,ai,unit,JAVELINEER,land military,25,xml,53,13
+181,12,ai,unit,SPEARMAN,land military,35,xml,27,44
+182,7,ai,unit,JAVELINEER,land military,25,xml,20,44
+182,9,ai,unit,JAVELINEER,land military,25,xml,59,25
+182,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+182,17,ai,unit,SCOUT,land military,15,xml,39,29
+183,0,ai,unit,GALLEY,navy,25,xml,7,42
+183,5,ai,unit,JAVELINEER,land military,25,xml,29,33
+183,7,ai,unit,GALLEY,navy,25,xml,19,42
+183,17,ai,unit,SCOUT,land military,15,xml,43,32
+183,17,ai,unit,JAVELINEER,land military,25,xml,40,26
+184,5,ai,unit,JAVELINEER,land military,25,xml,31,31
+184,10,ai,unit,WORKBOAT,workboats,10,xml,58,10
+184,17,ai,unit,SCOUT,land military,15,xml,39,29
+185,0,ai,unit,GALLEY,navy,25,xml,14,44
+185,4,ai,unit,JAVELINEER,land military,25,xml,45,43
+186,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+186,7,ai,unit,JAVELINEER,land military,25,xml,20,44
+186,8,ai,unit,SETTLER,settlers,0,xml,53,31
+186,14,ai,unit,GALLEY,navy,25,xml,2,27
+187,4,ai,unit,SETTLER,settlers,0,xml,48,44
+187,7,ai,unit,WORKBOAT,workboats,10,xml,19,29
+187,17,ai,unit,WORKBOAT,workboats,10,xml,40,26
+188,0,ai,unit,GALLEY,navy,25,xml,14,44
+188,2,human,unit,SETTLER,settlers,0,xml,42,22
+188,11,ai,unit,SETTLER,settlers,0,xml,44,17
+188,15,ai,unit,JAVELINEER,land military,25,xml,57,44
+188,17,ai,unit,SPEARMAN,land military,35,xml,39,29
+189,9,ai,unit,SETTLER,settlers,0,xml,58,22
+190,2,human,unit,SPEARMAN,land military,35,xml,39,22
+190,4,ai,unit,SCOUT,land military,15,xml,48,44
+190,10,ai,unit,SETTLER,settlers,0,xml,57,7
+191,2,human,unit,SPEARMAN,land military,35,xml,37,26
+191,3,ai,unit,JAVELINEER,land military,25,xml,32,25
+191,5,ai,unit,GALLEY,navy,25,xml,31,31
+191,7,ai,unit,SPEARMAN,land military,35,xml,14,39
+191,15,ai,unit,SCOUT,land military,15,xml,57,44
+191,17,ai,unit,WORKER,workers,25,xml,39,29
+192,6,ai,unit,SETTLER,settlers,0,xml,24,17
+192,10,ai,unit,JAVELINEER,land military,25,xml,57,7
+193,5,ai,unit,WORKER,workers,25,xml,26,40
+193,6,ai,unit,SPEARMAN,land military,35,xml,26,15
+193,11,ai,unit,JAVELINEER,land military,25,xml,44,17
+193,11,ai,unit,JAVELINEER,land military,25,xml,54,23
+193,12,ai,unit,SPEARMAN,land military,35,xml,27,44
+194,0,ai,unit,JAVELINEER,land military,25,xml,14,44
+194,0,ai,unit,SETTLER,settlers,0,xml,9,43
+194,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+194,5,ai,unit,JAVELINEER,land military,25,xml,29,33
+194,7,ai,unit,WORKER,workers,25,xml,20,44
+194,11,ai,unit,WORKER,workers,25,xml,44,17
+195,14,ai,unit,JAVELINEER,land military,25,xml,2,27
+196,0,ai,unit,JAVELINEER,land military,25,xml,14,44
+196,3,ai,unit,WORKBOAT,workboats,10,xml,27,26
+196,3,ai,unit,JAVELINEER,land military,25,xml,24,30
+196,7,ai,unit,WORKER,workers,25,xml,20,44
+196,9,ai,unit,JAVELINEER,land military,25,xml,58,20
+197,4,ai,unit,GALLEY,navy,25,xml,51,42
+197,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+197,7,ai,unit,SETTLER,settlers,0,xml,19,42
+197,7,ai,unit,WORKBOAT,workboats,10,xml,19,29
+197,9,ai,unit,SETTLER,settlers,0,xml,58,22
+197,9,ai,unit,GALLEY,navy,25,xml,59,25
+197,10,ai,unit,WORKBOAT,workboats,10,xml,58,10
+197,12,ai,unit,SETTLER,settlers,0,xml,33,39
+198,2,human,unit,WORKBOAT,workboats,10,xml,42,22
+198,7,ai,unit,WORKER,workers,25,xml,20,44
+199,9,ai,unit,SETTLER,settlers,0,xml,53,13
+199,10,ai,unit,SETTLER,settlers,0,xml,57,7
+199,11,ai,unit,SETTLER,settlers,0,xml,44,17
+199,17,ai,unit,WORKBOAT,workboats,10,xml,39,29
+200,6,ai,unit,RAM,land military,15,xml,24,17
+200,7,ai,unit,SPEARMAN,land military,35,xml,14,39
+200,10,ai,unit,SPEARMAN,land military,35,xml,57,7
+200,13,ai,unit,RAM,land military,15,xml,69,21
+200,14,ai,unit,SETTLER,settlers,0,xml,4,18
+201,3,ai,unit,JAVELINEER,land military,25,xml,27,26
+201,3,ai,unit,JAVELINEER,land military,25,xml,32,25
+201,5,ai,unit,JAVELINEER,land military,25,xml,26,40
+201,5,ai,unit,WORKER,workers,25,xml,31,31
+201,8,ai,unit,WORKBOAT,workboats,10,xml,56,35
+201,9,ai,unit,JAVELINEER,land military,25,xml,58,22
+202,17,ai,unit,SETTLER,settlers,0,xml,43,32
+203,2,human,unit,GREEK_PHALANX,land military,60,xml,42,22
+203,4,ai,unit,SETTLER,settlers,0,xml,48,44
+203,12,ai,unit,SCOUT,land military,15,xml,27,44
+203,13,ai,unit,EXPLORER,land military,45,xml,69,21
+203,14,ai,unit,GALLEY,navy,25,xml,2,27
+203,17,ai,unit,SCOUT,land military,15,xml,39,29
+204,0,ai,unit,JAVELINEER,land military,25,xml,14,44
+204,3,ai,unit,GALLEY,navy,25,xml,27,26
+204,4,ai,unit,SCOUT,land military,15,xml,45,43
+204,6,ai,unit,SETTLER,settlers,0,xml,24,17
+204,8,ai,unit,JAVELINEER,land military,25,xml,53,31
+204,9,ai,unit,JAVELINEER,land military,25,xml,64,25
+204,12,ai,unit,SCOUT,land military,15,xml,27,44
+204,17,ai,unit,SCOUT,land military,15,xml,39,29
+205,2,human,unit,GREEK_PHALANX,land military,60,xml,39,22
+205,9,ai,unit,GALLEY,navy,25,xml,58,22
+205,9,ai,unit,JAVELINEER,land military,25,xml,53,13
+205,9,ai,unit,JAVELINEER,land military,25,xml,58,20
+205,11,ai,unit,SPEARMAN,land military,35,xml,44,17
+205,13,ai,unit,SPEARMAN,land military,35,xml,69,21
+206,0,ai,unit,GALLEY,navy,25,xml,14,44
+206,1,ai,unit,SPEARMAN,land military,35,xml,16,36
+206,3,ai,unit,GALLEY,navy,25,xml,27,26
+206,3,ai,unit,WORKBOAT,workboats,10,xml,32,25
+206,6,ai,unit,GALLEY,navy,25,xml,24,17
+206,11,ai,unit,WORKER,workers,25,xml,44,17
+206,11,ai,unit,WORKBOAT,workboats,10,xml,48,21
+206,12,ai,unit,WORKER,workers,25,xml,33,39
+206,15,ai,unit,GALLEY,navy,25,xml,66,38
+206,17,ai,unit,SPEARMAN,land military,35,xml,39,29
+207,1,ai,unit,GALLEY,navy,25,xml,10,33
+207,14,ai,unit,JAVELINEER,land military,25,xml,4,18
+208,2,human,unit,WORKBOAT,workboats,10,xml,46,31
+208,3,ai,unit,GALLEY,navy,25,xml,27,26
+208,6,ai,unit,WORKER,workers,25,xml,24,17
+208,7,ai,unit,SPEARMAN,land military,35,xml,19,42
+208,10,ai,unit,GALLEY,navy,25,xml,44,12
+208,10,ai,unit,SPEARMAN,land military,35,xml,40,11
+208,13,ai,unit,SETTLER,settlers,0,xml,69,21
+208,13,ai,unit,SETTLER,settlers,0,xml,76,17
+208,15,ai,unit,SETTLER,settlers,0,xml,57,44
+209,0,ai,unit,EXPLORER,land military,45,xml,14,44
+209,3,ai,unit,VELITES,land military,30,xml,24,30
+209,12,ai,unit,SETTLER,settlers,0,xml,24,43
+210,3,ai,unit,GALLEY,navy,25,xml,32,25
+210,5,ai,unit,GALLEY,navy,25,xml,29,33
+210,6,ai,unit,SPEARMAN,land military,35,xml,20,17
+210,7,ai,unit,SPEARMAN,land military,35,xml,14,39
+210,10,ai,unit,SETTLER,settlers,0,xml,57,7
+210,11,ai,unit,SETTLER,settlers,0,xml,44,17
+210,17,ai,unit,WORKBOAT,workboats,10,xml,42,34
+211,0,ai,unit,GALLEY,navy,25,xml,14,44
+211,0,ai,unit,JAVELINEER,land military,25,xml,9,43
+211,5,ai,unit,SETTLER,settlers,0,xml,26,40
+211,9,ai,unit,SETTLER,settlers,0,xml,58,22
+211,13,ai,unit,EXPLORER,land military,45,xml,69,21
+211,13,ai,unit,WORKBOAT,workboats,10,xml,76,17
+211,15,ai,unit,SCOUT,land military,15,xml,66,38
+212,1,ai,unit,SETTLER,settlers,0,xml,16,36
+212,2,human,unit,GREEK_PHALANX,land military,60,xml,39,19
+212,6,ai,unit,SETTLER,settlers,0,xml,24,17
+212,10,ai,unit,SPEARMAN,land military,35,xml,57,7
+212,11,ai,unit,WORKER,workers,25,xml,44,17
+212,12,ai,unit,WORKER,workers,25,xml,33,39
+212,14,ai,unit,WORKBOAT,workboats,10,xml,11,22
+212,17,ai,unit,SPEARMAN,land military,35,xml,43,32
+213,2,human,unit,GALLEY,navy,25,xml,39,19
+213,4,ai,unit,JAVELINEER,land military,25,xml,48,44
+213,5,ai,unit,JAVELINEER,land military,25,xml,29,33
+213,5,ai,unit,SETTLER,settlers,0,xml,31,31
+213,6,ai,unit,GALLEY,navy,25,xml,24,17
+213,6,ai,unit,WORKER,workers,25,xml,20,17
+213,9,ai,unit,WORKBOAT,workboats,10,xml,58,22
+213,11,ai,unit,SPEARMAN,land military,35,xml,44,17
+213,11,ai,unit,GALLEY,navy,25,xml,54,23
+213,12,ai,unit,SCOUT,land military,15,xml,27,44
+213,14,ai,unit,GALLEY,navy,25,xml,4,18
+214,0,ai,unit,EXPLORER,land military,45,xml,14,44
+214,0,ai,unit,SETTLER,settlers,0,xml,7,42
+214,1,ai,unit,SPEARMAN,land military,35,xml,16,36
+214,3,ai,unit,WORKBOAT,workboats,10,xml,27,26
+214,17,ai,unit,SPEARMAN,land military,35,xml,39,29
+215,2,human,unit,GREEK_PHALANX,land military,60,xml,42,22
+215,3,ai,unit,VELITES,land military,30,xml,24,30
+215,7,ai,unit,SPEARMAN,land military,35,xml,14,39
+215,9,ai,unit,WORKER,workers,25,xml,58,22
+215,10,ai,unit,SETTLER,settlers,0,xml,57,7
+215,13,ai,unit,SPEARMAN,land military,35,xml,76,17
+216,0,ai,unit,GALLEY,navy,25,xml,14,44
+216,1,ai,unit,RAM,land military,15,xml,16,36
+216,2,human,unit,WARLORDI,land military,100,xml,39,19
+216,3,ai,unit,VELITES,land military,30,xml,27,26
+216,13,ai,unit,WORKER,workers,25,xml,69,21
+216,14,ai,unit,RAM,land military,15,xml,4,18
+216,15,ai,unit,WORKBOAT,workboats,10,xml,61,35
+216,17,ai,unit,WORKER,workers,25,xml,39,29
+217,1,ai,unit,RAM,land military,15,xml,14,34
+217,2,human,unit,GREEK_PHALANX,land military,60,xml,42,22
+217,2,human,unit,GALLEY,navy,25,xml,39,19
+217,4,ai,unit,JAVELINEER,land military,25,xml,45,43
+217,5,ai,unit,SPEARMAN,land military,35,xml,31,31
+217,7,ai,unit,WORKER,workers,25,xml,20,44
+217,7,ai,unit,WORKBOAT,workboats,10,xml,14,39
+217,9,ai,unit,WORKER,workers,25,xml,58,22
+217,9,ai,unit,WORKER,workers,25,xml,64,28
+217,10,ai,unit,SPEARMAN,land military,35,xml,57,7
+217,10,ai,unit,GALLEY,navy,25,xml,40,11
+217,11,ai,unit,GALLEY,navy,25,xml,30,20
+218,0,ai,unit,JAVELINEER,land military,25,xml,7,42
+218,0,ai,unit,WORKBOAT,workboats,10,xml,7,29
+218,3,ai,unit,VELITES,land military,30,xml,27,26
+218,7,ai,unit,SPEARMAN,land military,35,xml,10,39
+218,9,ai,unit,WORKER,workers,25,xml,53,13
+218,9,ai,unit,EXPLORER,land military,45,xml,59,25
+218,10,ai,unit,RAM,land military,15,xml,58,10
+218,11,ai,unit,WORKER,workers,25,xml,54,23
+218,17,ai,unit,WORKER,workers,25,xml,39,29
+218,17,ai,unit,SLAVE,workers,25,xml,43,32
+219,0,ai,unit,EXPLORER,land military,45,xml,14,44
+219,0,ai,unit,JAVELINEER,land military,25,xml,9,43
+219,1,ai,unit,SPEARMAN,land military,35,xml,16,36
+219,3,ai,unit,VELITES,land military,30,xml,24,30
+219,6,ai,unit,SETTLER,settlers,0,xml,24,17
+219,7,ai,unit,WORKER,workers,25,xml,20,44
+219,9,ai,unit,WORKER,workers,25,xml,58,22
+219,9,ai,unit,WORKER,workers,25,xml,58,20
+219,13,ai,unit,SETTLER,settlers,0,xml,69,21
+219,17,ai,unit,SETTLER,settlers,0,xml,40,26
+220,0,ai,unit,GALLEY,navy,25,xml,14,44
+220,4,ai,unit,JAVELINEER,land military,25,xml,48,44
+220,4,ai,unit,WORKBOAT,workboats,10,xml,45,43
+220,7,ai,unit,SPEARMAN,land military,35,xml,19,42
+220,7,ai,unit,GALLEY,navy,25,xml,14,39
+220,7,ai,unit,SPEARMAN,land military,35,xml,19,29
+220,13,ai,unit,AXEMAN,land military,40,xml,69,21
+220,14,ai,unit,SETTLER,settlers,0,xml,2,27
+221,1,ai,unit,RAM,land military,15,xml,16,36
+221,5,ai,unit,WORKER,workers,25,xml,26,40
+221,13,ai,unit,WORKER,workers,25,xml,69,21
+221,14,ai,unit,WORKBOAT,workboats,10,xml,14,25
+222,0,ai,unit,GALLEY,navy,25,xml,9,43
+222,1,ai,unit,WORKER,workers,25,xml,16,36
+222,2,human,unit,GREEK_PHALANX,land military,60,xml,42,22
+222,3,ai,unit,RAM,land military,15,xml,27,26
+222,3,ai,unit,RAM,land military,15,xml,24,30
+222,9,ai,unit,SPEARMAN,land military,35,xml,58,22
+222,11,ai,unit,WORKER,workers,25,xml,44,17
+222,13,ai,unit,WORKER,workers,25,xml,69,21
+222,14,ai,unit,SPEARMAN,land military,35,xml,4,18
+223,0,ai,unit,EXPLORER,land military,45,xml,14,44
+223,2,human,unit,GREEK_PHALANX,land military,60,xml,39,19
+223,5,ai,unit,WORKER,workers,25,xml,26,40
+223,7,ai,unit,GALLEY,navy,25,xml,14,39
+223,9,ai,unit,WORKER,workers,25,xml,53,13
+223,10,ai,unit,SETTLER,settlers,0,xml,57,7
+223,10,ai,unit,WORKER,workers,25,xml,58,10
+223,13,ai,unit,WORKER,workers,25,xml,69,21
+223,14,ai,unit,WORKER,workers,25,xml,2,27
+224,0,ai,unit,GALLEY,navy,25,xml,14,44
+224,2,human,unit,WARGALLEY,navy,34,xml,42,22
+224,3,ai,unit,VELITES,land military,30,xml,27,26
+224,7,ai,unit,SETTLER,settlers,0,xml,20,44
+225,0,ai,unit,SPEARMAN,land military,35,xml,7,42
+225,1,ai,unit,SPEARMAN,land military,35,xml,16,36
+225,2,human,unit,TRIREME,navy,50,xml,42,22
+225,9,ai,unit,GALLEY,navy,25,xml,58,22
+225,12,ai,unit,SPEARMAN,land military,35,xml,24,43
+225,17,ai,unit,WORKER,workers,25,xml,39,29
+226,0,ai,unit,SPEARMAN,land military,35,xml,9,43
+226,2,human,unit,GREEK_PHALANX,land military,60,xml,42,22
+226,3,ai,unit,VELITES,land military,30,xml,24,30
+226,5,ai,unit,SETTLER,settlers,0,xml,31,31
+226,7,ai,unit,SPEARMAN,land military,35,xml,20,44
+226,10,ai,unit,SPEARMAN,land military,35,xml,57,7
+226,10,ai,unit,RAM,land military,15,xml,55,4
+226,11,ai,unit,SETTLER,settlers,0,xml,44,17
+226,11,ai,unit,WORKBOAT,workboats,10,xml,22,23
+226,12,ai,unit,SPEARMAN,land military,35,xml,33,39
+226,13,ai,unit,AXEMAN,land military,40,xml,76,17
+226,17,ai,unit,GALLEY,navy,25,xml,39,29
+227,0,ai,unit,EXPLORER,land military,45,xml,14,44
+227,2,human,unit,GREEK_PHALANX,land military,60,xml,42,22
+227,2,human,unit,GREEK_PHALANX,land military,60,xml,39,19
+227,3,ai,unit,VELITES,land military,30,xml,27,26
+227,5,ai,unit,SLAVE,workers,25,xml,32,44
+227,6,ai,unit,SPEARMAN,land military,35,xml,24,17
+227,10,ai,unit,SPEARMAN,land military,35,xml,57,7
+227,10,ai,unit,WORKER,workers,25,xml,58,10
+227,12,ai,unit,SPEARMAN,land military,35,xml,27,44
+227,13,ai,unit,AXEMAN,land military,40,xml,69,21
+227,14,ai,unit,WORKER,workers,25,xml,2,27
+227,17,ai,unit,RAM,land military,15,xml,43,32
+228,0,ai,unit,WORKBOAT,workboats,10,xml,7,29
+228,1,ai,unit,SPEARMAN,land military,35,xml,16,36
+228,2,human,unit,TRIREME,navy,50,xml,42,22
+228,2,human,unit,TRIREME,navy,50,xml,39,19
+228,2,human,unit,TRIREME,navy,50,xml,39,22
+228,3,ai,unit,WORKER,workers,25,xml,27,26
+228,5,ai,unit,SETTLER,settlers,0,xml,29,33
+228,7,ai,unit,WORKER,workers,25,xml,20,44
+228,10,ai,unit,WORKER,workers,25,xml,40,11
+228,10,ai,unit,WORKER,workers,25,xml,55,4
+228,11,ai,unit,SPEARMAN,land military,35,xml,44,17
+228,17,ai,unit,WORKER,workers,25,xml,39,29
+229,1,ai,unit,RAM,land military,15,xml,16,36
+229,3,ai,unit,VELITES,land military,30,xml,24,30
+229,6,ai,unit,GALLEY,navy,25,xml,24,17
+229,7,ai,unit,WORKER,workers,25,xml,19,42
+229,9,ai,unit,GALLEY,navy,25,xml,53,13
+229,13,ai,unit,WORKBOAT,workboats,10,xml,78,14
+229,17,ai,unit,WORKER,workers,25,xml,39,29
+230,0,ai,unit,SPEARMAN,land military,35,xml,14,44
+230,1,ai,unit,SETTLER,settlers,0,xml,14,34
+230,2,human,unit,HYPASPIST2,land military,75,xml,42,22
+230,2,human,unit,HYPASPIST2,land military,75,xml,39,19
+230,2,human,unit,TRIREME,navy,50,xml,39,22
+230,3,ai,unit,BALLISTA_ROME,land military,60,xml,27,26
+230,4,ai,unit,GALLEY,navy,25,xml,48,44
+230,5,ai,unit,RAM,land military,15,xml,29,33
+230,5,ai,unit,SPEARMAN,land military,35,xml,31,31
+230,9,ai,unit,SPEARMAN,land military,35,xml,58,20
+230,10,ai,unit,WORKER,workers,25,xml,55,4
+230,13,ai,unit,SETTLER,settlers,0,xml,69,21
+230,15,ai,unit,JAVELINEER,land military,25,xml,61,42
+230,17,ai,unit,RAM,land military,15,xml,39,29
+231,0,ai,unit,SPEARMAN,land military,35,xml,9,43
+231,2,human,unit,TRIREME,navy,50,xml,42,22
+231,2,human,unit,TRIREME,navy,50,xml,39,22
+231,5,ai,unit,RAM,land military,15,xml,29,33
+231,6,ai,unit,SPEARMAN,land military,35,xml,24,17
+231,7,ai,unit,SPEARMAN,land military,35,xml,14,39
+231,9,ai,unit,EXPLORER,land military,45,xml,64,25
+231,10,ai,unit,SETTLER,settlers,0,xml,57,7
+231,13,ai,unit,AXEMAN,land military,40,xml,69,21
+231,15,ai,unit,SETTLER,settlers,0,xml,57,44
+231,17,ai,unit,RAM,land military,15,xml,39,29
+232,2,human,unit,GREEK_PHALANX,land military,60,xml,42,22
+232,2,human,unit,TRIREME,navy,50,xml,39,19
+232,3,ai,unit,VELITES,land military,30,xml,24,30
+232,3,ai,unit,VELITES,land military,30,xml,32,25
+232,4,ai,unit,WORKBOAT,workboats,10,xml,48,44
+232,6,ai,unit,WORKBOAT,workboats,10,xml,24,17
+232,9,ai,unit,WORKER,workers,25,xml,58,22
+232,9,ai,unit,WORKBOAT,workboats,10,xml,53,13
+232,10,ai,unit,RAM,land military,15,xml,57,7
+232,10,ai,unit,WORKER,workers,25,xml,58,10
+232,10,ai,unit,WORKER,workers,25,xml,40,11
+232,14,ai,unit,SPEARMAN,land military,35,xml,4,18
+233,0,ai,unit,EXPLORER,land military,45,xml,14,44
+233,0,ai,unit,SPEARMAN,land military,35,xml,9,43
+233,1,ai,unit,SPEARMAN,land military,35,xml,16,36
+233,2,human,unit,SARISSA,land military,40,xml,42,22
+233,2,human,unit,GREEK_PHALANX,land military,60,xml,39,19
+233,2,human,unit,SARISSA,land military,40,xml,39,22
+233,3,ai,unit,BALLISTA_ROME,land military,60,xml,27,26
+233,5,ai,unit,RAM,land military,15,xml,26,40
+233,10,ai,unit,SPEARMAN,land military,35,xml,57,7
+233,10,ai,unit,WORKER,workers,25,xml,44,12
+233,14,ai,unit,WORKBOAT,workboats,10,xml,2,27
+233,14,ai,unit,WORKER,workers,25,xml,14,25
+233,15,ai,unit,WORKER,workers,25,xml,57,44
+233,17,ai,unit,SPEARMAN,land military,35,xml,39,29
+233,17,ai,unit,SLAVE,workers,25,xml,43,32
+233,17,ai,unit,SPEARMAN,land military,35,xml,42,34
+234,0,ai,unit,GALLEY,navy,25,xml,14,44
+234,1,ai,unit,SPEARMAN,land military,35,xml,14,34
+234,5,ai,unit,SPEARMAN,land military,35,xml,29,33
+234,12,ai,unit,RAM,land military,15,xml,27,44
+234,13,ai,unit,SETTLER,settlers,0,xml,69,21
+234,13,ai,unit,AXEMAN,land military,40,xml,72,17
+234,14,ai,unit,RAM,land military,15,xml,4,18
+235,1,ai,unit,SPEARMAN,land military,35,xml,16,36
+235,3,ai,unit,VELITES,land military,30,xml,32,25
+235,9,ai,unit,SPEARMAN,land military,35,xml,58,22
+235,9,ai,unit,SPEARMAN,land military,35,xml,58,20
+235,13,ai,unit,AXEMAN,land military,40,xml,69,21
+235,15,ai,unit,WORKER,workers,25,xml,57,44
+235,17,ai,unit,SPEARMAN,land military,35,xml,39,29
+236,0,ai,unit,SETTLER,settlers,0,xml,7,42
+236,1,ai,unit,RAM,land military,15,xml,14,34

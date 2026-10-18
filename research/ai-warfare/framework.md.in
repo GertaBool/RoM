@@ -1,0 +1,281 @@
+# A framework for the game data: truth, cost, models of the human, experiments
+
+This document defines:
+- what a figure is, and when a statement about a game is true;
+- how tables are computed and checked;
+- how models of the human's decisions are tested;
+- how changes to the AI are evaluated.
+
+Each part names its source. *Implemented* means enforced by `tools/figlib.py`, `tools/docs.py`
+and `tools/check_all.py`. *Open* means specified here but not built yet. Section 9 records what
+was read in each book and what was judged not to apply.
+
+## 1. Objects
+
+- **Events.** The war log is a sequence `E = (e_1, …, e_N)`. Each event is
+  `e_i = (t_i, τ_i, a_i)`: a turn, a line type (`builds/war-log/README.md`) and its attributes.
+- **Snapshot.** The save dump `S_T` holds the state at the save's turn `T` only.
+- **Rules.** The XML records `X` and the DLL source `C`.
+- **Tables.** A table is a relation, computed by a total function of `E`, `S_T` and `X`
+  (Velleman, *How to Prove It*, chapter 4 on relations and chapter 5 on functions).
+
+## 2. Two kinds of truth
+
+- **Exact statements.** A war log is the complete record of its game, not a sample of it. A
+  figure about game 4 is therefore exact or wrong. It is checked by computation, and no
+  confidence interval applies (Grundmann and Luderer, *Formelsammlung*, p. 18: descriptive
+  statistics).
+  - The statement "`q = v`" is true when evaluating `q` on the same inputs gives `v`.
+  - *Implemented:* registries record the input hashes and the producing command. Every check
+    runs the command again and requires identical figures.
+- **Inferential statements.** A claim beyond the record is inferential. Examples: the human's
+  general rule, how the AI behaves in other games, "variant A is better than B". Such a claim
+  needs independent samples, a test and a stated error probability. It is never verified
+  outright: "statistische Aussagen sind nie als total richtig oder total falsch verifizierbar"
+  (p. 19). Until it is tested, it is a hypothesis.
+- **Counted and universal claims.**
+  - "`k` of `n`" means `|{x ∈ A : P(x)}| = k` and `|A| = n`.
+  - `∀x ∈ A P(x)` holds exactly when `k = n`, and one counterexample refutes it (Velleman,
+    section 3.1).
+- **Readings.** A reading has the form "facts `F` imply `P`" and names in advance the
+  observation that would show `¬P`.
+- **Transformations that preserve truth.** Doing the same to both sides of an equation keeps
+  it true (Asimov, *Realm of Algebra*: the axiom of chapter 2, as restated in chapter 5). In the same way, a faster computation
+  replaces an older one only if it gives identical outputs on every game.
+  *Implemented* for the one-pass census.
+- **Checking by substitution.** A value solved from a formula is put back into the formula
+  (Asimov, chapter 13, the discount example: solve, then check). For the game this means: a
+  quantity derived from the game's rules is recomputed in the forward direction and compared
+  with what the game itself recorded.
+  *Open:* forward checks against the M, U and N lines.
+- **Meaning.** Reproduction shows that a figure is deterministic, not that it measures what its
+  label says. Each producer therefore needs:
+  - constructed inputs with known answers;
+  - at least one independent second derivation of a quantity, such as cities from the M lines
+    against cities in the save at `T`.
+
+  *Open* for `workers.py`; the self-test does this for the checker itself.
+
+## 3. Census as a partition, with running checks
+
+- **The key.** A key `κ : A → V` defines the relation `a ~ b ⇔ κ(a) = κ(b)`, which is an
+  equivalence relation (Velleman, Definition 4.5.1).
+- **The classes.** Its classes partition `A` (Velleman, Theorem 4.5.4), so
+  `Σ_v |A_v| = |A|`.
+  *Implemented:* a table whose cells do not sum to its rows is refused.
+- **Coverage.** A table shows a set `S ⊆ κ(A)` and is complete exactly when `S = κ(A)`.
+  *Implemented:* fewer values require a stated, printed reason.
+- **Running checks.** Tatum (*Celestial Mechanics*, section 1.8) carries, beside each
+  equation, the sum of its coefficients through the whole calculation. Every derived quantity
+  can then be checked against the same transformation of that sum, and a mistake is found at
+  the step where it is made. The sum check above is one such running check.
+  *Open:* carry a check column through every derived table (for example a row count and an
+  independently counted total per line type), and compare it at each step.
+- **Cross tables.** `C = KᵀG` with one-hot `K` (row by value) and `G` (row by group). A mean
+  per cell is `(Kᵀ diag(y) G) ⊘ C`.
+- **Cost.** One pass over the rows: `O(N)` time and `O(nnz(C))` space.
+  *Implemented.*
+
+## 4. Units, scales and kinds of error
+
+- **Units.** Every figure has a unit. Addition and means are defined within one unit only, and
+  food, hammers and commerce are never summed (Mises, *Die Gemeinwirtschaft*: "Rechnen kann
+  man nur mit Einheiten").
+- **Scales.** Data are nominal, ordinal or metric (*Formelsammlung*, p. 18). Counts and modes
+  apply to every scale, medians and ranks to ordinal and metric data, means to metric data
+  only.
+  *Implemented:* each unit carries its scale, and a mean on a non-metric unit is refused.
+- **Systematic and statistical errors.** Systematic errors come from the instrument and are
+  reduced only by improving the instrument. Statistical errors are reduced by repeating the
+  measurement (Gnörich, *Höhere Mathematik Formelsammlung*, section 8.5.1). Here:
+  - a hand-picked category list or a missing join is a systematic error. More data does not
+    remove it; only fixing the tool does, which is what the figure system is for;
+  - the spread between seeded runs of the harness is statistical, and is handled by repeating
+    runs (section 7).
+
+## 5. Time, state and viewpoint
+
+- **State as a fold.** `s_t = δ(s_{t−1}, E_t)`, and the save is `s_T`.
+- **Proof by induction.** A reconstruction such as `cities_at` is shown correct by
+  induction: the invariant holds at turn zero, and `δ` preserves it, so it holds at every turn
+  (Forster, *[[Analysis 1]]*, [[§1]]). The one-pass census is proved the same way: after `k` rows the
+  cells sum to `k`.
+- **Earlier turns.** A claim about turn `t < T` uses `s_t`: folded forward, or rolled back only
+  where `δ` can be inverted.
+- **Viewpoint.** The human decides from what was visible at `t`, an information set
+  `I_t ⊆ s_t` (Chladenius, *Hermeneutics Reader*).
+  *Open:* building `I_t`.
+- **Incremental update.** When new turns arrive, Tatum corrects orbital elements
+  "differentially as new observations become available" (section 13.17). Here, an append-only
+  log is updated by folding only the new events: `O(ΔN)` instead of `O(N)`.
+  *Open:* not needed at the present scale.
+- **Event time.** Activity comes in bursts, so turns are not independent samples. Bursty data
+  are described by distributions or quantiles (Mandelbrot, *The (Mis)Behavior of Markets*,
+  rules II and V).
+
+## 6. Models of the human
+
+- **Decisions.** A decision is a choice at turn `t` among options `O_t`, each with a cue
+  profile `x ∈ {0,1}^n` computed from `I_t` (Gigerenzer, Hertwig and Pachur, *Heuristics*,
+  chapter 14).
+- **Candidate models.**
+  - take-the-best, a fast-and-frugal tree, and tallying ([[chapters 1, 13 and 14]]);
+  - sparse rule sets: rules that each cover a region of states and name an action, with
+    overlaps settled by the most specific rule (Luke, *Essentials of Metaheuristics*,
+    section 10.2).
+- **Size control.** A rule model's score is penalised by its size, `f = αr − (1−α)s` (Luke,
+  section 4.6, parsimony pressure). This is the counterpart of frugality: a larger model has
+  to earn its size by predicting better.
+- **Search.** There are `n!` cue orders (Forster, §1 Satz 3), and for small `n` the search is
+  exhaustive, exact and deterministic. Luke states when a stochastic search is the right tool:
+  when "brute-force search is out of the question because the space is too large"
+  (section 0.1). Such a search uses fixed seeds, and its result is still judged on held-out
+  data.
+- **Selection by prediction.** Fit on one game and test on another, and report hits out of
+  `n`. A model is kept only if it beats its rivals out of sample (Gigerenzer, chapter 1; Luke,
+  section 11.1.2, training and test sets).
+- **Few cases per game.** A rule estimated on one game has few cases. The finance collection's
+  credibility formula combines that estimate with the pooled value of all games:
+  `P = (1 − z)·G + z·X`, with `0 < z < 1` growing with the game's own evidence (p. 102).
+  The R1–R9 rules were fitted and judged on the same data, so they remain hypotheses until
+  they pass this test.
+- **Sequences** (optional). Command types as a Markov chain satisfying conditions M1 and M2
+  (Linear Algebra with Python, section 9.4).
+- **Choices among options** (Bröder, in *Heuristics*, chapter 17): each candidate strategy is
+  followed with a constant error rate, its likelihood is maximised over that rate, and it must
+  beat guessing; strategies are compared by likelihood and BIC (`tools/strategy.py`).
+- **Phases:** an exact optimal partition of the per-turn activity, with a parsimony penalty per
+  phase, checked at half and twice the penalty (`tools/phases.py`).
+- **Synthesis:** the parts are read from a proposed whole and the whole is checked against each
+  part (Schleiermacher, in Mueller-Vollmer, *The Hermeneutics Reader*, p. 84).
+- *Open:* cue profiles, the cross-game test, the credibility weights.
+
+## 7. Experiments on AI changes
+
+- **Analytic before simulated.** Tatum separates general perturbations, whose effect follows
+  from an explicit formula, from special perturbations, which must be computed numerically
+  ([[sections 14.1 and 15.1]]). Where a change acts through a formula, its effect is computed
+  exactly, not simulated. The upgrade-rate truncation is an example
+  (`decisions/workers-game4.md`). Simulation is for effects that emerge from play.
+- **Runs.** Each variant gets at least `30` independent runs, each with its own seed (Luke,
+  section 11.1.2: "always run each technique at least `30` times"). The harness provides this:
+  `HARNESS_RESEED=n` gives independent continuations of one save.
+- **Duplicability.** The same seed run twice must give identical results (Luke,
+  section 11.1.1).
+- **Test.** A two-tailed Welch t-test on ranks: pool the results, rank them, then apply
+  Welch's test to the ranks (Luke, section 11.1.2, after Wineberg and Christensen). Report the
+  effect size as well; a significant but negligible difference is not an improvement.
+- **The baseline** is the best-tuned existing version, not a weak one ("make it as hard as
+  possible for your claim to succeed").
+- **Absolute, not relative, fitness.** Self-play gives only relative fitness: when all AIs
+  improve together, results stay flat (Luke, chapter 6). AI changes are judged against fixed
+  opponents:
+  - the frozen previous version;
+  - continuations of the human's own saves at the turns the human attacked.
+- **Differences over turns.** The difference between paired runs is split into a periodic part
+  and a drift, after Tatum's periodic and secular perturbations (section 14.1). Only a drift
+  is evidence of a lasting effect.
+- **Earlier comparisons.** The earlier AI comparisons ran on one to four seeds
+  (`diagnosis-1.md`, `research/ai-strategy/README.md`). They are anecdotes under this rule.
+
+## 8. Formulas of the game
+
+- **Integer division.** Whole numbers stay whole under addition, subtraction and
+  multiplication, but not under division (Asimov, chapter 6). Every integer division in the DLL
+  is therefore a place where meaning can be lost. `1 × (100 + m) / 100` truncates every `m`
+  under `100` to no effect.
+  *Open:* an audit of the DLL for divisions of small quantities by `100`.
+- **Sensitivity bounds.** If a quantity's rate of change lies between `m` and `M`, then
+  `m(x₂ − x₁) ≤ f(x₂) − f(x₁) ≤ M(x₂ − x₁)` (Forster, §16 Corollar 2). This bounds how much a
+  figure can move when an input moves, without a simulation.
+- **Iterative estimates.** For a contraction with constant `q < 1`, the error of the `n`-th
+  approximation is at most `q/(1−q)` times the last step (Forster, §17 Satz 1). That is a
+  stopping rule with a guarantee.
+- **Sums over turns.** For a monotone per-turn quantity, the sum lies between two integrals
+  (Forster, §20 Satz 1). This gives closed-form bounds instead of turn-by-turn sums.
+- **Economy.**
+  - A war chest follows the ruin model `R_t = K₀ + P·t − X_t`, the reserve plus income minus
+    spending; the target is a small `P(R_t < 0)` (*Formelsammlung*, p. 103).
+  - Builds and deals compare by net present value `C = Σ C_i·q^{−i}` (p. 46). The game has no
+    interest rate, so `q` would have to be taken from the game's own growth. That is *open*,
+    and no figure uses it yet.
+
+## 9. Reading record
+
+For each book: what was read in full, and why the rest was not used.
+- **Forster, *[[Analysis 1]]*.**
+  - Read in full: the statement of every Satz, Corollar and Definition; the full text of
+    [[§1 Satz 3 and 6]], [[§16 Corollar 2]], [[§17 Satz 1]] and [[§20 Satz 1]].
+  - Not used: [[§2–3, 5, 9 and 12–14]] (field and order axioms, real-number construction,
+    complex exponential, trigonometry) and [[§21–23]] (uniform convergence, Taylor and Fourier
+    series). The record is discrete, finite and integer-valued.
+- **Tatum, *Celestial Mechanics*.**
+  - Read in full: the full contents, [[sections 1.8, 13.17, 14.1 and 15.1]].
+  - Not used: [[chapters 2–12 and 16–18]] (conics, spherical trigonometry, gravitation, time,
+    ephemerides, astrometry, binaries), which are specific to physics.
+- **Luke, *Essentials of Metaheuristics*.**
+  - Read in full: the full contents, [[sections 0.1, 4.6]], [[6]] (introduction and [[6.1]]),
+    [[10.2 and 11.1]].
+  - Not used: [[chapters 1–3, 5 and 7–9]] (search algorithms). They apply only once a search space
+    is too large to enumerate, which no current question requires.
+- **Grundmann and Luderer, *Formelsammlung*.**
+  - Read in full: the contents, [[pp. 18–19]] (statistics), [[p. 46]] (investment appraisal) and
+    [[pp. 102–103]] (credibility, ruin).
+  - Not used: building savings, life insurance, bonds and options, which are products the game
+    does not have. The life tables could serve to estimate unit survival; that is *open*.
+- **Gnörich, *Höhere Mathematik Formelsammlung*.**
+  - Read in full: the contents and section 8.5.
+  - Not used: [[chapters 7 and 9–12]] (special functions, integration, tensors, differential
+    equations). The game moves in discrete turns.
+- **Gigerenzer, Hertwig and Pachur, *Heuristics*.**
+  - Read in full: [[chapters 1, 13, 14 and 17]], and in chapter 29 the statement of the decay and
+    circle heuristics (p. 593).
+  - Not used: the recognition and fluency chapters, which need what a person recognises, and the
+    log does not record it.
+- **Mueller-Vollmer, *The Hermeneutics Reader*.**
+  - Read in full: the introduction on the hermeneutic circle, and Schleiermacher's aphorisms on
+    the whole and the parts (p. 84).
+  - Not used: the later texts on language and history, which address the interpretation of texts.
+- **Asimov, *Realm of Algebra*.**
+  - Read in full: the contents, the openings of [[chapters 6 and 13]], and the passage in
+    chapter 5 that restates the axiom of chapter 2.
+  - Not used: [[chapters 9–11]] (quadratics, factoring), because no model here is quadratic.
+  - Its manner is taken for documents written for the user: a concrete case first, then the
+    general statement, then a check of the result.
+
+The military and economic classics below are Project Gutenberg texts (Graham's Clausewitz,
+Giles's Sun Tzu, Mendell and Craighill's Jomini). They were read for `study/war.md`, where each
+reading of the human's wars is set against them.
+- **Clausewitz, *On War*.**
+  - Read in full: the contents; Book VII, chapters III–V, XVI and XXII; Book VIII,
+    chapters V and VII.
+  - Not used: the defence of mountains, rivers, swamps and forests (Book VI, chapters XV–XXI),
+    since the game's terrain enters only as a defence modifier; night fighting.
+  - Taken: the limited object, the culminating point, contiguity of conquests.
+- **Sun Tzu, *The Art of War*.**
+  - Read in full: chapters II, III and VI, without the commentaries.
+  - Not used: chapters XII and XIII (fire, spies), which have no counterpart in the logs.
+  - Taken: short wars, foraging on the enemy, attacking the undefended, avoiding sieges.
+- **Jomini, *The Art of War*.**
+  - Read in full: the contents; the definition of strategy and the fundamental principle;
+    Articles XXXV and XL (attack of cities, descents).
+  - Not used: orders of battle and formations (chapter VII), which the game's combat does not
+    represent.
+  - Taken: the sequence of a campaign, and the cases where a landing can succeed. The last gave
+    the test of the engaged target (`study/war.md`, section 9).
+- **Mahan, *The Influence of Sea Power upon History*.**
+  - Read in full: the introductory chapter.
+  - Not used: the campaigns of chapters II–XIV, which concern fleets of sailing ships.
+- **Smith, *The Wealth of Nations*.**
+  - Read in full: Book V, chapter I, part I (the expense of defence).
+  - Not used: the rest, which is on production and trade, already measured in the logs.
+
+## 10. Cost
+
+- Machine time is small: each tool runs in under a second on game 4. Reading and error cost
+  dominate.
+- The machine computes exact statistics in one pass. The conversation reads only rendered
+  documents, never raw rows.
+- Outputs are deterministic, so byte equality is a valid test.
+- *Open:* `micro-game4.md` and `figures.md` carry headers added by hand. They stay in
+  `UNCHECKED` until their tools write through `figlib`.

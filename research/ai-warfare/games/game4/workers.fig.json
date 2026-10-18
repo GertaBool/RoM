@@ -1,0 +1,4565 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/workers.py",
+  "@repo/research/ai-warfare/games/game4",
+  "3",
+  "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/ev/g4/run.jsonl.state0.json",
+  "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/xmldb2/records.json",
+  "/home/user/src/rom-0018b/Assets/CvGameCoreDLL/CvEnums.h",
+  "@repo/research/ai-warfare/games/game4/workers.fig.json"
+ ],
+ "inputs": {
+  "human_commands.csv": "2d84b67b14921b6596e3b6fbfd7fb1155a12c985fedcc9429f4244f2de8af848",
+  "tiles.csv": "56803454f2ec5383ef0c2965a8aa4170797f8131e120ea0b312760bcde06ec08",
+  "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/ev/g4/run.jsonl.state0.json": "03299d4bc801c0e546c8f67f944be2edc2ff2d6b26bfec13bacfde3a19580eae",
+  "/tmp/claude-0/-home-user-RoM/1376d98a-6d44-5795-8d74-0b3afefcb414/scratchpad/xmldb2/records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152",
+  "/home/user/src/rom-0018b/Assets/CvGameCoreDLL/CvEnums.h": "7a8a4769d01feaeb9c7e975631764b89532a20b6405b7b3fda861f38fe989a70"
+ },
+ "figures": {
+  "builds": {
+   "kind": "table",
+   "head": [
+    "build",
+    "HASTATI",
+    "JAVELINEER",
+    "PRINCIPES",
+    "ROME_LEGIONARY",
+    "WORKBOAT",
+    "WORKER"
+   ],
+   "rows": [
+    [
+     "BUILD_TRACK",
+     1,
+     37,
+     0,
+     0,
+     0,
+     31
+    ],
+    [
+     "BUILD_ROAD",
+     4,
+     0,
+     1,
+     2,
+     0,
+     41
+    ],
+    [
+     "BUILD_MINE",
+     0,
+     0,
+     0,
+     0,
+     0,
+     42
+    ],
+    [
+     "BUILD_COTTAGE",
+     0,
+     0,
+     0,
+     0,
+     0,
+     35
+    ],
+    [
+     "BUILD_FARM",
+     0,
+     0,
+     0,
+     0,
+     0,
+     28
+    ],
+    [
+     "BUILD_PAVED",
+     1,
+     0,
+     1,
+     8,
+     0,
+     4
+    ],
+    [
+     "BUILD_CAMP",
+     0,
+     9,
+     0,
+     0,
+     0,
+     4
+    ],
+    [
+     "BUILD_FISHING_BOATS",
+     0,
+     0,
+     0,
+     0,
+     9,
+     0
+    ],
+    [
+     "BUILD_WINERY",
+     0,
+     0,
+     0,
+     0,
+     0,
+     6
+    ],
+    [
+     "BUILD_QUARRY",
+     1,
+     0,
+     0,
+     0,
+     0,
+     3
+    ],
+    [
+     "BUILD_PASTURE",
+     0,
+     0,
+     0,
+     0,
+     0,
+     3
+    ],
+    [
+     "BUILD_WORKSHOP",
+     0,
+     0,
+     0,
+     0,
+     0,
+     3
+    ],
+    [
+     "BUILD_OLIVE_FARM",
+     0,
+     0,
+     0,
+     0,
+     0,
+     2
+    ],
+    [
+     "all values",
+     7,
+     46,
+     2,
+     10,
+     9,
+     202
+    ]
+   ],
+   "unit": "orders",
+   "who": "human (player 3)",
+   "turn": "49-285",
+   "source": "A lines MISSION_BUILD (human_commands.csv)",
+   "n": 276,
+   "values_total": 13,
+   "values_shown": 13,
+   "reason": null,
+   "left_out": [],
+   "xml": "BuildInfo",
+   "values": [
+    "BUILD_TRACK",
+    "BUILD_ROAD",
+    "BUILD_MINE",
+    "BUILD_COTTAGE",
+    "BUILD_FARM",
+    "BUILD_PAVED",
+    "BUILD_CAMP",
+    "BUILD_FISHING_BOATS",
+    "BUILD_WINERY",
+    "BUILD_QUARRY",
+    "BUILD_PASTURE",
+    "BUILD_WORKSHOP",
+    "BUILD_OLIVE_FARM"
+   ],
+   "stat": "count"
+  },
+  "builds_distinct": {
+   "kind": "table",
+   "head": [
+    "build",
+    "all"
+   ],
+   "rows": [
+    [
+     "BUILD_TRACK",
+     64
+    ],
+    [
+     "BUILD_ROAD",
+     43
+    ],
+    [
+     "BUILD_MINE",
+     34
+    ],
+    [
+     "BUILD_COTTAGE",
+     28
+    ],
+    [
+     "BUILD_FARM",
+     21
+    ],
+    [
+     "BUILD_PAVED",
+     14
+    ],
+    [
+     "BUILD_CAMP",
+     13
+    ],
+    [
+     "BUILD_FISHING_BOATS",
+     9
+    ],
+    [
+     "BUILD_WINERY",
+     5
+    ],
+    [
+     "BUILD_QUARRY",
+     3
+    ],
+    [
+     "BUILD_PASTURE",
+     3
+    ],
+    [
+     "BUILD_WORKSHOP",
+     3
+    ],
+    [
+     "BUILD_OLIVE_FARM",
+     2
+    ],
+    [
+     "all values",
+     242
+    ]
+   ],
+   "unit": "distinct plots",
+   "who": "human (player 3)",
+   "turn": "49-285",
+   "source": "A lines MISSION_BUILD, first order per plot and build",
+   "n": 242,
+   "values_total": 13,
+   "values_shown": 13,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "BUILD_TRACK",
+    "BUILD_ROAD",
+    "BUILD_MINE",
+    "BUILD_COTTAGE",
+    "BUILD_FARM",
+    "BUILD_PAVED",
+    "BUILD_CAMP",
+    "BUILD_FISHING_BOATS",
+    "BUILD_WINERY",
+    "BUILD_QUARRY",
+    "BUILD_PASTURE",
+    "BUILD_WORKSHOP",
+    "BUILD_OLIVE_FARM"
+   ],
+   "stat": "count"
+  },
+  "route_to": {
+   "kind": "table",
+   "head": [
+    "unit",
+    "all"
+   ],
+   "rows": [
+    [
+     "WORKER",
+     24
+    ],
+    [
+     "all values",
+     24
+    ]
+   ],
+   "unit": "orders",
+   "who": "human (player 3)",
+   "turn": "206-283",
+   "source": "A lines MISSION_ROUTE_TO",
+   "n": 24,
+   "values_total": 1,
+   "values_shown": 1,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "WORKER"
+   ],
+   "stat": "count"
+  },
+  "automate": {
+   "kind": "table",
+   "head": [
+    "unit",
+    "AUTOMATE_BUILD",
+    "AUTOMATE_EXPLORE"
+   ],
+   "rows": [
+    [
+     "WORKBOAT",
+     8,
+     0
+    ],
+    [
+     "GALLEY",
+     0,
+     7
+    ],
+    [
+     "SCOUT",
+     0,
+     1
+    ],
+    [
+     "JAVELINEER",
+     0,
+     1
+    ],
+    [
+     "EXPLORER",
+     0,
+     1
+    ],
+    [
+     "all values",
+     8,
+     10
+    ]
+   ],
+   "unit": "orders",
+   "who": "human (player 3)",
+   "turn": "0-276",
+   "source": "A lines COMMAND_AUTOMATE; type from CvEnums.h AutomateTypes",
+   "n": 18,
+   "values_total": 5,
+   "values_shown": 5,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "WORKBOAT",
+    "GALLEY",
+    "SCOUT",
+    "JAVELINEER",
+    "EXPLORER"
+   ],
+   "stat": "count"
+  },
+  "impr": {
+   "kind": "table",
+   "head": [
+    "improvement",
+    "human_founded worked",
+    "human_founded unworked",
+    "human_captured worked",
+    "human_captured unworked",
+    "ai worked",
+    "ai unworked"
+   ],
+   "rows": [
+    [
+     "-",
+     31,
+     70,
+     23,
+     20,
+     263,
+     947
+    ],
+    [
+     "MINE",
+     29,
+     0,
+     5,
+     0,
+     216,
+     45
+    ],
+    [
+     "FARM",
+     18,
+     0,
+     3,
+     0,
+     175,
+     32
+    ],
+    [
+     "CAMP",
+     3,
+     0,
+     0,
+     0,
+     71,
+     71
+    ],
+    [
+     "FISHING_BOATS",
+     14,
+     1,
+     4,
+     1,
+     104,
+     16
+    ],
+    [
+     "COTTAGE",
+     0,
+     0,
+     0,
+     0,
+     31,
+     53
+    ],
+    [
+     "PASTURE",
+     3,
+     0,
+     3,
+     0,
+     65,
+     1
+    ],
+    [
+     "HAMLET",
+     6,
+     0,
+     2,
+     0,
+     17,
+     8
+    ],
+    [
+     "WORKSHOP",
+     1,
+     0,
+     0,
+     0,
+     15,
+     5
+    ],
+    [
+     "QUARRY",
+     3,
+     0,
+     0,
+     0,
+     16,
+     1
+    ],
+    [
+     "PLANTATION",
+     0,
+     0,
+     0,
+     0,
+     13,
+     5
+    ],
+    [
+     "OLIVE_FARM",
+     2,
+     0,
+     0,
+     0,
+     8,
+     1
+    ],
+    [
+     "APPLE_FARM",
+     0,
+     0,
+     0,
+     0,
+     10,
+     0
+    ],
+    [
+     "VILLAGE",
+     7,
+     0,
+     0,
+     0,
+     3,
+     0
+    ],
+    [
+     "WINERY",
+     5,
+     0,
+     0,
+     0,
+     1,
+     2
+    ],
+    [
+     "SHAFT_MINE",
+     1,
+     0,
+     0,
+     0,
+     5,
+     1
+    ],
+    [
+     "SILK_FARM",
+     0,
+     0,
+     0,
+     0,
+     2,
+     0
+    ],
+    [
+     "CITY_RUINS",
+     0,
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     "FORT",
+     0,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    [
+     "all values",
+     123,
+     72,
+     40,
+     21,
+     1015,
+     1189
+    ]
+   ],
+   "unit": "tiles at save",
+   "who": "all players",
+   "turn": "save 285",
+   "source": "tiles.csv (save dump)",
+   "n": 2460,
+   "values_total": 19,
+   "values_shown": 19,
+   "reason": null,
+   "left_out": [],
+   "xml": "ImprovementInfo",
+   "values": [
+    "-",
+    "MINE",
+    "FARM",
+    "CAMP",
+    "FISHING_BOATS",
+    "COTTAGE",
+    "PASTURE",
+    "HAMLET",
+    "WORKSHOP",
+    "QUARRY",
+    "PLANTATION",
+    "OLIVE_FARM",
+    "APPLE_FARM",
+    "VILLAGE",
+    "WINERY",
+    "SHAFT_MINE",
+    "SILK_FARM",
+    "CITY_RUINS",
+    "FORT"
+   ],
+   "stat": "count"
+  },
+  "yield_food": {
+   "kind": "table",
+   "head": [
+    "improvement",
+    "human_founded",
+    "human_captured",
+    "ai"
+   ],
+   "rows": [
+    [
+     "-",
+     "3.00",
+     "2.30",
+     "2.88"
+    ],
+    [
+     "MINE",
+     "1.31",
+     "0.40",
+     "0.49"
+    ],
+    [
+     "FARM",
+     "9.11",
+     "7.67",
+     "7.92"
+    ],
+    [
+     "FISHING_BOATS",
+     "6.86",
+     "6.00",
+     "6.53"
+    ],
+    [
+     "CAMP",
+     "5.00",
+     "-",
+     "3.58"
+    ],
+    [
+     "PASTURE",
+     "8.33",
+     "9.00",
+     "8.05"
+    ],
+    [
+     "COTTAGE",
+     "-",
+     "-",
+     "1.65"
+    ],
+    [
+     "HAMLET",
+     "1.17",
+     "1.50",
+     "2.35"
+    ],
+    [
+     "QUARRY",
+     "1.67",
+     "-",
+     "0.56"
+    ],
+    [
+     "WORKSHOP",
+     "2.00",
+     "-",
+     "1.00"
+    ],
+    [
+     "PLANTATION",
+     "-",
+     "-",
+     "3.23"
+    ],
+    [
+     "APPLE_FARM",
+     "-",
+     "-",
+     "9.00"
+    ],
+    [
+     "OLIVE_FARM",
+     "4.50",
+     "-",
+     "5.00"
+    ],
+    [
+     "VILLAGE",
+     "1.57",
+     "-",
+     "3.00"
+    ],
+    [
+     "WINERY",
+     "6.00",
+     "-",
+     "6.00"
+    ],
+    [
+     "SHAFT_MINE",
+     "2.00",
+     "-",
+     "0.80"
+    ],
+    [
+     "SILK_FARM",
+     "-",
+     "-",
+     "2.00"
+    ]
+   ],
+   "unit": "food per tile",
+   "who": "all players",
+   "turn": "save 285",
+   "source": "tiles.csv, worked tiles",
+   "n": 1178,
+   "values_total": 17,
+   "values_shown": 17,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "-",
+    "MINE",
+    "FARM",
+    "FISHING_BOATS",
+    "CAMP",
+    "PASTURE",
+    "COTTAGE",
+    "HAMLET",
+    "QUARRY",
+    "WORKSHOP",
+    "PLANTATION",
+    "APPLE_FARM",
+    "OLIVE_FARM",
+    "VILLAGE",
+    "WINERY",
+    "SHAFT_MINE",
+    "SILK_FARM"
+   ],
+   "stat": "mean"
+  },
+  "yield_hammers": {
+   "kind": "table",
+   "head": [
+    "improvement",
+    "human_founded",
+    "human_captured",
+    "ai"
+   ],
+   "rows": [
+    [
+     "-",
+     "0.97",
+     "1.52",
+     "1.59"
+    ],
+    [
+     "MINE",
+     "8.21",
+     "8.00",
+     "6.62"
+    ],
+    [
+     "FARM",
+     "0.28",
+     "0.33",
+     "0.68"
+    ],
+    [
+     "FISHING_BOATS",
+     "0.00",
+     "0.00",
+     "0.79"
+    ],
+    [
+     "CAMP",
+     "1.67",
+     "-",
+     "2.01"
+    ],
+    [
+     "PASTURE",
+     "2.67",
+     "2.00",
+     "3.05"
+    ],
+    [
+     "COTTAGE",
+     "-",
+     "-",
+     "2.19"
+    ],
+    [
+     "HAMLET",
+     "1.50",
+     "1.00",
+     "2.35"
+    ],
+    [
+     "QUARRY",
+     "8.33",
+     "-",
+     "6.62"
+    ],
+    [
+     "WORKSHOP",
+     "7.00",
+     "-",
+     "3.47"
+    ],
+    [
+     "PLANTATION",
+     "-",
+     "-",
+     "1.23"
+    ],
+    [
+     "APPLE_FARM",
+     "-",
+     "-",
+     "1.20"
+    ],
+    [
+     "OLIVE_FARM",
+     "2.00",
+     "-",
+     "1.88"
+    ],
+    [
+     "VILLAGE",
+     "2.00",
+     "-",
+     "5.00"
+    ],
+    [
+     "WINERY",
+     "0.60",
+     "-",
+     "2.00"
+    ],
+    [
+     "SHAFT_MINE",
+     "10.00",
+     "-",
+     "7.40"
+    ],
+    [
+     "SILK_FARM",
+     "-",
+     "-",
+     "1.00"
+    ]
+   ],
+   "unit": "hammers per tile",
+   "who": "all players",
+   "turn": "save 285",
+   "source": "tiles.csv, worked tiles",
+   "n": 1178,
+   "values_total": 17,
+   "values_shown": 17,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "-",
+    "MINE",
+    "FARM",
+    "FISHING_BOATS",
+    "CAMP",
+    "PASTURE",
+    "COTTAGE",
+    "HAMLET",
+    "QUARRY",
+    "WORKSHOP",
+    "PLANTATION",
+    "APPLE_FARM",
+    "OLIVE_FARM",
+    "VILLAGE",
+    "WINERY",
+    "SHAFT_MINE",
+    "SILK_FARM"
+   ],
+   "stat": "mean"
+  },
+  "yield_commerce": {
+   "kind": "table",
+   "head": [
+    "improvement",
+    "human_founded",
+    "human_captured",
+    "ai"
+   ],
+   "rows": [
+    [
+     "-",
+     "0.97",
+     "0.70",
+     "0.98"
+    ],
+    [
+     "MINE",
+     "0.66",
+     "2.40",
+     "0.59"
+    ],
+    [
+     "FARM",
+     "1.00",
+     "1.00",
+     "0.84"
+    ],
+    [
+     "FISHING_BOATS",
+     "1.57",
+     "1.50",
+     "2.52"
+    ],
+    [
+     "CAMP",
+     "0.67",
+     "-",
+     "1.00"
+    ],
+    [
+     "PASTURE",
+     "1.33",
+     "1.00",
+     "1.62"
+    ],
+    [
+     "COTTAGE",
+     "-",
+     "-",
+     "0.97"
+    ],
+    [
+     "HAMLET",
+     "2.17",
+     "2.50",
+     "2.00"
+    ],
+    [
+     "QUARRY",
+     "0.67",
+     "-",
+     "0.94"
+    ],
+    [
+     "WORKSHOP",
+     "1.00",
+     "-",
+     "1.27"
+    ],
+    [
+     "PLANTATION",
+     "-",
+     "-",
+     "7.00"
+    ],
+    [
+     "APPLE_FARM",
+     "-",
+     "-",
+     "2.00"
+    ],
+    [
+     "OLIVE_FARM",
+     "8.00",
+     "-",
+     "6.25"
+    ],
+    [
+     "VILLAGE",
+     "4.14",
+     "-",
+     "1.33"
+    ],
+    [
+     "WINERY",
+     "7.60",
+     "-",
+     "7.00"
+    ],
+    [
+     "SHAFT_MINE",
+     "1.00",
+     "-",
+     "1.00"
+    ],
+    [
+     "SILK_FARM",
+     "-",
+     "-",
+     "6.50"
+    ]
+   ],
+   "unit": "commerce per tile",
+   "who": "all players",
+   "turn": "save 285",
+   "source": "tiles.csv, worked tiles",
+   "n": 1178,
+   "values_total": 17,
+   "values_shown": 17,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "-",
+    "MINE",
+    "FARM",
+    "FISHING_BOATS",
+    "CAMP",
+    "PASTURE",
+    "COTTAGE",
+    "HAMLET",
+    "QUARRY",
+    "WORKSHOP",
+    "PLANTATION",
+    "APPLE_FARM",
+    "OLIVE_FARM",
+    "VILLAGE",
+    "WINERY",
+    "SHAFT_MINE",
+    "SILK_FARM"
+   ],
+   "stat": "mean"
+  },
+  "workrate_HASTATI": {
+   "kind": "value",
+   "value": 175,
+   "unit": "xml",
+   "who": "HASTATI",
+   "turn": "fixed",
+   "source": "UnitInfo UNIT_HASTATI iWorkRate",
+   "n": null
+  },
+  "workrate_JAVELINEER": {
+   "kind": "value",
+   "value": 100,
+   "unit": "xml",
+   "who": "JAVELINEER",
+   "turn": "fixed",
+   "source": "UnitInfo UNIT_JAVELINEER iWorkRate",
+   "n": null
+  },
+  "workrate_PRINCIPES": {
+   "kind": "value",
+   "value": 175,
+   "unit": "xml",
+   "who": "PRINCIPES",
+   "turn": "fixed",
+   "source": "UnitInfo UNIT_PRINCIPES iWorkRate",
+   "n": null
+  },
+  "workrate_ROME_LEGIONARY": {
+   "kind": "value",
+   "value": 175,
+   "unit": "xml",
+   "who": "ROME_LEGIONARY",
+   "turn": "fixed",
+   "source": "UnitInfo UNIT_ROME_LEGIONARY iWorkRate",
+   "n": null
+  },
+  "workrate_WORKBOAT": {
+   "kind": "value",
+   "value": 100,
+   "unit": "xml",
+   "who": "WORKBOAT",
+   "turn": "fixed",
+   "source": "UnitInfo UNIT_WORKBOAT iWorkRate",
+   "n": null
+  },
+  "workrate_WORKER": {
+   "kind": "value",
+   "value": 100,
+   "unit": "xml",
+   "who": "WORKER",
+   "turn": "fixed",
+   "source": "UnitInfo UNIT_WORKER iWorkRate",
+   "n": null
+  },
+  "build_pct": {
+   "kind": "value",
+   "value": 75,
+   "unit": "xml",
+   "who": "all",
+   "turn": "fixed",
+   "source": "GameSpeedInfo MARATHON iBuildPercent (CvPlot::getBuildTime)",
+   "n": null
+  },
+  "upgrade_pct": {
+   "kind": "value",
+   "value": 300,
+   "unit": "xml",
+   "who": "all",
+   "turn": "fixed",
+   "source": "GameSpeedInfo MARATHON iImprovementPercent (CvGame::getImprovementUpgradeTime)",
+   "n": null
+  },
+  "ai_workrate_mod": {
+   "kind": "value",
+   "value": 20,
+   "unit": "xml",
+   "who": "AI players",
+   "turn": "fixed",
+   "source": "HandicapInfo MONARCH iAIWorkRateModifier, game handicap (CvUnit::workRate)",
+   "n": null
+  },
+  "upgrade_turns_COTTAGE": {
+   "kind": "value",
+   "value": 30,
+   "unit": "derived xml",
+   "who": "all",
+   "turn": "fixed",
+   "source": "IMPROVEMENT_COTTAGE iUpgradeTime 10 x Marathon and Ancient iImprovementPercent (CvGame::getImprovementUpgradeTime); progress grows only while the tile is worked (CvPlot::doImprovementUpgrade)",
+   "n": null
+  },
+  "upgrade_turns_HAMLET": {
+   "kind": "value",
+   "value": 60,
+   "unit": "derived xml",
+   "who": "all",
+   "turn": "fixed",
+   "source": "IMPROVEMENT_HAMLET iUpgradeTime 20 x Marathon and Ancient iImprovementPercent (CvGame::getImprovementUpgradeTime); progress grows only while the tile is worked (CvPlot::doImprovementUpgrade)",
+   "n": null
+  },
+  "upgrade_turns_VILLAGE": {
+   "kind": "value",
+   "value": 120,
+   "unit": "derived xml",
+   "who": "all",
+   "turn": "fixed",
+   "source": "IMPROVEMENT_VILLAGE iUpgradeTime 40 x Marathon and Ancient iImprovementPercent (CvGame::getImprovementUpgradeTime); progress grows only while the tile is worked (CvPlot::doImprovementUpgrade)",
+   "n": null
+  },
+  "cottage_chain": {
+   "kind": "value",
+   "value": "COTTAGE > HAMLET > VILLAGE > TOWN",
+   "unit": "xml",
+   "who": "all",
+   "turn": "fixed",
+   "source": "ImprovementInfo ImprovementUpgrade",
+   "n": null
+  },
+  "rate_setters": {
+   "kind": "value",
+   "value": "CivicInfo",
+   "unit": "xml",
+   "who": "all",
+   "turn": "fixed",
+   "source": "records.json, every record type, iImprovementUpgradeRateModifier set",
+   "n": null
+  },
+  "rate_mod_human": {
+   "kind": "value",
+   "value": 20,
+   "unit": "xml",
+   "who": "human (player 3)",
+   "turn": "save 285",
+   "source": "civics in force (save dump) x CivicInfo iImprovementUpgradeRateModifier",
+   "n": null
+  },
+  "rate_human": {
+   "kind": "value",
+   "value": 1,
+   "unit": "derived xml",
+   "who": "human (player 3)",
+   "turn": "save 285",
+   "source": "CvPlayer::getImprovementUpgradeRate: 1 x (100 + modifier) / 100, integer division",
+   "n": null
+  },
+  "rate_ai_above1": {
+   "kind": "value",
+   "value": 0,
+   "unit": "derived xml",
+   "who": "AI players with cities",
+   "turn": "save 285",
+   "source": "same rule, AI civics in force",
+   "n": 17
+  },
+  "n_ai": {
+   "kind": "value",
+   "value": 17,
+   "unit": "xml",
+   "who": "AI players with cities",
+   "turn": "save 285",
+   "source": "save dump",
+   "n": null
+  }
+ },
+ "xml": {
+  "BuildInfo": {
+   "BUILD_TRACK": {
+    "AndDependencyTypes": null,
+    "Button": [
+     "Art/Interface/Buttons/Builds/BuildPath.dds"
+    ],
+    "Description": "TXT_KEY_BUILD_TRACK",
+    "EntityEvent": "ENTITY_EVENT_SHOVEL",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_R",
+    "ImprovementType": "NONE",
+    "OrDependencyTypes": null,
+    "PrereqTech": "NONE",
+    "RouteType": "ROUTE_TRACK",
+    "Type": "BUILD_TRACK",
+    "_index": 0,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 0,
+    "iOrderPriority": null,
+    "iTime": 150
+   },
+   "BUILD_ROAD": {
+    "AndDependencyTypes": null,
+    "Button": [
+     "Art/Interface/Buttons/Builds/BuildRoad.dds"
+    ],
+    "Description": "TXT_KEY_BUILD_ROAD",
+    "EntityEvent": "ENTITY_EVENT_SHOVEL",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_R",
+    "ImprovementType": "NONE",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_THE_WHEEL",
+    "RouteType": "ROUTE_ROAD",
+    "Type": "BUILD_ROAD",
+    "_index": 1,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 2,
+    "iHotKeyPriority": 0,
+    "iOrderPriority": null,
+    "iTime": 200
+   },
+   "BUILD_MINE": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildMine.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,6,7"
+    ],
+    "Description": "TXT_KEY_BUILD_MINE",
+    "EntityEvent": "ENTITY_EVENT_MINE",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_M",
+    "ImprovementType": "IMPROVEMENT_MINE",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_MINING",
+    "RouteType": "NONE",
+    "Type": "BUILD_MINE",
+    "_index": 12,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 0,
+    "iOrderPriority": null,
+    "iTime": 400
+   },
+   "BUILD_COTTAGE": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildCottage.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,2,7"
+    ],
+    "Description": "TXT_KEY_BUILD_COTTAGE",
+    "EntityEvent": "ENTITY_EVENT_BUILD",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_T",
+    "ImprovementType": "IMPROVEMENT_COTTAGE",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_POTTERY",
+    "RouteType": "NONE",
+    "Type": "BUILD_COTTAGE",
+    "_index": 30,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 0,
+    "iOrderPriority": null,
+    "iTime": 400
+   },
+   "BUILD_FARM": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildFarm.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,3,7"
+    ],
+    "Description": "TXT_KEY_BUILD_FARM",
+    "EntityEvent": "ENTITY_EVENT_IRRIGATE",
+    "FeatureStructs": [
+     {
+      "FeatureType": "FEATURE_JUNGLE",
+      "PrereqTech": "TECH_BRONZE_WORKING",
+      "bRemove": true,
+      "iProduction": 20,
+      "iTime": 400
+     },
+     {
+      "FeatureType": "FEATURE_FOREST",
+      "PrereqTech": "TECH_BRONZE_WORKING",
+      "bRemove": true,
+      "iProduction": 30,
+      "iTime": 300
+     },
+     {
+      "FeatureType": "FEATURE_SWAMP",
+      "PrereqTech": "TECH_WATERWORKS",
+      "bRemove": true,
+      "iProduction": 0,
+      "iTime": 800
+     }
+    ],
+    "Help": "",
+    "HotKey": "KB_I",
+    "ImprovementType": "IMPROVEMENT_FARM",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_AGRICULTURE",
+    "RouteType": "NONE",
+    "Type": "BUILD_FARM",
+    "_index": 8,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 0,
+    "iOrderPriority": null,
+    "iTime": 500
+   },
+   "BUILD_PAVED": {
+    "AndDependencyTypes": null,
+    "Button": [
+     "Art/Interface/Buttons/Builds/BuildPavedRoad.dds"
+    ],
+    "Description": "TXT_KEY_BUILD_PAVED",
+    "EntityEvent": "ENTITY_EVENT_SHOVEL",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_R",
+    "ImprovementType": "NONE",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_CONSTRUCTION",
+    "RouteType": "ROUTE_PAVED",
+    "Type": "BUILD_PAVED",
+    "_index": 2,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": true,
+    "bTypeDependency": null,
+    "iCost": 4,
+    "iHotKeyPriority": 0,
+    "iOrderPriority": null,
+    "iTime": 250
+   },
+   "BUILD_CAMP": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildCamp.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,1,7"
+    ],
+    "Description": "TXT_KEY_BUILD_CAMP",
+    "EntityEvent": "ENTITY_EVENT_BUILD",
+    "FeatureStructs": [
+     {
+      "FeatureType": "FEATURE_SWAMP",
+      "PrereqTech": "TECH_WATERWORKS",
+      "bRemove": true,
+      "iProduction": 0,
+      "iTime": 800
+     }
+    ],
+    "Help": "",
+    "HotKey": "KB_H",
+    "ImprovementType": "IMPROVEMENT_CAMP",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_HUNTING",
+    "RouteType": "NONE",
+    "Type": "BUILD_CAMP",
+    "_index": 26,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 1,
+    "iOrderPriority": null,
+    "iTime": 400
+   },
+   "BUILD_FISHING_BOATS": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildFishingBoats.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,7,7"
+    ],
+    "Description": "TXT_KEY_BUILD_FISHING_BOATS",
+    "EntityEvent": "ENTITY_EVENT_BUILD",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_F",
+    "ImprovementType": "IMPROVEMENT_FISHING_BOATS",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_FISHING",
+    "RouteType": "NONE",
+    "Type": "BUILD_FISHING_BOATS",
+    "_index": 10,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": true,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 1,
+    "iOrderPriority": null,
+    "iTime": 0
+   },
+   "BUILD_WINERY": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildWinery.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,6,8"
+    ],
+    "Description": "TXT_KEY_BUILD_WINERY",
+    "EntityEvent": "ENTITY_EVENT_BUILD",
+    "FeatureStructs": [
+     {
+      "FeatureType": "FEATURE_JUNGLE",
+      "PrereqTech": "TECH_BRONZE_WORKING",
+      "bRemove": true,
+      "iProduction": 20,
+      "iTime": 400
+     },
+     {
+      "FeatureType": "FEATURE_FOREST",
+      "PrereqTech": "TECH_BRONZE_WORKING",
+      "bRemove": true,
+      "iProduction": 30,
+      "iTime": 300
+     }
+    ],
+    "Help": "",
+    "HotKey": "KB_W",
+    "ImprovementType": "IMPROVEMENT_WINERY",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_FERMENTATION",
+    "RouteType": "NONE",
+    "Type": "BUILD_WINERY",
+    "_index": 29,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": true,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 1,
+    "iOrderPriority": null,
+    "iTime": 500
+   },
+   "BUILD_QUARRY": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildQuarry.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,2,9"
+    ],
+    "Description": "TXT_KEY_BUILD_QUARRY",
+    "EntityEvent": "ENTITY_EVENT_BUILD",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_Q",
+    "ImprovementType": "IMPROVEMENT_QUARRY",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_MASONRY",
+    "RouteType": "NONE",
+    "Type": "BUILD_QUARRY",
+    "_index": 24,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 0,
+    "iOrderPriority": null,
+    "iTime": 600
+   },
+   "BUILD_PASTURE": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildPasture.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,8,7"
+    ],
+    "Description": "TXT_KEY_BUILD_PASTURE",
+    "EntityEvent": "ENTITY_EVENT_BUILD",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_P",
+    "ImprovementType": "IMPROVEMENT_PASTURE",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_ANIMAL_HUSBANDRY",
+    "RouteType": "NONE",
+    "Type": "BUILD_PASTURE",
+    "_index": 25,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": true,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 1,
+    "iOrderPriority": null,
+    "iTime": 400
+   },
+   "BUILD_WORKSHOP": {
+    "AndDependencyTypes": null,
+    "Button": [
+     ",Art/Interface/Buttons/Builds/BuildWorkshop.dds,Art/Interface/Buttons/Actions_Builds_LeaderHeads_Specialists_Atlas.dds,8,8"
+    ],
+    "Description": "TXT_KEY_BUILD_WORKSHOP",
+    "EntityEvent": "ENTITY_EVENT_MINE",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_K",
+    "ImprovementType": "IMPROVEMENT_WORKSHOP",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_METAL_CASTING",
+    "RouteType": "NONE",
+    "Type": "BUILD_WORKSHOP",
+    "_index": 15,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": false,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 0,
+    "iOrderPriority": null,
+    "iTime": 600
+   },
+   "BUILD_OLIVE_FARM": {
+    "AndDependencyTypes": null,
+    "Button": [
+     "Art/Interface/Buttons/Builds/orchard.dds"
+    ],
+    "Description": "TXT_KEY_BUILD_OLIVE_FARM",
+    "EntityEvent": "ENTITY_EVENT_BUILD",
+    "FeatureStructs": "",
+    "Help": "",
+    "HotKey": "KB_P",
+    "ImprovementType": "IMPROVEMENT_OLIVE_FARM",
+    "OrDependencyTypes": null,
+    "PrereqTech": "TECH_FERMENTATION",
+    "RouteType": "NONE",
+    "Type": "BUILD_OLIVE_FARM",
+    "_index": 22,
+    "_sources": [
+     "XML/Units/CIV4BuildInfos.xml"
+    ],
+    "bAltDown": false,
+    "bCtrlDown": false,
+    "bKill": false,
+    "bShiftDown": true,
+    "bTypeDependency": null,
+    "iCost": 0,
+    "iHotKeyPriority": 1,
+    "iOrderPriority": null,
+    "iTime": 500
+   }
+  },
+  "ImprovementInfo": {
+   "MINE": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_MINE",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_BAUXITE",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_COAL",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_COPPER",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_GEMS",
+       "YieldChanges": [
+        [
+         0,
+         -1,
+         5
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_GOLD",
+       "YieldChanges": [
+        [
+         0,
+         -1,
+         6
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_IRON",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_SILVER",
+       "YieldChanges": [
+        [
+         0,
+         -1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_URANIUM",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_SULPHUR",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         2
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_LEAD",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_MINE_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_MINE",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "IMPROVEMENT_SHAFT_MINE",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": [
+     {
+      "RouteType": "ROUTE_ROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_PAVED",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_ROMAN_ROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_MODERN_ROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD",
+      "RouteYields": [
+       0,
+       2,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD_ELECTRIC",
+      "RouteYields": [
+       0,
+       2,
+       0
+      ]
+     }
+    ],
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_MACHINERY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_WATERWORKS",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_EXPLOSIVES",
+      "TechYields": [
+       -1,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_SEISMOLOGY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_MINE",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": [
+     0,
+     1,
+     0
+    ],
+    "_index": 9,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": true,
+    "bNoFreshWater": false,
+    "bOutsideBorders": true,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": null,
+    "bWater": false,
+    "iAdvancedStartCost": 24,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 10,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 10,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 40
+   },
+   "FARM": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_FARM",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_CORN",
+       "YieldChanges": [
+        [
+         2,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_RICE",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_WHEAT",
+       "YieldChanges": [
+        [
+         2,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_POTATO",
+       "YieldChanges": [
+        [
+         3,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_FARM_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_FARM",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": [
+     2,
+     0,
+     0
+    ],
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": [
+     1,
+     0,
+     0
+    ],
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_FERMENTATION",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_WATERWORKS",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_CROP_ROTATION",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_BIOLOGY",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_PESTICIDES",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_MACHINE_TOOLS",
+      "TechYields": [
+       1,
+       -1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_GENEMANIPULATION",
+      "TechYields": [
+       1,
+       -1,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": [
+     {
+      "TerrainType": "TERRAIN_GRASS",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_PLAINS",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_MARSH",
+      "bMakesValid": true
+     }
+    ],
+    "Type": "IMPROVEMENT_FARM",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 5,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": true,
+    "bFreshWaterMakesValid": true,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": true,
+    "bRequiresIrrigation": true,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": 30,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "CAMP": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_CAMP",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_DEER",
+       "YieldChanges": [
+        [
+         2,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 2500
+      },
+      {
+       "BonusType": "BONUS_FUR",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 3000
+      },
+      {
+       "BonusType": "BONUS_IVORY",
+       "YieldChanges": [
+        [
+         0,
+         2,
+         2
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_COW",
+       "YieldChanges": [
+        [
+         1,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_HORSE",
+       "YieldChanges": [
+        [
+         1,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_PIG",
+       "YieldChanges": [
+        [
+         1,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_SHEEP",
+       "YieldChanges": [
+        [
+         1,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_CANNABIS",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_SUGAR",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_APPLE",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_OLIVES",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_DYE",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_COFFEE",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_BANANA",
+       "YieldChanges": [
+        [
+         2,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_COTTON",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_INCENSE",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_LEMON",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_SPICES",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_TEA",
+       "YieldChanges": [
+        [
+         1,
+         1,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_TOBACCO",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_WINE",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_CAMP_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_CAMP",
+    "FeatureMakesValids": [
+     {
+      "FeatureType": "FEATURE_FOREST",
+      "bMakesValid": true
+     }
+    ],
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATCHLOCK",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_SEMI_AUTOMATIC_WEAPONS",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ARTIFICIAL_EVOLUTION",
+      "TechYields": [
+       2,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_CAMP",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": [
+     1,
+     0,
+     0
+    ],
+    "_index": 19,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": null,
+    "bWater": false,
+    "iAdvancedStartCost": 24,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "FISHING_BOATS": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_FISHING_BOATS",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_CLAM",
+       "YieldChanges": [
+        [
+         3,
+         0,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_CRAB",
+       "YieldChanges": [
+        [
+         2,
+         0,
+         2
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_FISH",
+       "YieldChanges": [
+        [
+         3,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_PEARLS",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_SHRIMP",
+       "YieldChanges": [
+        [
+         3,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_FISHING_BOATS_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_FISHING_BOATS",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_SONAR",
+      "TechYields": [
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_AQUACULTURE",
+      "TechYields": [
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ARTIFICIAL_EVOLUTION",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_FISHING_BOATS",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 7,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": null,
+    "bWater": true,
+    "iAdvancedStartCost": 30,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "COTTAGE": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_COTTAGE",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_BERNSTEIN",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_COTTAGE_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_COTTAGE",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "IMPROVEMENT_HAMLET",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": [
+     0,
+     0,
+     0
+    ],
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_PERSONAL_ROBOTS",
+      "TechYields": [
+       0,
+       2,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_VERTICAL_FARMING",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ORGANIC_CITIES",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": [
+     {
+      "TerrainType": "TERRAIN_GRASS",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_PLAINS",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_MARSH",
+      "bMakesValid": true
+     }
+    ],
+    "Type": "IMPROVEMENT_COTTAGE",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": [
+     0,
+     0,
+     1
+    ],
+    "_index": 24,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": true,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": 24,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 10,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 10
+   },
+   "PASTURE": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_PASTURE",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_COW",
+       "YieldChanges": [
+        [
+         3,
+         2,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_HORSE",
+       "YieldChanges": [
+        [
+         0,
+         2,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_PIG",
+       "YieldChanges": [
+        [
+         4,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_SHEEP",
+       "YieldChanges": [
+        [
+         3,
+         1,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_PASTURE_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_PASTURE",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_FERMENTATION",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       2,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_REFRIGERATION",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_GENEMANIPULATION",
+      "TechYields": [
+       0,
+       0,
+       2
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ARTIFICIAL_EVOLUTION",
+      "TechYields": [
+       2,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_PASTURE",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 18,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": null,
+    "bWater": false,
+    "iAdvancedStartCost": 24,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "HAMLET": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_HAMLET",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_BERNSTEIN",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_HAMLET_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_HAMLET",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "IMPROVEMENT_COTTAGE",
+    "ImprovementUpgrade": "IMPROVEMENT_VILLAGE",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_PERSONAL_ROBOTS",
+      "TechYields": [
+       0,
+       2,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_VERTICAL_FARMING",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ORGANIC_CITIES",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_HAMLET",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": [
+     0,
+     0,
+     2
+    ],
+    "_index": 25,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": -1,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 10,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 15,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 20
+   },
+   "WORKSHOP": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_WORKSHOP",
+    "BonusTypeStructs": [],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_WORKSHOP_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_WORKSHOP",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": [
+     1,
+     0,
+     0
+    ],
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": [
+     {
+      "RouteType": "ROUTE_MODERN_ROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD_ELECTRIC",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_GRAVTUBE",
+      "RouteYields": [
+       0,
+       1,
+       1
+      ]
+     },
+     {
+      "RouteType": "ROUTE_JUMPLANE",
+      "RouteYields": [
+       0,
+       1,
+       1
+      ]
+     }
+    ],
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       0,
+       1,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_MACHINERY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_WATERWORKS",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_GUILDS",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_CHEMISTRY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ORGANIC_CHEMISTRY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_DNA_COMPUTING",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_WIRELESS_ELECTRICITY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": [
+     {
+      "TerrainType": "TERRAIN_GRASS",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_PLAINS",
+      "bMakesValid": true
+     }
+    ],
+    "Type": "IMPROVEMENT_WORKSHOP",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": [
+     -1,
+     1,
+     0
+    ],
+    "_index": 12,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": true,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": true,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": null,
+    "bWater": false,
+    "iAdvancedStartCost": 36,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "QUARRY": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_QUARRY",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_MARBLE",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         2
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_STONE",
+       "YieldChanges": [
+        [
+         0,
+         2,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_SALT",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_OBSIDIAN",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         2
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_QUARRY_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_QUARRY",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": [
+     {
+      "RouteType": "ROUTE_RAILROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD_ELECTRIC",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_GRAVTUBE",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     }
+    ],
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_IRON_WORKING",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_MACHINERY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_WATERWORKS",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_EXPLOSIVES",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_CIVIL_ENGINEERING",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ANDROIDS",
+      "TechYields": [
+       0,
+       2,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_QUARRY",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 17,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": true,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": null,
+    "bWater": false,
+    "iAdvancedStartCost": 36,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 10,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "PLANTATION": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_PLANTATION",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_BANANA",
+       "YieldChanges": [
+        [
+         4,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_DYE",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_INCENSE",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         5
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_SPICES",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_SUGAR",
+       "YieldChanges": [
+        [
+         2,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_CANNABIS",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_COFFEE",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_LEMON",
+       "YieldChanges": [
+        [
+         1,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_COTTON",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_TOBACCO",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_RUBBER",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      },
+      {
+       "BonusType": "BONUS_TEA",
+       "YieldChanges": [
+        [
+         1,
+         1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_PLANTATION_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_PLANTATION",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_PESTICIDES",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_GENEMANIPULATION",
+      "TechYields": [
+       0,
+       0,
+       2
+      ]
+     },
+     {
+      "PrereqTech": "TECH_VERTICAL_FARMING",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ARTIFICIAL_EVOLUTION",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_PLANTATION",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 16,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": 30,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "OLIVE_FARM": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_ORCHARD",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_OLIVES",
+       "YieldChanges": [
+        [
+         2,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_OLIVE_FARM_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_OLIVE_FARM",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_CURRENCY",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_PESTICIDES",
+      "TechYields": [
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_GLOBALIZATION",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_OLIVE_FARM",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 40,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": 30,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "APPLE_FARM": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_ORCHARD",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_APPLE",
+       "YieldChanges": [
+        [
+         4,
+         0,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_APPLE_FARM_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_APPLE_FARM",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_CURRENCY",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_PESTICIDES",
+      "TechYields": [
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_GLOBALIZATION",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_GENEMANIPULATION",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_APPLE_FARM",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 41,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": 30,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "VILLAGE": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_VILLAGE",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_BERNSTEIN",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_VILLAGE_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_VILLAGE",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "IMPROVEMENT_HAMLET",
+    "ImprovementUpgrade": "IMPROVEMENT_TOWN",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": [
+     {
+      "RouteType": "ROUTE_ROAD",
+      "RouteYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "RouteType": "ROUTE_PAVED",
+      "RouteYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "RouteType": "ROUTE_ROMAN_ROAD",
+      "RouteYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "RouteType": "ROUTE_MODERN_ROAD",
+      "RouteYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD",
+      "RouteYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD_ELECTRIC",
+      "RouteYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "RouteType": "ROUTE_GRAVTUBE",
+      "RouteYields": [
+       0,
+       0,
+       1
+      ]
+     }
+    ],
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_PRINTING_PRESS",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_PERSONAL_ROBOTS",
+      "TechYields": [
+       0,
+       2,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_VERTICAL_FARMING",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ORGANIC_CITIES",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_VILLAGE",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": [
+     0,
+     0,
+     3
+    ],
+    "_index": 26,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": true,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": -1,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 15,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 20,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 40
+   },
+   "WINERY": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_WINERY",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_WINE",
+       "YieldChanges": [
+        [
+         2,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_WINERY_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_WINERY",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_PESTICIDES",
+      "TechYields": [
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_ARTIFICIAL_EVOLUTION",
+      "TechYields": [
+       1,
+       0,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_WINERY",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 23,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": 30,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 10,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "SHAFT_MINE": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_SHAFT_MINE",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_BAUXITE",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         1
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_COAL",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_COPPER",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_GEMS",
+       "YieldChanges": [
+        [
+         0,
+         -1,
+         5
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_GOLD",
+       "YieldChanges": [
+        [
+         0,
+         -1,
+         6
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_IRON",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_SILVER",
+       "YieldChanges": [
+        [
+         0,
+         -1,
+         4
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_URANIUM",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_SULPHUR",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         2
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      },
+      {
+       "BonusType": "BONUS_LEAD",
+       "YieldChanges": [
+        [
+         0,
+         1,
+         0
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 10000
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_SHAFT_MINE_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_SHAFT_MINE",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "IMPROVEMENT_MINE",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": [
+     {
+      "RouteType": "ROUTE_ROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_PAVED",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_ROMAN_ROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_MODERN_ROAD",
+      "RouteYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD",
+      "RouteYields": [
+       0,
+       2,
+       0
+      ]
+     },
+     {
+      "RouteType": "ROUTE_RAILROAD_ELECTRIC",
+      "RouteYields": [
+       0,
+       2,
+       0
+      ]
+     }
+    ],
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_MACHINERY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_WATERWORKS",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_EXPLOSIVES",
+      "TechYields": [
+       -1,
+       0,
+       0
+      ]
+     },
+     {
+      "PrereqTech": "TECH_SEISMOLOGY",
+      "TechYields": [
+       0,
+       1,
+       0
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_SHAFT_MINE",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": [
+     0,
+     2,
+     1
+    ],
+    "_index": 10,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": true,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": null,
+    "bWater": false,
+    "iAdvancedStartCost": 48,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 10,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": -1,
+    "iPillageGold": 10,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "SILK_FARM": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_PLANTATION",
+    "BonusTypeStructs": [
+     [
+      {
+       "BonusType": "BONUS_SILK",
+       "YieldChanges": [
+        [
+         0,
+         0,
+         3
+        ]
+       ],
+       "bBonusMakesValid": true,
+       "bBonusTrade": true,
+       "iDiscoverRand": 0
+      }
+     ]
+    ],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_SILK_FARM_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_SILK_FARM",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": [
+     {
+      "PrereqTech": "TECH_MATHEMATICS",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_CURRENCY",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_MERCANTILISM",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_REPLACEABLE_PARTS",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_COMPUTERS",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "PrereqTech": "TECH_PLASTIC_ELECTRONICS",
+      "TechYields": [
+       0,
+       0,
+       1
+      ]
+     }
+    ],
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_SILK_FARM",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": null,
+    "_index": 39,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": 30,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 5,
+    "iDefenseModifier": 0,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 5,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "CITY_RUINS": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_CITY_RUINS",
+    "BonusTypeStructs": [],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_CITY_RUINS_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_CITY_RUINS",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": "",
+    "TerrainMakesValids": "",
+    "Type": "IMPROVEMENT_CITY_RUINS",
+    "WorldSoundscapeAudioScript": "",
+    "YieldChanges": null,
+    "_index": 2,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": false,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": false,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": null,
+    "bWater": false,
+    "iAdvancedStartCost": -1,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 10,
+    "iDefenseModifier": 15,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 0,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   },
+   "FORT": {
+    "AndDependencyTypes": null,
+    "ArtDefineTag": "ART_DEF_IMPROVEMENT_FORT",
+    "BonusTypeStructs": [],
+    "Civilopedia": "TXT_KEY_IMPROVEMENT_FORT_PEDIA",
+    "Description": "TXT_KEY_IMPROVEMENT_FORT",
+    "FeatureMakesValids": "",
+    "Help": null,
+    "HillsYieldChange": null,
+    "ImprovementPillage": "",
+    "ImprovementUpgrade": "",
+    "IrrigatedYieldChange": null,
+    "OrDependencyTypes": null,
+    "PrereqNatureYields": null,
+    "RiverSideYieldChange": null,
+    "RouteYieldChanges": "",
+    "TechYieldChanges": "",
+    "TerrainMakesValids": [
+     {
+      "TerrainType": "TERRAIN_GRASS",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_PLAINS",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_DESERT",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_TUNDRA",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_SNOW",
+      "bMakesValid": true
+     },
+     {
+      "TerrainType": "TERRAIN_MARSH",
+      "bMakesValid": true
+     }
+    ],
+    "Type": "IMPROVEMENT_FORT",
+    "WorldSoundscapeAudioScript": null,
+    "YieldChanges": "",
+    "_index": 28,
+    "_sources": [
+     "XML/Terrain/CIV4ImprovementInfos.xml"
+    ],
+    "bActsAsCity": true,
+    "bCarriesIrrigation": false,
+    "bFreshWaterMakesValid": false,
+    "bGoody": false,
+    "bGraphicalOnly": false,
+    "bHillsMakesValid": false,
+    "bNoFreshWater": false,
+    "bOutsideBorders": true,
+    "bPermanent": false,
+    "bRequiresFeature": false,
+    "bRequiresFlatlands": false,
+    "bRequiresIrrigation": false,
+    "bRequiresRiverSide": false,
+    "bRiverSideMakesValid": false,
+    "bTypeDependency": null,
+    "bUseLSystem": true,
+    "bWater": false,
+    "iAdvancedStartCost": 60,
+    "iAdvancedStartCostIncrease": 0,
+    "iAirBombDefense": 20,
+    "iDefenseModifier": 50,
+    "iFeatureGrowth": 0,
+    "iGoodyRange": 0,
+    "iHappiness": 0,
+    "iPillageGold": 0,
+    "iTilesPerGoody": 0,
+    "iUpgradeTime": 0
+   }
+  }
+ }
+}

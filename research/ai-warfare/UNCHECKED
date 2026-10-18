@@ -1,0 +1,26 @@
+# Documents written before the figure system (tools/figlib.py, tools/docs.py).
+# Their figures were not checked: they may omit categories, mix units or lack turn, actor or n.
+# This list may only shrink (tools/check_all.py). A document leaves it when rebuilt from a template.
+data-protocol.md
+decisions/figures.md
+decisions/human-decisions.md
+decisions/human-micro.md
+decisions/micro-game3.md
+decisions/micro-game4.md
+design-stack-forecast.md
+diagnosis-1.md
+games/game1/analysis.md
+games/game1/summary.md
+games/game2/analysis.md
+games/game2/summary.md
+games/game3/analysis.md
+games/game3/summary.md
+games/game4/analysis.md
+games/game4/summary.md
+mission.md
+strategy.md
+toolkit.md
+xml-audit.md
+xml-defines.md
+xml-knowledge.md
+xml-war-tables.md

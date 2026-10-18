@@ -1,9 +1,13 @@
 {
-  "source": "GitLab main after merge request !47 (war log, second version)",
-  "source_commit": "1e95fac7f10053137723f6671111848ff13479db",
-  "dll_sha256": "3fe75f68ad13be0b7b46b12e371fd1106bd6b69a72ed5a1f083c1c3606f98e59",
-  "dll_size": 6119424,
+  "source": "GitLab main d51ff25 (merge request !50 merged; its tree equals the branch commit 19d9e2a): main e843ab5 (!49) plus the war-plan field of the W lines",
+  "source_commit": "19d9e2a46491d637041546c0bce137799e28aa3c",
+  "base_commit": "e843ab5bd3b580580730be7f13c7ddc703d28b5a",
+  "dll_sha256": "934fd4850751a80934b423f9e7021e6a9da991b13f92d63f699003c45ba4f054",
+  "dll_size": 6139904,
   "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
-  "tested_headless": "one 260-turn Marathon game, 10 AIs, WAR_LOG=1: no error",
-  "tested_in_game": "the first version (!46) was used in a real game; this version not yet"
+  "tests": "GitLab Tools tests (python3 -m unittest discover -s Tools -p 'test_*.py'): 146 passed, as on main",
+  "tested_headless": "harness build of the same DLL source: a 20-turn continuation of game 3's save, same seed, with and without the change; W lines carry WARPLAN_LIMITED / WARPLAN_TOTAL, every other war-log line identical. The release DLL itself was not run headless",
+  "tested_in_game": false,
+  "previous": "7a2288cb9f9257be122d8e720d6f7504c3a97c7cd507787b021aaf293b480f17 (GitLab main after !49, commit 679e9271)",
+  "merged_commit": "d51ff25"
 }
