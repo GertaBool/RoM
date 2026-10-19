@@ -1,0 +1,20 @@
+[
+ {
+  "id": "p6_arms",
+  "db": "p6",
+  "unit": "category",
+  "who": "the human-model seat (seat 12) and the AI players, per arm of P6",
+  "turn": "turns 1 to 300 of each run",
+  "source": "P6 harness runs (the turn-0 scenario of game 3, Marathon, Noble; seat 12 played by the human model; arm a: AI_BALANCE_SHARE 110, arm b: 0; S2 on in both), loaded by study/p6_load.sql from each run's telemetry (run.jsonl): capture events by and from the seat, war events on and by the seat and between AI teams, the turns played and the telemetry's milliseconds",
+  "sql": "select arm, count(*) runs, sum((last_turn=300)::int) reached_300, median(taken) median_taken, sum(taken) total_taken, median(lost) median_lost, sum(lost) total_lost, sum((wars_on_seat>0)::int) runs_with_war_on_seat, sum(wars_on_seat) total_wars_on_seat, median(ai_ai_wars) median_ai_ai_wars, median(run_seconds) median_seconds from runs group by arm order by arm"
+ },
+ {
+  "id": "p6_runs",
+  "db": "p6",
+  "unit": "category",
+  "who": "the human-model seat (seat 12), per run of P6",
+  "turn": "turns 1 to 300 of each run",
+  "source": "as p6_arms, one row per run: the seed (from ledger.py seeds P6), the cities the seat took and lost, the wars declared on it and by it, the wars between AI teams, the last turn played",
+  "sql": "select arm, seed, taken, lost, wars_on_seat, wars_by_seat, ai_ai_wars, last_turn from runs order by arm, seed"
+ }
+]
