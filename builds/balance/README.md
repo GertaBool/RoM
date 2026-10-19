@@ -1,5 +1,12 @@
 # Recording games with the balance against the leader (change B)
 
+**Status: not shown to help.** In the harness test (P6: 30 seeded runs per arm of the game 3
+scenario, the human model in your seat), the human model took no fewer cities with B on than with it
+off. It tended to take more, though not significantly. That test rarely made the model the hegemon,
+so it says little about games where you are far ahead, as you were in every logged game
+(`research/ai-warfare/study/d3-design.md`, section 6). Games played with this build test exactly that
+case (P5). Play them only if you want that test run; otherwise `builds/staging` is the build to use.
+
 This DLL is the one in `builds/staging` (the war log, the four war-AI fixes and S2, build
 `c2e0b0aa630e`) plus one AI change, B (`fixes/balance.patch`), build `e57a752b22ae`. Games you play
 with it count for prediction P5, and not for P2 or P4.
