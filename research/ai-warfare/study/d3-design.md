@@ -106,8 +106,125 @@ Step 1 is approved and done. Proposed shape of step 2, for approval:
 - The rolls stay random per team and per turn, so a coalition forms only when enough of its members
   are willing on the same turn. Each AI still decides alone; no AI is told to join.
 
+## 6. Step 2 judged in the harness (P6)
+
+Built as change B (`builds/balance`, `fixes/balance.patch`) and run under P6: the start-of-game scenario of
+game 3 at Noble, the human model in the human's seat, thirty seeds per arm from `ledger.py seeds P6`, one
+harness DLL with only `AI_BALANCE_SHARE` differing (arm a on, arm b off). The ledger's test (the
+rank-based Welch test of `seat_captures`) does not corroborate the claim: the seat took no fewer
+cities in arm a (`study/doctrine.md`, section 7).
+
+Per arm:
+
+| arm | runs | reached_300 | median_taken | total_taken | median_lost | total_lost | runs_with_war_on_seat | total_wars_on_seat | median_ai_ai_wars | median_seconds |
+|---|---|---|---|---|---|---|---|---|---|---|
+| a | 30 | 30 | 2.0 | 68 | 0.0 | 18 | 13 | 17 | 11.0 | 545.833 |
+| b | 30 | 30 | 1.0 | 50 | 0.0 | 19 | 14 | 23 | 11.0 | 544.932 |
+
+*category; who: the human-model seat (seat 12) and the AI players, per arm of P6; turn: turns 1 to 300 of each run; rows counted: 2; source: P6 harness runs (the turn-0 scenario of game 3, Marathon, Noble; seat 12 played by the human model; arm a: AI_BALANCE_SHARE 110, arm b: 0; S2 on in both), loaded by study/p6_load.sql from each run's telemetry (run.jsonl): capture events by and from the seat, war events on and by the seat and between AI teams, the turns played and the telemetry's milliseconds [p6]. Every value counted (2).*
+
+How often the seat, or an AI, was the hegemon, and the seat's share of power over the run:
+
+| arm | run_turns | seat_hegemon_turns | ai_hegemon_turns | seat_share_100 | seat_share_150 | seat_share_200 | seat_share_250 | seat_share_300 |
+|---|---|---|---|---|---|---|---|---|
+| a | 7530 | 1088 | 362 | 71.429 | 71.978 | 68.523 | 96.417 | 109.436 |
+| b | 7530 | 1030 | 259 | 71.545 | 71.049 | 73.794 | 89.243 | 106.853 |
+
+*category; who: the human-model seat (seat 12) and the AI players, per arm of P6; turn: turns 50 to 300 of each run; the seat's share at turns 100, 150, 200, 250 and 300; rows counted: 2; source: as p6_arms: the power of each living player each turn (telemetry p records); a turn counts as a hegemon turn when the strongest player holds more than 110 per mille of the living players' power (AI_BALANCE_SHARE, here over all living players rather than those one team has met); the seat's share of that power, per mille, median over the runs [p6]. Every value counted (2).*
+
+The declarations of war, by kind and target:
+
+| arm | declarations | on_stronger_target | dogpile | on_seat | dogpile_on_seat | median_turn_on_seat |
+|---|---|---|---|---|---|---|
+| a | 427 | 138 | 84 | 17 | 1 | 214.0 |
+| b | 453 | 127 | 98 | 23 | 1 | 155.0 |
+
+*category; who: every declaration of war in the P6 runs, per arm; turn: turns 1 to 300 of each run; rows counted: 2; source: as p6_arms: the telemetry's war events (declaring team, target, both teams' power, the declarer's war plan: 4 limited, 5 total, 6 dogpile); declarations on a stronger target; on the seat; the median turn of the declarations on the seat [p6]. Every value counted (2).*
+
+Every run:
+
+| arm | seed | taken | lost | wars_on_seat | wars_by_seat | ai_ai_wars | last_turn |
+|---|---|---|---|---|---|---|---|
+| a | 72243828 | 0 | 1 | 1 | 2 | 12 | 300 |
+| a | 124151260 | 3 | 1 | 1 | 1 | 14 | 300 |
+| a | 200525027 | 4 | 0 | 0 | 4 | 10 | 300 |
+| a | 207380157 | 2 | 0 | 0 | 2 | 11 | 300 |
+| a | 355449549 | 2 | 0 | 0 | 2 | 11 | 300 |
+| a | 414044836 | 0 | 2 | 1 | 0 | 14 | 300 |
+| a | 429971064 | 1 | 1 | 1 | 3 | 13 | 300 |
+| a | 643539951 | 5 | 3 | 1 | 6 | 11 | 300 |
+| a | 705506003 | 2 | 1 | 0 | 1 | 13 | 300 |
+| a | 767444573 | 2 | 0 | 0 | 1 | 14 | 300 |
+| a | 773500259 | 1 | 0 | 0 | 2 | 10 | 300 |
+| a | 817532997 | 1 | 0 | 0 | 3 | 13 | 300 |
+| a | 842283125 | 3 | 1 | 1 | 3 | 8 | 300 |
+| a | 905336430 | 3 | 0 | 0 | 3 | 12 | 300 |
+| a | 996504313 | 1 | 0 | 0 | 1 | 12 | 300 |
+| a | 1048957077 | 5 | 0 | 1 | 3 | 13 | 300 |
+| a | 1126729056 | 4 | 0 | 1 | 3 | 10 | 300 |
+| a | 1152569364 | 5 | 1 | 1 | 3 | 12 | 300 |
+| a | 1281888470 | 2 | 0 | 0 | 2 | 10 | 300 |
+| a | 1478284367 | 1 | 1 | 0 | 3 | 16 | 300 |
+| a | 1517846120 | 0 | 0 | 0 | 0 | 8 | 300 |
+| a | 1544723685 | 3 | 1 | 1 | 5 | 11 | 300 |
+| a | 1576708976 | 2 | 3 | 3 | 0 | 7 | 300 |
+| a | 1680322555 | 3 | 1 | 2 | 1 | 9 | 300 |
+| a | 1716899563 | 1 | 0 | 0 | 2 | 11 | 300 |
+| a | 1751420932 | 0 | 0 | 0 | 3 | 17 | 300 |
+| a | 1857181504 | 6 | 0 | 0 | 5 | 9 | 300 |
+| a | 1893151984 | 2 | 0 | 2 | 0 | 7 | 300 |
+| a | 1955249151 | 3 | 0 | 0 | 4 | 12 | 300 |
+| a | 2079583610 | 1 | 1 | 0 | 1 | 11 | 300 |
+| b | 72243828 | 0 | 1 | 3 | 0 | 13 | 300 |
+| b | 124151260 | 1 | 0 | 0 | 3 | 11 | 300 |
+| b | 200525027 | 3 | 1 | 0 | 4 | 18 | 300 |
+| b | 207380157 | 1 | 0 | 0 | 1 | 10 | 300 |
+| b | 355449549 | 1 | 0 | 0 | 4 | 14 | 300 |
+| b | 414044836 | 4 | 1 | 0 | 6 | 10 | 300 |
+| b | 429971064 | 1 | 2 | 3 | 2 | 15 | 300 |
+| b | 643539951 | 2 | 0 | 1 | 1 | 15 | 300 |
+| b | 705506003 | 2 | 2 | 1 | 3 | 9 | 300 |
+| b | 767444573 | 1 | 2 | 1 | 1 | 13 | 300 |
+| b | 773500259 | 0 | 0 | 0 | 0 | 11 | 300 |
+| b | 817532997 | 4 | 0 | 1 | 5 | 16 | 300 |
+| b | 842283125 | 3 | 0 | 0 | 3 | 8 | 300 |
+| b | 905336430 | 1 | 0 | 0 | 3 | 5 | 300 |
+| b | 996504313 | 2 | 0 | 0 | 5 | 15 | 300 |
+| b | 1048957077 | 1 | 0 | 0 | 2 | 8 | 300 |
+| b | 1126729056 | 2 | 0 | 2 | 2 | 9 | 300 |
+| b | 1152569364 | 1 | 1 | 1 | 0 | 10 | 300 |
+| b | 1281888470 | 0 | 0 | 0 | 2 | 10 | 300 |
+| b | 1478284367 | 1 | 1 | 3 | 1 | 11 | 300 |
+| b | 1517846120 | 4 | 2 | 2 | 4 | 11 | 300 |
+| b | 1544723685 | 2 | 4 | 1 | 2 | 11 | 300 |
+| b | 1576708976 | 3 | 0 | 1 | 3 | 16 | 300 |
+| b | 1680322555 | 1 | 0 | 0 | 3 | 11 | 300 |
+| b | 1716899563 | 0 | 1 | 2 | 2 | 14 | 300 |
+| b | 1751420932 | 1 | 0 | 0 | 3 | 12 | 300 |
+| b | 1857181504 | 3 | 1 | 1 | 3 | 12 | 300 |
+| b | 1893151984 | 1 | 0 | 0 | 3 | 13 | 300 |
+| b | 1955249151 | 0 | 0 | 0 | 1 | 14 | 300 |
+| b | 2079583610 | 4 | 0 | 0 | 4 | 9 | 300 |
+
+*category; who: the human-model seat (seat 12), per run of P6; turn: turns 1 to 300 of each run; rows counted: 60; source: as p6_arms, one row per run: the seed (from ledger.py seeds P6), the cities the seat took and lost, the wars declared on it and by it, the wars between AI teams, the last turn played [p6]. Every value counted (60).*
+
+Readings:
+- The seat was rarely the hegemon. Its median share stays below the threshold until the last rows,
+  where it reaches it. So the term mostly acted, if at all, against AI hegemons, and the test did
+  not exercise D3 against the seat. Contradicted if runs with the seat as hegemon for most of the game
+  show the same result.
+- No coalition formed in either arm. Dogpile declarations are not more frequent with the term on.
+  Why the term did not raise them is *open*: the war diagnostic at the turns where a hegemon existed
+  in these runs would show which gate still blocked.
+- What next is a decision for the line (`study/doctrine.md`, section 7). Either an opponent that
+  compounds as the human does, so that the seat becomes the hegemon, or the human's own games under
+  P5. The term stays in `builds/balance` behind its define; at zero it leaves the S2 build unchanged.
+
 ## Figures used
 
 | Figure | Value | Unit | Who | Turn | n | Source |
 |---|---|---|---|---|---|---|
-
+| `p.p6_arms` | table, 2 values | category | the human-model seat (seat 12) and the AI players, per arm of P6 | turns 1 to 300 of each run | 2 | P6 harness runs (the turn-0 scenario of game 3, Marathon, Noble; seat 12 played by the human model; arm a: AI_BALANCE_SHARE 110, arm b: 0; S2 on in both), loaded by study/p6_load.sql from each run's telemetry (run.jsonl): capture events by and from the seat, war events on and by the seat and between AI teams, the turns played and the telemetry's milliseconds [p6] |
+| `p.p6_hegemon` | table, 2 values | category | the human-model seat (seat 12) and the AI players, per arm of P6 | turns 50 to 300 of each run; the seat's share at turns 100, 150, 200, 250 and 300 | 2 | as p6_arms: the power of each living player each turn (telemetry p records); a turn counts as a hegemon turn when the strongest player holds more than 110 per mille of the living players' power (AI_BALANCE_SHARE, here over all living players rather than those one team has met); the seat's share of that power, per mille, median over the runs [p6] |
+| `p.p6_wars` | table, 2 values | category | every declaration of war in the P6 runs, per arm | turns 1 to 300 of each run | 2 | as p6_arms: the telemetry's war events (declaring team, target, both teams' power, the declarer's war plan: 4 limited, 5 total, 6 dogpile); declarations on a stronger target; on the seat; the median turn of the declarations on the seat [p6] |
+| `p.p6_runs` | table, 60 values | category | the human-model seat (seat 12), per run of P6 | turns 1 to 300 of each run | 60 | as p6_arms, one row per run: the seed (from ledger.py seeds P6), the cities the seat took and lost, the wars declared on it and by it, the wars between AI teams, the last turn played [p6] |

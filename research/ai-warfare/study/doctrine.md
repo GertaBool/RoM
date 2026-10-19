@@ -796,8 +796,26 @@ judged yet, because only one game so far has the snapshot lines a judgment needs
 
 The gate (`method/ledger.py`, config `doctrine`) holds every new hypothesis to a principle of
 section 2 and a reading of section 5. Each prediction decided by enough evidence to move its
-line is stated here as `P..: <status>`, with what it changes in section 5 and section 6. None is decided
-yet: P2 and P4 are open.
+line is stated here as `P..: <status>`, with what it changes in section 5 and section 6. P2, P4 and
+P5 are open.
+
+- **P6: not corroborated** (line `balance`, principle D3, gap R2; the runs and their tables are in
+  `study/d3-design.md`, section 6). With the balance term on, the human-model seat did not take
+  fewer cities than with it off; it tended to take more, though not significantly.
+  - At the station of the test: the human model in the harness did not become the runaway power the
+    real human became (R1). Its share of power stayed below the hegemon threshold for most of each
+    run, so the term rarely had the seat as its target. The test mostly did not reach the case D3 is
+    about. The fixed opponent lacks the human's compounding economy, which is itself a finding about
+    the model, not about the AI.
+  - At the station of the change: no coalition formed. Dogpile declarations were not more frequent
+    with the term on, and dogpiles on the seat were as rare in both arms. Wars on the seat came
+    fewer and later with the term on; why is *open*.
+  - At the station of the principle: D3 and R2 stand, since they rest on the logged games, where the
+    human was the hegemon when it struck (section 3.7). The ranking of section 6 is unchanged. But
+    the line `balance` now has one prediction not corroborated: by Lakatos's test, a second one
+    without a corroborated novel prediction would make it degenerating. The next prediction on this
+    line must test the term where the seat is the hegemon (an opponent that compounds as the human
+    does, or the human's own games under P5), not repeat this one.
 
 ## 8. Open
 

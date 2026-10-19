@@ -1,3 +1,4 @@
+<!-- registry: p6.fig.json as p -->
 # D3, the balance against the leader: design (not built)
 
 Principle D3 and gap R2 of `study/doctrine.md`. The AI teams declare wars among themselves in every
@@ -104,3 +105,39 @@ Step 1 is approved and done. Proposed shape of step 2, for approval:
   with no envy are unchanged.
 - The rolls stay random per team and per turn, so a coalition forms only when enough of its members
   are willing on the same turn. Each AI still decides alone; no AI is told to join.
+
+## 6. Step 2 judged in the harness (P6)
+
+Built as change B (`builds/balance`, `fixes/balance.patch`) and run under P6: the start-of-game scenario of
+game 3 at Noble, the human model in the human's seat, thirty seeds per arm from `ledger.py seeds P6`, one
+harness DLL with only `AI_BALANCE_SHARE` differing (arm a on, arm b off). The ledger's test (the
+rank-based Welch test of `seat_captures`) does not corroborate the claim: the seat took no fewer
+cities in arm a (`study/doctrine.md`, section 7).
+
+Per arm:
+
+{{table:p.p6_arms}}
+
+How often the seat, or an AI, was the hegemon, and the seat's share of power over the run:
+
+{{table:p.p6_hegemon}}
+
+The declarations of war, by kind and target:
+
+{{table:p.p6_wars}}
+
+Every run:
+
+{{table:p.p6_runs}}
+
+Readings:
+- The seat was rarely the hegemon. Its median share stays below the threshold until the last rows,
+  where it reaches it. So the term mostly acted, if at all, against AI hegemons, and the test did
+  not exercise D3 against the seat. Contradicted if runs with the seat as hegemon for most of the game
+  show the same result.
+- No coalition formed in either arm. Dogpile declarations are not more frequent with the term on.
+  Why the term did not raise them is *open*: the war diagnostic at the turns where a hegemon existed
+  in these runs would show which gate still blocked.
+- What next is a decision for the line (`study/doctrine.md`, section 7). Either an opponent that
+  compounds as the human does, so that the seat becomes the hegemon, or the human's own games under
+  P5. The term stays in `builds/balance` behind its define; at zero it leaves the S2 build unchanged.
