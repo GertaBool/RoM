@@ -499,7 +499,9 @@ def commit_msg(root, msgfile):
     for p in serves:
         if E.get(p, {}).get('type') != 'prediction': errs.append(f'{p} is not a registered prediction'); continue
         st = led['predictions'].get(p, {})
-        if st.get('status', 'open') != 'open': errs.append(f'{p} is {st["status"]}')
+        # the working tree holds the staged evidence, so the evidence commit that decides p may serve it
+        deciding = only_ev and p in evidence_of(files)
+        if st.get('status', 'open') != 'open' and not deciding: errs.append(f'{p} is {st["status"]}')
         if not only_ev and st.get('evidence_commits'): errs.append(f'{p} has evidence: only evidence commits may serve it')
         ls = led['lines'].get(E[p]['line'], {}).get('state')
         if ls in ('degenerating', 'stalled') and not only_ev: errs.append(f'line {E[p]["line"]} is {ls}: only evidence, or a new line')
@@ -650,6 +652,14 @@ def selftest():
                  dict(commit=git(d, 'rev-parse', 'HEAD').strip(), serves=['P1'], reason='tuned after evidence: counted')]); commit('late link 2')
         w(f'{EVD}P1/b.tsv', ''.join(f'{s}\t{3 + i % 3}\n' for i, s in enumerate(sd[30:60]))); commit('evidence b\n\nServes: P1')
         r = evaluate(d)['predictions']['P1']; assert r['status'] == 'corroborated' and r['n'] == [30, 30], r
+        # the commit-msg gate: an evidence commit may serve the prediction it decides; code after it may not
+        mf = d + '.msg'; open(mf, 'w').write('evidence\n\nServes: P1\n')
+        w(f'{EVD}P1/b.tsv', ''.join(f'{s}\t{3 + i % 3}\n' for i, s in enumerate(sd[30:60])) + '\n'); g('add', '-A')
+        assert not [x for x in commit_msg(d, mf) if 'P1 is' in x], commit_msg(d, mf)
+        g('reset', '-q', '--hard')
+        w('research/ai-warfare/tools/x.py', '9'); g('add', '-A')
+        assert any('P1 is corroborated' in x for x in commit_msg(d, mf)), commit_msg(d, mf)
+        g('reset', '-q', '--hard'); os.remove(mf)
         assert evaluate(d)['lines']['war']['state'] == 'progressive'
         # a withdrawal after evidence counts against the line
         P7 = dict(P1, id='P7'); w(REG, [H, P1, P7]); commit('register P7')
