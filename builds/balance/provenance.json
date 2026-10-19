@@ -12,7 +12,7 @@
  "dll_size": 6148096,
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
  "tests": "clang gate on CvTeamAI.cpp against 38bfd86: 0 new diagnostics (baseline and patched: 0 errors, 5 warnings)",
- "tested_headless": "Harness build of source_commit with HARNESS_WAR_DIAG at the saves of games 3, 4, 5 and 6, AI_BALANCE_SHARE 110: the human is the hegemon for most AI teams at each save; three turns played from the game 4 save without fault. Seeded campaign of P6 (30 runs per arm, the game 3 scenario, the human model in seat 12): running",
+ "tested_headless": "Harness build of source_commit with HARNESS_WAR_DIAG at the saves of games 3, 4, 5 and 6, AI_BALANCE_SHARE 110: the human is the hegemon for most AI teams at each save; three turns played from the game 4 save without fault. P6 (30 seeded runs per arm, the game 3 turn-0 scenario, the human model in seat 12, one harness DLL, AI_BALANCE_SHARE 110 against 0, S2 on in both): all 60 runs reached turn 300; not corroborated (rank-based Welch test on the seat's captures, p 0.158, A 0.604: no fewer captures with the term on). The seat was rarely the hegemon in these runs, and no more dogpile wars were declared with the term on (study/d3-design.md, section 6)",
  "tested_in_game": false,
  "previous": "builds/staging 09a0c845dc3361c1f494b6478202e3af673e83fedc33164fc37062ddd9deb7fb (build c2e0b0aa630e, the same DLL without B)",
  "merge_request": "not opened yet",
