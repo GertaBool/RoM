@@ -34,5 +34,18 @@
   "turn": "turns 1 to 300 of each run",
   "source": "as p6_arms: the telemetry's war events (declaring team, target, both teams' power, the declarer's war plan: 4 limited, 5 total, 6 dogpile); declarations on a stronger target; on the seat; the median turn of the declarations on the seat",
   "sql": "select arm, count(*) declarations, sum((on_power>by_power)::int) on_stronger_target, sum((plan=6)::int) dogpile, sum((on_team=12)::int) on_seat, sum((on_team=12 and plan=6)::int) dogpile_on_seat, median(case when on_team=12 then turn end) median_turn_on_seat from wars group by arm order by arm"
+ },
+ {
+  "id": "p6_leaders",
+  "db": "p6",
+  "unit": "category",
+  "who": "each AI leader of the game 3 scenario (the human-model seat excluded), per arm of P6",
+  "turn": "turns 1 to 300 of each run",
+  "source": "as p6_arms: the scenario's PLAYER lines (team and leader), the leader's iWorseRankDifferenceAttitudeChange from records.json (LeaderHeadInfo; the envy term of change B uses it), and the declarations of war by the leader's team in each arm, summed over the thirty runs",
+  "xml": [
+   "LeaderHeadInfo",
+   "leader"
+  ],
+  "sql": "select l.leader, l.envy, sum((w.arm='a')::int) declarations_a, sum((w.arm='b')::int) declarations_b from leaders l left join wars w on w.by_team=l.team where l.team<>12 group by l.leader, l.envy order by l.envy, l.leader"
  }
 ]

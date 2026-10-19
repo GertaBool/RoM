@@ -1,10 +1,11 @@
 <!-- registry: p6.fig.json as p -->
-# D3, the balance against the leader: design (not built)
+# D3, the balance against the leader: design, build and harness test
 
 Principle D3 and gap R2 of `study/doctrine.md`. The AI teams declare wars among themselves in every
 logged game, never on the human, even while it leads, and no stronger AI joined any of its wars.
-This note asks for approval of two steps: a measurement, then a change whose final shape the
-measurement decides. Code facts are from the DLL source as of the S2 commit (GitLab `e4679cd`).
+Status: step 1 (a measurement) and step 2 (change B) were approved, built and run. P6, the harness
+test of change B, is not corroborated (section 6); P5, its test in games played by the human, is
+open. Code facts are from the DLL source as of the S2 commit (GitLab `e4679cd`).
 
 ## 1. Hypothesis (H3, to be registered with principle D3 and gap R2)
 
@@ -52,7 +53,10 @@ Built and run (`HARNESS_WAR_DIAG`; the tables are in `study/doctrine.md`, sectio
 So H3 stands, with weight on the power gate and the dogpile count, not on attitude. Of the
 candidates below, (b) is the one the measurement supports. (a) would change little, since the roll
 already passes for many teams. (c) matters only for teams with war plans, which the tables of step 1
-show for many AIs.
+show for many AIs. The shape approved and built (section 5) keeps all three: (b) in full, (a) only as
+the envy term, (c) only for teams whose war plans are all against weaker teams. Building (a) and (c)
+although the measurement supported (b) alone was my choice, and it confounds the test: section 6
+cannot tell the three apart.
 
 ## 3. Step 2: the balance term (shape decided by step 1)
 
@@ -88,7 +92,9 @@ The term is a define `AI_BALANCE_SHARE`: a share of known power, per mille. At z
   test (CLAUDE.md, rule 9). It serves the `taken` prediction. Guards: `turn_seconds` no worse,
   `completed` no regression.
 - **Character.** Reported per leader from the runs, not as a gate: how often each leader declares
-  war, with the term on and off. Leaders whose envy field is zero must not change.
+  war, with the term on and off. (As first written, this item said leaders whose envy field is zero
+  must not change. That holds only for candidate (a); (b) and (c) act on every leader, so the
+  expectation was wrong.)
 - **Risk to watch.** Coalitions against an AI hegemon may make AI-AI wars more frequent, so the runs
   report AI-AI declarations in both arms.
 
@@ -126,6 +132,12 @@ The declarations of war, by kind and target:
 
 {{table:p.p6_wars}}
 
+Each AI leader's declarations of war in each arm, with the envy field change B reads:
+
+{{table:p.p6_leaders}}
+
+{{effects:p.p6_leaders}}
+
 Every run:
 
 {{table:p.p6_runs}}
@@ -138,6 +150,10 @@ Readings:
 - No coalition formed in either arm. Dogpile declarations are not more frequent with the term on.
   Why the term did not raise them is *open*: the war diagnostic at the turns where a hegemon existed
   in these runs would show which gate still blocked.
+- Character: the declarations of most leaders are close in the two arms, and some differ in both
+  directions, including leaders with no envy, whom only (b) and (c) can reach. Thirty runs per arm
+  of a whole game make these per-leader counts noisy; no test was registered for them, so they are
+  descriptions, not results.
 - What next is a decision for the line (`study/doctrine.md`, section 7). Either an opponent that
   compounds as the human does, so that the seat becomes the hegemon, or the human's own games under
   P5. The term stays in `builds/balance` behind its define; at zero it leaves the S2 build unchanged.

@@ -1,5 +1,6 @@
 -- Loads the P6 harness runs into DuckDB (study/queries_p6.json): replace CAMP with the campaign directory
--- (CAMP/<arm>/s<seed>/run.jsonl and run.log), SEAT with the human-model seat; run with
+-- (CAMP/<arm>/s<seed>/run.jsonl and run.log), SEAT with the human-model seat, SCN with the scenario the
+-- runs played (its PLAYER lines name each team's leader), RECORDS with records.json; run with
 -- duckdb.connect(<p6.duckdb>).execute(<this text>). One row per run.
 create or replace table lines as
   select regexp_extract(filename, '/([ab])/s([0-9]+)/run.jsonl$', 1) arm, cast(regexp_extract(filename, '/([ab])/s([0-9]+)/run.jsonl$', 2) as bigint) seed, json j
@@ -30,5 +31,12 @@ create or replace table wars as
     cast(json_extract(e, '$.pow[0]') as int) as by_power, cast(json_extract(e, '$.pow[1]') as int) as on_power,
     cast(json_extract(e, '$.plan') as int) as plan
   from ev where json_extract(e, '$.war') is not null;
+create or replace table leaders as
+  select cast(parts[3] as int) as team, parts[5] as leader,
+    cast(json_extract((select json from read_json_objects('RECORDS', maximum_object_size=2000000000)),
+      '$.LeaderHeadInfo.' || parts[5] || '.iWorseRankDifferenceAttitudeChange') as int) as envy
+  from (select string_split(line, ' ') as parts
+        from read_csv('SCN', columns={'line': 'VARCHAR'}, delim='\x01', quote='', escape='', header=false, auto_detect=false))
+  where parts[1]='PLAYER';
 drop table pw;
 drop table lines;
