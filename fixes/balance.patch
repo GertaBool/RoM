@@ -1,0 +1,269 @@
+From 53cfef8c26da5f8f4d6e2f399a4ae338390a7e61 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Mon, 19 Oct 2026 02:54:07 +0000
+Subject: [PATCH] Balance against a hegemon (AI_BALANCE_SHARE)
+
+A team that has met a hegemon (the strongest team met, above
+AI_BALANCE_SHARE per mille of the known power) acts on it in
+CvTeamAI::AI_doWar in three ways:
+- its no-war rolls against the hegemon drop by ten per point of the
+  leader's envy of better-ranked players (unchanged at Friendly, and
+  for leaders without envy);
+- the dogpile power test against the hegemon also counts the AI teams
+  that would join it this turn (their own dogpile roll passes);
+- a team whose war plans are all against weaker teams may still join
+  against the hegemon, by the dogpile path only.
+At 0 the define leaves AI_doWar as before. The default is 110.
+
+Serves: P5
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ Assets/CvGameCoreDLL/CvTeamAI.cpp | 145 ++++++++++++++++++++++++++++--
+ Assets/CvGameCoreDLL/CvTeamAI.h   |   5 ++
+ Assets/XML/GlobalDefinesAlt.xml   |   8 ++
+ 3 files changed, 152 insertions(+), 6 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvTeamAI.cpp b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+index 6c3f65f..f630943 100644
+--- a/Assets/CvGameCoreDLL/CvTeamAI.cpp
++++ b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+@@ -5123,7 +5123,12 @@ void CvTeamAI::AI_doWar()
+ 	}
+ 
+ 	// if no war plans, consider starting one!
+-	if (getAnyWarPlanCount(true) == 0 || iEnemyPowerPercent < 45)
++	// Balance (AI_BALANCE_SHARE): a team whose war plans are all against teams weaker than a hegemon
++	// also considers joining against the hegemon, by the dogpile path only.
++	const TeamTypes eHegemon = AI_balanceHegemon();
++	const bool bHegemonOnly = !(getAnyWarPlanCount(true) == 0 || iEnemyPowerPercent < 45) && eHegemon != NO_TEAM &&
++		AI_balanceOnlyWeakerPlans(eHegemon);
++	if (getAnyWarPlanCount(true) == 0 || iEnemyPowerPercent < 45 || bHegemonOnly)
+ 	{
+ 		bool bAggressive = GC.getGameINLINE().isOption(GAMEOPTION_AGGRESSIVE_AI);
+ 		
+@@ -5230,7 +5235,7 @@ void CvTeamAI::AI_doWar()
+ 			iOurPower *= (100 - iEnemyPowerPercent);
+ 			iOurPower /= 100;
+ 
+-			if ((bFinancesProTotalWar || !bFinancesOpposeWar) &&
++			if (!bHegemonOnly && (bFinancesProTotalWar || !bFinancesOpposeWar) &&
+ 				(GC.getGameINLINE().getSorenRandNum(iTotalWarRand, "AI Maximum War") <= iTotalWarThreshold))
+ 			{
+ 				iNoWarRoll = GC.getGameINLINE().getSorenRandNum(100, "AI No War");
+@@ -5256,7 +5261,7 @@ void CvTeamAI::AI_doWar()
+ 											continue;
+ 										}
+ 
+-										if (iNoWarRoll >= AI_noWarAttitudeProb(AI_getAttitude((TeamTypes)iI)))
++										if (iNoWarRoll >= AI_balanceNoWarProb((TeamTypes)iI))
+ 										{
+ 											int iDefensivePower = (GET_TEAM((TeamTypes)iI).getDefensivePower() * 2) / 3;
+ 											int iCompare = iOurPower;
+@@ -5317,7 +5322,7 @@ void CvTeamAI::AI_doWar()
+ /*                                                                                              */
+ /* Bugfix                                                                                       */
+ /************************************************************************************************/
+-			else if ((bFinancesProLimitedWar || !bFinancesOpposeWar) &&
++			else if (!bHegemonOnly && (bFinancesProLimitedWar || !bFinancesOpposeWar) &&
+ 				(GC.getGameINLINE().getSorenRandNum(iLimitedWarRand, "AI Limited War") <= iLimitedWarThreshold))
+ /************************************************************************************************/
+ /* UNOFFICIAL_PATCH                        END                                                  */
+@@ -5344,7 +5349,7 @@ void CvTeamAI::AI_doWar()
+ 										continue;
+ 									}
+ 
+-									if (iNoWarRoll >= AI_noWarAttitudeProb(AI_getAttitude((TeamTypes)iI)))
++									if (iNoWarRoll >= AI_balanceNoWarProb((TeamTypes)iI))
+ 									{
+ 										if (AI_isLandTarget((TeamTypes)iI) || (AI_isAnyCapitalAreaAlone() && GET_TEAM((TeamTypes)iI).AI_isAnyCapitalAreaAlone()))
+ 										{
+@@ -5409,7 +5414,12 @@ void CvTeamAI::AI_doWar()
+ 										continue;
+ 									}
+ 
+-									if (iNoWarRoll >= AI_noWarAttitudeProb(AI_getAttitude((TeamTypes)iI)))
++									if (bHegemonOnly && (TeamTypes)iI != eHegemon)
++									{
++										continue;
++									}
++
++									if (iNoWarRoll >= AI_balanceNoWarProb((TeamTypes)iI))
+ 									{
+ 										if (GET_TEAM((TeamTypes)iI).getAtWarCount(true) > 0)
+ 										{
+@@ -5433,6 +5443,12 @@ void CvTeamAI::AI_doWar()
+ 													}
+ 												}
+ 
++												// Against a hegemon, also the teams that would join it this turn
++												if ((TeamTypes)iI == eHegemon)
++												{
++													iDogpilePower += AI_balanceWillingPower((TeamTypes)iI, bReach);
++												}
++
+ 												FAssert(GET_TEAM((TeamTypes)iI).getPower(true) == GET_TEAM((TeamTypes)iI).getDefensivePower() || GET_TEAM((TeamTypes)iI).isAVassal());
+ 
+ 												const int iDogpileDefence = bReach ? GET_TEAM((TeamTypes)iI).AI_getReachableDefence() : GET_TEAM((TeamTypes)iI).getDefensivePower();
+@@ -5479,6 +5495,123 @@ void CvTeamAI::AI_doWar()
+ /************************************************************************************************/
+ 
+ 
++// Balance against a hegemon (AI_BALANCE_SHARE, per mille; 0 switches it off): the team, other than ours,
++// with the most power among the living teams we have met (vassals counted with their masters), when its
++// power exceeds that share of their summed power, ours included. NO_TEAM otherwise.
++TeamTypes CvTeamAI::AI_balanceHegemon() const
++{
++	const int iShare = GC.getDefineINT("AI_BALANCE_SHARE", 0);
++	if (iShare <= 0)
++	{
++		return NO_TEAM;
++	}
++	int iTotal = 0;
++	int iBestPower = 0;
++	TeamTypes eBest = NO_TEAM;
++	for (int iI = 0; iI < MAX_CIV_TEAMS; iI++)
++	{
++		const CvTeam& kTeam = GET_TEAM((TeamTypes)iI);
++		if (!kTeam.isAlive() || kTeam.isBarbarian() || kTeam.isMinorCiv() || kTeam.isAVassal())
++		{
++			continue;
++		}
++		if (iI != getID() && !isHasMet((TeamTypes)iI))
++		{
++			continue;
++		}
++		const int iPower = kTeam.getPower(true);
++		iTotal += iPower;
++		if (iPower > iBestPower)
++		{
++			iBestPower = iPower;
++			eBest = (TeamTypes)iI;
++		}
++	}
++	if (eBest == NO_TEAM || eBest == getID() || (__int64)iBestPower * 1000 <= (__int64)iShare * iTotal)
++	{
++		return NO_TEAM;
++	}
++	return eBest;
++}
++
++// The no-war probability of the war rolls against eTarget. Against a hegemon it is lowered by ten per point
++// of the leader's envy of better-ranked players (iWorseRankDifferenceAttitudeChange, averaged over our
++// members; zero or positive values change nothing), except at ATTITUDE_FRIENDLY.
++int CvTeamAI::AI_balanceNoWarProb(TeamTypes eTarget) const
++{
++	const AttitudeTypes eAttitude = AI_getAttitude(eTarget);
++	const int iProb = AI_noWarAttitudeProb(eAttitude);
++	if (eAttitude == ATTITUDE_FRIENDLY || eTarget != AI_balanceHegemon())
++	{
++		return iProb;
++	}
++	int iEnvy = 0;
++	int iCount = 0;
++	for (int iI = 0; iI < MAX_PLAYERS; iI++)
++	{
++		const CvPlayer& kPlayer = GET_PLAYER((PlayerTypes)iI);
++		if (kPlayer.isAlive() && kPlayer.getTeam() == getID())
++		{
++			iEnvy += GC.getLeaderHeadInfo(kPlayer.getPersonalityType()).getWorseRankDifferenceAttitudeChange();
++			iCount++;
++		}
++	}
++	if (iCount > 1)
++	{
++		iEnvy /= iCount;
++	}
++	return std::max(0, iProb + 10 * std::min(0, iEnvy));
++}
++
++// The power, in reach of the hegemon eTarget, of the AI teams not yet at war with it that would join this
++// turn: they have met it, can declare war on it, are no vassal, and their own dogpile no-war roll passes
++// (the roll of the dogpile path, CvTeamAI::AI_doWar). Each counts with its power after its enemies' share,
++// as this team's own power is counted.
++int CvTeamAI::AI_balanceWillingPower(TeamTypes eTarget, bool bReach) const
++{
++	int iWilling = 0;
++	for (int iJ = 0; iJ < MAX_CIV_TEAMS; iJ++)
++	{
++		const CvTeamAI& kTeam = GET_TEAM((TeamTypes)iJ);
++		if (iJ == getID() || iJ == eTarget || !kTeam.isAlive() || kTeam.isHuman() || kTeam.isBarbarian() || kTeam.isMinorCiv() ||
++			kTeam.isAVassal() || kTeam.isAtWar(eTarget) || !kTeam.isHasMet(eTarget) || !kTeam.canDeclareWar(eTarget))
++		{
++			continue;
++		}
++		int iRoll = GC.getGameINLINE().getSorenRandNum(100, "AI Balance Willing") - 20;
++		iRoll = range(iRoll + (GC.getGameINLINE().isOption(GAMEOPTION_AGGRESSIVE_AI) ? 10 : 0), 0, 99);
++		if (iRoll < kTeam.AI_balanceNoWarProb(eTarget))
++		{
++			continue;
++		}
++		int iPower = kTeam.getPower(true) * std::max(0, 100 - kTeam.AI_getEnemyPowerPercent()) / 100;
++		if (bReach)
++		{
++			iPower = (int)(((__int64)kTeam.AI_getReachablePower(eTarget) * iPower) / std::max(1, kTeam.getPower(true)));
++		}
++		iWilling += iPower;
++	}
++	return iWilling;
++}
++
++// True if every team we plan war against is weaker than the hegemon (and is not the hegemon).
++bool CvTeamAI::AI_balanceOnlyWeakerPlans(TeamTypes eHegemon) const
++{
++	const int iHegemonPower = GET_TEAM(eHegemon).getPower(true);
++	for (int iI = 0; iI < MAX_CIV_TEAMS; iI++)
++	{
++		if (AI_getWarPlan((TeamTypes)iI) == NO_WARPLAN)
++		{
++			continue;
++		}
++		if (iI == eHegemon || GET_TEAM((TeamTypes)iI).getPower(true) >= iHegemonPower)
++		{
++			return false;
++		}
++	}
++	return true;
++}
++
+ //returns true if war is veto'd by rolls.
+ bool CvTeamAI::AI_performNoWarRolls(TeamTypes eTeam)
+ {
+diff --git a/Assets/CvGameCoreDLL/CvTeamAI.h b/Assets/CvGameCoreDLL/CvTeamAI.h
+index 9aa804e..bf37900 100644
+--- a/Assets/CvGameCoreDLL/CvTeamAI.h
++++ b/Assets/CvGameCoreDLL/CvTeamAI.h
+@@ -202,6 +202,11 @@ public:
+ 	bool AI_isNearTarget(TeamTypes eTarget) const;
+ 	int AI_getReachablePower(TeamTypes eTarget) const;
+ 	int AI_getReachableDefence() const;
++	// Balance against a hegemon (AI_BALANCE_SHARE)
++	TeamTypes AI_balanceHegemon() const;
++	int AI_balanceNoWarProb(TeamTypes eTarget) const;
++	int AI_balanceWillingPower(TeamTypes eTarget, bool bReach) const;
++	bool AI_balanceOnlyWeakerPlans(TeamTypes eHegemon) const;
+ 	void AI_reviewWars();
+ 	void AI_setWarPlan(TeamTypes eIndex, WarPlanTypes eNewValue, bool bWar = true);
+ 
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index ae6a4f0..4ef5a41 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -210,6 +210,14 @@
+ 		<DefineName>AI_STAGED_FORECAST</DefineName>
+ 		<iDefineIntVal>250</iDefineIntVal>
+ 	</Define>
++	<!-- Balance against a hegemon (CvTeamAI::AI_doWar): the share of known power, per mille, above which the
++	     strongest team met is a hegemon. Against it the no-war rolls drop by ten per point of the leader's envy of
++	     better-ranked players, the dogpile test also counts the teams that would join it this turn, and a team
++	     whose war plans are all against weaker teams may still join against it. 0 = off. -->
++	<Define>
++		<DefineName>AI_BALANCE_SHARE</DefineName>
++		<iDefineIntVal>110</iDefineIntVal>
++	</Define>
+ 	<Define>
+ 		<DefineName>AI_THREAT_VISIBLE_ARMY</DefineName>
+ 		<iDefineIntVal>40</iDefineIntVal>
+-- 
+2.43.0
+

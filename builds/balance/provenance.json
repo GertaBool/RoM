@@ -1,0 +1,20 @@
+{
+ "serves": [
+  "P5"
+ ],
+ "patch": "fixes/balance.patch",
+ "build_id": "e57a752b22ae",
+ "source": "The DLL of builds/staging (build c2e0b0aa630e: the war log with turn-start lines and build id, the four war-AI fixes, S2) plus change B (fixes/balance.patch): the balance against a hegemon in CvTeamAI::AI_doWar (AI_BALANCE_SHARE = 110): envy-scaled no-war rolls, the dogpile test counting the AI teams that would join this turn, and teams busy against weaker targets joining against the hegemon",
+ "source_commit": "53cfef8c26da5f8f4d6e2f399a4ae338390a7e61",
+ "source_tree": "68a00fc0879c94c91d9eb39244ec25c5af49dcdd",
+ "base_commit": "38bfd86fd8ddea329294a5730388ccc792fa9367",
+ "dll_sha256": "41a568d6b36494671d180d9f2deb7ac2f56ee04b616f3bbbd06cea5aeac71d9b",
+ "dll_size": 6148096,
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
+ "tests": "clang gate on CvTeamAI.cpp against 38bfd86: 0 new diagnostics (baseline and patched: 0 errors, 5 warnings)",
+ "tested_headless": "Harness build of source_commit with HARNESS_WAR_DIAG at the saves of games 3, 4, 5 and 6, AI_BALANCE_SHARE 110: the human is the hegemon for most AI teams at each save; three turns played from the game 4 save without fault. Seeded campaign of P6 (30 runs per arm, the game 3 scenario, the human model in seat 12): running",
+ "tested_in_game": false,
+ "previous": "builds/staging 09a0c845dc3361c1f494b6478202e3af673e83fedc33164fc37062ddd9deb7fb (build c2e0b0aa630e, the same DLL without B)",
+ "merge_request": "not opened yet",
+ "gitlab_commit": null
+}

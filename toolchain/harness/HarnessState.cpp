@@ -171,7 +171,7 @@ static void HH_probe(const char* szPath, PlayerTypes ePlayer)
 
 // HARNESS_WAR_DIAG: the leader fields CvTeamAI averages over a team's members (AI_maxWarNearbyPowerRatio,
 // AI_maxWarDistantPowerRatio, AI_limitedWarPowerRatio, AI_maxWarMinAdjacentLandPercent, CvTeamAI.cpp:4388 on;
-// they are protected there), and AI_noWarAttitudeProb (CvTeamAI.cpp:4598) with its victory adjustment.
+// they are protected there). The no-war probability is CvTeamAI::AI_balanceNoWarProb (with the balance term).
 enum { HH_NEARBY, HH_DISTANT, HH_LIMITED, HH_MINADJ };
 static int HH_teamLeaderField(const CvTeamAI& kT, int iField)
 {
@@ -186,21 +186,6 @@ static int HH_teamLeaderField(const CvTeamAI& kT, int iField)
 		++iCount;
 	}
 	return iCount > 0 ? iSum / iCount : 0;
-}
-
-static int HH_noWarProb(const CvTeamAI& kT, AttitudeTypes eAttitude)
-{
-	int iProb = 0, iAdjust = 0, iCount = 0;
-	for (int i = 0; i < MAX_PLAYERS; ++i)
-	{
-		const CvPlayerAI& k = GET_PLAYER((PlayerTypes)i);
-		if (!k.isAlive() || k.getTeam() != kT.getID()) continue;
-		iProb += GC.getLeaderHeadInfo(k.getPersonalityType()).getNoWarAttitudeProb(eAttitude);
-		iAdjust += k.AI_isDoVictoryStrategy(AI_VICTORY_CONQUEST4) ? 30 : k.AI_isDoVictoryStrategy(AI_VICTORY_DOMINATION4) ? 20 : 0;
-		++iCount;
-	}
-	if (iCount > 1) { iProb /= iCount; iAdjust /= iCount; }
-	return std::max(0, iProb - iAdjust);
 }
 
 // Per mille chance that range(rand(100) + iOffset, 0, 99) >= iProb, the no-war roll of AI_doWar.
@@ -253,18 +238,18 @@ static void HH_warDiag(FILE* f, CvTeamAI& kT)
 	const int iOffDogpile = -20 + (bAggressive ? 10 : 0) + (bProDogpile ? 10 : 0);
 	const bool bReach = isAICunning(2);
 	fprintf(f, "\"war\":{\"consider\":%d,\"plans\":%d,\"enemyPowerPct\":%d,\"checks\":%d,\"declareProb\":%d,\"ourPower\":%d,"
-		"\"pTotal\":%d,\"pLimited\":%d,\"pDogpile\":%d,\"nearby\":%d,\"distant\":%d,\"limited\":%d,\"minAdj\":%d,\"targets\":[",
+		"\"pTotal\":%d,\"pLimited\":%d,\"pDogpile\":%d,\"nearby\":%d,\"distant\":%d,\"limited\":%d,\"minAdj\":%d,\"hegemon\":%d,\"targets\":[",
 		(iPlans == 0 || iEnemyPowerPercent < 45) ? 1 : 0, iPlans, iEnemyPowerPercent, bChecks ? 1 : 0,
 		GC.getHandicapInfo(g.getHandicapType()).getAIDeclareWarProb(), iOurPower, pTotal, pLimited, pDogpile,
 		HH_teamLeaderField(kT, HH_NEARBY), HH_teamLeaderField(kT, HH_DISTANT), HH_teamLeaderField(kT, HH_LIMITED),
-		HH_teamLeaderField(kT, HH_MINADJ));
+		HH_teamLeaderField(kT, HH_MINADJ), (int)kT.AI_balanceHegemon());
 	bool bFirst = true;
 	for (int t = 0; t < MAX_CIV_TEAMS; ++t)
 	{
 		CvTeamAI& kE = GET_TEAM((TeamTypes)t);
 		if (t == kT.getID() || !kE.isAlive() || kE.isBarbarian() || !kT.isHasMet((TeamTypes)t)) continue;
 		const AttitudeTypes eAtt = kT.AI_getAttitude((TeamTypes)t);
-		const int iNoWar = HH_noWarProb(kT, eAtt);
+		const int iNoWar = kT.AI_balanceNoWarProb((TeamTypes)t);
 		const int iCmp = bReach ? (int)(((__int64)kT.AI_getReachablePower((TeamTypes)t) * iOurPower) / std::max(1, kT.getPower(true))) : iOurPower;
 		// total war: pass 0 and 1 against the nearby ratio, pass 2 against the distant one (CvTeamAI.cpp:5259)
 		const int iTotalDef = bReach ? kE.AI_getReachableDefence() : kE.getDefensivePower() * 2 / 3;
