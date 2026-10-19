@@ -1,0 +1,75 @@
+# Frederick P. Brooks, Jr., No Silver Bullet: Essence and Accident in Software Engineering (Proceedings of the IFIP Tenth World Computing Conference, 1986; text as reproduced in The Mythical Man-Month, Anniversary edition, 1995)
+Source: lit3/brooks-nsb/doc.txt. Read: lines 1-778 (all).
+
+## What it says
+- p. 1 (thesis): "There is no single development, in either technology or management technique, which by itself promises even one order-of-magnitude improvement within a decade in productivity, in reliability, in simplicity."
+- p. 1 (abstract): "All software construction involves essential tasks, the fashioning of the complex conceptual structures that compose the abstract software entity, and accidental tasks" -- accidental tasks are representing those entities in languages and mapping them to machines within space and speed constraints.
+- p. 1 (abstract): "Most of the big past gains in software productivity have come from removing artificial barriers that have made the accidental tasks inordinately hard"
+- p. 1 (abstract): "Unless it is more than 9/10 of all effort, shrinking all the accidental activities to zero time will not give an order of magnitude improvement."
+- p. 1 (abstract): "Exploiting the mass market to avoid constructing what can be bought." -- the four suggestions: buy, rapid prototyping in planned iteration, growing software organically, developing great designers.
+- p. 2 (introduction): "Skepticism is not pessimism, however." -- a disciplined, consistent effort with existing innovations should yield an order-of-magnitude improvement; "There is no royal road, but there is a road."
+- p. 2 (introduction): "It told workers the progress would be made stepwise, at great effort, and that a persistent, unremitting care would have to be paid to a discipline of cleanliness." -- the germ-theory analogy.
+- p. 2 (essential difficulties): "the anomaly is not that software progress is so slow but that computer hardware progress is so fast." -- six orders of magnitude price-performance in 30 years.
+- p. 2 (essential difficulties): "The essence of a software entity is a construct of interlocking concepts: data sets, relationships among data items, algorithms, and invocations of functions." -- abstract, yet highly precise and richly detailed.
+- p. 2 (essential difficulties): "I believe the hard part of building software to be the specification, design, and testing of this conceptual construct, not the labor of representing it" -- syntax errors are fuzz compared with conceptual errors.
+- p. 3 (complexity): "Software entities are more complex for their size than perhaps any other human construct, because no two parts are alike" -- similar parts are made into one subroutine.
+- p. 3 (complexity): "a scaling-up of a software entity is not merely a repetition of the same elements in larger size; it is necessarily an increase in the number of different elements." -- complexity of the whole increases much more than linearly.
+- p. 3 (complexity): "Hence descriptions of a software entity that abstract away its complexity often abstract away its essence."
+- p. 3 (complexity): "From the complexity comes the difficulty of communication among team members, which leads to product flaws, cost overruns, schedule delays." -- also unreliability, hard use, side effects on extension, security trapdoors.
+- p. 3 (complexity): "This complexity makes overview hard, thus impeding conceptual integrity." -- and makes personnel turnover a disaster.
+- pp. 3-4 (conformity): "Much of the complexity he must master is arbitrary complexity, forced without rhyme or reason by the many human ... institutions and systems to which his interfaces must confirm."
+- p. 4 (conformity): "much complexity comes from conformation to other interfaces; this cannot be simplified out by any redesign of the software alone."
+- p. 4 (changeability): "the software in a system embodies its function, and the function is the part that most feels the pressures of change." -- also software is easily changed, pure thought-stuff.
+- p. 4 (changeability): "All successful software gets changed." -- users extend it to new cases, and it outlives its machine vehicle.
+- p. 4 (changeability): "the software product is embedded in a cultural matrix of applications, users, laws, and machine vehicles." -- these change continually and force change on the software.
+- p. 4 (invisibility): "As soon as we attempt to diagram software structure, we find it to constitute not one, but several, general directed graphs, superimposed one upon another." -- control flow, data flow, dependency, time sequence, name space.
+- pp. 4-5 (invisibility): "one of the ways of ... establishing conceptual control over such structure is to enforce link cutting until one or more of the graphs becomes hierarchical."
+- p. 5 (invisibility): "This lack not only impedes the process of design within one mind, it severely hinders communication among minds."
+- p. 5 (past breakthroughs): "they have been the accidental, not the essential, difficulties." -- high-level languages, time-sharing, unified programming environments.
+- p. 5 (high-level languages): "Most observers credit that development with at least a factor of five in productivity" -- a language eliminates complexity never inherent in the program.
+- p. 5 (high-level languages): "at some point the elaboration of a high-level language becomes a burden that increases, not reduces, the intellectual task of the user"
+- p. 6 (time-sharing): "As it goes to zero, at some point it passes the human threshold of noticeability, about 100 milliseconds." -- beyond that no benefits are expected.
+- p. 6 (unified programming environments): "They attack the accidental difficulties of using programs together, by providing integrated libraries, unified file formats, and piles and filters."
+- p. 6 (Ada): "the biggest payoff from such languages came from the first transition" -- once those accidents are removed, the remaining ones are smaller.
+- p. 7 (Ada): "Ada’s greatest contribution will be that switching to it occasioned training programmers in modern software design techniques." -- a prediction.
+- p. 7 (object-oriented programming): "The two concepts are orthogonal−there may be hierarchies without hiding and hiding without hierarchies." -- abstract data types and hierarchical types.
+- p. 7 (object-oriented programming): "such advances can do no more than to remove all the accidental difficulties from the expression of the design." -- an order of magnitude would require type specification to be nine-tenths of the work; the author doubts it.
+- p. 8 (artificial intelligence): "The hard thing about building software is deciding what to say, not saying it." -- no facilitation of expression can give more than marginal gains.
+- p. 8 (expert systems): "I believe the most important advance offered by the technology is the separation of the application complexity from the program itself."
+- p. 9 (expert systems): "its rule base should probably be hierarchically modularized in the same way the corresponding software product is" -- for an imagined testing advisor.
+- p. 9 (expert systems): "The essential prerequisite for building an expert system is to have an expert."
+- p. 9 (expert systems): "The gap between the best software engineering practice and the average practice is very wide−perhaps wider than in any other engineering discipline." -- a tool that disseminates good practice would be important.
+- p. 9 (automatic programming): "in most cases it is the solution method, not the problem, whose specification has to be given." -- Parnas's argument as summarized by Brooks.
+- p. 10 (automatic programming): "The problems are readily characterized by relatively few parameters." -- generators work where there are few parameters, many known methods and explicit selection rules; such cases are the exception.
+- p. 10 (graphical programming): "programmers draw flow charts after, not before, writing the programs they describe." -- the flow chart is a very poor abstraction of software structure.
+- p. 10 (graphical programming): "we feel only one dimension of the intricately interlocked software elephant." -- superimposed diagrams give no global overview.
+- p. 11 (program verification): "The technology does not promise, however, to save labor." -- only a few substantial programs have been verified; proofs can be faulty too.
+- p. 11 (program verification): "even perfect program verification can only establish that a program meets its specification." -- much of building a program is debugging the specification.
+- p. 11 (environments and tools): "But by its very nature, the return from now on must be marginal." -- the big-payoff problems were attacked first.
+- p. 11 (workstations): "a factor of 10 in machine speed would surely leave think-time the dominant activity in the programmer’s day."
+- p. 12 (promising attacks): "then no amount of activity on the task components that are merely the expression of the concepts can give large productivity gains." -- from the productivity equation, time of task as a sum over frequency times time.
+- p. 12 (buy versus build): "The most radical possible solution for constructing software is not to construct it at all."
+- p. 12 (buy versus build): "Even at a cost of $100,000, a purchased piece of software is costing only about as much as one programmer-year." -- such products tend to be better documented and somewhat better maintained.
+- p. 12 (buy versus build): "the use of n copies of a software system effectively multiplies the productivity of its developers by n."
+- p. 13 (buy versus build): "so they adapt their payroll procedures to the packages available." -- the change was in the hardware/software cost ratio, not in the packages.
+- p. 13 (requirements refinement): "The hardest single part of building a software system is deciding precisely what to build."
+- p. 13 (requirements refinement): "the most important function that software builders do for their clients is the iterative extraction and refinement of the product requirements." -- clients do not know what they want.
+- p. 13 (requirements refinement): "it is really impossible for clients, even those working with software engineers, to specify completely, precisely, and correctly the exact requirements of a modern software product before having built and tried some versions"
+- p. 14 (rapid prototyping): "The purpose of the prototype is to make real the conceptual structure specified, so that the client can test it for consistency and usability" -- prototypes perform mainline tasks and do not handle exceptions.
+- p. 14 (rapid prototyping): "I think this assumption is fundamentally wrong" -- the assumption that a satisfactory system can be specified in advance, bid for and built.
+- p. 14 (incremental development): "The building metaphor has outlived its usefulness."
+- p. 14 (incremental development): "the system should first be made to run, even though it does nothing useful except call the proper set of dummy subprograms." -- Mills's proposal; then it is fleshed out bit by bit.
+- p. 14 (incremental development): "The approach necessitates top-down design, for it is a top-down growing of the software. It allows easy backtracking."
+- p. 15 (incremental development): "One always has, at every stage in the process, a working system." -- morale effects; teams grow more complex entities in four months than they can build.
+- p. 15 (great designers): "Sound methodology can empower and liberate the creative mind; it cannot enflame or inspire the drudge." -- good practice separates poor from good designs, not good from great.
+- p. 15 (great designers): "The differences between the great and the average approach an order of magnitude."
+- p. 15 (great designers): "those software systems that have excited passionate fans are those that are the products of one or a few designing minds"
+- p. 16 (great designers): "Systematically identify top designers as early as possible. The best are often not the most experienced." -- with mentors, career plans, apprenticeships and peer interaction.
+
+## Readings for our work
+- Our method tooling (figure registry, template renderer, ledger, hooks) attacks accidental difficulties of producing analysis documents; by the paper's argument it can give at most marginal gains if the essential work (deciding which question to ask and what the game data mean) dominates. Measure where time goes: share of commits on method/ versus on analyses and AI patches; if method/ dominates, stop adding to it. Rests on: 9/10 argument, productivity equation, environments return marginal. Would not apply if: most time is in fact lost to accidental errors (wrong figures, wrong turns) that the tools remove.
+- The hardest part is deciding what to build; for an AI change, the question and the prediction are the essential part, and should be written and tried in small versions (a quick seeded run) before building infrastructure around them. Rests on: requirements refinement, impossible to specify before trying versions, prototyping. Would not apply if: the change follows from a formula and needs no trial.
+- Grow the analysis pipeline from a running end-to-end skeleton (save to table to one figure to document) and extend it, rather than building each layer fully first. Check: at each commit there is one command that runs end to end. Rests on: incremental development, always a working system. Would not apply if: the parts are independent and each already produces a usable result.
+- Buy before build: use existing libraries (DuckDB, standard statistics such as scipy for Welch tests) rather than writing our own. Check: any home-made statistical routine has a library counterpart that it is compared against. Rests on: buy versus build. Would not apply if: no library fits and the routine is small.
+- The legacy DLL's complexity is largely conformity to the game engine's interfaces and cannot be designed away by our patches alone; patches should conform to the existing interfaces, not try to redesign them. Rests on: conformity. Would not apply if: we own both sides of the interface.
+- Verification proves only conformance to a specification; our checks (quote checker, figure registry) show that numbers have sources, not that the analysis answers the right question. Do not report a passing check as evidence of a correct reading. Rests on: program verification limits. Would not apply if: the specification is the question itself.

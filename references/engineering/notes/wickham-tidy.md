@@ -1,0 +1,88 @@
+# Hadley Wickham, Tidy Data (Journal of Statistical Software; the text is a preprint with placeholders "MMMMMM YYYY, Volume VV, Issue II", 2014 per the assignment)
+Source: lit3/wickham-tidy/doc.txt. Read: lines 1-3097 (all; lines 2100-2830 are plotted points of Figures 2-3 with no text).
+
+## What it says
+- p. 1 (Abstract): "A huge amount of effort is spent cleaning data to get it ready for analysis, but there has been little research on how to make data cleaning as easy and effective as possible."
+- p. 1 (Abstract): "each variable is a column, each observation is a row, and each type of observational unit is a table." -- the specific structure of tidy datasets.
+- p. 1 (Abstract): "only a small set of tools are needed to deal with a wide range of un-tidy datasets." -- and the structure makes it easier to develop tidy tools that "both input and output tidy datasets."
+- p. 1 (1. Introduction): "It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data" -- citing Dasu and Johnson 2003; preparation "must be repeated many over the course of analysis".
+- p. 1 (1. Introduction): "data tidying: structuring datasets to facilitate analysis."
+- p. 1 (1. Introduction): "A standard makes initial data cleaning easier because you don’t need to start from scratch and reinvent the wheel every time."
+- pp. 1-2 (1. Introduction): "You have to spend time ... munging the output from one tool so you can input it into another." -- current tools often require translation.
+- p. 2 (1. Introduction): "The principles of tidy data are closely tied to those of relational databases and Codd’s relational algebra" -- framed for statisticians; computer science cleaning tools "fail to give much advice on how datasets should be structured".
+- p. 2 (1. Introduction): "While I could intuitively use the tools and teach them through examples, I lacked the framework to make my intuition explicit." -- the paper provides that framework, from experience with reshape, plyr, ggplot2.
+- p. 2 (2. Defining tidy data): "Tidy datasets provide a standardized way to link the structure of a dataset (its physical layout) with its semantics (its meaning)."
+- p. 3 (2.1 Data structure): "Our vocabulary of rows and columns is simply not rich enough to describe why the two tables represent the same data." -- Tables 1 and 2 are transposes.
+- p. 3 (2.2 Data semantics): "Every value belongs to a variable and an observation."
+- p. 3 (2.2 Data semantics): "A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units. An observation contains all values measured on the same unit"
+- p. 3 (2.2 Data semantics): "The dataset contains 18 values representing three variables and six observations." -- person, treatment, result.
+- pp. 3-4 (2.2 Data semantics): "The experimental design also determines whether or not missing values can be safely ... dropped. In this experiment, the missing value represents an observation that should have been made" -- so it must be kept.
+- p. 4 (2.2 Data semantics): "Structural missing values, which represent measurements that can’t be made (e.g., the count of pregnant males) can be safely removed."
+- p. 4 (2.2 Data semantics): "it is surprisingly difficult to precisely define variables and observations in general." -- height and width, home and work phone in fraud detection.
+- p. 4 (2.2 Data semantics): "it is easier to describe functional relationships between variables" -- than between rows, and easier to compare groups of observations than groups of columns (rule of thumb).
+- p. 4 (2.2 Data semantics): "In a given analysis, there may be multiple levels of observation." -- demographic per person, medical per person per day, meteorological per day.
+- p. 4 (2.3 Tidy data): "Tidy data is a standard way of mapping the meaning of a dataset to its structure."
+- p. 4 (2.3 Tidy data): "1. Each variable forms a column. 2. Each observation forms a row. 3. Each type of observational unit forms a table."
+- p. 4 (2.3 Tidy data): "This is Codd’s 3rd normal form (Codd 1990), but with the constraints framed in statistical language" -- focused on a single dataset; messy data is any other arrangement.
+- p. 5 (2.3 Tidy data): "in Table 1 you need to use different strategies to extract different variables. This slows analysis and invites errors."
+- p. 5 (2.3 Tidy data): "the layout ensures that values of different variables from the same observation are always paired." -- suited to vectorised languages.
+- p. 5 (2.3 Tidy data): "Fixed variables should come first, followed by measured variables, each ordered so that related variables are contiguous." -- fixed variables (dimensions) are known in advance; order does not affect analysis but eases scanning.
+- p. 5 (3. Tidying messy datasets): the five most common problems: "Column headers are values, not variable names." "Multiple variables are stored in one column." "Variables are stored in both rows and columns." "Multiple types of observational units are stored in the same table." "A single observational unit is stored in multiple tables."
+- p. 5 (3. Tidying messy datasets): "can be tidied with a small set of tools: melting, string splitting, and casting." -- code and data are online.
+- pp. 5-6 (3.1 Column headers are values): "I would call this arrangement messy, in some cases it can be extremely useful." -- efficient storage for crossed designs and matrix computation.
+- p. 6 (3.1): "While this is often described as making wide datasets long or tall, I will avoid those terms because they are imprecise." -- melting turns columns into rows, parameterised by colvars.
+- p. 6 (3.1): "This form is tidy because each column represents a variable and each row represents an observation" -- the melted Pew dataset with religion, income, freq.
+- p. 6 (3.1): "This form of storage is not tidy, but it is useful for data entry. It reduces duplication" -- Billboard with wk1 to wk75 columns.
+- p. 8 (3.1): "I have also done a little cleaning as well as tidying: column has been converted to week by extracting the number" -- and date computed from date.entered and week.
+- p. 8 (3.2 Multiple variables stored in one column): "After melting, the column variable names often becomes a combination of multiple underlying variable names." -- TB dataset with sex and age in one header.
+- p. 9 (3.2): "the variable names can be matched to a lookup table that converts single compound value into multiple component values." -- when a separator character is not enough.
+- p. 9 (Table 9 caption): "Note the mixture of 0s and missing values (—). This is due to the data collection process and the distinction is important for this dataset."
+- p. 9 (3.2): "It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy."
+- p. 9 (3.3 Variables in rows and columns): "The element column is not a variable; it stores the names of variables." -- weather data; months with fewer than 31 days have structural missing values.
+- p. 9 (3.3): "This is permissible because we know how many days are in each month and can easily reconstruct the explicit missing values." -- dropping missing values for presentation.
+- p. 10 (3.3): "Fixing this requires the cast, or unstack, operation. This performs the inverse of melting"
+- p. 10 (3.4 Multiple types in one table): "This is closely related to the idea of database normalisation, where each fact is expressed in only one place. If this is not done, it’s possible for inconsistencies to occur."
+- p. 10 (3.4): "This manifests itself through the duplication of facts about the song: artist and time are repeated for every song in each week." -- split into a song dataset and a ranking dataset (Table 13).
+- p. 10 (3.4): "there are few data analysis tools that work directly with relational data, so analysis usually also requires denormalisation"
+- p. 12 (3.5 One type in multiple tables): the fix is "Read the files into a list of tables." then add a column with the file name "because the file name is often the value of an important variable" then "Combine all tables into a single table."
+- p. 12 (3.5): "ensuring that each row in the final data frame is labelled with its source." -- with plyr's ldply over named paths.
+- p. 13 (3.5): "A more complicated situation occurs when the dataset structure changes over time." -- different variables, names, formats or missing-value conventions; tidy each file individually first. The EPA fuel economy data had "four major formats with many minor variations".
+- p. 13 (4. Tidy tools): "Tidy data is only worthwhile if it makes analysis easier."
+- p. 13 (4. Tidy tools): "Tidy tools are useful because the output of one tool can be used as the input to another." -- and each tool is simpler without "a Swiss Army knife of parameters".
+- p. 13 (4. Tidy tools): "Messy-input tools are typically more complicated than tidy-input tools because they need to include some parts of the tidying process."
+- p. 13 (4. Tidy tools): "Messy-output tools are frustrating and slow down analysis because they can not be easily composed"
+- pp. 13-14 (4.1 Manipulation): the four fundamental verbs: "Filter: subsetting or removing observations based on some condition." "Transform: adding or modifying variables." "Aggregate: collapsing multiple values into a single value" "Sort: changing the order of observations."
+- p. 14 (4.1): "All these operations are made easier when there is a consistent way to refer to variables."
+- p. 14 (4.1): "Combining each of the four verbs with a by operator allows them to operate on subsets of a data frame at a time." -- base R by() is input-tidy but not output-tidy; ddply is tidy.
+- p. 14 (4.1): "All that is needed is a join operator that works by matching common variables and adding new columns."
+- p. 14 (4.1): "This task typically requires painstaking alignment before matrix operations can be used, which can can make errors very hard to detect." -- combining datasets stored in arrays.
+- p. 14 (4.2 Visualisation): "Tidy visualisation tools only need to be input-tidy as their output is visual." -- a visualisation as a mapping between variables and aesthetics (grammar of graphics).
+- p. 14 (4.3 Modelling): "Modelling is the driving inspiration of this work because most modelling tools work best with tidy datasets."
+- p. 15 (4.3): "This is not to say that tidy data is the format used internally to compute the regression."
+- p. 15 (4.3): "Without more information we can’t say which form of the data is tidy" -- the paired t-test: arms left and right make Table 14(a) tidy; day 1 and day 10 make Table 14(b) tidy; both give the same result.
+- p. 15 (4.3): "While model inputs usually require tidy inputs, such attention to detail doesn’t carry over to model outputs."
+- p. 16 (4.3): "the default representation of model coefficients is not tidy because it does not have an explicit variable that records the variable name for each estimate" -- row names must be unique, so combining models needs workarounds; "I’m not currently aware of any packages that resolve this problem."
+- p. 16 (5. Case study): "You will not see any code that exists solely to get the output of one function into the right format to input to another."
+- p. 16 (5. Case study): "The full dataset has information on 539,530 deaths in Mexico in 2008 and 55 variables" -- the goal is causes of death with unusual temporal patterns within a day.
+- p. 17 (5. Case study): "there are 46,794 deaths from heart attack but only 10 from avalanche." -- so proportions per hour are compared, not totals.
+- p. 18 (5. Case study): "There are many ways to measure this distance, but I found a simple mean squared deviation to be revealing." -- only diseases with more than 50 total deaths.
+- p. 18 (5. Case study): "We don’t know the variance characteristics of this estimator, but we can explore it visually" -- plotting n against deviation.
+- p. 19 (Figure 2 caption): "Variability of deviation is dominated by sample size: small samples have large variability."
+- p. 19 (5. Case study): "So somewhat arbitrarily, we’ll select those diseases with a residual greater than 1.5." -- from an empty region in the residual plot of a robust linear model.
+- p. 20 (5. Case study): "The causes of death fall into three main groups: murder, drowning, and transportation related."
+- p. 20 (6. Discussion): "There is a chicken-and-egg problem with tidy data: if tidy data is only as useful as the tools that work with it, then tidy tools will be inextricably linked to tidy data."
+- p. 20 (6. Discussion): "This makes it easy to get stuck in a local maxima where independently changing data structures or data tools will not improve workflow."
+- p. 22 (6. Discussion): "While I hope that the tidy data framework is not one of those false starts, I also don’t see it as the final solution."
+- p. 22 (6. Discussion): "Surprisingly, I have found few principles to guide the design of tidy data, which acknowledge both statistical and cognitive factors." -- his work is driven by experience, relational design knowledge and rumination.
+- p. 22 (6. Discussion): "it would be possible to construct a set of tools for dealing with values stored in multidimensional arrays." -- array-tidy formats, as in Pandas.
+- p. 22 (6. Discussion): "Apart from tidying, there are many other tasks involved in cleaning data" -- parsing, missing values, encodings, typos, verifying design, model-based cleaning; stated as outside the paper.
+
+## Readings for our work
+- Game log tables should be stored with one row per observation at the right level (player-turn, city-turn, unit event) and one column per variable; per-turn columns (turn1, turn2, ...) or one column per player are messy and should be melted at load time. Check: no table in the DuckDB database has column names that are values (turn numbers, player names, unit types). Rests on: the three rules (p. 4), column headers as values (p. 5), Billboard example (p. 6). Would not apply if: a wide layout is only produced as a presentation table at the end.
+- Facts about a type (unit type cost, civ traits from XML) belong in their own table, joined to event tables, not repeated on every event row; repeated copies can drift apart. Rests on: each type of observational unit forms a table (p. 4), duplication of song facts and inconsistency (p. 10). Would not apply if: the attribute changes over the game (then it is per-turn data, and the turn is part of the key).
+- When combining logs from many games or seeds, add the file or seed as a column before concatenating, so every row carries its source; never infer the seed from row position. Rests on: 3.5 recipe and rows labelled with their source (p. 12). Would not apply if: the source is already a recorded column inside each file.
+- Missing values from logs should be classified: a turn where a player was dead is a structural absence; a turn the logger failed to write is a missing observation and must stay visible, not be dropped or zero-filled. Check: zero and missing are distinct in the tables, as the TB data requires. Rests on: design decides whether missing values can be dropped (pp. 3-4), structural missing values (p. 4), 0s versus missing (p. 9). Would not apply if: the logger guarantees a row for every player every turn.
+- Every analysis tool should take tidy tables and return tidy tables (including model and test outputs such as the Welch test results, with an explicit column naming each estimate), so results of many runs can be stacked without workarounds. Rests on: tidy tools compose (p. 13), messy-output tools (p. 13), model outputs not tidy (pp. 15-16). Would not apply if: the output is a final figure (visualisation only needs tidy input, p. 14).
+- When a log format changes between versions of the mod or the harness, tidy each format separately into the common schema before combining, and record which format each file had. Rests on: dataset structure changes over time (p. 13). Would not apply if: a single format version is used throughout.
+- Thresholds chosen by eye (Wickham's residual of 1.5) are exploration, not results; in our documents such a cut must be marked as chosen and the figure system should record it as a parameter with its reason. Rests on: "somewhat arbitrarily" selection (p. 19), unknown variance of the estimator (p. 18). Would not apply if: the threshold is fixed in advance by the protocol.
+- Whether a layout is tidy depends on what the variables are, so the schema of each table should state what one row is (its observational unit) in words alongside the key. Rests on: difficulty of defining variables in general (p. 4), paired t-test example (p. 15). Would not apply if: no table is ambiguous about its unit.

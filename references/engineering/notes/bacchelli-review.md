@@ -1,0 +1,109 @@
+# Alberto Bacchelli and Christian Bird, Expectations, Outcomes, and Challenges Of Modern Code Review (ICSE 2013 per assignment; the text itself gives no venue or year, only the affiliations University of Lugano and Microsoft Research)
+Source: lit3/bacchelli-review/doc.txt. Read: lines 1-1107 (all, including references).
+
+## What it says
+- p. 1 (Abstract): "Review today is less formal and more" lightweight than the inspections of the 70s and 80s.
+- p. 1 (Abstract): "while finding defects remains the main motivation for review, reviews are less about defects than expected and instead provide additional benefits such as knowledge transfer, increased team awareness, and creation of alternative solutions to problems."
+- p. 1 (Abstract): "code and change understanding is the key aspect of code reviewing" -- and most of the mechanisms developers use to meet understanding needs are not met by current tools.
+- p. 1 (Introduction, front part): "We started without a priori hypotheses regarding how and why code review should be performed" -- an explorative investigation.
+- p. 1 (Introduction, front part): "observed 17 industrial developers performing code review with various degrees of experience and seniority across 16 separate product teams" -- plus semi-structured interviews, 570 classified comments, and surveys of 165 managers and 873 programmers.
+- p. 1 (Introduction, front part): "Defect related comments comprise a small proportion and mainly cover small logical low-level issues."
+- p. 1 (I. Introduction): "Peer code review, a manual inspection of source code by developers other than the author" -- definition; recognised as reducing defects and improving quality.
+- p. 1 (I. Introduction): "the cumbersome, time-consuming, and synchronous nature of this approach hinders its universal adoption in practice" -- of Fagan-style inspections (1976).
+- p. 1 (I. Introduction): "we define Modern Code Review, as review that is (1) informal (in contrast to Fagan-style), (2) toolbased, and that (3) occurs regularly in practice nowadays"
+- p. 2 (II. Related Work): "Votta found that 20% of the interval in a" traditional inspection is wasted due to scheduling.
+- p. 2 (II. Related Work): "reviews were typically small and frequent, and that the contributions to a review were often brief and independent from one another." -- Rigby's study of the Apache project.
+- p. 2 (II. Related Work): "the meat of the code review dialog, no matter what medium, is the articulation of design rationale" -- Sutherland and Venolia, cited.
+- p. 2 (II. Related Work): "many problems encountered by developers were related to understanding the rationale behind code changes" -- LaToza et al., cited.
+- p. 2 (III.A Research Questions): "What are the motivations and expectations for modern code review?" -- RQ1; RQ2 actual outcomes and whether they match; RQ3 main challenges.
+- p. 2 (III.B Research Setting): "over 40,000 developers used it so far" -- CodeFlow, the tool studied, similar to Mondrian, Phabricator and Gerrit.
+- p. 2 (III.B Research Setting): "a description.txt file, which contains a textual explanation of the change, written by the author." -- review packages carry a description.
+- p. 3 (III.B Research Setting): "This provides an additional data source that we used to analyze real code review comments without incurring the Hawthorne effect" -- CodeFlow records all review information centrally.
+- p. 3 (III.C Research Method): "collecting data from different sources for triangulation" -- previous study, observations and interviews, two card sorts, affinity diagram, surveys.
+- p. 3 (III.C Research Method): "four motivations emerged for code review: finding defects, maintaining team awareness, improving code quality, and assessing the high-level design." -- from a vendor study of 23 interviews in April-May 2012.
+- p. 3 (III.C Research Method): "We contacted 100 random candidates who signed-off between 50 and 250 code reviews" -- 17 respondents interviewed; tenure 18 months to almost 10 years, median five years.
+- p. 3 (III.C Research Method): "To minimize invasiveness we used only one observer" -- participants were asked to treat the observer as a newcomer and thought aloud.
+- p. 3 (III.C Research Method): "The guideline was iteratively refined after each interview" -- until saturation; after 5-6 observations, observations were shortened.
+- p. 3 (III.C Research Method): "We applied an open card sort: There were no predefined groups." -- from 1,047 coherent units of interview data.
+- p. 4 (III.C Research Method): "other researchers (the second author and external people) were involved in developing categories and assigning cards to categories, so as to strengthen the validity of the result."
+- p. 4 (III.C Research Method): "We randomly sampled 200 threads with at least two comments" -- 570 cards from dozens of products.
+- p. 4 (III.C Research Method): "we created two surveys to reach a significant number of participants and to challenge our conclusions" -- following Kitchenham and Pfleeger; anonymous.
+- p. 4 (III.C Research Method): "We received 165 answers (28% response rate)" -- manager survey of 6 questions sent to 600 managers.
+- pp. 4-5 (III.C Research Method): "We received 873 answers (44% response rate)." -- developer survey of 18 questions sent to 2,000 developers; other software engineering surveys report 14% to 20%.
+- p. 4 (IV. Why Do Programmers Do Code Reviews?): "finding defects, even though prominent, is just one of the many motivations driving developers to perform code reviews."
+- p. 4 (IV. Why Do Programmers Do Code Reviews?): "makes people less protective about their code" -- one senior developer's list of review's influences, also insight into code, sharing information, conventions, process quality.
+- p. 5 (IV. Why Do Programmers Do Code Reviews?): "asked them to rank the top three main reasons that described why they do code reviews."
+- p. 5 (IV.A Finding Defects): "sometimes code reviews are a cheaper form of bug finding than testing." -- a senior tester.
+- p. 5 (IV.A Finding Defects): "for 44% of the managers, it is the top reason." -- for developers/testers: first for 383 (44%), second for 204 (23%), third for 96 (11%).
+- p. 5 (IV.A Finding Defects): "this only tells part of the story of why practitioners do code reviews and the outcomes they expect."
+- p. 5 (IV.B Code Improvement): "in terms of readability, commenting, consistency, dead code removal, etc., but do not involve correctness or defects." -- definition.
+- p. 5 (IV.B Code Improvement): "This is the primary motivation for 337 programmers (39%), the second for 208 (24%), and the third for 135 (15%)." -- managers: primary in 51 cases (31%).
+- p. 5 (IV.B Code Improvement): "Such comments seem easier to write and sometimes interviewees mentioned them as the way reviewers use to avoid spending time to conduct good code reviews."
+- p. 5 (IV.B Code Improvement): "someone commented on formatting while missing the fact that there were security issues or data model issues." -- a senior developer.
+- p. 5 (IV.C Alternative Solutions): "This is one of the few motivations in which developers and managers do not agree." -- first for 147 developers (17%), second 202 (23%), third 152 (17%); only 4 managers (2%) mentioned it.
+- p. 5 (IV.D Knowledge Transfer): "If you do a code review and did not learn anything about the area and you still do not know anything about the area, then that was not as good code review as it could have been."
+- p. 5 (IV.D Knowledge Transfer): "this topic kept emerging spontaneously from each meeting" -- although not in the guideline; all interviewees but one named it.
+- p. 5 (IV.D Knowledge Transfer): "There is a bidirectional knowledge transfer about APIs usage, system design, best practices, team conventions" -- managers named it, never as the top motivation.
+- p. 6 (IV.D Knowledge Transfer): "their first motivation for code review in 73 cases (8%), their second in 119 (14%), and their third in 141 (16%)."
+- p. 6 (IV.E Team Awareness and Transparency): "so that everybody [in the team] is notified about the change I want to do before I check it in." -- optional reviewers added for awareness.
+- p. 6 (IV.E Team Awareness and Transparency): "nobody should be allowed to" secretly make changes that might break the code or alter functionalities -- managers' notion of transparency.
+- p. 6 (IV.E Team Awareness and Transparency): "75 (9%) developers considered team awareness their first motivation" -- 108 (12%) second, 149 (17%) third; academic research is said to have given it little attention.
+- p. 6 (IV.F Share Code Ownership): "a means to have more than one knowledgeable person about specific parts of the codebase." -- grooming backup developers.
+- p. 6 (IV.F Share Code Ownership): "The fact that code reviews are considered as a normal thing helps immensely with making people less protective about their code."
+- p. 6 (IV.F Share Code Ownership): "51 respondents (6%) marked" share code ownership as first motivation, 100 (11%) as second, (10%) as third.
+- p. 6 (IV.G Summary): "3 points for a first motivation response, 2 points for a second motivation, etc. and then sorting by the sum." -- the ranking method of Figure 3.
+- p. 6 (IV.G Summary): "Although motivations are well defined, we still have to verify whether they actually translate into real outcomes"
+- p. 7 (V. The Outcomes of Code Reviews): "The most frequent category, with 165 (29%) comments" -- code improvements: 58 better practices, 55 removing unused code, 52 readability.
+- p. 7 (V. The Outcomes of Code Reviews): "is the only the fourth most frequent, out of nine items, with 78 (14%) comments." -- defects: 65 logical, 6 high-level, 5 security, 3 exception handling.
+- p. 7 (V. The Outcomes of Code Reviews): "we found some (12) comments specifically about" knowledge transfer, pointing authors to external resources.
+- p. 7 (V.A When expectations do not meet reality): "Possible reasons may be that our sample of 570 comments is too small to represent the population" -- or changes needing fewer real fixes, or improvements counted as defects; the authors reject these by triangulation.
+- p. 7 (V.A When expectations do not meet reality): "most of the comments on" defects regard uncomplicated logical errors: corner cases, configuration values, operator precedence.
+- p. 7 (V.A When expectations do not meet reality): "some interviewees complained that the quality of code reviews is low, because reviewers only look for easy errors"
+- p. 7 (V.A When expectations do not meet reality): "the outcome of code review does not match the main expectation of both programmers and managers—finding defects."
+- p. 7 (V.A When expectations do not meet reality): "Review comments about defects are few, comprising one-eighth of the total in our sample, and mostly address" micro level and superficial concerns.
+- p. 7 (VI.A Code Review is Understanding): "understanding is their main challenge when doing code reviews."
+- p. 7 (VI.A Code Review is Understanding): "the most difficult thing when doing a code review is understanding the reason of the change" -- a senior developer; a tester: "what instigated the change".
+- p. 7 (VI.A Code Review is Understanding): "people can say they are doing one thing, while they are doing many more of them" -- why some find the description not useful.
+- p. 7 (VI.A Code Review is Understanding): "not knowing files (or [dealing with] new ones) is a major reason for not understanding a change."
+- p. 7 (VI.A Code Review is Understanding): "understanding the code takes most of the" reviewing time, a tester -- scheduling and time issues trace back to understanding.
+- p. 8 (VI.A Code Review is Understanding): "the second most frequent category concerns understanding." -- clarification questions and answers about rationale.
+- p. 8 (VI.A Code Review is Understanding): "The most difficult task from the understanding perspective is" finding defects, followed by alternative solutions (four-value Likert scale).
+- p. 8 (VI.A Code Review is Understanding): "if managers and developers want code review to match their need for" finding defects, "context and change understanding must be improved."
+- p. 8 (VI.B A Priori Understanding): "when they own or are very familiar with the files being changed, they have a better context" -- owners often go directly to their files without reading the description.
+- p. 8 (VI.B A Priori Understanding): "which is deemed good when it states" what was changed and why -- for reviewers of unfamiliar files.
+- p. 8 (VI.B A Priori Understanding): "Most of the respondents (798, 91%) answered positively to the first question" -- that unfamiliar files take longer to review.
+- p. 8 (VI.B A Priori Understanding): "When reviewing a small, unfamiliar change, it is often necessary to read through much more code than that being reviewed."
+- p. 8 (VI.B A Priori Understanding): "With code I am familiar with I have more to say. I know what to say faster. What I have to say is deeper."
+- p. 8 (VI.B A Priori Understanding): "the answer to the second question is positive in 716 (82%) cases." -- familiar reviewers give different feedback; owners' comments are deeper, more detailed and insightful.
+- p. 8 (VI.B A Priori Understanding): "more likely to find subtle defects, feedback is more conceptual (better ideas, approaches) instead of superficial (naming, mechanical style, etc.)"
+- p. 8 (VI.C Dealing with Understanding Needs): "often (from 20% to 40% of the times) even go to talk in person" -- besides reading the description, running the code, sending emails.
+- p. 8 (VI.C Dealing with Understanding Needs): "All code review tools that we see in practice today deliver only basic support for the understanding needs of reviewers"
+- p. 9 (VII.A Quality Assurance): "review does not result in identifying defects as often as project members would like and even more rarely detects deep, subtle, or" macro level issues.
+- p. 9 (VII.A Quality Assurance): "Relying on code review in this way for quality assurance may be fraught."
+- p. 9 (VII.A Understanding): "When reviewers have a priori knowledge of the context and the code, they complete reviews more quickly and provide more valuable feedback to the author."
+- p. 9 (VII.A Understanding): "if the author of a change is the only expert, she has no potential reviewers" -- teams should broaden understanding; authors should include code owners.
+- p. 9 (VII.A Understanding): "when the author provided context and direction to them in a review, they could respond better and faster."
+- p. 9 (VII.A Beyond Defects): "Modern code reviews provide benefits beyond finding defects." -- this should guide review policies.
+- p. 9 (VII.A Communication): "Teams should provide mechanisms for inperson or, at least, synchronous communication."
+- p. 9 (VII.B Automate Code Review Tasks): "Automating these tasks frees reviewers to look for deeper, more subtle defects." -- code improvement and micro defects; tools for conventions, typos, dead code exist.
+- p. 9 (VII.B Automate Code Review Tasks): "Google experimented with adding FindBugs to their review process, though little is reported about the results"
+- p. 9 (VII.B Program Comprehension in Practice): "reviewers reviewing code they have not seen before may be more common than a developer working on new code."
+- p. 9 (VII.B Socio-technical Effects): "these outcomes are difficult to observe from traces in reviews." -- awareness and learning, not investigated further.
+- p. 9 (VIII. Limitations): "As a qualitative study, gauging the validity of our findings is a difficult undertaking"
+- p. 9 (VIII. Limitations): "we found strong agreement among the results of expectations collected from interviews, surveys of manager, and surveys of developers." -- triangulation.
+- p. 9 (VIII. Limitations): "One common notion is that empirical research within one company or one project provides little value" -- answered with Flyvbjerg and Beveridge; both case and large-sample research are called essential.
+- p. 9 (VIII. Limitations): "However, team dynamics may differ." -- other contexts use similar tools.
+- p. 9 (VIII. Limitations): "The need for code understanding may already be met in contexts where projects are smaller or there is shared code ownership" -- review there may uncover more defects.
+- p. 9 (VIII. Limitations): "so learning may not be as important or frequent an outcome for review." -- in OSS, where expertise is demonstrated before becoming a core committer.
+- pp. 9-10 (VIII. Limitations): "For these outcomes, we have responses indicating that they occur, but not" hard evidence -- for awareness and knowledge transfer.
+- p. 10 (VIII. Limitations): "we know that they most often occurred to address understanding needs." -- in-person discussions, whose frequency cannot be compared.
+- p. 10 (IX. Conclusion): "determined that the outcomes do not always match those motivations. We identified understanding as a key component"
+
+## Readings for our work
+- Do not treat review (human or AI) as the guard against wrong figures or wrong C++ logic; review mostly yields code-improvement and small logic comments. Wrong numbers are caught by the figure system and tests; deep design errors need a reviewer who knows the code. Rests on: p. 7 outcomes (defects 14%, mostly low-level logic); p. 9 Quality Assurance (relying on review may be fraught). Would not apply if: our reviewer is the owner of the files under review with high a priori understanding (p. 8), which is still evidence from a different setting.
+- Every change sent for review (merge request to the mod, commit in the research repository) should state what was changed and why, and do one thing, since understanding the reason is the main reviewer cost and descriptions that claim one thing while doing many are not useful. Check: commit body has a why line; diffs with unrelated hunks (e.g. line-ending churn) are split. Rests on: p. 7 VI.A (reason of the change; doing many more things); p. 9 VI.B (good description states what and why); p. 9 Understanding (author providing context). Would not apply if: the reviewer owns the files and reads the code directly (p. 8).
+- For C++ merge requests to the upstream GitLab repository, ask a reviewer who knows those DLL files (the upstream maintainer or whoever last changed them) rather than any reviewer; an unfamiliar reviewer mainly gives superficial comments. Rests on: p. 8 (91% say unfamiliar files take longer; 82% say familiar reviewers give different, deeper feedback). Would not apply if: no such person exists, in which case broaden understanding first (p. 9 Understanding).
+- Mechanical concerns (formatting, CRLF, dead code, conventions) should be automated in the gate so that review time goes to substance; when a reviewer comments only on formatting while the logic is unchecked, the review should count as not done. Rests on: p. 5 IV.B (formatting comments as a way to avoid good review); p. 9 Automate Code Review Tasks. Would not apply if: the automation itself is unreliable and produces noise.
+- A single-author project lacks the second knowledgeable person; when the author (human or AI session) is the only expert, there is no potential reviewer. Write the reasoning into the document or commit so that a later session can act as a reviewer with context. Rests on: p. 9 Understanding (only expert has no reviewers); p. 6 IV.F (more than one knowledgeable person). Would not apply if: a second contributor with knowledge of the code joins.
+- Claims about benefits of review that leave no trace (learning, awareness) rest on self-report in this paper; do not cite it as hard evidence for those effects. Rests on: pp. 9-10 Limitations (responses, not hard evidence); p. 9 Socio-technical Effects. Would not apply if: later work measured them.
+- The paper's own method is a template for our qualitative readings: state the sample, triangulate sources, and list alternative explanations before rejecting them (as p. 7 does for the defect gap). Rests on: p. 3 triangulation; p. 7 possible reasons considered; p. 9 Limitations. Would not apply if: the reading is a computed figure, which goes through the figure system instead.

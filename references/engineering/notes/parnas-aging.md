@@ -1,0 +1,82 @@
+# David Lorge Parnas, Software Aging (Invited Plenary Talk, ICSE 1994, IEEE, pp. 279-287)
+Source: lit3/parnas-aging/doc.txt. Read: lines 1-769 (all; the extracted text interleaves the two columns, so the order below follows the section numbers).
+
+## What it says
+- p. 1 (abstract): "We can’t prevent aging, but we can understand its causes, take steps to limits its effects, temporarily reverse some of the damage it has caused, and prepare for the day when the software is no longer viable."
+- p. 1 (abstract): "we lose our preoccupation with the first release and focus on the long term health of our products." -- stated as the sign that the profession has matured.
+- p. 1 (1 What nonsense!): "Like many such statements, the imagined quote is true but not really relevant." -- the imagined objection is that a correct mathematical product cannot decay.
+- p. 1 (1 What nonsense!): "A steadily increasing amount of effort is going into the support of these older products." -- old software is viewed as a burdensome legacy.
+- p. 1 (1 What nonsense!): "The aging of these products is impeding the further development of the systems that include them."
+- p. 1 (1 What nonsense!): "software aging can, and will occur in all successful products." -- so it must be prepared for.
+- p. 1 (2 The causes of software aging): "The first is caused by the failure of the product’s owners to modify it to meet changing needs; the second is the result of the changes that are made." -- two distinct types.
+- p. 2 (2.1 Lack of movement): "That software has aged even though nobody has touched it." -- his first product from 1960 would still do its job, but nobody would use it.
+- p. 2 (2.1 Lack of movement): "they will change to a new product as soon as the benefits outweigh the costs of retraining and converting."
+- p. 2 (2.2 Ignorant surgery): "The designer of a piece of software usually had a simple concept in mind when writing the program." -- understanding that concept lets one find what to alter and implies understanding the interfaces.
+- p. 2 (2.2 Ignorant surgery): "Changes are made by people who do not understand the original design concept almost always cause the structure of the program to degrade." -- the changes invalidate the original concept.
+- p. 2 (2.2 Ignorant surgery): "one must know both the original design rules, and the newly introduced exceptions to the rules, to understand the product."
+- p. 2 (2.2 Ignorant surgery): "After many such changes, the original designers no longer understand the product. Those who made the changes, never did." -- so nobody understands the modified product.
+- p. 2 (2.2 Ignorant surgery): "Change induced aging is often exacerbated by the fact that the maintainers feel that they do not have time to update the documentation." -- inaccurate documentation makes future changes harder.
+- p. 2 (3 Kidney failure): "is the system slow down caused by failure to release allocated memory." -- distinct from aging and more easily cured, by a cleanup process.
+- p. 2 (4 The costs of software aging): "aging software often degrades in its spacehime performance as a result of a gradually deteriorating structure" -- the three symptoms: losing the market, degraded performance, bugs introduced by changes.
+- p. 2 (4.1 Inability to keep up): "the easiest way to add a feature, is to add new code." -- the cause of weight gain; existing code is neither well understood nor documented.
+- p. 2 (4.1 Inability to keep up): "sometimes by one or two orders of magnitude over a period of several years" -- size growth; more code to change and harder to find the routines.
+- p. 3 (4.1 Inability to keep up): "by increasing their work force, the increased costs of the changes, and the delays, lead to further loss of customers."
+- p. 3 (4.2 Reduced performance): "Performance also decreases because of poor design." -- and growing size places more demands on memory.
+- p. 3 (4.3 Decreasing reliability): "each error corrected introduced (on average) more than one error." -- documented in the early years of the industry.
+- p. 3 (4.3 Decreasing reliability): "the list of known, but not yet repaired, bugs, exceeded 2000 entries." -- reported to the author for older products.
+- p. 3 (5 Reducing the costs of software aging): "The experienced programmer realises that this is just the beginning." -- after the first correct results.
+- p. 3 (5 Reducing the costs of software aging): "The work that is invested by responsible, professional, organisations after the first successful run and before the first release is usually much greater than that required to get the first successful run."
+- p. 3 (5 Reducing the costs of software aging): "Too many papers at software engineering conferences focus on the problems of getting to the first release." -- dealing with aging requires solid engineering, not only patient management.
+- p. 3 (6.1 Design for success): "one begins by trying to characterise the changes that are likely to occur over the" -- the predictions are about classes of changes, not actual changes.
+- p. 3 (6.1 Design for success): "it is important to estimate the probabilities of each type of change." -- because not everything can be made equally easy to change.
+- p. 3 (6.1 Design for success): "so that if those things do change, only a small amount of code would be affected."
+- p. 3 (6.1 Design for success): "I do not see much software that is well designed from this point of view." -- despite the principle's broad acceptance.
+- p. 3 (6.1 Design for success): "they do not discuss, or illustrate, the process of estimating the probability of change for various classes of changes." -- textbooks cover the technique superficially.
+- p. 4 (6.1 Design for success): "The only programs that don’t get changed are those that are so bad that nobody wants to use them. Designing for change is designing for success."
+- p. 4 (6.1 Design for success): "The programmer’s intuition is to think about steps in the data processing, not likely changes." -- even when asked for module secrets, they produce steps.
+- p. 4 (6.1 Design for success): "Programmers tend to confuse design principles with languages." -- they think using an object-oriented language means the techniques were applied.
+- p. 4 (6.1 Design for success): "The code is often clever, efficient, and correct; it performs rather amazing functions, but rarely is it designed to be easily changed."
+- p. 4 (6.2 Keeping records documentation): "the design principles and design decisions are often not recorded in a form that is useful to future maintainers."
+- p. 4 (6.2 Keeping records documentation): "Often the coverage is random; a programmer or manager decides that a particular idea is clever and writes a memo about it while other topics, equally important, are ignored."
+- p. 4 (6.2 Keeping records documentation): "Some projects keep two sets of books; there is the official documentation, written as required for the contract, and the real documentation"
+- p. 4 (6.2 Keeping records documentation): "It is almost as common to find that the same topic is covered twice, but that the statements in the documentation are inconsistent with each other and the code."
+- p. 5 (6.2 Keeping records documentation): "unless we can solve the documentation problem, the verification work will be a waste of time."
+- p. 5 (6.2 Keeping records documentation): "documentation is neglected because it won’t speed up the next release."
+- p. 5 (6.2 Keeping records documentation): "Each document will be a representation of one or more mathematical relations." -- documentation must be based on mathematics and formally defined notation.
+- p. 5 (6.3 Second opinions reviews): "it is quite astounding too see how often commercial programs are produced without adequate review." -- reasons listed: no professional training, education neglecting reviews, no precise design description, cottage industry, time pressure, programming seen as art.
+- p. 5 (6.3 Second opinions reviews): "Design reviews early in a project, when they would do the most good, are reduced to chat sessions because there are no detailed design documents to discuss."
+- p. 5 (6.3 Second opinions reviews): "every design should be reviewed and approved by someone whose responsibilities are for the long-term future of the product." -- reviews by maintenance people when the design is proposed, long before code.
+- pp. 5-6 (6.4 Why software aging is inevitable): "Our ability to design for change depends on our ability to predict the future." -- which is approximate; documentation and reviews are never perfect.
+- p. 6 (6.4 Why software aging is inevitable): "anyone who thinks that this will eliminate aging is living in a dream world."
+- p. 6 (7.1 Stopping the deterioration): "This is done by introducing, or recreating, structure whenever changes are made."
+- p. 6 (7.1 Stopping the deterioration): "Careful reviews must insure that each change is consistent with the intent of the original designers"
+- p. 6 (7.1 Stopping the deterioration): "a single project may exist in many versions, each with subtly different structures and based on slightly different assumptions." -- after periods of unchecked growth every change must be made many times.
+- p. 6 (7.1 Stopping the deterioration): "Nipping the growth in the bud is by far preferable. Retrenchment is always painful." -- a recovery may take several years.
+- p. 6 (7.2 Retroactive documentation): "it is often by means of a memo that is not integrated into the previously existing documentation, but simply added to it."
+- p. 6 (7.2 Retroactive documentation): "can, and should, be replaced by carefully structured documentation that has been reviewed to be complete and correct."
+- p. 6 (7.2 Retroactive documentation): "often reveals bugs, duplicate or almost alike functions, and ways to improve performance." -- an undergraduate documenting non-functional software made it functional.
+- pp. 6-7 (7.3 Retroactive incremental modularisation): "Modularisation requires more than simply identifying subroutines, or small groups of procedures and calling them modules." -- each module must comprise all programs that know a decision likely to change.
+- p. 7 (7.3 Retroactive incremental modularisation): "Often of these improvements can be made at little cost as a side-effect of changes that have to be made anyway." -- a consultant with fresh eyes can often show how.
+- p. 7 (7.4 Amputation): "Those who have created the old code are not willing to admit that it is not worth keeping." -- code modified so often it is not worth saving can be replaced; consultants lack the emotional attachment.
+- p. 7 (7.5 Major surgery restructuring): "The first step must be to reduce the size of the program family." -- hide the differences between versions in modules with documented standard interfaces.
+- p. 7 (7.5 Major surgery restructuring): "This introduces a small amount of run-time inefficiency but greatly reduces the size of the maintenance staff." -- combining versions by run-time switches.
+- p. 7 (8.1 A new Life Style): "We cannot do good work under stress, especially the constant stress of a 25 year crisis." -- the industry should impose standards on structure and documentation.
+- p. 7 (8.2 Planning for change): "Designs have to be documented, and carefully reviewed, before coding begins." -- programs and changes too; a thorough analysis of future changes is part of every design and maintenance action.
+- p. 7 (8.2 Planning for change): "They should have the power to veto changes that will get things done quicker now but at a great cost later." -- a professional or department reviewing designs for changeability.
+- p. 7 (8.3 If it’s not documented, it’s not done): "It is far harder to re-create the design documentation than to create it as we go along."
+- p. 7 (8.3 If it’s not documented, it’s not done): "even if the documentation is as good as it would have been, it has cost more and been worth less."
+- p. 8 (8.4 Retirement savings plans): "Every designer and purchaser of software should be planning for the day when the product must be replaced."
+- p. 8 (9.1 A 25 year crisis?): "A crisis is a sudden, short-term serious emergency." -- the term leads to short-term thinking and software that ages quickly.
+- p. 8 (9.2 Our industry is different): "the isolation often results in people re-inventing wheels, and even more often in their re-inventing very bumpy and structurally weak wheels."
+- p. 9 (9.3 Where are the professionals?): "programs written in an unprofessional way will age much more rapidly than programs written by engineers"
+- p. 9 (9.4 Talking to ourselves): "We also spend too little time finding out what the practitioners know, think, and need."
+- p. 9 (10 Conclusions for our profession): "We cannot assume that the old stuff is known and didn’t work. If it didn’t work, we have to find out why."
+- p. 9 (10 Conclusions for our profession): "If we cannot illustrate a principle with a real product, there may well be something wrong with the principle"
+
+## Readings for our work
+- Our method is itself a product that ages: checks and tools were added as memos added on top of each other rather than integrated. Periodically replace accreted rules and scripts by one structured, reviewed set, removing duplicates. Check: count rules stated in more than one place (CLAUDE.md, data-protocol.md, method/README.md) and whether they agree. Rests on: memo not integrated, same topic covered twice and inconsistent, retroactive documentation. Would not apply if: each rule is stated once and referenced elsewhere.
+- Patches to the legacy DLL are ignorant surgery unless they follow the original design concept; before patching, record which design rule of the surrounding code the patch keeps, and note each new exception. Check: each merge request states the rule followed and any exception introduced. Rests on: ignorant surgery, original rules plus exceptions, careful reviews per change. Would not apply if: the change is a pure defect fix inside one function.
+- Adding new code is the easiest way to add a feature and the main cause of growth; prefer modifying an existing tool to adding a new one, and track line count of method/ over time. Rests on: weight gain, nipping the growth in the bud. Would not apply if: the existing tool is so degraded that amputation is the better choice.
+- A review should come from someone responsible for the long-term future, not from the author; a check written by the hand it checks does not satisfy this. Rests on: second opinions, reviewer responsible for long-term future. Would not apply if: the check is fully determined by an external source.
+- Keep the work focused on the product (the AI patches and the analyses), not on the first successful run of each tool: the cost after the first run is the larger part. Rests on: work after first run usually greater, too many papers focus on first release. Would not apply if: the tool is a one-off.
+- Several almost alike versions of a script or document should be collapsed into one with the differences hidden behind a parameter. Rests on: many versions, reduce the size of the program family. Would not apply if: the versions are frozen records of past analyses.

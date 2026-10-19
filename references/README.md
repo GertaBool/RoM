@@ -6,6 +6,9 @@ are the reading notes as written while reading, with quotations and section numb
 - `notes-strategy.md`: round 1, strategy and method of research (for the AI work).
 - `notes-checks.md`: round 2, how checks and procedures fail and how to design ones that work
   (for the workflow).
+- `engineering/`: round 3, version control, code bases, refactoring, engineering practice and data
+  engineering: 39 sources, notes with checked quotations, and where the sources agree
+  (`engineering/README.md`).
 
 The files themselves are not in the repository. In the session they were kept under
 `lit/` and `lit2/` of the scratchpad.

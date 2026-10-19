@@ -1,0 +1,70 @@
+# Charles Antony Richard Hoare, The Emperor's Old Clothes (1980 ACM Turing Award Lecture; scanned text with printed pages 143-161; Communications of the ACM 1981 per the assignment, not stated in the text)
+Source: lit3/hoare-clothes/doc.txt. Read: lines 1-897 (all).
+
+## What it says
+- p. 2 (introduction): "I have learned more from my failures than can ever be revealed in the cold print of a scientific article" -- the lecture recounts implementation, design and standardization of languages and issues a warning.
+- p. 3 (Elliott ALGOL): "I have regarded it as the highest goal of programming language design to enable good ideas to be elegantly expressed." -- recursion in ALGOL 60 let him express Quicksort.
+- p. 3 (Elliott ALGOL): "so I was commissioned to design a modest subset." -- the team lacked the skill and experience to implement the whole language.
+- p. 3 (first principle, security): "every syntactically correct program should give a result or an error message that was predictable and comprehensible in terms of the source language program itself."
+- p. 3 (first principle, security): "checked at run time against both the upper and the lower declared bounds of the array."
+- p. 3 (first principle, security): "they already knew how frequently subscript errors occur on production runs where failure to detect them could be disastrous." -- customers unanimously refused an option to switch off the checks.
+- p. 3 (first principle, security): "In any respectable branch of engineering, failure to observe such elementary precautions would have long been against the law."
+- p. 4 (second principle): "A program exceeding the limit, even by one word, is impossible to run" -- brevity of object code and compactness of run-time data.
+- p. 4 (second principle): "the applications programmer can nearly always take advantage of the extra capacity to increase the quality of his program, its simplicity, its ruggedness, and its reliability." -- if care in implementation leaves spare hardware capacity.
+- p. 4 (third principle): "Thus there must be no impediment to their frequent use." -- procedure entry and exit as efficient as machine-code subroutines.
+- p. 4 (fourth principle): "I can still recommend single-pass top-down recursive descent both as an implementation method and as a design principle for a programming language."
+- p. 4 (fourth principle): "to structure a compiler according to the syntax of its input language makes a great contribution to ensuring its correctness." -- without such confidence, no confidence in the results of any program.
+- p. 5 (Elliott ALGOL delivered): "discovered methods of relaxing the restrictions without compromising any of the principles." -- in the end nearly the full language was implemented.
+- p. 5 (Elliott ALGOL delivered): "the fondness is not due just to nostalgia, but to the efficiency, reliability, and convenience of that early simple ALGOL System."
+- p. 5 (IFIP WG 2.1): "we recognized that a subset could be an improvement on the original."
+- p. 5 (compulsory declarations): "the redundancy of ALGOL60 was the best protection against programming and coding errors" -- his proposal to relax compulsory declarations was rejected.
+- p. 5 (compulsory declarations): "design programming notations so as to maximize the number of errors which cannot be made, or if made, can be reliably detected at compile time."
+- p. 6 (compulsory declarations): "The way to shorten programs is to use procedures, not to omit vital declarative information."
+- p. 6 (label variables): "programs that used a lot of labels were more difficult to understand and get correct" -- he opposed label-valued variables.
+- p. 6 (case expression): "it raises essentially no problems either for the implementor, the programmer, or the reader of a program."
+- p. 7 (503 Mark II): "Work started with a team of fifteen programmers and the deadline for delivery was set some eighteen months ahead in March 1965." -- the deadline passed, then a revised June 1965 date passed too.
+- p. 7 (503 Mark II): "I disregarded the schedules and began to dig more deeply into the project."
+- p. 7 (503 Mark II): "we had failed to simply count the space used by our own software which was already filling the main store of the computer" -- no overall plan for main storage; each programmer expected it to be done automatically.
+- p. 7 (503 Mark II): "this was no longer just a prediction; it was a promise" -- for the ALGOL compiler, estimated at four months.
+- p. 8 (503 Mark II): "Its speed of compilation was only two characters per second" -- against about a thousand for the existing compiler; caused by thrashing; improved to four and then eight characters per second.
+- p. 8 (503 Mark II): "the amount of reprogramming required was increasing and its effectiveness was decreasing"
+- p. 8 (503 Mark II): "over thirty man-years of programming effort, equivalent to nearly one man's active working life" -- abandoned; he states he was responsible as designer and manager.
+- p. 8 (503 Mark II): "our customers were fortunate that hardware limitations had protected them from the arbitrary excesses of our software designs."
+- p. 9 (diagnosis): "let your programmers do things which you yourself do not understand." -- the general manager's diagnosis, later judged by Hoare to be right.
+- p. 9 (diagnosis): "Each of my managers explained carefully his own theory of what had gone wrong and all the theories were different."
+- p. 9 (inquiry): "Earlier attention paid to quite minor requests of our customers might have paid as great dividends of goodwill as the success of our most ambitious plans." -- from the list of customer grievances.
+- p. 10 (inquiry): "the design of a program and the design of its specification must be undertaken in parallel by the same person, and they must interact with each other."
+- p. 10 (inquiry): "A lack of clarity in specification is one of the surest signs of a deficiency in the program it describes"
+- p. 10 (inquiry): "Our main failure was overambition." -- also failures in prediction, estimation, planning, early warning, control of program changes and documentation.
+- p. 10 (inquiry): "We can think up such good arguments for convincing ourselves and each other of the utterly absurd." -- and not to be believed when promising to repeat a success bigger and better.
+- p. 10 (inquiry): "The quality of software is measured by a number of totallY incompatible criteria, which must be carefully balanced" -- seventeen criteria were listed.
+- p. 11 (recovery): "to select the easiest request to fulfill, and to make plans Ibut not promises) to implement it." -- customers grouped by configuration, one small team each.
+- p. 11 (recovery): "In no case would we consider a request for a feature that would take more than three months to implement and deliver."
+- p. 11 (recovery): "Above all, I did not allow anything to be done which I did not myself understand. It worked!" -- recovery within a year.
+- p. 11 (formal definition): "a programming language definition should be formalized as a set of axioms, describing the desired properties of programs written in the language."
+- p. 12 (Turing's talk): "the p r o g r a m m e r should make a n u m b e r of definite assertions which can be checked individually, and from which the correctness of the whole program easily follows." -- quoted from Turing, 1950.
+- p. 13 (ALGOL 68): "One way is to make it so simple that there are obviously no deficiencies and the other way is to make it so complicated that there are no obvious deficiencies."
+- p. 13 (ALGOL 68): "The first method is far more difficult." -- it requires accepting limited objectives and compromise; no committee will ever do this until too late.
+- p. 13 (ALGOL 68): "Far from wishing to simplify the language, the working group actually asked the authors to include even more complex features"
+- pp. 13-14 (features before standardization): "A feature which is omitted can always be added later" -- and a feature included before it is fully understood can never be removed.
+- p. 14 (complexity): "the language itself becomes part of the problem rather than part of its solution." -- if the basic tool is complicated.
+- p. 15 (PL/I): "It had already undergone some seven thousand corrections and modifications at the hand of its original designers." -- twelve more editions before the 1976 standard.
+- p. 15 (PL/I): "impossible to write a wholly reliable program when the correctness of each part of the program depends on checking that every other part of the program has avoided all the traps and pitfalls of the language."
+- p. 15 (PL/I): "Almost anything in software can be implemented, sold, and even used given enough determination."
+- p. 15 (PL/I): "The price of reliability is the pursuit of the utmost simplicity. It is a price which the very rich find most hard to pay."
+- p. 16 (Ada): "Gradually these objectives have been sacrificed in favor of power, supposedly achieved by a plethora of features and notational conventions" -- the original objectives included reliability, readability, formality and simplicity.
+- p. 16 (Ada): "If you want a language with no subsets, you must make it small."
+- p. 16 (Ada): "If only we could learn the right lessons from the successes of the past, we would not need to learn from our failures."
+- p. 16 (Ada): "Do not allow this language in its present state to be used in applications where reliability is critical"
+- p. 17 (the parable): "he ordered that each of his m a n y n e w suits of clothes should be simply draped on top of the old."
+- p. 17 (the parable): "rather to remove layers of the finery, and strive for simplicity and elegance in place of extravagant elaboration." -- the tailor's advice, rejected by the court.
+- p. 18 (the parable): "he was n e v e r able to convince his clients of his dawning realization that their clothes have no Emperor."
+
+## Readings for our work
+- The repository's method risks the emperor's wardrobe: each new check or rule is draped on top of the old. Before adding a check, look for one to remove; keep a count of rules and checks and require that additions are matched by consolidation. Rests on: the parable, remove layers, feature added before understood can never be removed. Would not apply if: the checks are few and each one has caught a real error.
+- Do not let work proceed on what the lead does not understand: for the DLL, a patch should only touch code whose behaviour has been read and stated; for tools, a script nobody can explain should not gate commits. Rests on: diagnosis, recovery. Would not apply if: the part is a black box with a documented and tested interface.
+- Plans, not promises, and small increments: break AI changes into pieces that take a bounded time and pick the easiest request first. Rests on: recovery, no feature over three months. Would not apply if: the change is indivisible.
+- Count resources before building: the 503 failure came from never measuring the space used by the team's own software. The analogue here is measuring the cost of our own method (time of check_all.py, share of commits on tools) before the product suffers. Rests on: failed to simply count the space. Would not apply if: these costs are already measured and small.
+- Keep safety checks on in production: like subscript checks, the commit gate should not have a switch-off for convenience; circumventing checks is the same error. Rests on: first principle, customers refused to switch off checks. Would not apply if: the check is wrong and must be fixed, which is a Method change, not a bypass.
+- Specification and program are designed together by the same person; unclear specification signals a deficient program. For an AI change, the prediction and the code should be written together and an unclear prediction treated as a defect. Rests on: inquiry, design of the program and its specification in parallel. Would not apply if: the specification is fixed externally (game rules in the XML).
+- Prefer the simple design whose lack of deficiencies is obvious; a patch whose correctness depends on checking every other part (the PL/I trap) should be redesigned. Rests on: two ways of constructing a design, PL/I reliability. Would not apply if: the legacy structure forces cross-cutting changes and the patch states it.

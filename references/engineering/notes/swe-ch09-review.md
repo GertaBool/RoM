@@ -1,0 +1,119 @@
+# Tom Manshreck and Caitlin Sadowski (written by; edited by Lisa Carey), Code Review (Software Engineering at Google, chapter 9; O'Reilly, 2020 per assignment, the text itself names only the book and the licence CC BY-NC-ND 4.0)
+Source: lit3/swe-ch09-review/doc.txt. Read: lines 1-694 (all, including TL;DRs and footnotes 1-9).
+
+## What it says
+- Introduction: "Code review is a process in which code is reviewed by someone other than the author, often before the introduction of that code into a codebase." -- definition.
+- Introduction: "At Google, essentially every change is reviewed before being committed, and every engineer is responsible for initiating reviews and reviewing changes."
+- Introduction: "Code reviews generally require a combination of a process and a tool supporting that process." -- the chapter covers the process, not the tool Critique, since most insights adapt to any tool.
+- Introduction: "detecting bugs in code before they enter a codebase, are well established" -- with the qualifier "somewhat obvious (if imprecisely measured)"; other benefits are subtler, including psychological ones.
+- Code Review Flow: "The primary end goal of a code review is to get another engineer to consent to the change" -- marked LGTM, a necessary permissions bit for committing.
+- Code Review Flow: "The author can use this initial patch to apply automated review comments or do self-review." -- steps: snapshot (patch plus description), self-review, mail to reviewers, comments, new snapshots, LGTM, commit after resolving all comments.
+- Code Review Flow: "Only one LGTM is required by default, although convention might request that all reviewers agree to the change."
+- Code Is a Liability: "It's important to remember (and accept) that code itself is a liability." -- like fuel on an airplane, necessary but weight.
+- Code Is a Liability: "Duplicated code not only is a wasted effort, it can actually cost more in time than not having the code at all" -- the saying: if you are writing it from scratch, you are doing it wrong.
+- Code Is a Liability: "Ideally, this research is done beforehand, and a design for anything new has been communicated to the proper groups before any new code is written."
+- Code Is a Liability: "a code review is not an occasion to rehash or debate previous design decisions."
+- How Code Review Works at Google: "A correctness and comprehension check from another engineer that the code is appropriate and does what the author claims it does." -- first of three approvals (the LGTM bit).
+- How Code Review Works at Google: "Approval from one of the code owners that the code is appropriate for this particular part of the codebase" -- second approval; owners are gatekeepers of their directories; implicit if the author is an owner.
+- How Code Review Works at Google: "that the code conforms to the language's style and best practices" -- third approval, from someone with language readability; footnote 3 says readability means the set of styles and practices that keep code maintainable.
+- How Code Review Works at Google: "most reviews have one person assuming all three roles, which speeds up the process quite a bit." -- the control is admitted to be sometimes onerous.
+- How Code Review Works at Google: "the author can also assume the latter two roles, needing only an LGTM from another engineer" -- the correctness LGTM must always come from someone else.
+- How Code Review Works at Google: "The primary reviewer can focus on code correctness and the general validity of the code change" -- two-step process: peer LGTM, then owner/readability approval focused on fit to their part of the codebase.
+- How Code Review Works at Google: "Will this code be easy or difficult to maintain?" -- the approver's questions, with whether it adds technical debt and whether the team has the expertise to maintain it.
+- How Code Review Works at Google: "The short answer is scale. Separating the three roles adds flexibility to the code review process."
+- Ownership (Hyrum Wright): "small numbers constrain the effect of potential errors." -- why whole-team access works in a small team; it fails to scale as the team grows.
+- Ownership: "implies a sense of stewardship to act in the company's best interest with a section of the codebase." -- ownership is not possession; stewards would be a better term.
+- Ownership: "a given file is generally owned by the union of the members of all the OWNERS files above it in the directory tree." -- hierarchically additive OWNERS files.
+- Ownership: "we encourage a relatively small and focused list to ensure responsibility is clear."
+- Ownership: "these rights also come with a set of responsibilities, such as understanding the code that is owned or knowing how to find somebody who does." -- not a rite of initiation; departing members yield ownership.
+- Ownership: "OWNERS files act as a kind of documentation, making it easy for people and tools to find those responsible for a given piece of code"
+- Ownership: "has scaled well over the past two decades." -- tens of thousands of engineers, billions of lines of code in one repository.
+- Code Review Benefits: "Code review, however, is a mandate, one of the few blanket processes in which all software engineers at Google must participate." -- footnote 4: some documentation and configuration changes might not require review.
+- Code Review Benefits: "This mandate does have a cost and effect on engineering velocity" -- it slows the introduction of code and time-to-production; common complaints.
+- Code Review Benefits: "A well-designed code review process and a culture of taking code review seriously provides the following benefits" -- the six benefits: correctness, comprehensibility, consistency, team ownership, knowledge sharing, historical record.
+- Code Correctness: "Reviewers typically look for whether a change has proper testing, is properly designed, and functions correctly and efficiently."
+- Code Correctness: "A study at IBM found that discovering defects earlier in a process, unsurprisingly, led to less time required to fix them later on." -- footnote 5 dates it to 1986, before robust tooling, and the authors say the results still seem relevant.
+- Code Correctness: "provided that the code review process itself was streamlined to keep it lightweight." -- heavyweight or non-scaling review processes become unsustainable.
+- Code Correctness: "A reviewer shouldn't propose alternatives because of personal opinion." -- alternatives only if they improve comprehension or functionality; authors get deference.
+- Code Correctness: "engineers are encouraged to approve changes that improve the codebase rather than wait for consensus on a more perfect solution."
+- Code Correctness: "many correctness checks are performed automatically through techniques such as static analysis and automated testing" -- tooling might never completely obviate human inspection.
+- Code Correctness: "A code review is neither a panacea nor the only check for such correctness, but it is an element of a defense-in-depth" -- review need not be perfect to achieve results.
+- Code Correctness: "checking for code correctness is not the primary benefit Google accrues from the process of code review." -- more importance attached to understandability over time and scale.
+- Comprehension of Code: "provide feedback unbiased by an author's perspective." -- review is often the first test of whether a change is understandable to a broader audience.
+- Comprehension of Code: "code will be read many more times than it is written"
+- Comprehension of Code: "It is often useful to find a reviewer who has a different perspective from the author" -- especially one who must maintain or use the code.
+- Comprehension of Code: "view each question on code comprehension as valid." -- the customer is always right; one may need to explain more clearly rather than change the logic.
+- Comprehension of Code: "they are saying that the code does what it says and that it is understandable." -- the meaning of an LGTM.
+- Code Consistency: "A code review, therefore, should act to ensure code health."
+- Code Consistency: "Code that is consistent and simple is easier to understand and easier for tools to update when it comes time for refactoring" -- one fashion for a pattern makes a refactoring tool easier to write.
+- Code Consistency: "a readability reviewer may prefer a less complex change that may not be functionally" better -- consistency sometimes clashes with functionality.
+- Psychological and Cultural Benefits: "it reinforces to software engineers that code is not" theirs but part of a collective enterprise.
+- Psychological and Cultural Benefits: "The code review process forces an author to not only let others have input, but to compromise for the sake of the greater good."
+- Psychological and Cultural Benefits: "The code review process itself, therefore, can act as the" bad cop while the reviewer stays the good cop; criticism is delivered in a prescribed, neutral manner.
+- Psychological and Cultural Benefits: "A process like code review acts as validation and recognition for one's work." -- against imposter syndrome.
+- Psychological and Cultural Benefits: "Without code review, it's natural that many of us would cut corners, even with the full intention of correcting such defects later."
+- Psychological and Cultural Benefits: "The little moment of reflection that comes before sending off your change is the perfect time to read through your change"
+- Knowledge Sharing: "One of the most important, but underrated, benefits of code review is in knowledge sharing." -- reviewers impart domain knowledge; FYI comments need no action.
+- Knowledge Sharing: "the authors as well as the reviewers can learn new techniques and patterns from code review."
+- Knowledge Sharing: "Code review is a perfect time for knowledge transfer: it is timely and actionable."
+- Knowledge Sharing: "because each change becomes part of the codebase, code review acts as a historical record." -- archeology later serves more engineers than the original author and reviewers.
+- Code Review Best Practices: "Most of these issues are not problems with code review per se, but with their chosen implementation of code review." -- friction and delay; practices aim at keeping it nimble.
+- Be Polite and Professional: "It is critically important to keep all feedback and criticism firmly in the professional realm."
+- Be Polite and Professional: "reviewers should defer to authors on particular approaches and only point out alternatives if the author's approach is deficient."
+- Be Polite and Professional: "It's better to ask questions on why something was done the way it was before assuming that approach is wrong."
+- Be Polite and Professional: "we expect feedback from a code review within 24 (working) hours." -- or at least an acknowledgement.
+- Be Polite and Professional: "Reviewers should avoid responding to the code review in piecemeal fashion."
+- Be Polite and Professional: "Remember that you are not your code" -- the change is the team's, not the author's.
+- Be Polite and Professional: "It's important to treat each reviewer comment within a code review as a TODO item" -- not accepted without question, but addressed; do not mark resolved until each side has offered alternatives; PTAL.
+- Be Polite and Professional: "be amenable to changes from an outside author." -- owners give deference to an improvement.
+- Write Small Changes: "Probably the most important practice to keep the code review process nimble is to keep changes small."
+- Write Small Changes: "A code review should ideally be easy to digest and focus on a single issue, both for the reviewer and the author."
+- Write Small Changes: "reviewers can rightfully reject such changes as being too large for a single review."
+- Write Small Changes: "It is far easier to determine the source of a bug within a change if that particular change is small enough to narrow it down."
+- Write Small Changes: "A set of small, incremental code changes can be easier to digest individually, but more difficult to comprehend within a larger scheme." -- stated limit; some engineers are not fans.
+- Write Small Changes: "Consider the optimization for small changes just that: an optimization, and allow your process to accommodate the occasional larger change."
+- Write Small Changes: "changes should generally be limited to about 200 lines of code." -- most changes reviewed within about a day (initial feedback); about 35% of changes are to a single file (footnotes 7-8: Sadowski et al., Modern code review: a case study at Google).
+- Write Small Changes: "A small initial review also can prevent much more expensive wasted effort on an incorrect approach further down the line."
+- Write Small Changes: "it's common for almost all code reviews at Google to be reviewed by one and only one person." -- otherwise the process would not scale; other comments are optional.
+- Write Good Change Descriptions: "A change description should indicate its type of change on the first line, as a summary."
+- Write Good Change Descriptions: "the description should still go into detail on what is being changed and why." -- Bug fix alone is not helpful.
+- Write Good Change Descriptions: "If several related modifications were made in the change, enumerate them within a list" -- while staying on message and small.
+- Write Good Change Descriptions: "The description is the historical record for this change"
+- Write Good Change Descriptions: "If a reviewer does not understand why you did something, even if it is correct, it is a good indicator that such code needs better structure or better comments"
+- Write Good Change Descriptions: "If, during the code review process, a new decision is reached, update the change description, or add appropriate comments within the implementation."
+- Keep Reviewers to a Minimum: "the most important LGTM is the first one, and subsequent ones don't add as much as you might think to the equation." -- most reviews have precisely one reviewer.
+- Keep Reviewers to a Minimum: "The cost of additional reviewers quickly outweighs their value."
+- Keep Reviewers to a Minimum: "those reviewers should focus on different aspects of the same change." -- when multiple reviewers are used.
+- Automate Where Possible: "Opportunities to automate mechanical human tasks should be explored; investments in proper tooling reap dividends."
+- Automate Where Possible: "Rather than require authors to run tests, linters, or formatters, the current Google code review tooling provides most of that utility automatically" -- presubmits.
+- Automate Where Possible: "reject the current change (and prevent sending an awkward email to a reviewer), and ask the original author to fix the change first."
+- Automate Where Possible: "it also allows the reviewers to focus on more important concerns than formatting."
+- Types of Code Reviews: "Different types of code review require different levels of focus" -- greenfield; behavioural changes and optimisations; bug fixes and rollbacks; refactorings and large-scale changes.
+- Greenfield Code Reviews: "the introduction of entirely new code should generally solve a real problem rather than simply provide yet another alternative." -- new projects need a separate extensive design review.
+- Greenfield Code Reviews: "all API endpoints having some form of unit test, and that those tests fail when the code's assumptions change." -- plus owners, comments, documentation, and possibly introduction into CI.
+- Behavioral Changes, Improvements, and Optimizations: "is this change necessary, and does this change improve the codebase?"
+- Behavioral Changes, Improvements, and Optimizations: "Some of the best modifications to a codebase are actually deletions!"
+- Behavioral Changes, Improvements, and Optimizations: "Any behavioral modifications should necessarily include revisions to appropriate tests for any new API behavior." -- optimisations may need benchmarks for reviewers.
+- Bug Fixes and Rollbacks: "avoid the temptation to address other issues." -- it enlarges the review and makes regression testing and rollback harder.
+- Bug Fixes and Rollbacks: "A bug fix should focus solely on fixing the indicated bug and (usually) updating associated tests to catch the error that occurred in the first place."
+- Bug Fixes and Rollbacks: "The bug surfaced because existing tests were either inadequate, or the code had certain assumptions that were not met."
+- Bug Fixes and Rollbacks: "Such rollbacks can be created in seconds because they just revert the previous change to a known state, but they still require a code review."
+- Bug Fixes and Rollbacks: "be as small and atomic as possible so that a rollback, if needed, does not cause further breakages" -- developers start depending on new code quickly.
+- Refactorings and Large-Scale Changes: "even machine-generated changes require review." -- low-risk ones by designated global reviewers.
+- Refactorings and Large-Scale Changes: "only flag concerns that are specific to their code, not the underlying tool or LSC generating the changes." -- the generating process was already reviewed; concerns go to an oversight group.
+- Refactorings and Large-Scale Changes: "We also encourage reviewers of automatic changes to avoid expanding their scope."
+- Conclusion: "the code review process is the primary developer workflow upon which almost all other processes must hang, from testing to static analysis to CI."
+- TL;DRs: "Always check your assumptions through someone else; optimize for the reader."
+- TL;DRs: "Automation is critical for scaling the process."
+- Footnote 5: "Granted, this study took place before robust tooling and automated testing had become so important" -- the authors' stated limit on the IBM evidence.
+
+## Readings for our work
+- The repository has one human and one AI author, so the second person in review is usually missing: an AI-written check reviewed only by the AI is the same hand checking itself. Require that every change to method/ (checks, gate) gets a review from the human or at least from a separate session with no access to the author's reasoning, recorded in the commit. Rests on: definition (someone other than the author); correctness LGTM always from another engineer; Comprehension (unbiased by author's perspective). Would not apply if: the check is purely mechanical and itself tested by an independent test.
+- One concern per commit: a bug fix carries only the fix and its test; refactors, formatting and line-ending changes go in separate commits. Check: a commit-msg or pre-commit rule flags commits touching both method/ and analysis code, or C++ patches whose diff is mostly whitespace/line-ending. Rests on: Write Small Changes (single issue); Bug Fixes and Rollbacks (avoid other issues; small and atomic). Would not apply if: the changes are inseparable (one cannot build without the other).
+- Keep C++ merge requests to the mod small (about 200 changed lines as a guide) so the upstream maintainer can review and roll back; split large AI changes into a series. Rests on: Write Small Changes (about 200 lines; easier to find bug source; reviewers may reject large changes). Would not apply if: the upstream maintainer prefers squashed feature drops and says so.
+- Mechanical checks (CRLF preservation, generated files untouched, quotation and figure checks) belong in automated presubmit-style hooks so review focuses on substance; but a presubmit can be bypassed (--no-verify), so the same checks must also run where they cannot be skipped (e.g. CI on the pushed branch). Rests on: Automate Where Possible (presubmits reject the change before review). Would not apply if: commits are only ever made through a path that cannot skip hooks.
+- Commit messages should state type and summary on the first line and what and why in the body, and be updated if the decision changes; this is the record a later session reads instead of memory. Rests on: Write Good Change Descriptions (first line summary; what and why; historical record; update on new decision). Would not apply if: the why is recorded elsewhere and linked (e.g. the prediction register entry named by Serves:).
+- Code and tools are liabilities: before adding a new tool or check, look for an existing one and ask whether the change is necessary; deleting obsolete tools counts as improvement. Check: count of files in method/ over time, and each new tool names the question no existing source answered. Rests on: Code Is a Liability; Behavioral Changes (best modifications are deletions); Greenfield (solve a real problem, not another alternative). Would not apply if: the new tool replaces two older ones in the same change.
+- Generated files (rendered .md from .md.in, registries) are machine-generated changes: review the generator, not the output, and never hand-edit the output. Check: a hook that re-renders and fails if the committed output differs. Rests on: Refactorings and Large-Scale Changes (the generating process is reviewed; flag only concerns specific to the output). Would not apply if: a file is generated once and then maintained by hand on purpose, which must then be declared.
+- A bug fix in analysis code should add a test that fails on the old behaviour, since the bug shows a test was inadequate or an assumption unmet. Rests on: Bug Fixes and Rollbacks. Would not apply if: the bug was in a one-off script that is deleted.
+- Review evidence is weaker than it looks for defect finding: the chapter itself says correctness is not the main benefit and cites a 1986 study; do not treat a review as the safeguard against wrong numbers; use the figure system and tests for that. Rests on: Code Correctness (not primary benefit; defence in depth; footnote 5 limit). Would not apply if: a measured review defect rate for our own repository shows otherwise.
