@@ -244,5 +244,24 @@
    "toolchain/harness/HarnessState.cpp",
    "toolchain/harness/README.md"
   ]
+ },
+ {
+  "id": "P6",
+  "type": "prediction",
+  "line": "balance",
+  "hypotheses": [
+   "H3"
+  ],
+  "variable": "seat_captures",
+  "evidence": "runs",
+  "serves": "P5",
+  "change": "Harness runs of change B: the turn-0 scenario of game 3 (Marathon, Noble), 300 turns, seat 12 played by the human model (HarnessHuman.cpp, policy both.txt of the human-model experiment), the other seats by the AI. One harness DLL, built from the source of P5 (the S2 commit plus change B), in both arms; AI_STAGED_FORECAST 250 in both. Arm a: AI_BALANCE_SHARE 110; arm b: AI_BALANCE_SHARE 0, which leaves AI_doWar as in the S2 build. The cities the human-model seat takes are fewer in arm a.",
+  "claim": {
+   "direction": "a<b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 12
+  }
  }
 ]
