@@ -612,6 +612,8 @@ def add_game(root, pid, log, name):
 def selftest():
     import tempfile, shutil
     d = tempfile.mkdtemp()
+    # a hook's git environment (GIT_INDEX_FILE, GIT_DIR, ...) must not reach the test repository's git
+    saved = {k: os.environ.pop(k) for k in [k for k in os.environ if k.startswith('GIT_')]}
     try:
         g = lambda *a: subprocess.run(['git', '-C', d] + list(a), capture_output=True, text=True, check=True)
         g('init', '-q'); g('config', 'user.email', 't@t'); g('config', 'user.name', 't')
@@ -776,6 +778,7 @@ def selftest():
         print('ledger selftest: ok')
     finally:
         shutil.rmtree(d)
+        os.environ.update(saved)
 
 
 def main():
