@@ -1,0 +1,55 @@
+# CvXMLLoadUtility.cpp
+
+Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **26** `CvXMLLoadUtility::logMsg(char *, ...)`
+  - calls: CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (13): CvXMLLoadUtility::LoadCivXml, CvXMLLoadUtility::LoadDiplomacyInfo, CvXMLLoadUtility::LoadGlobalClassInfo, CvXMLLoadUtility::LoadGlobalText, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetDiplomacyInfo, CvXMLLoadUtility::SetGameText, CvXMLLoadUtility::SetGlobalActionInfo, CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement, CvXMLLoadUtility::SetGlobalStringArray …
+- **69** `CvXMLLoadUtility::logMLF(char *, ...)`
+  - calls: CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (3): CvXMLLoadUtility::LoadModLoadControlInfo, CvXMLLoadUtility::SetModLoadControlInfo, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+- **84** `CvXMLLoadUtility::logXmlDependencyTypes(char *, ...)`
+  - calls: CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvXMLLoadUtility::SetGlobalClassInfo
+- **95** `CvXMLLoadUtility::CreateFXml()` (exported)
+  - calls: CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::CreateFXml [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getCurrentXMLFile [CvGlobals.cpp], CvString::GetCString [CvString.h], CvDLLUtilityIFaceBase::MessageBox [CvDLLUtilityIFaceBase.h]
+  - called by (11): CvXMLLoadUtility::LoadBasicInfos, CvXMLLoadUtility::LoadGlobalText, CvXMLLoadUtility::LoadGraphicOptions, CvXMLLoadUtility::LoadPlayerOptions, CvXMLLoadUtility::LoadPostMenuGlobals, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetGlobalArtDefines, CvXMLLoadUtility::SetGlobalTypes, CvXMLLoadUtility::SetupGlobalLandscapeInfo, CvXMLLoadUtility::doResetGlobalInfoClasses
+- **112** `CvXMLLoadUtility::DestroyFXml()` (exported)
+  - calls: CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::DestroyFXml [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (10): CvXMLLoadUtility::LoadBasicInfos, CvXMLLoadUtility::LoadGlobalText, CvXMLLoadUtility::LoadGraphicOptions, CvXMLLoadUtility::LoadPlayerOptions, CvXMLLoadUtility::LoadPostMenuGlobals, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::SetGlobalArtDefines, CvXMLLoadUtility::SetGlobalTypes, CvXMLLoadUtility::SetupGlobalLandscapeInfo, CvXMLLoadUtility::doResetGlobalInfoClasses
+- **125** `CvXMLLoadUtility::CvXMLLoadUtility()` (exported)
+  - calls: CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::CreateFXmlSchemaCache [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (6): CvArtFileMgr::Reset, CvGameTextMgr::Reset, CvGlobals::doResetInfoClasses, CvInitCore::reset, CvXMLLoadUtilityModTools::setLocationName, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+- **140** `CvXMLLoadUtility::~CvXMLLoadUtility()` (exported)
+  - calls: CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::DestroyFXmlSchemaCache [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **152** `CvXMLLoadUtility::ResetLandscapeInfo()` (exported)
+  - calls: CvGlobals::getNumLandscapeInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getLandscapeInfo() [CvGlobals.cpp], CvXMLLoadUtility::SetupGlobalLandscapeInfo [CvXMLLoadUtilitySet.cpp]
+- **171** `CvXMLLoadUtility::ResetGlobalEffectInfo()` (exported)
+  - calls: CvGlobals::getNumEffectInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getEffectInfo() [CvGlobals.cpp], CvXMLLoadUtility::LoadGlobalClassInfo [CvXMLLoadUtilitySet.cpp]
+- **192** `CvXMLLoadUtility::MakeMaskFromString(unsigned int *, char *)`
+- **352** `CvXMLLoadUtility::SkipToNextVal()` (exported)
+  - calls: CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::IsLastLocatedNodeCommentNode [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h]
+  - called by (65): CvBuildingInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(CvXMLLoadUtility *), CvCorporationInfo::read, CvEntityEventInfo::read, CvEventInfo::read(CvXMLLoadUtility *), CvEventTriggerInfo::read(CvXMLLoadUtility *), CvGameText::read, CvImprovementInfo::read(CvXMLLoadUtility *), CvInfoBase::read(CvXMLLoadUtility *), CvModLoadControlInfo::read, CvRouteInfo::read …
+- **376** `CvXMLLoadUtility::FindInInfoClass(const TCHAR *, bool)` (static)
+  - calls: CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getCurrentXMLFile [CvGlobals.cpp], CvString::GetCString [CvString.h], CvDLLUtilityIFaceBase::MessageBox [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - called by (44): CvAnimationCategoryInfo::getCategoryDefaultTo, CvAnimationPathInfo::read, CvAutomateInfo::read, CvBonusInfo::read(CvXMLLoadUtility *), CvBuildInfo::read, CvBuildingInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(CvXMLLoadUtility *), CvCorporationInfo::read, CvEntityEventInfo::read, CvEspionageMissionInfo::read, CvEventInfo::read(CvXMLLoadUtility *) …
+- **410** `CvXMLLoadUtility::LoadCivXml(FXml *, const TCHAR *)` (exported)
+  - calls: CvString::CvString(const char *) [CvString.h], CvDLLUtilityIFaceBase::fileManagerEnabled [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvString::operator=(const std::string &) [CvString.h], CvXMLLoadUtility::logMsg, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::LoadXml [CvDLLXMLIFaceBase.h], CvString::operator const char * [CvString.h], CvGlobals::setCurrentXMLFile [CvGlobals.cpp]
+  - takes the address of: CvString::operator=(const std::string &) [CvString.h]
+  - called by (8): CvXMLLoadUtility::LoadDiplomacyInfo, CvXMLLoadUtility::LoadGlobalClassInfo, CvXMLLoadUtility::LoadGlobalClassInfoModular, CvXMLLoadUtility::LoadGlobalText, CvXMLLoadUtility::LoadModLoadControlInfo, CvXMLLoadUtility::LoadPythonModulesInfo, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetGlobalTypes
+- **457** `CvXMLLoadUtility::CreateHotKeyFromDescription(const TCHAR *, bool, bool, bool)`
+  - calls: CvWString::CvWString() [CvString.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], operator+(const CvWString &, const CvWString &) [CvString.h], CvXMLLoadUtility::CreateKeyStringFromKBCode, CvWString::CvWString(const CvWString &) [CvString.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h], operator+(const CvWString &, const CvWString &) [CvString.h]
+  - called by (2): CvHotkeyInfo::read(CvXMLLoadUtility *), CvXMLLoadUtility::SetGlobalActionInfo
+- **490** `CvXMLLoadUtility::SetStringList(CvString **, int *)`
+  - calls: CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlVal(std::string &, char *) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(std::string &, char *) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h]
+  - called by (8): CvCivilizationInfo::read(CvXMLLoadUtility *), CvDiplomacyResponse::read(CvXMLLoadUtility *), CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvEraInfo::read, CvHandicapInfo::read(CvXMLLoadUtility *), CvQuestInfo::read, CvTutorialMessage::read, CvUnitInfo::read(CvXMLLoadUtility *)
+- **526** `CvXMLLoadUtility::CreateKeyStringFromKBCode(const TCHAR *)`
+  - calls: CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::CvWString(const CvWString &) [CvString.h]
+  - called by (1): CvXMLLoadUtility::CreateHotKeyFromDescription
+- **667** `CvXMLLoadUtility::UpdateProgressCB(const char *)`
+  - calls: CvXMLLoadUtility::GetNumProgressSteps [CvXMLLoadUtilityGet.cpp], CvString::format(const char *, ...) [CvString.h]
+  - called by (4): CvXMLLoadUtility::LoadPostMenuGlobals, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::SetGlobalDefines, CvXMLLoadUtility::SetGlobalTypes
+- **684** `CvXMLLoadUtility::MapChildren()` (exported)
+  - calls: CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::MapChildren [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (3): CvInfoBase::read(CvXMLLoadUtility *), CvTutorialInfo::read, CvTutorialMessage::read

@@ -1,0 +1,7 @@
+# CyMapGeneratorInterface.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **11** `CyMapGeneratorPythonInterface()`
+  - takes the address of: CyMapGenerator::isNone [CyMapGenerator.h], CyMapGenerator::canPlaceBonusAt [CyMapGenerator.cpp], CyMapGenerator::canPlaceGoodyAt [CyMapGenerator.cpp], CyMapGenerator::addGameElements [CyMapGenerator.cpp], CyMapGenerator::addLakes [CyMapGenerator.cpp], CyMapGenerator::addRivers [CyMapGenerator.cpp], CyMapGenerator::doRiver [CyMapGenerator.cpp], CyMapGenerator::addFeatures [CyMapGenerator.cpp], CyMapGenerator::addBonuses [CyMapGenerator.cpp], CyMapGenerator::addUniqueBonusType [CyMapGenerator.cpp], CyMapGenerator::addNonUniqueBonusType [CyMapGenerator.cpp], CyMapGenerator::addGoodies [CyMapGenerator.cpp], CyMapGenerator::eraseRivers [CyMapGenerator.cpp], CyMapGenerator::eraseFeatures [CyMapGenerator.cpp], CyMapGenerator::eraseBonuses [CyMapGenerator.cpp], CyMapGenerator::eraseGoodies [CyMapGenerator.cpp], CyMapGenerator::generateRandomMap [CyMapGenerator.cpp], CyMapGenerator::generatePlotTypes [CyMapGenerator.cpp], CyMapGenerator::generateTerrain [CyMapGenerator.cpp], CyMapGenerator::afterGeneration [CyMapGenerator.cpp], CyMapGenerator::setPlotTypes [CyMapGenerator.cpp]
+  - called by (1): DLLPublishToPython

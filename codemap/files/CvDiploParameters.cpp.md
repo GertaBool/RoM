@@ -1,0 +1,73 @@
+# CvDiploParameters.cpp
+
+Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **4** `CvDiploParameters::CvDiploParameters(PlayerTypes)` (exported)
+  - calls: CLinkList::clear [LinkedList.h]
+  - called by (6): CvPlayer::contact, CvPlayer::read, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvTeam::declareWar, CvTeam::makeHasMet
+- **19** `CvDiploParameters::~CvDiploParameters()` (exported; virtual)
+  - calls: CLinkList::clear [LinkedList.h]
+- **25** `CvDiploParameters::setWhoTalkingTo(PlayerTypes)` (exported)
+- **30** `CvDiploParameters::getWhoTalkingTo()` (exported)
+- **35** `addVar(std::vector<FVariable> &, const wchar *)`
+  - calls: FVariable::FVariable() [FVariableSystem.h]
+  - called by (7): CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, int), CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, int), CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, int), CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, CvWString)
+- **47** `addVar(std::vector<FVariable> &, int)`
+  - calls: FVariable::FVariable() [FVariableSystem.h]
+  - called by (7): CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, int), CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, int), CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, int), CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, int)
+- **67** `CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, CvWString)` (exported)
+  - calls: CvWString::CvWString(const char *) [CvString.h], addVar(std::vector<FVariable> &, const wchar *), CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *), CvWString::operator const wchar_t * [CvString.h]
+  - called by (1): CvPlayerAI::AI_doDiplo
+- **70** `CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, int)` (exported)
+  - calls: addVar(std::vector<FVariable> &, const wchar *), addVar(std::vector<FVariable> &, int), CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *), CvWString::operator const wchar_t * [CvString.h]
+- **73** `CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, CvWString)` (exported)
+  - calls: CvWString::CvWString(const char *) [CvString.h], addVar(std::vector<FVariable> &, const wchar *), addVar(std::vector<FVariable> &, int), CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *), CvWString::operator const wchar_t * [CvString.h]
+- **76** `CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, int)` (exported)
+  - calls: addVar(std::vector<FVariable> &, const wchar *), addVar(std::vector<FVariable> &, int), CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *), CvWString::operator const wchar_t * [CvString.h]
+- **79** `CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, CvWString)` (exported)
+  - calls: CvWString::CvWString(const char *) [CvString.h], addVar(std::vector<FVariable> &, const wchar *), addVar(std::vector<FVariable> &, int), CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *), CvWString::operator const wchar_t * [CvString.h]
+- **82** `CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, int)` (exported)
+  - calls: addVar(std::vector<FVariable> &, const wchar *), addVar(std::vector<FVariable> &, int), CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *), CvWString::operator const wchar_t * [CvString.h]
+- **85** `CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, CvWString)` (exported)
+  - calls: CvWString::CvWString(const char *) [CvString.h], addVar(std::vector<FVariable> &, const wchar *), addVar(std::vector<FVariable> &, int), CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *), CvWString::operator const wchar_t * [CvString.h]
+- **88** `CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, int)` (exported)
+  - calls: addVar(std::vector<FVariable> &, int), CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *)
+- **91** `CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *)` (exported)
+  - called by (13): CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, int), CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, int), CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, int), CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, CvWString), CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, int), CvPlayer::contact, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvTeam::declareWar …
+- **98** `CvDiploParameters::getDiploComment()` (exported)
+  - called by (1): CvPlayerAI::AI_beginDiplomacy
+- **103** `CvDiploParameters::setOurOfferList(const CLinkList<TradeData> &)` (exported)
+  - calls: CLinkList::clear [LinkedList.h], CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h], CLinkList::insertAtEnd [LinkedList.h]
+  - called by (2): CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace
+- **115** `CvDiploParameters::getOurOfferList()` (exported)
+- **120** `CvDiploParameters::setTheirOfferList(const CLinkList<TradeData> &)` (exported)
+  - calls: CLinkList::clear [LinkedList.h], CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h], CLinkList::insertAtEnd [LinkedList.h]
+  - called by (2): CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace
+- **132** `CvDiploParameters::getTheirOfferList()` (exported)
+- **137** `CvDiploParameters::setRenegotiate(bool)` (exported)
+- **142** `CvDiploParameters::getRenegotiate()` (exported)
+- **147** `CvDiploParameters::setAIContact(bool)` (exported)
+  - called by (4): CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvTeam::declareWar, CvTeam::makeHasMet
+- **152** `CvDiploParameters::getAIContact()` (exported)
+- **158** `CvDiploParameters::setPendingDelete(bool)` (exported)
+- **163** `CvDiploParameters::getPendingDelete()` (exported)
+- **169** `CvDiploParameters::setData(int)` (exported)
+  - called by (1): CvPlayerAI::AI_doDiplo
+- **174** `CvDiploParameters::getData()` (exported)
+- **179** `CvDiploParameters::setHumanDiplo(bool)` (exported)
+- **184** `CvDiploParameters::getHumanDiplo()` (exported)
+- **189** `CvDiploParameters::setOurOffering(bool)` (exported)
+- **194** `CvDiploParameters::getOurOffering()` (exported)
+- **199** `CvDiploParameters::setTheirOffering(bool)` (exported)
+- **204** `CvDiploParameters::getTheirOffering()` (exported)
+- **209** `CvDiploParameters::setChatText(const wchar *)` (exported)
+  - calls: CvWString::operator=(const wchar *) [CvString.h]
+  - takes the address of: CvWString::operator=(const wchar *) [CvString.h]
+- **214** `CvDiploParameters::getChatText()` (exported)
+  - calls: CvWString::operator const wchar_t * [CvString.h]
+- **220** `CvDiploParameters::read(FDataStreamBase &)` (exported)
+  - calls: FDataStreamBase::Read(unsigned int *) [FDataStreamBase.h], FDataStreamBase::Read(int *) [FDataStreamBase.h], CLinkList::Read [LinkedList.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h], FDataStreamBase::ReadString(std::wstring &) [FDataStreamBase.h], FVariable::Read [FVariableSystem.inl]
+  - called by (1): CvPlayer::read
+- **248** `CvDiploParameters::write(FDataStreamBase &)` (exported)
+  - calls: FDataStreamBase::Write(unsigned int) [FDataStreamBase.h], FDataStreamBase::Write(int) [FDataStreamBase.h], CLinkList::Write [LinkedList.h], FDataStreamBase::Write(bool) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::wstring &) [FDataStreamBase.h], FVariable::Write [FVariableSystem.inl]
+  - called by (1): CvPlayer::write

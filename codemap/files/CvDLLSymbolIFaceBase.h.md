@@ -1,0 +1,87 @@
+# CvDLLSymbolIFaceBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **22** `CvDLLSymbolIFaceBase::init(CvSymbol *, int, int, int, CvPlot *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbols
+- **23** `CvDLLSymbolIFaceBase::createSymbol()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::addSymbol
+- **24** `CvDLLSymbolIFaceBase::destroy(CvSymbol *&, bool)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLFeatureIFaceBase::destroy, CvDLLRouteIFaceBase::destroy, CvPlot::deleteAllSymbols
+- **25** `CvDLLSymbolIFaceBase::setAlpha(CvSymbol *, float)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbolDisplay
+- **26** `CvDLLSymbolIFaceBase::setScale(CvSymbol *, float)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbolDisplay
+- **27** `CvDLLSymbolIFaceBase::Hide(CvSymbol *, bool)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLFeatureIFaceBase::Hide, CvDLLRouteIFaceBase::Hide, CvPlot::updateSymbolVisibility
+- **28** `CvDLLSymbolIFaceBase::IsHidden(CvSymbol *)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLFeatureIFaceBase::IsHidden, CvDLLRouteIFaceBase::IsHidden
+- **29** `CvDLLSymbolIFaceBase::updatePosition(CvSymbol *)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLFeatureIFaceBase::updatePosition, CvDLLRouteIFaceBase::updatePosition, CvPlot::updateSymbolDisplay
+- **30** `CvDLLSymbolIFaceBase::getID(CvSymbol *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbols
+- **31** `CvDLLSymbolIFaceBase::getSymbol(CvSymbol *)` (virtual; pure virtual, provided by the exe)
+- **32** `CvDLLSymbolIFaceBase::setTypeYield(CvSymbol *, int, int)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbols
+- **38** `CvDLLFeatureIFaceBase::createFeature()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFeatureSymbol
+- **39** `CvDLLFeatureIFaceBase::init(CvFeature *, int, int, int, CvPlot *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFeatureSymbol
+- **40** `CvDLLFeatureIFaceBase::getFeature(CvFeature *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFeatureSymbol
+- **41** `CvDLLFeatureIFaceBase::setDummyVisibility(CvFeature *, const char *, bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::setFeatureDummyVisibility
+- **42** `CvDLLFeatureIFaceBase::addDummyModel(CvFeature *, const char *, const char *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::addFeatureDummyModel
+- **43** `CvDLLFeatureIFaceBase::setDummyTexture(CvFeature *, const char *, const char *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::setFeatureDummyTexture
+- **44** `CvDLLFeatureIFaceBase::pickDummyTag(CvFeature *, int, int)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::pickFeatureDummyTag
+- **45** `CvDLLFeatureIFaceBase::resetModel(CvFeature *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::resetFeatureModel
+- **48** `CvDLLFeatureIFaceBase::destroy(CvFeature *&, bool)` (virtual)
+  - calls: CvDLLSymbolIFaceBase::destroy, CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (2): CvPlot::uninit, CvPlot::updateFeatureSymbol
+- **49** `CvDLLFeatureIFaceBase::Hide(CvFeature *, bool)` (virtual)
+  - calls: CvDLLSymbolIFaceBase::Hide, CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvPlot::updateFeatureSymbolVisibility
+- **50** `CvDLLFeatureIFaceBase::IsHidden(CvFeature *)` (virtual)
+  - calls: CvDLLSymbolIFaceBase::IsHidden, CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvPlot::updateFeatureSymbolVisibility
+- **51** `CvDLLFeatureIFaceBase::updatePosition(CvFeature *)` (virtual)
+  - calls: CvDLLSymbolIFaceBase::updatePosition, CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **57** `CvDLLRouteIFaceBase::createRoute()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRouteSymbol
+- **58** `CvDLLRouteIFaceBase::init(CvRoute *, int, int, int, CvPlot *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRouteSymbol
+- **59** `CvDLLRouteIFaceBase::getRoute(CvRoute *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRouteSymbol
+- **62** `CvDLLRouteIFaceBase::destroy(CvRoute *&, bool)` (virtual)
+  - calls: CvDLLSymbolIFaceBase::destroy, CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (3): CvDLLRiverIFaceBase::destroy, CvPlot::uninit, CvPlot::updateRouteSymbol
+- **63** `CvDLLRouteIFaceBase::Hide(CvRoute *, bool)` (virtual)
+  - calls: CvDLLSymbolIFaceBase::Hide, CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvDLLRiverIFaceBase::Hide
+- **64** `CvDLLRouteIFaceBase::IsHidden(CvRoute *)` (virtual)
+  - calls: CvDLLSymbolIFaceBase::IsHidden, CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvDLLRiverIFaceBase::IsHidden
+- **65** `CvDLLRouteIFaceBase::updatePosition(CvRoute *)` (virtual)
+  - calls: CvDLLSymbolIFaceBase::updatePosition, CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvDLLRiverIFaceBase::updatePosition
+- **66** `CvDLLRouteIFaceBase::getConnectionMask(CvRoute *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGameTextMgr::setPlotHelp
+- **67** `CvDLLRouteIFaceBase::updateGraphicEra(CvRoute *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateGraphicEra
+- **73** `CvDLLRiverIFaceBase::createRiver()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRiverSymbol
+- **74** `CvDLLRiverIFaceBase::init(CvRiver *, int, int, int, CvPlot *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRiverSymbol
+- **77** `CvDLLRiverIFaceBase::destroy(CvRiver *&, bool)` (virtual)
+  - calls: CvDLLRouteIFaceBase::destroy, CvDLLUtilityIFaceBase::getRouteIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (2): CvPlot::uninit, CvPlot::updateRiverSymbol
+- **78** `CvDLLRiverIFaceBase::Hide(CvRiver *, bool)` (virtual)
+  - calls: CvDLLRouteIFaceBase::Hide, CvDLLUtilityIFaceBase::getRouteIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **79** `CvDLLRiverIFaceBase::IsHidden(CvRiver *)` (virtual)
+  - calls: CvDLLRouteIFaceBase::IsHidden, CvDLLUtilityIFaceBase::getRouteIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **80** `CvDLLRiverIFaceBase::updatePosition(CvRiver *)` (virtual)
+  - calls: CvDLLRouteIFaceBase::updatePosition, CvDLLUtilityIFaceBase::getRouteIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]

@@ -1,0 +1,46 @@
+# CyArtFileMgr.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **9** `CyArtFileMgr::CyArtFileMgr()`
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp]
+- **14** `CyArtFileMgr::CyArtFileMgr(CvArtFileMgr *)`
+- **17** `CyArtFileMgr::Reset()` (Python: Reset)
+  - calls: CvArtFileMgr::Reset [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **25** `CyArtFileMgr::buildArtFileInfoMaps()` (Python: buildArtFileInfoMaps)
+  - calls: CvArtFileMgr::buildArtFileInfoMaps [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **33** `CyArtFileMgr::getInterfaceArtInfo(const char *)` (Python: getInterfaceArtInfo)
+  - calls: CvArtFileMgr::getInterfaceArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **38** `CyArtFileMgr::getMovieArtInfo(const char *)` (Python: getMovieArtInfo)
+  - calls: CvArtFileMgr::getMovieArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **43** `CyArtFileMgr::getMiscArtInfo(const char *)` (Python: getMiscArtInfo)
+  - calls: CvArtFileMgr::getMiscArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **48** `CyArtFileMgr::getUnitArtInfo(const char *)` (Python: getUnitArtInfo)
+  - calls: CvArtFileMgr::getUnitArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **53** `CyArtFileMgr::getBuildingArtInfo(const char *)` (Python: getBuildingArtInfo)
+  - calls: CvArtFileMgr::getBuildingArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **58** `CyArtFileMgr::getCivilizationArtInfo(const char *)` (Python: getCivilizationArtInfo)
+  - calls: CvArtFileMgr::getCivilizationArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **63** `CyArtFileMgr::getLeaderheadArtInfo(const char *)` (Python: getLeaderheadArtInfo)
+  - calls: CvArtFileMgr::getLeaderheadArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **68** `CyArtFileMgr::getBonusArtInfo(const char *)` (Python: getBonusArtInfo)
+  - calls: CvArtFileMgr::getBonusArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **73** `CyArtFileMgr::getImprovementArtInfo(const char *)` (Python: getImprovementArtInfo)
+  - calls: CvArtFileMgr::getImprovementArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **78** `CyArtFileMgr::getTerrainArtInfo(const char *)` (Python: getTerrainArtInfo)
+  - calls: CvArtFileMgr::getTerrainArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface
+- **83** `CyArtFileMgr::getFeatureArtInfo(const char *)` (Python: getFeatureArtInfo)
+  - calls: CvArtFileMgr::getFeatureArtInfo(const char *) [CvArtFileMgr.cpp]
+  - called by (1): CyArtFileMgrPythonInterface

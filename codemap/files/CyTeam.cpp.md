@@ -1,0 +1,551 @@
+# CyTeam.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **10** `CyTeam::CyTeam()`
+  - called by (1): CyGlobalContext::getCyTeam
+- **14** `CyTeam::CyTeam(CvTeam *)`
+  - called by (1): CyGlobalContext::getCyTeam
+- **23** `CyTeam::isRebelAgainst(int)` (Python: isRebelAgainst)
+  - calls: CvTeam::isRebelAgainst [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **31** `CyTeam::setRebelAgainst(int, bool)` (Python: setRebelAgainst)
+  - calls: CvTeam::setRebelAgainst [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **37** `CyTeam::countRebelAgainst()` (Python: countRebelAgainst)
+  - calls: CvTeam::countRebelAgainst [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **47** `CyTeam::addTeam(int)` (Python: addTeam)
+  - calls: CvTeam::addTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **53** `CyTeam::canChangeWarPeace(int)` (Python: canChangeWarPeace)
+  - calls: CvTeam::canChangeWarPeace [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **58** `CyTeam::canDeclareWar(int)` (Python: canDeclareWar)
+  - calls: CvTeam::canDeclareWar [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **63** `CyTeam::declareWar(int, bool, int)` (Python: declareWar)
+  - calls: CvTeam::declareWar [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **69** `CyTeam::makePeace(int)` (Python: makePeace)
+  - calls: CvTeam::makePeace [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **75** `CyTeam::canContact(int)` (Python: canContact)
+  - calls: CvTeam::canContact [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **80** `CyTeam::meet(int, bool)` (Python: meet)
+  - calls: CvTeam::meet [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **86** `CyTeam::signOpenBorders(int)` (Python: signOpenBorders)
+  - calls: CvTeam::signOpenBorders [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **92** `CyTeam::signDefensivePact(int)` (Python: signDefensivePact)
+  - calls: CvTeam::signDefensivePact [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **98** `CyTeam::getAssets()` (Python: getAssets)
+  - calls: CvTeam::getAssets [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **103** `CyTeam::getPower(bool)` (Python: getPower)
+  - calls: CvTeam::getPower [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **108** `CyTeam::getDefensivePower()` (Python: getDefensivePower)
+  - calls: CvTeam::getDefensivePower [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **113** `CyTeam::getNumNukeUnits()` (Python: getNumNukeUnits)
+  - calls: CvTeam::getNumNukeUnits [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **118** `CyTeam::getAtWarCount(bool)` (Python: getAtWarCount)
+  - calls: CvTeam::getAtWarCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **123** `CyTeam::getWarPlanCount(int, bool)` (Python: getWarPlanCount)
+  - calls: CvTeam::getWarPlanCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **128** `CyTeam::getAnyWarPlanCount(bool)` (Python: getAnyWarPlanCount)
+  - calls: CvTeam::getAnyWarPlanCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **133** `CyTeam::getChosenWarCount(bool)` (Python: getChosenWarCount)
+  - calls: CvTeam::getChosenWarCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **138** `CyTeam::getHasMetCivCount(bool)` (Python: getHasMetCivCount)
+  - calls: CvTeam::getHasMetCivCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **143** `CyTeam::hasMetHuman()` (Python: hasMetHuman)
+  - calls: CvTeam::hasMetHuman [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **148** `CyTeam::getDefensivePactCount()` (Python: getDefensivePactCount)
+  - calls: CvTeam::getDefensivePactCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **153** `CyTeam::isAVassal()` (Python: isAVassal)
+  - calls: CvTeam::isAVassal [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **158** `CyTeam::getUnitClassMaking(int)` (Python: getUnitClassMaking)
+  - calls: CvTeam::getUnitClassMaking [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **163** `CyTeam::getUnitClassCountPlusMaking(int)` (Python: getUnitClassCountPlusMaking)
+  - calls: CvTeam::getUnitClassCountPlusMaking [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **168** `CyTeam::getBuildingClassMaking(int)` (Python: getBuildingClassMaking)
+  - calls: CvTeam::getBuildingClassMaking [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **173** `CyTeam::getBuildingClassCountPlusMaking(int)` (Python: getBuildingClassCountPlusMaking)
+  - calls: CvTeam::getBuildingClassCountPlusMaking [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **178** `CyTeam::getHasReligionCount(int)` (Python: getHasReligionCount)
+  - calls: CvTeam::getHasReligionCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **182** `CyTeam::getHasCorporationCount(int)` (Python: getHasCorporationCount)
+  - calls: CvTeam::getHasCorporationCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **186** `CyTeam::countTotalCulture()` (Python: countTotalCulture)
+  - calls: CvTeam::countTotalCulture [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **191** `CyTeam::countNumUnitsByArea(CyArea *)` (Python: countNumUnitsByArea)
+  - calls: CvTeam::countNumUnitsByArea [CvTeam.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyTeamPythonInterface
+- **196** `CyTeam::countNumCitiesByArea(CyArea *)` (Python: countNumCitiesByArea)
+  - calls: CvTeam::countNumCitiesByArea [CvTeam.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyTeamPythonInterface
+- **201** `CyTeam::countTotalPopulationByArea(CyArea *)` (Python: countTotalPopulationByArea)
+  - calls: CvTeam::countTotalPopulationByArea [CvTeam.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyTeamPythonInterface
+- **206** `CyTeam::countPowerByArea(CyArea *)` (Python: countPowerByArea)
+  - calls: CvTeam::countPowerByArea [CvTeam.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyTeamPythonInterface
+- **211** `CyTeam::countEnemyPowerByArea(CyArea *)` (Python: countEnemyPowerByArea)
+  - calls: CvTeam::countEnemyPowerByArea [CvTeam.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyTeamPythonInterface
+- **216** `CyTeam::countNumAIUnitsByArea(CyArea *, int)` (Python: countNumAIUnitsByArea)
+  - calls: CvTeam::countNumAIUnitsByArea [CvTeam.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyTeamPythonInterface
+- **221** `CyTeam::countEnemyDangerByArea(CyArea *)` (Python: countEnemyDangerByArea)
+  - calls: CvTeam::countEnemyDangerByArea [CvTeam.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyTeamPythonInterface
+- **226** `CyTeam::getResearchCost(int)` (Python: getResearchCost)
+  - calls: CvTeam::getResearchCost [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **231** `CyTeam::getResearchLeft(int)` (Python: getResearchLeft)
+  - calls: CvTeam::getResearchLeft [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **235** `CyTeam::hasHolyCity(int)` (Python: hasHolyCity)
+  - calls: CvTeam::hasHolyCity [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **240** `CyTeam::hasHeadquarters(int)` (Python: hasHeadquarters)
+  - calls: CvTeam::hasHeadquarters [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **245** `CyTeam::isHuman()` (Python: isHuman)
+  - calls: CvTeam::isHuman [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **250** `CyTeam::isBarbarian()` (Python: isBarbarian)
+  - calls: CvTeam::isBarbarian [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **255** `CyTeam::isMinorCiv()` (Python: isMinorCiv)
+  - calls: CvTeam::isMinorCiv [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **265** `CyTeam::setIsMinorCiv(bool, bool)` (Python: setIsMinorCiv)
+  - calls: CvTeam::setIsMinorCiv [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **274** `CyTeam::getLeaderID()` (Python: getLeaderID)
+  - calls: CvTeam::getLeaderID [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **279** `CyTeam::getSecretaryID()` (Python: getSecretaryID)
+  - calls: CvTeam::getSecretaryID [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **284** `CyTeam::getHandicapType()` (Python: getHandicapType)
+  - calls: CvTeam::getHandicapType [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **289** `CyTeam::getName()` (Python: getName)
+  - calls: CvWString::CvWString(const wchar *) [CvString.h], CvTeam::getName [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **294** `CyTeam::getNumMembers()` (Python: getNumMembers)
+  - calls: CvTeam::getNumMembers [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **299** `CyTeam::isAlive()` (Python: isAlive)
+  - calls: CvTeam::isAlive [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **304** `CyTeam::isEverAlive()` (Python: isEverAlive)
+  - calls: CvTeam::isEverAlive [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **309** `CyTeam::getNumCities()` (Python: getNumCities)
+  - calls: CvTeam::getNumCities [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **314** `CyTeam::getTotalPopulation()` (Python: getTotalPopulation)
+  - calls: CvTeam::getTotalPopulation [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **319** `CyTeam::getTotalLand()` (Python: getTotalLand)
+  - calls: CvTeam::getTotalLand [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **324** `CyTeam::getNukeInterception()` (Python: getNukeInterception)
+  - calls: CvTeam::getNukeInterception [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **329** `CyTeam::changeNukeInterception(int)` (Python: changeNukeInterception)
+  - calls: CvTeam::changeNukeInterception [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **335** `CyTeam::getForceTeamVoteEligibilityCount(int)` (Python: getForceTeamVoteEligibilityCount)
+  - calls: CvTeam::getForceTeamVoteEligibilityCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **340** `CyTeam::isForceTeamVoteEligible(int)` (Python: isForceTeamVoteEligible)
+  - calls: CvTeam::isForceTeamVoteEligible [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **345** `CyTeam::changeForceTeamVoteEligibilityCount(int, int)` (Python: changeForceTeamVoteEligibilityCount)
+  - calls: CvTeam::changeForceTeamVoteEligibilityCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **351** `CyTeam::getExtraWaterSeeFromCount()` (Python: getExtraWaterSeeFromCount)
+  - calls: CvTeam::getExtraWaterSeeFromCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **356** `CyTeam::isExtraWaterSeeFrom()` (Python: isExtraWaterSeeFrom)
+  - calls: CvTeam::isExtraWaterSeeFrom [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **361** `CyTeam::changeExtraWaterSeeFromCount(int)` (Python: changeExtraWaterSeeFromCount)
+  - calls: CvTeam::changeExtraWaterSeeFromCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **367** `CyTeam::getMapTradingCount()` (Python: getMapTradingCount)
+  - calls: CvTeam::getMapTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **372** `CyTeam::isMapTrading()` (Python: isMapTrading)
+  - calls: CvTeam::isMapTrading [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **377** `CyTeam::changeMapTradingCount(int)` (Python: changeMapTradingCount)
+  - calls: CvTeam::changeMapTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **383** `CyTeam::getTechTradingCount()` (Python: getTechTradingCount)
+  - calls: CvTeam::getTechTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **388** `CyTeam::isTechTrading()` (Python: isTechTrading)
+  - calls: CvTeam::isTechTrading [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **393** `CyTeam::changeTechTradingCount(int)` (Python: changeTechTradingCount)
+  - calls: CvTeam::changeTechTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **399** `CyTeam::getGoldTradingCount()` (Python: getGoldTradingCount)
+  - calls: CvTeam::getGoldTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **404** `CyTeam::isGoldTrading()` (Python: isGoldTrading)
+  - calls: CvTeam::isGoldTrading [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **409** `CyTeam::changeGoldTradingCount(int)` (Python: changeGoldTradingCount)
+  - calls: CvTeam::changeGoldTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **415** `CyTeam::getOpenBordersTradingCount()` (Python: getOpenBordersTradingCount)
+  - calls: CvTeam::getOpenBordersTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **420** `CyTeam::isOpenBordersTrading()` (Python: isOpenBordersTrading)
+  - calls: CvTeam::isOpenBordersTrading [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **425** `CyTeam::changeOpenBordersTradingCount(int)` (Python: changeOpenBordersTradingCount)
+  - calls: CvTeam::changeOpenBordersTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **431** `CyTeam::getDefensivePactTradingCount()` (Python: getDefensivePactTradingCount)
+  - calls: CvTeam::getDefensivePactTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **436** `CyTeam::isDefensivePactTrading()` (Python: isDefensivePactTrading)
+  - calls: CvTeam::isDefensivePactTrading [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **441** `CyTeam::changeDefensivePactTradingCount(int)` (Python: changeDefensivePactTradingCount)
+  - calls: CvTeam::changeDefensivePactTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **447** `CyTeam::getPermanentAllianceTradingCount()` (Python: getPermanentAllianceTradingCount)
+  - calls: CvTeam::getPermanentAllianceTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **452** `CyTeam::isPermanentAllianceTrading()` (Python: isPermanentAllianceTrading)
+  - calls: CvTeam::isPermanentAllianceTrading [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **457** `CyTeam::changePermanentAllianceTradingCount(int)` (Python: changePermanentAllianceTradingCount)
+  - calls: CvTeam::changePermanentAllianceTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **463** `CyTeam::getVassalTradingCount()` (Python: getVassalTradingCount)
+  - calls: CvTeam::getVassalTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **468** `CyTeam::isVassalStateTrading()` (Python: isVassalStateTrading)
+  - calls: CvTeam::isVassalStateTrading [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **473** `CyTeam::changeVassalTradingCount(int)` (Python: changeVassalTradingCount)
+  - calls: CvTeam::changeVassalTradingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **479** `CyTeam::getBridgeBuildingCount()` (Python: getBridgeBuildingCount)
+  - calls: CvTeam::getBridgeBuildingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **484** `CyTeam::isBridgeBuilding()` (Python: isBridgeBuilding)
+  - calls: CvTeam::isBridgeBuilding [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **489** `CyTeam::changeBridgeBuildingCount(int)` (Python: changeBridgeBuildingCount)
+  - calls: CvTeam::changeBridgeBuildingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **495** `CyTeam::getIrrigationCount()` (Python: getIrrigationCount)
+  - calls: CvTeam::getIrrigationCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **500** `CyTeam::isIrrigation()` (Python: isIrrigation)
+  - calls: CvTeam::isIrrigation [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **505** `CyTeam::changeIrrigationCount(int)` (Python: changeIrrigationCount)
+  - calls: CvTeam::changeIrrigationCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **511** `CyTeam::getIgnoreIrrigationCount()` (Python: getIgnoreIrrigationCount)
+  - calls: CvTeam::getIgnoreIrrigationCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **516** `CyTeam::isIgnoreIrrigation()` (Python: isIgnoreIrrigation)
+  - calls: CvTeam::isIgnoreIrrigation [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **521** `CyTeam::changeIgnoreIrrigationCount(int)` (Python: changeIgnoreIrrigationCount)
+  - calls: CvTeam::changeIgnoreIrrigationCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **527** `CyTeam::getWaterWorkCount()` (Python: getWaterWorkCount)
+  - calls: CvTeam::getWaterWorkCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **532** `CyTeam::isWaterWork()` (Python: isWaterWork)
+  - calls: CvTeam::isWaterWork [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **537** `CyTeam::changeWaterWorkCount(int)` (Python: changeWaterWorkCount)
+  - calls: CvTeam::changeWaterWorkCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **543** `CyTeam::getVassalPower()` (Python: getVassalPower)
+  - calls: CvTeam::getVassalPower [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **548** `CyTeam::setVassalPower(int)` (Python: setVassalPower)
+  - calls: CvTeam::setVassalPower [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **556** `CyTeam::getMasterPower()` (Python: getMasterPower)
+  - calls: CvTeam::getMasterPower [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **561** `CyTeam::setMasterPower(int)` (Python: setMasterPower)
+  - calls: CvTeam::setMasterPower [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **569** `CyTeam::getEnemyWarWearinessModifier()` (Python: getEnemyWarWearinessModifier)
+  - calls: CvTeam::getEnemyWarWearinessModifier [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **574** `CyTeam::changeEnemyWarWearinessModifier(int)` (Python: changeEnemyWarWearinessModifier)
+  - calls: CvTeam::changeEnemyWarWearinessModifier [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **582** `CyTeam::isMapCentering()` (Python: isMapCentering)
+  - calls: CvTeam::isMapCentering [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **587** `CyTeam::setMapCentering(bool)` (Python: setMapCentering)
+  - calls: CvTeam::setMapCentering [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **593** `CyTeam::getID()` (Python: getID)
+  - calls: CvTeam::getID [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **598** `CyTeam::isStolenVisibility(int)` (Python: isStolenVisibility)
+  - calls: CvTeam::isStolenVisibility [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **603** `CyTeam::getWarWeariness(int)` (Python: getWarWeariness)
+  - calls: CvTeam::getWarWeariness [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **608** `CyTeam::setWarWeariness(int, int)` (Python: setWarWeariness)
+  - calls: CvTeam::setWarWeariness [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **614** `CyTeam::changeWarWeariness(int, int)` (Python: changeWarWeariness)
+  - calls: CvTeam::changeWarWeariness(TeamTypes, int) [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **620** `CyTeam::getTechShareCount(int)` (Python: getTechShareCount)
+  - calls: CvTeam::getTechShareCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **625** `CyTeam::isTechShare(int)` (Python: isTechShare)
+  - calls: CvTeam::isTechShare [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **630** `CyTeam::changeTechShareCount(int, int)` (Python: changeTechShareCount)
+  - calls: CvTeam::changeTechShareCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **636** `CyTeam::getCommerceFlexibleCount(int)` (Python: getCommerceFlexibleCount)
+  - calls: CvTeam::getCommerceFlexibleCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **641** `CyTeam::isCommerceFlexible(int)` (Python: isCommerceFlexible)
+  - calls: CvTeam::isCommerceFlexible [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **646** `CyTeam::changeCommerceFlexibleCount(int, int)` (Python: changeCommerceFlexibleCount)
+  - calls: CvTeam::changeCommerceFlexibleCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **652** `CyTeam::getExtraMoves(int)` (Python: getExtraMoves)
+  - calls: CvTeam::getExtraMoves [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **657** `CyTeam::changeExtraMoves(int, int)` (Python: changeExtraMoves)
+  - calls: CvTeam::changeExtraMoves [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **663** `CyTeam::isHasMet(int)` (Python: isHasMet)
+  - calls: CvTeam::isHasMet [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **668** `CyTeam::isAtWar(int)` (Python: isAtWar)
+  - calls: CvTeam::isAtWar [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **674** `CyTeam::isPermanentWarPeace(int)` (Python: isPermanentWarPeace)
+  - calls: CvTeam::isPermanentWarPeace [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **679** `CyTeam::setPermanentWarPeace(int, bool)` (Python: setPermanentWarPeace)
+  - calls: CvTeam::setPermanentWarPeace [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **685** `CyTeam::isFreeTrade(int)` (Python: isFreeTrade)
+  - calls: CvTeam::isFreeTrade [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **690** `CyTeam::isOpenBorders(int)` (Python: isOpenBorders)
+  - calls: CvTeam::isOpenBorders [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **695** `CyTeam::isForcePeace(int)` (Python: isForcePeace)
+  - calls: CvTeam::isForcePeace [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **700** `CyTeam::isVassal(int)` (Python: isVassal)
+  - calls: CvTeam::isVassal [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **705** `CyTeam::setVassal(int, bool, bool)` (Python: setVassal)
+  - calls: CvTeam::setVassal [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **713** `CyTeam::assignVassal(int, bool)` (Python: assignVassal)
+  - calls: CvTeam::assignVassal [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **721** `CyTeam::freeVassal(int)` (Python: freeVassal)
+  - calls: CvTeam::freeVassal [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **729** `CyTeam::isDefensivePact(int)` (Python: isDefensivePact)
+  - calls: CvTeam::isDefensivePact [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **734** `CyTeam::getRouteChange(int)` (Python: getRouteChange)
+  - calls: CvTeam::getRouteChange [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **739** `CyTeam::changeRouteChange(int, int)` (Python: changeRouteChange)
+  - calls: CvTeam::changeRouteChange [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **745** `CyTeam::getProjectCount(int)` (Python: getProjectCount)
+  - calls: CvTeam::getProjectCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **750** `CyTeam::getProjectDefaultArtType(int)` (Python: getProjectDefaultArtType)
+  - calls: CvTeam::getProjectDefaultArtType [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **755** `CyTeam::setProjectDefaultArtType(int, int)` (Python: setProjectDefaultArtType)
+  - calls: CvTeam::setProjectDefaultArtType [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **761** `CyTeam::getProjectArtType(int, int)` (Python: getProjectArtType)
+  - calls: CvTeam::getProjectArtType [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **769** `CyTeam::setProjectArtType(int, int, int)` (Python: setProjectArtType)
+  - calls: CvTeam::setProjectArtType [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **776** `CyTeam::isProjectMaxedOut(int, int)` (Python: isProjectMaxedOut)
+  - calls: CvTeam::isProjectMaxedOut [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **781** `CyTeam::isProjectAndArtMaxedOut(int)` (Python: isProjectAndArtMaxedOut)
+  - calls: CvTeam::isProjectAndArtMaxedOut [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **786** `CyTeam::changeProjectCount(int, int)` (Python: changeProjectCount)
+  - calls: CvTeam::changeProjectCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **792** `CyTeam::getProjectMaking(int)` (Python: getProjectMaking)
+  - calls: CvTeam::getProjectMaking [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **797** `CyTeam::getUnitClassCount(int)` (Python: getUnitClassCount)
+  - calls: CvTeam::getUnitClassCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **802** `CyTeam::isUnitClassMaxedOut(int, int)` (Python: isUnitClassMaxedOut)
+  - calls: CvTeam::isUnitClassMaxedOut [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **807** `CyTeam::getBuildingClassCount(int)` (Python: getBuildingClassCount)
+  - calls: CvTeam::getBuildingClassCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **812** `CyTeam::isBuildingClassMaxedOut(int, int)` (Python: isBuildingClassMaxedOut)
+  - calls: CvTeam::isBuildingClassMaxedOut [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **817** `CyTeam::getObsoleteBuildingCount(int)` (Python: getObsoleteBuildingCount)
+  - calls: CvTeam::getObsoleteBuildingCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **822** `CyTeam::isObsoleteBuilding(int)` (Python: isObsoleteBuilding)
+  - calls: CvTeam::isObsoleteBuilding [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **827** `CyTeam::getResearchProgress(int)` (Python: getResearchProgress)
+  - calls: CvTeam::getResearchProgress [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **832** `CyTeam::setResearchProgress(int, int, int)` (Python: setResearchProgress)
+  - calls: CvTeam::setResearchProgress [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **838** `CyTeam::changeResearchProgress(int, int, int)` (Python: changeResearchProgress)
+  - calls: CvTeam::changeResearchProgress [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **844** `CyTeam::getTechCount(int)` (Python: getTechCount)
+  - calls: CvTeam::getTechCount [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **849** `CyTeam::isTerrainTrade(int)` (Python: isTerrainTrade)
+  - calls: CvTeam::isTerrainTrade [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **858** `CyTeam::isRiverTrade()` (Python: isRiverTrade)
+  - calls: CvTeam::isRiverTrade [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **867** `CyTeam::isHasTech(int)` (Python: isHasTech)
+  - calls: CvTeam::isHasTech [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **872** `CyTeam::setHasTech(int, bool, int, bool, bool)` (Python: setHasTech)
+  - calls: CvTeam::setHasTech [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **878** `CyTeam::isNoTradeTech(int)` (Python: isNoTradeTech)
+  - calls: CvTeam::isNoTradeTech [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **883** `CyTeam::setNoTradeTech(int, bool)` (Python: setNoTradeTech)
+  - calls: CvTeam::setNoTradeTech [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **889** `CyTeam::getImprovementYieldChange(int, int)` (Python: getImprovementYieldChange)
+  - calls: CvTeam::getImprovementYieldChange [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **894** `CyTeam::changeImprovementYieldChange(int, int, int)` (Python: changeImprovementYieldChange)
+  - calls: CvTeam::changeImprovementYieldChange [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **900** `CyTeam::getVictoryCountdown(int)` (Python: getVictoryCountdown)
+  - calls: CvTeam::getVictoryCountdown [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **905** `CyTeam::getVictoryDelay(int)` (Python: getVictoryDelay)
+  - calls: CvTeam::getVictoryDelay [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **910** `CyTeam::canLaunch(int)` (Python: canLaunch)
+  - calls: CvTeam::canLaunch [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **915** `CyTeam::getLaunchSuccessRate(int)` (Python: getLaunchSuccessRate)
+  - calls: CvTeam::getLaunchSuccessRate [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **921** `CyTeam::getEspionagePointsAgainstTeam(int)` (Python: getEspionagePointsAgainstTeam)
+  - calls: CvTeam::getEspionagePointsAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **926** `CyTeam::setEspionagePointsAgainstTeam(int, int)` (Python: setEspionagePointsAgainstTeam)
+  - calls: CvTeam::setEspionagePointsAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **932** `CyTeam::changeEspionagePointsAgainstTeam(int, int)` (Python: changeEspionagePointsAgainstTeam)
+  - calls: CvTeam::changeEspionagePointsAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **938** `CyTeam::getEspionagePointsEver()` (Python: getEspionagePointsEver)
+  - calls: CvTeam::getEspionagePointsEver [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **943** `CyTeam::setEspionagePointsEver(int)` (Python: setEspionagePointsEver)
+  - calls: CvTeam::setEspionagePointsEver [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **949** `CyTeam::changeEspionagePointsEver(int)` (Python: changeEspionagePointsEver)
+  - calls: CvTeam::changeEspionagePointsEver [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **955** `CyTeam::getCounterespionageTurnsLeftAgainstTeam(int)` (Python: getCounterespionageTurnsLeftAgainstTeam)
+  - calls: CvTeam::getCounterespionageTurnsLeftAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **960** `CyTeam::setCounterespionageTurnsLeftAgainstTeam(int, int)` (Python: setCounterespionageTurnsLeftAgainstTeam)
+  - calls: CvTeam::setCounterespionageTurnsLeftAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **966** `CyTeam::changeCounterespionageTurnsLeftAgainstTeam(int, int)` (Python: changeCounterespionageTurnsLeftAgainstTeam)
+  - calls: CvTeam::changeCounterespionageTurnsLeftAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **972** `CyTeam::getCounterespionageModAgainstTeam(int)` (Python: getCounterespionageModAgainstTeam)
+  - calls: CvTeam::getCounterespionageModAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **977** `CyTeam::setCounterespionageModAgainstTeam(int, int)` (Python: setCounterespionageModAgainstTeam)
+  - calls: CvTeam::setCounterespionageModAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **983** `CyTeam::changeCounterespionageModAgainstTeam(int, int)` (Python: changeCounterespionageModAgainstTeam)
+  - calls: CvTeam::changeCounterespionageModAgainstTeam [CvTeam.cpp]
+  - called by (1): CyTeamPythonInterface
+- **990** `CyTeam::AI_shareWar(int)` (Python: AI_shareWar)
+  - calls: CvTeam::AI_shareWar [CvTeam.h] ⇢ CvTeamAI::AI_shareWar
+  - called by (1): CyTeamPythonInterface
+- **995** `CyTeam::AI_setWarPlan(int, int)` (Python: AI_setWarPlan)
+  - calls: CvTeam::AI_setWarPlan [CvTeam.h] ⇢ CvTeamAI::AI_setWarPlan
+  - called by (1): CyTeamPythonInterface
+- **1008** `CyTeam::AI_getWarPlan(int)` (Python: AI_getWarPlan)
+  - calls: CvTeam::AI_getWarPlan [CvTeam.h] ⇢ CvTeamAI::AI_getWarPlan
+  - called by (1): CyTeamPythonInterface
+- **1017** `CyTeam::AI_getAtWarCounter(int)` (Python: AI_getAtWarCounter)
+  - calls: CvTeam::AI_getAtWarCounter [CvTeam.h] ⇢ CvTeamAI::AI_getAtWarCounter
+  - called by (1): CyTeamPythonInterface
+- **1022** `CyTeam::AI_getAtPeaceCounter(int)` (Python: AI_getAtPeaceCounter)
+  - calls: CvTeam::AI_getAtPeaceCounter [CvTeam.h] ⇢ CvTeamAI::AI_getAtPeaceCounter
+  - called by (1): CyTeamPythonInterface
+- **1027** `CyTeam::AI_getWarSuccess(int)` (Python: AI_getWarSuccess)
+  - calls: CvTeam::AI_getWarSuccess [CvTeam.h] ⇢ CvTeamAI::AI_getWarSuccess
+  - called by (1): CyTeamPythonInterface

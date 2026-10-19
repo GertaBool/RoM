@@ -1,0 +1,114 @@
+# CvPlayer.h
+
+Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **1179** `CvPlayer::AI_init()` (virtual; pure virtual)
+  - called by (3): CvPlayer::changeLeader, CvPlayer::init, CvPlayer::initInGame
+- **1180** `CvPlayer::AI_reset(bool)` (virtual; pure virtual)
+  - called by (1): CvPlayer::reset
+- **1181** `CvPlayer::AI_doTurnPre()` (virtual; pure virtual)
+  - called by (1): CvPlayer::doTurn
+- **1182** `CvPlayer::AI_doTurnPost()` (virtual; pure virtual)
+  - called by (1): CvPlayer::doTurn
+- **1183** `CvPlayer::AI_doTurnUnitsPre()` (virtual; pure virtual)
+  - called by (1): CvPlayer::doTurnUnits
+- **1184** `CvPlayer::AI_doTurnUnitsPost()` (virtual; pure virtual)
+  - called by (1): CvPlayer::doTurnUnits
+- **1185** `CvPlayer::AI_updateFoundValues(bool)` (virtual; pure virtual)
+  - called by (3): CvGame::setInitialItems, CvPlayer::findStartingPlot, CyPlayer::AI_updateFoundValues
+- **1186** `CvPlayer::AI_unitUpdate()` (virtual; pure virtual)
+  - called by (1): CvGame::updateMoves
+- **1187** `CvPlayer::AI_makeAssignWorkDirty()` (virtual; pure virtual)
+  - called by (20): CvPlayer::changeAnarchyTurns, CvPlayer::changeBuildingBadHealth, CvPlayer::changeBuildingGoodHealth, CvPlayer::changeBuildingHappiness, CvPlayer::changeBuildingOnlyHealthyCount, CvPlayer::changeCommerceRateModifier, CvPlayer::changeExtraHappiness, CvPlayer::changeExtraHealth, CvPlayer::changeFreeSpecialist, CvPlayer::changeHappyPerMilitaryUnit, CvPlayer::changeLargestCityHappiness, CvPlayer::changeNoUnhealthyPopulationCount …
+- **1188** `CvPlayer::AI_assignWorkingPlots()` (virtual; pure virtual)
+  - called by (1): CvPlayer::doTurn
+- **1189** `CvPlayer::AI_updateAssignWork()` (virtual; pure virtual)
+  - called by (1): CvGameAI::AI_updateAssignWork
+- **1190** `CvPlayer::AI_makeProductionDirty()` (virtual; pure virtual)
+- **1192** `CvPlayer::AI_conquerCity(CvCity *)` (virtual; pure virtual)
+  - called by (1): CvPlayer::acquireCity
+- **1193** `CvPlayer::AI_foundValue(int, int, int, bool)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_foundValue
+- **1194** `CvPlayer::AI_isCommercePlot(CvPlot *)` (virtual; pure virtual)
+- **1195** `CvPlayer::AI_getPlotDanger(CvPlot *, int, bool)` (virtual; pure virtual)
+- **1196** `CvPlayer::AI_isFinancialTrouble()` (virtual; pure virtual)
+  - called by (2): CvDLLWidgetData::parseContactCivHelp, CyPlayer::AI_isFinancialTrouble
+- **1197** `CvPlayer::AI_bestTech(int, bool, bool, TechTypes, AdvisorTypes)` (virtual; pure virtual)
+  - called by (1): CvDLLButtonPopup::launchChooseTechPopup
+- **1198** `CvPlayer::AI_chooseFreeTech()` (virtual; pure virtual)
+- **1199** `CvPlayer::AI_chooseResearch()` (virtual; pure virtual)
+  - called by (1): CvPlayer::doResearch
+- **1200** `CvPlayer::AI_isWillingToTalk(PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_isWillingToTalk
+- **1201** `CvPlayer::AI_demandRebukedSneak(PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CvPlayer::handleDiploEvent
+- **1202** `CvPlayer::AI_demandRebukedWar(PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_demandRebukedWar
+- **1203** `CvPlayer::AI_getAttitude(PlayerTypes, bool)` (virtual; pure virtual)
+  - called by (2): CvGameTextMgr::getTradeScreenHeader, CyPlayer::AI_getAttitude
+- **1204** `CvPlayer::AI_diploVote(const VoteSelectionSubData &, VoteSourceTypes, bool)` (virtual; pure virtual)
+- **1205** `CvPlayer::AI_dealVal(PlayerTypes, const CLinkList<TradeData> *, bool, int)` (virtual; pure virtual)
+- **1206** `CvPlayer::AI_considerOffer(PlayerTypes, const CLinkList<TradeData> *, const CLinkList<TradeData> *, int)` (virtual; pure virtual)
+- **1207** `CvPlayer::AI_counterPropose(PlayerTypes, const CLinkList<TradeData> *, const CLinkList<TradeData> *, CLinkList<TradeData> *, CLinkList<TradeData> *, CLinkList<TradeData> *, CLinkList<TradeData> *)` (virtual; pure virtual)
+- **1208** `CvPlayer::AI_bonusVal(BonusTypes, int)` (virtual; pure virtual)
+- **1209** `CvPlayer::AI_bonusTradeVal(BonusTypes, PlayerTypes, int)` (virtual; pure virtual)
+- **1210** `CvPlayer::AI_bonusTrade(BonusTypes, PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CvPlayer::getTradeDenial
+- **1211** `CvPlayer::AI_cityTradeVal(CvCity *)` (virtual; pure virtual)
+- **1212** `CvPlayer::AI_cityTrade(CvCity *, PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CvPlayer::getTradeDenial
+- **1213** `CvPlayer::AI_stopTradingTrade(TeamTypes, PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CvPlayer::getTradeDenial
+- **1214** `CvPlayer::AI_civicTrade(CivicTypes, PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CvPlayer::getTradeDenial
+- **1215** `CvPlayer::AI_religionTrade(ReligionTypes, PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CvPlayer::getTradeDenial
+- **1216** `CvPlayer::AI_unitValue(UnitTypes, UnitAITypes, CvArea *)` (virtual; pure virtual)
+  - called by (2): CvPlayer::addFreeUnitAI, CyPlayer::AI_unitValue
+- **1217** `CvPlayer::AI_totalUnitAIs(UnitAITypes)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_totalUnitAIs
+- **1218** `CvPlayer::AI_totalAreaUnitAIs(CvArea *, UnitAITypes)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_totalAreaUnitAIs
+- **1219** `CvPlayer::AI_totalWaterAreaUnitAIs(CvArea *, UnitAITypes)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_totalWaterAreaUnitAIs
+- **1220** `CvPlayer::AI_plotTargetMissionAIs(CvPlot *, MissionAITypes, CvSelectionGroup *, int)` (virtual; pure virtual)
+  - called by (1): CvUnitAI::AI_exploreAir
+- **1221** `CvPlayer::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes, CvSelectionGroup *)` (virtual; pure virtual)
+- **1222** `CvPlayer::AI_civicValue(CivicTypes)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_civicValue
+- **1223** `CvPlayer::AI_getNumAIUnits(UnitAITypes)` (virtual; pure virtual)
+  - called by (2): CvPlayer::addFreeUnit, CyPlayer::AI_getNumAIUnits
+- **1224** `CvPlayer::AI_changePeacetimeTradeValue(PlayerTypes, int)` (virtual; pure virtual)
+- **1225** `CvPlayer::AI_changePeacetimeGrantValue(PlayerTypes, int)` (virtual; pure virtual)
+- **1226** `CvPlayer::AI_getAttitudeExtra(PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_getAttitudeExtra
+- **1227** `CvPlayer::AI_setAttitudeExtra(PlayerTypes, int)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_setAttitudeExtra
+- **1228** `CvPlayer::AI_changeAttitudeExtra(PlayerTypes, int)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_changeAttitudeExtra
+- **1229** `CvPlayer::AI_setFirstContact(PlayerTypes, bool)` (virtual; pure virtual)
+  - called by (1): CvPlayer::handleDiploEvent
+- **1230** `CvPlayer::AI_getMemoryCount(PlayerTypes, MemoryTypes)` (virtual; pure virtual)
+  - called by (2): CvPlayer::handleDiploEvent, CyPlayer::AI_getMemoryCount
+- **1231** `CvPlayer::AI_changeMemoryCount(PlayerTypes, MemoryTypes, int)` (virtual; pure virtual)
+  - called by (5): CvGame::castVote, CvPlayer::applyEvent, CvPlayer::handleDiploEvent, CvUnit::performInquisition, CyPlayer::AI_changeMemoryCount
+- **1232** `CvPlayer::AI_doCommerce()` (virtual; pure virtual)
+  - called by (1): CvPlayer::changeGoldPerTurnByPlayer
+- **1233** `CvPlayer::AI_chooseEvent(int)` (virtual; pure virtual)
+  - called by (1): CvPlayer::trigger(const EventTriggeredData &)
+- **1234** `CvPlayer::AI_launch(VictoryTypes)` (virtual; pure virtual)
+- **1235** `CvPlayer::AI_doAdvancedStart(bool)` (virtual; pure virtual)
+  - called by (2): CvPlayer::doAdvancedStartAction, CvPlayer::setTurnActive
+- **1236** `CvPlayer::AI_updateBonusValue()` (virtual; pure virtual)
+  - called by (1): CvPlayer::splitEmpire
+- **1237** `CvPlayer::AI_updateBonusValue(BonusTypes)` (virtual; pure virtual)
+- **1238** `CvPlayer::AI_chooseReligion()` (virtual; pure virtual)
+  - called by (1): CvPlayer::foundReligion
+- **1239** `CvPlayer::AI_getExtraGoldTarget()` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_getExtraGoldTarget
+- **1240** `CvPlayer::AI_setExtraGoldTarget(int)` (virtual; pure virtual)
+  - called by (1): CyPlayer::AI_setExtraGoldTarget
+- **1241** `CvPlayer::AI_maxGoldPerTurnTrade(PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CvPlayer::getItemTradeString
+- **1242** `CvPlayer::AI_maxGoldTrade(PlayerTypes)` (virtual; pure virtual)
+  - called by (1): CvPlayer::getItemTradeString

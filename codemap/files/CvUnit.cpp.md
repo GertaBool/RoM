@@ -1,0 +1,1638 @@
+# CvUnit.cpp
+
+Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **47** `CvUnit::CvUnit()`
+  - calls: CvDLLEntity::createUnitEntity [CvDLLEntity.cpp], CvUnit::reset
+- **67** `CvUnit::~CvUnit()` (virtual; overrides CvDLLEntity::~CvDLLEntity)
+  - calls: CvDLLUtilityIFaceBase::GetDone [CvDLLUtilityIFaceBase.h], CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLEntityIFaceBase::RemoveUnitFromBattle [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvDLLEntity::removeEntity [CvDLLEntity.cpp], CvDLLEntity::destroyEntity [CvDLLEntity.cpp], CvUnit::uninit
+- **82** `CvUnit::reloadEntity()`
+  - calls: CvDLLUtilityIFaceBase::GetDone [CvDLLUtilityIFaceBase.h], CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLEntityIFaceBase::RemoveUnitFromBattle [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvDLLEntity::removeEntity [CvDLLEntity.cpp], CvDLLEntity::destroyEntity [CvDLLEntity.cpp], CvDLLEntity::createUnitEntity [CvDLLEntity.cpp], CvUnit::setupGraphical
+  - called by (3): CvPlayer::changeCiv, CvUnit::promote, CvUnit::setLeaderUnitType
+- **99** `CvUnit::init(int, UnitTypes, UnitAITypes, PlayerTypes, int, int, DirectionTypes)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::reset, CvUnit::setXY, CvUnit::setupGraphical, CvPlot::updateCenterUnit [CvPlot.cpp], CvUnit::plot, CvPlot::setFlagDirty [CvPlot.cpp], CvGame::getUnitCreatedCount [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getUnitType, CvUnitInfo::getNumUnitNames [CvInfos.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvUnitInfo::getUnitNames [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvGame::isGreatPersonBorn [CvGame.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::setName(const CvWString) [CvUnit.h], CvGame::addGreatPersonBornName [CvGame.cpp], CvGame::getGameTurn [CvGame.cpp], CvUnit::setGameTurnCreated, CvGame::incrementUnitCreatedCount [CvGame.cpp], CvGame::incrementUnitClassCreatedCount [CvGame.cpp], CvUnitInfo::getUnitClassType [CvInfos.cpp], CvTeam::changeUnitClassCount [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvPlayer::changeUnitClassCount [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnitInfo::getExtraCost [CvInfos.cpp], CvPlayer::changeExtraUnitCost [CvPlayer.cpp], CvUnitInfo::getNukeRange [CvInfos.cpp], CvPlayer::changeNumNukeUnits [CvPlayer.cpp], CvUnitInfo::isMilitarySupport [CvInfos.cpp], CvPlayer::changeNumMilitaryUnits [CvPlayer.cpp], CvUnitInfo::getAssetValue [CvInfos.cpp], CvPlayer::changeAssets [CvPlayer.cpp], CvUnitInfo::getPowerValue [CvInfos.cpp], CvPlayer::changePower [CvPlayer.cpp], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvUnitInfo::getFreePromotions [CvInfos.cpp], CvUnit::setHasPromotion, CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvPlayer::hasTrait [CvPlayer.cpp], CvGlobals::getTraitInfo(TraitTypes) [CvGlobals.cpp], CvTraitInfo::isFreePromotion [CvInfos.cpp], CvTraitInfo::isFreePromotionUnitCombat [CvInfos.cpp], CvUnit::getUnitCombatType, CvPlayer::isFreePromotion(UnitCombatTypes, PromotionTypes) [CvPlayer.cpp], CvUnit::getUnitClassType, CvPlayer::isFreePromotion(UnitClassTypes, PromotionTypes) [CvPlayer.cpp], CvUnit::getDomainType, CvUnit::baseCombatStr, CvGame::getBestLandUnit [CvGame.cpp], CvGame::getBestLandUnitCombat [CvGame.cpp], CvGame::setBestLandUnit [CvGame.cpp], CvGame::getActivePlayer [CvGame.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], isWorldUnitClass [CvGameCoreUtils.cpp], CvPlayer::isAlive [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::isHasMet [CvTeam.cpp], CvPlayer::getNameKey [CvPlayer.cpp], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvUnit::getButton, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvGame::addReplayMessage [CvGame.cpp], CvUnit::AI_init [CvUnit.h] ⇢ CvUnitAI::AI_init, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitCreated [CvEventReporter.cpp]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvPlayer::initUnit
+- **269** `CvUnit::uninit()`
+  - called by (2): CvUnit::reset, CvUnit::~CvUnit
+- **285** `CvUnit::reset(int, UnitTypes, PlayerTypes, bool)`
+  - calls: CvUnit::uninit, CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getCombat [CvInfos.cpp], CvUnitInfo::getCargoSpace [CvInfos.cpp], IDInfo::reset [CvStructs.h], CvString::operator=(const char *) [CvString.h], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvUnit::AI_reset [CvUnit.h] ⇢ CvUnitAI::AI_reset
+  - takes the address of: CvString::operator=(const char *) [CvString.h]
+  - called by (3): CvUnit::CvUnit, CvUnit::init, CvUnit::read
+- **434** `CvUnit::setupGraphical()`
+  - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvDLLEntity::setup [CvDLLEntity.cpp], CvSelectionGroup::getActivityType [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::airCircle
+  - called by (3): CvPlayer::setupGraphical, CvUnit::init, CvUnit::reloadEntity
+- **450** `CvUnit::convert(CvUnit *)`
+  - calls: CvUnit::plot, CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getFreePromotions [CvInfos.cpp], CvUnit::isHasPromotion, CvUnit::setHasPromotion, CvUnit::getGameTurnCreated, CvUnit::setGameTurnCreated, CvUnit::getDamage, CvUnit::setDamage, CvUnit::getMoves, CvUnit::setMoves, CvUnit::getLevel, CvUnit::setLevel, CvPlayer::getLevelExperienceModifier [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getExperience, CvUnit::setExperience, CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getNameNoDesc, CvUnit::setName(const CvWString) [CvUnit.h], getBugOptionBOOL [CvBugOptions.cpp], CvUnit::isDescInName, CvInfoBase::getDescription [CvInfos.cpp], CvWString::CvWString(const wchar *) [CvString.h], CvUnit::getLeaderUnitType, CvUnit::setLeaderUnitType, CvUnit::getTransportUnit, CvUnit::setTransportUnit, CvUnit::getCargoUnits, CvUnit::getSpecialUnitType, CvUnit::getDomainType, CvUnit::cargoSpaceAvailable, CvUnit::jumpToNearestValidPlot, CvUnit::kill
+  - called by (4): CvPlayer::assimilatePlayer, CvUnit::gift, CvUnit::upgrade, CyUnit::convert
+- **519** `CvUnit::kill(bool, PlayerTypes)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvPlot::headUnitNode [CvPlot.cpp], CvPlot::nextUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvUnit::getTransportUnit, CvPlot::isValidDomainForLocation [CvPlot.cpp], CvUnit::setCapturingPlayer, CvUnit::kill, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitKilled [CvEventReporter.cpp], CvUnit::getLeaderUnitType, CvGlobals::getUnitClassInfo(UnitClassTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitClassInfo::getMaxGlobalInstances [CvInfos.cpp], CvUnit::getUnitClassType, CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGame::getCurrentEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvEraInfo::getAudioUnitDefeatScript [CvInfos.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::startDelayedDeath, CvUnit::nukeRange, CvUnit::isMadeAttack, CvUnit::getAttackPlot, CvPlot::nukeExplosion [CvPlot.cpp], CvUnit::setAttackPlot, CvUnit::finishMoves, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::getLengthSelectionList [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::isDiploOrPopupWaiting [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::isCitySelection [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::isFocused [CvDLLInterfaceIFaceBase.h], CvGame::updateSelectionList [CvGameInterface.cpp], CvDLLInterfaceIFaceBase::setCycleSelectionCounter [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::removeFromSelectionList [CvDLLInterfaceIFaceBase.h], CvDLLEntityIFaceBase::RemoveUnitFromBattle [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::setTransportUnit, CvUnit::setReconPlot, CvUnit::setBlockading, CvUnitInfo::getUnitClassType [CvInfos.cpp], CvTeam::changeUnitClassCount [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvPlayer::changeUnitClassCount [CvPlayer.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnitInfo::getExtraCost [CvInfos.cpp], CvPlayer::changeExtraUnitCost [CvPlayer.cpp], CvUnitInfo::getNukeRange [CvInfos.cpp], CvPlayer::changeNumNukeUnits [CvPlayer.cpp], CvUnitInfo::isMilitarySupport [CvInfos.cpp], CvPlayer::changeNumMilitaryUnits [CvPlayer.cpp], CvUnitInfo::getAssetValue [CvInfos.cpp], CvPlayer::changeAssets [CvPlayer.cpp], CvUnitInfo::getPowerValue [CvInfos.cpp], CvPlayer::changePower [CvPlayer.cpp], CvPlayerAI::AI_changeNumAIUnits [CvPlayerAI.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::getCapturingPlayer, CvPlayer::getCivilizationType [CvPlayer.cpp], CvUnit::getCaptureUnitType, CvUnit::getOwner, CvUnit::getUnitType, CvUnit::setXY, CvUnit::joinGroup, CvEventReporter::unitLost [CvEventReporter.cpp], CvPlayer::deleteUnit [CvPlayer.cpp], CvUnit::getID, CvPlayer::isBarbarian [CvPlayer.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvPlayer::isHuman [CvPlayer.cpp], CvPlayerAI::AI_captureUnit [CvPlayerAI.cpp], CvPlayer::initUnit [CvPlayer.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvEventReporter::unitCaptured [CvEventReporter.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvUnit::getButton, CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvPlot::isCity [CvPlot.cpp], CvPlayerAI::AI_getPlotDanger [CvPlayerAI.cpp]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (53): CvGame::createBarbarianUnits, CvGame::replaceCorporation, CvPlayer::acquireCity, CvPlayer::disbandUnit, CvPlayer::doAdvancedStartAction, CvPlayer::doEspionageMission, CvPlayer::killGoldenAgeUnits, CvPlayer::killUnits, CvPlayerAI::AI_disbandUnit, CvPlayerAI::AI_doTurnUnitsPost, CvPlot::doCulture, CvPlot::erase …
+- **724** `CvUnit::NotifyEntity(MissionTypes)` (exported)
+  - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::NotifyEntity [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (28): CvSelectionGroup::NotifyEntity, CvSelectionGroup::addUnit, CvSelectionGroup::setActivityType, CvSelectionGroup::startMission, CvUnit::build, CvUnit::construct, CvUnit::destroy, CvUnit::discover, CvUnit::espionage, CvUnit::found, CvUnit::goldenAge, CvUnit::greatWork …
+- **730** `CvUnit::doTurn()`
+  - calls: CvUnit::testPromotionReady, CvUnit::isBlockading, CvUnit::collectBlockadeGold, CvUnit::isIntruding, CvUnit::isSpy, CvUnit::isCargo, CvPlot::getTeam [CvPlot.cpp], CvUnit::plot, CvTeam::isOpenBorders [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getOwnerINLINE [CvPlot.h], CvUnit::testSpyIntercepted, CvUnit::baseCombatStr, CvPlot::getFeatureType [CvPlot.cpp], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getTurnDamage [CvInfos.cpp], CvUnit::changeDamage, CvUnit::hasMoved, CvUnit::isAlwaysHeal, CvUnit::doHeal, CvUnit::isHurt, CvUnit::changeFortifyTurns, CvUnit::changeImmobileTimer, CvUnit::setMadeAttack, CvUnit::setMadeInterception, CvUnit::setReconPlot, CvUnit::setMoves
+  - called by (1): CvSelectionGroup::doTurn
+- **803** `CvUnit::updateAirStrike(CvPlot *, bool, bool)`
+  - calls: CvUnit::isFighting, CvUnit::isCombatVisible, CvUnit::canNuke, CvUnit::kill, CvUnit::airStrike, CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMissionInfo::getTime [CvInfos.cpp], CvUnit::setCombatTimer, CvGame::incrementTurnTimer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getCombatTimer, CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::getCombatUnit, CvUnit::setCombatUnit, CvUnit::setAttackPlot, CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::isDead, CvUnit::isSuicide
+  - called by (4): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **875** `CvUnit::resolveAirCombat(CvUnit *, CvPlot *, CvAirMissionDefinition &)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::getDomainType, CvUnit::currCombatStr, CvUnit::airCurrCombatStr, CvGlobals::getBBAI_AIR_COMBAT [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::airMaxCombatStr, CvUnit::maxInterceptionProbability, CvUnit::currInterceptionProbability, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::changeDamage, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::isDead, CvUnit::attackXPValue, range(int, int, int) [CvGameCoreUtils.h], CvPlot::getOwnerINLINE [CvPlot.h], CvUnit::isBarbarian, CvUnit::maxXPValue, CvUnit::changeExperience, CvUnit::defenseXPValue, CvAirMissionDefinition::setDamage [CvStructs.cpp]
+  - called by (2): CvUnit::fighterEngage, CvUnit::updateAirCombat
+- **1010** `CvUnit::updateAirCombat(bool)`
+  - calls: CvUnit::getCombatTimer, CvUnit::changeCombatTimer, CvUnit::getAttackPlot, CvUnit::getCombatUnit, CvUnit::bestInterceptor, CvUnit::setAttackPlot, CvUnit::setCombatUnit, CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::isCombatVisible, CvUnit::isFighting, CvPlot::isFighting [CvPlot.cpp], CvUnit::plot, CvUnit::setMadeAttack, CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvUnit::getDomainType, CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvUnit::resolveAirCombat, CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvUnit::setCombatTimer, CvGame::incrementTurnTimer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::isActiveVisible [CvPlot.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvUnit::setMadeInterception, CvUnit::isDead, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::getVisualCivAdjective, CvUnit::getTeam, CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getOwnerINLINE [CvUnit.h], CvWString::operator=(const CvWString &) [CvString.h], CvAirMissionDefinition::getDamage [CvStructs.cpp], CvUnit::isSuicide, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::updateTimers, CvUnit::fightInterceptor
+- **1179** `CvUnit::resolveCombat(CvUnit *, CvPlot *, CvBattleDefinition &)`
+  - calls: CombatDetails::CombatDetails [CvUnit.h], CvUnit::currCombatStr, CvUnit::currFirepower, CvUnit::getDefenderCombatValues, CvUnit::withdrawalProbability, CvUnit::isHuman, CyArgsList::CyArgsList [CyArgsList.h], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], getCombatOdds [CvGameCoreUtils.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::genericEvent [CvEventReporter.cpp], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvUnit::collateralCombat, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getCOMBAT_DIE_SIDES [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getCombatFirstStrikes, CvUnit::maxHitPoints, CvUnit::getDamage, CvUnit::flankingStrikeCombat, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvUnit::isBarbarian, CvUnit::maxXPValue, CvUnit::changeExperience, CvUnit::getOwnerINLINE [CvUnit.h], CvEventReporter::combatRetreat [CvEventReporter.cpp], CvUnit::changeDamage, CvUnit::isRanged, CvBattleDefinition::addFirstStrikes [CvStructs.cpp], CvBattleDefinition::addDamage [CvStructs.cpp], CvUnit::currHitPoints, CvGlobals::getMAX_HIT_POINTS [CvGlobals.cpp], CvUnit::combatLimit, CvUnit::setDamage, CvEventReporter::combatWithdrawal [CvEventReporter.cpp], CvUnit::changeCombatFirstStrikes, CvUnit::isDead, CvUnit::defenseXPValue, range(int, int, int) [CvGameCoreUtils.h], CvUnit::attackXPValue
+  - called by (2): CvUnit::updateCombat, CvUnit::updateStackCombat
+- **1327** `CvUnit::updateCombat(bool)`
+  - calls: CvGlobals::getDCM_STACK_ATTACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::updateStackCombat, CvWString::CvWString() [CvString.h], CvUnit::getCombatTimer, CvUnit::changeCombatTimer, CvUnit::getAttackPlot, CvUnit::getDomainType, CvUnit::updateAirStrike, CvUnit::getCombatUnit, CvPlot::getBestDefender [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::setAttackPlot, CvUnit::setCombatUnit, CvSelectionGroup::groupMove [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::canAdvance, CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvUnit::isCombatVisible, CvUnit::isFighting, CvPlot::isFighting [CvPlot.cpp], CvUnit::plot, CvUnit::setMadeAttack, estimateDirection(const CvPlot *, const CvPlot *) [CvGameCoreUtils.cpp], CvUnit::setFacingDirection, warLogCombat [CvGameCoreUtils.cpp], CvDLLInterfaceIFaceBase::isCombatFocus [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvUnit::isCombatFocus, directionXY(const CvPlot *, const CvPlot *) [CvGameCoreUtils.h], NiPoint2::NiPoint2(float, float) [CvGameCoreDLL.h], NiPoint3::NiPoint3(float, float, float) [CvGameCoreDLL.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvPlot::getPoint [CvPlot.cpp], NiPoint3::Unitize [CvGameCoreDLL.h], CvDLLInterfaceIFaceBase::lookAt [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getGraphicOption [CvDLLUtilityIFaceBase.h], CvGame::getActivePlayer [CvGame.cpp], NiPoint3::NiPoint3(const NiPoint3 &) [CvGameCoreDLL.h], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getVisualOwner, CvUnit::getTeam, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvPlayer::getNameKey [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::canDefend, CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvUnit::setCombatTimer, CvGame::incrementTurnTimer [CvGame.cpp], CvGlobals::getMAX_HIT_POINTS [CvGlobals.cpp], CvUnit::setDamage, CvBattleDefinition::CvBattleDefinition() [CvStructs.cpp], CvBattleDefinition::setDamage [CvStructs.cpp], CvUnit::getDamage, CvUnit::resolveCombat, CvBattleDefinition::setAdvanceSquare [CvStructs.cpp], CvUnit::isRanged, CvBattleDefinition::getDamage [CvStructs.cpp], CvBattleDefinition::addDamage [CvStructs.cpp], CvUnit::planBattle, CvPlot::isActiveVisible [CvPlot.cpp], CvDLLEntity::ExecuteMove [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::releaseLockedCamera [CvDLLInterfaceIFaceBase.h], CvDLLEntityIFaceBase::RemoveUnitFromBattle [CvDLLEntityIFaceBase.h], CvUnit::NotifyEntity, CvUnit::isDead, CvUnit::isBarbarian, CvPlayer::changeWinsVsBarbs [CvPlayer.cpp], CvUnitInfo::isHiddenNationality [CvInfos.cpp], CvUnit::getUnitInfo, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvTeam::changeWarWeariness(TeamTypes, const CvPlot &, int) [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeamAI::AI_changeWarSuccess [CvTeamAI.cpp], CvUnit::getNameKey, CvUnit::doVictoryInfluence, CvWString::Format [CvString.h], CvGame::getCurrentEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvEraInfo::getAudioUnitDefeatScript [CvInfos.cpp], CvUnit::getVisualCivAdjective, CvEraInfo::getAudioUnitVictoryScript [CvInfos.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::combatResult [CvEventReporter.cpp], CvUnit::isSuicide, CvUnit::kill, CvUnit::isNoCapture, CvUnit::setCapturingPlayer, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvPlot::movementCost [CvPlot.cpp], CvUnit::changeMoves, CvUnit::checkRemoveSelectionAfterAttack, CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvUnit::canMove, CvUnit::isBlitz, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::getLengthSelectionList [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::removeFromSelectionList [CvDLLInterfaceIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::updateTimers, CvUnit::attack
+- **1786** `CvUnit::checkRemoveSelectionAfterAttack()`
+  - calls: CvUnit::canMove, CvUnit::isBlitz, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::getLengthSelectionList [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLInterfaceIFaceBase::removeFromSelectionList [CvDLLInterfaceIFaceBase.h]
+  - called by (2): CvUnit::updateCombat, CvUnit::updateStackCombat
+- **1801** `CvUnit::isActionRecommended(int)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::isOption [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CyArgsList::CyArgsList [CyArgsList.h], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvDLLInterfaceIFaceBase::getGotoPlot [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvDLLUtilityIFaceBase::shiftKey [CvDLLUtilityIFaceBase.h], CvSelectionGroup::lastMissionPlot [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::plot, CvGlobals::getActionInfo(int) [CvGlobals.cpp], CvActionInfo::getMissionType [CvInfos.cpp], CvPlot::isCity [CvPlot.cpp], CvUnit::getTeam, CvUnit::canDefend, CvPlot::getNumDefenders [CvPlot.cpp], CvUnit::atPlot, CvUnit::isHurt, CvUnit::hasMoved, CvPlot::getTeam [CvPlot.cpp], CvUnit::healTurns, CvUnit::canFound, CvPlot::isBestAdjacentFound [CvPlot.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvActionInfo::getMissionData [CvInfos.cpp], CvUnit::canBuild, CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getImprovement [CvInfos.cpp], CvBuildInfo::getRoute [CvInfos.cpp], CvPlot::getBonusType [CvPlot.cpp], CvPlot::getWorkingCity [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvCity::getCityPlotIndex [CvCity.cpp], CvCity::AI_getBestBuild [CvCity.h] ⇢ CvCityAI::AI_getBestBuild, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isImprovementBonusTrade [CvInfos.cpp], CvPlot::isIrrigationAvailable [CvPlot.cpp], CvPlot::isIrrigated [CvPlot.cpp], CvImprovementInfo::isCarriesIrrigation [CvInfos.cpp], CvImprovementInfo::getYieldChange [CvInfos.cpp], CvPlot::isHills [CvPlot.cpp], CvPlot::isRoute [CvPlot.cpp], CvPlot::isRiver [CvPlot.cpp], CvImprovementInfo::getRouteYieldChanges [CvInfos.cpp], CvActionInfo::getCommandType [CvInfos.cpp]
+  - called by (1): CyUnit::isActionRecommended
+- **2037** `CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *)`
+  - calls: CvUnit::getTeam, CvUnit::canCoexistWithEnemyUnit, CvUnit::canDefend, CvUnit::isTargetOf, CvUnit::canAttack(const CvUnit &), CvGlobals::getLFBEnable [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::LFBisBetterDefenderThan, CvUnit::currCombatStr, CvUnit::plot, isWorldUnitClass [CvGameCoreUtils.cpp], CvUnit::getUnitClassType, CvUnit::collateralDamage, CvUnit::currInterceptionProbability, CvUnit::immuneToFirstStrikes, CvGlobals::getCOMBAT_DAMAGE [CvGlobals.cpp], CvUnit::firstStrikes, CvUnit::chanceFirstStrikes, CvUnitInfo::getAssetValue [CvInfos.cpp], CvUnit::getUnitInfo, CvUnit::getCargoUnits, CvUnit::getLeaderUnitType, isBeforeUnitCycle [CvGameCoreUtils.cpp]
+  - called by (3): CvPlot::getBestDefender, CvUnit::bestSeaPillageInterceptor, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *)
+- **2230** `CvUnit::canDoCommand(CommandTypes, int, int, bool, bool)`
+  - calls: CvSelectionGroup::isBusy [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::canPromote, CvUnit::canUpgrade, CvUnit::canAutomate, CvUnit::isAutomated, CvUnit::isWaiting, CvSelectionGroup::getLengthMissionQueue [CvSelectionGroup.cpp], CvUnit::canScrap, CvUnit::canGift, CvUnit::canLoad, CvUnit::plot, getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(PlayerTypes, int) [CvStructs.h], CvUnit::canLoadUnit, CvUnit::canUnload, CvUnit::canUnloadAll, CvUnit::isGroupHead
+  - called by (4): CvSelectionGroup::canDoCommand, CvSelectionGroup::canEverDoCommand, CvUnit::doCommand, CyUnit::canDoCommand
+- **2346** `CvUnit::doCommand(CommandTypes, int, int)`
+  - calls: CvUnit::canDoCommand, CvUnit::promote, CvUnit::upgrade, CvUnit::automate, CvSelectionGroup::setActivityType [CvSelectionGroup.cpp], CvUnit::getGroup, CvSelectionGroup::popMission [CvSelectionGroup.cpp], CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvSelectionGroup::setAutomateType [CvSelectionGroup.cpp], CvUnit::scrap, CvUnit::gift, CvUnit::load, getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(PlayerTypes, int) [CvStructs.h], CvUnit::loadUnit, CvUnit::unload, CvUnit::unloadAll, CvUnit::setHotKeyNumber, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setCycleSelectionCounter [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvSelectionGroup::doDelayedDeath [CvSelectionGroup.cpp]
+  - called by (2): CvNetDoCommand::Execute, CyUnit::doCommand
+- **2445** `CvUnit::getPathLastNode()`
+  - calls: CvSelectionGroup::getPathLastNode [CvSelectionGroup.cpp], CvUnit::getGroup
+  - called by (12): CvUnitAI::AI_bestCityBuild, CvUnitAI::AI_blockade, CvUnitAI::AI_improveBonus, CvUnitAI::AI_improveCity, CvUnitAI::AI_improveLocalPlot, CvUnitAI::AI_infiltrate, CvUnitAI::AI_load, CvUnitAI::AI_pillageAroundCity, CvUnitAI::AI_pillageRange, CvUnitAI::AI_pirateBlockade, CvUnitAI::AI_seaBombardRange, CvUnitAI::AI_solveBlockageProblem
+- **2451** `CvUnit::getPathEndTurnPlot()`
+  - calls: CvSelectionGroup::getPathEndTurnPlot [CvSelectionGroup.cpp], CvUnit::getGroup
+  - called by (49): CvUnitAI::AI_anyAttack, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_blockade, CvUnitAI::AI_carrierSeaTransport, CvUnitAI::AI_choke, CvUnitAI::AI_cityAttack, CvUnitAI::AI_construct, CvUnitAI::AI_explore, CvUnitAI::AI_exploreRange, CvUnitAI::AI_found, CvUnitAI::AI_foundRange …
+- **2457** `CvUnit::generatePath(const CvPlot *, int, bool, int *)`
+  - calls: CvSelectionGroup::generatePath [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::plot
+  - called by (82): CvPlayerAI::AI_getOperationReinforcementGroup, CvPlayerAI::getInquisitionRevoltCity, CvPlayerAI::getReligiousVictoryTarget, CvPlayerAI::getTeamInquisitionRevoltCity, CvUnit::getUpgradeCity(UnitTypes, bool, int *), CvUnitAI::AI_anyAttack, CvUnitAI::AI_artistCultureVictoryMove, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_barbAttackSeaMove, CvUnitAI::AI_bestCityBuild, CvUnitAI::AI_blockade …
+- **2463** `CvUnit::canEnterTerritory(TeamTypes, bool)`
+  - calls: CvTeam::isFriendlyTerritory [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvUnit::isEnemy, CvUnit::isRivalTerritory, CvUnit::alwaysInvisible, CvUnitInfo::isHiddenNationality [CvInfos.cpp], CvTeam::isOpenBorders [CvTeam.cpp]
+  - called by (5): CvSelectionGroup::canEnterTerritory, CvUnit::canEnterArea, CvUnitAI::AI_spreadCorporation, CvUnitAI::AI_spreadReligion, CyUnit::canEnterTerritory
+- **2507** `CvUnit::canEnterArea(TeamTypes, const CvArea *, bool)`
+  - calls: CvUnit::canEnterTerritory, CvUnit::getDomainType, CvUnit::isBarbarian, CvUnit::getTeam, CvArea::isBorderObstacle [CvArea.cpp]
+  - called by (10): CvPlot::verifyUnitValidPlot, CvSelectionGroup::canEnterArea, CvUnit::canCargoEnterArea, CvUnit::canMoveInto, CvUnit::canSpread, CvUnit::canSpreadCorporation, CvUnit::canTrade, CvUnit::getDeclareWarMove, CvUnit::jumpToNearestValidPlot, CyUnit::canEnterArea
+- **2530** `CvUnit::getDeclareWarMove(const CvPlot *)`
+  - calls: CvUnit::getDomainType, CvPlot::getRevealedTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::area [CvPlot.cpp], CvSelectionGroup::isAmphibPlot [CvSelectionGroup.cpp], CvUnit::canEnterArea, CvUnit::canCargoEnterArea, CvUnit::getGroup, CvPlot::getTeam [CvPlot.cpp], CvTeam::canDeclareWar [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::canMoveInto, CvPlot::plotCheck [CvPlot.cpp], CvUnit::isAlwaysHostile, CvUnit::getOwnerINLINE [CvUnit.h]
+  - takes the address of: PUF_isVisible [CvGameCoreUtils.cpp], PUF_canDeclareWar [CvGameCoreUtils.cpp]
+  - called by (3): CvGame::selectionListMove, CvGameTextMgr::setCombatPlotHelp, CyUnit::getDeclareWarMove
+- **2571** `CvUnit::willRevealByMove(const CvPlot *)`
+  - calls: CvUnit::visibilityRange, plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::canSeePlot [CvPlot.cpp], CvPlot::isRevealed [CvPlot.cpp], CvUnit::getTeam
+  - called by (2): CvUnit::canMoveInto, CvUnitAI::AI_plotValid
+- **2592** `CvUnit::canMoveInto(const CvPlot *, bool, bool, bool)`
+  - calls: CvUnit::atPlot, CvPlot::isImpassable [CvPlot.cpp], CvUnit::canMoveImpassable, CvUnitInfo::isNoRevealMap [CvInfos.cpp], CvUnit::willRevealByMove, CvGlobals::getUSE_SPIES_NO_ENTER_BORDERS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getOwnerINLINE [CvPlot.h], CvUnit::isSpy, CvPlayer::canSpiesEnterBorders [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::area [CvPlot.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::canEnterArea, CvPlot::getFeatureType [CvPlot.cpp], CvUnitInfo::getFeatureImpassable [CvInfos.cpp], CvUnitInfo::getFeaturePassableTech [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvUnit::getDomainType, CvUnitInfo::getTerrainImpassable [CvInfos.cpp], CvPlot::getTerrainType [CvPlot.cpp], CvUnitInfo::getTerrainPassableTech [CvInfos.cpp], CvUnit::canLoad, CvPlot::isWater [CvPlot.cpp], CvUnit::canMoveAllTerrain, CvPlot::isCoastalLand [CvPlot.cpp], CvPlot::isFriendlyCity [CvPlot.cpp], CvUnitInfo::getAirUnitCap [CvInfos.cpp], CvPlot::airUnitSpaceAvailable [CvPlot.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvPlot::isCity [CvPlot.cpp], CvUnit::isHuman, CvUnit::plot, CvUnit::isAnimal, CvPlot::isOwned [CvPlot.cpp], CvPlot::getBonusType [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvPlot::getNumUnits [CvPlot.cpp], CvUnit::isNoCapture, CvPlot::isEnemyCity [CvPlot.cpp], CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvUnit::isBlitz, CvUnit::isMadeAttack, CvUnit::canAirStrike, CvUnit::canAttack(), CvUnit::canCoexistWithEnemyUnit, CvPlot::isVisible [CvPlot.cpp], CvPlot::isVisibleEnemyUnit(const CvUnit *) [CvPlot.cpp], CvPlot::isVisibleOtherUnit [CvPlot.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvPlot::hasDefender [CvPlot.cpp], CvPlot::getRevealedTeam [CvPlot.cpp], CvTeam::canDeclareWar [CvTeam.cpp], CvTeamAI::AI_isSneakAttackReady [CvTeamAI.cpp], CvSelectionGroup::AI_isDeclareWar [CvSelectionGroup.h] ⇢ CvSelectionGroupAI::AI_isDeclareWar, CvUnit::getGroup, CvGlobals::getUSE_UNIT_CANNOT_MOVE_INTO_CALLBACK [CvGlobals.cpp], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CvUnit::getID, CvPlot::getX [CvPlot.cpp], CvPlot::getY [CvPlot.cpp], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp]
+  - called by (29): CvPlayerAI::AI_getOurPlotStrength, CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canMoveInto, CvSelectionGroup::groupMove, CvSelectionGroup::groupPathTo, CvSelectionGroupAI::AI_cityAssaultForecast, CvSelectionGroupAI::AI_getBestGroupAttacker, CvSelectionGroupAI::AI_getBestGroupSacrifice, CvSelectionGroupAI::AI_sumStrength, CvUnit::canAirliftAt, CvUnit::canMoveOrAttackInto, CvUnit::canMoveThrough …
+- **2954** `CvUnit::canMoveOrAttackInto(const CvPlot *, bool)`
+  - calls: CvUnit::canMoveInto
+  - called by (8): CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getPlotDanger, CvPlayerAI::AI_isPlotThreatened, CvSelectionGroup::canMoveOrAttackInto, CvSelectionGroup::groupMove, CvSelectionGroup::groupPathTo, CvUnitAI::AI_solveBlockageProblem, CyUnit::canMoveOrAttackInto
+- **2960** `CvUnit::canMoveThrough(const CvPlot *)`
+  - calls: CvUnit::canMoveInto
+  - called by (2): CvSelectionGroup::canMoveThrough, CyUnit::canMoveThrough
+- **2966** `CvUnit::attack(CvPlot *, bool)`
+  - calls: CvUnit::setAttackPlot, CvUnit::updateCombat
+  - called by (3): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::pillage
+- **2976** `CvUnit::fightInterceptor(const CvPlot *, bool)`
+  - calls: CvUnit::setAttackPlot, CvUnit::updateAirCombat
+  - called by (1): CvUnit::interceptTest
+- **2985** `CvUnit::attackForDamage(CvUnit *, int, int)`
+  - calls: CvUnit::plot, CvUnit::setAttackPlot, CvUnit::getAttackPlot, estimateDirection(const CvPlot *, const CvPlot *) [CvGameCoreUtils.cpp], CvUnit::setFacingDirection, CvUnit::isCombatVisible, CvUnit::isFighting, CvPlot::isFighting [CvPlot.cpp], CvUnit::setCombatUnit, CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvUnit::getGroup, CvDLLInterfaceIFaceBase::isCombatFocus [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::isCombatFocus, directionXY(const CvPlot *, const CvPlot *) [CvGameCoreUtils.h], NiPoint2::NiPoint2(float, float) [CvGameCoreDLL.h], NiPoint3::NiPoint3(float, float, float) [CvGameCoreDLL.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvPlot::getPoint [CvPlot.cpp], NiPoint3::Unitize [CvGameCoreDLL.h], CvDLLInterfaceIFaceBase::lookAt [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getGraphicOption [CvDLLUtilityIFaceBase.h], CvGame::getActivePlayer [CvGame.cpp], NiPoint3::NiPoint3(const NiPoint3 &) [CvGameCoreDLL.h], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getVisualOwner, CvUnit::getTeam, CvWString::CvWString() [CvString.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvPlayer::getNameKey [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvBattleDefinition::CvBattleDefinition() [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvBattleDefinition::setDamage [CvStructs.cpp], CvUnit::getDamage, CvUnit::changeDamage, CvBattleDefinition::setAdvanceSquare [CvStructs.cpp], CvUnit::canAdvance, CvBattleDefinition::getDamage [CvStructs.cpp], CvBattleDefinition::addDamage [CvStructs.cpp], CvUnit::planBattle, CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvUnit::setCombatTimer, CvGame::incrementTurnTimer [CvGame.cpp], CvUnit::getCombatTimer, CvPlot::isActiveVisible [CvPlot.cpp], CvDLLEntity::ExecuteMove [CvDLLEntity.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CyUnit::attackForDamage
+- **3105** `CvUnit::move(CvPlot *, bool)`
+  - calls: CvUnit::plot, CvPlot::movementCost [CvPlot.cpp], CvUnit::changeMoves, CvPlot::isVisibleToWatchingHuman [CvPlot.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::setXY, CvPlot::getFeatureType [CvPlot.cpp], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::getOnUnitChangeTo [CvInfos.cpp], CvString::CvString(const char *) [CvString.h], CvString::IsEmpty [CvString.h], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvString::operator const char * [CvString.h], CvPlot::setFeatureType [CvPlot.cpp], CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isOwned [CvPlot.cpp], CvGlobals::getASyncRand [CvGlobals.cpp], CvFeatureInfo::getEffectProbability [CvInfos.cpp], CvRandom::get [CvRandom.cpp], CvFeatureInfo::getEffectType [CvInfos.cpp], CvDLLEngineIFaceBase::TriggerEffect [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::getPoint [CvPlot.cpp], CvDLLInterfaceIFaceBase::playGeneralSound(LPCTSTR, NiPoint3) [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitMove [CvEventReporter.cpp]
+  - called by (1): CvSelectionGroup::groupMove
+- **3148** `CvUnit::jumpToNearestValidPlot()`
+  - calls: CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::findCity [CvMap.cpp], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::getOwnerINLINE [CvUnit.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::isValidDomainForLocation [CvPlot.cpp], CvUnit::canMoveInto, CvPlot::getTeam [CvPlot.cpp], CvPlot::area [CvPlot.cpp], CvUnit::canEnterArea, CvUnit::isEnemy, CvPlot::isFriendlyCity [CvPlot.cpp], CvUnit::getDomainType, CvPlot::isRevealed [CvPlot.cpp], CvUnit::getTeam, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvPlot::isWater [CvPlot.cpp], CvUnit::plot, CvPlot::isAdjacentToArea(const CvArea *) [CvPlot.cpp], CvUnit::area, CvUnit::setXY, CvUnit::kill
+  - called by (7): CvCity::popOrder, CvPlot::verifyUnitValidPlot, CvTeam::verifySpyUnitsValidPlot, CvUnit::convert, CvUnit::setXY, CvUnit::verifyStackValid, CyUnit::jumpToNearestValidPlot
+- **3230** `CvUnit::canAutomate(AutomateTypes)`
+  - calls: CvUnit::isGroupHead, CvUnitInfo::isInquisitor [CvInfos.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::canBuildRoute, CvUnit::canFight, CvUnit::getDomainType, CvUnit::isSpy, CvUnit::alwaysInvisible, CvUnit::canRecon
+  - called by (3): CvUnit::automate, CvUnit::canDoCommand, CyUnit::canAutomate
+- **3327** `CvUnit::automate(AutomateTypes)`
+  - calls: CvUnit::canAutomate, CvSelectionGroup::setAutomateType [CvSelectionGroup.cpp], CvUnit::getGroup
+  - called by (2): CvCity::popOrder, CvUnit::doCommand
+- **3338** `CvUnit::canScrap()`
+  - calls: CvPlot::isFighting [CvPlot.cpp], CvUnit::plot
+  - called by (3): CvUnit::canDoCommand, CvUnit::scrap, CyUnit::canScrap
+- **3349** `CvUnit::scrap()`
+  - calls: CvUnit::canScrap, CvUnit::kill
+  - called by (9): CvUnit::doCommand, CvUnitAI::AI_barbAttackSeaMove, CvUnitAI::AI_escortSeaMove, CvUnitAI::AI_exploreMove, CvUnitAI::AI_exploreSeaMove, CvUnitAI::AI_settleMove, CvUnitAI::AI_settlerSeaMove, CvUnitAI::AI_workerMove, CvUnitAI::AI_workerSeaMove
+- **3360** `CvUnit::canGift(bool, bool)`
+  - calls: CvUnit::plot, CvUnit::getTransportUnit, CvPlot::isOwned [CvPlot.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isVisibleEnemyUnit(const CvUnit *) [CvPlot.cpp], CvPlot::isVisibleEnemyUnit(PlayerTypes) [CvPlot.cpp], CvPlot::isValidDomainForLocation [CvPlot.cpp], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getCorporationSpreads [CvInfos.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvTeam::getUnitClassMaking [CvTeam.cpp], CvTeam::isUnitClassMaxedOut [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getUnitClassType, CvPlayer::isUnitClassMaxedOut [CvPlayer.cpp], CvPlayer::getUnitClassMaking [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayerAI::AI_acceptUnit [CvPlayerAI.cpp], atWar [CvGameCoreUtils.cpp]
+  - called by (3): CvUnit::canDoCommand, CvUnit::gift, CyUnit::canGift
+- **3428** `CvUnit::gift(bool)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::canGift, CvUnit::getCargoUnits, CvUnit::gift, CvPlayer::initUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getOwnerINLINE [CvPlot.h], CvUnit::plot, CvUnit::getUnitType, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::convert, CvUnit::isCombat, CvGameAI::AI_combatValue [CvGameAI.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getProductionCost [CvInfos.cpp], CvPlayerAI::AI_changePeacetimeGrantValue [CvPlayerAI.cpp], CvUnit::getUnitInfo, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getNameKey [CvPlayer.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitGifted [CvEventReporter.cpp]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (4): CvPlayerAI::AI_doSplit, CvUnit::doCommand, CvUnit::gift, CyUnit::gift
+- **3481** `CvUnit::canLoadUnit(const CvUnit *, const CvPlot *)`
+  - calls: CvUnit::getTeam, CvUnit::getCargo, CvUnit::isCargo, CvUnit::getSpecialUnitType, CvUnit::getDomainType, CvUnit::cargoSpaceAvailable, CvUnit::atPlot, CvUnitInfo::isHiddenNationality [CvInfos.cpp], CvUnit::getUnitInfo, CvGlobals::getSpecialUnitInfo(SpecialUnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvSpecialUnitInfo::isCityLoad [CvInfos.cpp], CvPlot::isCity [CvPlot.cpp]
+  - called by (10): CvUnit::canDoCommand, CvUnit::canLoad, CvUnit::load, CvUnit::loadUnit, CvUnitAI::AI_airCarrier, CvUnitAI::AI_findSettlementTransport, CvUnitAI::AI_load, CvUnitAI::AI_missileLoad, CvUnitAI::AI_settlerSeaTransport, CyUnit::canLoadUnit
+- **3550** `CvUnit::loadUnit(CvUnit *)`
+  - calls: CvUnit::canLoadUnit, CvUnit::plot, CvUnit::setTransportUnit
+  - called by (1): CvUnit::doCommand
+- **3560** `CvUnit::shouldLoadOnMove(const CvPlot *)`
+  - calls: CvUnit::isCargo, CvUnit::getDomainType, CvPlot::isWater [CvPlot.cpp], CvUnit::canMoveAllTerrain, CvPlot::isFriendlyCity [CvPlot.cpp], CvUnitInfo::getAirUnitCap [CvInfos.cpp], CvPlot::airUnitSpaceAvailable [CvPlot.cpp], CvUnit::getTeam, CvUnitInfo::getTerrainImpassable [CvInfos.cpp], CvPlot::getTerrainType [CvPlot.cpp], CvUnitInfo::getTerrainPassableTech [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
+  - called by (1): CvUnit::setXY
+- **3618** `CvUnit::canLoad(const CvPlot *)`
+  - calls: CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::canLoadUnit
+  - called by (4): CvUnit::canDoCommand, CvUnit::canMoveInto, CvUnit::load, CyUnit::canLoad
+- **3640** `CvUnit::load()`
+  - calls: CvUnit::canLoad, CvUnit::plot, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::canLoadUnit, CvUnit::getTeam, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::setTransportUnit, CvUnit::isCargo
+  - called by (2): CvUnit::doCommand, CvUnit::setXY
+- **3681** `CvUnit::canUnload()`
+  - calls: CvUnit::plot, CvUnit::getTransportUnit, CvPlot::isValidDomainForLocation [CvPlot.cpp], CvUnit::getDomainType, CvPlot::isFriendlyCity [CvPlot.cpp], CvPlot::countNumAirUnits [CvPlot.cpp], CvUnit::getTeam, CvPlot::getPlotCity [CvPlot.cpp], CvCity::getAirUnitCapacity [CvCity.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (4): CvUnit::canDoCommand, CvUnit::unload, CvUnit::unloadAll, CyUnit::canUnload
+- **3722** `CvUnit::unload()`
+  - calls: CvUnit::canUnload, CvUnit::setTransportUnit
+  - called by (1): CvUnit::doCommand
+- **3733** `CvUnit::canUnloadAll()`
+  - calls: CvUnit::getCargo
+  - called by (3): CvUnit::canDoCommand, CvUnit::unloadAll, CyUnit::canUnloadAll
+- **3744** `CvUnit::unloadAll()`
+  - calls: CvUnit::canUnloadAll, CvUnit::getCargoUnits, CvUnit::canUnload, CvUnit::setTransportUnit, CvSelectionGroup::setActivityType [CvSelectionGroup.cpp], CvUnit::getGroup
+  - called by (6): CvSelectionGroup::unloadAll, CvUnit::doCommand, CvUnitAI::AI_settlerSeaFerry, CvUnitAI::AI_settlerSeaTransport, CvUnitAI::AI_specialSeaTransportMissionary, CvUnitAI::AI_specialSeaTransportSpy
+- **3769** `CvUnit::canHold(const CvPlot *)`
+  - called by (2): CvSelectionGroup::canStartMission, CyUnit::canHold
+- **3775** `CvUnit::canSleep(const CvPlot *)`
+  - calls: CvUnit::isFortifyable, CvUnit::isWaiting
+  - called by (3): CvGame::startFlyoutMenu, CvSelectionGroup::canStartMission, CyUnit::canSleep
+- **3791** `CvUnit::canFortify(const CvPlot *)`
+  - calls: CvUnit::isFortifyable, CvUnit::isWaiting
+  - called by (3): CvGame::startFlyoutMenu, CvSelectionGroup::canStartMission, CyUnit::canFortify
+- **3807** `CvUnit::canAirPatrol(const CvPlot *)`
+  - calls: CvUnit::getDomainType, CvUnit::canAirDefend, CvUnit::isWaiting
+  - called by (2): CvSelectionGroup::canStartMission, CyUnit::canAirPatrol
+- **3828** `CvUnit::canSeaPatrol(const CvPlot *)`
+  - calls: CvPlot::isWater [CvPlot.cpp], CvUnit::getDomainType, CvUnit::isOnlyDefensive, CvUnit::canFight, CvUnit::isWaiting
+  - called by (2): CvSelectionGroup::canStartMission, CyUnit::canSeaPatrol
+- **3854** `CvUnit::airCircle(bool)`
+  - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getDomainType, CvUnit::maxInterceptionProbability, CvDLLEntityIFaceBase::RemoveUnitFromBattle [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvUnit::plot, CvMissionDefinition::setUnit [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h]
+  - called by (2): CvSelectionGroup::airCircle, CvUnit::setupGraphical
+- **3883** `CvUnit::canHeal(const CvPlot *)`
+  - calls: CvUnit::isHurt, CvUnit::isWaiting, CvUnit::healRate
+  - called by (2): CvSelectionGroup::canStartMission, CyUnit::canHeal
+- **3904** `CvUnit::canSentry(const CvPlot *)`
+  - calls: CvUnit::canDefend, CvUnit::isWaiting
+  - called by (2): CvSelectionGroup::canStartMission, CyUnit::canSentry
+- **3920** `CvUnit::healRate(const CvPlot *)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvPlot::isCity [CvPlot.cpp], CvUnit::getTeam, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getTeam [CvPlot.cpp], CvTeam::isFriendlyTerritory [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getExtraNeutralHeal, CvUnit::getExtraFriendlyHeal, CvCity::isOccupation [CvCity.cpp], CvCity::getHealRate [CvCity.cpp], CvUnit::isEnemy, CvUnit::getExtraEnemyHeal, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getSameTileHeal, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::area [CvPlot.cpp], CvUnit::getAdjacentTileHeal
+  - called by (5): CvUnit::canHeal, CvUnit::doHeal, CvUnit::healTurns, CvUnitAI::AI_heal, CvUnitAI::AI_promotionValue
+- **4026** `CvUnit::healTurns(const CvPlot *)`
+  - calls: CvUnit::isHurt, CvUnit::healRate, CvUnit::getDamage
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvUnit::isActionRecommended, CvUnitAI::AI_attackAirMove, CvUnitAI::AI_defenseAirMove, CvUnitAI::AI_heal
+- **4056** `CvUnit::doHeal()`
+  - calls: CvUnit::healRate, CvUnit::plot, CvUnit::changeDamage
+  - called by (1): CvUnit::doTurn
+- **4062** `CvUnit::canAirlift(const CvPlot *)`
+  - calls: CvUnit::getDomainType, CvUnit::hasMoved, CvPlot::getPlotCity [CvPlot.cpp], CvCity::getCurrAirlift [CvCity.cpp], CvCity::getMaxAirlift [CvCity.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::getTeam
+  - called by (3): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAirliftAt, CyUnit::canAirlift
+- **4097** `CvUnit::canAirliftAt(const CvPlot *, int, int)`
+  - calls: CvUnit::canAirlift, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::canMoveInto, CvPlot::getPlotCity [CvPlot.cpp], CvCity::isAirliftTargeted [CvCity.cpp], CvCity::getTeam [CvCity.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam
+  - called by (10): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::airlift, CvUnitAI::AI_guardCityAirlift, CvUnitAI::AI_nextCityToImproveAirlift, CvUnitAI::AI_offensiveAirlift, CvUnitAI::AI_spreadCorporationAirlift, CvUnitAI::AI_spreadReligionAirlift, CvUnitAI::AI_travelToUpgradeCity, CyUnit::canAirliftAt
+- **4135** `CvUnit::airlift(int, int)`
+  - calls: CvUnit::canAirliftAt, CvUnit::plot, CvPlot::getPlotCity [CvPlot.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvCity::changeCurrAirlift [CvCity.cpp], CvCity::getMaxAirlift [CvCity.cpp], CvCity::setAirliftTargeted [CvCity.cpp], CvUnit::finishMoves, CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::setXY
+  - called by (1): CvSelectionGroup::startMission
+- **4168** `CvUnit::isNukeVictim(const CvPlot *, TeamTypes)`
+  - calls: CvTeam::isAlive [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvUnit::nukeRange, plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getTeam [CvPlot.cpp], CvPlot::plotCheck [CvPlot.cpp]
+  - takes the address of: PUF_isCombatTeam [CvGameCoreUtils.cpp]
+  - called by (5): CvGameTextMgr::getNukePlotHelp, CvUnit::canNukeAt, CvUnit::nuke, CvUnitAI::AI_nukeValue, CyUnit::isNukeVictim
+- **4208** `CvUnit::canNuke(const CvPlot *)`
+  - calls: CvUnit::nukeRange
+  - called by (4): CvSelectionGroup::canDoInterfaceMode, CvUnit::canNukeAt, CvUnit::updateAirStrike, CyUnit::canNuke
+- **4219** `CvUnit::canNukeAt(const CvPlot *, int, int)`
+  - calls: CvUnit::canNuke, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::nukeRange, CvUnit::airRange, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvTeam::getID [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvUnit::isNukeVictim, CvUnit::isEnemy
+  - called by (6): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::nuke, CvUnitAI::AI_nuke, CvUnitAI::AI_nukeRange, CyUnit::canNukeAt
+- **4268** `CvUnit::nuke(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::canNukeAt, CvUnit::plot, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::isNukeVictim, CvUnit::isEnemy, CvTeam::getID [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvTeam::declareWar [CvTeam.cpp], CvUnit::airBaseCombatStr, CvUnit::interceptTest, CvTeam::getNukeInterception [CvTeam.cpp], CvUnitInfo::getEvasionProbability [CvInfos.cpp], CvUnit::setReconPlot, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getNameKey [CvPlayer.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvTeam::getName [CvTeam.cpp], CvUnit::getNameKey, CvUnit::getOwnerINLINE [CvUnit.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvPlot::isActiveVisible [CvPlot.cpp], CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::kill, CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvUnit::setMadeAttack, CvUnit::setAttackPlot, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvTeam::changeWarWeariness(TeamTypes, int) [CvTeam.cpp], CvTeamAI::AI_changeWarSuccess [CvTeamAI.cpp], CvTeam::isAlive [CvTeam.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::AI_getAttitude [CvTeamAI.cpp], CvUnit::isSuicide
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **4498** `CvUnit::canRecon(const CvPlot *)`
+  - calls: CvUnit::getDomainType, CvUnit::airRange, CvUnitInfo::isSuicide [CvInfos.cpp]
+  - called by (6): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAutomate, CvUnit::canReconAt, CvUnitAI::AI_attackAirMove, CvUnitAI::AI_defenseAirMove, CyUnit::canRecon
+- **4520** `CvUnit::canReconAt(const CvPlot *, int, int)`
+  - calls: CvUnit::canRecon, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange
+  - called by (6): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::recon, CvUnitAI::AI_exploreAir, CvUnitAI::AI_exploreAir2, CyUnit::canReconAt
+- **4537** `CvUnit::recon(int, int)`
+  - calls: CvUnit::canReconAt, CvUnit::plot, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::setReconPlot, CvUnit::finishMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - called by (1): CvSelectionGroup::startMission
+- **4569** `CvUnit::canParadrop(const CvPlot *)`
+  - calls: CvUnit::getDropRange, CvUnit::hasMoved, CvPlot::isFriendlyCity [CvPlot.cpp]
+  - called by (4): CvSelectionGroup::canDoInterfaceMode, CvUnit::canParadropAt, CvUnitAI::AI_paradrop, CyUnit::canParadrop
+- **4591** `CvUnit::canParadropAt(const CvPlot *, int, int)`
+  - calls: CvUnit::canParadrop, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvPlot::isVisible [CvPlot.cpp], CvUnit::getTeam, CvUnit::canMoveInto, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::getDropRange, CvUnit::canCoexistWithEnemyUnit, CvPlot::isEnemyCity [CvPlot.cpp], CvPlot::isVisibleEnemyUnit(const CvUnit *) [CvPlot.cpp]
+  - called by (5): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::paradrop, CvUnitAI::AI_paradrop, CyUnit::canParadropAt
+- **4636** `CvUnit::paradrop(int, int)`
+  - calls: CvUnit::canParadropAt, CvUnit::plot, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvUnit::setMadeAttack, CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::setXY, CvUnit::interceptTest, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - called by (1): CvSelectionGroup::startMission
+- **4674** `CvUnit::canAirBomb(const CvPlot *)`
+  - calls: CvGlobals::getDCM_AIR_BOMBING [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::isHuman, CvUnit::getDomainType, CvUnit::airBombBaseRate, CvUnit::isMadeAttack
+  - called by (4): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAirBombAt, CvUnitAI::AI_airOffenseBaseValue, CyUnit::canAirBomb
+- **4710** `CvUnit::canAirBombAt(const CvPlot *, int, int)`
+  - calls: CvUnit::canAirBomb, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvPlot::isOwned [CvPlot.cpp], CvUnit::potentialWarAction, CvPlot::getPlotCity [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isActsAsCity [CvInfos.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getDCMAirBomb4 [CvInfos.cpp], CvUnit::getUnitType, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], atWar [CvGameCoreUtils.cpp], CvUnit::getDomainType, CvUnit::getTeam, CvGlobals::getDCM_AIR_BOMBING [CvGlobals.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstUnit [CvPlayer.cpp], CvPlayer::nextUnit [CvPlayer.cpp], CvUnit::plot, CvCity::isBombardable [CvCity.cpp], CvImprovementInfo::isPermanent [CvInfos.cpp], CvImprovementInfo::getAirBombDefense [CvInfos.cpp]
+  - called by (7): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::airBomb, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airBombPlots, CvUnitAI::AI_airOffenseBaseValue, CyUnit::canAirBombAt
+- **4827** `CvUnit::airBomb(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::canAirBombAt, CvUnit::plot, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvPlot::getTeam [CvPlot.cpp], CvUnit::isEnemy, CvSelectionGroup::groupDeclareWar [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::interceptTest, CvUnit::setBattlePlot, CvPlot::getPlotCity [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvGlobals::getDCM_AIR_BOMBING [CvGlobals.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::airBombCurrRate, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getAirBombDefense [CvInfos.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isOwned [CvPlot.cpp], CvUnit::getVisualCivAdjective, CvPlot::getOwnerINLINE [CvPlot.h], CvImprovementInfo::getImprovementPillage [CvInfos.cpp], CvPlot::setImprovementType [CvPlot.cpp], CvImprovementInfo::isActsAsCity [CvInfos.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getDCMAirBomb4 [CvInfos.cpp], CvUnit::getUnitType, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getDomainType, CvUnit::airBomb4, CvCity::changeDefenseModifier [CvCity.cpp], CvCity::getDefenseModifier [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvCity::getOwnerINLINE [CvCity.h], CvUnitInfo::getDCMAirBomb1 [CvInfos.cpp], plotXY [CvGameCoreUtils.h], CvUnitInfo::getDCMAirBomb2 [CvInfos.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getDCMAirbombMission [CvInfos.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvUnitInfo::getDCMAirBomb3 [CvInfos.cpp], CvUnitInfo::getDCMAirBomb5 [CvInfos.cpp], CvGlobals::getGame [CvGlobals.cpp], CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb5, CvCity::getPopulation [CvCity.cpp], CvCity::changePopulation [CvCity.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvUnit::setReconPlot, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::isSuicide, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **5141** `CvUnit::bombardTarget(const CvPlot *)`
+  - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getPlotCity [CvPlot.cpp], CvCity::isBombardable [CvCity.cpp], CvCity::getDefenseDamage [CvCity.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::isEnemy
+  - called by (6): CvUnit::bombard, CvUnit::canBombard, CvUnitAI::AI_bombardCity, CvUnitAI::AI_followBombard, CvUnitAI::AI_seaBombardRange, CyUnit::bombardTarget
+- **5180** `CvUnit::canBombard(const CvPlot *)`
+  - calls: CvUnit::bombardRate, CvUnit::isMadeAttack, CvUnit::isCargo, CvUnit::bombardTarget
+  - called by (7): CvSelectionGroup::canBombard, CvSelectionGroup::canStartMission, CvUnit::bombard, CvUnitAI::AI_blockade, CvUnitAI::AI_bombardCity, CvUnitAI::AI_followBombard, CyUnit::canBombard
+- **5222** `CvUnit::bombard()`
+  - calls: CvUnit::plot, CvUnit::canBombard, CvUnit::bombardTarget, CvCity::plot [CvCity.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::isEnemy, CvSelectionGroup::groupDeclareWar [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::ignoreBuildingDefense, CvCity::getBuildingBombardDefense [CvCity.cpp], CvCity::getDefenseModifier [CvCity.cpp], CvCity::changeDefenseModifier [CvCity.cpp], CvUnit::bombardRate, warLogBombard [CvGameCoreUtils.cpp], CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::changeMoves, CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getNameKey [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::getOwnerINLINE [CvUnit.h], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvCity::getOwnerINLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvPlot::isActiveVisible [CvPlot.cpp], CvPlot::getBestDefender [CvPlot.cpp], CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **5285** `CvUnit::canPillage(const CvPlot *)`
+  - calls: CvUnitInfo::isPillage [CvInfos.cpp], CvPlot::isCity [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvPlot::isRoute [CvPlot.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::isPermanent [CvInfos.cpp], CvPlot::isOwned [CvPlot.cpp], CvUnit::potentialWarAction, CvPlot::getOwnerINLINE [CvPlot.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isValidDomainForAction [CvPlot.cpp]
+  - called by (9): CvSelectionGroup::canStartMission, CvSelectionGroup::startMission, CvUnit::pillage, CvUnitAI::AI_choke, CvUnitAI::AI_follow, CvUnitAI::AI_pillage, CvUnitAI::AI_pillageAroundCity, CvUnitAI::AI_pillageRange, CyUnit::canPillage
+- **5332** `CvUnit::pillage()`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvUnit::canPillage, CvPlot::isOwned [CvPlot.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::isEnemy, CvPlot::getImprovementType [CvPlot.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isWater [CvPlot.cpp], CvGlobals::getCOMBAT_DIE_SIDES [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::bestSeaPillageInterceptor, CvUnit::setMadeAttack, CvUnit::withdrawalProbability, CvUnit::changeExtraWithdrawal, CvUnit::attack, CvUnit::getTeam, CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CyArgsList::CyArgsList [CyArgsList.h], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], atWar [CvGameCoreUtils.cpp], CvUnit::doPillageInfluence, CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvWString::Format [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getVisualCivAdjective, CvUnit::getNameKey, CvImprovementInfo::getImprovementPillage [CvInfos.cpp], CvPlot::setImprovementType [CvPlot.cpp], CvPlot::isRoute [CvPlot.cpp], CvPlot::getRouteType [CvPlot.cpp], CvPlot::setRouteType [CvPlot.cpp], CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitPillage [CvEventReporter.cpp]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **5506** `CvUnit::canPlunder(const CvPlot *, bool)`
+  - calls: CvUnit::getDomainType, CvUnitInfo::isPillage [CvInfos.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::isFreshWater [CvPlot.cpp], CvPlot::isValidDomainForAction [CvPlot.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam
+  - called by (7): CvSelectionGroup::canStartMission, CvUnit::plunder, CvUnitAI::AI_blockade, CvUnitAI::AI_carrierSeaTransport, CvUnitAI::AI_pirateBlockade, CvUnitAI::AI_seaBombardRange, CyUnit::canPlunder
+- **5545** `CvUnit::plunder()`
+  - calls: CvUnit::plot, CvUnit::canPlunder, CvUnit::setBlockading, CvUnit::finishMoves
+  - called by (1): CvSelectionGroup::startMission
+- **5562** `CvUnit::updatePlunder(int, bool)`
+  - calls: CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], plotXY [CvGameCoreUtils.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvPlot::area [CvPlot.cpp], CvPlot::isWater [CvPlot.cpp], CvUnit::area, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::calculatePathDistance [CvMap.cpp], CvUnit::plot, CvUnit::isEnemy, CvPlot::getBlockadedCount [CvPlot.cpp], CvPlot::isTradeNetwork [CvPlot.cpp], CvPlot::changeBlockadedCount [CvPlot.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGame::updatePlotGroups [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h]
+  - called by (2): CvPlayer::updatePlunder, CvUnit::setBlockading
+- **5647** `CvUnit::sabotageCost(const CvPlot *)`
+  - calls: CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (4): CvDLLWidgetData::parseActionHelp, CvUnit::canSabotage, CvUnit::sabotage, CyUnit::sabotageCost
+- **5654** `CvUnit::sabotageProb(const CvPlot *, ProbabilityTypes)`
+  - calls: CvPlot::isOwned [CvPlot.cpp], CvPlot::getTeam [CvPlot.cpp], CvPlot::plotCount [CvPlot.cpp], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
+  - takes the address of: PUF_canDefend [CvGameCoreUtils.cpp], PUF_isCounterSpy [CvGameCoreUtils.cpp]
+  - called by (3): CvDLLWidgetData::parseActionHelp, CvUnit::sabotage, CyUnit::sabotageProb
+- **5701** `CvUnit::canSabotage(const CvPlot *, bool)`
+  - calls: CvUnitInfo::isSabotage [CvInfos.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::isCity [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvPlayer::getGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::sabotageCost, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (4): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvUnit::sabotage, CyUnit::canSabotage
+- **5735** `CvUnit::sabotage()`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::canSabotage, CvUnit::plot, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::sabotageProb, CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::sabotageCost, CvUnit::getOwnerINLINE [CvUnit.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getImprovementPillage [CvInfos.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvPlot::setImprovementType [CvPlot.cpp], CvUnit::finishMoves, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::findCity [CvMap.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getOwnerINLINE [CvPlot.h], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvPlot::isOwned [CvPlot.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvPlayer::getCivilizationAdjective [CvPlayer.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::isEnemy, CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **5809** `CvUnit::destroyCost(const CvPlot *)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvCity::isProductionUnit [CvCity.cpp], CvCity::getProductionUnit [CvCity.cpp], isLimitedUnitClass [CvGameCoreUtils.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getUnitClassType [CvInfos.cpp], CvCity::isProductionBuilding [CvCity.cpp], CvCity::getProductionBuilding [CvCity.cpp], isLimitedWonderClass [CvGameCoreUtils.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getBuildingClassType [CvInfos.cpp], CvCity::isProductionProject [CvCity.cpp], CvCity::getProductionProject [CvCity.cpp], isLimitedProject [CvGameCoreUtils.cpp], CvCity::getProduction [CvCity.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp]
+  - called by (4): CvDLLWidgetData::parseActionHelp, CvUnit::canDestroy, CvUnit::destroy, CyUnit::destroyCost
+- **5840** `CvUnit::destroyProb(const CvPlot *, ProbabilityTypes)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvPlot::getTeam [CvPlot.cpp], CvPlot::plotCount [CvPlot.cpp], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvCity::getProductionTurnsLeft() [CvCity.cpp]
+  - takes the address of: PUF_canDefend [CvGameCoreUtils.cpp], PUF_isCounterSpy [CvGameCoreUtils.cpp]
+  - called by (3): CvDLLWidgetData::parseActionHelp, CvUnit::destroy, CyUnit::destroyProb
+- **5890** `CvUnit::canDestroy(const CvPlot *, bool)`
+  - calls: CvUnitInfo::isDestroy [CvInfos.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::getPlotCity [CvPlot.cpp], CvCity::getProduction [CvCity.cpp], CvPlayer::getGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::destroyCost, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (4): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvUnit::destroy, CyUnit::canDestroy
+- **5928** `CvUnit::destroy()`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::canDestroy, CvUnit::plot, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::destroyProb, CvPlot::getPlotCity [CvPlot.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::destroyCost, CvUnit::getOwnerINLINE [CvUnit.h], CvCity::getProduction [CvCity.cpp], CvCity::setProduction [CvCity.cpp], CvUnit::finishMoves, CvCity::getProductionNameKey [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvCity::getOwnerINLINE [CvCity.h], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvPlayer::getCivilizationAdjective [CvPlayer.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::isEnemy, CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **5988** `CvUnit::stealPlansCost(const CvPlot *)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvCity::getTeam [CvCity.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTeam::getTotalPopulation [CvTeam.cpp], CvTeam::getTotalLand [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
+  - called by (4): CvDLLWidgetData::parseActionHelp, CvUnit::canStealPlans, CvUnit::stealPlans, CyUnit::stealPlansCost
+- **6004** `CvUnit::stealPlansProb(const CvPlot *, ProbabilityTypes)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvCity::isGovernmentCenter [CvCity.cpp], CvPlot::getTeam [CvPlot.cpp], CvPlot::plotCount [CvPlot.cpp], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
+  - takes the address of: PUF_canDefend [CvGameCoreUtils.cpp], PUF_isCounterSpy [CvGameCoreUtils.cpp]
+  - called by (3): CvDLLWidgetData::parseActionHelp, CvUnit::stealPlans, CyUnit::stealPlansProb
+- **6052** `CvUnit::canStealPlans(const CvPlot *, bool)`
+  - calls: CvUnitInfo::isStealPlans [CvInfos.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::getPlotCity [CvPlot.cpp], CvPlayer::getGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::stealPlansCost, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (4): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvUnit::stealPlans, CyUnit::canStealPlans
+- **6085** `CvUnit::stealPlans()`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::canStealPlans, CvUnit::plot, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::stealPlansProb, CvPlot::getPlotCity [CvPlot.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::stealPlansCost, CvUnit::getOwnerINLINE [CvUnit.h], CvCity::getTeam [CvCity.cpp], CvTeam::changeStolenVisibilityTimer [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvUnit::finishMoves, CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvCity::getOwnerINLINE [CvCity.h], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvPlayer::getCivilizationAdjective [CvPlayer.cpp], CvUnit::isEnemy, CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **6145** `CvUnit::canFound(const CvPlot *, bool)`
+  - calls: CvUnit::isFound, CvPlayer::canFound [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (11): CvGame::updateColoredPlots, CvSelectionGroup::canStartMission, CvUnit::found, CvUnit::isActionRecommended, CvUnitAI::AI_findSettlementTransport, CvUnitAI::AI_found, CvUnitAI::AI_foundRange, CvUnitAI::AI_settleMove, CvUnitAI::AI_settlerSeaTransport, CyUnit::canFound, CyUnit::canJoin
+- **6161** `CvUnit::found()`
+  - calls: CvUnit::canFound, CvUnit::plot, CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getOwnerINLINE [CvUnit.h], CvDLLInterfaceIFaceBase::lookAt [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::getPoint [CvPlot.cpp], CvPlayer::found [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **6186** `CvUnit::canSpread(const CvPlot *, ReligionTypes, bool)`
+  - calls: CvUnitInfo::getReligionSpreads [CvInfos.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::isHasReligion [CvCity.cpp], CvPlot::getTeam [CvPlot.cpp], CvPlot::area [CvPlot.cpp], CvUnit::canEnterArea, CvCity::getTeam [CvCity.cpp], CvUnit::getTeam, CvCity::getOwnerINLINE [CvCity.h], CvPlayer::isNoNonStateReligionSpread [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getStateReligion [CvPlayer.cpp], CvGlobals::getUSE_USE_CANNOT_SPREAD_RELIGION_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CvUnit::getOwnerINLINE [CvUnit.h], CyArgsList::add(int) [CyArgsList.cpp], CvUnit::getID, CvPlot::getX [CvPlot.cpp], CvPlot::getY [CvPlot.cpp], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp]
+  - called by (6): CvSelectionGroup::canStartMission, CvUnit::spread, CvUnitAI::AI_specialSeaTransportMissionary, CvUnitAI::AI_spreadReligion, CvUnitAI::AI_spreadReligionAirlift, CyUnit::canSpread
+- **6286** `CvUnit::spread(ReligionTypes)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::canSpread, CvUnit::plot, CvPlot::getPlotCity [CvPlot.cpp], CvUnitInfo::getReligionSpreads [CvInfos.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::getTeam, CvCity::getReligionCount [CvCity.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::setHasReligion [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvReligionInfo::getChar [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getOwnerINLINE [CvUnit.h], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitSpreadReligionAttempt [CvEventReporter.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **6339** `CvUnit::canSpreadCorporation(const CvPlot *, CorporationTypes, bool)`
+  - calls: CvPlayer::isActiveCorporation [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnitInfo::getCorporationSpreads [CvInfos.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::isHasCorporation [CvCity.cpp], CvPlot::getTeam [CvPlot.cpp], CvPlot::area [CvPlot.cpp], CvUnit::canEnterArea, CvCity::getOwnerINLINE [CvCity.h], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCity::isHeadquarters(CorporationTypes) [CvCity.cpp], CvGame::isCompetingCorporation [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getNUM_CORPORATION_PREREQ_BONUSES [CvGlobals.cpp], CvGlobals::getCorporationInfo(CorporationTypes) [CvGlobals.cpp], CvCorporationInfo::getPrereqBonus [CvInfos.cpp], CvCity::hasBonus [CvCity.cpp], CvPlayer::getGold [CvPlayer.cpp], CvUnit::spreadCorporationCost
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvUnit::spreadCorporation, CvUnitAI::AI_specialSeaTransportMissionary, CvUnitAI::AI_spreadCorporation, CvUnitAI::AI_spreadCorporationAirlift
+- **6419** `CvUnit::spreadCorporationCost(CorporationTypes, CvCity *)`
+  - calls: CvGlobals::getCorporationInfo(CorporationTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCorporationInfo::getSpreadCost [CvInfos.cpp], CvPlayer::calculateInflationRate [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvCity::getTeam [CvCity.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvCity::isActiveCorporation [CvCity.cpp], CvGame::isCompetingCorporation [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvCorporationInfo::getSpreadFactor [CvInfos.cpp]
+  - called by (3): CvDLLWidgetData::parseActionHelp, CvUnit::canSpreadCorporation, CvUnit::spreadCorporation
+- **6451** `CvUnit::spreadCorporation(CorporationTypes)`
+  - calls: CvUnit::canSpreadCorporation, CvUnit::plot, CvPlot::getPlotCity [CvPlot.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::spreadCorporationCost, CvUnit::getOwnerINLINE [CvUnit.h], CvUnitInfo::getCorporationSpreads [CvInfos.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::getTeam, CvCity::getCorporationCount [CvCity.cpp], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::setHasCorporation [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getCorporationInfo(CorporationTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvCorporationInfo::getChar [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvUnit::getNameKey, CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **6497** `CvUnit::canJoin(const CvPlot *, SpecialistTypes)`
+  - calls: CvUnitInfo::getGreatPeoples [CvInfos.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::canJoin [CvCity.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::getTeam, CvUnit::isDelayedDeath
+  - called by (4): CvSelectionGroup::canStartMission, CvUnit::join, CvUnitAI::AI_artistCultureVictoryMove, CvUnitAI::AI_join
+- **6537** `CvUnit::join(SpecialistTypes)`
+  - calls: CvUnit::canJoin, CvUnit::plot, warLogGreatPerson [CvGameCoreUtils.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::changeFreeSpecialistCount [CvCity.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **6565** `CvUnit::canConstruct(const CvPlot *, BuildingTypes, bool)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::getTeam, CvCity::getNumRealBuilding [CvCity.cpp], CvUnitInfo::getForceBuildings [CvInfos.cpp], CvUnitInfo::getBuildings [CvInfos.cpp], CvCity::canConstruct [CvCity.cpp], CvUnit::isDelayedDeath
+  - called by (4): CvSelectionGroup::canStartMission, CvUnit::construct, CvUnitAI::AI_construct, CyUnit::canConstruct
+- **6613** `CvUnit::construct(BuildingTypes)`
+  - calls: CvUnit::canConstruct, CvUnit::plot, warLogGreatPerson [CvGameCoreUtils.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvCity::setNumRealBuilding [CvCity.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::buildingBuilt [CvEventReporter.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **6643** `CvUnit::getDiscoveryTech()`
+  - calls: getDiscoveryTech [CvGameCoreUtils.cpp], CvUnit::getUnitType, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvUnit::canDiscover, CvUnit::discover, CvUnitAI::AI_discover, CyUnit::getDiscoveryTech
+- **6649** `CvUnit::getDiscoverResearch(TechTypes)`
+  - calls: CvUnitInfo::getBaseDiscover [CvInfos.cpp], CvUnitInfo::getDiscoverMultiplier [CvInfos.cpp], CvTeam::getTotalPopulation [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGameSpeedInfo::getUnitDiscoverPercent [CvInfos.cpp], CvTeam::getResearchLeft [CvTeam.cpp]
+  - called by (10): CvDLLWidgetData::parseActionHelp, CvUnit::canDiscover, CvUnit::discover, CvUnitAI::AI_artistMove, CvUnitAI::AI_discover, CvUnitAI::AI_engineerMove, CvUnitAI::AI_merchantMove, CvUnitAI::AI_prophetMove, CvUnitAI::AI_scientistMove, CyUnit::getDiscoverResearch
+- **6667** `CvUnit::canDiscover(const CvPlot *)`
+  - calls: CvUnit::getDiscoveryTech, CvUnit::getDiscoverResearch, CvUnit::isDelayedDeath
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvUnit::discover, CvUnitAI::AI_discover, CyUnit::canDiscover
+- **6692** `CvUnit::discover()`
+  - calls: CvUnit::canDiscover, CvUnit::plot, warLogGreatPerson [CvGameCoreUtils.cpp], CvUnit::getDiscoveryTech, CvTeam::changeResearchProgress [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getDiscoverResearch, CvUnit::getTeam, CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **6718** `CvUnit::getMaxHurryProduction(CvCity *)`
+  - calls: CvCity::getPopulation [CvCity.cpp], CvUnitInfo::getBaseHurry [CvInfos.cpp], CvUnitInfo::getHurryMultiplier [CvInfos.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGameSpeedInfo::getUnitHurryPercent [CvInfos.cpp]
+  - called by (3): CvUnit::getHurryProduction, CvUnitAI::AI_switchHurry, CyUnit::getMaxHurryProduction
+- **6731** `CvUnit::getHurryProduction(const CvPlot *)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvUnit::getMaxHurryProduction, CvCity::productionLeft [CvCity.cpp]
+  - called by (4): CvDLLWidgetData::parseActionHelp, CvUnit::canHurry, CvUnit::hurry, CyUnit::getHurryProduction
+- **6751** `CvUnit::canHurry(const CvPlot *, bool)`
+  - calls: CvUnit::isDelayedDeath, CvUnit::getHurryProduction, CvPlot::getPlotCity [CvPlot.cpp], CvCity::getProductionTurnsLeft() [CvCity.cpp], CvCity::isProductionBuilding [CvCity.cpp]
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvUnit::hurry, CvUnitAI::AI_hurry, CvUnitAI::AI_switchHurry, CyUnit::canHurry
+- **6789** `CvUnit::hurry()`
+  - calls: CvUnit::canHurry, CvUnit::plot, warLogGreatPerson [CvGameCoreUtils.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::changeProduction [CvCity.cpp], CvUnit::getHurryProduction, CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **6817** `CvUnit::getTradeGold(const CvPlot *)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvPlayer::getCapitalCity [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvCity::calculateTradeProfit [CvCity.cpp], CvUnitInfo::getBaseTrade [CvInfos.cpp], CvUnitInfo::getTradeMultiplier [CvInfos.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGameSpeedInfo::getUnitTradePercent [CvInfos.cpp]
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvUnit::canTrade, CvUnit::trade, CvUnitAI::AI_trade, CyUnit::getTradeGold
+- **6840** `CvUnit::canTrade(const CvPlot *, bool)`
+  - calls: CvUnit::isDelayedDeath, CvPlot::getPlotCity [CvPlot.cpp], CvUnit::getTradeGold, CvPlot::getTeam [CvPlot.cpp], CvPlot::area [CvPlot.cpp], CvUnit::canEnterArea, CvCity::getTeam [CvCity.cpp], CvUnit::getTeam
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvUnit::trade, CvUnitAI::AI_trade, CyUnit::canTrade
+- **6876** `CvUnit::trade()`
+  - calls: CvUnit::canTrade, CvUnit::plot, warLogGreatPerson [CvGameCoreUtils.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getTradeGold, CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **6897** `CvUnit::getGreatWorkCulture(const CvPlot *)`
+  - calls: CvUnitInfo::getGreatWorkCulture [CvInfos.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGameSpeedInfo::getUnitGreatWorkPercent [CvInfos.cpp]
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvUnit::canGreatWork, CvUnit::greatWork, CvUnitAI::AI_greatWork, CyUnit::getGreatWorkCulture
+- **6910** `CvUnit::canGreatWork(const CvPlot *)`
+  - calls: CvUnit::isDelayedDeath, CvPlot::getPlotCity [CvPlot.cpp], CvCity::getOwnerINLINE [CvCity.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getGreatWorkCulture
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvUnit::greatWork, CvUnitAI::AI_artistCultureVictoryMove, CvUnitAI::AI_greatWork, CyUnit::canGreatWork
+- **6938** `CvUnit::greatWork()`
+  - calls: CvUnit::canGreatWork, CvUnit::plot, warLogGreatPerson [CvGameCoreUtils.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::setCultureUpdateTimer [CvCity.cpp], CvCity::setOccupationTimer [CvCity.cpp], CvUnit::getGreatWorkCulture, CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGameSpeedInfo::getUnitGreatWorkPercent [CvInfos.cpp], CvCity::changeCultureTimes100 [CvCity.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **6978** `CvUnit::getEspionagePoints(const CvPlot *)`
+  - calls: CvUnitInfo::getEspionagePoints [CvInfos.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGameSpeedInfo::getUnitGreatWorkPercent [CvInfos.cpp]
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvUnit::canInfiltrate, CvUnit::infiltrate, CvUnitAI::AI_infiltrate, CyUnit::getEspionagePoints
+- **6990** `CvUnit::canInfiltrate(const CvPlot *, bool)`
+  - calls: CvUnit::isDelayedDeath, CvGame::isOption [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getEspionagePoints, CvPlot::getPlotCity [CvPlot.cpp], CvCity::isBarbarian [CvCity.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::getTeam
+  - called by (4): CvSelectionGroup::canStartMission, CvUnit::infiltrate, CvUnitAI::AI_infiltrate, CyUnit::canInfiltrate
+- **7025** `CvUnit::infiltrate()`
+  - calls: CvUnit::canInfiltrate, CvUnit::plot, CvUnit::getEspionagePoints, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getOwnerINLINE [CvPlot.h], CvTeam::changeEspionagePointsAgainstTeam [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvTeam::changeEspionagePointsEver [CvTeam.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **7047** `CvUnit::canEspionage(const CvPlot *, bool)`
+  - calls: CvUnit::isDelayedDeath, CvUnit::isSpy, CvGame::isOption [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvPlot::getOwnerINLINE [CvPlot.h], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isBarbarian [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvUnit::getTeam, CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::isMadeAttack, CvUnit::hasMoved, CvUnit::isInvisible
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setEspionageMissionHelp, CvSelectionGroup::canStartMission, CvUnit::espionage, CvUnitAI::AI_espionageSpy, CyUnit::canEspionage
+- **7109** `CvUnit::awardSpyExperience(TeamTypes, int)`
+  - calls: CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getSpyInterceptPercent, CvUnit::changeExperience, CvUnit::testPromotionReady
+  - called by (1): CvUnit::espionage
+- **7136** `CvUnit::canAssassin(const CvPlot *, bool)`
+  - calls: CvUnit::isDelayedDeath, CvUnit::isSpy, CvPlot::getPlotCity [CvPlot.cpp], CvCity::getNumGreatPeople [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvUnit::getTeam, CvPlayer::isBarbarian [CvPlayer.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::isMadeAttack, CvUnit::hasMoved, CvUnit::isInvisible
+  - called by (3): CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CyUnit::canAssassin
+- **7198** `CvUnit::canBribe(const CvPlot *, bool)`
+  - calls: CvUnit::isDelayedDeath, CvUnit::isSpy, CvPlot::plotCount [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::plotCheck [CvPlot.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvUnit::getTeam, CvPlayer::isBarbarian [CvPlayer.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::isMadeAttack, CvUnit::hasMoved, CvUnit::isInvisible
+  - takes the address of: PUF_isOtherTeam [CvGameCoreUtils.cpp], PUF_isVisible [CvGameCoreUtils.cpp], PUF_isUnitAIType [CvGameCoreUtils.cpp]
+  - called by (3): CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CyUnit::canBribe
+- **7264** `CvUnit::espionage(EspionageMissionTypes, int)`
+  - calls: CvUnit::canEspionage, CvUnit::plot, CvPlot::getOwnerINLINE [CvPlot.h], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvDLLInterfaceIFaceBase::addPopup [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getOwnerINLINE [CvUnit.h], CvGlobals::getEspionageMissionInfo(EspionageMissionTypes) [CvGlobals.cpp], CvEspionageMissionInfo::isTwoPhases [CvInfos.cpp], CvPopupInfo::setData1 [CvPopupInfo.cpp], CvEspionageMissionInfo::getDifficultyMod [CvInfos.cpp], CvUnit::testSpyIntercepted, CvPlayer::doEspionageMission [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::setFortifyTurns, CvUnit::setMadeAttack, CvUnit::finishMoves, CvPlayer::getCapitalCity [CvPlayer.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvUnit::setXY, CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvPlayer::getTeam [CvPlayer.cpp], CvUnit::awardSpyExperience
+  - called by (3): CvSelectionGroup::startMission, CvUnitAI::AI_espionageSpy, CvUnitAI::AI_revoltCitySpy
+- **7332** `CvUnit::testSpyIntercepted(PlayerTypes, int)`
+  - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isBarbarian [CvPlayer.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getTeam [CvPlayer.cpp], CvUnit::getSpyInterceptPercent, CvString::CvString() [CvString.h], CvTeam::getCounterespionageModAgainstTeam [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvString::operator=(const char *) [CvString.h], CvPlot::isEspionageCounterSpy [CvPlot.cpp], CvUnit::plot, CvPlayer::getCivilizationShortDescription [CvPlayer.cpp], CvWString::CvWString(const wchar *) [CvString.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::findCity [CvMap.cpp], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvCity::getName [CvCity.cpp], CvWString::operator=(const CvWString &) [CvString.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getCivilizationAdjectiveKey [CvPlayer.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvString::GetCString [CvString.h], CvUnit::getNameKey, CvUnit::getOwnerINLINE [CvUnit.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::isAlwaysHeal, CvUnit::isEnemy, CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvPlot::plotCheck [CvPlot.cpp], CvUnit::changeExperience, CvUnit::testPromotionReady, CvUnit::withdrawalProbability, CvUnit::setFortifyTurns, CvUnit::setMadeAttack, CvUnit::finishMoves, CvPlayer::getCapitalCity [CvPlayer.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvUnit::setXY, CvUnit::kill
+  - takes the address of: CvString::operator=(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], PUF_isCounterSpy [CvGameCoreUtils.cpp]
+  - called by (2): CvUnit::doTurn, CvUnit::espionage
+- **7441** `CvUnit::getSpyInterceptPercent(TeamTypes)`
+  - calls: CvTeam::getEspionagePointsEver [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getExtraEvasion, CvPlot::isEspionageCounterSpy [CvPlot.cpp], CvUnit::plot, CvPlot::plotCheck [CvPlot.cpp], CvUnit::getExtraIntercept, CvTeam::getCounterespionageModAgainstTeam [CvTeam.cpp], CvPlot::plotCount [CvPlot.cpp], CvUnit::getFortifyTurns
+  - takes the address of: PUF_isCounterSpy [CvGameCoreUtils.cpp], PUF_isSpy [CvGameCoreUtils.cpp]
+  - called by (3): CvGameTextMgr::setEspionageCostHelp, CvUnit::awardSpyExperience, CvUnit::testSpyIntercepted
+- **7487** `CvUnit::isIntruding()`
+  - calls: CvPlot::getTeam [CvPlot.cpp], CvUnit::plot, CvUnit::getTeam, CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
+  - called by (1): CvUnit::doTurn
+- **7508** `CvUnit::canGoldenAge(const CvPlot *, bool)`
+  - calls: CvUnit::isGoldenAge, CvPlayer::unitsRequiredForGoldenAge [CvPlayer.cpp], CvPlayer::unitsGoldenAgeReady [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (4): CvSelectionGroup::canStartMission, CvUnit::goldenAge, CvUnitAI::AI_goldenAge, CyUnit::canGoldenAge
+- **7527** `CvUnit::goldenAge()`
+  - calls: CvUnit::canGoldenAge, CvUnit::plot, warLogGreatPerson [CvGameCoreUtils.cpp], CvPlayer::killGoldenAgeUnits [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::changeGoldenAgeTurns [CvPlayer.cpp], CvPlayer::getGoldenAgeLength [CvPlayer.cpp], CvPlayer::changeNumUnitGoldenAges [CvPlayer.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (1): CvSelectionGroup::startMission
+- **7551** `CvUnit::canBuild(const CvPlot *, BuildTypes, bool)`
+  - calls: CvUnitInfo::getBuilds [CvInfos.cpp], CvPlayer::canBuild [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::isValidDomainForAction [CvPlot.cpp]
+  - called by (13): CvDLLWidgetData::parseActionHelp, CvSelectionGroup::canStartMission, CvSelectionGroup::getBestBuildRoute, CvSelectionGroup::groupBuild, CvUnit::build, CvUnit::isActionRecommended, CvUnitAI::AI_bestCityBuild, CvUnitAI::AI_betterPlotBuild, CvUnitAI::AI_fortTerritory, CvUnitAI::AI_improveBonus, CvUnitAI::AI_improveLocalPlot, CvUnitAI::AI_irrigateTerritory …
+- **7573** `CvUnit::build(BuildTypes)`
+  - calls: CvUnit::canBuild, CvUnit::plot, CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildInfo::getMissionType [CvInfos.cpp], CvUnit::NotifyEntity, CvPlayer::getBuildCost [CvPlayer.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlot::changeBuildProgress [CvPlot.cpp], CvUnit::workRate, CvUnit::getTeam, CvUnit::finishMoves, CvBuildInfo::isKill [CvInfos.cpp], CvUnit::kill, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitBuildImprovement [CvEventReporter.cpp]
+  - called by (1): CvSelectionGroup::groupBuild
+- **7609** `CvUnit::canPromote(PromotionTypes, int)`
+  - calls: CvUnit::getID, CvPlayer::getUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getUnitType, CvUnitInfo::getLeaderExperience [CvInfos.cpp], CvUnit::getUnitInfo, CvUnitInfo::getLeaderPromotion [CvInfos.cpp], CvUnit::canAcquirePromotionAny, CvUnit::canAcquirePromotion, CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPromotionInfo::isLeader [CvInfos.cpp], CvUnit::isPromotionReady
+  - called by (8): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchLeadUnitPopup, CvUnit::canDoCommand, CvUnit::canLead, CvUnit::lead, CvUnit::promote, CvUnitAI::AI_promote, CyUnit::canPromote
+- **7663** `CvUnit::promote(PromotionTypes, int)`
+  - calls: CvUnit::canPromote, CvPlayer::getUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::giveExperience, CvUnit::getNameNoDesc, CvWString::CvWString(const wchar *) [CvString.h], CvUnit::getNameKey, CvUnit::setName(const CvWString) [CvUnit.h], CvUnit::getUnitType, CvUnit::reloadEntity, CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPromotionInfo::isLeader [CvInfos.cpp], CvUnit::changeLevel, CvUnit::getDamage, CvUnit::changeDamage, CvUnit::setHasPromotion, CvUnit::testPromotionReady, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::playGeneralSound(LPCTSTR, NiPoint3) [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPromotionInfo::getSound [CvInfos.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvUnit::setInfoBarDirty, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitPromoted [CvEventReporter.cpp]
+  - called by (4): CvUnit::doCommand, CvUnit::lead, CvUnitAI::AI_promote, CyUnit::promote
+- **7715** `CvUnit::lead(int)`
+  - calls: CvUnit::canLead, CvUnit::plot, CvUnitInfo::getLeaderPromotion [CvInfos.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvUnit::getID, CvDLLInterfaceIFaceBase::addPopup [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::getUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::canPromote, CvUnit::joinGroup, CvUnit::promote, CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - called by (2): CvSelectionGroup::startMission, CyUnit::lead
+- **7758** `CvUnit::canLead(const CvPlot *, int)`
+  - calls: CvUnit::isDelayedDeath, CvUnit::getUnitType, CvUnit::getUnitInfo, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnitInfo::getLeaderPromotion [CvInfos.cpp], CvUnit::canPromote, CvUnit::getID, CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::getUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+  - called by (4): CvSelectionGroup::canStartMission, CvUnit::lead, CvUnitAI::AI_lead, CyUnit::canLead
+- **7801** `CvUnit::canGiveExperience(const CvPlot *)`
+  - calls: CvUnitInfo::getLeaderExperience [CvInfos.cpp], CvUnit::getUnitType, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::canAcquirePromotionAny, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (3): CvDLLWidgetData::parseActionHelp, CvUnit::giveExperience, CyUnit::canGiveExperience
+- **7823** `CvUnit::giveExperience()`
+  - calls: CvUnit::plot, CvUnit::canGiveExperience, CvUnit::getStackExperienceToGive, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::canAcquirePromotionAny, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::changeExperience, CvUnit::testPromotionReady
+  - called by (2): CvUnit::promote, CyUnit::giveExperience
+- **7860** `CvUnit::getStackExperienceToGive(int)`
+  - calls: CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getLeaderExperience [CvInfos.cpp]
+  - called by (2): CvDLLWidgetData::parseActionHelp, CvUnit::giveExperience
+- **7865** `CvUnit::upgradePrice(UnitTypes)`
+  - calls: CvGlobals::getUSE_UPGRADE_UNIT_PRICE_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CvUnit::getOwnerINLINE [CvUnit.h], CyArgsList::add(int) [CyArgsList.cpp], CvUnit::getID, CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvUnit::isBarbarian, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvPlayer::getProductionNeeded(UnitTypes) [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getUnitType, CvUnit::isHuman, CvGame::getHandicapType [CvGame.cpp], CvGlobals::getHandicapInfo(HandicapTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvHandicapInfo::getAIUnitUpgradePercent [CvInfos.cpp], CvHandicapInfo::getAIPerEraModifier [CvInfos.cpp], CvPlayer::getCurrentEra [CvPlayer.cpp], CvPlayer::getUnitUpgradePriceModifier [CvPlayer.cpp], CvUnit::getUpgradeDiscount
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayer::upgradeAllPrice, CvPlayerAI::AI_goldToUpgradeAllUnits, CvUnit::canUpgrade, CvUnit::upgrade, CyUnit::upgradePrice
+- **7932** `upgradeReach(CivilizationTypes, UnitTypes)`
+  - calls: CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getNumCivilizationInfos [CvGlobals.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getUpgradeUnitClass [CvInfos.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationUnits [CvInfos.cpp]
+  - called by (1): CvUnit::upgradeAvailable
+- **7976** `CvUnit::upgradeAvailable(UnitTypes, UnitClassTypes, int)`
+  - calls: upgradeReach, CvUnit::getCivilizationType, CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getUpgradeUnitClass [CvInfos.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationUnits [CvInfos.cpp], CvUnit::upgradeAvailable
+  - called by (6): CvPlayerAI::AI_goldToUpgradeAllUnits, CvUnit::getUpgradeCity(UnitTypes, bool, int *), CvUnit::upgradeAvailable, CvUnitAI::AI_settlerSeaMove, CvUnitAI::AI_upgrade, CyUnit::upgradeAvailable
+- **8019** `CvUnit::canUpgrade(UnitTypes, bool)`
+  - calls: CvUnit::isReadyForUpgrade, CvPlayer::getGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::upgradePrice, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::hasUpgrade(UnitTypes, bool)
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayer::upgradeAllPrice, CvUnit::canDoCommand, CvUnit::upgrade, CvUnitAI::AI_upgrade, CyUnit::canUpgrade
+- **8047** `CvUnit::isReadyForUpgrade()`
+  - calls: CvPlayer::isUpgradeAnywhere [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::canMove, CvPlot::getTeam [CvPlot.cpp], CvUnit::plot, CvUnit::getTeam
+  - called by (3): CvSelectionGroup::setupActionCache, CvUnit::canUpgrade, CvUnitAI::AI_upgrade
+- **8081** `CvUnit::hasUpgrade(bool)`
+  - calls: CvUnit::getUpgradeCity(bool)
+  - called by (1): CyUnit::hasUpgrade
+- **8090** `CvUnit::hasUpgrade(UnitTypes, bool)`
+  - calls: CvUnit::getUpgradeCity(UnitTypes, bool, int *)
+  - called by (1): CvUnit::canUpgrade
+- **8100** `CvUnit::getUpgradeCity(bool)`
+  - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::area, CvPlayerAI::AI_unitValue [CvPlayerAI.cpp], CvUnit::getUnitType, CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getUpgradeCity(UnitTypes, bool, int *)
+  - called by (4): CvUnit::hasUpgrade(bool), CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_travelToUpgradeCity
+- **8144** `CvUnit::getUpgradeCity(UnitTypes, bool, int *)`
+  - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvUnitInfo::getUnitClassType [CvInfos.cpp], CvCivilizationInfo::getCivilizationUnits [CvInfos.cpp], CvPlayer::getCivilizationType [CvPlayer.cpp], CvUnit::upgradeAvailable, CvUnit::getUnitType, CvUnitInfo::getCargoSpace [CvInfos.cpp], CvUnit::getCargo, CvPlot::headUnitNode [CvPlot.cpp], CvUnit::plot, getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getTransportUnit, CvUnitInfo::getSpecialCargo [CvInfos.cpp], CvUnit::getSpecialUnitType, CvUnitInfo::getDomainCargo [CvInfos.cpp], CvUnit::getDomainType, CvUnit::getTeam, CvUnit::getArea, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvArea::isLake [CvArea.cpp], CvCity::waterArea [CvCity.cpp], CvCity::canTrain(UnitTypes, bool, bool, bool, bool) [CvCity.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], plotDistance [CvGameCoreUtils.h], CvArea::getID [CvArea.cpp], CvCity::getArea [CvCity.cpp], CvCity::plot [CvCity.cpp], CvUnit::generatePath, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::findCity [CvMap.cpp]
+  - called by (2): CvUnit::getUpgradeCity(bool), CvUnit::hasUpgrade(UnitTypes, bool)
+- **8292** `CvUnit::upgrade(UnitTypes)`
+  - calls: CvUnit::canUpgrade, CvUnit::upgradePrice, CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::initUnit [CvPlayer.cpp], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::getGroup, CvUnit::joinGroup, CvUnit::convert, CvUnit::finishMoves, CvUnit::getLeaderUnitType, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getExperience, CvUnit::setExperience, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitUpgraded [CvEventReporter.cpp], CvWString::CvWString() [CvString.h], getUnitAIString [CvGameCoreUtils.cpp], logBBAI [BetterBTSAI.cpp], CvPlayer::getCivilizationDescription [CvPlayer.cpp], CvWString::GetCString [CvString.h], CvUnit::getName
+  - called by (2): CvUnit::doCommand, CvUnitAI::AI_upgrade
+- **8345** `CvUnit::getHandicapType()`
+  - calls: CvPlayer::getHandicapType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (1): CyUnit::getHandicapType
+- **8351** `CvUnit::getCivilizationType()`
+  - calls: CvPlayer::getCivilizationType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (9): CvSelectionGroup::playActionSound, CvUnit::getArtInfo, CvUnit::getSelectionSoundScript, CvUnit::getVisualCivAdjective, CvUnit::upgradeAvailable, CvUnitAI::AI_construct, CvUnitAI::AI_poach, CvUnitAI::AI_switchHurry, CyUnit::getCivilizationType
+- **8356** `CvUnit::getVisualCivAdjective(TeamTypes)`
+  - calls: CvUnit::getVisualOwner, CvUnit::getOwnerINLINE [CvUnit.h], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCivilizationInfo::getAdjectiveKey [CvInfos.cpp], CvUnit::getCivilizationType
+  - called by (8): CvUnit::airBomb, CvUnit::archerBombard, CvUnit::fighterEngage, CvUnit::flankingStrikeCombat, CvUnit::pillage, CvUnit::updateAirCombat, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **8366** `CvUnit::getSpecialUnitType()`
+  - calls: CvUnitInfo::getSpecialUnitType [CvInfos.cpp]
+  - called by (9): CvSelectionGroup::setRemoteTransportUnit, CvSelectionGroup::setTransportUnit, CvUnit::canLoadUnit, CvUnit::convert, CvUnit::getUpgradeCity(UnitTypes, bool, int *), CvUnitAI::AI_findSettlementTransport, CvUnitAI::AI_load, CvUnitAI::AI_loadForCoastalAttack, CyUnit::getSpecialUnitType
+- **8372** `CvUnit::getCaptureUnitType(CivilizationTypes)`
+  - calls: CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getUnitCaptureClassType [CvInfos.cpp], CvCivilizationInfo::getCivilizationUnits [CvInfos.cpp]
+  - called by (3): CvUnit::kill, CvUnitAI::AI_poach, CyUnit::getCaptureUnitType
+- **8379** `CvUnit::getUnitCombatType()`
+  - calls: CvUnitInfo::getUnitCombatType [CvInfos.cpp]
+  - called by (13): CvCity::addProductionExperience, CvGameTextMgr::setCombatPlotHelp, CvPlayer::applyEvent, CvPlayerAI::AI_doTurnUnitsPost, CvPlayerAI::AI_eventValue, CvUnit::airMaxCombatStr, CvUnit::collateralCombat, CvUnit::init, CvUnit::isTargetOf, CvUnit::maxCombatStr, CvUnitAI::AI_promotionValue, CyUnit::getUnitCombatType …
+- **8385** `CvUnit::getDomainType()` (exported)
+  - calls: CvUnitInfo::getDomainType [CvInfos.cpp]
+  - called by (129): CvCityAI::AI_isAirDefended, CvGame::selectionListIgnoreBuildingDefense, CvGame::startFlyoutMenu, CvGame::updateColoredPlots, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::acquireCity, CvPlayer::doWarnings, CvPlayerAI::AI_adjacentPotentialAttackers, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_doTurnUnitsPost …
+- **8391** `CvUnit::getInvisibleType()`
+  - calls: CvUnitInfo::getInvisibleType [CvInfos.cpp]
+  - called by (11): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getPlotDanger, CvUnit::isInvisible, CvUnit::isNeverInvisible, CvUnitAI::AI_allowGroup, CvUnitAI::AI_carrierSeaTransport, CvUnitAI::AI_hide, CvUnitAI::AI_missileCarrierSeaMove, CvUnitAI::AI_missileLoad, CyUnit::getInvisibleType
+- **8396** `CvUnit::getNumSeeInvisibleTypes()`
+  - calls: CvUnitInfo::getNumSeeInvisibleTypes [CvInfos.cpp]
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::changeAdjacentSight, CyUnit::getNumSeeInvisibleTypes
+- **8401** `CvUnit::getSeeInvisibleType(int)`
+  - calls: CvUnitInfo::getSeeInvisibleType [CvInfos.cpp]
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::changeAdjacentSight, CyUnit::getSeeInvisibleType
+- **8407** `CvUnit::flavorValue(FlavorTypes)`
+  - calls: CvUnitInfo::getFlavorValue [CvInfos.cpp]
+  - called by (1): CyUnit::flavorValue
+- **8413** `CvUnit::isBarbarian()`
+  - calls: CvPlayer::isBarbarian [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (32): CvGameTextMgr::setCombatPlotHelp, CvPlayer::doWarnings, CvPlot::doCulture, CvUnit::archerBombard, CvUnit::canEnterArea, CvUnit::doPillageInfluence, CvUnit::doVictoryInfluence, CvUnit::getDefenderCombatValues, CvUnit::maxCombatStr, CvUnit::maxXPValue, CvUnit::resolveAirCombat, CvUnit::resolveCombat …
+- **8419** `CvUnit::isHuman()`
+  - calls: CvPlayer::isHuman [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (25): CvPlot::movementCost, CvUnit::canAirBomb, CvUnit::canMoveInto, CvUnit::isCombatVisible, CvUnit::joinGroup, CvUnit::maxCombatStr, CvUnit::resolveCombat, CvUnit::upgradePrice, CvUnit::workRate, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_attackMove, CvUnitAI::AI_escortSeaMove …
+- **8425** `CvUnit::visibilityRange()`
+  - calls: CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getExtraVisibilityRange
+  - called by (8): CvPlot::updateSight, CvSelectionGroup::sentryAlert, CvSelectionGroup::visibilityRange, CvUnit::changeExtraVisibilityRange, CvUnit::setFacingDirection, CvUnit::setXY, CvUnit::willRevealByMove, CyUnit::visibilityRange
+- **8431** `CvUnit::baseMoves()`
+  - calls: CvUnitInfo::getMoves [CvInfos.cpp], CvTeam::getExtraMoves [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getDomainType, CvUnit::getExtraMoves, CvUnit::getTeam
+  - called by (16): AI_assaultForecast, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getEnemyPlotStrength, CvPlayerAI::AI_getOurPlotStrength, CvPlayerAI::AI_getPlotDanger, CvPlot::movementCost, CvSelectionGroup::baseMoves, CvUnit::maxMoves, CvUnitAI::AI_group, CvUnitAI::AI_groupMergeRange, CvUnitAI::AI_load …
+- **8437** `CvUnit::maxMoves()`
+  - calls: CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::baseMoves
+  - called by (11): CvPlot::movementCost, CvUnit::canMove, CvUnit::finishMoves, CvUnit::movesLeft, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_barbAttackSeaMove, CvUnitAI::AI_loadForCoastalAttack, CvUnitAI::AI_minPathStepsPerTurn, CyUnit::maxMoves, pathAdd, pathCost
+- **8443** `CvUnit::movesLeft()`
+  - calls: CvUnit::maxMoves, CvUnit::getMoves
+  - called by (6): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroup::startMission, CyUnit::movesLeft, pathAdd, pathReuseKey, warUnitLine
+- **8449** `CvUnit::canMove()` (exported)
+  - calls: CvUnit::isDead, CvUnit::maxMoves, CvUnit::getMoves, CvUnit::getImmobileTimer
+  - called by (32): CvGame::selectGroup, CvPlayerAI::AI_adjacentPotentialAttackers, CvPlayerAI::AI_unitUpdate, CvPlot::getBestDefender, CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool), CvPlot::hasDefender, CvSelectionGroup::canAllMove, CvSelectionGroup::canAnyMove, CvSelectionGroup::groupMove, CvSelectionGroup::groupPathTo, CvSelectionGroup::startMission, CvSelectionGroupAI::AI_cityAssaultForecast …
+- **8470** `CvUnit::hasMoved()` (exported)
+  - calls: CvUnit::getMoves
+  - called by (13): CvCityAI::AI_isAirDefended, CvGameTextMgr::setEspionageMissionHelp, CvSelectionGroup::hasMoved, CvUnit::bestInterceptor, CvUnit::canAirlift, CvUnit::canAssassin, CvUnit::canBribe, CvUnit::canEspionage, CvUnit::canParadrop, CvUnit::doTurn, CvUnit::isActionRecommended, CvUnitAI::AI_heal …
+- **8476** `CvUnit::airRange()`
+  - calls: CvUnitInfo::getAirRange [CvInfos.cpp], CvUnit::getExtraAirRange
+  - called by (27): CvGame::updateColoredPlots, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::bestInterceptor, CvUnit::canAirBomb1At, CvUnit::canAirBomb2At, CvUnit::canAirBomb3At, CvUnit::canAirBomb4At, CvUnit::canAirBomb5At, CvUnit::canAirBombAt, CvUnit::canAirStrike, CvUnit::canFEngageAt, CvUnit::canNukeAt …
+- **8482** `CvUnit::nukeRange()`
+  - calls: CvUnitInfo::getNukeRange [CvInfos.cpp]
+  - called by (9): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::canNuke, CvUnit::canNukeAt, CvUnit::isNukeVictim, CvUnit::kill, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_nukeRange, CvUnitAI::AI_nukeValue, CyUnit::nukeRange
+- **8489** `CvUnit::canBuildRoute()`
+  - calls: CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getRoute [CvInfos.cpp], CvUnitInfo::getBuilds [CvInfos.cpp], CvBuildInfo::getTechPrereq [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam
+  - called by (6): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAutomate, CvUnitAI::AI_improveBonus, CvUnitAI::AI_improvePlot, CvUnitAI::AI_workerMove, CyUnit::canBuildRoute
+- **8510** `CvUnit::getBuildType()` (exported)
+  - calls: CvSelectionGroup::headMissionQueueNode [CvSelectionGroup.cpp], CvUnit::getGroup, CvSelectionGroup::getBestBuildRoute [CvSelectionGroup.cpp], CvUnit::plot
+  - called by (10): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue(CvPlot *, ImprovementTypes, int, int, int, int, bool), CvCityAI::AI_getYieldMultipliers(int &, int &, int &, int &), CvCityAI::AI_updateBestBuild, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool), CyUnit::getBuildType
+- **8615** `CvUnit::workRate(bool)`
+  - calls: CvUnit::canMove, CvUnitInfo::getWorkRate [CvInfos.cpp], CvPlayer::getWorkerSpeedModifier [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::isBarbarian, CvUnit::isHuman, CvGame::getHandicapType [CvGame.cpp], CvGlobals::getHandicapInfo(HandicapTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvHandicapInfo::getAIWorkRateModifier [CvInfos.cpp]
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool), CvUnit::build, CvUnitAI::AI_calculatePlotWorkersNeeded, CyUnit::workRate
+- **8642** `CvUnit::isAnimal()`
+  - calls: CvUnitInfo::isAnimal [CvInfos.cpp]
+  - called by (14): CvGame::createBarbarianUnits, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::doWarnings, CvPlayerAI::AI_doTurnUnitsPost, CvPlot::canHaveBattleEffect, CvUnit::airMaxCombatStr, CvUnit::canMoveInto, CvUnit::doVictoryInfluence, CvUnit::maxCombatStr, CvUnit::maxXPValue, CvUnit::setXY …
+- **8648** `CvUnit::isNoBadGoodies()`
+  - calls: CvUnitInfo::isNoBadGoodies [CvInfos.cpp]
+  - called by (3): CvGame::updateColoredPlots, CvPlayer::canReceiveGoody, CyUnit::isNoBadGoodies
+- **8654** `CvUnit::isOnlyDefensive()`
+  - calls: CvUnitInfo::isOnlyDefensive [CvInfos.cpp]
+  - called by (3): CvUnit::canAttack(), CvUnit::canSeaPatrol, CyUnit::isOnlyDefensive
+- **8660** `CvUnit::isNoCapture()`
+  - calls: CvUnitInfo::isNoCapture [CvInfos.cpp]
+  - called by (11): CvPlayerAI::AI_updateMilitaryOperations, CvSelectionGroup::groupMove, CvSelectionGroup::groupPathTo, CvUnit::canAdvance, CvUnit::canMoveInto, CvUnit::setXY, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_attackCityMove, CyUnit::isNoCapture
+- **8666** `CvUnit::isRivalTerritory()`
+  - calls: CvUnitInfo::isRivalTerritory [CvInfos.cpp]
+  - called by (2): CvUnit::canEnterTerritory, CyUnit::isRivalTerritory
+- **8672** `CvUnit::isMilitaryHappiness()`
+  - calls: CvUnitInfo::isMilitaryHappiness [CvInfos.cpp]
+  - called by (5): CvPlayer::disbandUnit, CvPlayerAI::AI_disbandUnit, CvUnit::setXY, CyUnit::isMilitaryHappiness, PUF_isMilitaryHappiness
+- **8678** `CvUnit::isInvestigate()`
+  - calls: CvUnitInfo::isInvestigate [CvInfos.cpp]
+  - called by (2): CyUnit::isInvestigate, PUF_isInvestigate
+- **8684** `CvUnit::isCounterSpy()`
+  - calls: CvUnitInfo::isCounterSpy [CvInfos.cpp]
+  - called by (2): CyUnit::isCounterSpy, PUF_isCounterSpy
+- **8690** `CvUnit::isSpy()`
+  - calls: CvUnitInfo::isSpy [CvInfos.cpp]
+  - called by (16): CvGameTextMgr::setEspionageMissionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_movementPriority, CvSelectionGroup::doTurn, CvTeam::verifySpyUnitsValidPlot, CvUnit::canAirDefend, CvUnit::canAssassin, CvUnit::canAutomate, CvUnit::canBribe, CvUnit::canEspionage, CvUnit::canMoveInto, CvUnit::doTurn …
+- **8696** `CvUnit::isFound()`
+  - calls: CvUnitInfo::isFound [CvInfos.cpp]
+  - called by (5): CvUnit::canFound, CvUnit::setXY, CvUnit::shouldShowFoundBorders, CvUnitAI::AI_follow, CyUnit::isFound
+- **8731** `CvUnit::isGoldenAge()`
+  - calls: CvUnit::isDelayedDeath, CvUnitInfo::isGoldenAge [CvInfos.cpp]
+  - called by (7): CvPlayer::disbandUnit, CvPlayer::killGoldenAgeUnits, CvPlayer::unitsGoldenAgeCapable, CvPlayer::unitsGoldenAgeReady, CvPlayerAI::AI_disbandUnit, CvUnit::canGoldenAge, CyUnit::isGoldenAge
+- **8741** `CvUnit::canCoexistWithEnemyUnit(TeamTypes)`
+  - calls: CvUnit::alwaysInvisible, CvUnit::isInvisible
+  - called by (9): CvUnit::canMoveInto, CvUnit::canParadropAt, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::setXY, CyUnit::canCoexistWithEnemyUnit, PUF_canDeclareWar, PUF_isEnemy, PUF_isOtherTeam, PUF_isPotentialEnemy
+- **8761** `CvUnit::isFighting()` (exported)
+  - calls: CvUnit::getCombatUnit
+  - called by (11): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::attackForDamage, CvUnit::doDelayedDeath, CvUnit::isCombat, CvUnit::isDefending, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat, CyUnit::isFighting, PUF_isFighting
+- **8767** `CvUnit::isAttacking()` (exported)
+  - calls: CvUnit::getAttackPlot, CvUnit::isDelayedDeath
+  - called by (3): CvUnit::isCombat, CvUnit::isDefending, CyUnit::isAttacking
+- **8773** `CvUnit::isDefending()` (exported)
+  - calls: CvUnit::isFighting, CvUnit::isAttacking
+  - called by (1): CyUnit::isDefending
+- **8779** `CvUnit::isCombat()`
+  - calls: CvUnit::isFighting, CvUnit::isAttacking
+  - called by (5): CvPlot::verifyUnitValidPlot, CvSelectionGroup::isBusy, CvSelectionGroup::updateTimers, CvUnit::gift, CyUnit::isCombat
+- **8785** `CvUnit::maxHitPoints()` (exported)
+  - calls: CvGlobals::getMAX_HIT_POINTS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (42): AI_assaultForecast, AI_isSacrificeWorth, CvAirMissionDefinition::isDead, CvCity::emergencyConscript, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::canReceiveGoody, CvPlayer::getUnitLayerColors, CvPlayerAI::AI_updateMilitaryOperations, CvSelectionGroup::groupAttack, CvSelectionGroup::startMission …
+- **8791** `CvUnit::currHitPoints()` (exported)
+  - calls: CvUnit::maxHitPoints, CvUnit::getDamage
+  - called by (29): AI_assaultForecast, AI_forecastFightWinPermille, AI_isSacrificeWorth, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::getUnitLayerColors, CvPlayerAI::AI_updateMilitaryOperations, CvPlot::doCulture, CvSelectionGroup::startMission, CvUnit::LFBgetDefenderCombatOdds, CvUnit::airBombCurrRate …
+- **8797** `CvUnit::isHurt()`
+  - calls: CvUnit::getDamage
+  - called by (10): CvGame::doControl, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroup::doTurn, CvUnit::canHeal, CvUnit::doTurn, CvUnit::healTurns, CvUnit::isActionRecommended, CvUnitAI::AI_guardCity, CyUnit::isHurt
+- **8803** `CvUnit::isDead()` (exported)
+  - calls: CvUnit::maxHitPoints, CvUnit::getDamage
+  - called by (21): CvSelectionGroupAI::AI_cityAssaultForecast, CvSelectionGroupAI::AI_getBestGroupAttacker, CvSelectionGroupAI::AI_getBestGroupSacrifice, CvSelectionGroupAI::AI_sumStrength, CvUnit::airStrikeTarget, CvUnit::archerBombard, CvUnit::canMove, CvUnit::fighterEngage, CvUnit::flankingStrikeCombat, CvUnit::getTriggerValue, CvUnit::planBattle, CvUnit::resolveAirCombat …
+- **8809** `CvUnit::setBaseCombatStr(int)`
+  - called by (1): CyUnit::setBaseCombatStr
+- **8814** `CvUnit::baseCombatStr()`
+  - called by (17): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::getUnitLayerColors, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_eventValue, CvUnit::canFight, CvUnit::collateralCombat, CvUnit::doTurn, CvUnit::init, CvUnit::maxCombatStr, CvUnitAI::AI_choke …
+- **8827** `CvUnit::maxCombatStr(const CvPlot *, const CvUnit *, CombatDetails *)`
+  - calls: CvUnit::plot, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getVisualOwner, CvWString::GetCString [CvString.h], CvUnit::getName, CvUnit::baseCombatStr, CvUnit::getExtraCombatPercent, CvUnit::isAnimal, CvUnit::isHuman, CvGame::getHandicapType [CvGame.cpp], CvGlobals::getHandicapInfo(HandicapTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvHandicapInfo::getAnimalCombatModifier [CvInfos.cpp], CvHandicapInfo::getAIAnimalCombatModifier [CvInfos.cpp], CvUnit::isBarbarian, CvHandicapInfo::getBarbarianCombatModifier [CvInfos.cpp], CvHandicapInfo::getAIBarbarianCombatModifier [CvInfos.cpp], CvUnit::noDefensiveBonus, CvPlot::defenseModifier [CvPlot.cpp], CvUnit::ignoreBuildingDefense, CvUnit::getTeam, CvUnit::fortifyModifier, CvPlot::isCity [CvPlot.cpp], CvUnit::cityDefenseModifier, CvPlot::isHills [CvPlot.cpp], CvUnit::hillsDefenseModifier, CvPlot::getFeatureType [CvPlot.cpp], CvUnit::featureDefenseModifier, CvPlot::getTerrainType [CvPlot.cpp], CvUnit::terrainDefenseModifier, CvUnit::cityAttackModifier, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::hillsAttackModifier, CvUnit::featureAttackModifier, CvUnit::terrainAttackModifier, CvUnit::unitClassDefenseModifier, CvUnit::getUnitClassType, CvUnit::unitClassAttackModifier, CvUnit::getUnitCombatType, CvUnit::unitCombatModifier, CvUnit::getDomainType, CvUnit::domainModifier, CvUnit::animalCombatModifier, CvUnit::isRiver, directionXY(const CvPlot *, const CvPlot *) [CvGameCoreUtils.h], CvPlot::isRiverCrossing [CvPlot.cpp], CvGlobals::getRIVER_ATTACK_MODIFIER [CvGlobals.cpp], CvUnit::isAmphib, CvPlot::isWater [CvPlot.cpp], CvGlobals::getAMPHIB_ATTACK_MODIFIER [CvGlobals.cpp], CvUnit::getKamikazePercent, CvUnit::currHitPoints, CvUnit::maxHitPoints
+  - called by (10): AI_assaultForecast, AI_forecastFightWinPermille, AI_isSacrificeWorth, CvGameTextMgr::setCombatPlotHelp, CvUnit::airCombatDamage, CvUnit::currCombatStr, CvUnit::currFirepower, CvUnit::maxCombatStrFloat, CvUnit::rangeCombatDamage, CyUnit::maxCombatStr
+- **9301** `CvUnit::currCombatStr(const CvPlot *, const CvUnit *, CombatDetails *)`
+  - calls: CvUnit::maxHitPoints, CvUnit::currHitPoints, CvUnit::maxCombatStr
+  - called by (20): CvGameTextMgr::setCombatPlotHelp, CvPlayerAI::AI_movementPriority, CvUnit::LFBgetAttackerRank, CvUnit::LFBgetDefenderCombatOdds, CvUnit::LFBgetDefenderOdds, CvUnit::currCombatStrFloat, CvUnit::currEffectiveStr, CvUnit::currFirepower, CvUnit::getDefenderCombatValues, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::resolveAirCombat, CvUnit::resolveCombat …
+- **9307** `CvUnit::currFirepower(const CvPlot *, const CvUnit *)`
+  - calls: CvUnit::maxCombatStr, CvUnit::currCombatStr
+  - called by (12): CvGameTextMgr::setCombatPlotHelp, CvUnit::LFBgetDefenderCombatOdds, CvUnit::archerBombard, CvUnit::getDefenderCombatValues, CvUnit::resolveCombat, CvUnitAI::AI_Abombard, CvUnitAI::AI_FEngage, CvUnitAI::AI_attackOdds, CyUnit::currFirepower, forecastFight, getCombatOdds, getCombatOddsSpecific
+- **9315** `CvUnit::currEffectiveStr(const CvPlot *, const CvUnit *, CombatDetails *)`
+  - calls: CvUnit::currCombatStr, CvUnit::maxHitPoints, CvUnit::currHitPoints
+  - called by (9): CvPlayerAI::AI_getEnemyPlotStrength, CvPlayerAI::AI_getOurPlotStrength, CvPlot::AI_sumStrength, CvSelectionGroupAI::AI_ejectBestDefender, CvSelectionGroupAI::AI_sumStrength, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_pirateBlockade, CvUnitAI::AI_recruitSettlerEscort, CvUnitAI::AI_sacrificeValue
+- **9325** `CvUnit::maxCombatStrFloat(const CvPlot *, const CvUnit *)` (exported)
+  - calls: CvUnit::maxCombatStr
+  - called by (1): CyUnit::maxCombatStrFloat
+- **9331** `CvUnit::currCombatStrFloat(const CvPlot *, const CvUnit *)` (exported)
+  - calls: CvUnit::currCombatStr
+  - called by (2): CvGameTextMgr::setCombatPlotHelp, CyUnit::currCombatStrFloat
+- **9337** `CvUnit::canFight()` (exported)
+  - calls: CvUnit::baseCombatStr
+  - called by (21): CvGame::initSelection, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_disbandUnit, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_doTurnUnitsPost, CvPlayerAI::AI_movementPriority, CvPlot::nukeExplosion, CvSelectionGroup::canFight, CvUnit::canAttack(), CvUnit::canAutomate, CvUnit::canDefend, CvUnit::canRangeStrike …
+- **9343** `CvUnit::canAttack()`
+  - calls: CvUnit::canFight, CvUnit::isOnlyDefensive
+  - called by (31): CvGame::selectionListIgnoreBuildingDefense, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_adjacentPotentialAttackers, CvPlayerAI::AI_convertUnitAITypesForCrush, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getEnemyPlotStrength, CvPlayerAI::AI_getOurPlotStrength, CvPlayerAI::AI_getPlotDanger, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_getWaterDanger, CvPlayerAI::AI_isPlotThreatened …
+- **9357** `CvUnit::canAttack(const CvUnit &)`
+  - calls: CvUnit::canAttack(), CvUnit::combatLimit, CvUnit::getDamage, CvPlot::isWater [CvPlot.cpp], CvUnit::plot
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvPlot::hasDefender, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnitAI::AI_assaultSeaTransport
+- **9381** `CvUnit::canDefend(const CvPlot *)`
+  - calls: CvUnit::plot, CvUnit::canFight, CvPlot::isValidDomainForAction [CvPlot.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (32): CvGameTextMgr::setCombatPlotHelp, CvPlayer::disbandUnit, CvPlayerAI::AI_disbandUnit, CvPlayerAI::AI_getEnemyPlotStrength, CvPlayerAI::AI_getOurPlotStrength, CvPlot::doCulture, CvSelectionGroup::canDefend, CvSelectionGroupAI::AI_cityAssaultForecast, CvUnit::airStrikeTarget, CvUnit::canSentry, CvUnit::canSiege, CvUnit::collateralCombat …
+- **9405** `CvUnit::canSiege(TeamTypes)`
+  - calls: CvUnit::canDefend, CvUnit::isEnemy, CvUnit::isNeverInvisible
+  - called by (3): CvUnit::setXY, CyUnit::canSiege, PUF_canSiege
+- **9426** `CvUnit::airBaseCombatStr()`
+  - calls: CvUnitInfo::getAirCombat [CvInfos.cpp]
+  - called by (10): CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::nukeExplosion, CvUnit::airMaxCombatStr, CvUnit::canAirAttack, CvUnit::canRangeStrike, CvUnit::collateralCombat, CvUnit::nuke, CvUnitAI::AI_groupSecondVal, CyUnit::airBaseCombatStr
+- **9432** `CvUnit::airMaxCombatStr(const CvUnit *)`
+  - calls: CvUnit::airBaseCombatStr, CvUnit::getExtraCombatPercent, CvUnit::getKamikazePercent, CvUnit::getUnitCombatType, CvUnit::unitCombatModifier, CvUnit::getDomainType, CvUnit::domainModifier, CvUnit::isAnimal, CvUnit::animalCombatModifier
+  - called by (4): CvUnit::airCurrCombatStr, CvUnit::airMaxCombatStrFloat, CvUnit::resolveAirCombat, CyUnit::airMaxCombatStr
+- **9493** `CvUnit::airCurrCombatStr(const CvUnit *)`
+  - calls: CvUnit::maxHitPoints, CvUnit::currHitPoints, CvUnit::airMaxCombatStr
+  - called by (6): CvUnit::airCombatDamage, CvUnit::airCurrCombatStrFloat, CvUnit::rangeCombatDamage, CvUnit::resolveAirCombat, CvUnitAI::AI_attackOdds, CyUnit::airCurrCombatStr
+- **9499** `CvUnit::airMaxCombatStrFloat(const CvUnit *)` (exported)
+  - calls: CvUnit::airMaxCombatStr
+  - called by (1): CyUnit::airMaxCombatStrFloat
+- **9505** `CvUnit::airCurrCombatStrFloat(const CvUnit *)` (exported)
+  - calls: CvUnit::airCurrCombatStr
+  - called by (2): CvGameTextMgr::setCombatPlotHelp, CyUnit::airCurrCombatStrFloat
+- **9511** `CvUnit::combatLimit()`
+  - calls: CvUnitInfo::getCombatLimit [CvInfos.cpp]
+  - called by (21): AI_assaultForecast, AI_isSacrificeWorth, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_updateMilitaryOperations, CvSelectionGroup::groupAttack, CvUnit::LFBgetDefenderCombatOdds, CvUnit::LFBgetDefenderRank, CvUnit::canAttack(const CvUnit &), CvUnit::resolveCombat, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_assaultSeaTransport …
+- **9517** `CvUnit::airCombatLimit()`
+  - calls: CvUnitInfo::getAirCombatLimit [CvInfos.cpp]
+  - called by (10): CvPlot::getBestDefender, CvPlot::hasDefender, CvUnit::airBomb4, CvUnit::airStrike, CvUnit::doActiveDefense, CvUnit::rangeStrike, CvUnitAI::AI_airStrike, CvUnitAI::AI_defendBaseAirStrike, CvUnitAI::AI_defensiveAirStrike, CyUnit::airCombatLimit
+- **9523** `CvUnit::canAirAttack()` (exported)
+  - calls: CvUnit::airBaseCombatStr
+  - called by (9): CvSelectionGroup::canDoInterfaceMode, CvSelectionGroupAI::AI_getBestGroupAttacker, CvSelectionGroupAI::AI_getBestGroupSacrifice, CvSelectionGroupAI::AI_sumStrength, CvUnit::canAirStrike, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_attackAirMove, CyUnit::canAirAttack, PUF_canAirAttack
+- **9529** `CvUnit::canAirDefend(const CvPlot *)` (exported)
+  - calls: CvUnit::plot, CvUnit::isSpy, CvUnit::maxInterceptionProbability, CvUnit::getDomainType, CvPlot::isValidDomainForLocation [CvPlot.cpp], CvUnit::isCargo
+  - called by (12): CvCityAI::AI_isAirDefended, CvPlayerAI::AI_movementPriority, CvUnit::bestInterceptor, CvUnit::canAirPatrol, CvUnitAI::AI_airCarrier, CvUnitAI::AI_airDefensiveCity, CvUnitAI::AI_attackAirMove, CvUnitAI::AI_carrierAirMove, CvUnitAI::AI_defenseAirMove, CvUnitAI::AI_exploreAirMove, CyUnit::canAirDefend, PUF_canAirDefend
+- **9573** `CvUnit::airCombatDamage(const CvUnit *)`
+  - calls: CvUnit::plot, CvUnit::airCurrCombatStr, CvUnit::maxCombatStr, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getAirModifier [CvCity.cpp]
+  - called by (7): CvUnit::airBomb4, CvUnit::airStrike, CvUnit::doActiveDefense, CvUnitAI::AI_airStrike, CvUnitAI::AI_defendBaseAirStrike, CvUnitAI::AI_defensiveAirStrike, CyUnit::airCombatDamage
+- **9604** `CvUnit::rangeCombatDamage(const CvUnit *)`
+  - calls: CvUnit::plot, CvUnit::airCurrCombatStr, CvUnit::maxCombatStr, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvUnit::rangeStrike
+- **9626** `CvUnit::bestInterceptor(const CvPlot *)`
+  - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvUnit::isInvisible, CvUnit::isEnemy, CvPlayer::firstUnit [CvPlayer.cpp], CvPlayer::nextUnit [CvPlayer.cpp], CvUnit::canAirDefend, CvUnit::isMadeInterception, CvUnit::getDomainType, CvUnit::hasMoved, CvSelectionGroup::getActivityType [CvSelectionGroup.cpp], CvUnit::getGroup, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::currInterceptionProbability
+  - called by (10): CvUnit::interceptTest, CvUnit::updateAirCombat, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airBombPlots, CvUnitAI::AI_airStrike, CvUnitAI::AI_attackAirMove, CvUnitAI::AI_defendBaseAirStrike, CvUnitAI::AI_defensiveAirStrike, CvUnitAI::AI_paradrop, CyUnit::bestInterceptor
+- **9677** `CvUnit::bestSeaPillageInterceptor(CvUnit *, int)`
+  - calls: plotXY [CvGameCoreUtils.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvPlot::area [CvPlot.cpp], CvUnit::plot, CvUnit::area, CvUnit::isInvisible, CvUnit::getTeam, CvUnit::isEnemy, CvUnit::getDomainType, CvSelectionGroup::getActivityType [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), getCombatOdds [CvGameCoreUtils.cpp]
+  - called by (1): CvUnit::pillage
+- **9745** `CvUnit::isAutomated()`
+  - calls: CvSelectionGroup::isAutomated [CvSelectionGroup.cpp], CvUnit::getGroup
+  - called by (5): CvUnit::canDoCommand, CvUnitAI::AI_missionaryMove, CvUnitAI::AI_update, CvUnitAI::AI_workerMove, CyUnit::isAutomated
+- **9751** `CvUnit::isWaiting()` (exported)
+  - calls: CvSelectionGroup::isWaiting [CvSelectionGroup.cpp], CvUnit::getGroup
+  - called by (12): CvGame::startFlyoutMenu, CvUnit::canAirPatrol, CvUnit::canDoCommand, CvUnit::canFortify, CvUnit::canHeal, CvUnit::canSeaPatrol, CvUnit::canSentry, CvUnit::canSleep, CvUnitAI::AI_guardCity, CvUnitAI::AI_hide, CvUnitAI::AI_safety, CyUnit::isWaiting
+- **9757** `CvUnit::isFortifyable()`
+  - calls: CvUnit::getDomainType, CvUnit::canFight, CvUnit::noDefensiveBonus
+  - called by (5): CvGame::applyFlyoutMenu, CvUnit::canFortify, CvUnit::canSleep, CvUnit::fortifyModifier, CyUnit::isFortifyable
+- **9768** `CvUnit::fortifyModifier()`
+  - calls: CvUnit::isFortifyable, CvGlobals::getFORTIFY_MODIFIER_PER_TURN [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getFortifyTurns
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::maxCombatStr, CyUnit::fortifyModifier
+- **9779** `CvUnit::experienceNeeded()`
+  - calls: calculateExperience [CvGameCoreUtils.cpp], CvUnit::getLevel, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::testPromotionReady, CyUnit::experienceNeeded
+- **9787** `CvUnit::attackXPValue()`
+  - calls: CvUnitInfo::getXPValueAttack [CvInfos.cpp]
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvUnit::resolveAirCombat, CvUnit::resolveCombat, CyUnit::attackXPValue
+- **9793** `CvUnit::defenseXPValue()`
+  - calls: CvUnitInfo::getXPValueDefense [CvInfos.cpp]
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvUnit::resolveAirCombat, CvUnit::resolveCombat, CyUnit::defenseXPValue
+- **9799** `CvUnit::maxXPValue()`
+  - calls: CvUnit::isAnimal, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::isBarbarian
+  - called by (3): CvUnit::resolveAirCombat, CvUnit::resolveCombat, CyUnit::maxXPValue
+- **9819** `CvUnit::firstStrikes()`
+  - calls: CvUnitInfo::getFirstStrikes [CvInfos.cpp], CvUnit::getExtraFirstStrikes
+  - called by (12): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::LFBgetDefenderCombatOdds, CvUnit::LFBgetDefenderOdds, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::maxFirstStrikes, CvUnit::setCombatUnit, CvUnitAI::AI_attackOdds, CyUnit::firstStrikes, forecastFight, getCombatOdds, getCombatOddsSpecific
+- **9825** `CvUnit::chanceFirstStrikes()`
+  - calls: CvUnitInfo::getChanceFirstStrikes [CvInfos.cpp], CvUnit::getExtraChanceFirstStrikes
+  - called by (10): CvUnit::LFBgetDefenderCombatOdds, CvUnit::LFBgetDefenderOdds, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::maxFirstStrikes, CvUnit::setCombatUnit, CvUnitAI::AI_attackOdds, CyUnit::chanceFirstStrikes, forecastFight, getCombatOdds, getCombatOddsSpecific
+- **9831** `CvUnit::maxFirstStrikes()`
+  - calls: CvUnit::firstStrikes, CvUnit::chanceFirstStrikes
+  - called by (3): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CyUnit::maxFirstStrikes
+- **9837** `CvUnit::isRanged()` (exported)
+  - calls: CvUnit::getUnitInfo, CvUnitInfo::getGroupDefinitions [CvInfos.cpp], CvArtInfoUnit::getActAsRanged [CvInfos.cpp], CvPlayer::getCurrentEra [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getArtInfo, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (5): CvUnit::increaseBattleRounds, CvUnit::resolveCombat, CvUnit::updateCombat, CvUnit::updateStackCombat, CyUnit::isRanged
+- **9852** `CvUnit::alwaysInvisible()`
+  - calls: CvUnitInfo::isInvisible [CvInfos.cpp]
+  - called by (12): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getPlotDanger, CvSelectionGroup::alwaysInvisible, CvSelectionGroup::autoMission, CvUnit::canAutomate, CvUnit::canCoexistWithEnemyUnit, CvUnit::canEnterTerritory, CvUnit::isInvisible, CvUnit::isNeverInvisible, CvUnit::verifyStackValid, CyUnit::alwaysInvisible
+- **9858** `CvUnit::immuneToFirstStrikes()`
+  - calls: CvUnitInfo::isFirstStrikeImmune [CvInfos.cpp], CvUnit::getImmuneToFirstStrikesCount
+  - called by (12): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::LFBgetDefenderCombatOdds, CvUnit::LFBgetDefenderOdds, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::setCombatUnit, CvUnitAI::AI_attackOdds, CvUnitAI::AI_promotionValue, CyUnit::immuneToFirstStrikes, forecastFight, getCombatOdds, getCombatOddsSpecific
+- **9864** `CvUnit::noDefensiveBonus()`
+  - calls: CvUnitInfo::isNoDefensiveBonus [CvInfos.cpp]
+  - called by (16): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_movementPriority, CvSelectionGroupAI::AI_ejectBestDefender, CvUnit::isFortifyable, CvUnit::maxCombatStr, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_attackMove, CvUnitAI::AI_choke, CvUnitAI::AI_collateralMove, CvUnitAI::AI_counterMove, CvUnitAI::AI_pillageMove …
+- **9870** `CvUnit::ignoreBuildingDefense()`
+  - calls: CvUnitInfo::isIgnoreBuildingDefense [CvInfos.cpp]
+  - called by (8): CvGame::selectionListIgnoreBuildingDefense, CvGameTextMgr::setCombatPlotHelp, CvSelectionGroup::getBombardTurns, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::maxCombatStr, CvUnitAI::AI_paradrop, CyUnit::ignoreBuildingDefense
+- **9876** `CvUnit::canMoveImpassable()`
+  - calls: CvUnitInfo::isCanMoveImpassable [CvInfos.cpp]
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::canMoveInto, CyUnit::canMoveImpassable
+- **9881** `CvUnit::canMoveAllTerrain()`
+  - calls: CvUnitInfo::isCanMoveAllTerrain [CvInfos.cpp]
+  - called by (13): CvPlot::isValidDomainForAction, CvSelectionGroup::canMoveAllTerrain, CvUnit::canMoveInto, CvUnit::shouldLoadOnMove, CvUnitAI::AI_cityOffenseSpy, CvUnitAI::AI_found, CvUnitAI::AI_group, CvUnitAI::AI_groupMergeRange, CvUnitAI::AI_load, CvUnitAI::AI_pickupStranded, CvUnitAI::AI_plotValid, CvUnitAI::AI_update …
+- **9886** `CvUnit::flatMovementCost()`
+  - calls: CvUnitInfo::isFlatMovementCost [CvInfos.cpp]
+  - called by (4): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::movementCost, CvUnitAI::AI_searchRange, CyUnit::flatMovementCost
+- **9892** `CvUnit::ignoreTerrainCost()`
+  - calls: CvUnitInfo::isIgnoreTerrainCost [CvInfos.cpp]
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::movementCost, CyUnit::ignoreTerrainCost
+- **9898** `CvUnit::isNeverInvisible()`
+  - calls: CvUnit::getInvisibleType, CvUnit::alwaysInvisible
+  - called by (3): CvUnit::canSiege, CvUnitAI::AI_reserveSeaMove, CyUnit::isNeverInvisible
+- **9904** `CvUnit::isInvisible(TeamTypes, bool, bool)` (exported)
+  - calls: CvGame::isDebugMode [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getTeam, CvUnit::alwaysInvisible, CvUnit::isCargo, CvUnit::getInvisibleType, CvPlot::isInvisibleVisible [CvPlot.cpp], CvUnit::plot
+  - called by (34): CvGame::getPlotUnit, CvGame::getPlotUnits, CvGameTextMgr::setEspionageMissionHelp, CvGameTextMgr::setPlotListHelp, CvPlayer::getUnitLayerColors, CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getEnemyPlotStrength, CvPlayerAI::AI_getOurPlotStrength, CvPlayerAI::AI_getPlotDanger, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_getWaterDanger, CvPlayerAI::AI_isPlotThreatened …
+- **9935** `CvUnit::isNukeImmune()`
+  - calls: CvUnitInfo::isNukeImmune [CvInfos.cpp]
+  - called by (3): CvPlot::nukeExplosion, CvUnitAI::AI_nukeRange, CyUnit::isNukeImmune
+- **9945** `CvUnit::isInquisitor()`
+  - calls: CvUnitInfo::isInquisitor [CvInfos.cpp]
+  - called by (1): CyUnit::isInquisitor
+- **9953** `CvUnit::maxInterceptionProbability()`
+  - calls: CvUnitInfo::getInterceptionProbability [CvInfos.cpp], CvUnit::getExtraIntercept
+  - called by (6): CvUnit::airCircle, CvUnit::canAirDefend, CvUnit::currInterceptionProbability, CvUnit::isPromotionValid, CvUnit::resolveAirCombat, CyUnit::maxInterceptionProbability
+- **9959** `CvUnit::currInterceptionProbability()`
+  - calls: CvUnit::getDomainType, CvUnit::maxInterceptionProbability, CvUnit::maxHitPoints, CvUnit::currHitPoints
+  - called by (16): CvCityAI::AI_isAirDefended, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::doEspionageMission, CvUnit::bestInterceptor, CvUnit::interceptTest, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::resolveAirCombat, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airBombPlots, CvUnitAI::AI_airStrike, CvUnitAI::AI_defendBaseAirStrike, CvUnitAI::AI_defensiveAirStrike …
+- **9972** `CvUnit::evasionProbability()`
+  - calls: CvUnitInfo::getEvasionProbability [CvInfos.cpp], CvUnit::getExtraEvasion
+  - called by (11): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::interceptTest, CvUnit::isPromotionValid, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airBombPlots, CvUnitAI::AI_airStrike, CvUnitAI::AI_defendBaseAirStrike, CvUnitAI::AI_defensiveAirStrike, CvUnitAI::AI_paradrop, CvUnitAI::AI_promotionValue, CyUnit::evasionProbability
+- **9978** `CvUnit::withdrawalProbability()`
+  - calls: CvPlot::isWater [CvPlot.cpp], CvUnit::getDomainType, CvUnit::plot, CvUnitInfo::getWithdrawalProbability [CvInfos.cpp], CvUnit::getExtraWithdrawal
+  - called by (13): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_movementPriority, CvUnit::LFBgetAttackerRank, CvUnit::pillage, CvUnit::resolveCombat, CvUnit::testSpyIntercepted, CvUnitAI::AI_attackOdds, CvUnitAI::AI_groupFirstVal, CvUnitAI::AI_sacrificeValue, CyUnit::withdrawalProbability, forecastFight …
+- **9989** `CvUnit::collateralDamage()`
+  - calls: CvUnitInfo::getCollateralDamage [CvInfos.cpp]
+  - called by (24): AI_assaultForecast, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_movementPriority, CvSelectionGroup::groupAttack, CvSelectionGroupAI::AI_getBestGroupAttacker, CvUnit::collateralCombat, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airStrike, CvUnitAI::AI_attackAirMove, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_attackMove …
+- **9995** `CvUnit::collateralDamageLimit()`
+  - calls: CvGlobals::getMAX_HIT_POINTS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getCollateralDamageLimit [CvInfos.cpp]
+  - called by (4): CvUnit::collateralCombat, CvUnit::flankingStrikeCombat, CyUnit::collateralDamageLimit, forecastCollateral
+- **10001** `CvUnit::collateralDamageMaxUnits()`
+  - calls: CvUnitInfo::getCollateralDamageMaxUnits [CvInfos.cpp]
+  - called by (13): AI_assaultForecast, CvSelectionGroupAI::AI_getBestGroupAttacker, CvUnit::collateralCombat, CvUnit::flankingStrikeCombat, CvUnitAI::AI_RbombardCity, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airStrike, CvUnitAI::AI_defendBaseAirStrike, CvUnitAI::AI_defensiveAirStrike, CvUnitAI::AI_sacrificeValue, CvUnitAI::LFBgetBetterAttacker, CyUnit::collateralDamageMaxUnits …
+- **10007** `CvUnit::cityAttackModifier()`
+  - calls: CvUnitInfo::getCityAttackModifier [CvInfos.cpp], CvUnit::getExtraCityAttackPercent
+  - called by (6): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroupAI::AI_ejectBestDefender, CvUnit::maxCombatStr, CvUnit::setCombatUnit, CyUnit::cityAttackModifier
+- **10013** `CvUnit::cityDefenseModifier()`
+  - calls: CvUnitInfo::getCityDefenseModifier [CvInfos.cpp], CvUnit::getExtraCityDefensePercent
+  - called by (7): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroupAI::AI_ejectBestDefender, CvUnit::maxCombatStr, CvUnitAI::AI_guardCity, CvUnitAI::AI_sacrificeValue, CyUnit::cityDefenseModifier
+- **10019** `CvUnit::animalCombatModifier()`
+  - calls: CvUnitInfo::getAnimalCombatModifier [CvInfos.cpp]
+  - called by (4): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::airMaxCombatStr, CvUnit::maxCombatStr, CyUnit::animalCombatModifier
+- **10025** `CvUnit::hillsAttackModifier()`
+  - calls: CvUnitInfo::getHillsAttackModifier [CvInfos.cpp], CvUnit::getExtraHillsAttackPercent
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::maxCombatStr, CyUnit::hillsAttackModifier
+- **10031** `CvUnit::hillsDefenseModifier()`
+  - calls: CvUnitInfo::getHillsDefenseModifier [CvInfos.cpp], CvUnit::getExtraHillsDefensePercent
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::maxCombatStr, CyUnit::hillsDefenseModifier
+- **10037** `CvUnit::terrainAttackModifier(TerrainTypes)`
+  - calls: CvUnitInfo::getTerrainAttackModifier [CvInfos.cpp], CvUnit::getExtraTerrainAttackPercent
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::maxCombatStr, CyUnit::terrainAttackModifier
+- **10045** `CvUnit::terrainDefenseModifier(TerrainTypes)`
+  - calls: CvUnitInfo::getTerrainDefenseModifier [CvInfos.cpp], CvUnit::getExtraTerrainDefensePercent
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::maxCombatStr, CyUnit::terrainDefenseModifier
+- **10053** `CvUnit::featureAttackModifier(FeatureTypes)`
+  - calls: CvUnitInfo::getFeatureAttackModifier [CvInfos.cpp], CvUnit::getExtraFeatureAttackPercent
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::maxCombatStr, CyUnit::featureAttackModifier
+- **10060** `CvUnit::featureDefenseModifier(FeatureTypes)`
+  - calls: CvUnitInfo::getFeatureDefenseModifier [CvInfos.cpp], CvUnit::getExtraFeatureDefensePercent
+  - called by (4): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::maxCombatStr, CyUnit::featureDefenseModifier
+- **10067** `CvUnit::unitClassAttackModifier(UnitClassTypes)`
+  - calls: CvUnitInfo::getUnitClassAttackModifier [CvInfos.cpp]
+  - called by (3): CvGameTextMgr::setCombatPlotHelp, CvUnit::maxCombatStr, CyUnit::unitClassAttackModifier
+- **10075** `CvUnit::unitClassDefenseModifier(UnitClassTypes)`
+  - calls: CvUnitInfo::getUnitClassDefenseModifier [CvInfos.cpp]
+  - called by (3): CvGameTextMgr::setCombatPlotHelp, CvUnit::maxCombatStr, CyUnit::unitClassDefenseModifier
+- **10083** `CvUnit::unitCombatModifier(UnitCombatTypes)`
+  - calls: CvUnitInfo::getUnitCombatModifier [CvInfos.cpp], CvUnit::getExtraUnitCombatModifier
+  - called by (6): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::airMaxCombatStr, CvUnit::maxCombatStr, CvUnitAI::AI_promotionValue, CyUnit::unitCombatModifier
+- **10091** `CvUnit::domainModifier(DomainTypes)`
+  - calls: CvUnitInfo::getDomainModifier [CvInfos.cpp], CvUnit::getExtraDomainModifier
+  - called by (5): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::airMaxCombatStr, CvUnit::maxCombatStr, CyUnit::domainModifier
+- **10099** `CvUnit::bombardRate()`
+  - calls: CvUnitInfo::getBombardRate [CvInfos.cpp], CvUnit::getExtraBombardRate
+  - called by (15): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_movementPriority, CvSelectionGroup::getBombardTurns, CvSelectionGroup::startMission, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::canBombard, CvUnit::canRBombard, CvUnit::doOpportunityFire, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_groupFirstVal …
+- **10105** `CvUnit::airBombBaseRate()`
+  - calls: CvUnitInfo::getBombRate [CvInfos.cpp]
+  - called by (8): CvUnit::airBombCurrRate, CvUnit::canAirBomb, CvUnit::canAirBomb1, CvUnit::canAirBomb2, CvUnit::canAirBomb3, CvUnit::canAirBomb4, CvUnit::canAirBomb5, CyUnit::airBombBaseRate
+- **10111** `CvUnit::airBombCurrRate()`
+  - calls: CvUnit::maxHitPoints, CvUnit::currHitPoints, CvUnit::airBombBaseRate
+  - called by (5): CvUnit::airBomb, CvUnit::airBomb1, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airBombDefenses, CyUnit::airBombCurrRate
+- **10117** `CvUnit::specialCargo()`
+  - calls: CvUnitInfo::getSpecialCargo [CvInfos.cpp]
+  - called by (7): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_doTurnUnitsPost, CvPlayerAI::AI_movementPriority, CvSelectionGroup::isFull, CvSelectionGroupAI::AI_isFull, CvUnit::cargoSpaceAvailable, CyUnit::specialCargo
+- **10123** `CvUnit::domainCargo()`
+  - calls: CvUnitInfo::getDomainCargo [CvInfos.cpp]
+  - called by (5): CvSelectionGroup::groupAmphibMove, CvUnit::cargoSpaceAvailable, CvUnitAI::AI_update, CyUnit::domainCargo, pathDestValid
+- **10129** `CvUnit::cargoSpace()`
+  - called by (13): CvDLLButtonPopup::launchLoadUnitPopup, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_countCargoSpace, CvPlayerAI::AI_doTurnUnitsPost, CvSelectionGroup::isFull, CvSelectionGroupAI::AI_isFull, CvUnit::cargoSpaceAvailable, CvUnit::isFull, CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_pickup, CvUnitAI::AI_pickupStranded, CvUnitAI::AI_settlerSeaMove …
+- **10134** `CvUnit::changeCargoSpace(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (2): CvUnit::setHasPromotion, CyUnit::changeCargoSpace
+- **10144** `CvUnit::isFull()`
+  - calls: CvUnit::cargoSpace, CvUnit::getCargo
+  - called by (8): CvSelectionGroup::canEverDoCommand, CvSelectionGroup::continueMission, CvSelectionGroup::isFull, CvSelectionGroupAI::AI_isFull, CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_settlerSeaMove, CvUnitAI::AI_settlerSeaTransport, CyUnit::isFull
+- **10150** `CvUnit::cargoSpaceAvailable(SpecialUnitTypes, DomainTypes)`
+  - calls: CvUnit::specialCargo, CvUnit::domainCargo, CvUnit::cargoSpace, CvUnit::getCargo
+  - called by (8): CvSelectionGroup::setRemoteTransportUnit, CvSelectionGroup::setTransportUnit, CvUnit::canLoadUnit, CvUnit::convert, CvUnitAI::AI_findSettlementTransport, CvUnitAI::AI_load, CvUnitAI::AI_loadForCoastalAttack, CyUnit::cargoSpaceAvailable
+- **10172** `CvUnit::hasCargo()`
+  - calls: CvUnit::getCargo
+  - called by (15): CvGame::getPlotUnit, CvGame::getPlotUnits, CvGameTextMgr::setPlotListHelp, CvPlayer::disbandUnit, CvPlayerAI::AI_disbandUnit, CvPlayerAI::AI_movementPriority, CvSelectionGroup::hasCargo, CvUnit::LFBgetDefenderOdds, CvUnit::getCargoUnits, CvUnit::setXY, CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_findSettlementTransport …
+- **10178** `CvUnit::canCargoAllMove()`
+  - calls: CvUnit::plot, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getTransportUnit, CvUnit::getDomainType, CvUnit::canMove
+  - called by (6): CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_settlerSeaFerry, CvUnitAI::AI_specialSeaTransportMissionary, CvUnitAI::AI_specialSeaTransportSpy, CyUnit::canCargoAllMove
+- **10208** `CvUnit::canCargoEnterArea(TeamTypes, const CvArea *, bool)`
+  - calls: CvUnit::plot, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getTransportUnit, CvUnit::canEnterArea
+  - called by (1): CvUnit::getDeclareWarMove
+- **10231** `CvUnit::getUnitAICargo(UnitAITypes)`
+  - calls: CvUnit::getCargoUnits, CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType
+  - called by (12): CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_handleSettlerTransport, CvUnitAI::AI_load, CvUnitAI::AI_missileLoad, CvUnitAI::AI_missionarySeaMove, CvUnitAI::AI_separateSettlerTransports, CvUnitAI::AI_settlerSeaMove, CvUnitAI::AI_settlerSeaTransport, CvUnitAI::AI_spySeaMove, CyUnit::getUnitAICargo
+- **10249** `CvUnit::getID()` (exported)
+  - called by (44): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup, CvDllPythonEvents::reportSelectionGroupPushMission, CvGame::applyFlyoutMenu, CvGame::doControl, CvGame::selectionListGameNetMessage, CvGame::startFlyoutMenu, CvGameTextMgr::setPlotListHelp, CvPlayer::initTriggeredData, CvPlayer::initUnit, CvPlayerAI::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes *, int, CvSelectionGroup *, int) …
+- **10255** `CvUnit::getIndex()`
+  - calls: CvUnit::getID
+- **10261** `CvUnit::getIDInfo()` (exported)
+  - calls: IDInfo::IDInfo(PlayerTypes, int) [CvStructs.h], CvUnit::getID, CvUnit::getOwnerINLINE [CvUnit.h], IDInfo::IDInfo(const IDInfo &) [CvStructs.h]
+  - called by (7): CvPlayerAI::AI_unitUpdate, CvPlot::addUnit, CvSelectionGroup::addUnit, CvSelectionGroupAI::AI_setMissionAI, CvUnit::setCombatUnit, CvUnit::setTransportUnit, CvUnitAI::AI_settlerSeaTransport
+- **10268** `CvUnit::setID(int)`
+- **10274** `CvUnit::getGroupID()`
+  - called by (6): CvGameTextMgr::setPlotListHelp, CvPlayer::updateGroupCycle, CvUnit::getGroup, CvUnit::isInGroup, CvUnit::joinGroup, CyUnit::getGroupID
+- **10280** `CvUnit::isInGroup()`
+  - calls: CvUnit::getGroupID
+  - called by (1): CyUnit::isInGroup
+- **10286** `CvUnit::isGroupHead()`
+  - calls: CvSelectionGroup::getHeadUnit [CvSelectionGroup.cpp], CvUnit::getGroup
+  - called by (14): CvGame::applyFlyoutMenu, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::updateGroupCycle, CvUnit::canAutomate, CvUnit::canDoCommand, CvUnitAI::AI_allowGroup, CvUnitAI::AI_carrierSeaTransport, CvUnitAI::AI_followBombard, CvUnitAI::AI_guardCity, CvUnitAI::AI_shadow, CyUnit::isGroupHead …
+- **10292** `CvUnit::getGroup()` (exported)
+  - calls: CvPlayer::getSelectionGroup [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getGroupID, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (237): CvCity::popOrder, CvCityAI::AI_isAirDefended, CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::cyclePlotUnits, CvGame::cycleSelectionGroups, CvGame::initSelection, CvGame::selectUnit, CvGame::updateSelectionList, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvNetAutoMission::Execute …
+- **10298** `CvUnit::canJoinGroup(const CvPlot *, CvSelectionGroup *)`
+  - calls: CvSelectionGroup::AI_isForceSeparate [CvSelectionGroup.h] ⇢ CvSelectionGroupAI::AI_isForceSeparate, CvSelectionGroup::getOwnerINLINE [CvSelectionGroup.h], CvSelectionGroup::getHeadUnit [CvSelectionGroup.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvSelectionGroup::getNumUnits [CvSelectionGroup.cpp], CvSelectionGroup::atPlot [CvSelectionGroup.cpp], CvSelectionGroup::getDomainType [CvSelectionGroup.cpp], CvUnit::getDomainType
+  - called by (3): CvSelectionGroup::addUnit, CvUnit::joinGroup, CvUnitAI::AI_allowGroup
+- **10346** `CvUnit::joinGroup(CvSelectionGroup *, bool, bool)` (exported)
+  - calls: CvPlayer::getSelectionGroup [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getGroupID, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::plot, CvPlayer::addSelectionGroup [CvPlayer.cpp], CvSelectionGroup::init [CvSelectionGroup.cpp], CvSelectionGroup::getID [CvSelectionGroup.cpp], CvUnit::canJoinGroup, CvUnit::isHuman, CvSelectionGroup::getNumUnits [CvSelectionGroup.cpp], CvSelectionGroup::getHeadUnit [CvSelectionGroup.cpp], CvSelectionGroup::removeUnit [CvSelectionGroup.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvSelectionGroup::AI_makeForceSeparate [CvSelectionGroup.h] ⇢ CvSelectionGroupAI::AI_makeForceSeparate, CvSelectionGroup::addUnit [CvSelectionGroup.cpp], CvUnit::getGroup, CvSelectionGroup::setActivityType [CvSelectionGroup.cpp], CvPlayer::updateGroupCycle [CvPlayer.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getTeam, CvPlot::setFlagDirty [CvPlot.cpp], CvDLLInterfaceIFaceBase::getSelectionPlot [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::removeFromSelectionList [CvDLLInterfaceIFaceBase.h]
+  - called by (25): CvNetJoinGroup::Execute, CvPlayerAI::AI_updateMilitaryOperations, CvSelectionGroup::groupMove, CvSelectionGroup::mergeIntoGroup, CvSelectionGroup::splitGroup, CvSelectionGroupAI::AI_ejectBestDefender, CvSelectionGroupAI::AI_separate, CvSelectionGroupAI::AI_separateAI, CvSelectionGroupAI::AI_separateEmptyTransports, CvSelectionGroupAI::AI_separateImpassable, CvSelectionGroupAI::AI_separateNonAI, CvUnit::kill …
+- **10450** `CvUnit::getHotKeyNumber()` (exported)
+  - called by (2): CvUnit::setHotKeyNumber, CyUnit::getHotKeyNumber
+- **10456** `CvUnit::setHotKeyNumber(int)`
+  - calls: CvUnit::getHotKeyNumber, CvPlayer::firstUnit [CvPlayer.cpp], CvPlayer::nextUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::setHotKeyNumber, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (3): CvUnit::doCommand, CvUnit::setHotKeyNumber, CyUnit::setHotKeyNumber
+- **10486** `CvUnit::getX()` (exported)
+  - called by (2): CvGame::startFlyoutMenu, CvUnitAI::AI_moveToInquisitionTarget
+- **10492** `CvUnit::getY()` (exported)
+  - called by (2): CvGame::startFlyoutMenu, CvUnitAI::AI_moveToInquisitionTarget
+- **10498** `CvUnit::setXY(int, int, bool, bool, bool, bool)`
+  - calls: CLinkList::CLinkList<tVARTYPE> [LinkedList.h], CvGlobals::getLogging [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvDLLUtilityIFaceBase::getChtLvl [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getNameKey [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::GetCString [CvString.h], CvUnit::getID, CvUnit::getName, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::getOwnerINLINE [CvUnit.h], CvDLLUtilityIFaceBase::messageControlLog [CvDLLUtilityIFaceBase.h], CvUnit::getGroup, CvSelectionGroup::getActivityType [CvSelectionGroup.cpp], CvUnit::setBlockading, CvUnit::isCargo, CvUnit::joinGroup, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::getTransportUnit, CvUnit::atPlot, CvUnit::setTransportUnit, CvUnit::canFight, CLinkList::clear [LinkedList.h], CvPlot::headUnitNode [CvPlot.cpp], CLinkList::insertAtEnd [LinkedList.h], CvPlot::nextUnitNode [CvPlot.cpp], CLinkList::head [LinkedList.h], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CLinkList::next [LinkedList.h], CvUnit::getTeam, CvUnit::isEnemy, CvUnit::canCoexistWithEnemyUnit, CvUnitInfo::getUnitCaptureClassType [CvInfos.cpp], CvUnit::canDefend, CvUnit::getUnitInfo, CvUnit::jumpToNearestValidPlot, CvUnitInfo::isHiddenNationality [CvInfos.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvTeam::changeWarWeariness(TeamTypes, const CvPlot &, int) [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeamAI::AI_changeWarSuccess [CvTeamAI.cpp], CvUnit::isNoCapture, CvUnit::setCapturingPlayer, CvUnit::kill, CvPlot::isGoody [CvPlot.cpp], CvPlayer::doGoody [CvPlayer.cpp], CvUnit::plot, CvPlot::removeUnit [CvPlot.cpp], CvUnit::hasCargo, CvPlot::changeAdjacentSight [CvPlot.cpp], CvUnit::visibilityRange, CvArea::changeUnitsPerPlayer [CvArea.cpp], CvPlot::area [CvPlot.cpp], CvArea::changePower [CvArea.cpp], CvUnitInfo::getPowerValue [CvInfos.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvArea::changeNumAIUnits [CvArea.cpp], CvUnit::isAnimal, CvArea::changeAnimalsPerPlayer [CvArea.cpp], CvPlot::getTeam [CvPlot.cpp], CvTeam::isVassal [CvTeam.cpp], CvPlayer::changeNumOutsideUnits [CvPlayer.cpp], CvGame::getTurnSlice [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::setLastMoveTurn, CvPlot::getPlotCity [CvPlot.cpp], CvUnit::isMilitaryHappiness, CvCity::changeMilitaryHappinessUnits [CvCity.cpp], CvPlot::getWorkingCity [CvPlot.cpp], CvCity::getTeam [CvCity.cpp], CvUnit::canSiege, CvCity::AI_setAssignWorkDirty [CvCity.h] ⇢ CvCityAI::AI_setAssignWorkDirty, CvPlot::isWater [CvPlot.cpp], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isActiveVisible [CvPlot.cpp], CvPlot::updateMinimapColor [CvPlot.cpp], CvDLLInterfaceIFaceBase::getSelectionPlot [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvDLLInterfaceIFaceBase::verifyPlotListColumn [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvCity::isCapital [CvCity.cpp], CvGlobals::getWAR_SUCCESS_CITY_CAPTURING [CvGlobals.cpp], CvPlayer::pickConqueredCityOwner [CvPlayer.cpp], CvPlayer::acquireCity [CvPlayer.cpp], estimateDirection(const CvPlot *, const CvPlot *) [CvGameCoreUtils.cpp], CvSelectionGroup::setActivityType [CvSelectionGroup.cpp], CvUnit::setFortifyTurns, CvPlot::addUnit [CvPlot.cpp], CvUnit::shouldLoadOnMove, CvUnit::load, CvTeam::isAlive [CvTeam.cpp], CvUnit::isInvisible, CvPlot::isVisible [CvPlot.cpp], CvTeam::meet [CvTeam.cpp], CvCity::getCityPlotIndex [CvCity.cpp], CvCity::verifyWorkingPlot [CvCity.cpp], CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvPlot::isVisibleToWatchingHuman [CvPlot.cpp], CvDLLEntity::QueueMove [CvDLLEntity.cpp], CvDLLEntity::SetPosition [CvDLLEntity.cpp], CvUnit::setXY, CvPlot::updateCenterUnit [CvPlot.cpp], CvPlot::setFlagDirty [CvPlot.cpp], CvPlayer::updateGroupCycle [CvPlayer.cpp], CvUnit::setInfoBarDirty, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvUnit::isFound, CvDLLEngineIFaceBase::updateFoundingBorder [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::updateEnemyGlow [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::unitSetXY [CvEventReporter.cpp]
+  - called by (12): CvPlayer::doEspionageMission, CvSelectionGroup::setRemoteTransportUnit, CvUnit::airlift, CvUnit::espionage, CvUnit::init, CvUnit::jumpToNearestValidPlot, CvUnit::kill, CvUnit::move, CvUnit::paradrop, CvUnit::setXY, CvUnit::testSpyIntercepted, CyUnit::setXY
+- **10943** `CvUnit::at(int, int)`
+  - calls: CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h]
+  - called by (1): CyUnit::at
+- **10949** `CvUnit::atPlot(const CvPlot *)` (exported)
+  - calls: CvUnit::plot
+  - called by (81): CvGame::startFlyoutMenu, CvPlayerAI::AI_getOurPlotStrength, CvPlayerAI::AI_updateMilitaryOperations, CvPlot::verifyUnitValidPlot, CvSelectionGroup::canStartMission, CvSelectionGroup::setRemoteTransportUnit, CvUnit::canLoadUnit, CvUnit::canMoveInto, CvUnit::isActionRecommended, CvUnit::setXY, CvUnitAI::AI_airCarrier, CvUnitAI::AI_airDefensiveCity …
+- **10955** `CvUnit::plot()` (exported)
+  - calls: CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h]
+  - called by (293): AI_forecastFightWinPermille, AI_isSacrificeWorth, CvCityAI::AI_bestSpreadUnit, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseEspionageCostHelp, CvDLLWidgetData::parsePlotListHelp, CvGame::doControl, CvGame::selectGroup, CvGame::updateColoredPlots, CvGameTextMgr::setCombatPlotHelp …
+- **10961** `CvUnit::getArea()`
+  - calls: CvPlot::getArea [CvPlot.cpp], CvUnit::plot
+  - called by (6): CvPlayer::countReligionSpreadUnits, CvSelectionGroup::getArea, CvUnit::getUpgradeCity(UnitTypes, bool, int *), CvUnitAI::AI_exploreAirPlotValue, CvUnitAI::AI_found, CvUnitAI::AI_plotValid
+- **10967** `CvUnit::area()`
+  - calls: CvPlot::area [CvPlot.cpp], CvUnit::plot
+  - called by (70): CvGame::updateColoredPlots, CvPlayer::countCorporationSpreadUnits, CvPlayer::doWarnings, CvPlayerAI::AI_acceptUnit, CvPlayerAI::AI_convertUnitAITypesForCrush, CvPlayerAI::AI_doSplit, CvPlayerAI::AI_getOperationReinforcementGroup, CvPlayerAI::AI_goldToUpgradeAllUnits, CvPlayerAI::AI_updateMilitaryOperations, CvSelectionGroup::area, CvTeamAI::AI_isStrikeForceReady, CvUnit::bestSeaPillageInterceptor …
+- **10973** `CvUnit::onMap()`
+  - calls: CvUnit::plot
+  - called by (1): CvPlayer::updateGroupCycle
+- **10979** `CvUnit::getLastMoveTurn()`
+  - called by (3): CvGame::doControl, CvGame::selectGroup, CvSelectionGroup::doTurn
+- **10985** `CvUnit::setLastMoveTurn(int)`
+  - called by (1): CvUnit::setXY
+- **10992** `CvUnit::getReconPlot()`
+  - calls: CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h]
+  - called by (3): CvPlot::updateSight, CvUnit::setReconPlot, CyUnit::getReconPlot
+- **10998** `CvUnit::setReconPlot(CvPlot *)`
+  - calls: CvUnit::getReconPlot, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::changeAdjacentSight [CvPlot.cpp], CvUnit::getTeam, CvPlot::changeReconCount [CvPlot.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
+  - called by (12): CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airStrike, CvUnit::doTurn, CvUnit::kill, CvUnit::nuke, CvUnit::recon, CyUnit::setReconPlot
+- **11029** `CvUnit::getGameTurnCreated()`
+  - called by (13): CvPlayerAI::AI_disbandUnit, CvUnit::convert, CvUnitAI::AI_artistMove, CvUnitAI::AI_engineerMove, CvUnitAI::AI_merchantMove, CvUnitAI::AI_missionaryMove, CvUnitAI::AI_prophetMove, CvUnitAI::AI_scientistMove, CvUnitAI::AI_settleMove, CvUnitAI::AI_settlerSeaMove, CvUnitAI::AI_workerMove, CyUnit::getGameTurnCreated …
+- **11035** `CvUnit::setGameTurnCreated(int)`
+  - called by (2): CvUnit::convert, CvUnit::init
+- **11042** `CvUnit::getDamage()` (exported)
+  - called by (58): CvCityAI::AI_isAirDefended, CvGame::calculateSyncChecksum, CvGameTextMgr::setPlotListHelp, CvPlayer::canReceiveGoody, CvPlayerAI::AI_updateMilitaryOperations, CvPlot::getBestDefender, CvPlot::hasDefender, CvUnit::airBomb4, CvUnit::airStrike, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::canAttack(const CvUnit &) …
+- **11048** `CvUnit::setDamage(int, PlayerTypes, bool)`
+  - calls: CvUnit::getDamage, range(int, int, int) [CvGameCoreUtils.h], CvUnit::maxHitPoints, CvGame::isFinalInitialized [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::NotifyEntity, CvUnit::setInfoBarDirty, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLInterfaceIFaceBase::getSelectionPlot [CvDLLInterfaceIFaceBase.h], CvUnit::plot, CvUnit::isDead, CvUnit::kill
+  - called by (14): CvCity::emergencyConscript, CvUnit::airBomb4, CvUnit::airStrike, CvUnit::applyEvent, CvUnit::changeDamage, CvUnit::collateralCombat, CvUnit::convert, CvUnit::doActiveDefense, CvUnit::flankingStrikeCombat, CvUnit::rangeStrike, CvUnit::resolveCombat, CvUnit::updateCombat …
+- **11085** `CvUnit::changeDamage(int, PlayerTypes)`
+  - calls: CvUnit::getDamage, CvUnit::setDamage
+  - called by (13): CvPlayer::receiveGoody, CvPlot::doCulture, CvPlot::nukeExplosion, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombardRanged, CvUnit::doHeal, CvUnit::doOpportunityFire, CvUnit::doTurn, CvUnit::promote, CvUnit::resolveAirCombat, CvUnit::resolveCombat …
+- **11091** `CvUnit::getMoves()`
+  - called by (13): CvUnit::canMove, CvUnit::canRangeStrike, CvUnit::changeMoves, CvUnit::convert, CvUnit::hasMoved, CvUnit::movesLeft, CvUnit::setMoves, CvUnitAI::AI_attackSeaMove, CvUnitAI::AI_escortSeaMove, CvUnitAI::AI_missileCarrierSeaMove, CvUnitAI::AI_pirateBlockade, CvUnitAI::AI_reserveSeaMove …
+- **11097** `CvUnit::setMoves(int)`
+  - calls: CvUnit::getMoves, CvUnit::plot, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getTeam, CvPlot::setFlagDirty [CvPlot.cpp], CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLFAStarIFaceBase::ForceReset [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInterfacePathFinder [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvDLLInterfaceIFaceBase::getSelectionPlot [CvDLLInterfaceIFaceBase.h]
+  - called by (7): CvCity::emergencyConscript, CvCity::initConscriptedUnit, CvUnit::changeMoves, CvUnit::convert, CvUnit::doTurn, CvUnit::finishMoves, CyUnit::setMoves
+- **11132** `CvUnit::changeMoves(int)`
+  - calls: CvUnit::getMoves, CvUnit::setMoves
+  - called by (19): CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airStrike, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::fighterEngage, CvUnit::move …
+- **11138** `CvUnit::finishMoves()`
+  - calls: CvUnit::maxMoves, CvUnit::setMoves
+  - called by (20): CvCity::popOrder, CvPlayer::doAdvancedStartAction, CvPlayer::doEspionageMission, CvPlayerAI::AI_unitUpdate, CvSelectionGroup::groupAttack, CvSelectionGroupAI::AI_update, CvUnit::airlift, CvUnit::build, CvUnit::destroy, CvUnit::espionage, CvUnit::kill, CvUnit::plunder …
+- **11144** `CvUnit::getExperience()`
+  - called by (22): CvGame::calculateSyncChecksum, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::disbandUnit, CvPlayerAI::AI_disbandUnit, CvPlayerAI::AI_doTurnUnitsPost, CvPlayerAI::AI_goldToUpgradeAllUnits, CvUnit::LFBgetRelativeValueRating, CvUnit::changeExperience, CvUnit::convert, CvUnit::getTriggerValue, CvUnit::influencePlots …
+- **11149** `CvUnit::setExperience(int, int)`
+  - calls: CvUnit::getExperience, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (4): CvUnit::changeExperience, CvUnit::convert, CvUnit::upgrade, CyUnit::setExperience
+- **11163** `CvUnit::changeExperience(int, int, bool, bool, bool)`
+  - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::getGreatGeneralRateModifier [CvPlayer.cpp], CvPlayer::getDomesticGreatGeneralRateModifier [CvPlayer.cpp], CvPlayer::getExpInBorderModifier [CvPlayer.cpp], CvPlayer::changeCombatExperience [CvPlayer.cpp], CvUnit::getExperiencePercent, CvUnit::getExperience, CvUnit::setExperience
+  - called by (14): CvCity::addProductionExperience, CvPlayer::receiveGoody, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::applyEvent, CvUnit::awardSpyExperience, CvUnit::giveExperience, CvUnit::resolveAirCombat, CvUnit::resolveCombat …
+- **11194** `CvUnit::getLevel()`
+  - called by (12): CvGame::calculateSyncChecksum, CvPlayer::disbandUnit, CvPlayerAI::AI_disbandUnit, CvSelectionGroupAI::AI_ejectBestDefender, CvUnit::changeLevel, CvUnit::convert, CvUnit::experienceNeeded, CvUnit::setLevel, CyUnit::getLevel, isBeforeUnitCycle, warLogBuilt, warUnitLine
+- **11199** `CvUnit::setLevel(int)`
+  - calls: CvUnit::getLevel, CvPlayer::getHighestUnitLevel [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::setHighestUnitLevel [CvPlayer.cpp], CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (3): CvUnit::changeLevel, CvUnit::convert, CyUnit::setLevel
+- **11218** `CvUnit::changeLevel(int)`
+  - calls: CvUnit::getLevel, CvUnit::setLevel
+  - called by (2): CvUnit::promote, CyUnit::changeLevel
+- **11223** `CvUnit::getCargo()`
+  - called by (23): CvDLLButtonPopup::launchLoadUnitPopup, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroup::getCargo, CvSelectionGroup::groupAmphibMove, CvSelectionGroup::isCargoBusy, CvSelectionGroupAI::AI_separateEmptyTransports, CvUnit::canLoadUnit, CvUnit::canUnloadAll, CvUnit::cargoSpaceAvailable, CvUnit::getUpgradeCity(UnitTypes, bool, int *), CvUnit::hasCargo, CvUnit::isFull …
+- **11228** `CvUnit::changeCargo(int)`
+  - called by (1): CvUnit::setTransportUnit
+- **11234** `CvUnit::getCargoUnits(std::vector<CvUnit *> &)`
+  - calls: CvUnit::hasCargo, CvUnit::plot, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getTransportUnit
+  - called by (11): CvGameTextMgr::setPlotListHelp, CvSelectionGroup::groupAmphibMove, CvUnit::LFBgetDefenderOdds, CvUnit::convert, CvUnit::getUnitAICargo, CvUnit::gift, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::unloadAll, CvUnitAI::AI_carrierSeaTransport, CvUnitAI::AI_settlerSeaTransport, CvUnitAI::AI_update
+- **11256** `CvUnit::getAttackPlot()`
+  - calls: CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h]
+  - called by (7): CvUnit::attackForDamage, CvUnit::isAttacking, CvUnit::kill, CvUnit::setAttackPlot, CvUnit::updateAirCombat, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **11262** `CvUnit::setAttackPlot(const CvPlot *, bool)`
+  - calls: CvUnit::getAttackPlot, CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
+  - called by (9): CvUnit::attack, CvUnit::attackForDamage, CvUnit::fightInterceptor, CvUnit::kill, CvUnit::nuke, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **11281** `CvUnit::isAirCombat()`
+  - called by (1): CvSelectionGroup::updateTimers
+- **11286** `CvUnit::getCombatTimer()` (exported)
+  - called by (8): CvUnit::attackForDamage, CvUnit::changeCombatTimer, CvUnit::doActiveDefense, CvUnit::fighterEngage, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **11291** `CvUnit::setCombatTimer(int)`
+  - called by (9): CvUnit::attackForDamage, CvUnit::changeCombatTimer, CvUnit::doActiveDefense, CvUnit::fighterEngage, CvUnit::setCombatUnit, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **11297** `CvUnit::changeCombatTimer(int)`
+  - calls: CvUnit::getCombatTimer, CvUnit::setCombatTimer
+  - called by (3): CvUnit::updateAirCombat, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **11302** `CvUnit::getCombatFirstStrikes()`
+  - called by (2): CvUnit::changeCombatFirstStrikes, CvUnit::resolveCombat
+- **11307** `CvUnit::setCombatFirstStrikes(int)`
+  - called by (2): CvUnit::changeCombatFirstStrikes, CvUnit::setCombatUnit
+- **11313** `CvUnit::changeCombatFirstStrikes(int)`
+  - calls: CvUnit::getCombatFirstStrikes, CvUnit::setCombatFirstStrikes
+  - called by (1): CvUnit::resolveCombat
+- **11318** `CvUnit::getFortifyTurns()`
+  - called by (12): CvGameTextMgr::setEspionageCostHelp, CvGameTextMgr::setEspionageMissionHelp, CvPlayer::getEspionageMissionCostModifier, CvUnit::changeFortifyTurns, CvUnit::doOpportunityFire, CvUnit::fortifyModifier, CvUnit::getSpyInterceptPercent, CvUnit::setFortifyTurns, CvUnitAI::AI_bombardCity, CvUnitAI::AI_spyMove, CyUnit::getFortifyTurns, warUnitLine
+- **11323** `CvUnit::setFortifyTurns(int)`
+  - calls: range(int, int, int) [CvGameCoreUtils.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getFortifyTurns, CvUnit::setInfoBarDirty
+  - called by (5): CvUnit::changeFortifyTurns, CvUnit::espionage, CvUnit::setXY, CvUnit::testSpyIntercepted, CyUnit::setFortifyTurns
+- **11334** `CvUnit::changeFortifyTurns(int)`
+  - calls: CvUnit::getFortifyTurns, CvUnit::setFortifyTurns
+  - called by (1): CvUnit::doTurn
+- **11339** `CvUnit::getBlitzCount()`
+  - called by (2): CvUnit::isBlitz, CyUnit::getBlitzCount
+- **11344** `CvUnit::isBlitz()`
+  - calls: CvUnit::getBlitzCount
+  - called by (13): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvSelectionGroupAI::AI_getBestGroupAttacker, CvSelectionGroupAI::AI_getBestGroupSacrifice, CvUnit::canMoveInto, CvUnit::canRangeStrike, CvUnit::checkRemoveSelectionAfterAttack, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnitAI::AI_afterAttack, CyUnit::isBlitz …
+- **11349** `CvUnit::changeBlitzCount(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11355** `CvUnit::getAmphibCount()`
+  - called by (2): CvUnit::isAmphib, CyUnit::getAmphibCount
+- **11360** `CvUnit::isAmphib()`
+  - calls: CvUnit::getAmphibCount
+  - called by (5): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::doEspionageMission, CvUnit::maxCombatStr, CyUnit::isAmphib
+- **11365** `CvUnit::changeAmphibCount(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11371** `CvUnit::getRiverCount()`
+  - called by (2): CvUnit::isRiver, CyUnit::getRiverCount
+- **11376** `CvUnit::isRiver()`
+  - calls: CvUnit::getRiverCount
+  - called by (5): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::maxCombatStr, CyUnit::isRiver, pathCost
+- **11381** `CvUnit::changeRiverCount(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11387** `CvUnit::getEnemyRouteCount()`
+  - called by (1): CvUnit::isEnemyRoute
+- **11392** `CvUnit::isEnemyRoute()`
+  - calls: CvUnit::getEnemyRouteCount
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::isValidRoute, CyUnit::isEnemyRoute
+- **11397** `CvUnit::changeEnemyRouteCount(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11403** `CvUnit::getAlwaysHealCount()`
+  - called by (1): CvUnit::isAlwaysHeal
+- **11408** `CvUnit::isAlwaysHeal()`
+  - calls: CvUnit::getAlwaysHealCount
+  - called by (5): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::doTurn, CvUnit::testSpyIntercepted, CvUnitAI::AI_heal, CyUnit::isAlwaysHeal
+- **11413** `CvUnit::changeAlwaysHealCount(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11419** `CvUnit::getHillsDoubleMoveCount()`
+  - called by (1): CvUnit::isHillsDoubleMove
+- **11424** `CvUnit::isHillsDoubleMove()`
+  - calls: CvUnit::getHillsDoubleMoveCount
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::movementCost, CyUnit::isHillsDoubleMove
+- **11429** `CvUnit::changeHillsDoubleMoveCount(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11435** `CvUnit::getImmuneToFirstStrikesCount()`
+  - called by (1): CvUnit::immuneToFirstStrikes
+- **11440** `CvUnit::changeImmuneToFirstStrikesCount(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11447** `CvUnit::getExtraVisibilityRange()`
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::visibilityRange, CyUnit::getExtraVisibilityRange
+- **11452** `CvUnit::changeExtraVisibilityRange(int)`
+  - calls: CvPlot::changeAdjacentSight [CvPlot.cpp], CvUnit::visibilityRange, CvUnit::plot, CvUnit::getTeam
+  - called by (1): CvUnit::setHasPromotion
+- **11465** `CvUnit::getExtraMoves()`
+  - called by (2): CvUnit::baseMoves, CyUnit::getExtraMoves
+- **11471** `CvUnit::changeExtraMoves(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11478** `CvUnit::getExtraMoveDiscount()`
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::movementCost, CyUnit::getExtraMoveDiscount
+- **11484** `CvUnit::changeExtraMoveDiscount(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11490** `CvUnit::getExtraAirRange()`
+  - called by (2): CvUnit::airRange, CyUnit::getExtraAirRange
+- **11495** `CvUnit::changeExtraAirRange(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11500** `CvUnit::getExtraIntercept()`
+  - called by (3): CvUnit::getSpyInterceptPercent, CvUnit::maxInterceptionProbability, CyUnit::getExtraIntercept
+- **11505** `CvUnit::changeExtraIntercept(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11510** `CvUnit::getExtraEvasion()`
+  - called by (3): CvUnit::evasionProbability, CvUnit::getSpyInterceptPercent, CyUnit::getExtraEvasion
+- **11515** `CvUnit::changeExtraEvasion(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11520** `CvUnit::getExtraFirstStrikes()`
+  - called by (3): CvUnit::firstStrikes, CvUnitAI::AI_promotionValue, CyUnit::getExtraFirstStrikes
+- **11525** `CvUnit::changeExtraFirstStrikes(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11531** `CvUnit::getExtraChanceFirstStrikes()`
+  - called by (3): CvUnit::chanceFirstStrikes, CvUnitAI::AI_promotionValue, CyUnit::getExtraChanceFirstStrikes
+- **11536** `CvUnit::changeExtraChanceFirstStrikes(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11543** `CvUnit::getExtraWithdrawal()`
+  - called by (4): CvUnit::isPromotionValid, CvUnit::withdrawalProbability, CvUnitAI::AI_promotionValue, CyUnit::getExtraWithdrawal
+- **11549** `CvUnit::changeExtraWithdrawal(int)`
+  - called by (2): CvUnit::pillage, CvUnit::setHasPromotion
+- **11555** `CvUnit::getExtraCollateralDamage()`
+  - called by (6): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::collateralCombat, CvUnitAI::AI_promotionValue, CyUnit::getExtraCollateralDamage, effectiveCollateral, forecastCollateral
+- **11560** `CvUnit::changeExtraCollateralDamage(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11566** `CvUnit::getExtraBombardRate()`
+  - called by (1): CvUnit::bombardRate
+- **11571** `CvUnit::changeExtraBombardRate(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11577** `CvUnit::getExtraEnemyHeal()`
+  - called by (4): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::doEspionageMission, CvUnit::healRate, CyUnit::getExtraEnemyHeal
+- **11582** `CvUnit::changeExtraEnemyHeal(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11588** `CvUnit::getExtraNeutralHeal()`
+  - called by (4): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::doEspionageMission, CvUnit::healRate, CyUnit::getExtraNeutralHeal
+- **11593** `CvUnit::changeExtraNeutralHeal(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11599** `CvUnit::getExtraFriendlyHeal()`
+  - called by (4): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::doEspionageMission, CvUnit::healRate, CyUnit::getExtraFriendlyHeal
+- **11605** `CvUnit::changeExtraFriendlyHeal(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11611** `CvUnit::getSameTileHeal()`
+  - called by (8): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::LFBgetRelativeValueRating, CvUnit::healRate, CvUnitAI::AI_counterMove, CvUnitAI::AI_lead, CvUnitAI::AI_promotionValue, CvUnitAI::AI_sacrificeValue, CyUnit::getSameTileHeal
+- **11616** `CvUnit::changeSameTileHeal(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11622** `CvUnit::getAdjacentTileHeal()`
+  - called by (6): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::healRate, CvUnitAI::AI_lead, CvUnitAI::AI_promotionValue, CvUnitAI::AI_sacrificeValue, CyUnit::getAdjacentTileHeal
+- **11627** `CvUnit::changeAdjacentTileHeal(int)`
+  - called by (1): CvUnit::setHasPromotion
+- **11633** `CvUnit::getExtraCombatPercent()`
+  - called by (5): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::airMaxCombatStr, CvUnit::maxCombatStr, CyUnit::getExtraCombatPercent
+- **11638** `CvUnit::changeExtraCombatPercent(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11648** `CvUnit::getExtraCityAttackPercent()`
+  - called by (4): CvSelectionGroupAI::AI_ejectBestDefender, CvUnit::cityAttackModifier, CvUnitAI::AI_promotionValue, CyUnit::getExtraCityAttackPercent
+- **11653** `CvUnit::changeExtraCityAttackPercent(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11663** `CvUnit::getExtraCityDefensePercent()`
+  - called by (4): CvPlayerAI::AI_convertUnitAITypesForCrush, CvUnit::cityDefenseModifier, CvUnitAI::AI_promotionValue, CyUnit::getExtraCityDefensePercent
+- **11668** `CvUnit::changeExtraCityDefensePercent(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11678** `CvUnit::getExtraHillsAttackPercent()`
+  - called by (3): CvUnit::hillsAttackModifier, CvUnitAI::AI_promotionValue, CyUnit::getExtraHillsAttackPercent
+- **11683** `CvUnit::changeExtraHillsAttackPercent(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11693** `CvUnit::getExtraHillsDefensePercent()`
+  - called by (3): CvUnit::hillsDefenseModifier, CvUnitAI::AI_promotionValue, CyUnit::getExtraHillsDefensePercent
+- **11698** `CvUnit::changeExtraHillsDefensePercent(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11708** `CvUnit::getRevoltProtection()`
+  - called by (2): CvCity::getRevoltTestProbability, CyUnit::getRevoltProtection
+- **11713** `CvUnit::changeRevoltProtection(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11723** `CvUnit::getCollateralDamageProtection()`
+  - called by (5): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::collateralCombat, CvUnit::isRbombardable, CyUnit::getCollateralDamageProtection, forecastCollateral
+- **11728** `CvUnit::changeCollateralDamageProtection(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11738** `CvUnit::getPillageChange()`
+  - called by (1): CyUnit::getPillageChange
+- **11743** `CvUnit::changePillageChange(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11753** `CvUnit::getUpgradeDiscount()`
+  - called by (3): CvPlayer::getEspionageMissionCostModifier, CvUnit::upgradePrice, CyUnit::getUpgradeDiscount
+- **11758** `CvUnit::changeUpgradeDiscount(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11768** `CvUnit::getExperiencePercent()`
+  - called by (2): CvUnit::changeExperience, CyUnit::getExperiencePercent
+- **11773** `CvUnit::changeExperiencePercent(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11783** `CvUnit::getKamikazePercent()`
+  - called by (5): CvGameTextMgr::setCombatPlotHelp, CvUnit::airMaxCombatStr, CvUnit::isSuicide, CvUnit::maxCombatStr, CyUnit::getKamikazePercent
+- **11788** `CvUnit::changeKamikazePercent(int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **11798** `CvUnit::getFacingDirection(bool)` (exported)
+  - calls: CvUnitInfo::isLineOfSight [CvInfos.cpp]
+  - called by (4): CvGame::updateColoredPlots, CvPlot::changeAdjacentSight, CvUnit::canRangeStrikeAt, CyUnit::getFacingDirection
+- **11817** `CvUnit::setFacingDirection(DirectionTypes)`
+  - calls: CvUnitInfo::isLineOfSight [CvInfos.cpp], CvPlot::changeAdjacentSight [CvPlot.cpp], CvUnit::visibilityRange, CvUnit::plot, CvUnit::getTeam, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::NotifyEntity
+  - called by (5): CvUnit::attackForDamage, CvUnit::rotateFacingDirectionClockwise, CvUnit::rotateFacingDirectionCounterClockwise, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **11844** `CvUnit::rotateFacingDirectionClockwise()`
+  - calls: CvUnit::setFacingDirection
+  - called by (1): CyUnit::rotateFacingDirectionClockwise
+- **11851** `CvUnit::rotateFacingDirectionCounterClockwise()`
+  - calls: CvUnit::setFacingDirection
+  - called by (1): CyUnit::rotateFacingDirectionCounterClockwise
+- **11858** `CvUnit::getImmobileTimer()`
+  - called by (5): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::canMove, CvUnit::changeImmobileTimer, CvUnit::setImmobileTimer, CyUnit::getImmobileTimer
+- **11863** `CvUnit::setImmobileTimer(int)`
+  - calls: CvUnit::getImmobileTimer, CvUnit::setInfoBarDirty
+  - called by (2): CvUnit::changeImmobileTimer, CyUnit::setImmobileTimer
+- **11873** `CvUnit::changeImmobileTimer(int)`
+  - calls: CvUnit::getImmobileTimer, CvUnit::setImmobileTimer
+  - called by (2): CvUnit::applyEvent, CvUnit::doTurn
+- **11881** `CvUnit::isMadeAttack()`
+  - called by (25): CvGameTextMgr::setEspionageMissionHelp, CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvSelectionGroupAI::AI_getBestGroupAttacker, CvSelectionGroupAI::AI_getBestGroupSacrifice, CvUnit::canAirBomb, CvUnit::canAirBomb1, CvUnit::canAirBomb2, CvUnit::canAirBomb3, CvUnit::canAirBomb4, CvUnit::canAirBomb5, CvUnit::canArcherBombard …
+- **11887** `CvUnit::setMadeAttack(bool)`
+  - called by (24): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airStrike, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged …
+- **11893** `CvUnit::isMadeInterception()`
+  - called by (2): CvUnit::bestInterceptor, CyUnit::isMadeInterception
+- **11899** `CvUnit::setMadeInterception(bool)`
+  - called by (3): CvUnit::doTurn, CvUnit::updateAirCombat, CyUnit::setMadeInterception
+- **11905** `CvUnit::isPromotionReady()` (exported)
+  - called by (3): CvUnit::canPromote, CvUnit::setPromotionReady, CyUnit::isPromotionReady
+- **11911** `CvUnit::setPromotionReady(bool)`
+  - calls: CvUnit::isPromotionReady, CvSelectionGroup::setAutomateType [CvSelectionGroup.cpp], CvUnit::getGroup, CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvSelectionGroup::setActivityType [CvSelectionGroup.cpp], CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::showPromotionGlow [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h]
+  - called by (3): CvUnit::cheat, CvUnit::testPromotionReady, CyUnit::setPromotionReady
+- **11934** `CvUnit::testPromotionReady()`
+  - calls: CvUnit::experienceNeeded, CvUnit::getExperience, CvUnit::setPromotionReady, CvUnit::canAcquirePromotionAny
+  - called by (6): CvCity::addProductionExperience, CvUnit::awardSpyExperience, CvUnit::doTurn, CvUnit::giveExperience, CvUnit::promote, CvUnit::testSpyIntercepted
+- **11940** `CvUnit::isDelayedDeath()`
+  - called by (16): CvPlot::nukeExplosion, CvSelectionGroupAI::AI_update, CvUnit::canAssassin, CvUnit::canBribe, CvUnit::canConstruct, CvUnit::canDiscover, CvUnit::canEspionage, CvUnit::canGreatWork, CvUnit::canHurry, CvUnit::canInfiltrate, CvUnit::canJoin, CvUnit::canLead …
+- **11946** `CvUnit::startDelayedDeath()`
+  - called by (1): CvUnit::kill
+- **11953** `CvUnit::doDelayedDeath()`
+  - calls: CvUnit::isFighting, CvUnit::kill
+  - called by (2): CvSelectionGroup::doDelayedDeath, CvUnitAI::AI_upgrade
+- **11965** `CvUnit::isCombatFocus()`
+  - called by (4): CvUnit::attackForDamage, CvUnit::setCombatUnit, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **11971** `CvUnit::isInfoBarDirty()` (exported)
+- **11977** `CvUnit::setInfoBarDirty(bool)` (exported)
+  - called by (24): CvPlot::setCenterUnit, CvUnit::changeCargoSpace, CvUnit::changeCollateralDamageProtection, CvUnit::changeExperiencePercent, CvUnit::changeExtraCityAttackPercent, CvUnit::changeExtraCityDefensePercent, CvUnit::changeExtraCombatPercent, CvUnit::changeExtraFeatureAttackPercent, CvUnit::changeExtraFeatureDefensePercent, CvUnit::changeExtraHillsAttackPercent, CvUnit::changeExtraHillsDefensePercent, CvUnit::changeExtraTerrainAttackPercent …
+- **11982** `CvUnit::isBlockading()`
+  - called by (5): CvGame::updateColoredPlots, CvPlayer::updatePlunder, CvPlot::setOwner, CvUnit::doTurn, CvUnit::setBlockading
+- **11987** `CvUnit::setBlockading(bool)`
+  - calls: CvUnit::isBlockading, CvUnit::updatePlunder
+  - called by (5): CvPlot::setOwner, CvSelectionGroup::setBlockading, CvUnit::kill, CvUnit::plunder, CvUnit::setXY
+- **11997** `CvUnit::collectBlockadeGold()`
+  - calls: CvPlot::getTeam [CvPlot.cpp], CvUnit::plot, CvUnit::getTeam, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], plotXY [CvGameCoreUtils.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvPlot::isRevealed [CvPlot.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::isPlundered [CvCity.cpp], CvCity::getTeam [CvCity.cpp], atWar [CvGameCoreUtils.cpp], CvUnit::isEnemy, CvCity::plot [CvCity.cpp], CvCity::area [CvCity.cpp], CvPlot::isAdjacentToArea(const CvArea *) [CvPlot.cpp], CvUnit::area, CvCity::calculateTradeProfit [CvCity.cpp], CvCity::getTradeRoutes [CvCity.cpp], CvCity::setPlundered [CvCity.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvCity::getOwnerINLINE [CvCity.h], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvWString::operator=(const CvWString &) [CvString.h], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvUnit::doTurn
+- **12041** `CvUnit::getOwner()` (exported)
+  - calls: CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (12): CvGameTextMgr::setPlotListHelp, CvStatistics::unitBuilt, CvStatistics::unitKilled, CvUnit::archerBombard, CvUnit::bombardRanged, CvUnit::doOpportunityFire, CvUnit::getRenderPriority, CvUnit::kill, CvUnitAI::AI_RbombardUnit, CvUnitAI::AI_exploreAir2, CvUnitAI::AI_lead, CvUnitAI::AI_stackAttackCity
+- **12046** `CvUnit::getVisualOwner(TeamTypes)` (exported)
+  - calls: CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::getTeam, CvUnitInfo::isHiddenNationality [CvInfos.cpp], CvPlot::isCity [CvPlot.cpp], CvUnit::plot, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (10): CvPlayer::getUnitLayerColors, CvPlot::plotMinimapColor, CvPlot::updateFlagSymbol, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::getVisualCivAdjective, CvUnit::maxCombatStr, CvUnit::updateCombat, CvUnit::updateStackCombat, CyUnit::getVisualOwner
+- **12068** `CvUnit::getCombatOwner(TeamTypes, const CvPlot *)`
+  - calls: CvUnit::getTeam, CvUnit::isAlwaysHostile, CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (8): CvPlot::isFriendlyCity, CvUnit::isEnemy, CvUnit::isPotentialEnemy, CyUnit::getCombatOwner, PUF_canDeclareWar, PUF_isCombatTeam, PUF_isEnemy, PUF_isPotentialEnemy
+- **12081** `CvUnit::getTeam()` (exported)
+  - calls: CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (216): CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::updateColoredPlots, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setEspionageMissionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::acquireCity, CvPlayer::canSpyDestroyUnit, CvPlayer::disbandUnit, CvPlayer::doEspionageMission, CvPlayer::getUnitLayerColors, CvPlayerAI::AI_disbandUnit …
+- **12087** `CvUnit::getCapturingPlayer()`
+  - called by (1): CvUnit::kill
+- **12093** `CvUnit::setCapturingPlayer(PlayerTypes)`
+  - called by (4): CvUnit::kill, CvUnit::setXY, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **12099** `CvUnit::getUnitType()` (exported)
+  - called by (76): AI_isSacrificeWorth, CvCity::addProductionExperience, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parsePlotListHelp, CvGame::selectGroup, CvGame::selectionListGameNetMessage, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvNetDoCommand::Execute, CvPlayer::assimilatePlayer, CvPlayer::doAdvancedStartAction, CvPlayer::doEspionageMission …
+- **12104** `CvUnit::getUnitInfo()`
+  - called by (32): CvCity::cultureGarrison, CvCityAI::AI_bestSpreadUnit, CvDLLWidgetData::parseActionHelp, CvGame::replaceCorporation, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::canSpyDestroyUnit, CvPlayer::countCorporationSpreadUnits, CvPlayer::countReligionSpreadUnits, CvPlayer::disbandUnit, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_disbandUnit …
+- **12110** `CvUnit::getUnitClassType()`
+  - calls: CvUnitInfo::getUnitClassType [CvInfos.cpp]
+  - called by (20): CvGameTextMgr::setCombatPlotHelp, CvPlayer::applyEvent, CvPlayerAI::AI_doEnemyUnitData, CvUnit::LFBgetRelativeValueRating, CvUnit::canGift, CvUnit::flankingStrikeCombat, CvUnit::getTriggerValue, CvUnit::init, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::isTargetOf, CvUnit::kill, CvUnit::maxCombatStr …
+- **12115** `CvUnit::getLeaderUnitType()` (exported)
+  - called by (10): CvUnit::LFBgetRelativeValueRating, CvUnit::convert, CvUnit::influencePlots, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnit::kill, CvUnit::planBattle, CvUnit::upgrade, CvUnitAI::AI_heal, CvUnitAI::AI_promotionValue, CyUnit::getLeaderUnitType
+- **12120** `CvUnit::setLeaderUnitType(UnitTypes)`
+  - calls: CvUnit::reloadEntity
+  - called by (2): CvUnit::convert, CyUnit::setLeaderUnitType
+- **12129** `CvUnit::getCombatUnit()` (exported)
+  - calls: getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h]
+  - called by (7): CvUnit::computeWaveSize, CvUnit::isFighting, CvUnit::setCombatUnit, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **12135** `CvUnit::setCombatUnit(CvUnit *, bool)`
+  - calls: CvUnit::isCombatFocus, CvDLLInterfaceIFaceBase::setCombatFocus [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getLogging [CvGlobals.cpp], CvDLLUtilityIFaceBase::getChtLvl [CvDLLUtilityIFaceBase.h], CvPlayer::getName [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::GetCString [CvString.h], CvUnit::currCombatStr, CvUnit::getID, CvUnit::getName, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::plot, CvDLLUtilityIFaceBase::messageControlLog [CvDLLUtilityIFaceBase.h], CvUnit::getDomainType, CvUnitInfo::isIgnoreBuildingDefense [CvInfos.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getBuildingDefense [CvCity.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::cityAttackModifier, CvDLLEntity::SetSiegeTower [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::isFocusedWidget [CvDLLInterfaceIFaceBase.h], CvGame::getActivePlayer [CvGame.cpp], CvGame::isMPOption [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], IDInfo::operator= [CvStructs.h], CvUnit::getIDInfo, CvGame::getSorenRandNum [CvGame.cpp], CvUnit::firstStrikes, CvUnit::chanceFirstStrikes, CvUnit::immuneToFirstStrikes, CvUnit::setCombatFirstStrikes, CvUnit::getCombatUnit, IDInfo::reset [CvStructs.h], CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::getSelectionPlot [CvDLLInterfaceIFaceBase.h], CvUnit::setCombatTimer, CvUnit::setInfoBarDirty
+  - takes the address of: IDInfo::operator= [CvStructs.h]
+  - called by (5): CvUnit::attackForDamage, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **12209** `CvUnit::getTransportUnit()`
+  - calls: getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h]
+  - called by (29): CvGame::getPlotUnit, CvGame::getPlotUnits, CvSelectionGroup::isCargoBusy, CvSelectionGroup::setAutomateType, CvSelectionGroup::setRemoteTransportUnit, CvSelectionGroup::setTransportUnit, CvUnit::canCargoAllMove, CvUnit::canCargoEnterArea, CvUnit::canGift, CvUnit::canUnload, CvUnit::convert, CvUnit::getCargoUnits …
+- **12215** `CvUnit::isCargo()`
+  - calls: CvUnit::getTransportUnit
+  - called by (46): CvGame::getPlotUnit, CvGame::getPlotUnits, CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_updateMilitaryOperations, CvPlot::countAirInterceptorsActive, CvPlot::countNumAirUnits, CvPlot::getBestDefender, CvPlot::hasDefender, CvPlot::verifyUnitValidPlot, CvSelectionGroup::calculateIsStranded, CvSelectionGroup::canEverDoCommand, CvSelectionGroupAI::AI_update …
+- **12221** `CvUnit::setTransportUnit(CvUnit *)`
+  - calls: CvUnit::getTransportUnit, CvUnit::changeCargo, CvUnit::joinGroup, IDInfo::operator= [CvStructs.h], CvUnit::getIDInfo, CvUnit::getDomainType, CvSelectionGroup::setActivityType [CvSelectionGroup.cpp], CvUnit::getGroup, CvGame::isFinalInitialized [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::finishMoves, IDInfo::reset [CvStructs.h]
+  - takes the address of: IDInfo::operator= [CvStructs.h]
+  - called by (13): CvSelectionGroup::setRemoteTransportUnit, CvSelectionGroup::setTransportUnit, CvUnit::convert, CvUnit::kill, CvUnit::load, CvUnit::loadUnit, CvUnit::setXY, CvUnit::unload, CvUnit::unloadAll, CvUnitAI::AI_airCarrier, CvUnitAI::AI_missileLoad, CvUnitAI::AI_settlerSeaTransport …
+- **12278** `CvUnit::getExtraDomainModifier(DomainTypes)`
+  - called by (2): CvUnit::domainModifier, CyUnit::getExtraDomainModifier
+- **12286** `CvUnit::changeExtraDomainModifier(DomainTypes, int)`
+  - called by (1): CvUnit::setHasPromotion
+- **12294** `CvUnit::getName(uint)` (exported)
+  - calls: CvWString::CvWString() [CvString.h], CvInfoBase::getDescription [CvInfos.cpp], CvWString::CvWString(const wchar *) [CvString.h], CvUnit::isDescInName, CvWString::CvWString(const CvWString &) [CvString.h], CvWString::GetCString [CvString.h], CvWString::Format [CvString.h]
+  - called by (14): CvCity::conscript, CvCity::popOrder, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::createGreatPeople, CvPlayerAI::AI_disbandUnit, CvSelectionGroupAI::AI_update, CvUnit::maxCombatStr, CvUnit::setCombatUnit, CvUnit::setXY, CvUnit::upgrade, CvUnitAI::AI_lead …
+- **12315** `CvUnit::isDescInName()`
+  - calls: CvInfoBase::getDescription [CvInfos.cpp]
+  - called by (2): CvUnit::convert, CvUnit::getName
+- **12322** `CvUnit::getNameKey()` (exported)
+  - calls: CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::GetCString [CvString.h]
+  - called by (37): CvGameTextMgr::setEspionageCostHelp, CvGameTextMgr::setEventHelp, CvPlayer::disbandUnit, CvPlayer::doEspionageMission, CvPlayer::initTriggeredData, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb4, CvUnit::airStrike, CvUnit::applyEvent, CvUnit::archerBombard, CvUnit::bombard …
+- **12335** `CvUnit::getNameNoDesc()`
+  - called by (3): CvUnit::convert, CvUnit::promote, CyUnit::getNameNoDesc
+- **12341** `CvUnit::setName(CvWString)`
+  - calls: CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::operator=(const CvWString &) [CvString.h], CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvUnit::applyEvent
+- **12354** `CvUnit::getScriptData()`
+  - called by (1): CyUnit::getScriptData
+- **12360** `CvUnit::setScriptData(std::string)`
+  - calls: CvString::operator=(const std::string &) [CvString.h]
+  - takes the address of: CvString::operator=(const std::string &) [CvString.h]
+  - called by (1): CyUnit::setScriptData
+- **12366** `CvUnit::getTerrainDoubleMoveCount(TerrainTypes)`
+  - called by (1): CvUnit::isTerrainDoubleMove
+- **12374** `CvUnit::isTerrainDoubleMove(TerrainTypes)`
+  - calls: CvUnit::getTerrainDoubleMoveCount
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::movementCost, CyUnit::isTerrainDoubleMove
+- **12382** `CvUnit::changeTerrainDoubleMoveCount(TerrainTypes, int)`
+  - called by (1): CvUnit::setHasPromotion
+- **12391** `CvUnit::getFeatureDoubleMoveCount(FeatureTypes)`
+  - called by (1): CvUnit::isFeatureDoubleMove
+- **12399** `CvUnit::isFeatureDoubleMove(FeatureTypes)`
+  - calls: CvUnit::getFeatureDoubleMoveCount
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::movementCost, CyUnit::isFeatureDoubleMove
+- **12407** `CvUnit::changeFeatureDoubleMoveCount(FeatureTypes, int)`
+  - called by (1): CvUnit::setHasPromotion
+- **12416** `CvUnit::getExtraTerrainAttackPercent(TerrainTypes)`
+  - called by (3): CvUnit::terrainAttackModifier, CvUnitAI::AI_promotionValue, CyUnit::getExtraTerrainAttackPercent
+- **12424** `CvUnit::changeExtraTerrainAttackPercent(TerrainTypes, int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **12437** `CvUnit::getExtraTerrainDefensePercent(TerrainTypes)`
+  - called by (3): CvUnit::terrainDefenseModifier, CvUnitAI::AI_promotionValue, CyUnit::getExtraTerrainDefensePercent
+- **12445** `CvUnit::changeExtraTerrainDefensePercent(TerrainTypes, int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **12458** `CvUnit::getExtraFeatureAttackPercent(FeatureTypes)`
+  - called by (3): CvUnit::featureAttackModifier, CvUnitAI::AI_promotionValue, CyUnit::getExtraFeatureAttackPercent
+- **12466** `CvUnit::changeExtraFeatureAttackPercent(FeatureTypes, int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **12479** `CvUnit::getExtraFeatureDefensePercent(FeatureTypes)`
+  - called by (3): CvUnit::featureDefenseModifier, CvUnitAI::AI_promotionValue, CyUnit::getExtraFeatureDefensePercent
+- **12487** `CvUnit::changeExtraFeatureDefensePercent(FeatureTypes, int)`
+  - calls: CvUnit::setInfoBarDirty
+  - called by (1): CvUnit::setHasPromotion
+- **12500** `CvUnit::getExtraUnitCombatModifier(UnitCombatTypes)`
+  - called by (2): CvUnit::unitCombatModifier, CyUnit::getExtraUnitCombatModifier
+- **12508** `CvUnit::changeExtraUnitCombatModifier(UnitCombatTypes, int)`
+  - called by (1): CvUnit::setHasPromotion
+- **12516** `CvUnit::canAcquirePromotion(PromotionTypes)`
+  - calls: CvUnit::isHasPromotion, CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPromotionInfo::getPrereqPromotion [CvInfos.cpp], CvPromotionInfo::getPrereqOrPromotion1 [CvInfos.cpp], CvPromotionInfo::getPrereqOrPromotion2 [CvInfos.cpp], CvPromotionInfo::getTechPrereq [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvPromotionInfo::getStateReligionPrereq [CvInfos.cpp], CvPlayer::getStateReligion [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::isPromotionValid
+  - called by (4): CvUnit::canAcquirePromotionAny, CvUnit::canApplyEvent, CvUnit::canPromote, CyUnit::canAcquirePromotion
+- **12569** `CvUnit::isPromotionValid(PromotionTypes)`
+  - calls: isPromotionValid [CvGameCoreUtils.cpp], CvUnit::getUnitType, CvUnit::isSpy, CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvPromotionInfo::getWithdrawalChange [CvInfos.cpp], CvUnitInfo::getWithdrawalProbability [CvInfos.cpp], CvUnit::getExtraWithdrawal, CvPromotionInfo::getInterceptChange [CvInfos.cpp], CvUnit::maxInterceptionProbability, CvPromotionInfo::getEvasionChange [CvInfos.cpp], CvUnit::evasionProbability
+  - called by (2): CvUnit::canAcquirePromotion, CyUnit::isPromotionValid
+- **12610** `CvUnit::canAcquirePromotionAny()`
+  - calls: CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::canAcquirePromotion
+  - called by (8): CvCity::addProductionExperience, CvPlayer::canReceiveGoody, CvUnit::canApplyEvent, CvUnit::canGiveExperience, CvUnit::canPromote, CvUnit::giveExperience, CvUnit::testPromotionReady, CyUnit::canAcquirePromotionAny
+- **12626** `CvUnit::isHasPromotion(PromotionTypes)`
+  - called by (13): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayerAI::AI_eventValue, CvUnit::canAcquirePromotion, CvUnit::convert, CvUnit::getLayerAnimationPaths, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyUnit::isHasPromotion, isCommissionedGeneral, isCommissionedOperationalGeneral …
+- **12634** `CvUnit::setHasPromotion(PromotionTypes, bool)`
+  - calls: CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPromotionInfo::isEnemyRoute [CvInfos.cpp], CvUnit::isSpy, CvUnit::isHasPromotion, CvPromotionInfo::isBlitz [CvInfos.cpp], CvUnit::changeBlitzCount, CvPromotionInfo::isAmphib [CvInfos.cpp], CvUnit::changeAmphibCount, CvPromotionInfo::isRiver [CvInfos.cpp], CvUnit::changeRiverCount, CvUnit::changeEnemyRouteCount, CvPromotionInfo::isAlwaysHeal [CvInfos.cpp], CvUnit::changeAlwaysHealCount, CvPromotionInfo::isHillsDoubleMove [CvInfos.cpp], CvUnit::changeHillsDoubleMoveCount, CvPromotionInfo::isImmuneToFirstStrikes [CvInfos.cpp], CvUnit::changeImmuneToFirstStrikesCount, CvPromotionInfo::getVisibilityChange [CvInfos.cpp], CvUnit::changeExtraVisibilityRange, CvPromotionInfo::getMovesChange [CvInfos.cpp], CvUnit::changeExtraMoves, CvPromotionInfo::getMoveDiscountChange [CvInfos.cpp], CvUnit::changeExtraMoveDiscount, CvPromotionInfo::getAirRangeChange [CvInfos.cpp], CvUnit::changeExtraAirRange, CvPromotionInfo::getInterceptChange [CvInfos.cpp], CvUnit::changeExtraIntercept, CvPromotionInfo::getEvasionChange [CvInfos.cpp], CvUnit::changeExtraEvasion, CvPromotionInfo::getFirstStrikesChange [CvInfos.cpp], CvUnit::changeExtraFirstStrikes, CvPromotionInfo::getChanceFirstStrikesChange [CvInfos.cpp], CvUnit::changeExtraChanceFirstStrikes, CvPromotionInfo::getWithdrawalChange [CvInfos.cpp], CvUnit::changeExtraWithdrawal, CvPromotionInfo::getCollateralDamageChange [CvInfos.cpp], CvUnit::changeExtraCollateralDamage, CvPromotionInfo::getBombardRateChange [CvInfos.cpp], CvUnit::changeExtraBombardRate, CvPromotionInfo::getEnemyHealChange [CvInfos.cpp], CvUnit::changeExtraEnemyHeal, CvPromotionInfo::getNeutralHealChange [CvInfos.cpp], CvUnit::changeExtraNeutralHeal, CvPromotionInfo::getFriendlyHealChange [CvInfos.cpp], CvUnit::changeExtraFriendlyHeal, CvPromotionInfo::getSameTileHealChange [CvInfos.cpp], CvUnit::changeSameTileHeal, CvPromotionInfo::getAdjacentTileHealChange [CvInfos.cpp], CvUnit::changeAdjacentTileHeal, CvPromotionInfo::getCombatPercent [CvInfos.cpp], CvUnit::changeExtraCombatPercent, CvPromotionInfo::getCityAttackPercent [CvInfos.cpp], CvUnit::changeExtraCityAttackPercent, CvPromotionInfo::getCityDefensePercent [CvInfos.cpp], CvUnit::changeExtraCityDefensePercent, CvPromotionInfo::getHillsAttackPercent [CvInfos.cpp], CvUnit::changeExtraHillsAttackPercent, CvPromotionInfo::getHillsDefensePercent [CvInfos.cpp], CvUnit::changeExtraHillsDefensePercent, CvPromotionInfo::getRevoltProtection [CvInfos.cpp], CvUnit::changeRevoltProtection, CvPromotionInfo::getCollateralDamageProtection [CvInfos.cpp], CvUnit::changeCollateralDamageProtection, CvPromotionInfo::getPillageChange [CvInfos.cpp], CvUnit::changePillageChange, CvPromotionInfo::getUpgradeDiscount [CvInfos.cpp], CvUnit::changeUpgradeDiscount, CvPromotionInfo::getExperiencePercent [CvInfos.cpp], CvUnit::changeExperiencePercent, CvPromotionInfo::getKamikazePercent [CvInfos.cpp], CvUnit::changeKamikazePercent, CvPromotionInfo::getCargoChange [CvInfos.cpp], CvUnit::changeCargoSpace, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvPromotionInfo::getTerrainAttackPercent [CvInfos.cpp], CvUnit::changeExtraTerrainAttackPercent, CvPromotionInfo::getTerrainDefensePercent [CvInfos.cpp], CvUnit::changeExtraTerrainDefensePercent, CvPromotionInfo::getTerrainDoubleMove [CvInfos.cpp], CvUnit::changeTerrainDoubleMoveCount, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvPromotionInfo::getFeatureAttackPercent [CvInfos.cpp], CvUnit::changeExtraFeatureAttackPercent, CvPromotionInfo::getFeatureDefensePercent [CvInfos.cpp], CvUnit::changeExtraFeatureDefensePercent, CvPromotionInfo::getFeatureDoubleMove [CvInfos.cpp], CvUnit::changeFeatureDoubleMoveCount, CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvPromotionInfo::getUnitCombatModifierPercent [CvInfos.cpp], CvUnit::changeExtraUnitCombatModifier, CvPromotionInfo::getDomainModifierPercent [CvInfos.cpp], CvUnit::changeExtraDomainModifier, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::updatePromotionLayers [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - called by (8): CvCity::addProductionExperience, CvPlayer::applyEvent, CvUnit::applyEvent, CvUnit::convert, CvUnit::init, CvUnit::promote, CyUnit::setHasPromotion, setOperationalGeneralBadge
+- **12735** `CvUnit::getSubUnitCount()` (exported)
+  - calls: CvUnitInfo::getGroupSize [CvInfos.cpp]
+- **12741** `CvUnit::getSubUnitsAlive()` (exported)
+  - calls: CvUnit::getDamage, CvUnit::getSubUnitsAlive(int)
+- **12747** `CvUnit::getSubUnitsAlive(int)`
+  - calls: CvUnit::maxHitPoints, CvUnitInfo::getGroupSize [CvInfos.cpp]
+  - called by (3): CvUnit::computeUnitsToDie, CvUnit::getSubUnitsAlive(), CvUnit::planBattle
+- **12759** `CvUnit::potentialWarAction(const CvPlot *)`
+  - calls: CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvUnit::isEnemy, CvSelectionGroup::AI_isDeclareWar [CvSelectionGroup.h] ⇢ CvSelectionGroupAI::AI_isDeclareWar, CvTeamAI::AI_getWarPlan [CvTeamAI.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getGroup
+  - called by (6): CvUnit::canAirBombAt, CvUnit::canPillage, CvUnitAI::AI_blockade, CvUnitAI::AI_carrierSeaTransport, CvUnitAI::AI_pillageAroundCity, CvUnitAI::AI_pillageRange
+- **12782** `CvUnit::read(FDataStreamBase *)`
+  - calls: CvUnit::reset, FDataStreamBase::Read(unsigned int *) [FDataStreamBase.h], FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read(int, int *) [FDataStreamBase.h], FDataStreamBase::ReadString(std::wstring &) [FDataStreamBase.h], FDataStreamBase::ReadString(std::string &) [FDataStreamBase.h], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], FDataStreamBase::Read(int, bool *) [FDataStreamBase.h], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp]
+  - called by (1): CvUnitAI::read
+- **12905** `CvUnit::write(FDataStreamBase *)`
+  - calls: FDataStreamBase::Write(unsigned int) [FDataStreamBase.h], FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h], FDataStreamBase::Write(int, const int *) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::wstring &) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::string &) [FDataStreamBase.h], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Write(int, const bool *) [FDataStreamBase.h], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp]
+  - called by (1): CvUnitAI::write
+- **13016** `CvUnit::canAdvance(const CvPlot *, int)`
+  - calls: CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvUnit::isNoCapture, CvPlot::isEnemyCity [CvPlot.cpp]
+  - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **13040** `CvUnit::collateralCombat(const CvPlot *, CvUnit *)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::getDomainType, CvUnit::baseCombatStr, CvUnit::airBaseCombatStr, CvUnit::collateralDamage, CvUnit::getExtraCollateralDamage, CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvUnit::collateralDamageMaxUnits, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getTeam, CvUnit::isEnemy, CvUnit::isInvisible, CvUnit::canDefend, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::currHitPoints, CvPlot::getPlotCity [CvPlot.cpp], CvUnitInfo::getUnitCombatCollateralImmune [CvInfos.cpp], CvUnit::getUnitCombatType, CvUnit::getUnitInfo, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::getCollateralDamageProtection, CvCity::getAirModifier [CvCity.cpp], CvUnit::collateralDamageLimit, CvUnit::getDamage, CvUnit::setDamage, CvUnit::getOwnerINLINE [CvUnit.h], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::combatLogCollateral [CvEventReporter.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::getNameKey
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (5): CvUnit::airStrike, CvUnit::bombardRanged, CvUnit::doActiveDefense, CvUnit::rangeStrike, CvUnit::resolveCombat
+- **13178** `CvUnit::flankingStrikeCombat(const CvPlot *, int, int, int, int, CvUnit *)`
+  - calls: CvPlot::isCity [CvPlot.cpp], CvUnit::getTeam, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::isDead, CvUnit::isEnemy, CvUnit::isInvisible, CvUnit::canDefend, CvUnitInfo::getFlankingStrikeUnitClass [CvInfos.cpp], CvUnit::getUnitClassType, CvUnit::getDefenderCombatValues, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getCOMBAT_DIE_SIDES [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::collateralDamageLimit, CvUnit::getDamage, CvUnit::collateralDamageMaxUnits, CvUnit::setDamage, CvUnit::getOwnerINLINE [CvUnit.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::getVisualCivAdjective, CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGame::getCurrentEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvEraInfo::getAudioUnitVictoryScript [CvInfos.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvEraInfo::getAudioUnitDefeatScript [CvInfos.cpp], CvUnit::kill, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::combatLogFlanking [CvEventReporter.cpp]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvUnit::resolveCombat
+- **13283** `CvUnit::interceptTest(const CvPlot *)`
+  - calls: CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::evasionProbability, CvUnit::bestInterceptor, CvUnit::currInterceptionProbability, CvUnit::fightInterceptor
+  - called by (10): CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airStrike, CvUnit::fighterEngage, CvUnit::nuke, CvUnit::paradrop
+- **13304** `CvUnit::airStrikeTarget(const CvPlot *)`
+  - calls: CvPlot::getBestDefender [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::isDead, CvUnit::canDefend
+  - called by (5): CvUnit::airStrike, CvUnit::canAirStrike, CvUnit::canRangeStrikeAt, CvUnit::doActiveDefense, CvUnit::rangeStrike
+- **13325** `CvUnit::canAirStrike(const CvPlot *)`
+  - calls: CvUnit::getDomainType, CvUnit::canAirAttack, CvUnit::plot, CvPlot::isVisible [CvPlot.cpp], CvUnit::getTeam, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::airStrikeTarget
+  - called by (2): CvUnit::airStrike, CvUnit::canMoveInto
+- **13361** `CvUnit::airStrike(CvPlot *)`
+  - calls: CvUnit::canAirStrike, CvUnit::interceptTest, CvUnit::airStrikeTarget, CvUnit::setBattlePlot, CvUnit::setReconPlot, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::changeMoves, CvUnit::airCombatDamage, CvUnit::airCombatLimit, CvUnit::getDamage, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::maxHitPoints, CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getOwnerINLINE [CvUnit.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::collateralCombat, CvUnit::setDamage
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvUnit::updateAirStrike
+- **13409** `CvUnit::canRangeStrike()`
+  - calls: CvUnit::getDomainType, CvUnit::airRange, CvUnit::airBaseCombatStr, CvUnit::canFight, CvUnit::isBlitz, CvUnit::isMadeAttack, CvUnit::canMove, CvUnit::getMoves
+  - called by (4): CvSelectionGroup::canDoInterfaceMode, CvUnit::canRangeStrikeAt, CvUnitAI::AI_rangeAttack, CvUnitAI::AI_update
+- **13444** `CvUnit::canRangeStrikeAt(const CvPlot *, int, int)`
+  - calls: CvUnit::canRangeStrike, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvPlot::isVisible [CvPlot.cpp], CvUnit::getTeam, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvUnit::airStrikeTarget, CvPlot::canSeePlot [CvPlot.cpp], CvUnit::getFacingDirection
+  - called by (4): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::rangeStrike, CvUnitAI::AI_rangeAttack
+- **13497** `CvUnit::rangeStrike(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plot [CvMap.cpp], CvUnit::plot, CvUnit::canRangeStrikeAt, CvUnit::airStrikeTarget, CvUnit::setBattlePlot, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvUnit::rangeCombatDamage, CvUnit::airCombatLimit, CvUnit::getDamage, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::maxHitPoints, CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::getOwnerINLINE [CvUnit.h], CvWString::CvWString(const wchar *) [CvString.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::collateralCombat, warLogStrike [CvGameCoreUtils.cpp], CvUnit::setDamage, CvPlot::isActiveVisible [CvPlot.cpp], CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::startMission, CyUnit::rangeStrike
+- **13608** `CvUnit::planBattle(CvBattleDefinition &)`
+  - calls: CvBattleDefinition::setNumRangedRounds [CvStructs.cpp], CvBattleDefinition::setNumMeleeRounds [CvStructs.cpp], CvBattleDefinition::getFirstStrikes [CvStructs.cpp], CvUnit::computeUnitsToDie, CvUnit::increaseBattleRounds, CvBattleDefinition::getNumRangedRounds [CvStructs.cpp], CvBattleDefinition::getNumMeleeRounds [CvStructs.cpp], CvBattleDefinition::clearBattleRounds [CvStructs.cpp], CvBattleRound::CvBattleRound [CvStructs.cpp], CvBattleDefinition::setBattleRound [CvStructs.cpp], CvMissionDefinition::getUnit [CvStructs.cpp], CvBattleDefinition::getDamage [CvStructs.cpp], CvUnit::getSubUnitsAlive(int), CvUnit::isDead, CvBattleRound::addNumKilled [CvStructs.cpp], CvBattleDefinition::getBattleRound(int) [CvStructs.cpp], CvGame::getSorenRandNum [CvGame.cpp], range(int, int, int) [CvGameCoreUtils.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvBattleDefinition::getNumBattleRounds [CvStructs.cpp], CvBattleRound::setRangedRound [CvStructs.cpp], CvBattleRound::getNumKilled [CvStructs.cpp], CvBattleRound::setNumAlive [CvStructs.cpp], CvBattleRound::isRangedRound [CvStructs.cpp], CvBattleRound::setWaveSize [CvStructs.cpp], CvBattleRound::getNumAlive [CvStructs.cpp], CvUnit::computeWaveSize, CvUnit::verifyRoundsValid, CvUnit::getLeaderUnitType, CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::GetSiegeTower [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **13779** `CvUnit::computeUnitsToDie(const CvBattleDefinition &, bool, BattleUnitTypes)`
+  - calls: CvMissionDefinition::getUnit [CvStructs.cpp], CvBattleDefinition::getDamage [CvStructs.cpp], CvUnit::getSubUnitsAlive(int)
+  - called by (1): CvUnit::planBattle
+- **13795** `CvUnit::verifyRoundsValid(const CvBattleDefinition &)`
+  - calls: CvBattleDefinition::getNumBattleRounds [CvStructs.cpp], CvBattleRound::isValid [CvStructs.cpp], CvBattleDefinition::getBattleRound(int) [CvStructs.cpp]
+  - called by (1): CvUnit::planBattle
+- **13810** `CvUnit::increaseBattleRounds(CvBattleDefinition &)`
+  - calls: CvMissionDefinition::getUnit [CvStructs.cpp], CvUnit::isRanged, CvBattleDefinition::addNumRangedRounds [CvStructs.cpp], CvBattleDefinition::addNumMeleeRounds [CvStructs.cpp]
+  - called by (1): CvUnit::planBattle
+- **13830** `CvUnit::computeWaveSize(bool, int, int)`
+  - calls: CvUnitInfo::getRangedWaveSize [CvInfos.cpp], CvUnit::getUnitInfo, CvUnit::getCombatUnit, CvUnitInfo::getMeleeWaveSize [CvInfos.cpp]
+  - called by (1): CvUnit::planBattle
+- **13851** `CvUnit::isTargetOf(const CvUnit &)`
+  - calls: CvUnit::getUnitInfo, CvPlot::isCity [CvPlot.cpp], CvUnit::plot, CvUnit::getTeam, CvUnitInfo::getTargetUnitClass [CvInfos.cpp], CvUnit::getUnitClassType, CvUnitInfo::getTargetUnitCombat [CvInfos.cpp], CvUnit::getUnitCombatType, CvUnitInfo::getUnitClassType [CvInfos.cpp], CvUnitInfo::getDefenderUnitClass [CvInfos.cpp], CvUnitInfo::getUnitCombatType [CvInfos.cpp], CvUnitInfo::getDefenderUnitCombat [CvInfos.cpp]
+  - called by (1): CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *)
+- **13882** `CvUnit::isEnemy(TeamTypes, const CvPlot *)`
+  - calls: CvUnit::plot, atWar [CvGameCoreUtils.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getCombatOwner
+  - called by (66): CvCity::isBombardable, CvGameTextMgr::getNukePlotHelp, CvPlayer::canSpyBribeUnit, CvPlayer::getUnitLayerColors, CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getPlotDanger, CvPlayerAI::AI_getWaterDanger, CvPlayerAI::AI_isPlotThreatened, CvPlot::getBestDefender, CvPlot::hasDefender, CvPlot::isEnemyCity, CvPlot::isFriendlyCity …
+- **13892** `CvUnit::isPotentialEnemy(TeamTypes, const CvPlot *)`
+  - calls: CvUnit::plot, isPotentialEnemy [CvGameCoreUtils.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getCombatOwner
+  - called by (13): CvPlot::AI_sumStrength, CvPlot::getBestDefender, CvPlot::hasDefender, CvSelectionGroup::continueMission, CvSelectionGroupAI::AI_cityAssaultForecast, CvUnitAI::AI_allowGroup, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_load, CvUnitAI::AI_paradrop, CvUnitAI::AI_paratrooperMove, CvUnitAI::AI_potentialEnemy …
+- **13902** `CvUnit::isSuicide()` (exported)
+  - calls: CvUnitInfo::isSuicide [CvInfos.cpp], CvUnit::getKamikazePercent
+  - called by (19): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::nuke, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat …
+- **13907** `CvUnit::getDropRange()`
+  - calls: CvUnitInfo::getDropRange [CvInfos.cpp]
+  - called by (5): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::canParadrop, CvUnit::canParadropAt, CvUnitAI::AI_offensiveAirlift, CvUnitAI::AI_paratrooperMove
+- **13912** `CvUnit::getDefenderCombatValues(CvUnit &, const CvPlot *, int, int, int &, int &, int &, int &, CombatDetails *)`
+  - calls: CvUnit::currCombatStr, CvUnit::currFirepower, CvGlobals::getCOMBAT_DIE_SIDES [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::isBarbarian, CvGlobals::getHandicapInfo(HandicapTypes) [CvGlobals.cpp], CvHandicapInfo::getFreeWinsVsBarbs [CvInfos.cpp], CvPlayer::getWinsVsBarbs [CvPlayer.cpp], CvPlayer::getHandicapType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvGlobals::getCOMBAT_DAMAGE [CvGlobals.cpp]
+  - called by (2): CvUnit::flankingStrikeCombat, CvUnit::resolveCombat
+- **13971** `CvUnit::getTriggerValue(EventTriggerTypes, const CvPlot *, bool)`
+  - calls: CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventTriggerInfo::getNumUnits [CvInfos.cpp], CvUnit::isDead, CvEventTriggerInfo::getPythonCanDoUnit [CvInfos.cpp], CvString::CvString(const char *) [CvString.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getID, CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvEventTriggerInfo::getNumUnitsRequired [CvInfos.cpp], CvEventTriggerInfo::getUnitRequired [CvInfos.cpp], CvUnit::getUnitClassType, CvEventTriggerInfo::isUnitsOnPlot [CvInfos.cpp], CvPlot::canTrigger [CvPlot.cpp], CvUnit::plot, CvEventTriggerInfo::getUnitDamagedWeight [CvInfos.cpp], CvUnit::getDamage, CvEventTriggerInfo::getUnitExperienceWeight [CvInfos.cpp], CvUnit::getExperience, plotDistance [CvGameCoreUtils.h], CvEventTriggerInfo::getUnitDistanceWeight [CvInfos.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h]
+  - called by (4): CvPlayer::getEventTriggerWeight, CvPlayer::initTriggeredData, CvPlayer::pickTriggerUnit, CvPlot::canTrigger
+- **14049** `CvUnit::canApplyEvent(EventTypes)`
+  - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getUnitExperience [CvInfos.cpp], CvUnit::canAcquirePromotionAny, CvEventInfo::getUnitPromotion [CvInfos.cpp], CvUnit::canAcquirePromotion, CvEventInfo::getUnitImmobileTurns [CvInfos.cpp], CvUnit::canAttack()
+  - called by (2): CvPlayer::canDoEvent, CvUnit::applyEvent
+- **14080** `CvUnit::applyEvent(EventTypes)`
+  - calls: CvUnit::canApplyEvent, CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getUnitExperience [CvInfos.cpp], CvUnit::setDamage, CvUnit::changeExperience, CvEventInfo::getUnitPromotion [CvInfos.cpp], CvUnit::setHasPromotion, CvEventInfo::getUnitImmobileTurns [CvInfos.cpp], CvUnit::changeImmobileTimer, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::getOwnerINLINE [CvUnit.h], CvEventInfo::getUnitNameKey [CvInfos.cpp], CvWString::CvWString(const wchar *) [CvString.h], CvUnit::setName(CvWString), CvEventInfo::isDisbandUnit [CvInfos.cpp], CvUnit::kill
+  - called by (1): CvPlayer::applyEvent
+- **14120** `CvUnit::getArtInfo(int, EraTypes)` (exported)
+  - calls: CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getArtInfo [CvInfos.cpp], CvCivilizationInfo::getUnitArtStyleType [CvInfos.cpp], CvUnit::getCivilizationType
+  - called by (5): CvSelectionGroup::playActionSound, CvUnit::getButton, CvUnit::getSelectionSoundScript, CvUnit::isRanged, CyUnit::getArtInfo
+- **14125** `CvUnit::getButton()` (exported)
+  - calls: CvPlayer::getCurrentEra [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getArtInfo, CvUnit::getOwnerINLINE [CvUnit.h], CvInfoBase::getButton [CvInfos.cpp] ⇢ CvUnitInfo::getButton, CvBuildingInfo::getButton, CvCivilizationInfo::getButton, CvImprovementInfo::getButton, CvBonusInfo::getButton, CvFeatureInfo::getButton, CvTerrainInfo::getButton, CvLeaderHeadInfo::getButton, CvUnitInfo::getButton [CvInfos.cpp]
+  - called by (35): CvPlayer::createGreatPeople, CvPlayer::disbandUnit, CvPlayer::doWarnings, CvPlayer::getUnitLayerColors, CvUnit::airBomb, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airStrike, CvUnit::applyEvent, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard …
+- **14137** `CvUnit::getGroupSize()` (exported)
+  - calls: CvUnitInfo::getGroupSize [CvInfos.cpp]
+- **14142** `CvUnit::getGroupDefinitions()` (exported)
+  - calls: CvUnitInfo::getGroupDefinitions [CvInfos.cpp]
+- **14147** `CvUnit::getUnitGroupRequired(int)` (exported)
+  - calls: CvUnitInfo::getUnitGroupRequired [CvInfos.cpp]
+- **14152** `CvUnit::isRenderAlways()` (exported)
+  - calls: CvUnitInfo::isRenderAlways [CvInfos.cpp]
+- **14157** `CvUnit::getAnimationMaxSpeed()` (exported)
+  - calls: CvUnitInfo::getUnitMaxSpeed [CvInfos.cpp]
+- **14162** `CvUnit::getAnimationPadTime()` (exported)
+  - calls: CvUnitInfo::getUnitPadTime [CvInfos.cpp]
+- **14167** `CvUnit::getFormationType()` (exported)
+  - calls: CvUnitInfo::getFormationType [CvInfos.cpp]
+- **14172** `CvUnit::isMechUnit()` (exported)
+  - calls: CvUnitInfo::isMechUnit [CvInfos.cpp]
+- **14177** `CvUnit::isRenderBelowWater()` (exported)
+  - calls: CvUnitInfo::isRenderBelowWater [CvInfos.cpp]
+- **14182** `CvUnit::getRenderPriority(UnitSubEntityTypes, int, int)` (exported)
+  - calls: CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getOwner
+- **14194** `CvUnit::isAlwaysHostile(const CvPlot *)`
+  - calls: CvUnitInfo::isAlwaysHostile [CvInfos.cpp], CvPlot::isCity [CvPlot.cpp], CvUnit::getTeam
+  - called by (8): CvPlot::getNumVisibleEnemyDefenders, CvPlot::getNumVisiblePotentialEnemyDefenders, CvPlot::isVisibleEnemyDefender, CvPlot::isVisibleEnemyUnit(const CvUnit *), CvUnit::doVictoryInfluence, CvUnit::getCombatOwner, CvUnit::getDeclareWarMove, pathCost
+- **14209** `CvUnit::verifyStackValid()`
+  - calls: CvUnit::alwaysInvisible, CvPlot::isVisibleEnemyUnit(const CvUnit *) [CvPlot.cpp], CvUnit::plot, CvUnit::jumpToNearestValidPlot
+  - called by (1): CvPlayer::verifyUnitStacksValid
+- **14226** `CvUnit::isCombatVisible(const CvUnit *)`
+  - calls: CvUnitInfo::isQuickCombat [CvInfos.cpp], CvUnit::getUnitInfo, CvUnit::isHuman, CvPlayer::isOption [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (5): CvUnit::attackForDamage, CvUnit::updateAirCombat, CvUnit::updateAirStrike, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **14255** `CvUnit::shouldShowEnemyGlow(TeamTypes)` (exported)
+  - calls: CvUnit::isDelayedDeath, CvUnit::getDomainType, CvUnit::canFight, CvUnit::plot, CvPlot::getTeam [CvPlot.cpp], CvUnit::isEnemy
+- **14292** `CvUnit::shouldShowFoundBorders()` (exported)
+  - calls: CvUnit::isFound
+- **14298** `CvUnit::cheat(bool, bool, bool)` (exported)
+  - calls: CvDLLUtilityIFaceBase::getChtLvl [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::setPromotionReady
+- **14309** `CvUnit::getHealthBarModifier()` (exported)
+  - calls: CvGame::getBestLandUnitCombat [CvGame.cpp], CvGlobals::getDefineFLOAT [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **14314** `CvUnit::getLayerAnimationPaths(std::vector<AnimationPathTypes> &)` (exported)
+  - calls: CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::isHasPromotion, CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvPromotionInfo::getLayerAnimationPath [CvInfos.cpp]
+- **14330** `CvUnit::getSelectionSoundScript()` (exported)
+  - calls: CvArtInfoUnit::getSelectionSoundScriptId [CvInfos.cpp], CvPlayer::getCurrentEra [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getArtInfo, CvUnit::getOwnerINLINE [CvUnit.h], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCivilizationInfo::getSelectionSoundScriptId [CvInfos.cpp], CvUnit::getCivilizationType
+- **14344** `CvUnit::canAirBomb1(const CvPlot *)`
+  - calls: CvGlobals::getDCM_AIR_BOMBING [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getDCMAirBomb1 [CvInfos.cpp], CvUnit::getUnitType, CvUnit::getDomainType, CvUnit::airBombBaseRate, CvUnit::isMadeAttack
+  - called by (2): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAirBomb1At
+- **14373** `CvUnit::canAirBomb1At(const CvPlot *, int, int)`
+  - calls: CvUnit::canAirBomb1, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvPlot::isOwned [CvPlot.cpp], atWar [CvGameCoreUtils.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::getPlotCity [CvPlot.cpp], CvCity::isBombardable [CvCity.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isPermanent [CvInfos.cpp], CvImprovementInfo::getAirBombDefense [CvInfos.cpp]
+  - called by (3): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::airBomb1
+- **14429** `CvUnit::airBomb1(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvUnit::canAirBomb1At, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::interceptTest, CvUnit::setBattlePlot, CvPlot::getPlotCity [CvPlot.cpp], CvCity::changeDefenseDamage [CvCity.cpp], CvUnit::airBombCurrRate, CvCity::isBarbarian [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::changeExperience, CvUnit::getOwnerINLINE [CvUnit.h], CvCity::getDefenseModifier [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getUnitType, CvPlot::getImprovementType [CvPlot.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getAirBombDefense [CvInfos.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isOwned [CvPlot.cpp], CvPlayer::getCivilizationAdjectiveKey [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getOwnerINLINE [CvPlot.h], CvPlayer::isBarbarian [CvPlayer.cpp], CvImprovementInfo::getImprovementPillage [CvInfos.cpp], CvPlot::setImprovementType [CvPlot.cpp], CvUnit::setReconPlot, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::isSuicide, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::startMission, CvUnit::airBomb
+- **14525** `CvUnit::canAirBomb2(const CvPlot *)`
+  - calls: CvGlobals::getDCM_AIR_BOMBING [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getDCMAirBomb2 [CvInfos.cpp], CvUnit::getUnitType, CvUnit::getDomainType, CvUnit::airBombBaseRate, CvUnit::isMadeAttack
+  - called by (2): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAirBomb2At
+- **14551** `CvUnit::canAirBomb2At(const CvPlot *, int, int)`
+  - calls: CvUnit::canAirBomb2, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvPlot::isOwned [CvPlot.cpp], atWar [CvGameCoreUtils.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::getPlotCity [CvPlot.cpp]
+  - called by (3): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::airBomb2
+- **14580** `CvUnit::airBomb2(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CLinkList::CLinkList<tVARTYPE> [LinkedList.h], CvUnit::plot, CvUnit::canAirBomb2At, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::interceptTest, CvUnit::setBattlePlot, CvPlot::getPlotCity [CvPlot.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvTechInfo::getDCMAirBombTech1 [CvInfos.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvTechInfo::getDCMAirBombTech2 [CvInfos.cpp], CLinkList::clear [LinkedList.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getDCMAirbombMission [CvInfos.cpp], CLinkList::insertAtEnd [LinkedList.h], CLinkList::getLength [LinkedList.h], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CLinkList::nodeNum [LinkedList.h], CvCity::getNumRealBuilding [CvCity.cpp], CvCity::isBarbarian [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::changeExperience, CvCity::setNumRealBuilding [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getUnitType, CvCity::getPopulation [CvCity.cpp], CvCity::changePopulation [CvCity.cpp], CvUnit::setReconPlot, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::isSuicide, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::startMission, CvUnit::airBomb
+- **14728** `CvUnit::canAirBomb3(const CvPlot *)`
+  - calls: CvGlobals::getDCM_AIR_BOMBING [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getDCMAirBomb3 [CvInfos.cpp], CvUnit::getUnitType, CvUnit::getDomainType, CvUnit::airBombBaseRate, CvUnit::isMadeAttack
+  - called by (2): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAirBomb3At
+- **14754** `CvUnit::canAirBomb3At(const CvPlot *, int, int)`
+  - calls: CvUnit::canAirBomb3, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvPlot::isOwned [CvPlot.cpp], atWar [CvGameCoreUtils.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::getPlotCity [CvPlot.cpp]
+  - called by (3): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::airBomb3
+- **14783** `CvUnit::airBomb3(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CLinkList::CLinkList<tVARTYPE> [LinkedList.h], CvUnit::plot, CvUnit::canAirBomb3At, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::interceptTest, CvUnit::setBattlePlot, CvPlot::getPlotCity [CvPlot.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvTechInfo::getDCMAirBombTech1 [CvInfos.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvTechInfo::getDCMAirBombTech2 [CvInfos.cpp], CLinkList::clear [LinkedList.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getDCMAirbombMission [CvInfos.cpp], CLinkList::insertAtEnd [LinkedList.h], CLinkList::getLength [LinkedList.h], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CLinkList::nodeNum [LinkedList.h], CvCity::getNumRealBuilding [CvCity.cpp], CvCity::setNumRealBuilding [CvCity.cpp], CvCity::isBarbarian [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::changeExperience, CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getUnitType, CvCity::getPopulation [CvCity.cpp], CvCity::changePopulation [CvCity.cpp], CvUnit::setReconPlot, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::isSuicide, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::startMission, CvUnit::airBomb
+- **14930** `CvUnit::canAirBomb4(const CvPlot *)`
+  - calls: CvGlobals::getDCM_AIR_BOMBING [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getDCMAirBomb4 [CvInfos.cpp], CvUnit::getUnitType, CvUnit::getDomainType, CvUnit::airBombBaseRate, CvUnit::isMadeAttack
+  - called by (2): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAirBomb4At
+- **14956** `CvUnit::canAirBomb4At(const CvPlot *, int, int)`
+  - calls: CvUnit::canAirBomb4, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvPlot::isOwned [CvPlot.cpp], atWar [CvGameCoreUtils.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::getPlotCity [CvPlot.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstUnit [CvPlayer.cpp], CvPlayer::nextUnit [CvPlayer.cpp], CvUnit::plot, CvUnit::getDomainType, CvPlot::getImprovementType [CvPlot.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isActsAsCity [CvInfos.cpp]
+  - called by (3): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::airBomb4
+- **15024** `CvUnit::airBomb4(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvUnit::canAirBomb4At, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::interceptTest, CvUnit::setBattlePlot, CvPlot::getPlotCity [CvPlot.cpp], CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getDomainType, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::isBarbarian [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvUnit::changeExperience, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::airCombatDamage, CvUnit::airCombatLimit, CvUnit::getDamage, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::maxHitPoints, CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::setDamage, CvGlobals::getMAX_HIT_POINTS [CvGlobals.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvUnit::getUnitType, CvCity::getNameKey [CvCity.cpp], CvCity::getPopulation [CvCity.cpp], CvCity::changePopulation [CvCity.cpp], CvUnit::setReconPlot, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::isSuicide, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::startMission, CvUnit::airBomb
+- **15156** `CvUnit::canAirBomb5(const CvPlot *)`
+  - calls: CvGlobals::getDCM_AIR_BOMBING [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getDCMAirBomb5 [CvInfos.cpp], CvUnit::getUnitType, CvUnit::getDomainType, CvUnit::airBombBaseRate, CvUnit::isMadeAttack
+  - called by (2): CvSelectionGroup::canDoInterfaceMode, CvUnit::canAirBomb5At
+- **15182** `CvUnit::canAirBomb5At(const CvPlot *, int, int)`
+  - calls: CvUnit::canAirBomb5, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvPlot::isOwned [CvPlot.cpp], atWar [CvGameCoreUtils.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, CvPlot::getPlotCity [CvPlot.cpp]
+  - called by (3): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::airBomb5
+- **15211** `CvUnit::airBomb5(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvUnit::canAirBomb5At, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::interceptTest, CvUnit::setBattlePlot, CvPlot::getPlotCity [CvPlot.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::getProduction [CvCity.cpp], CvCity::setProduction [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getOwnerINLINE [CvUnit.h], CvCity::getOwnerINLINE [CvCity.h], CvCity::isBarbarian [CvCity.cpp], CvUnit::changeExperience, CvCity::getPopulation [CvCity.cpp], CvCity::changePopulation [CvCity.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvUnit::getUnitType, CvUnit::setReconPlot, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::isSuicide, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::startMission, CvUnit::airBomb
+- **15301** `CvUnit::canRBombard(const CvPlot *)`
+  - calls: CvPlot::isWater [CvPlot.cpp], CvUnit::plot, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getDCM_RANGE_BOMBARD [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getDCMBombRange, CvUnit::getDomainType, CvUnit::bombardRate, CvUnit::isMadeAttack, CvUnit::isCargo
+  - called by (6): CvSelectionGroup::canBombard, CvSelectionGroup::canDoInterfaceMode, CvUnit::canBombardAtRanged, CvUnit::getRbombardSeigeCount, CvUnit::isRbombardable, CvUnitAI::AI_RbombardNaval
+- **15356** `CvUnit::canBombardAtRanged(const CvPlot *, int, int)`
+  - calls: CvUnit::canRBombard, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::getDCMBombRange, CvGlobals::getDCM_RANGE_BOMBARD [CvGlobals.cpp], CvPlot::isWater [CvPlot.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvPlot::isOwned [CvPlot.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, atWar [CvGameCoreUtils.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::isBombardable [CvCity.cpp], CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isPermanent [CvInfos.cpp], CvImprovementInfo::getAirBombDefense [CvInfos.cpp]
+  - called by (9): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::bombardRanged, CvUnitAI::AI_RbombardCity, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_RbombardPlot, CvUnitAI::AI_RbombardUnit
+- **15427** `CvUnit::bombardRanged(int, int, bool)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvUnit::canBombardAtRanged, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::isBombardable [CvCity.cpp], CvUnit::ignoreBuildingDefense, CvCity::getBuildingBombardDefense [CvCity.cpp], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvCity::changeDefenseModifier [CvCity.cpp], CvUnit::bombardRate, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvCity::getDefenseModifier [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getNameKey [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::getOwnerINLINE [CvUnit.h], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvCity::getOwnerINLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvUnit::setBattlePlot, CvPlot::getBestDefender [CvPlot.cpp], CvUnit::getDCMBombAccuracy, CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvUnit::getUnitType, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::collateralCombat, CvUnit::changeDamage, CvUnit::getOwner, CvPlot::getImprovementType [CvPlot.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getAirBombDefense [CvInfos.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvPlot::isOwned [CvPlot.cpp], CvPlayer::getCivilizationAdjectiveKey [CvPlayer.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvImprovementInfo::getImprovementPillage [CvInfos.cpp], CvPlot::setImprovementType [CvPlot.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (3): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvSelectionGroup::startMission
+- **15658** `CvUnit::isRbombardable(int)`
+  - calls: CvPlot::getNumUnits [CvPlot.cpp], CvUnit::plot, CvPlot::getUnitByIndex [CvPlot.cpp], CvUnit::canRBombard, CvUnit::getDamage, CvUnit::getCollateralDamageProtection
+  - called by (2): CvUnitAI::AI_RbombardCity, CvUnitAI::AI_RbombardUnit
+- **15696** `CvUnit::getRbombardSeigeCount(CvPlot *)`
+  - calls: CvPlot::getNumUnits [CvPlot.cpp], CvPlot::getUnitByIndex [CvPlot.cpp], CvUnit::canRBombard
+  - called by (1): CvUnitAI::AI_RbombardUnit
+- **15722** `CvUnit::getDCMBombRange()` (exported)
+  - calls: CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getDCMBombRange [CvInfos.cpp], CvUnit::getUnitType
+  - called by (8): CvGame::updateColoredPlots, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::canBombardAtRanged, CvUnit::canRBombard, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_afterAttack, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_collateralMove
+- **15727** `CvUnit::getDCMBombAccuracy()` (exported)
+  - calls: CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getDCMBombAccuracy [CvInfos.cpp], CvUnit::getUnitType
+  - called by (3): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::archerBombard, CvUnit::bombardRanged
+- **15734** `CvUnit::updateStackCombat(bool)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::getCombatTimer, CvUnit::changeCombatTimer, CvUnit::getAttackPlot, CvUnit::getDomainType, CvUnit::updateAirStrike, CvUnit::getCombatUnit, CvPlot::getBestDefender [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::setAttackPlot, CvUnit::setCombatUnit, CvSelectionGroup::groupMove [CvSelectionGroup.cpp], CvUnit::getGroup, CvUnit::canAdvance, CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvUnit::isCombatVisible, CvUnit::isFighting, CvUnit::setMadeAttack, estimateDirection(const CvPlot *, const CvPlot *) [CvGameCoreUtils.cpp], CvUnit::plot, CvUnit::setFacingDirection, CvDLLInterfaceIFaceBase::isCombatFocus [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvUnit::isCombatFocus, directionXY(const CvPlot *, const CvPlot *) [CvGameCoreUtils.h], NiPoint2::NiPoint2(float, float) [CvGameCoreDLL.h], NiPoint3::NiPoint3(float, float, float) [CvGameCoreDLL.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvPlot::getPoint [CvPlot.cpp], NiPoint3::Unitize [CvGameCoreDLL.h], CvDLLInterfaceIFaceBase::lookAt [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getGraphicOption [CvDLLUtilityIFaceBase.h], CvGame::getActivePlayer [CvGame.cpp], NiPoint3::NiPoint3(const NiPoint3 &) [CvGameCoreDLL.h], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getVisualOwner, CvUnit::getTeam, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvPlayer::getNameKey [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::canDefend, CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvUnit::setCombatTimer, CvGame::incrementTurnTimer [CvGame.cpp], CvGlobals::getMAX_HIT_POINTS [CvGlobals.cpp], CvUnit::setDamage, CvBattleDefinition::CvBattleDefinition() [CvStructs.cpp], CvBattleDefinition::setDamage [CvStructs.cpp], CvUnit::getDamage, CvUnit::resolveCombat, CvBattleDefinition::setAdvanceSquare [CvStructs.cpp], CvUnit::isRanged, CvBattleDefinition::getDamage [CvStructs.cpp], CvBattleDefinition::addDamage [CvStructs.cpp], CvUnit::planBattle, CvPlot::isActiveVisible [CvPlot.cpp], CvDLLEntity::ExecuteMove [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::releaseLockedCamera [CvDLLInterfaceIFaceBase.h], CvDLLEntityIFaceBase::RemoveUnitFromBattle [CvDLLEntityIFaceBase.h], CvUnit::NotifyEntity, CvUnit::isDead, CvUnit::isBarbarian, CvPlayer::changeWinsVsBarbs [CvPlayer.cpp], CvUnitInfo::isHiddenNationality [CvInfos.cpp], CvUnit::getUnitInfo, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvTeam::changeWarWeariness(TeamTypes, const CvPlot &, int) [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeamAI::AI_changeWarSuccess [CvTeamAI.cpp], CvUnit::getNameKey, CvUnit::doVictoryInfluence, CvWString::Format [CvString.h], CvGame::getCurrentEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvEraInfo::getAudioUnitDefeatScript [CvInfos.cpp], CvUnit::getVisualCivAdjective, CvEraInfo::getAudioUnitVictoryScript [CvInfos.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::combatResult [CvEventReporter.cpp], CvUnit::isSuicide, CvUnit::kill, CvUnit::isNoCapture, CvUnit::setCapturingPlayer, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvPlot::movementCost [CvPlot.cpp], CvUnit::changeMoves, CvUnit::checkRemoveSelectionAfterAttack, CvUnit::canMove, CvUnit::isBlitz, CvDLLEntity::IsSelected [CvDLLEntity.cpp], CvDLLInterfaceIFaceBase::getLengthSelectionList [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::removeFromSelectionList [CvDLLInterfaceIFaceBase.h], CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvUnit::updateCombat
+- **16155** `CvUnit::doOpportunityFire()`
+  - calls: CvWString::CvWString() [CvString.h], CvGlobals::getDCM_OPP_FIRE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::bombardRate, CvUnit::getFortifyTurns, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::plot, CvPlot::getNumUnits [CvPlot.cpp], CvPlot::getBestDefender [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::setBattlePlot, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::changeDamage, CvUnit::getOwner, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvPlot::isActiveVisible [CvPlot.cpp], CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvPlayer::doTurn
+- **16218** `CvUnit::doActiveDefense()`
+  - calls: CvWString::CvWString() [CvString.h], CvGlobals::getDCM_ACTIVE_DEFENSE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvSelectionGroup::getActivityType [CvSelectionGroup.cpp], CvUnit::getGroup, plotXY [CvGameCoreUtils.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvPlot::getNumUnits [CvPlot.cpp], CvUnit::airStrikeTarget, CvUnit::setBattlePlot, CvUnit::airCombatDamage, CvUnit::airCombatLimit, CvUnit::getDamage, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::maxHitPoints, CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::collateralCombat, CvUnit::setDamage, CvPlot::isActiveVisible [CvPlot.cpp], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvAirMissionDefinition::setDamage [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvUnit::setCombatTimer, CvGame::incrementTurnTimer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getCombatTimer, CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvPlayer::doTurn
+- **16287** `CvUnit::canArcherBombard(const CvPlot *)`
+  - calls: CvGlobals::getDCM_ARCHER_BOMBARD [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getUnitCombatType [CvInfos.cpp], CvUnit::getUnitType, CvUnit::isMadeAttack, CvUnit::isCargo
+  - called by (5): CvGame::updateColoredPlots, CvSelectionGroup::canBombard, CvSelectionGroup::canDoInterfaceMode, CvUnit::canArcherBombardAt, CvUnitAI::AI_Abombard
+- **16308** `CvUnit::canArcherBombardAt(const CvPlot *, int, int)`
+  - calls: CvUnit::canArcherBombard, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvPlot::isOwned [CvPlot.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, atWar [CvGameCoreUtils.cpp]
+  - called by (6): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::archerBombard, CvUnitAI::AI_Abombard
+- **16343** `CvUnit::archerBombard(int, int, bool)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvUnit::canArcherBombardAt, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvPlot::getBestDefender [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getDCMBombAccuracy, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getUnitType, CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::currFirepower, CvUnit::changeDamage, CvUnit::getOwner, CvUnit::isDead, CvUnit::isBarbarian, CvPlayer::changeWinsVsBarbs [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnitInfo::isHiddenNationality [CvInfos.cpp], CvUnit::getUnitInfo, CvTeam::changeWarWeariness(TeamTypes, const CvPlot &, int) [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvTeamAI::AI_changeWarSuccess [CvTeamAI.cpp], CvGame::getCurrentEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvEraInfo::getAudioUnitVictoryScript [CvInfos.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::getVisualOwner, CvUnit::getVisualCivAdjective, CvEraInfo::getAudioUnitDefeatScript [CvInfos.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::combatResult [CvEventReporter.cpp], CvUnit::maxHitPoints, CvUnit::getDamage, CvUnit::getButton, CvUnit::setBattlePlot, CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves, CvPlot::isActiveVisible [CvPlot.cpp], CvMissionDefinition::CvMissionDefinition [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (3): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvSelectionGroup::startMission
+- **16445** `CvUnit::canFEngage(const CvPlot *)`
+  - calls: CvGlobals::getDCM_FIGHTER_ENGAGE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getDCMFighterEngage [CvInfos.cpp], CvUnit::getUnitType, CvUnit::getDomainType, CvUnit::isMadeAttack
+  - called by (3): CvSelectionGroup::canDoInterfaceMode, CvUnit::canFEngageAt, CvUnitAI::AI_FEngage
+- **16470** `CvUnit::canFEngageAt(const CvPlot *, int, int)`
+  - calls: CvUnit::canFEngage, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvUnit::airRange, CvPlot::isOwned [CvPlot.cpp], CvPlot::getTeam [CvPlot.cpp], CvUnit::getTeam, atWar [CvGameCoreUtils.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstUnit [CvPlayer.cpp], CvPlayer::nextUnit [CvPlayer.cpp], CvUnit::plot, CvUnit::getDomainType
+  - called by (4): CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvUnit::fighterEngage, CvUnitAI::AI_FEngage
+- **16519** `CvUnit::fighterEngage(int, int)`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvUnit::canFEngageAt, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvUnit::interceptTest, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getDomainType, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvAirMissionDefinition::CvAirMissionDefinition() [CvStructs.cpp], CvMissionDefinition::setMissionType [CvStructs.cpp], CvMissionDefinition::setUnit [CvStructs.cpp], CvUnit::resolveAirCombat, CvPlot::isActiveVisible [CvPlot.cpp], CvMissionDefinition::setPlot [CvStructs.cpp], CvDLLUtilityIFaceBase::getSecsPerTurn [CvDLLUtilityIFaceBase.h], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvMissionInfo::getTime [CvInfos.cpp], CvMissionDefinition::setMissionTime [CvStructs.cpp], CvUnit::setCombatTimer, CvGame::incrementTurnTimer [CvGame.cpp], CvUnit::getCombatTimer, CvDLLEntityIFaceBase::AddMission [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvUnit::isDead, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvWString::CvWString(const char *) [CvString.h], CvUnit::getVisualCivAdjective, CvUnit::getTeam, CvUnit::getNameKey, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getButton, CvUnit::getOwnerINLINE [CvUnit.h], CvWString::operator=(const CvWString &) [CvString.h], CvAirMissionDefinition::getDamage [CvStructs.cpp], CvUnit::setMadeAttack, CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvUnit::changeMoves
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (1): CvSelectionGroup::startMission
+- **16632** `CvUnit::doVictoryInfluence(CvUnit *, bool, bool)`
+  - calls: CvUnit::isAnimal, CvUnit::plot, CvUnit::isAlwaysHostile, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::isBarbarian, CvUnit::getDomainType, CvPlot::getCulture [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvGlobals::getDefineFLOAT [CvGlobals.cpp], CvPlot::isEnemyCity [CvPlot.cpp], CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvUnit::influencePlots, CvCity::emergencyConscript [CvCity.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvPlot::countTotalCulture [CvPlot.cpp], CvWString::CvWString() [CvString.h], CvWString::Format [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvUnitInfo::getButton [CvInfos.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getUnitType, CvUnit::canDefend, CvPlot::getImprovementType [CvPlot.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getDefenseModifier [CvInfos.cpp]
+  - called by (2): CvUnit::updateCombat, CvUnit::updateStackCombat
+- **16769** `CvUnit::influencePlots(CvPlot *, PlayerTypes, float)`
+  - calls: CvGlobals::getDefineFLOAT [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getConstructPercent [CvInfos.cpp], CvGame::getStartEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvEraInfo::getConstructPercent [CvInfos.cpp], CvUnit::getExperience, CvUnit::getLeaderUnitType, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], plotDistance [CvGameCoreUtils.h], plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getCulture [CvPlot.cpp], CvPlot::isCity [CvPlot.cpp], CvPlot::changeCulture [CvPlot.cpp], CvPlot::setCulture [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h]
+  - called by (1): CvUnit::doVictoryInfluence
+- **16882** `CvUnit::doPillageInfluence()`
+  - calls: CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::isBarbarian, CvUnit::getDomainType, CvUnit::plot, CvPlot::getCulture [CvPlot.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvGlobals::getDefineFLOAT [CvGlobals.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getConstructPercent [CvInfos.cpp], CvGame::getStartEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvEraInfo::getConstructPercent [CvInfos.cpp], CvPlot::getOwner [CvPlot.cpp], CvPlot::changeCulture [CvPlot.cpp], CvPlot::countTotalCulture [CvPlot.cpp]
+  - called by (1): CvUnit::pillage
+- **16955** `CvUnit::canPerformInquisition(const CvPlot *)`
+  - calls: CvPlot::getPlotCity [CvPlot.cpp], CvUnitInfo::isInquisitor [CvInfos.cpp], CvPlayer::getStateReligion [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvCity::isHasReligion [CvCity.cpp], CvCity::getTeam [CvCity.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam, CvCity::isInquisitionConditions [CvCity.cpp], CvPlayer::isInquisitionConditions [CvPlayer.cpp], CvCity::getOwnerINLINE [CvCity.h]
+  - called by (2): CvSelectionGroup::canStartMission, CvUnit::performInquisition
+- **16997** `CvUnit::performInquisition()`
+  - calls: CvWString::CvWString() [CvString.h], CvUnit::plot, CvUnit::canPerformInquisition, CvPlot::getPlotCity [CvPlot.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlot::isVisible [CvPlot.cpp], CvPlot::isRevealed [CvPlot.cpp], CvDLLInterfaceIFaceBase::playGeneralSound(LPCTSTR, NiPoint3) [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvPlot::getPoint [CvPlot.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvPlayer::getStateReligion [CvPlayer.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvCity::isHasReligion [CvCity.cpp], CvCity::isHolyCity(ReligionTypes) [CvCity.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::hasHolyCity(ReligionTypes) [CvPlayer.cpp], CvPlayer::AI_changeMemoryCount [CvPlayer.h] ⇢ CvPlayerAI::AI_changeMemoryCount, CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getPrereqReligion [CvInfos.cpp], CvCity::setNumRealBuilding [CvCity.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvBuildingInfo::getProductionCost [CvInfos.cpp], CvGameSpeedInfo::getConstructPercent [CvInfos.cpp], CvGame::setHolyCity [CvGame.cpp], CvCity::setHasReligion [CvCity.cpp], CvPlayer::getHasReligionCount [CvPlayer.cpp], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvCity::getNameKey [CvCity.cpp], CvUnitInfo::getButton [CvInfos.cpp], CvCity::flatHurryAngerLength [CvCity.cpp], CvCity::changeHurryAngerTimer [CvCity.cpp], CvGame::isOption [CvGame.cpp], CvCity::getRevolutionIndex [CvCity.cpp], CvCity::changeLocalRevIndex [CvCity.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlot::isActiveVisible [CvPlot.cpp], CvUnit::NotifyEntity, CvUnit::kill
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+  - called by (2): CvSelectionGroup::startMission, CvUnitAI::AI_doInquisition
+- **17225** `CvUnit::setBattlePlot(CvPlot *, const CvUnit *)`
+  - calls: CvPlot::canHaveBattleEffect [CvPlot.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getBattleCountdown [CvPlot.cpp], CvPlot::changeBattleCountdown [CvPlot.cpp]
+  - called by (14): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airStrike, CvUnit::archerBombard, CvUnit::bombardRanged, CvUnit::doActiveDefense …
+- **17248** `CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *)`
+  - calls: CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *)
+  - called by (1): CyUnit::isBetterDefenderThan
+- **17255** `CvUnit::LFBisBetterDefenderThan(const CvUnit *, const CvUnit *, int *)`
+  - calls: CvUnit::LFBgetDefenderRank, isBeforeUnitCycle [CvGameCoreUtils.cpp]
+  - called by (1): CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *)
+- **17287** `CvUnit::LFBgetAttackerRank(const CvUnit *, int &)`
+  - calls: CvUnit::LFBgetDefenderOdds, CvUnit::withdrawalProbability, CvUnit::currCombatStr, CvUnit::LFBgetValueAdjustedOdds
+  - called by (1): CvUnitAI::LFBgetBetterAttacker
+- **17306** `CvUnit::LFBgetDefenderRank(const CvUnit *)`
+  - calls: CvUnit::LFBgetDefenderOdds, CvUnit::maxHitPoints, CvUnit::combatLimit, CvUnit::LFBgetValueAdjustedOdds
+  - called by (1): CvUnit::LFBisBetterDefenderThan
+- **17317** `CvUnit::LFBgetDefenderOdds(const CvUnit *)`
+  - calls: CvUnit::currCombatStr, CvGlobals::getLFBUseCombatOdds [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::LFBgetDefenderCombatOdds, CvUnit::plot, CvUnit::immuneToFirstStrikes, CvUnit::firstStrikes, CvUnit::chanceFirstStrikes, CvGlobals::getCOMBAT_DAMAGE [CvGlobals.cpp], CvUnit::hasCargo, CvUnitInfo::getAssetValue [CvInfos.cpp], CvUnit::getUnitInfo, CvUnit::getCargoUnits
+  - called by (2): CvUnit::LFBgetAttackerRank, CvUnit::LFBgetDefenderRank
+- **17379** `CvUnit::LFBgetValueAdjustedOdds(int)`
+  - calls: CvUnit::LFBgetRelativeValueRating, CvGlobals::getLFBUseSlidingScale [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getLFBAdjustNumerator [CvGlobals.cpp], CvGlobals::getLFBAdjustDenominator [CvGlobals.cpp]
+  - called by (2): CvUnit::LFBgetAttackerRank, CvUnit::LFBgetDefenderRank
+- **17399** `CvUnit::LFBgetRelativeValueRating()`
+  - calls: CvGlobals::getLFBBasedOnGeneral [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getLeaderUnitType, CvGlobals::getLFBBasedOnExperience [CvGlobals.cpp], CvUnit::getExperience, CvGlobals::getLFBBasedOnLimited [CvGlobals.cpp], isLimitedUnitClass [CvGameCoreUtils.cpp], CvUnit::getUnitClassType, CvGlobals::getLFBBasedOnHealer [CvGlobals.cpp], CvUnit::getSameTileHeal
+  - called by (2): CvUnit::LFBgetValueAdjustedOdds, CvUnitAI::AI_sacrificeValue
+- **17432** `CvUnit::LFBgetDefenderCombatOdds(const CvUnit *)`
+  - calls: CvUnit::currCombatStr, CvUnit::currFirepower, CvUnit::plot, CvGlobals::getCOMBAT_DIE_SIDES [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getCOMBAT_DAMAGE [CvGlobals.cpp], CvUnit::maxHitPoints, CvUnit::combatLimit, CvUnit::currHitPoints, CvUnit::firstStrikes, CvUnit::immuneToFirstStrikes, CvUnit::chanceFirstStrikes, LFBgetCombatOdds [CvGameCoreUtils.cpp]
+  - called by (1): CvUnit::LFBgetDefenderOdds

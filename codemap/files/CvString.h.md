@@ -1,0 +1,156 @@
+# CvString.h
+
+Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **22** `CvWString::CvWString()`
+  - called by (182): CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::hurry, CvCity::popOrder, CvCity::pushOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup …
+- **23** `CvWString::CvWString(const std::string &)`
+  - calls: CvWString::Copy
+  - called by (9): CvDLLButtonPopup::launchDetailsPopup, CvEventInfo::read(CvXMLLoadUtility *), CvEventTriggerInfo::read(CvXMLLoadUtility *), CvGameTextMgr::setDateStr, CvPlayer::getBestAttackUnitName, CvPlayer::getCivilizationCityName, CvTechInfo::getQuote, CvVoteSourceInfo::getPopupText, CvVoteSourceInfo::getSecretaryGeneralText
+- **24** `CvWString::CvWString(const CvWString &)`
+  - calls: CvWString::operator=(const CvWString &)
+  - takes the address of: CvWString::operator=(const CvWString &)
+  - called by (138): CvCity::applyEvent, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::getName, CvCity::liberate, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvCivilizationInfo::getAdjective …
+- **25** `CvWString::CvWString(const char *)`
+  - calls: CvWString::Copy
+  - called by (332): CvCity::applyEvent, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::liberate, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::OnOkClicked …
+- **26** `CvWString::CvWString(const wchar *)`
+  - calls: CvWString::operator=(const wchar *)
+  - takes the address of: CvWString::operator=(const wchar *)
+  - called by (188): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults, CvCameraInfo::copyNonDefaults, CvCameraOverlayInfo::copyNonDefaults …
+- **28** `CvWString::CvWString(const std::wstring &)`
+  - called by (10): CvPlayer::setName, CvWString::format(const wchar *, ...), CyCity::setName, CyGame::addReplayMessage, CyPlayer::addCityName, CyPlayer::addReminder, CyUnit::setName, operator+(const CvWString &, const CvWString &), operator+(const CvWString &, const wchar *), operator+(const wchar *, const CvWString &)
+- **34** `CvWString::~CvWString()`
+- **36** `CvWString::Copy(const char *)`
+  - called by (4): CvWString::CvWString(const char *), CvWString::CvWString(const std::string &), CvWString::operator=(const char *), CvWString::operator=(const std::string &)
+- **52** `CvWString::GetCString()`
+  - called by (212): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults, CvCameraInfo::copyNonDefaults, CvCameraOverlayInfo::copyNonDefaults …
+- **55** `CvWString::operator const wchar_t *()`
+  - called by (97): CvCity::getNameKey, CvCity::init, CvCity::setHasCorporation, CvCivicInfo::getWeLoveTheKing, CvCivicInfo::getWeLoveTheKingKey, CvCivilizationInfo::getAdjective, CvCivilizationInfo::getAdjectiveKey, CvCivilizationInfo::getShortDescription, CvCivilizationInfo::getShortDescriptionKey, CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doDealKill …
+- **58** `CvWString::operator[](int)`
+- **59** `CvWString::operator[](std::wstring::size_type)`
+- **60** `CvWString::operator[](int)`
+- **61** `CvWString::operator=(const wchar *)`
+  - called by (55): CvCity::hurry, CvCivicInfo::copyNonDefaults, CvCivilizationInfo::copyNonDefaults, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLWidgetData::parseKillDealHelp, CvDeal::isUncancelableVassalDeal, CvDiploParameters::setChatText, CvDllTranslator::initializeTags, CvDllTranslator::replaceCt, CvDllTranslator::replaceOur …
+- **62** `CvWString::operator=(const std::wstring &)`
+  - called by (4): CvDllTranslator::initializeTags, CvPlayer::setCivName, CvPlayer::setName, CvWString::Format
+- **63** `CvWString::operator=(const std::string &)`
+  - calls: CvWString::Copy
+  - called by (1): CvPlayer::getCivilizationCityName
+- **64** `CvWString::operator=(const CvWString &)`
+  - called by (143): CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setName, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchConfirmCommandPopup …
+- **70** `CvWString::operator=(const char *)`
+  - calls: CvWString::Copy
+  - called by (20): CvCivicInfo::setWeLoveTheKingKey, CvInitCore::getCalendarKey, CvInitCore::getCivAdjective, CvInitCore::getCivAdjectiveKey, CvInitCore::getCivDescription, CvInitCore::getCivDescriptionKey, CvInitCore::getCivPassword, CvInitCore::getCivShortDesc, CvInitCore::getCivShortDescKey, CvInitCore::getClimateKey, CvInitCore::getEraKey, CvInitCore::getFlagDecal …
+- **84** `operator+(const CvWString &, const CvWString &)`
+  - calls: CvWString::CvWString(const std::wstring &)
+  - called by (6): CvDLLWidgetData::parseMaintenanceHelp, CvGameTextMgr::parsePromotionHelp, CvGameTextMgr::setDateStr, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvInitCore::getMapScriptName, CvXMLLoadUtility::CreateHotKeyFromDescription
+- **85** `operator+(const CvWString &, const wchar *)`
+  - calls: CvWString::CvWString(const std::wstring &)
+  - called by (1): CvGameTextMgr::setDateStr
+- **86** `operator+(const wchar *, const CvWString &)`
+  - calls: CvWString::CvWString(const std::wstring &)
+  - called by (12): CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseDisabledCitizenHelp, CvDLLWidgetData::parseHurryHelp, CvGame::doVoteResults, CvGameTextMgr::buildFinanceCivicUpkeepString, CvGameTextMgr::buildFinanceForeignIncomeString, CvGameTextMgr::getNukePlotHelp, CvGameTextMgr::getRebasePlotHelp, CvGameTextMgr::setDateStr, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::getItemTradeString
+- **92** `CvWStringBuffer::CvWStringBuffer()`
+  - called by (54): CvCity::hurry, CvCity::setHasCorporation, CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseHurryHelp, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvGame::startFlyoutMenu, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::getBonusDataForWB …
+- **99** `CvWStringBuffer::~CvWStringBuffer()`
+- **104** `CvWStringBuffer::append(wchar)`
+  - calls: CvWStringBuffer::ensureCapacity
+  - called by (8): CvDLLWidgetData::parseCultureHelp, CvGameTextMgr::buildTechTreeString, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setProjectHelp, CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, UnitTypes, bool, bool, bool, CvCity *)
+- **113** `CvWStringBuffer::append(const wchar *)`
+  - calls: CvWStringBuffer::ensureCapacity
+  - called by (140): CvDLLButtonPopup::launchLoadUnitPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseAngryCitizenHelp, CvDLLWidgetData::parseChangeSpecialistHelp, CvDLLWidgetData::parseCitizenHelp, CvDLLWidgetData::parseCityNameHelp, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseCultureHelp, CvDLLWidgetData::parseDisabledCitizenHelp, CvDLLWidgetData::parseEmphasizeHelp, CvDLLWidgetData::parseFinanceDomesticTrade …
+- **127** `CvWStringBuffer::append(const CvWString &)`
+  - calls: CvWString::GetCString, CvWStringBuffer::append(const wchar *)
+  - called by (141): CvDLLButtonPopup::launchLoadUnitPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseChangeSpecialistHelp, CvDLLWidgetData::parseCitizenHelp, CvDLLWidgetData::parseCityNameHelp, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseConvertHelp, CvDLLWidgetData::parseCultureHelp, CvDLLWidgetData::parseEmphasizeHelp, CvDLLWidgetData::parseFlagHelp, CvDLLWidgetData::parseHelp …
+- **132** `CvWStringBuffer::append(const CvWStringBuffer &)`
+  - calls: CvWStringBuffer::append(const wchar *)
+  - called by (3): CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::parseFreeSpecialistHelp, CvGameTextMgr::setEventHelp
+- **137** `CvWStringBuffer::assign(const CvWString &)`
+  - calls: CvWString::GetCString, CvWStringBuffer::assign(const wchar *)
+  - called by (44): CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseAngryCitizenHelp, CvDLLWidgetData::parseAutomateCitizensHelp, CvDLLWidgetData::parseAutomateProductionHelp, CvDLLWidgetData::parseChangePercentHelp, CvDLLWidgetData::parseChangeSpecialistHelp, CvDLLWidgetData::parseCloseScreenHelp, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseConvertHelp, CvDLLWidgetData::parseCultureHelp, CvDLLWidgetData::parseFinanceAwaySupply, CvDLLWidgetData::parseFinanceCityMaint …
+- **142** `CvWStringBuffer::assign(const wchar *)`
+  - calls: CvWStringBuffer::clear, CvWStringBuffer::append(const wchar *)
+  - called by (5): CvDLLWidgetData::parseDescriptionHelp, CvGameTextMgr::buildCityBillboardProductionString, CvGameTextMgr::getWarplanString, CvWStringBuffer::assign(const CvWString &), createTestFontString
+- **148** `CvWStringBuffer::clear()`
+  - called by (27): CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseEmphasizeHelp, CvDLLWidgetData::parseTradeItem, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::buildCityBillboardProductionString, CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB …
+- **157** `CvWStringBuffer::isEmpty()`
+  - called by (4): CvGameTextMgr::getDealString(CvWStringBuffer &, PlayerTypes, PlayerTypes, const CLinkList<TradeData> *, const CLinkList<TradeData> *, PlayerTypes), CvGameTextMgr::getPlotHelp, CvGameTextMgr::parseFreeSpecialistHelp, CvGameTextMgr::setEventHelp
+- **165** `CvWStringBuffer::getCString()`
+  - calls: CvWStringBuffer::ensureCapacity
+  - called by (53): CvCity::setHasCorporation, CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseHurryHelp, CvDLLWidgetData::parseKillDealHelp, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvGame::startFlyoutMenu, CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB …
+- **172** `CvWStringBuffer::ensureCapacity(int)`
+  - called by (3): CvWStringBuffer::append(const wchar *), CvWStringBuffer::append(wchar), CvWStringBuffer::getCString
+- **201** `CvString::CvString(const CvString &)`
+  - called by (25): CvArtInfoFeature::FeatureDummyNode::getNodeName, CvArtInfoFeature::FeatureDummyNode::getTagName, CvArtInfoUnit::read, CvDLLButtonPopup::OnOkClicked, CvGlobals::getAndDependencyTypes, CvGlobals::getModLoadControlVector, CvGlobals::getOrDependencyTypes, CvInitCore::getDLLName, CvInitCore::getDLLPath, CvInitCore::getExeName, CvInitCore::getExePath, CvInitCore::getSaveGameVector …
+- **201** `CvString::operator=(const CvString &)`
+  - called by (24): CvArtInfoFeature::FeatureArtModel::FeatureArtModel, CvArtInfoFeature::FeatureDummyNode::FeatureDummyNode, CvDLLButtonPopup::OnOkClicked, CvDiplomacyResponse::setDiplomacyText, CvInitCore::reassignPlayer, CvInitCore::setEmail, CvInitCore::setPythonCheck, CvInitCore::setSmtpHost, CvInitCore::setXMLCheck, CvQuestInfo::copyNonDefaults, CvQuestInfo::read, CvVoteSourceInfo::copyNonDefaults …
+- **204** `CvString::CvString()`
+  - called by (129): CvAdvisorInfo::read, CvArtInfoAsset::read, CvArtInfoBonus::read, CvArtInfoFeature::read, CvArtInfoImprovement::read, CvArtInfoLeaderhead::read, CvArtInfoTerrain::read, CvArtInfoUnit::read, CvAssetInfoBase::read, CvAttachableInfo::read, CvAutomateInfo::read, CvBonusInfo::read(CvXMLLoadUtility *) …
+- **205** `CvString::CvString(int)`
+  - called by (1): CvYieldInfo::getSymbolPath
+- **206** `CvString::CvString(const char *)`
+  - calls: CvString::operator=(const char *)
+  - called by (155): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvArtInfoFeature::FeatureVariety::getFeatureDummyNodeName, CvArtInfoFeature::FeatureVariety::getFeatureDummyTag, CvArtInfoFeature::getConnectionMaskFromString, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBonusInfo::getButton, CvBuildInfo::copyNonDefaults …
+- **207** `CvString::CvString(const std::string &)`
+  - called by (3): CvArtInfoFeature::getFeatureDummyNodeName, CvString::format(const char *, ...), CvString::getTokens
+- **208** `CvString::CvString(const std::wstring &)`
+  - calls: CvString::Copy
+  - called by (13): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchPythonScreen, CvEventReporter::newGame, CvInitCore::getCivAdjective, CvInitCore::getCivDescription, CvInitCore::getCivShortDesc, CvInitCore::getLeaderName, CvInitCore::getWBMapScript, CvInitCore::refreshCustomMapOptions, CvInitCore::setAdminPassword, CvInitCore::setCivPassword, CvPlayer::getBestAttackUnitName …
+- **209** `CvString::~CvString()`
+- **211** `CvString::Convert(const std::wstring &)`
+  - calls: CvString::Copy
+- **212** `CvString::Copy(const wchar *)`
+  - called by (2): CvString::Convert, CvString::CvString(const std::wstring &)
+- **228** `CvString::operator const char *()`
+  - called by (240): BuildSlotList, CvAdvisorInfo::getTexture, CvAdvisorInfo::read, CvAnimationCategoryInfo::getCategoryDefaultTo, CvArtInfoAsset::getKFM, CvArtInfoAsset::getNIF, CvArtInfoAsset::read, CvArtInfoBonus::getShaderNIF, CvArtInfoBonus::read, CvArtInfoBuilding::getLSystemName, CvArtInfoFeature::FeatureVariety::getFeatureDummyNodeName, CvArtInfoFeature::FeatureVariety::getFeatureDummyTag …
+- **232** `CvString::operator[](int)`
+  - called by (5): CvString::Replace(char, char), CvXMLLoadUtilityModTools::isCommaFile, CvXMLLoadUtilityModTools::isExcludedFile, CvXMLLoadUtilitySetMod::MLFEnumerateFiles, CvXMLLoadUtilitySetMod::isValidModule
+- **233** `CvString::operator[](std::string::size_type)`
+- **234** `CvString::operator[](int)`
+- **235** `CvString::operator=(const char *)`
+  - called by (136): CvAdvisorInfo::setTexture, CvArtInfoAsset::setKFM, CvArtInfoAsset::setNIF, CvArtInfoBonus::setShaderNIF, CvArtInfoImprovement::setShaderNIF, CvArtInfoLeaderhead::setBackgroundKFM, CvArtInfoLeaderhead::setNoShaderNIF, CvArtInfoTerrain::setDetailTexture, CvArtInfoTerrain::setGridTexture, CvArtInfoUnit::setShaderNIF, CvArtInfoUnit::setTrainSound, CvAssetInfoBase::setPath …
+- **236** `CvString::operator=(const std::string &)`
+  - called by (11): CvCity::setScriptData, CvCivilizationInfo::copyNonDefaults, CvGame::setScriptData, CvPlayer::setScriptData, CvString::Format, CvUnit::setScriptData, CvXMLLoadUtility::LoadCivXml, CvXMLLoadUtilityModTools::isCommaFile, CvXMLLoadUtilityModTools::setLocationName, CvXMLLoadUtilitySetMod::MLFEnumerateFiles, CvXMLLoadUtilitySetMod::isValidModule
+- **241** `CvString::IsEmpty()`
+  - called by (6): CvArtInfoFeature::getConnectionMaskFromString, CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchPythonPopup, CvUnit::move, CvUnitInfo::read(CvXMLLoadUtility *)
+- **242** `CvString::GetCString()`
+  - called by (144): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvArtInfoUnit::read, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBonusInfo::getButton, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults …
+- **243** `CvString::CompareNoCase(const char *)`
+  - called by (9): CvArtInfoFeature::FeatureVariety::getFeatureDummyNodeName, CvArtInfoFeature::FeatureVariety::getFeatureDummyTag, CvArtInfoFeature::getConnectionMaskFromString, CvArtInfoFeature::read, CvCameraOverlayInfo::read, CvGlobals::getFootstepAudioTypeByTag, CvSpaceShipInfo::read, CvTerrainPlaneInfo::read, CvUnitFormationInfo::read
+- **244** `CvString::CompareNoCase(const char *, int)`
+- **246** `CvString::GetLength()`
+  - called by (9): CvArtInfoUnit::read, CvCivilizationInfo::read(CvXMLLoadUtility *), CvFeatureInfo::read, CvGlobals::getFootstepAudioTypeByTag, CvImprovementInfo::read(CvXMLLoadUtility *), CvTerrainInfo::read, CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int **, const TCHAR *, CvString *, int, int), CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int **, const TCHAR *, int, int), CvXMLLoadUtilityModTools::isCommaFile
+- **272** `CvString::Replace(char, char)`
+  - calls: CvString::operator[](int)
+  - takes the address of: CvString::operator[](int)
+- **291** `CvString::Replace(const CvString &, const CvString &)`
+- **310** `CvString::getTokens(const CvString &, std::vector<CvString> &)`
+  - calls: CvString::CvString(const std::string &)
+  - called by (2): CvArtInfoFeature::getConnectionMaskFromString, CvUnitInfo::read(CvXMLLoadUtility *)
+- **337** `CvString::formatv(std::string &, const char *, __va_list_tag *)` (static)
+  - called by (4): CvString::Format, CvString::format(const char *, ...), CvString::format(std::string &, const char *, ...), CvString::formatv(const char *, __va_list_tag *)
+- **380** `CvWString::formatv(std::wstring &, const wchar *, __va_list_tag *)` (static)
+  - called by (4): CvWString::Format, CvWString::format(const wchar *, ...), CvWString::format(std::wstring &, const wchar *, ...), CvWString::formatv(const wchar *, __va_list_tag *)
+- **424** `CvWString::formatv(const wchar *, __va_list_tag *)` (static)
+  - calls: CvWString::formatv(std::wstring &, const wchar *, __va_list_tag *)
+- **434** `CvWString::format(const wchar *, ...)` (static)
+  - calls: CvWString::formatv(std::wstring &, const wchar *, __va_list_tag *), CvWString::CvWString(const std::wstring &)
+  - called by (131): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults, CvCameraInfo::copyNonDefaults, CvCameraOverlayInfo::copyNonDefaults …
+- **447** `CvWString::format(std::wstring &, const wchar *, ...)` (static)
+  - calls: CvWString::formatv(std::wstring &, const wchar *, __va_list_tag *)
+- **459** `CvWString::Format(LPCWSTR, ...)`
+  - calls: CvWString::formatv(std::wstring &, const wchar *, __va_list_tag *), CvWString::operator=(const std::wstring &)
+  - takes the address of: CvWString::operator=(const std::wstring &)
+  - called by (79): CvCity::setHasCorporation, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchProductionPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseFlagHelp, CvDLLWidgetData::parseHelp, CvDLLWidgetData::parseHurryHelp, CvDLLWidgetData::parseProductionHelp, CvDLLWidgetData::parseTradeItem …
+- **472** `CvString::formatv(const char *, __va_list_tag *)` (static)
+  - calls: CvString::formatv(std::string &, const char *, __va_list_tag *)
+- **481** `CvString::format(const char *, ...)` (static)
+  - calls: CvString::formatv(std::string &, const char *, __va_list_tag *), CvString::CvString(const std::string &)
+  - called by (129): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBonusInfo::getButton, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults, CvBuildingInfo::getButton …
+- **494** `CvString::format(std::string &, const char *, ...)` (static)
+  - calls: CvString::formatv(std::string &, const char *, __va_list_tag *)
+- **507** `CvString::Format(LPCSTR, ...)`
+  - calls: CvString::formatv(std::string &, const char *, __va_list_tag *), CvString::operator=(const std::string &)
+  - takes the address of: CvString::operator=(const std::string &)
+  - called by (25): CvGameTextMgr::buildCityBillboardIconString, CvGlobals::getInfoTypeForString, CvGlobals::logInfoTypeMap, CvHandicapInfo::copyNonDefaults, CvTechInfo::readPass2, CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtilitySetMod::MLFEnumerateFiles, warLogAction, warLogBombard, warLogBuilding, warLogBuilt, warLogCities …

@@ -1,0 +1,67 @@
+# ResearchPathPlan.h
+
+Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **59** `ResearchPathPlan::Planner::Planner<Graph>(const Graph &, const int)`
+  - called by (4): CvGameTextMgr::setTechTradeHelp, CvPlayer::findPathLength, CvPlayer::pushResearch, CvPlayerAI::AI_bestTech
+- **80** `ResearchPathPlan::Planner::reachable(const int)`
+  - calls: ResearchPathPlan::Planner::resolve
+  - called by (2): ResearchPathPlan::Planner::measure, ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &)
+- **86** `ResearchPathPlan::Planner::steps(const int)`
+  - calls: ResearchPathPlan::Planner::measure
+  - called by (2): CvPlayer::findPathLength, CvPlayerAI::AI_bestTech
+- **92** `ResearchPathPlan::Planner::cost(const int)`
+  - calls: ResearchPathPlan::Planner::measure
+  - called by (2): CvPlayer::findPathLength, CvPlayerAI::AI_bestTech
+- **98** `ResearchPathPlan::Planner::provedOptimal(const int)`
+  - calls: ResearchPathPlan::Planner::measure
+- **104** `ResearchPathPlan::Planner::plan(const int, std::vector<int> &)`
+  - called by (2): CvGameTextMgr::setTechTradeHelp, CvPlayer::pushResearch
+- **110** `ResearchPathPlan::Planner::resolvedCount()`
+- **111** `ResearchPathPlan::Planner::searchNodes()`
+- **118** `ResearchPathPlan::Planner::has(const Bits &, const int)` (static)
+  - called by (5): ResearchPathPlan::Planner::emit, ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::search, ResearchPathPlan::Planner::treeSteps, ResearchPathPlan::Planner::visit
+- **123** `ResearchPathPlan::Planner::set(Bits &, const int)` (static)
+  - called by (4): ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::emit, ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::visit
+- **128** `ResearchPathPlan::Planner::lowestBit(const unsigned int)` (static)
+  - called by (2): ResearchPathPlan::Planner::marginal, ResearchPathPlan::Planner::search
+- **138** `ResearchPathPlan::Planner::closure(const int)`
+  - called by (2): ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::visit
+- **139** `ResearchPathPlan::Planner::forced(const int)`
+  - called by (3): ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &), ResearchPathPlan::Planner::search
+- **141** `ResearchPathPlan::Planner::merge(Bits &, const unsigned int *)`
+  - called by (3): ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::search
+- **150** `ResearchPathPlan::Planner::marginal(const Bits &, const unsigned int *, long long &, int &)`
+  - calls: ResearchPathPlan::Planner::lowestBit
+  - called by (4): ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &), ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::search, ResearchPathPlan::Planner::visit
+- **162** `ResearchPathPlan::Planner::costOf(const std::vector<int> &)`
+  - called by (2): ResearchPathPlan::Planner::measure, ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &)
+- **174** `ResearchPathPlan::Planner::resolve(const int)`
+  - calls: ResearchPathPlan::Planner::set, ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::closure, ResearchPathPlan::Planner::merge, ResearchPathPlan::Planner::has, ResearchPathPlan::Planner::marginal
+  - called by (5): ResearchPathPlan::Planner::alternatives, ResearchPathPlan::Planner::known, ResearchPathPlan::Planner::reachable, ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::visit
+- **276** `ResearchPathPlan::Planner::known(const int)`
+  - calls: ResearchPathPlan::Planner::resolve
+  - called by (5): ResearchPathPlan::Planner::alternatives, ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::emit, ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &), ResearchPathPlan::Planner::visit
+- **283** `ResearchPathPlan::Planner::alternatives(const int, std::vector<int> &, bool &, bool &)`
+  - calls: ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::known
+  - called by (3): ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::emit, ResearchPathPlan::Planner::search
+- **312** `ResearchPathPlan::Planner::computeForced(const int)`
+  - calls: ResearchPathPlan::Planner::known, ResearchPathPlan::Planner::set, ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::forced, ResearchPathPlan::Planner::merge, ResearchPathPlan::Planner::alternatives
+  - called by (3): ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &), ResearchPathPlan::Planner::search
+- **354** `ResearchPathPlan::Planner::treeSteps(const int, const Bits &)`
+  - calls: ResearchPathPlan::Planner::has, ResearchPathPlan::Planner::treeSteps
+  - called by (2): ResearchPathPlan::Planner::treeSteps, ResearchPathPlan::Planner::visit
+- **398** `ResearchPathPlan::Planner::visit(const int, Bits &, std::vector<int> &, const bool)`
+  - calls: ResearchPathPlan::Planner::has, ResearchPathPlan::Planner::known, ResearchPathPlan::Planner::visit, ResearchPathPlan::Planner::resolve, ResearchPathPlan::Planner::treeSteps, ResearchPathPlan::Planner::closure, ResearchPathPlan::Planner::marginal, ResearchPathPlan::Planner::set
+  - called by (2): ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &), ResearchPathPlan::Planner::visit
+- **463** `ResearchPathPlan::Planner::search(const Bits &, const long long, long long &, Bits &, bool &)`
+  - calls: ResearchPathPlan::Planner::lowestBit, ResearchPathPlan::Planner::alternatives, ResearchPathPlan::Planner::has, ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::forced, ResearchPathPlan::Planner::marginal, ResearchPathPlan::Planner::merge, ResearchPathPlan::Planner::search
+  - called by (2): ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &), ResearchPathPlan::Planner::search
+- **568** `ResearchPathPlan::Planner::emit(const int, const Bits &, Bits &, std::vector<int> &)`
+  - calls: ResearchPathPlan::Planner::has, ResearchPathPlan::Planner::known, ResearchPathPlan::Planner::set, ResearchPathPlan::Planner::emit, ResearchPathPlan::Planner::alternatives
+  - called by (2): ResearchPathPlan::Planner::emit, ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &)
+- **610** `ResearchPathPlan::Planner::plan(const int, std::vector<int> &, bool &)`
+  - calls: ResearchPathPlan::Planner::reachable, ResearchPathPlan::Planner::known, ResearchPathPlan::Planner::visit, ResearchPathPlan::Planner::costOf, ResearchPathPlan::Planner::computeForced, ResearchPathPlan::Planner::forced, ResearchPathPlan::Planner::marginal, ResearchPathPlan::Planner::search, ResearchPathPlan::Planner::emit
+- **668** `ResearchPathPlan::Planner::measure(const int)`
+  - calls: ResearchPathPlan::Planner::reachable, ResearchPathPlan::Planner::costOf
+  - called by (3): ResearchPathPlan::Planner::cost, ResearchPathPlan::Planner::provedOptimal, ResearchPathPlan::Planner::steps

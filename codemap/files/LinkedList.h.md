@@ -1,0 +1,47 @@
+# LinkedList.h
+
+Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **21** `CLLNode::CLLNode<tVARTYPE>(const tVARTYPE &)`
+- **28** `CLLNode::~CLLNode<tVARTYPE>()` (virtual)
+- **65** `CLinkList::getLength()`
+  - called by (20): CLinkList::Write, CLinkList::moveToEnd, CvCity::getNumOrdersQueued, CvCity::getOrderQueueLength, CvDeal::addTrades, CvDeal::getLengthFirstTrades, CvDeal::getLengthSecondTrades, CvGameTextMgr::getDealString(CvWStringBuffer &, PlayerTypes, PlayerTypes, const CLinkList<TradeData> *, const CLinkList<TradeData> *, PlayerTypes), CvPlayer::getLengthResearchQueue, CvPlayer::getNumCityNames, CvPlayer::write, CvPlayerAI::AI_considerOffer …
+- **70** `CLinkList::head()`
+  - called by (42): CLinkList::Write, CvCity::headOrderQueueNode, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::headFirstTradesNode, CvDeal::headSecondTradesNode, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList …
+- **75** `CLinkList::tail()`
+  - called by (4): CvPlayer::tailGroupCycleNode, CvPlayer::tailResearchQueueNode, CvPlot::tailUnitNode, CvSelectionGroup::tailMissionQueueNode
+- **91** `CLinkList::CLinkList<tVARTYPE>()`
+  - called by (22): CvDLLButtonPopup::OnOkClicked, CvDeal::startTeamTrade, CvGame::handleDiplomacySetAIComment, CvGame::initDiplomacy, CvPlayer::acquireCity, CvPlayer::applyEvent, CvPlayer::forcePeace, CvPlayer::updateTradeRoutes, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvPlayerAI::AI_unitUpdate, CvPlot::doCulture …
+- **103** `CLinkList::~CLinkList<tVARTYPE>()` (virtual)
+  - calls: CLinkList::clear
+- **110** `CLinkList::clear()`
+  - called by (31): CLinkList::Read, CLinkList::~CLinkList<tVARTYPE>, CvCity::uninit, CvDeal::clearFirstTrades, CvDeal::clearSecondTrades, CvDeal::uninit, CvDiploParameters::CvDiploParameters, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvDiploParameters::~CvDiploParameters, CvPlayer::clearResearchQueue, CvPlayer::read …
+- **132** `CLinkList::insertAtBeginning(const tVARTYPE &)`
+  - called by (2): CLinkList::insertBefore, CvCity::pushOrder
+- **158** `CLinkList::insertAtEnd(const tVARTYPE &)`
+  - called by (39): CLinkList::Read, CLinkList::insertAfter, CvCity::pushOrder, CvDLLButtonPopup::OnOkClicked, CvDeal::insertAtEndFirstTrades, CvDeal::insertAtEndSecondTrades, CvDeal::startTeamTrade, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGame::handleDiplomacySetAIComment, CvGame::initDiplomacy, CvPlayer::acquireCity …
+- **184** `CLinkList::insertBefore(const tVARTYPE &, CLLNode<tVARTYPE> *)`
+  - calls: CLinkList::insertAtBeginning
+  - called by (4): CvPlayer::updateGroupCycle, CvPlayer::updateTradeRoutes, CvPlot::addUnit, CvSelectionGroup::addUnit
+- **209** `CLinkList::insertAfter(const tVARTYPE &, CLLNode<tVARTYPE> *)`
+  - calls: CLinkList::insertAtEnd
+- **233** `CLinkList::deleteNode(CLLNode<tVARTYPE> *)`
+  - called by (9): CvCity::popOrder, CvPlayer::deleteGroupCycleNode, CvPlayer::popResearch, CvPlayerAI::AI_unitUpdate, CvPlot::removeUnit, CvPlotGroup::deletePlotsNode, CvPlotGroup::recalculatePlots, CvSelectionGroup::deleteMissionQueueNode, CvSelectionGroup::deleteUnitNode
+- **273** `CLinkList::moveToEnd(CLLNode<tVARTYPE> *)`
+  - calls: CLinkList::getLength
+- **322** `CLinkList::next(CLLNode<tVARTYPE> *)`
+  - called by (40): CLinkList::Write, CvCity::nextOrderQueueNode, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDeal::nextFirstTradesNode, CvDeal::nextSecondTradesNode, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList …
+- **331** `CLinkList::prev(CLLNode<tVARTYPE> *)`
+  - called by (3): CvPlayer::previousGroupCycleNode, CvPlot::prevUnitNode, CvSelectionGroup::prevMissionQueueNode
+- **340** `CLinkList::nodeNum(int)`
+  - called by (6): CvCity::getOrderFromQueue, CvPlayer::getCityName, CvPlot::getUnitByIndex, CvSelectionGroup::getMissionFromQueue, CvUnit::airBomb2, CvUnit::airBomb3
+- **366** `CLinkList::Read(FDataStreamBase *)`
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], CLinkList::clear, FDataStreamBase::Read(int, byte *) [FDataStreamBase.h], CLinkList::insertAtEnd
+  - called by (7): CvCity::read, CvDeal::read, CvDiploParameters::read, CvPlayer::read, CvPlot::read, CvPlotGroup::read, CvSelectionGroup::read
+- **385** `CLinkList::Write(FDataStreamBase *)`
+  - calls: CLinkList::getLength, FDataStreamBase::Write(int) [FDataStreamBase.h], CLinkList::head, FDataStreamBase::Write(int, const byte *) [FDataStreamBase.h], CLinkList::next
+  - called by (7): CvCity::write, CvDeal::write, CvDiploParameters::write, CvPlayer::write, CvPlot::write, CvPlotGroup::write, CvSelectionGroup::write
+- **405** `ReadStreamableLinkList(CLinkList<T> &, FDataStreamBase *)`
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **424** `WriteStreamableLinkList(CLinkList<T> &, FDataStreamBase *)`
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]

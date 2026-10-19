@@ -1,0 +1,61 @@
+# FFreeListTrashArray.h
+
+Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **48** `FFreeListTrashArray::getNumSlots()`
+  - called by (4): FFreeListTrashArray::Read, FFreeListTrashArray::Write, FFreeListTrashArray::getNextFreeIndex, FFreeListTrashArray::setNextFreeIndex
+- **53** `FFreeListTrashArray::getLastIndex()`
+  - called by (1): FFreeListTrashArray::Write
+- **57** `FFreeListTrashArray::setLastIndex(int)`
+  - called by (1): FFreeListTrashArray::Read
+- **62** `FFreeListTrashArray::getFreeListHead()`
+  - called by (1): FFreeListTrashArray::Write
+- **66** `FFreeListTrashArray::setFreeListHead(int)`
+  - called by (1): FFreeListTrashArray::Read
+- **71** `FFreeListTrashArray::getFreeListCount()`
+  - called by (1): FFreeListTrashArray::Write
+- **75** `FFreeListTrashArray::setFreeListCount(int)`
+  - called by (1): FFreeListTrashArray::Read
+- **80** `FFreeListTrashArray::getCurrentID()`
+  - called by (1): FFreeListTrashArray::Write
+- **84** `FFreeListTrashArray::setCurrentID(int)`
+  - called by (1): FFreeListTrashArray::Read
+- **91** `FFreeListTrashArray::getNextFreeIndex(int)`
+  - calls: FFreeListTrashArray::getNumSlots
+  - called by (1): FFreeListTrashArray::Write
+- **100** `FFreeListTrashArray::setNextFreeIndex(int, int)`
+  - calls: FFreeListTrashArray::getNumSlots
+  - called by (1): FFreeListTrashArray::Read
+- **131** `FFreeListTrashArray::FFreeListTrashArray<T>()`
+- **139** `FFreeListTrashArray::~FFreeListTrashArray<T>()` (virtual)
+  - calls: FFreeListTrashArray::uninit
+- **146** `FFreeListTrashArray::init(int)` (virtual)
+  - calls: FFreeListTrashArray::uninit
+  - called by (6): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, FFreeListTrashArray::Read, FFreeListTrashArray::add
+- **191** `FFreeListTrashArray::uninit()` (virtual)
+  - calls: FFreeListTrashArray::removeAll
+  - called by (5): CvGame::uninit, CvMap::uninit, CvPlayer::uninit, FFreeListTrashArray::init, FFreeListTrashArray::~FFreeListTrashArray<T>
+- **203** `FFreeListTrashArray::add()`
+  - calls: FFreeListTrashArray::init, FFreeListTrashArray::growArray
+  - called by (9): CvGame::addDeal, CvGame::addVoteSelection, CvGame::addVoteTriggered(VoteSourceTypes, const VoteSelectionSubData &), CvMap::addArea, CvPlayer::addCity, CvPlayer::addEventTriggered, CvPlayer::addPlotGroup, CvPlayer::addSelectionGroup, CvPlayer::addUnit
+- **246** `FFreeListTrashArray::getAt(int)` (virtual)
+  - called by (10): CvGame::getDeal, CvGame::getVoteSelection, CvGame::getVoteTriggered, CvMap::getArea, CvPlayer::getCity, CvPlayer::getEventTriggered, CvPlayer::getPlotGroup, CvPlayer::getSelectionGroup, CvPlayer::getUnit, FFreeListTrashArray::Write
+- **273** `FFreeListTrashArray::remove(T *)`
+  - calls: FFreeListTrashArray::removeAt
+- **295** `FFreeListTrashArray::removeAt(int)`
+  - called by (10): CvGame::deleteDeal, CvGame::deleteVoteSelection, CvGame::deleteVoteTriggered, CvMap::deleteArea, CvPlayer::deleteCity, CvPlayer::deleteEventTriggered, CvPlayer::deletePlotGroup, CvPlayer::deleteSelectionGroup, CvPlayer::deleteUnit, FFreeListTrashArray::remove
+- **333** `FFreeListTrashArray::removeAll()` (virtual)
+  - called by (5): CvGame::reset, CvMap::recalculateAreas, CvMap::reset, CvPlayer::reset, FFreeListTrashArray::uninit
+- **359** `FFreeListTrashArray::load(T *)`
+  - called by (1): FFreeListTrashArray::Read
+- **380** `FFreeListTrashArray::growArray()` (virtual)
+  - called by (1): FFreeListTrashArray::add
+- **415** `FFreeListTrashArray::Read(FDataStreamBase *)`
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FFreeListTrashArray::init, FFreeListTrashArray::setLastIndex, FFreeListTrashArray::setFreeListHead, FFreeListTrashArray::setFreeListCount, FFreeListTrashArray::setCurrentID, FFreeListTrashArray::getNumSlots, FFreeListTrashArray::setNextFreeIndex, FDataStreamBase::Read(int, byte *) [FDataStreamBase.h], FFreeListTrashArray::load
+- **449** `FFreeListTrashArray::Write(FDataStreamBase *)`
+  - calls: FFreeListTrashArray::getNumSlots, FFreeListTrashArray::getLastIndex, FFreeListTrashArray::getFreeListHead, FFreeListTrashArray::getFreeListCount, FFreeListTrashArray::getCurrentID, FFreeListTrashArray::getNextFreeIndex, FFreeListTrashArray::getAt, FDataStreamBase::Write(int, const byte *) [FDataStreamBase.h]
+- **483** `ReadStreamableFFreeListTrashArray(FFreeListTrashArray<T> &, FDataStreamBase *)`
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+  - called by (3): CvGame::read, CvMap::read, CvPlayer::read
+- **517** `WriteStreamableFFreeListTrashArray(FFreeListTrashArray<T> &, FDataStreamBase *)`
+  - called by (3): CvGame::write, CvMap::write, CvPlayer::write

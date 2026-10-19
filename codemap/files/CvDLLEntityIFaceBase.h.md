@@ -1,0 +1,54 @@
+# CvDLLEntityIFaceBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **24** `CvDLLEntityIFaceBase::removeEntity(CvEntity *)` (virtual)
+  - called by (1): CvDLLEntity::removeEntity
+- **25** `CvDLLEntityIFaceBase::addEntity(CvEntity *, uint)` (virtual)
+- **26** `CvDLLEntityIFaceBase::setup(CvEntity *)` (virtual)
+  - called by (1): CvDLLEntity::setup
+- **27** `CvDLLEntityIFaceBase::setVisible(CvEntity *, bool)` (virtual)
+  - called by (2): CvDLLEntity::setVisible, CvDLLFlagEntityIFaceBase::setVisible
+- **28** `CvDLLEntityIFaceBase::createCityEntity(CvCity *)` (virtual)
+  - called by (1): CvDLLEntity::createCityEntity
+- **29** `CvDLLEntityIFaceBase::createUnitEntity(CvUnit *)` (virtual)
+  - called by (1): CvDLLEntity::createUnitEntity
+- **30** `CvDLLEntityIFaceBase::destroyEntity(CvEntity *&, bool)` (virtual)
+  - called by (2): CvDLLEntity::destroyEntity, CvDLLPlotBuilderIFaceBase::destroy
+- **31** `CvDLLEntityIFaceBase::updatePosition(CvEntity *)` (virtual)
+  - called by (3): CvPlot::updateFeatureSymbol, CvPlot::updateRiverSymbol, CvPlot::updateRouteSymbol
+- **32** `CvDLLEntityIFaceBase::setupFloodPlains(CvRiver *)` (virtual)
+  - called by (1): CvPlot::updateRiverSymbolArt
+- **34** `CvDLLEntityIFaceBase::IsSelected(const CvEntity *)` (virtual)
+  - called by (1): CvDLLEntity::IsSelected
+- **35** `CvDLLEntityIFaceBase::PlayAnimation(CvEntity *, AnimationTypes, float, bool, int, float, float)` (virtual)
+  - called by (1): CvDLLEntity::PlayAnimation
+- **36** `CvDLLEntityIFaceBase::StopAnimation(CvEntity *, AnimationTypes)` (virtual)
+  - called by (1): CvDLLEntity::StopAnimation
+- **37** `CvDLLEntityIFaceBase::StopAnimation(CvEntity *)` (virtual)
+- **38** `CvDLLEntityIFaceBase::NotifyEntity(CvUnitEntity *, MissionTypes)` (virtual)
+  - called by (2): CvDLLEntity::NotifyEntity, CvUnit::NotifyEntity
+- **39** `CvDLLEntityIFaceBase::MoveTo(CvUnitEntity *, const CvPlot *)` (virtual)
+  - called by (1): CvDLLEntity::MoveTo
+- **40** `CvDLLEntityIFaceBase::QueueMove(CvUnitEntity *, const CvPlot *)` (virtual)
+  - called by (1): CvDLLEntity::QueueMove
+- **41** `CvDLLEntityIFaceBase::ExecuteMove(CvUnitEntity *, float, bool)` (virtual)
+  - called by (1): CvDLLEntity::ExecuteMove
+- **42** `CvDLLEntityIFaceBase::SetPosition(CvUnitEntity *, const CvPlot *)` (virtual)
+  - called by (1): CvDLLEntity::SetPosition
+- **43** `CvDLLEntityIFaceBase::AddMission(const CvMissionDefinition *)` (virtual)
+  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
+- **44** `CvDLLEntityIFaceBase::RemoveUnitFromBattle(CvUnit *)` (virtual)
+  - called by (6): CvUnit::airCircle, CvUnit::kill, CvUnit::reloadEntity, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnit::~CvUnit
+- **45** `CvDLLEntityIFaceBase::showPromotionGlow(CvUnitEntity *, bool)` (virtual)
+  - called by (1): CvUnit::setPromotionReady
+- **46** `CvDLLEntityIFaceBase::updateEnemyGlow(CvUnitEntity *)` (virtual)
+  - called by (3): CvGame::updateUnitEnemyGlow, CvPlayer::doWarnings, CvUnit::setXY
+- **47** `CvDLLEntityIFaceBase::updatePromotionLayers(CvUnitEntity *)` (virtual)
+  - called by (1): CvUnit::setHasPromotion
+- **48** `CvDLLEntityIFaceBase::updateGraphicEra(CvUnitEntity *, EraTypes)` (virtual)
+  - called by (1): CvPlayer::setCurrentEra
+- **49** `CvDLLEntityIFaceBase::SetSiegeTower(CvUnitEntity *, bool)` (virtual)
+  - called by (1): CvDLLEntity::SetSiegeTower
+- **50** `CvDLLEntityIFaceBase::GetSiegeTower(CvUnitEntity *)` (virtual)
+  - called by (2): CvDLLEntity::GetSiegeTower, CvUnit::planBattle

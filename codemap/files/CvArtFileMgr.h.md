@@ -1,0 +1,67 @@
+# CvArtFileMgr.h
+
+Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **56** `CvArtFileMgr::CvArtFileMgr(const CvArtFileMgr &)`
+  - called by (1): CvGlobals::doResetInfoClasses
+- **62** `CvArtFileMgr::ArtInfoItem::ArtInfoItem()`
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::addArtInfoItem
+- **63** `CvArtFileMgr::ArtInfoItem::init()` (virtual; pure virtual)
+  - called by (1): CvArtFileMgr::Init
+- **64** `CvArtFileMgr::ArtInfoItem::deInit()` (virtual; pure virtual)
+  - called by (1): CvArtFileMgr::DeInit
+- **65** `CvArtFileMgr::ArtInfoItem::buildMap()` (virtual; pure virtual)
+  - called by (1): CvArtFileMgr::buildArtFileInfoMaps
+- **71** `CvArtFileMgr::CvArtFileMgr()` (exported)
+  - called by (1): CvArtFileMgr::GetInstance
+- **72** `CvArtFileMgr::~CvArtFileMgr()` (exported; virtual)
+- **84** `CvArtFileMgr::addArtInfoItem(CvArtFileMgr::ArtInfoItem *)`
+  - called by (1): CvArtFileMgr::ArtInfoItem::ArtInfoItem
+- **88** `CvArtFileMgr::ltstr::operator()(const char *, const char *)`
+- **94** `CvArtFileMgr::getAssetArtInfo()` (exported)
+- **94** `CvArtFileMgr::getNumAssetArtInfos()` (exported)
+  - called by (1): CvAssetArtInfoItem::buildMap
+- **95** `CvArtFileMgr::getMiscArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **95** `CvArtFileMgr::getNumMiscArtInfos()` (exported)
+  - called by (3): CvMiscArtInfoItem::buildMap, CyGlobalContext::getMiscArtInfo, CyGlobalContext::getNumMiscArtInfos
+- **96** `CvArtFileMgr::getNumUnitArtInfos()` (exported)
+  - called by (3): CvUnitArtInfoItem::buildMap, CyGlobalContext::getNumUnitArtInfos, CyGlobalContext::getUnitArtInfo
+- **96** `CvArtFileMgr::getUnitArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **97** `CvArtFileMgr::getBuildingArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **97** `CvArtFileMgr::getNumBuildingArtInfos()` (exported)
+  - called by (3): CvBuildingArtInfoItem::buildMap, CyGlobalContext::getBuildingArtInfo, CyGlobalContext::getNumBuildingArtInfos
+- **98** `CvArtFileMgr::getCivilizationArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **98** `CvArtFileMgr::getNumCivilizationArtInfos()` (exported)
+  - called by (3): CvCivilizationArtInfoItem::buildMap, CyGlobalContext::getCivilizationArtInfo, CyGlobalContext::getNumCivilizationArtInfos
+- **99** `CvArtFileMgr::getLeaderheadArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **99** `CvArtFileMgr::getNumLeaderheadArtInfos()` (exported)
+  - called by (3): CvLeaderheadArtInfoItem::buildMap, CyGlobalContext::getLeaderheadArtInfo, CyGlobalContext::getNumLeaderheadArtInfos
+- **100** `CvArtFileMgr::getBonusArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **100** `CvArtFileMgr::getNumBonusArtInfos()` (exported)
+  - called by (3): CvBonusArtInfoItem::buildMap, CyGlobalContext::getBonusArtInfo, CyGlobalContext::getNumBonusArtInfos
+- **101** `CvArtFileMgr::getImprovementArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **101** `CvArtFileMgr::getNumImprovementArtInfos()` (exported)
+  - called by (3): CvImprovementArtInfoItem::buildMap, CyGlobalContext::getImprovementArtInfo, CyGlobalContext::getNumImprovementArtInfos
+- **102** `CvArtFileMgr::getNumTerrainArtInfos()` (exported)
+  - called by (3): CvTerrainArtInfoItem::buildMap, CyGlobalContext::getNumTerrainArtInfos, CyGlobalContext::getTerrainArtInfo
+- **102** `CvArtFileMgr::getTerrainArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **103** `CvArtFileMgr::getFeatureArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **103** `CvArtFileMgr::getNumFeatureArtInfos()` (exported)
+  - called by (3): CvFeatureArtInfoItem::buildMap, CyGlobalContext::getFeatureArtInfo, CyGlobalContext::getNumFeatureArtInfos
+- **104** `CvArtFileMgr::getMovieArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **104** `CvArtFileMgr::getNumMovieArtInfos()` (exported)
+  - called by (3): CvMovieArtInfoItem::buildMap, CyGlobalContext::getMovieArtInfo, CyGlobalContext::getNumMovieArtInfos
+- **105** `CvArtFileMgr::getInterfaceArtInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
+- **105** `CvArtFileMgr::getNumInterfaceArtInfos()` (exported)
+  - called by (3): CvInterfaceArtInfoItem::buildMap, CyGlobalContext::getInterfaceArtInfo, CyGlobalContext::getNumInterfaceArtInfos

@@ -1,0 +1,326 @@
+# CvMessageData.cpp
+
+Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **9** `CvMessageData::createMessage(GameMessageTypes)` (exported; static)
+  - calls: CvNetExtendedGame::CvNetExtendedGame, CvNetAutoMoves::CvNetAutoMoves, CvNetTurnComplete::CvNetTurnComplete, CvNetPushOrder::CvNetPushOrder(), CvNetPopOrder::CvNetPopOrder(), CvNetDoTask::CvNetDoTask(), CvNetUpdateCivics::CvNetUpdateCivics(), CvNetResearch::CvNetResearch(), CvNetEspionageChange::CvNetEspionageChange(), CvNetAdvancedStartAction::CvNetAdvancedStartAction, CvNetModNetMessage::CvNetModNetMessage, CvNetConvert::CvNetConvert, CvNetEmpireSplit::CvNetEmpireSplit, CvNetFoundReligion::CvNetFoundReligion, CvNetLaunchSpaceship::CvNetLaunchSpaceship, CvNetEventTriggered::CvNetEventTriggered, CvNetJoinGroup::CvNetJoinGroup(), CvNetPushMission::CvNetPushMission(), CvNetAutoMission::CvNetAutoMission(), CvNetDoCommand::CvNetDoCommand(), CvNetPercentChange::CvNetPercentChange(), CvNetChangeVassal::CvNetChangeVassal(), CvNetChooseElection::CvNetChooseElection(), CvNetDiploVote::CvNetDiploVote(), CvNetChangeWar::CvNetChangeWar(), CvNetPing::CvNetPing, CvNetAddReminder::CvNetAddReminder
+- **75** `CvMessageData::CvMessageData(GameMessageTypes)`
+  - called by (42): CvNetAddReminder::CvNetAddReminder, CvNetAdvancedStartAction::CvNetAdvancedStartAction, CvNetAutoMission::CvNetAutoMission(), CvNetAutoMission::CvNetAutoMission(PlayerTypes, int), CvNetAutoMoves::CvNetAutoMoves, CvNetChangeVassal::CvNetChangeVassal(), CvNetChangeVassal::CvNetChangeVassal(PlayerTypes, TeamTypes, bool, bool), CvNetChangeWar::CvNetChangeWar(), CvNetChangeWar::CvNetChangeWar(PlayerTypes, TeamTypes, bool), CvNetChooseElection::CvNetChooseElection(), CvNetChooseElection::CvNetChooseElection(PlayerTypes, int, int), CvNetConvert::CvNetConvert …
+- **79** `CvMessageData::~CvMessageData()` (virtual)
+- **83** `CvMessageData::getType()` (exported)
+- **88** `CvNetExtendedGame::CvNetExtendedGame(PlayerTypes)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendExtendedGame, CvMessageData::createMessage
+- **92** `CvNetExtendedGame::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **97** `CvNetExtendedGame::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: CvPlayer::makeExtendedGame [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **105** `CvNetExtendedGame::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **110** `CvNetExtendedGame::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **115** `CvNetAutoMoves::CvNetAutoMoves(PlayerTypes)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendAutoMoves, CvMessageData::createMessage
+- **119** `CvNetAutoMoves::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **124** `CvNetAutoMoves::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::CvString(const char *) [CvString.h], CvPlayer::setAutoMoves [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **133** `CvNetAutoMoves::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **138** `CvNetAutoMoves::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **143** `CvNetTurnComplete::CvNetTurnComplete(PlayerTypes)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendTurnComplete, CvMessageData::createMessage
+- **147** `CvNetTurnComplete::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **152** `CvNetTurnComplete::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::CvString(const char *) [CvString.h], CvPlayer::setEndTurn [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **161** `CvNetTurnComplete::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **166** `CvNetTurnComplete::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **171** `CvNetPushOrder::CvNetPushOrder()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **175** `CvNetPushOrder::CvNetPushOrder(PlayerTypes, int, OrderTypes, int, bool, bool, bool)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendPushOrder
+- **179** `CvNetPushOrder::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **184** `CvNetPushOrder::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], warCityText [CvGameCoreUtils.cpp], warOrderText [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getCity [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvCity::pushOrder [CvCity.cpp], CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLInterfaceIFaceBase::updatePythonScreens [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+- **202** `CvNetPushOrder::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h]
+- **213** `CvNetPushOrder::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h]
+- **224** `CvNetPopOrder::CvNetPopOrder()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **228** `CvNetPopOrder::CvNetPopOrder(PlayerTypes, int, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendPopOrder
+- **232** `CvNetPopOrder::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **237** `CvNetPopOrder::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], warCityText [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getCity [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvCity::popOrder [CvCity.cpp], CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLInterfaceIFaceBase::updatePythonScreens [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+- **255** `CvNetPopOrder::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **262** `CvNetPopOrder::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **269** `CvNetDoTask::CvNetDoTask()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **273** `CvNetDoTask::CvNetDoTask(PlayerTypes, int, TaskTypes, int, int, bool, bool, bool, bool)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendDoTask
+- **277** `CvNetDoTask::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **282** `CvNetDoTask::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], warCityText [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getCity [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvCity::doTask [CvCity.cpp]
+- **295** `CvNetDoTask::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h]
+- **308** `CvNetDoTask::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h]
+- **321** `CvNetUpdateCivics::CvNetUpdateCivics()`
+  - calls: CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **325** `CvNetUpdateCivics::CvNetUpdateCivics(PlayerTypes, const std::vector<CivicTypes> &)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendUpdateCivics
+- **330** `CvNetUpdateCivics::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **335** `CvNetUpdateCivics::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getType [CvInfos.cpp], CvString::CvString(const char *) [CvString.h], CvPlayer::revolution [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **344** `CvNetUpdateCivics::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+- **353** `CvNetUpdateCivics::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+- **362** `CvNetResearch::CvNetResearch()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **366** `CvNetResearch::CvNetResearch(PlayerTypes, TechTypes, int, bool)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendResearch
+- **370** `CvNetResearch::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **375** `CvNetResearch::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getType [CvInfos.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::setHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::chooseTech [CvPlayer.cpp], CvPlayer::clearResearchQueue [CvPlayer.cpp], CvPlayer::canEverResearch [CvPlayer.cpp], CvPlayer::isResearchingTech [CvPlayer.cpp], CvTeam::isHasTech [CvTeam.cpp], CvPlayer::pushResearch [CvPlayer.cpp], CvDLLInterfaceIFaceBase::updatePythonScreens [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+- **416** `CvNetResearch::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h]
+- **424** `CvNetResearch::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h]
+- **432** `CvNetEspionageChange::CvNetEspionageChange()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **436** `CvNetEspionageChange::CvNetEspionageChange(PlayerTypes, TeamTypes, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendEspionageSpendingWeightChange
+- **440** `CvNetEspionageChange::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **445** `CvNetEspionageChange::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::changeEspionageSpendingWeightAgainstTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **454** `CvNetEspionageChange::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **461** `CvNetEspionageChange::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **468** `CvNetAdvancedStartAction::CvNetAdvancedStartAction(AdvancedStartActionTypes, PlayerTypes, int, int, int, bool)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendAdvancedStartAction, CvMessageData::createMessage
+- **478** `CvNetAdvancedStartAction::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **483** `CvNetAdvancedStartAction::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: CvDLLInterfaceIFaceBase::isExitingToMainMenu [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvPlayer::doAdvancedStartAction [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **494** `CvNetAdvancedStartAction::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h]
+- **504** `CvNetAdvancedStartAction::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h]
+- **514** `CvNetModNetMessage::CvNetModNetMessage(int, int, int, int, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendModNetMessage, CvMessageData::createMessage
+- **518** `CvNetModNetMessage::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **523** `CvNetModNetMessage::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::reportModNetMessage [CvEventReporter.cpp]
+- **528** `CvNetModNetMessage::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **537** `CvNetModNetMessage::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **546** `CvNetConvert::CvNetConvert(PlayerTypes, ReligionTypes)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendConvert, CvMessageData::createMessage
+- **550** `CvNetConvert::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **555** `CvNetConvert::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::convert [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **564** `CvNetConvert::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **570** `CvNetConvert::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **576** `CvNetEmpireSplit::CvNetEmpireSplit(PlayerTypes, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendEmpireSplit, CvMessageData::createMessage
+- **582** `CvNetEmpireSplit::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **587** `CvNetEmpireSplit::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: CvPlayer::splitEmpire [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **595** `CvNetEmpireSplit::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **601** `CvNetEmpireSplit::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **607** `CvNetFoundReligion::CvNetFoundReligion(PlayerTypes, ReligionTypes, ReligionTypes)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendFoundReligion, CvMessageData::createMessage
+- **614** `CvNetFoundReligion::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **619** `CvNetFoundReligion::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: CvPlayer::foundReligion [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **627** `CvNetFoundReligion::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **634** `CvNetFoundReligion::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **641** `CvNetLaunchSpaceship::CvNetLaunchSpaceship(PlayerTypes, VictoryTypes)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendLaunch, CvMessageData::createMessage
+- **647** `CvNetLaunchSpaceship::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **652** `CvNetLaunchSpaceship::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: CvPlayer::launch [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **660** `CvNetLaunchSpaceship::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **666** `CvNetLaunchSpaceship::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **672** `CvNetEventTriggered::CvNetEventTriggered(PlayerTypes, EventTypes, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendEventTriggered, CvMessageData::createMessage
+- **679** `CvNetEventTriggered::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **684** `CvNetEventTriggered::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getType [CvInfos.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::applyEvent [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **693** `CvNetEventTriggered::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **700** `CvNetEventTriggered::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **707** `CvNetJoinGroup::CvNetJoinGroup()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **711** `CvNetJoinGroup::CvNetJoinGroup(PlayerTypes, int, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendJoinGroup
+- **715** `CvNetJoinGroup::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **720** `CvNetJoinGroup::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], warUnitText [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getGroup [CvUnit.cpp], CvUnit::joinGroup [CvUnit.cpp]
+- **741** `CvNetJoinGroup::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **748** `CvNetJoinGroup::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **755** `CvNetPushMission::CvNetPushMission()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **759** `CvNetPushMission::CvNetPushMission(PlayerTypes, int, MissionTypes, int, int, int, bool)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendPushMission
+- **763** `CvNetPushMission::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+  - calls: CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getDescription [CvInfos.cpp]
+- **768** `CvNetPushMission::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warMissionData [CvGameCoreUtils.cpp], warLogAction [CvGameCoreUtils.cpp], warUnitText [CvGameCoreUtils.cpp], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getType [CvInfos.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getGroup [CvUnit.cpp], CvSelectionGroup::pushMission [CvSelectionGroup.cpp]
+- **785** `CvNetPushMission::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h]
+- **796** `CvNetPushMission::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h]
+- **807** `CvNetAutoMission::CvNetAutoMission()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **811** `CvNetAutoMission::CvNetAutoMission(PlayerTypes, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendAutoMission
+- **815** `CvNetAutoMission::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **820** `CvNetAutoMission::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], warUnitText [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getGroup [CvUnit.cpp], CvSelectionGroup::autoMission [CvSelectionGroup.cpp]
+- **837** `CvNetAutoMission::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **843** `CvNetAutoMission::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **849** `CvNetDoCommand::CvNetDoCommand()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **853** `CvNetDoCommand::CvNetDoCommand(PlayerTypes, int, CommandTypes, int, int, bool)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendDoCommand
+- **857** `CvNetDoCommand::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **862** `CvNetDoCommand::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warCommandData [CvGameCoreUtils.cpp], warLogAction [CvGameCoreUtils.cpp], warUnitText [CvGameCoreUtils.cpp], CvGlobals::getCommandInfo(CommandTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getType [CvInfos.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvCommandInfo::getAll [CvInfos.cpp], CvUnit::getUnitType [CvUnit.cpp], CvPlayer::firstUnit [CvPlayer.cpp], CvPlayer::nextUnit [CvPlayer.cpp], CvUnit::doCommand [CvUnit.cpp]
+- **905** `CvNetDoCommand::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h]
+- **915** `CvNetDoCommand::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h]
+- **925** `CvNetPercentChange::CvNetPercentChange()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **929** `CvNetPercentChange::CvNetPercentChange(PlayerTypes, CommerceTypes, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendPercentChange
+- **933** `CvNetPercentChange::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **938** `CvNetPercentChange::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::changeCommercePercent [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
+- **947** `CvNetPercentChange::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **954** `CvNetPercentChange::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **961** `CvNetChangeVassal::CvNetChangeVassal()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **965** `CvNetChangeVassal::CvNetChangeVassal(PlayerTypes, TeamTypes, bool, bool)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendChangeVassal
+- **969** `CvNetChangeVassal::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **974** `CvNetChangeVassal::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::setVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
+- **984** `CvNetChangeVassal::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h]
+- **992** `CvNetChangeVassal::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h]
+- **1000** `CvNetChooseElection::CvNetChooseElection()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **1004** `CvNetChooseElection::CvNetChooseElection(PlayerTypes, int, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendChooseElection
+- **1008** `CvNetChooseElection::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **1013** `CvNetChooseElection::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvGame::setVoteChosen [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **1019** `CvNetChooseElection::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **1026** `CvNetChooseElection::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **1033** `CvNetDiploVote::CvNetDiploVote()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **1037** `CvNetDiploVote::CvNetDiploVote(PlayerTypes, int, PlayerVoteTypes)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendDiploVote
+- **1041** `CvNetDiploVote::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **1046** `CvNetDiploVote::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvGame::castVote [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **1052** `CvNetDiploVote::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **1059** `CvNetDiploVote::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **1066** `CvNetChangeWar::CvNetChangeWar()`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageData::createMessage
+- **1070** `CvNetChangeWar::CvNetChangeWar(PlayerTypes, TeamTypes, bool)`
+  - calls: CvMessageData::CvMessageData
+  - called by (1): CvMessageControl::sendChangeWar
+- **1074** `CvNetChangeWar::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **1079** `CvNetChangeWar::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: warLogAction [CvGameCoreUtils.cpp], CvString::format(const char *, ...) [CvString.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::declareWar [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvDLLUtilityIFaceBase::isDiplomacy [CvDLLUtilityIFaceBase.h], CvDLLUtilityIFaceBase::getDiplomacyPlayer [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLUtilityIFaceBase::endDiplomacy [CvDLLUtilityIFaceBase.h], CvTeam::makePeace [CvTeam.cpp]
+- **1101** `CvNetChangeWar::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h]
+- **1108** `CvNetChangeWar::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h]
+- **1115** `CvNetPing::CvNetPing(PlayerTypes, int, int)`
+  - calls: CvMessageData::CvMessageData
+  - called by (2): CvMessageControl::sendPing, CvMessageData::createMessage
+- **1119** `CvNetPing::Debug(char *)` (exported; virtual; overrides CvMessageData::Debug)
+- **1124** `CvNetPing::PutInBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **1131** `CvNetPing::SetFromBuffer(FDataStreamBase *)` (exported; virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
+- **1138** `CvNetPing::Execute()` (exported; virtual; overrides CvMessageData::Execute)
+  - calls: CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvDLLInterfaceIFaceBase::doPing [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+- **1152** `CvNetAddReminder::CvNetAddReminder(PlayerTypes, int, CvWString)`
+  - calls: CvWString::CvWString(const char *) [CvString.h], CvMessageData::CvMessageData, CvWString::CvWString(const CvWString &) [CvString.h]
+  - called by (2): CvMessageControl::sendAddReminder, CvMessageData::createMessage
+- **1156** `CvNetAddReminder::Debug(char *)` (virtual; overrides CvMessageData::Debug)
+- **1161** `CvNetAddReminder::Execute()` (virtual; overrides CvMessageData::Execute)
+  - calls: CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CyArgsList::add(const wchar *) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp]
+- **1176** `CvNetAddReminder::PutInBuffer(FDataStreamBase *)` (virtual; overrides CvMessageData::PutInBuffer)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::wstring &) [FDataStreamBase.h]
+- **1183** `CvNetAddReminder::SetFromBuffer(FDataStreamBase *)` (virtual; overrides CvMessageData::SetFromBuffer)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::ReadString(std::wstring &) [FDataStreamBase.h]

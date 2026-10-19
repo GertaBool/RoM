@@ -1,0 +1,674 @@
+# CyGame.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **25** `CyGame::CyGame()`
+  - calls: CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **30** `CyGame::CyGame(CvGame *)`
+- **35** `CyGame::CyGame(CvGameAI *)`
+  - called by (1): CyGlobalContext::getCyGame
+- **45** `CyGame::isMultiplayer()` (Python: isMultiplayer)
+  - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getMultiplayer [CvInitCore.cpp]
+  - called by (1): CyGamePythonInterface
+- **53** `CyGame::updateScore(bool)` (Python: updateScore)
+  - calls: CvGame::updateScore [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **61** `CyGame::cycleCities(bool, bool)` (Python: cycleCities)
+  - calls: CvGame::cycleCities [CvGameInterface.cpp]
+  - called by (1): CyGamePythonInterface
+- **67** `CyGame::cycleSelectionGroups(bool, bool, bool)` (Python: cycleSelectionGroups)
+  - calls: CvGame::cycleSelectionGroups [CvGameInterface.cpp]
+  - called by (1): CyGamePythonInterface
+- **73** `CyGame::cyclePlotUnits(CyPlot *, bool, bool, int)` (Python: cyclePlotUnits)
+  - calls: CvGame::cyclePlotUnits [CvGameInterface.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyGamePythonInterface
+- **78** `CyGame::selectionListMove(CyPlot *, bool, bool, bool)` (Python: selectionListMove)
+  - calls: CvGame::selectionListMove [CvGameInterface.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyGamePythonInterface
+- **83** `CyGame::selectionListGameNetMessage(int, int, int, int, int, bool, bool)` (Python: selectionListGameNetMessage)
+  - calls: CvGame::selectionListGameNetMessage [CvGameInterface.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGamePythonInterface
+- **88** `CyGame::selectedCitiesGameNetMessage(int, int, int, int, bool, bool, bool, bool)` (Python: selectedCitiesGameNetMessage)
+  - calls: CvGame::selectedCitiesGameNetMessage [CvGameInterface.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGamePythonInterface
+- **93** `CyGame::cityPushOrder(CyCity *, OrderTypes, int, bool, bool, bool)` (Python: cityPushOrder)
+  - calls: CvGame::cityPushOrder [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyCity::getCity [CyCity.h]
+  - called by (1): CyGamePythonInterface
+- **98** `CyGame::getSymbolID(int)` (Python: getSymbolID)
+  - calls: CvGame::getSymbolID [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **108** `CyGame::getProductionPerPopulation(int)` (Python: getProductionPerPopulation)
+  - calls: CvGame::getProductionPerPopulation [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **113** `CyGame::getAdjustedPopulationPercent(int)` (Python: getAdjustedPopulationPercent)
+  - calls: CvGame::getAdjustedPopulationPercent [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **118** `CyGame::getAdjustedLandPercent(int)` (Python: getAdjustedLandPercent)
+  - calls: CvGame::getAdjustedLandPercent [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **123** `CyGame::isTeamVote(int)` (Python: isTeamVote)
+  - calls: CvGame::isTeamVote [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **128** `CyGame::isChooseElection(int)` (Python: isChooseElection)
+  - calls: CvGame::isChooseElection [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **133** `CyGame::isTeamVoteEligible(int, int)` (Python: isTeamVoteEligible)
+  - calls: CvGame::isTeamVoteEligible [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **138** `CyGame::countPossibleVote(int, int)` (Python: countPossibleVote)
+  - calls: CvGame::countPossibleVote [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **143** `CyGame::getVoteRequired(int, int)` (Python: getVoteRequired)
+  - calls: CvGame::getVoteRequired [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **148** `CyGame::getSecretaryGeneral(int)` (Python: getSecretaryGeneral)
+  - calls: CvGame::getSecretaryGeneral [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **153** `CyGame::canHaveSecretaryGeneral(int)` (Python: canHaveSecretaryGeneral)
+  - calls: CvGame::canHaveSecretaryGeneral [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **158** `CyGame::getVoteSourceReligion(int)` (Python: getVoteSourceReligion)
+  - calls: CvGame::getVoteSourceReligion [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **163** `CyGame::setVoteSourceReligion(int, int, bool)` (Python: setVoteSourceReligion)
+  - calls: CvGame::setVoteSourceReligion [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **171** `CyGame::countCivPlayersAlive()` (Python: countCivPlayersAlive)
+  - calls: CvGame::countCivPlayersAlive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **176** `CyGame::countCivPlayersEverAlive()` (Python: countCivPlayersEverAlive)
+  - calls: CvGame::countCivPlayersEverAlive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **181** `CyGame::countCivTeamsAlive()` (Python: countCivTeamsAlive)
+  - calls: CvGame::countCivTeamsAlive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **186** `CyGame::countCivTeamsEverAlive()` (Python: countCivTeamsEverAlive)
+  - calls: CvGame::countCivTeamsEverAlive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **191** `CyGame::countHumanPlayersAlive()` (Python: countHumanPlayersAlive)
+  - calls: CvGame::countHumanPlayersAlive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **196** `CyGame::countTotalCivPower()` (Python: countTotalCivPower)
+  - calls: CvGame::countTotalCivPower [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **201** `CyGame::countTotalNukeUnits()` (Python: countTotalNukeUnits)
+  - calls: CvGame::countTotalNukeUnits [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **206** `CyGame::countKnownTechNumTeams(int)` (Python: countKnownTechNumTeams)
+  - calls: CvGame::countKnownTechNumTeams [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **211** `CyGame::getNumFreeBonuses(int)` (Python: getNumFreeBonuses)
+  - calls: CvGame::getNumFreeBonuses [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **216** `CyGame::countReligionLevels(int)` (Python: countReligionLevels)
+  - calls: CvGame::countReligionLevels [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **221** `CyGame::countCorporationLevels(int)` (Python: countCorporationLevels)
+  - calls: CvGame::countCorporationLevels [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **226** `CyGame::calculateReligionPercent(int)` (Python: calculateReligionPercent)
+  - calls: CvGame::calculateReligionPercent [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **231** `CyGame::goldenAgeLength()` (Python: goldenAgeLength)
+  - calls: CvGame::goldenAgeLength [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **236** `CyGame::victoryDelay(int)` (Python: victoryDelay)
+  - calls: CvGame::victoryDelay [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **241** `CyGame::getImprovementUpgradeTime(int)` (Python: getImprovementUpgradeTime)
+  - calls: CvGame::getImprovementUpgradeTime [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **246** `CyGame::canTrainNukes()` (Python: canTrainNukes)
+  - calls: CvGame::canTrainNukes [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **251** `CyGame::getCurrentEra()` (Python: getCurrentEra)
+  - calls: CvGame::getCurrentEra [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **256** `CyGame::getActiveTeam()` (Python: getActiveTeam)
+  - calls: CvGame::getActiveTeam [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **261** `CyGame::getActiveCivilizationType()` (Python: getActiveCivilizationType)
+  - calls: CvGame::getActiveCivilizationType [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **266** `CyGame::isNetworkMultiPlayer()` (Python: isNetworkMultiPlayer)
+  - calls: CvGame::isNetworkMultiPlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **271** `CyGame::isGameMultiPlayer()` (Python: isGameMultiPlayer)
+  - calls: CvGame::isGameMultiPlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **276** `CyGame::isTeamGame()` (Python: isTeamGame)
+  - calls: CvGame::isTeamGame [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **281** `CyGame::isModem()` (Python: isModem)
+  - calls: CvGame::isModem [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **286** `CyGame::setModem(bool)` (Python: setModem)
+  - calls: CvGame::setModem [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **292** `CyGame::reviveActivePlayer()` (Python: reviveActivePlayer)
+  - calls: CvGame::reviveActivePlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **298** `CyGame::getNumHumanPlayers()` (Python: getNumHumanPlayers)
+  - calls: CvGame::getNumHumanPlayers [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **303** `CyGame::getGameTurn()` (Python: getGameTurn)
+  - calls: CvGame::getGameTurn [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **308** `CyGame::setGameTurn(int)` (Python: setGameTurn)
+  - calls: CvGame::setGameTurn [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **314** `CyGame::getTurnYear(int)` (Python: getTurnYear)
+  - calls: CvGame::getTurnYear [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **319** `CyGame::getGameTurnYear()` (Python: getGameTurnYear)
+  - calls: CvGame::getGameTurnYear [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **324** `CyGame::getElapsedGameTurns()` (Python: getElapsedGameTurns)
+  - calls: CvGame::getElapsedGameTurns [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **329** `CyGame::getMaxTurns()` (Python: getMaxTurns)
+  - calls: CvGame::getMaxTurns [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **334** `CyGame::setMaxTurns(int)` (Python: setMaxTurns)
+  - calls: CvGame::setMaxTurns [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **342** `CyGame::changeMaxTurns(int)` (Python: changeMaxTurns)
+  - calls: CvGame::changeMaxTurns [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **350** `CyGame::getMaxCityElimination()` (Python: getMaxCityElimination)
+  - calls: CvGame::getMaxCityElimination [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **355** `CyGame::setMaxCityElimination(int)` (Python: setMaxCityElimination)
+  - calls: CvGame::setMaxCityElimination [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **363** `CyGame::getNumAdvancedStartPoints()` (Python: getNumAdvancedStartPoints)
+  - calls: CvGame::getNumAdvancedStartPoints [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **368** `CyGame::setNumAdvancedStartPoints(int)` (Python: setNumAdvancedStartPoints)
+  - calls: CvGame::setNumAdvancedStartPoints [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **376** `CyGame::getStartTurn()` (Python: getStartTurn)
+  - calls: CvGame::getStartTurn [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **381** `CyGame::getStartYear()` (Python: getStartYear)
+  - calls: CvGame::getStartYear [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **386** `CyGame::setStartYear(int)` (Python: setStartYear)
+  - calls: CvGame::setStartYear [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **394** `CyGame::getEstimateEndTurn()` (Python: getEstimateEndTurn)
+  - calls: CvGame::getEstimateEndTurn [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **399** `CyGame::setEstimateEndTurn(int)` (Python: setEstimateEndTurn)
+  - calls: CvGame::setEstimateEndTurn [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **407** `CyGame::getTurnSlice()` (Python: getTurnSlice)
+  - calls: CvGame::getTurnSlice [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **412** `CyGame::getMinutesPlayed()` (Python: getMinutesPlayed)
+  - calls: CvGame::getMinutesPlayed [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **417** `CyGame::getTargetScore()` (Python: getTargetScore)
+  - calls: CvGame::getTargetScore [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **422** `CyGame::setTargetScore(int)` (Python: setTargetScore)
+  - calls: CvGame::setTargetScore [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **430** `CyGame::getNumGameTurnActive()` (Python: getNumGameTurnActive)
+  - calls: CvGame::getNumGameTurnActive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **435** `CyGame::countNumHumanGameTurnActive()` (Python: countNumHumanGameTurnActive)
+  - calls: CvGame::countNumHumanGameTurnActive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **440** `CyGame::getNumCities()` (Python: getNumCities)
+  - calls: CvGame::getNumCities [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **445** `CyGame::getNumCivCities()` (Python: getNumCivCities)
+  - calls: CvGame::getNumCivCities [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **450** `CyGame::getTotalPopulation()` (Python: getTotalPopulation)
+  - calls: CvGame::getTotalPopulation [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **455** `CyGame::getTradeRoutes()` (Python: getTradeRoutes)
+  - calls: CvGame::getTradeRoutes [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **460** `CyGame::changeTradeRoutes(int)` (Python: changeTradeRoutes)
+  - calls: CvGame::changeTradeRoutes [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **466** `CyGame::getFreeTradeCount()` (Python: getFreeTradeCount)
+  - calls: CvGame::getFreeTradeCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **471** `CyGame::isFreeTrade()` (Python: isFreeTrade)
+  - calls: CvGame::isFreeTrade [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **476** `CyGame::changeFreeTradeCount(int)` (Python: changeFreeTradeCount)
+  - calls: CvGame::changeFreeTradeCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **482** `CyGame::getNoNukesCount()` (Python: getNoNukesCount)
+  - calls: CvGame::getNoNukesCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **487** `CyGame::isNoNukes()` (Python: isNoNukes)
+  - calls: CvGame::isNoNukes [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **492** `CyGame::changeNoNukesCount(int)` (Python: changeNoNukesCount)
+  - calls: CvGame::changeNoNukesCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **498** `CyGame::getSecretaryGeneralTimer(int)` (Python: getSecretaryGeneralTimer)
+  - calls: CvGame::getSecretaryGeneralTimer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **503** `CyGame::getVoteTimer(int)` (Python: getVoteTimer)
+  - calls: CvGame::getVoteTimer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **508** `CyGame::getNukesExploded()` (Python: getNukesExploded)
+  - calls: CvGame::getNukesExploded [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **513** `CyGame::changeNukesExploded(int)` (Python: changeNukesExploded)
+  - calls: CvGame::changeNukesExploded [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **519** `CyGame::getMaxPopulation()` (Python: getMaxPopulation)
+  - calls: CvGame::getMaxPopulation [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **524** `CyGame::getMaxLand()` (Python: getMaxLand)
+  - calls: CvGame::getMaxLand [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **529** `CyGame::getMaxTech()` (Python: getMaxTech)
+  - calls: CvGame::getMaxTech [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **534** `CyGame::getMaxWonders()` (Python: getMaxWonders)
+  - calls: CvGame::getMaxWonders [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **539** `CyGame::getInitPopulation()` (Python: getInitPopulation)
+  - calls: CvGame::getInitPopulation [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **544** `CyGame::getInitLand()` (Python: getInitLand)
+  - calls: CvGame::getInitLand [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **549** `CyGame::getInitTech()` (Python: getInitTech)
+  - calls: CvGame::getInitTech [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **554** `CyGame::getInitWonders()` (Python: getInitWonders)
+  - calls: CvGame::getInitWonders [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **564** `CyGame::getAIAutoPlay(int)` (Python: getAIAutoPlay)
+  - calls: CvGame::getAIAutoPlay [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **569** `CyGame::setAIAutoPlay(int, int)` (Python: setAIAutoPlay)
+  - calls: CvGame::setAIAutoPlay [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **578** `CyGame::isScoreDirty()` (Python: isScoreDirty)
+  - calls: CvGame::isScoreDirty [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **583** `CyGame::setScoreDirty(bool)` (Python: setScoreDirty)
+  - calls: CvGame::setScoreDirty [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **589** `CyGame::isCircumnavigated()` (Python: isCircumnavigated)
+  - calls: CvGame::isCircumnavigated [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **594** `CyGame::makeCircumnavigated()` (Python: makeCircumnavigated)
+  - calls: CvGame::makeCircumnavigated [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **600** `CyGame::isDiploVote(int)` (Python: isDiploVote)
+  - calls: CvGame::isDiploVote [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **605** `CyGame::changeDiploVote(int, int)` (Python: changeDiploVote)
+  - calls: CvGame::changeDiploVote [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **611** `CyGame::isDebugMode()` (Python: isDebugMode)
+  - calls: CvGame::isDebugMode [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **616** `CyGame::toggleDebugMode()` (Python: toggleDebugMode)
+  - calls: CvGame::toggleDebugMode [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **627** `CyGame::getChtLvl()` (Python: getChtLvl)
+  - calls: CvDLLUtilityIFaceBase::getChtLvl [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGamePythonInterface
+- **635** `CyGame::getPitbossTurnTime()` (Python: getPitbossTurnTime)
+  - calls: CvGame::getPitbossTurnTime [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **640** `CyGame::setPitbossTurnTime(int)` (Python: setPitbossTurnTime)
+  - calls: CvGame::setPitbossTurnTime [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **646** `CyGame::isHotSeat()` (Python: isHotSeat)
+  - calls: CvGame::isHotSeat [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **651** `CyGame::isPbem()` (Python: isPbem)
+  - calls: CvGame::isPbem [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **656** `CyGame::isPitboss()` (Python: isPitboss)
+  - calls: CvGame::isPitboss [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **661** `CyGame::isSimultaneousTeamTurns()` (Python: isSimultaneousTeamTurns)
+  - calls: CvGame::isSimultaneousTeamTurns [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **666** `CyGame::isFinalInitialized()` (Python: isFinalInitialized)
+  - calls: CvGame::isFinalInitialized [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **671** `CyGame::getActivePlayer()` (Python: getActivePlayer)
+  - calls: CvGame::getActivePlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **676** `CyGame::setActivePlayer(int, bool)` (Python: setActivePlayer)
+  - calls: CvGame::setActivePlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **682** `CyGame::getPausePlayer()` (Python: getPausePlayer)
+  - calls: CvGame::getPausePlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **687** `CyGame::isPaused()` (Python: isPaused)
+  - calls: CvGame::isPaused [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **692** `CyGame::getBestLandUnit()` (Python: getBestLandUnit)
+  - calls: CvGame::getBestLandUnit [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **697** `CyGame::getBestLandUnitCombat()` (Python: getBestLandUnitCombat)
+  - calls: CvGame::getBestLandUnitCombat [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **702** `CyGame::getWinner()` (Python: getWinner)
+  - calls: CvGame::getWinner [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **707** `CyGame::getVictory()` (Python: getVictory)
+  - calls: CvGame::getVictory [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **712** `CyGame::setWinner(int, int)` (Python: setWinner)
+  - calls: CvGame::setWinner [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **718** `CyGame::getGameState()` (Python: getGameState)
+  - calls: CvGame::getGameState [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **723** `CyGame::getHandicapType()` (Python: getHandicapType)
+  - calls: CvGame::getHandicapType [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **728** `CyGame::getCalendar()` (Python: getCalendar)
+  - calls: CvGame::getCalendar [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **733** `CyGame::getStartEra()` (Python: getStartEra)
+  - calls: CvGame::getStartEra [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **738** `CyGame::getGameSpeedType()` (Python: getGameSpeedType)
+  - calls: CvGame::getGameSpeedType [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **743** `CyGame::getRankPlayer(int)` (Python: getRankPlayer)
+  - calls: CvGame::getRankPlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **748** `CyGame::getPlayerRank(int)` (Python: getPlayerRank)
+  - calls: CvGame::getPlayerRank [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **753** `CyGame::getPlayerScore(int)` (Python: getPlayerScore)
+  - calls: CvGame::getPlayerScore [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **758** `CyGame::getRankTeam(int)` (Python: getRankTeam)
+  - calls: CvGame::getRankTeam [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **763** `CyGame::getTeamRank(int)` (Python: getTeamRank)
+  - calls: CvGame::getTeamRank [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **768** `CyGame::getTeamScore(int)` (Python: getTeamScore)
+  - calls: CvGame::getTeamScore [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **773** `CyGame::isOption(int)` (Python: isOption)
+  - calls: CvGame::isOption [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **778** `CyGame::setOption(int, bool)` (Python: setOption)
+  - calls: CvGame::setOption [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **784** `CyGame::isMPOption(int)` (Python: isMPOption)
+  - calls: CvGame::isMPOption [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **789** `CyGame::isForcedControl(int)` (Python: isForcedControl)
+  - calls: CvGame::isForcedControl [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **794** `CyGame::getUnitCreatedCount(int)` (Python: getUnitCreatedCount)
+  - calls: CvGame::getUnitCreatedCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **799** `CyGame::getUnitClassCreatedCount(int)` (Python: getUnitClassCreatedCount)
+  - calls: CvGame::getUnitClassCreatedCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **804** `CyGame::isUnitClassMaxedOut(int, int)` (Python: isUnitClassMaxedOut)
+  - calls: CvGame::isUnitClassMaxedOut [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **809** `CyGame::getBuildingClassCreatedCount(int)` (Python: getBuildingClassCreatedCount)
+  - calls: CvGame::getBuildingClassCreatedCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **814** `CyGame::isBuildingClassMaxedOut(int, int)` (Python: isBuildingClassMaxedOut)
+  - calls: CvGame::isBuildingClassMaxedOut [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **819** `CyGame::getProjectCreatedCount(int)` (Python: getProjectCreatedCount)
+  - calls: CvGame::getProjectCreatedCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **824** `CyGame::isProjectMaxedOut(int, int)` (Python: isProjectMaxedOut)
+  - calls: CvGame::isProjectMaxedOut [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **829** `CyGame::getForceCivicCount(int)` (Python: getForceCivicCount)
+  - calls: CvGame::getForceCivicCount [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **834** `CyGame::isForceCivic(int)` (Python: isForceCivic)
+  - calls: CvGame::isForceCivic [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **839** `CyGame::isForceCivicOption(int)` (Python: isForceCivicOption)
+  - calls: CvGame::isForceCivicOption [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **844** `CyGame::getVoteOutcome(int)` (Python: getVoteOutcome)
+  - calls: CvGame::getVoteOutcome [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **849** `CyGame::getReligionGameTurnFounded(int)` (Python: getReligionGameTurnFounded)
+  - calls: CvGame::getReligionGameTurnFounded [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **854** `CyGame::isReligionFounded(int)` (Python: isReligionFounded)
+  - calls: CvGame::isReligionFounded [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **859** `CyGame::isReligionSlotTaken(int)` (Python: isReligionSlotTaken)
+  - calls: CvGame::isReligionSlotTaken [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **869** `CyGame::countNumReligionsFounded()` (Python: countNumReligionsFounded)
+  - calls: CvGame::countNumReligionsFounded [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **874** `CyGame::countNumReligionTechsDiscovered()` (Python: countNumReligionTechsDiscovered)
+  - calls: CvGame::countNumReligionTechsDiscovered [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **879** `CyGame::isTechCanFoundReligion(int)` (Python: isTechCanFoundReligion)
+  - calls: CvGame::isTechCanFoundReligion [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **887** `CyGame::getCorporationGameTurnFounded(int)` (Python: getCorporationGameTurnFounded)
+  - calls: CvGame::getCorporationGameTurnFounded [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **892** `CyGame::isCorporationFounded(int)` (Python: isCorporationFounded)
+  - calls: CvGame::isCorporationFounded [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **897** `CyGame::isVotePassed(int)` (Python: isVotePassed)
+  - calls: CvGame::isVotePassed [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **902** `CyGame::isVictoryValid(int)` (Python: isVictoryValid)
+  - calls: CvGame::isVictoryValid [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **907** `CyGame::isSpecialUnitValid(int)` (Python: isSpecialUnitValid)
+  - calls: CvGame::isSpecialUnitValid [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **912** `CyGame::makeSpecialUnitValid(int)` (Python: makeSpecialUnitValid)
+  - calls: CvGame::makeSpecialUnitValid [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **918** `CyGame::isSpecialBuildingValid(int)` (Python: isSpecialBuildingValid)
+  - calls: CvGame::isSpecialBuildingValid [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **923** `CyGame::makeSpecialBuildingValid(int)` (Python: makeSpecialBuildingValid)
+  - calls: CvGame::makeSpecialBuildingValid [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **929** `CyGame::isNukesValid()` (Python: isNukesValid)
+  - calls: CvGame::isNukesValid [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **934** `CyGame::makeNukesValid(bool)` (Python: makeNukesValid)
+  - calls: CvGame::makeNukesValid [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **940** `CyGame::isInAdvancedStart()` (Python: isInAdvancedStart)
+  - calls: CvGame::isInAdvancedStart [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **945** `CyGame::getHolyCity(int)` (Python: getHolyCity)
+  - calls: CvGame::getHolyCity [CvGame.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp]
+  - called by (1): CyGamePythonInterface
+- **950** `CyGame::setHolyCity(int, CyCity *, bool)` (Python: setHolyCity)
+  - calls: CvGame::setHolyCity [CvGame.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyGamePythonInterface
+- **956** `CyGame::clearHolyCity(int)` (Python: clearHolyCity)
+  - calls: CvGame::setHolyCity [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **962** `CyGame::getHeadquarters(int)` (Python: getHeadquarters)
+  - calls: CvGame::getHeadquarters [CvGame.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp]
+  - called by (1): CyGamePythonInterface
+- **967** `CyGame::setHeadquarters(int, CyCity *, bool)` (Python: setHeadquarters)
+  - calls: CvGame::setHeadquarters [CvGame.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyGamePythonInterface
+- **973** `CyGame::clearHeadquarters(int)` (Python: clearHeadquarters)
+  - calls: CvGame::setHeadquarters [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **979** `CyGame::getPlayerVote(int, int)` (Python: getPlayerVote)
+  - calls: CvGame::getPlayerVote [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **984** `CyGame::getScriptData()` (Python: getScriptData)
+  - calls: CvGame::getScriptData [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **989** `CyGame::setScriptData(std::string)` (Python: setScriptData)
+  - calls: CvGame::setScriptData [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **995** `CyGame::setName(TCHAR *)` (Python: setName)
+  - calls: CvGame::setName [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1001** `CyGame::getName()` (Python: getName)
+  - calls: CvGame::getName [CvGame.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvWString::CvWString(const char *) [CvString.h]
+  - called by (1): CyGamePythonInterface
+- **1006** `CyGame::getIndexAfterLastDeal()` (Python: getIndexAfterLastDeal)
+  - calls: CvGame::getIndexAfterLastDeal [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1011** `CyGame::getNumDeals()` (Python: getNumDeals)
+  - calls: CvGame::getNumDeals [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1016** `CyGame::getDeal(int)` (Python: getDeal)
+  - calls: CvGame::getDeal [CvGame.cpp], CyDeal::CyDeal [CyDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **1028** `CyGame::addDeal()` (Python: addDeal)
+  - calls: CvGame::addDeal [CvGame.cpp], CyDeal::CyDeal [CyDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **1040** `CyGame::deleteDeal(int)`
+  - calls: CvGame::deleteDeal [CvGame.cpp]
+- **1048** `CyGame::getMapRand()` (Python: getMapRand)
+  - calls: CvGame::getMapRand [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1054** `CyGame::getMapRandNum(int, TCHAR *)` (Python: getMapRandNum)
+  - calls: CvGame::getMapRandNum [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1059** `CyGame::getSorenRand()` (Python: getSorenRand)
+  - calls: CvGame::getSorenRand [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1065** `CyGame::getSorenRandNum(int, TCHAR *)` (Python: getSorenRandNum)
+  - calls: CvGame::getSorenRandNum [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1070** `CyGame::calculateSyncChecksum()` (Python: calculateSyncChecksum)
+  - calls: CvGame::calculateSyncChecksum [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1075** `CyGame::calculateOptionsChecksum()` (Python: calculateOptionsChecksum)
+  - calls: CvGame::calculateOptionsChecksum [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1082** `CyGame::GetWorldBuilderMode()` (Python: GetWorldBuilderMode)
+  - calls: CvDLLUtilityIFaceBase::GetWorldBuilderMode [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGamePythonInterface
+- **1087** `CyGame::isPitbossHost()` (Python: isPitbossHost)
+  - calls: CvDLLUtilityIFaceBase::IsPitbossHost [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGamePythonInterface
+- **1092** `CyGame::getCurrentLanguage()` (Python: getCurrentLanguage)
+  - calls: CvDLLUtilityIFaceBase::getCurrentLanguage [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGamePythonInterface
+- **1097** `CyGame::setCurrentLanguage(int)` (Python: setCurrentLanguage)
+  - calls: CvDLLUtilityIFaceBase::setCurrentLanguage [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGamePythonInterface
+- **1102** `CyGame::getReplayMessageTurn(int)` (Python: getReplayMessageTurn)
+  - calls: CvGame::getReplayMessageTurn [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1107** `CyGame::getReplayMessageType(int)` (Python: getReplayMessageType)
+  - calls: CvGame::getReplayMessageType [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1112** `CyGame::getReplayMessagePlotX(int)` (Python: getReplayMessagePlotX)
+  - calls: CvGame::getReplayMessagePlotX [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1117** `CyGame::getReplayMessagePlotY(int)` (Python: getReplayMessagePlotY)
+  - calls: CvGame::getReplayMessagePlotY [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1122** `CyGame::getReplayMessagePlayer(int)` (Python: getReplayMessagePlayer)
+  - calls: CvGame::getReplayMessagePlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1127** `CyGame::getReplayMessageColor(int)` (Python: getReplayMessageColor)
+  - calls: CvGame::getReplayMessageColor [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1132** `CyGame::getReplayMessageText(int)` (Python: getReplayMessageText)
+  - calls: CvGame::getReplayMessageText [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1137** `CyGame::getNumReplayMessages()` (Python: getNumReplayMessages)
+  - calls: CvGame::getNumReplayMessages [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1142** `CyGame::getReplayInfo()` (Python: getReplayInfo)
+  - calls: CvGame::getReplayInfo [CvGame.cpp], CyReplayInfo::CyReplayInfo(CvReplayInfo *) [CyReplayInfo.cpp]
+  - called by (1): CyGamePythonInterface
+- **1147** `CyGame::hasSkippedSaveChecksum()` (Python: hasSkippedSaveChecksum)
+  - calls: CvGame::hasSkippedSaveChecksum [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1152** `CyGame::saveReplay(int)` (Python: saveReplay)
+  - calls: CvGame::saveReplay [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1165** `CyGame::addPlayer(int, int, int, bool)` (Python: addPlayer)
+  - calls: CvGame::addPlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1173** `CyGame::changeHumanPlayer(int, int)` (Python: changeHumanPlayer)
+  - calls: CvGame::changeHumanPlayer [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1181** `CyGame::logw(std::wstring)` (Python: logw)
+  - calls: CvGame::logMsg [CvGame.cpp], CvString::CvString(const std::wstring &) [CvString.h]
+  - called by (1): CyGamePythonInterface
+- **1188** `CyGame::log(TCHAR *)` (Python: log)
+  - calls: CvGame::logMsg [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1196** `CyGame::addReplayMessage(int, int, std::wstring, int, int, int)` (Python: addReplayMessage)
+  - calls: CvGame::addReplayMessage [CvGame.cpp], CvWString::CvWString(const std::wstring &) [CvString.h]
+  - called by (1): CyGamePythonInterface
+- **1212** `CyGame::drawBattleEffects()` (Python: drawBattleEffects)
+  - calls: CvGame::drawBattleEffects [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1223** `CyGame::getCultureThreshold(int)` (Python: getCultureThreshold)
+  - calls: CvGame::getCultureThreshold [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1228** `CyGame::setPlotExtraYield(int, int, int, int)` (Python: setPlotExtraYield)
+  - calls: CvGame::setPlotExtraYield [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1236** `CyGame::changePlotExtraCost(int, int, int)` (Python: changePlotExtraCost)
+  - calls: CvGame::changePlotExtraCost [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1244** `CyGame::isCivEverActive(int)` (Python: isCivEverActive)
+  - calls: CvGame::isCivEverActive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1249** `CyGame::isLeaderEverActive(int)` (Python: isLeaderEverActive)
+  - calls: CvGame::isLeaderEverActive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1254** `CyGame::isUnitEverActive(int)` (Python: isUnitEverActive)
+  - calls: CvGame::isUnitEverActive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1259** `CyGame::isBuildingEverActive(int)` (Python: isBuildingEverActive)
+  - calls: CvGame::isBuildingEverActive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1264** `CyGame::isEventActive(int)` (Python: isEventActive)
+  - calls: CvGame::isEventActive [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1269** `CyGame::doControl(int)` (Python: doControl)
+  - calls: CvGame::doControl [CvGameInterface.cpp]
+  - called by (1): CyGamePythonInterface
+- **1279** `CyGame::canRegenerateMap()` (Python: canRegenerateMap)
+  - calls: CvGame::canRegenerateMap [CvGame.cpp]
+  - called by (2): CyGame::regenerateMap, CyGamePythonInterface
+- **1284** `CyGame::regenerateMap()` (Python: regenerateMap)
+  - calls: CyGame::canRegenerateMap, CvGame::regenerateMap [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1295** `CyGame::saveGame(std::string)` (Python: saveGame)
+  - calls: CvDLLEngineIFaceBase::SaveGame [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGamePythonInterface
+- **1302** `CyGame::takeJPEGScreenShot(std::string)` (Python: takeJPEGScreenShot)
+  - calls: CvGame::takeJPEGScreenShot [CvGame.cpp]
+  - called by (1): CyGamePythonInterface
+- **1309** `CyGame::getDLLPath()` (Python: getDLLPath)
+  - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getDLLPath [CvInitCore.cpp]
+  - called by (1): CyGamePythonInterface
+- **1314** `CyGame::getExePath()` (Python: getExePath)
+  - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getExePath [CvInitCore.cpp]
+  - called by (1): CyGamePythonInterface

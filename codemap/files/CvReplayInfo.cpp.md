@@ -1,0 +1,132 @@
+# CvReplayInfo.cpp
+
+Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **15** `CvReplayInfo::CvReplayInfo()` (exported)
+  - calls: CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvGame::writeReplay
+- **36** `CvReplayInfo::~CvReplayInfo()` (exported; virtual)
+- **46** `CvReplayInfo::createInfo(PlayerTypes)` (exported)
+  - calls: CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvGame::getActivePlayer [CvGame.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getHandicapType [CvPlayer.cpp], CvPlayer::getName [CvPlayer.cpp], CvWString::operator=(const wchar *) [CvString.h], CvPlayer::getCivilizationDescription [CvPlayer.cpp], CvPlayer::getCivilizationShortDescription [CvPlayer.cpp], CvPlayer::getCivilizationAdjective [CvPlayer.cpp], CvGlobals::getInitCore [CvGlobals.cpp], CvInitCore::getMapScriptName [CvInitCore.cpp], CvWString::operator=(const CvWString &) [CvString.h], CvMap::getWorldSize [CvMap.cpp], CvMap::getClimate [CvMap.cpp], CvMap::getSeaLevel [CvMap.cpp], CvGame::getStartEra [CvGame.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGame::isOption [CvGame.cpp], CvGlobals::getNumVictoryInfos [CvGlobals.cpp], CvGame::isVictoryValid [CvGame.cpp], CvGame::getWinner [CvGame.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvGame::getVictory [CvGame.cpp], CvPlayer::calculateScore [CvPlayer.cpp], CvGame::isGameMultiPlayer [CvGame.cpp], CvGame::getStartTurn [CvGame.cpp], CvGame::getStartYear [CvGame.cpp], CvGame::getGameTurn [CvGame.cpp], CvGame::getCalendar [CvGame.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::setYearStr [CvGameTextMgr.cpp], CvPlayer::isEverAlive [CvPlayer.cpp], CvReplayInfo::PlayerInfo::PlayerInfo [CvReplayInfo.h], CvPlayer::getLeaderType [CvPlayer.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvPlayerColorInfo::getColorTypePrimary [CvInfos.cpp], CvPlayer::getPlayerColor [CvPlayer.cpp], CvReplayInfo::TurnData::TurnData [CvReplayInfo.h], CvPlayer::getScoreHistory [CvPlayer.cpp], CvPlayer::getAgricultureHistory [CvPlayer.cpp], CvPlayer::getIndustryHistory [CvPlayer.cpp], CvPlayer::getEconomyHistory [CvPlayer.cpp], CvGame::getNumReplayMessages [CvGame.cpp], CvGame::getReplayMessagePlayer [CvGame.cpp], CvGame::getReplayMessageTurn [CvGame.cpp], CvGame::getReplayMessageType [CvGame.cpp], CvReplayMessage::CvReplayMessage [CvReplayMessage.cpp], CvGame::getReplayMessageColor [CvGame.cpp], CvReplayMessage::setColor [CvReplayMessage.cpp], CvGame::getReplayMessageText [CvGame.cpp], CvReplayMessage::setText [CvReplayMessage.cpp], CvWString::CvWString(const wchar *) [CvString.h], CvGame::getReplayMessagePlotX [CvGame.cpp], CvGame::getReplayMessagePlotY [CvGame.cpp], CvReplayMessage::setPlot [CvReplayMessage.cpp], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvDLLInterfaceIFaceBase::getMinimapBaseTexture [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLUtilityIFaceBase::getModName [CvDLLUtilityIFaceBase.h], CvString::operator=(const char *) [CvString.h]
+  - takes the address of: CvWString::operator=(const wchar *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvString::operator=(const char *) [CvString.h]
+  - called by (2): CvGame::writeReplay, CyReplayInfo::createInfo
+- **186** `CvReplayInfo::getNumPlayers()` (exported)
+  - called by (1): CyReplayInfo::getNumPlayers
+- **192** `CvReplayInfo::isValidPlayer(int)`
+  - called by (6): CvReplayInfo::getColor, CvReplayInfo::getLeader, CvReplayInfo::getPlayerAgriculture, CvReplayInfo::getPlayerEconomy, CvReplayInfo::getPlayerIndustry, CvReplayInfo::getPlayerScore
+- **197** `CvReplayInfo::isValidTurn(int)`
+  - called by (4): CvReplayInfo::getPlayerAgriculture, CvReplayInfo::getPlayerEconomy, CvReplayInfo::getPlayerIndustry, CvReplayInfo::getPlayerScore
+- **202** `CvReplayInfo::getActivePlayer()` (exported)
+  - called by (1): CyReplayInfo::getActivePlayer
+- **207** `CvReplayInfo::getLeader(int)` (exported)
+  - calls: CvReplayInfo::isValidPlayer
+  - called by (1): CyReplayInfo::getLeader
+- **220** `CvReplayInfo::getColor(int)` (exported)
+  - calls: CvReplayInfo::isValidPlayer
+  - called by (1): CyReplayInfo::getColor
+- **233** `CvReplayInfo::getDifficulty()` (exported)
+  - called by (1): CyReplayInfo::getDifficulty
+- **238** `CvReplayInfo::getLeaderName()` (exported)
+  - called by (1): CyReplayInfo::getLeaderName
+- **243** `CvReplayInfo::getCivDescription()` (exported)
+  - called by (1): CyReplayInfo::getCivDescription
+- **248** `CvReplayInfo::getShortCivDescription()` (exported)
+  - called by (1): CyReplayInfo::getShortCivDescription
+- **253** `CvReplayInfo::getCivAdjective()` (exported)
+  - called by (1): CyReplayInfo::getCivAdjective
+- **258** `CvReplayInfo::getMapScriptName()` (exported)
+  - called by (1): CyReplayInfo::getMapScriptName
+- **263** `CvReplayInfo::getWorldSize()` (exported)
+  - called by (1): CyReplayInfo::getWorldSize
+- **268** `CvReplayInfo::getClimate()` (exported)
+  - called by (1): CyReplayInfo::getClimate
+- **273** `CvReplayInfo::getSeaLevel()` (exported)
+  - called by (1): CyReplayInfo::getSeaLevel
+- **278** `CvReplayInfo::getEra()` (exported)
+  - called by (1): CyReplayInfo::getEra
+- **283** `CvReplayInfo::getGameSpeed()` (exported)
+  - called by (1): CyReplayInfo::getGameSpeed
+- **288** `CvReplayInfo::isGameOption(GameOptionTypes)` (exported)
+  - called by (1): CyReplayInfo::isGameOption
+- **300** `CvReplayInfo::isVictoryCondition(VictoryTypes)` (exported)
+  - called by (1): CyReplayInfo::isVictoryCondition
+- **312** `CvReplayInfo::getVictoryType()` (exported)
+  - called by (1): CyReplayInfo::getVictoryType
+- **317** `CvReplayInfo::isMultiplayer()` (exported)
+  - called by (1): CyReplayInfo::isMultiplayer
+- **323** `CvReplayInfo::addReplayMessage(CvReplayMessage *)` (exported)
+- **328** `CvReplayInfo::clearReplayMessageMap()` (exported)
+- **341** `CvReplayInfo::getReplayMessageTurn(uint)` (exported)
+  - calls: CvReplayMessage::getTurn [CvReplayMessage.cpp]
+  - called by (1): CyReplayInfo::getReplayMessageTurn
+- **355** `CvReplayInfo::getReplayMessageType(uint)` (exported)
+  - calls: CvReplayMessage::getType [CvReplayMessage.cpp]
+  - called by (1): CyReplayInfo::getReplayMessageType
+- **369** `CvReplayInfo::getReplayMessagePlotX(uint)` (exported)
+  - calls: CvReplayMessage::getPlotX [CvReplayMessage.cpp]
+  - called by (1): CyReplayInfo::getReplayMessagePlotX
+- **383** `CvReplayInfo::getReplayMessagePlotY(uint)` (exported)
+  - calls: CvReplayMessage::getPlotY [CvReplayMessage.cpp]
+  - called by (1): CyReplayInfo::getReplayMessagePlotY
+- **397** `CvReplayInfo::getReplayMessagePlayer(uint)` (exported)
+  - calls: CvReplayMessage::getPlayer [CvReplayMessage.cpp]
+  - called by (1): CyReplayInfo::getReplayMessagePlayer
+- **411** `CvReplayInfo::getReplayMessageText(uint)` (exported)
+  - calls: CvReplayMessage::getText [CvReplayMessage.cpp], CvWString::GetCString [CvString.h]
+  - called by (1): CyReplayInfo::getReplayMessageText
+- **425** `CvReplayInfo::getReplayMessageColor(uint)` (exported)
+  - calls: CvReplayMessage::getColor [CvReplayMessage.cpp]
+  - called by (1): CyReplayInfo::getReplayMessageColor
+- **440** `CvReplayInfo::getNumReplayMessages()` (exported)
+  - called by (1): CyReplayInfo::getNumReplayMessages
+- **446** `CvReplayInfo::getInitialTurn()` (exported)
+  - called by (1): CyReplayInfo::getInitialTurn
+- **451** `CvReplayInfo::getStartYear()` (exported)
+  - called by (1): CyReplayInfo::getStartYear
+- **456** `CvReplayInfo::getFinalTurn()` (exported)
+  - called by (1): CyReplayInfo::getFinalTurn
+- **461** `CvReplayInfo::getFinalDate()` (exported)
+  - calls: CvWString::operator const wchar_t * [CvString.h]
+  - called by (1): CyReplayInfo::getFinalDate
+- **466** `CvReplayInfo::getCalendar()` (exported)
+  - called by (1): CyReplayInfo::getCalendar
+- **472** `CvReplayInfo::getPlayerScore(int, int)` (exported)
+  - calls: CvReplayInfo::isValidPlayer, CvReplayInfo::isValidTurn
+  - called by (2): CvReplayInfo::getFinalScore, CyReplayInfo::getPlayerScore
+- **481** `CvReplayInfo::getPlayerEconomy(int, int)` (exported)
+  - calls: CvReplayInfo::isValidPlayer, CvReplayInfo::isValidTurn
+  - called by (2): CvReplayInfo::getFinalEconomy, CyReplayInfo::getPlayerEconomy
+- **490** `CvReplayInfo::getPlayerIndustry(int, int)` (exported)
+  - calls: CvReplayInfo::isValidPlayer, CvReplayInfo::isValidTurn
+  - called by (2): CvReplayInfo::getFinalIndustry, CyReplayInfo::getPlayerIndustry
+- **499** `CvReplayInfo::getPlayerAgriculture(int, int)` (exported)
+  - calls: CvReplayInfo::isValidPlayer, CvReplayInfo::isValidTurn
+  - called by (2): CvReplayInfo::getFinalAgriculture, CyReplayInfo::getPlayerAgriculture
+- **508** `CvReplayInfo::getFinalScore()` (exported)
+  - calls: CvReplayInfo::getPlayerScore
+  - called by (1): CyReplayInfo::getFinalScore
+- **513** `CvReplayInfo::getFinalEconomy()` (exported)
+  - calls: CvReplayInfo::getPlayerEconomy
+  - called by (1): CyReplayInfo::getFinalEconomy
+- **518** `CvReplayInfo::getFinalIndustry()` (exported)
+  - calls: CvReplayInfo::getPlayerIndustry
+  - called by (1): CyReplayInfo::getFinalIndustry
+- **523** `CvReplayInfo::getFinalAgriculture()` (exported)
+  - calls: CvReplayInfo::getPlayerAgriculture
+  - called by (1): CyReplayInfo::getFinalAgriculture
+- **528** `CvReplayInfo::getNormalizedScore()` (exported)
+  - called by (1): CyReplayInfo::getNormalizedScore
+- **533** `CvReplayInfo::getMapHeight()` (exported)
+  - called by (1): CyReplayInfo::getMapHeight
+- **538** `CvReplayInfo::getMapWidth()` (exported)
+  - called by (1): CyReplayInfo::getMapWidth
+- **543** `CvReplayInfo::getMinimapPixels()` (exported)
+- **548** `CvReplayInfo::getModName()` (exported)
+  - calls: CvString::operator const char * [CvString.h]
+  - called by (1): CyReplayInfo::getModName
+- **554** `CvReplayInfo::read(FDataStreamBase &)` (exported)
+  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::ReadString(std::wstring &) [FDataStreamBase.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvReplayMessage::CvReplayMessage [CvReplayMessage.cpp], CvReplayMessage::read [CvReplayMessage.cpp], CvReplayInfo::PlayerInfo::PlayerInfo [CvReplayInfo.h], CvReplayInfo::TurnData::TurnData [CvReplayInfo.h], FDataStreamBase::Read(int, byte *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h], FDataStreamBase::ReadString(std::string &) [FDataStreamBase.h]
+  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+- **665** `CvReplayInfo::write(FDataStreamBase &)` (exported)
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::wstring &) [FDataStreamBase.h], CvReplayMessage::write [CvReplayMessage.cpp], FDataStreamBase::Write(int, const byte *) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::string &) [FDataStreamBase.h]
+  - called by (1): CvGame::writeReplay

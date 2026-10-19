@@ -1,0 +1,45 @@
+# CyDeal.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **9** `CyDeal::CyDeal(CvDeal *)`
+  - called by (2): CyGame::addDeal, CyGame::getDeal
+- **15** `CyDeal::~CyDeal()` (virtual)
+- **19** `CyDeal::isNone()` (Python: isNone)
+  - called by (1): CyGamePythonInterface
+- **24** `CyDeal::getID()` (Python: getID)
+  - calls: CvDeal::getID [CvDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **29** `CyDeal::getInitialGameTurn()` (Python: getInitialGameTurn)
+  - calls: CvDeal::getInitialGameTurn [CvDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **34** `CyDeal::getFirstPlayer()` (Python: getFirstPlayer)
+  - calls: CvDeal::getFirstPlayer [CvDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **39** `CyDeal::getSecondPlayer()` (Python: getSecondPlayer)
+  - calls: CvDeal::getSecondPlayer [CvDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **44** `CyDeal::getLengthFirstTrades()` (Python: getLengthFirstTrades)
+  - calls: CvDeal::getLengthFirstTrades [CvDeal.cpp]
+  - called by (2): CyDeal::getFirstTrade, CyGamePythonInterface
+- **49** `CyDeal::getLengthSecondTrades()` (Python: getLengthSecondTrades)
+  - calls: CvDeal::getLengthSecondTrades [CvDeal.cpp]
+  - called by (2): CyDeal::getSecondTrade, CyGamePythonInterface
+- **54** `CyDeal::getFirstTrade(int)` (Python: getFirstTrade)
+  - calls: CvDeal::getFirstTrades [CvDeal.cpp], CyDeal::getLengthFirstTrades, CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h]
+  - called by (1): CyGamePythonInterface
+- **72** `CyDeal::getSecondTrade(int)` (Python: getSecondTrade)
+  - calls: CvDeal::getSecondTrades [CvDeal.cpp], CyDeal::getLengthSecondTrades, CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h]
+  - called by (1): CyGamePythonInterface
+- **90** `CyDeal::kill()` (Python: kill)
+  - calls: CvDeal::kill [CvDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **99** `CyDeal::isCancelable(int, bool)` (Python: isCancelable)
+  - calls: CvDeal::isUncancelableVassalDeal [CvDeal.cpp], CvDeal::isCancelable [CvDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **114** `CyDeal::getCannotCancelReason(int)` (Python: getCannotCancelReason)
+  - calls: CvWString::CvWString() [CvString.h], CvDeal::isCancelable [CvDeal.cpp]
+  - called by (1): CyGamePythonInterface
+- **124** `CyDeal::turnsToCancel(int)` (Python: turnsToCancel)
+  - calls: CvDeal::turnsToCancel [CvDeal.cpp]
+  - called by (1): CyGamePythonInterface

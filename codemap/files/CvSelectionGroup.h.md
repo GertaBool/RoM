@@ -1,0 +1,56 @@
+# CvSelectionGroup.h
+
+Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **149** `CvSelectionGroup::getOwnerINLINE()`
+  - called by (27): CvSelectionGroup::addUnit, CvSelectionGroup::autoMission, CvSelectionGroup::clearMissionQueue, CvSelectionGroup::continueMission, CvSelectionGroup::deactivateHeadMission, CvSelectionGroup::deleteMissionQueueNode, CvSelectionGroup::deleteUnitNode, CvSelectionGroup::doTurn, CvSelectionGroup::getBombardTurns, CvSelectionGroup::getOwner, CvSelectionGroup::getTeam, CvSelectionGroup::groupAttack …
+- **218** `CvSelectionGroup::AI_init()` (virtual; pure virtual)
+  - called by (1): CvSelectionGroup::init
+- **219** `CvSelectionGroup::AI_reset()` (virtual; pure virtual)
+  - called by (1): CvSelectionGroup::reset
+- **220** `CvSelectionGroup::AI_separate()` (virtual; pure virtual)
+  - called by (3): CvPlayerAI::AI_unitUpdate, CvUnitAI::AI_attackMove, CvUnitAI::AI_counterMove
+- **221** `CvSelectionGroup::AI_update()` (virtual; pure virtual)
+  - called by (2): CvPlayerAI::AI_unitUpdate, CvUnitAI::AI_carrierSeaTransport
+- **222** `CvSelectionGroup::AI_attackOdds(const CvPlot *, bool)` (virtual; pure virtual)
+  - called by (7): CvUnitAI::AI_anyAttack, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_bombardCity, CvUnitAI::AI_cityAttack, CvUnitAI::AI_leaveAttack, CvUnitAI::AI_protect, CvUnitAI::AI_rangeAttack
+- **223** `CvSelectionGroup::AI_getBestGroupAttacker(const CvPlot *, bool, int &, bool, bool)` (virtual; pure virtual)
+  - called by (3): CvGameTextMgr::setCombatPlotHelp, CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack
+- **224** `CvSelectionGroup::AI_getBestGroupSacrifice(const CvPlot *, bool, bool, bool)` (virtual; pure virtual)
+  - called by (2): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack
+- **225** `CvSelectionGroup::AI_compareStacks(const CvPlot *, bool, bool, bool)` (virtual; pure virtual)
+  - called by (5): CvGameTextMgr::setCombatPlotHelp, CvPlayerAI::AI_updateMilitaryOperations, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_bombardCity, CvUnitAI::AI_stackAttackCity
+- **226** `CvSelectionGroup::AI_sumStrength(const CvPlot *, DomainTypes, bool, bool)` (virtual; pure virtual)
+- **227** `CvSelectionGroup::AI_queueGroupAttack(int, int)` (virtual; pure virtual)
+  - called by (2): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack
+- **228** `CvSelectionGroup::AI_cancelGroupAttack()` (virtual; pure virtual)
+- **229** `CvSelectionGroup::AI_isGroupAttack()` (virtual; pure virtual)
+  - called by (1): CvPlayerAI::AI_unitUpdate
+- **231** `CvSelectionGroup::AI_isControlled()` (virtual; pure virtual)
+  - called by (6): CvSelectionGroup::doTurn, CvSelectionGroup::groupBuild, CvSelectionGroup::groupRoadTo, pathCost, pathDestValid, pathValidFrom
+- **232** `CvSelectionGroup::AI_isDeclareWar(const CvPlot *)` (virtual; pure virtual)
+  - called by (6): CvPlayerAI::AI_enemyTargetMissions, CvSelectionGroup::groupDeclareWar, CvUnit::canMoveInto, CvUnit::potentialWarAction, CvUnitAI::AI_potentialEnemy, pathDestValid
+- **233** `CvSelectionGroup::AI_getMissionAIPlot()` (virtual; pure virtual)
+  - called by (19): CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_areaMissionAIs, CvPlayerAI::AI_cityTargetUnitsByPath, CvPlayerAI::AI_enemyTargetMissionAIs(MissionAITypes *, int, CvSelectionGroup *), CvPlayerAI::AI_enemyTargetMissions, CvPlayerAI::AI_plotTargetMissionAIs(CvPlot *, MissionAITypes *, int, int &, CvSelectionGroup *, int), CvPlayerAI::AI_wakePlotTargetMissionAIs, CvSelectionGroup::continueMission, CvUnitAI::AI_allowGroup, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_findSettlementTransport, CvUnitAI::AI_found …
+- **234** `CvSelectionGroup::AI_isForceSeparate()` (virtual; pure virtual)
+  - called by (2): CvPlayerAI::AI_unitUpdate, CvUnit::canJoinGroup
+- **235** `CvSelectionGroup::AI_makeForceSeparate()` (virtual; pure virtual)
+  - called by (3): CvUnit::joinGroup, CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_defend
+- **236** `CvSelectionGroup::AI_getMissionAIType()` (virtual; pure virtual)
+  - called by (26): CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_areaMissionAIs, CvPlayerAI::AI_countIncomingOperationRole, CvPlayerAI::AI_enemyTargetMissionAIs(MissionAITypes *, int, CvSelectionGroup *), CvPlayerAI::AI_getOperationRoleTarget, CvPlayerAI::AI_plotTargetMissionAIs(CvPlot *, MissionAITypes *, int, int &, CvSelectionGroup *, int), CvPlayerAI::AI_totalMissionAIs, CvPlayerAI::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes *, int, CvSelectionGroup *, int), CvPlayerAI::AI_wakePlotTargetMissionAIs, CvSelectionGroup::calculateIsStranded, CvSelectionGroup::continueMission, CvSelectionGroup::groupPathTo …
+- **237** `CvSelectionGroup::AI_setMissionAI(MissionAITypes, CvPlot *, CvUnit *)` (virtual; pure virtual)
+  - called by (5): CvSelectionGroup::pushMission, CvUnitAI::AI_clearSettlerSeaLoads, CvUnitAI::AI_handleSettlerTransport, CvUnitAI::AI_separateSettlerTransports, CvUnitAI::AI_settlerSeaTransport
+- **238** `CvSelectionGroup::AI_getMissionAIUnit()` (virtual; pure virtual)
+  - called by (8): CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_countIncomingOperationRole, CvPlayerAI::AI_getOperationRoleTarget, CvPlayerAI::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes *, int, CvSelectionGroup *, int), CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_clearSettlerSeaLoads, CvUnitAI::AI_settlerSeaTransport
+- **239** `CvSelectionGroup::AI_ejectBestDefender(CvPlot *)` (virtual; pure virtual)
+  - called by (1): CvUnitAI::AI_guardCity
+- **240** `CvSelectionGroup::AI_separateNonAI(UnitAITypes)` (virtual; pure virtual)
+  - called by (1): CvUnitAI::AI_attackCityMove
+- **241** `CvSelectionGroup::AI_separateAI(UnitAITypes)` (virtual; pure virtual)
+  - called by (2): CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_attackMove
+- **247** `CvSelectionGroup::AI_separateImpassable()` (virtual; pure virtual)
+  - called by (1): CvUnitAI::AI_assaultSeaMove
+- **248** `CvSelectionGroup::AI_separateEmptyTransports()` (virtual; pure virtual)
+  - called by (1): CvUnitAI::AI_assaultSeaMove
+- **253** `CvSelectionGroup::AI_isFull()` (virtual; pure virtual)
+  - called by (2): CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_missileCarrierSeaMove

@@ -1,0 +1,308 @@
+# CyGlobalContext.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **20** `CyGlobalContext::CyGlobalContext()`
+  - called by (1): CyGlobalContext::getInstance
+- **24** `CyGlobalContext::~CyGlobalContext()` (virtual)
+- **28** `CyGlobalContext::getInstance()` (static)
+  - calls: CyGlobalContext::CyGlobalContext
+- **34** `CyGlobalContext::isDebugBuild()` (Python: isDebugBuild)
+  - called by (1): CyGlobalContextPythonInterface1
+- **43** `CyGlobalContext::getCyGame()` (Python: getGame)
+  - calls: CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyGame::CyGame(CvGameAI *) [CyGame.cpp]
+  - called by (1): CyGlobalContextPythonInterface1
+- **50** `CyGlobalContext::getCyMap()` (Python: getMap)
+  - calls: CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyMap::CyMap(CvMap *) [CyMap.cpp]
+  - called by (1): CyGlobalContextPythonInterface1
+- **57** `CyGlobalContext::getCyPlayer(int)` (Python: getPlayer)
+  - calls: CyPlayer::CyPlayer() [CyPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CyPlayer::CyPlayer(CvPlayer *) [CyPlayer.cpp], CyPlayer::operator= [CyPlayer.h]
+  - takes the address of: CyPlayer::operator= [CyPlayer.h]
+  - called by (2): CyGlobalContext::getCyActivePlayer, CyGlobalContextPythonInterface1
+- **77** `CyGlobalContext::getCyActivePlayer()` (Python: getActivePlayer)
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyGlobalContext::getCyPlayer
+  - called by (1): CyGlobalContextPythonInterface1
+- **84** `CyGlobalContext::getCyASyncRand()` (Python: getASyncRand)
+  - calls: CvGlobals::getASyncRand [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **89** `CyGlobalContext::getCyTeam(int)` (Python: getTeam)
+  - calls: CyTeam::CyTeam() [CyTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CyTeam::CyTeam(CvTeam *) [CyTeam.cpp], CyTeam::operator= [CyTeam.h]
+  - takes the address of: CyTeam::operator= [CyTeam.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **108** `CyGlobalContext::getEffectInfo(int)` (Python: getEffectInfo)
+  - calls: CvGlobals::getNumEffectInfos [CvGlobals.cpp], CvGlobals::getEffectInfo(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **113** `CyGlobalContext::getTerrainInfo(int)` (Python: getTerrainInfo)
+  - calls: CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **118** `CyGlobalContext::getBonusClassInfo(int)` (Python: getBonusClassInfo)
+  - calls: CvGlobals::getNumBonusClassInfos [CvGlobals.cpp], CvGlobals::getBonusClassInfo(BonusClassTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **124** `CyGlobalContext::getBonusInfo(int)` (Python: getBonusInfo)
+  - calls: CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **129** `CyGlobalContext::getFeatureInfo(int)` (Python: getFeatureInfo)
+  - calls: CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **134** `CyGlobalContext::getCivilizationInfo(int)` (Python: getCivilizationInfo)
+  - calls: CvGlobals::getNumCivilizationInfos [CvGlobals.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **140** `CyGlobalContext::getLeaderHeadInfo(int)` (Python: getLeaderHeadInfo)
+  - calls: CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvGlobals::getLeaderHeadInfo(LeaderHeadTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **146** `CyGlobalContext::getTraitInfo(int)` (Python: getTraitInfo)
+  - calls: CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getTraitInfo(TraitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **152** `CyGlobalContext::getUnitInfo(int)` (Python: getUnitInfo)
+  - calls: CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **157** `CyGlobalContext::getSpecialUnitInfo(int)` (Python: getSpecialUnitInfo)
+  - calls: CvGlobals::getNumSpecialUnitInfos [CvGlobals.cpp], CvGlobals::getSpecialUnitInfo(SpecialUnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **162** `CyGlobalContext::getYieldInfo(int)` (Python: getYieldInfo)
+  - calls: CvGlobals::getYieldInfo(YieldTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **168** `CyGlobalContext::getCommerceInfo(int)` (Python: getCommerceInfo)
+  - calls: CvGlobals::getCommerceInfo(CommerceTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **174** `CyGlobalContext::getRouteInfo(int)` (Python: getRouteInfo)
+  - calls: CvGlobals::getNumRouteInfos [CvGlobals.cpp], CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **180** `CyGlobalContext::getImprovementInfo(int)` (Python: getImprovementInfo)
+  - calls: CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **186** `CyGlobalContext::getGoodyInfo(int)` (Python: getGoodyInfo)
+  - calls: CvGlobals::getNumGoodyInfos [CvGlobals.cpp], CvGlobals::getGoodyInfo(GoodyTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **192** `CyGlobalContext::getBuildInfo(int)` (Python: getBuildInfo)
+  - calls: CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **198** `CyGlobalContext::getHandicapInfo(int)` (Python: getHandicapInfo)
+  - calls: CvGlobals::getNumHandicapInfos [CvGlobals.cpp], CvGlobals::getHandicapInfo(HandicapTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **204** `CyGlobalContext::getBuildingClassInfo(int)` (Python: getBuildingClassInfo)
+  - calls: CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getBuildingClassInfo(BuildingClassTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **210** `CyGlobalContext::getBuildingInfo(int)` (Python: getBuildingInfo)
+  - calls: CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **215** `CyGlobalContext::getUnitClassInfo(int)` (Python: getUnitClassInfo)
+  - calls: CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getUnitClassInfo(UnitClassTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **221** `CyGlobalContext::getUnitCombatInfo(int)` (Python: getUnitCombatInfo)
+  - calls: CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvGlobals::getUnitCombatInfo(UnitCombatTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **227** `CyGlobalContext::getDomainInfo(int)` (Python: getDomainInfo)
+  - calls: CvGlobals::getDomainInfo(DomainTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **233** `CyGlobalContext::getActionInfo(int)` (Python: getActionInfo)
+  - calls: CvGlobals::getNumActionInfos [CvGlobals.cpp], CvGlobals::getActionInfo(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **238** `CyGlobalContext::getAutomateInfo(int)` (Python: getAutomateInfo)
+  - calls: CvGlobals::getNumAutomateInfos [CvGlobals.cpp], CvGlobals::getAutomateInfo(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **243** `CyGlobalContext::getCommandInfo(int)` (Python: getCommandInfo)
+  - calls: CvGlobals::getCommandInfo(CommandTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **248** `CyGlobalContext::getControlInfo(int)` (Python: getControlInfo)
+  - calls: CvGlobals::getControlInfo(ControlTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **253** `CyGlobalContext::getMissionInfo(int)` (Python: getMissionInfo)
+  - calls: CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **258** `CyGlobalContext::getPromotionInfo(int)` (Python: getPromotionInfo)
+  - calls: CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **264** `CyGlobalContext::getTechInfo(int)` (Python: getTechInfo)
+  - calls: CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **270** `CyGlobalContext::getSpecialBuildingInfo(int)` (Python: getSpecialBuildingInfo)
+  - calls: CvGlobals::getNumSpecialBuildingInfos [CvGlobals.cpp], CvGlobals::getSpecialBuildingInfo(SpecialBuildingTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **276** `CyGlobalContext::getReligionInfo(int)` (Python: getReligionInfo)
+  - calls: CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **282** `CyGlobalContext::getCorporationInfo(int)` (Python: getCorporationInfo)
+  - calls: CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getCorporationInfo(CorporationTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **288** `CyGlobalContext::getSpecialistInfo(int)` (Python: getSpecialistInfo)
+  - calls: CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getSpecialistInfo(SpecialistTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **294** `CyGlobalContext::getCivicOptionInfo(int)` (Python: getCivicOptionInfo)
+  - calls: CvGlobals::getCivicOptionInfo(CivicOptionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **300** `CyGlobalContext::getCivicInfo(int)` (Python: getCivicInfo)
+  - calls: CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **305** `CyGlobalContext::getDiplomacyInfo(int)` (Python: getDiplomacyInfo)
+  - calls: CvGlobals::getDiplomacyInfo(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **310** `CyGlobalContext::getHurryInfo(int)` (Python: getHurryInfo)
+  - calls: CvGlobals::getNumHurryInfos [CvGlobals.cpp], CvGlobals::getHurryInfo(HurryTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **316** `CyGlobalContext::getProjectInfo(int)` (Python: getProjectInfo)
+  - calls: CvGlobals::getNumProjectInfos [CvGlobals.cpp], CvGlobals::getProjectInfo(ProjectTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **322** `CyGlobalContext::getVoteInfo(int)` (Python: getVoteInfo)
+  - calls: CvGlobals::getNumVoteInfos [CvGlobals.cpp], CvGlobals::getVoteInfo(VoteTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **328** `CyGlobalContext::getProcessInfo(int)` (Python: getProcessInfo)
+  - calls: CvGlobals::getNumProcessInfos [CvGlobals.cpp], CvGlobals::getProcessInfo(ProcessTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **333** `CyGlobalContext::getAnimationPathInfo(int)`
+  - calls: CvGlobals::getNumAnimationPathInfos [CvGlobals.cpp], CvGlobals::getAnimationPathInfo(AnimationPathTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+- **339** `CyGlobalContext::getEmphasizeInfo(int)` (Python: getEmphasizeInfo)
+  - calls: CvGlobals::getNumEmphasizeInfos [CvGlobals.cpp], CvGlobals::getEmphasizeInfo(EmphasizeTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **345** `CyGlobalContext::getCultureLevelInfo(int)` (Python: getCultureLevelInfo)
+  - calls: CvGlobals::getNumCultureLevelInfos [CvGlobals.cpp], CvGlobals::getCultureLevelInfo(CultureLevelTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **351** `CyGlobalContext::getUpkeepInfo(int)` (Python: getUpkeepInfo)
+  - calls: CvGlobals::getNumUpkeepInfos [CvGlobals.cpp], CvGlobals::getUpkeepInfo(UpkeepTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **357** `CyGlobalContext::getVictoryInfo(int)` (Python: getVictoryInfo)
+  - calls: CvGlobals::getNumVictoryInfos [CvGlobals.cpp], CvGlobals::getVictoryInfo(VictoryTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **363** `CyGlobalContext::getEraInfo(int)` (Python: getEraInfo)
+  - calls: CvGlobals::getNumEraInfos [CvGlobals.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **369** `CyGlobalContext::getWorldInfo(int)` (Python: getWorldInfo)
+  - calls: CvGlobals::getNumWorldInfos [CvGlobals.cpp], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **375** `CyGlobalContext::getClimateInfo(int)` (Python: getClimateInfo)
+  - calls: CvGlobals::getNumClimateInfos [CvGlobals.cpp], CvGlobals::getClimateInfo(ClimateTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **381** `CyGlobalContext::getSeaLevelInfo(int)` (Python: getSeaLevelInfo)
+  - calls: CvGlobals::getNumSeaLevelInfos [CvGlobals.cpp], CvGlobals::getSeaLevelInfo(SeaLevelTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **387** `CyGlobalContext::getUnitAIInfo(int)` (Python: getUnitAIInfo)
+  - calls: CvGlobals::getUnitAIInfo(UnitAITypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **393** `CyGlobalContext::getColorInfo(int)` (Python: getColorInfo)
+  - calls: CvGlobals::getNumColorInfos [CvGlobals.cpp], CvGlobals::getColorInfo(ColorTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **399** `CyGlobalContext::getInfoTypeForString(const char *)` (Python: getInfoTypeForString)
+  - calls: CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **405** `CyGlobalContext::getTypesEnum(const char *)` (Python: getTypesEnum)
+  - calls: CvGlobals::getTypesEnum [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **411** `CyGlobalContext::getPlayerColorInfo(int)` (Python: getPlayerColorInfo)
+  - calls: CvGlobals::getNumPlayerColorInfos [CvGlobals.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **417** `CyGlobalContext::getHints(int)` (Python: getHints)
+  - calls: CvGlobals::getNumHints [CvGlobals.cpp], CvGlobals::getHints(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **423** `CyGlobalContext::getMainMenus(int)` (Python: getMainMenus)
+  - calls: CvGlobals::getNumMainMenus [CvGlobals.cpp], CvGlobals::getMainMenus(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **434** `CyGlobalContext::getPythonModulesInfo(int)` (Python: getPythonModulesInfo)
+  - calls: CvGlobals::getNumPythonModulesInfos [CvGlobals.cpp], CvGlobals::getPythonModulesInfo(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **442** `CyGlobalContext::getVoteSourceInfo(int)` (Python: getVoteSourceInfo)
+  - calls: CvGlobals::getNumVoteSourceInfos [CvGlobals.cpp], CvGlobals::getVoteSourceInfo(VoteSourceTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **448** `CyGlobalContext::getInvisibleInfo(int)`
+  - calls: CvGlobals::getNumInvisibleInfos [CvGlobals.cpp], CvGlobals::getInvisibleInfo(InvisibleTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+- **454** `CyGlobalContext::getAttitudeInfo(int)` (Python: getAttitudeInfo)
+  - calls: CvGlobals::getAttitudeInfo(AttitudeTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **460** `CyGlobalContext::getMemoryInfo(int)` (Python: getMemoryInfo)
+  - calls: CvGlobals::getMemoryInfo(MemoryTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **466** `CyGlobalContext::getPlayerOptionsInfoByIndex(int)` (Python: getPlayerOptionsInfo, getPlayerOptionsInfoByIndex)
+  - calls: CvGlobals::getPlayerOptionInfo(PlayerOptionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **472** `CyGlobalContext::getGraphicOptionsInfoByIndex(int)` (Python: getGraphicOptionsInfo, getGraphicOptionsInfoByIndex)
+  - calls: CvGlobals::getGraphicOptionInfo(GraphicOptionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **478** `CyGlobalContext::getConceptInfo(int)` (Python: getConceptInfo)
+  - calls: CvGlobals::getNumConceptInfos [CvGlobals.cpp], CvGlobals::getConceptInfo(ConceptTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **484** `CyGlobalContext::getNewConceptInfo(int)` (Python: getNewConceptInfo)
+  - calls: CvGlobals::getNumNewConceptInfos [CvGlobals.cpp], CvGlobals::getNewConceptInfo(NewConceptTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **490** `CyGlobalContext::getCityTabInfo(int)` (Python: getCityTabInfo)
+  - calls: CvGlobals::getNumCityTabInfos [CvGlobals.cpp], CvGlobals::getCityTabInfo(CityTabTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **496** `CyGlobalContext::getCalendarInfo(int)` (Python: getCalendarInfo)
+  - calls: CvGlobals::getNumCalendarInfos [CvGlobals.cpp], CvGlobals::getCalendarInfo(CalendarTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **502** `CyGlobalContext::getGameOptionInfo(int)` (Python: getGameOptionInfo)
+  - calls: CvGlobals::getNumGameOptionInfos [CvGlobals.cpp], CvGlobals::getGameOptionInfo(GameOptionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **508** `CyGlobalContext::getMPOptionInfo(int)` (Python: getMPOptionInfo)
+  - calls: CvGlobals::getNumMPOptionInfos [CvGlobals.cpp], CvGlobals::getMPOptionInfo(MultiplayerOptionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **514** `CyGlobalContext::getForceControlInfo(int)` (Python: getForceControlInfo)
+  - calls: CvGlobals::getNumForceControlInfos [CvGlobals.cpp], CvGlobals::getForceControlInfo(ForceControlTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **520** `CyGlobalContext::getSeasonInfo(int)` (Python: getSeasonInfo)
+  - calls: CvGlobals::getNumSeasonInfos [CvGlobals.cpp], CvGlobals::getSeasonInfo(SeasonTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **526** `CyGlobalContext::getMonthInfo(int)` (Python: getMonthInfo)
+  - calls: CvGlobals::getNumMonthInfos [CvGlobals.cpp], CvGlobals::getMonthInfo(MonthTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **532** `CyGlobalContext::getDenialInfo(int)` (Python: getDenialInfo)
+  - calls: CvGlobals::getNumDenialInfos [CvGlobals.cpp], CvGlobals::getDenialInfo(DenialTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3
+- **538** `CyGlobalContext::getQuestInfo(int)` (Python: getQuestInfo)
+  - calls: CvGlobals::getNumQuestInfos [CvGlobals.cpp], CvGlobals::getQuestInfo(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **544** `CyGlobalContext::getTutorialInfo(int)` (Python: getTutorialInfo)
+  - calls: CvGlobals::getNumTutorialInfos [CvGlobals.cpp], CvGlobals::getTutorialInfo(int) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **550** `CyGlobalContext::getEventTriggerInfo(int)` (Python: getEventTriggerInfo)
+  - calls: CvGlobals::getNumEventTriggerInfos [CvGlobals.cpp], CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **556** `CyGlobalContext::getEventInfo(int)` (Python: getEventInfo)
+  - calls: CvGlobals::getNumEventInfos [CvGlobals.cpp], CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **562** `CyGlobalContext::getEspionageMissionInfo(int)` (Python: getEspionageMissionInfo)
+  - calls: CvGlobals::getNumEspionageMissionInfos [CvGlobals.cpp], CvGlobals::getEspionageMissionInfo(EspionageMissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **568** `CyGlobalContext::getUnitArtStyleTypeInfo(int)` (Python: getUnitArtStyleTypeInfo)
+  - calls: CvGlobals::getNumUnitArtStyleTypeInfos [CvGlobals.cpp], CvGlobals::getUnitArtStyleTypeInfo(UnitArtStyleTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **574** `CyGlobalContext::getInterfaceArtInfo(int)` (Python: getInterfaceArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getInterfaceArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumInterfaceArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **580** `CyGlobalContext::getMovieArtInfo(int)` (Python: getMovieArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getMovieArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumMovieArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **586** `CyGlobalContext::getMiscArtInfo(int)` (Python: getMiscArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getMiscArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumMiscArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **592** `CyGlobalContext::getUnitArtInfo(int)` (Python: getUnitArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getUnitArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumUnitArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **598** `CyGlobalContext::getBuildingArtInfo(int)` (Python: getBuildingArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getBuildingArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumBuildingArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **604** `CyGlobalContext::getCivilizationArtInfo(int)` (Python: getCivilizationArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getCivilizationArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumCivilizationArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **610** `CyGlobalContext::getLeaderheadArtInfo(int)` (Python: getLeaderheadArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getLeaderheadArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumLeaderheadArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **616** `CyGlobalContext::getBonusArtInfo(int)` (Python: getBonusArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getBonusArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumBonusArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **622** `CyGlobalContext::getImprovementArtInfo(int)` (Python: getImprovementArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getImprovementArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumImprovementArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **628** `CyGlobalContext::getTerrainArtInfo(int)` (Python: getTerrainArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getTerrainArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumTerrainArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **634** `CyGlobalContext::getFeatureArtInfo(int)` (Python: getFeatureArtInfo)
+  - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getFeatureArtInfo(int) [CvArtFileMgr.cpp], CvArtFileMgr::getNumFeatureArtInfos [CvArtFileMgr.h]
+  - called by (1): CyGlobalContextPythonInterface4
+- **640** `CyGlobalContext::getGameSpeedInfo(int)` (Python: getGameSpeedInfo)
+  - calls: CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **645** `CyGlobalContext::getTurnTimerInfo(int)` (Python: getTurnTimerInfo)
+  - calls: CvGlobals::getTurnTimerInfo(TurnTimerTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface1
+- **653** `CyGlobalContext::getDCMConceptInfo(int)` (Python: getDCMConceptInfo)
+  - calls: CvGlobals::getNumDCMConceptInfos [CvGlobals.cpp], CvGlobals::getDCMConceptInfo(DCMConceptTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CyGlobalContextPythonInterface3

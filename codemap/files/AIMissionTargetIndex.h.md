@@ -1,0 +1,43 @@
+# AIMissionTargetIndex.h
+
+Group: AI. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **22** `AIMissionTargetIndex::Entry::Entry()`
+  - called by (1): AIMissionTargetIndex::Index::add
+- **35** `AIMissionTargetIndex::Index::Index()`
+- **37** `AIMissionTargetIndex::Index::isCurrent(const int, const unsigned int, const int)`
+  - called by (1): CvPlayerAI::AI_plotTargetMissionAIs(CvPlot *, MissionAITypes *, int, int &, CvSelectionGroup *, int)
+- **42** `AIMissionTargetIndex::Index::begin(const int, const unsigned int, const int)`
+  - called by (1): CvPlayerAI::AI_plotTargetMissionAIs(CvPlot *, MissionAITypes *, int, int &, CvSelectionGroup *, int)
+- **56** `AIMissionTargetIndex::Index::invalidate()`
+- **61** `AIMissionTargetIndex::Index::add(const int, const int, const int, const int, const int, const void *)`
+  - calls: AIMissionTargetIndex::Entry::Entry, AIMissionTargetIndex::Index::head
+  - called by (1): CvPlayerAI::AI_plotTargetMissionAIs(CvPlot *, MissionAITypes *, int, int &, CvSelectionGroup *, int)
+- **76** `AIMissionTargetIndex::Index::numEntries()`
+- **86** `AIMissionTargetIndex::Index::count(const Map &, const int, const int, const MissionAI *, const int, const MissionAI, const void *, const int, int &)`
+  - calls: AIMissionTargetIndex::Index::head
+  - called by (1): CvPlayerAI::AI_plotTargetMissionAIs(CvPlot *, MissionAITypes *, int, int &, CvSelectionGroup *, int)
+- **132** `AIMissionTargetIndex::Index::head(const int)`
+  - called by (2): AIMissionTargetIndex::Index::add, AIMissionTargetIndex::Index::count
+- **139** `AIMissionTargetIndex::Index::accumulate(const Map &, const Entry &, const int, const int, const MissionAI *, const int, const MissionAI, const void *, const int, int &, int &)`
+- **183** `AIMissionTargetIndex::UnitEntry::UnitEntry()`
+  - called by (1): AIMissionTargetIndex::UnitIndex::add
+- **198** `AIMissionTargetIndex::UnitIndex::UnitIndex()`
+- **202** `AIMissionTargetIndex::UnitIndex::noteQuery(const int, const unsigned int)`
+  - called by (1): CvPlayerAI::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes *, int, CvSelectionGroup *, int)
+- **215** `AIMissionTargetIndex::UnitIndex::isBuilt()`
+  - called by (1): CvPlayerAI::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes *, int, CvSelectionGroup *, int)
+- **220** `AIMissionTargetIndex::UnitIndex::begin()`
+  - called by (1): CvPlayerAI::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes *, int, CvSelectionGroup *, int)
+- **232** `AIMissionTargetIndex::UnitIndex::invalidate()`
+- **238** `AIMissionTargetIndex::UnitIndex::add(const int, const int, const int, const int, void *)`
+  - calls: AIMissionTargetIndex::UnitIndex::bucket, AIMissionTargetIndex::UnitEntry::UnitEntry, AIMissionTargetIndex::UnitIndex::head
+  - called by (1): CvPlayerAI::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes *, int, CvSelectionGroup *, int)
+- **253** `AIMissionTargetIndex::UnitIndex::numEntries()`
+- **259** `AIMissionTargetIndex::UnitIndex::visit(const int, const int, Visitor &)`
+  - calls: AIMissionTargetIndex::UnitIndex::bucket, AIMissionTargetIndex::UnitIndex::head
+  - called by (1): CvPlayerAI::AI_unitTargetMissionAIs(CvUnit *, MissionAITypes *, int, CvSelectionGroup *, int)
+- **273** `AIMissionTargetIndex::UnitIndex::bucket(const int, const int)` (static)
+  - called by (2): AIMissionTargetIndex::UnitIndex::add, AIMissionTargetIndex::UnitIndex::visit
+- **279** `AIMissionTargetIndex::UnitIndex::head(const int)`
+  - called by (2): AIMissionTargetIndex::UnitIndex::add, AIMissionTargetIndex::UnitIndex::visit

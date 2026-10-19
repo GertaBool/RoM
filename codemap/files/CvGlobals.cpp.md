@@ -1,0 +1,1228 @@
+# CvGlobals.cpp
+
+Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **58** `deleteInfoArray(std::vector<T *> &)`
+  - called by (1): CvGlobals::deleteInfoArrays
+- **69** `readInfoArray(FDataStreamBase *, std::vector<T *> &, const char *)`
+  - calls: CvGlobals::addToInfosVectors, CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read(int *) [FDataStreamBase.h], CvGlobals::setInfoTypeFromString
+  - called by (13): CvGlobals::readBonusInfoArray, CvGlobals::readBuildingInfoArray, CvGlobals::readCivicInfoArray, CvGlobals::readCivilizationInfoArray, CvGlobals::readDiplomacyInfoArray, CvGlobals::readEventInfoArray, CvGlobals::readEventTriggerInfoArray, CvGlobals::readHandicapInfoArray, CvGlobals::readImprovementInfoArray, CvGlobals::readLeaderHeadInfoArray, CvGlobals::readPromotionInfoArray, CvGlobals::readTechInfoArray …
+- **99** `writeInfoArray(FDataStreamBase *, std::vector<T *> &)`
+  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+  - called by (13): CvGlobals::writeBonusInfoArray, CvGlobals::writeBuildingInfoArray, CvGlobals::writeCivicInfoArray, CvGlobals::writeCivilizationInfoArray, CvGlobals::writeDiplomacyInfoArray, CvGlobals::writeEventInfoArray, CvGlobals::writeEventTriggerInfoArray, CvGlobals::writeHandicapInfoArray, CvGlobals::writeImprovementInfoArray, CvGlobals::writeLeaderHeadInfoArray, CvGlobals::writePromotionInfoArray, CvGlobals::writeTechInfoArray …
+- **120** `CvGlobals::CvGlobals()` (exported)
+- **376** `CvGlobals::~CvGlobals()` (exported; virtual)
+- **383** `CvGlobals::init()` (exported)
+  - calls: FVariableSystem::FVariableSystem [FVariableSystem.inl], CvRandom::CvRandom [CvRandom.cpp], CvInitCore::CvInitCore [CvInitCore.cpp], CvDLLUtilityIFaceBase::initGlobals [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGameAI::CvGameAI [CvGameAI.cpp], CvMap::CvMap [CvMap.cpp], CvPlayerAI::initStatics [CvPlayerAI.cpp], CvTeamAI::initStatics [CvTeamAI.cpp], NiPoint3::operator= [CvGameCoreDLL.h], NiPoint3::NiPoint3(float, float, float) [CvGameCoreDLL.h]
+  - takes the address of: NiPoint3::operator= [CvGameCoreDLL.h]
+- **528** `CvGlobals::uninit()` (exported)
+  - calls: CvPlayerAI::freeStatics [CvPlayerAI.cpp], CvTeamAI::freeStatics [CvTeamAI.cpp], CvSelectionGroup::releaseSecondaryPathFinder [CvSelectionGroup.cpp], CvDLLUtilityIFaceBase::uninitGlobals [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **581** `CvGlobals::clearTypesMap()` (exported)
+  - calls: FVariableSystem::UnInit [FVariableSystem.inl]
+  - called by (1): CvGlobals::deleteInfoArrays
+- **591** `CvGlobals::getDiplomacyScreen()` (exported)
+- **596** `CvGlobals::getMPDiplomacyScreen()` (exported)
+- **601** `CvGlobals::getMessageCodes()` (exported)
+- **606** `CvGlobals::getFMPMgrPtr()` (exported)
+- **611** `CvGlobals::getPortal()` (exported)
+- **616** `CvGlobals::getSetupData()` (exported)
+- **621** `CvGlobals::getInitCore()` (exported)
+  - called by (100): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchAdminPopup, CvDLLButtonPopup::launchDetailsPopup, CvDLLButtonPopup::launchMainMenuPopup, CvEventReporter::newGame, CvGame::addPlayer, CvGame::canDoControl, CvGame::canRegenerateMap, CvGame::changeHumanPlayer, CvGame::doControl, CvGame::doTurn, CvGame::getActivePlayer …
+- **626** `CvGlobals::getLoadedInitCore()` (exported)
+- **631** `CvGlobals::getIniInitCore()` (exported)
+- **636** `CvGlobals::getStatsReporter()` (exported)
+- **641** `CvGlobals::getStatsReporterPtr()` (exported)
+- **646** `CvGlobals::getInterface()` (exported)
+- **651** `CvGlobals::getInterfacePtr()` (exported)
+- **656** `CvGlobals::getASyncRand()` (exported)
+  - called by (10): CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_bestUnit, CvCityAI::AI_bestUnitAI, CvGame::getNextSoundtrack, CvPlayer::doEspionageMission, CvPlayerAI::AI_demandRebukedWar, CvPlayerAI::AI_getGreeting, CvPlayerAI::AI_techValue, CvUnit::move, CyGlobalContext::getCyASyncRand
+- **661** `CvGlobals::getMessageQueue()` (exported)
+- **666** `CvGlobals::getHotMessageQueue()` (exported)
+- **671** `CvGlobals::getMessageControl()` (exported)
+- **676** `CvGlobals::getDropMgr()` (exported)
+- **681** `CvGlobals::getPathFinder()` (exported)
+  - called by (4): CvMap::setup, CvSelectionGroup::generatePath, CvSelectionGroup::getPathLastNode, CvSelectionGroup::resetPath
+- **686** `CvGlobals::getInterfacePathFinder()` (exported)
+  - called by (4): CvGame::startFlyoutMenu, CvMap::setup, CvPlayer::doTurnUnits, CvUnit::setMoves
+- **691** `CvGlobals::getStepFinder()` (exported)
+  - called by (6): CvMap::calculatePathDistance, CvMap::resetPathDistance, CvMap::setup, CvPlayerAI::AI_advancedStartDoRoute, CvPlot::calculatePathDistanceToPlot, CvUnitAI::AI_solveBlockageProblem
+- **696** `CvGlobals::getRouteFinder()` (exported)
+  - called by (2): CvCityAI::AI_updateRouteToCity, CvMap::setup
+- **701** `CvGlobals::getBorderFinder()` (exported)
+  - called by (2): CvMap::setup, CvPlayer::countUnimprovedBonuses
+- **706** `CvGlobals::getAreaFinder()` (exported)
+  - called by (2): CvMap::calculateAreas, CvMap::setup
+- **711** `CvGlobals::getPlotGroupFinder()` (exported)
+  - called by (2): CvMap::setup, CvPlotGroup::recalculatePlots
+- **716** `CvGlobals::getPt3Origin()` (exported)
+- **721** `CvGlobals::getInterfaceModeInfo()` (exported)
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **726** `CvGlobals::getInterfaceModeInfo(InterfaceModeTypes)` (exported)
+  - called by (7): CvActionInfo::getHotkeyInfo, CvActionInfo::isVisible, CvDLLWidgetData::parseActionHelp, CvGame::getNewHighlightPlot, CvGame::handleAction, CvGameTextMgr::getPlotHelp, CvXMLLoadUtility::SetGlobalActionInfo
+- **733** `CvGlobals::getPt3CameraDir()` (exported)
+- **738** `CvGlobals::getLogging()` (exported)
+  - called by (7): CvCity::init, CvGame::setAIAutoPlay, CvPlayer::setTurnActive, CvRandom::get, CvSelectionGroupAI::AI_update, CvUnit::setCombatUnit, CvUnit::setXY
+- **743** `CvGlobals::getRandLogging()` (exported)
+  - called by (1): CvRandom::get
+- **748** `CvGlobals::getSynchLogging()` (exported)
+- **753** `CvGlobals::overwriteLogs()` (exported)
+- **758** `CvGlobals::getPlotDirectionX()` (exported)
+  - called by (1): plotDirection
+- **763** `CvGlobals::getPlotDirectionY()` (exported)
+  - called by (1): plotDirection
+- **768** `CvGlobals::getPlotCardinalDirectionX()` (exported)
+  - called by (1): plotCardinalDirection
+- **773** `CvGlobals::getPlotCardinalDirectionY()` (exported)
+  - called by (1): plotCardinalDirection
+- **778** `CvGlobals::getCityPlotX()` (exported)
+  - called by (1): plotCity
+- **783** `CvGlobals::getCityPlotY()` (exported)
+  - called by (1): plotCity
+- **788** `CvGlobals::getCityPlotPriority()` (exported)
+  - called by (2): CvPlot::calculateCulturalOwner, CvPlot::updateWorkingCity
+- **793** `CvGlobals::getXYCityPlot(int, int)` (exported)
+  - called by (1): plotCityXY(int, int)
+- **802** `CvGlobals::getTurnLeftDirection()`
+- **807** `CvGlobals::getTurnLeftDirection(int)`
+- **814** `CvGlobals::getTurnRightDirection()`
+- **819** `CvGlobals::getTurnRightDirection(int)`
+- **826** `CvGlobals::getXYDirection(int, int)` (exported)
+  - called by (1): directionXY(int, int)
+- **835** `CvGlobals::getNumWorldInfos()` (exported)
+  - called by (4): CvInitCore::getWorldSizeKey, CvInitCore::setWorldSize(const CvWString &), CyGlobalContext::getNumWorldInfos, CyGlobalContext::getWorldInfo
+- **840** `CvGlobals::getWorldInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **845** `CvGlobals::getWorldInfo(WorldSizeTypes)` (exported)
+  - called by (28): CvCity::calculateColonyMaintenanceTimes100, CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes), CvCity::calculateDistanceMaintenanceTimes100, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::getBaseTradeProfit, CvCity::getCorporationCommerceByCorporation, CvCity::getCorporationYieldByCorporation, CvCity::getLargestCityHappiness, CvGame::createBarbarianCities, CvGame::getNumFreeBonuses, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setCorporationHelp …
+- **856** `CvGlobals::getNumClimateInfos()` (exported)
+  - called by (4): CvInitCore::getClimateKey, CvInitCore::setClimate(const CvWString &), CyGlobalContext::getClimateInfo, CyGlobalContext::getNumClimateInfos
+- **861** `CvGlobals::getClimateInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **866** `CvGlobals::getClimateInfo(ClimateTypes)` (exported)
+  - called by (4): CvInitCore::getClimateKey, CvInitCore::setClimate(const CvWString &), CvMap::init, CyGlobalContext::getClimateInfo
+- **877** `CvGlobals::getNumSeaLevelInfos()` (exported)
+  - called by (4): CvInitCore::getSeaLevelKey, CvInitCore::setSeaLevel(const CvWString &), CyGlobalContext::getNumSeaLevelInfos, CyGlobalContext::getSeaLevelInfo
+- **882** `CvGlobals::getSeaLevelInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **887** `CvGlobals::getSeaLevelInfo(SeaLevelTypes)` (exported)
+  - called by (4): CvInitCore::getSeaLevelKey, CvInitCore::setSeaLevel(const CvWString &), CvMap::init, CyGlobalContext::getSeaLevelInfo
+- **894** `CvGlobals::getNumHints()` (exported)
+  - called by (3): CvGameTextMgr::buildHintsList, CyGlobalContext::getHints, CyGlobalContext::getNumHints
+- **899** `CvGlobals::getHints()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **904** `CvGlobals::getHints(int)` (exported)
+  - called by (2): CvGameTextMgr::buildHintsList, CyGlobalContext::getHints
+- **909** `CvGlobals::getNumMainMenus()` (exported)
+  - called by (3): CvGlobals::getMainMenus(int), CyGlobalContext::getMainMenus, CyGlobalContext::getNumMainMenus
+- **914** `CvGlobals::getMainMenus()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **919** `CvGlobals::getMainMenus(int)` (exported)
+  - calls: CvGlobals::getNumMainMenus
+  - called by (1): CyGlobalContext::getMainMenus
+- **934** `CvGlobals::getNumPythonModulesInfos()` (exported)
+  - called by (2): CyGlobalContext::getNumPythonModulesInfos, CyGlobalContext::getPythonModulesInfo
+- **939** `CvGlobals::getPythonModulesInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPlayerOptions
+- **944** `CvGlobals::getPythonModulesInfo(int)` (exported)
+  - called by (1): CyGlobalContext::getPythonModulesInfo
+- **952** `CvGlobals::resetModLoadControlVector()`
+  - called by (1): CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+- **957** `CvGlobals::getModLoadControlVectorSize()`
+  - called by (4): CvInitCore::resetGame(CvInitCore *, bool, bool), CvInitCore::write, CvXMLLoadUtilitySetMod::loadModControlArray, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+- **962** `CvGlobals::setModLoadControlVector(const char *)`
+  - calls: CvString::CvString(const char *) [CvString.h]
+  - called by (1): CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+- **967** `CvGlobals::getModLoadControlVector(int)`
+  - calls: CvString::CvString(const CvString &) [CvString.h]
+  - called by (3): CvInitCore::resetGame(CvInitCore *, bool, bool), CvInitCore::write, CvXMLLoadUtilitySetMod::loadModControlArray
+- **972** `CvGlobals::getTotalNumModules()`
+- **977** `CvGlobals::setTotalNumModules()`
+  - called by (1): CvModLoadControlInfo::read
+- **982** `CvGlobals::getNumModLoadControlInfos()`
+  - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+- **987** `CvGlobals::getModLoadControlInfos()`
+  - called by (1): CvXMLLoadUtility::ModularLoadingControlXML
+- **992** `CvGlobals::getModLoadControlInfos(int)` (exported)
+  - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+- **999** `CvGlobals::resetDependencies()`
+  - called by (3): CvInfoBase::read(CvXMLLoadUtility *), CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement
+- **1007** `CvGlobals::isAnyDependency()`
+  - called by (3): CvInfoBase::read(CvXMLLoadUtility *), CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement
+- **1012** `CvGlobals::setAnyDependency(bool)`
+  - called by (1): CvInfoBase::read(CvXMLLoadUtility *)
+- **1017** `CvGlobals::getTypeDependency()`
+  - called by (3): CvInfoBase::read(CvXMLLoadUtility *), CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement
+- **1022** `CvGlobals::setTypeDependency(bool)`
+  - called by (2): CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement
+- **1027** `CvGlobals::getAndNumDependencyTypes()`
+  - called by (2): CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement
+- **1032** `CvGlobals::setAndDependencyTypes(const char *)`
+  - calls: CvString::CvString(const char *) [CvString.h]
+  - called by (1): CvInfoBase::read(CvXMLLoadUtility *)
+- **1037** `CvGlobals::getAndDependencyTypes(int)`
+  - calls: CvString::CvString(const CvString &) [CvString.h]
+  - called by (2): CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement
+- **1044** `CvGlobals::getOrNumDependencyTypes()`
+  - called by (2): CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement
+- **1049** `CvGlobals::setOrDependencyTypes(const char *)`
+  - calls: CvString::CvString(const char *) [CvString.h]
+  - called by (1): CvInfoBase::read(CvXMLLoadUtility *)
+- **1054** `CvGlobals::getOrDependencyTypes(int)`
+  - calls: CvString::CvString(const CvString &) [CvString.h]
+  - called by (2): CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement
+- **1068** `CvGlobals::setModDir(const char *)`
+  - called by (4): CvXMLLoadUtility::LoadDiplomacyInfo, CvXMLLoadUtility::LoadGlobalClassInfo, CvXMLLoadUtility::LoadGlobalClassInfoModular, CvXMLLoadUtility::LoadPythonModulesInfo
+- **1073** `CvGlobals::getModDir()`
+  - called by (18): CvArtInfoAsset::read, CvArtInfoBonus::read, CvArtInfoFeature::read, CvArtInfoImprovement::read, CvArtInfoLeaderhead::read, CvArtInfoTerrain::read, CvArtInfoUnit::read, CvAssetInfoBase::read, CvAttachableInfo::read, CvCameraInfo::read, CvEffectInfo::read, CvInfoBase::read(CvXMLLoadUtility *) …
+- **1081** `CvGlobals::getNumColorInfos()` (exported)
+  - called by (2): CvDllTranslator::initializeTags, CyGlobalContext::getColorInfo
+- **1086** `CvGlobals::getColorInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1091** `CvGlobals::getColorInfo(ColorTypes)` (exported)
+  - called by (59): CvCity::getCityBillboardSizeIconColors, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseFlagHelp, CvDLLWidgetData::parseTradeItem, CvDllTranslator::initializeTags, CvGame::updateBlockadedPlots, CvGame::updateColoredPlots, CvGameTextMgr::buildBonusRevealString, CvGameTextMgr::buildCivicRevealString …
+- **1099** `CvGlobals::getNumPlayerColorInfos()` (exported)
+  - called by (4): CvGame::addPlayer, CvPlayer::changeCiv, CyGlobalContext::getNumPlayerColorInfos, CyGlobalContext::getPlayerColorInfo
+- **1104** `CvGlobals::getPlayerColorInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1109** `CvGlobals::getPlayerColorInfo(PlayerColorTypes)` (exported)
+  - called by (12): CvCity::getCityBillboardSizeIconColors, CvGame::updateColoredPlots, CvPlayer::getCultureLayerColors, CvPlayer::getPlayerTextColorA, CvPlayer::getPlayerTextColorB, CvPlayer::getPlayerTextColorG, CvPlayer::getPlayerTextColorR, CvPlayer::getResourceLayerColors, CvPlayer::getUnitLayerColors, CvPlot::plotMinimapColor, CvReplayInfo::createInfo, CyGlobalContext::getPlayerColorInfo
+- **1116** `CvGlobals::getNumAdvisorInfos()`
+- **1121** `CvGlobals::getAdvisorInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1126** `CvGlobals::getAdvisorInfo(AdvisorTypes)`
+  - called by (2): CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchProductionPopup
+- **1133** `CvGlobals::getNumRouteModelInfos()` (exported)
+- **1138** `CvGlobals::getRouteModelInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1143** `CvGlobals::getRouteModelInfo(int)` (exported)
+- **1150** `CvGlobals::getNumRiverInfos()` (exported)
+- **1155** `CvGlobals::getRiverInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1160** `CvGlobals::getRiverInfo(RiverTypes)` (exported)
+- **1167** `CvGlobals::getNumRiverModelInfos()` (exported)
+- **1172** `CvGlobals::getRiverModelInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1177** `CvGlobals::getRiverModelInfo(int)` (exported)
+- **1184** `CvGlobals::getNumWaterPlaneInfos()` (exported)
+- **1189** `CvGlobals::getWaterPlaneInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1194** `CvGlobals::getWaterPlaneInfo(int)` (exported)
+- **1201** `CvGlobals::getNumTerrainPlaneInfos()` (exported)
+- **1206** `CvGlobals::getTerrainPlaneInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1211** `CvGlobals::getTerrainPlaneInfo(int)` (exported)
+- **1218** `CvGlobals::getNumCameraOverlayInfos()` (exported)
+- **1223** `CvGlobals::getCameraOverlayInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1228** `CvGlobals::getCameraOverlayInfo(int)` (exported)
+- **1235** `CvGlobals::getNumAnimationPathInfos()` (exported)
+  - called by (2): CyGlobalContext::getAnimationPathInfo, CyGlobalContext::getNumAnimationPathInfos
+- **1240** `CvGlobals::getAnimationPathInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1245** `CvGlobals::getAnimationPathInfo(AnimationPathTypes)` (exported)
+  - called by (1): CyGlobalContext::getAnimationPathInfo
+- **1252** `CvGlobals::getNumAnimationCategoryInfos()` (exported)
+  - called by (1): CyGlobalContext::getNumAnimationCategoryInfos
+- **1257** `CvGlobals::getAnimationCategoryInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1262** `CvGlobals::getAnimationCategoryInfo(AnimationCategoryTypes)` (exported)
+- **1269** `CvGlobals::getNumEntityEventInfos()` (exported)
+- **1274** `CvGlobals::getEntityEventInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1279** `CvGlobals::getEntityEventInfo(EntityEventTypes)` (exported)
+  - called by (1): CvPlayer::doEspionageMission
+- **1286** `CvGlobals::getNumEffectInfos()` (exported)
+  - called by (4): CvPlot::setBattleEffect, CvXMLLoadUtility::ResetGlobalEffectInfo, CyGlobalContext::getEffectInfo, CyGlobalContext::getNumEffectInfos
+- **1291** `CvGlobals::getEffectInfo()`
+  - called by (2): CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::ResetGlobalEffectInfo
+- **1296** `CvGlobals::getEffectInfo(int)` (exported)
+  - called by (2): CvPlot::setBattleEffect, CyGlobalContext::getEffectInfo
+- **1304** `CvGlobals::getNumAttachableInfos()` (exported)
+- **1309** `CvGlobals::getAttachableInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1314** `CvGlobals::getAttachableInfo(int)` (exported)
+- **1321** `CvGlobals::getNumCameraInfos()` (exported)
+- **1326** `CvGlobals::getCameraInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1331** `CvGlobals::getCameraInfo(CameraAnimationTypes)` (exported)
+- **1336** `CvGlobals::getNumUnitFormationInfos()` (exported)
+- **1341** `CvGlobals::getUnitFormationInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1346** `CvGlobals::getUnitFormationInfo(int)` (exported)
+- **1354** `CvGlobals::getNumGameTextXML()`
+- **1359** `CvGlobals::getGameTextXML()`
+- **1365** `CvGlobals::getNumLandscapeInfos()` (exported)
+  - called by (2): CvMap::reset, CvXMLLoadUtility::ResetLandscapeInfo
+- **1370** `CvGlobals::getLandscapeInfo()`
+  - called by (2): CvXMLLoadUtility::ResetLandscapeInfo, CvXMLLoadUtility::SetupGlobalLandscapeInfo
+- **1375** `CvGlobals::getLandscapeInfo(int)` (exported)
+  - called by (1): CvMap::reset
+- **1382** `CvGlobals::getActiveLandscapeID()` (exported)
+  - called by (1): CvMap::reset
+- **1387** `CvGlobals::setActiveLandscapeID(int)` (exported)
+- **1393** `CvGlobals::getNumTerrainInfos()` (exported)
+  - called by (48): CvBonusInfo::copyNonDefaults, CvBonusInfo::read(CvXMLLoadUtility *), CvBonusInfo::read(FDataStreamBase *), CvBonusInfo::write, CvCityAI::AI_chooseProduction, CvDLLWidgetData::parseTerrainTradeHelp, CvFeatureInfo::copyNonDefaults, CvFeatureInfo::read, CvGame::getWidgetShow(BonusTypes), CvGame::normalizeAddGoodTerrain, CvGame::normalizeRemoveBadTerrain, CvGameTextMgr::getTerrainDataForWB …
+- **1398** `CvGlobals::getTerrainInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1403** `CvGlobals::getTerrainInfo(TerrainTypes)` (exported)
+  - called by (39): CvBonusInfo::read(CvXMLLoadUtility *), CvCityAI::AI_chooseProduction, CvFeatureInfo::read, CvGame::getWidgetShow(BonusTypes), CvGame::normalizeAddGoodTerrain, CvGame::normalizeRemoveBadTerrain, CvGameTextMgr::buildTerrainTradeString, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::parsePromotionHelp, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotHelp …
+- **1410** `CvGlobals::getNumBonusClassInfos()`
+  - called by (3): CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_bestTech, CyGlobalContext::getBonusClassInfo
+- **1415** `CvGlobals::getBonusClassInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1420** `CvGlobals::getBonusClassInfo(BonusClassTypes)`
+  - called by (2): CvMapGenerator::canPlaceBonusAt, CyGlobalContext::getBonusClassInfo
+- **1428** `CvGlobals::getNumBonusInfos()` (exported)
+  - called by (84): CvArea::countNumUniqueBonusTypes, CvArea::getNumTotalBonuses, CvArea::read, CvArea::reset, CvArea::write, CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvBuildingInfo::~CvBuildingInfo, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int &, int &, int &), CvCity::getAdditionalHealthByBuilding(BuildingTypes, int &, int &, int &, int &) …
+- **1433** `CvGlobals::getBonusInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1438** `CvGlobals::getBonusInfo(BonusTypes)` (exported)
+  - called by (69): CvArea::countNumUniqueBonusTypes, CvBuildingInfo::read(CvXMLLoadUtility *), CvCity::getBonusHappiness, CvCity::getBonusHealth, CvCity::processBonus, CvCity::setHasCorporation, CvCity::updateCorporationBonus, CvCityAI::AI_plotValue, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchVassalDemandTributePopup, CvDLLButtonPopup::launchVassalGrantTributePopup, CvDLLWidgetData::parseActionHelp …
+- **1445** `CvGlobals::getNumFeatureInfos()` (exported)
+  - called by (50): CvBonusInfo::copyNonDefaults, CvBonusInfo::read(CvXMLLoadUtility *), CvBonusInfo::read(FDataStreamBase *), CvBonusInfo::write, CvBuildInfo::copyNonDefaults, CvCity::kill, CvCivicInfo::copyNonDefaults, CvCivicInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(FDataStreamBase *), CvCivicInfo::write, CvGame::getWidgetShow(BonusTypes), CvGame::normalizeAddExtras …
+- **1450** `CvGlobals::getFeatureInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1455** `CvGlobals::getFeatureInfo(FeatureTypes)` (exported)
+  - called by (70): CvBonusInfo::read(CvXMLLoadUtility *), CvCity::kill, CvCity::updateFeatureHealth, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue(CvPlot *, ImprovementTypes, int, int, int, int, bool), CvCityAI::AI_getYieldMultipliers(int &, int &, int &, int &), CvCityAI::AI_updateBestBuild, CvCivicInfo::read(CvXMLLoadUtility *), CvDLLWidgetData::parseActionHelp …
+- **1462** `CvGlobals::getNumPlayableCivilizationInfos()` (exported)
+  - called by (2): CvXMLLoadUtility::LoadPreMenuGlobals, CyGlobalContext::getNumPlayableCivilizationInfos
+- **1467** `CvGlobals::getNumAIPlayableCivilizationInfos()` (exported)
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1472** `CvGlobals::getNumCivilizationInfos()` (exported)
+  - called by (17): CvDiplomacyResponse::read(CvXMLLoadUtility *), CvDiplomacyResponse::read(FDataStreamBase *), CvDiplomacyResponse::write, CvDiplomacyTextInfo::Response::read, CvDiplomacyTextInfo::Response::write, CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvGame::initScoreCalculation, CvGame::isBuildingEverActive, CvGame::isUnitEverActive, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, UnitTypes, bool, bool, bool, CvCity *), CvPlayer::getNewCityName …
+- **1477** `CvGlobals::getCivilizationInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1482** `CvGlobals::getCivilizationInfo(CivilizationTypes)` (exported)
+  - called by (144): AI_unitReadinessPercent, CvCity::allUpgradesAvailable, CvCity::applyEvent, CvCity::canApplyEvent, CvCity::canConstruct, CvCity::canTrain(UnitCombatTypes), CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int &, int &, int &), CvCity::getConscriptUnit, CvCity::getProductionExperience, CvCity::getTriggerValue, CvCity::init, CvCity::isForceObsoleteUnitClassAvailable …
+- **1490** `CvGlobals::getNumLeaderHeadInfos()` (exported)
+  - called by (19): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(FDataStreamBase *), CvCivilizationInfo::write, CvDiplomacyInfo::FindResponseIndex, CvDiplomacyInfo::copyNonDefaults, CvDiplomacyResponse::UpdateDiplomacies, CvDiplomacyResponse::read(CvXMLLoadUtility *), CvDiplomacyResponse::read(FDataStreamBase *), CvDiplomacyResponse::write, CvDiplomacyTextInfo::Response::read, CvDiplomacyTextInfo::Response::write …
+- **1495** `CvGlobals::getLeaderHeadInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1500** `CvGlobals::getLeaderHeadInfo(LeaderHeadTypes)` (exported)
+  - called by (89): CvCity::getMusicScriptId, CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_bestUnit, CvCityAI::AI_buildUnitProb, CvCityAI::AI_chooseProduction, CvCityAI::AI_getImprovementValue(CvPlot *, ImprovementTypes, int, int, int, int, bool), CvCivilizationInfo::read(CvXMLLoadUtility *), CvDLLWidgetData::parseDescriptionHelp, CvDiplomacyResponse::read(CvXMLLoadUtility *), CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvGameTextMgr::parseLeaderShortTraits …
+- **1508** `CvGlobals::getNumTraitInfos()`
+  - called by (43): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvCityAI::AI_bestUnitAI, CvCivicOptionInfo::copyNonDefaults, CvCivicOptionInfo::read, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::parseLeaderShortTraits, CvGameTextMgr::parseLeaderTraits, CvGameTextMgr::parsePlayerTraits, CvGameTextMgr::setBasicUnitHelpWithCity …
+- **1513** `CvGlobals::getTraitInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1518** `CvGlobals::getTraitInfo(TraitTypes)`
+  - called by (28): CvBuildingInfo::read(CvXMLLoadUtility *), CvCityAI::AI_bestUnitAI, CvCivicOptionInfo::read, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::parseLeaderShortTraits, CvGameTextMgr::parsePlayerTraits, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCommerceHelp, CvGameTextMgr::setProductionHelp, CvLeaderHeadInfo::read(CvXMLLoadUtility *) …
+- **1526** `CvGlobals::getNumCursorInfos()` (exported)
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1531** `CvGlobals::getCursorInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1536** `CvGlobals::getCursorInfo(CursorTypes)` (exported)
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1543** `CvGlobals::getNumThroneRoomCameras()` (exported)
+- **1548** `CvGlobals::getThroneRoomCamera()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1553** `CvGlobals::getThroneRoomCamera(int)` (exported)
+- **1560** `CvGlobals::getNumThroneRoomInfos()` (exported)
+- **1565** `CvGlobals::getThroneRoomInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1570** `CvGlobals::getThroneRoomInfo(int)` (exported)
+- **1577** `CvGlobals::getNumThroneRoomStyleInfos()` (exported)
+- **1582** `CvGlobals::getThroneRoomStyleInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **1587** `CvGlobals::getThroneRoomStyleInfo(int)` (exported)
+- **1594** `CvGlobals::getNumSlideShowInfos()` (exported)
+- **1599** `CvGlobals::getSlideShowInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1604** `CvGlobals::getSlideShowInfo(int)` (exported)
+- **1611** `CvGlobals::getNumSlideShowRandomInfos()` (exported)
+- **1616** `CvGlobals::getSlideShowRandomInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1621** `CvGlobals::getSlideShowRandomInfo(int)` (exported)
+- **1628** `CvGlobals::getNumWorldPickerInfos()` (exported)
+- **1633** `CvGlobals::getWorldPickerInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1638** `CvGlobals::getWorldPickerInfo(int)` (exported)
+- **1645** `CvGlobals::getNumSpaceShipInfos()` (exported)
+- **1650** `CvGlobals::getSpaceShipInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1655** `CvGlobals::getSpaceShipInfo(int)` (exported)
+- **1662** `CvGlobals::getNumUnitInfos()`
+  - called by (47): CvCity::doCheckProduction, CvCity::doDecay, CvCity::doGreatPeople, CvCity::read, CvCity::reset, CvCity::write, CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchProductionPopup, CvEventReporter::getGameStatistics, CvEventReporter::getPlayerStatistics, CvGame::loadBuildQueue …
+- **1667** `CvGlobals::getUnitInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1672** `CvGlobals::getUnitInfo(UnitTypes)`
+  - called by (158): AI_isSacrificeWorth, AI_unitReadinessPercent, CvActionInfo::getCommandType, CvActionInfo::getHotkeyInfo, CvCity::allUpgradesAvailable, CvCity::canTrain(UnitCombatTypes), CvCity::doCheckProduction, CvCity::getBuildQueue, CvCity::getConscriptPopulation, CvCity::getConscriptUnit, CvCity::getHurryCostModifier(UnitTypes, bool), CvCity::getProductionExperience …
+- **1679** `CvGlobals::getNumSpecialUnitInfos()`
+  - called by (7): CvGame::init, CvGame::read, CvGame::reset, CvGame::write, CvGameTextMgr::parseTraits, CyGlobalContext::getNumSpecialUnitInfos, CyGlobalContext::getSpecialUnitInfo
+- **1684** `CvGlobals::getSpecialUnitInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1689** `CvGlobals::getSpecialUnitInfo(SpecialUnitTypes)`
+  - called by (10): CvGame::init, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setProductionHelp, CvGameTextMgr::setProjectHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlayer::getProductionModifier(UnitTypes), CvPlayerAI::AI_unitValue, CvUnit::canLoadUnit, CyGlobalContext::getSpecialUnitInfo
+- **1697** `CvGlobals::getNumConceptInfos()`
+  - called by (2): CyGlobalContext::getConceptInfo, CyGlobalContext::getNumConceptInfos
+- **1702** `CvGlobals::getConceptInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1707** `CvGlobals::getConceptInfo(ConceptTypes)`
+  - called by (2): CvDLLWidgetData::parseDescriptionHelp, CyGlobalContext::getConceptInfo
+- **1715** `CvGlobals::getNumNewConceptInfos()`
+  - called by (2): CyGlobalContext::getNewConceptInfo, CyGlobalContext::getNumNewConceptInfos
+- **1720** `CvGlobals::getNewConceptInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1725** `CvGlobals::getNewConceptInfo(NewConceptTypes)`
+  - called by (2): CvDLLWidgetData::parseDescriptionHelp, CyGlobalContext::getNewConceptInfo
+- **1733** `CvGlobals::getNumCityTabInfos()`
+  - called by (2): CyGlobalContext::getCityTabInfo, CyGlobalContext::getNumCityTabInfos
+- **1738** `CvGlobals::getCityTabInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1743** `CvGlobals::getCityTabInfo(CityTabTypes)`
+  - called by (2): CvDLLWidgetData::parseHelp, CyGlobalContext::getCityTabInfo
+- **1751** `CvGlobals::getNumCalendarInfos()`
+  - called by (4): CvInitCore::getCalendarKey, CvInitCore::setCalendar(const CvWString &), CyGlobalContext::getCalendarInfo, CyGlobalContext::getNumCalendarInfos
+- **1756** `CvGlobals::getCalendarInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1761** `CvGlobals::getCalendarInfo(CalendarTypes)`
+  - called by (3): CvInitCore::getCalendarKey, CvInitCore::setCalendar(const CvWString &), CyGlobalContext::getCalendarInfo
+- **1769** `CvGlobals::getNumSeasonInfos()`
+  - called by (4): CvGameTextMgr::setDateStr, CyGlobalContext::getNumSeasonInfos, CyGlobalContext::getSeasonInfo, getTurnMonthForGame
+- **1774** `CvGlobals::getSeasonInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1779** `CvGlobals::getSeasonInfo(SeasonTypes)`
+  - called by (2): CvGameTextMgr::setDateStr, CyGlobalContext::getSeasonInfo
+- **1787** `CvGlobals::getNumMonthInfos()`
+  - called by (5): CvGameTextMgr::setDateStr, CyGlobalContext::getMonthInfo, CyGlobalContext::getNumMonthInfos, getTurnMonthForGame, getTurnYearForGame
+- **1792** `CvGlobals::getMonthInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1797** `CvGlobals::getMonthInfo(MonthTypes)`
+  - called by (2): CvGameTextMgr::setDateStr, CyGlobalContext::getMonthInfo
+- **1805** `CvGlobals::getNumDenialInfos()`
+  - called by (2): CyGlobalContext::getDenialInfo, CyGlobalContext::getNumDenialInfos
+- **1810** `CvGlobals::getDenialInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1815** `CvGlobals::getDenialInfo(DenialTypes)`
+  - called by (4): CvDLLWidgetData::parseTradeItem, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setTechTradeHelp, CyGlobalContext::getDenialInfo
+- **1823** `CvGlobals::getNumInvisibleInfos()`
+  - called by (5): CvPlot::changeInvisibleVisibilityCount, CvPlot::write, CvTeam::addTeam, CyGlobalContext::getInvisibleInfo, CyGlobalContext::getNumInvisibleInfos
+- **1828** `CvGlobals::getInvisibleInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1833** `CvGlobals::getInvisibleInfo(InvisibleTypes)`
+  - called by (3): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CyGlobalContext::getInvisibleInfo
+- **1841** `CvGlobals::getNumVoteSourceInfos()`
+  - called by (25): CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCityAI::AI_buildingValueThreshold, CvGame::doVoteSelection, CvGame::processBuilding, CvGame::read, CvGame::reset, CvGame::updateSecretaryGeneral, CvGame::write, CvGameTextMgr::setBuildingHelpActual, CvPlayer::acquireCity, CvPlayer::read …
+- **1846** `CvGlobals::getVoteSourceInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1851** `CvGlobals::getVoteSourceInfo(VoteSourceTypes)`
+  - called by (11): CvCity::processVoteSourceBonus, CvDLLButtonPopup::launchChooseElectionPopup, CvDLLButtonPopup::launchDiploVotePopup, CvGame::doVoteResults, CvGame::doVoteSelection, CvGame::setVoteSourceReligion, CvGameTextMgr::setBuildingHelpActual, CvPlayer::isFullMember, CvVoteInfo::read, CvXMLLoadUtility::LoadPreMenuGlobals, CyGlobalContext::getVoteSourceInfo
+- **1859** `CvGlobals::getNumUnitCombatInfos()`
+  - called by (44): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvCity::processBuilding, CvCity::read, CvCity::reset, CvCity::write, CvCityAI::AI_buildingValueThreshold, CvEventInfo::copyNonDefaults, CvEventInfo::read(CvXMLLoadUtility *), CvEventInfo::read(FDataStreamBase *) …
+- **1864** `CvGlobals::getUnitCombatInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1869** `CvGlobals::getUnitCombatInfo(UnitCombatTypes)`
+  - called by (17): CvBuildingInfo::read(CvXMLLoadUtility *), CvDLLWidgetData::parseDescriptionHelp, CvEventInfo::read(CvXMLLoadUtility *), CvGameTextMgr::parsePromotionHelp, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setEventHelp, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setUnitCombatHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, UnitTypes, bool, bool, bool, CvCity *) …
+- **1877** `CvGlobals::getDomainInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1882** `CvGlobals::getDomainInfo(DomainTypes)`
+  - called by (12): CvBuildingInfo::read(CvXMLLoadUtility *), CvGameTextMgr::buildDomainExtraMovesString, CvGameTextMgr::parsePromotionHelp, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setProductionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPromotionInfo::read(CvXMLLoadUtility *), CvTechInfo::read(CvXMLLoadUtility *), CvUnitInfo::read(CvXMLLoadUtility *), CyGlobalContext::getDomainInfo
+- **1890** `CvGlobals::getUnitAIInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1895** `CvGlobals::getUnitAIInfo(UnitAITypes)`
+  - called by (6): CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvLeaderHeadInfo::read(CvXMLLoadUtility *), CvSpecialUnitInfo::read, CvUnitInfo::read(CvXMLLoadUtility *), CyGlobalContext::getUnitAIInfo, warLogStacks
+- **1903** `CvGlobals::getAttitudeInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1908** `CvGlobals::getAttitudeInfo(AttitudeTypes)`
+  - called by (7): CvDiplomacyResponse::read(CvXMLLoadUtility *), CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvGameTextMgr::getAttitudeString, CvGameTextMgr::getTradeScreenHeader, CvGameTextMgr::setPlotHelp, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CyGlobalContext::getAttitudeInfo
+- **1916** `CvGlobals::getMemoryInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **1921** `CvGlobals::getMemoryInfo(MemoryTypes)`
+  - called by (3): CvGameTextMgr::getAttitudeString, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CyGlobalContext::getMemoryInfo
+- **1929** `CvGlobals::getNumGameOptionInfos()` (exported)
+  - called by (2): CyGlobalContext::getGameOptionInfo, CyGlobalContext::getNumGameOptionInfos
+- **1934** `CvGlobals::getGameOptionInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1939** `CvGlobals::getGameOptionInfo(GameOptionTypes)` (exported)
+  - called by (2): CvInitCore::setDefaults, CyGlobalContext::getGameOptionInfo
+- **1946** `CvGlobals::getNumMPOptionInfos()` (exported)
+  - called by (2): CyGlobalContext::getMPOptionInfo, CyGlobalContext::getNumMPOptionInfos
+- **1951** `CvGlobals::getMPOptionInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1956** `CvGlobals::getMPOptionInfo(MultiplayerOptionTypes)` (exported)
+  - called by (2): CvInitCore::setDefaults, CyGlobalContext::getMPOptionInfo
+- **1963** `CvGlobals::getNumForceControlInfos()` (exported)
+  - called by (2): CyGlobalContext::getForceControlInfo, CyGlobalContext::getNumForceControlInfos
+- **1968** `CvGlobals::getForceControlInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **1973** `CvGlobals::getForceControlInfo(ForceControlTypes)` (exported)
+  - called by (1): CyGlobalContext::getForceControlInfo
+- **1980** `CvGlobals::getPlayerOptionInfo()`
+  - called by (2): CvXMLLoadUtility::LoadPlayerOptions, CvXMLLoadUtility::doResetGlobalInfoClasses
+- **1985** `CvGlobals::getPlayerOptionInfo(PlayerOptionTypes)` (exported)
+  - called by (1): CyGlobalContext::getPlayerOptionsInfoByIndex
+- **1992** `CvGlobals::getGraphicOptionInfo()`
+  - called by (1): CvXMLLoadUtility::LoadGraphicOptions
+- **1997** `CvGlobals::getGraphicOptionInfo(GraphicOptionTypes)` (exported)
+  - called by (1): CyGlobalContext::getGraphicOptionsInfoByIndex
+- **2005** `CvGlobals::getYieldInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2010** `CvGlobals::getYieldInfo(YieldTypes)`
+  - called by (38): CvCityAI::AI_getYieldMultipliers(int &, int &, int &, int &), CvCityAI::AI_updateBestBuild, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseHurryHelp, CvDLLWidgetData::parseProductionHelp, CvDllTranslator::initializeTags, CvEventInfo::read(CvXMLLoadUtility *), CvGameTextMgr::assignFontIds, CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::getCityBillboardFoodbarColors, CvGameTextMgr::getCityBillboardProductionbarColors, CvGameTextMgr::getFontSymbols …
+- **2018** `CvGlobals::getCommerceInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2023** `CvGlobals::getCommerceInfo(CommerceTypes)`
+  - called by (38): CvCity::doCheckProduction, CvCity::init, CvCity::setCultureLevel, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseChangePercentHelp, CvDLLWidgetData::parseHurryHelp, CvDLLWidgetData::parseSetPercentHelp, CvDllTranslator::initializeTags, CvGameTextMgr::assignFontIds, CvGameTextMgr::buildAdjustString, CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::buildFinanceCivicUpkeepString …
+- **2030** `CvGlobals::getNumRouteInfos()` (exported)
+  - called by (21): CvCityAI::AI_bestPlotBuild, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildMoveString, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getTerrainDataForWB, CvImprovementInfo::copyNonDefaults, CvImprovementInfo::read(CvXMLLoadUtility *), CvImprovementInfo::read(FDataStreamBase *), CvImprovementInfo::write, CvImprovementInfo::~CvImprovementInfo, CvPlayerAI::AI_bestAdvancedStartRoute, CvPlayerAI::AI_techValue …
+- **2035** `CvGlobals::getRouteInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2040** `CvGlobals::getRouteInfo(RouteTypes)` (exported)
+  - called by (23): CvCityAI::AI_bestPlotBuild, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildMoveString, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::setEventHelp, CvGameTextMgr::setPlotHelp, CvPlayer::doEspionageMission, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayer::initTriggeredData, CvPlayerAI::AI_baseBonusVal …
+- **2047** `CvGlobals::getNumImprovementInfos()` (exported)
+  - called by (52): CvArea::read, CvArea::reset, CvArea::write, CvBonusInfo::read(FDataStreamBase *), CvBonusInfo::write, CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvCity::processBuilding, CvCity::read, CvCity::reset …
+- **2052** `CvGlobals::getImprovementInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2057** `CvGlobals::getImprovementInfo(ImprovementTypes)` (exported)
+  - called by (87): CvBuildingInfo::read(CvXMLLoadUtility *), CvCity::applyEvent, CvCity::canApplyEvent, CvCity::updateFeatureHappiness, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_getImprovementValue(CvPlot *, ImprovementTypes, int, int, int, int, bool), CvCityAI::AI_plotValue, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere, CvDLLWidgetData::parseActionHelp …
+- **2064** `CvGlobals::getNumGoodyInfos()` (exported)
+  - called by (2): CyGlobalContext::getGoodyInfo, CyGlobalContext::getNumGoodyInfos
+- **2069** `CvGlobals::getGoodyInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2074** `CvGlobals::getGoodyInfo(GoodyTypes)` (exported)
+  - called by (4): CvHandicapInfo::copyNonDefaults, CvPlayer::canReceiveGoody, CvPlayer::receiveGoody, CyGlobalContext::getGoodyInfo
+- **2081** `CvGlobals::getNumBuildInfos()` (exported)
+  - called by (32): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_getImprovementValue(CvPlot *, ImprovementTypes, int, int, int, int, bool), CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setTechTradeHelp, CvPlayer::countUnimprovedBonuses, CvPlayer::doAdvancedStartAction, CvPlayer::getAdvancedStartImprovementCost, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal …
+- **2086** `CvGlobals::getBuildInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2091** `CvGlobals::getBuildInfo(BuildTypes)` (exported)
+  - called by (49): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue(CvPlot *, ImprovementTypes, int, int, int, int, bool), CvCityAI::AI_getYieldMultipliers(int &, int &, int &, int &), CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere, CvDLLWidgetData::doPediaBuildJump, CvDLLWidgetData::parseActionHelp …
+- **2098** `CvGlobals::getNumHandicapInfos()` (exported)
+  - called by (2): CyGlobalContext::getHandicapInfo, CyGlobalContext::getNumHandicapInfos
+- **2103** `CvGlobals::getHandicapInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2108** `CvGlobals::getHandicapInfo(HandicapTypes)` (exported)
+  - called by (52): CvCity::badHealth, CvCity::calculateColonyMaintenanceTimes100, CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes), CvCity::calculateDistanceMaintenanceTimes100, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::goodHealth, CvCity::happyLevel, CvCity::unhappyLevel, CvCityAI::AI_neededDefenders, CvDLLWidgetData::parseContactCivHelp, CvGame::assignStartingPlots, CvGame::createAnimals …
+- **2115** `CvGlobals::getNumGameSpeedInfos()` (exported)
+  - called by (6): CvCultureLevelInfo::copyNonDefaults, CvCultureLevelInfo::read, CvInitCore::getGameSpeedKey, CvInitCore::setGameSpeed(const CvWString &), CyGlobalContext::getNumGameSpeedInfos, calendarTurnsPercent
+- **2120** `CvGlobals::getGameSpeedInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2125** `CvGlobals::getGameSpeedInfo(GameSpeedTypes)` (exported)
+  - called by (79): CvCity::doDecay, CvCity::doMeltdown, CvCity::flatConscriptAngerLength, CvCity::flatDefyResolutionAngerLength, CvCity::flatHurryAngerLength, CvCity::getBuildingProductionDecayTurns, CvCity::getRevRequestPercentAnger, CvCity::getRevSuccessHappiness, CvCity::getUnitProductionDecayTurns, CvCity::isBuildingProductionDecay, CvCity::isRecentlyAcquired, CvCity::isUnitProductionDecay …
+- **2132** `CvGlobals::getNumTurnTimerInfos()` (exported)
+  - called by (3): CvInitCore::getTurnTimerKey, CvInitCore::setTurnTimer(const CvWString &), CyGlobalContext::getNumTurnTimerInfos
+- **2137** `CvGlobals::getTurnTimerInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2142** `CvGlobals::getTurnTimerInfo(TurnTimerTypes)` (exported)
+  - called by (5): CvGame::getMaxTurnLen, CvGame::resetTurnTimer, CvInitCore::getTurnTimerKey, CvInitCore::setTurnTimer(const CvWString &), CyGlobalContext::getTurnTimerInfo
+- **2149** `CvGlobals::getNumProcessInfos()`
+  - called by (10): CvCityAI::AI_bestProcess(CommerceTypes), CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchProductionPopup, CvGame::loadBuildQueue, CvGame::startFlyoutMenu, CvGameTextMgr::setTechTradeHelp, CvPlayerAI::AI_techValue, CyGlobalContext::getNumProcessInfos, CyGlobalContext::getProcessInfo, warOrderText
+- **2154** `CvGlobals::getProcessInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2159** `CvGlobals::getProcessInfo(ProcessTypes)`
+  - called by (17): CvCity::getBuildQueue, CvCity::getCityBillboardProductionIcon, CvCity::getProductionName, CvCity::getProductionNameKey, CvCity::processProcess, CvCity::pushOrder, CvCity::setCultureLevel, CvCityAI::AI_processValue(ProcessTypes, CommerceTypes), CvDLLButtonPopup::launchProductionPopup, CvGame::loadBuildQueue, CvGame::startFlyoutMenu, CvGameTextMgr::buildProcessInfoString …
+- **2166** `CvGlobals::getNumVoteInfos()`
+  - called by (12): CvDLLButtonPopup::launchChooseElectionPopup, CvGame::addVoteSelection, CvGame::canHaveSecretaryGeneral, CvGame::clearSecretaryGeneral, CvGame::doVoteSelection, CvGame::getSecretaryGeneral, CvGame::read, CvGame::reset, CvGame::testVictory(VictoryTypes, TeamTypes, bool *), CvGame::write, CyGlobalContext::getNumVoteInfos, CyGlobalContext::getVoteInfo
+- **2171** `CvGlobals::getVoteInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2176** `CvGlobals::getVoteInfo(VoteTypes)`
+  - called by (20): CvGame::addVoteSelection, CvGame::canDoResolution, CvGame::canHaveSecretaryGeneral, CvGame::castVote, CvGame::clearSecretaryGeneral, CvGame::doVoteResults, CvGame::doVoteSelection, CvGame::getSecretaryGeneral, CvGame::getVoteRequired, CvGame::isChooseElection, CvGame::isTeamVote, CvGame::isValidVoteSelection …
+- **2183** `CvGlobals::getNumProjectInfos()`
+  - called by (46): CvCity::doCheckProduction, CvCity::read, CvCity::reset, CvCity::write, CvCityAI::AI_bestProject, CvCityAI::AI_projectValue, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLButtonPopup::launchProductionPopup, CvGame::cheatSpaceship, CvGame::getSpaceVictory, CvGame::loadBuildQueue …
+- **2188** `CvGlobals::getProjectInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2193** `CvGlobals::getProjectInfo(ProjectTypes)`
+  - called by (54): CvCity::doCheckProduction, CvCity::getBuildQueue, CvCity::getCityBillboardProductionIcon, CvCity::getProductionModifier(ProjectTypes), CvCity::getProductionName, CvCity::getProductionNameKey, CvCity::hurry, CvCity::popOrder, CvCity::pushOrder, CvCityAI::AI_bestProject, CvCityAI::AI_projectValue, CvDLLButtonPopup::launchDoEspionageTargetPopup …
+- **2200** `CvGlobals::getNumBuildingClassInfos()`
+  - called by (83): AI_unitReadinessPercent, CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvCity::applyEvent, CvCity::canConstruct, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int &, int &, int &), CvCity::getProductionExperience, CvCity::init, CvCity::isPlotTrainable, CvCityAI::AI_bestBuildingThreshold …
+- **2205** `CvGlobals::getBuildingClassInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2210** `CvGlobals::getBuildingClassInfo(BuildingClassTypes)`
+  - called by (31): CvBuildingInfo::read(CvXMLLoadUtility *), CvCity::canConstruct, CvCity::popOrder, CvCity::setNumRealBuildingTimed, CvCityAI::AI_bestBuildingThreshold, CvCivicInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility *), CvGame::isBuildingClassMaxedOut, CvGame::testVictory(VictoryTypes, TeamTypes, bool *), CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::parseCivInfos …
+- **2217** `CvGlobals::getNumBuildingInfos()`
+  - called by (85): CvCity::doCheckProduction, CvCity::doDecay, CvCity::doMeltdown, CvCity::getAddedFreeSpecialistCount, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusHappiness, CvCity::getBonusHealth, CvCity::getBonusPower, CvCity::getBonusYieldRateModifier(YieldTypes, BonusTypes), CvCity::getNumActiveWorldWonders, CvCity::getVisibleBuildings, CvCity::hasActiveWorldWonder …
+- **2222** `CvGlobals::getBuildingInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2227** `CvGlobals::getBuildingInfo(BuildingTypes)`
+  - called by (150): AI_buildingTechReadinessPercent, AI_hasBuildingTechs, AI_unitReadinessPercent, CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvCity::canConstruct, CvCity::doCheckProduction, CvCity::doMeltdown, CvCity::getAddedFreeSpecialistCount, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalBaseGreatPeopleRateByBuilding, CvCity::getAdditionalBaseYieldRateByBuilding …
+- **2234** `CvGlobals::getNumSpecialBuildingInfos()`
+  - called by (19): CvCivicInfo::copyNonDefaults, CvCivicInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(FDataStreamBase *), CvCivicInfo::write, CvGame::init, CvGame::read, CvGame::reset, CvGame::write, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseTraits, CvGameTextMgr::setTechTradeHelp, CvPlayer::processCivics …
+- **2239** `CvGlobals::getSpecialBuildingInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2244** `CvGlobals::getSpecialBuildingInfo(SpecialBuildingTypes)`
+  - called by (18): CvCivicInfo::read(CvXMLLoadUtility *), CvGame::init, CvGame::makeSpecialBuildingValid, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::buildObsoleteSpecialString, CvGameTextMgr::buildSpecialBuildingString, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setProductionHelp, CvGameTextMgr::setProjectHelp, CvGameTextMgr::setTechTradeHelp …
+- **2251** `CvGlobals::getNumUnitClassInfos()`
+  - called by (78): CvCity::allUpgradesAvailable, CvCity::canTrain(UnitCombatTypes), CvCity::getConscriptUnit, CvCity::isForceObsoleteUnitClassAvailable, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_trainInquisitor, CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(FDataStreamBase *) …
+- **2256** `CvGlobals::getUnitClassInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2261** `CvGlobals::getUnitClassInfo(UnitClassTypes)`
+  - called by (35): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility *), CvEventInfo::read(CvXMLLoadUtility *), CvGame::isUnitClassMaxedOut, CvGameTextMgr::buildFreeUnitString, CvGameTextMgr::parseCivInfos, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setPlotHelp …
+- **2268** `CvGlobals::getNumActionInfos()` (exported)
+  - called by (3): CvXMLLoadUtility::SetGlobalActionInfo, CyGlobalContext::getActionInfo, CyGlobalContext::getNumActionInfos
+- **2273** `CvGlobals::getActionInfo()`
+  - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
+- **2278** `CvGlobals::getActionInfo(int)` (exported)
+  - called by (7): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchConfirmCommandPopup, CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::handleAction, CvUnit::isActionRecommended, CyGlobalContext::getActionInfo
+- **2285** `CvGlobals::getMissionInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2290** `CvGlobals::getMissionInfo(MissionTypes)` (exported)
+  - called by (35): CvActionInfo::getHotkeyInfo, CvActionInfo::isVisible, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::getBuildingDataForWB, CvNetPushMission::Debug, CvNetPushMission::Execute, CvPlayer::doEspionageMission, CvSelectionGroup::groupMove, CvSelectionGroup::pushMission, CvSelectionGroup::startMission, CvSelectionGroup::updateMissionTimer, CvUnit::airBomb …
+- **2297** `CvGlobals::getControlInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2302** `CvGlobals::getControlInfo(ControlTypes)` (exported)
+  - called by (4): CvActionInfo::getHotkeyInfo, CvDLLWidgetData::parseActionHelp, CvXMLLoadUtility::SetGlobalActionInfo, CyGlobalContext::getControlInfo
+- **2310** `CvGlobals::getCommandInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2315** `CvGlobals::getCommandInfo(CommandTypes)` (exported)
+  - called by (9): CvActionInfo::getAutomateType, CvActionInfo::getCommandData, CvActionInfo::getHotkeyInfo, CvActionInfo::isConfirmCommand, CvActionInfo::isVisible, CvDLLWidgetData::parseActionHelp, CvNetDoCommand::Execute, CvXMLLoadUtility::SetGlobalActionInfo, CyGlobalContext::getCommandInfo
+- **2322** `CvGlobals::getNumAutomateInfos()` (exported)
+  - called by (3): CvXMLLoadUtility::SetGlobalActionInfo, CyGlobalContext::getAutomateInfo, CyGlobalContext::getNumAutomateInfos
+- **2327** `CvGlobals::getAutomateInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2332** `CvGlobals::getAutomateInfo(int)` (exported)
+  - called by (9): CvActionInfo::getAutomateType, CvActionInfo::getCommandData, CvActionInfo::getCommandType, CvActionInfo::getHotkeyInfo, CvActionInfo::isConfirmCommand, CvActionInfo::isVisible, CvDLLWidgetData::parseActionHelp, CvXMLLoadUtility::SetGlobalActionInfo, CyGlobalContext::getAutomateInfo
+- **2339** `CvGlobals::getNumPromotionInfos()`
+  - called by (36): CvCity::addProductionExperience, CvCity::read, CvCity::reset, CvCity::write, CvCityAI::AI_bestUnitAI, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool) …
+- **2344** `CvGlobals::getPromotionInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2349** `CvGlobals::getPromotionInfo(PromotionTypes)`
+  - called by (33): CvActionInfo::getCommandType, CvActionInfo::getHotkeyInfo, CvCity::addProductionExperience, CvCityAI::AI_bestUnitAI, CvDLLWidgetData::parseDescriptionHelp, CvGameTextMgr::buildPromotionString, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::parsePromotionHelp, CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCombatPlotHelp …
+- **2356** `CvGlobals::getNumTechInfos()`
+  - called by (62): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(FDataStreamBase *), CvCivilizationInfo::write, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp, CvGame::initFreeState, CvGame::initScoreCalculation, CvGame::read, CvGame::reset …
+- **2361** `CvGlobals::getTechInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2366** `CvGlobals::getTechInfo(TechTypes)`
+  - called by (102): CvCivilizationInfo::read(CvXMLLoadUtility *), CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseDescriptionHelp, CvDLLWidgetData::parseTechPrereqHelp, CvDeal::startTrade, CvGame::initFreeState, CvGame::initScoreCalculation, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::buildAdjustString …
+- **2373** `CvGlobals::getNumReligionInfos()`
+  - called by (87): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvCity::doReligion, CvCity::getReligionCount, CvCity::isHolyCity(), CvCity::isInquisitionConditions, CvCity::kill, CvCity::processBuilding, CvCity::read, CvCity::reset …
+- **2378** `CvGlobals::getReligionInfo()`
+  - called by (2): CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::cleanTGA
+- **2383** `CvGlobals::getReligionInfo(ReligionTypes)`
+  - called by (65): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvBuildingInfo::read(CvXMLLoadUtility *), CvCity::doReligion, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCity::getReligionCommerceByReligion, CvCity::setHasReligion, CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup …
+- **2390** `CvGlobals::getNumCorporationInfos()`
+  - called by (61): CvCity::calculateCorporationMaintenanceTimes100(), CvCity::canConstruct, CvCity::getCorporationCount, CvCity::isCorporationBonus, CvCity::isHeadquarters(), CvCity::kill, CvCity::read, CvCity::reset, CvCity::setHasCorporation, CvCity::updateCorporationBonus, CvCity::updateCorporationCommerce, CvCity::updateCorporationYield …
+- **2395** `CvGlobals::getCorporationInfo()`
+  - called by (2): CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::cleanTGA
+- **2400** `CvGlobals::getCorporationInfo(CorporationTypes)`
+  - called by (53): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes), CvCity::canConstruct, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCity::getCorporationCommerceByCorporation, CvCity::getCorporationYieldByCorporation, CvCity::isActiveCorporation, CvCity::isCorporationBonus, CvCity::setHasCorporation, CvCity::setHeadquarters …
+- **2407** `CvGlobals::getNumSpecialistInfos()`
+  - called by (66): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvBuildingInfo::~CvBuildingInfo, CvCity::applyEvent, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalBaseGreatPeopleRateByBuilding, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::getBestYieldAvailable, CvCity::isSpecialistForced, CvCity::kill …
+- **2412** `CvGlobals::getSpecialistInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2417** `CvGlobals::getSpecialistInfo(SpecialistTypes)`
+  - called by (33): CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvBuildingInfo::read(CvXMLLoadUtility *), CvCity::getAdditionalBaseCommerceRateBySpecialistImpl, CvCity::getAdditionalBaseGreatPeopleRateBySpecialist, CvCity::getAdditionalBaseYieldRateBySpecialist, CvCity::getBestYieldAvailable, CvCity::processSpecialist, CvCityAI::AI_countGoodSpecialists, CvCityAI::AI_foodAvailable, CvCityAI::AI_specialistValue, CvCivicInfo::read(CvXMLLoadUtility *) …
+- **2424** `CvGlobals::getNumCivicOptionInfos()`
+  - called by (41): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(FDataStreamBase *), CvCivilizationInfo::write, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup, CvDeal::startTrade, CvDllPythonEvents::reportPlayerRevolution, CvGame::doGlobalWarming, CvGameTextMgr::buildFinanceCivicUpkeepString, CvGameTextMgr::getTradeScreenIcons, CvGameTextMgr::parseGreatPeopleHelp …
+- **2429** `CvGlobals::getCivicOptionInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2434** `CvGlobals::getCivicOptionInfo(CivicOptionTypes)`
+  - called by (7): CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingHelpActual, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CyGlobalContext::getCivicOptionInfo
+- **2441** `CvGlobals::getNumCivicInfos()`
+  - called by (39): AI_unitReadinessPercent, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int &, int &, int &), CvCity::setWeLoveTheKingDay, CvCity::unhappyLevel, CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseHurryHelp, CvGame::isForceCivicOption, CvGame::processVote, CvGame::read, CvGame::reset …
+- **2446** `CvGlobals::getCivicInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2451** `CvGlobals::getCivicInfo(CivicTypes)`
+  - called by (57): CvCity::setWeLoveTheKingDay, CvCityAI::AI_buildingValueThreshold, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseDescriptionHelp, CvDLLWidgetData::parseHurryHelp, CvDLLWidgetData::parseTradeItem, CvDeal::startTrade, CvGame::doGlobalWarming, CvGame::isForceCivicOption, CvGameTextMgr::buildCivicRevealString …
+- **2458** `CvGlobals::getNumDiplomacyInfos()`
+  - called by (1): CyGlobalContext::getNumDiplomacyInfos
+- **2463** `CvGlobals::getDiplomacyInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2468** `CvGlobals::getDiplomacyInfo(int)`
+  - called by (1): CyGlobalContext::getDiplomacyInfo
+- **2475** `CvGlobals::getNumEraInfos()` (exported)
+  - called by (21): CvCityAI::AI_chooseProduction, CvCityAI::AI_minDefenders, CvCityAI::AI_specialistValue, CvInitCore::getEraKey, CvInitCore::setEra(const CvWString &), CvLeaderHeadInfo::copyNonDefaults, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CvLeaderHeadInfo::read(FDataStreamBase *), CvLeaderHeadInfo::write, CvPlayer::changeCiv, CvPlayerAI::AI_getConquestVictoryStage, CvPlayerAI::AI_getCultureVictoryStage …
+- **2480** `CvGlobals::getEraInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2485** `CvGlobals::getEraInfo(EraTypes)` (exported)
+  - called by (42): CvCity::getSoundscapeScriptId, CvCity::init, CvGame::createAnimals, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGame::getImprovementUpgradeTime, CvGame::getNextSoundtrack, CvGame::getSoundtrackSpace, CvGame::init, CvGame::initScoreCalculation, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setBasicUnitHelpWithCity …
+- **2492** `CvGlobals::getNumHurryInfos()`
+  - called by (20): CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvCivicInfo::copyNonDefaults, CvCivicInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(FDataStreamBase *), CvCivicInfo::write, CvGame::startFlyoutMenu, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setCityBarHelp, CvPlayer::processCivics …
+- **2497** `CvGlobals::getHurryInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2502** `CvGlobals::getHurryInfo(HurryTypes)`
+  - called by (12): CvCity::getHurryGold, CvCity::getHurryPopulation, CvCity::hurryAngerLength, CvCity::hurryOverflow, CvCity::hurryProduction, CvCivicInfo::read(CvXMLLoadUtility *), CvGame::getProductionPerPopulation, CvGameTextMgr::parseCivicInfo, CvPlayer::changeHurryCount, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_doCommerce, CyGlobalContext::getHurryInfo
+- **2509** `CvGlobals::getNumEmphasizeInfos()`
+  - called by (6): CvCityAI::AI_doEmphasize, CvCityAI::AI_reset, CvCityAI::read, CvCityAI::write, CyGlobalContext::getEmphasizeInfo, CyGlobalContext::getNumEmphasizeInfos
+- **2514** `CvGlobals::getEmphasizeInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2519** `CvGlobals::getEmphasizeInfo(EmphasizeTypes)`
+  - called by (4): CvCityAI::AI_doEmphasize, CvCityAI::AI_setEmphasize, CvDLLWidgetData::parseEmphasizeHelp, CyGlobalContext::getEmphasizeInfo
+- **2526** `CvGlobals::getNumUpkeepInfos()`
+  - called by (5): CvPlayer::read, CvPlayer::reset, CvPlayer::write, CyGlobalContext::getNumUpkeepInfos, CyGlobalContext::getUpkeepInfo
+- **2531** `CvGlobals::getUpkeepInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2536** `CvGlobals::getUpkeepInfo(UpkeepTypes)`
+  - called by (2): CvPlayer::getSingleCivicUpkeep, CyGlobalContext::getUpkeepInfo
+- **2543** `CvGlobals::getNumCultureLevelInfos()`
+  - called by (17): CvCity::doPlotCulture, CvCity::getCultureThreshold(CultureLevelTypes), CvCity::setCultureLevel, CvCity::updateCultureLevel, CvCityAI::AI_cityThreat, CvCityAI::AI_getCityImportance, CvPlayer::canRaze, CvPlayer::found, CvPlayerAI::AI_commerceWeight, CvPlayerAI::AI_foundValue, CvPlot::changeCultureRangeCities, CvPlot::getNumCultureRangeCities …
+- **2548** `CvGlobals::getCultureLevelInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2553** `CvGlobals::getCultureLevelInfo(CultureLevelTypes)`
+  - called by (5): CvCity::getNaturalDefense, CvCity::setCultureLevel, CvGame::getCultureThreshold, CvGameTextMgr::setCityBarHelp, CyGlobalContext::getCultureLevelInfo
+- **2560** `CvGlobals::getNumVictoryInfos()` (exported)
+  - called by (30): CvBuildingClassInfo::copyNonDefaults, CvBuildingClassInfo::read, CvCityAI::AI_projectValue, CvGame::doUpdateCacheOnTurn, CvGame::init, CvGame::testVictory(), CvGameTextMgr::getTurnTimerText, CvGameTextMgr::setProjectHelp, CvInitCore::refreshVictories, CvPlayerAI::AI_doTurnPost, CvPlayerAI::AI_getConquestVictoryStage, CvPlayerAI::AI_getDiplomacyVictoryStage …
+- **2565** `CvGlobals::getVictoryInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2570** `CvGlobals::getVictoryInfo(VictoryTypes)` (exported)
+  - called by (23): CvBuildingClassInfo::read, CvDLLButtonPopup::launchLaunchPopup, CvGame::doUpdateCacheOnTurn, CvGame::getAdjustedLandPercent, CvGame::getAdjustedPopulationPercent, CvGame::init, CvGame::setWinner, CvGame::showEndGameSequence, CvGame::testVictory(VictoryTypes, TeamTypes, bool *), CvGame::victoryDelay, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::getInterfaceCenterText …
+- **2577** `CvGlobals::getNumQuestInfos()`
+  - called by (2): CyGlobalContext::getNumQuestInfos, CyGlobalContext::getQuestInfo
+- **2582** `CvGlobals::getQuestInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2587** `CvGlobals::getQuestInfo(int)`
+  - called by (1): CyGlobalContext::getQuestInfo
+- **2594** `CvGlobals::getNumTutorialInfos()`
+  - called by (2): CyGlobalContext::getNumTutorialInfos, CyGlobalContext::getTutorialInfo
+- **2599** `CvGlobals::getTutorialInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2604** `CvGlobals::getTutorialInfo(int)`
+  - called by (1): CyGlobalContext::getTutorialInfo
+- **2611** `CvGlobals::getNumEventTriggerInfos()`
+  - called by (9): CvGame::initEvents, CvPlayer::canDoEvent, CvPlayer::doEvents, CvPlayer::init, CvPlayer::initInGame, CvPlayer::read, CvPlayer::resetCivTypeEffects, CyGlobalContext::getEventTriggerInfo, CyGlobalContext::getNumEventTriggerInfos
+- **2616** `CvGlobals::getEventTriggerInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2621** `CvGlobals::getEventTriggerInfo(EventTriggerTypes)`
+  - called by (18): CvCity::getTriggerValue, CvDLLButtonPopup::launchEventPopup, CvGame::initEvents, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::canTrigger, CvPlayer::checkExpireEvent, CvPlayer::getEventTriggerWeight, CvPlayer::initInGame, CvPlayer::initTriggeredData, CvPlayer::resetCivTypeEffects, CvPlayer::setTriggerFired …
+- **2628** `CvGlobals::getNumEventInfos()`
+  - called by (17): CvCity::applyEvent, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchEventPopup, CvEventInfo::copyNonDefaults, CvEventInfo::copyNonDefaultsReadPass2, CvEventInfo::read(FDataStreamBase *), CvEventInfo::readPass2, CvEventInfo::write, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::doEvents, CvPlayer::init …
+- **2633** `CvGlobals::getEventInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2638** `CvGlobals::getEventInfo(EventTypes)`
+  - called by (23): CvCity::applyEvent, CvCity::canApplyEvent, CvDLLButtonPopup::launchEventPopup, CvEventInfo::readPass2, CvGameTextMgr::eventGoldHelp, CvGameTextMgr::eventTechHelp, CvGameTextMgr::setEventHelp, CvNetEventTriggered::Execute, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::checkExpireEvent, CvPlayer::expireEvent …
+- **2645** `CvGlobals::getNumEspionageMissionInfos()`
+  - called by (9): CvCity::canBeSelected, CvCity::updateEspionageVisibility, CvDLLButtonPopup::launchDoEspionagePopup, CvPlayer::canSpiesEnterBorders, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_doCommerce, CvUnitAI::AI_revoltCitySpy, CyGlobalContext::getEspionageMissionInfo, CyGlobalContext::getNumEspionageMissionInfos
+- **2650** `CvGlobals::getEspionageMissionInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPostMenuGlobals
+- **2655** `CvGlobals::getEspionageMissionInfo(EspionageMissionTypes)`
+  - called by (16): CvCity::canBeSelected, CvCity::updateEspionageVisibility, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvGameTextMgr::setEspionageCostHelp, CvPlayer::canDoEspionageMission, CvPlayer::canSpiesEnterBorders, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayer::getEspionageMissionCostModifier, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_doCommerce …
+- **2662** `CvGlobals::getNumEntityEventTypes()` (exported)
+  - called by (1): CyGlobalContext::getNumEntityEventTypes
+- **2667** `CvGlobals::getEntityEventTypes()`
+  - called by (1): CvGlobals::deleteInfoArrays
+- **2672** `CvGlobals::getEntityEventTypes(EntityEventTypes)` (exported)
+  - called by (1): CyGlobalContext::getEntityEventTypes
+- **2679** `CvGlobals::getNumAnimationOperatorTypes()` (exported)
+  - called by (2): CvXMLLoadUtility::SetGlobalTypes, CyGlobalContext::getNumAnimationOperatorTypes
+- **2684** `CvGlobals::getAnimationOperatorTypes()`
+  - called by (2): CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
+- **2689** `CvGlobals::getAnimationOperatorTypes(AnimationOperatorTypes)` (exported)
+  - called by (1): CyGlobalContext::getAnimationOperatorTypes
+- **2696** `CvGlobals::getFunctionTypes()`
+  - called by (2): CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
+- **2701** `CvGlobals::getFunctionTypes(FunctionTypes)` (exported)
+  - called by (1): CyGlobalContext::getFunctionTypes
+- **2708** `CvGlobals::getNumFlavorTypes()`
+  - called by (29): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvCityAI::AI_buildingValueThreshold, CvEventInfo::copyNonDefaults, CvEventInfo::read(CvXMLLoadUtility *), CvEventInfo::read(FDataStreamBase *), CvEventInfo::write, CvLeaderHeadInfo::copyNonDefaults, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CvLeaderHeadInfo::read(FDataStreamBase *) …
+- **2713** `CvGlobals::getFlavorTypes()`
+  - called by (8): CvBuildingInfo::read(CvXMLLoadUtility *), CvEventInfo::read(CvXMLLoadUtility *), CvGlobals::deleteInfoArrays, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CvSpecialistInfo::read, CvTechInfo::read(CvXMLLoadUtility *), CvUnitInfo::read(CvXMLLoadUtility *), CvXMLLoadUtility::SetGlobalTypes
+- **2718** `CvGlobals::getFlavorTypes(FlavorTypes)`
+  - called by (1): CyGlobalContext::getFlavorTypes
+- **2725** `CvGlobals::getNumArtStyleTypes()` (exported)
+  - called by (2): CvXMLLoadUtility::SetGlobalTypes, CyGlobalContext::getNumArtStyleTypes
+- **2730** `CvGlobals::getArtStyleTypes()`
+  - called by (2): CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
+- **2735** `CvGlobals::getArtStyleTypes(ArtStyleTypes)` (exported)
+  - called by (1): CyGlobalContext::getArtStyleTypes
+- **2742** `CvGlobals::getNumUnitArtStyleTypeInfos()`
+  - called by (2): CyGlobalContext::getNumUnitArtStyleTypeInfos, CyGlobalContext::getUnitArtStyleTypeInfo
+- **2747** `CvGlobals::getUnitArtStyleTypeInfo()`
+  - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
+- **2752** `CvGlobals::getUnitArtStyleTypeInfo(UnitArtStyleTypes)`
+  - called by (4): CvUnitInfo::getEarlyArtDefineTag, CvUnitInfo::getLateArtDefineTag, CvUnitInfo::getMiddleArtDefineTag, CyGlobalContext::getUnitArtStyleTypeInfo
+- **2759** `CvGlobals::getNumCitySizeTypes()`
+  - called by (3): CvEraInfo::copyNonDefaults, CvXMLLoadUtility::SetGlobalTypes, CyGlobalContext::getNumCitySizeTypes
+- **2764** `CvGlobals::getCitySizeTypes()`
+  - called by (3): CvEraInfo::read, CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
+- **2769** `CvGlobals::getCitySizeTypes(int)`
+  - called by (2): CvEraInfo::read, CyGlobalContext::getCitySizeTypes
+- **2776** `CvGlobals::getContactTypes()`
+  - called by (3): CvGlobals::deleteInfoArrays, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CvXMLLoadUtility::SetGlobalTypes
+- **2781** `CvGlobals::getContactTypes(ContactTypes)`
+  - called by (1): CyGlobalContext::getContactTypes
+- **2788** `CvGlobals::getDiplomacyPowerTypes()`
+  - called by (4): CvDiplomacyResponse::read(CvXMLLoadUtility *), CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
+- **2793** `CvGlobals::getDiplomacyPowerTypes(DiplomacyPowerTypes)`
+  - called by (1): CyGlobalContext::getDiplomacyPowerTypes
+- **2800** `CvGlobals::getAutomateTypes()`
+  - called by (2): CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
+- **2805** `CvGlobals::getAutomateTypes(AutomateTypes)`
+- **2812** `CvGlobals::getDirectionTypes()`
+  - called by (2): CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
+- **2817** `CvGlobals::getDirectionTypes(AutomateTypes)` (exported)
+- **2824** `CvGlobals::getNumFootstepAudioTypes()` (exported)
+  - called by (6): CvFeatureInfo::copyNonDefaults, CvFeatureInfo::read, CvTerrainInfo::copyNonDefaults, CvTerrainInfo::read, CvXMLLoadUtility::SetGlobalTypes, CyGlobalContext::getNumFootstepAudioTypes
+- **2829** `CvGlobals::getFootstepAudioTypes()`
+  - called by (4): CvFeatureInfo::read, CvGlobals::deleteInfoArrays, CvTerrainInfo::read, CvXMLLoadUtility::SetGlobalTypes
+- **2834** `CvGlobals::getFootstepAudioTypes(int)` (exported)
+  - called by (1): CyGlobalContext::getFootstepAudioTypes
+- **2841** `CvGlobals::getFootstepAudioTypeByTag(CvString)` (exported)
+  - calls: CvString::GetLength [CvString.h], CvString::operator const char * [CvString.h], CvString::CompareNoCase(const char *) [CvString.h]
+  - called by (1): CvArtInfoUnit::read
+- **2862** `CvGlobals::getFootstepAudioTags()`
+  - called by (2): CvGlobals::deleteInfoArrays, CvXMLLoadUtility::SetGlobalTypes
+- **2867** `CvGlobals::getFootstepAudioTags(int)` (exported)
+  - called by (1): CyGlobalContext::getFootstepAudioTags
+- **2874** `CvGlobals::setCurrentXMLFile(const TCHAR *)`
+  - calls: CvString::operator=(const char *) [CvString.h]
+  - takes the address of: CvString::operator=(const char *) [CvString.h]
+  - called by (1): CvXMLLoadUtility::LoadCivXml
+- **2879** `CvGlobals::getCurrentXMLFile()`
+  - called by (28): CvGlobals::getInfoTypeForString, CvXMLLoadUtility::CreateFXml, CvXMLLoadUtility::FindInInfoClass, CvXMLLoadUtility::LoadDiplomacyInfo, CvXMLLoadUtility::LoadGlobalClassInfo, CvXMLLoadUtility::LoadGlobalText, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetFeatureStruct, CvXMLLoadUtility::SetGameText, CvXMLLoadUtility::SetGlobalActionInfo, CvXMLLoadUtility::SetGlobalAnimationPathInfo …
+- **2884** `CvGlobals::getDefinesVarSystem()` (exported)
+  - called by (14): CvGlobals::getDefineBOOL, CvGlobals::getDefineFLOAT, CvGlobals::getDefineINT(const char *), CvGlobals::getDefineINT(const char *, const int), CvGlobals::getDefineSTRING, CvGlobals::setDefineFLOAT, CvGlobals::setDefineINT, CvGlobals::setDefineSTRING, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetGlobalDefine, CvXMLLoadUtility::SetPostGlobalsGlobalDefines …
+- **2889** `CvGlobals::cacheGlobals()` (exported)
+  - calls: CvGlobals::getDefineINT(const char *), CvGlobals::getDefineFLOAT, CvGlobals::getDefineINT(const char *, const int)
+  - called by (4): CvGlobals::setDefineFLOAT, CvGlobals::setDefineINT, CvGlobals::setDefineSTRING, CvXMLLoadUtility::SetGlobalDefines
+- **3078** `CvGlobals::getDefineBOOL(const char *)` (exported)
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(const char *, bool &) [FVariableSystem.inl]
+  - called by (1): CyGlobalContext::getDefineBOOL
+- **3093** `CvGlobals::getDefineINT(const char *, const int)`
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(const char *, int &) [FVariableSystem.inl]
+  - called by (4): CvGlobals::cacheGlobals, CvPlayerAI::AI_getStrategyHash, CvSelectionGroup::groupAttack, CvUnitAI::AI_stackAttackCity
+- **3109** `CvGlobals::getDefineINT(const char *)` (exported)
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(const char *, int &) [FVariableSystem.inl]
+  - called by (337): CvCity::alterSpecialistCount, CvCity::alterWorkingPlot, CvCity::calculateDistanceMaintenanceTimes100, CvCity::canConscript, CvCity::clearTradeRoutes, CvCity::conscriptMinCityPopulation, CvCity::cultureStrength, CvCity::doCheckProduction, CvCity::doDecay, CvCity::doPlotCulture, CvCity::doReligion, CvCity::doTurn …
+- **3116** `CvGlobals::getDefineFLOAT(const char *)` (exported)
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(const char *, float &) [FVariableSystem.inl]
+  - called by (8): CvCity::emergencyConscript, CvCity::getVisibleBuildings, CvGlobals::cacheGlobals, CvUnit::doPillageInfluence, CvUnit::doVictoryInfluence, CvUnit::getHealthBarModifier, CvUnit::influencePlots, CyGlobalContext::getDefineFLOAT
+- **3123** `CvGlobals::getDefineSTRING(const char *)` (exported)
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::GetValue(const char *, const char *&) [FVariableSystem.inl]
+  - called by (2): CvCity::getVisibleBuildings, CyGlobalContext::getDefineSTRING
+- **3130** `CvGlobals::setDefineINT(const char *, int)` (exported)
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::SetValue(const char *, int) [FVariableSystem.inl], CvGlobals::cacheGlobals
+  - called by (1): CyGlobalContext::setDefineINT
+- **3136** `CvGlobals::setDefineFLOAT(const char *, float)` (exported)
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::SetValue(const char *, float) [FVariableSystem.inl], CvGlobals::cacheGlobals
+  - called by (1): CyGlobalContext::setDefineFLOAT
+- **3142** `CvGlobals::setDefineSTRING(const char *, const char *)` (exported)
+  - calls: CvGlobals::getDefinesVarSystem, CvGlobals::getInstance [CvGlobals.h], FVariableSystem::SetValue(const char *, const char *) [FVariableSystem.inl], CvGlobals::cacheGlobals
+  - called by (1): CyGlobalContext::setDefineSTRING
+- **3148** `CvGlobals::getMOVE_DENOMINATOR()`
+  - called by (25): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildMoveString, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvPlot::movementCost, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airStrike, CvUnit::archerBombard …
+- **3153** `CvGlobals::getNUM_UNIT_PREREQ_OR_BONUSES()`
+  - called by (13): AI_unitReadinessPercent, CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, UnitTypes, bool, bool, bool, CvCity *), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CvUnitInfo::read(CvXMLLoadUtility *), CvUnitInfo::read(FDataStreamBase *), CvUnitInfo::write …
+- **3158** `CvGlobals::getNUM_BUILDING_PREREQ_OR_BONUSES()`
+  - called by (9): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CyGlobalContext::getNUM_BUILDING_PREREQ_OR_BONUSES
+- **3163** `CvGlobals::getFOOD_CONSUMPTION_PER_POPULATION()`
+  - called by (20): CvCity::foodConsumption, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doEmphasize, CvCityAI::AI_doHurry, CvCityAI::AI_getImprovementValue(CvPlot *, ImprovementTypes, int, int, int, int, bool), CvCityAI::AI_getYieldMagicValue, CvCityAI::AI_getYieldMultipliers(int &, int &, int &, int &), CvCityAI::AI_potentialPlot, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateLocalGovernor, CvCityAI::AI_yieldValue …
+- **3168** `CvGlobals::getMAX_HIT_POINTS()`
+  - called by (12): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvUnit::airBomb4, CvUnit::collateralDamageLimit, CvUnit::maxHitPoints, CvUnit::resolveCombat, CvUnit::updateCombat, CvUnit::updateStackCombat, CyGlobalContext::getMAX_HIT_POINTS, getCombatOddsSpecific, pathCost
+- **3173** `CvGlobals::getPATH_DAMAGE_WEIGHT()`
+  - called by (1): pathCost
+- **3178** `CvGlobals::getHILLS_EXTRA_DEFENSE()`
+  - called by (2): CvPlot::defenseModifier, CyGlobalContext::getHILLS_EXTRA_DEFENSE
+- **3183** `CvGlobals::getRIVER_ATTACK_MODIFIER()`
+  - called by (7): CvGameTextMgr::setCombatPlotHelp, CvUnit::maxCombatStr, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_goToTargetBarbCity, CvUnitAI::AI_goToTargetCity, CyGlobalContext::getRIVER_ATTACK_MODIFIER, pathCost
+- **3188** `CvGlobals::getAMPHIB_ATTACK_MODIFIER()`
+  - called by (3): CvGameTextMgr::setCombatPlotHelp, CvUnit::maxCombatStr, CyGlobalContext::getAMPHIB_ATTACK_MODIFIER
+- **3193** `CvGlobals::getHILLS_EXTRA_MOVEMENT()`
+  - called by (5): CvPlot::movementCost, CvUnitAI::AI_betterPlotBuild, CvUnitAI::AI_improveCity, CvUnitAI::AI_improveLocalPlot, CyGlobalContext::getHILLS_EXTRA_MOVEMENT
+- **3198** `CvGlobals::getMAX_PLOT_LIST_ROWS()` (exported)
+  - called by (1): CyGlobalContext::getMAX_PLOT_LIST_ROWS
+- **3203** `CvGlobals::getUNIT_MULTISELECT_MAX()` (exported)
+  - called by (1): CyGlobalContext::getUNIT_MULTISELECT_MAX
+- **3208** `CvGlobals::getPERCENT_ANGER_DIVISOR()`
+  - called by (16): CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int &, int &, int &), CvCity::getConscriptPercentAnger, CvCity::getDefyResolutionPercentAnger, CvCity::getHurryPercentAnger, CvCity::getOvercrowdingPercentAnger, CvCity::getRevIndexHappinessVal, CvCity::getRevIndexPercentAnger, CvCity::getRevRequestPercentAnger, CvCity::getRevSuccessHappiness, CvCity::unhappyLevel, CvCityAI::AI_avoidGrowth, CvCityAI::AI_buildingValueThreshold …
+- **3213** `CvGlobals::getEVENT_MESSAGE_TIME()` (exported)
+  - called by (84): CvCity::applyEvent, CvCity::doCheckProduction, CvCity::doMeltdown, CvCity::liberate, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doResearch, CvDeal::kill …
+- **3218** `CvGlobals::getROUTE_FEATURE_GROWTH_MODIFIER()`
+  - called by (2): CvPlot::doFeature, CyGlobalContext::getROUTE_FEATURE_GROWTH_MODIFIER
+- **3223** `CvGlobals::getFEATURE_GROWTH_MODIFIER()`
+  - called by (2): CvPlot::doFeature, CyGlobalContext::getFEATURE_GROWTH_MODIFIER
+- **3228** `CvGlobals::getMIN_CITY_RANGE()`
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayer::canFound, CvPlayerAI::AI_countDeadlockedBonuses, CvUnitAI::AI_found, CvUnitAI::AI_settlerSeaTransport, CyGlobalContext::getMIN_CITY_RANGE
+- **3233** `CvGlobals::getCITY_MAX_NUM_BUILDINGS()`
+  - called by (7): CvCity::canApplyEvent, CvCity::canConstruct, CvCity::getNumBuilding, CvCityAI::AI_bestBuildingThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::acquireCity, CyGlobalContext::getCITY_MAX_NUM_BUILDINGS
+- **3238** `CvGlobals::getNUM_UNIT_AND_TECH_PREREQS()`
+  - called by (11): CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, UnitTypes, bool, bool, bool, CvCity *), CvPlayer::canTrain, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_techBuildingValue, CvUnitInfo::copyNonDefaults, CvUnitInfo::read(CvXMLLoadUtility *), CvUnitInfo::read(FDataStreamBase *), CvUnitInfo::write, CyGlobalContext::getNUM_UNIT_AND_TECH_PREREQS, isTechRequiredForUnit
+- **3243** `CvGlobals::getNUM_AND_TECH_PREREQS()`
+  - called by (12): CvGameTextMgr::buildSingleLineTechTreeString, CvGameTextMgr::buildTechTreeString, CvPlayer::canResearch, CvPlayer::getAdvancedStartTechCost, CvResearchGraph::numAndPrereqs, CvTechInfo::copyNonDefaults, CvTechInfo::copyNonDefaultsReadPass2, CvTechInfo::read(CvXMLLoadUtility *), CvTechInfo::read(FDataStreamBase *), CvTechInfo::readPass2, CvTechInfo::write, CyGlobalContext::getNUM_AND_TECH_PREREQS
+- **3248** `CvGlobals::getNUM_OR_TECH_PREREQS()`
+  - called by (13): CvGameTextMgr::buildSingleLineTechTreeString, CvGameTextMgr::buildTechTreeString, CvPlayer::calculateResearchModifier, CvPlayer::canResearch, CvPlayer::getAdvancedStartTechCost, CvResearchGraph::numOrPrereqs, CvTechInfo::copyNonDefaults, CvTechInfo::copyNonDefaultsReadPass2, CvTechInfo::read(CvXMLLoadUtility *), CvTechInfo::read(FDataStreamBase *), CvTechInfo::readPass2, CvTechInfo::write …
+- **3253** `CvGlobals::getLAKE_MAX_AREA_SIZE()`
+  - called by (2): CvArea::isLake, CyGlobalContext::getLAKE_MAX_AREA_SIZE
+- **3258** `CvGlobals::getNUM_ROUTE_PREREQ_OR_BONUSES()`
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CvRouteInfo::read, CyGlobalContext::getNUM_ROUTE_PREREQ_OR_BONUSES
+- **3263** `CvGlobals::getNUM_BUILDING_AND_TECH_PREREQS()`
+  - called by (13): AI_buildingTechReadinessPercent, AI_hasBuildingTechs, CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(FDataStreamBase *), CvBuildingInfo::write, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CyGlobalContext::getNUM_BUILDING_AND_TECH_PREREQS …
+- **3268** `CvGlobals::getMIN_WATER_SIZE_FOR_OCEAN()`
+  - called by (17): CvCity::getTradeRoutes, CvCityAI::AI_cityThreat, CvCityAI::AI_minDefenders, CvCityAI::AI_neededAirDefenders, CvMap::findCity, CvPlayer::countNumCoastalCities, CvPlayer::countNumCoastalCitiesByArea, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_targetCityValue, CvPlayerAI::AI_updateBadStart, CvPlayerAI::AI_updateSettleReach …
+- **3273** `CvGlobals::getFORTIFY_MODIFIER_PER_TURN()`
+  - called by (2): CvUnit::fortifyModifier, CyGlobalContext::getFORTIFY_MODIFIER_PER_TURN
+- **3278** `CvGlobals::getMAX_CITY_DEFENSE_DAMAGE()`
+  - called by (13): CvCity::changeDefenseDamage, CvCity::changeDefenseModifier, CvCity::getDefenseModifier, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setDefenseHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroup::getBombardTurns, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_finalOddsThreshold, CvUnitAI::AI_seaBombardRange …
+- **3283** `CvGlobals::getPEAK_SEE_THROUGH_CHANGE()`
+  - called by (2): CvPlot::seeThroughLevel, CyGlobalContext::getPEAK_SEE_THROUGH_CHANGE
+- **3288** `CvGlobals::getHILLS_SEE_THROUGH_CHANGE()`
+  - called by (2): CvPlot::seeThroughLevel, CyGlobalContext::getHILLS_SEE_THROUGH_CHANGE
+- **3293** `CvGlobals::getSEAWATER_SEE_FROM_CHANGE()`
+  - called by (3): CvPlot::seeFromLevel, CvPlot::seeThroughLevel, CyGlobalContext::getSEAWATER_SEE_FROM_CHANGE
+- **3298** `CvGlobals::getPEAK_SEE_FROM_CHANGE()`
+  - called by (2): CvPlot::seeFromLevel, CyGlobalContext::getPEAK_SEE_FROM_CHANGE
+- **3303** `CvGlobals::getHILLS_SEE_FROM_CHANGE()`
+  - called by (2): CvPlot::seeFromLevel, CyGlobalContext::getHILLS_SEE_FROM_CHANGE
+- **3308** `CvGlobals::getUSE_SPIES_NO_ENTER_BORDERS()`
+  - called by (2): CvUnit::canMoveInto, CyGlobalContext::getUSE_SPIES_NO_ENTER_BORDERS
+- **3313** `CvGlobals::getNUM_CORPORATION_PREREQ_BONUSES()`
+  - called by (21): CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes), CvCity::canConstruct, CvCity::getCorporationCommerceByCorporation, CvCity::getCorporationYieldByCorporation, CvCity::isActiveCorporation, CvCity::isCorporationBonus, CvCity::updateCorporationBonus, CvCorporationInfo::copyNonDefaults, CvCorporationInfo::read, CvDLLWidgetData::parseActionHelp, CvGame::doHeadquarters, CvGame::isCompetingCorporation …
+- **3318** `CvGlobals::getCAMERA_MIN_YAW()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_MIN_YAW
+- **3323** `CvGlobals::getCAMERA_MAX_YAW()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_MAX_YAW
+- **3328** `CvGlobals::getCAMERA_FAR_CLIP_Z_HEIGHT()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_FAR_CLIP_Z_HEIGHT
+- **3333** `CvGlobals::getCAMERA_MAX_TRAVEL_DISTANCE()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_MAX_TRAVEL_DISTANCE
+- **3338** `CvGlobals::getCAMERA_START_DISTANCE()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_START_DISTANCE
+- **3343** `CvGlobals::getAIR_BOMB_HEIGHT()` (exported)
+  - called by (1): CyGlobalContext::getAIR_BOMB_HEIGHT
+- **3348** `CvGlobals::getPLOT_SIZE()` (exported)
+  - called by (10): CvMap::getHeightCoords, CvMap::getWidthCoords, CvMap::plotXToPointX, CvMap::plotYToPointY, CvPlot::getSymbolOffsetX, CvPlot::getSymbolOffsetY, CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat, CyGlobalContext::getPLOT_SIZE
+- **3353** `CvGlobals::getCAMERA_SPECIAL_PITCH()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_SPECIAL_PITCH
+- **3358** `CvGlobals::getCAMERA_MAX_TURN_OFFSET()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_MAX_TURN_OFFSET
+- **3363** `CvGlobals::getCAMERA_MIN_DISTANCE()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_MIN_DISTANCE
+- **3368** `CvGlobals::getCAMERA_UPPER_PITCH()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_UPPER_PITCH
+- **3373** `CvGlobals::getCAMERA_LOWER_PITCH()` (exported)
+  - called by (1): CyGlobalContext::getCAMERA_LOWER_PITCH
+- **3378** `CvGlobals::getFIELD_OF_VIEW()` (exported)
+  - called by (1): CyGlobalContext::getFIELD_OF_VIEW
+- **3383** `CvGlobals::getSHADOW_SCALE()` (exported)
+  - called by (1): CyGlobalContext::getSHADOW_SCALE
+- **3388** `CvGlobals::getUNIT_MULTISELECT_DISTANCE()` (exported)
+  - called by (1): CyGlobalContext::getUNIT_MULTISELECT_DISTANCE
+- **3393** `CvGlobals::getUSE_CANNOT_FOUND_CITY_CALLBACK()`
+  - called by (1): CvPlayer::canFound
+- **3398** `CvGlobals::getUSE_CAN_FOUND_CITIES_ON_WATER_CALLBACK()`
+  - called by (1): CvPlayer::canFound
+- **3403** `CvGlobals::getUSE_IS_PLAYER_RESEARCH_CALLBACK()`
+  - called by (1): CvPlayer::isResearch
+- **3408** `CvGlobals::getUSE_CAN_RESEARCH_CALLBACK()`
+  - called by (1): CvPlayer::canResearch
+- **3413** `CvGlobals::getUSE_CANNOT_DO_CIVIC_CALLBACK()`
+  - called by (1): CvPlayer::canDoCivics
+- **3418** `CvGlobals::getUSE_CAN_DO_CIVIC_CALLBACK()`
+  - called by (1): CvPlayer::canDoCivics
+- **3423** `CvGlobals::getUSE_CANNOT_CONSTRUCT_CALLBACK()`
+  - called by (1): CvCity::canConstruct
+- **3428** `CvGlobals::getUSE_CAN_CONSTRUCT_CALLBACK()`
+  - called by (1): CvCity::canConstruct
+- **3433** `CvGlobals::getUSE_CAN_DECLARE_WAR_CALLBACK()`
+  - called by (2): CvTeam::canDeclareWar, CvTeam::canEventuallyDeclareWar
+- **3438** `CvGlobals::getUSE_CANNOT_RESEARCH_CALLBACK()`
+  - called by (1): CvPlayer::canEverResearch
+- **3443** `CvGlobals::getUSE_GET_UNIT_COST_MOD_CALLBACK()`
+  - called by (1): CvPlayer::getProductionNeeded(UnitTypes)
+- **3448** `CvGlobals::getUSE_GET_BUILDING_COST_MOD_CALLBACK()`
+  - called by (1): CvCity::getProductionNeeded(BuildingTypes)
+- **3453** `CvGlobals::getUSE_GET_CITY_FOUND_VALUE_CALLBACK()`
+  - called by (4): CvPlayerAI::AI_recalculateFoundValues, CvPlayerAI::AI_updateCitySites, CvPlayerAI::AI_updateFoundValues, CvPlot::getFoundValue
+- **3458** `CvGlobals::getUSE_CANNOT_HANDLE_ACTION_CALLBACK()`
+  - called by (1): CvGame::canHandleAction
+- **3463** `CvGlobals::getUSE_CAN_BUILD_CALLBACK()`
+  - called by (1): CvPlot::canBuild
+- **3468** `CvGlobals::getUSE_CANNOT_TRAIN_CALLBACK()`
+  - called by (1): CvCity::canTrain(UnitTypes, bool, bool, bool, bool)
+- **3473** `CvGlobals::getUSE_CAN_TRAIN_CALLBACK()`
+  - called by (1): CvCity::canTrain(UnitTypes, bool, bool, bool, bool)
+- **3478** `CvGlobals::getUSE_UNIT_CANNOT_MOVE_INTO_CALLBACK()`
+  - called by (1): CvUnit::canMoveInto
+- **3483** `CvGlobals::getUSE_USE_CANNOT_SPREAD_RELIGION_CALLBACK()`
+  - called by (1): CvUnit::canSpread
+- **3488** `CvGlobals::getUSE_FINISH_TEXT_CALLBACK()` (exported)
+- **3493** `CvGlobals::getUSE_ON_UNIT_SET_XY_CALLBACK()`
+  - called by (1): CvDllPythonEvents::reportUnitSetXY
+- **3498** `CvGlobals::getUSE_ON_UNIT_SELECTED_CALLBACK()`
+  - called by (1): CvDllPythonEvents::reportUnitSelected
+- **3503** `CvGlobals::getUSE_ON_UPDATE_CALLBACK()`
+  - called by (1): CvDllPythonEvents::reportUpdate
+- **3508** `CvGlobals::getUSE_ON_UNIT_CREATED_CALLBACK()`
+  - called by (1): CvDllPythonEvents::reportUnitCreated
+- **3513** `CvGlobals::getUSE_ON_UNIT_LOST_CALLBACK()`
+  - called by (1): CvDllPythonEvents::reportUnitLost
+- **3523** `CvGlobals::getTGA_RELIGIONS()`
+  - called by (3): CvCorporationInfo::setChar, CvCorporationInfo::setHeadquarterChar, CvXMLLoadUtility::AddTGABogus
+- **3528** `CvGlobals::getTGA_CORPORATIONS()`
+  - called by (1): CvXMLLoadUtility::AddTGABogus
+- **3536** `CvGlobals::getMAX_CIV_PLAYERS()` (exported)
+  - called by (1): CyGlobalContext::getMAX_CIV_PLAYERS
+- **3541** `CvGlobals::getMAX_PLAYERS()` (exported)
+  - called by (3): CvGame::createBarbarianCities, CvPlayer::setLastStateReligion, CyGlobalContext::getMAX_PLAYERS
+- **3546** `CvGlobals::getMAX_CIV_TEAMS()` (exported)
+  - called by (1): CyGlobalContext::getMAX_CIV_TEAMS
+- **3551** `CvGlobals::getMAX_TEAMS()` (exported)
+  - called by (1): CyGlobalContext::getMAX_TEAMS
+- **3556** `CvGlobals::getBARBARIAN_PLAYER()` (exported)
+  - called by (2): CvPlayer::acquireCity, CyGlobalContext::getBARBARIAN_PLAYER
+- **3561** `CvGlobals::getBARBARIAN_TEAM()` (exported)
+  - called by (1): CyGlobalContext::getBARBARIAN_TEAM
+- **3566** `CvGlobals::getINVALID_PLOT_COORD()` (exported)
+  - called by (1): CyGlobalContext::getINVALID_PLOT_COORD
+- **3571** `CvGlobals::getNUM_CITY_PLOTS()` (exported)
+  - called by (1): CyGlobalContext::getNUM_CITY_PLOTS
+- **3576** `CvGlobals::getCITY_HOME_PLOT()` (exported)
+  - called by (1): CyGlobalContext::getCITY_HOME_PLOT
+- **3581** `CvGlobals::setDLLIFace(CvDLLUtilityIFaceBase *)` (exported)
+  - called by (1): DllMain
+- **3586** `CvGlobals::setDLLProfiler(FProfiler *)` (exported)
+- **3591** `CvGlobals::getDLLProfiler()`
+- **3596** `CvGlobals::enableDLLProfiler(bool)` (exported)
+- **3601** `CvGlobals::isDLLProfilerEnabled()`
+  - called by (2): startProfilingDLL, stopProfilingDLL
+- **3606** `CvGlobals::readBuildingInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3611** `CvGlobals::writeBuildingInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3616** `CvGlobals::readTechInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3621** `CvGlobals::writeTechInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3626** `CvGlobals::readUnitInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3631** `CvGlobals::writeUnitInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3636** `CvGlobals::readLeaderHeadInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3641** `CvGlobals::writeLeaderHeadInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3646** `CvGlobals::readCivilizationInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3651** `CvGlobals::writeCivilizationInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3656** `CvGlobals::readPromotionInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3661** `CvGlobals::writePromotionInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3666** `CvGlobals::readDiplomacyInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3671** `CvGlobals::writeDiplomacyInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3676** `CvGlobals::readCivicInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3681** `CvGlobals::writeCivicInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3686** `CvGlobals::readHandicapInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3691** `CvGlobals::writeHandicapInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3696** `CvGlobals::readBonusInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3701** `CvGlobals::writeBonusInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3706** `CvGlobals::readImprovementInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3711** `CvGlobals::writeImprovementInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3716** `CvGlobals::readEventInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3721** `CvGlobals::writeEventInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3726** `CvGlobals::readEventTriggerInfoArray(FDataStreamBase *)` (exported)
+  - calls: readInfoArray
+- **3731** `CvGlobals::writeEventTriggerInfoArray(FDataStreamBase *)` (exported)
+  - calls: writeInfoArray
+- **3741** `CvGlobals::getTypesEnum(const char *)` (exported)
+  - called by (9): CvAnimationPathInfo::read, CvAutomateInfo::read, CvCivilizationInfo::read(CvXMLLoadUtility *), CvCommandInfo::read, CvXMLLoadUtility::SetVariableListTagPair(CvString **, const TCHAR *, CvString *, int, CvString), CvXMLLoadUtility::SetVariableListTagPair(bool **, const TCHAR *, CvString *, int, bool), CvXMLLoadUtility::SetVariableListTagPair(int **, const TCHAR *, CvString *, int, int), CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int **, const TCHAR *, CvString *, int, int), CyGlobalContext::getTypesEnum
+- **3754** `CvGlobals::setTypesEnum(const char *, int)` (exported)
+  - called by (1): CvXMLLoadUtility::SetGlobalStringArray
+- **3762** `CvGlobals::getNUM_ENGINE_DIRTY_BITS()` (exported)
+- **3767** `CvGlobals::getNUM_INTERFACE_DIRTY_BITS()` (exported)
+- **3772** `CvGlobals::getNUM_YIELD_TYPES()` (exported)
+- **3777** `CvGlobals::getNUM_COMMERCE_TYPES()` (exported)
+  - called by (1): CvGameTextMgr::assignFontIds
+- **3782** `CvGlobals::getNUM_FORCECONTROL_TYPES()` (exported)
+- **3787** `CvGlobals::getNUM_INFOBAR_TYPES()` (exported)
+- **3792** `CvGlobals::getNUM_HEALTHBAR_TYPES()` (exported)
+- **3797** `CvGlobals::getNUM_CONTROL_TYPES()` (exported)
+- **3802** `CvGlobals::getNUM_LEADERANIM_TYPES()` (exported)
+- **3808** `CvGlobals::deleteInfoArrays()`
+  - calls: deleteInfoArray, CvGlobals::getEntityEventTypes(), CvGlobals::getInstance [CvGlobals.h], CvGlobals::getAnimationOperatorTypes(), CvGlobals::getFunctionTypes(), CvGlobals::getFlavorTypes(), CvGlobals::getArtStyleTypes(), CvGlobals::getCitySizeTypes(), CvGlobals::getContactTypes(), CvGlobals::getDiplomacyPowerTypes(), CvGlobals::getAutomateTypes(), CvGlobals::getDirectionTypes(), CvGlobals::getFootstepAudioTypes(), CvGlobals::getFootstepAudioTags(), CvGlobals::clearTypesMap
+  - called by (2): CvGlobals::doResetInfoClasses, CvXMLLoadUtility::CleanUpGlobalVariables
+- **3968** `CvGlobals::doResetInfoClasses(int, std::vector<CvString>)`
+  - calls: CvGlobals::StoreExeSettings, CvGlobals::deleteInfoArrays, CvGlobals::infoTypeFromStringReset, CvXMLLoadUtility::CvXMLLoadUtility [CvXMLLoadUtility.cpp], CvXMLLoadUtility::doResetGlobalInfoClasses [CvXMLLoadUtilitySet.cpp], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::CvArtFileMgr(const CvArtFileMgr &) [CvArtFileMgr.h], CvArtFileMgr::Reset [CvArtFileMgr.cpp], CvXMLLoadUtility::doResetInfoClasses [CvXMLLoadUtilitySet.cpp], CvGlobals::LoadExeSettings
+  - called by (1): CvInitCore::doReloadInfoClasses
+- **4001** `CvGlobals::StoreExeSettings()`
+  - calls: CvGlobals::getCommerceInfo(CommerceTypes), CvCommerceInfo::getChar [CvInfos.cpp], CvGlobals::getYieldInfo(YieldTypes), CvYieldInfo::getChar [CvInfos.cpp], CvGlobals::getNumReligionInfos, CvGlobals::getReligionInfo(ReligionTypes), CvReligionInfo::getChar [CvInfos.cpp], CvGlobals::getNumCorporationInfos, CvGlobals::getCorporationInfo(CorporationTypes), CvCorporationInfo::getChar [CvInfos.cpp], CvGlobals::getNumBonusInfos, CvGlobals::getBonusInfo(BonusTypes), CvBonusInfo::getChar [CvInfos.cpp]
+  - called by (1): CvGlobals::doResetInfoClasses
+- **4034** `CvGlobals::LoadExeSettings()`
+  - calls: CvGlobals::getCommerceInfo(CommerceTypes), CvCommerceInfo::setChar [CvInfos.cpp], CvGlobals::getYieldInfo(YieldTypes), CvYieldInfo::setChar [CvInfos.cpp], CvGlobals::getNumReligionInfos, CvGlobals::getReligionInfo(ReligionTypes), CvReligionInfo::setChar [CvInfos.cpp], CvGlobals::getNumCorporationInfos, CvGlobals::getCorporationInfo(CorporationTypes), CvCorporationInfo::setChar [CvInfos.cpp], CvGlobals::getNumBonusInfos, CvGlobals::getBonusInfo(BonusTypes), CvBonusInfo::setChar [CvInfos.cpp]
+  - called by (1): CvGlobals::doResetInfoClasses
+- **4076** `CvGlobals::getInfoTypeForString(const char *, bool)` (exported)
+  - calls: CvString::CvString() [CvString.h], CvGlobals::getCurrentXMLFile, CvGlobals::getInstance [CvGlobals.h], CvString::GetCString [CvString.h], CvString::Format [CvString.h], CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::operator const char * [CvString.h]
+  - called by (173): CvBuildingClassInfo::readPass3, CvCity::applyEvent, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::liberate, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay …
+- **4115** `CvGlobals::setInfoTypeFromString(const char *, int, bool)`
+  - called by (8): CvXMLLoadUtility::ArrangeTGA, CvXMLLoadUtility::SetDiplomacyInfo, CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalStringArray, CvXMLLoadUtility::SetModLoadControlInfo, CvXMLLoadUtility::SortAlphabetGlobalClassInfo, readInfoArray
+- **4129** `CvGlobals::logInfoTypeMap(const char *)`
+  - calls: CvString::CvString() [CvString.h], CvString::Format [CvString.h], CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (1): CvXMLLoadUtility::SetGlobalTypes
+- **4163** `CvGlobals::infoTypeFromStringReset()` (exported)
+  - called by (1): CvGlobals::doResetInfoClasses
+- **4168** `CvGlobals::addToInfosVectors(void *)` (exported)
+  - called by (5): CvXMLLoadUtility::LoadGlobalClassInfo, CvXMLLoadUtility::LoadGlobalClassInfoModular, CvXMLLoadUtility::LoadModLoadControlInfo, CvXMLLoadUtility::LoadPythonModulesInfo, readInfoArray
+- **4174** `CvGlobals::infosReset()` (exported)
+  - calls: CvInfoBase::reset [CvInfos.cpp] ⇢ CvCivilizationInfo::reset, CvQuestInfo::reset
+- **4184** `CvGlobals::getNumDirections()` (exported)
+- **4185** `CvGlobals::getNumGameOptions()` (exported)
+- **4186** `CvGlobals::getNumMPOptions()` (exported)
+- **4187** `CvGlobals::getNumSpecialOptions()` (exported)
+- **4188** `CvGlobals::getNumGraphicOptions()` (exported)
+- **4189** `CvGlobals::getNumTradeableItems()` (exported)
+- **4190** `CvGlobals::getNumBasicItems()` (exported)
+- **4191** `CvGlobals::getNumTradeableHeadings()` (exported)
+- **4192** `CvGlobals::getNumCommandInfos()` (exported)
+  - called by (1): CyGlobalContext::getNumCommandInfos
+- **4193** `CvGlobals::getNumControlInfos()` (exported)
+  - called by (1): CyGlobalContext::getNumControlInfos
+- **4194** `CvGlobals::getNumMissionInfos()` (exported)
+  - called by (1): CyGlobalContext::getNumMissionInfos
+- **4195** `CvGlobals::getNumPlayerOptionInfos()` (exported)
+  - called by (1): CyGlobalContext::getNumPlayerOptionInfos
+- **4196** `CvGlobals::getMaxNumSymbols()` (exported)
+- **4197** `CvGlobals::getNumGraphicLevels()` (exported)
+- **4198** `CvGlobals::getNumGlobeLayers()` (exported)
+- **4204** `CvGlobals::getMap()` (exported)
+  - called by (13): CvCityAI::AI_cachePlayerCloseness, CvCityAI::AI_chooseProduction, CvGame::getNewHighlightPlot, CvGame::updateColoredPlots, CvGameTextMgr::setEspionageCostHelp, CvMap::getNumLandAreas, CvPlayer::doAdvancedStartAction, CvPlayer::getEspionageMissionCostModifier, CvPlayerAI::AI_neededExplorers, CvTeamAI::AI_isWaterAreaRelevant, CvUnitAI::AI_exploreRange, CvUnitAI::AI_pirateBlockade …
+- **4205** `CvGlobals::getGame()` (exported)
+  - called by (74): CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_cachePlayerCloseness, CvCityAI::AI_calculateWaterWorldPercent, CvCityAI::AI_chooseProduction, CvCityAI::AI_doPanic, CvCityAI::AI_minDefenders, CvCityAI::AI_neededDefenders, CvCityAI::AI_neededFloatingDefenders, CvCityAI::AI_playerCloseness, CvCityAI::AI_trainInquisitor, CvCityAI::AI_updateNeededFloatingDefenders …
+- **4206** `CvGlobals::getGamePointer()` (exported)
+- **4208** `CvGlobals::getMaxCivPlayers()` (exported)
+- **4213** `CvGlobals::IsGraphicsInitialized()` (exported)
+  - called by (29): CvCity::setupGraphical, CvCity::updateVisibility, CvGame::setActivePlayer, CvMap::setupGraphical, CvPlayer::setupGraphical, CvPlot::setLayoutDirty, CvPlot::setPlotType, CvPlot::setRevealedOwner, CvPlot::setTerrainType, CvPlot::setupGraphical, CvPlot::updateCenterUnit, CvPlot::updateFeatureSymbol …
+- **4214** `CvGlobals::SetGraphicsInitialized(bool)` (exported)
+- **4215** `CvGlobals::setInterface(CvInterface *)` (exported)
+- **4216** `CvGlobals::setDiplomacyScreen(CvDiplomacyScreen *)` (exported)
+- **4217** `CvGlobals::setMPDiplomacyScreen(CMPDiplomacyScreen *)` (exported)
+- **4218** `CvGlobals::setMessageQueue(CMessageQueue *)` (exported)
+- **4219** `CvGlobals::setHotJoinMessageQueue(CMessageQueue *)` (exported)
+- **4220** `CvGlobals::setMessageControl(CMessageControl *)` (exported)
+- **4221** `CvGlobals::setSetupData(CvSetupData *)` (exported)
+- **4222** `CvGlobals::setMessageCodeTranslator(CvMessageCodeTranslator *)` (exported)
+- **4223** `CvGlobals::setDropMgr(CvDropMgr *)` (exported)
+- **4224** `CvGlobals::setPortal(CvPortal *)` (exported)
+- **4225** `CvGlobals::setStatsReport(CvStatsReporter *)` (exported)
+- **4226** `CvGlobals::setPathFinder(FAStar *)` (exported)
+- **4227** `CvGlobals::setInterfacePathFinder(FAStar *)` (exported)
+- **4228** `CvGlobals::setStepFinder(FAStar *)` (exported)
+- **4229** `CvGlobals::setRouteFinder(FAStar *)` (exported)
+- **4230** `CvGlobals::setBorderFinder(FAStar *)` (exported)
+- **4231** `CvGlobals::setAreaFinder(FAStar *)` (exported)
+- **4232** `CvGlobals::setPlotGroupFinder(FAStar *)` (exported)
+- **4233** `CvGlobals::getDLLIFaceNonInl()` (exported)
+- **4238** `CvGlobals::getNumDCMConceptInfos()`
+  - called by (2): CyGlobalContext::getDCMConceptInfo, CyGlobalContext::getNumDCMConceptInfos
+- **4244** `CvGlobals::isBull()`
+  - called by (1): CyGlobalContext::isBull
+- **4245** `CvGlobals::getBullApiVersion()`
+  - called by (1): CyGlobalContext::getBullApiVersion
+- **4246** `CvGlobals::getBullName()`
+  - called by (1): CyGlobalContext::getBullName
+- **4247** `CvGlobals::getBullVersion()`
+  - called by (1): CyGlobalContext::getBullVersion
+- **4251** `CvGlobals::setIsBug(bool)`
+  - calls: setIsBug [CvBugOptions.cpp]
+  - called by (1): CyGlobalContext::setIsBug
+- **4269** `CvGlobals::getBBAI_AIR_COMBAT()`
+  - called by (1): CvUnit::resolveAirCombat
+- **4274** `CvGlobals::getBBAI_HUMAN_VASSAL_WAR_BUILD()`
+  - called by (1): CvTeam::isMasterPlanningLandWar
+- **4279** `CvGlobals::getBBAI_DEFENSIVE_PACT_BEHAVIOR()`
+- **4284** `CvGlobals::getBBAI_HUMAN_AS_VASSAL_OPTION()`
+  - called by (1): CvPlayer::canTradeItem
+- **4291** `CvGlobals::getWAR_SUCCESS_CITY_CAPTURING()`
+  - called by (6): CvDeal::addTrades, CvPlayerAI::AI_civicValue, CvTeamAI::AI_acceptSurrender, CvTeamAI::AI_getWarSuccessCapitulationRatio, CvTeamAI::AI_surrenderTrade, CvUnit::setXY
+- **4296** `CvGlobals::getBBAI_ATTACK_CITY_STACK_RATIO()`
+  - called by (2): CvUnitAI::AI_attackCityMove, CvUnitAI::AI_bombardCity
+- **4301** `CvGlobals::getBBAI_SKIP_BOMBARD_BEST_ATTACK_ODDS()`
+- **4306** `CvGlobals::getBBAI_SKIP_BOMBARD_BASE_STACK_RATIO()`
+  - called by (1): CvUnitAI::AI_pickTargetCity
+- **4311** `CvGlobals::getBBAI_SKIP_BOMBARD_MIN_STACK_RATIO()`
+- **4317** `CvGlobals::getTECH_DIFFUSION_ENABLE()`
+- **4322** `CvGlobals::getTECH_DIFFUSION_KNOWN_TEAM_MODIFIER()`
+  - called by (1): CvPlayer::calculateResearchModifier
+- **4327** `CvGlobals::getTECH_DIFFUSION_WELFARE_THRESHOLD()`
+  - called by (1): CvPlayer::calculateResearchModifier
+- **4332** `CvGlobals::getTECH_DIFFUSION_WELFARE_MODIFIER()`
+  - called by (1): CvPlayer::calculateResearchModifier
+- **4337** `CvGlobals::getTECH_COST_FIRST_KNOWN_PREREQ_MODIFIER()`
+  - called by (1): CvPlayer::calculateResearchModifier
+- **4342** `CvGlobals::getTECH_COST_KNOWN_PREREQ_MODIFIER()`
+  - called by (1): CvPlayer::calculateResearchModifier
+- **4347** `CvGlobals::getTECH_COST_MODIFIER()`
+  - called by (1): CvPlayer::calculateResearchModifier
+- **4355** `CvGlobals::getLFBEnable()`
+  - called by (5): CvSelectionGroupAI::AI_getBestGroupAttacker, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnitAI::AI_attackOdds, CvUnitAI::AI_sacrificeValue, getCombatOdds
+- **4360** `CvGlobals::getLFBBasedOnGeneral()`
+  - called by (1): CvUnit::LFBgetRelativeValueRating
+- **4365** `CvGlobals::getLFBBasedOnExperience()`
+  - called by (1): CvUnit::LFBgetRelativeValueRating
+- **4370** `CvGlobals::getLFBBasedOnLimited()`
+  - called by (1): CvUnit::LFBgetRelativeValueRating
+- **4375** `CvGlobals::getLFBBasedOnHealer()`
+  - called by (1): CvUnit::LFBgetRelativeValueRating
+- **4380** `CvGlobals::getLFBBasedOnAverage()`
+- **4385** `CvGlobals::getLFBUseSlidingScale()`
+  - called by (1): CvUnit::LFBgetValueAdjustedOdds
+- **4390** `CvGlobals::getLFBAdjustNumerator()`
+  - called by (1): CvUnit::LFBgetValueAdjustedOdds
+- **4395** `CvGlobals::getLFBAdjustDenominator()`
+  - called by (1): CvUnit::LFBgetValueAdjustedOdds
+- **4400** `CvGlobals::getLFBUseCombatOdds()`
+  - called by (3): CvSelectionGroupAI::AI_getBestGroupAttacker, CvUnit::LFBgetDefenderOdds, CvUnitAI::AI_attackOdds
+- **4405** `CvGlobals::getCOMBAT_DIE_SIDES()`
+  - called by (9): CvUnit::LFBgetDefenderCombatOdds, CvUnit::flankingStrikeCombat, CvUnit::getDefenderCombatValues, CvUnit::pillage, CvUnit::resolveCombat, LFBcalculateCombatOdds, LFBgetCombatOdds, forecastFight, getCombatOdds
+- **4410** `CvGlobals::getCOMBAT_DAMAGE()`
+  - called by (7): CvUnit::LFBgetDefenderCombatOdds, CvUnit::LFBgetDefenderOdds, CvUnit::getDefenderCombatValues, CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *, int *), CvUnitAI::AI_attackOdds, forecastFight, getCombatOdds
+- **4424** `CvGlobals::getUSE_CAN_CREATE_PROJECT_CALLBACK()`
+  - called by (1): CvCity::canCreate
+- **4429** `CvGlobals::getUSE_CANNOT_CREATE_PROJECT_CALLBACK()`
+  - called by (1): CvCity::canCreate
+- **4434** `CvGlobals::getUSE_CAN_DO_MELTDOWN_CALLBACK()`
+  - called by (1): CvCity::doMeltdown
+- **4439** `CvGlobals::getUSE_CAN_MAINTAIN_PROCESS_CALLBACK()`
+  - called by (1): CvCity::canMaintain
+- **4444** `CvGlobals::getUSE_CANNOT_MAINTAIN_PROCESS_CALLBACK()`
+  - called by (1): CvCity::canMaintain
+- **4449** `CvGlobals::getUSE_CAN_DO_GROWTH_CALLBACK()`
+  - called by (1): CvCity::doGrowth
+- **4454** `CvGlobals::getUSE_CAN_DO_CULTURE_CALLBACK()`
+  - called by (1): CvCity::doCulture
+- **4459** `CvGlobals::getUSE_CAN_DO_PLOT_CULTURE_CALLBACK()`
+  - called by (1): CvCity::doPlotCulture
+- **4464** `CvGlobals::getUSE_CAN_DO_PRODUCTION_CALLBACK()`
+  - called by (1): CvCity::doProduction
+- **4469** `CvGlobals::getUSE_CAN_DO_RELIGION_CALLBACK()`
+  - called by (1): CvCity::doReligion
+- **4474** `CvGlobals::getUSE_CAN_DO_GREATPEOPLE_CALLBACK()`
+  - called by (1): CvCity::doGreatPeople
+- **4479** `CvGlobals::getUSE_CAN_RAZE_CITY_CALLBACK()`
+  - called by (1): CvPlayer::canRaze
+- **4484** `CvGlobals::getUSE_CAN_DO_GOLD_CALLBACK()`
+  - called by (1): CvPlayer::doGold
+- **4489** `CvGlobals::getUSE_CAN_DO_RESEARCH_CALLBACK()`
+  - called by (1): CvPlayer::doResearch
+- **4494** `CvGlobals::getUSE_UPGRADE_UNIT_PRICE_CALLBACK()`
+  - called by (1): CvUnit::upgradePrice
+- **4498** `CvGlobals::getUSE_IS_VICTORY_CALLBACK()`
+  - called by (1): CvGame::testVictory(VictoryTypes, TeamTypes, bool *)
+- **4505** `CvGlobals::getDCMConceptInfo()`
+  - called by (1): CvXMLLoadUtility::LoadBasicInfos
+- **4510** `CvGlobals::getDCMConceptInfo(DCMConceptTypes)`
+  - called by (2): CvDLLWidgetData::parseDescriptionHelp, CyGlobalContext::getDCMConceptInfo
+- **4519** `CvGlobals::getDCM_CIV_CHANGER_MODE()`
+  - called by (1): CyGlobalContext::getDCM_CIV_CHANGER_MODE
+- **4524** `CvGlobals::getDCM_CIV_CHANGER_CHANGES()`
+  - called by (1): CyGlobalContext::getDCM_CIV_CHANGER_CHANGES
+- **4531** `CvGlobals::getDCM_BATTLE_EFFECTS()`
+  - called by (3): CvPlot::doFeature, CvPlot::getBattleCountdown, CyGlobalContext::getDCM_BATTLE_EFFECTS
+- **4536** `CvGlobals::getDCM_AIR_BOMBING()`
+  - called by (10): CvSelectionGroup::canDoInterfaceModeAt, CvUnit::airBomb, CvUnit::canAirBomb, CvUnit::canAirBomb1, CvUnit::canAirBomb2, CvUnit::canAirBomb3, CvUnit::canAirBomb4, CvUnit::canAirBomb5, CvUnit::canAirBombAt, CyGlobalContext::getDCM_AIR_BOMBING
+- **4541** `CvGlobals::getDCM_CIV_CUSTOMISER()`
+- **4546** `CvGlobals::getDCM_RANGE_BOMBARD()`
+  - called by (12): CvGame::updateColoredPlots, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvSelectionGroup::startMission, CvUnit::canBombardAtRanged, CvUnit::canRBombard, CvUnitAI::AI_RbombardCity, CvUnitAI::AI_RbombardPlot, CvUnitAI::AI_RbombardUnit, CyGlobalContext::getDCM_RANGE_BOMBARD
+- **4552** `CvGlobals::getDCM_ATTACK_SUPPORT()`
+  - called by (3): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CyGlobalContext::getDCM_ATTACK_SUPPORT
+- **4557** `CvGlobals::getDCM_CIV_CHANGER()`
+  - called by (1): CyGlobalContext::getDCM_CIV_CHANGER
+- **4562** `CvGlobals::getDCM_STACK_ATTACK()`
+  - called by (4): CvSelectionGroup::groupAttack, CvSelectionGroup::updateTimers, CvUnit::updateCombat, CyGlobalContext::getDCM_STACK_ATTACK
+- **4567** `CvGlobals::getDCM_OPP_FIRE()`
+  - called by (3): CvPlayer::doTurn, CvUnit::doOpportunityFire, CyGlobalContext::getDCM_OPP_FIRE
+- **4572** `CvGlobals::getDCM_ACTIVE_DEFENSE()`
+  - called by (3): CvPlayer::doTurn, CvUnit::doActiveDefense, CyGlobalContext::getDCM_ACTIVE_DEFENSE
+- **4577** `CvGlobals::getDCM_ARCHER_BOMBARD()`
+  - called by (7): CvSelectionGroup::canDoInterfaceMode, CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::canStartMission, CvSelectionGroup::startMission, CvUnit::canArcherBombard, CvUnitAI::AI_Abombard, CyGlobalContext::getDCM_ARCHER_BOMBARD
+- **4582** `CvGlobals::getDCM_FIGHTER_ENGAGE()`
+  - called by (8): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer &, const CvUnit *, bool, bool), CvSelectionGroup::canDoInterfaceMode, CvSelectionGroup::canDoInterfaceModeAt, CvSelectionGroup::startMission, CvUnit::canFEngage, CvUnitAI::AI_FEngage, CyGlobalContext::getDCM_FIGHTER_ENGAGE

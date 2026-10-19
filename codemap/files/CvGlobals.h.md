@@ -1,0 +1,13 @@
+# CvGlobals.h
+
+Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **176** `CvGlobals::getMapINLINE()`
+  - called by (304): CvArea::calculateTotalBestNatureYield, CvArea::changeBorderObstacleCount, CvArea::changeNumTiles, CvArea::countCoastalLand, CvCity::calculateColonyMaintenanceTimes100, CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes), CvCity::calculateDistanceMaintenanceTimes100, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::doReligion, CvCity::doTask, CvCity::getBaseTradeProfit, CvCity::getCorporationCommerceByCorporation …
+- **177** `CvGlobals::getGameINLINE()`
+  - called by (797): CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvCity::applyEvent, CvCity::calculateColonyMaintenanceTimes100, CvCity::canBeSelected, CvCity::canConstruct, CvCity::changeBonusBadHealth, CvCity::changeBonusGoodHealth, CvCity::changeBonusYieldRateModifier, CvCity::changeBuildingBadHealth, CvCity::changeBuildingGoodHealth, CvCity::changePowerCount …
+- **225** `CvGlobals::initUnitEventMissions()` (declared, not defined in the source)
+- **937** `CvGlobals::getDLLIFace()`
+  - called by (1067): CProfileScope::CProfileScope(ProfileSample *), CProfileScope::~CProfileScope, CvAdvisorInfo::read, CvAnimationPathInfo::read, CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvArtInfoFeature::read, CvArtInfoUnit::read, CvBonusInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(CvXMLLoadUtility *), CvCity::applyEvent, CvCity::canConstruct …
+- **1570** `CvGlobals::getInstance()` (exported; static)
+  - called by (2809): AI_buildingTechReadinessPercent, AI_hasBuildingTechs, AI_isSacrificeWorth, AI_unitReadinessPercent, CProfileScope::CProfileScope(ProfileSample *), CProfileScope::~CProfileScope, CvActionInfo::getAutomateType, CvActionInfo::getCommandData, CvActionInfo::getCommandType, CvActionInfo::getHotkeyInfo, CvActionInfo::getMissionType, CvActionInfo::isConfirmCommand …

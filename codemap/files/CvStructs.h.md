@@ -1,0 +1,110 @@
+# CvStructs.h
+
+Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **13** `XYCoords::XYCoords(const XYCoords &)` (exported)
+  - called by (1): CvPlotGroup::addPlot
+- **15** `XYCoords::XYCoords(int, int)` (exported)
+  - called by (2): CvPlotGroup::addPlot, CvPlotGroup::recalculatePlots
+- **19** `XYCoords::operator<(const XYCoords)` (exported)
+- **20** `XYCoords::operator<=(const XYCoords)` (exported)
+- **21** `XYCoords::operator!=(const XYCoords)` (exported)
+- **22** `XYCoords::operator==(const XYCoords)` (exported)
+- **23** `XYCoords::operator>=(const XYCoords)` (exported)
+- **24** `XYCoords::operator>(const XYCoords)` (exported)
+- **27** `IDInfo::IDInfo(const IDInfo &)` (exported)
+  - called by (206): CvArea::getTargetCity, CvCity::cultureGarrison, CvCity::getIDInfo, CvCity::getRevoltTestProbability, CvCity::getTradeCity, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue(CvPlot *, ImprovementTypes, int, int, int, int, bool), CvCityAI::AI_getRouteToCity, CvCityAI::AI_getYieldMultipliers(int &, int &, int &, int &), CvCityAI::AI_isAirDefended …
+- **27** `IDInfo::operator=(const IDInfo &)` (exported)
+  - called by (11): CvArea::setTargetCity, CvCity::updateTradeRoutes, CvCityAI::AI_updateRouteToCity, CvGame::setHeadquarters, CvGame::setHolyCity, CvPlot::setPlotCity, CvPlot::setWorkingCityOverride, CvPlot::updateWorkingCity, CvSelectionGroupAI::AI_setMissionAI, CvUnit::setCombatUnit, CvUnit::setTransportUnit
+- **30** `IDInfo::IDInfo(PlayerTypes, int)` (exported)
+  - called by (9): CvArea::CvArea, CvCity::getIDInfo, CvCity::reset, CvGame::reset, CvPlayerAI::AI_unitUpdate, CvSelectionGroupAI::AI_setMissionAI, CvUnit::canDoCommand, CvUnit::doCommand, CvUnit::getIDInfo
+- **34** `IDInfo::operator==(const IDInfo &)` (exported)
+  - called by (1): CvSelectionGroupAI::AI_setMissionAI
+- **39** `IDInfo::reset()` (exported)
+  - called by (17): CvArea::reset, CvArea::setTargetCity, CvCity::clearTradeRoutes, CvCity::reset, CvCityAI::AI_reset, CvCityAI::AI_updateRouteToCity, CvGame::reset, CvGame::setHeadquarters, CvGame::setHolyCity, CvPlot::reset, CvPlot::setPlotCity, CvPlot::setWorkingCityOverride …
+- **46** `GameTurnInfo::GameTurnInfo()` (exported)
+  - called by (1): CvGameSpeedInfo::allocateGameTurnInfos
+- **46** `GameTurnInfo::operator=(const GameTurnInfo &)` (exported)
+  - called by (1): CvGameSpeedInfo::copyNonDefaults
+- **52** `OrderData::OrderData()` (exported)
+  - called by (3): CvCity::getOrderData, CvCity::pushOrder, CvCityAI::AI_chooseProduction
+- **52** `OrderData::OrderData(const OrderData &)` (exported)
+  - called by (4): CvCity::doCheckProduction, CvCity::getOrderData, CvCityAI::AI_chooseProduction, CyCity::canContinueProduction
+- **52** `OrderData::operator=(const OrderData &)` (exported)
+  - called by (1): CvCityAI::AI_chooseProduction
+- **60** `MissionData::MissionData()` (exported)
+  - called by (1): CvSelectionGroup::pushMission
+- **60** `MissionData::MissionData(const MissionData &)` (exported)
+  - called by (1): CvSelectionGroup::pushMission
+- **69** `TradeData::TradeData()` (exported)
+  - called by (15): CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::parseTradeItem, CvDeal::startTeamTrade, CvGame::handleDiplomacySetAIComment, CvGame::initDiplomacy, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setTechTradeHelp, CvPlayer::applyEvent, CvPlayer::buildTradeTable, CvPlayer::forcePeace, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace …
+- **69** `TradeData::TradeData(const TradeData &)` (exported)
+  - called by (15): CvDLLWidgetData::parseTradeItem, CvDeal::addTrades, CvDeal::kill, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setTechTradeHelp, CvPlayer::buildTradeTable, CvPlayer::canTradeItem, CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvTeam::signDefensivePact …
+- **77** `EventTriggeredData::EventTriggeredData()`
+  - called by (1): CvPlayer::read
+- **77** `EventTriggeredData::EventTriggeredData(const EventTriggeredData &)`
+  - called by (1): CvPlayer::applyEvent
+- **77** `EventTriggeredData::operator=(const EventTriggeredData &)`
+  - called by (3): CvPlayer::read, CvPlayer::setEventCountdown, CvPlayer::setEventOccured
+- **101** `VoteSelectionSubData::VoteSelectionSubData()`
+  - called by (3): CvGame::addVoteSelection, CvGame::doVoteSelection, VoteSelectionData::read
+- **101** `VoteSelectionSubData::operator=(const VoteSelectionSubData &)`
+  - called by (1): CvGame::addVoteTriggered(VoteSourceTypes, const VoteSelectionSubData &)
+- **122** `VoteTriggeredData::VoteTriggeredData()`
+  - called by (1): CvGame::clearSecretaryGeneral
+- **142** `EventMessage::getDescription()` (Python: getDescription)
+  - called by (1): CyStructsPythonInterface1
+- **145** `PlotExtraYield::PlotExtraYield()`
+  - called by (2): CvGame::read, CvGame::setPlotExtraYield
+- **155** `PlotExtraCost::PlotExtraCost()`
+  - called by (2): CvGame::changePlotExtraCost, CvGame::read
+- **167** `BuildingYieldChange::BuildingYieldChange()`
+  - called by (6): CvCity::read, CvCity::setBuildingYieldChange, CvEventInfo::copyNonDefaults, CvEventInfo::read(CvXMLLoadUtility *), CvEventInfo::read(FDataStreamBase *), CvPlayer::acquireCity
+- **177** `BuildingCommerceChange::BuildingCommerceChange()`
+  - called by (6): CvCity::read, CvCity::setBuildingCommerceChange, CvEventInfo::copyNonDefaults, CvEventInfo::read(CvXMLLoadUtility *), CvEventInfo::read(FDataStreamBase *), CvPlayer::acquireCity
+- **194** `FOWVis::getOffsets(int)` (exported; Python: getOffsets)
+  - called by (1): CyStructsPythonInterface1
+- **214** `PBGameSetupData::getCustomMapOption(int)` (exported; Python: getCustomMapOption)
+  - called by (1): CyStructsPythonInterface1
+- **218** `PBGameSetupData::getVictory(int)` (exported; Python: getVictory)
+  - called by (1): CyStructsPythonInterface1
+- **221** `PBGameSetupData::getMapName()` (exported; Python: getMapName)
+  - called by (1): CyStructsPythonInterface1
+- **224** `PBGameSetupData::getOptionAt(int)` (exported; Python: getOptionAt)
+  - called by (1): CyStructsPythonInterface1
+- **227** `PBGameSetupData::getMPOptionAt(int)` (exported; Python: getMPOptionAt)
+  - called by (1): CyStructsPythonInterface1
+- **239** `PBPlayerSetupData::getStatusText()` (exported; Python: getStatusText)
+  - called by (1): CyStructsPythonInterface1
+- **245** `PBPlayerAdminData::getName()` (exported; Python: getName)
+  - called by (1): CyStructsPythonInterface1
+- **247** `PBPlayerAdminData::getPing()` (exported; Python: getPing)
+  - called by (1): CyStructsPythonInterface1
+- **249** `PBPlayerAdminData::getScore()` (exported; Python: getScore)
+  - called by (1): CyStructsPythonInterface1
+- **405** `CvWidgetDataStruct::CvWidgetDataStruct()` (exported)
+  - called by (1): CvGameTextMgr::getTradeScreenIcons
+- **405** `CvWidgetDataStruct::CvWidgetDataStruct(const CvWidgetDataStruct &)` (exported)
+  - called by (2): CvDLLWidgetData::executeAltAction, CvGameTextMgr::getTradeScreenIcons
+- **417** `CvPlotIndicatorData::CvPlotIndicatorData()` (exported)
+  - called by (2): CvPlayer::getResourceLayerColors, CvPlayer::getUnitLayerColors
+- **435** `CvGlobeLayerData::CvGlobeLayerData(GlobeLayerTypes)` (exported)
+  - called by (1): CvGame::getGlobeLayers
+- **447** `CvFlyoutMenuData::CvFlyoutMenuData(FlyoutTypes, int, int, int, const wchar *)` (exported)
+  - calls: CvWString::CvWString(const wchar *) [CvString.h]
+  - called by (1): CvGame::startFlyoutMenu
+- **457** `CvStatBase::CvStatBase(const char *)` (exported)
+  - calls: CvString::CvString(const char *) [CvString.h]
+  - called by (3): CvStatFloat::CvStatFloat, CvStatInt::CvStatInt, CvStatString::CvStatString
+- **458** `CvStatBase::~CvStatBase()` (exported; virtual)
+- **464** `CvStatInt::CvStatInt(const char *, int)` (exported)
+  - calls: CvStatBase::CvStatBase
+  - called by (2): CvEventReporter::getGameStatistics, CvEventReporter::getPlayerStatistics
+- **470** `CvStatString::CvStatString(const char *, const char *)` (exported)
+  - calls: CvString::CvString(const char *) [CvString.h], CvStatBase::CvStatBase
+  - called by (1): CvEventReporter::getGameStatistics
+- **476** `CvStatFloat::CvStatFloat(const char *, float)` (exported)
+  - calls: CvStatBase::CvStatBase
+- **482** `CvWBData::CvWBData(int, const wchar *, const char *)` (exported)
+  - calls: CvWString::CvWString(const wchar *) [CvString.h], CvString::CvString(const char *) [CvString.h]
+  - called by (15): CvGameTextMgr::getBonusDataForWB, CvGameTextMgr::getBuildingDataForWB, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::getCorporationDataForWB, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getPromotionDataForWB, CvGameTextMgr::getReligionDataForWB, CvGameTextMgr::getTechDataForAS, CvGameTextMgr::getTechDataForWB, CvGameTextMgr::getTerrainDataForWB, CvGameTextMgr::getTerritoryDataForWB …

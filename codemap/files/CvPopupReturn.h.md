@@ -1,0 +1,46 @@
+# CvPopupReturn.h
+
+Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **24** `PopupReturn::PopupReturn()`
+- **33** `PopupReturn::setSelectedRadioButton(int, int)`
+- **40** `PopupReturn::getSelectedRadioButton(int)`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **46** `PopupReturn::getRadioButtonSize()`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **52** `PopupReturn::setCheckboxBitfield(int, int)`
+- **59** `PopupReturn::getCheckboxBitfield(int)`
+  - called by (3): CvDLLButtonPopup::OnOkClicked, PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **65** `PopupReturn::getCheckboxSize()`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **71** `PopupReturn::setEditBoxString(CvWString, int)`
+  - calls: CvWString::operator=(const CvWString &) [CvString.h]
+- **78** `PopupReturn::getEditBoxString(int)`
+  - calls: CvWString::operator const wchar_t * [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **87** `PopupReturn::getEditboxSize()`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **93** `PopupReturn::setSpinnerWidgetValue(const int, int)`
+- **100** `PopupReturn::getSpinnerWidgetValue(int)`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **106** `PopupReturn::getSpinnerWidsize()`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **112** `PopupReturn::setSelectedPulldownValue(int, int)`
+- **118** `PopupReturn::getSelectedPullDownValue(int)`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **124** `PopupReturn::getPulldownSize()`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **130** `PopupReturn::setSelectedListBoxValue(int, int)`
+- **136** `PopupReturn::getSelectedListBoxValue(int)`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **142** `PopupReturn::getListBoxSize()`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **148** `PopupReturn::setCurrentSpinBoxValue(int, int)`
+- **154** `PopupReturn::getCurrentSpinBoxValue(int)`
+- **160** `PopupReturn::getSpinBoxSize()`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **166** `PopupReturn::setButtonClicked(int, int)`
+- **172** `PopupReturn::getButtonClicked(int)`
+  - called by (3): CvDLLButtonPopup::OnOkClicked, PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=
+- **178** `PopupReturn::getButtonSize()`
+  - called by (2): PopupReturn::PopupReturn(const PopupReturn &), PopupReturn::operator=

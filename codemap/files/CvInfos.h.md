@@ -1,0 +1,175 @@
+# CvInfos.h
+
+Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **64** `CvInfoBase::pyGetTextKey()` (Python: getTextKey)
+  - calls: CvInfoBase::getTextKeyWide [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface1
+- **65** `CvInfoBase::pyGetDescription()` (Python: getDescription)
+  - calls: CvInfoBase::getDescription [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface1
+- **66** `CvInfoBase::pyGetDescriptionForm(uint)` (Python: getDescriptionForm)
+  - calls: CvInfoBase::getDescription [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface1
+- **67** `CvInfoBase::pyGetText()` (Python: getText)
+  - calls: CvInfoBase::getText [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface1
+- **68** `CvInfoBase::pyGetCivilopedia()` (Python: getCivilopedia)
+  - calls: CvInfoBase::getCivilopedia [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface1
+- **69** `CvInfoBase::pyGetHelp()` (Python: getHelp)
+  - calls: CvInfoBase::getHelp [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface1
+- **70** `CvInfoBase::pyGetStrategy()` (Python: getStrategy)
+  - calls: CvInfoBase::getStrategy [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface1
+- **85** `CvInfoBase::readPass2(CvXMLLoadUtility *)` (virtual)
+- **86** `CvInfoBase::readPass3()` (virtual)
+- **93** `CvInfoBase::copyNonDefaultsReadPass2(CvInfoBase *)` (virtual)
+- **100** `CvInfoBase::doneReadingXML(CvXMLLoadUtility *)` (declared, not defined in the source)
+- **127** `CvScalableInfo::CvScalableInfo()` (exported)
+- **859** `CvAutomateInfo::setConfirmCommand(bool)` (exported; declared, not defined in the source)
+- **861** `CvAutomateInfo::setVisible(bool)` (exported; declared, not defined in the source)
+- **1474** `CvUnitEntry::CvUnitEntry()`
+  - called by (1): CvUnitFormationInfo::read
+- **1478** `CvUnitEntry::CvUnitEntry(const NiPoint2 &, float, float, float)`
+  - calls: NiPoint2::NiPoint2(const NiPoint2 &) [CvGameCoreDLL.h]
+- **1719** `CvCivicInfo::pyGetWeLoveTheKing()` (Python: pyGetWeLoveTheKing)
+  - calls: CvCivicInfo::getWeLoveTheKing [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface1
+- **2700** `CvCivilizationInfo::pyGetShortDescription(uint)` (Python: getShortDescription)
+  - calls: CvCivilizationInfo::getShortDescription [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface2
+- **2703** `CvCivilizationInfo::pyGetShortDescriptionKey()` (Python: getShortDescriptionKey)
+  - calls: CvCivilizationInfo::getShortDescriptionKey [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface2
+- **2705** `CvCivilizationInfo::pyGetAdjective(uint)` (Python: getAdjective)
+  - calls: CvCivilizationInfo::getAdjective [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface2
+- **2708** `CvCivilizationInfo::pyGetAdjectiveKey()`
+  - calls: CvCivilizationInfo::getAdjectiveKey [CvInfos.cpp]
+- **4851** `CvReligionInfo::pyGetAdjectiveKey()` (Python: getAdjectiveKey)
+  - calls: CvReligionInfo::getAdjectiveKey [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface3
+- **5611** `CvAssetInfoBase::CvAssetInfoBase()` (exported)
+- **5612** `CvAssetInfoBase::~CvAssetInfoBase()` (exported; virtual; overrides CvInfoBase::~CvInfoBase)
+- **5626** `CvAssetInfoBase::copyNonDefaults(CvAssetInfoBase *)` (declared, not defined in the source)
+- **5642** `CvArtInfoAsset::CvArtInfoAsset()` (exported)
+- **5643** `CvArtInfoAsset::~CvArtInfoAsset()` (exported; virtual; overrides CvAssetInfoBase::~CvAssetInfoBase)
+- **5699** `CvArtInfoInterface::CvArtInfoInterface()` (exported)
+- **5700** `CvArtInfoInterface::~CvArtInfoInterface()` (exported; virtual; overrides CvArtInfoAsset::~CvArtInfoAsset)
+- **5708** `CvArtInfoMisc::CvArtInfoMisc()` (exported)
+- **5709** `CvArtInfoMisc::~CvArtInfoMisc()` (exported; virtual)
+- **5717** `CvArtInfoMovie::CvArtInfoMovie()` (exported)
+- **5718** `CvArtInfoMovie::~CvArtInfoMovie()` (exported; virtual; overrides CvArtInfoAsset::~CvArtInfoAsset)
+- **5869** `CvArtInfoLeaderhead::CvArtInfoLeaderhead()` (exported)
+- **5870** `CvArtInfoLeaderhead::~CvArtInfoLeaderhead()` (exported; virtual; overrides CvArtInfoAsset::~CvArtInfoAsset)
+- **5898** `CvArtInfoBonus::~CvArtInfoBonus()` (exported; virtual)
+- **6018** `CvArtInfoFeature::FeatureArtModel::FeatureArtModel(const CvString &, RotationTypes)`
+  - calls: CvString::operator=(const CvString &) [CvString.h]
+  - takes the address of: CvString::operator=(const CvString &) [CvString.h]
+  - called by (1): CvArtInfoFeature::read
+- **6024** `CvArtInfoFeature::FeatureArtModel::getModelFile()`
+- **6029** `CvArtInfoFeature::FeatureArtModel::getRotation()`
+- **6042** `CvArtInfoFeature::FeatureArtPiece::FeatureArtPiece(int)`
+  - called by (1): CvArtInfoFeature::FeatureVariety::createFeatureArtPieceFromConnectionMask
+- **6047** `CvArtInfoFeature::FeatureArtPiece::getConnectionMask()`
+  - called by (2): CvArtInfoFeature::FeatureVariety::createFeatureArtPieceFromConnectionMask, CvArtInfoFeature::FeatureVariety::getFeatureArtPieceFromConnectionMask
+- **6052** `CvArtInfoFeature::FeatureArtPiece::getNumArtModels()`
+- **6057** `CvArtInfoFeature::FeatureArtPiece::getArtModel(int)`
+- **6073** `CvArtInfoFeature::FeatureDummyNode::FeatureDummyNode(const CvString &, const CvString &)`
+  - calls: CvString::operator=(const CvString &) [CvString.h]
+  - takes the address of: CvString::operator=(const CvString &) [CvString.h]
+  - called by (1): CvArtInfoFeature::FeatureVariety::createFeatureDummyNode
+- **6079** `CvArtInfoFeature::FeatureDummyNode::getTagName()`
+  - calls: CvString::CvString(const CvString &) [CvString.h]
+  - called by (2): CvArtInfoFeature::FeatureVariety::getFeatureDummyNodeName, CvArtInfoFeature::FeatureVariety::getFeatureDummyTag
+- **6084** `CvArtInfoFeature::FeatureDummyNode::getNodeName()`
+  - calls: CvString::CvString(const CvString &) [CvString.h]
+  - called by (2): CvArtInfoFeature::FeatureVariety::getFeatureDummyNodeName, CvArtInfoFeature::FeatureVariety::getFeatureDummyTag
+- **6097** `CvArtInfoFeature::FeatureVariety::FeatureVariety()`
+  - called by (1): CvArtInfoFeature::read
+- **6101** `CvArtInfoFeature::FeatureVariety::getVarietyButton()`
+  - called by (1): CvGameTextMgr::getTerrainDataForWB
+- **6106** `CvArtInfoFeature::FeatureVariety::getFeatureArtPiece(int)`
+- **6112** `CvArtInfoFeature::FeatureVariety::getFeatureArtPieceFromConnectionMask(int)`
+  - calls: CvArtInfoFeature::FeatureArtPiece::getConnectionMask
+- **6122** `CvArtInfoFeature::FeatureVariety::getFeatureDummyNodeName(const CvString &)`
+  - calls: CvArtInfoFeature::FeatureDummyNode::getTagName, CvString::operator const char * [CvString.h], CvString::CompareNoCase(const char *) [CvString.h], CvArtInfoFeature::FeatureDummyNode::getNodeName, CvString::CvString(const char *) [CvString.h]
+  - called by (1): CvArtInfoFeature::getFeatureDummyNodeName
+- **6134** `CvArtInfoFeature::FeatureVariety::getFeatureDummyTag(const CvString &)`
+  - calls: CvArtInfoFeature::FeatureDummyNode::getNodeName, CvString::operator const char * [CvString.h], CvString::CompareNoCase(const char *) [CvString.h], CvArtInfoFeature::FeatureDummyNode::getTagName, CvString::CvString(const char *) [CvString.h]
+- **6145** `CvArtInfoFeature::FeatureVariety::createFeatureArtPieceFromConnectionMask(int)`
+  - calls: CvArtInfoFeature::FeatureArtPiece::getConnectionMask, CvArtInfoFeature::FeatureArtPiece::FeatureArtPiece
+  - called by (1): CvArtInfoFeature::read
+- **6155** `CvArtInfoFeature::FeatureVariety::createFeatureDummyNode(const CvString &, const CvString &)`
+  - calls: CvArtInfoFeature::FeatureDummyNode::FeatureDummyNode
+  - called by (1): CvArtInfoFeature::read
+- **6512** `CvLandscapeInfo::~CvLandscapeInfo()` (exported; virtual; overrides CvInfoBase::~CvInfoBase)
+- **6603** `CvGameText::pyGetText()` (Python: getText)
+  - calls: CvGameText::getText [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface3
+- **6605** `CvGameText::setGender(const wchar *)`
+  - calls: CvWString::operator=(const wchar *) [CvString.h]
+  - takes the address of: CvWString::operator=(const wchar *) [CvString.h]
+  - called by (1): CvGameText::read
+- **6606** `CvGameText::getGender()`
+  - calls: CvWString::operator const wchar_t * [CvString.h]
+  - called by (1): CvXMLLoadUtility::SetGameText
+- **6608** `CvGameText::setPlural(const wchar *)`
+  - calls: CvWString::operator=(const wchar *) [CvString.h]
+  - takes the address of: CvWString::operator=(const wchar *) [CvString.h]
+  - called by (1): CvGameText::read
+- **6609** `CvGameText::getPlural()`
+  - calls: CvWString::operator const wchar_t * [CvString.h]
+  - called by (1): CvXMLLoadUtility::SetGameText
+- **6637** `CvDiplomacyTextInfo::Response::Response()` (exported)
+  - called by (1): CvDiplomacyTextInfo::init
+- **6647** `CvDiplomacyTextInfo::Response::~Response()` (exported; virtual)
+- **6668** `CvDiplomacyTextInfo::~CvDiplomacyTextInfo()` (exported; virtual; overrides CvInfoBase::~CvInfoBase)
+  - calls: CvDiplomacyTextInfo::uninit [CvInfos.cpp]
+- **6674** `CvDiplomacyTextInfo::getResponse(int)` (exported; Python: getResponse)
+  - called by (1): CyInfoPythonInterface3
+- **6713** `CvEffectInfo::getPath()` (exported; Python: getPath)
+  - calls: CvString::operator const char * [CvString.h]
+  - called by (2): CvEffectInfo::copyNonDefaults, CyInfoPythonInterface3
+- **6714** `CvEffectInfo::setPath(const TCHAR *)` (exported; Python: setPath)
+  - calls: CvString::operator=(const char *) [CvString.h]
+  - takes the address of: CvString::operator=(const char *) [CvString.h]
+  - called by (3): CvEffectInfo::copyNonDefaults, CvEffectInfo::read, CyInfoPythonInterface3
+- **6715** `CvEffectInfo::getUpdateRate()` (exported)
+  - called by (1): CvEffectInfo::copyNonDefaults
+- **6716** `CvEffectInfo::setUpdateRate(float)` (exported)
+- **6717** `CvEffectInfo::isProjectile()` (exported)
+  - called by (1): CvEffectInfo::copyNonDefaults
+- **6718** `CvEffectInfo::getProjectileSpeed()` (exported)
+  - called by (1): CvEffectInfo::copyNonDefaults
+- **6719** `CvEffectInfo::getProjectileArc()` (exported)
+  - called by (1): CvEffectInfo::copyNonDefaults
+- **6720** `CvEffectInfo::isSticky()` (exported)
+  - called by (1): CvEffectInfo::copyNonDefaults
+- **6778** `CvAttachableInfo::getPath()` (exported)
+  - calls: CvString::operator const char * [CvString.h]
+  - called by (1): CvAttachableInfo::copyNonDefaults
+- **6779** `CvAttachableInfo::setPath(const TCHAR *)` (exported)
+  - calls: CvString::operator=(const char *) [CvString.h]
+  - takes the address of: CvString::operator=(const char *) [CvString.h]
+  - called by (2): CvAttachableInfo::copyNonDefaults, CvAttachableInfo::read
+- **6810** `CvCameraInfo::CvCameraInfo()` (exported)
+- **6811** `CvCameraInfo::~CvCameraInfo()` (exported; virtual; overrides CvInfoBase::~CvInfoBase)
+- **6813** `CvCameraInfo::getPath()` (exported)
+  - calls: CvString::operator const char * [CvString.h]
+  - called by (1): CvCameraInfo::copyNonDefaults
+- **6814** `CvCameraInfo::setPath(const TCHAR *)` (exported)
+  - calls: CvString::operator=(const char *) [CvString.h]
+  - takes the address of: CvString::operator=(const char *) [CvString.h]
+  - called by (2): CvCameraInfo::copyNonDefaults, CvCameraInfo::read
+- **6845** `CvQuestInfo::QuestLink::QuestLink()` (exported)
+  - calls: CvString::CvString(const char *) [CvString.h]
+  - called by (2): CvQuestInfo::copyNonDefaults, CvQuestInfo::initQuestLinks
+- **6924** `CvTutorialMessage::setScript(int, const TCHAR *)` (exported; declared, not defined in the source)
+- **7651** `CvUnitArtStyleTypeInfo::ArtDefneTag::ArtDefneTag()`
+  - called by (3): CvUnitArtStyleTypeInfo::setEarlyArtDefineTag, CvUnitArtStyleTypeInfo::setLateArtDefineTag, CvUnitArtStyleTypeInfo::setMiddleArtDefineTag
+- **7692** `CvVoteSourceInfo::pyGetSecretaryGeneralText()` (Python: getSecretaryGeneralText)
+  - calls: CvVoteSourceInfo::getSecretaryGeneralText [CvInfos.cpp]
+  - called by (1): CyInfoPythonInterface3

@@ -1,0 +1,180 @@
+found_by	file	line	name
+ctags only	CvCity.cpp	9473	calculateTradeProfitTimes100
+ctags only	CvCity.cpp	9488	calculateTradeProfit
+ctags only	CvGame.cpp	10125	checkCRCs
+ctags only	CvGame.cpp	10131	getWarningStatus
+ctags only	CvGlobals.cpp	4256	isBuffy
+ctags only	CvGlobals.cpp	4257	getBuffyApiVersion
+ctags only	CvGlobals.cpp	4258	getBuffyName
+ctags only	CvGlobals.cpp	4259	getBuffyVersion
+ctags only	CvSelectionGroup.cpp	243	sentryAlertSameDomainType
+ctags only	CvString.h	32	CvWString
+ctags only	CvString.h	55	operator const wchar*
+ctags only	CvXMLLoadUtility.cpp	38	logXmlCheckDoubleTypes
+ctags only	CvXMLLoadUtility.cpp	54	XmlArtTagVerification
+ctags only	CyCity.cpp	1983	calculateTradeProfitTimes100
+ctags only	CyGame.cpp	1322	checkCRCs
+ctags only	CyGame.cpp	1327	getWarningStatus
+ctags only	CyGlobalContext.h	406	isBuffy
+ctags only	CyGlobalContext.h	407	getBuffyApiVersion
+ctags only	CyGlobalContext.h	409	getBuffyName
+ctags only	CyGlobalContext.h	410	getBuffyVersion
+ctags only	CyGlobalContext.h	412	pyGetBuffyName
+ctags only	CyGlobalContext.h	413	pyGetBuffyVersion
+ctags only	FAssert.cpp	48	AssertDlgProc
+ctags only	FAssert.cpp	108	DisplayAssertDialog
+ctags only	FAssert.cpp	136	FAssertDlg
+clang only	AIHierarchyPolicy.h	37	AIHierarchyPolicy::Intent::Intent()
+clang only	AIHierarchyPolicy.h	37	AIHierarchyPolicy::Intent::Intent(const Intent &)
+clang only	AIMissionTargetIndex.h	22	AIMissionTargetIndex::Entry::Entry
+clang only	AIMissionTargetIndex.h	183	AIMissionTargetIndex::UnitEntry::UnitEntry
+clang only	AIPathReuse.h	18	AIPathReuse::Key::Key()
+clang only	AIPathReuse.h	18	AIPathReuse::Key::Key(const Key &)
+clang only	AIPathReuse.h	18	AIPathReuse::Key::operator=
+clang only	AIStrategicContextPolicy.h	18	AIStrategicContextPolicy::Snapshot::operator=
+clang only	CvArtFileMgr.cpp	172	CvArtFileMgr::getAssetArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	172	CvArtFileMgr::getAssetArtInfo(int)
+clang only	CvArtFileMgr.cpp	172	CvAssetArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	172	CvAssetArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	172	CvAssetArtInfoItem::init
+clang only	CvArtFileMgr.cpp	173	CvArtFileMgr::getMiscArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	173	CvArtFileMgr::getMiscArtInfo(int)
+clang only	CvArtFileMgr.cpp	173	CvMiscArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	173	CvMiscArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	173	CvMiscArtInfoItem::init
+clang only	CvArtFileMgr.cpp	174	CvArtFileMgr::getUnitArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	174	CvArtFileMgr::getUnitArtInfo(int)
+clang only	CvArtFileMgr.cpp	174	CvUnitArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	174	CvUnitArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	174	CvUnitArtInfoItem::init
+clang only	CvArtFileMgr.cpp	175	CvArtFileMgr::getBuildingArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	175	CvArtFileMgr::getBuildingArtInfo(int)
+clang only	CvArtFileMgr.cpp	175	CvBuildingArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	175	CvBuildingArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	175	CvBuildingArtInfoItem::init
+clang only	CvArtFileMgr.cpp	176	CvArtFileMgr::getCivilizationArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	176	CvArtFileMgr::getCivilizationArtInfo(int)
+clang only	CvArtFileMgr.cpp	176	CvCivilizationArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	176	CvCivilizationArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	176	CvCivilizationArtInfoItem::init
+clang only	CvArtFileMgr.cpp	177	CvArtFileMgr::getLeaderheadArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	177	CvArtFileMgr::getLeaderheadArtInfo(int)
+clang only	CvArtFileMgr.cpp	177	CvLeaderheadArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	177	CvLeaderheadArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	177	CvLeaderheadArtInfoItem::init
+clang only	CvArtFileMgr.cpp	178	CvArtFileMgr::getBonusArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	178	CvArtFileMgr::getBonusArtInfo(int)
+clang only	CvArtFileMgr.cpp	178	CvBonusArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	178	CvBonusArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	178	CvBonusArtInfoItem::init
+clang only	CvArtFileMgr.cpp	179	CvArtFileMgr::getImprovementArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	179	CvArtFileMgr::getImprovementArtInfo(int)
+clang only	CvArtFileMgr.cpp	179	CvImprovementArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	179	CvImprovementArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	179	CvImprovementArtInfoItem::init
+clang only	CvArtFileMgr.cpp	180	CvArtFileMgr::getTerrainArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	180	CvArtFileMgr::getTerrainArtInfo(int)
+clang only	CvArtFileMgr.cpp	180	CvTerrainArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	180	CvTerrainArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	180	CvTerrainArtInfoItem::init
+clang only	CvArtFileMgr.cpp	181	CvArtFileMgr::getFeatureArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	181	CvArtFileMgr::getFeatureArtInfo(int)
+clang only	CvArtFileMgr.cpp	181	CvFeatureArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	181	CvFeatureArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	181	CvFeatureArtInfoItem::init
+clang only	CvArtFileMgr.cpp	182	CvArtFileMgr::getMovieArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	182	CvArtFileMgr::getMovieArtInfo(int)
+clang only	CvArtFileMgr.cpp	182	CvMovieArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	182	CvMovieArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	182	CvMovieArtInfoItem::init
+clang only	CvArtFileMgr.cpp	183	CvArtFileMgr::getInterfaceArtInfo(const char *)
+clang only	CvArtFileMgr.cpp	183	CvArtFileMgr::getInterfaceArtInfo(int)
+clang only	CvArtFileMgr.cpp	183	CvInterfaceArtInfoItem::buildMap
+clang only	CvArtFileMgr.cpp	183	CvInterfaceArtInfoItem::deInit
+clang only	CvArtFileMgr.cpp	183	CvInterfaceArtInfoItem::init
+clang only	CvArtFileMgr.h	56	CvArtFileMgr::CvArtFileMgr(const CvArtFileMgr &)
+clang only	CvArtFileMgr.h	94	CvArtFileMgr::getAssetArtInfo()
+clang only	CvArtFileMgr.h	94	CvArtFileMgr::getNumAssetArtInfos
+clang only	CvArtFileMgr.h	95	CvArtFileMgr::getMiscArtInfo()
+clang only	CvArtFileMgr.h	95	CvArtFileMgr::getNumMiscArtInfos
+clang only	CvArtFileMgr.h	96	CvArtFileMgr::getNumUnitArtInfos
+clang only	CvArtFileMgr.h	96	CvArtFileMgr::getUnitArtInfo()
+clang only	CvArtFileMgr.h	97	CvArtFileMgr::getBuildingArtInfo()
+clang only	CvArtFileMgr.h	97	CvArtFileMgr::getNumBuildingArtInfos
+clang only	CvArtFileMgr.h	98	CvArtFileMgr::getCivilizationArtInfo()
+clang only	CvArtFileMgr.h	98	CvArtFileMgr::getNumCivilizationArtInfos
+clang only	CvArtFileMgr.h	99	CvArtFileMgr::getLeaderheadArtInfo()
+clang only	CvArtFileMgr.h	99	CvArtFileMgr::getNumLeaderheadArtInfos
+clang only	CvArtFileMgr.h	100	CvArtFileMgr::getBonusArtInfo()
+clang only	CvArtFileMgr.h	100	CvArtFileMgr::getNumBonusArtInfos
+clang only	CvArtFileMgr.h	101	CvArtFileMgr::getImprovementArtInfo()
+clang only	CvArtFileMgr.h	101	CvArtFileMgr::getNumImprovementArtInfos
+clang only	CvArtFileMgr.h	102	CvArtFileMgr::getNumTerrainArtInfos
+clang only	CvArtFileMgr.h	102	CvArtFileMgr::getTerrainArtInfo()
+clang only	CvArtFileMgr.h	103	CvArtFileMgr::getFeatureArtInfo()
+clang only	CvArtFileMgr.h	103	CvArtFileMgr::getNumFeatureArtInfos
+clang only	CvArtFileMgr.h	104	CvArtFileMgr::getMovieArtInfo()
+clang only	CvArtFileMgr.h	104	CvArtFileMgr::getNumMovieArtInfos
+clang only	CvArtFileMgr.h	105	CvArtFileMgr::getInterfaceArtInfo()
+clang only	CvArtFileMgr.h	105	CvArtFileMgr::getNumInterfaceArtInfos
+clang only	CvCity.cpp	14550	VisibleBuildingComparator::VisibleBuildingComparator()
+clang only	CvCity.cpp	14550	VisibleBuildingComparator::VisibleBuildingComparator(const VisibleBuildingComparator &)
+clang only	CvDLLWidgetData.cpp	3942	CvDLLWidgetData::parseContactCivHelp::CvStartWarInfo::CvStartWarInfo
+clang only	CvDLLWidgetData.h	8	CvDLLWidgetData::CvDLLWidgetData
+clang only	CvDiploParameters.cpp	73	CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, CvWString)
+clang only	CvDiploParameters.cpp	76	CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, int)
+clang only	CvDiploParameters.cpp	79	CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, CvWString)
+clang only	CvDiploParameters.cpp	82	CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, int)
+clang only	CvDiploParameters.cpp	85	CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, CvWString)
+clang only	CvDiploParameters.cpp	88	CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, int)
+clang only	CvDiploParameters.cpp	91	CvDiploParameters::setDiploComment(DiploCommentTypes, const std::vector<FVariable> *)
+clang only	CvEventReporter.h	21	CvEventReporter::CvEventReporter
+clang only	CvGameCoreDLL.h	36	NiColor::NiColor
+clang only	CvGameCoreDLL.h	41	NiColorA::operator=
+clang only	CvGameCoreDLL.h	48	NiPoint2::operator=
+clang only	CvGameCoreDLL.h	56	NiPoint3::operator=
+clang only	CvInfos.h	7651	CvUnitArtStyleTypeInfo::ArtDefneTag::ArtDefneTag
+clang only	CvMessageControl.h	4	CvMessageControl::CvMessageControl
+clang only	CvPlayerAI.cpp	12678	UnitTargetCounter::UnitTargetCounter
+clang only	CvPlayerAI.h	64	AIOperationData::AIOperationData
+clang only	CvPlayerAI.h	90	AIGeneralCareer::AIGeneralCareer
+clang only	CvPlayerAI.h	90	AIGeneralCareer::operator=
+clang only	CvPlayerAI.h	99	AIOperationDeliveryCache::AIOperationDeliveryCache
+clang only	CvPopupInfo.h	7	CvPopupButtonPython::CvPopupButtonPython
+clang only	CvReplayInfo.h	108	CvReplayInfo::TurnData::TurnData
+clang only	CvReplayInfo.h	117	CvReplayInfo::PlayerInfo::PlayerInfo
+clang only	CvSelectionGroupAI.cpp	1008	ForecastFight::ForecastFight
+clang only	CvString.h	55	CvWString::operator const wchar_t *
+clang only	CvString.h	201	CvString::operator=(const CvString &)
+clang only	CvStructs.h	27	IDInfo::operator=
+clang only	CvStructs.h	46	GameTurnInfo::GameTurnInfo
+clang only	CvStructs.h	46	GameTurnInfo::operator=
+clang only	CvStructs.h	52	OrderData::OrderData()
+clang only	CvStructs.h	52	OrderData::OrderData(const OrderData &)
+clang only	CvStructs.h	52	OrderData::operator=
+clang only	CvStructs.h	60	MissionData::MissionData()
+clang only	CvStructs.h	60	MissionData::MissionData(const MissionData &)
+clang only	CvStructs.h	69	TradeData::TradeData()
+clang only	CvStructs.h	69	TradeData::TradeData(const TradeData &)
+clang only	CvStructs.h	77	EventTriggeredData::EventTriggeredData()
+clang only	CvStructs.h	77	EventTriggeredData::EventTriggeredData(const EventTriggeredData &)
+clang only	CvStructs.h	77	EventTriggeredData::operator=
+clang only	CvStructs.h	101	VoteSelectionSubData::VoteSelectionSubData
+clang only	CvStructs.h	101	VoteSelectionSubData::operator=
+clang only	CvStructs.h	122	VoteTriggeredData::VoteTriggeredData
+clang only	CvStructs.h	145	PlotExtraYield::PlotExtraYield
+clang only	CvStructs.h	155	PlotExtraCost::PlotExtraCost
+clang only	CvStructs.h	167	BuildingYieldChange::BuildingYieldChange
+clang only	CvStructs.h	177	BuildingCommerceChange::BuildingCommerceChange
+clang only	CvStructs.h	405	CvWidgetDataStruct::CvWidgetDataStruct()
+clang only	CvStructs.h	405	CvWidgetDataStruct::CvWidgetDataStruct(const CvWidgetDataStruct &)
+clang only	CvUnit.h	21	CombatDetails::CombatDetails
+clang only	CvXMLLoadUtilityModTools.h	23	CvXMLLoadUtilityModTools::CvXMLLoadUtilityModTools
+clang only	CvXMLLoadUtilitySetMod.h	26	CvXMLLoadUtilitySetMod::CvXMLLoadUtilitySetMod
+clang only	CyPlayer.h	18	CyPlayer::operator=
+clang only	CyRandomInterface.cpp	6	CvRandom_get_overloads::CvRandom_get_overloads(const char *)
+clang only	CyRandomInterface.cpp	6	CvRandom_get_overloads::CvRandom_get_overloads(const ::boost::python::detail::keywords<N> &, const char *)
+clang only	CyRandomInterface.cpp	6	CvRandom_get_overloads::CvRandom_get_overloads(const char *, const ::boost::python::detail::keywords<N> &)
+clang only	CyRandomInterface.cpp	6	CvRandom_get_overloads::non_void_return_type::gen::func_0
+clang only	CyTeam.h	13	CyTeam::operator=
+clang only	FInputDevice.h	198	FInputDevice::InputValue::InputValue(const InputValue &)

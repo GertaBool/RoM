@@ -1,0 +1,256 @@
+# CvDllPythonEvents.cpp
+
+Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **9** `CvDllPythonEvents::preEvent()`
+  - calls: CvDLLPythonIFaceBase::isInitialized [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+  - called by (82): CvDllPythonEvents::preSave, CvDllPythonEvents::reportBeginGameTurn, CvDllPythonEvents::reportBeginPlayerTurn, CvDllPythonEvents::reportBuildingBuilt, CvDllPythonEvents::reportChangeWar, CvDllPythonEvents::reportChat, CvDllPythonEvents::reportCityAcquired, CvDllPythonEvents::reportCityAcquiredAndKept, CvDllPythonEvents::reportCityBuildingBuilding, CvDllPythonEvents::reportCityBuildingProcess, CvDllPythonEvents::reportCityBuildingProject, CvDllPythonEvents::reportCityBuildingUnit …
+- **14** `CvDllPythonEvents::postEvent(CyArgsList &)`
+  - calls: CvGame::isDebugMode [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(int) [CyArgsList.cpp], CvDLLUtilityIFaceBase::altKey [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLUtilityIFaceBase::ctrlKey [CvDLLUtilityIFaceBase.h], CvDLLUtilityIFaceBase::shiftKey [CvDLLUtilityIFaceBase.h], CvDLLUtilityIFaceBase::getChtLvl [CvDLLUtilityIFaceBase.h], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp]
+  - called by (82): CvDllPythonEvents::preSave, CvDllPythonEvents::reportBeginGameTurn, CvDllPythonEvents::reportBeginPlayerTurn, CvDllPythonEvents::reportBuildingBuilt, CvDllPythonEvents::reportChangeWar, CvDllPythonEvents::reportChat, CvDllPythonEvents::reportCityAcquired, CvDllPythonEvents::reportCityAcquiredAndKept, CvDllPythonEvents::reportCityBuildingBuilding, CvDllPythonEvents::reportCityBuildingProcess, CvDllPythonEvents::reportCityBuildingProject, CvDllPythonEvents::reportCityBuildingUnit …
+- **29** `CvDllPythonEvents::reportKbdEvent(int, int, int, int)`
+  - calls: CvDllPythonEvents::preEvent, NiPoint3::NiPoint3() [CvGameCoreDLL.h], CvDLLEngineIFaceBase::pickPlot [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvPlot::getX [CvPlot.cpp], CvPlot::getY [CvPlot.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::kbdEvent
+- **49** `CvDllPythonEvents::reportMouseEvent(int, int, int, bool)`
+  - calls: CvDllPythonEvents::preEvent, NiPoint3::NiPoint3() [CvGameCoreDLL.h], CvDLLEngineIFaceBase::pickPlot [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvPlot::getX [CvPlot.cpp], CvPlot::getY [CvPlot.cpp], CvDLLInterfaceIFaceBase::getInterfaceScreenIdsForInput [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CyArgsList::add(const int *, int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::mouseEvent
+- **74** `CvDllPythonEvents::reportModNetMessage(int, int, int, int, int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::reportModNetMessage
+- **89** `CvDllPythonEvents::reportInit()`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::init
+- **99** `CvDllPythonEvents::reportUpdate(float)`
+  - calls: CvDllPythonEvents::preEvent, CvGlobals::getUSE_ON_UPDATE_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(float) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::update
+- **113** `CvDllPythonEvents::reportUnInit()`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unInit
+- **123** `CvDllPythonEvents::reportGameStart()`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::gameStart
+- **133** `CvDllPythonEvents::reportGameEnd()`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::gameEnd
+- **144** `CvDllPythonEvents::reportWindowActivation(bool)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::windowActivation
+- **155** `CvDllPythonEvents::reportBeginGameTurn(int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::beginGameTurn
+- **166** `CvDllPythonEvents::reportEndGameTurn(int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::endGameTurn
+- **181** `CvDllPythonEvents::reportPreEndGameTurn(int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::preEndGameTurn
+- **195** `CvDllPythonEvents::reportBeginPlayerTurn(int, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::beginPlayerTurn
+- **207** `CvDllPythonEvents::reportEndPlayerTurn(int, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::endPlayerTurn
+- **219** `CvDllPythonEvents::reportFirstContact(TeamTypes, TeamTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::firstContact
+- **231** `CvDllPythonEvents::reportCombatResult(CvUnit *, CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::combatResult
+- **251** `CvDllPythonEvents::reportCombatRetreat(CvUnit *, CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::combatRetreat
+- **270** `CvDllPythonEvents::reportCombatWithdrawal(CvUnit *, CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::combatWithdrawal
+- **289** `CvDllPythonEvents::reportCombatLogCollateral(CvUnit *, CvUnit *, int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::combatLogCollateral
+- **310** `CvDllPythonEvents::reportCombatLogFlanking(CvUnit *, CvUnit *, int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::combatLogFlanking
+- **332** `CvDllPythonEvents::reportImprovementBuilt(int, int, int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::improvementBuilt
+- **345** `CvDllPythonEvents::reportImprovementDestroyed(int, int, int, int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::improvementDestroyed
+- **359** `CvDllPythonEvents::reportRouteBuilt(int, int, int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::routeBuilt
+- **372** `CvDllPythonEvents::reportChat(CvWString)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CvWString::operator const wchar_t * [CvString.h], CyArgsList::add(const wchar *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::chat
+- **383** `CvDllPythonEvents::reportPlotRevealed(CvPlot *, TeamTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::plotRevealed
+- **399** `CvDllPythonEvents::reportPlotFeatureRemoved(CvPlot *, FeatureTypes, CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::plotFeatureRemoved
+- **418** `CvDllPythonEvents::reportPlotPicked(CvPlot *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::plotPicked
+- **433** `CvDllPythonEvents::reportNukeExplosion(CvPlot *, CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::nukeExplosion
+- **451** `CvDllPythonEvents::reportGotoPlotSet(CvPlot *, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::gotoPlotSet
+- **467** `CvDllPythonEvents::reportCityBuilt(CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityBuilt
+- **482** `CvDllPythonEvents::reportCityRazed(CvCity *, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityRazed
+- **498** `CvDllPythonEvents::reportCityAcquired(PlayerTypes, PlayerTypes, CvCity *, bool, bool)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityAcquired
+- **517** `CvDllPythonEvents::reportCityAcquiredAndKept(PlayerTypes, CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityAcquiredAndKept
+- **533** `CvDllPythonEvents::reportCityLost(CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityLost
+- **547** `CvDllPythonEvents::reportCultureExpansion(CvCity *, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cultureExpansion
+- **564** `CvDllPythonEvents::reportCityGrowth(CvCity *, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityGrowth
+- **581** `CvDllPythonEvents::reportCityProduction(CvCity *, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityDoTurn
+- **598** `CvDllPythonEvents::reportCityBuildingUnit(CvCity *, UnitTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityBuildingUnit
+- **615** `CvDllPythonEvents::reportCityBuildingBuilding(CvCity *, BuildingTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityBuildingBuilding
+- **633** `CvDllPythonEvents::reportCityBuildingProject(CvCity *, ProjectTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityBuildingProject
+- **652** `CvDllPythonEvents::reportCityBuildingProcess(CvCity *, ProcessTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityBuildingProcess
+- **670** `CvDllPythonEvents::reportCityRename(CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityRename
+- **685** `CvDllPythonEvents::reportCityHurry(CvCity *, HurryTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::cityHurry
+- **702** `CvDllPythonEvents::reportSelectionGroupPushMission(CvSelectionGroup *, MissionTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CvSelectionGroup::getOwner [CvSelectionGroup.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvSelectionGroup::getNumUnits [CvSelectionGroup.cpp], CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::getID [CvUnit.cpp], CyArgsList::add(const int *, int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::selectionGroupPushMission
+- **739** `CvDllPythonEvents::reportUnitMove(CvPlot *, CvUnit *, CvPlot *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitMove
+- **763** `CvDllPythonEvents::reportUnitSetXY(CvPlot *, CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CvGlobals::getUSE_ON_UNIT_SET_XY_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitSetXY
+- **786** `CvDllPythonEvents::reportUnitCreated(CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CvGlobals::getUSE_ON_UNIT_CREATED_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitCreated
+- **803** `CvDllPythonEvents::reportUnitBuilt(CvCity *, CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitBuilt
+- **823** `CvDllPythonEvents::reportUnitKilled(CvUnit *, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitKilled
+- **839** `CvDllPythonEvents::reportUnitCaptured(PlayerTypes, UnitTypes, CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitCaptured
+- **856** `CvDllPythonEvents::reportUnitLost(CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CvGlobals::getUSE_ON_UNIT_LOST_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitLost
+- **873** `CvDllPythonEvents::reportUnitPromoted(CvUnit *, PromotionTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitPromoted
+- **889** `CvDllPythonEvents::reportUnitUpgraded(CvUnit *, CvUnit *, int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitUpgraded
+- **908** `CvDllPythonEvents::reportUnitSelected(CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CvGlobals::getUSE_ON_UNIT_SELECTED_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitSelected
+- **925** `CvDllPythonEvents::reportUnitRename(CvUnit *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitRename
+- **940** `CvDllPythonEvents::reportUnitPillage(CvUnit *, ImprovementTypes, RouteTypes, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitPillage
+- **958** `CvDllPythonEvents::reportUnitSpreadReligionAttempt(CvUnit *, ReligionTypes, bool)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitSpreadReligionAttempt
+- **975** `CvDllPythonEvents::reportUnitGifted(CvUnit *, PlayerTypes, CvPlot *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitGifted
+- **994** `CvDllPythonEvents::reportUnitBuildImprovement(CvUnit *, BuildTypes, bool)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::unitBuildImprovement
+- **1011** `CvDllPythonEvents::reportGoodyReceived(PlayerTypes, CvPlot *, CvUnit *, GoodyTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::goodyReceived
+- **1035** `CvDllPythonEvents::reportGreatPersonBorn(CvUnit *, PlayerTypes, CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::greatPersonBorn
+- **1057** `CvDllPythonEvents::reportBuildingBuilt(CvCity *, BuildingTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::buildingBuilt
+- **1075** `CvDllPythonEvents::reportProjectBuilt(CvCity *, ProjectTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::projectBuilt
+- **1093** `CvDllPythonEvents::reportTechAcquired(TechTypes, TeamTypes, PlayerTypes, bool)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::techAcquired
+- **1107** `CvDllPythonEvents::reportTechSelected(TechTypes, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::techSelected
+- **1119** `CvDllPythonEvents::reportReligionFounded(ReligionTypes, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::religionFounded
+- **1131** `CvDllPythonEvents::reportReligionSpread(ReligionTypes, PlayerTypes, CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::religionSpread
+- **1148** `CvDllPythonEvents::reportReligionRemove(ReligionTypes, PlayerTypes, CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::religionRemove
+- **1165** `CvDllPythonEvents::reportCorporationFounded(CorporationTypes, PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::corporationFounded
+- **1177** `CvDllPythonEvents::reportCorporationSpread(CorporationTypes, PlayerTypes, CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::corporationSpread
+- **1194** `CvDllPythonEvents::reportCorporationRemove(CorporationTypes, PlayerTypes, CvCity *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CvDLLPythonIFaceBase::makePythonObject [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::corporationRemove
+- **1211** `CvDllPythonEvents::reportGoldenAge(PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::goldenAge
+- **1222** `CvDllPythonEvents::reportEndGoldenAge(PlayerTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::endGoldenAge
+- **1233** `CvDllPythonEvents::reportChangeWar(bool, TeamTypes, TeamTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::changeWar
+- **1246** `CvDllPythonEvents::reportVictory(TeamTypes, VictoryTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::victory
+- **1258** `CvDllPythonEvents::reportVassalState(TeamTypes, TeamTypes, bool)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::vassalState
+- **1272** `CvDllPythonEvents::reportSetPlayerAlive(PlayerTypes, bool)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::setPlayerAlive
+- **1284** `CvDllPythonEvents::reportPlayerChangeStateReligion(PlayerTypes, ReligionTypes, ReligionTypes)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::playerChangeStateReligion
+- **1300** `CvDllPythonEvents::reportPlayerGoldTrade(PlayerTypes, PlayerTypes, int)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::playerGoldTrade
+- **1316** `CvDllPythonEvents::reportPlayerRevolution(PlayerTypes, int, CivicTypes *, CivicTypes *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(int) [CyArgsList.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::add(const int *, int) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::playerRevolution
+- **1333** `CvDllPythonEvents::reportGenericEvent(const char *, void *)`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CyArgsList::add(void *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::genericEvent
+- **1344** `CvDllPythonEvents::preSave()`
+  - calls: CvDllPythonEvents::preEvent, CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(const char *) [CyArgsList.cpp], CvDllPythonEvents::postEvent
+  - called by (1): CvEventReporter::preSave

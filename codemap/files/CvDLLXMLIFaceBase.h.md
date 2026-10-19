@@ -1,0 +1,72 @@
+# CvDLLXMLIFaceBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **14** `CvDLLXmlIFaceBase::CreateFXml(FXmlSchemaCache *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::CreateFXml
+- **15** `CvDLLXmlIFaceBase::DestroyFXml(FXml *&)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvXMLLoadUtility::DestroyFXml, CvXMLLoadUtility::ReadGlobalDefines
+- **17** `CvDLLXmlIFaceBase::DestroyFXmlSchemaCache(FXmlSchemaCache *&)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::~CvXMLLoadUtility
+- **18** `CvDLLXmlIFaceBase::CreateFXmlSchemaCache()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::CvXMLLoadUtility
+- **21** `CvDLLXmlIFaceBase::LoadXml(FXml *, const TCHAR *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::LoadCivXml
+- **24** `CvDLLXmlIFaceBase::Validate(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **26** `CvDLLXmlIFaceBase::LocateNode(FXml *, const TCHAR *)` (virtual; pure virtual, provided by the exe)
+  - called by (10): CvXMLLoadUtility::LoadModLoadControlInfo, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetDiplomacyInfo, CvXMLLoadUtility::SetGameText, CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalClassInfo, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement, CvXMLLoadUtility::SetGlobalStringArray, CvXMLLoadUtility::SetGlobalUnitScales, CvXMLLoadUtility::SetModLoadControlInfo
+- **29** `CvDLLXmlIFaceBase::LocateFirstSiblingNodeByTagName(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **32** `CvDLLXmlIFaceBase::LocateNextSiblingNodeByTagName(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvAdvisorInfo::read, CvArtInfoFeature::read, CvThroneRoomStyleInfo::read, CvUnitFormationInfo::read, CvWorldPickerInfo::read
+- **35** `CvDLLXmlIFaceBase::NextSibling(FXml *)` (virtual; pure virtual, provided by the exe)
+  - called by (45): CvAnimationPathInfo::read, CvBuildingInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(CvXMLLoadUtility *), CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility *), CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvEventInfo::read(CvXMLLoadUtility *), CvEventTriggerInfo::read(CvXMLLoadUtility *), CvGameSpeedInfo::read, CvGameText::read, CvImprovementInfo::read(CvXMLLoadUtility *) …
+- **38** `CvDLLXmlIFaceBase::PrevSibling(FXml *)` (virtual; pure virtual, provided by the exe)
+- **41** `CvDLLXmlIFaceBase::SetToChild(FXml *)` (virtual; pure virtual, provided by the exe)
+  - called by (36): CvAdvisorInfo::read, CvAnimationPathInfo::read, CvCivicInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(CvXMLLoadUtility *), CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility *), CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvEventInfo::read(CvXMLLoadUtility *), CvEventTriggerInfo::read(CvXMLLoadUtility *), CvGameSpeedInfo::read, CvGameText::read, CvImprovementInfo::read(CvXMLLoadUtility *) …
+- **43** `CvDLLXmlIFaceBase::SetToChildByTagName(FXml *, const TCHAR *)` (virtual; pure virtual, provided by the exe)
+  - called by (59): CvArtInfoFeature::read, CvArtInfoUnit::read, CvBonusInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(CvXMLLoadUtility *), CvCorporationInfo::read, CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility *), CvDiplomacyResponse::read(CvXMLLoadUtility *), CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvEmphasizeInfo::read …
+- **46** `CvDLLXmlIFaceBase::SetToParent(FXml *)` (virtual; pure virtual, provided by the exe)
+  - called by (72): CvAdvisorInfo::read, CvAnimationPathInfo::read, CvArtInfoFeature::read, CvArtInfoUnit::read, CvBonusInfo::read(CvXMLLoadUtility *), CvBuildingInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(CvXMLLoadUtility *), CvCorporationInfo::read, CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility *), CvDiplomacyResponse::read(CvXMLLoadUtility *) …
+- **49** `CvDLLXmlIFaceBase::AddChildNode(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **53** `CvDLLXmlIFaceBase::AddSiblingNodeBefore(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **57** `CvDLLXmlIFaceBase::AddSiblingNodeAfter(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **59** `CvDLLXmlIFaceBase::WriteXml(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **61** `CvDLLXmlIFaceBase::SetInsertedNodeAttribute(FXml *, TCHAR *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **63** `CvDLLXmlIFaceBase::GetLastNodeTextSize(FXml *)` (virtual; pure virtual, provided by the exe)
+- **65** `CvDLLXmlIFaceBase::GetLastNodeText(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvAnimationPathInfo::read
+- **67** `CvDLLXmlIFaceBase::GetLastNodeValue(FXml *, std::string &)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvXMLLoadUtility::GetChildXmlVal(std::string &, char *), CvXMLLoadUtility::GetChildXmlValByName(std::string &, const TCHAR *, char *), CvXMLLoadUtility::GetNextXmlVal(std::string &, char *), CvXMLLoadUtility::GetXmlVal(std::string &, char *)
+- **68** `CvDLLXmlIFaceBase::GetLastNodeValue(FXml *, std::wstring &)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvXMLLoadUtility::GetChildXmlVal(std::wstring &, wchar *), CvXMLLoadUtility::GetChildXmlValByName(std::wstring &, const TCHAR *, wchar *), CvXMLLoadUtility::GetNextXmlVal(std::wstring &, wchar *), CvXMLLoadUtility::GetXmlVal(std::wstring &, wchar *)
+- **70** `CvDLLXmlIFaceBase::GetLastNodeValue(FXml *, char *)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvXMLLoadUtility::GetChildXmlVal(char *, char *), CvXMLLoadUtility::GetChildXmlValByName(char *, const TCHAR *, char *), CvXMLLoadUtility::GetNextXmlVal(char *, char *), CvXMLLoadUtility::GetXmlVal(char *, char *)
+- **71** `CvDLLXmlIFaceBase::GetLastNodeValue(FXml *, wchar *)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvXMLLoadUtility::GetChildXmlVal(wchar *, wchar *), CvXMLLoadUtility::GetChildXmlValByName(wchar *, const TCHAR *, wchar *), CvXMLLoadUtility::GetNextXmlVal(wchar *, wchar *), CvXMLLoadUtility::GetXmlVal(wchar *, wchar *)
+- **73** `CvDLLXmlIFaceBase::GetLastNodeValue(FXml *, bool *)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvXMLLoadUtility::GetChildXmlVal(bool *, bool), CvXMLLoadUtility::GetChildXmlValByName(bool *, const TCHAR *, bool), CvXMLLoadUtility::GetNextXmlVal(bool *, bool), CvXMLLoadUtility::GetXmlVal(bool *, bool)
+- **75** `CvDLLXmlIFaceBase::GetLastNodeValue(FXml *, int *)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvXMLLoadUtility::GetChildXmlVal(int *, int), CvXMLLoadUtility::GetChildXmlValByName(int *, const TCHAR *, int), CvXMLLoadUtility::GetNextXmlVal(int *, int), CvXMLLoadUtility::GetXmlVal(int *, int)
+- **77** `CvDLLXmlIFaceBase::GetLastNodeValue(FXml *, float *)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvXMLLoadUtility::GetChildXmlVal(float *, float), CvXMLLoadUtility::GetChildXmlValByName(float *, const TCHAR *, float), CvXMLLoadUtility::GetNextXmlVal(float *, float), CvXMLLoadUtility::GetXmlVal(float *, float)
+- **79** `CvDLLXmlIFaceBase::GetLastNodeValue(FXml *, unsigned int *)` (virtual; pure virtual, provided by the exe)
+- **81** `CvDLLXmlIFaceBase::GetInsertedNodeTextSize(FXml *)` (virtual; pure virtual, provided by the exe)
+- **83** `CvDLLXmlIFaceBase::GetInsertedNodeText(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **87** `CvDLLXmlIFaceBase::SetInsertedNodeText(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **89** `CvDLLXmlIFaceBase::GetLastLocatedNodeType(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::ReadGlobalDefines
+- **91** `CvDLLXmlIFaceBase::GetLastInsertedNodeType(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **93** `CvDLLXmlIFaceBase::IsLastLocatedNodeCommentNode(FXml *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::SkipToNextVal
+- **95** `CvDLLXmlIFaceBase::NumOfElementsByTagName(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalStringArray
+- **97** `CvDLLXmlIFaceBase::NumOfChildrenByTagName(FXml *, const TCHAR *)` (virtual; pure virtual, provided by the exe)
+  - called by (6): CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility *), CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvQuestInfo::read, CvTutorialInfo::read, CvUnitInfo::read(CvXMLLoadUtility *)
+- **99** `CvDLLXmlIFaceBase::GetNumSiblings(FXml *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::ReadGlobalDefines
+- **101** `CvDLLXmlIFaceBase::GetNumChildren(FXml *)` (virtual; pure virtual, provided by the exe)
+  - called by (33): CvBuildingInfo::read(CvXMLLoadUtility *), CvCivicInfo::read(CvXMLLoadUtility *), CvCivilizationInfo::read(CvXMLLoadUtility *), CvCorporationInfo::read, CvEntityEventInfo::read, CvEventInfo::read(CvXMLLoadUtility *), CvEventTriggerInfo::read(CvXMLLoadUtility *), CvGameSpeedInfo::read, CvImprovementInfo::read(CvXMLLoadUtility *), CvInfoBase::read(CvXMLLoadUtility *), CvModLoadControlInfo::read, CvRouteInfo::read …
+- **103** `CvDLLXmlIFaceBase::GetLastLocatedNodeTagName(FXml *, TCHAR *)` (virtual; pure virtual, provided by the exe)
+- **104** `CvDLLXmlIFaceBase::IsAllowXMLCaching()` (virtual; pure virtual, provided by the exe)
+- **105** `CvDLLXmlIFaceBase::MapChildren(FXml *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::MapChildren

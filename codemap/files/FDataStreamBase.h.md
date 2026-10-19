@@ -1,0 +1,109 @@
+# FDataStreamBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **28** `FDataStreamBase::Rewind()` (virtual; pure virtual, provided by the exe)
+- **29** `FDataStreamBase::AtEnd()` (virtual; pure virtual, provided by the exe)
+- **30** `FDataStreamBase::FastFwd()` (virtual; pure virtual, provided by the exe)
+- **31** `FDataStreamBase::GetPosition()` (virtual; pure virtual, provided by the exe)
+- **32** `FDataStreamBase::SetPosition(unsigned int)` (virtual; pure virtual, provided by the exe)
+- **33** `FDataStreamBase::Truncate()` (virtual; pure virtual, provided by the exe)
+- **34** `FDataStreamBase::Flush()` (virtual; pure virtual, provided by the exe)
+- **35** `FDataStreamBase::GetEOF()` (virtual; pure virtual, provided by the exe)
+- **36** `FDataStreamBase::GetSizeLeft()` (virtual; pure virtual, provided by the exe)
+- **37** `FDataStreamBase::CopyToMem(void *)` (virtual; pure virtual, provided by the exe)
+- **39** `FDataStreamBase::WriteString(const wchar *)` (virtual; pure virtual, provided by the exe)
+  - called by (2): FVariable::Write, PopupReturn::write
+- **40** `FDataStreamBase::WriteString(const char *)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvPlot::write, FVariable::Write
+- **41** `FDataStreamBase::WriteString(const std::string &)` (virtual; pure virtual, provided by the exe)
+  - called by (23): CvBonusInfo::write, CvBuildingInfo::write, CvCity::write, CvCivilizationInfo::write, CvEventInfo::write, CvEventTriggerInfo::write, CvGame::write, CvGameRecord::write, CvHandicapInfo::write, CvHotkeyInfo::write, CvImprovementInfo::write, CvInfoBase::write …
+- **42** `FDataStreamBase::WriteString(const std::wstring &)` (virtual; pure virtual, provided by the exe)
+  - called by (20): CvCity::write, CvCivicInfo::write, CvCivilizationInfo::write, CvDiploParameters::write, CvEventInfo::write, CvEventTriggerInfo::write, CvGame::write, CvHotkeyInfo::write, CvInfoBase::write, CvInitCore::write, CvNetAddReminder::PutInBuffer, CvPlayer::write …
+- **43** `FDataStreamBase::WriteString(int, std::string *)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvCivilizationInfo::write, CvDiplomacyResponse::write, CvDiplomacyTextInfo::Response::write, CvInitCore::write, CvUnitInfo::write
+- **44** `FDataStreamBase::WriteString(int, std::wstring *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvInitCore::write
+- **46** `FDataStreamBase::ReadString(char *)` (virtual; pure virtual, provided by the exe)
+- **47** `FDataStreamBase::ReadString(wchar *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): PopupReturn::read
+- **48** `FDataStreamBase::ReadString(std::string &)` (virtual; pure virtual, provided by the exe)
+  - called by (23): CvBonusInfo::read(FDataStreamBase *), CvBuildingInfo::read(FDataStreamBase *), CvCity::read, CvCivilizationInfo::read(FDataStreamBase *), CvEventInfo::read(FDataStreamBase *), CvEventTriggerInfo::read(FDataStreamBase *), CvGame::read, CvGameRecord::read, CvHandicapInfo::read(FDataStreamBase *), CvHotkeyInfo::read(FDataStreamBase *), CvImprovementInfo::read(FDataStreamBase *), CvInfoBase::read(FDataStreamBase *) …
+- **49** `FDataStreamBase::ReadString(std::wstring &)` (virtual; pure virtual, provided by the exe)
+  - called by (20): CvCity::read, CvCivicInfo::read(FDataStreamBase *), CvCivilizationInfo::read(FDataStreamBase *), CvDiploParameters::read, CvEventInfo::read(FDataStreamBase *), CvEventTriggerInfo::read(FDataStreamBase *), CvGame::read, CvHotkeyInfo::read(FDataStreamBase *), CvInfoBase::read(FDataStreamBase *), CvInitCore::read, CvNetAddReminder::SetFromBuffer, CvPlayer::read …
+- **50** `FDataStreamBase::ReadString(int, std::string *)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvCivilizationInfo::read(FDataStreamBase *), CvDiplomacyResponse::read(FDataStreamBase *), CvDiplomacyTextInfo::Response::read, CvInitCore::read, CvUnitInfo::read(FDataStreamBase *)
+- **51** `FDataStreamBase::ReadString(int, std::wstring *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvInitCore::read
+- **53** `FDataStreamBase::ReadString()` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvPlot::read, FVariable::Read
+- **54** `FDataStreamBase::ReadWideString()` (virtual; pure virtual, provided by the exe)
+  - called by (1): FVariable::Read
+- **56** `FDataStreamBase::Read(char *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::read
+- **57** `FDataStreamBase::Read(byte *)` (virtual; pure virtual, provided by the exe)
+- **58** `FDataStreamBase::Read(int, char *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::read
+- **59** `FDataStreamBase::Read(int, byte *)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CLinkList::Read, CvReplayInfo::read, FFreeListArray::Read, FFreeListTrashArray::Read, FVariable::Read
+- **60** `FDataStreamBase::Read(bool *)` (virtual; pure virtual, provided by the exe)
+  - called by (38): CvArea::read, CvBonusInfo::read(FDataStreamBase *), CvBuildingInfo::read(FDataStreamBase *), CvCity::read, CvCityAI::read, CvCivicInfo::read(FDataStreamBase *), CvCivilizationInfo::read(FDataStreamBase *), CvDiploParameters::read, CvEventInfo::read(FDataStreamBase *), CvEventTriggerInfo::read(FDataStreamBase *), CvGame::read, CvHotkeyInfo::read(FDataStreamBase *) …
+- **61** `FDataStreamBase::Read(int, bool *)` (virtual; pure virtual, provided by the exe)
+  - called by (22): CvBonusInfo::read(FDataStreamBase *), CvBuildingInfo::read(FDataStreamBase *), CvCity::read, CvCityAI::read, CvCivicInfo::read(FDataStreamBase *), CvCivilizationInfo::read(FDataStreamBase *), CvDiplomacyResponse::read(FDataStreamBase *), CvDiplomacyTextInfo::Response::read, CvGame::read, CvHandicapInfo::read(FDataStreamBase *), CvImprovementInfo::read(FDataStreamBase *), CvInitCore::read …
+- **62** `FDataStreamBase::Read(short *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::read
+- **63** `FDataStreamBase::Read(unsigned short *)` (virtual; pure virtual, provided by the exe)
+- **64** `FDataStreamBase::Read(int, short *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::read
+- **65** `FDataStreamBase::Read(int, unsigned short *)` (virtual; pure virtual, provided by the exe)
+- **66** `FDataStreamBase::Read(int *)` (virtual; pure virtual, provided by the exe)
+  - called by (87): BuildingCommerceChange::read, BuildingYieldChange::read, CLinkList::Read, CvArea::read, CvBonusInfo::read(FDataStreamBase *), CvBuildingInfo::read(FDataStreamBase *), CvCity::read, CvCityAI::read, CvCivicInfo::read(FDataStreamBase *), CvCivilizationInfo::read(FDataStreamBase *), CvDeal::read, CvDiploParameters::read …
+- **67** `FDataStreamBase::Read(unsigned int *)` (virtual; pure virtual, provided by the exe)
+  - called by (39): CvArea::read, CvBonusInfo::read(FDataStreamBase *), CvBuildingInfo::read(FDataStreamBase *), CvCity::read, CvCityAI::read, CvCivicInfo::read(FDataStreamBase *), CvCivilizationInfo::read(FDataStreamBase *), CvDeal::read, CvDiploParameters::read, CvDiplomacyInfo::read(FDataStreamBase *), CvDiplomacyResponse::read(FDataStreamBase *), CvDiplomacyTextInfo::read(FDataStreamBase *) …
+- **68** `FDataStreamBase::Read(int, int *)` (virtual; pure virtual, provided by the exe)
+  - called by (26): CvArea::read, CvBonusInfo::read(FDataStreamBase *), CvBuildingInfo::read(FDataStreamBase *), CvCity::read, CvCityAI::read, CvCivicInfo::read(FDataStreamBase *), CvCivilizationInfo::read(FDataStreamBase *), CvEventInfo::read(FDataStreamBase *), CvGame::read, CvHandicapInfo::read(FDataStreamBase *), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase *) …
+- **69** `FDataStreamBase::Read(int, unsigned int *)` (virtual; pure virtual, provided by the exe)
+- **71** `FDataStreamBase::Read(long *)` (virtual; pure virtual, provided by the exe)
+- **72** `FDataStreamBase::Read(unsigned long *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvRandom::read
+- **73** `FDataStreamBase::Read(int, long *)` (virtual; pure virtual, provided by the exe)
+- **74** `FDataStreamBase::Read(int, unsigned long *)` (virtual; pure virtual, provided by the exe)
+- **76** `FDataStreamBase::Read(float *)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvBuildingInfo::read(FDataStreamBase *), CvCivicInfo::read(FDataStreamBase *), CvUnitInfo::read(FDataStreamBase *)
+- **77** `FDataStreamBase::Read(int, float *)` (virtual; pure virtual, provided by the exe)
+- **79** `FDataStreamBase::Read(double *)` (virtual; pure virtual, provided by the exe)
+- **80** `FDataStreamBase::Read(int, double *)` (virtual; pure virtual, provided by the exe)
+- **82** `FDataStreamBase::Write(char)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::write
+- **83** `FDataStreamBase::Write(byte)` (virtual; pure virtual, provided by the exe)
+- **84** `FDataStreamBase::Write(int, const char *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::write
+- **85** `FDataStreamBase::Write(int, const byte *)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CLinkList::Write, CvReplayInfo::write, FFreeListArray::Write, FFreeListTrashArray::Write, FVariable::Write
+- **87** `FDataStreamBase::Write(bool)` (virtual; pure virtual, provided by the exe)
+  - called by (38): CvArea::write, CvBonusInfo::write, CvBuildingInfo::write, CvCity::write, CvCityAI::write, CvCivicInfo::write, CvCivilizationInfo::write, CvDiploParameters::write, CvEventInfo::write, CvEventTriggerInfo::write, CvGame::write, CvHotkeyInfo::write …
+- **88** `FDataStreamBase::Write(int, const bool *)` (virtual; pure virtual, provided by the exe)
+  - called by (22): CvBonusInfo::write, CvBuildingInfo::write, CvCity::write, CvCityAI::write, CvCivicInfo::write, CvCivilizationInfo::write, CvDiplomacyResponse::write, CvDiplomacyTextInfo::Response::write, CvGame::write, CvHandicapInfo::write, CvImprovementInfo::write, CvInitCore::write …
+- **90** `FDataStreamBase::Write(short)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::write
+- **91** `FDataStreamBase::Write(unsigned short)` (virtual; pure virtual, provided by the exe)
+- **92** `FDataStreamBase::Write(int, const short *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::write
+- **93** `FDataStreamBase::Write(int, const unsigned short *)` (virtual; pure virtual, provided by the exe)
+- **95** `FDataStreamBase::Write(int)` (virtual; pure virtual, provided by the exe)
+  - called by (85): BuildingCommerceChange::write, BuildingYieldChange::write, CLinkList::Write, CvArea::write, CvBonusInfo::write, CvBuildingInfo::write, CvCity::write, CvCityAI::write, CvCivicInfo::write, CvCivilizationInfo::write, CvDeal::write, CvDiploParameters::write …
+- **96** `FDataStreamBase::Write(unsigned int)` (virtual; pure virtual, provided by the exe)
+  - called by (39): CvArea::write, CvBonusInfo::write, CvBuildingInfo::write, CvCity::write, CvCityAI::write, CvCivicInfo::write, CvCivilizationInfo::write, CvDeal::write, CvDiploParameters::write, CvDiplomacyInfo::write, CvDiplomacyResponse::write, CvDiplomacyTextInfo::write …
+- **97** `FDataStreamBase::Write(int, const int *)` (virtual; pure virtual, provided by the exe)
+  - called by (26): CvArea::write, CvBonusInfo::write, CvBuildingInfo::write, CvCity::write, CvCityAI::write, CvCivicInfo::write, CvCivilizationInfo::write, CvEventInfo::write, CvGame::write, CvHandicapInfo::write, CvImprovementBonusInfo::write, CvImprovementInfo::write …
+- **98** `FDataStreamBase::Write(int, const unsigned int *)` (virtual; pure virtual, provided by the exe)
+- **100** `FDataStreamBase::Write(long)` (virtual; pure virtual, provided by the exe)
+- **101** `FDataStreamBase::Write(unsigned long)` (virtual; pure virtual, provided by the exe)
+  - called by (8): CvCity::write, CvEventInfo::write, CvEventTriggerInfo::write, CvGame::write, CvRandom::write, CvTeam::write, PopupReturn::write, VoteSelectionData::write
+- **102** `FDataStreamBase::Write(int, const long *)` (virtual; pure virtual, provided by the exe)
+- **103** `FDataStreamBase::Write(int, const unsigned long *)` (virtual; pure virtual, provided by the exe)
+- **105** `FDataStreamBase::Write(float)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvBuildingInfo::write, CvCivicInfo::write, CvUnitInfo::write
+- **106** `FDataStreamBase::Write(int, const float *)` (virtual; pure virtual, provided by the exe)
+- **108** `FDataStreamBase::Write(double)` (virtual; pure virtual, provided by the exe)
+- **109** `FDataStreamBase::Write(int, const double *)` (virtual; pure virtual, provided by the exe)

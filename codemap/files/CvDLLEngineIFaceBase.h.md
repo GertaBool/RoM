@@ -1,0 +1,125 @@
+# CvDLLEngineIFaceBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **16** `CvDLLEngineIFaceBase::cameraLookAt(NiPoint3)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLWidgetData::doGotoTurnEvent
+- **17** `CvDLLEngineIFaceBase::isCameraLocked()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLWidgetData::doGotoTurnEvent
+- **19** `CvDLLEngineIFaceBase::SetObeyEntityVisibleFlags(bool)` (virtual; pure virtual, provided by the exe)
+- **20** `CvDLLEngineIFaceBase::AutoSave(bool)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvGame::doTurn, CvGame::regenerateMap, CvGame::update
+- **21** `CvDLLEngineIFaceBase::SaveReplay(PlayerTypes)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::saveReplay
+- **22** `CvDLLEngineIFaceBase::SaveGame(CvString &, SaveGameTypes)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CyGame::saveGame
+- **23** `CvDLLEngineIFaceBase::DoTurn()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doTurn
+- **24** `CvDLLEngineIFaceBase::ClearMinimap()` (virtual; pure virtual, provided by the exe)
+- **25** `CvDLLEngineIFaceBase::GetLandscapePlotTerrainData(uint, uint, uint, uint)` (virtual; pure virtual, provided by the exe)
+- **26** `CvDLLEngineIFaceBase::GetLandscapePlotHeightData(uint, uint, uint, uint)` (virtual; pure virtual, provided by the exe)
+- **27** `CvDLLEngineIFaceBase::getLoadType()` (virtual; pure virtual, provided by the exe)
+- **28** `CvDLLEngineIFaceBase::ClampToWorldCoords(NiPoint3 *, float)` (virtual; pure virtual, provided by the exe)
+- **29** `CvDLLEngineIFaceBase::SetCameraZoom(float)` (virtual; pure virtual, provided by the exe)
+- **30** `CvDLLEngineIFaceBase::GetUpdateRate()` (virtual; pure virtual, provided by the exe)
+- **31** `CvDLLEngineIFaceBase::SetUpdateRate(float)` (virtual; pure virtual, provided by the exe)
+- **32** `CvDLLEngineIFaceBase::toggleGlobeview()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **33** `CvDLLEngineIFaceBase::isGlobeviewUp()` (virtual; pure virtual, provided by the exe)
+- **34** `CvDLLEngineIFaceBase::toggleResourceLayer()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **35** `CvDLLEngineIFaceBase::toggleUnitLayer()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **36** `CvDLLEngineIFaceBase::setResourceLayer(bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::setTurnActive
+- **38** `CvDLLEngineIFaceBase::MoveBaseTurnRight(float)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **39** `CvDLLEngineIFaceBase::MoveBaseTurnLeft(float)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **40** `CvDLLEngineIFaceBase::SetFlying(bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **41** `CvDLLEngineIFaceBase::CycleFlyingMode(int)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **42** `CvDLLEngineIFaceBase::SetMouseFlying(bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **43** `CvDLLEngineIFaceBase::SetSatelliteMode(bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **44** `CvDLLEngineIFaceBase::SetOrthoCamera(bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **45** `CvDLLEngineIFaceBase::GetFlying()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **46** `CvDLLEngineIFaceBase::GetMouseFlying()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **47** `CvDLLEngineIFaceBase::GetSatelliteMode()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **48** `CvDLLEngineIFaceBase::GetOrthoCamera()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **51** `CvDLLEngineIFaceBase::InitGraphics()` (virtual; pure virtual, provided by the exe)
+- **52** `CvDLLEngineIFaceBase::GetLandscapeDimensions(float &, float &)` (virtual; pure virtual, provided by the exe)
+- **53** `CvDLLEngineIFaceBase::GetLandscapeGameDimensions(float &, float &)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvMap::plotXToPointX, CvMap::plotYToPointY, CvMap::pointXToPlotX, CvMap::pointYToPlotY
+- **54** `CvDLLEngineIFaceBase::GetGameCellSizeX()` (virtual; pure virtual, provided by the exe)
+- **55** `CvDLLEngineIFaceBase::GetGameCellSizeY()` (virtual; pure virtual, provided by the exe)
+- **56** `CvDLLEngineIFaceBase::GetPointZSpacing()` (virtual; pure virtual, provided by the exe)
+- **57** `CvDLLEngineIFaceBase::GetPointXYSpacing()` (virtual; pure virtual, provided by the exe)
+- **58** `CvDLLEngineIFaceBase::GetPointXSpacing()` (virtual; pure virtual, provided by the exe)
+- **59** `CvDLLEngineIFaceBase::GetPointYSpacing()` (virtual; pure virtual, provided by the exe)
+- **60** `CvDLLEngineIFaceBase::GetHeightmapZ(const NiPoint3 &, bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::getPoint
+- **61** `CvDLLEngineIFaceBase::LightenVisibility(uint)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFog
+- **62** `CvDLLEngineIFaceBase::DarkenVisibility(uint)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFog
+- **63** `CvDLLEngineIFaceBase::BlackenVisibility(uint)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFog
+- **64** `CvDLLEngineIFaceBase::RebuildAllPlots()` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::regenerateMap, CvMap::setAllPlotTypes
+- **65** `CvDLLEngineIFaceBase::RebuildPlot(int, int, bool, bool)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvPlot::setPlotType, CvPlot::setTerrainType
+- **66** `CvDLLEngineIFaceBase::RebuildRiverPlotTile(int, int, bool, bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRiverSymbol
+- **67** `CvDLLEngineIFaceBase::RebuildTileArt(int, int)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFeatureSymbol
+- **68** `CvDLLEngineIFaceBase::ForceTreeOffsets(int, int)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRiverSymbol
+- **70** `CvDLLEngineIFaceBase::GetGridMode()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **71** `CvDLLEngineIFaceBase::SetGridMode(bool)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **73** `CvDLLEngineIFaceBase::addColoredPlot(int, int, const NiColorA &, PlotStyles, PlotLandscapeLayers)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLButtonPopup::launchEventPopup, CvGame::updateColoredPlots
+- **74** `CvDLLEngineIFaceBase::clearColoredPlots(PlotLandscapeLayers)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::updateColoredPlots
+- **75** `CvDLLEngineIFaceBase::fillAreaBorderPlot(int, int, const NiColorA &, AreaBorderLayers)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::updateBlockadedPlots, CvGame::updateColoredPlots
+- **76** `CvDLLEngineIFaceBase::clearAreaBorderPlots(AreaBorderLayers)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::updateBlockadedPlots, CvGame::updateColoredPlots
+- **77** `CvDLLEngineIFaceBase::updateFoundingBorder()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvUnit::setXY
+- **78** `CvDLLEngineIFaceBase::addLandmark(CvPlot *, const wchar *)` (virtual; pure virtual, provided by the exe)
+- **80** `CvDLLEngineIFaceBase::TriggerEffect(int, NiPoint3, float)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvGame::drawBattleEffects, CvPlayer::doEspionageMission, CvUnit::move
+- **81** `CvDLLEngineIFaceBase::printProfileText()` (virtual; pure virtual, provided by the exe)
+- **83** `CvDLLEngineIFaceBase::clearSigns()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::regenerateMap
+- **84** `CvDLLEngineIFaceBase::pickPlot(int, int, NiPoint3 &)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDllPythonEvents::reportKbdEvent, CvDllPythonEvents::reportMouseEvent
+- **87** `CvDLLEngineIFaceBase::SetDirty(EngineDirtyBits, bool)` (virtual; pure virtual, provided by the exe)
+  - called by (9): CvGame::doTurn, CvGame::regenerateMap, CvGame::setActivePlayer, CvGame::toggleDebugMode, CvMap::setAllPlotTypes, CvPlayer::changeCiv, CvPlayer::setCivName, CvPlot::setOwner, CvPlot::setRevealedOwner
+- **88** `CvDLLEngineIFaceBase::IsDirty(EngineDirtyBits)` (virtual; pure virtual, provided by the exe)
+- **89** `CvDLLEngineIFaceBase::PushFogOfWar(FogOfWarModeTypes)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::toggleDebugMode
+- **90** `CvDLLEngineIFaceBase::PopFogOfWar()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::toggleDebugMode
+- **91** `CvDLLEngineIFaceBase::setFogOfWarFromStack()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::toggleDebugMode
+- **92** `CvDLLEngineIFaceBase::MarkBridgesDirty()` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvTeam::changeBridgeBuildingCount
+- **93** `CvDLLEngineIFaceBase::AddLaunch(PlayerTypes)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::launch
+- **94** `CvDLLEngineIFaceBase::AddGreatWall(CvCity *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvCity::setNumRealBuildingTimed
+- **95** `CvDLLEngineIFaceBase::RemoveGreatWall(CvCity *)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvCity::setNumRealBuildingTimed
+- **96** `CvDLLEngineIFaceBase::MarkPlotTextureAsDirty(int, int)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFeatureSymbolVisibility
