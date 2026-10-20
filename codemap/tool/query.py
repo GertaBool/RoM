@@ -6,7 +6,7 @@ usage: query.py find <regex>              functions whose Scope::name matches
        query.py callers <function> [depth]  who calls it, as a tree
        query.py path <from> <to>          a shortest call path between two functions
 A function is given as an id, as Scope::name, or as a regex matching exactly one Scope::name.
-Virtual calls are followed into overriding methods (marked =>).
+Virtual calls are followed into the overriding methods of the object's class and its subclasses.
 """
 import collections, csv, os, re, sys
 
@@ -21,14 +21,36 @@ def read(n):
 F = {int(r['id']): r for r in read('functions.tsv')}
 name = {i: (r['scope'] + '::' if r['scope'] else '') + r['sig'] for i, r in F.items()}
 down, up = collections.defaultdict(list), collections.defaultdict(list)
+objcls = collections.defaultdict(set)   # (caller, callee) of a virtual call -> the object's class, '' if not known
 for c in read('calls.tsv'):
     a, b = int(c['caller']), int(c['callee'])
     if b not in down[a]: down[a].append(b)
     if a not in up[b]: up[b].append(a)
-for o in read('overrides.tsv'):   # a call to a virtual method may reach each override
-    m, b = int(o['method']), int(o['overrides'])
-    for a in list(up[b]):
-        if m not in down[a]: down[a].append(m); up[m].append(a)
+    if c['kind'] == 'virtual': objcls[(a, b)].add(c['object_class'])
+direct = collections.defaultdict(set)
+for o in read('overrides.tsv'): direct[int(o['overrides'])].add(int(o['method']))
+parents = collections.defaultdict(set)
+for r in read('bases.tsv'): parents[r['class']].add(r['base'])
+
+
+def ancestors(c, seen=None):
+    seen = {c} if seen is None else seen
+    for p in parents.get(c, ()):
+        if p not in seen: seen.add(p); ancestors(p, seen)
+    return seen
+
+
+def overriders(b, seen=None):   # every method that may run for a call to b, overrides of overrides included
+    seen = set() if seen is None else seen
+    for m in direct.get(b, ()):
+        if m not in seen: seen.add(m); overriders(m, seen)
+    return seen
+
+
+for (a, b), cls in list(objcls.items()):   # a virtual call may reach the overrides in the object's class and below
+    for m in sorted(overriders(b)):
+        if '' in cls or cls & ancestors(F[m]['scope']):
+            if m not in down[a]: down[a].append(m); up[m].append(a)
 
 
 def resolve(q):

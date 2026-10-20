@@ -4,16 +4,16 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
 
 - **14** `AISettlementPolicy::Candidate::Candidate(int, int)`
   - called by (1): CvPlayerAI::AI_updateFoundValues
-- **15** `AISettlementPolicy::Candidate::operator<(const Candidate &)`
-- **21** `AISettlementPolicy::scaleRatio(const int, const int, const int)`
+- **16** `AISettlementPolicy::Candidate::operator<(struct AISettlementPolicy::Candidate const &) const`
+- **22** `AISettlementPolicy::scaleRatio(int, int, int)`
   - called by (2): AISettlementPolicy::deliveryValue, AISettlementPolicy::portfolioValue
-- **35** `AISettlementPolicy::portfolioSize(const int, const int)`
+- **36** `AISettlementPolicy::portfolioSize(int, int)`
   - called by (1): CvPlayerAI::AI_updateFoundValues
-- **42** `AISettlementPolicy::portfolioValue(const int, const int, const int)`
+- **44** `AISettlementPolicy::portfolioValue(int, int, int)`
   - calls: AISettlementPolicy::scaleRatio
   - called by (1): CvPlayerAI::AI_updateCitySites
-- **54** `AISettlementPolicy::deliveryValue(const int, const int, const int)`
+- **56** `AISettlementPolicy::deliveryValue(int, int, int)`
   - calls: AISettlementPolicy::scaleRatio
   - called by (2): CvUnitAI::AI_found, CvUnitAI::AI_settlerSeaTransport
-- **68** `AISettlementPolicy::warFoundThresholdPercent(const bool, const int, const int)`
+- **70** `AISettlementPolicy::warFoundThresholdPercent(bool, int, int)`
   - called by (1): CvPlayerAI::AI_getMinFoundValue

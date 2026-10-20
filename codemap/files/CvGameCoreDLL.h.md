@@ -2,50 +2,29 @@
 
 Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **36** `NiColor::NiColor(const NiColor &)`
-  - called by (3): CvWaterPlaneInfo::getMaterialDiffuse, CvWaterPlaneInfo::getMaterialEmmisive, CvWaterPlaneInfo::getMaterialSpecular
-- **41** `NiColorA::NiColorA(const NiColorA &)`
-  - called by (3): CvCity::getCityBillboardSizeIconColors, CvGame::updateBlockadedPlots, CvGame::updateColoredPlots
-- **41** `NiColorA::operator=(const NiColorA &)`
-  - called by (8): CvCity::getCityBillboardSizeIconColors, CvColorInfo::read, CvGameTextMgr::getCityBillboardFoodbarColors, CvGameTextMgr::getCityBillboardProductionbarColors, CvPlayer::getCultureLayerColors, CvPlayer::getReligionLayerColors, CvPlayer::getTradeLayerColors, CvPlayer::getUnitLayerColors
 - **44** `NiColorA::NiColorA(float, float, float, float)`
   - called by (7): CvCity::getBarBackgroundColor, CvCity::getCityBillboardSizeIconColors, CvColorInfo::read, CvPlayer::getCultureLayerColors, CvPlayer::getReligionLayerColors, CvPlayer::getTradeLayerColors, CvPlayer::getUnitLayerColors
 - **45** `NiColorA::NiColorA()`
-  - called by (1): CvCity::getCityBillboardSizeIconColors
-- **48** `NiPoint2::NiPoint2(const NiPoint2 &)`
-  - called by (1): CvUnitEntry::CvUnitEntry(const NiPoint2 &, float, float, float)
-- **48** `NiPoint2::operator=(const NiPoint2 &)`
-  - called by (1): CvPlayer::getResourceLayerColors
+  - called by (2): CvCity::getCityBillboardSizeIconColors, CvColorInfo::CvColorInfo()
 - **51** `NiPoint2::NiPoint2()`
+  - called by (2): CvPlotIndicatorData::CvPlotIndicatorData(), CvUnitEntry::CvUnitEntry
 - **52** `NiPoint2::NiPoint2(float, float)`
   - called by (4): CvPlayer::getResourceLayerColors, CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
-- **56** `NiPoint3::NiPoint3(const NiPoint3 &)`
-  - called by (4): CvPlot::getPoint, CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
-- **56** `NiPoint3::operator=(const NiPoint3 &)`
-  - called by (1): CvGlobals::init
 - **59** `NiPoint3::NiPoint3()`
-  - called by (3): CvDllPythonEvents::reportKbdEvent, CvDllPythonEvents::reportMouseEvent, CvPlot::getPoint
+  - called by (4): CvDllPythonEvents::reportKbdEvent, CvDllPythonEvents::reportMouseEvent, CvGlobals::CvGlobals, CvPlot::getPoint
 - **60** `NiPoint3::NiPoint3(float, float, float)`
-  - called by (10): CvGlobals::init, CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat, CyPlot::getPoint, NiPoint3::operator*(float), NiPoint3::operator+, NiPoint3::operator-(), NiPoint3::operator-(const NiPoint3 &), NiPoint3::operator/
-- **62** `NiPoint3::operator==(const NiPoint3 &)`
-- **65** `NiPoint3::operator+(const NiPoint3 &)`
-  - calls: NiPoint3::NiPoint3(float, float, float)
-- **68** `NiPoint3::operator-(const NiPoint3 &)`
-  - calls: NiPoint3::NiPoint3(float, float, float)
-- **71** `NiPoint3::operator*(const NiPoint3 &)`
-- **74** `NiPoint3::operator*(float)`
-  - calls: NiPoint3::NiPoint3(float, float, float)
-- **77** `NiPoint3::operator/(float)`
-  - calls: NiPoint3::NiPoint3(float, float, float)
-- **83** `NiPoint3::operator-()`
-  - calls: NiPoint3::NiPoint3(float, float, float)
-- **86** `NiPoint3::Length()`
+  - called by (15): CvDLLButtonPopup::launchAlarmPopup, CvDLLButtonPopup::launchDisbandCityPopup, CvDLLButtonPopup::launchEventPopup, CvDLLButtonPopup::launchProductionPopup, CvDLLButtonPopup::launchRazeCityPopup, CvGame::regenerateMap, CvGlobals::init, CvPlayer::setTurnActive, CvSelectionGroup::continueMission, CvUnit::attackForDamage, CvUnit::found, CvUnit::promote …
+- **87** `NiPoint3::Length() const`
   - called by (1): NiPoint3::Unitize
-- **89** `NiPoint3::Unitize()`
+- **90** `NiPoint3::Unitize()`
   - calls: NiPoint3::Length
   - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
-- **150** `FtoDW(float)`
-- **151** `DWtoF(dword)`
-  - called by (1): MaxFloat
-- **152** `MaxFloat()`
-  - calls: DWtoF
+- **·** `CvPlotIndicatorData::~CvPlotIndicatorData()` (exported; written by the compiler)
+  - calls: CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (2): CvPlayer::getResourceLayerColors, CvPlayer::getUnitLayerColors
+- **·** `CvColorInfo::`vector deleting dtor'(unsigned int)` (virtual; overrides CvInfoBase::`vector deleting dtor'; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvColorInfo::~CvColorInfo [CvInfos.cpp]
+  - takes the address of: CvColorInfo::~CvColorInfo [CvInfos.cpp]
+- **·** `CvUnitFormationInfo::`vector deleting dtor'(unsigned int)` (virtual; overrides CvInfoBase::`vector deleting dtor'; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvUnitFormationInfo::~CvUnitFormationInfo [CvInfos.cpp]
+  - takes the address of: CvUnitFormationInfo::~CvUnitFormationInfo [CvInfos.cpp]

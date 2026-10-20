@@ -2,170 +2,180 @@
 
 Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **18** `CvArea::CvArea()`
-  - calls: IDInfo::IDInfo(PlayerTypes, int) [CvStructs.h], CvArea::reset
-- **62** `CvArea::~CvArea()` (virtual)
-  - calls: CvArea::uninit
-- **99** `CvArea::init(int, bool)`
+- **19** `CvArea::CvArea()`
+  - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], `vector ctor iterator', CvArea::reset, operator delete[](void*) [CvGameCoreDLL.cpp]
+  - takes the address of: IDInfo::`default ctor closure' [CvStructs.h]
+  - called by (2): FFreeListTrashArray<CvArea>::add, ReadStreamableFFreeListTrashArray<class CvArea>
+- **63** `CvArea::~CvArea()` (virtual)
+  - calls: CvArea::uninit, operator delete[](void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvArea::`scalar deleting dtor'
+- **100** `CvArea::init(int, bool)`
   - calls: CvArea::reset
   - called by (2): CvMap::calculateAreas, CvPlot::setPlotType
-- **113** `CvArea::uninit()`
+- **114** `CvArea::uninit()`
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (2): CvArea::reset, CvArea::~CvArea
-- **122** `CvArea::reset(int, bool, bool)`
-  - calls: CvArea::uninit, IDInfo::reset [CvStructs.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
+- **123** `CvArea::reset(int, bool, bool)`
+  - calls: CvArea::uninit, IDInfo::reset [CvStructs.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
   - called by (3): CvArea::CvArea, CvArea::init, CvArea::read
-- **205** `CvArea::getID()`
-  - called by (32): CvArea::calculateTotalBestNatureYield, CvArea::countCoastalLand, CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::getLiberationPlayer, CvCityAI::AI_chooseProduction, CvDLLButtonPopup::launchFreeColonyPopup, CvGame::createAnimals, CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvMap::calculateAreas, CvMapGenerator::addUniqueBonusType …
-- **211** `CvArea::setID(int)`
-- **217** `CvArea::calculateTotalBestNatureYield()`
-  - calls: CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvArea::getID, CvPlot::getArea [CvPlot.cpp], CvPlot::calculateTotalBestNatureYield [CvPlot.cpp]
+- **206** `CvArea::getID() const`
+  - called by (35): CvArea::calculateTotalBestNatureYield, CvArea::countCoastalLand, CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::getLiberationPlayer, CvCityAI::AI_chooseProduction, CvDLLButtonPopup::launchFreeColonyPopup, CvGame::createAnimals, CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvMap::calculateAreas, CvMapGenerator::addUniqueBonusType …
+- **212** `CvArea::setID(int)`
+  - called by (1): FFreeListTrashArray<CvArea>::add
+- **218** `CvArea::calculateTotalBestNatureYield() const`
+  - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvArea::getID, CvPlot::getArea [CvPlot.cpp], CvPlot::calculateTotalBestNatureYield [CvPlot.cpp]
   - called by (2): CvPlayer::findStartingArea, CyArea::calculateTotalBestNatureYield
-- **239** `CvArea::countCoastalLand()`
-  - calls: CvArea::isWater, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvArea::getID, CvPlot::getArea [CvPlot.cpp], CvPlot::isCoastalLand [CvPlot.cpp]
+- **240** `CvArea::countCoastalLand() const`
+  - calls: CvArea::isWater, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvArea::getID, CvPlot::getArea [CvPlot.cpp], CvPlot::isCoastalLand [CvPlot.cpp]
   - called by (2): CvPlayer::findStartingArea, CyArea::countCoastalLand
-- **269** `CvArea::countNumUniqueBonusTypes()`
+- **270** `CvArea::countNumUniqueBonusTypes() const`
   - calls: CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvArea::getNumBonuses, CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvBonusInfo::isOneArea [CvInfos.cpp]
   - called by (2): CvMapGenerator::addUniqueBonusType, CyArea::countNumUniqueBonusTypes
-- **291** `CvArea::countHasReligion(ReligionTypes, PlayerTypes)`
+- **292** `CvArea::countHasReligion(ReligionTypes, PlayerTypes) const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvArea::getID, CvCity::area [CvCity.cpp], CvCity::isHasReligion [CvCity.cpp]
   - called by (3): CvPlayerAI::AI_missionaryValue, CvPlayerAI::AI_neededMissionaries, CyArea::countHasReligion
-- **323** `CvArea::countHasCorporation(CorporationTypes, PlayerTypes)`
+- **324** `CvArea::countHasCorporation(CorporationTypes, PlayerTypes) const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvArea::getID, CvCity::area [CvCity.cpp], CvCity::isHasCorporation [CvCity.cpp]
   - called by (4): CvPlayerAI::AI_executiveValue, CvPlayerAI::AI_neededExecutives, CvPlayerAI::AI_unitValue, CyArea::countHasCorporation
-- **352** `CvArea::getNumTiles()`
+- **353** `CvArea::getNumTiles() const`
   - called by (23): CvArea::getNumUnownedTiles, CvArea::getNumUnrevealedTiles, CvArea::isLake, CvCity::isValidBuildingLocation, CvCityAI::AI_bestUnit, CvCityAI::AI_chooseProduction, CvGame::createBarbarianCities, CvMap::findBiggestArea, CvMapGenerator::addGoodies, CvMapGenerator::addRivers, CvMapGenerator::addUniqueBonusType, CvPlayer::findStartingArea …
-- **358** `CvArea::isLake()`
+- **359** `CvArea::isLake() const`
   - calls: CvArea::getNumTiles, CvArea::isWater, CvGlobals::getLAKE_MAX_AREA_SIZE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
-  - called by (5): CvArea::changeNumTiles, CvPlot::isLake, CvUnit::getUpgradeCity(UnitTypes, bool, int *), CvUnitAI::AI_airOffenseBaseValue, CyArea::isLake
-- **364** `CvArea::changeNumTiles(int)`
-  - calls: CvArea::isLake, CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::updateIrrigated [CvMap.cpp], CvMap::updateYield [CvMap.cpp]
+  - called by (5): CvArea::changeNumTiles, CvPlot::isLake, CvUnit::getUpgradeCity(UnitTypes, bool, int*) const, CvUnitAI::AI_airOffenseBaseValue, CyArea::isLake
+- **365** `CvArea::changeNumTiles(int)`
+  - calls: CvArea::isLake, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::updateIrrigated [CvMap.cpp], CvMap::updateYield [CvMap.cpp]
   - called by (1): CvPlot::processArea
-- **384** `CvArea::getNumOwnedTiles()`
+- **385** `CvArea::getNumOwnedTiles() const`
   - called by (4): CvArea::getNumUnownedTiles, CvGame::createBarbarianCities, CvTeamAI::AI_isLandTarget, CyArea::getNumOwnedTiles
-- **390** `CvArea::getNumUnownedTiles()`
+- **391** `CvArea::getNumUnownedTiles() const`
   - calls: CvArea::getNumTiles, CvArea::getNumOwnedTiles
   - called by (6): CvCityAI::AI_bestUnit, CvGame::createAnimals, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvPlayerAI::AI_updateCitySites, CyArea::getNumUnownedTiles
-- **396** `CvArea::changeNumOwnedTiles(int)`
+- **397** `CvArea::changeNumOwnedTiles(int)`
   - called by (2): CvPlot::processArea, CvPlot::setOwner
-- **404** `CvArea::getNumRiverEdges()`
+- **405** `CvArea::getNumRiverEdges() const`
   - called by (3): CvMapGenerator::addRivers, CvPlayer::findStartingArea, CyArea::getNumRiverEdges
-- **410** `CvArea::changeNumRiverEdges(int)`
+- **411** `CvArea::changeNumRiverEdges(int)`
   - called by (3): CvPlot::processArea, CvPlot::setNOfRiver, CvPlot::setWOfRiver
-- **417** `CvArea::getNumUnits()`
+- **418** `CvArea::getNumUnits() const`
   - called by (1): CyArea::getNumUnits
-- **423** `CvArea::getNumCities()`
+- **424** `CvArea::getNumCities() const`
   - called by (19): CvCityAI::AI_cachePlayerCloseness, CvCityAI::AI_chooseProduction, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvPlayerAI::AI_conquerCity, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getTotalFloatingDefendersNeeded, CvPlayerAI::AI_isAreaAlone, CvPlayerAI::AI_neededExecutives, CvPlayerAI::AI_neededMissionaries, CvPlot::isHasPathToEnemyCity, CvSelectionGroup::calculateIsStranded …
-- **429** `CvArea::getTotalPopulation()`
+- **430** `CvArea::getTotalPopulation() const`
   - called by (1): CyArea::getTotalPopulation
-- **435** `CvArea::getNumStartingPlots()`
+- **436** `CvArea::getNumStartingPlots() const`
   - called by (3): CvPlayer::findStartingArea, CvPlayerAI::AI_foundValue, CyArea::getNumStartingPlots
-- **441** `CvArea::changeNumStartingPlots(int)`
+- **442** `CvArea::changeNumStartingPlots(int)`
   - called by (2): CvPlayer::setStartingPlot, CvPlot::processArea
-- **448** `CvArea::isWater()`
+- **449** `CvArea::isWater() const`
   - called by (17): CvArea::countCoastalLand, CvArea::isLake, CvGame::createAnimals, CvGame::createBarbarianUnits, CvMap::findBiggestArea, CvMap::getNumLandAreas, CvPlayer::findStartingArea, CvPlayer::getEventTriggerWeight, CvPlayerAI::AI_bestAreaUnitAIValue, CvPlayerAI::AI_isPrimaryArea, CvPlayerAI::AI_neededExplorers, CvPlayerAI::AI_unitValue …
-- **454** `CvArea::getUnitsPerPlayer(PlayerTypes)`
+- **455** `CvArea::getUnitsPerPlayer(PlayerTypes) const`
   - called by (5): CvGame::createAnimals, CvGame::createBarbarianUnits, CvPlayerAI::AI_unitValue, CvTeam::countNumUnitsByArea, CyArea::getUnitsPerPlayer
-- **462** `CvArea::changeUnitsPerPlayer(PlayerTypes, int)`
+- **463** `CvArea::changeUnitsPerPlayer(PlayerTypes, int)`
   - called by (2): CvPlot::processArea, CvUnit::setXY
-- **473** `CvArea::getAnimalsPerPlayer(PlayerTypes)`
+- **474** `CvArea::getAnimalsPerPlayer(PlayerTypes) const`
   - called by (1): CyArea::getAnimalsPerPlayer
-- **481** `CvArea::changeAnimalsPerPlayer(PlayerTypes, int)`
+- **482** `CvArea::changeAnimalsPerPlayer(PlayerTypes, int)`
   - called by (2): CvPlot::processArea, CvUnit::setXY
-- **490** `CvArea::getCitiesPerPlayer(PlayerTypes)`
+- **491** `CvArea::getCitiesPerPlayer(PlayerTypes) const`
   - called by (34): CvCity::calculateColonyMaintenanceTimes100, CvCityAI::AI_bestUnit, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_updateNeededFloatingDefenders, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvPlayer::canSplitArea, CvPlayer::getEventTriggerWeight, CvPlayerAI::AI_executiveValue, CvPlayerAI::AI_foundValue …
-- **498** `CvArea::changeCitiesPerPlayer(PlayerTypes, int)`
+- **499** `CvArea::changeCitiesPerPlayer(PlayerTypes, int)`
   - called by (3): CvCity::init, CvCity::kill, CvPlot::processArea
-- **509** `CvArea::getPopulationPerPlayer(PlayerTypes)`
+- **510** `CvArea::getPopulationPerPlayer(PlayerTypes) const`
   - called by (6): CvCityAI::AI_chooseProduction, CvPlayerAI::AI_getTotalFloatingDefendersNeeded, CvPlayerAI::AI_militaryWeight, CvTeam::countEnemyPopulationByArea, CvTeam::countTotalPopulationByArea, CyArea::getPopulationPerPlayer
-- **517** `CvArea::changePopulationPerPlayer(PlayerTypes, int)`
+- **518** `CvArea::changePopulationPerPlayer(PlayerTypes, int)`
   - called by (2): CvCity::setPopulation, CvPlot::processArea
-- **528** `CvArea::getBuildingGoodHealth(PlayerTypes)`
+- **529** `CvArea::getBuildingGoodHealth(PlayerTypes) const`
   - called by (2): CvCity::totalGoodBuildingHealth, CyArea::getBuildingGoodHealth
-- **536** `CvArea::changeBuildingGoodHealth(PlayerTypes, int)`
+- **537** `CvArea::changeBuildingGoodHealth(PlayerTypes, int)`
   - calls: CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
-- **551** `CvArea::getBuildingBadHealth(PlayerTypes)`
+- **552** `CvArea::getBuildingBadHealth(PlayerTypes) const`
   - called by (2): CvCity::totalBadBuildingHealth, CyArea::getBuildingBadHealth
-- **559** `CvArea::changeBuildingBadHealth(PlayerTypes, int)`
+- **560** `CvArea::changeBuildingBadHealth(PlayerTypes, int)`
   - calls: CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
-- **574** `CvArea::getBuildingHappiness(PlayerTypes)`
+- **575** `CvArea::getBuildingHappiness(PlayerTypes) const`
   - called by (5): CvCity::happyLevel, CvCity::unhappyLevel, CvGameTextMgr::setAngerHelp, CvGameTextMgr::setHappyHelp, CyArea::getBuildingHappiness
-- **582** `CvArea::changeBuildingHappiness(PlayerTypes, int)`
+- **583** `CvArea::changeBuildingHappiness(PlayerTypes, int)`
   - calls: CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
-- **596** `CvArea::getFreeSpecialist(PlayerTypes)`
+- **597** `CvArea::getFreeSpecialist(PlayerTypes) const`
   - called by (2): CvCity::totalFreeSpecialists, CyArea::getFreeSpecialist
-- **604** `CvArea::changeFreeSpecialist(PlayerTypes, int)`
+- **605** `CvArea::changeFreeSpecialist(PlayerTypes, int)`
   - calls: CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
-- **619** `CvArea::getPower(PlayerTypes)`
+- **620** `CvArea::getPower(PlayerTypes) const`
   - called by (4): CvTeam::countEnemyPowerByArea, CvTeam::countPowerByArea, CvUnitAI::AI_assaultSeaReinforce, CyArea::getPower
-- **627** `CvArea::changePower(PlayerTypes, int)`
+- **628** `CvArea::changePower(PlayerTypes, int)`
   - called by (4): CvCity::processBuilding, CvCity::setPopulation, CvPlot::processArea, CvUnit::setXY
-- **636** `CvArea::getBestFoundValue(PlayerTypes)`
+- **637** `CvArea::getBestFoundValue(PlayerTypes) const`
   - called by (9): CvCityAI::AI_bestUnit, CvCityAI::AI_doHurry, CvGameTextMgr::setPlotHelp, CvPlayer::findBestFoundValue, CvPlayerAI::AI_recalculateFoundValues, CvPlayerAI::AI_updateFoundValues, CvPlot::getFoundValue, CvUnitAI::AI_follow, CyArea::getBestFoundValue
-- **644** `CvArea::setBestFoundValue(PlayerTypes, int)`
+- **645** `CvArea::setBestFoundValue(PlayerTypes, int)`
   - called by (3): CvPlayerAI::AI_recalculateFoundValues, CvPlayerAI::AI_updateFoundValues, CvPlot::getFoundValue
-- **653** `CvArea::getNumRevealedTiles(TeamTypes)`
+- **654** `CvArea::getNumRevealedTiles(TeamTypes) const`
   - called by (2): CvArea::getNumUnrevealedTiles, CyArea::getNumRevealedTiles
-- **661** `CvArea::getNumUnrevealedTiles(TeamTypes)`
+- **662** `CvArea::getNumUnrevealedTiles(TeamTypes) const`
   - calls: CvArea::getNumTiles, CvArea::getNumRevealedTiles
   - called by (6): CvPlayerAI::AI_advancedStartPlaceExploreUnits, CvPlayerAI::AI_neededExplorers, CvSelectionGroup::calculateIsStranded, CvUnitAI::AI_attackMove, CvUnitAI::AI_pirateSeaMove, CyArea::getNumUnrevealedTiles
-- **667** `CvArea::changeNumRevealedTiles(TeamTypes, int)`
+- **668** `CvArea::changeNumRevealedTiles(TeamTypes, int)`
   - called by (2): CvPlot::processArea, CvPlot::setRevealed
-- **676** `CvArea::getCleanPowerCount(TeamTypes)`
+- **677** `CvArea::getCleanPowerCount(TeamTypes) const`
   - called by (1): CvArea::isCleanPower
-- **684** `CvArea::isCleanPower(TeamTypes)`
+- **685** `CvArea::isCleanPower(TeamTypes) const`
   - calls: CvArea::getCleanPowerCount
   - called by (4): CvArea::changeCleanPowerCount, CvCity::isAreaCleanPower, CvCityAI::AI_buildingValueThreshold, CyArea::isCleanPower
-- **690** `CvArea::changeCleanPowerCount(TeamTypes, int)`
-  - calls: CvArea::isCleanPower, CvTeam::updateCommerce [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::updatePowerHealth [CvTeam.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+- **691** `CvArea::changeCleanPowerCount(TeamTypes, int)`
+  - calls: CvArea::isCleanPower, CvTeam::updateCommerce [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::updatePowerHealth [CvTeam.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
-- **717** `CvArea::getBorderObstacleCount(TeamTypes)`
+- **718** `CvArea::getBorderObstacleCount(TeamTypes) const`
   - called by (1): CvArea::isBorderObstacle
-- **724** `CvArea::isBorderObstacle(TeamTypes)`
+- **725** `CvArea::isBorderObstacle(TeamTypes) const`
   - calls: CvArea::getBorderObstacleCount
   - called by (4): CvCityAI::AI_buildingValueThreshold, CvPlayer::doWarnings, CvUnit::canEnterArea, CyArea::isBorderObstacle
-- **730** `CvArea::changeBorderObstacleCount(TeamTypes, int)`
-  - calls: CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::verifyUnitValidPlot [CvMap.cpp]
+- **731** `CvArea::changeBorderObstacleCount(TeamTypes, int)`
+  - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::verifyUnitValidPlot [CvMap.cpp]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
-- **745** `CvArea::getAreaAIType(TeamTypes)`
+- **746** `CvArea::getAreaAIType(TeamTypes) const`
   - called by (38): CvCityAI::AI_bestUnit, CvCityAI::AI_chooseProduction, CvCityAI::AI_cityValue, CvCityAI::AI_doDraft, CvCityAI::AI_doHurry, CvCityAI::AI_doPanic, CvCityAI::AI_neededDefenders, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateSpecialYieldMultiplier, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_convertUnitAITypesForCrush …
-- **753** `CvArea::setAreaAIType(TeamTypes, AreaAITypes)`
+- **754** `CvArea::setAreaAIType(TeamTypes, AreaAITypes)`
   - called by (1): CvTeamAI::AI_updateAreaStragies
-- **761** `CvArea::getTargetCity(PlayerTypes)`
-  - calls: getCity [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h]
+- **762** `CvArea::getTargetCity(PlayerTypes) const`
+  - calls: getCity [CvGameCoreUtils.cpp]
   - called by (14): CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlot::processArea, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_attackCityMove, CvUnitAI::AI_getEspionageTargetValue, CvUnitAI::AI_offensiveAirlift, CvUnitAI::AI_pickTargetCity, CvUnitAI::AI_pillage, CvUnitAI::AI_pillageRange …
-- **769** `CvArea::setTargetCity(PlayerTypes, CvCity *)`
-  - calls: CvCity::getIDInfo [CvCity.cpp], IDInfo::operator= [CvStructs.h], IDInfo::reset [CvStructs.h]
-  - takes the address of: IDInfo::operator= [CvStructs.h]
+- **770** `CvArea::setTargetCity(PlayerTypes, CvCity*)`
+  - calls: CvCity::getIDInfo [CvCity.cpp], IDInfo::reset [CvStructs.h]
   - called by (3): CvPlayer::handleDiploEvent, CvPlayerAI::AI_updateAreaTargets, CvPlot::processArea
-- **785** `CvArea::getYieldRateModifier(PlayerTypes, YieldTypes)`
+- **786** `CvArea::getYieldRateModifier(PlayerTypes, YieldTypes) const`
   - called by (3): CvCity::getBaseYieldRateModifier, CvGameTextMgr::setYieldHelp, CyArea::getYieldRateModifier
-- **795** `CvArea::changeYieldRateModifier(PlayerTypes, YieldTypes, int)`
-  - calls: CvPlayer::invalidateYieldRankCache [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateCommerce() [CvPlayer.cpp], CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getTeam [CvPlayer.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
+- **796** `CvArea::changeYieldRateModifier(PlayerTypes, YieldTypes, int)`
+  - calls: CvPlayer::invalidateYieldRankCache [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateCommerce() [CvPlayer.cpp], CvPlayerAI::AI_makeAssignWorkDirty [CvPlayerAI.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam [CvPlayer.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (2): CvPlayer::processBuilding, CvPlot::processArea
-- **823** `CvArea::getNumTrainAIUnits(PlayerTypes, UnitAITypes)`
+- **824** `CvArea::getNumTrainAIUnits(PlayerTypes, UnitAITypes) const`
   - called by (3): CvPlayerAI::AI_getOperationRoleTarget, CvPlayerAI::AI_totalAreaUnitAIs, CyArea::getNumTrainAIUnits
-- **833** `CvArea::changeNumTrainAIUnits(PlayerTypes, UnitAITypes, int)`
+- **834** `CvArea::changeNumTrainAIUnits(PlayerTypes, UnitAITypes, int)`
   - called by (4): CvCity::doCheckProduction, CvCity::popOrder, CvCity::pushOrder, CvPlot::processArea
-- **844** `CvArea::getNumAIUnits(PlayerTypes, UnitAITypes)`
+- **845** `CvArea::getNumAIUnits(PlayerTypes, UnitAITypes) const`
   - called by (9): CvCityAI::AI_doHurry, CvPlayerAI::AI_totalAreaUnitAIs, CvSelectionGroup::calculateIsStranded, CvTeam::countNumAIUnitsByArea, CvUnitAI::AI_exploreAir, CvUnitAI::AI_group, CvUnitAI::AI_groupMergeRange, CvUnitAI::AI_load, CyArea::getNumAIUnits
-- **854** `CvArea::changeNumAIUnits(PlayerTypes, UnitAITypes, int)`
+- **855** `CvArea::changeNumAIUnits(PlayerTypes, UnitAITypes, int)`
   - called by (4): CvPlot::processArea, CvUnit::setXY, CvUnitAI::AI_init, CvUnitAI::AI_setUnitAIType
-- **865** `CvArea::getNumBonuses(BonusTypes)`
+- **866** `CvArea::getNumBonuses(BonusTypes) const`
   - called by (2): CvArea::countNumUniqueBonusTypes, CyArea::getNumBonuses
-- **873** `CvArea::getNumTotalBonuses()`
+- **874** `CvArea::getNumTotalBonuses() const`
   - calls: CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
   - called by (2): CvPlot::canTrain, CyArea::getNumTotalBonuses
-- **886** `CvArea::changeNumBonuses(BonusTypes, int)`
+- **887** `CvArea::changeNumBonuses(BonusTypes, int)`
   - called by (2): CvPlot::processArea, CvPlot::setBonusType
-- **895** `CvArea::getNumImprovements(ImprovementTypes)`
+- **896** `CvArea::getNumImprovements(ImprovementTypes) const`
   - called by (2): CvMapGenerator::addGoodies, CyArea::getNumImprovements
-- **903** `CvArea::changeNumImprovements(ImprovementTypes, int)`
+- **904** `CvArea::changeNumImprovements(ImprovementTypes, int)`
   - called by (2): CvPlot::processArea, CvPlot::setImprovementType
-- **912** `CvArea::read(FDataStreamBase *)` (virtual)
-  - calls: CvArea::reset, FDataStreamBase::Read(unsigned int *) [FDataStreamBase.h], FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h], FDataStreamBase::Read(int, int *) [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
-- **973** `CvArea::write(FDataStreamBase *)` (virtual)
-  - calls: FDataStreamBase::Write(unsigned int) [FDataStreamBase.h], FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h], FDataStreamBase::Write(int, const int *) [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
+- **913** `CvArea::read(FDataStreamBase*)` (virtual)
+  - calls: CvArea::reset, FDataStreamBase::Read [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
+  - called by (2): ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
+- **974** `CvArea::write(FDataStreamBase*)` (virtual)
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
+  - called by (1): WriteStreamableFFreeListTrashArray<class CvArea>
+- **·** `CvArea::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: CvArea::~CvArea, operator delete(void*) [CvGameCoreDLL.cpp]
+- **·** ``vector ctor iterator'(void*, unsigned int, int, void* (__thiscall*)(void*))` (written by the compiler)
+  - called by (5): CvArea::CvArea, CvCity::reset, CvGame::reset, CyGlobalContext::getCyPlayer, CyGlobalContext::getCyTeam

@@ -2,22 +2,22 @@
 
 Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **56** `CvArtFileMgr::CvArtFileMgr(const CvArtFileMgr &)`
-  - called by (1): CvGlobals::doResetInfoClasses
 - **62** `CvArtFileMgr::ArtInfoItem::ArtInfoItem()`
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::addArtInfoItem
-- **63** `CvArtFileMgr::ArtInfoItem::init()` (virtual; pure virtual)
+  - called by (12): CvAssetArtInfoItem::CvAssetArtInfoItem, CvBonusArtInfoItem::CvBonusArtInfoItem, CvBuildingArtInfoItem::CvBuildingArtInfoItem, CvCivilizationArtInfoItem::CvCivilizationArtInfoItem, CvFeatureArtInfoItem::CvFeatureArtInfoItem, CvImprovementArtInfoItem::CvImprovementArtInfoItem, CvInterfaceArtInfoItem::CvInterfaceArtInfoItem, CvLeaderheadArtInfoItem::CvLeaderheadArtInfoItem, CvMiscArtInfoItem::CvMiscArtInfoItem, CvMovieArtInfoItem::CvMovieArtInfoItem, CvTerrainArtInfoItem::CvTerrainArtInfoItem, CvUnitArtInfoItem::CvUnitArtInfoItem
+- **63** `CvArtFileMgr::ArtInfoItem::init(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvArtFileMgr::Init
-- **64** `CvArtFileMgr::ArtInfoItem::deInit()` (virtual; pure virtual)
+- **64** `CvArtFileMgr::ArtInfoItem::deInit(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvArtFileMgr::DeInit
-- **65** `CvArtFileMgr::ArtInfoItem::buildMap()` (virtual; pure virtual)
+- **65** `CvArtFileMgr::ArtInfoItem::buildMap(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvArtFileMgr::buildArtFileInfoMaps
 - **71** `CvArtFileMgr::CvArtFileMgr()` (exported)
   - called by (1): CvArtFileMgr::GetInstance
 - **72** `CvArtFileMgr::~CvArtFileMgr()` (exported; virtual)
-- **84** `CvArtFileMgr::addArtInfoItem(CvArtFileMgr::ArtInfoItem *)`
+  - called by (2): CvArtFileMgr::`vector deleting dtor', CvGlobals::doResetInfoClasses
+- **84** `CvArtFileMgr::addArtInfoItem(CvArtFileMgr::ArtInfoItem*)`
   - called by (1): CvArtFileMgr::ArtInfoItem::ArtInfoItem
-- **88** `CvArtFileMgr::ltstr::operator()(const char *, const char *)`
+- **89** `CvArtFileMgr::ltstr::operator()(char const*, char const*) const`
 - **94** `CvArtFileMgr::getAssetArtInfo()` (exported)
 - **94** `CvArtFileMgr::getNumAssetArtInfos()` (exported)
   - called by (1): CvAssetArtInfoItem::buildMap
@@ -65,3 +65,6 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - called by (1): CvXMLLoadUtility::SetGlobalArtDefines
 - **105** `CvArtFileMgr::getNumInterfaceArtInfos()` (exported)
   - called by (3): CvInterfaceArtInfoItem::buildMap, CyGlobalContext::getInterfaceArtInfo, CyGlobalContext::getNumInterfaceArtInfos
+- **·** `CvArtFileMgr::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: CvArtFileMgr::~CvArtFileMgr, operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
+  - takes the address of: CvArtFileMgr::~CvArtFileMgr

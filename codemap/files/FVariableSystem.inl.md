@@ -2,72 +2,49 @@
 
 Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **22** `FVariable::~FVariable()` (virtual)
-- **40** `FVariable::CopyFrom(const FVariable &)`
-  - called by (2): FVariable::FVariable(const FVariable &), FVariable::operator=
-- **64** `FVariable::Read(FDataStreamBase *)`
-  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::ReadString() [FDataStreamBase.h], FDataStreamBase::ReadWideString [FDataStreamBase.h], FDataStreamBase::Read(int, byte *) [FDataStreamBase.h]
-  - called by (2): CvDiploParameters::read, FVariableSystem::Read
-- **79** `FVariable::Write(FDataStreamBase *)`
-  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::WriteString(const char *) [FDataStreamBase.h], FDataStreamBase::WriteString(const wchar *) [FDataStreamBase.h], FDataStreamBase::Write(int, const byte *) [FDataStreamBase.h]
-  - called by (2): CvDiploParameters::write, FVariableSystem::Write
-- **93** `FVariableSystem::FVariableSystem()`
+- **23** `FVariable::~FVariable()` (virtual)
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
+  - called by (3): FVariable::`scalar deleting dtor', addVar(std::vector<FVariable, std::allocator<FVariable>>&, int), addVar(std::vector<FVariable, std::allocator<FVariable>>&, unsigned short const*)
+- **41** `FVariable::CopyFrom(FVariable const&)`
+  - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp]
+  - called by (2): FVariable::FVariable(FVariable const&), FVariable::operator=
+- **65** `FVariable::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], FDataStreamBase::ReadWideString [FDataStreamBase.h]
+  - called by (1): CvDiploParameters::read
+- **80** `FVariable::Write(FDataStreamBase*) const`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
+  - called by (1): CvDiploParameters::write
+- **94** `FVariableSystem::FVariableSystem()`
   - called by (1): CvGlobals::init
-- **102** `FVariableSystem::~FVariableSystem()` (virtual)
+- **103** `FVariableSystem::~FVariableSystem()` (virtual)
   - calls: FVariableSystem::UnInit
-- **107** `FVariableSystem::UnInit()`
-  - called by (3): CvGlobals::clearTypesMap, FVariableSystem::Read, FVariableSystem::~FVariableSystem
-- **126** `FVariableSystem::GetSize()`
-  - called by (2): CvXMLLoadUtility::SetPostGlobalsGlobalDefines, FVariableSystem::Write
-- **135** `FVariableSystem::Read(FDataStreamBase *)`
-  - calls: FVariableSystem::UnInit, FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::ReadString(std::string &) [FDataStreamBase.h], FVariable::FVariable() [FVariableSystem.h], FVariable::Read
-- **165** `FVariableSystem::Write(FDataStreamBase *)`
-  - calls: FVariableSystem::GetSize, FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::string &) [FDataStreamBase.h], FVariable::Write
-- **200** `FVariableSystem::GetValue(const char *, bool &)`
+  - called by (1): FVariableSystem::`scalar deleting dtor'
+- **108** `FVariableSystem::UnInit()`
+  - called by (2): CvGlobals::clearTypesMap, FVariableSystem::~FVariableSystem
+- **127** `FVariableSystem::GetSize() const`
+  - called by (1): CvXMLLoadUtility::SetPostGlobalsGlobalDefines
+- **201** `FVariableSystem::GetValue(char const*, bool&) const`
   - called by (1): CvGlobals::getDefineBOOL
-- **223** `FVariableSystem::GetValue(const char *, char &)`
-- **246** `FVariableSystem::GetValue(const char *, byte &)`
-- **269** `FVariableSystem::GetValue(const char *, short &)`
-- **292** `FVariableSystem::GetValue(const char *, word &)`
-- **315** `FVariableSystem::GetValue(const char *, int &)`
-  - called by (5): CvGlobals::getDefineINT(const char *), CvGlobals::getDefineINT(const char *, const int), CvXMLLoadUtility::LoadPreMenuGlobals, getDefineBOOL, getDefineINT
-- **338** `FVariableSystem::GetValue(const char *, uint &)`
-- **361** `FVariableSystem::GetValue(const char *, float &)`
-  - calls: FVariableSystem::GetValue(const char *, const char *&), FVariableSystem::GetValue(const char *, const wchar *&)
+- **316** `FVariableSystem::GetValue(char const*, int&) const`
+  - called by (5): CvGlobals::getDefineINT(char const*) const, CvGlobals::getDefineINT(char const*, int) const, CvXMLLoadUtility::LoadPreMenuGlobals, getDefineBOOL, getDefineINT
+- **362** `FVariableSystem::GetValue(char const*, float&) const`
+  - calls: FVariableSystem::GetValue(char const*, char const*&) const, FVariableSystem::GetValue(char const*, unsigned short const*&) const
   - called by (1): CvGlobals::getDefineFLOAT
-- **416** `FVariableSystem::GetValue(const char *, double &)`
-  - calls: FVariableSystem::GetValue(const char *, const char *&), FVariableSystem::GetValue(const char *, const wchar *&)
-- **471** `FVariableSystem::GetValue(const char *, const char *&)`
-  - called by (3): CvGlobals::getDefineSTRING, FVariableSystem::GetValue(const char *, double &), FVariableSystem::GetValue(const char *, float &)
-- **494** `FVariableSystem::GetValue(const char *, const wchar *&)`
-  - called by (2): FVariableSystem::GetValue(const char *, double &), FVariableSystem::GetValue(const char *, float &)
-- **516** `FVariableSystem::GetVariable(const char *)`
-- **531** `FVariableSystem::SetValue(const char *, bool)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
+- **472** `FVariableSystem::GetValue(char const*, char const*&) const`
+  - called by (3): CvGlobals::getDefineSTRING, CvXMLLoadUtility::SetGlobalDefine<char const>, FVariableSystem::GetValue(char const*, float&) const
+- **495** `FVariableSystem::GetValue(char const*, unsigned short const*&) const`
+  - called by (1): FVariableSystem::GetValue(char const*, float&) const
+- **532** `FVariableSystem::SetValue(char const*, bool)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariable::FVariable() [FVariableSystem.h], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CvXMLLoadUtility::ReadGlobalDefines
-- **553** `FVariableSystem::SetValue(const char *, char)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
-- **575** `FVariableSystem::SetValue(const char *, byte)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
-- **597** `FVariableSystem::SetValue(const char *, short)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
-- **619** `FVariableSystem::SetValue(const char *, word)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
-- **641** `FVariableSystem::SetValue(const char *, int)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
+- **642** `FVariableSystem::SetValue(char const*, int)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariable::FVariable() [FVariableSystem.h], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (4): CvGlobals::setDefineINT, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetPostGlobalsGlobalDefines
-- **663** `FVariableSystem::SetValue(const char *, uint)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
-- **685** `FVariableSystem::SetValue(const char *, float)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
+- **686** `FVariableSystem::SetValue(char const*, float)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariable::FVariable() [FVariableSystem.h], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (2): CvGlobals::setDefineFLOAT, CvXMLLoadUtility::ReadGlobalDefines
-- **707** `FVariableSystem::SetValue(const char *, double)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
-- **729** `FVariableSystem::SetValue(const char *, const char *)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
+- **730** `FVariableSystem::SetValue(char const*, char const*)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariable::FVariable() [FVariableSystem.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (2): CvGlobals::setDefineSTRING, CvXMLLoadUtility::ReadGlobalDefines
-- **751** `FVariableSystem::SetValue(const char *, const wchar *)`
-  - calls: FVariable::FVariable() [FVariableSystem.h]
-- **773** `FVariableSystem::RemValue(const char *)`
-- **788** `FVariableSystem::GetFirstVariableName()`
-- **803** `FVariableSystem::GetNextVariableName()`
+- **·** `FVariableSystem::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], FVariableSystem::~FVariableSystem

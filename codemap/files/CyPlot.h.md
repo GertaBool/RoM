@@ -4,7 +4,7 @@ Group: Python wrappers. Functions in line order: what each calls (in order of fi
 
 - **20** `CyPlot::getPlot()`
   - called by (108): CyCity::atPlot, CyCity::canWork, CyCity::getCityPlotIndex, CyCity::isWorkingPlot, CyGame::cyclePlotUnits, CyGame::selectionListMove, CyMap::calculatePathDistance, CyMap::findWater, CyMapGenerator::doRiver, CyPlayer::canBuild, CyPlayer::canDoEspionageMission, CyPlayer::canReceiveGoody …
-- **21** `CyPlot::setPlot(CvPlot *)`
+- **21** `CyPlot::setPlot(CvPlot*)`
   - called by (4): CyMap::sPlot, CyMap::sPlotByIndex, cysPlotCardinalDirection, cysPlotXY
 - **22** `CyPlot::isNone()` (Python: isNone)
   - called by (2): CyPlayer::startingPlotWithinRange, CyPlotPythonInterface1

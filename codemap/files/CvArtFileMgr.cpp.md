@@ -2,150 +2,217 @@
 
 Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **101** `CvArtFileMgr::GetInstance()` (exported; static)
+- **102** `CvArtFileMgr::GetInstance()` (exported; static)
   - calls: CvArtFileMgr::CvArtFileMgr() [CvArtFileMgr.h]
+  - takes the address of: _$E9 [CvGameCoreUtils.cpp]
   - called by (100): CvArtFileMgr::ArtInfoItem::ArtInfoItem, CvAssetArtInfoItem::buildMap, CvAssetArtInfoItem::deInit, CvAssetArtInfoItem::init, CvBonusArtInfoItem::buildMap, CvBonusArtInfoItem::deInit, CvBonusArtInfoItem::init, CvBonusInfo::getArtInfo, CvBuildingArtInfoItem::buildMap, CvBuildingArtInfoItem::deInit, CvBuildingArtInfoItem::init, CvBuildingInfo::getArtInfo …
-- **114** `CvArtFileMgr::Init()` (exported)
-  - calls: CvArtFileMgr::ArtInfoItem::init [CvArtFileMgr.h] ⇢ CvAssetArtInfoItem::init, CvMiscArtInfoItem::init, CvUnitArtInfoItem::init, CvBuildingArtInfoItem::init, CvCivilizationArtInfoItem::init, CvLeaderheadArtInfoItem::init, CvBonusArtInfoItem::init, CvImprovementArtInfoItem::init, CvTerrainArtInfoItem::init, CvFeatureArtInfoItem::init, CvMovieArtInfoItem::init, CvInterfaceArtInfoItem::init
+- **115** `CvArtFileMgr::Init()` (exported)
+  - calls: CvArtFileMgr::ArtInfoItem::init [CvArtFileMgr.h], CvDLLSymbolIFaceBase::init [CvDLLSymbolIFaceBase.h]
   - called by (1): CvArtFileMgr::Reset
-- **130** `CvArtFileMgr::DeInit()` (exported)
-  - calls: CvArtFileMgr::ArtInfoItem::deInit [CvArtFileMgr.h] ⇢ CvAssetArtInfoItem::deInit, CvMiscArtInfoItem::deInit, CvUnitArtInfoItem::deInit, CvBuildingArtInfoItem::deInit, CvCivilizationArtInfoItem::deInit, CvLeaderheadArtInfoItem::deInit, CvBonusArtInfoItem::deInit, CvImprovementArtInfoItem::deInit, CvTerrainArtInfoItem::deInit, CvFeatureArtInfoItem::deInit, CvMovieArtInfoItem::deInit, CvInterfaceArtInfoItem::deInit
+- **131** `CvArtFileMgr::DeInit()` (exported)
+  - calls: CvArtFileMgr::ArtInfoItem::deInit [CvArtFileMgr.h]
   - called by (1): CvArtFileMgr::Reset
-- **146** `CvArtFileMgr::Reset()` (exported)
-  - calls: CvArtFileMgr::DeInit, CvXMLLoadUtility::CvXMLLoadUtility [CvXMLLoadUtility.cpp], CvXMLLoadUtility::SetGlobalArtDefines [CvXMLLoadUtilitySet.cpp], CvArtFileMgr::Init, CvArtFileMgr::buildArtFileInfoMaps
+- **147** `CvArtFileMgr::Reset()` (exported)
+  - calls: CvArtFileMgr::DeInit, CvXMLLoadUtility::CvXMLLoadUtility [CvXMLLoadUtility.cpp], CvXMLLoadUtility::SetGlobalArtDefines [CvXMLLoadUtilitySet.cpp], CvArtFileMgr::Init, CvArtFileMgr::buildArtFileInfoMaps, CvXMLLoadUtility::~CvXMLLoadUtility [CvXMLLoadUtility.cpp]
   - called by (2): CvGlobals::doResetInfoClasses, CyArtFileMgr::Reset
-- **162** `CvArtFileMgr::buildArtFileInfoMaps()` (exported)
-  - calls: CvArtFileMgr::ArtInfoItem::buildMap [CvArtFileMgr.h] ⇢ CvAssetArtInfoItem::buildMap, CvMiscArtInfoItem::buildMap, CvUnitArtInfoItem::buildMap, CvBuildingArtInfoItem::buildMap, CvCivilizationArtInfoItem::buildMap, CvLeaderheadArtInfoItem::buildMap, CvBonusArtInfoItem::buildMap, CvImprovementArtInfoItem::buildMap, CvTerrainArtInfoItem::buildMap, CvFeatureArtInfoItem::buildMap, CvMovieArtInfoItem::buildMap, CvInterfaceArtInfoItem::buildMap
+- **163** `CvArtFileMgr::buildArtFileInfoMaps()` (exported)
+  - calls: CvArtFileMgr::ArtInfoItem::buildMap [CvArtFileMgr.h]
   - called by (2): CvArtFileMgr::Reset, CyArtFileMgr::buildArtFileInfoMaps
-- **172** `CvArtFileMgr::getAssetArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getAssetArtInfo(const char *)
-  - called by (1): CvArtFileMgr::getAssetArtInfo(const char *)
+- **172** `CvAssetArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getAssetArtInfo(int), CvArtFileMgr::getNumAssetArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **172** `CvAssetArtInfoItem::deInit()` (virtual)
+  - calls: CvArtFileMgr::GetInstance
 - **172** `CvArtFileMgr::getAssetArtInfo(int)` (exported)
   - called by (1): CvAssetArtInfoItem::buildMap
-- **172** `CvAssetArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getAssetArtInfo(int), CvArtFileMgr::getNumAssetArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **172** `CvAssetArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **172** `CvArtFileMgr::getAssetArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getAssetArtInfo(char const*) const
+  - called by (1): CvArtFileMgr::getAssetArtInfo(char const*) const
+- **172** `CvAssetArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **172** ``
+  - calls: AIPathReuse::Owner::Owner [AIPathReuse.h], CvAssetArtInfoItem::CvAssetArtInfoItem
+  - takes the address of: _$E11 [CvInitCore.cpp]
+  - called by (1): _$E9
+- **173** `CvMiscArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getMiscArtInfo(int), CvArtFileMgr::getNumMiscArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **173** `CvMiscArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **172** `CvAssetArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **173** `CvArtFileMgr::getMiscArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getMiscArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getMiscArtInfo(const char *), CvPlayer::launch, CyArtFileMgr::getMiscArtInfo
 - **173** `CvArtFileMgr::getMiscArtInfo(int)` (exported)
   - called by (2): CvMiscArtInfoItem::buildMap, CyGlobalContext::getMiscArtInfo
-- **173** `CvMiscArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getMiscArtInfo(int), CvArtFileMgr::getNumMiscArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **173** `CvMiscArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **173** `CvArtFileMgr::getMiscArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getMiscArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getMiscArtInfo(char const*) const, CvPlayer::launch, CyArtFileMgr::getMiscArtInfo
+- **173** `CvMiscArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **173** `_$E12`
+  - calls: CvString::~CvString [CvString.h], CvMiscArtInfoItem::CvMiscArtInfoItem
+  - called by (2): CvGameTextMgr::setPlotListHelp, _$E11
+- **174** `CvUnitArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getUnitArtInfo(int), CvArtFileMgr::getNumUnitArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **174** `CvUnitArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **173** `CvMiscArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **174** `CvArtFileMgr::getUnitArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getUnitArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getUnitArtInfo(const char *), CvUnitInfo::getArtInfo, CyArtFileMgr::getUnitArtInfo
 - **174** `CvArtFileMgr::getUnitArtInfo(int)` (exported)
   - called by (2): CvUnitArtInfoItem::buildMap, CyGlobalContext::getUnitArtInfo
-- **174** `CvUnitArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getUnitArtInfo(int), CvArtFileMgr::getNumUnitArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **174** `CvUnitArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **174** `CvArtFileMgr::getUnitArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getUnitArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getUnitArtInfo(char const*) const, CvUnitInfo::getArtInfo, CyArtFileMgr::getUnitArtInfo
+- **174** `CvUnitArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **174** ``
+  - calls: CvString::CvString() [CvString.h], CvUnitArtInfoItem::CvUnitArtInfoItem
+  - takes the address of: _$E15 [CvInitCore.cpp]
+  - called by (1): CvGameTextMgr::setPlotListHelp
+- **175** `CvBuildingArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getBuildingArtInfo(int), CvArtFileMgr::getNumBuildingArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **175** `CvBuildingArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **174** `CvUnitArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **175** `CvArtFileMgr::getBuildingArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getBuildingArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getBuildingArtInfo(const char *), CvBuildingInfo::getArtInfo, CyArtFileMgr::getBuildingArtInfo
 - **175** `CvArtFileMgr::getBuildingArtInfo(int)` (exported)
   - called by (2): CvBuildingArtInfoItem::buildMap, CyGlobalContext::getBuildingArtInfo
-- **175** `CvBuildingArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getBuildingArtInfo(int), CvArtFileMgr::getNumBuildingArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **175** `CvBuildingArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **175** `CvArtFileMgr::getBuildingArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getBuildingArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getBuildingArtInfo(char const*) const, CvBuildingInfo::getArtInfo, CyArtFileMgr::getBuildingArtInfo
+- **175** `CvBuildingArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **175** `_$E16`
+  - calls: CvBuildingArtInfoItem::CvBuildingArtInfoItem
+- **176** `CvCivilizationArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getCivilizationArtInfo(int), CvArtFileMgr::getNumCivilizationArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **176** `CvCivilizationArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **175** `CvBuildingArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **176** `CvArtFileMgr::getCivilizationArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getCivilizationArtInfo(const char *)
-  - called by (4): CvArtFileMgr::getCivilizationArtInfo(const char *), CvCivilizationInfo::getArtInfo, CvCivilizationInfo::getFlagTexture, CyArtFileMgr::getCivilizationArtInfo
 - **176** `CvArtFileMgr::getCivilizationArtInfo(int)` (exported)
   - called by (2): CvCivilizationArtInfoItem::buildMap, CyGlobalContext::getCivilizationArtInfo
-- **176** `CvCivilizationArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getCivilizationArtInfo(int), CvArtFileMgr::getNumCivilizationArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **176** `CvCivilizationArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **176** `CvArtFileMgr::getCivilizationArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getCivilizationArtInfo(char const*) const
+  - called by (4): CvArtFileMgr::getCivilizationArtInfo(char const*) const, CvCivilizationInfo::getArtInfo, CvCivilizationInfo::getFlagTexture, CyArtFileMgr::getCivilizationArtInfo
+- **176** `CvCivilizationArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **176** `_$E18`
+  - calls: CvString::~CvString [CvString.h], CvCivilizationArtInfoItem::CvCivilizationArtInfoItem
+  - called by (1): 
+- **177** `CvLeaderheadArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getLeaderheadArtInfo(int), CvArtFileMgr::getNumLeaderheadArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **177** `CvLeaderheadArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **176** `CvCivilizationArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **177** `CvArtFileMgr::getLeaderheadArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getLeaderheadArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getLeaderheadArtInfo(const char *), CvLeaderHeadInfo::getArtInfo, CyArtFileMgr::getLeaderheadArtInfo
 - **177** `CvArtFileMgr::getLeaderheadArtInfo(int)` (exported)
   - called by (2): CvLeaderheadArtInfoItem::buildMap, CyGlobalContext::getLeaderheadArtInfo
-- **177** `CvLeaderheadArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getLeaderheadArtInfo(int), CvArtFileMgr::getNumLeaderheadArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **177** `CvLeaderheadArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **177** `CvArtFileMgr::getLeaderheadArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getLeaderheadArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getLeaderheadArtInfo(char const*) const, CvLeaderHeadInfo::getArtInfo, CyArtFileMgr::getLeaderheadArtInfo
+- **177** `CvLeaderheadArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **177** `_$E20`
+  - calls: CvLeaderheadArtInfoItem::CvLeaderheadArtInfoItem
+- **178** `CvBonusArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getBonusArtInfo(int), CvArtFileMgr::getNumBonusArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **178** `CvBonusArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **177** `CvLeaderheadArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **178** `CvArtFileMgr::getBonusArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getBonusArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getBonusArtInfo(const char *), CvBonusInfo::getArtInfo, CyArtFileMgr::getBonusArtInfo
 - **178** `CvArtFileMgr::getBonusArtInfo(int)` (exported)
   - called by (2): CvBonusArtInfoItem::buildMap, CyGlobalContext::getBonusArtInfo
-- **178** `CvBonusArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getBonusArtInfo(int), CvArtFileMgr::getNumBonusArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **178** `CvBonusArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **178** `CvArtFileMgr::getBonusArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getBonusArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getBonusArtInfo(char const*) const, CvBonusInfo::getArtInfo, CyArtFileMgr::getBonusArtInfo
+- **178** `CvBonusArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **178** ``
+  - calls: CvBonusArtInfoItem::CvBonusArtInfoItem
+- **179** `CvImprovementArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getImprovementArtInfo(int), CvArtFileMgr::getNumImprovementArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **179** `CvImprovementArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **178** `CvBonusArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **179** `CvArtFileMgr::getImprovementArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getImprovementArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getImprovementArtInfo(const char *), CvImprovementInfo::getArtInfo, CyArtFileMgr::getImprovementArtInfo
 - **179** `CvArtFileMgr::getImprovementArtInfo(int)` (exported)
   - called by (2): CvImprovementArtInfoItem::buildMap, CyGlobalContext::getImprovementArtInfo
-- **179** `CvImprovementArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getImprovementArtInfo(int), CvArtFileMgr::getNumImprovementArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **179** `CvImprovementArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **179** `CvArtFileMgr::getImprovementArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getImprovementArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getImprovementArtInfo(char const*) const, CvImprovementInfo::getArtInfo, CyArtFileMgr::getImprovementArtInfo
+- **179** `CvImprovementArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **179** `_$E24`
+  - calls: CvImprovementArtInfoItem::CvImprovementArtInfoItem
+- **180** `CvTerrainArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getTerrainArtInfo(int), CvArtFileMgr::getNumTerrainArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **180** `CvTerrainArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **179** `CvImprovementArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **180** `CvArtFileMgr::getTerrainArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getTerrainArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getTerrainArtInfo(const char *), CvTerrainInfo::getArtInfo, CyArtFileMgr::getTerrainArtInfo
 - **180** `CvArtFileMgr::getTerrainArtInfo(int)` (exported)
   - called by (2): CvTerrainArtInfoItem::buildMap, CyGlobalContext::getTerrainArtInfo
-- **180** `CvTerrainArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getTerrainArtInfo(int), CvArtFileMgr::getNumTerrainArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **180** `CvTerrainArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **180** `CvArtFileMgr::getTerrainArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getTerrainArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getTerrainArtInfo(char const*) const, CvTerrainInfo::getArtInfo, CyArtFileMgr::getTerrainArtInfo
+- **180** `CvTerrainArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **180** `_$E26`
+  - calls: CvTerrainArtInfoItem::CvTerrainArtInfoItem
+- **181** `CvFeatureArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getFeatureArtInfo(int), CvArtFileMgr::getNumFeatureArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **181** `CvFeatureArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **180** `CvTerrainArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **181** `CvArtFileMgr::getFeatureArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getFeatureArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getFeatureArtInfo(const char *), CvFeatureInfo::getArtInfo, CyArtFileMgr::getFeatureArtInfo
 - **181** `CvArtFileMgr::getFeatureArtInfo(int)` (exported)
   - called by (2): CvFeatureArtInfoItem::buildMap, CyGlobalContext::getFeatureArtInfo
-- **181** `CvFeatureArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getFeatureArtInfo(int), CvArtFileMgr::getNumFeatureArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **181** `CvFeatureArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **181** `CvArtFileMgr::getFeatureArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getFeatureArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getFeatureArtInfo(char const*) const, CvFeatureInfo::getArtInfo, CyArtFileMgr::getFeatureArtInfo
+- **181** `CvFeatureArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **181** ``
+  - calls: CvFeatureArtInfoItem::CvFeatureArtInfoItem
+- **182** `CvMovieArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getMovieArtInfo(int), CvArtFileMgr::getNumMovieArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **182** `CvMovieArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **181** `CvFeatureArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **182** `CvArtFileMgr::getMovieArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getMovieArtInfo(const char *)
-  - called by (3): CvArtFileMgr::getMovieArtInfo(const char *), CvBuildingInfo::getMovieInfo, CyArtFileMgr::getMovieArtInfo
 - **182** `CvArtFileMgr::getMovieArtInfo(int)` (exported)
   - called by (2): CvMovieArtInfoItem::buildMap, CyGlobalContext::getMovieArtInfo
-- **182** `CvMovieArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getMovieArtInfo(int), CvArtFileMgr::getNumMovieArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **182** `CvMovieArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
+- **182** `CvArtFileMgr::getMovieArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getMovieArtInfo(char const*) const
+  - called by (3): CvArtFileMgr::getMovieArtInfo(char const*) const, CvBuildingInfo::getMovieInfo, CyArtFileMgr::getMovieArtInfo
+- **182** `CvMovieArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **182** `_$E30`
+  - calls: CvMovieArtInfoItem::CvMovieArtInfoItem
+- **183** `CvInterfaceArtInfoItem::buildMap()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getInterfaceArtInfo(int), CvArtFileMgr::getNumInterfaceArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
+- **183** `CvInterfaceArtInfoItem::deInit()` (virtual)
   - calls: CvArtFileMgr::GetInstance
-- **182** `CvMovieArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
-- **183** `CvArtFileMgr::getInterfaceArtInfo(const char *)` (exported)
-  - calls: CvArtFileMgr::getInterfaceArtInfo(const char *)
-  - called by (29): CvArtFileMgr::getInterfaceArtInfo(const char *), CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::getCityBillboardProductionIcon, CvCity::liberate, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLButtonPopup::launchEventPopup …
 - **183** `CvArtFileMgr::getInterfaceArtInfo(int)` (exported)
   - called by (2): CvInterfaceArtInfoItem::buildMap, CyGlobalContext::getInterfaceArtInfo
-- **183** `CvInterfaceArtInfoItem::buildMap()` (virtual; overrides CvArtFileMgr::ArtInfoItem::buildMap)
-  - calls: CvArtFileMgr::GetInstance, CvArtFileMgr::getInterfaceArtInfo(int), CvArtFileMgr::getNumInterfaceArtInfos [CvArtFileMgr.h], CvAssetInfoBase::getTag [CvInfos.cpp]
-- **183** `CvInterfaceArtInfoItem::deInit()` (virtual; overrides CvArtFileMgr::ArtInfoItem::deInit)
-  - calls: CvArtFileMgr::GetInstance
-- **183** `CvInterfaceArtInfoItem::init()` (virtual; overrides CvArtFileMgr::ArtInfoItem::init)
-  - calls: CvArtFileMgr::GetInstance
+- **183** `CvArtFileMgr::getInterfaceArtInfo(char const*) const` (exported)
+  - calls: CvArtFileMgr::getInterfaceArtInfo(char const*) const
+  - called by (29): CvArtFileMgr::getInterfaceArtInfo(char const*) const, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::getCityBillboardProductionIcon, CvCity::liberate, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLButtonPopup::launchEventPopup …
+- **183** `CvInterfaceArtInfoItem::init()` (virtual)
+  - calls: CvArtFileMgr::GetInstance, operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **183** `_$E32`
+  - calls: CvInterfaceArtInfoItem::CvInterfaceArtInfoItem
+- **·** `CvAssetArtInfoItem::CvAssetArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): 
+- **·** `CvBonusArtInfoItem::CvBonusArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): 
+- **·** `CvBuildingArtInfoItem::CvBuildingArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): _$E16
+- **·** `CvCivilizationArtInfoItem::CvCivilizationArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): _$E18
+- **·** `CvFeatureArtInfoItem::CvFeatureArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): 
+- **·** `CvImprovementArtInfoItem::CvImprovementArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): _$E24
+- **·** `CvInterfaceArtInfoItem::CvInterfaceArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): _$E32
+- **·** `CvLeaderheadArtInfoItem::CvLeaderheadArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): _$E20
+- **·** `CvMiscArtInfoItem::CvMiscArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): _$E12
+- **·** `CvMovieArtInfoItem::CvMovieArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): _$E30
+- **·** `CvTerrainArtInfoItem::CvTerrainArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): _$E26
+- **·** `CvUnitArtInfoItem::CvUnitArtInfoItem()` (written by the compiler)
+  - calls: CvArtFileMgr::ArtInfoItem::ArtInfoItem [CvArtFileMgr.h]
+  - called by (1): 

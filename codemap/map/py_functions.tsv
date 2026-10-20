@@ -1186,9 +1186,6 @@ BUG/SvnUtil.py	_getRemoteRevision	def	161
 BUG/Tabs/BugACOOptionsTab.py	BugACOOptionsTab	class	11
 BUG/Tabs/BugACOOptionsTab.py	BugACOOptionsTab.__init__	def	14
 BUG/Tabs/BugACOOptionsTab.py	BugACOOptionsTab.create	def	17
-BUG/Tabs/BugAdvisorOptionsTab – backup.py	BugAdvisorOptionsTab	class	11
-BUG/Tabs/BugAdvisorOptionsTab – backup.py	BugAdvisorOptionsTab.__init__	def	14
-BUG/Tabs/BugAdvisorOptionsTab – backup.py	BugAdvisorOptionsTab.create	def	17
 BUG/Tabs/BugAdvisorOptionsTab.py	BugAdvisorOptionsTab	class	11
 BUG/Tabs/BugAdvisorOptionsTab.py	BugAdvisorOptionsTab.__init__	def	14
 BUG/Tabs/BugAdvisorOptionsTab.py	BugAdvisorOptionsTab.create	def	17
@@ -2262,15 +2259,6 @@ Contrib/Sevopedia/SevoPediaCivilization.py	SevoPediaCivilization.placeUnit	def	1
 Contrib/Sevopedia/SevoPediaCivilization.py	SevoPediaCivilization.placeLeader	def	122
 Contrib/Sevopedia/SevoPediaCivilization.py	SevoPediaCivilization.placeText	def	134
 Contrib/Sevopedia/SevoPediaCivilization.py	SevoPediaCivilization.handleInput	def	143
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation	class	23
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation.__init__	def	25
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation.interfaceScreen	def	74
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation.placeRequires	def	91
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation.placeSpecial	def	114
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation.placeBuilding	def	123
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation.placeUnit	def	134
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation.placeText	def	146
-Contrib/Sevopedia/SevoPediaCorporation old.py	SevoPediaCorporation.handleInput	def	155
 Contrib/Sevopedia/SevoPediaCorporation.py	SevoPediaCorporation	class	23
 Contrib/Sevopedia/SevoPediaCorporation.py	SevoPediaCorporation.__init__	def	25
 Contrib/Sevopedia/SevoPediaCorporation.py	SevoPediaCorporation.interfaceScreen	def	68
@@ -2419,15 +2407,6 @@ Contrib/Sevopedia/SevoPediaPromotion.py	SevoPediaPromotion.placePrereqs	def	92
 Contrib/Sevopedia/SevoPediaPromotion.py	SevoPediaPromotion.placeSpecial	def	122
 Contrib/Sevopedia/SevoPediaPromotion.py	SevoPediaPromotion.placeUnitGroups	def	132
 Contrib/Sevopedia/SevoPediaPromotion.py	SevoPediaPromotion.handleInput	def	147
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion	class	23
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion.__init__	def	25
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion.interfaceScreen	def	74
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion.placeRequires	def	91
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion.placeSpecial	def	102
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion.placeBuilding	def	116
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion.placeUnit	def	138
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion.placeText	def	153
-Contrib/Sevopedia/SevoPediaReligion old.py	SevoPediaReligion.handleInput	def	162
 Contrib/Sevopedia/SevoPediaReligion.py	SevoPediaReligion	class	23
 Contrib/Sevopedia/SevoPediaReligion.py	SevoPediaReligion.__init__	def	25
 Contrib/Sevopedia/SevoPediaReligion.py	SevoPediaReligion.interfaceScreen	def	68
@@ -2539,9 +2518,9 @@ Contrib/UnitNameEventManager.py	BuildUnitName.onKbdEvent	def	197
 Contrib/UnitNameEventManager.py	BuildUnitName.onUnitBuilt	def	209
 Contrib/UnitNameEventManager.py	BuildUnitName.onCityBuilt	def	252
 Contrib/UnitNameEventManager.py	BuildUnitName.onGoodyReceived	def	274
-Contrib/UnitNameEventManager.py	BuildUnitName.EmpireAsCity	class	285
-Contrib/UnitNameEventManager.py	BuildUnitName.EmpireAsCity.__init__	def	286
-Contrib/UnitNameEventManager.py	BuildUnitName.EmpireAsCity.getName	def	288
+Contrib/UnitNameEventManager.py	BuildUnitName.onGoodyReceived.EmpireAsCity	class	285
+Contrib/UnitNameEventManager.py	BuildUnitName.onGoodyReceived.EmpireAsCity.__init__	def	286
+Contrib/UnitNameEventManager.py	BuildUnitName.onGoodyReceived.EmpireAsCity.getName	def	288
 Contrib/UnitNameEventManager.py	UnitReName	class	306
 Contrib/UnitNameEventManager.py	UnitReName.getUnitName	def	308
 Contrib/UnitNameEventManager.py	UnitReName.getUnitNameConvFromIniFile	def	421
@@ -4600,54 +4579,6 @@ Screens/CvInfoScreen.py	CvInfoScreen.handleInput	def	2950
 Screens/CvInfoScreen.py	CvInfoScreen.handleInput_Wonders	def	3169
 Screens/CvInfoScreen.py	CvInfoScreen.update	def	3218
 Screens/CvInfoScreen.py	CvInfoScreen.determineKnownPlayers	def	3221
-Screens/CvMainInterface-PLE.py	CvMainInterface	class	215
-Screens/CvMainInterface-PLE.py	CvMainInterface.__init__	def	218
-Screens/CvMainInterface-PLE.py	CvMainInterface.numPlotListButtons	def	307
-Screens/CvMainInterface-PLE.py	CvMainInterface.initState	def	310
-Screens/CvMainInterface-PLE.py	CvMainInterface.interfaceScreen	def	399
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateScreen	def	1019
-Screens/CvMainInterface-PLE.py	CvMainInterface.redraw	def	1169
-Screens/CvMainInterface-PLE.py	CvMainInterface.updatePercentButtons	def	1249
-Screens/CvMainInterface-PLE.py	CvMainInterface.resetEndTurnObjects	def	1313
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateEndTurnButton	def	1324
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateMiscButtons	def	1362
-Screens/CvMainInterface-PLE.py	CvMainInterface.updatePlotListButtons	def	1611
-Screens/CvMainInterface-PLE.py	CvMainInterface.updatePlotListButtons_Hide	def	1642
-Screens/CvMainInterface-PLE.py	CvMainInterface.updatePlotListButtons_Common	def	1659
-Screens/CvMainInterface-PLE.py	CvMainInterface.hidePlotListButton_Orig	def	1709
-Screens/CvMainInterface-PLE.py	CvMainInterface.hidePlotListButton_BUG	def	1722
-Screens/CvMainInterface-PLE.py	CvMainInterface.updatePlotListButtons_Orig	def	1736
-Screens/CvMainInterface-PLE.py	CvMainInterface.updatePlotListButtons_BUG	def	1850
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateFlag	def	2003
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateSelectionButtons	def	2012
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateResearchButtons	def	2344
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateCitizenButtons_hide	def	2387
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateCitizenButtons	def	2457
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateCitizenButtons_Stacker	def	2560
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateCitizenButtons_Chevron	def	2684
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateGameDataStrings	def	2828
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateGreatPersonBar	def	3031
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateGreatGeneralBar	def	3076
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateTimeText	def	3105
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateCityScreen	def	3185
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateInfoPaneStrings	def	4332
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateScoreStrings	def	4632
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateHelpStrings	def	4985
-Screens/CvMainInterface-PLE.py	CvMainInterface.setPromotionButtonPosition	def	4997
-Screens/CvMainInterface-PLE.py	CvMainInterface.setResearchButtonPosition	def	5008
-Screens/CvMainInterface-PLE.py	CvMainInterface.setScoreTextPosition	def	5026
-Screens/CvMainInterface-PLE.py	CvMainInterface.updateGlobeviewButtons	def	5037
-Screens/CvMainInterface-PLE.py	CvMainInterface.setMinimapButtonVisibility	def	5147
-Screens/CvMainInterface-PLE.py	CvMainInterface.createGlobeviewButtons	def	5202
-Screens/CvMainInterface-PLE.py	CvMainInterface.createMinimapButtons	def	5226
-Screens/CvMainInterface-PLE.py	CvMainInterface.handleInput	def	5267
-Screens/CvMainInterface-PLE.py	CvMainInterface.handleRawYieldsButtons	def	5310
-Screens/CvMainInterface-PLE.py	CvMainInterface.update	def	5335
-Screens/CvMainInterface-PLE.py	CvMainInterface.forward	def	5338
-Screens/CvMainInterface-PLE.py	CvMainInterface.back	def	5345
-Screens/CvMainInterface-PLE.py	CvMainInterface.setFieldofView	def	5353
-Screens/CvMainInterface-PLE.py	CvMainInterface._setFieldofView	def	5359
-Screens/CvMainInterface-PLE.py	CvMainInterface.setFieldofView_Text	def	5364
 Screens/CvMainInterface.py	onSwitchHotSeatPlayer	def	243
 Screens/CvMainInterface.py	CvMainInterface	class	247
 Screens/CvMainInterface.py	CvMainInterface.__init__	def	250

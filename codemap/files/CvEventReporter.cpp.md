@@ -2,255 +2,265 @@
 
 Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **10** `CvEventReporter::getInstance()` (exported; static)
-  - calls: CvEventReporter::CvEventReporter [CvEventReporter.h]
+- **11** `CvEventReporter::getInstance()` (exported; static)
+  - calls: CvEventReporter::CvEventReporter
+  - takes the address of: _$E9 [CvGameCoreUtils.cpp]
   - called by (62): CvCity::doGrowth, CvCity::doTurn, CvCity::hurry, CvCity::kill, CvCity::popOrder, CvCity::pushOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doRenameCity, CvDLLWidgetData::doRenameUnit …
-- **17** `CvEventReporter::resetStatistics()` (exported)
+- **18** `CvEventReporter::resetStatistics()` (exported)
   - calls: CvStatistics::reset [CvStatistics.cpp]
   - called by (1): CvGame::regenerateMap
-- **25** `CvEventReporter::mouseEvent(int, int, int, bool)` (exported)
+- **26** `CvEventReporter::mouseEvent(int, int, int, bool)` (exported)
   - calls: CvDllPythonEvents::reportMouseEvent [CvDllPythonEvents.cpp]
-- **33** `CvEventReporter::kbdEvent(int, int, int, int)` (exported)
+- **34** `CvEventReporter::kbdEvent(int, int, int, int)` (exported)
   - calls: CvDllPythonEvents::reportKbdEvent [CvDllPythonEvents.cpp]
-- **38** `CvEventReporter::genericEvent(const char *, void *)`
+- **39** `CvEventReporter::genericEvent(char const*, void*)`
   - calls: CvDllPythonEvents::reportGenericEvent [CvDllPythonEvents.cpp]
   - called by (2): CvGame::update, CvUnit::resolveCombat
-- **44** `CvEventReporter::newGame()` (exported)
-  - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getMapScriptName [CvInitCore.cpp], CvStatistics::setMapName [CvStatistics.cpp], CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h], CvInitCore::getEra [CvInitCore.h], CvStatistics::setEra [CvStatistics.cpp]
-- **54** `CvEventReporter::newPlayer(PlayerTypes)` (exported)
+- **45** `CvEventReporter::newGame()` (exported)
+  - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getMapScriptName [CvInitCore.cpp], CvStatistics::setMapName [CvStatistics.cpp], CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvWString::~CvWString [CvString.h], CvInitCore::getEra [CvInitCore.h], CvStatistics::setEra [CvStatistics.cpp]
+- **55** `CvEventReporter::newPlayer(PlayerTypes)` (exported)
   - calls: CvPlayer::getLeaderType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvStatistics::setLeader [CvStatistics.cpp]
-- **63** `CvEventReporter::reportModNetMessage(int, int, int, int, int)` (exported)
+- **64** `CvEventReporter::reportModNetMessage(int, int, int, int, int)` (exported)
   - calls: CvDllPythonEvents::reportModNetMessage [CvDllPythonEvents.cpp]
   - called by (1): CvNetModNetMessage::Execute
-- **68** `CvEventReporter::init()` (exported)
+- **69** `CvEventReporter::init()` (exported)
   - calls: CvDllPythonEvents::reportInit [CvDllPythonEvents.cpp]
-- **73** `CvEventReporter::update(float)` (exported)
+- **74** `CvEventReporter::update(float)` (exported)
   - calls: CvDllPythonEvents::reportUpdate [CvDllPythonEvents.cpp]
-- **78** `CvEventReporter::unInit()` (exported)
+- **79** `CvEventReporter::unInit()` (exported)
   - calls: CvDllPythonEvents::reportUnInit [CvDllPythonEvents.cpp]
-- **83** `CvEventReporter::gameStart()` (exported)
+- **84** `CvEventReporter::gameStart()` (exported)
   - calls: CvDllPythonEvents::reportGameStart [CvDllPythonEvents.cpp]
-- **88** `CvEventReporter::gameEnd()`
+- **89** `CvEventReporter::gameEnd()`
   - calls: CvDllPythonEvents::reportGameEnd [CvDllPythonEvents.cpp]
   - called by (1): CvGame::setGameState
-- **93** `CvEventReporter::beginGameTurn(int)`
+- **94** `CvEventReporter::beginGameTurn(int)`
   - calls: warLogTurn [CvGameCoreUtils.cpp], CvDllPythonEvents::reportBeginGameTurn [CvDllPythonEvents.cpp]
   - called by (1): CvGame::doTurn
-- **99** `CvEventReporter::endGameTurn(int)`
+- **100** `CvEventReporter::endGameTurn(int)`
   - calls: CvDllPythonEvents::reportEndGameTurn [CvDllPythonEvents.cpp]
   - called by (1): CvGame::doTurn
-- **109** `CvEventReporter::preEndGameTurn(int)`
+- **110** `CvEventReporter::preEndGameTurn(int)`
   - calls: CvDllPythonEvents::reportPreEndGameTurn [CvDllPythonEvents.cpp]
   - called by (1): CvGame::doTurn
-- **117** `CvEventReporter::beginPlayerTurn(int, PlayerTypes)`
+- **118** `CvEventReporter::beginPlayerTurn(int, PlayerTypes)`
   - calls: CvDllPythonEvents::reportBeginPlayerTurn [CvDllPythonEvents.cpp]
   - called by (1): CvPlayer::doTurn
-- **122** `CvEventReporter::endPlayerTurn(int, PlayerTypes)`
+- **123** `CvEventReporter::endPlayerTurn(int, PlayerTypes)`
   - calls: warLogStacks [CvGameCoreUtils.cpp], warLogCitiesAtWarWithHuman [CvGameCoreUtils.cpp], warLogEconomy [CvGameCoreUtils.cpp], CvDllPythonEvents::reportEndPlayerTurn [CvDllPythonEvents.cpp]
   - called by (1): CvPlayer::doTurn
-- **130** `CvEventReporter::firstContact(TeamTypes, TeamTypes)`
+- **131** `CvEventReporter::firstContact(TeamTypes, TeamTypes)`
   - calls: CvDllPythonEvents::reportFirstContact [CvDllPythonEvents.cpp]
   - called by (1): CvTeam::makeHasMet
-- **135** `CvEventReporter::combatResult(CvUnit *, CvUnit *)`
+- **136** `CvEventReporter::combatResult(CvUnit*, CvUnit*)`
   - calls: warLogResult [CvGameCoreUtils.cpp], CvDllPythonEvents::reportCombatResult [CvDllPythonEvents.cpp]
   - called by (3): CvUnit::archerBombard, CvUnit::updateCombat, CvUnit::updateStackCombat
-- **142** `CvEventReporter::combatRetreat(CvUnit *, CvUnit *)`
+- **143** `CvEventReporter::combatRetreat(CvUnit*, CvUnit*)`
   - calls: CvDllPythonEvents::reportCombatRetreat [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::resolveCombat
-- **147** `CvEventReporter::combatWithdrawal(CvUnit *, CvUnit *)`
+- **148** `CvEventReporter::combatWithdrawal(CvUnit*, CvUnit*)`
   - calls: CvDllPythonEvents::reportCombatWithdrawal [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::resolveCombat
-- **152** `CvEventReporter::combatLogCollateral(CvUnit *, CvUnit *, int)`
+- **153** `CvEventReporter::combatLogCollateral(CvUnit*, CvUnit*, int)`
   - calls: CvDllPythonEvents::reportCombatLogCollateral [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::collateralCombat
-- **157** `CvEventReporter::combatLogFlanking(CvUnit *, CvUnit *, int)`
+- **158** `CvEventReporter::combatLogFlanking(CvUnit*, CvUnit*, int)`
   - calls: CvDllPythonEvents::reportCombatLogFlanking [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::flankingStrikeCombat
-- **163** `CvEventReporter::improvementBuilt(int, int, int)`
+- **164** `CvEventReporter::improvementBuilt(int, int, int)`
   - calls: CvDllPythonEvents::reportImprovementBuilt [CvDllPythonEvents.cpp]
   - called by (1): CvPlot::setImprovementType
-- **168** `CvEventReporter::improvementDestroyed(int, int, int, int)`
+- **169** `CvEventReporter::improvementDestroyed(int, int, int, int)`
   - calls: CvDllPythonEvents::reportImprovementDestroyed [CvDllPythonEvents.cpp]
   - called by (1): CvPlot::setImprovementType
-- **173** `CvEventReporter::routeBuilt(int, int, int)`
+- **174** `CvEventReporter::routeBuilt(int, int, int)`
   - calls: CvDllPythonEvents::reportRouteBuilt [CvDllPythonEvents.cpp]
   - called by (1): CvPlot::setRouteType
-- **178** `CvEventReporter::plotRevealed(CvPlot *, TeamTypes)`
+- **179** `CvEventReporter::plotRevealed(CvPlot*, TeamTypes)`
   - calls: CvDllPythonEvents::reportPlotRevealed [CvDllPythonEvents.cpp]
   - called by (1): CvPlot::setRevealed
-- **183** `CvEventReporter::plotFeatureRemoved(CvPlot *, FeatureTypes, CvCity *)`
+- **184** `CvEventReporter::plotFeatureRemoved(CvPlot*, FeatureTypes, CvCity*)`
   - calls: CvDllPythonEvents::reportPlotFeatureRemoved [CvDllPythonEvents.cpp]
   - called by (1): CvPlot::changeBuildProgress
-- **188** `CvEventReporter::plotPicked(CvPlot *)` (exported)
+- **189** `CvEventReporter::plotPicked(CvPlot*)` (exported)
   - calls: CvDllPythonEvents::reportPlotPicked [CvDllPythonEvents.cpp]
-- **193** `CvEventReporter::nukeExplosion(CvPlot *, CvUnit *)`
+- **194** `CvEventReporter::nukeExplosion(CvPlot*, CvUnit*)`
   - calls: CvDllPythonEvents::reportNukeExplosion [CvDllPythonEvents.cpp]
   - called by (1): CvPlot::nukeExplosion
-- **198** `CvEventReporter::gotoPlotSet(CvPlot *, PlayerTypes)` (exported)
+- **199** `CvEventReporter::gotoPlotSet(CvPlot*, PlayerTypes)` (exported)
   - calls: CvDllPythonEvents::reportGotoPlotSet [CvDllPythonEvents.cpp]
-- **203** `CvEventReporter::cityBuilt(CvCity *)`
+- **204** `CvEventReporter::cityBuilt(CvCity*)`
   - calls: warLogFounded [CvGameCoreUtils.cpp], CvDllPythonEvents::reportCityBuilt [CvDllPythonEvents.cpp], CvStatistics::cityBuilt [CvStatistics.cpp]
   - called by (1): CvPlayer::found
-- **210** `CvEventReporter::cityRazed(CvCity *, PlayerTypes)`
+- **211** `CvEventReporter::cityRazed(CvCity*, PlayerTypes)`
   - calls: CvCity::getPreviousOwner [CvCity.cpp], warLogCity [CvGameCoreUtils.cpp], CvDllPythonEvents::reportCityRazed [CvDllPythonEvents.cpp], CvStatistics::cityRazed [CvStatistics.cpp]
   - called by (1): CvPlayer::raze
-- **217** `CvEventReporter::cityAcquired(PlayerTypes, PlayerTypes, CvCity *, bool, bool)`
+- **218** `CvEventReporter::cityAcquired(PlayerTypes, PlayerTypes, CvCity*, bool, bool)`
   - calls: warLogCity [CvGameCoreUtils.cpp], CvDllPythonEvents::reportCityAcquired [CvDllPythonEvents.cpp]
   - called by (1): CvPlayer::acquireCity
-- **223** `CvEventReporter::cityAcquiredAndKept(PlayerTypes, CvCity *)`
+- **224** `CvEventReporter::cityAcquiredAndKept(PlayerTypes, CvCity*)`
   - calls: CvDllPythonEvents::reportCityAcquiredAndKept [CvDllPythonEvents.cpp]
   - called by (3): CvDLLButtonPopup::OnOkClicked, CvPlayer::acquireCity, CvPlayerAI::AI_conquerCity
-- **228** `CvEventReporter::cityLost(CvCity *)`
+- **229** `CvEventReporter::cityLost(CvCity*)`
   - calls: CvDllPythonEvents::reportCityLost [CvDllPythonEvents.cpp]
   - called by (1): CvCity::kill
-- **233** `CvEventReporter::cultureExpansion(CvCity *, PlayerTypes)`
+- **234** `CvEventReporter::cultureExpansion(CvCity*, PlayerTypes)`
   - calls: CvDllPythonEvents::reportCultureExpansion [CvDllPythonEvents.cpp]
   - called by (1): CvCity::setCultureLevel
-- **238** `CvEventReporter::cityGrowth(CvCity *, PlayerTypes)`
+- **239** `CvEventReporter::cityGrowth(CvCity*, PlayerTypes)`
   - calls: CvDllPythonEvents::reportCityGrowth [CvDllPythonEvents.cpp]
   - called by (1): CvCity::doGrowth
-- **243** `CvEventReporter::cityDoTurn(CvCity *, PlayerTypes)`
+- **244** `CvEventReporter::cityDoTurn(CvCity*, PlayerTypes)`
   - calls: CvDllPythonEvents::reportCityProduction [CvDllPythonEvents.cpp]
   - called by (1): CvCity::doTurn
-- **248** `CvEventReporter::cityBuildingUnit(CvCity *, UnitTypes)`
+- **249** `CvEventReporter::cityBuildingUnit(CvCity*, UnitTypes)`
   - calls: CvDllPythonEvents::reportCityBuildingUnit [CvDllPythonEvents.cpp]
   - called by (1): CvCity::pushOrder
-- **253** `CvEventReporter::cityBuildingBuilding(CvCity *, BuildingTypes)`
+- **254** `CvEventReporter::cityBuildingBuilding(CvCity*, BuildingTypes)`
   - calls: CvDllPythonEvents::reportCityBuildingBuilding [CvDllPythonEvents.cpp]
   - called by (1): CvCity::pushOrder
-- **259** `CvEventReporter::cityBuildingProject(CvCity *, ProjectTypes)`
+- **260** `CvEventReporter::cityBuildingProject(CvCity*, ProjectTypes)`
   - calls: CvDllPythonEvents::reportCityBuildingProject [CvDllPythonEvents.cpp]
   - called by (1): CvCity::pushOrder
-- **266** `CvEventReporter::cityBuildingProcess(CvCity *, ProcessTypes)`
+- **267** `CvEventReporter::cityBuildingProcess(CvCity*, ProcessTypes)`
   - calls: CvDllPythonEvents::reportCityBuildingProcess [CvDllPythonEvents.cpp]
   - called by (1): CvCity::pushOrder
-- **272** `CvEventReporter::cityRename(CvCity *)`
+- **273** `CvEventReporter::cityRename(CvCity*)`
   - calls: CvDllPythonEvents::reportCityRename [CvDllPythonEvents.cpp]
   - called by (1): CvDLLWidgetData::doRenameCity
-- **277** `CvEventReporter::cityHurry(CvCity *, HurryTypes)`
+- **278** `CvEventReporter::cityHurry(CvCity*, HurryTypes)`
   - calls: CvDllPythonEvents::reportCityHurry [CvDllPythonEvents.cpp]
   - called by (1): CvCity::hurry
-- **282** `CvEventReporter::selectionGroupPushMission(CvSelectionGroup *, MissionTypes)`
+- **283** `CvEventReporter::selectionGroupPushMission(CvSelectionGroup*, MissionTypes)`
   - calls: CvDllPythonEvents::reportSelectionGroupPushMission [CvDllPythonEvents.cpp]
   - called by (1): CvSelectionGroup::pushMission
-- **287** `CvEventReporter::unitMove(CvPlot *, CvUnit *, CvPlot *)`
+- **288** `CvEventReporter::unitMove(CvPlot*, CvUnit*, CvPlot*)`
   - calls: CvDllPythonEvents::reportUnitMove [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::move
-- **292** `CvEventReporter::unitSetXY(CvPlot *, CvUnit *)`
+- **293** `CvEventReporter::unitSetXY(CvPlot*, CvUnit*)`
   - calls: CvDllPythonEvents::reportUnitSetXY [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::setXY
-- **297** `CvEventReporter::unitCreated(CvUnit *)`
+- **298** `CvEventReporter::unitCreated(CvUnit*)`
   - calls: CvDllPythonEvents::reportUnitCreated [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::init
-- **302** `CvEventReporter::unitBuilt(CvCity *, CvUnit *)`
+- **303** `CvEventReporter::unitBuilt(CvCity*, CvUnit*)`
   - calls: warLogBuilt [CvGameCoreUtils.cpp], CvDllPythonEvents::reportUnitBuilt [CvDllPythonEvents.cpp], CvStatistics::unitBuilt [CvStatistics.cpp]
   - called by (1): CvCity::popOrder
-- **309** `CvEventReporter::unitKilled(CvUnit *, PlayerTypes)`
+- **310** `CvEventReporter::unitKilled(CvUnit*, PlayerTypes)`
   - calls: CvDllPythonEvents::reportUnitKilled [CvDllPythonEvents.cpp], CvStatistics::unitKilled [CvStatistics.cpp]
   - called by (1): CvUnit::kill
-- **316** `CvEventReporter::unitCaptured(PlayerTypes, UnitTypes, CvUnit *)`
+- **317** `CvEventReporter::unitCaptured(PlayerTypes, UnitTypes, CvUnit*)`
   - calls: CvDllPythonEvents::reportUnitCaptured [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::kill
-- **322** `CvEventReporter::unitLost(CvUnit *)`
+- **323** `CvEventReporter::unitLost(CvUnit*)`
   - calls: CvDllPythonEvents::reportUnitLost [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::kill
-- **327** `CvEventReporter::unitPromoted(CvUnit *, PromotionTypes)`
+- **328** `CvEventReporter::unitPromoted(CvUnit*, PromotionTypes)`
   - calls: CvDllPythonEvents::reportUnitPromoted [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::promote
-- **333** `CvEventReporter::unitUpgraded(CvUnit *, CvUnit *, int)`
+- **334** `CvEventReporter::unitUpgraded(CvUnit*, CvUnit*, int)`
   - calls: CvDllPythonEvents::reportUnitUpgraded [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::upgrade
-- **339** `CvEventReporter::unitSelected(CvUnit *)` (exported)
+- **340** `CvEventReporter::unitSelected(CvUnit*)` (exported)
   - calls: CvDllPythonEvents::reportUnitSelected [CvDllPythonEvents.cpp]
-- **344** `CvEventReporter::unitRename(CvUnit *)`
+- **345** `CvEventReporter::unitRename(CvUnit*)`
   - calls: CvDllPythonEvents::reportUnitRename [CvDllPythonEvents.cpp]
   - called by (1): CvDLLWidgetData::doRenameUnit
-- **349** `CvEventReporter::unitPillage(CvUnit *, ImprovementTypes, RouteTypes, PlayerTypes)`
+- **350** `CvEventReporter::unitPillage(CvUnit*, ImprovementTypes, RouteTypes, PlayerTypes)`
   - calls: CvDllPythonEvents::reportUnitPillage [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::pillage
-- **354** `CvEventReporter::unitSpreadReligionAttempt(CvUnit *, ReligionTypes, bool)`
+- **355** `CvEventReporter::unitSpreadReligionAttempt(CvUnit*, ReligionTypes, bool)`
   - calls: CvDllPythonEvents::reportUnitSpreadReligionAttempt [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::spread
-- **359** `CvEventReporter::unitGifted(CvUnit *, PlayerTypes, CvPlot *)`
+- **360** `CvEventReporter::unitGifted(CvUnit*, PlayerTypes, CvPlot*)`
   - calls: CvDllPythonEvents::reportUnitGifted [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::gift
-- **364** `CvEventReporter::unitBuildImprovement(CvUnit *, BuildTypes, bool)`
+- **365** `CvEventReporter::unitBuildImprovement(CvUnit*, BuildTypes, bool)`
   - calls: CvDllPythonEvents::reportUnitBuildImprovement [CvDllPythonEvents.cpp]
   - called by (1): CvUnit::build
-- **369** `CvEventReporter::goodyReceived(PlayerTypes, CvPlot *, CvUnit *, GoodyTypes)`
+- **370** `CvEventReporter::goodyReceived(PlayerTypes, CvPlot*, CvUnit*, GoodyTypes)`
   - calls: CvDllPythonEvents::reportGoodyReceived [CvDllPythonEvents.cpp]
   - called by (1): CvPlayer::doGoody
-- **374** `CvEventReporter::greatPersonBorn(CvUnit *, PlayerTypes, CvCity *)`
+- **375** `CvEventReporter::greatPersonBorn(CvUnit*, PlayerTypes, CvCity*)`
   - calls: warLogGreatPerson [CvGameCoreUtils.cpp], CvDllPythonEvents::reportGreatPersonBorn [CvDllPythonEvents.cpp], CvStatistics::unitBuilt [CvStatistics.cpp]
   - called by (1): CvPlayer::createGreatPeople
-- **381** `CvEventReporter::buildingBuilt(CvCity *, BuildingTypes)`
+- **382** `CvEventReporter::buildingBuilt(CvCity*, BuildingTypes)`
   - calls: warLogBuilding [CvGameCoreUtils.cpp], CvDllPythonEvents::reportBuildingBuilt [CvDllPythonEvents.cpp], CvStatistics::buildingBuilt [CvStatistics.cpp]
   - called by (2): CvCity::popOrder, CvUnit::construct
-- **388** `CvEventReporter::projectBuilt(CvCity *, ProjectTypes)`
+- **389** `CvEventReporter::projectBuilt(CvCity*, ProjectTypes)`
   - calls: CvDllPythonEvents::reportProjectBuilt [CvDllPythonEvents.cpp]
   - called by (1): CvCity::popOrder
-- **393** `CvEventReporter::techAcquired(TechTypes, TeamTypes, PlayerTypes, bool)`
+- **394** `CvEventReporter::techAcquired(TechTypes, TeamTypes, PlayerTypes, bool)`
   - calls: warLogTech [CvGameCoreUtils.cpp], CvDllPythonEvents::reportTechAcquired [CvDllPythonEvents.cpp]
   - called by (1): CvTeam::setHasTech
-- **399** `CvEventReporter::techSelected(TechTypes, PlayerTypes)`
+- **400** `CvEventReporter::techSelected(TechTypes, PlayerTypes)`
   - calls: CvDllPythonEvents::reportTechSelected [CvDllPythonEvents.cpp]
   - called by (1): CvPlayer::pushResearch
-- **404** `CvEventReporter::religionFounded(ReligionTypes, PlayerTypes)`
+- **405** `CvEventReporter::religionFounded(ReligionTypes, PlayerTypes)`
   - calls: CvDllPythonEvents::reportReligionFounded [CvDllPythonEvents.cpp], CvStatistics::religionFounded [CvStatistics.cpp]
   - called by (1): CvGame::makeReligionFounded
-- **410** `CvEventReporter::religionSpread(ReligionTypes, PlayerTypes, CvCity *)`
+- **411** `CvEventReporter::religionSpread(ReligionTypes, PlayerTypes, CvCity*)`
   - calls: CvDllPythonEvents::reportReligionSpread [CvDllPythonEvents.cpp]
   - called by (1): CvCity::setHasReligion
-- **415** `CvEventReporter::religionRemove(ReligionTypes, PlayerTypes, CvCity *)`
+- **416** `CvEventReporter::religionRemove(ReligionTypes, PlayerTypes, CvCity*)`
   - calls: CvDllPythonEvents::reportReligionRemove [CvDllPythonEvents.cpp]
   - called by (1): CvCity::setHasReligion
-- **420** `CvEventReporter::corporationFounded(CorporationTypes, PlayerTypes)`
+- **421** `CvEventReporter::corporationFounded(CorporationTypes, PlayerTypes)`
   - calls: CvDllPythonEvents::reportCorporationFounded [CvDllPythonEvents.cpp]
   - called by (1): CvGame::makeCorporationFounded
-- **425** `CvEventReporter::corporationSpread(CorporationTypes, PlayerTypes, CvCity *)`
+- **426** `CvEventReporter::corporationSpread(CorporationTypes, PlayerTypes, CvCity*)`
   - calls: CvDllPythonEvents::reportCorporationSpread [CvDllPythonEvents.cpp]
   - called by (1): CvCity::setHasCorporation
-- **430** `CvEventReporter::corporationRemove(CorporationTypes, PlayerTypes, CvCity *)`
+- **431** `CvEventReporter::corporationRemove(CorporationTypes, PlayerTypes, CvCity*)`
   - calls: CvDllPythonEvents::reportCorporationRemove [CvDllPythonEvents.cpp]
   - called by (1): CvCity::setHasCorporation
-- **435** `CvEventReporter::goldenAge(PlayerTypes)`
+- **436** `CvEventReporter::goldenAge(PlayerTypes)`
   - calls: CvDllPythonEvents::reportGoldenAge [CvDllPythonEvents.cpp], CvStatistics::goldenAge [CvStatistics.cpp]
   - called by (1): CvPlayer::changeGoldenAgeTurns
-- **441** `CvEventReporter::endGoldenAge(PlayerTypes)`
+- **442** `CvEventReporter::endGoldenAge(PlayerTypes)`
   - calls: CvDllPythonEvents::reportEndGoldenAge [CvDllPythonEvents.cpp]
   - called by (1): CvPlayer::changeGoldenAgeTurns
-- **446** `CvEventReporter::changeWar(bool, TeamTypes, TeamTypes)`
+- **447** `CvEventReporter::changeWar(bool, TeamTypes, TeamTypes)`
   - calls: CvDllPythonEvents::reportChangeWar [CvDllPythonEvents.cpp]
   - called by (2): CvTeam::declareWar, CvTeam::makePeace
-- **451** `CvEventReporter::setPlayerAlive(PlayerTypes, bool)`
+- **452** `CvEventReporter::setPlayerAlive(PlayerTypes, bool)`
   - calls: CvDllPythonEvents::reportSetPlayerAlive [CvDllPythonEvents.cpp]
   - called by (2): CvPlayer::setAlive, CvPlayer::setNewPlayerAlive
-- **456** `CvEventReporter::playerChangeStateReligion(PlayerTypes, ReligionTypes, ReligionTypes)`
+- **457** `CvEventReporter::playerChangeStateReligion(PlayerTypes, ReligionTypes, ReligionTypes)`
   - calls: CvDllPythonEvents::reportPlayerChangeStateReligion [CvDllPythonEvents.cpp]
   - called by (1): CvPlayer::setLastStateReligion
-- **461** `CvEventReporter::playerGoldTrade(PlayerTypes, PlayerTypes, int)`
+- **462** `CvEventReporter::playerGoldTrade(PlayerTypes, PlayerTypes, int)`
   - calls: CvDllPythonEvents::reportPlayerGoldTrade [CvDllPythonEvents.cpp]
   - called by (1): CvDeal::startTrade
-- **467** `CvEventReporter::playerRevolution(PlayerTypes, int, CivicTypes *, CivicTypes *)`
+- **468** `CvEventReporter::playerRevolution(PlayerTypes, int, CivicTypes*, CivicTypes*)`
   - calls: CvDllPythonEvents::reportPlayerRevolution [CvDllPythonEvents.cpp]
   - called by (1): CvPlayer::revolution
-- **473** `CvEventReporter::chat(CvWString)` (exported)
-  - calls: CvDllPythonEvents::reportChat [CvDllPythonEvents.cpp], CvWString::CvWString(const CvWString &) [CvString.h]
-- **478** `CvEventReporter::victory(TeamTypes, VictoryTypes)`
-  - calls: CvDllPythonEvents::reportVictory [CvDllPythonEvents.cpp], CvStatistics::setVictory [CvStatistics.cpp], CvPlayer::isEverAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTotalTimePlayed [CvPlayer.cpp], CvStatistics::setTimePlayed [CvStatistics.cpp], CvDLLUtilityIFaceBase::reportStatistics [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **474** `CvEventReporter::chat(CvWString)` (exported)
+  - calls: CvDllPythonEvents::reportChat [CvDllPythonEvents.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+- **479** `CvEventReporter::victory(TeamTypes, VictoryTypes)`
+  - calls: CvDllPythonEvents::reportVictory [CvDllPythonEvents.cpp], CvStatistics::setVictory [CvStatistics.cpp], CvPlayer::isEverAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTotalTimePlayed [CvPlayer.cpp], CvStatistics::setTimePlayed [CvStatistics.cpp], CvDLLUtilityIFaceBase::reportStatistics [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvGame::setWinner
-- **496** `CvEventReporter::vassalState(TeamTypes, TeamTypes, bool)`
+- **497** `CvEventReporter::vassalState(TeamTypes, TeamTypes, bool)`
   - calls: CvDllPythonEvents::reportVassalState [CvDllPythonEvents.cpp]
   - called by (1): CvTeam::setVassal
-- **501** `CvEventReporter::preSave()` (exported)
+- **502** `CvEventReporter::preSave()` (exported)
   - calls: CvDllPythonEvents::preSave [CvDllPythonEvents.cpp]
-- **506** `CvEventReporter::windowActivation(bool)` (exported)
+- **507** `CvEventReporter::windowActivation(bool)` (exported)
   - calls: CvDllPythonEvents::reportWindowActivation [CvDllPythonEvents.cpp]
-- **511** `CvEventReporter::getGameStatistics(std::vector<CvStatBase *> &)` (exported)
-  - calls: CvStatistics::getMapName [CvStatistics.cpp], CvStatString::CvStatString [CvStructs.h], CvStatistics::getEra [CvStatistics.cpp], CvStatInt::CvStatInt [CvStructs.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp]
-- **524** `CvEventReporter::getPlayerStatistics(PlayerTypes, std::vector<CvStatBase *> &)` (exported)
-  - calls: CvStatistics::getPlayerRecord [CvStatistics.cpp], CvPlayerRecord::getVictory [CvStatistics.cpp], CvStatInt::CvStatInt [CvStructs.h], CvPlayerRecord::getMinutesPlayed [CvStatistics.cpp], CvPlayerRecord::getLeader [CvStatistics.cpp], CvPlayerRecord::getNumCitiesBuilt [CvStatistics.cpp], CvPlayerRecord::getNumCitiesRazed [CvStatistics.cpp], CvPlayerRecord::getNumGoldenAges [CvStatistics.cpp], CvString::CvString() [CvString.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::format(const char *, ...) [CvString.h], CvPlayerRecord::getNumUnitsBuilt [CvStatistics.cpp], CvString::operator const char * [CvString.h], CvPlayerRecord::getNumUnitsKilled [CvStatistics.cpp], CvPlayerRecord::getNumUnitsWasKilled [CvStatistics.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvPlayerRecord::getNumBuildingsBuilt [CvStatistics.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvPlayerRecord::getReligionFounded [CvStatistics.cpp]
-- **568** `CvEventReporter::readStatistics(FDataStreamBase *)` (exported)
-  - calls: CvStatistics::reset [CvStatistics.cpp], CvStatistics::read [CvStatistics.cpp]
-- **573** `CvEventReporter::writeStatistics(FDataStreamBase *)` (exported)
-  - calls: CvStatistics::write [CvStatistics.cpp]
+- **512** `CvEventReporter::getGameStatistics(std::vector<CvStatBase*, std::allocator<CvStatBase*>>&)` (exported)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvStatistics::getMapName [CvStatistics.cpp], CvStatString::CvStatString(char const*, char const*) [CvStructs.h], CvStatistics::getEra [CvStatistics.cpp], CvStatInt::CvStatInt(char const*, int) [CvStructs.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **525** `CvEventReporter::getPlayerStatistics(PlayerTypes, std::vector<CvStatBase*, std::allocator<CvStatBase*>>&)` (exported)
+  - calls: CvStatistics::getPlayerRecord [CvStatistics.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayerRecord::getVictory [CvStatistics.cpp], CvStatInt::CvStatInt(char const*, int) [CvStructs.h], CvPlayerRecord::getMinutesPlayed [CvStatistics.cpp], CvPlayerRecord::getLeader [CvStatistics.cpp], CvPlayerRecord::getNumCitiesBuilt [CvStatistics.cpp], CvPlayerRecord::getNumCitiesRazed [CvStatistics.cpp], CvPlayerRecord::getNumGoldenAges [CvStatistics.cpp], CvString::CvString() [CvString.h], CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::~CvString [CvString.h], CvString::format [CvString.h], CvPlayerRecord::getNumUnitsBuilt [CvStatistics.cpp], CvString::operator char const * [CvString.h], CvPlayerRecord::getNumUnitsKilled [CvStatistics.cpp], CvPlayerRecord::getNumUnitsWasKilled [CvStatistics.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvPlayerRecord::getNumBuildingsBuilt [CvStatistics.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvPlayerRecord::getReligionFounded [CvStatistics.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **569** `CvEventReporter::readStatistics(FDataStreamBase*)` (exported)
+  - calls: CvStatistics::reset [CvStatistics.cpp], CvPlayerRecord::read [CvStatistics.cpp], CvStatistics::read [CvStatistics.cpp], CvGameRecord::read [CvStatistics.cpp]
+- **574** `CvEventReporter::writeStatistics(FDataStreamBase*)` (exported)
+  - calls: CvPlayerRecord::write [CvStatistics.cpp], CvStatistics::write [CvStatistics.cpp], CvGameRecord::write [CvStatistics.cpp]
+- **·** `CvEventReporter::CvEventReporter()` (written by the compiler)
+  - calls: CvStatistics::CvStatistics
+  - called by (1): CvEventReporter::getInstance
+- **·** `CvStatistics::CvStatistics()` (written by the compiler)
+  - calls: CvGameRecord::CvGameRecord [CvStatistics.cpp], CvGameRecord::~CvGameRecord [CvStatistics.cpp]
+  - called by (1): CvEventReporter::CvEventReporter
+- **·** `CvEventReporter::~CvEventReporter()` (written by the compiler)
+  - calls: CvStatistics::~CvStatistics [CvStatistics.cpp]
+  - called by (1): _$E9

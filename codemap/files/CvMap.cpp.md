@@ -2,240 +2,247 @@
 
 Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **40** `CvMap::CvMap()` (exported)
-  - calls: CvMapInitData::CvMapInitData [CvMap.h], CvMap::reset
+- **41** `CvMap::CvMap()` (exported)
+  - calls: FFreeListTrashArray<CvArea>::FFreeListTrashArray<class CvArea> [FFreeListTrashArray.h], CvMapInitData::CvMapInitData [CvMap.h], CvMap::reset, FFreeListTrashArray<CvArea>::~FFreeListTrashArray<class CvArea> [FFreeListTrashArray.h]
   - called by (1): CvGlobals::init
-- **53** `CvMap::~CvMap()` (exported; virtual)
-  - calls: CvMap::uninit
-- **64** `CvMap::init(CvMapInitData *)` (exported)
-  - calls: CvDLLUtilityIFaceBase::logMemState [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvString::format(const char *, ...) [CvString.h], CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvInfoBase::getDescription [CvInfos.cpp], CvInitCore::getWorldSize [CvInitCore.h], CvGlobals::getClimateInfo(ClimateTypes) [CvGlobals.cpp], CvInitCore::getClimate [CvInitCore.h], CvGlobals::getSeaLevelInfo(SeaLevelTypes) [CvGlobals.cpp], CvInitCore::getSeaLevel [CvInitCore.h], CvInitCore::getNumCustomMapOptions [CvInitCore.h], CvDLLPythonIFaceBase::getMapScriptModule [CvDLLPythonIFaceBase.h], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvMap::reset, FFreeListTrashArray::init [FFreeListTrashArray.h], CvMap::setup, CvMap::numPlotsINLINE [CvMap.h], CvPlot::CvPlot [CvPlot.cpp], CvMap::getGridWidthINLINE [CvMap.h], CvDLLUtilityIFaceBase::callUpdater [CvDLLUtilityIFaceBase.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::plotSorenINLINE [CvMap.h], CvPlot::init [CvPlot.cpp], CvMap::calculateAreas
+- **54** `CvMap::~CvMap()` (exported; virtual)
+  - calls: CvMap::uninit, FFreeListTrashArray<CvArea>::~FFreeListTrashArray<class CvArea> [FFreeListTrashArray.h]
+  - called by (1): CvMap::`vector deleting dtor'
+- **65** `CvMap::init(CvMapInitData*)` (exported)
+  - calls: CvDLLUtilityIFaceBase::logMemState [CvDLLUtilityIFaceBase.h], CvString::format [CvString.h], CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvInfoBase::getDescription [CvInfos.cpp], CvInitCore::getWorldSize [CvInitCore.h], CvGlobals::getClimateInfo(ClimateTypes) [CvGlobals.cpp], CvInitCore::getClimate [CvInitCore.h], CvGlobals::getSeaLevelInfo(SeaLevelTypes) [CvGlobals.cpp], CvInitCore::getSeaLevel [CvInitCore.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInitCore::getNumCustomMapOptions [CvInitCore.h], CvString::~CvString [CvString.h], CvDLLPythonIFaceBase::getMapScriptModule [CvDLLPythonIFaceBase.h], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvMap::reset, CvDLLFeatureIFaceBase::init [CvDLLSymbolIFaceBase.h], CvDLLRouteIFaceBase::init [CvDLLSymbolIFaceBase.h], CvDLLRiverIFaceBase::init [CvDLLSymbolIFaceBase.h], FFreeListArrayBase<CvArea>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::init, FFreeListArrayBase<CvCityAI>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::init, FFreeListArrayBase<CvDeal>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::init, FFreeListArrayBase<CvPlotGroup>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::init, FFreeListArrayBase<CvSelectionGroupAI>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::init, FFreeListArrayBase<CvUnitAI>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::init, FFreeListArrayBase<EventTriggeredData>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::init, FFreeListArrayBase<VoteSelectionData>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::init, FFreeListArrayBase<VoteTriggeredData>::init [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::init, CvMap::setup, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvMap::numPlotsINLINE [CvMap.h], CvMap::getGridWidthINLINE [CvMap.h], CvDLLUtilityIFaceBase::callUpdater [CvDLLUtilityIFaceBase.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::plotSorenINLINE [CvMap.h], CvPlot::init [CvPlot.cpp], CvMap::calculateAreas, operator delete[](void*) [CvGameCoreDLL.cpp]
+  - takes the address of: CvPlot::CvPlot [CvPlot.cpp], CvPlot::~CvPlot [CvPlot.cpp]
   - called by (1): CvMap::rebuild
-- **106** `CvMap::uninit()`
-  - calls: FFreeListTrashArray::uninit [FFreeListTrashArray.h]
+- **107** `CvMap::uninit()`
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp], FFreeListArrayBase<CvArea>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::uninit, FFreeListArrayBase<CvCityAI>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::uninit, FFreeListArrayBase<CvDeal>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::uninit, FFreeListArrayBase<CvPlotGroup>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::uninit, FFreeListArrayBase<CvSelectionGroupAI>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::uninit, FFreeListArrayBase<CvUnitAI>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::uninit, FFreeListArrayBase<EventTriggeredData>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::uninit, FFreeListArrayBase<VoteSelectionData>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::uninit, FFreeListArrayBase<VoteTriggeredData>::uninit [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::uninit
   - called by (2): CvMap::reset, CvMap::~CvMap
-- **118** `CvMap::reset(CvMapInitData *)` (exported)
-  - calls: CvMap::uninit, CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvWorldInfo::getGridWidth [CvInfos.cpp], CvInitCore::getWorldSize [CvInitCore.h], CvWorldInfo::getGridHeight [CvInfos.cpp], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::getMapScriptModule [CvDLLPythonIFaceBase.h], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, std::vector<int> *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvDLLPythonIFaceBase::pythonUsingDefaultImpl [CvDLLPythonIFaceBase.h], CvGlobals::getNumLandscapeInfos [CvGlobals.cpp], CvGlobals::getLandscapeInfo(int) [CvGlobals.cpp], CvGlobals::getActiveLandscapeID [CvGlobals.cpp], CvLandscapeInfo::getPlotsPerCellX [CvInfos.cpp], CvLandscapeInfo::getPlotsPerCellY [CvInfos.cpp], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], FFreeListTrashArray::removeAll [FFreeListTrashArray.h]
+- **119** `CvMap::reset(CvMapInitData*)` (exported)
+  - calls: CvMap::uninit, CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvWorldInfo::getGridWidth [CvInfos.cpp], CvInitCore::getWorldSize [CvInitCore.h], CvWorldInfo::getGridHeight [CvInfos.cpp], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::getMapScriptModule [CvDLLPythonIFaceBase.h], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvDLLPythonIFaceBase::pythonUsingDefaultImpl [CvDLLPythonIFaceBase.h], CvGlobals::getNumLandscapeInfos [CvGlobals.cpp], CvGlobals::getLandscapeInfo(int) [CvGlobals.cpp], CvGlobals::getActiveLandscapeID [CvGlobals.cpp], CvLandscapeInfo::getPlotsPerCellX [CvInfos.cpp], CvLandscapeInfo::getPlotsPerCellY [CvInfos.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], FFreeListArrayBase<CvArea>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::removeAll, FFreeListArrayBase<CvCityAI>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::removeAll, FFreeListArrayBase<CvDeal>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::removeAll, FFreeListArrayBase<CvPlotGroup>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::removeAll, FFreeListArrayBase<CvSelectionGroupAI>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::removeAll, FFreeListArrayBase<CvUnitAI>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::removeAll, FFreeListArrayBase<EventTriggeredData>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::removeAll, FFreeListArrayBase<VoteSelectionData>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::removeAll, FFreeListArrayBase<VoteTriggeredData>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::removeAll
   - called by (3): CvMap::CvMap, CvMap::init, CvMap::read
-- **244** `CvMap::setup()`
-  - calls: CvDLLFAStarIFaceBase::Initialize [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getPathFinder [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h], CvGlobals::getInterfacePathFinder [CvGlobals.cpp], CvGlobals::getStepFinder [CvGlobals.cpp], CvGlobals::getRouteFinder [CvGlobals.cpp], CvGlobals::getBorderFinder [CvGlobals.cpp], CvGlobals::getAreaFinder [CvGlobals.cpp], CvGlobals::getPlotGroupFinder [CvGlobals.cpp], CvSelectionGroup::initSecondaryPathFinder [CvSelectionGroup.cpp]
+- **245** `CvMap::setup()`
+  - calls: CvDLLFAStarIFaceBase::Initialize [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getPathFinder [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h], CvGlobals::getInterfacePathFinder [CvGlobals.cpp], CvGlobals::getStepFinder [CvGlobals.cpp], CvGlobals::getRouteFinder [CvGlobals.cpp], CvGlobals::getBorderFinder [CvGlobals.cpp], CvGlobals::getAreaFinder [CvGlobals.cpp], CvGlobals::getPlotGroupFinder [CvGlobals.cpp], CvSelectionGroup::initSecondaryPathFinder [CvSelectionGroup.cpp]
   - takes the address of: pathDestValid [CvGameCoreUtils.cpp], pathHeuristic [CvGameCoreUtils.cpp], pathCost [CvGameCoreUtils.cpp], pathValid [CvGameCoreUtils.cpp], pathAdd [CvGameCoreUtils.cpp], stepDestValid [CvGameCoreUtils.cpp], stepHeuristic [CvGameCoreUtils.cpp], stepCost [CvGameCoreUtils.cpp], stepValid [CvGameCoreUtils.cpp], stepAdd [CvGameCoreUtils.cpp], routeValid [CvGameCoreUtils.cpp], borderValid [CvGameCoreUtils.cpp], areaValid [CvGameCoreUtils.cpp], joinArea [CvGameCoreUtils.cpp], plotGroupValid [CvGameCoreUtils.cpp], countPlotGroup [CvGameCoreUtils.cpp]
   - called by (2): CvMap::init, CvMap::read
-- **262** `CvMap::setupGraphical()` (exported)
+- **263** `CvMap::setupGraphical()` (exported)
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvDLLUtilityIFaceBase::callUpdater [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setupGraphical [CvPlot.cpp]
   - called by (1): CvGame::regenerateMap
-- **279** `CvMap::erasePlots()` (exported)
+- **280** `CvMap::erasePlots()` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::erase [CvPlot.cpp]
   - called by (2): CvGame::regenerateMap, CyMap::erasePlots
-- **290** `CvMap::setRevealedPlots(TeamTypes, bool, bool)`
-  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setRevealed [CvPlot.cpp], CvGame::updatePlotGroups [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **291** `CvMap::setRevealedPlots(TeamTypes, bool, bool)`
+  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setRevealed [CvPlot.cpp], CvGame::updatePlotGroups [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (4): CvGame::initFreeState, CvGame::regenerateMap, CvTeam::setHasTech, CyMap::setRevealedPlots
-- **305** `CvMap::setAllPlotTypes(PlotTypes)`
-  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setPlotType [CvPlot.cpp], CvMap::recalculateAreas, CvDLLEngineIFaceBase::RebuildAllPlots [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDLLEngineIFaceBase::SetDirty [CvDLLEngineIFaceBase.h]
+- **306** `CvMap::setAllPlotTypes(PlotTypes)`
+  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setPlotType [CvPlot.cpp], CvMap::recalculateAreas, CvDLLEngineIFaceBase::RebuildAllPlots [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLEngineIFaceBase::SetDirty [CvDLLEngineIFaceBase.h]
   - called by (1): CyMap::setAllPlotTypes
-- **329** `CvMap::doTurn()`
+- **330** `CvMap::doTurn()`
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::doTurn [CvPlot.cpp]
   - called by (1): CvGame::doTurn
-- **342** `CvMap::updateFlagSymbols()` (exported)
+- **343** `CvMap::updateFlagSymbols()` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::isFlagDirty [CvPlot.cpp], CvPlot::updateFlagSymbol [CvPlot.cpp], CvPlot::setFlagDirty [CvPlot.cpp]
-- **362** `CvMap::updateFog()` (exported)
+- **363** `CvMap::updateFog()` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateFog [CvPlot.cpp]
   - called by (2): CvGame::setActivePlayer, CyMap::updateFog
-- **373** `CvMap::updateVisibility()` (exported)
+- **374** `CvMap::updateVisibility()` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateVisibility [CvPlot.cpp]
   - called by (3): CvGame::setActivePlayer, CvGame::toggleDebugMode, CyMap::updateVisibility
-- **384** `CvMap::updateSymbolVisibility()` (exported)
+- **385** `CvMap::updateSymbolVisibility()` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateSymbolVisibility [CvPlot.cpp]
-- **395** `CvMap::updateSymbols()`
+- **396** `CvMap::updateSymbols()`
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateSymbols [CvPlot.cpp]
   - called by (2): CvGame::setActivePlayer, CvGame::toggleDebugMode
-- **406** `CvMap::updateMinimapColor()` (exported)
+- **407** `CvMap::updateMinimapColor()` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateMinimapColor [CvPlot.cpp]
   - called by (3): CvGame::setActivePlayer, CvGame::toggleDebugMode, CyMap::updateMinimapColor
-- **417** `CvMap::updateSight(bool)`
-  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateSight [CvPlot.cpp], CvGame::updatePlotGroups [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **418** `CvMap::updateSight(bool)`
+  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateSight [CvPlot.cpp], CvGame::updatePlotGroups [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (1): CvTeam::changeExtraWaterSeeFromCount
-- **428** `CvMap::updateIrrigated()`
+- **429** `CvMap::updateIrrigated()`
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateIrrigated [CvPlot.cpp]
   - called by (3): CvArea::changeNumTiles, CvGame::setFinalInitialized, CvTeam::changeIrrigationCount
-- **439** `CvMap::updateCenterUnit()` (exported)
+- **440** `CvMap::updateCenterUnit()` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateCenterUnit [CvPlot.cpp]
-- **450** `CvMap::updateWorkingCity()`
+- **451** `CvMap::updateWorkingCity()`
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateWorkingCity [CvPlot.cpp]
   - called by (3): CvCity::init, CvCity::kill, CvCity::setGameTurnFounded
-- **461** `CvMap::updateMinOriginalStartDist(CvArea *)`
+- **462** `CvMap::updateMinOriginalStartDist(CvArea*)`
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::area [CvPlot.cpp], CvPlot::setMinOriginalStartDist [CvPlot.cpp], CvPlayer::getStartingPlot [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], stepDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getMinOriginalStartDist [CvPlot.cpp]
   - called by (2): CvPlayer::setStartingPlot, CyMap::updateMinOriginalStartDist
-- **515** `CvMap::updateYield()`
+- **516** `CvMap::updateYield()`
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateYield [CvPlot.cpp]
   - called by (1): CvArea::changeNumTiles
-- **526** `CvMap::verifyUnitValidPlot()`
+- **527** `CvMap::verifyUnitValidPlot()`
   - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::verifyUnitValidPlot [CvPlot.cpp]
   - called by (7): CvArea::changeBorderObstacleCount, CvPlayer::acquireCity, CvPlayer::assimilatePlayer, CvTeam::declareWar, CvTeam::makePeace, CvTeam::setOpenBorders, CyMap::verifyUnitValidPlot
-- **535** `CvMap::combinePlotGroups(PlayerTypes, CvPlotGroup *, CvPlotGroup *)`
+- **536** `CvMap::combinePlotGroups(PlayerTypes, CvPlotGroup*, CvPlotGroup*)`
   - calls: CvPlotGroup::getLengthPlots [CvPlotGroup.cpp], CvPlotGroup::headPlotsNode [CvPlotGroup.cpp], CvMap::plotSorenINLINE [CvMap.h], CvPlotGroup::addPlot [CvPlotGroup.cpp], CvPlotGroup::deletePlotsNode [CvPlotGroup.cpp]
   - called by (1): CvPlot::updatePlotGroup(PlayerTypes, bool)
-- **570** `CvMap::syncRandPlot(int, int, int, int)`
-  - calls: CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::plotSorenINLINE [CvMap.h], CvPlot::getArea [CvPlot.cpp], plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isUnit [CvPlot.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::isOwned [CvPlot.cpp], CvPlot::isAdjacentOwned [CvPlot.cpp], CvPlot::isAdjacentToLand [CvPlot.cpp], CvPlot::isImpassable [CvPlot.cpp], CvPlot::isVisibleToCivTeam [CvPlot.cpp], CvPlot::isCity [CvPlot.cpp]
+- **571** `CvMap::syncRandPlot(int, int, int, int)`
+  - calls: CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::plotSorenINLINE [CvMap.h], CvPlot::getArea [CvPlot.cpp], plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isUnit [CvPlot.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::isOwned [CvPlot.cpp], CvPlot::isAdjacentOwned [CvPlot.cpp], CvPlot::isAdjacentToLand [CvPlot.cpp], CvPlot::isImpassable [CvPlot.cpp], CvPlot::isVisibleToCivTeam [CvPlot.cpp], CvPlot::isCity [CvPlot.cpp]
   - called by (4): CvGame::createAnimals, CvGame::createBarbarianUnits, CvGame::doGlobalWarming, CyMap::syncRandPlot
-- **706** `CvMap::findCity(int, int, PlayerTypes, TeamTypes, bool, bool, TeamTypes, DirectionTypes, CvCity *)` (exported)
+- **707** `CvMap::findCity(int, int, PlayerTypes, TeamTypes, bool, bool, TeamTypes, DirectionTypes, CvCity*)` (exported)
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvCity::area [CvCity.cpp], CvCity::waterArea [CvCity.cpp], CvMap::plotINLINE [CvMap.h], CvPlot::area [CvPlot.cpp], CvCity::isCoastal [CvCity.cpp], CvGlobals::getMIN_WATER_SIZE_FOR_OCEAN [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], atWar [CvGameCoreUtils.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], estimateDirection(int, int) [CvGameCoreUtils.cpp], dxWrap [CvGameCoreUtils.h], dyWrap [CvGameCoreUtils.h], plotDistance [CvGameCoreUtils.h]
   - called by (27): CvGame::doGlobalWarming, CvGameTextMgr::setPlotHelp, CvPlayer::canReceiveGoody, CvPlayer::doEspionageMission, CvPlayer::doWarnings, CvPlayer::initTriggeredData, CvPlayerAI::AI_advancedStartFindCapitalPlot, CvPlayerAI::AI_captureUnit, CvPlayerAI::AI_cityTrade, CvPlayerAI::AI_conquerCity, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_goldToUpgradeAllUnits …
-- **764** `CvMap::findSelectionGroup(int, int, PlayerTypes, bool, bool)` (exported)
+- **765** `CvMap::findSelectionGroup(int, int, PlayerTypes, bool, bool)` (exported)
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstSelectionGroup [CvPlayer.cpp], CvPlayer::nextSelectionGroup [CvPlayer.cpp], CvSelectionGroup::readyToSelect [CvSelectionGroup.cpp], CvSelectionGroup::hasWorker [CvSelectionGroup.cpp], plotDistance [CvGameCoreUtils.h], CvSelectionGroup::getX [CvSelectionGroup.cpp], CvSelectionGroup::getY [CvSelectionGroup.cpp]
   - called by (2): CvGame::cycleSelectionGroups, CyMap::findSelectionGroup
-- **808** `CvMap::findBiggestArea(bool)`
+- **809** `CvMap::findBiggestArea(bool)`
   - calls: CvMap::firstArea, CvMap::nextArea, CvArea::isWater [CvArea.cpp], CvArea::getNumTiles [CvArea.cpp]
   - called by (4): CvCityAI::AI_chooseProduction, CvPlayerAI::AI_neededExplorers, CvTeamAI::AI_isWaterAreaRelevant, CyMap::findBiggestArea
-- **837** `CvMap::getMapFractalFlags()`
+- **838** `CvMap::getMapFractalFlags()`
   - calls: CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h]
   - called by (1): CyMap::getMapFractalFlags
-- **856** `CvMap::findWater(CvPlot *, int, bool)`
+- **857** `CvMap::findWater(CvPlot*, int, bool)`
   - calls: plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isFreshWater [CvPlot.cpp], CvPlot::isWater [CvPlot.cpp]
   - called by (2): CvMapGenerator::addRivers, CyMap::findWater
-- **893** `CvMap::isPlot(int, int)` (exported)
+- **894** `CvMap::isPlot(int, int) const` (exported)
   - calls: CvMap::isPlotINLINE [CvMap.h]
-- **899** `CvMap::numPlots()` (exported)
+- **900** `CvMap::numPlots() const` (exported)
   - calls: CvMap::numPlotsINLINE [CvMap.h]
   - called by (8): CvDLLButtonPopup::launchMainMenuPopup, CvGame::updateBlockadedPlots, CvGame::updateColoredPlots, CvPlayer::getAdvancedStartImprovementCost, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getAdvancedStartVisibilityCost, CvPlayer::initFreeUnits, CvPlayerAI::AI_doAdvancedStart
-- **905** `CvMap::plotNum(int, int)` (exported)
+- **906** `CvMap::plotNum(int, int) const` (exported)
   - calls: CvMap::plotNumINLINE [CvMap.h]
   - called by (1): CvPlayerAI::AI_updateCitySites
-- **911** `CvMap::plotX(int)`
+- **912** `CvMap::plotX(int) const`
   - calls: CvMap::getGridWidthINLINE [CvMap.h]
   - called by (1): CyMap::plotX
-- **917** `CvMap::plotY(int)`
+- **918** `CvMap::plotY(int) const`
   - calls: CvMap::getGridWidthINLINE [CvMap.h]
   - called by (1): CyMap::plotY
-- **923** `CvMap::pointXToPlotX(float)` (exported)
-  - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h]
+- **924** `CvMap::pointXToPlotX(float)` (exported)
+  - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h]
   - called by (1): CvMap::pointToPlot
-- **931** `CvMap::plotXToPointX(int)` (exported)
-  - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvMap::getGridWidthINLINE [CvMap.h]
+- **932** `CvMap::plotXToPointX(int)` (exported)
+  - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvMap::getGridWidthINLINE [CvMap.h]
   - called by (2): CvPlayer::getResourceLayerColors, CvPlot::getPointX
-- **939** `CvMap::pointYToPlotY(float)` (exported)
-  - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::getGridHeightINLINE [CvMap.h]
+- **940** `CvMap::pointYToPlotY(float)` (exported)
+  - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvMap::getGridHeightINLINE [CvMap.h]
   - called by (1): CvMap::pointToPlot
-- **947** `CvMap::plotYToPointY(int)` (exported)
-  - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvMap::getGridHeightINLINE [CvMap.h]
+- **948** `CvMap::plotYToPointY(int)` (exported)
+  - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvMap::getGridHeightINLINE [CvMap.h]
   - called by (2): CvPlayer::getResourceLayerColors, CvPlot::getPointY
-- **955** `CvMap::getWidthCoords()`
+- **956** `CvMap::getWidthCoords()`
   - calls: CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h]
-- **961** `CvMap::getHeightCoords()`
+- **962** `CvMap::getHeightCoords()`
   - calls: CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMap::getGridHeightINLINE [CvMap.h]
-- **967** `CvMap::maxPlotDistance()`
+- **968** `CvMap::maxPlotDistance()`
   - calls: plotDistance [CvGameCoreUtils.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h]
   - called by (7): CvCity::calculateDistanceMaintenanceTimes100, CvCity::doReligion, CvGameTextMgr::setEspionageCostHelp, CvPlayer::findStartingPlot, CvPlayer::getEspionageMissionCostModifier, CvPlayerAI::AI_foundValue, CvTeamAI::AI_calculateCapitalProximity
-- **973** `CvMap::maxStepDistance()`
+- **974** `CvMap::maxStepDistance()`
   - calls: stepDistance [CvGameCoreUtils.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h]
   - called by (4): CvPlayer::startingPlotRange, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_targetCityValue, CvUnitAI::AI_offensiveAirlift
-- **979** `CvMap::getGridWidth()` (exported)
+- **980** `CvMap::getGridWidth() const` (exported)
   - calls: CvMap::getGridWidthINLINE [CvMap.h]
   - called by (1): CvPlot::getFOWIndex
-- **985** `CvMap::getGridHeight()` (exported)
+- **986** `CvMap::getGridHeight() const` (exported)
   - calls: CvMap::getGridHeightINLINE [CvMap.h]
   - called by (1): CvPlot::getFOWIndex
-- **991** `CvMap::getLandPlots()` (exported)
-  - called by (9): CvGame::circumnavigationAvailable, CvGame::createBarbarianCities, CvGame::doGlobalWarming, CvGame::initScoreCalculation, CvGame::testVictory(VictoryTypes, TeamTypes, bool *), CvPlayer::startingPlotRange, CvPlayerAI::AI_getDominationVictoryStage, CvTeamAI::AI_surrenderTrade, CyMap::getLandPlots
-- **997** `CvMap::changeLandPlots(int)`
+- **992** `CvMap::getLandPlots()` (exported)
+  - called by (9): CvGame::circumnavigationAvailable, CvGame::createBarbarianCities, CvGame::doGlobalWarming, CvGame::initScoreCalculation, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvPlayer::startingPlotRange, CvPlayerAI::AI_getDominationVictoryStage, CvTeamAI::AI_surrenderTrade, CyMap::getLandPlots
+- **998** `CvMap::changeLandPlots(int)`
   - called by (1): CvPlot::setPlotType
-- **1004** `CvMap::getOwnedPlots()` (exported)
+- **1005** `CvMap::getOwnedPlots()` (exported)
   - called by (2): CvGame::calculateSyncChecksum, CyMap::getOwnedPlots
-- **1010** `CvMap::changeOwnedPlots(int)`
+- **1011** `CvMap::changeOwnedPlots(int)`
   - called by (1): CvPlot::setOwner
-- **1017** `CvMap::getTopLatitude()`
+- **1018** `CvMap::getTopLatitude()`
   - called by (2): CvPlot::getLatitudeMinutes, CyMap::getTopLatitude
-- **1023** `CvMap::getBottomLatitude()`
+- **1024** `CvMap::getBottomLatitude()`
   - called by (2): CvPlot::getLatitudeMinutes, CyMap::getBottomLatitude
-- **1029** `CvMap::getNextRiverID()`
+- **1030** `CvMap::getNextRiverID()`
   - called by (2): CvMapGenerator::doRiver, CyMap::getNextRiverID
-- **1035** `CvMap::incrementNextRiverID()`
+- **1036** `CvMap::incrementNextRiverID()`
   - called by (2): CvMapGenerator::doRiver, CyMap::incrementNextRiverID
-- **1041** `CvMap::isWrapX()` (exported)
+- **1042** `CvMap::isWrapX()` (exported)
   - calls: CvMap::isWrapXINLINE [CvMap.h]
   - called by (2): CvUnitAI::AI_exploreRange, CvUnitAI::AI_setBirthmark
-- **1047** `CvMap::isWrapY()` (exported)
+- **1048** `CvMap::isWrapY()` (exported)
   - calls: CvMap::isWrapYINLINE [CvMap.h]
   - called by (2): CvUnitAI::AI_exploreRange, CvUnitAI::AI_setBirthmark
-- **1052** `CvMap::isWrap()` (exported)
+- **1053** `CvMap::isWrap()` (exported)
   - calls: CvMap::isWrapINLINE [CvMap.h]
-- **1057** `CvMap::getWorldSize()` (exported)
+- **1058** `CvMap::getWorldSize()` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getWorldSize [CvInitCore.h]
-  - called by (24): CvCity::calculateColonyMaintenanceTimes100, CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes), CvCity::calculateDistanceMaintenanceTimes100, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::getBaseTradeProfit, CvCity::getCorporationCommerceByCorporation, CvCity::getCorporationYieldByCorporation, CvCity::getLargestCityHappiness, CvGame::createBarbarianCities, CvGame::getNumFreeBonuses, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setCorporationHelp …
-- **1063** `CvMap::getClimate()` (exported)
+  - called by (24): CvCity::calculateColonyMaintenanceTimes100, CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes) const, CvCity::calculateDistanceMaintenanceTimes100, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::getBaseTradeProfit, CvCity::getCorporationCommerceByCorporation, CvCity::getCorporationYieldByCorporation, CvCity::getLargestCityHappiness, CvGame::createBarbarianCities, CvGame::getNumFreeBonuses, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setCorporationHelp …
+- **1064** `CvMap::getClimate()` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getClimate [CvInitCore.h]
   - called by (2): CvReplayInfo::createInfo, CyMap::getClimate
-- **1069** `CvMap::getSeaLevel()` (exported)
+- **1070** `CvMap::getSeaLevel()` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getSeaLevel [CvInitCore.h]
   - called by (2): CvReplayInfo::createInfo, CyMap::getSeaLevel
-- **1076** `CvMap::getNumCustomMapOptions()` (exported)
+- **1077** `CvMap::getNumCustomMapOptions()` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getNumCustomMapOptions [CvInitCore.h]
   - called by (1): CyMap::getNumCustomMapOptions
-- **1082** `CvMap::getCustomMapOption(int)` (exported)
+- **1083** `CvMap::getCustomMapOption(int)` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getCustomMapOption [CvInitCore.cpp]
   - called by (1): CyMap::getCustomMapOption
-- **1088** `CvMap::getNumBonuses(BonusTypes)`
+- **1089** `CvMap::getNumBonuses(BonusTypes)`
   - called by (3): CvMapGenerator::addUniqueBonusType, CvMapGenerator::canPlaceBonusAt, CyMap::getNumBonuses
-- **1096** `CvMap::changeNumBonuses(BonusTypes, int)`
+- **1097** `CvMap::changeNumBonuses(BonusTypes, int)`
   - called by (1): CvPlot::setBonusType
-- **1105** `CvMap::getNumBonusesOnLand(BonusTypes)`
+- **1106** `CvMap::getNumBonusesOnLand(BonusTypes)`
   - called by (2): CvMapGenerator::canPlaceBonusAt, CyMap::getNumBonusesOnLand
-- **1113** `CvMap::changeNumBonusesOnLand(BonusTypes, int)`
+- **1114** `CvMap::changeNumBonusesOnLand(BonusTypes, int)`
   - called by (2): CvPlot::setBonusType, CvPlot::setPlotType
-- **1122** `CvMap::plotByIndex(int)` (exported)
+- **1123** `CvMap::plotByIndex(int) const` (exported)
   - calls: CvMap::plotByIndexINLINE [CvMap.h]
   - called by (12): CvGame::updateBlockadedPlots, CvGame::updateColoredPlots, CvPlayer::getAdvancedStartImprovementCost, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getAdvancedStartVisibilityCost, CvPlayer::initFreeUnits, CvPlayerAI::AI_doAdvancedStart, CvPlayerAI::AI_getCitySite, CvPlayerAI::AI_getNumAdjacentAreaCitySites, CvPlayerAI::AI_getNumAreaCitySites, CvPlayerAI::AI_getSettlementCandidate, CvPlayerAI::AI_updateCitySites
-- **1128** `CvMap::plot(int, int)` (exported)
+- **1129** `CvMap::plot(int, int) const` (exported)
   - calls: CvMap::plotINLINE [CvMap.h]
   - called by (11): CvDLLButtonPopup::launchEventPopup, CvGame::getNewHighlightPlot, CvGame::removePlotExtraYield, CvGame::setPlotExtraYield, CvGameTextMgr::setEventHelp, CvPlayer::createGreatPeople, CvPlayer::doAdvancedStartAction, CvPlayer::initTriggeredData, CvPlayer::setTriggerFired, CvPlayerAI::AI_eventValue, CvUnit::rangeStrike
-- **1134** `CvMap::pointToPlot(float, float)` (exported)
+- **1135** `CvMap::pointToPlot(float, float)` (exported)
   - calls: CvMap::pointXToPlotX, CvMap::pointYToPlotY, CvMap::plotINLINE [CvMap.h]
   - called by (1): CyMap::pointToPlot
-- **1140** `CvMap::getIndexAfterLastArea()`
-  - calls: FFreeListArrayBase::getIndexAfterLast [FFreeListArrayBase.h]
+- **1141** `CvMap::getIndexAfterLastArea()`
+  - calls: FFreeListArrayBase<CvArea>::getIndexAfterLast [FFreeListArrayBase.h]
   - called by (1): CyMap::getIndexAfterLastArea
-- **1146** `CvMap::getNumAreas()` (exported)
-  - calls: FFreeListArrayBase::getCount [FFreeListArrayBase.h]
+- **1147** `CvMap::getNumAreas()` (exported)
+  - calls: FFreeListArrayBase<CvArea>::getCount [FFreeListArrayBase.h]
   - called by (4): CvGame::calculateSyncChecksum, CvMapGenerator::addUniqueBonusType, CvPlayer::startingPlotRange, CyMap::getNumAreas
-- **1152** `CvMap::getNumLandAreas()` (exported)
+- **1153** `CvMap::getNumLandAreas()` (exported)
   - calls: CvGlobals::getMap [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMap::firstArea, CvMap::nextArea, CvArea::isWater [CvArea.cpp]
   - called by (2): CvPlayer::getEventTriggerWeight, CyMap::getNumLandAreas
-- **1172** `CvMap::getArea(int)`
-  - calls: FFreeListTrashArray::getAt [FFreeListTrashArray.h]
+- **1173** `CvMap::getArea(int)`
+  - calls: FFreeListArrayBase<CvArea>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::getAt, FFreeListArrayBase<CvCityAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::getAt, FFreeListArrayBase<CvDeal>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::getAt, FFreeListArrayBase<CvPlotGroup>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::getAt, FFreeListArrayBase<CvSelectionGroupAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::getAt, FFreeListArrayBase<CvUnitAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::getAt, FFreeListArrayBase<EventTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::getAt, FFreeListArrayBase<VoteSelectionData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::getAt, FFreeListArrayBase<VoteTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::getAt
   - called by (6): CvMapGenerator::addGoodies, CvPlayer::canSplitArea, CvPlayer::findStartingArea, CvPlayer::splitEmpire, CvPlot::area, CyMap::getArea
-- **1178** `CvMap::addArea()`
-  - calls: FFreeListTrashArray::add [FFreeListTrashArray.h]
+- **1179** `CvMap::addArea()`
+  - calls: FFreeListTrashArray<CvArea>::add [FFreeListTrashArray.h]
   - called by (2): CvMap::calculateAreas, CvPlot::setPlotType
-- **1184** `CvMap::deleteArea(int)`
-  - calls: FFreeListTrashArray::removeAt [FFreeListTrashArray.h]
+- **1185** `CvMap::deleteArea(int)`
+  - calls: FFreeListTrashArray<CvArea>::removeAt [FFreeListTrashArray.h]
   - called by (1): CvPlot::setPlotType
-- **1190** `CvMap::firstArea(int *, bool)`
-  - calls: FFreeListArrayBase::beginIter [FFreeListArrayBase.h], FFreeListArrayBase::endIter [FFreeListArrayBase.h]
+- **1191** `CvMap::firstArea(int*, bool)`
+  - calls: FFreeListArrayBase<CvArea>::endIter [FFreeListArrayBase.h], FFreeListArrayBase<CvArea>::beginIter [FFreeListArrayBase.h]
   - called by (19): CvDLLButtonPopup::launchFreeColonyPopup, CvGame::createAnimals, CvGame::createBarbarianUnits, CvMap::findBiggestArea, CvMap::getNumLandAreas, CvMapGenerator::addUniqueBonusType, CvPlayer::canSplitEmpire, CvPlayer::findBestFoundValue, CvPlayer::findStartingArea, CvPlayer::getEventTriggerWeight, CvPlayerAI::AI_doSplit, CvPlayerAI::AI_techUnitValue …
-- **1196** `CvMap::nextArea(int *, bool)`
-  - calls: FFreeListArrayBase::nextIter [FFreeListArrayBase.h], FFreeListArrayBase::prevIter [FFreeListArrayBase.h]
+- **1197** `CvMap::nextArea(int*, bool)`
+  - calls: FFreeListArrayBase<CvArea>::nextIter [FFreeListArrayBase.h], FFreeListArrayBase<CvArea>::prevIter [FFreeListArrayBase.h]
   - called by (19): CvDLLButtonPopup::launchFreeColonyPopup, CvGame::createAnimals, CvGame::createBarbarianUnits, CvMap::findBiggestArea, CvMap::getNumLandAreas, CvMapGenerator::addUniqueBonusType, CvPlayer::canSplitEmpire, CvPlayer::findBestFoundValue, CvPlayer::findStartingArea, CvPlayer::getEventTriggerWeight, CvPlayerAI::AI_doSplit, CvPlayerAI::AI_techUnitValue …
-- **1202** `CvMap::recalculateAreas()`
-  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setArea [CvPlot.cpp], FFreeListTrashArray::removeAll [FFreeListTrashArray.h], CvMap::calculateAreas
+- **1203** `CvMap::recalculateAreas()`
+  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setArea [CvPlot.cpp], FFreeListArrayBase<CvArea>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::removeAll, FFreeListArrayBase<CvCityAI>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::removeAll, FFreeListArrayBase<CvDeal>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::removeAll, FFreeListArrayBase<CvPlotGroup>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::removeAll, FFreeListArrayBase<CvSelectionGroupAI>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::removeAll, FFreeListArrayBase<CvUnitAI>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::removeAll, FFreeListArrayBase<EventTriggeredData>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::removeAll, FFreeListArrayBase<VoteSelectionData>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::removeAll, FFreeListArrayBase<VoteTriggeredData>::removeAll [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::removeAll, CvMap::calculateAreas
   - called by (4): CvMap::setAllPlotTypes, CvMapGenerator::setPlotTypes, CvPlot::setPlotType, CyMap::recalculateAreas
-- **1219** `CvMap::resetPathDistance()`
-  - calls: CvDLLFAStarIFaceBase::ForceReset [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getStepFinder [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **1220** `CvMap::resetPathDistance()`
+  - calls: CvDLLFAStarIFaceBase::ForceReset [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getStepFinder [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (2): CvPlot::setPlotType, CyMap::resetPathDistance
-- **1225** `CvMap::calculatePathDistance(CvPlot *, CvPlot *)`
-  - calls: CvDLLFAStarIFaceBase::GeneratePath [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getStepFinder [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvDLLFAStarIFaceBase::GetLastNode [CvDLLFAStarIFaceBase.h]
+- **1226** `CvMap::calculatePathDistance(CvPlot*, CvPlot*)`
+  - calls: CvDLLFAStarIFaceBase::GeneratePath [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getStepFinder [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvDLLFAStarIFaceBase::GetLastNode [CvDLLFAStarIFaceBase.h]
   - called by (9): CvCityAI::AI_cachePlayerCloseness, CvGame::foundBarbarianCity, CvGame::normalizeStartingPlotLocations, CvGame::updateColoredPlots, CvPlayerAI::AI_advancedStartRouteTerritory, CvPlayerAI::AI_targetCityValue, CvUnit::updatePlunder, CvUnitAI::AI_offensiveAirlift, CyMap::calculatePathDistance
-- **1254** `CvMap::invalidateIsActivePlayerNoDangerCache()`
-  - calls: CvMap::numPlotsINLINE [CvMap.h], CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setIsActivePlayerNoDangerCache [CvPlot.cpp]
+- **1255** `CvMap::invalidateIsActivePlayerNoDangerCache()`
+  - calls: CvMap::numPlotsINLINE [CvMap.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setIsActivePlayerNoDangerCache [CvPlot.cpp]
   - called by (2): CvPlayer::setTurnActive, CvPlayer::setTurnActiveForPbem
-- **1273** `CvMap::invalidateIsTeamBorderCache(TeamTypes)`
-  - calls: CvMap::numPlotsINLINE [CvMap.h], CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setIsTeamBorderCache [CvPlot.cpp]
+- **1274** `CvMap::invalidateIsTeamBorderCache(TeamTypes)`
+  - calls: CvMap::numPlotsINLINE [CvMap.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::setIsTeamBorderCache [CvPlot.cpp]
   - called by (2): CvTeam::declareWar, CvTeam::makePeace
-- **1299** `CvMap::read(FDataStreamBase *)` (exported; virtual)
-  - calls: CvMapInitData::CvMapInitData [CvMap.h], CvMap::reset, FDataStreamBase::Read(unsigned int *) [FDataStreamBase.h], FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Read(int, int *) [FDataStreamBase.h], CvMap::numPlotsINLINE [CvMap.h], CvPlot::CvPlot [CvPlot.cpp], CvPlot::read [CvPlot.cpp], ReadStreamableFFreeListTrashArray [FFreeListTrashArray.h], CvMap::setup
-- **1343** `CvMap::write(FDataStreamBase *)` (exported; virtual)
-  - calls: FDataStreamBase::Write(unsigned int) [FDataStreamBase.h], FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Write(int, const int *) [FDataStreamBase.h], CvMap::numPlotsINLINE [CvMap.h], CvPlot::write [CvPlot.cpp], WriteStreamableFFreeListTrashArray [FFreeListTrashArray.h]
-- **1377** `CvMap::rebuild(int, int, int, int, bool, bool, WorldSizeTypes, ClimateTypes, SeaLevelTypes, int, CustomMapOptionTypes *)`
+- **1300** `CvMap::read(FDataStreamBase*)` (exported; virtual)
+  - calls: CvMapInitData::CvMapInitData [CvMap.h], CvMap::reset, FDataStreamBase::Read [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::read [CvPlot.cpp], ReadStreamableFFreeListTrashArray<class CvArea> [FFreeListTrashArray.h], CvMap::setup, operator delete[](void*) [CvGameCoreDLL.cpp]
+  - takes the address of: CvPlot::CvPlot [CvPlot.cpp], CvPlot::~CvPlot [CvPlot.cpp]
+  - called by (2): ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
+- **1344** `CvMap::write(FDataStreamBase*)` (exported; virtual)
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvPlot::write [CvPlot.cpp], WriteStreamableFFreeListTrashArray<class CvArea> [FFreeListTrashArray.h]
+- **1378** `CvMap::rebuild(int, int, int, int, bool, bool, WorldSizeTypes, ClimateTypes, SeaLevelTypes, int, CustomMapOptionTypes*)`
   - calls: CvMapInitData::CvMapInitData [CvMap.h], CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::setWorldSize(WorldSizeTypes) [CvInitCore.h], CvInitCore::setClimate(ClimateTypes) [CvInitCore.h], CvInitCore::setSeaLevel(SeaLevelTypes) [CvInitCore.h], CvInitCore::setCustomMapOptions [CvInitCore.cpp], CvMap::init
   - called by (1): CyMap::rebuild
-- **1396** `CvMap::calculateAreas()`
-  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvDLLUtilityIFaceBase::callUpdater [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvPlot::getArea [CvPlot.cpp], CvMap::addArea, CvArea::init [CvArea.cpp], CvArea::getID [CvArea.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::setArea [CvPlot.cpp], CvDLLFAStarIFaceBase::GeneratePath [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getAreaFinder [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
+- **1397** `CvMap::calculateAreas()`
+  - calls: CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvDLLUtilityIFaceBase::callUpdater [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::getArea [CvPlot.cpp], CvMap::addArea, CvArea::init [CvArea.cpp], CvArea::getID [CvArea.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::setArea [CvPlot.cpp], CvDLLFAStarIFaceBase::GeneratePath [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getAreaFinder [CvGlobals.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (2): CvMap::init, CvMap::recalculateAreas
+- **·** `CvPlot::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvPlot::~CvPlot [CvPlot.cpp]
+  - takes the address of: CvPlot::~CvPlot [CvPlot.cpp]

@@ -2,978 +2,978 @@
 
 Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **18** `CyUnit::CyUnit()`
-- **23** `CyUnit::CyUnit(CvUnit *)` (exported)
+- **19** `CyUnit::CyUnit()`
+- **24** `CyUnit::CyUnit(CvUnit*)` (exported)
   - called by (39): CvDllPythonEvents::reportCombatLogCollateral, CvDllPythonEvents::reportCombatLogFlanking, CvDllPythonEvents::reportCombatResult, CvDllPythonEvents::reportCombatRetreat, CvDllPythonEvents::reportCombatWithdrawal, CvDllPythonEvents::reportGoodyReceived, CvDllPythonEvents::reportGreatPersonBorn, CvDllPythonEvents::reportNukeExplosion, CvDllPythonEvents::reportUnitBuildImprovement, CvDllPythonEvents::reportUnitBuilt, CvDllPythonEvents::reportUnitCaptured, CvDllPythonEvents::reportUnitCreated …
-- **28** `CyUnit::convert(CyUnit *)` (Python: convert)
-  - calls: CvUnit::convert [CvUnit.cpp], CyUnit::getUnit() [CyUnit.h]
+- **29** `CyUnit::convert(CyUnit*)` (Python: convert)
+  - calls: CvUnit::convert [CvUnit.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **34** `CyUnit::kill(bool, int)` (Python: kill)
+- **35** `CyUnit::kill(bool, int)` (Python: kill)
   - calls: CvUnit::kill [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **40** `CyUnit::NotifyEntity(int)` (Python: NotifyEntity)
+- **41** `CyUnit::NotifyEntity(int)` (Python: NotifyEntity)
   - calls: CvUnit::NotifyEntity [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **46** `CyUnit::isActionRecommended(int)` (Python: isActionRecommended)
+- **47** `CyUnit::isActionRecommended(int)` (Python: isActionRecommended)
   - calls: CvUnit::isActionRecommended [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **56** `CyUnit::isBetterDefenderThan(CyUnit *, CyUnit *)` (Python: isBetterDefenderThan)
-  - calls: CvUnit::isBetterDefenderThan(const CvUnit *, const CvUnit *) [CvUnit.cpp], CyUnit::getUnit() [CyUnit.h]
+- **57** `CyUnit::isBetterDefenderThan(CyUnit*, CyUnit*)` (Python: isBetterDefenderThan)
+  - calls: CvUnit::isBetterDefenderThan(CvUnit const*, CvUnit const*) const [CvUnit.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **61** `CyUnit::canDoCommand(CommandTypes, int, int, bool)` (Python: canDoCommand)
+- **62** `CyUnit::canDoCommand(CommandTypes, int, int, bool)` (Python: canDoCommand)
   - calls: CvUnit::canDoCommand [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **66** `CyUnit::doCommand(CommandTypes, int, int)` (Python: doCommand)
+- **67** `CyUnit::doCommand(CommandTypes, int, int)` (Python: doCommand)
   - calls: CvUnit::doCommand [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **72** `CyUnit::getPathEndTurnPlot()` (Python: getPathEndTurnPlot)
-  - calls: CvUnit::getPathEndTurnPlot [CvUnit.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **73** `CyUnit::getPathEndTurnPlot()` (Python: getPathEndTurnPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnit::getPathEndTurnPlot [CvUnit.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyUnitPythonInterface1
-- **77** `CyUnit::generatePath(CyPlot *, int, bool, int *)` (Python: generatePath)
+- **78** `CyUnit::generatePath(CyPlot*, int, bool, int*)` (Python: generatePath)
   - calls: CvUnit::generatePath [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **82** `CyUnit::canEnterTerritory(int, bool)` (Python: canEnterTerritory)
+- **83** `CyUnit::canEnterTerritory(int, bool)` (Python: canEnterTerritory)
   - calls: CvUnit::canEnterTerritory [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **87** `CyUnit::canEnterArea(int, CyArea *, bool)` (Python: canEnterArea)
+- **88** `CyUnit::canEnterArea(int, CyArea*, bool)` (Python: canEnterArea)
   - calls: CvUnit::canEnterArea [CvUnit.cpp], CyArea::getArea [CyArea.h]
   - called by (1): CyUnitPythonInterface1
-- **92** `CyUnit::getDeclareWarMove(CyPlot *)` (Python: getDeclareWarMove)
+- **93** `CyUnit::getDeclareWarMove(CyPlot*)` (Python: getDeclareWarMove)
   - calls: CvUnit::getDeclareWarMove [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **97** `CyUnit::canMoveInto(CyPlot *, bool, bool, bool)` (Python: canMoveInto)
+- **98** `CyUnit::canMoveInto(CyPlot*, bool, bool, bool)` (Python: canMoveInto)
   - calls: CvUnit::canMoveInto [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **102** `CyUnit::canMoveOrAttackInto(CyPlot *, bool)` (Python: canMoveOrAttackInto)
+- **103** `CyUnit::canMoveOrAttackInto(CyPlot*, bool)` (Python: canMoveOrAttackInto)
   - calls: CvUnit::canMoveOrAttackInto [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **107** `CyUnit::canMoveThrough(CyPlot *)` (Python: canMoveThrough)
+- **108** `CyUnit::canMoveThrough(CyPlot*)` (Python: canMoveThrough)
   - calls: CvUnit::canMoveThrough [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **112** `CyUnit::jumpToNearestValidPlot()` (Python: jumpToNearestValidPlot)
+- **113** `CyUnit::jumpToNearestValidPlot()` (Python: jumpToNearestValidPlot)
   - calls: CvUnit::jumpToNearestValidPlot [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **117** `CyUnit::canAutomate(AutomateTypes)` (Python: canAutomate)
+- **118** `CyUnit::canAutomate(AutomateTypes)` (Python: canAutomate)
   - calls: CvUnit::canAutomate [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **122** `CyUnit::canScrap()` (Python: canScrap)
+- **123** `CyUnit::canScrap()` (Python: canScrap)
   - calls: CvUnit::canScrap [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **127** `CyUnit::canGift(bool)` (Python: canGift)
+- **128** `CyUnit::canGift(bool)` (Python: canGift)
   - calls: CvUnit::canGift [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **137** `CyUnit::gift()` (Python: gift)
+- **138** `CyUnit::gift()` (Python: gift)
   - calls: CvUnit::gift [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **145** `CyUnit::canLoadUnit(CyUnit *, CyPlot *)` (Python: canLoadUnit)
-  - calls: CvUnit::canLoadUnit [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit() [CyUnit.h]
+- **146** `CyUnit::canLoadUnit(CyUnit*, CyPlot*)` (Python: canLoadUnit)
+  - calls: CvUnit::canLoadUnit [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **150** `CyUnit::canLoad(CyPlot *)` (Python: canLoad)
+- **151** `CyUnit::canLoad(CyPlot*)` (Python: canLoad)
   - calls: CvUnit::canLoad [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **155** `CyUnit::canUnload()` (Python: canUnload)
+- **156** `CyUnit::canUnload()` (Python: canUnload)
   - calls: CvUnit::canUnload [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **160** `CyUnit::canUnloadAll()` (Python: canUnloadAll)
+- **161** `CyUnit::canUnloadAll()` (Python: canUnloadAll)
   - calls: CvUnit::canUnloadAll [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **165** `CyUnit::canHold(CyPlot *)` (Python: canHold)
+- **166** `CyUnit::canHold(CyPlot*)` (Python: canHold)
   - calls: CvUnit::canHold [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **170** `CyUnit::canSleep(CyPlot *)` (Python: canSleep)
+- **171** `CyUnit::canSleep(CyPlot*)` (Python: canSleep)
   - calls: CvUnit::canSleep [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **175** `CyUnit::canFortify(CyPlot *)` (Python: canFortify)
+- **176** `CyUnit::canFortify(CyPlot*)` (Python: canFortify)
   - calls: CvUnit::canFortify [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **180** `CyUnit::canPlunder(CyPlot *)` (Python: canPlunder)
+- **181** `CyUnit::canPlunder(CyPlot*)` (Python: canPlunder)
   - calls: CvUnit::canPlunder [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **185** `CyUnit::canAirPatrol(CyPlot *)` (Python: canAirPatrol)
+- **186** `CyUnit::canAirPatrol(CyPlot*)` (Python: canAirPatrol)
   - calls: CvUnit::canAirPatrol [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **190** `CyUnit::canSeaPatrol(CyPlot *)` (Python: canSeaPatrol)
+- **191** `CyUnit::canSeaPatrol(CyPlot*)` (Python: canSeaPatrol)
   - calls: CvUnit::canSeaPatrol [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **195** `CyUnit::canHeal(CyPlot *)` (Python: canHeal)
+- **196** `CyUnit::canHeal(CyPlot*)` (Python: canHeal)
   - calls: CvUnit::canHeal [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **200** `CyUnit::canSentry(CyPlot *)` (Python: canSentry)
+- **201** `CyUnit::canSentry(CyPlot*)` (Python: canSentry)
   - calls: CvUnit::canSentry [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **205** `CyUnit::canAirlift(CyPlot *)` (Python: canAirlift)
+- **206** `CyUnit::canAirlift(CyPlot*)` (Python: canAirlift)
   - calls: CvUnit::canAirlift [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **210** `CyUnit::canAirliftAt(CyPlot *, int, int)` (Python: canAirliftAt)
+- **211** `CyUnit::canAirliftAt(CyPlot*, int, int)` (Python: canAirliftAt)
   - calls: CvUnit::canAirliftAt [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **215** `CyUnit::isNukeVictim(CyPlot *, int)` (Python: isNukeVictim)
+- **216** `CyUnit::isNukeVictim(CyPlot*, int)` (Python: isNukeVictim)
   - calls: CvUnit::isNukeVictim [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **220** `CyUnit::canNuke(CyPlot *)` (Python: canNuke)
+- **221** `CyUnit::canNuke(CyPlot*)` (Python: canNuke)
   - calls: CvUnit::canNuke [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **225** `CyUnit::canNukeAt(CyPlot *, int, int)` (Python: canNukeAt)
+- **226** `CyUnit::canNukeAt(CyPlot*, int, int)` (Python: canNukeAt)
   - calls: CvUnit::canNukeAt [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **230** `CyUnit::canRecon(CyPlot *)` (Python: canRecon)
+- **231** `CyUnit::canRecon(CyPlot*)` (Python: canRecon)
   - calls: CvUnit::canRecon [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **235** `CyUnit::canReconAt(CyPlot *, int, int)` (Python: canReconAt)
+- **236** `CyUnit::canReconAt(CyPlot*, int, int)` (Python: canReconAt)
   - calls: CvUnit::canReconAt [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **240** `CyUnit::canParadrop(CyPlot *)` (Python: canRecon)
+- **241** `CyUnit::canParadrop(CyPlot*)` (Python: canRecon)
   - calls: CvUnit::canParadrop [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **245** `CyUnit::canParadropAt(CyPlot *, int, int)` (Python: canReconAt)
+- **246** `CyUnit::canParadropAt(CyPlot*, int, int)` (Python: canReconAt)
   - calls: CvUnit::canParadropAt [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **250** `CyUnit::canAirBomb(CyPlot *)` (Python: canAirBomb)
+- **251** `CyUnit::canAirBomb(CyPlot*)` (Python: canAirBomb)
   - calls: CvUnit::canAirBomb [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **255** `CyUnit::canAirBombAt(CyPlot *, int, int)` (Python: canAirBombAt)
+- **256** `CyUnit::canAirBombAt(CyPlot*, int, int)` (Python: canAirBombAt)
   - calls: CvUnit::canAirBombAt [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **260** `CyUnit::bombardTarget(CyPlot *)` (Python: bombardTarget)
-  - calls: CvUnit::bombardTarget [CvUnit.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CyPlot::getPlot [CyPlot.h]
+- **261** `CyUnit::bombardTarget(CyPlot*)` (Python: bombardTarget)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnit::bombardTarget [CvUnit.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], CyPlot::getPlot [CyPlot.h], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyUnitPythonInterface1
-- **265** `CyUnit::canBombard(CyPlot *)` (Python: canBombard)
+- **266** `CyUnit::canBombard(CyPlot*)` (Python: canBombard)
   - calls: CvUnit::canBombard [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **270** `CyUnit::canPillage(CyPlot *)` (Python: canPillage)
+- **271** `CyUnit::canPillage(CyPlot*)` (Python: canPillage)
   - calls: CvUnit::canPillage [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **281** `CyUnit::canAssassin(CyPlot *, bool)` (Python: canAssassin)
+- **282** `CyUnit::canAssassin(CyPlot*, bool)` (Python: canAssassin)
   - calls: CvUnit::canAssassin [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **304** `CyUnit::canBribe(CyPlot *, bool)` (Python: canBribe)
+- **305** `CyUnit::canBribe(CyPlot*, bool)` (Python: canBribe)
   - calls: CvUnit::canBribe [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **313** `CyUnit::sabotageCost(CyPlot *)` (Python: sabotageCost)
+- **314** `CyUnit::sabotageCost(CyPlot*)` (Python: sabotageCost)
   - calls: CvUnit::sabotageCost [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **318** `CyUnit::sabotageProb(CyPlot *, int)` (Python: sabotageProb)
+- **319** `CyUnit::sabotageProb(CyPlot*, int)` (Python: sabotageProb)
   - calls: CvUnit::sabotageProb [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **323** `CyUnit::canSabotage(CyPlot *, bool)` (Python: canSabotage)
+- **324** `CyUnit::canSabotage(CyPlot*, bool)` (Python: canSabotage)
   - calls: CvUnit::canSabotage [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **328** `CyUnit::destroyCost(CyPlot *)` (Python: destroyCost)
+- **329** `CyUnit::destroyCost(CyPlot*)` (Python: destroyCost)
   - calls: CvUnit::destroyCost [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **333** `CyUnit::destroyProb(CyPlot *, int)` (Python: destroyProb)
+- **334** `CyUnit::destroyProb(CyPlot*, int)` (Python: destroyProb)
   - calls: CvUnit::destroyProb [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **338** `CyUnit::canDestroy(CyPlot *, bool)` (Python: canDestroy)
+- **339** `CyUnit::canDestroy(CyPlot*, bool)` (Python: canDestroy)
   - calls: CvUnit::canDestroy [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **343** `CyUnit::stealPlansCost(CyPlot *)` (Python: stealPlansCost)
+- **344** `CyUnit::stealPlansCost(CyPlot*)` (Python: stealPlansCost)
   - calls: CvUnit::stealPlansCost [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **348** `CyUnit::stealPlansProb(CyPlot *, int)` (Python: stealPlansProb)
+- **349** `CyUnit::stealPlansProb(CyPlot*, int)` (Python: stealPlansProb)
   - calls: CvUnit::stealPlansProb [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **353** `CyUnit::canStealPlans(CyPlot *, bool)` (Python: canStealPlans)
+- **354** `CyUnit::canStealPlans(CyPlot*, bool)` (Python: canStealPlans)
   - calls: CvUnit::canStealPlans [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **358** `CyUnit::canFound(CyPlot *, bool)` (Python: canFound)
+- **359** `CyUnit::canFound(CyPlot*, bool)` (Python: canFound)
   - calls: CvUnit::canFound [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **363** `CyUnit::canSpread(CyPlot *, int, bool)` (Python: canSpread)
+- **364** `CyUnit::canSpread(CyPlot*, int, bool)` (Python: canSpread)
   - calls: CvUnit::canSpread [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **368** `CyUnit::canJoin(CyPlot *, int)` (Python: canJoin)
+- **369** `CyUnit::canJoin(CyPlot*, int)` (Python: canJoin)
   - calls: CvUnit::canFound [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **373** `CyUnit::canConstruct(CyPlot *, int)` (Python: canConstruct)
+- **374** `CyUnit::canConstruct(CyPlot*, int)` (Python: canConstruct)
   - calls: CvUnit::canConstruct [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **378** `CyUnit::getDiscoveryTech()` (Python: getDiscoveryTech)
+- **379** `CyUnit::getDiscoveryTech()` (Python: getDiscoveryTech)
   - calls: CvUnit::getDiscoveryTech [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **383** `CyUnit::getDiscoverResearch(int)` (Python: getDiscoverResearch)
+- **384** `CyUnit::getDiscoverResearch(int)` (Python: getDiscoverResearch)
   - calls: CvUnit::getDiscoverResearch [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **388** `CyUnit::canDiscover(CyPlot *)` (Python: canDiscover)
+- **389** `CyUnit::canDiscover(CyPlot*)` (Python: canDiscover)
   - calls: CvUnit::canDiscover [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **393** `CyUnit::getMaxHurryProduction(CyCity *)` (Python: getMaxHurryProduction)
+- **394** `CyUnit::getMaxHurryProduction(CyCity*)` (Python: getMaxHurryProduction)
   - calls: CvUnit::getMaxHurryProduction [CvUnit.cpp], CyCity::getCity [CyCity.h]
   - called by (1): CyUnitPythonInterface1
-- **398** `CyUnit::getHurryProduction(CyPlot *)` (Python: getHurryProduction)
+- **399** `CyUnit::getHurryProduction(CyPlot*)` (Python: getHurryProduction)
   - calls: CvUnit::getHurryProduction [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **403** `CyUnit::canHurry(CyPlot *, bool)` (Python: canHurry)
+- **404** `CyUnit::canHurry(CyPlot*, bool)` (Python: canHurry)
   - calls: CvUnit::canHurry [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **408** `CyUnit::getTradeGold(CyPlot *)` (Python: getTradeGold)
+- **409** `CyUnit::getTradeGold(CyPlot*)` (Python: getTradeGold)
   - calls: CvUnit::getTradeGold [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **413** `CyUnit::canTrade(CyPlot *, bool)` (Python: canTrade)
+- **414** `CyUnit::canTrade(CyPlot*, bool)` (Python: canTrade)
   - calls: CvUnit::canTrade [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **418** `CyUnit::getGreatWorkCulture(CyPlot *)` (Python: getGreatWorkCulture)
+- **419** `CyUnit::getGreatWorkCulture(CyPlot*)` (Python: getGreatWorkCulture)
   - calls: CvUnit::getGreatWorkCulture [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **423** `CyUnit::canGreatWork(CyPlot *)` (Python: canGreatWork)
+- **424** `CyUnit::canGreatWork(CyPlot*)` (Python: canGreatWork)
   - calls: CvUnit::canGreatWork [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **428** `CyUnit::getEspionagePoints(CyPlot *)` (Python: getEspionagePoints)
+- **429** `CyUnit::getEspionagePoints(CyPlot*)` (Python: getEspionagePoints)
   - calls: CvUnit::getEspionagePoints [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **433** `CyUnit::canInfiltrate(CyPlot *, bool)` (Python: canInfiltrate)
+- **434** `CyUnit::canInfiltrate(CyPlot*, bool)` (Python: canInfiltrate)
   - calls: CvUnit::canInfiltrate [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **438** `CyUnit::canEspionage(CyPlot *)` (Python: canEspionage)
+- **439** `CyUnit::canEspionage(CyPlot*)` (Python: canEspionage)
   - calls: CvUnit::canEspionage [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **443** `CyUnit::canGoldenAge(CyPlot *, bool)` (Python: canGoldenAge)
+- **444** `CyUnit::canGoldenAge(CyPlot*, bool)` (Python: canGoldenAge)
   - calls: CvUnit::canGoldenAge [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **448** `CyUnit::canBuild(CyPlot *, int, bool)` (Python: canBuild)
+- **449** `CyUnit::canBuild(CyPlot*, int, bool)` (Python: canBuild)
   - calls: CvUnit::canBuild [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **453** `CyUnit::canLead(CyPlot *, int)` (Python: canLead)
+- **454** `CyUnit::canLead(CyPlot*, int) const` (Python: canLead)
   - calls: CvUnit::canLead [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **458** `CyUnit::lead(int)` (Python: lead)
+- **459** `CyUnit::lead(int)` (Python: lead)
   - calls: CvUnit::lead [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **463** `CyUnit::canGiveExperience(CyPlot *)` (Python: canGiveExperience)
+- **464** `CyUnit::canGiveExperience(CyPlot*) const` (Python: canGiveExperience)
   - calls: CvUnit::canGiveExperience [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **468** `CyUnit::giveExperience()` (Python: giveExperience)
+- **469** `CyUnit::giveExperience()` (Python: giveExperience)
   - calls: CvUnit::giveExperience [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **473** `CyUnit::canPromote(int, int)` (Python: canPromote)
+- **474** `CyUnit::canPromote(int, int)` (Python: canPromote)
   - calls: CvUnit::canPromote [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **478** `CyUnit::promote(int, int)` (Python: promote)
+- **479** `CyUnit::promote(int, int)` (Python: promote)
   - calls: CvUnit::promote [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **484** `CyUnit::upgradePrice(int)` (Python: upgradePrice)
+- **485** `CyUnit::upgradePrice(int)` (Python: upgradePrice)
   - calls: CvUnit::upgradePrice [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **489** `CyUnit::upgradeAvailable(int, int, int)` (Python: upgradeAvailable)
+- **490** `CyUnit::upgradeAvailable(int, int, int)` (Python: upgradeAvailable)
   - calls: CvUnit::upgradeAvailable [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **494** `CyUnit::canUpgrade(int, bool)` (Python: canUpgrade)
+- **495** `CyUnit::canUpgrade(int, bool)` (Python: canUpgrade)
   - calls: CvUnit::canUpgrade [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **499** `CyUnit::hasUpgrade(bool)` (Python: hasUpgrade)
-  - calls: CvUnit::hasUpgrade(bool) [CvUnit.cpp]
+- **500** `CyUnit::hasUpgrade(bool)` (Python: hasUpgrade)
+  - calls: CvUnit::hasUpgrade(bool) const [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **504** `CyUnit::getHandicapType()` (Python: getHandicapType)
+- **505** `CyUnit::getHandicapType()` (Python: getHandicapType)
   - calls: CvUnit::getHandicapType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **509** `CyUnit::getCivilizationType()` (Python: getCivilizationType)
+- **510** `CyUnit::getCivilizationType()` (Python: getCivilizationType)
   - calls: CvUnit::getCivilizationType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **514** `CyUnit::getSpecialUnitType()` (Python: getSpecialUnitType)
+- **515** `CyUnit::getSpecialUnitType()` (Python: getSpecialUnitType)
   - calls: CvUnit::getSpecialUnitType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **519** `CyUnit::getCaptureUnitType(int)` (Python: getCaptureUnitType)
+- **520** `CyUnit::getCaptureUnitType(int)` (Python: getCaptureUnitType)
   - calls: CvUnit::getCaptureUnitType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **524** `CyUnit::getUnitCombatType()` (Python: getUnitCombatType)
+- **525** `CyUnit::getUnitCombatType()` (Python: getUnitCombatType)
   - calls: CvUnit::getUnitCombatType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **529** `CyUnit::getDomainType()` (Python: getDomainType)
+- **530** `CyUnit::getDomainType()` (Python: getDomainType)
   - calls: CvUnit::getDomainType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **534** `CyUnit::getInvisibleType()` (Python: getInvisibleType)
+- **535** `CyUnit::getInvisibleType()` (Python: getInvisibleType)
   - calls: CvUnit::getInvisibleType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **539** `CyUnit::getNumSeeInvisibleTypes()` (Python: getNumSeeInvisibleTypes)
+- **540** `CyUnit::getNumSeeInvisibleTypes()` (Python: getNumSeeInvisibleTypes)
   - calls: CvUnit::getNumSeeInvisibleTypes [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **544** `CyUnit::getSeeInvisibleType(int)` (Python: getSeeInvisibleType)
+- **545** `CyUnit::getSeeInvisibleType(int)` (Python: getSeeInvisibleType)
   - calls: CvUnit::getSeeInvisibleType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **549** `CyUnit::flavorValue(int)` (Python: flavorValue)
+- **550** `CyUnit::flavorValue(int)` (Python: flavorValue)
   - calls: CvUnit::flavorValue [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **554** `CyUnit::isBarbarian()` (Python: isBarbarian)
+- **555** `CyUnit::isBarbarian()` (Python: isBarbarian)
   - calls: CvUnit::isBarbarian [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **559** `CyUnit::isHuman()` (Python: isHuman)
+- **560** `CyUnit::isHuman()` (Python: isHuman)
   - calls: CvUnit::isHuman [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **564** `CyUnit::visibilityRange()` (Python: visibilityRange)
+- **565** `CyUnit::visibilityRange()` (Python: visibilityRange)
   - calls: CvUnit::visibilityRange [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **569** `CyUnit::baseMoves()` (Python: baseMoves)
+- **570** `CyUnit::baseMoves()` (Python: baseMoves)
   - calls: CvUnit::baseMoves [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **574** `CyUnit::maxMoves()` (Python: maxMoves)
+- **575** `CyUnit::maxMoves()` (Python: maxMoves)
   - calls: CvUnit::maxMoves [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **579** `CyUnit::movesLeft()` (Python: movesLeft)
+- **580** `CyUnit::movesLeft()` (Python: movesLeft)
   - calls: CvUnit::movesLeft [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **584** `CyUnit::canMove()` (Python: canMove)
+- **585** `CyUnit::canMove()` (Python: canMove)
   - calls: CvUnit::canMove [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **589** `CyUnit::hasMoved()` (Python: hasMoved)
+- **590** `CyUnit::hasMoved()` (Python: hasMoved)
   - calls: CvUnit::hasMoved [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **594** `CyUnit::airRange()` (Python: airRange)
+- **595** `CyUnit::airRange()` (Python: airRange)
   - calls: CvUnit::airRange [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **599** `CyUnit::nukeRange()` (Python: nukeRange)
+- **600** `CyUnit::nukeRange()` (Python: nukeRange)
   - calls: CvUnit::nukeRange [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **604** `CyUnit::canBuildRoute()` (Python: canBuildRoute)
+- **605** `CyUnit::canBuildRoute()` (Python: canBuildRoute)
   - calls: CvUnit::canBuildRoute [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **609** `CyUnit::getBuildType()` (Python: getBuildType)
+- **610** `CyUnit::getBuildType()` (Python: getBuildType)
   - calls: CvUnit::getBuildType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **614** `CyUnit::workRate(bool)` (Python: workRate)
+- **615** `CyUnit::workRate(bool)` (Python: workRate)
   - calls: CvUnit::workRate [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **619** `CyUnit::isAnimal()` (Python: isAnimal)
+- **620** `CyUnit::isAnimal()` (Python: isAnimal)
   - calls: CvUnit::isAnimal [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **624** `CyUnit::isNoBadGoodies()` (Python: isNoBadGoodies)
+- **625** `CyUnit::isNoBadGoodies()` (Python: isNoBadGoodies)
   - calls: CvUnit::isNoBadGoodies [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **629** `CyUnit::isOnlyDefensive()` (Python: isOnlyDefensive)
+- **630** `CyUnit::isOnlyDefensive()` (Python: isOnlyDefensive)
   - calls: CvUnit::isOnlyDefensive [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **634** `CyUnit::isNoCapture()` (Python: isNoCapture)
+- **635** `CyUnit::isNoCapture()` (Python: isNoCapture)
   - calls: CvUnit::isNoCapture [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **639** `CyUnit::isRivalTerritory()` (Python: isRivalTerritory)
+- **640** `CyUnit::isRivalTerritory()` (Python: isRivalTerritory)
   - calls: CvUnit::isRivalTerritory [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **644** `CyUnit::isMilitaryHappiness()` (Python: isMilitaryHappiness)
+- **645** `CyUnit::isMilitaryHappiness()` (Python: isMilitaryHappiness)
   - calls: CvUnit::isMilitaryHappiness [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **649** `CyUnit::isInvestigate()` (Python: isInvestigate)
+- **650** `CyUnit::isInvestigate()` (Python: isInvestigate)
   - calls: CvUnit::isInvestigate [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **654** `CyUnit::isCounterSpy()` (Python: isCounterSpy)
+- **655** `CyUnit::isCounterSpy()` (Python: isCounterSpy)
   - calls: CvUnit::isCounterSpy [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **659** `CyUnit::isFound()` (Python: isFound)
+- **660** `CyUnit::isFound()` (Python: isFound)
   - calls: CvUnit::isFound [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **693** `CyUnit::isGoldenAge()` (Python: isGoldenAge)
+- **694** `CyUnit::isGoldenAge()` (Python: isGoldenAge)
   - calls: CvUnit::isGoldenAge [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **698** `CyUnit::canCoexistWithEnemyUnit(int)` (Python: canCoexistWithEnemyUnit)
+- **699** `CyUnit::canCoexistWithEnemyUnit(int)` (Python: canCoexistWithEnemyUnit)
   - calls: CvUnit::canCoexistWithEnemyUnit [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **703** `CyUnit::isFighting()` (Python: isFighting)
+- **704** `CyUnit::isFighting()` (Python: isFighting)
   - calls: CvUnit::isFighting [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **708** `CyUnit::isAttacking()` (Python: isAttacking)
+- **709** `CyUnit::isAttacking()` (Python: isAttacking)
   - calls: CvUnit::isAttacking [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **713** `CyUnit::isDefending()` (Python: isDefending)
+- **714** `CyUnit::isDefending()` (Python: isDefending)
   - calls: CvUnit::isDefending [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **718** `CyUnit::isCombat()` (Python: isCombat)
+- **719** `CyUnit::isCombat()` (Python: isCombat)
   - calls: CvUnit::isCombat [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **723** `CyUnit::maxHitPoints()` (Python: maxHitPoints)
+- **724** `CyUnit::maxHitPoints()` (Python: maxHitPoints)
   - calls: CvUnit::maxHitPoints [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **728** `CyUnit::currHitPoints()` (Python: currHitPoints)
+- **729** `CyUnit::currHitPoints()` (Python: currHitPoints)
   - calls: CvUnit::currHitPoints [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **733** `CyUnit::isHurt()` (Python: isHurt)
+- **734** `CyUnit::isHurt()` (Python: isHurt)
   - calls: CvUnit::isHurt [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **738** `CyUnit::isDead()` (Python: isDead)
+- **739** `CyUnit::isDead()` (Python: isDead)
   - calls: CvUnit::isDead [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **743** `CyUnit::setBaseCombatStr(int)` (Python: setBaseCombatStr)
+- **744** `CyUnit::setBaseCombatStr(int)` (Python: setBaseCombatStr)
   - calls: CvUnit::setBaseCombatStr [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **751** `CyUnit::baseCombatStr()` (Python: baseCombatStr)
+- **752** `CyUnit::baseCombatStr()` (Python: baseCombatStr)
   - calls: CvUnit::baseCombatStr [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **756** `CyUnit::maxCombatStr(CyPlot *, CyUnit *)` (Python: maxCombatStr)
-  - calls: CvUnit::maxCombatStr [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit() [CyUnit.h]
+- **757** `CyUnit::maxCombatStr(CyPlot*, CyUnit*)` (Python: maxCombatStr)
+  - calls: CvUnit::maxCombatStr [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **761** `CyUnit::currCombatStr(CyPlot *, CyUnit *)` (Python: currCombatStr)
-  - calls: CvUnit::currCombatStr [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit() [CyUnit.h]
+- **762** `CyUnit::currCombatStr(CyPlot*, CyUnit*)` (Python: currCombatStr)
+  - calls: CvUnit::currCombatStr [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **766** `CyUnit::currFirepower(CyPlot *, CyUnit *)` (Python: currFirepower)
-  - calls: CvUnit::currFirepower [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit() [CyUnit.h]
+- **767** `CyUnit::currFirepower(CyPlot*, CyUnit*)` (Python: currFirepower)
+  - calls: CvUnit::currFirepower [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **771** `CyUnit::maxCombatStrFloat(CyPlot *, CyUnit *)` (Python: maxCombatStrFloat)
-  - calls: CvUnit::maxCombatStrFloat [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit() [CyUnit.h]
+- **772** `CyUnit::maxCombatStrFloat(CyPlot*, CyUnit*)` (Python: maxCombatStrFloat)
+  - calls: CvUnit::maxCombatStrFloat [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **776** `CyUnit::currCombatStrFloat(CyPlot *, CyUnit *)` (Python: currCombatStrFloat)
-  - calls: CvUnit::currCombatStrFloat [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit() [CyUnit.h]
+- **777** `CyUnit::currCombatStrFloat(CyPlot*, CyUnit*)` (Python: currCombatStrFloat)
+  - calls: CvUnit::currCombatStrFloat [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **781** `CyUnit::canFight()` (Python: canFight)
+- **782** `CyUnit::canFight()` (Python: canFight)
   - calls: CvUnit::canFight [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **786** `CyUnit::canAttack()` (Python: canAttack)
-  - calls: CvUnit::canAttack() [CvUnit.cpp]
+- **787** `CyUnit::canAttack()` (Python: canAttack)
+  - calls: CvUnit::canAttack() const [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **791** `CyUnit::canDefend(CyPlot *)` (Python: canDefend)
+- **792** `CyUnit::canDefend(CyPlot*)` (Python: canDefend)
   - calls: CvUnit::canDefend [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **796** `CyUnit::canSiege(int)` (Python: canSiege)
+- **797** `CyUnit::canSiege(int)` (Python: canSiege)
   - calls: CvUnit::canSiege [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **801** `CyUnit::airBaseCombatStr()` (Python: airBaseCombatStr)
+- **802** `CyUnit::airBaseCombatStr()` (Python: airBaseCombatStr)
   - calls: CvUnit::airBaseCombatStr [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **806** `CyUnit::airMaxCombatStr(CyUnit *)` (Python: airMaxCombatStr)
-  - calls: CvUnit::airMaxCombatStr [CvUnit.cpp], CyUnit::getUnit() [CyUnit.h]
+- **807** `CyUnit::airMaxCombatStr(CyUnit*)` (Python: airMaxCombatStr)
+  - calls: CvUnit::airMaxCombatStr [CvUnit.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **811** `CyUnit::airCurrCombatStr(CyUnit *)` (Python: airCurrCombatStr)
-  - calls: CvUnit::airCurrCombatStr [CvUnit.cpp], CyUnit::getUnit() [CyUnit.h]
+- **812** `CyUnit::airCurrCombatStr(CyUnit*)` (Python: airCurrCombatStr)
+  - calls: CvUnit::airCurrCombatStr [CvUnit.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **816** `CyUnit::airMaxCombatStrFloat(CyUnit *)` (Python: airMaxCombatStrFloat)
-  - calls: CvUnit::airMaxCombatStrFloat [CvUnit.cpp], CyUnit::getUnit() [CyUnit.h]
+- **817** `CyUnit::airMaxCombatStrFloat(CyUnit*)` (Python: airMaxCombatStrFloat)
+  - calls: CvUnit::airMaxCombatStrFloat [CvUnit.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **821** `CyUnit::airCurrCombatStrFloat(CyUnit *)` (Python: airCurrCombatStrFloat)
-  - calls: CvUnit::airCurrCombatStrFloat [CvUnit.cpp], CyUnit::getUnit() [CyUnit.h]
+- **822** `CyUnit::airCurrCombatStrFloat(CyUnit*)` (Python: airCurrCombatStrFloat)
+  - calls: CvUnit::airCurrCombatStrFloat [CvUnit.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **826** `CyUnit::combatLimit()` (Python: combatLimit)
+- **827** `CyUnit::combatLimit()` (Python: combatLimit)
   - calls: CvUnit::combatLimit [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **831** `CyUnit::airCombatLimit()` (Python: airCombatLimit)
+- **832** `CyUnit::airCombatLimit()` (Python: airCombatLimit)
   - calls: CvUnit::airCombatLimit [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **836** `CyUnit::canAirAttack()` (Python: canAirAttack)
+- **837** `CyUnit::canAirAttack()` (Python: canAirAttack)
   - calls: CvUnit::canAirAttack [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **841** `CyUnit::canAirDefend(CyPlot *)` (Python: canAirDefend)
+- **842** `CyUnit::canAirDefend(CyPlot*)` (Python: canAirDefend)
   - calls: CvUnit::canAirDefend [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **846** `CyUnit::airCombatDamage(CyUnit *)` (Python: airCombatDamage)
-  - calls: CvUnit::airCombatDamage [CvUnit.cpp], CyUnit::getUnit() [CyUnit.h]
+- **847** `CyUnit::airCombatDamage(CyUnit*)` (Python: airCombatDamage)
+  - calls: CvUnit::airCombatDamage [CvUnit.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **851** `CyUnit::bestInterceptor(CyPlot *)` (Python: bestInterceptor)
-  - calls: CvUnit::bestInterceptor [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::CyUnit(CvUnit *)
+- **852** `CyUnit::bestInterceptor(CyPlot*)` (Python: bestInterceptor)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnit::bestInterceptor [CvUnit.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::CyUnit(CvUnit*), operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyUnitPythonInterface1
-- **856** `CyUnit::isAutomated()` (Python: isAutomated)
+- **857** `CyUnit::isAutomated()` (Python: isAutomated)
   - calls: CvUnit::isAutomated [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **861** `CyUnit::isWaiting()` (Python: isWaiting)
+- **862** `CyUnit::isWaiting()` (Python: isWaiting)
   - calls: CvUnit::isWaiting [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **866** `CyUnit::isFortifyable()` (Python: isFortifyable)
+- **867** `CyUnit::isFortifyable()` (Python: isFortifyable)
   - calls: CvUnit::isFortifyable [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **871** `CyUnit::fortifyModifier()` (Python: fortifyModifier)
+- **872** `CyUnit::fortifyModifier()` (Python: fortifyModifier)
   - calls: CvUnit::fortifyModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **876** `CyUnit::experienceNeeded()` (Python: experienceNeeded)
+- **877** `CyUnit::experienceNeeded()` (Python: experienceNeeded)
   - calls: CvUnit::experienceNeeded [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **881** `CyUnit::attackXPValue()` (Python: attackXPValue)
+- **882** `CyUnit::attackXPValue()` (Python: attackXPValue)
   - calls: CvUnit::attackXPValue [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **886** `CyUnit::defenseXPValue()` (Python: defenseXPValue)
+- **887** `CyUnit::defenseXPValue()` (Python: defenseXPValue)
   - calls: CvUnit::defenseXPValue [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **891** `CyUnit::maxXPValue()` (Python: maxXPValue)
+- **892** `CyUnit::maxXPValue()` (Python: maxXPValue)
   - calls: CvUnit::maxXPValue [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **896** `CyUnit::firstStrikes()` (Python: firstStrikes)
+- **897** `CyUnit::firstStrikes()` (Python: firstStrikes)
   - calls: CvUnit::firstStrikes [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **901** `CyUnit::chanceFirstStrikes()` (Python: chanceFirstStrikes)
+- **902** `CyUnit::chanceFirstStrikes()` (Python: chanceFirstStrikes)
   - calls: CvUnit::chanceFirstStrikes [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **906** `CyUnit::maxFirstStrikes()` (Python: maxFirstStrikes)
+- **907** `CyUnit::maxFirstStrikes()` (Python: maxFirstStrikes)
   - calls: CvUnit::maxFirstStrikes [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **911** `CyUnit::isRanged()` (Python: isRanged)
+- **912** `CyUnit::isRanged()` (Python: isRanged)
   - calls: CvUnit::isRanged [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **916** `CyUnit::alwaysInvisible()` (Python: alwaysInvisible)
+- **917** `CyUnit::alwaysInvisible()` (Python: alwaysInvisible)
   - calls: CvUnit::alwaysInvisible [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **921** `CyUnit::immuneToFirstStrikes()` (Python: immuneToFirstStrikes)
+- **922** `CyUnit::immuneToFirstStrikes()` (Python: immuneToFirstStrikes)
   - calls: CvUnit::immuneToFirstStrikes [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **926** `CyUnit::noDefensiveBonus()` (Python: noDefensiveBonus)
+- **927** `CyUnit::noDefensiveBonus()` (Python: noDefensiveBonus)
   - calls: CvUnit::noDefensiveBonus [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **931** `CyUnit::ignoreBuildingDefense()` (Python: ignoreBuildingDefense)
+- **932** `CyUnit::ignoreBuildingDefense()` (Python: ignoreBuildingDefense)
   - calls: CvUnit::ignoreBuildingDefense [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **936** `CyUnit::canMoveImpassable()` (Python: canMoveImpassable)
+- **937** `CyUnit::canMoveImpassable()` (Python: canMoveImpassable)
   - calls: CvUnit::canMoveImpassable [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **941** `CyUnit::canMoveAllTerrain()` (Python: canMoveAllTerrain)
+- **942** `CyUnit::canMoveAllTerrain()` (Python: canMoveAllTerrain)
   - calls: CvUnit::canMoveAllTerrain [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **946** `CyUnit::flatMovementCost()` (Python: flatMovementCost)
+- **947** `CyUnit::flatMovementCost()` (Python: flatMovementCost)
   - calls: CvUnit::flatMovementCost [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **951** `CyUnit::ignoreTerrainCost()` (Python: ignoreTerrainCost)
+- **952** `CyUnit::ignoreTerrainCost()` (Python: ignoreTerrainCost)
   - calls: CvUnit::ignoreTerrainCost [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **956** `CyUnit::isNeverInvisible()` (Python: isNeverInvisible)
+- **957** `CyUnit::isNeverInvisible()` (Python: isNeverInvisible)
   - calls: CvUnit::isNeverInvisible [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **961** `CyUnit::isInvisible(int, bool)` (Python: isInvisible)
+- **962** `CyUnit::isInvisible(int, bool)` (Python: isInvisible)
   - calls: CvUnit::isInvisible [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **966** `CyUnit::isNukeImmune()` (Python: isNukeImmune)
+- **967** `CyUnit::isNukeImmune()` (Python: isNukeImmune)
   - calls: CvUnit::isNukeImmune [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **976** `CyUnit::isInquisitor()` (Python: isInquisitor)
+- **977** `CyUnit::isInquisitor()` (Python: isInquisitor)
   - calls: CvUnit::isInquisitor [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **984** `CyUnit::maxInterceptionProbability()` (Python: maxInterceptionProbability)
+- **985** `CyUnit::maxInterceptionProbability()` (Python: maxInterceptionProbability)
   - calls: CvUnit::maxInterceptionProbability [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **989** `CyUnit::currInterceptionProbability()` (Python: currInterceptionProbability)
+- **990** `CyUnit::currInterceptionProbability()` (Python: currInterceptionProbability)
   - calls: CvUnit::currInterceptionProbability [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **994** `CyUnit::evasionProbability()` (Python: evasionProbability)
+- **995** `CyUnit::evasionProbability()` (Python: evasionProbability)
   - calls: CvUnit::evasionProbability [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **999** `CyUnit::withdrawalProbability()` (Python: withdrawalProbability)
+- **1000** `CyUnit::withdrawalProbability()` (Python: withdrawalProbability)
   - calls: CvUnit::withdrawalProbability [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1004** `CyUnit::collateralDamage()` (Python: collateralDamage)
+- **1005** `CyUnit::collateralDamage()` (Python: collateralDamage)
   - calls: CvUnit::collateralDamage [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1009** `CyUnit::collateralDamageLimit()` (Python: collateralDamageLimit)
+- **1010** `CyUnit::collateralDamageLimit()` (Python: collateralDamageLimit)
   - calls: CvUnit::collateralDamageLimit [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1014** `CyUnit::collateralDamageMaxUnits()` (Python: collateralDamageMaxUnits)
+- **1015** `CyUnit::collateralDamageMaxUnits()` (Python: collateralDamageMaxUnits)
   - calls: CvUnit::collateralDamageMaxUnits [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1019** `CyUnit::cityAttackModifier()` (Python: cityAttackModifier)
+- **1020** `CyUnit::cityAttackModifier()` (Python: cityAttackModifier)
   - calls: CvUnit::cityAttackModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1024** `CyUnit::cityDefenseModifier()` (Python: cityDefenseModifier)
+- **1025** `CyUnit::cityDefenseModifier()` (Python: cityDefenseModifier)
   - calls: CvUnit::cityDefenseModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1029** `CyUnit::animalCombatModifier()` (Python: animalCombatModifier)
+- **1030** `CyUnit::animalCombatModifier()` (Python: animalCombatModifier)
   - calls: CvUnit::animalCombatModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1034** `CyUnit::hillsAttackModifier()` (Python: hillsAttackModifier)
+- **1035** `CyUnit::hillsAttackModifier()` (Python: hillsAttackModifier)
   - calls: CvUnit::hillsAttackModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1039** `CyUnit::hillsDefenseModifier()` (Python: hillsDefenseModifier)
+- **1040** `CyUnit::hillsDefenseModifier()` (Python: hillsDefenseModifier)
   - calls: CvUnit::hillsDefenseModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1044** `CyUnit::terrainAttackModifier(int)` (Python: terrainAttackModifier)
+- **1045** `CyUnit::terrainAttackModifier(int)` (Python: terrainAttackModifier)
   - calls: CvUnit::terrainAttackModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1049** `CyUnit::terrainDefenseModifier(int)` (Python: terrainDefenseModifier)
+- **1050** `CyUnit::terrainDefenseModifier(int)` (Python: terrainDefenseModifier)
   - calls: CvUnit::terrainDefenseModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1054** `CyUnit::featureAttackModifier(int)` (Python: featureAttackModifier)
+- **1055** `CyUnit::featureAttackModifier(int)` (Python: featureAttackModifier)
   - calls: CvUnit::featureAttackModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1059** `CyUnit::featureDefenseModifier(int)` (Python: featureDefenseModifier)
+- **1060** `CyUnit::featureDefenseModifier(int)` (Python: featureDefenseModifier)
   - calls: CvUnit::featureDefenseModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1064** `CyUnit::unitClassAttackModifier(int)` (Python: unitClassAttackModifier)
+- **1065** `CyUnit::unitClassAttackModifier(int)` (Python: unitClassAttackModifier)
   - calls: CvUnit::unitClassAttackModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1069** `CyUnit::unitClassDefenseModifier(int)` (Python: unitClassDefenseModifier)
+- **1070** `CyUnit::unitClassDefenseModifier(int)` (Python: unitClassDefenseModifier)
   - calls: CvUnit::unitClassDefenseModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1074** `CyUnit::unitCombatModifier(int)` (Python: unitCombatModifier)
+- **1075** `CyUnit::unitCombatModifier(int)` (Python: unitCombatModifier)
   - calls: CvUnit::unitCombatModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1079** `CyUnit::domainModifier(int)` (Python: domainModifier)
+- **1080** `CyUnit::domainModifier(int)` (Python: domainModifier)
   - calls: CvUnit::domainModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1084** `CyUnit::bombardRate()` (Python: bombardRate)
+- **1085** `CyUnit::bombardRate()` (Python: bombardRate)
   - calls: CvUnit::bombardRate [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1089** `CyUnit::airBombBaseRate()` (Python: airBombBaseRate)
+- **1090** `CyUnit::airBombBaseRate()` (Python: airBombBaseRate)
   - calls: CvUnit::airBombBaseRate [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1094** `CyUnit::airBombCurrRate()` (Python: airBombCurrRate)
+- **1095** `CyUnit::airBombCurrRate()` (Python: airBombCurrRate)
   - calls: CvUnit::airBombCurrRate [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1099** `CyUnit::specialCargo()` (Python: specialCargo)
+- **1100** `CyUnit::specialCargo()` (Python: specialCargo)
   - calls: CvUnit::specialCargo [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1104** `CyUnit::domainCargo()` (Python: domainCargo)
+- **1105** `CyUnit::domainCargo()` (Python: domainCargo)
   - calls: CvUnit::domainCargo [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1109** `CyUnit::cargoSpace()` (Python: cargoSpace)
+- **1110** `CyUnit::cargoSpace()` (Python: cargoSpace)
   - calls: CvUnit::cargoSpace [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1114** `CyUnit::changeCargoSpace(int)` (Python: changeCargoSpace)
+- **1115** `CyUnit::changeCargoSpace(int)` (Python: changeCargoSpace)
   - calls: CvUnit::changeCargoSpace [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1120** `CyUnit::isFull()` (Python: isFull)
+- **1121** `CyUnit::isFull()` (Python: isFull)
   - calls: CvUnit::isFull [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1125** `CyUnit::cargoSpaceAvailable(int, int)` (Python: cargoSpaceAvailable)
+- **1126** `CyUnit::cargoSpaceAvailable(int, int)` (Python: cargoSpaceAvailable)
   - calls: CvUnit::cargoSpaceAvailable [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1130** `CyUnit::hasCargo()` (Python: hasCargo)
+- **1131** `CyUnit::hasCargo()` (Python: hasCargo)
   - calls: CvUnit::hasCargo [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1135** `CyUnit::canCargoAllMove()` (Python: canCargoAllMove)
+- **1136** `CyUnit::canCargoAllMove()` (Python: canCargoAllMove)
   - calls: CvUnit::canCargoAllMove [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1140** `CyUnit::getUnitAICargo(UnitAITypes)` (Python: getUnitAICargo)
+- **1141** `CyUnit::getUnitAICargo(UnitAITypes)` (Python: getUnitAICargo)
   - calls: CvUnit::getUnitAICargo [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1145** `CyUnit::getID()` (Python: getID)
+- **1146** `CyUnit::getID()` (Python: getID)
   - calls: CvUnit::getID [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1150** `CyUnit::getGroupID()` (Python: getGroupID)
+- **1151** `CyUnit::getGroupID()` (Python: getGroupID)
   - calls: CvUnit::getGroupID [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1155** `CyUnit::isInGroup()` (Python: isInGroup)
+- **1156** `CyUnit::isInGroup()` (Python: isInGroup)
   - calls: CvUnit::isInGroup [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1160** `CyUnit::isGroupHead()` (Python: isGroupHead)
+- **1161** `CyUnit::isGroupHead()` (Python: isGroupHead)
   - calls: CvUnit::isGroupHead [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1165** `CyUnit::getGroup()` (Python: getGroup)
-  - calls: CvUnit::getGroup [CvUnit.cpp], CySelectionGroup::CySelectionGroup(CvSelectionGroup *) [CySelectionGroup.cpp]
+- **1166** `CyUnit::getGroup()` (Python: getGroup)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnit::getGroup [CvUnit.cpp], CySelectionGroup::CySelectionGroup(CvSelectionGroup*) [CySelectionGroup.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1170** `CyUnit::getHotKeyNumber()` (Python: getHotKeyNumber)
+- **1171** `CyUnit::getHotKeyNumber()` (Python: getHotKeyNumber)
   - calls: CvUnit::getHotKeyNumber [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1175** `CyUnit::setHotKeyNumber(int)` (Python: setHotKeyNumber)
+- **1176** `CyUnit::setHotKeyNumber(int)` (Python: setHotKeyNumber)
   - calls: CvUnit::setHotKeyNumber [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1181** `CyUnit::getX()` (Python: getX)
+- **1182** `CyUnit::getX()` (Python: getX)
   - calls: CvUnit::getX_INLINE [CvUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **1186** `CyUnit::getY()` (Python: getY)
+- **1187** `CyUnit::getY()` (Python: getY)
   - calls: CvUnit::getY_INLINE [CvUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **1191** `CyUnit::setXY(int, int, bool, bool, bool)` (Python: setXY)
+- **1192** `CyUnit::setXY(int, int, bool, bool, bool)` (Python: setXY)
   - calls: CvUnit::setXY [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1197** `CyUnit::at(int, int)` (Python: at)
+- **1198** `CyUnit::at(int, int)` (Python: at)
   - calls: CvUnit::at [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1202** `CyUnit::atPlot(CyPlot *)` (Python: atPlot)
+- **1203** `CyUnit::atPlot(CyPlot*)` (Python: atPlot)
   - calls: CvUnit::atPlot [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **1207** `CyUnit::plot()` (Python: plot)
-  - calls: CvUnit::plot [CvUnit.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **1208** `CyUnit::plot()` (Python: plot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnit::plot [CvUnit.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1212** `CyUnit::area()` (Python: area)
-  - calls: CvUnit::area [CvUnit.cpp], CyArea::CyArea(CvArea *) [CyArea.cpp]
+- **1213** `CyUnit::area()` (Python: area)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnit::area [CvUnit.cpp], CyArea::CyArea(CvArea*) [CyArea.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1217** `CyUnit::getReconPlot()` (Python: getReconPlot)
-  - calls: CvUnit::getReconPlot [CvUnit.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **1218** `CyUnit::getReconPlot()` (Python: getReconPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnit::getReconPlot [CvUnit.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1222** `CyUnit::setReconPlot(CyPlot *)` (Python: setReconPlot)
+- **1223** `CyUnit::setReconPlot(CyPlot*)` (Python: setReconPlot)
   - calls: CvUnit::setReconPlot [CvUnit.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyUnitPythonInterface1
-- **1228** `CyUnit::getGameTurnCreated()` (Python: getGameTurnCreated)
+- **1229** `CyUnit::getGameTurnCreated()` (Python: getGameTurnCreated)
   - calls: CvUnit::getGameTurnCreated [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1233** `CyUnit::getDamage()` (Python: getDamage)
+- **1234** `CyUnit::getDamage()` (Python: getDamage)
   - calls: CvUnit::getDamage [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1238** `CyUnit::setDamage(int, int)` (Python: setDamage)
+- **1239** `CyUnit::setDamage(int, int)` (Python: setDamage)
   - calls: CvUnit::setDamage [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1244** `CyUnit::changeDamage(int, int)` (Python: changeDamage)
+- **1245** `CyUnit::changeDamage(int, int)` (Python: changeDamage)
   - calls: CvUnit::changeDamage [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1250** `CyUnit::getMoves()` (Python: getMoves)
+- **1251** `CyUnit::getMoves()` (Python: getMoves)
   - calls: CvUnit::getMoves [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1255** `CyUnit::setMoves(int)` (Python: setMoves)
+- **1256** `CyUnit::setMoves(int)` (Python: setMoves)
   - calls: CvUnit::setMoves [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1261** `CyUnit::changeMoves(int)` (Python: changeMoves)
+- **1262** `CyUnit::changeMoves(int)` (Python: changeMoves)
   - calls: CvUnit::changeMoves [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1267** `CyUnit::finishMoves()` (Python: finishMoves)
+- **1268** `CyUnit::finishMoves()` (Python: finishMoves)
   - calls: CvUnit::finishMoves [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1273** `CyUnit::getExperience()` (Python: getExperience)
+- **1274** `CyUnit::getExperience()` (Python: getExperience)
   - calls: CvUnit::getExperience [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1278** `CyUnit::setExperience(int, int)` (Python: setExperience)
+- **1279** `CyUnit::setExperience(int, int)` (Python: setExperience)
   - calls: CvUnit::setExperience [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1284** `CyUnit::changeExperience(int, int, bool, bool, bool)` (Python: changeExperience)
+- **1285** `CyUnit::changeExperience(int, int, bool, bool, bool)` (Python: changeExperience)
   - calls: CvUnit::changeExperience [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1290** `CyUnit::getLevel()` (Python: getLevel)
+- **1291** `CyUnit::getLevel()` (Python: getLevel)
   - calls: CvUnit::getLevel [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1295** `CyUnit::setLevel(int)` (Python: setLevel)
+- **1296** `CyUnit::setLevel(int)` (Python: setLevel)
   - calls: CvUnit::setLevel [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1301** `CyUnit::changeLevel(int)` (Python: changeLevel)
+- **1302** `CyUnit::changeLevel(int)` (Python: changeLevel)
   - calls: CvUnit::changeLevel [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1307** `CyUnit::getFacingDirection()` (Python: getFacingDirection)
+- **1308** `CyUnit::getFacingDirection()` (Python: getFacingDirection)
   - calls: CvUnit::getFacingDirection [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1315** `CyUnit::rotateFacingDirectionClockwise()` (Python: rotateFacingDirectionClockwise)
+- **1316** `CyUnit::rotateFacingDirectionClockwise()` (Python: rotateFacingDirectionClockwise)
   - calls: CvUnit::rotateFacingDirectionClockwise [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1321** `CyUnit::rotateFacingDirectionCounterClockwise()` (Python: rotateFacingDirectionCounterClockwise)
+- **1322** `CyUnit::rotateFacingDirectionCounterClockwise()` (Python: rotateFacingDirectionCounterClockwise)
   - calls: CvUnit::rotateFacingDirectionCounterClockwise [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1327** `CyUnit::getCargo()` (Python: getCargo)
+- **1328** `CyUnit::getCargo()` (Python: getCargo)
   - calls: CvUnit::getCargo [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1332** `CyUnit::getFortifyTurns()` (Python: getFortifyTurns)
+- **1333** `CyUnit::getFortifyTurns()` (Python: getFortifyTurns)
   - calls: CvUnit::getFortifyTurns [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1342** `CyUnit::setFortifyTurns(int)` (Python: setFortifyTurns)
+- **1343** `CyUnit::setFortifyTurns(int)` (Python: setFortifyTurns)
   - calls: CvUnit::setFortifyTurns [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1350** `CyUnit::getBlitzCount()` (Python: getBlitzCount)
+- **1351** `CyUnit::getBlitzCount()` (Python: getBlitzCount)
   - calls: CvUnit::getBlitzCount [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1355** `CyUnit::isBlitz()` (Python: isBlitz)
+- **1356** `CyUnit::isBlitz()` (Python: isBlitz)
   - calls: CvUnit::isBlitz [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1360** `CyUnit::getAmphibCount()` (Python: getAmphibCount)
+- **1361** `CyUnit::getAmphibCount()` (Python: getAmphibCount)
   - calls: CvUnit::getAmphibCount [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1365** `CyUnit::isAmphib()` (Python: isAmphib)
+- **1366** `CyUnit::isAmphib()` (Python: isAmphib)
   - calls: CvUnit::isAmphib [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1370** `CyUnit::getRiverCount()` (Python: getRiverCount)
+- **1371** `CyUnit::getRiverCount()` (Python: getRiverCount)
   - calls: CvUnit::getRiverCount [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1375** `CyUnit::isRiver()` (Python: isRiver)
+- **1376** `CyUnit::isRiver()` (Python: isRiver)
   - calls: CvUnit::isRiver [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1380** `CyUnit::isEnemyRoute()` (Python: isEnemyRoute)
+- **1381** `CyUnit::isEnemyRoute()` (Python: isEnemyRoute)
   - calls: CvUnit::isEnemyRoute [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1385** `CyUnit::isAlwaysHeal()` (Python: isAlwaysHeal)
+- **1386** `CyUnit::isAlwaysHeal()` (Python: isAlwaysHeal)
   - calls: CvUnit::isAlwaysHeal [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1390** `CyUnit::isHillsDoubleMove()` (Python: isHillsDoubleMove)
+- **1391** `CyUnit::isHillsDoubleMove()` (Python: isHillsDoubleMove)
   - calls: CvUnit::isHillsDoubleMove [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1395** `CyUnit::getExtraVisibilityRange()` (Python: getExtraVisibilityRange)
+- **1396** `CyUnit::getExtraVisibilityRange()` (Python: getExtraVisibilityRange)
   - calls: CvUnit::getExtraVisibilityRange [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1400** `CyUnit::getExtraMoves()` (Python: getExtraMoves)
+- **1401** `CyUnit::getExtraMoves()` (Python: getExtraMoves)
   - calls: CvUnit::getExtraMoves [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1405** `CyUnit::getExtraMoveDiscount()` (Python: getExtraMoveDiscount)
+- **1406** `CyUnit::getExtraMoveDiscount()` (Python: getExtraMoveDiscount)
   - calls: CvUnit::getExtraMoveDiscount [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1410** `CyUnit::getExtraAirRange()` (Python: getExtraAirRange)
+- **1411** `CyUnit::getExtraAirRange()` (Python: getExtraAirRange)
   - calls: CvUnit::getExtraAirRange [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1415** `CyUnit::getExtraIntercept()` (Python: getExtraIntercept)
+- **1416** `CyUnit::getExtraIntercept()` (Python: getExtraIntercept)
   - calls: CvUnit::getExtraIntercept [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1420** `CyUnit::getExtraEvasion()` (Python: getExtraEvasion)
+- **1421** `CyUnit::getExtraEvasion()` (Python: getExtraEvasion)
   - calls: CvUnit::getExtraEvasion [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1425** `CyUnit::getExtraFirstStrikes()` (Python: getExtraFirstStrikes)
+- **1426** `CyUnit::getExtraFirstStrikes()` (Python: getExtraFirstStrikes)
   - calls: CvUnit::getExtraFirstStrikes [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1430** `CyUnit::getExtraChanceFirstStrikes()` (Python: getExtraChanceFirstStrikes)
+- **1431** `CyUnit::getExtraChanceFirstStrikes()` (Python: getExtraChanceFirstStrikes)
   - calls: CvUnit::getExtraChanceFirstStrikes [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1435** `CyUnit::getExtraWithdrawal()` (Python: getExtraWithdrawal)
+- **1436** `CyUnit::getExtraWithdrawal()` (Python: getExtraWithdrawal)
   - calls: CvUnit::getExtraWithdrawal [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1440** `CyUnit::getExtraCollateralDamage()` (Python: getExtraCollateralDamage)
+- **1441** `CyUnit::getExtraCollateralDamage()` (Python: getExtraCollateralDamage)
   - calls: CvUnit::getExtraCollateralDamage [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1445** `CyUnit::getExtraEnemyHeal()` (Python: getExtraEnemyHeal)
+- **1446** `CyUnit::getExtraEnemyHeal()` (Python: getExtraEnemyHeal)
   - calls: CvUnit::getExtraEnemyHeal [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1450** `CyUnit::getExtraNeutralHeal()` (Python: getExtraNeutralHeal)
+- **1451** `CyUnit::getExtraNeutralHeal()` (Python: getExtraNeutralHeal)
   - calls: CvUnit::getExtraNeutralHeal [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1455** `CyUnit::getExtraFriendlyHeal()` (Python: getExtraFriendlyHeal)
+- **1456** `CyUnit::getExtraFriendlyHeal()` (Python: getExtraFriendlyHeal)
   - calls: CvUnit::getExtraFriendlyHeal [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1460** `CyUnit::getSameTileHeal()` (Python: getSameTileHeal)
+- **1461** `CyUnit::getSameTileHeal()` (Python: getSameTileHeal)
   - calls: CvUnit::getSameTileHeal [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1465** `CyUnit::getAdjacentTileHeal()` (Python: getAdjacentTileHeal)
+- **1466** `CyUnit::getAdjacentTileHeal()` (Python: getAdjacentTileHeal)
   - calls: CvUnit::getAdjacentTileHeal [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1470** `CyUnit::getExtraCombatPercent()` (Python: getExtraCombatPercent)
+- **1471** `CyUnit::getExtraCombatPercent()` (Python: getExtraCombatPercent)
   - calls: CvUnit::getExtraCombatPercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1475** `CyUnit::getExtraCityAttackPercent()` (Python: getExtraCityAttackPercent)
+- **1476** `CyUnit::getExtraCityAttackPercent()` (Python: getExtraCityAttackPercent)
   - calls: CvUnit::getExtraCityAttackPercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1480** `CyUnit::getExtraCityDefensePercent()` (Python: getExtraCityDefensePercent)
+- **1481** `CyUnit::getExtraCityDefensePercent()` (Python: getExtraCityDefensePercent)
   - calls: CvUnit::getExtraCityDefensePercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1485** `CyUnit::getExtraHillsAttackPercent()` (Python: getExtraHillsAttackPercent)
+- **1486** `CyUnit::getExtraHillsAttackPercent()` (Python: getExtraHillsAttackPercent)
   - calls: CvUnit::getExtraHillsAttackPercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1490** `CyUnit::getExtraHillsDefensePercent()` (Python: getExtraHillsDefensePercent)
+- **1491** `CyUnit::getExtraHillsDefensePercent()` (Python: getExtraHillsDefensePercent)
   - calls: CvUnit::getExtraHillsDefensePercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1495** `CyUnit::getRevoltProtection()` (Python: getRevoltProtection)
+- **1496** `CyUnit::getRevoltProtection() const` (Python: getRevoltProtection)
   - calls: CvUnit::getRevoltProtection [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1500** `CyUnit::getCollateralDamageProtection()` (Python: getCollateralDamageProtection)
+- **1501** `CyUnit::getCollateralDamageProtection() const` (Python: getCollateralDamageProtection)
   - calls: CvUnit::getCollateralDamageProtection [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1505** `CyUnit::getPillageChange()` (Python: getPillageChange)
+- **1506** `CyUnit::getPillageChange() const` (Python: getPillageChange)
   - calls: CvUnit::getPillageChange [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1510** `CyUnit::getUpgradeDiscount()` (Python: getUpgradeDiscount)
+- **1511** `CyUnit::getUpgradeDiscount() const` (Python: getUpgradeDiscount)
   - calls: CvUnit::getUpgradeDiscount [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1515** `CyUnit::getExperiencePercent()` (Python: getExperiencePercent)
+- **1516** `CyUnit::getExperiencePercent() const` (Python: getExperiencePercent)
   - calls: CvUnit::getExperiencePercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1520** `CyUnit::getKamikazePercent()` (Python: getKamikazePercent)
+- **1521** `CyUnit::getKamikazePercent() const` (Python: getKamikazePercent)
   - calls: CvUnit::getKamikazePercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1525** `CyUnit::getImmobileTimer()` (Python: getImmobileTimer)
+- **1526** `CyUnit::getImmobileTimer() const` (Python: getImmobileTimer)
   - calls: CvUnit::getImmobileTimer [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1530** `CyUnit::setImmobileTimer(int)` (Python: setImmobileTimer)
+- **1531** `CyUnit::setImmobileTimer(int)` (Python: setImmobileTimer)
   - calls: CvUnit::setImmobileTimer [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1538** `CyUnit::isMadeAttack()` (Python: isMadeAttack)
+- **1539** `CyUnit::isMadeAttack()` (Python: isMadeAttack)
   - calls: CvUnit::isMadeAttack [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1543** `CyUnit::setMadeAttack(bool)` (Python: setMadeAttack)
+- **1544** `CyUnit::setMadeAttack(bool)` (Python: setMadeAttack)
   - calls: CvUnit::setMadeAttack [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1549** `CyUnit::isMadeInterception()` (Python: isMadeInterception)
+- **1550** `CyUnit::isMadeInterception()` (Python: isMadeInterception)
   - calls: CvUnit::isMadeInterception [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1554** `CyUnit::setMadeInterception(bool)` (Python: setMadeInterception)
+- **1555** `CyUnit::setMadeInterception(bool)` (Python: setMadeInterception)
   - calls: CvUnit::setMadeInterception [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1560** `CyUnit::isPromotionReady()` (Python: isPromotionReady)
+- **1561** `CyUnit::isPromotionReady()` (Python: isPromotionReady)
   - calls: CvUnit::isPromotionReady [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1565** `CyUnit::setPromotionReady(bool)` (Python: setPromotionReady)
+- **1566** `CyUnit::setPromotionReady(bool)` (Python: setPromotionReady)
   - calls: CvUnit::setPromotionReady [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1571** `CyUnit::getOwner()` (Python: getOwner)
+- **1572** `CyUnit::getOwner()` (Python: getOwner)
   - calls: CvUnit::getOwnerINLINE [CvUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **1576** `CyUnit::getVisualOwner()` (Python: getVisualOwner)
+- **1577** `CyUnit::getVisualOwner()` (Python: getVisualOwner)
   - calls: CvUnit::getVisualOwner [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1581** `CyUnit::getCombatOwner(int)` (Python: getCombatOwner)
+- **1582** `CyUnit::getCombatOwner(int)` (Python: getCombatOwner)
   - calls: CvUnit::plot [CvUnit.cpp], CvUnit::getCombatOwner [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1586** `CyUnit::getTeam()` (Python: getTeam)
+- **1587** `CyUnit::getTeam()` (Python: getTeam)
   - calls: CvUnit::getTeam [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1591** `CyUnit::getUnitType()` (Python: getUnitType)
+- **1592** `CyUnit::getUnitType()` (Python: getUnitType)
   - calls: CvUnit::getUnitType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1596** `CyUnit::getUnitClassType()` (Python: getUnitClassType)
+- **1597** `CyUnit::getUnitClassType()` (Python: getUnitClassType)
   - calls: CvUnit::getUnitClassType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1601** `CyUnit::getLeaderUnitType()` (Python: getLeaderUnitType)
+- **1602** `CyUnit::getLeaderUnitType()` (Python: getLeaderUnitType)
   - calls: CvUnit::getLeaderUnitType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1606** `CyUnit::setLeaderUnitType(int)` (Python: setLeaderUnitType)
+- **1607** `CyUnit::setLeaderUnitType(int)` (Python: setLeaderUnitType)
   - calls: CvUnit::setLeaderUnitType [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1612** `CyUnit::getTransportUnit()` (Python: getTransportUnit)
-  - calls: CvUnit::getTransportUnit [CvUnit.cpp], CyUnit::CyUnit(CvUnit *)
+- **1613** `CyUnit::getTransportUnit() const` (Python: getTransportUnit)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvUnit::getTransportUnit [CvUnit.cpp], CyUnit::CyUnit(CvUnit*), operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1617** `CyUnit::isCargo()` (Python: isCargo)
+- **1618** `CyUnit::isCargo()` (Python: isCargo)
   - calls: CvUnit::isCargo [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1622** `CyUnit::setTransportUnit(CyUnit *)` (Python: setTransportUnit)
-  - calls: CvUnit::setTransportUnit [CvUnit.cpp], CyUnit::getUnit() [CyUnit.h]
+- **1623** `CyUnit::setTransportUnit(CyUnit*)` (Python: setTransportUnit)
+  - calls: CvUnit::setTransportUnit [CvUnit.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyUnitPythonInterface1
-- **1628** `CyUnit::getExtraDomainModifier(int)` (Python: getExtraDomainModifier)
+- **1629** `CyUnit::getExtraDomainModifier(int)` (Python: getExtraDomainModifier)
   - calls: CvUnit::getExtraDomainModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1633** `CyUnit::getName()` (Python: getName)
-  - calls: CvWString::CvWString(const wchar *) [CvString.h], CvUnit::getName [CvUnit.cpp]
+- **1634** `CyUnit::getName()` (Python: getName)
+  - calls: CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvUnit::getName [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1638** `CyUnit::getNameForm(int)` (Python: getNameForm)
-  - calls: CvWString::CvWString(const wchar *) [CvString.h], CvUnit::getName [CvUnit.cpp]
+- **1639** `CyUnit::getNameForm(int)` (Python: getNameForm)
+  - calls: CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvUnit::getName [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1643** `CyUnit::getNameKey()` (Python: getNameKey)
+- **1644** `CyUnit::getNameKey()` (Python: getNameKey)
   - calls: CvUnit::getNameKey [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1648** `CyUnit::getNameNoDesc()` (Python: getNameNoDesc)
-  - calls: CvWString::CvWString(const CvWString &) [CvString.h], CvWString::CvWString(const wchar *) [CvString.h], CvUnit::getNameNoDesc [CvUnit.cpp]
+- **1649** `CyUnit::getNameNoDesc()` (Python: getNameNoDesc)
+  - calls: CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvUnit::getNameNoDesc [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1653** `CyUnit::setName(std::wstring)` (Python: setName)
-  - calls: CvWString::CvWString(const std::wstring &) [CvString.h], CvUnit::setName(const CvWString) [CvUnit.h]
+- **1654** `CyUnit::setName(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>)` (Python: setName)
+  - calls: CvWString::CvWString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvUnit::setName [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1659** `CyUnit::getScriptData()` (Python: getScriptData)
+- **1660** `CyUnit::getScriptData() const` (Python: getScriptData)
   - calls: CvUnit::getScriptData [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1664** `CyUnit::setScriptData(std::string)` (Python: setScriptData)
+- **1665** `CyUnit::setScriptData(std::basic_string<char, std::char_traits<char>, std::allocator<char>>)` (Python: setScriptData)
   - calls: CvUnit::setScriptData [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1670** `CyUnit::isTerrainDoubleMove(int)` (Python: isTerrainDoubleMove)
+- **1671** `CyUnit::isTerrainDoubleMove(int)` (Python: isTerrainDoubleMove)
   - calls: CvUnit::isTerrainDoubleMove [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1675** `CyUnit::isFeatureDoubleMove(int)` (Python: isFeatureDoubleMove)
+- **1676** `CyUnit::isFeatureDoubleMove(int)` (Python: isFeatureDoubleMove)
   - calls: CvUnit::isFeatureDoubleMove [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1680** `CyUnit::getExtraTerrainAttackPercent(int)` (Python: getExtraTerrainAttackPercent)
+- **1681** `CyUnit::getExtraTerrainAttackPercent(int)` (Python: getExtraTerrainAttackPercent)
   - calls: CvUnit::getExtraTerrainAttackPercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1685** `CyUnit::getExtraTerrainDefensePercent(int)` (Python: getExtraTerrainDefensePercent)
+- **1686** `CyUnit::getExtraTerrainDefensePercent(int)` (Python: getExtraTerrainDefensePercent)
   - calls: CvUnit::getExtraTerrainDefensePercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1690** `CyUnit::getExtraFeatureAttackPercent(int)` (Python: getExtraFeatureAttackPercent)
+- **1691** `CyUnit::getExtraFeatureAttackPercent(int)` (Python: getExtraFeatureAttackPercent)
   - calls: CvUnit::getExtraFeatureAttackPercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1695** `CyUnit::getExtraFeatureDefensePercent(int)` (Python: getExtraFeatureDefensePercent)
+- **1696** `CyUnit::getExtraFeatureDefensePercent(int)` (Python: getExtraFeatureDefensePercent)
   - calls: CvUnit::getExtraFeatureDefensePercent [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1700** `CyUnit::getExtraUnitCombatModifier(int)` (Python: getExtraUnitCombatModifier)
+- **1701** `CyUnit::getExtraUnitCombatModifier(int)` (Python: getExtraUnitCombatModifier)
   - calls: CvUnit::getExtraUnitCombatModifier [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1705** `CyUnit::canAcquirePromotion(int)` (Python: canAcquirePromotion)
+- **1706** `CyUnit::canAcquirePromotion(int)` (Python: canAcquirePromotion)
   - calls: CvUnit::canAcquirePromotion [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1710** `CyUnit::canAcquirePromotionAny()` (Python: canAcquirePromotionAny)
+- **1711** `CyUnit::canAcquirePromotionAny()` (Python: canAcquirePromotionAny)
   - calls: CvUnit::canAcquirePromotionAny [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1715** `CyUnit::isPromotionValid(int)` (Python: isPromotionValid)
+- **1716** `CyUnit::isPromotionValid(int)` (Python: isPromotionValid)
   - calls: CvUnit::isPromotionValid [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1720** `CyUnit::isHasPromotion(int)` (Python: isHasPromotion)
+- **1721** `CyUnit::isHasPromotion(int)` (Python: isHasPromotion)
   - calls: CvUnit::isHasPromotion [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1725** `CyUnit::setHasPromotion(int, bool)` (Python: setHasPromotion)
+- **1726** `CyUnit::setHasPromotion(int, bool)` (Python: setHasPromotion)
   - calls: CvUnit::setHasPromotion [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1731** `CyUnit::getUnitAIType()` (Python: getUnitAIType)
+- **1732** `CyUnit::getUnitAIType()` (Python: getUnitAIType)
   - calls: CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType
   - called by (1): CyUnitPythonInterface1
-- **1736** `CyUnit::setUnitAIType(int)` (Python: setUnitAIType)
+- **1737** `CyUnit::setUnitAIType(int)` (Python: setUnitAIType)
   - calls: CvUnit::AI_setUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_setUnitAIType
   - called by (1): CyUnitPythonInterface1
-- **1744** `CyUnit::IsSelected()` (Python: IsSelected)
+- **1745** `CyUnit::IsSelected()` (Python: IsSelected)
   - calls: CvDLLEntity::IsSelected [CvDLLEntity.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1750** `CyUnit::centerCamera()` (Python: centerCamera)
-  - calls: CvDLLInterfaceIFaceBase::centerCamera [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **1751** `CyUnit::centerCamera()` (Python: centerCamera)
+  - calls: CvDLLInterfaceIFaceBase::centerCamera [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CyUnitPythonInterface1
-- **1758** `CyUnit::attackForDamage(CyUnit *, int, int)` (Python: attackForDamage)
+- **1759** `CyUnit::attackForDamage(CyUnit*, int, int)` (Python: attackForDamage)
   - calls: CvUnit::attackForDamage [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1766** `CyUnit::rangeStrike(int, int)` (Python: rangeStrike)
+- **1767** `CyUnit::rangeStrike(int, int)` (Python: rangeStrike)
   - calls: CvUnit::rangeStrike [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1774** `CyUnit::getArtInfo(int, EraTypes)` (Python: getArtInfo)
+- **1775** `CyUnit::getArtInfo(int, EraTypes) const` (Python: getArtInfo)
   - calls: CvUnit::getArtInfo [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1
-- **1779** `CyUnit::getButton()` (Python: getButton)
+- **1780** `CyUnit::getButton() const` (Python: getButton)
   - calls: CvUnit::getButton [CvUnit.cpp]
   - called by (1): CyUnitPythonInterface1

@@ -2,65 +2,66 @@
 
 Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **415** `CvTeam::AI_init()` (virtual; pure virtual)
+- **415** `CvTeam::AI_init(…)` (virtual; pure virtual)
   - called by (1): CvTeam::init
-- **416** `CvTeam::AI_reset(bool)` (virtual; pure virtual)
+- **416** `CvTeam::AI_reset(…)` (virtual; pure virtual)
   - called by (1): CvTeam::reset
-- **417** `CvTeam::AI_doTurnPre()` (virtual; pure virtual)
+- **417** `CvTeam::AI_doTurnPre(…)` (virtual; pure virtual)
   - called by (1): CvTeam::doTurn
-- **418** `CvTeam::AI_doTurnPost()` (virtual; pure virtual)
+- **418** `CvTeam::AI_doTurnPost(…)` (virtual; pure virtual)
   - called by (1): CvTeam::doTurn
-- **419** `CvTeam::AI_makeAssignWorkDirty()` (virtual; pure virtual)
+- **419** `CvTeam::AI_makeAssignWorkDirty(…)` (virtual; pure virtual)
   - called by (1): CvTeam::changeWaterWorkCount
-- **420** `CvTeam::AI_updateAreaStragies(bool)` (virtual; pure virtual)
+- **420** `CvTeam::AI_updateAreaStragies(…)` (virtual; pure virtual)
   - called by (1): CvTeam::addTeam
-- **421** `CvTeam::AI_shareWar(TeamTypes)` (virtual; pure virtual)
+- **421** `CvTeam::AI_shareWar(…)` (virtual; pure virtual)
   - called by (1): CyTeam::AI_shareWar
-- **422** `CvTeam::AI_updateWorstEnemy()` (virtual; pure virtual)
+- **422** `CvTeam::AI_updateWorstEnemy(…)` (virtual; pure virtual)
   - called by (1): CvTeam::addTeam
-- **423** `CvTeam::AI_getAtWarCounter(TeamTypes)` (virtual; pure virtual)
+- **423** `CvTeam::AI_getAtWarCounter(…)` (virtual; pure virtual)
   - called by (2): CvTeam::shareCounters, CyTeam::AI_getAtWarCounter
-- **424** `CvTeam::AI_setAtWarCounter(TeamTypes, int)` (virtual; pure virtual)
+- **424** `CvTeam::AI_setAtWarCounter(…)` (virtual; pure virtual)
   - called by (2): CvTeam::makePeace, CvTeam::shareCounters
-- **425** `CvTeam::AI_getAtPeaceCounter(TeamTypes)` (virtual; pure virtual)
+- **425** `CvTeam::AI_getAtPeaceCounter(…)` (virtual; pure virtual)
   - called by (2): CvTeam::shareCounters, CyTeam::AI_getAtPeaceCounter
-- **426** `CvTeam::AI_setAtPeaceCounter(TeamTypes, int)` (virtual; pure virtual)
+- **426** `CvTeam::AI_setAtPeaceCounter(…)` (virtual; pure virtual)
   - called by (2): CvTeam::declareWar, CvTeam::shareCounters
-- **427** `CvTeam::AI_getHasMetCounter(TeamTypes)` (virtual; pure virtual)
+- **427** `CvTeam::AI_getHasMetCounter(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **428** `CvTeam::AI_setHasMetCounter(TeamTypes, int)` (virtual; pure virtual)
+- **428** `CvTeam::AI_setHasMetCounter(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **429** `CvTeam::AI_getOpenBordersCounter(TeamTypes)` (virtual; pure virtual)
+- **429** `CvTeam::AI_getOpenBordersCounter(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **430** `CvTeam::AI_setOpenBordersCounter(TeamTypes, int)` (virtual; pure virtual)
+- **430** `CvTeam::AI_setOpenBordersCounter(…)` (virtual; pure virtual)
   - called by (2): CvTeam::setOpenBorders, CvTeam::shareCounters
-- **431** `CvTeam::AI_getDefensivePactCounter(TeamTypes)` (virtual; pure virtual)
+- **431** `CvTeam::AI_getDefensivePactCounter(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **432** `CvTeam::AI_setDefensivePactCounter(TeamTypes, int)` (virtual; pure virtual)
+- **432** `CvTeam::AI_setDefensivePactCounter(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **433** `CvTeam::AI_getShareWarCounter(TeamTypes)` (virtual; pure virtual)
+- **433** `CvTeam::AI_getShareWarCounter(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **434** `CvTeam::AI_setShareWarCounter(TeamTypes, int)` (virtual; pure virtual)
+- **434** `CvTeam::AI_setShareWarCounter(…)` (virtual; pure virtual)
   - called by (2): CvTeam::declareWar, CvTeam::shareCounters
-- **435** `CvTeam::AI_getWarSuccess(TeamTypes)` (virtual; pure virtual)
+- **435** `CvTeam::AI_getWarSuccess(…)` (virtual; pure virtual)
   - called by (3): CvTeam::shareCounters, CvTeamAI::AI_surrenderTrade, CyTeam::AI_getWarSuccess
-- **436** `CvTeam::AI_setWarSuccess(TeamTypes, int)` (virtual; pure virtual)
+- **436** `CvTeam::AI_setWarSuccess(…)` (virtual; pure virtual)
   - called by (2): CvTeam::makePeace, CvTeam::shareCounters
-- **437** `CvTeam::AI_changeWarSuccess(TeamTypes, int)` (virtual; pure virtual)
-- **438** `CvTeam::AI_getEnemyPeacetimeTradeValue(TeamTypes)` (virtual; pure virtual)
+- **437** `CvTeam::AI_changeWarSuccess(…)` (virtual; pure virtual)
+- **438** `CvTeam::AI_getEnemyPeacetimeTradeValue(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **439** `CvTeam::AI_setEnemyPeacetimeTradeValue(TeamTypes, int)` (virtual; pure virtual)
+- **439** `CvTeam::AI_setEnemyPeacetimeTradeValue(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **440** `CvTeam::AI_getEnemyPeacetimeGrantValue(TeamTypes)` (virtual; pure virtual)
+- **440** `CvTeam::AI_getEnemyPeacetimeGrantValue(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **441** `CvTeam::AI_setEnemyPeacetimeGrantValue(TeamTypes, int)` (virtual; pure virtual)
+- **441** `CvTeam::AI_setEnemyPeacetimeGrantValue(…)` (virtual; pure virtual)
   - called by (1): CvTeam::shareCounters
-- **442** `CvTeam::AI_getWarPlan(TeamTypes)` (virtual; pure virtual)
+- **442** `CvTeam::AI_getWarPlan(…)` (virtual; pure virtual)
   - called by (7): CvTeam::addTeam, CvTeam::countEnemyPopulationByArea, CvTeam::countEnemyPowerByArea, CvTeam::declareWar, CvTeam::getAnyWarPlanCount, CvTeam::getWarPlanCount, CyTeam::AI_getWarPlan
-- **443** `CvTeam::AI_isChosenWar(TeamTypes)` (virtual; pure virtual)
+- **443** `CvTeam::AI_isChosenWar(…)` (virtual; pure virtual)
   - called by (1): CvTeam::getChosenWarCount
-- **444** `CvTeam::AI_isSneakAttackPreparing(TeamTypes)` (virtual; pure virtual)
+- **444** `CvTeam::AI_isSneakAttackPreparing(…)` (virtual; pure virtual)
   - called by (3): CvTeam::declareWar, CvTeam::setForcePeace, CvUnitAI::AI_moveToStagingCity
-- **445** `CvTeam::AI_isSneakAttackReady(TeamTypes)` (virtual; pure virtual)
-- **446** `CvTeam::AI_setWarPlan(TeamTypes, WarPlanTypes, bool)` (virtual; pure virtual)
+- **445** `CvTeam::AI_isSneakAttackReady(…)` (virtual; pure virtual)
+- **446** `CvTeam::AI_setWarPlan(…)` (virtual; pure virtual)
   - called by (6): CvTeam::declareWar, CvTeam::makePeace, CvTeam::setForcePeace, CvTeam::setIsMinorCiv, CvTeam::setVassal, CyTeam::AI_setWarPlan
+- **·** `CvTeam::__vecDelDtor(…)` (virtual; declared, not defined in the source)

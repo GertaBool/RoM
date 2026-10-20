@@ -4,6 +4,5 @@ Group: Python wrappers. Functions in line order: what each calls (in order of fi
 
 - **23** `CyUnit::getUnit()`
   - called by (33): CyCity::addProductionExperience, CyCity::isBombardable, CyGameTextMgr::getSpecificUnitHelp, CyPlayer::canReceiveGoody, CyPlayer::doEspionageMission, CyPlayer::doGoody, CyPlayer::receiveGoody, CyPlot::getBestDefender, CyPlot::getNumVisibleEnemyDefenders, CyPlot::getNumVisiblePotentialEnemyDefenders, CyPlot::isEnemyCity, CyPlot::isFriendlyCity …
-- **24** `CyUnit::getUnit()`
 - **25** `CyUnit::isNone()` (Python: isNone)
   - called by (1): CyUnitPythonInterface1

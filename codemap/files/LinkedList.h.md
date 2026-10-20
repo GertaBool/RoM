@@ -2,46 +2,276 @@
 
 Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **21** `CLLNode::CLLNode<tVARTYPE>(const tVARTYPE &)`
-- **28** `CLLNode::~CLLNode<tVARTYPE>()` (virtual)
-- **65** `CLinkList::getLength()`
-  - called by (20): CLinkList::Write, CLinkList::moveToEnd, CvCity::getNumOrdersQueued, CvCity::getOrderQueueLength, CvDeal::addTrades, CvDeal::getLengthFirstTrades, CvDeal::getLengthSecondTrades, CvGameTextMgr::getDealString(CvWStringBuffer &, PlayerTypes, PlayerTypes, const CLinkList<TradeData> *, const CLinkList<TradeData> *, PlayerTypes), CvPlayer::getLengthResearchQueue, CvPlayer::getNumCityNames, CvPlayer::write, CvPlayerAI::AI_considerOffer …
-- **70** `CLinkList::head()`
-  - called by (42): CLinkList::Write, CvCity::headOrderQueueNode, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::headFirstTradesNode, CvDeal::headSecondTradesNode, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList …
-- **75** `CLinkList::tail()`
-  - called by (4): CvPlayer::tailGroupCycleNode, CvPlayer::tailResearchQueueNode, CvPlot::tailUnitNode, CvSelectionGroup::tailMissionQueueNode
-- **91** `CLinkList::CLinkList<tVARTYPE>()`
-  - called by (22): CvDLLButtonPopup::OnOkClicked, CvDeal::startTeamTrade, CvGame::handleDiplomacySetAIComment, CvGame::initDiplomacy, CvPlayer::acquireCity, CvPlayer::applyEvent, CvPlayer::forcePeace, CvPlayer::updateTradeRoutes, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvPlayerAI::AI_unitUpdate, CvPlot::doCulture …
-- **103** `CLinkList::~CLinkList<tVARTYPE>()` (virtual)
-  - calls: CLinkList::clear
-- **110** `CLinkList::clear()`
-  - called by (31): CLinkList::Read, CLinkList::~CLinkList<tVARTYPE>, CvCity::uninit, CvDeal::clearFirstTrades, CvDeal::clearSecondTrades, CvDeal::uninit, CvDiploParameters::CvDiploParameters, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvDiploParameters::~CvDiploParameters, CvPlayer::clearResearchQueue, CvPlayer::read …
-- **132** `CLinkList::insertAtBeginning(const tVARTYPE &)`
-  - called by (2): CLinkList::insertBefore, CvCity::pushOrder
-- **158** `CLinkList::insertAtEnd(const tVARTYPE &)`
-  - called by (39): CLinkList::Read, CLinkList::insertAfter, CvCity::pushOrder, CvDLLButtonPopup::OnOkClicked, CvDeal::insertAtEndFirstTrades, CvDeal::insertAtEndSecondTrades, CvDeal::startTeamTrade, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGame::handleDiplomacySetAIComment, CvGame::initDiplomacy, CvPlayer::acquireCity …
-- **184** `CLinkList::insertBefore(const tVARTYPE &, CLLNode<tVARTYPE> *)`
-  - calls: CLinkList::insertAtBeginning
-  - called by (4): CvPlayer::updateGroupCycle, CvPlayer::updateTradeRoutes, CvPlot::addUnit, CvSelectionGroup::addUnit
-- **209** `CLinkList::insertAfter(const tVARTYPE &, CLLNode<tVARTYPE> *)`
-  - calls: CLinkList::insertAtEnd
-- **233** `CLinkList::deleteNode(CLLNode<tVARTYPE> *)`
-  - called by (9): CvCity::popOrder, CvPlayer::deleteGroupCycleNode, CvPlayer::popResearch, CvPlayerAI::AI_unitUpdate, CvPlot::removeUnit, CvPlotGroup::deletePlotsNode, CvPlotGroup::recalculatePlots, CvSelectionGroup::deleteMissionQueueNode, CvSelectionGroup::deleteUnitNode
-- **273** `CLinkList::moveToEnd(CLLNode<tVARTYPE> *)`
-  - calls: CLinkList::getLength
-- **322** `CLinkList::next(CLLNode<tVARTYPE> *)`
-  - called by (40): CLinkList::Write, CvCity::nextOrderQueueNode, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDeal::nextFirstTradesNode, CvDeal::nextSecondTradesNode, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList …
-- **331** `CLinkList::prev(CLLNode<tVARTYPE> *)`
-  - called by (3): CvPlayer::previousGroupCycleNode, CvPlot::prevUnitNode, CvSelectionGroup::prevMissionQueueNode
-- **340** `CLinkList::nodeNum(int)`
-  - called by (6): CvCity::getOrderFromQueue, CvPlayer::getCityName, CvPlot::getUnitByIndex, CvSelectionGroup::getMissionFromQueue, CvUnit::airBomb2, CvUnit::airBomb3
-- **366** `CLinkList::Read(FDataStreamBase *)`
-  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], CLinkList::clear, FDataStreamBase::Read(int, byte *) [FDataStreamBase.h], CLinkList::insertAtEnd
-  - called by (7): CvCity::read, CvDeal::read, CvDiploParameters::read, CvPlayer::read, CvPlot::read, CvPlotGroup::read, CvSelectionGroup::read
-- **385** `CLinkList::Write(FDataStreamBase *)`
-  - calls: CLinkList::getLength, FDataStreamBase::Write(int) [FDataStreamBase.h], CLinkList::head, FDataStreamBase::Write(int, const byte *) [FDataStreamBase.h], CLinkList::next
-  - called by (7): CvCity::write, CvDeal::write, CvDiploParameters::write, CvPlayer::write, CvPlot::write, CvPlotGroup::write, CvSelectionGroup::write
-- **405** `ReadStreamableLinkList(CLinkList<T> &, FDataStreamBase *)`
-  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h]
-- **424** `WriteStreamableLinkList(CLinkList<T> &, FDataStreamBase *)`
-  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h]
+- **21** `CLLNode<int>::CLLNode<int>(int const&)`
+  - called by (3): CLinkList<int>::insertAtBeginning, CLinkList<int>::insertAtEnd, CLinkList<int>::insertBefore
+- **21** `CLLNode<IDInfo>::CLLNode<struct IDInfo>(IDInfo const&)`
+  - calls: IDInfo::IDInfo [CvStructs.h]
+  - called by (3): CLinkList<IDInfo>::insertAtBeginning, CLinkList<IDInfo>::insertAtEnd, CLinkList<IDInfo>::insertBefore
+- **21** `CLLNode<MissionData>::CLLNode<struct MissionData>(MissionData const&)`
+  - called by (1): CLinkList<MissionData>::insertAtEnd
+- **21** `CLLNode<OrderData>::CLLNode<struct OrderData>(OrderData const&)`
+  - called by (2): CLinkList<OrderData>::insertAtBeginning, CLinkList<OrderData>::insertAtEnd
+- **21** `CLLNode<TradeData>::CLLNode<struct TradeData>(TradeData const&)`
+  - called by (1): CLinkList<TradeData>::insertAtEnd
+- **21** `CLLNode<XYCoords>::CLLNode<struct XYCoords>(XYCoords const&)`
+  - calls: XYCoords::XYCoords [CvStructs.h]
+  - called by (1): CLinkList<XYCoords>::insertAtEnd
+- **21** `CLLNode<CvWString>::CLLNode<class CvWString>(CvWString const&)`
+  - calls: CvWString::CvWString() [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (1): CLinkList<CvWString>::insertAtEnd
+- **21** `CLLNode<TechTypes>::CLLNode<enum TechTypes>(TechTypes const&)`
+  - called by (1): CLinkList<TechTypes>::insertAtEnd
+- **28** `CLLNode<int>::~CLLNode<int>()` (virtual)
+  - called by (1): CLLNode<int>::`scalar deleting dtor'
+- **28** `CLLNode<IDInfo>::~CLLNode<struct IDInfo>()` (virtual)
+  - called by (1): CLLNode<IDInfo>::`scalar deleting dtor'
+- **28** `CLLNode<MissionData>::~CLLNode<struct MissionData>()` (virtual)
+  - called by (1): CLLNode<MissionData>::`scalar deleting dtor'
+- **28** `CLLNode<OrderData>::~CLLNode<struct OrderData>()` (virtual)
+  - called by (1): CLLNode<OrderData>::`scalar deleting dtor'
+- **28** `CLLNode<TradeData>::~CLLNode<struct TradeData>()` (virtual)
+  - called by (1): CLLNode<TradeData>::`scalar deleting dtor'
+- **28** `CLLNode<XYCoords>::~CLLNode<struct XYCoords>()` (virtual)
+  - called by (1): CLLNode<XYCoords>::`scalar deleting dtor'
+- **28** `CLLNode<CvWString>::~CLLNode<class CvWString>()` (virtual)
+  - calls: CvWString::~CvWString [CvString.h]
+  - called by (1): CLLNode<CvWString>::`scalar deleting dtor'
+- **28** `CLLNode<TechTypes>::~CLLNode<enum TechTypes>()` (virtual)
+  - called by (1): CLLNode<TechTypes>::`scalar deleting dtor'
+- **66** `CLinkList<int>::getLength() const`
+  - called by (4): CLinkList<int>::Write, CvPlayerAI::AI_unitUpdate, CvUnit::airBomb2, CvUnit::airBomb3
+- **66** `CLinkList<IDInfo>::getLength() const`
+  - called by (3): CLinkList<IDInfo>::Write, CvPlot::getNumUnits, CvSelectionGroup::getNumUnits
+- **66** `CLinkList<MissionData>::getLength() const`
+  - called by (2): CLinkList<MissionData>::Write, CvSelectionGroup::getLengthMissionQueue
+- **66** `CLinkList<OrderData>::getLength() const`
+  - called by (3): CLinkList<OrderData>::Write, CvCity::getNumOrdersQueued, CvCity::getOrderQueueLength
+- **66** `CLinkList<TradeData>::getLength() const`
+  - called by (7): CLinkList<TradeData>::Write, CvDeal::addTrades, CvDeal::getLengthFirstTrades, CvDeal::getLengthSecondTrades, CvGameTextMgr::getDealString(CvWStringBuffer&, PlayerTypes, PlayerTypes, CLinkList<TradeData> const*, CLinkList<TradeData> const*, PlayerTypes), CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_counterPropose
+- **66** `CLinkList<XYCoords>::getLength() const`
+  - called by (2): CLinkList<XYCoords>::Write, CvPlotGroup::getLengthPlots
+- **66** `CLinkList<CvWString>::getLength() const`
+  - called by (2): CvPlayer::getNumCityNames, CvPlayer::write
+- **66** `CLinkList<TechTypes>::getLength() const`
+  - called by (2): CLinkList<TechTypes>::Write, CvPlayer::getLengthResearchQueue
+- **71** `CLinkList<int>::head() const`
+  - called by (4): CLinkList<int>::Write, CvPlayer::headGroupCycleNode, CvPlayer::updateTradeRoutes, CvPlayerAI::AI_unitUpdate
+- **71** `CLinkList<IDInfo>::head() const`
+  - called by (9): CLinkList<IDInfo>::Write, CvPlayer::acquireCity, CvPlot::doCulture, CvPlot::erase, CvPlot::headUnitNode, CvPlot::nukeExplosion, CvPlot::setOwner, CvSelectionGroup::headUnitNode, CvUnit::setXY
+- **71** `CLinkList<MissionData>::head() const`
+  - called by (2): CLinkList<MissionData>::Write, CvSelectionGroup::headMissionQueueNode
+- **71** `CLinkList<OrderData>::head() const`
+  - called by (2): CLinkList<OrderData>::Write, CvCity::headOrderQueueNode
+- **71** `CLinkList<TradeData>::head() const`
+  - called by (24): CLinkList<TradeData>::Write, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::headFirstTradesNode, CvDeal::headSecondTradesNode, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGameTextMgr::getDealString(CvWStringBuffer&, PlayerTypes, PlayerTypes, CLinkList<TradeData> const*, CLinkList<TradeData> const*, PlayerTypes) …
+- **71** `CLinkList<XYCoords>::head() const`
+  - called by (3): CLinkList<XYCoords>::Write, CvPlotGroup::headPlotsNode, CvPlotGroup::recalculatePlots
+- **71** `CLinkList<CvWString>::head() const`
+  - called by (2): CvPlayer::headCityNameNode, CvPlayer::write
+- **71** `CLinkList<TechTypes>::head() const`
+  - called by (2): CLinkList<TechTypes>::Write, CvPlayer::headResearchQueueNode
+- **76** `CLinkList<int>::tail() const`
+  - called by (1): CvPlayer::tailGroupCycleNode
+- **76** `CLinkList<IDInfo>::tail() const`
+  - called by (1): CvPlot::tailUnitNode
+- **76** `CLinkList<MissionData>::tail() const`
+  - called by (1): CvSelectionGroup::tailMissionQueueNode
+- **76** `CLinkList<TechTypes>::tail() const`
+  - called by (1): CvPlayer::tailResearchQueueNode
+- **93** `CLinkList<int>::CLinkList<int>()`
+  - called by (5): CvPlayer::CvPlayer, CvPlayer::updateTradeRoutes, CvPlayerAI::AI_unitUpdate, CvUnit::airBomb2, CvUnit::airBomb3
+- **93** `CLinkList<IDInfo>::CLinkList<struct IDInfo>()`
+  - called by (8): CvPlayer::acquireCity, CvPlot::CvPlot, CvPlot::doCulture, CvPlot::erase, CvPlot::nukeExplosion, CvPlot::setOwner, CvSelectionGroup::CvSelectionGroup, CvUnit::setXY
+- **93** `CLinkList<MissionData>::CLinkList<struct MissionData>()`
+  - called by (1): CvSelectionGroup::CvSelectionGroup
+- **93** `CLinkList<OrderData>::CLinkList<struct OrderData>()`
+  - called by (1): CvCity::CvCity
+- **93** `CLinkList<TradeData>::CLinkList<struct TradeData>()`
+  - called by (13): CvDLLButtonPopup::OnOkClicked, CvDeal::CvDeal, CvDeal::startTeamTrade, CvDiploParameters::CvDiploParameters, CvGame::handleDiplomacySetAIComment, CvGame::initDiplomacy, CvPlayer::applyEvent, CvPlayer::forcePeace, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvTeam::assignVassal, CvTeam::signDefensivePact …
+- **93** `CLinkList<XYCoords>::CLinkList<struct XYCoords>()`
+  - called by (2): CvPlotGroup::CvPlotGroup, CvPlotGroup::recalculatePlots
+- **93** `CLinkList<CvWString>::CLinkList<class CvWString>()`
+  - called by (1): CvPlayer::CvPlayer
+- **93** `CLinkList<TechTypes>::CLinkList<enum TechTypes>()`
+  - called by (1): CvPlayer::CvPlayer
+- **105** `CLinkList<int>::~CLinkList<int>()` (virtual)
+  - calls: CLinkList<int>::clear
+  - called by (7): CLinkList<int>::`scalar deleting dtor', CvPlayer::CvPlayer, CvPlayer::updateTradeRoutes, CvPlayer::~CvPlayer, CvPlayerAI::AI_unitUpdate, CvUnit::airBomb2, CvUnit::airBomb3
+- **105** `CLinkList<IDInfo>::~CLinkList<struct IDInfo>()` (virtual)
+  - calls: CLinkList<IDInfo>::clear
+  - called by (11): CLinkList<IDInfo>::`scalar deleting dtor', CvPlayer::acquireCity, CvPlot::CvPlot, CvPlot::doCulture, CvPlot::erase, CvPlot::nukeExplosion, CvPlot::setOwner, CvPlot::~CvPlot, CvSelectionGroup::CvSelectionGroup, CvSelectionGroup::~CvSelectionGroup, CvUnit::setXY
+- **105** `CLinkList<MissionData>::~CLinkList<struct MissionData>()` (virtual)
+  - calls: CLinkList<MissionData>::clear
+  - called by (2): CvSelectionGroup::CvSelectionGroup, CvSelectionGroup::~CvSelectionGroup
+- **105** `CLinkList<OrderData>::~CLinkList<struct OrderData>()` (virtual)
+  - calls: CLinkList<OrderData>::clear
+  - called by (2): CvCity::CvCity, CvCity::~CvCity
+- **105** `CLinkList<TradeData>::~CLinkList<struct TradeData>()` (virtual)
+  - calls: CLinkList<TradeData>::clear
+  - called by (16): CLinkList<TradeData>::`scalar deleting dtor', CvDLLButtonPopup::OnOkClicked, CvDeal::CvDeal, CvDeal::startTeamTrade, CvDeal::~CvDeal, CvDiploParameters::CvDiploParameters, CvDiploParameters::~CvDiploParameters, CvGame::handleDiplomacySetAIComment, CvGame::initDiplomacy, CvPlayer::applyEvent, CvPlayer::forcePeace, CvPlayerAI::AI_doDiplo …
+- **105** `CLinkList<XYCoords>::~CLinkList<struct XYCoords>()` (virtual)
+  - calls: CLinkList<XYCoords>::clear
+  - called by (4): CLinkList<XYCoords>::`scalar deleting dtor', CvPlotGroup::CvPlotGroup, CvPlotGroup::recalculatePlots, CvPlotGroup::~CvPlotGroup
+- **105** `CLinkList<CvWString>::~CLinkList<class CvWString>()` (virtual)
+  - calls: CLinkList<CvWString>::clear
+  - called by (3): CLinkList<CvWString>::`scalar deleting dtor', CvPlayer::CvPlayer, CvPlayer::~CvPlayer
+- **105** `CLinkList<TechTypes>::~CLinkList<enum TechTypes>()` (virtual)
+  - calls: CLinkList<TechTypes>::clear
+  - called by (3): CLinkList<TechTypes>::`scalar deleting dtor', CvPlayer::CvPlayer, CvPlayer::~CvPlayer
+- **112** `CLinkList<int>::clear()`
+  - called by (7): CLinkList<int>::Read, CLinkList<int>::~CLinkList<int>, CvPlayer::uninit, CvPlayer::updateTradeRoutes, CvPlayerAI::AI_unitUpdate, CvUnit::airBomb2, CvUnit::airBomb3
+- **112** `CLinkList<IDInfo>::clear()`
+  - called by (7): CLinkList<IDInfo>::Read, CLinkList<IDInfo>::~CLinkList<struct IDInfo>, CvPlot::erase, CvPlot::nukeExplosion, CvPlot::uninit, CvSelectionGroup::uninit, CvUnit::setXY
+- **112** `CLinkList<MissionData>::clear()`
+  - called by (4): CLinkList<MissionData>::Read, CLinkList<MissionData>::~CLinkList<struct MissionData>, CvSelectionGroup::clearMissionQueue, CvSelectionGroup::uninit
+- **112** `CLinkList<OrderData>::clear()`
+  - called by (3): CLinkList<OrderData>::Read, CLinkList<OrderData>::~CLinkList<struct OrderData>, CvCity::uninit
+- **112** `CLinkList<TradeData>::clear()`
+  - called by (15): CLinkList<TradeData>::Read, CLinkList<TradeData>::~CLinkList<struct TradeData>, CvDeal::clearFirstTrades, CvDeal::clearSecondTrades, CvDeal::uninit, CvDiploParameters::CvDiploParameters, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvDiploParameters::~CvDiploParameters, CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace …
+- **112** `CLinkList<XYCoords>::clear()`
+  - called by (4): CLinkList<XYCoords>::Read, CLinkList<XYCoords>::~CLinkList<struct XYCoords>, CvPlotGroup::recalculatePlots, CvPlotGroup::uninit
+- **112** `CLinkList<CvWString>::clear()`
+  - called by (3): CLinkList<CvWString>::~CLinkList<class CvWString>, CvPlayer::read, CvPlayer::uninit
+- **112** `CLinkList<TechTypes>::clear()`
+  - called by (4): CLinkList<TechTypes>::Read, CLinkList<TechTypes>::~CLinkList<enum TechTypes>, CvPlayer::clearResearchQueue, CvPlayer::uninit
+- **134** `CLinkList<int>::insertAtBeginning(int const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<int>::CLLNode<int>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CLinkList<int>::insertBefore
+- **134** `CLinkList<IDInfo>::insertAtBeginning(IDInfo const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<IDInfo>::CLLNode<struct IDInfo>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CLinkList<IDInfo>::insertBefore
+- **134** `CLinkList<OrderData>::insertAtBeginning(OrderData const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<OrderData>::CLLNode<struct OrderData>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvCity::pushOrder
+- **160** `CLinkList<int>::insertAtEnd(int const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<int>::CLLNode<int>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (6): CLinkList<int>::Read, CvPlayer::updateGroupCycle, CvPlayer::updateTradeRoutes, CvPlayerAI::AI_unitUpdate, CvUnit::airBomb2, CvUnit::airBomb3
+- **160** `CLinkList<IDInfo>::insertAtEnd(IDInfo const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<IDInfo>::CLLNode<struct IDInfo>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (9): CLinkList<IDInfo>::Read, CvPlayer::acquireCity, CvPlot::addUnit, CvPlot::doCulture, CvPlot::erase, CvPlot::nukeExplosion, CvPlot::setOwner, CvSelectionGroup::addUnit, CvUnit::setXY
+- **160** `CLinkList<MissionData>::insertAtEnd(MissionData const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<MissionData>::CLLNode<struct MissionData>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CLinkList<MissionData>::Read, CvSelectionGroup::insertAtEndMissionQueue
+- **160** `CLinkList<OrderData>::insertAtEnd(OrderData const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<OrderData>::CLLNode<struct OrderData>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CLinkList<OrderData>::Read, CvCity::pushOrder
+- **160** `CLinkList<TradeData>::insertAtEnd(TradeData const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<TradeData>::CLLNode<struct TradeData>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (18): CLinkList<TradeData>::Read, CvDLLButtonPopup::OnOkClicked, CvDeal::insertAtEndFirstTrades, CvDeal::insertAtEndSecondTrades, CvDeal::startTeamTrade, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGame::handleDiplomacySetAIComment, CvGame::initDiplomacy, CvPlayer::applyEvent, CvPlayer::buildTradeTable, CvPlayer::forcePeace …
+- **160** `CLinkList<XYCoords>::insertAtEnd(XYCoords const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<XYCoords>::CLLNode<struct XYCoords>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (3): CLinkList<XYCoords>::Read, CvPlotGroup::insertAtEndPlots, CvPlotGroup::recalculatePlots
+- **160** `CLinkList<CvWString>::insertAtEnd(CvWString const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<CvWString>::CLLNode<class CvWString>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvPlayer::addCityName, CvPlayer::read
+- **160** `CLinkList<TechTypes>::insertAtEnd(TechTypes const&)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<TechTypes>::CLLNode<enum TechTypes>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CLinkList<TechTypes>::Read, CvPlayer::pushResearch
+- **186** `CLinkList<int>::insertBefore(int const&, CLLNode<int>*)`
+  - calls: CLinkList<int>::insertAtBeginning, operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<int>::CLLNode<int>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvPlayer::updateGroupCycle, CvPlayer::updateTradeRoutes
+- **186** `CLinkList<IDInfo>::insertBefore(IDInfo const&, CLLNode<IDInfo>*)`
+  - calls: CLinkList<IDInfo>::insertAtBeginning, operator new(unsigned int) [CvGameCoreDLL.cpp], CLLNode<IDInfo>::CLLNode<struct IDInfo>, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvPlot::addUnit, CvSelectionGroup::addUnit
+- **235** `CLinkList<int>::deleteNode(CLLNode<int>*)`
+  - called by (2): CvPlayer::deleteGroupCycleNode, CvPlayerAI::AI_unitUpdate
+- **235** `CLinkList<IDInfo>::deleteNode(CLLNode<IDInfo>*)`
+  - called by (2): CvPlot::removeUnit, CvSelectionGroup::deleteUnitNode
+- **235** `CLinkList<MissionData>::deleteNode(CLLNode<MissionData>*)`
+  - called by (1): CvSelectionGroup::deleteMissionQueueNode
+- **235** `CLinkList<OrderData>::deleteNode(CLLNode<OrderData>*)`
+  - called by (1): CvCity::popOrder
+- **235** `CLinkList<XYCoords>::deleteNode(CLLNode<XYCoords>*)`
+  - called by (2): CvPlotGroup::deletePlotsNode, CvPlotGroup::recalculatePlots
+- **235** `CLinkList<TechTypes>::deleteNode(CLLNode<TechTypes>*)`
+  - called by (1): CvPlayer::popResearch
+- **324** `CLinkList<int>::next(CLLNode<int>*) const`
+  - called by (4): CLinkList<int>::Write, CvPlayer::nextGroupCycleNode, CvPlayer::updateTradeRoutes, CvPlayerAI::AI_unitUpdate
+- **324** `CLinkList<IDInfo>::next(CLLNode<IDInfo>*) const`
+  - called by (8): CLinkList<IDInfo>::Write, CvPlayer::acquireCity, CvPlot::erase, CvPlot::nextUnitNode, CvPlot::nukeExplosion, CvPlot::setOwner, CvSelectionGroup::nextUnitNode, CvUnit::setXY
+- **324** `CLinkList<MissionData>::next(CLLNode<MissionData>*) const`
+  - called by (2): CLinkList<MissionData>::Write, CvSelectionGroup::nextMissionQueueNode
+- **324** `CLinkList<OrderData>::next(CLLNode<OrderData>*) const`
+  - called by (2): CLinkList<OrderData>::Write, CvCity::nextOrderQueueNode
+- **324** `CLinkList<TradeData>::next(CLLNode<TradeData>*) const`
+  - called by (24): CLinkList<TradeData>::Write, CvDLLWidgetData::parseKillDealHelp, CvDeal::addTrades, CvDeal::endTeamTrade, CvDeal::isPeaceDealBetweenOthers, CvDeal::isVassalTrade, CvDeal::isVassalTributeDeal, CvDeal::nextFirstTradesNode, CvDeal::nextSecondTradesNode, CvDiploParameters::setOurOfferList, CvDiploParameters::setTheirOfferList, CvGameTextMgr::getDealString(CvWStringBuffer&, PlayerTypes, PlayerTypes, CLinkList<TradeData> const*, CLinkList<TradeData> const*, PlayerTypes) …
+- **324** `CLinkList<XYCoords>::next(CLLNode<XYCoords>*) const`
+  - called by (2): CLinkList<XYCoords>::Write, CvPlotGroup::nextPlotsNode
+- **324** `CLinkList<CvWString>::next(CLLNode<CvWString>*) const`
+  - called by (2): CvPlayer::nextCityNameNode, CvPlayer::write
+- **324** `CLinkList<TechTypes>::next(CLLNode<TechTypes>*) const`
+  - called by (2): CLinkList<TechTypes>::Write, CvPlayer::nextResearchQueueNode
+- **333** `CLinkList<int>::prev(CLLNode<int>*) const`
+  - called by (1): CvPlayer::previousGroupCycleNode
+- **333** `CLinkList<IDInfo>::prev(CLLNode<IDInfo>*) const`
+  - called by (1): CvPlot::prevUnitNode
+- **333** `CLinkList<MissionData>::prev(CLLNode<MissionData>*) const`
+  - called by (1): CvSelectionGroup::prevMissionQueueNode
+- **342** `CLinkList<int>::nodeNum(int) const`
+  - called by (2): CvUnit::airBomb2, CvUnit::airBomb3
+- **342** `CLinkList<IDInfo>::nodeNum(int) const`
+  - called by (1): CvPlot::getUnitByIndex
+- **342** `CLinkList<MissionData>::nodeNum(int) const`
+  - called by (1): CvSelectionGroup::getMissionFromQueue
+- **342** `CLinkList<OrderData>::nodeNum(int) const`
+  - called by (1): CvCity::getOrderFromQueue
+- **342** `CLinkList<CvWString>::nodeNum(int) const`
+  - called by (1): CvPlayer::getCityName
+- **368** `CLinkList<int>::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CLinkList<int>::clear, operator new(unsigned int) [CvGameCoreDLL.cpp], CLinkList<int>::insertAtEnd, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvPlayer::read
+- **368** `CLinkList<IDInfo>::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CLinkList<IDInfo>::clear, operator new(unsigned int) [CvGameCoreDLL.cpp], IDInfo::IDInfo [CvStructs.h], CLinkList<IDInfo>::insertAtEnd, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvPlot::read, CvSelectionGroup::read
+- **368** `CLinkList<MissionData>::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CLinkList<MissionData>::clear, operator new(unsigned int) [CvGameCoreDLL.cpp], CLinkList<MissionData>::insertAtEnd, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvSelectionGroup::read
+- **368** `CLinkList<OrderData>::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CLinkList<OrderData>::clear, operator new(unsigned int) [CvGameCoreDLL.cpp], CLinkList<OrderData>::insertAtEnd, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvCity::read
+- **368** `CLinkList<TradeData>::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CLinkList<TradeData>::clear, operator new(unsigned int) [CvGameCoreDLL.cpp], CLinkList<TradeData>::insertAtEnd, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvDeal::read, CvDiploParameters::read
+- **368** `CLinkList<XYCoords>::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CLinkList<XYCoords>::clear, operator new(unsigned int) [CvGameCoreDLL.cpp], XYCoords::XYCoords [CvStructs.h], CLinkList<XYCoords>::insertAtEnd, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvPlotGroup::read
+- **368** `CLinkList<TechTypes>::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CLinkList<TechTypes>::clear, operator new(unsigned int) [CvGameCoreDLL.cpp], CLinkList<TechTypes>::insertAtEnd, operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvPlayer::read
+- **387** `CLinkList<int>::Write(FDataStreamBase*) const`
+  - calls: CLinkList<int>::getLength, FDataStreamBase::Write [FDataStreamBase.h], CLinkList<int>::head, CLinkList<int>::next
+  - called by (1): CvPlayer::write
+- **387** `CLinkList<IDInfo>::Write(FDataStreamBase*) const`
+  - calls: CLinkList<IDInfo>::getLength, FDataStreamBase::Write [FDataStreamBase.h], CLinkList<IDInfo>::head, CLinkList<IDInfo>::next
+  - called by (2): CvPlot::write, CvSelectionGroup::write
+- **387** `CLinkList<MissionData>::Write(FDataStreamBase*) const`
+  - calls: CLinkList<MissionData>::getLength, FDataStreamBase::Write [FDataStreamBase.h], CLinkList<MissionData>::head, CLinkList<MissionData>::next
+  - called by (1): CvSelectionGroup::write
+- **387** `CLinkList<OrderData>::Write(FDataStreamBase*) const`
+  - calls: CLinkList<OrderData>::getLength, FDataStreamBase::Write [FDataStreamBase.h], CLinkList<OrderData>::head, CLinkList<OrderData>::next
+  - called by (1): CvCity::write
+- **387** `CLinkList<TradeData>::Write(FDataStreamBase*) const`
+  - calls: CLinkList<TradeData>::getLength, FDataStreamBase::Write [FDataStreamBase.h], CLinkList<TradeData>::head, CLinkList<TradeData>::next
+  - called by (2): CvDeal::write, CvDiploParameters::write
+- **387** `CLinkList<XYCoords>::Write(FDataStreamBase*) const`
+  - calls: CLinkList<XYCoords>::getLength, FDataStreamBase::Write [FDataStreamBase.h], CLinkList<XYCoords>::head, CLinkList<XYCoords>::next
+  - called by (1): CvPlotGroup::write
+- **387** `CLinkList<TechTypes>::Write(FDataStreamBase*) const`
+  - calls: CLinkList<TechTypes>::getLength, FDataStreamBase::Write [FDataStreamBase.h], CLinkList<TechTypes>::head, CLinkList<TechTypes>::next
+  - called by (1): CvPlayer::write
+- **·** `CLLNode<int>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<int>::~CLLNode<int>
+- **·** `CLLNode<MissionData>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<MissionData>::~CLLNode<struct MissionData>
+- **·** `CLLNode<OrderData>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<OrderData>::~CLLNode<struct OrderData>
+- **·** `CLLNode<XYCoords>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<XYCoords>::~CLLNode<struct XYCoords>
+- **·** `CLLNode<CvWString>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<CvWString>::~CLLNode<class CvWString>
+- **·** `CLLNode<TechTypes>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<TechTypes>::~CLLNode<enum TechTypes>
+- **·** `CLinkList<TradeData>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLinkList<TradeData>::~CLinkList<struct TradeData>
+- **·** `CLinkList<XYCoords>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLinkList<XYCoords>::~CLinkList<struct XYCoords>

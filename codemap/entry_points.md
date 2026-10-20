@@ -2,14 +2,14 @@
 
 How control reaches the source from outside, from `map/`.
 
-## Called by the game exe: exported functions (2418)
+## Offered to the game exe: exported functions (2446)
 
-Functions declared `DllExport`. The exe calls these directly.
+Functions declared `DllExport` (directly, or as members of a class declared `DllExport`): the DLL offers them to the exe. Which of them the exe actually calls cannot be seen from the source.
 
-- **(global)** (10): DLLPublishToPython, atWar, directionAngle, estimateDirection, getCity, getUnit, isCardinalDirection, setTradeItem, shuffle
-- **CombatDetails** (1): CombatDetails
+- **(global)** (14): DLLPublishToPython, XYCoords::operator<(struct XYCoords) const, XYCoords::operator<=(struct XYCoords) const, XYCoords::operator>(struct XYCoords) const, XYCoords::operator>=(struct XYCoords) const, atWar, directionAngle, estimateDirection, getCity, getUnit, isCardinalDirection, setTradeItem, shuffle
+- **CombatDetails** (4): CombatDetails, operator=, ~CombatDetails
 - **CvActionInfo** (36): CvActionInfo, getActionInfoIndex, getAutomateType, getButton, getCivilopedia, getCommandData, getCommandType, getControlType, getDescription, getHelp, getHotKey, getHotKeyDescription, getHotKeyPriority, getHotKeyPriorityAlt, getHotKeyVal, getHotKeyValAlt, getInterfaceModeType, getMissionData, getMissionType, getOrderPriority, getOriginalIndex, getStrategy, getSubType, getTextKeyWide, getType, isAltDown, isAltDownAlt, isConfirmCommand, isCtrlDown, isCtrlDownAlt, isShiftDown, isShiftDownAlt, isVisible, setOriginalIndex, setSubType, ~CvActionInfo
-- **CvAirMissionDefinition** (5): CvAirMissionDefinition, getDamage, isDead, setDamage
+- **CvAirMissionDefinition** (6): CvAirMissionDefinition, getDamage, isDead, operator=, setDamage
 - **CvAnimationCategoryInfo** (4): CvAnimationCategoryInfo, getCategoryBaseID, getCategoryDefaultTo, ~CvAnimationCategoryInfo
 - **CvAnimationPathInfo** (7): CvAnimationPathInfo, getNumPathDefinitions, getPath, getPathCategory, getPathParameter, isMissionPath, ~CvAnimationPathInfo
 - **CvArtFileMgr** (55): CvArtFileMgr, DeInit, GetInstance, Init, Reset, buildArtFileInfoMaps, getAssetArtInfo, getBonusArtInfo, getBuildingArtInfo, getCivilizationArtInfo, getFeatureArtInfo, getImprovementArtInfo, getInterfaceArtInfo, getLeaderheadArtInfo, getMiscArtInfo, getMovieArtInfo, getNumAssetArtInfos, getNumBonusArtInfos, getNumBuildingArtInfos, getNumCivilizationArtInfos, getNumFeatureArtInfos, getNumImprovementArtInfos, getNumInterfaceArtInfos, getNumLeaderheadArtInfos, getNumMiscArtInfos, getNumMovieArtInfos, getNumTerrainArtInfos, getNumUnitArtInfos, getTerrainArtInfo, getUnitArtInfo, ~CvArtFileMgr
@@ -27,9 +27,9 @@ Functions declared `DllExport`. The exe calls these directly.
 - **CvArtInfoUnit** (31): CvArtInfoUnit, getActAsAir, getActAsLand, getActAsRanged, getActionSoundScriptId, getAngleInterpRate, getBankRate, getBattleDistance, getCombatExempt, getDamageStates, getExchangeAngle, getPatrolSoundTag, getRangedDeathTime, getRunEndSoundTag, getRunLoopSoundTag, getSelectionSoundScriptId, getShaderNIF, getShadowAttachNode, getShadowNIF, getShadowScale, getSmoothMove, getTrailFadeFalloff, getTrailFadeStarTime, getTrailLength, getTrailTaper, getTrailTexture, getTrailWidth, getTrainSound, setShaderNIF, setTrainSound, ~CvArtInfoUnit
 - **CvAssetInfoBase** (6): CvAssetInfoBase, getPath, getTag, setPath, setTag, ~CvAssetInfoBase
 - **CvAttachableInfo** (4): CvAttachableInfo, getPath, setPath, ~CvAttachableInfo
-- **CvAutomateInfo** (10): CvAutomateInfo, getAutomate, getCommand, getConfirmCommand, getVisible, setAutomate, setCommand, setConfirmCommand, setVisible, ~CvAutomateInfo
-- **CvBattleDefinition** (24): CvBattleDefinition, addBattleRound, addDamage, addFirstStrikes, addNumMeleeRounds, addNumRangedRounds, checkBattleRound, checkBattleTimeType, clearBattleRounds, getBattleRound, getDamage, getFirstStrikes, getNumBattleRounds, getNumMeleeRounds, getNumRangedRounds, isAdvanceSquare, setAdvanceSquare, setBattleRound, setDamage, setFirstStrikes, setNumMeleeRounds, setNumRangedRounds
-- **CvBattleRound** (11): CvBattleRound, addNumKilled, getNumAlive, getNumKilled, getWaveSize, isRangedRound, isValid, setNumAlive, setNumKilled, setRangedRound, setWaveSize
+- **CvAutomateInfo** (8): CvAutomateInfo, getAutomate, getCommand, getConfirmCommand, getVisible, setAutomate, setCommand, ~CvAutomateInfo
+- **CvBattleDefinition** (26): CvBattleDefinition, addBattleRound, addDamage, addFirstStrikes, addNumMeleeRounds, addNumRangedRounds, checkBattleRound, checkBattleTimeType, clearBattleRounds, getBattleRound, getDamage, getFirstStrikes, getNumBattleRounds, getNumMeleeRounds, getNumRangedRounds, isAdvanceSquare, operator=, setAdvanceSquare, setBattleRound, setDamage, setFirstStrikes, setNumMeleeRounds, setNumRangedRounds, ~CvBattleDefinition
+- **CvBattleRound** (12): CvBattleRound, addNumKilled, getNumAlive, getNumKilled, getWaveSize, isRangedRound, isValid, operator=, setNumAlive, setNumKilled, setRangedRound, setWaveSize
 - **CvBonusInfo** (1): getArtInfo
 - **CvBuildInfo** (2): getEntityEvent, getMissionType
 - **CvCameraInfo** (4): CvCameraInfo, getPath, setPath, ~CvCameraInfo
@@ -41,7 +41,7 @@ Functions declared `DllExport`. The exe calls these directly.
 - **CvControlInfo** (2): CvControlInfo, ~CvControlInfo
 - **CvCursorInfo** (1): getPath
 - **CvDLLButtonPopup** (6): OnAltExecute, OnFocus, OnOkClicked, freeInstance, getInstance, launchButtonPopup
-- **CvDLLEntity** (25): CvDLLEntity, ExecuteMove, GetSiegeTower, IsSelected, MoveTo, NotifyEntity, PlayAnimation, QueueMove, SetPosition, SetSiegeTower, StopAnimation, createCityEntity, createUnitEntity, destroyEntity, getCityEntity, getEntity, getUnitEntity, removeEntity, setEntity, setVisible, setup, ~CvDLLEntity
+- **CvDLLEntity** (27): CvDLLEntity, ExecuteMove, GetSiegeTower, IsSelected, MoveTo, NotifyEntity, PlayAnimation, QueueMove, SetPosition, SetSiegeTower, StopAnimation, createCityEntity, createUnitEntity, destroyEntity, getCityEntity, getEntity, getUnitEntity, operator=, removeEntity, setEntity, setVisible, setup, ~CvDLLEntity
 - **CvDLLWidgetData** (6): executeAction, executeAltAction, freeInstance, getInstance, isLink, parseHelp
 - **CvDeal** (20): getFirstPlayer, getGoldItem, getGoldPerTurnItem, getID, getPeaceItem, getSecondPlayer, hasData, headFirstTradesNode, headSecondTradesNode, isAnnual, isCancelable, isDual, isEndWar, isGold, isVassal, isVassalTributeDeal, kill, nextFirstTradesNode, nextSecondTradesNode, turnsToCancel
 - **CvDiploParameters** (37): CvDiploParameters, getAIContact, getChatText, getData, getDiploComment, getDiploCommentArgs, getHumanDiplo, getOurOfferList, getOurOffering, getPendingDelete, getRenegotiate, getTheirOfferList, getTheirOffering, getWhoTalkingTo, read, setAIContact, setChatText, setData, setDiploComment, setHumanDiplo, setOurOfferList, setOurOffering, setPendingDelete, setRenegotiate, setTheirOfferList, setTheirOffering, setWhoTalkingTo, write, ~CvDiploParameters
@@ -54,15 +54,15 @@ Functions declared `DllExport`. The exe calls these directly.
 - **CvEntityEventInfo** (7): CvEntityEventInfo, getAnimationPathCount, getAnimationPathType, getEffectType, getEffectTypeCount, getUpdateFormation, ~CvEntityEventInfo
 - **CvEventReporter** (21): chat, gameStart, getGameStatistics, getInstance, getPlayerStatistics, gotoPlotSet, init, kbdEvent, mouseEvent, newGame, newPlayer, plotPicked, preSave, readStatistics, reportModNetMessage, resetStatistics, unInit, unitSelected, update, windowActivation, writeStatistics
 - **CvFeatureInfo** (1): getArtInfo
-- **CvFlyoutMenuData** (1): CvFlyoutMenuData
+- **CvFlyoutMenuData** (4): CvFlyoutMenuData, operator=, ~CvFlyoutMenuData
 - **CvForceControlInfo** (3): CvForceControlInfo, getDefault, ~CvForceControlInfo
 - **CvFractal** (8): CvFractal, fracInit, fracInitHinted, getHeight, getHeightFromPercent, reset, uninit, ~CvFractal
-- **CvGame** (175): AI_combatValue, AI_init, AI_makeAssignWorkDirty, AI_reset, AI_updateAssignWork, CvGame, addDeal, applyFlyoutMenu, assignStartingPlots, calculateOptionsChecksum, calculateSyncChecksum, canDoPing, canHandleAction, canRegenerateMap, castVote, cheatSpaceship, cityPushOrder, countCivPlayersAlive, countCivPlayersEverAlive, countCivTeamsAlive, countCivTeamsEverAlive, countHumanPlayersAlive, countNumHumanGameTurnActive, cycleCities, cyclePlotUnits, cycleSelectionGroups, deleteDeal, firstDeal, getActiveCivilizationType, getActivePlayer, getActiveTeam, getBuildingArtInfo, getCalendar, getCurrentEra, getDeal, getEndTurnState, getGameSpeedType, getGameState, getGameTurn, getGlobeLayers, getGlobeviewConfigurationParameters, getHandicapType, getHotPbemBetweenTurns, getIndexAfterLastDeal, getInitialTime, getMaxCityElimination, getMaxTurnLen, getName, getNewHighlightPlot, getNextSoundtrack, getNumAdvancedStartPoints, getNumCities, getNumDeals, getNumHumanPlayers, getPausePlayer, getPitbossTurnTime, getPlayerScore, getPlotHighlightColor, getPlotUnit, getPlotUnits, getSoundtrackSpace, getSpaceVictory, getStartEra, getStartTurn, getSymbolID, getTeamScore, getTotalPopulation, getTurnSlice, getTurnSlicesRemaining, getUnitDomain, getVictory, getWidgetShow, getWinner, handleAction, handleCityPlotRightPicked, handleCityScreenPlotDoublePicked, handleCityScreenPlotPicked, handleCityScreenPlotRightPicked, handleDiplomacySetAIComment, handleMiddleMouse, implementDeal, init, initDiplomacy, initEvents, initFreeState, initFreeUnits, initScoreCalculation, initSelection, isDebugMode, isFinalInitialized, isForcedControl, isGameMultiPlayer, isHotSeat, isMPOption, isNetworkMultiPlayer, isOption, isPaused, isPbem, isPitboss, isPlayerOptionsSent, isSimultaneousTeamTurns, isSoundtrackOverride, isTeamGame, isWaterBuilding, loadBuildQueue, nextActivePlayer, nextDeal, normalizeStartingPlots, read, regenerateMap, reset, reviveActivePlayer, revivePlayer, selectAll, selectCity, selectGroup, selectUnit, selectedCitiesGameNetMessage, selectionListGameNetMessage, selectionListIgnoreBuildingDefense, selectionListMove, sendPlayerOptions, setAIAutoPlay, setActivePlayer, setFinalInitialized, setForceControl, setGameState, setGameTurn, setHandicapType, setHotPbemBetweenTurns, setInitialItems, setInitialTime, setMPOption, setMaxCityElimination, setMaxTurns, setName, setNumAdvancedStartPoints, setOption, setPausePlayer, setPbemTurnSent, setPitbossTurnTime, setReplayInfo, setStartTurn, setTargetScore, setVoteChosen, setupActionCache, shouldCenterMinimap, shouldDisplayEndTurn, shouldDisplayEndTurnButton, shouldDisplayFlag, shouldDisplayReturn, shouldDisplayUnitModel, shouldDisplayWaitingOthers, shouldDisplayWaitingYou, shouldShowResearchButtons, startFlyoutMenu, takeJPEGScreenShot, testExtendedGame, toggleDebugMode, update, updateBlockadedPlots, updateBuildingCommerce, updateCitySight, updateColoredPlots, updateDebugModeCache, updatePlotGroups, updateScore, updateSelectionList, updateTestEndTurn, updateTradeRoutes, updateUnitEnemyGlow, write, writeReplay, ~CvGame
+- **CvGame** (170): CvGame, addDeal, applyFlyoutMenu, assignStartingPlots, calculateOptionsChecksum, calculateSyncChecksum, canDoPing, canHandleAction, canRegenerateMap, castVote, cheatSpaceship, cityPushOrder, countCivPlayersAlive, countCivPlayersEverAlive, countCivTeamsAlive, countCivTeamsEverAlive, countHumanPlayersAlive, countNumHumanGameTurnActive, cycleCities, cyclePlotUnits, cycleSelectionGroups, deleteDeal, firstDeal, getActiveCivilizationType, getActivePlayer, getActiveTeam, getBuildingArtInfo, getCalendar, getCurrentEra, getDeal, getEndTurnState, getGameSpeedType, getGameState, getGameTurn, getGlobeLayers, getGlobeviewConfigurationParameters, getHandicapType, getHotPbemBetweenTurns, getIndexAfterLastDeal, getInitialTime, getMaxCityElimination, getMaxTurnLen, getName, getNewHighlightPlot, getNextSoundtrack, getNumAdvancedStartPoints, getNumCities, getNumDeals, getNumHumanPlayers, getPausePlayer, getPitbossTurnTime, getPlayerScore, getPlotHighlightColor, getPlotUnit, getPlotUnits, getSoundtrackSpace, getSpaceVictory, getStartEra, getStartTurn, getSymbolID, getTeamScore, getTotalPopulation, getTurnSlice, getTurnSlicesRemaining, getUnitDomain, getVictory, getWidgetShow, getWinner, handleAction, handleCityPlotRightPicked, handleCityScreenPlotDoublePicked, handleCityScreenPlotPicked, handleCityScreenPlotRightPicked, handleDiplomacySetAIComment, handleMiddleMouse, implementDeal, init, initDiplomacy, initEvents, initFreeState, initFreeUnits, initScoreCalculation, initSelection, isDebugMode, isFinalInitialized, isForcedControl, isGameMultiPlayer, isHotSeat, isMPOption, isNetworkMultiPlayer, isOption, isPaused, isPbem, isPitboss, isPlayerOptionsSent, isSimultaneousTeamTurns, isSoundtrackOverride, isTeamGame, isWaterBuilding, loadBuildQueue, nextActivePlayer, nextDeal, normalizeStartingPlots, read, regenerateMap, reset, reviveActivePlayer, revivePlayer, selectAll, selectCity, selectGroup, selectUnit, selectedCitiesGameNetMessage, selectionListGameNetMessage, selectionListIgnoreBuildingDefense, selectionListMove, sendPlayerOptions, setAIAutoPlay, setActivePlayer, setFinalInitialized, setForceControl, setGameState, setGameTurn, setHandicapType, setHotPbemBetweenTurns, setInitialItems, setInitialTime, setMPOption, setMaxCityElimination, setMaxTurns, setName, setNumAdvancedStartPoints, setOption, setPausePlayer, setPbemTurnSent, setPitbossTurnTime, setReplayInfo, setStartTurn, setTargetScore, setVoteChosen, setupActionCache, shouldCenterMinimap, shouldDisplayEndTurn, shouldDisplayEndTurnButton, shouldDisplayFlag, shouldDisplayReturn, shouldDisplayUnitModel, shouldDisplayWaitingOthers, shouldDisplayWaitingYou, shouldShowResearchButtons, startFlyoutMenu, takeJPEGScreenShot, testExtendedGame, toggleDebugMode, update, updateBlockadedPlots, updateBuildingCommerce, updateCitySight, updateColoredPlots, updateDebugModeCache, updatePlotGroups, updateScore, updateSelectionList, updateTestEndTurn, updateTradeRoutes, updateUnitEnemyGlow, write, writeReplay, ~CvGame
 - **CvGameOptionInfo** (4): CvGameOptionInfo, getDefault, getVisible, ~CvGameOptionInfo
 - **CvGameText** (3): CvGameText, getNumLanguages, setNumLanguages
 - **CvGameTextMgr** (152): CvGameTextMgr, DeInitialize, GetInstance, Initialize, Reset, assignFontIds, buildAdjustString, buildBonusRevealString, buildBridgeString, buildBuildingRequiresString, buildCityBillboardCityNameString, buildCityBillboardCitySizeString, buildCityBillboardIconString, buildCityBillboardProductionString, buildCivicRevealString, buildDefensivePactString, buildDomainExtraMovesString, buildFeatureProductionString, buildFinanceAwaySupplyString, buildFinanceCityMaintString, buildFinanceCivicUpkeepString, buildFinanceForeignIncomeString, buildFinanceInflationString, buildFinanceUnitCostString, buildFoundCorporationString, buildFoundReligionString, buildFreeTechString, buildFreeUnitString, buildGoldTradeString, buildHappinessRateString, buildHealthRateString, buildHintsList, buildIgnoreIrrigationString, buildImprovementString, buildIrrigationString, buildLOSString, buildMapCenterString, buildMapRevealString, buildMapTradeString, buildMoveString, buildObsoleteBonusString, buildObsoleteSpecialString, buildObsoleteString, buildOpenBordersString, buildPermanentAllianceString, buildProcessInfoString, buildPromotionString, buildRiverTradeString, buildSingleLineTechTreeString, buildSpecialBuildingString, buildTechTradeString, buildTechTreeString, buildTerrainTradeString, buildTradeRouteString, buildVassalStateString, buildWaterWorkString, buildWorkerRateString, buildYieldChangeString, getActiveDealsString, getAttitudeString, getBonusDataForWB, getBuildingDataForWB, getCityBillboardFoodbarColors, getCityBillboardProductionbarColors, getCityDataForAS, getCorporationDataForWB, getCurrentLanguage, getDealString, getEspionageString, getFontSymbols, getGlobeLayerName, getImprovementDataForAS, getImprovementDataForWB, getInterfaceCenterText, getPlotHelp, getPromotionDataForWB, getReligionDataForWB, getTechDataForAS, getTechDataForWB, getTerrainDataForWB, getTerritoryDataForWB, getTradeScreenHeader, getTradeScreenIcons, getTradeScreenTitleIcon, getTradeString, getTurnTimerText, getUnitDataForAS, getUnitDataForWB, getVisibilityDataForAS, parseCivInfos, parseCivicInfo, parseFreeSpecialistHelp, parseGreatGeneralHelp, parseGreatPeopleHelp, parseLeaderHeadHelp, parseLeaderLineHelp, parseLeaderShortTraits, parseLeaderTraits, parsePlayerTraits, parsePromotionHelp, parseSpecialistHelp, parseTraits, setAngerHelp, setBadHealthHelp, setBasicUnitHelp, setBonusHelp, setBonusTradeHelp, setBuildingHelp, setCityBarHelp, setCombatPlotHelp, setCommerceChangeHelp, setCommerceHelp, setConvertHelp, setCorporationHelp, setCorporationHelpCity, setDateStr, setEspionageCostHelp, setEspionageMissionHelp, setEventHelp, setFeatureHelp, setGoldStr, setGoodHealthHelp, setHappyHelp, setImprovementHelp, setInterfaceTime, setMinimizePopupHelp, setNetStats, setOOSSeeds, setPlotHelp, setPlotListHelp, setProcessHelp, setProductionHelp, setProjectHelp, setPromotionHelp, setReligionHelp, setReligionHelpCity, setResearchStr, setRevolutionHelp, setScoreHelp, setTechHelp, setTechTradeHelp, setTerrainHelp, setTimeStr, setTradeRouteHelp, setUnitCombatHelp, setUnitHelp, setVassalRevoltHelp, setYearStr, setYieldChangeHelp, setYieldHelp, ~CvGameTextMgr
 - **CvGlobals** (289): CvGlobals, IsGraphicsInitialized, SetGraphicsInitialized, addToInfosVectors, cacheGlobals, clearTypesMap, enableDLLProfiler, getAIR_BOMB_HEIGHT, getASyncRand, getActionInfo, getActiveLandscapeID, getAnimationCategoryInfo, getAnimationOperatorTypes, getAnimationPathInfo, getAreaFinder, getArtStyleTypes, getAttachableInfo, getAutomateInfo, getBARBARIAN_PLAYER, getBARBARIAN_TEAM, getBonusInfo, getBorderFinder, getBuildInfo, getCAMERA_FAR_CLIP_Z_HEIGHT, getCAMERA_LOWER_PITCH, getCAMERA_MAX_TRAVEL_DISTANCE, getCAMERA_MAX_TURN_OFFSET, getCAMERA_MAX_YAW, getCAMERA_MIN_DISTANCE, getCAMERA_MIN_YAW, getCAMERA_SPECIAL_PITCH, getCAMERA_START_DISTANCE, getCAMERA_UPPER_PITCH, getCITY_HOME_PLOT, getCameraInfo, getCameraOverlayInfo, getCityPlotPriority, getCityPlotX, getCityPlotY, getCivilizationInfo, getClimateInfo, getColorInfo, getCommandInfo, getControlInfo, getCursorInfo, getDLLIFaceNonInl, getDefineBOOL, getDefineFLOAT, getDefineINT, getDefineSTRING, getDefinesVarSystem, getDiplomacyScreen, getDirectionTypes, getDropMgr, getEVENT_MESSAGE_TIME, getEffectInfo, getEntityEventInfo, getEntityEventTypes, getEraInfo, getFIELD_OF_VIEW, getFMPMgrPtr, getFeatureInfo, getFootstepAudioTags, getFootstepAudioTypeByTag, getFootstepAudioTypes, getForceControlInfo, getFunctionTypes, getGame, getGameOptionInfo, getGamePointer, getGameSpeedInfo, getGoodyInfo, getGraphicOptionInfo, getHandicapInfo, getHints, getHotMessageQueue, getINVALID_PLOT_COORD, getImprovementInfo, getInfoTypeForString, getIniInitCore, getInitCore, getInstance, getInterface, getInterfaceModeInfo, getInterfacePathFinder, getInterfacePtr, getLandscapeInfo, getLeaderHeadInfo, getLoadedInitCore, getLogging, getMAX_CIV_PLAYERS, getMAX_CIV_TEAMS, getMAX_PLAYERS, getMAX_PLOT_LIST_ROWS, getMAX_TEAMS, getMPDiplomacyScreen, getMPOptionInfo, getMainMenus, getMap, getMaxCivPlayers, getMaxNumSymbols, getMessageCodes, getMessageControl, getMessageQueue, getMissionInfo, getModLoadControlInfos, getNUM_CITY_PLOTS, getNUM_COMMERCE_TYPES, getNUM_CONTROL_TYPES, getNUM_ENGINE_DIRTY_BITS, getNUM_FORCECONTROL_TYPES, getNUM_HEALTHBAR_TYPES, getNUM_INFOBAR_TYPES, getNUM_INTERFACE_DIRTY_BITS, getNUM_LEADERANIM_TYPES, getNUM_YIELD_TYPES, getNumAIPlayableCivilizationInfos, getNumActionInfos, getNumAnimationCategoryInfos, getNumAnimationOperatorTypes, getNumAnimationPathInfos, getNumArtStyleTypes, getNumAttachableInfos, getNumAutomateInfos, getNumBasicItems, getNumBonusInfos, getNumBuildInfos, getNumCameraInfos, getNumCameraOverlayInfos, getNumCivilizationInfos, getNumClimateInfos, getNumColorInfos, getNumCommandInfos, getNumControlInfos, getNumCursorInfos, getNumDirections, getNumEffectInfos, getNumEntityEventInfos, getNumEntityEventTypes, getNumEraInfos, getNumFeatureInfos, getNumFootstepAudioTypes, getNumForceControlInfos, getNumGameOptionInfos, getNumGameOptions, getNumGameSpeedInfos, getNumGlobeLayers, getNumGoodyInfos, getNumGraphicLevels, getNumGraphicOptions, getNumHandicapInfos, getNumHints, getNumImprovementInfos, getNumLandscapeInfos, getNumLeaderHeadInfos, getNumMPOptionInfos, getNumMPOptions, getNumMainMenus, getNumMissionInfos, getNumPlayableCivilizationInfos, getNumPlayerColorInfos, getNumPlayerOptionInfos, getNumPythonModulesInfos, getNumRiverInfos, getNumRiverModelInfos, getNumRouteInfos, getNumRouteModelInfos, getNumSeaLevelInfos, getNumSlideShowInfos, getNumSlideShowRandomInfos, getNumSpaceShipInfos, getNumSpecialOptions, getNumTerrainInfos, getNumTerrainPlaneInfos, getNumThroneRoomCameras, getNumThroneRoomInfos, getNumThroneRoomStyleInfos, getNumTradeableHeadings, getNumTradeableItems, getNumTurnTimerInfos, getNumUnitFormationInfos, getNumVictoryInfos, getNumWaterPlaneInfos, getNumWorldInfos, getNumWorldPickerInfos, getPLOT_SIZE, getPathFinder, getPlayerColorInfo, getPlayerOptionInfo, getPlotCardinalDirectionX, getPlotCardinalDirectionY, getPlotDirectionX, getPlotDirectionY, getPlotGroupFinder, getPortal, getPt3CameraDir, getPt3Origin, getPythonModulesInfo, getRandLogging, getRiverInfo, getRiverModelInfo, getRouteFinder, getRouteInfo, getRouteModelInfo, getSHADOW_SCALE, getSeaLevelInfo, getSetupData, getSlideShowInfo, getSlideShowRandomInfo, getSpaceShipInfo, getStatsReporter, getStatsReporterPtr, getStepFinder, getSynchLogging, getTerrainInfo, getTerrainPlaneInfo, getThroneRoomCamera, getThroneRoomInfo, getThroneRoomStyleInfo, getTurnTimerInfo, getTypesEnum, getUNIT_MULTISELECT_DISTANCE, getUNIT_MULTISELECT_MAX, getUSE_FINISH_TEXT_CALLBACK, getUnitFormationInfo, getVictoryInfo, getWaterPlaneInfo, getWorldInfo, getWorldPickerInfo, getXYCityPlot, getXYDirection, infoTypeFromStringReset, infosReset, init, overwriteLogs, readBonusInfoArray, readBuildingInfoArray, readCivicInfoArray, readCivilizationInfoArray, readDiplomacyInfoArray, readEventInfoArray, readEventTriggerInfoArray, readHandicapInfoArray, readImprovementInfoArray, readLeaderHeadInfoArray, readPromotionInfoArray, readTechInfoArray, readUnitInfoArray, setActiveLandscapeID, setAreaFinder, setBorderFinder, setDLLIFace, setDLLProfiler, setDefineFLOAT, setDefineINT, setDefineSTRING, setDiplomacyScreen, setDropMgr, setHotJoinMessageQueue, setInterface, setInterfacePathFinder, setMPDiplomacyScreen, setMessageCodeTranslator, setMessageControl, setMessageQueue, setPathFinder, setPlotGroupFinder, setPortal, setRouteFinder, setSetupData, setStatsReport, setStepFinder, setTypesEnum, uninit, writeBonusInfoArray, writeBuildingInfoArray, writeCivicInfoArray, writeCivilizationInfoArray, writeDiplomacyInfoArray, writeEventInfoArray, writeEventTriggerInfoArray, writeHandicapInfoArray, writeImprovementInfoArray, writeLeaderHeadInfoArray, writePromotionInfoArray, writeTechInfoArray, writeUnitInfoArray, ~CvGlobals
-- **CvGlobeLayerData** (1): CvGlobeLayerData
+- **CvGlobeLayerData** (4): CvGlobeLayerData, operator=, ~CvGlobeLayerData
 - **CvGraphicOptionInfo** (3): CvGraphicOptionInfo, getDefault, ~CvGraphicOptionInfo
 - **CvHotkeyInfo** (32): CvHotkeyInfo, getActionInfoIndex, getHotKey, getHotKeyDescription, getHotKeyPriority, getHotKeyPriorityAlt, getHotKeyVal, getHotKeyValAlt, getOrderPriority, isAltDown, isAltDownAlt, isCtrlDown, isCtrlDownAlt, isShiftDown, isShiftDownAlt, read, setActionInfoIndex, setAltDown, setAltDownAlt, setCtrlDown, setCtrlDownAlt, setHotKey, setHotKeyDescription, setHotKeyPriority, setHotKeyPriorityAlt, setHotKeyVal, setHotKeyValAlt, setOrderPriority, setShiftDown, setShiftDownAlt, write, ~CvHotkeyInfo
 - **CvImprovementInfo** (3): getArtInfo, isGoody, isRequiresRiverSide
@@ -76,8 +76,8 @@ Functions declared `DllExport`. The exe calls these directly.
 - **CvMap** (40): CvMap, erasePlots, findCity, findSelectionGroup, getClimate, getCustomMapOption, getGridHeight, getGridWidth, getLandPlots, getNumAreas, getNumCustomMapOptions, getNumLandAreas, getOwnedPlots, getSeaLevel, getWorldSize, init, isPlot, isWrap, isWrapX, isWrapY, numPlots, plot, plotByIndex, plotNum, plotXToPointX, plotYToPointY, pointToPlot, pointXToPlotX, pointYToPlotY, read, reset, setupGraphical, updateCenterUnit, updateFlagSymbols, updateFog, updateMinimapColor, updateSymbolVisibility, updateVisibility, write, ~CvMap
 - **CvMapGenerator** (14): CvMapGenerator, FreeInstance, GetInstance, addBonuses, addFeatures, addGameElements, addGoodies, addRivers, eraseBonuses, eraseFeatures, eraseGoodies, eraseRivers, generateRandomMap, ~CvMapGenerator
 - **CvMessageControl** (7): getInstance, sendAdvancedStartAction, sendChangeWar, sendDoTask, sendJoinGroup, sendLaunch, sendPing
-- **CvMessageData** (6): Debug, Execute, PutInBuffer, SetFromBuffer, createMessage, getType
-- **CvMissionDefinition** (9): CvMissionDefinition, getMissionTime, getMissionType, getPlot, getUnit, setMissionTime, setMissionType, setPlot, setUnit
+- **CvMessageData** (2): createMessage, getType
+- **CvMissionDefinition** (10): CvMissionDefinition, getMissionTime, getMissionType, getPlot, getUnit, operator=, setMissionTime, setMissionType, setPlot, setUnit
 - **CvMissionInfo** (9): CvMissionInfo, getEntityEvent, getTime, getVisible, getWaypoint, isBuild, isSound, isTarget, ~CvMissionInfo
 - **CvNetAdvancedStartAction** (4): Debug, Execute, PutInBuffer, SetFromBuffer
 - **CvNetAutoMission** (4): Debug, Execute, PutInBuffer, SetFromBuffer
@@ -111,8 +111,8 @@ Functions declared `DllExport`. The exe calls these directly.
 - **CvPlayerOptionInfo** (3): CvPlayerOptionInfo, getDefault, ~CvPlayerOptionInfo
 - **CvPlayerRecord** (12): getLeader, getMinutesPlayed, getNumBuildingsBuilt, getNumCitiesBuilt, getNumCitiesRazed, getNumGoldenAges, getNumUnitsBuilt, getNumUnitsKilled, getNumUnitsWasKilled, getPlayerID, getReligionFounded, getVictory
 - **CvPlot** (82): addFeatureDummyModel, checkLateEra, erase, get3DAudioScriptFootstepIndex, getAqueductSourceWeight, getAreaIdForGreatWall, getBestDefender, getBonusType, getCenterUnit, getDebugCenterUnit, getFeatureType, getFeatureVariety, getFlagSymbol, getFlagSymbolOffset, getImprovementType, getNumSymbols, getNumUnits, getNumVisibleUnits, getOwner, getPlotBuilder, getPlotCity, getPoint, getPointX, getPointY, getRevealedImprovementType, getRevealedOwner, getRevealedRouteType, getRevealedTeam, getRiverNSDirection, getRiverSymbol, getRiverWEDirection, getRouteSymbol, getRouteType, getSoundScriptId, getSymbolOffsetX, getSymbolOffsetY, getTerrainType, getUnitByIndex, getVisibleBonusState, getVisibleImprovementState, getX, getY, getYield, headUnitNode, isActiveVisible, isCity, isFighting, isGoody, isHills, isIrrigationAvailable, isLake, isLayoutDirty, isLayoutStateDifferent, isNOfRiver, isPeak, isRevealed, isRiverCrossing, isRiverCrossingFlowClockwise, isRiverMask, isRoute, isVisible, isVisibleEnemyUnit, isWOfRiver, isWater, nextUnitNode, pickFeatureDummyTag, prevUnitNode, resetFeatureModel, setFeatureDummyTexture, setFeatureDummyVisibility, setFeatureType, setImprovementType, setLayoutDirty, setLayoutStateToCurrent, setNOfRiver, setRevealed, setRouteType, setWOfRiver, shouldDisplayBridge, shouldUsePlotBuilder, tailUnitNode, updateFlagSymbol
-- **CvPlotIndicatorData** (1): CvPlotIndicatorData
-- **CvPopupInfo** (33): CvPopupInfo, addPythonButton, getButtonPopupType, getData1, getData2, getData3, getFlags, getNumPythonButtons, getOnClickedPythonCallback, getOnFocusPythonCallback, getOption1, getOption2, getPendingDelete, getPythonButtonArt, getPythonButtonText, getPythonModule, getText, operator=, read, setButtonPopupType, setData1, setData2, setData3, setFlags, setOnClickedPythonCallback, setOnFocusPythonCallback, setOption1, setOption2, setPendingDelete, setPythonModule, setText, write, ~CvPopupInfo
+- **CvPlotIndicatorData** (4): CvPlotIndicatorData, operator=, ~CvPlotIndicatorData
+- **CvPopupInfo** (34): CvPopupInfo, `default ctor closure', addPythonButton, getButtonPopupType, getData1, getData2, getData3, getFlags, getNumPythonButtons, getOnClickedPythonCallback, getOnFocusPythonCallback, getOption1, getOption2, getPendingDelete, getPythonButtonArt, getPythonButtonText, getPythonModule, getText, operator=, read, setButtonPopupType, setData1, setData2, setData3, setFlags, setOnClickedPythonCallback, setOnFocusPythonCallback, setOption1, setOption2, setPendingDelete, setPythonModule, setText, write, ~CvPopupInfo
 - **CvPythonModulesInfo** (9): getScreen, isCivicScreen, isCorporationScreen, isDomesticAdvisor, isEspionageAdvisor, isForeignAdvisor, isMainInterfaceScreen, isMilitaryAdvisor, isVictoryScreen
 - **CvQuestInfo** (21): CvQuestInfo, getNumQuestLinks, getNumQuestMessages, getNumQuestSounds, getQuestBodyText, getQuestLinkName, getQuestLinkType, getQuestMessages, getQuestObjective, getQuestScript, getQuestSounds, initQuestLinks, reset, setNumQuestMessages, setNumQuestSounds, setQuestBodyText, setQuestMessages, setQuestObjective, setQuestScript, setQuestSounds, ~CvQuestInfo
 - **CvQuestInfo::QuestLink** (1): QuestLink
@@ -126,12 +126,12 @@ Functions declared `DllExport`. The exe calls these directly.
 - **CvSlideShowInfo** (8): CvSlideShowInfo, getPath, getStartTime, getTransitionType, setPath, setStartTime, setTransitionType, ~CvSlideShowInfo
 - **CvSlideShowRandomInfo** (4): CvSlideShowRandomInfo, getPath, setPath, ~CvSlideShowRandomInfo
 - **CvSpaceShipInfo** (12): CvSpaceShipInfo, getArtType, getCameraUpAxis, getEventCode, getNodeName, getPartNumber, getProjectName, getProjectType, getSpaceShipInfoType, setNodeName, setProjectName, ~CvSpaceShipInfo
-- **CvStatBase** (2): CvStatBase, ~CvStatBase
-- **CvStatFloat** (1): CvStatFloat
-- **CvStatInt** (1): CvStatInt
-- **CvStatString** (1): CvStatString
+- **CvStatBase** (4): CvStatBase, operator=, ~CvStatBase
+- **CvStatFloat** (4): CvStatFloat, operator=, ~CvStatFloat
+- **CvStatInt** (4): CvStatInt, operator=, ~CvStatInt
+- **CvStatString** (4): CvStatString, operator=, ~CvStatString
 - **CvStatistics** (1): getPlayerRecord
-- **CvTalkingHeadMessage** (20): CvTalkingHeadMessage, getDescription, getFlashColor, getFromPlayer, getIcon, getLength, getMessageType, getOffScreenArrows, getOnScreenArrows, getShown, getSound, getTarget, getTurn, getX, getY, setFromPlayer, setLength, setShown, setTarget, ~CvTalkingHeadMessage
+- **CvTalkingHeadMessage** (21): CvTalkingHeadMessage, `default ctor closure', getDescription, getFlashColor, getFromPlayer, getIcon, getLength, getMessageType, getOffScreenArrows, getOnScreenArrows, getShown, getSound, getTarget, getTurn, getX, getY, setFromPlayer, setLength, setShown, setTarget, ~CvTalkingHeadMessage
 - **CvTeam** (22): canDeclareWar, canLaunch, countNumHumanGameTurnActive, declareWar, finalizeProjectArtTypes, getAliveCount, getCompletedSpaceshipProjects, getName, getNumMembers, getProjectArtType, getProjectDefaultArtType, getProjectPartNumber, hasLaunched, init, isAlive, isAtWar, isProjectAndArtMaxedOut, makePeace, reset, setAtWar, setProjectArtType, setProjectDefaultArtType
 - **CvTeamAI** (1): getTeamNonInl
 - **CvTerrainInfo** (1): getArtDefineTag
@@ -140,76 +140,71 @@ Functions declared `DllExport`. The exe calls these directly.
 - **CvThroneRoomInfo** (12): CvThroneRoomInfo, getAnimation, getEvent, getFromState, getNodeName, getToState, setAnimation, setEvent, setFromState, setNodeName, setToState, ~CvThroneRoomInfo
 - **CvThroneRoomStyleInfo** (8): CvThroneRoomStyleInfo, getArtStyleType, getEraType, getFileName, setArtStyleType, setEraType, setFileName, ~CvThroneRoomStyleInfo
 - **CvTutorialInfo** (8): CvTutorialInfo, getNextTutorialInfoType, getNumTutorialMessages, getTutorialMessage, initTutorialMessages, resetMessages, setNextTutorialInfoType, ~CvTutorialInfo
-- **CvTutorialMessage** (11): CvTutorialMessage, getImage, getNumTutorialScripts, getSound, getText, getTutorialScriptByIndex, setImage, setScript, setSound, setText, ~CvTutorialMessage
+- **CvTutorialMessage** (10): CvTutorialMessage, getImage, getNumTutorialScripts, getSound, getText, getTutorialScriptByIndex, setImage, setSound, setText, ~CvTutorialMessage
 - **CvUnit** (67): NotifyEntity, airCurrCombatStrFloat, airMaxCombatStrFloat, atPlot, canAirAttack, canAirDefend, canFight, canMove, cheat, currCombatStrFloat, currHitPoints, getAnimationMaxSpeed, getAnimationPadTime, getArtInfo, getBuildType, getButton, getCombatTimer, getCombatUnit, getDCMBombAccuracy, getDCMBombRange, getDamage, getDomainType, getFacingDirection, getFormationType, getGroup, getGroupDefinitions, getGroupSize, getHealthBarModifier, getHotKeyNumber, getID, getIDInfo, getLayerAnimationPaths, getLeaderUnitType, getName, getNameKey, getOwner, getRenderPriority, getSelectionSoundScript, getSubUnitCount, getSubUnitsAlive, getTeam, getUnitGroupRequired, getUnitType, getVisualOwner, getX, getY, hasMoved, isAttacking, isDead, isDefending, isFighting, isInfoBarDirty, isInvisible, isMechUnit, isPromotionReady, isRanged, isRenderAlways, isRenderBelowWater, isSuicide, isWaiting, joinGroup, maxCombatStrFloat, maxHitPoints, plot, setInfoBarDirty, shouldShowEnemyGlow, shouldShowFoundBorders
 - **CvUnitFormationInfo** (11): CvUnitFormationInfo, addUnitEntry, getEventTypes, getFormationType, getGreatUnitEntry, getNumGreatUnitEntries, getNumSiegeUnitEntries, getNumUnitEntries, getSiegeUnitEntry, getUnitEntry, ~CvUnitFormationInfo
 - **CvVictoryInfo** (1): isPermanent
-- **CvWBData** (1): CvWBData
+- **CvWBData** (4): CvWBData, operator=, ~CvWBData
 - **CvWaterPlaneInfo** (14): CvWaterPlaneInfo, getBaseTexture, getMaterialAlpha, getMaterialDiffuse, getMaterialEmmisive, getMaterialSpecular, getTextureScaling, getTextureScrollRateU, getTextureScrollRateV, getTransitionTexture, read, setBaseTexture, setTransitionTexture, ~CvWaterPlaneInfo
-- **CvWidgetDataStruct** (2): CvWidgetDataStruct
+- **CvWidgetDataStruct** (1): operator=
 - **CvWorldInfo** (1): getDefaultPlayers
 - **CvWorldPickerInfo** (14): CvWorldPickerInfo, getClimatePath, getMapName, getModelFile, getNumClimates, getNumSizes, getNumWaterLevelDecals, getNumWaterLevelGloss, getSize, getWaterLevelDecalPath, getWaterLevelGlossPath, setMapName, setModelFile, ~CvWorldPickerInfo
-- **CvXMLLoadUtility** (33): CleanUpGlobalVariables, CreateFXml, CvXMLLoadUtility, DestroyFXml, GetChildXmlValByName, GetNumProgressSteps, LoadBasicInfos, LoadCivXml, LoadGlobalText, LoadGraphicOptions, LoadPlayerOptions, LoadPostMenuGlobals, LoadPreMenuGlobals, MapChildren, ReadGlobalDefines, RegisterProgressCB, ResetGlobalEffectInfo, ResetLandscapeInfo, SetGlobalArtDefines, SetGlobalDefines, SetGlobalTypes, SetGlobals, SetHelpText, SetPostGlobalsGlobalDefines, SetupGlobalLandscapeInfo, SkipToNextVal, ~CvXMLLoadUtility
+- **CvXMLLoadUtility** (31): CleanUpGlobalVariables, CreateFXml, CvXMLLoadUtility, DestroyFXml, GetChildXmlValByName, GetNumProgressSteps, LoadBasicInfos, LoadCivXml, LoadGlobalText, LoadGraphicOptions, LoadPlayerOptions, LoadPostMenuGlobals, LoadPreMenuGlobals, MapChildren, ReadGlobalDefines, RegisterProgressCB, ResetGlobalEffectInfo, ResetLandscapeInfo, SetGlobalArtDefines, SetGlobalDefines, SetGlobalTypes, SetPostGlobalsGlobalDefines, SetupGlobalLandscapeInfo, SkipToNextVal, ~CvXMLLoadUtility
 - **CyArgsList** (15): CyArgsList, add, clear, makeFunctionArgs, push_back, size
 - **CyCity** (1): CyCity
 - **CyMap** (1): CyMap
 - **CyPlot** (3): CyPlot, getPoint
 - **CyUnit** (1): CyUnit
-- **FOWVis** (1): getOffsets
-- **GameTurnInfo** (2): GameTurnInfo, operator=
-- **IDInfo** (5): IDInfo, operator=, operator==, reset
-- **MissionData** (2): MissionData
-- **OrderData** (3): OrderData, operator=
-- **PBGameSetupData** (6): PBGameSetupData, getCustomMapOption, getMPOptionAt, getMapName, getOptionAt, getVictory
-- **PBPlayerAdminData** (3): getName, getPing, getScore
-- **PBPlayerSetupData** (1): getStatusText
+- **FOWVis** (2): getOffsets, operator=
+- **GameTurnInfo** (1): operator=
+- **IDInfo** (5): IDInfo, `default ctor closure', operator=, operator==, reset
+- **MissionData** (1): operator=
+- **OrderData** (1): operator=
+- **PBGameSetupData** (9): PBGameSetupData, getCustomMapOption, getMPOptionAt, getMapName, getOptionAt, getVictory, operator=, ~PBGameSetupData
+- **PBPlayerAdminData** (7): PBPlayerAdminData, getName, getPing, getScore, operator=, ~PBPlayerAdminData
+- **PBPlayerSetupData** (5): PBPlayerSetupData, getStatusText, operator=, ~PBPlayerSetupData
 - **PopupReturn** (4): PopupReturn, operator=, read, write
-- **TradeData** (2): TradeData
-- **XYCoords** (8): XYCoords, operator!=, operator<, operator<=, operator==, operator>, operator>=
+- **TradeData** (1): operator=
+- **XYCoords** (5): XYCoords, `default ctor closure', operator!=, operator=, operator==
 
-## Implemented by the game exe (576)
+## Implemented by the game exe (370)
 
-Pure virtual methods with no override in the source: the DLL calls them and the exe provides them.
+Pure virtual methods of classes the source never derives from and never implements: the DLL calls them through the interface pointers the exe hands it (`gDLL` and the like), so the exe provides them.
 
-- **CvDLLEngineIFaceBase** (71, 50 called from the source)
-- **CvDLLFAStarIFaceBase** (14, 11 called from the source)
+- **CvArtFileMgr::ArtInfoItem** (3, 3 called from the source)
+- **CvDLLEngineIFaceBase** (50, 50 called from the source)
+- **CvDLLFAStarIFaceBase** (11, 11 called from the source)
 - **CvDLLFeatureIFaceBase** (8, 8 called from the source)
-- **CvDLLFlagEntityIFaceBase** (7, 6 called from the source)
-- **CvDLLIniParserIFaceBase** (8, 0 called from the source)
-- **CvDLLInterfaceIFaceBase** (148, 125 called from the source)
+- **CvDLLFlagEntityIFaceBase** (6, 6 called from the source)
+- **CvDLLInterfaceIFaceBase** (125, 125 called from the source)
 - **CvDLLPlotBuilderIFaceBase** (2, 2 called from the source)
-- **CvDLLPythonIFaceBase** (14, 8 called from the source)
+- **CvDLLPythonIFaceBase** (5, 5 called from the source)
 - **CvDLLRiverIFaceBase** (2, 2 called from the source)
 - **CvDLLRouteIFaceBase** (5, 5 called from the source)
-- **CvDLLSymbolIFaceBase** (11, 10 called from the source)
-- **CvDLLUtilityIFaceBase** (167, 134 called from the source)
-- **CvDLLXmlIFaceBase** (42, 26 called from the source)
-- **FDataStreamBase** (68, 37 called from the source)
-- **FFreeListArrayBase** (5, 1 called from the source)
-- **FInputDevice** (4, 0 called from the source)
+- **CvDLLSymbolIFaceBase** (9, 9 called from the source)
+- **CvDLLUtilityIFaceBase** (119, 119 called from the source)
+- **CvDLLXmlIFaceBase** (20, 20 called from the source)
+- **FDataStreamBase** (5, 5 called from the source)
 
-## Called from Python: functions exposed by boost::python (3907)
+## Called from Python: functions exposed by boost::python (3892)
 
 Per C++ class: how many functions are exposed. The full list with Python names is `map/python_defs.tsv`.
 
 | C++ class | exposed |
 |---|---|
 | (global) | 53 |
-| CvActionInfo | 11 |
+| CvActionInfo | 10 |
 | CvArtInfoAsset | 5 |
-| CvArtInfoBuilding | 1 |
 | CvArtInfoCivilization | 1 |
-| CvArtInfoFeature | 3 |
-| CvArtInfoImprovement | 1 |
 | CvAssetInfoBase | 4 |
 | CvBonusClassInfo | 1 |
-| CvBonusInfo | 36 |
+| CvBonusInfo | 35 |
 | CvBuildInfo | 12 |
 | CvBuildingClassInfo | 8 |
 | CvBuildingInfo | 154 |
 | CvCivicInfo | 77 |
 | CvCivicOptionInfo | 1 |
-| CvCivilizationInfo | 24 |
+| CvCivilizationInfo | 23 |
 | CvClimateInfo | 11 |
 | CvColorInfo | 1 |
 | CvCommerceInfo | 5 |
@@ -217,7 +212,6 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvCultureLevelInfo | 2 |
 | CvDiplomacyInfo | 8 |
 | CvDiplomacyTextInfo | 8 |
-| CvEffectInfo | 2 |
 | CvEmphasizeInfo | 4 |
 | CvEraInfo | 28 |
 | CvEspionageMissionInfo | 29 |
@@ -235,9 +229,9 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvHurryInfo | 3 |
 | CvImprovementBonusInfo | 4 |
 | CvImprovementInfo | 38 |
-| CvInfoBase | 12 |
+| CvInfoBase | 10 |
 | CvInterfaceModeInfo | 7 |
-| CvLeaderHeadInfo | 89 |
+| CvLeaderHeadInfo | 88 |
 | CvMPOptionInfo | 1 |
 | CvMainMenuInfo | 5 |
 | CvMissionInfo | 6 |
@@ -277,7 +271,7 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CyDeal | 13 |
 | CyGame | 222 |
 | CyGameTextMgr | 35 |
-| CyGlobalContext | 277 |
+| CyGlobalContext | 275 |
 | CyHallOfFameInfo | 3 |
 | CyMap | 52 |
 | CyMapGenerator | 21 |
@@ -300,6 +294,9 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 
 | Python function | defined in | called from |
 |---|---|---|
+| ?.? | not found | CvDLLButtonPopup::OnOkClicked |
+| ?.CvRandomEventInterface | not found | CvCity::getTriggerValue, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::checkExpireEvent, CvPlayer::initTriggeredData, CvPlayer::setTriggerFired, CvUnit::getTriggerValue |
+| ?.CvScreensInterface | not found | CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::launchPythonScreen |
 | ?.addBonusType | not found | CvMapGenerator::addBonuses |
 | ?.addBonuses | not found | CvMapGenerator::addBonuses |
 | ?.addFeatures | not found | CvMapGenerator::addFeatures |
@@ -363,7 +360,7 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvGameInterface.canPickPlot | not found | CvGame::getPlotHighlightColor |
 | CvGameInterface.canRazeCity | not found | CvPlayer::acquireCity, CvPlayer::canRaze |
 | CvGameInterface.canResearch | base/EntryPoints/CvGameInterface.py:95 | CvPlayer::canResearch |
-| CvGameInterface.canTrain | base/EntryPoints/CvGameInterface.py:111 | CvCity::canTrain(UnitTypes, bool, bool, bool, bool) |
+| CvGameInterface.canTrain | base/EntryPoints/CvGameInterface.py:111 | CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const |
 | CvGameInterface.cannotConstruct | base/EntryPoints/CvGameInterface.py:123 | CvCity::canConstruct |
 | CvGameInterface.cannotCreate | base/EntryPoints/CvGameInterface.py:131 | CvCity::canCreate |
 | CvGameInterface.cannotDoCivic | base/EntryPoints/CvGameInterface.py:107 | CvPlayer::canDoCivics |
@@ -375,7 +372,7 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvGameInterface.cannotSelectionListGameNetMessage | base/EntryPoints/CvGameInterface.py:87 | CvGame::selectionListGameNetMessage |
 | CvGameInterface.cannotSelectionListMove | base/EntryPoints/CvGameInterface.py:83 | CvGame::selectionListMove |
 | CvGameInterface.cannotSpreadReligion | not found | CvUnit::canSpread |
-| CvGameInterface.cannotTrain | base/EntryPoints/CvGameInterface.py:115 | CvCity::canTrain(UnitTypes, bool, bool, bool, bool) |
+| CvGameInterface.cannotTrain | base/EntryPoints/CvGameInterface.py:115 | CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const |
 | CvGameInterface.citiesDestroyFeatures | not found | CvCity::init |
 | CvGameInterface.createBarbarianCities | base/EntryPoints/CvGameInterface.py:31 | CvGame::createBarbarianCities |
 | CvGameInterface.createBarbarianUnits | base/EntryPoints/CvGameInterface.py:35 | CvGame::createBarbarianUnits |
@@ -396,7 +393,7 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvGameInterface.doReligion | base/EntryPoints/CvGameInterface.py:208 | CvCity::doReligion |
 | CvGameInterface.doResearch | base/EntryPoints/CvGameInterface.py:184 | CvPlayer::doResearch |
 | CvGameInterface.doReviveActivePlayer | not found | CvGame::reviveActivePlayer, CvGame::revivePlayer |
-| CvGameInterface.getBuildingCostMod | not found | CvCity::getProductionNeeded(BuildingTypes) |
+| CvGameInterface.getBuildingCostMod | not found | CvCity::getProductionNeeded(BuildingTypes) const |
 | CvGameInterface.getCityFoundValue | not found | CvPlayerAI::AI_recalculateFoundValues, CvPlayerAI::AI_updateFoundValues, CvPlot::getFoundValue |
 | CvGameInterface.getConscriptUnitType | not found | CvCity::getConscriptUnit |
 | CvGameInterface.getExperienceNeeded | not found | calculateExperience |
@@ -405,11 +402,11 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvGameInterface.getRecommendedBuilding | base/EntryPoints/CvGameInterface.py:67 | CvDLLButtonPopup::launchProductionPopup |
 | CvGameInterface.getRecommendedUnit | base/EntryPoints/CvGameInterface.py:63 | CvDLLButtonPopup::launchProductionPopup |
 | CvGameInterface.getSecondRecommendedTech | base/EntryPoints/CvGameInterface.py:51 | CvDLLButtonPopup::launchChooseTechPopup |
-| CvGameInterface.getUnitCostMod | not found | CvPlayer::getProductionNeeded(UnitTypes) |
+| CvGameInterface.getUnitCostMod | not found | CvPlayer::getProductionNeeded(UnitTypes) const |
 | CvGameInterface.getUpgradePriceOverride | not found | CvUnit::upgradePrice |
 | CvGameInterface.isActionRecommended | base/EntryPoints/CvGameInterface.py:75 | CvUnit::isActionRecommended |
 | CvGameInterface.isPlayerResearch | base/EntryPoints/CvGameInterface.py:27 | CvPlayer::isResearch |
-| CvGameInterface.isVictory | not found | CvGame::testVictory(VictoryTypes, TeamTypes, bool *) |
+| CvGameInterface.isVictory | not found | CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const |
 | CvGameInterface.isVictoryTest | base/EntryPoints/CvGameInterface.py:23 | CvGame::testVictory() |
 | CvGameInterface.showExamineCityButton | base/EntryPoints/CvGameInterface.py:59 | CvDLLButtonPopup::launchProductionPopup |
 | CvGameInterface.showTechChooserButton | base/EntryPoints/CvGameInterface.py:43 | CvDLLButtonPopup::launchChooseTechPopup |
@@ -417,8 +414,6 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CvGameInterface.skipResearchPopup | base/EntryPoints/CvGameInterface.py:39 | CvDLLButtonPopup::launchChooseTechPopup |
 | CvGameInterface.unitCannotMoveInto | not found | CvUnit::canMoveInto |
 | CvGameInterface.updateColoredPlots | base/EntryPoints/CvGameInterface.py:71 | CvGame::updateColoredPlots |
-| CvRandomEventInterface.? | not found | CvCity::getTriggerValue, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::checkExpireEvent, CvPlayer::initTriggeredData, CvPlayer::setTriggerFired, CvUnit::getTriggerValue |
-| CvScreensInterface.? | not found | CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchPythonScreen |
 | CvScreensInterface.WorldBuilderGetHighlightPlot | EntryPoints/CvScreensInterface.py:680 | CvGame::getNewHighlightPlot |
 | CvScreensInterface.pediaBack | EntryPoints/CvScreensInterface.py:411 | CvDLLWidgetData::doPediaBack |
 | CvScreensInterface.pediaForward | EntryPoints/CvScreensInterface.py:414 | CvDLLWidgetData::doPediaForward |
@@ -463,53 +458,53 @@ Each `CvDllPythonEvents` report function posts one event; the handlers are every
 
 | event | posted by | handlers |
 |---|---|---|
-| BeginGameTurn | CvDllPythonEvents::reportBeginGameTurn | CvEventManager.onBeginGameTurn (base/CvEventManager.py:85); AIAutoPlay.__init__: self.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:115); AIAutoPlay.removeEventHandlers: self.customEM.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:148); BarbarianCiv.__init__: self.onBeginGameTurn (Revolution/Gameready/BarbarianCiv.py:87); TechDiffusion.__init__: self.onBeginGameTurn (Revolution/Gameready/TechDiffusion.py:42) |
-| BeginPlayerTurn | CvDllPythonEvents::reportBeginPlayerTurn | CvEventManager.onBeginPlayerTurn (base/CvEventManager.py:87); EspionageEventEvent.__init__: self.onBeginPlayerTurn (Contrib/EspionageEventManager.py:49); AutoLogEvent.__init__: self.onBeginPlayerTurn (Contrib/autologEventManager.py:150); Tester.__init__: self.onBeginPlayerTurn (Revolution/Development/Tester.py:49); AIAutoPlay.__init__: self.onBeginPlayerTurn (Revolution/Gameready/AIAutoPlay.py:94); DynamicCivNames.__init__: self.onBeginPlayerTurn (Revolution/Gameready/DynamicCivNames.py:41); Revolution.__init__: self.onBeginPlayerTurn (Revolution/Gameready/Revolution.py:179); init: onBeginPlayerTurn (Revolution/RevEvents.py:79); RoMEventManager.__init__: self.onBeginPlayerTurn (RoMEventManager.py:46); BugUtil.doHotSeatCheck (Config/BUG Core.xml:98); ?.onBeginPlayerTurn (Config/Better Espionage.xml:80); RevDCMReligionControl.onBeginPlayerTurn (Config/RevDCM.xml:16) |
-| EndGameTurn | CvDllPythonEvents::reportEndGameTurn | CvEventManager.onEndGameTurn (base/CvEventManager.py:86); ReminderEventManager.__init__: self.onEndGameTurn (Contrib/ReminderEventManager.py:65); AutoLogEvent.__init__: self.onEndGameTurn (Contrib/autologEventManager.py:149); init: onEndGameTurn (Revolution/RevEvents.py:78) |
-| EndPlayerTurn | CvDllPythonEvents::reportEndPlayerTurn | CvEventManager.onEndPlayerTurn (base/CvEventManager.py:88); AutoLogEvent.__init__: self.onEndPlayerTurn (Contrib/autologEventManager.py:151); AIAutoPlay.__init__: self.onEndPlayerTurn (Revolution/Gameready/AIAutoPlay.py:95); BarbarianCiv.__init__: self.onEndPlayerTurn (Revolution/Gameready/BarbarianCiv.py:88); Revolution.__init__: self.onEndPlayerTurn (Revolution/Gameready/Revolution.py:180); init: onEndPlayerTurn (Revolution/Gameready/StartAsMinors.py:51); init: onEndPlayerTurn (Revolution/RevEvents.py:80) |
-| GameEnd | CvDllPythonEvents::reportGameEnd | CvEventManager.onGameEnd (base/CvEventManager.py:83); AutoLogEvent.__init__: self.onGameEnd (Contrib/autologEventManager.py:148) |
-| GameStart | CvDllPythonEvents::reportGameStart | CvEventManager.onGameStart (base/CvEventManager.py:82); BugEventManager.__init__: self.resetActiveTurn (BUG/BugEventManager.py:191); AbstractStatefulAlert.__init__: self.onGameStart (Contrib/Civ4lerts.py:167); EventSignsEventHandler.__init__: self.onGameStart (Contrib/EventSigns.py:450); FavoriteCivicDetector.__init__: self.onGameStart (Contrib/FavoriteCivicDetector.py:295); MoreCiv4lertsEvent.__init__: self.reset (Contrib/MoreCiv4lerts.py:66); ReminderEventManager.__init__: self.onGameStart (Contrib/ReminderEventManager.py:67); RevDCM.__init__: self.onGameStart (Contrib/RevDCM.py:29); AutoLogEvent.__init__: self.onGameStart (Contrib/autologEventManager.py:147); AIAutoPlay.__init__: self.onGameStart (Revolution/Gameready/AIAutoPlay.py:97); RevolutionInit.__init__: self.onGameStart (Revolution/RevolutionInit.py:67); RoMEventManager.__init__: self.onGameStart (RoMEventManager.py:45); BugData.onGameStart (Config/BUG Core.xml:102); ?.onGameStart (Config/Better Espionage.xml:77); ?.onGameStart (Config/Strategy Overlay.xml:88); CvTechChooser.resetTechPrefs (Config/init.xml:127) |
+| BeginGameTurn | CvDllPythonEvents::reportBeginGameTurn | AIAutoPlay.__init__: self.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:115); AIAutoPlay.removeEventHandlers: self.customEM.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:148); BarbarianCiv.__init__: self.onBeginGameTurn (Revolution/Gameready/BarbarianCiv.py:87); TechDiffusion.__init__: self.onBeginGameTurn (Revolution/Gameready/TechDiffusion.py:42); CvEventManager.onBeginGameTurn (base/CvEventManager.py:85) |
+| BeginPlayerTurn | CvDllPythonEvents::reportBeginPlayerTurn | EspionageEventEvent.__init__: self.onBeginPlayerTurn (Contrib/EspionageEventManager.py:49); AutoLogEvent.__init__: self.onBeginPlayerTurn (Contrib/autologEventManager.py:150); Tester.__init__: self.onBeginPlayerTurn (Revolution/Development/Tester.py:49); AIAutoPlay.__init__: self.onBeginPlayerTurn (Revolution/Gameready/AIAutoPlay.py:94); DynamicCivNames.__init__: self.onBeginPlayerTurn (Revolution/Gameready/DynamicCivNames.py:41); Revolution.__init__: self.onBeginPlayerTurn (Revolution/Gameready/Revolution.py:179); init: onBeginPlayerTurn (Revolution/RevEvents.py:79); RoMEventManager.__init__: self.onBeginPlayerTurn (RoMEventManager.py:46); CvEventManager.onBeginPlayerTurn (base/CvEventManager.py:87); BugUtil.doHotSeatCheck (Config/BUG Core.xml:98); ?.onBeginPlayerTurn (Config/Better Espionage.xml:80); RevDCMReligionControl.onBeginPlayerTurn (Config/RevDCM.xml:16) |
+| EndGameTurn | CvDllPythonEvents::reportEndGameTurn | ReminderEventManager.__init__: self.onEndGameTurn (Contrib/ReminderEventManager.py:65); AutoLogEvent.__init__: self.onEndGameTurn (Contrib/autologEventManager.py:149); init: onEndGameTurn (Revolution/RevEvents.py:78); CvEventManager.onEndGameTurn (base/CvEventManager.py:86) |
+| EndPlayerTurn | CvDllPythonEvents::reportEndPlayerTurn | AutoLogEvent.__init__: self.onEndPlayerTurn (Contrib/autologEventManager.py:151); AIAutoPlay.__init__: self.onEndPlayerTurn (Revolution/Gameready/AIAutoPlay.py:95); BarbarianCiv.__init__: self.onEndPlayerTurn (Revolution/Gameready/BarbarianCiv.py:88); Revolution.__init__: self.onEndPlayerTurn (Revolution/Gameready/Revolution.py:180); init: onEndPlayerTurn (Revolution/Gameready/StartAsMinors.py:51); init: onEndPlayerTurn (Revolution/RevEvents.py:80); CvEventManager.onEndPlayerTurn (base/CvEventManager.py:88) |
+| GameEnd | CvDllPythonEvents::reportGameEnd | AutoLogEvent.__init__: self.onGameEnd (Contrib/autologEventManager.py:148); CvEventManager.onGameEnd (base/CvEventManager.py:83) |
+| GameStart | CvDllPythonEvents::reportGameStart | BugEventManager.__init__: self.resetActiveTurn (BUG/BugEventManager.py:191); AbstractStatefulAlert.__init__: self.onGameStart (Contrib/Civ4lerts.py:167); EventSignsEventHandler.__init__: self.onGameStart (Contrib/EventSigns.py:450); FavoriteCivicDetector.__init__: self.onGameStart (Contrib/FavoriteCivicDetector.py:295); MoreCiv4lertsEvent.__init__: self.reset (Contrib/MoreCiv4lerts.py:66); ReminderEventManager.__init__: self.onGameStart (Contrib/ReminderEventManager.py:67); RevDCM.__init__: self.onGameStart (Contrib/RevDCM.py:29); AutoLogEvent.__init__: self.onGameStart (Contrib/autologEventManager.py:147); AIAutoPlay.__init__: self.onGameStart (Revolution/Gameready/AIAutoPlay.py:97); RevolutionInit.__init__: self.onGameStart (Revolution/RevolutionInit.py:67); RoMEventManager.__init__: self.onGameStart (RoMEventManager.py:45); CvEventManager.onGameStart (base/CvEventManager.py:82); BugData.onGameStart (Config/BUG Core.xml:102); ?.onGameStart (Config/Better Espionage.xml:77); ?.onGameStart (Config/Strategy Overlay.xml:88); CvTechChooser.resetTechPrefs (Config/init.xml:127) |
 | Init | CvDllPythonEvents::reportInit | CvEventManager.onInit (base/CvEventManager.py:76) |
 | ModNetMessage | CvDllPythonEvents::reportModNetMessage | AIAutoPlay.__init__: self.onModNetMessage (Revolution/Gameready/AIAutoPlay.py:89); Revolution.__init__: self.onModNetMessage (Revolution/Gameready/Revolution.py:181); RoMEventManager.__init__: self.onModNetMessage (RoMEventManager.py:43); ?.onModNetMessage (Config/Strategy Overlay.xml:98) |
-| OnPreSave | CvDllPythonEvents::preSave | CvEventManager.onPreSave (base/CvEventManager.py:80); EventSignsEventHandler.__init__: self.onPreSave (Contrib/EventSigns.py:452); FavoriteCivicDetector.__init__: self.onPreSave (Contrib/FavoriteCivicDetector.py:297); ReminderEventManager.__init__: self.onPreSave (Contrib/ReminderEventManager.py:70); ?.onPreSave (Config/Strategy Overlay.xml:91) |
+| OnPreSave | CvDllPythonEvents::preSave | EventSignsEventHandler.__init__: self.onPreSave (Contrib/EventSigns.py:452); FavoriteCivicDetector.__init__: self.onPreSave (Contrib/FavoriteCivicDetector.py:297); ReminderEventManager.__init__: self.onPreSave (Contrib/ReminderEventManager.py:70); CvEventManager.onPreSave (base/CvEventManager.py:80); ?.onPreSave (Config/Strategy Overlay.xml:91) |
 | PreEndGameTurn | CvDllPythonEvents::reportPreEndGameTurn | AIAutoPlay.__init__: self.onEndGameTurn (Revolution/Gameready/AIAutoPlay.py:90); Revolution.__init__: self.onEndGameTurn (Revolution/Gameready/Revolution.py:175) |
 | UnInit | CvDllPythonEvents::reportUnInit | CvEventManager.onUnInit (base/CvEventManager.py:78) |
 | UnitRename | CvDllPythonEvents::reportUnitRename | CvEventManager.onUnitRename (base/CvEventManager.py:114) |
 | Update | CvDllPythonEvents::reportUpdate | CvEventManager.onUpdate (base/CvEventManager.py:77) |
-| buildingBuilt | CvDllPythonEvents::reportBuildingBuilt | CvEventManager.onBuildingBuilt (base/CvEventManager.py:117); AutoLogEvent.__init__: self.onBuildingBuilt (Contrib/autologEventManager.py:156); init: onBuildingBuilt (Revolution/RevEvents.py:88); RoMEventManager.__init__: self.onBuildingBuilt (RoMEventManager.py:47); ?.onBuildingBuilt (Config/MovieMod.xml:4) |
-| changeWar | CvDllPythonEvents::reportChangeWar | CvEventManager.onChangeWar (base/CvEventManager.py:127); RefusesToTalk.__init__: self.onChangeWar (Contrib/Civ4lerts.py:823); AutoLogEvent.__init__: self.onChangeWar (Contrib/autologEventManager.py:172); Tester.__init__: self.onChangeWar (Revolution/Development/Tester.py:45); init: onChangeWar (Revolution/RevEvents.py:82) |
+| buildingBuilt | CvDllPythonEvents::reportBuildingBuilt | AutoLogEvent.__init__: self.onBuildingBuilt (Contrib/autologEventManager.py:156); init: onBuildingBuilt (Revolution/RevEvents.py:88); RoMEventManager.__init__: self.onBuildingBuilt (RoMEventManager.py:47); CvEventManager.onBuildingBuilt (base/CvEventManager.py:117); ?.onBuildingBuilt (Config/MovieMod.xml:4) |
+| changeWar | CvDllPythonEvents::reportChangeWar | RefusesToTalk.__init__: self.onChangeWar (Contrib/Civ4lerts.py:823); AutoLogEvent.__init__: self.onChangeWar (Contrib/autologEventManager.py:172); Tester.__init__: self.onChangeWar (Revolution/Development/Tester.py:45); init: onChangeWar (Revolution/RevEvents.py:82); CvEventManager.onChangeWar (base/CvEventManager.py:127) |
 | chat | CvDllPythonEvents::reportChat | CvEventManager.onChat (base/CvEventManager.py:125) |
-| cityAcquired | CvDllPythonEvents::reportCityAcquired | CvEventManager.onCityAcquired (base/CvEventManager.py:98); MoreCiv4lertsEvent.__init__: self.OnCityAcquired (Contrib/MoreCiv4lerts.py:61); AutoLogEvent.__init__: self.onCityAcquired (Contrib/autologEventManager.py:176); CvEnhancedTechConquestEventManager.__init__: self.onCityAcquired (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:18); BarbarianCiv.__init__: self.onCityAcquired (Revolution/Gameready/BarbarianCiv.py:91); DynamicCivNames.__init__: self.onCityAcquired (Revolution/Gameready/DynamicCivNames.py:44); Revolution.__init__: self.onCityAcquired (Revolution/Gameready/Revolution.py:169); init: onCityAcquired (Revolution/RevEvents.py:86) |
+| cityAcquired | CvDllPythonEvents::reportCityAcquired | MoreCiv4lertsEvent.__init__: self.OnCityAcquired (Contrib/MoreCiv4lerts.py:61); AutoLogEvent.__init__: self.onCityAcquired (Contrib/autologEventManager.py:176); CvEnhancedTechConquestEventManager.__init__: self.onCityAcquired (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:18); BarbarianCiv.__init__: self.onCityAcquired (Revolution/Gameready/BarbarianCiv.py:91); DynamicCivNames.__init__: self.onCityAcquired (Revolution/Gameready/DynamicCivNames.py:44); Revolution.__init__: self.onCityAcquired (Revolution/Gameready/Revolution.py:169); init: onCityAcquired (Revolution/RevEvents.py:86); CvEventManager.onCityAcquired (base/CvEventManager.py:98) |
 | cityAcquiredAndKept | CvDllPythonEvents::reportCityAcquiredAndKept | AbstractCityAlertManager.__init__: self.onCityAcquiredAndKept (Contrib/Civ4lerts.py:202) |
-| cityBuildingBuilding | CvDllPythonEvents::reportCityBuildingBuilding | CvEventManager.onCityBuildingBuilding (base/CvEventManager.py:104); AbstractCanHurry.__init__: self.onCityBuildingBuilding (Contrib/Civ4lerts.py:634); AutoLogEvent.__init__: self.onCityBuildingBuilding (Contrib/autologEventManager.py:181) |
+| cityBuildingBuilding | CvDllPythonEvents::reportCityBuildingBuilding | AbstractCanHurry.__init__: self.onCityBuildingBuilding (Contrib/Civ4lerts.py:634); AutoLogEvent.__init__: self.onCityBuildingBuilding (Contrib/autologEventManager.py:181); CvEventManager.onCityBuildingBuilding (base/CvEventManager.py:104) |
 | cityBuildingProcess | CvDllPythonEvents::reportCityBuildingProcess | AbstractCanHurry.__init__: self.onCityBuildingProcess (Contrib/Civ4lerts.py:636) |
 | cityBuildingProject | CvDllPythonEvents::reportCityBuildingProject | AbstractCanHurry.__init__: self.onCityBuildingProject (Contrib/Civ4lerts.py:635) |
-| cityBuildingUnit | CvDllPythonEvents::reportCityBuildingUnit | CvEventManager.onCityBuildingUnit (base/CvEventManager.py:103); AbstractCanHurry.__init__: self.onCityBuildingUnit (Contrib/Civ4lerts.py:633); AutoLogEvent.__init__: self.onCityBuildingUnit (Contrib/autologEventManager.py:180) |
-| cityBuilt | CvDllPythonEvents::reportCityBuilt | CvEventManager.onCityBuilt (base/CvEventManager.py:96); MoreCiv4lertsEvent.__init__: self.OnCityBuilt (Contrib/MoreCiv4lerts.py:62); BuildUnitName.__init__: self.onCityBuilt (Contrib/UnitNameEventManager.py:191); AutoLogEvent.__init__: self.onCityBuilt (Contrib/autologEventManager.py:174); AIAutoPlay.__init__: self.onCityBuilt (Revolution/Gameready/AIAutoPlay.py:108); AIAutoPlay.removeEventHandlers: self.customEM.onCityBuilt (Revolution/Gameready/AIAutoPlay.py:145); DynamicCivNames.__init__: self.onCityBuilt (Revolution/Gameready/DynamicCivNames.py:45); init: onCityBuilt (Revolution/RevEvents.py:85); RoMEventManager.__init__: self.onCityBuilt (RoMEventManager.py:50) |
+| cityBuildingUnit | CvDllPythonEvents::reportCityBuildingUnit | AbstractCanHurry.__init__: self.onCityBuildingUnit (Contrib/Civ4lerts.py:633); AutoLogEvent.__init__: self.onCityBuildingUnit (Contrib/autologEventManager.py:180); CvEventManager.onCityBuildingUnit (base/CvEventManager.py:103) |
+| cityBuilt | CvDllPythonEvents::reportCityBuilt | MoreCiv4lertsEvent.__init__: self.OnCityBuilt (Contrib/MoreCiv4lerts.py:62); BuildUnitName.__init__: self.onCityBuilt (Contrib/UnitNameEventManager.py:191); AutoLogEvent.__init__: self.onCityBuilt (Contrib/autologEventManager.py:174); AIAutoPlay.__init__: self.onCityBuilt (Revolution/Gameready/AIAutoPlay.py:108); AIAutoPlay.removeEventHandlers: self.customEM.onCityBuilt (Revolution/Gameready/AIAutoPlay.py:145); DynamicCivNames.__init__: self.onCityBuilt (Revolution/Gameready/DynamicCivNames.py:45); init: onCityBuilt (Revolution/RevEvents.py:85); RoMEventManager.__init__: self.onCityBuilt (RoMEventManager.py:50); CvEventManager.onCityBuilt (base/CvEventManager.py:96) |
 | cityDoTurn | CvDllPythonEvents::reportCityProduction | CvEventManager.onCityDoTurn (base/CvEventManager.py:102) |
-| cityGrowth | CvDllPythonEvents::reportCityGrowth | CvEventManager.onCityGrowth (base/CvEventManager.py:101); AutoLogEvent.__init__: self.onCityGrowth (Contrib/autologEventManager.py:179) |
+| cityGrowth | CvDllPythonEvents::reportCityGrowth | AutoLogEvent.__init__: self.onCityGrowth (Contrib/autologEventManager.py:179); CvEventManager.onCityGrowth (base/CvEventManager.py:101) |
 | cityHurry | CvDllPythonEvents::reportCityHurry | none registered |
-| cityLost | CvDllPythonEvents::reportCityLost | CvEventManager.onCityLost (base/CvEventManager.py:99); AbstractCityAlertManager.__init__: self.onCityLost (Contrib/Civ4lerts.py:203); MoreCiv4lertsEvent.__init__: self.OnCityLost (Contrib/MoreCiv4lerts.py:64); AutoLogEvent.__init__: self.onCityLost (Contrib/autologEventManager.py:177); Tester.__init__: self.onCityLost (Revolution/Development/Tester.py:46); init: onCityLost (Revolution/RevEvents.py:87); RoMEventManager.__init__: self.onCityLost (RoMEventManager.py:52) |
-| cityRazed | CvDllPythonEvents::reportCityRazed | CvEventManager.onCityRazed (base/CvEventManager.py:97); RefusesToTalk.__init__: self.onCityRazed (Contrib/Civ4lerts.py:824); MoreCiv4lertsEvent.__init__: self.OnCityRazed (Contrib/MoreCiv4lerts.py:63); AutoLogEvent.__init__: self.onCityRazed (Contrib/autologEventManager.py:175); RoMEventManager.__init__: self.onCityRazed (RoMEventManager.py:51) |
+| cityLost | CvDllPythonEvents::reportCityLost | AbstractCityAlertManager.__init__: self.onCityLost (Contrib/Civ4lerts.py:203); MoreCiv4lertsEvent.__init__: self.OnCityLost (Contrib/MoreCiv4lerts.py:64); AutoLogEvent.__init__: self.onCityLost (Contrib/autologEventManager.py:177); Tester.__init__: self.onCityLost (Revolution/Development/Tester.py:46); init: onCityLost (Revolution/RevEvents.py:87); RoMEventManager.__init__: self.onCityLost (RoMEventManager.py:52); CvEventManager.onCityLost (base/CvEventManager.py:99) |
+| cityRazed | CvDllPythonEvents::reportCityRazed | RefusesToTalk.__init__: self.onCityRazed (Contrib/Civ4lerts.py:824); MoreCiv4lertsEvent.__init__: self.OnCityRazed (Contrib/MoreCiv4lerts.py:63); AutoLogEvent.__init__: self.onCityRazed (Contrib/autologEventManager.py:175); RoMEventManager.__init__: self.onCityRazed (RoMEventManager.py:51); CvEventManager.onCityRazed (base/CvEventManager.py:97) |
 | cityRename | CvDllPythonEvents::reportCityRename | CvEventManager.onCityRename (base/CvEventManager.py:105) |
 | combatLogCollateral | CvDllPythonEvents::reportCombatLogCollateral | none registered |
 | combatLogFlanking | CvDllPythonEvents::reportCombatLogFlanking | none registered |
-| combatResult | CvDllPythonEvents::reportCombatResult | CvEventManager.onCombatResult (base/CvEventManager.py:90); AutoLogEvent.__init__: self.onCombatResult (Contrib/autologEventManager.py:154) |
+| combatResult | CvDllPythonEvents::reportCombatResult | AutoLogEvent.__init__: self.onCombatResult (Contrib/autologEventManager.py:154); CvEventManager.onCombatResult (base/CvEventManager.py:90) |
 | combatRetreat | CvDllPythonEvents::reportCombatRetreat | none registered |
 | combatWithdrawal | CvDllPythonEvents::reportCombatWithdrawal | none registered |
 | corporationFounded | CvDllPythonEvents::reportCorporationFounded | AutoLogEvent.__init__: self.onCorporationFounded (Contrib/autologEventManager.py:167) |
 | corporationRemove | CvDllPythonEvents::reportCorporationRemove | AutoLogEvent.__init__: self.onCorporationRemove (Contrib/autologEventManager.py:169) |
 | corporationSpread | CvDllPythonEvents::reportCorporationSpread | AutoLogEvent.__init__: self.onCorporationSpread (Contrib/autologEventManager.py:168) |
-| cultureExpansion | CvDllPythonEvents::reportCultureExpansion | CvEventManager.onCultureExpansion (base/CvEventManager.py:100); AutoLogEvent.__init__: self.onCultureExpansion (Contrib/autologEventManager.py:178) |
-| endGoldenAge | CvDllPythonEvents::reportEndGoldenAge | CvEventManager.onEndGoldenAge (base/CvEventManager.py:124); AutoLogEvent.__init__: self.onEndGoldenAge (Contrib/autologEventManager.py:171) |
-| firstContact | CvDllPythonEvents::reportFirstContact | CvEventManager.onFirstContact (base/CvEventManager.py:95); AutoLogEvent.__init__: self.onFirstContact (Contrib/autologEventManager.py:152); BarbarianCiv.__init__: self.onFirstContact (Revolution/Gameready/BarbarianCiv.py:89) |
-| goldenAge | CvDllPythonEvents::reportGoldenAge | CvEventManager.onGoldenAge (base/CvEventManager.py:123); AutoLogEvent.__init__: self.onGoldenAge (Contrib/autologEventManager.py:170) |
-| goodyReceived | CvDllPythonEvents::reportGoodyReceived | CvEventManager.onGoodyReceived (base/CvEventManager.py:115); BuildUnitName.__init__: self.onGoodyReceived (Contrib/UnitNameEventManager.py:192); AutoLogEvent.__init__: self.onGoodyReceived (Contrib/autologEventManager.py:160) |
+| cultureExpansion | CvDllPythonEvents::reportCultureExpansion | AutoLogEvent.__init__: self.onCultureExpansion (Contrib/autologEventManager.py:178); CvEventManager.onCultureExpansion (base/CvEventManager.py:100) |
+| endGoldenAge | CvDllPythonEvents::reportEndGoldenAge | AutoLogEvent.__init__: self.onEndGoldenAge (Contrib/autologEventManager.py:171); CvEventManager.onEndGoldenAge (base/CvEventManager.py:124) |
+| firstContact | CvDllPythonEvents::reportFirstContact | AutoLogEvent.__init__: self.onFirstContact (Contrib/autologEventManager.py:152); BarbarianCiv.__init__: self.onFirstContact (Revolution/Gameready/BarbarianCiv.py:89); CvEventManager.onFirstContact (base/CvEventManager.py:95) |
+| goldenAge | CvDllPythonEvents::reportGoldenAge | AutoLogEvent.__init__: self.onGoldenAge (Contrib/autologEventManager.py:170); CvEventManager.onGoldenAge (base/CvEventManager.py:123) |
+| goodyReceived | CvDllPythonEvents::reportGoodyReceived | BuildUnitName.__init__: self.onGoodyReceived (Contrib/UnitNameEventManager.py:192); AutoLogEvent.__init__: self.onGoodyReceived (Contrib/autologEventManager.py:160); CvEventManager.onGoodyReceived (base/CvEventManager.py:115) |
 | gotoPlotSet | CvDllPythonEvents::reportGotoPlotSet | none registered |
-| greatPersonBorn | CvDllPythonEvents::reportGreatPersonBorn | CvEventManager.onGreatPersonBorn (base/CvEventManager.py:116); AutoLogEvent.__init__: self.onGreatPersonBorn (Contrib/autologEventManager.py:161); Tester.__init__: self.onGreatPersonBorn (Revolution/Development/Tester.py:42) |
-| improvementBuilt | CvDllPythonEvents::reportImprovementBuilt | CvEventManager.onImprovementBuilt (base/CvEventManager.py:93); AutoLogEvent.__init__: self.onImprovementBuilt (Contrib/autologEventManager.py:182) |
+| greatPersonBorn | CvDllPythonEvents::reportGreatPersonBorn | AutoLogEvent.__init__: self.onGreatPersonBorn (Contrib/autologEventManager.py:161); Tester.__init__: self.onGreatPersonBorn (Revolution/Development/Tester.py:42); CvEventManager.onGreatPersonBorn (base/CvEventManager.py:116) |
+| improvementBuilt | CvDllPythonEvents::reportImprovementBuilt | AutoLogEvent.__init__: self.onImprovementBuilt (Contrib/autologEventManager.py:182); CvEventManager.onImprovementBuilt (base/CvEventManager.py:93) |
 | improvementDestroyed | CvDllPythonEvents::reportImprovementDestroyed | AutoLogEvent.__init__: self.onImprovementDestroyed (Contrib/autologEventManager.py:183) |
-| kbdEvent | CvDllPythonEvents::reportKbdEvent | CvEventManager.onKbdEvent (base/CvEventManager.py:75); BugEventManager.__init__: self.onKbdEvent (BUG/BugEventManager.py:189); StatusDumpEvent.__init__: self.onKbdEvent (Contrib/StatusDumpEventManager.py:44); BuildUnitName.__init__: self.onKbdEvent (Contrib/UnitNameEventManager.py:189); AutoLogEvent.__init__: self.onKbdEvent (Contrib/autologEventManager.py:145); ChangePlayer.__init__: self.onKbdEvent (Revolution/Development/ChangePlayer.py:40); Tester.__init__: self.onKbdEvent (Revolution/Development/Tester.py:47); AIAutoPlay.__init__: self.onKbdEvent (Revolution/Gameready/AIAutoPlay.py:85); BarbarianCiv.__init__: self.onKbdEvent (Revolution/Gameready/BarbarianCiv.py:95); DynamicCivNames.__init__: self.onKbdEvent (Revolution/Gameready/DynamicCivNames.py:43); Revolution.__init__: self.onKbdEvent (Revolution/Gameready/Revolution.py:184); RevolutionInit.__init__: self.onKbdEvent (Revolution/RevolutionInit.py:66) |
+| kbdEvent | CvDllPythonEvents::reportKbdEvent | BugEventManager.__init__: self.onKbdEvent (BUG/BugEventManager.py:189); StatusDumpEvent.__init__: self.onKbdEvent (Contrib/StatusDumpEventManager.py:44); BuildUnitName.__init__: self.onKbdEvent (Contrib/UnitNameEventManager.py:189); AutoLogEvent.__init__: self.onKbdEvent (Contrib/autologEventManager.py:145); ChangePlayer.__init__: self.onKbdEvent (Revolution/Development/ChangePlayer.py:40); Tester.__init__: self.onKbdEvent (Revolution/Development/Tester.py:47); AIAutoPlay.__init__: self.onKbdEvent (Revolution/Gameready/AIAutoPlay.py:85); BarbarianCiv.__init__: self.onKbdEvent (Revolution/Gameready/BarbarianCiv.py:95); DynamicCivNames.__init__: self.onKbdEvent (Revolution/Gameready/DynamicCivNames.py:43); Revolution.__init__: self.onKbdEvent (Revolution/Gameready/Revolution.py:184); RevolutionInit.__init__: self.onKbdEvent (Revolution/RevolutionInit.py:66); CvEventManager.onKbdEvent (base/CvEventManager.py:75) |
 | mouseEvent | CvDllPythonEvents::reportMouseEvent | CvEventManager.onMouseEvent (base/CvEventManager.py:74) |
 | nukeExplosion | CvDllPythonEvents::reportNukeExplosion | none registered |
 | playerChangeStateReligion | CvDllPythonEvents::reportPlayerChangeStateReligion | none registered |
@@ -517,18 +512,18 @@ Each `CvDllPythonEvents` report function posts one event; the handlers are every
 | playerRevolution | CvDllPythonEvents::reportPlayerRevolution | none registered |
 | plotFeatureRemoved | CvDllPythonEvents::reportPlotFeatureRemoved | none registered |
 | plotPicked | CvDllPythonEvents::reportPlotPicked | none registered |
-| plotRevealed | CvDllPythonEvents::reportPlotRevealed | CvEventManager.onPlotRevealed (base/CvEventManager.py:84); EventSignsEventHandler.__init__: self.onPlotRevealed (Contrib/EventSigns.py:453) |
-| projectBuilt | CvDllPythonEvents::reportProjectBuilt | CvEventManager.onProjectBuilt (base/CvEventManager.py:118); AutoLogEvent.__init__: self.onProjectBuilt (Contrib/autologEventManager.py:157); RoMEventManager.__init__: self.onProjectBuilt (RoMEventManager.py:48) |
-| religionFounded | CvDllPythonEvents::reportReligionFounded | CvEventManager.onReligionFounded (base/CvEventManager.py:121); AutoLogEvent.__init__: self.onReligionFounded (Contrib/autologEventManager.py:164); Tester.__init__: self.onReligionFounded (Revolution/Development/Tester.py:44); init: onReligionFounded (Revolution/RevEvents.py:83) |
+| plotRevealed | CvDllPythonEvents::reportPlotRevealed | EventSignsEventHandler.__init__: self.onPlotRevealed (Contrib/EventSigns.py:453); CvEventManager.onPlotRevealed (base/CvEventManager.py:84) |
+| projectBuilt | CvDllPythonEvents::reportProjectBuilt | AutoLogEvent.__init__: self.onProjectBuilt (Contrib/autologEventManager.py:157); RoMEventManager.__init__: self.onProjectBuilt (RoMEventManager.py:48); CvEventManager.onProjectBuilt (base/CvEventManager.py:118) |
+| religionFounded | CvDllPythonEvents::reportReligionFounded | AutoLogEvent.__init__: self.onReligionFounded (Contrib/autologEventManager.py:164); Tester.__init__: self.onReligionFounded (Revolution/Development/Tester.py:44); init: onReligionFounded (Revolution/RevEvents.py:83); CvEventManager.onReligionFounded (base/CvEventManager.py:121) |
 | religionRemove | CvDllPythonEvents::reportReligionRemove | AutoLogEvent.__init__: self.onReligionRemove (Contrib/autologEventManager.py:166) |
-| religionSpread | CvDllPythonEvents::reportReligionSpread | CvEventManager.onReligionSpread (base/CvEventManager.py:122); AutoLogEvent.__init__: self.onReligionSpread (Contrib/autologEventManager.py:165) |
+| religionSpread | CvDllPythonEvents::reportReligionSpread | AutoLogEvent.__init__: self.onReligionSpread (Contrib/autologEventManager.py:165); CvEventManager.onReligionSpread (base/CvEventManager.py:122) |
 | routeBuilt | CvDllPythonEvents::reportRouteBuilt | CvEventManager.onRouteBuilt (base/CvEventManager.py:94) |
 | selectionGroupPushMission | CvDllPythonEvents::reportSelectionGroupPushMission | AutoLogEvent.__init__: self.onSelectionGroupPushMission (Contrib/autologEventManager.py:186) |
-| setPlayerAlive | CvDllPythonEvents::reportSetPlayerAlive | CvEventManager.onSetPlayerAlive (base/CvEventManager.py:128); AutoLogEvent.__init__: self.onSetPlayerAlive (Contrib/autologEventManager.py:173); BarbarianCiv.__init__: self.onSetPlayerAlive (Revolution/Gameready/BarbarianCiv.py:90); DynamicCivNames.__init__: self.onSetPlayerAlive (Revolution/Gameready/DynamicCivNames.py:42); init: onSetPlayerAlive (Revolution/Gameready/StartAsMinors.py:52); init: onSetPlayerAlive (Revolution/RevEvents.py:81) |
-| techAcquired | CvDllPythonEvents::reportTechAcquired | CvEventManager.onTechAcquired (base/CvEventManager.py:119); AutoLogEvent.__init__: self.onTechAcquired (Contrib/autologEventManager.py:162); init: onTechAcquired (Revolution/Gameready/StartAsMinors.py:53); TechDiffusion.__init__: self.onTechAcquired (Revolution/Gameready/TechDiffusion.py:43) |
-| techSelected | CvDllPythonEvents::reportTechSelected | CvEventManager.onTechSelected (base/CvEventManager.py:120); AutoLogEvent.__init__: self.onTechSelected (Contrib/autologEventManager.py:163) |
+| setPlayerAlive | CvDllPythonEvents::reportSetPlayerAlive | AutoLogEvent.__init__: self.onSetPlayerAlive (Contrib/autologEventManager.py:173); BarbarianCiv.__init__: self.onSetPlayerAlive (Revolution/Gameready/BarbarianCiv.py:90); DynamicCivNames.__init__: self.onSetPlayerAlive (Revolution/Gameready/DynamicCivNames.py:42); init: onSetPlayerAlive (Revolution/Gameready/StartAsMinors.py:52); init: onSetPlayerAlive (Revolution/RevEvents.py:81); CvEventManager.onSetPlayerAlive (base/CvEventManager.py:128) |
+| techAcquired | CvDllPythonEvents::reportTechAcquired | AutoLogEvent.__init__: self.onTechAcquired (Contrib/autologEventManager.py:162); init: onTechAcquired (Revolution/Gameready/StartAsMinors.py:53); TechDiffusion.__init__: self.onTechAcquired (Revolution/Gameready/TechDiffusion.py:43); CvEventManager.onTechAcquired (base/CvEventManager.py:119) |
+| techSelected | CvDllPythonEvents::reportTechSelected | AutoLogEvent.__init__: self.onTechSelected (Contrib/autologEventManager.py:163); CvEventManager.onTechSelected (base/CvEventManager.py:120) |
 | unitBuildImprovement | CvDllPythonEvents::reportUnitBuildImprovement | none registered |
-| unitBuilt | CvDllPythonEvents::reportUnitBuilt | CvEventManager.onUnitBuilt (base/CvEventManager.py:109); BuildUnitName.__init__: self.onUnitBuilt (Contrib/UnitNameEventManager.py:190); AutoLogEvent.__init__: self.onUnitBuilt (Contrib/autologEventManager.py:158); RoMEventManager.__init__: self.onUnitBuilt (RoMEventManager.py:49) |
+| unitBuilt | CvDllPythonEvents::reportUnitBuilt | BuildUnitName.__init__: self.onUnitBuilt (Contrib/UnitNameEventManager.py:190); AutoLogEvent.__init__: self.onUnitBuilt (Contrib/autologEventManager.py:158); RoMEventManager.__init__: self.onUnitBuilt (RoMEventManager.py:49); CvEventManager.onUnitBuilt (base/CvEventManager.py:109) |
 | unitCaptured | CvDllPythonEvents::reportUnitCaptured | none registered |
 | unitCreated | CvDllPythonEvents::reportUnitCreated | CvEventManager.onUnitCreated (base/CvEventManager.py:108) |
 | unitGifted | CvDllPythonEvents::reportUnitGifted | none registered |
@@ -536,11 +531,11 @@ Each `CvDllPythonEvents` report function posts one event; the handlers are every
 | unitLost | CvDllPythonEvents::reportUnitLost | CvEventManager.onUnitLost (base/CvEventManager.py:111) |
 | unitMove | CvDllPythonEvents::reportUnitMove | CvEventManager.onUnitMove (base/CvEventManager.py:106) |
 | unitPillage | CvDllPythonEvents::reportUnitPillage | AutoLogEvent.__init__: self.onUnitPillage (Contrib/autologEventManager.py:184) |
-| unitPromoted | CvDllPythonEvents::reportUnitPromoted | CvEventManager.onUnitPromoted (base/CvEventManager.py:112); AutoLogEvent.__init__: self.onUnitPromoted (Contrib/autologEventManager.py:159) |
+| unitPromoted | CvDllPythonEvents::reportUnitPromoted | AutoLogEvent.__init__: self.onUnitPromoted (Contrib/autologEventManager.py:159); CvEventManager.onUnitPromoted (base/CvEventManager.py:112) |
 | unitSelected | CvDllPythonEvents::reportUnitSelected | CvEventManager.onUnitSelected (base/CvEventManager.py:113) |
 | unitSetXY | CvDllPythonEvents::reportUnitSetXY | CvEventManager.onUnitSetXY (base/CvEventManager.py:107) |
 | unitSpreadReligionAttempt | CvDllPythonEvents::reportUnitSpreadReligionAttempt | none registered |
 | unitUpgraded | CvDllPythonEvents::reportUnitUpgraded | none registered |
 | vassalState | CvDllPythonEvents::reportVassalState | AutoLogEvent.__init__: self.onVassalState (Contrib/autologEventManager.py:185); DynamicCivNames.__init__: self.onVassalState (Revolution/Gameready/DynamicCivNames.py:46) |
-| victory | CvDllPythonEvents::reportVictory | CvEventManager.onVictory (base/CvEventManager.py:126); AIAutoPlay.__init__: self.onVictory (Revolution/Gameready/AIAutoPlay.py:98) |
-| windowActivation | CvDllPythonEvents::reportWindowActivation | CvEventManager.onWindowActivation (base/CvEventManager.py:129); CvEnhancedTechConquestEventManager.__init__: self.onWindowActivation (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:19) |
+| victory | CvDllPythonEvents::reportVictory | AIAutoPlay.__init__: self.onVictory (Revolution/Gameready/AIAutoPlay.py:98); CvEventManager.onVictory (base/CvEventManager.py:126) |
+| windowActivation | CvDllPythonEvents::reportWindowActivation | CvEnhancedTechConquestEventManager.__init__: self.onWindowActivation (EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py:19); CvEventManager.onWindowActivation (base/CvEventManager.py:129) |

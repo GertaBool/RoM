@@ -2,22 +2,22 @@
 
 Group: AI. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **40** `AICityGovernorPolicy::clamp(int, int, int)`
+- **41** `AICityGovernorPolicy::clamp(int, int, int)`
   - called by (4): AICityGovernorPolicy::performance, AICityGovernorPolicy::prosperity, AICityGovernorPolicy::termLength, AICityGovernorPolicy::utility
-- **45** `AICityGovernorPolicy::eligible(int, const Context &)`
+- **46** `AICityGovernorPolicy::eligible(int, AICityGovernorPolicy::Context const&)`
   - called by (2): AICityGovernorPolicy::utility, CvCityAI::AI_updateLocalGovernor
-- **73** `AICityGovernorPolicy::utility(int, const Context &)`
+- **74** `AICityGovernorPolicy::utility(int, AICityGovernorPolicy::Context const&)`
   - calls: AICityGovernorPolicy::eligible, AICityGovernorPolicy::clamp
   - called by (1): AICityGovernorPolicy::choose
-- **100** `AICityGovernorPolicy::choose(const Context &, int)`
+- **101** `AICityGovernorPolicy::choose(AICityGovernorPolicy::Context const&, int)`
   - calls: AICityGovernorPolicy::utility
   - called by (1): CvCityAI::AI_updateLocalGovernor
-- **127** `AICityGovernorPolicy::prosperity(const Context &)`
+- **128** `AICityGovernorPolicy::prosperity(AICityGovernorPolicy::Context const&)`
   - calls: AICityGovernorPolicy::clamp
   - called by (1): CvCityAI::AI_updateLocalGovernor
-- **134** `AICityGovernorPolicy::termLength(const Context &)`
+- **135** `AICityGovernorPolicy::termLength(AICityGovernorPolicy::Context const&)`
   - calls: AICityGovernorPolicy::clamp
   - called by (1): CvCityAI::AI_updateLocalGovernor
-- **145** `AICityGovernorPolicy::performance(int, int, int, int)`
+- **146** `AICityGovernorPolicy::performance(int, int, int, int)`
   - calls: AICityGovernorPolicy::clamp
   - called by (1): CvCityAI::AI_updateLocalGovernor

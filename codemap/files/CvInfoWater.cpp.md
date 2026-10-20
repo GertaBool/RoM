@@ -2,80 +2,97 @@
 
 Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **32** `CvWaterPlaneInfo::CvWaterPlaneInfo()` (exported)
-- **44** `CvWaterPlaneInfo::~CvWaterPlaneInfo()` (exported; virtual; overrides CvInfoBase::~CvInfoBase)
-- **48** `CvWaterPlaneInfo::getMaterialAlpha()` (exported)
-- **53** `CvWaterPlaneInfo::getMaterialDiffuse()` (exported)
-  - calls: NiColor::NiColor [CvGameCoreDLL.h]
-- **58** `CvWaterPlaneInfo::getMaterialSpecular()` (exported)
-  - calls: NiColor::NiColor [CvGameCoreDLL.h]
-- **63** `CvWaterPlaneInfo::getMaterialEmmisive()` (exported)
-  - calls: NiColor::NiColor [CvGameCoreDLL.h]
-- **68** `CvWaterPlaneInfo::getBaseTexture()` (exported)
-  - calls: CvString::operator const char * [CvString.h]
-- **73** `CvWaterPlaneInfo::setBaseTexture(const TCHAR *)` (exported)
-  - calls: CvString::operator=(const char *) [CvString.h]
-  - takes the address of: CvString::operator=(const char *) [CvString.h]
+- **33** `CvWaterPlaneInfo::CvWaterPlaneInfo()` (exported)
+  - calls: CvInfoBase::CvInfoBase() [CvInfos.cpp], CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase [CvInfos.cpp], CvString::~CvString [CvString.h]
+  - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvWaterPlaneInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvWaterPlaneInfo>
+- **45** `CvWaterPlaneInfo::~CvWaterPlaneInfo()` (exported; virtual)
+  - calls: CvInfoBase::~CvInfoBase [CvInfos.cpp], CvString::~CvString [CvString.h]
+  - called by (1): CvWaterPlaneInfo::`vector deleting dtor'
+- **49** `CvWaterPlaneInfo::getMaterialAlpha() const` (exported)
+- **54** `CvWaterPlaneInfo::getMaterialDiffuse() const` (exported)
+- **59** `CvWaterPlaneInfo::getMaterialSpecular() const` (exported)
+- **64** `CvWaterPlaneInfo::getMaterialEmmisive() const` (exported)
+- **69** `CvWaterPlaneInfo::getBaseTexture() const` (exported)
+  - calls: CvString::operator char const * [CvString.h]
+- **74** `CvWaterPlaneInfo::setBaseTexture(char const*)` (exported)
+  - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvWaterPlaneInfo::read
-- **78** `CvWaterPlaneInfo::getTransitionTexture()` (exported)
-  - calls: CvString::operator const char * [CvString.h]
-- **83** `CvWaterPlaneInfo::setTransitionTexture(const TCHAR *)` (exported)
-  - calls: CvString::operator=(const char *) [CvString.h]
-  - takes the address of: CvString::operator=(const char *) [CvString.h]
+- **79** `CvWaterPlaneInfo::getTransitionTexture() const` (exported)
+  - calls: CvString::operator char const * [CvString.h]
+- **84** `CvWaterPlaneInfo::setTransitionTexture(char const*)` (exported)
+  - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvWaterPlaneInfo::read
-- **88** `CvWaterPlaneInfo::getTextureScaling()` (exported)
-- **93** `CvWaterPlaneInfo::getTextureScrollRateU()` (exported)
-- **98** `CvWaterPlaneInfo::getTextureScrollRateV()` (exported)
-- **103** `CvWaterPlaneInfo::read(CvXMLLoadUtility *)` (exported; virtual; overrides CvInfoBase::read(CvXMLLoadUtility *))
-  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility *) [CvInfos.cpp] ⇢ CvWaterPlaneInfo::read, CvTerrainPlaneInfo::read, CvCameraOverlayInfo::read, CvHotkeyInfo::read(CvXMLLoadUtility *), CvTechInfo::read(CvXMLLoadUtility *), CvUnitFormationInfo::read, CvSpecialUnitInfo::read, CvCivicOptionInfo::read, CvCivicInfo::read(CvXMLLoadUtility *), CvDiplomacyInfo::read(CvXMLLoadUtility *), CvUnitClassInfo::read, CvSpecialBuildingInfo::read, CvBuildingClassInfo::read, CvRiverModelInfo::read, CvRouteModelInfo::read, CvCivilizationInfo::read(CvXMLLoadUtility *), CvVictoryInfo::read, CvHurryInfo::read, CvHandicapInfo::read(CvXMLLoadUtility *), CvGameSpeedInfo::read, CvTurnTimerInfo::read, CvGoodyInfo::read, CvRouteInfo::read, CvImprovementInfo::read(CvXMLLoadUtility *), CvBonusClassInfo::read, CvBonusInfo::read(CvXMLLoadUtility *), CvFeatureInfo::read, CvCommerceInfo::read, CvYieldInfo::read, CvTerrainInfo::read, CvAdvisorInfo::read, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CvWorldInfo::read, CvClimateInfo::read, CvSeaLevelInfo::read, CvProcessInfo::read, CvVoteInfo::read, CvProjectInfo::read, CvTraitInfo::read, CvCursorInfo::read, CvThroneRoomCamera::read, CvThroneRoomInfo::read, CvThroneRoomStyleInfo::read, CvSlideShowInfo::read, CvSlideShowRandomInfo::read, CvWorldPickerInfo::read, CvSpaceShipInfo::read, CvAnimationPathInfo::read, CvAnimationCategoryInfo::read, CvEntityEventInfo::read, CvAssetInfoBase::read, CvEmphasizeInfo::read, CvUpkeepInfo::read, CvCultureLevelInfo::read, CvEraInfo::read, CvColorInfo::read, CvPlayerColorInfo::read, CvLandscapeInfo::read, CvGameText::read, CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvEffectInfo::read, CvAttachableInfo::read, CvCameraInfo::read, CvQuestInfo::read, CvTutorialInfo::read, CvGameOptionInfo::read, CvMPOptionInfo::read, CvForceControlInfo::read, CvPlayerOptionInfo::read, CvGraphicOptionInfo::read, CvEventTriggerInfo::read(CvXMLLoadUtility *), CvEventInfo::read(CvXMLLoadUtility *), CvEspionageMissionInfo::read, CvUnitArtStyleTypeInfo::read, CvVoteSourceInfo::read, CvMainMenuInfo::read, CvPythonModulesInfo::read, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(float *, const TCHAR *, float) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(std::string &, const TCHAR *, char *) [CvXMLLoadUtilityGet.cpp], CvWaterPlaneInfo::setBaseTexture, CvString::operator const char * [CvString.h], CvWaterPlaneInfo::setTransitionTexture
-- **174** `CvWaterPlaneInfo::copyNonDefaults(CvWaterPlaneInfo *)`
-- **194** `CvTerrainPlaneInfo::CvTerrainPlaneInfo()` (exported)
-- **206** `CvTerrainPlaneInfo::~CvTerrainPlaneInfo()` (exported; virtual; overrides CvInfoBase::~CvInfoBase)
-- **210** `CvTerrainPlaneInfo::isVisible()` (exported)
+- **89** `CvWaterPlaneInfo::getTextureScaling() const` (exported)
+- **94** `CvWaterPlaneInfo::getTextureScrollRateU() const` (exported)
+- **99** `CvWaterPlaneInfo::getTextureScrollRateV() const` (exported)
+- **104** `CvWaterPlaneInfo::read(CvXMLLoadUtility*)` (exported; virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*) [CvInfos.cpp], CvString::~CvString [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvWaterPlaneInfo::setBaseTexture, CvString::operator char const * [CvString.h], CvWaterPlaneInfo::setTransitionTexture
+- **175** `CvWaterPlaneInfo::copyNonDefaults(CvWaterPlaneInfo*)`
+  - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvWaterPlaneInfo>
+- **195** `CvTerrainPlaneInfo::CvTerrainPlaneInfo()` (exported)
+  - calls: CvInfoBase::CvInfoBase() [CvInfos.cpp], CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase [CvInfos.cpp]
+  - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvTerrainPlaneInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvTerrainPlaneInfo>
+- **207** `CvTerrainPlaneInfo::~CvTerrainPlaneInfo()` (exported; virtual)
+  - calls: CvInfoBase::~CvInfoBase [CvInfos.cpp], CvString::~CvString [CvString.h]
+  - called by (1): CvTerrainPlaneInfo::`vector deleting dtor'
+- **211** `CvTerrainPlaneInfo::isVisible() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **215** `CvTerrainPlaneInfo::isGroundPlane()` (exported)
+- **216** `CvTerrainPlaneInfo::isGroundPlane() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **220** `CvTerrainPlaneInfo::getMaterialAlpha()` (exported)
+- **221** `CvTerrainPlaneInfo::getMaterialAlpha() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **225** `CvTerrainPlaneInfo::getCloseAlpha()` (exported)
+- **226** `CvTerrainPlaneInfo::getCloseAlpha() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **230** `CvTerrainPlaneInfo::getBaseTexture()` (exported)
-  - calls: CvString::operator const char * [CvString.h]
+- **231** `CvTerrainPlaneInfo::getBaseTexture() const` (exported)
+  - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **235** `CvTerrainPlaneInfo::setBaseTexture(const TCHAR *)` (exported)
-  - calls: CvString::operator=(const char *) [CvString.h]
-  - takes the address of: CvString::operator=(const char *) [CvString.h]
+- **236** `CvTerrainPlaneInfo::setBaseTexture(char const*)` (exported)
+  - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvTerrainPlaneInfo::copyNonDefaults, CvTerrainPlaneInfo::read
-- **240** `CvTerrainPlaneInfo::getTextureScalingU()` (exported)
+- **241** `CvTerrainPlaneInfo::getTextureScalingU() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **245** `CvTerrainPlaneInfo::getTextureScalingV()` (exported)
+- **246** `CvTerrainPlaneInfo::getTextureScalingV() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **250** `CvTerrainPlaneInfo::getTextureScrollRateU()` (exported)
+- **251** `CvTerrainPlaneInfo::getTextureScrollRateU() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **255** `CvTerrainPlaneInfo::getTextureScrollRateV()` (exported)
+- **256** `CvTerrainPlaneInfo::getTextureScrollRateV() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **260** `CvTerrainPlaneInfo::getZHeight()` (exported)
+- **261** `CvTerrainPlaneInfo::getZHeight() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **265** `CvTerrainPlaneInfo::getFogType()` (exported)
+- **266** `CvTerrainPlaneInfo::getFogType() const` (exported)
   - called by (1): CvTerrainPlaneInfo::copyNonDefaults
-- **270** `CvTerrainPlaneInfo::read(CvXMLLoadUtility *)` (exported; virtual; overrides CvInfoBase::read(CvXMLLoadUtility *))
-  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility *) [CvInfos.cpp] ⇢ CvWaterPlaneInfo::read, CvTerrainPlaneInfo::read, CvCameraOverlayInfo::read, CvHotkeyInfo::read(CvXMLLoadUtility *), CvTechInfo::read(CvXMLLoadUtility *), CvUnitFormationInfo::read, CvSpecialUnitInfo::read, CvCivicOptionInfo::read, CvCivicInfo::read(CvXMLLoadUtility *), CvDiplomacyInfo::read(CvXMLLoadUtility *), CvUnitClassInfo::read, CvSpecialBuildingInfo::read, CvBuildingClassInfo::read, CvRiverModelInfo::read, CvRouteModelInfo::read, CvCivilizationInfo::read(CvXMLLoadUtility *), CvVictoryInfo::read, CvHurryInfo::read, CvHandicapInfo::read(CvXMLLoadUtility *), CvGameSpeedInfo::read, CvTurnTimerInfo::read, CvGoodyInfo::read, CvRouteInfo::read, CvImprovementInfo::read(CvXMLLoadUtility *), CvBonusClassInfo::read, CvBonusInfo::read(CvXMLLoadUtility *), CvFeatureInfo::read, CvCommerceInfo::read, CvYieldInfo::read, CvTerrainInfo::read, CvAdvisorInfo::read, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CvWorldInfo::read, CvClimateInfo::read, CvSeaLevelInfo::read, CvProcessInfo::read, CvVoteInfo::read, CvProjectInfo::read, CvTraitInfo::read, CvCursorInfo::read, CvThroneRoomCamera::read, CvThroneRoomInfo::read, CvThroneRoomStyleInfo::read, CvSlideShowInfo::read, CvSlideShowRandomInfo::read, CvWorldPickerInfo::read, CvSpaceShipInfo::read, CvAnimationPathInfo::read, CvAnimationCategoryInfo::read, CvEntityEventInfo::read, CvAssetInfoBase::read, CvEmphasizeInfo::read, CvUpkeepInfo::read, CvCultureLevelInfo::read, CvEraInfo::read, CvColorInfo::read, CvPlayerColorInfo::read, CvLandscapeInfo::read, CvGameText::read, CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvEffectInfo::read, CvAttachableInfo::read, CvCameraInfo::read, CvQuestInfo::read, CvTutorialInfo::read, CvGameOptionInfo::read, CvMPOptionInfo::read, CvForceControlInfo::read, CvPlayerOptionInfo::read, CvGraphicOptionInfo::read, CvEventTriggerInfo::read(CvXMLLoadUtility *), CvEventInfo::read(CvXMLLoadUtility *), CvEspionageMissionInfo::read, CvUnitArtStyleTypeInfo::read, CvVoteSourceInfo::read, CvMainMenuInfo::read, CvPythonModulesInfo::read, CvXMLLoadUtility::GetChildXmlValByName(bool *, const TCHAR *, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(float *, const TCHAR *, float) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::string &, const TCHAR *, char *) [CvXMLLoadUtilityGet.cpp], CvTerrainPlaneInfo::setBaseTexture, CvString::operator const char * [CvString.h], CvString::CompareNoCase(const char *) [CvString.h]
-- **310** `CvTerrainPlaneInfo::copyNonDefaults(CvTerrainPlaneInfo *)`
-  - calls: CvString::CvString(const char *) [CvString.h], CvString::GetCString [CvString.h], CvString::format(const char *, ...) [CvString.h], CvWString::CvWString(const wchar *) [CvString.h], CvWString::GetCString [CvString.h], CvWString::format(const wchar *, ...) [CvString.h], CvInfoBase::copyNonDefaults [CvInfos.cpp], CvTerrainPlaneInfo::isVisible, CvTerrainPlaneInfo::isGroundPlane, CvTerrainPlaneInfo::getMaterialAlpha, CvTerrainPlaneInfo::getCloseAlpha, CvTerrainPlaneInfo::getBaseTexture, CvTerrainPlaneInfo::setBaseTexture, CvTerrainPlaneInfo::getTextureScalingU, CvTerrainPlaneInfo::getTextureScalingV, CvTerrainPlaneInfo::getTextureScrollRateU, CvTerrainPlaneInfo::getTextureScrollRateV, CvTerrainPlaneInfo::getZHeight, CvTerrainPlaneInfo::getFogType
-- **356** `CvCameraOverlayInfo::CvCameraOverlayInfo()` (exported)
-- **368** `CvCameraOverlayInfo::~CvCameraOverlayInfo()` (exported; virtual; overrides CvInfoBase::~CvInfoBase)
-- **372** `CvCameraOverlayInfo::isVisible()` (exported)
+- **271** `CvTerrainPlaneInfo::read(CvXMLLoadUtility*)` (exported; virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*) [CvInfos.cpp], CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvTerrainPlaneInfo::setBaseTexture, CvString::operator char const * [CvString.h], CvString::CompareNoCase [CvString.h]
+- **311** `CvTerrainPlaneInfo::copyNonDefaults(CvTerrainPlaneInfo*)`
+  - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults [CvInfos.cpp], CvTerrainPlaneInfo::isVisible, CvTerrainPlaneInfo::isGroundPlane, CvTerrainPlaneInfo::getMaterialAlpha, CvTerrainPlaneInfo::getCloseAlpha, CvTerrainPlaneInfo::getBaseTexture, CvTerrainPlaneInfo::setBaseTexture, CvTerrainPlaneInfo::getTextureScalingU, CvTerrainPlaneInfo::getTextureScalingV, CvTerrainPlaneInfo::getTextureScrollRateU, CvTerrainPlaneInfo::getTextureScrollRateV, CvTerrainPlaneInfo::getZHeight, CvTerrainPlaneInfo::getFogType
+  - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvTerrainPlaneInfo>
+- **357** `CvCameraOverlayInfo::CvCameraOverlayInfo()` (exported)
+  - calls: CvInfoBase::CvInfoBase() [CvInfos.cpp], CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase [CvInfos.cpp]
+  - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvCameraOverlayInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCameraOverlayInfo>
+- **369** `CvCameraOverlayInfo::~CvCameraOverlayInfo()` (exported; virtual)
+  - calls: CvInfoBase::~CvInfoBase [CvInfos.cpp], CvString::~CvString [CvString.h]
+  - called by (1): CvCameraOverlayInfo::`vector deleting dtor'
+- **373** `CvCameraOverlayInfo::isVisible() const` (exported)
   - called by (1): CvCameraOverlayInfo::copyNonDefaults
-- **377** `CvCameraOverlayInfo::getBaseTexture()` (exported)
-  - calls: CvString::operator const char * [CvString.h]
+- **378** `CvCameraOverlayInfo::getBaseTexture() const` (exported)
+  - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvCameraOverlayInfo::copyNonDefaults
-- **382** `CvCameraOverlayInfo::setBaseTexture(const TCHAR *)` (exported)
-  - calls: CvString::operator=(const char *) [CvString.h]
-  - takes the address of: CvString::operator=(const char *) [CvString.h]
+- **383** `CvCameraOverlayInfo::setBaseTexture(char const*)` (exported)
+  - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvCameraOverlayInfo::copyNonDefaults, CvCameraOverlayInfo::read
-- **387** `CvCameraOverlayInfo::getCameraOverlayType()` (exported)
+- **388** `CvCameraOverlayInfo::getCameraOverlayType() const` (exported)
   - called by (1): CvCameraOverlayInfo::copyNonDefaults
-- **392** `CvCameraOverlayInfo::read(CvXMLLoadUtility *)` (exported; virtual; overrides CvInfoBase::read(CvXMLLoadUtility *))
-  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility *) [CvInfos.cpp] ⇢ CvWaterPlaneInfo::read, CvTerrainPlaneInfo::read, CvCameraOverlayInfo::read, CvHotkeyInfo::read(CvXMLLoadUtility *), CvTechInfo::read(CvXMLLoadUtility *), CvUnitFormationInfo::read, CvSpecialUnitInfo::read, CvCivicOptionInfo::read, CvCivicInfo::read(CvXMLLoadUtility *), CvDiplomacyInfo::read(CvXMLLoadUtility *), CvUnitClassInfo::read, CvSpecialBuildingInfo::read, CvBuildingClassInfo::read, CvRiverModelInfo::read, CvRouteModelInfo::read, CvCivilizationInfo::read(CvXMLLoadUtility *), CvVictoryInfo::read, CvHurryInfo::read, CvHandicapInfo::read(CvXMLLoadUtility *), CvGameSpeedInfo::read, CvTurnTimerInfo::read, CvGoodyInfo::read, CvRouteInfo::read, CvImprovementInfo::read(CvXMLLoadUtility *), CvBonusClassInfo::read, CvBonusInfo::read(CvXMLLoadUtility *), CvFeatureInfo::read, CvCommerceInfo::read, CvYieldInfo::read, CvTerrainInfo::read, CvAdvisorInfo::read, CvLeaderHeadInfo::read(CvXMLLoadUtility *), CvWorldInfo::read, CvClimateInfo::read, CvSeaLevelInfo::read, CvProcessInfo::read, CvVoteInfo::read, CvProjectInfo::read, CvTraitInfo::read, CvCursorInfo::read, CvThroneRoomCamera::read, CvThroneRoomInfo::read, CvThroneRoomStyleInfo::read, CvSlideShowInfo::read, CvSlideShowRandomInfo::read, CvWorldPickerInfo::read, CvSpaceShipInfo::read, CvAnimationPathInfo::read, CvAnimationCategoryInfo::read, CvEntityEventInfo::read, CvAssetInfoBase::read, CvEmphasizeInfo::read, CvUpkeepInfo::read, CvCultureLevelInfo::read, CvEraInfo::read, CvColorInfo::read, CvPlayerColorInfo::read, CvLandscapeInfo::read, CvGameText::read, CvDiplomacyTextInfo::read(CvXMLLoadUtility *), CvEffectInfo::read, CvAttachableInfo::read, CvCameraInfo::read, CvQuestInfo::read, CvTutorialInfo::read, CvGameOptionInfo::read, CvMPOptionInfo::read, CvForceControlInfo::read, CvPlayerOptionInfo::read, CvGraphicOptionInfo::read, CvEventTriggerInfo::read(CvXMLLoadUtility *), CvEventInfo::read(CvXMLLoadUtility *), CvEspionageMissionInfo::read, CvUnitArtStyleTypeInfo::read, CvVoteSourceInfo::read, CvMainMenuInfo::read, CvPythonModulesInfo::read, CvXMLLoadUtility::GetChildXmlValByName(bool *, const TCHAR *, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::string &, const TCHAR *, char *) [CvXMLLoadUtilityGet.cpp], CvCameraOverlayInfo::setBaseTexture, CvString::operator const char * [CvString.h], CvString::CompareNoCase(const char *) [CvString.h]
-- **421** `CvCameraOverlayInfo::copyNonDefaults(CvCameraOverlayInfo *)`
-  - calls: CvString::CvString(const char *) [CvString.h], CvString::GetCString [CvString.h], CvString::format(const char *, ...) [CvString.h], CvWString::CvWString(const wchar *) [CvString.h], CvWString::GetCString [CvString.h], CvWString::format(const wchar *, ...) [CvString.h], CvInfoBase::copyNonDefaults [CvInfos.cpp], CvCameraOverlayInfo::isVisible, CvCameraOverlayInfo::getBaseTexture, CvCameraOverlayInfo::setBaseTexture, CvCameraOverlayInfo::getCameraOverlayType
+- **393** `CvCameraOverlayInfo::read(CvXMLLoadUtility*)` (exported; virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*) [CvInfos.cpp], CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvCameraOverlayInfo::setBaseTexture, CvString::operator char const * [CvString.h], CvString::CompareNoCase [CvString.h]
+- **422** `CvCameraOverlayInfo::copyNonDefaults(CvCameraOverlayInfo*)`
+  - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults [CvInfos.cpp], CvCameraOverlayInfo::isVisible, CvCameraOverlayInfo::getBaseTexture, CvCameraOverlayInfo::setBaseTexture, CvCameraOverlayInfo::getCameraOverlayType
+  - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCameraOverlayInfo>
+- **·** `CvCameraOverlayInfo::`vector deleting dtor'(unsigned int)` (virtual; overrides CvInfoBase::`vector deleting dtor'; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvCameraOverlayInfo::~CvCameraOverlayInfo
+  - takes the address of: CvCameraOverlayInfo::~CvCameraOverlayInfo
+- **·** `CvTerrainPlaneInfo::`vector deleting dtor'(unsigned int)` (virtual; overrides CvInfoBase::`vector deleting dtor'; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvTerrainPlaneInfo::~CvTerrainPlaneInfo
+  - takes the address of: CvTerrainPlaneInfo::~CvTerrainPlaneInfo
+- **·** `CvWaterPlaneInfo::`vector deleting dtor'(unsigned int)` (virtual; overrides CvInfoBase::`vector deleting dtor'; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvWaterPlaneInfo::~CvWaterPlaneInfo
+  - takes the address of: CvWaterPlaneInfo::~CvWaterPlaneInfo

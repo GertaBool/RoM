@@ -4,5 +4,3 @@ Group: Python wrappers. Functions in line order: what each calls (in order of fi
 
 - **29** `CyArtFileMgr::isNone()` (Python: isNone)
   - called by (1): CyArtFileMgrPythonInterface
-- **38** `CyArtFileMgr::getGenericBuildingArtInfo(const char *)` (declared, not defined in the source)
-- **39** `CyArtFileMgr::getGenericCityArtInfo(const char *)` (declared, not defined in the source)

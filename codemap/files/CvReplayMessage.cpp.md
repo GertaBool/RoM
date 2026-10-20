@@ -2,40 +2,43 @@
 
 Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **4** `CvReplayMessage::CvReplayMessage(int, ReplayMessageTypes, PlayerTypes)`
+- **11** `CvReplayMessage::CvReplayMessage(int, ReplayMessageTypes, PlayerTypes)`
+  - calls: CvWString::CvWString() [CvString.h]
   - called by (4): CvGame::addReplayMessage, CvGame::read, CvReplayInfo::createInfo, CvReplayInfo::read
-- **14** `CvReplayMessage::~CvReplayMessage()` (virtual)
-- **18** `CvReplayMessage::operator=(const CvReplayMessage &)`
-  - calls: CvWString::operator=(const CvWString &) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-- **31** `CvReplayMessage::setTurn(int)`
-- **36** `CvReplayMessage::getTurn()`
+- **15** `CvReplayMessage::~CvReplayMessage()` (virtual)
+  - calls: CvWString::~CvWString [CvString.h]
+  - called by (1): CvReplayMessage::`scalar deleting dtor'
+- **19** `CvReplayMessage::operator=(CvReplayMessage const&)`
+  - calls: CvWString::operator=(CvWString const&) [CvString.h]
+- **32** `CvReplayMessage::setTurn(int)`
+- **37** `CvReplayMessage::getTurn() const`
   - called by (2): CvGame::getReplayMessageTurn, CvReplayInfo::getReplayMessageTurn
-- **41** `CvReplayMessage::setType(ReplayMessageTypes)`
-- **46** `CvReplayMessage::getType()`
+- **42** `CvReplayMessage::setType(ReplayMessageTypes)`
+- **47** `CvReplayMessage::getType() const`
   - called by (2): CvGame::getReplayMessageType, CvReplayInfo::getReplayMessageType
-- **51** `CvReplayMessage::setPlot(int, int)`
+- **52** `CvReplayMessage::setPlot(int, int)`
   - called by (2): CvGame::addReplayMessage, CvReplayInfo::createInfo
-- **57** `CvReplayMessage::getPlotX()`
+- **58** `CvReplayMessage::getPlotX() const`
   - called by (2): CvGame::getReplayMessagePlotX, CvReplayInfo::getReplayMessagePlotX
-- **62** `CvReplayMessage::getPlotY()`
+- **63** `CvReplayMessage::getPlotY() const`
   - called by (2): CvGame::getReplayMessagePlotY, CvReplayInfo::getReplayMessagePlotY
-- **67** `CvReplayMessage::setPlayer(PlayerTypes)`
-- **72** `CvReplayMessage::getPlayer()`
+- **68** `CvReplayMessage::setPlayer(PlayerTypes)`
+- **73** `CvReplayMessage::getPlayer() const`
   - called by (2): CvGame::getReplayMessagePlayer, CvReplayInfo::getReplayMessagePlayer
-- **77** `CvReplayMessage::setText(CvWString)`
-  - calls: CvWString::operator=(const CvWString &) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+- **78** `CvReplayMessage::setText(CvWString)`
+  - calls: CvWString::operator=(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (2): CvGame::addReplayMessage, CvReplayInfo::createInfo
-- **82** `CvReplayMessage::getText()`
+- **83** `CvReplayMessage::getText() const`
   - called by (2): CvGame::getReplayMessageText, CvReplayInfo::getReplayMessageText
-- **87** `CvReplayMessage::setColor(ColorTypes)`
+- **88** `CvReplayMessage::setColor(ColorTypes)`
   - called by (2): CvGame::addReplayMessage, CvReplayInfo::createInfo
-- **92** `CvReplayMessage::getColor()`
+- **93** `CvReplayMessage::getColor() const`
   - called by (2): CvGame::getReplayMessageColor, CvReplayInfo::getReplayMessageColor
-- **98** `CvReplayMessage::read(FDataStreamBase &)`
-  - calls: FDataStreamBase::Read(int *) [FDataStreamBase.h], FDataStreamBase::ReadString(std::wstring &) [FDataStreamBase.h]
+- **99** `CvReplayMessage::read(FDataStreamBase&)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h]
   - called by (2): CvGame::read, CvReplayInfo::read
-- **117** `CvReplayMessage::write(FDataStreamBase &)`
-  - calls: FDataStreamBase::Write(int) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::wstring &) [FDataStreamBase.h]
+- **118** `CvReplayMessage::write(FDataStreamBase&) const`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
   - called by (2): CvGame::write, CvReplayInfo::write
+- **·** `CvReplayMessage::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvReplayMessage::~CvReplayMessage

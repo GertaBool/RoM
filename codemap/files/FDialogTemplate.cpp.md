@@ -2,35 +2,35 @@
 
 Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **10** `CDialogTemplate::CDialogTemplate(LPCSTR, DWORD, int, int, int, int, LPCSTR, WORD)`
-  - calls: CDialogTemplate::AppendString, CDialogTemplate::AppendData
-- **47** `CDialogTemplate::~CDialogTemplate()`
-- **52** `CDialogTemplate::AddComponent(LPCSTR, LPCSTR, DWORD, DWORD, int, int, int, int, WORD)`
+- **12** `CDialogTemplate::CDialogTemplate(char const*, unsigned long, int, int, int, int, char const*, unsigned short)`
   - calls: CDialogTemplate::AppendData, CDialogTemplate::AppendString
-- **78** `CDialogTemplate::AddButton(LPCSTR, DWORD, DWORD, int, int, int, int, WORD)`
+- **48** `CDialogTemplate::~CDialogTemplate()`
+- **54** `CDialogTemplate::AddComponent(char const*, char const*, unsigned long, unsigned long, int, int, int, int, unsigned short)`
+  - calls: CDialogTemplate::AppendData, CDialogTemplate::AppendString
+- **80** `CDialogTemplate::AddButton(char const*, unsigned long, unsigned long, int, int, int, int, unsigned short)`
   - calls: CDialogTemplate::AddStandardComponent, CDialogTemplate::AppendData
-- **87** `CDialogTemplate::AddEditBox(LPCSTR, DWORD, DWORD, int, int, int, int, WORD)`
+- **89** `CDialogTemplate::AddEditBox(char const*, unsigned long, unsigned long, int, int, int, int, unsigned short)`
   - calls: CDialogTemplate::AddStandardComponent, CDialogTemplate::AppendData
-- **96** `CDialogTemplate::AddStatic(LPCSTR, DWORD, DWORD, int, int, int, int, WORD)`
+- **98** `CDialogTemplate::AddStatic(char const*, unsigned long, unsigned long, int, int, int, int, unsigned short)`
   - calls: CDialogTemplate::AddStandardComponent, CDialogTemplate::AppendData
-- **105** `CDialogTemplate::AddListBox(LPCSTR, DWORD, DWORD, int, int, int, int, WORD)`
+- **107** `CDialogTemplate::AddListBox(char const*, unsigned long, unsigned long, int, int, int, int, unsigned short)`
   - calls: CDialogTemplate::AddStandardComponent, CDialogTemplate::AppendData
-- **114** `CDialogTemplate::AddScrollBar(LPCSTR, DWORD, DWORD, int, int, int, int, WORD)`
+- **116** `CDialogTemplate::AddScrollBar(char const*, unsigned long, unsigned long, int, int, int, int, unsigned short)`
   - calls: CDialogTemplate::AddStandardComponent, CDialogTemplate::AppendData
-- **123** `CDialogTemplate::AddComboBox(LPCSTR, DWORD, DWORD, int, int, int, int, WORD)`
+- **125** `CDialogTemplate::AddComboBox(char const*, unsigned long, unsigned long, int, int, int, int, unsigned short)`
   - calls: CDialogTemplate::AddStandardComponent, CDialogTemplate::AppendData
-- **132** `CDialogTemplate::GetDialogTemplate()`
-- **137** `CDialogTemplate::AddStandardComponent(WORD, LPCSTR, DWORD, DWORD, int, int, int, int, WORD)`
+- **133** `CDialogTemplate::GetDialogTemplate() const`
+- **139** `CDialogTemplate::AddStandardComponent(unsigned short, char const*, unsigned long, unsigned long, int, int, int, int, unsigned short)`
   - calls: CDialogTemplate::AlignData, CDialogTemplate::AppendData, CDialogTemplate::AppendString
   - called by (6): CDialogTemplate::AddButton, CDialogTemplate::AddComboBox, CDialogTemplate::AddEditBox, CDialogTemplate::AddListBox, CDialogTemplate::AddScrollBar, CDialogTemplate::AddStatic
-- **166** `CDialogTemplate::AlignData(int)`
+- **167** `CDialogTemplate::AlignData(int)`
   - calls: CDialogTemplate::EnsureSpace
   - called by (1): CDialogTemplate::AddStandardComponent
-- **177** `CDialogTemplate::AppendString(LPCSTR)`
+- **178** `CDialogTemplate::AppendString(char const*)`
   - calls: CDialogTemplate::AppendData
-  - called by (3): CDialogTemplate::AddComponent, CDialogTemplate::AddStandardComponent, CDialogTemplate::CDialogTemplate(LPCSTR, DWORD, int, int, int, int, LPCSTR, WORD)
-- **188** `CDialogTemplate::AppendData(void *, int)`
+  - called by (3): CDialogTemplate::AddComponent, CDialogTemplate::AddStandardComponent, CDialogTemplate::CDialogTemplate
+- **189** `CDialogTemplate::AppendData(void*, int)`
   - calls: CDialogTemplate::EnsureSpace
-  - called by (10): CDialogTemplate::AddButton, CDialogTemplate::AddComboBox, CDialogTemplate::AddComponent, CDialogTemplate::AddEditBox, CDialogTemplate::AddListBox, CDialogTemplate::AddScrollBar, CDialogTemplate::AddStandardComponent, CDialogTemplate::AddStatic, CDialogTemplate::AppendString, CDialogTemplate::CDialogTemplate(LPCSTR, DWORD, int, int, int, int, LPCSTR, WORD)
-- **196** `CDialogTemplate::EnsureSpace(int)`
+  - called by (10): CDialogTemplate::AddButton, CDialogTemplate::AddComboBox, CDialogTemplate::AddComponent, CDialogTemplate::AddEditBox, CDialogTemplate::AddListBox, CDialogTemplate::AddScrollBar, CDialogTemplate::AddStandardComponent, CDialogTemplate::AddStatic, CDialogTemplate::AppendString, CDialogTemplate::CDialogTemplate
+- **197** `CDialogTemplate::EnsureSpace(int)`
   - called by (2): CDialogTemplate::AlignData, CDialogTemplate::AppendData

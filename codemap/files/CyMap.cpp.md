@@ -2,160 +2,160 @@
 
 Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **17** `CyMap::CyMap()` (exported)
-  - calls: CvGlobals::getMapINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
-- **22** `CyMap::CyMap(CvMap *)`
+- **18** `CyMap::CyMap()` (exported)
+  - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h]
+- **23** `CyMap::CyMap(CvMap*)`
   - called by (1): CyGlobalContext::getCyMap
-- **27** `CyMap::erasePlots()` (Python: erasePlots)
+- **28** `CyMap::erasePlots()` (Python: erasePlots)
   - calls: CvMap::erasePlots [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **33** `CyMap::setRevealedPlots(int, bool, bool)` (Python: setRevealedPlots)
+- **34** `CyMap::setRevealedPlots(int, bool, bool)` (Python: setRevealedPlots)
   - calls: CvMap::setRevealedPlots [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **39** `CyMap::setAllPlotTypes(int)` (Python: setAllPlotTypes)
+- **40** `CyMap::setAllPlotTypes(int)` (Python: setAllPlotTypes)
   - calls: CvMap::setAllPlotTypes [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **50** `CyMap::verifyUnitValidPlot()` (Python: verifyUnitValidPlot)
+- **51** `CyMap::verifyUnitValidPlot()` (Python: verifyUnitValidPlot)
   - calls: CvMap::verifyUnitValidPlot [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **58** `CyMap::updateVisibility()` (Python: updateVisibility)
+- **59** `CyMap::updateVisibility()` (Python: updateVisibility)
   - calls: CvMap::updateVisibility [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **64** `CyMap::syncRandPlot(int, int, int, int)` (Python: syncRandPlot)
-  - calls: CvMap::syncRandPlot [CvMap.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **65** `CyMap::syncRandPlot(int, int, int, int)` (Python: syncRandPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvMap::syncRandPlot [CvMap.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyMapPythonInterface
-- **69** `CyMap::findCity(int, int, int, int, bool, bool, int, int, CyCity *)` (Python: findCity)
-  - calls: CvMap::findCity [CvMap.cpp], CyCity::CyCity(CvCity *) [CyCity.cpp], CyCity::getCity [CyCity.h]
+- **70** `CyMap::findCity(int, int, int, int, bool, bool, int, int, CyCity*)` (Python: findCity)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvMap::findCity [CvMap.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], CyCity::getCity [CyCity.h], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyMapPythonInterface
-- **74** `CyMap::findSelectionGroup(int, int, int, bool, bool)` (Python: findSelectionGroup)
-  - calls: CvMap::findSelectionGroup [CvMap.cpp], CySelectionGroup::CySelectionGroup(CvSelectionGroup *) [CySelectionGroup.cpp]
+- **75** `CyMap::findSelectionGroup(int, int, int, bool, bool)` (Python: findSelectionGroup)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvMap::findSelectionGroup [CvMap.cpp], CySelectionGroup::CySelectionGroup(CvSelectionGroup*) [CySelectionGroup.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyMapPythonInterface
-- **79** `CyMap::findBiggestArea(bool)` (Python: findBiggestArea)
-  - calls: CvMap::findBiggestArea [CvMap.cpp], CyArea::CyArea(CvArea *) [CyArea.cpp]
+- **80** `CyMap::findBiggestArea(bool)` (Python: findBiggestArea)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvMap::findBiggestArea [CvMap.cpp], CyArea::CyArea(CvArea*) [CyArea.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyMapPythonInterface
-- **84** `CyMap::getMapFractalFlags()` (Python: getMapFractalFlags)
+- **85** `CyMap::getMapFractalFlags()` (Python: getMapFractalFlags)
   - calls: CvMap::getMapFractalFlags [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **89** `CyMap::findWater(CyPlot *, int, bool)` (Python: findWater)
+- **90** `CyMap::findWater(CyPlot*, int, bool)` (Python: findWater)
   - calls: CvMap::findWater [CvMap.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyMapPythonInterface
-- **94** `CyMap::isPlot(int, int)` (Python: isPlot)
+- **95** `CyMap::isPlot(int, int)` (Python: isPlot)
   - calls: CvMap::isPlotINLINE [CvMap.h]
   - called by (1): CyMapPythonInterface
-- **99** `CyMap::numPlots()` (Python: numPlots)
+- **100** `CyMap::numPlots()` (Python: numPlots)
   - calls: CvMap::numPlotsINLINE [CvMap.h]
   - called by (1): CyMapPythonInterface
-- **104** `CyMap::plotNum(int, int)` (Python: plotNum)
+- **105** `CyMap::plotNum(int, int)` (Python: plotNum)
   - calls: CvMap::plotNumINLINE [CvMap.h]
   - called by (1): CyMapPythonInterface
-- **109** `CyMap::plotX(int)` (Python: plotX)
+- **110** `CyMap::plotX(int)` (Python: plotX)
   - calls: CvMap::plotX [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **114** `CyMap::plotY(int)` (Python: plotY)
+- **115** `CyMap::plotY(int)` (Python: plotY)
   - calls: CvMap::plotY [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **119** `CyMap::getGridWidth()` (Python: getGridWidth)
+- **120** `CyMap::getGridWidth()` (Python: getGridWidth)
   - calls: CvMap::getGridWidthINLINE [CvMap.h]
   - called by (1): CyMapPythonInterface
-- **124** `CyMap::getGridHeight()` (Python: getGridHeight)
+- **125** `CyMap::getGridHeight()` (Python: getGridHeight)
   - calls: CvMap::getGridHeightINLINE [CvMap.h]
   - called by (1): CyMapPythonInterface
-- **129** `CyMap::getLandPlots()` (Python: getLandPlots)
+- **130** `CyMap::getLandPlots()` (Python: getLandPlots)
   - calls: CvMap::getLandPlots [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **134** `CyMap::getOwnedPlots()` (Python: getOwnedPlots)
+- **135** `CyMap::getOwnedPlots()` (Python: getOwnedPlots)
   - calls: CvMap::getOwnedPlots [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **139** `CyMap::getTopLatitude()` (Python: getTopLatitude)
+- **140** `CyMap::getTopLatitude()` (Python: getTopLatitude)
   - calls: CvMap::getTopLatitude [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **144** `CyMap::getBottomLatitude()` (Python: getBottomLatitude)
+- **145** `CyMap::getBottomLatitude()` (Python: getBottomLatitude)
   - calls: CvMap::getBottomLatitude [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **149** `CyMap::getNextRiverID()` (Python: getNextRiverID)
+- **150** `CyMap::getNextRiverID()` (Python: getNextRiverID)
   - calls: CvMap::getNextRiverID [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **154** `CyMap::incrementNextRiverID()` (Python: incrementNextRiverID)
+- **155** `CyMap::incrementNextRiverID()` (Python: incrementNextRiverID)
   - calls: CvMap::incrementNextRiverID [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **160** `CyMap::isWrapX()` (Python: isWrapX)
+- **161** `CyMap::isWrapX()` (Python: isWrapX)
   - calls: CvMap::isWrapXINLINE [CvMap.h]
   - called by (1): CyMapPythonInterface
-- **165** `CyMap::isWrapY()` (Python: isWrapY)
+- **166** `CyMap::isWrapY()` (Python: isWrapY)
   - calls: CvMap::isWrapYINLINE [CvMap.h]
   - called by (1): CyMapPythonInterface
-- **170** `CyMap::getMapScriptName()` (Python: getMapScriptName)
-  - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getMapScriptName [CvInitCore.cpp], CvWString::GetCString [CvString.h]
+- **171** `CyMap::getMapScriptName()` (Python: getMapScriptName)
+  - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getMapScriptName [CvInitCore.cpp], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h]
   - called by (1): CyMapPythonInterface
-- **175** `CyMap::getWorldSize()` (Python: getWorldSize)
+- **176** `CyMap::getWorldSize()` (Python: getWorldSize)
   - calls: CvMap::getWorldSize [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **180** `CyMap::getClimate()` (Python: getClimate)
+- **181** `CyMap::getClimate()` (Python: getClimate)
   - calls: CvMap::getClimate [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **185** `CyMap::getSeaLevel()` (Python: getSeaLevel)
+- **186** `CyMap::getSeaLevel()` (Python: getSeaLevel)
   - calls: CvMap::getSeaLevel [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **190** `CyMap::getNumCustomMapOptions()` (Python: getNumCustomMapOptions)
+- **191** `CyMap::getNumCustomMapOptions()` (Python: getNumCustomMapOptions)
   - calls: CvMap::getNumCustomMapOptions [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **195** `CyMap::getCustomMapOption(int)` (Python: getCustomMapOption)
+- **196** `CyMap::getCustomMapOption(int)` (Python: getCustomMapOption)
   - calls: CvMap::getCustomMapOption [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **200** `CyMap::getNumBonuses(int)` (Python: getNumBonuses)
+- **201** `CyMap::getNumBonuses(int)` (Python: getNumBonuses)
   - calls: CvMap::getNumBonuses [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **205** `CyMap::getNumBonusesOnLand(int)` (Python: getNumBonusesOnLand)
+- **206** `CyMap::getNumBonusesOnLand(int)` (Python: getNumBonusesOnLand)
   - calls: CvMap::getNumBonusesOnLand [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **210** `CyMap::plotByIndex(int)` (Python: plotByIndex)
-  - calls: CvMap::plotByIndexINLINE [CvMap.h], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **211** `CyMap::plotByIndex(int)` (Python: plotByIndex)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvMap::plotByIndexINLINE [CvMap.h], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyMapPythonInterface
-- **218** `CyMap::sPlotByIndex(int)` (Python: sPlotByIndex)
+- **219** `CyMap::sPlotByIndex(int)` (Python: sPlotByIndex)
   - calls: CyPlot::CyPlot() [CyPlot.cpp], CvMap::plotByIndexINLINE [CvMap.h], CyPlot::setPlot [CyPlot.h]
   - called by (1): CyMapPythonInterface
-- **229** `CyMap::plot(int, int)` (Python: plot)
-  - calls: CvMap::plotINLINE [CvMap.h], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **230** `CyMap::plot(int, int)` (Python: plot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvMap::plotINLINE [CvMap.h], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyMapPythonInterface
-- **237** `CyMap::sPlot(int, int)` (Python: sPlot)
+- **238** `CyMap::sPlot(int, int)` (Python: sPlot)
   - calls: CyPlot::CyPlot() [CyPlot.cpp], CvMap::plotINLINE [CvMap.h], CyPlot::setPlot [CyPlot.h]
   - called by (1): CyMapPythonInterface
-- **244** `CyMap::pointToPlot(float, float)` (Python: pointToPlot)
-  - calls: CvMap::pointToPlot [CvMap.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **245** `CyMap::pointToPlot(float, float)` (Python: pointToPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvMap::pointToPlot [CvMap.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyMapPythonInterface
-- **249** `CyMap::getIndexAfterLastArea()` (Python: getIndexAfterLastArea)
+- **250** `CyMap::getIndexAfterLastArea()` (Python: getIndexAfterLastArea)
   - calls: CvMap::getIndexAfterLastArea [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **254** `CyMap::getNumAreas()` (Python: getNumAreas)
+- **255** `CyMap::getNumAreas()` (Python: getNumAreas)
   - calls: CvMap::getNumAreas [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **259** `CyMap::getNumLandAreas()` (Python: getNumLandAreas)
+- **260** `CyMap::getNumLandAreas()` (Python: getNumLandAreas)
   - calls: CvMap::getNumLandAreas [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **264** `CyMap::getArea(int)` (Python: getArea)
-  - calls: CvMap::getArea [CvMap.cpp], CyArea::CyArea(CvArea *) [CyArea.cpp]
+- **265** `CyMap::getArea(int)` (Python: getArea)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvMap::getArea [CvMap.cpp], CyArea::CyArea(CvArea*) [CyArea.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyMapPythonInterface
-- **269** `CyMap::recalculateAreas()` (Python: recalculateAreas)
+- **270** `CyMap::recalculateAreas()` (Python: recalculateAreas)
   - calls: CvMap::recalculateAreas [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **275** `CyMap::resetPathDistance()` (Python: resetPathDistance)
+- **276** `CyMap::resetPathDistance()` (Python: resetPathDistance)
   - calls: CvMap::resetPathDistance [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **281** `CyMap::calculatePathDistance(CyPlot *, CyPlot *)` (Python: calculatePathDistance)
+- **282** `CyMap::calculatePathDistance(CyPlot*, CyPlot*)` (Python: calculatePathDistance)
   - calls: CvMap::calculatePathDistance [CvMap.cpp], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyMapPythonInterface
-- **288** `CyMap::rebuild(int, int, int, int, bool, bool, WorldSizeTypes, ClimateTypes, SeaLevelTypes, int, CustomMapOptionTypes *)` (Python: rebuild)
+- **289** `CyMap::rebuild(int, int, int, int, bool, bool, WorldSizeTypes, ClimateTypes, SeaLevelTypes, int, CustomMapOptionTypes*)` (Python: rebuild)
   - calls: CvMap::rebuild [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **296** `CyMap::regenerateGameElements()` (Python: regenerateGameElements)
+- **297** `CyMap::regenerateGameElements()` (Python: regenerateGameElements)
   - calls: CvMapGenerator::GetInstance [CvMapGenerator.cpp], CvMapGenerator::eraseRivers [CvMapGenerator.cpp], CvMapGenerator::eraseFeatures [CvMapGenerator.cpp], CvMapGenerator::eraseBonuses [CvMapGenerator.cpp], CvMapGenerator::eraseGoodies [CvMapGenerator.cpp], CvMapGenerator::addGameElements [CvMapGenerator.cpp]
   - called by (1): CyMapPythonInterface
-- **309** `CyMap::updateFog()` (Python: updateFog)
+- **310** `CyMap::updateFog()` (Python: updateFog)
   - calls: CvMap::updateFog [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **317** `CyMap::updateMinimapColor()` (Python: updateMinimapColor)
+- **318** `CyMap::updateMinimapColor()` (Python: updateMinimapColor)
   - calls: CvMap::updateMinimapColor [CvMap.cpp]
   - called by (1): CyMapPythonInterface
-- **325** `CyMap::updateMinOriginalStartDist(CyArea *)` (Python: updateMinOriginalStartDist)
+- **326** `CyMap::updateMinOriginalStartDist(CyArea*)` (Python: updateMinOriginalStartDist)
   - calls: CvMap::updateMinOriginalStartDist [CvMap.cpp], CyArea::getArea [CyArea.h]
   - called by (1): CyMapPythonInterface

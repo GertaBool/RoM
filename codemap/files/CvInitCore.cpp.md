@@ -2,372 +2,363 @@
 
 Group: game data and XML loading. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **42** `CvInitCore::CvInitCore()` (exported)
-  - calls: CvWString::CvWString() [CvString.h], CvString::CvString() [CvString.h], CvInitCore::reset
+- **34** `_$E11`
+  - calls: CvString::CvString() [CvString.h], AIMissionTargetIndex::UnitIndex::UnitIndex [AIMissionTargetIndex.h]
+  - takes the address of: _$E12 [CvArtFileMgr.cpp]
+  - called by (2): , CvGameTextMgr::setPlotListHelp
+- **36** ``
+  - calls: CvString::CvString() [CvString.h]
+  - takes the address of: _$E18 [CvArtFileMgr.cpp]
+- **43** `CvInitCore::CvInitCore()` (exported)
+  - calls: CvString::CvString() [CvString.h], CvWString::CvWString() [CvString.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvInitCore::reset, operator delete[](void*) [CvGameCoreDLL.cpp], CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - takes the address of: CvWString::CvWString() [CvString.h], CvWString::~CvWString [CvString.h], CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
   - called by (1): CvGlobals::init
-- **92** `CvInitCore::~CvInitCore()` (exported; virtual)
-  - calls: CvInitCore::uninit
-- **133** `CvInitCore::init(GameMode)` (exported)
+- **93** `CvInitCore::~CvInitCore()` (exported; virtual)
+  - calls: CvInitCore::uninit, operator delete[](void*) [CvGameCoreDLL.cpp], CvWString::`vector deleting dtor', CvString::`vector deleting dtor' [CvInfos.cpp], CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (1): CvInitCore::`vector deleting dtor'
+- **134** `CvInitCore::init(GameMode)` (exported)
   - calls: CvInitCore::reset
-- **140** `CvInitCore::uninit()`
+- **141** `CvInitCore::uninit()`
   - calls: CvInitCore::clearCustomMapOptions, CvInitCore::clearVictories
   - called by (2): CvInitCore::reset, CvInitCore::~CvInitCore
-- **149** `CvInitCore::reset(GameMode)`
-  - calls: CvInitCore::uninit, CvInitCore::resetGame(), CvInitCore::resetPlayers(), CvInitCore::setMode, CvInitCore::getMode [CvInitCore.h], CvInitCore::setDefaults, CvXMLLoadUtility::CvXMLLoadUtility [CvXMLLoadUtility.cpp], CvXMLLoadUtility::cleanTGA [CvXMLLoadUtilitySet.cpp]
+- **150** `CvInitCore::reset(GameMode)`
+  - calls: CvInitCore::uninit, CvInitCore::resetGame(), CvInitCore::resetPlayers(), CvInitCore::setMode, CvInitCore::getMode [CvInitCore.h], CvInitCore::setDefaults, operator new(unsigned int) [CvGameCoreDLL.cpp], CvXMLLoadUtility::CvXMLLoadUtility [CvXMLLoadUtility.cpp], CvXMLLoadUtility::cleanTGA [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::`scalar deleting dtor', operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (2): CvInitCore::CvInitCore, CvInitCore::init
-- **177** `CvInitCore::setDefaults()`
+- **178** `CvInitCore::setDefaults()`
   - calls: CvGlobals::getGameOptionInfo(GameOptionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGameOptionInfo::getDefault [CvInfos.cpp], CvGlobals::getMPOptionInfo(MultiplayerOptionTypes) [CvGlobals.cpp], CvMPOptionInfo::getDefault [CvInfos.cpp]
   - called by (1): CvInitCore::reset
-- **190** `CvInitCore::getHuman(PlayerTypes)` (exported)
-  - calls: CvInitCore::getSlotStatus, CvDLLUtilityIFaceBase::isGameActive [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getPitboss, CvInitCore::getHotseat, CvInitCore::getPbem
+- **191** `CvInitCore::getHuman(PlayerTypes) const` (exported)
+  - calls: CvInitCore::getSlotStatus, CvDLLUtilityIFaceBase::isGameActive [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInitCore::getPitboss, CvInitCore::getHotseat, CvInitCore::getPbem
   - called by (2): CvInitCore::getNumHumans, CvPlayer::updateHuman
-- **206** `CvInitCore::getNumHumans()` (exported)
+- **207** `CvInitCore::getNumHumans() const` (exported)
   - calls: CvInitCore::getHuman
   - called by (1): CvGame::getNumHumanPlayers
-- **219** `CvInitCore::getNumDefinedPlayers()` (exported)
+- **220** `CvInitCore::getNumDefinedPlayers() const` (exported)
   - calls: CvInitCore::getCiv, CvInitCore::getLeader
-- **232** `CvInitCore::getMultiplayer()` (exported)
+- **233** `CvInitCore::getMultiplayer() const` (exported)
   - calls: CvInitCore::getType [CvInitCore.h]
   - called by (5): CvDLLButtonPopup::launchDetailsPopup, CvGame::changeHumanPlayer, CvGame::isNetworkMultiPlayer, CvInitCore::getGameMultiplayer, CyGame::isMultiplayer
-- **245** `CvInitCore::getNewGame()` (exported)
+- **246** `CvInitCore::getNewGame() const` (exported)
   - calls: CvInitCore::getType [CvInitCore.h]
-- **263** `CvInitCore::getSavedGame()` (exported)
+- **264** `CvInitCore::getSavedGame() const` (exported)
   - calls: CvInitCore::getType [CvInitCore.h]
-- **277** `CvInitCore::getPitboss()` (exported)
+- **278** `CvInitCore::getPitboss() const` (exported)
   - calls: CvInitCore::getMode [CvInitCore.h]
   - called by (5): CvGame::isPitboss, CvInitCore::closeInactiveSlots, CvInitCore::getGameMultiplayer, CvInitCore::getHuman, CvInitCore::reopenInactiveSlots
-- **282** `CvInitCore::getHotseat()` (exported)
+- **283** `CvInitCore::getHotseat() const` (exported)
   - calls: CvInitCore::getType [CvInitCore.h]
   - called by (5): CvGame::isHotSeat, CvInitCore::closeInactiveSlots, CvInitCore::getGameMultiplayer, CvInitCore::getHuman, CvInitCore::reopenInactiveSlots
-- **288** `CvInitCore::getPbem()` (exported)
+- **289** `CvInitCore::getPbem() const` (exported)
   - calls: CvInitCore::getType [CvInitCore.h]
   - called by (5): CvGame::isPbem, CvInitCore::closeInactiveSlots, CvInitCore::getGameMultiplayer, CvInitCore::getHuman, CvInitCore::reopenInactiveSlots
-- **294** `CvInitCore::checkBounds(int, int, int)`
+- **295** `CvInitCore::checkBounds(int, int, int) const`
   - called by (71): CvInitCore::getArtStyle, CvInitCore::getCalendarKey, CvInitCore::getCiv, CvInitCore::getCivAdjective, CvInitCore::getCivAdjectiveKey, CvInitCore::getCivDescription, CvInitCore::getCivDescriptionKey, CvInitCore::getCivPassword, CvInitCore::getCivShortDesc, CvInitCore::getCivShortDescKey, CvInitCore::getClimateKey, CvInitCore::getColor …
-- **307** `CvInitCore::getSlotVacant(PlayerTypes)` (exported)
+- **308** `CvInitCore::getSlotVacant(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds, CvInitCore::getMPOption, CvInitCore::getSlotStatus, CvInitCore::getSlotClaim
-- **328** `CvInitCore::getAvailableSlot()` (exported)
+- **329** `CvInitCore::getAvailableSlot()` (exported)
   - calls: CvInitCore::getSlotStatus, CvInitCore::getSlotClaim, CvInitCore::setSlotClaim, CvInitCore::getMPOption
-- **362** `CvInitCore::reassignPlayer(PlayerTypes, PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::CvWString(const CvWString &) [CvString.h], CvString::CvString(const CvString &) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvString::operator=(const CvString &) [CvString.h], CvInitCore::getActivePlayer [CvInitCore.h], CvInitCore::setActivePlayer, CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateTeamType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateHuman [CvPlayer.cpp]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h], CvString::operator=(const CvString &) [CvString.h]
-- **476** `CvInitCore::closeInactiveSlots()` (exported)
-  - calls: CvInitCore::getSlotStatus, CvInitCore::getPitboss, CvInitCore::getHotseat, CvInitCore::getPbem, CvInitCore::setSlotStatus, CvInitCore::getType [CvInitCore.h], CvInitCore::setSlotClaim, CvDLLUtilityIFaceBase::sendPlayerInfo [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
-- **508** `CvInitCore::reopenInactiveSlots()` (exported)
+- **363** `CvInitCore::reassignPlayer(PlayerTypes, PlayerTypes)` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::CvWString(CvWString const&) [CvString.h], CvString::CvString(CvString const&) [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvString::operator=(CvString const&) [CvString.h], CvInitCore::getActivePlayer [CvInitCore.h], CvInitCore::setActivePlayer, CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateTeamType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateHuman [CvPlayer.cpp], CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+- **477** `CvInitCore::closeInactiveSlots()` (exported)
+  - calls: CvInitCore::getSlotStatus, CvInitCore::getPitboss, CvInitCore::getHotseat, CvInitCore::getPbem, CvInitCore::setSlotStatus, CvInitCore::getType [CvInitCore.h], CvInitCore::setSlotClaim, CvDLLUtilityIFaceBase::sendPlayerInfo [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
+- **509** `CvInitCore::reopenInactiveSlots()` (exported)
   - calls: CvInitCore::getPitboss, CvInitCore::getHotseat, CvInitCore::getPbem, CvInitCore::getSlotStatus, CvInitCore::getSlotClaim, CvInitCore::setSlotStatus
-- **528** `CvInitCore::resetGame()` (exported)
-  - calls: CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::clearCustomMapOptions, CvInitCore::refreshVictories
-  - called by (2): CvInitCore::reset, CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **592** `CvInitCore::resetGame(CvInitCore *, bool, bool)` (exported)
-  - calls: CvInitCore::resetGame(), CvDLLUtilityIFaceBase::isModularXMLLoading [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getModLoadControlVectorSize [CvGlobals.cpp], CvInitCore::getNumSaveGameVector, CvInitCore::getSaveGameVector, CvInitCore::doReloadInfoClasses, CvGlobals::getModLoadControlVector [CvGlobals.cpp], CvInitCore::getGameMultiplayer [CvInitCore.h], CvInitCore::setType(GameType), CvInitCore::getType [CvInitCore.h], CvInitCore::getGameName [CvInitCore.h], CvInitCore::setGameName [CvInitCore.h], CvInitCore::getGamePassword [CvInitCore.h], CvInitCore::setGamePassword [CvInitCore.h], CvInitCore::setAdminPassword, CvInitCore::getAdminPassword [CvInitCore.h], CvInitCore::getMapScriptName, CvInitCore::setMapScriptName, CvInitCore::getWBMapNoPlayers [CvInitCore.h], CvInitCore::setWBMapNoPlayers [CvInitCore.h], CvInitCore::getWorldSize [CvInitCore.h], CvInitCore::setWorldSize(WorldSizeTypes) [CvInitCore.h], CvInitCore::getClimate [CvInitCore.h], CvInitCore::setClimate(ClimateTypes) [CvInitCore.h], CvInitCore::getSeaLevel [CvInitCore.h], CvInitCore::setSeaLevel(SeaLevelTypes) [CvInitCore.h], CvInitCore::getEra [CvInitCore.h], CvInitCore::setEra(EraTypes) [CvInitCore.h], CvInitCore::getGameSpeed [CvInitCore.h], CvInitCore::setGameSpeed(GameSpeedTypes) [CvInitCore.h], CvInitCore::getTurnTimer [CvInitCore.h], CvInitCore::setTurnTimer(TurnTimerTypes) [CvInitCore.h], CvInitCore::getCalendar [CvInitCore.h], CvInitCore::setCalendar(CalendarTypes) [CvInitCore.h], CvInitCore::setCustomMapOptions, CvInitCore::getNumCustomMapOptions [CvInitCore.h], CvInitCore::getCustomMapOptions [CvInitCore.h], CvInitCore::getNumHiddenCustomMapOptions [CvInitCore.h], CvInitCore::setVictories, CvInitCore::getNumVictories [CvInitCore.h], CvInitCore::getVictories [CvInitCore.h], CvInitCore::getOption, CvInitCore::setOption, CvInitCore::getMPOption, CvInitCore::setMPOption, CvInitCore::getStatReporting [CvInitCore.h], CvInitCore::setStatReporting [CvInitCore.h], CvInitCore::getGameTurn [CvInitCore.h], CvInitCore::setGameTurn [CvInitCore.h], CvInitCore::getMaxTurns [CvInitCore.h], CvInitCore::setMaxTurns [CvInitCore.h], CvInitCore::getPitbossTurnTime [CvInitCore.h], CvInitCore::setPitbossTurnTime [CvInitCore.h], CvInitCore::getTargetScore [CvInitCore.h], CvInitCore::setTargetScore [CvInitCore.h], CvInitCore::getMaxCityElimination [CvInitCore.h], CvInitCore::setMaxCityElimination [CvInitCore.h], CvInitCore::getNumAdvancedStartPoints [CvInitCore.h], CvInitCore::setNumAdvancedStartPoints [CvInitCore.h], CvInitCore::getSyncRandSeed [CvInitCore.h], CvInitCore::setSyncRandSeed [CvInitCore.h], CvInitCore::getMapRandSeed [CvInitCore.h], CvInitCore::setMapRandSeed [CvInitCore.h]
-- **716** `CvInitCore::resetPlayers()` (exported)
+- **529** `CvInitCore::resetGame()` (exported)
+  - calls: CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::clearCustomMapOptions, CvInitCore::refreshVictories
+  - called by (2): CvInitCore::reset, CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **593** `CvInitCore::resetGame(CvInitCore*, bool, bool)` (exported)
+  - calls: CvInitCore::resetGame(), CvDLLUtilityIFaceBase::isModularXMLLoading [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getModLoadControlVectorSize [CvGlobals.cpp], CvInitCore::getNumSaveGameVector, CvInitCore::getSaveGameVector, CvString::~CvString [CvString.h], CvInitCore::doReloadInfoClasses, CvGlobals::getModLoadControlVector [CvGlobals.cpp], CvInitCore::getGameMultiplayer [CvInitCore.h], CvInitCore::setType(GameType), CvInitCore::getType [CvInitCore.h], CvInitCore::getGameName [CvInitCore.h], CvInitCore::setGameName [CvInitCore.h], CvInitCore::getGamePassword [CvInitCore.h], CvInitCore::setGamePassword [CvInitCore.h], CvInitCore::setAdminPassword, CvInitCore::getAdminPassword [CvInitCore.h], CvInitCore::getMapScriptName, CvInitCore::setMapScriptName, CvWString::~CvWString [CvString.h], CvInitCore::getWBMapNoPlayers [CvInitCore.h], CvInitCore::setWBMapNoPlayers [CvInitCore.h], CvInitCore::getWorldSize [CvInitCore.h], CvInitCore::setWorldSize(WorldSizeTypes) [CvInitCore.h], CvInitCore::setClimate(ClimateTypes) [CvInitCore.h], CvInitCore::getClimate [CvInitCore.h], CvInitCore::getSeaLevel [CvInitCore.h], CvInitCore::setSeaLevel(SeaLevelTypes) [CvInitCore.h], CvInitCore::getEra [CvInitCore.h], CvInitCore::setEra(EraTypes) [CvInitCore.h], CvInitCore::getGameSpeed [CvInitCore.h], CvInitCore::setGameSpeed(GameSpeedTypes) [CvInitCore.h], CvInitCore::getTurnTimer [CvInitCore.h], CvInitCore::setTurnTimer(TurnTimerTypes) [CvInitCore.h], CvInitCore::getCalendar [CvInitCore.h], CvInitCore::setCalendar(CalendarTypes) [CvInitCore.h], CvInitCore::setCustomMapOptions, CvInitCore::getNumCustomMapOptions [CvInitCore.h], CvInitCore::getCustomMapOptions [CvInitCore.h], CvInitCore::getNumHiddenCustomMapOptions [CvInitCore.h], CvInitCore::setVictories, CvInitCore::getNumVictories [CvInitCore.h], CvInitCore::getVictories [CvInitCore.h], CvInitCore::getOption, CvInitCore::setOption, CvInitCore::getMPOption, CvInitCore::setMPOption, CvInitCore::getStatReporting [CvInitCore.h], CvInitCore::setStatReporting [CvInitCore.h], CvInitCore::getGameTurn [CvInitCore.h], CvInitCore::setGameTurn [CvInitCore.h], CvInitCore::getMaxTurns [CvInitCore.h], CvInitCore::setMaxTurns [CvInitCore.h], CvInitCore::getPitbossTurnTime [CvInitCore.h], CvInitCore::setPitbossTurnTime [CvInitCore.h], CvInitCore::getTargetScore [CvInitCore.h], CvInitCore::setTargetScore [CvInitCore.h], CvInitCore::getMaxCityElimination [CvInitCore.h], CvInitCore::setMaxCityElimination [CvInitCore.h], CvInitCore::getNumAdvancedStartPoints [CvInitCore.h], CvInitCore::setNumAdvancedStartPoints [CvInitCore.h], CvInitCore::getSyncRandSeed [CvInitCore.h], CvInitCore::setSyncRandSeed [CvInitCore.h], CvInitCore::getMapRandSeed [CvInitCore.h], CvInitCore::setMapRandSeed [CvInitCore.h]
+- **717** `CvInitCore::resetPlayers()` (exported)
   - calls: CvInitCore::resetPlayer(PlayerTypes)
   - called by (1): CvInitCore::reset
-- **724** `CvInitCore::resetPlayers(CvInitCore *, bool, bool)` (exported)
-  - calls: CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **732** `CvInitCore::resetPlayer(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateTeamType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateHuman [CvPlayer.cpp]
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvInitCore::resetPlayers()
-- **782** `CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)` (exported)
+- **725** `CvInitCore::resetPlayers(CvInitCore*, bool, bool)` (exported)
+  - calls: CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **733** `CvInitCore::resetPlayer(PlayerTypes)` (exported)
+  - calls: CvInitCore::checkBounds, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateTeamType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateHuman [CvPlayer.cpp]
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvInitCore::resetPlayers()
+- **783** `CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)` (exported)
   - calls: CvInitCore::checkBounds, CvInitCore::resetPlayer(PlayerTypes), CvInitCore::getCivDescription, CvInitCore::setCivDescription, CvInitCore::getCivShortDesc, CvInitCore::setCivShortDesc, CvInitCore::getCivAdjective, CvInitCore::setCivAdjective, CvInitCore::getCivPassword, CvInitCore::setCivPassword, CvInitCore::getEmail, CvInitCore::setEmail, CvInitCore::getSmtpHost, CvInitCore::setSmtpHost, CvInitCore::getFlagDecal, CvInitCore::setFlagDecal, CvInitCore::getWhiteFlag, CvInitCore::setWhiteFlag, CvInitCore::getHandicap, CvInitCore::setHandicap, CvInitCore::getCiv, CvInitCore::setCiv, CvInitCore::getTeam, CvInitCore::setTeam, CvInitCore::getLeader, CvInitCore::setLeader, CvInitCore::getColor, CvInitCore::setColor, CvInitCore::getArtStyle, CvInitCore::setArtStyle, CvInitCore::getPlayableCiv, CvInitCore::setPlayableCiv, CvInitCore::getMinorNationCiv, CvInitCore::setMinorNationCiv, CvInitCore::getLeaderName, CvInitCore::setLeaderName, CvInitCore::getSlotStatus, CvInitCore::setSlotStatus, CvInitCore::getSlotClaim, CvInitCore::setSlotClaim
-  - called by (1): CvInitCore::resetPlayers(CvInitCore *, bool, bool)
-- **832** `CvInitCore::getMapScriptName()` (exported)
-  - calls: CvDLLUtilityIFaceBase::getTransferredMap [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getWBMapScript, CvWString::CvWString(const char *) [CvString.h], operator+(const CvWString &, const CvWString &) [CvString.h], CvWString::CvWString(const CvWString &) [CvString.h]
-  - takes the address of: operator+(const CvWString &, const CvWString &) [CvString.h]
-  - called by (5): CvEventReporter::newGame, CvInitCore::refreshCustomMapOptions, CvInitCore::resetGame(CvInitCore *, bool, bool), CvReplayInfo::createInfo, CyMap::getMapScriptName
-- **845** `CvInitCore::setMapScriptName(const CvWString &)` (exported)
-  - calls: CvWString::operator=(const CvWString &) [CvString.h], CvInitCore::refreshCustomMapOptions
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-  - called by (1): CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **851** `CvInitCore::getWBMapScript()` (exported)
-  - calls: CvDLLUtilityIFaceBase::isDescFileName [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h]
+  - called by (1): CvInitCore::resetPlayers(CvInitCore*, bool, bool)
+- **833** `CvInitCore::getMapScriptName() const` (exported)
+  - calls: CvDLLUtilityIFaceBase::getTransferredMap [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInitCore::getWBMapScript, CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], operator+(CvWString const&, CvWString const&) [CvString.h], CvWString::CvWString(CvWString const&) [CvString.h]
+  - called by (5): CvEventReporter::newGame, CvInitCore::refreshCustomMapOptions, CvInitCore::resetGame(CvInitCore*, bool, bool), CvReplayInfo::createInfo, CyMap::getMapScriptName
+- **846** `CvInitCore::setMapScriptName(CvWString const&)` (exported)
+  - calls: CvWString::operator=(CvWString const&) [CvString.h], CvInitCore::refreshCustomMapOptions
+  - called by (1): CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **852** `CvInitCore::getWBMapScript() const` (exported)
+  - calls: CvDLLUtilityIFaceBase::isDescFileName [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h]
   - called by (7): CvDLLButtonPopup::launchMainMenuPopup, CvGame::canRegenerateMap, CvGame::normalizeStartingPlots, CvGame::regenerateMap, CvInitCore::getMapScriptName, CvInitCore::getPlayableCiv, CvInitCore::refreshCustomMapOptions
-- **857** `CvInitCore::setWorldSize(const CvWString &)` (exported)
-  - calls: CvGlobals::getNumWorldInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setWorldSize(WorldSizeTypes) [CvInitCore.h]
-- **868** `CvInitCore::getWorldSizeKey(CvWString &)` (exported)
-  - calls: CvGlobals::getNumWorldInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getWorldSize [CvInitCore.h], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-- **882** `CvInitCore::setClimate(const CvWString &)` (exported)
-  - calls: CvGlobals::getNumClimateInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getClimateInfo(ClimateTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setClimate(ClimateTypes) [CvInitCore.h]
-- **893** `CvInitCore::getClimateKey(CvWString &)` (exported)
-  - calls: CvGlobals::getNumClimateInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getClimate [CvInitCore.h], CvGlobals::getClimateInfo(ClimateTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-- **907** `CvInitCore::setSeaLevel(const CvWString &)` (exported)
-  - calls: CvGlobals::getNumSeaLevelInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getSeaLevelInfo(SeaLevelTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setSeaLevel(SeaLevelTypes) [CvInitCore.h]
-- **918** `CvInitCore::getSeaLevelKey(CvWString &)` (exported)
-  - calls: CvGlobals::getNumSeaLevelInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getSeaLevel [CvInitCore.h], CvGlobals::getSeaLevelInfo(SeaLevelTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-- **932** `CvInitCore::setEra(const CvWString &)` (exported)
-  - calls: CvGlobals::getNumEraInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setEra(EraTypes) [CvInitCore.h]
-- **943** `CvInitCore::getEraKey(CvWString &)` (exported)
-  - calls: CvGlobals::getNumEraInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getEra [CvInitCore.h], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-- **957** `CvInitCore::setGameSpeed(const CvWString &)` (exported)
-  - calls: CvGlobals::getNumGameSpeedInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setGameSpeed(GameSpeedTypes) [CvInitCore.h]
-- **968** `CvInitCore::getGameSpeedKey(CvWString &)` (exported)
-  - calls: CvGlobals::getNumGameSpeedInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getGameSpeed [CvInitCore.h], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-- **982** `CvInitCore::setTurnTimer(const CvWString &)` (exported)
-  - calls: CvGlobals::getNumTurnTimerInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getTurnTimerInfo(TurnTimerTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setTurnTimer(TurnTimerTypes) [CvInitCore.h]
-- **993** `CvInitCore::getTurnTimerKey(CvWString &)` (exported)
-  - calls: CvGlobals::getNumTurnTimerInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getTurnTimer [CvInitCore.h], CvGlobals::getTurnTimerInfo(TurnTimerTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-- **1007** `CvInitCore::setCalendar(const CvWString &)` (exported)
-  - calls: CvGlobals::getNumCalendarInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getCalendarInfo(CalendarTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(const char *) [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setCalendar(CalendarTypes) [CvInitCore.h]
-- **1018** `CvInitCore::getCalendarKey(CvWString &)` (exported)
-  - calls: CvGlobals::getNumCalendarInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getCalendar [CvInitCore.h], CvGlobals::getCalendarInfo(CalendarTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h], CvWString::operator=(const wchar *) [CvString.h]
-- **1033** `CvInitCore::clearCustomMapOptions()`
+- **858** `CvInitCore::setWorldSize(CvWString const&)` (exported)
+  - calls: CvGlobals::getNumWorldInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setWorldSize(WorldSizeTypes) [CvInitCore.h]
+- **869** `CvInitCore::getWorldSizeKey(CvWString&) const` (exported)
+  - calls: CvGlobals::getNumWorldInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getWorldSize [CvInitCore.h], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(char const*) [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h]
+- **883** `CvInitCore::setClimate(CvWString const&)` (exported)
+  - calls: CvGlobals::getNumClimateInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getClimateInfo(ClimateTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setClimate(ClimateTypes) [CvInitCore.h]
+- **894** `CvInitCore::getClimateKey(CvWString&) const` (exported)
+  - calls: CvGlobals::getNumClimateInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getClimate [CvInitCore.h], CvGlobals::getClimateInfo(ClimateTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(char const*) [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h]
+- **908** `CvInitCore::setSeaLevel(CvWString const&)` (exported)
+  - calls: CvGlobals::getNumSeaLevelInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getSeaLevelInfo(SeaLevelTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setSeaLevel(SeaLevelTypes) [CvInitCore.h]
+- **919** `CvInitCore::getSeaLevelKey(CvWString&) const` (exported)
+  - calls: CvGlobals::getNumSeaLevelInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getSeaLevel [CvInitCore.h], CvGlobals::getSeaLevelInfo(SeaLevelTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(char const*) [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h]
+- **933** `CvInitCore::setEra(CvWString const&)` (exported)
+  - calls: CvGlobals::getNumEraInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setEra(EraTypes) [CvInitCore.h]
+- **944** `CvInitCore::getEraKey(CvWString&) const` (exported)
+  - calls: CvGlobals::getNumEraInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getEra [CvInitCore.h], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(char const*) [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h]
+- **958** `CvInitCore::setGameSpeed(CvWString const&)` (exported)
+  - calls: CvGlobals::getNumGameSpeedInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setGameSpeed(GameSpeedTypes) [CvInitCore.h]
+- **969** `CvInitCore::getGameSpeedKey(CvWString&) const` (exported)
+  - calls: CvGlobals::getNumGameSpeedInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getGameSpeed [CvInitCore.h], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(char const*) [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h]
+- **983** `CvInitCore::setTurnTimer(CvWString const&)` (exported)
+  - calls: CvGlobals::getNumTurnTimerInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getTurnTimerInfo(TurnTimerTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setTurnTimer(TurnTimerTypes) [CvInitCore.h]
+- **994** `CvInitCore::getTurnTimerKey(CvWString&) const` (exported)
+  - calls: CvGlobals::getNumTurnTimerInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getTurnTimer [CvInitCore.h], CvGlobals::getTurnTimerInfo(TurnTimerTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(char const*) [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h]
+- **1008** `CvInitCore::setCalendar(CvWString const&)` (exported)
+  - calls: CvGlobals::getNumCalendarInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getCalendarInfo(CalendarTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvInitCore::setCalendar(CalendarTypes) [CvInitCore.h]
+- **1019** `CvInitCore::getCalendarKey(CvWString&) const` (exported)
+  - calls: CvGlobals::getNumCalendarInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::checkBounds, CvInitCore::getCalendar [CvInitCore.h], CvGlobals::getCalendarInfo(CalendarTypes) [CvGlobals.cpp], CvInfoBase::getType [CvInfos.cpp], CvWString::operator=(char const*) [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h]
+- **1034** `CvInitCore::clearCustomMapOptions()`
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (4): CvInitCore::refreshCustomMapOptions, CvInitCore::resetGame(), CvInitCore::setCustomMapOptions, CvInitCore::uninit
-- **1039** `CvInitCore::refreshCustomMapOptions()`
-  - calls: CvInitCore::clearCustomMapOptions, CvInitCore::getWBMapScript, CvDLLUtilityIFaceBase::pythonMapExists [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getMapScriptName, CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h], CvDLLPythonIFaceBase::callFunction(const char *, const char *, void *, long *) [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvInitCore::setCustomMapOptions
+- **1040** `CvInitCore::refreshCustomMapOptions()`
+  - calls: CvInitCore::clearCustomMapOptions, CvInitCore::getWBMapScript, CvDLLUtilityIFaceBase::pythonMapExists [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInitCore::getMapScriptName, CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvWString::~CvWString [CvString.h], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvInitCore::setCustomMapOptions, operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (1): CvInitCore::setMapScriptName
-- **1084** `CvInitCore::clearVictories()`
+- **1085** `CvInitCore::clearVictories()`
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (3): CvInitCore::refreshVictories, CvInitCore::setVictories, CvInitCore::uninit
-- **1090** `CvInitCore::refreshVictories()`
-  - calls: CvInitCore::clearVictories, CvGlobals::getNumVictoryInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+- **1091** `CvInitCore::refreshVictories()`
+  - calls: CvInitCore::clearVictories, CvGlobals::getNumVictoryInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], operator new[](unsigned int) [CvGameCoreDLL.cpp]
   - called by (1): CvInitCore::resetGame()
-- **1105** `CvInitCore::setCustomMapOptions(int, const CustomMapOptionTypes *)` (exported)
-  - calls: CvInitCore::clearCustomMapOptions
-  - called by (3): CvInitCore::refreshCustomMapOptions, CvInitCore::resetGame(CvInitCore *, bool, bool), CvMap::rebuild
-- **1121** `CvInitCore::getCustomMapOption(int)` (exported)
+- **1106** `CvInitCore::setCustomMapOptions(int, CustomMapOptionTypes const*)` (exported)
+  - calls: CvInitCore::clearCustomMapOptions, operator new[](unsigned int) [CvGameCoreDLL.cpp]
+  - called by (3): CvInitCore::refreshCustomMapOptions, CvInitCore::resetGame(CvInitCore*, bool, bool), CvMap::rebuild
+- **1122** `CvInitCore::getCustomMapOption(int) const` (exported)
   - calls: CvInitCore::checkBounds
   - called by (1): CvMap::getCustomMapOption
-- **1134** `CvInitCore::setCustomMapOption(int, CustomMapOptionTypes)` (exported)
+- **1135** `CvInitCore::setCustomMapOption(int, CustomMapOptionTypes)` (exported)
   - calls: CvInitCore::checkBounds
-- **1144** `CvInitCore::setVictories(int, const bool *)` (exported)
-  - calls: CvInitCore::clearVictories
-  - called by (1): CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **1160** `CvInitCore::getVictory(VictoryTypes)` (exported)
+- **1145** `CvInitCore::setVictories(int, bool const*)` (exported)
+  - calls: CvInitCore::clearVictories, operator new[](unsigned int) [CvGameCoreDLL.cpp]
+  - called by (1): CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **1161** `CvInitCore::getVictory(VictoryTypes) const` (exported)
   - calls: CvInitCore::checkBounds
   - called by (1): CvGame::isVictoryValid
-- **1173** `CvInitCore::setVictory(VictoryTypes, bool)` (exported)
+- **1174** `CvInitCore::setVictory(VictoryTypes, bool)` (exported)
   - calls: CvInitCore::checkBounds
   - called by (1): CvGame::setVictoryValid
-- **1183** `CvInitCore::getOption(GameOptionTypes)` (exported)
+- **1184** `CvInitCore::getOption(GameOptionTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvGame::isOption, CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **1196** `CvInitCore::setOption(GameOptionTypes, bool)` (exported)
+  - called by (2): CvGame::isOption, CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **1197** `CvInitCore::setOption(GameOptionTypes, bool)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvGame::setOption, CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **1205** `CvInitCore::getMPOption(MultiplayerOptionTypes)` (exported)
+  - called by (2): CvGame::setOption, CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **1206** `CvInitCore::getMPOption(MultiplayerOptionTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (4): CvGame::isMPOption, CvInitCore::getAvailableSlot, CvInitCore::getSlotVacant, CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **1218** `CvInitCore::setMPOption(MultiplayerOptionTypes, bool)` (exported)
+  - called by (4): CvGame::isMPOption, CvInitCore::getAvailableSlot, CvInitCore::getSlotVacant, CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **1219** `CvInitCore::setMPOption(MultiplayerOptionTypes, bool)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvGame::setMPOption, CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **1227** `CvInitCore::getForceControl(ForceControlTypes)` (exported)
+  - called by (2): CvGame::setMPOption, CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **1228** `CvInitCore::getForceControl(ForceControlTypes) const` (exported)
   - calls: CvInitCore::checkBounds
   - called by (1): CvGame::isForcedControl
-- **1240** `CvInitCore::setForceControl(ForceControlTypes, bool)` (exported)
+- **1241** `CvInitCore::setForceControl(ForceControlTypes, bool)` (exported)
   - calls: CvInitCore::checkBounds
   - called by (1): CvGame::setForceControl
-- **1250** `CvInitCore::setActivePlayer(PlayerTypes)` (exported)
+- **1251** `CvInitCore::setActivePlayer(PlayerTypes)` (exported)
   - calls: CvInitCore::setSlotClaim
   - called by (2): CvGame::setActivePlayer, CvInitCore::reassignPlayer
-- **1261** `CvInitCore::setType(GameType)` (exported)
+- **1262** `CvInitCore::setType(GameType)` (exported)
   - calls: CvInitCore::getType [CvInitCore.h], CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateHuman [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
-  - called by (4): CvGame::doTurn, CvGame::setActivePlayer, CvInitCore::resetGame(CvInitCore *, bool, bool), CvInitCore::setType(const CvWString &)
-- **1277** `CvInitCore::setType(const CvWString &)` (exported)
+  - called by (4): CvGame::doTurn, CvGame::setActivePlayer, CvInitCore::resetGame(CvInitCore*, bool, bool), CvInitCore::setType(CvWString const&)
+- **1278** `CvInitCore::setType(CvWString const&)` (exported)
   - calls: CvWString::GetCString [CvString.h], CvInitCore::setType(GameType)
-- **1294** `CvInitCore::setMode(GameMode)` (exported)
+- **1295** `CvInitCore::setMode(GameMode)` (exported)
   - calls: CvInitCore::getMode [CvInitCore.h], CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateHuman [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (1): CvInitCore::reset
-- **1311** `CvInitCore::getLeaderName(PlayerTypes, uint)` (exported)
-  - calls: CvInitCore::checkBounds, CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h], CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h], CvWString::operator=(const char *) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getName
-- **1326** `CvInitCore::setLeaderName(PlayerTypes, const CvWString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::CvWString(const CvWString &) [CvString.h], CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::operator=(const CvWString &) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-  - called by (4): CvDLLButtonPopup::OnOkClicked, CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::splitEmpire
-- **1338** `CvInitCore::getLeaderNameKey(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h]
+- **1312** `CvInitCore::getLeaderName(PlayerTypes, unsigned int) const` (exported)
+  - calls: CvInitCore::checkBounds, CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::operator=(char const*) [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getName
+- **1327** `CvInitCore::setLeaderName(PlayerTypes, CvWString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::CvWString(CvWString const&) [CvString.h], CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (4): CvDLLButtonPopup::OnOkClicked, CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::splitEmpire
+- **1339** `CvInitCore::getLeaderNameKey(PlayerTypes) const` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::operator=(char const*) [CvString.h]
   - called by (1): CvPlayer::getNameKey
-- **1352** `CvInitCore::getCivDescription(PlayerTypes, uint)` (exported)
-  - calls: CvInitCore::checkBounds, CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h], CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h], CvWString::operator=(const char *) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getCivilizationDescription
-- **1368** `CvInitCore::setCivDescription(PlayerTypes, const CvWString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::CvWString(const CvWString &) [CvString.h], CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::operator=(const CvWString &) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **1379** `CvInitCore::getCivDescriptionKey(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h]
+- **1353** `CvInitCore::getCivDescription(PlayerTypes, unsigned int) const` (exported)
+  - calls: CvInitCore::checkBounds, CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::operator=(char const*) [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getCivilizationDescription
+- **1369** `CvInitCore::setCivDescription(PlayerTypes, CvWString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::CvWString(CvWString const&) [CvString.h], CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **1380** `CvInitCore::getCivDescriptionKey(PlayerTypes) const` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::operator=(char const*) [CvString.h]
   - called by (1): CvPlayer::getCivilizationDescriptionKey
-- **1393** `CvInitCore::getCivShortDesc(PlayerTypes, uint)` (exported)
-  - calls: CvInitCore::checkBounds, CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h], CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h], CvWString::operator=(const char *) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getCivilizationShortDescription
-- **1410** `CvInitCore::setCivShortDesc(PlayerTypes, const CvWString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::CvWString(const CvWString &) [CvString.h], CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::operator=(const CvWString &) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **1421** `CvInitCore::getCivShortDescKey(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h]
+- **1394** `CvInitCore::getCivShortDesc(PlayerTypes, unsigned int) const` (exported)
+  - calls: CvInitCore::checkBounds, CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::operator=(char const*) [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getCivilizationShortDescription
+- **1411** `CvInitCore::setCivShortDesc(PlayerTypes, CvWString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::CvWString(CvWString const&) [CvString.h], CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **1422** `CvInitCore::getCivShortDescKey(PlayerTypes) const` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::operator=(char const*) [CvString.h]
   - called by (1): CvPlayer::getCivilizationShortDescriptionKey
-- **1435** `CvInitCore::getCivAdjective(PlayerTypes, uint)` (exported)
-  - calls: CvInitCore::checkBounds, CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h], CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h], CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h], CvWString::operator=(const char *) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getCivilizationAdjective
-- **1452** `CvInitCore::setCivAdjective(PlayerTypes, const CvWString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::CvWString(const CvWString &) [CvString.h], CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::operator=(const CvWString &) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **1463** `CvInitCore::getCivAdjectiveKey(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h]
+- **1436** `CvInitCore::getCivAdjective(PlayerTypes, unsigned int) const` (exported)
+  - calls: CvInitCore::checkBounds, CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::operator=(char const*) [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getCivilizationAdjective
+- **1453** `CvInitCore::setCivAdjective(PlayerTypes, CvWString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::CvWString(CvWString const&) [CvString.h], CvDLLUtilityIFaceBase::stripSpecialCharacters [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **1464** `CvInitCore::getCivAdjectiveKey(PlayerTypes) const` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::operator=(char const*) [CvString.h]
   - called by (1): CvPlayer::getCivilizationAdjectiveKey
-- **1477** `CvInitCore::getCivPassword(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h]
-  - called by (2): CvDLLButtonPopup::launchDetailsPopup, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **1492** `CvInitCore::setCivPassword(PlayerTypes, const CvWString &, bool)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::operator=(const CvWString &) [CvString.h], CvDLLUtilityIFaceBase::md5String [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-  - called by (2): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **1509** `CvInitCore::getEmail(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvString::operator=(const char *) [CvString.h]
-  - takes the address of: CvString::operator=(const char *) [CvString.h]
-  - called by (4): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchDetailsPopup, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getPbemEmailAddress
-- **1524** `CvInitCore::setEmail(PlayerTypes, const CvString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvString::operator=(const CvString &) [CvString.h]
-  - takes the address of: CvString::operator=(const CvString &) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::setPbemEmailAddress
-- **1533** `CvInitCore::getSmtpHost(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvString::operator=(const char *) [CvString.h]
-  - takes the address of: CvString::operator=(const char *) [CvString.h]
-  - called by (4): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchDetailsPopup, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getSmtpHost
-- **1548** `CvInitCore::setSmtpHost(PlayerTypes, const CvString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvString::operator=(const CvString &) [CvString.h]
-  - takes the address of: CvString::operator=(const CvString &) [CvString.h]
-  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::setSmtpHost
-- **1558** `CvInitCore::getWhiteFlag(PlayerTypes)` (exported)
+- **1478** `CvInitCore::getCivPassword(PlayerTypes) const` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::operator=(char const*) [CvString.h]
+  - called by (2): CvDLLButtonPopup::launchDetailsPopup, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **1493** `CvInitCore::setCivPassword(PlayerTypes, CvWString const&, bool)` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::operator=(CvWString const&) [CvString.h], CvDLLUtilityIFaceBase::md5String [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (2): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **1510** `CvInitCore::getEmail(PlayerTypes) const` (exported)
+  - calls: CvInitCore::checkBounds, CvString::operator=(char const*) [CvString.h]
+  - called by (4): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchDetailsPopup, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getPbemEmailAddress
+- **1525** `CvInitCore::setEmail(PlayerTypes, CvString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvString::operator=(CvString const&) [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::setPbemEmailAddress
+- **1534** `CvInitCore::getSmtpHost(PlayerTypes) const` (exported)
+  - calls: CvInitCore::checkBounds, CvString::operator=(char const*) [CvString.h]
+  - called by (4): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchDetailsPopup, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getSmtpHost
+- **1549** `CvInitCore::setSmtpHost(PlayerTypes, CvString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvString::operator=(CvString const&) [CvString.h]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::setSmtpHost
+- **1559** `CvInitCore::getWhiteFlag(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::isWhiteFlag
-- **1571** `CvInitCore::setWhiteFlag(PlayerTypes, bool)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::isWhiteFlag
+- **1572** `CvInitCore::setWhiteFlag(PlayerTypes, bool)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (1): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **1580** `CvInitCore::getFlagDecal(PlayerTypes)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::operator=(const char *) [CvString.h]
-  - takes the address of: CvWString::operator=(const char *) [CvString.h]
-  - called by (3): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getFlagDecal, CvPlayer::isWhiteFlag
-- **1594** `CvInitCore::setFlagDecal(PlayerTypes, const CvWString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvWString::operator=(const CvWString &) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::changeCiv
-- **1604** `CvInitCore::getCiv(PlayerTypes)` (exported)
+  - called by (1): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **1581** `CvInitCore::getFlagDecal(PlayerTypes) const` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::operator=(char const*) [CvString.h]
+  - called by (3): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getFlagDecal, CvPlayer::isWhiteFlag
+- **1595** `CvInitCore::setFlagDecal(PlayerTypes, CvWString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvWString::operator=(CvWString const&) [CvString.h]
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::changeCiv
+- **1605** `CvInitCore::getCiv(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (4): CvInitCore::getNumDefinedPlayers, CvInitCore::getPlayableCiv, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getCivilizationType
-- **1617** `CvInitCore::setCiv(PlayerTypes, CivilizationTypes)` (exported)
+  - called by (4): CvInitCore::getNumDefinedPlayers, CvInitCore::getPlayableCiv, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getCivilizationType
+- **1618** `CvInitCore::setCiv(PlayerTypes, CivilizationTypes)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (3): CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::changeCiv
-- **1626** `CvInitCore::getLeader(PlayerTypes)` (exported)
+  - called by (3): CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::changeCiv
+- **1627** `CvInitCore::getLeader(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (4): CvInitCore::getNumDefinedPlayers, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getLeaderType, CvPlayer::reset
-- **1639** `CvInitCore::setLeader(PlayerTypes, LeaderHeadTypes)` (exported)
+  - called by (4): CvInitCore::getNumDefinedPlayers, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getLeaderType, CvPlayer::reset
+- **1640** `CvInitCore::setLeader(PlayerTypes, LeaderHeadTypes)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (3): CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::changeLeader
-- **1648** `CvInitCore::getTeam(PlayerTypes)` (exported)
+  - called by (3): CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::changeLeader
+- **1649** `CvInitCore::getTeam(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (4): CvGame::init, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvInitCore::setTeam, CvPlayer::updateTeamType
-- **1661** `CvInitCore::setTeam(PlayerTypes, TeamTypes)` (exported)
+  - called by (4): CvGame::init, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvInitCore::setTeam, CvPlayer::updateTeamType
+- **1662** `CvInitCore::setTeam(PlayerTypes, TeamTypes)` (exported)
   - calls: CvInitCore::checkBounds, CvInitCore::getTeam, CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateTeamType [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
-  - called by (3): CvGame::init, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::setTeam
-- **1678** `CvInitCore::getHandicap(PlayerTypes)` (exported)
+  - called by (3): CvGame::init, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::setTeam
+- **1679** `CvInitCore::getHandicap(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getHandicapType
-- **1691** `CvInitCore::setHandicap(PlayerTypes, HandicapTypes)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getHandicapType
+- **1692** `CvInitCore::setHandicap(PlayerTypes, HandicapTypes)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (1): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **1700** `CvInitCore::getColor(PlayerTypes)` (exported)
+  - called by (1): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **1701** `CvInitCore::getColor(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getPlayerColor
-- **1713** `CvInitCore::setColor(PlayerTypes, PlayerColorTypes)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getPlayerColor
+- **1714** `CvInitCore::setColor(PlayerTypes, PlayerColorTypes)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (3): CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::changeCiv
-- **1722** `CvInitCore::getArtStyle(PlayerTypes)` (exported)
+  - called by (3): CvGame::addPlayer, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::changeCiv
+- **1723** `CvInitCore::getArtStyle(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::getArtStyleType
-- **1735** `CvInitCore::setArtStyle(PlayerTypes, ArtStyleTypes)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::getArtStyleType
+- **1736** `CvInitCore::setArtStyle(PlayerTypes, ArtStyleTypes)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::changeCiv
-- **1745** `CvInitCore::getSlotStatus(PlayerTypes)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::changeCiv
+- **1746** `CvInitCore::getSlotStatus(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (11): CvGame::init, CvInitCore::closeInactiveSlots, CvInitCore::getAvailableSlot, CvInitCore::getHuman, CvInitCore::getSlotVacant, CvInitCore::reopenInactiveSlots, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvInitCore::setSlotStatus, CvPlayer::init, CvPlayer::initInGame, CvPlayerAI::AI_init
-- **1758** `CvInitCore::setSlotStatus(PlayerTypes, SlotStatus)` (exported)
+  - called by (11): CvGame::init, CvInitCore::closeInactiveSlots, CvInitCore::getAvailableSlot, CvInitCore::getHuman, CvInitCore::getSlotVacant, CvInitCore::reopenInactiveSlots, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvInitCore::setSlotStatus, CvPlayer::init, CvPlayer::initInGame, CvPlayerAI::AI_init
+- **1759** `CvInitCore::setSlotStatus(PlayerTypes, SlotStatus)` (exported)
   - calls: CvInitCore::checkBounds, CvInitCore::getSlotStatus, CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateHuman [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
-  - called by (9): CvGame::addPlayer, CvGame::doControl, CvGame::nextActivePlayer, CvGame::reviveActivePlayer, CvGame::revivePlayer, CvInitCore::closeInactiveSlots, CvInitCore::reopenInactiveSlots, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::setIsHuman
-- **1775** `CvInitCore::getSlotClaim(PlayerTypes)` (exported)
+  - called by (9): CvGame::addPlayer, CvGame::doControl, CvGame::nextActivePlayer, CvGame::reviveActivePlayer, CvGame::revivePlayer, CvInitCore::closeInactiveSlots, CvInitCore::reopenInactiveSlots, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::setIsHuman
+- **1776** `CvInitCore::getSlotClaim(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (4): CvInitCore::getAvailableSlot, CvInitCore::getSlotVacant, CvInitCore::reopenInactiveSlots, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool)
-- **1788** `CvInitCore::setSlotClaim(PlayerTypes, SlotClaim)` (exported)
+  - called by (4): CvInitCore::getAvailableSlot, CvInitCore::getSlotVacant, CvInitCore::reopenInactiveSlots, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool)
+- **1789** `CvInitCore::setSlotClaim(PlayerTypes, SlotClaim)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (4): CvInitCore::closeInactiveSlots, CvInitCore::getAvailableSlot, CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvInitCore::setActivePlayer
-- **1797** `CvInitCore::getReady(PlayerTypes)` (exported)
+  - called by (4): CvInitCore::closeInactiveSlots, CvInitCore::getAvailableSlot, CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvInitCore::setActivePlayer
+- **1798** `CvInitCore::getReady(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-- **1810** `CvInitCore::setReady(PlayerTypes, bool)` (exported)
+- **1811** `CvInitCore::setReady(PlayerTypes, bool)` (exported)
   - calls: CvInitCore::checkBounds
-- **1820** `CvInitCore::getPlayableCiv(PlayerTypes)` (exported)
+- **1821** `CvInitCore::getPlayableCiv(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds, CvInitCore::getWBMapScript, CvInitCore::getWBMapNoPlayers [CvInitCore.h], CvInitCore::getCiv, CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCivilizationInfo::isPlayable [CvInfos.cpp]
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::isPlayable
-- **1848** `CvInitCore::setPlayableCiv(PlayerTypes, bool)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::isPlayable
+- **1849** `CvInitCore::setPlayableCiv(PlayerTypes, bool)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::setPlayable
-- **1857** `CvInitCore::getMinorNationCiv(PlayerTypes)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::setPlayable
+- **1858** `CvInitCore::getMinorNationCiv(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvPlayer::isMinorCiv
-- **1870** `CvInitCore::setMinorNationCiv(PlayerTypes, bool)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvPlayer::isMinorCiv
+- **1871** `CvInitCore::setMinorNationCiv(PlayerTypes, bool)` (exported)
   - calls: CvInitCore::checkBounds
-  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore *, bool, bool), CvTeam::setIsMinorCiv
-- **1879** `CvInitCore::getNetID(PlayerTypes)` (exported)
+  - called by (2): CvInitCore::resetPlayer(PlayerTypes, CvInitCore*, bool, bool), CvTeam::setIsMinorCiv
+- **1880** `CvInitCore::getNetID(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
   - called by (2): CvGame::changeHumanPlayer, CvPlayer::getNetID
-- **1892** `CvInitCore::setNetID(PlayerTypes, int)` (exported)
+- **1893** `CvInitCore::setNetID(PlayerTypes, int)` (exported)
   - calls: CvInitCore::checkBounds
   - called by (2): CvGame::changeHumanPlayer, CvPlayer::setNetID
-- **1901** `CvInitCore::getPythonCheck(PlayerTypes)` (exported)
+- **1902** `CvInitCore::getPythonCheck(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-- **1915** `CvInitCore::setPythonCheck(PlayerTypes, const CvString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvString::operator=(const CvString &) [CvString.h]
-  - takes the address of: CvString::operator=(const CvString &) [CvString.h]
-- **1924** `CvInitCore::getXMLCheck(PlayerTypes)` (exported)
+- **1916** `CvInitCore::setPythonCheck(PlayerTypes, CvString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvString::operator=(CvString const&) [CvString.h]
+- **1925** `CvInitCore::getXMLCheck(PlayerTypes) const` (exported)
   - calls: CvInitCore::checkBounds
-- **1938** `CvInitCore::setXMLCheck(PlayerTypes, const CvString &)` (exported)
-  - calls: CvInitCore::checkBounds, CvString::operator=(const CvString &) [CvString.h]
-  - takes the address of: CvString::operator=(const CvString &) [CvString.h]
-- **1947** `CvInitCore::setAdminPassword(const CvWString &, bool)` (exported)
-  - calls: CvWString::operator=(const CvWString &) [CvString.h], CvDLLUtilityIFaceBase::md5String [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvString::CvString(const std::wstring &) [CvString.h], CvString::GetCString [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
-  - called by (2): CvGame::init, CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **1959** `CvInitCore::resetAdvancedStartPoints()` (exported)
+- **1939** `CvInitCore::setXMLCheck(PlayerTypes, CvString const&)` (exported)
+  - calls: CvInitCore::checkBounds, CvString::operator=(CvString const&) [CvString.h]
+- **1948** `CvInitCore::setAdminPassword(CvWString const&, bool)` (exported)
+  - calls: CvWString::operator=(CvWString const&) [CvString.h], CvDLLUtilityIFaceBase::md5String [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (2): CvGame::init, CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **1960** `CvInitCore::resetAdvancedStartPoints()` (exported)
   - calls: CvInitCore::getEra [CvInitCore.h], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEraInfo::getAdvancedStartPoints [CvInfos.cpp], CvInitCore::getWorldSize [CvInitCore.h], CvGlobals::getWorldInfo(WorldSizeTypes) [CvGlobals.cpp], CvWorldInfo::getAdvancedStartPointsMod [CvInfos.cpp], CvInitCore::getGameSpeed [CvInitCore.h], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGameSpeedInfo::getGrowthPercent [CvInfos.cpp], CvInitCore::setNumAdvancedStartPoints [CvInitCore.h]
-- **1984** `CvInitCore::read(FDataStreamBase *)` (exported; virtual)
-  - calls: FDataStreamBase::Read(unsigned int *) [FDataStreamBase.h], FDataStreamBase::Read(int *) [FDataStreamBase.h], CvString::CvString() [CvString.h], FDataStreamBase::ReadString(std::string &) [FDataStreamBase.h], FDataStreamBase::ReadString(std::wstring &) [FDataStreamBase.h], FDataStreamBase::Read(bool *) [FDataStreamBase.h], FDataStreamBase::Read(int, int *) [FDataStreamBase.h], FDataStreamBase::Read(int, bool *) [FDataStreamBase.h], FDataStreamBase::ReadString(int, std::wstring *) [FDataStreamBase.h], FDataStreamBase::ReadString(int, std::string *) [FDataStreamBase.h], CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateHuman [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateTeamType [CvPlayer.cpp]
-- **2135** `CvInitCore::write(FDataStreamBase *)` (exported; virtual)
-  - calls: FDataStreamBase::Write(unsigned int) [FDataStreamBase.h], CvGlobals::getModLoadControlVectorSize [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], FDataStreamBase::Write(int) [FDataStreamBase.h], CvGlobals::getModLoadControlVector [CvGlobals.cpp], FDataStreamBase::WriteString(const std::string &) [FDataStreamBase.h], FDataStreamBase::WriteString(const std::wstring &) [FDataStreamBase.h], FDataStreamBase::Write(bool) [FDataStreamBase.h], FDataStreamBase::Write(int, const int *) [FDataStreamBase.h], FDataStreamBase::Write(int, const bool *) [FDataStreamBase.h], FDataStreamBase::WriteString(int, std::wstring *) [FDataStreamBase.h], FDataStreamBase::WriteString(int, std::string *) [FDataStreamBase.h]
-- **2248** `CvInitCore::getNumSaveGameVector()`
-  - called by (1): CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **2253** `CvInitCore::getSaveGameVector(int)`
-  - calls: CvString::CvString(const CvString &) [CvString.h]
-  - called by (1): CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **2260** `CvInitCore::doReloadInfoClasses()`
+- **1985** `CvInitCore::read(FDataStreamBase*)` (exported; virtual)
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CvString::CvString() [CvString.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlayerAI::areStaticsInitialized [CvPlayerAI.cpp], CvPlayer::updateHuman [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::updateTeamType [CvPlayer.cpp], CvString::~CvString [CvString.h]
+  - called by (2): ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
+- **2136** `CvInitCore::write(FDataStreamBase*)` (exported; virtual)
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getModLoadControlVectorSize [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getModLoadControlVector [CvGlobals.cpp], CvString::~CvString [CvString.h], FDataStreamBase::WriteString [FDataStreamBase.h]
+- **2249** `CvInitCore::getNumSaveGameVector()`
+  - called by (1): CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **2254** `CvInitCore::getSaveGameVector(int)`
+  - calls: CvString::CvString(CvString const&) [CvString.h]
+  - called by (1): CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **2261** `CvInitCore::doReloadInfoClasses()`
   - calls: CvGlobals::doResetInfoClasses [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
-  - called by (1): CvInitCore::resetGame(CvInitCore *, bool, bool)
-- **2269** `CvInitCore::getDLLPath()`
-  - calls: CvInitCore::setPathNames, CvString::CvString(const CvString &) [CvString.h]
+  - called by (1): CvInitCore::resetGame(CvInitCore*, bool, bool)
+- **2270** `CvInitCore::getDLLPath() const`
+  - calls: CvInitCore::setPathNames, CvString::CvString(CvString const&) [CvString.h]
   - called by (1): CyGame::getDLLPath
-- **2275** `CvInitCore::getDLLName()`
-  - calls: CvInitCore::setPathNames, CvString::CvString(const CvString &) [CvString.h]
-- **2281** `CvInitCore::getExePath()`
-  - calls: CvInitCore::setPathNames, CvString::CvString(const CvString &) [CvString.h]
+- **2276** `CvInitCore::getDLLName() const`
+  - calls: CvInitCore::setPathNames, CvString::CvString(CvString const&) [CvString.h]
+- **2282** `CvInitCore::getExePath() const`
+  - calls: CvInitCore::setPathNames, CvString::CvString(CvString const&) [CvString.h]
   - called by (1): CyGame::getExePath
-- **2287** `CvInitCore::getExeName()`
-  - calls: CvInitCore::setPathNames, CvString::CvString(const CvString &) [CvString.h]
-- **2294** `CvInitCore::setPathNames()` (static)
-  - calls: CvString::operator=(const char *) [CvString.h]
-  - takes the address of: CvString::operator=(const char *) [CvString.h]
+- **2288** `CvInitCore::getExeName() const`
+  - calls: CvInitCore::setPathNames, CvString::CvString(CvString const&) [CvString.h]
+- **2295** `CvInitCore::setPathNames()` (static)
+  - calls: CvString::operator=(char const*) [CvString.h]
   - called by (4): CvInitCore::getDLLName, CvInitCore::getDLLPath, CvInitCore::getExeName, CvInitCore::getExePath
+- **·** `CvInitCore::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvInitCore::~CvInitCore
+  - takes the address of: CvInitCore::~CvInitCore
+- **·** `CvWString::`vector deleting dtor'(unsigned int)` (written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvWString::~CvWString [CvString.h]
+  - takes the address of: CvWString::~CvWString [CvString.h]
+  - called by (1): CvInitCore::~CvInitCore
+- **·** `CvXMLLoadUtility::`scalar deleting dtor'(unsigned int)` (written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvXMLLoadUtility::~CvXMLLoadUtility [CvXMLLoadUtility.cpp]
+  - called by (3): CvInitCore::reset, CvXMLLoadUtilityModTools::setLocationName, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
+- **·** `_$E15` (written by the compiler)
+  - calls: CvString::~CvString [CvString.h]
+  - called by (2): , CvGameTextMgr::setPlotListHelp

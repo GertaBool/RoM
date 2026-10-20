@@ -2,162 +2,162 @@
 
 Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **8** `cyIntRange(int, int, int)` (Python: cyIntRange)
+- **9** `cyIntRange(int, int, int)` (Python: cyIntRange)
   - calls: range(int, int, int) [CvGameCoreUtils.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **13** `cyFloatRange(float, float, float)` (Python: cyFloatRange)
+- **14** `cyFloatRange(float, float, float)` (Python: cyFloatRange)
   - calls: range(float, float, float) [CvGameCoreUtils.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **18** `cyDxWrap(int)` (Python: dxWrap)
+- **19** `cyDxWrap(int)` (Python: dxWrap)
   - calls: dxWrap [CvGameCoreUtils.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **23** `cyDyWrap(int)` (Python: dyWrap)
+- **24** `cyDyWrap(int)` (Python: dyWrap)
   - calls: dyWrap [CvGameCoreUtils.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **28** `cyPlotDistance(int, int, int, int)` (Python: plotDistance)
+- **29** `cyPlotDistance(int, int, int, int)` (Python: plotDistance)
   - calls: plotDistance [CvGameCoreUtils.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **33** `cyStepDistance(int, int, int, int)` (Python: stepDistance)
+- **34** `cyStepDistance(int, int, int, int)` (Python: stepDistance)
   - calls: stepDistance [CvGameCoreUtils.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **38** `cyPlotDirection(int, int, DirectionTypes)` (Python: plotDirection)
-  - calls: plotDirection [CvGameCoreUtils.h], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **39** `cyPlotDirection(int, int, DirectionTypes)` (Python: plotDirection)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], plotDirection [CvGameCoreUtils.h], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **43** `cyPlotCardinalDirection(int, int, CardinalDirectionTypes)` (Python: plotCardinalDirection)
-  - calls: plotCardinalDirection [CvGameCoreUtils.h], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **44** `cyPlotCardinalDirection(int, int, CardinalDirectionTypes)` (Python: plotCardinalDirection)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], plotCardinalDirection [CvGameCoreUtils.h], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **48** `cysPlotCardinalDirection(int, int, CardinalDirectionTypes)` (Python: splotCardinalDirection)
+- **49** `cysPlotCardinalDirection(int, int, CardinalDirectionTypes)` (Python: splotCardinalDirection)
   - calls: CyPlot::CyPlot() [CyPlot.cpp], plotCardinalDirection [CvGameCoreUtils.h], CyPlot::setPlot [CyPlot.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **54** `cyPlotXY(int, int, int, int)` (Python: plotXY)
-  - calls: plotXY [CvGameCoreUtils.h], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **55** `cyPlotXY(int, int, int, int)` (Python: plotXY)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], plotXY [CvGameCoreUtils.h], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **59** `cysPlotXY(int, int, int, int)` (Python: splotXY)
+- **60** `cysPlotXY(int, int, int, int)` (Python: splotXY)
   - calls: CyPlot::CyPlot() [CyPlot.cpp], plotXY [CvGameCoreUtils.h], CyPlot::setPlot [CyPlot.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **66** `cyDirectionXYFromInt(int, int)` (Python: directionXY)
+- **67** `cyDirectionXYFromInt(int, int)` (Python: directionXY)
   - calls: directionXY(int, int) [CvGameCoreUtils.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **71** `cyDirectionXYFromPlot(CyPlot *, CyPlot *)` (Python: directionXYFromPlot)
-  - calls: directionXY(const CvPlot *, const CvPlot *) [CvGameCoreUtils.h], CyPlot::getPlot [CyPlot.h]
+- **72** `cyDirectionXYFromPlot(CyPlot*, CyPlot*)` (Python: directionXYFromPlot)
+  - calls: directionXY(CvPlot const*, CvPlot const*) [CvGameCoreUtils.h], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **76** `cyPlotCity(int, int, int)` (Python: plotCity)
-  - calls: plotCity [CvGameCoreUtils.cpp], CyPlot::CyPlot(CvPlot *) [CyPlot.cpp]
+- **77** `cyPlotCity(int, int, int)` (Python: plotCity)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], plotCity [CvGameCoreUtils.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **81** `cyPlotCityXYFromInt(int, int)` (Python: plotCityXY)
+- **82** `cyPlotCityXYFromInt(int, int)` (Python: plotCityXY)
   - calls: plotCityXY(int, int) [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **86** `cyPlotCityXYFromCity(CyCity *, CyPlot *)` (Python: plotCityXYFromCity)
-  - calls: plotCityXY(const CvCity *, const CvPlot *) [CvGameCoreUtils.cpp], CyCity::getCity [CyCity.h], CyPlot::getPlot [CyPlot.h]
+- **87** `cyPlotCityXYFromCity(CyCity*, CyPlot*)` (Python: plotCityXYFromCity)
+  - calls: plotCityXY(CvCity const*, CvPlot const*) [CvGameCoreUtils.cpp], CyCity::getCity [CyCity.h], CyPlot::getPlot [CyPlot.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **91** `cyGetOppositeCardinalDirection(CardinalDirectionTypes)` (Python: getOppositeCardinalDirection)
+- **92** `cyGetOppositeCardinalDirection(CardinalDirectionTypes)` (Python: getOppositeCardinalDirection)
   - calls: getOppositeCardinalDirection [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **96** `cyCardinalDirectionToDirection(CardinalDirectionTypes)` (Python: cardinalDirectionToDirection)
+- **97** `cyCardinalDirectionToDirection(CardinalDirectionTypes)` (Python: cardinalDirectionToDirection)
   - calls: cardinalDirectionToDirection [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **101** `cyIsCardinalDirection(DirectionTypes)` (Python: isCardinalDirection)
+- **102** `cyIsCardinalDirection(DirectionTypes)` (Python: isCardinalDirection)
   - calls: isCardinalDirection [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **106** `cyEstimateDirection(int, int)` (Python: estimateDirection)
+- **107** `cyEstimateDirection(int, int)` (Python: estimateDirection)
   - calls: estimateDirection(int, int) [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **111** `cyAtWar(int, int)` (Python: atWar)
+- **112** `cyAtWar(int, int)` (Python: atWar)
   - calls: atWar [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **116** `cyIsPotentialEnemy(int, int)` (Python: isPotentialEnemy)
+- **117** `cyIsPotentialEnemy(int, int)` (Python: isPotentialEnemy)
   - calls: isPotentialEnemy [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **121** `cyGetCity(IDInfo)` (Python: getCity)
-  - calls: getCity [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CyCity::CyCity(CvCity *) [CyCity.cpp]
+- **122** `cyGetCity(IDInfo)` (Python: getCity)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], getCity [CvGameCoreUtils.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **126** `cyGetUnit(IDInfo)` (Python: getUnit)
-  - calls: getUnit [CvGameCoreUtils.cpp], IDInfo::IDInfo(const IDInfo &) [CvStructs.h], CyUnit::CyUnit(CvUnit *) [CyUnit.cpp]
+- **127** `cyGetUnit(IDInfo)` (Python: getUnit)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], getUnit [CvGameCoreUtils.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **131** `cyIsPromotionValid(int, int, bool)` (Python: isPromotionValid)
+- **132** `cyIsPromotionValid(int, int, bool)` (Python: isPromotionValid)
   - calls: isPromotionValid [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **136** `cyGetPopulationAsset(int)` (Python: getPopulationAsset)
+- **137** `cyGetPopulationAsset(int)` (Python: getPopulationAsset)
   - calls: getPopulationAsset [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **141** `cyGetLandPlotsAsset(int)` (Python: getLandPlotsAsset)
+- **142** `cyGetLandPlotsAsset(int)` (Python: getLandPlotsAsset)
   - calls: getLandPlotsAsset [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **146** `cyGetPopulationPower(int)` (Python: getPopulationPower)
+- **147** `cyGetPopulationPower(int)` (Python: getPopulationPower)
   - calls: getPopulationPower [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **151** `cyGetPopulationScore(int)` (Python: getPopulationScore)
+- **152** `cyGetPopulationScore(int)` (Python: getPopulationScore)
   - calls: getPopulationScore [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **156** `cyGetLandPlotsScore(int)` (Python: getLandPlotsScore)
+- **157** `cyGetLandPlotsScore(int)` (Python: getLandPlotsScore)
   - calls: getLandPlotsScore [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **161** `cyGetTechScore(int)` (Python: getTechScore)
+- **162** `cyGetTechScore(int)` (Python: getTechScore)
   - calls: getTechScore [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **166** `cyGetWonderScore(int)` (Python: getWonderScore)
+- **167** `cyGetWonderScore(int)` (Python: getWonderScore)
   - calls: getWonderScore [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **171** `cyFinalImprovementUpgrade(int, int)` (Python: finalImprovementUpgrade)
+- **172** `cyFinalImprovementUpgrade(int, int)` (Python: finalImprovementUpgrade)
   - calls: finalImprovementUpgrade [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **176** `cyGetWorldSizeMaxConscript(int)` (Python: getWorldSizeMaxConscript)
+- **177** `cyGetWorldSizeMaxConscript(int)` (Python: getWorldSizeMaxConscript)
   - calls: getWorldSizeMaxConscript [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **181** `cyIsReligionTech(int)` (Python: isReligionTech)
+- **182** `cyIsReligionTech(int)` (Python: isReligionTech)
   - calls: isReligionTech [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **186** `cyIsTechRequiredForUnit(int, int)` (Python: isTechRequiredForUnit)
+- **187** `cyIsTechRequiredForUnit(int, int)` (Python: isTechRequiredForUnit)
   - calls: isTechRequiredForUnit [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **191** `cyIsTechRequiredForBuilding(int, int)` (Python: isTechRequiredForBuilding)
+- **192** `cyIsTechRequiredForBuilding(int, int)` (Python: isTechRequiredForBuilding)
   - calls: isTechRequiredForBuilding [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **196** `cyIsTechRequiredForProject(int, int)` (Python: isTechRequiredForProject)
+- **197** `cyIsTechRequiredForProject(int, int)` (Python: isTechRequiredForProject)
   - calls: isTechRequiredForProject [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **201** `cyIsWorldUnitClass(int)` (Python: isWorldUnitClass)
+- **202** `cyIsWorldUnitClass(int)` (Python: isWorldUnitClass)
   - calls: isWorldUnitClass [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **206** `cyIsTeamUnitClass(int)` (Python: isTeamUnitClass)
+- **207** `cyIsTeamUnitClass(int)` (Python: isTeamUnitClass)
   - calls: isTeamUnitClass [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **211** `cyIsNationalUnitClass(int)` (Python: isNationalUnitClass)
+- **212** `cyIsNationalUnitClass(int)` (Python: isNationalUnitClass)
   - calls: isNationalUnitClass [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **216** `cyIsLimitedUnitClass(int)` (Python: isLimitedUnitClass)
+- **217** `cyIsLimitedUnitClass(int)` (Python: isLimitedUnitClass)
   - calls: isLimitedUnitClass [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **221** `cyIsWorldWonderClass(int)` (Python: isWorldWonderClass)
+- **222** `cyIsWorldWonderClass(int)` (Python: isWorldWonderClass)
   - calls: isWorldWonderClass [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **226** `cyIsTeamWonderClass(int)` (Python: isTeamWonderClass)
+- **227** `cyIsTeamWonderClass(int)` (Python: isTeamWonderClass)
   - calls: isTeamWonderClass [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **231** `cyIsNationalWonderClass(int)` (Python: isNationalWonderClass)
+- **232** `cyIsNationalWonderClass(int)` (Python: isNationalWonderClass)
   - calls: isNationalWonderClass [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **236** `cyIsLimitedWonderClass(int)` (Python: isLimitedWonderClass)
+- **237** `cyIsLimitedWonderClass(int)` (Python: isLimitedWonderClass)
   - calls: isLimitedWonderClass [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **241** `cyIsWorldProject(int)` (Python: isWorldProject)
+- **242** `cyIsWorldProject(int)` (Python: isWorldProject)
   - calls: isWorldProject [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **246** `cyIsTeamProject(int)` (Python: isTeamProject)
+- **247** `cyIsTeamProject(int)` (Python: isTeamProject)
   - calls: isTeamProject [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **251** `cyIsLimitedProject(int)` (Python: isLimitedProject)
+- **252** `cyIsLimitedProject(int)` (Python: isLimitedProject)
   - calls: isLimitedProject [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **256** `cyGetCombatOdds(CyUnit *, CyUnit *)` (Python: getCombatOdds)
-  - calls: getCombatOdds [CvGameCoreUtils.cpp], CyUnit::getUnit() [CyUnit.h]
+- **257** `cyGetCombatOdds(CyUnit*, CyUnit*)` (Python: getCombatOdds)
+  - calls: getCombatOdds [CvGameCoreUtils.cpp], CyUnit::getUnit [CyUnit.h]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **261** `cyGetEspionageModifier(int, int)` (Python: getEspionageModifier)
+- **262** `cyGetEspionageModifier(int, int)` (Python: getEspionageModifier)
   - calls: getEspionageModifier [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **267** `cyCalculateExperience(int, int)` (Python: calculateExperience)
+- **268** `cyCalculateExperience(int, int)` (Python: calculateExperience)
   - calls: calculateExperience [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface
-- **272** `cyCalculateLevel(int, int)` (Python: calculateLevel)
+- **273** `cyCalculateLevel(int, int)` (Python: calculateLevel)
   - calls: calculateLevel [CvGameCoreUtils.cpp]
   - called by (1): CyGameCoreUtilsPythonInterface

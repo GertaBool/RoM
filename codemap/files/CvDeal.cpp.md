@@ -2,130 +2,135 @@
 
 Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **27** `CvDeal::CvDeal()`
-  - calls: CvDeal::reset
-- **33** `CvDeal::~CvDeal()` (virtual)
-  - calls: CvDeal::uninit
-- **39** `CvDeal::init(int, PlayerTypes, PlayerTypes)`
-  - calls: CvDeal::reset, CvDeal::setInitialGameTurn, CvGame::getGameTurn [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **28** `CvDeal::CvDeal()`
+  - calls: CLinkList<TradeData>::CLinkList<struct TradeData> [LinkedList.h], CvDeal::reset, CLinkList<TradeData>::~CLinkList<struct TradeData> [LinkedList.h]
+  - called by (2): FFreeListTrashArray<CvDeal>::add, ReadStreamableFFreeListTrashArray<class CvDeal>
+- **34** `CvDeal::~CvDeal()` (virtual)
+  - calls: CvDeal::uninit, CLinkList<TradeData>::~CLinkList<struct TradeData> [LinkedList.h]
+  - called by (1): CvDeal::`scalar deleting dtor'
+- **40** `CvDeal::init(int, PlayerTypes, PlayerTypes)`
+  - calls: CvDeal::reset, CvDeal::setInitialGameTurn, CvGame::getGameTurn [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (1): CvGame::implementDeal
-- **54** `CvDeal::uninit()`
-  - calls: CLinkList::clear [LinkedList.h]
+- **55** `CvDeal::uninit()`
+  - calls: CLinkList<TradeData>::clear [LinkedList.h]
   - called by (2): CvDeal::reset, CvDeal::~CvDeal
-- **63** `CvDeal::reset(int, PlayerTypes, PlayerTypes)`
+- **64** `CvDeal::reset(int, PlayerTypes, PlayerTypes)`
   - calls: CvDeal::uninit
   - called by (2): CvDeal::CvDeal, CvDeal::init
-- **77** `CvDeal::kill(bool)` (exported)
-  - calls: CvDeal::getLengthFirstTrades, CvDeal::getLengthSecondTrades, CvWString::CvWString() [CvString.h], CvWStringBuffer::CvWStringBuffer [CvString.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvDeal::getFirstPlayer, CvDeal::getSecondPlayer, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvWStringBuffer::clear [CvString.h], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::getDealString(CvWStringBuffer &, CvDeal &, PlayerTypes) [CvGameTextMgr.cpp], CvWString::GetCString [CvString.h], CvWStringBuffer::getCString [CvString.h], CvWString::Format [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvWString::CvWString(const CvWString &) [CvString.h], CvDeal::nextFirstTradesNode, CvDeal::headFirstTradesNode, CvDeal::endTrade, TradeData::TradeData(const TradeData &) [CvStructs.h], CvDeal::nextSecondTradesNode, CvDeal::headSecondTradesNode, CvDeal::getID, CvGame::deleteDeal [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h]
+- **78** `CvDeal::kill(bool)` (exported)
+  - calls: CvDeal::getLengthFirstTrades, CvDeal::getLengthSecondTrades, CvWString::CvWString() [CvString.h], CvWStringBuffer::CvWStringBuffer [CvString.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(char const*) [CvString.h], CvDeal::getFirstPlayer, CvDeal::getSecondPlayer, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvWStringBuffer::clear [CvString.h], CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes) [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::getCString [CvString.h], CvWString::Format [CvString.h], CvWString::GetCString [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWString::~CvWString [CvString.h], CvDeal::nextFirstTradesNode, CvDeal::headFirstTradesNode, CvDeal::endTrade, CvDeal::nextSecondTradesNode, CvDeal::headSecondTradesNode, CvDeal::getID, CvGame::deleteDeal [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (12): CvDeal::endTeamTrade, CvDeal::verify, CvGame::implementDeal, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam, CvPlayerAI::AI_doDiplo, CvTeam::addTeam, CvTeam::cancelDefensivePacts, CvTeam::declareWar, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::kill
-- **118** `CvDeal::addTrades(CLinkList<TradeData> *, CLinkList<TradeData> *, bool)`
-  - calls: CvDeal::getFirstPlayer, CvDeal::getSecondPlayer, warLogDeal [CvGameCoreUtils.cpp], CvDeal::isVassalTrade, CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h], CvPlayer::canTradeItem [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], TradeData::TradeData(const TradeData &) [CvStructs.h], CvPlayer::getTeam [CvPlayer.cpp], atWar [CvGameCoreUtils.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isAlive [CvTeam.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeam::freeVassal [CvTeam.cpp], CvGlobals::getWAR_SUCCESS_CITY_CAPTURING [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTeam::getNumCities [CvTeam.cpp], CvTeamAI::AI_getWarSuccess [CvTeamAI.cpp], CvTeamAI::AI_setWarSuccess [CvTeamAI.cpp], CvTeam::makePeace [CvTeam.cpp], CvDeal::isPeaceDealBetweenOthers, CLinkList::getLength [LinkedList.h], CvPlayerAI::AI_dealVal [CvPlayerAI.cpp], CvPlayerAI::AI_changePeacetimeTradeValue [CvPlayerAI.cpp], CvPlayerAI::AI_changePeacetimeGrantValue [CvPlayerAI.cpp], CvDeal::startTrade, CvDeal::insertAtEndFirstTrades, CvDeal::insertAtEndSecondTrades, CvTeam::addTeam [CvTeam.cpp]
+- **119** `CvDeal::addTrades(CLinkList<TradeData>*, CLinkList<TradeData>*, bool)`
+  - calls: CvDeal::getFirstPlayer, CvDeal::getSecondPlayer, warLogDeal [CvGameCoreUtils.cpp], CvDeal::isVassalTrade, CLinkList<TradeData>::next [LinkedList.h], CLinkList<TradeData>::head [LinkedList.h], CvPlayer::canTradeItem [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], atWar [CvGameCoreUtils.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isAlive [CvTeam.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeam::freeVassal [CvTeam.cpp], CvGlobals::getWAR_SUCCESS_CITY_CAPTURING [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTeam::getNumCities [CvTeam.cpp], CvTeamAI::AI_getWarSuccess [CvTeamAI.cpp], CvTeamAI::AI_setWarSuccess [CvTeamAI.cpp], CvTeam::makePeace [CvTeam.cpp], CvDeal::isPeaceDealBetweenOthers, CLinkList<TradeData>::getLength [LinkedList.h], CvPlayerAI::AI_dealVal [CvPlayerAI.cpp], CvPlayerAI::AI_changePeacetimeTradeValue [CvPlayerAI.cpp], CvPlayerAI::AI_changePeacetimeGrantValue [CvPlayerAI.cpp], CvDeal::startTrade, CvDeal::insertAtEndFirstTrades, CvDeal::insertAtEndSecondTrades, CvTeam::addTeam [CvTeam.cpp]
   - called by (1): CvGame::implementDeal
-- **297** `CvDeal::doTurn()`
-  - calls: CvDeal::isPeaceDeal, CvDeal::getLengthSecondTrades, CvDeal::getFirstPlayer, CvDeal::getSecondPlayer, CvDeal::getSecondTrades, CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayerAI::AI_dealVal [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvDeal::getLengthFirstTrades, CvPlayerAI::AI_changePeacetimeTradeValue [CvPlayerAI.cpp], CvPlayerAI::AI_changePeacetimeGrantValue [CvPlayerAI.cpp], CvDeal::getFirstTrades
+- **298** `CvDeal::doTurn()`
+  - calls: CvDeal::isPeaceDeal, CvDeal::getLengthSecondTrades, CvDeal::getFirstPlayer, CvDeal::getSecondPlayer, CvDeal::getSecondTrades, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayerAI::AI_dealVal [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvDeal::getLengthFirstTrades, CvPlayerAI::AI_changePeacetimeTradeValue [CvPlayerAI.cpp], CvPlayerAI::AI_changePeacetimeGrantValue [CvPlayerAI.cpp], CvDeal::getFirstTrades
   - called by (1): CvGame::doDeals
-- **335** `CvDeal::verify()`
+- **336** `CvDeal::verify()`
   - calls: CvDeal::getFirstPlayer, CvPlayerAI::getPlayer [CvPlayerAI.h], CvDeal::getSecondPlayer, CvDeal::nextFirstTradesNode, CvDeal::headFirstTradesNode, CvPlayer::getNumTradeableBonuses [CvPlayer.cpp], CvPlayer::canTradeNetworkWith [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::isBonusObsolete [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvDeal::nextSecondTradesNode, CvDeal::headSecondTradesNode, CvDeal::isCancelable, CvDeal::isPeaceDeal, CvDeal::kill
   - called by (1): CvGame::verifyDeals
-- **387** `CvDeal::isPeaceDeal()`
+- **388** `CvDeal::isPeaceDeal() const`
   - calls: CvDeal::nextFirstTradesNode, CvDeal::headFirstTradesNode, CvDeal::getPeaceItem, CvDeal::nextSecondTradesNode, CvDeal::headSecondTradesNode
   - called by (5): CvDeal::doTurn, CvDeal::verify, CvPlayer::isTradingWithTeam, CvPlayer::stopTradingWithTeam, CvPlayerAI::AI_stopTradingTradeVal
-- **410** `CvDeal::isVassalDeal()`
+- **411** `CvDeal::isVassalDeal() const`
   - calls: CvDeal::isVassalTrade
   - called by (1): CvPlayerAI::AI_doDiplo
-- **415** `CvDeal::isVassalTrade(const CLinkList<TradeData> *)` (static)
-  - calls: CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h], CvDeal::isVassal
+- **416** `CvDeal::isVassalTrade(CLinkList<TradeData> const*)` (static)
+  - calls: CLinkList<TradeData>::next [LinkedList.h], CLinkList<TradeData>::head [LinkedList.h], CvDeal::isVassal
   - called by (2): CvDeal::addTrades, CvDeal::isVassalDeal
-- **432** `CvDeal::isUncancelableVassalDeal(PlayerTypes, CvWString *)`
-  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvDeal::nextFirstTradesNode, CvDeal::headFirstTradesNode, CvDeal::isVassal, CvDeal::getSecondPlayer, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvDeal::getFirstPlayer, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::canVassalRevolt [CvTeam.cpp], CvWStringBuffer::clear [CvString.h], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::setVassalRevoltHelp [CvGameTextMgr.cpp], CvWString::operator=(const wchar *) [CvString.h], CvWStringBuffer::getCString [CvString.h], CvDeal::nextSecondTradesNode, CvDeal::headSecondTradesNode
-  - takes the address of: CvWString::operator=(const wchar *) [CvString.h]
+- **433** `CvDeal::isUncancelableVassalDeal(PlayerTypes, CvWString*) const`
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvDeal::nextFirstTradesNode, CvDeal::headFirstTradesNode, CvDeal::isVassal, CvDeal::getSecondPlayer, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvDeal::getFirstPlayer, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::canVassalRevolt [CvTeam.cpp], CvWStringBuffer::clear [CvString.h], CvGameTextMgr::setVassalRevoltHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::getCString [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h], CvDeal::nextSecondTradesNode, CvDeal::headSecondTradesNode
   - called by (2): CvDeal::isCancelable, CyDeal::isCancelable
-- **511** `CvDeal::isVassalTributeDeal(const CLinkList<TradeData> *)` (exported; static)
-  - calls: CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h]
+- **512** `CvDeal::isVassalTributeDeal(CLinkList<TradeData> const*)` (exported; static)
+  - calls: CLinkList<TradeData>::next [LinkedList.h], CLinkList<TradeData>::head [LinkedList.h]
   - called by (1): CvPlayerAI::AI_considerOffer
-- **524** `CvDeal::isPeaceDealBetweenOthers(CLinkList<TradeData> *, CLinkList<TradeData> *)`
-  - calls: CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h]
+- **525** `CvDeal::isPeaceDealBetweenOthers(CLinkList<TradeData>*, CLinkList<TradeData>*) const`
+  - calls: CLinkList<TradeData>::next [LinkedList.h], CLinkList<TradeData>::head [LinkedList.h]
   - called by (1): CvDeal::addTrades
-- **554** `CvDeal::getID()` (exported)
-  - called by (4): CvDLLWidgetData::doDealKill, CvDeal::kill, CvGame::implementDeal, CyDeal::getID
-- **560** `CvDeal::setID(int)`
-- **566** `CvDeal::getInitialGameTurn()`
+- **555** `CvDeal::getID() const` (exported)
+  - called by (7): CvDLLWidgetData::doDealKill, CvDeal::kill, CvGame::implementDeal, CyDeal::getID, FFreeListTrashArray<CvDeal>::getAt, FFreeListTrashArray<CvDeal>::load, FFreeListTrashArray<CvDeal>::removeAt
+- **561** `CvDeal::setID(int)`
+  - called by (1): FFreeListTrashArray<CvDeal>::add
+- **567** `CvDeal::getInitialGameTurn() const`
   - called by (3): CvDeal::turnsToCancel, CvPlayerAI::AI_doDiplo, CyDeal::getInitialGameTurn
-- **572** `CvDeal::setInitialGameTurn(int)`
+- **573** `CvDeal::setInitialGameTurn(int)`
   - called by (1): CvDeal::init
-- **578** `CvDeal::getFirstPlayer()` (exported)
-  - called by (20): CvDeal::addTrades, CvDeal::doTurn, CvDeal::endTeamTrade, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getDealString(CvWStringBuffer &, CvDeal &, PlayerTypes), CvPlayer::getNumTradeBonusImports, CvPlayer::isTradingWithTeam, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam …
-- **584** `CvDeal::getSecondPlayer()` (exported)
-  - called by (20): CvDeal::addTrades, CvDeal::doTurn, CvDeal::endTeamTrade, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getDealString(CvWStringBuffer &, CvDeal &, PlayerTypes), CvPlayer::getNumTradeBonusImports, CvPlayer::isTradingWithTeam, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam …
-- **590** `CvDeal::clearFirstTrades()`
-  - calls: CLinkList::clear [LinkedList.h]
-- **596** `CvDeal::insertAtEndFirstTrades(TradeData)`
-  - calls: CLinkList::insertAtEnd [LinkedList.h]
+- **579** `CvDeal::getFirstPlayer() const` (exported)
+  - called by (20): CvDeal::addTrades, CvDeal::doTurn, CvDeal::endTeamTrade, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes), CvPlayer::getNumTradeBonusImports, CvPlayer::isTradingWithTeam, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam …
+- **585** `CvDeal::getSecondPlayer() const` (exported)
+  - called by (20): CvDeal::addTrades, CvDeal::doTurn, CvDeal::endTeamTrade, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvGameTextMgr::getActiveDealsString, CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes), CvPlayer::getNumTradeBonusImports, CvPlayer::isTradingWithTeam, CvPlayer::killAllDeals, CvPlayer::stopTradingWithTeam …
+- **591** `CvDeal::clearFirstTrades()`
+  - calls: CLinkList<TradeData>::clear [LinkedList.h]
+- **597** `CvDeal::insertAtEndFirstTrades(TradeData)`
+  - calls: CLinkList<TradeData>::insertAtEnd [LinkedList.h]
   - called by (1): CvDeal::addTrades
-- **602** `CvDeal::nextFirstTradesNode(CLLNode<TradeData> *)` (exported)
-  - calls: CLinkList::next [LinkedList.h]
+- **603** `CvDeal::nextFirstTradesNode(CLLNode<TradeData>*) const` (exported)
+  - calls: CLinkList<TradeData>::next [LinkedList.h]
   - called by (7): CvDeal::isPeaceDeal, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvPlayer::getNumTradeBonusImports, CvPlayerAI::AI_doDiplo, CvTeam::cancelDefensivePacts
-- **608** `CvDeal::getLengthFirstTrades()`
-  - calls: CLinkList::getLength [LinkedList.h]
+- **609** `CvDeal::getLengthFirstTrades() const`
+  - calls: CLinkList<TradeData>::getLength [LinkedList.h]
   - called by (7): CvDLLWidgetData::parseKillDealHelp, CvDeal::doTurn, CvDeal::kill, CvGame::implementDeal, CvPlayer::isTradingWithTeam, CvPlayerAI::AI_stopTradingTradeVal, CyDeal::getLengthFirstTrades
-- **614** `CvDeal::headFirstTradesNode()` (exported)
-  - calls: CLinkList::head [LinkedList.h]
+- **615** `CvDeal::headFirstTradesNode() const` (exported)
+  - calls: CLinkList<TradeData>::head [LinkedList.h]
   - called by (7): CvDeal::isPeaceDeal, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvPlayer::getNumTradeBonusImports, CvPlayerAI::AI_doDiplo, CvTeam::cancelDefensivePacts
-- **620** `CvDeal::getFirstTrades()`
-  - called by (10): CvDLLWidgetData::parseKillDealHelp, CvDeal::doTurn, CvDeal::endTeamTrade, CvGameTextMgr::getDealString(CvWStringBuffer &, CvDeal &, PlayerTypes), CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_stopTradingTradeVal, CvTeam::addTeam, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getFirstTrade
-- **626** `CvDeal::clearSecondTrades()`
-  - calls: CLinkList::clear [LinkedList.h]
-- **632** `CvDeal::insertAtEndSecondTrades(TradeData)`
-  - calls: CLinkList::insertAtEnd [LinkedList.h]
+- **621** `CvDeal::getFirstTrades() const`
+  - called by (10): CvDLLWidgetData::parseKillDealHelp, CvDeal::doTurn, CvDeal::endTeamTrade, CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes), CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_stopTradingTradeVal, CvTeam::addTeam, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getFirstTrade
+- **627** `CvDeal::clearSecondTrades()`
+  - calls: CLinkList<TradeData>::clear [LinkedList.h]
+- **633** `CvDeal::insertAtEndSecondTrades(TradeData)`
+  - calls: CLinkList<TradeData>::insertAtEnd [LinkedList.h]
   - called by (1): CvDeal::addTrades
-- **638** `CvDeal::nextSecondTradesNode(CLLNode<TradeData> *)` (exported)
-  - calls: CLinkList::next [LinkedList.h]
+- **639** `CvDeal::nextSecondTradesNode(CLLNode<TradeData>*) const` (exported)
+  - calls: CLinkList<TradeData>::next [LinkedList.h]
   - called by (7): CvDeal::isPeaceDeal, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvPlayer::getNumTradeBonusImports, CvPlayerAI::AI_doDiplo, CvTeam::cancelDefensivePacts
-- **644** `CvDeal::getLengthSecondTrades()`
-  - calls: CLinkList::getLength [LinkedList.h]
+- **645** `CvDeal::getLengthSecondTrades() const`
+  - calls: CLinkList<TradeData>::getLength [LinkedList.h]
   - called by (7): CvDLLWidgetData::parseKillDealHelp, CvDeal::doTurn, CvDeal::kill, CvGame::implementDeal, CvPlayer::isTradingWithTeam, CvPlayerAI::AI_stopTradingTradeVal, CyDeal::getLengthSecondTrades
-- **650** `CvDeal::headSecondTradesNode()` (exported)
-  - calls: CLinkList::head [LinkedList.h]
+- **651** `CvDeal::headSecondTradesNode() const` (exported)
+  - calls: CLinkList<TradeData>::head [LinkedList.h]
   - called by (7): CvDeal::isPeaceDeal, CvDeal::isUncancelableVassalDeal, CvDeal::kill, CvDeal::verify, CvPlayer::getNumTradeBonusImports, CvPlayerAI::AI_doDiplo, CvTeam::cancelDefensivePacts
-- **656** `CvDeal::getSecondTrades()`
-  - called by (10): CvDLLWidgetData::parseKillDealHelp, CvDeal::doTurn, CvDeal::endTeamTrade, CvGameTextMgr::getDealString(CvWStringBuffer &, CvDeal &, PlayerTypes), CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_stopTradingTradeVal, CvTeam::addTeam, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getSecondTrade
-- **662** `CvDeal::write(FDataStreamBase *)`
-  - calls: FDataStreamBase::Write(unsigned int) [FDataStreamBase.h], FDataStreamBase::Write(int) [FDataStreamBase.h], CLinkList::Write [LinkedList.h]
-- **677** `CvDeal::read(FDataStreamBase *)`
-  - calls: FDataStreamBase::Read(unsigned int *) [FDataStreamBase.h], FDataStreamBase::Read(int *) [FDataStreamBase.h], CLinkList::Read [LinkedList.h]
-- **695** `CvDeal::startTrade(TradeData, PlayerTypes, PlayerTypes)`
-  - calls: CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::setHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::setNoTradeTech [CvTeam.cpp], logBBAI [BetterBTSAI.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getDescription [CvInfos.cpp], CvPlayer::getCivilizationDescription [CvPlayer.cpp], CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvTeam::isHasMet [CvTeam.cpp], CvPlayer::changeBonusExport [CvPlayer.cpp], CvPlayer::changeBonusImport [CvPlayer.cpp], CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvPlayer::getCity [CvPlayer.cpp], CvCity::doTask [CvCity.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::AI_changeGoldTradedTo [CvPlayerAI.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::playerGoldTrade [CvEventReporter.cpp], CvPlayer::changeGoldPerTurnByPlayer [CvPlayer.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::isRevealed [CvPlot.cpp], CvPlot::setRevealed [CvPlot.cpp], CvPlayer::updatePlotGroups [CvPlayer.cpp], CvDeal::startTeamTrade, CvTeam::setVassal [CvTeam.cpp], CvTeam::makePeace [CvTeam.cpp], CvTeam::declareWar [CvTeam.cpp], CvPlayer::stopTradingWithTeam [CvPlayer.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvPlayer::getCivics [CvPlayer.cpp], CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvCivicInfo::getCivicOptionType [CvInfos.cpp], CvPlayer::revolution [CvPlayer.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvPlayerAI::AI_getCivicTimer [CvPlayerAI.cpp], CvPlayerAI::AI_setCivicTimer [CvPlayerAI.cpp], CvPlayer::convert [CvPlayer.cpp], CvPlayerAI::AI_getReligionTimer [CvPlayerAI.cpp], CvPlayerAI::AI_setReligionTimer [CvPlayerAI.cpp], CvTeam::setOpenBorders [CvTeam.cpp], CvTeam::setDefensivePact [CvTeam.cpp], CvTeam::setForcePeace [CvTeam.cpp]
+- **657** `CvDeal::getSecondTrades() const`
+  - called by (10): CvDLLWidgetData::parseKillDealHelp, CvDeal::doTurn, CvDeal::endTeamTrade, CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes), CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_stopTradingTradeVal, CvTeam::addTeam, CvTeam::freeVassal, CvTeam::setVassal, CyDeal::getSecondTrade
+- **663** `CvDeal::write(FDataStreamBase*)`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], CLinkList<TradeData>::Write [LinkedList.h]
+  - called by (1): WriteStreamableFFreeListTrashArray<class CvDeal>
+- **678** `CvDeal::read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], CLinkList<TradeData>::Read [LinkedList.h]
+  - called by (1): ReadStreamableFFreeListTrashArray<class CvDeal>
+- **696** `CvDeal::startTrade(TradeData, PlayerTypes, PlayerTypes)`
+  - calls: CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::setHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::setNoTradeTech [CvTeam.cpp], logBBAI [BetterBTSAI.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getDescription [CvInfos.cpp], CvPlayer::getCivilizationDescription [CvPlayer.cpp], CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvTeam::isHasMet [CvTeam.cpp], CvPlayer::changeBonusExport [CvPlayer.cpp], CvPlayer::changeBonusImport [CvPlayer.cpp], CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvPlayer::getCity [CvPlayer.cpp], CvCity::doTask [CvCity.cpp], CvPlayer::changeGold [CvPlayer.cpp], CvPlayerAI::AI_changeGoldTradedTo [CvPlayerAI.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::playerGoldTrade [CvEventReporter.cpp], CvPlayer::changeGoldPerTurnByPlayer [CvPlayer.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::isRevealed [CvPlot.cpp], CvPlot::setRevealed [CvPlot.cpp], CvPlayer::updatePlotGroups [CvPlayer.cpp], CvDeal::startTeamTrade, CvTeam::setVassal [CvTeam.cpp], CvTeam::makePeace [CvTeam.cpp], CvTeam::declareWar [CvTeam.cpp], CvPlayer::stopTradingWithTeam [CvPlayer.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvPlayer::getCivics [CvPlayer.cpp], CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvCivicInfo::getCivicOptionType [CvInfos.cpp], CvPlayer::revolution [CvPlayer.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlayerAI::AI_getCivicTimer [CvPlayerAI.cpp], CvPlayerAI::AI_setCivicTimer [CvPlayerAI.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvPlayer::convert [CvPlayer.cpp], CvPlayerAI::AI_getReligionTimer [CvPlayerAI.cpp], CvPlayerAI::AI_setReligionTimer [CvPlayerAI.cpp], CvTeam::setOpenBorders [CvTeam.cpp], CvTeam::setDefensivePact [CvTeam.cpp], CvTeam::setForcePeace [CvTeam.cpp]
   - called by (1): CvDeal::addTrades
-- **1093** `CvDeal::endTrade(TradeData, PlayerTypes, PlayerTypes, bool)`
+- **1094** `CvDeal::endTrade(TradeData, PlayerTypes, PlayerTypes, bool)`
   - calls: CvPlayer::changeBonusImport [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::changeBonusExport [CvPlayer.cpp], CvPlayer::changeGoldPerTurnByPlayer [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::setVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvDeal::endTeamTrade, CvTeam::setOpenBorders [CvTeam.cpp], CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvTeam::setDefensivePact [CvTeam.cpp], CvTeam::setForcePeace [CvTeam.cpp]
   - called by (1): CvDeal::kill
-- **1193** `CvDeal::startTeamTrade(TradeableItems, TeamTypes, TeamTypes, bool)`
-  - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], TradeData::TradeData() [CvStructs.h], setTradeItem [CvGameCoreUtils.cpp], CLinkList::CLinkList<tVARTYPE> [LinkedList.h], CLinkList::insertAtEnd [LinkedList.h], CvGame::implementDeal [CvGame.cpp], CvGlobals::getGame [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
+- **1194** `CvDeal::startTeamTrade(TradeableItems, TeamTypes, TeamTypes, bool)`
+  - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], setTradeItem [CvGameCoreUtils.cpp], CLinkList<TradeData>::CLinkList<struct TradeData> [LinkedList.h], CLinkList<TradeData>::insertAtEnd [LinkedList.h], CvGame::implementDeal [CvGame.cpp], CvGlobals::getGame [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CLinkList<TradeData>::~CLinkList<struct TradeData> [LinkedList.h]
   - called by (1): CvDeal::startTrade
-- **1227** `CvDeal::endTeamTrade(TradeableItems, TeamTypes, TeamTypes)`
-  - calls: CvGame::firstDeal [CvGame.cpp], CvGame::nextDeal [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvDeal::getFirstPlayer, CvDeal::getSecondPlayer, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvDeal::getFirstTrades, CLinkList::head [LinkedList.h], CLinkList::next [LinkedList.h], CvDeal::getSecondTrades, CvDeal::kill
+- **1228** `CvDeal::endTeamTrade(TradeableItems, TeamTypes, TeamTypes)`
+  - calls: CvGame::firstDeal [CvGame.cpp], CvGame::nextDeal [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDeal::getFirstPlayer, CvDeal::getSecondPlayer, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvDeal::getFirstTrades, CLinkList<TradeData>::next [LinkedList.h], CLinkList<TradeData>::head [LinkedList.h], CvDeal::getSecondTrades, CvDeal::kill
   - called by (1): CvDeal::endTrade
-- **1275** `CvDeal::isCancelable(PlayerTypes, CvWString *)` (exported)
-  - calls: CvDeal::isUncancelableVassalDeal, CvDeal::turnsToCancel, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString(const char *) [CvString.h], CvWString::operator=(const CvWString &) [CvString.h]
-  - takes the address of: CvWString::operator=(const CvWString &) [CvString.h]
+- **1276** `CvDeal::isCancelable(PlayerTypes, CvWString*)` (exported)
+  - calls: CvDeal::isUncancelableVassalDeal, CvDeal::turnsToCancel, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h]
   - called by (10): CvDLLWidgetData::doDealKill, CvDLLWidgetData::isLink, CvDLLWidgetData::parseKillDealHelp, CvDeal::verify, CvPlayer::isTradingWithTeam, CvPlayer::stopTradingWithTeam, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_stopTradingTradeVal, CyDeal::getCannotCancelReason, CyDeal::isCancelable
-- **1294** `CvDeal::turnsToCancel(PlayerTypes)` (exported)
-  - calls: CvDeal::getInitialGameTurn, CvGame::getGameTurn [CvGame.cpp], CvGlobals::getDefineINT(const char *) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getInstance [CvGlobals.h]
+- **1295** `CvDeal::turnsToCancel(PlayerTypes)` (exported)
+  - calls: CvDeal::getInitialGameTurn, CvGame::getGameTurn [CvGame.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (2): CvDeal::isCancelable, CyDeal::turnsToCancel
-- **1300** `CvDeal::isAnnual(TradeableItems)` (exported; static)
+- **1301** `CvDeal::isAnnual(TradeableItems)` (exported; static)
   - called by (1): CvPlayer::updateTradeList
-- **1319** `CvDeal::isDual(TradeableItems, bool)` (exported; static)
-- **1335** `CvDeal::hasData(TradeableItems)` (exported; static)
-- **1346** `CvDeal::isGold(TradeableItems)` (exported; static)
+- **1320** `CvDeal::isDual(TradeableItems, bool)` (exported; static)
+- **1336** `CvDeal::hasData(TradeableItems)` (exported; static)
+- **1347** `CvDeal::isGold(TradeableItems)` (exported; static)
   - calls: CvDeal::getGoldItem, CvDeal::getGoldPerTurnItem
-- **1351** `CvDeal::isVassal(TradeableItems)` (exported; static)
+- **1352** `CvDeal::isVassal(TradeableItems)` (exported; static)
   - called by (4): CvDeal::isEndWar, CvDeal::isUncancelableVassalDeal, CvDeal::isVassalTrade, CvPlayer::updateTradeList
-- **1356** `CvDeal::isEndWar(TradeableItems)` (exported; static)
+- **1357** `CvDeal::isEndWar(TradeableItems)` (exported; static)
   - calls: CvDeal::getPeaceItem, CvDeal::isVassal
   - called by (1): CvPlayer::updateTradeList
-- **1371** `CvDeal::getPeaceItem()` (exported; static)
+- **1372** `CvDeal::getPeaceItem()` (exported; static)
   - called by (2): CvDeal::isEndWar, CvDeal::isPeaceDeal
-- **1376** `CvDeal::getGoldItem()` (exported; static)
+- **1377** `CvDeal::getGoldItem()` (exported; static)
   - called by (1): CvDeal::isGold
-- **1381** `CvDeal::getGoldPerTurnItem()` (exported; static)
+- **1382** `CvDeal::getGoldPerTurnItem()` (exported; static)
   - called by (1): CvDeal::isGold
+- **·** `CvDeal::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: CvDeal::~CvDeal, operator delete(void*) [CvGameCoreDLL.cpp]

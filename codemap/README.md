@@ -1,22 +1,26 @@
 # Code map of the DLL
 
-A map of every function in the DLL source (`Assets/CvGameCoreDLL` of the GitLab repository
-`rise-of-mankind`) and how they connect: who calls whom, who overrides whom, what the game exe calls, what
-Python calls, and what the DLL calls in Python. It describes linkage only, not what the functions do.
+A map of every function of the DLL (`Assets/CvGameCoreDLL` of the GitLab repository `rise-of-mankind`) and
+how they connect. It shows:
+- who calls whom, and who overrides whom;
+- what the DLL offers the game exe and what it calls in the exe;
+- what Python calls in the DLL, and what the DLL calls in Python.
+
+It describes linkage only, not what the functions do. It is read from the output of the real compiler, the
+one the DLL is built with, so every call is the call the compiler made.
 
 ## Where to start
 
-- `skeleton.md`: the overview.
-  - Size and completeness.
-  - The groups of files, and how many calls run between them.
-  - Every file with what it calls most and what calls it most.
-  - The class hierarchy.
-  - The turn and update backbone, two levels deep.
+- `skeleton.md` is the overview:
+  - size and completeness;
+  - the groups of files and the calls between them;
+  - every file with what it calls most and what calls it most;
+  - the class hierarchy;
+  - the turn and update backbone, two levels deep.
 - `entry_points.md`: how control enters the DLL.
-  - Functions the exe calls (`DllExport`).
+  - Functions the DLL offers the exe (`DllExport`).
   - Interface methods the exe provides.
-  - What is exposed to Python.
-  - Where the DLL calls Python.
+  - What is exposed to Python, and where the DLL calls Python.
   - The events posted to Python, with every handler registered for them.
 - `python.md`: the Python modules and how many of their calls reach DLL functions.
 - `files/<file>.md`: one page per source file. Every function in line order, with what it calls, what it
@@ -31,86 +35,96 @@ python3 codemap/tool/query.py callers CvUnitAI::AI_attackCityMove 3
 python3 codemap/tool/query.py path CvGame::update CvCityAI::AI_chooseProduction
 ```
 
+## How it is made
+
+`tool/build.sh <rise-of-mankind checkout> <base game Python dir> <Python 2.4 dir>` rebuilds everything, in a
+few minutes. The source commit is written at the top of `skeleton.md`.
+
+1. **`tool/compile.sh` compiles every `.cpp` with Visual C++ Toolkit 2003 under Wine.** It uses the source's
+   own release flags and defines (`NDEBUG`, `FINAL_RELEASE`), with two changes:
+   - `/Od /Ob0` instead of `/O2`, so no call is inlined or optimised away;
+   - `/FAs`, an assembly listing per unit with the source lines in it.
+
+   Nothing is linked or run. One extra unit includes every header and is built as a precompiled header with
+   `/Z7`. MSVC then writes the type records of every class those headers define.
+2. **`tool/extract_asm.py` reads the listings and objects.**
+   - A function is a `PROC` of a listing whose source file belongs to the DLL. Its line is that of its
+     opening brace.
+   - A **direct call** (`call ?name`) names its exact target, as the compiler resolved it: overloads,
+     `#ifdef`s, macros and templates included.
+   - A **virtual call** (`call [table + N]`) is matched to a method by its slot. Several pieces of evidence
+     are combined:
+     - the method names written in the statement;
+     - the slot layouts from the type records;
+     - where the code shows it, the object's class. That is `this`, the result type of the call that
+       produced the object, or a local's declared type.
+
+     It points to the function in that class's table when the DLL has one, otherwise to the class that
+     introduces the slot. The object's class, when known, is kept with the call. What may run instead is
+     an override in that class or below it (`overrides.tsv`); the pages and `query.py` follow only those.
+     A direct call to a virtual method (`Base::f()`, or an object whose class the compiler knew) runs that
+     method only.
+   - **Overrides** come from comparing each class's table of virtual functions in the listings with its
+     base's.
+   - **Exports** are the `/EXPORT` directives each object passes to the linker.
+   - **Python bindings, calls into Python and event names** are the string arguments pushed for those calls.
+3. **`tool/extract_py.py` lists the Python modules the game loads,** and `tool/py24_scan.py` parses them.
+   - The game imports by name, the mod's folder first, then the base game's. A base module the mod replaces
+     is left out, and so is a file whose name is not a module name.
+   - The parser is the game's own Python 2.4 under Wine, its `compiler` package.
+   - Links into the DLL and the event handlers are then matched by name. The handlers include the BUG
+     configuration XML.
+4. **`tool/render.py` writes the pages.** Every count on them is computed there from the tables.
+
 ## The tables in `map/`
 
-C++, from clang:
-
 | file | one row per |
 |---|---|
-| `functions.tsv` | function declared or defined in the source: `id`, scope, name, signature, kind, file, first and last line, and flags (`definition`, `exported`, `virtual`, `pure`, `static`), plus clang's USR as a stable key |
-| `calls.tsv` | call site (`call`) or place where a function's address is taken (`ref`, e.g. a callback handed to the pathfinder): caller id, callee id, file, line |
-| `overrides.tsv` | method and the base method it overrides directly |
-| `classes.tsv`, `bases.tsv` | class or struct defined in the source; class and its base |
-| `includes.tsv` | file and a file it includes |
-| `python_defs.tsv` | function exposed to Python with `def("name", &f)`: Python name, function id |
+| `functions.tsv` | function: `id`, scope, name, signature, kind (`method`, `function`, `generated` for those the compiler writes itself), file, first and last line, flags, and its mangled name as `key`. Rows with `definition` 0 are virtual methods that are called but have no function in the DLL: pure virtual, or provided by the exe. |
+| `calls.tsv` | `call` (direct), `virtual`, or `ref` (a function's address taken, e.g. a callback for the pathfinder): caller, callee, file, line (empty in functions the compiler wrote), and for a virtual call the object's class when the code shows it. An ambiguous virtual call has one row per candidate. |
+| `overrides.tsv` | method and the base method it overrides |
+| `classes.tsv`, `bases.tsv` | class of the source, with its virtual slots and whether its table is in the DLL; class and base |
+| `unresolved.tsv` | call not tied to one function, with the reason: a virtual `delete` (the class is not visible in the code), a call through a function pointer, an ambiguous virtual call, a virtual call matching no name |
+| `imports.tsv` | function imported from another DLL (the C runtime, the C++ library) and how often it is called |
+| `units.tsv` | compiled unit, its warnings and errors |
+| `python_defs.tsv` | function exposed to Python with `def("name", &f)` |
 | `python_calls.tsv` | DLL call into Python, `callFunction(module, "function")` |
-| `events.tsv` | `CvDllPythonEvents` report function and the event name it posts |
-| `diagnostics.tsv` | statement clang could not fully check; calls inside may be missing |
-| `unresolved.tsv` | call clang could not resolve to a function |
-| `completeness.tsv` | function definition seen by ctags only or by clang only |
-
-Python, scanned by name:
-
-| file | one row per |
-|---|---|
-| `py_functions.tsv` | `def` and `class` |
-| `py_calls.tsv` | call site, with the target when the name is defined once in the same module |
+| `events.tsv` | `CvDllPythonEvents` report function and the event it posts |
+| `completeness.tsv` | definition seen by ctags only (in the source, compiled by no unit) or compiled only |
+| `py_functions.tsv`, `py_calls.tsv`, `py_handlers.tsv`, `py_errors.tsv` | Python `def` and `class`; call site; `addEventHandler` call; module Python 2.4 could not parse |
 | `py_to_cpp.tsv` | Python call of a name the DLL exposes, with the candidate C++ functions |
 | `cpp_to_py.tsv` | DLL call into Python, with the Python function it lands in |
 | `event_handlers.tsv` | event and each handler registered for it |
 
-## How it is made
-
-`tool/build.sh <rise-of-mankind checkout> <base game Python dir>` rebuilds everything. Two builds of the same
-source give identical files. The source commit is written at the top of `skeleton.md`.
-
-1. **Copy the source.** It is copied with the portability edits of `toolchain/clang-gate`:
-   - case aliases for `#include` names;
-   - MSVC 7.1's old `for` scope;
-   - a token paste only MSVC accepts.
-
-   `DllExport` is redefined as a clang annotation, because clang drops `__declspec(dllexport)` outside Windows
-   targets. Line numbers stay those of the source.
-2. **Parse each `.cpp` with libclang** (`tool/extract_cpp.py`), in MSVC compatibility mode with the release
-   build's defines (`FINAL_RELEASE`, no `_MOD_*` switches) and the BTS SDK's Boost and Python headers.
-   - Every call is resolved by clang to the exact function, so overloads and same-named methods are told
-     apart.
-   - Macros are expanded. `GC.` becomes `CvGlobals::getInstance()`, `GET_PLAYER` becomes
-     `CvPlayerAI::getPlayer`.
-   - Nothing is compiled or run.
-3. **Count definitions with universal-ctags** on the same files, as an independent check of what clang found.
-4. **Scan the mod's Python and the base game's Python** (`tool/extract_py.py`).
-   - The game imports a module by name, mod first, so a base module the mod replaces is left out.
-   - The BUG configuration XML is read for its event registrations.
-5. **Render the pages** from the tables (`tool/render.py`). Every count on them is computed there.
-
-## What it gets right, and what it does not show
+## Checks, and limits
 
 Checked when it was built:
-- The calls of `CvCity::doTurn` were compared with the source line by line.
-- The function definitions were compared with ctags.
-  - Definitions only ctags sees are inside `#ifdef` blocks the release build leaves out (`_MOD_FRACTRADE`,
-    `_BUFFY`, the assert dialog), or are spelled differently.
-  - Definitions only clang sees are written by macros or several to a line.
-- The Python bindings were compared with a text search for `.def("`.
-  - Every binding only the text search found is commented out or excluded by `#ifdef`.
-  - Every one only clang found is written in a form the text pattern missed.
-- The build was run twice and gave identical files.
+- **Against the source:** the calls of `CvCity::doTurn` in the listing are those of the source, line by line.
+- **Against an earlier map made with clang** from the same source, pair by pair.
+  - Where the two disagree, the compiler is right: a `sizeof(...)` that clang counted as a call, trivial
+    copies, implicit destructors clang left out, `new T[n]` passing a constructor's address.
+  - Or the two only spell a name differently.
+- **Against ctags,** for the definitions. ctags sees inline functions nothing uses, templates never
+  instantiated and `#ifdef`-ed code, which no unit compiles; the compiler sees functions written by macros.
+- **The Python parse** covers every module the game loads.
 
 Limits:
-- **Virtual calls** are recorded to the method named at the call. Which override runs is decided at run time;
-  `overrides.tsv` lists the candidates, and `query.py` and the pages follow them.
-- **Function pointers** are recorded where the address is taken (`ref`), not where the pointer is later
-  called.
-- **The exe** is outside the map. Calls into its interfaces (`gDLL->...`, the `CvDLL*IFaceBase` classes) are
-  recorded; what the exe calls back is known only through the exported functions.
-- **Code the release build leaves out** by `#ifdef` is not in the map. **Statements clang could not fully
-  check** are listed in `diagnostics.tsv`.
-- **Python links are name matches,** not resolved targets. A method name exposed by several C++ classes gives
-  several candidates. Calls through `getattr` or strings are not seen.
-- **The base game's Python** comes from the game files in the session's downloads. A second downloaded folder
-  of BUG/BUFFY add-on files is not part of the mod's import path and is not included.
+- **Only compiled code is in the map.** An inline function nothing calls, or a template never instantiated,
+  is not, and `completeness.tsv` lists them.
+- **A virtual call's target can stay open.** It is a candidate list when several classes share the method
+  name at that slot and the code doesn't show the object's class.
+  - A virtual `delete` has no class at all.
+  - Calls through function pointers are listed with their statement; the function's address is in `calls.tsv`
+    as `ref` where it is taken.
+- **Overloaded virtual methods of the exe's interfaces** (e.g. `FDataStreamBase::Read`) are matched by name.
+  The type records' slot offsets for overload sets cannot be read, so which overload is called is not shown.
+- **The exe is outside the map.** Calls into its interfaces are recorded. Which exported functions the exe
+  actually calls would need the exe's import table.
+- **Python links into the DLL are name matches,** since Python resolves names when it runs. Calls through
+  `getattr` or strings are not seen.
 - **Line numbers** refer to the source at the commit named in `skeleton.md`.
+- **Rebuilds give the same tables.** The compiler names each anonymous namespace with a hash that changes
+  with every compile, so the hash is replaced by a number fixed by the unit's name.
 
 This folder is not one of the commit gate's gated paths (`method/config.json`). Its tools change no product
 code, but they are tools, and the gate as configured does not cover them.
