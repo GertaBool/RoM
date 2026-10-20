@@ -23,6 +23,9 @@ one the DLL is built with, so every call is the call the compiler made.
   - What is exposed to Python, and where the DLL calls Python.
   - The events posted to Python, with every handler registered for them.
 - `python.md`: the Python modules and how many of their calls reach DLL functions.
+- `hardcoded.md`: the key functions (`query.py rank`) and every entry hard-coded in them, each with what
+  outside the function depends on it, checked against the files that hold the other end. It is for
+  rewriting one of them: what a new version has to keep.
 - `files/<file>.md`: one page per source file. Every function in line order, with what it calls, what it
   takes the address of, and who calls it.
 - `map/`: the data, as tab-separated tables (below).
@@ -33,12 +36,20 @@ python3 codemap/tool/query.py find 'AI_chooseProduction'          # find a funct
 python3 codemap/tool/query.py callees CvCityAI::AI_chooseProduction 2
 python3 codemap/tool/query.py callers CvUnitAI::AI_attackCityMove 3
 python3 codemap/tool/query.py path CvGame::update CvCityAI::AI_chooseProduction
+python3 codemap/tool/query.py rank 12                              # the functions that rank above the rest
 ```
+
+`rank`: function A ranks above function B when every call path from outside the DLL into B passes through A
+(A dominates B). Calls from outside enter at every function the exe or Python can call: exported functions,
+functions bound for Python, and functions with no caller in the DLL. A function's rank is the number of
+functions it dominates.
 
 ## How it is made
 
-`tool/build.sh <rise-of-mankind checkout> <base game Python dir> <Python 2.4 dir>` rebuilds everything, in a
-few minutes. The source commit is written at the top of `skeleton.md`.
+`tool/build.sh <rise-of-mankind checkout> <base game Python dir> <Python 2.4 dir> <original SDK dir> <XML dir>...`
+rebuilds everything, in a few minutes. The original SDK dir is the `CvGameCoreDLL` folder of the BTS 3.19 SDK as
+Firaxis shipped it; the XML dirs are the folders the game falls back to after the mod's (Beyond the Sword's,
+then Civilization IV's). The source commit is written at the top of `skeleton.md`.
 
 1. **`tool/compile.sh` compiles every `.cpp` with Visual C++ Toolkit 2003 under Wine.** It uses the source's
    own release flags and defines (`NDEBUG`, `FINAL_RELEASE`), with two changes:
@@ -75,6 +86,15 @@ few minutes. The source commit is written at the top of `skeleton.md`.
    - Links into the DLL and the event handlers are then matched by name. The handlers include the BUG
      configuration XML.
 4. **`tool/render.py` writes the pages.** Every count on them is computed there from the tables.
+5. **`tool/hardcoded.py` lists the hard-coded entries of the key functions** (`hardcoded.md`). It reads each
+   function's own lines and checks each entry against the other end:
+   - exports and calls into the exe against the original SDK;
+   - enum values against the original SDK's `CvEnums.h`, which the exe was compiled with;
+   - XML files, their element paths and record order against the files the game would load (mod first);
+   - defines, BUG options, text keys and sounds against the XML that holds them;
+   - Python calls and events against the Python functions and registered handlers;
+   - log formats against the tools of this repository that read them;
+   - lines changed since the file entered the mod's repository, by commit (`git blame`).
 
 ## The tables in `map/`
 
@@ -95,6 +115,8 @@ few minutes. The source commit is written at the top of `skeleton.md`.
 | `py_to_cpp.tsv` | Python call of a name the DLL exposes, with the candidate C++ functions |
 | `cpp_to_py.tsv` | DLL call into Python, with the Python function it lands in |
 | `event_handlers.tsv` | event and each handler registered for it |
+| `py_event_registrations.tsv` | every registration of a Python event handler, for any event name |
+| `hardcoded.tsv` | hard-coded entry of a key function: kind, entry, line, what depends on it, its status |
 
 ## Checks, and limits
 

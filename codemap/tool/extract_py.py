@@ -19,6 +19,8 @@ link: from those and the DLL tables (python_defs.tsv, python_calls.tsv, events.t
   event_handlers.tsv  events posted by CvDllPythonEvents and every handler registered for them: the event
                       manager's EventHandlerMap, addEventHandler("event", f) calls, and <event type=...
                       module=... function=.../> entries of the BUG configuration XML
+  py_event_registrations.tsv  every such registration, for any event name (generic events are named by
+                      the DLL at the call)
 """
 import csv, os, re, sys
 
@@ -100,6 +102,8 @@ def link(mapdir, listed, config):
                     if 'type' in at:
                         handlers.setdefault(at['type'], []).append(
                             ('BUG config', at.get('module', '?') + '.' + at.get('function', '?'), 'Config/' + os.path.relpath(p, config), ln))
+    write(os.path.join(mapdir, 'py_event_registrations.tsv'), ['event', 'source', 'handler', 'file', 'line'],
+          sorted(((ev,) + h for ev, hs in handlers.items() for h in hs), key=lambda r: r[:4] + (int(r[4]),)))
     rows = []
     for r in read(os.path.join(mapdir, 'events.tsv')):
         for h in handlers.get(r['event'], [('', '', '', '')]): rows.append((r['function'], r['event']) + h)

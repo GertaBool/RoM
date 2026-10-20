@@ -5,8 +5,13 @@ usage: query.py find <regex>              functions whose Scope::name matches
        query.py callees <function> [depth]  what it calls, as a tree (default depth 1)
        query.py callers <function> [depth]  who calls it, as a tree
        query.py path <from> <to>          a shortest call path between two functions
+       query.py rank [n]                  the n functions (default 12) that rank above the most others
 A function is given as an id, as Scope::name, or as a regex matching exactly one Scope::name.
 Virtual calls are followed into the overriding methods of the object's class and its subclasses.
+rank: function A ranks above B when every call path from outside the DLL into B passes through A (A
+dominates B). Calls from outside enter at every function the exe or Python can call: exported functions,
+functions bound for Python, and functions with no caller in the DLL. A function's rank is the number of
+functions it dominates; it is shown under the function that dominates it most closely.
 """
 import collections, csv, os, re, sys
 
@@ -53,6 +58,51 @@ for (a, b), cls in list(objcls.items()):   # a virtual call may reach the overri
             if m not in down[a]: down[a].append(m); up[m].append(a)
 
 
+def dominators():
+    """The immediate dominator of every function reached from outside the DLL (0: entered from outside)."""
+    py = {int(r['function']) for r in read('python_defs.tsv')}
+    defs = [i for i in F if F[i]['definition'] == '1']
+    succ = {0: sorted(i for i in defs if not up[i] or F[i]['exported'] == '1' or i in py)}
+    order, seen, stack = [], {0}, [(0, iter(succ[0]))]
+    while stack:   # reverse postorder, iteratively
+        n, it = stack[-1]
+        for m in it:
+            if m not in seen: seen.add(m); stack.append((m, iter(down[m]))); break
+        else: stack.pop(); order.append(n)
+    rpo = order[::-1]; pos = {n: k for k, n in enumerate(rpo)}
+    preds = collections.defaultdict(list)
+    for n in rpo:
+        for m in (succ[0] if n == 0 else down[n]): preds[m].append(n)
+    idom = {0: 0}
+
+    def meet(a, b):
+        while a != b:
+            while pos[a] > pos[b]: a = idom[a]
+            while pos[b] > pos[a]: b = idom[b]
+        return a
+    changed = True
+    while changed:   # Cooper, Harvey and Kennedy, "A simple, fast dominance algorithm" (2001)
+        changed = False
+        for n in rpo[1:]:
+            ps = [p for p in preds[n] if p in idom]
+            new = ps[0]
+            for p in ps[1:]: new = meet(p, new)
+            if idom.get(n) != new: idom[n] = new; changed = True
+    kids = collections.defaultdict(list)
+    for n, d in idom.items():
+        if n: kids[d].append(n)
+    size = {}
+    for n in reversed(rpo): size[n] = 1 + sum(size[k] for k in kids[n])
+    return idom, {n: size[n] - 1 for n in size if n}
+
+
+def rank(n=12):
+    """The n functions that dominate the most others, with their immediate dominators."""
+    idom, size = dominators()
+    top = sorted(size, key=lambda i: (-size[i], i))[:n]
+    return [(i, size[i], idom[i]) for i in top]
+
+
 def resolve(q):
     if q.isdigit(): return int(q)
     exact = [i for i, r in F.items() if (r['scope'] + '::' if r['scope'] else '') + r['name'] == q and r['definition'] == '1']
@@ -77,6 +127,22 @@ def main():
             if re.search(args[0], name[i]): print(f"{i}\t{name[i]}\t{F[i]['file']}:{F[i]['line']}")
     elif cmd in ('callees', 'callers'):
         tree(resolve(args[0]), down if cmd == 'callees' else up, int(args[1]) if len(args) > 1 else 1)
+    elif cmd == 'rank':
+        top = rank(int(args[0]) if args else 12)
+        chosen = {i for i, _, _ in top}
+        idom, _ = dominators()
+
+        def above(i):   # the closest chosen function that dominates i, 0 if none
+            d = idom[i]
+            while d and d not in chosen: d = idom[d]
+            return d
+        kids = collections.defaultdict(list)
+        for i, s, _ in top: kids[above(i)].append((i, s))
+
+        def show(i, s, d):
+            print('  ' * d + f"{name[i]}  [{i}] dominates {s}  {F[i]['file']}:{F[i]['line']}")
+            for j, t in kids[i]: show(j, t, d + 1)
+        for i, s in kids[0]: show(i, s, 0)
     elif cmd == 'path':
         a, b = resolve(args[0]), resolve(args[1])
         prev, q = {a: None}, collections.deque([a])

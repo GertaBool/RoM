@@ -1,13 +1,17 @@
 #!/bin/bash
 # Rebuild the code map from a checkout of the DLL repository (GitLab rise-of-mankind).
-# usage: build.sh <rise-of-mankind checkout> <base game Python dir> <Python 2.4 dir> [jobs]
+# usage: build.sh <rise-of-mankind checkout> <base game Python dir> <Python 2.4 dir> <original SDK dir> <XML dir>...
 #   base game Python dir: the Python folder of Beyond the Sword, which the mod's Python falls back to
 #   Python 2.4 dir: the Windows Python 2.4 the game embeds (python.exe), run under Wine to parse the Python
+#   original SDK dir: the CvGameCoreDLL folder of the BTS 3.19 SDK as Firaxis shipped it
+#   XML dirs: the XML folders the game falls back to after the mod's, in order (Beyond the Sword's, then
+#   Civilization IV's)
+#   JOBS (environment): units compiled at once, default 4
 # Needs: VCTOOLKIT_DIR PSDK_DIR BTS_SDK_DIR WINEPREFIX (toolchain/README.md), llvm-readobj-18,
 # llvm-undname-18, universal-ctags, jq. Writes codemap/map/*.tsv and the pages codemap/*.md, codemap/files/.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd); cm=$(dirname "$here")
-src=$(cd "$1" && pwd); base=$2; py24=$3; jobs=${4:-4}
+src=$(cd "$1" && pwd); base=$2; py24=$3; sdk=$4; shift 4; jobs=${JOBS:-4}
 export WINEARCH=win32 WINEDEBUG=-all
 commit=$(git -C "$src" rev-parse --short=12 HEAD)
 [ -z "$(git -C "$src" status --porcelain --untracked-files=no -- Assets/CvGameCoreDLL Assets/Python)" ] \
@@ -32,3 +36,6 @@ rm "$cm/map/py_calls_raw.tsv"
 
 # 3. the pages
 python3 -I "$here/render.py" "$cm" "$commit" "$w/ctags.tsv"
+
+# 4. the hard-coded entries of the key functions, checked against the exe's SDK, the XML and Python
+python3 -I "$here/hardcoded.py" "$cm" "$src" "$sdk" "$@"
