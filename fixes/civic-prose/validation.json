@@ -1,0 +1,61 @@
+{
+  "base": "2a8b9a83eb5b4d339cb92d23d04155e47e868efa",
+  "requires_patch": "0020-pedia-localization.patch",
+  "civics_reviewed": 68,
+  "pedia_rewritten": 67,
+  "strategies_rewritten": 59,
+  "name_keys_reviewed": 68,
+  "unique_text_keys": 194,
+  "text_values_changed": 942,
+  "files_changed": [
+    "Assets/XML/Text/RoM_GameText_Civics.xml",
+    "Assets/XML/Text/RoM_GameText_Civilopedia_CivicsReligion.xml"
+  ],
+  "duplicate_target_keys": {
+    "TXT_KEY_CIVIC_OLIGARCHY": 2,
+    "TXT_KEY_CIVIC_OLIGARCHY_PEDIA": 2,
+    "TXT_KEY_CIVIC_OLIGARCHY_STRATEGY": 2,
+    "TXT_KEY_CIVIC_CASTE_SYSTEM_STRATEGY": 2,
+    "TXT_KEY_CIVIC_BARTER": 2,
+    "TXT_KEY_CIVIC_SLAVERY_STRATEGY": 2,
+    "TXT_KEY_CIVIC_BARTER_STRATEGY": 2,
+    "TXT_KEY_CIVIC_SLAVERY_PEDIA": 2,
+    "TXT_KEY_CIVIC_PUBLIC_SCHOOLS_PEDIA": 2,
+    "TXT_KEY_CIVIC_BARTER_PEDIA": 3
+  },
+  "languages": [
+    "English",
+    "French",
+    "German",
+    "Italian",
+    "Spanish"
+  ],
+  "checks": [
+    "Current civic rules equal researched source",
+    "All targeted names, pedia and strategy keys found",
+    "All duplicate definitions updated consistently in five languages",
+    "XML parses and edited strings round-trip",
+    "Encodings and CRLF counts preserved",
+    "Language order, untouched languages and unrelated entries preserved",
+    "Incremental patch applies after 0020 and reproduces every edited file",
+    "Final localized values verified in every duplicate definition",
+    "Git whitespace check passed",
+    "No new placeholder, color or language-order audit flags"
+  ],
+  "in_game_tested": false,
+  "patch_sha256": "8be8f9fc37b17634d80cf7026ee4238b2d0b047038a67b1597a0b694b4d58556",
+  "audit_before": {
+    "identical-to-English-review": 17883,
+    "blank-language": 41628,
+    "placeholder-review": 107,
+    "color-balance-review": 45,
+    "duplicate-key-review": 295
+  },
+  "audit_after": {
+    "identical-to-English-review": 17162,
+    "blank-language": 41628,
+    "placeholder-review": 105,
+    "color-balance-review": 45,
+    "duplicate-key-review": 295
+  }
+}
