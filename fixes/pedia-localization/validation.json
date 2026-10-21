@@ -1,0 +1,51 @@
+{
+  "base": "2a8b9a83eb5b4d339cb92d23d04155e47e868efa",
+  "text_values_updated": 40,
+  "pedia_entries": 4,
+  "strategy_entries": 4,
+  "languages": [
+    "English",
+    "French",
+    "German",
+    "Italian",
+    "Spanish"
+  ],
+  "language_order_repairs": [
+    "AI_DIPLO_FIRST_CONTACT_LEADER_MONGKUT_1",
+    "TXT_KEY_CIV_SIAM_PEDIA"
+  ],
+  "files_changed": 5,
+  "checks": [
+    "XML parsed successfully",
+    "Encoding and line endings preserved",
+    "Unrelated entries and language contents unchanged",
+    "Language order restored without content loss",
+    "All 40 edited values round-trip correctly",
+    "Final 40 translations checked against parsed XML",
+    "Whole-text audit: language-order flags reduced from 2 to 0",
+    "Entry count and duplicate-key count unchanged",
+    "Git diff whitespace check passed",
+    "No new placeholder-review findings",
+    "Fresh Git index: patch applies to latest fetched GitLab main",
+    "Applied index produces exactly the five validated XML files"
+  ],
+  "in_game_tested": false,
+  "audit_before": {
+    "identical-to-English-review": 17915,
+    "blank-language": 41628,
+    "placeholder-review": 107,
+    "color-balance-review": 45,
+    "language-order-review": 2,
+    "duplicate-key-review": 295
+  },
+  "audit_after": {
+    "identical-to-English-review": 17883,
+    "blank-language": 41628,
+    "placeholder-review": 107,
+    "color-balance-review": 45,
+    "duplicate-key-review": 295
+  },
+  "gitlab_main_checked": "2a8b9a83eb5b4d339cb92d23d04155e47e868efa",
+  "patch_sha256": "60b87b6a3a643bcbcd28e88b6a575c538576c5936f01891ee1fbf0af7d8ee50d",
+  "github_base": "3958040e21869faee6e3b89a6f443426fc6c1a5b"
+}

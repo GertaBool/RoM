@@ -1,5 +1,12 @@
 # Tested source fixes
 
+## Civilopedia and localization
+
+[Patch 0020](0020-pedia-localization.patch) updates four Civilopedia entries and their
+strategy text in five languages, and fixes two language-order errors. It applies to
+GitLab main `2a8b9a83`; XML and patch checks pass, but in-game rendering is untested.
+See the [change notes and validation](pedia-localization/README.md).
+
 ## War AI fixes: retraining disband, collateral counted only when it does damage
 
 [0019-war-ai-fixes.patch](0019-war-ai-fixes.patch) applies on top of patch 0018. It has
