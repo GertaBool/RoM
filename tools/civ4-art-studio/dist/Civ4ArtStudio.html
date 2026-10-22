@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Civ IV Art Studio</title><link rel="icon" href="data:,">
+<style>
+:root{color-scheme:dark;--bg:#101819;--panel:#182325;--line:#344344;--ink:#f4f1e6;--muted:#b0bfbd;--gold:#edbf75;--teal:#8dd9c6}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}header{border-bottom:1px solid var(--line);padding:26px max(24px,calc((100vw - 1250px)/2));display:flex;justify-content:space-between;gap:20px;align-items:center}h1{font:600 30px/1.2 Georgia,serif;margin:4px 0}h2{font:500 23px Georgia,serif;margin:0 0 16px}h3{font-size:16px;margin:0 0 12px}.eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}.badge{border:1px solid var(--line);border-radius:99px;padding:7px 13px;color:var(--teal);font-size:12px}main{max-width:1300px;margin:26px auto;padding:0 24px 40px}.modes{display:flex;gap:8px;margin:0 0 22px}.modes button{background:transparent;color:var(--muted);border:1px solid var(--line)}.modes button[aria-selected=true]{background:var(--gold);color:#20180e;border-color:var(--gold)}button,.file-label{border:0;border-radius:7px;padding:11px 17px;font:600 14px system-ui;cursor:pointer;background:var(--gold);color:#21180c;display:inline-block}button:hover,.file-label:hover{filter:brightness(1.08)}button:disabled{opacity:.4;cursor:not-allowed}.secondary,.file-label{background:#263739;color:var(--ink);border:1px solid #4d6566}.workspace{display:grid;grid-template-columns:310px 1fr;gap:20px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px}.side{display:grid;gap:18px;align-content:start}.main-panel{min-width:0}p{margin:8px 0 15px}.muted,small{color:var(--muted)}small{display:block;font-size:12px;margin-top:5px}label{display:block;font-size:13px;margin:12px 0 6px}input[type=range]{width:100%;accent-color:var(--gold)}input[type=number],input[type=text],select{width:100%;padding:9px;border-radius:5px;border:1px solid #506365;background:#101c1e;color:var(--ink);font:inherit}input[type=checkbox]{accent-color:var(--gold)}input[type=color]{width:45px;height:32px;border:0;background:none;vertical-align:middle}input[type=file]{max-width:100%;font-size:12px;color:var(--muted);margin:8px 0}input[type=file]::file-selector-button{background:#2c4243;color:var(--ink);border:1px solid #506365;padding:8px;border-radius:5px;margin-right:10px}.row{display:flex;gap:12px;align-items:center}.row>*{flex:1;min-width:0}.check{display:flex;gap:8px;align-items:center}.check input{width:auto}.preview-stage{min-height:310px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:15px;border:1px solid var(--line);border-radius:9px;background:radial-gradient(ellipse at center,#243538,#172124)}.checker{background-color:#334245;background-image:linear-gradient(45deg,#48585a 25%,transparent 25%),linear-gradient(-45deg,#48585a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#48585a 75%),linear-gradient(-45deg,transparent 75%,#48585a 75%);background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0}.preview-frame{padding:12px;border:1px solid #6b6d5e;border-radius:9px;box-shadow:0 14px 40px #0005}#preview{display:block;width:192px;height:192px;image-rendering:pixelated}#nativePreview{display:block;image-rendering:pixelated;max-width:128px;max-height:128px}.preview-empty{font:22px Georgia;color:var(--muted);text-align:center;padding:30px}.output{margin-top:20px}.output button{margin:0 8px 8px 0}.note{border-left:3px solid var(--teal);padding:10px 15px;background:#142b29;font-size:13px;margin-top:16px}.status{min-height:45px;padding:12px 0;color:var(--teal);white-space:pre-wrap}.status.error{color:#ffaca5}details{margin-top:16px}summary{cursor:pointer;color:var(--gold)}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1617;padding:14px;border-radius:6px;font-size:12px}.font-tabs{display:flex;gap:6px;margin:12px 0}.font-tabs button{font-size:12px;padding:8px 12px}.font-tabs button[aria-pressed=true]{outline:2px solid var(--gold)}.font-scroll{height:300px;overflow:auto;border:1px solid #526467;border-radius:6px;touch-action:pan-x pan-y}.font-scroll canvas{display:block;image-rendering:pixelated;cursor:crosshair;max-width:none}#fontCanvas{background:#29383a}.empty-font{padding:25px;color:var(--muted)}#previewInfo{white-space:pre-line}.selected{color:var(--gold);font-size:13px;margin:12px 0}.sheets{display:grid;grid-template-columns:1fr 1fr;gap:12px}.sheet-box{padding:12px;border:1px solid var(--line);border-radius:7px;font-size:12px}.hidden,[hidden]{display:none!important}footer{color:var(--muted);font-size:12px;padding-top:20px;border-top:1px solid var(--line);margin-top:20px}a{color:var(--gold)}:focus-visible{outline:3px solid var(--teal);outline-offset:3px}@media(max-width:850px){.workspace{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.sheets{grid-template-columns:1fr}header{padding:20px}main{padding:0 14px}.panel{padding:16px}}@media(max-width:540px){.side{grid-template-columns:1fr}.badge{display:none}.row{flex-wrap:wrap}.row>*{flex-basis:40%}}
+</style></head><body>
+<header><div><div class="eyebrow">The modder’s workbench</div><h1>Civ IV Art Studio</h1></div><div class="badge">Offline · Your images stay on this device</div></header>
+<main>
+<div class="modes" role="tablist" aria-label="Export mode"><button id="buttonMode" role="tab" aria-selected="true">Buttons &amp; DDS textures</button><button id="fontMode" role="tab" aria-selected="false">GameFont symbols</button></div>
+<div class="workspace"><aside class="side">
+<section class="panel"><h2>1. Choose artwork</h2><label for="artFile">JPG or PNG image</label><input id="artFile" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png"><small id="artInfo">Transparent PNG works best for a symbol. JPEG backgrounds stay visible unless you remove a color below.</small><label for="fit">Framing</label><select id="fit"><option value="contain">Fit entire image</option><option value="cover">Fill &amp; crop</option><option value="stretch">Stretch to fit</option></select><label for="focusX">Horizontal crop focus</label><input id="focusX" type="range" min="0" max="100" value="50"><label for="focusY">Vertical crop focus</label><input id="focusY" type="range" min="0" max="100" value="50"><label for="padding">Inset <span id="paddingValue">2</span> px</label><input id="padding" type="range" min="0" max="12" value="2"></section>
+<section class="panel"><h2>2. Finish</h2><label class="check"><input id="keyEnabled" type="checkbox"> Remove a background color</label><div class="row"><label for="keyColor">Color <input id="keyColor" type="color" value="#ffffff"></label><label for="keyTolerance">Tolerance<input id="keyTolerance" type="number" min="0" max="180" value="15"></label></div><small>Removes matching colors everywhere in the image, including inside the subject. Edges are feathered.</small><div id="buttonFinish"><label class="check"><input id="solidBg" type="checkbox"> Add a solid background</label><label for="bgColor">Background <input id="bgColor" type="color" value="#142c31"></label><label class="check"><input id="round" type="checkbox" checked> Rounded corners</label><label class="check"><input id="rim" type="checkbox"> Subtle gold border</label></div><button id="resetFraming" class="secondary" style="margin-top:18px">Reset framing</button></section>
+</aside><section class="panel main-panel">
+<div id="buttonSettings"><h2>3. Export a game-ready texture</h2><p class="muted">A 64×64 DDS is the standard button size. Choose a larger preset for a general texture.</p><div class="row"><label for="size">Dimensions<select id="size"><option value="64">64 × 64 — button</option><option value="128">128 × 128</option><option value="256">256 × 256</option><option value="512">512 × 512</option><option value="1024">1024 × 1024</option><option value="2048">2048 × 2048</option><option value="custom">Custom power-of-two texture</option></select></label><label for="format">DDS format<select id="format"><option value="DXT3">DXT3 — compact, 16-level alpha</option><option value="RGBA">RGBA — uncompressed, full alpha</option></select></label></div><div class="row" id="customSize" hidden><label for="width">Width<input id="width" type="number" value="256" min="4" max="2048" step="1"></label><label for="height">Height<input id="height" type="number" value="256" min="4" max="2048" step="1"></label></div><label class="check"><input id="mipmaps" type="checkbox"> Include mipmaps <span class="muted">(usually off for UI buttons)</span></label></div>
+<div id="fontSettings" hidden><h2>3. Replace an existing font symbol</h2><p class="muted">Load your mod’s original sheets. Select the intended cell in each size independently; row and column positions are not game symbol IDs.</p><div class="sheets"><div class="sheet-box"><label for="fontFile">GameFont.tga</label><input id="fontFile" type="file" accept=".tga"><small id="fontInfo">No sheet loaded</small></div><div class="sheet-box"><label for="smallFontFile">GameFont_75.tga</label><input id="smallFontFile" type="file" accept=".tga"><small id="smallFontInfo">No sheet loaded</small></div></div><div class="font-tabs"><button id="largeTab" class="secondary" aria-pressed="true">GameFont</button><button id="smallTab" class="secondary" aria-pressed="false">GameFont_75</button></div><div class="row"><label for="fontZoom">Sheet zoom<select id="fontZoom"><option value="1">1×</option><option value="2" selected>2×</option><option value="4">4×</option></select></label><label class="check"><input id="showMarkers" type="checkbox" checked> Reveal grid &amp; markers</label></div><div id="fontScroll" class="font-scroll"><div id="emptyFont" class="empty-font">Load an existing 32-bit GameFont TGA to see its cells.</div><canvas id="fontCanvas" hidden aria-label="Font sheet: click a cell or use the row and column fields below"></canvas></div><div class="row"><label for="cellRow">Visual row<input id="cellRow" type="number" min="1" value="1"></label><label for="cellCol">Visual column<input id="cellCol" type="number" min="1" value="1"></label><button id="selectCell" class="secondary">Select cell</button></div><div id="cellInfo" class="selected">No cell selected</div></div>
+<div class="preview-stage" style="margin-top:18px"><div id="emptyPreview" class="preview-empty">Your next icon starts here.<small>Choose a JPG or PNG to see a preview.</small></div><div id="previewContent" hidden><div class="preview-frame"><canvas id="preview" class="checker" width="64" height="64" aria-label="Artwork preview"></canvas></div><div style="display:flex;gap:16px;align-items:center;justify-content:center;margin:15px"><canvas id="nativePreview" class="checker" width="64" height="64" aria-label="Actual-size preview"></canvas><small id="previewInfo">64 × 64</small></div></div></div>
+<div id="buttonOutput" class="output"><label for="outputName">File name</label><input id="outputName" type="text" value="my_button" maxlength="80"><div style="margin-top:14px"><button id="exportDDS" disabled>Download DDS</button><button id="exportPNG" class="secondary" disabled>Download PNG preview</button></div><details><summary>Use this button in your mod</summary><p>Place the DDS in <code>Assets/Art/Interface/Buttons/Custom/</code>. Use the relevant XML entry’s Button field:</p><pre id="xmlSnippet"></pre><button id="copyXML" class="secondary">Copy XML</button><small>Some objects reference an ArtDefine instead of a direct Button field. A standalone image does not need atlas coordinates.</small></details></div>
+<div id="fontOutput" class="output" hidden><button id="applyGlyph" disabled>Apply artwork to selected cell</button><button id="undoGlyph" class="secondary" disabled>Undo last replacement</button><div style="margin-top:10px"><button id="exportFont" disabled>Download edited TGA</button><button id="exportPair" class="secondary" disabled>Download both fonts + edit log</button></div><small>To download the pair, load and edit both font sheets first.</small><div class="note">Grid and marker pixels are protected. This replaces existing cells; it does not create new symbol indices or change XML. Keep original backups and update both font sizes for the same symbol.</div><details><summary>How symbol indices work</summary><p>Visual row/column labels here are navigation aids, not <code>FontButtonIndex</code>. Civ IV’s symbol order also depends on the font layout, padding and your mod’s definitions. Replace the symbol already assigned to your object, then test it in game. New resources or religions need matching XML and font allocation work.</p><p>The default fit leaves space around the symbol. At small sizes, a simple silhouette is clearer than a detailed photograph.</p></details></div>
+<div id="status" class="status" role="status" aria-live="polite">Ready. No installation or image upload required.</div>
+</section></div><footer>Civ IV Art Studio · Legacy DDS and 32-bit TGA · Local files only · In-game appearance depends on your mod and XML setup.</footer>
+</main>
+<script>
+/* Civ IV Art Studio: binary image formats and marker-preserving glyph replacement. */
+function createCiv4Core() {
+  'use strict';
+  const MAX_PIXELS = 16777216;
+  function checkImage(im) {
+    if (!Number.isInteger(im.width) || !Number.isInteger(im.height) || im.width < 1 || im.height < 1 || im.width * im.height > MAX_PIXELS || im.data.length !== im.width * im.height * 4) throw Error('Invalid image dimensions or pixel buffer.');
+  }
+  function marker(d, p) { return d[p + 1] === 0 && d[p] === 255 && d[p + 2] === 255 || d[p] === 0 && d[p + 1] === 255 && d[p + 2] === 255; }
+  function readTGA(input) {
+    const b = new Uint8Array(input), v = new DataView(b.buffer, b.byteOffset, b.byteLength);
+    if (b.length < 18) throw Error('This is not a complete TGA file.');
+    const type = b[2], bits = b[16], width = v.getUint16(12, true), height = v.getUint16(14, true), desc = b[17];
+    if (b[1] || ![2, 10].includes(type) || ![24, 32].includes(bits) || desc & 0xc0) throw Error('Use a true-color, non-interleaved 24/32-bit TGA (uncompressed or RLE). Indexed TGA is not supported.');
+    if (!width || !height || width * height > MAX_PIXELS) throw Error('TGA dimensions exceed the 16-megapixel limit.');
+    let at = 18 + b[0], count = 0; const stride = bits / 8, data = new Uint8Array(width * height * 4);
+    function pixel(rgba) {
+      const sx = count % width, sy = Math.floor(count / width), x = desc & 16 ? width - 1 - sx : sx, y = desc & 32 ? sy : height - 1 - sy;
+      data.set(rgba, (y * width + x) * 4); count++;
+    }
+    function readPixel() {
+      if (at + stride > b.length) throw Error('Truncated TGA pixel data.');
+      const c = [b[at + 2], b[at + 1], b[at], stride === 4 ? b[at + 3] : 255]; at += stride; return c;
+    }
+    while (count < width * height) {
+      let n = 1, repeat = false;
+      if (type === 10) { if (at >= b.length) throw Error('Truncated TGA packet.'); const packet = b[at++]; n = (packet & 127) + 1; repeat = !!(packet & 128); }
+      if (count + n > width * height) throw Error('Invalid TGA packet length.');
+      if (repeat) { const c = readPixel(); for (let k = 0; k < n; k++) pixel(c); }
+      else for (let k = 0; k < n; k++) pixel(readPixel());
+    }
+    return { width, height, data, bits, descriptor: desc, type, original: b, pixelOffset: 18 + b[0], pixelEnd: at };
+  }
+  function writeTGA(im, template) {
+    checkImage(im);
+    if (template && (template.width !== im.width || template.height !== im.height)) throw Error('GameFont dimensions must not change.');
+    // Preserve header, ID and trailing bytes exactly for an uncompressed 32-bit template.
+    const preserve = template && template.type === 2 && template.bits === 32;
+    const id = template ? template.original.slice(18, template.pixelOffset) : new Uint8Array();
+    const tail = preserve ? template.original.slice(template.pixelEnd) : new Uint8Array();
+    const out = new Uint8Array(18 + id.length + im.data.length + tail.length), v = new DataView(out.buffer);
+    if (template) out.set(template.original.slice(0, 18));
+    out[0] = id.length; out[1] = 0; out[2] = 2; out.fill(0, 3, 8);
+    v.setUint16(12, im.width, true); v.setUint16(14, im.height, true); out[16] = 32;
+    out[17] = preserve ? template.descriptor : (template ? template.descriptor & 0x30 : 0) | 8;
+    out.set(id, 18); let at = 18 + id.length;
+    for (let sy = 0; sy < im.height; sy++) for (let sx = 0; sx < im.width; sx++) {
+      const x = out[17] & 16 ? im.width - 1 - sx : sx, y = out[17] & 32 ? sy : im.height - 1 - sy, p = (y * im.width + x) * 4;
+      out[at++] = im.data[p + 2]; out[at++] = im.data[p + 1]; out[at++] = im.data[p]; out[at++] = im.data[p + 3];
+    }
+    out.set(tail, at); return out;
+  }
+  function detectCells(im) {
+    checkImage(im);
+    // Only fully marker-filled rows and columns delimit cells. Never infer a glyph index.
+    const bands = []; let start = -1;
+    for (let y = 0; y <= im.height; y++) {
+      let boundary = y === im.height;
+      if (!boundary) { boundary = true; for (let x = 0; x < im.width; x++) if (!marker(im.data, (y * im.width + x) * 4)) { boundary = false; break; } }
+      if (!boundary && start < 0) start = y;
+      if (boundary && start >= 0) { bands.push([start, y]); start = -1; }
+    }
+    const cells = [];
+    bands.forEach(([top, bottom], row) => {
+      let left = -1, col = 0;
+      for (let x = 0; x <= im.width; x++) {
+        let boundary = x === im.width;
+        if (!boundary) { boundary = true; for (let y = top; y < bottom; y++) if (!marker(im.data, (y * im.width + x) * 4)) { boundary = false; break; } }
+        if (!boundary && left < 0) left = x;
+        if (boundary && left >= 0) {
+          col++;
+          if (x - left <= 128 && bottom - top <= 128 && x - left >= 1 && bottom - top >= 1) cells.push({ x: left, y: top, width: x - left, height: bottom - top, row: row + 1, col });
+          left = -1;
+        }
+      }
+    });
+    return cells;
+  }
+  function replaceCell(im, cell, glyph) {
+    checkImage(im); checkImage(glyph);
+    if (!cell || ![cell.x, cell.y, cell.width, cell.height].every(Number.isInteger) || cell.x < 0 || cell.y < 0 || cell.x + cell.width > im.width || cell.y + cell.height > im.height || glyph.width !== cell.width || glyph.height !== cell.height) throw Error('The artwork must exactly fit the selected cell.');
+    const before = new Uint8Array(glyph.data.length); let avoided = 0, protectedPixels = 0;
+    for (let y = 0; y < cell.height; y++) for (let x = 0; x < cell.width; x++) {
+      const p = ((y + cell.y) * im.width + x + cell.x) * 4, q = (y * cell.width + x) * 4;
+      before.set(im.data.subarray(p, p + 4), q);
+      if (marker(im.data, p)) { protectedPixels++; continue; }
+      im.data.set(glyph.data.subarray(q, q + 4), p);
+      // Do not introduce exact separator colors, even in invisible RGB channels.
+      if (marker(im.data, p)) { im.data[p + 2] = 254; avoided++; }
+    }
+    return { before, avoided, protectedPixels };
+  }
+  function restoreCell(im, cell, before) {
+    if (before.length !== cell.width * cell.height * 4) throw Error('Invalid undo record.');
+    for (let y = 0; y < cell.height; y++) im.data.set(before.subarray(y * cell.width * 4, (y + 1) * cell.width * 4), ((cell.y + y) * im.width + cell.x) * 4);
+  }
+  function verifyFont(original, edited, allowed) {
+    checkImage(original); checkImage(edited);
+    if (original.width !== edited.width || original.height !== edited.height) throw Error('Font dimensions changed.');
+    const mask = new Uint8Array(original.width * original.height);
+    for (const r of allowed) for (let y = r.y; y < r.y + r.height; y++) mask.fill(1, y * original.width + r.x, y * original.width + r.x + r.width);
+    let changed = 0;
+    for (let i = 0; i < mask.length; i++) {
+      const p = i * 4, same = original.data[p] === edited.data[p] && original.data[p + 1] === edited.data[p + 1] && original.data[p + 2] === edited.data[p + 2] && original.data[p + 3] === edited.data[p + 3];
+      if (!same && (!mask[i] || marker(original.data, p))) throw Error('Font protection check failed: an unrelated or marker pixel changed.');
+      if (!marker(original.data, p) && marker(edited.data, p)) throw Error('Font protection check failed: a new marker color was introduced.');
+      if (!same) changed++;
+    }
+    return changed;
+  }
+  function mip(im) {
+    const width = Math.max(1, im.width >> 1), height = Math.max(1, im.height >> 1), data = new Uint8Array(width * height * 4);
+    for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+      let a = 0, r = 0, g = 0, b = 0, n = 0;
+      for (let j = 0; j < Math.min(2, im.height); j++) for (let i = 0; i < Math.min(2, im.width); i++) {
+        const p = ((y * 2 + j) * im.width + x * 2 + i) * 4, alpha = im.data[p + 3];
+        a += alpha; r += im.data[p] * alpha; g += im.data[p + 1] * alpha; b += im.data[p + 2] * alpha; n++;
+      }
+      const q = (y * width + x) * 4;
+      data[q] = a ? Math.round(r / a) : 0; data[q + 1] = a ? Math.round(g / a) : 0; data[q + 2] = a ? Math.round(b / a) : 0; data[q + 3] = Math.round(a / n);
+    }
+    return { width, height, data };
+  }
+  const rgb565 = c => ((Math.round(c[0] * 31 / 255) << 11) | (Math.round(c[1] * 63 / 255) << 5) | Math.round(c[2] * 31 / 255));
+  const from565 = c => [Math.round((c >> 11) * 255 / 31), Math.round(((c >> 5) & 63) * 255 / 63), Math.round((c & 31) * 255 / 31)];
+  function dxt3(im) {
+    const bw = Math.ceil(im.width / 4), bh = Math.ceil(im.height / 4), out = new Uint8Array(bw * bh * 16), view = new DataView(out.buffer); let at = 0;
+    for (let by = 0; by < bh; by++) for (let bx = 0; bx < bw; bx++) {
+      const px = [];
+      for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) {
+        const p = (Math.min(by * 4 + y, im.height - 1) * im.width + Math.min(bx * 4 + x, im.width - 1)) * 4;
+        px.push([im.data[p], im.data[p + 1], im.data[p + 2], im.data[p + 3]]);
+      }
+      for (let i = 0; i < 16; i += 2) out[at + i / 2] = Math.round(px[i][3] / 17) | Math.round(px[i + 1][3] / 17) << 4;
+      const visible = px.filter(c => c[3] > 0); const samples = visible.length ? visible : px;
+      const mean = [0, 0, 0]; for (const c of samples) for (let j = 0; j < 3; j++) mean[j] += c[j] / samples.length;
+      const cov = Array(9).fill(0);
+      for (const c of samples) for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) cov[a * 3 + b] += (c[a] - mean[a]) * (c[b] - mean[b]);
+      let axis = [0, 0, 0];
+      const variance = [cov[0], cov[4], cov[8]]; axis[variance.indexOf(Math.max(...variance))] = 1;
+      for (let k = 0; k < 5; k++) {
+        const n = [0, 0, 0]; for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) n[a] += cov[a * 3 + b] * axis[b];
+        const len = Math.hypot(...n); if (len < 1e-8) break; axis = n.map(v => v / len);
+      }
+      let low = samples[0], high = samples[0], lo = Infinity, hi = -Infinity;
+      for (const c of samples) { const score = c[0] * axis[0] + c[1] * axis[1] + c[2] * axis[2]; if (score < lo) { lo = score; low = c; } if (score > hi) { hi = score; high = c; } }
+      let c0 = rgb565(high), c1 = rgb565(low); if (c0 < c1) [c0, c1] = [c1, c0];
+      const a = from565(c0), b = from565(c1), colors = [a, b, a.map((v, j) => Math.floor((2 * v + b[j]) / 3)), a.map((v, j) => Math.floor((v + 2 * b[j]) / 3))];
+      let indices = 0;
+      for (let i = 0; i < 16; i++) {
+        let best = Infinity, index = 0;
+        for (let k = 0; k < 4; k++) { const error = colors[k].reduce((s, v, j) => s + (v - px[i][j]) ** 2, 0); if (error < best) { best = error; index = k; } }
+        indices = (indices | index << (i * 2)) >>> 0;
+      }
+      view.setUint16(at + 8, c0, true); view.setUint16(at + 10, c1, true); view.setUint32(at + 12, indices, true); at += 16;
+    }
+    return out;
+  }
+  function writeDDS(im, format = 'DXT3', mipmaps = false) {
+    checkImage(im);
+    if (![im.width, im.height].every(n => (n & (n - 1)) === 0 && n <= 2048)) throw Error('DDS dimensions must be powers of two, up to 2048.');
+    if (!['DXT3', 'RGBA'].includes(format)) throw Error('Choose DXT3 or uncompressed RGBA.');
+    const levels = [im]; if (mipmaps) while (levels.at(-1).width > 1 || levels.at(-1).height > 1) levels.push(mip(levels.at(-1)));
+    const blocks = levels.map(level => {
+      if (format === 'DXT3') return dxt3(level);
+      const out = new Uint8Array(level.data.length); for (let p = 0; p < out.length; p += 4) { out[p] = level.data[p + 2]; out[p + 1] = level.data[p + 1]; out[p + 2] = level.data[p]; out[p + 3] = level.data[p + 3]; } return out;
+    });
+    const out = new Uint8Array(128 + blocks.reduce((sum, b) => sum + b.length, 0)), v = new DataView(out.buffer);
+    const u = (at, value) => v.setUint32(at, value, true);
+    u(0, 0x20534444); u(4, 124); u(8, 0x1007 | (format === 'DXT3' ? 0x80000 : 8) | (mipmaps ? 0x20000 : 0));
+    u(12, im.height); u(16, im.width); u(20, format === 'DXT3' ? blocks[0].length : im.width * 4); u(28, levels.length);
+    u(76, 32); u(80, format === 'DXT3' ? 4 : 0x41);
+    if (format === 'DXT3') u(84, 0x33545844);
+    else { u(88, 32); u(92, 0x00ff0000); u(96, 0x0000ff00); u(100, 0x000000ff); u(104, 0xff000000); }
+    u(108, 0x1000 | (levels.length > 1 ? 0x400008 : 0));
+    let at = 128; for (const b of blocks) { out.set(b, at); at += b.length; } return out;
+  }
+  function crc32(b) { let crc = 0xffffffff; for (const c of b) { crc ^= c; for (let i = 0; i < 8; i++) crc = crc >>> 1 ^ (crc & 1 ? 0xedb88320 : 0); } return (crc ^ 0xffffffff) >>> 0; }
+  function zip(files) {
+    const entries = [], parts = []; let offset = 0;
+    for (const file of files) {
+      const name = new TextEncoder().encode(file.name), data = typeof file.data === 'string' ? new TextEncoder().encode(file.data) : new Uint8Array(file.data), crc = crc32(data);
+      const local = new Uint8Array(30 + name.length), v = new DataView(local.buffer);
+      v.setUint32(0, 0x04034b50, true); v.setUint16(4, 20, true); v.setUint16(6, 0x800, true); v.setUint16(12, 33, true);
+      v.setUint32(14, crc, true); v.setUint32(18, data.length, true); v.setUint32(22, data.length, true); v.setUint16(26, name.length, true); local.set(name, 30);
+      entries.push({ name, data, crc, offset }); parts.push(local, data); offset += local.length + data.length;
+    }
+    const centralStart = offset;
+    for (const e of entries) {
+      const h = new Uint8Array(46 + e.name.length), v = new DataView(h.buffer);
+      v.setUint32(0, 0x02014b50, true); v.setUint16(4, 20, true); v.setUint16(6, 20, true); v.setUint16(8, 0x800, true); v.setUint16(14, 33, true);
+      v.setUint32(16, e.crc, true); v.setUint32(20, e.data.length, true); v.setUint32(24, e.data.length, true); v.setUint16(28, e.name.length, true); v.setUint32(42, e.offset, true); h.set(e.name, 46); parts.push(h); offset += h.length;
+    }
+    const end = new Uint8Array(22), v = new DataView(end.buffer); v.setUint32(0, 0x06054b50, true); v.setUint16(8, entries.length, true); v.setUint16(10, entries.length, true); v.setUint32(12, offset - centralStart, true); v.setUint32(16, centralStart, true); parts.push(end);
+    const result = new Uint8Array(offset + end.length); let at = 0; for (const p of parts) { result.set(p, at); at += p.length; } return result;
+  }
+  return { checkImage, marker, readTGA, writeTGA, detectCells, replaceCell, restoreCell, verifyFont, writeDDS, mip, zip, crc32 };
+}
+if (typeof module !== 'undefined') module.exports = { createCiv4Core };
+
+</script><script>
+'use strict';
+const C = createCiv4Core(), $ = id => document.getElementById(id);
+const state = { mode: 'button', art: null, artName: '', activeFont: 'large', fonts: { large: null, small: null }, rendered: null, busy: false };
+function status(message, error = false) { $('status').textContent = message; $('status').classList.toggle('error', error); }
+function safeName(value) { return value.replace(/\.(dds|png|jpe?g|tga)$/i, '').replace(/[^a-z0-9_-]/gi, '_').replace(/_+/g, '_').slice(0, 80) || 'my_button'; }
+function currentFont() { return state.fonts[state.activeFont]; }
+function dimensions() {
+  if (state.mode === 'font') { const f = currentFont(); return f && f.selected ? [f.selected.width, f.selected.height] : [32, 32]; }
+  if ($('size').value !== 'custom') return [Number($('size').value), Number($('size').value)];
+  const w = Number($('width').value), h = Number($('height').value);
+  if (![w, h].every(n => Number.isInteger(n) && n >= 4 && n <= 2048 && (n & (n - 1)) === 0)) throw Error('Custom DDS dimensions must be powers of two from 4 to 2048.');
+  return [w, h];
+}
+function canvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+function pixels(c) { return { width: c.width, height: c.height, data: new Uint8Array(c.getContext('2d').getImageData(0, 0, c.width, c.height).data) }; }
+function put(c, im) { c.width = im.width; c.height = im.height; c.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(im.data), im.width, im.height), 0, 0); }
+function drawFramed(w, h) {
+  const out = canvas(w, h), ctx = out.getContext('2d'); if (!state.art) return out;
+  const source = state.art, art = canvas(source.width, source.height), a = art.getContext('2d'); a.drawImage(source, 0, 0);
+  if ($('keyEnabled').checked) {
+    const im = a.getImageData(0, 0, art.width, art.height), hex = $('keyColor').value, key = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+    const tolerance = Math.max(0, Math.min(180, Number($('keyTolerance').value) || 0));
+    for (let p = 0; p < im.data.length; p += 4) {
+      const distance = Math.max(...key.map((v, j) => Math.abs(v - im.data[p + j])));
+      im.data[p + 3] = Math.round(im.data[p + 3] * Math.max(0, Math.min(1, (distance - tolerance) / 12)));
+    }
+    a.putImageData(im, 0, 0);
+  }
+  const pad = Math.min(Number($('padding').value), Math.floor((Math.min(w, h) - 1) / 2)), innerW = w - pad * 2, innerH = h - pad * 2;
+  ctx.save();
+  if (state.mode === 'button' && $('round').checked) { ctx.beginPath(); ctx.roundRect(0, 0, w, h, Math.min(w, h) / 8); ctx.clip(); }
+  if (state.mode === 'button' && $('solidBg').checked) { ctx.fillStyle = $('bgColor').value; ctx.fillRect(0, 0, w, h); }
+  const fit = $('fit').value;
+  ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+  if (fit === 'cover') {
+    const scale = Math.max(innerW / source.width, innerH / source.height), sw = innerW / scale, sh = innerH / scale;
+    const sx = (source.width - sw) * Number($('focusX').value) / 100, sy = (source.height - sh) * Number($('focusY').value) / 100;
+    ctx.drawImage(art, sx, sy, sw, sh, pad, pad, innerW, innerH);
+  } else if (fit === 'stretch') ctx.drawImage(art, pad, pad, innerW, innerH);
+  else {
+    const scale = Math.min(innerW / source.width, innerH / source.height), dw = source.width * scale, dh = source.height * scale;
+    ctx.drawImage(art, pad + (innerW - dw) / 2, pad + (innerH - dh) / 2, dw, dh);
+  }
+  if (state.mode === 'button' && $('rim').checked) {
+    ctx.strokeStyle = '#d8b472'; ctx.lineWidth = Math.max(1, Math.min(w, h) / 64);
+    const inset = ctx.lineWidth / 2;
+    ctx.beginPath(); ctx.roundRect(inset, inset, w - inset * 2, h - inset * 2, $('round').checked ? Math.min(w, h) / 8 : 0); ctx.stroke();
+  }
+  ctx.restore(); return out;
+}
+function updateActions() {
+  const f = currentFont(), art = !!state.rendered && !!state.art, busy = state.busy;
+  $('exportDDS').disabled = !art || busy; $('exportPNG').disabled = !art || busy;
+  $('applyGlyph').disabled = !art || !f?.selected || busy;
+  $('undoGlyph').disabled = !f?.history.length || busy;
+  $('exportFont').disabled = !f?.history.length || busy;
+  $('exportPair').disabled = !state.fonts.large?.history.length || !state.fonts.small?.history.length || busy;
+  $('selectCell').disabled = !f || busy;
+}
+function render() {
+  $('customSize').hidden = $('size').value !== 'custom';
+  $('focusX').disabled = $('focusY').disabled = $('fit').value !== 'cover';
+  $('xmlSnippet').textContent = `<Button>Art/Interface/Buttons/Custom/${safeName($('outputName').value)}.dds</Button>`;
+  $('previewContent').hidden = !state.art; $('emptyPreview').hidden = !!state.art;
+  try {
+    const [w, h] = dimensions(), maxPad = Math.min(12, Math.floor((Math.min(w, h) - 1) / 2));
+    $('padding').max = maxPad; if (Number($('padding').value) > maxPad) $('padding').value = maxPad;
+    $('paddingValue').textContent = $('padding').value;
+    if (!state.art) { state.rendered = null; updateActions(); return; }
+    state.rendered = drawFramed(w, h); const data = pixels(state.rendered); put($('preview'), data); put($('nativePreview'), data);
+    const scale = 192 / Math.max(w, h); $('preview').style.width = `${w * scale}px`; $('preview').style.height = `${h * scale}px`;
+    $('nativePreview').style.width = `${w}px`; $('nativePreview').style.height = `${h}px`;
+    $('previewInfo').textContent = `${w} × ${h} pixels\n${state.mode === 'font' ? (currentFont()?.selected ? 'Selected cell artwork' : 'Select a font cell to set the size') : w <= 128 && h <= 128 ? 'Small view: actual size' : 'Small view: scaled to fit'}`;
+  } catch (error) { state.rendered = null; status(error.message, true); }
+  updateActions();
+}
+function selectMode(mode) {
+  state.mode = mode;
+  $('buttonMode').setAttribute('aria-selected', mode === 'button'); $('fontMode').setAttribute('aria-selected', mode === 'font');
+  for (const id of ['buttonSettings', 'buttonOutput', 'buttonFinish']) $(id).hidden = mode !== 'button';
+  for (const id of ['fontSettings', 'fontOutput']) $(id).hidden = mode !== 'font';
+  renderFont(); render(); status(mode === 'font' ? 'Load your original font sheet, then click the symbol you want to replace.' : 'Choose a size and format, then download your DDS.');
+}
+function renderFont() {
+  const f = currentFont(), c = $('fontCanvas');
+  $('largeTab').setAttribute('aria-pressed', state.activeFont === 'large'); $('smallTab').setAttribute('aria-pressed', state.activeFont === 'small');
+  c.hidden = !f; $('emptyFont').hidden = !!f;
+  if (!f) { $('cellInfo').textContent = 'No cell selected'; updateActions(); return; }
+  const copy = new Uint8ClampedArray(f.image.data);
+  if ($('showMarkers').checked) for (let p = 3; p < copy.length; p += 4) copy[p] = 255;
+  c.width = f.image.width; c.height = f.image.height; const ctx = c.getContext('2d'); ctx.putImageData(new ImageData(copy, c.width, c.height), 0, 0);
+  const zoom = Number($('fontZoom').value); c.style.width = `${c.width * zoom}px`; c.style.height = `${c.height * zoom}px`;
+  if (f.selected) {
+    const r = f.selected; ctx.strokeStyle = '#ffbb33'; ctx.lineWidth = 1; ctx.strokeRect(r.x - .5, r.y - .5, r.width + 1, r.height + 1);
+    $('cellInfo').textContent = `Visual row ${r.row}, column ${r.col} · ${r.width} × ${r.height} px · ${f.history.length} replacement(s)`;
+    $('cellRow').value = r.row; $('cellCol').value = r.col;
+  } else $('cellInfo').textContent = `${f.cells.length} cells detected. Click a cell or enter its visual row and column.`;
+  updateActions();
+}
+function chooseCell(r, scroll) {
+  const f = currentFont(); if (!f || !r) { if (f) { f.selected = null; renderFont(); render(); } status('No detected cell at that position. Select inside a cell, not on a divider.', true); return; }
+  f.selected = r; renderFont(); render();
+  if (scroll) { const z = Number($('fontZoom').value); $('fontScroll').scrollLeft = Math.max(0, r.x * z - 60); $('fontScroll').scrollTop = Math.max(0, r.y * z - 60); }
+  status(`Selected ${state.activeFont === 'large' ? 'GameFont' : 'GameFont_75'} row ${r.row}, column ${r.col}. This is a visual position, not a game index.`);
+}
+async function loadFont(file, role) {
+  if (!file) return;
+  if (state.fonts[role]?.history.length && !confirm('Replace this loaded sheet and discard its unsaved edits? Download it first if you want to keep them.')) return;
+  try {
+    if (file.size > 80 * 1024 * 1024) throw Error('This TGA is too large. Limit: 80 MB.');
+    const image = C.readTGA(await file.arrayBuffer());
+    if (image.bits !== 32 || (image.descriptor & 15) !== 8) throw Error('GameFont needs a 32-bit TGA with 8 alpha bits. This file does not declare that format.');
+    const cells = C.detectCells(image); if (!cells.length) throw Error('No intact GameFont cell grid was detected. Use an original sheet with magenta/cyan dividers.');
+    state.fonts[role] = { image, original: { width: image.width, height: image.height, data: image.data.slice() }, cells, selected: null, history: [], fileName: file.name };
+    $(role === 'large' ? 'fontInfo' : 'smallFontInfo').textContent = `${file.name} · ${image.width} × ${image.height} · ${cells.length} cells`;
+    state.activeFont = role; renderFont(); render(); status('Sheet loaded. Select the cell that already belongs to your symbol.');
+  } catch (error) { status(error.message, true); }
+}
+function download(name, data, type = 'application/octet-stream') {
+  const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type })), a = document.createElement('a');
+  a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+function fontExport(role) {
+  const f = state.fonts[role]; if (!f || !f.history.length) throw Error('Apply artwork to this sheet first.');
+  const changedPixels = C.verifyFont(f.original, f.image, f.history.map(h => h.cell)), bytes = C.writeTGA(f.image, f.image);
+  const decoded = C.readTGA(bytes); C.verifyFont(f.original, decoded, f.history.map(h => h.cell));
+  for (let p = 0; p < decoded.data.length; p++) if (decoded.data[p] !== f.image.data[p]) throw Error('TGA round-trip check failed.');
+  return { bytes, log: { output: role === 'large' ? 'GameFont.tga' : 'GameFont_75.tga', input: f.fileName, width: f.image.width, height: f.image.height, changedPixels, replacements: f.history.map(h => ({ ...h.cell, artwork: h.artwork })), markerPixelsPreserved: true, gameIndexNotInferred: true } };
+}
+async function encodeDDS(im, format, mips) {
+  const source = `const C=(${createCiv4Core.toString()})();onmessage=e=>{try{const r=C.writeDDS(e.data.im,e.data.format,e.data.mips);postMessage({bytes:r},[r.buffer]);}catch(error){postMessage({error:error.message});}};`;
+  const url = URL.createObjectURL(new Blob([source], { type: 'text/javascript' })); let worker;
+  try {
+    worker = new Worker(url);
+    return await new Promise((resolve, reject) => {
+      worker.onmessage = e => e.data.error ? reject(Error(e.data.error)) : resolve(e.data.bytes);
+      worker.onerror = () => reject(Error('The browser could not start the local encoder. Open this file in a current version of Chrome, Edge or Firefox.'));
+      worker.postMessage({ im, format, mips }, [im.data.buffer]);
+    });
+  } finally { worker?.terminate(); URL.revokeObjectURL(url); }
+}
+$('artFile').addEventListener('change', async e => {
+  const file = e.target.files[0]; if (!file) return;
+  try {
+    if (!/\.(png|jpe?g)$/i.test(file.name) || file.size > 50 * 1024 * 1024) throw Error('Choose a JPG or PNG up to 50 MB.');
+    const image = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    if (image.width * image.height > 40000000) { image.close(); throw Error('Use artwork up to 40 megapixels.'); }
+    // Keep a high-quality working image; avoid allocating a full-resolution canvas on every slider movement.
+    const scale = Math.min(1, 2048 / Math.max(image.width, image.height)), working = canvas(Math.max(1, Math.round(image.width * scale)), Math.max(1, Math.round(image.height * scale)));
+    const ctx = working.getContext('2d'); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(image, 0, 0, working.width, working.height);
+    $('artInfo').textContent = `${file.name} · ${image.width} × ${image.height}${scale < 1 ? ' · working copy reduced to 2048 px' : ''}`; image.close();
+    state.art = working; state.artName = file.name; $('outputName').value = safeName(file.name); render(); status('Artwork loaded. Adjust framing, then export a button or choose a font cell.');
+  } catch (error) { status('Could not load artwork: ' + error.message, true); }
+});
+$('buttonMode').onclick = () => selectMode('button'); $('fontMode').onclick = () => selectMode('font');
+for (const id of ['fit', 'focusX', 'focusY', 'padding', 'keyEnabled', 'keyColor', 'keyTolerance', 'solidBg', 'bgColor', 'round', 'rim', 'size', 'format', 'mipmaps', 'width', 'height', 'outputName']) $(id).addEventListener('input', render);
+$('resetFraming').onclick = () => { $('fit').value = 'contain'; $('focusX').value = $('focusY').value = '50'; $('padding').value = '2'; $('keyEnabled').checked = false; render(); status('Framing reset.'); };
+$('fontFile').onchange = e => loadFont(e.target.files[0], 'large'); $('smallFontFile').onchange = e => loadFont(e.target.files[0], 'small');
+$('largeTab').onclick = () => { state.activeFont = 'large'; renderFont(); render(); }; $('smallTab').onclick = () => { state.activeFont = 'small'; renderFont(); render(); };
+$('fontZoom').oninput = renderFont; $('showMarkers').oninput = renderFont;
+$('fontCanvas').onclick = e => { const f = currentFont(); if (!f) return; const b = e.target.getBoundingClientRect(), x = (e.clientX - b.left) * f.image.width / b.width, y = (e.clientY - b.top) * f.image.height / b.height; chooseCell(f.cells.find(r => x >= r.x && x < r.x + r.width && y >= r.y && y < r.y + r.height), false); };
+$('selectCell').onclick = () => { const f = currentFont(); chooseCell(f?.cells.find(r => r.row === Number($('cellRow').value) && r.col === Number($('cellCol').value)), true); };
+$('applyGlyph').onclick = () => {
+  try {
+    const f = currentFont(); if (!f?.selected || !state.rendered) throw Error('Choose artwork and a font cell first.');
+    const result = C.replaceCell(f.image, f.selected, pixels(state.rendered));
+    f.history.push({ cell: { ...f.selected }, before: result.before, artwork: state.artName }); renderFont();
+    status(`Artwork applied to ${state.activeFont === 'large' ? 'GameFont' : 'GameFont_75'}. Grid and marker pixels preserved.${result.avoided ? ` ${result.avoided} reserved-color pixels adjusted by one blue level.` : ''} Download to keep these edits.`);
+  } catch (error) { status(error.message, true); }
+};
+$('undoGlyph').onclick = () => { const f = currentFont(); if (!f?.history.length) return; const last = f.history.pop(); C.restoreCell(f.image, last.cell, last.before); renderFont(); status('Last replacement undone.'); };
+$('exportFont').onclick = () => { try { const r = fontExport(state.activeFont); download(r.log.output, r.bytes); status(`Downloaded ${r.log.output}. ${r.log.changedPixels} changed pixels; all markers and unrelated pixels preserved.`); } catch (error) { status(error.message, true); } };
+$('exportPair').onclick = () => {
+  try {
+    const a = fontExport('large'), b = fontExport('small');
+    const log = { tool: 'Civ IV Art Studio 1.0', files: [a.log, b.log], note: 'Visual row and column are not game symbol IDs. Replace existing assigned cells; XML indices are unchanged. Back up original fonts and test in game.' };
+    const bytes = C.zip([{ name: 'GameFont.tga', data: a.bytes }, { name: 'GameFont_75.tga', data: b.bytes }, { name: 'edit-log.json', data: JSON.stringify(log, null, 2) }, { name: 'READ-ME.txt', data: 'Back up your original files. Place the two TGA files in your mod Assets/res/Fonts folder. Symbol XML indices are not changed by this tool. Test both font sizes in game. Magenta and cyan marker pixels and all pixels outside your edited cells were verified unchanged.\n' }]);
+    download('GameFont-edited.zip', bytes, 'application/zip'); status('Both edited font sheets and their change log downloaded.');
+  } catch (error) { status(error.message, true); }
+};
+$('exportDDS').onclick = async () => {
+  if (!state.rendered || state.busy) return;
+  state.busy = true; updateActions(); status('Encoding DDS…');
+  try { const name = safeName($('outputName').value), im = pixels(state.rendered), format = $('format').value, mips = $('mipmaps').checked; const bytes = await encodeDDS(im, format, mips); download(name + '.dds', bytes); status(`${name}.dds downloaded · ${format}${mips ? ' with mipmaps' : ', no mipmaps'}.`); }
+  catch (error) { status(error.message, true); }
+  finally { state.busy = false; updateActions(); }
+};
+$('exportPNG').onclick = () => { if (state.rendered) { const name = safeName($('outputName').value); state.rendered.toBlob(blob => { if (blob) download(name + '.png', blob, 'image/png'); else status('PNG export failed.', true); }); } };
+$('copyXML').onclick = async () => { try { await navigator.clipboard.writeText($('xmlSnippet').textContent); status('Button XML copied.'); } catch { status('Select the XML text and copy it manually; this browser does not allow clipboard access here.'); } };
+window.addEventListener('beforeunload', e => { if (Object.values(state.fonts).some(f => f?.history.length)) { e.preventDefault(); e.returnValue = ''; } });
+// Keyboard access for the mode tabs.
+for (const id of ['buttonMode', 'fontMode']) $(id).addEventListener('keydown', e => { if (['ArrowLeft', 'ArrowRight'].includes(e.key)) { e.preventDefault(); const next = state.mode === 'button' ? 'font' : 'button'; selectMode(next); $(next === 'button' ? 'buttonMode' : 'fontMode').focus(); } });
+render(); renderFont();
+
+</script>
+</body></html>

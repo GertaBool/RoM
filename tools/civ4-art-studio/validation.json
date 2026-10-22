@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "tested_date": "2026-10-22",
+  "source_fonts_revision": "2a8b9a83eb5b4d339cb92d23d04155e47e868efa",
+  "core_test_groups": 7,
+  "independent_formats": {
+    "passed": [
+      "red-DXT3-true.dds: decoded with correct orientation, color and alpha",
+      "red-RGBA-true.dds: decoded with correct orientation, color and alpha",
+      "red-RGBA-false.dds: decoded with correct orientation, color and alpha",
+      "red-DXT3-false.dds: decoded with correct orientation, color and alpha",
+      "Complementary red/green DXT3 block preserves both endpoints",
+      "DXT3 gradient mean channel error 1.779/255",
+      "Uncompressed and RLE TGA decoded independently",
+      "ZIP CRC, binary payload and Unicode filename verified",
+      "GameFont.tga: all external and marker RGBA pixels unchanged (Pillow check)",
+      "GameFont_75.tga: all external and marker RGBA pixels unchanged (Pillow check)"
+    ],
+    "in_game_tested": false
+  },
+  "browser": {
+    "passed": [
+      "PNG upload, transparent keyed background, rounded button, worker DDS export",
+      "Custom dimensions rejected if invalid; rectangular RGBA DDS with mipmaps",
+      "JPEG artwork loads",
+      "Full-size font cell selection, apply, undo and export",
+      "Independent matching-cell selection in small font; paired ZIP with validated edit log",
+      "Pillow confirms every marker and unrelated pixel in both browser-exported font files",
+      "Narrow viewport does not overflow"
+    ],
+    "javascript_errors": [],
+    "external_requests": [],
+    "in_game_tested": false,
+    "tested_via": "local HTTP serving the standalone HTML"
+  },
+  "in_game_tested": false
+}
