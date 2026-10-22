@@ -6,7 +6,9 @@ Everything that decides whether a commit may go in lives here. It needs only `gi
 |---|---|
 | `setup.sh` | Enables the method in a clone: git hooks, self-tests, ledger check. Safe to rerun |
 | `config.json` | Paths and limits: what is gated, what counts as method, the document roots, the stall and depth limits, the minimum runs |
-| `check_all.py` | Every check before a commit: figure-system self-test, every template renders and matches, registries reproduce, `UNCHECKED` lists only shrink, the ledger self-test and check, the statistics self-test |
+| `check_all.py` | Every check before a commit: figure-system self-test, every template renders and matches, registries reproduce, `UNCHECKED` lists only shrink, the ledger self-test and check, the statistics self-test, the patch check |
+| `patchcheck.py` | Refuses a source patch (`fixes/*.patch`) that changes the line endings of three or more lines of a file; run by `check_all.py` |
+| `tests/e2e_gate.sh` | The gate end to end in a scratch clone: commits that must pass or be refused, each for the expected reason; run by hand after a change to the gate |
 | `figlib.py`, `docs.py` | The figure system: registries refuse figures without unit, actor, turn and source; templates may not type numbers |
 | `ledger.py` | The prediction register, evaluator and commit gate (rules in its docstring) |
 | `variables.py` | This project's essential variables, as hashed functions (war logs, harness runs) |
