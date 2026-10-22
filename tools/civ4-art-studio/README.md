@@ -1,10 +1,10 @@
 # Civ IV Art Studio
 
-An offline image converter for **Civilization IV buttons and GameFont symbols**. No installation, Photoshop plugin, Python runtime or image upload is required to use the app.
+An offline workshop for **Civilization IV resources, DDS buttons and GameFont symbols**. No installation, Photoshop plugin, Python runtime or image upload is required to use the app.
 
 [Download the ready-to-use ZIP](Civ4ArtStudio.zip?raw=true) · [Standalone HTML](dist/Civ4ArtStudio.html?raw=true)
 
-![Button conversion preview](preview.png)
+![Resource editor preview](preview.png)
 
 ## Start
 
@@ -13,6 +13,32 @@ An offline image converter for **Civilization IV buttons and GameFont symbols**.
 3. Choose a JPG or PNG. Select **Buttons & DDS textures** or **GameFont symbols**.
 
 Everything runs on your device. Images are never sent to a server. Downloads are new files; the program does not write directly into your mod installation. The app and its source are MIT-licensed. It contains no game artwork.
+
+## Resource workshop
+
+Open **Resources & mod patch**, then choose your mod folder (the folder containing `Assets`, or `Assets` itself). The browser may call folder selection an “upload”; this app reads it locally and makes no network requests.
+
+1. Choose **Create a new resource** or **Edit an existing resource**, and select a template. Bauxite is a useful mined-deposit template in Rise of Mankind.
+2. Enter a name. New internal identifiers are generated automatically. Existing identifiers stay fixed.
+3. Set discovery/trade/obsolete technologies, health, happiness, tile yields, terrain and placement weight. Unexposed rules remain inherited from the template: the form explains latitude, feature and random-placement inheritance.
+4. Select connecting improvements, producer buildings, and mandatory unit/building consumers. Existing alternative requirements remain unchanged. Multiple selections use Ctrl/Cmd-click. Existing connections retain their yields; new connections copy the template's improvement entry when available.
+5. Choose an existing resource's map model. Optionally load a PNG/JPG for a new 64×64 DXT3 button. Model textures and animations remain in your mod; this tool does not create NIFs.
+6. Write the Civilopedia description and optional translations. Missing French/German/Italian/Spanish strings fall back to English, explicitly reported in the patch notes.
+7. **Review patch**, then **Download reviewed patch**. Any form change invalidates the review.
+
+The ZIP contains `patch/Assets/...`, exact original-file backups, a SHA256 manifest, a reusable draft and installation/rollback instructions. Copy the **contents of patch/** into a test copy of the mod. Nothing writes into the selected installation. Create one resource per patch, install/test it, then reload the updated folder before producing another patch. Drafts save settings but not artwork; reselect the image after reopening a draft.
+
+Natural resources keep the template's map-generation behavior except for the controls you change. Manufactured resources disable natural placement and require a producer building. The producer uses `FreeBonus` and `iNumFreeBonuses`; this is not an automatic input/output conversion chain. Buildings already producing another resource cannot be reassigned here. Corporation inputs, special Python rules, advanced building modifiers, arbitrary schema editing and save-game migration are outside the form.
+
+### Resource GameFont choices
+
+**Reuse existing symbol** is the default and works without editing either font. A new resource can use its own button/model while sharing an existing text symbol.
+
+**Custom GameFont slot** presents enlarged cells from both sheets. Enter the intended resource index and select matching empty cells independently. The editor checks every resource art definition it finds, including modules, and blocks occupied indices and cells with visible artwork. It protects markers and checks both exported TGAs pixel by pixel. An unreferenced number does **not** prove an unused or valid glyph allocation.
+
+Without an in-game-verified mapping, the ZIP is labelled **TEST ONLY**. Test that resource at both font sizes, plus existing health/happiness/trade and other symbols. Mark the mapping verified only after that check. Draft import deliberately clears verification because the loaded font/DLL may have changed. The editor never infers an index by counting visual cells, expands the font grid, or rewrites DLL offsets. Module load order is not inferred: ambiguous duplicate definitions are blocked, and inactive modules still participate in collision checks.
+
+This is a template editor with structural and reference checks, not a full Civ IV schema validator or a game simulator. Restart the game and use a new map to test additions. Mod-specific map scripts may control placement separately. No in-game test has been performed in this environment.
 
 ## Make a button
 
@@ -54,7 +80,7 @@ Assets/res/Fonts/GameFont_75.tga
 6. Download an edited TGA individually, or download both edited sheets and their JSON edit log as a ZIP.
 7. Put the edited files in the mod's `Assets/res/Fonts` directory and inspect the relevant symbol in game at both font sizes.
 
-Visual row and column are navigation labels, **not `FontButtonIndex` or Unicode values**. The app replaces existing cells and does not create new glyph allocations, adjust resource/religion counts, or rewrite XML. Adding a new game object still requires the mod's own index and XML setup. Do not infer a game index from the displayed cell number.
+Visual row and column are navigation labels, **not `FontButtonIndex` or Unicode values**. The standalone GameFont tab replaces existing cells and does not create new glyph allocations or rewrite XML. The separate Resource workshop creates matching resource XML and supports explicitly mapped empty slots. Adding a new game object still requires the mod's own index and XML setup. Do not infer a game index from the displayed cell number.
 
 ### Font protection
 
@@ -66,7 +92,7 @@ Visual row and column are navigation labels, **not `FontButtonIndex` or Unicode 
 - Decodes the exported file again and verifies that all RGBA bytes match the edited buffer.
 - Retains the header, image ID and trailing metadata for standard uncompressed 32-bit input. RLE input is decoded and written as uncompressed TGA; optional trailing RLE metadata is not carried over because its byte offsets may no longer be valid.
 
-If the grid cannot be detected reliably, use an intact original sheet. This version has no manual grid rebuilding mode. It is not a font-index editor or an atlas generator.
+If the grid cannot be detected reliably, use an intact original sheet. This version has no manual grid rebuilding mode. It does not rebuild the font grid or generate button atlases.
 
 ## Limits and validation
 
@@ -78,7 +104,7 @@ In-game rendering has not been tested. File structure and preservation tests do 
 
 ## Source and tests
 
-`app/` holds the readable HTML, UI script and binary-format implementation. `build.py` embeds both scripts into `dist/Civ4ArtStudio.html`. There are no third-party runtime dependencies.
+`app/` holds the readable HTML, UI script and binary-format implementation. `build.py` embeds the scripts into `dist/Civ4ArtStudio.html`. There are no third-party runtime dependencies.
 
 Developer checks require Node.js, Python with Pillow, and optionally Playwright with Chromium:
 
@@ -87,8 +113,9 @@ python build.py
 node tests/test_core.js /path/to/mod/Assets/res/Fonts
 python tests/check_formats.py /path/to/mod/Assets/res/Fonts
 python tests/browser_check.py /path/to/mod/Assets/res/Fonts
+python tests/resource_check.py /path/to/rise-of-mankind
 ```
 
-The core tests also run without the optional font-directory argument. Browser tests currently expect the Rise of Mankind font layout (1,301 / 1,325 detected cells). Synthetic fixtures and test outputs are generated under `tests/output/`; game files are read only and are not bundled.
+The core tests also run without the optional font-directory argument. The resource integration test expects the Rise of Mankind definitions (including Bauxite and Guilds). It copies inputs to ignored test fixtures, generates and inspects patches, and never modifies the supplied mod. Browser tests currently expect the Rise of Mankind font layout (1,301 / 1,325 detected cells). Synthetic fixtures and test outputs are generated under `tests/output/`; game files are read only and are not bundled.
 
-The mod conventions were checked against Rise of Mankind source `2a8b9a83`: existing 64×64 DDS buttons use DXT3 among other formats; `CvGameTextMgr.cpp` assigns game font symbols using category counts and resource `FontButtonIndex`, confirming that a visual cell position alone is not a sufficient game index.
+The mod conventions were checked against Rise of Mankind source `2a8b9a83`: existing 64×64 DDS buttons use DXT3 among other formats; `CvGameTextMgr.cpp` assigns game font symbols using category counts and resource `FontButtonIndex`, and `CvBonusInfo::setChar` adds 125 in this mod, confirming that a visual cell position alone is not a sufficient game index.

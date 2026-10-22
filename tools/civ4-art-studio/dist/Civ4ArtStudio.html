@@ -2,11 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Civ IV Art Studio</title><link rel="icon" href="data:,">
 <style>
 :root{color-scheme:dark;--bg:#101819;--panel:#182325;--line:#344344;--ink:#f4f1e6;--muted:#b0bfbd;--gold:#edbf75;--teal:#8dd9c6}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}header{border-bottom:1px solid var(--line);padding:26px max(24px,calc((100vw - 1250px)/2));display:flex;justify-content:space-between;gap:20px;align-items:center}h1{font:600 30px/1.2 Georgia,serif;margin:4px 0}h2{font:500 23px Georgia,serif;margin:0 0 16px}h3{font-size:16px;margin:0 0 12px}.eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}.badge{border:1px solid var(--line);border-radius:99px;padding:7px 13px;color:var(--teal);font-size:12px}main{max-width:1300px;margin:26px auto;padding:0 24px 40px}.modes{display:flex;gap:8px;margin:0 0 22px}.modes button{background:transparent;color:var(--muted);border:1px solid var(--line)}.modes button[aria-selected=true]{background:var(--gold);color:#20180e;border-color:var(--gold)}button,.file-label{border:0;border-radius:7px;padding:11px 17px;font:600 14px system-ui;cursor:pointer;background:var(--gold);color:#21180c;display:inline-block}button:hover,.file-label:hover{filter:brightness(1.08)}button:disabled{opacity:.4;cursor:not-allowed}.secondary,.file-label{background:#263739;color:var(--ink);border:1px solid #4d6566}.workspace{display:grid;grid-template-columns:310px 1fr;gap:20px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px}.side{display:grid;gap:18px;align-content:start}.main-panel{min-width:0}p{margin:8px 0 15px}.muted,small{color:var(--muted)}small{display:block;font-size:12px;margin-top:5px}label{display:block;font-size:13px;margin:12px 0 6px}input[type=range]{width:100%;accent-color:var(--gold)}input[type=number],input[type=text],select{width:100%;padding:9px;border-radius:5px;border:1px solid #506365;background:#101c1e;color:var(--ink);font:inherit}input[type=checkbox]{accent-color:var(--gold)}input[type=color]{width:45px;height:32px;border:0;background:none;vertical-align:middle}input[type=file]{max-width:100%;font-size:12px;color:var(--muted);margin:8px 0}input[type=file]::file-selector-button{background:#2c4243;color:var(--ink);border:1px solid #506365;padding:8px;border-radius:5px;margin-right:10px}.row{display:flex;gap:12px;align-items:center}.row>*{flex:1;min-width:0}.check{display:flex;gap:8px;align-items:center}.check input{width:auto}.preview-stage{min-height:310px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:15px;border:1px solid var(--line);border-radius:9px;background:radial-gradient(ellipse at center,#243538,#172124)}.checker{background-color:#334245;background-image:linear-gradient(45deg,#48585a 25%,transparent 25%),linear-gradient(-45deg,#48585a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#48585a 75%),linear-gradient(-45deg,transparent 75%,#48585a 75%);background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0}.preview-frame{padding:12px;border:1px solid #6b6d5e;border-radius:9px;box-shadow:0 14px 40px #0005}#preview{display:block;width:192px;height:192px;image-rendering:pixelated}#nativePreview{display:block;image-rendering:pixelated;max-width:128px;max-height:128px}.preview-empty{font:22px Georgia;color:var(--muted);text-align:center;padding:30px}.output{margin-top:20px}.output button{margin:0 8px 8px 0}.note{border-left:3px solid var(--teal);padding:10px 15px;background:#142b29;font-size:13px;margin-top:16px}.status{min-height:45px;padding:12px 0;color:var(--teal);white-space:pre-wrap}.status.error{color:#ffaca5}details{margin-top:16px}summary{cursor:pointer;color:var(--gold)}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1617;padding:14px;border-radius:6px;font-size:12px}.font-tabs{display:flex;gap:6px;margin:12px 0}.font-tabs button{font-size:12px;padding:8px 12px}.font-tabs button[aria-pressed=true]{outline:2px solid var(--gold)}.font-scroll{height:300px;overflow:auto;border:1px solid #526467;border-radius:6px;touch-action:pan-x pan-y}.font-scroll canvas{display:block;image-rendering:pixelated;cursor:crosshair;max-width:none}#fontCanvas{background:#29383a}.empty-font{padding:25px;color:var(--muted)}#previewInfo{white-space:pre-line}.selected{color:var(--gold);font-size:13px;margin:12px 0}.sheets{display:grid;grid-template-columns:1fr 1fr;gap:12px}.sheet-box{padding:12px;border:1px solid var(--line);border-radius:7px;font-size:12px}.hidden,[hidden]{display:none!important}footer{color:var(--muted);font-size:12px;padding-top:20px;border-top:1px solid var(--line);margin-top:20px}a{color:var(--gold)}:focus-visible{outline:3px solid var(--teal);outline-offset:3px}@media(max-width:850px){.workspace{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.sheets{grid-template-columns:1fr}header{padding:20px}main{padding:0 14px}.panel{padding:16px}}@media(max-width:540px){.side{grid-template-columns:1fr}.badge{display:none}.row{flex-wrap:wrap}.row>*{flex-basis:40%}}
+
+.modes{flex-wrap:wrap}.resource-grid{display:grid;grid-template-columns:260px 1fr;gap:20px}.resource-form{min-width:0}.resource-form details{border:1px solid var(--line);padding:16px;border-radius:8px}.resource-form summary{font-size:17px}.resource-form textarea{width:100%;min-height:90px;background:#101c1e;color:var(--ink);border:1px solid #506365;border-radius:5px;padding:10px;font:inherit}.resource-form select[multiple]{min-height:170px}.resource-form fieldset{border:1px solid var(--line);border-radius:8px;margin:14px 0}.resource-form legend{color:var(--gold)}.terrain-options{display:flex;flex-wrap:wrap;gap:12px}.terrain-options label{margin:0}.resource-card{padding:12px;border:1px solid var(--line);border-radius:8px;margin-top:12px}.glyph-gallery{display:flex;flex-wrap:wrap;gap:6px;max-height:290px;overflow:auto;padding:8px;background:#111d1e}.glyph-gallery button{background:#304244;color:var(--ink);padding:6px;width:76px;font-size:10px}.glyph-gallery button[aria-pressed=true]{outline:2px solid var(--gold)}.glyph-gallery canvas{width:48px;height:48px;image-rendering:pixelated;display:block;margin:auto}.resource-review{white-space:pre-wrap;overflow-wrap:anywhere}.resource-form .row{align-items:start}#resourceStatus{white-space:pre-wrap}.resource-sticky{position:sticky;top:16px}.resource-form option{padding:4px}@media(max-width:850px){.resource-grid{grid-template-columns:1fr}.resource-sticky{position:static}}
 </style></head><body>
 <header><div><div class="eyebrow">The modder’s workbench</div><h1>Civ IV Art Studio</h1></div><div class="badge">Offline · Your images stay on this device</div></header>
 <main>
-<div class="modes" role="tablist" aria-label="Export mode"><button id="buttonMode" role="tab" aria-selected="true">Buttons &amp; DDS textures</button><button id="fontMode" role="tab" aria-selected="false">GameFont symbols</button></div>
-<div class="workspace"><aside class="side">
+<div class="modes" role="tablist" aria-label="Export mode"><button id="buttonMode" role="tab" aria-selected="true">Buttons &amp; DDS textures</button><button id="fontMode" role="tab" aria-selected="false">GameFont symbols</button><button id="resourceMode" role="tab" aria-selected="false">Resources &amp; mod patch</button></div>
+<div id="artWorkspace" class="workspace"><aside class="side">
 <section class="panel"><h2>1. Choose artwork</h2><label for="artFile">JPG or PNG image</label><input id="artFile" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png"><small id="artInfo">Transparent PNG works best for a symbol. JPEG backgrounds stay visible unless you remove a color below.</small><label for="fit">Framing</label><select id="fit"><option value="contain">Fit entire image</option><option value="cover">Fill &amp; crop</option><option value="stretch">Stretch to fit</option></select><label for="focusX">Horizontal crop focus</label><input id="focusX" type="range" min="0" max="100" value="50"><label for="focusY">Vertical crop focus</label><input id="focusY" type="range" min="0" max="100" value="50"><label for="padding">Inset <span id="paddingValue">2</span> px</label><input id="padding" type="range" min="0" max="12" value="2"></section>
 <section class="panel"><h2>2. Finish</h2><label class="check"><input id="keyEnabled" type="checkbox"> Remove a background color</label><div class="row"><label for="keyColor">Color <input id="keyColor" type="color" value="#ffffff"></label><label for="keyTolerance">Tolerance<input id="keyTolerance" type="number" min="0" max="180" value="15"></label></div><small>Removes matching colors everywhere in the image, including inside the subject. Edges are feathered.</small><div id="buttonFinish"><label class="check"><input id="solidBg" type="checkbox"> Add a solid background</label><label for="bgColor">Background <input id="bgColor" type="color" value="#142c31"></label><label class="check"><input id="round" type="checkbox" checked> Rounded corners</label><label class="check"><input id="rim" type="checkbox"> Subtle gold border</label></div><button id="resetFraming" class="secondary" style="margin-top:18px">Reset framing</button></section>
 </aside><section class="panel main-panel">
@@ -16,7 +18,20 @@
 <div id="buttonOutput" class="output"><label for="outputName">File name</label><input id="outputName" type="text" value="my_button" maxlength="80"><div style="margin-top:14px"><button id="exportDDS" disabled>Download DDS</button><button id="exportPNG" class="secondary" disabled>Download PNG preview</button></div><details><summary>Use this button in your mod</summary><p>Place the DDS in <code>Assets/Art/Interface/Buttons/Custom/</code>. Use the relevant XML entry’s Button field:</p><pre id="xmlSnippet"></pre><button id="copyXML" class="secondary">Copy XML</button><small>Some objects reference an ArtDefine instead of a direct Button field. A standalone image does not need atlas coordinates.</small></details></div>
 <div id="fontOutput" class="output" hidden><button id="applyGlyph" disabled>Apply artwork to selected cell</button><button id="undoGlyph" class="secondary" disabled>Undo last replacement</button><div style="margin-top:10px"><button id="exportFont" disabled>Download edited TGA</button><button id="exportPair" class="secondary" disabled>Download both fonts + edit log</button></div><small>To download the pair, load and edit both font sheets first.</small><div class="note">Grid and marker pixels are protected. This replaces existing cells; it does not create new symbol indices or change XML. Keep original backups and update both font sizes for the same symbol.</div><details><summary>How symbol indices work</summary><p>Visual row/column labels here are navigation aids, not <code>FontButtonIndex</code>. Civ IV’s symbol order also depends on the font layout, padding and your mod’s definitions. Replace the symbol already assigned to your object, then test it in game. New resources or religions need matching XML and font allocation work.</p><p>The default fit leaves space around the symbol. At small sizes, a simple silhouette is clearer than a detailed photograph.</p></details></div>
 <div id="status" class="status" role="status" aria-live="polite">Ready. No installation or image upload required.</div>
-</section></div><footer>Civ IV Art Studio · Legacy DDS and 32-bit TGA · Local files only · In-game appearance depends on your mod and XML setup.</footer>
+</section></div>
+<section id="resourceWorkspace" hidden>
+<div class="resource-grid"><aside><div class="panel resource-sticky"><div class="eyebrow">Resource workshop</div><h2>Build from your mod</h2><p>Choose the mod folder containing Assets. Files stay on this device. Nothing is installed or overwritten.</p><label for="modFolder">Mod folder</label><input id="modFolder" type="file" webkitdirectory multiple><div id="modSummary" class="muted">Load a mod to begin.</div><div class="resource-card"><strong>One resource per patch</strong><small>Install and test the patch, then reload the updated folder before creating another. This avoids conflicting edits.</small></div><button id="saveRecipe" class="secondary" disabled style="margin-top:16px">Save draft</button><label for="recipeFile">Resume saved draft</label><input id="recipeFile" type="file" accept=".json"><small>Drafts store settings and slot mappings. Reload artwork separately.</small></div></aside>
+<div class="panel resource-form"><h2>A new resource, without editing XML</h2><p class="muted">Start with a working resource. Settings not shown here are preserved from that template. Review the patch before installing it in a copy of your mod.</p>
+<fieldset id="resourceFields" disabled>
+<legend>1 · Start with something that works</legend><div class="row"><label for="resourceAction">Action<select id="resourceAction"><option value="create">Create a new resource</option><option value="edit">Edit an existing resource</option></select></label><label for="resourceTemplate">Resource / template<select id="resourceTemplate"></select></label></div><div class="row"><label for="resourceName">Display name<input id="resourceName" type="text" placeholder="Lithium"></label><label for="resourceID">Internal identifier<input id="resourceID" type="text" placeholder="BONUS_LITHIUM"><small>Generated from the name. Existing identifiers stay fixed.</small></label></div><div class="row"><label for="resourceKind">Source<select id="resourceKind"><option value="natural">Natural deposit or crop</option><option value="manufactured">Produced by a building</option></select></label><label for="resourceClass">Resource class<select id="resourceClass"></select></label></div>
+<details open><summary>2 · Discovery, benefits &amp; placement</summary><div class="row"><label for="revealTech">Visible after<select id="revealTech"></select></label><label for="tradeTech">Available for city trade after<select id="tradeTech"></select></label><label for="obsoleteTech">Obsolete after<select id="obsoleteTech"></select></label></div><div class="row"><label for="resourceHealth">Health<input id="resourceHealth" type="number" min="-100" max="100"></label><label for="resourceHappiness">Happiness<input id="resourceHappiness" type="number" min="-100" max="100"></label></div><div class="row"><label for="yieldFood">Tile food<input id="yieldFood" type="number" min="-100" max="100"></label><label for="yieldProduction">Tile production<input id="yieldProduction" type="number" min="-100" max="100"></label><label for="yieldCommerce">Tile commerce<input id="yieldCommerce" type="number" min="-100" max="100"></label></div><div id="naturalSettings"><p>Eligible terrain</p><div id="terrainOptions" class="terrain-options"></div><div class="row"><label class="check"><input id="resourceHills" type="checkbox"> Hills</label><label class="check"><input id="resourceFlat" type="checkbox"> Flat land</label></div><div class="row"><label for="placementOrder">Placement order<input id="placementOrder" type="number" min="0" max="100"></label><label for="appearance">Base appearance weight<input id="appearance" type="number" min="0" max="10000"><small>A map-generator weight, not a percentage. Random and player scaling are inherited.</small></label></div><small id="placementSummary"></small></div></details>
+<details><summary>3 · Improvements, producers &amp; consumers</summary><p>Select multiple entries with Ctrl/Cmd-click. These lists edit direct resource connections; unrelated requirements are preserved.</p><label for="resourceImprovements">Improvements that connect this resource<input id="resourceImprovementsSearch" type="text" placeholder="Filter improvements…" aria-label="Filter improvements"><select id="resourceImprovements" multiple></select></label><small>New connections copy this template’s improvement bonus when present; otherwise they connect the resource with no extra improvement yield. Existing connection yields are preserved.</small><label for="resourceProducers">Buildings that produce it<input id="resourceProducersSearch" type="text" placeholder="Filter producer buildings…" aria-label="Filter producer buildings"><select id="resourceProducers" multiple></select></label><label for="producerCount">Copies supplied by each selected building<input id="producerCount" type="number" min="1" max="100" value="1"></label><small>Buildings already producing a different resource cannot be reassigned here.</small><label for="resourceBuildings">Buildings requiring it (mandatory resource)<input id="resourceBuildingsSearch" type="text" placeholder="Filter required buildings…" aria-label="Filter required buildings"><select id="resourceBuildings" multiple></select></label><label for="resourceUnits">Units requiring it (mandatory resource)<input id="resourceUnitsSearch" type="text" placeholder="Filter units…" aria-label="Filter units"><select id="resourceUnits" multiple></select></label><small>Existing alternative-resource requirements remain in effect. Entries with another mandatory resource are unavailable. Corporation inputs, special Python rules and building yield modifiers are outside this form.</small></details>
+<details><summary>4 · Button, map model &amp; GameFont</summary><label for="resourceArt">Reuse map model and default icons from<select id="resourceArt"></select></label><small id="resourceArtInfo"></small><label for="resourceArtwork">Optional new button / symbol artwork (PNG or JPG)<input id="resourceArtwork" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg"></label><div class="row"><canvas id="resourcePreview" width="64" height="64" style="max-width:128px;width:128px;height:128px;image-rendering:pixelated" class="checker"></canvas><p id="resourceArtworkInfo" class="muted">No new artwork. The selected resource’s button is retained.</p></div><label for="resourceSymbol">Tiny text symbol<select id="resourceSymbol"><option value="inherit">Reuse the selected resource’s working symbol</option><option value="custom">Use a custom GameFont slot</option></select></label><div id="resourceSlotPanel" hidden><p>Register a slot once, then reuse its saved draft. Select matching cells at both sizes. The index cannot be inferred safely from a blank cell or visual row.</p><label for="resourceIndex">Resource font index<input id="resourceIndex" type="number" min="0" max="4095" value="0"></label><div id="slotOccupancy" class="note"></div><div class="row"><label for="slotSize">Sheet<select id="slotSize"><option value="large">GameFont</option><option value="small">GameFont_75</option></select></label><label for="slotRow">Visual row<select id="slotRow"></select></label></div><div id="slotGallery" class="glyph-gallery"></div><p id="slotSelection" class="muted"></p><label class="check"><input id="slotVerified" type="checkbox"> I have tested that this index displays these cells in this mod.</label><small>Without verification, the download is labelled TEST ONLY. Occupied indices are blocked. Test both font sizes and unrelated symbols before treating the slot as usable.</small></div></details>
+<details><summary>5 · Civilopedia &amp; translations</summary><label for="textLanguage">Language<select id="textLanguage"><option>English</option><option>French</option><option>German</option><option>Italian</option><option>Spanish</option></select></label><label for="translatedName">Translated name<input id="translatedName" type="text"></label><label for="resourcePedia">Civilopedia description<textarea id="resourcePedia" rows="6"></textarea></label><small>English is required. Empty translations use the English text and are identified in the change report. Existing translations are loaded when editing a resource.</small></details>
+</fieldset>
+<div class="output"><button id="reviewResource" disabled>Review patch</button><button id="downloadResource" disabled>Download reviewed patch</button></div><div id="resourceStatus" class="status" role="status" aria-live="polite">Choose your mod folder to populate the editor.</div><div id="resourceReview" class="resource-review note" hidden></div>
+</div></div></section>
+<footer>Civ IV Art Studio · Legacy DDS and 32-bit TGA · Local files only · In-game appearance depends on your mod and XML setup.</footer>
 </main>
 <script>
 /* Civ IV Art Studio: binary image formats and marker-preserving glyph replacement. */
@@ -296,6 +311,7 @@ function render() {
   updateActions();
 }
 function selectMode(mode) {
+  if ($('resourceWorkspace')) { $('resourceWorkspace').hidden = true; $('artWorkspace').hidden = false; $('resourceMode').setAttribute('aria-selected', 'false'); }
   state.mode = mode;
   $('buttonMode').setAttribute('aria-selected', mode === 'button'); $('fontMode').setAttribute('aria-selected', mode === 'font');
   for (const id of ['buttonSettings', 'buttonOutput', 'buttonFinish']) $(id).hidden = mode !== 'button';
@@ -410,8 +426,320 @@ $('exportPNG').onclick = () => { if (state.rendered) { const name = safeName($('
 $('copyXML').onclick = async () => { try { await navigator.clipboard.writeText($('xmlSnippet').textContent); status('Button XML copied.'); } catch { status('Select the XML text and copy it manually; this browser does not allow clipboard access here.'); } };
 window.addEventListener('beforeunload', e => { if (Object.values(state.fonts).some(f => f?.history.length)) { e.preventDefault(); e.returnValue = ''; } });
 // Keyboard access for the mode tabs.
-for (const id of ['buttonMode', 'fontMode']) $(id).addEventListener('keydown', e => { if (['ArrowLeft', 'ArrowRight'].includes(e.key)) { e.preventDefault(); const next = state.mode === 'button' ? 'font' : 'button'; selectMode(next); $(next === 'button' ? 'buttonMode' : 'fontMode').focus(); } });
+for (const id of ['buttonMode', 'fontMode', 'resourceMode']) $(id).addEventListener('keydown', e => { if (['ArrowLeft','ArrowRight'].includes(e.key)) { e.preventDefault(); const tabs=['buttonMode','fontMode','resourceMode'], next=tabs[(tabs.indexOf(id)+(e.key==='ArrowRight'?1:2))%3]; $(next).click(); $(next).focus(); } });
 render(); renderFont();
+
+</script><script>
+'use strict';
+// Resource workshop: explicit, template-based edits; original files are never written.
+const R = { files: new Map(), docs: [], records: {}, texts: new Map(), translations: {}, language: 'English', artwork: null, slots: {}, fonts: {}, plan: null, dirty: false, loading: false };
+const languages = ['English', 'French', 'German', 'Italian', 'Spanish'];
+const entryTags = ['BonusInfo','BonusArtInfo','TechInfo','TerrainInfo','BonusClassInfo','ImprovementInfo','BuildingInfo','UnitInfo'];
+const direct = (node, tag) => [...node.children].find(n => n.localName === tag);
+const value = (node, tag) => direct(node, tag)?.textContent.trim() || '';
+const typeOf = node => value(node, 'Type');
+const readable = text => text.replace(/^(BONUS|ART_DEF_BONUS|TECH|IMPROVEMENT|BUILDING|UNIT|TERRAIN|BONUSCLASS)_/, '').toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+const selected = id => [...$(id).selectedOptions].map(o => o.value);
+function sayResource(message, error = false) { $('resourceStatus').textContent = message; $('resourceStatus').classList.toggle('error', error); }
+function invalidateResource() { R.plan = null; R.dirty = true; $('downloadResource').disabled = true; $('resourceReview').hidden = true; }
+function xmlParse(text, path) {
+  if (/<!DOCTYPE|<!ENTITY/i.test(text)) throw Error(`${path}: external entities and DTDs are not supported.`);
+  const doc = new DOMParser().parseFromString(text.replace(/>\s+</g, '><'), 'application/xml');
+  if (doc.getElementsByTagName('parsererror').length) throw Error(`${path}: invalid XML; fix the file before editing.`);
+  return doc;
+}
+function setValue(node, tag, text) { const target = direct(node, tag); if (!target) throw Error(`Template is missing ${tag}. Choose a compatible Civ IV template.`); target.textContent = String(text); }
+function child(node, tag, text) { const el = node.ownerDocument.createElementNS(node.namespaceURI, tag); if (text !== undefined) el.textContent = String(text); return el; }
+function listValues(node, tag, item, values) { const target = direct(node, tag); if (!target) throw Error(`Template is missing ${tag}.`); target.replaceChildren(...values.map(v => child(node, item, v))); }
+function integer(id, min = -100, max = 100) { const n = Number($(id).value); if (!$(id).value.trim() || !Number.isInteger(n) || n < min || n > max) throw Error(`${$(id).labels?.[0]?.firstChild?.textContent || id}: enter a whole number between ${min} and ${max}.`); return n; }
+function records(tag) { return R.records[tag] || []; }
+function record(tag, type) { const matches = records(tag).filter(r => typeOf(r.node) === type); if (matches.length !== 1) throw Error(`${type}: ${matches.length ? 'multiple definitions; module load order must be resolved before editing' : 'definition not found'}.`); return matches[0]; }
+function labelFor(node) { const key = value(node, 'Description'); return R.texts.get(key)?.English || readable(typeOf(node)); }
+function options(id, rows, none = false) {
+  const el = $(id); el.replaceChildren(); if (none) el.add(new Option('None', 'NONE'));
+  const counts = new Map(); rows.forEach(r => counts.set(typeOf(r.node), (counts.get(typeOf(r.node)) || 0) + 1));
+  rows.filter((r,i,a) => a.findIndex(x => typeOf(x.node) === typeOf(r.node)) === i).sort((a,b) => labelFor(a.node).localeCompare(labelFor(b.node))).forEach(r => {
+    const type = typeOf(r.node), o = new Option(`${labelFor(r.node)}${counts.get(type) > 1 ? ' [multiple definitions]' : ''}`, type); o.disabled = counts.get(type) > 1; el.add(o);
+  });
+}
+function chooseMany(id, types) { const set = new Set(types); for (const o of $(id).options) o.selected = set.has(o.value); }
+async function readXML(file, path) {
+  const bytes = await file.arrayBuffer(), head = new TextDecoder().decode(bytes.slice(0, 250));
+  const encoding = head.match(/encoding\s*=\s*["']([^"']+)/i)?.[1] || 'utf-8';
+  let text; try { text = new TextDecoder(encoding, { fatal: true }).decode(bytes); } catch { throw Error(`${path}: cannot decode ${encoding}.`); }
+  return { path, text, doc: xmlParse(text, path), bytes: new Uint8Array(bytes) };
+}
+async function loadMod(files) {
+  if (R.loading) return;
+  if (R.dirty && !confirm('Load another folder and discard the current draft? Save the draft first if needed.')) return;
+  R.loading = true; R.plan = null; R.dirty = false; R.files = new Map(); R.docs = []; R.records = {}; R.texts = new Map(); R.fonts = {}; R.slots = {}; R.artwork = null;
+  $('resourceFields').disabled = true; $('reviewResource').disabled = $('downloadResource').disabled = $('saveRecipe').disabled = true;
+  $('resourceReview').hidden = true; $('slotVerified').checked = false; $('resourceArtwork').value = ''; $('resourcePreview').getContext('2d').clearRect(0,0,64,64); $('resourceArtworkInfo').textContent='No new artwork. The selected resource’s button is retained.';
+  try {
+    sayResource('Reading the selected folder…');
+    for (const file of files) {
+      const name = file.webkitRelativePath || file.name, parts = name.replaceAll('\\','/').split('/'), start = parts.findIndex(p => p.toLowerCase() === 'assets');
+      if (start < 0) continue; const path = parts.slice(start).join('/');
+      if (parts.some(p => p === '..') || R.files.has(path.toLowerCase())) throw Error('Ambiguous or unsafe file paths in the folder.');
+      R.files.set(path.toLowerCase(), { file, path });
+    }
+    if (!R.files.size) throw Error('Choose a mod folder containing Assets, or the Assets folder itself.');
+    const candidates = [...R.files.values()].filter(x => /\.xml$/i.test(x.path) && !/schema\.xml$/i.test(x.path));
+    for (let i = 0; i < candidates.length; i++) {
+      const item = candidates[i];
+      // Only files used by this editor. Include every matching module, regardless of activation.
+      if (!/(?:BonusInfos|ArtDefines_Bonus|TechInfos|TerrainInfos|BonusClassInfos|ImprovementInfos|BuildingInfos|UnitInfos)\.xml$/i.test(item.path) && !/\/Text\//i.test(item.path)) continue;
+      if (item.file.size > 40 * 1024 * 1024) throw Error(`${item.path} exceeds the 40 MB XML limit.`);
+      const d = await readXML(item.file, item.path); if (!/\/Text\//i.test(item.path)) R.docs.push(d);
+      for (const tag of entryTags) for (const node of d.doc.getElementsByTagName(tag)) {
+        if (!typeOf(node)) continue; (R.records[tag] ||= []).push({ node, source: d });
+      }
+      for (const node of d.doc.getElementsByTagName('TEXT')) {
+        const key = value(node, 'Tag'); if (!key) continue;
+        const translated = {};
+        for (const lang of languages) { const el = direct(node, lang); translated[lang] = el ? (direct(el, 'Text')?.textContent || el.textContent).trim() : ''; }
+        // Used only as display labels / starting text. Existing text documents are not modified.
+        if (!R.texts.has(key)) R.texts.set(key, translated);
+      }
+      if (i % 15 === 0) { sayResource(`Reading mod definitions… ${i + 1}/${candidates.length}`); await new Promise(resolve => setTimeout(resolve, 0)); }
+    }
+    if (!records('BonusInfo').length || !records('BonusArtInfo').length) throw Error('No resource definitions and resource art definitions were found.');
+    options('resourceTemplate', records('BonusInfo')); options('resourceArt', records('BonusArtInfo'));
+    for (const id of ['revealTech','tradeTech','obsoleteTech']) options(id, records('TechInfo'), true);
+    options('resourceClass', records('BonusClassInfo'));
+    if (!$('resourceClass').options.length) { const classes = [...new Set(records('BonusInfo').map(r => value(r.node,'BonusClassType')))]; for (const c of classes) $('resourceClass').add(new Option(readable(c),c)); }
+    options('resourceImprovements', records('ImprovementInfo')); options('resourceProducers', records('BuildingInfo')); options('resourceBuildings', records('BuildingInfo')); options('resourceUnits', records('UnitInfo'));
+    $('terrainOptions').replaceChildren(); for (const r of records('TerrainInfo')) { const l = document.createElement('label'); l.className = 'check'; const input = document.createElement('input'); input.type = 'checkbox'; input.value = typeOf(r.node); l.append(input, document.createTextNode(labelFor(r.node))); $('terrainOptions').append(l); }
+    for (const [role, name] of [['large','GameFont.tga'],['small','GameFont_75.tga']]) {
+      const item = R.files.get(`assets/res/fonts/${name.toLowerCase()}`); if (!item) continue;
+      if (item.file.size > 80 * 1024 * 1024) throw Error('GameFont exceeds 80 MB.');
+      const im = C.readTGA(await item.file.arrayBuffer()); if (im.bits !== 32 || (im.descriptor & 15) !== 8) throw Error(`${name} needs 32-bit RGBA.`);
+      R.fonts[role] = { image: im, cells: C.detectCells(im), path: item.path };
+    }
+    $('resourceTemplate').value = records('BonusInfo').some(r => typeOf(r.node) === 'BONUS_BAUXITE') ? 'BONUS_BAUXITE' : [...$('resourceTemplate').options].find(o => !o.disabled)?.value || '';
+    $('modSummary').textContent = `${records('BonusInfo').length} resource definitions · ${records('BuildingInfo').length} buildings · ${records('UnitInfo').length} units. Modules included in collision checks.`;
+    $('resourceFields').disabled = false; $('reviewResource').disabled = $('saveRecipe').disabled = false;
+    populateResource(); sayResource('Mod loaded. Choose a template and name your resource.'); R.dirty = false;
+  } catch (error) { sayResource(error.message, true); $('modSummary').textContent = 'Folder could not be loaded.'; }
+  finally { R.loading = false; }
+}
+function populateResource() {
+  try {
+    const r = record('BonusInfo', $('resourceTemplate').value), n = r.node, editing = $('resourceAction').value === 'edit';
+    for(const id of ['resourceImprovements','resourceProducers','resourceBuildings','resourceUnits']) { $(id+'Search').value=''; for(const o of $(id).options)o.hidden=false; }
+    $('resourceName').value = editing ? labelFor(n) : ''; $('resourceID').value = editing ? typeOf(n) : ''; $('resourceID').readOnly = editing;
+    $('resourceKind').value = Number(value(n,'iPlacementOrder')) < 0 ? 'manufactured' : 'natural'; $('resourceClass').value = value(n,'BonusClassType');
+    for (const [id,tag] of Object.entries({ revealTech:'TechReveal', tradeTech:'TechCityTrade', obsoleteTech:'TechObsolete', resourceHealth:'iHealth', resourceHappiness:'iHappiness', appearance:'iConstAppearance' })) $(id).value = value(n,tag);
+    $('placementOrder').value = Math.max(0, Number(value(n,'iPlacementOrder')));
+    const yields = [...(direct(n,'YieldChanges')?.children || [])].map(x => x.textContent);
+    ['yieldFood','yieldProduction','yieldCommerce'].forEach((id,i) => $(id).value = yields[i] || '0');
+    $('resourceHills').checked = value(n,'bHills') === '1'; $('resourceFlat').checked = value(n,'bFlatlands') === '1';
+    const terrains = [...(direct(n,'TerrainBooleans')?.children || [])].filter(x => value(x,'bTerrain') === '1').map(x => value(x,'TerrainType'));
+    for (const cb of $('terrainOptions').querySelectorAll('input')) cb.checked = terrains.includes(cb.value);
+    $('placementSummary').textContent = `Inherited: latitude ${value(n,'iMinLatitude')}–${value(n,'iMaxLatitude')}, minimum area ${value(n,'iMinAreaSize')}, player scaling ${value(n,'iPlayer')}, tiles per resource ${value(n,'iTilesPer')}. Forest/jungle eligibility, grouping and random weights stay as in ${labelFor(n)}.`;
+    const impTypes = records('ImprovementInfo').filter(r => [...(direct(r.node,'BonusTypeStructs')?.children || [])].some(x => value(x,'BonusType') === typeOf(n) && value(x,'bBonusTrade') === '1')).map(r => typeOf(r.node));
+    chooseMany('resourceImprovements', impTypes);
+    for (const [id,tag,field] of [['resourceProducers','BuildingInfo','FreeBonus'],['resourceBuildings','BuildingInfo','Bonus'],['resourceUnits','UnitInfo','BonusType']]) {
+      for (const o of $(id).options) {
+        const matches = records(tag).filter(r => typeOf(r.node) === o.value), other = matches.length === 1 ? value(matches[0].node,field) : 'CONFLICT';
+        o.disabled = matches.length !== 1 || (!!other && other !== 'NONE' && !(editing && other === typeOf(n)));
+        o.selected = editing && other === typeOf(n);
+      }
+    }
+    const producers = records('BuildingInfo').filter(r => value(r.node,'FreeBonus') === typeOf(n));
+    $('producerCount').value = editing && producers.length ? value(producers[0].node,'iNumFreeBonuses') : '1';
+    $('resourceArt').value = value(n,'ArtDefineTag'); $('resourceSymbol').value = 'inherit'; $('slotVerified').checked = false; R.slots = {};
+    const names = R.texts.get(value(n,'Description')) || {}, pedia = R.texts.get(value(n,'Civilopedia')) || {};
+    R.translations = Object.fromEntries(languages.map(l => [l, { name: editing ? names[l] || '' : '', pedia: editing ? pedia[l] || '' : '' }]));
+    R.language = 'English'; $('textLanguage').value = 'English'; showLanguage(); kindChanged(); artChanged(); slotRows(); invalidateResource();
+  } catch (e) { sayResource(e.message, true); }
+}
+function kindChanged() { const natural=$('resourceKind').value==='natural'; $('naturalSettings').hidden=!natural; $('resourceImprovements').disabled=!natural; if(!natural)chooseMany('resourceImprovements',[]); }
+function artChanged() {
+  try { const a = record('BonusArtInfo', $('resourceArt').value).node;
+    $('resourceArtInfo').textContent = `Map model: ${value(a,'NIF') || 'none'} · existing text-symbol index: ${value(a,'FontButtonIndex')}. The model’s textures remain in your mod.`;
+    $('resourceSlotPanel').hidden = $('resourceSymbol').value !== 'custom'; slotOccupancy();
+  } catch (e) { sayResource(e.message,true); }
+}
+function saveLanguage() { R.translations[R.language] = { name: $('translatedName').value, pedia: $('resourcePedia').value }; }
+function showLanguage() { const t = R.translations[R.language] || {}; $('translatedName').value = t.name || ''; $('resourcePedia').value = t.pedia || ''; }
+function slotOccupancy() {
+  const index = Number($('resourceIndex').value), occupied = records('BonusArtInfo').filter(r => Number(value(r.node,'FontButtonIndex')) === index);
+  $('slotOccupancy').textContent = occupied.length ? `Occupied: ${occupied.map(r => readable(typeOf(r.node))).join(', ')}. Choose another index; shared or modular symbols are protected.` : 'No resource art definition in the selected folder references this number. This does not establish that the cell is free or that the DLL maps this number to it.';
+  return occupied;
+}
+function slotRows() {
+  const f = R.fonts[$('slotSize').value]; $('slotRow').replaceChildren();
+  if (f) for (const row of [...new Set(f.cells.map(c => c.row))]) $('slotRow').add(new Option(`Row ${row}`,row));
+  slotGallery();
+}
+function slotGallery() {
+  const role = $('slotSize').value, f = R.fonts[role], row = Number($('slotRow').value), gallery = $('slotGallery'); gallery.replaceChildren();
+  if (!f) { gallery.textContent = 'This font was not found in Assets/res/Fonts.'; return; }
+  for (const cell of f.cells.filter(c => c.row === row)) {
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-pressed', R.slots[role]?.row === cell.row && R.slots[role]?.col === cell.col ? 'true' : 'false');
+    const c = canvas(cell.width, cell.height), data = new Uint8Array(cell.width * cell.height * 4);
+    for (let y=0;y<cell.height;y++) data.set(f.image.data.subarray(((cell.y+y)*f.image.width+cell.x)*4,((cell.y+y)*f.image.width+cell.x+cell.width)*4),y*cell.width*4);
+    put(c,{width:cell.width,height:cell.height,data}); b.append(c,document.createTextNode(`Column ${cell.col}`)); b.onclick = () => { R.slots[role] = {...cell}; $('slotVerified').checked = false; invalidateResource(); slotGallery(); }; gallery.append(b);
+  }
+  $('slotSelection').textContent = ['large','small'].map(k => `${k === 'large' ? 'GameFont' : 'GameFont_75'}: ${R.slots[k] ? `row ${R.slots[k].row}, column ${R.slots[k].col}` : 'not selected'}`).join(' · ');
+}
+function resourceImage(w,h) {
+  const c = canvas(w,h), ctx = c.getContext('2d'), im = R.artwork; if (!im) return c;
+  const pad = Math.min(2, Math.floor(Math.min(w,h)/8)), scale = Math.min((w-pad*2)/im.width,(h-pad*2)/im.height);
+  ctx.imageSmoothingQuality = 'high'; ctx.drawImage(im,(w-im.width*scale)/2,(h-im.height*scale)/2,im.width*scale,im.height*scale); return c;
+}
+function serialized(node) { return new XMLSerializer().serializeToString(node).replace(/ xmlns="[^"]*"/, ''); }
+function patchDocument(source, edits, additions) {
+  let text = source.text;
+  for (const {original,node} of edits) {
+    const tag = original.localName, target = typeOf(original), pattern = new RegExp(`<${tag}(?:\\s[^>]*)?>[\\s\\S]*?<\\/${tag}\\s*>`, 'g');
+    let hits = 0;
+    text = text.replace(pattern, raw => { const m = raw.match(/<Type\s*>\s*([^<]+)\s*<\/Type>/); if (m?.[1].trim() !== target) return raw; hits++; return serialized(node); });
+    if (hits !== 1) throw Error(`${source.path}: could not uniquely locate ${target}; no patch exported.`);
+  }
+  for (const {parent,node} of additions) { const closing = `</${parent}>`; if (text.split(closing).length !== 2) throw Error(`${source.path}: ambiguous container ${parent}.`); text = text.replace(closing, `${serialized(node)}\n\t${closing}`); }
+  if (/^\s*<\?xml/i.test(text)) text = text.replace(/<\?xml[^?]*\?>/, '<?xml version="1.0" encoding="UTF-8"?>'); else text = '<?xml version="1.0" encoding="UTF-8"?>\n'+text;
+  xmlParse(text,source.path); return text;
+}
+function recipe() {
+  saveLanguage(); const fields = {};
+  for (const el of $('resourceFields').querySelectorAll('input,select,textarea')) {
+    if (!el.id || el.type === 'file' || ['slotRow','slotSize','textLanguage','translatedName','resourcePedia','slotVerified'].includes(el.id)) continue;
+    fields[el.id] = el.multiple ? selected(el.id) : el.type === 'checkbox' ? el.checked : el.value;
+  }
+  return {format:'civ4-resource-draft',version:1,fields,terrains:[...$('terrainOptions').querySelectorAll('input:checked')].map(x=>x.value),translations:R.translations,slots:R.slots};
+}
+async function sha256(data) { if (!crypto.subtle) throw Error('This browser requires localhost or a secure context for backup checksums. Serve the app locally if needed.'); return [...new Uint8Array(await crypto.subtle.digest('SHA-256', typeof data === 'string' ? new TextEncoder().encode(data) : data))].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+async function prepareResource() {
+  saveLanguage();
+  const editing = $('resourceAction').value === 'edit', template = record('BonusInfo',$('resourceTemplate').value), type = $('resourceID').value.trim(), name = $('resourceName').value.trim(), natural = $('resourceKind').value === 'natural';
+  if (!/^BONUS_[A-Z][A-Z0-9_]{0,63}$/.test(type)) throw Error('Use an identifier such as BONUS_LITHIUM (uppercase letters, numbers and underscores).');
+  if (!name) throw Error('Enter the resource’s display name.');
+  if (editing && type !== typeOf(template.node)) throw Error('An existing resource cannot be renamed internally.');
+  if (!editing && records('BonusInfo').some(r=>typeOf(r.node)===type)) throw Error('That resource identifier is already used, including in modules.');
+  const english = R.translations.English || {}; english.name = name; R.translations.English = english;
+  if (!english.pedia?.trim()) throw Error('Write an English Civilopedia description before exporting.');
+  const n = template.node.cloneNode(true), artTemplate = record('BonusArtInfo',$('resourceArt').value), a = artTemplate.node.cloneNode(true), artType = `ART_DEF_${type}_STUDIO`, textKey = `TXT_KEY_${type}_STUDIO`;
+  const existingArt = records('BonusArtInfo').filter(r=>typeOf(r.node)===artType);
+  const ownArt = editing && value(template.node,'ArtDefineTag') === artType && existingArt.length === 1 && !records('BonusInfo').some(r=>typeOf(r.node)!==type && value(r.node,'ArtDefineTag')===artType);
+  if(existingArt.length && !ownArt) throw Error('The generated art identifier is already used by another definition.');
+  const ownText = editing && value(template.node,'Description')===textKey && value(template.node,'Civilopedia')===textKey+'_PEDIA';
+  if ((R.texts.has(textKey) || R.texts.has(textKey+'_PEDIA')) && !ownText) throw Error('Generated text keys already exist. Choose a unique resource identifier.');
+  for (const [tag,v] of Object.entries({Type:type, Description:textKey, Civilopedia:textKey+'_PEDIA', ArtDefineTag:artType, BonusClassType:$('resourceClass').value, TechReveal:$('revealTech').value, TechCityTrade:$('tradeTech').value, TechObsolete:$('obsoleteTech').value, iHealth:integer('resourceHealth'),iHappiness:integer('resourceHappiness')})) setValue(n,tag,v);
+  if (!$('resourceClass').value) throw Error('Choose a resource class.');
+  for (const id of ['revealTech','tradeTech','obsoleteTech']) if (!$(id).value) throw Error('Choose a technology or None for each discovery setting.');
+  listValues(n,'YieldChanges','iYieldChange',['yieldFood','yieldProduction','yieldCommerce'].map(id=>integer(id)));
+  const terrain = direct(n,'TerrainBooleans'); if (!terrain) throw Error('Template has no terrain list.');
+  if (natural) {
+    setValue(n,'iPlacementOrder',integer('placementOrder',0,100)); setValue(n,'iConstAppearance',integer('appearance',0,10000)); setValue(n,'bHills',$('resourceHills').checked ? 1:0); setValue(n,'bFlatlands',$('resourceFlat').checked ? 1:0);
+    const chosen = [...$('terrainOptions').querySelectorAll('input:checked')].map(x=>x.value);
+    if (!chosen.length && !direct(n,'FeatureBooleans')?.children.length) throw Error('Choose eligible terrain for a natural resource.');
+    terrain.replaceChildren(...chosen.map(t => { const el = child(n,'TerrainBoolean'); el.append(child(n,'TerrainType',t),child(n,'bTerrain',1)); return el; }));
+  } else {
+    for (const [tag,v] of Object.entries({iPlacementOrder:-1,iConstAppearance:0,iPlayer:0,iTilesPer:0,bHills:0,bFlatlands:0,bNormalize:0})) setValue(n,tag,v);
+    for (const tag of ['TerrainBooleans','FeatureBooleans','FeatureTerrainBooleans']) direct(n,tag)?.replaceChildren();
+    for (const x of direct(n,'Rands')?.children || []) x.textContent='0';
+    if (!selected('resourceProducers').length) throw Error('Choose at least one building to produce a manufactured resource.');
+  }
+  if(!/^\d+$/.test(value(a,'FontButtonIndex')))throw Error('Selected art has no valid font index.');
+  setValue(a,'Type',artType);
+  const changes = new Map(), extra = [], notes = [], changeLog = [];
+  const group = source => { if (!changes.has(source.path)) changes.set(source.path,{source,edits:[],additions:[]}); return changes.get(source.path); };
+  const edit = (r,node) => { group(r.source).edits.push({original:r.node,node}); };
+  const add = (r,node) => group(r.source).additions.push({parent:r.node.parentNode.localName,node});
+  if (editing) edit(template,n); else add(template,n); if(ownArt)edit(existingArt[0],a);else add(artTemplate,a);
+  const buttonPath = `Assets/Art/Interface/Buttons/Custom/${type.toLowerCase()}.dds`;
+  if (R.artwork) { if (R.files.has(buttonPath.toLowerCase()) && !(ownArt && value(existingArt[0].node,'Button').toLowerCase()===buttonPath.slice(7).toLowerCase())) throw Error('The generated button path already exists; choose a different resource identifier.'); setValue(a,'Button',buttonPath.slice(7)); extra.push({name:buttonPath,data:C.writeDDS(pixels(resourceImage(64,64)),'DXT3',false)}); }
+  let testOnly = false;
+  if ($('resourceSymbol').value === 'custom') {
+    const index = integer('resourceIndex',0,4095); if (slotOccupancy().length) throw Error('That font index is already referenced. Choose an unused resource index.');
+    if (!R.artwork) throw Error('Choose PNG/JPG artwork for the custom symbol.');
+    setValue(a,'FontButtonIndex',index); testOnly = !$('slotVerified').checked;
+    for (const role of ['large','small']) {
+      const f = R.fonts[role], cell = R.slots[role]; if (!f || !cell || !f.cells.some(c=>c.row===cell.row && c.col===cell.col && c.x===cell.x && c.y===cell.y && c.width===cell.width && c.height===cell.height)) throw Error('Select a valid symbol cell in each font size.');
+      // Do not overwrite artwork hidden in an apparently blank cell; custom mode is for empty slots only.
+      for(let y=cell.y;y<cell.y+cell.height;y++) for(let x=cell.x;x<cell.x+cell.width;x++) { const p=(y*f.image.width+x)*4; if (!C.marker(f.image.data,p) && f.image.data[p+3]>0) throw Error(`${role}: selected cell already contains visible artwork. Choose an empty slot.`); }
+      const copy = {...f.image,data:f.image.data.slice()}; C.replaceCell(copy,cell,pixels(resourceImage(cell.width,cell.height))); C.verifyFont(f.image,copy,[cell]);
+      const bytes=C.writeTGA(copy,f.image), decoded=C.readTGA(bytes); C.verifyFont(f.image,decoded,[cell]);
+      if (decoded.data.some((v,i)=>v!==copy.data[i])) throw Error('GameFont round-trip validation failed.');
+      extra.push({name:f.path,data:bytes});
+    }
+    notes.push(testOnly ? 'TEST ONLY: custom font mapping has not been verified in game.' : 'Custom font mapping is user-verified; no automatic DLL/index verification is claimed.');
+  } else notes.push(`Reuses ${labelFor(artTemplate.node)} text symbol (index ${value(a,'FontButtonIndex')}); font sheets stay unchanged.`);
+  // Improvement connections: copy bonus structs while preserving all unrelated definitions.
+  const chosenImp=new Set(natural?selected('resourceImprovements'):[]);
+  for (const r of records('ImprovementInfo')) {
+    const sourceList=direct(r.node,'BonusTypeStructs'); if(!sourceList) continue;
+    const old=[...sourceList.children].filter(e=>value(e,'BonusType')===type), want=chosenImp.has(typeOf(r.node));
+    if (!want && !old.length || want && old.length && old.every(e=>value(e,'bBonusTrade')==='1')) continue;
+    record('ImprovementInfo',typeOf(r.node)); const copy=r.node.cloneNode(true), list=direct(copy,'BonusTypeStructs');
+    const existing=[...list.children].filter(e=>value(e,'BonusType')===type);
+    if (!want) { for(const e of existing) { setValue(e,'bBonusTrade',0); if(!natural) { setValue(e,'iDiscoverRand',0); setValue(e,'bBonusMakesValid',0); } } }
+    else if(existing.length) { for(const e of existing) setValue(e,'bBonusTrade',1); }
+    else {
+      let model=[...sourceList.children].find(e=>value(e,'BonusType')===typeOf(template.node));
+      if(model) model=model.cloneNode(true);
+      else { model=child(copy,'BonusTypeStruct'); model.append(child(copy,'BonusType',type),child(copy,'bBonusMakesValid',1),child(copy,'bBonusTrade',1),child(copy,'iDiscoverRand',0),child(copy,'YieldChanges')); }
+      setValue(model,'BonusType',type);setValue(model,'bBonusTrade',1);list.append(model);
+    }
+    edit(r,copy);changeLog.push(`${labelFor(r.node)}: ${want?'connects':'no longer connects'} ${name}`);
+  }
+  for(const [id,tag,field,label] of [['resourceProducers','BuildingInfo','FreeBonus','produces'],['resourceBuildings','BuildingInfo','Bonus','requires'],['resourceUnits','UnitInfo','BonusType','requires']]) {
+    const wanted=new Set(selected(id));
+    for(const r of records(tag)) {
+      const original=value(r.node,field), want=wanted.has(typeOf(r.node)); if(!want && original!==type) continue;
+      record(tag,typeOf(r.node)); if(want && original && original!=='NONE' && original!==type) throw Error(`${labelFor(r.node)} already ${label} a different resource.`);
+      const g=group(r.source), prior=g.edits.find(e=>e.original===r.node), copy=prior?.node || r.node.cloneNode(true);
+      setValue(copy,field,want?type:'NONE');if(field==='FreeBonus')setValue(copy,'iNumFreeBonuses',want?integer('producerCount',1,100):0);
+      if(!prior) edit(r,copy); changeLog.push(`${labelFor(r.node)}: ${want?label:'no longer '+label} ${name}`);
+    }
+  }
+  const textPath=`Assets/XML/Text/CIV4GameText_Studio_${type}.xml`;
+  if(R.files.has(textPath.toLowerCase())) {
+    if(!ownText)throw Error('The generated localization file already exists.');
+    const stored=R.files.get(textPath.toLowerCase()); const doc=await readXML(stored.file,stored.path);
+    if(!doc || [...doc.doc.getElementsByTagName('TEXT')].some(t=>![textKey,textKey+'_PEDIA'].includes(value(t,'Tag'))))throw Error('The localization file contains other entries and cannot be replaced safely.');
+  }
+  const textDoc=xmlParse('<?xml version="1.0" encoding="UTF-8"?><Civ4GameText xmlns="http://www.firaxis.com"/>','new text');
+  for(const [suffix,field] of [['','name'],['_PEDIA','pedia']]) { const entry=child(textDoc.documentElement,'TEXT');entry.append(child(entry,'Tag',textKey+suffix));for(const l of languages){const t=R.translations[l]?.[field]?.trim() || english[field];entry.append(child(entry,l,t));}textDoc.documentElement.append(entry); }
+  extra.push({name:textPath,data:new XMLSerializer().serializeToString(textDoc)});
+  const fallback=languages.filter(l=>l!=='English' && (!R.translations[l]?.name?.trim() || !R.translations[l]?.pedia?.trim()));if(fallback.length) notes.push(`English fallback used where missing: ${fallback.join(', ')}.`);
+  notes.push('Start a new game. Natural placement depends on your map script; existing maps are not populated automatically.');
+  notes.push('No DLL is rebuilt. New resources may affect padded symbol categories; test existing happiness, health, trade and other icons as well as the new symbol.');
+  if(!natural) notes.push('Natural placement disabled. Producer buildings supply the configured FreeBonus; conversion inputs must be configured separately.');
+  if(natural && !chosenImp.size) notes.push('No improvement connects this resource.');
+  if(template.source.path.includes('/Modules/') || artTemplate.source.path.includes('/Modules/')) notes.push('Template is in a module: that module must be enabled for these definitions to load.');
+  notes.push('Model, animation, terrain features, random placement weights and unexposed rules are inherited from the selected templates. Custom scripts and packed art are not resolved by this editor.');
+  const files=[];
+  for(const g of changes.values()) { if(g.edits.length || g.additions.length) files.push({name:g.source.path,data:patchDocument(g.source,g.edits,g.additions)}); }
+  files.push(...extra);
+  const manifest={format:'civ4-resource-patch',version:1,resource:type,name,action:editing?'edit':'create',template:typeOf(template.node),testOnly,notes,changes:changeLog,files:[]};
+  const backups=[];
+  for(const f of files) { const original=R.files.get(f.name.toLowerCase()); let old=null;if(original){const bytes=new Uint8Array(await original.file.arrayBuffer());old=await sha256(bytes);backups.push({name:'backup/'+original.path,data:bytes});}manifest.files.push({path:f.name,originalSHA256:old,newSHA256:await sha256(f.data)}); }
+  const summary=[`${testOnly?'TEST ONLY — ':''}${editing?'Update':'Create'} ${name} (${type})`,`Template: ${labelFor(template.node)} · ${natural?'Natural':'Manufactured'}`,`Health ${value(n,'iHealth')} · happiness ${value(n,'iHappiness')}`,`Tile yields: ${['yieldFood','yieldProduction','yieldCommerce'].map(id=>$(id).value).join(' / ')} (food / production / commerce)`,`Reveal: ${$('revealTech').selectedOptions[0]?.text} · Trade: ${$('tradeTech').selectedOptions[0]?.text}`,`Map art: ${value(a,'NIF')}`,`\n${files.length} files in patch:\n${files.map(f=>f.name).join('\n')}`,`\nConnections:\n${changeLog.join('\n') || 'No direct producer or consumer changes.'}`,`\nNotes:\n${notes.join('\n')}`].join('\n');
+  const instructions=`${summary}\n\nINSTALL\n1. Copy your mod to a test installation and start with the exact files you loaded into this editor.\n2. Compare manifest.json originalSHA256 values if the installation may have changed. Do not apply this patch over a newer draft.\n3. Copy the CONTENTS of patch/ into that test mod folder, merging Assets. Do not copy backup/ into Assets.\n4. Restart Civ IV, start a new game, and inspect the resource in Civilopedia and WorldBuilder. Check both font sizes, improvement connection, city trade, producers, consumers and unrelated symbols.\n5. For natural resources, test newly generated maps. For manufactured resources, build the selected producer.\n\nROLLBACK\nRestore original files from backup/ to the same relative paths. Delete files whose originalSHA256 in manifest.json is null.\n\nThis patch is based on the uploaded folder. It does not install itself, edit saved games, generate map models, or prove DLL/font index compatibility.\n`;
+  return {summary,manifest,files,zipEntries:[...files.map(f=>({name:'patch/'+f.name,data:f.data})),...backups,{name:'manifest.json',data:JSON.stringify(manifest,null,2)},{name:'resource-draft.json',data:JSON.stringify(recipe(),null,2)},{name:'INSTALL.txt',data:instructions}]};
+}
+$('resourceMode').onclick=()=>{$('artWorkspace').hidden=true;$('resourceWorkspace').hidden=false;for(const id of ['buttonMode','fontMode'])$(id).setAttribute('aria-selected','false');$('resourceMode').setAttribute('aria-selected','true');};
+$('modFolder').onchange=e=>loadMod([...e.target.files]);
+$('resourceAction').onchange=$('resourceTemplate').onchange=populateResource;
+$('resourceKind').onchange=kindChanged;
+$('resourceArt').onchange=$('resourceSymbol').onchange=artChanged;
+$('resourceIndex').oninput=()=>{$('slotVerified').checked=false;slotOccupancy();};
+$('slotSize').onchange=slotRows;$('slotRow').onchange=slotGallery;
+$('resourceName').oninput=()=>{if($('resourceAction').value==='create')$('resourceID').value='BONUS_'+$('resourceName').value.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9]+/g,'_').replace(/^_+|_+$/g,'');R.translations.English ||= {};R.translations.English.name=$('resourceName').value;if(R.language==='English')$('translatedName').value=$('resourceName').value;};
+$('translatedName').oninput=()=>{if(R.language==='English')$('resourceName').value=$('translatedName').value;};
+$('textLanguage').onchange=()=>{saveLanguage();R.language=$('textLanguage').value;showLanguage();};
+$('resourceFields').addEventListener('input',invalidateResource);$('resourceFields').addEventListener('change',invalidateResource);
+$('resourceArtwork').onchange=async e=>{const file=e.target.files[0];R.artwork=null;invalidateResource();if(!file)return;try{if(!/\.(png|jpe?g)$/i.test(file.name)||file.size>50*1024*1024)throw Error('Choose a PNG/JPG up to 50 MB.');const im=await createImageBitmap(file,{imageOrientation:'from-image'});if(im.width*im.height>40000000){im.close();throw Error('Use artwork up to 40 megapixels.');}const scale=Math.min(1,2048/Math.max(im.width,im.height)),c=canvas(Math.max(1,Math.round(im.width*scale)),Math.max(1,Math.round(im.height*scale)));c.getContext('2d').drawImage(im,0,0,c.width,c.height);im.close();R.artwork=c;invalidateResource();put($('resourcePreview'),pixels(resourceImage(64,64)));$('resourceArtworkInfo').textContent=`${file.name} · 64×64 DXT3 button. Symbols use the same artwork fitted to their cells. Transparent PNG is best.`;}catch(e){sayResource(e.message,true);}};
+$('reviewResource').onclick=async()=>{R.plan=null;$('downloadResource').disabled=true;$('reviewResource').disabled=true;$('modFolder').disabled=$('recipeFile').disabled=true;$('resourceFields').disabled=true;sayResource('Building and checking your patch…');try{R.plan=await prepareResource();$('resourceReview').textContent=R.plan.summary;$('resourceReview').hidden=false;$('downloadResource').disabled=false;sayResource('Patch checked. Review the file list and notes, then download. Original files are unchanged.');}catch(e){sayResource(e.message,true);}finally{$('reviewResource').disabled=false;$('resourceFields').disabled=false;$('modFolder').disabled=$('recipeFile').disabled=false;}};
+$('downloadResource').onclick=()=>{if(!R.plan)return;download(`${R.plan.manifest.resource}${R.plan.manifest.testOnly?'-TEST-ONLY':''}-patch.zip`,C.zip(R.plan.zipEntries),'application/zip');R.dirty=false;sayResource('Patch downloaded with original-file backups, checksums, draft and install instructions. Test in a copy of your mod.');};
+$('saveRecipe').onclick=()=>{download('civ4-resource-draft.json',JSON.stringify(recipe(),null,2),'application/json');R.dirty=false;sayResource('Draft saved. Reload this mod folder before opening it again. Artwork must be reselected.');};
+$('recipeFile').onchange=async e=>{try{if(!records('BonusInfo').length)throw Error('Load the mod folder first.');const file=e.target.files[0];if(!file)return;if(file.size>1000000)throw Error('Draft exceeds 1 MB.');const d=JSON.parse(await file.text());if(d.format!=='civ4-resource-draft'||d.version!==1)throw Error('Not a supported resource draft.');$('resourceAction').value=d.fields.resourceAction;$('resourceTemplate').value=d.fields.resourceTemplate;populateResource();for(const [id,v] of Object.entries(d.fields)){const el=$(id);if(!el||!$('resourceFields').contains(el)||el.type==='file'||id==='slotVerified')continue;if(el.multiple)chooseMany(id,v);else if(el.type==='checkbox')el.checked=!!v;else el.value=v;}for(const cb of $('terrainOptions').querySelectorAll('input'))cb.checked=d.terrains.includes(cb.value);R.artwork=null;$('resourceArtwork').value='';$('resourcePreview').getContext('2d').clearRect(0,0,64,64);$('resourceArtworkInfo').textContent='Reselect artwork for this draft, or retain the template button.';R.translations=d.translations;R.slots=d.slots||{};R.language='English';$('textLanguage').value='English';$('slotVerified').checked=false;showLanguage();kindChanged();artChanged();slotRows();invalidateResource();sayResource('Draft loaded. Reselect artwork; slot verification must be repeated for the current mod files.');}catch(e){sayResource(e.message,true);}};
+window.addEventListener('beforeunload',e=>{if(R.dirty){e.preventDefault();e.returnValue='';}});
+
+for(const id of ['resourceImprovements','resourceProducers','resourceBuildings','resourceUnits']) $(id+'Search').oninput=()=>{const q=$(id+'Search').value.trim().toLowerCase();for(const o of $(id).options)o.hidden=!!q && !o.text.toLowerCase().includes(q);};
 
 </script>
 </body></html>

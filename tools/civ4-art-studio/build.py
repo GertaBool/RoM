@@ -1,7 +1,7 @@
 from pathlib import Path
 root=Path(__file__).resolve().parent
 html=(root/'app/index.html').read_text()
-for name in ['core.js','app.js']:
+for name in ['core.js','app.js','resources.js']:
  js=(root/'app'/name).read_text().replace('</script','<\\/script')
  html=html.replace(f'<script src="{name}"></script>','<script>\n'+js+'\n</script>')
 (root/'dist').mkdir(exist_ok=True)
