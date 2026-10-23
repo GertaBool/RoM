@@ -1,8 +1,8 @@
 {
-  "version": "1.2",
+  "version": "1.3",
   "tested_date": "2026-10-23",
   "source_fonts_revision": "2a8b9a83eb5b4d339cb92d23d04155e47e868efa",
-  "core_test_groups": 7,
+  "core_test_groups": 5,
   "independent_formats": {
     "passed": [
       "red-DXT3-true.dds: decoded with correct orientation, color and alpha",
@@ -12,9 +12,7 @@
       "Complementary red/green DXT3 block preserves both endpoints",
       "DXT3 gradient mean channel error 1.779/255",
       "Uncompressed and RLE TGA decoded independently",
-      "ZIP CRC, binary payload and Unicode filename verified",
-      "GameFont.tga: all external and marker RGBA pixels unchanged (Pillow check)",
-      "GameFont_75.tga: all external and marker RGBA pixels unchanged (Pillow check)"
+      "ZIP CRC, binary payload and Unicode filename verified"
     ],
     "in_game_tested": false
   },
@@ -32,6 +30,18 @@
     "external_requests": [],
     "in_game_tested": false,
     "tested_via": "local HTTP serving the standalone HTML"
+  },
+  "units": {
+    "passed": [
+      "Real-mod create: linked standalone unit/class, AND/OR prerequisites, promotions, schema ordering, exact backups and hashes",
+      "Civilization-specific unit replacement preserves original class; duplicate IDs and stale reviews blocked",
+      "Recruitment retirement changes only unit cost; dependent stock unit removal is blocked",
+      "Generated unit can be edited again using owned text keys",
+      "Self-upgrade cycle and external Python reference rejected; unreferenced custom unit and exclusive class removed",
+      "Art replacement preserves compatible NIF/KFM pair, exports DDS and updates civilization style overrides",
+      "Draft clears pending artwork; responsive layout, keyboard tabs, no script errors or external requests"
+    ],
+    "in_game_tested": false
   },
   "buildings": {
     "passed": [

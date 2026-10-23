@@ -2,11 +2,11 @@
 // Resource workshop: explicit, template-based edits; original files are never written.
 const R = { files: new Map(), docs: [], records: {}, texts: new Map(), translations: {}, language: 'English', artwork: null, slots: {}, fonts: {}, plan: null, dirty: false, loading: false };
 const languages = ['English', 'French', 'German', 'Italian', 'Spanish'];
-const entryTags = ['BuildingArtInfo','BuildingClassInfo','BonusInfo','BonusArtInfo','TechInfo','TerrainInfo','BonusClassInfo','ImprovementInfo','BuildingInfo','UnitInfo'];
+const entryTags = ['UnitClassInfo','UnitArtInfo','CivilizationInfo','UnitArtStyleTypeInfo','PromotionInfo','UnitCombatInfo','ReligionInfo','CorporationInfo','BuildInfo','BuildingArtInfo','BuildingClassInfo','BonusInfo','BonusArtInfo','TechInfo','TerrainInfo','BonusClassInfo','ImprovementInfo','BuildingInfo','UnitInfo'];
 const direct = (node, tag) => [...node.children].find(n => n.localName === tag);
 const value = (node, tag) => direct(node, tag)?.textContent.trim() || '';
 const typeOf = node => value(node, 'Type');
-const readable = text => text.replace(/^(BONUS|ART_DEF_BONUS|ART_DEF_BUILDING|TECH|IMPROVEMENT|BUILDINGCLASS|BUILDING|UNIT|TERRAIN|BONUSCLASS)_/, '').toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+const readable = text => text.replace(/^(BONUS|ART_DEF_BONUS|ART_DEF_BUILDING|ART_DEF_UNIT|TECH|IMPROVEMENT|BUILDINGCLASS|BUILDING|UNITCLASS|UNITCOMBAT|UNITAI|UNIT|DOMAIN|PROMOTION|BUILD|CIVILIZATION|TERRAIN|BONUSCLASS)_/, '').toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 const selected = id => [...$(id).selectedOptions].map(o => o.value);
 function sayResource(message, error = false) { $('resourceStatus').textContent = message; $('resourceStatus').classList.toggle('error', error); }
 function invalidateResource() { R.plan = null; R.dirty = true; $('downloadResource').disabled = true; $('resourceReview').hidden = true; }
@@ -26,8 +26,9 @@ function labelFor(node) { const key = value(node, 'Description'); return R.texts
 function options(id, rows, none = false) {
   const el = $(id); el.replaceChildren(); if (none) el.add(new Option('None', 'NONE'));
   const counts = new Map(); rows.forEach(r => counts.set(typeOf(r.node), (counts.get(typeOf(r.node)) || 0) + 1));
-  rows.filter((r,i,a) => a.findIndex(x => typeOf(x.node) === typeOf(r.node)) === i).sort((a,b) => labelFor(a.node).localeCompare(labelFor(b.node))).forEach(r => {
-    const type = typeOf(r.node), o = new Option(`${labelFor(r.node)}${counts.get(type) > 1 ? ' [multiple definitions]' : ''}`, type); o.disabled = counts.get(type) > 1; el.add(o);
+  const unique=new Map();for(const r of rows)if(!unique.has(typeOf(r.node)))unique.set(typeOf(r.node),{r,label:labelFor(r.node)});
+  [...unique.entries()].sort((a,b)=>a[1].label.localeCompare(b[1].label)).forEach(([type,{r,label}])=>{
+    const o=new Option(`${label}${counts.get(type)>1?' [multiple definitions]':''}`,type);o.disabled=counts.get(type)>1;el.add(o);
   });
 }
 function chooseMany(id, types) { const set = new Set(types); for (const o of $(id).options) o.selected = set.has(o.value); }
@@ -35,11 +36,11 @@ async function readXML(file, path) {
   const bytes = await file.arrayBuffer(), head = new TextDecoder().decode(bytes.slice(0, 250));
   const encoding = head.match(/encoding\s*=\s*["']([^"']+)/i)?.[1] || 'utf-8';
   let text; try { text = new TextDecoder(encoding, { fatal: true }).decode(bytes); } catch { throw Error(`${path}: cannot decode ${encoding}.`); }
-  return { path, text, doc: xmlParse(text, path), bytes: new Uint8Array(bytes) };
+  return { path, text, doc: xmlParse(text, path) };
 }
 async function loadMod(files) {
-  if (R.loading) return;
-  if ((R.dirty || (typeof B !== 'undefined' && B.dirty)) && !confirm('Load another folder and discard the current draft? Save the draft first if needed.')) return;
+  if (R.loading || (typeof U !== 'undefined' && U.busy)) return;
+  if ((R.dirty || (typeof B !== 'undefined' && B.dirty) || (typeof U !== 'undefined' && U.dirty)) && !confirm('Load another folder and discard the current draft? Save the draft first if needed.')) return;
   document.dispatchEvent(new Event('civ4-mod-loading'));
   R.loading = true; R.plan = null; R.dirty = false; R.files = new Map(); R.docs = []; R.records = {}; R.texts = new Map(); R.fonts = {}; R.slots = {}; R.artwork = null;
   $('resourceFields').disabled = true; $('reviewResource').disabled = $('downloadResource').disabled = $('saveRecipe').disabled = true;
@@ -57,7 +58,7 @@ async function loadMod(files) {
     for (let i = 0; i < candidates.length; i++) {
       const item = candidates[i];
       // Only files used by this editor. Include every matching module, regardless of activation.
-      if (!/(?:BuildingClassInfos|ArtDefines_Building|BonusInfos|ArtDefines_Bonus|TechInfos|TerrainInfos|BonusClassInfos|ImprovementInfos|BuildingInfos|UnitInfos)\.xml$/i.test(item.path) && !/\/Text\//i.test(item.path)) continue;
+      if (!/(?:UnitClassInfos|ArtDefines_Unit|CivilizationInfos|UnitArtStyleTypeInfos|PromotionInfos|UnitCombatInfos|ReligionInfo|CorporationInfo|BuildInfos|BuildingClassInfos|ArtDefines_Building|BonusInfos|ArtDefines_Bonus|TechInfos|TerrainInfos|BonusClassInfos|ImprovementInfos|BuildingInfos|UnitInfos)\.xml$/i.test(item.path) && !/\/Text\//i.test(item.path)) continue;
       if (item.file.size > 40 * 1024 * 1024) throw Error(`${item.path} exceeds the 40 MB XML limit.`);
       const d = await readXML(item.file, item.path); if (!/\/Text\//i.test(item.path)) R.docs.push(d);
       for (const tag of entryTags) for (const node of d.doc.getElementsByTagName(tag)) {
@@ -290,7 +291,7 @@ async function prepareResource() {
   const instructions=`${summary}\n\nINSTALL\n1. Copy your mod to a test installation and start with the exact files you loaded into this editor.\n2. Compare manifest.json originalSHA256 values if the installation may have changed. Do not apply this patch over a newer draft.\n3. Copy the CONTENTS of patch/ into that test mod folder, merging Assets. Do not copy backup/ into Assets.\n4. Restart Civ IV, start a new game, and inspect the resource in Civilopedia and WorldBuilder. Check both font sizes, improvement connection, city trade, producers, consumers and unrelated symbols.\n5. For natural resources, test newly generated maps. For manufactured resources, build the selected producer.\n\nROLLBACK\nRestore original files from backup/ to the same relative paths. Delete files whose originalSHA256 in manifest.json is null.\n\nThis patch is based on the uploaded folder. It does not install itself, edit saved games, generate map models, or prove DLL/font index compatibility.\n`;
   return {summary,manifest,files,zipEntries:[...files.map(f=>({name:'patch/'+f.name,data:f.data})),...backups,{name:'manifest.json',data:JSON.stringify(manifest,null,2)},{name:'resource-draft.json',data:JSON.stringify(recipe(),null,2)},{name:'INSTALL.txt',data:instructions}]};
 }
-$('resourceMode').onclick=()=>{if($('buildingWorkspace')){$('buildingWorkspace').hidden=true;$('buildingMode').setAttribute('aria-selected','false');}$('artWorkspace').hidden=true;$('resourceWorkspace').hidden=false;for(const id of ['buttonMode','fontMode'])$(id).setAttribute('aria-selected','false');$('resourceMode').setAttribute('aria-selected','true');};
+$('resourceMode').onclick=()=>{$('unitWorkspace').hidden=true;$('unitMode').setAttribute('aria-selected','false');if($('buildingWorkspace')){$('buildingWorkspace').hidden=true;$('buildingMode').setAttribute('aria-selected','false');}$('artWorkspace').hidden=true;$('resourceWorkspace').hidden=false;for(const id of ['buttonMode','fontMode'])$(id).setAttribute('aria-selected','false');$('resourceMode').setAttribute('aria-selected','true');};
 $('modFolder').onchange=e=>loadMod([...e.target.files]);
 $('resourceAction').onchange=$('resourceTemplate').onchange=populateResource;
 $('resourceKind').onchange=kindChanged;

@@ -1,6 +1,6 @@
 # Rise of Mankind research and source fixes
 
-New tool: [Civ IV Art Studio](tools/civ4-art-studio/README.md) edits buildings and resources through forms,
+New tool: [Civ IV Art Studio](tools/civ4-art-studio/README.md) edits units, buildings and resources through forms,
 exports mod patches with backups, and creates static NIF buildings, DDS textures and GameFont artwork.
 [Download the offline app](tools/civ4-art-studio/Civ4ArtStudio.zip?raw=true).
 Source-based assessment of [aretemaxxing-group/rise-of-mankind on GitLab](https://gitlab.com/aretemaxxing-group/rise-of-mankind), pinned to revision `1ab4f99a76adb530f86b278390ab8139ef41cc96`.

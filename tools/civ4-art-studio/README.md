@@ -1,10 +1,10 @@
 # Civ IV Art Studio
 
-An offline workshop for **Civilization IV buildings, resources, DDS buttons and GameFont symbols**. No installation, Photoshop plugin, Python runtime or image upload is required to use the app.
+An offline workshop for **Civilization IV units, buildings, resources, DDS buttons and GameFont symbols**. No installation, Photoshop plugin, Python runtime or image upload is required to use the app.
 
 [Download the ready-to-use ZIP](Civ4ArtStudio.zip?raw=true) · [Standalone HTML](dist/Civ4ArtStudio.html?raw=true)
 
-![Building editor preview](preview.png)
+![Unit editor preview](preview.png)
 
 ## Start
 
@@ -13,6 +13,33 @@ An offline workshop for **Civilization IV buildings, resources, DDS buttons and 
 3. Choose a JPG or PNG. Select **Buttons & DDS textures** or **GameFont symbols**.
 
 Everything runs on your device. Images are never sent to a server. Downloads are new files; the program does not write directly into your mod installation. The app and its source are MIT-licensed. It contains no game artwork.
+
+## Unit workshop
+
+Open **Units & armies** and select the complete mod folder (or reuse the folder loaded by another workshop). Search by name or identifier. The default template is Warrior; choose a template of the same kind as the intended unit, especially for aircraft, ships, workers, transports and special units.
+
+- **Add:** create a separate unlimited unit class available to all civilizations, or a unique replacement within the template's class for selected civilizations. The review names any existing unique unit being replaced. Class-based upgrades resolve to each civilization's corresponding unit.
+- **Edit:** change cost, land/air strength, movement, work rate, cargo capacity, withdrawal, city combat modifiers, bombard/collateral effects, draft priority and extra maintenance. Set AI roles, common flags, main/additional technologies, mandatory/alternative resources, city building/religion/corporation requirements, upgrades, free promotions and worker actions.
+- **Disable normal recruitment:** sets production cost to -1. It preserves existing units and references. It does not remove existing units or prevent scripted creation; upgrade and event behavior still follows the game rules.
+- **Remove:** deletes the unit definition and its exclusive class if unused. References to either ID elsewhere block removal. The Connections panel lists affected files. Shared art and text are retained. Resolve references externally and reload, or disable recruitment instead. No blind cascading deletion is performed.
+
+Use the **Connections and inherited rules** panel before exporting. Civilian actions, cargo restrictions, combat/terrain modifiers, class limits on edits, other special prerequisites, sounds and unexposed settings remain inherited. New standalone classes reset template instance limits; unique replacements retain the existing class limits. Editing a unit does not change its class or civilization assignments. Python and compiled behavior tied to an original identifier is not transferred to a newly named clone.
+
+**Art:** keep the template's mesh groups and early/middle/late era art, or select an existing art definition and change its scale/button. An art definition reuses its NIF, KFM, shader model, sounds and shadow together. Selecting an art source includes its module path to avoid guessing which definition was intended. A JPG/PNG becomes a 64px DDS button; it cannot become an animated soldier. Art replacement assigns the selected definition to all existing mesh groups and era slots, retaining group sizes and formation. For existing units, civilization style overrides are updated by default; unchecking this explicitly preserves them. New unit identifiers do not inherit style overrides keyed to the old identifier. Test movement, attacks and death animations in game: there is no animated model preview or rigging tool in this release.
+
+Write names, Civilopedia and strategy in five language tabs. Missing translations fall back to English and appear in the review. Save/resume drafts; image files must be reselected. Changing a field invalidates the prior review.
+
+**Export and install:** download a reviewed ZIP containing `patch/`, exact `backup/` originals, a checksummed manifest, draft and install/rollback instructions. No files in your mod are overwritten by the app. Apply to a copy of the exact loaded mod; compare checksums first and use a new game for structural changes. Test trainability, resource AND/OR logic, civilization availability, upgrades, promotions, artwork and AI behavior. Exported patches are not claimed to have been run in Civ IV.
+
+Removal scans supplied XML, Python, C++/headers, INI/JSON and WorldBuilder files. It cannot inspect compiled DLL references, files outside the selected Assets tree or saves. Module activation/load order is not simulated; ambiguous unit/class definitions are blocked. Prerequisite array limits are checked against supplied GlobalDefines variants conservatively (the smallest declared limit), with conservative defaults if absent. Upgrade cycles returning to the edited class and contradictory AI-role selections are rejected.
+
+### How units connect
+
+`CIV4UnitInfos.xml` links the unit to its class, technologies, resources, buildings, promotions, AI roles, build actions and art mesh groups. `CIV4UnitClassInfos.xml` supplies a default unit and instance limits. `CIV4CivilizationInfos.xml` can replace that default per civilization. `CIV4UnitArtStyleTypeInfos.xml` can override models by unit ID and civilization art style. `CIV4ArtDefines_Unit.xml` connects each art type to NIF/KFM/shader assets, button and sound/shadow settings. GameText supplies localized names and descriptions.
+
+Draft priority is the selection weight used by `CvCity::getConscriptUnit`, not a population cost. `CvCity::getConscriptPopulation` calculates that separately from production cost and `CONSCRIPT_POPULATION_PER_COST`.
+
+Source tracing in this RoM checkout: `CvPlayer::canTrain` checks civilization mapping, cost and player-level prerequisites; `CvCity::isPlotTrainable` checks city building restrictions; `CvPlot::canTrain` handles plot/resource constraints; `CvUnitInfo::read` loads the prerequisite arrays using GlobalDefines capacities. Actual training and scripted spawning can have additional Python/option-dependent rules, so the editor preserves unexposed template fields and exposes the reference scan.
 
 ## Building workshop
 

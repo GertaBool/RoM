@@ -75,6 +75,7 @@ function render() {
   updateActions();
 }
 function selectMode(mode) {
+  if($('unitWorkspace')){$('unitWorkspace').hidden=true;$('unitMode').setAttribute('aria-selected','false');}
   if($('buildingWorkspace')){$('buildingWorkspace').hidden=true;$('buildingMode').setAttribute('aria-selected','false');}
   if ($('resourceWorkspace')) { $('resourceWorkspace').hidden = true; $('artWorkspace').hidden = false; $('resourceMode').setAttribute('aria-selected', 'false'); }
   state.mode = mode;
@@ -191,5 +192,5 @@ $('exportPNG').onclick = () => { if (state.rendered) { const name = safeName($('
 $('copyXML').onclick = async () => { try { await navigator.clipboard.writeText($('xmlSnippet').textContent); status('Button XML copied.'); } catch { status('Select the XML text and copy it manually; this browser does not allow clipboard access here.'); } };
 window.addEventListener('beforeunload', e => { if (Object.values(state.fonts).some(f => f?.history.length)) { e.preventDefault(); e.returnValue = ''; } });
 // Keyboard access for the mode tabs.
-for (const id of ['buttonMode', 'fontMode', 'buildingMode', 'resourceMode']) $(id).addEventListener('keydown', e => { if (['ArrowLeft','ArrowRight'].includes(e.key)) { e.preventDefault(); const tabs=['buttonMode','fontMode','buildingMode','resourceMode'], next=tabs[(tabs.indexOf(id)+(e.key==='ArrowRight'?1:3))%4]; $(next).click(); $(next).focus(); } });
+for (const id of ['buttonMode', 'fontMode', 'unitMode', 'buildingMode', 'resourceMode']) $(id).addEventListener('keydown', e => { if (['ArrowLeft','ArrowRight'].includes(e.key)) { e.preventDefault(); const tabs=['buttonMode','fontMode','unitMode','buildingMode','resourceMode'], next=tabs[(tabs.indexOf(id)+(e.key==='ArrowRight'?1:4))%5]; $(next).click(); $(next).focus(); } });
 render(); renderFont();
