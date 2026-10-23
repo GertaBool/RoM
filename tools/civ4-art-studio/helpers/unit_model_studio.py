@@ -59,7 +59,16 @@ def gui():
    p=filedialog.askdirectory() if directory else filedialog.askopenfilename(filetypes=filetypes or [('All files','*')])
    if p:vals[key].set(p)
   ttk.Button(frame,text='Browse',command=browse).grid(row=row,column=2);row+=1
- heading('1 · Reconstruct a new shape from your image')
+ heading('Internal tools · Build shapes and edit native animation')
+ def open_shape():
+  exe=vals['blender'].get()
+  if not Path(exe).is_file():messagebox.showerror('Blender required','Select the Blender executable below first.');return
+  subprocess.Popen([exe,'--python',str(HERE/'shape_lab.py')])
+ def open_motion():subprocess.Popen([sys.executable,str(HERE/'motion_lab.py')])
+ internal=ttk.Frame(frame);internal.grid(row=row,column=0,columnspan=3,sticky='w');row+=1
+ ttk.Button(internal,text='Open procedural Shape Lab in Blender',command=open_shape).pack(side='left',padx=4);ttk.Button(internal,text='Open native KF Motion Lab',command=open_motion).pack(side='left',padx=4)
+ ttk.Label(frame,text='Build a neutral soldier GLB locally, then select it as the model below. Motion Lab exports a separate KF patch.',wraplength=850).grid(row=row,column=0,columnspan=3,sticky='w');row+=1
+ heading('1 · Load a local model, or reconstruct from an image externally')
  field('Reference image','image',filetypes=[('Images','*.png *.jpg *.jpeg')])
  def external(url):
   if not vals['image'].get():messagebox.showinfo('Choose an image','Select a reference image first.');return

@@ -1,5 +1,50 @@
 {
-  "version": "1.4",
+  "version": "1.5",
+  "shape_conversion": {
+    "report": {
+      "triangles": 2500,
+      "vertices": 7500,
+      "donorMesh": "MachineGunner_Man",
+      "donorSHA256": "5c4c9a393247a9d8d879637a527ae1961e8d65b381bb8d2d8e68e2a40598aa95",
+      "maxTransferDistance": 17.595908825591923,
+      "meanTransferDistance": 5.280168719928635,
+      "automaticWeights": true,
+      "inGameTested": false,
+      "keepOtherMeshes": false
+    },
+    "checks": [
+      "Procedural GLB baked to atlas",
+      "NIF reread and normalized weights",
+      "Skin partitions cover exported triangles"
+    ],
+    "inGameTested": false
+  },
+  "shape_lab": {
+    "triangles": {
+      "CLOTH": 2908,
+      "MAIL": 3804,
+      "PLATE": 4228
+    },
+    "checks": [
+      "All three armor types generated",
+      "Unrelated scene preserved",
+      "Finite coordinates, shape bounds, triangle budget and world-space height scaling",
+      "Neutral GLB export and overwrite refusal",
+      "Blender render produced"
+    ],
+    "in_game_tested": false
+  },
+  "motion_lab": {
+    "passed": [
+      "Real KF roundtrip",
+      "Unselected interpolator hashes preserved, including compressed tracks",
+      "Selected translations/scales unchanged",
+      "Event markers and sequence timing unchanged",
+      "Normalized rotations and boundary orientations",
+      "Exact backup, original untouched, unsupported channels and overwrites rejected"
+    ],
+    "in_game_tested": false
+  },
   "unit_model": {
     "passed": [
       "NIF roundtrip, triangle coverage, normalized weights and partition limits",
