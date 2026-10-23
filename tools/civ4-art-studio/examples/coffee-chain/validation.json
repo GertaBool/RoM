@@ -1,0 +1,13 @@
+{
+  "passed": [
+    "Actual source preflight, including identifier collision scan",
+    "Beans retain farming/commodity role; consumer happiness moved; manufactured product cannot spawn; roastery supplies five copies",
+    "XML links, source schema ordering, five-language text parse and original text encoding",
+    "All three DDS icons independently decoded",
+    "Duplicate install rejected; exact restoration including unrelated edits",
+    "Absent optional module supported; conflicting entry rejected before writing"
+  ],
+  "in_game_tested": false,
+  "ai_balance_tested": false,
+  "baseline_commit": "8edb23b96c7b9f6369a54d18d0a84a62c799b841"
+}
