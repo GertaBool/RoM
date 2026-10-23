@@ -1,10 +1,10 @@
 # Civ IV Art Studio
 
-An offline workshop for **Civilization IV resources, DDS buttons and GameFont symbols**. No installation, Photoshop plugin, Python runtime or image upload is required to use the app.
+An offline workshop for **Civilization IV buildings, resources, DDS buttons and GameFont symbols**. No installation, Photoshop plugin, Python runtime or image upload is required to use the app.
 
 [Download the ready-to-use ZIP](Civ4ArtStudio.zip?raw=true) · [Standalone HTML](dist/Civ4ArtStudio.html?raw=true)
 
-![Resource editor preview](preview.png)
+![Building editor preview](preview.png)
 
 ## Start
 
@@ -13,6 +13,50 @@ An offline workshop for **Civilization IV resources, DDS buttons and GameFont sy
 3. Choose a JPG or PNG. Select **Buttons & DDS textures** or **GameFont symbols**.
 
 Everything runs on your device. Images are never sent to a server. Downloads are new files; the program does not write directly into your mod installation. The app and its source are MIT-licensed. It contains no game artwork.
+
+## Building workshop
+
+Open **Buildings & 3D art** and select your complete mod folder. It shares the folder already loaded in the Resource workshop. The default template in Rise of Mankind is Library; use an ordinary building for ordinary construction, and inspect the **Inherited rules** panel before cloning a special building.
+
+1. Choose **Create building** or **Edit building**, a template, and a display name. A new building gets its own building class and default-building link, rather than replacing an existing civilization's unique building.
+2. Set ordinary/national/world/team limits, base production cost, technology, mandatory resource, and buildings required in the same city. Production cost is the unscaled XML value: Marathon applies its game-speed modifiers in game.
+3. Set health, happiness, maintenance and defense, flat yields/commerce, and percentage modifiers. Schema-aware insertion puts optional arrays in the appropriate position. Unexposed requirements, empire-wide prerequisite counts, effects and flags stay inherited and are listed for review. Class-limit changes are blocked when they would also change civilization variants.
+4. Choose an artwork route below. Art definitions with the same type in different modules are shown as explicit source choices. New art is cloned into its own unique definition; the editor does not guess module load order.
+5. Choose a city footprint from your actual `Civ4CityLSystem.xml`, and tune city/Pedia scale. Generic footprints already in that file do not need new L-system entries.
+6. Add an optional button image, Civilopedia and strategy text, and translations. Empty translations fall back to English and are reported.
+7. Review and download a patch. It includes building XML, class XML when needed, art, text, generated assets, exact backups, checksums, draft and rollback instructions. Install only in a test copy of the same mod snapshot. Reload after installing before preparing another patch.
+
+Buildings do not ordinarily need a GameFont slot. A new building's original template movie is cleared; special Python behavior tied to the old building identifier does not transfer automatically. The editor is not an arbitrary schema editor, full dependency solver or save migration tool.
+
+### Building artwork routes
+
+| What you have | Route | What it produces |
+| --- | --- | --- |
+| Existing Civ IV building art | Reuse existing model | New art definition referencing the working model, textures and animation |
+| PNG/JPEG façade or surface image | Simple box building | Actual static NIF geometry, a diffuse DDS with mipmaps, UV mapping and optional preview-derived button |
+| Triangulated OBJ and one texture atlas | Architectural OBJ | Static NIF with positions, normals, UVs, bounds, material and linked diffuse DDS |
+| BLEND, FBX, GLB/GLTF or multi-material OBJ | Prepare in Blender first | Triangulated OBJ and a single baked PNG atlas for the browser route |
+| CAD, plans or an ordinary photograph | Model/tessellate first, or use the box route | No automatic reconstruction of a detailed building from a photograph or floor plan |
+
+**An image does not describe geometry.** The box is a simple six-sided structure, with the image repeated on four walls and a solid-color roof. It is useful for placeholders and simple buildings, not architectural reconstruction. Existing NIF reuse keeps the original texture assignments; this release does not retarget arbitrary NIF materials.
+
+The OBJ route accepts a single material and requires UV coordinates and triangle faces. It supports negative indices and supplied normals; otherwise it computes face normals. Z-up and Y-up imports and V flipping are explicit controls. Meshes are centered, grounded and normalized to a two-unit horizontal span. Limits: 20 MB OBJ, 20,000 triangles, and fewer than 65,536 exported vertices. OBJ polygons, missing UVs, out-of-range indices, degenerate triangles and multiple materials are rejected rather than silently flattened.
+
+Generated models use standard **Gamebryo NIF 20.0.0.4** with a static mesh and one opaque diffuse material. OBJ texture images are stretched to a square 256/512/1024 atlas without cropping; the box route reserves one quarter of its atlas for the solid roof, encoded as DXT3 with a full mip chain, and linked by an explicit game-relative path. Transparent input pixels are composited over the chosen background. This route does not export animation, skinning, collision, PBR, normal maps, specular/glow maps or alpha-cutout materials. Preserve source images and project files for future edits.
+
+The WebGL preview lets you rotate the mesh and inspect a UV overlay. With no separate button image, its current view is rendered into a 64×64 DDS button. Model generation needs WebGL; model reuse and ordinary image conversion do not. Browser preview lighting is not Civ IV lighting. New-model ZIPs are labelled **MODEL-TEST**: test in-game city and Pedia rendering, scale, UV orientation, different eras/art styles, requirements and effects before deployment.
+
+### Prepare architecture in Blender
+
+The downloadable ZIP includes `helpers/prepare_building.py`. Install **Blender 4.x** only if you need this optional preparation step. Run from a terminal, quoting your paths:
+
+```sh
+blender --background --python-exit-code 1 --python helpers/prepare_building.py -- "my-building.glb" "prepared-building" --size 512 --triangles 8000
+```
+
+Use an empty output directory. The helper reads BLEND, FBX, GLB, GLTF or OBJ, evaluates visible mesh geometry, joins it, simplifies when necessary, triangulates, creates a new UV atlas, and bakes unlit base color to PNG. It exports `building.obj`, `diffuse.png` and `preparation.json`. Source project files are never saved; embedded Blender scripts are disabled when loading a BLEND file. Load the OBJ with **Z up** and the PNG as the diffuse texture in the app.
+
+The helper supports Principled, Diffuse and Emission surface shaders. Mix/group/custom surface graphs require manual baking; geometry, instances and procedural mapping should always be inspected after conversion. It does not interpret CAD or invent geometry from a photograph. Remove interiors and unseen details before processing; decimation is a polygon reduction, not architectural understanding. Open the source in Blender and bake manually when its material setup falls outside these limits.
 
 ## Resource workshop
 
@@ -114,8 +158,14 @@ node tests/test_core.js /path/to/mod/Assets/res/Fonts
 python tests/check_formats.py /path/to/mod/Assets/res/Fonts
 python tests/browser_check.py /path/to/mod/Assets/res/Fonts
 python tests/resource_check.py /path/to/rise-of-mankind
+node tests/test_mesh.js
+python tests/building_check.py /path/to/rise-of-mankind
+# Optional independent model validation, after installing PyFFI 2.2.3:
+python tests/validate_nif.py
 ```
 
 The core tests also run without the optional font-directory argument. The resource integration test expects the Rise of Mankind definitions (including Bauxite and Guilds). It copies inputs to ignored test fixtures, generates and inspects patches, and never modifies the supplied mod. Browser tests currently expect the Rise of Mankind font layout (1,301 / 1,325 detected cells). Synthetic fixtures and test outputs are generated under `tests/output/`; game files are read only and are not bundled.
 
 The mod conventions were checked against Rise of Mankind source `2a8b9a83`: existing 64×64 DDS buttons use DXT3 among other formats; `CvGameTextMgr.cpp` assigns game font symbols using category counts and resource `FontButtonIndex`, and `CvBonusInfo::setChar` adds 125 in this mod, confirming that a visual cell position alone is not a sufficient game index.
+
+Building validation includes real mod XML/class/art linking, schema order, wonder limits, backup integrity, OBJ error cases, generated DDS decoding, and repeated edits. NIF output is also checked independently with PyFFI 2.2.3 (a development-only dependency), and the Blender helper was exercised with a synthetic two-material scene in Blender 4.3.2. These checks are not an in-game rendering test.

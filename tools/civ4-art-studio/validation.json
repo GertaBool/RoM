@@ -1,6 +1,6 @@
 {
-  "version": "1.1",
-  "tested_date": "2026-10-22",
+  "version": "1.2",
+  "tested_date": "2026-10-23",
   "source_fonts_revision": "2a8b9a83eb5b4d339cb92d23d04155e47e868efa",
   "core_test_groups": 7,
   "independent_formats": {
@@ -32,6 +32,38 @@
     "external_requests": [],
     "in_game_tested": false,
     "tested_via": "local HTTP serving the standalone HTML"
+  },
+  "buildings": {
+    "passed": [
+      "Creates linked building, class, art and text; schema ordering, new yield modifier, exact backups and checksums verified",
+      "Wonder limits, stale review invalidation and duplicate identifier rejection",
+      "Fa\u00e7ade image creates NIF, opaque mipmapped DDS, preview-derived button and matching art paths",
+      "Architectural OBJ path generates a reviewed model patch",
+      "Draft restores settings and clears source images/model until explicitly reselected",
+      "Previously generated building can be edited again without duplicate classes/art/text",
+      "Responsive UI, no script errors and no external requests"
+    ],
+    "in_game_tested": false
+  },
+  "blender": {
+    "blender": "4.3.2",
+    "checks": [
+      "Two transformed mesh objects and two materials baked into one base-color atlas",
+      "Baked PNG contains both source colors",
+      "Prepared OBJ parsed and exported to NIF",
+      "Independent PyFFI decoder validates prepared mesh NIF"
+    ],
+    "in_game_tested": false
+  },
+  "nif": {
+    "decoder": "PyFFI 2.2.3",
+    "passed": [
+      "mesh-box.nif: valid static scene, geometry, normals, UVs, bounds and linked diffuse texture",
+      "mesh-obj.nif: valid static scene, geometry, normals, UVs, bounds and linked diffuse texture",
+      "mesh-blender.nif: valid static scene, geometry, normals, UVs, bounds and linked diffuse texture",
+      "browser-building.nif: valid static scene, geometry, normals, UVs, bounds and linked diffuse texture"
+    ],
+    "in_game_tested": false
   },
   "resources": {
     "passed": [

@@ -2,11 +2,11 @@
 // Resource workshop: explicit, template-based edits; original files are never written.
 const R = { files: new Map(), docs: [], records: {}, texts: new Map(), translations: {}, language: 'English', artwork: null, slots: {}, fonts: {}, plan: null, dirty: false, loading: false };
 const languages = ['English', 'French', 'German', 'Italian', 'Spanish'];
-const entryTags = ['BonusInfo','BonusArtInfo','TechInfo','TerrainInfo','BonusClassInfo','ImprovementInfo','BuildingInfo','UnitInfo'];
+const entryTags = ['BuildingArtInfo','BuildingClassInfo','BonusInfo','BonusArtInfo','TechInfo','TerrainInfo','BonusClassInfo','ImprovementInfo','BuildingInfo','UnitInfo'];
 const direct = (node, tag) => [...node.children].find(n => n.localName === tag);
 const value = (node, tag) => direct(node, tag)?.textContent.trim() || '';
 const typeOf = node => value(node, 'Type');
-const readable = text => text.replace(/^(BONUS|ART_DEF_BONUS|TECH|IMPROVEMENT|BUILDING|UNIT|TERRAIN|BONUSCLASS)_/, '').toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+const readable = text => text.replace(/^(BONUS|ART_DEF_BONUS|ART_DEF_BUILDING|TECH|IMPROVEMENT|BUILDINGCLASS|BUILDING|UNIT|TERRAIN|BONUSCLASS)_/, '').toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 const selected = id => [...$(id).selectedOptions].map(o => o.value);
 function sayResource(message, error = false) { $('resourceStatus').textContent = message; $('resourceStatus').classList.toggle('error', error); }
 function invalidateResource() { R.plan = null; R.dirty = true; $('downloadResource').disabled = true; $('resourceReview').hidden = true; }
@@ -39,7 +39,8 @@ async function readXML(file, path) {
 }
 async function loadMod(files) {
   if (R.loading) return;
-  if (R.dirty && !confirm('Load another folder and discard the current draft? Save the draft first if needed.')) return;
+  if ((R.dirty || (typeof B !== 'undefined' && B.dirty)) && !confirm('Load another folder and discard the current draft? Save the draft first if needed.')) return;
+  document.dispatchEvent(new Event('civ4-mod-loading'));
   R.loading = true; R.plan = null; R.dirty = false; R.files = new Map(); R.docs = []; R.records = {}; R.texts = new Map(); R.fonts = {}; R.slots = {}; R.artwork = null;
   $('resourceFields').disabled = true; $('reviewResource').disabled = $('downloadResource').disabled = $('saveRecipe').disabled = true;
   $('resourceReview').hidden = true; $('slotVerified').checked = false; $('resourceArtwork').value = ''; $('resourcePreview').getContext('2d').clearRect(0,0,64,64); $('resourceArtworkInfo').textContent='No new artwork. The selected resource’s button is retained.';
@@ -56,7 +57,7 @@ async function loadMod(files) {
     for (let i = 0; i < candidates.length; i++) {
       const item = candidates[i];
       // Only files used by this editor. Include every matching module, regardless of activation.
-      if (!/(?:BonusInfos|ArtDefines_Bonus|TechInfos|TerrainInfos|BonusClassInfos|ImprovementInfos|BuildingInfos|UnitInfos)\.xml$/i.test(item.path) && !/\/Text\//i.test(item.path)) continue;
+      if (!/(?:BuildingClassInfos|ArtDefines_Building|BonusInfos|ArtDefines_Bonus|TechInfos|TerrainInfos|BonusClassInfos|ImprovementInfos|BuildingInfos|UnitInfos)\.xml$/i.test(item.path) && !/\/Text\//i.test(item.path)) continue;
       if (item.file.size > 40 * 1024 * 1024) throw Error(`${item.path} exceeds the 40 MB XML limit.`);
       const d = await readXML(item.file, item.path); if (!/\/Text\//i.test(item.path)) R.docs.push(d);
       for (const tag of entryTags) for (const node of d.doc.getElementsByTagName(tag)) {
@@ -87,7 +88,7 @@ async function loadMod(files) {
     $('resourceTemplate').value = records('BonusInfo').some(r => typeOf(r.node) === 'BONUS_BAUXITE') ? 'BONUS_BAUXITE' : [...$('resourceTemplate').options].find(o => !o.disabled)?.value || '';
     $('modSummary').textContent = `${records('BonusInfo').length} resource definitions · ${records('BuildingInfo').length} buildings · ${records('UnitInfo').length} units. Modules included in collision checks.`;
     $('resourceFields').disabled = false; $('reviewResource').disabled = $('saveRecipe').disabled = false;
-    populateResource(); sayResource('Mod loaded. Choose a template and name your resource.'); R.dirty = false;
+    populateResource(); document.dispatchEvent(new Event('civ4-mod-loaded')); sayResource('Mod loaded. Choose a template and name your resource.'); R.dirty = false;
   } catch (error) { sayResource(error.message, true); $('modSummary').textContent = 'Folder could not be loaded.'; }
   finally { R.loading = false; }
 }
@@ -289,7 +290,7 @@ async function prepareResource() {
   const instructions=`${summary}\n\nINSTALL\n1. Copy your mod to a test installation and start with the exact files you loaded into this editor.\n2. Compare manifest.json originalSHA256 values if the installation may have changed. Do not apply this patch over a newer draft.\n3. Copy the CONTENTS of patch/ into that test mod folder, merging Assets. Do not copy backup/ into Assets.\n4. Restart Civ IV, start a new game, and inspect the resource in Civilopedia and WorldBuilder. Check both font sizes, improvement connection, city trade, producers, consumers and unrelated symbols.\n5. For natural resources, test newly generated maps. For manufactured resources, build the selected producer.\n\nROLLBACK\nRestore original files from backup/ to the same relative paths. Delete files whose originalSHA256 in manifest.json is null.\n\nThis patch is based on the uploaded folder. It does not install itself, edit saved games, generate map models, or prove DLL/font index compatibility.\n`;
   return {summary,manifest,files,zipEntries:[...files.map(f=>({name:'patch/'+f.name,data:f.data})),...backups,{name:'manifest.json',data:JSON.stringify(manifest,null,2)},{name:'resource-draft.json',data:JSON.stringify(recipe(),null,2)},{name:'INSTALL.txt',data:instructions}]};
 }
-$('resourceMode').onclick=()=>{$('artWorkspace').hidden=true;$('resourceWorkspace').hidden=false;for(const id of ['buttonMode','fontMode'])$(id).setAttribute('aria-selected','false');$('resourceMode').setAttribute('aria-selected','true');};
+$('resourceMode').onclick=()=>{if($('buildingWorkspace')){$('buildingWorkspace').hidden=true;$('buildingMode').setAttribute('aria-selected','false');}$('artWorkspace').hidden=true;$('resourceWorkspace').hidden=false;for(const id of ['buttonMode','fontMode'])$(id).setAttribute('aria-selected','false');$('resourceMode').setAttribute('aria-selected','true');};
 $('modFolder').onchange=e=>loadMod([...e.target.files]);
 $('resourceAction').onchange=$('resourceTemplate').onchange=populateResource;
 $('resourceKind').onchange=kindChanged;
