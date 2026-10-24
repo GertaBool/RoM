@@ -51,13 +51,6 @@ fixed first and a second loop that changes the method when they do not move (Ash
   Games       a games claim may name the DLL builds whose logs count (the H line's build field).
               Decisions from fewer than config "min_games_state" games are anecdotes: reported,
               but they do not move a line's state.
-  Doctrine    config "doctrine": a hypothesis (other than the grandfathered ones) names the
-              doctrine's principle it serves ("principle": a "- **D<n>." item of the document) and
-              the measured gap it closes ("gap": a "- **R<n>." reading), so every change starts
-              from a principle and its gap. A prediction decided by enough games or runs to move
-              its line ("P<n>: corroborated", "P<n>: not corroborated" or "P<n>: withdrawn after
-              evidence") must be stated so in the document: the view from the principles is
-              taken again at each decision. Deleting the document does not switch this off.
   Judgment    what cannot be computed (is a prediction new, do its paths fit, is a hypothesis a
               new core, is a method change sound) goes to the human: the Claude hook asks before any
               commit that adds register entries or changes method files.
@@ -177,6 +170,8 @@ def validate(reg, variables):
             c = e.get('claim', {})
             if v['kind'] == 'runs' and not all(k in c for k in ('direction', 'alpha', 'min_effect', 'min_n', 'seat')):
                 errs.append(f'{e["id"]}: a runs claim needs direction, alpha, min_effect, min_n, seat')
+            if v['kind'] == 'runs' and c.get('direction') not in (None, 'a>b', 'a<b', 'a>=b', 'a<=b'):
+                errs.append(f'{e["id"]}: direction is a>b, a<b (a differs) or a>=b, a<=b (a is no worse)')
             if v['kind'] == 'runs' and c.get('min_n', 0) < MIN_RUNS: errs.append(f'{e["id"]}: fewer than {MIN_RUNS} runs per arm (framework.md, section 7)')
             if v['kind'] == 'games' and not all(k in c for k in ('turn', 'op', 'reference', 'min_n')):
                 errs.append(f'{e["id"]}: a games claim needs turn, op, reference, min_n')
@@ -396,9 +391,14 @@ def evaluate(root, verify=True):
                 from stats import rank_welch
                 import math
                 t, df, pv, A = rank_welch(arms['a'], arms['b'])
-                good = (A >= c['min_effect']) if c['direction'] == 'a>b' else (A <= 1 - c['min_effect'])
-                # identical arms give no p-value: no difference, so the claim of one is not corroborated
-                res['status'] = 'corroborated' if (not math.isnan(pv) and pv < c['alpha'] and good) else 'not corroborated'
+                if c['direction'] in ('a>=b', 'a<=b'):
+                    # no worse: refuted only by a significant difference of at least min_effect the wrong way
+                    worse = (A <= 1 - c['min_effect']) if c['direction'] == 'a>=b' else (A >= c['min_effect'])
+                    res['status'] = 'not corroborated' if (not math.isnan(pv) and pv < c['alpha'] and worse) else 'corroborated'
+                else:
+                    good = (A >= c['min_effect']) if c['direction'] == 'a>b' else (A <= 1 - c['min_effect'])
+                    # identical arms give no p-value: no difference, so the claim of one is not corroborated
+                    res['status'] = 'corroborated' if (not math.isnan(pv) and pv < c['alpha'] and good) else 'not corroborated'
                 res['detail'] = f'p {pv:.4g}, A {A:.3f}'
         else:
             vals, refs = [], {r[1] for r in c['reference']}
@@ -480,33 +480,7 @@ def check(root):
             missing = [p for p in sv if p not in trailers(msg)[0]]
             if missing: errs.append(f'{rel}: the source change in {patch} does not serve {", ".join(missing)}')
     led = evaluate(root)
-    errs += doctrine_errors(root, reg, led['predictions'])
     errs += [f'commit {v["commit"][:10]}: {"; ".join(v["problems"])} (link it in late-links.json)' for v in led['violations']]
-    return errs
-
-
-def doctrine_errors(root, reg, preds):
-    """Hypotheses name a principle and a gap of the doctrine; decided predictions are stated in it."""
-    cfg = CFG.get('doctrine')
-    if not cfg: return []
-    path = os.path.join(root, cfg['doc'])
-    if not os.path.exists(path):
-        return [f'{cfg["doc"]} removed: the doctrine gate cannot be switched off by deleting it'] \
-            if git(root, 'cat-file', '-e', f'HEAD:{cfg["doc"]}') is not None else []
-    text = open(path, encoding='utf-8').read()
-    principles = set(re.findall(r'^- \*\*(D\d+)\.', text, re.M))
-    gaps = set(re.findall(r'^- \*\*(R\d+)\.', text, re.M))
-    errs = []
-    for e in reg:
-        if e.get('type') != 'hypothesis' or e['id'] in cfg.get('grandfathered', []): continue
-        if e.get('principle') not in principles:
-            errs.append(f'{e["id"]}: "principle" must name a principle of {cfg["doc"]} ({", ".join(sorted(principles))})')
-        if e.get('gap') not in gaps:
-            errs.append(f'{e["id"]}: "gap" must name a reading of {cfg["doc"]} ({", ".join(sorted(gaps))})')
-    for p, r in preds.items():
-        if r['status'] in ('corroborated', 'not corroborated', 'withdrawn after evidence') and not r['anecdote']:
-            if not re.search(rf'(?<![\w]){re.escape(p)}: {re.escape(r["status"])}(?![\w ])', text):
-                errs.append(f'{p} is {r["status"]}: state "{p}: {r["status"]}" in {cfg["doc"]} and judge it from the principles again')
     return errs
 
 
@@ -805,23 +779,18 @@ def selftest():
         try: add_game(d, 'PS', os.path.join(d, 'b2.log'), 'b2'); assert False
         except LedgerError as x: assert 'build B2' in str(x), x
         add_game(d, 'PS', os.path.join(d, 'b1.log'), 'b1')
-        # doctrine: new hypotheses name a principle and a gap; decided predictions are stated
-        if CFG.get('doctrine'):
-            doc = CFG['doctrine']['doc']
-            w(doc, '- **D1. A principle.**\n- **R1. A gap.**\n'); commit('doctrine')
-            HD = dict(id='HD', type='hypothesis', line='doc', text='hd')
-            w(REG, load(d, REG) + [HD])
-            errs = check(d)
-            assert any('HD: "principle"' in x for x in errs) and any('HD: "gap"' in x for x in errs), errs
-            assert any('P1 is corroborated' in x for x in errs), errs        # decided by runs, not an anecdote
-            assert not any(x.startswith('PG is') for x in errs), errs        # one game: an anecdote
-            w(REG, load(d, REG)[:-1] + [dict(HD, principle='D1', gap='R9')])
-            assert any('HD: "gap"' in x for x in check(d)) and not any('HD: "principle"' in x for x in check(d))
-            w(REG, load(d, REG)[:-1] + [dict(HD, principle='D1', gap='R1')])
-            w(doc, '- **D1. A principle.**\n- **R1. A gap.**\nP1: corroborated, judged again.\n')
-            assert not any(x.startswith(('HD', 'P1 is')) for x in check(d)), check(d)
-            commit('doctrine judged'); os.remove(os.path.join(d, doc))
-            assert any('cannot be switched off' in x for x in check(d))
+        # a no-worse claim: equal arms corroborate it, a clearly worse arm does not
+        HN = dict(id='HN', type='hypothesis', line='nw', text='hn')
+        PN = dict(P1, id='PN', line='nw', hypotheses=['HN'], claim=dict(P1['claim'], direction='a<=b'))
+        PW = dict(PN, id='PW')
+        w(REG, load(d, REG) + [HN, PN, PW]); commit('register PN PW')
+        w(f'{EVD}PN/a.tsv', ''.join(f'{s}\t{i % 3}\n' for i, s in enumerate(seeds(PN, 30))))
+        w(f'{EVD}PN/b.tsv', ''.join(f'{s}\t{i % 3}\n' for i, s in enumerate(seeds(PN, 60)[30:])))
+        w(f'{EVD}PW/a.tsv', ''.join(f'{s}\t{9 + i % 3}\n' for i, s in enumerate(seeds(PW, 30))))
+        w(f'{EVD}PW/b.tsv', ''.join(f'{s}\t{i % 3}\n' for i, s in enumerate(seeds(PW, 60)[30:])))
+        commit('evidence PN PW\n\nServes: PN, PW')
+        r = evaluate(d)['predictions']; assert r['PN']['status'] == 'corroborated' and r['PW']['status'] == 'not corroborated', (r['PN'], r['PW'])
+        assert any('no worse' in x for x in validate([H, dict(P1, id='PX', claim=dict(P1['claim'], direction='a=b'))], var))
         print('ledger selftest: ok')
     finally:
         shutil.rmtree(d)

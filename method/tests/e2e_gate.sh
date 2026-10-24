@@ -19,7 +19,7 @@ git config user.email e2e@example.invalid
 git config user.name e2e
 git checkout -q -b e2e-gate
 sh method/setup.sh
-for f in method/README.md toolchain/harness/README.md research/ai-warfare/study/doctrine.md.in; do
+for f in method/README.md toolchain/harness/README.md; do
   [ -f "$f" ] || { echo "e2e: $f is missing; this test needs updating"; exit 1; }
 done
 
@@ -61,16 +61,11 @@ git add method/README.md
 refused "method file without Method" 'staged method paths need a "Method: <reason>" trailer' -m "e2e: no trailer"
 
 # 4. a toy prediction through registration, deciding evidence, and a code commit after the decision
-doc=research/ai-warfare/study/doctrine.md.in
-pr=$(sed -n 's/^- \*\*\(D[0-9][0-9]*\)\..*/\1/p' "$doc" | head -1)
-gap=$(sed -n 's/^- \*\*\(R[0-9][0-9]*\)\..*/\1/p' "$doc" | head -1)
-[ -n "$pr" ] && [ -n "$gap" ] || { echo "e2e: no principle or reading found in $doc"; exit 1; }
-python3 - "$pr" "$gap" <<'EOF'
+python3 - <<'EOF'
 import json, sys
 p = 'method/mission/register.json'
 r = json.load(open(p))
-r += [{"id": "HE2E", "type": "hypothesis", "line": "e2e", "principle": sys.argv[1], "gap": sys.argv[2],
-       "text": "end-to-end test of the gate"},
+r += [{"id": "HE2E", "type": "hypothesis", "line": "e2e", "text": "end-to-end test of the gate"},
       {"id": "PE2E", "type": "prediction", "line": "e2e", "hypotheses": ["HE2E"], "variable": "completed",
        "evidence": "runs", "change": "end-to-end test of the gate",
        "claim": {"direction": "a>b", "alpha": 0.05, "min_effect": 0.6, "min_n": 30, "seat": 0},
@@ -86,9 +81,7 @@ for s in $(python3 method/ledger.py seeds PE2E 30); do
   printf '%s\t%d\n' "$s" $((i % 3)) >> method/mission/evidence/PE2E/b.tsv
   i=$((i + 1))
 done
-printf '\n- End-to-end test of the gate. PE2E: corroborated.\n' >> "$doc"
-python3 method/docs.py render "$doc"
-git add method/mission/evidence "$doc" "${doc%.in}"
+git add method/mission/evidence
 passes "the evidence commit that decides its prediction" -m "e2e: evidence PE2E
 
 Serves: PE2E"

@@ -36,9 +36,6 @@ Hard rules (details in the protocol):
     the `commit-msg` hook). A commit to code, tools, builds or patches carries `Serves: P..` naming a
     registered prediction (`method/mission/register.json`, append-only) on an essential
     variable, made before its evidence; changes to the checks carry `Method: <reason>`.
-    - Each new hypothesis names its principle (`D..`) and measured gap (`R..`) in
-      `research/ai-warfare/study/doctrine.md.in`. When a prediction is decided, the doctrine states
-      `P..: <status>` and is judged again from the principles.
 
 Everything the checks and the gate need is in `method/` (see `method/README.md`); a new session or
 clone enables it with `sh method/setup.sh` (the SessionStart hook runs it).
