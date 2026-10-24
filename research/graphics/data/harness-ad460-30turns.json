@@ -1,0 +1,11 @@
+{
+ "first_turn": 356,
+ "last_turn": 386,
+ "turns_played": 30,
+ "mean_turn_s": 20.8,
+ "max_turn_s": 30.5,
+ "rss_MB_first": 97.1,
+ "rss_MB_last": 110.9,
+ "rss_MB_max": 111.5,
+ "samples": 122
+}

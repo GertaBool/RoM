@@ -1,0 +1,45 @@
+effective textures 7404 total 440 MB
+by format:
+  DXT3        4651    217.1 MB
+  DXT1        1411     66.1 MB
+  A32          440     50.5 MB
+  DXT5         596     48.3 MB
+  TGA32        106     46.2 MB
+  TGA24         15      8.3 MB
+  A16          179      2.9 MB
+  X24            6      0.8 MB
+by folder:
+  art/structures/buildings                         52.5 MB
+  art/units/unique                                 23.3 MB
+  modules/custom leaderheads/marcus                21.3 MB
+  modules/custom leaderheads/leonidas              17.0 MB
+  art/terrain/textures                             16.8 MB
+  art/interface/screens                            15.6 MB
+  art/interface/buttons                            12.0 MB
+  modules/custom leaderheads/cleopatra             10.9 MB
+  art/units/ships                                  10.1 MB
+  modules/custom leaderheads/hirohito              10.1 MB
+  modules/custom leaderheads/abubakr                9.9 MB
+  art/structures/cities                             9.9 MB
+  art/units/rome                                    9.9 MB
+  art/units/edunits                                 9.1 MB
+  art/movies/religion                               9.0 MB
+identical content under several paths: 889 groups, 1978 extra copies, 64.0 MB extra
+uncompressed: 746, 108.7 MB
+256px or larger without mipmaps: 445
+largest:
+     5.62 MB  2048x540   TGA32  mips 1  res/fonts/gamefont.tga
+     5.33 MB  1024x1024  TGA32  mips 1  modules/custom leaderheads/abubakr/abu_attire.tga
+     5.33 MB  1024x1024  TGA32  mips 1  modules/custom leaderheads/marcus/pericles_diff.tga
+     5.33 MB  1024x1024  TGA32  mips 1  modules/custom leaderheads/marcus/augustus_diff.tga
+     5.33 MB  1024x1024  TGA32  mips 1  modules/custom leaderheads/cleopatra/hatshepsut_diff.tga
+     4.79 MB  2048x460   TGA32  mips 1  res/fonts/gamefont_75.tga
+     3.14 MB   750x1099  A32    mips 1  modules/custom leaderheads/marcus/julius_caesar_bg.dds
+     2.00 MB   512x1024  A32    mips 1  art/interface/buttons/rom_atlas.dds
+     1.50 MB   768x512   A32    mips 1  art/structures/cities/mod_meso_city3_alt.dds
+     1.33 MB  1024x1024  DXT3   mips 11 art/interface/screens/loading/loadingscreenbgbeyondthesword.dds
+     1.33 MB  1024x1024  DXT3   mips 11 art/movies/religion/greek_myth/scene_hin_1024.dds
+     1.33 MB  1024x1024  DXT3   mips 11 art/movies/religion/zoroastrianism/taoism_nrml.dds
+     1.33 MB  1024x1024  DXT3   mips 11 art/leaderheads/ramkham/suryaverman_normal.dds
+     1.33 MB  1024x1024  DXT3   mips 11 art/leaderheads/ramkham/suryaverman.dds
+     1.33 MB  1024x1024  DXT5   mips 11 art/terrain/textures/peakblend.dds
