@@ -1,8 +1,6 @@
 """Desktop companion: external image reconstruction -> GLB -> Civ IV rig transfer."""
 import hashlib,json,os,shutil,subprocess,sys,threading,webbrowser,xml.etree.ElementTree as ET
 from pathlib import Path
-import tkinter as tk
-from tkinter import ttk,filedialog,messagebox
 HERE=Path(__file__).resolve().parent
 
 def catalog(mod):
@@ -50,6 +48,8 @@ def prepare(mod,blender,model,output,unit,donor,animation,mesh_index,rotation=0,
  return manifest
 
 def gui():
+ import tkinter as tk
+ from tkinter import ttk,filedialog,messagebox
  w=tk.Tk();w.title('Civ IV — Image to Unit Model');w.geometry('950x850');w.minsize(760,680)
  viewport=tk.Canvas(w,highlightthickness=0);scroll=ttk.Scrollbar(w,orient='vertical',command=viewport.yview);scroll.pack(side='right',fill='y');viewport.pack(side='left',fill='both',expand=True);viewport.configure(yscrollcommand=scroll.set);frame=ttk.Frame(viewport,padding=16);window=viewport.create_window((0,0),window=frame,anchor='nw');frame.bind('<Configure>',lambda e:viewport.configure(scrollregion=viewport.bbox('all')));viewport.bind('<Configure>',lambda e:viewport.itemconfigure(window,width=e.width));frame.columnconfigure(1,weight=1)
  vals={k:tk.StringVar() for k in ['image','mod','model','blender','output','unit']};vals['unit'].set('UNIT_NEW_MODEL');vals['blender'].set(shutil.which('blender') or '')

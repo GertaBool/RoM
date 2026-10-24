@@ -2,11 +2,12 @@
 from pathlib import Path
 import json,functools,http.server,threading
 from playwright.sync_api import sync_playwright
+import paths
 R=Path(__file__).resolve().parents[1];OUT=R/'tests/output'
 s=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(http.server.SimpleHTTPRequestHandler,directory=str(OUT)));threading.Thread(target=s.serve_forever,daemon=True).start()
 errors=[];external=[]
 with sync_playwright() as p:
- b=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox','--disable-dev-shm-usage','--enable-unsafe-swiftshader']);page=b.new_page(viewport={'width':1280,'height':1100});page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','data:','blob:')) else None)
+ b=paths.browser(p,args=['--no-sandbox','--disable-dev-shm-usage','--enable-unsafe-swiftshader']);page=b.new_page(viewport={'width':1280,'height':1100});page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','data:','blob:')) else None)
  page.goto(f'http://127.0.0.1:{s.server_port}/native-animation-local.html');page.wait_for_timeout(800);assert page.locator('#clip option').count()==2
  assert 'approximate' in page.locator('#issues').inner_text()
  initial=page.locator('#view').evaluate('e=>e.toDataURL()');page.locator('#timeline').fill('0.5');page.locator('#timeline').dispatch_event('input');middle=page.locator('#view').evaluate('e=>e.toDataURL()');assert initial!=middle

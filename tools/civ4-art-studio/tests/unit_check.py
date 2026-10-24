@@ -2,8 +2,9 @@ from pathlib import Path
 import functools,http.server,threading,json,zipfile,shutil,xml.etree.ElementTree as ET,hashlib,sys
 from PIL import Image
 from playwright.sync_api import sync_playwright
+import paths
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'tests/output';OUT.mkdir(exist_ok=True)
-SOURCE=Path(sys.argv[1]) if len(sys.argv)>1 else Path('/workspace/rise-of-mankind');fixture=OUT/'unit-fixture'
+SOURCE=paths.mod();fixture=OUT/'unit-fixture'
 if fixture.exists():shutil.rmtree(fixture)
 fixture.mkdir()
 for p in (SOURCE/'Assets').rglob('*'):
@@ -24,7 +25,7 @@ def node(z,path,tag,typ):return next(n for n in entries(ET.fromstring(z.read('pa
 def load(page):
  page.locator('#unitModFolder').set_input_files(str(fixture));page.wait_for_function('U.ready&&!R.loading',timeout=180000)
 with sync_playwright() as p:
- browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox','--disable-dev-shm-usage']);page=browser.new_page(viewport={'width':1400,'height':1100},accept_downloads=True);page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None);page.on('dialog',lambda d:d.accept())
+ browser=paths.browser(p,headless=True,args=['--no-sandbox','--disable-dev-shm-usage']);page=browser.new_page(viewport={'width':1400,'height':1100},accept_downloads=True);page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None);page.on('dialog',lambda d:d.accept())
  page.goto(f'http://127.0.0.1:{server.server_port}/Civ4ArtStudio.html');page.locator('#unitMode').click();load(page);assert page.locator('#unitTemplate').input_value()=='UNIT_WARRIOR';page.locator('#unitFields details').evaluate_all('els=>els.forEach(e=>e.open=true)')
  page.locator('#unitName').fill('Frontier Guard');page.locator('#unitPedia').fill('Frontier guards protect remote settlements.');page.locator('#unitStrategy').fill('Use these troops to defend exposed frontiers.');page.locator('#u_iCombat').fill('4');page.locator('#unitTech').select_option('TECH_BRONZE_WORKING');page.locator('#unitAndBonus').select_option('BONUS_COPPER');page.locator('#unitOrBonuses').select_option(['BONUS_IRON','BONUS_OBSIDIAN']);page.locator('#unitPromotions').select_option(['PROMOTION_COMBAT1']);review(page)
  created=download(page,'unit-create.zip')

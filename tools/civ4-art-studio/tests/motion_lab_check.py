@@ -1,9 +1,10 @@
 """Native KF preservation checks, using a local source mod; no game assets bundled."""
 import sys,tempfile,json,hashlib,math
 from pathlib import Path
+import paths
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'helpers'))
 from motion_lab import generate,sequence,channels,events,quaternion,motion
-mod=Path(sys.argv[1]) if len(sys.argv)>1 else Path('/workspace/rise-of-mankind')
+mod=paths.mod()
 p=mod/'Assets/art/units/CEO_African/CEO_Sushi/CEO_Sushi_MD_Fortify_idle.kf';original=p.read_bytes();d,r=sequence(p);rows=channels(p);index=next(x['index'] for x in rows if x['bone']=='Bip01 Spine' and x['supported'])
 with tempfile.TemporaryDirectory() as td:
  report=generate(mod,p,Path(td)/'patch',index,'X',3,2);target=Path(td)/'patch/patch'/p.relative_to(mod);nd,nr=sequence(target)

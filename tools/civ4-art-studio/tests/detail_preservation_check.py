@@ -1,7 +1,8 @@
 """Integration checks for explicit simplification and loss guards; requires Blender 4.x."""
 from pathlib import Path
 import subprocess,tempfile,os,json,sys
-R=Path(__file__).resolve().parents[1];OUT=R/'tests/output';env=dict(os.environ,BLENDER_USER_CONFIG='/tmp/civ4-blender-config',BLENDER_USER_SCRIPTS='/tmp/civ4-blender-scripts')
+import paths
+R=Path(__file__).resolve().parents[1];OUT=R/'tests/output';env=dict(os.environ,BLENDER_USER_CONFIG=str(Path(tempfile.gettempdir())/'civ4-blender-config'),BLENDER_USER_SCRIPTS=str(Path(tempfile.gettempdir())/'civ4-blender-scripts'))
 with tempfile.TemporaryDirectory() as td:
  t=Path(td);script=t/'fixture.py';script.write_text('''import bpy
 from pathlib import Path
@@ -19,7 +20,7 @@ m.node_tree.nodes.get('Principled BSDF').inputs['Alpha'].default_value=1
 bump=m.node_tree.nodes.new('ShaderNodeBump');m.node_tree.links.new(bump.outputs['Normal'],m.node_tree.nodes.get('Principled BSDF').inputs['Normal'])
 bpy.ops.wm.save_as_mainfile(filepath=str(p/'normal.blend'))
 ''')
- def run(args):return subprocess.run(['/usr/bin/blender','--background','--threads','2','--python-exit-code','1',*args],env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+ def run(args):return subprocess.run([paths.blender(),'--background','--threads','2','--python-exit-code','1',*args],env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
  a=run(['--python',str(script)]);assert a.returncode==0,a.stdout[-3000:]
  def bake(name,source,flags=()):return run(['--python',str(R/'helpers/prepare_building.py'),'--',str(t/source),str(t/name),'--size','256','--triangles','400',*flags])
  a=bake('preserve','opaque.blend');assert a.returncode==0,a.stdout[-3000:];p=json.loads((t/'preserve/preparation.json').read_text());assert p['sourceTriangles']==p['triangles'] and not p['simplificationRequested']

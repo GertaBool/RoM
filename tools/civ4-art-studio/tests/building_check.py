@@ -2,8 +2,9 @@ from pathlib import Path
 import functools,http.server,threading,json,zipfile,shutil,xml.etree.ElementTree as ET,hashlib,sys,time,io
 from PIL import Image,ImageDraw
 from playwright.sync_api import sync_playwright
+import paths
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'tests/output';OUT.mkdir(exist_ok=True)
-SOURCE=Path(sys.argv[1]) if len(sys.argv)>1 else Path('/workspace/rise-of-mankind');fixture=OUT/'building-fixture'
+SOURCE=paths.mod();fixture=OUT/'building-fixture'
 if fixture.exists():shutil.rmtree(fixture)
 fixture.mkdir()
 for p in (SOURCE/'Assets').rglob('*.xml'):
@@ -20,7 +21,7 @@ def review(page):
  page.locator('#reviewBuilding').click();page.wait_for_function("!document.getElementById('reviewBuilding').disabled",timeout=60000)
  assert page.locator('#downloadBuilding').is_enabled(),page.locator('#buildingStatus').inner_text()
 with sync_playwright() as p:
- browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader']);page=browser.new_page(viewport={'width':1400,'height':1100},accept_downloads=True);page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None)
+ browser=paths.browser(p,headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader']);page=browser.new_page(viewport={'width':1400,'height':1100},accept_downloads=True);page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None)
  page.goto(f'http://127.0.0.1:{server.server_port}/Civ4ArtStudio.html');page.locator('#buildingMode').click();page.locator('#buildingModFolder').set_input_files(str(fixture));page.wait_for_function('B.ready',timeout=120000)
  assert page.locator('#buildingTemplate').input_value()=='BUILDING_LIBRARY';page.locator('#buildingFields details').evaluate_all('els=>els.forEach(e=>e.open=true)')
  page.locator('#buildingName').fill('Civic Hall');page.locator('#buildingPedia').fill('The civic hall gathers the town around a shared public space.');page.locator('#buildingStrategy').fill('Invest in administration when maintenance limits expansion.');page.locator('#buildingMaintenance').fill('-10');page.locator('#b_YieldModifiers_1').fill('15');review(page)

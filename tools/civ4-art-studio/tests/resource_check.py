@@ -2,8 +2,9 @@ from pathlib import Path
 import functools,http.server,threading,json,zipfile,shutil,xml.etree.ElementTree as ET,hashlib,sys
 from PIL import Image, ImageDraw
 from playwright.sync_api import sync_playwright
+import paths
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'tests/output';OUT.mkdir(exist_ok=True)
-SOURCE=Path(sys.argv[1]) if len(sys.argv)>1 else Path('/workspace/rise-of-mankind');fixture=OUT/'resource-fixture'
+SOURCE=paths.mod();fixture=OUT/'resource-fixture'
 if fixture.exists():shutil.rmtree(fixture)
 fixture.mkdir(exist_ok=True)
 # Real mod definitions and fonts, kept only under ignored tests/output.
@@ -14,7 +15,7 @@ for p in (SOURCE/'Assets').rglob('*'):
 server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(http.server.SimpleHTTPRequestHandler,directory=str(ROOT/'dist')));threading.Thread(target=server.serve_forever,daemon=True).start()
 checks=[];errors=[];external=[]
 with sync_playwright() as p:
- browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox']);page=browser.new_page(viewport={'width':1400,'height':1000},accept_downloads=True);page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None)
+ browser=paths.browser(p,headless=True,args=['--no-sandbox']);page=browser.new_page(viewport={'width':1400,'height':1000},accept_downloads=True);page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None)
  page.goto(f'http://127.0.0.1:{server.server_port}/Civ4ArtStudio.html');page.locator('#resourceMode').click();page.locator('#modFolder').set_input_files(str(fixture))
  page.wait_for_function("!R.loading",timeout=120000)
  assert page.locator('#resourceFields').is_enabled(),page.locator('#resourceStatus').inner_text()

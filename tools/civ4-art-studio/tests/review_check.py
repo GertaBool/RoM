@@ -2,13 +2,14 @@
 from pathlib import Path
 import json,functools,http.server,threading
 from playwright.sync_api import sync_playwright
-R=Path(__file__).resolve().parents[1];OUT=R/'tests/output';fixture=OUT/'review-model-final';data=json.loads((fixture/'review.json').read_text());assert data['report']['sourceTriangles']>data['report']['triangles']
+import paths
+R=Path(__file__).resolve().parents[1];OUT=R/'tests/output';fixture=OUT/'review-model-final/prepared';data=json.loads((fixture/'review.json').read_text());assert data['report']['sourceTriangles']>data['report']['triangles']
 assert sum(p.get('coincidentVerticesWelded',0) for p in data['report']['parts'])>0
 assert all(p['boundaryEdgesBeforeReduction']==0 for p in data['report']['parts'] if p.get('coincidentVerticesWelded',0))
 assert all(p['boundaryEdgesAfterReduction']==0 for p in data['report']['parts'] if p.get('boundaryEdgesBeforeReduction')==0)
 server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(http.server.SimpleHTTPRequestHandler,directory=str(R/'dist')));threading.Thread(target=server.serve_forever,daemon=True).start();errors=[];external=[]
 with sync_playwright() as p:
- b=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox','--disable-dev-shm-usage','--enable-unsafe-swiftshader']);page=b.new_page(viewport={'width':1400,'height':1050});page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None)
+ b=paths.browser(p,args=['--no-sandbox','--disable-dev-shm-usage','--enable-unsafe-swiftshader']);page=b.new_page(viewport={'width':1400,'height':1050});page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None)
  page.goto(f'http://127.0.0.1:{server.server_port}/Civ4ArtStudio.html');page.locator('#reviewMode').click();page.locator('#geometryReviewFolder').set_input_files(str(fixture));page.wait_for_function('Q.data!==null');assert page.locator('#geometryReviewControls').is_visible()
  assert 'explicitly enabled' in page.locator('#geometryReviewReport').inner_text()
  source=page.locator('#reviewSourceCanvas').evaluate('e=>e.toDataURL()');converted=page.locator('#reviewConvertedCanvas').evaluate('e=>e.toDataURL()');assert source!=converted

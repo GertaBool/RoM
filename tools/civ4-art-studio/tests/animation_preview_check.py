@@ -3,6 +3,7 @@ Native fixture is read from the local game only; it is never packaged or publish
 """
 import sys,json,tempfile,math,hashlib
 from pathlib import Path
+import paths
 R=Path(__file__).resolve().parents[1];sys.path.insert(0,str(R/'helpers'))
 from unit_animation_preview import prepare,spline,quaternion_matrix,transform_track
 from unit_model_convert import dependencies
@@ -35,7 +36,7 @@ with tempfile.TemporaryDirectory() as tmp:
  except ValueError:pass
  else:raise AssertionError('Overwrite was not refused')
 # Integration with a real humanoid and both compressed and ordinary KF tracks.
-model=Path('/workspace/rise-of-mankind/Assets/art/units/GreatLeader_Sioux/medieval/Warlord_Ancient.nif');clips=[model.with_name('Warlord_Ancient_MD_'+n+'.kf') for n in ['Run','Idle']];tracked=[model,*clips];before=[hashlib.sha256(p.read_bytes()).hexdigest() for p in tracked]
+model=(paths.mod()/'Assets/art/units/GreatLeader_Sioux/medieval/Warlord_Ancient.nif');clips=[model.with_name('Warlord_Ancient_MD_'+n+'.kf') for n in ['Run','Idle']];tracked=[model,*clips];before=[hashlib.sha256(p.read_bytes()).hexdigest() for p in tracked]
 preview=out/'native-animation-local.html'
 if preview.exists():preview.unlink()
 report=prepare(model,clips,preview,model.parents[3],fps=24)

@@ -2,14 +2,15 @@ from pathlib import Path
 from PIL import Image,ImageDraw
 from playwright.sync_api import sync_playwright
 import functools,http.server,threading,json,zipfile,sys
-FONT_DIR=Path(sys.argv[1]) if len(sys.argv)>1 else Path('/workspace/rise-of-mankind/Assets/res/Fonts')
+import paths
+FONT_DIR=Path(sys.argv[1]) if len(sys.argv)>1 else paths.mod()/'Assets/res/Fonts'
 ROOT=Path(__file__).resolve().parents[1]; OUT=ROOT/'tests/output';OUT.mkdir(exist_ok=True)
 # Synthetic artwork, not game assets; asymmetric orientation and transparency.
 im=Image.new('RGBA',(120,80),(255,255,255,255));d=ImageDraw.Draw(im);d.rectangle((15,8,55,70),fill=(220,50,20,255));d.ellipse((50,10,110,70),fill=(15,150,220,180));im.save(OUT/'artwork.png');im.convert('RGB').save(OUT/'artwork.jpg')
 server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(http.server.SimpleHTTPRequestHandler,directory=str(ROOT/'dist')))
 threading.Thread(target=server.serve_forever,daemon=True).start();errors=[];external=[];checks=[]
 with sync_playwright() as p:
- browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox']);page=browser.new_page(viewport={'width':1380,'height':1100},accept_downloads=True)
+ browser=paths.browser(p,headless=True,args=['--no-sandbox']);page=browser.new_page(viewport={'width':1380,'height':1100},accept_downloads=True)
  page.on('pageerror',lambda e:errors.append(str(e)))
  page.on('request',lambda r:external.append(r.url) if not r.url.startswith(('http://127.0.0.1:','blob:','data:')) else None)
  page.goto(f'http://127.0.0.1:{server.server_port}/Civ4ArtStudio.html')
