@@ -1,15 +1,25 @@
 """Civ IV Shape Lab: run in Blender 4.x with --python, or Run Script in its Text Editor.
 Procedural original geometry; deliberately no downloaded/game meshes or AI service.
 """
-import math,json
+import math,json,sys
+sys.path.insert(0,str(__import__('pathlib').Path(__file__).resolve().parent))
+from surface_textures import texture
 from pathlib import Path
 import bpy
 from mathutils import Vector,Matrix
 from bpy.props import FloatProperty,FloatVectorProperty,EnumProperty,StringProperty,PointerProperty
 COLLECTION='Civ IV Shape Lab'
 
-def material(name,color,metal=0):
- m=bpy.data.materials.get('Studio '+name) or bpy.data.materials.new('Studio '+name);m.use_nodes=True;p=m.node_tree.nodes.get('Principled BSDF');p.inputs['Base Color'].default_value=(*color,1);p.inputs['Metallic'].default_value=metal;p.inputs['Roughness'].default_value=.68;m.diffuse_color=(*color,1);return m
+def material(name,color,metal=0,detail=.7,wear=.25):
+ m=bpy.data.materials.get('Studio '+name) or bpy.data.materials.new('Studio '+name);m.use_nodes=True;m.node_tree.nodes.clear()
+ nodes=m.node_tree.nodes;links=m.node_tree.links;p=nodes.new('ShaderNodeBsdfPrincipled');out=nodes.new('ShaderNodeOutputMaterial');links.new(p.outputs['BSDF'],out.inputs['Surface']);p.inputs['Metallic'].default_value=metal;p.inputs['Roughness'].default_value=.68;m.diffuse_color=(*color,1)
+ if name not in ('Backdrop','Face detail'):
+  key='Studio painted '+name;image=bpy.data.images.get(key)
+  if image:bpy.data.images.remove(image)
+  image=bpy.data.images.new(key,width=512,height=512,alpha=False);pixels=texture(name,color,512,detail,wear);rgb=pixels[:,:,:3];pixels[:,:,:3]=__import__('numpy').where(rgb<=.0031308,12.92*rgb,1.055*rgb**(1/2.4)-.055);image.pixels.foreach_set(pixels.ravel());image.update();image.pack()
+  node=nodes.new('ShaderNodeTexImage');node.image=image;node.interpolation='Linear';links.new(node.outputs['Color'],p.inputs['Base Color'])
+ else:p.inputs['Base Color'].default_value=(*color,1)
+ return m
 
 def build(s):
  # Only replace our generated collection, leaving unrelated scene work alone.
@@ -18,11 +28,13 @@ def build(s):
   for ob in list(old.objects):bpy.data.objects.remove(ob,do_unlink=True)
   bpy.data.collections.remove(old)
  col=bpy.data.collections.new(COLLECTION);bpy.context.scene.collection.children.link(col)
- mats={'cloth':material('Cloth',s.cloth),'metal':material('Armor',s.armor,.65),'skin':material('Skin',s.skin),'leather':material('Leather',(.095,.042,.022)),'trim':material('Trim',(.58,.37,.10),.5),'wood':material('Wood',(.23,.115,.045)),'dark':material('Face detail',(.025,.018,.013))}
+ def painted(name,color,metal=0):return material(name,color,metal,s.detail,s.weathering)
+ mats={'cuirass':painted('Cuirass',s.armor,.65),'cloth':painted('Cloth',s.cloth),'metal':painted('Armor',s.armor,.65),'skin':painted('Skin',s.skin),'leather':painted('Leather',(.095,.042,.022)),'trim':painted('Trim',(.58,.37,.10),.5),'wood':painted('Wood',(.23,.115,.045)),'dark':painted('Face detail',(.025,.018,.013))}
  def own(ob,name,mat):
   ob.name=name
   for c in list(ob.users_collection):c.objects.unlink(ob)
   col.objects.link(ob);ob.data.materials.clear();ob.data.materials.append(mats[mat]);return ob
+
  def ell(name,loc,scale,mat,segments=12,rings=8):
   bpy.ops.mesh.primitive_uv_sphere_add(segments=segments,ring_count=rings,location=loc);o=own(bpy.context.object,name,mat);o.scale=scale;return o
  def bar(name,a,b,r1,r2,mat,vertices=10):
@@ -39,12 +51,23 @@ def build(s):
     a=2*math.pi*i/count;verts.append((rx*math.cos(a),ry*math.sin(a),z))
   for j in range(len(profiles)-1):
    for i in range(count):a=j*count+i;b=j*count+(i+1)%count;faces.append((a,b,b+count,a+count))
-  faces.extend([tuple(reversed(range(count))),tuple((len(profiles)-1)*count+i for i in range(count))]);mesh=bpy.data.meshes.new(name);mesh.from_pydata(verts,[],faces);mesh.update();ob=bpy.data.objects.new(name,mesh);col.objects.link(ob);ob.data.materials.append(mats[mat]);return ob
+  faces.extend([tuple(reversed(range(count))),tuple((len(profiles)-1)*count+i for i in range(count))]);mesh=bpy.data.meshes.new(name);mesh.from_pydata(verts,[],faces);mesh.update();ob=bpy.data.objects.new(name,mesh);col.objects.link(ob);ob.data.materials.append(mats[mat]);uv=mesh.uv_layers.new(name='StudioUV')
+  for polygon in mesh.polygons:
+   ids=[mesh.loops[i].vertex_index for i in polygon.loop_indices];side=len(ids)==4
+   for li,idx in zip(polygon.loop_indices,ids):
+    point=mesh.vertices[idx].co
+    if side:
+     u=(idx%count)/count
+     if 0 in [i%count for i in ids] and count-1 in [i%count for i in ids] and idx%count==0:u=1
+     v=(point.z-profiles[0][0])/(profiles[-1][0]-profiles[0][0])
+    else:u=.5+point.x/(2*max(p[1] for p in profiles));v=.5+point.y/(2*max(p[2] for p in profiles))
+    uv.data[li].uv=(u,v)
+  return ob
  bulk=s.bulk;h=s.height;head=s.head
  torso('Tailored tunic',[(.84,.21*bulk,.14),(1.00,.18*bulk,.13),(1.20,.22*bulk,.14),(1.42,.29*bulk,.16),(1.49,.22*bulk,.13)],'cloth')
  torso('Leather belt',[(1.035,.188*bulk,.142),(1.09,.19*bulk,.143)],'leather');box('Belt clasp',(0,-.15,1.064),(.065,.025,.055),'trim',.006)
  if s.style!='CLOTH':
-  torso('Breastplate',[(1.10,.20*bulk,.15),(1.25,.24*bulk,.18),(1.43,.30*bulk,.185),(1.48,.23*bulk,.15)],'metal')
+  torso('Breastplate',[(1.10,.20*bulk,.15),(1.25,.24*bulk,.18),(1.43,.30*bulk,.185),(1.48,.23*bulk,.15)],'cuirass')
   torso('Armor lower rim',[(1.10,.204*bulk,.154),(1.125,.21*bulk,.158)],'trim')
   for side in [-1,1]:
    for j in range(3):box('Articulated skirt plate',(side*(.115+j*.018)*bulk,-.151,.99-j*.065),(.17*bulk,.036,.085),'metal',.012)
@@ -85,6 +108,8 @@ def build(s):
  return col
 
 class StudioShapeSettings(bpy.types.PropertyGroup):
+ detail:FloatProperty(name='Painted material detail',default=.85,min=0,max=1)
+ weathering:FloatProperty(name='Weathering',default=.25,min=0,max=1)
  height:FloatProperty(name='Height',default=1,min=.75,max=1.3)
  bulk:FloatProperty(name='Build',default=1,min=.7,max=1.4)
  head:FloatProperty(name='Head size',default=1,min=.85,max=1.2)
@@ -94,8 +119,8 @@ class StudioShapeSettings(bpy.types.PropertyGroup):
  helmet:EnumProperty(name='Helmet',items=[('NONE','None',''),('CAP','Cap and cheek guards',''),('CREST','Crested','')],default='CAP')
  weapon:EnumProperty(name='Weapon',items=[('NONE','None',''),('SWORD','Sword',''),('SPEAR','Spear','')],default='NONE')
  shield:bpy.props.BoolProperty(name='Shield',default=False)
- cloth:FloatVectorProperty(name='Cloth',subtype='COLOR',size=3,min=0,max=1,default=(.12,.24,.34))
- armor:FloatVectorProperty(name='Armor',subtype='COLOR',size=3,min=0,max=1,default=(.32,.37,.40))
+ cloth:FloatVectorProperty(name='Cloth',subtype='COLOR',size=3,min=0,max=1,default=(.055,.13,.23))
+ armor:FloatVectorProperty(name='Armor',subtype='COLOR',size=3,min=0,max=1,default=(.16,.205,.25))
  skin:FloatVectorProperty(name='Skin',subtype='COLOR',size=3,min=0,max=1,default=(.48,.28,.17))
  output:StringProperty(name='Output GLB',subtype='FILE_PATH',default='//studio-soldier.glb')
 
@@ -119,7 +144,7 @@ class STUDIO_PT_shape(bpy.types.Panel):
  bl_label='Civ IV Shape Lab';bl_idname='STUDIO_PT_shape';bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='Civ IV'
  def draw(self,context):
   l=self.layout;s=context.scene.studio_shape;l.label(text='Original procedural foot-soldier geometry')
-  for n in ['height','bulk','head','arm_angle','stance','style','helmet','weapon','shield','cloth','armor','skin']:l.prop(s,n)
+  for n in ['height','bulk','head','arm_angle','stance','style','helmet','weapon','shield','cloth','armor','skin','detail','weathering']:l.prop(s,n)
   l.operator('studio.build_shape');l.label(text='Rebuild replaces generated parts; save edits first.');l.prop(s,'output');l.operator('studio.export_shape');l.label(text='Match rest pose; automatic rig transfer is experimental.')
 
 classes=[StudioShapeSettings,STUDIO_OT_shape,STUDIO_OT_export_shape,STUDIO_PT_shape]

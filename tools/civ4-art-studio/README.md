@@ -232,3 +232,14 @@ python helpers/motion_lab.py
 ```
 
 The Blender panel is registered for the current session; rerun the script when reopening Blender. The saved mesh itself does not require the panel. Automated tests exercise Blender generation/render/export, geometry conversion, native KF preservation and the existing browser editor. Desktop window layout has not been manually tested on Windows.
+
+
+## Painted unit and building surfaces (1.6)
+
+![Generated brick façade and roof](building-texture-preview.png)
+
+**Units:** Shape Lab now generates packed diffuse image textures for cloth, steel, etched breastplates, leather, brass, wood and skin. Cloth has weave, folds and contrasting hems; metal has painted highlights, tarnish and an etched motif; leather has pores, seams and edge wear. The new default uses blue cloth, cooler steel and warm brass for separation at map scale. Adjust **Painted material detail**, **Weathering** and the material colors, then rebuild. Existing saved models need rebuilding or manual material reassignment to receive the new surfaces. Export GLB and use Unit Model Studio as before: image textures and UVs survive the Blender bake into the single Civ IV DDS atlas. These are original procedural diffuse details, not downloaded textures or PBR-only effects.
+
+**Buildings:** choose the box artwork route, then select a **Box façade finish**: brick, limestone or timber/plaster. Set floors and weathering; no uploaded façade is required for those presets. Window recesses, mullions, lintels, floor bands, mortar, doors and base staining are painted into the atlas. Choose slate/tile or metal roof courses and a roof color. The live preview and exported mipmapped DDS use the same texture. **Download diffuse texture PNG** also saves the atlas independently. These presets paint the existing box geometry; they do not add physical windows or roof geometry. For an architectural OBJ, supply its own UV-aligned diffuse atlas as before.
+
+Generated details are deterministic. Weathering and contrast are intentionally bounded; inspect both map-scale and Civilopedia views in game, since this release still has no Civ IV renderer. No existing mod texture files are edited in place.

@@ -1,5 +1,15 @@
 {
-  "version": "1.5",
+  "version": "1.6",
+  "surfaces": {
+    "passed": [
+      "Seven deterministic opaque material maps, finite pixels, visible variation",
+      "Final unit GLB embeds material images and UV coordinates",
+      "Standalone diffuse PNG download decoded independently",
+      "Three facade styles preview and export mipmapped DDS without an uploaded image",
+      "Weathering invalidates texture cache/review; unsupported floor counts blocked"
+    ],
+    "in_game_tested": false
+  },
   "shape_conversion": {
     "report": {
       "triangles": 2500,
@@ -7,15 +17,14 @@
       "donorMesh": "MachineGunner_Man",
       "donorSHA256": "5c4c9a393247a9d8d879637a527ae1961e8d65b381bb8d2d8e68e2a40598aa95",
       "maxTransferDistance": 17.595908825591923,
-      "meanTransferDistance": 5.280168719928635,
+      "meanTransferDistance": 5.28044390135873,
       "automaticWeights": true,
       "inGameTested": false,
       "keepOtherMeshes": false
     },
     "checks": [
-      "Procedural GLB baked to atlas",
-      "NIF reread and normalized weights",
-      "Skin partitions cover exported triangles"
+      "Textured GLB baked to diffuse atlas",
+      "DDS independently decoded with more than 1000 colors"
     ],
     "inGameTested": false
   },
@@ -55,7 +64,7 @@
     "in_game_tested": false,
     "fixture": "Synthetic geometry; no external reconstruction service used"
   },
-  "tested_date": "2026-10-23",
+  "tested_date": "2026-10-24",
   "source_fonts_revision": "2a8b9a83eb5b4d339cb92d23d04155e47e868efa",
   "core_test_groups": 5,
   "independent_formats": {
