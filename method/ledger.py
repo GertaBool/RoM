@@ -103,6 +103,13 @@ def git(root, *args):
     return r.stdout if r.returncode == 0 else None
 
 
+def show(root, spec):
+    """A file from git (spec "rev:path", or ":path" for the staged one) as text whatever its encoding
+    (patches of the mod's text are ISO-8859-1); None if absent."""
+    r = subprocess.run(['git', '-C', root, 'show', spec], capture_output=True)
+    return r.stdout.decode('latin-1') if r.returncode == 0 else None
+
+
 def load(root, path, rev=None):
     """The JSON file in the working tree (rev None) or at a commit; None if absent."""
     if rev is None:
@@ -339,7 +346,7 @@ def audit(root, hist, reg_at, ev_at, reg, late):
         if len(par) > 1: continue  # merges bring in other branches' commits, audited there
         serves, method = trailers(msg)
         anc = ancestors(root, s)
-        read = lambda p, s=s: git(root, 'show', f'{s}:{p}')   # a file as this commit left it
+        read = lambda p, s=s: show(root, f'{s}:{p}')   # a file as this commit left it
         prob = problems(s, files, serves, method, E, reg_at, ev_at, wd, anc, read)
         if not prob: continue
         if s not in L: viol.append({'commit': s, 'problems': prob}); continue
@@ -514,7 +521,7 @@ def commit_msg(root, msgfile):
     serves, method = trailers(msg)
     errs = []
     if touches_method(files) and not method: errs.append('staged method paths need a "Method: <reason>" trailer')
-    read = lambda p: git(root, 'show', f':{p}')   # a file as staged
+    read = lambda p: show(root, f':{p}')   # a file as staged
     g = gated(files, read)
     if g and not serves: errs.append('staged gated paths need a "Serves: P.." trailer')
     reg = load(root, REG) or []
@@ -663,7 +670,10 @@ def selftest():
         assert not evaluate(d)['violations']
         # translation text needs no trailer: a patch whose files all lie in a text folder, and its notes
         txt = 'diff --git a/Assets/XML/Text/a.xml b/Assets/XML/Text/a.xml\n--- a/Assets/XML/Text/a.xml\n+++ b/Assets/XML/Text/a.xml\n'
-        w('fixes/t.patch', txt); w('fixes/t/README.md', 'notes'); w('fixes/t/changes.json', '{}'); commit('text patch')
+        os.makedirs(os.path.join(d, 'fixes'), exist_ok=True)
+        open(os.path.join(d, 'fixes/t.patch'), 'wb').write(txt.encode() + b'+<French>\xe9t\xe9</French>\n')   # ISO-8859-1, as the mod's text
+        g('add', 'fixes/t.patch'); assert not gated(['fixes/t.patch'], lambda p: show(d, ':' + p))   # as the commit hook reads it
+        w('fixes/t/README.md', 'notes'); w('fixes/t/changes.json', '{}'); commit('text patch')
         assert not evaluate(d)['violations'], evaluate(d)['violations']
         # a patch that also touches code, an unread patch, and a top-level data file stay gated
         code = txt + 'diff --git a/Assets/CvGameCoreDLL/x.cpp b/Assets/CvGameCoreDLL/x.cpp\n'
