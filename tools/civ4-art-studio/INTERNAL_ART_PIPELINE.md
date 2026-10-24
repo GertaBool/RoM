@@ -41,3 +41,11 @@ Choose one upright humanoid donor with its complete loose animation set. Build o
 ## Refinement delivered in 1.8
 
 The browser now provides source/prepared clay comparison under a shared scale and camera, optional converted diffuse display, topology overlays, 64px readability thumbnails and per-part reduction findings. This covers the baking/simplification stage only. Native animated NIF comparison, donor-bound skinning review and an in-game quality gate remain open. See the README for the source snapshot limits and seam-aware simplification checks.
+
+## Correction delivered in 1.9
+
+The user requested a proper unit model with animation previews. A procedural blockout and static geometry comparison did not satisfy that requirement. The primary companion action now opens a native textured NIF/KF preview; Shape Lab is a secondary blockout utility. The new preview uses the actual unit mesh, skin weights and animation tracks, supports clip selection and playback/scrubbing, and can inspect converted model.nif files with donor clips.
+
+The implementation samples transforms and skin deformation in Python, embeds diffuse PNG textures and sampled positions/normals in a local HTML viewer, and uses WebGL for playback. No original game files are modified or distributed. Bounds are shared across clips. Unsupported transform tracks reject a clip; omitted visibility/material controllers and approximate TBC/quadratic quaternion easing are disclosed per clip. Alpha uses cutout approximation. No KFM transition, team-color, particle, event-effect or game-renderer parity is claimed.
+
+A proper newly authored character still requires suitable anatomy, costume/equipment geometry, UVs, texture painting and rig weights. The native preview supplies the missing inspection stage; it does not turn the blockout into a finished realistic unit.

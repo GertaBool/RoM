@@ -67,16 +67,18 @@ def gui():
    p=filedialog.askdirectory() if directory else filedialog.askopenfilename(filetypes=filetypes or [('All files','*')])
    if p:vals[key].set(p)
   ttk.Button(frame,text='Browse',command=browse).grid(row=row,column=2);row+=1
- heading('Internal tools · Build shapes and edit native animation')
+ heading('Inspect the actual unit · Textured animation playback')
  def open_shape():
   exe=vals['blender'].get()
   if not Path(exe).is_file():messagebox.showerror('Blender required','Select the Blender executable below first.');return
   subprocess.Popen([exe,'--python',str(HERE/'shape_lab.py')])
  def open_motion():subprocess.Popen([sys.executable,str(HERE/'motion_lab.py')])
+ def open_preview():subprocess.Popen([sys.executable,str(HERE/'unit_animation_preview.py')])
  internal=ttk.Frame(frame);internal.grid(row=row,column=0,columnspan=3,sticky='w');row+=1
- ttk.Button(internal,text='Open prototype Shape Lab in Blender',command=open_shape).pack(side='left',padx=4);ttk.Button(internal,text='Open native KF Motion Lab',command=open_motion).pack(side='left',padx=4)
- ttk.Label(frame,text='Build a neutral soldier GLB locally, then select it as the model below. Motion Lab exports a separate KF patch.',wraplength=850).grid(row=row,column=0,columnspan=3,sticky='w');row+=1
- heading('1 · Load a local model, or reconstruct from an image externally')
+ ttk.Button(internal,text='Preview textured NIF + animations',command=open_preview).pack(side='left',padx=4);ttk.Button(internal,text='Edit native KF tracks',command=open_motion).pack(side='left',padx=4)
+ ttk.Label(frame,text='Preview the original unit or your exported model.nif with the donor’s KF clips. Inspect its body, equipment and animation before using it in game.',wraplength=850).grid(row=row,column=0,columnspan=3,sticky='w');row+=1
+ ttk.Button(frame,text='Optional blockout utility (not finished unit art)',command=open_shape).grid(row=row,column=0,columnspan=3,sticky='w');row+=1
+ heading('1 · Load a finished model, or reconstruct from an image externally')
  field('Reference image','image',filetypes=[('Images','*.png *.jpg *.jpeg')])
  def external(url):
   if not vals['image'].get():messagebox.showinfo('Choose an image','Select a reference image first.');return

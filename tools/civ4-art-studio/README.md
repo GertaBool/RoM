@@ -1,10 +1,8 @@
 # Civ IV Art Studio
 
-An offline workshop for **Civilization IV units, buildings, resources, DDS buttons and GameFont symbols**. No installation, Photoshop plugin, Python runtime or image upload is required to use the app.
+An offline workshop for **Civilization IV units, buildings, resources, DDS buttons and GameFont symbols**. The browser editor requires no installation or image upload. Native model conversion and animated NIF previews use the included Python desktop helpers.
 
 [Download the ready-to-use ZIP](Civ4ArtStudio.zip?raw=true) · [Standalone HTML](dist/Civ4ArtStudio.html?raw=true)
-
-![Source and prepared model review](preview.png)
 
 ## Start
 
@@ -13,6 +11,23 @@ An offline workshop for **Civilization IV units, buildings, resources, DDS butto
 3. Choose a JPG or PNG. Select **Buttons & DDS textures** or **GameFont symbols**.
 
 Everything runs on your device. Images are never sent to a server. Downloads are new files; the program does not write directly into your mod installation. The app and its source are MIT-licensed. It contains no game artwork.
+
+## Preview a real unit in motion (1.9)
+
+1. Install Python and the helper dependencies once: `python -m pip install -r helpers/unit-model-requirements.txt`.
+2. Open **helpers/UnitAnimationPreview.pyw**, or click **Preview textured NIF + animations** in Unit Model Studio. On Linux/macOS run `python helpers/unit_animation_preview.py`.
+3. Select the unit's **NIF**, then select its **KF animation clips** from the list. Clips beside the NIF are found automatically; **Add KF clips** lets you choose clips elsewhere. Set the game's **Assets** folder if textures live elsewhere. Packed FPK assets must first be extracted locally with a compatible tool.
+4. Click **Build and open animated unit preview**, choose a new HTML filename, and use **Play/Pause**, the timeline, clip selector, playback speed, orbit, elevation, zoom and part visibility controls. The generated viewer is offline and needs no Python after it has been built.
+
+This displays the actual textured unit mesh, native skin weights, equipment and sampled bone animation. It does not substitute a procedural soldier. To review a newly converted unit, choose its exported **model.nif** and its donor's KF clips. This preview step does not create a new high-quality character: original geometry must come from a finished model or a reconstructed model refined for the intended unit. Shape Lab is retained only as an optional blockout utility.
+
+**Fidelity:** linear quaternion tracks use slerp; ordinary/compressed B-spline transform tracks use cubic sampling; linear/quadratic position and scale curves are supported. Quaternion TBC/quadratic tracks currently use key-to-key slerp, so their easing is approximate; a per-clip message identifies this. Other unsupported transform curves reject the clip. Matching node names are checked, but matching names cannot prove compatible bind poses. The viewer keeps root motion and uses shared bounds across clips.
+
+**Rendering limits:** diffuse textures and normals are previewed. Alpha-bearing materials use a cutout approximation, not full blended/game shader rendering. Team colors, gloss, game lighting, controller-driven visibility/material changes, particles, animation event effects and KFM transitions are not simulated. Events are listed with their times. Model parts can be toggled manually, including alternative meshes present in a NIF. Missing textures and rejected clips remain visible in the report. Test the final result in Civ IV.
+
+Select up to twelve clips, each up to twenty seconds; a combined frame/vertex budget prevents excessive browser memory use. Large models need fewer clips or a lower **Sampling FPS** setting. The tool reads original game files without rewriting them and refuses to overwrite an existing viewer. A generated preview embeds the selected meshes, textures and sampled animation; keep previews private unless you have permission to share that artwork. The download contains the viewer program, **not game artwork**.
+
+Validation includes independently known skinned translations and quaternion rotation, plus a native humanoid's Run/Idle previews, browser playback, scrubbing, clip switching, visibility and source-file integrity. These checks do not establish exact Civ IV rendering or animation parity.
 
 ## Unit workshop
 
@@ -25,7 +40,7 @@ Open **Units & armies** and select the complete mod folder (or reuse the folder 
 
 Use the **Connections and inherited rules** panel before exporting. Civilian actions, cargo restrictions, combat/terrain modifiers, class limits on edits, other special prerequisites, sounds and unexposed settings remain inherited. New standalone classes reset template instance limits; unique replacements retain the existing class limits. Editing a unit does not change its class or civilization assignments. Python and compiled behavior tied to an original identifier is not transferred to a newly named clone.
 
-**Art:** keep the template's mesh groups and early/middle/late era art, or select an existing art definition and change its scale/button. An art definition reuses its NIF, KFM, shader model, sounds and shadow together. Selecting an art source includes its module path to avoid guessing which definition was intended. A JPG/PNG can become a 64px DDS button. For new 3D geometry, use the external reconstruction and desktop companion workflow below. Art replacement assigns the selected definition to all existing mesh groups and era slots, retaining group sizes and formation. For existing units, civilization style overrides are updated by default; unchecking this explicitly preserves them. New unit identifiers do not inherit style overrides keyed to the old identifier. Test movement, attacks and death animations in game: there is no animated preview or manual weight editor. The companion offers experimental automatic weight transfer.
+**Art:** keep the template's mesh groups and early/middle/late era art, or select an existing art definition and change its scale/button. An art definition reuses its NIF, KFM, shader model, sounds and shadow together. Selecting an art source includes its module path to avoid guessing which definition was intended. A JPG/PNG can become a 64px DDS button. For new 3D geometry, use the external reconstruction and desktop companion workflow below. Art replacement assigns the selected definition to all existing mesh groups and era slots, retaining group sizes and formation. For existing units, civilization style overrides are updated by default; unchecking this explicitly preserves them. New unit identifiers do not inherit style overrides keyed to the old identifier. Test movement, attacks and death animations in game: use the native animation preview below to inspect deformation first. There is no manual weight editor. The companion offers experimental automatic weight transfer.
 
 Write names, Civilopedia and strategy in five language tabs. Missing translations fall back to English and appear in the review. Save/resume drafts; image files must be reselected. Changing a field invalidates the prior review.
 
@@ -207,20 +222,18 @@ The ZIP now includes `helpers/UnitModelStudio.pyw`, a desktop companion. This pr
 3. Select the mod folder and scan donors. Choose an anatomically similar model, its body mesh, and an existing animation pairing. Only loose NIF files are listed; packed game art must first be extracted. A KFM may still depend on the installed base game.
 4. Select the downloaded GLB, Blender executable, an empty output folder and the exact new unit ID. Choose orientation, triangle target and texture size, then Prepare. Blender bakes supported base-color materials, preserving geometry unless simplification is explicitly enabled; the converter fits the mesh to donor height, transfers up to four bone influences per vertex and writes partitioned NIF plus mipmapped DDS.
 5. Open Art Studio HTML → Units, load the same mod and configure the unit. Under Model, animations and button select **Import a prepared reconstructed model**, then its output folder. Use the matching unit ID. Pick a known animation pairing, review and download the patch.
-6. Install into a mod copy and test idle, movement, attacks and death. Automatic weights are experimental: differing poses, silhouettes, hands, equipment and joint placement often need manual weight painting in a compatible NIF toolchain. The current companion has no animated deformation preview or manual weight editor. Source-mod animation/equipment dependencies remain required.
+6. Install into a mod copy and test idle, movement, attacks and death. Automatic weights are experimental: differing poses, silhouettes, hands, equipment and joint placement often need manual weight painting in a compatible NIF toolchain. The native animation preview can inspect exported model.nif with donor KF clips. There is no manual weight editor. Source-mod animation/equipment dependencies remain required.
 
 The converter replaces one selected body mesh. Other meshes are optionally retained; inspect the list for duplicate bodies and attachments. Transparent hair/cards are not preserved by the opaque diffuse bake. This is an initial conversion route, not a guarantee of campaign-ready artwork. Structurally tested with synthetic geometry and a real mod donor; no external reconstruction result or Civ IV rendering has been tested.
 
 
 ## Internal Shape Lab and native Motion Lab (1.5 prototypes)
 
-![Procedural soldier base mesh generated by Shape Lab](shape-lab-preview.png)
-
 Open `helpers/UnitModelStudio.pyw` to find both tools. They work locally; neither requires an image-generation account. See [the internal art pipeline design](INTERNAL_ART_PIPELINE.md) for the implemented scope, limitations and next steps.
 
-**Shape Lab:** choose your Blender executable, then click **Open procedural Shape Lab in Blender**. In Blender's 3D View, press **N** and select the **Civ IV** sidebar. Change proportions, rest-pose arm angle, armor, helmet, colors, weapon and shield, then **Build / rebuild soldier**. Rebuild replaces the generated parts, so save any manual refinements separately first. Each part is editable Blender geometry. Export a neutral GLB to a new filename and feed it to Unit Model Studio with a matching donor. Start without generated weapons/shields if retaining the donor's equipment, to avoid duplicates. The model is an original stylized base mesh, not an anatomically finished character. Skeleton fitting remains experimental.
+**Shape Lab:** choose your Blender executable, then click **Optional blockout utility (not finished unit art)**. In Blender's 3D View, press **N** and select the **Civ IV** sidebar. Change proportions, rest-pose arm angle, armor, helmet, colors, weapon and shield, then **Build / rebuild soldier**. Rebuild replaces the generated parts, so save any manual refinements separately first. Each part is editable Blender geometry. Export a neutral GLB to a new filename and feed it to Unit Model Studio with a matching donor. Start without generated weapons/shields if retaining the donor's equipment, to avoid duplicates. The model is an original stylized base mesh, not an anatomically finished character. Skeleton fitting remains experimental.
 
-**Motion Lab:** click **Open native KF Motion Lab**. Select the mod, an existing loose KF and an empty export folder outside the mod. Find editable bone tracks; choose a local rotation axis, small amplitude and cycle count. The curve shows the added rotation, not an animated character. Export produces `patch/`, an exact `backup/`, checksums and install instructions. It preserves the original KF filename, so the existing KFM uses it without XML edits. Every unit sharing that KF receives the variation. It does not create an isolated new KFM set.
+**Motion Lab:** click **Edit native KF tracks**. Select the mod, an existing loose KF and an empty export folder outside the mod. Find editable bone tracks; choose a local rotation axis, small amplitude and cycle count. The curve shows the added rotation, not an animated character. Export produces `patch/`, an exact `backup/`, checksums and install instructions. It preserves the original KF filename, so the existing KFM uses it without XML edits. Every unit sharing that KF receives the variation. It does not create an isolated new KFM set.
 
 Motion Lab currently supports LINEAR quaternion rotation tracks. Compressed B-spline, Euler and TBC tracks remain untouched and cannot be selected. It adds a sampled motion layer, with zero added rotation at the sequence boundaries, to the original movement. Other tracks and animation events are preserved. It does not generate a complete walk/attack/death set, solve foot contact, or guarantee compatible transitions. Test in a copy of the mod before using either prototype in a campaign.
 

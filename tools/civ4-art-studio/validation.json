@@ -1,5 +1,41 @@
 {
-  "version": "1.8",
+  "version": "1.9",
+  "animation_preview": {
+    "clips": [
+      "Warlord_Ancient_MD_Run",
+      "Warlord_Ancient_MD_Idle"
+    ],
+    "rejected": [],
+    "warnings": [],
+    "clipWarnings": {
+      "Warlord_Ancient_MD_Run": [
+        "Quaternion TBC/quadratic tracks use key-to-key slerp; their easing is approximate.",
+        "Visibility/material/event controllers are listed but not played; use mesh visibility controls. (NiBoolInterpolator)"
+      ],
+      "Warlord_Ancient_MD_Idle": [
+        "Quaternion TBC/quadratic tracks use key-to-key slerp; their easing is approximate.",
+        "Visibility/material/event controllers are listed but not played; use mesh visibility controls. (NiBoolInterpolator)"
+      ]
+    },
+    "vertices": 1551,
+    "checks": [
+      "Quaternion row-matrix rotation",
+      "Independent cubic endpoint/midpoint expectations",
+      "Known skinned translation at start/mid/end",
+      "Existing output protected",
+      "Native humanoid Run and Idle clips exported",
+      "Source model and clips unchanged"
+    ],
+    "in_game_tested": false,
+    "browser_checks": [
+      "Two native clips selectable",
+      "Scrubbing and playback change rendered pose",
+      "Speed, non-looping stop and restart",
+      "Diffuse, wireframe, orbit and part visibility controls",
+      "Mobile layout",
+      "No script/WebGL errors or external requests"
+    ]
+  },
   "geometry_review": {
     "passed": [
       "Split GLB seams welded before reduction; closed parts remain closed",
