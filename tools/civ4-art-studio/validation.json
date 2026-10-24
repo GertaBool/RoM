@@ -1,5 +1,20 @@
 {
-  "version": "1.7",
+  "version": "1.8",
+  "geometry_review": {
+    "passed": [
+      "Split GLB seams welded before reduction; closed parts remain closed",
+      "Review loads without mod XML",
+      "Source and reduced mesh render differently under shared bounds",
+      "Synchronized rotation, wire overlay, texture toggle and reset",
+      "Invalid indices rejected, omitted source handled explicitly",
+      "Responsive layout, keyboard tab wrap, no script/WebGL errors or external requests",
+      "Seam-aware reduced mesh exported to NIF with finite positions, normalized weights and complete skin partitions"
+    ],
+    "sourceTriangles": 4228,
+    "convertedTriangles": 2474,
+    "in_game_tested": false,
+    "native_export_triangles": 2474
+  },
   "resampling_checks": [
     "constant color preservation",
     "premultiplied alpha edge isolation",

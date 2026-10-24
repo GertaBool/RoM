@@ -203,5 +203,5 @@ $('exportPNG').onclick = () => { if (state.rendered) { const name = safeName($('
 $('copyXML').onclick = async () => { try { await navigator.clipboard.writeText($('xmlSnippet').textContent); status('Button XML copied.'); } catch { status('Select the XML text and copy it manually; this browser does not allow clipboard access here.'); } };
 window.addEventListener('beforeunload', e => { if (Object.values(state.fonts).some(f => f?.history.length)) { e.preventDefault(); e.returnValue = ''; } });
 // Keyboard access for the mode tabs.
-for (const id of ['buttonMode', 'fontMode', 'unitMode', 'buildingMode', 'resourceMode']) $(id).addEventListener('keydown', e => { if (['ArrowLeft','ArrowRight'].includes(e.key)) { e.preventDefault(); const tabs=['buttonMode','fontMode','unitMode','buildingMode','resourceMode'], next=tabs[(tabs.indexOf(id)+(e.key==='ArrowRight'?1:4))%5]; $(next).click(); $(next).focus(); } });
+for (const id of ['buttonMode', 'fontMode', 'unitMode', 'buildingMode', 'resourceMode','reviewMode']) $(id).addEventListener('keydown', e => { if (['ArrowLeft','ArrowRight'].includes(e.key)) { e.preventDefault(); const tabs=['buttonMode','fontMode','unitMode','buildingMode','resourceMode','reviewMode'], next=tabs[(tabs.indexOf(id)+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length]; $(next).click(); $(next).focus(); } });
 render(); renderFont();

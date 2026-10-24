@@ -125,7 +125,7 @@ def gui():
   def worker():
    try:
     report=prepare(*args)
-    w.after(0,lambda:status.set('Prepared '+str(report['report']['triangles'])+' triangles. Source: '+str(report['preparation']['sourceTriangles'])+'. See prepared/preparation.json for per-part changes and material losses. Import the output folder in Art Studio. TEST IN GAME before using in a campaign.'))
+    w.after(0,lambda:status.set('Prepared '+args[4]+' in '+args[3]+': '+str(report['report']['triangles'])+' triangles. Source: '+str(report['preparation']['sourceTriangles'])+'. Open Art Studio → Model review and select the output folder to compare source and prepared geometry. Then import the output folder in Art Studio. TEST IN GAME before using in a campaign.'))
    except Exception as e:
     msg=str(e);w.after(0,lambda:messagebox.showerror('Conversion stopped',msg))
    finally:w.after(0,lambda:go.configure(state='normal'))

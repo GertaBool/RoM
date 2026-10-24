@@ -4,7 +4,7 @@ An offline workshop for **Civilization IV units, buildings, resources, DDS butto
 
 [Download the ready-to-use ZIP](Civ4ArtStudio.zip?raw=true) · [Standalone HTML](dist/Civ4ArtStudio.html?raw=true)
 
-![Unit editor preview](preview.png)
+![Source and prepared model review](preview.png)
 
 ## Start
 
@@ -262,3 +262,17 @@ python helpers/audit_unit_art.py /path/to/mod /path/to/unit-art-audit.json
 ```
 
 The audit includes optional module definitions and excludes FPK-only/base-game assets. Stored triangles are not necessarily the simultaneously rendered count. No gameplay rendering test was performed for this release.
+
+
+## Source / prepared model review (1.8)
+
+Open the new **Model review** tab and select a companion output folder, or its `prepared` subfolder. No mod XML is required. New preparations include `review.json`; older folders must be regenerated.
+
+- Source and prepared meshes share one scale, framing and camera. Rotate, change elevation, zoom, or use the front/side/back presets. Presets assume Blender −Y is forward.
+- Clay shading isolates changes to the silhouette and surface. Toggle topology to inspect reduction, or show the converted diffuse atlas on the right. The source materials are not rendered in this view.
+- Native 64px thumbnails help judge readability. They do not reproduce Civ IV's camera, lighting or formation scale.
+- Findings identify the largest relative triangle reductions and accepted material losses. Expand **All part changes** for the full list and closed-surface diagnostics. A reduction percentage is not a quality score.
+
+The review compares **mesh preparation before rig transfer**. Final NIF skinning, retained donor attachments, animations, team colors and game lighting still require separate validation. Source snapshots are limited to 100,000 triangles / 300,000 vertices; larger sources are explicitly omitted rather than silently downsampled for the comparison. Converted meshes can still be inspected.
+
+This review exposed a real simplification defect: glTF/GLB may contain duplicate vertices along UV/normal seams, and treating those as disconnected faces can produce holes during reduction. Explicit budget mode now reconnects coincident vertices at a small scale/precision-aware tolerance, preserves corner UV data, rejects ambiguous non-manifold joins, and stops if a previously closed part becomes open. Preservation mode does not weld or simplify source geometry. This does not guarantee that aggressive reduction preserves anatomy or visual quality; inspect the result.

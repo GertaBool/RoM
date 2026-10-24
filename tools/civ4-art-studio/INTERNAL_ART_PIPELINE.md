@@ -36,3 +36,8 @@ The motion prototype reads actual Civ IV NiControllerSequence files and resolves
 ## Practical next milestone
 
 Choose one upright humanoid donor with its complete loose animation set. Build one refined soldier around that exact rest pose, import its complete KF set for playback, and verify an unchanged NIF/KF round trip before adding full animation authoring. That gives a reproducible quality target for the internal pipeline instead of expanding to many unsupported body types at once.
+
+
+## Refinement delivered in 1.8
+
+The browser now provides source/prepared clay comparison under a shared scale and camera, optional converted diffuse display, topology overlays, 64px readability thumbnails and per-part reduction findings. This covers the baking/simplification stage only. Native animated NIF comparison, donor-bound skinning review and an in-game quality gate remain open. See the README for the source snapshot limits and seam-aware simplification checks.
