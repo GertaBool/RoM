@@ -1,5 +1,19 @@
 # Tested source fixes
 
+## Civic prose and translations
+
+[Patch 0021](0021-civic-prose.patch), applied after 0020, polishes the 68 core civics:
+67 new background entries, 59 corrected strategy entries, and localized labels in
+five languages. It updates 942 text values without changing gameplay.
+See the [English preview](civic-prose/PREVIEW.md) and [validation notes](civic-prose/README.md).
+
+## Civilopedia and localization
+
+[Patch 0020](0020-pedia-localization.patch) updates four Civilopedia entries and their
+strategy text in five languages, and fixes two language-order errors. It applies to
+GitLab main `2a8b9a83`; XML and patch checks pass, but in-game rendering is untested.
+See the [change notes and validation](pedia-localization/README.md).
+
 ## War AI fixes: retraining disband, collateral counted only when it does damage
 
 [0019-war-ai-fixes.patch](0019-war-ai-fixes.patch) applies on top of patch 0018. It has

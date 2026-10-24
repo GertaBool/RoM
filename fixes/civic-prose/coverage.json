@@ -1,0 +1,410 @@
+[
+  {
+    "type": "CIVIC_PATRIARCH",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_OLIGARCHY",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PRIESTHOOD",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_HEREDITARY_RULE",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_ASSEMBLY",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PATRICIAN",
+    "pedia": "rewritten",
+    "strategy": "no Strategy key in rules",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_IMPERIUM",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_FRATERNITY",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_TECHNOCRACY",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_ORAL_LAW",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_TABLETS",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_STANDARDIZED_TABLETS",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_ACCOUNTING",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_BOOKKEEPING",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_DOUBLE_ENTRY",
+    "pedia": "rewritten",
+    "strategy": "no Strategy key in rules",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_DIGITAL",
+    "pedia": "rewritten",
+    "strategy": "no Strategy key in rules",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_NO_TAXES",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_TRIBUTE",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_CENSUS",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_FISCUS",
+    "pedia": "rewritten",
+    "strategy": "no Strategy key in rules",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_NATIONAL_DEBT",
+    "pedia": "rewritten",
+    "strategy": "no Strategy key in rules",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_NATIONAL_BANKING",
+    "pedia": "rewritten",
+    "strategy": "no Strategy key in rules",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PLANNED_ALLOCATION",
+    "pedia": "rewritten",
+    "strategy": "no Strategy key in rules",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_HUNTER_GATHERER",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_AGRICULTURAL",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PASTORAL",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_COASTAL",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_BARTER",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_METALS",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_COINAGE",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_USURY",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_COLONIAL",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PROTECTIONISM",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_CORPORATE",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PLANNED",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_NATIONAL_SOCIALISM",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_KEYNESIAN",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_ABORIGINAL",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PEASANTRY",
+    "pedia": "preserved from 0020",
+    "strategy": "preserved from 0020",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_SLAVERY",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_CASTE_SYSTEM",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PROLETARIAT",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_QUALIFIED_LABOR",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_LABOR_ALLOCATION",
+    "pedia": "rewritten",
+    "strategy": "no Strategy key in rules",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_HOMESCHOOLING",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_ELDERS",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_TUTORS",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_ACADEMIES",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_TRADE_SCHOOL",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_HUMANISTIC",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PUBLIC_SCHOOLS",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_FOLKLORE",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_SPIRITISM",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_DIVINE_RULE",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_SACRIFICE_CULT",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_FANATICISM",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PANTHEON",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_STATE_RELIGION",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_OCCULT",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_SCIENTISM",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_TRIBAL_WARFARE",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_RAIDERS",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_FORTIFICATION",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_MERCENARIES",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_STANDING_ARMY",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_MILITIA",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_PROFESSIONAL_ARMY",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  },
+  {
+    "type": "CIVIC_CONSCRIPTION",
+    "pedia": "rewritten",
+    "strategy": "rewritten",
+    "name": "reviewed"
+  }
+]
