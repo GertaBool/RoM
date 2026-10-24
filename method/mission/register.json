@@ -263,5 +263,101 @@
    "min_n": 30,
    "seat": 12
   }
+ },
+ {
+  "id": "H4",
+  "type": "hypothesis",
+  "line": "graphics-paging",
+  "text": "The executable sets up a model for every unit and city and graphics for every plot, on screen or not (research/graphics/README.md, R-C), and a large game (300 cities, 2,359 units, 6,386 unit models at 460 AD) ended with its memory allocation failure; a view window holds a fraction of them (R-D). Keeping graphics only around the camera lowers the executable's memory without changing the game or what is on screen. The memory itself is measured only in the real game, by the user (process memory at the 460 AD save with paging on and off, and play past 490 AD); the harness checks that the change neither crashes nor slows the game."
+ },
+ {
+  "id": "P7",
+  "type": "prediction",
+  "line": "graphics-paging",
+  "hypotheses": [
+   "H4"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "Graphics paging (define GRAPHICS_PAGING, 0 = off): the DLL keeps unit and city entities and the feature, route and improvement graphics of plots only within a window around the camera's look-at plot (getLookAtPlot), sized for the farthest zoom the camera defines allow, with a margin; elsewhere it removes the entity and leaves a bare one (as reloadEntity does before setup) and destroys the plot symbols, and sets them up again when the window returns. Entity calls on a paged-out unit or city are skipped and its battles are not animated. The active player's units and cities are never paged out. Arm a: paging on; arm b: the same build with GRAPHICS_PAGING 0; both in the harness with graphics initialised and a camera sweeping the map, from the 460 AD autosave of the user's Mediterranean game, seeds from ledger.py seeds.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.h",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "fixes/graphics-paging.patch",
+   "fixes/graphics-paging/",
+   "builds/graphics-paging/",
+   "toolchain/harness/engine.cpp",
+   "toolchain/harness/main.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "toolchain/harness/README.md"
+  ]
+ },
+ {
+  "id": "P8",
+  "type": "prediction",
+  "line": "graphics-paging",
+  "hypotheses": [
+   "H4"
+  ],
+  "variable": "turn_seconds",
+  "evidence": "runs",
+  "change": "Graphics paging (define GRAPHICS_PAGING, 0 = off): the DLL keeps unit and city entities and the feature, route and improvement graphics of plots only within a window around the camera's look-at plot (getLookAtPlot), sized for the farthest zoom the camera defines allow, with a margin; elsewhere it removes the entity and leaves a bare one (as reloadEntity does before setup) and destroys the plot symbols, and sets them up again when the window returns. Entity calls on a paged-out unit or city are skipped and its battles are not animated. The active player's units and cities are never paged out. Arm a: paging on; arm b: the same build with GRAPHICS_PAGING 0; both in the harness with graphics initialised and a camera sweeping the map, from the 460 AD autosave of the user's Mediterranean game, seeds from ledger.py seeds.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.h",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "fixes/graphics-paging.patch",
+   "fixes/graphics-paging/",
+   "builds/graphics-paging/",
+   "toolchain/harness/engine.cpp",
+   "toolchain/harness/main.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "toolchain/harness/README.md"
+  ]
  }
 ]
