@@ -205,7 +205,7 @@ The ZIP now includes `helpers/UnitModelStudio.pyw`, a desktop companion. This pr
 1. Install Python 3.10+ with Tkinter and Blender 4.x. In the extracted ZIP run `python -m pip install -r helpers/unit-model-requirements.txt`, then `python helpers/unit_model_studio.py` (or double-click UnitModelStudio.pyw).
 2. Select your PNG/JPEG. Open Meshy or Tripo using the companion buttons, upload it yourself, and download a textured GLB. Their accounts, charges and upload terms apply. No image is uploaded automatically. Use a separated-limb neutral pose matching your intended donor; one image leaves unseen surfaces to the provider's inference.
 3. Select the mod folder and scan donors. Choose an anatomically similar model, its body mesh, and an existing animation pairing. Only loose NIF files are listed; packed game art must first be extracted. A KFM may still depend on the installed base game.
-4. Select the downloaded GLB, Blender executable, an empty output folder and the exact new unit ID. Choose orientation, triangle target and texture size, then Prepare. Blender bakes materials; the converter fits the mesh to donor height, transfers up to four bone influences per vertex and writes partitioned NIF plus mipmapped DDS.
+4. Select the downloaded GLB, Blender executable, an empty output folder and the exact new unit ID. Choose orientation, triangle target and texture size, then Prepare. Blender bakes supported base-color materials, preserving geometry unless simplification is explicitly enabled; the converter fits the mesh to donor height, transfers up to four bone influences per vertex and writes partitioned NIF plus mipmapped DDS.
 5. Open Art Studio HTML → Units, load the same mod and configure the unit. Under Model, animations and button select **Import a prepared reconstructed model**, then its output folder. Use the matching unit ID. Pick a known animation pairing, review and download the patch.
 6. Install into a mod copy and test idle, movement, attacks and death. Automatic weights are experimental: differing poses, silhouettes, hands, equipment and joint placement often need manual weight painting in a compatible NIF toolchain. The current companion has no animated deformation preview or manual weight editor. Source-mod animation/equipment dependencies remain required.
 
@@ -243,3 +243,22 @@ The Blender panel is registered for the current session; rerun the script when r
 **Buildings:** choose the box artwork route, then select a **Box façade finish**: brick, limestone or timber/plaster. Set floors and weathering; no uploaded façade is required for those presets. Window recesses, mullions, lintels, floor bands, mortar, doors and base staining are painted into the atlas. Choose slate/tile or metal roof courses and a roof color. The live preview and exported mipmapped DDS use the same texture. **Download diffuse texture PNG** also saves the atlas independently. These presets paint the existing box geometry; they do not add physical windows or roof geometry. For an architectural OBJ, supply its own UV-aligned diffuse atlas as before.
 
 Generated details are deterministic. Weathering and contrast are intentionally bounded; inspect both map-scale and Civilopedia views in game, since this release still has no Civ IV renderer. No existing mod texture files are edited in place.
+
+
+## Realism and detail preservation (1.7)
+
+Read [the unit art study](UNIT_VISUAL_STUDY.md) before choosing an image-to-model workflow. Shape Lab is a **prototype/blockout tool**, not a finished realistic-character generator. Its simple geometry was the main cause of the toy-like look; texture noise cannot repair proportions, hands, faces, equipment construction or animation contact.
+
+**Buttons:** detail-preserving photo downsampling is enabled by default, with linear-light Lanczos filtering and premultiplied alpha. Use Fill crop, focus controls and Portrait zoom to frame the identifying features; judge the actual-size preview. RGBA is now the default to avoid block-compression losses. DXT3 remains available when compact files matter. Unit and building workshop button exports also use the resampler and RGBA. This preserves available image information; it does not invent detail beyond a 64px button's capacity.
+
+**Models:** the companion now preserves source geometry unless you check **Reduce geometry to triangle target**. The generic Blender helper requires `--simplify` to apply its target. Simplification retains small mesh objects where possible and writes per-part before/after triangle counts to `prepared/preparation.json`. A unit above the 10,000-triangle exporter limit stops for review rather than silently shrinking to a generic budget. Do not interpret the limit as a recommended game budget.
+
+The opaque bake also stops when it detects transparency or linked normal/bump detail. If you deliberately accept the loss, use the companion checkboxes or the helper's `--allow-alpha-flatten` / `--allow-normal-loss` flags. The report lists accepted losses. Correct alpha-cutout/team-color conversion and full source-shader preservation are still unfinished; a flag cannot recover them. Review the resulting geometry and materials before importing the prepared folder.
+
+Audit your own mod's referenced loose unit assets with:
+
+```sh
+python helpers/audit_unit_art.py /path/to/mod /path/to/unit-art-audit.json
+```
+
+The audit includes optional module definitions and excludes FPK-only/base-game assets. Stored triangles are not necessarily the simultaneously rendered count. No gameplay rendering test was performed for this release.

@@ -22,7 +22,7 @@ def catalog(mod):
     rows.append(dict(type=v.get('Type'),path=path.relative_to(root).as_posix(),nif=nif,kfm=v['KFM'],shader=v.get('SHADERNIF',''),file=str(loose)))
  return rows
 
-def prepare(mod,blender,model,output,unit,donor,animation,mesh_index,rotation=0,keep=True,size=512,triangles=2500):
+def prepare(mod,blender,model,output,unit,donor,animation,mesh_index,rotation=0,keep=True,size=512,triangles=2500,simplify=False,allow_alpha=False,allow_normals=False):
  import unit_model_convert as converter
  if (donor['nif'].lower(),donor['shader'].lower())!=(animation['nif'].lower(),animation['shader'].lower()):raise ValueError('Animation selection is not an existing pairing for this donor.')
  if not output.strip():raise ValueError('Choose an empty output folder.')
@@ -33,11 +33,19 @@ def prepare(mod,blender,model,output,unit,donor,animation,mesh_index,rotation=0,
  if not Path(blender).is_file():raise ValueError('Select the Blender executable (Blender 4.x).')
  out.mkdir(parents=True,exist_ok=True);baked=out/'prepared';baked.mkdir()
  cmd=[str(blender),'--background','--threads','2','--python-exit-code','1','--python',str(HERE/'prepare_building.py'),'--',str(Path(model).resolve()),str(baked),'--size',str(size),'--triangles',str(triangles)]
+ if simplify:cmd.append('--simplify')
+ if allow_alpha:cmd.append('--allow-alpha-flatten')
+ if allow_normals:cmd.append('--allow-normal-loss')
  run=subprocess.run(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,errors='replace');(out/'blender.log').write_text(run.stdout,encoding='utf-8')
- if run.returncode:raise ValueError('Blender preparation failed. See blender.log; use a fresh output folder after fixing the model.')
+ if run.returncode:
+  reasons=__import__('re').findall(r'RuntimeError: ([^\n]+)',run.stdout)
+  reason=reasons[-1][:700] if reasons else 'Blender preparation failed.'
+  raise ValueError(reason+' See blender.log; use a fresh output folder after fixing the model or changing the explicit loss options.')
+ preparation=json.loads((baked/'preparation.json').read_text())
+ if preparation['triangles']>10000:raise ValueError('Source exceeds the unit exporter’s 10,000-triangle limit. Review it in Blender and explicitly choose budget simplification if appropriate. No NIF was produced.')
  report=converter.convert(donor['file'],baked,out,unit,mesh_index,rotation,keep)
  d={k:v for k,v in donor.items() if k!='file'};a={k:v for k,v in animation.items() if k!='file'}
- manifest={'format':'civ4-reconstructed-unit','version':1,'unit':unit,'donor':d,'animation':a,'report':report,'files':{n:hashlib.sha256((out/n).read_bytes()).hexdigest() for n in ['model.nif','diffuse.dds']}}
+ manifest={'format':'civ4-reconstructed-unit','version':1,'unit':unit,'donor':d,'animation':a,'report':report,'preparation':preparation,'files':{n:hashlib.sha256((out/n).read_bytes()).hexdigest() for n in ['model.nif','diffuse.dds']}}
  (out/'model.json').write_text(json.dumps(manifest,indent=2)+'\n');(out/'READ-ME.txt').write_text('EXPERIMENTAL RIG TRANSFER\nImport this folder in Art Studio Units > Prepared reconstructed model.\nThe GLB is genuinely new geometry; the selected donor skeleton, bind matrices and animation dependencies are retained.\nAutomatic weights need a similar body/rest pose. Inspect all movement, combat and death animations in game. Meshy/Tripo animations are not converted into Civ IV KF files.\nKeep the source mod installed: animation and retained material/weapon dependencies are not redistributed.\nThe main body is uniformly fitted to the donor height; other body parts/weapons are retained unless disabled.\n')
  return manifest
 
@@ -66,7 +74,7 @@ def gui():
   subprocess.Popen([exe,'--python',str(HERE/'shape_lab.py')])
  def open_motion():subprocess.Popen([sys.executable,str(HERE/'motion_lab.py')])
  internal=ttk.Frame(frame);internal.grid(row=row,column=0,columnspan=3,sticky='w');row+=1
- ttk.Button(internal,text='Open procedural Shape Lab in Blender',command=open_shape).pack(side='left',padx=4);ttk.Button(internal,text='Open native KF Motion Lab',command=open_motion).pack(side='left',padx=4)
+ ttk.Button(internal,text='Open prototype Shape Lab in Blender',command=open_shape).pack(side='left',padx=4);ttk.Button(internal,text='Open native KF Motion Lab',command=open_motion).pack(side='left',padx=4)
  ttk.Label(frame,text='Build a neutral soldier GLB locally, then select it as the model below. Motion Lab exports a separate KF patch.',wraplength=850).grid(row=row,column=0,columnspan=3,sticky='w');row+=1
  heading('1 · Load a local model, or reconstruct from an image externally')
  field('Reference image','image',filetypes=[('Images','*.png *.jpg *.jpeg')])
@@ -103,18 +111,21 @@ def gui():
  settings=ttk.Frame(frame);settings.grid(row=row,column=0,columnspan=3,sticky='w');row+=1
  angle=tk.StringVar(value='0');budget=tk.StringVar(value='2500');size=tk.StringVar(value='512')
  for label,var,choices in [('Z rotation',angle,['0','90','180','270']),('Triangle target',budget,['1000','2500','5000','10000']),('Texture size',size,['256','512','1024'])]:ttk.Label(settings,text=label).pack(side='left',padx=6);ttk.Combobox(settings,textvariable=var,values=choices,state='readonly',width=8).pack(side='left')
+ simplify=tk.BooleanVar(value=False);allow_alpha=tk.BooleanVar(value=False);allow_normals=tk.BooleanVar(value=False)
+ for label,var in [('Reduce geometry to triangle target (off preserves source shape)',simplify),('Accept flattening transparency/cutout detail into an opaque texture',allow_alpha),('Accept omitting linked normal/bump detail from the diffuse bake',allow_normals)]:
+  ttk.Checkbutton(frame,text=label,variable=var).grid(row=row,column=0,columnspan=3,sticky='w');row+=1
  status=tk.StringVar(value='External generation produces the new shape. Automatic rig transfer is experimental; it cannot guarantee matching poses or clean animation.')
  ttk.Label(frame,textvariable=status,wraplength=850).grid(row=row,column=0,columnspan=3,sticky='w',pady=12);row+=1
  def generate():
   try:
    if donorbox.current()<0 or animbox.current()<0 or meshbox.current()<0:raise ValueError('Scan the mod and select a donor body and animation.')
-   args=[vals[k].get() for k in ['mod','blender','model','output','unit']]+[dict(rows[donorbox.current()]),dict(anims[animbox.current()]),meshes[meshbox.current()][0],float(angle.get()),keep.get(),int(size.get()),int(budget.get())]
+   args=[vals[k].get() for k in ['mod','blender','model','output','unit']]+[dict(rows[donorbox.current()]),dict(anims[animbox.current()]),meshes[meshbox.current()][0],float(angle.get()),keep.get(),int(size.get()),int(budget.get()),simplify.get(),allow_alpha.get(),allow_normals.get()]
   except Exception as e:messagebox.showerror('Missing selection',str(e));return
   go['state']='disabled';status.set('Baking and transferring skin weights… This may take a few minutes.')
   def worker():
    try:
     report=prepare(*args)
-    w.after(0,lambda:status.set('Prepared '+str(report['report']['triangles'])+' triangles. Import the output folder in Art Studio. TEST IN GAME before using in a campaign.'))
+    w.after(0,lambda:status.set('Prepared '+str(report['report']['triangles'])+' triangles. Source: '+str(report['preparation']['sourceTriangles'])+'. See prepared/preparation.json for per-part changes and material losses. Import the output folder in Art Studio. TEST IN GAME before using in a campaign.'))
    except Exception as e:
     msg=str(e);w.after(0,lambda:messagebox.showerror('Conversion stopped',msg))
    finally:w.after(0,lambda:go.configure(state='normal'))

@@ -14,6 +14,10 @@ function dimensions() {
 function canvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 function pixels(c) { return { width: c.width, height: c.height, data: new Uint8Array(c.getContext('2d').getImageData(0, 0, c.width, c.height).data) }; }
 function put(c, im) { c.width = im.width; c.height = im.height; c.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(im.data), im.width, im.height), 0, 0); }
+function drawDetail(ctx,source,sx,sy,sw,sh,dx,dy,dw,dh){
+ const crop=canvas(Math.max(1,Math.round(sw)),Math.max(1,Math.round(sh)));crop.getContext('2d').drawImage(source,sx,sy,sw,sh,0,0,crop.width,crop.height);
+ const scaled=canvas(Math.max(1,Math.round(dw)),Math.max(1,Math.round(dh)));put(scaled,C.resample(pixels(crop),scaled.width,scaled.height));ctx.drawImage(scaled,Math.round(dx),Math.round(dy));
+}
 function drawFramed(w, h) {
   const out = canvas(w, h), ctx = out.getContext('2d'); if (!state.art) return out;
   const source = state.art, art = canvas(source.width, source.height), a = art.getContext('2d'); a.drawImage(source, 0, 0);
@@ -32,14 +36,20 @@ function drawFramed(w, h) {
   if (state.mode === 'button' && $('solidBg').checked) { ctx.fillStyle = $('bgColor').value; ctx.fillRect(0, 0, w, h); }
   const fit = $('fit').value;
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+  const draw=(sx,sy,sw,sh,dx,dy,dw,dh)=>{
+    if(state.mode!=='button'||!$('detailResample').checked){ctx.drawImage(art,sx,sy,sw,sh,dx,dy,dw,dh);return;}
+    const key=JSON.stringify([sx,sy,sw,sh,dw,dh,$('keyEnabled').checked,$('keyColor').value,$('keyTolerance').value]);
+    if(state.detailCache?.source!==source||state.detailCache.key!==key){const cv=canvas(Math.max(1,Math.round(dw)),Math.max(1,Math.round(dh)));drawDetail(cv.getContext('2d'),art,sx,sy,sw,sh,0,0,dw,dh);state.detailCache={source,key,canvas:cv};}
+    ctx.drawImage(state.detailCache.canvas,Math.round(dx),Math.round(dy));
+  };
   if (fit === 'cover') {
-    const scale = Math.max(innerW / source.width, innerH / source.height), sw = innerW / scale, sh = innerH / scale;
+    const scale = Math.max(innerW / source.width, innerH / source.height), sw = innerW / scale / (state.mode==='button'?Number($('portraitZoom').value):1), sh = innerH / scale / (state.mode==='button'?Number($('portraitZoom').value):1);
     const sx = (source.width - sw) * Number($('focusX').value) / 100, sy = (source.height - sh) * Number($('focusY').value) / 100;
-    ctx.drawImage(art, sx, sy, sw, sh, pad, pad, innerW, innerH);
-  } else if (fit === 'stretch') ctx.drawImage(art, pad, pad, innerW, innerH);
+    draw(sx,sy,sw,sh,pad,pad,innerW,innerH);
+  } else if (fit === 'stretch') draw(0,0,source.width,source.height,pad,pad,innerW,innerH);
   else {
     const scale = Math.min(innerW / source.width, innerH / source.height), dw = source.width * scale, dh = source.height * scale;
-    ctx.drawImage(art, pad + (innerW - dw) / 2, pad + (innerH - dh) / 2, dw, dh);
+    draw(0,0,source.width,source.height,pad+(innerW-dw)/2,pad+(innerH-dh)/2,dw,dh);
   }
   if (state.mode === 'button' && $('rim').checked) {
     ctx.strokeStyle = '#d8b472'; ctx.lineWidth = Math.max(1, Math.min(w, h) / 64);
@@ -59,6 +69,7 @@ function updateActions() {
 }
 function render() {
   $('customSize').hidden = $('size').value !== 'custom';
+  $('portraitZoom').disabled=$('fit').value!=='cover';
   $('focusX').disabled = $('focusY').disabled = $('fit').value !== 'cover';
   $('xmlSnippet').textContent = `<Button>Art/Interface/Buttons/Custom/${safeName($('outputName').value)}.dds</Button>`;
   $('previewContent').hidden = !state.art; $('emptyPreview').hidden = !!state.art;
@@ -156,8 +167,8 @@ $('artFile').addEventListener('change', async e => {
   } catch (error) { status('Could not load artwork: ' + error.message, true); }
 });
 $('buttonMode').onclick = () => selectMode('button'); $('fontMode').onclick = () => selectMode('font');
-for (const id of ['fit', 'focusX', 'focusY', 'padding', 'keyEnabled', 'keyColor', 'keyTolerance', 'solidBg', 'bgColor', 'round', 'rim', 'size', 'format', 'mipmaps', 'width', 'height', 'outputName']) $(id).addEventListener('input', render);
-$('resetFraming').onclick = () => { $('fit').value = 'contain'; $('focusX').value = $('focusY').value = '50'; $('padding').value = '2'; $('keyEnabled').checked = false; render(); status('Framing reset.'); };
+for (const id of ['portraitZoom','detailResample','fit', 'focusX', 'focusY', 'padding', 'keyEnabled', 'keyColor', 'keyTolerance', 'solidBg', 'bgColor', 'round', 'rim', 'size', 'format', 'mipmaps', 'width', 'height', 'outputName']) $(id).addEventListener('input', render);
+$('resetFraming').onclick = () => { $('fit').value = 'contain'; $('focusX').value = $('focusY').value = '50'; $('padding').value = '2'; $('portraitZoom').value='1'; $('keyEnabled').checked = false; render(); status('Framing reset.'); };
 $('fontFile').onchange = e => loadFont(e.target.files[0], 'large'); $('smallFontFile').onchange = e => loadFont(e.target.files[0], 'small');
 $('largeTab').onclick = () => { state.activeFont = 'large'; renderFont(); render(); }; $('smallTab').onclick = () => { state.activeFont = 'small'; renderFont(); render(); };
 $('fontZoom').oninput = renderFont; $('showMarkers').oninput = renderFont;

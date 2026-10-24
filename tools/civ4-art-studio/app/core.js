@@ -5,6 +5,20 @@ function createCiv4Core() {
   function checkImage(im) {
     if (!Number.isInteger(im.width) || !Number.isInteger(im.height) || im.width < 1 || im.height < 1 || im.width * im.height > MAX_PIXELS || im.data.length !== im.width * im.height * 4) throw Error('Invalid image dimensions or pixel buffer.');
   }
+  // Linear-light, premultiplied-alpha Lanczos-3. Transparent RGB cannot bleed into edges.
+  function resample(im,width,height){
+    checkImage(im);if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1||width*height>MAX_PIXELS)throw Error('Invalid resize dimensions.');
+    if(width===im.width&&height===im.height)return {width,height,data:new Uint8Array(im.data)};
+    const lut=Float64Array.from({length:256},(_,i)=>{const v=i/255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;});
+    const sinc=x=>Math.abs(x)<1e-9?1:Math.sin(Math.PI*x)/(Math.PI*x);
+    function weights(src,dst){const scale=Math.max(1,src/dst),radius=3*scale;return Array.from({length:dst},(_,i)=>{const center=(i+.5)*src/dst-.5,a=[];let sum=0;for(let j=Math.max(0,Math.ceil(center-radius));j<=Math.min(src-1,Math.floor(center+radius));j++){const x=(j-center)/scale,w=sinc(x)*sinc(x/3);a.push([j,w]);sum+=w;}return a.map(([j,w])=>[j,w/sum]);});}
+    const wx=weights(im.width,width),wy=weights(im.height,height),tmp=new Float32Array(width*im.height*4),out=new Uint8Array(width*height*4);
+    for(let y=0;y<im.height;y++)for(let x=0;x<width;x++){const d=(y*width+x)*4;for(const [j,w]of wx[x]){const p=(y*im.width+j)*4,a=im.data[p+3]/255;for(let k=0;k<3;k++)tmp[d+k]+=lut[im.data[p+k]]*a*w;tmp[d+3]+=a*w;}}
+    for(let y=0;y<height;y++)for(let x=0;x<width;x++){const v=[0,0,0,0],p=(y*width+x)*4;for(const [j,w]of wy[y]){const d=(j*width+x)*4;for(let k=0;k<4;k++)v[k]+=tmp[d+k]*w;}
+      const a=Math.max(0,Math.min(1,v[3]));out[p+3]=Math.round(a*255);if(a<1/255)continue;
+      for(let k=0;k<3;k++){const c=Math.max(0,Math.min(1,v[k]/v[3]));out[p+k]=Math.round(255*(c<=.0031308?12.92*c:1.055*c**(1/2.4)-.055));}}
+    return {width,height,data:out};
+  }
   function marker(d, p) { return d[p + 1] === 0 && d[p] === 255 && d[p + 2] === 255 || d[p] === 0 && d[p + 1] === 255 && d[p + 2] === 255; }
   function readTGA(input) {
     const b = new Uint8Array(input), v = new DataView(b.buffer, b.byteOffset, b.byteLength);
@@ -193,6 +207,6 @@ function createCiv4Core() {
     const end = new Uint8Array(22), v = new DataView(end.buffer); v.setUint32(0, 0x06054b50, true); v.setUint16(8, entries.length, true); v.setUint16(10, entries.length, true); v.setUint32(12, offset - centralStart, true); v.setUint32(16, centralStart, true); parts.push(end);
     const result = new Uint8Array(offset + end.length); let at = 0; for (const p of parts) { result.set(p, at); at += p.length; } return result;
   }
-  return { checkImage, marker, readTGA, writeTGA, detectCells, replaceCell, restoreCell, verifyFont, writeDDS, mip, zip, crc32 };
+  return { checkImage, resample, marker, readTGA, writeTGA, detectCells, replaceCell, restoreCell, verifyFont, writeDDS, mip, zip, crc32 };
 }
 if (typeof module !== 'undefined') module.exports = { createCiv4Core };

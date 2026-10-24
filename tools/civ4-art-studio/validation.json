@@ -1,5 +1,51 @@
 {
-  "version": "1.6",
+  "version": "1.7",
+  "resampling_checks": [
+    "constant color preservation",
+    "premultiplied alpha edge isolation",
+    "linear-light averaging",
+    "identity and invalid-dimension checks"
+  ],
+  "detail_preservation": {
+    "passed": [
+      "Source triangle count preserved by default",
+      "Simplification requires explicit opt-in and retains tiny equipment mesh",
+      "Transparency and linked normal detail rejected by default",
+      "Explicit accepted alpha loss recorded in preparation report"
+    ],
+    "beforeTriangles": 732,
+    "afterBudgetTriangles": 400,
+    "in_game_tested": false
+  },
+  "unit_art_study": {
+    "source_revision": "8edb23b96c7b9f6369a54d18d0a84a62c799b841",
+    "art_definitions": 185,
+    "summary": {
+      "parsedModels": 168,
+      "modelsWithAlphaProperties": 166,
+      "resolvedUniqueDiffuseTextures": 441,
+      "textureSizes": {
+        "2x2": 3,
+        "32x32": 2,
+        "32x64": 1,
+        "64x64": 74,
+        "64x128": 5,
+        "64x256": 1,
+        "128x16": 2,
+        "128x64": 5,
+        "128x128": 293,
+        "256x64": 1,
+        "256x128": 5,
+        "256x256": 46,
+        "512x128": 1,
+        "512x256": 1,
+        "512x512": 1
+      },
+      "texturesWithNonOpaqueAlpha": 232,
+      "storedTriangleMedian": 876.0
+    },
+    "runtime_rendering_verified": false
+  },
   "surfaces": {
     "passed": [
       "Seven deterministic opaque material maps, finite pixels, visible variation",
