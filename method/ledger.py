@@ -36,7 +36,9 @@ fixed first and a second loop that changes the method when they do not move (Ash
               before scopes): evidence only. A prediction's line is its hypotheses' line, so a new
               line needs new hypotheses.
   Commits     since the anchor (the commit adding the register), every commit that touches gated
-              paths needs a trailer "Serves: P.." naming registered, unwithdrawn predictions whose
+              paths, translation text aside (config text_only: text folders of another repository,
+              patches whose every file lies in one, and their notes), needs a trailer "Serves: P.."
+              naming registered, unwithdrawn predictions whose
               evidence did not exist before it (only evidence commits may serve a prediction with
               evidence) and whose paths cover it; method paths need "Method: <reason>". A commit
               that missed its trailer is linked afterwards in late-links.json (append-only), never
@@ -212,17 +214,38 @@ def trailers(msg):
     return serves, method
 
 
-def gated(files):
-    """The files that need a Serves trailer: gated code and evidence."""
-    return [f for f in files if kind_of(f) in ('gated', 'evidence')]
+TEXT = CFG.get('text_only', {})
+
+
+def text_file(path, read=None):
+    """A gated file that is translation text (config text_only), and so needs no Serves trailer: another
+    repository's file below a text folder; a patch below notes_root whose every file is below one (read
+    gives the patch's text as committed; without it a patch does not count); its notes."""
+    folders = tuple(TEXT.get('external', ()))
+    if not folders: return False
+    if path.startswith(EXT): return path[len(EXT):].startswith(folders)
+    root = TEXT.get('notes_root')
+    if not root or not path.startswith(root): return False
+    rest = path[len(root):]
+    if rest.endswith('.md') or (rest.endswith('.json') and '/' in rest): return True
+    if rest.endswith('.patch') and read:
+        t = read(path)
+        files = re.findall(r'^diff --git a/\S+ b/(\S+)', t or '', re.M) or re.findall(r'^\+\+\+ b/(\S+)', t or '', re.M)
+        return bool(files) and all(f.startswith(folders) for f in files)
+    return False
+
+
+def gated(files, read=None):
+    """The files that need a Serves trailer: gated code and evidence, but not translation text."""
+    return [f for f in files if kind_of(f) == 'evidence' or (kind_of(f) == 'gated' and not text_file(f, read))]
 
 
 def touches_method(files):
     return [f for f in files if kind_of(f) == 'method']
 
 
-def only_evidence(files):
-    return all(kind_of(f) == 'evidence' for f in gated(files))
+def only_evidence(files, read=None):
+    return all(kind_of(f) == 'evidence' for f in gated(files, read))
 
 
 def evidence_of(files):
@@ -285,13 +308,13 @@ def covered(f, scope):
     return any(f == x or (x.endswith('/') and f.startswith(x)) for x in scope)
 
 
-def problems(s, files, serves, method, E, reg_at, ev_at, wd, anc):
+def problems(s, files, serves, method, E, reg_at, ev_at, wd, anc, read=None):
     """The rules one commit breaks, given the trailers it carries (or a late link's)."""
     prob = []
     if touches_method(files) and not method: prob.append('method paths without a Method trailer')
-    g = gated(files)
+    g = gated(files, read)
     if g and not serves: prob.append('gated paths without a Serves trailer')
-    only_ev = only_evidence(files)
+    only_ev = only_evidence(files, read)
     for p in serves:
         if E.get(p, {}).get('type') != 'prediction': prob.append(f'serves {p}, not a registered prediction'); continue
         if reg_at.get(p) not in anc: prob.append(f'serves {p}, registered later'); continue
@@ -316,11 +339,12 @@ def audit(root, hist, reg_at, ev_at, reg, late):
         if len(par) > 1: continue  # merges bring in other branches' commits, audited there
         serves, method = trailers(msg)
         anc = ancestors(root, s)
-        prob = problems(s, files, serves, method, E, reg_at, ev_at, wd, anc)
+        read = lambda p, s=s: git(root, 'show', f'{s}:{p}')   # a file as this commit left it
+        prob = problems(s, files, serves, method, E, reg_at, ev_at, wd, anc, read)
         if not prob: continue
         if s not in L: viol.append({'commit': s, 'problems': prob}); continue
         l = L[s]
-        again = problems(s, files, l.get('serves') or [], bool(l.get('method')), E, reg_at, ev_at, wd, anc)
+        again = problems(s, files, l.get('serves') or [], bool(l.get('method')), E, reg_at, ev_at, wd, anc, read)
         if again:
             lines = sorted({E[p]['line'] for p in l.get('serves') or [] if p in E}) or ['(none)']
             ack.append({'commit': s, 'problems': again, 'lines': lines})
@@ -490,12 +514,13 @@ def commit_msg(root, msgfile):
     serves, method = trailers(msg)
     errs = []
     if touches_method(files) and not method: errs.append('staged method paths need a "Method: <reason>" trailer')
-    g = gated(files)
+    read = lambda p: git(root, 'show', f':{p}')   # a file as staged
+    g = gated(files, read)
     if g and not serves: errs.append('staged gated paths need a "Serves: P.." trailer')
     reg = load(root, REG) or []
     E = entries(reg)
     led = evaluate(root, verify=False) if reg else {'predictions': {}, 'lines': {}}
-    only_ev = only_evidence(files)
+    only_ev = only_evidence(files, read)
     for p in serves:
         if E.get(p, {}).get('type') != 'prediction': errs.append(f'{p} is not a registered prediction'); continue
         st = led['predictions'].get(p, {})
@@ -516,8 +541,10 @@ def commit_msg(root, msgfile):
 def external(root, message, files):
     """A commit made in another repository (the GitLab connector): its trailers must serve open
     predictions without evidence, on lines neither degenerating nor stalled, whose paths name every
-    file (as EXT + path)."""
+    file (as EXT + path). Translation text (config text_only) needs no trailer."""
+    files = [f for f in files if not text_file(EXT + f)]
     serves, method = trailers(message)
+    if not files and not serves: return []
     reg = load(root, REG) or []
     E = entries(reg)
     errs = [] if serves else ['an external commit needs a "Serves: P.." trailer']
@@ -634,6 +661,16 @@ def selftest():
         bad = evaluate(d)['violations']; assert len(bad) == 1 and 'Serves' in bad[0]['problems'][0], bad
         w(LATE, [dict(commit=bad[0]['commit'], serves=['P1'], reason='missed')]); commit('late link')
         assert not evaluate(d)['violations']
+        # translation text needs no trailer: a patch whose files all lie in a text folder, and its notes
+        txt = 'diff --git a/Assets/XML/Text/a.xml b/Assets/XML/Text/a.xml\n--- a/Assets/XML/Text/a.xml\n+++ b/Assets/XML/Text/a.xml\n'
+        w('fixes/t.patch', txt); w('fixes/t/README.md', 'notes'); w('fixes/t/changes.json', '{}'); commit('text patch')
+        assert not evaluate(d)['violations'], evaluate(d)['violations']
+        # a patch that also touches code, an unread patch, and a top-level data file stay gated
+        code = txt + 'diff --git a/Assets/CvGameCoreDLL/x.cpp b/Assets/CvGameCoreDLL/x.cpp\n'
+        assert gated(['fixes/c.patch'], lambda p: code) == ['fixes/c.patch']
+        assert gated(['fixes/c.patch']) == ['fixes/c.patch'] and gated(['fixes/top.json']) == ['fixes/top.json']
+        assert external(d, 'text', ['Assets/XML/Text/a.xml']) == []
+        assert external(d, 'code', ['Assets/CvGameCoreDLL/x.cpp']), 'external code without a trailer passed'
         # editing a registered entry is refused
         w(REG, [H, dict(P1, change='other')]); assert any('append-only' in x for x in check(d)); w(REG, [H, P1])
         # depth: a non-essential prediction must serve a chain ending on an essential one within two links
