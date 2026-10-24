@@ -26,6 +26,9 @@ one the DLL is built with, so every call is the call the compiler made.
 - `hardcoded.md`: the key functions (`query.py rank`) and every entry hard-coded in them, each with what
   outside the function depends on it, checked against the files that hold the other end. It is for
   rewriting one of them: what a new version has to keep.
+- `guides/`: written by hand, from the same source commit.
+  - `key-functions.md`: the functions that rank above the rest, what each does, and what a rewrite keeps.
+  - `loans-and-bonds.md`: where loans and a bond market would go, in the DLL and the UI.
 - `files/<file>.md`: one page per source file. Every function in line order, with what it calls, what it
   takes the address of, and who calls it.
 - `map/`: the data, as tab-separated tables (below).
