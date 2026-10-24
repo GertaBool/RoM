@@ -1,8 +1,10 @@
 # Civ IV Art Studio
 
-An offline workshop for **Civilization IV units, buildings, resources, DDS buttons and GameFont symbols**. The browser editor requires no installation or image upload. Native model conversion and animated NIF previews use the included Python desktop helpers.
+An offline workshop for **Civilization IV units, buildings, resources, DDS buttons and GameFont symbols**. The browser editor requires no installation or image upload. Native model conversion and animated NIF previews use the included Python desktop helpers (optional).
 
 [Download the ready-to-use ZIP](Civ4ArtStudio.zip?raw=true) · [Standalone HTML](dist/Civ4ArtStudio.html?raw=true)
+
+**Status:** nothing this tool writes has been tried in Civ IV yet. The checks under *Source and tests* test file structure, references within the mod and the browser app, not the game. Install every patch into a copy of the mod and test it there first.
 
 ## Start
 
@@ -12,49 +14,87 @@ An offline workshop for **Civilization IV units, buildings, resources, DDS butto
 
 Everything runs on your device. Images are never sent to a server. Downloads are new files; the program does not write directly into your mod installation. The app and its source are MIT-licensed. It contains no game artwork.
 
-## Preview a real unit in motion (1.9)
+## Make a button
 
-1. Install Python and the helper dependencies once: `python -m pip install -r helpers/unit-model-requirements.txt`.
-2. Open **helpers/UnitAnimationPreview.pyw**, or click **Preview textured NIF + animations** in Unit Model Studio. On Linux/macOS run `python helpers/unit_animation_preview.py`.
-3. Select the unit's **NIF**, then select its **KF animation clips** from the list. Clips beside the NIF are found automatically; **Add KF clips** lets you choose clips elsewhere. Set the game's **Assets** folder if textures live elsewhere. Packed FPK assets must first be extracted locally with a compatible tool.
-4. Click **Build and open animated unit preview**, choose a new HTML filename, and use **Play/Pause**, the timeline, clip selector, playback speed, orbit, elevation, zoom and part visibility controls. The generated viewer is offline and needs no Python after it has been built.
+- Choose **64 × 64 — button** for a standard icon.
+- Use **Fit entire image**, **Fill & crop**, or **Stretch to fit**. Crop focus controls choose which part stays visible; inset adds breathing room.
+- Transparent PNG is best for cutout artwork. For a plain JPG background, enable **Remove a background color** and choose its color and tolerance. This is color keying, not automatic subject detection: matching colors inside the subject are also removed.
+- Rounded corners, a solid background and a subtle gold border are optional.
+- Export **DXT3 DDS** for compact files or **RGBA DDS** for lossless 8-bit alpha and color. DXT3 uses 4-bit alpha and lossy color compression. The preview shows your prepared artwork before DDS compression.
+- Leave mipmaps off for a typical UI button. Turn them on when the specific texture needs them. General textures support square presets or custom power-of-two dimensions from 4 through 2048.
 
-This displays the actual textured unit mesh, native skin weights, equipment and sampled bone animation. It does not substitute a procedural soldier. To review a newly converted unit, choose its exported **model.nif** and its donor's KF clips. This preview step does not create a new high-quality character: original geometry must come from a finished model or a reconstructed model refined for the intended unit. Shape Lab is retained only as an optional blockout utility.
+Place the result under your mod, for example:
 
-**Fidelity:** linear quaternion tracks use slerp; ordinary/compressed B-spline transform tracks use cubic sampling; linear/quadratic position and scale curves are supported. Quaternion TBC/quadratic tracks currently use key-to-key slerp, so their easing is approximate; a per-clip message identifies this. Other unsupported transform curves reject the clip. Matching node names are checked, but matching names cannot prove compatible bind poses. The viewer keeps root motion and uses shared bounds across clips.
+```text
+Assets/Art/Interface/Buttons/Custom/my_button.dds
+```
 
-**Rendering limits:** diffuse textures and normals are previewed. Alpha-bearing materials use a cutout approximation, not full blended/game shader rendering. Team colors, gloss, game lighting, controller-driven visibility/material changes, particles, animation event effects and KFM transitions are not simulated. Events are listed with their times. Model parts can be toggled manually, including alternative meshes present in a NIF. Missing textures and rejected clips remain visible in the report. Test the final result in Civ IV.
+The app provides a direct Button XML value:
 
-Select up to twelve clips, each up to twenty seconds; a combined frame/vertex budget prevents excessive browser memory use. Large models need fewer clips or a lower **Sampling FPS** setting. The tool reads original game files without rewriting them and refuses to overwrite an existing viewer. A generated preview embeds the selected meshes, textures and sampled animation; keep previews private unless you have permission to share that artwork. The download contains the viewer program, **not game artwork**.
+```xml
+<Button>Art/Interface/Buttons/Custom/my_button.dds</Button>
+```
 
-Validation includes independently known skinned translations and quaternion rotation, plus a native humanoid's Run/Idle previews, browser playback, scrubbing, clip switching, visibility and source-file integrity. These checks do not establish exact Civ IV rendering or animation parity.
+Use the appropriate object or ArtDefine entry. This is a standalone button, not an atlas reference. For model textures, existing NIF material/UV assignments still determine where the image appears; the converter does not make or alter those assignments.
 
-## Unit workshop
+Detail-preserving photo downsampling is enabled by default, with linear-light Lanczos filtering and premultiplied alpha. Use Fill crop, focus controls and Portrait zoom to frame the identifying features; judge the actual-size preview. RGBA is now the default to avoid block-compression losses. DXT3 remains available when compact files matter. Unit and building workshop button exports also use the resampler and RGBA. This preserves available image information; it does not invent detail beyond a 64px button's capacity.
 
-Open **Units & armies** and select the complete mod folder (or reuse the folder loaded by another workshop). Search by name or identifier. The default template is Warrior; choose a template of the same kind as the intended unit, especially for aircraft, ships, workers, transports and special units.
+## Make a GameFont symbol
 
-- **Add:** create a separate unlimited unit class available to all civilizations, or a unique replacement within the template's class for selected civilizations. The review names any existing unique unit being replaced. Class-based upgrades resolve to each civilization's corresponding unit.
-- **Edit:** change cost, land/air strength, movement, work rate, cargo capacity, withdrawal, city combat modifiers, bombard/collateral effects, draft priority and extra maintenance. Set AI roles, common flags, main/additional technologies, mandatory/alternative resources, city building/religion/corporation requirements, upgrades, free promotions and worker actions.
-- **Disable normal recruitment:** sets production cost to -1. It preserves existing units and references. It does not remove existing units or prevent scripted creation; upgrade and event behavior still follows the game rules.
-- **Remove:** deletes the unit definition and its exclusive class if unused. References to either ID elsewhere block removal. The Connections panel lists affected files. Shared art and text are retained. Resolve references externally and reload, or disable recruitment instead. No blind cascading deletion is performed.
+A GameFont sheet is **not** a regular resized image. It contains glyph cells, transparent RGB data and marker pixels that Civ IV uses to find symbols. Work from your mod's existing files:
 
-Use the **Connections and inherited rules** panel before exporting. Civilian actions, cargo restrictions, combat/terrain modifiers, class limits on edits, other special prerequisites, sounds and unexposed settings remain inherited. New standalone classes reset template instance limits; unique replacements retain the existing class limits. Editing a unit does not change its class or civilization assignments. Python and compiled behavior tied to an original identifier is not transferred to a newly named clone.
+```text
+Assets/res/Fonts/GameFont.tga
+Assets/res/Fonts/GameFont_75.tga
+```
 
-**Art:** keep the template's mesh groups and early/middle/late era art, or select an existing art definition and change its scale/button. An art definition reuses its NIF, KFM, shader model, sounds and shadow together. Selecting an art source includes its module path to avoid guessing which definition was intended. A JPG/PNG can become a 64px DDS button. For new 3D geometry, use the external reconstruction and desktop companion workflow below. Art replacement assigns the selected definition to all existing mesh groups and era slots, retaining group sizes and formation. For existing units, civilization style overrides are updated by default; unchecking this explicitly preserves them. New unit identifiers do not inherit style overrides keyed to the old identifier. Test movement, attacks and death animations in game: use the native animation preview below to inspect deformation first. There is no manual weight editor. The companion offers experimental automatic weight transfer.
+1. Back up both originals outside the mod folder.
+2. Open **GameFont symbols** and load the original full-size TGA.
+3. Click the cell already assigned to the symbol you are replacing. You can also use its visual row and column. **Reveal grid & markers** shows the RGB colors stored beneath transparency; uncheck it to view the normal artwork.
+4. Adjust the artwork, then click **Apply artwork to selected cell**. Undo is available for each sheet.
+5. Load the small font and select its matching symbol **independently**. Its cell size and location can differ. Apply the artwork there too.
+6. Download an edited TGA individually, or download both edited sheets and their JSON edit log as a ZIP.
+7. Put the edited files in the mod's `Assets/res/Fonts` directory and inspect the relevant symbol in game at both font sizes.
 
-Write names, Civilopedia and strategy in five language tabs. Missing translations fall back to English and appear in the review. Save/resume drafts; image files must be reselected. Changing a field invalidates the prior review.
+Visual row and column are navigation labels, **not `FontButtonIndex` or Unicode values**. The standalone GameFont tab replaces existing cells and does not create new glyph allocations or rewrite XML. The separate Resource workshop creates matching resource XML and supports explicitly mapped empty slots. Adding a new game object still requires the mod's own index and XML setup. Do not infer a game index from the displayed cell number.
 
-**Export and install:** download a reviewed ZIP containing `patch/`, exact `backup/` originals, a checksummed manifest, draft and install/rollback instructions. No files in your mod are overwritten by the app. Apply to a copy of the exact loaded mod; compare checksums first and use a new game for structural changes. Test trainability, resource AND/OR logic, civilization availability, upgrades, promotions, artwork and AI behavior. Exported patches are not claimed to have been run in Civ IV.
+### Font protection
 
-Removal scans supplied XML, Python, C++/headers, INI/JSON and WorldBuilder files. It cannot inspect compiled DLL references, files outside the selected Assets tree or saves. Module activation/load order is not simulated; ambiguous unit/class definitions are blocked. Prerequisite array limits are checked against supplied GlobalDefines variants conservatively (the smallest declared limit), with conservative defaults if absent. Upgrade cycles returning to the edited class and contradictory AI-role selections are rejected.
+- Detects cells from complete magenta/cyan divider rows and columns; rejects sheets without a detectable grid.
+- Requires a true-color 32-bit TGA declaring 8 alpha bits. Uncompressed and RLE input are supported; output is uncompressed 32-bit TGA.
+- Preserves dimensions, glyph positions and all original marker pixels, including markers inside a selected cell.
+- Avoids introducing exact magenta or cyan marker colors into new artwork by changing the blue component by one level when necessary.
+- Before export, checks every pixel outside edited rectangles and every original marker pixel against the original buffer.
+- Decodes the exported file again and verifies that all RGBA bytes match the edited buffer.
+- Retains the header, image ID and trailing metadata for standard uncompressed 32-bit input. RLE input is decoded and written as uncompressed TGA; optional trailing RLE metadata is not carried over because its byte offsets may no longer be valid.
 
-### How units connect
+If the grid cannot be detected reliably, use an intact original sheet. This version has no manual grid rebuilding mode. It does not rebuild the font grid or generate button atlases.
 
-`CIV4UnitInfos.xml` links the unit to its class, technologies, resources, buildings, promotions, AI roles, build actions and art mesh groups. `CIV4UnitClassInfos.xml` supplies a default unit and instance limits. `CIV4CivilizationInfos.xml` can replace that default per civilization. `CIV4UnitArtStyleTypeInfos.xml` can override models by unit ID and civilization art style. `CIV4ArtDefines_Unit.xml` connects each art type to NIF/KFM/shader assets, button and sound/shadow settings. GameText supplies localized names and descriptions.
+## Resource workshop
 
-Draft priority is the selection weight used by `CvCity::getConscriptUnit`, not a population cost. `CvCity::getConscriptPopulation` calculates that separately from production cost and `CONSCRIPT_POPULATION_PER_COST`.
+Open **Resources & mod patch**, then choose your mod folder (the folder containing `Assets`, or `Assets` itself). The browser may call folder selection an “upload”; this app reads it locally and makes no network requests.
 
-Source tracing in this RoM checkout: `CvPlayer::canTrain` checks civilization mapping, cost and player-level prerequisites; `CvCity::isPlotTrainable` checks city building restrictions; `CvPlot::canTrain` handles plot/resource constraints; `CvUnitInfo::read` loads the prerequisite arrays using GlobalDefines capacities. Actual training and scripted spawning can have additional Python/option-dependent rules, so the editor preserves unexposed template fields and exposes the reference scan.
+1. Choose **Create a new resource** or **Edit an existing resource**, and select a template. Bauxite is a useful mined-deposit template in Rise of Mankind.
+2. Enter a name. New internal identifiers are generated automatically. Existing identifiers stay fixed.
+3. Set discovery/trade/obsolete technologies, health, happiness, tile yields, terrain and placement weight. Unexposed rules remain inherited from the template: the form explains latitude, feature and random-placement inheritance.
+4. Select connecting improvements, producer buildings, and mandatory unit/building consumers. Existing alternative requirements remain unchanged. Multiple selections use Ctrl/Cmd-click. Existing connections retain their yields; new connections copy the template's improvement entry when available.
+5. Choose an existing resource's map model. Optionally load a PNG/JPG for a new 64×64 DXT3 button. Model textures and animations remain in your mod; this tool does not create NIFs.
+6. Write the Civilopedia description and optional translations. Missing French/German/Italian/Spanish strings fall back to English, explicitly reported in the patch notes.
+7. **Review patch**, then **Download reviewed patch**. Any form change invalidates the review.
+
+The ZIP contains `patch/Assets/...`, exact original-file backups, a SHA256 manifest, a reusable draft and installation/rollback instructions. Copy the **contents of patch/** into a test copy of the mod. Nothing writes into the selected installation. Create one resource per patch, install/test it, then reload the updated folder before producing another patch. Drafts save settings but not artwork; reselect the image after reopening a draft.
+
+Natural resources keep the template's map-generation behavior except for the controls you change. Manufactured resources disable natural placement and require a producer building. The producer uses `FreeBonus` and `iNumFreeBonuses`; this is not an automatic input/output conversion chain. Buildings already producing another resource cannot be reassigned here. Corporation inputs, special Python rules, advanced building modifiers, arbitrary schema editing and save-game migration are outside the form.
+
+### Resource GameFont choices
+
+**Reuse existing symbol** is the default and works without editing either font. A new resource can use its own button/model while sharing an existing text symbol.
+
+**Custom GameFont slot** presents enlarged cells from both sheets. Enter the intended resource index and select matching empty cells independently. The editor checks every resource art definition it finds, including modules, and blocks occupied indices and cells with visible artwork. It protects markers and checks both exported TGAs pixel by pixel. An unreferenced number does **not** prove an unused or valid glyph allocation.
+
+Without an in-game-verified mapping, the ZIP is labelled **TEST ONLY**. Test that resource at both font sizes, plus existing health/happiness/trade and other symbols. Mark the mapping verified only after that check. Draft import deliberately clears verification because the loaded font/DLL may have changed. The editor never infers an index by counting visual cells, expands the font grid, or rewrites DLL offsets. Module load order is not inferred: ambiguous duplicate definitions are blocked, and inactive modules still participate in collision checks.
+
+This is a template editor with structural and reference checks, not a full Civ IV schema validator or a game simulator. Restart the game and use a new map to test additions. Mod-specific map scripts may control placement separately. No in-game test has been performed in this environment.
 
 ## Building workshop
 
@@ -88,6 +128,14 @@ Generated models use standard **Gamebryo NIF 20.0.0.4** with a static mesh and o
 
 The WebGL preview lets you rotate the mesh and inspect a UV overlay. With no separate button image, its current view is rendered into a 64×64 DDS button. Model generation needs WebGL; model reuse and ordinary image conversion do not. Browser preview lighting is not Civ IV lighting. New-model ZIPs are labelled **MODEL-TEST**: test in-game city and Pedia rendering, scale, UV orientation, different eras/art styles, requirements and effects before deployment.
 
+### Box façade finishes
+
+![Generated brick façade and roof](building-texture-preview.png)
+
+Choose the box artwork route, then select a **Box façade finish**: brick, limestone or timber/plaster. Set floors and weathering; no uploaded façade is required for those presets. Window recesses, mullions, lintels, floor bands, mortar, doors and base staining are painted into the atlas. Choose slate/tile or metal roof courses and a roof color. The live preview and exported mipmapped DDS use the same texture. **Download diffuse texture PNG** also saves the atlas independently. These presets paint the existing box geometry; they do not add physical windows or roof geometry. For an architectural OBJ, supply its own UV-aligned diffuse atlas as before.
+
+Generated details are deterministic. Weathering and contrast are intentionally bounded; inspect both map-scale and Civilopedia views in game, since this release still has no Civ IV renderer. No existing mod texture files are edited in place.
+
 ### Prepare architecture in Blender
 
 The downloadable ZIP includes `helpers/prepare_building.py`. Install **Blender 4.x** only if you need this optional preparation step. Run from a terminal, quoting your paths:
@@ -100,120 +148,68 @@ Use an empty output directory. The helper reads BLEND, FBX, GLB, GLTF or OBJ, ev
 
 The helper supports Principled, Diffuse and Emission surface shaders. Mix/group/custom surface graphs require manual baking; geometry, instances and procedural mapping should always be inspected after conversion. It does not interpret CAD or invent geometry from a photograph. Remove interiors and unseen details before processing; decimation is a polygon reduction, not architectural understanding. Open the source in Blender and bake manually when its material setup falls outside these limits.
 
-## Resource workshop
+## Unit workshop
 
-Open **Resources & mod patch**, then choose your mod folder (the folder containing `Assets`, or `Assets` itself). The browser may call folder selection an “upload”; this app reads it locally and makes no network requests.
+Open **Units & armies** and select the complete mod folder (or reuse the folder loaded by another workshop). Search by name or identifier. The default template is Warrior; choose a template of the same kind as the intended unit, especially for aircraft, ships, workers, transports and special units.
 
-1. Choose **Create a new resource** or **Edit an existing resource**, and select a template. Bauxite is a useful mined-deposit template in Rise of Mankind.
-2. Enter a name. New internal identifiers are generated automatically. Existing identifiers stay fixed.
-3. Set discovery/trade/obsolete technologies, health, happiness, tile yields, terrain and placement weight. Unexposed rules remain inherited from the template: the form explains latitude, feature and random-placement inheritance.
-4. Select connecting improvements, producer buildings, and mandatory unit/building consumers. Existing alternative requirements remain unchanged. Multiple selections use Ctrl/Cmd-click. Existing connections retain their yields; new connections copy the template's improvement entry when available.
-5. Choose an existing resource's map model. Optionally load a PNG/JPG for a new 64×64 DXT3 button. Model textures and animations remain in your mod; this tool does not create NIFs.
-6. Write the Civilopedia description and optional translations. Missing French/German/Italian/Spanish strings fall back to English, explicitly reported in the patch notes.
-7. **Review patch**, then **Download reviewed patch**. Any form change invalidates the review.
+- **Add:** create a separate unlimited unit class available to all civilizations, or a unique replacement within the template's class for selected civilizations. The review names any existing unique unit being replaced. Class-based upgrades resolve to each civilization's corresponding unit.
+- **Edit:** change cost, land/air strength, movement, work rate, cargo capacity, withdrawal, city combat modifiers, bombard/collateral effects, draft priority and extra maintenance. Set AI roles, common flags, main/additional technologies, mandatory/alternative resources, city building/religion/corporation requirements, upgrades, free promotions and worker actions.
+- **Disable normal recruitment:** sets production cost to -1. It preserves existing units and references. It does not remove existing units or prevent scripted creation; upgrade and event behavior still follows the game rules.
+- **Remove:** deletes the unit definition and its exclusive class if unused. References to either ID elsewhere block removal. The Connections panel lists affected files. Shared art and text are retained. Resolve references externally and reload, or disable recruitment instead. No blind cascading deletion is performed.
 
-The ZIP contains `patch/Assets/...`, exact original-file backups, a SHA256 manifest, a reusable draft and installation/rollback instructions. Copy the **contents of patch/** into a test copy of the mod. Nothing writes into the selected installation. Create one resource per patch, install/test it, then reload the updated folder before producing another patch. Drafts save settings but not artwork; reselect the image after reopening a draft.
+Use the **Connections and inherited rules** panel before exporting. Civilian actions, cargo restrictions, combat/terrain modifiers, class limits on edits, other special prerequisites, sounds and unexposed settings remain inherited. New standalone classes reset template instance limits; unique replacements retain the existing class limits. Editing a unit does not change its class or civilization assignments. Python and compiled behavior tied to an original identifier is not transferred to a newly named clone.
 
-Natural resources keep the template's map-generation behavior except for the controls you change. Manufactured resources disable natural placement and require a producer building. The producer uses `FreeBonus` and `iNumFreeBonuses`; this is not an automatic input/output conversion chain. Buildings already producing another resource cannot be reassigned here. Corporation inputs, special Python rules, advanced building modifiers, arbitrary schema editing and save-game migration are outside the form.
+**Art:** keep the template's mesh groups and early/middle/late era art, or select an existing art definition and change its scale/button. An art definition reuses its NIF, KFM, shader model, sounds and shadow together. Selecting an art source includes its module path to avoid guessing which definition was intended. A JPG/PNG can become a 64px DDS button. For new 3D geometry, use the external reconstruction and desktop companion workflow below. Art replacement assigns the selected definition to all existing mesh groups and era slots, retaining group sizes and formation. For existing units, civilization style overrides are updated by default; unchecking this explicitly preserves them. New unit identifiers do not inherit style overrides keyed to the old identifier. Test movement, attacks and death animations in game: use the native animation preview below to inspect deformation first. There is no manual weight editor. The companion offers experimental automatic weight transfer.
 
-### Resource GameFont choices
+Write names, Civilopedia and strategy in five language tabs. Missing translations fall back to English and appear in the review. Save/resume drafts; image files must be reselected. Changing a field invalidates the prior review.
 
-**Reuse existing symbol** is the default and works without editing either font. A new resource can use its own button/model while sharing an existing text symbol.
+**Export and install:** download a reviewed ZIP containing `patch/`, exact `backup/` originals, a checksummed manifest, draft and install/rollback instructions. No files in your mod are overwritten by the app. Apply to a copy of the exact loaded mod; compare checksums first and use a new game for structural changes. Test trainability, resource AND/OR logic, civilization availability, upgrades, promotions, artwork and AI behavior. Exported patches are not claimed to have been run in Civ IV.
 
-**Custom GameFont slot** presents enlarged cells from both sheets. Enter the intended resource index and select matching empty cells independently. The editor checks every resource art definition it finds, including modules, and blocks occupied indices and cells with visible artwork. It protects markers and checks both exported TGAs pixel by pixel. An unreferenced number does **not** prove an unused or valid glyph allocation.
+Removal scans supplied XML, Python, C++/headers, INI/JSON and WorldBuilder files. It cannot inspect compiled DLL references, files outside the selected Assets tree or saves. Module activation/load order is not simulated; ambiguous unit/class definitions are blocked. Prerequisite array limits are checked against supplied GlobalDefines variants conservatively (the smallest declared limit), with conservative defaults if absent. Upgrade cycles returning to the edited class and contradictory AI-role selections are rejected.
 
-Without an in-game-verified mapping, the ZIP is labelled **TEST ONLY**. Test that resource at both font sizes, plus existing health/happiness/trade and other symbols. Mark the mapping verified only after that check. Draft import deliberately clears verification because the loaded font/DLL may have changed. The editor never infers an index by counting visual cells, expands the font grid, or rewrites DLL offsets. Module load order is not inferred: ambiguous duplicate definitions are blocked, and inactive modules still participate in collision checks.
+### How units connect
 
-This is a template editor with structural and reference checks, not a full Civ IV schema validator or a game simulator. Restart the game and use a new map to test additions. Mod-specific map scripts may control placement separately. No in-game test has been performed in this environment.
+`CIV4UnitInfos.xml` links the unit to its class, technologies, resources, buildings, promotions, AI roles, build actions and art mesh groups. `CIV4UnitClassInfos.xml` supplies a default unit and instance limits. `CIV4CivilizationInfos.xml` can replace that default per civilization. `CIV4UnitArtStyleTypeInfos.xml` can override models by unit ID and civilization art style. `CIV4ArtDefines_Unit.xml` connects each art type to NIF/KFM/shader assets, button and sound/shadow settings. GameText supplies localized names and descriptions.
 
-## Make a button
+Draft priority is the selection weight used by `CvCity::getConscriptUnit`, not a population cost. `CvCity::getConscriptPopulation` calculates that separately from production cost and `CONSCRIPT_POPULATION_PER_COST`.
 
-- Choose **64 × 64 — button** for a standard icon.
-- Use **Fit entire image**, **Fill & crop**, or **Stretch to fit**. Crop focus controls choose which part stays visible; inset adds breathing room.
-- Transparent PNG is best for cutout artwork. For a plain JPG background, enable **Remove a background color** and choose its color and tolerance. This is color keying, not automatic subject detection: matching colors inside the subject are also removed.
-- Rounded corners, a solid background and a subtle gold border are optional.
-- Export **DXT3 DDS** for compact files or **RGBA DDS** for lossless 8-bit alpha and color. DXT3 uses 4-bit alpha and lossy color compression. The preview shows your prepared artwork before DDS compression.
-- Leave mipmaps off for a typical UI button. Turn them on when the specific texture needs them. General textures support square presets or custom power-of-two dimensions from 4 through 2048.
+Source tracing in this RoM checkout: `CvPlayer::canTrain` checks civilization mapping, cost and player-level prerequisites; `CvCity::isPlotTrainable` checks city building restrictions; `CvPlot::canTrain` handles plot/resource constraints; `CvUnitInfo::read` loads the prerequisite arrays using GlobalDefines capacities. Actual training and scripted spawning can have additional Python/option-dependent rules, so the editor preserves unexposed template fields and exposes the reference scan.
 
-Place the result under your mod, for example:
+## Model review
 
-```text
-Assets/Art/Interface/Buttons/Custom/my_button.dds
-```
+Open the new **Model review** tab and select a companion output folder, or its `prepared` subfolder. No mod XML is required. New preparations include `review.json`; older folders must be regenerated.
 
-The app provides a direct Button XML value:
+- Source and prepared meshes share one scale, framing and camera. Rotate, change elevation, zoom, or use the front/side/back presets. Presets assume Blender −Y is forward.
+- Clay shading isolates changes to the silhouette and surface. Toggle topology to inspect reduction, or show the converted diffuse atlas on the right. The source materials are not rendered in this view.
+- Native 64px thumbnails help judge readability. They do not reproduce Civ IV's camera, lighting or formation scale.
+- Findings identify the largest relative triangle reductions and accepted material losses. Expand **All part changes** for the full list and closed-surface diagnostics. A reduction percentage is not a quality score.
 
-```xml
-<Button>Art/Interface/Buttons/Custom/my_button.dds</Button>
-```
+The review compares **mesh preparation before rig transfer**. Final NIF skinning, retained donor attachments, animations, team colors and game lighting still require separate validation. Source snapshots are limited to 100,000 triangles / 300,000 vertices; larger sources are explicitly omitted rather than silently downsampled for the comparison. Converted meshes can still be inspected.
 
-Use the appropriate object or ArtDefine entry. This is a standalone button, not an atlas reference. For model textures, existing NIF material/UV assignments still determine where the image appears; the converter does not make or alter those assignments.
+This review exposed a real simplification defect: glTF/GLB may contain duplicate vertices along UV/normal seams, and treating those as disconnected faces can produce holes during reduction. Explicit budget mode now reconnects coincident vertices at a small scale/precision-aware tolerance, preserves corner UV data, rejects ambiguous non-manifold joins, and stops if a previously closed part becomes open. Preservation mode does not weld or simplify source geometry. This does not guarantee that aggressive reduction preserves anatomy or visual quality; inspect the result.
 
-## Make a GameFont symbol
+## Desktop helpers
 
-A GameFont sheet is **not** a regular resized image. It contains glyph cells, transparent RGB data and marker pixels that Civ IV uses to find symbols. Work from your mod's existing files:
+These run on your computer with Python (and Blender for some). Install their dependencies once with `python -m pip install -r helpers/unit-model-requirements.txt`.
 
-```text
-Assets/res/Fonts/GameFont.tga
-Assets/res/Fonts/GameFont_75.tga
-```
+### Preview a real unit in motion
 
-1. Back up both originals outside the mod folder.
-2. Open **GameFont symbols** and load the original full-size TGA.
-3. Click the cell already assigned to the symbol you are replacing. You can also use its visual row and column. **Reveal grid & markers** shows the RGB colors stored beneath transparency; uncheck it to view the normal artwork.
-4. Adjust the artwork, then click **Apply artwork to selected cell**. Undo is available for each sheet.
-5. Load the small font and select its matching symbol **independently**. Its cell size and location can differ. Apply the artwork there too.
-6. Download an edited TGA individually, or download both edited sheets and their JSON edit log as a ZIP.
-7. Put the edited files in the mod's `Assets/res/Fonts` directory and inspect the relevant symbol in game at both font sizes.
+1. Install Python and the helper dependencies once: `python -m pip install -r helpers/unit-model-requirements.txt`.
+2. Open **helpers/UnitAnimationPreview.pyw**, or click **Preview textured NIF + animations** in Unit Model Studio. On Linux/macOS run `python helpers/unit_animation_preview.py`.
+3. Select the unit's **NIF**, then select its **KF animation clips** from the list. Clips beside the NIF are found automatically; **Add KF clips** lets you choose clips elsewhere. Set the game's **Assets** folder if textures live elsewhere. Packed FPK assets must first be extracted locally with a compatible tool.
+4. Click **Build and open animated unit preview**, choose a new HTML filename, and use **Play/Pause**, the timeline, clip selector, playback speed, orbit, elevation, zoom and part visibility controls. The generated viewer is offline and needs no Python after it has been built.
 
-Visual row and column are navigation labels, **not `FontButtonIndex` or Unicode values**. The standalone GameFont tab replaces existing cells and does not create new glyph allocations or rewrite XML. The separate Resource workshop creates matching resource XML and supports explicitly mapped empty slots. Adding a new game object still requires the mod's own index and XML setup. Do not infer a game index from the displayed cell number.
+This displays the actual textured unit mesh, native skin weights, equipment and sampled bone animation. It does not substitute a procedural soldier. To review a newly converted unit, choose its exported **model.nif** and its donor's KF clips. This preview step does not create a new high-quality character: original geometry must come from a finished model or a reconstructed model refined for the intended unit. Shape Lab is retained only as an optional blockout utility.
 
-### Font protection
+**Fidelity:** linear quaternion tracks use slerp; ordinary/compressed B-spline transform tracks use cubic sampling; linear/quadratic position and scale curves are supported. Quaternion TBC/quadratic tracks currently use key-to-key slerp, so their easing is approximate; a per-clip message identifies this. Other unsupported transform curves reject the clip. Matching node names are checked, but matching names cannot prove compatible bind poses. The viewer keeps root motion and uses shared bounds across clips.
 
-- Detects cells from complete magenta/cyan divider rows and columns; rejects sheets without a detectable grid.
-- Requires a true-color 32-bit TGA declaring 8 alpha bits. Uncompressed and RLE input are supported; output is uncompressed 32-bit TGA.
-- Preserves dimensions, glyph positions and all original marker pixels, including markers inside a selected cell.
-- Avoids introducing exact magenta or cyan marker colors into new artwork by changing the blue component by one level when necessary.
-- Before export, checks every pixel outside edited rectangles and every original marker pixel against the original buffer.
-- Decodes the exported file again and verifies that all RGBA bytes match the edited buffer.
-- Retains the header, image ID and trailing metadata for standard uncompressed 32-bit input. RLE input is decoded and written as uncompressed TGA; optional trailing RLE metadata is not carried over because its byte offsets may no longer be valid.
+**Rendering limits:** diffuse textures and normals are previewed. Alpha-bearing materials use a cutout approximation, not full blended/game shader rendering. Team colors, gloss, game lighting, controller-driven visibility/material changes, particles, animation event effects and KFM transitions are not simulated. Events are listed with their times. Model parts can be toggled manually, including alternative meshes present in a NIF. Missing textures and rejected clips remain visible in the report. Test the final result in Civ IV.
 
-If the grid cannot be detected reliably, use an intact original sheet. This version has no manual grid rebuilding mode. It does not rebuild the font grid or generate button atlases.
+Select up to twelve clips, each up to twenty seconds; a combined frame/vertex budget prevents excessive browser memory use. Large models need fewer clips or a lower **Sampling FPS** setting. The tool reads original game files without rewriting them and refuses to overwrite an existing viewer. A generated preview embeds the selected meshes, textures and sampled animation; keep previews private unless you have permission to share that artwork. The download contains the viewer program, **not game artwork**.
 
-## Limits and validation
+Validation includes independently known skinned translations and quaternion rotation, plus a native humanoid's Run/Idle previews, browser playback, scrubbing, clip switching, visibility and source-file integrity. These checks do not establish exact Civ IV rendering or animation parity.
 
-Artwork input is limited to 50 MB and 40 megapixels; a working copy is reduced to a maximum side of 2048 pixels. GameFont input is limited to 80 MB and 16 megapixels. Normal JPEG and PNG formats, including transparent PNG, are decoded by the browser. Broken or unsupported files produce an error.
-
-The app was tested in Chromium with JPG/PNG loading, background keying, DDS and PNG downloads, custom dimensions, GameFont selection, undo and paired font export. An independent Pillow decoder checked DDS colors, alpha and orientation; it also checked both actual Rise of Mankind font files pixel by pixel. No original files were overwritten. No external requests occurred during the browser workflow.
-
-In-game rendering has not been tested. File structure and preservation tests do not verify that you selected the correct semantic symbol or that your mod's XML points to the right artwork. Browser testing in this managed environment used a local HTTP server because its policy restricts `file:` URLs; the standalone file has all scripts embedded and needs no network resources. If your browser disallows local HTML or local workers, serve the folder with a local static server and open it on localhost.
-
-## Source and tests
-
-`app/` holds the readable HTML, UI script and binary-format implementation. `build.py` embeds the scripts into `dist/Civ4ArtStudio.html`. There are no third-party runtime dependencies.
-
-Developer checks require Node.js, Python with Pillow, and optionally Playwright with Chromium:
-
-```sh
-python build.py
-node tests/test_core.js /path/to/mod/Assets/res/Fonts
-python tests/check_formats.py /path/to/mod/Assets/res/Fonts
-python tests/browser_check.py /path/to/mod/Assets/res/Fonts
-python tests/resource_check.py /path/to/rise-of-mankind
-node tests/test_mesh.js
-python tests/building_check.py /path/to/rise-of-mankind
-# Optional independent model validation, after installing PyFFI 2.2.3:
-python tests/validate_nif.py
-```
-
-The core tests also run without the optional font-directory argument. The resource integration test expects the Rise of Mankind definitions (including Bauxite and Guilds). It copies inputs to ignored test fixtures, generates and inspects patches, and never modifies the supplied mod. Browser tests currently expect the Rise of Mankind font layout (1,301 / 1,325 detected cells). Synthetic fixtures and test outputs are generated under `tests/output/`; game files are read only and are not bundled.
-
-The mod conventions were checked against Rise of Mankind source `2a8b9a83`: existing 64×64 DDS buttons use DXT3 among other formats; `CvGameTextMgr.cpp` assigns game font symbols using category counts and resource `FontButtonIndex`, and `CvBonusInfo::setChar` adds 125 in this mod, confirming that a visual cell position alone is not a sufficient game index.
-
-Building validation includes real mod XML/class/art linking, schema order, wonder limits, backup integrity, OBJ error cases, generated DDS decoding, and repeated edits. NIF output is also checked independently with PyFFI 2.2.3 (a development-only dependency), and the Blender helper was exercised with a synthetic two-material scene in Blender 4.3.2. These checks are not an in-game rendering test.
-
-
-## Image to a new animated unit model (1.4, experimental)
+### Image to a new animated unit model (experimental)
 
 The ZIP now includes `helpers/UnitModelStudio.pyw`, a desktop companion. This produces new geometry from a reconstructed model, then transfers a Civ IV donor skeleton's weights. It does not reconstruct a 3D shape inside the browser or convert arbitrary animations to KF.
 
@@ -226,8 +222,13 @@ The ZIP now includes `helpers/UnitModelStudio.pyw`, a desktop companion. This pr
 
 The converter replaces one selected body mesh. Other meshes are optionally retained; inspect the list for duplicate bodies and attachments. Transparent hair/cards are not preserved by the opaque diffuse bake. This is an initial conversion route, not a guarantee of campaign-ready artwork. Structurally tested with synthetic geometry and a real mod donor; no external reconstruction result or Civ IV rendering has been tested.
 
+Read [the unit art study](UNIT_VISUAL_STUDY.md) before choosing an image-to-model workflow. Shape Lab is a **prototype/blockout tool**, not a finished realistic-character generator. Its simple geometry was the main cause of the toy-like look; texture noise cannot repair proportions, hands, faces, equipment construction or animation contact.
 
-## Internal Shape Lab and native Motion Lab (1.5 prototypes)
+The companion now preserves source geometry unless you check **Reduce geometry to triangle target**. The generic Blender helper requires `--simplify` to apply its target. Simplification retains small mesh objects where possible and writes per-part before/after triangle counts to `prepared/preparation.json`. A unit above the 10,000-triangle exporter limit stops for review rather than silently shrinking to a generic budget. Do not interpret the limit as a recommended game budget.
+
+The opaque bake also stops when it detects transparency or linked normal/bump detail. If you deliberately accept the loss, use the companion checkboxes or the helper's `--allow-alpha-flatten` / `--allow-normal-loss` flags. The report lists accepted losses. Correct alpha-cutout/team-color conversion and full source-shader preservation are still unfinished; a flag cannot recover them. Review the resulting geometry and materials before importing the prepared folder.
+
+### Shape Lab and Motion Lab (prototypes)
 
 Open `helpers/UnitModelStudio.pyw` to find both tools. They work locally; neither requires an image-generation account. See [the internal art pipeline design](INTERNAL_ART_PIPELINE.md) for the implemented scope, limitations and next steps.
 
@@ -246,27 +247,9 @@ python helpers/motion_lab.py
 
 The Blender panel is registered for the current session; rerun the script when reopening Blender. The saved mesh itself does not require the panel. Automated tests exercise Blender generation/render/export, geometry conversion, native KF preservation and the existing browser editor. Desktop window layout has not been manually tested on Windows.
 
+Shape Lab now generates packed diffuse image textures for cloth, steel, etched breastplates, leather, brass, wood and skin. Cloth has weave, folds and contrasting hems; metal has painted highlights, tarnish and an etched motif; leather has pores, seams and edge wear. The new default uses blue cloth, cooler steel and warm brass for separation at map scale. Adjust **Painted material detail**, **Weathering** and the material colors, then rebuild. Existing saved models need rebuilding or manual material reassignment to receive the new surfaces. Export GLB and use Unit Model Studio as before: image textures and UVs survive the Blender bake into the single Civ IV DDS atlas. These are original procedural diffuse details, not downloaded textures or PBR-only effects.
 
-## Painted unit and building surfaces (1.6)
-
-![Generated brick façade and roof](building-texture-preview.png)
-
-**Units:** Shape Lab now generates packed diffuse image textures for cloth, steel, etched breastplates, leather, brass, wood and skin. Cloth has weave, folds and contrasting hems; metal has painted highlights, tarnish and an etched motif; leather has pores, seams and edge wear. The new default uses blue cloth, cooler steel and warm brass for separation at map scale. Adjust **Painted material detail**, **Weathering** and the material colors, then rebuild. Existing saved models need rebuilding or manual material reassignment to receive the new surfaces. Export GLB and use Unit Model Studio as before: image textures and UVs survive the Blender bake into the single Civ IV DDS atlas. These are original procedural diffuse details, not downloaded textures or PBR-only effects.
-
-**Buildings:** choose the box artwork route, then select a **Box façade finish**: brick, limestone or timber/plaster. Set floors and weathering; no uploaded façade is required for those presets. Window recesses, mullions, lintels, floor bands, mortar, doors and base staining are painted into the atlas. Choose slate/tile or metal roof courses and a roof color. The live preview and exported mipmapped DDS use the same texture. **Download diffuse texture PNG** also saves the atlas independently. These presets paint the existing box geometry; they do not add physical windows or roof geometry. For an architectural OBJ, supply its own UV-aligned diffuse atlas as before.
-
-Generated details are deterministic. Weathering and contrast are intentionally bounded; inspect both map-scale and Civilopedia views in game, since this release still has no Civ IV renderer. No existing mod texture files are edited in place.
-
-
-## Realism and detail preservation (1.7)
-
-Read [the unit art study](UNIT_VISUAL_STUDY.md) before choosing an image-to-model workflow. Shape Lab is a **prototype/blockout tool**, not a finished realistic-character generator. Its simple geometry was the main cause of the toy-like look; texture noise cannot repair proportions, hands, faces, equipment construction or animation contact.
-
-**Buttons:** detail-preserving photo downsampling is enabled by default, with linear-light Lanczos filtering and premultiplied alpha. Use Fill crop, focus controls and Portrait zoom to frame the identifying features; judge the actual-size preview. RGBA is now the default to avoid block-compression losses. DXT3 remains available when compact files matter. Unit and building workshop button exports also use the resampler and RGBA. This preserves available image information; it does not invent detail beyond a 64px button's capacity.
-
-**Models:** the companion now preserves source geometry unless you check **Reduce geometry to triangle target**. The generic Blender helper requires `--simplify` to apply its target. Simplification retains small mesh objects where possible and writes per-part before/after triangle counts to `prepared/preparation.json`. A unit above the 10,000-triangle exporter limit stops for review rather than silently shrinking to a generic budget. Do not interpret the limit as a recommended game budget.
-
-The opaque bake also stops when it detects transparency or linked normal/bump detail. If you deliberately accept the loss, use the companion checkboxes or the helper's `--allow-alpha-flatten` / `--allow-normal-loss` flags. The report lists accepted losses. Correct alpha-cutout/team-color conversion and full source-shader preservation are still unfinished; a flag cannot recover them. Review the resulting geometry and materials before importing the prepared folder.
+### Audit unit art
 
 Audit your own mod's referenced loose unit assets with:
 
@@ -276,16 +259,30 @@ python helpers/audit_unit_art.py /path/to/mod /path/to/unit-art-audit.json
 
 The audit includes optional module definitions and excludes FPK-only/base-game assets. Stored triangles are not necessarily the simultaneously rendered count. No gameplay rendering test was performed for this release.
 
+## Limits and validation
 
-## Source / prepared model review (1.8)
+Artwork input is limited to 50 MB and 40 megapixels; a working copy is reduced to a maximum side of 2048 pixels. GameFont input is limited to 80 MB and 16 megapixels. Normal JPEG and PNG formats, including transparent PNG, are decoded by the browser. Broken or unsupported files produce an error.
 
-Open the new **Model review** tab and select a companion output folder, or its `prepared` subfolder. No mod XML is required. New preparations include `review.json`; older folders must be regenerated.
+The app was tested in Chromium with JPG/PNG loading, background keying, DDS and PNG downloads, custom dimensions, GameFont selection, undo and paired font export. An independent Pillow decoder checked DDS colors, alpha and orientation; it also checked both actual Rise of Mankind font files pixel by pixel. No original files were overwritten. No external requests occurred during the browser workflow.
 
-- Source and prepared meshes share one scale, framing and camera. Rotate, change elevation, zoom, or use the front/side/back presets. Presets assume Blender −Y is forward.
-- Clay shading isolates changes to the silhouette and surface. Toggle topology to inspect reduction, or show the converted diffuse atlas on the right. The source materials are not rendered in this view.
-- Native 64px thumbnails help judge readability. They do not reproduce Civ IV's camera, lighting or formation scale.
-- Findings identify the largest relative triangle reductions and accepted material losses. Expand **All part changes** for the full list and closed-surface diagnostics. A reduction percentage is not a quality score.
+In-game rendering has not been tested. File structure and preservation tests do not verify that you selected the correct semantic symbol or that your mod's XML points to the right artwork. Browser testing in this managed environment used a local HTTP server because its policy restricts `file:` URLs; the standalone file has all scripts embedded and needs no network resources. If your browser disallows local HTML or local workers, serve the folder with a local static server and open it on localhost.
 
-The review compares **mesh preparation before rig transfer**. Final NIF skinning, retained donor attachments, animations, team colors and game lighting still require separate validation. Source snapshots are limited to 100,000 triangles / 300,000 vertices; larger sources are explicitly omitted rather than silently downsampled for the comparison. Converted meshes can still be inspected.
+## Source and tests
 
-This review exposed a real simplification defect: glTF/GLB may contain duplicate vertices along UV/normal seams, and treating those as disconnected faces can produce holes during reduction. Explicit budget mode now reconnects coincident vertices at a small scale/precision-aware tolerance, preserves corner UV data, rejects ambiguous non-manifold joins, and stops if a previously closed part becomes open. Preservation mode does not weld or simplify source geometry. This does not guarantee that aggressive reduction preserves anatomy or visual quality; inspect the result.
+`app/` holds the readable HTML, UI script and binary-format implementation. `build.py` embeds the scripts into `dist/Civ4ArtStudio.html`. There are no third-party runtime dependencies.
+
+One command runs every check in the order their outputs depend on, and reports each as passed, failed or skipped:
+
+```sh
+python tests/run_all.py /path/to/rise-of-mankind
+```
+
+It needs Node.js and Python with Pillow, numpy and Playwright (`python -m pip install playwright`, then `python -m playwright install chromium`). The model checks also need PyFFI 2.2.3 and Blender 4.x; without them they are skipped, with the reason. The mod folder can also be given in `CIV4_MOD`; set `CHROMIUM` or `BLENDER` to use a particular browser or Blender (otherwise Playwright's Chromium and `blender` on PATH). `tests/paths.py` holds these lookups. Each check can also run alone with the same mod argument; `run_all.py` shows the order.
+
+`python build.py` rebuilds `dist/Civ4ArtStudio.html`, the download ZIP and `SHA256SUMS.json`; `python build.py --check`, the first check, fails when any of them is out of date with `app/`, `helpers/` or the documents.
+
+The core tests also run without the optional font-directory argument. The resource integration test expects the Rise of Mankind definitions (including Bauxite and Guilds). It copies inputs to ignored test fixtures, generates and inspects patches, and never modifies the supplied mod. Browser tests currently expect the Rise of Mankind font layout (1,301 / 1,325 detected cells). Synthetic fixtures and test outputs are generated under `tests/output/`; game files are read only and are not bundled.
+
+The mod conventions were checked against Rise of Mankind source `2a8b9a83`: existing 64×64 DDS buttons use DXT3 among other formats; `CvGameTextMgr.cpp` assigns game font symbols using category counts and resource `FontButtonIndex`, and `CvBonusInfo::setChar` adds 125 in this mod, confirming that a visual cell position alone is not a sufficient game index.
+
+Building validation includes real mod XML/class/art linking, schema order, wonder limits, backup integrity, OBJ error cases, generated DDS decoding, and repeated edits. NIF output is also checked independently with PyFFI 2.2.3 (a development-only dependency), and the Blender helper was exercised with a synthetic two-material scene in Blender 4.3.2. These checks are not an in-game rendering test.
