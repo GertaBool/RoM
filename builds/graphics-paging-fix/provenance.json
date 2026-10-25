@@ -1,0 +1,24 @@
+{
+ "serves": [
+  "P11"
+ ],
+ "patch": "fixes/graphics-paging-fix.patch",
+ "build_id": "d88a69fdae2c",
+ "source": "GitLab main a459d0d8 (graphics paging G1 with G2, G3, G4) plus fixes/graphics-paging-fix.patch: plot builders are no longer paged out (GRAPHICS_PAGING_PLOT_BUILDERS 0), a switch per part, getCameraZoom takes the argument list",
+ "source_commit": "0cca5f1 (local); GitLab claude/graphics-paging-fix 9b3afb3b, the same tree",
+ "source_tree": "b605bb9354ec15223c207953930db5231506332f",
+ "base_commit": "a459d0d89049ea3f1c35cd0bfdcf6bfbd188c93f",
+ "dll_sha256": "2db3efb9dee386a5f30f955cd02a7f3073bcf1ae8ddb2e0ea9e87c8c522a2480",
+ "dll_size": 6148096,
+ "files": {
+  "GlobalDefinesAlt.xml": "4515b3b1d69798565d4c6ea8f213ebcf66517656c994cfe3e4c5f5ee721fcc92",
+  "CvGameInterface.py": "c3a90e89bfebb21d0c86ad1c9fd58b1cfadde5e533eb4519731dc7db4911b6be"
+ },
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release, CLEAN=1; 0 errors, 0 warnings",
+ "tests": "clang gate on CvGame.cpp, CvPlot.cpp, CvUnit.cpp, CvCity.cpp against 8bc3fb5: 0 new diagnostics (fixes/graphics-paging-fix/clang-gate.log)",
+ "tested_headless": "pending: P11 evidence (harness runs from turn 0 of the Huge Mediterranean map, graphics set up, HARNESS_ACTIVE=0)",
+ "tested_in_game": false,
+ "previous": "GitLab main a459d0d8 (froze at the first city founded, reported by the user)",
+ "merge_request": "not opened yet",
+ "gitlab_commit": "9b3afb3b56fc370bbcecba80da68a05125a57ead"
+}

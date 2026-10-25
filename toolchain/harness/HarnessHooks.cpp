@@ -172,6 +172,12 @@ extern "C" __declspec(dllexport) void HH_setupGraphics()
 			if (p[iRead] != ',') break;
 		}
 	}
+	// A game without a human seat has no active player, which the executable always has; display code
+	// indexes by the active team (CvPlot::calculateYield with bDisplay). HARNESS_ACTIVE=<player> sets one.
+	if (GC.getGameINLINE().getActivePlayer() == NO_PLAYER && getenv("HARNESS_ACTIVE") != NULL)
+	{
+		GC.getGameINLINE().setActivePlayer((PlayerTypes)atoi(getenv("HARNESS_ACTIVE")), false);
+	}
 	GC.SetGraphicsInitialized(true);
 	GC.getMapINLINE().setupGraphical();
 	for (int i = 0; i < MAX_PLAYERS; ++i)

@@ -221,6 +221,18 @@ static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHa
 	const int iPlayers = HH_loadScenario(szScn, szSpeed, szHandicap, uiSeed, log, sizeof(log));
 	harnessLog("scenario %s: %d players, seed %u\n%s", szScn, iPlayers, uiSeed, log);
 	if (iPlayers <= 0) return;
+	// HARNESS_GRAPHICS=1: graphics set up as in save runs (below); with all seats AI, HARNESS_ACTIVE=<player>
+	// gives the game the active player the executable always has (HarnessHooks.cpp).
+	const bool bGraphics = getenv("HARNESS_GRAPHICS") != NULL;
+	if (bGraphics)
+	{
+		typedef void (*SetupFn)();
+		HMODULE hDll = GetModuleHandleA("CvGameCoreDLL.dll");
+		const SetupFn pfn = hDll != NULL ? (SetupFn)GetProcAddress(hDll, "HH_setupGraphics") : NULL;
+		if (pfn == NULL) { harnessLog("HARNESS_GRAPHICS: this DLL has no HH_setupGraphics\n"); return; }
+		pfn();
+		harnessLog("graphics set up: %s\n", harnessGraphicsStats());
+	}
 	FILE* f = fopen(szOut, "w");
 	if (f == NULL) { harnessLog("cannot write %s\n", szOut); return; }
 	static std::vector<char> buf(1 << 20);
@@ -250,6 +262,7 @@ static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHa
 			}
 			fwrite(&buf[0], 1, n, f); fputc('\n', f); fflush(f);
 			maybeSnapshot(szOut, iTurn);
+			if (bGraphics) harnessLog("graphics turn %d: %s\n", iTurn, harnessGraphicsStats());
 			if (iTurn - iStart >= iTurns || HH_gameState() != 0) break;
 		}
 		HH_update();

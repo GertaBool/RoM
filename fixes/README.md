@@ -1,5 +1,17 @@
 # Tested source fixes
 
+## Graphics paging fix: the freeze at the first city
+
+[graphics-paging-fix.patch](graphics-paging-fix.patch) applies to GitLab `main` `a459d0d8`, and
+GitLab branch `claude/graphics-paging-fix` carries it. With `main`, the user's game froze when
+the first city was founded.
+
+Paging destroyed plot builders (bonus and improvement art) far from the camera, which vanilla never
+does during a game. This build keeps them and gives each part of paging its own switch. It also
+fixes `getCameraZoom`, which failed on the argument the game passes. In-game result: open. See the
+[fault and change](graphics-paging-fix/README.md) and the
+[build and test steps](../builds/graphics-paging-fix/README.md).
+
 ## Graphics paging: unit, city and plot graphics only near the camera
 
 [graphics-paging.patch](graphics-paging.patch) applies to GitLab `main` `c42be8b`. It is not on GitLab yet.
