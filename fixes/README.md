@@ -3,7 +3,7 @@
 ## Graphics paging fix: the freeze at the first city
 
 [graphics-paging-fix.patch](graphics-paging-fix.patch) applies to GitLab `main` `a459d0d8`, and
-GitLab branch `claude/graphics-paging-fix` carries it. With `main`, the user's game froze when
+GitLab branch `claude/graphics-paging-fix` carries it (merge request !58). With `main`, the user's game froze when
 the first city was founded.
 
 Paging destroyed plot builders (bonus and improvement art) far from the camera, which vanilla never
