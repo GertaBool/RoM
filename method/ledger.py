@@ -61,6 +61,7 @@ import hashlib, json, os, re, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 CFG = json.load(open(os.path.join(HERE, 'config.json')))
 STALL, MAX_DEPTH, MIN_RUNS = CFG['stall_commits'], CFG['max_depth'], CFG['min_runs']
+SAFETY = CFG['safety']  # claims with "test": "safety": no crash, not slower (framework.md, section 7)
 MIN_GAMES, EXT = CFG['min_games_state'], CFG['external_prefix']
 DIRS = [CFG['register_dir']] + CFG.get('legacy_register_dirs', [])  # current first; history may hold the others
 M = CFG['register_dir']
@@ -172,7 +173,11 @@ def validate(reg, variables):
                 errs.append(f'{e["id"]}: a runs claim needs direction, alpha, min_effect, min_n, seat')
             if v['kind'] == 'runs' and c.get('direction') not in (None, 'a>b', 'a<b', 'a>=b', 'a<=b'):
                 errs.append(f'{e["id"]}: direction is a>b, a<b (a differs) or a>=b, a<=b (a is no worse)')
-            if v['kind'] == 'runs' and c.get('min_n', 0) < MIN_RUNS: errs.append(f'{e["id"]}: fewer than {MIN_RUNS} runs per arm (framework.md, section 7)')
+            if c.get('test') == 'safety':
+                if e.get('variable') not in SAFETY['variables'] or c.get('direction') not in ('a>=b', 'a<=b'):
+                    errs.append(f'{e["id"]}: a safety test is a no-worse claim on {", ".join(SAFETY["variables"])}')
+                if c.get('min_n', 0) < SAFETY['min_runs']: errs.append(f'{e["id"]}: fewer than {SAFETY["min_runs"]} runs per arm for a safety test (framework.md, section 7)')
+            elif v['kind'] == 'runs' and c.get('min_n', 0) < MIN_RUNS: errs.append(f'{e["id"]}: fewer than {MIN_RUNS} runs per arm (framework.md, section 7)')
             if v['kind'] == 'games' and not all(k in c for k in ('turn', 'op', 'reference', 'min_n')):
                 errs.append(f'{e["id"]}: a games claim needs turn, op, reference, min_n')
             if v['kind'] == 'games' and 'builds' in c and not (c['builds'] == 'served' or isinstance(c['builds'], list)):
@@ -372,21 +377,34 @@ def evaluate(root, verify=True):
         res = dict(line=e['line'], variable=e['variable'], status='open', n=None, detail='', rejected=[], unverified=0, anecdote=False)
         if V[e['variable']]['kind'] == 'runs':
             ok = set(seeds(e, 4096))
-            arms = {}
+            arms, by_seed = {}, {}
             for arm in ('a', 'b'):
                 vals, seen = [], set()
+                by_seed[arm] = {}
                 for row in read_tsv(os.path.join(d, f'{arm}.tsv')):
                     sd, val = int(row[0]), float(row[1])
                     if sd not in ok: res['rejected'].append(f'{arm}: seed {sd} not of {p}'); continue
                     if sd in seen: res['rejected'].append(f'{arm}: seed {sd} twice'); continue
-                    seen.add(sd); vals.append(val)
+                    seen.add(sd); vals.append(val); by_seed[arm][sd] = val
                     if len(row) > 2 and not os.path.isdir(row[2]): res['unverified'] += 1
                     if verify and len(row) > 2 and os.path.isdir(row[2]):
                         if abs(FUNCS[V[e['variable']]['function']][1](row[2], c['seat']) - val) > 1e-9:
                             raise LedgerError(f'{p}: {row[2]} does not give {val}')
                 arms[arm] = vals
             res['n'] = [len(arms['a']), len(arms['b'])]
-            if min(res['n']) >= c['min_n']:
+            if min(res['n']) >= c['min_n'] and c.get('test') == 'safety':
+                # counted, not tested: a run that fails only with the change, or a change that is slower in
+                # the median of same-seed pairs by more than max_slowdown, refutes the claim
+                if e['variable'] == 'completed':
+                    fa, fb = sum(1 for x in arms['a'] if x < 1), sum(1 for x in arms['b'] if x < 1)
+                    res['status'] = 'corroborated' if fa <= fb else 'not corroborated'
+                    res['detail'] = f'failed: a {fa} of {len(arms["a"])}, b {fb} of {len(arms["b"])}'
+                else:
+                    r = sorted(by_seed['a'][sd] / by_seed['b'][sd] for sd in by_seed['a'] if by_seed['b'].get(sd))
+                    med = (r[len(r) // 2] + r[(len(r) - 1) // 2]) / 2 if r else float('nan')
+                    res['status'] = 'corroborated' if r and med <= SAFETY['max_slowdown'] else 'not corroborated'
+                    res['detail'] = f'median a/b {med:.3f} over {len(r)} seed pairs'
+            elif min(res['n']) >= c['min_n']:
                 sys.path.insert(0, HERE)
                 from stats import rank_welch
                 import math
@@ -664,6 +682,12 @@ def selftest():
         assert any('chain' in x for x in validate([H, dict(P1, id='P5', variable='X1')], var))
         # fewer than 30 runs per arm is refused
         assert any('30 runs' in x for x in validate([H, dict(P1, id='P6', claim=dict(P1['claim'], min_n=5))], var))
+        # a safety test: 5 runs suffice on completed or turn_seconds with a no-worse claim, and nowhere else
+        vc = var + [dict(id='completed', function='run_completed', kind='runs', essential=True, text='t')]
+        PS = dict(P1, id='P6', variable='completed', claim=dict(P1['claim'], direction='a>=b', min_n=5, test='safety'))
+        assert not [x for x in validate([H, PS], vc) if 'runs per arm' in x or 'safety' in x], validate([H, PS], vc)
+        assert any('safety test is' in x for x in validate([H, dict(PS, variable='E1')], vc))
+        assert any('for a safety test' in x for x in validate([H, dict(PS, claim=dict(PS['claim'], min_n=3))], vc))
         # evidence: foreign seeds rejected; once evidence exists, code commits may not serve P1
         sd = seeds(P1, 80)
         w(f'{EVD}P1/a.tsv', ''.join(f'{s}\t{i % 3}\n' for i, s in enumerate(sd[:30])) + '12345\t9\n')

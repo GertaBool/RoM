@@ -31,6 +31,7 @@
   "stall_commits": 10,
   "max_depth": 2,
   "min_runs": 30,
+  "safety": {"about": "Claims with \"test\": \"safety\" (no crash, not slower) need min_runs runs per arm and are decided by counting: any extra failed run, or a median same-seed time ratio above max_slowdown, refutes them (framework.md, section 7).", "variables": ["completed", "turn_seconds"], "min_runs": 5, "max_slowdown": 1.05},
   "min_games_state": 5,
   "external_prefix": "gitlab:",
  "text_only": {
