@@ -359,5 +359,203 @@
    "toolchain/harness/HarnessHooks.cpp",
    "toolchain/harness/README.md"
   ]
+ },
+ {
+  "id": "H5",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "What the DLL asks the executable to build scales with the map and with every team's sight: 7,868 yield symbols and a flag per plot with a seen unit exist whether or not on screen, and 552 of 2,132 billboard rebuilds in three harness turns follow other teams' visibility changes, which the billboard does not show (research/graphics/README.md, R-G, R-I). Paging symbols and flags with the units, dirtying billboards only for the active team, and dropping the billboard debug logging lower the executable's memory and work without changing the game or the screen. The executable's memory and time are measured only in the real game, by the user; the harness checks that the changes neither crash nor slow the game."
+ },
+ {
+  "id": "P9",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H5"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "Three graphics changes on top of graphics paging (G1, fixes/graphics-paging.patch, the base of the branch): G4: a paged-out plot also deletes its yield symbols and unit flags, rebuilt on page-in (define GRAPHICS_PAGING_SYMBOLS, 0 = off); G2: CvPlot::changeVisibilityCount marks a city's billboard dirty only for the active team's visibility, and CvGame::setActivePlayer marks every city dirty once (define BILLBOARD_ACTIVE_TEAM_ONLY, 0 = off); G3: the three debug Format/logMsg pairs in CvGameTextMgr::buildCityBillboardIconString are removed. Arm a: this build, defines on; arm b: the tested paging build (4dadc46, source tree cedfc84a). Both in the harness with graphics initialised and the camera sweeping the map one plot per update, from the 460 AD autosave of the user's Mediterranean game, 3 turns per run, seeds from ledger.py seeds.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.h",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "fixes/graphics-rendering.patch",
+   "fixes/graphics-rendering/",
+   "builds/graphics-rendering/"
+  ]
+ },
+ {
+  "id": "P10",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H5"
+  ],
+  "variable": "turn_seconds",
+  "evidence": "runs",
+  "change": "Three graphics changes on top of graphics paging (G1, fixes/graphics-paging.patch, the base of the branch): G4: a paged-out plot also deletes its yield symbols and unit flags, rebuilt on page-in (define GRAPHICS_PAGING_SYMBOLS, 0 = off); G2: CvPlot::changeVisibilityCount marks a city's billboard dirty only for the active team's visibility, and CvGame::setActivePlayer marks every city dirty once (define BILLBOARD_ACTIVE_TEAM_ONLY, 0 = off); G3: the three debug Format/logMsg pairs in CvGameTextMgr::buildCityBillboardIconString are removed. Arm a: this build, defines on; arm b: the tested paging build (4dadc46, source tree cedfc84a). Both in the harness with graphics initialised and the camera sweeping the map one plot per update, from the 460 AD autosave of the user's Mediterranean game, 3 turns per run, seeds from ledger.py seeds.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.h",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "fixes/graphics-rendering.patch",
+   "fixes/graphics-rendering/",
+   "builds/graphics-rendering/"
+  ]
+ },
+ {
+  "id": "H6",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "The game froze when the user founded the first city with the paging build (PythonDbg.log ends after 'City Built Event: London' and the score update; LSystem.log has just laid out the city). Of what paging destroys, only the plot builder is never destroyed by vanilla during a game (CvPlot::uninit alone calls PlotBuilderIFace destroy; feature, route, yield and flag symbols and unit and city entities are destroyed and remade in vanilla play), and plot builders share the executable's L-system with city layouts, the first of which is made at the first city. Keeping plot builders removes the freeze. Contradicted if the game still freezes at the first city with GRAPHICS_PAGING_PLOT_BUILDERS 0, or does not freeze with it 1. The harness has no executable, so only the user's game decides; separately CvGameInterface.getCameraZoom took no argument and failed once (PythonErr.log)."
+ },
+ {
+  "id": "P11",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H6"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On top of the graphics rendering bundle (GitLab claude/graphics-paging, tree 04ac18c6): paging is split into switches GRAPHICS_PAGING_UNITS, GRAPHICS_PAGING_CITIES, GRAPHICS_PAGING_PLOTS (feature and route symbols) and GRAPHICS_PAGING_PLOT_BUILDERS, the last 0, so plot builders are no longer destroyed; GRAPHICS_PAGING_SYMBOLS stays; a plot remembers what its page-out removed and its guards and page-in cover only that; CvGameInterface.getCameraZoom takes the argument list. Harness: scenario runs set up graphics with HARNESS_GRAPHICS, and HARNESS_ACTIVE=<player> sets an active player, which the real game always has (without one CvPlot::calculateYield's display branch reads before an array and the harness crashes in either arm). Arm a: this build, defines as shipped; arm b: the same build with GRAPHICS_PAGING 0. Both from turn 0 of the user's Huge Mediterranean WorldBuilder map (all seats AI, HARNESS_ACTIVE=0, camera sweeping one plot per update), 5 turns per run, so every capital is founded, seeds from ledger.py seeds. This checks only that the DLL change neither crashes nor hangs; the freeze is in the executable and is judged by the user's game.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "toolchain/harness/main.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "fixes/graphics-paging-fix.patch",
+   "fixes/graphics-paging-fix/",
+   "builds/graphics-paging-fix/"
+  ]
+ },
+ {
+  "id": "H7",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "Graphics paging pages plots and the units on them separately, so a plot under a unit or city that keeps its graphics (the active player's always do) loses its flag, yield symbols and route symbol, and route symbols go missing next to plots that keep theirs. The unchanged game never shows a unit without its flag or a revealed route without its symbol; the executable calls CvPlot::updateFlagSymbol, getFlagSymbol, getRouteSymbol and isRoute itself. The user's game crashed at the first unit moved with GitLab main d929b57. A harness that does what the executable does near the camera (updateFlagSymbols, then the checks) finds such states with d929b57 (100 turns from turn 0 of the Huge Mediterranean map: 27 flagless live units and 58 routes without symbol with the camera on the active player's units) and none with the DLL before paging. Keeping a plot's graphics while anything on it keeps its own, bringing the plot back with any unit or city that gets its graphics, rebuilding it when the executable asks for a flag there, and never paging routes, leaves none. Contradicted if the game still crashes or freezes with the change, or if the checks find such a state with it."
+ },
+ {
+  "id": "P12",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H7"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab main d929b57: CvPlot::canPageGraphicsOut keeps a plot's graphics while a unit or city on it keeps its own or the move being shown goes there; CvGame::pageGraphics pages a plot out after its units and city; CvUnit::setupGraphical, CvUnit::pageGraphics(true), CvUnit::setXY (the plot moved to) and CvCity::setupGraphical, CvCity::pageGraphics(true) bring the plot back first; CvPlot::updateFlagSymbol brings a paged-out plot back when a unit there keeps its graphics or the move goes there; route symbols are never paged (GRAPHICS_PAGING_PLOTS pages feature symbols only); GRAPHICS_PAGING_ZOOM defaults to 0. Harness: plot symbols, features, routes, flags and plot builders are tokens; HARNESS_CAMERA_FOLLOW=1 moves the camera from one unit of the active player to the next; HH_graphicsCheck does what the executable does near the camera and counts states the unchanged game never shows. Arm a: this build; arm b: GitLab main d929b57. Both from turn 0 of the user's Huge Mediterranean WorldBuilder map (all seats AI, HARNESS_ACTIVE=0, camera sweeping the map one plot every 5 calls, a check every update), 20 turns per run, seeds from ledger.py seeds. The crash itself is in the executable and is judged by the user's game.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "toolchain/harness/engine.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "toolchain/harness/main.cpp",
+   "fixes/graphics-paging-coherence.patch",
+   "fixes/graphics-paging-coherence/",
+   "builds/graphics-paging-coherence/"
+  ]
+ },
+ {
+  "id": "H8",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "What the screen shows follows from the camera: its eye and target (CyCamera GetCurrentPosition, GetLookAt), the frustum of FIELD_OF_VIEW (42 degrees, GlobalDefines.xml, which the executable reads through CvGlobals::getFIELD_OF_VIEW) and the screen's aspect ratio, cast onto the map's ground plane in world units of PLOT_SIZE (180) per plot (CvMap::plotXToPointX). A paging window taken from that footprint plus a margin holds everything the screen shows at any zoom, pitch and turn of the camera, where the fixed window (40 east and west, 40 north, 16 south) does not: at 6000 units and 28 degrees of pitch the screen reaches 100 plots north. Contradicted if the game shows units, cities or features without graphics with the camera window, or if the window the DLL computes differs from the geometry."
+ },
+ {
+  "id": "P13",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H8"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab claude/paging-coherence 006b7840 (P12): with GRAPHICS_PAGING_CAMERA 1, CvGame::graphicsWindowFromCamera reads the camera through CvGameInterface.getCameraView (CyCamera GetCurrentPosition and GetLookAt, the screen's resolution, CyEngine isGlobeviewUp), casts the rays through the corners and edge midpoints of the view (FIELD_OF_VIEW vertically, times the aspect ratio horizontally) onto the ground plane, and takes the footprint's extent west, east, north and south of the look-at plot, plus one plot; GRAPHICS_PAGING_RANGE_* remain the window when the camera cannot be read; a side that grows applies at once, a smaller window after GRAPHICS_PAGING_SHRINK_MS (5000); in globe view nothing changes; the zoom scaling (GRAPHICS_PAGING_ZOOM, getCameraZoom) is removed. Harness: HARNESS_CAMERA_VIEW=<distance>,<pitch>,<yaw>,<width>,<height> answers getCameraView with that camera at the look-at plot (HH_cameraView), and the engine gives the landscape's size (HH_landscapeSize). Arm a: this build, HARNESS_CAMERA_VIEW=2200,45,0,1920,1080; arm b: the P12 build (006b7840). Both from turn 0 of the user's Huge Mediterranean WorldBuilder map (all seats AI, HARNESS_ACTIVE=0, camera following the active player's units, a check every update), 20 turns per run, seeds from ledger.py seeds. The screen itself is judged by the user's game.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "toolchain/harness/engine.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "fixes/graphics-paging-camera.patch",
+   "fixes/graphics-paging-camera/",
+   "builds/graphics-paging-camera/"
+  ]
  }
 ]

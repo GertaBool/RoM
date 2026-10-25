@@ -545,6 +545,19 @@ static long pythonDefault(const char* fxn, void* args)
 	return 0;
 }
 
+// HARNESS_CAMERA_VIEW=<distance>,<pitch degrees below horizontal>,<yaw degrees>,<width>,<height>: a camera for
+// CvGameInterface.getCameraView (CvGame::graphicsWindowFromCamera), placed by the harness DLL (HH_cameraView)
+// at that distance from the look-at plot's centre, looking at it.
+static bool cameraView(const char* fxn, void* args, long* result)
+{
+	if (fxn == NULL || strcmp(fxn, "getCameraView") != 0 || getenv("HARNESS_CAMERA_VIEW") == NULL) return false;
+	typedef long (*ViewFn)(int);
+	static const ViewFn pfn = (ViewFn)harnessDllProc("HH_cameraView");
+	if (pfn == NULL) return false;
+	if (result) *result = pfn((int)argInt(args, 0));
+	return true;
+}
+
 class PythonIFace : public S_CvDLLPythonIFaceBase
 {
 public:
@@ -562,7 +575,7 @@ public:
 		return (PyObject*)a;
 	}
 	bool callFunction(const char*, const char* fxn, void*) { countPyCall(fxn); return false; }
-	bool callFunction(const char*, const char* fxn, void* arg, long* result) { if (result) *result = pythonDefault(fxn, arg); return false; }
+	bool callFunction(const char*, const char* fxn, void* arg, long* result) { if (cameraView(fxn, arg, result)) return true; if (result) *result = pythonDefault(fxn, arg); return false; }
 	bool callFunction(const char*, const char* fxn, void*, CvString* result) { countPyCall(fxn); if (result) *result = ""; return false; }
 	bool callFunction(const char*, const char* fxn, void*, CvWString* result) { countPyCall(fxn); if (result) *result = L""; return false; }
 	bool callFunction(const char*, const char* fxn, void*, std::vector<byte>* pList) { countPyCall(fxn); if (pList) pList->clear(); return false; }
@@ -618,13 +631,85 @@ public:
 	bool GetSiegeTower(CvUnitEntity* p) { visual((CvEntity*)p); return false; }
 };
 
+// Plot graphics: with HARNESS_GRAPHICS every symbol, feature, route, flag and plot builder the DLL
+// creates is a token that records its kind, so the DLL holds real pointers (as with the game) and the
+// live count of each kind stands for the models the executable would hold. Destroying one frees the
+// token and clears the DLL's pointer, as the executable does.
+namespace
+{
+	enum { GFX_SYMBOL, GFX_FEATURE, GFX_ROUTE, GFX_FLAG, GFX_BUILDER, NUM_GFX };
+	struct HarnessGfx { int kind; int type; int player; HarnessGfx(int k) : kind(k), type(-1), player(-1) {} };
+	long g_aiGfxLive[NUM_GFX] = { 0, 0, 0, 0, 0 };
+	bool gfxOn() { static int s = -1; if (s < 0) s = getenv("HARNESS_GRAPHICS") != NULL ? 1 : 0; return s == 1; }
+	template <class T> T* gfxNew(int k) { if (!gfxOn()) return NULL; ++g_aiGfxLive[k]; return (T*)new HarnessGfx(k); }
+	template <class T> void gfxFree(T*& p) { if (p != NULL) { HarnessGfx* g = (HarnessGfx*)p; --g_aiGfxLive[g->kind]; delete g; p = NULL; } }
+	HarnessGfx* gfx(const void* p) { return (HarnessGfx*)p; }
+}
+
+class SymbolIFace : public S_CvDLLSymbolIFaceBase
+{
+public:
+	CvSymbol* createSymbol() { return gfxNew<CvSymbol>(GFX_SYMBOL); }
+	void init(CvSymbol* p, int, int, int iType, CvPlot*) { if (p != NULL) gfx(p)->type = iType; }
+	void destroy(CvSymbol*& p, bool) { gfxFree(p); }
+};
+
+class FeatureIFace : public S_CvDLLFeatureIFaceBase
+{
+public:
+	CvFeature* createFeature() { return gfxNew<CvFeature>(GFX_FEATURE); }
+	void init(CvFeature* p, int, int, int iType, CvPlot*) { if (p != NULL) gfx(p)->type = iType; }
+	FeatureTypes getFeature(CvFeature* p) { return p != NULL ? (FeatureTypes)gfx(p)->type : NO_FEATURE; }
+	void destroy(CvFeature*& p, bool) { gfxFree(p); }
+};
+
+class RouteIFace : public S_CvDLLRouteIFaceBase
+{
+public:
+	CvRoute* createRoute() { return gfxNew<CvRoute>(GFX_ROUTE); }
+	void init(CvRoute* p, int, int, int iType, CvPlot*) { if (p != NULL) gfx(p)->type = iType; }
+	RouteTypes getRoute(CvRoute* p) { return p != NULL ? (RouteTypes)gfx(p)->type : NO_ROUTE; }
+	void destroy(CvRoute*& p, bool) { gfxFree(p); }
+};
+
+class FlagIFace : public S_CvDLLFlagEntityIFaceBase
+{
+public:
+	CvFlagEntity* create(PlayerTypes ePlayer) { CvFlagEntity* p = gfxNew<CvFlagEntity>(GFX_FLAG); if (p != NULL) gfx(p)->player = ePlayer; return p; }
+	PlayerTypes getPlayer(CvFlagEntity* p) const { return p != NULL ? (PlayerTypes)gfx(p)->player : NO_PLAYER; }
+	void destroy(CvFlagEntity*& p, bool) { gfxFree(p); }
+};
+
+class PlotBuilderIFace : public S_CvDLLPlotBuilderIFaceBase
+{
+public:
+	CvPlotBuilder* create() { return gfxNew<CvPlotBuilder>(GFX_BUILDER); }
+	void destroy(CvPlotBuilder*& p, bool) { gfxFree(p); }
+};
+
+// The landscape's size in world units, as the game makes it: the map's plots times PLOT_SIZE (HH_landscapeSize),
+// so the DLL's plot and point conversions (CvMap::plotXToPointX and the rest) work.
+class EngineIFace : public S_CvDLLEngineIFaceBase
+{
+public:
+	void GetLandscapeGameDimensions(float& fWidth, float& fHeight)
+	{
+		typedef void (*SizeFn)(float*, float*);
+		static const SizeFn pfn = (SizeFn)harnessDllProc("HH_landscapeSize");
+		fWidth = 0.0f; fHeight = 0.0f;
+		if (pfn != NULL) pfn(&fWidth, &fHeight);
+	}
+};
+
 // One line of entity counts; each call also samples the entities set up at that moment.
 const char* harnessGraphicsStats()
 {
 	static char buf[512];
 	g_dSetUpSum += g_iEntitiesSetUp; ++g_iSetUpSamples;
-	_snprintf(buf, sizeof(buf), "entities created %ld, set up now %ld, max %ld, mean %.1f; setup calls %ld; visual calls %ld, on entities not set up %ld; missions %ld",
-		g_iEntitiesCreated, g_iEntitiesSetUp, g_iEntitiesSetUpMax, g_dSetUpSum / g_iSetUpSamples, g_iSetupCalls, g_iVisualCalls, g_iBareVisualCalls, g_iMissions);
+	_snprintf(buf, sizeof(buf), "entities created %ld, set up now %ld, max %ld, mean %.1f; setup calls %ld; visual calls %ld, on entities not set up %ld; missions %ld; "
+		"live symbols %ld, features %ld, routes %ld, flags %ld, plot builders %ld",
+		g_iEntitiesCreated, g_iEntitiesSetUp, g_iEntitiesSetUpMax, g_dSetUpSum / g_iSetUpSamples, g_iSetupCalls, g_iVisualCalls, g_iBareVisualCalls, g_iMissions,
+		g_aiGfxLive[GFX_SYMBOL], g_aiGfxLive[GFX_FEATURE], g_aiGfxLive[GFX_ROUTE], g_aiGfxLive[GFX_FLAG], g_aiGfxLive[GFX_BUILDER]);
 	buf[sizeof(buf) - 1] = 0;
 	return buf;
 }
@@ -708,16 +793,16 @@ public:
 	}
 	EntityIFace entity;
 	InterfaceIFace iface;
-	S_CvDLLEngineIFaceBase engine;
+	EngineIFace engine;
 	S_CvDLLIniParserIFaceBase ini;
-	S_CvDLLSymbolIFaceBase symbol;
-	S_CvDLLFeatureIFaceBase feature;
-	S_CvDLLRouteIFaceBase route;
-	S_CvDLLPlotBuilderIFaceBase plotBuilder;
+	SymbolIFace symbol;
+	FeatureIFace feature;
+	RouteIFace route;
+	PlotBuilderIFace plotBuilder;
 	S_CvDLLRiverIFaceBase river;
 	FAStarIFace fastar;
 	XmlIFace xml;
-	S_CvDLLFlagEntityIFaceBase flag;
+	FlagIFace flag;
 	PythonIFace python;
 	std::map<std::string, FILE*> logs;
 

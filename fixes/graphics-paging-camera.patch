@@ -1,0 +1,483 @@
+From cadd95b3fd86011d0b11622679880ebd76ab4e8d Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sun, 25 Oct 2026 12:26:37 +0000
+Subject: [PATCH] Graphics paging: the window is what the camera shows
+
+The window around the camera was fixed ranges, then a scale by
+CyCamera GetZoom whose meaning was never known. What the screen shows
+follows from the camera itself, so the window is now computed from it.
+
+CvGame::graphicsWindowFromCamera reads the camera through
+CvGameInterface.getCameraView: the eye and target in world units
+(CyCamera GetCurrentPosition, GetLookAt), the screen's resolution and
+globe view (CyEngine isGlobeviewUp). It casts the rays through the
+corners and edge midpoints of the view onto the ground plane:
+FIELD_OF_VIEW (the executable's own, read through
+CvGlobals::getFIELD_OF_VIEW) vertically, times the aspect ratio
+horizontally, which is the larger footprint of the two ways
+FIELD_OF_VIEW can be read. A ray at or above the horizon reaches past
+the map. The window is the footprint's extent west, east, north and
+south of the look-at plot in plots (PLOT_SIZE world units each), plus
+one, plus GRAPHICS_PAGING_MARGIN for paging out.
+
+At 2200 units and 45 degrees of pitch on a 16:9 screen that is 15 plots
+east and west, 12 north and 6 south; at 6000 units and 28 degrees it
+reaches 83 east and west and 100 north, beyond the fixed 40.
+
+- A side that grows applies at once; a smaller window applies after it
+  has stayed smaller for GRAPHICS_PAGING_SHRINK_MS (5000), so zooming in
+  and out does not rebuild.
+- When the camera cannot be read, or the centre ray does not come down
+  near the look-at plot, GRAPHICS_PAGING_RANGE_* is the window.
+- In globe view the window stays as it is.
+- The window is no longer symmetric east and west, so a turned camera
+  is covered.
+- GRAPHICS_PAGING_ZOOM and getCameraZoom are removed;
+  GRAPHICS_PAGING_CAMERA (1) switches the camera window.
+
+Serves: P13
+---
+ Assets/CvGameCoreDLL/CvGame.cpp              | 241 ++++++++++++++++---
+ Assets/CvGameCoreDLL/CvGame.h                |   6 +-
+ Assets/Python/EntryPoints/CvGameInterface.py |  34 ++-
+ Assets/XML/GlobalDefinesAlt.xml              |  23 +-
+ 4 files changed, 250 insertions(+), 54 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 5a8e386..4338466 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -524,12 +524,15 @@ void CvGame::reset(HandicapTypes eHandicap, bool bConstructorCall)
+ 	m_bGraphicsPagingBuilders = false;
+ 	m_iPagingX = INVALID_PLOT_COORD;
+ 	m_iPagingY = INVALID_PLOT_COORD;
+-	m_iPagingRangeX = 0;
++	m_iPagingWest = 0;
++	m_iPagingEast = 0;
+ 	m_iPagingNorth = 0;
+ 	m_iPagingSouth = 0;
+ 	m_iPagingMargin = 0;
+ 	m_iPagingStep = 0;
+ 	m_dwPagingTime = 0;
++	m_dwPagingCameraTime = 0;
++	m_dwPagingShrinkSince = 0;
+ 	m_ePagingActivePlayer = NO_PLAYER;
+ 	m_bPbemTurnSent = false;
+ 	m_bHotPbemBetweenTurns = false;
+@@ -2281,7 +2284,7 @@ bool CvGame::isInGraphicsWindow(int iX, int iY, bool bMargin) const
+ 	int iDX = dxWrap(iX - m_iPagingX);
+ 	int iDY = dyWrap(iY - m_iPagingY);
+ 
+-	return (abs(iDX) <= m_iPagingRangeX + iMargin) && (iDY <= m_iPagingNorth + iMargin) && (-iDY <= m_iPagingSouth + iMargin);
++	return (-iDX <= m_iPagingWest + iMargin) && (iDX <= m_iPagingEast + iMargin) && (iDY <= m_iPagingNorth + iMargin) && (-iDY <= m_iPagingSouth + iMargin);
+ }
+ 
+ void CvGame::updateGraphicsPaging()
+@@ -2307,42 +2310,83 @@ void CvGame::updateGraphicsPaging()
+ 	}
+ 
+ 	DWORD dwNow = GetTickCount();
+-	bool bFirst = !m_bGraphicsPaging;
+-	bool bMoved = bFirst || (abs(dxWrap(pLookAt->getX_INLINE() - m_iPagingX)) >= m_iPagingStep) || (abs(dyWrap(pLookAt->getY_INLINE() - m_iPagingY)) >= m_iPagingStep);
+-	bool bActivePlayerChanged = (getActivePlayer() != m_ePagingActivePlayer);
+-
+-	if (!bMoved && !bActivePlayerChanged && (dwNow - m_dwPagingTime) < (DWORD)std::max(100, GC.getDefineINT("GRAPHICS_PAGING_INTERVAL_MS")))
++	if (m_bGraphicsPaging && (dwNow - m_dwPagingCameraTime) < 100)
+ 	{
+ 		return;
+ 	}
++	m_dwPagingCameraTime = dwNow;
+ 
+-	// The window: GRAPHICS_PAGING_RANGE_* plots from the look-at plot at the widest zoom, scaled down
+-	// with the camera's zoom (CyCamera().GetZoom(), 0 to 1, larger is farther) when GRAPHICS_PAGING_ZOOM is set.
+-	int iScalePercent = 100;
+-	int iZoom = -1;
+-	static bool s_bZoomFailed = false;	// a game without CvGameInterface.getCameraZoom: ask once
+-	if (GC.getDefineINT("GRAPHICS_PAGING_ZOOM") > 0 && !s_bZoomFailed)
++	// The window: plots west, east, north and south of the look-at plot. With GRAPHICS_PAGING_CAMERA, the plots
++	// the screen shows (graphicsWindowFromCamera); without it, or when the camera cannot be read,
++	// GRAPHICS_PAGING_RANGE_X, _NORTH and _SOUTH. In globe view nothing changes.
++	int aiRange[4];
++	bool bFromCamera = false;
++	if (GC.getDefineINT("GRAPHICS_PAGING_CAMERA") > 0)
+ 	{
+-		long lResult = -1;
+-		CyArgsList argsList;
+-		if (gDLL->getPythonIFace()->callFunction(PYGameModule, "getCameraZoom", argsList.makeFunctionArgs(), &lResult))
++		int iCamera = graphicsWindowFromCamera(pLookAt, aiRange);
++		if (iCamera < 0)
+ 		{
+-			iZoom = (int)lResult;
++			return;
+ 		}
+-		else
++		bFromCamera = (iCamera > 0);
++	}
++	if (!bFromCamera)
++	{
++		aiRange[0] = aiRange[1] = std::max(1, GC.getDefineINT("GRAPHICS_PAGING_RANGE_X"));
++		aiRange[2] = std::max(1, GC.getDefineINT("GRAPHICS_PAGING_RANGE_NORTH"));
++		aiRange[3] = std::max(1, GC.getDefineINT("GRAPHICS_PAGING_RANGE_SOUTH"));
++	}
++
++	bool bFirst = !m_bGraphicsPaging;
++	bool bMoved = bFirst || (abs(dxWrap(pLookAt->getX_INLINE() - m_iPagingX)) >= m_iPagingStep) || (abs(dyWrap(pLookAt->getY_INLINE() - m_iPagingY)) >= m_iPagingStep);
++	bool bActivePlayerChanged = (getActivePlayer() != m_ePagingActivePlayer);
++
++	// A side of the window that grows does so at once: the screen shows more. The window shrinks only once
++	// it has stayed smaller for GRAPHICS_PAGING_SHRINK_MS, so zooming in and out again does not rebuild.
++	int* apiSide[4] = {&m_iPagingWest, &m_iPagingEast, &m_iPagingNorth, &m_iPagingSouth};
++	bool bGrows = false;
++	bool bShrinks = false;
++	for (int iI = 0; iI < 4; iI++)
++	{
++		if (bFirst || aiRange[iI] > *apiSide[iI])
++		{
++			bGrows = true;
++		}
++		else if (aiRange[iI] < *apiSide[iI])
++		{
++			bShrinks = true;
++		}
++	}
++	bool bShrinkNow = false;
++	if (bShrinks && !bGrows)
++	{
++		if (m_dwPagingShrinkSince == 0)
+ 		{
+-			s_bZoomFailed = true;
++			m_dwPagingShrinkSince = dwNow;
+ 		}
+-		if (iZoom >= 0 && iZoom <= 1000)
++		else if ((dwNow - m_dwPagingShrinkSince) >= (DWORD)std::max(0, GC.getDefineINT("GRAPHICS_PAGING_SHRINK_MS")))
+ 		{
+-			iScalePercent = (iZoom * GC.getDefineINT("GRAPHICS_PAGING_ZOOM_SAFETY_PERCENT")) / 1000;
+-			iScalePercent = range(iScalePercent, GC.getDefineINT("GRAPHICS_PAGING_ZOOM_MIN_PERCENT"), 100);
++			bShrinkNow = true;
+ 		}
+ 	}
++	else
++	{
++		m_dwPagingShrinkSince = 0;
++	}
+ 
+-	int iRangeX = std::max(1, (GC.getDefineINT("GRAPHICS_PAGING_RANGE_X") * iScalePercent + 99) / 100);
+-	int iNorth = std::max(1, (GC.getDefineINT("GRAPHICS_PAGING_RANGE_NORTH") * iScalePercent + 99) / 100);
+-	int iSouth = std::max(1, (GC.getDefineINT("GRAPHICS_PAGING_RANGE_SOUTH") * iScalePercent + 99) / 100);
++	if (!bMoved && !bActivePlayerChanged && !bGrows && !bShrinkNow && (dwNow - m_dwPagingTime) < (DWORD)std::max(100, GC.getDefineINT("GRAPHICS_PAGING_INTERVAL_MS")))
++	{
++		return;
++	}
++
++	for (int iI = 0; iI < 4; iI++)
++	{
++		*apiSide[iI] = (bFirst || bShrinkNow) ? aiRange[iI] : std::max(*apiSide[iI], aiRange[iI]);
++	}
++	if (bShrinkNow)
++	{
++		m_dwPagingShrinkSince = 0;
++	}
+ 
+ 	m_bGraphicsPaging = true;
+ 	m_bGraphicsPagingSymbols = (GC.getDefineINT("GRAPHICS_PAGING_SYMBOLS") > 0);
+@@ -2350,30 +2394,155 @@ void CvGame::updateGraphicsPaging()
+ 	m_bGraphicsPagingCities = (GC.getDefineINT("GRAPHICS_PAGING_CITIES") > 0);
+ 	m_bGraphicsPagingPlots = (GC.getDefineINT("GRAPHICS_PAGING_PLOTS") > 0);
+ 	m_bGraphicsPagingBuilders = (GC.getDefineINT("GRAPHICS_PAGING_PLOT_BUILDERS") > 0);
+-	if (bMoved)
+-	{
+-		m_iPagingX = pLookAt->getX_INLINE();
+-		m_iPagingY = pLookAt->getY_INLINE();
+-	}
+-	m_iPagingRangeX = iRangeX;
+-	m_iPagingNorth = iNorth;
+-	m_iPagingSouth = iSouth;
++	m_iPagingX = pLookAt->getX_INLINE();
++	m_iPagingY = pLookAt->getY_INLINE();
+ 	m_iPagingMargin = std::max(0, GC.getDefineINT("GRAPHICS_PAGING_MARGIN"));
+ 	m_iPagingStep = std::max(1, GC.getDefineINT("GRAPHICS_PAGING_STEP"));
+ 	m_ePagingActivePlayer = getActivePlayer();
+ 	m_dwPagingTime = dwNow;
+ 
+-	if (GC.getDefineINT("GRAPHICS_PAGING_LOG") > 0 && (bMoved || bActivePlayerChanged))
++	if (GC.getDefineINT("GRAPHICS_PAGING_LOG") > 0 && (bMoved || bActivePlayerChanged || bGrows || bShrinkNow))
+ 	{
+ 		CvString szLine;
+-		szLine.Format("turn %d look (%d,%d) zoom %d scale %d%%: window x %d north %d south %d margin %d",
+-			getGameTurn(), m_iPagingX, m_iPagingY, iZoom, iScalePercent, m_iPagingRangeX, m_iPagingNorth, m_iPagingSouth, m_iPagingMargin);
++		szLine.Format("turn %d look (%d,%d) %s: window west %d east %d north %d south %d margin %d",
++			getGameTurn(), m_iPagingX, m_iPagingY, bFromCamera ? "camera" : "defines",
++			m_iPagingWest, m_iPagingEast, m_iPagingNorth, m_iPagingSouth, m_iPagingMargin);
+ 		gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
+ 	}
+ 
+ 	pageGraphics(false);
+ }
+ 
++// The plots the screen shows, from the camera: its eye and target (CvGameInterface.getCameraView, which reads
++// CyCamera GetCurrentPosition and GetLookAt; the target is the look-at plot's centre when GetLookAt cannot be
++// read) and the screen's size. Rays through the corners and edge midpoints of the view, FIELD_OF_VIEW wide
++// vertically and the screen's aspect ratio times that horizontally (the larger footprint of the two readings
++// of FIELD_OF_VIEW), are cast onto the ground plane; a ray at or above the horizon reaches past the map. The
++// window is the footprint's extent around the look-at plot in plots, plus one for the plot's size and the
++// terrain's height. Returns 1 with aiRange (west, east, north, south), 0 when the camera cannot be read or the
++// centre ray does not come down near the look-at plot, and -1 in globe view.
++int CvGame::graphicsWindowFromCamera(const CvPlot* pLookAt, int* aiRange)
++{
++	int aiView[10];
++	long lResult = 0;
++	{
++		CyArgsList argsList;
++		argsList.add(0);
++		if (!gDLL->getPythonIFace()->callFunction(PYGameModule, "getCameraView", argsList.makeFunctionArgs(), &lResult) || lResult < 10)
++		{
++			return 0;
++		}
++	}
++	for (int iI = 0; iI < 10; iI++)
++	{
++		CyArgsList argsList;
++		argsList.add(iI + 1);
++		lResult = 0;
++		gDLL->getPythonIFace()->callFunction(PYGameModule, "getCameraView", argsList.makeFunctionArgs(), &lResult);
++		aiView[iI] = (int)lResult;
++	}
++
++	if (aiView[9] != 0)
++	{
++		return -1;
++	}
++
++	CvMap& kMap = GC.getMapINLINE();
++	const float fPlotSize = GC.getPLOT_SIZE();
++	const float fLookAtX = kMap.plotXToPointX(pLookAt->getX_INLINE());
++	const float fLookAtY = kMap.plotYToPointY(pLookAt->getY_INLINE());
++	const float afEye[3] = {(float)aiView[0], (float)aiView[1], (float)aiView[2]};
++	float afTarget[3] = {fLookAtX, fLookAtY, 0.0f};
++	if (aiView[6] != 0)
++	{
++		afTarget[0] = (float)aiView[3];
++		afTarget[1] = (float)aiView[4];
++		afTarget[2] = (float)aiView[5];
++	}
++
++	float afF[3] = {afTarget[0] - afEye[0], afTarget[1] - afEye[1], afTarget[2] - afEye[2]};
++	const float fDistance = sqrt(afF[0] * afF[0] + afF[1] * afF[1] + afF[2] * afF[2]);
++	if (afEye[2] <= 0.0f || afF[2] >= 0.0f || fDistance < GC.getCAMERA_MIN_DISTANCE() / 2.0f)
++	{
++		return 0;
++	}
++	for (int iI = 0; iI < 3; iI++)
++	{
++		afF[iI] /= fDistance;
++	}
++
++	// right = forward x up (z), up = right x forward
++	float afR[3] = {afF[1], -afF[0], 0.0f};
++	const float fRight = sqrt(afR[0] * afR[0] + afR[1] * afR[1]);
++	if (fRight < 0.001f)
++	{
++		afR[0] = 1.0f;
++		afR[1] = 0.0f;
++	}
++	else
++	{
++		afR[0] /= fRight;
++		afR[1] /= fRight;
++	}
++	const float afU[3] = {afR[1] * afF[2] - afR[2] * afF[1], afR[2] * afF[0] - afR[0] * afF[2], afR[0] * afF[1] - afR[1] * afF[0]};
++
++	const float fTanV = tan(DEGTORAD(GC.getFIELD_OF_VIEW()) / 2.0f);
++	const float fAspect = (aiView[7] > 0 && aiView[8] > 0) ? ((float)aiView[7]) / ((float)aiView[8]) : (16.0f / 9.0f);
++	const float fTanH = fTanV * std::max(1.0f, fAspect);
++	const float fReach = (float)(kMap.getGridWidthINLINE() + kMap.getGridHeightINLINE()) * fPlotSize;
++
++	float fMinX = 0.0f;
++	float fMaxX = 0.0f;
++	float fMinY = 0.0f;
++	float fMaxY = 0.0f;
++	for (int iA = -1; iA <= 1; iA++)
++	{
++		for (int iB = -1; iB <= 1; iB++)
++		{
++			float afD[3];
++			for (int iI = 0; iI < 3; iI++)
++			{
++				afD[iI] = afF[iI] + iA * fTanH * afR[iI] + iB * fTanV * afU[iI];
++			}
++			float fHitX;
++			float fHitY;
++			const float fFlat = sqrt(afD[0] * afD[0] + afD[1] * afD[1]);
++			const float fT = (afD[2] < -0.001f) ? (-afEye[2] / afD[2]) : -1.0f;
++			if (fT > 0.0f && fT * fFlat <= fReach)
++			{
++				fHitX = afEye[0] + fT * afD[0];
++				fHitY = afEye[1] + fT * afD[1];
++			}
++			else if (fFlat > 0.001f)
++			{
++				fHitX = afEye[0] + afD[0] / fFlat * fReach;
++				fHitY = afEye[1] + afD[1] / fFlat * fReach;
++			}
++			else
++			{
++				fHitX = afEye[0];
++				fHitY = afEye[1];
++			}
++			fHitX -= fLookAtX;
++			fHitY -= fLookAtY;
++			if (iA == 0 && iB == 0 && (fabs(fHitX) > 3.0f * fPlotSize || fabs(fHitY) > 3.0f * fPlotSize))
++			{
++				return 0;
++			}
++			fMinX = std::min(fMinX, fHitX);
++			fMaxX = std::max(fMaxX, fHitX);
++			fMinY = std::min(fMinY, fHitY);
++			fMaxY = std::max(fMaxY, fHitY);
++		}
++	}
++
++	aiRange[0] = range(1 + (int)ceil(-fMinX / fPlotSize), 1, kMap.getGridWidthINLINE());
++	aiRange[1] = range(1 + (int)ceil(fMaxX / fPlotSize), 1, kMap.getGridWidthINLINE());
++	aiRange[2] = range(1 + (int)ceil(fMaxY / fPlotSize), 1, kMap.getGridHeightINLINE());
++	aiRange[3] = range(1 + (int)ceil(-fMinY / fPlotSize), 1, kMap.getGridHeightINLINE());
++	return 1;
++}
++
+ // bAllIn: set everything up again and stop paging. Otherwise page in what is inside the window
+ // and page out what is outside the window and its margin; what is in the margin stays as it is.
+ void CvGame::pageGraphics(bool bAllIn)
+diff --git a/Assets/CvGameCoreDLL/CvGame.h b/Assets/CvGameCoreDLL/CvGame.h
+index 1e177e2..0916805 100644
+--- a/Assets/CvGameCoreDLL/CvGame.h
++++ b/Assets/CvGameCoreDLL/CvGame.h
+@@ -63,6 +63,7 @@ public:
+ 	bool isGraphicsPagingBuilders() const;
+ 	bool isInGraphicsWindow(int iX, int iY, bool bMargin) const;
+ 	void updateGraphicsPaging();
++	int graphicsWindowFromCamera(const CvPlot* pLookAt, int* aiRange);
+ 	void pageGraphics(bool bAllIn);
+ 	DllExport void updateScore(bool bForce = false);
+ 
+@@ -664,12 +665,15 @@ protected:
+ 	bool m_bGraphicsPagingBuilders;
+ 	int m_iPagingX;
+ 	int m_iPagingY;
+-	int m_iPagingRangeX;
++	int m_iPagingWest;
++	int m_iPagingEast;
+ 	int m_iPagingNorth;
+ 	int m_iPagingSouth;
+ 	int m_iPagingMargin;
+ 	int m_iPagingStep;
+ 	DWORD m_dwPagingTime;
++	DWORD m_dwPagingCameraTime;
++	DWORD m_dwPagingShrinkSince;
+ 	PlayerTypes m_ePagingActivePlayer;
+ 	bool m_bPbemTurnSent;
+ 	bool m_bHotPbemBetweenTurns;
+diff --git a/Assets/Python/EntryPoints/CvGameInterface.py b/Assets/Python/EntryPoints/CvGameInterface.py
+index 92b7cc8..50ab63a 100644
+--- a/Assets/Python/EntryPoints/CvGameInterface.py
++++ b/Assets/Python/EntryPoints/CvGameInterface.py
+@@ -10,6 +10,7 @@
+ import CvUtil
+ import CvGameUtils
+ import CvEventInterface
++import CvScreenEnums
+ from CvPythonExtensions import *
+ 
+ # globals
+@@ -217,7 +218,34 @@ def doMeltdown(argsList):
+ 	#CvUtil.pyPrint( "CvGameInterface.doMeltdown" )
+ 	return gameUtils().doMeltdown(argsList)
+ 
+-# Rise of Mankind: the camera zoom for graphics paging (CvGame::updateGraphicsPaging), in thousandths.
+-def getCameraZoom(argsList=None):
+-	return int(CyCamera().GetZoom() * 1000)
++# Graphics paging (CvGame::graphicsWindowFromCamera). Index 0 reads the camera and returns how many values
++# follow; index i returns value i: the camera's eye x, y, z and target x, y, z in world units, 1 if the target
++# was read, the screen's width and height in pixels, and 1 in globe view.
++g_cameraView = []
++def getCameraView(argsList):
++	global g_cameraView
++	iIndex = argsList[0]
++	if iIndex == 0:
++		try:
++			camera = CyCamera()
++			eye = camera.GetCurrentPosition()
++			target = [0, 0, 0, 0]
++			try:
++				point = camera.GetLookAt()
++				target = [int(point.x), int(point.y), int(point.z), 1]
++			except:
++				pass
++			screen = CyGInterfaceScreen("MainInterface", CvScreenEnums.MAIN_INTERFACE)
++			bGlobe = 0
++			try:
++				bGlobe = int(CyEngine().isGlobeviewUp())
++			except:
++				pass
++			g_cameraView = [int(eye.x), int(eye.y), int(eye.z)] + target + [screen.getXResolution(), screen.getYResolution(), bGlobe]
++		except:
++			g_cameraView = []
++		return len(g_cameraView)
++	if 0 < iIndex <= len(g_cameraView):
++		return g_cameraView[iIndex - 1]
++	return 0
+ 
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index 6ba1f83..7450db7 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -893,17 +893,17 @@
+ 		<DefineName>GRAPHICS_PAGING</DefineName>
+ 		<iDefineIntVal>1</iDefineIntVal>
+ 	</Define>
+-	<!-- plots east and west of the look-at plot, at the widest zoom -->
++	<!-- plots east and west of the look-at plot when the camera cannot be read (or GRAPHICS_PAGING_CAMERA is 0) -->
+ 	<Define>
+ 		<DefineName>GRAPHICS_PAGING_RANGE_X</DefineName>
+ 		<iDefineIntVal>40</iDefineIntVal>
+ 	</Define>
+-	<!-- plots north (the far side of the screen), at the widest zoom -->
++	<!-- plots north (the far side of the screen), as GRAPHICS_PAGING_RANGE_X -->
+ 	<Define>
+ 		<DefineName>GRAPHICS_PAGING_RANGE_NORTH</DefineName>
+ 		<iDefineIntVal>40</iDefineIntVal>
+ 	</Define>
+-	<!-- plots south, at the widest zoom -->
++	<!-- plots south, as GRAPHICS_PAGING_RANGE_X -->
+ 	<Define>
+ 		<DefineName>GRAPHICS_PAGING_RANGE_SOUTH</DefineName>
+ 		<iDefineIntVal>16</iDefineIntVal>
+@@ -923,20 +923,15 @@
+ 		<DefineName>GRAPHICS_PAGING_INTERVAL_MS</DefineName>
+ 		<iDefineIntVal>500</iDefineIntVal>
+ 	</Define>
+-	<!-- 1 scales the window with the camera zoom (CyCamera GetZoom); 0 keeps it at the widest-zoom size, which holds the screen at any zoom. 0 by default: how GetZoom maps to what the screen shows is not known -->
++	<!-- 1: the window is what the screen shows, from the camera's position and target (CyCamera), FIELD_OF_VIEW and the screen's size, cast onto the map; 0: the GRAPHICS_PAGING_RANGE_* window -->
+ 	<Define>
+-		<DefineName>GRAPHICS_PAGING_ZOOM</DefineName>
+-		<iDefineIntVal>0</iDefineIntVal>
+-	</Define>
+-	<!-- the window at zoom z is z times this percent of the widest, at most 100 -->
+-	<Define>
+-		<DefineName>GRAPHICS_PAGING_ZOOM_SAFETY_PERCENT</DefineName>
+-		<iDefineIntVal>150</iDefineIntVal>
++		<DefineName>GRAPHICS_PAGING_CAMERA</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
+ 	</Define>
+-	<!-- the window is never smaller than this percent of the widest -->
++	<!-- milliseconds the screen must show less before the window shrinks (it grows at once) -->
+ 	<Define>
+-		<DefineName>GRAPHICS_PAGING_ZOOM_MIN_PERCENT</DefineName>
+-		<iDefineIntVal>35</iDefineIntVal>
++		<DefineName>GRAPHICS_PAGING_SHRINK_MS</DefineName>
++		<iDefineIntVal>5000</iDefineIntVal>
+ 	</Define>
+ 	<!-- 1: units of other players far from the camera keep a bare entity; 0: they keep theirs -->
+ 	<Define>
+-- 
+2.43.0
+

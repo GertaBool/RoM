@@ -1,0 +1,285 @@
+From 006b78404a6dbdb5b34d8a49ea7ae42709395429 Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sun, 25 Oct 2026 10:56:43 +0000
+Subject: [PATCH] Graphics paging: a plot keeps its graphics while anything on
+ it keeps its own
+
+The game crashed at the first unit moved with paging on. Plots and the
+units on them were paged separately, so a plot under a unit or city that
+keeps its graphics (the active player's always do) lost its flag, yield
+symbols and route symbol, and route symbols went missing next to plots
+that kept theirs. The unchanged game never shows a unit without its flag
+or a revealed route without its symbol, and the executable calls
+CvPlot::updateFlagSymbol, getFlagSymbol, getRouteSymbol and isRoute itself.
+
+- CvPlot::canPageGraphicsOut: a plot pages out only when no unit or city
+  on it keeps its graphics and the move being shown does not go there.
+- CvGame::pageGraphics pages a plot out after its units and city.
+- A unit or city that gets its graphics (setupGraphical, pageGraphics,
+  and CvUnit::setXY for the plot moved to) brings its plot back first.
+- CvPlot::updateFlagSymbol brings a paged-out plot back when a unit there
+  keeps its graphics or the move goes there.
+- Route symbols are never paged; GRAPHICS_PAGING_PLOTS pages feature
+  symbols only.
+- GRAPHICS_PAGING_ZOOM defaults to 0: how CyCamera GetZoom maps to what
+  the screen shows is not known, and the widest-zoom window holds the
+  screen at any zoom.
+
+Serves: P12
+---
+ Assets/CvGameCoreDLL/CvCity.cpp |  8 ++++++
+ Assets/CvGameCoreDLL/CvGame.cpp | 10 +++++--
+ Assets/CvGameCoreDLL/CvPlot.cpp | 51 ++++++++++++++++++++++++++-------
+ Assets/CvGameCoreDLL/CvPlot.h   |  3 +-
+ Assets/CvGameCoreDLL/CvUnit.cpp | 15 ++++++++++
+ Assets/XML/GlobalDefinesAlt.xml |  6 ++--
+ 6 files changed, 76 insertions(+), 17 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
+index 46cd124..533e42d 100644
+--- a/Assets/CvGameCoreDLL/CvCity.cpp
++++ b/Assets/CvGameCoreDLL/CvCity.cpp
+@@ -749,6 +749,10 @@ void CvCity::setupGraphical()
+ 	}
+ 
+ 	m_bGraphicsPagedOut = false;
++	if (plot() != NULL)
++	{
++		plot()->pageGraphics(true);
++	}
+ 	CvDLLEntity::setup();
+ 
+ 	setInfoDirty(true);
+@@ -778,6 +782,10 @@ bool CvCity::pageGraphics(bool bIn)
+ 		}
+ 
+ 		m_bGraphicsPagedOut = false;
++		if (plot() != NULL)
++		{
++			plot()->pageGraphics(true);
++		}
+ 		CvDLLEntity::setup();
+ 		setInfoDirty(true);
+ 		setLayoutDirty(true);
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 556318b..5a8e386 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -2410,9 +2410,10 @@ void CvGame::pageGraphics(bool bAllIn)
+ 		{
+ 			bool bIn = (iWant > 0);
+ 			bool bPlotPart = (m_bGraphicsPagingPlots || m_bGraphicsPagingBuilders || m_bGraphicsPagingSymbols);
+-			if ((bIn || bPlotPart) && pPlot->pageGraphics(bIn))
++			// In: the plot first, then what stands on it. Out: the plot last, once nothing on it keeps its graphics.
++			if (bIn && pPlot->pageGraphics(true))
+ 			{
+-				(bIn ? aiIn : aiOut)[0]++;
++				aiIn[0]++;
+ 			}
+ 
+ 			CLLNode<IDInfo>* pUnitNode = pPlot->headUnitNode();
+@@ -2432,6 +2433,11 @@ void CvGame::pageGraphics(bool bAllIn)
+ 			{
+ 				(bIn ? aiIn : aiOut)[2]++;
+ 			}
++
++			if (!bIn && bPlotPart && pPlot->pageGraphics(false))
++			{
++				aiOut[0]++;
++			}
+ 		}
+ 
+ 		if (pPlot->isGraphicsPagedOut())
+diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
+index 4f0225f..efa5a37 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp
+@@ -289,10 +289,13 @@ void CvPlot::setupGraphical()
+ 	updateVisibility();
+ }
+ 
+-// Out: with GRAPHICS_PAGING_PLOTS the feature and route symbols are destroyed, with GRAPHICS_PAGING_PLOT_BUILDERS
++// Out: with GRAPHICS_PAGING_PLOTS the feature symbol is destroyed, with GRAPHICS_PAGING_PLOT_BUILDERS
+ // the plot builder (bonuses, improvements), as uninit does, and with GRAPHICS_PAGING_SYMBOLS the yield symbols
+-// and unit flags. In: they are made again. Rivers and the terrain stay. Vanilla destroys a plot builder only in
++// and unit flags. In: they are made again. Rivers, routes and the terrain stay: the executable joins a route
++// to its neighbours' route symbols (getRouteSymbol, isRoute). Vanilla destroys a plot builder only in
+ // uninit, so GRAPHICS_PAGING_PLOT_BUILDERS is 0 unless the executable is shown to take it.
++// A plot pages out only when nothing on it keeps its graphics (canPageGraphicsOut): the executable draws
++// the flag of every unit it shows, and a unit or city that gets its graphics back brings its plot's too.
+ bool CvPlot::pageGraphics(bool bIn)
+ {
+ 	if (!GC.IsGraphicsInitialized())
+@@ -311,7 +314,6 @@ bool CvPlot::pageGraphics(bool bIn)
+ 		if (m_bPagedPlots)
+ 		{
+ 			updateFeatureSymbol(true);
+-			updateRouteSymbol(true, false);
+ 		}
+ 		if (m_bPagedBuilder)
+ 		{
+@@ -326,7 +328,7 @@ bool CvPlot::pageGraphics(bool bIn)
+ 		return true;
+ 	}
+ 
+-	if (m_bGraphicsPagedOut)
++	if (m_bGraphicsPagedOut || !canPageGraphicsOut())
+ 	{
+ 		return false;
+ 	}
+@@ -343,7 +345,6 @@ bool CvPlot::pageGraphics(bool bIn)
+ 	if (m_bPagedPlots)
+ 	{
+ 		gDLL->getFeatureIFace()->destroy(m_pFeatureSymbol);
+-		gDLL->getRouteIFace()->destroy(m_pRouteSymbol);
+ 	}
+ 	if (m_bPagedBuilder)
+ 	{
+@@ -364,6 +365,28 @@ bool CvPlot::pageGraphics(bool bIn)
+ 	return true;
+ }
+ 
++bool CvPlot::canPageGraphicsOut() const
++{
++	CvCity* pCity = getPlotCity();
++	if (pCity != NULL && !pCity->isGraphicsPagedOut())
++	{
++		return false;
++	}
++
++	CLLNode<IDInfo>* pUnitNode = headUnitNode();
++	while (pUnitNode != NULL)
++	{
++		CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
++		pUnitNode = nextUnitNode(pUnitNode);
++		if (pLoopUnit != NULL && !pLoopUnit->isGraphicsPagedOut())
++		{
++			return false;
++		}
++	}
++
++	return (gDLL->getInterfaceIFace()->getSingleMoveGotoPlot() != this);
++}
++
+ void CvPlot::updateGraphicEra()
+ {
+ 	if(m_pRouteSymbol != NULL)
+@@ -8080,11 +8103,6 @@ void CvPlot::updateRouteSymbol(bool bForce, bool bAdjacent)
+ 		}
+ 	}
+ 
+-	if (m_bGraphicsPagedOut && m_bPagedPlots)
+-	{
+-		return;
+-	}
+-
+ 	eRoute = getRevealedRouteType(GC.getGameINLINE().getActiveTeam(), true);
+ 
+ 	if (eRoute == NO_ROUTE)
+@@ -8224,11 +8242,22 @@ void CvPlot::updateFlagSymbol()
+ {
+ 	//PROFILE_FUNC();
+ 
+-	if (!GC.IsGraphicsInitialized() || (m_bGraphicsPagedOut && m_bPagedSymbols))
++	if (!GC.IsGraphicsInitialized())
+ 	{
+ 		return;
+ 	}
+ 
++	// Graphics paging: the executable calls this itself. A unit here that keeps its graphics, or a move
++	// that goes here, needs the flag now, so the plot comes back first; otherwise it stays paged out.
++	if (m_bGraphicsPagedOut && m_bPagedSymbols)
++	{
++		if (canPageGraphicsOut())
++		{
++			return;
++		}
++		pageGraphics(true);
++	}
++
+ 	PlayerTypes ePlayer = NO_PLAYER;
+ 	PlayerTypes ePlayerOffset = NO_PLAYER;
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlot.h b/Assets/CvGameCoreDLL/CvPlot.h
+index f7eb120..232bbc0 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.h
++++ b/Assets/CvGameCoreDLL/CvPlot.h
+@@ -58,7 +58,8 @@ public:
+ 	void uninit();
+ 	void reset(int iX = 0, int iY = 0, bool bConstructorCall=false);
+ 	void setupGraphical();
+-	bool pageGraphics(bool bIn);	// graphics paging around the camera: feature, route and plot builder symbols; true if changed
++	bool pageGraphics(bool bIn);	// graphics paging around the camera: feature, yield and flag symbols, plot builder; true if changed
++	bool canPageGraphicsOut() const;	// false while a unit or city here keeps its graphics, or a move goes here
+ 	bool isGraphicsPagedOut() const { return m_bGraphicsPagedOut; }
+ 	void updateGraphicEra();
+ 
+diff --git a/Assets/CvGameCoreDLL/CvUnit.cpp b/Assets/CvGameCoreDLL/CvUnit.cpp
+index 65b4692..94b941c 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.cpp
++++ b/Assets/CvGameCoreDLL/CvUnit.cpp
+@@ -446,6 +446,10 @@ void CvUnit::setupGraphical()
+ 	}
+ 
+ 	m_bGraphicsPagedOut = false;
++	if (plot() != NULL)
++	{
++		plot()->pageGraphics(true);
++	}
+ 	CvDLLEntity::setup();
+ 
+ 	if (getGroup()->getActivityType() == ACTIVITY_INTERCEPT)
+@@ -481,6 +485,7 @@ bool CvUnit::pageGraphics(bool bIn)
+ 		}
+ 
+ 		m_bGraphicsPagedOut = false;
++		plot()->pageGraphics(true);
+ 		CvDLLEntity::setup();
+ 		if (getGroup()->getActivityType() == ACTIVITY_INTERCEPT)
+ 		{
+@@ -10582,6 +10587,16 @@ void CvUnit::setXY(int iX, int iY, bool bGroup, bool bUpdate, bool bShow, bool b
+ 		}
+ 	}
+ 
++	// A unit with its graphics never stands on a plot without its own: the plot it moves to comes back first.
++	if (!isGraphicsPagedOut() && iX != INVALID_PLOT_COORD)
++	{
++		CvPlot* pToPlot = GC.getMapINLINE().plotINLINE(iX, iY);
++		if (pToPlot != NULL)
++		{
++			pToPlot->pageGraphics(true);
++		}
++	}
++
+ 	// OOS!! Temporary for Out-of-Sync madness debugging...
+ 	if (GC.getLogging())
+ 	{
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index fd46b3c..6ba1f83 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -923,10 +923,10 @@
+ 		<DefineName>GRAPHICS_PAGING_INTERVAL_MS</DefineName>
+ 		<iDefineIntVal>500</iDefineIntVal>
+ 	</Define>
+-	<!-- 1 scales the window with the camera zoom (0 to 1); 0 keeps it at the widest-zoom size -->
++	<!-- 1 scales the window with the camera zoom (CyCamera GetZoom); 0 keeps it at the widest-zoom size, which holds the screen at any zoom. 0 by default: how GetZoom maps to what the screen shows is not known -->
+ 	<Define>
+ 		<DefineName>GRAPHICS_PAGING_ZOOM</DefineName>
+-		<iDefineIntVal>1</iDefineIntVal>
++		<iDefineIntVal>0</iDefineIntVal>
+ 	</Define>
+ 	<!-- the window at zoom z is z times this percent of the widest, at most 100 -->
+ 	<Define>
+@@ -948,7 +948,7 @@
+ 		<DefineName>GRAPHICS_PAGING_CITIES</DefineName>
+ 		<iDefineIntVal>1</iDefineIntVal>
+ 	</Define>
+-	<!-- 1: plots far from the camera drop their feature and route symbols; 0: they keep them -->
++	<!-- 1: plots far from the camera drop their feature symbols (routes always stay); 0: they keep them -->
+ 	<Define>
+ 		<DefineName>GRAPHICS_PAGING_PLOTS</DefineName>
+ 		<iDefineIntVal>1</iDefineIntVal>
+-- 
+2.43.0
+

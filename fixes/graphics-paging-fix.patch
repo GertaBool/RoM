@@ -1,0 +1,368 @@
+From 9b3afb3b56fc370bbcecba80da68a05125a57ead Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sun, 25 Oct 2026 09:20:03 +0000
+Subject: [PATCH] Graphics paging: keep plot builders, a switch per part,
+ getCameraZoom argument
+
+The game froze when the first city was founded with paging on. Of what
+paging destroys, only the plot builder (bonus and improvement art) is never
+destroyed by vanilla during a game: CvPlot::uninit alone destroys it, while
+feature, route, yield and flag symbols and unit and city entities are
+destroyed and remade in normal play. Plot builders now stay
+(GRAPHICS_PAGING_PLOT_BUILDERS 0).
+
+Paging is split into switches, all 1 except plot builders:
+GRAPHICS_PAGING_UNITS, GRAPHICS_PAGING_CITIES, GRAPHICS_PAGING_PLOTS
+(feature and route symbols), GRAPHICS_PAGING_PLOT_BUILDERS and the existing
+GRAPHICS_PAGING_SYMBOLS. A plot remembers what its page-out removed; its
+guards and its page-in cover only that.
+
+CvGameInterface.getCameraZoom takes the argument list the game passes
+(it failed with "takes no arguments (1 given)").
+
+Serves: P11
+---
+ Assets/CvGameCoreDLL/CvCity.cpp              |  2 +-
+ Assets/CvGameCoreDLL/CvGame.cpp              | 25 ++++++-
+ Assets/CvGameCoreDLL/CvGame.h                |  6 ++
+ Assets/CvGameCoreDLL/CvPlot.cpp              | 71 ++++++++++++++------
+ Assets/CvGameCoreDLL/CvPlot.h                |  3 +
+ Assets/CvGameCoreDLL/CvUnit.cpp              |  2 +-
+ Assets/Python/EntryPoints/CvGameInterface.py |  2 +-
+ Assets/XML/GlobalDefinesAlt.xml              | 20 ++++++
+ 8 files changed, 106 insertions(+), 25 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
+index 749fdcb..46cd124 100644
+--- a/Assets/CvGameCoreDLL/CvCity.cpp
++++ b/Assets/CvGameCoreDLL/CvCity.cpp
+@@ -742,7 +742,7 @@ void CvCity::setupGraphical()
+ 	}
+ 
+ 	// Graphics paging: far from the camera the city keeps a bare entity until the camera comes near.
+-	if (GC.getGameINLINE().isGraphicsPaging() && canPageGraphicsOut() && !GC.getGameINLINE().isInGraphicsWindow(getX_INLINE(), getY_INLINE(), true))
++	if (GC.getGameINLINE().isGraphicsPaging() && GC.getDefineINT("GRAPHICS_PAGING_CITIES") > 0 && canPageGraphicsOut() && !GC.getGameINLINE().isInGraphicsWindow(getX_INLINE(), getY_INLINE(), true))
+ 	{
+ 		pageGraphics(false);
+ 		return;
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index e53257c..556318b 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -518,6 +518,10 @@ void CvGame::reset(HandicapTypes eHandicap, bool bConstructorCall)
+ 
+ 	m_bGraphicsPaging = false;
+ 	m_bGraphicsPagingSymbols = false;
++	m_bGraphicsPagingUnits = false;
++	m_bGraphicsPagingCities = false;
++	m_bGraphicsPagingPlots = false;
++	m_bGraphicsPagingBuilders = false;
+ 	m_iPagingX = INVALID_PLOT_COORD;
+ 	m_iPagingY = INVALID_PLOT_COORD;
+ 	m_iPagingRangeX = 0;
+@@ -2256,6 +2260,16 @@ bool CvGame::isGraphicsPagingSymbols() const
+ 	return m_bGraphicsPagingSymbols;
+ }
+ 
++bool CvGame::isGraphicsPagingPlots() const
++{
++	return m_bGraphicsPagingPlots;
++}
++
++bool CvGame::isGraphicsPagingBuilders() const
++{
++	return m_bGraphicsPagingBuilders;
++}
++
+ bool CvGame::isInGraphicsWindow(int iX, int iY, bool bMargin) const
+ {
+ 	if (!m_bGraphicsPaging)
+@@ -2332,6 +2346,10 @@ void CvGame::updateGraphicsPaging()
+ 
+ 	m_bGraphicsPaging = true;
+ 	m_bGraphicsPagingSymbols = (GC.getDefineINT("GRAPHICS_PAGING_SYMBOLS") > 0);
++	m_bGraphicsPagingUnits = (GC.getDefineINT("GRAPHICS_PAGING_UNITS") > 0);
++	m_bGraphicsPagingCities = (GC.getDefineINT("GRAPHICS_PAGING_CITIES") > 0);
++	m_bGraphicsPagingPlots = (GC.getDefineINT("GRAPHICS_PAGING_PLOTS") > 0);
++	m_bGraphicsPagingBuilders = (GC.getDefineINT("GRAPHICS_PAGING_PLOT_BUILDERS") > 0);
+ 	if (bMoved)
+ 	{
+ 		m_iPagingX = pLookAt->getX_INLINE();
+@@ -2391,7 +2409,8 @@ void CvGame::pageGraphics(bool bAllIn)
+ 		if (iWant != 0)
+ 		{
+ 			bool bIn = (iWant > 0);
+-			if (pPlot->pageGraphics(bIn))
++			bool bPlotPart = (m_bGraphicsPagingPlots || m_bGraphicsPagingBuilders || m_bGraphicsPagingSymbols);
++			if ((bIn || bPlotPart) && pPlot->pageGraphics(bIn))
+ 			{
+ 				(bIn ? aiIn : aiOut)[0]++;
+ 			}
+@@ -2402,14 +2421,14 @@ void CvGame::pageGraphics(bool bAllIn)
+ 				CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
+ 				pUnitNode = pPlot->nextUnitNode(pUnitNode);
+ 
+-				if (pLoopUnit != NULL && pLoopUnit->pageGraphics(bIn))
++				if (pLoopUnit != NULL && (bIn || m_bGraphicsPagingUnits) && pLoopUnit->pageGraphics(bIn))
+ 				{
+ 					(bIn ? aiIn : aiOut)[1]++;
+ 				}
+ 			}
+ 
+ 			CvCity* pCity = pPlot->getPlotCity();
+-			if (pCity != NULL && pCity->pageGraphics(bIn))
++			if (pCity != NULL && (bIn || m_bGraphicsPagingCities) && pCity->pageGraphics(bIn))
+ 			{
+ 				(bIn ? aiIn : aiOut)[2]++;
+ 			}
+diff --git a/Assets/CvGameCoreDLL/CvGame.h b/Assets/CvGameCoreDLL/CvGame.h
+index 7eb6a38..1e177e2 100644
+--- a/Assets/CvGameCoreDLL/CvGame.h
++++ b/Assets/CvGameCoreDLL/CvGame.h
+@@ -59,6 +59,8 @@ public:
+ 	// Graphics paging around the camera (GRAPHICS_PAGING defines); graphics only, not saved.
+ 	bool isGraphicsPaging() const;
+ 	bool isGraphicsPagingSymbols() const;
++	bool isGraphicsPagingPlots() const;
++	bool isGraphicsPagingBuilders() const;
+ 	bool isInGraphicsWindow(int iX, int iY, bool bMargin) const;
+ 	void updateGraphicsPaging();
+ 	void pageGraphics(bool bAllIn);
+@@ -656,6 +658,10 @@ protected:
+ 	// Graphics paging state, not saved
+ 	bool m_bGraphicsPaging;
+ 	bool m_bGraphicsPagingSymbols;
++	bool m_bGraphicsPagingUnits;
++	bool m_bGraphicsPagingCities;
++	bool m_bGraphicsPagingPlots;
++	bool m_bGraphicsPagingBuilders;
+ 	int m_iPagingX;
+ 	int m_iPagingY;
+ 	int m_iPagingRangeX;
+diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
+index 44a0ef3..4f0225f 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp
+@@ -223,6 +223,9 @@ void CvPlot::reset(int iX, int iY, bool bConstructorCall)
+ 	m_bPlotLayoutDirty = false;
+ 	m_bLayoutStateWorked = false;
+ 	m_bGraphicsPagedOut = false;
++	m_bPagedPlots = false;
++	m_bPagedBuilder = false;
++	m_bPagedSymbols = false;
+ 	
+ 	m_eOwner = NO_PLAYER;
+ 	m_ePlotType = PLOT_OCEAN;
+@@ -274,6 +277,9 @@ void CvPlot::setupGraphical()
+ 	}
+ 
+ 	m_bGraphicsPagedOut = false;
++	m_bPagedPlots = false;
++	m_bPagedBuilder = false;
++	m_bPagedSymbols = false;
+ 
+ 	updateSymbols();
+ 	updateFeatureSymbol();
+@@ -283,8 +289,10 @@ void CvPlot::setupGraphical()
+ 	updateVisibility();
+ }
+ 
+-// Out: the feature and route symbols and the plot builder (bonuses, improvements) are destroyed, as uninit does,
+-// and with GRAPHICS_PAGING_SYMBOLS the yield symbols and unit flags. In: they are made again. Rivers and the terrain stay.
++// Out: with GRAPHICS_PAGING_PLOTS the feature and route symbols are destroyed, with GRAPHICS_PAGING_PLOT_BUILDERS
++// the plot builder (bonuses, improvements), as uninit does, and with GRAPHICS_PAGING_SYMBOLS the yield symbols
++// and unit flags. In: they are made again. Rivers and the terrain stay. Vanilla destroys a plot builder only in
++// uninit, so GRAPHICS_PAGING_PLOT_BUILDERS is 0 unless the executable is shown to take it.
+ bool CvPlot::pageGraphics(bool bIn)
+ {
+ 	if (!GC.IsGraphicsInitialized())
+@@ -300,11 +308,21 @@ bool CvPlot::pageGraphics(bool bIn)
+ 		}
+ 
+ 		m_bGraphicsPagedOut = false;
+-		updateFeatureSymbol(true);
+-		updateRouteSymbol(true, false);
+-		setLayoutDirty(true);
+-		updateSymbols();
+-		setFlagDirty(true);
++		if (m_bPagedPlots)
++		{
++			updateFeatureSymbol(true);
++			updateRouteSymbol(true, false);
++		}
++		if (m_bPagedBuilder)
++		{
++			setLayoutDirty(true);
++		}
++		if (m_bPagedSymbols)
++		{
++			updateSymbols();
++			setFlagDirty(true);
++		}
++		m_bPagedPlots = m_bPagedBuilder = m_bPagedSymbols = false;
+ 		return true;
+ 	}
+ 
+@@ -313,14 +331,29 @@ bool CvPlot::pageGraphics(bool bIn)
+ 		return false;
+ 	}
+ 
+-	gDLL->getFeatureIFace()->destroy(m_pFeatureSymbol);
+-	gDLL->getRouteIFace()->destroy(m_pRouteSymbol);
+-	if (m_pPlotBuilder != NULL)
++	CvGame& kGame = GC.getGameINLINE();
++	m_bPagedPlots = kGame.isGraphicsPagingPlots();
++	m_bPagedBuilder = kGame.isGraphicsPagingBuilders();
++	m_bPagedSymbols = kGame.isGraphicsPagingSymbols();
++	if (!m_bPagedPlots && !m_bPagedBuilder && !m_bPagedSymbols)
+ 	{
+-		gDLL->getPlotBuilderIFace()->destroy(m_pPlotBuilder);
++		return false;
+ 	}
+-	m_bPlotLayoutDirty = false;
+-	if (GC.getGameINLINE().isGraphicsPagingSymbols())
++
++	if (m_bPagedPlots)
++	{
++		gDLL->getFeatureIFace()->destroy(m_pFeatureSymbol);
++		gDLL->getRouteIFace()->destroy(m_pRouteSymbol);
++	}
++	if (m_bPagedBuilder)
++	{
++		if (m_pPlotBuilder != NULL)
++		{
++			gDLL->getPlotBuilderIFace()->destroy(m_pPlotBuilder);
++		}
++		m_bPlotLayoutDirty = false;
++	}
++	if (m_bPagedSymbols)
+ 	{
+ 		// G4: the yield symbols and unit flags go too; page-in rebuilds them (updateSymbols, setFlagDirty)
+ 		deleteAllSymbols();
+@@ -747,7 +780,7 @@ void CvPlot::updateSymbols()
+ {
+ 	//PROFILE_FUNC();
+ 
+-	if (!GC.IsGraphicsInitialized() || (m_bGraphicsPagedOut && GC.getGameINLINE().isGraphicsPagingSymbols()))
++	if (!GC.IsGraphicsInitialized() || (m_bGraphicsPagedOut && m_bPagedSymbols))
+ 	{
+ 		return;
+ 	}
+@@ -7982,7 +8015,7 @@ void CvPlot::updateFeatureSymbol(bool bForce)
+ 
+ 	gDLL->getEngineIFace()->RebuildTileArt(m_iX,m_iY);
+ 
+-	if (m_bGraphicsPagedOut)
++	if (m_bGraphicsPagedOut && m_bPagedPlots)
+ 	{
+ 		return;
+ 	}
+@@ -8047,7 +8080,7 @@ void CvPlot::updateRouteSymbol(bool bForce, bool bAdjacent)
+ 		}
+ 	}
+ 
+-	if (m_bGraphicsPagedOut)
++	if (m_bGraphicsPagedOut && m_bPagedPlots)
+ 	{
+ 		return;
+ 	}
+@@ -8191,7 +8224,7 @@ void CvPlot::updateFlagSymbol()
+ {
+ 	//PROFILE_FUNC();
+ 
+-	if (!GC.IsGraphicsInitialized() || (m_bGraphicsPagedOut && GC.getGameINLINE().isGraphicsPagingSymbols()))
++	if (!GC.IsGraphicsInitialized() || (m_bGraphicsPagedOut && m_bPagedSymbols))
+ 	{
+ 		return;
+ 	}
+@@ -9544,7 +9577,7 @@ void CvPlot::write(FDataStreamBase* pStream)
+ 
+ void CvPlot::setLayoutDirty(bool bDirty)
+ {
+-	if (!GC.IsGraphicsInitialized() || m_bGraphicsPagedOut)
++	if (!GC.IsGraphicsInitialized() || (m_bGraphicsPagedOut && m_bPagedBuilder))
+ 	{
+ 		return;
+ 	}
+@@ -9565,7 +9598,7 @@ void CvPlot::setLayoutDirty(bool bDirty)
+ 
+ bool CvPlot::updatePlotBuilder()
+ {
+-	if (GC.IsGraphicsInitialized() && !m_bGraphicsPagedOut && shouldUsePlotBuilder())
++	if (GC.IsGraphicsInitialized() && !(m_bGraphicsPagedOut && m_bPagedBuilder) && shouldUsePlotBuilder())
+ 	{
+ 		if (m_pPlotBuilder == NULL) // we need a plot builder... but it doesn't exist
+ 		{
+diff --git a/Assets/CvGameCoreDLL/CvPlot.h b/Assets/CvGameCoreDLL/CvPlot.h
+index 92c81ca..f7eb120 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.h
++++ b/Assets/CvGameCoreDLL/CvPlot.h
+@@ -597,6 +597,9 @@ protected:
+ 	bool m_bPlotLayoutDirty:1;
+ 	bool m_bLayoutStateWorked:1;
+ 	bool m_bGraphicsPagedOut:1;	// not saved
++	bool m_bPagedPlots:1;	// what the page-out removed: feature and route symbols, plot builder, yield symbols and flags
++	bool m_bPagedBuilder:1;
++	bool m_bPagedSymbols:1;
+ 
+ 	char /*PlayerTypes*/ m_eOwner;
+ 	short /*PlotTypes*/ m_ePlotType;
+diff --git a/Assets/CvGameCoreDLL/CvUnit.cpp b/Assets/CvGameCoreDLL/CvUnit.cpp
+index e0a2084..65b4692 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.cpp
++++ b/Assets/CvGameCoreDLL/CvUnit.cpp
+@@ -439,7 +439,7 @@ void CvUnit::setupGraphical()
+ 	}
+ 
+ 	// Graphics paging: far from the camera the unit keeps a bare entity until the camera comes near.
+-	if (GC.getGameINLINE().isGraphicsPaging() && canPageGraphicsOut() && !GC.getGameINLINE().isInGraphicsWindow(getX_INLINE(), getY_INLINE(), true))
++	if (GC.getGameINLINE().isGraphicsPaging() && GC.getDefineINT("GRAPHICS_PAGING_UNITS") > 0 && canPageGraphicsOut() && !GC.getGameINLINE().isInGraphicsWindow(getX_INLINE(), getY_INLINE(), true))
+ 	{
+ 		pageGraphics(false);
+ 		return;
+diff --git a/Assets/Python/EntryPoints/CvGameInterface.py b/Assets/Python/EntryPoints/CvGameInterface.py
+index 65a7b96..92b7cc8 100644
+--- a/Assets/Python/EntryPoints/CvGameInterface.py
++++ b/Assets/Python/EntryPoints/CvGameInterface.py
+@@ -218,6 +218,6 @@ def doMeltdown(argsList):
+ 	return gameUtils().doMeltdown(argsList)
+ 
+ # Rise of Mankind: the camera zoom for graphics paging (CvGame::updateGraphicsPaging), in thousandths.
+-def getCameraZoom():
++def getCameraZoom(argsList=None):
+ 	return int(CyCamera().GetZoom() * 1000)
+ 
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index 1c1ba2d..fd46b3c 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -938,6 +938,26 @@
+ 		<DefineName>GRAPHICS_PAGING_ZOOM_MIN_PERCENT</DefineName>
+ 		<iDefineIntVal>35</iDefineIntVal>
+ 	</Define>
++	<!-- 1: units of other players far from the camera keep a bare entity; 0: they keep theirs -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_UNITS</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
++	</Define>
++	<!-- 1: cities of other players far from the camera keep a bare entity; 0: they keep theirs -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_CITIES</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
++	</Define>
++	<!-- 1: plots far from the camera drop their feature and route symbols; 0: they keep them -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_PLOTS</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
++	</Define>
++	<!-- 1: plots far from the camera also drop their plot builder (bonus and improvement art). 0 by default: vanilla destroys a plot builder only when the game ends, and the build that destroyed them froze at the first city founded -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_PLOT_BUILDERS</DefineName>
++		<iDefineIntVal>0</iDefineIntVal>
++	</Define>
+ 	<!-- 1: paged-out plots also drop their yield symbols and unit flags (rebuilt when the camera comes near); 0: they keep them -->
+ 	<Define>
+ 		<DefineName>GRAPHICS_PAGING_SYMBOLS</DefineName>
+-- 
+2.43.0
+

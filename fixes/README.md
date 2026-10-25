@@ -1,9 +1,38 @@
 # Tested source fixes
 
+## Graphics paging coherence: the crash on moving a unit
+
+[graphics-paging-coherence.patch](graphics-paging-coherence.patch) applies to GitLab `main`
+`d929b57` and is GitLab merge request !59. With `main`, the user's game crashed when the first
+unit was moved.
+
+Paging handled plots separately from the units on them, so live units lost their flags and roads
+lost their graphics. The executable reads both itself. The patch keeps a plot's graphics while
+anything on it keeps its own, and never removes roads.
+
+The harness, doing what the executable does near the camera, finds these states with `main` and
+none with the patch; the game plays the same. In-game result: open. See the
+[fault and checks](graphics-paging-coherence/README.md) and the
+[build](../builds/graphics-paging-coherence/README.md).
+
+## Graphics paging fix: the freeze at the first city
+
+[graphics-paging-fix.patch](graphics-paging-fix.patch) applies to GitLab `main` `a459d0d8`, and
+GitLab branch `claude/graphics-paging-fix` carries it (merge request !58). With `main`, the user's game froze when
+the first city was founded.
+
+Paging destroyed plot builders (bonus and improvement art) far from the camera, which vanilla never
+does during a game. This build keeps them and gives each part of paging its own switch. It also
+fixes `getCameraZoom`, which failed on the argument the game passes. In-game result: open. See the
+[fault and change](graphics-paging-fix/README.md) and the
+[build and test steps](../builds/graphics-paging-fix/README.md).
+
 ## Graphics paging: unit, city and plot graphics only near the camera
 
 [graphics-paging.patch](graphics-paging.patch) applies to GitLab `main` `c42be8b`. It is not on GitLab yet.
-It keeps unit and city models, and the trees, roads and improvements of plots, only in a window around
+(Its build README says plots also drop their trees; they do not: the trees of this map are terrain
+art, `research/graphics/README.md`, G1.) It keeps unit and city models, and the roads and
+improvements of plots, only in a window around
 where the camera looks. Everything else is rebuilt when the camera comes near, off screen. This
 targets the memory allocation failure of the 300-city game (`research/graphics/README.md`). The game
 plays identically with paging on and off in 60 seeded harness pairs, and turns are no slower (P7, P8

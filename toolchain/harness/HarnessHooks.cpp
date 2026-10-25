@@ -15,6 +15,8 @@
 #include "CvInitCore.h"
 #include "CvDLLFAStarIFaceBase.h"
 #include "FAStarNode.h"
+#include "CvDLLInterfaceIFaceBase.h"
+#include "CvDLLFlagEntityIFaceBase.h"
 #include "CvGameCoreUtils.h"
 #include <cstdio>
 
@@ -172,6 +174,12 @@ extern "C" __declspec(dllexport) void HH_setupGraphics()
 			if (p[iRead] != ',') break;
 		}
 	}
+	// A game without a human seat has no active player, which the executable always has; display code
+	// indexes by the active team (CvPlot::calculateYield with bDisplay). HARNESS_ACTIVE=<player> sets one.
+	if (GC.getGameINLINE().getActivePlayer() == NO_PLAYER && getenv("HARNESS_ACTIVE") != NULL)
+	{
+		GC.getGameINLINE().setActivePlayer((PlayerTypes)atoi(getenv("HARNESS_ACTIVE")), false);
+	}
 	GC.SetGraphicsInitialized(true);
 	GC.getMapINLINE().setupGraphical();
 	for (int i = 0; i < MAX_PLAYERS; ++i)
@@ -190,6 +198,21 @@ extern "C" __declspec(dllexport) CvPlot* HH_lookAtPlot()
 	CvMap& kMap = GC.getMapINLINE();
 	const int iW = kMap.getGridWidthINLINE(), iH = kMap.getGridHeightINLINE();
 	const long iStep = (s_iCalls++) / iPeriod;
+	// HARNESS_CAMERA_FOLLOW=1: the camera goes from one unit of the active player to the next, one every
+	// period, as a player does who cycles through his units.
+	if (getenv("HARNESS_CAMERA_FOLLOW") != NULL && GC.getGameINLINE().getActivePlayer() != NO_PLAYER)
+	{
+		CvPlayer& kActive = GET_PLAYER(GC.getGameINLINE().getActivePlayer());
+		if (kActive.getNumUnits() > 0)
+		{
+			const int iWanted = (int)(iStep % kActive.getNumUnits());
+			int iLoop, i = 0;
+			for (CvUnit* pUnit = kActive.firstUnit(&iLoop); pUnit != NULL; pUnit = kActive.nextUnit(&iLoop), ++i)
+			{
+				if (i == iWanted && pUnit->plot() != NULL) return pUnit->plot();
+			}
+		}
+	}
 	const int iRows = std::max(1, iH / 20);
 	const int iRow = (int)((iStep / iW) % iRows);
 	const int iX = (iRow % 2 == 0) ? (int)(iStep % iW) : iW - 1 - (int)(iStep % iW);
@@ -272,4 +295,92 @@ extern "C" __declspec(dllexport) int HH_economy(int ePlayer, char* szBuf, int iS
 		k.getCommercePercent(COMMERCE_GOLD), k.getCommercePercent(COMMERCE_RESEARCH), k.calculateInflatedCosts(),
 		k.calculateUnitCost(), k.calculateUnitSupply(), k.getTotalMaintenance(), k.getCivicUpkeep(),
 		iPop, iWorked, k.AI_isFinancialTrouble());
+}
+
+// HARNESS_GRAPHICS check: the executable's view of the plots near the camera, where it draws. It
+// updates the dirty flags (CvMap::updateFlagSymbols, which the executable calls), then counts states
+// the unchanged game never shows, which the executable may not expect. The screen is taken as 12
+// plots east and west of the look-at plot, 10 north and 6 south; the entity of a unit or city is the
+// harness's token, whose first field says whether it is set up (engine.cpp).
+namespace
+{
+	long g_aiCheck[6] = { 0, 0, 0, 0, 0, 0 };
+	long g_iCheckPasses = 0;
+	bool isSetUp(const void* pEntity) { return pEntity != NULL && *(const bool*)pEntity; }
+}
+extern "C" __declspec(dllexport) void HH_graphicsCheck()
+{
+	if (!GC.IsGraphicsInitialized() || GC.getGameINLINE().getActiveTeam() == NO_TEAM) return;
+	CvPlot* pLook = gDLL->getInterfaceIFace()->getLookAtPlot();
+	if (pLook == NULL) return;
+	++g_iCheckPasses;
+	CvMap& kMap = GC.getMapINLINE();
+	kMap.updateFlagSymbols();
+	const TeamTypes eActiveTeam = GC.getGameINLINE().getActiveTeam();
+	for (int i = 0; i < kMap.numPlotsINLINE(); ++i)
+	{
+		CvPlot* p = kMap.plotByIndexINLINE(i);
+		const int iDX = dxWrap(p->getX_INLINE() - pLook->getX_INLINE());
+		const int iDY = dyWrap(p->getY_INLINE() - pLook->getY_INLINE());
+		const bool bScreen = abs(iDX) <= 12 && iDY <= 10 && iDY >= -6;
+		CvUnit* pCenter = p->getCenterUnit();
+		// 0: a unit with its graphics is the plot's center unit, and the plot has no flag
+		if (pCenter != NULL && isSetUp(pCenter->getUnitEntity()) && p->getFlagSymbol() == NULL) ++g_aiCheck[0];
+		// 1: the active team sees a route here, and the plot has no route symbol (the executable joins routes by their neighbours)
+		if (p->getRevealedRouteType(eActiveTeam, false) != NO_ROUTE && p->getRouteSymbol() == NULL) ++g_aiCheck[1];
+		if (!bScreen || !p->isRevealed(eActiveTeam, false)) continue;
+		// 2: on screen, the center unit has no graphics
+		if (pCenter != NULL && !isSetUp(pCenter->getUnitEntity())) ++g_aiCheck[2];
+		// 3: on screen, a city without graphics
+		if (p->getPlotCity() != NULL && !isSetUp(p->getPlotCity()->getEntity())) ++g_aiCheck[3];
+		// 4: on screen, a feature with art of its own and no feature symbol
+		const FeatureTypes eFeature = p->getFeatureType();
+		if (eFeature != NO_FEATURE && !GC.getFeatureInfo(eFeature).getArtInfo()->isRiverArt()
+			&& GC.getFeatureInfo(eFeature).getArtInfo()->getTileArtType() == TILE_ART_TYPE_NONE && p->getFeatureSymbol() == NULL) ++g_aiCheck[4];
+		// 5: on screen, a center unit with no flag
+		if (pCenter != NULL && p->getFlagSymbol() == NULL) ++g_aiCheck[5];
+	}
+}
+extern "C" __declspec(dllexport) const char* HH_graphicsCheckStats()
+{
+	static char buf[384];
+	_snprintf(buf, sizeof(buf), "check passes %ld: flagless live units %ld, routes without symbol %ld; on screen: units without graphics %ld, cities without graphics %ld, features without symbol %ld, units without flag %ld",
+		g_iCheckPasses, g_aiCheck[0], g_aiCheck[1], g_aiCheck[2], g_aiCheck[3], g_aiCheck[4], g_aiCheck[5]);
+	buf[sizeof(buf) - 1] = 0;
+	return buf;
+}
+
+// The landscape's size for the harness engine (engine.cpp GetLandscapeGameDimensions).
+extern "C" __declspec(dllexport) void HH_landscapeSize(float* pfWidth, float* pfHeight)
+{
+	*pfWidth = GC.getMapINLINE().getGridWidthINLINE() * GC.getPLOT_SIZE();
+	*pfHeight = GC.getMapINLINE().getGridHeightINLINE() * GC.getPLOT_SIZE();
+}
+
+// HARNESS_CAMERA_VIEW=<distance>,<pitch>,<yaw>,<width>,<height>: what CvGameInterface.getCameraView returns
+// in the game, for a camera at that distance from the look-at plot's centre, pitched that many degrees below
+// the horizontal and turned by the yaw (0 looks north), with a screen of that size. Index 0 places the
+// camera and returns the count; index i returns value i.
+extern "C" __declspec(dllexport) long HH_cameraView(int iIndex)
+{
+	static long s_alView[10];
+	if (iIndex == 0)
+	{
+		float fDistance = 2200.0f, fPitch = 45.0f, fYaw = 0.0f;
+		int iWidth = 1920, iHeight = 1080;
+		const char* sz = getenv("HARNESS_CAMERA_VIEW");
+		if (sz != NULL) sscanf(sz, "%f,%f,%f,%d,%d", &fDistance, &fPitch, &fYaw, &iWidth, &iHeight);
+		CvPlot* pLook = gDLL->getInterfaceIFace()->getLookAtPlot();
+		if (pLook == NULL) return 0;
+		const float fX = GC.getMapINLINE().plotXToPointX(pLook->getX_INLINE());
+		const float fY = GC.getMapINLINE().plotYToPointY(pLook->getY_INLINE());
+		const float fP = DEGTORAD(fPitch), fT = DEGTORAD(fYaw);
+		s_alView[0] = (long)(fX - fDistance * cos(fP) * sin(fT));
+		s_alView[1] = (long)(fY - fDistance * cos(fP) * cos(fT));
+		s_alView[2] = (long)(fDistance * sin(fP));
+		s_alView[3] = (long)fX; s_alView[4] = (long)fY; s_alView[5] = 0; s_alView[6] = 1;
+		s_alView[7] = iWidth; s_alView[8] = iHeight; s_alView[9] = 0;
+		return 10;
+	}
+	return (iIndex > 0 && iIndex <= 10) ? s_alView[iIndex - 1] : 0;
 }
