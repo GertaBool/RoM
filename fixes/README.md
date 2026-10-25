@@ -1,5 +1,20 @@
 # Tested source fixes
 
+## Graphics paging coherence: the crash on moving a unit
+
+[graphics-paging-coherence.patch](graphics-paging-coherence.patch) applies to GitLab `main`
+`d929b57` and is GitLab merge request !59. With `main`, the user's game crashed when the first
+unit was moved.
+
+Paging handled plots separately from the units on them, so live units lost their flags and roads
+lost their graphics. The executable reads both itself. The patch keeps a plot's graphics while
+anything on it keeps its own, and never removes roads.
+
+The harness, doing what the executable does near the camera, finds these states with `main` and
+none with the patch; the game plays the same. In-game result: open. See the
+[fault and checks](graphics-paging-coherence/README.md) and the
+[build](../builds/graphics-paging-coherence/README.md).
+
 ## Graphics paging fix: the freeze at the first city
 
 [graphics-paging-fix.patch](graphics-paging-fix.patch) applies to GitLab `main` `a459d0d8`, and

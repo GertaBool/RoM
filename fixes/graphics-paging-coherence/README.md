@@ -55,5 +55,12 @@ The telemetry, apart from timings, is identical across the three builds in both 
 
 - **Build:** MSVC 2003 release `dd2152452c46`, 0 errors and 0 warnings.
 - **Clang gate:** 0 new diagnostics ([clang-gate.log](clang-gate.log)).
-- **P12 evidence:** pending.
+- **P12 evidence:** 30 seeded runs per arm, 20 turns from turn 0, camera sweeping, a check every
+  update; arm a is this patch and arm b is `d929b57`.
+  - All 60 runs completed, and the telemetry is identical in all 30 seed pairs.
+  - Arm b: 798 flagless live units and 807 routes without symbol, in every run.
+  - Arm a: none of any kind.
+  - P12 is corroborated. The build's `provenance.json` still says pending, because it was
+    committed before the evidence.
+- **Merge request:** GitLab !59.
 - **In game:** not yet tested.
