@@ -1,0 +1,46 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "3bec049c2614c0b1e367a3162c7dde74f48c13c0",
+  "base_tree": "4985d7da7af168cfdbb4ba9cfeebc26f566b81e1",
+  "tested_source_commit": "GitLab branch claude/paging-zoom (local commit a3259cd7; the connector commit holds the same tree)",
+  "tested_source_tree": "c3dc2a44e6d0d97982600743c78af4040f42cb5b",
+  "patch": "../graphics-paging-zoom.patch",
+  "patch_sha256": "c3b6037bd1fad32b963b77bfbfbbdb659da243743ff237496c8b38354f8a3a58",
+  "relationship_to_prior_patch": "Applies to GitLab main 3bec049 (after merge request !62, fixes/graphics-paging-interface.patch). Independent of fixes/diplomacy-values.patch: the two touch different files.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "layout_changed": false,
+    "older_readers_can_read_new_saves": true,
+    "note": "Graphics only; nothing new is saved."
+  },
+  "switches": "GRAPHICS_PAGING_MAX_IN 100 (GlobalDefinesAlt.xml): plots, units and cities one update sets up again at most; 0 = no limit. The tile-art change has no switch.",
+  "serves": [
+    "P20"
+  ],
+  "files": {
+    "Assets/CvGameCoreDLL/CvGame.cpp": {
+      "before_sha256": "ad82cf31731a815612ae3f0e0685d350e94b0b8525955aae43d64954fca2af4d",
+      "after_sha256": "d17a1c4a202392dd283a2d37a502f5af75bf630e30dc2cdfa40d1ca73105c270"
+    },
+    "Assets/CvGameCoreDLL/CvGame.h": {
+      "before_sha256": "b202b57d3f31c3d2a75478b95b717a2e2f6ae8540194d111755ba5169fa438b4",
+      "after_sha256": "39913eeb608fc947e4d0522511467c6574394587e70af1a4cf97d8ca5dd4872c"
+    },
+    "Assets/CvGameCoreDLL/CvPlot.cpp": {
+      "before_sha256": "664ff9c8c7f4d823118d8bb85d8d379db286fadb5b0977cffa6e76288a10d2e0",
+      "after_sha256": "f409cb0f5c060d79f62c5eb66541d2893549e7f54b2c4f2f8aca438efc6faba3"
+    },
+    "Assets/CvGameCoreDLL/CvPlot.h": {
+      "before_sha256": "9461777c34bb09ab53b1a79c3bbcbb0f8f8ea942c05eed76a6524a2c937886fc",
+      "after_sha256": "b34508db9074f0cb1bfd43725208a2253ff063c13c2515651e9bf16a27314276"
+    },
+    "Assets/XML/GlobalDefinesAlt.xml": {
+      "before_sha256": "222bc663c8b65dde9b50b59524ff40e132365185074f432d6ca9065a8d2ff9a4",
+      "after_sha256": "73de17dea4fb49c552eb00c08f56b29bba29cf7e3bf53cb3656e6bb1bfe39ba5"
+    },
+    "Docs/GRAPHICS_PAGING.md": {
+      "before_sha256": "a013cdf74f1e4c0e6c554b79a9a4d23d0ee38eed637d81b99adbe3351984ec1c",
+      "after_sha256": "767f23286e921d1098b7da4f5d3b858e5654986b84e2e3106a3adf9bdac70e66"
+    }
+  }
+}

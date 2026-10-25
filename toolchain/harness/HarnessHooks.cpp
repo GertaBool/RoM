@@ -361,15 +361,31 @@ extern "C" __declspec(dllexport) void HH_landscapeSize(float* pfWidth, float* pf
 // in the game, for a camera at that distance from the look-at plot's centre, pitched that many degrees below
 // the horizontal and turned by the yaw (0 looks north), with a screen of that size. Index 0 places the
 // camera and returns the count; index i returns value i.
+// HARNESS_CAMERA_ZOOM=<distance>,<pitch>,<far reads>,<near reads>: the player zooming out and in. Of every
+// <near reads> + <far reads> camera reads, the first <near reads> give the HARNESS_CAMERA_VIEW camera and the
+// rest one at this distance and pitch (same yaw and screen).
 extern "C" __declspec(dllexport) long HH_cameraView(int iIndex)
 {
 	static long s_alView[10];
+	static long s_iReads = 0;
 	if (iIndex == 0)
 	{
 		float fDistance = 2200.0f, fPitch = 45.0f, fYaw = 0.0f;
 		int iWidth = 1920, iHeight = 1080;
 		const char* sz = getenv("HARNESS_CAMERA_VIEW");
 		if (sz != NULL) sscanf(sz, "%f,%f,%f,%d,%d", &fDistance, &fPitch, &fYaw, &iWidth, &iHeight);
+		const char* szZoom = getenv("HARNESS_CAMERA_ZOOM");
+		if (szZoom != NULL)
+		{
+			float fFarDistance = fDistance, fFarPitch = fPitch;
+			int iFar = 0, iNear = 1;
+			sscanf(szZoom, "%f,%f,%d,%d", &fFarDistance, &fFarPitch, &iFar, &iNear);
+			if (iFar > 0 && iNear > 0 && (s_iReads++ % (iFar + iNear)) >= iNear)
+			{
+				fDistance = fFarDistance;
+				fPitch = fFarPitch;
+			}
+		}
 		CvPlot* pLook = gDLL->getInterfaceIFace()->getLookAtPlot();
 		if (pLook == NULL) return 0;
 		const float fX = GC.getMapINLINE().plotXToPointX(pLook->getX_INLINE());

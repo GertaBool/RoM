@@ -1,0 +1,299 @@
+From a3259cd78c31d8c47b9cdf7917350fa9c6c77b00 Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sun, 25 Oct 2026 18:37:26 +0000
+Subject: [PATCH] Graphics paging: no tile-art rebuild on page-in, at most
+ GRAPHICS_PAGING_MAX_IN set-ups per update
+
+A fast zoom-out at turn 108 of a huge 20-civilization game set up 918
+plots, 6 units and 2 cities again in one pass, four times the most
+before, and the game crashed. Each of those plots also rebuilt its
+tile art (RebuildTileArt), which paging never removes. A plot that
+comes back now gets its feature symbol again without the tile-art
+rebuild (CvPlot::updateFeatureSymbolEntity), and one update sets up at
+most GRAPHICS_PAGING_MAX_IN (100) plots, units and cities again; the
+rest follow at the next updates, in the same window. Page-outs are not
+limited. Docs/GRAPHICS_PAGING.md describes the crash and the change.
+
+Serves: P20
+---
+ Assets/CvGameCoreDLL/CvGame.cpp | 39 ++++++++++++++++++++++++++++++---
+ Assets/CvGameCoreDLL/CvGame.h   |  3 ++-
+ Assets/CvGameCoreDLL/CvPlot.cpp | 18 ++++++++++++---
+ Assets/CvGameCoreDLL/CvPlot.h   |  1 +
+ Assets/XML/GlobalDefinesAlt.xml |  5 +++++
+ Docs/GRAPHICS_PAGING.md         | 32 +++++++++++++++++++++++----
+ 6 files changed, 87 insertions(+), 11 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 508e201..cecf953 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -534,6 +534,7 @@ void CvGame::reset(HandicapTypes eHandicap, bool bConstructorCall)
+ 	m_dwPagingCameraTime = 0;
+ 	m_dwPagingShrinkSince = 0;
+ 	m_ePagingActivePlayer = NO_PLAYER;
++	m_bPagingPending = false;
+ 	m_bPbemTurnSent = false;
+ 	m_bHotPbemBetweenTurns = false;
+ 	m_bPlayerOptionsSent = false;
+@@ -2309,6 +2310,14 @@ void CvGame::updateGraphicsPaging()
+ 		return;
+ 	}
+ 
++	// A pass that stopped at GRAPHICS_PAGING_MAX_IN goes on at the next update, in the same window, before the
++	// camera is read again.
++	if (m_bGraphicsPaging && m_bPagingPending)
++	{
++		m_bPagingPending = pageGraphics(false);
++		return;
++	}
++
+ 	DWORD dwNow = GetTickCount();
+ 	if (m_bGraphicsPaging && (dwNow - m_dwPagingCameraTime) < 100)
+ 	{
+@@ -2410,7 +2419,7 @@ void CvGame::updateGraphicsPaging()
+ 		gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
+ 	}
+ 
+-	pageGraphics(false);
++	m_bPagingPending = pageGraphics(false);
+ }
+ 
+ // The plots the screen shows, from the camera: its eye and target (CvScreensInterface.getCameraView, which reads
+@@ -2545,10 +2554,15 @@ int CvGame::graphicsWindowFromCamera(const CvPlot* pLookAt, int* aiRange)
+ 
+ // bAllIn: set everything up again and stop paging. Otherwise page in what is inside the window
+ // and page out what is outside the window and its margin; what is in the margin stays as it is.
+-void CvGame::pageGraphics(bool bAllIn)
++// At most GRAPHICS_PAGING_MAX_IN plots, units and cities are paged in by one pass (0: no limit), so a
++// zoom that uncovers much of the map spreads its set-up over several updates; returns true when the
++// pass stopped there and the next update must go on. Page-outs are not limited.
++bool CvGame::pageGraphics(bool bAllIn)
+ {
+ 	PROFILE_FUNC();
+ 
++	const int iMaxIn = bAllIn ? 0 : std::max(0, GC.getDefineINT("GRAPHICS_PAGING_MAX_IN"));
++	bool bMore = false;
+ 	int aiIn[3] = {0, 0, 0};
+ 	int aiOut[3] = {0, 0, 0};
+ 	int aiPagedOut[3] = {0, 0, 0};
+@@ -2557,6 +2571,7 @@ void CvGame::pageGraphics(bool bAllIn)
+ 	if (bAllIn)
+ 	{
+ 		m_bGraphicsPaging = false;
++		m_bPagingPending = false;
+ 	}
+ 
+ 	for (int iI = 0; iI < kMap.numPlotsINLINE(); iI++)
+@@ -2575,6 +2590,22 @@ void CvGame::pageGraphics(bool bAllIn)
+ 			iWant = -1;
+ 		}
+ 
++		if (iWant > 0 && iMaxIn > 0 && (aiIn[0] + aiIn[1] + aiIn[2]) >= iMaxIn)
++		{
++			// The limit is reached: this plot waits for the next update if it or anything on it is paged out.
++			bool bWaiting = pPlot->isGraphicsPagedOut() || (pPlot->getPlotCity() != NULL && pPlot->getPlotCity()->isGraphicsPagedOut());
++			for (CLLNode<IDInfo>* pNode = pPlot->headUnitNode(); pNode != NULL && !bWaiting; pNode = pPlot->nextUnitNode(pNode))
++			{
++				CvUnit* pLoopUnit = ::getUnit(pNode->m_data);
++				bWaiting = (pLoopUnit != NULL && pLoopUnit->isGraphicsPagedOut());
++			}
++			if (bWaiting)
++			{
++				bMore = true;
++				iWant = 0;
++			}
++		}
++
+ 		if (iWant != 0)
+ 		{
+ 			bool bIn = (iWant > 0);
+@@ -2657,10 +2688,12 @@ void CvGame::pageGraphics(bool bAllIn)
+ 	{
+ 		CvString szLine;
+ 		szLine.Format("turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d",
+-			getGameTurn(), m_iPagingX, m_iPagingY, bAllIn ? "all in" : "pass",
++			getGameTurn(), m_iPagingX, m_iPagingY, bAllIn ? "all in" : (bMore ? "pass, more next update" : "pass"),
+ 			aiIn[0], aiIn[1], aiIn[2], aiOut[0], aiOut[1], aiOut[2], aiPagedOut[0], aiPagedOut[1], aiPagedOut[2]);
+ 		gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
+ 	}
++
++	return bMore;
+ }
+ 
+ void CvGame::updateScore(bool bForce)
+diff --git a/Assets/CvGameCoreDLL/CvGame.h b/Assets/CvGameCoreDLL/CvGame.h
+index 0916805..231946a 100644
+--- a/Assets/CvGameCoreDLL/CvGame.h
++++ b/Assets/CvGameCoreDLL/CvGame.h
+@@ -64,7 +64,7 @@ public:
+ 	bool isInGraphicsWindow(int iX, int iY, bool bMargin) const;
+ 	void updateGraphicsPaging();
+ 	int graphicsWindowFromCamera(const CvPlot* pLookAt, int* aiRange);
+-	void pageGraphics(bool bAllIn);
++	bool pageGraphics(bool bAllIn);
+ 	DllExport void updateScore(bool bForce = false);
+ 
+ 	DllExport void updateColoredPlots();
+@@ -675,6 +675,7 @@ protected:
+ 	DWORD m_dwPagingCameraTime;
+ 	DWORD m_dwPagingShrinkSince;
+ 	PlayerTypes m_ePagingActivePlayer;
++	bool m_bPagingPending;	// the last pass stopped at GRAPHICS_PAGING_MAX_IN; the next update goes on
+ 	bool m_bPbemTurnSent;
+ 	bool m_bHotPbemBetweenTurns;
+ 	bool m_bPlayerOptionsSent;
+diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
+index efa5a37..466472c 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp
+@@ -311,9 +311,11 @@ bool CvPlot::pageGraphics(bool bIn)
+ 		}
+ 
+ 		m_bGraphicsPagedOut = false;
++		// The page-out destroyed only the feature symbol; the tile art stayed and was kept up to date
++		// (updateFeatureSymbol rebuilds it whether or not the plot is paged out), so it is not rebuilt here.
+ 		if (m_bPagedPlots)
+ 		{
+-			updateFeatureSymbol(true);
++			updateFeatureSymbolEntity(true);
+ 		}
+ 		if (m_bPagedBuilder)
+ 		{
+@@ -8027,6 +8029,18 @@ void CvPlot::updateFeatureSymbol(bool bForce)
+ {
+ 	//PROFILE_FUNC();
+ 
++	if (!GC.IsGraphicsInitialized())
++	{
++		return;
++	}
++
++	gDLL->getEngineIFace()->RebuildTileArt(m_iX,m_iY);
++
++	updateFeatureSymbolEntity(bForce);
++}
++
++void CvPlot::updateFeatureSymbolEntity(bool bForce)
++{
+ 	FeatureTypes eFeature;
+ 
+ 	if (!GC.IsGraphicsInitialized())
+@@ -8036,8 +8050,6 @@ void CvPlot::updateFeatureSymbol(bool bForce)
+ 
+ 	eFeature = getFeatureType();
+ 
+-	gDLL->getEngineIFace()->RebuildTileArt(m_iX,m_iY);
+-
+ 	if (m_bGraphicsPagedOut && m_bPagedPlots)
+ 	{
+ 		return;
+diff --git a/Assets/CvGameCoreDLL/CvPlot.h b/Assets/CvGameCoreDLL/CvPlot.h
+index 232bbc0..0a2cf17 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.h
++++ b/Assets/CvGameCoreDLL/CvPlot.h
+@@ -495,6 +495,7 @@ public:
+ 
+ 	void updateFeatureSymbolVisibility(); 
+ 	void updateFeatureSymbol(bool bForce = false);
++	void updateFeatureSymbolEntity(bool bForce);	// the feature symbol alone, without rebuilding the tile art
+ 
+ 	DllExport bool isLayoutDirty() const;							// The plot layout contains bonuses and improvements --- it is, like the city layout, passively computed by LSystems
+ 	DllExport void setLayoutDirty(bool bDirty);
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index 7450db7..f3080d5 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -933,6 +933,11 @@
+ 		<DefineName>GRAPHICS_PAGING_SHRINK_MS</DefineName>
+ 		<iDefineIntVal>5000</iDefineIntVal>
+ 	</Define>
++	<!-- plots, units and cities one update sets up again at most; a zoom that uncovers more spreads them over the next updates; 0: no limit -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_MAX_IN</DefineName>
++		<iDefineIntVal>100</iDefineIntVal>
++	</Define>
+ 	<!-- 1: units of other players far from the camera keep a bare entity; 0: they keep theirs -->
+ 	<Define>
+ 		<DefineName>GRAPHICS_PAGING_UNITS</DefineName>
+diff --git a/Docs/GRAPHICS_PAGING.md b/Docs/GRAPHICS_PAGING.md
+index 7fabf19..1839df5 100644
+--- a/Docs/GRAPHICS_PAGING.md
++++ b/Docs/GRAPHICS_PAGING.md
+@@ -2,8 +2,8 @@
+ 
+ This document describes the graphics paging in the DLL as `main` holds it after merge request !60
+ (merge commit `1c24b6ce`) and the camera reader's move out of `CvGameInterface` (branch
+-`claude/paging-interface`). It also covers the earlier merges that built it, the two failures it
+-caused in the game, the Python file it replaced by mistake, and what is known, assumed and not
++`claude/paging-interface`), with the zoom fix of branch `claude/paging-zoom`. It also covers the earlier merges that built it, the two failures it
++caused in the game, the crash while zooming, the Python file it replaced by mistake, and what is known, assumed and not
+ known about it.
+ 
+ The merge commit of !60 carries the title and description of the first of its two commits only. It
+@@ -64,6 +64,14 @@ The window follows the camera:
+ - **Shrinking:** a smaller window applies once it has stayed smaller for `GRAPHICS_PAGING_SHRINK_MS`.
+ - **Globe view:** nothing is paged in or out.
+ 
++Setting graphics up again is spread out:
++- **At most `GRAPHICS_PAGING_MAX_IN`** plots, units and cities are set up again by one update (100). A
++  zoom that uncovers more goes on at the next updates, in the same window, before the camera is read
++  again. Page-outs are not limited.
++- **No tile-art rebuild:** a plot that comes back gets its feature symbol, yield symbols and flags
++  again, but its tile art is not rebuilt. Paging never removes the tile art, and a feature that
++  changes while the plot is paged out still rebuilds it (`CvPlot::updateFeatureSymbol`).
++
+ The camera is not used, and `GRAPHICS_PAGING_RANGE_X`, `_NORTH` and `_SOUTH` are the window, when:
+ - it cannot be read;
+ - the eye is not above its target;
+@@ -90,6 +98,7 @@ pitch):
+ | `GRAPHICS_PAGING_STEP` | 2 | Plots the look-at plot moves before the window follows at once |
+ | `GRAPHICS_PAGING_INTERVAL_MS` | 500 | Milliseconds between passes while nothing changes |
+ | `GRAPHICS_PAGING_SHRINK_MS` | 5000 | Milliseconds the screen must show less before the window shrinks |
++| `GRAPHICS_PAGING_MAX_IN` | 100 | Plots, units and cities one update sets up again at most; 0: no limit |
+ | `GRAPHICS_PAGING_UNITS` | 1 | Page other players' units |
+ | `GRAPHICS_PAGING_CITIES` | 1 | Page other players' cities |
+ | `GRAPHICS_PAGING_PLOTS` | 1 | Page plots' feature symbols |
+@@ -105,7 +114,8 @@ pitch):
+ | !57 (`a459d0d8`) | Paging of units, cities and plots (features, routes, plot builders, yield symbols, flags); a window scaled by the camera zoom; billboards rebuilt for the active team only; the billboard debug log removed | Froze when the first city was founded |
+ | !58 (`d929b57b`) | Plot builders no longer paged; a switch per part; `getCameraZoom` takes its argument | Crashed when the first unit was moved |
+ | !60 (`1c24b6ce`) | Commit `006b7840`: plots keep their graphics while anything on them keeps its own; routes never paged. Commit `cadd95b3`: the window from the camera, replacing the zoom scaling (`GRAPHICS_PAGING_ZOOM` and its two defines removed) | Not yet run |
+-| `claude/paging-interface` | `getCameraView` moves to `CvScreensInterface`; the mod's `CvGameInterface.py`, added in !57, is deleted | Not yet run |
++| !62 (`3bec049`) | `getCameraView` moves to `CvScreensInterface`; the mod's `CvGameInterface.py`, added in !57, is deleted | Crashed while zooming in and out fast, turn 108 |
++| `claude/paging-zoom` | Page-in no longer rebuilds the tile art; at most `GRAPHICS_PAGING_MAX_IN` set-ups per update | Not yet run |
+ 
+ ### The Python file (!57 to !60)
+ 
+@@ -166,6 +176,20 @@ from turn 0 of the Huge Mediterranean map, with the camera sweeping the map:
+ 
+ No crash address was obtained. This is the defect found in the code, not a confirmed cause.
+ 
++### The crash while zooming (!62)
++
++A 20-civilization game on a huge Europe map, played under Proton, crashed at turn 108 while the
++player zoomed in and out fast to test paging. `GraphicsPaging.log`:
++- **Before:** 105 passes set up 2,282 plots, 21 units and 7 cities again; the most in one pass
++  was 238 plots, 2 units and 1 city.
++- **Last:** the window grew from 60 x 43 to 60 x 65 plots in 0.3 s, and one pass set up 918 plots,
++  6 units and 2 cities again. Each of the 918 plots also had its tile art rebuilt
++  (`RebuildTileArt`), which paging never removes.
++- **After:** no further pass is logged; `PythonDbg.log` goes on about 4 s longer, with no error.
++
++No crash address was obtained. `claude/paging-zoom` removes the tile-art rebuilds and spreads a large
++set-up over several updates; whether this was the cause is for the game to show.
++
+ ## Known, assumed and not known
+ 
+ **Known.**
+@@ -210,7 +234,7 @@ No crash address was obtained. This is the defect found in the code, not a confi
+ 
+ - `CvGame.cpp`: `updateGraphicsPaging`, `graphicsWindowFromCamera`, `pageGraphics`,
+   `isInGraphicsWindow`.
+-- `CvPlot.cpp`: `pageGraphics`, `canPageGraphicsOut`.
++- `CvPlot.cpp`: `pageGraphics`, `canPageGraphicsOut`, `updateFeatureSymbolEntity`.
+ - `CvUnit.cpp`: `pageGraphics`, `canPageGraphicsOut`.
+ - `CvCity.cpp`: `pageGraphics`, `canPageGraphicsOut`.
+ - `CvDLLEntity.cpp`: the guarded entity calls.
+-- 
+2.43.0
+

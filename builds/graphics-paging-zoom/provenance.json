@@ -1,0 +1,22 @@
+{
+ "serves": [
+  "P20"
+ ],
+ "patch": "fixes/graphics-paging-zoom.patch",
+ "build_id": "59db478feb3c",
+ "source": "GitLab main 3bec049 plus fixes/graphics-paging-zoom.patch: page-in rebuilds no tile art, and one update sets up at most GRAPHICS_PAGING_MAX_IN (100) plots, units and cities again",
+ "source_commit": "GitLab branch claude/paging-zoom (local commit a3259cd7; the connector commit holds the same tree)",
+ "source_tree": "c3dc2a44e6d0d97982600743c78af4040f42cb5b",
+ "base_commit": "3bec049c2614c0b1e367a3162c7dde74f48c13c0",
+ "dll_sha256": "e5e5bc7d79c505e6ac1d02f3ae6da8d73c1cd538bd529f675c00302e1d8ddea3",
+ "dll_size": 6152192,
+ "files": {
+  "GlobalDefinesAlt.xml": "73de17dea4fb49c552eb00c08f56b29bba29cf7e3bf53cb3656e6bb1bfe39ba5"
+ },
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine 9.0, TARGET=release, all 103 source files compiled; 0 errors, 0 warnings",
+ "tests": "clang gate on CvGame.cpp and CvPlot.cpp against 3bec049: 0 new diagnostics (fixes/graphics-paging-zoom/clang-gate.log). fixes/apply.py on a clean 3bec049 gives tree c3dc2a44.",
+ "tested_headless": "P20 evidence pending",
+ "tested_in_game": false,
+ "previous": "builds/graphics-paging-interface (504830a0dee0)",
+ "gitlab_commit": "pending (branch claude/paging-zoom)"
+}
