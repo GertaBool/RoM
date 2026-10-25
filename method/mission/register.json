@@ -557,5 +557,38 @@
    "fixes/graphics-paging-camera/",
    "builds/graphics-paging-camera/"
   ]
+ },
+ {
+  "id": "H9",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "The mod's Assets/Python/EntryPoints/CvGameInterface.py, added for the camera in !57 (ccbc1b5, 'the Beyond the Sword file unchanged'), is not the Beyond the Sword file. It defines 49 functions plus the camera's, its gameUtils() returns a plain CvGameUtils.CvGameUtils(), and it never imports CvGameInterfaceFile. Facts: the original BTS SDK in the GitLab repository (beyond-the-sword-sdk-develop-functional.tar.gz) calls 22 CvGameInterface functions that the file lacks (PYGameModule is \"CvGameInterface\"; among them getUnitCostMod, getBuildingCostMod, getUpgradePriceOverride, getExperienceNeeded, doPillageGold, doCityCaptureGold, getExtraCost, canBuild, cannotFoundCity); the mod ships BUG's CvGameInterfaceFile.py, 'Overrides the use of CvGameUtils with BUG's modular game utils dispatcher', and registers RoMGameUtils through it (Assets/Config/RoMSettings.xml) with RoM's rules for cannotConstruct, cannotDoCivic, getUnitCostMod, getBuildingCostMod, getUpgradePriceOverride, doPillageGold and doCityCaptureGold; PythonCallbackDefines.xml switches the unit cost, building cost, upgrade price, cannot-construct and cannot-do-civic callbacks on, and calculateExperience calls getExperienceNeeded with no switch. Since the mod's file replaces the game's in play, RoM's Python rules have not run since !57. Moving getCameraView to the mod's own CvScreensInterface.py (PYScreensModule, which the DLL already calls) and deleting the mod's CvGameInterface.py restores the game's file and BUG's dispatcher and keeps the camera window. Contradicted if the installed Beyond the Sword Assets/Python/EntryPoints/CvGameInterface.py is the same file (49 functions, no CvGameInterfaceFile import), or if a game on main 4ec8ebc applies RoM's missionary cost (75 % under a state religion civic, RoMGameUtils.getUnitCostMod)."
+ },
+ {
+  "id": "P14",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H9"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab main 4ec8ebc (P13's tree, build 526bbebe2dc9): CvGame::graphicsWindowFromCamera calls getCameraView in PYScreensModule (CvScreensInterface) instead of PYGameModule; getCameraView, unchanged, moves to the mod's Assets/Python/EntryPoints/CvScreensInterface.py; the mod's Assets/Python/EntryPoints/CvGameInterface.py is deleted, so the game's own file and BUG's dispatcher answer every CvGameInterface call again; Docs/GRAPHICS_PAGING.md says so. Nothing else changes. With the DLL of 4ec8ebc and the new Python, the camera cannot be read and the GRAPHICS_PAGING_RANGE_* window is used. Harness (Python inert; the harness answers getCameraView by name whatever the module): arm a is this build, arm b the build of 4ec8ebc (526bbebe2dc9), both with HARNESS_CAMERA_VIEW=2200,45,0,1920,1080, from turn 0 of PrivateMaps/Mediterranean, Huge.CivBeyondSwordWBSave (all seats AI, HARNESS_ACTIVE=0, HARNESS_GRAPHICS=1, camera following the active player's units, a check every update), 20 turns per run, seeds from ledger.py seeds. The telemetry, timings aside, should be identical in every seed pair. RoM's Python rules are judged by the user's game.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "gitlab:Assets/Python/EntryPoints/CvScreensInterface.py",
+   "gitlab:Docs/GRAPHICS_PAGING.md",
+   "fixes/graphics-paging-interface.patch",
+   "fixes/graphics-paging-interface/",
+   "builds/graphics-paging-interface/"
+  ]
  }
 ]
