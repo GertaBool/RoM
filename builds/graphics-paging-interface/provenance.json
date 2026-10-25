@@ -1,0 +1,26 @@
+{
+ "serves": [
+  "P15"
+ ],
+ "patch": "fixes/graphics-paging-interface.patch",
+ "build_id": "504830a0dee0",
+ "source": "GitLab main 4ec8ebc plus fixes/graphics-paging-interface.patch: the camera is read through CvScreensInterface.getCameraView, and the mod's EntryPoints/CvGameInterface.py is deleted",
+ "source_commit": "GitLab claude/paging-interface (tested locally as ae605235; the connector commit holds the same tree)",
+ "source_tree": "4985d7da7af168cfdbb4ba9cfeebc26f566b81e1",
+ "base_commit": "4ec8ebcd3969eadbaeb50f9f5accc71dc9b69b6d",
+ "dll_sha256": "0e49b9b6f2d359410c210ca4e2602fabc7e8d883daf2873781066dfe67d341c1",
+ "dll_size": 6152192,
+ "files": {
+  "CvScreensInterface.py": "84264e41b6402ec52ae19d8e2a178ad52a2a316f31f2e6840e363eb2efa420ea",
+  "GlobalDefinesAlt.xml": "222bc663c8b65dde9b50b59524ff40e132365185074f432d6ca9065a8d2ff9a4"
+ },
+ "deleted_files": [
+  "Assets/Python/EntryPoints/CvGameInterface.py"
+ ],
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003, toolkit and Platform SDK with the sha256 of builds/0009/provenance.json) under Wine 9.0, TARGET=release; 0 errors, 0 warnings. The same toolchain rebuilt GitLab main 4ec8ebc as 526bbebe2dc9 differing from builds/graphics-paging-camera only in the two link timestamps (6 bytes).",
+ "tests": "clang gate on CvGame.cpp against 4ec8ebc: 0 new diagnostics (fixes/graphics-paging-interface/clang-gate.log). fixes/apply.py --check and apply on a clean 4ec8ebc give tree 4985d7da.",
+ "tested_headless": "P15 evidence pending",
+ "tested_in_game": false,
+ "previous": "builds/graphics-paging-camera (526bbebe2dc9)",
+ "gitlab_commit": "pending (branch claude/paging-interface)"
+}

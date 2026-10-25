@@ -1,0 +1,426 @@
+From ae60523534c384c4f067c4fa72fde64df6dacf99 Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sun, 25 Oct 2026 14:27:18 +0000
+Subject: [PATCH] Graphics paging: read the camera through CvScreensInterface,
+ drop the mod's CvGameInterface.py
+
+The mod's EntryPoints/CvGameInterface.py, added in !57 for the camera,
+was not the Beyond the Sword file: it lacked 22 callbacks the original
+DLL calls and returned plain CvGameUtils instead of BUG's dispatcher,
+so RoM's rules in RoMGameUtils (unit and building costs, upgrade
+prices, pillage and capture gold, cannotConstruct, cannotDoCivic) were
+not reached. getCameraView moves unchanged to the mod's
+CvScreensInterface.py, the DLL asks PYScreensModule for it, and the
+mod's CvGameInterface.py is deleted so the game's own file answers.
+
+Serves: P15
+---
+ Assets/CvGameCoreDLL/CvGame.cpp               |   6 +-
+ Assets/Python/EntryPoints/CvGameInterface.py  | 251 ------------------
+ .../Python/EntryPoints/CvScreensInterface.py  |  31 +++
+ Docs/GRAPHICS_PAGING.md                       |  40 ++-
+ 4 files changed, 70 insertions(+), 258 deletions(-)
+ delete mode 100644 Assets/Python/EntryPoints/CvGameInterface.py
+
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 4338466..508e201 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -2413,7 +2413,7 @@ void CvGame::updateGraphicsPaging()
+ 	pageGraphics(false);
+ }
+ 
+-// The plots the screen shows, from the camera: its eye and target (CvGameInterface.getCameraView, which reads
++// The plots the screen shows, from the camera: its eye and target (CvScreensInterface.getCameraView, which reads
+ // CyCamera GetCurrentPosition and GetLookAt; the target is the look-at plot's centre when GetLookAt cannot be
+ // read) and the screen's size. Rays through the corners and edge midpoints of the view, FIELD_OF_VIEW wide
+ // vertically and the screen's aspect ratio times that horizontally (the larger footprint of the two readings
+@@ -2428,7 +2428,7 @@ int CvGame::graphicsWindowFromCamera(const CvPlot* pLookAt, int* aiRange)
+ 	{
+ 		CyArgsList argsList;
+ 		argsList.add(0);
+-		if (!gDLL->getPythonIFace()->callFunction(PYGameModule, "getCameraView", argsList.makeFunctionArgs(), &lResult) || lResult < 10)
++		if (!gDLL->getPythonIFace()->callFunction(PYScreensModule, "getCameraView", argsList.makeFunctionArgs(), &lResult) || lResult < 10)
+ 		{
+ 			return 0;
+ 		}
+@@ -2438,7 +2438,7 @@ int CvGame::graphicsWindowFromCamera(const CvPlot* pLookAt, int* aiRange)
+ 		CyArgsList argsList;
+ 		argsList.add(iI + 1);
+ 		lResult = 0;
+-		gDLL->getPythonIFace()->callFunction(PYGameModule, "getCameraView", argsList.makeFunctionArgs(), &lResult);
++		gDLL->getPythonIFace()->callFunction(PYScreensModule, "getCameraView", argsList.makeFunctionArgs(), &lResult);
+ 		aiView[iI] = (int)lResult;
+ 	}
+ 
+diff --git a/Assets/Python/EntryPoints/CvGameInterface.py b/Assets/Python/EntryPoints/CvGameInterface.py
+deleted file mode 100644
+index 50ab63a..0000000
+--- a/Assets/Python/EntryPoints/CvGameInterface.py
++++ /dev/null
+@@ -1,251 +0,0 @@
+-## Sid Meier's Civilization 4
+-## Copyright Firaxis Games 2005
+-##
+-## #####   WARNING - MODIFYING THE FUNCTION NAMES OF THIS FILE IS PROHIBITED  #####
+-## 
+-## The app specifically calls the functions as they are named. Use this file to pass 
+-## args to another file that contains your modifications
+-
+-#
+-import CvUtil
+-import CvGameUtils
+-import CvEventInterface
+-import CvScreenEnums
+-from CvPythonExtensions import *
+-
+-# globals
+-gc = CyGlobalContext()
+-normalGameUtils = CvGameUtils.CvGameUtils()
+-
+-def gameUtils():
+-	' replace normalGameUtils with your mod version'
+-	return normalGameUtils
+-		
+-def isVictoryTest():
+-	#CvUtil.pyPrint( "CvGameInterface.isVictoryTest" )
+-	return gameUtils().isVictoryTest()
+-
+-def isPlayerResearch(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.isPlayerResearch" )
+-	return gameUtils().isPlayerResearch(argsList)
+-
+-def createBarbarianCities():
+-	#CvUtil.pyPrint( "CvGameInterface.createBarbarianCities" )
+-	return gameUtils().createBarbarianCities()
+-
+-def createBarbarianUnits():
+-	#CvUtil.pyPrint( "CvGameInterface.createBarbarianUnits" )
+-	return gameUtils().createBarbarianUnits()
+-
+-def skipResearchPopup(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.skipResearchPopup" )
+-	return gameUtils().skipResearchPopup(argsList)
+-
+-def showTechChooserButton(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.showTechChooserButton" )
+-	return gameUtils().showTechChooserButton(argsList)
+-
+-def getFirstRecommendedTech(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.getFirstRecommendedTech" )
+-	return gameUtils().getFirstRecommendedTech(argsList)
+-
+-def getSecondRecommendedTech(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.getSecondRecommendedTech" )
+-	return gameUtils().getSecondRecommendedTech(argsList)
+-
+-def skipProductionPopup(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.skipProductionPopup" )
+-	return gameUtils().skipProductionPopup(argsList)
+-
+-def showExamineCityButton(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.showExamineCityButton" )
+-	return gameUtils().showExamineCityButton(argsList)
+-
+-def getRecommendedUnit(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.getRecommendedUnit" )
+-	return gameUtils().getRecommendedUnit(argsList)
+-
+-def getRecommendedBuilding(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.getRecommendedBuilding" )
+-	return gameUtils().getRecommendedBuilding(argsList)
+-
+-def updateColoredPlots():
+-	#CvUtil.pyPrint( "CvGameInterface.updateColoredPlots" )
+-	return gameUtils().updateColoredPlots()
+-
+-def isActionRecommended(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.isActionRecommended" )
+-	return gameUtils().isActionRecommended(argsList)
+-
+-def cannotHandleAction(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotHandleAction" )
+-	return gameUtils().cannotHandleAction(argsList)
+-
+-def cannotSelectionListMove(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotSelectionListMove" )
+-	return gameUtils().cannotSelectionListMove(argsList)
+-
+-def cannotSelectionListGameNetMessage(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotSelectionListGameNetMessage" )
+-	return gameUtils().cannotSelectionListGameNetMessage(argsList)
+-
+-def cannotDoControl(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotDoControl" )
+-	return gameUtils().cannotDoControl(argsList)
+-
+-def canResearch(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.canResearch" )
+-	return gameUtils().canResearch(argsList)
+-
+-def cannotResearch(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotResearch" )
+-	return gameUtils().cannotResearch(argsList)
+-
+-def canDoCivic(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.canDoCivic" )
+-	return gameUtils().canDoCivic(argsList)
+-
+-def cannotDoCivic(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotDoCivic" )
+-	return gameUtils().cannotDoCivic(argsList)
+-
+-def canTrain(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.canTrain" )
+-	return gameUtils().canTrain(argsList)
+-
+-def cannotTrain(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotTrain" )
+-	return gameUtils().cannotTrain(argsList)
+-
+-def canConstruct(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.canConstruct" )
+-	return gameUtils().canConstruct(argsList)
+-
+-def cannotConstruct(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotConstruct" )
+-	return gameUtils().cannotConstruct(argsList)
+-
+-def canCreate(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.canCreate" )
+-	return gameUtils().canCreate(argsList)
+-
+-def cannotCreate(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotCreate" )
+-	return gameUtils().cannotCreate(argsList)
+-
+-def canMaintain(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.canMaintain" )
+-	return gameUtils().canMaintain(argsList)
+-
+-def cannotMaintain(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.cannotMaintain" )
+-	return gameUtils().cannotMaintain(argsList)
+-
+-def AI_chooseTech(argsList):
+-	'AI chooses what to research'
+-	#CvUtil.pyPrint( "CvGameInterface.AI_chooseTech" )
+-	return gameUtils().AI_chooseTech(argsList)
+-
+-def AI_chooseProduction(argsList):
+-	'AI chooses city production'
+-	#CvUtil.pyPrint( "CvGameInterface.AI_chooseProduction" )
+-	return gameUtils().AI_chooseProduction(argsList)
+-
+-def AI_unitUpdate(argsList):
+-	'AI moves units - return 0 to let AI handle it, return 1 to say that the move is handled in python '
+-	#CvUtil.pyPrint( "CvGameInterface.AI_unitUpdate" )
+-	return gameUtils().AI_unitUpdate(argsList)
+-
+-def AI_doWar(argsList):
+-	'AI decides whether to make war or peace - return 0 to let AI handle it, return 1 to say that the move is handled in python '
+-	#CvUtil.pyPrint( "CvGameInterface.AI_doWar" )
+-	return gameUtils().AI_doWar(argsList)
+-
+-def AI_doDiplo(argsList):
+-	'AI decides does diplomacy for the turn - return 0 to let AI handle it, return 1 to say that the move is handled in python '
+-	#CvUtil.pyPrint( "CvGameInterface.AI_doDiplo" )
+-	return gameUtils().AI_doDiplo(argsList)
+-
+-def calculateScore(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.calculateScore" )
+-	return gameUtils().calculateScore(argsList)
+-
+-def doHolyCity():
+-	#CvUtil.pyPrint( "CvGameInterface.doHolyCity" )
+-	return gameUtils().doHolyCity()
+-
+-def doHolyCityTech(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doHolyCityTech" )
+-	return gameUtils().doHolyCityTech(argsList)
+-
+-def doGold(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doGold" )
+-	return gameUtils().doGold(argsList)
+-
+-def doResearch(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doResearch" )
+-	return gameUtils().doResearch(argsList)
+-
+-def doGoody(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doGoody" )
+-	return gameUtils().doGoody(argsList)
+-
+-def doGrowth(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doGrowth" )
+-	return gameUtils().doGrowth(argsList)
+-
+-def doProduction(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doProduction" )
+-	return gameUtils().doProduction(argsList)
+-
+-def doCulture(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doCulture" )
+-	return gameUtils().doCulture(argsList)
+-
+-def doPlotCulture(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doPlotCulture" )
+-	return gameUtils().doPlotCulture(argsList)
+-
+-def doReligion(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doReligion" )
+-	return gameUtils().doReligion(argsList)
+-
+-def doGreatPeople(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doGreatPeople" )
+-	return gameUtils().doGreatPeople(argsList)
+-
+-def doMeltdown(argsList):
+-	#CvUtil.pyPrint( "CvGameInterface.doMeltdown" )
+-	return gameUtils().doMeltdown(argsList)
+-
+-# Graphics paging (CvGame::graphicsWindowFromCamera). Index 0 reads the camera and returns how many values
+-# follow; index i returns value i: the camera's eye x, y, z and target x, y, z in world units, 1 if the target
+-# was read, the screen's width and height in pixels, and 1 in globe view.
+-g_cameraView = []
+-def getCameraView(argsList):
+-	global g_cameraView
+-	iIndex = argsList[0]
+-	if iIndex == 0:
+-		try:
+-			camera = CyCamera()
+-			eye = camera.GetCurrentPosition()
+-			target = [0, 0, 0, 0]
+-			try:
+-				point = camera.GetLookAt()
+-				target = [int(point.x), int(point.y), int(point.z), 1]
+-			except:
+-				pass
+-			screen = CyGInterfaceScreen("MainInterface", CvScreenEnums.MAIN_INTERFACE)
+-			bGlobe = 0
+-			try:
+-				bGlobe = int(CyEngine().isGlobeviewUp())
+-			except:
+-				pass
+-			g_cameraView = [int(eye.x), int(eye.y), int(eye.z)] + target + [screen.getXResolution(), screen.getYResolution(), bGlobe]
+-		except:
+-			g_cameraView = []
+-		return len(g_cameraView)
+-	if 0 < iIndex <= len(g_cameraView):
+-		return g_cameraView[iIndex - 1]
+-	return 0
+-
+diff --git a/Assets/Python/EntryPoints/CvScreensInterface.py b/Assets/Python/EntryPoints/CvScreensInterface.py
+index fed317d..05f11ab 100644
+--- a/Assets/Python/EntryPoints/CvScreensInterface.py
++++ b/Assets/Python/EntryPoints/CvScreensInterface.py
+@@ -1192,3 +1192,34 @@ def init():
+ 
+ # RevolutionDCM
+ 	createRevolutionWatchAdvisor()
++
++# Graphics paging (CvGame::graphicsWindowFromCamera). Index 0 reads the camera and returns how many values
++# follow; index i returns value i: the camera's eye x, y, z and target x, y, z in world units, 1 if the target
++# was read, the screen's width and height in pixels, and 1 in globe view.
++g_cameraView = []
++def getCameraView(argsList):
++	global g_cameraView
++	iIndex = argsList[0]
++	if iIndex == 0:
++		try:
++			camera = CyCamera()
++			eye = camera.GetCurrentPosition()
++			target = [0, 0, 0, 0]
++			try:
++				point = camera.GetLookAt()
++				target = [int(point.x), int(point.y), int(point.z), 1]
++			except:
++				pass
++			screen = CyGInterfaceScreen("MainInterface", MAIN_INTERFACE)
++			bGlobe = 0
++			try:
++				bGlobe = int(CyEngine().isGlobeviewUp())
++			except:
++				pass
++			g_cameraView = [int(eye.x), int(eye.y), int(eye.z)] + target + [screen.getXResolution(), screen.getYResolution(), bGlobe]
++		except:
++			g_cameraView = []
++		return len(g_cameraView)
++	if 0 < iIndex <= len(g_cameraView):
++		return g_cameraView[iIndex - 1]
++	return 0
+diff --git a/Docs/GRAPHICS_PAGING.md b/Docs/GRAPHICS_PAGING.md
+index a20d59b..7fabf19 100644
+--- a/Docs/GRAPHICS_PAGING.md
++++ b/Docs/GRAPHICS_PAGING.md
+@@ -1,8 +1,10 @@
+ # Graphics paging
+ 
+ This document describes the graphics paging in the DLL as `main` holds it after merge request !60
+-(merge commit `1c24b6ce`). It also covers the earlier merges that built it, the two failures it
+-caused in the game, and what is known, assumed and not known about it.
++(merge commit `1c24b6ce`) and the camera reader's move out of `CvGameInterface` (branch
++`claude/paging-interface`). It also covers the earlier merges that built it, the two failures it
++caused in the game, the Python file it replaced by mistake, and what is known, assumed and not
++known about it.
+ 
+ The merge commit of !60 carries the title and description of the first of its two commits only. It
+ also says `GRAPHICS_PAGING_ZOOM` defaults to 0, but that define no longer exists. This document is
+@@ -43,7 +45,8 @@ one, the plot comes back on the spot.
+ ## The window
+ 
+ With `GRAPHICS_PAGING_CAMERA` 1, the window is what the screen shows. About ten times a second,
+-`CvGameInterface.getCameraView` reads:
++`CvScreensInterface.getCameraView` (the mod's `Assets/Python/EntryPoints/CvScreensInterface.py`)
++reads:
+ - the camera's eye and target (`CyCamera` `GetCurrentPosition`, `GetLookAt`);
+ - the screen's resolution (`CyGInterfaceScreen` `getXResolution`, `getYResolution`);
+ - whether the globe view is up (`CyEngine` `isGlobeviewUp`).
+@@ -102,6 +105,35 @@ pitch):
+ | !57 (`a459d0d8`) | Paging of units, cities and plots (features, routes, plot builders, yield symbols, flags); a window scaled by the camera zoom; billboards rebuilt for the active team only; the billboard debug log removed | Froze when the first city was founded |
+ | !58 (`d929b57b`) | Plot builders no longer paged; a switch per part; `getCameraZoom` takes its argument | Crashed when the first unit was moved |
+ | !60 (`1c24b6ce`) | Commit `006b7840`: plots keep their graphics while anything on them keeps its own; routes never paged. Commit `cadd95b3`: the window from the camera, replacing the zoom scaling (`GRAPHICS_PAGING_ZOOM` and its two defines removed) | Not yet run |
++| `claude/paging-interface` | `getCameraView` moves to `CvScreensInterface`; the mod's `CvGameInterface.py`, added in !57, is deleted | Not yet run |
++
++### The Python file (!57 to !60)
++
++!57 added `Assets/Python/EntryPoints/CvGameInterface.py` to the mod so that the DLL could ask
++Python for the camera. Its commit calls it the Beyond the Sword file unchanged, but it is not:
++- it defines 49 functions besides the camera's, and its `gameUtils()` returns a plain
++  `CvGameUtils.CvGameUtils()`;
++- it never imports `CvGameInterfaceFile`. The mod ships BUG's `CvGameInterfaceFile.py`, which
++  "overrides the use of CvGameUtils with BUG's modular game utils dispatcher";
++- Firaxis's own DLL source (the BTS SDK in this repository) calls 22 `CvGameInterface` functions it
++  lacks. Among them are `getUnitCostMod`, `getBuildingCostMod`, `getUpgradePriceOverride`,
++  `getExperienceNeeded`, `doPillageGold`, `doCityCaptureGold`, `getExtraCost`, `canBuild` and
++  `cannotFoundCity`.
++
++A mod's file replaces the game's file of the same name. RoM's rules in `RoMGameUtils.py`, which
++`Assets/Config/RoMSettings.xml` registers through BUG's dispatcher, were therefore not reached:
++- `cannotConstruct` and `cannotDoCivic` went to the plain game utils;
++- `getUnitCostMod`, `getBuildingCostMod`, `getUpgradePriceOverride`, `doPillageGold` and
++  `doCityCaptureGold` were not found at all.
++
++The cost, upgrade-price, cannot-construct and cannot-do-civic switches are on in
++`PythonCallbackDefines.xml`. `getExperienceNeeded` has no switch. What the game does when it calls
++a missing function is not known.
++
++`claude/paging-interface` moves `getCameraView`, unchanged, to the mod's `CvScreensInterface.py`
++(`PYScreensModule`, which the DLL already calls). It deletes the mod's `CvGameInterface.py`, so the
++game's own file answers again. With the DLL of !60 and the new Python, the camera cannot be read
++and the fixed window is used, as before !60.
+ 
+ ### The freeze (!57)
+ 
+@@ -183,7 +215,7 @@ No crash address was obtained. This is the defect found in the code, not a confi
+ - `CvCity.cpp`: `pageGraphics`, `canPageGraphicsOut`.
+ - `CvDLLEntity.cpp`: the guarded entity calls.
+ - `CvGameCoreUtils.cpp`: `addEntityMission`.
+-- `Assets/Python/EntryPoints/CvGameInterface.py`: `getCameraView`.
++- `Assets/Python/EntryPoints/CvScreensInterface.py`: `getCameraView`.
+ 
+ Builds, patches and the harness runs are in the GitHub repository GertaBool/RoM: `builds/graphics-*`,
+ `fixes/graphics-*` and `toolchain/harness`.
+-- 
+2.43.0
+
