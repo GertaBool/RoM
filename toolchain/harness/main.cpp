@@ -214,6 +214,30 @@ static void printPythonCounts(int iTurns)
 		if (g_dirtyCounts[i] > 0) harnessLog("  dirty    %-40d %10ld %10ld\n", i, g_dirtyCounts[i], g_dirtyCounts[i] / iPer);
 }
 
+// HARNESS_GRAPHICS: the executable's checks near the camera (HarnessHooks.cpp HH_graphicsCheck),
+// every HARNESS_CHECK_EVERY updates (default 10; 0 = none), and their counts for the turn lines.
+static void graphicsCheck(long iUpdates)
+{
+	typedef void (*CheckFn)();
+	static CheckFn s_pfn = NULL;
+	static long s_iEvery = -1;
+	if (s_iEvery < 0)
+	{
+		const char* sz = getenv("HARNESS_CHECK_EVERY");
+		s_iEvery = sz != NULL ? atol(sz) : 10;
+		HMODULE hDll = GetModuleHandleA("CvGameCoreDLL.dll");
+		if (hDll != NULL) s_pfn = (CheckFn)GetProcAddress(hDll, "HH_graphicsCheck");
+	}
+	if (s_pfn != NULL && s_iEvery > 0 && iUpdates % s_iEvery == 0) s_pfn();
+}
+static const char* graphicsCheckStats()
+{
+	typedef const char* (*StatsFn)();
+	HMODULE hDll = GetModuleHandleA("CvGameCoreDLL.dll");
+	const StatsFn pfn = hDll != NULL ? (StatsFn)GetProcAddress(hDll, "HH_graphicsCheckStats") : NULL;
+	return pfn != NULL ? pfn() : "no check in this DLL";
+}
+
 static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHandicap, unsigned int uiSeed,
 	int iTurns, const char* szOut, int iDetailEvery)
 {
@@ -262,10 +286,11 @@ static void scenarioRun(const char* szScn, const char* szSpeed, const char* szHa
 			}
 			fwrite(&buf[0], 1, n, f); fputc('\n', f); fflush(f);
 			maybeSnapshot(szOut, iTurn);
-			if (bGraphics) harnessLog("graphics turn %d: %s\n", iTurn, harnessGraphicsStats());
+			if (bGraphics) harnessLog("graphics turn %d: %s; %s\n", iTurn, harnessGraphicsStats(), graphicsCheckStats());
 			if (iTurn - iStart >= iTurns || HH_gameState() != 0) break;
 		}
 		HH_update();
+		if (bGraphics) graphicsCheck(iUpdates);
 		if (++iUpdates > 100000) { harnessLog("turn %d did not finish after %ld updates\n", iTurn, iUpdates); break; }
 	}
 	fclose(f);
@@ -318,7 +343,7 @@ static void saveRun(const char* szInit, const char* szGame, int iTurns, const ch
 			const DWORD uiNow = GetTickCount();
 			const int iMs = iLastTurn < 0 ? 0 : (int)(uiNow - uiTurnStart);
 			harnessLog("turn %d (%d ms, %ld updates)\n", iTurn, iMs, iUpdates);
-			if (bGraphics) harnessLog("graphics turn %d: %s\n", iTurn, harnessGraphicsStats());
+			if (bGraphics) harnessLog("graphics turn %d: %s; %s\n", iTurn, harnessGraphicsStats(), graphicsCheckStats());
 			uiTurnStart = uiNow;
 			iLastTurn = iTurn;
 			iUpdates = 0;
@@ -334,6 +359,7 @@ static void saveRun(const char* szInit, const char* szGame, int iTurns, const ch
 			if (iTurn - iStart >= iTurns || HH_gameState() != 0) break;
 		}
 		HH_update();
+		if (bGraphics) graphicsCheck(iUpdates);
 		++iUpdates;
 		if (iUpdates == iStuckUpdates || iUpdates == iStuckUpdates * 2 || iUpdates == iStuckUpdates * 4)
 		{

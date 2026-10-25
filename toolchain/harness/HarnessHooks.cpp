@@ -15,6 +15,8 @@
 #include "CvInitCore.h"
 #include "CvDLLFAStarIFaceBase.h"
 #include "FAStarNode.h"
+#include "CvDLLInterfaceIFaceBase.h"
+#include "CvDLLFlagEntityIFaceBase.h"
 #include "CvGameCoreUtils.h"
 #include <cstdio>
 
@@ -196,6 +198,21 @@ extern "C" __declspec(dllexport) CvPlot* HH_lookAtPlot()
 	CvMap& kMap = GC.getMapINLINE();
 	const int iW = kMap.getGridWidthINLINE(), iH = kMap.getGridHeightINLINE();
 	const long iStep = (s_iCalls++) / iPeriod;
+	// HARNESS_CAMERA_FOLLOW=1: the camera goes from one unit of the active player to the next, one every
+	// period, as a player does who cycles through his units.
+	if (getenv("HARNESS_CAMERA_FOLLOW") != NULL && GC.getGameINLINE().getActivePlayer() != NO_PLAYER)
+	{
+		CvPlayer& kActive = GET_PLAYER(GC.getGameINLINE().getActivePlayer());
+		if (kActive.getNumUnits() > 0)
+		{
+			const int iWanted = (int)(iStep % kActive.getNumUnits());
+			int iLoop, i = 0;
+			for (CvUnit* pUnit = kActive.firstUnit(&iLoop); pUnit != NULL; pUnit = kActive.nextUnit(&iLoop), ++i)
+			{
+				if (i == iWanted && pUnit->plot() != NULL) return pUnit->plot();
+			}
+		}
+	}
 	const int iRows = std::max(1, iH / 20);
 	const int iRow = (int)((iStep / iW) % iRows);
 	const int iX = (iRow % 2 == 0) ? (int)(iStep % iW) : iW - 1 - (int)(iStep % iW);
@@ -278,4 +295,57 @@ extern "C" __declspec(dllexport) int HH_economy(int ePlayer, char* szBuf, int iS
 		k.getCommercePercent(COMMERCE_GOLD), k.getCommercePercent(COMMERCE_RESEARCH), k.calculateInflatedCosts(),
 		k.calculateUnitCost(), k.calculateUnitSupply(), k.getTotalMaintenance(), k.getCivicUpkeep(),
 		iPop, iWorked, k.AI_isFinancialTrouble());
+}
+
+// HARNESS_GRAPHICS check: the executable's view of the plots near the camera, where it draws. It
+// updates the dirty flags (CvMap::updateFlagSymbols, which the executable calls), then counts states
+// the unchanged game never shows, which the executable may not expect. The screen is taken as 12
+// plots east and west of the look-at plot, 10 north and 6 south; the entity of a unit or city is the
+// harness's token, whose first field says whether it is set up (engine.cpp).
+namespace
+{
+	long g_aiCheck[6] = { 0, 0, 0, 0, 0, 0 };
+	long g_iCheckPasses = 0;
+	bool isSetUp(const void* pEntity) { return pEntity != NULL && *(const bool*)pEntity; }
+}
+extern "C" __declspec(dllexport) void HH_graphicsCheck()
+{
+	if (!GC.IsGraphicsInitialized() || GC.getGameINLINE().getActiveTeam() == NO_TEAM) return;
+	CvPlot* pLook = gDLL->getInterfaceIFace()->getLookAtPlot();
+	if (pLook == NULL) return;
+	++g_iCheckPasses;
+	CvMap& kMap = GC.getMapINLINE();
+	kMap.updateFlagSymbols();
+	const TeamTypes eActiveTeam = GC.getGameINLINE().getActiveTeam();
+	for (int i = 0; i < kMap.numPlotsINLINE(); ++i)
+	{
+		CvPlot* p = kMap.plotByIndexINLINE(i);
+		const int iDX = dxWrap(p->getX_INLINE() - pLook->getX_INLINE());
+		const int iDY = dyWrap(p->getY_INLINE() - pLook->getY_INLINE());
+		const bool bScreen = abs(iDX) <= 12 && iDY <= 10 && iDY >= -6;
+		CvUnit* pCenter = p->getCenterUnit();
+		// 0: a unit with its graphics is the plot's center unit, and the plot has no flag
+		if (pCenter != NULL && isSetUp(pCenter->getUnitEntity()) && p->getFlagSymbol() == NULL) ++g_aiCheck[0];
+		// 1: the active team sees a route here, and the plot has no route symbol (the executable joins routes by their neighbours)
+		if (p->getRevealedRouteType(eActiveTeam, false) != NO_ROUTE && p->getRouteSymbol() == NULL) ++g_aiCheck[1];
+		if (!bScreen || !p->isRevealed(eActiveTeam, false)) continue;
+		// 2: on screen, the center unit has no graphics
+		if (pCenter != NULL && !isSetUp(pCenter->getUnitEntity())) ++g_aiCheck[2];
+		// 3: on screen, a city without graphics
+		if (p->getPlotCity() != NULL && !isSetUp(p->getPlotCity()->getEntity())) ++g_aiCheck[3];
+		// 4: on screen, a feature with art of its own and no feature symbol
+		const FeatureTypes eFeature = p->getFeatureType();
+		if (eFeature != NO_FEATURE && !GC.getFeatureInfo(eFeature).getArtInfo()->isRiverArt()
+			&& GC.getFeatureInfo(eFeature).getArtInfo()->getTileArtType() == TILE_ART_TYPE_NONE && p->getFeatureSymbol() == NULL) ++g_aiCheck[4];
+		// 5: on screen, a center unit with no flag
+		if (pCenter != NULL && p->getFlagSymbol() == NULL) ++g_aiCheck[5];
+	}
+}
+extern "C" __declspec(dllexport) const char* HH_graphicsCheckStats()
+{
+	static char buf[384];
+	_snprintf(buf, sizeof(buf), "check passes %ld: flagless live units %ld, routes without symbol %ld; on screen: units without graphics %ld, cities without graphics %ld, features without symbol %ld, units without flag %ld",
+		g_iCheckPasses, g_aiCheck[0], g_aiCheck[1], g_aiCheck[2], g_aiCheck[3], g_aiCheck[4], g_aiCheck[5]);
+	buf[sizeof(buf) - 1] = 0;
+	return buf;
 }
