@@ -590,5 +590,40 @@
    "fixes/graphics-paging-interface/",
    "builds/graphics-paging-interface/"
   ]
+ },
+ {
+  "id": "W3",
+  "type": "withdrawal",
+  "of": "P14",
+  "reason": "Registered before evidence, withdrawn before any: its paths leave out the harness, which does not build against GitLab main (HarnessState.cpp calls AI_balanceHegemon, AI_balanceNoWarProb and AI_stagedForecast, found only on unmerged branches), so P14's runs could not be made from the repository. P15 is the same change and claim with the harness guards in its paths."
+ },
+ {
+  "id": "P15",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H9"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab main 4ec8ebc (P13's tree, build 526bbebe2dc9): CvGame::graphicsWindowFromCamera calls getCameraView in PYScreensModule (CvScreensInterface) instead of PYGameModule; getCameraView, unchanged, moves to the mod's Assets/Python/EntryPoints/CvScreensInterface.py; the mod's Assets/Python/EntryPoints/CvGameInterface.py is deleted, so the game's own file and BUG's dispatcher answer every CvGameInterface call again; Docs/GRAPHICS_PAGING.md says so. Nothing else changes. With the DLL of 4ec8ebc and the new Python, the camera cannot be read and the GRAPHICS_PAGING_RANGE_* window is used. Harness (Python inert; the harness answers getCameraView by name whatever the module): arm a is this build, arm b the build of 4ec8ebc (526bbebe2dc9), both with HARNESS_CAMERA_VIEW=2200,45,0,1920,1080, from turn 0 of PrivateMaps/Mediterranean, Huge.CivBeyondSwordWBSave (all seats AI, HARNESS_ACTIVE=0, HARNESS_GRAPHICS=1, camera following the active player's units, a check every update), 20 turns per run, seeds from ledger.py seeds. The telemetry, timings aside, should be identical in every seed pair. RoM's Python rules are judged by the user's game. The harness built from this repository must build against GitLab main: toolchain/harness/build_dll.sh defines HARNESS_BALANCE when CvTeamAI.h declares AI_balanceHegemon and HARNESS_STAGED_FORECAST when CvCityAI.h declares AI_stagedForecast, and HarnessState.cpp uses those functions only under them (otherwise the no-war probability is reproduced from the leader fields as before the balance change, the hegemon is -1 and the staged forecast -1); for sources that have them the harness is unchanged.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "gitlab:Assets/Python/EntryPoints/CvScreensInterface.py",
+   "gitlab:Docs/GRAPHICS_PAGING.md",
+   "fixes/graphics-paging-interface.patch",
+   "fixes/graphics-paging-interface/",
+   "builds/graphics-paging-interface/",
+   "toolchain/harness/HarnessState.cpp",
+   "toolchain/harness/build_dll.sh"
+  ]
  }
 ]
