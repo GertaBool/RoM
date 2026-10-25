@@ -1,0 +1,24 @@
+{
+ "serves": [
+  "P13"
+ ],
+ "patch": "fixes/graphics-paging-camera.patch",
+ "build_id": "526bbebe2dc9",
+ "source": "GitLab main d929b57 plus fixes/graphics-paging-coherence.patch and fixes/graphics-paging-camera.patch (merge request !59): paging coherence (P12) and the paging window from the camera (P13)",
+ "source_commit": "GitLab claude/paging-coherence cadd95b3",
+ "source_tree": "bd6f62356a548215bf9b2d3bced04df06b50c80a",
+ "base_commit": "d929b57bf80a16838831a9b9e11e7b01f6200394",
+ "dll_sha256": "06383f152a36db8173e27f88bbd9c8f8bae310265704f60b6b8abc9ff7429897",
+ "dll_size": 6152192,
+ "files": {
+  "GlobalDefinesAlt.xml": "222bc663c8b65dde9b50b59524ff40e132365185074f432d6ca9065a8d2ff9a4",
+  "CvGameInterface.py": "a607fb20776f875b83d4b96bf1ddd93c936f8058bb8b56b611e52cbd15b92c25"
+ },
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release, CLEAN=1; 0 errors, 0 warnings",
+ "tests": "clang gate on CvGame.cpp against 006b7840: 0 new diagnostics (fixes/graphics-paging-camera/clang-gate.log). The window the DLL computes for harness cameras (distance, pitch, yaw, screen) equals an independent ray-plane computation in all four cases tried: 2200/45/0/1920x1080 gives west 15, east 15, north 12, south 6; 700/28/0/1920x1080 gives 11, 11, 13, 3; 6000/80/30/2560x1080 gives 32, 37, 30, 26; 6000/28/0/1920x1080 gives 83, 83, and north 73 (the map's height; the geometry gives 100), 17",
+ "tested_headless": "P13 evidence pending",
+ "tested_in_game": false,
+ "previous": "builds/graphics-paging-coherence (dd2152452c46)",
+ "merge_request": "GitLab !59",
+ "gitlab_commit": "cadd95b3fd86011d0b11622679880ebd76ab4e8d"
+}
