@@ -1,0 +1,16 @@
+unit models on the map: 6386 (from 2359 units); mod models x copies 110 MB; 4411 copies of base-game models
+   1005 copies =  335 units x 3  UNIT_AXEMAN                  base game  Art/Units/Axeman/Axeman.nif
+    675 copies =  225 units x 3  UNIT_LIGHT_SWORDSMAN         base game  Art/Units/Swordsman/Swordsman.nif
+    651 copies =   93 units x 7  UNIT_WARDOG                     46 KB  Art/Units/Animals/Dog/Wolf.nif
+    644 copies =  322 units x 2  UNIT_WORKER                  base game  Art/Units/Worker/Worker.nif
+    507 copies =  169 units x 3  UNIT_PIKEMAN                 base game  Art/Units/Pikeman/Pikeman.nif
+    434 copies =  217 units x 2  UNIT_CATAPULT                base game  Art/Units/Catapult/Catapult.nif
+    231 copies =   33 units x 7  UNIT_HYPASPIST2                 39 KB  Art/Units/Greek/SilverShields/GreekHypaspistaiOfficerHeavyfootman.nif
+    201 copies =   67 units x 3  UNIT_CELTIC_SWORDSMAN           67 KB  art/units/Swordsman/Celtic_Swordsman/CelticSwordsmanNoShirtWithCloak.nif
+    168 copies =   24 units x 7  UNIT_SETTLER                 base game  Art/Units/Settler/Settler_Male.nif
+    147 copies =   49 units x 3  UNIT_SEARAIDER                  49 KB  art/units/Swordsman/Swordsman_German/FrankishSwordsman.nif
+    144 copies =   48 units x 3  UNIT_HOLY_ROMAN_LANDSKNECHT  base game  Art/Units/Unique_HolyRomanEmpire_Landsknecht/Unique_HolyRoman_Landsknecht.nif
+    126 copies =  126 units x 1  UNIT_GALLEY                  base game  Art/Units/Galley/Galley.nif
+    123 copies =   41 units x 3  UNIT_GREEK_PHALANX              42 KB  Art/Units/Spearman/GreekAthenianPhalanx/GreekAthenianPhalanxfinal.nif
+    108 copies =   36 units x 3  UNIT_CELTIC_GALLIC_WARRIOR   base game  Art/Units/Celtic_Warrior/Celtic_Warrior.nif
+     94 copies =   47 units x 2  UNIT_EXPLORER                base game  Art/Units/Explorer/Explorer.nif

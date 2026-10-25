@@ -89,5 +89,275 @@
    "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
    "gitlab:Assets/CvGameCoreDLL/WarLogBuild.h"
   ]
+ },
+ {
+  "id": "H2",
+  "type": "hypothesis",
+  "line": "staging-defence",
+  "text": "The human takes AI cities on the turn it declares, after staging its units next to them at peace (study/staging.md: games 1-5). The AI cannot answer by construction: a city's danger counts only units of a team already at war and only on the city's own area, so a staged army or one aboard ships counts nothing, and the defenders a city wants do not rise. A city that sizes its defence by the exact assault forecast of the foreign units able to reach it this turn, at peace or at war and aboard ships, loses fewer cities to that strike."
+ },
+ {
+  "id": "P3",
+  "type": "prediction",
+  "line": "staging-defence",
+  "hypotheses": [
+   "H2"
+  ],
+  "variable": "taken",
+  "evidence": "games",
+  "change": "Change S on (define AI_STAGED_FORECAST, per mille, off at 0): in CvCityAI::AI_neededDefenders, the land units able to attack that could reach the city this turn, of teams that are not the owner's, its vassal or its master, counted by their moves (units aboard a ship by the ship's moves), are given to AI_assaultForecast against the city's defenders; while the forecast is at least the threshold (AI_STAGED_FORECAST plus ten times the leader's attack-odds change), the city wants one defender more than it has, and while it would be at least the threshold with one defender fewer, it keeps the ones it has. An AI at peace counts another AI's units only if its attitude allows war (the test of the paranoia code); a human's always. Built on the war-log DLL with the four war-AI fixes (builds/staging); only games written by builds made under P3 count, so games for P2 and for P3 never mix.",
+  "claim": {
+   "turn": 217,
+   "handicap": "HANDICAP_NOBLE",
+   "requires_snapshot": true,
+   "op": "<",
+   "reference": [
+    [
+     "game1",
+     "66506c98af2eee656a3a93dd3b82ae4e9821cedfce0b69cc50969446939c34f0",
+     10
+    ],
+    [
+     "game2",
+     "802df1aadb0251fd5405ed4de13d2d45225ded0bd372042ee1d42bb76d36e003",
+     1
+    ],
+    [
+     "game3",
+     "7cde98c718bcc23fcd18a9d897fd3158cbd7d89da8fbc8decd90e2aa38541a14",
+     6
+    ]
+   ],
+   "min_n": 2,
+   "builds": "served"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.h",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "builds/staging/",
+   "fixes/staging-defence.patch",
+   "toolchain/harness/HarnessState.cpp",
+   "toolchain/harness/README.md"
+  ]
+ },
+ {
+  "id": "W2",
+  "type": "withdrawal",
+  "of": "P3",
+  "reason": "Before any evidence or build: measured on the saves of games 3 to 5 (HARNESS_DEFENCE_DIAG), raising the defenders a city wants changes them in 6 of 511 AI cities, since city production reads that count only once the city is in danger and about half of all AI cities are already below it. The change is replaced by P4, which also feeds the city's danger flag."
+ },
+ {
+  "id": "P4",
+  "type": "prediction",
+  "line": "staging-defence",
+  "hypotheses": [
+   "H2"
+  ],
+  "variable": "taken",
+  "evidence": "games",
+  "change": "Change S2 on (define AI_STAGED_FORECAST, per mille, off at 0). The staged forecast: the land units able to attack that could reach the city this turn, of teams that are not the owner's, its vassal or its master, counted by their moves (units aboard a ship by the ship's moves), given to AI_assaultForecast against the city's land defenders; an AI at peace counts another AI's units only if its attitude allows war (the test of the paranoia code), a human's always. The threshold is AI_STAGED_FORECAST plus ten times the leader's attack-odds change. While the forecast reaches the threshold, the city is in danger (CvCityAI::AI_isDanger, which city production and the city governor read) and wants one defender more than it has (AI_neededDefenders); while it would reach it with one defender fewer, it keeps the ones it has. Danger as unit moves and workers read it (CvPlayerAI::AI_getPlotDanger) is unchanged. Built on the war-log DLL with the four war-AI fixes (builds/staging); only games written by builds made under P4 count, so games for P2 and for P4 never mix.",
+  "claim": {
+   "turn": 217,
+   "handicap": "HANDICAP_NOBLE",
+   "requires_snapshot": true,
+   "op": "<",
+   "reference": [
+    [
+     "game1",
+     "66506c98af2eee656a3a93dd3b82ae4e9821cedfce0b69cc50969446939c34f0",
+     10
+    ],
+    [
+     "game2",
+     "802df1aadb0251fd5405ed4de13d2d45225ded0bd372042ee1d42bb76d36e003",
+     1
+    ],
+    [
+     "game3",
+     "7cde98c718bcc23fcd18a9d897fd3158cbd7d89da8fbc8decd90e2aa38541a14",
+     6
+    ]
+   ],
+   "min_n": 2,
+   "builds": "served"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.h",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "builds/staging/",
+   "fixes/staging-defence.patch",
+   "toolchain/harness/HarnessState.cpp",
+   "toolchain/harness/README.md"
+  ]
+ },
+ {
+  "id": "H3",
+  "type": "hypothesis",
+  "line": "balance",
+  "principle": "D3",
+  "gap": "R2",
+  "text": "No AI ever moves against the human, even while it leads and while it is at war with one of them (study/doctrine.md, R2: games 1-5). By construction: every war path of CvTeamAI::AI_doWar wants a target weaker than the AI alone and passes a no-war roll against the leader's NoWarAttitudeProbs for its attitude, which the human keeps high with gifts and open borders (R3); the one coalition path (dogpile) counts only the power of teams already at war with the target; and a team with any war plan does not consider a new war. Measured first at the saves (study/d3-design.md, step 1). AIs that weigh a hegemon by their leader's own envy and count the others who would join take more back from the human and let it take less."
+ },
+ {
+  "id": "P5",
+  "type": "prediction",
+  "line": "balance",
+  "hypotheses": [
+   "H3"
+  ],
+  "variable": "taken",
+  "evidence": "games",
+  "change": "Change B (study/d3-design.md): step 1, HARNESS_WAR_DIAG, the per-team gates of AI_doWar towards every met team at a save (reads only); step 2, the balance term against a hegemon (define AI_BALANCE_SHARE, per mille of the summed power of the met living teams, off at 0), with the no-war roll against a hegemon lowered by the leader's iWorseRankDifferenceAttitudeChange and kept at ATTITUDE_FRIENDLY, and of candidates (b) the dogpile power counting the teams whose own roll passes and (c) a team with war plans only against teams weaker than the hegemon considering the hegemon by the dogpile path, the ones step 1 shows blocking. Built on the S2 DLL (builds/balance); only games written by builds made under P5 count.",
+  "claim": {
+   "turn": 217,
+   "handicap": "HANDICAP_NOBLE",
+   "requires_snapshot": true,
+   "op": "<",
+   "reference": [
+    [
+     "game1",
+     "66506c98af2eee656a3a93dd3b82ae4e9821cedfce0b69cc50969446939c34f0",
+     10
+    ],
+    [
+     "game2",
+     "802df1aadb0251fd5405ed4de13d2d45225ded0bd372042ee1d42bb76d36e003",
+     1
+    ],
+    [
+     "game3",
+     "7cde98c718bcc23fcd18a9d897fd3158cbd7d89da8fbc8decd90e2aa38541a14",
+     6
+    ]
+   ],
+   "min_n": 2,
+   "builds": "served"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvTeamAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvTeamAI.h",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "builds/balance/",
+   "fixes/balance.patch",
+   "toolchain/harness/HarnessState.cpp",
+   "toolchain/harness/README.md"
+  ]
+ },
+ {
+  "id": "P6",
+  "type": "prediction",
+  "line": "balance",
+  "hypotheses": [
+   "H3"
+  ],
+  "variable": "seat_captures",
+  "evidence": "runs",
+  "serves": "P5",
+  "change": "Harness runs of change B: the turn-0 scenario of game 3 (Marathon, Noble), 300 turns, seat 12 played by the human model (HarnessHuman.cpp, policy both.txt of the human-model experiment), the other seats by the AI. One harness DLL, built from the source of P5 (the S2 commit plus change B), in both arms; AI_STAGED_FORECAST 250 in both. Arm a: AI_BALANCE_SHARE 110; arm b: AI_BALANCE_SHARE 0, which leaves AI_doWar as in the S2 build. The cities the human-model seat takes are fewer in arm a.",
+  "claim": {
+   "direction": "a<b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 12
+  }
+ },
+ {
+  "id": "H4",
+  "type": "hypothesis",
+  "line": "graphics-paging",
+  "text": "The executable sets up a model for every unit and city and graphics for every plot, on screen or not (research/graphics/README.md, R-C), and a large game (300 cities, 2,359 units, 6,386 unit models at 460 AD) ended with its memory allocation failure; a view window holds a fraction of them (R-D). Keeping graphics only around the camera lowers the executable's memory without changing the game or what is on screen. The memory itself is measured only in the real game, by the user (process memory at the 460 AD save with paging on and off, and play past 490 AD); the harness checks that the change neither crashes nor slows the game."
+ },
+ {
+  "id": "P7",
+  "type": "prediction",
+  "line": "graphics-paging",
+  "hypotheses": [
+   "H4"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "Graphics paging (define GRAPHICS_PAGING, 0 = off): the DLL keeps unit and city entities and the feature, route and improvement graphics of plots only within a window around the camera's look-at plot (getLookAtPlot), sized for the farthest zoom the camera defines allow, with a margin; elsewhere it removes the entity and leaves a bare one (as reloadEntity does before setup) and destroys the plot symbols, and sets them up again when the window returns. Entity calls on a paged-out unit or city are skipped and its battles are not animated. The active player's units and cities are never paged out. Arm a: paging on; arm b: the same build with GRAPHICS_PAGING 0; both in the harness with graphics initialised and a camera sweeping the map, from the 460 AD autosave of the user's Mediterranean game, seeds from ledger.py seeds.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.h",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "fixes/graphics-paging.patch",
+   "fixes/graphics-paging/",
+   "builds/graphics-paging/",
+   "toolchain/harness/engine.cpp",
+   "toolchain/harness/main.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "toolchain/harness/README.md"
+  ]
+ },
+ {
+  "id": "P8",
+  "type": "prediction",
+  "line": "graphics-paging",
+  "hypotheses": [
+   "H4"
+  ],
+  "variable": "turn_seconds",
+  "evidence": "runs",
+  "change": "Graphics paging (define GRAPHICS_PAGING, 0 = off): the DLL keeps unit and city entities and the feature, route and improvement graphics of plots only within a window around the camera's look-at plot (getLookAtPlot), sized for the farthest zoom the camera defines allow, with a margin; elsewhere it removes the entity and leaves a bare one (as reloadEntity does before setup) and destroys the plot symbols, and sets them up again when the window returns. Entity calls on a paged-out unit or city are skipped and its battles are not animated. The active player's units and cities are never paged out. Arm a: paging on; arm b: the same build with GRAPHICS_PAGING 0; both in the harness with graphics initialised and a camera sweeping the map, from the 460 AD autosave of the user's Mediterranean game, seeds from ledger.py seeds.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.h",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGlobals.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "fixes/graphics-paging.patch",
+   "fixes/graphics-paging/",
+   "builds/graphics-paging/",
+   "toolchain/harness/engine.cpp",
+   "toolchain/harness/main.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "toolchain/harness/README.md"
+  ]
  }
 ]

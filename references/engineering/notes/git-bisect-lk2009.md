@@ -1,0 +1,95 @@
+# Christian Couder, Fighting regressions with git bisect (Linux-Kongress 2009; paper dated 2009/11/08)
+Source: lit3/git-bisect-lk2009/doc.txt. Read: lines 1-1368 (all).
+
+## What it says
+- Abstract: "We show why it is important to have good tools to fight regressions." -- the paper then describes how git bisect works outside and inside, how to use it to improve practice, and its future.
+- Introduction: "a commit (hopefully) contains a very small set of source code changes." -- the reason people want the commit that introduced a bad behaviour.
+- Introduction: "it's much easier to understand and properly fix a problem when you only need to check a very small set of changes" -- than without knowing where to look.
+- Introduction: "Note that there could be more than one" first bad commit "in the commit space we are searching." -- (term quoted in the source) a stated limit; the tool tries a binary search.
+- Regressions: a big problem: "Regressions are a big problem in the software industry. But it's difficult to put some real numbers behind that claim." -- the author's own caveat on evidence.
+- Regressions: a big problem: "they cost the U.S. economy an estimated $59.5 billion annually, or about 0.6 percent of the gross domestic product" -- quoted from a 2002 NIST study on software bugs in general.
+- Regressions: a big problem: "more than a third of these costs, or an estimated $22.2 billion, could be eliminated by an improved testing infrastructure" -- NIST, quoted.
+- Regressions: a big problem: "Software developers already spend approximately 80 percent of development costs on identifying and correcting defects" -- NIST, quoted.
+- Regressions: a big problem: "the majority, over 80%, of the maintenance effort is used for non-corrective actions (Pigosky 1997)." -- quoted from Wikipedia, against the perception that maintenance is bug fixing.
+- Regressions: a big problem: "But we can guess that improving on existing software is very costly because you have to watch out for regressions." -- the author's reconciliation of the figures, marked as a guess.
+- Regressions: a big problem: "In this case, of course, regressions may not be a big problem." -- for software used for a time without much improvement and then thrown away.
+- Regressions: a big problem: "And this time is more than 80% of the release cycle time." -- in the Linux kernel, the time from first rc to release (2-week merge window, then about 7 or 8 rc versions a week apart) is spent on testing and regressions.
+- Regressions: a big problem: "My average is roughly once a day." -- Ingo Molnar on his use of git bisect, most during the merge window.
+- Regressions: a big problem: "it is well known that bugs should be fixed as soon as possible, so as soon as they are found." -- hence the value of good tools.
+- Other tools to fight regressions: "The only specific tools are test suites and tools similar as" git bisect -- (tool name quoted in source) the regression-specific tools.
+- Other tools to fight regressions: "they are not very efficient, because many tests are run for no interesting result, and they suffer from combinatorial explosion." -- test suites used alone, checking all tests after each commit.
+- Other tools to fight regressions: "where N, M and T are all growing with the size your software." -- N configurations, M commits, T test cases give N * M * T tests.
+- Other tools to fight regressions: "So very soon it will not be possible to completely test everything." -- the conclusion drawn.
+- Other tools to fight regressions: "then you will either have to emulate a bisection process or you will perhaps bluntly test each commit backward" -- when a new test is used to find where a bug slipped in.
+- Starting a bisection: "Then bounds must be set to limit the commit space." -- one bad and at least one good commit; the example shows 10928 revisions left, roughly 14 steps.
+- Starting a bisection: "Note that the example that we will use is really a toy example" -- the first commit with SUBLEVEL = 26 in the Makefile, findable more simply with git blame or git log -S.
+- Driving a bisection manually: "It can be driven manually by the user or it can be driven automatically by a script or a command." -- the two ways.
+- Driving a bisection automatically: "This means that at each step, the grep command we passed will be launched." -- exit code 0 marks good; 1 to 127 except 125 marks bad.
+- Driving a bisection automatically: "Exit code between 128 and 255 are special" -- they stop the bisection immediately, e.g. when a command takes too long; scripts can exit 255 on an abnormal situation.
+- Avoiding untestable commits: "Sometimes it happens that the current state cannot be tested, for example if it does not compile because there was a bug preventing it at that time." -- exit code 125 or git bisect skip marks a commit untestable.
+- Avoiding untestable commits: "In this case it's not possible to tell for sure which commit introduced the regression." -- when the regression lies in a string of untestable commits.
+- Saving a log and replaying it: "If you want to show other people your bisection process, you can get a log" -- git bisect log, and git bisect replay to repeat it.
+- Bisection algorithm: "Linus found and implemented a" truly stupid "algorithm, later improved by Junio Hamano, that works quite well." -- (phrase quoted in source) finding the best bisection commit in a DAG.
+- Bisection algorithm: "This means that we get rid of the uninteresting commits in the DAG." -- step 1: keep ancestors of the bad commit that are not ancestors of a good commit.
+- Bisection algorithm: "associate to each commit the number of ancestors it has plus one" -- step 2; step 3 associates min(X, N - X); step 4 picks the highest.
+- Bisection algorithm: "As we know N from the beginning, we know that min(X, N - X) can't be greater than N/2." -- step 5, a shortcut: stop at a commit with N/2.
+- Bisection algorithm debugging: "you can see the number associated with each commit using" -- git rev-list --bisect-all.
+- Bisection algorithm discussed: "if knowing its state" ... "gives as much information as possible" -- the definition of a best bisection point, maximising f(X) = min(information_if_good(X), information_if_bad(X)).
+- Bisection algorithm discussed: "Now we will suppose that there is only one" first bad commit -- the first stated assumption.
+- Bisection algorithm discussed: "And we will suppose that all commits have an equal probability of being good or bad, or of being the first bad commit" -- the second stated assumption.
+- Bisection algorithm discussed: "So we get more information when a commit is marked as" bad -- because ancestors of the previous bad commit that are not ancestors of the new one cannot be the first bad commit; hence information_if_bad(X) = N - number_of_ancestors(X).
+- Bisection algorithm discussed: "So the current algorithm seems to be the best possible given what we initially supposed." -- the claim, conditional on the assumptions.
+- Skip algorithm: "use a pseudo random number generator (PRNG) to generate a random number between 0 and 1" -- steps 6 to 12 when commits are skipped: the number is multiplied by its square root to bias it toward 0.
+- Skip algorithm discussed: "sometimes the best bisection points all happened to be in an area where all the commits are untestable." -- the complaint against the earlier rule (used from Git 1.5.4 to 1.6.4) of taking the next best unskipped commit.
+- Skip algorithm discussed: "Indeed untestable commits are often untestable because a breakage was introduced at one time, and that breakage was fixed only after many other commits were introduced." -- the cause.
+- Skip algorithm discussed: "So it is a fact that commits near an untestable commit have a high probability of being untestable themselves." -- and best bisection commits cluster.
+- Skip algorithm discussed: "So using a PRNG with a bias to favor commits away from the good and bad commits looked like a good choice." -- because commits near the bounds give little information.
+- Skip algorithm discussed: "One obvious improvement to this algorithm would be to look for a commit that has an associated value near the one of the best bisection commit, and that is on another branch" -- a proposed improvement.
+- Checking merge bases: "The result of such a bisection would be that we would find that H is the first bad commit, when in fact it's B. So that would be wrong!" -- when a bug from main was fixed on main but not on dev, and a good commit is not an ancestor of the bad one.
+- Checking merge bases: "it can happen in practice that people working on one branch are not aware that people working on another branch fixed a bug!" -- the practical case.
+- Checking merge bases: "we first compute the merge bases between the bad and the good commits and we chose these merge bases as the first commits that will be checked out and tested." -- if a merge base is bad, bisection stops.
+- Using test suites and git bisect together: "If you both have a test suite and use git bisect, then it becomes less important to check that all tests pass after each commit." -- though some checks are still wise so as not to make bisecting other bugs harder.
+- Using test suites and git bisect together: "where c is the number of rounds of test (so a small constant) and b is the ratio of bug per commit" -- c * N * T + b * M * log2(M) tests, O(N * T) instead of O(N * T * M).
+- Using test suites and git bisect together: "But they are not so good to tell you where some bugs have been introduced." -- test suites prevent bugs and detect them; bisect locates them.
+- Using test suites and git bisect together: "more tests => easier to create tests => easier to bisect => more tests" -- the virtuous circle.
+- Using test suites and git bisect together: "are complementary tools that are very powerful and efficient when used together." -- test suites and git bisect; the conclusion of the section.
+- Passing sh -c to git bisect run: "On the other hand if you do this often, then it can be worth having scripts to avoid too much typing." -- e.g. make || exit 125 then a grep on the output.
+- Finding performance regressions: "Build errors are not what I am interested in." -- comment in Junio Hamano's script that exits 255 on build error and 1 if the program is still running after NORMAL_TIME.
+- Following general best practices: "It is obviously a good idea not to have commits with changes that knowingly break things, even if some other commits later fix the breakage." -- first practice.
+- Following general best practices: "It is also a good idea when using any VCS to have only one small logical change in each commit." -- second practice.
+- Following general best practices: "small changes are easier to review even if they are only reviewed by the committer." -- smaller changes make bisect more effective and less needed.
+- Following general best practices: "Another good idea is to have good commit messages. They can be very helpful to understand why some changes were made." -- third practice.
+- Avoiding bug prone merges: "First merges by themselves can introduce some regressions even when the merge needs no source code conflict resolution." -- a semantic change in one branch unknown to the other.
+- Avoiding bug prone merges: "For example one branch can change the semantic of a function while the other branch add more calls to the same function." -- the example.
+- Avoiding bug prone merges: "They can make regressions very difficult to track down." -- evil merges, where many files must be fixed to resolve conflicts, also mislead about the cause.
+- Avoiding bug prone merges: "Merges can be also made simpler by using smaller branches or by using many topic branches instead of only long version related branches." -- also rebase to linearise, and test often in integration branches such as linux-next.
+- Adapting your work-flow: "write, in the test suite, a test script that exposes the regression" -- Andreas Ericsson's work-flow: then bisect run, fix, and commit fix and test together.
+- Adapting your work-flow: "we used to have an average report-to-fix cycle of 142.6 hours" -- quoted from Andreas Ericsson: lowered to 16.2 hours after moving to Git, measured as wall-clock time by their bug-tracker.
+- Adapting your work-flow: "Each new release results in ~40% fewer bugs (almost certainly due to how we now feel about writing tests)." -- the same quotation; the attribution is the speaker's own.
+- Adapting your work-flow: "These practices all improve the bisectability of the commit graph, by making it easier and more useful to bisect." -- small logical commits, topic branches, no evil merges.
+- Adapting your work-flow: "So a good work-flow should be designed around the above points. That is making bisecting easier, more useful and standard." -- the recommendation.
+- Involving QA people and if possible end users: "It can effectively be used by QA people or even end users" -- if they have the source code or all builds.
+- Involving QA people and if possible end users: "When you have limited resources (here: developers) you don't push the bulk of the burden upon them." -- David Miller's end node principle, quoted.
+- Involving QA people and if possible end users: "end users that are reporting bugs (or QA people that reproduced a bug) have access to the environment where the bug happens." -- so they can more easily reproduce and bisect.
+- Using complex scripts: "i have a fully automated bootup-hang bisection script." -- Ingo Molnar: it builds and boots kernels and marks a kernel bad on failure or after a 10-minute timeout.
+- Combining test suites, git bisect and other systems: "some test suites could be run automatically at night with some unusual (or even random) configurations." -- and bisect launched automatically on a regression, with results mailed to the author.
+- The future of bisecting (git replace): "The problem is that sometimes the first bad commit will be in an untestable area." -- the PRNG avoidance does not help then.
+- The future of bisecting (git replace): "The first commit in this branch should be the BBC with the BFC squashed into it." -- manual work-around: a special branch where the bisect-breaking commit is squashed with its fix, created by interactive rebase.
+- The future of bisecting (git replace): "The patch should turn a current untestable commits into a testable one." -- alternative: the run script applies a fix patch before testing and removes it after.
+- The future of bisecting (git replace): "But the above ways to work around untestable areas are a little bit clunky." -- many special branches; disruption of the normal work-flow.
+- The future of bisecting (git replace): "the Z' and Z commits should point to the same source code state" -- so Z can be replaced by Z' for bisecting; git replace stores such refs in refs/replace/.
+- Bisecting sporadic bugs: "add some redundancy to the tests performed so that it would be more reliable when tracking sporadic bugs." -- a proposed improvement; such bugs depend on compiler output.
+- Bisecting sporadic bugs: "If it happens that a commit has been previously incorrectly classified then the bisection can be aborted early" -- by re-testing, e.g. every 3 tests, a commit whose state is already implied.
+- Bisecting sporadic bugs: "That is, it works in the presence of false negatives" -- BBChop, using Bayesian search theory, quoted; it assumes no false positives.
+- Conclusion: "But it might be needed to change some work-flows and (bad) habits to get the most out of it." -- the closing claim.
+- Conclusion: "in the best case i can get a ~15 step kernel bisection done in 20-30 minutes, in an automated way." -- Ingo Molnar, quoted; rarely more than an hour otherwise.
+- Conclusion: "And even if a bisection fails today it tells us something valuable about the bug: that it's non-deterministic - timing or kernel image layout dependent." -- a failed bisection is itself information.
+
+## Readings for our work
+- Inference: every commit in our repository and every commit of a DLL patch series should be testable on its own (build passes, checks pass), and no commit should knowingly break something fixed later, so that a bisect over the history never hits an untestable stretch. Check: run the check suite (and for the DLL, the build) at each commit with git rebase -x or git bisect run before delivery. Rests on: Following general best practices; Skip algorithm discussed (untestable stretches cluster after a breakage). Would not apply if: commits are squashed on delivery so no intermediate state survives.
+- Inference: a regression in the harness results (an AI variant getting worse) can be located with git bisect run if each commit can be judged by a script with exit codes 0/1/125; the script must exit 125 for build failures and 255 for abnormal situations so they are not counted as bad. Rests on: Driving a bisection automatically; Avoiding untestable commits; Finding performance regressions. Would not apply if: the judged quantity is noisy (seeded A/B outcomes), see the next point.
+- Inference: bisecting assumes a deterministic good/bad answer; our seeded experiments are noisy, so a bisect step must use a fixed-seed determinism test or a pre-registered statistical decision (our 30-run rule), or it will misclassify like a sporadic bug. A bisection that does not converge is evidence of non-determinism. Rests on: Bisection algorithm discussed (assumptions); Bisecting sporadic bugs; Conclusion (failed bisection shows non-determinism). Would not apply if: the bisect script compares a deterministic output (e.g. the same seed gives the same log hash).
+- Inference: when a regression is found, first write a test or check that exposes it, then bisect, fix, and commit fix and test together, so each fixed failure leaves a guard. Rests on: Adapting your work-flow (Ericsson work-flow). Would not apply if: the failure is not reproducible by script; the reported 142.6-to-16.2 hours figure is one team's report and not evidence for our setting.
+- Inference: merges can break code without any textual conflict when one side changes a function's meaning and the other adds calls; after merging an upstream DLL change into our patch branch, rebuild and re-run the harness rather than trusting a clean merge. Rests on: Avoiding bug prone merges. Would not apply if: the changes touch disjoint files with no shared functions (still checked by building).
+- Inference: keep the bisect log or the run script with the result when a first bad commit is reported, so the finding can be replayed by someone else instead of believed. Rests on: Saving a log and replaying it. Would not apply if: the finding is not used as evidence in a document.
+- Inference: the paper's numbers on costs (NIST, 80% figures) are quoted second-hand and the author says real numbers for regressions are hard to give; do not cite them as measured evidence for our work. Rests on: Regressions: a big problem bullets. Would not apply if: the primary NIST report is read and cited directly.

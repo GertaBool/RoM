@@ -1,0 +1,12 @@
+# CvPopupReturn.cpp
+
+Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **9** `PopupReturn::PopupReturn(PopupReturn const&)` (exported)
+  - calls: PopupReturn::getRadioButtonSize [CvPopupReturn.h], PopupReturn::getSelectedRadioButton [CvPopupReturn.h], PopupReturn::getCheckboxSize [CvPopupReturn.h], PopupReturn::getCheckboxBitfield [CvPopupReturn.h], PopupReturn::getEditboxSize [CvPopupReturn.h], PopupReturn::getEditBoxString [CvPopupReturn.h], CvWString::operator=(unsigned short const*) [CvString.h], PopupReturn::getSpinnerWidsize [CvPopupReturn.h], PopupReturn::getSpinnerWidgetValue [CvPopupReturn.h], PopupReturn::getPulldownSize [CvPopupReturn.h], PopupReturn::getSelectedPullDownValue [CvPopupReturn.h], PopupReturn::getListBoxSize [CvPopupReturn.h], PopupReturn::getSelectedListBoxValue [CvPopupReturn.h], PopupReturn::getSpinBoxSize [CvPopupReturn.h], PopupReturn::getButtonSize [CvPopupReturn.h], PopupReturn::getButtonClicked [CvPopupReturn.h]
+- **55** `PopupReturn::operator=(PopupReturn const&)` (exported)
+  - calls: PopupReturn::getRadioButtonSize [CvPopupReturn.h], PopupReturn::getSelectedRadioButton [CvPopupReturn.h], PopupReturn::getCheckboxSize [CvPopupReturn.h], PopupReturn::getCheckboxBitfield [CvPopupReturn.h], PopupReturn::getEditboxSize [CvPopupReturn.h], PopupReturn::getEditBoxString [CvPopupReturn.h], CvWString::operator=(unsigned short const*) [CvString.h], PopupReturn::getSpinnerWidsize [CvPopupReturn.h], PopupReturn::getSpinnerWidgetValue [CvPopupReturn.h], PopupReturn::getPulldownSize [CvPopupReturn.h], PopupReturn::getSelectedPullDownValue [CvPopupReturn.h], PopupReturn::getListBoxSize [CvPopupReturn.h], PopupReturn::getSelectedListBoxValue [CvPopupReturn.h], PopupReturn::getSpinBoxSize [CvPopupReturn.h], PopupReturn::getButtonSize [CvPopupReturn.h], PopupReturn::getButtonClicked [CvPopupReturn.h]
+- **105** `PopupReturn::read(FDataStreamBase*)` (exported)
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], CvWString::operator=(unsigned short const*) [CvString.h]
+- **172** `PopupReturn::write(FDataStreamBase*) const` (exported)
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], CvWString::CvWString(CvWString const&) [CvString.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvWString::~CvWString [CvString.h]

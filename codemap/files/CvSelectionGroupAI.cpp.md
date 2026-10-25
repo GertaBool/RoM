@@ -1,0 +1,98 @@
+# CvSelectionGroupAI.cpp
+
+Group: AI. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **17** `CvSelectionGroupAI::CvSelectionGroupAI()` (exported)
+  - calls: CvSelectionGroup::CvSelectionGroup [CvSelectionGroup.cpp], IDInfo::IDInfo [CvStructs.h], CvSelectionGroupAI::AI_reset, CvSelectionGroup::~CvSelectionGroup [CvSelectionGroup.cpp]
+  - called by (2): FFreeListTrashArray<CvSelectionGroupAI>::add, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>
+- **23** `CvSelectionGroupAI::~CvSelectionGroupAI()` (exported; virtual)
+  - calls: CvSelectionGroupAI::AI_uninit, CvSelectionGroup::~CvSelectionGroup [CvSelectionGroup.cpp]
+  - called by (1): CvSelectionGroupAI::`vector deleting dtor'
+- **29** `CvSelectionGroupAI::AI_init()` (virtual; overrides CvSelectionGroup::AI_init)
+  - calls: CvSelectionGroupAI::AI_reset
+- **38** `CvSelectionGroupAI::AI_uninit()`
+  - called by (2): CvSelectionGroupAI::AI_reset, CvSelectionGroupAI::~CvSelectionGroupAI
+- **43** `CvSelectionGroupAI::AI_reset()` (virtual; overrides CvSelectionGroup::AI_reset)
+  - calls: CvSelectionGroupAI::AI_uninit, IDInfo::reset [CvStructs.h], CvSelectionGroup::noteMissionTargetsChanged [CvSelectionGroup.cpp]
+  - called by (2): CvSelectionGroupAI::AI_init, CvSelectionGroupAI::CvSelectionGroupAI
+- **64** `CvSelectionGroupAI::AI_separate()` (virtual; overrides CvSelectionGroup::AI_separate)
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::joinGroup [CvUnit.cpp], CvPlot::getTeam [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvUnit::plot [CvUnit.cpp], CvSelectionGroup::pushMission [CvSelectionGroup.cpp], CvUnit::getGroup [CvUnit.cpp]
+  - called by (1): CvSelectionGroupAI::AI_update
+- **89** `CvSelectionGroupAI::AI_separateNonAI(UnitAITypes)` (virtual; overrides CvSelectionGroup::AI_separateNonAI)
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::joinGroup [CvUnit.cpp], CvPlot::getTeam [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvUnit::plot [CvUnit.cpp], CvSelectionGroup::pushMission [CvSelectionGroup.cpp], CvUnit::getGroup [CvUnit.cpp]
+- **111** `CvSelectionGroupAI::AI_separateAI(UnitAITypes)` (virtual; overrides CvSelectionGroup::AI_separateAI)
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::joinGroup [CvUnit.cpp], CvUnit::plot [CvUnit.cpp], CvPlot::getTeam [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvSelectionGroup::pushMission [CvSelectionGroup.cpp], CvUnit::getGroup [CvUnit.cpp]
+- **134** `CvSelectionGroupAI::AI_separateImpassable()` (virtual; overrides CvSelectionGroup::AI_separateImpassable)
+  - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvSelectionGroup::getOwner [CvSelectionGroup.cpp], CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvPlayerAI::AI_unitImpassableCount [CvPlayerAI.cpp], CvUnit::getUnitType [CvUnit.cpp], CvUnit::joinGroup [CvUnit.cpp], CvPlot::getTeam [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvUnit::plot [CvUnit.cpp], CvSelectionGroup::pushMission [CvSelectionGroup.cpp], CvUnit::getGroup [CvUnit.cpp]
+- **157** `CvSelectionGroupAI::AI_separateEmptyTransports()` (virtual; overrides CvSelectionGroup::AI_separateEmptyTransports)
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::getCargo [CvUnit.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::joinGroup [CvUnit.cpp], CvPlot::getTeam [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvUnit::plot [CvUnit.cpp], CvSelectionGroup::pushMission [CvSelectionGroup.cpp], CvUnit::getGroup [CvUnit.cpp]
+- **184** `CvSelectionGroupAI::AI_update()` (virtual; overrides CvSelectionGroup::AI_update)
+  - calls: CvSelectionGroupAI::AI_isControlled, CvSelectionGroup::getNumUnits [CvSelectionGroup.cpp], CvSelectionGroup::isHuman [CvSelectionGroup.cpp], CvSelectionGroup::getActivityType [CvSelectionGroup.cpp], CvSelectionGroup::getHeadUnit [CvSelectionGroup.cpp], CvUnit::isCargo [CvUnit.cpp], CvSelectionGroup::setForceUpdate [CvSelectionGroup.cpp], CvSelectionGroup::isForceUpdate [CvSelectionGroup.cpp], CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvSelectionGroup::setActivityType [CvSelectionGroup.cpp], CvSelectionGroupAI::AI_cancelGroupAttack, CvSelectionGroup::readyToMove [CvSelectionGroup.cpp], CvGlobals::getLogging [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString() [CvString.h], getUnitAIString [CvGameCoreUtils.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvPlayer::getName [CvPlayer.cpp], CvWString::GetCString [CvString.h], CvUnit::getName [CvUnit.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::~CvWString [CvString.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvDLLUtilityIFaceBase::messageControlLog [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::finishMoves [CvUnit.cpp], CvSelectionGroup::groupAttack [CvSelectionGroup.cpp], CvUnit::isDelayedDeath [CvUnit.cpp], CvSelectionGroup::resetPath [CvSelectionGroup.cpp], CvUnit::AI_update [CvUnit.h] ⇢ CvUnitAI::AI_update, CvSelectionGroup::doDelayedDeath [CvSelectionGroup.cpp], CvSelectionGroupAI::AI_isForceSeparate, CvSelectionGroupAI::AI_separate, CvUnit::canMove [CvUnit.cpp], CvUnit::AI_follow [CvUnit.h] ⇢ CvUnitAI::AI_follow, CvSelectionGroup::pushMission [CvSelectionGroup.cpp], CvSelectionGroup::isBusy [CvSelectionGroup.cpp], CvSelectionGroup::isCargoBusy [CvSelectionGroup.cpp]
+- **380** `CvSelectionGroupAI::AI_attackOdds(CvPlot const*, bool) const` (virtual; overrides CvSelectionGroup::AI_attackOdds)
+  - calls: CvSelectionGroup::getOwnerINLINE [CvSelectionGroup.h], CvPlot::hasDefender [CvPlot.cpp], CvSelectionGroupAI::AI_getBestGroupAttacker
+- **417** `CvSelectionGroupAI::AI_getBestGroupAttacker(CvPlot const*, bool, int&, bool, bool) const` (virtual; overrides CvSelectionGroup::AI_getBestGroupAttacker)
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvPlayer::isHuman [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getOwnerINLINE [CvUnit.h], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::isDead [CvUnit.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::canAirAttack [CvUnit.cpp], CvUnit::canAttack() const [CvUnit.cpp], CvUnit::isBlitz [CvUnit.cpp], CvUnit::isMadeAttack [CvUnit.cpp], CvUnit::canMove [CvUnit.cpp], CvUnit::canMoveInto [CvUnit.cpp], CvGlobals::getLFBEnable [CvGlobals.cpp], CvGlobals::getLFBUseCombatOdds [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::LFBgetBetterAttacker [CvUnit.h] ⇢ CvUnitAI::LFBgetBetterAttacker, CvUnit::AI_attackOdds [CvUnit.h] ⇢ CvUnitAI::AI_attackOdds, CvUnit::collateralDamage [CvUnit.cpp], CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CvUnit::collateralDamageMaxUnits [CvUnit.cpp]
+  - called by (1): CvSelectionGroupAI::AI_attackOdds
+- **515** `CvSelectionGroupAI::AI_getBestGroupSacrifice(CvPlot const*, bool, bool, bool) const` (virtual; overrides CvSelectionGroup::AI_getBestGroupSacrifice)
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::isDead [CvUnit.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::canAirAttack [CvUnit.cpp], CvUnit::canAttack() const [CvUnit.cpp], CvUnit::isBlitz [CvUnit.cpp], CvUnit::isMadeAttack [CvUnit.cpp], CvUnit::canMove [CvUnit.cpp], CvUnit::canMoveInto [CvUnit.cpp], CvUnit::AI_sacrificeValue [CvUnit.h] ⇢ CvUnitAI::AI_sacrificeValue
+- **569** `CvSelectionGroupAI::AI_compareStacks(CvPlot const*, bool, bool, bool) const` (virtual; overrides CvSelectionGroup::AI_compareStacks)
+  - calls: CvSelectionGroup::getDomainType [CvSelectionGroup.cpp], CvPlot::isWater [CvPlot.cpp], CvSelectionGroupAI::AI_sumStrength, CvSelectionGroup::getOwnerINLINE [CvSelectionGroup.h], CvSelectionGroup::getHeadOwner [CvSelectionGroup.cpp], CvPlot::AI_sumStrength [CvPlot.cpp]
+- **614** `CvSelectionGroupAI::AI_sumStrength(CvPlot const*, DomainTypes, bool, bool) const` (virtual; overrides CvSelectionGroup::AI_sumStrength)
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::isDead [CvUnit.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::canAirAttack [CvUnit.cpp], CvUnit::canAttack() const [CvUnit.cpp], CvUnit::canMove [CvUnit.cpp], CvUnit::canMoveInto [CvUnit.cpp], CvUnit::currEffectiveStr [CvUnit.cpp]
+  - called by (1): CvSelectionGroupAI::AI_compareStacks
+- **648** `CvSelectionGroupAI::AI_queueGroupAttack(int, int)` (virtual; overrides CvSelectionGroup::AI_queueGroupAttack)
+- **656** `CvSelectionGroupAI::AI_cancelGroupAttack()` (virtual; overrides CvSelectionGroup::AI_cancelGroupAttack)
+  - called by (1): CvSelectionGroupAI::AI_update
+- **661** `CvSelectionGroupAI::AI_isGroupAttack()` (virtual; overrides CvSelectionGroup::AI_isGroupAttack)
+- **666** `CvSelectionGroupAI::AI_isControlled()` (virtual; overrides CvSelectionGroup::AI_isControlled)
+  - calls: CvSelectionGroup::isHuman [CvSelectionGroup.cpp], CvSelectionGroup::isAutomated [CvSelectionGroup.cpp]
+  - called by (1): CvSelectionGroupAI::AI_update
+- **672** `CvSelectionGroupAI::AI_isDeclareWar(CvPlot const*)` (virtual; overrides CvSelectionGroup::AI_isDeclareWar)
+  - calls: CvSelectionGroup::isHuman [CvSelectionGroup.cpp], CvPlot::getTeam [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvTeamAI::AI_getWarPlan [CvTeamAI.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvSelectionGroup::getHeadUnit [CvSelectionGroup.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvSelectionGroup::hasCargo [CvSelectionGroup.cpp]
+- **781** `CvSelectionGroupAI::AI_getMissionAIPlot()` (virtual; overrides CvSelectionGroup::AI_getMissionAIPlot)
+  - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h]
+- **787** `CvSelectionGroupAI::AI_isForceSeparate()` (virtual; overrides CvSelectionGroup::AI_isForceSeparate)
+  - called by (1): CvSelectionGroupAI::AI_update
+- **793** `CvSelectionGroupAI::AI_makeForceSeparate()` (virtual; overrides CvSelectionGroup::AI_makeForceSeparate)
+- **799** `CvSelectionGroupAI::AI_getMissionAIType()` (virtual; overrides CvSelectionGroup::AI_getMissionAIType)
+- **805** `CvSelectionGroupAI::AI_setMissionAI(MissionAITypes, CvPlot*, CvUnit*)` (virtual; overrides CvSelectionGroup::AI_setMissionAI)
+  - calls: CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], IDInfo::IDInfo [CvStructs.h], CvUnit::getIDInfo [CvUnit.cpp], IDInfo::operator== [CvStructs.h], CvSelectionGroup::noteMissionTargetsChanged [CvSelectionGroup.cpp]
+- **829** `CvSelectionGroupAI::AI_getMissionAIUnit()` (virtual; overrides CvSelectionGroup::AI_getMissionAIUnit)
+  - calls: getUnit [CvGameCoreUtils.cpp]
+- **834** `CvSelectionGroupAI::AI_isFull()` (virtual; overrides CvSelectionGroup::AI_isFull)
+  - calls: CvSelectionGroup::getNumUnits [CvSelectionGroup.cpp], CvSelectionGroup::getHeadUnitAI [CvSelectionGroup.cpp], CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::cargoSpace [CvUnit.cpp], CvUnit::specialCargo [CvUnit.cpp], CvUnit::isFull [CvUnit.cpp]
+- **897** `CvSelectionGroupAI::AI_ejectBestDefender(CvPlot*)` (virtual; overrides CvSelectionGroup::AI_ejectBestDefender)
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::noDefensiveBonus [CvUnit.cpp], CvUnit::currEffectiveStr [CvUnit.cpp], CvPlot::isCity [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvUnit::cityDefenseModifier [CvUnit.cpp], CvUnit::cityAttackModifier [CvUnit.cpp], CvUnit::getExtraCityAttackPercent [CvUnit.cpp], CvUnit::getLevel [CvUnit.cpp], CvSelectionGroup::getNumUnits [CvSelectionGroup.cpp], CvUnit::joinGroup [CvUnit.cpp]
+- **946** `CvSelectionGroupAI::read(FDataStreamBase*)` (virtual; overrides CvSelectionGroup::read)
+  - calls: CvSelectionGroup::read [CvSelectionGroup.cpp], FDataStreamBase::Read [FDataStreamBase.h], CvSelectionGroup::noteMissionTargetsChanged [CvSelectionGroup.cpp]
+- **971** `CvSelectionGroupAI::write(FDataStreamBase*)` (virtual; overrides CvSelectionGroup::write)
+  - calls: CvSelectionGroup::write [CvSelectionGroup.cpp], FDataStreamBase::Write [FDataStreamBase.h]
+  - called by (1): WriteStreamableFFreeListTrashArray<class CvSelectionGroupAI>
+- **1017** ``anonymous namespace'::forecastBinomial(int, int, double)`
+  - called by (1): `anonymous namespace'::forecastFight
+- **1028** ``anonymous namespace'::forecastRounds(int, int, double, double, int, 0x3895bc40::ForecastFight&)`
+  - called by (1): `anonymous namespace'::forecastFight
+- **1056** ``anonymous namespace'::forecastFight(CvUnit const*, CvUnit const*, int, int, 0x3895bc40::ForecastFight&)`
+  - calls: CvGlobals::getCOMBAT_DIE_SIDES [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::currCombatStr [CvUnit.cpp], CvUnit::currFirepower [CvUnit.cpp], CvUnit::maxHitPoints [CvUnit.cpp], CvGlobals::getCOMBAT_DAMAGE [CvGlobals.cpp], CvUnit::combatLimit [CvUnit.cpp], CvUnit::currHitPoints [CvUnit.cpp], CvUnit::firstStrikes [CvUnit.cpp], CvUnit::immuneToFirstStrikes [CvUnit.cpp], CvUnit::chanceFirstStrikes [CvUnit.cpp], `anonymous namespace'::forecastBinomial, `anonymous namespace'::forecastRounds, CvUnit::withdrawalProbability [CvUnit.cpp]
+  - called by (3): AI_assaultForecast, AI_forecastFightWinPermille, AI_isSacrificeWorth
+- **1130** ``anonymous namespace'::forecastCollateral(CvUnit const*, CvUnit const*, int)`
+  - calls: CvUnit::baseCombatStr [CvUnit.cpp], CvUnit::collateralDamage [CvUnit.cpp], CvUnit::getExtraCollateralDamage [CvUnit.cpp], CvUnitInfo::getUnitCombatCollateralImmune [CvInfos.cpp], CvUnit::getUnitInfo [CvUnit.cpp], CvUnit::getUnitCombatType [CvUnit.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getCollateralDamageProtection [CvUnit.cpp], CvUnit::collateralDamageLimit [CvUnit.cpp], CvUnit::maxHitPoints [CvUnit.cpp]
+  - called by (1): AI_assaultForecast
+- **1155** ``anonymous namespace'::forecastIsSiege(CvUnit const*)`
+  - calls: CvUnit::maxHitPoints [CvUnit.cpp], CvUnit::combatLimit [CvUnit.cpp], CvUnit::collateralDamage [CvUnit.cpp]
+  - called by (1): AI_assaultForecast
+- **1161** `AI_forecastFightWinPermille(CvUnit const*, CvUnit const*)`
+  - calls: `anonymous namespace'::ForecastFight::ForecastFight, `anonymous namespace'::forecastFight, CvUnit::plot [CvUnit.cpp], CvUnit::currHitPoints [CvUnit.cpp], CvUnit::maxCombatStr [CvUnit.cpp], `anonymous namespace'::ForecastFight::~ForecastFight
+- **1168** `AI_isSacrificeWorth(CvUnit const*, CvUnit const*, CvUnit const*)`
+  - calls: CvUnit::plot [CvUnit.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getProductionCost [CvInfos.cpp], CvUnit::getUnitType [CvUnit.cpp], CvUnit::maxCombatStr [CvUnit.cpp], `anonymous namespace'::ForecastFight::ForecastFight, `anonymous namespace'::forecastFight, CvUnit::currHitPoints [CvUnit.cpp], CvUnit::maxHitPoints [CvUnit.cpp], CvUnit::combatLimit [CvUnit.cpp], `anonymous namespace'::ForecastFight::~ForecastFight
+  - called by (1): CvSelectionGroup::groupAttack
+- **1203** `CvSelectionGroupAI::AI_cityAssaultForecast(CvPlot const*, int*) const`
+  - calls: CvSelectionGroup::headUnitNode [CvSelectionGroup.cpp], getUnit [CvGameCoreUtils.cpp], CvSelectionGroup::nextUnitNode [CvSelectionGroup.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::isDead [CvUnit.cpp], CvUnit::canAttack() const [CvUnit.cpp], CvUnit::canMoveInto [CvUnit.cpp], CvUnit::canMove [CvUnit.cpp], CvPlot::headUnitNode [CvPlot.cpp], CvPlot::nextUnitNode [CvPlot.cpp], CvSelectionGroup::getTeam [CvSelectionGroup.cpp], CvUnit::isPotentialEnemy [CvUnit.cpp], CvUnit::isInvisible [CvUnit.cpp], CvUnit::canDefend [CvUnit.cpp], AI_assaultForecast
+  - called by (2): CvSelectionGroup::groupAttack, CvUnitAI::AI_stackAttackCity
+- **1234** `AI_assaultForecast(CvPlot const*, std::vector<CvUnit const*, std::allocator<CvUnit const*>> const&, std::vector<CvUnit const*, std::allocator<CvUnit const*>> const&, int*)`
+  - calls: CvUnit::currHitPoints [CvUnit.cpp], CvUnit::maxCombatStr [CvUnit.cpp], `anonymous namespace'::ForecastFight::ForecastFight, `anonymous namespace'::forecastFight, `anonymous namespace'::forecastIsSiege, CvUnit::collateralDamage [CvUnit.cpp], `anonymous namespace'::ForecastFight::~ForecastFight, CvUnit::maxHitPoints [CvUnit.cpp], CvUnit::combatLimit [CvUnit.cpp], CvUnit::collateralDamageMaxUnits [CvUnit.cpp], `anonymous namespace'::forecastCollateral, CvUnit::baseMoves [CvUnit.cpp]
+  - called by (2): CvSelectionGroupAI::AI_cityAssaultForecast, warLogTurnStart
+- **·** ``anonymous namespace'::ForecastFight::ForecastFight()` (written by the compiler)
+  - called by (3): AI_assaultForecast, AI_forecastFightWinPermille, AI_isSacrificeWorth
+- **·** ``anonymous namespace'::ForecastFight::~ForecastFight()` (written by the compiler)
+  - called by (3): AI_assaultForecast, AI_forecastFightWinPermille, AI_isSacrificeWorth

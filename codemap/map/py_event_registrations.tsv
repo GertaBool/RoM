@@ -1,0 +1,274 @@
+event	source	handler	file	line
+BeginActivePlayerTurn	BUG config	?.onBeginActivePlayerTurn	Config/Strategy Overlay.xml	94
+BeginActivePlayerTurn	addEventHandler	BeginActivePlayerTurnCityAlertManager.__init__: self.onBeginActivePlayerTurn	Contrib/Civ4lerts.py	256
+BeginActivePlayerTurn	addEventHandler	EventSignsEventHandler.__init__: self.onBeginActivePlayerTurn	Contrib/EventSigns.py	454
+BeginActivePlayerTurn	addEventHandler	FavoriteCivicDetector.__init__: self.onBeginActivePlayerTurn	Contrib/FavoriteCivicDetector.py	294
+BeginActivePlayerTurn	addEventHandler	GoldPerTurnTrade.__init__: self.onBeginActivePlayerTurn	Contrib/Civ4lerts.py	778
+BeginActivePlayerTurn	addEventHandler	GoldTrade.__init__: self.onBeginActivePlayerTurn	Contrib/Civ4lerts.py	740
+BeginActivePlayerTurn	addEventHandler	MoreCiv4lertsEvent.__init__: self.onBeginActivePlayerTurn	Contrib/MoreCiv4lerts.py	60
+BeginActivePlayerTurn	addEventHandler	RefusesToTalk.__init__: self.onBeginActivePlayerTurn	Contrib/Civ4lerts.py	822
+BeginActivePlayerTurn	addEventHandler	ReminderEventManager.__init__: self.onBeginActivePlayerTurn	Contrib/ReminderEventManager.py	64
+BeginActivePlayerTurn	addEventHandler	WorstEnemy.__init__: self.onBeginActivePlayerTurn	Contrib/Civ4lerts.py	894
+BeginGameTurn	EventHandlerMap	CvEventManager.onBeginGameTurn	base/CvEventManager.py	85
+BeginGameTurn	addEventHandler	AIAutoPlay.__init__: self.onBeginGameTurn	Revolution/Gameready/AIAutoPlay.py	115
+BeginGameTurn	addEventHandler	AIAutoPlay.removeEventHandlers: self.customEM.onBeginGameTurn	Revolution/Gameready/AIAutoPlay.py	148
+BeginGameTurn	addEventHandler	BarbarianCiv.__init__: self.onBeginGameTurn	Revolution/Gameready/BarbarianCiv.py	87
+BeginGameTurn	addEventHandler	TechDiffusion.__init__: self.onBeginGameTurn	Revolution/Gameready/TechDiffusion.py	42
+BeginPlayerTurn	BUG config	?.onBeginPlayerTurn	Config/Better Espionage.xml	80
+BeginPlayerTurn	BUG config	BugUtil.doHotSeatCheck	Config/BUG Core.xml	98
+BeginPlayerTurn	BUG config	RevDCMReligionControl.onBeginPlayerTurn	Config/RevDCM.xml	16
+BeginPlayerTurn	EventHandlerMap	CvEventManager.onBeginPlayerTurn	base/CvEventManager.py	87
+BeginPlayerTurn	addEventHandler	AIAutoPlay.__init__: self.onBeginPlayerTurn	Revolution/Gameready/AIAutoPlay.py	94
+BeginPlayerTurn	addEventHandler	AutoLogEvent.__init__: self.onBeginPlayerTurn	Contrib/autologEventManager.py	150
+BeginPlayerTurn	addEventHandler	DynamicCivNames.__init__: self.onBeginPlayerTurn	Revolution/Gameready/DynamicCivNames.py	41
+BeginPlayerTurn	addEventHandler	EspionageEventEvent.__init__: self.onBeginPlayerTurn	Contrib/EspionageEventManager.py	49
+BeginPlayerTurn	addEventHandler	Revolution.__init__: self.onBeginPlayerTurn	Revolution/Gameready/Revolution.py	179
+BeginPlayerTurn	addEventHandler	RoMEventManager.__init__: self.onBeginPlayerTurn	RoMEventManager.py	46
+BeginPlayerTurn	addEventHandler	Tester.__init__: self.onBeginPlayerTurn	Revolution/Development/Tester.py	49
+BeginPlayerTurn	addEventHandler	init: onBeginPlayerTurn	Revolution/RevEvents.py	79
+CityOffered	addEventHandler	AutoLogEvent.__init__: self.onCityOffered	Contrib/autologEventManager.py	188
+CivicAccepted	addEventHandler	AutoLogEvent.__init__: self.onCivicAccepted	Contrib/autologEventManager.py	205
+CivicDemanded	addEventHandler	FavoriteCivicDetector.__init__: self.onCivicDemanded	Contrib/FavoriteCivicDetector.py	298
+CivicRejected	addEventHandler	AutoLogEvent.__init__: self.onCivicRejected	Contrib/autologEventManager.py	206
+DealAccepted	addEventHandler	AutoLogEvent.__init__: self.onDealAccepted	Contrib/autologEventManager.py	193
+DealCanceled	BUG config	Scoreboard.onDealCanceled	Config/Advanced Scoreboard.xml	133
+DealCanceled	addEventHandler	AutoLogEvent.__init__: self.onDealCanceled	Contrib/autologEventManager.py	192
+DealCanceled	addEventHandler	RefusesToTalk.__init__: self.onDealCanceled	Contrib/Civ4lerts.py	825
+DealOffered	addEventHandler	AutoLogEvent.__init__: self.onDealOffered	Contrib/autologEventManager.py	187
+DealRejected	addEventHandler	AutoLogEvent.__init__: self.onDealRejected	Contrib/autologEventManager.py	194
+EmbargoAccepted	addEventHandler	AutoLogEvent.__init__: self.onEmbargoAccepted	Contrib/autologEventManager.py	211
+EmbargoAccepted	addEventHandler	RefusesToTalk.__init__: self.onEmbargoAccepted	Contrib/Civ4lerts.py	826
+EmbargoRejected	addEventHandler	AutoLogEvent.__init__: self.onEmbargoRejected	Contrib/autologEventManager.py	212
+EndGameTurn	EventHandlerMap	CvEventManager.onEndGameTurn	base/CvEventManager.py	86
+EndGameTurn	addEventHandler	AutoLogEvent.__init__: self.onEndGameTurn	Contrib/autologEventManager.py	149
+EndGameTurn	addEventHandler	ReminderEventManager.__init__: self.onEndGameTurn	Contrib/ReminderEventManager.py	65
+EndGameTurn	addEventHandler	init: onEndGameTurn	Revolution/RevEvents.py	78
+EndPlayerTurn	EventHandlerMap	CvEventManager.onEndPlayerTurn	base/CvEventManager.py	88
+EndPlayerTurn	addEventHandler	AIAutoPlay.__init__: self.onEndPlayerTurn	Revolution/Gameready/AIAutoPlay.py	95
+EndPlayerTurn	addEventHandler	AutoLogEvent.__init__: self.onEndPlayerTurn	Contrib/autologEventManager.py	151
+EndPlayerTurn	addEventHandler	BarbarianCiv.__init__: self.onEndPlayerTurn	Revolution/Gameready/BarbarianCiv.py	88
+EndPlayerTurn	addEventHandler	Revolution.__init__: self.onEndPlayerTurn	Revolution/Gameready/Revolution.py	180
+EndPlayerTurn	addEventHandler	init: onEndPlayerTurn	Revolution/Gameready/StartAsMinors.py	51
+EndPlayerTurn	addEventHandler	init: onEndPlayerTurn	Revolution/RevEvents.py	80
+GameEnd	EventHandlerMap	CvEventManager.onGameEnd	base/CvEventManager.py	83
+GameEnd	addEventHandler	AutoLogEvent.__init__: self.onGameEnd	Contrib/autologEventManager.py	148
+GameStart	BUG config	?.onGameStart	Config/Better Espionage.xml	77
+GameStart	BUG config	?.onGameStart	Config/Strategy Overlay.xml	88
+GameStart	BUG config	BugData.onGameStart	Config/BUG Core.xml	102
+GameStart	BUG config	CvTechChooser.resetTechPrefs	Config/init.xml	127
+GameStart	EventHandlerMap	CvEventManager.onGameStart	base/CvEventManager.py	82
+GameStart	addEventHandler	AIAutoPlay.__init__: self.onGameStart	Revolution/Gameready/AIAutoPlay.py	97
+GameStart	addEventHandler	AbstractStatefulAlert.__init__: self.onGameStart	Contrib/Civ4lerts.py	167
+GameStart	addEventHandler	AutoLogEvent.__init__: self.onGameStart	Contrib/autologEventManager.py	147
+GameStart	addEventHandler	BugEventManager.__init__: self.resetActiveTurn	BUG/BugEventManager.py	191
+GameStart	addEventHandler	EventSignsEventHandler.__init__: self.onGameStart	Contrib/EventSigns.py	450
+GameStart	addEventHandler	FavoriteCivicDetector.__init__: self.onGameStart	Contrib/FavoriteCivicDetector.py	295
+GameStart	addEventHandler	MoreCiv4lertsEvent.__init__: self.reset	Contrib/MoreCiv4lerts.py	66
+GameStart	addEventHandler	ReminderEventManager.__init__: self.onGameStart	Contrib/ReminderEventManager.py	67
+GameStart	addEventHandler	RevDCM.__init__: self.onGameStart	Contrib/RevDCM.py	29
+GameStart	addEventHandler	RevolutionInit.__init__: self.onGameStart	Revolution/RevolutionInit.py	67
+GameStart	addEventHandler	RoMEventManager.__init__: self.onGameStart	RoMEventManager.py	45
+HelpAccepted	addEventHandler	AutoLogEvent.__init__: self.onHelpAccepted	Contrib/autologEventManager.py	196
+HelpOffered	addEventHandler	AutoLogEvent.__init__: self.onHelpOffered	Contrib/autologEventManager.py	189
+HelpRejected	addEventHandler	AutoLogEvent.__init__: self.onHelpRejected	Contrib/autologEventManager.py	197
+Init	EventHandlerMap	CvEventManager.onInit	base/CvEventManager.py	76
+LanguageChanged	BUG config	AttitudeUtil.initModifiers	Config/init.xml	78
+LanguageChanged	BUG config	BugOptions.clearAllTranslations	Config/BUG Core.xml	106
+LanguageChanged	BUG config	BugOptionsScreen.clearAllTranslations	Config/BUG Core.xml	107
+LanguageChanged	BUG config	ColorUtil.createColors	Config/init.xml	106
+LanguageChanged	BUG config	CvCustomizableDomesticAdvisor.forcePositionCalc	Config/BUG Advisors.xml	114
+LanguageChanged	BUG config	CvCustomizableDomesticAdvisor.forcePositionCalc	Config/Customizable Domestic Advisor.xml	44
+ModNetMessage	BUG config	?.onModNetMessage	Config/Strategy Overlay.xml	98
+ModNetMessage	addEventHandler	AIAutoPlay.__init__: self.onModNetMessage	Revolution/Gameready/AIAutoPlay.py	89
+ModNetMessage	addEventHandler	Revolution.__init__: self.onModNetMessage	Revolution/Gameready/Revolution.py	181
+ModNetMessage	addEventHandler	RoMEventManager.__init__: self.onModNetMessage	RoMEventManager.py	43
+OnLoad	BUG config	?.onGameLoad	Config/Better Espionage.xml	78
+OnLoad	BUG config	?.onLoad	Config/Strategy Overlay.xml	89
+OnLoad	BUG config	BugData.onGameLoad	Config/BUG Core.xml	103
+OnLoad	BUG config	CvTechChooser.resetTechPrefs	Config/init.xml	126
+OnLoad	EventHandlerMap	CvEventManager.onLoadGame	base/CvEventManager.py	81
+OnLoad	addEventHandler	AIAutoPlay.__init__: self.onGameLoad	Revolution/Gameready/AIAutoPlay.py	96
+OnLoad	addEventHandler	AbstractStatefulAlert.__init__: self.onLoadGame	Contrib/Civ4lerts.py	168
+OnLoad	addEventHandler	AutoLogEvent.__init__: self.onLoadGame	Contrib/autologEventManager.py	146
+OnLoad	addEventHandler	BugEventManager.__init__: self.resetActiveTurn	BUG/BugEventManager.py	190
+OnLoad	addEventHandler	EventSignsEventHandler.__init__: self.onLoadGame	Contrib/EventSigns.py	451
+OnLoad	addEventHandler	FavoriteCivicDetector.__init__: self.onLoadGame	Contrib/FavoriteCivicDetector.py	296
+OnLoad	addEventHandler	MoreCiv4lertsEvent.__init__: self.reset	Contrib/MoreCiv4lerts.py	67
+OnLoad	addEventHandler	ReminderEventManager.__init__: self.onLoadGame	Contrib/ReminderEventManager.py	68
+OnLoad	addEventHandler	RevDCM.__init__: self.onLoadGame	Contrib/RevDCM.py	28
+OnLoad	addEventHandler	RevolutionInit.__init__: self.onGameLoad	Revolution/RevolutionInit.py	68
+OnLoad	addEventHandler	RoMEventManager.__init__: self.onLoadGame	RoMEventManager.py	44
+OnLoad	addEventHandler	Tester.__init__: self.onGameLoad	Revolution/Development/Tester.py	50
+OnPreSave	BUG config	?.onPreSave	Config/Strategy Overlay.xml	91
+OnPreSave	EventHandlerMap	CvEventManager.onPreSave	base/CvEventManager.py	80
+OnPreSave	addEventHandler	EventSignsEventHandler.__init__: self.onPreSave	Contrib/EventSigns.py	452
+OnPreSave	addEventHandler	FavoriteCivicDetector.__init__: self.onPreSave	Contrib/FavoriteCivicDetector.py	297
+OnPreSave	addEventHandler	ReminderEventManager.__init__: self.onPreSave	Contrib/ReminderEventManager.py	70
+OnSave	EventHandlerMap	CvEventManager.onSaveGame	base/CvEventManager.py	79
+PeaceOffered	addEventHandler	AutoLogEvent.__init__: self.onPeaceOffered	Contrib/autologEventManager.py	190
+PreEndGameTurn	addEventHandler	AIAutoPlay.__init__: self.onEndGameTurn	Revolution/Gameready/AIAutoPlay.py	90
+PreEndGameTurn	addEventHandler	Revolution.__init__: self.onEndGameTurn	Revolution/Gameready/Revolution.py	175
+PythonReloaded	BUG config	?.onLoad	Config/Strategy Overlay.xml	90
+PythonReloaded	BUG config	?.onPythonReloaded	Config/Better Espionage.xml	79
+PythonReloaded	addEventHandler	ReminderEventManager.__init__: self.onLoadGame	Contrib/ReminderEventManager.py	69
+ReligionAccepted	addEventHandler	AutoLogEvent.__init__: self.onReligionAccepted	Contrib/autologEventManager.py	202
+ReligionRejected	addEventHandler	AutoLogEvent.__init__: self.onReligionRejected	Contrib/autologEventManager.py	203
+ResolutionChanged	BUG config	CvCustomizableDomesticAdvisor.forcePositionCalc	Config/BUG Advisors.xml	113
+ResolutionChanged	BUG config	CvCustomizableDomesticAdvisor.forcePositionCalc	Config/Customizable Domestic Advisor.xml	43
+StartAbandonCity	addEventHandler	AbandonCityEventManager.__init__: self.onStartAbandonCity	AbandonCityEventManager.py	121
+SwitchHotSeatPlayer	BUG config	?.onSwitchHotSeatPlayer	Config/Strategy Overlay.xml	95
+SwitchHotSeatPlayer	BUG config	CvMainInterface.onSwitchHotSeatPlayer	Config/BUG Core.xml	99
+SwitchHotSeatPlayer	addEventHandler	ReminderEventManager.__init__: self.onSwitchHotSeatPlayer	Contrib/ReminderEventManager.py	71
+TributeAccepted	addEventHandler	AutoLogEvent.__init__: self.onTributeAccepted	Contrib/autologEventManager.py	199
+TributeRejected	addEventHandler	AutoLogEvent.__init__: self.onTributeRejected	Contrib/autologEventManager.py	200
+UnInit	EventHandlerMap	CvEventManager.onUnInit	base/CvEventManager.py	78
+UnitRename	EventHandlerMap	CvEventManager.onUnitRename	base/CvEventManager.py	114
+Update	EventHandlerMap	CvEventManager.onUpdate	base/CvEventManager.py	77
+VassalOffered	addEventHandler	AutoLogEvent.__init__: self.onVassalOffered	Contrib/autologEventManager.py	191
+WarAccepted	addEventHandler	AutoLogEvent.__init__: self.onWarAccepted	Contrib/autologEventManager.py	208
+WarRejected	addEventHandler	AutoLogEvent.__init__: self.onWarRejected	Contrib/autologEventManager.py	209
+buildingBuilt	BUG config	?.onBuildingBuilt	Config/MovieMod.xml	4
+buildingBuilt	EventHandlerMap	CvEventManager.onBuildingBuilt	base/CvEventManager.py	117
+buildingBuilt	addEventHandler	AutoLogEvent.__init__: self.onBuildingBuilt	Contrib/autologEventManager.py	156
+buildingBuilt	addEventHandler	RoMEventManager.__init__: self.onBuildingBuilt	RoMEventManager.py	47
+buildingBuilt	addEventHandler	init: onBuildingBuilt	Revolution/RevEvents.py	88
+changeWar	EventHandlerMap	CvEventManager.onChangeWar	base/CvEventManager.py	127
+changeWar	addEventHandler	AutoLogEvent.__init__: self.onChangeWar	Contrib/autologEventManager.py	172
+changeWar	addEventHandler	RefusesToTalk.__init__: self.onChangeWar	Contrib/Civ4lerts.py	823
+changeWar	addEventHandler	Tester.__init__: self.onChangeWar	Revolution/Development/Tester.py	45
+changeWar	addEventHandler	init: onChangeWar	Revolution/RevEvents.py	82
+chat	EventHandlerMap	CvEventManager.onChat	base/CvEventManager.py	125
+cityAcquired	EventHandlerMap	CvEventManager.onCityAcquired	base/CvEventManager.py	98
+cityAcquired	addEventHandler	AutoLogEvent.__init__: self.onCityAcquired	Contrib/autologEventManager.py	176
+cityAcquired	addEventHandler	BarbarianCiv.__init__: self.onCityAcquired	Revolution/Gameready/BarbarianCiv.py	91
+cityAcquired	addEventHandler	CvEnhancedTechConquestEventManager.__init__: self.onCityAcquired	EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py	18
+cityAcquired	addEventHandler	DynamicCivNames.__init__: self.onCityAcquired	Revolution/Gameready/DynamicCivNames.py	44
+cityAcquired	addEventHandler	MoreCiv4lertsEvent.__init__: self.OnCityAcquired	Contrib/MoreCiv4lerts.py	61
+cityAcquired	addEventHandler	Revolution.__init__: self.onCityAcquired	Revolution/Gameready/Revolution.py	169
+cityAcquired	addEventHandler	init: onCityAcquired	Revolution/RevEvents.py	86
+cityAcquiredAndKept	addEventHandler	AbstractCityAlertManager.__init__: self.onCityAcquiredAndKept	Contrib/Civ4lerts.py	202
+cityBuildingBuilding	EventHandlerMap	CvEventManager.onCityBuildingBuilding	base/CvEventManager.py	104
+cityBuildingBuilding	addEventHandler	AbstractCanHurry.__init__: self.onCityBuildingBuilding	Contrib/Civ4lerts.py	634
+cityBuildingBuilding	addEventHandler	AutoLogEvent.__init__: self.onCityBuildingBuilding	Contrib/autologEventManager.py	181
+cityBuildingProcess	addEventHandler	AbstractCanHurry.__init__: self.onCityBuildingProcess	Contrib/Civ4lerts.py	636
+cityBuildingProject	addEventHandler	AbstractCanHurry.__init__: self.onCityBuildingProject	Contrib/Civ4lerts.py	635
+cityBuildingUnit	EventHandlerMap	CvEventManager.onCityBuildingUnit	base/CvEventManager.py	103
+cityBuildingUnit	addEventHandler	AbstractCanHurry.__init__: self.onCityBuildingUnit	Contrib/Civ4lerts.py	633
+cityBuildingUnit	addEventHandler	AutoLogEvent.__init__: self.onCityBuildingUnit	Contrib/autologEventManager.py	180
+cityBuilt	EventHandlerMap	CvEventManager.onCityBuilt	base/CvEventManager.py	96
+cityBuilt	addEventHandler	AIAutoPlay.__init__: self.onCityBuilt	Revolution/Gameready/AIAutoPlay.py	108
+cityBuilt	addEventHandler	AIAutoPlay.removeEventHandlers: self.customEM.onCityBuilt	Revolution/Gameready/AIAutoPlay.py	145
+cityBuilt	addEventHandler	AutoLogEvent.__init__: self.onCityBuilt	Contrib/autologEventManager.py	174
+cityBuilt	addEventHandler	BuildUnitName.__init__: self.onCityBuilt	Contrib/UnitNameEventManager.py	191
+cityBuilt	addEventHandler	DynamicCivNames.__init__: self.onCityBuilt	Revolution/Gameready/DynamicCivNames.py	45
+cityBuilt	addEventHandler	MoreCiv4lertsEvent.__init__: self.OnCityBuilt	Contrib/MoreCiv4lerts.py	62
+cityBuilt	addEventHandler	RoMEventManager.__init__: self.onCityBuilt	RoMEventManager.py	50
+cityBuilt	addEventHandler	init: onCityBuilt	Revolution/RevEvents.py	85
+cityDoTurn	EventHandlerMap	CvEventManager.onCityDoTurn	base/CvEventManager.py	102
+cityGrowth	EventHandlerMap	CvEventManager.onCityGrowth	base/CvEventManager.py	101
+cityGrowth	addEventHandler	AutoLogEvent.__init__: self.onCityGrowth	Contrib/autologEventManager.py	179
+cityLost	EventHandlerMap	CvEventManager.onCityLost	base/CvEventManager.py	99
+cityLost	addEventHandler	AbstractCityAlertManager.__init__: self.onCityLost	Contrib/Civ4lerts.py	203
+cityLost	addEventHandler	AutoLogEvent.__init__: self.onCityLost	Contrib/autologEventManager.py	177
+cityLost	addEventHandler	MoreCiv4lertsEvent.__init__: self.OnCityLost	Contrib/MoreCiv4lerts.py	64
+cityLost	addEventHandler	RoMEventManager.__init__: self.onCityLost	RoMEventManager.py	52
+cityLost	addEventHandler	Tester.__init__: self.onCityLost	Revolution/Development/Tester.py	46
+cityLost	addEventHandler	init: onCityLost	Revolution/RevEvents.py	87
+cityRazed	EventHandlerMap	CvEventManager.onCityRazed	base/CvEventManager.py	97
+cityRazed	addEventHandler	AutoLogEvent.__init__: self.onCityRazed	Contrib/autologEventManager.py	175
+cityRazed	addEventHandler	MoreCiv4lertsEvent.__init__: self.OnCityRazed	Contrib/MoreCiv4lerts.py	63
+cityRazed	addEventHandler	RefusesToTalk.__init__: self.onCityRazed	Contrib/Civ4lerts.py	824
+cityRazed	addEventHandler	RoMEventManager.__init__: self.onCityRazed	RoMEventManager.py	51
+cityRename	EventHandlerMap	CvEventManager.onCityRename	base/CvEventManager.py	105
+combatLogCalc	EventHandlerMap	CvEventManager.onCombatLogCalc	base/CvEventManager.py	91
+combatLogCalc	addEventHandler	AutoLogEvent.__init__: self.onCombatLogCalc	Contrib/autologEventManager.py	153
+combatLogHit	EventHandlerMap	CvEventManager.onCombatLogHit	base/CvEventManager.py	92
+combatLogHit	addEventHandler	AutoLogEvent.__init__: self.onCombatLogHit	Contrib/autologEventManager.py	155
+combatResult	EventHandlerMap	CvEventManager.onCombatResult	base/CvEventManager.py	90
+combatResult	addEventHandler	AutoLogEvent.__init__: self.onCombatResult	Contrib/autologEventManager.py	154
+corporationFounded	addEventHandler	AutoLogEvent.__init__: self.onCorporationFounded	Contrib/autologEventManager.py	167
+corporationRemove	addEventHandler	AutoLogEvent.__init__: self.onCorporationRemove	Contrib/autologEventManager.py	169
+corporationSpread	addEventHandler	AutoLogEvent.__init__: self.onCorporationSpread	Contrib/autologEventManager.py	168
+cultureExpansion	EventHandlerMap	CvEventManager.onCultureExpansion	base/CvEventManager.py	100
+cultureExpansion	addEventHandler	AutoLogEvent.__init__: self.onCultureExpansion	Contrib/autologEventManager.py	178
+endGoldenAge	EventHandlerMap	CvEventManager.onEndGoldenAge	base/CvEventManager.py	124
+endGoldenAge	addEventHandler	AutoLogEvent.__init__: self.onEndGoldenAge	Contrib/autologEventManager.py	171
+endTurnReady	EventHandlerMap	CvEventManager.onEndTurnReady	base/CvEventManager.py	89
+endTurnReady	addEventHandler	EndTurnReadyCityAlertManager.__init__: self.onEndTurnReady	Contrib/Civ4lerts.py	269
+endTurnReady	addEventHandler	ReminderEventManager.__init__: self.onEndTurnReady	Contrib/ReminderEventManager.py	66
+firstContact	EventHandlerMap	CvEventManager.onFirstContact	base/CvEventManager.py	95
+firstContact	addEventHandler	AutoLogEvent.__init__: self.onFirstContact	Contrib/autologEventManager.py	152
+firstContact	addEventHandler	BarbarianCiv.__init__: self.onFirstContact	Revolution/Gameready/BarbarianCiv.py	89
+gameUpdate	BUG config	BugUtil.doDeferredCalls	Config/BUG Core.xml	97
+gameUpdate	EventHandlerMap	CvEventManager.onGameUpdate	base/CvEventManager.py	130
+gameUpdate	addEventHandler	BugEventManager.__init__: self.onGameUpdate	BUG/BugEventManager.py	192
+gameUpdate	addEventHandler	addEvents: onGameUpdate	BUG/DealUtil.py	147
+goldenAge	EventHandlerMap	CvEventManager.onGoldenAge	base/CvEventManager.py	123
+goldenAge	addEventHandler	AutoLogEvent.__init__: self.onGoldenAge	Contrib/autologEventManager.py	170
+goodyReceived	EventHandlerMap	CvEventManager.onGoodyReceived	base/CvEventManager.py	115
+goodyReceived	addEventHandler	AutoLogEvent.__init__: self.onGoodyReceived	Contrib/autologEventManager.py	160
+goodyReceived	addEventHandler	BuildUnitName.__init__: self.onGoodyReceived	Contrib/UnitNameEventManager.py	192
+greatPersonBorn	EventHandlerMap	CvEventManager.onGreatPersonBorn	base/CvEventManager.py	116
+greatPersonBorn	addEventHandler	AutoLogEvent.__init__: self.onGreatPersonBorn	Contrib/autologEventManager.py	161
+greatPersonBorn	addEventHandler	Tester.__init__: self.onGreatPersonBorn	Revolution/Development/Tester.py	42
+improvementBuilt	EventHandlerMap	CvEventManager.onImprovementBuilt	base/CvEventManager.py	93
+improvementBuilt	addEventHandler	AutoLogEvent.__init__: self.onImprovementBuilt	Contrib/autologEventManager.py	182
+improvementDestroyed	addEventHandler	AutoLogEvent.__init__: self.onImprovementDestroyed	Contrib/autologEventManager.py	183
+kbdEvent	EventHandlerMap	CvEventManager.onKbdEvent	base/CvEventManager.py	75
+kbdEvent	addEventHandler	AIAutoPlay.__init__: self.onKbdEvent	Revolution/Gameready/AIAutoPlay.py	85
+kbdEvent	addEventHandler	AutoLogEvent.__init__: self.onKbdEvent	Contrib/autologEventManager.py	145
+kbdEvent	addEventHandler	BarbarianCiv.__init__: self.onKbdEvent	Revolution/Gameready/BarbarianCiv.py	95
+kbdEvent	addEventHandler	BugEventManager.__init__: self.onKbdEvent	BUG/BugEventManager.py	189
+kbdEvent	addEventHandler	BuildUnitName.__init__: self.onKbdEvent	Contrib/UnitNameEventManager.py	189
+kbdEvent	addEventHandler	ChangePlayer.__init__: self.onKbdEvent	Revolution/Development/ChangePlayer.py	40
+kbdEvent	addEventHandler	DynamicCivNames.__init__: self.onKbdEvent	Revolution/Gameready/DynamicCivNames.py	43
+kbdEvent	addEventHandler	Revolution.__init__: self.onKbdEvent	Revolution/Gameready/Revolution.py	184
+kbdEvent	addEventHandler	RevolutionInit.__init__: self.onKbdEvent	Revolution/RevolutionInit.py	66
+kbdEvent	addEventHandler	StatusDumpEvent.__init__: self.onKbdEvent	Contrib/StatusDumpEventManager.py	44
+kbdEvent	addEventHandler	Tester.__init__: self.onKbdEvent	Revolution/Development/Tester.py	47
+mouseEvent	EventHandlerMap	CvEventManager.onMouseEvent	base/CvEventManager.py	74
+plotRevealed	EventHandlerMap	CvEventManager.onPlotRevealed	base/CvEventManager.py	84
+plotRevealed	addEventHandler	EventSignsEventHandler.__init__: self.onPlotRevealed	Contrib/EventSigns.py	453
+projectBuilt	EventHandlerMap	CvEventManager.onProjectBuilt	base/CvEventManager.py	118
+projectBuilt	addEventHandler	AutoLogEvent.__init__: self.onProjectBuilt	Contrib/autologEventManager.py	157
+projectBuilt	addEventHandler	RoMEventManager.__init__: self.onProjectBuilt	RoMEventManager.py	48
+religionFounded	EventHandlerMap	CvEventManager.onReligionFounded	base/CvEventManager.py	121
+religionFounded	addEventHandler	AutoLogEvent.__init__: self.onReligionFounded	Contrib/autologEventManager.py	164
+religionFounded	addEventHandler	Tester.__init__: self.onReligionFounded	Revolution/Development/Tester.py	44
+religionFounded	addEventHandler	init: onReligionFounded	Revolution/RevEvents.py	83
+religionRemove	addEventHandler	AutoLogEvent.__init__: self.onReligionRemove	Contrib/autologEventManager.py	166
+religionSpread	EventHandlerMap	CvEventManager.onReligionSpread	base/CvEventManager.py	122
+religionSpread	addEventHandler	AutoLogEvent.__init__: self.onReligionSpread	Contrib/autologEventManager.py	165
+routeBuilt	EventHandlerMap	CvEventManager.onRouteBuilt	base/CvEventManager.py	94
+selectionGroupPushMission	addEventHandler	AutoLogEvent.__init__: self.onSelectionGroupPushMission	Contrib/autologEventManager.py	186
+setPlayerAlive	EventHandlerMap	CvEventManager.onSetPlayerAlive	base/CvEventManager.py	128
+setPlayerAlive	addEventHandler	AutoLogEvent.__init__: self.onSetPlayerAlive	Contrib/autologEventManager.py	173
+setPlayerAlive	addEventHandler	BarbarianCiv.__init__: self.onSetPlayerAlive	Revolution/Gameready/BarbarianCiv.py	90
+setPlayerAlive	addEventHandler	DynamicCivNames.__init__: self.onSetPlayerAlive	Revolution/Gameready/DynamicCivNames.py	42
+setPlayerAlive	addEventHandler	init: onSetPlayerAlive	Revolution/Gameready/StartAsMinors.py	52
+setPlayerAlive	addEventHandler	init: onSetPlayerAlive	Revolution/RevEvents.py	81
+techAcquired	EventHandlerMap	CvEventManager.onTechAcquired	base/CvEventManager.py	119
+techAcquired	addEventHandler	AutoLogEvent.__init__: self.onTechAcquired	Contrib/autologEventManager.py	162
+techAcquired	addEventHandler	TechDiffusion.__init__: self.onTechAcquired	Revolution/Gameready/TechDiffusion.py	43
+techAcquired	addEventHandler	init: onTechAcquired	Revolution/Gameready/StartAsMinors.py	53
+techSelected	EventHandlerMap	CvEventManager.onTechSelected	base/CvEventManager.py	120
+techSelected	addEventHandler	AutoLogEvent.__init__: self.onTechSelected	Contrib/autologEventManager.py	163
+unitBuilt	EventHandlerMap	CvEventManager.onUnitBuilt	base/CvEventManager.py	109
+unitBuilt	addEventHandler	AutoLogEvent.__init__: self.onUnitBuilt	Contrib/autologEventManager.py	158
+unitBuilt	addEventHandler	BuildUnitName.__init__: self.onUnitBuilt	Contrib/UnitNameEventManager.py	190
+unitBuilt	addEventHandler	RoMEventManager.__init__: self.onUnitBuilt	RoMEventManager.py	49
+unitCreated	EventHandlerMap	CvEventManager.onUnitCreated	base/CvEventManager.py	108
+unitKilled	EventHandlerMap	CvEventManager.onUnitKilled	base/CvEventManager.py	110
+unitLost	EventHandlerMap	CvEventManager.onUnitLost	base/CvEventManager.py	111
+unitMove	EventHandlerMap	CvEventManager.onUnitMove	base/CvEventManager.py	106
+unitPillage	addEventHandler	AutoLogEvent.__init__: self.onUnitPillage	Contrib/autologEventManager.py	184
+unitPromoted	EventHandlerMap	CvEventManager.onUnitPromoted	base/CvEventManager.py	112
+unitPromoted	addEventHandler	AutoLogEvent.__init__: self.onUnitPromoted	Contrib/autologEventManager.py	159
+unitSelected	EventHandlerMap	CvEventManager.onUnitSelected	base/CvEventManager.py	113
+unitSetXY	EventHandlerMap	CvEventManager.onUnitSetXY	base/CvEventManager.py	107
+vassalState	addEventHandler	AutoLogEvent.__init__: self.onVassalState	Contrib/autologEventManager.py	185
+vassalState	addEventHandler	DynamicCivNames.__init__: self.onVassalState	Revolution/Gameready/DynamicCivNames.py	46
+victory	EventHandlerMap	CvEventManager.onVictory	base/CvEventManager.py	126
+victory	addEventHandler	AIAutoPlay.__init__: self.onVictory	Revolution/Gameready/AIAutoPlay.py	98
+windowActivation	EventHandlerMap	CvEventManager.onWindowActivation	base/CvEventManager.py	129
+windowActivation	addEventHandler	CvEnhancedTechConquestEventManager.__init__: self.onWindowActivation	EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py	19

@@ -1,0 +1,590 @@
+# CyPlot.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **13** `CyPlot::CyPlot(CvPlot*)` (exported)
+  - called by (41): CvDllPythonEvents::reportGoodyReceived, CvDllPythonEvents::reportGotoPlotSet, CvDllPythonEvents::reportNukeExplosion, CvDllPythonEvents::reportPlotFeatureRemoved, CvDllPythonEvents::reportPlotPicked, CvDllPythonEvents::reportPlotRevealed, CvDllPythonEvents::reportUnitGifted, CvDllPythonEvents::reportUnitMove, CvDllPythonEvents::reportUnitSetXY, CvGame::canHandleAction, CvGame::getPlotHighlightColor, CvGame::selectionListMove …
+- **18** `CyPlot::CyPlot()` (exported)
+  - called by (4): CyMap::sPlot, CyMap::sPlotByIndex, cysPlotCardinalDirection, cysPlotXY
+- **23** `CyPlot::erase()` (Python: erase)
+  - calls: CvPlot::erase [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **29** `CyPlot::getPoint()` (exported; Python: getPoint)
+  - calls: NiPoint3::NiPoint3(float, float, float) [CvGameCoreDLL.h], CvPlot::getPoint [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **34** `CyPlot::getTeam()` (Python: getTeam)
+  - calls: CvPlot::getTeam [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **39** `CyPlot::nukeExplosion(int, CyUnit*)` (Python: nukeExplosion)
+  - calls: CvPlot::nukeExplosion [CvPlot.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **45** `CyPlot::isConnectedTo(CyCity*)` (Python: isConnectedTo)
+  - calls: CvPlot::isConnectedTo [CvPlot.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyPlotPythonInterface1
+- **50** `CyPlot::isConnectedToCapital(int)` (Python: isConnectedToCapital)
+  - calls: CvPlot::isConnectedToCapital [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **55** `CyPlot::getPlotGroupConnectedBonus(int, int)` (Python: getPlotGroupConnectedBonus)
+  - calls: CvPlot::getPlotGroupConnectedBonus [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **60** `CyPlot::isPlotGroupConnectedBonus(int, int)` (Python: isPlotGroupConnectedBonus)
+  - calls: CvPlot::isPlotGroupConnectedBonus [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **65** `CyPlot::isAdjacentPlotGroupConnectedBonus(int, int)` (Python: isAdjacentPlotGroupConnectedBonus)
+  - calls: CvPlot::isAdjacentPlotGroupConnectedBonus [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **70** `CyPlot::updateVisibility()` (Python: updateVisibility)
+  - calls: CvPlot::updateVisibility [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **78** `CyPlot::isAdjacentToArea(CyArea*)` (Python: isAdjacentToArea)
+  - calls: CvPlot::isAdjacentToArea(CvArea const*) const [CvPlot.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyPlotPythonInterface1
+- **83** `CyPlot::shareAdjacentArea(CyPlot*)` (Python: shareAdjacentArea)
+  - calls: CvPlot::shareAdjacentArea [CvPlot.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlotPythonInterface1
+- **88** `CyPlot::isAdjacentToLand()` (Python: isAdjacentToLand)
+  - calls: CvPlot::isAdjacentToLand [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **93** `CyPlot::isCoastalLand()` (Python: isCoastalLand)
+  - calls: CvPlot::isCoastalLand [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **98** `CyPlot::isWithinTeamCityRadius(int, int)` (Python: isWithinTeamCityRadius)
+  - calls: CvPlot::isWithinTeamCityRadius [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **102** `CyPlot::isLake()` (Python: isLake)
+  - calls: CvPlot::isLake [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **107** `CyPlot::isFreshWater()` (Python: isFreshWater)
+  - calls: CvPlot::isFreshWater [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **112** `CyPlot::isPotentialIrrigation()` (Python: isPotentialIrrigation)
+  - calls: CvPlot::isPotentialIrrigation [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **117** `CyPlot::canHavePotentialIrrigation()` (Python: canHavePotentialIrrigation)
+  - calls: CvPlot::canHavePotentialIrrigation [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **122** `CyPlot::isIrrigationAvailable(bool)` (Python: isIrrigationAvailable)
+  - calls: CvPlot::isIrrigationAvailable [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **127** `CyPlot::isRiverSide()` (Python: isRiverSide)
+  - calls: CvPlot::isRiverSide [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **132** `CyPlot::isRiver()` (Python: isRiver)
+  - calls: CvPlot::isRiver [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **137** `CyPlot::isRiverConnection(int)` (Python: isRiverConnection)
+  - calls: CvPlot::isRiverConnection [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **142** `CyPlot::getNearestLandArea()` (Python: getNearestLandArea)
+  - calls: CvPlot::getNearestLandArea [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **147** `CyPlot::getNearestLandPlot()` (Python: getNearestLandPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::getNearestLandPlot [CvPlot.cpp], CyPlot::CyPlot(CvPlot*), operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **152** `CyPlot::seeFromLevel(int)` (Python: seeFromLevel)
+  - calls: CvPlot::seeFromLevel [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **157** `CyPlot::seeThroughLevel()` (Python: seeThroughLevel)
+  - calls: CvPlot::seeThroughLevel [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **162** `CyPlot::canHaveBonus(int, bool)` (Python: canHaveBonus)
+  - calls: CvPlot::canHaveBonus [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **167** `CyPlot::canHaveImprovement(int, int, bool)` (Python: canHaveImprovement)
+  - calls: CvPlot::canHaveImprovement [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **172** `CyPlot::canBuild(int, int, bool)` (Python: canBuild)
+  - calls: CvPlot::canBuild [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **177** `CyPlot::getBuildTime(int)` (Python: getBuildTime)
+  - calls: CvPlot::getBuildTime [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **182** `CyPlot::getBuildTurnsLeft(int, int, int)` (Python: getBuildTurnsLeft)
+  - calls: CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool) const [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **187** `CyPlot::getFeatureProduction(int, int, CyCity*)` (Python: getFeatureProduction)
+  - calls: CyCity::getCity [CyCity.h], CvPlot::getFeatureProduction [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **193** `CyPlot::getBestDefender(int, int, CyUnit*, bool, bool, bool)` (Python: getBestDefender)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::getBestDefender [CvPlot.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], CyUnit::getUnit [CyUnit.h], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **198** `CyPlot::getSelectedUnit()` (Python: getSelectedUnit)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::getSelectedUnit [CvPlot.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **203** `CyPlot::getUnitPower(int)` (Python: getUnitPower)
+  - calls: CvPlot::getUnitPower [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **208** `CyPlot::movementCost(CyUnit*, CyPlot*)` (Python: movementCost)
+  - calls: CvPlot::movementCost [CvPlot.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **213** `CyPlot::defenseModifier(int, bool, bool)` (Python: defenseModifier)
+  - calls: CvPlot::defenseModifier [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **218** `CyPlot::getExtraMovePathCost()` (Python: getExtraMovePathCost)
+  - calls: CvPlot::getExtraMovePathCost [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **223** `CyPlot::changeExtraMovePathCost(int)` (Python: changeExtraMovePathCost)
+  - calls: CvPlot::changeExtraMovePathCost [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **229** `CyPlot::isAdjacentOwned()` (Python: isAdjacentOwned)
+  - calls: CvPlot::isAdjacentOwned [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **234** `CyPlot::isAdjacentPlayer(int, bool)` (Python: isAdjacentPlayer)
+  - calls: CvPlot::isAdjacentPlayer [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **239** `CyPlot::isAdjacentTeam(int, bool)` (Python: isAdjacentTeam)
+  - calls: CvPlot::isAdjacentTeam [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **244** `CyPlot::isWithinCultureRange(int)` (Python: isWithinCultureRange)
+  - calls: CvPlot::isWithinCultureRange [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **249** `CyPlot::getNumCultureRangeCities(int)` (Python: getNumCultureRangeCities)
+  - calls: CvPlot::getNumCultureRangeCities [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **254** `CyPlot::calculateCulturalOwner()` (Python: calculateCulturalOwner)
+  - calls: CvPlot::calculateCulturalOwner [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **259** `CyPlot::isOwned()` (Python: isOwned)
+  - calls: CvPlot::isOwned [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **264** `CyPlot::isBarbarian()` (Python: isBarbarian)
+  - calls: CvPlot::isBarbarian [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **269** `CyPlot::isRevealedBarbarian()` (Python: isRevealedBarbarian)
+  - calls: CvPlot::isRevealedBarbarian [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **274** `CyPlot::isVisible(int, bool)` (Python: isVisible)
+  - calls: CvPlot::isVisible [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **279** `CyPlot::isActiveVisible(bool)` (Python: isActiveVisible)
+  - calls: CvPlot::isActiveVisible [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **284** `CyPlot::isVisibleToWatchingHuman()` (Python: isVisibleToWatchingHuman)
+  - calls: CvPlot::isVisibleToWatchingHuman [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **289** `CyPlot::isAdjacentVisible(int, bool)` (Python: isAdjacentVisible)
+  - calls: CvPlot::isAdjacentVisible [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **294** `CyPlot::isAdjacentNonvisible(int)` (Python: isAdjacentNonvisible)
+  - calls: CvPlot::isAdjacentNonvisible [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **299** `CyPlot::isAdjacentRevealed(int)` (Python: isAdjacentRevealed)
+  - calls: CvPlot::isAdjacentRevealed [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **304** `CyPlot::isAdjacentNonrevealed(int)` (Python: isAdjacentNonrevealed)
+  - calls: CvPlot::isAdjacentNonrevealed [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **309** `CyPlot::removeGoody()` (Python: removeGoody)
+  - calls: CvPlot::removeGoody [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **317** `CyPlot::isGoody()` (Python: isGoody)
+  - calls: CvPlot::isGoody [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **322** `CyPlot::isRevealedGoody(int)` (Python: isRevealedGoody)
+  - calls: CvPlot::isRevealedGoody [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **327** `CyPlot::isCity()` (Python: isCity)
+  - calls: CvPlot::isCity [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **332** `CyPlot::isFriendlyCity(CyUnit*, bool)` (Python: isFriendlyCity)
+  - calls: CvPlot::isFriendlyCity [CvPlot.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **337** `CyPlot::isEnemyCity(CyUnit*)` (Python: isEnemyCity)
+  - calls: CvPlot::isEnemyCity [CvPlot.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **342** `CyPlot::isOccupation()` (Python: isOccupation)
+  - calls: CvPlot::isOccupation [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **347** `CyPlot::isBeingWorked()` (Python: isBeingWorked)
+  - calls: CvPlot::isBeingWorked [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **352** `CyPlot::isUnit()` (Python: isUnit)
+  - calls: CvPlot::isUnit [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **357** `CyPlot::isInvestigate(int)` (Python: isInvestigate)
+  - calls: CvPlot::isInvestigate [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **362** `CyPlot::isVisibleEnemyDefender(CyUnit*)` (Python: isVisibleEnemyDefender)
+  - calls: CvPlot::isVisibleEnemyDefender [CvPlot.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **367** `CyPlot::getNumDefenders(int)` (Python: getNumDefenders)
+  - calls: CvPlot::getNumDefenders [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **372** `CyPlot::getNumVisibleEnemyDefenders(CyUnit*)` (Python: getNumVisibleEnemyDefenders)
+  - calls: CvPlot::getNumVisibleEnemyDefenders [CvPlot.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **377** `CyPlot::getNumVisiblePotentialEnemyDefenders(CyUnit*)` (Python: getNumVisiblePotentialEnemyDefenders)
+  - calls: CvPlot::getNumVisiblePotentialEnemyDefenders [CvPlot.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **382** `CyPlot::isVisibleEnemyUnit(int)` (Python: isVisibleEnemyUnit)
+  - calls: CvPlot::isVisibleEnemyUnit(PlayerTypes) const [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **387** `CyPlot::isVisibleOtherUnit(int)` (Python: isVisibleOtherUnit)
+  - calls: CvPlot::isVisibleOtherUnit [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **392** `CyPlot::isFighting()` (Python: isFighting)
+  - calls: CvPlot::isFighting [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **397** `CyPlot::canHaveFeature(int)` (Python: canHaveFeature)
+  - calls: CvPlot::canHaveFeature [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **402** `CyPlot::isRoute()` (Python: isRoute)
+  - calls: CvPlot::isRoute [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **407** `CyPlot::isNetworkTerrain(int)` (Python: isNetworkTerrain)
+  - calls: CvPlot::isNetworkTerrain [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **412** `CyPlot::isBonusNetwork(int)` (Python: isBonusNetwork)
+  - calls: CvPlot::isBonusNetwork [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **416** `CyPlot::isTradeNetworkImpassable(int)` (Python: isTradeNetworkImpassable)
+  - calls: CvPlot::isTradeNetworkImpassable [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **421** `CyPlot::isTradeNetwork(int)` (Python: isTradeNetwork)
+  - calls: CvPlot::isTradeNetwork [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **426** `CyPlot::isTradeNetworkConnected(CyPlot*, int)` (Python: isTradeNetworkConnected)
+  - calls: CvPlot::isTradeNetworkConnected [CvPlot.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlotPythonInterface1
+- **431** `CyPlot::isValidDomainForLocation(CyUnit*) const` (Python: isValidDomainForLocation)
+  - calls: CvPlot::isValidDomainForLocation [CvPlot.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **436** `CyPlot::isValidDomainForAction(CyUnit*) const` (Python: isValidDomainForAction)
+  - calls: CvPlot::isValidDomainForAction [CvPlot.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlotPythonInterface1
+- **441** `CyPlot::isImpassable()` (Python: isImpassable)
+  - calls: CvPlot::isImpassable [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **446** `CyPlot::getX()` (Python: getX)
+  - calls: CvPlot::getX_INLINE [CvPlot.h]
+  - called by (1): CyPlotPythonInterface1
+- **451** `CyPlot::getY()` (Python: getY)
+  - calls: CvPlot::getY_INLINE [CvPlot.h]
+  - called by (1): CyPlotPythonInterface1
+- **456** `CyPlot::at(int, int)` (Python: at)
+  - calls: CvPlot::at [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **461** `CyPlot::getLatitude()` (Python: getLatitude)
+  - calls: CvPlot::getLatitude [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **466** `CyPlot::area()` (Python: area)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::area [CvPlot.cpp], CyArea::CyArea(CvArea*) [CyArea.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **471** `CyPlot::waterArea()` (Python: waterArea)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::waterArea [CvPlot.cpp], CyArea::CyArea(CvArea*) [CyArea.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **476** `CyPlot::getArea()` (Python: getArea)
+  - calls: CvPlot::getArea [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **481** `CyPlot::getUpgradeProgress()` (Python: getUpgradeProgress)
+  - calls: CvPlot::getUpgradeProgress [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **486** `CyPlot::getUpgradeTimeLeft(int, int)` (Python: getUpgradeTimeLeft)
+  - calls: CvPlot::getUpgradeTimeLeft [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **491** `CyPlot::setUpgradeProgress(int)` (Python: setUpgradeProgress)
+  - calls: CvPlot::setUpgradeProgress [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **497** `CyPlot::changeUpgradeProgress(int)` (Python: changeUpgradeProgress)
+  - calls: CvPlot::changeUpgradeProgress [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **503** `CyPlot::getForceUnownedTimer()` (Python: getForceUnownedTimer)
+  - calls: CvPlot::getForceUnownedTimer [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **508** `CyPlot::isForceUnowned()` (Python: isForceUnowned)
+  - calls: CvPlot::isForceUnowned [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **513** `CyPlot::setForceUnownedTimer(int)` (Python: setForceUnownedTimer)
+  - calls: CvPlot::setForceUnownedTimer [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **519** `CyPlot::changeForceUnownedTimer(int)` (Python: changeForceUnownedTimer)
+  - calls: CvPlot::changeForceUnownedTimer [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **525** `CyPlot::getCityRadiusCount()` (Python: getCityRadiusCount)
+  - calls: CvPlot::getCityRadiusCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **530** `CyPlot::isCityRadius()` (Python: isCityRadius)
+  - calls: CvPlot::isCityRadius [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **535** `CyPlot::isStartingPlot()` (Python: isStartingPlot)
+  - calls: CvPlot::isStartingPlot [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **540** `CyPlot::setStartingPlot(bool)` (Python: setStartingPlot)
+  - calls: CvPlot::setStartingPlot [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **546** `CyPlot::isNOfRiver()` (Python: isNOfRiver)
+  - calls: CvPlot::isNOfRiver [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **551** `CyPlot::setNOfRiver(bool, CardinalDirectionTypes)` (Python: setNOfRiver)
+  - calls: CvPlot::setNOfRiver [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **559** `CyPlot::isWOfRiver()` (Python: isWOfRiver)
+  - calls: CvPlot::isWOfRiver [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **564** `CyPlot::setWOfRiver(bool, CardinalDirectionTypes)` (Python: setWOfRiver)
+  - calls: CvPlot::setWOfRiver [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **572** `CyPlot::getRiverWEDirection()` (Python: getRiverWEDirection)
+  - calls: CvPlot::getRiverWEDirection [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **577** `CyPlot::getRiverNSDirection()` (Python: getRiverNSDirection)
+  - calls: CvPlot::getRiverNSDirection [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **582** `CyPlot::isIrrigated()` (Python: isIrrigated)
+  - calls: CvPlot::isIrrigated [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **587** `CyPlot::isPotentialCityWork()` (Python: isPotentialCityWork)
+  - calls: CvPlot::isPotentialCityWork [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **592** `CyPlot::isPotentialCityWorkForArea(CyArea*)` (Python: isPotentialCityWorkForArea)
+  - calls: CvPlot::isPotentialCityWorkForArea [CvPlot.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyPlotPythonInterface1
+- **597** `CyPlot::isFlagDirty()` (Python: isFlagDirty)
+  - calls: CvPlot::isFlagDirty [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **602** `CyPlot::setFlagDirty(bool)` (Python: setFlagDirty)
+  - calls: CvPlot::setFlagDirty [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **610** `CyPlot::getOwner()` (Python: getOwner)
+  - calls: CvPlot::getOwnerINLINE [CvPlot.h]
+  - called by (1): CyPlotPythonInterface1
+- **615** `CyPlot::setOwner(int)` (Python: setOwner)
+  - calls: CvPlot::setOwner [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **621** `CyPlot::setOwnerNoUnitCheck(int)` (Python: setOwnerNoUnitCheck)
+  - calls: CvPlot::setOwner [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **626** `CyPlot::getPlotType()` (Python: getPlotType)
+  - calls: CvPlot::getPlotType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **631** `CyPlot::isWater()` (Python: isWater)
+  - calls: CvPlot::isWater [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **636** `CyPlot::isFlatlands()` (Python: isFlatlands)
+  - calls: CvPlot::isFlatlands [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **641** `CyPlot::isHills()` (Python: isHills)
+  - calls: CvPlot::isHills [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **646** `CyPlot::isPeak()` (Python: isPeak)
+  - calls: CvPlot::isPeak [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **651** `CyPlot::setPlotType(PlotTypes, bool, bool)` (Python: setPlotType)
+  - calls: CvPlot::setPlotType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **657** `CyPlot::getTerrainType()` (Python: getTerrainType)
+  - calls: CvPlot::getTerrainType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **662** `CyPlot::setTerrainType(int, bool, bool)` (Python: setTerrainType)
+  - calls: CvPlot::setTerrainType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **668** `CyPlot::getFeatureType()` (Python: getFeatureType)
+  - calls: CvPlot::getFeatureType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **673** `CyPlot::setFeatureType(int, int)` (Python: setFeatureType)
+  - calls: CvPlot::setFeatureType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **679** `CyPlot::setFeatureDummyVisibility(std::basic_string<char, std::char_traits<char>, std::allocator<char>>, bool)` (Python: setFeatureDummyVisibility)
+  - calls: CvPlot::setFeatureDummyVisibility [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **685** `CyPlot::addFeatureDummyModel(std::basic_string<char, std::char_traits<char>, std::allocator<char>>, std::basic_string<char, std::char_traits<char>, std::allocator<char>>)` (Python: addFeatureDummyModel)
+  - calls: CvPlot::addFeatureDummyModel [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **691** `CyPlot::setFeatureDummyTexture(std::basic_string<char, std::char_traits<char>, std::allocator<char>>, std::basic_string<char, std::char_traits<char>, std::allocator<char>>)` (Python: setFeatureDummyTexture)
+  - calls: CvPlot::setFeatureDummyTexture [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **697** `CyPlot::pickFeatureDummyTag(int, int)` (Python: pickFeatureDummyTag)
+  - calls: CvPlot::pickFeatureDummyTag [CvPlot.cpp], CvString::~CvString [CvString.h]
+  - called by (1): CyPlotPythonInterface1
+- **705** `CyPlot::resetFeatureModel()` (Python: resetFeatureModel)
+  - calls: CvPlot::resetFeatureModel [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **711** `CyPlot::getFeatureVariety()` (Python: getFeatureVariety)
+  - calls: CvPlot::getFeatureVariety [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **716** `CyPlot::getOwnershipDuration()` (Python: getOwnershipDuration)
+  - calls: CvPlot::getOwnershipDuration [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **721** `CyPlot::isOwnershipScore()` (Python: isOwnershipScore)
+  - calls: CvPlot::isOwnershipScore [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **726** `CyPlot::setOwnershipDuration(int)` (Python: setOwnershipDuration)
+  - calls: CvPlot::setOwnershipDuration [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **732** `CyPlot::changeOwnershipDuration(int)` (Python: changeOwnershipDuration)
+  - calls: CvPlot::changeOwnershipDuration [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **738** `CyPlot::getImprovementDuration()` (Python: getImprovementDuration)
+  - calls: CvPlot::getImprovementDuration [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **743** `CyPlot::setImprovementDuration(int)` (Python: setImprovementDuration)
+  - calls: CvPlot::setImprovementDuration [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **749** `CyPlot::changeImprovementDuration(int)` (Python: changeImprovementDuration)
+  - calls: CvPlot::changeImprovementDuration [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **755** `CyPlot::getBonusType(int)` (Python: getBonusType)
+  - calls: CvPlot::getBonusType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **760** `CyPlot::getNonObsoleteBonusType(int)` (Python: getNonObsoleteBonusType)
+  - calls: CvPlot::getNonObsoleteBonusType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **765** `CyPlot::setBonusType(int)` (Python: setBonusType)
+  - calls: CvPlot::setBonusType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **771** `CyPlot::getImprovementType()` (Python: getImprovementType)
+  - calls: CvPlot::getImprovementType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **776** `CyPlot::setImprovementType(int)` (Python: setImprovementType)
+  - calls: CvPlot::setImprovementType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **782** `CyPlot::getRouteType()` (Python: getRouteType)
+  - calls: CvPlot::getRouteType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **787** `CyPlot::setRouteType(int)` (Python: setRouteType)
+  - calls: CvPlot::setRouteType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **793** `CyPlot::getPlotCity()` (Python: getPlotCity)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::getPlotCity [CvPlot.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **798** `CyPlot::getWorkingCity()` (Python: getWorkingCity)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::getWorkingCity [CvPlot.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **803** `CyPlot::getWorkingCityOverride()` (Python: getWorkingCityOverride)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::getWorkingCityOverride [CvPlot.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **808** `CyPlot::getRiverID() const` (Python: getRiverID)
+  - calls: CvPlot::getRiverID [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **813** `CyPlot::setRiverID(int)` (Python: setRiverID)
+  - calls: CvPlot::setRiverID [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **819** `CyPlot::getMinOriginalStartDist()` (Python: getMinOriginalStartDist)
+  - calls: CvPlot::getMinOriginalStartDist [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **824** `CyPlot::getReconCount()` (Python: getReconCount)
+  - calls: CvPlot::getReconCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **829** `CyPlot::getRiverCrossingCount()` (Python: getRiverCrossingCount)
+  - calls: CvPlot::getRiverCrossingCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **834** `CyPlot::getYield(YieldTypes)` (Python: getYield)
+  - calls: CvPlot::getYield(YieldTypes) const [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **839** `CyPlot::calculateNatureYield(YieldTypes, TeamTypes, bool)` (Python: calculateNatureYield)
+  - calls: CvPlot::calculateNatureYield [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **844** `CyPlot::calculateBestNatureYield(YieldTypes, TeamTypes)` (Python: calculateBestNatureYield)
+  - calls: CvPlot::calculateBestNatureYield [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **849** `CyPlot::calculateTotalBestNatureYield(TeamTypes)` (Python: calculateTotalBestNatureYield)
+  - calls: CvPlot::calculateTotalBestNatureYield [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **854** `CyPlot::calculateImprovementYieldChange(int, YieldTypes, int, bool)` (Python: calculateImprovementYieldChange)
+  - calls: CvPlot::calculateImprovementYieldChange [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **859** `CyPlot::calculateYield(YieldTypes, bool)` (Python: calculateYield)
+  - calls: CvPlot::calculateYield [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **864** `CyPlot::hasYield()` (Python: hasYield)
+  - calls: CvPlot::hasYield [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **869** `CyPlot::getCulture(int)` (Python: getCulture)
+  - calls: CvPlot::getCulture [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **874** `CyPlot::countTotalCulture()` (Python: countTotalCulture)
+  - calls: CvPlot::countTotalCulture [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **879** `CyPlot::findHighestCultureTeam()` (Python: findHighestCultureTeam)
+  - calls: CvPlot::findHighestCultureTeam [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **884** `CyPlot::calculateCulturePercent(int)` (Python: calculateCulturePercent)
+  - calls: CvPlot::calculateCulturePercent [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **889** `CyPlot::calculateTeamCulturePercent(int)` (Python: calculateTeamCulturePercent)
+  - calls: CvPlot::calculateTeamCulturePercent [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **894** `CyPlot::setCulture(int, int, bool)` (Python: setCulture)
+  - calls: CvPlot::setCulture [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **900** `CyPlot::changeCulture(int, int, bool)` (Python: changeCulture)
+  - calls: CvPlot::changeCulture [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **906** `CyPlot::countNumAirUnits(int)` (Python: countNumAirUnits)
+  - calls: CvPlot::countNumAirUnits [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **911** `CyPlot::getFoundValue(int)` (Python: getFoundValue)
+  - calls: CvPlot::getFoundValue [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **916** `CyPlot::isBestAdjacentFound(int)` (Python: isBestAdjacentFound)
+  - calls: CvPlot::isBestAdjacentFound [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **921** `CyPlot::getPlayerCityRadiusCount(int)` (Python: getPlayerCityRadiusCount)
+  - calls: CvPlot::getPlayerCityRadiusCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **926** `CyPlot::isPlayerCityRadius(int)` (Python: isPlayerCityRadius)
+  - calls: CvPlot::isPlayerCityRadius [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **931** `CyPlot::getVisibilityCount(int)` (Python: getVisibilityCount)
+  - calls: CvPlot::getVisibilityCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **936** `CyPlot::changeVisibilityCount(int, int, int)` (Python: changeVisibilityCount)
+  - calls: CvPlot::changeVisibilityCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **942** `CyPlot::getStolenVisibilityCount(int)` (Python: getStolenVisibilityCount)
+  - calls: CvPlot::getStolenVisibilityCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **947** `CyPlot::getRevealedOwner(int, bool)` (Python: getRevealedOwner)
+  - calls: CvPlot::getRevealedOwner [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **952** `CyPlot::getRevealedTeam(int, bool)` (Python: getRevealedTeam)
+  - calls: CvPlot::getRevealedTeam [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **957** `CyPlot::isRiverCrossing(DirectionTypes)` (Python: isRiverCrossing)
+  - calls: CvPlot::isRiverCrossing [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **962** `CyPlot::isRevealed(int, bool)` (Python: isRevealed)
+  - calls: CvPlot::isRevealed [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **967** `CyPlot::setRevealed(int, bool, bool, int)` (Python: setRevealed)
+  - calls: CvPlot::setRevealed [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **973** `CyPlot::getRevealedImprovementType(int, bool)` (Python: getRevealedImprovementType)
+  - calls: CvPlot::getRevealedImprovementType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **978** `CyPlot::getRevealedRouteType(int, bool)` (Python: getRevealedRouteType)
+  - calls: CvPlot::getRevealedRouteType [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **983** `CyPlot::getBuildProgress(int)` (Python: getBuildProgress)
+  - calls: CvPlot::getBuildProgress [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **988** `CyPlot::changeBuildProgress(int, int, int)` (Python: changeBuildProgress)
+  - calls: CvPlot::changeBuildProgress [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **993** `CyPlot::getCultureRangeCities(int, int)` (Python: getCultureRangeCities)
+  - calls: CvPlot::getCultureRangeCities [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **998** `CyPlot::isCultureRangeCity(int, int)` (Python: isCultureRangeCity)
+  - calls: CvPlot::isCultureRangeCity [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **1003** `CyPlot::getInvisibleVisibilityCount(int, int)` (Python: getInvisibleVisibilityCount)
+  - calls: CvPlot::getInvisibleVisibilityCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **1008** `CyPlot::isInvisibleVisible(int, int)` (Python: isInvisibleVisible)
+  - calls: CvPlot::isInvisibleVisible [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **1013** `CyPlot::changeInvisibleVisibilityCount(int, int, int)` (Python: changeInvisibleVisibilityCount)
+  - calls: CvPlot::changeInvisibleVisibilityCount [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **1019** `CyPlot::getNumUnits()` (Python: getNumUnits)
+  - calls: CvPlot::getNumUnits [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **1024** `CyPlot::getUnit(int)` (Python: getUnit)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlot::getUnitByIndex [CvPlot.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlotPythonInterface1
+- **1029** `CyPlot::getScriptData() const` (Python: getScriptData)
+  - calls: CvPlot::getScriptData [CvPlot.cpp], CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h]
+  - called by (1): CyPlotPythonInterface1
+- **1034** `CyPlot::setScriptData(std::basic_string<char, std::char_traits<char>, std::allocator<char>>)` (Python: setScriptData)
+  - calls: CvPlot::setScriptData [CvPlot.cpp]
+  - called by (1): CyPlotPythonInterface1

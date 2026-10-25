@@ -1,0 +1,66 @@
+[
+ {
+  "id": "declarations",
+  "db": "*",
+  "unit": "cities",
+  "who": "human",
+  "turn": "each declaration of the human",
+  "source": "W lines declared by the human's team; the target's other wars open at that moment (W lines of the target or on it without a later Q line); K lines of cities the human took from the target's players: the first such capture, and how many fell on the declaration turn or the next. A player's team is its P line's team, or the player id where the log has no P line for it (game 5, whose header lists the human only; in its setup every player's team is its id)",
+  "sql": "with h as (select player, team from wl_P where human=1), w as (select seq, turn, target from wl_W where team=(select team from h)), k as (select turn, coalesce((select team from wl_P where player=old_owner), old_owner) old_team from wl_K where new_owner=(select player from h)) select w.turn, w.target, (select count(*) from wl_W o where o.seq<w.seq and (o.team=w.target or o.target=w.target) and o.team<>(select team from h) and o.target<>(select team from h) and not exists (select 1 from wl_Q q where q.seq>o.seq and q.seq<w.seq and ((q.team=o.team and q.target=o.target) or (q.team=o.target and q.target=o.team)))) target_other_wars, coalesce((select min(k.turn) from k where k.old_team=w.target and k.turn>=w.turn), -1) first_capture, (select count(*) from k where k.old_team=w.target and k.turn between w.turn and w.turn+1) taken_within_1, (select count(*) from wl_W v where v.target=(select team from h)) wars_on_human from w order by w.turn, w.target"
+ },
+ {
+  "id": "war_start_cities",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4",
+   "game5"
+  ],
+  "unit": "cities",
+  "who": "the target of each declaration of the human",
+  "turn": "the moment each war starts",
+  "source": "Y lines written when the war starts (the first Y line of each city of the target's players after the W line and before the next T line): defenders, the owner's danger count (AI_getPlotDanger: enemy units within three plots, as the AI counts it), land units able to attack of other teams within two plots, whether the human took the city on the declaration turn or the next (K lines). Team of a player as in the declarations table",
+  "sql": "with h as (select player, team from wl_P where human=1), w as (select seq, turn, target, coalesce((select min(t.seq) from wl_T t where t.seq>wl_W.seq), 1000000000) nxt from wl_W where team=(select team from h)), y as (select w.turn wturn, w.target, y.x, y.y, y.defenders, y.danger, y.\"foreign\", row_number() over (partition by w.seq, y.x, y.y order by y.seq) r from w join wl_Y y on y.seq>w.seq and y.seq<w.nxt and coalesce((select team from wl_P where player=y.player), y.player)=w.target), c as (select y.*, exists (select 1 from wl_K k where k.new_owner=(select player from h) and k.x=y.x and k.y=y.y and k.turn between y.wturn and y.wturn+1) taken from y where r=1) select case when taken then 'taken within one turn' else 'not taken within one turn' end outcome, count(*) cities, sum(case when danger=0 then 1 else 0 end) danger_zero, sum(case when \"foreign\">0 then 1 else 0 end) foreign_within_2, sum(case when defenders<=1 then 1 else 0 end) one_defender_or_less, median(defenders) median_defenders, median(\"foreign\") median_foreign from c group by 1 order by 1"
+ },
+ {
+  "id": "quick_captures",
+  "db": "*",
+  "dbs": [
+   "game3",
+   "game4",
+   "game5"
+  ],
+  "unit": "cities",
+  "who": "the target of each declaration of the human",
+  "turn": "the moment each war starts",
+  "source": "as war_start_cities, the cities taken on the declaration turn or the next, one row each, with the turn the human took it and the city's current order",
+  "sql": "with h as (select player, team from wl_P where human=1), w as (select seq, turn, target, coalesce((select min(t.seq) from wl_T t where t.seq>wl_W.seq), 1000000000) nxt from wl_W where team=(select team from h)), y as (select w.turn wturn, w.target, y.x, y.y, y.pop, y.defenders, y.danger, y.\"foreign\", y.orders, row_number() over (partition by w.seq, y.x, y.y order by y.seq) r from w join wl_Y y on y.seq>w.seq and y.seq<w.nxt and coalesce((select team from wl_P where player=y.player), y.player)=w.target) select y.wturn declared, (select min(k.turn) from wl_K k where k.new_owner=(select player from h) and k.x=y.x and k.y=y.y and k.turn between y.wturn and y.wturn+1) taken, y.target, y.x, y.y, y.pop, y.defenders, y.danger, y.\"foreign\", y.orders from y where r=1 and exists (select 1 from wl_K k where k.new_owner=(select player from h) and k.x=y.x and k.y=y.y and k.turn between y.wturn and y.wturn+1) order by 1, 2, 4, 5"
+ },
+ {
+  "id": "frisia_orders",
+  "db": "game5",
+  "unit": "lines",
+  "who": "Frisia (player 8)",
+  "turn": "every Frisian turn at war with the human (turns 210 to 223)",
+  "source": "Y lines of Frisia's cities while at war with the human: the city's current order, counted over city-turns with the owner's danger count above zero and at zero",
+  "sql": "select orders, sum(case when danger>0 then 1 else 0 end) danger_above_zero, sum(case when danger=0 then 1 else 0 end) danger_zero from wl_Y where player=8 and turn>=210 group by 1 order by 2 desc, 3 desc, 1"
+ },
+ {
+  "id": "frisia_front",
+  "db": "game5",
+  "unit": "lines",
+  "who": "Frisia (player 8)",
+  "turn": "as logged",
+  "source": "G lines: Frisia's stacks near or in enemy land after its moves (AI stacks of three or more military units): plot, military units, the head's unit AI, units",
+  "sql": "select turn, x, y, military, head_ai, units from wl_G where player=8 order by turn, x, y"
+ },
+ {
+  "id": "frisia_power",
+  "db": "game5",
+  "unit": "units at save",
+  "who": "Frisia (player 8) and the human",
+  "turn": "turns 200, 207 (Frisia declares on Gaul), 210 (the human declares on Frisia), 215, 220, 223",
+  "source": "M lines (end of each player turn): cities, military units and power",
+  "sql": "select turn, player, cities, military, power from wl_M where player in (0, 8) and turn in (200, 207, 210, 215, 220, 223) order by turn, player"
+ }
+]

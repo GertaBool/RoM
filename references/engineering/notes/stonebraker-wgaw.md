@@ -1,0 +1,112 @@
+# Michael Stonebraker, Joseph M. Hellerstein, What Goes Around Comes Around (running head: Chapter 1: Data Models and DBMS Architecture; the text names no further venue or year, 2005 per the assignment)
+Source: lit3/stonebraker-wgaw/doc.txt. Read: lines 1-1624 (all, including references).
+
+## What it says
+- p. 1 (Abstract): "This paper provides a summary of 35 years of data model proposals, grouped into 9 different eras." -- and "there are only a few basic data modeling ideas, and most have been around a long time."
+- p. 1 (Abstract): "Most current researchers were not around for many of the previous eras, and have limited (if any) understanding of what was previously learned."
+- p. 1 (Abstract): "the main proposal in the current XML era bears a striking resemblance to the CODASYL proposal from the early 1970’s, which failed because of its complexity."
+- pp. 1-2 (I Introduction): the nine epochs are Hierarchical (IMS), Network (CODASYL), Relational, Entity-Relationship, Extended Relational, Semantic, Object-oriented, Object-relational and "Semi-structured (XML): late 1990’s to the present" -- each discussed in a neutral notation with the suppliers-and-parts example from Codd.
+- p. 2 (II IMS Era): "Each instance of a record type is forced to obey the data description indicated in the definition of the record type." -- record types with keys, arranged in a tree.
+- p. 2 (II IMS Era): "Repeated information is undesirable, because it offers the possibility for inconsistent data." -- a repeated element "could be changed in some, but not all, of the places it appears".
+- p. 2 (II IMS Era): "Existence depends on parents. In the first schema it is impossible for there to be a part that is not currently supplied by anybody." -- the second undesirable property of a strict hierarchy.
+- p. 3 (II IMS Era): "DL/1 is a “record-at-a-time” language, whereby the programmer constructs an algorithm for solving his query, and then IMS executes this algorithm."
+- p. 4 (II IMS Era): "if there is only one supplier in the data base (number 16), the second solution will outperform the first. The DL/1 programmer must make such optimization tradeoffs."
+- p. 4 (II IMS Era): "Hence, it is appropriate only for batch processing environments in which a change list is sorted in HSK order" -- the sequential organization does not support inserts; this is "old-master-new-master" processing.
+- p. 4 (II IMS Era): "One cannot freely change IMS storage organizations to tune a data base application because there is no guarantee that the DL/1 programs will continue to run."
+- p. 4 (II IMS Era): "The ability of a data base application to continue to run, regardless of what tuning is performed at the physical level will be called physical data independence."
+- p. 4 (II IMS Era): "Physical data independence is important because a DBMS application is not typically written all at once."
+- pp. 4-5 (II IMS Era): IMS supports some logical data independence because "DL/1 is actually defined on a logical data base, not on the actual physical data base that is stored." -- record types can be added and the logical data base redefined to exclude them.
+- p. 5 (II IMS Era): "Logical and physical data independence are important because DBMS application have a much longer lifetime (often a quarter century or more) than the data on which they operate."
+- p. 6 (II IMS Era): "There are many restrictions (for example in the use of the delete command) and considerable complexity to this use of logical data bases" -- grafting two physical data bases into one logical data base.
+- p. 6 (II lessons): "Lesson 1: Physical and logical data independence are highly desirable" -- with Lesson 2 (tree models are very restrictive), Lesson 3 (logical reorganization of trees is a challenge) and Lesson 4.
+- p. 6 (II lessons): "Lesson 4: A record-at-a-time user interface forces the programmer to do manual query optimization, and this is often hard."
+- p. 7 (III CODASYL Era): "A named arc is called a set in CODASYL, though it is not technically a set at all." -- a 1-to-n relationship between owner and child records.
+- p. 8 (III CODASYL Era): "This solution requires three binary sets to express a three-way relationship, and is somewhat unnatural." -- the marriage ceremony example.
+- p. 9 (III CODASYL Era): "The CODASYL proposal provided essentially no physical data independence." -- the program fails if the Supplier key and hash storage change; no logical data independence either.
+- p. 9 (III CODASYL Era): "In IMS a programmer navigates in a hierarchical space, while a CODASYL programmer navigates in a multi-dimensional hyperspace." -- the programmer tracks currency indicators for the last record, record type and set type touched.
+- p. 10 (III CODASYL Era): "Hence, the CODASYL proposal trades increased complexity for the possibility of easily representing non-hierarchical data."
+- p. 10 (III CODASYL Era): "if a CODASYL data base became corrupted, it was necessary to reload all of it from a dump." -- one large network had to be bulk-loaded at once.
+- p. 10 (III CODASYL Era): "Hence, there was no general purpose CODASYL load utility, and each installation had to write its own."
+- p. 10 (III lessons): "Lesson 5: Networks are more flexible than hierarchies but more complex" and "Lesson 6: Loading and recovering networks is more complex than hierarchies"
+- p. 10 (IV Relational Era): "IMS programmers were spending large amounts of time doing maintenance on IMS applications, when logical or physical changes occurred." -- Codd's driver as he told the first author.
+- p. 10 (IV Relational Era): the proposal was threefold: "Store the data in a simple data structure (tables) Access it through a high level set-at-a-time DML No need for a physical storage proposal"
+- p. 10 (IV Relational Era): "With a simple data structure, one has a better change of providing logical data independence. With a high level language, one can provide a high degree of physical data independence."
+- p. 11 (IV Relational Era): "his DML proposals were rigorous and formal, but not necessarily easy for mere mortals to understand."
+- p. 11 (IV Relational Era): "it was obvious that neither side articulated their position clearly. As a result, neither side was able to hear what the other side had to say." -- the SIGMOD '74 debate between Codd and Bachman.
+- p. 12 (IV Relational Era): "query optimizers can be built that are competitive with all but the best programmers at constructing query plans." -- System R and INGRES as evidence; relational views give enhanced logical data independence.
+- p. 12 (IV Relational Era): "Set-at-a-time languages offer substantial programmer productivity improvements, relative to record-at-a-time languages."
+- p. 13 (IV Relational Era): "Unfortunately, it proved too hard to implement SQL on top of the IMS notion of logical data bases, because of semantic issues." -- project Eagle; "the complexity of logical data bases in IMS came back to haunt IBM many years later."
+- pp. 13-14 (IV Relational Era): the debate was settled by "the success of the VAX" and "the non-portability of CODASYL engines" and "the complexity of IMS logical data bases"
+- p. 14 (IV lessons): "Lesson 7: Set-a-time languages are good, regardless of the data model, since they offer much improved physical data independence."
+- p. 14 (IV lessons): "Lesson 8: Logical data independence is easier with a simple data model than with a complex one."
+- p. 14 (IV lessons): "Lesson 9: Technical debates are usually settled by the elephants of the marketplace, and often for reasons that have little to do with the technology." -- Lesson 10: query optimizers beat all but the best record-at-a-time programmers.
+- p. 14 (V Entity-Relationship Era): entities are "objects that have an existence, independent of any other entities in the data base." -- with attributes, keys, and relationships that can have attributes.
+- p. 14 (V E-R Era): "The E-R model never gained acceptance as the underlying data model that is implemented by a DBMS." -- three possible reasons offered with "Perhaps".
+- p. 15 (V E-R Era): "There is one area where the E-R model has been wildly successful, namely in data base (schema) design."
+- p. 15 (V E-R Era): "First, real DBAs immediately asked “How do I get an initial set of tables?” Normalization theory had no answer to this important question." -- second, DBAs could not understand functional dependencies.
+- p. 15 (V E-R Era): "it was straightforward to convert an E-R diagram into a collection of tables in third normal form" -- so a DBA tool could do the conversion automatically.
+- p. 15 (V lessons): "Lesson 11: Functional dependencies are too difficult for mere mortals to understand. Another reason for KISS (Keep it simple stupid)."
+- p. 16 (VI R++ Era): the papers followed a template: "Show why the queries are difficult or why poor performance is observed Add a new “feature” to the relational model to correct the problem"
+- pp. 16-17 (VI R++ Era): Gem added set-valued attributes, tuple-reference as a data type with "cascaded dot" notation, and generalization (inheritance) -- "Gem merely applied this well known concept to data bases."
+- p. 17 (VI R++ Era): "while they allowed easier query formulation than was available in the conventional relational model, they offered very little performance improvement."
+- p. 17 (VI R++ Era): "primary-key-foreign-key relationships in the relational model easily simulate tuple as a data type."
+- p. 17 (VI R++ Era): "there was little technology transfer of R++ ideas into the commercial world, and this research focus had very little long-term impact." -- vendors were focused on transaction performance and scalability.
+- p. 18 (VI lessons): "Lesson 12: Unless there is a big performance or functionality advantage, new constructs will go nowhere."
+- p. 18 (VII Semantic Data Model Era): the relational model was called "semantically impoverished" -- SDM adds classes, aggregation with set-valued attributes, inverse attributes, multiple inheritance, predicate-defined subclasses and class variables.
+- p. 18 (VII Semantic Era): "Most semantic data models were very complex, and were generally paper proposals." -- Univac found "SQL was an intergalactic standard".
+- p. 19 (VII Semantic Era): "they were a lot of machinery that was easy to simulate on relational systems. Hence, there was very little leverage in the constructs being proposed."
+- p. 19 (VIII OO Era): "Hence, to bind an application to the data base required a conversion from “programming language speak” to “data base speak” and back." -- the impedance mismatch.
+- p. 21 (VIII OO Era): "However, they only needed to be declared once to Rigel, and not once to the language and a second time to the DBMS." -- persistent languages.
+- p. 21 (VIII OO Era): "Since there is no programming language Esperanto, this extension must be done once per complier."
+- p. 21 (VIII OO Era): "programming language experts have consistently refused to focus on I/O in general and DBMS functionality in particular."
+- p. 22 (VIII OO Era): the engineering market wanted "no need for a declarative query language" and "no need for fancy transaction management" -- with "some sort of versioning system would be nice"; and run-time competitive with conventional C++.
+- p. 23 (VIII OO Era): reasons for market failure: "absence of leverage" and "No standards. All of the OODB vendor offerings were incompatible." -- also "Relink the world" and no programming language Esperanto.
+- p. 23 (VIII OO Era): "In anything changed, for example a C++ method that operated on persistent data, then all programs which used this method had to be relinked."
+- p. 23 (VIII OO Era): "This meant that the application could freely manipulate all disk-based data, and no data protection was possible." -- OODBs ran in the application's address space.
+- p. 23 (VIII lessons): "Lesson 13: Packages will not sell to users unless they are in “major pain”" -- and Lesson 14 (p. 24): "Persistent languages will go nowhere without the support of the programming language community."
+- p. 24 (IX Object-Relational Era): "One-dimensional access methods do not do twodimensional searches efficiently, so there is no way in a relational system for this query to run fast." -- the GIS intersections and parcel examples.
+- p. 25 (IX OR Era): "it is inappropriate to “hard wire” a specific collection of data types and indexing strategies. Rather a sophisticated user should be able to add his own"
+- p. 25 (IX OR Era): the OR proposal added "user-defined data types, user-defined operators, user-defined functions, and user-defined access methods" to a SQL engine; Postgres was the major prototype.
+- p. 26 (IX OR Era): "All this hardcoded logic must be ripped out and replaced with a much more flexible architecture."
+- p. 27 (IX OR Era): "This requires only one round trip between the DBMS and the application rather than 5 or 6, and speeds up TPC-B immensely." -- stored procedures.
+- p. 28 (IX OR Era): "the major win in Postgres was UDTs and UDFs; the OO constructs were fairly easy and fairly efficient to simulate on conventional relational systems." -- shown by the Bucky benchmark.
+- p. 28 (IX OR Era): "inside every OR application, there is a transaction processing sub-application." -- one reason Illustra joined Informix; the other a "chicken and egg" problem with third-party UDTs.
+- p. 29 (IX OR Era): "It is plausible that OR technology will not take off unless (and until) the major vendors can agree on standard definitions and calling conventions."
+- p. 29 (IX lessons): "Lesson 14: The major benefits of OR is two-fold: putting code in the data base (and thereby bluring the distinction between code and data) and user-defined access methods." -- Lesson 15: adoption needs standards and/or an elephant.
+- p. 29 (X Semi Structured Data, 10.1 Schema Last): "the data base is always consistent with the pre-existing schema, because the DBMS rejects any records that are not consistent with the schema." -- schema first.
+- p. 29 (10.1 Schema Last): "Without a self-describing format, a record is merely “a bucket of bits”."
+- p. 30 (10.1 Schema Last): "This is an example of semantic heterogeneity, where information on a common object (in this case a person) does not conform to a common representation."
+- p. 30 (10.1 Schema Last): "Semantic heterogeneity makes query processing a big challenge, because there is no structure on which to base indexing decisions and query execution strategies."
+- p. 31 (10.1 Schema Last): "the person who designed the form is, in effect, also defining the schema by what he allows in the form."
+- p. 31 (10.1 Schema Last): "One simply cannot tolerate missing or badly formatted data that business processes depends on. For rigidly structured data, one should insist on schema-first."
+- p. 31 (10.1 Schema Last): four classes: rigidly structured, rigidly structured with text fields, semi-structured (want ads, resumes), text; "In this case, schema last is a good idea." only for the semi-structured class.
+- p. 32 (10.1 Schema Last): "Monster.com) has recently adopted a business form through which data entry occurs." -- moving class 3 to class 2 "presumably to enforce more uniformity".
+- p. 32 (10.1 Schema Last): "Typical warehouse projects are over budget, because schema homogenization is so hard." -- schema-last confronts heterogeneity record by record, "even more costly to solve."
+- p. 32 (10.1 Schema Last): "For these reasons, we view schema last data bases as a niche market."
+- pp. 32-33 (10.2 XML Data Model): "As a document specification system, we have no quarrel with these standards." -- but "As a data model for ... structured data, we believe both standards are seriously flawed."
+- p. 33 (10.2 XML Data Model): "To a first approximation, these standards have everything that was ever specified in any previous data model proposal."
+- p. 33 (10.2 XML Data Model): "If two union types containing N and M base types respectively, are to be joined, then there will be at least Max (M, N) plans to co-ordinate."
+- p. 33 (10.2 XML Data Model): "Obviously, XMLSchema is far and away the most complex data model ever proposed." -- three scenarios: failure, a simpler data-oriented subset, or popularity with a replay of the Great Debate.
+- p. 34 (10.2 XML Data Model): "providing views for a network data model will be a challenge (and will be much harder than for the relational model)."
+- p. 34 (10.3 Summary): "XML goes through firewalls, and other formats do not." -- so XML will be the data movement standard.
+- p. 34 (10.3 Summary): "A clean subset of XML-schema would have the characteristic that it maps easily to current relational DBMSs. In which case, what is the point of implementing a new engine?"
+- pp. 34-35 (10.3 Summary): "Just because two people tag a ... data element as a salary does not mean that the two data elements are comparable."
+- p. 35 (10.3 Summary): "the role of XML will be limited to providing the vocabulary in which common schemas can be constructed." -- cross-enterprise sharing will be limited to high-value cooperation, simple semantics, or an elephant dictating standards.
+- p. 35 (10.3 Summary): "Less cynically, we claim that technological advances keep changing the rules."
+- p. 36 (10.3 Summary): "it is crucial that a DBMS be very adaptable, so it can deal with whatever the next “big thing” is." -- Lessons 16-18: schema-last is a niche; XQuery is OR SQL with another syntax; XML will not solve semantic heterogeneity.
+- p. 36 (XI Full Circle): "The simpler one was shown to be advantageous in terms of understandability and its ability to support data independence."
+- p. 36 (XI Full Circle): "none of which gained substantial market traction, largely because they failed to offer substantial leverage in exchange for the increased complexity."
+- p. 36 (XI Full Circle): "The only ideas that got market traction were user-defined functions and user-defined access methods, and these were performance constructs not data model constructs."
+- p. 36 (XI Full Circle): "To avoid repeating history, it is always wise to stand on the shoulders of those who went before, rather than on their feet."
+- pp. 36-37 (XI Full Circle): "Most everything put forward in the last 20 years is a reinvention of something from a quarter century ago." -- the only new concepts are code in the data base and schema last.
+- p. 37 (XI Full Circle): "Code in the data base appears to be a really good idea." -- a DBMS making code and data equal class citizens "would be a very helpful."
+
+## Readings for our work
+- Before adding a construct to the figure system or the checks, state the performance or functionality advantage it buys over what plain tables and existing code already give; a construct that can be simulated with what exists should not be added. Check: each new check or tool in a commit names the failure it prevents and shows that no existing check catches it. Rests on: Lesson 12 (p. 18), R++ and SDM machinery easy to simulate (pp. 17, 19), additions without leverage (p. 36). Would not apply if: the new construct removes more complexity than it adds (it replaces two older mechanisms).
+- Keep the analysis data model simple (flat DuckDB tables, named columns) and query it set-at-a-time with SQL rather than looping over records in Python; record-at-a-time loops embed a hand-chosen access path that breaks when the log format changes. Rests on: Lessons 4, 7, 8, 10 (pp. 6, 14), physical data independence (p. 4). Would not apply if: a computation cannot be expressed in SQL (then a UDF-like function called from the query, p. 28).
+- Analysis scripts should read through a stable logical layer (views over raw log tables) so the raw log format or the save parser can change without rewriting every analysis; long-lived code outlives the data layout. Rests on: IMS logical data bases over physical ones (pp. 4-5), the longer lifetime of applications than of their data (p. 5), relational views give logical data independence (p. 12). Would not apply if: the analyses are one-off and discarded with each data change.
+- Game logs and registry files should be schema-first: the loader rejects records that do not fit a declared schema instead of accepting free-form records to be sorted out later. Check: feed a malformed row and confirm the load fails. Rests on: schema first rejects inconsistent records (p. 29), insisting on schema-first for rigidly structured data (p. 31), heterogeneity is costlier record by record (p. 32). Would not apply if: the source is genuinely free text (e.g. forum posts), class 3 or 4 (p. 31).
+- Matching a field by name across sources (two logs both with a gold column) does not show they mean the same thing; each column's unit and meaning must be declared and compared before joining or comparing. Rests on: salary example (pp. 34-35), semantic heterogeneity (p. 30). Would not apply if: both sources are produced by one tool with one declared schema.
+- In the legacy C++ DLL, changes to a widely used function force rebuilding and retesting everything that uses it; a patch should keep such interfaces stable and say which callers it touches. Rests on: Relink the world (p. 23). Would not apply if: the function has one caller.
+- Lessons from earlier work in this repository (checks that grew instead of the product) should be read before proposing new tooling, since the paper's record is that later proposals repeat earlier ones. Rests on: abstract (p. 1), reinvention (pp. 36-37), standing on the shoulders of predecessors (p. 36). Would not apply if: the proposal is shown to be new against the repository history.
+- A batch rewrite of a whole store from a sorted change list (old-master-new-master) is cheap to implement but forbids in-place inserts; for generated files, regenerating the whole file from source is the analogue and avoids hand edits. Rests on: sequential IMS organization and old-master-new-master processing (p. 4). Would not apply if: the generated file is too large to regenerate on each change.

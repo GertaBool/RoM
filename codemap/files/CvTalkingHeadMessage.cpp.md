@@ -1,0 +1,55 @@
+# CvTalkingHeadMessage.cpp
+
+Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **21** `CvTalkingHeadMessage::CvTalkingHeadMessage(int, int, unsigned short const*, char const*, InterfaceMessageTypes, char const*, ColorTypes, int, int, bool, bool)` (exported)
+  - calls: CvString::CvString(char const*) [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (2): CvPlayer::read, CvTalkingHeadMessage::`default ctor closure'
+- **25** `CvTalkingHeadMessage::~CvTalkingHeadMessage()` (exported; virtual)
+  - calls: CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (2): CvPlayer::read, CvTalkingHeadMessage::`vector deleting dtor'
+- **30** `CvTalkingHeadMessage::read(FDataStreamBase&)`
+  - calls: FDataStreamBase::ReadString [FDataStreamBase.h], FDataStreamBase::Read [FDataStreamBase.h]
+  - called by (1): CvPlayer::read
+- **54** `CvTalkingHeadMessage::write(FDataStreamBase&) const`
+  - calls: FDataStreamBase::WriteString [FDataStreamBase.h], FDataStreamBase::Write [FDataStreamBase.h]
+  - called by (1): CvPlayer::write
+- **72** `CvTalkingHeadMessage::getDescription() const` (exported)
+  - calls: CvWString::operator unsigned short const * [CvString.h]
+- **77** `CvTalkingHeadMessage::setDescription(CvWString)`
+  - calls: CvWString::operator=(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
+- **82** `CvTalkingHeadMessage::getSound() const` (exported)
+- **87** `CvTalkingHeadMessage::setSound(char const*)`
+  - calls: CvString::operator=(char const*) [CvString.h]
+- **92** `CvTalkingHeadMessage::getIcon() const` (exported)
+- **97** `CvTalkingHeadMessage::setIcon(char const*)`
+  - calls: CvString::operator=(char const*) [CvString.h]
+- **103** `CvTalkingHeadMessage::getLength() const` (exported)
+  - called by (1): CvPlayer::expireEvent
+- **108** `CvTalkingHeadMessage::setLength(int)` (exported)
+- **113** `CvTalkingHeadMessage::getFlashColor() const` (exported)
+- **118** `CvTalkingHeadMessage::setFlashColor(ColorTypes)`
+- **123** `CvTalkingHeadMessage::getX() const` (exported)
+- **128** `CvTalkingHeadMessage::setX(int)`
+- **133** `CvTalkingHeadMessage::getY() const` (exported)
+- **138** `CvTalkingHeadMessage::setY(int)`
+- **143** `CvTalkingHeadMessage::getOffScreenArrows() const` (exported)
+- **148** `CvTalkingHeadMessage::setOffScreenArrows(bool)`
+- **153** `CvTalkingHeadMessage::getOnScreenArrows() const` (exported)
+- **158** `CvTalkingHeadMessage::setOnScreenArrows(bool)`
+- **163** `CvTalkingHeadMessage::getTurn() const` (exported)
+  - called by (1): CvTalkingHeadMessage::getExpireTurn
+- **168** `CvTalkingHeadMessage::setTurn(int)`
+- **173** `CvTalkingHeadMessage::getMessageType() const` (exported)
+- **178** `CvTalkingHeadMessage::setMessageType(InterfaceMessageTypes)`
+- **183** `CvTalkingHeadMessage::getFromPlayer() const` (exported)
+- **188** `CvTalkingHeadMessage::setFromPlayer(PlayerTypes)` (exported)
+- **193** `CvTalkingHeadMessage::getTarget() const` (exported)
+- **198** `CvTalkingHeadMessage::setTarget(ChatTargetTypes)` (exported)
+- **203** `CvTalkingHeadMessage::getExpireTurn()`
+  - calls: CvTalkingHeadMessage::getTurn, CvGame::getGameTurn [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
+  - called by (1): CvPlayer::expireMessages
+- **236** `CvTalkingHeadMessage::getShown() const` (exported)
+  - called by (1): CvPlayer::showMissedMessages
+- **241** `CvTalkingHeadMessage::setShown(bool)` (exported)
+  - called by (1): CvPlayer::showMissedMessages

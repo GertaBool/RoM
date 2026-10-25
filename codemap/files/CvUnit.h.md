@@ -1,0 +1,43 @@
+# CvUnit.h
+
+Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **479** `CvUnit::getX_INLINE() const`
+  - called by (97): CvGame::calculateSyncChecksum, CvGame::updateColoredPlots, CvPlayer::assimilatePlayer, CvPlayer::disbandUnit, CvPlayer::doEspionageMission, CvPlayer::killGoldenAgeUnits, CvPlayer::updateGroupCycle, CvPlayerAI::AI_goldToUpgradeAllUnits, CvPlayerAI::AI_updateMilitaryOperations, CvSelectionGroup::continueMission, CvSelectionGroup::getX, CvSelectionGroup::playActionSound …
+- **486** `CvUnit::getY_INLINE() const`
+  - called by (97): CvGame::calculateSyncChecksum, CvGame::updateColoredPlots, CvPlayer::assimilatePlayer, CvPlayer::disbandUnit, CvPlayer::doEspionageMission, CvPlayer::killGoldenAgeUnits, CvPlayer::updateGroupCycle, CvPlayerAI::AI_goldToUpgradeAllUnits, CvPlayerAI::AI_updateMilitaryOperations, CvSelectionGroup::continueMission, CvSelectionGroup::getY, CvSelectionGroup::playActionSound …
+- **686** `CvUnit::getOwnerINLINE() const`
+  - called by (324): CvCityAI::AI_isAirDefended, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchLoadUnitPopup, CvDLLWidgetData::doPlotList, CvDLLWidgetData::doRenameUnit, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parsePlotListHelp, CvGame::canHandleAction, CvGame::cyclePlotUnits, CvGame::cycleSelectionGroups, CvGame::doControl …
+- **871** `CvUnit::AI_init(…)` (virtual; pure virtual)
+  - called by (1): CvUnit::init
+- **872** `CvUnit::AI_uninit(…)` (virtual; pure virtual)
+- **873** `CvUnit::AI_reset(…)` (virtual; pure virtual)
+  - called by (1): CvUnit::reset
+- **874** `CvUnit::AI_update(…)` (virtual; pure virtual)
+  - called by (1): CvSelectionGroupAI::AI_update
+- **875** `CvUnit::AI_follow(…)` (virtual; pure virtual)
+  - called by (1): CvSelectionGroupAI::AI_update
+- **876** `CvUnit::AI_upgrade(…)` (virtual; pure virtual)
+  - called by (1): CvPlayerAI::AI_doTurnUnitsPost
+- **877** `CvUnit::AI_promote(…)` (virtual; pure virtual)
+  - called by (1): CvPlayerAI::AI_doTurnUnitsPost
+- **878** `CvUnit::AI_groupFirstVal(…)` (virtual; pure virtual)
+  - called by (2): CvSelectionGroup::addUnit, CvSelectionGroup::mergeIntoGroup
+- **879** `CvUnit::AI_groupSecondVal(…)` (virtual; pure virtual)
+  - called by (1): CvSelectionGroup::addUnit
+- **880** `CvUnit::AI_attackOdds(…)` (virtual; pure virtual)
+  - called by (1): CvSelectionGroupAI::AI_getBestGroupAttacker
+- **881** `CvUnit::AI_bestCityBuild(…)` (virtual; pure virtual)
+  - called by (1): CvGame::updateColoredPlots
+- **882** `CvUnit::AI_isCityAIType(…)` (virtual; pure virtual)
+  - called by (5): CvPlayerAI::AI_adjacentPotentialAttackers, CvPlayerAI::AI_convertUnitAITypesForCrush, CvPlayerAI::AI_movementPriority, CvUnitAI::AI_guardCity, PUF_isCityAIType
+- **883** `CvUnit::AI_getUnitAIType(…)` (virtual; pure virtual)
+  - called by (58): CvCity::popOrder, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_isAirDefended, CvGame::updateColoredPlots, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayer::disbandUnit, CvPlayer::doEspionageMission, CvPlayerAI::AI_acceptUnit, CvPlayerAI::AI_convertUnitAITypesForCrush, CvPlayerAI::AI_countCargoSpace, CvPlayerAI::AI_countIncomingOperationRole …
+- **884** `CvUnit::AI_setUnitAIType(…)` (virtual; pure virtual)
+  - called by (6): CvPlayerAI::AI_convertUnitAITypesForCrush, CvSelectionGroup::mergeIntoGroup, CvUnitAI::AI_guardCity, CvUnitAI::AI_loadForSettlement, CvUnitAI::AI_separateSettlerTransports, CyUnit::setUnitAIType
+- **885** `CvUnit::AI_sacrificeValue(…)` (virtual; pure virtual)
+  - called by (2): CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvSelectionGroupAI::AI_getBestGroupSacrifice
+- **892** `CvUnit::AI_load(…)` (virtual; pure virtual)
+  - called by (1): CvUnitAI::AI_load
+- **1047** `CvUnit::LFBgetBetterAttacker(…)` (virtual; pure virtual)
+  - called by (1): CvSelectionGroupAI::AI_getBestGroupAttacker

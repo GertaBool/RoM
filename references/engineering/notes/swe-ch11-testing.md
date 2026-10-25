@@ -1,0 +1,119 @@
+# Adam Bender (written by; edited by Tom Manshreck), Testing Overview (Software Engineering at Google, chapter 11; O'Reilly, 2020 per assignment, the text itself names only the book and the licence CC BY-NC-ND 4.0)
+Source: lit3/swe-ch11-testing/doc.txt. Read: lines 1-823 (all, including TL;DRs and footnotes 1-9).
+
+## What it says
+- Introduction: "Central to that evolution has been the practice of developer-driven, automated testing." -- since the early 2000s; before, testing was largely manual and error prone.
+- Introduction: "The later in the development cycle a bug is caught, the more expensive it is" -- exponentially so in many cases (footnote 1).
+- Introduction: "An equally important reason why you want to test your software is to support the ability to change."
+- Introduction: "The more and faster you want to change your systems, the more you need a fast way to test them."
+- Introduction: "The act of writing tests also improves the design of your systems." -- tests are the first clients of the code; generally leads to more modular software.
+- Introduction: "we still face difficult problems getting our processes to scale reliably across the company." -- stated limit.
+- Why Do We Write Tests?: "A single behavior you are testing, usually a method or API that you are calling" -- the simplest test: one behaviour, a specific input, an observable output, a controlled environment.
+- Why Do We Write Tests?: "can tell you how well your entire product conforms to its intended design and, more importantly, when it doesn't."
+- Why Do We Write Tests?: "Keep in mind that tests derive their value from the trust engineers place in them."
+- Why Do We Write Tests?: "If testing becomes a productivity sink, constantly inducing toil and uncertainty, engineers will lose trust and begin to find workarounds."
+- Why Do We Write Tests?: "A bad test suite can be worse than no test suite at all."
+- Why Do We Write Tests?: "we have determined that testing cannot be an afterthought."
+- The Story of Google Web Server: "more than 80% of production pushes contained user-affecting bugs that had to be rolled back." -- GWS in 2005, as it swelled in size and complexity.
+- The Story of Google Web Server: "all new code changes were required to include tests, and those tests would be run continuously." -- the tech lead's policy.
+- The Story of Google Web Server: "Within a year of instituting this policy, the number of emergency pushes dropped by half." -- despite a record number of changes per quarter; GWS now has tens of thousands of tests.
+- The Story of Google Web Server: "you can't rely on programmer ability alone to avoid product defects."
+- The Story of Google Web Server: "this group of amazing engineers still produces five new bugs every workday." -- hypothetical 100-person team each writing one bug a month.
+- The Story of Google Web Server: "fixing one bug can often cause another, as engineers adapt to known bugs and code around them."
+- The Story of Google Web Server: "After an engineer on the team writes a test, it is added to the pool of common resources available to others." -- contrasted with debugging, where each bug's cost is paid again by each engineer.
+- Testing at the Speed of Modern Development: "Attempting to assess product quality by asking humans to manually interact with every feature just doesn't scale."
+- Write, Run, React: "automating testing consists of three activities: writing tests, running tests, and reacting to test failures."
+- Write, Run, React: "The test code sets up an expected environment, calls into the system, usually with a known input, and verifies the result."
+- Write, Run, React: "the only way to keep up is by sharing the development of tests around the entire engineering staff." -- developer-written tests, unlike QA rooms of yore.
+- Write, Run, React: "Of course, writing tests is different from writing good tests."
+- Write, Run, React: "automated testing consists of repeating the same action over and over, only requiring human attention when something breaks."
+- Write, Run, React: "Unlike human testers, machines never grow tired or bored."
+- Write, Run, React: "Allowing failing tests to pile up quickly defeats any value they were providing" -- teams fixing a broken test within minutes keep confidence high.
+- Write, Run, React: "it places an emphasis on fixing broken tests quickly so as to maintain high confidence in the process." -- the summary of a healthy testing culture: share writing, run regularly, fix quickly.
+- Benefits of Testing Code: "the act of writing tests can take just as long (if not longer!) than implementing a feature would take in the first place." -- the apparent objection.
+- Benefits of Testing Code: "A test written once continues to pay dividends" -- Less debugging; code is expected to be modified dozens of times in its lifetime.
+- Benefits of Testing Code: "Changes that refactor code while preserving existing behavior should (ideally) require no changes to existing tests." -- Increased confidence in changes.
+- Benefits of Testing Code: "Clear, focused tests that exercise one behavior at a time function as executable documentation." -- Improved documentation, only if tests are kept clear and concise.
+- Benefits of Testing Code: "the reviewer can verify that each case has a passing test." -- Simpler reviews.
+- Benefits of Testing Code: "If new code is difficult to test, it is often because the code being tested has too many responsibilities or difficult-to-manage dependencies." -- Thoughtful design.
+- Benefits of Testing Code: "This would not be possible without automated testing." -- daily releases even for large projects.
+- Designing a Test Suite: "engineers favored writing larger, system-scale tests, but that these tests were slower, less reliable, and more difficult to debug than smaller tests."
+- Designing a Test Suite: "there are two distinct dimensions for every test case: size and scope." -- size is the resources (memory, processes, time); scope is the code paths verified.
+- Designing a Test Suite: "Note that executing a line of code is different from verifying that it worked as expected."
+- Test Size: "encourage engineers to always write the smallest possible test for a given piece of functionality."
+- Test Size: "small tests run in a single process, medium tests run on a single machine, and large tests run wherever they want" -- footnote 4: a fourth size, enormous, also exists.
+- Test Size: "the most important qualities we want from our test suite are speed and determinism, regardless of the scope of the test."
+- Small tests: "they aren't allowed to sleep, perform I/O operations" -- or make other blocking calls; no network or disk; test doubles replace heavyweight dependencies; footnote 5 allows a hermetic in-memory filesystem.
+- Small tests: "The constraints on small tests provide a sandbox that prevents engineers from shooting themselves in the foot."
+- Small tests: "If even a few of them fail nondeterministically (often called flaky tests), tracking down the cause becomes a serious drain on productivity."
+- Medium tests: "medium tests aren't allowed to make network calls to any system other than localhost." -- they may span processes and make blocking calls.
+- Medium tests: "when writing medium tests, the" safety is off, and engineers need to be much more careful.
+- Large tests: "We mostly reserve large tests for full-system end-to-end tests that are more about validating configuration than pieces of code, and for tests of legacy components for which it is impossible to use test doubles."
+- Large tests: "running them only during the build and release process so as not to impact developer workflow."
+- Case Study: Flaky Tests Are Expensive: "If each test has even a 0.1% of failing when it should not, and you run 10,000 tests per day, you will be investigating 10 flakes per day."
+- Case Study: Flaky Tests Are Expensive: "rerunning a test is only delaying the need to address the root cause of flakiness." -- automatic reruns trade CPU cycles for engineering time.
+- Case Study: Flaky Tests Are Expensive: "engineers will stop reacting to test failures, eliminating any value the test suite provided."
+- Case Study: Flaky Tests Are Expensive: "as you approach 1% flakiness, the tests begin to lose value." -- Google's flaky rate hovers around 0.15%, thousands of flakes every day.
+- Case Study: Flaky Tests Are Expensive: "flakes appear because of nondeterministic behavior in the tests themselves." -- clock time, thread scheduling, network latency.
+- Properties common to all test sizes: "a test should contain all of the information necessary to set up, execute, and tear down its environment." -- hermetic; assume nothing about test order or a shared database.
+- Properties common to all test sizes: "Because there are no tests for the tests themselves, they require manual review as an important check on correctness."
+- Properties common to all test sizes: "we also strongly discourage the use of control flow statements like conditionals and loops in a test."
+- Properties common to all test sizes: "Code is read far more than it is written, so make sure you write the test you'd like to read!"
+- Test sizes in practice: "Having precise definitions of test sizes has allowed us to create tools to enforce them." -- e.g. a security manager failing small Java tests that open a network connection.
+- Test Scope: "Test scope refers to how much code is being validated by a given test." -- narrow (unit), medium (integration), large (functional, end-to-end, system).
+- Test Scope: "we're referring to the code that is being validated, not the code that is being executed." -- Google prefers real dependencies when feasible over test doubles.
+- Test Scope: "around 80% of our tests being narrow-scoped unit tests that validate the majority of our business logic; 15% medium-scoped integration tests" -- and 5% end-to-end; a very rough guideline by test case count, and every team's mix will differ.
+- Test Scope: "Two antipatterns to be aware of are the" ice cream cone (many end-to-end, few unit; slow, unreliable; prototypes rushed to production) and the hourglass (few integration tests; arises from tight coupling).
+- Test Scope: "Larger tests act as sanity checks as the product develops; they should not be viewed as a primary method for catching bugs."
+- Test Scope: "unit tests cannot verify the interactions between components, like a contract between two systems developed by different teams."
+- Test Scope: "A good test suite contains a blend of different test sizes and scopes that are appropriate to the local architectural and organizational realities."
+- The Beyoncé Rule: "test everything that you don't want to break." -- including performance, correctness, accessibility, security, and how a system handles failure.
+- The Beyoncé Rule: "If you liked it, then you shoulda put a test on it."
+- The Beyoncé Rule: "If unrelated infrastructure changes pass all of your tests but still break your team's product, you are on the hook for fixing it and adding the additional tests."
+- Testing for Failure: "Instead of waiting for a failure, write automated tests that simulate common kinds of failures."
+- A Note on Code Coverage: "code coverage only measures that a line was invoked, not what happened as a result." -- recommended to measure coverage only from small tests; footnote 7 notes line, path and branch coverage differ.
+- A Note on Code Coverage: "like other metrics, it quickly becomes a goal unto itself." -- an 80% bar becomes a ceiling, not a floor.
+- A Note on Code Coverage: "A better way to approach the quality of your test suite is to think about the behaviors that are tested."
+- A Note on Code Coverage: "with a single number ignores a lot of context and is unlikely to be useful." -- coverage gives some insight into untested code but is no substitute for thinking critically.
+- Testing at Google Scale: "We have more than two billion lines of code in the repository today." -- close to 25 million lines of change every week, roughly half by automated systems.
+- Testing at Google Scale: "all software builds are performed using the last committed change that our testing infrastructure has validated." -- almost no teams use branching.
+- The Pitfalls of a Large Test Suite: "Brittle tests—those that over-specify expected outcomes or rely on extensive and complicated boilerplate—can actually resist change."
+- The Pitfalls of a Large Test Suite: "this friction can make a team reticent to perform necessary refactoring to keep a codebase healthy."
+- The Pitfalls of a Large Test Suite: "Some of the worst offenders of brittle tests come from the misuse of mock objects."
+- The Pitfalls of a Large Test Suite: "The slower a test suite, the less frequently it will be run, and the less benefit it provides."
+- The Pitfalls of a Large Test Suite: "Tests often start fast enough but slow down as the system grows." -- five seconds becoming five minutes.
+- The Pitfalls of a Large Test Suite: "A better solution is to actively poll for a state transition" -- instead of sleep-based wait-and-check, with a timeout.
+- The Pitfalls of a Large Test Suite: "with some going as far as to skip the tests entirely when submitting changes." -- if a suite does more harm than good, engineers find a way, tests or no tests.
+- The Pitfalls of a Large Test Suite: "Basically, treat your tests like production code."
+- The Pitfalls of a Large Test Suite: "invest in your testing infrastructure by developing linters, documentation, or other assistance that makes it more difficult to write bad tests."
+- The Pitfalls of a Large Test Suite: "Reduce the number of frameworks and tools you need to support" -- footnote 8: one standard test framework and one mocking library per language.
+- The Pitfalls of a Large Test Suite: "If you don't invest in making it easy to manage your tests, eventually engineers will decide it isn't worth having them at all."
+- History of Testing at Google: "until 2005, testing was closer to a curiosity than a disciplined practice." -- a revolution 2005-2006 catalysed by GWS; the Testing Grouplet of volunteers.
+- Orientation Classes: "all of these ideas were presented as though they were standard practice at the company." -- within a year or two the taught engineers outnumbered the pretesting culture.
+- Test Certified: "cookbook instructions on how to improve it." -- five levels, each achievable within a quarter.
+- Test Certified: "set up a continuous build; start tracking code coverage; classify all your tests as small, medium, or large" -- Level 1, plus identifying flaky tests and a fast test set; by Level 5 all nondeterminism removed and fast tests before every commit.
+- Test Certified: "An internal dashboard applied social pressure by showing the level of every team." -- it helped more than 1,500 projects before being replaced by an automated approach in 2015.
+- Testing on the Toilet: "We intentionally limit each episode to exactly one page, challenging authors to focus on the most important and actionable advice."
+- Testing on the Toilet: "TotT has had the longest run and the most profound impact of any of the testing initiatives"
+- Testing Culture Today: "every change is expected to include both the feature code and tests." -- reviewers review both; blocking a change missing tests is reasonable.
+- Testing Culture Today: "The pH tool continuously gathers dozens of metrics on the health of a project, including test coverage and test latency" -- scale one to five; pH-1 is a problem to address.
+- Why didn't we start by mandating the writing of tests?: "Any mandate on how to develop code would be seriously counter to Google culture and likely slow the progress" -- the focus became demonstrating success.
+- Why didn't we start by mandating the writing of tests?: "If engineers were deciding to write tests on their own, it meant that they had fully accepted the idea"
+- The Limits of Automated Testing: "Automated testing is not suitable for all testing tasks." -- search quality, audio/video quality need human judgement.
+- The Limits of Automated Testing: "the specific problems to be found are unknown at the start." -- exploratory testing.
+- The Limits of Automated Testing: "as soon as an exploratory test discovers an issue, an automated test should be added to prevent future regressions."
+- The Limits of Automated Testing: "Using automated testing to cover well-understood behaviors enables the expensive and qualitative efforts of human testers to focus" -- on where they provide most value.
+- Conclusion: "Despite the company growing by a factor of almost 100 times since the journey began" -- the commitment to testing is said to be stronger than ever.
+- TL;DRs: "Automated testing is foundational to enabling software to change."
+- TL;DRs: "Changing the testing culture in organizations takes time."
+
+## Readings for our work
+- The harness and analysis tools must be deterministic to be trusted: a seeded run that differs on re-run with the same seed is a flaky test and must be fixed at the root, not rerun. Check: run one seed twice and compare outputs byte for byte; track the rate of mismatches. Rests on: Test Size (speed and determinism); Case Study: Flaky Tests (reruns delay the root cause; near 1% tests lose value; flakes from nondeterminism such as clock time and thread scheduling). Would not apply if: the game engine is inherently nondeterministic under Wine, in which case that must be measured and stated as a known noise floor.
+- Most tests of the Python tools should be small (in-process, no disk or DuckDB file, fixed tiny inputs); full harness games are large tests and belong in a separate, slower stage, not in the pre-commit gate. Rests on: Test Size; Large tests (run only during build and release); Test Scope (80/15/5 rough mix). Would not apply if: the gate stays fast enough with large tests in it.
+- The pre-commit gate loses value if it becomes slow or noisy; then it gets skipped (--no-verify). Measure gate run time and false-failure rate; when either rises, fix the gate before adding checks. Rests on: Why Do We Write Tests? (trust; workarounds; bad suite worse than none); Pitfalls (slower suites run less; some skip the tests entirely). Would not apply if: the gate cannot be bypassed and stays under a fixed time budget.
+- The checks themselves have no tests unless we write them, and the chapter says tests of tests rest on manual review; a check written by the same hand that it checks needs at least a few known-bad inputs that it must reject (mutation-style fixtures), reviewed by someone else. Rests on: Properties common to all test sizes (no tests for the tests; manual review; no control flow in tests). Would not apply if: the check is trivially simple and reviewed by an independent person.
+- Do not turn coverage or check counts into goals; judge the test suite by whether the behaviours that matter (correct figures, unchanged line endings in patches, preserved save compatibility) are each covered by a test. Rests on: A Note on Code Coverage (metric becomes a goal; think about behaviours). Would not apply if: a metric is used only as a floor and paired with a behaviour list.
+- Every bug found by hand or by exploratory play (a wrong AI behaviour in a game) should turn into an automated regression test or harness scenario. Rests on: The Limits of Automated Testing (add an automated test once exploratory testing finds an issue); Beyoncé Rule. Would not apply if: the issue cannot be reproduced in the headless harness.
+- For the legacy C++ DLL, small tests with doubles are likely impossible; large tests (harness games) are the realistic level, as Google reserves large tests for legacy components where doubles cannot be used. Keep their configuration fixed and their number small and seeded. Rests on: Large tests. Would not apply if: parts of the DLL logic can be extracted and compiled in isolation.
+- Limit the number of tools and frameworks: one test runner, one figure system, one check entry point; consolidate rather than add. Rests on: Pitfalls (reduce the number of frameworks and tools; footnote 8). Would not apply if: a second tool replaces the first in the same change.
+- AI changes should come with their test (prediction plus experiment) in the same change, as Google expects feature code and tests together. Rests on: Testing Culture Today (every change includes tests; block changes missing tests). Would not apply if: the change is a pure refactor with no behaviour change, which should then need no test changes.

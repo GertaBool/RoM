@@ -1,0 +1,254 @@
+# CvDLLInterfaceIFaceBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **25** `CvDLLInterfaceIFaceBase::lookAtSelectionPlot(…)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvDLLWidgetData::doPlotList, CvDLLWidgetData::doUnitModel, CvGame::cycleSelectionGroups, CvGame::doControl
+- **27** `CvDLLInterfaceIFaceBase::canHandleAction(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::handleAction
+- **28** `CvDLLInterfaceIFaceBase::canDoInterfaceMode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::canHandleAction, CvGame::handleAction
+- **30** `CvDLLInterfaceIFaceBase::getLookAtPlot(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::canDoControl, CvGame::cycleSelectionGroups
+- **31** `CvDLLInterfaceIFaceBase::getSelectionPlot(…)` (virtual; pure virtual, provided by the exe)
+  - called by (11): CvDLLWidgetData::doPlotList, CvDLLWidgetData::parsePlotListHelp, CvGame::canDoControl, CvGame::doControl, CvGame::updateSelectionList, CvSelectionGroup::setActivityType, CvUnit::joinGroup, CvUnit::setCombatUnit, CvUnit::setDamage, CvUnit::setMoves, CvUnit::setXY
+- **32** `CvDLLInterfaceIFaceBase::getInterfacePlotUnit(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLWidgetData::doPlotList, CvDLLWidgetData::parsePlotListHelp
+- **34** `CvDLLInterfaceIFaceBase::getHeadSelectedUnit(…)` (virtual; pure virtual, provided by the exe)
+  - called by (24): CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::doRenameUnit, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseEspionageCostHelp, CvDLLWidgetData::parseSelectedHelp, CvDLLWidgetData::parseUnitModelHelp, CvGame::canHandleAction, CvGame::cycleSelectionGroups, CvGame::doControl, CvGame::handleAction, CvGame::selectUnit …
+- **35** `CvDLLInterfaceIFaceBase::selectUnit(…)` (virtual; pure virtual, provided by the exe)
+  - called by (7): CvCity::conscript, CvGame::applyFlyoutMenu, CvGame::cyclePlotUnits, CvGame::cycleSelectionGroups, CvGame::doControl, CvGame::selectGroup, CvGame::selectionListGameNetMessage
+- **36** `CvDLLInterfaceIFaceBase::selectGroup(…)` (virtual; pure virtual, provided by the exe)
+  - called by (6): CvDLLWidgetData::doPlotList, CvGame::doControl, CvGame::handleAction, CvGame::selectAll, CvGame::selectionListMove, CvSelectionGroup::doTurn
+- **37** `CvDLLInterfaceIFaceBase::selectAll(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::applyFlyoutMenu
+- **39** `CvDLLInterfaceIFaceBase::removeFromSelectionList(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvUnit::checkRemoveSelectionAfterAttack, CvUnit::joinGroup, CvUnit::kill, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **40** `CvDLLInterfaceIFaceBase::makeSelectionListDirty(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::selectUnit
+- **41** `CvDLLInterfaceIFaceBase::mirrorsSelectionGroup(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::selectGroup, CvGame::selectUnit, CvGame::selectionListGameNetMessage
+- **42** `CvDLLInterfaceIFaceBase::canSelectionListFound(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::updateColoredPlots, CvPlot::updateWorkingCity
+- **47** `CvDLLInterfaceIFaceBase::isDiploOrPopupWaiting(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvUnit::kill
+- **49** `CvDLLInterfaceIFaceBase::getLastSelectedUnit(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **50** `CvDLLInterfaceIFaceBase::setLastSelectedUnit(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **51** `CvDLLInterfaceIFaceBase::changePlotListColumn(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLWidgetData::executeAction
+- **52** `CvDLLInterfaceIFaceBase::getGotoPlot(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGameTextMgr::getPlotHelp, CvUnit::isActionRecommended
+- **53** `CvDLLInterfaceIFaceBase::getSingleMoveGotoPlot(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFlagSymbol
+- **54** `CvDLLInterfaceIFaceBase::getOriginalPlot(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::updateSelectionList
+- **56** `CvDLLInterfaceIFaceBase::playGeneralSound(…)` (virtual; pure virtual, provided by the exe)
+  - called by (9): CvDLLButtonPopup::launchAlarmPopup, CvDLLButtonPopup::launchDisbandCityPopup, CvDLLButtonPopup::launchProductionPopup, CvDLLButtonPopup::launchRazeCityPopup, CvPlayer::doEspionageMission, CvPlayer::setTurnActive, CvUnit::move, CvUnit::performInquisition, CvUnit::promote
+- **58** `CvDLLInterfaceIFaceBase::clearQueuedPopups(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::setTurnActive
+- **60** `CvDLLInterfaceIFaceBase::getSelectionList(…)` (virtual; pure virtual, provided by the exe)
+  - called by (9): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup, CvGame::canHandleAction, CvGame::getPlotHighlightColor, CvGame::handleAction, CvGame::setupActionCache, CvGame::startFlyoutMenu, CvGameTextMgr::setCombatPlotHelp
+- **61** `CvDLLInterfaceIFaceBase::clearSelectionList(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvGame::doControl, CvGame::selectGroup, CvGame::selectUnit, CvGame::setActivePlayer, CvGame::updateSelectionList
+- **62** `CvDLLInterfaceIFaceBase::insertIntoSelectionList(…)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvGame::cyclePlotUnits, CvGame::doControl, CvGame::selectGroup, CvGame::selectUnit
+- **63** `CvDLLInterfaceIFaceBase::selectionListPostChange(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvGame::doControl, CvGame::selectGroup, CvGame::selectUnit
+- **64** `CvDLLInterfaceIFaceBase::selectionListPreChange(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvGame::doControl, CvGame::selectGroup, CvGame::selectUnit
+- **65** `CvDLLInterfaceIFaceBase::getSymbolID(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::getSymbolID
+- **67** `CvDLLInterfaceIFaceBase::nextSelectionListNode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvGame::selectionListGameNetMessage, CvGame::selectionListIgnoreBuildingDefense, CvGame::selectionListMove, CvGame::updateColoredPlots
+- **68** `CvDLLInterfaceIFaceBase::getLengthSelectionList(…)` (virtual; pure virtual, provided by the exe)
+  - called by (6): CvGameTextMgr::setCombatPlotHelp, CvPlayer::setTurnActive, CvUnit::checkRemoveSelectionAfterAttack, CvUnit::kill, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **69** `CvDLLInterfaceIFaceBase::headSelectionListNode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvDLLWidgetData::parseActionHelp, CvGame::selectionListGameNetMessage, CvGame::selectionListIgnoreBuildingDefense, CvGame::selectionListMove, CvGame::updateColoredPlots
+- **71** `CvDLLInterfaceIFaceBase::selectCity(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvGame::cycleCities, CvGame::doControl
+- **72** `CvDLLInterfaceIFaceBase::selectLookAtCity(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **73** `CvDLLInterfaceIFaceBase::addSelectedCity(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::cycleCities, CvGame::selectCity
+- **74** `CvDLLInterfaceIFaceBase::clearSelectedCities(…)` (virtual; pure virtual, provided by the exe)
+  - called by (11): CvCity::kill, CvDLLWidgetData::doLiberateCity, CvGame::cycleCities, CvGame::handleCityPlotRightPicked, CvGame::handleCityScreenPlotDoublePicked, CvGame::handleCityScreenPlotPicked, CvGame::handleMiddleMouse, CvGame::selectCity, CvGame::selectGroup, CvGame::selectUnit, CvGame::setActivePlayer
+- **75** `CvDLLInterfaceIFaceBase::isCitySelected(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvCity::isCitySelected, CvGame::handleCityPlotRightPicked
+- **76** `CvDLLInterfaceIFaceBase::getHeadSelectedCity(…)` (virtual; pure virtual, provided by the exe)
+  - called by (44): CvDLLWidgetData::doAutomateCitizens, CvDLLWidgetData::doAutomateProduction, CvDLLWidgetData::doEmphasize, CvDLLWidgetData::doRenameCity, CvDLLWidgetData::doSelected, CvDLLWidgetData::parseAngryCitizenHelp, CvDLLWidgetData::parseAutomateCitizensHelp, CvDLLWidgetData::parseAutomateProductionHelp, CvDLLWidgetData::parseBuildingHelp, CvDLLWidgetData::parseChangeSpecialistHelp, CvDLLWidgetData::parseCitizenHelp, CvDLLWidgetData::parseCityNameHelp …
+- **77** `CvDLLInterfaceIFaceBase::isCitySelection(…)` (virtual; pure virtual, provided by the exe)
+  - called by (10): CvGame::canHandleAction, CvGame::doControl, CvGame::handleMiddleMouse, CvGame::shouldDisplayEndTurn, CvGame::shouldDisplayEndTurnButton, CvGame::shouldDisplayFlag, CvGame::shouldDisplayReturn, CvGame::shouldDisplayWaitingOthers, CvGame::shouldDisplayWaitingYou, CvUnit::kill
+- **78** `CvDLLInterfaceIFaceBase::nextSelectedCitiesNode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::selectedCitiesGameNetMessage, CvGame::updateColoredPlots
+- **79** `CvDLLInterfaceIFaceBase::headSelectedCitiesNode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::selectedCitiesGameNetMessage, CvGame::updateColoredPlots
+- **81** `CvDLLInterfaceIFaceBase::addMessage(…)` (virtual; pure virtual, provided by the exe)
+  - called by (92): CvCity::applyEvent, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::liberate, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::OnOkClicked …
+- **85** `CvDLLInterfaceIFaceBase::addQuestMessage(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::setEventOccured
+- **86** `CvDLLInterfaceIFaceBase::showMessage(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::showMissedMessages
+- **87** `CvDLLInterfaceIFaceBase::flushTalkingHeadMessages(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::setTurnActive
+- **88** `CvDLLInterfaceIFaceBase::clearEventMessages(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::setTurnActive
+- **89** `CvDLLInterfaceIFaceBase::addPopup(…)` (virtual; pure virtual, provided by the exe)
+  - called by (25): CvCity::chooseProduction, CvCity::popOrder, CvCity::setHasReligion, CvDLLButtonPopup::OnAltExecute, CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doContactCiv, CvDLLWidgetData::doDealKill, CvDLLWidgetData::doLaunch, CvDLLWidgetData::doMenu, CvGame::addVoteTriggered(VoteSourceTypes, VoteSelectionSubData const&), CvGame::cheatSpaceship, CvGame::doControl …
+- **90** `CvDLLInterfaceIFaceBase::getDisplayedButtonPopups(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::write
+- **93** `CvDLLInterfaceIFaceBase::setCycleSelectionCounter(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvGame::regenerateMap, CvPlayer::setAutoMoves, CvPlayer::setTurnActive, CvUnit::doCommand, CvUnit::kill
+- **94** `CvDLLInterfaceIFaceBase::changeCycleSelectionCounter(…)` (virtual; pure virtual, provided by the exe)
+  - called by (4): CvSelectionGroup::continueMission, CvSelectionGroup::deactivateHeadMission, CvSelectionGroup::startMission, CvSelectionGroup::updateMission
+- **96** `CvDLLInterfaceIFaceBase::getEndTurnCounter(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::updateTestEndTurn
+- **97** `CvDLLInterfaceIFaceBase::setEndTurnCounter(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::updateTestEndTurn
+- **98** `CvDLLInterfaceIFaceBase::changeEndTurnCounter(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::updateTestEndTurn
+- **100** `CvDLLInterfaceIFaceBase::isCombatFocus(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **101** `CvDLLInterfaceIFaceBase::setCombatFocus(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvUnit::setCombatUnit
+- **102** `CvDLLInterfaceIFaceBase::setDiploQueue(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::contact
+- **105** `CvDLLInterfaceIFaceBase::setDirty(…)` (virtual; pure virtual, provided by the exe)
+  - called by (120): CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvCity::hurry, CvCity::kill, CvCity::popOrder, CvCity::pushOrder, CvCity::setBaseYieldRate, CvCity::setBuildingProduction, CvCity::setCitizensAutomated, CvCity::setForceSpecialistCount, CvCity::setFreeSpecialistCount, CvCity::setName …
+- **106** `CvDLLInterfaceIFaceBase::makeInterfaceDirty(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::changeCiv
+- **107** `CvDLLInterfaceIFaceBase::updateCursorType(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::setTurnActive
+- **108** `CvDLLInterfaceIFaceBase::updatePythonScreens(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvNetPopOrder::Execute, CvNetPushOrder::Execute, CvNetResearch::Execute
+- **110** `CvDLLInterfaceIFaceBase::lookAt(…)` (virtual; pure virtual, provided by the exe)
+  - called by (7): CvDLLButtonPopup::launchEventPopup, CvGame::regenerateMap, CvSelectionGroup::continueMission, CvUnit::attackForDamage, CvUnit::found, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **111** `CvDLLInterfaceIFaceBase::centerCamera(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::initSelection, CyUnit::centerCamera
+- **112** `CvDLLInterfaceIFaceBase::releaseLockedCamera(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvUnit::updateCombat, CvUnit::updateStackCombat
+- **113** `CvDLLInterfaceIFaceBase::isFocusedWidget(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLWidgetData::doContactCiv, CvGame::canDoControl, CvUnit::setCombatUnit
+- **114** `CvDLLInterfaceIFaceBase::isFocused(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLWidgetData::doUnitModel, CvGame::canDoControl, CvUnit::kill
+- **115** `CvDLLInterfaceIFaceBase::isBareMapMode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFog
+- **116** `CvDLLInterfaceIFaceBase::toggleBareMapMode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **117** `CvDLLInterfaceIFaceBase::isShowYields(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbolVisibility
+- **118** `CvDLLInterfaceIFaceBase::toggleYieldVisibleMode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **120** `CvDLLInterfaceIFaceBase::toggleScoresVisible(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **122** `CvDLLInterfaceIFaceBase::toggleScoresMinimized(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLWidgetData::doContactCiv
+- **123** `CvDLLInterfaceIFaceBase::isNetStatsVisible(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGameTextMgr::setNetStats
+- **125** `CvDLLInterfaceIFaceBase::getOriginalPlotCount(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::updateSelectionList
+- **126** `CvDLLInterfaceIFaceBase::isCityScreenUp(…)` (virtual; pure virtual, provided by the exe)
+  - called by (10): CvDLLWidgetData::doPlotList, CvGame::doControl, CvGame::shouldDisplayUnitModel, CvGame::shouldShowResearchButtons, CvGame::updateColoredPlots, CvGameTextMgr::getInterfaceCenterText, CvGameTextMgr::getPlotHelp, CvPlot::updateFog, CvPlot::updateShowCitySymbols, CvPlot::updateSymbolVisibility
+- **127** `CvDLLInterfaceIFaceBase::isEndTurnMessage(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvGame::canDoControl, CvGame::doControl, CvGame::updateTestEndTurn
+- **128** `CvDLLInterfaceIFaceBase::setInterfaceMode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::doControl, CvGame::handleAction
+- **129** `CvDLLInterfaceIFaceBase::getInterfaceMode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvGame::getNewHighlightPlot, CvGame::getPlotHighlightColor, CvGameTextMgr::getPlotHelp
+- **130** `CvDLLInterfaceIFaceBase::getShowInterface(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGameTextMgr::getTurnTimerText
+- **131** `CvDLLInterfaceIFaceBase::getMouseOverPlot(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::getNewHighlightPlot
+- **133** `CvDLLInterfaceIFaceBase::isFlashing(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::contact
+- **134** `CvDLLInterfaceIFaceBase::setDiplomacyLocked(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::contact
+- **135** `CvDLLInterfaceIFaceBase::isDiplomacyLocked(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::contact
+- **137** `CvDLLInterfaceIFaceBase::setMinimapColor(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateMinimapColor
+- **138** `CvDLLInterfaceIFaceBase::getMinimapBaseTexture(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvReplayInfo::createInfo
+- **139** `CvDLLInterfaceIFaceBase::setEndTurnMessage(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvGame::doTurn, CvGame::setActivePlayer, CvGame::updateTestEndTurn
+- **141** `CvDLLInterfaceIFaceBase::isHasMovedUnit(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::updateTestEndTurn
+- **142** `CvDLLInterfaceIFaceBase::setHasMovedUnit(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::doTurn, CvSelectionGroup::pushMission
+- **144** `CvDLLInterfaceIFaceBase::isForcePopup(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::updateTestEndTurn
+- **145** `CvDLLInterfaceIFaceBase::setForcePopup(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::updateTestEndTurn, CvPlayer::setTurnActive
+- **147** `CvDLLInterfaceIFaceBase::lookAtCityOffset(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLButtonPopup::OnFocus
+- **149** `CvDLLInterfaceIFaceBase::toggleTurnLog(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **150** `CvDLLInterfaceIFaceBase::showTurnLog(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLWidgetData::doContactCiv, CvGame::doControl
+- **151** `CvDLLInterfaceIFaceBase::dirtyTurnLog(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvGame::setActivePlayer, CvPlayer::expireEvent, CvPlayer::expireMessages
+- **153** `CvDLLInterfaceIFaceBase::getPlotListColumn(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLWidgetData::doPlotList, CvDLLWidgetData::parsePlotListHelp
+- **154** `CvDLLInterfaceIFaceBase::verifyPlotListColumn(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvUnit::setXY
+- **155** `CvDLLInterfaceIFaceBase::getPlotListOffset(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLWidgetData::doPlotList, CvDLLWidgetData::parsePlotListHelp
+- **159** `CvDLLInterfaceIFaceBase::showDetails(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::doControl
+- **160** `CvDLLInterfaceIFaceBase::showAdminDetails(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLButtonPopup::OnOkClicked, CvGame::doControl
+- **166** `CvDLLInterfaceIFaceBase::isExitingToMainMenu(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvNetAdvancedStartAction::Execute
+- **167** `CvDLLInterfaceIFaceBase::exitingToMainMenu(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLButtonPopup::OnOkClicked, CvGame::doControl
+- **168** `CvDLLInterfaceIFaceBase::setWorldBuilder(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvGame::doControl, CvGame::update
+- **176** `CvDLLInterfaceIFaceBase::popupSetHeaderString(…)` (virtual; pure virtual, provided by the exe)
+  - called by (13): CvDLLButtonPopup::launchAddBuddyPopup, CvDLLButtonPopup::launchAdminPopup, CvDLLButtonPopup::launchAlarmPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDetailsPopup, CvDLLButtonPopup::launchDiploVotePopup, CvDLLButtonPopup::launchDiplomacyPopup, CvDLLButtonPopup::launchExtendedGamePopup, CvDLLButtonPopup::launchForcedDisconnectPopup, CvDLLButtonPopup::launchKickedPopup, CvDLLButtonPopup::launchLaunchPopup, CvDLLButtonPopup::launchPitbossDisconnectPopup …
+- **177** `CvDLLInterfaceIFaceBase::popupSetBodyString(…)` (virtual; pure virtual, provided by the exe)
+  - called by (26): CvDLLButtonPopup::launchAdminPasswordPopup, CvDLLButtonPopup::launchAdminPopup, CvDLLButtonPopup::launchAlarmPopup, CvDLLButtonPopup::launchCancelDeal, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseElectionPopup, CvDLLButtonPopup::launchConfirmCommandPopup, CvDLLButtonPopup::launchConfirmMenu, CvDLLButtonPopup::launchDeclareWarMovePopup, CvDLLButtonPopup::launchDetailsPopup, CvDLLButtonPopup::launchDiploVotePopup …
+- **178** `CvDLLInterfaceIFaceBase::popupLaunch(…)` (virtual; pure virtual, provided by the exe)
+  - called by (35): CvDLLButtonPopup::launchAddBuddyPopup, CvDLLButtonPopup::launchAdminPasswordPopup, CvDLLButtonPopup::launchAdminPopup, CvDLLButtonPopup::launchAlarmPopup, CvDLLButtonPopup::launchCancelDeal, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseElectionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchConfirmCommandPopup, CvDLLButtonPopup::launchConfirmMenu, CvDLLButtonPopup::launchDeclareWarMovePopup …
+- **179** `CvDLLInterfaceIFaceBase::popupSetPopupType(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchProductionPopup, CvDLLButtonPopup::launchPythonPopup
+- **180** `CvDLLInterfaceIFaceBase::popupSetStyle(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLButtonPopup::launchMainMenuPopup
+- **182** `CvDLLInterfaceIFaceBase::popupAddDDS(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLButtonPopup::launchMainMenuPopup
+- **184** `CvDLLInterfaceIFaceBase::popupAddSeparator(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLButtonPopup::launchAdminPopup, CvDLLButtonPopup::launchDetailsPopup, CvDLLButtonPopup::launchMainMenuPopup
+- **186** `CvDLLInterfaceIFaceBase::popupAddGenericButton(…)` (virtual; pure virtual, provided by the exe)
+  - called by (28): CvDLLButtonPopup::launchAddBuddyPopup, CvDLLButtonPopup::launchCancelDeal, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseElectionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchConfirmCommandPopup, CvDLLButtonPopup::launchConfirmMenu, CvDLLButtonPopup::launchDeclareWarMovePopup, CvDLLButtonPopup::launchDetailsPopup, CvDLLButtonPopup::launchDiploVotePopup, CvDLLButtonPopup::launchDiplomacyPopup …
+- **189** `CvDLLInterfaceIFaceBase::popupCreateEditBox(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLButtonPopup::launchAdminPasswordPopup, CvDLLButtonPopup::launchAdminPopup, CvDLLButtonPopup::launchDetailsPopup
+- **191** `CvDLLInterfaceIFaceBase::popupEnableEditBox(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLButtonPopup::launchDetailsPopup
+- **196** `CvDLLInterfaceIFaceBase::popupCreateCheckBoxes(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLButtonPopup::launchAdminPopup
+- **197** `CvDLLInterfaceIFaceBase::popupSetCheckBoxText(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLButtonPopup::launchAdminPopup
+- **198** `CvDLLInterfaceIFaceBase::popupSetCheckBoxState(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLButtonPopup::launchAdminPopup
+- **200** `CvDLLInterfaceIFaceBase::popupSetAsCancelled(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvDLLButtonPopup::OnAltExecute, CvDLLButtonPopup::OnFocus
+- **201** `CvDLLInterfaceIFaceBase::popupIsDying(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDLLButtonPopup::OnFocus
+- **202** `CvDLLInterfaceIFaceBase::setCityTabSelectionRow(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvDLLWidgetData::doCityTab, CvDLLWidgetData::doConstruct, CvDLLWidgetData::doCreate, CvDLLWidgetData::doMaintain, CvDLLWidgetData::doTrain
+- **204** `CvDLLInterfaceIFaceBase::noTechSplash(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvTeam::announceTechToPlayers
+- **206** `CvDLLInterfaceIFaceBase::isInAdvancedStart(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvGame::canDoControl, CvGame::doControl, CvGame::shouldDisplayWaitingOthers, CvGame::update, CvGame::updateColoredPlots
+- **207** `CvDLLInterfaceIFaceBase::setInAdvancedStart(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvGame::update, CvPlayer::doAdvancedStartAction
+- **209** `CvDLLInterfaceIFaceBase::isSpaceshipScreenUp(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGame::canDoControl
+- **210** `CvDLLInterfaceIFaceBase::isDebugMenuCreated(…)` (virtual; pure virtual, provided by the exe)
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchExtendedGamePopup, CvDLLButtonPopup::launchMainMenuPopup
+- **212** `CvDLLInterfaceIFaceBase::setBusy(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlayer::doAdvancedStartAction
+- **214** `CvDLLInterfaceIFaceBase::getInterfaceScreenIdsForInput(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvDllPythonEvents::reportMouseEvent
+- **215** `CvDLLInterfaceIFaceBase::doPing(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvNetPing::Execute

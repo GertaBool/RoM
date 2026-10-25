@@ -36,7 +36,9 @@ fixed first and a second loop that changes the method when they do not move (Ash
               before scopes): evidence only. A prediction's line is its hypotheses' line, so a new
               line needs new hypotheses.
   Commits     since the anchor (the commit adding the register), every commit that touches gated
-              paths needs a trailer "Serves: P.." naming registered, unwithdrawn predictions whose
+              paths, translation text aside (config text_only: text folders of another repository,
+              patches whose every file lies in one, and their notes), needs a trailer "Serves: P.."
+              naming registered, unwithdrawn predictions whose
               evidence did not exist before it (only evidence commits may serve a prediction with
               evidence) and whose paths cover it; method paths need "Method: <reason>". A commit
               that missed its trailer is linked afterwards in late-links.json (append-only), never
@@ -92,6 +94,13 @@ FUNCS, source_sha, LedgerError = VARMOD.FUNCS, VARMOD.source_sha, VARMOD.LedgerE
 def git(root, *args):
     r = subprocess.run(['git', '-C', root] + list(args), capture_output=True, text=True)
     return r.stdout if r.returncode == 0 else None
+
+
+def show(root, spec):
+    """A file from git (spec "rev:path", or ":path" for the staged one) as text whatever its encoding
+    (patches of the mod's text are ISO-8859-1); None if absent."""
+    r = subprocess.run(['git', '-C', root, 'show', spec], capture_output=True)
+    return r.stdout.decode('latin-1') if r.returncode == 0 else None
 
 
 def load(root, path, rev=None):
@@ -161,6 +170,8 @@ def validate(reg, variables):
             c = e.get('claim', {})
             if v['kind'] == 'runs' and not all(k in c for k in ('direction', 'alpha', 'min_effect', 'min_n', 'seat')):
                 errs.append(f'{e["id"]}: a runs claim needs direction, alpha, min_effect, min_n, seat')
+            if v['kind'] == 'runs' and c.get('direction') not in (None, 'a>b', 'a<b', 'a>=b', 'a<=b'):
+                errs.append(f'{e["id"]}: direction is a>b, a<b (a differs) or a>=b, a<=b (a is no worse)')
             if v['kind'] == 'runs' and c.get('min_n', 0) < MIN_RUNS: errs.append(f'{e["id"]}: fewer than {MIN_RUNS} runs per arm (framework.md, section 7)')
             if v['kind'] == 'games' and not all(k in c for k in ('turn', 'op', 'reference', 'min_n')):
                 errs.append(f'{e["id"]}: a games claim needs turn, op, reference, min_n')
@@ -205,17 +216,38 @@ def trailers(msg):
     return serves, method
 
 
-def gated(files):
-    """The files that need a Serves trailer: gated code and evidence."""
-    return [f for f in files if kind_of(f) in ('gated', 'evidence')]
+TEXT = CFG.get('text_only', {})
+
+
+def text_file(path, read=None):
+    """A gated file that is translation text (config text_only), and so needs no Serves trailer: another
+    repository's file below a text folder; a patch below notes_root whose every file is below one (read
+    gives the patch's text as committed; without it a patch does not count); its notes."""
+    folders = tuple(TEXT.get('external', ()))
+    if not folders: return False
+    if path.startswith(EXT): return path[len(EXT):].startswith(folders)
+    root = TEXT.get('notes_root')
+    if not root or not path.startswith(root): return False
+    rest = path[len(root):]
+    if rest.endswith('.md') or (rest.endswith('.json') and '/' in rest): return True
+    if rest.endswith('.patch') and read:
+        t = read(path)
+        files = re.findall(r'^diff --git a/\S+ b/(\S+)', t or '', re.M) or re.findall(r'^\+\+\+ b/(\S+)', t or '', re.M)
+        return bool(files) and all(f.startswith(folders) for f in files)
+    return False
+
+
+def gated(files, read=None):
+    """The files that need a Serves trailer: gated code and evidence, but not translation text."""
+    return [f for f in files if kind_of(f) == 'evidence' or (kind_of(f) == 'gated' and not text_file(f, read))]
 
 
 def touches_method(files):
     return [f for f in files if kind_of(f) == 'method']
 
 
-def only_evidence(files):
-    return all(kind_of(f) == 'evidence' for f in gated(files))
+def only_evidence(files, read=None):
+    return all(kind_of(f) == 'evidence' for f in gated(files, read))
 
 
 def evidence_of(files):
@@ -278,13 +310,13 @@ def covered(f, scope):
     return any(f == x or (x.endswith('/') and f.startswith(x)) for x in scope)
 
 
-def problems(s, files, serves, method, E, reg_at, ev_at, wd, anc):
+def problems(s, files, serves, method, E, reg_at, ev_at, wd, anc, read=None):
     """The rules one commit breaks, given the trailers it carries (or a late link's)."""
     prob = []
     if touches_method(files) and not method: prob.append('method paths without a Method trailer')
-    g = gated(files)
+    g = gated(files, read)
     if g and not serves: prob.append('gated paths without a Serves trailer')
-    only_ev = only_evidence(files)
+    only_ev = only_evidence(files, read)
     for p in serves:
         if E.get(p, {}).get('type') != 'prediction': prob.append(f'serves {p}, not a registered prediction'); continue
         if reg_at.get(p) not in anc: prob.append(f'serves {p}, registered later'); continue
@@ -309,11 +341,12 @@ def audit(root, hist, reg_at, ev_at, reg, late):
         if len(par) > 1: continue  # merges bring in other branches' commits, audited there
         serves, method = trailers(msg)
         anc = ancestors(root, s)
-        prob = problems(s, files, serves, method, E, reg_at, ev_at, wd, anc)
+        read = lambda p, s=s: show(root, f'{s}:{p}')   # a file as this commit left it
+        prob = problems(s, files, serves, method, E, reg_at, ev_at, wd, anc, read)
         if not prob: continue
         if s not in L: viol.append({'commit': s, 'problems': prob}); continue
         l = L[s]
-        again = problems(s, files, l.get('serves') or [], bool(l.get('method')), E, reg_at, ev_at, wd, anc)
+        again = problems(s, files, l.get('serves') or [], bool(l.get('method')), E, reg_at, ev_at, wd, anc, read)
         if again:
             lines = sorted({E[p]['line'] for p in l.get('serves') or [] if p in E}) or ['(none)']
             ack.append({'commit': s, 'problems': again, 'lines': lines})
@@ -358,9 +391,14 @@ def evaluate(root, verify=True):
                 from stats import rank_welch
                 import math
                 t, df, pv, A = rank_welch(arms['a'], arms['b'])
-                good = (A >= c['min_effect']) if c['direction'] == 'a>b' else (A <= 1 - c['min_effect'])
-                # identical arms give no p-value: no difference, so the claim of one is not corroborated
-                res['status'] = 'corroborated' if (not math.isnan(pv) and pv < c['alpha'] and good) else 'not corroborated'
+                if c['direction'] in ('a>=b', 'a<=b'):
+                    # no worse: refuted only by a significant difference of at least min_effect the wrong way
+                    worse = (A <= 1 - c['min_effect']) if c['direction'] == 'a>=b' else (A >= c['min_effect'])
+                    res['status'] = 'not corroborated' if (not math.isnan(pv) and pv < c['alpha'] and worse) else 'corroborated'
+                else:
+                    good = (A >= c['min_effect']) if c['direction'] == 'a>b' else (A <= 1 - c['min_effect'])
+                    # identical arms give no p-value: no difference, so the claim of one is not corroborated
+                    res['status'] = 'corroborated' if (not math.isnan(pv) and pv < c['alpha'] and good) else 'not corroborated'
                 res['detail'] = f'p {pv:.4g}, A {A:.3f}'
         else:
             vals, refs = [], {r[1] for r in c['reference']}
@@ -457,16 +495,19 @@ def commit_msg(root, msgfile):
     serves, method = trailers(msg)
     errs = []
     if touches_method(files) and not method: errs.append('staged method paths need a "Method: <reason>" trailer')
-    g = gated(files)
+    read = lambda p: show(root, f':{p}')   # a file as staged
+    g = gated(files, read)
     if g and not serves: errs.append('staged gated paths need a "Serves: P.." trailer')
     reg = load(root, REG) or []
     E = entries(reg)
     led = evaluate(root, verify=False) if reg else {'predictions': {}, 'lines': {}}
-    only_ev = only_evidence(files)
+    only_ev = only_evidence(files, read)
     for p in serves:
         if E.get(p, {}).get('type') != 'prediction': errs.append(f'{p} is not a registered prediction'); continue
         st = led['predictions'].get(p, {})
-        if st.get('status', 'open') != 'open': errs.append(f'{p} is {st["status"]}')
+        # the working tree holds the staged evidence, so the evidence commit that decides p may serve it
+        deciding = only_ev and p in evidence_of(files)
+        if st.get('status', 'open') != 'open' and not deciding: errs.append(f'{p} is {st["status"]}')
         if not only_ev and st.get('evidence_commits'): errs.append(f'{p} has evidence: only evidence commits may serve it')
         ls = led['lines'].get(E[p]['line'], {}).get('state')
         if ls in ('degenerating', 'stalled') and not only_ev: errs.append(f'line {E[p]["line"]} is {ls}: only evidence, or a new line')
@@ -481,8 +522,10 @@ def commit_msg(root, msgfile):
 def external(root, message, files):
     """A commit made in another repository (the GitLab connector): its trailers must serve open
     predictions without evidence, on lines neither degenerating nor stalled, whose paths name every
-    file (as EXT + path)."""
+    file (as EXT + path). Translation text (config text_only) needs no trailer."""
+    files = [f for f in files if not text_file(EXT + f)]
     serves, method = trailers(message)
+    if not files and not serves: return []
     reg = load(root, REG) or []
     E = entries(reg)
     errs = [] if serves else ['an external commit needs a "Serves: P.." trailer']
@@ -577,6 +620,8 @@ def add_game(root, pid, log, name):
 def selftest():
     import tempfile, shutil
     d = tempfile.mkdtemp()
+    # a hook's git environment (GIT_INDEX_FILE, GIT_DIR, ...) must not reach the test repository's git
+    saved = {k: os.environ.pop(k) for k in [k for k in os.environ if k.startswith('GIT_')]}
     try:
         g = lambda *a: subprocess.run(['git', '-C', d] + list(a), capture_output=True, text=True, check=True)
         g('init', '-q'); g('config', 'user.email', 't@t'); g('config', 'user.name', 't')
@@ -597,6 +642,19 @@ def selftest():
         bad = evaluate(d)['violations']; assert len(bad) == 1 and 'Serves' in bad[0]['problems'][0], bad
         w(LATE, [dict(commit=bad[0]['commit'], serves=['P1'], reason='missed')]); commit('late link')
         assert not evaluate(d)['violations']
+        # translation text needs no trailer: a patch whose files all lie in a text folder, and its notes
+        txt = 'diff --git a/Assets/XML/Text/a.xml b/Assets/XML/Text/a.xml\n--- a/Assets/XML/Text/a.xml\n+++ b/Assets/XML/Text/a.xml\n'
+        os.makedirs(os.path.join(d, 'fixes'), exist_ok=True)
+        open(os.path.join(d, 'fixes/t.patch'), 'wb').write(txt.encode() + b'+<French>\xe9t\xe9</French>\n')   # ISO-8859-1, as the mod's text
+        g('add', 'fixes/t.patch'); assert not gated(['fixes/t.patch'], lambda p: show(d, ':' + p))   # as the commit hook reads it
+        w('fixes/t/README.md', 'notes'); w('fixes/t/changes.json', '{}'); commit('text patch')
+        assert not evaluate(d)['violations'], evaluate(d)['violations']
+        # a patch that also touches code, an unread patch, and a top-level data file stay gated
+        code = txt + 'diff --git a/Assets/CvGameCoreDLL/x.cpp b/Assets/CvGameCoreDLL/x.cpp\n'
+        assert gated(['fixes/c.patch'], lambda p: code) == ['fixes/c.patch']
+        assert gated(['fixes/c.patch']) == ['fixes/c.patch'] and gated(['fixes/top.json']) == ['fixes/top.json']
+        assert external(d, 'text', ['Assets/XML/Text/a.xml']) == []
+        assert external(d, 'code', ['Assets/CvGameCoreDLL/x.cpp']), 'external code without a trailer passed'
         # editing a registered entry is refused
         w(REG, [H, dict(P1, change='other')]); assert any('append-only' in x for x in check(d)); w(REG, [H, P1])
         # depth: a non-essential prediction must serve a chain ending on an essential one within two links
@@ -617,6 +675,14 @@ def selftest():
                  dict(commit=git(d, 'rev-parse', 'HEAD').strip(), serves=['P1'], reason='tuned after evidence: counted')]); commit('late link 2')
         w(f'{EVD}P1/b.tsv', ''.join(f'{s}\t{3 + i % 3}\n' for i, s in enumerate(sd[30:60]))); commit('evidence b\n\nServes: P1')
         r = evaluate(d)['predictions']['P1']; assert r['status'] == 'corroborated' and r['n'] == [30, 30], r
+        # the commit-msg gate: an evidence commit may serve the prediction it decides; code after it may not
+        mf = d + '.msg'; open(mf, 'w').write('evidence\n\nServes: P1\n')
+        w(f'{EVD}P1/b.tsv', ''.join(f'{s}\t{3 + i % 3}\n' for i, s in enumerate(sd[30:60])) + '\n'); g('add', '-A')
+        assert not [x for x in commit_msg(d, mf) if 'P1 is' in x], commit_msg(d, mf)
+        g('reset', '-q', '--hard')
+        w('research/ai-warfare/tools/x.py', '9'); g('add', '-A')
+        assert any('P1 is corroborated' in x for x in commit_msg(d, mf)), commit_msg(d, mf)
+        g('reset', '-q', '--hard'); os.remove(mf)
         assert evaluate(d)['lines']['war']['state'] == 'progressive'
         # a withdrawal after evidence counts against the line
         P7 = dict(P1, id='P7'); w(REG, [H, P1, P7]); commit('register P7')
@@ -713,9 +779,22 @@ def selftest():
         try: add_game(d, 'PS', os.path.join(d, 'b2.log'), 'b2'); assert False
         except LedgerError as x: assert 'build B2' in str(x), x
         add_game(d, 'PS', os.path.join(d, 'b1.log'), 'b1')
+        # a no-worse claim: equal arms corroborate it, a clearly worse arm does not
+        HN = dict(id='HN', type='hypothesis', line='nw', text='hn')
+        PN = dict(P1, id='PN', line='nw', hypotheses=['HN'], claim=dict(P1['claim'], direction='a<=b'))
+        PW = dict(PN, id='PW')
+        w(REG, load(d, REG) + [HN, PN, PW]); commit('register PN PW')
+        w(f'{EVD}PN/a.tsv', ''.join(f'{s}\t{i % 3}\n' for i, s in enumerate(seeds(PN, 30))))
+        w(f'{EVD}PN/b.tsv', ''.join(f'{s}\t{i % 3}\n' for i, s in enumerate(seeds(PN, 60)[30:])))
+        w(f'{EVD}PW/a.tsv', ''.join(f'{s}\t{9 + i % 3}\n' for i, s in enumerate(seeds(PW, 30))))
+        w(f'{EVD}PW/b.tsv', ''.join(f'{s}\t{i % 3}\n' for i, s in enumerate(seeds(PW, 60)[30:])))
+        commit('evidence PN PW\n\nServes: PN, PW')
+        r = evaluate(d)['predictions']; assert r['PN']['status'] == 'corroborated' and r['PW']['status'] == 'not corroborated', (r['PN'], r['PW'])
+        assert any('no worse' in x for x in validate([H, dict(P1, id='PX', claim=dict(P1['claim'], direction='a=b'))], var))
         print('ledger selftest: ok')
     finally:
         shutil.rmtree(d)
+        os.environ.update(saved)
 
 
 def main():

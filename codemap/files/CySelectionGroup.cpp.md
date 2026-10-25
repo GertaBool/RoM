@@ -1,0 +1,181 @@
+# CySelectionGroup.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **16** `CySelectionGroup::CySelectionGroup()`
+- **21** `CySelectionGroup::CySelectionGroup(CvSelectionGroup*)`
+  - called by (7): CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CyMap::findSelectionGroup, CyPlayer::firstSelectionGroup, CyPlayer::getSelectionGroup, CyPlayer::nextSelectionGroup, CyUnit::getGroup
+- **26** `CySelectionGroup::pushMission(MissionTypes, int, int, int, bool, bool, MissionAITypes, CyPlot*, CyUnit*)` (Python: pushMission)
+  - calls: CvSelectionGroup::pushMission [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CySelectionGroupInterface
+- **32** `CySelectionGroup::pushMoveToMission(int, int)` (Python: pushMoveToMission)
+  - calls: CvSelectionGroup::pushMission [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **38** `CySelectionGroup::popMission()` (Python: popMission)
+  - calls: CvSelectionGroup::popMission [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **44** `CySelectionGroup::lastMissionPlot()` (Python: lastMissionPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvSelectionGroup::lastMissionPlot [CvSelectionGroup.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CySelectionGroupInterface
+- **49** `CySelectionGroup::canStartMission(int, int, int, CyPlot*, bool)` (Python: canStartMission)
+  - calls: CvSelectionGroup::canStartMission [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **54** `CySelectionGroup::canDoInterfaceMode(InterfaceModeTypes)` (Python: canDoInterfaceMode)
+  - calls: CvSelectionGroup::canDoInterfaceMode [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **59** `CySelectionGroup::canDoInterfaceModeAt(InterfaceModeTypes, CyPlot*)` (Python: canDoInterfaceModeAt)
+  - calls: CvSelectionGroup::canDoInterfaceModeAt [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **64** `CySelectionGroup::canDoCommand(CommandTypes, int, int, bool)` (Python: canDoCommand)
+  - calls: CvSelectionGroup::canDoCommand [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **69** `CySelectionGroup::isHuman()` (Python: isHuman)
+  - calls: CvSelectionGroup::isHuman [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **74** `CySelectionGroup::baseMoves()` (Python: baseMoves)
+  - calls: CvSelectionGroup::baseMoves [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **79** `CySelectionGroup::canAllMove()` (Python: canAllMove)
+  - calls: CvSelectionGroup::canAllMove [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **84** `CySelectionGroup::isWaiting()` (Python: isWaiting)
+  - calls: CvSelectionGroup::isWaiting [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **89** `CySelectionGroup::isFull()` (Python: isFull)
+  - calls: CvSelectionGroup::isFull [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **94** `CySelectionGroup::hasCargo()` (Python: hasCargo)
+  - calls: CvSelectionGroup::hasCargo [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **99** `CySelectionGroup::canAnyMove()` (Python: canAnyMove)
+  - calls: CvSelectionGroup::canAnyMove [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **104** `CySelectionGroup::hasMoved()` (Python: hasMoved)
+  - calls: CvSelectionGroup::hasMoved [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **109** `CySelectionGroup::canEnterTerritory(int, bool)` (Python: canEnterTerritory)
+  - calls: CvSelectionGroup::canEnterTerritory [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **114** `CySelectionGroup::canEnterArea(int, CyArea*, bool)` (Python: canEnterArea)
+  - calls: CvSelectionGroup::canEnterArea [CvSelectionGroup.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CySelectionGroupInterface
+- **119** `CySelectionGroup::canMoveInto(CyPlot*, bool)` (Python: canMoveInto)
+  - calls: CvSelectionGroup::canMoveInto [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **124** `CySelectionGroup::canMoveOrAttackInto(CyPlot*, bool)` (Python: canMoveOrAttackInto)
+  - calls: CvSelectionGroup::canMoveOrAttackInto [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **129** `CySelectionGroup::canMoveThrough(CyPlot*)` (Python: canMoveThrough)
+  - calls: CvSelectionGroup::canMoveThrough [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **134** `CySelectionGroup::canFight()` (Python: canFight)
+  - calls: CvSelectionGroup::canFight [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **139** `CySelectionGroup::canDefend()` (Python: canDefend)
+  - calls: CvSelectionGroup::canDefend [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **144** `CySelectionGroup::alwaysInvisible()` (Python: alwaysInvisible)
+  - calls: CvSelectionGroup::alwaysInvisible [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **149** `CySelectionGroup::isInvisible(int)` (Python: isInvisible)
+  - calls: CvSelectionGroup::isInvisible [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **154** `CySelectionGroup::countNumUnitAIType(UnitAITypes)` (Python: countNumUnitAIType)
+  - calls: CvSelectionGroup::countNumUnitAIType [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **159** `CySelectionGroup::hasWorker()` (Python: hasWorker)
+  - calls: CvSelectionGroup::hasWorker [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **168** `CySelectionGroup::isStranded()` (Python: isStranded)
+  - calls: CvSelectionGroup::isStranded [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **177** `CySelectionGroup::at(int, int)` (Python: at)
+  - calls: CvSelectionGroup::at [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **182** `CySelectionGroup::atPlot(CyPlot*)` (Python: atPlot)
+  - calls: CvSelectionGroup::atPlot [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **187** `CySelectionGroup::plot()` (Python: plot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvSelectionGroup::plot [CvSelectionGroup.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CySelectionGroupInterface
+- **192** `CySelectionGroup::area()` (Python: area)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvSelectionGroup::area [CvSelectionGroup.cpp], CyArea::CyArea(CvArea*) [CyArea.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CySelectionGroupInterface
+- **197** `CySelectionGroup::getBestBuildRoute(CyPlot*, BuildTypes*)` (Python: getBestBuildRoute)
+  - calls: CvSelectionGroup::getBestBuildRoute [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **202** `CySelectionGroup::isAmphibPlot(CyPlot*)` (Python: isAmphibPlot)
+  - calls: CvSelectionGroup::isAmphibPlot [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **206** `CySelectionGroup::readyToSelect(bool)` (Python: readyToSelect)
+  - calls: CvSelectionGroup::readyToSelect [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **211** `CySelectionGroup::readyToMove(bool)` (Python: readyToMove)
+  - calls: CvSelectionGroup::readyToMove [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **216** `CySelectionGroup::readyToAuto()` (Python: readyToAuto)
+  - calls: CvSelectionGroup::readyToAuto [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **221** `CySelectionGroup::getID()` (Python: getID)
+  - calls: CvSelectionGroup::getID [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **226** `CySelectionGroup::getOwner()` (Python: getOwner)
+  - calls: CvSelectionGroup::getOwnerINLINE [CvSelectionGroup.h]
+  - called by (1): CySelectionGroupInterface
+- **231** `CySelectionGroup::getTeam()` (Python: getTeam)
+  - calls: CvSelectionGroup::getTeam [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **236** `CySelectionGroup::getActivityType()` (Python: getActivityType)
+  - calls: CvSelectionGroup::getActivityType [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **241** `CySelectionGroup::setActivityType(int)` (Python: setActivityType)
+  - calls: CvSelectionGroup::setActivityType [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **247** `CySelectionGroup::getAutomateType()` (Python: getAutomateType)
+  - calls: CvSelectionGroup::getAutomateType [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **252** `CySelectionGroup::isAutomated()` (Python: isAutomated)
+  - calls: CvSelectionGroup::isAutomated [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **257** `CySelectionGroup::setAutomateType(int)` (Python: setAutomateType)
+  - calls: CvSelectionGroup::setAutomateType [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **263** `CySelectionGroup::getPathFirstPlot()` (Python: getPathFirstPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvSelectionGroup::getPathFirstPlot [CvSelectionGroup.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CySelectionGroupInterface
+- **268** `CySelectionGroup::getPathEndTurnPlot()` (Python: getPathEndTurnPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvSelectionGroup::getPathEndTurnPlot [CvSelectionGroup.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CySelectionGroupInterface
+- **273** `CySelectionGroup::generatePath(CyPlot*, CyPlot*, int, bool, int*)` (Python: generatePath)
+  - calls: CvSelectionGroup::generatePath [CvSelectionGroup.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CySelectionGroupInterface
+- **278** `CySelectionGroup::resetPath()` (Python: resetPath)
+  - calls: CvSelectionGroup::resetPath [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **284** `CySelectionGroup::getNumUnits()` (Python: getNumUnits)
+  - calls: CvSelectionGroup::getNumUnits [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **289** `CySelectionGroup::clearMissionQueue()` (Python: clearMissionQueue)
+  - calls: CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **295** `CySelectionGroup::getLengthMissionQueue()` (Python: getLengthMissionQueue)
+  - calls: CvSelectionGroup::getLengthMissionQueue [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **300** `CySelectionGroup::getMissionFromQueue(int)` (Python: getMissionFromQueue)
+  - calls: CvSelectionGroup::getMissionFromQueue [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **305** `CySelectionGroup::getHeadUnit()` (Python: getHeadUnit)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvSelectionGroup::getHeadUnit [CvSelectionGroup.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CySelectionGroupInterface
+- **310** `CySelectionGroup::getUnitAt(int)` (Python: getUnitAt)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvSelectionGroup::getUnitAt [CvSelectionGroup.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CySelectionGroupInterface
+- **315** `CySelectionGroup::getMissionType(int)` (Python: getMissionType)
+  - calls: CvSelectionGroup::getMissionType [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **320** `CySelectionGroup::getMissionData1(int)` (Python: getMissionData1)
+  - calls: CvSelectionGroup::getMissionData1 [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface
+- **325** `CySelectionGroup::getMissionData2(int)` (Python: getMissionData2)
+  - calls: CvSelectionGroup::getMissionData2 [CvSelectionGroup.cpp]
+  - called by (1): CySelectionGroupInterface

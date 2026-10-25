@@ -1,0 +1,12 @@
+{
+  "passed": [
+    "NIF independent PyFFI parsing, geometry, normals, UV and texture link",
+    "DDS independent Pillow decoding and full mip counts",
+    "XML well-formedness, source-schema child ordering and unique new type links",
+    "Install into isolated fixture, refuse duplicate install, exact rollback",
+    "Refuse changed baseline before writing"
+  ],
+  "triangles": 456,
+  "in_game_tested": false,
+  "baseline_commit": "8edb23b96c7b9f6369a54d18d0a84a62c799b841"
+}

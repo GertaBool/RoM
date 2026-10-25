@@ -1,0 +1,62 @@
+# CvDLLSymbolIFaceBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **22** `CvDLLSymbolIFaceBase::init(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvArtFileMgr::Init, CvPlot::updateSymbols
+- **23** `CvDLLSymbolIFaceBase::createSymbol(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::addSymbol
+- **24** `CvDLLSymbolIFaceBase::destroy(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::deleteAllSymbols
+- **25** `CvDLLSymbolIFaceBase::setAlpha(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbolDisplay
+- **26** `CvDLLSymbolIFaceBase::setScale(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbolDisplay
+- **27** `CvDLLSymbolIFaceBase::Hide(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbolVisibility
+- **29** `CvDLLSymbolIFaceBase::updatePosition(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbolDisplay
+- **30** `CvDLLSymbolIFaceBase::getID(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbols
+- **32** `CvDLLSymbolIFaceBase::setTypeYield(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateSymbols
+- **38** `CvDLLFeatureIFaceBase::createFeature(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFeatureSymbol
+- **39** `CvDLLFeatureIFaceBase::init(…)` (virtual; pure virtual, provided by the exe)
+  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateFeatureSymbol, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData> …
+- **40** `CvDLLFeatureIFaceBase::getFeature(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateFeatureSymbol
+- **41** `CvDLLFeatureIFaceBase::setDummyVisibility(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::setFeatureDummyVisibility
+- **42** `CvDLLFeatureIFaceBase::addDummyModel(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::addFeatureDummyModel
+- **43** `CvDLLFeatureIFaceBase::setDummyTexture(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::setFeatureDummyTexture
+- **44** `CvDLLFeatureIFaceBase::pickDummyTag(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::pickFeatureDummyTag
+- **45** `CvDLLFeatureIFaceBase::resetModel(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::resetFeatureModel
+- **48** `CvDLLFeatureIFaceBase::destroy(…)` (virtual; declared, not defined in the source)
+  - called by (2): CvPlot::uninit, CvPlot::updateFeatureSymbol
+- **49** `CvDLLFeatureIFaceBase::Hide(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvPlot::updateFeatureSymbolVisibility
+- **50** `CvDLLFeatureIFaceBase::IsHidden(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvPlot::updateFeatureSymbolVisibility
+- **57** `CvDLLRouteIFaceBase::createRoute(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRouteSymbol
+- **58** `CvDLLRouteIFaceBase::init(…)` (virtual; pure virtual, provided by the exe)
+  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateRouteSymbol, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData> …
+- **59** `CvDLLRouteIFaceBase::getRoute(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRouteSymbol
+- **62** `CvDLLRouteIFaceBase::destroy(…)` (virtual; declared, not defined in the source)
+  - called by (2): CvPlot::uninit, CvPlot::updateRouteSymbol
+- **66** `CvDLLRouteIFaceBase::getConnectionMask(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvGameTextMgr::setPlotHelp
+- **67** `CvDLLRouteIFaceBase::updateGraphicEra(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateGraphicEra
+- **73** `CvDLLRiverIFaceBase::createRiver(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvPlot::updateRiverSymbol
+- **74** `CvDLLRiverIFaceBase::init(…)` (virtual; pure virtual, provided by the exe)
+  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateRiverSymbol, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData> …
+- **77** `CvDLLRiverIFaceBase::destroy(…)` (virtual; declared, not defined in the source)
+  - called by (2): CvPlot::uninit, CvPlot::updateRiverSymbol

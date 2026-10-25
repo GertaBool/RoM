@@ -1,0 +1,44 @@
+# CvDLLXMLIFaceBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **14** `CvDLLXmlIFaceBase::CreateFXml(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::CreateFXml
+- **15** `CvDLLXmlIFaceBase::DestroyFXml(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvXMLLoadUtility::DestroyFXml, CvXMLLoadUtility::ReadGlobalDefines
+- **17** `CvDLLXmlIFaceBase::DestroyFXmlSchemaCache(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::~CvXMLLoadUtility
+- **18** `CvDLLXmlIFaceBase::CreateFXmlSchemaCache(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::CvXMLLoadUtility
+- **21** `CvDLLXmlIFaceBase::LoadXml(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::LoadCivXml
+- **26** `CvDLLXmlIFaceBase::LocateNode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (201): CvXMLLoadUtility::LoadModLoadControlInfo<class CvModLoadControlInfo>, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetDiplomacyInfo, CvXMLLoadUtility::SetGameText, CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature> …
+- **32** `CvDLLXmlIFaceBase::LocateNextSiblingNodeByTagName(…)` (virtual; pure virtual, provided by the exe)
+  - called by (5): CvAdvisorInfo::read, CvArtInfoFeature::read, CvThroneRoomStyleInfo::read, CvUnitFormationInfo::read, CvWorldPickerInfo::read
+- **35** `CvDLLXmlIFaceBase::NextSibling(…)` (virtual; pure virtual, provided by the exe)
+  - called by (236): CvAnimationPathInfo::read, CvBuildingInfo::read(CvXMLLoadUtility*), CvCivicInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(CvXMLLoadUtility*), CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility*), CvDiplomacyTextInfo::read(CvXMLLoadUtility*), CvEventInfo::read(CvXMLLoadUtility*), CvEventTriggerInfo::read(CvXMLLoadUtility*), CvGameSpeedInfo::read, CvGameText::read, CvImprovementInfo::read(CvXMLLoadUtility*) …
+- **41** `CvDLLXmlIFaceBase::SetToChild(…)` (virtual; pure virtual, provided by the exe)
+  - called by (36): CvAdvisorInfo::read, CvAnimationPathInfo::read, CvCivicInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(CvXMLLoadUtility*), CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility*), CvDiplomacyTextInfo::read(CvXMLLoadUtility*), CvEventInfo::read(CvXMLLoadUtility*), CvEventTriggerInfo::read(CvXMLLoadUtility*), CvGameSpeedInfo::read, CvGameText::read, CvImprovementInfo::read(CvXMLLoadUtility*) …
+- **43** `CvDLLXmlIFaceBase::SetToChildByTagName(…)` (virtual; pure virtual, provided by the exe)
+  - called by (59): CvArtInfoFeature::read, CvArtInfoUnit::read, CvBonusInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(CvXMLLoadUtility*), CvCivicInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(CvXMLLoadUtility*), CvCorporationInfo::read, CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility*), CvDiplomacyResponse::read(CvXMLLoadUtility*), CvDiplomacyTextInfo::read(CvXMLLoadUtility*), CvEmphasizeInfo::read …
+- **46** `CvDLLXmlIFaceBase::SetToParent(…)` (virtual; pure virtual, provided by the exe)
+  - called by (73): CvAdvisorInfo::read, CvAnimationPathInfo::read, CvArtInfoFeature::read, CvArtInfoUnit::read, CvBonusInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(CvXMLLoadUtility*), CvCivicInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(CvXMLLoadUtility*), CvCorporationInfo::read, CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility*), CvDiplomacyResponse::read(CvXMLLoadUtility*) …
+- **65** `CvDLLXmlIFaceBase::GetLastNodeText(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvAnimationPathInfo::read
+- **67** `CvDLLXmlIFaceBase::GetLastNodeValue(…)` (virtual; pure virtual, provided by the exe)
+  - called by (28): CvXMLLoadUtility::GetChildXmlVal(bool*, bool), CvXMLLoadUtility::GetChildXmlVal(char*, char*), CvXMLLoadUtility::GetChildXmlVal(float*, float), CvXMLLoadUtility::GetChildXmlVal(int*, int), CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*), CvXMLLoadUtility::GetChildXmlVal(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>&, unsigned short*), CvXMLLoadUtility::GetChildXmlVal(unsigned short*, unsigned short*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool), CvXMLLoadUtility::GetChildXmlValByName(char*, char const*, char*), CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int), CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) …
+- **89** `CvDLLXmlIFaceBase::GetLastLocatedNodeType(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::ReadGlobalDefines
+- **93** `CvDLLXmlIFaceBase::IsLastLocatedNodeCommentNode(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::SkipToNextVal
+- **95** `CvDLLXmlIFaceBase::NumOfElementsByTagName(…)` (virtual; pure virtual, provided by the exe)
+  - called by (2): CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalStringArray
+- **97** `CvDLLXmlIFaceBase::NumOfChildrenByTagName(…)` (virtual; pure virtual, provided by the exe)
+  - called by (6): CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility*), CvDiplomacyTextInfo::read(CvXMLLoadUtility*), CvQuestInfo::read, CvTutorialInfo::read, CvUnitInfo::read(CvXMLLoadUtility*)
+- **99** `CvDLLXmlIFaceBase::GetNumSiblings(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::ReadGlobalDefines
+- **101** `CvDLLXmlIFaceBase::GetNumChildren(…)` (virtual; pure virtual, provided by the exe)
+  - called by (34): CvBuildingInfo::read(CvXMLLoadUtility*), CvCivicInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(CvXMLLoadUtility*), CvCorporationInfo::read, CvEntityEventInfo::read, CvEventInfo::read(CvXMLLoadUtility*), CvEventTriggerInfo::read(CvXMLLoadUtility*), CvGameSpeedInfo::read, CvImprovementInfo::read(CvXMLLoadUtility*), CvInfoBase::read(CvXMLLoadUtility*), CvModLoadControlInfo::read, CvRouteInfo::read …
+- **105** `CvDLLXmlIFaceBase::MapChildren(…)` (virtual; pure virtual, provided by the exe)
+  - called by (1): CvXMLLoadUtility::MapChildren

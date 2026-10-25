@@ -1,0 +1,170 @@
+# CvStructs.cpp
+
+Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **19** `EventTriggeredData::getID() const`
+  - called by (8): CvPlayer::doEvents, CvPlayer::expireEvent, CvPlayer::initTriggeredData, CvPlayer::setEventOccured, CvPlayer::trigger(EventTriggeredData const&), FFreeListTrashArray<EventTriggeredData>::getAt, FFreeListTrashArray<EventTriggeredData>::load, FFreeListTrashArray<EventTriggeredData>::removeAt
+- **24** `EventTriggeredData::setID(int)`
+  - called by (1): FFreeListTrashArray<EventTriggeredData>::add
+- **29** `EventTriggeredData::read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h]
+  - called by (2): CvPlayer::read, ReadStreamableFFreeListTrashArray<struct EventTriggeredData>
+- **48** `EventTriggeredData::write(FDataStreamBase*)`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
+  - called by (2): CvPlayer::write, WriteStreamableFFreeListTrashArray<struct EventTriggeredData>
+- **67** `VoteSelectionData::getID() const`
+  - called by (5): CvGame::addVoteSelection, CvGame::doVoteSelection, FFreeListTrashArray<VoteSelectionData>::getAt, FFreeListTrashArray<VoteSelectionData>::load, FFreeListTrashArray<VoteSelectionData>::removeAt
+- **72** `VoteSelectionData::setID(int)`
+  - called by (1): FFreeListTrashArray<VoteSelectionData>::add
+- **77** `VoteSelectionData::read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], VoteSelectionSubData::VoteSelectionSubData [CvGame.cpp], FDataStreamBase::ReadString [FDataStreamBase.h]
+  - called by (1): ReadStreamableFFreeListTrashArray<struct VoteSelectionData>
+- **95** `VoteSelectionData::write(FDataStreamBase*)`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
+  - called by (1): WriteStreamableFFreeListTrashArray<struct VoteSelectionData>
+- **110** `VoteTriggeredData::getID() const`
+  - called by (7): CvGame::addVoteTriggered(VoteSourceTypes, VoteSelectionSubData const&), CvGame::countVote, CvGame::doVoteResults, CvGame::setVoteOutcome, FFreeListTrashArray<VoteTriggeredData>::getAt, FFreeListTrashArray<VoteTriggeredData>::load, FFreeListTrashArray<VoteTriggeredData>::removeAt
+- **115** `VoteTriggeredData::setID(int)`
+  - called by (1): FFreeListTrashArray<VoteTriggeredData>::add
+- **120** `VoteTriggeredData::read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h]
+  - called by (1): ReadStreamableFFreeListTrashArray<struct VoteTriggeredData>
+- **131** `VoteTriggeredData::write(FDataStreamBase*)`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
+  - called by (1): WriteStreamableFFreeListTrashArray<struct VoteTriggeredData>
+- **142** `PlotExtraYield::read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h]
+  - called by (1): CvGame::read
+- **155** `PlotExtraYield::write(FDataStreamBase*)`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - called by (1): CvGame::write
+- **165** `PlotExtraCost::read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h]
+  - called by (1): CvGame::read
+- **172** `PlotExtraCost::write(FDataStreamBase*)`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - called by (1): CvGame::write
+- **179** `BuildingYieldChange::read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h]
+  - called by (2): CvCity::read, CvEventInfo::read(FDataStreamBase*)
+- **186** `BuildingYieldChange::write(FDataStreamBase*)`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - called by (2): CvCity::write, CvEventInfo::write
+- **193** `BuildingCommerceChange::read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h]
+  - called by (2): CvCity::read, CvEventInfo::read(FDataStreamBase*)
+- **200** `BuildingCommerceChange::write(FDataStreamBase*)`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h]
+  - called by (2): CvCity::write, CvEventInfo::write
+- **207** `checkBattleUnitType(BattleUnitTypes)`
+  - called by (16): CvAirMissionDefinition::getDamage, CvAirMissionDefinition::isDead, CvAirMissionDefinition::setDamage, CvBattleDefinition::addDamage, CvBattleDefinition::addFirstStrikes, CvBattleDefinition::getDamage, CvBattleDefinition::getFirstStrikes, CvBattleDefinition::setDamage, CvBattleDefinition::setFirstStrikes, CvBattleRound::addNumKilled, CvBattleRound::getNumAlive, CvBattleRound::getNumKilled …
+- **214** `CvBattleRound::CvBattleRound()` (exported)
+  - called by (1): CvUnit::planBattle
+- **220** `CvBattleRound::isValid() const` (exported)
+  - called by (1): CvUnit::verifyRoundsValid
+- **231** `CvBattleRound::isRangedRound() const` (exported)
+  - called by (1): CvUnit::planBattle
+- **236** `CvBattleRound::setRangedRound(bool)` (exported)
+  - called by (1): CvUnit::planBattle
+- **241** `CvBattleRound::getWaveSize() const` (exported)
+- **246** `CvBattleRound::setWaveSize(int)` (exported)
+  - called by (1): CvUnit::planBattle
+- **251** `CvBattleRound::getNumKilled(BattleUnitTypes) const` (exported)
+  - calls: checkBattleUnitType
+  - called by (1): CvUnit::planBattle
+- **257** `CvBattleRound::setNumKilled(BattleUnitTypes, int)` (exported)
+  - calls: checkBattleUnitType
+- **263** `CvBattleRound::addNumKilled(BattleUnitTypes, int)` (exported)
+  - calls: checkBattleUnitType
+  - called by (1): CvUnit::planBattle
+- **269** `CvBattleRound::getNumAlive(BattleUnitTypes) const` (exported)
+  - calls: checkBattleUnitType
+  - called by (1): CvUnit::planBattle
+- **275** `CvBattleRound::setNumAlive(BattleUnitTypes, int)` (exported)
+  - calls: checkBattleUnitType
+  - called by (1): CvUnit::planBattle
+- **288** `CvMissionDefinition::CvMissionDefinition()` (exported)
+  - called by (15): CvAirMissionDefinition::CvAirMissionDefinition(), CvAirMissionDefinition::CvAirMissionDefinition(CvAirMissionDefinition const&), CvBattleDefinition::CvBattleDefinition(), CvBattleDefinition::CvBattleDefinition(CvBattleDefinition const&), CvSelectionGroup::startMission, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doOpportunityFire, CvUnit::kill, CvUnit::nuke, CvUnit::pillage …
+- **294** `CvMissionDefinition::getMissionType() const` (exported)
+- **299** `CvMissionDefinition::setMissionType(MissionTypes)` (exported)
+  - called by (24): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense …
+- **304** `CvMissionDefinition::getMissionTime() const` (exported)
+- **309** `CvMissionDefinition::setMissionTime(float)` (exported)
+  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
+- **314** `CvMissionDefinition::getUnit(BattleUnitTypes) const` (exported)
+  - calls: checkBattleUnitType
+  - called by (4): CvAirMissionDefinition::isDead, CvUnit::computeUnitsToDie, CvUnit::increaseBattleRounds, CvUnit::planBattle
+- **320** `CvMissionDefinition::setUnit(BattleUnitTypes, CvUnit*)` (exported)
+  - calls: checkBattleUnitType
+  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
+- **326** `CvMissionDefinition::getPlot() const` (exported)
+- **331** `CvMissionDefinition::setPlot(CvPlot const*)` (exported)
+  - called by (24): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense …
+- **342** `CvBattleDefinition::CvBattleDefinition()` (exported)
+  - calls: CvMissionDefinition::CvMissionDefinition
+  - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **364** `CvBattleDefinition::CvBattleDefinition(CvBattleDefinition const&)` (exported)
+  - calls: CvMissionDefinition::CvMissionDefinition
+- **382** `CvBattleDefinition::getDamage(BattleUnitTypes, BattleTimeTypes) const` (exported)
+  - calls: checkBattleUnitType, CvBattleDefinition::checkBattleTimeType
+  - called by (5): CvUnit::attackForDamage, CvUnit::computeUnitsToDie, CvUnit::planBattle, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **389** `CvBattleDefinition::setDamage(BattleUnitTypes, BattleTimeTypes, int)` (exported)
+  - calls: checkBattleUnitType, CvBattleDefinition::checkBattleTimeType
+  - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **396** `CvBattleDefinition::addDamage(BattleUnitTypes, BattleTimeTypes, int)` (exported)
+  - calls: checkBattleUnitType, CvBattleDefinition::checkBattleTimeType
+  - called by (4): CvUnit::attackForDamage, CvUnit::resolveCombat, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **403** `CvBattleDefinition::getFirstStrikes(BattleUnitTypes) const` (exported)
+  - calls: checkBattleUnitType
+  - called by (1): CvUnit::planBattle
+- **409** `CvBattleDefinition::setFirstStrikes(BattleUnitTypes, int)` (exported)
+  - calls: checkBattleUnitType
+- **415** `CvBattleDefinition::addFirstStrikes(BattleUnitTypes, int)` (exported)
+  - calls: checkBattleUnitType
+  - called by (1): CvUnit::resolveCombat
+- **421** `CvBattleDefinition::isAdvanceSquare() const` (exported)
+- **426** `CvBattleDefinition::setAdvanceSquare(bool)` (exported)
+  - called by (3): CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
+- **431** `CvBattleDefinition::getNumRangedRounds() const` (exported)
+  - called by (1): CvUnit::planBattle
+- **436** `CvBattleDefinition::setNumRangedRounds(int)` (exported)
+  - called by (1): CvUnit::planBattle
+- **441** `CvBattleDefinition::addNumRangedRounds(int)` (exported)
+  - called by (1): CvUnit::increaseBattleRounds
+- **446** `CvBattleDefinition::getNumMeleeRounds() const` (exported)
+  - called by (1): CvUnit::planBattle
+- **451** `CvBattleDefinition::setNumMeleeRounds(int)` (exported)
+  - called by (1): CvUnit::planBattle
+- **456** `CvBattleDefinition::addNumMeleeRounds(int)` (exported)
+  - called by (1): CvUnit::increaseBattleRounds
+- **461** `CvBattleDefinition::getNumBattleRounds() const` (exported)
+  - called by (2): CvUnit::planBattle, CvUnit::verifyRoundsValid
+- **466** `CvBattleDefinition::clearBattleRounds()` (exported)
+  - called by (1): CvUnit::planBattle
+- **471** `CvBattleDefinition::getBattleRound(int)` (exported)
+  - calls: CvBattleDefinition::checkBattleRound
+  - called by (1): CvUnit::planBattle
+- **477** `CvBattleDefinition::getBattleRound(int) const` (exported)
+  - calls: CvBattleDefinition::checkBattleRound
+  - called by (1): CvUnit::verifyRoundsValid
+- **483** `CvBattleDefinition::addBattleRound(CvBattleRound const&)` (exported)
+- **488** `CvBattleDefinition::setBattleRound(int, CvBattleRound const&)` (exported)
+  - called by (1): CvUnit::planBattle
+- **493** `CvBattleDefinition::checkBattleTimeType(BattleTimeTypes) const` (exported)
+  - called by (3): CvBattleDefinition::addDamage, CvBattleDefinition::getDamage, CvBattleDefinition::setDamage
+- **498** `CvBattleDefinition::checkBattleRound(int) const` (exported)
+  - called by (2): CvBattleDefinition::getBattleRound(int), CvBattleDefinition::getBattleRound(int) const
+- **508** `CvAirMissionDefinition::CvAirMissionDefinition()` (exported)
+  - calls: CvMissionDefinition::CvMissionDefinition
+  - called by (14): CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::doActiveDefense, CvUnit::fighterEngage, CvUnit::nuke, CvUnit::paradrop, CvUnit::recon …
+- **519** `CvAirMissionDefinition::CvAirMissionDefinition(CvAirMissionDefinition const&)` (exported)
+  - calls: CvMissionDefinition::CvMissionDefinition
+- **532** `CvAirMissionDefinition::getDamage(BattleUnitTypes) const` (exported)
+  - calls: checkBattleUnitType
+  - called by (3): CvAirMissionDefinition::isDead, CvUnit::fighterEngage, CvUnit::updateAirCombat
+- **538** `CvAirMissionDefinition::setDamage(BattleUnitTypes, int)` (exported)
+  - calls: checkBattleUnitType
+  - called by (12): CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::doActiveDefense, CvUnit::nuke, CvUnit::paradrop, CvUnit::recon, CvUnit::resolveAirCombat, CvUnit::updateAirStrike
+- **544** `CvAirMissionDefinition::isDead(BattleUnitTypes) const` (exported)
+  - calls: checkBattleUnitType, CvMissionDefinition::getUnit, CvAirMissionDefinition::getDamage, CvUnit::maxHitPoints [CvUnit.cpp]
+- **554** `PBGameSetupData::PBGameSetupData()` (exported)

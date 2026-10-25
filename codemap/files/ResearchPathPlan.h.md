@@ -1,0 +1,67 @@
+# ResearchPathPlan.h
+
+Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **77** `ResearchPathPlan::Planner<CvResearchGraph>::Planner<class CvResearchGraph>(CvResearchGraph const&, int)`
+  - calls: CvResearchGraph::numTechs [CvResearchGraph.h]
+  - called by (4): CvGameTextMgr::setTechTradeHelp, CvPlayer::findPathLength, CvPlayer::pushResearch, CvPlayerAI::AI_bestTech
+- **81** `ResearchPathPlan::Planner<CvResearchGraph>::reachable(int)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::resolve
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::measure, ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&)
+- **87** `ResearchPathPlan::Planner<CvResearchGraph>::steps(int)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::measure
+  - called by (2): CvPlayer::findPathLength, CvPlayerAI::AI_bestTech
+- **93** `ResearchPathPlan::Planner<CvResearchGraph>::cost(int)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::measure
+  - called by (2): CvPlayer::findPathLength, CvPlayerAI::AI_bestTech
+- **105** `ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&)
+  - called by (2): CvGameTextMgr::setTechTradeHelp, CvPlayer::pushResearch
+- **119** `ResearchPathPlan::Planner<CvResearchGraph>::has(std::vector<unsigned int, std::allocator<unsigned int>> const&, int)` (static)
+  - called by (5): ResearchPathPlan::Planner<CvResearchGraph>::emit, ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::search, ResearchPathPlan::Planner<CvResearchGraph>::treeSteps, ResearchPathPlan::Planner<CvResearchGraph>::visit
+- **124** `ResearchPathPlan::Planner<CvResearchGraph>::set(std::vector<unsigned int, std::allocator<unsigned int>>&, int)` (static)
+  - called by (4): ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::emit, ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::visit
+- **129** `ResearchPathPlan::Planner<CvResearchGraph>::lowestBit(unsigned int)` (static)
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::marginal, ResearchPathPlan::Planner<CvResearchGraph>::search
+- **138** `ResearchPathPlan::Planner<CvResearchGraph>::closure(int) const`
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::visit
+- **139** `ResearchPathPlan::Planner<CvResearchGraph>::forced(int) const`
+  - called by (3): ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&), ResearchPathPlan::Planner<CvResearchGraph>::search
+- **142** `ResearchPathPlan::Planner<CvResearchGraph>::merge(std::vector<unsigned int, std::allocator<unsigned int>>&, unsigned int const*) const`
+  - called by (3): ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::search
+- **151** `ResearchPathPlan::Planner<CvResearchGraph>::marginal(std::vector<unsigned int, std::allocator<unsigned int>> const&, unsigned int const*, __int64&, int&) const`
+  - calls: CvResearchGraph::cost [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::lowestBit
+  - called by (4): ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&), ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::search, ResearchPathPlan::Planner<CvResearchGraph>::visit
+- **163** `ResearchPathPlan::Planner<CvResearchGraph>::costOf(std::vector<int, std::allocator<int>> const&) const`
+  - calls: CvResearchGraph::cost [CvResearchGraph.h]
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::measure, ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&)
+- **175** `ResearchPathPlan::Planner<CvResearchGraph>::resolve(int)`
+  - calls: CvResearchGraph::satisfied [CvResearchGraph.h], CvResearchGraph::researchable [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::set, CvResearchGraph::numAndPrereqs [CvResearchGraph.h], CvResearchGraph::andPrereq [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::closure, ResearchPathPlan::Planner<CvResearchGraph>::merge, CvResearchGraph::numOrPrereqs [CvResearchGraph.h], CvResearchGraph::orPrereq [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::has, ResearchPathPlan::Planner<CvResearchGraph>::marginal
+  - called by (5): ResearchPathPlan::Planner<CvResearchGraph>::alternatives, ResearchPathPlan::Planner<CvResearchGraph>::known, ResearchPathPlan::Planner<CvResearchGraph>::reachable, ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::visit
+- **277** `ResearchPathPlan::Planner<CvResearchGraph>::known(int)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::resolve
+  - called by (5): ResearchPathPlan::Planner<CvResearchGraph>::alternatives, ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::emit, ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&), ResearchPathPlan::Planner<CvResearchGraph>::visit
+- **284** `ResearchPathPlan::Planner<CvResearchGraph>::alternatives(int, std::vector<int, std::allocator<int>>&, bool&, bool&)`
+  - calls: CvResearchGraph::numOrPrereqs [CvResearchGraph.h], CvResearchGraph::orPrereq [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::known
+  - called by (3): ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::emit, ResearchPathPlan::Planner<CvResearchGraph>::search
+- **313** `ResearchPathPlan::Planner<CvResearchGraph>::computeForced(int)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::known, ResearchPathPlan::Planner<CvResearchGraph>::set, CvResearchGraph::numAndPrereqs [CvResearchGraph.h], CvResearchGraph::andPrereq [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::forced, ResearchPathPlan::Planner<CvResearchGraph>::merge, ResearchPathPlan::Planner<CvResearchGraph>::alternatives
+  - called by (3): ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&), ResearchPathPlan::Planner<CvResearchGraph>::search
+- **355** `ResearchPathPlan::Planner<CvResearchGraph>::treeSteps(int, std::vector<unsigned int, std::allocator<unsigned int>> const&)`
+  - calls: CvResearchGraph::satisfied [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::has, CvResearchGraph::numAndPrereqs [CvResearchGraph.h], CvResearchGraph::andPrereq [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::treeSteps, CvResearchGraph::numOrPrereqs [CvResearchGraph.h], CvResearchGraph::orPrereq [CvResearchGraph.h]
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::treeSteps, ResearchPathPlan::Planner<CvResearchGraph>::visit
+- **399** `ResearchPathPlan::Planner<CvResearchGraph>::visit(int, std::vector<unsigned int, std::allocator<unsigned int>>&, std::vector<int, std::allocator<int>>&, bool)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::has, ResearchPathPlan::Planner<CvResearchGraph>::known, CvResearchGraph::numAndPrereqs [CvResearchGraph.h], CvResearchGraph::andPrereq [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::visit, CvResearchGraph::numOrPrereqs [CvResearchGraph.h], CvResearchGraph::orPrereq [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::resolve, ResearchPathPlan::Planner<CvResearchGraph>::treeSteps, ResearchPathPlan::Planner<CvResearchGraph>::closure, ResearchPathPlan::Planner<CvResearchGraph>::marginal, ResearchPathPlan::Planner<CvResearchGraph>::set
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&), ResearchPathPlan::Planner<CvResearchGraph>::visit
+- **464** `ResearchPathPlan::Planner<CvResearchGraph>::search(std::vector<unsigned int, std::allocator<unsigned int>> const&, __int64, __int64&, std::vector<unsigned int, std::allocator<unsigned int>>&, bool&)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::lowestBit, ResearchPathPlan::Planner<CvResearchGraph>::alternatives, ResearchPathPlan::Planner<CvResearchGraph>::has, ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::forced, ResearchPathPlan::Planner<CvResearchGraph>::marginal, ResearchPathPlan::Planner<CvResearchGraph>::merge, ResearchPathPlan::Planner<CvResearchGraph>::search
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&), ResearchPathPlan::Planner<CvResearchGraph>::search
+- **569** `ResearchPathPlan::Planner<CvResearchGraph>::emit(int, std::vector<unsigned int, std::allocator<unsigned int>> const&, std::vector<unsigned int, std::allocator<unsigned int>>&, std::vector<int, std::allocator<int>>&)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::has, ResearchPathPlan::Planner<CvResearchGraph>::known, ResearchPathPlan::Planner<CvResearchGraph>::set, CvResearchGraph::numAndPrereqs [CvResearchGraph.h], CvResearchGraph::andPrereq [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::emit, ResearchPathPlan::Planner<CvResearchGraph>::alternatives
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::emit, ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&)
+- **611** `ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::reachable, ResearchPathPlan::Planner<CvResearchGraph>::known, ResearchPathPlan::Planner<CvResearchGraph>::visit, ResearchPathPlan::Planner<CvResearchGraph>::costOf, ResearchPathPlan::Planner<CvResearchGraph>::computeForced, ResearchPathPlan::Planner<CvResearchGraph>::forced, ResearchPathPlan::Planner<CvResearchGraph>::marginal, ResearchPathPlan::Planner<CvResearchGraph>::search, ResearchPathPlan::Planner<CvResearchGraph>::emit
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::measure, ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&)
+- **669** `ResearchPathPlan::Planner<CvResearchGraph>::measure(int)`
+  - calls: ResearchPathPlan::Planner<CvResearchGraph>::reachable, ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&, bool&), ResearchPathPlan::Planner<CvResearchGraph>::costOf
+  - called by (2): ResearchPathPlan::Planner<CvResearchGraph>::cost, ResearchPathPlan::Planner<CvResearchGraph>::steps

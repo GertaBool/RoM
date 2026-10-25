@@ -1,0 +1,34 @@
+{
+  "format": 1,
+  "changes_sha256": "eae435f5444548b2d0e671acc40bf8b2e3dffdae4c1e7b8b7db4b7621e8e94a2",
+  "assets": [
+    {
+      "path": "Assets/Art/Interface/Buttons/CoffeeChain/beans.dds",
+      "sha256": "320c4a433143bd538477d204925deb10307c1552d5fc30e776e4057880cb92ed"
+    },
+    {
+      "path": "Assets/Art/Interface/Buttons/CoffeeChain/beans.png",
+      "sha256": "05f5def0957185f3cc40526b9971749aeb576d1046d041b0c6e8ef40078fa369"
+    },
+    {
+      "path": "Assets/Art/Interface/Buttons/CoffeeChain/roasted.dds",
+      "sha256": "5faceabedc6cfa717728291a6e3730896f56a7453fd804bb276261dd7150df53"
+    },
+    {
+      "path": "Assets/Art/Interface/Buttons/CoffeeChain/roasted.png",
+      "sha256": "3c2bd0b408db640ca19ac040ba2a9f6e40b9f905e07b0bf17e5297706f246186"
+    },
+    {
+      "path": "Assets/Art/Interface/Buttons/CoffeeChain/roastery.dds",
+      "sha256": "775280bed6340e4658c864fabc4866b1b9bd72ccf0f29ecfa6042ba5c6d17979"
+    },
+    {
+      "path": "Assets/Art/Interface/Buttons/CoffeeChain/roastery.png",
+      "sha256": "2a4f756031989b6836367ac681b5b121e99773aadcd956026bb044105cb080c9"
+    },
+    {
+      "path": "Assets/XML/Text/CIV4GameText_CoffeeChain.xml",
+      "sha256": "8a5227082169ca1b2791ab86fd2920aa5d17a552ffcacf4257c157f68ad57e16"
+    }
+  ]
+}

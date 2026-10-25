@@ -1,0 +1,52 @@
+# CvDLLEntityIFaceBase.h
+
+Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **24** `CvDLLEntityIFaceBase::removeEntity(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::removeEntity
+- **26** `CvDLLEntityIFaceBase::setup(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::setup
+- **27** `CvDLLEntityIFaceBase::setVisible(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::setVisible
+- **28** `CvDLLEntityIFaceBase::createCityEntity(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::createCityEntity
+- **29** `CvDLLEntityIFaceBase::createUnitEntity(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::createUnitEntity
+- **30** `CvDLLEntityIFaceBase::destroyEntity(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::destroyEntity
+- **31** `CvDLLEntityIFaceBase::updatePosition(…)` (virtual; declared, not defined in the source)
+  - called by (3): CvPlot::updateFeatureSymbol, CvPlot::updateRiverSymbol, CvPlot::updateRouteSymbol
+- **32** `CvDLLEntityIFaceBase::setupFloodPlains(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvPlot::updateRiverSymbolArt
+- **34** `CvDLLEntityIFaceBase::IsSelected(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::IsSelected
+- **35** `CvDLLEntityIFaceBase::PlayAnimation(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::PlayAnimation
+- **36** `CvDLLEntityIFaceBase::StopAnimation(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::StopAnimation
+- **38** `CvDLLEntityIFaceBase::NotifyEntity(…)` (virtual; declared, not defined in the source)
+  - called by (2): CvDLLEntity::NotifyEntity, CvUnit::NotifyEntity
+- **39** `CvDLLEntityIFaceBase::MoveTo(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::MoveTo
+- **40** `CvDLLEntityIFaceBase::QueueMove(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::QueueMove
+- **41** `CvDLLEntityIFaceBase::ExecuteMove(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::ExecuteMove
+- **42** `CvDLLEntityIFaceBase::SetPosition(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::SetPosition
+- **43** `CvDLLEntityIFaceBase::AddMission(…)` (virtual; declared, not defined in the source)
+  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
+- **44** `CvDLLEntityIFaceBase::RemoveUnitFromBattle(…)` (virtual; declared, not defined in the source)
+  - called by (6): CvUnit::airCircle, CvUnit::kill, CvUnit::reloadEntity, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnit::~CvUnit
+- **45** `CvDLLEntityIFaceBase::showPromotionGlow(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvUnit::setPromotionReady
+- **46** `CvDLLEntityIFaceBase::updateEnemyGlow(…)` (virtual; declared, not defined in the source)
+  - called by (3): CvGame::updateUnitEnemyGlow, CvPlayer::doWarnings, CvUnit::setXY
+- **47** `CvDLLEntityIFaceBase::updatePromotionLayers(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvUnit::setHasPromotion
+- **48** `CvDLLEntityIFaceBase::updateGraphicEra(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvPlayer::setCurrentEra
+- **49** `CvDLLEntityIFaceBase::SetSiegeTower(…)` (virtual; declared, not defined in the source)
+  - called by (1): CvDLLEntity::SetSiegeTower
+- **50** `CvDLLEntityIFaceBase::GetSiegeTower(…)` (virtual; declared, not defined in the source)
+  - called by (2): CvDLLEntity::GetSiegeTower, CvUnit::planBattle

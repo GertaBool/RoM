@@ -1,0 +1,1480 @@
+# CyCity.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **14** `CyCity::CyCity()`
+- **19** `CyCity::CyCity(CvCity*)` (exported)
+  - called by (53): CvCity::canConstruct, CvCity::canCreate, CvCity::canMaintain, CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const, CvCity::doCulture, CvCity::doGreatPeople, CvCity::doGrowth, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doProduction, CvCity::doReligion, CvCityAI::AI_chooseProduction …
+- **24** `CyCity::kill()` (Python: kill)
+  - calls: CvCity::kill [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **35** `CyCity::getRevolutionIndex()` (Python: getRevolutionIndex)
+  - calls: CvCity::getRevolutionIndex [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **43** `CyCity::setRevolutionIndex(int)` (Python: setRevolutionIndex)
+  - calls: CvCity::setRevolutionIndex [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **49** `CyCity::changeRevolutionIndex(int)` (Python: changeRevolutionIndex)
+  - calls: CvCity::changeRevolutionIndex [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **55** `CyCity::getLocalRevIndex()` (Python: getLocalRevIndex)
+  - calls: CvCity::getLocalRevIndex [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **63** `CyCity::setLocalRevIndex(int)` (Python: setLocalRevIndex)
+  - calls: CvCity::setLocalRevIndex [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **69** `CyCity::changeLocalRevIndex(int)` (Python: changeLocalRevIndex)
+  - calls: CvCity::changeLocalRevIndex [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **75** `CyCity::getRevIndexAverage() const` (Python: getRevIndexAverage)
+  - calls: CvCity::getRevIndexAverage [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **83** `CyCity::setRevIndexAverage(int)` (Python: setRevIndexAverage)
+  - calls: CvCity::setRevIndexAverage [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **89** `CyCity::updateRevIndexAverage()` (Python: updateRevIndexAverage)
+  - calls: CvCity::updateRevIndexAverage [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **95** `CyCity::getReinforcementCounter()` (Python: getReinforcementCounter)
+  - calls: CvCity::getReinforcementCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **103** `CyCity::setReinforcementCounter(int)` (Python: setReinforcementCounter)
+  - calls: CvCity::setReinforcementCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **109** `CyCity::changeReinforcementCounter(int)` (Python: changeReinforcementCounter)
+  - calls: CvCity::changeReinforcementCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **115** `CyCity::getRevolutionCounter()` (Python: getRevolutionCounter)
+  - calls: CvCity::getRevolutionCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **123** `CyCity::setRevolutionCounter(int)` (Python: setRevolutionCounter)
+  - calls: CvCity::setRevolutionCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **129** `CyCity::changeRevolutionCounter(int)` (Python: changeRevolutionCounter)
+  - calls: CvCity::changeRevolutionCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **135** `CyCity::getRevIndexHappinessVal()` (Python: getRevIndexHappinessVal)
+  - calls: CvCity::getRevIndexHappinessVal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **143** `CyCity::getRevIndexDistanceVal()` (Python: getRevIndexDistanceVal)
+  - calls: CvCity::getRevIndexDistanceVal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **151** `CyCity::getRevIndexColonyVal()` (Python: getRevIndexColonyVal)
+  - calls: CvCity::getRevIndexColonyVal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **159** `CyCity::getRevIndexReligionVal()` (Python: getRevIndexReligionVal)
+  - calls: CvCity::getRevIndexReligionVal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **167** `CyCity::getRevIndexNationalityVal()` (Python: getRevIndexNationalityVal)
+  - calls: CvCity::getRevIndexNationalityVal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **175** `CyCity::getRevIndexHealthVal()` (Python: getRevIndexHealthVal)
+  - calls: CvCity::getRevIndexHealthVal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **183** `CyCity::getRevIndexGarrisonVal()` (Python: getRevIndexGarrisonVal)
+  - calls: CvCity::getRevIndexGarrisonVal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **191** `CyCity::getRevIndexDisorderVal()` (Python: getRevIndexDisorderVal)
+  - calls: CvCity::getRevIndexDisorderVal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **199** `CyCity::isRecentlyAcquired()` (Python: isRecentlyAcquired)
+  - calls: CvCity::isRecentlyAcquired [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **210** `CyCity::createGreatPeople(int, bool, bool)` (Python: createGreatPeople)
+  - calls: CvCity::createGreatPeople [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **216** `CyCity::doTask(int, int, int, bool)` (Python: doTask)
+  - calls: CvCity::doTask [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **222** `CyCity::chooseProduction(int, int, int, bool, bool)` (Python: chooseProduction)
+  - calls: CvCity::chooseProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **228** `CyCity::getCityPlotIndex(CyPlot*)` (Python: getCityPlotIndex)
+  - calls: CvCity::getCityPlotIndex [CvCity.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyCityPythonInterface1
+- **233** `CyCity::getCityIndexPlot(int)` (Python: getCityIndexPlot)
+  - calls: CvCity::getCityIndexPlot [CvCity.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyCityPythonInterface1
+- **238** `CyCity::canWork(CyPlot*)` (Python: canWork)
+  - calls: CvCity::canWork [CvCity.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyCityPythonInterface1
+- **243** `CyCity::clearWorkingOverride(int)` (Python: clearWorkingOverride)
+  - calls: CvCity::clearWorkingOverride [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **249** `CyCity::countNumImprovedPlots()` (Python: countNumImprovedPlots)
+  - calls: CvCity::countNumImprovedPlots [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **254** `CyCity::countNumWaterPlots()` (Python: countNumWaterPlots)
+  - calls: CvCity::countNumWaterPlots [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **259** `CyCity::countNumRiverPlots()` (Python: countNumRiverPlots)
+  - calls: CvCity::countNumRiverPlots [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **264** `CyCity::findPopulationRank()` (Python: findPopulationRank)
+  - calls: CvCity::findPopulationRank [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **269** `CyCity::findBaseYieldRateRank(int)` (Python: findBaseYieldRateRank)
+  - calls: CvCity::findBaseYieldRateRank [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **274** `CyCity::findYieldRateRank(int)` (Python: findYieldRateRank)
+  - calls: CvCity::findYieldRateRank [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **279** `CyCity::findCommerceRateRank(int)` (Python: findCommerceRateRank)
+  - calls: CvCity::findCommerceRateRank [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **289** `CyCity::isForceObsoleteUnitClassAvailable(int)` (Python: isForceObsoleteUnitClassAvailable)
+  - calls: CvCity::isForceObsoleteUnitClassAvailable [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **294** `CyCity::isPlotTrainable(int, bool, bool)` (Python: isPlotTrainable)
+  - calls: CvCity::isPlotTrainable [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **302** `CyCity::allUpgradesAvailable(int, int)` (Python: allUpgradesAvailable)
+  - calls: CvCity::allUpgradesAvailable [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **307** `CyCity::isWorldWondersMaxed()` (Python: isWorldWondersMaxed)
+  - calls: CvCity::isWorldWondersMaxed [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **312** `CyCity::isTeamWondersMaxed()` (Python: isTeamWondersMaxed)
+  - calls: CvCity::isTeamWondersMaxed [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **317** `CyCity::isNationalWondersMaxed()` (Python: isNationalWondersMaxed)
+  - calls: CvCity::isNationalWondersMaxed [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **322** `CyCity::isBuildingsMaxed()` (Python: isBuildingsMaxed)
+  - calls: CvCity::isBuildingsMaxed [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **327** `CyCity::canTrain(int, bool, bool)` (Python: canTrain)
+  - calls: CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **332** `CyCity::canConstruct(int, bool, bool, bool)` (Python: canConstruct)
+  - calls: CvCity::canConstruct [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **337** `CyCity::canCreate(int, bool, bool)` (Python: canCreate)
+  - calls: CvCity::canCreate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **342** `CyCity::canMaintain(int, bool)` (Python: canMaintain)
+  - calls: CvCity::canMaintain [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **347** `CyCity::canJoin()` (Python: canJoin)
+  - calls: CvCity::canJoin [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **352** `CyCity::getFoodTurnsLeft()` (Python: getFoodTurnsLeft)
+  - calls: CvCity::getFoodTurnsLeft [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **357** `CyCity::isProduction()` (Python: isProduction)
+  - calls: CvCity::isProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **362** `CyCity::isProductionLimited()` (Python: isProductionLimited)
+  - calls: CvCity::isProductionLimited [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **367** `CyCity::isProductionUnit()` (Python: isProductionUnit)
+  - calls: CvCity::isProductionUnit [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **372** `CyCity::isProductionBuilding()` (Python: isProductionBuilding)
+  - calls: CvCity::isProductionBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **377** `CyCity::isProductionProject()` (Python: isProductionProject)
+  - calls: CvCity::isProductionProject [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **382** `CyCity::isProductionProcess()` (Python: isProductionProcess)
+  - calls: CvCity::isProductionProcess [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **387** `CyCity::canContinueProduction(OrderData)` (Python: canContinueProduction)
+  - calls: CvCity::canContinueProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **392** `CyCity::getProductionExperience(int)` (Python: getProductionExperience)
+  - calls: CvCity::getProductionExperience [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **397** `CyCity::addProductionExperience(CyUnit*, bool)` (Python: addProductionExperience)
+  - calls: CvCity::addProductionExperience [CvCity.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyCityPythonInterface1
+- **403** `CyCity::getProductionUnit()` (Python: getProductionUnit)
+  - calls: CvCity::getProductionUnit [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **408** `CyCity::getProductionUnitAI()` (Python: getProductionUnitAI)
+  - calls: CvCity::getProductionUnitAI [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **413** `CyCity::getProductionBuilding()` (Python: getProductionBuilding)
+  - calls: CvCity::getProductionBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **418** `CyCity::getProductionProject()` (Python: getProductionProject)
+  - calls: CvCity::getProductionProject [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **423** `CyCity::getProductionProcess()` (Python: getProductionProcess)
+  - calls: CvCity::getProductionProcess [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **428** `CyCity::getProductionName()` (Python: getProductionName)
+  - calls: CvCity::getProductionName [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **433** `CyCity::getGeneralProductionTurnsLeft()` (Python: getGeneralProductionTurnsLeft)
+  - calls: CvCity::getGeneralProductionTurnsLeft [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **438** `CyCity::getProductionNameKey()` (Python: getProductionNameKey)
+  - calls: CvCity::getProductionNameKey [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **443** `CyCity::isFoodProduction()` (Python: isFoodProduction)
+  - calls: CvCity::isFoodProduction() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **448** `CyCity::getFirstUnitOrder(int)` (Python: getFirstUnitOrder)
+  - calls: CvCity::getFirstUnitOrder [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **453** `CyCity::getFirstBuildingOrder(int)` (Python: getFirstBuildingOrder)
+  - calls: CvCity::getFirstBuildingOrder [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **458** `CyCity::getFirstProjectOrder(int)` (Python: getFirstProjectOrder)
+  - calls: CvCity::getFirstProjectOrder [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **463** `CyCity::getNumTrainUnitAI(int)`
+  - calls: CvCity::getNumTrainUnitAI [CvCity.cpp]
+- **468** `CyCity::isUnitFoodProduction(int)` (Python: isUnitFoodProduction)
+  - calls: CvCity::isFoodProduction(UnitTypes) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **473** `CyCity::getProduction()` (Python: getProduction)
+  - calls: CvCity::getProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **478** `CyCity::getProductionNeeded()` (Python: getProductionNeeded)
+  - calls: CvCity::getProductionNeeded() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **483** `CyCity::getProductionTurnsLeft()` (Python: getProductionTurnsLeft)
+  - calls: CvCity::getProductionTurnsLeft() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **488** `CyCity::getUnitProductionTurnsLeft(int, int)` (Python: getUnitProductionTurnsLeft)
+  - calls: CvCity::getProductionTurnsLeft(UnitTypes, int) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **493** `CyCity::getBuildingProductionTurnsLeft(int, int)` (Python: getBuildingProductionTurnsLeft)
+  - calls: CvCity::getProductionTurnsLeft(BuildingTypes, int) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **498** `CyCity::getProjectProductionTurnsLeft(int, int)` (Python: getProjectProductionTurnsLeft)
+  - calls: CvCity::getProductionTurnsLeft(ProjectTypes, int) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **503** `CyCity::setProduction(int)` (Python: setProduction)
+  - calls: CvCity::setProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **509** `CyCity::changeProduction(int)` (Python: changeProduction)
+  - calls: CvCity::changeProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **515** `CyCity::getProductionModifier()` (Python: getProductionModifier, getProjectProductionModifier)
+  - calls: CvCity::getProductionModifier() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **520** `CyCity::getCurrentProductionDifference(bool, bool)` (Python: getCurrentProductionDifference)
+  - calls: CvCity::getCurrentProductionDifference [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **525** `CyCity::getUnitProductionModifier(int)` (Python: getUnitProductionModifier)
+  - calls: CvCity::getProductionModifier(UnitTypes) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **530** `CyCity::getBuildingProductionModifier(int)` (Python: getBuildingProductionModifier)
+  - calls: CvCity::getProductionModifier(BuildingTypes) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **535** `CyCity::getProjectProductionModifier(int)`
+  - calls: CvCity::getProductionModifier(ProjectTypes) const [CvCity.cpp]
+- **540** `CyCity::getExtraProductionDifference(int)` (Python: getExtraProductionDifference)
+  - calls: CvCity::getExtraProductionDifference(int) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **545** `CyCity::canHurry(int, bool)` (Python: canHurry)
+  - calls: CvCity::canHurry [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **550** `CyCity::hurry(int)` (Python: hurry)
+  - calls: CvCity::hurry [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **556** `CyCity::getConscriptUnit()` (Python: getConscriptUnit)
+  - calls: CvCity::getConscriptUnit [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **561** `CyCity::getConscriptPopulation()` (Python: getConscriptPopulation)
+  - calls: CvCity::getConscriptPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **566** `CyCity::conscriptMinCityPopulation()` (Python: conscriptMinCityPopulation)
+  - calls: CvCity::conscriptMinCityPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **571** `CyCity::flatConscriptAngerLength()` (Python: flatConscriptAngerLength)
+  - calls: CvCity::flatConscriptAngerLength [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **576** `CyCity::canConscript()` (Python: canConscript)
+  - calls: CvCity::canConscript [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **581** `CyCity::conscript()` (Python: conscript)
+  - calls: CvCity::conscript [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **587** `CyCity::getBonusHealth(int)` (Python: getBonusHealth)
+  - calls: CvCity::getBonusHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **592** `CyCity::getBonusHappiness(int)` (Python: getBonusHappiness)
+  - calls: CvCity::getBonusHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **597** `CyCity::getBonusPower(int, bool)` (Python: getBonusPower)
+  - calls: CvCity::getBonusPower [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **602** `CyCity::getBonusYieldRateModifier(int, int)` (Python: getBonusYieldRateModifier)
+  - calls: CvCity::getBonusYieldRateModifier(YieldTypes, BonusTypes) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **607** `CyCity::getHandicapType()` (Python: getHandicapType)
+  - calls: CvCity::getHandicapType [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **612** `CyCity::getCivilizationType()` (Python: getCivilizationType)
+  - calls: CvCity::getCivilizationType [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **617** `CyCity::getPersonalityType()` (Python: getPersonalityType)
+  - calls: CvCity::getPersonalityType [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **622** `CyCity::getArtStyleType()` (Python: getArtStyleType)
+  - calls: CvCity::getArtStyleType [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **627** `CyCity::getCitySizeType()` (Python: getCitySizeType)
+  - calls: CvCity::getCitySizeType [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **632** `CyCity::hasTrait(int)` (Python: hasTrait)
+  - calls: CvCity::hasTrait [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **637** `CyCity::isBarbarian()` (Python: isBarbarian)
+  - calls: CvCity::isBarbarian [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **642** `CyCity::isHuman()` (Python: isHuman)
+  - calls: CvCity::isHuman [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **647** `CyCity::isVisible(int, bool)` (Python: isVisible)
+  - calls: CvCity::isVisible [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **652** `CyCity::isCapital()` (Python: isCapital)
+  - calls: CvCity::isCapital [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **657** `CyCity::isCoastal(int)` (Python: isCoastal)
+  - calls: CvCity::isCoastal [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **662** `CyCity::isDisorder()` (Python: isDisorder)
+  - calls: CvCity::isDisorder [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **667** `CyCity::isHolyCityByType(int)` (Python: isHolyCityByType)
+  - calls: CvCity::isHolyCity(ReligionTypes) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **672** `CyCity::isHolyCity()` (Python: isHolyCity)
+  - calls: CvCity::isHolyCity() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **677** `CyCity::isHeadquartersByType(int)` (Python: isHeadquartersByType)
+  - calls: CvCity::isHeadquarters(CorporationTypes) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **682** `CyCity::isHeadquarters()` (Python: isHeadquarters)
+  - calls: CvCity::isHeadquarters() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **687** `CyCity::getOvercrowdingPercentAnger(int)` (Python: getOvercrowdingPercentAnger)
+  - calls: CvCity::getOvercrowdingPercentAnger [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **692** `CyCity::getNoMilitaryPercentAnger()` (Python: getNoMilitaryPercentAnger)
+  - calls: CvCity::getNoMilitaryPercentAnger [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **697** `CyCity::getCulturePercentAnger()` (Python: getCulturePercentAnger)
+  - calls: CvCity::getCulturePercentAnger [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **702** `CyCity::getReligionPercentAnger()` (Python: getReligionPercentAnger)
+  - calls: CvCity::getReligionPercentAnger [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **707** `CyCity::getWarWearinessPercentAnger()` (Python: getWarWearinessPercentAnger)
+  - calls: CvCity::getWarWearinessPercentAnger [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **717** `CyCity::getRevRequestPercentAnger()` (Python: getRevRequestPercentAnger)
+  - calls: CvCity::getRevRequestPercentAnger [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **722** `CyCity::getRevIndexPercentAnger()` (Python: getRevIndexPercentAnger)
+  - calls: CvCity::getRevIndexPercentAnger [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **730** `CyCity::getLargestCityHappiness()` (Python: getLargestCityHappiness)
+  - calls: CvCity::getLargestCityHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **735** `CyCity::unhappyLevel(int)` (Python: unhappyLevel)
+  - calls: CvCity::unhappyLevel [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **740** `CyCity::happyLevel()` (Python: happyLevel)
+  - calls: CvCity::happyLevel [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **745** `CyCity::angryPopulation(int)` (Python: angryPopulation)
+  - calls: CvCity::angryPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **750** `CyCity::totalFreeSpecialists()` (Python: totalFreeSpecialists)
+  - calls: CvCity::totalFreeSpecialists [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **755** `CyCity::extraFreeSpecialists()` (Python: extraFreeSpecialists)
+  - calls: CvCity::extraFreeSpecialists [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **760** `CyCity::extraPopulation()` (Python: extraPopulation)
+  - calls: CvCity::extraPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **765** `CyCity::extraSpecialists()` (Python: extraSpecialists)
+  - calls: CvCity::extraSpecialists [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **770** `CyCity::unhealthyPopulation(bool, int)` (Python: unhealthyPopulation)
+  - calls: CvCity::unhealthyPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **775** `CyCity::totalGoodBuildingHealth()` (Python: totalGoodBuildingHealth)
+  - calls: CvCity::totalGoodBuildingHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **780** `CyCity::totalBadBuildingHealth()` (Python: totalBadBuildingHealth)
+  - calls: CvCity::totalBadBuildingHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **785** `CyCity::goodHealth()` (Python: goodHealth)
+  - calls: CvCity::goodHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **790** `CyCity::badHealth(bool)` (Python: badHealth)
+  - calls: CvCity::badHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **795** `CyCity::healthRate(bool, int)` (Python: healthRate)
+  - calls: CvCity::healthRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **800** `CyCity::foodConsumption(bool, int)` (Python: foodConsumption)
+  - calls: CvCity::foodConsumption [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **805** `CyCity::foodDifference(bool)` (Python: foodDifference)
+  - calls: CvCity::foodDifference [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **810** `CyCity::growthThreshold()` (Python: growthThreshold)
+  - calls: CvCity::growthThreshold [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **815** `CyCity::productionLeft()` (Python: productionLeft)
+  - calls: CvCity::productionLeft [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **820** `CyCity::hurryCost(bool)` (Python: hurryCost)
+  - calls: CvCity::hurryCost [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **825** `CyCity::hurryGold(int)` (Python: hurryGold)
+  - calls: CvCity::hurryGold [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **830** `CyCity::hurryPopulation(int)` (Python: hurryPopulation)
+  - calls: CvCity::hurryPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **835** `CyCity::hurryProduction(int)` (Python: hurryProduction)
+  - calls: CvCity::hurryProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **840** `CyCity::flatHurryAngerLength()` (Python: flatHurryAngerLength)
+  - calls: CvCity::flatHurryAngerLength [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **845** `CyCity::hurryAngerLength(int)` (Python: hurryAngerLength)
+  - calls: CvCity::hurryAngerLength [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **850** `CyCity::maxHurryPopulation()` (Python: maxHurryPopulation)
+  - calls: CvCity::maxHurryPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **855** `CyCity::cultureDistance(int, int)` (Python: cultureDistance)
+  - calls: CvCity::cultureDistance [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **860** `CyCity::cultureStrength(int)` (Python: cultureStrength)
+  - calls: CvCity::cultureStrength [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **865** `CyCity::cultureGarrison(int)` (Python: cultureGarrison)
+  - calls: CvCity::cultureGarrison [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **870** `CyCity::getNumBuilding(int)` (Python: getNumBuilding)
+  - calls: CvCity::getNumBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **875** `CyCity::isHasBuilding(int)` (Python: isHasBuilding)
+  - calls: CvCity::getNumBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **887** `CyCity::getNumActiveBuilding(int)` (Python: getNumActiveBuilding)
+  - calls: CvCity::getNumActiveBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **892** `CyCity::getID()` (Python: getID)
+  - calls: CvCity::getID [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **897** `CyCity::getX()` (Python: getX)
+  - calls: CvCity::getX_INLINE [CvCity.h]
+  - called by (1): CyCityPythonInterface1
+- **902** `CyCity::getY()` (Python: getY)
+  - calls: CvCity::getY_INLINE [CvCity.h]
+  - called by (1): CyCityPythonInterface1
+- **907** `CyCity::at(int, int)` (Python: at)
+  - calls: CvCity::at(int, int) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **912** `CyCity::atPlot(CyPlot*)` (Python: atPlot)
+  - calls: CvCity::at(CvPlot*) const [CvCity.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyCityPythonInterface1
+- **917** `CyCity::plot()` (Python: plot)
+  - calls: CvCity::plot [CvCity.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyCityPythonInterface1
+- **922** `CyCity::isConnectedTo(CyCity*)` (Python: isConnectedTo)
+  - calls: CvCity::isConnectedTo [CvCity.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyCityPythonInterface1
+- **927** `CyCity::isConnectedToCapital(int)` (Python: isConnectedToCapital)
+  - calls: CvCity::isConnectedToCapital [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **932** `CyCity::area()` (Python: area)
+  - calls: CvCity::area [CvCity.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyArea::CyArea(CvArea*) [CyArea.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyCityPythonInterface1
+- **937** `CyCity::waterArea()` (Python: waterArea)
+  - calls: CvCity::waterArea [CvCity.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyArea::CyArea(CvArea*) [CyArea.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyCityPythonInterface1
+- **942** `CyCity::getRallyPlot()` (Python: getRallyPlot)
+  - calls: CvCity::getRallyPlot [CvCity.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyCityPythonInterface1
+- **947** `CyCity::getGameTurnFounded()` (Python: getGameTurnFounded)
+  - calls: CvCity::getGameTurnFounded [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **952** `CyCity::getGameTurnAcquired()` (Python: getGameTurnAcquired)
+  - calls: CvCity::getGameTurnAcquired [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **957** `CyCity::getPopulation()` (Python: getPopulation)
+  - calls: CvCity::getPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **962** `CyCity::setPopulation(int)` (Python: setPopulation)
+  - calls: CvCity::setPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **968** `CyCity::changePopulation(int)` (Python: changePopulation)
+  - calls: CvCity::changePopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **974** `CyCity::getRealPopulation()` (Python: getRealPopulation)
+  - calls: CvCity::getRealPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **979** `CyCity::getHighestPopulation()` (Python: getHighestPopulation)
+  - calls: CvCity::getHighestPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **984** `CyCity::setHighestPopulation(int)` (Python: setHighestPopulation)
+  - calls: CvCity::setHighestPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **990** `CyCity::getWorkingPopulation()` (Python: getWorkingPopulation)
+  - calls: CvCity::getWorkingPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **995** `CyCity::getSpecialistPopulation()` (Python: getSpecialistPopulation)
+  - calls: CvCity::getSpecialistPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1000** `CyCity::getNumGreatPeople()` (Python: getNumGreatPeople)
+  - calls: CvCity::getNumGreatPeople [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1005** `CyCity::getBaseGreatPeopleRate()` (Python: getBaseGreatPeopleRate)
+  - calls: CvCity::getBaseGreatPeopleRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1010** `CyCity::getGreatPeopleRate()` (Python: getGreatPeopleRate)
+  - calls: CvCity::getGreatPeopleRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1015** `CyCity::getTotalGreatPeopleRateModifier()` (Python: getTotalGreatPeopleRateModifier)
+  - calls: CvCity::getTotalGreatPeopleRateModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1020** `CyCity::changeBaseGreatPeopleRate(int)` (Python: changeBaseGreatPeopleRate)
+  - calls: CvCity::changeBaseGreatPeopleRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1025** `CyCity::getGreatPeopleRateModifier()` (Python: getGreatPeopleRateModifier)
+  - calls: CvCity::getGreatPeopleRateModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1031** `CyCity::getAdditionalGreatPeopleRateByBuilding(int)` (Python: getAdditionalGreatPeopleRateByBuilding)
+  - calls: CvCity::getAdditionalGreatPeopleRateByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **1036** `CyCity::getAdditionalBaseGreatPeopleRateByBuilding(int)` (Python: getAdditionalBaseGreatPeopleRateByBuilding)
+  - calls: CvCity::getAdditionalBaseGreatPeopleRateByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **1041** `CyCity::getAdditionalGreatPeopleRateModifierByBuilding(int)` (Python: getAdditionalGreatPeopleRateModifierByBuilding)
+  - calls: CvCity::getAdditionalGreatPeopleRateModifierByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **1047** `CyCity::getGreatPeopleProgress()` (Python: getGreatPeopleProgress)
+  - calls: CvCity::getGreatPeopleProgress [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1052** `CyCity::changeGreatPeopleProgress(int)` (Python: changeGreatPeopleProgress)
+  - calls: CvCity::changeGreatPeopleProgress [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1058** `CyCity::getNumWorldWonders()` (Python: getNumWorldWonders)
+  - calls: CvCity::getNumWorldWonders [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1063** `CyCity::getNumTeamWonders()` (Python: getNumTeamWonders)
+  - calls: CvCity::getNumTeamWonders [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1068** `CyCity::getNumNationalWonders()` (Python: getNumNationalWonders)
+  - calls: CvCity::getNumNationalWonders [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1073** `CyCity::getNumBuildings()` (Python: getNumBuildings)
+  - calls: CvCity::getNumBuildings [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1078** `CyCity::isGovernmentCenter()` (Python: isGovernmentCenter)
+  - calls: CvCity::isGovernmentCenter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1084** `CyCity::getSavedMaintenanceByBuilding(int) const` (Python: getSavedMaintenanceByBuilding)
+  - calls: CvCity::getSavedMaintenanceByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **1089** `CyCity::getSavedMaintenanceTimes100ByBuilding(int) const` (Python: getSavedMaintenanceTimes100ByBuilding)
+  - calls: CvCity::getSavedMaintenanceTimes100ByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **1095** `CyCity::getMaintenance() const` (Python: getMaintenance)
+  - calls: CvCity::getMaintenance [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1100** `CyCity::getMaintenanceTimes100() const` (Python: getMaintenanceTimes100)
+  - calls: CvCity::getMaintenanceTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1105** `CyCity::calculateDistanceMaintenance() const` (Python: calculateDistanceMaintenance)
+  - calls: CvCity::calculateDistanceMaintenance [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1111** `CyCity::calculateDistanceMaintenanceTimes100() const` (Python: calculateDistanceMaintenanceTimes100)
+  - calls: CvCity::calculateDistanceMaintenanceTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1117** `CyCity::calculateNumCitiesMaintenance() const` (Python: calculateNumCitiesMaintenance)
+  - calls: CvCity::calculateNumCitiesMaintenance [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1122** `CyCity::calculateNumCitiesMaintenanceTimes100() const` (Python: calculateNumCitiesMaintenanceTimes100)
+  - calls: CvCity::calculateNumCitiesMaintenanceTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1127** `CyCity::calculateColonyMaintenance() const` (Python: calculateColonyMaintenance)
+  - calls: CvCity::calculateColonyMaintenance [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1132** `CyCity::calculateColonyMaintenanceTimes100() const` (Python: calculateColonyMaintenanceTimes100)
+  - calls: CvCity::calculateColonyMaintenanceTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1137** `CyCity::calculateCorporationMaintenanceTimes100() const` (Python: calculateCorporationMaintenanceTimes100)
+  - calls: CvCity::calculateCorporationMaintenanceTimes100() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1142** `CyCity::calculateCorporationMaintenance() const` (Python: calculateCorporationMaintenance)
+  - calls: CvCity::calculateCorporationMaintenance [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1147** `CyCity::getMaintenanceModifier()` (Python: getMaintenanceModifier)
+  - calls: CvCity::getMaintenanceModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1152** `CyCity::getWarWearinessModifier()` (Python: getWarWearinessModifier)
+  - calls: CvCity::getWarWearinessModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1157** `CyCity::getHurryAngerModifier()` (Python: getHurryAngerModifier)
+  - calls: CvCity::getHurryAngerModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1162** `CyCity::getEspionageHealthCounter()` (Python: getEspionageHealthCounter)
+  - calls: CvCity::getEspionageHealthCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1167** `CyCity::changeEspionageHealthCounter(int)` (Python: changeEspionageHealthCounter)
+  - calls: CvCity::changeEspionageHealthCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1173** `CyCity::getEspionageHappinessCounter()` (Python: getEspionageHappinessCounter)
+  - calls: CvCity::getEspionageHappinessCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1178** `CyCity::changeEspionageHappinessCounter(int)` (Python: changeEspionageHappinessCounter)
+  - calls: CvCity::changeEspionageHappinessCounter [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1184** `CyCity::changeHealRate(int)` (Python: changeHealRate)
+  - calls: CvCity::changeHealRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1190** `CyCity::getFreshWaterGoodHealth()` (Python: getFreshWaterGoodHealth)
+  - calls: CvCity::getFreshWaterGoodHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1195** `CyCity::getFreshWaterBadHealth()` (Python: getFreshWaterBadHealth)
+  - calls: CvCity::getFreshWaterBadHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1200** `CyCity::getBuildingGoodHealth()` (Python: getBuildingGoodHealth)
+  - calls: CvCity::getBuildingGoodHealth() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1205** `CyCity::getBuildingBadHealth()` (Python: getBuildingBadHealth)
+  - calls: CvCity::getBuildingBadHealth() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1210** `CyCity::getFeatureGoodHealth()` (Python: getFeatureGoodHealth)
+  - calls: CvCity::getFeatureGoodHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1215** `CyCity::getFeatureBadHealth()` (Python: getFeatureBadHealth)
+  - calls: CvCity::getFeatureBadHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1220** `CyCity::getBuildingHealth(int)` (Python: getBuildingHealth)
+  - calls: CvCity::getBuildingHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1226** `CyCity::getAdditionalHealthByBuilding(int)` (Python: getAdditionalHealthByBuilding)
+  - calls: CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1240** `CyCity::getAdditionalGoodHealthByBuilding(int)` (Python: getAdditionalGoodHealthByBuilding)
+  - calls: CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1255** `CyCity::getAdditionalBadHealthByBuilding(int)` (Python: getAdditionalBadHealthByBuilding)
+  - calls: CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1270** `CyCity::getAdditionalSpoiledFoodByBuilding(int)` (Python: getAdditionalSpoiledFoodByBuilding)
+  - calls: CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1285** `CyCity::getAdditionalStarvationByBuilding(int)` (Python: getAdditionalStarvationByBuilding)
+  - calls: CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1301** `CyCity::getPowerGoodHealth()` (Python: getPowerGoodHealth)
+  - calls: CvCity::getPowerGoodHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1306** `CyCity::getPowerBadHealth()` (Python: getPowerBadHealth)
+  - calls: CvCity::getPowerBadHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1311** `CyCity::getBonusGoodHealth()` (Python: getBonusGoodHealth)
+  - calls: CvCity::getBonusGoodHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1316** `CyCity::getBonusBadHealth()` (Python: getBonusBadHealth)
+  - calls: CvCity::getBonusBadHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1321** `CyCity::getMilitaryHappiness()` (Python: getMilitaryHappiness)
+  - calls: CvCity::getMilitaryHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1326** `CyCity::getMilitaryHappinessUnits()` (Python: getMilitaryHappinessUnits)
+  - calls: CvCity::getMilitaryHappinessUnits [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1331** `CyCity::getBuildingGoodHappiness()` (Python: getBuildingGoodHappiness)
+  - calls: CvCity::getBuildingGoodHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1336** `CyCity::getBuildingBadHappiness()` (Python: getBuildingBadHappiness)
+  - calls: CvCity::getBuildingBadHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1341** `CyCity::getBuildingHappiness(int)` (Python: getBuildingHappiness)
+  - calls: CvCity::getBuildingHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1347** `CyCity::getAdditionalHappinessByBuilding(int)` (Python: getAdditionalHappinessByBuilding)
+  - calls: CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1361** `CyCity::getAdditionalGoodHappinessByBuilding(int)` (Python: getAdditionalGoodHappinessByBuilding)
+  - calls: CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1376** `CyCity::getAdditionalBadHappinessByBuilding(int)` (Python: getAdditionalBadHappinessByBuilding)
+  - calls: CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1391** `CyCity::getAdditionalAngryPopulationByBuilding(int)` (Python: getAdditionalAngryPopulationByBuilding)
+  - calls: CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1407** `CyCity::getExtraBuildingGoodHappiness()` (Python: getExtraBuildingGoodHappiness)
+  - calls: CvCity::getExtraBuildingGoodHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1412** `CyCity::getExtraBuildingBadHappiness()` (Python: getExtraBuildingBadHappiness)
+  - calls: CvCity::getExtraBuildingBadHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1417** `CyCity::getFeatureGoodHappiness()` (Python: getFeatureGoodHappiness)
+  - calls: CvCity::getFeatureGoodHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1422** `CyCity::getFeatureBadHappiness()` (Python: getFeatureBadHappiness)
+  - calls: CvCity::getFeatureBadHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1427** `CyCity::getBonusGoodHappiness()` (Python: getBonusGoodHappiness)
+  - calls: CvCity::getBonusGoodHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1432** `CyCity::getBonusBadHappiness()`
+  - calls: CvCity::getBonusBadHappiness [CvCity.cpp]
+- **1437** `CyCity::getReligionGoodHappiness()` (Python: getReligionGoodHappiness)
+  - calls: CvCity::getReligionGoodHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1442** `CyCity::getReligionBadHappiness()` (Python: getReligionBadHappiness)
+  - calls: CvCity::getReligionBadHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1447** `CyCity::getReligionHappiness(int)` (Python: getReligionHappiness)
+  - calls: CvCity::getReligionHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1452** `CyCity::getExtraHappiness()` (Python: getExtraHappiness)
+  - calls: CvCity::getExtraHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1457** `CyCity::changeExtraHappiness(int)` (Python: changeExtraHappiness)
+  - calls: CvCity::changeExtraHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1463** `CyCity::getExtraHealth()` (Python: getExtraHealth)
+  - calls: CvCity::getExtraHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1468** `CyCity::changeExtraHealth(int)` (Python: changeExtraHealth)
+  - calls: CvCity::changeExtraHealth [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1474** `CyCity::getHurryAngerTimer()` (Python: getHurryAngerTimer)
+  - calls: CvCity::getHurryAngerTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1479** `CyCity::changeHurryAngerTimer(int)` (Python: changeHurryAngerTimer)
+  - calls: CvCity::changeHurryAngerTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1489** `CyCity::getRevRequestAngerTimer()` (Python: getRevRequestAngerTimer)
+  - calls: CvCity::getRevRequestAngerTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **1494** `CyCity::changeRevRequestAngerTimer(int)` (Python: changeRevRequestAngerTimer)
+  - calls: CvCity::changeRevRequestAngerTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **1500** `CyCity::getRevSuccessTimer()` (Python: getRevSuccessTimer)
+  - calls: CvCity::getRevSuccessTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **1505** `CyCity::changeRevSuccessTimer(int)` (Python: changeRevSuccessTimer)
+  - calls: CvCity::changeRevSuccessTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **1514** `CyCity::getConscriptAngerTimer()` (Python: getConscriptAngerTimer)
+  - calls: CvCity::getConscriptAngerTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1519** `CyCity::changeConscriptAngerTimer(int)` (Python: changeConscriptAngerTimer)
+  - calls: CvCity::changeConscriptAngerTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1525** `CyCity::getDefyResolutionAngerTimer()` (Python: getDefyResolutionAngerTimer)
+  - calls: CvCity::getDefyResolutionAngerTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1530** `CyCity::changeDefyResolutionAngerTimer(int)` (Python: changeDefyResolutionAngerTimer)
+  - calls: CvCity::changeDefyResolutionAngerTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1536** `CyCity::flatDefyResolutionAngerLength()` (Python: flatDefyResolutionAngerLength)
+  - calls: CvCity::flatDefyResolutionAngerLength [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1541** `CyCity::getHappinessTimer()` (Python: getHappinessTimer)
+  - calls: CvCity::getHappinessTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1546** `CyCity::changeHappinessTimer(int)` (Python: changeHappinessTimer)
+  - calls: CvCity::changeHappinessTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1552** `CyCity::isNoUnhappiness()` (Python: isNoUnhappiness)
+  - calls: CvCity::isNoUnhappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1557** `CyCity::isNoUnhealthyPopulation()` (Python: isNoUnhealthyPopulation)
+  - calls: CvCity::isNoUnhealthyPopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1562** `CyCity::isBuildingOnlyHealthy()` (Python: isBuildingOnlyHealthy)
+  - calls: CvCity::isBuildingOnlyHealthy [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1567** `CyCity::getFood()` (Python: getFood)
+  - calls: CvCity::getFood [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1572** `CyCity::setFood(int)` (Python: setFood)
+  - calls: CvCity::setFood [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1578** `CyCity::changeFood(int)` (Python: changeFood)
+  - calls: CvCity::changeFood [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1584** `CyCity::getFoodKept()` (Python: getFoodKept)
+  - calls: CvCity::getFoodKept [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1589** `CyCity::getMaxFoodKeptPercent()` (Python: getMaxFoodKeptPercent)
+  - calls: CvCity::getMaxFoodKeptPercent [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1594** `CyCity::getOverflowProduction()` (Python: getOverflowProduction)
+  - calls: CvCity::getOverflowProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1599** `CyCity::setOverflowProduction(int)` (Python: setOverflowProduction)
+  - calls: CvCity::setOverflowProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1605** `CyCity::getFeatureProduction()` (Python: getFeatureProduction)
+  - calls: CvCity::getFeatureProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1610** `CyCity::setFeatureProduction(int)` (Python: setFeatureProduction)
+  - calls: CvCity::setFeatureProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1616** `CyCity::getMilitaryProductionModifier()` (Python: getMilitaryProductionModifier)
+  - calls: CvCity::getMilitaryProductionModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1621** `CyCity::getSpaceProductionModifier()` (Python: getSpaceProductionModifier)
+  - calls: CvCity::getSpaceProductionModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1626** `CyCity::getExtraTradeRoutes()` (Python: getExtraTradeRoutes)
+  - calls: CvCity::getExtraTradeRoutes [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1631** `CyCity::changeExtraTradeRoutes(int)` (Python: changeExtraTradeRoutes)
+  - calls: CvCity::changeExtraTradeRoutes [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1637** `CyCity::getTradeRouteModifier()` (Python: getTradeRouteModifier)
+  - calls: CvCity::getTradeRouteModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1642** `CyCity::getForeignTradeRouteModifier()` (Python: getForeignTradeRouteModifier)
+  - calls: CvCity::getForeignTradeRouteModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1647** `CyCity::getBuildingDefense()` (Python: getBuildingDefense)
+  - calls: CvCity::getBuildingDefense [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1653** `CyCity::getAdditionalDefenseByBuilding(int)` (Python: getAdditionalDefenseByBuilding)
+  - calls: CvCity::getAdditionalDefenseByBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1659** `CyCity::getBuildingBombardDefense()` (Python: getBuildingBombardDefense)
+  - calls: CvCity::getBuildingBombardDefense [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1665** `CyCity::getAdditionalBombardDefenseByBuilding(int)` (Python: getAdditionalBombardDefenseByBuilding)
+  - calls: CvCity::getAdditionalBombardDefenseByBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1671** `CyCity::getFreeExperience()` (Python: getFreeExperience)
+  - calls: CvCity::getFreeExperience [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1676** `CyCity::getCurrAirlift()` (Python: getCurrAirlift)
+  - calls: CvCity::getCurrAirlift [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1681** `CyCity::getMaxAirlift()` (Python: getMaxAirlift)
+  - calls: CvCity::getMaxAirlift [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1686** `CyCity::getAirModifier()` (Python: getAirModifier)
+  - calls: CvCity::getAirModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1691** `CyCity::getAirUnitCapacity(int)` (Python: getAirUnitCapacity)
+  - calls: CvCity::getAirUnitCapacity [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1696** `CyCity::getNukeModifier()` (Python: getNukeModifier)
+  - calls: CvCity::getNukeModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1701** `CyCity::getFreeSpecialist()` (Python: getFreeSpecialist)
+  - calls: CvCity::getFreeSpecialist [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1706** `CyCity::isPower()` (Python: isPower)
+  - calls: CvCity::isPower [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1711** `CyCity::isAreaCleanPower()` (Python: isAreaCleanPower)
+  - calls: CvCity::isAreaCleanPower [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1716** `CyCity::isDirtyPower()` (Python: isDirtyPower)
+  - calls: CvCity::isDirtyPower [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1721** `CyCity::getDefenseDamage()` (Python: getDefenseDamage)
+  - calls: CvCity::getDefenseDamage [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1726** `CyCity::changeDefenseDamage(int)` (Python: changeDefenseDamage)
+  - calls: CvCity::changeDefenseDamage [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1732** `CyCity::isBombardable(CyUnit*)` (Python: isBombardable)
+  - calls: CvCity::isBombardable [CvCity.cpp], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyCityPythonInterface1
+- **1737** `CyCity::getNaturalDefense()` (Python: getNaturalDefense)
+  - calls: CvCity::getNaturalDefense [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1742** `CyCity::getTotalDefense(bool)` (Python: getTotalDefense)
+  - calls: CvCity::getTotalDefense [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1747** `CyCity::getDefenseModifier(bool)` (Python: getDefenseModifier)
+  - calls: CvCity::getDefenseModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1752** `CyCity::getOccupationTimer()` (Python: getOccupationTimer)
+  - calls: CvCity::getOccupationTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1757** `CyCity::isOccupation()` (Python: isOccupation)
+  - calls: CvCity::isOccupation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1762** `CyCity::setOccupationTimer(int)` (Python: setOccupationTimer)
+  - calls: CvCity::setOccupationTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1768** `CyCity::changeOccupationTimer(int)` (Python: changeOccupationTimer)
+  - calls: CvCity::changeOccupationTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1774** `CyCity::getCultureUpdateTimer()` (Python: getCultureUpdateTimer)
+  - calls: CvCity::getCultureUpdateTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1779** `CyCity::changeCultureUpdateTimer(int)` (Python: changeCultureUpdateTimer)
+  - calls: CvCity::changeCultureUpdateTimer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1785** `CyCity::isNeverLost()` (Python: isNeverLost)
+  - calls: CvCity::isNeverLost [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1790** `CyCity::setNeverLost(int)` (Python: setNeverLost)
+  - calls: CvCity::setNeverLost [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1796** `CyCity::isBombarded()` (Python: isBombarded)
+  - calls: CvCity::isBombarded [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1801** `CyCity::setBombarded(int)` (Python: setBombarded)
+  - calls: CvCity::setBombarded [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1807** `CyCity::isDrafted()` (Python: isDrafted)
+  - calls: CvCity::isDrafted [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1812** `CyCity::setDrafted(int)` (Python: setDrafted)
+  - calls: CvCity::setDrafted [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1818** `CyCity::isAirliftTargeted()` (Python: isAirliftTargeted)
+  - calls: CvCity::isAirliftTargeted [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1823** `CyCity::setAirliftTargeted(int)` (Python: setAirliftTargeted)
+  - calls: CvCity::setAirliftTargeted [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1829** `CyCity::isCitizensAutomated()` (Python: isCitizensAutomated)
+  - calls: CvCity::isCitizensAutomated [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1834** `CyCity::setCitizensAutomated(bool)` (Python: setCitizensAutomated)
+  - calls: CvCity::setCitizensAutomated [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1840** `CyCity::isProductionAutomated()` (Python: isProductionAutomated)
+  - calls: CvCity::isProductionAutomated [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1845** `CyCity::setProductionAutomated(bool)` (Python: setProductionAutomated)
+  - calls: CvCity::setProductionAutomated [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1853** `CyCity::isWallOverride() const` (Python: isWallOverride)
+  - calls: CvCity::isWallOverride [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1858** `CyCity::setWallOverride(bool)` (Python: setWallOverride)
+  - calls: CvCity::setWallOverride [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1864** `CyCity::setCitySizeBoost(int)` (Python: setCitySizeBoost)
+  - calls: CvCity::setCitySizeBoost [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1870** `CyCity::isPlundered()` (Python: isPlundered)
+  - calls: CvCity::isPlundered [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1875** `CyCity::setPlundered(bool)` (Python: setPlundered)
+  - calls: CvCity::setPlundered [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1883** `CyCity::getOwner()` (Python: getOwner)
+  - calls: CvCity::getOwnerINLINE [CvCity.h]
+  - called by (1): CyCityPythonInterface1
+- **1888** `CyCity::getTeam()` (Python: getTeam)
+  - calls: CvCity::getTeam [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1893** `CyCity::getPreviousOwner()` (Python: getPreviousOwner)
+  - calls: CvCity::getPreviousOwner [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1898** `CyCity::getOriginalOwner()` (Python: getOriginalOwner)
+  - calls: CvCity::getOriginalOwner [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1903** `CyCity::getCultureLevel()` (Python: getCultureLevel)
+  - calls: CvCity::getCultureLevel [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1908** `CyCity::getCultureThreshold()` (Python: getCultureThreshold)
+  - calls: CvCity::getCultureThreshold() const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1913** `CyCity::getSeaPlotYield(int)` (Python: getSeaPlotYield)
+  - calls: CvCity::getSeaPlotYield [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1918** `CyCity::getRiverPlotYield(int)` (Python: getRiverPlotYield)
+  - calls: CvCity::getRiverPlotYield [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1924** `CyCity::getAdditionalYieldByBuilding(int, int)` (Python: getAdditionalYieldByBuilding)
+  - calls: CvCity::getAdditionalYieldByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **1929** `CyCity::getAdditionalBaseYieldRateByBuilding(int, int)` (Python: getAdditionalBaseYieldRateByBuilding)
+  - calls: CvCity::getAdditionalBaseYieldRateByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **1934** `CyCity::getAdditionalYieldRateModifierByBuilding(int, int)` (Python: getAdditionalYieldRateModifierByBuilding)
+  - calls: CvCity::getAdditionalYieldRateModifierByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **1940** `CyCity::getBaseYieldRate(int)` (Python: getBaseYieldRate)
+  - calls: CvCity::getBaseYieldRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1945** `CyCity::setBaseYieldRate(int, int)` (Python: setBaseYieldRate)
+  - calls: CvCity::setBaseYieldRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1951** `CyCity::changeBaseYieldRate(int, int)` (Python: changeBaseYieldRate)
+  - calls: CvCity::changeBaseYieldRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1957** `CyCity::getBaseYieldRateModifier(int, int)` (Python: getBaseYieldRateModifier)
+  - calls: CvCity::getBaseYieldRateModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1962** `CyCity::getYieldRate(int)` (Python: getYieldRate)
+  - calls: CvCity::getYieldRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1967** `CyCity::getYieldRateModifier(int)` (Python: getYieldRateModifier)
+  - calls: CvCity::getYieldRateModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1972** `CyCity::getTradeYield(int)` (Python: getTradeYield)
+  - calls: CvCity::getTradeYield [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1977** `CyCity::totalTradeModifier()` (Python: totalTradeModifier)
+  - calls: CvCity::totalTradeModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **1991** `CyCity::calculateTradeProfit(CyCity*)` (Python: calculateTradeProfit)
+  - calls: CvCity::calculateTradeProfit [CvCity.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyCityPythonInterface1
+- **1996** `CyCity::calculateTradeYield(int, int)` (Python: calculateTradeYield)
+  - calls: CvCity::calculateTradeYield [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2001** `CyCity::getExtraSpecialistYield(int)` (Python: getExtraSpecialistYield)
+  - calls: CvCity::getExtraSpecialistYield(YieldTypes) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2006** `CyCity::getExtraSpecialistYieldOfType(int, int)` (Python: getExtraSpecialistYieldOfType)
+  - calls: CvCity::getExtraSpecialistYield(YieldTypes, SpecialistTypes) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2011** `CyCity::getCommerceRate(int)` (Python: getCommerceRate)
+  - calls: CvCity::getCommerceRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2016** `CyCity::getCommerceRateTimes100(int)` (Python: getCommerceRateTimes100)
+  - calls: CvCity::getCommerceRateTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2021** `CyCity::getCommerceFromPercent(int, int)` (Python: getCommerceFromPercent)
+  - calls: CvCity::getCommerceFromPercent [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2026** `CyCity::getBaseCommerceRate(int)` (Python: getBaseCommerceRate)
+  - calls: CvCity::getBaseCommerceRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2031** `CyCity::getBaseCommerceRateTimes100(int)` (Python: getBaseCommerceRateTimes100)
+  - calls: CvCity::getBaseCommerceRateTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2036** `CyCity::getTotalCommerceRateModifier(int)` (Python: getTotalCommerceRateModifier)
+  - calls: CvCity::getTotalCommerceRateModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2041** `CyCity::getProductionToCommerceModifier(int)` (Python: getProductionToCommerceModifier)
+  - calls: CvCity::getProductionToCommerceModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2046** `CyCity::getBuildingCommerce(int)` (Python: getBuildingCommerce)
+  - calls: CvCity::getBuildingCommerce [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2051** `CyCity::getBuildingCommerceByBuilding(int, int)` (Python: getBuildingCommerceByBuilding)
+  - calls: CvCity::getBuildingCommerceByBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2057** `CyCity::getAdditionalCommerceByBuilding(int, int)` (Python: getAdditionalCommerceByBuilding)
+  - calls: CvCity::getAdditionalCommerceByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2062** `CyCity::getAdditionalCommerceTimes100ByBuilding(int, int)` (Python: getAdditionalCommerceTimes100ByBuilding)
+  - calls: CvCity::getAdditionalCommerceTimes100ByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2067** `CyCity::getAdditionalBaseCommerceRateByBuilding(int, int)` (Python: getAdditionalBaseCommerceRateByBuilding)
+  - calls: CvCity::getAdditionalBaseCommerceRateByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2072** `CyCity::getAdditionalCommerceRateModifierByBuilding(int, int)` (Python: getAdditionalCommerceRateModifierByBuilding)
+  - calls: CvCity::getAdditionalCommerceRateModifierByBuilding [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2078** `CyCity::getSpecialistCommerce(int)` (Python: getSpecialistCommerce)
+  - calls: CvCity::getSpecialistCommerce [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2083** `CyCity::changeSpecialistCommerce(int, int)` (Python: changeSpecialistCommerce)
+  - calls: CvCity::changeSpecialistCommerce [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2089** `CyCity::getReligionCommerce(int)` (Python: getReligionCommerce)
+  - calls: CvCity::getReligionCommerce [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2094** `CyCity::getReligionCommerceByReligion(int, int)` (Python: getReligionCommerceByReligion)
+  - calls: CvCity::getReligionCommerceByReligion [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2099** `CyCity::getCorporationCommerce(int)` (Python: getCorporationCommerce)
+  - calls: CvCity::getCorporationCommerce [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2104** `CyCity::getCorporationCommerceByCorporation(int, int)` (Python: getCorporationCommerceByCorporation)
+  - calls: CvCity::getCorporationCommerceByCorporation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2109** `CyCity::getCorporationYield(int)` (Python: getCorporationYield)
+  - calls: CvCity::getCorporationYield [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2114** `CyCity::getCorporationYieldByCorporation(int, int)` (Python: getCorporationYieldByCorporation)
+  - calls: CvCity::getCorporationYieldByCorporation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2119** `CyCity::getCommerceRateModifier(int)` (Python: getCommerceRateModifier)
+  - calls: CvCity::getCommerceRateModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2124** `CyCity::getCommerceHappinessPer(int)` (Python: getCommerceHappinessPer)
+  - calls: CvCity::getCommerceHappinessPer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2129** `CyCity::getCommerceHappinessByType(int)` (Python: getCommerceHappinessByType)
+  - calls: CvCity::getCommerceHappinessByType [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2134** `CyCity::getCommerceHappiness()` (Python: getCommerceHappiness)
+  - calls: CvCity::getCommerceHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2139** `CyCity::getDomainFreeExperience(int)` (Python: getDomainFreeExperience)
+  - calls: CvCity::getDomainFreeExperience [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2144** `CyCity::getDomainProductionModifier(int)` (Python: getDomainProductionModifier)
+  - calls: CvCity::getDomainProductionModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2149** `CyCity::getCulture(int)` (Python: getCulture)
+  - calls: CvCity::getCulture [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2154** `CyCity::getCultureTimes100(int)` (Python: getCultureTimes100)
+  - calls: CvCity::getCultureTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2159** `CyCity::countTotalCultureTimes100()` (Python: countTotalCultureTimes100)
+  - calls: CvCity::countTotalCultureTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2164** `CyCity::findHighestCulture()` (Python: findHighestCulture)
+  - calls: CvCity::findHighestCulture [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2169** `CyCity::calculateCulturePercent(int)` (Python: calculateCulturePercent)
+  - calls: CvCity::calculateCulturePercent [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2174** `CyCity::calculateTeamCulturePercent(int)` (Python: calculateTeamCulturePercent)
+  - calls: CvCity::calculateTeamCulturePercent [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2179** `CyCity::setCulture(int, int, bool)` (Python: setCulture)
+  - calls: CvCity::setCulture [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2185** `CyCity::setCultureTimes100(int, int, bool)` (Python: setCultureTimes100)
+  - calls: CvCity::setCultureTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2191** `CyCity::changeCulture(int, int, bool)` (Python: changeCulture)
+  - calls: CvCity::changeCulture [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2197** `CyCity::changeCultureTimes100(int, int, bool)` (Python: changeCultureTimes100)
+  - calls: CvCity::changeCultureTimes100 [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2208** `CyCity::getNumRevolts(int)` (Python: getNumRevolts)
+  - calls: CvCity::getNumRevolts [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **2212** `CyCity::changeNumRevolts(int, int)` (Python: changeNumRevolts)
+  - calls: CvCity::changeNumRevolts [CvCity.cpp]
+  - called by (1): CyCityPythonInterface2
+- **2221** `CyCity::isTradeRoute(int)` (Python: isTradeRoute)
+  - calls: CvCity::isTradeRoute [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2226** `CyCity::isEverOwned(int)` (Python: isEverOwned)
+  - calls: CvCity::isEverOwned [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2231** `CyCity::isRevealed(int, bool)` (Python: isRevealed)
+  - calls: CvCity::isRevealed [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2236** `CyCity::setRevealed(int, bool)` (Python: setRevealed)
+  - calls: CvCity::setRevealed [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2242** `CyCity::getEspionageVisibility(int)` (Python: getEspionageVisibility)
+  - calls: CvCity::getEspionageVisibility [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2247** `CyCity::getName()` (Python: getName)
+  - calls: CvCity::getName [CvCity.cpp], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (1): CyCityPythonInterface1
+- **2252** `CyCity::getNameForm(int)` (Python: getNameForm)
+  - calls: CvCity::getName [CvCity.cpp], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (1): CyCityPythonInterface1
+- **2257** `CyCity::getNameKey()` (Python: getNameKey)
+  - calls: CvCity::getNameKey [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2262** `CyCity::setName(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>, bool)` (Python: setName)
+  - calls: CvCity::setName [CvCity.cpp], CvWString::CvWString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator unsigned short const * [CvString.h]
+  - called by (1): CyCityPythonInterface1
+- **2268** `CyCity::changeNoBonusCount(int, int)` (Python: changeNoBonusCount)
+  - calls: CvCity::changeNoBonusCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2274** `CyCity::isNoBonus(int)` (Python: isNoBonus)
+  - calls: CvCity::isNoBonus [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2279** `CyCity::getFreeBonus(int)` (Python: getFreeBonus)
+  - calls: CvCity::getFreeBonus [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2284** `CyCity::changeFreeBonus(int, int)` (Python: changeFreeBonus)
+  - calls: CvCity::changeFreeBonus [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2290** `CyCity::getNumBonuses(int)` (Python: getNumBonuses)
+  - calls: CvCity::getNumBonuses [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2295** `CyCity::hasBonus(int)` (Python: hasBonus)
+  - calls: CvCity::hasBonus [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2300** `CyCity::getBuildingProduction(int)` (Python: getBuildingProduction)
+  - calls: CvCity::getBuildingProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2305** `CyCity::setBuildingProduction(int, int)` (Python: setBuildingProduction)
+  - calls: CvCity::setBuildingProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2311** `CyCity::changeBuildingProduction(int, int)` (Python: changeBuildingProduction)
+  - calls: CvCity::changeBuildingProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2317** `CyCity::getBuildingProductionTime(int)` (Python: getBuildingProductionTime)
+  - calls: CvCity::getBuildingProductionTime [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2322** `CyCity::setBuildingProductionTime(int, int)` (Python: setBuildingProductionTime)
+  - calls: CvCity::setBuildingProductionTime [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2328** `CyCity::changeBuildingProductionTime(int, int)` (Python: changeBuildingProductionTime)
+  - calls: CvCity::changeBuildingProductionTime [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2335** `CyCity::isBuildingProductionDecay(int)` (Python: isBuildingProductionDecay)
+  - calls: CvCity::isBuildingProductionDecay [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2340** `CyCity::getBuildingProductionDecay(int)` (Python: getBuildingProductionDecay)
+  - calls: CvCity::getBuildingProductionDecay [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2345** `CyCity::getBuildingProductionDecayTurns(int)` (Python: getBuildingProductionDecayTurns)
+  - calls: CvCity::getBuildingProductionDecayTurns [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2351** `CyCity::getBuildingOriginalOwner(int)` (Python: getBuildingOriginalOwner)
+  - calls: CvCity::getBuildingOriginalOwner [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2356** `CyCity::getBuildingOriginalTime(int)` (Python: getBuildingOriginalTime)
+  - calls: CvCity::getBuildingOriginalTime [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2361** `CyCity::getUnitProduction(int)` (Python: getUnitProduction)
+  - calls: CvCity::getUnitProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2366** `CyCity::setUnitProduction(int, int)` (Python: setUnitProduction)
+  - calls: CvCity::setUnitProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2372** `CyCity::changeUnitProduction(int, int)` (Python: changeUnitProduction)
+  - calls: CvCity::changeUnitProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2379** `CyCity::getUnitProductionTime(int)` (Python: getUnitProductionTime)
+  - calls: CvCity::getUnitProductionTime [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2384** `CyCity::setUnitProductionTime(int, int)` (Python: setUnitProductionTime)
+  - calls: CvCity::setUnitProductionTime [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2390** `CyCity::changeUnitProductionTime(int, int)` (Python: changeUnitProductionTime)
+  - calls: CvCity::changeUnitProductionTime [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2396** `CyCity::isUnitProductionDecay(int)` (Python: isUnitProductionDecay)
+  - calls: CvCity::isUnitProductionDecay [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2401** `CyCity::getUnitProductionDecay(int)` (Python: getUnitProductionDecay)
+  - calls: CvCity::getUnitProductionDecay [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2406** `CyCity::getUnitProductionDecayTurns(int)` (Python: getUnitProductionDecayTurns)
+  - calls: CvCity::getUnitProductionDecayTurns [CvCity.cpp]
+  - called by (2): CyCityPythonInterface1, CyCityPythonInterface2
+- **2413** `CyCity::getProjectProduction(int)` (Python: getProjectProduction)
+  - calls: CvCity::getProjectProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2418** `CyCity::setProjectProduction(int, int)` (Python: setProjectProduction)
+  - calls: CvCity::setProjectProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2424** `CyCity::changeProjectProduction(int, int)` (Python: changeProjectProduction)
+  - calls: CvCity::changeProjectProduction [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2431** `CyCity::getGreatPeopleUnitRate(int)` (Python: getGreatPeopleUnitRate)
+  - calls: CvCity::getGreatPeopleUnitRate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2436** `CyCity::getGreatPeopleUnitProgress(int)` (Python: getGreatPeopleUnitProgress)
+  - calls: CvCity::getGreatPeopleUnitProgress [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2441** `CyCity::setGreatPeopleUnitProgress(int, int)` (Python: setGreatPeopleUnitProgress)
+  - calls: CvCity::setGreatPeopleUnitProgress [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2447** `CyCity::changeGreatPeopleUnitProgress(int, int)` (Python: changeGreatPeopleUnitProgress)
+  - calls: CvCity::changeGreatPeopleUnitProgress [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2453** `CyCity::getSpecialistCount(int)` (Python: getSpecialistCount)
+  - calls: CvCity::getSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2458** `CyCity::alterSpecialistCount(int, int)` (Python: alterSpecialistCount)
+  - calls: CvCity::alterSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2464** `CyCity::getMaxSpecialistCount(int)` (Python: getMaxSpecialistCount)
+  - calls: CvCity::getMaxSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2469** `CyCity::isSpecialistValid(int, int)` (Python: isSpecialistValid)
+  - calls: CvCity::isSpecialistValid [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2474** `CyCity::getForceSpecialistCount(int)` (Python: getForceSpecialistCount)
+  - calls: CvCity::getForceSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2479** `CyCity::isSpecialistForced()` (Python: isSpecialistForced)
+  - calls: CvCity::isSpecialistForced [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2484** `CyCity::getImprovementFreeSpecialists(int)` (Python: getImprovementFreeSpecialists)
+  - calls: CvCity::getImprovementFreeSpecialists [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2489** `CyCity::getReligionInfluence(int)` (Python: getReligionInfluence)
+  - calls: CvCity::getReligionInfluence [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2494** `CyCity::setForceSpecialistCount(int, int)` (Python: setForceSpecialistCount)
+  - calls: CvCity::setForceSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2500** `CyCity::changeForceSpecialistCount(int, int)` (Python: changeForceSpecialistCount)
+  - calls: CvCity::changeForceSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2506** `CyCity::getFreeSpecialistCount(int)` (Python: getFreeSpecialistCount)
+  - calls: CvCity::getFreeSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2511** `CyCity::setFreeSpecialistCount(int, int)` (Python: setFreeSpecialistCount)
+  - calls: CvCity::setFreeSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2517** `CyCity::changeFreeSpecialistCount(int, int)` (Python: changeFreeSpecialistCount)
+  - calls: CvCity::changeFreeSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2523** `CyCity::getAddedFreeSpecialistCount(int)` (Python: getAddedFreeSpecialistCount)
+  - calls: CvCity::getAddedFreeSpecialistCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2528** `CyCity::changeImprovementFreeSpecialists(int, int)` (Python: changeImprovementFreeSpecialists)
+  - calls: CvCity::changeImprovementFreeSpecialists [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2534** `CyCity::changeReligionInfluence(int, int)` (Python: changeReligionInfluence)
+  - calls: CvCity::changeReligionInfluence [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2540** `CyCity::getCurrentStateReligionHappiness()` (Python: getCurrentStateReligionHappiness)
+  - calls: CvCity::getCurrentStateReligionHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2545** `CyCity::getStateReligionHappiness(int)` (Python: getStateReligionHappiness)
+  - calls: CvCity::getStateReligionHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2550** `CyCity::changeStateReligionHappiness(int, int)` (Python: changeStateReligionHappiness)
+  - calls: CvCity::changeStateReligionHappiness [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2556** `CyCity::getUnitCombatFreeExperience(int)` (Python: getUnitCombatFreeExperience)
+  - calls: CvCity::getUnitCombatFreeExperience [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2561** `CyCity::getFreePromotionCount(int)` (Python: getFreePromotionCount)
+  - calls: CvCity::getFreePromotionCount [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2566** `CyCity::isFreePromotion(int)` (Python: isFreePromotion)
+  - calls: CvCity::isFreePromotion [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2571** `CyCity::getSpecialistFreeExperience() const` (Python: getSpecialistFreeExperience)
+  - calls: CvCity::getSpecialistFreeExperience [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2576** `CyCity::getEspionageDefenseModifier() const` (Python: getEspionageDefenseModifier)
+  - calls: CvCity::getEspionageDefenseModifier [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2581** `CyCity::isWorkingPlotByIndex(int)` (Python: isWorkingPlotByIndex)
+  - calls: CvCity::isWorkingPlot(int) const [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2586** `CyCity::isWorkingPlot(CyPlot*)` (Python: isWorkingPlot)
+  - calls: CvCity::isWorkingPlot(CvPlot const*) const [CvCity.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyCityPythonInterface1
+- **2591** `CyCity::alterWorkingPlot(int)` (Python: alterWorkingPlot)
+  - calls: CvCity::alterWorkingPlot [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2597** `CyCity::getNumRealBuilding(int)` (Python: getNumRealBuilding)
+  - calls: CvCity::getNumRealBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2602** `CyCity::setNumRealBuilding(int, int)` (Python: setNumRealBuilding)
+  - calls: CvCity::setNumRealBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2608** `CyCity::getNumFreeBuilding(int)` (Python: getNumFreeBuilding)
+  - calls: CvCity::getNumFreeBuilding [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2613** `CyCity::isHasReligion(int)` (Python: isHasReligion)
+  - calls: CvCity::isHasReligion [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2618** `CyCity::setHasReligion(int, bool, bool, bool)` (Python: setHasReligion)
+  - calls: CvCity::setHasReligion [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2624** `CyCity::isHasCorporation(int)` (Python: isHasCorporation)
+  - calls: CvCity::isHasCorporation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2629** `CyCity::setHasCorporation(int, bool, bool, bool)` (Python: setHasCorporation)
+  - calls: CvCity::setHasCorporation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2635** `CyCity::isActiveCorporation(int)` (Python: isActiveCorporation)
+  - calls: CvCity::isActiveCorporation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2640** `CyCity::getTradeCity(int)` (Python: getTradeCity)
+  - calls: CvCity::getTradeCity [CvCity.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyCity::CyCity(CvCity*), operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2645** `CyCity::getTradeRoutes()` (Python: getTradeRoutes)
+  - calls: CvCity::getTradeRoutes [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2650** `CyCity::clearOrderQueue()` (Python: clearOrderQueue)
+  - calls: CvCity::clearOrderQueue [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2656** `CyCity::pushOrder(OrderTypes, int, int, bool, bool, bool, bool)` (Python: pushOrder)
+  - calls: CvCity::pushOrder [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2662** `CyCity::popOrder(int, bool, bool)` (Python: popOrder)
+  - calls: CvCity::popOrder [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2668** `CyCity::getOrderQueueLength()` (Python: getOrderQueueLength)
+  - calls: CvCity::getOrderQueueLength [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2673** `CyCity::getOrderFromQueue(int)` (Python: getOrderFromQueue)
+  - calls: CvCity::getOrderFromQueue [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2678** `CyCity::setWallOverridePoints(boost::python::tuple const&)` (Python: setWallOverridePoints)
+  - calls: CvDLLPythonIFaceBase::putSeqInArray<float> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvCity::setWallOverridePoints [CvCity.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2702** `CyCity::getWallOverridePoints() const` (Python: getWallOverridePoints)
+  - calls: CvCity::getWallOverridePoints [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2716** `CyCity::AI_avoidGrowth()` (Python: AI_avoidGrowth)
+  - calls: CvCity::AI_avoidGrowth [CvCity.h] ⇢ CvCityAI::AI_avoidGrowth
+  - called by (1): CyCityPythonInterface1
+- **2721** `CyCity::AI_isEmphasize(int)` (Python: AI_isEmphasize)
+  - calls: CvCity::AI_isEmphasize [CvCity.h] ⇢ CvCityAI::AI_isEmphasize
+  - called by (1): CyCityPythonInterface1
+- **2726** `CyCity::AI_countBestBuilds(CyArea*)` (Python: AI_countBestBuilds)
+  - calls: CvCity::AI_countBestBuilds [CvCity.h] ⇢ CvCityAI::AI_countBestBuilds, CyArea::getArea [CyArea.h]
+  - called by (1): CyCityPythonInterface1
+- **2731** `CyCity::AI_cityValue()` (Python: AI_cityValue)
+  - calls: CvCity::AI_cityValue [CvCity.h] ⇢ CvCityAI::AI_cityValue
+  - called by (1): CyCityPythonInterface1
+- **2736** `CyCity::getScriptData() const` (Python: getScriptData)
+  - calls: CvCity::getScriptData [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2741** `CyCity::setScriptData(std::basic_string<char, std::char_traits<char>, std::allocator<char>>)` (Python: setScriptData)
+  - calls: CvCity::setScriptData [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2747** `CyCity::visiblePopulation()` (Python: visiblePopulation)
+  - calls: CvCity::visiblePopulation [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2757** `CyCity::getBuildingYieldChange(int, int) const` (Python: getBuildingYieldChange)
+  - calls: CvCity::getBuildingYieldChange [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2762** `CyCity::setBuildingYieldChange(int, int, int)` (Python: setBuildingYieldChange)
+  - calls: CvCity::setBuildingYieldChange [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2770** `CyCity::getBuildingCommerceChange(int, int) const` (Python: getBuildingCommerceChange)
+  - calls: CvCity::getBuildingCommerceChange [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2775** `CyCity::setBuildingCommerceChange(int, int, int)` (Python: setBuildingCommerceChange)
+  - calls: CvCity::setBuildingCommerceChange [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2783** `CyCity::getBuildingHappyChange(int) const` (Python: getBuildingHappyChange)
+  - calls: CvCity::getBuildingHappyChange [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2788** `CyCity::setBuildingHappyChange(int, int)` (Python: setBuildingHappyChange)
+  - calls: CvCity::setBuildingHappyChange [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2796** `CyCity::getBuildingHealthChange(int) const` (Python: getBuildingHealthChange)
+  - calls: CvCity::getBuildingHealthChange [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2801** `CyCity::setBuildingHealthChange(int, int)` (Python: setBuildingHealthChange)
+  - calls: CvCity::setBuildingHealthChange [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2809** `CyCity::getLiberationPlayer(bool)` (Python: getLiberationPlayer)
+  - calls: CvCity::getLiberationPlayer [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2814** `CyCity::liberate(bool)` (Python: liberate)
+  - calls: CvCity::liberate [CvCity.cpp]
+  - called by (1): CyCityPythonInterface1
+- **2827** `CyCity::AI_bestUnit()` (Python: AI_bestUnit)
+  - calls: CvCity::AI_bestUnit [CvCity.h] ⇢ CvCityAI::AI_bestUnit
+  - called by (1): CyCityPythonInterface2
+- **2832** `CyCity::AI_bestUnitAI(int)` (Python: AI_bestUnitAI)
+  - calls: CvCity::AI_bestUnitAI [CvCity.h] ⇢ CvCityAI::AI_bestUnitAI
+  - called by (1): CyCityPythonInterface2
+- **2837** `CyCity::AI_bestBuilding(int)` (Python: AI_bestBuilding)
+  - calls: CvCity::AI_bestBuilding [CvCity.h] ⇢ CvCityAI::AI_bestBuilding
+  - called by (1): CyCityPythonInterface2

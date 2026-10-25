@@ -1,0 +1,69 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/hmwar.py",
+  "@repo/research/ai-warfare/games/game5/hm",
+  "@repo/research/ai-warfare/games/game5/hm.fig.json",
+  "/root/.cache/rom-ana/db/game5.duckdb:0"
+ ],
+ "inputs": {
+  "/root/.cache/rom-ana/db/game5.duckdb": "b742dc1bf88055c9b0ccd5cc3d3a70f8458f7333c8774507bb53cbc167489080",
+  "/root/.cache/rom-ana/data/records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152"
+ },
+ "figures": {
+  "game5_turn_starts": {
+   "kind": "value",
+   "value": 271,
+   "unit": "turns",
+   "who": "human",
+   "turn": "all logged turns",
+   "source": "hmwar.py, I lines with new_turn = 1",
+   "n": null
+  },
+  "game5_declare_cases": {
+   "kind": "value",
+   "value": 0,
+   "unit": "turns",
+   "who": "human",
+   "turn": "all logged turns",
+   "source": "hmwar.py, class declare",
+   "n": null
+  },
+  "game5_assault_cases": {
+   "kind": "value",
+   "value": 0,
+   "unit": "turns",
+   "who": "human",
+   "turn": "all logged turns",
+   "source": "hmwar.py, class assault",
+   "n": null
+  },
+  "game5_peace_cases": {
+   "kind": "value",
+   "value": 14,
+   "unit": "turns",
+   "who": "human",
+   "turn": "all logged turns",
+   "source": "hmwar.py, class peace",
+   "n": null
+  },
+  "game5_target_cases": {
+   "kind": "value",
+   "value": 0,
+   "unit": "lines",
+   "who": "human",
+   "turn": "all logged turns",
+   "source": "hmwar.py, class target",
+   "n": null
+  },
+  "game5_declared_out_of_reach": {
+   "kind": "value",
+   "value": 1,
+   "unit": "lines",
+   "who": "human",
+   "turn": "all logged turns",
+   "source": "hmwar.py, W lines on a team without a J city",
+   "n": null
+  }
+ },
+ "xml": {}
+}

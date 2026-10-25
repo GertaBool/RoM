@@ -1,0 +1,27 @@
+{
+ "rebuilds": 206087,
+ "log_lines": 373505,
+ "distinct_cities": 309,
+ "first_s": 3891.035,
+ "last_s": 8602.332,
+ "span_s": 4711,
+ "seconds_with_rebuilds": 972,
+ "burst_seconds_ge100": 396,
+ "rebuilds_in_bursts": 200577,
+ "max_per_second": 798,
+ "same_city_within_0_2s": 100885,
+ "most_rebuilt": [
+  [
+   "London",
+   924
+  ],
+  [
+   "Coventry",
+   907
+  ],
+  [
+   "York",
+   900
+  ]
+ ]
+}

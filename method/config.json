@@ -32,5 +32,10 @@
   "max_depth": 2,
   "min_runs": 30,
   "min_games_state": 5,
-  "external_prefix": "gitlab:"
+  "external_prefix": "gitlab:",
+ "text_only": {
+  "about": "Translation text needs no Serves trailer: the gate judges changes to behaviour, and text does not change it. Exempt: another repository's files below these folders; a patch in notes_root whose every file lies below them; the notes (.md anywhere below notes_root, .json in its subfolders). Everything else stays gated.",
+  "external": ["Assets/XML/Text/"],
+  "notes_root": "fixes/"
+ }
 }

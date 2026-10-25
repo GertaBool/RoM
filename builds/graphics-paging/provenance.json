@@ -1,0 +1,25 @@
+{
+ "serves": [
+  "P7",
+  "P8"
+ ],
+ "patch": "fixes/graphics-paging.patch",
+ "build_id": "72dcbedc28f7",
+ "source": "GitLab main c42be8b plus graphics paging (fixes/graphics-paging.patch): unit, city and plot graphics kept only in a window around the camera's look-at plot, scaled with the camera zoom; GRAPHICS_PAGING 0 restores the old behaviour",
+ "source_commit": "4dadc46 (local commit on c42be8b, not on GitLab yet)",
+ "source_tree": "cedfc84a77a41e0da90fd8f1065278b83ca5f10d",
+ "base_commit": "c42be8b3e036e86b373a6c0f04ca3d10cca850cd",
+ "dll_sha256": "72955de0e41d64bed9c32e359a67d2c4dcc954fef3bf99a855e6d3654a1b7c59",
+ "dll_size": 6148096,
+ "files": {
+  "GlobalDefinesAlt.xml": "545b57e979c478e9627efb518d8fb7a266d588e69c208534ca900c74d85be36e",
+  "CvGameInterface.py": "a991cdb572026a433090d2e8c48d808b59b1adf41eca3d1ee52cb1896d70aca6"
+ },
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release, CLEAN=1; 0 errors, 0 warnings",
+ "tests": "clang gate on the eight changed .cpp files against c42be8b: 0 new diagnostics (baseline and patched: 16 errors, 59 warnings), fixes/graphics-paging/clang-gate.log",
+ "tested_headless": "Harness build of the same source with HARNESS_GRAPHICS=1 (graphics set up after loading, a camera sweeping the map one plot per update, entity tokens) from the 460 AD autosave of the Mediterranean game, 3 turns per run, 30 seeded runs per arm for each of P7 and P8 (arm a paging on, arm b GRAPHICS_PAGING=0): all 120 runs completed; in all 60 seed pairs the game state after 3 turns and the telemetry apart from timings are identical, and the visual calls reaching an entity not set up are equal (paging adds none). Entities set up at turns 357-359: mean 1813, 1780, 1190 with paging, 2689, 2736, 2782 without. P7 corroborated (p nan, A 0.500), P8 corroborated (p 0.9651, A 0.497). fixes/graphics-paging/harness-runs.json. The harness has no Python, so the zoom scaling was not exercised: the window there is its widest",
+ "tested_in_game": false,
+ "previous": "GitLab main c42be8b (the same DLL without paging)",
+ "merge_request": "not opened yet (the GitLab connector needs re-authorisation)",
+ "gitlab_commit": null
+}

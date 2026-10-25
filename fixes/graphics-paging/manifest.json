@@ -1,0 +1,86 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "c42be8b3e036e86b373a6c0f04ca3d10cca850cd",
+  "tested_source_commit": "4dadc46 (local commit on base_commit; not on GitLab yet)",
+  "tested_source_tree": "cedfc84a77a41e0da90fd8f1065278b83ca5f10d",
+  "patch": "../graphics-paging.patch",
+  "patch_sha256": "b69fb8e8bc288142290eca5bd58d075d06276be38ee2dafb6b2f0b0d55009489",
+  "binary_rebuilt": true,
+  "save_format": {
+    "layout_changed": false,
+    "note": "Nothing new is saved (the paging flags are graphics-only members); saves move freely between this DLL and main's.",
+    "older_readers_can_read_new_saves": true
+  },
+  "switches": "GRAPHICS_PAGING (1 on, 0 the old behaviour) and the GRAPHICS_PAGING_* window defines in GlobalDefinesAlt.xml.",
+  "serves": [
+    "P7",
+    "P8"
+  ],
+  "base_tree": "1450a9bd7634fce61e0a1b7602de01255d150f7f",
+  "files": {
+    "Assets/CvGameCoreDLL/CvCity.cpp": {
+      "before_sha256": "6bca17d20c6edd491698efe46080a5abecb7713fbda047e67dd0632b432385b0",
+      "after_sha256": "a1e338dc5b97766295c8ca17db16c7038ebf5d86268f069b700e738735ee3171"
+    },
+    "Assets/CvGameCoreDLL/CvCity.h": {
+      "before_sha256": "7e0f5ca95faacaca2040ff01ea99370435a67768b41eabfddc57d4869792b218",
+      "after_sha256": "570a027a1b8de2edde793fd946affd93f841a846dcb1dcef952c1009b0f587e1"
+    },
+    "Assets/CvGameCoreDLL/CvDLLEntity.cpp": {
+      "before_sha256": "58971b502c3ef8a05725e72604e7c132b43edca179027e803ee621da460ca516",
+      "after_sha256": "c9f29bd2491224e7c317aba100ed7ae3f59263ddbe565821d94eb5e9681d0961"
+    },
+    "Assets/CvGameCoreDLL/CvDLLEntity.h": {
+      "before_sha256": "dbb1ce27738eb59354e35fd83c5fb36eba5d58e53274d62f152740ee858dd3c9",
+      "after_sha256": "bca73ecae3b65d792541d75a3b0bfae5b121793513640afb6bbad5a6601d52d1"
+    },
+    "Assets/CvGameCoreDLL/CvGame.cpp": {
+      "before_sha256": "6e8db5ae0fe547cf3d20c80c827ddb288a2e412b2d4f5668837e5558a3278a84",
+      "after_sha256": "aee33c3d1927e2d284ee61201075d3907252161fbe10514bb62cc26a8afc156a"
+    },
+    "Assets/CvGameCoreDLL/CvGame.h": {
+      "before_sha256": "ca2ed56870cc9fdf4c76b5f066b1ff5eb578097a0818f90f2d6fb6d9fb377b87",
+      "after_sha256": "d5c911f7bb9a30c6377290bb02fc24e4718c1d8369ab834ed54a473fd31f6725"
+    },
+    "Assets/CvGameCoreDLL/CvGameCoreUtils.cpp": {
+      "before_sha256": "c22feeda9cf91871edac8dd80ea3fc4c678c9a0051e5a9bdca7cbffe49933adb",
+      "after_sha256": "3452a5f038f3ed18cb7a24e3bc30f90924b03ce70dcf5be691d1a216048aa2f1"
+    },
+    "Assets/CvGameCoreDLL/CvGameCoreUtils.h": {
+      "before_sha256": "b97d597299fb8d4684c200773abf30babb64f3f94629ab2ec2a2da600c29bbb8",
+      "after_sha256": "6b53c3eed972e1f64f6f2aa3c592752af0fa8a04ed9364e387d475c399265097"
+    },
+    "Assets/CvGameCoreDLL/CvPlayer.cpp": {
+      "before_sha256": "4f0461b5e58eeb6a4879d627cdfa055bba0e273d71104915c184f872c13e8236",
+      "after_sha256": "e55b1f3f4f4d690a1c32c4718161b9a7bd392d59cae4dcac3cfda3e3c4cae854"
+    },
+    "Assets/CvGameCoreDLL/CvPlot.cpp": {
+      "before_sha256": "7085434788bbed15487706dfb1819f9663867d38039b00048cd3e1cb136de810",
+      "after_sha256": "2d27f501518fb3875707d16b8e967c0710f13edf3b7ef41249a87679ba359dc2"
+    },
+    "Assets/CvGameCoreDLL/CvPlot.h": {
+      "before_sha256": "d2bc38752c36a5a607a93f9cef07d40a86c09b0a7fb2c7a287c274177a582b3c",
+      "after_sha256": "518d741459aea18e202b3fa0555a118aaeec2fea351c5351f56af6657cb544ec"
+    },
+    "Assets/CvGameCoreDLL/CvSelectionGroup.cpp": {
+      "before_sha256": "eed406b623da57d348a482cd4a9f1c3425121c0a212610b1f173ad323290196f",
+      "after_sha256": "e1cfc29038d2f77885729e6de6b006a664d32a8f566c0c2611144af5ff8e2e32"
+    },
+    "Assets/CvGameCoreDLL/CvUnit.cpp": {
+      "before_sha256": "efc31afda8c43d1efa7c1373e1e522dede844a660d3fdb38b2d214ed367092c3",
+      "after_sha256": "524dc7b1eb683e1cf734973e4bec649545a374a2b32c07c858de5708d9561b1f"
+    },
+    "Assets/CvGameCoreDLL/CvUnit.h": {
+      "before_sha256": "db9aa256a77a3300f2b178655fcf84cb5bcb69cd5a10a7d3337a3d31579febcd",
+      "after_sha256": "fd8d8ecb0e086ae8e768ba80e85fb7ee15f7a9fdad4c7e8d75788e2c00f45983"
+    },
+    "Assets/Python/EntryPoints/CvGameInterface.py": {
+      "before_sha256": null,
+      "after_sha256": "a991cdb572026a433090d2e8c48d808b59b1adf41eca3d1ee52cb1896d70aca6"
+    },
+    "Assets/XML/GlobalDefinesAlt.xml": {
+      "before_sha256": "8e9c56865461e02678d6671e069757fd573761cf4012902a23c9883510a27600",
+      "after_sha256": "545b57e979c478e9627efb518d8fb7a266d588e69c208534ca900c74d85be36e"
+    }
+  }
+}

@@ -1,0 +1,993 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/sqlfig.py",
+  "@repo/research/ai-warfare/study/queries_staging.json",
+  "@repo/research/ai-warfare/study/staging.fig.json",
+  "records=/root/.cache/rom-ana/data/records.json",
+  "game1=/root/.cache/rom-ana/db/game1.duckdb",
+  "game2=/root/.cache/rom-ana/db/game2.duckdb",
+  "game3=/root/.cache/rom-ana/db/game3.duckdb",
+  "game4=/root/.cache/rom-ana/db/game4.duckdb",
+  "game5=/root/.cache/rom-ana/db/game5.duckdb"
+ ],
+ "inputs": {
+  "queries_staging.json": "c29231efef96136414463093a27ae19dcdeec820305863a3c0b459946c9973d6",
+  "/root/.cache/rom-ana/db/game1.duckdb": "db8d50ecb94e029fffc88984afef92e787fb77d05ae71b6c70a1cfdd82482aa7",
+  "/root/.cache/rom-ana/db/game2.duckdb": "6ac8f92dcf25375b8be98ef21ad57842de44d6e1a3da311988024599bafd9a45",
+  "/root/.cache/rom-ana/db/game3.duckdb": "056e11ca34eb6905a32e836ae20bc821cb34f2a44be10546136e42e1a5f7be7f",
+  "/root/.cache/rom-ana/db/game4.duckdb": "8f6fbd76d71407032ba1bfc5fdd3e3298e1a53e895da199d63238aef0fd50c5f",
+  "/root/.cache/rom-ana/db/game5.duckdb": "b742dc1bf88055c9b0ccd5cc3d3a70f8458f7333c8774507bb53cbc167489080",
+  "/root/.cache/rom-ana/data/records.json": "ecd618f931c141756643cabe1e680815a59a02a415da4de5f8e7324f4af0f152"
+ },
+ "figures": {
+  "game1_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "target_other_wars",
+    "first_capture",
+    "taken_within_1",
+    "wars_on_human"
+   ],
+   "rows": [
+    [
+     186,
+     7,
+     0,
+     187,
+     2,
+     0
+    ],
+    [
+     193,
+     1,
+     0,
+     194,
+     2,
+     0
+    ],
+    [
+     206,
+     14,
+     0,
+     207,
+     1,
+     0
+    ]
+   ],
+   "unit": "cities",
+   "who": "human",
+   "turn": "each declaration of the human",
+   "source": "W lines declared by the human's team; the target's other wars open at that moment (W lines of the target or on it without a later Q line); K lines of cities the human took from the target's players: the first such capture, and how many fell on the declaration turn or the next. A player's team is its P line's team, or the player id where the log has no P line for it (game 5, whose header lists the human only; in its setup every player's team is its id) [game1]",
+   "n": 3,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    186,
+    193,
+    206
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game2_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "target_other_wars",
+    "first_capture",
+    "taken_within_1",
+    "wars_on_human"
+   ],
+   "rows": [
+    [
+     92,
+     16,
+     0,
+     110,
+     0,
+     0
+    ],
+    [
+     229,
+     11,
+     0,
+     229,
+     4,
+     0
+    ],
+    [
+     230,
+     9,
+     0,
+     230,
+     2,
+     0
+    ]
+   ],
+   "unit": "cities",
+   "who": "human",
+   "turn": "each declaration of the human",
+   "source": "W lines declared by the human's team; the target's other wars open at that moment (W lines of the target or on it without a later Q line); K lines of cities the human took from the target's players: the first such capture, and how many fell on the declaration turn or the next. A player's team is its P line's team, or the player id where the log has no P line for it (game 5, whose header lists the human only; in its setup every player's team is its id) [game2]",
+   "n": 3,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    92,
+    229,
+    230
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "target_other_wars",
+    "first_capture",
+    "taken_within_1",
+    "wars_on_human"
+   ],
+   "rows": [
+    [
+     203,
+     5,
+     0,
+     203,
+     4,
+     0
+    ],
+    [
+     209,
+     7,
+     1,
+     213,
+     0,
+     0
+    ]
+   ],
+   "unit": "cities",
+   "who": "human",
+   "turn": "each declaration of the human",
+   "source": "W lines declared by the human's team; the target's other wars open at that moment (W lines of the target or on it without a later Q line); K lines of cities the human took from the target's players: the first such capture, and how many fell on the declaration turn or the next. A player's team is its P line's team, or the player id where the log has no P line for it (game 5, whose header lists the human only; in its setup every player's team is its id) [game3]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    203,
+    209
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "target_other_wars",
+    "first_capture",
+    "taken_within_1",
+    "wars_on_human"
+   ],
+   "rows": [
+    [
+     238,
+     14,
+     2,
+     238,
+     2,
+     0
+    ],
+    [
+     252,
+     2,
+     1,
+     252,
+     1,
+     0
+    ],
+    [
+     257,
+     6,
+     2,
+     257,
+     1,
+     0
+    ],
+    [
+     268,
+     7,
+     1,
+     268,
+     2,
+     0
+    ],
+    [
+     271,
+     14,
+     3,
+     272,
+     1,
+     0
+    ],
+    [
+     272,
+     10,
+     0,
+     272,
+     1,
+     0
+    ],
+    [
+     277,
+     2,
+     1,
+     280,
+     0,
+     0
+    ],
+    [
+     283,
+     7,
+     1,
+     284,
+     2,
+     0
+    ]
+   ],
+   "unit": "cities",
+   "who": "human",
+   "turn": "each declaration of the human",
+   "source": "W lines declared by the human's team; the target's other wars open at that moment (W lines of the target or on it without a later Q line); K lines of cities the human took from the target's players: the first such capture, and how many fell on the declaration turn or the next. A player's team is its P line's team, or the player id where the log has no P line for it (game 5, whose header lists the human only; in its setup every player's team is its id) [game4]",
+   "n": 8,
+   "values_total": 8,
+   "values_shown": 8,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    238,
+    252,
+    257,
+    268,
+    271,
+    272,
+    277,
+    283
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_declarations": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "target",
+    "target_other_wars",
+    "first_capture",
+    "taken_within_1",
+    "wars_on_human"
+   ],
+   "rows": [
+    [
+     210,
+     8,
+     1,
+     210,
+     1,
+     0
+    ]
+   ],
+   "unit": "cities",
+   "who": "human",
+   "turn": "each declaration of the human",
+   "source": "W lines declared by the human's team; the target's other wars open at that moment (W lines of the target or on it without a later Q line); K lines of cities the human took from the target's players: the first such capture, and how many fell on the declaration turn or the next. A player's team is its P line's team, or the player id where the log has no P line for it (game 5, whose header lists the human only; in its setup every player's team is its id) [game5]",
+   "n": 1,
+   "values_total": 1,
+   "values_shown": 1,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    210
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_war_start_cities": {
+   "kind": "table",
+   "head": [
+    "outcome",
+    "cities",
+    "danger_zero",
+    "foreign_within_2",
+    "one_defender_or_less",
+    "median_defenders",
+    "median_foreign"
+   ],
+   "rows": [
+    [
+     "not taken within one turn",
+     4,
+     2,
+     0,
+     2,
+     1.5,
+     0.0
+    ],
+    [
+     "taken within one turn",
+     4,
+     4,
+     3,
+     4,
+     1.0,
+     2.5
+    ]
+   ],
+   "unit": "cities",
+   "who": "the target of each declaration of the human",
+   "turn": "the moment each war starts",
+   "source": "Y lines written when the war starts (the first Y line of each city of the target's players after the W line and before the next T line): defenders, the owner's danger count (AI_getPlotDanger: enemy units within three plots, as the AI counts it), land units able to attack of other teams within two plots, whether the human took the city on the declaration turn or the next (K lines). Team of a player as in the declarations table [game3]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "not taken within one turn",
+    "taken within one turn"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_war_start_cities": {
+   "kind": "table",
+   "head": [
+    "outcome",
+    "cities",
+    "danger_zero",
+    "foreign_within_2",
+    "one_defender_or_less",
+    "median_defenders",
+    "median_foreign"
+   ],
+   "rows": [
+    [
+     "not taken within one turn",
+     47,
+     40,
+     23,
+     2,
+     3.0,
+     0.0
+    ],
+    [
+     "taken within one turn",
+     10,
+     8,
+     9,
+     6,
+     1.0,
+     3.5
+    ]
+   ],
+   "unit": "cities",
+   "who": "the target of each declaration of the human",
+   "turn": "the moment each war starts",
+   "source": "Y lines written when the war starts (the first Y line of each city of the target's players after the W line and before the next T line): defenders, the owner's danger count (AI_getPlotDanger: enemy units within three plots, as the AI counts it), land units able to attack of other teams within two plots, whether the human took the city on the declaration turn or the next (K lines). Team of a player as in the declarations table [game4]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "not taken within one turn",
+    "taken within one turn"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_war_start_cities": {
+   "kind": "table",
+   "head": [
+    "outcome",
+    "cities",
+    "danger_zero",
+    "foreign_within_2",
+    "one_defender_or_less",
+    "median_defenders",
+    "median_foreign"
+   ],
+   "rows": [
+    [
+     "not taken within one turn",
+     6,
+     5,
+     0,
+     3,
+     1.5,
+     0.0
+    ],
+    [
+     "taken within one turn",
+     1,
+     1,
+     0,
+     0,
+     2.0,
+     0.0
+    ]
+   ],
+   "unit": "cities",
+   "who": "the target of each declaration of the human",
+   "turn": "the moment each war starts",
+   "source": "Y lines written when the war starts (the first Y line of each city of the target's players after the W line and before the next T line): defenders, the owner's danger count (AI_getPlotDanger: enemy units within three plots, as the AI counts it), land units able to attack of other teams within two plots, whether the human took the city on the declaration turn or the next (K lines). Team of a player as in the declarations table [game5]",
+   "n": 2,
+   "values_total": 2,
+   "values_shown": 2,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "not taken within one turn",
+    "taken within one turn"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game3_quick_captures": {
+   "kind": "table",
+   "head": [
+    "declared",
+    "taken",
+    "target",
+    "x",
+    "y",
+    "pop",
+    "defenders",
+    "danger",
+    "foreign",
+    "orders"
+   ],
+   "rows": [
+    [
+     203,
+     203,
+     5,
+     26,
+     40,
+     4,
+     1,
+     0,
+     3,
+     "BUILDING_SLAVE_MARKET"
+    ],
+    [
+     203,
+     203,
+     5,
+     28,
+     40,
+     2,
+     1,
+     0,
+     3,
+     "UNIT_SPEARMAN"
+    ],
+    [
+     203,
+     204,
+     5,
+     23,
+     40,
+     3,
+     1,
+     0,
+     0,
+     "UNIT_SPEARMAN"
+    ],
+    [
+     203,
+     204,
+     5,
+     33,
+     39,
+     4,
+     0,
+     0,
+     2,
+     "UNIT_SPEARMAN"
+    ]
+   ],
+   "unit": "cities",
+   "who": "the target of each declaration of the human",
+   "turn": "the moment each war starts",
+   "source": "as war_start_cities, the cities taken on the declaration turn or the next, one row each, with the turn the human took it and the city's current order [game3]",
+   "n": 4,
+   "values_total": 4,
+   "values_shown": 4,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    203,
+    203,
+    203,
+    203
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game4_quick_captures": {
+   "kind": "table",
+   "head": [
+    "declared",
+    "taken",
+    "target",
+    "x",
+    "y",
+    "pop",
+    "defenders",
+    "danger",
+    "foreign",
+    "orders"
+   ],
+   "rows": [
+    [
+     238,
+     238,
+     14,
+     30,
+     20,
+     2,
+     1,
+     0,
+     5,
+     "UNIT_WORKER"
+    ],
+    [
+     238,
+     239,
+     14,
+     29,
+     33,
+     3,
+     1,
+     0,
+     1,
+     "UNIT_GALLEY"
+    ],
+    [
+     252,
+     252,
+     2,
+     31,
+     33,
+     2,
+     1,
+     0,
+     3,
+     "BUILDING_WALLS"
+    ],
+    [
+     257,
+     257,
+     6,
+     33,
+     29,
+     3,
+     2,
+     0,
+     3,
+     "UNIT_RAM"
+    ],
+    [
+     268,
+     268,
+     7,
+     16,
+     29,
+     1,
+     1,
+     0,
+     1,
+     "UNIT_WORKBOAT"
+    ],
+    [
+     268,
+     268,
+     7,
+     28,
+     20,
+     2,
+     1,
+     0,
+     4,
+     "BUILDING_OBELISK"
+    ],
+    [
+     271,
+     272,
+     14,
+     38,
+     23,
+     4,
+     12,
+     16,
+     10,
+     "UNIT_SPEARMAN"
+    ],
+    [
+     272,
+     272,
+     10,
+     30,
+     16,
+     5,
+     2,
+     0,
+     4,
+     "UNIT_AXEMAN"
+    ],
+    [
+     283,
+     284,
+     7,
+     14,
+     26,
+     1,
+     1,
+     14,
+     9,
+     "UNIT_WARLORDI"
+    ],
+    [
+     283,
+     284,
+     7,
+     24,
+     17,
+     17,
+     7,
+     0,
+     0,
+     "UNIT_SETTLER"
+    ]
+   ],
+   "unit": "cities",
+   "who": "the target of each declaration of the human",
+   "turn": "the moment each war starts",
+   "source": "as war_start_cities, the cities taken on the declaration turn or the next, one row each, with the turn the human took it and the city's current order [game4]",
+   "n": 10,
+   "values_total": 10,
+   "values_shown": 10,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    238,
+    238,
+    252,
+    257,
+    268,
+    268,
+    271,
+    272,
+    283,
+    283
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "game5_quick_captures": {
+   "kind": "table",
+   "head": [
+    "declared",
+    "taken",
+    "target",
+    "x",
+    "y",
+    "pop",
+    "defenders",
+    "danger",
+    "foreign",
+    "orders"
+   ],
+   "rows": [
+    [
+     210,
+     210,
+     8,
+     20,
+     44,
+     8,
+     2,
+     0,
+     0,
+     "UNIT_SPEARMAN"
+    ]
+   ],
+   "unit": "cities",
+   "who": "the target of each declaration of the human",
+   "turn": "the moment each war starts",
+   "source": "as war_start_cities, the cities taken on the declaration turn or the next, one row each, with the turn the human took it and the city's current order [game5]",
+   "n": 1,
+   "values_total": 1,
+   "values_shown": 1,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    210
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "frisia_orders": {
+   "kind": "table",
+   "head": [
+    "orders",
+    "danger_above_zero",
+    "danger_zero"
+   ],
+   "rows": [
+    [
+     "UNIT_GALLEY",
+     13,
+     6
+    ],
+    [
+     "UNIT_SPEARMAN",
+     11,
+     5
+    ],
+    [
+     "UNIT_SETTLER",
+     4,
+     1
+    ],
+    [
+     "UNIT_SLAVE",
+     4,
+     0
+    ],
+    [
+     "UNIT_RAM",
+     3,
+     18
+    ],
+    [
+     "UNIT_WORKER",
+     3,
+     7
+    ],
+    [
+     "BUILDING_TOWN_ESSENTIALS",
+     3,
+     6
+    ],
+    [
+     "BUILDING_SLAVE_MARKET",
+     0,
+     2
+    ]
+   ],
+   "unit": "lines",
+   "who": "Frisia (player 8)",
+   "turn": "every Frisian turn at war with the human (turns 210 to 223)",
+   "source": "Y lines of Frisia's cities while at war with the human: the city's current order, counted over city-turns with the owner's danger count above zero and at zero [game5]",
+   "n": 8,
+   "values_total": 8,
+   "values_shown": 8,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    "UNIT_GALLEY",
+    "UNIT_SPEARMAN",
+    "UNIT_SETTLER",
+    "UNIT_SLAVE",
+    "UNIT_RAM",
+    "UNIT_WORKER",
+    "BUILDING_TOWN_ESSENTIALS",
+    "BUILDING_SLAVE_MARKET"
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "frisia_front": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "x",
+    "y",
+    "military",
+    "head_ai",
+    "units"
+   ],
+   "rows": [
+    [
+     207,
+     17,
+     38,
+     4,
+     "ATTACK_CITY",
+     "JAVELINEER:4"
+    ],
+    [
+     214,
+     17,
+     38,
+     5,
+     "ATTACK_CITY",
+     "JAVELINEER:5"
+    ],
+    [
+     215,
+     17,
+     37,
+     5,
+     "ATTACK_CITY",
+     "JAVELINEER:5"
+    ]
+   ],
+   "unit": "lines",
+   "who": "Frisia (player 8)",
+   "turn": "as logged",
+   "source": "G lines: Frisia's stacks near or in enemy land after its moves (AI stacks of three or more military units): plot, military units, the head's unit AI, units [game5]",
+   "n": 3,
+   "values_total": 3,
+   "values_shown": 3,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    207,
+    214,
+    215
+   ],
+   "stat": "result",
+   "xml_values": null
+  },
+  "frisia_power": {
+   "kind": "table",
+   "head": [
+    "turn",
+    "player",
+    "cities",
+    "military",
+    "power"
+   ],
+   "rows": [
+    [
+     200,
+     0,
+     7,
+     11,
+     117
+    ],
+    [
+     200,
+     8,
+     5,
+     20,
+     99
+    ],
+    [
+     207,
+     0,
+     7,
+     15,
+     157
+    ],
+    [
+     207,
+     8,
+     6,
+     26,
+     123
+    ],
+    [
+     210,
+     0,
+     9,
+     18,
+     192
+    ],
+    [
+     210,
+     8,
+     6,
+     26,
+     126
+    ],
+    [
+     215,
+     0,
+     9,
+     22,
+     227
+    ],
+    [
+     215,
+     8,
+     6,
+     23,
+     121
+    ],
+    [
+     220,
+     0,
+     11,
+     29,
+     308
+    ],
+    [
+     220,
+     8,
+     5,
+     17,
+     97
+    ],
+    [
+     223,
+     0,
+     14,
+     31,
+     341
+    ],
+    [
+     223,
+     8,
+     2,
+     10,
+     58
+    ]
+   ],
+   "unit": "units at save",
+   "who": "Frisia (player 8) and the human",
+   "turn": "turns 200, 207 (Frisia declares on Gaul), 210 (the human declares on Frisia), 215, 220, 223",
+   "source": "M lines (end of each player turn): cities, military units and power [game5]",
+   "n": 12,
+   "values_total": 12,
+   "values_shown": 12,
+   "reason": null,
+   "left_out": [],
+   "xml": null,
+   "values": [
+    200,
+    200,
+    207,
+    207,
+    210,
+    210,
+    215,
+    215,
+    220,
+    220,
+    223,
+    223
+   ],
+   "stat": "result",
+   "xml_values": null
+  }
+ },
+ "xml": {}
+}

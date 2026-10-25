@@ -1,0 +1,121 @@
+# CyArea.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **10** `CyArea::CyArea()`
+- **14** `CyArea::CyArea(CvArea*)`
+  - called by (8): CyCity::area, CyCity::waterArea, CyMap::findBiggestArea, CyMap::getArea, CyPlot::area, CyPlot::waterArea, CySelectionGroup::area, CyUnit::area
+- **18** `CyArea::calculateTotalBestNatureYield()` (Python: calculateTotalBestNatureYield)
+  - calls: CvArea::calculateTotalBestNatureYield [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **23** `CyArea::countCoastalLand()` (Python: countCoastalLand)
+  - calls: CvArea::countCoastalLand [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **28** `CyArea::countNumUniqueBonusTypes()` (Python: countNumUniqueBonusTypes)
+  - calls: CvArea::countNumUniqueBonusTypes [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **33** `CyArea::countHasReligion(int, int)` (Python: countHasReligion)
+  - calls: CvArea::countHasReligion [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **38** `CyArea::countHasCorporation(int, int)` (Python: countHasCorporation)
+  - calls: CvArea::countHasCorporation [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **43** `CyArea::getID()` (Python: getID)
+  - calls: CvArea::getID [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **48** `CyArea::getNumTiles()` (Python: getNumTiles)
+  - calls: CvArea::getNumTiles [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **53** `CyArea::isLake()` (Python: isLake)
+  - calls: CvArea::isLake [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **58** `CyArea::getNumOwnedTiles()` (Python: getNumOwnedTiles)
+  - calls: CvArea::getNumOwnedTiles [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **63** `CyArea::getNumUnownedTiles()` (Python: getNumUnownedTiles)
+  - calls: CvArea::getNumUnownedTiles [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **68** `CyArea::getNumRiverEdges()` (Python: getNumRiverEdges)
+  - calls: CvArea::getNumRiverEdges [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **73** `CyArea::getNumCities()` (Python: getNumCities)
+  - calls: CvArea::getNumCities [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **78** `CyArea::getNumUnits()` (Python: getNumUnits)
+  - calls: CvArea::getNumUnits [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **83** `CyArea::getTotalPopulation()` (Python: getTotalPopulation)
+  - calls: CvArea::getTotalPopulation [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **88** `CyArea::getNumStartingPlots()` (Python: getNumStartingPlots)
+  - calls: CvArea::getNumStartingPlots [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **93** `CyArea::isWater()` (Python: isWater)
+  - calls: CvArea::isWater [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **98** `CyArea::getUnitsPerPlayer(int)` (Python: getUnitsPerPlayer)
+  - calls: CvArea::getUnitsPerPlayer [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **103** `CyArea::getAnimalsPerPlayer(int)` (Python: getAnimalsPerPlayer)
+  - calls: CvArea::getAnimalsPerPlayer [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **108** `CyArea::getCitiesPerPlayer(int)` (Python: getCitiesPerPlayer)
+  - calls: CvArea::getCitiesPerPlayer [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **113** `CyArea::getPopulationPerPlayer(int)` (Python: getPopulationPerPlayer)
+  - calls: CvArea::getPopulationPerPlayer [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **118** `CyArea::getBuildingGoodHealth(int)` (Python: getBuildingGoodHealth)
+  - calls: CvArea::getBuildingGoodHealth [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **123** `CyArea::getBuildingBadHealth(int)` (Python: getBuildingBadHealth)
+  - calls: CvArea::getBuildingBadHealth [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **128** `CyArea::getBuildingHappiness(int)` (Python: getBuildingHappiness)
+  - calls: CvArea::getBuildingHappiness [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **133** `CyArea::getFreeSpecialist(int)` (Python: getFreeSpecialist)
+  - calls: CvArea::getFreeSpecialist [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **138** `CyArea::getPower(int)` (Python: getPower)
+  - calls: CvArea::getPower [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **143** `CyArea::getBestFoundValue(int)` (Python: getBestFoundValue)
+  - calls: CvArea::getBestFoundValue [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **148** `CyArea::getNumRevealedTiles(int)` (Python: getNumRevealedTiles)
+  - calls: CvArea::getNumRevealedTiles [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **153** `CyArea::getNumUnrevealedTiles(int)` (Python: getNumUnrevealedTiles)
+  - calls: CvArea::getNumUnrevealedTiles [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **158** `CyArea::isCleanPower(int)` (Python: isCleanPower)
+  - calls: CvArea::isCleanPower [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **163** `CyArea::isBorderObstacle(int)` (Python: isBorderObstacle)
+  - calls: CvArea::isBorderObstacle [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **168** `CyArea::getAreaAIType(int)` (Python: getAreaAIType)
+  - calls: CvArea::getAreaAIType [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **173** `CyArea::getTargetCity(int)` (Python: getTargetCity)
+  - calls: CvArea::getTargetCity [CvArea.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyAreaPythonInterface
+- **178** `CyArea::getYieldRateModifier(int, int)` (Python: getYieldRateModifier)
+  - calls: CvArea::getYieldRateModifier [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **183** `CyArea::getNumTrainAIUnits(int, int)` (Python: getNumTrainAIUnits)
+  - calls: CvArea::getNumTrainAIUnits [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **188** `CyArea::getNumAIUnits(int, int)` (Python: getNumAIUnits)
+  - calls: CvArea::getNumAIUnits [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **193** `CyArea::getNumBonuses(int)` (Python: getNumBonuses)
+  - calls: CvArea::getNumBonuses [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **198** `CyArea::getNumTotalBonuses()` (Python: getNumTotalBonuses)
+  - calls: CvArea::getNumTotalBonuses [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface
+- **204** `CyArea::getNumImprovements(int)` (Python: getNumImprovements)
+  - calls: CvArea::getNumImprovements [CvArea.cpp]
+  - called by (1): CyAreaPythonInterface

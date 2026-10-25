@@ -29,6 +29,7 @@ HH void HH_startGame(int);
 HH void HH_beginPlay();
 HH int HH_gameTurn();
 HH void HH_update();
+const char* harnessGraphicsStats();	// engine.cpp
 HH int HH_numCities(int);
 HH int HH_cityAt(int, int);
 HH int HH_debugSites(int, int, int, char*, int);
@@ -271,6 +272,18 @@ static void saveRun(const char* szInit, const char* szGame, int iTurns, const ch
 	if (iAlive <= 0) return;
 	// The harness cannot press "end turn": human seats play as AI (autorun).
 	harnessLog("autoplay: %d human seat(s) handed to the AI\n", HH_autoPlayHumans(iTurns + 1));
+	// HARNESS_GRAPHICS=1: graphics initialised as by the executable after loading, with a moving camera
+	// (HarnessHooks.cpp); HARNESS_DEFINES overrides defines, e.g. GRAPHICS_PAGING=0.
+	const bool bGraphics = getenv("HARNESS_GRAPHICS") != NULL;
+	if (bGraphics)
+	{
+		typedef void (*SetupFn)();
+		HMODULE hDll = GetModuleHandleA("CvGameCoreDLL.dll");
+		const SetupFn pfn = hDll != NULL ? (SetupFn)GetProcAddress(hDll, "HH_setupGraphics") : NULL;
+		if (pfn == NULL) { harnessLog("HARNESS_GRAPHICS: this DLL has no HH_setupGraphics\n"); return; }
+		pfn();
+		harnessLog("graphics set up: %s\n", harnessGraphicsStats());
+	}
 	const std::string szState0 = std::string(szOut) + ".state0.json", szState1 = std::string(szOut) + ".state1.json";
 	HH_dumpState(szState0.c_str());
 	FILE* f = fopen(szOut, "w");
@@ -292,6 +305,7 @@ static void saveRun(const char* szInit, const char* szGame, int iTurns, const ch
 			const DWORD uiNow = GetTickCount();
 			const int iMs = iLastTurn < 0 ? 0 : (int)(uiNow - uiTurnStart);
 			harnessLog("turn %d (%d ms, %ld updates)\n", iTurn, iMs, iUpdates);
+			if (bGraphics) harnessLog("graphics turn %d: %s\n", iTurn, harnessGraphicsStats());
 			uiTurnStart = uiNow;
 			iLastTurn = iTurn;
 			iUpdates = 0;

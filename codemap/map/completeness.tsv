@@ -1,0 +1,469 @@
+found_by	file	line	name
+ctags only	AIFeedbackPolicy.h	58	doctrineEvidence
+ctags only	AIHierarchyPolicy.h	87	routeAdjustedValue
+ctags only	AIMissionTargetIndex.h	56	invalidate
+ctags only	AIMissionTargetIndex.h	76	numEntries
+ctags only	AIMissionTargetIndex.h	232	invalidate
+ctags only	AIMissionTargetIndex.h	253	numEntries
+ctags only	AISettlementPolicy.h	15	operator <
+ctags only	AIStrategicContextPolicy.h	48	Snapshot
+ctags only	CvArtFileMgr.h	88	operator ()
+ctags only	CvCity.cpp	9473	calculateTradeProfitTimes100
+ctags only	CvCity.cpp	9488	calculateTradeProfit
+ctags only	CvCity.cpp	14553	operator () 
+ctags only	CvDLLEntityIFaceBase.h	24	removeEntity
+ctags only	CvDLLEntityIFaceBase.h	25	addEntity
+ctags only	CvDLLEntityIFaceBase.h	26	setup
+ctags only	CvDLLEntityIFaceBase.h	27	setVisible
+ctags only	CvDLLEntityIFaceBase.h	28	createCityEntity
+ctags only	CvDLLEntityIFaceBase.h	29	createUnitEntity
+ctags only	CvDLLEntityIFaceBase.h	30	destroyEntity
+ctags only	CvDLLEntityIFaceBase.h	31	updatePosition
+ctags only	CvDLLEntityIFaceBase.h	32	setupFloodPlains
+ctags only	CvDLLEntityIFaceBase.h	34	IsSelected
+ctags only	CvDLLEntityIFaceBase.h	35	PlayAnimation
+ctags only	CvDLLEntityIFaceBase.h	36	StopAnimation
+ctags only	CvDLLEntityIFaceBase.h	37	StopAnimation
+ctags only	CvDLLEntityIFaceBase.h	38	NotifyEntity
+ctags only	CvDLLEntityIFaceBase.h	39	MoveTo
+ctags only	CvDLLEntityIFaceBase.h	40	QueueMove
+ctags only	CvDLLEntityIFaceBase.h	41	ExecuteMove
+ctags only	CvDLLEntityIFaceBase.h	42	SetPosition
+ctags only	CvDLLEntityIFaceBase.h	43	AddMission
+ctags only	CvDLLEntityIFaceBase.h	44	RemoveUnitFromBattle
+ctags only	CvDLLEntityIFaceBase.h	45	showPromotionGlow
+ctags only	CvDLLEntityIFaceBase.h	46	updateEnemyGlow
+ctags only	CvDLLEntityIFaceBase.h	47	updatePromotionLayers
+ctags only	CvDLLEntityIFaceBase.h	48	updateGraphicEra
+ctags only	CvDLLEntityIFaceBase.h	49	SetSiegeTower
+ctags only	CvDLLEntityIFaceBase.h	50	GetSiegeTower
+ctags only	CvDLLFlagEntityIFaceBase.h	40	setVisible
+ctags only	CvDLLPlotBuilderIFaceBase.h	21	destroy
+ctags only	CvDLLPythonIFaceBase.h	66	setSeqFromArray
+ctags only	CvDLLPythonIFaceBase.h	123	putFloatSeqInArray
+ctags only	CvDLLPythonIFaceBase.h	148	putStringSeqInArray
+ctags only	CvDLLSymbolIFaceBase.h	48	destroy
+ctags only	CvDLLSymbolIFaceBase.h	49	Hide
+ctags only	CvDLLSymbolIFaceBase.h	50	IsHidden
+ctags only	CvDLLSymbolIFaceBase.h	51	updatePosition
+ctags only	CvDLLSymbolIFaceBase.h	62	destroy
+ctags only	CvDLLSymbolIFaceBase.h	63	Hide
+ctags only	CvDLLSymbolIFaceBase.h	64	IsHidden
+ctags only	CvDLLSymbolIFaceBase.h	65	updatePosition
+ctags only	CvDLLSymbolIFaceBase.h	77	destroy
+ctags only	CvDLLSymbolIFaceBase.h	78	Hide
+ctags only	CvDLLSymbolIFaceBase.h	79	IsHidden
+ctags only	CvDLLSymbolIFaceBase.h	80	updatePosition
+ctags only	CvDiploParameters.cpp	4	CvDiploParameters
+ctags only	CvGame.cpp	10125	checkCRCs
+ctags only	CvGame.cpp	10131	getWarningStatus
+ctags only	CvGameCoreDLL.cpp	89	DllMain
+ctags only	CvGameCoreDLL.h	62	operator ==
+ctags only	CvGameCoreDLL.h	65	operator +
+ctags only	CvGameCoreDLL.h	68	operator -
+ctags only	CvGameCoreDLL.h	71	operator *
+ctags only	CvGameCoreDLL.h	74	operator *
+ctags only	CvGameCoreDLL.h	77	operator /
+ctags only	CvGameCoreDLL.h	83	operator -
+ctags only	CvGameCoreDLL.h	150	FtoDW
+ctags only	CvGameCoreDLL.h	151	DWtoF
+ctags only	CvGameCoreDLL.h	152	MaxFloat
+ctags only	CvGlobals.cpp	120	CvGlobals
+ctags only	CvGlobals.cpp	4256	isBuffy
+ctags only	CvGlobals.cpp	4257	getBuffyApiVersion
+ctags only	CvGlobals.cpp	4258	getBuffyName
+ctags only	CvGlobals.cpp	4259	getBuffyVersion
+ctags only	CvInfos.cpp	456	CvHotkeyInfo
+ctags only	CvInfos.cpp	912	CvDiplomacyResponse
+ctags only	CvInfos.cpp	1161	CvSpecialistInfo
+ctags only	CvInfos.cpp	1367	CvTechInfo
+ctags only	CvInfos.cpp	2223	CvPromotionInfo
+ctags only	CvInfos.cpp	3013	CvMissionInfo
+ctags only	CvInfos.cpp	3186	CvCommandInfo
+ctags only	CvInfos.cpp	3286	CvAutomateInfo
+ctags only	CvInfos.cpp	3861	CvUnitInfo
+ctags only	CvInfos.cpp	7065	CvSpecialUnitInfo
+ctags only	CvInfos.cpp	7254	CvCivicInfo
+ctags only	CvInfos.cpp	9003	CvUnitClassInfo
+ctags only	CvInfos.cpp	9166	CvBuildingInfo
+ctags only	CvInfos.cpp	12121	CvSpecialBuildingInfo
+ctags only	CvInfos.cpp	12233	CvBuildingClassInfo
+ctags only	CvInfos.cpp	12725	CvCivilizationInfo
+ctags only	CvInfos.cpp	13495	CvVictoryInfo
+ctags only	CvInfos.cpp	13676	CvHurryInfo
+ctags only	CvInfos.cpp	13759	CvHandicapInfo
+ctags only	CvInfos.cpp	14578	CvGameSpeedInfo
+ctags only	CvInfos.cpp	14865	CvTurnTimerInfo
+ctags only	CvInfos.cpp	14955	CvBuildInfo
+ctags only	CvInfos.cpp	15140	CvGoodyInfo
+ctags only	CvInfos.cpp	15340	CvRouteInfo
+ctags only	CvInfos.cpp	15559	CvImprovementBonusInfo
+ctags only	CvInfos.cpp	15648	CvImprovementInfo
+ctags only	CvInfos.cpp	16693	CvBonusInfo
+ctags only	CvInfos.cpp	17263	CvFeatureInfo
+ctags only	CvInfos.cpp	17725	CvCommerceInfo
+ctags only	CvInfos.cpp	17827	CvYieldInfo
+ctags only	CvInfos.cpp	18064	CvTerrainInfo
+ctags only	CvInfos.cpp	18359	CvInterfaceModeInfo
+ctags only	CvInfos.cpp	18589	CvLeaderHeadInfo
+ctags only	CvInfos.cpp	19884	CvWorldInfo
+ctags only	CvInfos.cpp	20085	CvClimateInfo
+ctags only	CvInfos.cpp	20374	CvVoteInfo
+ctags only	CvInfos.cpp	20592	CvProjectInfo
+ctags only	CvInfos.cpp	20957	CvReligionInfo
+ctags only	CvInfos.cpp	21386	CvCorporationInfo
+ctags only	CvInfos.cpp	21816	CvTraitInfo
+ctags only	CvInfos.cpp	22345	CvThroneRoomInfo
+ctags only	CvInfos.cpp	23014	CvSpaceShipInfo
+ctags only	CvInfos.cpp	23771	CvArtInfoUnit
+ctags only	CvInfos.cpp	24319	CvArtInfoTerrain
+ctags only	CvInfos.cpp	24479	CvArtInfoFeature
+ctags only	CvInfos.cpp	24756	CvEmphasizeInfo
+ctags only	CvInfos.cpp	25016	CvEraInfo
+ctags only	CvInfos.cpp	25453	CvPlayerColorInfo
+ctags only	CvInfos.cpp	25535	CvLandscapeInfo
+ctags only	CvInfos.cpp	26102	CvEffectInfo
+ctags only	CvInfos.cpp	26347	CvQuestInfo
+ctags only	CvInfos.cpp	27124	CvEventTriggerInfo
+ctags only	CvInfos.cpp	28788	CvEventInfo
+ctags only	CvInfos.cpp	30733	CvVoteSourceInfo
+ctags only	CvInfos.cpp	31006	CvPythonModulesInfo
+ctags only	CvInfos.h	1478	CvUnitEntry
+ctags only	CvInfos.h	2708	pyGetAdjectiveKey
+ctags only	CvInfos.h	6024	getModelFile
+ctags only	CvInfos.h	6029	getRotation
+ctags only	CvInfos.h	6052	getNumArtModels
+ctags only	CvInfos.h	6057	getArtModel
+ctags only	CvInfos.h	6106	getFeatureArtPiece
+ctags only	CvInfos.h	6112	getFeatureArtPieceFromConnectionMask
+ctags only	CvInfos.h	6134	getFeatureDummyTag
+ctags only	CvInfos.h	6637	Response
+ctags only	CvMessageData.cpp	468	CvNetAdvancedStartAction
+ctags only	CvMessageData.cpp	607	CvNetFoundReligion
+ctags only	CvMessageData.cpp	672	CvNetEventTriggered
+ctags only	CvPlayerAI.cpp	12687	operator ()
+ctags only	CvPlot.cpp	4146	waterArea
+ctags only	CvPopupInfo.cpp	4	CvPopupInfo
+ctags only	CvPopupReturn.h	24	PopupReturn
+ctags only	CvPopupReturn.h	33	setSelectedRadioButton
+ctags only	CvPopupReturn.h	52	setCheckboxBitfield
+ctags only	CvPopupReturn.h	71	setEditBoxString
+ctags only	CvPopupReturn.h	93	setSpinnerWidgetValue
+ctags only	CvPopupReturn.h	112	setSelectedPulldownValue
+ctags only	CvPopupReturn.h	130	setSelectedListBoxValue
+ctags only	CvPopupReturn.h	148	setCurrentSpinBoxValue
+ctags only	CvPopupReturn.h	154	getCurrentSpinBoxValue
+ctags only	CvPopupReturn.h	166	setButtonClicked
+ctags only	CvReplayInfo.cpp	15	CvReplayInfo
+ctags only	CvReplayMessage.cpp	4	CvReplayMessage
+ctags only	CvSelectionGroup.cpp	243	sentryAlertSameDomainType
+ctags only	CvString.h	32	CvWString
+ctags only	CvString.h	55	operator const wchar*
+ctags only	CvString.h	58	operator []
+ctags only	CvString.h	59	operator []
+ctags only	CvString.h	60	operator []
+ctags only	CvString.h	211	Convert
+ctags only	CvString.h	228	operator const char*
+ctags only	CvString.h	272	Replace
+ctags only	CvString.h	291	Replace
+ctags only	CvString.h	424	formatv
+ctags only	CvString.h	447	format
+ctags only	CvString.h	472	formatv
+ctags only	CvString.h	494	format
+ctags only	CvStructs.cpp	284	CvMissionDefinition
+ctags only	CvStructs.h	19	operator <
+ctags only	CvStructs.h	20	operator <=
+ctags only	CvStructs.h	23	operator >=
+ctags only	CvStructs.h	24	operator >
+ctags only	CvTalkingHeadMessage.cpp	6	CvTalkingHeadMessage
+ctags only	CvTeam.cpp	1406	declareWar
+ctags only	CvUnitAI.cpp	20738	AI_pickup
+ctags only	CvXMLLoadUtility.cpp	38	logXmlCheckDoubleTypes
+ctags only	CvXMLLoadUtility.cpp	54	XmlArtTagVerification
+ctags only	CvXMLLoadUtility.cpp	125	CvXMLLoadUtility
+ctags only	CvXMLLoadUtilitySet.cpp	2338	LoadGlobalClassInfoModular
+ctags only	CvXMLLoadUtilitySetMod.cpp	244	MLFEnumerateFiles
+ctags only	CvXMLLoadUtilitySetMod.cpp	356	isValidModule
+ctags only	CyCity.cpp	1983	calculateTradeProfitTimes100
+ctags only	CyGame.cpp	1322	checkCRCs
+ctags only	CyGame.cpp	1327	getWarningStatus
+ctags only	CyGame.h	26	getGame
+ctags only	CyGlobalContext.h	172	getFootstepAudioTypes
+ctags only	CyGlobalContext.h	173	getFootstepAudioTags
+ctags only	CyGlobalContext.h	259	getNumInvisibleInfos
+ctags only	CyGlobalContext.h	274	getNumAnimationPathInfos
+ctags only	CyGlobalContext.h	275	getNumAnimationCategoryInfos
+ctags only	CyGlobalContext.h	284	getNumFootstepAudioTypes
+ctags only	CyGlobalContext.h	406	isBuffy
+ctags only	CyGlobalContext.h	407	getBuffyApiVersion
+ctags only	CyGlobalContext.h	409	getBuffyName
+ctags only	CyGlobalContext.h	410	getBuffyVersion
+ctags only	CyGlobalContext.h	412	pyGetBuffyName
+ctags only	CyGlobalContext.h	413	pyGetBuffyVersion
+ctags only	CyMap.h	23	getMap
+ctags only	CyMapGenerator.h	24	getMapGenerator
+ctags only	CyPlayer.h	23	getPlayer
+ctags only	CyReplayInfo.h	13	getReplayInfo
+ctags only	CySelectionGroup.h	23	getSelectionGroup
+ctags only	CyTeam.h	18	getTeam
+ctags only	FAStarNode.h	52	FAStarNode
+ctags only	FAStarNode.h	80	clear
+ctags only	FAssert.cpp	48	AssertDlgProc
+ctags only	FAssert.cpp	108	DisplayAssertDialog
+ctags only	FAssert.cpp	136	FAssertDlg
+ctags only	FFreeListArray.h	67	FFreeListArray
+ctags only	FFreeListArray.h	79	~FFreeListArray
+ctags only	FFreeListArray.h	86	init
+ctags only	FFreeListArray.h	110	uninit
+ctags only	FFreeListArray.h	122	insert
+ctags only	FFreeListArray.h	155	insertAt
+ctags only	FFreeListArray.h	222	insertFirst
+ctags only	FFreeListArray.h	251	getAt
+ctags only	FFreeListArray.h	271	getIndex
+ctags only	FFreeListArray.h	296	remove
+ctags only	FFreeListArray.h	318	removeAt
+ctags only	FFreeListArray.h	339	removeAll
+ctags only	FFreeListArray.h	361	growArray
+ctags only	FFreeListArray.h	392	Read
+ctags only	FFreeListArray.h	410	Write
+ctags only	FFreeListArray.h	432	ReadStreamableFFreeListArray
+ctags only	FFreeListArray.h	453	WriteStreamableFFreeListArray
+ctags only	FFreeListTrashArray.h	274	remove
+ctags only	FFreeListTrashArray.h	416	Read
+ctags only	FFreeListTrashArray.h	450	Write
+ctags only	FInputDevice.h	194	operator ()
+ctags only	FInputDevice.h	202	InputValue
+ctags only	FInputDevice.h	203	operator ==
+ctags only	FInputDevice.h	212	InputEvent
+ctags only	FInputDevice.h	213	InputEvent
+ctags only	FInputDevice.h	214	operator ==
+ctags only	FInputDevice.h	227	GetFlags
+ctags only	FInputDevice.h	230	GetInputEvents
+ctags only	FInputDevice.h	231	GetNumInputEvents
+ctags only	FInputDevice.h	232	GetInputEvent
+ctags only	FProfiler.h	26	ProfileSample
+ctags only	FProfiler.h	47	CProfileScope
+ctags only	FProfiler.h	48	CProfileScope
+ctags only	FProfiler.h	54	~CProfileScope
+ctags only	FVariableSystem.inl	135	Read
+ctags only	FVariableSystem.inl	165	Write
+ctags only	FVariableSystem.inl	223	GetValue
+ctags only	FVariableSystem.inl	246	GetValue
+ctags only	FVariableSystem.inl	269	GetValue
+ctags only	FVariableSystem.inl	292	GetValue
+ctags only	FVariableSystem.inl	338	GetValue
+ctags only	FVariableSystem.inl	416	GetValue
+ctags only	FVariableSystem.inl	516	GetVariable
+ctags only	FVariableSystem.inl	553	SetValue
+ctags only	FVariableSystem.inl	575	SetValue
+ctags only	FVariableSystem.inl	597	SetValue
+ctags only	FVariableSystem.inl	619	SetValue
+ctags only	FVariableSystem.inl	663	SetValue
+ctags only	FVariableSystem.inl	707	SetValue
+ctags only	FVariableSystem.inl	751	SetValue
+ctags only	FVariableSystem.inl	773	RemValue
+ctags only	FVariableSystem.inl	788	GetFirstVariableName
+ctags only	FVariableSystem.inl	803	GetNextVariableName
+ctags only	LinkedList.h	210	insertAfter
+ctags only	LinkedList.h	274	moveToEnd
+ctags only	LinkedList.h	406	ReadStreamableLinkList
+ctags only	LinkedList.h	425	WriteStreamableLinkList
+ctags only	ResearchPathPlan.h	59	Planner
+ctags only	ResearchPathPlan.h	98	provedOptimal
+ctags only	ResearchPathPlan.h	110	resolvedCount
+ctags only	ResearchPathPlan.h	111	searchNodes
+compiled only	AISettlementPolicy.h	16	AISettlementPolicy::Candidate::operator<(struct AISettlementPolicy::Candidate const &) const
+compiled only	AIStrategicContextPolicy.h	54	AIStrategicContextPolicy::Snapshot::Snapshot
+compiled only	CvArtFileMgr.cpp	172	CvAssetArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	172	CvAssetArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	172	CvArtFileMgr::getAssetArtInfo(int)
+compiled only	CvArtFileMgr.cpp	172	CvArtFileMgr::getAssetArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	172	CvAssetArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	172	
+compiled only	CvArtFileMgr.cpp	173	CvMiscArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	173	CvMiscArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	173	CvArtFileMgr::getMiscArtInfo(int)
+compiled only	CvArtFileMgr.cpp	173	CvArtFileMgr::getMiscArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	173	CvMiscArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	173	_$E12
+compiled only	CvArtFileMgr.cpp	174	CvUnitArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	174	CvUnitArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	174	CvArtFileMgr::getUnitArtInfo(int)
+compiled only	CvArtFileMgr.cpp	174	CvArtFileMgr::getUnitArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	174	CvUnitArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	174	
+compiled only	CvArtFileMgr.cpp	175	CvBuildingArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	175	CvBuildingArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	175	CvArtFileMgr::getBuildingArtInfo(int)
+compiled only	CvArtFileMgr.cpp	175	CvArtFileMgr::getBuildingArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	175	CvBuildingArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	175	_$E16
+compiled only	CvArtFileMgr.cpp	176	CvCivilizationArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	176	CvCivilizationArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	176	CvArtFileMgr::getCivilizationArtInfo(int)
+compiled only	CvArtFileMgr.cpp	176	CvArtFileMgr::getCivilizationArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	176	CvCivilizationArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	176	_$E18
+compiled only	CvArtFileMgr.cpp	177	CvLeaderheadArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	177	CvLeaderheadArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	177	CvArtFileMgr::getLeaderheadArtInfo(int)
+compiled only	CvArtFileMgr.cpp	177	CvArtFileMgr::getLeaderheadArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	177	CvLeaderheadArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	177	_$E20
+compiled only	CvArtFileMgr.cpp	178	CvBonusArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	178	CvBonusArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	178	CvArtFileMgr::getBonusArtInfo(int)
+compiled only	CvArtFileMgr.cpp	178	CvArtFileMgr::getBonusArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	178	CvBonusArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	178	
+compiled only	CvArtFileMgr.cpp	179	CvImprovementArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	179	CvImprovementArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	179	CvArtFileMgr::getImprovementArtInfo(int)
+compiled only	CvArtFileMgr.cpp	179	CvArtFileMgr::getImprovementArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	179	CvImprovementArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	179	_$E24
+compiled only	CvArtFileMgr.cpp	180	CvTerrainArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	180	CvTerrainArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	180	CvArtFileMgr::getTerrainArtInfo(int)
+compiled only	CvArtFileMgr.cpp	180	CvArtFileMgr::getTerrainArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	180	CvTerrainArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	180	_$E26
+compiled only	CvArtFileMgr.cpp	181	CvFeatureArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	181	CvFeatureArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	181	CvArtFileMgr::getFeatureArtInfo(int)
+compiled only	CvArtFileMgr.cpp	181	CvArtFileMgr::getFeatureArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	181	CvFeatureArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	181	
+compiled only	CvArtFileMgr.cpp	182	CvMovieArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	182	CvMovieArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	182	CvArtFileMgr::getMovieArtInfo(int)
+compiled only	CvArtFileMgr.cpp	182	CvArtFileMgr::getMovieArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	182	CvMovieArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	182	_$E30
+compiled only	CvArtFileMgr.cpp	183	CvInterfaceArtInfoItem::buildMap
+compiled only	CvArtFileMgr.cpp	183	CvInterfaceArtInfoItem::deInit
+compiled only	CvArtFileMgr.cpp	183	CvArtFileMgr::getInterfaceArtInfo(int)
+compiled only	CvArtFileMgr.cpp	183	CvArtFileMgr::getInterfaceArtInfo(char const*) const
+compiled only	CvArtFileMgr.cpp	183	CvInterfaceArtInfoItem::init
+compiled only	CvArtFileMgr.cpp	183	_$E32
+compiled only	CvArtFileMgr.h	89	CvArtFileMgr::ltstr::operator
+compiled only	CvArtFileMgr.h	94	CvArtFileMgr::getAssetArtInfo()
+compiled only	CvArtFileMgr.h	94	CvArtFileMgr::getNumAssetArtInfos
+compiled only	CvArtFileMgr.h	95	CvArtFileMgr::getMiscArtInfo()
+compiled only	CvArtFileMgr.h	95	CvArtFileMgr::getNumMiscArtInfos
+compiled only	CvArtFileMgr.h	96	CvArtFileMgr::getNumUnitArtInfos
+compiled only	CvArtFileMgr.h	96	CvArtFileMgr::getUnitArtInfo()
+compiled only	CvArtFileMgr.h	97	CvArtFileMgr::getBuildingArtInfo()
+compiled only	CvArtFileMgr.h	97	CvArtFileMgr::getNumBuildingArtInfos
+compiled only	CvArtFileMgr.h	98	CvArtFileMgr::getCivilizationArtInfo()
+compiled only	CvArtFileMgr.h	98	CvArtFileMgr::getNumCivilizationArtInfos
+compiled only	CvArtFileMgr.h	99	CvArtFileMgr::getLeaderheadArtInfo()
+compiled only	CvArtFileMgr.h	99	CvArtFileMgr::getNumLeaderheadArtInfos
+compiled only	CvArtFileMgr.h	100	CvArtFileMgr::getBonusArtInfo()
+compiled only	CvArtFileMgr.h	100	CvArtFileMgr::getNumBonusArtInfos
+compiled only	CvArtFileMgr.h	101	CvArtFileMgr::getImprovementArtInfo()
+compiled only	CvArtFileMgr.h	101	CvArtFileMgr::getNumImprovementArtInfos
+compiled only	CvArtFileMgr.h	102	CvArtFileMgr::getNumTerrainArtInfos
+compiled only	CvArtFileMgr.h	102	CvArtFileMgr::getTerrainArtInfo()
+compiled only	CvArtFileMgr.h	103	CvArtFileMgr::getFeatureArtInfo()
+compiled only	CvArtFileMgr.h	103	CvArtFileMgr::getNumFeatureArtInfos
+compiled only	CvArtFileMgr.h	104	CvArtFileMgr::getMovieArtInfo()
+compiled only	CvArtFileMgr.h	104	CvArtFileMgr::getNumMovieArtInfos
+compiled only	CvArtFileMgr.h	105	CvArtFileMgr::getInterfaceArtInfo()
+compiled only	CvArtFileMgr.h	105	CvArtFileMgr::getNumInterfaceArtInfos
+compiled only	CvCity.cpp	14554	VisibleBuildingComparator::operator
+compiled only	CvDiploParameters.cpp	14	CvDiploParameters::CvDiploParameters
+compiled only	CvDiploParameters.cpp	71	CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, int)
+compiled only	CvDiploParameters.cpp	74	CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, CvWString)
+compiled only	CvDiploParameters.cpp	77	CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, int)
+compiled only	CvDiploParameters.cpp	80	CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, CvWString)
+compiled only	CvDiploParameters.cpp	83	CvDiploParameters::setDiploComment(DiploCommentTypes, int, CvWString, int)
+compiled only	CvDiploParameters.cpp	86	CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, CvWString)
+compiled only	CvDiploParameters.cpp	89	CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, int)
+compiled only	CvDiploParameters.cpp	92	CvDiploParameters::setDiploComment(DiploCommentTypes, std::vector<FVariable, std::allocator<FVariable>> const*)
+compiled only	CvGameCoreDLL.cpp	92	_DllMain@12
+compiled only	CvGameCoreUtils.cpp	2958	_$E9
+compiled only	CvGlobals.cpp	115	
+compiled only	CvGlobals.cpp	373	CvGlobals::CvGlobals
+compiled only	CvInfos.cpp	469	CvHotkeyInfo::CvHotkeyInfo()
+compiled only	CvInfos.cpp	919	CvDiplomacyResponse::CvDiplomacyResponse
+compiled only	CvInfos.cpp	1170	CvSpecialistInfo::CvSpecialistInfo()
+compiled only	CvInfos.cpp	1421	CvTechInfo::CvTechInfo()
+compiled only	CvInfos.cpp	2276	CvPromotionInfo::CvPromotionInfo()
+compiled only	CvInfos.cpp	3020	CvMissionInfo::CvMissionInfo()
+compiled only	CvInfos.cpp	3191	CvCommandInfo::CvCommandInfo()
+compiled only	CvInfos.cpp	3291	CvAutomateInfo::CvAutomateInfo()
+compiled only	CvInfos.cpp	4076	CvUnitInfo::CvUnitInfo()
+compiled only	CvInfos.cpp	7070	CvSpecialUnitInfo::CvSpecialUnitInfo()
+compiled only	CvInfos.cpp	7340	CvCivicInfo::CvCivicInfo()
+compiled only	CvInfos.cpp	9009	CvUnitClassInfo::CvUnitClassInfo()
+compiled only	CvInfos.cpp	9351	CvBuildingInfo::CvBuildingInfo()
+compiled only	CvInfos.cpp	12127	CvSpecialBuildingInfo::CvSpecialBuildingInfo()
+compiled only	CvInfos.cpp	12242	CvBuildingClassInfo::CvBuildingClassInfo
+compiled only	CvInfos.cpp	12745	CvCivilizationInfo::CvCivilizationInfo()
+compiled only	CvInfos.cpp	13509	CvVictoryInfo::CvVictoryInfo()
+compiled only	CvInfos.cpp	13680	CvHurryInfo::CvHurryInfo()
+compiled only	CvInfos.cpp	13821	CvHandicapInfo::CvHandicapInfo()
+compiled only	CvInfos.cpp	14602	CvGameSpeedInfo::CvGameSpeedInfo()
+compiled only	CvInfos.cpp	14870	CvTurnTimerInfo::CvTurnTimerInfo()
+compiled only	CvInfos.cpp	14968	CvBuildInfo::CvBuildInfo()
+compiled only	CvInfos.cpp	15156	CvGoodyInfo::CvGoodyInfo()
+compiled only	CvInfos.cpp	15350	CvRouteInfo::CvRouteInfo()
+compiled only	CvInfos.cpp	15564	CvImprovementBonusInfo::CvImprovementBonusInfo()
+compiled only	CvInfos.cpp	15686	CvImprovementInfo::CvImprovementInfo()
+compiled only	CvInfos.cpp	16728	CvBonusInfo::CvBonusInfo()
+compiled only	CvInfos.cpp	17292	CvFeatureInfo::CvFeatureInfo()
+compiled only	CvInfos.cpp	17731	CvCommerceInfo::CvCommerceInfo()
+compiled only	CvInfos.cpp	17842	CvYieldInfo::CvYieldInfo
+compiled only	CvInfos.cpp	18080	CvTerrainInfo::CvTerrainInfo
+compiled only	CvInfos.cpp	18367	CvInterfaceModeInfo::CvInterfaceModeInfo
+compiled only	CvInfos.cpp	18689	CvLeaderHeadInfo::CvLeaderHeadInfo
+compiled only	CvInfos.cpp	19904	CvWorldInfo::CvWorldInfo()
+compiled only	CvInfos.cpp	20097	CvClimateInfo::CvClimateInfo()
+compiled only	CvInfos.cpp	20393	CvVoteInfo::CvVoteInfo
+compiled only	CvInfos.cpp	20611	CvProjectInfo::CvProjectInfo
+compiled only	CvInfos.cpp	20977	CvReligionInfo::CvReligionInfo
+compiled only	CvInfos.cpp	21409	CvCorporationInfo::CvCorporationInfo()
+compiled only	CvInfos.cpp	21854	CvTraitInfo::CvTraitInfo()
+compiled only	CvInfos.cpp	22349	CvThroneRoomInfo::CvThroneRoomInfo
+compiled only	CvInfos.cpp	23021	CvSpaceShipInfo::CvSpaceShipInfo
+compiled only	CvInfos.cpp	23793	CvArtInfoUnit::CvArtInfoUnit()
+compiled only	CvInfos.cpp	24324	CvArtInfoTerrain::CvArtInfoTerrain()
+compiled only	CvInfos.cpp	24484	CvArtInfoFeature::CvArtInfoFeature()
+compiled only	CvInfos.cpp	24761	CvEmphasizeInfo::CvEmphasizeInfo()
+compiled only	CvInfos.cpp	25053	CvEraInfo::CvEraInfo()
+compiled only	CvInfos.cpp	25457	CvPlayerColorInfo::CvPlayerColorInfo()
+compiled only	CvInfos.cpp	25552	CvLandscapeInfo::CvLandscapeInfo
+compiled only	CvInfos.cpp	26117	CvEffectInfo::CvEffectInfo()
+compiled only	CvInfos.cpp	26354	CvQuestInfo::CvQuestInfo()
+compiled only	CvInfos.cpp	27173	CvEventTriggerInfo::CvEventTriggerInfo()
+compiled only	CvInfos.cpp	28852	CvEventInfo::CvEventInfo()
+compiled only	CvInfos.cpp	30739	CvVoteSourceInfo::CvVoteSourceInfo()
+compiled only	CvInfos.cpp	31016	CvPythonModulesInfo::CvPythonModulesInfo()
+compiled only	CvInfos.h	6644	CvDiplomacyTextInfo::Response::Response
+compiled only	CvInitCore.cpp	34	_$E11
+compiled only	CvInitCore.cpp	36	
+compiled only	CvMessageData.cpp	475	CvNetAdvancedStartAction::CvNetAdvancedStartAction
+compiled only	CvMessageData.cpp	611	CvNetFoundReligion::CvNetFoundReligion
+compiled only	CvMessageData.cpp	676	CvNetEventTriggered::CvNetEventTriggered
+compiled only	CvPlayerAI.cpp	12688	`anonymous namespace'::UnitTargetCounter::operator
+compiled only	CvPlot.cpp	4150	CvPlot::waterArea
+compiled only	CvPopupInfo.cpp	13	CvPopupInfo::CvPopupInfo
+compiled only	CvReplayInfo.cpp	32	CvReplayInfo::CvReplayInfo
+compiled only	CvReplayMessage.cpp	11	CvReplayMessage::CvReplayMessage
+compiled only	CvString.h	55	CvWString::operator unsigned short const *
+compiled only	CvString.h	228	CvString::operator char const *
+compiled only	CvStructs.cpp	288	CvMissionDefinition::CvMissionDefinition
+compiled only	CvStructs.h	19	XYCoords::operator<(struct XYCoords) const
+compiled only	CvStructs.h	20	XYCoords::operator<=(struct XYCoords) const
+compiled only	CvStructs.h	23	XYCoords::operator>=(struct XYCoords) const
+compiled only	CvStructs.h	24	XYCoords::operator>(struct XYCoords) const
+compiled only	CvTalkingHeadMessage.cpp	21	CvTalkingHeadMessage::CvTalkingHeadMessage
+compiled only	CvTeam.cpp	1410	CvTeam::declareWar
+compiled only	CvUnitAI.cpp	20742	CvUnitAI::AI_pickup
+compiled only	CvXMLLoadUtility.cpp	129	CvXMLLoadUtility::CvXMLLoadUtility
+compiled only	CvXMLLoadUtilitySetMod.cpp	250	CvXMLLoadUtilitySetMod::MLFEnumerateFiles
+compiled only	CvXMLLoadUtilitySetMod.cpp	362	CvXMLLoadUtilitySetMod::isValidModule
+compiled only	CyRandomInterface.cpp	6	CvRandom_get_overloads::CvRandom_get_overloads<2>
+compiled only	CyRandomInterface.cpp	6	CvRandom_get_overloads::non_void_return_type::gen<boost::mpl::vector4<unsigned short, CvRandom&, unsigned short, char const*>>::func_0
+compiled only	ResearchPathPlan.h	77	ResearchPathPlan::Planner<CvResearchGraph>::Planner<class CvResearchGraph>

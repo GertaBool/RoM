@@ -169,6 +169,115 @@ static void HH_probe(const char* szPath, PlayerTypes ePlayer)
 	fclose(f);
 }
 
+// HARNESS_WAR_DIAG: the leader fields CvTeamAI averages over a team's members (AI_maxWarNearbyPowerRatio,
+// AI_maxWarDistantPowerRatio, AI_limitedWarPowerRatio, AI_maxWarMinAdjacentLandPercent, CvTeamAI.cpp:4388 on;
+// they are protected there). The no-war probability is CvTeamAI::AI_balanceNoWarProb (with the balance term).
+enum { HH_NEARBY, HH_DISTANT, HH_LIMITED, HH_MINADJ };
+static int HH_teamLeaderField(const CvTeamAI& kT, int iField)
+{
+	int iSum = 0, iCount = 0;
+	for (int i = 0; i < MAX_PLAYERS; ++i)
+	{
+		const CvPlayerAI& k = GET_PLAYER((PlayerTypes)i);
+		if (!k.isAlive() || k.getTeam() != kT.getID()) continue;
+		const CvLeaderHeadInfo& kL = GC.getLeaderHeadInfo(k.getPersonalityType());
+		iSum += iField == HH_NEARBY ? kL.getMaxWarNearbyPowerRatio() : iField == HH_DISTANT ? kL.getMaxWarDistantPowerRatio()
+			: iField == HH_LIMITED ? kL.getLimitedWarPowerRatio() : kL.getMaxWarMinAdjacentLandPercent();
+		++iCount;
+	}
+	return iCount > 0 ? iSum / iCount : 0;
+}
+
+// Per mille chance that range(rand(100) + iOffset, 0, 99) >= iProb, the no-war roll of AI_doWar.
+static int HH_rollPasses(int iOffset, int iProb)
+{
+	int iPass = 0;
+	for (int u = 0; u < 100; ++u)
+		if (range(u + iOffset, 0, 99) >= iProb) ++iPass;
+	return iPass * 10;
+}
+
+// The gates of CvTeamAI::AI_doWar (CvTeamAI.cpp:5126 on) for team kT towards every team it has met, at this
+// moment: whether it considers a new war, the chance of trying each path this turn, and per target the no-war
+// roll and the power tests of each path. Reads only.
+static void HH_warDiag(FILE* f, CvTeamAI& kT)
+{
+	CvGame& g = GC.getGameINLINE();
+	const int iEnemyPowerPercent = kT.AI_getEnemyPowerPercent();
+	const int iPlans = kT.getAnyWarPlanCount(true);
+	bool bAggressive = g.isOption(GAMEOPTION_AGGRESSIVE_AI);
+	int iFin = 0, iDagger = 0, iBetter = 0;
+	for (int i = 0; i < MAX_PLAYERS; ++i)
+	{
+		const CvPlayerAI& k = GET_PLAYER((PlayerTypes)i);
+		if (!k.isAlive() || k.getTeam() != kT.getID()) continue;
+		if (k.AI_isDoStrategy(AI_STRATEGY_DAGGER) || k.AI_isDoVictoryStrategy(AI_VICTORY_CONQUEST3) || k.AI_isDoVictoryStrategy(AI_VICTORY_DOMINATION4))
+		{
+			++iDagger; bAggressive = true;
+		}
+		if (k.AI_isDoStrategy(AI_STRATEGY_GET_BETTER_UNITS)) ++iBetter;
+		if (k.AI_isFinancialTrouble()) ++iFin;
+	}
+	const int iMembers = kT.getNumMembers();
+	int iTotalRand, iLimitedRand, iDogpileRand, iTotalThr, iLimitedThr, iDogpileThr;
+	kT.AI_getWarRands(iTotalRand, iLimitedRand, iDogpileRand);
+	kT.AI_getWarThresholds(iTotalThr, iLimitedThr, iDogpileThr);
+	const bool bOppose = (iFin - iDagger) >= std::max(1, iMembers / 2);
+	const bool bProTotal = iFin > 0 && (iDagger > 0 || iTotalRand < 100), bProLimited = iFin > 0 && iLimitedRand < 100,
+		bProDogpile = iFin > 0 && iDogpileRand < 100;
+	const bool bChecks = (iBetter - iDagger) * 3 < iMembers * 2 && (bProTotal || bProLimited || bProDogpile || !bOppose);
+	int iOurPower = kT.getPower(true);
+	if (bAggressive && iPlans == 0) iOurPower = iOurPower * 4 / 3;
+	iOurPower = iOurPower * (100 - iEnemyPowerPercent) / 100;
+	// chance per mille that getSorenRandNum(iRand) <= iThreshold
+	const int pTotal = (bProTotal || !bOppose) ? std::min(1000, 1000 * (iTotalThr + 1) / std::max(1, iTotalRand)) : 0;
+	const int pLimited = (bProLimited || !bOppose) ? std::min(1000, 1000 * (iLimitedThr + 1) / std::max(1, iLimitedRand)) : 0;
+	const int pDogpile = (bProDogpile || !bOppose) ? std::min(1000, 1000 * (iDogpileThr + 1) / std::max(1, iDogpileRand)) : 0;
+	const int iOffTotal = (bAggressive ? 10 : 0) + (bProTotal ? 10 : 0) - (20 * iBetter) / std::max(1, iMembers);
+	const int iOffLimited = -10 + (bAggressive ? 10 : 0) + (bProLimited ? 10 : 0);
+	const int iOffDogpile = -20 + (bAggressive ? 10 : 0) + (bProDogpile ? 10 : 0);
+	const bool bReach = isAICunning(2);
+	fprintf(f, "\"war\":{\"consider\":%d,\"plans\":%d,\"enemyPowerPct\":%d,\"checks\":%d,\"declareProb\":%d,\"ourPower\":%d,"
+		"\"pTotal\":%d,\"pLimited\":%d,\"pDogpile\":%d,\"nearby\":%d,\"distant\":%d,\"limited\":%d,\"minAdj\":%d,\"hegemon\":%d,\"targets\":[",
+		(iPlans == 0 || iEnemyPowerPercent < 45) ? 1 : 0, iPlans, iEnemyPowerPercent, bChecks ? 1 : 0,
+		GC.getHandicapInfo(g.getHandicapType()).getAIDeclareWarProb(), iOurPower, pTotal, pLimited, pDogpile,
+		HH_teamLeaderField(kT, HH_NEARBY), HH_teamLeaderField(kT, HH_DISTANT), HH_teamLeaderField(kT, HH_LIMITED),
+		HH_teamLeaderField(kT, HH_MINADJ), (int)kT.AI_balanceHegemon());
+	bool bFirst = true;
+	for (int t = 0; t < MAX_CIV_TEAMS; ++t)
+	{
+		CvTeamAI& kE = GET_TEAM((TeamTypes)t);
+		if (t == kT.getID() || !kE.isAlive() || kE.isBarbarian() || !kT.isHasMet((TeamTypes)t)) continue;
+		const AttitudeTypes eAtt = kT.AI_getAttitude((TeamTypes)t);
+		const int iNoWar = kT.AI_balanceNoWarProb((TeamTypes)t);
+		const int iCmp = bReach ? (int)(((__int64)kT.AI_getReachablePower((TeamTypes)t) * iOurPower) / std::max(1, kT.getPower(true))) : iOurPower;
+		// total war: pass 0 and 1 against the nearby ratio, pass 2 against the distant one (CvTeamAI.cpp:5259)
+		const int iTotalDef = bReach ? kE.AI_getReachableDefence() : kE.getDefensivePower() * 2 / 3;
+		const int iTotalDefFar = kE.getDefensivePower() * 2 / 3;
+		const int iLimDef = bReach ? kE.AI_getReachableDefence() : kE.getDefensivePower();
+		// dogpile: our reach plus every team at war with the target (CvTeamAI.cpp:5412)
+		int iDogpile = iCmp;
+		for (int j = 0; j < MAX_CIV_TEAMS; ++j)
+		{
+			CvTeamAI& kJ = GET_TEAM((TeamTypes)j);
+			if (j != t && kJ.isAlive() && kJ.isAtWar((TeamTypes)t))
+				iDogpile += bReach ? kJ.AI_getReachablePower((TeamTypes)t) : kJ.getPower(false);
+		}
+		const bool bDogReach = !bReach || kT.AI_isNearTarget((TeamTypes)t) || 2 * iCmp >= iLimDef;
+		fprintf(f, "%s{\"team\":%d,\"att\":%d,\"noWar\":%d,\"rollTotal\":%d,\"rollLimited\":%d,\"rollDogpile\":%d,"
+			"\"eventually\":%d,\"canDeclare\":%d,\"land\":%d,\"vassal\":%d,\"value\":%d,\"cmp\":%d,\"totalDef\":%d,\"totalDefFar\":%d,"
+			"\"limDef\":%d,\"targetWars\":%d,\"dogpile\":%d,\"dogReach\":%d,\"adj\":%d,\"land0\":%d,\"capAlone\":%d,\"vic4\":%d}",
+			bFirst ? "" : ",", t, (int)eAtt, iNoWar, HH_rollPasses(iOffTotal, iNoWar), HH_rollPasses(iOffLimited, iNoWar),
+			HH_rollPasses(iOffDogpile, iNoWar), kT.canEventuallyDeclareWar((TeamTypes)t) ? 1 : 0, kT.canDeclareWar((TeamTypes)t) ? 1 : 0,
+			kT.AI_isLandTarget((TeamTypes)t) ? 1 : 0, kE.isAVassal() ? 1 : 0, kT.AI_startWarVal((TeamTypes)t), iCmp, iTotalDef,
+			iTotalDefFar, iLimDef, kE.getAtWarCount(true), iDogpile, bDogReach ? 1 : 0, kT.AI_calculateAdjacentLandPlots((TeamTypes)t),
+			kT.getTotalLand() * HH_teamLeaderField(kT, HH_MINADJ) / 100, (kT.AI_isAnyCapitalAreaAlone() && kE.AI_isAnyCapitalAreaAlone()) ? 1 : 0,
+			kE.AI_isAnyMemberDoVictoryStrategyLevel4() ? 1 : 0);
+		bFirst = false;
+	}
+	fprintf(f, "]},");
+}
+
 extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 {
 	const HarnessPeekGuard kNoSideEffects;
@@ -306,6 +415,7 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 			}
 			fprintf(f, "],");
 		}
+		if (getenv("HARNESS_WAR_DIAG") != NULL && !k.isHuman() && kT.getLeaderID() == (PlayerTypes)i) HH_warDiag(f, kT);
 		fprintf(f, "\"techs\":[");
 		bool bFirst = true;
 		for (int t = 0; t < GC.getNumTechInfos(); ++t)
@@ -384,6 +494,16 @@ extern "C" __declspec(dllexport) int HH_dumpState(const char* szPath)
 						c->getProductionNeeded(eB), c->getProductionTurnsLeft(eB, 0));
 				}
 				fprintf(f, "]");
+			}
+			if (getenv("HARNESS_DEFENCE_DIAG") != NULL && !k.isHuman())
+			{
+				// City defence: land defenders on the plot, the defenders the city AI wants, the staged forecast
+				// of change S with all defenders and with the weakest left out (per mille), the city's danger
+				// flag (AI_isDanger), and the owner's staged-forecast threshold. Reads only.
+				CvCityAI* pAI = static_cast<CvCityAI*>(c);
+				fprintf(f, ",\"def\":[%d,%d,%d,%d,%d,%d]", c->plot()->plotCount(PUF_canDefend, -1, -1, c->getOwnerINLINE(), NO_TEAM, PUF_isDomainType, DOMAIN_LAND),
+					pAI->AI_neededDefenders(), pAI->AI_stagedForecast(false), pAI->AI_stagedForecast(true), pAI->AI_isDanger() ? 1 : 0,
+					GC.getDefineINT("AI_STAGED_FORECAST", 0) + 10 * GET_PLAYER(c->getOwnerINLINE()).AI_getAttackOddsChange());
 			}
 			fprintf(f, "}");
 		}

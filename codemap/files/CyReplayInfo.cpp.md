@@ -1,0 +1,144 @@
+# CyReplayInfo.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **6** `CyReplayInfo::CyReplayInfo()`
+  - calls: CvReplayInfo::CvReplayInfo [CvReplayInfo.cpp]
+- **11** `CyReplayInfo::CyReplayInfo(CvReplayInfo*)`
+  - calls: CvReplayInfo::CvReplayInfo [CvReplayInfo.cpp]
+  - called by (2): CyGame::getReplayInfo, CyHallOfFameInfo::getReplayInfo
+- **15** `CyReplayInfo::createInfo(int)` (Python: createInfo)
+  - calls: CvReplayInfo::createInfo [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **23** `CyReplayInfo::getActivePlayer() const` (Python: getActivePlayer)
+  - calls: CvReplayInfo::getActivePlayer [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **33** `CyReplayInfo::getLeader(int) const` (Python: getLeader)
+  - calls: CvReplayInfo::getLeader [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **42** `CyReplayInfo::getColor(int) const` (Python: getColor)
+  - calls: CvReplayInfo::getColor [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **51** `CyReplayInfo::getDifficulty() const` (Python: getDifficulty)
+  - calls: CvReplayInfo::getDifficulty [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **60** `CyReplayInfo::getLeaderName() const` (Python: getLeaderName)
+  - calls: CvReplayInfo::getLeaderName [CvReplayInfo.cpp], CvWString::GetCString [CvString.h]
+  - called by (1): CyHallOfFameInterface
+- **69** `CyReplayInfo::getCivDescription() const` (Python: getCivDescription)
+  - calls: CvReplayInfo::getCivDescription [CvReplayInfo.cpp], CvWString::GetCString [CvString.h]
+  - called by (1): CyHallOfFameInterface
+- **78** `CyReplayInfo::getShortCivDescription() const` (Python: getShortCivDescription)
+  - calls: CvReplayInfo::getShortCivDescription [CvReplayInfo.cpp], CvWString::GetCString [CvString.h]
+  - called by (1): CyHallOfFameInterface
+- **87** `CyReplayInfo::getCivAdjective() const` (Python: getCivAdjective)
+  - calls: CvReplayInfo::getCivAdjective [CvReplayInfo.cpp], CvWString::GetCString [CvString.h]
+  - called by (1): CyHallOfFameInterface
+- **96** `CyReplayInfo::getMapScriptName() const` (Python: getMapScriptName)
+  - calls: CvReplayInfo::getMapScriptName [CvReplayInfo.cpp], CvWString::GetCString [CvString.h]
+  - called by (1): CyHallOfFameInterface
+- **105** `CyReplayInfo::getWorldSize() const` (Python: getWorldSize)
+  - calls: CvReplayInfo::getWorldSize [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **114** `CyReplayInfo::getClimate() const` (Python: getClimate)
+  - calls: CvReplayInfo::getClimate [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **123** `CyReplayInfo::getSeaLevel() const` (Python: getSeaLevel)
+  - calls: CvReplayInfo::getSeaLevel [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **132** `CyReplayInfo::getEra() const` (Python: getEra)
+  - calls: CvReplayInfo::getEra [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **141** `CyReplayInfo::getGameSpeed() const` (Python: getGameSpeed)
+  - calls: CvReplayInfo::getGameSpeed [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **150** `CyReplayInfo::isGameOption(int) const` (Python: isGameOption)
+  - calls: CvReplayInfo::isGameOption [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **159** `CyReplayInfo::isVictoryCondition(int) const` (Python: isVictoryCondition)
+  - calls: CvReplayInfo::isVictoryCondition [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **168** `CyReplayInfo::getVictoryType() const` (Python: getVictoryType)
+  - calls: CvReplayInfo::getVictoryType [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **177** `CyReplayInfo::isMultiplayer() const` (Python: isMultiplayer)
+  - calls: CvReplayInfo::isMultiplayer [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **186** `CyReplayInfo::getInitialTurn() const` (Python: getInitialTurn)
+  - calls: CvReplayInfo::getInitialTurn [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **195** `CyReplayInfo::getStartYear() const` (Python: getStartYear)
+  - calls: CvReplayInfo::getStartYear [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **204** `CyReplayInfo::getFinalTurn() const` (Python: getFinalTurn)
+  - calls: CvReplayInfo::getFinalTurn [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **213** `CyReplayInfo::getFinalDate() const` (Python: getFinalDate)
+  - calls: CvReplayInfo::getFinalDate [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **222** `CyReplayInfo::getCalendar() const` (Python: getCalendar)
+  - calls: CvReplayInfo::getCalendar [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **232** `CyReplayInfo::getFinalScore() const` (Python: getFinalScore)
+  - calls: CvReplayInfo::getFinalScore [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **241** `CyReplayInfo::getFinalEconomy() const` (Python: getFinalEconomy)
+  - calls: CvReplayInfo::getFinalEconomy [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **250** `CyReplayInfo::getFinalIndustry() const` (Python: getFinalIndustry)
+  - calls: CvReplayInfo::getFinalIndustry [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **259** `CyReplayInfo::getFinalAgriculture() const` (Python: getFinalAgriculture)
+  - calls: CvReplayInfo::getFinalAgriculture [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **268** `CyReplayInfo::getNormalizedScore() const` (Python: getNormalizedScore)
+  - calls: CvReplayInfo::getNormalizedScore [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **277** `CyReplayInfo::getMapWidth() const` (Python: getMapWidth)
+  - calls: CvReplayInfo::getMapWidth [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **286** `CyReplayInfo::getMapHeight() const` (Python: getMapHeight)
+  - calls: CvReplayInfo::getMapHeight [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **295** `CyReplayInfo::getNumPlayers() const` (Python: getNumPlayers)
+  - calls: CvReplayInfo::getNumPlayers [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **304** `CyReplayInfo::getPlayerScore(int, int) const` (Python: getPlayerScore)
+  - calls: CvReplayInfo::getPlayerScore [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **313** `CyReplayInfo::getPlayerEconomy(int, int) const` (Python: getPlayerEconomy)
+  - calls: CvReplayInfo::getPlayerEconomy [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **322** `CyReplayInfo::getPlayerIndustry(int, int) const` (Python: getPlayerIndustry)
+  - calls: CvReplayInfo::getPlayerIndustry [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **331** `CyReplayInfo::getPlayerAgriculture(int, int) const` (Python: getPlayerAgriculture)
+  - calls: CvReplayInfo::getPlayerAgriculture [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **340** `CyReplayInfo::getReplayMessageTurn(int) const` (Python: getReplayMessageTurn)
+  - calls: CvReplayInfo::getReplayMessageTurn [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **349** `CyReplayInfo::getReplayMessageType(int) const` (Python: getReplayMessageType)
+  - calls: CvReplayInfo::getReplayMessageType [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **358** `CyReplayInfo::getReplayMessagePlotX(int) const` (Python: getReplayMessagePlotX)
+  - calls: CvReplayInfo::getReplayMessagePlotX [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **367** `CyReplayInfo::getReplayMessagePlotY(int) const` (Python: getReplayMessagePlotY)
+  - calls: CvReplayInfo::getReplayMessagePlotY [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **376** `CyReplayInfo::getReplayMessagePlayer(int) const` (Python: getReplayMessagePlayer)
+  - calls: CvReplayInfo::getReplayMessagePlayer [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **385** `CyReplayInfo::getReplayMessageText(int) const` (Python: getReplayMessageText)
+  - calls: CvReplayInfo::getReplayMessageText [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **395** `CyReplayInfo::getNumReplayMessages() const` (Python: getNumReplayMessages)
+  - calls: CvReplayInfo::getNumReplayMessages [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **404** `CyReplayInfo::getReplayMessageColor(int) const` (Python: getReplayMessageColor)
+  - calls: CvReplayInfo::getReplayMessageColor [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface
+- **413** `CyReplayInfo::getModName() const` (Python: getModName)
+  - calls: CvReplayInfo::getModName [CvReplayInfo.cpp]
+  - called by (1): CyHallOfFameInterface

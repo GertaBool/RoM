@@ -572,7 +572,81 @@ public:
 	bool callPythonFunction(const char*, const char* fxn, int iArg, long* result) { if (result) *result = pythonDefault(fxn, NULL); (void)iArg; return false; }
 };
 
-class EntityIFace : public S_CvDLLEntityIFaceBase {};
+// Entities: with HARNESS_GRAPHICS the DLL creates and sets up unit and city entities as with the
+// game's graphics. Each is a token that records whether it is set up; a visual call on a token that
+// is not set up (or on none) is counted, as are the tokens set up at once (the models the
+// executable would hold).
+namespace
+{
+	struct HarnessEntity { bool bSetUp; HarnessEntity() : bSetUp(false) {} };
+	long g_iEntitiesCreated = 0, g_iEntitiesSetUp = 0, g_iEntitiesSetUpMax = 0, g_iSetupCalls = 0;
+	long g_iVisualCalls = 0, g_iBareVisualCalls = 0, g_iMissions = 0;
+	double g_dSetUpSum = 0; long g_iSetUpSamples = 0;
+}
+
+class EntityIFace : public S_CvDLLEntityIFaceBase
+{
+	static HarnessEntity* token(const CvEntity* p) { return (HarnessEntity*)p; }
+	static void visual(const CvEntity* p) { if (p == NULL || !token(p)->bSetUp) ++g_iBareVisualCalls; else ++g_iVisualCalls; }
+	static void attach(CvDLLEntity* p) { p->setEntity((CvEntity*)new HarnessEntity()); ++g_iEntitiesCreated; }
+public:
+	void createUnitEntity(CvUnit* p) { attach(p); }
+	void createCityEntity(CvCity* p) { attach(p); }
+	void destroyEntity(CvEntity*& p, bool) { if (p != NULL) { if (token(p)->bSetUp) --g_iEntitiesSetUp; delete token(p); p = NULL; } }
+	void removeEntity(CvEntity* p) { if (p != NULL && token(p)->bSetUp) { token(p)->bSetUp = false; --g_iEntitiesSetUp; } }
+	void setup(CvEntity* p)
+	{
+		++g_iSetupCalls;
+		if (p != NULL && !token(p)->bSetUp) { token(p)->bSetUp = true; g_iEntitiesSetUpMax = std::max(g_iEntitiesSetUpMax, ++g_iEntitiesSetUp); }
+	}
+	void setVisible(CvEntity* p, bool) { visual(p); }
+	bool IsSelected(const CvEntity* p) const { visual(p); return false; }
+	void PlayAnimation(CvEntity* p, AnimationTypes, float, bool, int, float, float) { visual(p); }
+	void StopAnimation(CvEntity* p, AnimationTypes) { visual(p); }
+	void StopAnimation(CvEntity* p) { visual(p); }
+	void NotifyEntity(CvUnitEntity* p, MissionTypes) { visual((CvEntity*)p); }
+	void MoveTo(CvUnitEntity* p, const CvPlot*) { visual((CvEntity*)p); }
+	void QueueMove(CvUnitEntity* p, const CvPlot*) { visual((CvEntity*)p); }
+	void ExecuteMove(CvUnitEntity* p, float, bool) { visual((CvEntity*)p); }
+	void SetPosition(CvUnitEntity* p, const CvPlot*) { visual((CvEntity*)p); }
+	void AddMission(const CvMissionDefinition*) { ++g_iMissions; }
+	void showPromotionGlow(CvUnitEntity* p, bool) { visual((CvEntity*)p); }
+	void updateEnemyGlow(CvUnitEntity* p) { visual((CvEntity*)p); }
+	void updatePromotionLayers(CvUnitEntity* p) { visual((CvEntity*)p); }
+	void updateGraphicEra(CvUnitEntity* p, EraTypes) { visual((CvEntity*)p); }
+	void SetSiegeTower(CvUnitEntity* p, bool) { visual((CvEntity*)p); }
+	bool GetSiegeTower(CvUnitEntity* p) { visual((CvEntity*)p); return false; }
+};
+
+// One line of entity counts; each call also samples the entities set up at that moment.
+const char* harnessGraphicsStats()
+{
+	static char buf[512];
+	g_dSetUpSum += g_iEntitiesSetUp; ++g_iSetUpSamples;
+	_snprintf(buf, sizeof(buf), "entities created %ld, set up now %ld, max %ld, mean %.1f; setup calls %ld; visual calls %ld, on entities not set up %ld; missions %ld",
+		g_iEntitiesCreated, g_iEntitiesSetUp, g_iEntitiesSetUpMax, g_dSetUpSum / g_iSetUpSamples, g_iSetupCalls, g_iVisualCalls, g_iBareVisualCalls, g_iMissions);
+	buf[sizeof(buf) - 1] = 0;
+	return buf;
+}
+
+// The camera: with HARNESS_GRAPHICS the look-at plot comes from the DLL's HH_lookAtPlot (a sweep of the map).
+class InterfaceIFace : public S_CvDLLInterfaceIFaceBase
+{
+public:
+	CvPlot* getLookAtPlot()
+	{
+		typedef CvPlot* (*LookAtFn)();
+		static LookAtFn s_pfn = NULL;
+		static bool s_bInit = false;
+		if (!s_bInit)
+		{
+			s_bInit = true;
+			HMODULE hDll = GetModuleHandleA("CvGameCoreDLL.dll");
+			if (getenv("HARNESS_GRAPHICS") != NULL && hDll != NULL) s_pfn = (LookAtFn)GetProcAddress(hDll, "HH_lookAtPlot");
+		}
+		return s_pfn != NULL ? s_pfn() : NULL;
+	}
+};
 
 //////////////////////////////////////////////////////////////////////////////
 // Utility: the root interface handed to CvGlobals::setDLLIFace.
@@ -633,7 +707,7 @@ public:
 		if (!g_profStack.empty()) g_profStack.back().child += dt;
 	}
 	EntityIFace entity;
-	S_CvDLLInterfaceIFaceBase iface;
+	InterfaceIFace iface;
 	S_CvDLLEngineIFaceBase engine;
 	S_CvDLLIniParserIFaceBase ini;
 	S_CvDLLSymbolIFaceBase symbol;

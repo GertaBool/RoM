@@ -1,0 +1,108 @@
+# Titus Winters (chapter author; Lisa Carey, chapter editor), Version Control and Branch Management, ch. 16 in Winters, Manshreck & Wright (eds.), Software Engineering at Google (O'Reilly, 2020)
+Source: lit3/swe-ch16-vcs/doc.txt. Read: lines 1-832 (all, including footnotes).
+
+## What it says
+- Introduction: "as popularized by DevOps1 (one repository, no dev branches) to be a particularly scalable policy approach" -- the authors find trunk-based development so; the footnote marker 1 is part of the extracted text.
+- Introduction: "some version control policies and processes might work better for your organization (or in general) than others." -- the chapter compares approaches with pros and cons.
+- What Is Version Control?: "More advanced systems ensure that changes to a collection of files submitted at once are treated as a single unit (atomicity when a logical change touches multiple files)." -- atomic commits.
+- What Is Version Control?: "Systems like CVS (a popular VCS from the 90s) that didn't have this atomicity for a commit were subject to corruption and lost changes." -- the cost of missing atomicity.
+- What Is Version Control?: "when there isn't a single agreed-upon source of truth, collaboration becomes high friction and error prone." -- illustrated by files named Presentation v5 - final - redlines.
+- What Is Version Control?: "any development task that doesn't keep the build working continuously will begin to impede everyone on the team" -- the problem of working in shared storage.
+- What Is Version Control?: "Because we seem to just be reinventing the wheel in this hypothetical, we might as well use an off-the-shelf tool." -- locking and line-level tracking reinvent version control.
+- Why Is Version Control Important?: "version control is the engineer's primary tool for managing the interplay between raw source and time." -- software engineering is programming integrated over time.
+- Why Is Version Control Important?: "A VCS extends that to provide a mapping from (filename, time) to contents, along with the metadata necessary to track last sync points and audit history." -- with a branch as an extra input: VCS(filename, time, branch) => file contents.
+- Why Is Version Control Important?: "The (minor) remaining hesitation toward consistent use of version control comes almost directly from conflating programming and software engineering" -- new hires may not have met multi-person, long-lived code.
+- Why Is Version Control Important?: "Development is inherently a branch-and-merge process, both when coordinating between multiple developers or a single developer at different points in time." -- version control coordinates people and points in time.
+- Why Is Version Control Important?: "Use of modern version control automates error-prone operations like tracking which set of changes have been applied." -- it removes the question of which is more recent.
+- Why Is Version Control Important?: "VCS allows a formal record of every change to every line of code, which is increasingly necessary for satisfying audit requirements." -- and tracks provenance of third-party code.
+- Why Is Version Control Important?: "The ritual of committing to version control and producing a commit log is a trigger for a moment of reflection" -- what has been accomplished, is the source in a good state.
+- Why Is Version Control Important?: "The start of the commit process is a perfect time to run through a checklist, run static analyses" -- check test coverage, run tests and dynamic analysis.
+- Why Is Version Control Important?: "Anecdotally, most experienced software engineers will instinctively use version control for any project that lasts more than a day or two, even for a single-developer project." -- labelled anecdotal.
+- Why Is Version Control Important?: "It is always worth considering alternatives, even on something as fundamental as version control." -- context matters.
+- Centralized VCS Versus Distributed VCS: "so long as your system has a notion of atomically committing changes to a batch of files, everything else is just UI." -- all modern VCSs are equivalent at that level.
+- Centralized VCS Versus Distributed VCS: "the more important question by far is the content you fill that system with and the way you use it." -- the filesystem-format analogy; architecture still affects policy and scaling.
+- Centralized VCS: "This sort of simplistic locking has inherent problems with scale" -- RCS-style locks work for a few people and fall apart when contended.
+- Centralized VCS: "so long as your base version contained all of the changes in the repository, you're allowed to commit." -- CVS; Subversion added true atomicity.
+- Distributed VCS: "Any notion of centrality is purely conceptual, a matter of policy, not fundamental to the technology or the underlying protocols." -- in DVCS every clone is a repository.
+- Distributed VCS: "most DVCS ecosystems define a central repository for a project as a matter of policy." -- so centralised and DVCS models are largely interchangeable in common usage.
+- Distributed VCS: "If your use cases are expected to be unusual, gather some data and evaluate the trade-offs." -- otherwise, when in doubt, use Git, the dominant system.
+- Distributed VCS: "most existing tools don't scale well with 50,000 engineers and tens of millions of commits." -- why Google uses a custom centralised VCS; Hyrum's Law effects also tie it.
+- Distributed VCS: "As we grow (in file count and engineer count), that transmission becomes almost entirely waste." -- downloading the whole codebase when each developer touches a small share.
+- Source of Truth: "whatever is most recently committed at trunk is the current version." -- centralised VCSs build in the source of truth.
+- Source of Truth: "Because of this, DVCS requires more explicit policy and norms than a centralized VCS does." -- without central coordination, branches propagate unchecked.
+- Source of Truth: "Well-managed projects using DVCS declare one specific branch in one specific repository to be the source of truth" -- e.g. hosted GitHub or GitLab projects; done means in trunk there.
+- Scenario: no clear source of truth: "there's a difference between the DVCS knowing which changes are incorporated and every engineer being sure they have all the past/relevant changes represented." -- the gap.
+- Scenario: no clear source of truth: "Eventually that bookkeeping is reproducing the model of having a centralized Source of Truth." -- someone ends up keeping the list of features ready for release.
+- Scenario: no clear source of truth: "it's pretty important to have one repository (and one branch) actually defined to be the ultimate source of truth." -- for sublinear human effort as the team grows.
+- Scenario: no clear source of truth: "So long as there is no choice or uncertainty as to where a change should be pushed, we can avoid a large class of chaotic scaling problems in the DVCS model." -- hierarchical sources of truth (Red Hat, Linus) are fine.
+- Scenario: no clear source of truth: "the technology is only one part of it for any given organization; there is almost always an equal amount of policy and usage convention on top of that." -- the oft-unspoken truth.
+- Version Control Versus Dependency Management: "VCS policies are largely about how you manage your own code, and are usually much finer grained." -- dependency management concerns code controlled by others.
+- Work in Progress Is Akin to a Branch: "every piece of work-in-progress in the organization is equivalent to a branch." -- uncommitted local changes are conceptually a branch.
+- Work in Progress Is Akin to a Branch: "We don't think this is a scalable way to perform a refactoring task, but we understand the point of view." -- on tracking who has files open, for renaming everywhere.
+- Dev Branches: "The problem that these are attempting to solve (instability of the product) is a legitimate one" -- but better solved by tests, CI and thorough code review.
+- Dev Branches: "We believe that a version control policy that makes extensive use of dev branches as a means toward product stability is inherently misguided." -- the chapter's claim.
+- Dev Branches: "Small merges are easier than big ones. Merges done by the engineer who authored those changes are easier than batching unrelated changes and merging later" -- the reasons.
+- Dev Branches: "it's easier to determine whose changes are responsible for a regression if there is only one engineer involved." -- isolating failures.
+- Dev Branches: "Merging a large dev branch implies that more changes are happening in that test run, making failures more difficult to isolate." -- triage gets harder; fixing worse.
+- How did we become addicted to dev branches?: "they focus on slowing down and coordinating the symptom: the branch merges." -- instead of better testing and no branch-based strategies.
+- How did we become addicted to dev branches?: "Increasing effort is thrown at coordination of branch merges" -- which the authors call a task that inherently does not scale; a merge coordinator role and merge-strategy meetings result.
+- How did we become addicted to dev branches?: "All of that effort in merging and retesting is pure overhead." -- the alternative named next.
+- How did we become addicted to dev branches?: "trunk-based development, rely heavily on testing and CI, keep the build green, and disable incomplete/untested features at runtime." -- the alternative paradigm.
+- How did we become addicted to dev branches?: "There must be a single Source of Truth." -- one version of a library; one revision used for a release.
+- Release Branches: "it may be sensible to create a release branch that represents the exact code that went into the release build for your product." -- if the period between releases is longer than a few hours; fixes are cherry-picked from trunk.
+- Release Branches: "it isn't the technology of branches that is troublesome, it's the usage." -- a dev branch is meant to merge back; a release branch to be abandoned.
+- Release Branches: "release branches are practically nonexistent." -- in the highest-functioning organisations identified by DORA; continuous deployment makes them unnecessary.
+- Release Branches: "it is generally valuable to know exactly what has been pushed to customers." -- the limit for tangible releases.
+- Release Branches: "That same DORA research also suggests a strong positive correlation between" -- trunk-based development, no long-lived dev branches, and good technical outcomes.
+- Release Branches: "In many cases we think complex branch and merge strategies are a perceived safety crutch" -- an attempt to keep trunk stable, in the authors' view.
+- Version Control at Google: "the vast majority of our source is managed in a single repository (monorepo) shared among roughly 50,000 engineers." -- except large open source projects like Chromium and Android.
+- Version Control at Google: "we'll regularly handle 60,000 to 70,000 commits to the repository per work day." -- Piper stores more than 80 TB of content and metadata.
+- Version Control at Google: "it takes perhaps 15 seconds total to create a new client at trunk, add a file, and commit an (unreviewed) change to Piper." -- operations cheap at human scale.
+- Version Control at Google: "we can find OWNERS files that list the usernames of engineers that are allowed to approve commits within that subtree of the repository" -- granular ownership.
+- Version Control at Google: "By controlling the VCS, we can make the concept of ownership and approval more explicit and enforced by the VCS during an attempted commit operation." -- elsewhere achievable by separate repositories or a commit hook; ownership is a text file.
+- One Version: "For every dependency in our repository, there must be only one version of that dependency to choose." -- the One Version policy, extending Single Source of Truth.
+- One Version: "For internal packages, this means no forking without repackaging/renaming" -- it must be safe to mix original and fork.
+- Scenario: Multiple Available Versions: "Rather than fix it in place, the team decides to fork that infrastructure and tweak it to work around the bug" -- the scenario, without renaming.
+- Scenario: Multiple Available Versions: "In the worst case, we'll be subjected to difficult-to-understand runtime bugs stemming from linking in two mismatched versions of the same library." -- best case, the build fails.
+- Scenario: Multiple Available Versions: "something as simple as" ... "becomes an operation that might require running all tests for the entire codebase" -- adding a dependency, once a fork partitions the codebase.
+- Scenario: Multiple Available Versions: "Shading and related approaches are patching over the underlying issue: multiple versions of the same dependency are needed." -- shading works for functions, not for types.
+- Scenario: Multiple Available Versions: "any multiple-version situation has a very real possibility of leading to big problems." -- the authors admit some small violations of their own.
+- The One-Version Rule: "Developers must never have a choice of" ... "What version of this component should I depend upon?" -- the rule; in practice not hard and fast.
+- The One-Version Rule: "For an individual developer, lack of choice can seem like an arbitrary impediment." -- yet critical for efficient scaling of an organisation.
+- (Nearly) No Long-Lived Branches: "development branches should be minimal, or at best be very short lived." -- following Agile, DORA and Phoenix Project lessons on reducing work in progress.
+- (Nearly) No Long-Lived Branches: "work should be done in small increments against trunk, committed regularly." -- since pending work is akin to a branch.
+- (Nearly) No Long-Lived Branches: "That new Widget should be committed to trunk, disabled from the runtime until it's ready" -- hidden by visibility, or designed to coexist with the old one.
+- (Nearly) No Long-Lived Branches: "DORA points out that there is a predictive relationship between trunk-based development and high-performing software organizations." -- the authors note they did not have the outcomes in mind when the policies evolved.
+- (Nearly) No Long-Lived Branches: "In a DVCS model, it might not even be possible to identify all of those branches." -- the cost of dev branches for large-scale changes.
+- (Nearly) No Long-Lived Branches: "Of course, our experience is not universal." -- some situations need long-lived branches, regularly merged with trunk.
+- (Nearly) No Long-Lived Branches: "Those scenarios should be rare, and should be understood to be expensive." -- about a couple of roughly 1,000 teams; footnote: almost certainly fewer than 10.
+- (Nearly) No Long-Lived Branches: "Dependency across time in any form is far more costly and complicated than code that is time invariant." -- compatibility of data at rest or of APIs over time.
+- (Nearly) No Long-Lived Branches: "every job in production needs to be rebuilt and redeployed every six months, maximum." -- the build horizon caps version skew.
+- (Nearly) No Long-Lived Branches: "Automation and tooling that works great at trunk and fails (or takes more effort) for a dev branch can help encourage developers to stay current." -- pressure against long-lived branches.
+- What About Release Branches?: "Use caution and reason, keep cherry picks to a minimum, and don't plan to remerge with trunk." -- many Google teams use release branches with limited cherry picks.
+- Monorepos: "adhering to One Version is trivial: it's usually more difficult to violate One Version than it would be to do the right thing." -- the chief benefit.
+- Monorepos: "no, we don't think the monorepo approach as we've described it is the perfect answer for everyone." -- the decision depends on the organisation.
+- Monorepos: "Choice violations of the One-Version Rule lead to merge strategy discussions, diamond dependencies, lost work, and wasted effort." -- the principle matters more than the monorepo.
+- Monorepos: "if every project in your organization has the same secrecy, legal, privacy, and security requirements,17 a true monorepo is a fine way to go." -- otherwise aim for its functionality, e.g. a virtual monorepo.
+- Monorepos: "After all, your choice of filesystem format really doesn't matter as much as what you write to it." -- closing analogy.
+- Future of Version Control: "If cloning a repository from upstream is quick and cheap, developers are more likely to keep changes small and isolated" -- and avoid committing to the wrong work-in-progress branch.
+- Future of Version Control: "many of the practices in the OSS world come (rightly) from prioritizing freedom, lack of coordination, and lack of computing resources." -- the open source counterargument.
+- Future of Version Control: "it is less and less likely that every piece of code is subject to exactly the same legal, compliance, regulatory, secrecy, and privacy requirements." -- a more legitimate concern; manyrepos handle permissions natively.
+- Future of Version Control: "a (virtual) monorepo approach with a One-Version Rule cuts down the complexity of software development by a whole (difficult) dimension: time." -- a prediction for open source.
+- Future of Version Control: "We'll more generally recognize that version numbers are timestamps, and that allowing version skew adds a dimensionality complexity (time) that costs a lot" -- expected in 10 to 20 years.
+- Conclusion: "even if we allow distributed development, something must still be centrally recognized as the Source of Truth." -- the conclusion on DVCS.
+- Conclusion: "complex technology doesn't need to be used in a complex fashion" -- keeping branch policies simple generally leads to better engineering outcomes.
+- Conclusion: "developers within an organization must not have a choice where to commit, or which version of an existing component to depend upon." -- the endorsed One-Version Rule.
+- TL;DRs: "The work to get those approaches working is entirely lost labor" -- shading, separate compilation, linker hiding.
+- TL;DRs: "Long-lived dev branches are not a good default plan." -- trunk-based development is predictive of high performance (DORA).
+- Footnote 4: "At the time of this writing, 27 changes are pending, 12 from people on my team, 5 from people on related teams, and 10 from engineers I've never met." -- an anecdote on one file.
+- Footnote 8: "Recent informal Twitter polling suggests about 25% of software engineers have been subjected to" -- regularly scheduled merge strategy meetings; labelled informal.
+
+## Readings for our work
+- Inference: declare one source of truth for each artefact: the research repository's main branch for tools, templates and the register; the GitLab repository's target branch for the DLL. Our patch branch must be stated relative to that branch, and no document should cite a DLL state that exists only in a local working copy. Check: every DLL figure or claim names the upstream commit it was measured on. Rests on: Source of Truth; Scenario: no clear source of truth. Would not apply if: there is only ever one copy (not the case: we keep a separate patch repository).
+- Inference: avoid long-lived parallel branches of the DLL patch set; keep changes small and merged often, and switch unfinished AI behaviour off at runtime (an option or flag) rather than holding it on a branch. Rests on: Dev Branches; (Nearly) No Long-Lived Branches (new Widget committed disabled). Would not apply if: the upstream does not accept unfinished, disabled code; then keep short topic branches per change.
+- Inference: do not fork shared helpers (e.g. a second copy of a figure or log-parsing function in a new tool); one version of each helper, so that tools cannot disagree. Check: grep for duplicated function names across method/ and research tools. Rests on: One Version; Scenario: Multiple Available Versions. Would not apply if: the copy is an intentionally frozen snapshot used to reproduce an old result, and is named as such.
+- Inference: the commit moment is the natural point for the checklist and checks to run, which is how our pre-commit gate is placed; enforcement belongs in the system (like OWNERS enforced at commit) and not in the author's goodwill. Rests on: Why Is Version Control Important? (checklist at commit); Version Control at Google (ownership enforced by the VCS). Would not apply if: the checks are too slow to run per commit; then they move to CI on push.
+- Inference: a gate that the author can edit in the same commit is weaker than an approval owned by someone else; ownership files show one way to separate who may change the checks. Rests on: OWNERS bullets. Would not apply if: there is only one author; then record that the check was self-approved.
+- Inference: an incident is easier to locate when each merge carries one author's small change; this supports single-concern commits and small merge requests for the DLL. Rests on: Dev Branches (small merges, one engineer, isolation). Would not apply if: changes are inherently coupled and must land together.
+- Inference: the chapter's evidence is partly Google-scale experience, anecdote and correlational DORA results; for a one-person repository, take the principles (single source of truth, short branches, checks at commit) and not the scale arguments (monorepo, Piper). Rests on: the anecdotal and correlational markers in Why Is Version Control Important?, Release Branches, footnotes 4 and 8; Of course, our experience is not universal. Would not apply if: the work grows to many contributors.

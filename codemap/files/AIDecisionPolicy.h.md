@@ -1,0 +1,48 @@
+# AIDecisionPolicy.h
+
+Group: AI. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **11** `AIDecisionPolicy::developBeforeReinforcing(int, int)`
+  - called by (1): CvCityAI::AI_chooseProduction
+- **18** `AIDecisionPolicy::settlerFerryWorthwhile(int, int)`
+  - called by (1): CvUnitAI::AI_loadForSettlement
+- **25** `AIDecisionPolicy::deficitReserve(int, int)`
+  - called by (1): CvPlayerAI::AI_doGoldHurry
+- **38** `AIDecisionPolicy::goldAfterDeficitReserve(int, int, int, int)`
+  - called by (1): CvPlayerAI::AI_maxGoldTrade
+- **50** `AIDecisionPolicy::nextLossCareerKey(int)`
+  - called by (1): CvPlayerAI::AI_recordGeneralLoss
+- **56** `AIDecisionPolicy::clamp(int, int, int)`
+  - called by (8): AIDecisionPolicy::assaultThreshold, AIDecisionPolicy::goldUnlockValue, AIDecisionPolicy::hurryScore, AIDecisionPolicy::landingStrengthWeight, AIDecisionPolicy::performance, AIDecisionPolicy::scaledTurns, AIDecisionPolicy::seaBombardTurnLimit, AIDecisionPolicy::workerHurryValue
+- **58** `AIDecisionPolicy::workerHurryValue(int, int)`
+  - calls: AIDecisionPolicy::clamp
+  - called by (1): CvCityAI::AI_goldHurryScore
+- **64** `AIDecisionPolicy::navalCargoHurryValue(bool, bool)`
+  - called by (1): CvCityAI::AI_goldHurryScore
+- **68** `AIDecisionPolicy::seaBombardTurnLimit(int, int)`
+  - calls: AIDecisionPolicy::clamp
+  - called by (1): CvUnitAI::AI_seaBombardRange
+- **72** `AIDecisionPolicy::seaRouteWorthwhile(bool, int, int)`
+  - called by (1): CvUnitAI::AI_loadForCoastalAttack
+- **78** `AIDecisionPolicy::landingStrengthWeight(int, int, int)`
+  - calls: AIDecisionPolicy::clamp
+  - called by (1): CvUnitAI::AI_assaultSeaTransport
+- **88** `AIDecisionPolicy::scaledTurns(int, int)`
+  - calls: AIDecisionPolicy::clamp
+  - called by (5): CvCityAI::AI_chooseProduction, CvPlayerAI::AI_rememberGeneral, CvPlayerAI::AI_updateAgenda, CvPlayerAI::AI_updateMilitaryOperations, CvUnitAI::AI_settleMove
+- **92** `AIDecisionPolicy::performance(int, int)`
+  - calls: AIDecisionPolicy::clamp
+  - called by (1): CvPlayerAI::AI_updateMilitaryOperations
+- **98** `AIDecisionPolicy::recoveryReady(int, int, int, bool)`
+  - called by (1): CvPlayerAI::AI_updateMilitaryOperations
+- **102** `AIDecisionPolicy::assaultThreshold(int, int, int)`
+  - calls: AIDecisionPolicy::clamp
+  - called by (2): CvUnitAI::AI_attackCityMove, CvUnitAI::AI_bombardCity
+- **107** `AIDecisionPolicy::hurryScore(int, int, int)`
+  - calls: AIDecisionPolicy::clamp
+  - called by (1): CvCityAI::AI_goldHurryScore
+- **114** `AIDecisionPolicy::goldUnlockValue(int, int, int)`
+  - calls: AIDecisionPolicy::clamp
+  - called by (1): CvPlayerAI::AI_civicValue
+- **119** `AIDecisionPolicy::emergencyPopulation(int, int)`
+  - called by (1): CvCityAI::AI_doHurry

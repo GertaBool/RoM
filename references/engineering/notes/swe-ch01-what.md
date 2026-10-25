@@ -1,0 +1,107 @@
+# Titus Winters (written by; edited by Tom Manshreck), What Is Software Engineering? (Software Engineering at Google, chapter 1; O'Reilly, 2020 per assignment, the text itself names only the book and the licence CC BY-NC-ND 4.0)
+Source: lit3/swe-ch01-what/doc.txt. Read: lines 1-798 (all, including TL;DRs and footnotes 1-17).
+
+## What it says
+- Introduction: "We see three critical differences between programming and software engineering: time, scale, and the trade-offs at play." -- the chapter's three themes.
+- Introduction: "Software engineering is programming integrated over time." -- the Google saying that defines the field by the addition of time.
+- Introduction: "Reasonable answers to this question vary by roughly a factor of 100,000." -- the question being how long code is expected to live; footnote 1 says this means maintenance lifetime, not execution lifetime.
+- Introduction: "Over a span of a decade or more, most program dependencies, whether implicit or explicit, will likely change."
+- Introduction: "Your project is sustainable if, for the expected life span of your software, you are capable of reacting to whatever valuable change comes along, for either technical or business reasons." -- definition of sustainability.
+- Introduction: "Importantly, we are looking only for capability" -- one may choose not to upgrade; footnote 2 gives a hand-wavy definition of technical debt as "the delta between our code and what we wish it was."
+- Introduction: "you're placing a high-risk bet on the hope that such a change never becomes critical" -- the cost of being incapable of reacting to change; safe for short projects, probably not over decades.
+- Introduction: "The multiperson development of multiversion programs." -- early definition quoted for the scale viewpoint (attribution uncertain, footnote 4).
+- Introduction: "how much will it cost to do the things that we need to do repeatedly?" -- scale issues are often matters of policy and central to sustainability.
+- Introduction: "The job of a software engineer, or a software engineering leader, is to aim for sustainability and management of the scaling costs for the organization, the product, and the development workflow."
+- Introduction: "Those choices should be explicit and clear about the deferred costs." -- deferring maintenance or adopting non-scaling policies is allowed if explicit.
+- Introduction: "Google's experience will probably not match yours." -- stated limit: one-size-fits-all solutions are rare; most large-scale practices are claimed to work for smaller endeavours, with warnings where super-large scale has its own costs.
+- Time and Change: "Programming assignments and exercises tend to be write-once, with little to no refactoring and certainly no long-term maintenance."
+- Time and Change: "Engineers at an early-stage startup might rightly choose to focus on immediate goals over long-term investments" -- short-lived code exists legitimately in industry.
+- Time and Change: "a project must begin to react to changing externalities." -- somewhere between a one-off program and a decades-long project a transition happens; footnote 7 estimates it at 5 to 10 years in general.
+- Time and Change: "that transition is likely very painful for three reasons, each of which compounds the others" -- (1) a task not yet done with hidden assumptions baked in, (2) engineers without experience in the task, (3) an upgrade larger than usual, years of upgrades at once.
+- Time and Change: "sometimes the more responsible answer is to invest in making it less painful" -- instead of deciding never to upgrade again or rewriting.
+- Time and Change: "Sustainability requires planning and managing the impact of required change."
+- Time and Change: "we need to be much more aware of the difference between" -- happens to work versus is maintainable; "keeping software maintainable for the long-term is a constant battle."
+- Hyrum's Law: "With a sufficient number of users of an API, it does not matter what you promise in the contract: all observable behaviors of your system will be depended on by somebody."
+- Hyrum's Law: "We can mitigate it, but we know that it can never be eradicated." -- likened to entropy.
+- Hyrum's Law: "we cannot assume perfect adherence to published contracts or best practices." -- even with best intentions, best engineers and solid code review practices.
+- Hyrum's Law: "Given enough time and enough users, even the most innocuous change will break something" -- the value analysis of a change must include the cost of finding and resolving such breakages.
+- Example: Hash Ordering: "programmers will write programs that depend on the order in which a hash table is traversed, if they have the ability to do so."
+- Example: Hash Ordering: "If you don't know how long your code will live, or you cannot promise that nothing you depend upon will ever change, such an assumption is incorrect." -- the nuanced expert answer; for short-lived code with nothing changing the assumption is fine.
+- Example: Hash Ordering: "there is code that uses hash iteration ordering as an inefficient random-number generator." -- even deliberate randomisation produces dependencies.
+- Example: Hash Ordering: "It's programming if 'clever' is a compliment, but it's software engineering if 'clever' is an accusation." -- code depending on brittle, unpublished features is hacky; which style is right depends on expected life span.
+- Why Not Just Aim for Nothing Changes: "For most projects, over a long enough time period, everything underneath them might need to be changed." -- pure C with only stable dependencies like POSIX may avoid it.
+- Why Not Just Aim for Nothing Changes: "Every piece of technology upon which your project depends has some (hopefully small) risk of containing critical bugs and security vulnerabilities" -- Heartbleed, Meltdown and Spectre as examples of changes one must be able to deploy.
+- Why Not Just Aim for Nothing Changes: "Backward compatibility ensures that older systems still function, but that is no guarantee that old optimizations are still helpful."
+- Why Not Just Aim for Nothing Changes: "No mistakes were made, but the passage of time still made change valuable."
+- Why Not Just Aim for Nothing Changes: "Change is not inherently good. We shouldn't change just for the sake of change. But we do need to be capable of change."
+- Why Not Just Aim for Nothing Changes: "it's one thing to know in theory that you can recover from tape, and another to know in practice exactly how to do it" -- practice and expertise drive efficiency and reliability.
+- Scale and Efficiency: "Your organization's codebase is sustainable when you are able to change all of the things that you ought to change, safely, and can do so for the life of your codebase."
+- Scale and Efficiency: "if changing something comes at inordinate cost, it will likely be deferred." -- costs growing superlinearly over time mean an operation is not scalable; footnote 12 defines scalable as sublinear scaling with regard to human interactions.
+- Scale and Efficiency: "If the compute cost for your test cluster grows superlinearly, consuming more compute resources per person each quarter, you're on an unsustainable path"
+- Scale and Efficiency: "it is far too easy for problems to worsen slowly and never manifest as a singular moment of crisis." -- the boiled frog; build time, checkout time, upgrade cost are rarely monitored.
+- Scale and Efficiency: "everything your organization must do repeatedly should be scalable in terms of human effort."
+- Policies That Don't Scale: "considering the work imposed on a single engineer and imagining the organization scaling up by 10 or 100 times." -- the test for bad scaling: does work grow with organisation size or codebase size, and is there automation.
+- Policies That Don't Scale: "instead of pushing migration work to customers, teams can internalize it themselves, with all the economies of scale that provides." -- traditional deprecation by deadline fails as the dependency graph grows.
+- Policies That Don't Scale: "infrastructure teams must do the work to move their internal users to new versions themselves or do the update in place, in backward-compatible fashion." -- the 2012 Churn Rule.
+- Policies That Don't Scale: "having a dedicated group of experts execute the change scales better than asking for more maintenance effort from every user" -- expertise scales better.
+- Policies That Don't Scale: "We should merge less frequently." -- the reaction that leads to per-team dev branches; works for 5 to 10 branches, then overhead grows ever larger.
+- Policies That Scale Well: "it is not the fault of the infrastructure change." -- if a problem was not surfaced by tests in the CI system; colloquially the Beyonce Rule, "If you liked it, you should have put a CI test on it".
+- Policies That Scale Well: "complicated, one-off bespoke tests that aren't triggered by our common CI system do not count."
+- Policies That Scale Well: "Knowledge is viral, experts are carriers" -- shared forums and experts offer great value as an organisation scales.
+- Example: Compiler Upgrade: "A compiler upgrade will almost always result in minor changes to behavior" -- fixing miscompilations, tweaking optimisations, changing results of previously undefined behaviour.
+- Example: Compiler Upgrade: "We hadn't updated compilers in about five years." -- the 2006 upgrade, several thousand engineers, most code exposed to only one compiler version; it was extremely painful and Hyrum's Law problems had deepened the dependency.
+- Example: Compiler Upgrade: "we didn't have the Beyoncé Rule yet, nor did we have a pervasive CI system" -- so the impact was hard to know ahead of time.
+- Example: Compiler Upgrade: "automation (so that a single human can do more), consolidation/consistency (so that low-level changes have a limited problem scope), and expertise (so that a few humans can do more)." -- the three responses adopted.
+- Example: Compiler Upgrade: "The more frequently you change your infrastructure, the easier it becomes to do so."
+- Example: Compiler Upgrade: "expect the first upgrade for a codebase to be significantly more expensive than later upgrades, even controlling for other factors."
+- Example: Compiler Upgrade: "There is less change between releases because we adopt releases more regularly" -- Stability; the other factors listed are Expertise, Conformity, Familiarity (spot redundancies and automate) and Policy (only usages visible in CI matter).
+- Example: Compiler Upgrade: "We would be paying perhaps 25% extra for computational resources as a result of missed optimization opportunities." -- the counterfactual of avoiding upgrades; "Stagnation is an option, but often not a wise one."
+- Example: Compiler Upgrade: "If your tasks require effort that scales with lines of code, that's concerning." -- footnote 16: codebase grows linearly with SWE-months.
+- Shifting Left: "finding problems earlier in the developer workflow usually reduces costs." -- timeline: design, implementation, review, testing, commit, canary, production.
+- Shifting Left: "If you can catch it before the original developer commits the flaw to version control, it's even cheaper" -- the author already understands the feature.
+- Shifting Left: "Bugs that are caught by static analysis and code review before they are committed are much cheaper than bugs that make it to production."
+- Shifting Left: "No single process or tool needs to be perfect, so we can assume a defense-in-depth approach"
+- Trade-offs and Costs: "the goal is consensus, not unanimity." -- there must be a decider and clear escalation paths.
+- Trade-offs and Costs: "there needs to be a reason for everything" -- just because, because I said so, because everyone else does it are where bad decisions lurk.
+- Trade-offs and Costs: "Cost roughly translates to effort" -- financial, resource, personnel, transaction, opportunity and societal costs; plus biases such as status quo bias and loss aversion.
+- Trade-offs and Costs: "financial cost is usually not the limiting factor—personnel cost usually is." -- a 10-to-20% difference in focus and productivity is said to be easy to imagine.
+- Example: Markers: "it is far more important to optimize for obstacle-free brainstorming than to protect against someone wandering off with a bunch of markers." -- an explicit trade-off.
+- Example: Markers: "even when there isn't data, there might still be evidence, precedent, and argument." -- Google is a data-driven culture is called a simplification.
+- Example: Markers: "but only after we have exhausted approaches that try to measure or estimate the true underlying costs." -- decisions on instinct or accepted practice come last.
+- Example: Markers: "We are doing this because we must (legal requirements, customer requirements)." -- or because it is the best option by an appropriate decider on current evidence; never because I said so.
+- Inputs to Decision Making: "All of the quantities involved are measurable or can at least be estimated." -- first scenario; the second is quantities that are subtle or unmeasurable.
+- Inputs to Decision Making: "There is little reason to be deficient on the first type of decision." -- track compute, engineer-hours; produce a conversion table.
+- Inputs to Decision Making: "With an agreed-upon conversion table in hand, every engineer can do their own analysis."
+- Inputs to Decision Making: "be aware that not everything is measurable or predictable and to attempt to treat such decisions with the same priority and greater care."
+- Example: Distributed Builds: "something like 60 to 70% of developers build locally" -- from what the author calls completely unscientific Twitter polling.
+- Example: Distributed Builds: "the distributed builds themselves became bloated." -- after the distributed build system sped builds up, unnecessary dependencies became common.
+- Example: Distributed Builds: "When everyone directly felt the pain of a nonoptimal build and was incentivized to be vigilant, incentives were better aligned."
+- Example: Distributed Builds: "consumption of a resource may increase as a response to greater efficiency in its use." -- Jevons Paradox.
+- Example: Distributed Builds: "we did not foresee all of these costs." -- savings far outweighed costs, but even a simple trade-off had unforeseen downstream effects.
+- Example: Deciding Between Time and Scale: "should we add a dependency or fork/reimplement it to better suit our local needs?"
+- Example: Deciding Between Time and Scale: "the control you gain from such a fork isolates you from changes in your underlying dependencies" -- the benefit of forking.
+- Example: Deciding Between Time and Scale: "it is now a matter of identifying every vulnerable fork of that dependency and the users of those forks." -- the cost of everyone forking.
+- Example: Deciding Between Time and Scale: "avoid forks for interfaces that could operate across time or project-time boundaries (data structures, serialization formats, networking protocols)." -- short life span and provably limited scope make forks less risky.
+- Revisiting Decisions, Making Mistakes: "decisions will need to be revisited from time to time over the life span of the system in question."
+- Revisiting Decisions, Making Mistakes: "the deciders need to have the right to admit mistakes." -- leaders who admit mistakes are said to be more respected.
+- Revisiting Decisions, Making Mistakes: "Be evidence driven, but also realize that things that can't be measured may still have value."
+- Software Engineering Versus Programming: "these represent two different problem domains with distinct constraints, values, and best practices." -- no value judgement; integration tests, CD and SemVer concerns may not apply to a few-day project.
+- Software Engineering Versus Programming: "Software engineering is the set of policies, practices, and tools that are necessary to make that code useful for as long as it needs to be used and allowing collaboration across a team."
+- Conclusion: "We don't necessarily think that our approach is the one true way to do things, but it does provide proof by example that it can be done." -- stated limit.
+- TL;DRs: "Every task your organization has to do repeatedly should be scalable (linear or better) in terms of human input."
+- TL;DRs: "Process inefficiencies and other software-development tasks tend to scale up slowly." -- beware boiled-frog problems.
+- TL;DRs: "most decisions are based on a mix of data, assumption, precedent, and argument." -- best when objective data is the majority, rarely all.
+- TL;DRs: "Being data driven over time implies the need to change directions when the data changes" -- mistakes or revised plans are inevitable.
+- Footnote 17: "someone must be the decider." -- decisions need not be unanimous or broadly agreed.
+
+## Readings for our work
+- The legacy DLL build (MSVC 2003 under Wine) is the 2006 compiler situation in small: one compiler, never upgraded, with undefined behaviour and implicit dependencies baked in. Treat any toolchain change as a project of its own, not something slipped into a patch, and expect compiled behaviour to differ. Check: a toolchain change appears in its own commit with a before/after game-outcome comparison. Rests on: Example: Compiler Upgrade (minor changes to behaviour; five years without updates; first upgrade most expensive). Would not apply if: the toolchain is fixed by the upstream mod for good and we never change it.
+- Hyrum's Law applies to our own outputs: analysis tools, log tables and rendered documents get consumers who depend on column order, file names and formatting. Before changing an output format, list who reads it and check the readers still run. Rests on: Hyrum's Law; Example: Hash Ordering (RPC callers depending on serialised order). Would not apply if: every output has exactly one reader that is changed in the same commit.
+- Seeded harness runs rely on deterministic behaviour; if any analysis code depends on dict or hash iteration order or on unspecified ordering in DuckDB query results without ORDER BY, results can shift on a library upgrade. Check: every query that feeds a table has an explicit ORDER BY, and a re-run on a new library version gives identical registries. Rests on: Example: Hash Ordering. Would not apply if: the outputs are sets compared without order.
+- A check or tool belongs in the common gate (check_all.py/pre-commit) or it does not count; bespoke one-off checks run by hand are the tests that do not count of the Beyonce Rule. Conversely, if a property matters, it needs a test in the gate. Rests on: Policies That Scale Well (Beyonce Rule, bespoke tests do not count). Would not apply if: the property is one that cannot be tested automatically and is judged by review instead.
+- Tool and check growth is a scaling cost: if each new document or experiment requires more maintenance work on the method tooling, the policy does not scale. Measure it: count commits to method/ versus commits to product (analysis, patches) per period; a rising ratio is the boiled frog. Rests on: Scale and Efficiency (boiled frog; repeated work must scale linearly or better); Policies That Don't Scale (the 10x test). Would not apply if: the tooling is a one-time investment that has stopped growing.
+- Decisions about AI changes need a stated reason and evidence, not "because I said so" or memory; the register of predictions and Welch-tested experiments match the first type of decision (measurable). For unmeasurable aspects, write down that they are judgement and who decided. Rests on: Trade-offs and Costs; Example: Markers; Inputs to Decision Making. Would not apply if: the decision is legally or externally forced.
+- Write down deferred costs explicitly (e.g. documents still in UNCHECKED lists) rather than letting them stay implicit; the UNCHECKED list may only shrink, which matches making deferred costs explicit and tracked. Rests on: Introduction (choices should be explicit about deferred costs). Would not apply if: the deferral is temporary within a single commit.
+- Forking the mod's C++ code locally instead of delivering merge requests upstream isolates us but multiplies the work of carrying fixes; keep the patch set small and send it upstream, avoiding forks of shared interfaces such as the save format. Check: number and age of local-only patches not yet in a merge request. Rests on: Example: Deciding Between Time and Scale (avoid forks for serialisation formats). Would not apply if: upstream is abandoned and our fork is the only maintained line.
+- Catch line-ending rewrites and generated-file edits before commit, not after delivery: a pre-commit check that rejects CRLF-to-LF changes in the C++ patch and edits to generated files is the shift-left fix for what went wrong before. Rests on: Shifting Left (catch before commit is cheapest; defence in depth). Would not apply if: no such errors recur once the files are protected by .gitattributes.
+- Revisit earlier decisions and doctrine when data changes, and record it as a change rather than silently; deciders admitting mistakes is expected. Rests on: Revisiting Decisions, Making Mistakes; TL;DRs (change directions when data changes). Would not apply if: the earlier decision was not data-based to begin with.

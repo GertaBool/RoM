@@ -1,0 +1,159 @@
+# Martin Fowler, Continuous Integration (martinfowler.com article, revised version published 18 January 2024; earlier versions 10 September 2000 and 01 May 2006, per its Significant Revisions list)
+Source: lit3/fowler-ci/doc.txt. Read: lines 1-1730 (all, including contents, sidebars, acknowledgments and revision list).
+
+## What it says
+- Summary: "Continuous Integration is a software development practice where each member of a team merges their changes into a codebase together with their colleagues changes at least daily." -- definition.
+- Summary: "Each of these integrations is verified by an automated build (including test) to detect integration errors as quickly as possible."
+- Summary: "reduces the risk of delivery delays, reduces the effort of integration, and enables practices that foster a healthy codebase for rapid enhancement with new features."
+- Introduction: "integrating the work of multiple developers is a long and unpredictable process." -- the warehouse story from the 1980s, integration running for months.
+- Introduction: "integration tests are often only run after the pull request is merged." -- pull requests and late integration drag out the process.
+- Introduction: "by preventing regular refactoring, ends up allowing cruft to grow throughout the codebase." -- teams that learn to avoid significant changes to core code.
+- Introduction: "an integration process with so much friction that it discourages people from removing that cruft."
+- Introduction: "Any individual developer's work is only a few hours away from a shared project state and can be integrated back into that state in minutes."
+- Introduction: "This contrast isn't the result of an expensive and complex tool." -- the essence is everyone integrating at least daily against a controlled repository.
+- Introduction: "Continuous Integration is a much misunderstood concept." -- many who claim to do it are missing important pieces.
+- Introduction: "I originally wrote this article in 2001, with an update in 2006." -- rewritten in 2023; the revision list at the end dates the original to 10 September 2000.
+- Building a Feature with Continuous Integration: "This build hardly ever fails, but I do it just in case, because if it does fail, I want to know before I start making changes." -- build first after checkout so one's own changes are not blamed for an existing failure.
+- Building a Feature with Continuous Integration: "This will consist of both altering the product code, and also adding or changing some of the automated tests."
+- Building a Feature with Continuous Integration: "My first step for this is to pull again" -- then combine changes on top and rebuild; a test fails from a colleague's change, which is fixed before pushing.
+- Building a Feature with Continuous Integration: "It's rare that something gets missed that causes the CI Services build to fail, but rare is not the same as never." -- works on my machine; pushing is not the end.
+- Put everything in a version controlled mainline: "Version control tools allow a system to be rolled back to any point in its development" -- useful for Diff Debugging.
+- Put everything in a version controlled mainline: "My test for full version control is that I should be able to walk up with a very minimally configured environment" -- a vanilla laptop, then build and run after cloning.
+- Put everything in a version controlled mainline: "product source code, tests, database schema, test data, configuration files, IDE configurations, install scripts, third-party libraries, and any tools required to build the software."
+- Put everything in a version controlled mainline: "the repository should return all of these elements, which isn't the same as storing them." -- the right compiler must be obtainable, e.g. last year's compiler for last year's sources.
+- Put everything in a version controlled mainline: "once an asset is stored with an id, I'll always get exactly that asset back again." -- immutable asset storage; reference a particular version, never the latest.
+- Put everything in a version controlled mainline: "we should store in source control everything we need to build anything, but nothing that we actually build."
+- Put everything in a version controlled mainline: "Some people do keep the build products in source control, but I consider that to be a smell" -- usually an inability to reliably recreate builds; cached build products are disposable.
+- Put everything in a version controlled mainline: "Continuous Integration relies on having a clear mainline" -- a single shared branch that is the current state of the product.
+- Put everything in a version controlled mainline: "As much as possible, we should use text files to define the product and its environment." -- non-text files lack meaningful diffs.
+- Put everything in a version controlled mainline: "Even there we need to use text formats that will produce comprehensible diffs."
+- Automate the Build: "it can be automated - and as a result should be automated." -- strange commands and dialog boxes are a breeding ground for mistakes.
+- Automate the Build: "Any instructions for the build need to be stored in the repository, in practice this means that we must use text representations."
+- Automate the Build: "build tools work best with a particular way to organize their logic" -- a Dependency Network of tasks; modification times decide what needs rerunning.
+- Automate the Build: "A common mistake is not to include everything in the automated build."
+- Automate the Build: "anyone should be able to bring in a clean machine, check the sources out of the repository, issue a single command, and have a running system on their own environment."
+- Automate the Build: "A build script should allow us to build alternative targets for different cases." -- with or without tests, different test sets.
+- Make the Build Self-Testing: "A program may run, but that doesn't mean it does the right thing."
+- Make the Build Self-Testing: "Manual testing is too slow to cope with the frequency of change."
+- Make the Build Self-Testing: "a comprehensive test suite, one that is run before each integration to flush out as many bugs as possible." -- testing is not perfect but catches enough to be useful.
+- Make the Build Self-Testing: "A programmer's job isn't done merely when the new feature is working, but also when they have automated tests to prove it."
+- Make the Build Self-Testing: "I like to imagine a mischievous imp that is able to make simple modifications to the product code, such as commenting out lines, or reversing conditionals, but is not able to change the tests." -- a sound suite turns red on any such damage.
+- Make the Build Self-Testing: "And any test failing is enough to fail the build, 99.9% green is still red."
+- Make the Build Self-Testing: "Self-testing code is so important to Continuous Integration that it is a necessary prerequisite." -- the biggest barrier is often insufficient testing skill.
+- Make the Build Self-Testing: "TDD isn't essential for Continuous Integration, as tests can be written after production code as long as they are done before integration."
+- Make the Build Self-Testing: "Linters can detect poor programming practices, and ensure code follows a team's preferred formatting style" -- vulnerability scanners too; teams should include such tools in verification.
+- Make the Build Self-Testing: "Imperfect tests, run frequently, are much better than perfect tests that are never written at all." -- tests do not prove the absence of bugs.
+- Everyone Pushes Commits To the Mainline Every Day: "No code sits unintegrated for more than a couple of hours." -- quoted from Kent Beck.
+- Everyone Pushes Commits To the Mainline Every Day: "Integration is primarily about communication."
+- Everyone Pushes Commits To the Mainline Every Day: "The one prerequisite for a developer committing to the mainline is that they can correctly build their code." -- including passing the build tests; update, resolve conflicts, build locally, then push.
+- Everyone Pushes Commits To the Mainline Every Day: "The key to fixing problems quickly is finding them quickly." -- conflicts undetected for weeks are very hard to resolve.
+- Semi-Integration (it isn't Continuous Integration): "Full mainline integration requires that developers push their work back into the mainline." -- pulling from mainline into a branch is only semi-integration.
+- Semi-Integration: "This semi-integration doesn't prevent branches from diverging, conflicts from festering, and all the problems of low-frequency integration."
+- Everyone Pushes Commits To the Mainline Every Day: "The harder problem are Semantic Conflicts." -- e.g. a renamed function or a changed function body; version control cannot help; self-testing code can.
+- Everyone Pushes Commits To the Mainline Every Day: "Since there's only a few hours of changes between commits, there's only so many places where the problem could be hiding."
+- Everyone Pushes Commits To the Mainline Every Day: "My general rule of thumb is that every developer should commit to the mainline every day."
+- Everyone Pushes Commits To the Mainline Every Day: "Frequent commits encourage developers to break down their work into small chunks of a few hours each."
+- Every Push to Mainline Should Trigger a Build: "This may be due to lapses in discipline, neglecting to update and build before a push, there may also be environmental differences between developer workspaces."
+- Every Push to Mainline Should Trigger a Build: "We thus need to ensure that every commit is verified in a reference environment."
+- Every Push to Mainline Should Trigger a Build: "Only once this integration build is green can the developer consider the integration to be complete."
+- Every Push to Mainline Should Trigger a Build: "should we get a failure, we know that the fault lies in that latest push"
+- Every Push to Mainline Should Trigger a Build: "teams using Continuous Integration will only need the CI service to monitor a single branch of the product." -- building many branches is not the same as CI.
+- Every Push to Mainline Should Trigger a Build: "it is perfectly possible to do Continuous Integration without one." -- a CI service; manual integration-machine builds, though automation is freely available.
+- Fix Broken Builds Immediately: "nobody has a higher priority task than fixing the build" -- Kent Beck; a conscious prioritisation, usually by a couple of people.
+- Fix Broken Builds Immediately: "Usually the best way to fix the build is to revert the latest commit from the mainline, taking the system back to the last-known good build."
+- Fix Broken Builds Immediately: "Some teams prefer to remove all risk of breaking the mainline by using a Pending Head" -- pre-tested, delayed or gated commit: commits wait on another branch until green.
+- Fix Broken Builds Immediately: "an effective team should rarely see a red mainline, and on the few times it happens its very visibility encourages folks to learn how to avoid it."
+- Keep the Build Fast: "The whole point of Continuous Integration is to provide rapid feedback."
+- Keep the Build Fast: "the XP guideline of a ten minute build is perfectly within reason." -- every minute saved is saved per developer per commit.
+- Keep the Build Fast: "we've found the usual bottleneck is testing - particularly tests that involve external services such as a database."
+- Keep the Build Fast: "there are in fact multiple builds done in sequence." -- the Deployment Pipeline; the commit build is fast and takes shortcuts that reduce bug detection.
+- Keep the Build Fast: "The trick is to balance the needs of bug finding and speed so that a good commit build is stable enough for other people to work on."
+- Keep the Build Fast: "The first stage would do the compilation and run tests that are more localized unit tests with slow services replaced by Test Doubles" -- the second stage hits the real database and may take a couple of hours.
+- Keep the Build Fast: "If the secondary build fails, then this may not have the same 'stop everything' quality" -- the team still fixes it rapidly; it may not run after every commit.
+- Keep the Build Fast: "If the secondary build detects a bug, that's a sign that the commit build could do with another test." -- later-stage failures should lead to new commit tests where possible.
+- Keep the Build Fast: "Providing the tests can run reasonably independently, which well-written tests can" -- then parallel cloud fleets give rapid builds.
+- Keep the Build Fast: "A team should thus automatically check for new versions of dependencies and integrate them into the build" -- at least daily; dependency and contract-test failures need prompt action, not stop the line.
+- Hide Work-in-Progress: "Teams doing Continuous Integration ensure that all code sent to the mainline is production quality, together with the tests that verify the code." -- latent code can be exercised in tests.
+- Hide Work-in-Progress: "ensuring the interface that provides a path to the new feature is the last thing we add to the code base." -- Keystone Interface.
+- Hide Work-in-Progress: "We then make sure we remove this logic promptly once a feature is fully released, so that the flags don't clutter the code base." -- feature flags, also used for A/B testing and canary releases.
+- Hide Work-in-Progress: "The interface can then route between old and new logic, gradually replacing execution paths over time." -- Branch By Abstraction.
+- Hide Work-in-Progress: "When introducing a new feature, we should always ensure that we can rollback in case of problems." -- Parallel Change (expand-contract) in reversible steps, e.g. renaming a database field.
+- Hide Work-in-Progress: "Teams using Continuous Integration often look to break up changes in this way, keeping changes small and easy to undo."
+- Test in a Clone of the Production Environment: "If we test in a different environment, every difference results in a risk that what happens under test won't happen in production."
+- Test in a Clone of the Production Environment: "Use the same database software, with the same versions, use the same version of the operating system."
+- Test in a Clone of the Production Environment: "the price is usually small compared to hunting down a single bug that crawled out of the hole created by environment mismatches."
+- Test in a Clone of the Production Environment: "The deployment pipeline should arrange for testing in all of these environments in parallel." -- for software meant for multiple environments; also mimic poorer production conditions.
+- Everyone can see what's happening: "One of the most important things to communicate is the state of the mainline build." -- dashboards, notifications on success too.
+- Everyone can see what's happening: "these displays can show useful information about recent history, which can be an indicator of project health." -- the calendar of green and red stickers that disappeared once green became common.
+- Automate Deployment: "it's important to have scripts that will allow us to deploy the application into any environment easily."
+- Automate Deployment: "Not just have scripts to deploy the product, but also scripts to build the required environment from scratch."
+- Automate Deployment: "If we deploy into production automatically, one extra capability we find handy is automated rollback."
+- Automate Deployment: "An about screen should contain a build id that ties back to version control, logs should make it easy to see which version of the software is running"
+- Styles of Integration: "three styles of handling integration: Pre-Release Integration, Feature Branches, and Continuous Integration." -- classification with fuzzy boundaries.
+- Styles of Integration: "This integration occurs once, and is followed by integration testing, and on to a release." -- pre-release integration, tied to waterfall; frequency tied to release.
+- Styles of Integration: "Teams using feature branches will usually expect everyone to pull from mainline regularly, but this is semi-integration."
+- Styles of Integration: "This leads to many more bouts of integration work, but each bout is much smaller."
+- Benefits of Continuous Integration: "most of the discussion is truly about the frequency of integration."
+- Benefits of Continuous Integration: "Continuous Integration makes a point of setting integration frequency as a target in itself, and not binding it to feature completion or release frequency."
+- Benefits of Continuous Integration: "most teams can see a useful improvement in the factors I'll discuss below by increasing their frequency without changing their style."
+- Reduced risk of delivery delays: "The longer the time between integrations, the more code to integrate, the longer it takes - but what's worse is the increase in unpredictability."
+- Reduced risk of delivery delays: "every time they fix an integration bug, two more pop up." -- integration hell.
+- Reduced risk of delivery delays: "Continuous Integration effectively eliminates delivery risk." -- the worst case is losing less than a day's work.
+- Reduced risk of delivery delays: "There's no hidden integration efforts that need to be done before release" -- even without regular releases, everyone sees the true state of the product.
+- Less time wasted in integration: "I've not seen any serious studies that measure how time spent on integration matches the size of integrations" -- his anecdotal evidence suggests twice the code takes about four times as long; stated limit of the evidence.
+- Less time wasted in integration: "Integration is all about connections, hence the non-linear increase"
+- Less time wasted in integration: "A difficult integration may be so traumatic that a team decides it should do integrations less often, which only exacerbates the problem in the future."
+- Less time wasted in integration: "our source control system becomes a communication channel, one that can communicate things that can otherwise be unsaid."
+- Less Bugs: "Continuous Integration doesn't get rid of bugs, but it does make them dramatically easier to find and remove." -- mainly because of self-testing code, not frequency.
+- Less Bugs: "If the tests are inadequate, the team will quickly notice, and can take corrective action."
+- Less Bugs: "Bugs are also cumulative." -- bug interactions and lower morale make each harder to remove.
+- Less Bugs: "people conclude that to have high reliability software they need to slow down the release rate." -- said to be contradicted by the DORA research led by Nicole Forsgren.
+- Less Bugs: "teams have higher levels of performance when they have three or fewer active branches" -- merge to mainline at least daily, no code freezes or integration phases (DORA, cited).
+- Enables Refactoring for sustained productivity: "Most teams observe that over time, codebases deteriorate."
+- Enables Refactoring for sustained productivity: "small, behavior-preserving transformations of the code." -- refactoring, which reduces bug risk especially with self-testing code.
+- Enables Refactoring for sustained productivity: "A two week refactoring session may greatly improve the code, but result in long merges" -- frequent integration solves this dilemma.
+- Enables Refactoring for sustained productivity: "teams that spend a lot of effort keeping their code base healthy deliver features faster and cheaper." -- called perhaps the most important counter-intuitive notion.
+- Release to Production is a business decision: "the decision to release the latest version of the product into production is purely a business decision." -- with a Release-Ready Mainline.
+- When we should not use Continuous Integration: "Few things come without a cost, and decisions about architecture and process are usually a matter of trade-offs."
+- When we should not use Continuous Integration: "There is some limit to when the benefits stop piling up, but that limit sits at hours rather than days"
+- When we should not use Continuous Integration: "Those two adjectives indicate the contexts where Continuous Integration isn't a good fit." -- committed and skillful.
+- When we should not use Continuous Integration: "A good counter-example to this is a classical open-source project, where there is one or two maintainers and many contributors." -- there CI is not plausible; feature branches and pull requests arose there.
+- When we should not use Continuous Integration: "We need to use our judgment about what integration policy to use that fits the commitment of the team."
+- When we should not use Continuous Integration: "If a team attempts Continuous Integration without a strong test suite, they will run into all sorts of trouble because they don't have a mechanism for screening out bugs."
+- When we should not use Continuous Integration: "If folks aren't disciplined about ensuring their pushes to mainline are done with green builds, then the mainline will end up broken all the time"
+- When we should not use Continuous Integration: "Instituting Continuous Integration without self-testing code won't work" -- skill demands are said not to be particularly hard.
+- Introducing Continuous Integration: "When introducing any new practice, it's important to be clear on why we're doing it."
+- Introducing Continuous Integration: "It takes time before we see an effect, and it's hard to compare to the counter-factual." -- of enabling refactoring, called probably the most valuable benefit.
+- Introducing Continuous Integration: "Self-testing code adds stability to a system even with infrequent commits."
+- Introducing Continuous Integration: "One target can be to double the integration frequency." -- e.g. ten-day branches cut to five; pre-integration reviews can check test coverage and encourage smaller commits.
+- Introducing Continuous Integration: "take action as soon as we start going slower than the ten minute rule."
+- Introducing Continuous Integration: "We should find someone who has done Continuous Integration before to help us." -- with the stated disclaimer that Thoughtworks sells such consultancy.
+- Where did Continuous Integration come from?: "Continuous Integration was developed as a practice by Kent Beck as part of Extreme Programming in the 1990s."
+- Where did Continuous Integration come from?: "Microsoft had been known for doing daily builds (usually overnight), but without the testing regimen or the focus on fixing defects"
+- Trunk-Based Development: "In general I see this as a synonym to Continuous Integration" -- coined against the Semantic Diffusion caused by running CI services on feature branches.
+- Can we run a CI Service on our feature branches?: "Doing an automated build on feature branches is useful, but it is only semi-integration."
+- Can we run a CI Service on our feature branches?: "we shouldn't confuse a tool for the practice." -- a better name would be Continuous Build Services.
+- Continuous Integration and Feature Branching: "In general, Continuous Integration and Feature Branching are mutually exclusive approaches." -- except when all features take less than a day.
+- Continuous Integration and Feature Branching: "The key question is whether I'm integrating continuously, not how I manage my personal workspace."
+- Continuous Integration and Continuous Delivery: "The aim of Continuous Delivery is that the product should always be in a state where we can release the latest build."
+- Continuous Deployment: "Continuous Deployment means the product is automatically released to production whenever it passes all the automated tests in the deployment pipeline."
+- How do we do pull requests and code reviews?: "The pre-integration code review can be problematic for Continuous Integration because it usually adds significant friction to the integration process." -- hours or days instead of minutes.
+- How do we do pull requests and code reviews?: "Pair Programming is popular because it creates a continuous real-time code review" -- Ship / Show / Ask uses blocking review only when necessary; post-integration review often a better bet; Refinement Code Review.
+- How do we do pull requests and code reviews?: "pre-integration review grew out of an open-source context where contributions appear impromptu from weakly connected developers."
+- How do we handle databases?: "define database schema and data through a series of migration scripts, that alter both the database schema and data." -- Evolutionary Database Design; each migration small, composable, versioned with the data access code.
+- Final Thoughts: "Most software development is about changing existing code."
+- Final Thoughts: "A crufty code base is harder and more expensive to modify." -- regular refactoring keeps cruft to a minimum.
+- Final Thoughts: "Together with and supported by self-testing code, it's the underpinning for refactoring."
+- Significant Revisions: "18 January 2024: Published revised version" -- also 18 October 2023 rewrite begun; 01 May 2006 complete rewrite; 10 September 2000 original version.
+
+## Readings for our work
+- The research repository should pass Fowler's clean-machine test: a fresh clone plus one command (sh method/setup.sh, then check_all.py) reproduces every rendered document and check. Generated outputs (rendered .md, registries, build products such as the DLL) should not be hand-edited, and if they are committed they must be regenerated and compared by the gate. Check: in a clean clone, re-render all templates and diff against the committed outputs; any difference fails. Rests on: Put everything in a version controlled mainline (store everything to build, nothing built; build products in source control are a smell); Automate the Build (clean machine, single command). Would not apply if: a generated file is committed deliberately for readers without the toolchain, which then must be declared as generated and protected.
+- The legacy DLL build (MSVC 2003 under Wine) needs the exact compiler to be obtainable by reference, not by memory; record the toolchain version and its location as an immutable reference in the repository, and keep the build instructions as text scripts. Rests on: Put everything in a version controlled mainline (last year's compiler; immutable asset storage; never the latest version); Automate the Build (build instructions as text in the repository). Would not apply if: the toolchain is guaranteed unchanged and documented upstream.
+- The pre-commit gate can be skipped locally, so it is not the reference environment; a CI job on the pushed branch should run the same checks so that every push is verified where the author cannot bypass it. Rests on: Every Push to Mainline Should Trigger a Build (lapses in discipline, environment differences; verify in a reference environment). Would not apply if: commits can only land through a server-side gate.
+- Line endings in CRLF files are part of the content; text formats must produce comprehensible diffs, and a patch whose diff is dominated by line-ending churn is unreviewable. Pin CRLF for the C++ files via .gitattributes and check that patches to the GitLab repository touch only intended lines. Rests on: Put everything in a version controlled mainline (text formats that give comprehensible diffs). Would not apply if: the upstream repository converts line endings on its own side.
+- Keep the gate fast (Fowler's ten-minute commit build as an upper bound) and push slow work (harness games, 30-seed experiments) into a second stage that runs separately; when the slow stage finds a bug, add a fast test to the gate. Rests on: Keep the Build Fast (commit build vs. secondary build; later failures lead to new commit tests). Would not apply if: the full set of checks already runs in seconds.
+- Test the checks with Fowler's imp: deliberately break a figure, quotation or line ending in a scratch branch and confirm the gate goes red; a check that never goes red on such damage is not a check. Rests on: Make the Build Self-Testing (mischievous imp; 99.9% green is still red). Would not apply if: the check has its own test suite that already covers these mutations.
+- When the gate goes red on the main branch, revert the last commit first and investigate separately, instead of stacking fixes on a broken state. Rests on: Fix Broken Builds Immediately (revert to last-known good build). Would not apply if: the cause is immediately obvious and fixed in one small commit.
+- Our upstream mod repository resembles Fowler's counter-example (few maintainers, part-time, external contributors), so full CI is not plausible there; the fitting practice is small, frequent merge requests with their own tests, not long-lived feature branches of AI work. Rests on: When we should not use Continuous Integration (classical open-source project); Introducing CI (double the integration frequency). Would not apply if: we become the full-time maintainers of the DLL.
+- AI changes can be integrated as latent code behind a flag (or a game option) so experiments compare flag on versus off on the same build, and flags are removed once a variant is decided. Rests on: Hide Work-in-Progress (feature flags for A/B testing; remove flags promptly; keep changes small and easy to undo). Would not apply if: the change cannot be isolated behind a switch without changing the baseline's behaviour.
+- Fowler's evidence for the non-linear cost of integration is anecdotal by his own account; do not cite it as measured. Rests on: Less time wasted in integration (no serious studies seen). Would not apply if: the DORA results he cites are read directly and found to cover this.

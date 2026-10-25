@@ -1,0 +1,51 @@
+[
+ {
+  "id": "p6_arms",
+  "db": "p6",
+  "unit": "category",
+  "who": "the human-model seat (seat 12) and the AI players, per arm of P6",
+  "turn": "turns 1 to 300 of each run",
+  "source": "P6 harness runs (the turn-0 scenario of game 3, Marathon, Noble; seat 12 played by the human model; arm a: AI_BALANCE_SHARE 110, arm b: 0; S2 on in both), loaded by study/p6_load.sql from each run's telemetry (run.jsonl): capture events by and from the seat, war events on and by the seat and between AI teams, the turns played and the telemetry's milliseconds",
+  "sql": "select arm, count(*) runs, sum((last_turn=300)::int) reached_300, median(taken) median_taken, sum(taken) total_taken, median(lost) median_lost, sum(lost) total_lost, sum((wars_on_seat>0)::int) runs_with_war_on_seat, sum(wars_on_seat) total_wars_on_seat, median(ai_ai_wars) median_ai_ai_wars, median(run_seconds) median_seconds from runs group by arm order by arm"
+ },
+ {
+  "id": "p6_runs",
+  "db": "p6",
+  "unit": "category",
+  "who": "the human-model seat (seat 12), per run of P6",
+  "turn": "turns 1 to 300 of each run",
+  "source": "as p6_arms, one row per run: the seed (from ledger.py seeds P6), the cities the seat took and lost, the wars declared on it and by it, the wars between AI teams, the last turn played",
+  "sql": "select arm, seed, taken, lost, wars_on_seat, wars_by_seat, ai_ai_wars, last_turn from runs order by arm, seed"
+ },
+ {
+  "id": "p6_hegemon",
+  "db": "p6",
+  "unit": "category",
+  "who": "the human-model seat (seat 12) and the AI players, per arm of P6",
+  "turn": "turns 50 to 300 of each run; the seat's share at turns 100, 150, 200, 250 and 300",
+  "source": "as p6_arms: the power of each living player each turn (telemetry p records); a turn counts as a hegemon turn when the strongest player holds more than 110 per mille of the living players' power (AI_BALANCE_SHARE, here over all living players rather than those one team has met); the seat's share of that power, per mille, median over the runs",
+  "sql": "select arm, count(*) run_turns, sum((top_power*1000>110*total_power and top_id=12)::int) seat_hegemon_turns, sum((top_power*1000>110*total_power and top_id<>12)::int) ai_hegemon_turns, median(case when turn=100 then 1000.0*seat_power/total_power end) seat_share_100, median(case when turn=150 then 1000.0*seat_power/total_power end) seat_share_150, median(case when turn=200 then 1000.0*seat_power/total_power end) seat_share_200, median(case when turn=250 then 1000.0*seat_power/total_power end) seat_share_250, median(case when turn=300 then 1000.0*seat_power/total_power end) seat_share_300 from turns where turn>=50 group by arm order by arm"
+ },
+ {
+  "id": "p6_wars",
+  "db": "p6",
+  "unit": "category",
+  "who": "every declaration of war in the P6 runs, per arm",
+  "turn": "turns 1 to 300 of each run",
+  "source": "as p6_arms: the telemetry's war events (declaring team, target, both teams' power, the declarer's war plan: 4 limited, 5 total, 6 dogpile); declarations on a stronger target; on the seat; the median turn of the declarations on the seat",
+  "sql": "select arm, count(*) declarations, sum((on_power>by_power)::int) on_stronger_target, sum((plan=6)::int) dogpile, sum((on_team=12)::int) on_seat, sum((on_team=12 and plan=6)::int) dogpile_on_seat, median(case when on_team=12 then turn end) median_turn_on_seat from wars group by arm order by arm"
+ },
+ {
+  "id": "p6_leaders",
+  "db": "p6",
+  "unit": "category",
+  "who": "each AI leader of the game 3 scenario (the human-model seat excluded), per arm of P6",
+  "turn": "turns 1 to 300 of each run",
+  "source": "as p6_arms: the scenario's PLAYER lines (team and leader), the leader's iWorseRankDifferenceAttitudeChange from records.json (LeaderHeadInfo; the envy term of change B uses it), and the declarations of war by the leader's team in each arm, summed over the thirty runs",
+  "xml": [
+   "LeaderHeadInfo",
+   "leader"
+  ],
+  "sql": "select l.leader, l.envy, sum((w.arm='a')::int) declarations_a, sum((w.arm='b')::int) declarations_b from leaders l left join wars w on w.by_team=l.team where l.team<>12 group by l.leader, l.envy order by l.envy, l.leader"
+ }
+]

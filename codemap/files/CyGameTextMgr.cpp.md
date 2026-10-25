@@ -1,0 +1,109 @@
+# CyGameTextMgr.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **13** `CyGameTextMgr::CyGameTextMgr()`
+  - calls: CvGameTextMgr::GetInstance [CvGameTextMgr.cpp]
+- **19** `CyGameTextMgr::CyGameTextMgr(CvGameTextMgr*)`
+- **22** `CyGameTextMgr::Reset()` (Python: Reset)
+  - calls: CvGameTextMgr::Reset [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp]
+  - called by (1): CyGameTextMgrInterface
+- **27** `CyGameTextMgr::getTimeStr(int, bool)` (Python: getTimeStr)
+  - calls: CvWString::CvWString() [CvString.h], CvGameTextMgr::setTimeStr [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **34** `CyGameTextMgr::getDateStr(int, bool, int, int, int)` (Python: getDateStr)
+  - calls: CvWString::CvWString() [CvString.h], CvGameTextMgr::setDateStr [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **41** `CyGameTextMgr::getInterfaceTimeStr(int)` (Python: getInterfaceTimeStr)
+  - calls: CvWString::CvWString() [CvString.h], CvGameTextMgr::setInterfaceTime [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **48** `CyGameTextMgr::getGoldStr(int)` (Python: getGoldStr)
+  - calls: CvWString::CvWString() [CvString.h], CvGameTextMgr::setGoldStr [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **55** `CyGameTextMgr::getResearchStr(int)` (Python: getResearchStr)
+  - calls: CvWString::CvWString() [CvString.h], CvGameTextMgr::setResearchStr [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **62** `CyGameTextMgr::getOOSSeeds(int)` (Python: getOOSSeeds)
+  - calls: CvWString::CvWString() [CvString.h], CvGameTextMgr::setOOSSeeds [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **69** `CyGameTextMgr::getNetStats(int)` (Python: getNetStats)
+  - calls: CvWString::CvWString() [CvString.h], CvGameTextMgr::setNetStats [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **76** `CyGameTextMgr::getTechHelp(int, bool, bool, bool, bool, int)` (Python: getTechHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::setTechHelp [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **83** `CyGameTextMgr::getUnitHelp(int, bool, bool, bool, CyCity*)` (Python: getUnitHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*) [CvGameTextMgr.cpp], CyCity::getCity [CyCity.h], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **90** `CyGameTextMgr::getSpecificUnitHelp(CyUnit*, bool, bool)` (Python: getSpecificUnitHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CyUnit::getUnit [CyUnit.h], CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool) [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **100** `CyGameTextMgr::getBuildingHelp(int, bool, bool, bool, CyCity*)` (Python: getBuildingHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setBuildingHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CyCity::getCity [CyCity.h], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **107** `CyGameTextMgr::getProjectHelp(int, bool, CyCity*)` (Python: getProjectHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setProjectHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CyCity::getCity [CyCity.h], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **114** `CyGameTextMgr::getPromotionHelp(int, bool)` (Python: getPromotionHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setPromotionHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **121** `CyGameTextMgr::getBonusHelp(int, bool)` (Python: getBonusHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setBonusHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **128** `CyGameTextMgr::getReligionHelpCity(int, CyCity*, bool, bool, bool, bool)` (Python: getReligionHelpCity)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setReligionHelpCity [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CyCity::getCity [CyCity.h], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **135** `CyGameTextMgr::getCorporationHelpCity(int, CyCity*, bool, bool)` (Python: getCorporationHelpCity)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setCorporationHelpCity [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CyCity::getCity [CyCity.h], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **142** `CyGameTextMgr::getImprovementHelp(int, bool)` (Python: getImprovementHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setImprovementHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **149** `CyGameTextMgr::getFeatureHelp(int, bool)` (Python: getFeatureHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setFeatureHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **156** `CyGameTextMgr::getTerrainHelp(int, bool)` (Python: getTerrainHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setTerrainHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **163** `CyGameTextMgr::parseCivicInfo(int, bool, bool, bool)` (Python: parseCivicInfo)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::parseCivicInfo [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **170** `CyGameTextMgr::parseReligionInfo(int, bool)` (Python: parseReligionInfo)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setReligionHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **177** `CyGameTextMgr::parseCorporationInfo(int, bool)` (Python: parseCorporationInfo)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setCorporationHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **184** `CyGameTextMgr::parseCivInfos(int, bool)` (Python: parseCivInfos)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::parseCivInfos [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **191** `CyGameTextMgr::parseLeaderTraits(int, int, bool, bool)` (Python: parseLeaderTraits)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::parseLeaderTraits [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **198** `CyGameTextMgr::getTradeString(TradeData*, int, int)` (Python: getTradeString)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::getTradeString [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **208** `CyGameTextMgr::getSpecialistHelp(int, bool)` (Python: getSpecialistHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvGameTextMgr::parseSpecialistHelp [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **215** `CyGameTextMgr::buildHintsList()` (Python: buildHintsList)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::buildHintsList [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **222** `CyGameTextMgr::getAttitudeString(int, int)` (Python: getAttitudeString)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::getAttitudeString [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **229** `CyGameTextMgr::setConvertHelp(int, int)` (Python: setConvertHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setConvertHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **236** `CyGameTextMgr::setRevolutionHelp(int)` (Python: setRevolutionHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setRevolutionHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **243** `CyGameTextMgr::setVassalRevoltHelp(int, int)` (Python: setVassalRevoltHelp)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::setVassalRevoltHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **250** `CyGameTextMgr::getActiveDealsString(int, int)` (Python: getActiveDealsString)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CvGameTextMgr::getActiveDealsString [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface
+- **257** `CyGameTextMgr::getDealString(CyDeal*, int)` (Python: getDealString)
+  - calls: CvWStringBuffer::CvWStringBuffer [CvString.h], CyDeal::getDeal [CyDeal.h], CvGameTextMgr::getDealString(CvWStringBuffer&, CvDeal&, PlayerTypes) [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvWStringBuffer::getCString [CvString.h]
+  - called by (1): CyGameTextMgrInterface

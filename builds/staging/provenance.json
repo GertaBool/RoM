@@ -1,0 +1,20 @@
+{
+ "serves": [
+  "P4"
+ ],
+ "patch": "fixes/staging-defence.patch",
+ "build_id": "c2e0b0aa630e",
+ "source": "The war-log DLL of builds/war-log (GitLab main after !52 plus the setup guard of !53, build a1d2e324699d: the war log with turn-start lines and build id, the four war-AI fixes on) plus change S2 (fixes/staging-defence.patch): a city sizes its defence by the exact assault forecast of the foreign units able to reach it this turn, at peace or aboard ships (AI_STAGED_FORECAST = 250)",
+ "source_commit": "38bfd86fd8ddea329294a5730388ccc792fa9367",
+ "source_tree": "58dc3139f215d4eb1b90e8ce27fb02bb2d25b772",
+ "base_commit": "efcb5e4131e87153ec483dfd344fba554ca3c458",
+ "dll_sha256": "09a0c845dc3361c1f494b6478202e3af673e83fedc33164fc37062ddd9deb7fb",
+ "dll_size": 6148096,
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
+ "tests": "clang gate on CvCityAI.cpp against efcb5e4: 0 new diagnostics. GitLab Tools tests (Python) not rerun: the change is C++ and one define",
+ "tested_headless": "Harness builds of source_commit, the saves of games 3, 4 and 5 and the turn-241 save of game 6, with S2 off (define 0) and on (250), HARNESS_DEFENCE_DIAG. At the saves: the staged forecast reaches its leader's threshold in 4, 6, 7 and 2 AI cities, and the danger flag switches on in 3, 5, 6 and 2 cities that were not in danger. Ten turns from each save, same seed: game 3 and game 5 identical captures and wars; game 4 three captures off, two on (one run each, an anecdote); game 6: the Sumerian city facing a Persian force at peace (axemen next to it, galleys carrying spearmen and a ram) went from 1 to 4 defenders with S2 on, its forecast from 1000 to 0, and stayed at 1 defender with S2 off. Profile of three turns of game 5: before memoizing, the forecast took 24 % of turn time; with the per-city memo, 1.9 %, and the whole turns took 33.7 s on against 33.9 s off; harness telemetry with and without the memo identical but for turn times",
+ "tested_in_game": false,
+ "previous": "builds/war-log 9f903aa6abbbc567f36f90ce1685199a206bd5fc0e72cd6e590ac8234b2d6a6b (build a1d2e324699d, the same DLL without S2)",
+ "merge_request": "aretemaxxing-group/rise-of-mankind!54 (open): branch claude/staging-defence from main after !53, commit e4679cd; Assets/CvGameCoreDLL there is tree c2e0b0aa630e, the build_id, and Assets/XML the source commit's",
+ "gitlab_commit": "e4679cd132bcd2f1c19edc02dae0e2652a8ba1ba"
+}

@@ -1,0 +1,1336 @@
+# CyPlayer.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **21** `CyPlayer::CyPlayer()`
+  - called by (1): CyGlobalContext::getCyPlayer
+- **25** `CyPlayer::CyPlayer(CvPlayer*)`
+  - called by (1): CyGlobalContext::getCyPlayer
+- **34** `CyPlayer::changeLeader(int)` (Python: changeLeader)
+  - calls: CvPlayer::changeLeader [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **40** `CyPlayer::changeCiv(int)` (Python: changeCiv)
+  - calls: CvPlayer::changeCiv [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **45** `CyPlayer::setIsHuman(bool)` (Python: setIsHuman)
+  - calls: CvPlayer::setIsHuman [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **58** `CyPlayer::setIsRebel(bool)` (Python: setIsRebel)
+  - calls: CvPlayer::setIsRebel [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **64** `CyPlayer::isRebel()` (Python: isRebel)
+  - calls: CvPlayer::isRebel [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **72** `CyPlayer::getStabilityIndex()` (Python: getStabilityIndex)
+  - calls: CvPlayer::getStabilityIndex [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **80** `CyPlayer::setStabilityIndex(int)` (Python: setStabilityIndex)
+  - calls: CvPlayer::setStabilityIndex [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **86** `CyPlayer::changeStabilityIndex(int)` (Python: changeStabilityIndex)
+  - calls: CvPlayer::changeStabilityIndex [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **92** `CyPlayer::getStabilityIndexAverage()` (Python: getStabilityIndexAverage)
+  - calls: CvPlayer::getStabilityIndexAverage [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **100** `CyPlayer::setStabilityIndexAverage(int)` (Python: setStabilityIndexAverage)
+  - calls: CvPlayer::setStabilityIndexAverage [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **106** `CyPlayer::updateStabilityIndexAverage()` (Python: updateStabilityIndexAverage)
+  - calls: CvPlayer::updateStabilityIndexAverage [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **116** `CyPlayer::isDoNotBotherStatus(int)` (Python: isDoNotBotherStatus)
+  - calls: CvPlayer::isDoNotBotherStatus [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **125** `CyPlayer::startingPlotRange()` (Python: startingPlotRange)
+  - calls: CvPlayer::startingPlotRange [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **130** `CyPlayer::startingPlotWithinRange(CyPlot*, int, int, int)` (Python: startingPlotWithinRange)
+  - calls: CyPlot::isNone [CyPlot.h], CyPlot::getPlot [CyPlot.h], CvPlayer::startingPlotWithinRange [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **143** `CyPlayer::findStartingPlot(bool)` (Python: findStartingPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayer::findStartingPlot [CvPlayer.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **148** `CyPlayer::initCity(int, int)` (Python: initCity)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayer::initCity [CvPlayer.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **153** `CyPlayer::acquireCity(CyCity*, bool, bool)` (Python: acquireCity)
+  - calls: CvPlayer::acquireCity [CvPlayer.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyPlayerPythonInterface1
+- **159** `CyPlayer::killCities()` (Python: killCities)
+  - calls: CvPlayer::killCities [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **165** `CyPlayer::getNewCityName()` (Python: getNewCityName)
+  - calls: CvPlayer::getNewCityName [CvPlayer.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyPlayerPythonInterface1
+- **170** `CyPlayer::initUnit(int, int, int, UnitAITypes, DirectionTypes)` (Python: initUnit)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayer::initUnit [CvPlayer.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **175** `CyPlayer::disbandUnit(bool)` (Python: disbandUnit)
+  - calls: CvPlayer::disbandUnit [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **180** `CyPlayer::killUnits()` (Python: killUnits)
+  - calls: CvPlayer::killUnits [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **186** `CyPlayer::hasTrait(int)` (Python: hasTrait)
+  - calls: CvPlayer::hasTrait [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **191** `CyPlayer::isHuman()` (Python: isHuman)
+  - calls: CvPlayer::isHuman [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **201** `CyPlayer::isHumanDisabled()` (Python: isHumanDisabled)
+  - calls: CvPlayer::isHumanDisabled [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **209** `CyPlayer::isBarbarian()` (Python: isBarbarian)
+  - calls: CvPlayer::isBarbarian [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **214** `CyPlayer::getName()` (Python: getName)
+  - calls: CvPlayer::getName [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **224** `CyPlayer::setName(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>)` (Python: setName)
+  - calls: CvPlayer::setName [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **232** `CyPlayer::getNameForm(int)` (Python: getNameForm)
+  - calls: CvPlayer::getName [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **237** `CyPlayer::getNameKey()` (Python: getNameKey)
+  - calls: CvPlayer::getNameKey [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **242** `CyPlayer::getCivilizationDescription(int)` (Python: getCivilizationDescription)
+  - calls: CvPlayer::getCivilizationDescription [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **252** `CyPlayer::setCivName(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>, std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>, std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>)` (Python: setCivName)
+  - calls: CvPlayer::setCivName [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **260** `CyPlayer::getCivilizationDescriptionKey()` (Python: getCivilizationDescriptionKey)
+  - calls: CvPlayer::getCivilizationDescriptionKey [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **265** `CyPlayer::getCivilizationShortDescription(int)` (Python: getCivilizationShortDescription)
+  - calls: CvPlayer::getCivilizationShortDescription [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **270** `CyPlayer::getCivilizationShortDescriptionKey()` (Python: getCivilizationShortDescriptionKey)
+  - calls: CvPlayer::getCivilizationShortDescriptionKey [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **275** `CyPlayer::getCivilizationAdjective(int)` (Python: getCivilizationAdjective)
+  - calls: CvPlayer::getCivilizationAdjective [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **280** `CyPlayer::getCivilizationAdjectiveKey()` (Python: getCivilizationAdjectiveKey)
+  - calls: CvPlayer::getCivilizationAdjectiveKey [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **285** `CyPlayer::getFlagDecal()` (Python: getFlagDecal)
+  - calls: CvPlayer::getFlagDecal [CvPlayer.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyPlayerPythonInterface1
+- **290** `CyPlayer::isWhiteFlag()` (Python: isWhiteFlag)
+  - calls: CvPlayer::isWhiteFlag [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **295** `CyPlayer::getStateReligionName(int)` (Python: getStateReligionName)
+  - calls: CvPlayer::getStateReligionName [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **300** `CyPlayer::getStateReligionKey()` (Python: getStateReligionKey)
+  - calls: CvPlayer::getStateReligionKey [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **305** `CyPlayer::getBestAttackUnitName(int)` (Python: getBestAttackUnitName)
+  - calls: CvPlayer::getBestAttackUnitName [CvPlayer.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyPlayerPythonInterface1
+- **310** `CyPlayer::getWorstEnemyName()` (Python: getWorstEnemyName)
+  - calls: CvPlayer::getWorstEnemyName [CvPlayer.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyPlayerPythonInterface1
+- **315** `CyPlayer::getBestAttackUnitKey()` (Python: getBestAttackUnitKey)
+  - calls: CvPlayer::getBestAttackUnitKey [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **320** `CyPlayer::getArtStyleType()` (Python: getArtStyleType)
+  - calls: CvPlayer::getArtStyleType [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **325** `CyPlayer::getUnitButton(int)` (Python: getUnitButton)
+  - calls: CvPlayer::getUnitButton [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **330** `CyPlayer::findBestFoundValue()` (Python: findBestFoundValue)
+  - calls: CvPlayer::findBestFoundValue [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **335** `CyPlayer::countReligionSpreadUnits(CyArea*, int)`
+  - calls: CvPlayer::countReligionSpreadUnits [CvPlayer.cpp], CyArea::getArea [CyArea.h]
+- **340** `CyPlayer::countNumCoastalCities()` (Python: countNumCoastalCities)
+  - calls: CvPlayer::countNumCoastalCities [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **345** `CyPlayer::countNumCoastalCitiesByArea(CyArea*)` (Python: countNumCoastalCitiesByArea)
+  - calls: CvPlayer::countNumCoastalCitiesByArea [CvPlayer.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyPlayerPythonInterface1
+- **350** `CyPlayer::countTotalCulture()` (Python: countTotalCulture)
+  - calls: CvPlayer::countTotalCulture [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **355** `CyPlayer::countOwnedBonuses(int)` (Python: countOwnedBonuses)
+  - calls: CvPlayer::countOwnedBonuses [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **360** `CyPlayer::countUnimprovedBonuses(CyArea*, CyPlot*)` (Python: countUnimprovedBonuses)
+  - calls: CvPlayer::countUnimprovedBonuses [CvPlayer.cpp], CyArea::getArea [CyArea.h], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **365** `CyPlayer::countCityFeatures(int)` (Python: countCityFeatures)
+  - calls: CvPlayer::countCityFeatures [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **370** `CyPlayer::countNumBuildings(int)` (Python: countNumBuildings)
+  - calls: CvPlayer::countNumBuildings [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **375** `CyPlayer::countPotentialForeignTradeCities(CyArea*)` (Python: countPotentialForeignTradeCities)
+  - calls: CvPlayer::countPotentialForeignTradeCities [CvPlayer.cpp], CyArea::getArea [CyArea.h]
+  - called by (1): CyPlayerPythonInterface1
+- **380** `CyPlayer::countPotentialForeignTradeCitiesConnected()` (Python: countPotentialForeignTradeCitiesConnected)
+  - calls: CvPlayer::countPotentialForeignTradeCitiesConnected [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **385** `CyPlayer::countNumCitiesConnectedToCapital()`
+  - calls: CvPlayer::countNumCitiesConnectedToCapital [CvPlayer.cpp]
+- **390** `CyPlayer::canContact(int)` (Python: canContact)
+  - calls: CvPlayer::canContact [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **395** `CyPlayer::contact(int)` (Python: contact)
+  - calls: CvPlayer::contact [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **401** `CyPlayer::canTradeWith(int)` (Python: canTradeWith)
+  - calls: CvPlayer::canTradeWith [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **406** `CyPlayer::canTradeItem(int, TradeData, bool)` (Python: canTradeItem)
+  - calls: CvPlayer::canTradeItem [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **411** `CyPlayer::getTradeDenial(int, TradeData)` (Python: getTradeDenial)
+  - calls: CvPlayer::getTradeDenial [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **416** `CyPlayer::canTradeNetworkWith(int)` (Python: canTradeNetworkWith)
+  - calls: CvPlayer::canTradeNetworkWith [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **421** `CyPlayer::getNumAvailableBonuses(int)` (Python: getNumAvailableBonuses)
+  - calls: CvPlayer::getNumAvailableBonuses [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **426** `CyPlayer::getNumTradeableBonuses(int)` (Python: getNumTradeableBonuses)
+  - calls: CvPlayer::getNumTradeableBonuses [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **431** `CyPlayer::getNumTradeBonusImports(int)` (Python: getNumTradeBonusImports)
+  - calls: CvPlayer::getNumTradeBonusImports [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **436** `CyPlayer::hasBonus(int)` (Python: hasBonus)
+  - calls: CvPlayer::hasBonus [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **441** `CyPlayer::canStopTradingWithTeam(int)` (Python: canStopTradingWithTeam)
+  - calls: CvPlayer::canStopTradingWithTeam [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **446** `CyPlayer::stopTradingWithTeam(int)` (Python: stopTradingWithTeam)
+  - calls: CvPlayer::stopTradingWithTeam [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **452** `CyPlayer::killAllDeals()` (Python: killAllDeals)
+  - calls: CvPlayer::killAllDeals [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **458** `CyPlayer::isTurnActive()` (Python: isTurnActive)
+  - calls: CvPlayer::isTurnActive [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **463** `CyPlayer::findNewCapital()` (Python: findNewCapital)
+  - calls: CvPlayer::findNewCapital [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **469** `CyPlayer::getNumGovernmentCenters()` (Python: getNumGovernmentCenters)
+  - calls: CvPlayer::getNumGovernmentCenters [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **474** `CyPlayer::canRaze(CyCity*)` (Python: canRaze)
+  - calls: CvPlayer::canRaze [CvPlayer.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyPlayerPythonInterface1
+- **479** `CyPlayer::raze(CyCity*)` (Python: raze)
+  - calls: CvPlayer::raze [CvPlayer.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyPlayerPythonInterface1
+- **485** `CyPlayer::disband(CyCity*)` (Python: disband)
+  - calls: CvPlayer::disband [CvPlayer.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyPlayerPythonInterface1
+- **491** `CyPlayer::canReceiveGoody(CyPlot*, int, CyUnit*)` (Python: canReceiveGoody)
+  - calls: CvPlayer::canReceiveGoody [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlayerPythonInterface1
+- **496** `CyPlayer::receiveGoody(CyPlot*, int, CyUnit*)` (Python: receiveGoody)
+  - calls: CvPlayer::receiveGoody [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlayerPythonInterface1
+- **502** `CyPlayer::doGoody(CyPlot*, CyUnit*)` (Python: doGoody)
+  - calls: CvPlayer::doGoody [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlayerPythonInterface1
+- **508** `CyPlayer::canFound(int, int)` (Python: canFound)
+  - calls: CvPlayer::canFound [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **513** `CyPlayer::found(int, int)` (Python: found)
+  - calls: CvPlayer::found [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **519** `CyPlayer::canTrain(int, bool, bool)` (Python: canTrain)
+  - calls: CvPlayer::canTrain [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **524** `CyPlayer::canConstruct(int, bool, bool, bool)` (Python: canConstruct)
+  - calls: CvPlayer::canConstruct [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **529** `CyPlayer::canCreate(int, bool, bool)` (Python: canCreate)
+  - calls: CvPlayer::canCreate [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **534** `CyPlayer::canMaintain(int, bool)` (Python: canMaintain)
+  - calls: CvPlayer::canMaintain [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **539** `CyPlayer::isProductionMaxedUnitClass(int)` (Python: isProductionMaxedUnitClass)
+  - calls: CvPlayer::isProductionMaxedUnitClass [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **544** `CyPlayer::isProductionMaxedBuildingClass(int, bool)` (Python: isProductionMaxedBuildingClass)
+  - calls: CvPlayer::isProductionMaxedBuildingClass [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **549** `CyPlayer::isProductionMaxedProject(int)` (Python: isProductionMaxedProject)
+  - calls: CvPlayer::isProductionMaxedProject [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **554** `CyPlayer::getUnitProductionNeeded(int)` (Python: getUnitProductionNeeded)
+  - calls: CvPlayer::getProductionNeeded(UnitTypes) const [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **559** `CyPlayer::getBuildingProductionNeeded(int)` (Python: getBuildingProductionNeeded)
+  - calls: CvPlayer::getProductionNeeded(BuildingTypes) const [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **564** `CyPlayer::getProjectProductionNeeded(int)` (Python: getProjectProductionNeeded)
+  - calls: CvPlayer::getProductionNeeded(ProjectTypes) const [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **569** `CyPlayer::getBuildingClassPrereqBuilding(int, int, int)` (Python: getBuildingClassPrereqBuilding)
+  - calls: CvPlayer::getBuildingClassPrereqBuilding [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **574** `CyPlayer::removeBuildingClass(int)` (Python: removeBuildingClass)
+  - calls: CvPlayer::removeBuildingClass [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **580** `CyPlayer::canBuild(CyPlot*, int, bool, bool)` (Python: canBuild)
+  - calls: CvPlayer::canBuild [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **585** `CyPlayer::getBestRoute(CyPlot*) const`
+  - calls: CvPlayer::getBestRoute [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+- **590** `CyPlayer::getImprovementUpgradeRate() const`
+  - calls: CvPlayer::getImprovementUpgradeRate [CvPlayer.cpp]
+- **595** `CyPlayer::calculateTotalYield(int)` (Python: calculateTotalYield)
+  - calls: CvPlayer::calculateTotalYield [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **600** `CyPlayer::calculateTotalExports(int)` (Python: calculateTotalExports)
+  - calls: CvPlayer::calculateTotalExports [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **605** `CyPlayer::calculateTotalImports(int)` (Python: calculateTotalImports)
+  - calls: CvPlayer::calculateTotalImports [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **610** `CyPlayer::calculateTotalCityHappiness()` (Python: calculateTotalCityHappiness)
+  - calls: CvPlayer::calculateTotalCityHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **615** `CyPlayer::calculateTotalCityUnhappiness()` (Python: calculateTotalCityUnhappiness)
+  - calls: CvPlayer::calculateTotalCityUnhappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **620** `CyPlayer::calculateTotalCityHealthiness()` (Python: calculateTotalCityHealthiness)
+  - calls: CvPlayer::calculateTotalCityHealthiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **625** `CyPlayer::calculateTotalCityUnhealthiness()` (Python: calculateTotalCityUnhealthiness)
+  - calls: CvPlayer::calculateTotalCityUnhealthiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **630** `CyPlayer::calculateUnitCost()` (Python: calculateUnitCost)
+  - calls: CvPlayer::calculateUnitCost() const [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **635** `CyPlayer::calculateUnitSupply()` (Python: calculateUnitSupply)
+  - calls: CvPlayer::calculateUnitSupply() const [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **640** `CyPlayer::calculatePreInflatedCosts()` (Python: calculatePreInflatedCosts)
+  - calls: CvPlayer::calculatePreInflatedCosts [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **645** `CyPlayer::calculateInflationRate()` (Python: calculateInflationRate)
+  - calls: CvPlayer::calculateInflationRate [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **650** `CyPlayer::calculateInflatedCosts()` (Python: calculateInflatedCosts)
+  - calls: CvPlayer::calculateInflatedCosts [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **660** `CyPlayer::getFreeUnitCountdown()` (Python: getFreeUnitCountdown)
+  - calls: CvPlayer::getFreeUnitCountdown [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **665** `CyPlayer::setFreeUnitCountdown(int)` (Python: setFreeUnitCountdown)
+  - calls: CvPlayer::setFreeUnitCountdown [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **674** `CyPlayer::calculateGoldRate()` (Python: calculateGoldRate)
+  - calls: CvPlayer::calculateGoldRate [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **679** `CyPlayer::calculateTotalCommerce()` (Python: calculateTotalCommerce)
+  - calls: CvPlayer::calculateTotalCommerce [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **684** `CyPlayer::calculateResearchRate(int)` (Python: calculateResearchRate)
+  - calls: CvPlayer::calculateResearchRate [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **689** `CyPlayer::calculateResearchModifier(int)` (Python: calculateResearchModifier)
+  - calls: CvPlayer::calculateResearchModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **694** `CyPlayer::calculateBaseNetResearch()` (Python: calculateBaseNetResearch)
+  - calls: CvPlayer::calculateBaseNetResearch [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **699** `CyPlayer::isResearch()` (Python: isResearch)
+  - calls: CvPlayer::isResearch [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **704** `CyPlayer::canEverResearch(int)` (Python: canEverResearch)
+  - calls: CvPlayer::canEverResearch [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **709** `CyPlayer::canResearch(int, bool)` (Python: canResearch)
+  - calls: CvPlayer::canResearch [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **714** `CyPlayer::getCurrentResearch()` (Python: getCurrentResearch)
+  - calls: CvPlayer::getCurrentResearch [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **719** `CyPlayer::isCurrentResearchRepeat()` (Python: isCurrentResearchRepeat)
+  - calls: CvPlayer::isCurrentResearchRepeat [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **724** `CyPlayer::isNoResearchAvailable()` (Python: isNoResearchAvailable)
+  - calls: CvPlayer::isNoResearchAvailable [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **729** `CyPlayer::getResearchTurnsLeft(int, bool)` (Python: getResearchTurnsLeft)
+  - calls: CvPlayer::getResearchTurnsLeft [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **734** `CyPlayer::isCivic(int)` (Python: isCivic)
+  - calls: CvPlayer::isCivic [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **739** `CyPlayer::canDoCivics(int)` (Python: canDoCivics)
+  - calls: CvPlayer::canDoCivics [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **744** `CyPlayer::canRevolution(int)` (Python: canRevolution)
+  - calls: CvPlayer::canRevolution [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **749** `CyPlayer::revolution(int, bool)` (Python: revolution)
+  - calls: CvPlayer::revolution [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **755** `CyPlayer::getCivicPercentAnger(int)` (Python: getCivicPercentAnger)
+  - calls: CvPlayer::getCivicPercentAnger [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **760** `CyPlayer::canDoReligion(int)` (Python: canDoReligion)
+  - calls: CvPlayer::canDoReligion [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **765** `CyPlayer::canChangeReligion()` (Python: canChangeReligion)
+  - calls: CvPlayer::canChangeReligion [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **770** `CyPlayer::canConvert(int)` (Python: canConvert)
+  - calls: CvPlayer::canConvert [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **775** `CyPlayer::convert(int)` (Python: convert)
+  - calls: CvPlayer::convert [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **781** `CyPlayer::hasHolyCity(int)` (Python: hasHolyCity)
+  - calls: CvPlayer::hasHolyCity(ReligionTypes) const [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **790** `CyPlayer::hasAnyHolyCity()` (Python: hasAnyHolyCity)
+  - calls: CvPlayer::hasHolyCity() const [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **795** `CyPlayer::hasStateReligionHolyCity()` (Python: hasStateReligionHolyCity)
+  - calls: CvPlayer::hasStateReligionHolyCity [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **800** `CyPlayer::hasStateReligionShrine()` (Python: hasStateReligionShrine)
+  - calls: CvPlayer::hasStateReligionShrine [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **808** `CyPlayer::countHolyCities()` (Python: countHolyCities)
+  - calls: CvPlayer::countHolyCities [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **813** `CyPlayer::foundReligion(int, int, bool)` (Python: foundReligion)
+  - calls: CvPlayer::foundReligion [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **819** `CyPlayer::hasHeadquarters(int)` (Python: hasHeadquarters)
+  - calls: CvPlayer::hasHeadquarters [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **824** `CyPlayer::countHeadquarters()` (Python: countHeadquarters)
+  - calls: CvPlayer::countHeadquarters [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **829** `CyPlayer::countCorporations(int)` (Python: countCorporations)
+  - calls: CvPlayer::countCorporations [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **834** `CyPlayer::foundCorporation(int)` (Python: foundCorporation)
+  - calls: CvPlayer::foundCorporation [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **840** `CyPlayer::getCivicAnarchyLength(boost::python::list&)` (Python: getCivicAnarchyLength)
+  - calls: CvDLLPythonIFaceBase::putSeqInArray<int> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getCivicAnarchyLength [CvPlayer.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **850** `CyPlayer::getReligionAnarchyLength()` (Python: getReligionAnarchyLength)
+  - calls: CvPlayer::getReligionAnarchyLength [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **855** `CyPlayer::unitsRequiredForGoldenAge()` (Python: unitsRequiredForGoldenAge)
+  - calls: CvPlayer::unitsRequiredForGoldenAge [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **860** `CyPlayer::unitsGoldenAgeCapable()` (Python: unitsGoldenAgeCapable)
+  - calls: CvPlayer::unitsGoldenAgeCapable [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **865** `CyPlayer::unitsGoldenAgeReady()` (Python: unitsGoldenAgeReady)
+  - calls: CvPlayer::unitsGoldenAgeReady [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **870** `CyPlayer::greatPeopleThreshold(bool)` (Python: greatPeopleThreshold)
+  - calls: CvPlayer::greatPeopleThreshold [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **876** `CyPlayer::specialistYield(int, int)` (Python: specialistYield)
+  - calls: CvPlayer::specialistYield [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **882** `CyPlayer::specialistCommerce(int, int)` (Python: specialistCommerce)
+  - calls: CvPlayer::specialistCommerce [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **887** `CyPlayer::getStartingPlot()` (Python: getStartingPlot)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayer::getStartingPlot [CvPlayer.cpp], CyPlot::CyPlot(CvPlot*) [CyPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **897** `CyPlayer::setStartingPlot(CyPlot*, bool)` (Python: setStartingPlot)
+  - calls: CvPlayer::setStartingPlot [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **907** `CyPlayer::getTotalPopulation()` (Python: getTotalPopulation)
+  - calls: CvPlayer::getTotalPopulation [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **912** `CyPlayer::getAveragePopulation()` (Python: getAveragePopulation)
+  - calls: CvPlayer::getAveragePopulation [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **917** `CyPlayer::getRealPopulation()` (Python: getRealPopulation)
+  - calls: CvPlayer::getRealPopulation [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **922** `CyPlayer::getTotalLand()` (Python: getTotalLand)
+  - calls: CvPlayer::getTotalLand [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **927** `CyPlayer::getTotalLandScored()` (Python: getTotalLandScored)
+  - calls: CvPlayer::getTotalLandScored [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **932** `CyPlayer::getGold()` (Python: getGold)
+  - calls: CvPlayer::getGold [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **937** `CyPlayer::setGold(int)` (Python: setGold)
+  - calls: CvPlayer::setGold [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **943** `CyPlayer::changeGold(int)` (Python: changeGold)
+  - calls: CvPlayer::changeGold [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **949** `CyPlayer::getGoldPerTurn()` (Python: getGoldPerTurn)
+  - calls: CvPlayer::getGoldPerTurn [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **954** `CyPlayer::getAdvancedStartPoints()` (Python: getAdvancedStartPoints)
+  - calls: CvPlayer::getAdvancedStartPoints [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **959** `CyPlayer::setAdvancedStartPoints(int)` (Python: setAdvancedStartPoints)
+  - calls: CvPlayer::setAdvancedStartPoints [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **965** `CyPlayer::changeAdvancedStartPoints(int)` (Python: changeAdvancedStartPoints)
+  - calls: CvPlayer::changeAdvancedStartPoints [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **971** `CyPlayer::getAdvancedStartUnitCost(int, bool, CyPlot*)` (Python: getAdvancedStartUnitCost)
+  - calls: CvPlayer::getAdvancedStartUnitCost [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **976** `CyPlayer::getAdvancedStartCityCost(bool, CyPlot*)` (Python: getAdvancedStartCityCost)
+  - calls: CvPlayer::getAdvancedStartCityCost [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **981** `CyPlayer::getAdvancedStartPopCost(bool, CyCity*)` (Python: getAdvancedStartPopCost)
+  - calls: CvPlayer::getAdvancedStartPopCost [CvPlayer.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyPlayerPythonInterface1
+- **986** `CyPlayer::getAdvancedStartCultureCost(bool, CyCity*)` (Python: getAdvancedStartCultureCost)
+  - calls: CvPlayer::getAdvancedStartCultureCost [CvPlayer.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyPlayerPythonInterface1
+- **991** `CyPlayer::getAdvancedStartBuildingCost(int, bool, CyCity*)` (Python: getAdvancedStartBuildingCost)
+  - calls: CvPlayer::getAdvancedStartBuildingCost [CvPlayer.cpp], CyCity::getCity [CyCity.h]
+  - called by (1): CyPlayerPythonInterface1
+- **996** `CyPlayer::getAdvancedStartImprovementCost(int, bool, CyPlot*)` (Python: getAdvancedStartImprovementCost)
+  - calls: CvPlayer::getAdvancedStartImprovementCost [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **1001** `CyPlayer::getAdvancedStartRouteCost(int, bool, CyPlot*)` (Python: getAdvancedStartRouteCost)
+  - calls: CvPlayer::getAdvancedStartRouteCost [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **1006** `CyPlayer::getAdvancedStartTechCost(int, bool)` (Python: getAdvancedStartTechCost)
+  - calls: CvPlayer::getAdvancedStartTechCost [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1011** `CyPlayer::getAdvancedStartVisibilityCost(bool, CyPlot*)` (Python: getAdvancedStartVisibilityCost)
+  - calls: CvPlayer::getAdvancedStartVisibilityCost [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **1016** `CyPlayer::getEspionageSpending(int)` (Python: getEspionageSpending)
+  - calls: CvPlayer::getEspionageSpending [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1021** `CyPlayer::canDoEspionageMission(int, int, CyPlot*, int)` (Python: canDoEspionageMission)
+  - calls: CvPlayer::canDoEspionageMission [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **1026** `CyPlayer::getEspionageMissionCost(int, int, CyPlot*, int)` (Python: getEspionageMissionCost)
+  - calls: CvPlayer::getEspionageMissionCost [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyPlayerPythonInterface1
+- **1031** `CyPlayer::doEspionageMission(int, int, CyPlot*, int, CyUnit*)` (Python: doEspionageMission)
+  - calls: CvPlayer::doEspionageMission [CvPlayer.cpp], CyPlot::getPlot [CyPlot.h], CyUnit::getUnit [CyUnit.h]
+  - called by (1): CyPlayerPythonInterface1
+- **1037** `CyPlayer::getEspionageSpendingWeightAgainstTeam(int)` (Python: getEspionageSpendingWeightAgainstTeam)
+  - calls: CvPlayer::getEspionageSpendingWeightAgainstTeam [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1042** `CyPlayer::setEspionageSpendingWeightAgainstTeam(int, int)` (Python: setEspionageSpendingWeightAgainstTeam)
+  - calls: CvPlayer::setEspionageSpendingWeightAgainstTeam [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1048** `CyPlayer::changeEspionageSpendingWeightAgainstTeam(int, int)` (Python: changeEspionageSpendingWeightAgainstTeam)
+  - calls: CvPlayer::changeEspionageSpendingWeightAgainstTeam [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1054** `CyPlayer::getGoldenAgeTurns()` (Python: getGoldenAgeTurns)
+  - calls: CvPlayer::getGoldenAgeTurns [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1059** `CyPlayer::getGoldenAgeLength()` (Python: getGoldenAgeLength)
+  - calls: CvPlayer::getGoldenAgeLength [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1064** `CyPlayer::isGoldenAge()` (Python: isGoldenAge)
+  - calls: CvPlayer::isGoldenAge [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1069** `CyPlayer::changeGoldenAgeTurns(int)` (Python: changeGoldenAgeTurns)
+  - calls: CvPlayer::changeGoldenAgeTurns [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1075** `CyPlayer::getNumUnitGoldenAges()` (Python: getNumUnitGoldenAges)
+  - calls: CvPlayer::getNumUnitGoldenAges [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1080** `CyPlayer::changeNumUnitGoldenAges(int)` (Python: changeNumUnitGoldenAges)
+  - calls: CvPlayer::changeNumUnitGoldenAges [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1086** `CyPlayer::getAnarchyTurns()` (Python: getAnarchyTurns)
+  - calls: CvPlayer::getAnarchyTurns [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1091** `CyPlayer::isAnarchy()` (Python: isAnarchy)
+  - calls: CvPlayer::isAnarchy [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1096** `CyPlayer::changeAnarchyTurns(int)` (Python: changeAnarchyTurns)
+  - calls: CvPlayer::changeAnarchyTurns [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1102** `CyPlayer::getStrikeTurns()` (Python: getStrikeTurns)
+  - calls: CvPlayer::getStrikeTurns [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1107** `CyPlayer::getMaxAnarchyTurns()` (Python: getMaxAnarchyTurns)
+  - calls: CvPlayer::getMaxAnarchyTurns [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1112** `CyPlayer::getAnarchyModifier()` (Python: getAnarchyModifier)
+  - calls: CvPlayer::getAnarchyModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1117** `CyPlayer::getGoldenAgeModifier()` (Python: getGoldenAgeModifier)
+  - calls: CvPlayer::getGoldenAgeModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1122** `CyPlayer::getHurryModifier()` (Python: getHurryModifier)
+  - calls: CvPlayer::getHurryModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1127** `CyPlayer::createGreatPeople(int, bool, bool, int, int)` (Python: createGreatPeople)
+  - calls: CvPlayer::createGreatPeople [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1136** `CyPlayer::getGreatPeopleCreated()` (Python: getGreatPeopleCreated)
+  - calls: CvPlayer::getGreatPeopleCreated [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1141** `CyPlayer::getGreatGeneralsCreated()` (Python: getGreatGeneralsCreated)
+  - calls: CvPlayer::getGreatGeneralsCreated [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1146** `CyPlayer::getGreatPeopleThresholdModifier()` (Python: getGreatPeopleThresholdModifier)
+  - calls: CvPlayer::getGreatPeopleThresholdModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1151** `CyPlayer::getGreatGeneralsThresholdModifier()` (Python: getGreatGeneralsThresholdModifier)
+  - calls: CvPlayer::getGreatGeneralsThresholdModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1156** `CyPlayer::getGreatPeopleRateModifier()` (Python: getGreatPeopleRateModifier)
+  - calls: CvPlayer::getGreatPeopleRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1161** `CyPlayer::getGreatGeneralRateModifier()` (Python: getGreatGeneralRateModifier)
+  - calls: CvPlayer::getGreatGeneralRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1166** `CyPlayer::getDomesticGreatGeneralRateModifier()` (Python: getDomesticGreatGeneralRateModifier)
+  - calls: CvPlayer::getDomesticGreatGeneralRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1171** `CyPlayer::getStateReligionGreatPeopleRateModifier()` (Python: getStateReligionGreatPeopleRateModifier)
+  - calls: CvPlayer::getStateReligionGreatPeopleRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1176** `CyPlayer::getMaxGlobalBuildingProductionModifier()` (Python: getMaxGlobalBuildingProductionModifier)
+  - calls: CvPlayer::getMaxGlobalBuildingProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1181** `CyPlayer::getMaxTeamBuildingProductionModifier()` (Python: getMaxTeamBuildingProductionModifier)
+  - calls: CvPlayer::getMaxTeamBuildingProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1186** `CyPlayer::getMaxPlayerBuildingProductionModifier()` (Python: getMaxPlayerBuildingProductionModifier)
+  - calls: CvPlayer::getMaxPlayerBuildingProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1191** `CyPlayer::getFreeExperience()` (Python: getFreeExperience)
+  - calls: CvPlayer::getFreeExperience [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1196** `CyPlayer::getFeatureProductionModifier()` (Python: getFeatureProductionModifier)
+  - calls: CvPlayer::getFeatureProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1201** `CyPlayer::getWorkerSpeedModifier()` (Python: getWorkerSpeedModifier)
+  - calls: CvPlayer::getWorkerSpeedModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1206** `CyPlayer::getImprovementUpgradeRateModifier()` (Python: getImprovementUpgradeRateModifier)
+  - calls: CvPlayer::getImprovementUpgradeRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1211** `CyPlayer::getMilitaryProductionModifier()` (Python: getMilitaryProductionModifier)
+  - calls: CvPlayer::getMilitaryProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1216** `CyPlayer::getSpaceProductionModifier()` (Python: getSpaceProductionModifier)
+  - calls: CvPlayer::getSpaceProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1221** `CyPlayer::getCityDefenseModifier()` (Python: getCityDefenseModifier)
+  - calls: CvPlayer::getCityDefenseModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1231** `CyPlayer::getUnitUpgradePriceModifier()` (Python: getUnitUpgradePriceModifier)
+  - calls: CvPlayer::getUnitUpgradePriceModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1236** `CyPlayer::getRevIdxNational()` (Python: getRevIdxNational)
+  - calls: CvPlayer::getRevIdxNational [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1241** `CyPlayer::isInquisitionConditions()` (Python: isInquisitionConditions)
+  - calls: CvPlayer::isInquisitionConditions [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1246** `CyPlayer::canFoundReligion()` (Python: canFoundReligion)
+  - calls: CvPlayer::canFoundReligion [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1251** `CyPlayer::isBuildingClassRequiredToTrain(int, int)` (Python: isBuildingClassRequiredToTrain)
+  - calls: CvPlayer::isBuildingClassRequiredToTrain [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1259** `CyPlayer::getNumNukeUnits()` (Python: getNumNukeUnits)
+  - calls: CvPlayer::getNumNukeUnits [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1264** `CyPlayer::getNumOutsideUnits()` (Python: getNumOutsideUnits)
+  - calls: CvPlayer::getNumOutsideUnits [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1269** `CyPlayer::getBaseFreeUnits()` (Python: getBaseFreeUnits)
+  - calls: CvPlayer::getBaseFreeUnits [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1274** `CyPlayer::getBaseFreeMilitaryUnits()` (Python: getBaseFreeMilitaryUnits)
+  - calls: CvPlayer::getBaseFreeMilitaryUnits [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1279** `CyPlayer::getFreeUnitsPopulationPercent()` (Python: getFreeUnitsPopulationPercent)
+  - calls: CvPlayer::getFreeUnitsPopulationPercent [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1284** `CyPlayer::getFreeMilitaryUnitsPopulationPercent()` (Python: getFreeMilitaryUnitsPopulationPercent)
+  - calls: CvPlayer::getFreeMilitaryUnitsPopulationPercent [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1289** `CyPlayer::getGoldPerUnit()` (Python: getGoldPerUnit)
+  - calls: CvPlayer::getGoldPerUnit [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1294** `CyPlayer::getGoldPerMilitaryUnit()` (Python: getGoldPerMilitaryUnit)
+  - calls: CvPlayer::getGoldPerMilitaryUnit [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1299** `CyPlayer::getExtraUnitCost()` (Python: getExtraUnitCost)
+  - calls: CvPlayer::getExtraUnitCost [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1304** `CyPlayer::getNumMilitaryUnits()` (Python: getNumMilitaryUnits)
+  - calls: CvPlayer::getNumMilitaryUnits [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1309** `CyPlayer::getHappyPerMilitaryUnit()` (Python: getHappyPerMilitaryUnit)
+  - calls: CvPlayer::getHappyPerMilitaryUnit [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1314** `CyPlayer::isMilitaryFoodProduction()` (Python: isMilitaryFoodProduction)
+  - calls: CvPlayer::isMilitaryFoodProduction [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1319** `CyPlayer::getHighestUnitLevel()` (Python: getHighestUnitLevel)
+  - calls: CvPlayer::getHighestUnitLevel [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1324** `CyPlayer::getConscriptCount()` (Python: getConscriptCount)
+  - calls: CvPlayer::getConscriptCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1329** `CyPlayer::setConscriptCount(int)` (Python: setConscriptCount)
+  - calls: CvPlayer::setConscriptCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1335** `CyPlayer::changeConscriptCount(int)` (Python: changeConscriptCount)
+  - calls: CvPlayer::changeConscriptCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1341** `CyPlayer::getMaxConscript()` (Python: getMaxConscript)
+  - calls: CvPlayer::getMaxConscript [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1346** `CyPlayer::getOverflowResearch()` (Python: getOverflowResearch)
+  - calls: CvPlayer::getOverflowResearch [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1351** `CyPlayer::isNoUnhealthyPopulation()` (Python: isNoUnhealthyPopulation)
+  - calls: CvPlayer::isNoUnhealthyPopulation [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1356** `CyPlayer::getExpInBorderModifier()` (Python: getExpInBorderModifier)
+  - calls: CvPlayer::getExpInBorderModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1361** `CyPlayer::isBuildingOnlyHealthy()` (Python: isBuildingOnlyHealthy)
+  - calls: CvPlayer::isBuildingOnlyHealthy [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1366** `CyPlayer::getDistanceMaintenanceModifier()` (Python: getDistanceMaintenanceModifier)
+  - calls: CvPlayer::getDistanceMaintenanceModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1371** `CyPlayer::getNumCitiesMaintenanceModifier()` (Python: getNumCitiesMaintenanceModifier)
+  - calls: CvPlayer::getNumCitiesMaintenanceModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1376** `CyPlayer::getCorporationMaintenanceModifier()` (Python: getCorporationMaintenanceModifier)
+  - calls: CvPlayer::getCorporationMaintenanceModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1381** `CyPlayer::getTotalMaintenance()` (Python: getTotalMaintenance)
+  - calls: CvPlayer::getTotalMaintenance [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1386** `CyPlayer::getUpkeepModifier()` (Python: getUpkeepModifier)
+  - calls: CvPlayer::getUpkeepModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1391** `CyPlayer::getLevelExperienceModifier() const` (Python: getLevelExperienceModifier)
+  - calls: CvPlayer::getLevelExperienceModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1396** `CyPlayer::getExtraHealth()` (Python: getExtraHealth)
+  - calls: CvPlayer::getExtraHealth [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1402** `CyPlayer::changeExtraHealth(int)` (Python: changeExtraHealth)
+  - calls: CvPlayer::changeExtraHealth [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1409** `CyPlayer::getBuildingGoodHealth()` (Python: getBuildingGoodHealth)
+  - calls: CvPlayer::getBuildingGoodHealth [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1414** `CyPlayer::getBuildingBadHealth()` (Python: getBuildingBadHealth)
+  - calls: CvPlayer::getBuildingBadHealth [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1419** `CyPlayer::getExtraHappiness()` (Python: getExtraHappiness)
+  - calls: CvPlayer::getExtraHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1424** `CyPlayer::changeExtraHappiness(int)` (Python: changeExtraHappiness)
+  - calls: CvPlayer::changeExtraHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1430** `CyPlayer::getBuildingHappiness()` (Python: getBuildingHappiness)
+  - calls: CvPlayer::getBuildingHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1435** `CyPlayer::getLargestCityHappiness()` (Python: getLargestCityHappiness)
+  - calls: CvPlayer::getLargestCityHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1440** `CyPlayer::getWarWearinessPercentAnger()` (Python: getWarWearinessPercentAnger)
+  - calls: CvPlayer::getWarWearinessPercentAnger [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1445** `CyPlayer::getWarWearinessModifier()` (Python: getWarWearinessModifier)
+  - calls: CvPlayer::getWarWearinessModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1450** `CyPlayer::getFreeSpecialist()` (Python: getFreeSpecialist)
+  - calls: CvPlayer::getFreeSpecialist [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1455** `CyPlayer::isNoForeignTrade()` (Python: isNoForeignTrade)
+  - calls: CvPlayer::isNoForeignTrade [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1459** `CyPlayer::isNoCorporations()` (Python: isNoCorporations)
+  - calls: CvPlayer::isNoCorporations [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1463** `CyPlayer::isNoForeignCorporations()` (Python: isNoForeignCorporations)
+  - calls: CvPlayer::isNoForeignCorporations [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1468** `CyPlayer::getCoastalTradeRoutes()` (Python: getCoastalTradeRoutes)
+  - calls: CvPlayer::getCoastalTradeRoutes [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1473** `CyPlayer::changeCoastalTradeRoutes(int)` (Python: changeCoastalTradeRoutes)
+  - calls: CvPlayer::changeCoastalTradeRoutes [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1479** `CyPlayer::getTradeRoutes()` (Python: getTradeRoutes)
+  - calls: CvPlayer::getTradeRoutes [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1484** `CyPlayer::getConversionTimer()` (Python: getConversionTimer)
+  - calls: CvPlayer::getConversionTimer [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1489** `CyPlayer::getRevolutionTimer()` (Python: getRevolutionTimer)
+  - calls: CvPlayer::getRevolutionTimer [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1498** `CyPlayer::setRevolutionTimer(int)` (Python: setRevolutionTimer)
+  - calls: CvPlayer::setRevolutionTimer [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1503** `CyPlayer::changeRevolutionTimer(int)` (Python: changeRevolutionTimer)
+  - calls: CvPlayer::changeRevolutionTimer [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1512** `CyPlayer::isStateReligion()` (Python: isStateReligion)
+  - calls: CvPlayer::isStateReligion [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1517** `CyPlayer::isNoNonStateReligionSpread()` (Python: isNoNonStateReligionSpread)
+  - calls: CvPlayer::isNoNonStateReligionSpread [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1522** `CyPlayer::getStateReligionHappiness()` (Python: getStateReligionHappiness)
+  - calls: CvPlayer::getStateReligionHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1527** `CyPlayer::getNonStateReligionHappiness()` (Python: getNonStateReligionHappiness)
+  - calls: CvPlayer::getNonStateReligionHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1532** `CyPlayer::getStateReligionUnitProductionModifier()` (Python: getStateReligionUnitProductionModifier)
+  - calls: CvPlayer::getStateReligionUnitProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1537** `CyPlayer::changeStateReligionUnitProductionModifier(int)` (Python: changeStateReligionUnitProductionModifier)
+  - calls: CvPlayer::changeStateReligionUnitProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1543** `CyPlayer::getStateReligionBuildingProductionModifier()` (Python: getStateReligionBuildingProductionModifier)
+  - calls: CvPlayer::getStateReligionBuildingProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1548** `CyPlayer::changeStateReligionBuildingProductionModifier(int)` (Python: changeStateReligionBuildingProductionModifier)
+  - calls: CvPlayer::changeStateReligionBuildingProductionModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1554** `CyPlayer::getStateReligionFreeExperience()` (Python: getStateReligionFreeExperience)
+  - calls: CvPlayer::getStateReligionFreeExperience [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1559** `CyPlayer::getCapitalCity()` (Python: getCapitalCity)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayer::getCapitalCity [CvPlayer.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1564** `CyPlayer::getCitiesLost()` (Python: getCitiesLost)
+  - calls: CvPlayer::getCitiesLost [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1569** `CyPlayer::getWinsVsBarbs()` (Python: getWinsVsBarbs)
+  - calls: CvPlayer::getWinsVsBarbs [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1574** `CyPlayer::getAssets()` (Python: getAssets)
+  - calls: CvPlayer::getAssets [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1579** `CyPlayer::changeAssets(int)` (Python: changeAssets)
+  - calls: CvPlayer::changeAssets [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1585** `CyPlayer::getPower()` (Python: getPower)
+  - calls: CvPlayer::getPower [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1590** `CyPlayer::getPopScore()` (Python: getPopScore)
+  - calls: CvPlayer::getPopScore [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1595** `CyPlayer::getLandScore()` (Python: getLandScore)
+  - calls: CvPlayer::getLandScore [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1600** `CyPlayer::getWondersScore()` (Python: getWondersScore)
+  - calls: CvPlayer::getWondersScore [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1605** `CyPlayer::getTechScore()` (Python: getTechScore)
+  - calls: CvPlayer::getTechScore [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1610** `CyPlayer::getTotalTimePlayed()` (Python: getTotalTimePlayed)
+  - calls: CvPlayer::getTotalTimePlayed [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1615** `CyPlayer::isMinorCiv()` (Python: isMinorCiv)
+  - calls: CvPlayer::isMinorCiv [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1620** `CyPlayer::isAlive()` (Python: isAlive)
+  - calls: CvPlayer::isAlive [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1625** `CyPlayer::isEverAlive()` (Python: isEverAlive)
+  - calls: CvPlayer::isEverAlive [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1630** `CyPlayer::isExtendedGame()` (Python: isExtendedGame)
+  - calls: CvPlayer::isExtendedGame [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1635** `CyPlayer::isFoundedFirstCity()` (Python: isFoundedFirstCity)
+  - calls: CvPlayer::isFoundedFirstCity [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1644** `CyPlayer::setFoundedFirstCity(bool)` (Python: setFoundedFirstCity)
+  - calls: CvPlayer::setFoundedFirstCity [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **1651** `CyPlayer::setAlive(bool)` (Python: setAlive)
+  - calls: CvPlayer::setAlive [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **1658** `CyPlayer::setNewPlayerAlive(bool)` (Python: setNewPlayerAlive)
+  - calls: CvPlayer::setNewPlayerAlive [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **1665** `CyPlayer::changeTechScore(int)` (Python: changeTechScore)
+  - calls: CvPlayer::changeTechScore [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **1675** `CyPlayer::isStrike()` (Python: isStrike)
+  - calls: CvPlayer::isStrike [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1680** `CyPlayer::getID()` (Python: getID)
+  - calls: CvPlayer::getID [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1685** `CyPlayer::getHandicapType()` (Python: getHandicapType)
+  - calls: CvPlayer::getHandicapType [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1690** `CyPlayer::getCivilizationType()` (Python: getCivilizationType)
+  - calls: CvPlayer::getCivilizationType [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1695** `CyPlayer::getLeaderType()` (Python: getLeaderType)
+  - calls: CvPlayer::getLeaderType [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1700** `CyPlayer::getPersonalityType()` (Python: getPersonalityType)
+  - calls: CvPlayer::getPersonalityType [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1705** `CyPlayer::setPersonalityType(int)` (Python: setPersonalityType)
+  - calls: CvPlayer::setPersonalityType [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1711** `CyPlayer::getCurrentEra()` (Python: getCurrentEra)
+  - calls: CvPlayer::getCurrentEra [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1716** `CyPlayer::setCurrentEra(int)` (Python: setCurrentEra)
+  - calls: CvPlayer::setCurrentEra [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1722** `CyPlayer::getStateReligion()` (Python: getStateReligion)
+  - calls: CvPlayer::getStateReligion [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1727** `CyPlayer::setLastStateReligion(int)` (Python: setLastStateReligion)
+  - calls: CvPlayer::setLastStateReligion [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1733** `CyPlayer::getTeam()` (Python: getTeam)
+  - calls: CvPlayer::getTeam [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1738** `CyPlayer::getPlayerColor()` (Python: getPlayerColor)
+  - calls: CvPlayer::getPlayerColor [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1743** `CyPlayer::getPlayerTextColorR()` (Python: getPlayerTextColorR)
+  - calls: CvPlayer::getPlayerTextColorR [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1748** `CyPlayer::getPlayerTextColorG()` (Python: getPlayerTextColorG)
+  - calls: CvPlayer::getPlayerTextColorG [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1753** `CyPlayer::getPlayerTextColorB()` (Python: getPlayerTextColorB)
+  - calls: CvPlayer::getPlayerTextColorB [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1758** `CyPlayer::getPlayerTextColorA()` (Python: getPlayerTextColorA)
+  - calls: CvPlayer::getPlayerTextColorA [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1763** `CyPlayer::getSeaPlotYield(YieldTypes)` (Python: getSeaPlotYield)
+  - calls: CvPlayer::getSeaPlotYield [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1768** `CyPlayer::getYieldRateModifier(YieldTypes)` (Python: getYieldRateModifier)
+  - calls: CvPlayer::getYieldRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1773** `CyPlayer::getCapitalYieldRateModifier(YieldTypes)` (Python: getCapitalYieldRateModifier)
+  - calls: CvPlayer::getCapitalYieldRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1778** `CyPlayer::getExtraYieldThreshold(YieldTypes)` (Python: getExtraYieldThreshold)
+  - calls: CvPlayer::getExtraYieldThreshold [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1783** `CyPlayer::getTradeYieldModifier(YieldTypes)` (Python: getTradeYieldModifier)
+  - calls: CvPlayer::getTradeYieldModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1788** `CyPlayer::getFreeCityCommerce(CommerceTypes)` (Python: getFreeCityCommerce)
+  - calls: CvPlayer::getFreeCityCommerce [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1793** `CyPlayer::getCommercePercent(int)` (Python: getCommercePercent)
+  - calls: CvPlayer::getCommercePercent [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1798** `CyPlayer::setCommercePercent(CommerceTypes, int)` (Python: setCommercePercent)
+  - calls: CvPlayer::setCommercePercent [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1804** `CyPlayer::changeCommercePercent(CommerceTypes, int)` (Python: changeCommercePercent)
+  - calls: CvPlayer::changeCommercePercent [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1810** `CyPlayer::getCommerceRate(CommerceTypes)` (Python: getCommerceRate)
+  - calls: CvPlayer::getCommerceRate [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1815** `CyPlayer::getCommerceRateModifier(CommerceTypes)` (Python: getCommerceRateModifier)
+  - calls: CvPlayer::getCommerceRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1820** `CyPlayer::getCapitalCommerceRateModifier(CommerceTypes)` (Python: getCapitalCommerceRateModifier)
+  - calls: CvPlayer::getCapitalCommerceRateModifier [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1825** `CyPlayer::getStateReligionBuildingCommerce(CommerceTypes)` (Python: getStateReligionBuildingCommerce)
+  - calls: CvPlayer::getStateReligionBuildingCommerce [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1830** `CyPlayer::getSpecialistExtraCommerce(CommerceTypes)` (Python: getSpecialistExtraCommerce)
+  - calls: CvPlayer::getSpecialistExtraCommerce [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1835** `CyPlayer::isCommerceFlexible(int)` (Python: isCommerceFlexible)
+  - calls: CvPlayer::isCommerceFlexible [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1840** `CyPlayer::getGoldPerTurnByPlayer(int)` (Python: getGoldPerTurnByPlayer)
+  - calls: CvPlayer::getGoldPerTurnByPlayer [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1845** `CyPlayer::isFeatAccomplished(int)` (Python: isFeatAccomplished)
+  - calls: CvPlayer::isFeatAccomplished [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1850** `CyPlayer::setFeatAccomplished(int, bool)` (Python: setFeatAccomplished)
+  - calls: CvPlayer::setFeatAccomplished [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1856** `CyPlayer::isOption(int)` (Python: isOption)
+  - calls: CvPlayer::isOption [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1861** `CyPlayer::setOption(int, bool)` (Python: setOption)
+  - calls: CvPlayer::setOption [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1867** `CyPlayer::isLoyalMember(int)` (Python: isLoyalMember)
+  - calls: CvPlayer::isLoyalMember [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1872** `CyPlayer::setLoyalMember(int, bool)` (Python: setLoyalMember)
+  - calls: CvPlayer::setLoyalMember [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1878** `CyPlayer::getVotes(int, int)` (Python: getVotes)
+  - calls: CvPlayer::getVotes [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1883** `CyPlayer::isFullMember(int) const` (Python: isFullMember)
+  - calls: CvPlayer::isFullMember [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1888** `CyPlayer::isVotingMember(int) const` (Python: isVotingMember)
+  - calls: CvPlayer::isVotingMember [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1893** `CyPlayer::isPlayable()` (Python: isPlayable)
+  - calls: CvPlayer::isPlayable [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1898** `CyPlayer::setPlayable(bool)` (Python: setPlayable)
+  - calls: CvPlayer::setPlayable [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1904** `CyPlayer::getBonusExport(int)` (Python: getBonusExport)
+  - calls: CvPlayer::getBonusExport [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1909** `CyPlayer::getBonusImport(int)` (Python: getBonusImport)
+  - calls: CvPlayer::getBonusImport [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1914** `CyPlayer::getImprovementCount(int)` (Python: getImprovementCount)
+  - calls: CvPlayer::getImprovementCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1919** `CyPlayer::isBuildingFree(int)` (Python: isBuildingFree)
+  - calls: CvPlayer::isBuildingFree [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1924** `CyPlayer::getExtraBuildingHappiness(int)` (Python: getExtraBuildingHappiness)
+  - calls: CvPlayer::getExtraBuildingHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1929** `CyPlayer::getExtraBuildingHealth(int)` (Python: getExtraBuildingHealth)
+  - calls: CvPlayer::getExtraBuildingHealth [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1934** `CyPlayer::getFeatureHappiness(int)` (Python: getFeatureHappiness)
+  - calls: CvPlayer::getFeatureHappiness [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1939** `CyPlayer::getUnitClassCount(int)` (Python: getUnitClassCount)
+  - calls: CvPlayer::getUnitClassCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1944** `CyPlayer::isUnitClassMaxedOut(int, int)` (Python: isUnitClassMaxedOut)
+  - calls: CvPlayer::isUnitClassMaxedOut [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1949** `CyPlayer::getUnitClassMaking(int)` (Python: getUnitClassMaking)
+  - calls: CvPlayer::getUnitClassMaking [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1954** `CyPlayer::getUnitClassCountPlusMaking(int)` (Python: getUnitClassCountPlusMaking)
+  - calls: CvPlayer::getUnitClassCountPlusMaking [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1959** `CyPlayer::getBuildingClassCount(int)` (Python: getBuildingClassCount)
+  - calls: CvPlayer::getBuildingClassCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1964** `CyPlayer::isBuildingClassMaxedOut(int, int)` (Python: isBuildingClassMaxedOut)
+  - calls: CvPlayer::isBuildingClassMaxedOut [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1969** `CyPlayer::getBuildingClassMaking(int)` (Python: getBuildingClassMaking)
+  - calls: CvPlayer::getBuildingClassMaking [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1974** `CyPlayer::getBuildingClassCountPlusMaking(int)` (Python: getBuildingClassCountPlusMaking)
+  - calls: CvPlayer::getBuildingClassCountPlusMaking [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1979** `CyPlayer::getHurryCount(int)` (Python: getHurryCount)
+  - calls: CvPlayer::getHurryCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1984** `CyPlayer::canHurry(int)` (Python: canHurry)
+  - calls: CvPlayer::canHurry [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1989** `CyPlayer::getSpecialBuildingNotRequiredCount(int)` (Python: getSpecialBuildingNotRequiredCount)
+  - calls: CvPlayer::getSpecialBuildingNotRequiredCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1994** `CyPlayer::isSpecialBuildingNotRequired(int)` (Python: isSpecialBuildingNotRequired)
+  - calls: CvPlayer::isSpecialBuildingNotRequired [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **1999** `CyPlayer::isHasCivicOption(int)` (Python: isHasCivicOption)
+  - calls: CvPlayer::isHasCivicOption [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2004** `CyPlayer::isNoCivicUpkeep(int)` (Python: isNoCivicUpkeep)
+  - calls: CvPlayer::isNoCivicUpkeep [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2009** `CyPlayer::getHasReligionCount(int)` (Python: getHasReligionCount)
+  - calls: CvPlayer::getHasReligionCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2014** `CyPlayer::countTotalHasReligion()` (Python: countTotalHasReligion)
+  - calls: CvPlayer::countTotalHasReligion [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2019** `CyPlayer::getHasCorporationCount(int)` (Python: getHasCorporationCount)
+  - calls: CvPlayer::getHasCorporationCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2024** `CyPlayer::countTotalHasCorporation()` (Python: countTotalHasCorporation)
+  - calls: CvPlayer::countTotalHasCorporation [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2029** `CyPlayer::findHighestHasReligionCount()` (Python: findHighestHasReligionCount)
+  - calls: CvPlayer::findHighestHasReligionCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2034** `CyPlayer::getUpkeepCount(int)` (Python: getUpkeepCount)
+  - calls: CvPlayer::getUpkeepCount [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2039** `CyPlayer::isSpecialistValid(int)` (Python: isSpecialistValid)
+  - calls: CvPlayer::isSpecialistValid [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2044** `CyPlayer::isResearchingTech(int)` (Python: isResearchingTech)
+  - calls: CvPlayer::isResearchingTech [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2049** `CyPlayer::getCivics(int)` (Python: getCivics)
+  - calls: CvPlayer::getCivics [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2054** `CyPlayer::getSingleCivicUpkeep(int, bool)` (Python: getSingleCivicUpkeep)
+  - calls: CvPlayer::getSingleCivicUpkeep [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2059** `CyPlayer::getCivicUpkeep(boost::python::list&, bool)` (Python: getCivicUpkeep)
+  - calls: CvDLLPythonIFaceBase::putSeqInArray<int> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getCivicUpkeep [CvPlayer.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2068** `CyPlayer::setCivics(int, int)` (Python: setCivics)
+  - calls: CvPlayer::setCivics [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2074** `CyPlayer::getCombatExperience() const` (Python: getCombatExperience)
+  - calls: CvPlayer::getCombatExperience [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2083** `CyPlayer::changeCombatExperience(int)` (Python: changeCombatExperience)
+  - calls: CvPlayer::changeCombatExperience [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2092** `CyPlayer::setCombatExperience(int)` (Python: setCombatExperience)
+  - calls: CvPlayer::setCombatExperience [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2101** `CyPlayer::getSpecialistExtraYield(int, int)` (Python: getSpecialistExtraYield)
+  - calls: CvPlayer::getSpecialistExtraYield [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2106** `CyPlayer::findPathLength(int, bool)` (Python: findPathLength)
+  - calls: CvPlayer::findPathLength [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2111** `CyPlayer::getQueuePosition(int)` (Python: getQueuePosition)
+  - calls: CvPlayer::getQueuePosition [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2120** `CyPlayer::clearResearchQueue()` (Python: clearResearchQueue)
+  - calls: CvPlayer::clearResearchQueue [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2126** `CyPlayer::pushResearch(int, bool)` (Python: pushResearch)
+  - calls: CvPlayer::pushResearch [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2131** `CyPlayer::popResearch(int)` (Python: popResearch)
+  - calls: CvPlayer::popResearch [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2137** `CyPlayer::getLengthResearchQueue()` (Python: getLengthResearchQueue)
+  - calls: CvPlayer::getLengthResearchQueue [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2142** `CyPlayer::addCityName(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>)` (Python: addCityName)
+  - calls: CvPlayer::addCityName [CvPlayer.cpp], CvWString::CvWString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h], CvWString::~CvWString [CvString.h]
+  - called by (1): CyPlayerPythonInterface1
+- **2148** `CyPlayer::getNumCityNames()` (Python: getNumCityNames)
+  - calls: CvPlayer::getNumCityNames [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2153** `CyPlayer::getCityName(int)` (Python: getCityName)
+  - calls: CvPlayer::getCityName [CvPlayer.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CyPlayerPythonInterface1
+- **2159** `CyPlayer::firstCity(bool)` (Python: firstCity)
+  - calls: CvPlayer::firstCity [CvPlayer.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2170** `CyPlayer::nextCity(int, bool)` (Python: nextCity)
+  - calls: CvPlayer::nextCity [CvPlayer.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2179** `CyPlayer::getNumCities()` (Python: getNumCities)
+  - calls: CvPlayer::getNumCities [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2184** `CyPlayer::getCity(int)` (Python: getCity)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayer::getCity [CvPlayer.cpp], CyCity::CyCity(CvCity*) [CyCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2190** `CyPlayer::firstUnit(bool)` (Python: firstUnit)
+  - calls: CvPlayer::firstUnit [CvPlayer.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2201** `CyPlayer::nextUnit(int, bool)` (Python: nextUnit)
+  - calls: CvPlayer::nextUnit [CvPlayer.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2211** `CyPlayer::getNumUnits()` (Python: getNumUnits)
+  - calls: CvPlayer::getNumUnits [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2216** `CyPlayer::getUnit(int)` (Python: getUnit)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayer::getUnit [CvPlayer.cpp], CyUnit::CyUnit(CvUnit*) [CyUnit.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2222** `CyPlayer::firstSelectionGroup(bool)` (Python: firstSelectionGroup)
+  - calls: CvPlayer::firstSelectionGroup [CvPlayer.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CySelectionGroup::CySelectionGroup(CvSelectionGroup*) [CySelectionGroup.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2233** `CyPlayer::nextSelectionGroup(int, bool)` (Python: nextSelectionGroup)
+  - calls: CvPlayer::nextSelectionGroup [CvPlayer.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CySelectionGroup::CySelectionGroup(CvSelectionGroup*) [CySelectionGroup.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2242** `CyPlayer::getNumSelectionGroups()` (Python: getNumSelectionGroups)
+  - calls: CvPlayer::getNumSelectionGroups [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2247** `CyPlayer::getSelectionGroup(int)` (Python: getSelectionGroup)
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPlayer::getSelectionGroup [CvPlayer.cpp], CySelectionGroup::CySelectionGroup(CvSelectionGroup*) [CySelectionGroup.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2252** `CyPlayer::trigger(int)` (Python: trigger)
+  - calls: CvPlayer::trigger(EventTriggerTypes) [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2261** `CyPlayer::getEventOccured(int) const` (Python: getEventOccured)
+  - calls: CvPlayer::getEventOccured [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2266** `CyPlayer::resetEventOccured(int)` (Python: resetEventOccured)
+  - calls: CvPlayer::resetEventOccured [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2274** `CyPlayer::getEventTriggered(int) const` (Python: getEventTriggered)
+  - calls: CvPlayer::getEventTriggered [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2279** `CyPlayer::initTriggeredData(int, bool, int, int, int, int, int, int, int, int, int)` (Python: initTriggeredData)
+  - calls: CvPlayer::initTriggeredData [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2284** `CyPlayer::getEventTriggerWeight(int)` (Python: getEventTriggerWeight)
+  - calls: CvPlayer::getEventTriggerWeight [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface1
+- **2289** `CyPlayer::AI_updateFoundValues(bool)` (Python: AI_updateFoundValues)
+  - calls: CvPlayer::AI_updateFoundValues [CvPlayer.h] ⇢ CvPlayerAI::AI_updateFoundValues
+  - called by (1): CyPlayerPythonInterface2
+- **2295** `CyPlayer::AI_foundValue(int, int, int, bool)` (Python: AI_foundValue)
+  - calls: CvPlayer::AI_foundValue [CvPlayer.h] ⇢ CvPlayerAI::AI_foundValue
+  - called by (1): CyPlayerPythonInterface2
+- **2300** `CyPlayer::AI_isFinancialTrouble()` (Python: AI_isFinancialTrouble)
+  - calls: CvPlayer::AI_isFinancialTrouble [CvPlayer.h] ⇢ CvPlayerAI::AI_isFinancialTrouble
+  - called by (1): CyPlayerPythonInterface2
+- **2305** `CyPlayer::AI_demandRebukedWar(int)` (Python: AI_demandRebukedWar)
+  - calls: CvPlayer::AI_demandRebukedWar [CvPlayer.h] ⇢ CvPlayerAI::AI_demandRebukedWar
+  - called by (1): CyPlayerPythonInterface2
+- **2310** `CyPlayer::AI_getAttitude(int)` (Python: AI_getAttitude)
+  - calls: CvPlayer::AI_getAttitude [CvPlayer.h] ⇢ CvPlayerAI::AI_getAttitude
+  - called by (1): CyPlayerPythonInterface2
+- **2315** `CyPlayer::AI_unitValue(int, int, CyArea*)` (Python: AI_unitValue)
+  - calls: CvPlayer::AI_unitValue [CvPlayer.h] ⇢ CvPlayerAI::AI_unitValue, CyArea::getArea [CyArea.h]
+  - called by (1): CyPlayerPythonInterface2
+- **2320** `CyPlayer::AI_civicValue(int)` (Python: AI_civicValue)
+  - calls: CvPlayer::AI_civicValue [CvPlayer.h] ⇢ CvPlayerAI::AI_civicValue
+  - called by (1): CyPlayerPythonInterface2
+- **2325** `CyPlayer::AI_totalUnitAIs(int)` (Python: AI_totalUnitAIs)
+  - calls: CvPlayer::AI_totalUnitAIs [CvPlayer.h] ⇢ CvPlayerAI::AI_totalUnitAIs
+  - called by (1): CyPlayerPythonInterface2
+- **2330** `CyPlayer::AI_totalAreaUnitAIs(CyArea*, int)` (Python: AI_totalAreaUnitAIs)
+  - calls: CvPlayer::AI_totalAreaUnitAIs [CvPlayer.h] ⇢ CvPlayerAI::AI_totalAreaUnitAIs, CyArea::getArea [CyArea.h]
+  - called by (1): CyPlayerPythonInterface2
+- **2335** `CyPlayer::AI_totalWaterAreaUnitAIs(CyArea*, int)` (Python: AI_totalWaterAreaUnitAIs)
+  - calls: CvPlayer::AI_totalWaterAreaUnitAIs [CvPlayer.h] ⇢ CvPlayerAI::AI_totalWaterAreaUnitAIs, CyArea::getArea [CyArea.h]
+  - called by (1): CyPlayerPythonInterface2
+- **2340** `CyPlayer::AI_getNumAIUnits(int)` (Python: AI_getNumAIUnits)
+  - calls: CvPlayer::AI_getNumAIUnits [CvPlayer.h] ⇢ CvPlayerAI::AI_getNumAIUnits
+  - called by (1): CyPlayerPythonInterface2
+- **2345** `CyPlayer::AI_getAttitudeExtra(int)` (Python: AI_getAttitudeExtra)
+  - calls: CvPlayer::AI_getAttitudeExtra [CvPlayer.h] ⇢ CvPlayerAI::AI_getAttitudeExtra
+  - called by (1): CyPlayerPythonInterface2
+- **2350** `CyPlayer::AI_setAttitudeExtra(int, int)` (Python: AI_setAttitudeExtra)
+  - calls: CvPlayer::AI_setAttitudeExtra [CvPlayer.h] ⇢ CvPlayerAI::AI_setAttitudeExtra
+  - called by (1): CyPlayerPythonInterface2
+- **2356** `CyPlayer::AI_changeAttitudeExtra(int, int)` (Python: AI_changeAttitudeExtra)
+  - calls: CvPlayer::AI_changeAttitudeExtra [CvPlayer.h] ⇢ CvPlayerAI::AI_changeAttitudeExtra
+  - called by (1): CyPlayerPythonInterface2
+- **2362** `CyPlayer::AI_getMemoryCount(int, int)` (Python: AI_getMemoryCount)
+  - calls: CvPlayer::AI_getMemoryCount [CvPlayer.h] ⇢ CvPlayerAI::AI_getMemoryCount
+  - called by (1): CyPlayerPythonInterface2
+- **2367** `CyPlayer::AI_changeMemoryCount(int, int, int)` (Python: AI_changeMemoryCount)
+  - calls: CvPlayer::AI_changeMemoryCount [CvPlayer.h] ⇢ CvPlayerAI::AI_changeMemoryCount
+  - called by (1): CyPlayerPythonInterface2
+- **2373** `CyPlayer::AI_getExtraGoldTarget() const` (Python: AI_getExtraGoldTarget)
+  - calls: CvPlayer::AI_getExtraGoldTarget [CvPlayer.h] ⇢ CvPlayerAI::AI_getExtraGoldTarget
+  - called by (1): CyPlayerPythonInterface2
+- **2378** `CyPlayer::AI_setExtraGoldTarget(int)` (Python: AI_setExtraGoldTarget)
+  - calls: CvPlayer::AI_setExtraGoldTarget [CvPlayer.h] ⇢ CvPlayerAI::AI_setExtraGoldTarget
+  - called by (1): CyPlayerPythonInterface2
+- **2387** `CyPlayer::AI_isWillingToTalk(int)` (Python: AI_isWillingToTalk)
+  - calls: CvPlayer::AI_isWillingToTalk [CvPlayer.h] ⇢ CvPlayerAI::AI_isWillingToTalk
+  - called by (1): CyPlayerPythonInterface2
+- **2394** `CyPlayer::getScoreHistory(int) const` (Python: getScoreHistory)
+  - calls: CvPlayer::getScoreHistory [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2399** `CyPlayer::getEconomyHistory(int) const` (Python: getEconomyHistory)
+  - calls: CvPlayer::getEconomyHistory [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2404** `CyPlayer::getIndustryHistory(int) const` (Python: getIndustryHistory)
+  - calls: CvPlayer::getIndustryHistory [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2409** `CyPlayer::getAgricultureHistory(int) const` (Python: getAgricultureHistory)
+  - calls: CvPlayer::getAgricultureHistory [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2414** `CyPlayer::getPowerHistory(int) const` (Python: getPowerHistory)
+  - calls: CvPlayer::getPowerHistory [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2419** `CyPlayer::getCultureHistory(int) const` (Python: getCultureHistory)
+  - calls: CvPlayer::getCultureHistory [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2424** `CyPlayer::getEspionageHistory(int) const` (Python: getEspionageHistory)
+  - calls: CvPlayer::getEspionageHistory [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2435** `CyPlayer::getRevolutionStabilityHistory(int) const` (Python: getRevolutionStabilityHistory)
+  - calls: CvPlayer::getRevolutionStabilityHistory [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2444** `CyPlayer::getScriptData() const` (Python: getScriptData)
+  - calls: CvPlayer::getScriptData [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2449** `CyPlayer::setScriptData(std::basic_string<char, std::char_traits<char>, std::allocator<char>>)` (Python: setScriptData)
+  - calls: CvPlayer::setScriptData [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2455** `CyPlayer::chooseTech(int, std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>, bool)` (Python: chooseTech)
+  - calls: CvPlayer::chooseTech [CvPlayer.cpp], CvWString::CvWString(unsigned short const*) [CvString.h]
+  - called by (1): CyPlayerPythonInterface2
+- **2463** `CyPlayer::AI_maxGoldTrade(int)` (Python: AI_maxGoldTrade)
+  - calls: CvPlayerAI::AI_maxGoldTrade [CvPlayerAI.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2473** `CyPlayer::AI_maxGoldPerTurnTrade(int)` (Python: AI_maxGoldPerTurnTrade)
+  - calls: CvPlayerAI::AI_maxGoldPerTurnTrade [CvPlayerAI.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2483** `CyPlayer::splitEmpire(int)` (Python: splitEmpire)
+  - calls: CvPlayer::splitEmpire [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2493** `CyPlayer::canSplitEmpire() const` (Python: canSplitEmpire)
+  - calls: CvPlayer::canSplitEmpire [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2503** `CyPlayer::canSplitArea(int) const` (Python: canSplitArea)
+  - calls: CvPlayer::canSplitArea [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2518** `CyPlayer::assimilatePlayer(int)` (Python: assimilatePlayer)
+  - calls: CvPlayer::assimilatePlayer [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2531** `CyPlayer::canHaveTradeRoutesWith(int)` (Python: canHaveTradeRoutesWith)
+  - calls: CvPlayer::canHaveTradeRoutesWith [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2536** `CyPlayer::forcePeace(int)` (Python: forcePeace)
+  - calls: CvPlayer::forcePeace [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2547** `CyPlayer::isNonStateReligionCommerce() const` (Python: isNonStateReligionCommerce)
+  - calls: CvPlayer::isNonStateReligionCommerce [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2552** `CyPlayer::isUpgradeAnywhere() const` (Python: isUpgradeAnywhere)
+  - calls: CvPlayer::isUpgradeAnywhere [CvPlayer.cpp]
+  - called by (1): CyPlayerPythonInterface2
+- **2561** `CyPlayer::addReminder(int, std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>) const` (Python: addReminder)
+  - calls: CvPlayer::addReminder [CvPlayer.cpp], CvWString::CvWString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&) [CvString.h]
+  - called by (1): CyPlayerPythonInterface2

@@ -1,0 +1,80 @@
+# Peter Buneman, Sanjeev Khanna, Wang-Chiew Tan, Why and Where: A Characterization of Data Provenance (the text names no venue or year; ICDT 2001 per the assignment)
+Source: lit3/buneman-provenance/doc.txt is unreadable (lines 1-2180 read in full: the PDF's Type 3 fonts extracted as substituted glyphs, so apart from the figure labels on p. 4 no sentence is legible). These notes are therefore taken from an OCR of the same PDF (lit3/buneman-provenance/raw, 15 pages, tesseract at 300 dpi) written to lit3ocr/buneman-provenance/doc.txt with the same `[[page N]]` markers. Read: lines 1-842 of the OCR text (all). Quotations are checked against the OCR file; formulas garbled by OCR are not quoted.
+
+## What it says
+- p. 1 (Abstract): "the issue of data provenance — where a piece of data came from and the process by which it arrived in the database — is becoming increasingly important" -- especially in scientific databases.
+- p. 1 (Abstract): "In this paper we describe an approach to computing provenance when the data of interest has been created by a database query."
+- p. 1 (Abstract): "We adopt a syntactic approach and present results for a general data model that applies to relational databases as well as to hierarchical data such as XML."
+- p. 1 (Abstract): "provenance (refers to the source data that had some influence on the existence of the data)" -- why-provenance; where-provenance "refers to the location(s) in the source databases from which the data was extracted".
+- p. 1 (1 Introduction): "is the description of the origins of a piece of data and the process by which it arrived in a database." -- data provenance, also called lineage or pedigree.
+- p. 1 (1 Introduction): "The field of molecular biology, for example, supports some 500 public databases [1], but only a handful of these are" source data; the others are views of source data or of other views.
+- p. 1 (1 Introduction): "the individual databases are not simply computed by queries, but also have added value in the form of corrections and annotations by experts" -- they are curated.
+- p. 1 (1 Introduction): "This information is essential to anyone interested in the accuracy and timeliness of the data."
+- pp. 1-2 (1 Introduction): the problem: a view "V = Q(D) is constructed by a query Q applied to" databases D, and the question is "what parts of the database D contributed to d?"
+- p. 2 (1 Introduction): "The crucial question here is what is meant by" contributed to.
+- p. 2 (1 Introduction): every tuple of employee can be said to contribute to an output tuple of the average-salary query "for modifying any tuple in the employee relation could affect the presence" of that tuple -- this is why-provenance.
+- p. 2 (1 Introduction): "This statement presupposes that name is a key for the employee relation; if it is not we need some other means of identifying the tuple in the source, for SQL does not eliminate duplicates."
+- p. 2 (1 Introduction): "The point is that where-provenance requires us to identify locations in the source data."
+- p. 2 (1 Introduction): "Where-provenance is important for understanding the source of errors in data" -- and "It is also important for carrying annotations through database queries."
+- p. 2 (1 Introduction): "Existing work on provenance considers only the relational model." -- the deterministic model allows study in a more general context.
+- p. 2 (Outline): "give a syntactic characterization of why-provenance and show that it is invariant under query rewriting."
+- p. 2 (Outline): "where-provenance which turns out to be problematic and cannot, in general be expected to be invariant under query rewriting." -- a restriction is discussed for which it has a satisfactory characterization.
+- p. 2 (Related work): "To our knowledge no-one has studied where-provenance." -- why-provenance was studied for relations in [2, 7]; the syntactic techniques here give results identical to [7] on the relational model.
+- pp. 2-3 (Related work): "We do not know whether ... there is semantic characterization for where-provenance" -- nor whether a semantic characterization of why-provenance is well behaved beyond SPJU queries.
+- p. 3 (Related work): "we are not interested in what is not in the view" -- why-provenance is simpler than view maintenance, which must account for additions; where-provenance is loosely connected to the view update problem.
+- p. 3 (2 A Deterministic Model): "the location of any piece of data can be uniquely described by a path."
+- p. 3 (2 A Deterministic Model): "It is more restrictive in that the out-edges of each node have distinct labels; it is less restrictive because these labels may themselves be pieces of semistructured data"
+- p. 3 (2 A Deterministic Model): "We will describe shortly how relations can be cast in this model by using the keys as edge labels." -- any database with persistent object identifiers can also be expressed; ACeDB conforms closely.
+- p. 3 (2.1 Syntax and Operations): "this notation describes a finite partial function from values to values." -- a set is described by mapping each element to a standard constant.
+- p. 4 (2.1, Fig. 1): the figure shows a record, an array, a set and a relation in this syntax, the relation keyed by Id.
+- p. 4 (2.1 Path representation): "any value in our model can be described by specifying the set of all paths to the constants at the terminal nodes."
+- p. 4 (2.1 Definition 1): a substructure holds "if the path representation of w is a subset of the path representation of v."
+- p. 4 (2.1 Definition 2): the deep union "is the value whose path representation is the union of the path representations" of the two values; "Note that the result may not be a partial function in which case the deep union is undefined."
+- pp. 4-5 (2.2 An Encoding of Relations): "Each relation name forms the label of an outgoing edge from the root node which is in turn mapped to the set of keys from that relation." -- each key maps to the tuple it identifies; "If there is no key, the tuples are modeled as a" set.
+- p. 5 (2.2): "It does not matter which order we serialize the keys so long as this is done in a consistent manner." -- for compound keys placed on one edge.
+- p. 5 (2.3 XML): "in the absence of any system of keys (see [16]) we can still fall back on the property, specified by the DOM, that child nodes can be uniquely identified by their positions" -- details deferred to the full version.
+- p. 6 (3 A Query Language): "This interpretation is quite general, but to make it precise we must (a) define what we mean by" union and (b) what values a variable can bind to; the paper uses deep union, so "the result of a query maybe undefined."
+- p. 6 (3 A Query Language): "We refer to this query language, for want of a better term, as DQL (Deterministic QL)."
+- p. 6 (3 Definition 3): a query is well-formed if "(a) no pattern p; is a single variable" -- (b) each expression is a nested query or involves no query, and (c) "each comparison is between variables or between variables and constants only."
+- p. 6 (3): "In addition to well-formedness, we say a query is well-defined if it is not undefined on any input." -- the paper considers only queries that are both.
+- p. 6 (3): "Our restriction on the interpretation is that variables may only bind to singular values." -- a singular expression is a single path terminated by a constant or variable.
+- p. 7 (3): "DQL can capture positive (SPJU) relational queries and positive nested relational algebra" -- it is less expressive than XML-QL (no Kleene-star path patterns, hierarchical structures only, limited Skolem and nested forms).
+- p. 7 (3 Theorem 1): "starting from any well-formed query, any sequence of application of rewrite rules leads to a normal form in a finite number of steps." -- strong normalization of rewrite system R; details of R are omitted.
+- p. 7 (4 Two Meanings of Provenance): "We will formulate the provenance of d as a query Q’ that is completely determined by Q, D and d."
+- p. 8 (4): "This is the rationale for calling these structures the why-provenance of the value" -- any database containing the matched structures yields the output value.
+- p. 8 (4): "Our example suggests that one natural approach to compute provenance is via syntactic analysis of the query and this is the approach that we take."
+- p. 8 (5 Why-Provenance): "We call the collection of values taken from D that proves an output, a witness for the output."
+- p. 8 (5.1 Witness Basis): witnesses are refined "to be explicitly tied to the structure of a given query as well as an input database."
+- p. 9 (5.1): "We describe next our notion of a witness basis which captures the set of all witnesses of the former type" -- those formed by deep union of values at the leaves of a proof tree; "Our definition closely follows the syntax of the query."
+- p. 9 (5.1): "For a compound value t, the witness basis is the product of individual witness basis of singular values"
+- p. 9 (5.1 Lemma 1): the witness basis is unchanged by rewriting a query with R -- "the witness basis of a well-formed query is in fact the same as the witness basis of its normal form."
+- p. 10 (5.1 Computing a Witness Basis): "instead of searching the witness basis directly, we produce a query Qj, which when evaluated, will generate the witness basis."
+- p. 10 (5.1 Theorem 2): "This technique is sound and complete in the sense that the set of witnesses" in the witness basis is the set returned by the generated query on D.
+- p. 10 (5.1 A Comparison): "our notion of witness basis coincides with the derivation of a tuple in [7] for SPJU queries"
+- p. 10 (5.2 Minimal Witness Basis): "Observe that a witness for a value is invariant under all equivalent queries but the witness basis is not."
+- p. 10 (5.2 Theorem 3): the minimal witness basis is invariant for "two equivalent well-formed queries with only equality conditions" -- p. 11: the proof rests on a homomorphism theorem and extends to some classes with inequalities.
+- p. 11 (5.3 Cascaded Witnesses): "the witness basis obtained in this manner is the same as first" composing out the views in the query -- Theorem 4, unnesting of witnesses through materialized views.
+- p. 11 (6 Where-Provenance): "We now focus on identifying what pieces of input data helped create various values that appear in the output."
+- p. 11 (6): "only some parts of any witness are used to construct a specific output value."
+- p. 11 (6): "However, this intuition is fragile and there are many difficulties involved in formalizing this intuition" -- the intuition being to follow the output variable back to the input bound to it.
+- p. 12 (6): "The where-provenance of this value in Q1 is the query itself since the value is hard-wired into the query output."
+- p. 12 (6): "we will consider the where-provenance of a specific value in the output to be defined only if it can be associated with one or more variables in the output expression of a query."
+- p. 12 (6): "This example illustrates that the notion of where-provenance is hard to keep invariant over equivalent queries in general."
+- p. 12 (6): "This suggests that in general the syntactic structure of a query may not suffice for identifying the where-provenance." -- in Q4 one must see that z is forced to agree with y.
+- pp. 12-13 (6 A Syntactic Approach): "a purely syntactic characterization of where-provenance is unlikely to yield a complete description of the where-provenance."
+- p. 13 (6): "we use the syntactic approach and identify a restricted class of queries referred to as traceable queries, for which where-provenance is preserved under rewriting."
+- p. 13 (6): "To determine where-provenance of a value resulting from a traceable query, it suffices to work with the normal form of the query."
+- p. 13 (6 Definition 8): the derivation basis pairs, for each valuation, the witness with the paths to the output variable -- "Altogether, they form the derivation basis" of the value.
+- p. 14 (6 Definition 9): traceable means each pattern matches a database constant or a subquery, "every subquery in Q is a view which does not share any variables with the outer scope" and only singular patterns of distinct variables match subqueries.
+- p. 14 (6 Propositions 1-2): traceability is preserved by rewriting, and for traceable queries the derivation basis is preserved by rewriting.
+- p. 14 (7 Conclusions): "Data provenance is examined from two perspectives, namely (1) Why is a piece of data in the output?, and (2) Where did a piece of data come from?"
+- p. 14 (7 Conclusions): "why-provenance is preserved over the class of well-defined queries and where-provenance is preserved over the class of traceable queries."
+- pp. 14-15 (7 Conclusions): future work: "identify necessary and sufficient conditions for the class of well-defined queries" and how constraints such as functional dependencies "can help us obtain a more complete description of the where-provenance"
+
+## Readings for our work
+- Every figure in an analysis document should carry where-provenance: the location in the source it was read from (file, table, key such as game, seed, turn, player, and column), not only the query that produced it, so a wrong number can be traced to the record to check. Check: for a sample of registry figures, follow the stored location to the source row and get the same value. Rests on: where-provenance identifies locations (p. 2), importance for errors (p. 2). Would not apply if: the figure is computed from many rows (then why-provenance, the set of contributing rows, is what to store).
+- Locations need keys: a log row without a unique key (duplicates allowed) cannot be pointed to; each source table should have a declared key before figures are drawn from it. Rests on: name must be a key, SQL does not eliminate duplicates (p. 2), keys as edge labels (pp. 3-5), XML falls back on positions without keys (p. 5). Would not apply if: the source is immutable and positions are stable (then a line number plus file hash is a key).
+- A constant written into a query (a threshold, a hard-coded value) has the query itself as its provenance; such constants in figure-producing code should be named parameters recorded with the figure. Rests on: hard-wired value in Q1 (p. 12). Would not apply if: the constant is defined by the protocol and recorded there.
+- Provenance recorded by inspecting code is fragile: two equivalent computations can give different apparent sources, so the provenance record should be generated by the tool that reads the data, at read time, rather than inferred later from the script. Rests on: where-provenance not invariant under equivalent queries (p. 12), syntax may not suffice (p. 12), restriction to traceable queries (pp. 13-14). Would not apply if: all figure queries are restricted to a simple traceable form (select by key, no nested reuse of variables).
+- For a figure derived through intermediate tables (views), its provenance should be resolved down to raw logs, not stop at the intermediate table. Rests on: cascaded witnesses and composing out views (p. 11), the curated-database problem of views of views (p. 1). Would not apply if: the intermediate table is itself an archived, versioned source.
+- Correcting or annotating a value in a derived table by hand breaks the link to its source; corrections belong in the source or in a recorded correction step. Rests on: curated databases with added corrections and annotations (p. 1), annotations carried through queries need where-provenance (p. 2). Would not apply if: the derived table is declared the authoritative source from then on.

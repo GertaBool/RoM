@@ -1,0 +1,982 @@
+path,users,fmt,w,h,mips,data,sha1,source
+art/units/rome/velites/wolf.dds,1,DXT3,512,512,10,349552,ce2f5b2f069c7fce856c64b37bc4527696e33182,loose
+art/structures/buildings/bach/d.dds,1,DXT3,512,512,8,349552,39a6544226a3a7978476d1161f4865f4df9eeac1,RoMPak1.FPK
+art/structures/buildings/hanginggardens/oriental-cities.dds,1,DXT3,512,512,8,349552,29469cf363fb35c2a38091071093e1a296376d18,loose
+art/structures/buildings/hanginggardens/trees_1024.dds,1,DXT3,512,512,8,349552,7ca101ee9bf410caa66af732fc1ecff9fc46d6dc,loose
+art/units/edunits/pikeman_african/ranger.dds,1,A32,256,256,9,349524,663e92b8b90503400629d24eaf5f7f38a8070306,RoMPak1.FPK
+art/units/edunits/pikeman_african/scoutstuff 4 ranger.dds,1,A32,256,256,9,349524,79e812b8224b641a6b5109a7b98a5fa3c7b07158,RoMPak0.FPK
+art/units/unique/viking/viking archer/berseker.dds,1,A32,256,256,9,349524,c9b1cafa6bbbca4ba0e35620798ef3c524e62212,RoMPak1.FPK
+art/structures/buildings/alhambra/alhambrasm.dds,1,DXT3,512,256,10,174800,c09334c95f89e9507b009e5f6390fe1c9cb871d1,RoMPak1.FPK
+art/structures/buildings/joust/joust.dds,1,DXT1,512,512,8,174776,c5f35993ced087325eac8ebd434437a8da3bb85a,RoMPak0.FPK
+art/units/greatpeople_african/warlord_middleage/warlord_middleage.dds,1,A32,256,128,9,174764,fa1add9d68aacfc0ac455c593c629471a37ce76b,loose
+art/units/greatpeople_african/warlord_ancient/warlord_ancient.dds,1,A32,256,128,9,174764,37e98853e88a8f5672529d61bd0dfe90c4496cc7,loose
+art/structures/buildings/archiv/egyptian_c.dds,1,DXT1,512,512,4,174080,034ccaff50901a105459984b9801fbba6fb9dc30,loose
+art/units/unique/china/pikeman_china/chokonu_128.dds,1,DXT3,256,256,9,87408,90c9dae2ffc34ced0662c2c34daa703e89bd1ae9,RoMPak1.FPK
+art/units/ships/cog/ee2_cogge_diff.dds,1,DXT3,256,256,9,87408,59eeb7d8645716fb7973523e7fcea1613f8eb271,loose
+art/units/greatpeople_african/prophet/first_rider_256.dds,1,DXT3,256,256,9,87408,e60d1a91207a096c2d5957329b2b10fc3ecb928c,loose
+art/units/unique/viking/viking knight/rohanshield.dds,1,DXT3,256,256,7,87408,4c7fc74e679122395f9bdea116f7a1bde67b29d5,RoMPak0.FPK
+art/units/edunits/axeman_african/berseker.dds,1,DXT5,256,256,9,87408,91a016453db77dfd5b2fdd93d629d4f380238e31,RoMPak1.FPK
+art/units/ships/roundship/early_merchant_ship_256.dds,1,DXT3,256,256,9,87408,e5a9afa2988693c5acb658ca275ee6cfe95e4865,loose
+art/units/asian explorer/asian_explorer.dds,1,DXT3,256,256,7,87408,b96a3696bbc1accc51ffa2fbd3bcb240fae67238,RoMPak1.FPK
+art/units/unique/assyria/ram/ram_gloss.dds,1,DXT5,256,256,9,87408,cb627c48fcc18967693fddb138b2ffb2c4c437ed,RoMPak1.FPK
+art/units/unique/assyria/ram/ram.dds,1,DXT5,256,256,9,87408,6db17bb0ade97d367e484722f4454639ac670e27,RoMPak0.FPK
+art/units/greatleader_sioux/medieval/war_bonnet.dds,1,DXT3,256,256,9,87408,87d782a6e0dfe16cf2bc10c5f97ddb64c180bc93,loose
+art/units/greatleader_sioux/ancient/war_bonnet.dds,1,DXT3,256,256,9,87408,87d782a6e0dfe16cf2bc10c5f97ddb64c180bc93,loose
+modules/custom units/warlord/warlord_south_america/mannerheim.dds,1,DXT3,256,256,9,87408,1f1f9e1e5d628b5c68cc55d94e5e0d25dd932914,loose
+modules/custom units/warlord/warlord_meso_america/mannerheim.dds,1,DXT3,256,256,9,87408,a7ce49331397966a7f5748b1b5c1c35eb6df1995,loose
+modules/custom units/warlord/warlord_asian/general_german_256.dds,1,DXT3,256,256,9,87408,f52571a9613cd660e3a4cfd30b61413a0aaf6656,loose
+modules/custom units/warlord/warlord_european/german_modern_256.dds,1,DXT3,256,256,9,87408,3937a46bcd294b2fb53800bf8cecf7787ff39275,loose
+modules/custom units/warlord/warlord_native_america/mannerheim.dds,1,DXT3,256,256,9,87408,802844e8e1f5d920692ae6deec866b2407bb2a80,loose
+art/units/siege/ballista/bombard.dds,1,DXT3,256,256,9,87408,1ddaab9737e9d6f32db74ae9cc5d7d8e7fc3d908,loose
+art/units/rome/principesm/spearman_128.dds,1,DXT3,256,256,9,87408,b7abaf17d28e402e7e2ea51cdc08de03b34b1a73,loose
+modules/custom artstyles/japan/units/archer_japan/koreanlongbowmanjoseon.dds,1,DXT3,256,256,9,87408,640246570a88be4175a7db43540cc2ae6749689f,loose
+art/units/unique/china/knight_china/chokonu_128.dds,1,DXT3,256,256,9,87408,90c9dae2ffc34ced0662c2c34daa703e89bd1ae9,RoMPak0.FPK
+art/units/ships/viking_caravel/caravel_256.dds,1,DXT3,256,256,9,87408,dcbfb11d67545dfa83f1f6cd2220cb10202fd67a,RoMPak1.FPK
+art/units/caravan/caravan_diff.dds,1,DXT3,256,256,9,87408,29d69f34fde1efc89f2539ab31e58b3d7b4c7910,loose
+art/structures/buildings/medieval_stables/building_shadow.dds,1,DXT3,256,256,9,87408,3217b96f3f8eb92f616d5ba1221cf9cc9ea8108a,RoMPak0.FPK
+art/structures/buildings/blacksmith/kostky.dds,1,DXT3,256,256,9,87408,0a49e26fb25d013146bcc0d5dc9e0808d870c3b2,RoMPak1.FPK
+art/structures/buildings/blacksmith/smith.dds,1,DXT3,256,256,9,87408,250fd7a5475d7d7564283fb95374b0d089bd640f,RoMPak1.FPK
+art/structures/buildings/brewery/b2.dds,1,DXT3,256,256,9,87408,8d9ce9bbea623bfbf4ff829e0dd1ffe25c65371e,RoMPak1.FPK
+art/structures/buildings/dangeon/dangeon.dds,1,DXT3,256,256,9,87408,b726b49f1f1cfbecc698ef52693a4ac970ed544c,RoMPak1.FPK
+art/structures/buildings/dangeon/dangeons.dds,1,DXT3,256,256,9,87408,45801d947b678af09f21dca5ffd60df76e5d12a1,RoMPak0.FPK
+art/structures/buildings/glassworks/eu_an_shadow.dds,1,DXT3,256,256,9,87408,7bbc8b395e5baae7bc4bf84944a2d37c3eec2563,loose
+art/structures/buildings/religion/egypt_monastery/sphinx.dds,1,DXT3,256,256,9,87408,4f972db7829ccf3eac924c0c958d513ea755137e,RoMPak0.FPK
+art/structures/buildings/religion/egypt_temple/building_shadow.dds,1,DXT3,256,256,9,87408,a7b8dc381eed040423d55b7b40956c009ad750df,RoMPak0.FPK
+art/structures/buildings/religion/egypt_cathedral/nubianpyramid.dds,4,DXT3,256,256,9,87408,c2446708d487f0bd3cf5bf904f7114d75d6900f4,RoMPak1.FPK
+art/structures/buildings/petra/petra-shadowmap.dds,1,DXT3,256,256,9,87408,83a5c868404a8bc762891360581f4ced6a627ef9,RoMPak0.FPK
+art/structures/buildings/petra/petra01.dds,1,DXT3,256,256,9,87408,41c999e606344bed4e82ac5f5a3c28794f545a1e,RoMPak0.FPK
+art/structures/buildings/petra/petra02.dds,1,DXT3,256,256,9,87408,9ccadbf9a0e91171e08521638f0f6766b49e55d3,RoMPak0.FPK
+art/structures/buildings/petra/petra03.dds,1,DXT3,256,256,9,87408,f421c1a2a3ea93803755abbfe5c351ab2429a8d8,RoMPak0.FPK
+art/structures/buildings/sphinx/sphinx.dds,1,DXT3,256,256,9,87408,466e883dc17826e43503b94d5e05e456a44831ad,RoMPak0.FPK
+art/structures/buildings/oak/wildwoodglow.dds,1,DXT3,256,256,9,87408,64a1f7a37ba897b3bec2af177cd60c4d38d377a6,loose
+art/structures/buildings/oak/wildwoodbase.dds,1,DXT3,256,256,9,87408,8eeb196afd4b3c9168dad539dedb41523b219a30,loose
+modules/custom artstyles/india/indian_crossbowman/persian_immortal_gloss.dds,1,A32,128,128,8,87380,d838adb3faf81b0889e8eff3ad452df663acc1a1,loose
+modules/custom artstyles/india/indian_crossbowman/persian_immortal_128.dds,1,A32,128,128,8,87380,63df8c5029b3f9960d589088a0f670cb5135eef4,loose
+art/units/edunits/crossbowman_african/crossbowman_128.dds,1,A32,128,128,8,87380,a2e4a1514e0d17df4f355aaada8ab4f3dc816de4,RoMPak1.FPK
+art/units/edunits/crossbowman_african/numidian_cavalry_128.dds,1,A32,128,128,8,87380,764b8506c11b3d1fe7862830d5abca750b827838,RoMPak0.FPK
+art/units/edunits/pikeman_african/chinese_spearman_128.dds,1,A32,128,128,8,87380,f7fdde4f0a0dd02e63150a5e7a74776180ed2633,RoMPak1.FPK
+art/units/edunits/pikeman_african/skirmisher_128.dds,1,A32,128,128,8,87380,157eb81ec0cf923f738a2330aff46430bbc22072,RoMPak1.FPK
+art/units/edunits/pikeman_african/scoutstuff_gloss.dds,1,A32,128,128,8,87380,46f19a3f93b7ba59b35dd27365204906577f748b,RoMPak1.FPK
+art/units/edunits/pikeman_african/ranger_gloss.dds,1,A32,128,128,8,87380,05c945c70bc4ca50718c4a77c2c2d5dc512752b7,RoMPak0.FPK
+art/units/greatpeople_african/prophet/greatprophet_128.dds,1,A32,128,128,8,87380,c75c09b796e10dfeebdefb3c1948457446931949,loose
+art/units/greatpeople_african/prophet/modernmerchant_128.dds,1,A32,128,128,8,87380,ad58504bf1ceb3257828489da5ed54b6bcc604bb,loose
+art/units/missionary_african/christian/christian_missionary.dds,1,A32,128,128,8,87380,051533deefbbc0ac33e7aa18caf85238f670381d,loose
+art/units/edunits/spyancient_african/ancientspy_128.dds,1,A32,128,128,8,87380,6b0b067381f794ec00136f99af5de398ce147c25,RoMPak0.FPK
+art/units/edunits/spyancient_african/islamic_missionary_128.dds,1,A32,128,128,8,87380,15ad82b789fd7c26723158bc6b520dbbd346fd68,RoMPak0.FPK
+art/units/edunits/spy_african/spy_128.dds,1,A32,128,128,8,87380,cf74df9fd0ab3b421eb66b6734baadd8fb5fb063,RoMPak1.FPK
+art/units/edunits/spy_african/spy_128_fx.dds,1,A32,128,128,8,87380,99ace38be567bf94b323926918981bf832dc905e,RoMPak1.FPK
+art/units/greatpeople_african/warlord_modern/buddhist_missionary_128.dds,2,A32,128,128,8,87380,de22273eb32e85ed681fc3f8d8b552c9c560a659,loose
+art/units/greatpeople_african/warlord_modern/modern_warlord128.dds,2,A32,128,128,8,87380,0860252fb42582af4e3084fac391398671216d34,loose
+art/units/greatpeople_african/modernmerchant/buddhist_missionary_128.dds,1,A32,128,128,8,87380,21136d3661f07acbc49fc581db5a1d00c3287b68,loose
+art/units/greatpeople_african/modernmerchant/modernmerchant_128.dds,1,A32,128,128,8,87380,34ec07e2a699a5592e0398112ccc0bf4d7e9b16b,loose
+art/units/greatpeople_african/merchant/great_merchant_128.dds,1,A32,128,128,8,87380,34beb63e9cfc967f580e17cc03a423c9ff60c830,loose
+art/units/unique/viking/viking horseman/warrior_128.dds,1,A32,128,128,8,87380,7a906cb4f8fbe0da3b77337931c0c9690fae55ba,RoMPak0.FPK
+art/units/unique/viking/viking horseman/companion_cavalry_128.dds,1,A32,128,128,8,87380,0864e7a0c0ef880ca815689521b59b4cf669f0de,RoMPak1.FPK
+art/units/unique/viking/viking archer/warrior_128.dds,1,A32,128,128,8,87380,2a7e516d1b5900eef59c929474e5c5b6f31c036f,RoMPak1.FPK
+art/units/unique/viking/viking pikeman/rohanshield.dds,1,DXT3,256,256,2,81920,bcfd517ec234ec7e1a01a8a6e35a3225f43466d4,RoMPak0.FPK
+art/units/unique/viking/viking pikeman/heavyspearman_128.dds,1,DXT3,256,256,2,81920,5c17e7c74a6f310bc8d3e1ae7aac7ee5dafd1f60,RoMPak0.FPK
+art/units/unique/viking/viking pikeman/rohansoldier_256.dds,1,DXT3,256,256,2,81920,f9b4d5023325fc7d57818be04527229fa5dda447,RoMPak1.FPK
+art/units/unique/viking/viking crossbowman/rohansoldier_256_gloss.dds,1,DXT3,256,256,2,81920,995a30d0e6c434f92bff8856e8c931ec7364dbb1,RoMPak1.FPK
+art/units/unique/viking/viking crossbowman/rohansoldier_256.dds,1,DXT3,256,256,2,81920,2635ff617f7856197674166e62b4f915e52f2558,RoMPak0.FPK
+art/units/unique/viking/viking spearman/rohanshield.dds,1,DXT3,256,256,2,81920,ab45de6999377378336af02c0c0573395d1431db,RoMPak0.FPK
+art/units/unique/viking/viking spearman/rohansoldier_256.dds,1,DXT3,256,256,2,81920,b1fd606b5922282ae21e1f162859e0ba0f3e3800,RoMPak0.FPK
+modules/custom artstyles/american/units/heavy swordsman/rohanshield.dds,1,DXT3,256,256,2,81920,bcfd517ec234ec7e1a01a8a6e35a3225f43466d4,loose
+art/units/unique/viking/viking knight/rohanknight_256.dds,1,DXT3,256,256,2,81920,b9c422a021c40ba9822be5cca614494a896e8070,RoMPak1.FPK
+art/units/unique/viking/viking knight/rohanhorse_128.dds,1,DXT3,256,256,2,81920,87d634adb4e9cfd63e40135c846b18f718a506d5,RoMPak0.FPK
+art/units/unique/viking/viking axeman/rohanshield.dds,1,DXT3,256,256,2,81920,a3a1fea008f076f5243bd8816e458f492e262da7,RoMPak1.FPK
+art/units/unique/viking/viking axeman/rohanshield_gloss.dds,1,DXT3,256,256,2,81920,db6e6790cbfea40fcaf28e4808e613ee48c5b8ce,RoMPak1.FPK
+art/units/unique/viking/viking axeman/rohansoldier_256_gloss.dds,1,DXT3,256,256,2,81920,bdb8224dacaec37d716858ec9c0fb2232aeefee0,RoMPak1.FPK
+art/units/unique/viking/viking axeman/rohansoldier_256.dds,1,DXT3,256,256,2,81920,abf4e04ec9aeafd5623d9c2a13279f581ffe3688,RoMPak1.FPK
+art/units/unique/viking/viking chariot/rohansoldier_256_gloss.dds,1,DXT3,256,256,2,81920,bdb8224dacaec37d716858ec9c0fb2232aeefee0,RoMPak1.FPK
+art/units/unique/viking/viking chariot/rohansoldier_256.dds,1,DXT3,256,256,2,81920,abf4e04ec9aeafd5623d9c2a13279f581ffe3688,RoMPak0.FPK
+art/units/ships/mesogalley/balsaraft_256.dds,2,DXT3,256,256,1,65536,da48841f29f705f59799a9ef045f7f596573e29e,RoMPak1.FPK
+modules/custom artstyles/india/indian_heavy_swordsman/ethiopianoromowarrior_blue128.dds,1,A32,128,128,1,65536,8995f10bf6efd6699910251c3716757416d788fd,loose
+modules/custom artstyles/india/indian_heavy_swordsman/india_fast_worker_gloss_128.dds,1,A32,128,128,1,65536,1125e1442c2739258e495a6149d585655d2b3eb7,loose
+modules/custom artstyles/india/indian_heavy_swordsman/india_fast_worker_128.dds,1,A32,128,128,1,65536,c70d724ae964b0a0e9e61a81f8b59d96689a91e9,loose
+modules/custom artstyles/india/indian_heavy_swordsman/byzantinecataphract_rider_128.dds,1,A32,128,128,1,65536,ea1615b56ea47ba5985d86229de642105cbb8730,loose
+modules/custom artstyles/india/indian_heavy_swordsman/byzantinecataphract_rider_128_gloss.dds,1,A32,128,128,1,65536,805c95debdb023b8e37c7d3bb3ae1ec50cffb54d,loose
+modules/custom artstyles/india/indian_heavy_swordsman/ethiopianoromowarrior_bluegloss.dds,1,A32,128,128,1,65536,316f8960108c6a4c738c2ec26d624c326f20f7f3,loose
+modules/custom artstyles/barbarian/units/axeman/incense.dds,2,A32,128,128,1,65536,a7372cd318faa5b070e97a7f7c3b71013c868580,loose
+modules/custom artstyles/barbarian/units/axeman/axeman_128.dds,2,A32,128,128,1,65536,f21fbf1f8e2be1f38747ed039793530c96656154,loose
+modules/custom artstyles/india/indian_spearman/spearman_128.dds,1,A32,128,128,1,65536,056ced4d9a7c1a8ff9b42d734e8cc74437a51580,loose
+modules/custom artstyles/india/indian_spearman/greek_phalanx_gloss_128.dds,1,A32,128,128,1,65536,df2d17dadd3d063d59912647d2a625af462ae8c2,loose
+modules/custom artstyles/india/indian_spearman/greek_phalanx_128.dds,1,A32,128,128,1,65536,d7b558e7f2add772915d7e06ca7952a4951cae42,loose
+modules/custom artstyles/india/indian_spearman/mongol_rider_128.dds,1,A32,128,128,1,65536,dcad256239ad9c80f1646e8b2410533b107c42d9,loose
+modules/custom artstyles/india/indian_spearman/spearman_128_gloss.dds,1,A32,128,128,1,65536,f8e70734f23e75caa13c1c9cbf356a1c0067bf1d,loose
+modules/custom artstyles/india/indian_spearman/mongol_rider_gloss.dds,1,A32,128,128,1,65536,df0ea92cfdc4cfbc91462de1e66d8d570fb1e0c2,loose
+art/units/rome/principesm/spearman_128_gloss.dds,1,DXT5,256,256,1,65536,6abcd745f0df88aa567240ad13b036f018fea01c,loose
+art/units/unique/native america/native american chariot/scout_128.dds,1,A32,128,128,1,65536,fc40b337ae89e5f4d8a3d4a2c921fb86ef900ace,RoMPak1.FPK
+art/structures/buildings/siege_workshop/siegeworkshop.dds,1,DXT3,256,256,1,65536,f3b1809754b7d71ee1bd38af8df679ccdb848a22,RoMPak0.FPK
+art/structures/buildings/alhambra/alhambrashad3.dds,1,DXT3,256,256,1,65536,7e4f4e81c40d6f1722d766a9b013f7f10491d0f6,RoMPak1.FPK
+art/structures/buildings/alhambra/water_refl.dds,1,DXT3,256,256,1,65536,6ba501e6061db765b62a0cf574158375380beef4,RoMPak1.FPK
+art/structures/buildings/archeryrange/parts.dds,1,X24,128,128,1,49152,cb84c35d62d9720fc8ea85889a962d82cbc5f764,RoMPak1.FPK
+art/units/unique/babylon/crossbowman_babylon/peltast_128x256.dds,1,DXT3,256,128,9,43728,45ede4d138ea51bdcd8a26afccff13b9cbae1233,RoMPak1.FPK
+modules/custom units/warlord/warlord_ancient/warlord_ancient_gloss.dds,2,DXT3,256,128,9,43728,378f9ae9ba78241dda1da042ed060610a2daffe5,loose
+art/units/unique/babylon/knight_babylon/peltast_128x256.dds,1,DXT3,256,128,9,43728,45ede4d138ea51bdcd8a26afccff13b9cbae1233,RoMPak0.FPK
+art/units/ships/roundship/caravel_damage_128.dds,1,DXT3,256,128,9,43728,8ae883fbf58c05dd37b7aed189e3e2bdc555ea55,loose
+art/units/greatpeople_african/warlord_middleage/warlord_middleage_gloss.dds,1,DXT3,256,128,9,43728,ebbf7a1fa886672465f894601fc4e2ed4f8a79eb,loose
+art/units/greatpeople_african/warlord_ancient/warlord_ancient_gloss.dds,1,DXT3,256,128,9,43728,378f9ae9ba78241dda1da042ed060610a2daffe5,loose
+modules/custom units/warlord/warlord_middleage/warlord_middleage_gloss.dds,1,DXT3,256,128,9,43728,ebbf7a1fa886672465f894601fc4e2ed4f8a79eb,loose
+modules/custom artstyles/japan/units/chariot_japan/cannon_ancient_chinese.dds,1,DXT3,256,128,9,43728,21d05c1585e43719b4e73ccc6c887c5ce0a733e9,loose
+art/units/unique/babylon/horseman_babylon/peltast_128x256.dds,1,DXT3,256,128,9,43728,45ede4d138ea51bdcd8a26afccff13b9cbae1233,RoMPak0.FPK
+art/units/ships/viking_caravel/caravel_damage_128.dds,1,DXT3,256,128,9,43728,8ae883fbf58c05dd37b7aed189e3e2bdc555ea55,RoMPak1.FPK
+art/units/ships/viking_caravel/galley_damage_128.dds,1,DXT3,256,128,9,43728,d6bb187ae0c2ae5e2f85d48d862d7113ed17e9d7,RoMPak1.FPK
+art/structures/buildings/religion/egypt_temple/bank1.dds,1,DXT3,256,128,9,43728,059c1bfd3757eec1168a515456fdaae21e1fdc70,RoMPak1.FPK
+art/structures/buildings/bach/a.dds,1,DXT1,128,512,6,43720,1ba66d4c22ac3a6bfe4820b47fe455d38166798d,RoMPak0.FPK
+modules/custom artstyles/american/units/spearman/knight_templar_weapons_64.dds,1,DXT1,256,256,7,43704,79ccb50c3438fba3cff4435d3e2032748f8bde99,loose
+modules/custom artstyles/american/units/heavy swordsman/heavycavalry_128.dds,1,DXT1,256,256,7,43704,7402ea49472480417ea82bccc6bf24e8c27dcc94,loose
+modules/custom artstyles/american/units/heavy swordsman/knight_templar_weapons_64.dds,1,DXT1,256,256,7,43704,548df431a3db8733f1e3292561a430298d482d87,loose
+art/units/ethiopian heavyfootman/ethiopianoromowarrior_blue128.dds,1,DXT1,256,256,7,43704,64937dd951cbb1c7e9ea9836a5ad310641fe6517,RoMPak0.FPK
+art/units/edunits/axeman_african/panther_black.dds,1,DXT1,256,256,9,43704,47d5f67d5b48e0be33368744de139e8a70f898e7,RoMPak0.FPK
+art/units/greatleader_sioux/medieval/sitting_bull_nonshader.dds,1,DXT1,256,256,9,43704,53fd2de448effd9ccb1fec33382f1aa1a3321a87,loose
+art/units/greatleader_sioux/ancient/dogsoldier_128.dds,1,DXT1,256,256,9,43704,4d12edf7d206f7c68e339a4e8eacaf8017d112a3,loose
+art/units/siege/ballista/bombardgloss.dds,1,DXT1,256,256,9,43704,6c91b2eaedfb57c5313902393734f7eccd0e2e58,loose
+modules/custom artstyles/american/units/horseman/knight_templar_weapons_64.dds,1,DXT1,256,256,7,43704,79ccb50c3438fba3cff4435d3e2032748f8bde99,loose
+modules/custom artstyles/japan/units/archer_japan/newglosslongbowmankoreanjoseon.dds,1,DXT1,256,256,7,43704,2fcda5765c24ee613562a4cd6bef779d3cc62566,loose
+art/structures/buildings/castle1/castle1.dds,1,DXT1,256,256,7,43704,28f8ce2ba9f60b62040b29af8184b16a28c72265,RoMPak0.FPK
+art/structures/buildings/dock/dock_diff.dds,1,DXT1,256,256,9,43704,9faf495f438b17d4cf54cb1b809f7029b61c55e9,loose
+art/structures/buildings/glassworks/eu_an_building1.dds,1,DXT1,256,256,9,43704,8d1030e389da29e3310dc0fd7050d6f3cbc138b4,loose
+art/structures/buildings/bath_europe/a.dds,1,DXT1,256,256,9,43704,7464d77121a6ef9aaf3b62b1038c77f592ab05e6,loose
+art/structures/buildings/tempel_enlil/amermid1.dds,2,DXT1,256,256,9,43704,1d2ce1c782f1e804e53b0b1e1e4554d2b66601a3,loose
+art/structures/buildings/tempel_enlil/amermid2.dds,2,DXT1,256,256,9,43704,1e8ba3333f22ac3414c5d41931a52e4383539459,loose
+art/structures/buildings/nordic_shrine/primitive.dds,1,DXT1,256,256,9,43704,e8af940b7bbbb4765b6f2265b85e453707aaefd1,loose
+art/units/ships/cog/ee2_cogge_damage.dds,1,DXT3,256,128,1,32768,5c090202c203fbab70857edae04aa7a7d5cba806,loose
+modules/custom units/warlord/warlord_ancient/warlord_ancient.dds,2,DXT3,256,128,1,32768,350fc7c26851314963968e0911b6762fd9115ac4,loose
+modules/custom units/warlord/warlord_middleage/warlord_middleage.dds,1,DXT3,256,128,1,32768,e3b97eb9712367c072b654509dc7988fac9173ec,loose
+modules/custom units/warlord/warlord_middle_east/pilsudski.dds,1,DXT1,256,256,1,32768,61317f05508af3eae1274a632add8dac87eb725e,loose
+art/units/caravan/cargoart_diff.dds,1,DXT3,256,128,1,32768,accb1c47746c582ffa26aeeacd893ba515e32207,loose
+art/units/caravan/cargoart_gloss.dds,1,DXT3,256,128,1,32768,7b14ff8afca1d498b0dc2d5908e6613af2bd41e8,loose
+art/units/africa/african knight/mongol_weapons.dds,1,DXT3,64,256,9,21904,303e62544e4508ff6579d7b7150c585c5d425375,RoMPak1.FPK
+art/units/swordsman/celtic_swordsman/celticswordsmanpantsandcloak_128.dds,1,DXT3,128,128,6,21872,d5e92f541c7686b54413dad107939d53e0f31b1a,loose
+art/units/swordsman/celtic_swordsman/celticswordsmanshieldandcape3.dds,1,DXT3,128,128,6,21872,7db7a9600436504f7656ae4ac1cbe2c4c6fc27ab,loose
+modules/custom artstyles/barbarian/units/worker/worker_128.dds,1,DXT3,128,128,8,21872,01f1c8e5db771e86f879c53b89ee7c8cb45b7a9c,loose
+art/units/edunits/workermodern_african/modern_worker_128.dds,1,DXT3,128,128,6,21872,fd9116b3f856d26ad516caba9bb6513554861209,RoMPak0.FPK
+art/units/edunits/worker_african/worker_128.dds,1,DXT3,128,128,6,21872,f9a3d4dad5d9a7afae8af74877bd8c9314df5633,RoMPak0.FPK
+art/units/edunits/andean pikeman/spearman_128.dds,1,DXT3,128,128,6,21872,cf05235a33a66de7c9ba631d022806161163da3b,RoMPak1.FPK
+art/units/edunits/andean pikeman/pikeman_128.dds,1,DXT3,128,128,8,21872,37379ae6a545c1292fe535f94a75e46f27540ee8,RoMPak0.FPK
+art/units/edunits/andean pikeman/spearman_128_gloss.dds,1,DXT3,128,128,6,21872,18c86eb4c9667afac5539d17263e4cebc6c38f1e,RoMPak1.FPK
+modules/custom artstyles/american/units/pikeman/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,1b04aec41b5d7f649551ecbb84bafc834d600ad1,loose
+modules/custom artstyles/american/units/pikeman/pikeman_128.dds,1,DXT3,128,128,8,21872,37379ae6a545c1292fe535f94a75e46f27540ee8,loose
+modules/custom artstyles/american/units/pikeman/heavyspearman_128.dds,1,DXT3,128,128,8,21872,de9bd470ac2428fb2868faf1418307279ddd291a,loose
+art/units/unique/arabia/pikeman_arabia/camelarcher_archer_128.dds,1,DXT3,128,128,8,21872,5919311d830ac23b4b4ed8c7c5b7a7c2cc66896e,RoMPak1.FPK
+art/units/unique/arabia/pikeman_arabia/halberdec.dds,1,DXT5,128,128,8,21872,dce55247e2a9b9c9c5259b35125f001d1ec81a2a,RoMPak1.FPK
+art/units/unique/arabia/pikeman_arabia/camelarcher_archer_gloss.dds,1,DXT3,128,128,8,21872,5488650027f141d31afe8787cc6843e2d436cfed,RoMPak1.FPK
+art/units/unique/dutch/pikeman_holland/holyromanlandsknecht_128.dds,1,DXT3,128,128,8,21872,55b37c1681261906055367e0c81a2e8dfbcb618d,RoMPak1.FPK
+art/units/unique/dutch/pikeman_holland/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,485dc15b589f900c2d669ffde5b0ae465ce257b6,RoMPak1.FPK
+art/units/unique/dutch/pikeman_holland/pikeman_128.dds,1,DXT3,128,128,8,21872,f940f3d3805aa1fd34804ab5271f36a5253eda1c,RoMPak1.FPK
+art/units/unique/dutch/pikeman_holland/heavyspearman_128.dds,1,DXT3,128,128,8,21872,aa60f7a316cd364579da0a981309e2e6919f2a18,RoMPak1.FPK
+art/units/unique/viking/viking pikeman/holyromanlandsknecht_128.dds,1,DXT3,128,128,8,21872,55b37c1681261906055367e0c81a2e8dfbcb618d,RoMPak0.FPK
+art/units/unique/viking/viking pikeman/holyromanlandsknecht_gloss_128.dds,1,DXT3,128,128,8,21872,dc778ba18244cdb10cc3c49c2918099a5c21c3ae,RoMPak1.FPK
+art/units/unique/byzantium/heavy_pikeman_byzantine/companion_cavalry_128.dds,1,DXT3,128,128,8,21872,99cebad15634cbe8b9891e22659043996c93f7c3,RoMPak1.FPK
+art/units/unique/byzantium/heavy_pikeman_byzantine/mountedinfantry_128.dds,1,DXT3,128,128,8,21872,594289a02cec2eb9742399a0b196cab287070991,RoMPak0.FPK
+art/units/unique/byzantium/heavy_pikeman_byzantine/longbowman_gloss.dds,1,DXT3,128,128,8,21872,f6cddb1a88c5e04cb94381a84ad2f330d5533117,RoMPak1.FPK
+art/units/unique/byzantium/heavy_pikeman_byzantine/companion_cavalry_128_gloss.dds,1,DXT3,128,128,8,21872,58b5102d23ef765dd0af7ef956b91e2f765f5d9d,RoMPak1.FPK
+art/units/unique/byzantium/heavy_pikeman_byzantine/mountedinfantry_128_gloss.dds,1,DXT3,128,128,8,21872,f358b44a8187a867753c1b1f7e9b92b16bf5cd84,RoMPak1.FPK
+art/units/unique/byzantium/heavy_pikeman_byzantine/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,485dc15b589f900c2d669ffde5b0ae465ce257b6,RoMPak1.FPK
+art/units/unique/byzantium/heavy_pikeman_byzantine/longbowman_128.dds,1,DXT3,128,128,8,21872,f3f810afe431943c8d482b17d66d1d2528865f5f,RoMPak0.FPK
+art/units/unique/byzantium/heavy_pikeman_byzantine/heavyspearman_128.dds,1,DXT3,128,128,8,21872,aa60f7a316cd364579da0a981309e2e6919f2a18,RoMPak0.FPK
+art/units/unique/roman/pikeman_rome/spearman_128.dds,1,DXT3,128,128,8,21872,0d1f6408d7b5a78b79b9338ae1118b8df0a1c1c6,RoMPak1.FPK
+art/units/unique/roman/pikeman_rome/ewc_spearman_gloss_128.dds,1,DXT3,128,128,8,21872,f7931b280fbf78432d0c521fb99886d054a90617,RoMPak1.FPK
+art/units/unique/roman/pikeman_rome/ewc_spearman_128.dds,1,DXT3,128,128,8,21872,c350b307705ce3f3b4c0838b8e6dc7bf51ce8495,RoMPak1.FPK
+art/units/unique/roman/pikeman_rome/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,49493deba8c572f59c374610b9bcea269783b6d6,RoMPak1.FPK
+art/units/unique/carthage/pikeman_carthage/ewc_spearman_gloss_128.dds,1,DXT3,128,128,8,21872,f7931b280fbf78432d0c521fb99886d054a90617,RoMPak1.FPK
+art/units/unique/carthage/pikeman_carthage/ewc_spearman_128.dds,1,DXT3,128,128,8,21872,c350b307705ce3f3b4c0838b8e6dc7bf51ce8495,RoMPak0.FPK
+art/units/unique/carthage/pikeman_carthage/greek_phalanx_gloss_128.dds,1,DXT3,128,128,8,21872,134302cd665577402b55b76e3fd0eb48674ee2e7,RoMPak1.FPK
+art/units/unique/carthage/pikeman_carthage/greek_phalanx_128.dds,1,DXT3,128,128,8,21872,0072e5a65d4a48c13ac44e855506348c412f6d46,RoMPak1.FPK
+art/units/unique/native america/native american pikeman/sioux_pike.dds,1,DXT3,128,128,8,21872,36a52d7b940868ce11aaa710051df6cd20aab869,RoMPak0.FPK
+art/units/unique/native america/native american pikeman/byzantinecataphract_rider_128.dds,1,DXT3,128,128,8,21872,2ff4b81816422add76c2b11f237fe77956e70cc9,RoMPak0.FPK
+art/units/unique/native america/native american pikeman/sioux_pike_gloss.dds,1,DXT3,128,128,8,21872,f14b1494859a2fea1f675c53bf2044ea06b1835e,RoMPak0.FPK
+art/units/unique/native america/native american pikeman/roundshield.dds,1,DXT3,128,128,8,21872,109b2a475d789eb43a93e5d41160f9358adf9bf6,RoMPak0.FPK
+art/units/unique/native america/native american pikeman/eagle_feathers.dds,1,DXT3,128,128,8,21872,cc50b662f27fe65f0a2134f70be64651b85a080f,RoMPak1.FPK
+art/units/unique/native america/native american pikeman/scout_128.dds,1,DXT3,128,128,8,21872,d55f86df9b69228f708d1c8cf145ea6b4be82c22,RoMPak0.FPK
+art/units/unique/native america/native american pikeman/zulu_impi.dds,1,DXT3,128,128,8,21872,0fd6886379c614c117490e6b047758b79e6e2f86,RoMPak1.FPK
+art/units/unique/native america/native american pikeman/incense.dds,1,DXT3,128,128,8,21872,adfe2162de8cbfe241cd5dd174363a78cacceab5,RoMPak1.FPK
+art/units/unique/babylon/heavypikeman_babylon/spearman_128.dds,1,DXT3,128,128,8,21872,6ca1326e51a12e1a784f654aa8b5b95a65b121d9,RoMPak0.FPK
+art/units/unique/babylon/heavypikeman_babylon/ewc_spearman_gloss_128.dds,1,DXT3,128,128,8,21872,f7931b280fbf78432d0c521fb99886d054a90617,RoMPak0.FPK
+art/units/unique/babylon/heavypikeman_babylon/ewc_spearman_128.dds,1,DXT3,128,128,8,21872,c350b307705ce3f3b4c0838b8e6dc7bf51ce8495,RoMPak0.FPK
+art/units/unique/babylon/heavypikeman_babylon/unique_babylon_bowman_128_gloss.dds,1,DXT3,128,128,8,21872,fc8daae3be56457a33995cfe7e5e3b07ce257cc8,RoMPak0.FPK
+art/units/unique/babylon/heavypikeman_babylon/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,155c3ff0e826867c59c38bab2a090f10dfffceb5,RoMPak1.FPK
+art/units/unique/babylon/heavypikeman_babylon/unique_babylon_bowman_128.dds,1,DXT3,128,128,8,21872,14b75b7506bf77469c3f98728de56dbc243c23af,RoMPak1.FPK
+art/units/unique/arabia/crossbowman_arabia/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,RoMPak1.FPK
+art/units/unique/arabia/crossbowman_arabia/persian_immortal_gloss.dds,1,DXT3,128,128,8,21872,891a8f6e136c248d1e497cae6519bceae12037b7,RoMPak1.FPK
+art/units/unique/arabia/crossbowman_arabia/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak0.FPK
+art/units/unique/arabia/crossbowman_arabia/persian_immortal_128.dds,1,DXT3,128,128,8,21872,6008b3aef95fa350fbc6d236863e34be5cff13df,RoMPak1.FPK
+modules/custom artstyles/japan/units/crossbowman_japan/samurai_gloss_128.dds,1,DXT5,128,128,8,21872,88de06272a261cbec1a2719e624e0f97cfdbdecf,loose
+modules/custom artstyles/japan/units/crossbowman_japan/chinese_swordsman128.dds,1,DXT3,128,128,8,21872,e1759ca79f077482557f84f6fda7d26b10483244,loose
+modules/custom artstyles/japan/units/crossbowman_japan/poleflags.dds,1,DXT3,128,128,8,21872,117a96940eca1ce001da76af684561ba41135fc0,loose
+modules/custom artstyles/japan/units/crossbowman_japan/chinese_swordsman_gloss.dds,1,DXT3,128,128,8,21872,b28a6e8df6137dbf205254b885aaa44cdf2efc6e,loose
+modules/custom artstyles/japan/units/crossbowman_japan/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,loose
+modules/custom artstyles/japan/units/crossbowman_japan/maceman_128.dds,1,DXT3,128,128,8,21872,f0459a85a1183661fb338065f31e942e555e9fd3,loose
+modules/custom artstyles/japan/units/crossbowman_japan/maceman_128_gloss.dds,1,DXT3,128,128,8,21872,eb341efa02547c85405480b5e16ca5aba42507ff,loose
+modules/custom artstyles/japan/units/crossbowman_japan/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,loose
+modules/custom artstyles/japan/units/crossbowman_japan/samurai_128.dds,1,DXT5,128,128,8,21872,8064483f872953b72910e9322b61dc306a54e0bc,loose
+modules/custom artstyles/american/units/crossbowman/light_spearman_128.dds,1,DXT3,128,128,8,21872,d9ee5617ffae11da75329f0b4d180371f1ce80cb,loose
+modules/custom artstyles/american/units/crossbowman/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,loose
+modules/custom artstyles/american/units/crossbowman/light_spearman_128_gloss.dds,1,DXT3,128,128,8,21872,38ae4c604f89b9c334c9fa88e7d4978c1cadf53d,loose
+modules/custom artstyles/american/units/crossbowman/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,loose
+modules/custom artstyles/india/indian_crossbowman/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,loose
+modules/custom artstyles/india/indian_crossbowman/warelephant_driver_128.dds,1,DXT3,128,128,8,21872,01ac24a8b0c4b01add3f3e1dd9ca1e4fe5978170,loose
+modules/custom artstyles/india/indian_crossbowman/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,loose
+art/units/unique/native america/sioux crossbowman/scout_128_gloss.dds,1,DXT3,128,128,8,21872,55139bfab4992c86152bee269091578b7f853acc,RoMPak0.FPK
+art/units/unique/native america/sioux crossbowman/scout_pack_128.dds,1,DXT3,128,128,8,21872,5db5966e6d3dcdc92462039ad2292e13fd382226,RoMPak0.FPK
+art/units/unique/native america/sioux crossbowman/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,RoMPak0.FPK
+art/units/unique/native america/sioux crossbowman/scout_128.dds,1,DXT3,128,128,8,21872,ac6a0812dd2fef7b308708bad0c4e9e5152a57bb,RoMPak0.FPK
+art/units/unique/native america/sioux crossbowman/grenadier_128.dds,1,DXT3,128,128,8,21872,92d1fa6d9b40801b1c66c8f74b6977f310855e3a,RoMPak0.FPK
+art/units/unique/native america/sioux crossbowman/scout_pack_128_gloss.dds,1,DXT3,128,128,8,21872,494b4785740294fe6aefc160a847997897bd7179,RoMPak1.FPK
+art/units/unique/native america/sioux crossbowman/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak0.FPK
+art/units/unique/native america/sioux crossbowman/zulu_impi.dds,1,DXT3,128,128,8,21872,a8955b799433eda9816e89b40678d97badfc4408,RoMPak1.FPK
+art/units/unique/dutch/crossbowman_holland/holyromanlandsknecht_128.dds,1,DXT3,128,128,8,21872,88fdd5e835ad5a375f90e6d7058d5c4922b094aa,RoMPak1.FPK
+art/units/unique/dutch/crossbowman_holland/persian_immortal_gloss.dds,1,DXT3,128,128,8,21872,f6e754cf3586528fe5b66564829c14a8053f8603,RoMPak1.FPK
+art/units/unique/dutch/crossbowman_holland/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,RoMPak1.FPK
+art/units/unique/dutch/crossbowman_holland/great_artist_128.dds,1,DXT3,128,128,8,21872,f7cfb9ce71163ef01450622d25b358343efa1212,RoMPak1.FPK
+art/units/unique/dutch/crossbowman_holland/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak0.FPK
+art/units/unique/dutch/crossbowman_holland/persian_immortal_128.dds,1,DXT3,128,128,8,21872,2abb812ce244c824c6deb610963737a6a618c8ee,RoMPak0.FPK
+art/units/unique/dutch/crossbowman_holland/french_musketeer_128.dds,1,DXT3,128,128,8,21872,05dd2c1e9903adc58b4b689d6d6710babdcd6f0e,RoMPak1.FPK
+art/units/unique/byzantium/crossbowman_byzantine/companion_cavalry_128_gloss.dds,1,DXT3,128,128,8,21872,58b5102d23ef765dd0af7ef956b91e2f765f5d9d,RoMPak1.FPK
+art/units/unique/byzantium/crossbowman_byzantine/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,RoMPak0.FPK
+art/units/unique/byzantium/crossbowman_byzantine/lightcavalry_128.dds,1,DXT3,128,128,8,21872,3bd94f17192e1b90b5cb536f8b2b2429f4f3c074,RoMPak1.FPK
+art/units/unique/byzantium/crossbowman_byzantine/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak0.FPK
+art/units/unique/byzantium/crossbowman_byzantine/lightcavalry_128_gloss.dds,1,DXT3,128,128,8,21872,f252d2ec190dc1985ac017e63f9b8b3412735400,RoMPak1.FPK
+art/units/unique/byzantium/crossbowman_byzantine/companion_cavalry_128.dds,1,DXT3,128,128,8,21872,99cebad15634cbe8b9891e22659043996c93f7c3,RoMPak1.FPK
+art/units/unique/roman/crossbowman_rome/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,RoMPak0.FPK
+art/units/unique/roman/crossbowman_rome/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak1.FPK
+art/units/unique/roman/crossbowman_rome/praetorian_128.dds,1,DXT3,128,128,8,21872,86b77ea9de1efd7b455350d58f6394b1748602b2,RoMPak1.FPK
+art/units/unique/carthage/crossbowman_carthage/greek_phalanx_gloss_128.dds,1,DXT3,128,128,8,21872,9321413721cb6aa8a17f0925a3a8ca2891802e4b,RoMPak0.FPK
+art/units/unique/carthage/crossbowman_carthage/greek_phalanx_128.dds,1,DXT3,128,128,8,21872,e0eae3426910547879d20ca2c9ae8707c4d14d55,RoMPak1.FPK
+art/units/unique/carthage/crossbowman_carthage/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,RoMPak0.FPK
+art/units/unique/carthage/crossbowman_carthage/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak1.FPK
+art/units/unique/viking/viking crossbowman/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak1.FPK
+art/units/edunits/meso crossbowman/maceman_128_gloss.dds,1,DXT3,128,128,8,21872,a2423e932161634e722fdf91b2f22d416c9bd5b8,RoMPak0.FPK
+art/units/edunits/meso crossbowman/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,RoMPak1.FPK
+art/units/edunits/meso crossbowman/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak1.FPK
+art/units/edunits/meso crossbowman/maceman_128.dds,1,DXT3,128,128,6,21872,d16e4496b0ef568362e0d4ab793fd942b298deb5,RoMPak1.FPK
+art/units/unique/babylon/crossbowman_babylon/spearman_128.dds,1,DXT3,128,128,8,21872,d8ff7894f193b50785050a607492a556e8d5a020,RoMPak1.FPK
+art/units/unique/babylon/crossbowman_babylon/babybeard.dds,1,DXT3,128,128,8,21872,5fa6b1c13c27d25ff0079f7d8e97f38b1002097e,RoMPak0.FPK
+art/units/unique/babylon/crossbowman_babylon/crossbowman_128.dds,1,DXT3,128,128,8,21872,67df44a876c2cd29bbbaacc832770d49903adbd1,RoMPak0.FPK
+art/units/unique/babylon/crossbowman_babylon/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak1.FPK
+art/units/unique/babylon/crossbowman_babylon/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,317828054e28d12d12ca51e4ab272b24ca11132d,RoMPak0.FPK
+art/units/edunits/crossbowman_african/crossbowman_128_gloss.dds,1,DXT3,128,128,8,21872,8b002f98e1bbc8190fbebd7de5cf806ca58d202c,RoMPak0.FPK
+art/units/unique/carthage/spearman_carthage/greek_phalanx_gloss_128.dds,1,DXT3,128,128,8,21872,134302cd665577402b55b76e3fd0eb48674ee2e7,RoMPak0.FPK
+art/units/unique/carthage/spearman_carthage/greek_phalanx_128.dds,1,DXT3,128,128,8,21872,0072e5a65d4a48c13ac44e855506348c412f6d46,RoMPak0.FPK
+art/units/unique/roman/spearman_rome/spearman_128.dds,1,DXT3,128,128,8,21872,fefb4e3a7040cca46165c6dab3c69c0b4db51676,RoMPak0.FPK
+art/units/unique/roman/spearman_rome/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,49493deba8c572f59c374610b9bcea269783b6d6,RoMPak1.FPK
+modules/custom artstyles/american/units/spearman/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,1b04aec41b5d7f649551ecbb84bafc834d600ad1,loose
+modules/custom artstyles/american/units/spearman/heavyspearman_128.dds,1,DXT3,128,128,8,21872,de9bd470ac2428fb2868faf1418307279ddd291a,loose
+modules/custom artstyles/india/indian_pikeman/india_fast_worker_128.dds,1,DXT3,128,128,8,21872,41198747f1f18ea29f806492bf7ddfd58db153ec,loose
+modules/custom artstyles/india/indian_pikeman/halberdec.dds,1,DXT5,128,128,8,21872,316ea9ecf3cc4c2966417ac9a3776fa241c55db4,loose
+art/units/unique/byzantium/pikeman_byzantine/mountedinfantry_128.dds,1,DXT3,128,128,8,21872,594289a02cec2eb9742399a0b196cab287070991,RoMPak1.FPK
+art/units/unique/byzantium/pikeman_byzantine/heavyswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,9b15dd233ad0a4fa3b8dded08575e3bd0e49a402,RoMPak1.FPK
+art/units/unique/byzantium/pikeman_byzantine/longbowman_gloss.dds,1,DXT3,128,128,8,21872,f6cddb1a88c5e04cb94381a84ad2f330d5533117,RoMPak1.FPK
+art/units/unique/byzantium/pikeman_byzantine/heavyswordsman_128.dds,1,DXT3,128,128,8,21872,77ebd3ee09c96db933f20e12140ada4452c91425,RoMPak1.FPK
+art/units/unique/byzantium/pikeman_byzantine/knight_templar_weapons_64.dds,1,DXT3,128,128,8,21872,d853d50dd619369bf56e65c4490e407d9a3da84f,RoMPak1.FPK
+art/units/unique/byzantium/pikeman_byzantine/mountedinfantry_128_gloss.dds,1,DXT3,128,128,8,21872,f358b44a8187a867753c1b1f7e9b92b16bf5cd84,RoMPak0.FPK
+art/units/unique/byzantium/pikeman_byzantine/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,485dc15b589f900c2d669ffde5b0ae465ce257b6,RoMPak0.FPK
+art/units/unique/byzantium/pikeman_byzantine/longbowman_128.dds,1,DXT3,128,128,8,21872,57c2584a7c4b1d7b7ce3f025fc31805e809a6991,RoMPak1.FPK
+art/units/unique/byzantium/pikeman_byzantine/lightcavalry_128_gloss.dds,1,DXT3,128,128,8,21872,25e5971f6d2f434e1a344d9983c5264fc53a1f69,RoMPak0.FPK
+art/units/unique/byzantium/pikeman_byzantine/heavyspearman_128.dds,1,DXT3,128,128,8,21872,5b0484a7d159458a5e7bc7e18f4b8162d8110a3a,RoMPak0.FPK
+art/units/unique/native america/native american spearman/spearman_weapon.dds,1,DXT3,128,128,8,21872,2e5fdde4f85b581844405304e0f30bbf9ee33c64,RoMPak1.FPK
+art/units/unique/native america/native american spearman/scout_128_gloss.dds,1,DXT3,128,128,8,21872,67a91f46b8b916c6075fd78b403ff1c83d59414f,RoMPak1.FPK
+art/units/unique/native america/native american spearman/scout_128.dds,1,DXT3,128,128,8,21872,d88cf0f347536a614b13b6ab1010c412ef2e7637,RoMPak0.FPK
+art/units/unique/native america/native american spearman/zulu_impi.dds,1,DXT3,128,128,8,21872,666d621538d4d12d3b321cab14c3c60d529e84ac,RoMPak1.FPK
+art/units/unique/dutch/spearman_holland/spearman_128.dds,1,DXT3,128,128,8,21872,8892fcf55d7e043ebbd62a5dc24f242b286ae3a2,RoMPak0.FPK
+art/units/unique/dutch/spearman_holland/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,485dc15b589f900c2d669ffde5b0ae465ce257b6,RoMPak1.FPK
+art/units/unique/dutch/spearman_holland/great_artist_128.dds,1,DXT3,128,128,8,21872,f7cfb9ce71163ef01450622d25b358343efa1212,RoMPak1.FPK
+art/units/unique/dutch/spearman_holland/cuirassier_rider_128.dds,1,DXT3,128,128,8,21872,63a4d7a024cfe34378c9876cc01f9fa04abeac42,RoMPak0.FPK
+art/units/unique/dutch/spearman_holland/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,9f034ffa7a0ef6a9f40896c6af3cb0c96aca4a04,RoMPak0.FPK
+art/units/unique/dutch/spearman_holland/french_musketeer_128.dds,1,DXT3,128,128,8,21872,05dd2c1e9903adc58b4b689d6d6710babdcd6f0e,RoMPak1.FPK
+art/units/unique/dutch/spearman_holland/heavyspearman_128.dds,1,DXT3,128,128,8,21872,5b0484a7d159458a5e7bc7e18f4b8162d8110a3a,RoMPak1.FPK
+art/units/unique/babylon/pikeman_babylon/spearman_128.dds,1,DXT3,128,128,8,21872,bc178a84cc2abce25c4bf4902ff173b5d449ecfd,RoMPak1.FPK
+art/units/unique/babylon/pikeman_babylon/unique_babylon_bowman_128_gloss.dds,1,DXT3,128,128,8,21872,fc8daae3be56457a33995cfe7e5e3b07ce257cc8,RoMPak0.FPK
+art/units/unique/babylon/pikeman_babylon/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,317828054e28d12d12ca51e4ab272b24ca11132d,RoMPak0.FPK
+art/units/unique/babylon/pikeman_babylon/unique_babylon_bowman_128.dds,1,DXT3,128,128,8,21872,14b75b7506bf77469c3f98728de56dbc243c23af,RoMPak0.FPK
+art/units/unique/china/pikeman_china/buddhist_missionary_128.dds,1,DXT3,128,128,8,21872,d7b4d24aa38f55b48505f4a12622ff92beab56b2,RoMPak1.FPK
+art/units/unique/china/pikeman_china/chinese_swordsman128.dds,1,DXT3,128,128,8,21872,d6259ec6240836f95a2f7eb574bfaf5cb8fccdc1,RoMPak1.FPK
+art/units/unique/china/pikeman_china/ethiopianoromowarrior_blue128.dds,1,DXT3,128,128,8,21872,bf9ade418242535b3baeda83c60b91010a53ff84,RoMPak1.FPK
+art/units/unique/china/pikeman_china/chinese_spearman_128.dds,1,DXT3,128,128,8,21872,831358f6e6a9fcfb983467a333987fce1707c568,RoMPak1.FPK
+art/units/unique/china/pikeman_china/chinese_swordsman128_gloss.dds,1,DXT3,128,128,8,21872,62997e55b1c08158999445f7d67d5025284f9d2b,RoMPak1.FPK
+art/units/unique/china/pikeman_china/warrior_128.dds,1,DXT3,128,128,8,21872,010dc43a74e8c6465e93a96c5a208e084357f9fd,RoMPak1.FPK
+art/units/unique/china/pikeman_china/chokonu_128_gloss.dds,1,DXT3,128,128,8,21872,f4c321caaf6af0af8d66bc43f535159c96c6eb57,RoMPak1.FPK
+art/units/unique/china/pikeman_china/ethiopianoromowarrior_bluegloss.dds,1,DXT3,128,128,8,21872,aa7ffbdfbc1e87700326835e9fd0211563b4b6d1,RoMPak0.FPK
+art/units/unique/viking/viking spearman/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,485dc15b589f900c2d669ffde5b0ae465ce257b6,RoMPak0.FPK
+art/units/unique/viking/viking spearman/heavyspearman_128.dds,1,DXT3,128,128,8,21872,5b0484a7d159458a5e7bc7e18f4b8162d8110a3a,RoMPak1.FPK
+art/units/unique/dutch/maceman_holland/explorer_128.dds,1,DXT3,128,128,8,21872,e59e245ed8f5f17dd87cdfd088af52e393560845,RoMPak1.FPK
+art/units/unique/dutch/maceman_holland/holyromanlandsknecht_128.dds,1,DXT3,128,128,8,21872,55b37c1681261906055367e0c81a2e8dfbcb618d,RoMPak1.FPK
+art/units/unique/dutch/maceman_holland/explorer_gloss_128.dds,1,DXT3,128,128,8,21872,7146e6baad17e01f60e7b481a30a2b6062ab4809,RoMPak0.FPK
+art/units/unique/dutch/maceman_holland/pikeman_128.dds,1,DXT3,128,128,8,21872,37379ae6a545c1292fe535f94a75e46f27540ee8,RoMPak1.FPK
+art/units/unique/dutch/maceman_holland/cuirassier_rider_128.dds,1,DXT3,128,128,8,21872,b986b4a9c84c9acb118bba70bce4c458ab0bb8a2,RoMPak1.FPK
+art/units/unique/dutch/maceman_holland/cuirassier_rider_gloss_128.dds,1,DXT3,128,128,8,21872,4dfc9d375bb9244d44653a428af2493ccc2dea09,RoMPak1.FPK
+modules/custom artstyles/japan/units/maceman_japan/samurai_gloss_128.dds,1,DXT5,128,128,8,21872,88de06272a261cbec1a2719e624e0f97cfdbdecf,loose
+modules/custom artstyles/japan/units/maceman_japan/poleflags.dds,1,DXT3,128,128,8,21872,994d1957d0f50d8330707d663864ee9d89645d56,loose
+modules/custom artstyles/japan/units/maceman_japan/samurai_128_2.dds,1,DXT3,128,128,8,21872,bae568673b0ae967a344dce5dfee69abf84d0477,loose
+modules/custom artstyles/japan/units/maceman_japan/samurai_128.dds,1,DXT3,128,128,8,21872,de3e8cdf73c3d4f462593860d9cbd8c25198a36c,loose
+art/units/unique/roman/heavy_swordsman_rome/praetorian_128.dds,1,DXT3,128,128,8,21872,86b77ea9de1efd7b455350d58f6394b1748602b2,RoMPak1.FPK
+modules/custom artstyles/american/units/heavy swordsman/hammer_pad.dds,1,DXT3,128,128,8,21872,aff5caabe79c25d03e51d51e9afc1cf533a48c2e,loose
+modules/custom artstyles/american/units/heavy swordsman/heavycavalry_128_gloss.dds,1,DXT3,128,128,8,21872,c90eaa239d29ceaf491a7c2ef086f3947b3c7c07,loose
+modules/custom artstyles/american/units/heavy swordsman/hammer_pad_gloss.dds,1,DXT3,128,128,8,21872,703094596b44806a43dc75a9610f45dc4f9b4069,loose
+art/units/ethiopian heavyfootman/ethiopianoromowarrior_orange128.dds,1,DXT3,128,128,6,21872,491055920a10d2e9443cdfb38cbe14c35302727e,RoMPak1.FPK
+art/units/ethiopian heavyfootman/ethiowarriorhead.dds,1,DXT3,128,128,6,21872,d28a161c1c2d39343b58e2fa8fd85997e24fc491,RoMPak1.FPK
+art/units/ethiopian heavyfootman/shotelsx.dds,1,DXT3,128,128,6,21872,bec1fa00af607cf74e904fb46d6a0c77879d1f04,RoMPak0.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/unique_babylon_bowman_128_gloss.dds,1,DXT3,128,128,8,21872,bb8ab604aa6390e915a214541f85c537721a521a,RoMPak1.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/heavyswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,940ed133fad31cacbdcdb4dafa5881b864314a60,loose
+art/units/unique/arabia/heavy_swordsman_arabia/scimitar.dds,1,DXT3,128,128,8,21872,2178b89761fbdf0481b58cd8785cc6731450e161,RoMPak1.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/ethiopianoromowarrior_blue128.dds,1,DXT3,128,128,8,21872,3e58f3a4f3975401c70caa79fc12e80188c9c5dd,RoMPak1.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/unique_babylon_bowman_128.dds,1,DXT3,128,128,8,21872,3a71d46afed3a41b38094c9effea54cb09290f16,RoMPak0.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/crescent_shield.dds,1,DXT3,128,128,8,21872,8139f236f84a476c8441c553b0c8d3191d8f79eb,RoMPak0.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/heavyswordsman_128.dds,1,DXT3,128,128,8,21872,ba24d392c10e1f35598ae6f60cad0e6ab78f8194,loose
+art/units/unique/arabia/heavy_swordsman_arabia/ethiopianoromowarrior_bluegloss.dds,1,DXT3,128,128,8,21872,5527d6d09a03ca6dc42c3325c5f8a100034df338,RoMPak1.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/companion_cavalry_128_gloss.dds,1,DXT3,128,128,8,21872,58b5102d23ef765dd0af7ef956b91e2f765f5d9d,RoMPak1.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/mountedinfantry_128_gloss.dds,1,DXT3,128,128,8,21872,f358b44a8187a867753c1b1f7e9b92b16bf5cd84,RoMPak1.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/companion_cavalry_128.dds,1,DXT3,128,128,8,21872,99cebad15634cbe8b9891e22659043996c93f7c3,RoMPak0.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/longbowman_gloss.dds,1,DXT3,128,128,8,21872,f6cddb1a88c5e04cb94381a84ad2f330d5533117,RoMPak1.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/mountedinfantry_128.dds,1,DXT3,128,128,8,21872,594289a02cec2eb9742399a0b196cab287070991,RoMPak1.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/longbowman_128.dds,1,DXT3,128,128,8,21872,f3f810afe431943c8d482b17d66d1d2528865f5f,RoMPak1.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/spearman_128.dds,1,DXT3,128,128,8,21872,d8ff7894f193b50785050a607492a556e8d5a020,RoMPak1.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/unique_babylon_bowman_128_gloss.dds,1,DXT3,128,128,8,21872,fc8daae3be56457a33995cfe7e5e3b07ce257cc8,RoMPak0.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/heavyswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,940ed133fad31cacbdcdb4dafa5881b864314a60,RoMPak1.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/scimitar.dds,1,DXT3,128,128,8,21872,2178b89761fbdf0481b58cd8785cc6731450e161,RoMPak1.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/ewc_spearman_gloss.dds,1,DXT3,128,128,8,21872,f0e9004ebef3d2656f7708b6e7c2fa66f47e16ce,RoMPak1.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/heavyswordsman_128.dds,1,DXT3,128,128,8,21872,ba24d392c10e1f35598ae6f60cad0e6ab78f8194,RoMPak1.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,317828054e28d12d12ca51e4ab272b24ca11132d,RoMPak0.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/unique_babylon_bowman_128.dds,1,DXT3,128,128,8,21872,14b75b7506bf77469c3f98728de56dbc243c23af,RoMPak1.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/ewc_spearman_128.dds,1,DXT3,128,128,8,21872,cc147082739a1e15b16fcdc659ce82661d6748f1,RoMPak1.FPK
+art/units/unique/china/axeman_china/chinese_spearman_128.dds,1,DXT3,128,128,8,21872,831358f6e6a9fcfb983467a333987fce1707c568,RoMPak1.FPK
+art/units/unique/china/axeman_china/halberdec.dds,1,DXT5,128,128,8,21872,d61532f39fb68200ef7a4a50e7cff31c5ef52f6e,RoMPak0.FPK
+art/units/unique/england/longbowman/longbowman_128.dds,1,DXT3,128,128,8,21872,7eddc95b6601248e4e526aa9fed17b255fc813a0,RoMPak1.FPK
+art/units/unique/england/longbowman/longbowman.dds,1,DXT3,128,128,8,21872,6f68ff631f4843d5fe79381ea304cf44b15ce7bc,RoMPak0.FPK
+modules/custom artstyles/barbarian/units/axeman/wings_sword.dds,2,DXT5,128,128,8,21872,b5653b4929feb6ca6503da4998fb763d24b1acad,loose
+modules/custom artstyles/barbarian/units/spearman/incense.dds,2,DXT3,128,128,6,21872,045ceb655566911fdafb899b26f9d72a797fba3d,loose
+modules/custom artstyles/barbarian/units/spearman/greek_phalanx_128.dds,2,DXT3,128,128,6,21872,d500f8134e1d6ac272f8dcb4c6ef221c4803de46,loose
+modules/custom artstyles/barbarian/units/spearman/roundshield.dds,2,DXT3,128,128,6,21872,d191bf04021c0e200f77dac16bdf3886215e8c1c,loose
+modules/custom artstyles/barbarian/units/spearman/infantry_128.dds,2,DXT3,128,128,6,21872,3b2d42dc3b40ab68905857f86f6fcc77354e0e7b,loose
+modules/custom artstyles/barbarian/units/spearman/pikeman_128.dds,2,DXT3,128,128,8,21872,37379ae6a545c1292fe535f94a75e46f27540ee8,loose
+art/units/edunits/spyancient_african/camelarcher_archer_128.dds,1,DXT3,128,128,6,21872,26a8d505819b28756bcdae72d05d4a43f804889d,RoMPak0.FPK
+art/units/edunits/spyancient_african/skirmisherwithincahat_128.dds,1,DXT5,128,128,6,21872,1fe757af38ebd6db7a59d101a669d9e3deccc1a1,RoMPak1.FPK
+art/units/edunits/spy_african/spy_128_gloss.dds,1,DXT3,128,128,8,21872,e2f0080714b2626b572538ee1078f575d2f16660,RoMPak0.FPK
+art/units/edunits/spy_african/great_spy_modern_diff.dds,1,DXT3,128,128,8,21872,7862f01d8bf2da1b661f28ce0f6cc5ad4abb7517,RoMPak0.FPK
+art/units/unique/viking/viking knight/rohanhorse_128_gloss.dds,1,DXT3,128,128,8,21872,015338d1ae1c9aea374c05cafdec8ac6a3a690cf,RoMPak0.FPK
+art/units/unique/viking/viking knight/rohanshield_gloss.dds,1,DXT3,128,128,6,21872,54fe037ab87331c9dbbbc32f0ec7cb7142f53eeb,RoMPak0.FPK
+art/units/unique/babylon/knight_babylon/spearman_128.dds,1,DXT3,128,128,8,21872,0c8a84fba7d1f023209be62d555876b1683ac734,RoMPak1.FPK
+art/units/unique/babylon/knight_babylon/babybeard.dds,1,DXT3,128,128,8,21872,5fa6b1c13c27d25ff0079f7d8e97f38b1002097e,RoMPak1.FPK
+art/units/unique/babylon/knight_babylon/companion_cavalry_horse_gloss.dds,1,DXT3,128,128,8,21872,cded6922f85efd3533c3be2e2434da847e2af76a,RoMPak0.FPK
+art/units/unique/babylon/knight_babylon/unique_babylon_bowman_128_gloss.dds,1,DXT3,128,128,8,21872,fc8daae3be56457a33995cfe7e5e3b07ce257cc8,RoMPak0.FPK
+art/units/unique/babylon/knight_babylon/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,155c3ff0e826867c59c38bab2a090f10dfffceb5,RoMPak1.FPK
+art/units/unique/babylon/knight_babylon/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,485dc15b589f900c2d669ffde5b0ae465ce257b6,RoMPak1.FPK
+art/units/unique/babylon/knight_babylon/unique_babylon_bowman_128.dds,1,DXT3,128,128,8,21872,14b75b7506bf77469c3f98728de56dbc243c23af,RoMPak1.FPK
+art/units/unique/babylon/knight_babylon/heavyspearman_128.dds,1,DXT3,128,128,8,21872,529f93209930ee091635e11b958f1ce1baebbd4f,RoMPak0.FPK
+modules/custom artstyles/india/indkn/spearman_128.dds,1,DXT3,128,128,8,21872,4241e51bd11e838db06145acfb23ec703faf217f,loose
+modules/custom artstyles/india/indkn/warelephant_driver_128.dds,1,DXT3,128,128,8,21872,d589132707e555ba319edac3bc3dc090a4056ff9,loose
+modules/custom artstyles/india/indkn/mongol_horse_128.dds,1,DXT3,128,128,8,21872,014a0970de725747bb49ec30a8acbfc0a27f12e8,loose
+art/units/unique/native america/sioux knight/roundshield.dds,1,DXT3,128,128,8,21872,109b2a475d789eb43a93e5d41160f9358adf9bf6,RoMPak1.FPK
+art/units/unique/native america/sioux knight/scout_128.dds,1,DXT3,128,128,8,21872,e20c806c6ea46d36b1e6dfdbb3d036b533d48381,RoMPak1.FPK
+art/units/unique/native america/sioux knight/spearman_weapon.dds,1,DXT3,128,128,8,21872,2e5fdde4f85b581844405304e0f30bbf9ee33c64,RoMPak1.FPK
+art/units/unique/native america/sioux knight/zulu_impi_gloss.dds,1,DXT3,128,128,8,21872,c7e9dea1228b91d450a3f2dd427d2b0155acf5db,RoMPak0.FPK
+art/units/unique/native america/sioux knight/eagle_feathers.dds,1,DXT3,128,128,8,21872,c3df0a7f54501f591e06ec81f3ee20a6a34ba25b,RoMPak1.FPK
+art/units/unique/native america/sioux knight/mongol_horse_128.dds,1,DXT3,128,128,8,21872,d8ee9af03bf93e969e339ad929a3973e15b5da5a,RoMPak0.FPK
+art/units/unique/native america/sioux knight/zulu_impi.dds,1,DXT3,128,128,8,21872,487e97e3ad31838e401303eb07c12d72cd72e552,RoMPak0.FPK
+art/units/unique/native america/sioux knight/byzantinecataphract_rider_128.dds,1,DXT3,128,128,8,21872,2ff4b81816422add76c2b11f237fe77956e70cc9,RoMPak0.FPK
+art/units/unique/native america/sioux knight/scout_128_gloss.dds,1,DXT3,128,128,8,21872,40842caefea50c4aa0c687c3c28e7cdf14a73a25,RoMPak1.FPK
+art/units/unique/carthage/knight_carthage/swordsman_gloss.dds,1,DXT3,128,128,8,21872,829d548adf4b5cf48479b46a41b2c0f61ee15fdc,RoMPak1.FPK
+art/units/unique/carthage/knight_carthage/greek_phalanx_gloss_128.dds,1,DXT3,128,128,8,21872,9321413721cb6aa8a17f0925a3a8ca2891802e4b,RoMPak0.FPK
+art/units/unique/carthage/knight_carthage/greek_phalanx_128.dds,1,DXT3,128,128,8,21872,e0eae3426910547879d20ca2c9ae8707c4d14d55,RoMPak1.FPK
+art/units/unique/carthage/knight_carthage/companion_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,5fe310c971fa5e059bbf63b9aca06e36459d2080,RoMPak0.FPK
+art/units/africa/african knight/camelarcher_archer_128.dds,1,DXT3,128,128,8,21872,1140b5909ca1f5fbc6a9f3289bf85be233ac0dc2,RoMPak1.FPK
+art/units/africa/african knight/mongol_horse_128.dds,1,DXT3,128,128,6,21872,184b94a2df2b91619cfcd20642d017a94ebab3c8,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/conquistador-horse-gloss.dds,1,DXT3,128,128,8,21872,ca970e3050e14180038ebdfe364c07e7ecc5f637,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/cuirassier_rider_gloss_128.dds,1,DXT3,128,128,8,21872,4dfc9d375bb9244d44653a428af2493ccc2dea09,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/conquistador_horse_128.dds,1,DXT3,128,128,8,21872,e2626dad4c61b90294ff7eb6e7b3669d05344a06,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/cuirassier_rider_128.dds,1,DXT3,128,128,8,21872,b986b4a9c84c9acb118bba70bce4c458ab0bb8a2,RoMPak0.FPK
+art/units/unique/dutch/knight_holland/holyromanlandsknecht_128.dds,1,DXT3,128,128,8,21872,55b37c1681261906055367e0c81a2e8dfbcb618d,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/pikeman_128.dds,1,DXT3,128,128,8,21872,37379ae6a545c1292fe535f94a75e46f27540ee8,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/conquistador-gloss.dds,1,DXT3,128,128,8,21872,5f46cf3b33aa885b846e887f43b5607d5e4f71de,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/conquistador_128.dds,1,DXT3,128,128,8,21872,e59e245ed8f5f17dd87cdfd088af52e393560845,RoMPak1.FPK
+art/units/unique/arabia/axeman_arabia/ethiopianoromowarrior_blue128.dds,1,DXT3,128,128,8,21872,2a99a59954f88a836446c26cdeaad8029b68608f,RoMPak1.FPK
+art/units/unique/arabia/axeman_arabia/camelarcher_archer_128.dds,1,DXT3,128,128,8,21872,e7c71b980a2d37a089ec2683f5e0f0062c071414,RoMPak1.FPK
+art/units/unique/arabia/axeman_arabia/ethiopianoromowarrior_bluegloss.dds,1,DXT3,128,128,8,21872,5d55d7e46c5e02d2256b5a12e4ff180fa69708db,RoMPak1.FPK
+art/units/unique/arabia/axeman_arabia/camelarcher_archer_gloss.dds,1,DXT3,128,128,8,21872,5488650027f141d31afe8787cc6843e2d436cfed,RoMPak0.FPK
+modules/custom artstyles/american/units/axeman/warrior_128.dds,1,DXT3,128,128,8,21872,cf7ee475d8a1c11cee889473db977e3a3ca4af98,loose
+modules/custom artstyles/american/units/axeman/axeman_128.dds,1,DXT3,128,128,8,21872,1782ad633f013bc9917846de41be1ab5803f9986,loose
+modules/custom artstyles/american/units/axeman/axeman_gloss.dds,1,DXT3,128,128,8,21872,8e1346491fd939840f0abca77aabb69092e26a6c,loose
+modules/custom artstyles/american/units/axeman/lightswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,40521825e9b58a01be9f493e33b126913bef2d83,loose
+modules/custom artstyles/japan/units/axeman_japan/great_spy_ancient_diff.dds,1,DXT3,128,128,8,21872,1cd6446a92a7539987447c532344747eb54acc42,loose
+modules/custom artstyles/japan/units/axeman_japan/samurai_128.dds,1,DXT3,128,128,8,21872,56f0bd8b57460b9b92b76f54e72fb356ab040f2e,loose
+art/units/unique/roman/axeman_rome/praetorian_128.dds,1,DXT3,128,128,8,21872,1e37564a0029f9c357b0e009f778de35ede817d5,RoMPak1.FPK
+art/units/edunits/axeman_african/berseker_gloss.dds,1,DXT3,128,128,8,21872,2435a6a2138d7e7eb370ee178442a1c4e7bc4132,RoMPak0.FPK
+modules/custom artstyles/india/indax/india_fast_worker_128.dds,1,DXT3,128,128,8,21872,0deb9deabefb6a5122ed8072d4f07b1553476ae4,loose
+modules/custom artstyles/india/indax/axeman_128.dds,1,DXT3,128,128,8,21872,2f9b804d5e989e6c9dab4bcba133cd2d75720b21,loose
+art/units/unique/byzantium/axeman_byzantine/mountedinfantry_128.dds,1,DXT3,128,128,8,21872,594289a02cec2eb9742399a0b196cab287070991,RoMPak0.FPK
+art/units/unique/byzantium/axeman_byzantine/heavyswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,9b15dd233ad0a4fa3b8dded08575e3bd0e49a402,RoMPak1.FPK
+art/units/unique/byzantium/axeman_byzantine/longbowman_gloss.dds,1,DXT3,128,128,8,21872,f6cddb1a88c5e04cb94381a84ad2f330d5533117,RoMPak0.FPK
+art/units/unique/byzantium/axeman_byzantine/axeman_128.dds,1,DXT3,128,128,8,21872,1782ad633f013bc9917846de41be1ab5803f9986,RoMPak0.FPK
+art/units/unique/byzantium/axeman_byzantine/axeman_gloss.dds,1,DXT3,128,128,8,21872,8e1346491fd939840f0abca77aabb69092e26a6c,RoMPak0.FPK
+art/units/unique/byzantium/axeman_byzantine/heavyswordsman_128.dds,1,DXT3,128,128,8,21872,77ebd3ee09c96db933f20e12140ada4452c91425,RoMPak1.FPK
+art/units/unique/byzantium/axeman_byzantine/mountedinfantry_128_gloss.dds,1,DXT3,128,128,8,21872,f358b44a8187a867753c1b1f7e9b92b16bf5cd84,RoMPak0.FPK
+art/units/unique/byzantium/axeman_byzantine/longbowman_128.dds,1,DXT3,128,128,8,21872,57c2584a7c4b1d7b7ce3f025fc31805e809a6991,RoMPak1.FPK
+art/units/unique/carthage/axeman_carthage/greek_phalanx_gloss_128.dds,1,DXT3,128,128,8,21872,9321413721cb6aa8a17f0925a3a8ca2891802e4b,RoMPak1.FPK
+art/units/unique/carthage/axeman_carthage/greek_phalanx_128.dds,1,DXT3,128,128,8,21872,e0eae3426910547879d20ca2c9ae8707c4d14d55,RoMPak1.FPK
+art/units/edunits/explorer_african/explorer_128.dds,1,DXT3,128,128,8,21872,87caae62a58983bdf6fbc520771cae1d43060a97,RoMPak1.FPK
+art/units/edunits/explorer_african/companion_cavalry_128.dds,1,DXT5,128,128,6,21872,14bdb16ce1e37c63062afb488c670d8e90acf60c,RoMPak1.FPK
+art/units/asian explorer/samurai_128.dds,1,DXT3,128,128,8,21872,56f0bd8b57460b9b92b76f54e72fb356ab040f2e,RoMPak0.FPK
+art/units/animals/dog/wolf.dds,2,DXT3,128,128,8,21872,0076089a9e015a4f786cdf0007cb5542c8d84c01,RoMPak0.FPK
+art/units/edunits/meso light spearman/scout_128.dds,1,DXT3,128,128,6,21872,ff0118274607c210185f21cafe43abb24918910d,RoMPak0.FPK
+art/units/edunits/meso light spearman/zulu_impi.dds,1,DXT3,128,128,8,21872,f0c598310a8d102da4f40abb3829e7dbbe847d65,RoMPak1.FPK
+art/units/edunits/spearman_african/spearman_128.dds,1,DXT3,128,128,8,21872,9d16ab63d08de1ea6ad37ca9b9139e9be07ec83a,RoMPak0.FPK
+art/units/edunits/spearman_african/ewc_spearman_128.dds,1,DXT3,128,128,8,21872,174b3f79aedbf0e3fd36809b25efc20781a5ca64,RoMPak0.FPK
+art/units/edunits/spearman_african/archer_128.dds,1,DXT3,128,128,8,21872,2e78641e1c342ad93a4e4f301d2923c5462e5816,RoMPak1.FPK
+art/units/edunits/spearman_african/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,fbf563b07f89458d2d59b01f71789e2a40744456,RoMPak1.FPK
+art/units/greatleader_sioux/ancient/sitting_bull_nonshader.dds,1,DXT3,128,128,8,21872,742afe2af9c2aa1dae5582b13143dc767878564e,loose
+modules/custom units/warlord/warlord_greco_roman/modern_warlord128.dds,1,DXT3,128,128,8,21872,ff3ae0c38cc02cb41e0dbe98f25193c2a40c801e,loose
+modules/custom units/warlord/warlord_asian/modern_warlord128.dds,1,DXT3,128,128,8,21872,c52a7d9dedef9bbabb52aa236cc62c659157699d,loose
+modules/custom units/warlord/warlord_european/modern_warlord128.dds,1,DXT3,128,128,8,21872,202622c6849e2189e81b1f90688aea7e11873a36,loose
+art/units/ships/wargalley/galley_128.dds,1,DXT3,128,128,8,21872,7ad184ac9bda2c8fab32f46d654ed53d0749ba5c,RoMPak1.FPK
+art/units/animals/donkey/persian_immortal_horse_128.dds,1,DXT3,128,128,8,21872,0f58c8773468a24a9410499c700f16516f9d47dd,RoMPak1.FPK
+art/units/edunits/settler_african/skirmisher_128.dds,1,DXT3,128,128,8,21872,605d3facab8a3d85ba812df50d3743bc1e6b12ba,RoMPak1.FPK
+art/units/edunits/settler_african/scout_128.dds,1,DXT3,128,128,8,21872,3fb025dcc98eb1f6656c3bfe0f1de071cf168267,RoMPak0.FPK
+art/units/edunits/settler_african/settler_child_128.dds,1,DXT3,128,128,8,21872,0c8d8523b4d751d2006ebae69b6b6dac55a57739,RoMPak0.FPK
+art/units/edunits/settler_african/settler_female_128.dds,1,DXT3,128,128,8,21872,edf0c9dfc369f7bf2573a92bea4b7252e4c12d9c,RoMPak1.FPK
+modules/custom artstyles/india/indian_settler/settler_male_128.dds,1,DXT3,128,128,8,21872,e262ed82d48f9632d89f1e3304eb300809474835,loose
+modules/custom artstyles/india/indian_settler/settler_female_128.dds,1,DXT3,128,128,8,21872,a2b3eef6b38222557fdd779999672d0179e7e9f2,loose
+art/units/edunits/settler_african/settler_male_128.dds,1,DXT3,128,128,8,21872,75f4ec0386cfd914ba9db91323b8d78a583d762d,RoMPak1.FPK
+modules/custom artstyles/india/indian_settler/india_fast_worker_128.dds,1,DXT3,128,128,8,21872,a3db852bc2a8e893667147ca419e25720f4e4771,loose
+art/units/animals/packcamel/camel_128_tc.dds,1,DXT3,128,128,8,21872,2f15af2b1526cf4811cde6113c26fa368a03271d,RoMPak0.FPK
+art/units/animals/packcamel/camel_128_a.dds,1,DXT3,128,128,8,21872,04f9b706da377f2283ea205012e21d88862259fa,RoMPak0.FPK
+art/units/spearman/sarissa_macedon2/macedonianphalanx_128_red.dds,1,DXT3,128,128,8,21872,e1f15b86e4e5ca161b117f555327b47c60145b04,loose
+art/units/spearman/sarissa_macedon2/macedoniansunburstshield_128.dds,1,DXT3,128,128,6,21872,950724359885c726b4678d7f1ccadd3bffd82d99,loose
+art/units/greek/silvershields/macedonianhypasistai_officer_128.dds,1,DXT3,128,128,6,21872,8395d6005b79dbac7c682c5f0ea13618ae038fc8,loose
+art/units/greek/silvershields/greeksunburstsilvershield.dds,1,DXT3,128,128,6,21872,53d0772d78af34c6f5355f73e402a84d30a29224,loose
+art/units/spearman/greekathenianphalanx/greekshieldathenians.dds,1,DXT3,128,128,6,21872,be453006b52a624ad3f47db8aa48591830716410,loose
+art/units/spearman/greekathenianphalanx/phalanxathenian_128.dds,1,DXT3,128,128,6,21872,d7b722d9bc01ebed49f28b17dccaf194535147a7,loose
+modules/custom artstyles/india/indian_scout/scout_128.dds,1,DXT3,128,128,8,21872,82d9b9e19f93e18b828d7e70e8c97372e4567232,loose
+art/units/edunits/scout_african/zulu_impi.dds,1,DXT3,128,128,8,21872,f0c598310a8d102da4f40abb3829e7dbbe847d65,RoMPak0.FPK
+art/units/edunits/scout_african/scout_128.dds,1,DXT3,128,128,8,21872,c25cd764a9140a646c8b13bb4f1cd8964e1c5e48,RoMPak1.FPK
+art/units/greatpeople_african/merchant/camel_128_tc.dds,1,DXT3,128,128,8,21872,2f15af2b1526cf4811cde6113c26fa368a03271d,loose
+art/units/greatpeople_african/merchant/camel_128_a.dds,1,DXT3,128,128,8,21872,04f9b706da377f2283ea205012e21d88862259fa,loose
+art/units/rome/velites/missionary_hindu_128.dds,1,DXT3,128,128,8,21872,d24211ee3063417930c812e06a3f115a636fb85e,loose
+art/units/rome/velites/swordsman_128.dds,1,DXT3,128,128,8,21872,a34c5e9c18adeafe57f6fc5862bfebf9e546e0dd,loose
+art/units/rome/velites/skirmisher_128.dds,1,DXT3,128,128,8,21872,381b2dfe7683f48f2e5956b5e515afc791017dff,loose
+art/units/rome/velites/great_engineer_128.dds,1,DXT3,128,128,8,21872,bc2781deb6320446b9d708b1e7a0c8d56f7ee159,loose
+art/units/siege/ballista/khmerballistacar_128.dds,1,DXT3,128,128,8,21872,87fd3749698bce2b0cfd5b3388b001387c6e04e5,loose
+art/units/rome/principesm/incense.dds,1,DXT3,128,128,8,21872,193337e9f7e15a87c63f7959d844dfcb4ccc3c5f,loose
+art/units/rome/principesm/principes_shield.dds,1,DXT3,128,128,8,21872,bc5a97dd9d91aaefd585e9564bee0ae878f15f16,loose
+modules/custom artstyles/japan/units/lightswordsman_japan/samurai_128_2.dds,1,DXT3,128,128,8,21872,bae568673b0ae967a344dce5dfee69abf84d0477,loose
+modules/custom artstyles/japan/units/lightswordsman_japan/great_spy_ancient_diff.dds,1,DXT3,128,128,8,21872,3d27efa06b4d7fa4fcd5f0ad5a3dcca618daf8d5,loose
+modules/custom artstyles/japan/units/lightswordsman_japan/samurai_128.dds,1,DXT3,128,128,8,21872,56f0bd8b57460b9b92b76f54e72fb356ab040f2e,loose
+art/units/edunits/swordsman_african/aztec_jaguar_128.dds,1,DXT3,128,128,8,21872,c5f4036282d84117a875f581961c0d0526dcedfd,RoMPak0.FPK
+art/units/unique/native america/iroquois swordsman/scout_128_gloss.dds,1,DXT3,128,128,8,21872,b69019e5fc89ae6ad15b3c11978f2908dd562ee8,RoMPak1.FPK
+art/units/unique/native america/iroquois swordsman/scout_128.dds,1,DXT3,128,128,8,21872,4a4198b25c689b92599b7f4d246b89b67c9b3007,RoMPak0.FPK
+art/units/unique/native america/iroquois swordsman/zulu_impi.dds,1,DXT3,128,128,8,21872,6441b90a33696bca6c6747f3a754d43e8d19b3bf,RoMPak1.FPK
+art/units/swordsman/swordsman_german/frankishswordsman_128.dds,1,DXT3,128,128,6,21872,9c126afd613a06bd18ac2d736c1547bfc49c6212,loose
+art/units/swordsman/swordsman_german/frankishshield5.dds,1,DXT3,128,128,6,21872,2fcf4d92fc51038e14e8e9a823ea3e151ce1f15f,loose
+art/units/specials/celtic heavy footman/celticheavyfootman_128.dds,1,DXT3,128,128,6,21872,e4475b07433e63249df6bbd962803fb48882224e,loose
+art/units/specials/celtic heavy footman/celticswordsmanshieldandcape4.dds,1,DXT3,128,128,6,21872,810b70b7258848042a81ecdb2c44fa4653014420,loose
+art/units/edunits/africanlight_horseman/companion_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,5fe310c971fa5e059bbf63b9aca06e36459d2080,RoMPak0.FPK
+art/units/edunits/africanlight_horseman/maceman_128_gloss.dds,1,DXT3,128,128,8,21872,a2423e932161634e722fdf91b2f22d416c9bd5b8,RoMPak0.FPK
+art/units/edunits/africanlight_horseman/maceman_128.dds,1,DXT3,128,128,6,21872,a5757e9d5661268443e1c2096506ed147fc5c6e9,RoMPak0.FPK
+art/units/edunits/africanlight_horseman/zulu_impi.dds,1,DXT3,128,128,8,21872,f0c598310a8d102da4f40abb3829e7dbbe847d65,RoMPak0.FPK
+art/units/edunits/africanlight_horseman/axeman_128.dds,1,DXT3,128,128,8,21872,1782ad633f013bc9917846de41be1ab5803f9986,RoMPak0.FPK
+art/units/unique/china/horseman_china/chinese_swordsman128.dds,1,DXT3,128,128,8,21872,edbf15e7857ba5dae4e88c24efdf73d22f9a4130,RoMPak1.FPK
+art/units/unique/china/horseman_china/chokonu_128.dds,1,DXT3,128,128,8,21872,b6ef37675b4ddae02ae500f8c2ee2ee09fa338e2,RoMPak1.FPK
+art/units/unique/china/horseman_china/knight-horse128.dds,1,DXT3,128,128,8,21872,2ab861ca6b2dc59df9578cd3e2dcb13c38f07042,RoMPak0.FPK
+art/units/unique/china/horseman_china/knight-horse-gloss-128.dds,1,DXT3,128,128,8,21872,9df5aada11b4dbc578d235a61ff123ad7d189b4d,RoMPak1.FPK
+art/units/unique/china/horseman_china/heavycavalry_horse_128.dds,1,DXT3,128,128,8,21872,cd18565b056d9d22b0a38b112acb278350ca8f1f,RoMPak1.FPK
+art/units/unique/roman/equites/companion_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,5fe310c971fa5e059bbf63b9aca06e36459d2080,RoMPak0.FPK
+art/units/unique/roman/equites/praetorian_128.dds,1,DXT3,128,128,8,21872,86b77ea9de1efd7b455350d58f6394b1748602b2,RoMPak1.FPK
+art/units/unique/viking/viking horseman/companion_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,5fe310c971fa5e059bbf63b9aca06e36459d2080,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/heavyswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,9b15dd233ad0a4fa3b8dded08575e3bd0e49a402,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/heavycavalry_horse_128.dds,1,DXT3,128,128,8,21872,cd18565b056d9d22b0a38b112acb278350ca8f1f,RoMPak1.FPK
+art/units/unique/byzantium/horseman_byzantine/knight_128.dds,1,DXT3,128,128,8,21872,16016af32acf0fb374f9d3697dfe729d8e2effb0,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/lightcavalry_128.dds,1,DXT3,128,128,8,21872,3bd94f17192e1b90b5cb536f8b2b2429f4f3c074,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/lightcavalry_128_gloss.dds,1,DXT3,128,128,8,21872,f252d2ec190dc1985ac017e63f9b8b3412735400,RoMPak1.FPK
+art/units/unique/byzantium/horseman_byzantine/heavyswordsman_128.dds,1,DXT3,128,128,8,21872,77ebd3ee09c96db933f20e12140ada4452c91425,RoMPak0.FPK
+modules/custom artstyles/american/units/horseman/companion_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,0aa1414a1ae11737049d4fad654d070477b9ed33,loose
+modules/custom artstyles/american/units/horseman/heavyswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,940ed133fad31cacbdcdb4dafa5881b864314a60,loose
+modules/custom artstyles/american/units/horseman/heavycavalry_horse_128_gloss.dds,1,DXT3,128,128,8,21872,015338d1ae1c9aea374c05cafdec8ac6a3a690cf,loose
+modules/custom artstyles/american/units/horseman/heavyswordsman_128.dds,1,DXT3,128,128,8,21872,a223097327a93cff0175e3b049ec6d4f9f06f82b,loose
+modules/custom artstyles/american/units/horseman/heavycavalry_horse_128.dds,1,DXT3,128,128,8,21872,3970faf357ecaa7663477f48ff8b8f30e3143c1e,loose
+art/units/edunits/meso medieval cavalry/spearman_128.dds,1,DXT3,128,128,6,21872,2d9e0eba2f31374a5a67e7a59b9a6298be6049d3,RoMPak1.FPK
+art/units/edunits/meso medieval cavalry/persian_immortal_horse_128.dds,1,DXT3,128,128,8,21872,f2eb7923eb459d71aa7da5d0ef5621154ac1a398,RoMPak1.FPK
+art/units/edunits/meso medieval cavalry/mongol_rider_128.dds,1,DXT3,128,128,6,21872,b153237691fca702d6f188b2e6c6bf208890622f,RoMPak0.FPK
+art/units/unique/arabia/horseman_arabia/companion_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,5fe310c971fa5e059bbf63b9aca06e36459d2080,RoMPak0.FPK
+art/units/unique/arabia/horseman_arabia/persian_immortal_128.dds,1,DXT3,128,128,8,21872,55cbcfe6bcb1660455d8a77cea9422005c80722b,RoMPak0.FPK
+modules/custom artstyles/india/indian_chariot/chariot_horse_128.dds,1,DXT3,128,128,8,21872,e386ca696b119ad74b6d608df3c804222be835b7,loose
+modules/custom artstyles/india/indian_chariot/chariot_128.dds,1,DXT3,128,128,8,21872,35a2bf0d5b6346c7e5468a0e30ff97e4b9cda40b,loose
+modules/custom artstyles/india/indian_chariot/warelephant_driver_128.dds,1,DXT3,128,128,8,21872,ddc82d44bf075e4f47aa28da1abf2440c37382ca,loose
+art/units/unique/viking/viking chariot/ethiopianoromowarrior_blue128.dds,1,DXT3,128,128,6,21872,767dc7198f55eeb978b06305bda32254a354886c,RoMPak1.FPK
+art/units/unique/viking/viking chariot/ethiopianoromowarrior_bluegloss.dds,1,DXT3,128,128,8,21872,7ebbb9281ee83f6711cef78693a7211e31f010ce,RoMPak1.FPK
+art/units/unique/viking/viking chariot/celtic_chariot_horse_128.dds,1,DXT3,128,128,8,21872,cc41b97d0af28b266cf6754787c6e8bc8175af0b,RoMPak1.FPK
+art/units/unique/byzantium/chariot_byzantine/heavyswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,9b15dd233ad0a4fa3b8dded08575e3bd0e49a402,RoMPak0.FPK
+art/units/unique/byzantium/chariot_byzantine/celtic_chariot_horse_128.dds,1,DXT3,128,128,8,21872,cc41b97d0af28b266cf6754787c6e8bc8175af0b,RoMPak0.FPK
+art/units/unique/byzantium/chariot_byzantine/heavyswordsman_128.dds,1,DXT3,128,128,8,21872,77ebd3ee09c96db933f20e12140ada4452c91425,RoMPak0.FPK
+art/units/unique/byzantium/chariot_byzantine/lightcavalry_128.dds,1,DXT3,128,128,8,21872,3bd94f17192e1b90b5cb536f8b2b2429f4f3c074,RoMPak0.FPK
+art/units/unique/byzantium/chariot_byzantine/lightcavalry_128_gloss.dds,1,DXT3,128,128,8,21872,f252d2ec190dc1985ac017e63f9b8b3412735400,RoMPak0.FPK
+modules/custom artstyles/japan/units/chariot_japan/maceman_128_gloss.dds,1,DXT5,128,128,8,21872,fa4bc2cab8dbf4d0ce4984733eedc77e944b8073,loose
+modules/custom artstyles/japan/units/chariot_japan/celtic_chariot_rider_128.dds,1,DXT3,128,128,8,21872,cb8bb2dd7faa0745a17f5f46a2c315371edae3a6,loose
+modules/custom artstyles/japan/units/chariot_japan/celtic_chariot_128.dds,1,DXT3,128,128,8,21872,c46b74020773518e6fb0c71d1587d7ed087ad03c,loose
+modules/custom artstyles/japan/units/chariot_japan/celtic_chariot_horse_128.dds,1,DXT3,128,128,8,21872,845990a60627a4ae6b7abaa0e647b4bb438b6bf7,loose
+modules/custom artstyles/japan/units/chariot_japan/maceman_128.dds,1,DXT3,128,128,8,21872,ac70a9758f827d4df82636f975ab03cffb7ce18a,loose
+modules/custom artstyles/japan/units/chariot_japan/poleflags.dds,1,DXT3,128,128,8,21872,d1818e5a5bbfc512aad01d715bb679c8748d34cd,loose
+art/units/unique/native america/native american chariot/celtic_chariot_128.dds,1,DXT3,128,128,8,21872,26e5ea652906ed9a3c4e79c5779bddea327b6ab3,RoMPak0.FPK
+art/units/unique/native america/native american chariot/celtic_chariot_rider_128.dds,1,DXT3,128,128,8,21872,c4f2c360c43c31ed5b8b8a9280862c6858867856,RoMPak0.FPK
+art/units/unique/native america/native american chariot/celtic_chariot_horse_128.dds,1,DXT3,128,128,8,21872,cc41b97d0af28b266cf6754787c6e8bc8175af0b,RoMPak0.FPK
+art/units/unique/carthage/chariot_carthage/numidian_cavalry_128.dds,1,DXT3,128,128,8,21872,f1e46533c8e57e4729d439a7a32a1047f63754c1,RoMPak1.FPK
+art/units/unique/carthage/chariot_carthage/celtic_chariot_128.dds,1,DXT3,128,128,8,21872,26e5ea652906ed9a3c4e79c5779bddea327b6ab3,RoMPak1.FPK
+art/units/unique/carthage/chariot_carthage/celtic_chariot_rider_128.dds,1,DXT3,128,128,8,21872,cb8bb2dd7faa0745a17f5f46a2c315371edae3a6,RoMPak0.FPK
+art/units/unique/carthage/chariot_carthage/celtic_chariot_horse_128.dds,1,DXT3,128,128,8,21872,b2c22d8c5fcb96c3a7ae15c105469ed6c40ff34d,RoMPak1.FPK
+art/units/edunits/chariot_african/celtic_chariot_128.dds,1,DXT3,128,128,8,21872,26e5ea652906ed9a3c4e79c5779bddea327b6ab3,RoMPak1.FPK
+art/units/edunits/chariot_african/celtic_chariot_rider_128.dds,1,DXT3,128,128,8,21872,c4f2c360c43c31ed5b8b8a9280862c6858867856,RoMPak0.FPK
+art/units/edunits/chariot_african/celtic_chariot_horse_128.dds,1,DXT3,128,128,8,21872,cc41b97d0af28b266cf6754787c6e8bc8175af0b,RoMPak1.FPK
+art/units/edunits/chariot_african/zulu_impi.dds,1,DXT3,128,128,8,21872,f0c598310a8d102da4f40abb3829e7dbbe847d65,RoMPak1.FPK
+art/units/unique/babylon/chariot_babylon/ewc_horse_128.dds,1,DXT3,128,128,8,21872,cf16b8bfa42ea57ebc302db8f4e8e5b39be678c5,RoMPak0.FPK
+art/units/unique/babylon/chariot_babylon/ewc_spearman_gloss_128.dds,1,DXT3,128,128,8,21872,f7931b280fbf78432d0c521fb99886d054a90617,RoMPak1.FPK
+art/units/unique/babylon/chariot_babylon/unique_babylon_bowman_128_gloss.dds,1,DXT3,128,128,8,21872,07e3018e6bd5647185c0e39b44d3a365de6a6821,RoMPak0.FPK
+art/units/unique/babylon/chariot_babylon/babylon_worker_128.dds,1,DXT3,128,128,8,21872,1c4389f1fe00cd4519b12e1d147e1b3e4fc8b9e4,RoMPak1.FPK
+art/units/unique/babylon/chariot_babylon/ewc_chariot_128.dds,1,DXT3,128,128,8,21872,30017b00f12615ed7d295ea210bd60f1b7ad0116,RoMPak0.FPK
+art/units/unique/babylon/chariot_babylon/unique_babylon_bowman_128.dds,1,DXT3,128,128,8,21872,9e03a5b8b1f3aeb9f8e51791b034f2e4cd0a8729,RoMPak1.FPK
+art/units/unique/babylon/chariot_babylon/ewc_spearman_128.dds,1,DXT3,128,128,8,21872,174b3f79aedbf0e3fd36809b25efc20781a5ca64,RoMPak0.FPK
+art/units/unique/arabia/chariot_arabia/chariot_128.dds,1,DXT5,128,128,8,21872,d876a33d46899f1edcfc895a7f72579482dbccf5,RoMPak1.FPK
+art/units/unique/arabia/chariot_arabia/chariot_horse_128.dds,1,DXT3,128,128,8,21872,cc41b97d0af28b266cf6754787c6e8bc8175af0b,RoMPak1.FPK
+modules/custom artstyles/india/indian_horseman/numidian_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,1688901e9230852e371fb918f5d41169327ed545,loose
+modules/custom artstyles/india/indian_horseman/india_fast_worker_128.dds,1,DXT3,128,128,8,21872,0deb9deabefb6a5122ed8072d4f07b1553476ae4,loose
+modules/custom artstyles/india/indian_horseman/numidian_cavalry_128.dds,1,DXT3,128,128,8,21872,54cb8c2351677e668ea578c4543732562c0dcdc9,loose
+art/units/unique/babylon/horseman_babylon/spearman_128.dds,1,DXT3,128,128,8,21872,d8ff7894f193b50785050a607492a556e8d5a020,RoMPak1.FPK
+art/units/unique/babylon/horseman_babylon/babybeard.dds,1,DXT3,128,128,8,21872,5fa6b1c13c27d25ff0079f7d8e97f38b1002097e,RoMPak1.FPK
+art/units/unique/babylon/horseman_babylon/mongol_horse_128.dds,1,DXT3,128,128,8,21872,5fe310c971fa5e059bbf63b9aca06e36459d2080,RoMPak0.FPK
+art/units/unique/babylon/horseman_babylon/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,317828054e28d12d12ca51e4ab272b24ca11132d,RoMPak1.FPK
+art/units/unique/babylon/horseman_babylon/heavyspearman_128_gloss.dds,1,DXT3,128,128,8,21872,485dc15b589f900c2d669ffde5b0ae465ce257b6,RoMPak0.FPK
+art/units/unique/babylon/horseman_babylon/heavyspearman_128.dds,1,DXT3,128,128,8,21872,529f93209930ee091635e11b958f1ce1baebbd4f,RoMPak1.FPK
+art/units/unique/roman/cavalry/mongol_rider_128.dds,1,DXT3,128,128,8,21872,162884e00b28f991cffe224774018800eaedf835,RoMPak1.FPK
+art/units/unique/roman/cavalry/mongol_horse_128.dds,1,DXT3,128,128,8,21872,014a0970de725747bb49ec30a8acbfc0a27f12e8,RoMPak0.FPK
+art/units/edunits/horseman_african/numidian_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,1688901e9230852e371fb918f5d41169327ed545,RoMPak0.FPK
+art/units/edunits/horseman_african/numidian_cavalry_128.dds,1,DXT3,128,128,8,21872,2a2c618c7d4eca11a9bd6d3deee8edba1af1b577,RoMPak0.FPK
+art/units/edunits/horseman_african/scout_128.dds,1,DXT3,128,128,8,21872,63aedd50f3c794685ea616aaac102cefce97d118,RoMPak0.FPK
+art/units/edunits/archer_african/archer_128.dds,1,DXT3,128,128,8,21872,60b2c5ca5a4aa0b687af04f48ef2a58d07e0786a,RoMPak1.FPK
+modules/custom artstyles/india/indian_archer/archer_128.dds,1,DXT3,128,128,8,21872,60b2c5ca5a4aa0b687af04f48ef2a58d07e0786a,loose
+modules/custom artstyles/india/indian_archer/warelephant_driver_128.dds,1,DXT5,128,128,8,21872,5ef1e5ef8cb4511aed92091809e8a029b2fc682e,loose
+art/units/unique/byzantium/archer_byzantine/heavyswordsman_128_gloss.dds,1,DXT3,128,128,8,21872,9b15dd233ad0a4fa3b8dded08575e3bd0e49a402,RoMPak0.FPK
+art/units/unique/byzantium/archer_byzantine/archer_128.dds,1,DXT3,128,128,8,21872,60b2c5ca5a4aa0b687af04f48ef2a58d07e0786a,RoMPak1.FPK
+art/units/unique/byzantium/archer_byzantine/heavyswordsman_128.dds,1,DXT3,128,128,8,21872,77ebd3ee09c96db933f20e12140ada4452c91425,RoMPak0.FPK
+art/units/unique/byzantium/archer_byzantine/lightcavalry_128.dds,1,DXT3,128,128,8,21872,3bd94f17192e1b90b5cb536f8b2b2429f4f3c074,RoMPak1.FPK
+art/units/unique/byzantium/archer_byzantine/lightcavalry_128_gloss.dds,1,DXT3,128,128,8,21872,f252d2ec190dc1985ac017e63f9b8b3412735400,RoMPak1.FPK
+art/units/unique/china/archer_china/chinese_archer128.dds,1,DXT3,128,128,8,21872,704656c656ca952a857352da5e2980a443467899,RoMPak1.FPK
+modules/custom artstyles/japan/units/archer_japan/samurai_gloss_128.dds,1,DXT5,128,128,8,21872,88de06272a261cbec1a2719e624e0f97cfdbdecf,loose
+modules/custom artstyles/japan/units/archer_japan/poleflags.dds,1,DXT3,128,128,8,21872,d94256cdb665047aaea8366c5f2954f2e242b142,loose
+modules/custom artstyles/japan/units/archer_japan/longbowman.dds,1,DXT5,128,128,8,21872,71aceb4ab78bbd9324b1520db16956d452890474,loose
+modules/custom artstyles/japan/units/archer_japan/samurai_128.dds,1,DXT5,128,128,8,21872,8064483f872953b72910e9322b61dc306a54e0bc,loose
+modules/custom artstyles/japan/units/archer_japan/longbowman_128.dds,1,DXT3,128,128,8,21872,596a47614745362199d4a65286fb174cbd74ba30,loose
+modules/custom artstyles/japan/units/archer_japan/longbowman_128_gloss.dds,1,DXT3,128,128,8,21872,6a8a41aab40f7aa53c281c4e878010069c60f109,loose
+art/units/unique/arabia/archer_arabia/camelarcher_archer_128.dds,1,DXT3,128,128,8,21872,b29a96b331ed55d1aad6febd7b48f2be65232def,RoMPak0.FPK
+art/units/unique/arabia/archer_arabia/archer_weapons.dds,1,DXT3,128,128,8,21872,0d967f517cb0eb4d2363dd7d42f8b3fa2a7ee5c8,RoMPak1.FPK
+art/units/unique/arabia/archer_arabia/archer_128.dds,1,DXT3,128,128,8,21872,60b2c5ca5a4aa0b687af04f48ef2a58d07e0786a,RoMPak1.FPK
+art/units/edunits/archer_native_american/archer_128.dds,1,DXT3,128,128,8,21872,60b2c5ca5a4aa0b687af04f48ef2a58d07e0786a,RoMPak0.FPK
+art/units/edunits/archer_native_american/scout_128.dds,1,DXT3,128,128,8,21872,e4fd70c61a0e05faa108ba076272c7627b2178e8,RoMPak1.FPK
+art/units/unique/dutch/horseman_holland/spearman_128.dds,1,DXT3,128,128,8,21872,8892fcf55d7e043ebbd62a5dc24f242b286ae3a2,RoMPak0.FPK
+art/units/unique/dutch/horseman_holland/great_artist_128.dds,1,DXT3,128,128,8,21872,f7cfb9ce71163ef01450622d25b358343efa1212,RoMPak1.FPK
+art/units/unique/dutch/horseman_holland/cuirassier_rider_128.dds,1,DXT3,128,128,8,21872,63a4d7a024cfe34378c9876cc01f9fa04abeac42,RoMPak0.FPK
+art/units/unique/dutch/horseman_holland/spearman_128_gloss.dds,1,DXT3,128,128,8,21872,9f034ffa7a0ef6a9f40896c6af3cb0c96aca4a04,RoMPak0.FPK
+art/units/unique/dutch/horseman_holland/mountedinfantry_horse_128.dds,1,DXT3,128,128,8,21872,cd18565b056d9d22b0a38b112acb278350ca8f1f,RoMPak0.FPK
+art/units/unique/dutch/horseman_holland/french_musketeer_128.dds,1,DXT3,128,128,8,21872,05dd2c1e9903adc58b4b689d6d6710babdcd6f0e,RoMPak1.FPK
+art/units/unique/dutch/horseman_holland/lightcavalry_128_gloss.dds,1,DXT3,128,128,8,21872,25e5971f6d2f434e1a344d9983c5264fc53a1f69,RoMPak0.FPK
+art/units/unique/byzantium/unique_byzantine_cataphract/byzantinecataphract_horse_128.dds,1,DXT3,128,128,8,21872,54138fe5ff30d0f4f47c9f283fafc9cf5f5dd8c4,RoMPak0.FPK
+art/units/unique/byzantium/unique_byzantine_cataphract/byzantinecataphract_horse_gloss_128.dds,1,DXT3,128,128,8,21872,824bab4175d6ad10d9c0c9843c7049c2d9c16e9f,RoMPak0.FPK
+art/units/unique/byzantium/unique_byzantine_cataphract/byzantinecataphract_rider_gloss_128.dds,1,DXT3,128,128,8,21872,fabdc61dc5395cebbf92cfc8d348c8b7e6801601,RoMPak1.FPK
+art/units/unique/byzantium/unique_byzantine_cataphract/byzantinecataphract_rider_128.dds,1,DXT3,128,128,8,21872,06b93a75856fcfea2eec5fb17f041db2d8d92571,RoMPak1.FPK
+art/units/unique/china/knight_china/helmschmuck.dds,1,DXT3,128,128,8,21872,f033b145067f3030c95eae74d37246c82a54cf8c,RoMPak1.FPK
+art/units/unique/china/knight_china/mongol_rider_gloss.dds,1,DXT3,128,128,8,21872,f5d37e786d473b52470a1c03a064aa43134a49e1,RoMPak1.FPK
+art/units/unique/china/knight_china/heavycavalry_horse_128.dds,1,DXT3,128,128,8,21872,8eee2fcdd0b534d84d32dc53e897652191f750f4,RoMPak0.FPK
+art/units/unique/china/knight_china/glossforhalbred.dds,1,DXT3,128,128,6,21872,1a86d1093053704947844b277c20d4699ee07a2e,RoMPak1.FPK
+art/units/unique/china/knight_china/ethiopianoromowarrior_blue128.dds,1,DXT3,128,128,8,21872,536603c8843f5336cbe5f89561db2e3faba26c0e,RoMPak0.FPK
+art/units/unique/china/knight_china/chokonu_128_gloss.dds,1,DXT3,128,128,8,21872,f4c321caaf6af0af8d66bc43f535159c96c6eb57,RoMPak0.FPK
+art/units/unique/china/knight_china/helmschmuck_gloss.dds,1,DXT3,128,128,8,21872,2f7a03b2c88745ca4701ed6cb32b0201bc7062a7,RoMPak1.FPK
+art/units/unique/china/knight_china/chinahalbred.dds,1,DXT3,128,128,6,21872,42dcb587363811a1936dedc6fb87c2c65a4b46ac,RoMPak1.FPK
+art/units/unique/china/knight_china/lightcavalry_128_gloss.dds,1,DXT3,128,128,8,21872,25e5971f6d2f434e1a344d9983c5264fc53a1f69,RoMPak0.FPK
+art/units/unique/china/knight_china/heavycavalry_horse_128_gloss.dds,1,DXT3,128,128,8,21872,015338d1ae1c9aea374c05cafdec8ac6a3a690cf,RoMPak1.FPK
+art/units/unique/china/knight_china/ethiopianoromowarrior_bluegloss.dds,1,DXT3,128,128,8,21872,00f84d80b55bed1c56da354dc4778fbe8138fafd,RoMPak1.FPK
+art/units/unique/china/knight_china/mongol_rider_128.dds,1,DXT3,128,128,8,21872,3c41f0e5cf5b40320e4bb3700411a8713b105666,RoMPak0.FPK
+art/units/edunits/andean knight/spearman_128.dds,1,DXT3,128,128,6,21872,c05edbfb1dc5c20f1d2186210924f8ef6d643d6d,RoMPak1.FPK
+art/units/edunits/andean knight/pikeman_128.dds,1,DXT3,128,128,8,21872,37379ae6a545c1292fe535f94a75e46f27540ee8,RoMPak1.FPK
+art/units/edunits/andean knight/warelephant_carriage_128.dds,1,DXT3,128,128,6,21872,acf8e2af8108f4c0020ab3cdc446441dc4d459af,RoMPak0.FPK
+art/units/edunits/andean knight/spearman_128_gloss.dds,1,DXT3,128,128,6,21872,fb865dffb2b14d26b6a1868dd996e0afcb65ead1,RoMPak1.FPK
+art/units/edunits/andean knight/mongol_horse_128.dds,1,DXT3,128,128,8,21872,014a0970de725747bb49ec30a8acbfc0a27f12e8,RoMPak0.FPK
+art/units/unique/roman/knight_rome/companion_cavalry_horse_128.dds,1,DXT3,128,128,8,21872,014a0970de725747bb49ec30a8acbfc0a27f12e8,RoMPak1.FPK
+art/units/unique/roman/knight_rome/praetorian_128.dds,1,DXT3,128,128,8,21872,86b77ea9de1efd7b455350d58f6394b1748602b2,RoMPak1.FPK
+art/units/missionary/ra/missionary_hindu_128.dds,1,DXT3,128,128,8,21872,5abd6feffafd646b4b1d0777ab7e0b955dc0709a,RoMPak0.FPK
+art/units/ships/viking_caravel/galley_128.dds,1,DXT3,128,128,8,21872,0a925878eccd5f4208bb73d505873dd4f3bd56df,RoMPak1.FPK
+art/units/caravan/supplyox_128.dds,1,DXT3,128,128,8,21872,006f7e4e9c6fd8b28d221323747ac004f95b09b8,loose
+art/units/caravan/survivor_settler_256_2.dds,1,DXT3,128,128,8,21872,d079a99fa926704105e0adb00ffbcdcf5232be36,loose
+art/units/caravan/supplyox_2_128.dds,1,DXT3,128,128,8,21872,92b1f73cdf9edb5781c794490bb6f88d3bc8f4bb,loose
+art/units/caravan/caravan_gloss.dds,1,DXT3,128,128,8,21872,c55987c2a2705be52e15ad3d6d88263a3b497b8b,loose
+art/structures/buildings/medieval_stables/stables.dds,1,DXT5,128,128,8,21872,e1ecfb78e819ef54957bc9af33d5b69296031213,RoMPak1.FPK
+art/structures/buildings/monument/monument_shadow.dds,1,DXT3,128,128,8,21872,dc57b21d58bd682ead27e70e104d356ba178785f,loose
+art/structures/buildings/stable/shadow_stable.dds,2,DXT3,128,128,8,21872,476b2110422a7e5ecccbd6bd846942eed33fd520,loose
+art/structures/buildings/bach/e.dds,1,DXT3,128,128,6,21872,8d6f3e761128c2013fd22a4e8a74aedfd2650eec,RoMPak1.FPK
+art/structures/buildings/hanginggardens/hanginggardens_map.dds,1,DXT3,128,128,6,21872,b0f8ce799ef211c5eb72e1da99aef20bd9474164,loose
+art/structures/buildings/bach/b.dds,1,DXT1,256,128,6,21864,51398ced49df0ab47a307707e5ac5886fa04e31b,RoMPak1.FPK
+art/structures/buildings/bath_europe/c.dds,1,DXT1,256,128,9,21864,70bafa19663b66f1b4331ce71b31da5afc325dd6,loose
+art/structures/buildings/religion/egypt_cathedral/environmental_gray2.dds,4,DXT1,256,128,9,21864,2db021d149a98aa4e2152cfae40da2b70d59fb30,RoMPak0.FPK
+art/units/edunits/crossbowman_african/numidian_cavalry_gloss.dds,1,A32,64,64,7,21844,741108593a62a20aff82386864743c8c639d826d,RoMPak0.FPK
+art/units/edunits/pikeman_african/spearman_european_shield.dds,1,A32,64,64,7,21844,72cca4d697bc71dfc35cb954a6072ace45abfdb3,RoMPak1.FPK
+art/units/edunits/pikeman_african/spearman_european_shield_gloss.dds,1,A32,64,64,7,21844,34726c03e189920cd9366a6651e3670479bdf77a,RoMPak0.FPK
+art/units/greatpeople_african/warlord_modern/beret_nonshader.dds,2,A32,64,64,7,21844,972cd1dcb33d085760b4d51be898fd2428674772,loose
+art/units/unique/viking/viking horseman/companion_cavalry_128_gloss.dds,1,A32,64,64,7,21844,30192d0c2688eb596b6a82ecdf7dfd77633928f4,RoMPak1.FPK
+art/units/unique/viking/viking archer/berseker_gloss.dds,1,A32,64,64,7,21844,36d7b502d804050697978cae8fb9f1ac5a51da71,RoMPak0.FPK
+art/units/unique/byzantium/unique_byzantine_cataphract/papalspearman_weapons_128.dds,1,DXT3,128,128,5,21824,edbfa337441cfa9d934acf8c64178f0fb63bb1aa,RoMPak0.FPK
+art/units/unique/byzantium/pikeman_byzantine/lightcavalry_128.dds,1,DXT5,128,128,4,21760,d862f90fb81b0631cf7c9300e7eea541b8666d3a,RoMPak0.FPK
+art/units/unique/dutch/horseman_holland/lightcavalry_128.dds,1,DXT5,128,128,4,21760,d862f90fb81b0631cf7c9300e7eea541b8666d3a,RoMPak0.FPK
+art/units/unique/china/knight_china/lightcavalry_128.dds,1,DXT5,128,128,4,21760,d862f90fb81b0631cf7c9300e7eea541b8666d3a,RoMPak1.FPK
+art/units/unique/babylon/knight_babylon/companion_cavalry_horse_128.dds,1,DXT5,128,128,3,21504,942535244b2af125e29731c7d0c963b9b1305905,RoMPak1.FPK
+art/units/unique/viking/viking chariot/celtic_chariot_rider_128.dds,1,DXT5,128,128,3,21504,ef5363d0fe5edd18e6146f4836734bfe42a67112,RoMPak1.FPK
+art/units/unique/byzantium/chariot_byzantine/celtic_chariot_rider_128.dds,1,DXT5,128,128,3,21504,ef5363d0fe5edd18e6146f4836734bfe42a67112,RoMPak0.FPK
+art/units/unique/babylon/chariot_babylon/ewc-chariot-gloss_128.dds,1,DXT5,128,128,3,21504,6a770daf35cfd914a2ccf99c488ee619d756b2da,RoMPak0.FPK
+art/units/unique/babylon/chariot_babylon/hypaspist_128.dds,1,DXT5,128,128,3,21504,936834fb31457bfa3201c90ab794bed714889e22,RoMPak0.FPK
+art/units/unique/arabia/chariot_arabia/persian_immortal_128.dds,1,DXT5,128,128,3,21504,ed6889f69f2d1aad8b9c3eee5fb2e25605b9e144,RoMPak1.FPK
+art/units/unique/viking/viking pikeman/rohanshield_gloss.dds,1,DXT3,128,128,2,20480,f78576317264c2d3c53c469f817b73cc140cf010,RoMPak1.FPK
+art/units/unique/viking/viking pikeman/rohansoldier_256_gloss.dds,1,DXT3,128,128,2,20480,d18d1b1b95ab846681e973156f063476a70f2b75,RoMPak0.FPK
+art/units/unique/viking/viking pikeman/heavyspearman_128_gloss.dds,1,DXT3,128,128,2,20480,782e7444260a62b0c2af7a65db6a2ed238b2ab9e,RoMPak1.FPK
+art/units/unique/viking/viking crossbowman/crossbowman_128.dds,1,DXT3,128,128,2,20480,a5790fbe615380b6d010a0e08e5bb732e602fd68,RoMPak0.FPK
+art/units/unique/viking/viking spearman/rohanshield_gloss.dds,1,DXT3,128,128,2,20480,6a73ac6617a0469bdbb38f24dcb4bac136c4f482,RoMPak1.FPK
+art/units/unique/viking/viking spearman/rohansoldier_256_gloss.dds,1,DXT3,128,128,2,20480,43d56ffacdcd36cbcd223b2b4e027ce9a6aebc62,RoMPak1.FPK
+modules/custom artstyles/american/units/heavy swordsman/rohanshield_gloss.dds,1,DXT3,128,128,2,20480,9397300eb712207994167cb218125be295041960,loose
+art/units/unique/viking/viking knight/mountedinfantry_weapons_64.dds,1,DXT3,128,128,2,20480,15d63065aca54c9be1fcc2b5c232494752d9bec5,RoMPak0.FPK
+art/units/unique/viking/viking knight/rohanknight_128_gloss.dds,1,DXT3,128,128,2,20480,d18d1b1b95ab846681e973156f063476a70f2b75,RoMPak0.FPK
+modules/custom artstyles/japan/units/axeman_japan/warrior_asian.dds,1,DXT3,128,128,2,20480,e2aed1930a04ffa39c05b9c07b6c1eb6c0357764,loose
+art/units/unique/viking/viking axeman/heavyswordsman_weapons_64_gloss.dds,1,DXT3,128,128,2,20480,95121530b03f0e4fece0cfd8f1ec245a6f34bbaa,RoMPak1.FPK
+art/units/unique/viking/viking axeman/heavyswordsman_weapons_64.dds,1,DXT3,128,128,2,20480,2d32d0e86bdf147d43d7005640ae2ee85c602320,RoMPak1.FPK
+art/units/unique/arabia/worker_arabic/worker_arabic_128.dds,1,DXT3,128,128,1,16384,3d2d7033f9d33ceac34041ac5854be53330b9cfc,RoMPak0.FPK
+modules/custom artstyles/india/indian_heavy_swordsman/camelarcher_weapons_64.dds,1,A32,64,64,1,16384,6f4fcac21e6e5a2cdf484ace51bed16abd0db12a,loose
+modules/custom artstyles/india/indian_heavy_swordsman/camelarcher_weapons_64_gloss.dds,1,A32,64,64,1,16384,f854db52a0e7d9b67fc6781117860932df1a0ab9,loose
+modules/custom artstyles/japan/units/maceman_japan/samurai_gloss_128_2.dds,1,DXT3,128,128,1,16384,1bff81881e02ba9c2a414f8a5f27dde749931947,loose
+art/units/unique/roman/heavy_swordsman_rome/knight_128.dds,1,DXT3,128,128,1,16384,70f90e7378392ee66b08a368c3883dcf2c46b1e6,RoMPak1.FPK
+art/units/jav_gauls/scout_128.dds,1,DXT3,128,128,1,16384,c510b1c5cf7db1f8264d2eb4869325847245ebc0,RoMPak0.FPK
+art/units/jav_assyr/scout_128.dds,1,DXT3,128,128,1,16384,51ad5939946229484d521abe29a91cb98b8de88c,RoMPak0.FPK
+art/units/jav_roman/scout_128.dds,1,DXT3,128,128,1,16384,f18367ec5bc2674150c72e2967ef7a4a4e10d76a,RoMPak1.FPK
+art/units/jav_phoen/scout_128.dds,1,DXT3,128,128,1,16384,3b9dccd68feaaa282ec6fdbbe12ae4349bc008d5,RoMPak1.FPK
+art/units/jav_nubia/scout_128.dds,1,DXT3,128,128,1,16384,0da4c0b092fef0a5fea5a12bdd775215faff4f97,RoMPak0.FPK
+modules/custom artstyles/babylon/units/jav_babyl/scout_128.dds,1,DXT3,128,128,1,16384,fe0fda768f98da6762640fcec4fb7ec15bdb1afb,loose
+art/units/unique/arabia/axeman_arabia/vampdrake_axe.dds,1,DXT3,128,128,1,16384,663e76fec0cb93d5e1714e0fe233a71de83db7ba,RoMPak1.FPK
+art/units/unique/arabia/axeman_arabia/vampdrake_axe_gloss.dds,1,DXT3,128,128,1,16384,b6009fc8913fe277309c02e9eb0121df34f261ad,RoMPak1.FPK
+art/units/unique/roman/axeman_rome/vampdrake_axe.dds,1,DXT3,128,128,1,16384,663e76fec0cb93d5e1714e0fe233a71de83db7ba,RoMPak1.FPK
+art/units/unique/roman/axeman_rome/vampdrake_axe_gloss.dds,1,DXT3,128,128,1,16384,b6009fc8913fe277309c02e9eb0121df34f261ad,RoMPak1.FPK
+art/units/unique/carthage/axeman_carthage/vampdrake_axe.dds,1,DXT3,128,128,1,16384,663e76fec0cb93d5e1714e0fe233a71de83db7ba,RoMPak0.FPK
+art/units/unique/carthage/axeman_carthage/vampdrake_axe_gloss.dds,1,DXT3,128,128,1,16384,b6009fc8913fe277309c02e9eb0121df34f261ad,RoMPak1.FPK
+modules/custom units/warlord/warlord_modern/modern_warlord128.dds,1,DXT3,128,128,1,16384,848be56a6b6b9e17004e1c41d153b7a7febeb955,loose
+art/units/animals/camel/camelarcher_camel_128.dds,1,DXT3,128,128,1,16384,ac52feb78e23528a08c86a82a1b70298a7860590,RoMPak0.FPK
+art/units/animals/horse/persian_immortal_horse_128.dds,1,DXT3,128,128,1,16384,4b0899488f4c2ebd409219c533277ce28e402680,RoMPak0.FPK
+art/units/rome/hastatim/montefortino.dds,1,DXT5,128,128,1,16384,83a497ae6b954332d29d29da0c26c2438a18a8cc,loose
+art/units/rome/hastatim/montefortinohelmetgloss.dds,1,DXT5,128,128,1,16384,bcc20dc47b2ba853f03dcebd526f2367bdac9416,loose
+art/units/rome/hastatim/montefortinohelmet.dds,1,DXT5,128,128,1,16384,ae17d94d5af8fe5036aaee0d6a2bfd34a08589d0,loose
+art/units/rome/hastatim/montefortinogloss.dds,1,DXT5,128,128,1,16384,5379297b0b9f2332201b367ede667f78e52bb84c,loose
+art/units/rome/hastatim/shield.dds,1,DXT5,128,128,1,16384,95cbc30284f4393d3612077d85f637e910b6a46a,loose
+art/units/rome/hastatim/praetorian_128_gloss.dds,1,DXT5,128,128,1,16384,bb3cfb5a7a8f7b8f8d3c1b400dfdb033e57a8fbe,loose
+art/units/rome/hastatim/shieldgloss.dds,1,DXT5,128,128,1,16384,4d14e1ce63c9824bc1623c96e4b7c37a6c806923,loose
+art/units/rome/hastatim/praetorian_128.dds,1,DXT5,128,128,1,16384,6b61eb4dbd1758ccef99267fcab394a208dddb66,loose
+art/units/rome/principesm/principes_shield_gloss.dds,1,DXT5,128,128,1,16384,f6b96ed2b89e98b65f1aa9bf64bdf8d013f39e04,loose
+art/units/rome/principesm/montefortinohelmet.dds,1,DXT5,128,128,1,16384,ae17d94d5af8fe5036aaee0d6a2bfd34a08589d0,loose
+art/units/rome/principesm/montefortino.dds,1,DXT5,128,128,1,16384,83a497ae6b954332d29d29da0c26c2438a18a8cc,loose
+art/units/rome/principesm/montefortinohelmetgloss.dds,1,DXT5,128,128,1,16384,bcc20dc47b2ba853f03dcebd526f2367bdac9416,loose
+art/units/rome/principesm/montefortinogloss.dds,1,DXT5,128,128,1,16384,5379297b0b9f2332201b367ede667f78e52bb84c,loose
+modules/custom artstyles/japan/units/lightswordsman_japan/samurai_gloss_128_2.dds,1,DXT3,128,128,1,16384,1bff81881e02ba9c2a414f8a5f27dde749931947,loose
+art/units/rome/slave/worker_128.dds,1,DXT3,128,128,1,16384,5aedead5894133e191dd873241c5148ae277eb98,loose
+art/units/unique/roman/equites/knight_128.dds,1,DXT3,128,128,1,16384,70f90e7378392ee66b08a368c3883dcf2c46b1e6,RoMPak1.FPK
+art/units/unique/byzantium/horseman_byzantine/knight-gloss-128.dds,1,DXT3,128,128,1,16384,8de89edf5e1f848884d2d408fb90b85dba2d41ab,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/heavycavalry_horse_128_gloss.dds,1,DXT3,128,128,1,16384,4bd6214197f71af61f92e6c8cf0b97725eca0a5a,RoMPak1.FPK
+art/units/unique/viking/viking chariot/celtic_chariot_128.dds,1,DXT3,128,128,1,16384,631723f13d5331c0f35f90bad21ce37216c3ed70,RoMPak1.FPK
+art/units/unique/byzantium/chariot_byzantine/celtic_chariot_128.dds,1,DXT3,128,128,1,16384,631723f13d5331c0f35f90bad21ce37216c3ed70,RoMPak0.FPK
+art/units/edunits/archer_african/scout_128.dds,1,DXT3,128,128,1,16384,3e7ab189a276a7f0df913e5a9e470034fb63d06a,RoMPak1.FPK
+art/units/edunits/archer_african/ewc_driver_128.dds,1,DXT3,128,128,1,16384,24f7a2697e2a195340a5fdd4de36f87ffff41dba,RoMPak1.FPK
+art/units/unique/viking/viking archer/archer_weapons.dds,1,DXT3,128,128,1,16384,d672ec91a7052b92b992b50c03792e637aa1c4ee,RoMPak0.FPK
+art/units/unique/viking/viking archer/archer_128.dds,1,DXT3,128,128,1,16384,92a1e3b5db25e2f4d85714eaa0e01309b7fb7b0a,RoMPak1.FPK
+art/units/chariots/ca_celtic/chariot_horse_128.dds,1,DXT3,128,128,1,16384,e1717e6e5f269873355cda7dcae309054225282e,loose
+art/units/chariots/ca_celtic/chariot_128.dds,1,DXT3,128,128,1,16384,9cabd170fce3af1568a42a019be148bb1cca7abb,loose
+art/units/chariots/ca_celtic/archer_128.dds,1,DXT3,128,128,1,16384,d5e9193de2f6b13c7eaca29a06b472a99eaa99f5,loose
+art/units/unique/roman/knight_rome/knight_128.dds,1,DXT3,128,128,1,16384,70f90e7378392ee66b08a368c3883dcf2c46b1e6,RoMPak0.FPK
+art/structures/buildings/archeryrange/shadowmap.dds,1,A32,64,64,1,16384,8777032a640f92de93be498d455dc7fd52eb529e,RoMPak0.FPK
+modules/custom artstyles/india/indian_heavy_swordsman/indian_scimitar.dds,1,DXT3,64,128,8,10960,4d0da71d8b56480487256363613507b5b5904ffe,loose
+modules/custom artstyles/india/indkn/indian_scimitar.dds,1,DXT3,64,128,8,10960,4d0da71d8b56480487256363613507b5b5904ffe,loose
+art/structures/buildings/alhambra/oasis2.dds,1,DXT3,128,64,8,10960,924f97107e78a97717e16abc4fdb7edd8af9e8a8,RoMPak1.FPK
+art/units/unique/babylon/knight_babylon/mongol_weapons.dds,1,DXT1,64,256,9,10952,ee9bc8b28a34cdaa545dec954700f10588000341,RoMPak1.FPK
+art/units/unique/native america/sioux knight/mongol_weapons.dds,1,DXT1,64,256,9,10952,ee9bc8b28a34cdaa545dec954700f10588000341,RoMPak0.FPK
+art/units/edunits/meso medieval cavalry/mongol_weapons.dds,1,DXT1,64,256,9,10952,ee9bc8b28a34cdaa545dec954700f10588000341,RoMPak0.FPK
+art/units/unique/babylon/horseman_babylon/mongol_weapons.dds,1,DXT1,64,256,9,10952,ee9bc8b28a34cdaa545dec954700f10588000341,RoMPak0.FPK
+art/units/unique/roman/cavalry/mongol_weapons.dds,1,DXT1,64,256,9,10952,ee9bc8b28a34cdaa545dec954700f10588000341,RoMPak0.FPK
+art/units/edunits/andean knight/mongol_weapons.dds,1,DXT1,64,256,9,10952,ee9bc8b28a34cdaa545dec954700f10588000341,RoMPak0.FPK
+art/units/swordsman/celtic_swordsman/newglossswordshieldandcloak.dds,1,DXT1,128,128,6,10936,3cea9403ee274136d3a0fb7f9a73991f10d202b1,loose
+art/units/edunits/workermodern_african/scout_128.dds,1,DXT1,128,128,6,10936,118064dbb1ea65ca35a3ee4096df785b3e2d8503,RoMPak1.FPK
+art/units/edunits/andean pikeman/mesohead1.dds,1,DXT1,128,128,6,10936,04f7bb90758655a6cdef38ced68e180df942b40f,RoMPak0.FPK
+art/units/unique/roman/crossbowman_rome/praetorian_gloss_128.dds,1,DXT1,128,128,8,10936,2840a331022f1a82b65f8a1f0001cb66e4a9b78e,RoMPak0.FPK
+art/units/edunits/meso crossbowman/mayaproto.dds,1,DXT1,128,128,6,10936,2599eb0c20e22d77d839c62dbafea1e54a10e377,RoMPak0.FPK
+modules/custom artstyles/india/indian_pikeman/pikeman_128.dds,1,DXT1,128,128,8,10936,6b13e788de512918a8e44929cc71bc8bdbc6804d,loose
+art/units/unique/native america/native american spearman/spearman_weapon_gloss.dds,1,DXT1,128,128,8,10936,c8b0987d5d7a8474ecbf20cca6c828b4e875c600,RoMPak0.FPK
+art/units/unique/roman/heavy_swordsman_rome/praetorian_weapons_gloss_64.dds,1,DXT1,128,128,8,10936,97f9deac2e316fcec065c2361ad6efa8b8372ee1,RoMPak1.FPK
+art/units/unique/roman/heavy_swordsman_rome/praetorian_gloss_128.dds,1,DXT1,128,128,8,10936,2840a331022f1a82b65f8a1f0001cb66e4a9b78e,RoMPak1.FPK
+art/units/ethiopian heavyfootman/newglossshotel.dds,1,DXT1,128,128,6,10936,03e52f18fd47ab539a5781d6d565b2211fb1934b,RoMPak0.FPK
+art/units/ethiopian heavyfootman/newglosssethiopoanhvybmp.dds,1,DXT1,128,128,6,10936,01dc24006f995240024662f99c246eb58ca7beef,RoMPak1.FPK
+modules/custom artstyles/india/indkn/spearman_128_gloss.dds,1,DXT1,128,128,8,10936,1eb08203989d9feaa2b4e17d759e42191519d3ab,loose
+art/units/unique/native america/sioux knight/spearman_weapon_gloss.dds,1,DXT1,128,128,8,10936,c8b0987d5d7a8474ecbf20cca6c828b4e875c600,RoMPak1.FPK
+modules/custom artstyles/american/units/axeman/lightswordsman_128.dds,1,DXT1,128,128,6,10936,6bf1067bda947ec6f9455c545a3f13656fba8ef4,loose
+modules/custom artstyles/japan/units/axeman_japan/samurai_gloss_128.dds,1,DXT1,128,128,8,10936,88e8b7629c0b487d2ecde6f070f7c1f2d8f56b57,loose
+art/units/unique/roman/axeman_rome/praetorian_gloss_128.dds,1,DXT1,128,128,8,10936,2840a331022f1a82b65f8a1f0001cb66e4a9b78e,RoMPak0.FPK
+art/units/edunits/axeman_african/settler_male_128.dds,1,DXT1,128,128,8,10936,44b7c5cbbc7ab44a1c0801e4c6a35a732d30cc02,RoMPak1.FPK
+art/units/edunits/explorer_african/explorer_gloss_128.dds,1,DXT1,128,128,8,10936,39f2f6a7191b0178b6aae6768fbfa38667b86674,RoMPak0.FPK
+art/units/edunits/explorer_african/skirmisherwithincahat_128.dds,1,DXT1,128,128,6,10936,c124f70f2d52c8292fdda81b3bf7aba09f559ae5,RoMPak0.FPK
+art/units/edunits/meso light spearman/mesohead1.dds,1,DXT1,128,128,6,10936,47e2bfd0dd53d5a6f342c77356e625a218ab58b7,RoMPak0.FPK
+art/units/greatleader_sioux/medieval/sioux_weapon.dds,1,DXT1,128,128,8,10936,2f52a6f21959a5d3c4e19d3a4c9e7eb0b5b9faed,loose
+art/units/greatleader_sioux/medieval/breastplate.dds,1,DXT1,128,128,8,10936,5a5e6cea3c0914a16c18122e9daf646bfac927d0,loose
+art/units/greatleader_sioux/ancient/sioux_weapon.dds,1,DXT1,128,128,8,10936,a6f5de902c5fd505e6b3620190987339a437a7c9,loose
+art/units/spearman/sarissa_macedon2/newglossformacedonianpikeman.dds,1,DXT1,128,128,6,10936,86f6779f7c480f87b1f0a98c3d2bbda97e622f87,loose
+art/units/spearman/sarissa_macedon2/newglossformacedoniansunburtshield.dds,1,DXT1,128,128,6,10936,c0feb7137d2c08f677419b02eae169846cf57246,loose
+art/units/greek/silvershields/newglossforhypaspistaiofficershield.dds,1,DXT1,128,128,6,10936,496032b02e66ea8c52d65173a012d716d1b62467,loose
+art/units/greek/silvershields/newglossforhypaspistaiofficer.dds,1,DXT1,128,128,6,10936,250a196d9a4dda6afca0646121b2360fa1fb639c,loose
+art/units/spearman/greekathenianphalanx/newglossforathenianphalanx.dds,1,DXT1,128,128,6,10936,583f8d64235ddc15e421fa4f808161e1e4c34c22,loose
+art/units/spearman/greekathenianphalanx/newglossforathenianshield.dds,1,DXT1,128,128,6,10936,903e647a7f3ae22a13af4aa82a46214cec025ff5,loose
+art/units/rome/hastatim/praetorian_weapons_gloss_64.dds,1,DXT1,128,128,8,10936,a9f9154a829f7cdbbbe5c7bf53a11af73a733236,loose
+art/units/rome/hastatim/praetorian_weapons_64.dds,1,DXT1,128,128,8,10936,04c76f12e868b856a6a8c719007ece9679aa7a4c,loose
+art/units/rome/principesm/praetorian_weapons_64.dds,1,DXT1,128,128,8,10936,b2548d9c9e8dfed8d48f700ebca697e027fc0eb1,loose
+art/units/rome/principesm/praetorian_weapons_gloss_64.dds,1,DXT1,128,128,8,10936,a9f9154a829f7cdbbbe5c7bf53a11af73a733236,loose
+modules/custom artstyles/japan/units/lightswordsman_japan/samurai_gloss_128.dds,1,DXT1,128,128,8,10936,88e8b7629c0b487d2ecde6f070f7c1f2d8f56b57,loose
+art/units/edunits/swordsman_african/praetorian_weapons_gloss_64.dds,1,DXT1,128,128,8,10936,97f9deac2e316fcec065c2361ad6efa8b8372ee1,RoMPak0.FPK
+art/units/swordsman/swordsman_german/newglossforfrankishswordsman.dds,1,DXT1,128,128,6,10936,529553bb3167739e754afe89410717ec03192567,loose
+art/units/swordsman/swordsman_german/newglossforfrankshield5.dds,1,DXT1,128,128,6,10936,6e178953e8c6bf457d881894cee933839bb71749,loose
+art/units/specials/celtic heavy footman/newglossforshieldandcloak4.dds,1,DXT1,128,128,6,10936,369f1f0d829a7065a40a28120c824fccba2a2592,loose
+art/units/specials/celtic heavy footman/newglossforcelticheavyfootman.dds,1,DXT1,128,128,6,10936,66ecc70f9bb37291e16371d72f27880392b6c667,loose
+art/units/edunits/africanlight_horseman/eurasian_jav_thrower_128.dds,1,DXT1,128,128,6,10936,2e7d912bc0b9b0bfa150ad5f19454c859cbc901f,RoMPak0.FPK
+art/units/unique/china/horseman_china/chinese_swordsman128_gloss.dds,1,DXT1,128,128,8,10936,f08e3526f970b52378a90e77086c1b9dbe707068,RoMPak1.FPK
+art/units/unique/roman/equites/praetorian_weapons_gloss_64.dds,1,DXT1,128,128,8,10936,97f9deac2e316fcec065c2361ad6efa8b8372ee1,RoMPak0.FPK
+art/units/unique/roman/equites/praetorian_gloss_128.dds,1,DXT1,128,128,8,10936,2840a331022f1a82b65f8a1f0001cb66e4a9b78e,RoMPak0.FPK
+art/units/edunits/meso medieval cavalry/panther_jag.dds,1,DXT1,128,128,6,10936,7f7de6d4241df520c6d5c25f538b4e21ad58b240,RoMPak1.FPK
+art/units/edunits/meso medieval cavalry/mesohead2jag.dds,1,DXT1,128,128,6,10936,07ec98a42f6790d6e091d6cf08f72e7d12ccbee4,RoMPak0.FPK
+art/units/unique/china/archer_china/chinese_archer128_gloss.dds,1,DXT1,128,128,8,10936,1ccee62e21c77dd314379fe7c817c42e277c8c27,RoMPak1.FPK
+art/units/edunits/andean knight/mesohead1.dds,1,DXT1,128,128,6,10936,04f7bb90758655a6cdef38ced68e180df942b40f,RoMPak1.FPK
+art/units/unique/roman/knight_rome/praetorian_weapons_gloss_64.dds,1,DXT1,128,128,8,10936,97f9deac2e316fcec065c2361ad6efa8b8372ee1,RoMPak1.FPK
+art/units/unique/roman/knight_rome/praetorian_gloss_128.dds,1,DXT1,128,128,8,10936,2840a331022f1a82b65f8a1f0001cb66e4a9b78e,RoMPak0.FPK
+art/structures/buildings/castle/castle.dds,1,DXT1,128,128,8,10936,51139904e05e36c47eeaf85cfa2b60d992fe6da3,loose
+art/structures/buildings/monument/monument.dds,1,DXT1,128,128,8,10936,3a7cca63a806f619867cf9d5956e2001a949ee64,loose
+art/structures/buildings/stable/stable.dds,2,DXT1,128,128,8,10936,3f7cba687d3b3d9237c5f171c9f3c8a9ef3622eb,loose
+art/structures/buildings/stable/horse_resource.dds,2,DXT1,128,128,8,10936,c8a39c029a3ccc732a327554920d8a4cbf313951,RoMPak0.FPK
+art/structures/buildings/walls/walls.dds,1,DXT1,128,128,8,10936,b2fb98e18092a6c1fa1041d757b95c90766103ec,loose
+art/structures/buildings/bath_europe/b.dds,1,DXT1,128,128,8,10936,9afba617bf264a5426e056a52e993fe590c61efb,loose
+art/structures/buildings/religion/egypt_temple/obelisk_marker.dds,1,DXT1,128,128,8,10936,17dac0732a5713cc91b33355918728be3a6f84bf,RoMPak1.FPK
+art/structures/buildings/religion/egypt_cathedral/obelisk.dds,4,DXT1,128,128,8,10936,f414ab31265fa04034e6d2fd9bca60594321cc22,RoMPak1.FPK
+art/structures/buildings/religion/egypt_cathedral/obelisk_gloss.dds,4,DXT1,128,128,8,10936,a08307114ab6357d7a802b9933fd3e82772a5f71,RoMPak1.FPK
+art/units/unique/byzantium/unique_byzantine_cataphract/papalspearman_weapons_128_gloss.dds,1,DXT1,128,128,5,10912,40ce8051cc122cff1f38f635e836b1afe423b29c,RoMPak0.FPK
+art/units/unique/arabia/worker_arabic/worker_tools.dds,1,DXT3,128,64,1,8192,34f7ed96e3aeb14609bb4e954563bd581e70b088,RoMPak0.FPK
+art/units/ships/mesogalley/sail_128.dds,2,DXT1,128,128,1,8192,aabc3dd4267ead4caa6aff652edb905257dab4b9,RoMPak0.FPK
+art/units/greatpeople_african/prophet/greatprophet_glow.dds,1,DXT1,128,128,1,8192,43a59951cd8cd024c5928a51866a266d4204dbc5,loose
+art/units/unique/carthage/knight_carthage/swordsman_128.dds,1,DXT1,128,128,1,8192,0bf0c857f7474b1c50c00110467b938a9395d42f,RoMPak1.FPK
+art/units/edunits/settler_african/woodstonespear.dds,1,DXT3,64,128,1,8192,235f239b19a182bf099d2ae345872cbb84ebfdf3,RoMPak0.FPK
+art/units/edunits/settler_african/woodstonespear_gloss.dds,1,DXT3,64,128,1,8192,7e6f9752ab109b00d790bd4e2628ab7aa2e23de0,RoMPak0.FPK
+modules/custom artstyles/india/indian_scout/india_fast_worker_128.dds,1,DXT1,128,128,1,8192,0c4c0908e25cec125623b1dadffdeec39b6269fd,loose
+art/units/rome/slave/worker_tools.dds,1,DXT3,128,64,1,8192,34f7ed96e3aeb14609bb4e954563bd581e70b088,loose
+art/units/edunits/workermodern_african/modern_worker_tools_64.dds,1,DXT3,64,64,7,5488,7a856da51a5ac61567c1b46fb492674b8d6d4b18,RoMPak1.FPK
+art/units/edunits/andean pikeman/pikeman_128_gloss.dds,1,DXT3,64,64,7,5488,277d66cb175f9225037717ef5593de35840338bc,RoMPak1.FPK
+modules/custom artstyles/american/units/pikeman/pikeman_128_gloss.dds,1,DXT3,64,64,7,5488,277d66cb175f9225037717ef5593de35840338bc,loose
+art/units/unique/dutch/pikeman_holland/pikeman_128_gloss.dds,1,DXT3,64,64,7,5488,277d66cb175f9225037717ef5593de35840338bc,RoMPak1.FPK
+art/units/unique/carthage/pikeman_carthage/iberian_128.dds,1,DXT3,64,64,7,5488,5566c19b00bc4053d41cace5a31af8fcc46a118a,RoMPak1.FPK
+art/units/unique/carthage/pikeman_carthage/praetorian_weapons_gloss_64.dds,1,DXT3,64,64,7,5488,1c72e10c7dd399a8f5073d7d92df77d386d916a7,RoMPak1.FPK
+art/units/unique/carthage/pikeman_carthage/iberian_gloss.dds,1,DXT3,64,64,7,5488,9bbb852cd9f2ed601c25e2ad586313f9c4a392af,RoMPak1.FPK
+art/units/unique/carthage/pikeman_carthage/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,073a29f0eec0269638fa440824651fb6955216a7,RoMPak1.FPK
+art/units/unique/native america/native american pikeman/feathers_64_gloss.dds,1,DXT3,64,64,7,5488,9134de31fff20adc668608d12e50018133d283fd,RoMPak1.FPK
+art/units/unique/native america/native american pikeman/feathers_64.dds,1,DXT3,64,64,7,5488,fc2748ff4abf41df6b3c3eade8a620241f8544de,RoMPak0.FPK
+art/units/unique/native america/native american pikeman/sioux_leather_64.dds,1,DXT3,64,64,7,5488,168f41218675ced1fdb351a3712a8cd81665dd62,RoMPak1.FPK
+art/units/unique/native america/sioux crossbowman/feathers_64.dds,1,DXT3,64,64,7,5488,fc2748ff4abf41df6b3c3eade8a620241f8544de,RoMPak0.FPK
+art/units/unique/carthage/crossbowman_carthage/iberian_128.dds,1,DXT3,64,64,7,5488,5566c19b00bc4053d41cace5a31af8fcc46a118a,RoMPak1.FPK
+art/units/unique/carthage/crossbowman_carthage/iberian_gloss.dds,1,DXT3,64,64,7,5488,9bbb852cd9f2ed601c25e2ad586313f9c4a392af,RoMPak0.FPK
+art/units/unique/carthage/spearman_carthage/iberian_128.dds,1,DXT3,64,64,7,5488,5566c19b00bc4053d41cace5a31af8fcc46a118a,RoMPak0.FPK
+art/units/unique/carthage/spearman_carthage/praetorian_weapons_gloss_64.dds,1,DXT3,64,64,7,5488,1c72e10c7dd399a8f5073d7d92df77d386d916a7,RoMPak1.FPK
+art/units/unique/carthage/spearman_carthage/iberian_gloss.dds,1,DXT3,64,64,7,5488,9bbb852cd9f2ed601c25e2ad586313f9c4a392af,RoMPak0.FPK
+art/units/unique/carthage/spearman_carthage/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,073a29f0eec0269638fa440824651fb6955216a7,RoMPak0.FPK
+modules/custom artstyles/american/units/spearman/knight_templar_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,aea1acb542ecd30fc597da207d707b5ef5cf7bee,loose
+modules/custom artstyles/india/indian_pikeman/pikeman_128_gloss.dds,1,DXT3,64,64,7,5488,d54ce0a7cb497f64d30ecdd98f03096203e52a67,loose
+art/units/unique/byzantium/pikeman_byzantine/knight_templar_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,94f6956e2410e19374637f4050e424d3cc8c6007,RoMPak0.FPK
+art/units/unique/native america/native american spearman/feathers_64_gloss.dds,1,DXT3,64,64,7,5488,9134de31fff20adc668608d12e50018133d283fd,RoMPak0.FPK
+art/units/unique/native america/native american spearman/aztec_jaguar_weapons_64.dds,1,DXT3,64,64,7,5488,1df166388f042adedd9a764de22f675d0eae91bc,RoMPak0.FPK
+art/units/unique/native america/native american spearman/feathers_64.dds,1,DXT3,64,64,7,5488,fc2748ff4abf41df6b3c3eade8a620241f8544de,RoMPak1.FPK
+art/units/edunits/pikeman_african/chinese_spearman_gloss.dds,1,DXT3,64,64,7,5488,169e3f08b8da70c7bc65b084c1b53d37f454cebf,RoMPak1.FPK
+art/units/unique/china/pikeman_china/chokunu_weapons_64.dds,1,DXT3,64,64,7,5488,2ab0235dc797789f312c2d2257fc6055102d3546,RoMPak0.FPK
+art/units/unique/china/pikeman_china/chinese_spearman_gloss.dds,1,DXT3,64,64,7,5488,169e3f08b8da70c7bc65b084c1b53d37f454cebf,RoMPak0.FPK
+art/units/unique/china/pikeman_china/pikeman_128_gloss.dds,1,DXT3,64,64,7,5488,21ae2e0b257bf198d0216d7f63cad44296c1788f,RoMPak1.FPK
+art/units/unique/china/pikeman_china/pikeman_128.dds,1,DXT3,64,64,7,5488,f80b78939a4b397516816fc26270689b73599f45,RoMPak1.FPK
+art/units/unique/dutch/maceman_holland/heavyswordsman_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,ab39ad336135b78142931b0ad369ae50f73ee681,RoMPak0.FPK
+art/units/unique/dutch/maceman_holland/knight-shield-gloss-64.dds,1,DXT3,64,64,7,5488,92589645216dee551f163fe97c16d4841785828f,RoMPak0.FPK
+art/units/unique/dutch/maceman_holland/pikeman_128_gloss.dds,1,DXT3,64,64,7,5488,ba91a5cfa0dff2b9ae5b3ae40a144f3408823765,RoMPak1.FPK
+art/units/unique/dutch/maceman_holland/knight_shield_64.dds,1,DXT3,64,64,7,5488,58a2c127be2b756e5b0c431aabf61474a7994c35,RoMPak0.FPK
+art/units/unique/roman/heavy_swordsman_rome/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,e986ee2a2ec205c5a46282a1525023456f298331,RoMPak0.FPK
+modules/custom artstyles/american/units/heavy swordsman/heavyswordsman_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,ab39ad336135b78142931b0ad369ae50f73ee681,loose
+modules/custom artstyles/american/units/heavy swordsman/knight_templar_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,aea1acb542ecd30fc597da207d707b5ef5cf7bee,loose
+art/units/unique/arabia/heavy_swordsman_arabia/heavyswordsman_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,ab39ad336135b78142931b0ad369ae50f73ee681,RoMPak1.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/crescent_shield_gloss.dds,1,DXT3,64,64,7,5488,ed0e167bf1654897321d5df7b39486030b311cec,RoMPak0.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/byzantinecataphract_shield_gloss_64.dds,1,DXT3,64,64,7,5488,1f9535310aa714c18f775b1590c4d74b0acc7e83,RoMPak0.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/heavyswordsman_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,ab39ad336135b78142931b0ad369ae50f73ee681,RoMPak0.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/knight_templar_weapons_64.dds,1,DXT3,64,64,7,5488,3b37e6ca7cb20b77d116bfd52df46b9c7b3fde07,RoMPak0.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/byzantinecataphract_shield_64.dds,1,DXT3,64,64,7,5488,6081fc836b82189b5560f816083f153a98e9d92d,RoMPak0.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/knight_templar_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,aea1acb542ecd30fc597da207d707b5ef5cf7bee,RoMPak0.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/heavyswordsman_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,ab39ad336135b78142931b0ad369ae50f73ee681,RoMPak1.FPK
+art/units/unique/china/axeman_china/chinese_spearman_gloss.dds,1,DXT3,64,64,7,5488,169e3f08b8da70c7bc65b084c1b53d37f454cebf,RoMPak0.FPK
+modules/custom artstyles/barbarian/units/spearman/hw_ddhfront.dds,2,DXT3,64,64,5,5488,93d35c0b6155cea6c649d2a0f6c162f39edbce43,loose
+modules/custom artstyles/barbarian/units/spearman/hw_ddhdisks.dds,2,DXT3,64,64,5,5488,bdce212f8abc6add7b9c6b74178454712d643b66,loose
+modules/custom artstyles/barbarian/units/spearman/hw_ddhback.dds,2,DXT3,64,64,5,5488,79e74722cb0ce65115189028b401bab45c35bc48,loose
+modules/custom artstyles/barbarian/units/spearman/pikeman_128_gloss.dds,2,DXT3,64,64,7,5488,277d66cb175f9225037717ef5593de35840338bc,loose
+modules/custom artstyles/barbarian/units/spearman/hw_ddhbone.dds,2,DXT3,64,64,5,5488,8ccfe61657c6d5a7d5bb0e5b16c3d68dc90f5133,loose
+art/units/unique/viking/viking knight/mountedinfantry_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,bee5329ea13c3c0d749c4135e56ad4d0acb419a3,RoMPak0.FPK
+art/units/unique/native america/sioux knight/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,2f998e0c46c2f7a3da85d4df302bff8e0d1a32ef,RoMPak1.FPK
+art/units/unique/native america/sioux knight/feathers_64_gloss.dds,1,DXT3,64,64,7,5488,9134de31fff20adc668608d12e50018133d283fd,RoMPak0.FPK
+art/units/unique/native america/sioux knight/feathers_64-2.dds,1,DXT3,64,64,7,5488,21beacd29fdbc3b623a06f9b3106d8b81d25164b,RoMPak1.FPK
+art/units/unique/native america/sioux knight/aztec_jaguar_weapons_64.dds,1,DXT3,64,64,7,5488,5eca52f327eefd3c9517463e09d2e405377338e6,RoMPak1.FPK
+art/units/unique/carthage/knight_carthage/iberian_128.dds,1,DXT3,64,64,7,5488,5566c19b00bc4053d41cace5a31af8fcc46a118a,RoMPak0.FPK
+art/units/unique/carthage/knight_carthage/praetorian_weapons_gloss_64.dds,1,DXT3,64,64,7,5488,1c72e10c7dd399a8f5073d7d92df77d386d916a7,RoMPak0.FPK
+art/units/unique/carthage/knight_carthage/iberian_gloss.dds,1,DXT3,64,64,7,5488,9bbb852cd9f2ed601c25e2ad586313f9c4a392af,RoMPak1.FPK
+art/units/unique/carthage/knight_carthage/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,073a29f0eec0269638fa440824651fb6955216a7,RoMPak1.FPK
+art/units/africa/african knight/knight_shield_64.dds,1,DXT3,64,64,5,5488,99a37b068e0817de0153afaf08c422c4f980688c,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/heavyswordsman_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,ab39ad336135b78142931b0ad369ae50f73ee681,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/pikeman_128_gloss.dds,1,DXT3,64,64,7,5488,ba91a5cfa0dff2b9ae5b3ae40a144f3408823765,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/knight_shield_gloss_64.dds,1,DXT3,64,64,7,5488,92589645216dee551f163fe97c16d4841785828f,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/knight_shield_64.dds,1,DXT3,64,64,7,5488,58a2c127be2b756e5b0c431aabf61474a7994c35,RoMPak0.FPK
+art/units/unique/carthage/axeman_carthage/iberian_128.dds,1,DXT3,64,64,7,5488,5566c19b00bc4053d41cace5a31af8fcc46a118a,RoMPak1.FPK
+art/units/unique/carthage/axeman_carthage/iberian_gloss.dds,1,DXT3,64,64,7,5488,9bbb852cd9f2ed601c25e2ad586313f9c4a392af,RoMPak0.FPK
+art/units/edunits/meso light spearman/aztec_jaguar_weapons_64.dds,1,DXT3,64,64,7,5488,c8ee0af9f9e277917f1911961ce18d2888a8deef,RoMPak0.FPK
+art/units/greatleader_sioux/medieval/feathers_64.dds,1,DXT3,64,64,7,5488,fc2748ff4abf41df6b3c3eade8a620241f8544de,loose
+art/units/greatleader_sioux/ancient/feathers_64.dds,1,DXT3,64,64,7,5488,fc2748ff4abf41df6b3c3eade8a620241f8544de,loose
+art/units/rome/hastatim/spatha.dds,1,DXT3,64,64,7,5488,fd1b5c54be31589adca9abf13b71cac566ab7dbb,loose
+art/units/rome/hastatim/skirmisher_weapons_64.dds,1,DXT3,64,64,7,5488,90c0bfcd7e2ca66b374a5ec2a402494faec9225a,loose
+art/units/greatpeople_african/modernmerchant/modernmerchant_moneybag_64.dds,1,DXT3,64,64,7,5488,797420ecd979e639a4bd9122d7c47345fe38235a,loose
+art/units/edunits/swordsman_african/skirmisher_weapons_64.dds,1,DXT3,64,64,7,5488,709c574db6461613c30ccfddaa5be8b2dcfe5886,RoMPak0.FPK
+art/units/edunits/swordsman_african/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,e986ee2a2ec205c5a46282a1525023456f298331,RoMPak1.FPK
+art/units/unique/native america/iroquois swordsman/feathers_64.dds,1,DXT3,64,64,7,5488,9db9604fa007f25fd3b424c63a176eedb7766026,RoMPak1.FPK
+art/units/unique/native america/iroquois swordsman/feathers2_64.dds,1,DXT3,64,64,7,5488,00008db3e7d067252a4be95d3b5456438a473ad5,RoMPak0.FPK
+art/units/unique/native america/iroquois swordsman/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,04a7f8ebf351d7fe9ef12c9ba20bc302f1fb27fa,RoMPak0.FPK
+art/units/unique/china/horseman_china/chokonu_128_gloss.dds,1,DXT3,64,64,7,5488,e8d1c940395e21160e3a7565be51d30ca06c898d,RoMPak1.FPK
+art/units/unique/roman/equites/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,e986ee2a2ec205c5a46282a1525023456f298331,RoMPak1.FPK
+art/units/unique/byzantium/horseman_byzantine/byzantinecataphract_shield_gloss_64.dds,1,DXT3,64,64,7,5488,1f9535310aa714c18f775b1590c4d74b0acc7e83,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/heavyswordsman_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,ab39ad336135b78142931b0ad369ae50f73ee681,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/heavycavalry_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,7e148afccb8df6a96f90b65c89957936126d306f,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/byzantinecataphract_shield_64.dds,1,DXT3,64,64,7,5488,6081fc836b82189b5560f816083f153a98e9d92d,RoMPak1.FPK
+modules/custom artstyles/american/units/horseman/heavyswordsman_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,ab39ad336135b78142931b0ad369ae50f73ee681,loose
+modules/custom artstyles/american/units/horseman/heavycavalry_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,7e148afccb8df6a96f90b65c89957936126d306f,loose
+modules/custom artstyles/american/units/horseman/knight_templar_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,aea1acb542ecd30fc597da207d707b5ef5cf7bee,loose
+art/units/edunits/meso medieval cavalry/aztec_jaguar_weapons_64.dds,1,DXT3,64,64,5,5488,553235eb9557602c376ac8dce000acf661a9f22c,RoMPak1.FPK
+art/units/unique/arabia/horseman_arabia/camelarcher_weapons_64.dds,1,DXT3,64,64,7,5488,5abe0f93c37a9c1869498d7665f2240511b2ba21,RoMPak0.FPK
+modules/custom artstyles/india/indian_chariot/chariot_weapons_64.dds,1,DXT3,64,64,7,5488,2248704d7961adedd7f7c0c4bb14fa036d4164fb,loose
+modules/custom artstyles/japan/units/chariot_japan/chokunu_weapons_64.dds,1,DXT3,64,64,7,5488,7463cdef7eef3093c341c0d89f93b2373908a143,loose
+art/units/unique/carthage/chariot_carthage/numidian_cavalry_gloss.dds,1,DXT3,64,64,7,5488,eae6de05f467a3bcd6656b039c31953d3903d99a,RoMPak1.FPK
+art/units/unique/arabia/chariot_arabia/chariot_weapons_64.dds,1,DXT5,64,64,7,5488,e576f5c7d98eaa5d0efe271dfa9ac3cf027c4abc,RoMPak1.FPK
+art/units/unique/arabia/chariot_arabia/camelarcher_weapons_64.dds,1,DXT3,64,64,7,5488,e5866b91a3577b2f31f05a80853a8badbc1f0a7e,RoMPak1.FPK
+art/units/unique/arabia/chariot_arabia/camelarcher_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,1b29f4fd0602ae536feb26212292bbe48abc64b5,RoMPak0.FPK
+modules/custom artstyles/india/indian_horseman/numidian_cavalry_gloss.dds,1,DXT3,64,64,7,5488,2b64cf5e1c1464f191effb9d0c583470220bb7c7,loose
+art/units/edunits/horseman_african/numidian_cavalry_gloss.dds,1,DXT3,64,64,7,5488,2b64cf5e1c1464f191effb9d0c583470220bb7c7,RoMPak0.FPK
+art/units/unique/dutch/horseman_holland/mountedinfantry_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,bee5329ea13c3c0d749c4135e56ad4d0acb419a3,RoMPak0.FPK
+art/units/unique/byzantium/unique_byzantine_cataphract/byzantinecataphract_shield_gloss_64.dds,1,DXT3,64,64,7,5488,1f9535310aa714c18f775b1590c4d74b0acc7e83,RoMPak0.FPK
+art/units/unique/byzantium/unique_byzantine_cataphract/byzantinecataphract_shield_64.dds,1,DXT3,64,64,7,5488,6081fc836b82189b5560f816083f153a98e9d92d,RoMPak0.FPK
+art/units/unique/china/knight_china/heavycavalry_weapons_64_gloss.dds,1,DXT3,64,64,7,5488,7e148afccb8df6a96f90b65c89957936126d306f,RoMPak1.FPK
+art/units/unique/china/knight_china/chokunu_weapons_64.dds,1,DXT3,64,64,7,5488,2ab0235dc797789f312c2d2257fc6055102d3546,RoMPak1.FPK
+art/units/unique/china/knight_china/jer.dds,1,DXT3,64,64,7,5488,b7f49e161695df4b89318d4b1774ddbd795a5d73,RoMPak0.FPK
+art/units/unique/china/knight_china/jer_gloss.dds,1,DXT3,64,64,7,5488,b9246923bd6f47fe9d0ed07b62e8dd4e032de0be,RoMPak1.FPK
+art/units/edunits/andean knight/pikeman_128_gloss.dds,1,DXT3,64,64,7,5488,277d66cb175f9225037717ef5593de35840338bc,RoMPak1.FPK
+art/units/unique/roman/knight_rome/praetorian_weapons_64.dds,1,DXT3,64,64,7,5488,e986ee2a2ec205c5a46282a1525023456f298331,RoMPak0.FPK
+art/structures/buildings/castle/castle_shadow.dds,1,DXT3,64,64,7,5488,299b3d3440f37e9996b7b26c5b31d6ca1c08c9a3,loose
+art/structures/buildings/bach/shadow.dds,1,DXT3,64,64,5,5488,cbe5b20ddd7eca2c73e880d5e3bd92b210166ac1,RoMPak0.FPK
+art/structures/buildings/bath_europe/shadow.dds,1,DXT3,64,64,5,5488,f26c306cc29109919f3f2774fa6a8acffa17cebe,loose
+art/structures/buildings/hanginggardens/hanginggardens-shadowmap.dds,1,DXT3,64,64,7,5488,cdfa16b3aaef43d1fba6e54d8fc7d06d1550a88b,loose
+art/units/edunits/workermodern_african/worker_tools.dds,1,DXT1,128,64,8,5480,d71027c1e6abf2363504648b531e6a230e5b652f,RoMPak1.FPK
+art/units/edunits/worker_african/worker_tools.dds,1,DXT1,128,64,8,5480,d71027c1e6abf2363504648b531e6a230e5b652f,RoMPak0.FPK
+art/units/unique/dutch/maceman_holland/heavyswordsman_weapons_64.dds,1,DXT5,64,64,4,5440,86c0d274e7b13d2bf5f95b6c3fe734f0e048b0d6,RoMPak1.FPK
+modules/custom artstyles/american/units/heavy swordsman/heavyswordsman_weapons_64.dds,1,DXT5,64,64,4,5440,86c0d274e7b13d2bf5f95b6c3fe734f0e048b0d6,loose
+art/units/unique/arabia/heavy_swordsman_arabia/heavyswordsman_weapons_64.dds,1,DXT5,64,64,4,5440,86c0d274e7b13d2bf5f95b6c3fe734f0e048b0d6,RoMPak0.FPK
+art/units/unique/byzantium/heavy_swordsman_byzantine/heavyswordsman_weapons_64.dds,1,DXT5,64,64,4,5440,86c0d274e7b13d2bf5f95b6c3fe734f0e048b0d6,RoMPak1.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/heavyswordsman_weapons_64.dds,1,DXT5,64,64,4,5440,86c0d274e7b13d2bf5f95b6c3fe734f0e048b0d6,RoMPak1.FPK
+art/units/unique/dutch/knight_holland/heavyswordsman_weapons_64.dds,1,DXT5,64,64,4,5440,86c0d274e7b13d2bf5f95b6c3fe734f0e048b0d6,RoMPak0.FPK
+art/units/unique/byzantium/horseman_byzantine/heavycavalry_weapons_64.dds,1,DXT5,64,64,4,5440,d5a284ee22a6dfd99af1bb53ef161f527c5eee83,RoMPak1.FPK
+art/units/unique/byzantium/horseman_byzantine/heavyswordsman_weapons_64.dds,1,DXT5,64,64,4,5440,86c0d274e7b13d2bf5f95b6c3fe734f0e048b0d6,RoMPak0.FPK
+modules/custom artstyles/american/units/horseman/heavyswordsman_weapons_64.dds,1,DXT5,64,64,4,5440,86c0d274e7b13d2bf5f95b6c3fe734f0e048b0d6,loose
+modules/custom artstyles/american/units/horseman/heavycavalry_weapons_64.dds,1,DXT5,64,64,4,5440,d5a284ee22a6dfd99af1bb53ef161f527c5eee83,loose
+art/units/unique/dutch/horseman_holland/mountedinfantry_weapons_64.dds,1,DXT5,64,64,4,5440,3270abd91c0c364b35a364c43b0921d9953e706c,RoMPak0.FPK
+art/units/unique/china/knight_china/heavycavalry_weapons_64.dds,1,DXT5,64,64,4,5440,d5a284ee22a6dfd99af1bb53ef161f527c5eee83,RoMPak0.FPK
+art/units/unique/arabia/pikeman_arabia/halberdec_gloss.dds,1,DXT3,64,64,1,4096,792a7787e055683686f0dd35f18cb33df31db5e8,RoMPak1.FPK
+modules/custom artstyles/india/indian_pikeman/halberdec_gloss.dds,1,DXT3,64,64,1,4096,792a7787e055683686f0dd35f18cb33df31db5e8,loose
+art/units/unique/arabia/heavy_swordsman_arabia/scimitar_gloss.dds,1,DXT3,64,64,1,4096,77f6a6e83bfda9bd753d158ad674b521ad9b5c06,RoMPak0.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/cape.dds,1,DXT3,64,64,1,4096,5d15288bd052dc401d893f38843355ca95187c4f,RoMPak0.FPK
+art/units/unique/babylon/heavy_swordsman_babylon/scimitar_gloss.dds,1,DXT3,64,64,1,4096,77f6a6e83bfda9bd753d158ad674b521ad9b5c06,RoMPak1.FPK
+art/units/unique/china/axeman_china/halberdec_gloss.dds,1,DXT3,64,64,1,4096,792a7787e055683686f0dd35f18cb33df31db5e8,RoMPak0.FPK
+modules/custom artstyles/barbarian/units/spearman/beard.dds,2,DXT3,64,64,1,4096,57b51157e49a01d107a14d3317049c04c38b655d,loose
+modules/custom artstyles/barbarian/units/spearman/roundshield_gloss.dds,2,DXT3,64,64,1,4096,a79beea71fc7a722081fbb464bf6b35165fc59b2,loose
+art/units/unique/native america/sioux knight/aztec_jaguar_weapons_gloss_64.dds,1,DXT3,64,64,1,4096,5ae48180bf2e5da3a8e267d4407d9b6713efa3dc,RoMPak1.FPK
+art/units/jav_gauls/jav_weapons_64.dds,1,DXT3,64,64,1,4096,66f681d313edaf192dfd838d9cf55fc77a3c2bd0,RoMPak1.FPK
+art/units/jav_assyr/jav_weapons_64.dds,1,DXT3,64,64,1,4096,9cccc2344e8083ab0b1c5fe95b8cf6a13946971a,RoMPak1.FPK
+art/units/jav_roman/jav_weapons_64.dds,1,DXT3,64,64,1,4096,66f681d313edaf192dfd838d9cf55fc77a3c2bd0,RoMPak1.FPK
+art/units/jav_phoen/jav_weapons_64.dds,1,DXT3,64,64,1,4096,9cccc2344e8083ab0b1c5fe95b8cf6a13946971a,RoMPak0.FPK
+art/units/jav_nubia/jav_weapons_64.dds,1,DXT3,64,64,1,4096,9cccc2344e8083ab0b1c5fe95b8cf6a13946971a,RoMPak1.FPK
+modules/custom artstyles/babylon/units/jav_babyl/jav_weapons_64.dds,1,DXT3,64,64,1,4096,9cccc2344e8083ab0b1c5fe95b8cf6a13946971a,loose
+art/units/unique/roman/axeman_rome/environment_fx_greymetal.dds,1,DXT3,64,64,1,4096,d8b564f50063756add22a20883da780d23a202a1,RoMPak1.FPK
+art/units/animals/dog/wolf_alpha.dds,2,DXT3,64,64,1,4096,0de518db3c5aa2f210404a0a6d24a982b28f3e4a,RoMPak1.FPK
+modules/custom units/warlord/warlord_south_america/ber35-2.dds,1,DXT3,64,64,1,4096,1ba857576b76da2c483bb10fd2f6512429f27f99,loose
+modules/custom units/warlord/warlord_meso_america/ber35-2.dds,1,DXT3,64,64,1,4096,1ba857576b76da2c483bb10fd2f6512429f27f99,loose
+modules/custom units/warlord/warlord_native_america/ber35-2.dds,1,DXT3,64,64,1,4096,1ba857576b76da2c483bb10fd2f6512429f27f99,loose
+art/units/animals/donkey/bag.dds,1,DXT3,64,64,1,4096,328c8ca7e4882f044d77a85df1312902588c0cf9,RoMPak0.FPK
+art/units/rome/velites/woodstonespear.dds,1,DXT1,64,128,1,4096,f65afe56ee096e106e8188f626e298cb9bf40146,loose
+art/units/unique/arabia/horseman_arabia/camelarcher_weapons_64_gloss.dds,1,DXT3,64,64,1,4096,5f7d0b76ab189acc445bed9a47326b060a9319c3,RoMPak1.FPK
+art/units/edunits/archer_african/archer_weapons.dds,1,DXT3,64,64,1,4096,74a5fbc025af2f3d9ddba65adf06daac523485f2,RoMPak0.FPK
+art/units/unique/byzantium/archer_byzantine/archer_weapons.dds,1,DXT3,64,64,1,4096,6d0527e90cb4a8a98b4a3cbd0c0a4cb49feddb36,RoMPak1.FPK
+art/units/edunits/archer_native_american/archer_weapons.dds,1,DXT3,64,64,1,4096,9cb40da742060a948b0d365028f8da0486df0cfe,RoMPak1.FPK
+art/structures/buildings/tempel_enlil/america_shadowmap.dds,2,DXT3,64,64,1,4096,6aa5b17bf00fc40b08121d6831a1aa9225e42276,loose
+art/structures/buildings/religion/egypt_monastery/sphinx_shadow.dds,1,DXT3,64,64,1,4096,03910f60ac71c44fd20692f02418eadd88f16423,RoMPak1.FPK
+art/structures/buildings/sphinx/sphinx_shadow.dds,1,DXT3,64,64,1,4096,03910f60ac71c44fd20692f02418eadd88f16423,RoMPak1.FPK
+art/structures/buildings/oak/oak_shadowmap.dds,1,DXT3,64,64,1,4096,e51e73a0e5d252215776791826b32e94cfc7f2c6,loose
+art/structures/buildings/nordic_shrine/nordic_shrine_shadowmap.dds,1,DXT3,64,64,1,4096,f33ccf7fa45aa17cd1880c9dce16f39be3353049,loose
+art/units/unique/native america/native american pikeman/scout_fringe_128x16.dds,1,DXT3,16,128,8,2832,396a6f54192343ebfbf3361998a261caa67db74a,RoMPak1.FPK
+art/units/unique/native america/sioux crossbowman/scout_fringe_128x16.dds,1,DXT3,16,128,8,2832,24b074c575f527193d35a4f9cebffc376bbce4bf,RoMPak0.FPK
+art/units/unique/native america/native american spearman/scout_fringe_128x16.dds,1,DXT3,16,128,8,2832,43f76c99aae4fedd16d5c804b4c2f05539303e5f,RoMPak0.FPK
+art/units/unique/native america/sioux knight/scout_fringe_128x16.dds,1,DXT3,16,128,8,2832,672af3fc6f5702129b634a51f0e47e17bb0df740,RoMPak0.FPK
+art/units/edunits/archer_native_american/scout_fringe_128x16.dds,1,DXT3,16,128,8,2832,43f76c99aae4fedd16d5c804b4c2f05539303e5f,RoMPak0.FPK
+art/units/unique/native america/sioux crossbowman/environment_fx_greymetal.dds,1,DXT1,64,64,7,2744,bb7aac7a067b60746a08d388f9dd3ea26f6bde83,RoMPak0.FPK
+art/units/unique/carthage/spearman_carthage/greek_phalanx_weapons_64.dds,1,DXT1,64,64,7,2744,236e669429ad849de7f16b259b7e3d737b09e264,RoMPak1.FPK
+art/units/unique/carthage/spearman_carthage/greek_phalanx_weapons_gloss_64.dds,1,DXT1,64,64,7,2744,44c8d8d82fbc23672ac677ea048e43b4a8621b53,RoMPak0.FPK
+art/units/unique/china/pikeman_china/chokunu_weapons_64_gloss.dds,1,DXT1,64,64,7,2744,ea97613a50bb80182011100c0ffd1e503fd9f2e6,RoMPak0.FPK
+art/units/edunits/spy_african/timebomb.dds,1,DXT1,64,64,7,2744,3a1102a4a9a198c80fe37a71e046141aab4b0352,RoMPak1.FPK
+art/units/unique/native america/sioux knight/environment_fx_greymetal.dds,1,DXT1,64,64,7,2744,bb7aac7a067b60746a08d388f9dd3ea26f6bde83,RoMPak1.FPK
+art/units/unique/roman/axeman_rome/greek_phalanx_weapons_64.dds,1,DXT1,64,64,7,2744,44c8d8d82fbc23672ac677ea048e43b4a8621b53,RoMPak0.FPK
+art/units/unique/roman/axeman_rome/greek_phalanx_weapons_gloss_64.dds,1,DXT1,64,64,7,2744,44c8d8d82fbc23672ac677ea048e43b4a8621b53,RoMPak1.FPK
+art/units/edunits/explorer_african/companion_cavalry_128_gloss.dds,1,DXT1,64,64,5,2744,e249274d92c667f5ccbd70b40531b8cc6e191666,RoMPak0.FPK
+modules/custom artstyles/india/indian_spearman/greek_phalanx_weapons_64.dds,1,DXT1,64,64,7,2744,236e669429ad849de7f16b259b7e3d737b09e264,loose
+modules/custom artstyles/india/indian_spearman/greek_phalanx_weapons_gloss_64.dds,1,DXT1,64,64,7,2744,44c8d8d82fbc23672ac677ea048e43b4a8621b53,loose
+art/units/greatleader_sioux/medieval/feathers_64_gloss.dds,1,DXT1,64,64,7,2744,4f1e3e7e4bf49ce7f37078dc737d663b8d26ada3,loose
+art/units/greatleader_sioux/medieval/sioux_weapon_gloss.dds,1,DXT1,64,64,7,2744,27cae80f044e29f780251ba2e99d24058b8023f4,loose
+art/units/greatleader_sioux/medieval/environment_fx_greymetal.dds,1,DXT1,64,64,7,2744,04e30325baf925a9883f57b683ddaee132455d27,loose
+art/units/greatleader_sioux/ancient/feathers_64_gloss.dds,1,DXT1,64,64,7,2744,4f1e3e7e4bf49ce7f37078dc737d663b8d26ada3,loose
+art/units/greatleader_sioux/ancient/sioux_weapon_gloss.dds,1,DXT1,64,64,7,2744,27e6cc3ad2f8ddb0aaf4c961e9ba2e38daff13ad,loose
+art/units/greatleader_sioux/ancient/environment_fx_greymetal.dds,1,DXT1,64,64,7,2744,04e30325baf925a9883f57b683ddaee132455d27,loose
+art/units/rome/velites/skirmisher_weapons_64.dds,1,DXT1,64,64,6,2744,8c5b4c4fc2213256e1b571f2a599f4af0c5f5ba8,loose
+art/units/unique/china/horseman_china/chokunu_weapons_64.dds,1,DXT1,64,64,7,2744,f421d6bd33e70aad504fe778e6630bfa151b3f80,RoMPak0.FPK
+art/units/unique/china/horseman_china/chokunu_weapons_64_gloss.dds,1,DXT1,64,64,7,2744,ea97613a50bb80182011100c0ffd1e503fd9f2e6,RoMPak0.FPK
+modules/custom artstyles/india/indian_chariot/chariot_weapons_gloss_64.dds,1,DXT1,64,64,7,2744,ef4a6af8bbe79c49806bd1c26ca089fed735f6ff,loose
+modules/custom artstyles/japan/units/chariot_japan/chokunu_weapons_64_gloss.dds,1,DXT1,64,64,7,2744,ea97613a50bb80182011100c0ffd1e503fd9f2e6,loose
+modules/custom artstyles/india/indian_archer/archer_weapons.dds,1,DXT1,64,64,7,2744,f0136e8e031c3bfa1ed764c76fcd812c06ff92d0,loose
+art/units/unique/viking/viking archer/environment_fx_greymetal.dds,1,DXT1,64,64,7,2744,04e30325baf925a9883f57b683ddaee132455d27,RoMPak0.FPK
+art/units/unique/china/knight_china/chokunu_weapons_64_gloss.dds,1,DXT1,64,64,7,2744,ea97613a50bb80182011100c0ffd1e503fd9f2e6,RoMPak0.FPK
+art/structures/buildings/bach/c.dds,1,DXT1,64,64,5,2744,5024d8bfa7074bd71c5cdc40a4a1ec013ea6e962,RoMPak0.FPK
+art/structures/buildings/bath_europe/water.dds,1,DXT1,64,64,7,2744,fc029ce06bb7ebdc13bd3f66e334c8265a5ad8c9,loose
+art/structures/buildings/bath_europe/window.dds,1,DXT1,64,64,7,2744,06edcbf01dc407bc8c1a42544ef5113b5ac7eab1,loose
+modules/custom artstyles/india/indian_archer/archer_arrow.dds,1,DXT3,128,16,3,2688,cf0122a25a5851e1e304bcadc3d3a6665e3adcd6,loose
+modules/custom artstyles/india/indian_heavy_swordsman/indian_scimitar_gloss.dds,1,DXT3,32,64,1,2048,8dc948f2abf389210c6421a52569623830d381fe,loose
+modules/custom artstyles/india/indkn/indian_scimitar_gloss.dds,1,DXT3,32,64,1,2048,8dc948f2abf389210c6421a52569623830d381fe,loose
+art/units/edunits/axeman_african/whchopper.dds,1,DXT1,64,64,1,2048,ad6fb5b4dc8c8545be268e5e91419cf0213bcd76,RoMPak1.FPK
+art/units/unique/babylon/chariot_babylon/babylon_worker_128_gloss.dds,1,DXT1,64,64,1,2048,f94d255c1594ba83ab31fe027ec969dac8e2172b,RoMPak1.FPK
+art/units/unique/arabia/chariot_arabia/chariot_weapons_gloss_64.dds,1,DXT1,64,64,1,2048,4f792cc8481bc748c712912b272c91fedbd09e48,RoMPak0.FPK
+art/units/unique/byzantium/archer_byzantine/archer_arrow.dds,1,DXT3,128,16,1,2048,c416082aac9df3fe5fa0d6e8ccdda002a7433f2d,RoMPak0.FPK
+art/units/unique/viking/viking archer/knife.dds,1,DXT3,64,32,1,2048,5c531b6404571e13999caeab0d8ae54ba1668300,RoMPak0.FPK
+art/units/unique/viking/viking archer/knife_gloss.dds,1,DXT3,64,32,1,2048,2df6c1b6fd58063aada86053942c16c4082184af,RoMPak0.FPK
+art/units/unique/viking/viking archer/archer_arrow.dds,1,DXT3,128,16,1,2048,c416082aac9df3fe5fa0d6e8ccdda002a7433f2d,RoMPak0.FPK
+art/units/unique/arabia/archer_arabia/archer_arrow.dds,1,DXT3,128,16,1,2048,c416082aac9df3fe5fa0d6e8ccdda002a7433f2d,RoMPak1.FPK
+art/units/chariots/ca_celtic/archer_arrow.dds,1,DXT3,128,16,1,2048,0c34db21e8c63ff3774ade7a94f343e56b9b8e55,loose
+art/units/unique/babylon/chariot_babylon/ewc_spear.dds,1,DXT3,8,128,8,1552,8c23db168bc97d89661802842ca529bec56d2961,RoMPak0.FPK
+art/units/unique/arabia/pikeman_arabia/top.dds,1,DXT3,32,32,6,1392,f59b54eb959cf03073d67100ff37016e544f0401,RoMPak1.FPK
+art/units/unique/arabia/pikeman_arabia/top_gloss.dds,1,DXT3,32,32,6,1392,82c61f95ed673416ed5712fb19a0c7b2931e15e2,RoMPak1.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/top.dds,1,DXT3,32,32,6,1392,f59b54eb959cf03073d67100ff37016e544f0401,RoMPak1.FPK
+art/units/unique/arabia/heavy_swordsman_arabia/top_gloss.dds,1,DXT3,32,32,6,1392,82c61f95ed673416ed5712fb19a0c7b2931e15e2,RoMPak0.FPK
+art/units/unique/arabia/axeman_arabia/top.dds,1,DXT3,32,32,6,1392,f59b54eb959cf03073d67100ff37016e544f0401,RoMPak0.FPK
+art/units/unique/arabia/axeman_arabia/top_gloss.dds,1,DXT3,32,32,6,1392,82c61f95ed673416ed5712fb19a0c7b2931e15e2,RoMPak1.FPK
+art/units/greatpeople_african/modernmerchant/merchant_goldcoin.dds,1,DXT3,32,32,6,1392,75a3c451aa3ddbda8647c1660d7f0ef3ac05046b,loose
+art/units/greatpeople_african/merchant/goldcoin.dds,1,DXT3,32,32,6,1392,75a3c451aa3ddbda8647c1660d7f0ef3ac05046b,loose
+art/units/unique/arabia/worker_arabic/worker_tools_gloss.dds,1,DXT1,64,32,7,1384,5d3eb8e6c294b4d172cbff24c7f337bfa345224d,RoMPak0.FPK
+art/units/edunits/workermodern_african/worker_tools_gloss.dds,1,DXT1,64,32,7,1384,5d3eb8e6c294b4d172cbff24c7f337bfa345224d,RoMPak1.FPK
+art/units/edunits/worker_african/worker_tools_gloss.dds,1,DXT1,64,32,7,1384,5d3eb8e6c294b4d172cbff24c7f337bfa345224d,RoMPak1.FPK
+art/units/rome/slave/worker_tools_gloss.dds,1,DXT1,64,32,7,1384,5d3eb8e6c294b4d172cbff24c7f337bfa345224d,loose
+art/units/unique/native america/sioux crossbowman/arrow_bolt.dds,1,DXT3,64,16,3,1344,14dfc115698b0f3f4b7e8bbdd580716457a1ca16,RoMPak1.FPK
+art/structures/buildings/bath_europe/d.dds,1,DXT1,128,8,2,776,0abc058f7d9c775c2671d51aec4bf4a9c23d56ae,loose
+art/units/rome/velites/woodstonespear_gloss.dds,1,DXT1,16,32,1,256,83bc12fa472fb3f981b0704e211702819b3166b6,loose

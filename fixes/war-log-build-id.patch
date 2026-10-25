@@ -1,7 +1,7 @@
 From 0f8973282133536778602d1e3df1b12db3a70259 Mon Sep 17 00:00:00 2001
 From: Otto Gregor <mobiltelefonalex@gmail.com>
 Date: Sun, 18 Oct 2026 17:37:01 +0000
-Subject: [PATCH] War log: the H line names the build that writes the log
+Subject: [PATCH 1/2] War log: the H line names the build that writes the log
 
 WarLogBuild.h defines WAR_LOG_BUILD, appended to the H line as its seventh
 field. As committed it is "source"; the research toolchain writes the git
@@ -53,6 +53,43 @@ index 0000000..bc93dcd
 +#ifndef WAR_LOG_BUILD
 +#define WAR_LOG_BUILD "source"
 +#endif
+-- 
+2.43.0
+
+
+From efcb5e4131e87153ec483dfd344fba554ca3c458 Mon Sep 17 00:00:00 2001
+From: Otto Gregor <mobiltelefonalex@gmail.com>
+Date: Sun, 18 Oct 2026 18:04:26 +0000
+Subject: [PATCH 2/2] War log: no turn-start snapshot during game setup
+
+The first player to come alive gets its turn during setup
+(CvPlayer::setAlive), before the map and the other players exist and before
+its units are placed. When that player is tracked (a human in seat 0), its
+snapshot was the log's first line and wrote the header from that state: map
+size 0 x 0 and one P line. warLogTurnStart now waits for
+CvGame::isFinalInitialized; the header is then written by the first line
+after setup, as before the snapshot. The skipped snapshot held no units.
+
+Serves: P2
+---
+ Assets/CvGameCoreDLL/CvGameCoreUtils.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index 72402fe..eb21d9a 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -3783,6 +3783,10 @@ void warLogTurnStart(PlayerTypes ePlayer, bool bNewTurn)
+ {
+ 	PROFILE_FUNC();
+ 	if (!warLogOn() || !warLogTracked(ePlayer)) return;
++	// Not during game setup: the first player to come alive gets its turn there, before the map and the
++	// other players exist and before its units are placed; a snapshot then would also write the log's
++	// header (H, P) from that unfinished state.
++	if (!GC.getGameINLINE().isFinalInitialized()) return;
+ 	const CvPlayer& kPlayer = GET_PLAYER(ePlayer);
+ 	if (!kPlayer.isAlive()) return;
+ 	const TeamTypes eTeam = kPlayer.getTeam();
 -- 
 2.43.0
 

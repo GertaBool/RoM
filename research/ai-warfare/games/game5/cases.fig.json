@@ -1,0 +1,136 @@
+{
+ "command": [
+  "@repo/research/ai-warfare/tools/cases.py",
+  "/root/.cache/rom-ana/db/game5.duckdb",
+  "0",
+  "@repo/research/ai-warfare/games/game5",
+  "@repo/research/ai-warfare/games/game5/cases.fig.json"
+ ],
+ "inputs": {
+  "/root/.cache/rom-ana/db/game5.duckdb": "b742dc1bf88055c9b0ccd5cc3d3a70f8458f7333c8774507bb53cbc167489080",
+  "cases_slider_turn.csv": "e7b7eb8ee211b79a4e79b51197ce9f10d0ef3dc182f4b350fb6c23870e31ac8e",
+  "cases_slider_dir.csv": "3d617c45d448d34e3e15bb589ee8e5a0dfecb11300d55abe9cc72aea0c5a983c",
+  "cases_upgrade_turn.csv": "9b409d50256b0fa1ff52f108520f28b674242c83c1eeea85f007947e9f90300b",
+  "cases_order_unit.csv": "d2d1833f30051a445de3b12326b6f57c228cb1ac53a661b38d1e39159bfcbcf0"
+ },
+ "figures": {
+  "slider_turn_n": {
+   "kind": "value",
+   "value": 269,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "1-269",
+   "source": "cases_slider_turn.csv",
+   "n": null
+  },
+  "slider_turn_pos": {
+   "kind": "value",
+   "value": 10,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "1-269",
+   "source": "cases_slider_turn.csv, y = 1",
+   "n": null
+  },
+  "slider_dir_n": {
+   "kind": "value",
+   "value": 10,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "179-259",
+   "source": "cases_slider_dir.csv",
+   "n": null
+  },
+  "slider_dir_pos": {
+   "kind": "value",
+   "value": 6,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "179-259",
+   "source": "cases_slider_dir.csv, y = 1",
+   "n": null
+  },
+  "upgrade_turn_n": {
+   "kind": "value",
+   "value": 269,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "1-269",
+   "source": "cases_upgrade_turn.csv",
+   "n": null
+  },
+  "upgrade_turn_pos": {
+   "kind": "value",
+   "value": 7,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "1-269",
+   "source": "cases_upgrade_turn.csv, y = 1",
+   "n": null
+  },
+  "order_unit_n": {
+   "kind": "value",
+   "value": 296,
+   "unit": "orders",
+   "who": "human (player 0)",
+   "turn": "0-270",
+   "source": "cases_order_unit.csv",
+   "n": null
+  },
+  "order_unit_pos": {
+   "kind": "value",
+   "value": 82,
+   "unit": "orders",
+   "who": "human (player 0)",
+   "turn": "0-270",
+   "source": "cases_order_unit.csv, y = 1",
+   "n": null
+  },
+  "cmds_after_own_M": {
+   "kind": "value",
+   "value": 14,
+   "unit": "orders",
+   "who": "human (player 0)",
+   "turn": "all turns",
+   "source": "wl_A rows after the human's own wl_M row of the same turn",
+   "n": null
+  },
+  "slider_turns_compared": {
+   "kind": "value",
+   "value": 269,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "all turns",
+   "source": "wl_M slider change against wl_A PERCENT clicks, research",
+   "n": null
+  },
+  "slider_consistent": {
+   "kind": "value",
+   "value": 267,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "all turns",
+   "source": "turns where the slider change equals the clicks",
+   "n": null
+  },
+  "slider_moved_no_click": {
+   "kind": "value",
+   "value": 1,
+   "unit": "turns",
+   "who": "human (player 0)",
+   "turn": "all turns",
+   "source": "slider changed with no click: CvPlayer::verifyGoldCommercePercent",
+   "n": null
+  },
+  "capital": {
+   "kind": "value",
+   "value": "14,45",
+   "unit": "category",
+   "who": "human (player 0)",
+   "turn": "0",
+   "source": "first MISSION_FOUND of the human",
+   "n": null
+  }
+ },
+ "xml": {}
+}

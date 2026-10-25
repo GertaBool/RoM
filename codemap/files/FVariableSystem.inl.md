@@ -1,0 +1,50 @@
+# FVariableSystem.inl
+
+Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **23** `FVariable::~FVariable()` (virtual)
+  - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
+  - called by (3): FVariable::`scalar deleting dtor', addVar(std::vector<FVariable, std::allocator<FVariable>>&, int), addVar(std::vector<FVariable, std::allocator<FVariable>>&, unsigned short const*)
+- **41** `FVariable::CopyFrom(FVariable const&)`
+  - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp]
+  - called by (2): FVariable::FVariable(FVariable const&), FVariable::operator=
+- **65** `FVariable::Read(FDataStreamBase*)`
+  - calls: FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], FDataStreamBase::ReadWideString [FDataStreamBase.h]
+  - called by (1): CvDiploParameters::read
+- **80** `FVariable::Write(FDataStreamBase*) const`
+  - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
+  - called by (1): CvDiploParameters::write
+- **94** `FVariableSystem::FVariableSystem()`
+  - called by (1): CvGlobals::init
+- **103** `FVariableSystem::~FVariableSystem()` (virtual)
+  - calls: FVariableSystem::UnInit
+  - called by (1): FVariableSystem::`scalar deleting dtor'
+- **108** `FVariableSystem::UnInit()`
+  - called by (2): CvGlobals::clearTypesMap, FVariableSystem::~FVariableSystem
+- **127** `FVariableSystem::GetSize() const`
+  - called by (1): CvXMLLoadUtility::SetPostGlobalsGlobalDefines
+- **201** `FVariableSystem::GetValue(char const*, bool&) const`
+  - called by (1): CvGlobals::getDefineBOOL
+- **316** `FVariableSystem::GetValue(char const*, int&) const`
+  - called by (5): CvGlobals::getDefineINT(char const*) const, CvGlobals::getDefineINT(char const*, int) const, CvXMLLoadUtility::LoadPreMenuGlobals, getDefineBOOL, getDefineINT
+- **362** `FVariableSystem::GetValue(char const*, float&) const`
+  - calls: FVariableSystem::GetValue(char const*, char const*&) const, FVariableSystem::GetValue(char const*, unsigned short const*&) const
+  - called by (1): CvGlobals::getDefineFLOAT
+- **472** `FVariableSystem::GetValue(char const*, char const*&) const`
+  - called by (3): CvGlobals::getDefineSTRING, CvXMLLoadUtility::SetGlobalDefine<char const>, FVariableSystem::GetValue(char const*, float&) const
+- **495** `FVariableSystem::GetValue(char const*, unsigned short const*&) const`
+  - called by (1): FVariableSystem::GetValue(char const*, float&) const
+- **532** `FVariableSystem::SetValue(char const*, bool)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariable::FVariable() [FVariableSystem.h], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvXMLLoadUtility::ReadGlobalDefines
+- **642** `FVariableSystem::SetValue(char const*, int)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariable::FVariable() [FVariableSystem.h], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (4): CvGlobals::setDefineINT, CvXMLLoadUtility::LoadPreMenuGlobals, CvXMLLoadUtility::ReadGlobalDefines, CvXMLLoadUtility::SetPostGlobalsGlobalDefines
+- **686** `FVariableSystem::SetValue(char const*, float)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariable::FVariable() [FVariableSystem.h], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvGlobals::setDefineFLOAT, CvXMLLoadUtility::ReadGlobalDefines
+- **730** `FVariableSystem::SetValue(char const*, char const*)`
+  - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], FVariable::FVariable() [FVariableSystem.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvGlobals::setDefineSTRING, CvXMLLoadUtility::ReadGlobalDefines
+- **·** `FVariableSystem::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], FVariableSystem::~FVariableSystem

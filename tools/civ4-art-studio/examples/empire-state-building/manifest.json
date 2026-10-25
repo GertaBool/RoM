@@ -1,0 +1,45 @@
+{
+  "format": 1,
+  "in_game_tested": false,
+  "xml": [
+    {
+      "path": "Assets/XML/Buildings/CIV4BuildingInfos.xml",
+      "sha256": "b657bb9ab0191beabc1eff86cc75fc08d1f87761c1545b575e20e937fe677f60",
+      "entry": "definitions/BuildingInfo.xml",
+      "container": "BuildingInfos",
+      "id": "BUILDING_EMPIRE_STATE"
+    },
+    {
+      "path": "Assets/XML/Buildings/CIV4BuildingClassInfos.xml",
+      "sha256": "e4f6d5e2bdffd923a84daafbde9f94370a10831eefd253d26c45254262e53e3c",
+      "entry": "definitions/BuildingClassInfo.xml",
+      "container": "BuildingClassInfos",
+      "id": "BUILDINGCLASS_EMPIRE_STATE"
+    },
+    {
+      "path": "Assets/XML/Art/CIV4ArtDefines_Building.xml",
+      "sha256": "73bff8f25b6c4dfeb1ad05a39cffb0da13ca770302861cc2e09f79d95f8bb187",
+      "entry": "definitions/BuildingArtInfo.xml",
+      "container": "BuildingArtInfos",
+      "id": "ART_DEF_BUILDING_EMPIRE_STATE"
+    }
+  ],
+  "assets": [
+    {
+      "path": "Assets/Art/Structures/Buildings/EmpireState/building.nif",
+      "sha256": "53883ef15ed9a59d1cb6e54edd616255850f6a013146bda29a2986a5741fa04a"
+    },
+    {
+      "path": "Assets/Art/Structures/Buildings/EmpireState/diffuse.dds",
+      "sha256": "446ce9cd5664952c2b2974fb8d2a47e9cdfb290c2923b641dc61f7da56d6ffc5"
+    },
+    {
+      "path": "Assets/Art/Interface/Buttons/Buildings/EmpireState.dds",
+      "sha256": "9be48276b22cb90201fdf3e47487d54d1256c6b490589cd746fee6e583b9d1fb"
+    },
+    {
+      "path": "Assets/XML/Text/CIV4GameText_EmpireState.xml",
+      "sha256": "5cd4e519502a2bda7e38a55ff47b588625228a0209cd1184d7e5272f7bc64ffd"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+# CyMessageControl.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **8** `CyMessageControl::sendPushOrder(int, int, int, bool, bool, bool)` (Python: sendPushOrder)
+  - calls: CvMessageControl::sendPushOrder [CvMessageControl.cpp], CvMessageControl::getInstance [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **13** `CyMessageControl::sendDoTask(int, int, int, int, bool, bool, bool, bool)` (Python: sendDoTask)
+  - calls: CvMessageControl::sendDoTask [CvMessageControl.cpp], CvMessageControl::getInstance [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **18** `CyMessageControl::sendTurnComplete()` (Python: sendTurnComplete)
+  - calls: CvMessageControl::sendTurnComplete [CvMessageControl.cpp], CvMessageControl::getInstance [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **23** `CyMessageControl::sendUpdateCivics(boost::python::list&)` (Python: sendUpdateCivics)
+  - calls: CvDLLPythonIFaceBase::putSeqInArray<int> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvMessageControl::sendUpdateCivics [CvMessageControl.cpp], CvMessageControl::getInstance [CvMessageControl.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyMessageControlInterface
+- **36** `CyMessageControl::sendConvert(int)` (Python: sendConvert)
+  - calls: CvMessageControl::getInstance [CvMessageControl.cpp], CvMessageControl::sendConvert [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **41** `CyMessageControl::sendEmpireSplit(int, int)` (Python: sendEmpireSplit)
+  - calls: CvMessageControl::sendEmpireSplit [CvMessageControl.cpp], CvMessageControl::getInstance [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **46** `CyMessageControl::sendResearch(int, bool)` (Python: sendResearch)
+  - calls: CvMessageControl::sendResearch [CvMessageControl.cpp], CvMessageControl::getInstance [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **51** `CyMessageControl::sendPlayerOption(int, bool)` (Python: sendPlayerOption)
+  - calls: CvDLLUtilityIFaceBase::sendPlayerOption [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - called by (1): CyMessageControlInterface
+- **56** `CyMessageControl::sendEspionageSpendingWeightChange(int, int)` (Python: sendEspionageSpendingWeightChange)
+  - calls: CvMessageControl::getInstance [CvMessageControl.cpp], CvMessageControl::sendEspionageSpendingWeightChange [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **61** `CyMessageControl::sendAdvancedStartAction(int, int, int, int, int, bool)` (Python: sendAdvancedStartAction)
+  - calls: CvMessageControl::getInstance [CvMessageControl.cpp], CvMessageControl::sendAdvancedStartAction [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **66** `CyMessageControl::sendModNetMessage(int, int, int, int, int)` (Python: sendModNetMessage)
+  - calls: CvMessageControl::getInstance [CvMessageControl.cpp], CvMessageControl::sendModNetMessage [CvMessageControl.cpp]
+  - called by (1): CyMessageControlInterface
+- **74** `CyMessageControl::GetFirstBadConnection()` (Python: GetFirstBadConnection)
+  - calls: CvDLLUtilityIFaceBase::getFirstBadConnection [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - called by (1): CyMessageControlInterface
+- **79** `CyMessageControl::GetConnState(int)` (Python: GetConnState)
+  - calls: CvDLLUtilityIFaceBase::getConnState [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - called by (1): CyMessageControlInterface

@@ -1,0 +1,67 @@
+# CyMapGenerator.cpp
+
+Group: Python wrappers. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **20** `CyMapGenerator::CyMapGenerator()`
+  - calls: CvMapGenerator::GetInstance [CvMapGenerator.cpp]
+- **25** `CyMapGenerator::CyMapGenerator(CvMapGenerator*)`
+- **29** `CyMapGenerator::canPlaceBonusAt(int, int, int, bool)` (Python: canPlaceBonusAt)
+  - calls: CvMapGenerator::canPlaceBonusAt [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **34** `CyMapGenerator::canPlaceGoodyAt(int, int, int)` (Python: canPlaceGoodyAt)
+  - calls: CvMapGenerator::canPlaceGoodyAt [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **39** `CyMapGenerator::addGameElements()` (Python: addGameElements)
+  - calls: CvMapGenerator::addGameElements [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **45** `CyMapGenerator::addLakes()` (Python: addLakes)
+  - calls: CvMapGenerator::addLakes [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **51** `CyMapGenerator::addRivers()` (Python: addRivers)
+  - calls: CvMapGenerator::addRivers [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **57** `CyMapGenerator::doRiver(CyPlot*, CardinalDirectionTypes)` (Python: doRiver)
+  - calls: CvMapGenerator::doRiver [CvMapGenerator.cpp], CyPlot::getPlot [CyPlot.h]
+  - called by (1): CyMapGeneratorPythonInterface
+- **63** `CyMapGenerator::addFeatures()` (Python: addFeatures)
+  - calls: CvMapGenerator::addFeatures [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **69** `CyMapGenerator::addBonuses()` (Python: addBonuses)
+  - calls: CvMapGenerator::addBonuses [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **75** `CyMapGenerator::addUniqueBonusType(int)` (Python: addUniqueBonusType)
+  - calls: CvMapGenerator::addUniqueBonusType [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **81** `CyMapGenerator::addNonUniqueBonusType(int)` (Python: addNonUniqueBonusType)
+  - calls: CvMapGenerator::addNonUniqueBonusType [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **87** `CyMapGenerator::addGoodies()` (Python: addGoodies)
+  - calls: CvMapGenerator::addGoodies [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **93** `CyMapGenerator::eraseRivers()` (Python: eraseRivers)
+  - calls: CvMapGenerator::eraseRivers [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **99** `CyMapGenerator::eraseFeatures()` (Python: eraseFeatures)
+  - calls: CvMapGenerator::eraseFeatures [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **105** `CyMapGenerator::eraseBonuses()` (Python: eraseBonuses)
+  - calls: CvMapGenerator::eraseBonuses [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **111** `CyMapGenerator::eraseGoodies()` (Python: eraseGoodies)
+  - calls: CvMapGenerator::eraseGoodies [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **117** `CyMapGenerator::generateRandomMap()` (Python: generateRandomMap)
+  - calls: CvMapGenerator::generateRandomMap [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **123** `CyMapGenerator::generatePlotTypes()` (Python: generatePlotTypes)
+  - calls: CvMapGenerator::generatePlotTypes [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **129** `CyMapGenerator::generateTerrain()` (Python: generateTerrain)
+  - calls: CvMapGenerator::generateTerrain [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **135** `CyMapGenerator::afterGeneration()` (Python: afterGeneration)
+  - calls: CvMapGenerator::afterGeneration [CvMapGenerator.cpp]
+  - called by (1): CyMapGeneratorPythonInterface
+- **141** `CyMapGenerator::setPlotTypes(boost::python::list&)` (Python: setPlotTypes)
+  - calls: CvDLLPythonIFaceBase::putSeqInArray<int> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvMapGenerator::setPlotTypes [CvMapGenerator.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyMapGeneratorPythonInterface

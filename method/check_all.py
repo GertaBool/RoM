@@ -159,6 +159,14 @@ def main():
             errs += [l for l in r.stdout.splitlines() if l.strip()] or [f'ledger.py {args[0]}: {r.stderr.strip()[-400:]}']
     r = subprocess.run([sys.executable, os.path.join(HERE, 'stats.py')], capture_output=True, text=True)
     if r.returncode: errs.append(f'stats.py: {r.stderr.strip()[-300:]}')
+    # 6. Source patches keep their files' line endings (patchcheck.py): its self-test, then every patch.
+    patches = sorted(os.path.join(REPO, 'fixes', f) for f in os.listdir(os.path.join(REPO, 'fixes'))
+                     if f.endswith('.patch')) if os.path.isdir(os.path.join(REPO, 'fixes')) else []
+    for args in (['--selftest'], patches):
+        if not args: continue
+        r = subprocess.run([sys.executable, os.path.join(HERE, 'patchcheck.py')] + args, capture_output=True, text=True)
+        if r.returncode:
+            errs += [l for l in r.stderr.splitlines() if l.strip()] or [f'patchcheck.py: exit {r.returncode}']
     for e in errs: print(e, file=sys.stderr)
     if SKIPPED:
         print(f'check_all: {len(SKIPPED)} registries not reproduced here (their inputs are not on this machine): '

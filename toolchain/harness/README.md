@@ -142,6 +142,8 @@ Diagnostics in the state files, off by default because they run extra searches:
 |---|---|
 | `HARNESS_SETTLER_DIAG=1` | per settler: escort, horizon, and for the eight best settlement candidates every filter `AI_found` applies (can found, enemy units, other parties, path with and without `MOVE_SAFE_TERRITORY`, delivery region) and the transport of a settler at sea |
 | `HARNESS_VALUE_DIAG=1` | per AI city: the twelve buildings with the highest `AI_buildingValue`, with cost and turns |
+| `HARNESS_DEFENCE_DIAG=1` | per AI city, `def`: its land defenders, the defenders it wants (`AI_neededDefenders`), the staged-force forecast of `AI_STAGED_FORECAST` (`CvCityAI::AI_stagedForecast`, per mille) with all defenders and with the weakest left out, the danger flag (`AI_isDanger`), and the owner's threshold |
+| `HARNESS_WAR_DIAG=1` | per AI team (on its leader's entry), `war`: the gates of `CvTeamAI::AI_doWar` at that moment. Whether it considers a new war (no war plan, or enemy power percent below 45), its war plans, the overall check, the handicap's declare-war probability, its power as the war tests use it, the per-mille chance of trying a total, limited or dogpile war this turn, and its leader's war ratios. Then per team it has met, `targets`: attitude, no-war probability, the per-mille chance that each path's no-war roll passes, whether war can be declared, land target, vassal, `AI_startWarVal`, and both sides of each power test (total near and far, limited, dogpile with the target's other enemies, and the dogpile reach test). Also the hegemon the team sees (`AI_balanceHegemon`, -1 for none); the no-war probability is `AI_balanceNoWarProb`. Reads only; the protected ratio functions are reproduced from the leader fields |
 | `HARNESS_HISTORY_DIAG=1` | what the save remembers: each player's per-turn score, economy, industry, agriculture, power and culture history from turn 0, research progress and queue, cost terms, every unit (type, role, experience, position), the AI's value of every civic it may adopt; for the game, the replay messages (city foundings, civic adoptions, wars, first techs) and the number of units of each type created |
 
 ## WorldBuilder scenarios
@@ -255,6 +257,28 @@ to the running game (`research/diplomacy/tools/roundtrip.sh`).
 and inclusive time and call counts (`HARNESS_PROFILE_SORT=incl` sorts by
 inclusive time). Profiled builds are several times slower; use them for shares,
 plain builds for timings.
+
+## Graphics
+
+Without the game the DLL runs with graphics not initialised: it creates no unit or
+city graphics and skips most calls into the renderer. `HARNESS_GRAPHICS=1` (save
+runs) sets graphics up after loading, as the executable does (`HH_setupGraphics`:
+plots, then each player's cities and units), and gives the DLL a camera
+(`HH_lookAtPlot`). The camera sweeps the map back and forth along rows 20 plots
+apart, moving one plot every `HARNESS_CAMERA_PERIOD` calls of `getLookAtPlot`
+(default 20; the DLL asks about once per update).
+
+Each unit and city entity is then a token that records whether it is set up.
+After each turn the run log prints a `graphics turn` line with:
+- the entities created, those set up at that moment, and the most and the mean set up
+  (sampled once a turn), which stand for the models the executable would hold;
+- the setup calls;
+- the visual calls (moves, animations, glows, visibility), and how many of them reached
+  an entity that was not set up;
+- the missions handed to the engine.
+
+`HARNESS_DEFINES="NAME=value,..."` overrides integer defines before the setup, for
+example `GRAPHICS_PAGING=0`.
 
 ## Expert oracle
 

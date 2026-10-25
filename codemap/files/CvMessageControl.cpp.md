@@ -1,0 +1,85 @@
+# CvMessageControl.cpp
+
+Group: interface, text and messages. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
+
+- **7** `CvMessageControl::getInstance()` (exported; static)
+  - called by (30): CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doChangePercent, CvDLLWidgetData::doConstruct, CvDLLWidgetData::doContactCiv, CvDLLWidgetData::doConvert, CvDLLWidgetData::doCreate, CvDLLWidgetData::doMaintain, CvDLLWidgetData::doResearch, CvDLLWidgetData::doSetPercent, CvDLLWidgetData::doTrain, CvGame::applyFlyoutMenu, CvGame::cityPushOrder …
+- **13** `CvMessageControl::sendExtendedGame()`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetExtendedGame::CvNetExtendedGame [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvDLLButtonPopup::OnOkClicked
+- **21** `CvMessageControl::sendAutoMoves()`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetAutoMoves::CvNetAutoMoves [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (3): CvGame::cycleSelectionGroups, CvGame::doControl, CvGame::updateTestEndTurn
+- **29** `CvMessageControl::sendTurnComplete()`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetTurnComplete::CvNetTurnComplete [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (3): CvGame::doControl, CvGame::updateTestEndTurn, CyMessageControl::sendTurnComplete
+- **37** `CvMessageControl::sendPushOrder(int, OrderTypes, int, bool, bool, bool)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetPushOrder::CvNetPushOrder(PlayerTypes, int, OrderTypes, int, bool, bool, bool) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (6): CvDLLWidgetData::doConstruct, CvDLLWidgetData::doCreate, CvDLLWidgetData::doMaintain, CvDLLWidgetData::doTrain, CvGame::cityPushOrder, CyMessageControl::sendPushOrder
+- **45** `CvMessageControl::sendPopOrder(int, int)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetPopOrder::CvNetPopOrder(PlayerTypes, int, int) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvGame::selectedCitiesGameNetMessage
+- **53** `CvMessageControl::sendDoTask(int, TaskTypes, int, int, bool, bool, bool, bool)` (exported)
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetDoTask::CvNetDoTask(PlayerTypes, int, TaskTypes, int, int, bool, bool, bool, bool) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (6): CvDLLButtonPopup::OnOkClicked, CvGame::applyFlyoutMenu, CvGame::handleCityScreenPlotPicked, CvGame::handleCityScreenPlotRightPicked, CvGame::selectedCitiesGameNetMessage, CyMessageControl::sendDoTask
+- **61** `CvMessageControl::sendUpdateCivics(std::vector<CivicTypes, std::allocator<CivicTypes>> const&)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetUpdateCivics::CvNetUpdateCivics(PlayerTypes, std::vector<CivicTypes, std::allocator<CivicTypes>> const&) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvDLLButtonPopup::OnOkClicked, CyMessageControl::sendUpdateCivics
+- **69** `CvMessageControl::sendResearch(TechTypes, int, bool)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetResearch::CvNetResearch(PlayerTypes, TechTypes, int, bool) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvDLLWidgetData::doResearch, CyMessageControl::sendResearch
+- **77** `CvMessageControl::sendEspionageSpendingWeightChange(TeamTypes, int)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetEspionageChange::CvNetEspionageChange(PlayerTypes, TeamTypes, int) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyMessageControl::sendEspionageSpendingWeightChange
+- **85** `CvMessageControl::sendAdvancedStartAction(AdvancedStartActionTypes, PlayerTypes, int, int, int, bool)` (exported)
+  - calls: CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvNetAdvancedStartAction::CvNetAdvancedStartAction [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyMessageControl::sendAdvancedStartAction
+- **90** `CvMessageControl::sendModNetMessage(int, int, int, int, int)`
+  - calls: CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvNetModNetMessage::CvNetModNetMessage [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CyMessageControl::sendModNetMessage
+- **95** `CvMessageControl::sendConvert(ReligionTypes)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetConvert::CvNetConvert [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (3): CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doConvert, CyMessageControl::sendConvert
+- **103** `CvMessageControl::sendEmpireSplit(PlayerTypes, int)`
+  - calls: CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvNetEmpireSplit::CvNetEmpireSplit [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvDLLButtonPopup::OnOkClicked, CyMessageControl::sendEmpireSplit
+- **108** `CvMessageControl::sendFoundReligion(PlayerTypes, ReligionTypes, ReligionTypes)`
+  - calls: CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvNetFoundReligion::CvNetFoundReligion [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvDLLButtonPopup::OnOkClicked
+- **113** `CvMessageControl::sendLaunch(PlayerTypes, VictoryTypes)` (exported)
+  - calls: CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvNetLaunchSpaceship::CvNetLaunchSpaceship [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvDLLButtonPopup::OnOkClicked
+- **118** `CvMessageControl::sendEventTriggered(PlayerTypes, EventTypes, int)`
+  - calls: CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvNetEventTriggered::CvNetEventTriggered [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvDLLButtonPopup::OnOkClicked
+- **123** `CvMessageControl::sendJoinGroup(int, int)` (exported)
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetJoinGroup::CvNetJoinGroup(PlayerTypes, int, int) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvGame::doControl, CvGame::selectionListGameNetMessage
+- **131** `CvMessageControl::sendPushMission(int, MissionTypes, int, int, int, bool)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetPushMission::CvNetPushMission(PlayerTypes, int, MissionTypes, int, int, int, bool) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvGame::applyFlyoutMenu, CvGame::selectionListGameNetMessage
+- **139** `CvMessageControl::sendAutoMission(int)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetAutoMission::CvNetAutoMission(PlayerTypes, int) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvGame::selectionListGameNetMessage
+- **147** `CvMessageControl::sendDoCommand(int, CommandTypes, int, int, bool)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetDoCommand::CvNetDoCommand(PlayerTypes, int, CommandTypes, int, int, bool) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvGame::applyFlyoutMenu, CvGame::selectionListGameNetMessage
+- **155** `CvMessageControl::sendPercentChange(CommerceTypes, int)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetPercentChange::CvNetPercentChange(PlayerTypes, CommerceTypes, int) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvDLLWidgetData::doChangePercent, CvDLLWidgetData::doSetPercent
+- **163** `CvMessageControl::sendChangeVassal(TeamTypes, bool, bool)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetChangeVassal::CvNetChangeVassal(PlayerTypes, TeamTypes, bool, bool) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **171** `CvMessageControl::sendChooseElection(int, int)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetChooseElection::CvNetChooseElection(PlayerTypes, int, int) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvDLLButtonPopup::OnOkClicked
+- **179** `CvMessageControl::sendDiploVote(int, PlayerVoteTypes)`
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetDiploVote::CvNetDiploVote(PlayerTypes, int, PlayerVoteTypes) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (1): CvDLLButtonPopup::OnOkClicked
+- **187** `CvMessageControl::sendChangeWar(TeamTypes, bool)` (exported)
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetChangeWar::CvNetChangeWar(PlayerTypes, TeamTypes, bool) [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+  - called by (2): CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doContactCiv
+- **195** `CvMessageControl::sendPing(int, int)` (exported)
+  - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvNetPing::CvNetPing [CvMessageData.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
+- **204** `CvMessageControl::sendAddReminder(PlayerTypes, int, CvWString)`
+  - calls: CvDLLUtilityIFaceBase::sendMessageData [CvDLLUtilityIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvNetAddReminder::CvNetAddReminder [CvMessageData.cpp], CvWString::CvWString(CvWString const&) [CvString.h], operator delete(void*) [CvGameCoreDLL.cpp], CvWString::~CvWString [CvString.h]
+  - called by (1): CvPlayer::addReminder
