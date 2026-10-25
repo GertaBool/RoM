@@ -1,0 +1,234 @@
+From 8bc3fb54993d688fabd0b135ab6a7a887ee1bc3e Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 25 Oct 2026 07:59:22 +0000
+Subject: [PATCH] Graphics: page yield symbols and flags, billboards for the
+ active team only, no billboard debug log
+
+G4: with GRAPHICS_PAGING_SYMBOLS, a paged-out plot also deletes its yield
+symbols and unit flags; page-in rebuilds them (updateSymbols, setFlagDirty for
+the executable's CvMap::updateFlagSymbols). 7,868 yield symbols exist at the
+460 AD save, one stack per plot with a yield.
+
+G2: with BILLBOARD_ACTIVE_TEAM_ONLY, CvPlot::changeVisibilityCount marks the
+city's billboard dirty only for the active team's sight (552 of 2,132
+rebuilds in three harness turns came from other teams); setActivePlayer marks
+every city dirty once, for hotseat.
+
+G3: the three debug Format/logMsg pairs in buildCityBillboardIconString are
+removed (formatted on every rebuild; written with logging on).
+
+Serves: P9, P10
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_015smokgQ1KvKFbApTvkeH68
+---
+ Assets/CvGameCoreDLL/CvGame.cpp        | 23 +++++++++++++++++++++++
+ Assets/CvGameCoreDLL/CvGame.h          |  2 ++
+ Assets/CvGameCoreDLL/CvGameTextMgr.cpp |  7 -------
+ Assets/CvGameCoreDLL/CvPlot.cpp        | 20 +++++++++++++++-----
+ Assets/XML/GlobalDefinesAlt.xml        | 10 ++++++++++
+ 5 files changed, 50 insertions(+), 12 deletions(-)
+
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 61538d9..e53257c 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -517,6 +517,7 @@ void CvGame::reset(HandicapTypes eHandicap, bool bConstructorCall)
+ 	m_bFinalInitialized = false;
+ 
+ 	m_bGraphicsPaging = false;
++	m_bGraphicsPagingSymbols = false;
+ 	m_iPagingX = INVALID_PLOT_COORD;
+ 	m_iPagingY = INVALID_PLOT_COORD;
+ 	m_iPagingRangeX = 0;
+@@ -2250,6 +2251,11 @@ bool CvGame::isGraphicsPaging() const
+ 	return m_bGraphicsPaging;
+ }
+ 
++bool CvGame::isGraphicsPagingSymbols() const
++{
++	return m_bGraphicsPagingSymbols;
++}
++
+ bool CvGame::isInGraphicsWindow(int iX, int iY, bool bMargin) const
+ {
+ 	if (!m_bGraphicsPaging)
+@@ -2325,6 +2331,7 @@ void CvGame::updateGraphicsPaging()
+ 	int iSouth = std::max(1, (GC.getDefineINT("GRAPHICS_PAGING_RANGE_SOUTH") * iScalePercent + 99) / 100);
+ 
+ 	m_bGraphicsPaging = true;
++	m_bGraphicsPagingSymbols = (GC.getDefineINT("GRAPHICS_PAGING_SYMBOLS") > 0);
+ 	if (bMoved)
+ 	{
+ 		m_iPagingX = pLookAt->getX_INLINE();
+@@ -4970,6 +4977,22 @@ void CvGame::setActivePlayer(PlayerTypes eNewValue, bool bForceHotSeat)
+ 
+ 			updateUnitEnemyGlow();
+ 
++			// G2: billboards follow only the active team's sight, so a new active team gets all of them rebuilt once
++			if (GC.getDefineINT("BILLBOARD_ACTIVE_TEAM_ONLY") > 0)
++			{
++				for (int iI = 0; iI < MAX_PLAYERS; iI++)
++				{
++					if (GET_PLAYER((PlayerTypes)iI).isAlive())
++					{
++						int iLoop;
++						for (CvCity* pLoopCity = GET_PLAYER((PlayerTypes)iI).firstCity(&iLoop); pLoopCity != NULL; pLoopCity = GET_PLAYER((PlayerTypes)iI).nextCity(&iLoop))
++						{
++							pLoopCity->setInfoDirty(true);
++						}
++					}
++				}
++			}
++
+ 			gDLL->getInterfaceIFace()->setEndTurnMessage(false);
+ 
+ 			gDLL->getInterfaceIFace()->clearSelectedCities();
+diff --git a/Assets/CvGameCoreDLL/CvGame.h b/Assets/CvGameCoreDLL/CvGame.h
+index ab083cd..7eb6a38 100644
+--- a/Assets/CvGameCoreDLL/CvGame.h
++++ b/Assets/CvGameCoreDLL/CvGame.h
+@@ -58,6 +58,7 @@ public:
+ 
+ 	// Graphics paging around the camera (GRAPHICS_PAGING defines); graphics only, not saved.
+ 	bool isGraphicsPaging() const;
++	bool isGraphicsPagingSymbols() const;
+ 	bool isInGraphicsWindow(int iX, int iY, bool bMargin) const;
+ 	void updateGraphicsPaging();
+ 	void pageGraphics(bool bAllIn);
+@@ -654,6 +655,7 @@ protected:
+ 
+ 	// Graphics paging state, not saved
+ 	bool m_bGraphicsPaging;
++	bool m_bGraphicsPagingSymbols;
+ 	int m_iPagingX;
+ 	int m_iPagingY;
+ 	int m_iPagingRangeX;
+diff --git a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
+index d8a0ce5..fbac12d 100644
+--- a/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
++++ b/Assets/CvGameCoreDLL/CvGameTextMgr.cpp
+@@ -17494,7 +17494,6 @@ void CvGameTextMgr::buildCityBillboardIconString( CvWStringBuffer& szBuffer, CvC
+ /* adding link to resources in the Pedia                                                        */
+ /************************************************************************************************/
+ 	
+-	CvString szDebugBuffer;
+ /************************************************************************************************/
+ /* TGA_INDEXATION                          END                                                  */
+ /************************************************************************************************/
+@@ -17567,8 +17566,6 @@ void CvGameTextMgr::buildCityBillboardIconString( CvWStringBuffer& szBuffer, CvC
+ /*                                                                                              */
+ /* adding link to resources in the Pedia                                                        */
+ /************************************************************************************************/
+-	szDebugBuffer.Format("=== City %S religion icons ===", pCity->getName().GetCString());
+-	gDLL->logMsg("CvGameTextMgr_buildCityBillboardString.log", szDebugBuffer.c_str());
+ /************************************************************************************************/
+ /* TGA_INDEXATION                          END                                                  */
+ /************************************************************************************************/
+@@ -17587,8 +17584,6 @@ void CvGameTextMgr::buildCityBillboardIconString( CvWStringBuffer& szBuffer, CvC
+ 				szBuffer.append(CvWString::format(L"%c", GC.getReligionInfo((ReligionTypes) iI).getHolyCityChar()));
+ */
+ 				CvReligionInfo& pInfo = GC.getReligionInfo((ReligionTypes) iI);
+-				szDebugBuffer.Format("Religion %s, TGA index %i.", pInfo.getType(), pInfo.getTGAIndex());
+-				gDLL->logMsg("CvGameTextMgr_buildCityBillboardString.log", szDebugBuffer.c_str());				
+ 				szBuffer.append(CvWString::format(L"%c", pInfo.getHolyCityChar()));
+ 			}
+ 			else
+@@ -17602,8 +17597,6 @@ void CvGameTextMgr::buildCityBillboardIconString( CvWStringBuffer& szBuffer, CvC
+ 				szBuffer.append(CvWString::format(L"%c", GC.getReligionInfo((ReligionTypes) iI).getChar()));
+ */
+ 				CvReligionInfo& pInfo = GC.getReligionInfo((ReligionTypes) iI);
+-				szDebugBuffer.Format("Religion %s, TGA index %i.", pInfo.getType(), pInfo.getTGAIndex());
+-				gDLL->logMsg("CvGameTextMgr_buildCityBillboardString.log", szDebugBuffer.c_str());				
+ 				szBuffer.append(CvWString::format(L"%c", pInfo.getChar()));
+ /************************************************************************************************/
+ /* TGA_INDEXATION                          END                                                  */
+diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
+index 0106327..44a0ef3 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp
+@@ -283,8 +283,8 @@ void CvPlot::setupGraphical()
+ 	updateVisibility();
+ }
+ 
+-// Out: the feature and route symbols and the plot builder (bonuses, improvements) are destroyed, as uninit does.
+-// In: they are made again. Rivers, flags and the terrain stay.
++// Out: the feature and route symbols and the plot builder (bonuses, improvements) are destroyed, as uninit does,
++// and with GRAPHICS_PAGING_SYMBOLS the yield symbols and unit flags. In: they are made again. Rivers and the terrain stay.
+ bool CvPlot::pageGraphics(bool bIn)
+ {
+ 	if (!GC.IsGraphicsInitialized())
+@@ -303,6 +303,8 @@ bool CvPlot::pageGraphics(bool bIn)
+ 		updateFeatureSymbol(true);
+ 		updateRouteSymbol(true, false);
+ 		setLayoutDirty(true);
++		updateSymbols();
++		setFlagDirty(true);
+ 		return true;
+ 	}
+ 
+@@ -318,6 +320,13 @@ bool CvPlot::pageGraphics(bool bIn)
+ 		gDLL->getPlotBuilderIFace()->destroy(m_pPlotBuilder);
+ 	}
+ 	m_bPlotLayoutDirty = false;
++	if (GC.getGameINLINE().isGraphicsPagingSymbols())
++	{
++		// G4: the yield symbols and unit flags go too; page-in rebuilds them (updateSymbols, setFlagDirty)
++		deleteAllSymbols();
++		gDLL->getFlagEntityIFace()->destroy(m_pFlagSymbol);
++		gDLL->getFlagEntityIFace()->destroy(m_pFlagSymbolOffset);
++	}
+ 	m_bGraphicsPagedOut = true;
+ 	return true;
+ }
+@@ -738,7 +747,7 @@ void CvPlot::updateSymbols()
+ {
+ 	//PROFILE_FUNC();
+ 
+-	if (!GC.IsGraphicsInitialized())
++	if (!GC.IsGraphicsInitialized() || (m_bGraphicsPagedOut && GC.getGameINLINE().isGraphicsPagingSymbols()))
+ 	{
+ 		return;
+ 	}
+@@ -7126,7 +7135,8 @@ void CvPlot::changeVisibilityCount(TeamTypes eTeam, int iChange, InvisibleTypes
+ 
+ 			pCity = getPlotCity();
+ 
+-			if (pCity != NULL)
++			// G2: the billboard shows the active team's view; other teams' sight does not change it
++			if (pCity != NULL && (eTeam == GC.getGameINLINE().getActiveTeam() || GC.getDefineINT("BILLBOARD_ACTIVE_TEAM_ONLY") <= 0))
+ 			{
+ 				pCity->setInfoDirty(true);
+ 			}
+@@ -8181,7 +8191,7 @@ void CvPlot::updateFlagSymbol()
+ {
+ 	//PROFILE_FUNC();
+ 
+-	if (!GC.IsGraphicsInitialized())
++	if (!GC.IsGraphicsInitialized() || (m_bGraphicsPagedOut && GC.getGameINLINE().isGraphicsPagingSymbols()))
+ 	{
+ 		return;
+ 	}
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index a113065..1c1ba2d 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -938,6 +938,16 @@
+ 		<DefineName>GRAPHICS_PAGING_ZOOM_MIN_PERCENT</DefineName>
+ 		<iDefineIntVal>35</iDefineIntVal>
+ 	</Define>
++	<!-- 1: paged-out plots also drop their yield symbols and unit flags (rebuilt when the camera comes near); 0: they keep them -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_SYMBOLS</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
++	</Define>
++	<!-- 1: a city billboard is rebuilt for changes in what the active team sees, not other teams; 0: for any team -->
++	<Define>
++		<DefineName>BILLBOARD_ACTIVE_TEAM_ONLY</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
++	</Define>
+ 	<!-- 1 writes the window and the counts of each pass to Logs/GraphicsPaging.log (needs logging on) -->
+ 	<Define>
+ 		<DefineName>GRAPHICS_PAGING_LOG</DefineName>
+-- 
+2.43.0
+

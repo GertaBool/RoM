@@ -1,0 +1,43 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "4dadc46 (graphics paging, fixes/graphics-paging.patch, on GitLab main c42be8b)",
+  "base_tree": "cedfc84a77a41e0da90fd8f1065278b83ca5f10d",
+  "tested_source_commit": "8bc3fb5 (local); GitLab branch claude/graphics-paging leaves the same tree",
+  "tested_source_tree": "04ac18c65fd84e5f387202466f9591e3f582f26f",
+  "patch": "../graphics-rendering.patch",
+  "patch_sha256": "94f10155ab2ca16938b26d59234f137e671bfb3059a20504ffb917f54b940379",
+  "relationship_to_prior_patch": "Apply fixes/graphics-paging.patch first, then this one; on GitLab main c42be8b the two give tree 04ac18c6.",
+  "binary_rebuilt": true,
+  "save_format": {
+    "layout_changed": false,
+    "older_readers_can_read_new_saves": true,
+    "note": "Graphics only; nothing new is saved."
+  },
+  "switches": "GRAPHICS_PAGING_SYMBOLS (G4) and BILLBOARD_ACTIVE_TEAM_ONLY (G2) in GlobalDefinesAlt.xml, 1 = on; G3 has no switch.",
+  "serves": [
+    "P9",
+    "P10"
+  ],
+  "files": {
+    "Assets/CvGameCoreDLL/CvGame.cpp": {
+      "before_sha256": "aee33c3d1927e2d284ee61201075d3907252161fbe10514bb62cc26a8afc156a",
+      "after_sha256": "9cabe7991494133d182b7fbc1e24c4eb9a0482f121d48f7961e513684a57d575"
+    },
+    "Assets/CvGameCoreDLL/CvGame.h": {
+      "before_sha256": "d5c911f7bb9a30c6377290bb02fc24e4718c1d8369ab834ed54a473fd31f6725",
+      "after_sha256": "13a65da99b011a55efb688647c681830bfae67de4acf66958e0688e8f6cc1bee"
+    },
+    "Assets/CvGameCoreDLL/CvGameTextMgr.cpp": {
+      "before_sha256": "b5666f003283694109f1242cc192789b90e98682269d703ccc3bb2bb564baf85",
+      "after_sha256": "c8fda3f07f88c56c5aa9356746716e4aba8112925486c28250357a212dbce547"
+    },
+    "Assets/CvGameCoreDLL/CvPlot.cpp": {
+      "before_sha256": "2d27f501518fb3875707d16b8e967c0710f13edf3b7ef41249a87679ba359dc2",
+      "after_sha256": "2010679c933642209cc426f539947f0947dbf83b53369b19933001d499335086"
+    },
+    "Assets/XML/GlobalDefinesAlt.xml": {
+      "before_sha256": "545b57e979c478e9627efb518d8fb7a266d588e69c208534ca900c74d85be36e",
+      "after_sha256": "8294187ebe6e4ac036d18a77d533b5ed73f3b06e9b647e18c547e36bd9f343df"
+    }
+  }
+}
