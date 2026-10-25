@@ -1,0 +1,210 @@
+--- a/Assets/CvGameCoreDLL/CvCity.cpp	2026-10-25 07:47:41.226231215 +0000
++++ b/Assets/CvGameCoreDLL/CvCity.cpp	2026-10-25 07:36:06.797811465 +0000
+@@ -8760,10 +8760,20 @@
+ }
+ 
+ 
++// Harness diagnostic (not shipped): which code sets the billboard dirty.
++extern "C" void* _ReturnAddress(void);
++#pragma intrinsic(_ReturnAddress)
++void HH_noteInfoDirty(CvCity* pCity, void* pCaller);
++#pragma auto_inline(off)
+ void CvCity::setInfoDirty(bool bNewValue)
+ {
++	if (bNewValue && !m_bInfoDirty)
++	{
++		HH_noteInfoDirty(this, _ReturnAddress());
++	}
+ 	m_bInfoDirty = bNewValue;
+ }
++#pragma auto_inline(on)
+ 
+ 
+ bool CvCity::isLayoutDirty() const
+@@ -8777,10 +8787,17 @@
+ }
+ 
+ 
++void HH_noteLayoutDirty(CvCity* pCity, void* pCaller);
++#pragma auto_inline(off)
+ void CvCity::setLayoutDirty(bool bNewValue)
+ {
++	if (bNewValue && !m_bLayoutDirty)
++	{
++		HH_noteLayoutDirty(this, _ReturnAddress());
++	}
+ 	m_bLayoutDirty = bNewValue;
+ }
++#pragma auto_inline(on)
+ 
+ 
+ PlayerTypes CvCity::getOwner() const
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp	2026-10-25 07:47:41.230231216 +0000
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp	2026-10-25 07:43:00.464494362 +0000
+@@ -7071,6 +7071,7 @@
+ }
+ 
+ 
++void HH_noteVisibilityDirty(bool bActiveTeam, bool bWasClean);	// harness diagnostic
+ void CvPlot::changeVisibilityCount(TeamTypes eTeam, int iChange, InvisibleTypes eSeeInvisible, bool bUpdatePlotGroups)
+ {
+ 	CvCity* pCity;
+@@ -7128,6 +7129,7 @@
+ 
+ 			if (pCity != NULL)
+ 			{
++				HH_noteVisibilityDirty(eTeam == GC.getGameINLINE().getActiveTeam(), !pCity->isInfoDirty());
+ 				pCity->setInfoDirty(true);
+ 			}
+ 
+--- a/toolchain/harness/main.cpp	2026-10-25 07:25:00.177951334 +0000
++++ b/toolchain/harness/main.cpp	2026-10-25 07:35:49.757176284 +0000
+@@ -137,6 +137,7 @@
+ 			}
+ 		}
+ 		HH_update();
++		{ typedef void (*FrameFn)(); static FrameFn s_pfn = (FrameFn)GetProcAddress(GetModuleHandleA("CvGameCoreDLL.dll"), "HH_billboardFrame"); if (s_pfn) s_pfn(); }
+ 		++iUpdates;
+ 	}
+ 	int eastCities = 0;
+@@ -322,6 +323,7 @@
+ 			if (iTurn - iStart >= iTurns || HH_gameState() != 0) break;
+ 		}
+ 		HH_update();
++		{ typedef void (*FrameFn)(); static FrameFn s_pfn = (FrameFn)GetProcAddress(GetModuleHandleA("CvGameCoreDLL.dll"), "HH_billboardFrame"); if (s_pfn) s_pfn(); }
+ 		++iUpdates;
+ 		if (iUpdates == iStuckUpdates || iUpdates == iStuckUpdates * 2 || iUpdates == iStuckUpdates * 4)
+ 		{
+@@ -334,6 +336,8 @@
+ 	HH_dumpState(szState1.c_str());
+ 	printPythonCounts(HH_gameTurn() - iStart);
+ 	if (getenv("HARNESS_CALLERS") != NULL) harnessCallerDump(stdout, 50);
++	{ typedef void (*DumpFn)(FILE*); DumpFn pfn = (DumpFn)GetProcAddress(GetModuleHandleA("CvGameCoreDLL.dll"), "HH_billboardDump"); if (pfn) pfn(stdout); }
++	{ typedef void (*SbFn)(FILE*, int); SbFn pfn = (SbFn)GetProcAddress(GetModuleHandleA("CvGameCoreDLL.dll"), "HH_scoreboardTime"); if (pfn) pfn(stdout, 5); }
+ 	harnessLog("RESULT save turn %d state %d\n", HH_gameTurn(), HH_gameState());
+ 	harnessProfileDump(stdout, 60);
+ }
+--- /dev/null	2026-10-23 03:15:11.093407590 +0000
++++ b/toolchain/harness/HarnessBillboard.cpp	2026-10-25 07:43:00.478214527 +0000
+@@ -0,0 +1,121 @@
++// Harness diagnostic (not shipped): billboard rebuilds as the executable would make them.
++// The instrumented CvCity::setInfoDirty reports each clean-to-dirty change with its caller;
++// HH_billboardFrame, called after every update, plays the executable: it rebuilds the billboard
++// strings of every dirty city with the DLL's own text functions, times them, and clears the flag.
++#include "CvGameCoreDLL.h"
++#include "CvGameAI.h"
++#include "CvPlayerAI.h"
++#include "CvCity.h"
++#include "CvGameTextMgr.h"
++#include <map>
++#include <cstdio>
++
++namespace
++{
++	std::map<void*, long> g_setters;
++	long g_iRebuilds = 0, g_iFrames = 0, g_iFramesWithRebuild = 0, g_iMaxPerFrame = 0;
++	std::map<int, long> g_perCity;
++	double g_dSeconds = 0;
++}
++
++void HH_noteInfoDirty(CvCity* pCity, void* pCaller) { ++g_setters[pCaller]; }
++namespace { std::map<void*, long> g_layoutSetters; long g_iLayoutRebuilds = 0; }
++void HH_noteLayoutDirty(CvCity* pCity, void* pCaller) { ++g_layoutSetters[pCaller]; }
++namespace { long g_aiVis[2][2] = {{0, 0}, {0, 0}}; }
++void HH_noteVisibilityDirty(bool bActiveTeam, bool bWasClean) { ++g_aiVis[bActiveTeam ? 1 : 0][bWasClean ? 1 : 0]; }
++
++extern "C" __declspec(dllexport) void HH_billboardFrame()
++{
++	LARGE_INTEGER f, t0, t1; QueryPerformanceFrequency(&f); QueryPerformanceCounter(&t0);
++	long n = 0;
++	for (int iP = 0; iP < MAX_PLAYERS; ++iP)
++	{
++		CvPlayer& k = GET_PLAYER((PlayerTypes)iP);
++		if (!k.isAlive()) continue;
++		int iLoop;
++		for (CvCity* pCity = k.firstCity(&iLoop); pCity != NULL; pCity = k.nextCity(&iLoop))
++		{
++			if (pCity->isLayoutDirty()) { pCity->setLayoutDirty(false); ++g_iLayoutRebuilds; }
++			if (!pCity->isInfoDirty()) continue;
++			CvWStringBuffer a, b, c, d;
++			GAMETEXT.buildCityBillboardIconString(a, pCity);
++			GAMETEXT.buildCityBillboardCityNameString(b, pCity);
++			GAMETEXT.buildCityBillboardProductionString(c, pCity);
++			GAMETEXT.buildCityBillboardCitySizeString(d, pCity, NiColorA(1, 1, 1, 1));
++			std::vector<NiColorA> v1, v2;
++			GAMETEXT.getCityBillboardFoodbarColors(pCity, v1);
++			GAMETEXT.getCityBillboardProductionbarColors(pCity, v2);
++			pCity->setInfoDirty(false);
++			++n; ++g_perCity[pCity->getID() * 64 + iP];
++		}
++	}
++	QueryPerformanceCounter(&t1);
++	g_dSeconds += (double)(t1.QuadPart - t0.QuadPart) / f.QuadPart;
++	++g_iFrames; g_iRebuilds += n; if (n) ++g_iFramesWithRebuild; if (n > g_iMaxPerFrame) g_iMaxPerFrame = n;
++}
++
++extern "C" __declspec(dllexport) void HH_billboardDump(FILE* f)
++{
++	const size_t base = (size_t)GetModuleHandleA("CvGameCoreDLL.dll");
++	fprintf(f, "billboard frames %ld, with a rebuild %ld, rebuilds %ld, most in one frame %ld, cities rebuilt %d, text time %.3f s\n",
++		g_iFrames, g_iFramesWithRebuild, g_iRebuilds, g_iMaxPerFrame, (int)g_perCity.size(), g_dSeconds);
++	for (std::map<void*, long>::const_iterator it = g_setters.begin(); it != g_setters.end(); ++it)
++		fprintf(f, "infodirty %08x %ld\n", (unsigned)((size_t)it->first - base + 0x10000000), it->second);
++	fprintf(f, "layout rebuilds %ld\n", g_iLayoutRebuilds);
++	fprintf(f, "visibility dirty: other teams %ld (clean before %ld), active team %ld (clean before %ld)\n", g_aiVis[0][0] + g_aiVis[0][1], g_aiVis[0][1], g_aiVis[1][0] + g_aiVis[1][1], g_aiVis[1][1]);
++	for (std::map<void*, long>::const_iterator it = g_layoutSetters.begin(); it != g_layoutSetters.end(); ++it)
++		fprintf(f, "layoutdirty %08x %ld\n", (unsigned)((size_t)it->first - base + 0x10000000), it->second);
++}
++
++// The DLL calls one BUG scoreboard redraw makes for the active player (CvMainInterface.py
++// updateScoreStrings with Scoreboard.py, PlayerUtil, AttitudeUtil, DiplomacyUtil), timed in parts.
++// TradeUtil.canTrade is taken as canContact. Python's own cost is not included.
++extern "C" __declspec(dllexport) void HH_scoreboardTime(FILE* f, int iReps)
++{
++	const PlayerTypes eA = GC.getGameINLINE().getActivePlayer();
++	if (eA == NO_PLAYER) return;
++	const TeamTypes eAT = GET_PLAYER(eA).getTeam();
++	LARGE_INTEGER q; QueryPerformanceFrequency(&q);
++	double dPart[5] = {0, 0, 0, 0, 0}; long iDenials = 0, iRows = 0;
++	for (int r = 0; r < iReps; ++r)
++	{
++		for (int iP = 0; iP < MAX_CIV_PLAYERS; ++iP)
++		{
++			CvPlayerAI& k = GET_PLAYER((PlayerTypes)iP);
++			if (!k.isAlive() || k.isBarbarian() || !GET_TEAM(eAT).isHasMet(k.getTeam())) continue;
++			if (r == 0) ++iRows;
++			LARGE_INTEGER t0, t1, t2, t3, t4, t5; QueryPerformanceCounter(&t0);
++			if (!k.isHuman()) k.AI_getAttitude(eA);
++			QueryPerformanceCounter(&t1);
++			if (!k.isHuman()) k.AI_isWillingToTalk(eA);
++			k.getWorstEnemyName();
++			QueryPerformanceCounter(&t2);
++			// PlayerUtil.isWHEOOH
++			if (iP != eA && GET_PLAYER(eA).canContact((PlayerTypes)iP))
++			{
++				TradeData item; item.m_eItemType = TRADE_WAR;
++				for (int iO = 0; iO < MAX_CIV_PLAYERS; ++iO)
++				{
++					CvPlayer& o = GET_PLAYER((PlayerTypes)iO);
++					if (!o.isAlive() || o.isBarbarian() || o.isMinorCiv()) continue;
++					const TeamTypes eT = o.getTeam();
++					if (eT == eAT || eT == k.getTeam() || GET_TEAM(k.getTeam()).isAtWar(eT)) continue;
++					if (!(GET_TEAM(eAT).isHasMet(eT) && GET_TEAM(k.getTeam()).isHasMet(eT))) continue;
++					item.m_iData = eT;
++					if (k.canTradeItem(eA, item, false)) { k.getTradeDenial(eA, item); if (r == 0) ++iDenials; }
++				}
++			}
++			QueryPerformanceCounter(&t3);
++			k.canTradeNetworkWith(eA);
++			QueryPerformanceCounter(&t4);
++			int iLoop, n = 0;
++			for (CvCity* pCity = k.firstCity(&iLoop); pCity != NULL; pCity = k.nextCity(&iLoop)) if (pCity->isRevealed(eAT, false)) ++n;
++			QueryPerformanceCounter(&t5);
++			dPart[0] += (double)(t1.QuadPart - t0.QuadPart); dPart[1] += (double)(t2.QuadPart - t1.QuadPart);
++			dPart[2] += (double)(t3.QuadPart - t2.QuadPart); dPart[3] += (double)(t4.QuadPart - t3.QuadPart); dPart[4] += (double)(t5.QuadPart - t4.QuadPart);
++		}
++	}
++	const double k = 1000.0 / q.QuadPart / iReps;
++	fprintf(f, "scoreboard rows %ld, war-trade denials asked %ld; ms per redraw: attitude %.2f, talk+worst enemy %.2f, WHEOOH %.2f, trade network %.2f, revealed cities %.2f\n",
++		iRows, iDenials, dPart[0] * k, dPart[1] * k, dPart[2] * k, dPart[3] * k, dPart[4] * k);
++}

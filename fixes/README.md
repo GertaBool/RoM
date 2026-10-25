@@ -3,7 +3,9 @@
 ## Graphics paging: unit, city and plot graphics only near the camera
 
 [graphics-paging.patch](graphics-paging.patch) applies to GitLab `main` `c42be8b`. It is not on GitLab yet.
-It keeps unit and city models, and the trees, roads and improvements of plots, only in a window around
+(Its build README says plots also drop their trees; they do not: the trees of this map are terrain
+art, `research/graphics/README.md`, G1.) It keeps unit and city models, and the roads and
+improvements of plots, only in a window around
 where the camera looks. Everything else is rebuilt when the camera comes near, off screen. This
 targets the memory allocation failure of the 300-city game (`research/graphics/README.md`). The game
 plays identically with paging on and off in 60 seeded harness pairs, and turns are no slower (P7, P8

@@ -1,0 +1,46 @@
+--- a/toolchain/harness/engine.cpp	2026-10-25 07:25:00.022984088 +0000
++++ b/toolchain/harness/engine.cpp	2026-10-25 07:25:00.177440302 +0000
+@@ -16,8 +16,23 @@
+ std::map<std::string, long> g_engineCallCounts;
+ long g_dirtyCounts[NUM_INTERFACE_DIRTY_BITS];
+ static long& engineCounter(const char* szName) { return g_engineCallCounts[szName]; }
+-#define HH_COUNT(name) { static long& s_lCount = engineCounter(name); ++s_lCount; }
+-#define HH_COUNT_DIRTY(bit) { if ((int)(bit) >= 0 && (int)(bit) < NUM_INTERFACE_DIRTY_BITS) ++g_dirtyCounts[bit]; }
++// HARNESS_CALLERS=1: also count each call by its return address in the DLL (addr2sym.py names them).
++extern "C" void* _ReturnAddress(void);
++#pragma intrinsic(_ReturnAddress)
++static bool g_bCallers = getenv("HARNESS_CALLERS") != NULL;
++static std::map<std::pair<std::string, void*>, long> g_callers;
++static void noteCaller(const char* szName, void* pAddr) { ++g_callers[std::make_pair(std::string(szName), pAddr)]; }
++static void noteDirtyCaller(int iBit, void* pAddr) { char sz[32]; _snprintf(sz, 32, "dirty %d", iBit); noteCaller(sz, pAddr); }
++#define HH_COUNT(name) { static long& s_lCount = engineCounter(name); ++s_lCount; if (g_bCallers) noteCaller(name, _ReturnAddress()); }
++#define HH_COUNT_DIRTY(bit) { if ((int)(bit) >= 0 && (int)(bit) < NUM_INTERFACE_DIRTY_BITS) { ++g_dirtyCounts[bit]; if (g_bCallers) noteDirtyCaller((int)(bit), _ReturnAddress()); } }
++
++// Callers with at least iMin calls; addresses as at the DLL's preferred base 0x10000000 (the .map file's).
++void harnessCallerDump(FILE* f, long iMin)
++{
++	const size_t base = (size_t)GetModuleHandleA("CvGameCoreDLL.dll");
++	for (std::map<std::pair<std::string, void*>, long>::const_iterator it = g_callers.begin(); it != g_callers.end(); ++it)
++		if (it->second >= iMin) fprintf(f, "caller %s %08x %ld\n", it->first.first.c_str(), (unsigned)((size_t)it->first.second - base + 0x10000000), it->second);
++}
+ #include "engine_stubs.h"
+ #include "engine.h"
+ #include "xmldom.h"
+--- a/toolchain/harness/main.cpp	2026-10-25 07:25:00.162150310 +0000
++++ b/toolchain/harness/main.cpp	2026-10-25 07:25:00.177951334 +0000
+@@ -30,6 +30,7 @@
+ HH int HH_gameTurn();
+ HH void HH_update();
+ const char* harnessGraphicsStats();	// engine.cpp
++void harnessCallerDump(FILE* f, long iMin);	// engine.cpp
+ HH int HH_numCities(int);
+ HH int HH_cityAt(int, int);
+ HH int HH_debugSites(int, int, int, char*, int);
+@@ -332,6 +333,7 @@
+ 	fclose(f);
+ 	HH_dumpState(szState1.c_str());
+ 	printPythonCounts(HH_gameTurn() - iStart);
++	if (getenv("HARNESS_CALLERS") != NULL) harnessCallerDump(stdout, 50);
+ 	harnessLog("RESULT save turn %d state %d\n", HH_gameTurn(), HH_gameState());
+ 	harnessProfileDump(stdout, 60);
+ }

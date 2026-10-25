@@ -1,0 +1,95 @@
+call	setup	paging_off	paging_on	no_graphics
+Interface::isCitySelected	0	244427	244427	244427
+dirty bit GameData_DIRTY_BIT	0	67143	67143	67143
+Interface::getSelectionPlot	0	44613	44613	44613
+Interface::setMinimapColor	9309	19392	19392	0
+Interface::getHeadSelectedUnit	0	13676	13676	0
+Interface::isCityScreenUp	0	5452	5452	0
+Interface::isBareMapMode	0	5452	5452	0
+PlotBuilder::init	1248	4004	3036	0
+PlotBuilder::create	1248	4004	3036	0
+Symbol::setTypeYield	16596	3699	3699	0
+Engine::LightenVisibility	0	2920	2920	0
+Engine::DarkenVisibility	0	2532	2532	0
+dirty bit Espionage_Advisor_DIRTY_BIT	0	1973	1973	1973
+Symbol::createSymbol	7868	1678	1678	0
+Symbol::init	7868	1678	1678	0
+Symbol::getID	7868	1678	1678	0
+Symbol::destroy	0	1616	1616	0
+Interface::addMessage	0	882	882	882
+Route::destroy	27927	738	24906	18618
+Utility::GetWorldBuilderMode	0	407	648	407
+Route::init	1083	349	1438	0
+Route::createRoute	1083	349	1438	0
+dirty bit Score_DIRTY_BIT	0	239	239	239
+Entity::RemoveUnitFromBattle	0	206	4342	133
+dirty bit CitizenButtons_DIRTY_BIT	0	179	179	179
+dirty bit GlobeLayer_DIRTY_BIT	0	153	153	74
+dirty bit Help_DIRTY_BIT	0	129	129	129
+Interface::updateCursorType	0	126	126	126
+Engine::SetDirty	0	82	82	3
+Utility::GetDone	0	73	355365	73
+Interface::removeFromSelectionList	0	73	73	73
+dirty bit MinimapSection_DIRTY_BIT	0	72	72	72
+Engine::BlackenVisibility	0	65	65	0
+dirty bit UnitInfo_DIRTY_BIT	0	64	64	64
+dirty bit CityInfo_DIRTY_BIT	0	63	63	63
+Utility::IsPitbossHost	0	63	63	63
+Interface::dirtyTurnLog	0	58	58	58
+Interface::isFocusedWidget	0	30	30	30
+dirty bit Foreign_Screen_DIRTY_BIT	0	27	27	27
+dirty bit SelectionButtons_DIRTY_BIT	0	26	26	26
+dirty bit MiscButtons_DIRTY_BIT	0	23	23	23
+Utility::stripSpecialCharacters	0	22	22	22
+Utility::sendPlayerOption	0	22	22	22
+Utility::getPlayerOption	0	22	22	22
+dirty bit Financial_Screen_DIRTY_BIT	0	21	21	21
+dirty bit CityScreen_DIRTY_BIT	0	21	21	21
+Engine::RebuildTileArt	9309	12	9494	0
+Interface::noTechSplash	0	12	12	12
+Feature::destroy	27927	12	24546	18618
+dirty bit ResearchButtons_DIRTY_BIT	0	8	8	8
+dirty bit BlockadedPlots_DIRTY_BIT	0	6	6	6
+Utility::isDiplomacy	0	6	6	6
+dirty bit Popup_DIRTY_BIT	0	5	5	5
+Interface::addPopup	0	5	5	5
+Interface::setEndTurnMessage	0	3	3	3
+dirty bit SelectionCamera_DIRTY_BIT	0	3	3	3
+Interface::getLengthSelectionList	0	3	3	3
+Interface::flushTalkingHeadMessages	0	3	3	3
+Interface::setHasMovedUnit	0	3	3	3
+Interface::playGeneralSound	0	3	3	3
+dirty bit TurnTimer_DIRTY_BIT	0	3	3	3
+Interface::clearQueuedPopups	0	3	3	3
+Interface::setCycleSelectionCounter	0	3	3	3
+Interface::setForcePopup	0	3	3	3
+dirty bit Waypoints_DIRTY_BIT	0	3	3	3
+Engine::DoTurn	0	3	3	3
+Engine::AutoSave	0	3	3	3
+Engine::ForceTreeOffsets	9180	0	0	0
+Utility::callUpdater	9309	0	0	0
+Utility::createTechInfoCacheObject	1	0	0	1
+Utility::createImprovementInfoCacheObject	1	0	0	1
+Utility::createEventInfoCacheObject	1	0	0	1
+Utility::createLeaderHeadInfoCacheObject	1	0	0	1
+Utility::createBonusInfoCacheObject	1	0	0	1
+Feature::init	2	0	1	0
+Utility::getAssignedNetworkID	50	0	0	50
+Engine::RebuildRiverPlotTile	2302	0	0	0
+Utility::createCivicInfoCacheObject	1	0	0	1
+Utility::getAudioDisabled	145	0	0	145
+River::destroy	27927	0	0	18618
+Utility::createPromotionInfoCacheObject	1	0	0	1
+Utility::createDiplomacyInfoCacheObject	1	0	0	1
+River::createRiver	2302	0	0	0
+Utility::createEventTriggerInfoCacheObject	1	0	0	1
+Utility::createBuildingInfoCacheObject	1	0	0	1
+Feature::createFeature	2	0	1	0
+FlagEntity::destroy	37236	0	0	37236
+Utility::createUnitInfoCacheObject	1	0	0	1
+Utility::createHandicapInfoCacheObject	1	0	0	1
+Utility::createCivilizationInfoCacheObject	1	0	0	1
+Entity::updatePosition	2302	0	0	0
+Utility::createGlobalDefinesCacheObject	1	0	0	1
+River::init	2302	0	0	0
+Utility::getAudioTagIndex	2551	0	0	2551

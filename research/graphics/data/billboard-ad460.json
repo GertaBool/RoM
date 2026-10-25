@@ -1,0 +1,62 @@
+{
+ "billboard": {
+  "updates": 241,
+  "updates_with_a_rebuild": 77,
+  "rebuilds": 2440,
+  "most_in_one_update": 300,
+  "cities_rebuilt": 308,
+  "dll_text_seconds": 0.043
+ },
+ "layout_rebuilds": 513,
+ "visibility_setter": {
+  "other_teams_calls": 2095,
+  "other_teams_from_clean": 552,
+  "active_team_calls": 261,
+  "active_team_from_clean": 77
+ },
+ "infodirty_setters": [
+  {
+   "setter": "void __thiscall CvCity::changeDefenseDamage(int)",
+   "count": 713
+  },
+  {
+   "setter": "void __thiscall CvCity::processBonus(enum BonusTypes, int)",
+   "count": 693
+  },
+  {
+   "setter": "void __thiscall CvPlot::changeVisibilityCount(enum TeamTypes, int, enum InvisibleTypes, bool)",
+   "count": 629
+  },
+  {
+   "setter": "void __thiscall CvCity::setBaseYieldRate(enum YieldTypes, int)",
+   "count": 49
+  },
+  {
+   "setter": "void __thiscall CvCity::changeBonusYieldRateModifier(enum YieldTypes, int)",
+   "count": 48
+  }
+ ],
+ "layoutdirty_setters": [
+  {
+   "setter": "void __thiscall CvCity::setupGraphical(void)",
+   "count": 308
+  },
+  {
+   "setter": "void __thiscall CvCity::processBuilding(enum BuildingTypes, int, bool)",
+   "count": 121
+  },
+  {
+   "setter": "void __thiscall CvCity::setPopulation(int)",
+   "count": 84
+  }
+ ],
+ "scoreboard_dll_ms_per_redraw": {
+  "rows": 20,
+  "war_trade_denials": 330,
+  "attitude": 0.01,
+  "willing_to_talk_and_worst_enemy": 0.08,
+  "wheooh": 13.41,
+  "trade_network": 0.01,
+  "revealed_cities": 0.02
+ }
+}
