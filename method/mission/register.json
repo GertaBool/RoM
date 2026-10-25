@@ -763,5 +763,41 @@
    "fixes/diplomacy-values/",
    "builds/diplomacy-values/"
   ]
+ },
+ {
+  "id": "H11",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "The game crashed while the player zoomed in and out fast at turn 108 of a 20-civilization huge Europe game under Proton (GitLab main 3bec049). Facts from GraphicsPaging.log and PythonDbg.log: 105 passes set up 2,282 plots, 21 units and 7 cities again, at most 238 plots, 2 units and 1 city in one pass; the last, after the window grew from 60 x 43 to 60 x 65 plots in 0.3 s, set up 918 plots, 6 units and 2 cities in one update, and each of those plots also rebuilt its tile art (CvPlot::pageGraphics calls updateFeatureSymbol(true), which calls RebuildTileArt) although paging never removes tile art; no later pass is logged, and Python logged about 4 s more without error. No crash address was obtained. The cause is the executable setting up that much graphics at once: setting up at most GRAPHICS_PAGING_MAX_IN (100) plots, units and cities per update, the rest at the next updates, and not rebuilding the tile art on page-in keeps each update's set-up below what the session survived. Contradicted if the game still crashes when zooming in and out fast with this change, or crashes the same way with GRAPHICS_PAGING 0."
+ },
+ {
+  "id": "P20",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H11"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab main 3bec049 (tree 4985d7da, build 504830a0dee0): CvPlot::pageGraphics(true) gives a plot its feature symbol again through the new CvPlot::updateFeatureSymbolEntity, the part of updateFeatureSymbol after RebuildTileArt, so a page-in rebuilds no tile art (updateFeatureSymbol itself, called when a feature changes, still rebuilds it whether or not the plot is paged out); CvGame::pageGraphics(false) pages in at most GRAPHICS_PAGING_MAX_IN (GlobalDefinesAlt.xml, 100; 0 = no limit) plots, units and cities, leaves the rest of the window for later and returns true, and CvGame::updateGraphicsPaging then runs the next pass at the next update in the same window before reading the camera again; page-outs and the all-in pass are not limited; Docs/GRAPHICS_PAGING.md describes the crash and the change. Harness: HARNESS_CAMERA_ZOOM=<distance>,<pitch>,<far reads>,<near reads> makes HH_cameraView give, of every far + near camera reads, the first near ones at HARNESS_CAMERA_VIEW and the rest at that distance and pitch (the player zooming out and in). Arm a: this build; arm b: GitLab main 3bec049; both harness builds with this HarnessHooks.cpp and the mod's GlobalDefinesAlt.xml with GRAPHICS_PAGING_SHRINK_MS 0 (the window shrinks at once, so every zoom-out sets up a large area again) and GRAPHICS_PAGING_LOG 1, set in the XML because HARNESS_DEFINES does not reach scenario runs. Both from turn 0 of PrivateMaps/Mediterranean, Huge (all seats AI, HARNESS_GRAPHICS=1, HARNESS_ACTIVE=0, HARNESS_CAMERA_FOLLOW=1, HARNESS_CHECK_EVERY=1, HARNESS_CAMERA_VIEW=2200,45,0,1920,1080, HARNESS_CAMERA_ZOOM=6000,80,1,2), HANDICAP_NOBLE, the scenario's speed, 150 turns per run, seeds from ledger.py seeds. The page-in sizes in GraphicsPaging.log and the harness's on-screen check are reported, not claimed. The crash itself is in the executable and is judged by the user's game. P20: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Docs/GRAPHICS_PAGING.md",
+   "toolchain/harness/HarnessHooks.cpp",
+   "fixes/graphics-paging-zoom.patch",
+   "fixes/graphics-paging-zoom/",
+   "builds/graphics-paging-zoom/"
+  ]
  }
 ]
