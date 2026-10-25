@@ -349,3 +349,38 @@ extern "C" __declspec(dllexport) const char* HH_graphicsCheckStats()
 	buf[sizeof(buf) - 1] = 0;
 	return buf;
 }
+
+// The landscape's size for the harness engine (engine.cpp GetLandscapeGameDimensions).
+extern "C" __declspec(dllexport) void HH_landscapeSize(float* pfWidth, float* pfHeight)
+{
+	*pfWidth = GC.getMapINLINE().getGridWidthINLINE() * GC.getPLOT_SIZE();
+	*pfHeight = GC.getMapINLINE().getGridHeightINLINE() * GC.getPLOT_SIZE();
+}
+
+// HARNESS_CAMERA_VIEW=<distance>,<pitch>,<yaw>,<width>,<height>: what CvGameInterface.getCameraView returns
+// in the game, for a camera at that distance from the look-at plot's centre, pitched that many degrees below
+// the horizontal and turned by the yaw (0 looks north), with a screen of that size. Index 0 places the
+// camera and returns the count; index i returns value i.
+extern "C" __declspec(dllexport) long HH_cameraView(int iIndex)
+{
+	static long s_alView[10];
+	if (iIndex == 0)
+	{
+		float fDistance = 2200.0f, fPitch = 45.0f, fYaw = 0.0f;
+		int iWidth = 1920, iHeight = 1080;
+		const char* sz = getenv("HARNESS_CAMERA_VIEW");
+		if (sz != NULL) sscanf(sz, "%f,%f,%f,%d,%d", &fDistance, &fPitch, &fYaw, &iWidth, &iHeight);
+		CvPlot* pLook = gDLL->getInterfaceIFace()->getLookAtPlot();
+		if (pLook == NULL) return 0;
+		const float fX = GC.getMapINLINE().plotXToPointX(pLook->getX_INLINE());
+		const float fY = GC.getMapINLINE().plotYToPointY(pLook->getY_INLINE());
+		const float fP = DEGTORAD(fPitch), fT = DEGTORAD(fYaw);
+		s_alView[0] = (long)(fX - fDistance * cos(fP) * sin(fT));
+		s_alView[1] = (long)(fY - fDistance * cos(fP) * cos(fT));
+		s_alView[2] = (long)(fDistance * sin(fP));
+		s_alView[3] = (long)fX; s_alView[4] = (long)fY; s_alView[5] = 0; s_alView[6] = 1;
+		s_alView[7] = iWidth; s_alView[8] = iHeight; s_alView[9] = 0;
+		return 10;
+	}
+	return (iIndex > 0 && iIndex <= 10) ? s_alView[iIndex - 1] : 0;
+}

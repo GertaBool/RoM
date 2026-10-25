@@ -545,6 +545,19 @@ static long pythonDefault(const char* fxn, void* args)
 	return 0;
 }
 
+// HARNESS_CAMERA_VIEW=<distance>,<pitch degrees below horizontal>,<yaw degrees>,<width>,<height>: a camera for
+// CvGameInterface.getCameraView (CvGame::graphicsWindowFromCamera), placed by the harness DLL (HH_cameraView)
+// at that distance from the look-at plot's centre, looking at it.
+static bool cameraView(const char* fxn, void* args, long* result)
+{
+	if (fxn == NULL || strcmp(fxn, "getCameraView") != 0 || getenv("HARNESS_CAMERA_VIEW") == NULL) return false;
+	typedef long (*ViewFn)(int);
+	static const ViewFn pfn = (ViewFn)harnessDllProc("HH_cameraView");
+	if (pfn == NULL) return false;
+	if (result) *result = pfn((int)argInt(args, 0));
+	return true;
+}
+
 class PythonIFace : public S_CvDLLPythonIFaceBase
 {
 public:
@@ -562,7 +575,7 @@ public:
 		return (PyObject*)a;
 	}
 	bool callFunction(const char*, const char* fxn, void*) { countPyCall(fxn); return false; }
-	bool callFunction(const char*, const char* fxn, void* arg, long* result) { if (result) *result = pythonDefault(fxn, arg); return false; }
+	bool callFunction(const char*, const char* fxn, void* arg, long* result) { if (cameraView(fxn, arg, result)) return true; if (result) *result = pythonDefault(fxn, arg); return false; }
 	bool callFunction(const char*, const char* fxn, void*, CvString* result) { countPyCall(fxn); if (result) *result = ""; return false; }
 	bool callFunction(const char*, const char* fxn, void*, CvWString* result) { countPyCall(fxn); if (result) *result = L""; return false; }
 	bool callFunction(const char*, const char* fxn, void*, std::vector<byte>* pList) { countPyCall(fxn); if (pList) pList->clear(); return false; }
@@ -674,6 +687,20 @@ public:
 	void destroy(CvPlotBuilder*& p, bool) { gfxFree(p); }
 };
 
+// The landscape's size in world units, as the game makes it: the map's plots times PLOT_SIZE (HH_landscapeSize),
+// so the DLL's plot and point conversions (CvMap::plotXToPointX and the rest) work.
+class EngineIFace : public S_CvDLLEngineIFaceBase
+{
+public:
+	void GetLandscapeGameDimensions(float& fWidth, float& fHeight)
+	{
+		typedef void (*SizeFn)(float*, float*);
+		static const SizeFn pfn = (SizeFn)harnessDllProc("HH_landscapeSize");
+		fWidth = 0.0f; fHeight = 0.0f;
+		if (pfn != NULL) pfn(&fWidth, &fHeight);
+	}
+};
+
 // One line of entity counts; each call also samples the entities set up at that moment.
 const char* harnessGraphicsStats()
 {
@@ -766,7 +793,7 @@ public:
 	}
 	EntityIFace entity;
 	InterfaceIFace iface;
-	S_CvDLLEngineIFaceBase engine;
+	EngineIFace engine;
 	S_CvDLLIniParserIFaceBase ini;
 	SymbolIFace symbol;
 	FeatureIFace feature;
