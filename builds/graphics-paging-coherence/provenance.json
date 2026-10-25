@@ -1,0 +1,24 @@
+{
+ "serves": [
+  "P12"
+ ],
+ "patch": "fixes/graphics-paging-coherence.patch",
+ "build_id": "dd2152452c46",
+ "source": "GitLab main d929b57 plus fixes/graphics-paging-coherence.patch: a plot keeps its graphics while a unit or city on it keeps its own, plots come back with what stands on them, routes are never paged, GRAPHICS_PAGING_ZOOM 0",
+ "source_commit": "GitLab claude/paging-coherence 006b7840",
+ "source_tree": "add8bed37cff3099ae47a497b5ed5e542aec9d84",
+ "base_commit": "d929b57bf80a16838831a9b9e11e7b01f6200394",
+ "dll_sha256": "8555c6f1c9ae8811f35af1997cd9269e15604653119ce3688387b0523ca3e899",
+ "dll_size": 6148096,
+ "files": {
+  "GlobalDefinesAlt.xml": "a91aced98e90b0b7c7479a8a7aa8a27b759a47feaa963aec578c8c08884dc08f",
+  "CvGameInterface.py": "c3a90e89bfebb21d0c86ad1c9fd58b1cfadde5e533eb4519731dc7db4911b6be"
+ },
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release, CLEAN=1; 0 errors, 0 warnings",
+ "tests": "clang gate on CvGame.cpp, CvPlot.cpp, CvUnit.cpp, CvCity.cpp against d929b57: 0 new diagnostics (fixes/graphics-paging-coherence/clang-gate.log). Harness checks of what the executable sees near the camera, 100 turns from turn 0 of the Huge Mediterranean map: d929b57 gives 27 flagless live units and 58 routes without symbol (camera following the active player's units), 62 and 75 (camera sweeping); this build and the DLL before paging (c42be8b) give 0 of every kind; the game is identical in all three",
+ "tested_headless": "P12 evidence pending",
+ "tested_in_game": false,
+ "previous": "GitLab main d929b57 (crashed at the first unit moved, reported by the user)",
+ "merge_request": "not opened yet",
+ "gitlab_commit": "006b78404a6dbdb5b34d8a49ea7ae42709395429"
+}
