@@ -112,10 +112,17 @@ set, so a city set dirty again between frames is rebuilt again. 29 setters in `C
 
 ## 5. Changes, by expected effect
 
-None of these is built yet. Each changes the DLL, so each needs the user's approval of its design
-and a prediction in `method/mission/register.json` before it is built (CLAUDE.md rules 9 and 10).
+Each changes the DLL, so each needs the user's approval of its design and a prediction in
+`method/mission/register.json` before it is built (CLAUDE.md rules 9 and 10). G1 is built
+(`fixes/graphics-paging/README.md`, `builds/graphics-paging/`); G2 and G3 are not.
 
 ### G1. Graphics paging around the camera (space; large)
+
+**Built** as `fixes/graphics-paging.patch`, with predictions P7 and P8. Both are corroborated in
+the harness, and the game state is identical with paging on and off. The design below is the one
+approved. Two things differ in the build: battles that will be shown page their units in, and the
+window scales with the camera zoom. The memory saved in the executable is open until the user
+measures it.
 
 Keep graphics only for the plots near where the camera looks; destroy them elsewhere and recreate
 them when the camera comes back. What is on screen does not change.

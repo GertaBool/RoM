@@ -1,5 +1,15 @@
 # Tested source fixes
 
+## Graphics paging: unit, city and plot graphics only near the camera
+
+[graphics-paging.patch](graphics-paging.patch) applies to GitLab `main` `c42be8b`. It is not on GitLab yet.
+It keeps unit and city models, and the trees, roads and improvements of plots, only in a window around
+where the camera looks. Everything else is rebuilt when the camera comes near, off screen. This
+targets the memory allocation failure of the 300-city game (`research/graphics/README.md`). The game
+plays identically with paging on and off in 60 seeded harness pairs, and turns are no slower (P7, P8
+corroborated). The memory saved in the real executable is open. See the
+[code and validation](graphics-paging/README.md) and the [build and test steps](../builds/graphics-paging/README.md).
+
 ## Civic prose and translations
 
 [Patch 0021](0021-civic-prose.patch), applied after 0020, polishes the 68 core civics:
