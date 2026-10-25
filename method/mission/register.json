@@ -625,5 +625,71 @@
    "toolchain/harness/HarnessState.cpp",
    "toolchain/harness/build_dll.sh"
   ]
+ },
+ {
+  "id": "H10",
+  "type": "hypothesis",
+  "line": "diplomacy-values",
+  "text": "The AI's trade values and offers do not follow the game's rules (GitLab main 3bec049). Facts: (1) every offer it makes starts from a uniform random draw (getSorenRandNum(10000)) among the partner's tradeable techs or spare resources: tech purchases, tech swaps, tech sales, help requests and resource swaps (CvPlayerAI::AI_doDiplo); (2) CvTeamAI::AI_techTradeVal prices a tech from CvTeam::getResearchCost, ignoring the receiver's research modifier (TECH_DIFFUSION_ENABLE 1, up to +30% from known teams; known-prerequisite modifiers 15); (3) CvPlayerAI::AI_bonusTradeVal values a resource at a fixed +100 per happiness or health and half a point per percent of building yield modifier (AI_baseBonusVal), scaled by the smaller of the two players' city counts, with no regard to whether its cities are unhappy or unhealthy or to the production and commerce its cities make (Town Essentials: Coffee +20% production, +10% commerce; Forge: Gold +25% commerce); (4) AI_maxGoldTrade lets an AI with non-negative income trade its whole treasury, ignoring AI_goldTarget. In the user's game 4 (turns 264-268) three AIs paid 380-660 gold, 59-98% of their treasuries, for randomly chosen techs (Archery, Fermentation), and AIs paid the human 2,545 gold over turns 254-285 against the human's own income of 4,238. Valuing techs by the receiver's effective cost, resources by their effect in the valuer's own cities, choosing what to ask for and give by value, refusing to sell techs to a higher-ranked team, and keeping the gold target in tech purchases makes the AI pay what a trade is worth to it and stop funding the leader. Contradicted if, in the user's games with the change, AIs still pay most of their treasury for techs outside their research queue, or still give resources they need for ones they do not."
+ },
+ {
+  "id": "P16",
+  "type": "prediction",
+  "line": "diplomacy-values",
+  "hypotheses": [
+   "H10"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab main 3bec049 (tree 4985d7da, build 504830a0dee0), define AI_DIPLOMACY_FLAGS (BBAI_AI_Variables_GlobalDefines.xml, default 15, 0 = the old AI; isAIDiplomacy in CvGameCoreUtils): 1: CvTeamAI::AI_techTradeVal divides the remaining research by the team leader's calculateResearchModifier (the receiver's effective cost). 2: CvPlayerAI::AI_bonusTradeVal values a resource by its effect in the valuer's own cities, per turn in gold-equivalents (food and production 2, commerce 1 times the city's commerce output per commerce yield): happiness frees angry citizens (or half a citizen in a growing city at its limit), health removes unhealthiness food loss, building BonusYieldModifiers act on each city's base yields; plus an unlock value (units, buildings and routes that need the resource, with tech and era weights as AI_baseBonusVal, without canTrain/canConstruct) scaled by its own city count, and corporations as before; a resource it already has is worth only its corporation value, one it would give away while holding another copy likewise; per-turn values are converted as gold per turn is (AI_goldTradeValuePercent, PEACE_TREATY_LENGTH). AI_baseBonusVal is unchanged. 4: in AI_doDiplo the tech asked for (purchase, swap, help) is the one worth most to the AI, times 4 if researching or queued and 2 if researchable now; the tech given in a swap is the one whose value to the partner is closest to that; resource swaps ask for the resource the AI gains most from and give the one it loses least, and need gain > loss; no tech is offered for sale to a team ranked above the AI in score. 8: AI-proposed tech purchases pay at most getGold() - AI_goldTarget(). Harness: arm a is this build, arm b build 504830a0dee0, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. Trades in the telemetry are reported, not claimed. The effect on play against the human is judged by the user's logged games. P16: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.h",
+   "gitlab:Assets/CvGameCoreDLL/CvTeamAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/XML/BBAI_AI_Variables_GlobalDefines.xml",
+   "gitlab:Docs/DIPLOMACY_VALUES.md",
+   "fixes/diplomacy-values.patch",
+   "fixes/diplomacy-values/",
+   "builds/diplomacy-values/"
+  ]
+ },
+ {
+  "id": "P17",
+  "type": "prediction",
+  "line": "diplomacy-values",
+  "hypotheses": [
+   "H10"
+  ],
+  "variable": "turn_seconds",
+  "evidence": "runs",
+  "change": "On GitLab main 3bec049 (tree 4985d7da, build 504830a0dee0), define AI_DIPLOMACY_FLAGS (BBAI_AI_Variables_GlobalDefines.xml, default 15, 0 = the old AI; isAIDiplomacy in CvGameCoreUtils): 1: CvTeamAI::AI_techTradeVal divides the remaining research by the team leader's calculateResearchModifier (the receiver's effective cost). 2: CvPlayerAI::AI_bonusTradeVal values a resource by its effect in the valuer's own cities, per turn in gold-equivalents (food and production 2, commerce 1 times the city's commerce output per commerce yield): happiness frees angry citizens (or half a citizen in a growing city at its limit), health removes unhealthiness food loss, building BonusYieldModifiers act on each city's base yields; plus an unlock value (units, buildings and routes that need the resource, with tech and era weights as AI_baseBonusVal, without canTrain/canConstruct) scaled by its own city count, and corporations as before; a resource it already has is worth only its corporation value, one it would give away while holding another copy likewise; per-turn values are converted as gold per turn is (AI_goldTradeValuePercent, PEACE_TREATY_LENGTH). AI_baseBonusVal is unchanged. 4: in AI_doDiplo the tech asked for (purchase, swap, help) is the one worth most to the AI, times 4 if researching or queued and 2 if researchable now; the tech given in a swap is the one whose value to the partner is closest to that; resource swaps ask for the resource the AI gains most from and give the one it loses least, and need gain > loss; no tech is offered for sale to a team ranked above the AI in score. 8: AI-proposed tech purchases pay at most getGold() - AI_goldTarget(). Harness: arm a is this build, arm b build 504830a0dee0, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. Trades in the telemetry are reported, not claimed. The effect on play against the human is judged by the user's logged games. P17: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.h",
+   "gitlab:Assets/CvGameCoreDLL/CvTeamAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/XML/BBAI_AI_Variables_GlobalDefines.xml",
+   "gitlab:Docs/DIPLOMACY_VALUES.md",
+   "fixes/diplomacy-values.patch",
+   "fixes/diplomacy-values/",
+   "builds/diplomacy-values/"
+  ]
  }
 ]
