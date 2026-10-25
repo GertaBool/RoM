@@ -1,0 +1,996 @@
+{
+ "games": {
+  "n": 30,
+  "cities_end": 100.6,
+  "pop_end": 671.3,
+  "cities_p10_end": 93.9,
+  "cities_p90_end": 107.0,
+  "recon": {
+   "agree": 45300,
+   "total": 45334
+  }
+ },
+ "calibration": {
+  "1": {
+   "short": 53838,
+   "cityturns": 176331,
+   "share": 0.3053
+  },
+  "2": {
+   "short": 22861,
+   "cityturns": 176331,
+   "share": 0.1296
+  },
+  "3": {
+   "short": 12127,
+   "cityturns": 176331,
+   "share": 0.0688
+  },
+  "3_equal": {
+   "short": 13954,
+   "cityturns": 176331,
+   "share": 0.0791
+  }
+ },
+ "deals": {
+  "deals": 1738,
+  "games": 30,
+  "composition": [
+   [
+    "open borders for open borders",
+    1136
+   ],
+   [
+    "resource for resource",
+    568
+   ],
+   [
+    "peace for peace",
+    20
+   ],
+   [
+    " for resource",
+    11
+   ],
+   [
+    " for vassal",
+    2
+   ],
+   [
+    "gold per turn for resource",
+    1
+   ]
+  ],
+  "resource_types": [
+   [
+    "Fish",
+    120
+   ],
+   [
+    "Wheat",
+    114
+   ],
+   [
+    "Apple",
+    110
+   ],
+   [
+    "Sugar",
+    84
+   ],
+   [
+    "Shrimp",
+    72
+   ],
+   [
+    "Olives",
+    65
+   ],
+   [
+    "Wine",
+    62
+   ],
+   [
+    "Clam",
+    60
+   ],
+   [
+    "Salt",
+    55
+   ],
+   [
+    "Rice",
+    53
+   ],
+   [
+    "Alcohol",
+    45
+   ],
+   [
+    "Sheep",
+    41
+   ],
+   [
+    "Dye",
+    34
+   ],
+   [
+    "Stone",
+    34
+   ],
+   [
+    "Lemon",
+    31
+   ]
+  ],
+  "resource_deal_durations": {
+   "n": 321,
+   "median": 20,
+   "max": 21
+  },
+  "resource_deals": 580
+ },
+ "short": {
+  "today_food": {
+   "staple": 9.2,
+   "variety": 55.7,
+   "clothing": 52.4,
+   "fuel": 73.3,
+   "tools": 83.5,
+   "luxury": 50.6
+  },
+  "goods_local": {
+   "staple": 11.5,
+   "variety": 55.7,
+   "clothing": 52.4,
+   "fuel": 73.3,
+   "tools": 83.5,
+   "luxury": 50.6
+  },
+  "goods_network": {
+   "staple": 5.1,
+   "variety": 60.5,
+   "clothing": 58.0,
+   "fuel": 79.8,
+   "tools": 81.5,
+   "luxury": 34.0
+  },
+  "goods_network_loss": {
+   "staple": 5.2,
+   "variety": 61.1,
+   "clothing": 58.4,
+   "fuel": 81.6,
+   "tools": 82.7,
+   "luxury": 34.7
+  },
+  "network_store": {
+   "staple": 1.2,
+   "variety": 35.0,
+   "clothing": 30.7,
+   "fuel": 66.4,
+   "tools": 77.7,
+   "luxury": 31.8
+  },
+  "network_store_spoil": {
+   "staple": 4.2,
+   "variety": 50.8,
+   "clothing": 30.7,
+   "fuel": 66.4,
+   "tools": 77.7,
+   "luxury": 31.8
+  },
+  "whole_units": {
+   "staple": 7.0,
+   "variety": 83.7,
+   "clothing": 88.8,
+   "fuel": 79.4,
+   "tools": 89.9,
+   "luxury": 67.4
+  },
+  "tiers_size": {
+   "staple": 5.1,
+   "variety": 35.1,
+   "clothing": 40.1,
+   "fuel": 56.5,
+   "tools": 58.8,
+   "luxury": 28.5
+  },
+  "equal_split": {
+   "staple": 4.8,
+   "variety": 62.8,
+   "clothing": 63.0,
+   "fuel": 80.4,
+   "tools": 81.0,
+   "luxury": 34.1
+  },
+  "aware_network": {
+   "staple": 6.7,
+   "variety": 52.5,
+   "clothing": 55.9,
+   "fuel": 67.8,
+   "tools": 77.9,
+   "luxury": 33.8
+  },
+  "aware_network_store_spoil": {
+   "staple": 5.4,
+   "variety": 43.5,
+   "clothing": 28.4,
+   "fuel": 53.4,
+   "tools": 73.5,
+   "luxury": 31.6
+  }
+ },
+ "waste": {
+  "today_food": 7.1,
+  "goods_local": 7.1,
+  "goods_network": 4.5,
+  "goods_network_loss": 4.5,
+  "network_store": 0.8,
+  "network_store_spoil": 15.9,
+  "whole_units": 1.7,
+  "tiers_size": 6.5,
+  "equal_split": 4.4,
+  "aware_network": 5.1,
+  "aware_network_store_spoil": 15.0
+ },
+ "round_loss": {
+  "today_food": 0.0,
+  "goods_local": 0.0,
+  "goods_network": 0.0,
+  "goods_network_loss": 0.0,
+  "network_store": 0.0,
+  "network_store_spoil": 0.0,
+  "whole_units": 8.8,
+  "tiers_size": 0.0,
+  "equal_split": 0.0,
+  "aware_network": 0.0,
+  "aware_network_store_spoil": 0.0
+ },
+ "hash": {
+  "today_food": "2c9a37a3a58fb44c",
+  "goods_local": "3fa9722432e66a03",
+  "goods_network": "ca8ad5a374fc7e06",
+  "goods_network_loss": "1d37cb09ded06366",
+  "network_store": "36377075f1ae3bc3",
+  "network_store_spoil": "e884c9c6ec943676",
+  "whole_units": "69eb937294fa95ed",
+  "tiers_size": "411fd693bf20266d",
+  "equal_split": "d98a0663b71f5ee4",
+  "aware_network": "0f00aa3038060ed6",
+  "aware_network_store_spoil": "7031d347945dd3fd"
+ },
+ "determinism": {
+  "same_hash_twice": true,
+  "hash": "92b40db8175dba20"
+ },
+ "bysize": {
+  "today_food": [
+   1.4,
+   8.8,
+   13.6,
+   7.6
+  ],
+  "goods_local": [
+   2.5,
+   10.7,
+   15.9,
+   16.1
+  ],
+  "goods_network": [
+   0.8,
+   3.9,
+   8.1,
+   9.4
+  ],
+  "network_store_spoil": [
+   0.6,
+   2.8,
+   6.8,
+   8.9
+  ]
+ },
+ "float": {
+  "rations": 120323,
+  "sum_differs": 38082,
+  "alloc_differs": 1803,
+  "unconserved": 115854
+ },
+ "capacity": {
+  "49": {
+   "variety": 2.863,
+   "clothing": 2.066,
+   "fuel": 1.679,
+   "tools": 0.377,
+   "luxury": 0.587
+  },
+  "99": {
+   "variety": 1.323,
+   "clothing": 0.976,
+   "fuel": 0.926,
+   "tools": 0.184,
+   "luxury": 0.325
+  },
+  "149": {
+   "variety": 0.649,
+   "clothing": 0.408,
+   "fuel": 0.531,
+   "tools": 0.099,
+   "luxury": 0.17
+  }
+ },
+ "capacity_staple": {
+  "49": 18.09,
+  "99": 10.34,
+  "149": 5.49
+ },
+ "trade": {
+  "staple": 409.0,
+  "variety": 740.0,
+  "fuel": 367.0,
+  "tools": 216.0,
+  "clothing": 392.0,
+  "luxury": 617.0
+ },
+ "trade_turns_per_game": 150.0,
+ "bench": [
+  {
+   "cities": "60",
+   "goods": "12",
+   "recipes_per_city": "3",
+   "us_per_turn": "14.0",
+   "us_per_turn_with_ai_marginals": "183.3",
+   "bytes_state": "7200"
+  },
+  {
+   "cities": "60",
+   "goods": "40",
+   "recipes_per_city": "10",
+   "us_per_turn": "50.0",
+   "us_per_turn_with_ai_marginals": "2054.5",
+   "bytes_state": "24000"
+  },
+  {
+   "cities": "60",
+   "goods": "100",
+   "recipes_per_city": "25",
+   "us_per_turn": "168.2",
+   "us_per_turn_with_ai_marginals": "15397.3",
+   "bytes_state": "60000"
+  },
+  {
+   "cities": "120",
+   "goods": "12",
+   "recipes_per_city": "3",
+   "us_per_turn": "34.0",
+   "us_per_turn_with_ai_marginals": "467.1",
+   "bytes_state": "14400"
+  },
+  {
+   "cities": "120",
+   "goods": "40",
+   "recipes_per_city": "10",
+   "us_per_turn": "117.7",
+   "us_per_turn_with_ai_marginals": "4743.0",
+   "bytes_state": "48000"
+  },
+  {
+   "cities": "120",
+   "goods": "100",
+   "recipes_per_city": "25",
+   "us_per_turn": "260.9",
+   "us_per_turn_with_ai_marginals": "27377.1",
+   "bytes_state": "120000"
+  },
+  {
+   "cities": "300",
+   "goods": "12",
+   "recipes_per_city": "3",
+   "us_per_turn": "106.0",
+   "us_per_turn_with_ai_marginals": "1475.3",
+   "bytes_state": "36000"
+  },
+  {
+   "cities": "300",
+   "goods": "40",
+   "recipes_per_city": "10",
+   "us_per_turn": "380.1",
+   "us_per_turn_with_ai_marginals": "16046.8",
+   "bytes_state": "120000"
+  },
+  {
+   "cities": "300",
+   "goods": "100",
+   "recipes_per_city": "25",
+   "us_per_turn": "947.1",
+   "us_per_turn_with_ai_marginals": "97706.0",
+   "bytes_state": "300000"
+  },
+  {
+   "cities": "600",
+   "goods": "12",
+   "recipes_per_city": "3",
+   "us_per_turn": "296.7",
+   "us_per_turn_with_ai_marginals": "3690.2",
+   "bytes_state": "72000"
+  },
+  {
+   "cities": "600",
+   "goods": "40",
+   "recipes_per_city": "10",
+   "us_per_turn": "909.4",
+   "us_per_turn_with_ai_marginals": "36813.9",
+   "bytes_state": "240000"
+  },
+  {
+   "cities": "600",
+   "goods": "100",
+   "recipes_per_city": "25",
+   "us_per_turn": "2441.2",
+   "us_per_turn_with_ai_marginals": "243492.4",
+   "bytes_state": "600000"
+  }
+ ],
+ "mult": {
+  "prod": {
+   "50": 1.0,
+   "100": 1.73,
+   "150": 4.081
+  },
+  "com": {
+   "50": 4.6,
+   "100": 2.925,
+   "150": 4.335
+  },
+  "prod_iqr150": [
+   3.131,
+   5.072
+  ]
+ },
+ "oral": {
+  "mod": [
+   -25,
+   -25,
+   -10
+  ],
+  "short_plain": 5.9,
+  "short_oral": 26.9,
+  "cityturns": 173278
+ },
+ "routes": {
+  "49": {
+   "routes": 435,
+   "at_floor": 435,
+   "mean": 1.0
+  },
+  "99": {
+   "routes": 1473,
+   "at_floor": 1473,
+   "mean": 1.0
+  },
+  "149": {
+   "routes": 3025,
+   "at_floor": 2708,
+   "mean": 1.022
+  }
+ },
+ "bc": {
+  "buildings": 389,
+  "civics": 68,
+  "food_pct": 11,
+  "flat_food": 7,
+  "sea_food": 4,
+  "food_kept": 10,
+  "prod_pct": 15,
+  "power_prod": 9,
+  "gold_research_pct": 71,
+  "trade_routes": 26,
+  "trade_pct": 30,
+  "health": 28,
+  "happy": 48,
+  "specialists": 146,
+  "civ_yield": 18,
+  "civ_trade": 19,
+  "civ_imp": 9,
+  "civ_routes": 8
+ },
+ "bex": {
+  "TOWN_ESSENTIALS": {
+   "yield_mod": [
+    3,
+    0,
+    0
+   ],
+   "sea": [
+    1,
+    0,
+    0
+   ],
+   "kept": 30,
+   "com": [
+    15,
+    0,
+    0,
+    0
+   ],
+   "tr": 1,
+   "trm": 0,
+   "health": 3,
+   "happy": 3,
+   "cost": 70
+  },
+  "FORGE": {
+   "yield_mod": [
+    0,
+    0,
+    25
+   ],
+   "sea": [
+    0,
+    0,
+    0
+   ],
+   "kept": 0,
+   "com": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "trm": 0,
+   "health": -6,
+   "happy": 0,
+   "cost": 60
+  },
+  "FACTORY": {
+   "yield_mod": [
+    0,
+    15,
+    0
+   ],
+   "sea": [
+    0,
+    0,
+    0
+   ],
+   "kept": 0,
+   "com": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "trm": 0,
+   "health": -1,
+   "happy": 0,
+   "cost": 325
+  },
+  "MARKET": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "sea": [
+    0,
+    0,
+    0
+   ],
+   "kept": 0,
+   "com": [
+    20,
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "trm": 25,
+   "health": 0,
+   "happy": 0,
+   "cost": 150
+  },
+  "LIBRARY": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "sea": [
+    0,
+    0,
+    0
+   ],
+   "kept": 0,
+   "com": [
+    0,
+    20,
+    0,
+    0
+   ],
+   "tr": 0,
+   "trm": 0,
+   "health": 0,
+   "happy": 0,
+   "cost": 90
+  },
+  "HARBOR": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "sea": [
+    0,
+    0,
+    0
+   ],
+   "kept": 0,
+   "com": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "tr": 2,
+   "trm": 50,
+   "health": 0,
+   "happy": 0,
+   "cost": 80
+  },
+  "LIGHTHOUSE": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "sea": [
+    0,
+    0,
+    0
+   ],
+   "kept": 0,
+   "com": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "trm": 25,
+   "health": 0,
+   "happy": 0,
+   "cost": 60
+  }
+ },
+ "cex": {
+  "ORAL_LAW": {
+   "yield_mod": [
+    -25,
+    -25,
+    -10
+   ],
+   "trade": [
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "imp": {},
+   "nofor": false,
+   "option": "CIVICOPTION_ADMINISTRATION"
+  },
+  "TABLETS": {
+   "yield_mod": [
+    -10,
+    -10,
+    -10
+   ],
+   "trade": [
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "imp": {},
+   "nofor": false,
+   "option": "CIVICOPTION_ADMINISTRATION"
+  },
+  "HUNTER_GATHERER": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "trade": [
+    0,
+    0,
+    -50
+   ],
+   "tr": 0,
+   "imp": {},
+   "nofor": false,
+   "option": "CIVICOPTION_ECONOMY"
+  },
+  "BARTER": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "trade": [
+    20,
+    0,
+    -25
+   ],
+   "tr": 0,
+   "imp": {},
+   "nofor": false,
+   "option": "CIVICOPTION_ECONOMY"
+  },
+  "PLANNED": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "trade": [
+    50,
+    50,
+    0
+   ],
+   "tr": 1,
+   "imp": {},
+   "nofor": false,
+   "option": "CIVICOPTION_ECONOMY"
+  },
+  "SLAVERY": {
+   "yield_mod": [
+    0,
+    10,
+    0
+   ],
+   "trade": [
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "imp": {
+    "IMPROVEMENT_FARM": [
+     1,
+     0,
+     0
+    ],
+    "IMPROVEMENT_OLIVE_FARM": [
+     1,
+     0,
+     1
+    ],
+    "IMPROVEMENT_WINERY": [
+     1,
+     0,
+     1
+    ],
+    "IMPROVEMENT_APPLE_FARM": [
+     1,
+     0,
+     1
+    ],
+    "IMPROVEMENT_PLANTATION": [
+     0,
+     0,
+     2
+    ],
+    "IMPROVEMENT_LATIFUNDIUM1": [
+     2,
+     1,
+     1
+    ],
+    "IMPROVEMENT_LATIFUNDIUM2": [
+     1,
+     1,
+     0
+    ],
+    "IMPROVEMENT_LATIFUNDIUM3": [
+     0,
+     1,
+     0
+    ],
+    "IMPROVEMENT_MINE": [
+     0,
+     1,
+     0
+    ]
+   },
+   "nofor": false,
+   "option": "CIVICOPTION_EMPLOYMENT"
+  },
+  "CASTE_SYSTEM": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "trade": [
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "imp": {
+    "IMPROVEMENT_FARM": [
+     2,
+     0,
+     0
+    ],
+    "IMPROVEMENT_OLIVE_FARM": [
+     1,
+     0,
+     2
+    ],
+    "IMPROVEMENT_WINERY": [
+     1,
+     0,
+     2
+    ],
+    "IMPROVEMENT_APPLE_FARM": [
+     1,
+     0,
+     2
+    ],
+    "IMPROVEMENT_MINE": [
+     0,
+     1,
+     0
+    ],
+    "IMPROVEMENT_PLANTATION": [
+     1,
+     1,
+     3
+    ]
+   },
+   "nofor": false,
+   "option": "CIVICOPTION_EMPLOYMENT"
+  },
+  "LABOR_ALLOCATION": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "trade": [
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "imp": {
+    "IMPROVEMENT_FARM": [
+     2,
+     0,
+     0
+    ],
+    "IMPROVEMENT_PASTURE": [
+     2,
+     0,
+     0
+    ],
+    "IMPROVEMENT_FISHING_BOATS": [
+     2,
+     0,
+     0
+    ],
+    "IMPROVEMENT_OLIVE_FARM": [
+     2,
+     0,
+     2
+    ],
+    "IMPROVEMENT_WINERY": [
+     1,
+     0,
+     3
+    ],
+    "IMPROVEMENT_APPLE_FARM": [
+     2,
+     0,
+     2
+    ],
+    "IMPROVEMENT_PLANTATION": [
+     0,
+     0,
+     2
+    ],
+    "IMPROVEMENT_COTTAGE": [
+     0,
+     1,
+     0
+    ],
+    "IMPROVEMENT_HAMLET": [
+     0,
+     2,
+     0
+    ],
+    "IMPROVEMENT_VILLAGE": [
+     0,
+     3,
+     0
+    ],
+    "IMPROVEMENT_TOWN": [
+     0,
+     4,
+     0
+    ],
+    "IMPROVEMENT_WORKSHOP": [
+     1,
+     3,
+     0
+    ],
+    "IMPROVEMENT_MINE": [
+     0,
+     2,
+     0
+    ],
+    "IMPROVEMENT_SHAFT_MINE": [
+     0,
+     2,
+     0
+    ],
+    "IMPROVEMENT_LUMBERMILL": [
+     0,
+     2,
+     0
+    ],
+    "IMPROVEMENT_WINDMILL": [
+     1,
+     2,
+     0
+    ],
+    "IMPROVEMENT_WATERMILL": [
+     2,
+     2,
+     0
+    ]
+   },
+   "nofor": false,
+   "option": "CIVICOPTION_EMPLOYMENT"
+  },
+  "NATIONAL_SOCIALISM": {
+   "yield_mod": [
+    0,
+    0,
+    0
+   ],
+   "trade": [
+    50,
+    50,
+    0
+   ],
+   "tr": 1,
+   "imp": {},
+   "nofor": true,
+   "option": "CIVICOPTION_ECONOMY"
+  },
+  "PUBLIC_SCHOOLS": {
+   "yield_mod": [
+    0,
+    50,
+    0
+   ],
+   "trade": [
+    0,
+    0,
+    0
+   ],
+   "tr": 0,
+   "imp": {},
+   "nofor": false,
+   "option": "CIVICOPTION_EDUCATION"
+  }
+ },
+ "route_need": {
+  "units_per_turn": 18.3,
+  "cities_mean": 42.9,
+  "per_route": 0.425
+ }
+}

@@ -1,0 +1,6 @@
+today_food {}
+goods_local {}
+goods_network {'rations': 120323, 'sum_differs': 38082, 'alloc_differs': 1803, 'unconserved': 115854}
+network_store_spoil {}
+aware_network_store_spoil {}
+reconstruction 45300 45334

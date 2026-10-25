@@ -55,7 +55,10 @@ for r in records(os.path.join(X, 'Terrain', 'CIV4ImprovementInfos.xml'), 'Improv
         b = one(s, 'BonusType')
         y = [int(v) for v in re.findall(r'<iYieldChange>(-?\d+)</iYieldChange>', s)]
         if b and any(y): bys[b] = y
-    improvements.append(dict(type=one(r, 'Type'), yields=ints(r, 'YieldChanges', 'iYieldChange'),
+    own = r[:r.index('<BonusTypeStructs>')] if '<BonusTypeStructs>' in r else r  # the improvement's own fields come first
+    improvements.append(dict(type=one(r, 'Type'), yields=ints(own, 'YieldChanges', 'iYieldChange'),
+                             irrigated=ints(own, 'IrrigatedYieldChange', 'iYield'),
+                             requires_irrigation=one(own, 'bRequiresIrrigation') == '1',
                              upgrade=one(r, 'ImprovementUpgrade'), upgrade_time=int(one(r, 'iUpgradeTime', '0')),
                              pillage=one(r, 'ImprovementPillage'), bonus_yields=bys))
 

@@ -5,6 +5,8 @@ land: climate per plot (temperature, water, growing season, hemisphere), soil, g
 depth, and the carrying capacity of the sea. Goods become quantities that are made, used up, stored and traded. Resource
 types survive only as the names of goods, so the engine's existing resource paths keep working.
 
+[settlement/](settlement/README.md) holds the quantitative follow-up: a deterministic model of settlement goods economies run on 30 real harness games.
+
 It is a design, not a change: nothing in the mod is altered, and no prediction is registered for it.
 
 ## Files

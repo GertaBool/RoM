@@ -1,0 +1,98 @@
+{
+ "deals": 1738,
+ "games": 30,
+ "composition": [
+  [
+   "open borders for open borders",
+   1136
+  ],
+  [
+   "resource for resource",
+   568
+  ],
+  [
+   "peace for peace",
+   20
+  ],
+  [
+   " for resource",
+   11
+  ],
+  [
+   " for vassal",
+   2
+  ],
+  [
+   "gold per turn for resource",
+   1
+  ]
+ ],
+ "resource_types": [
+  [
+   "Fish",
+   120
+  ],
+  [
+   "Wheat",
+   114
+  ],
+  [
+   "Apple",
+   110
+  ],
+  [
+   "Sugar",
+   84
+  ],
+  [
+   "Shrimp",
+   72
+  ],
+  [
+   "Olives",
+   65
+  ],
+  [
+   "Wine",
+   62
+  ],
+  [
+   "Clam",
+   60
+  ],
+  [
+   "Salt",
+   55
+  ],
+  [
+   "Rice",
+   53
+  ],
+  [
+   "Alcohol",
+   45
+  ],
+  [
+   "Sheep",
+   41
+  ],
+  [
+   "Dye",
+   34
+  ],
+  [
+   "Stone",
+   34
+  ],
+  [
+   "Lemon",
+   31
+  ]
+ ],
+ "resource_deal_durations": {
+  "n": 321,
+  "median": 20,
+  "max": 21
+ },
+ "resource_deals": 580
+}

@@ -1,0 +1,22 @@
+{
+ "1": {
+  "short": 53838,
+  "cityturns": 176331,
+  "share": 0.3053
+ },
+ "2": {
+  "short": 22861,
+  "cityturns": 176331,
+  "share": 0.1296
+ },
+ "3": {
+  "short": 12127,
+  "cityturns": 176331,
+  "share": 0.0688
+ },
+ "3_equal": {
+  "short": 13954,
+  "cityturns": 176331,
+  "share": 0.0791
+ }
+}

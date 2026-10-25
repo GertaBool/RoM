@@ -1,0 +1,24 @@
+today_food done 36.9 s
+goods_local done 79.2 s
+goods_network done 98.6 s
+goods_network_loss done 119.8 s
+network_store done 139.8 s
+network_store_spoil done 159.9 s
+whole_units done 178.2 s
+tiers_size done 197.0 s
+equal_split done 216.1 s
+aware_network done 293.8 s
+aware_network_store_spoil done 372.0 s
+{
+ "today_food": 0.06877406695362699,
+ "goods_local": 0.0876816895497672,
+ "goods_network": 0.036573262784195634,
+ "goods_network_loss": 0.037270814547640516,
+ "network_store": 0.007219377194027142,
+ "network_store_spoil": 0.028854824165915238,
+ "whole_units": 0.052480845682268004,
+ "tiers_size": 0.036573262784195634,
+ "equal_split": 0.03362426345906278,
+ "aware_network": 0.04990047127277677,
+ "aware_network_store_spoil": 0.03920467756662187
+}
