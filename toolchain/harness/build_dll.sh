@@ -93,6 +93,9 @@ case "$log" in
 esac
 # Diagnostics that need the settlement delivery regions (patch 0012 and later).
 if grep -q AI_canDeliverSettler "$src/CvPlayerAI.h"; then export CFLAGS="${CFLAGS:-} /DHARNESS_SETTLE_REACH"; fi
+# Diagnostics that read functions of unmerged changes: the balance against a hegemon, the staged forecast.
+if grep -q AI_balanceHegemon "$src/CvTeamAI.h"; then export CFLAGS="${CFLAGS:-} /DHARNESS_BALANCE"; fi
+if grep -q AI_stagedForecast "$src/CvCityAI.h"; then export CFLAGS="${CFLAGS:-} /DHARNESS_STAGED_FORECAST"; fi
 "$H/../build_dll.sh" "$tmp" "$out" 8
 rm -rf "$tmp"
 ls -la "$out/release/CvGameCoreDLL.dll"
