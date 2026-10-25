@@ -445,5 +445,44 @@
    "fixes/graphics-rendering/",
    "builds/graphics-rendering/"
   ]
+ },
+ {
+  "id": "H6",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "The game froze when the user founded the first city with the paging build (PythonDbg.log ends after 'City Built Event: London' and the score update; LSystem.log has just laid out the city). Of what paging destroys, only the plot builder is never destroyed by vanilla during a game (CvPlot::uninit alone calls PlotBuilderIFace destroy; feature, route, yield and flag symbols and unit and city entities are destroyed and remade in vanilla play), and plot builders share the executable's L-system with city layouts, the first of which is made at the first city. Keeping plot builders removes the freeze. Contradicted if the game still freezes at the first city with GRAPHICS_PAGING_PLOT_BUILDERS 0, or does not freeze with it 1. The harness has no executable, so only the user's game decides; separately CvGameInterface.getCameraZoom took no argument and failed once (PythonErr.log)."
+ },
+ {
+  "id": "P11",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H6"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On top of the graphics rendering bundle (GitLab claude/graphics-paging, tree 04ac18c6): paging is split into switches GRAPHICS_PAGING_UNITS, GRAPHICS_PAGING_CITIES, GRAPHICS_PAGING_PLOTS (feature and route symbols) and GRAPHICS_PAGING_PLOT_BUILDERS, the last 0, so plot builders are no longer destroyed; GRAPHICS_PAGING_SYMBOLS stays; a plot remembers what its page-out removed and its guards and page-in cover only that; CvGameInterface.getCameraZoom takes the argument list. Harness: scenario runs set up graphics with HARNESS_GRAPHICS, and HARNESS_ACTIVE=<player> sets an active player, which the real game always has (without one CvPlot::calculateYield's display branch reads before an array and the harness crashes in either arm). Arm a: this build, defines as shipped; arm b: the same build with GRAPHICS_PAGING 0. Both from turn 0 of the user's Huge Mediterranean WorldBuilder map (all seats AI, HARNESS_ACTIVE=0, camera sweeping one plot per update), 5 turns per run, so every capital is founded, seeds from ledger.py seeds. This checks only that the DLL change neither crashes nor hangs; the freeze is in the executable and is judged by the user's game.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "toolchain/harness/main.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "fixes/graphics-paging-fix.patch",
+   "fixes/graphics-paging-fix/",
+   "builds/graphics-paging-fix/"
+  ]
  }
 ]
