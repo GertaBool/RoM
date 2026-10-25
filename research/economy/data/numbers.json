@@ -1,0 +1,426 @@
+{
+ "map": {
+  "name": "Earth 18 preset civs, Huge.CivBeyondSwordWBSave",
+  "width": 124,
+  "height": 68,
+  "land": 3077,
+  "plots": 8432,
+  "lat_top": 90,
+  "lat_bottom": -90,
+  "deg_per_row": 2.65
+ },
+ "bonus": {
+  "total": 73,
+  "natural": 52,
+  "window_0_80": 33,
+  "classes": {
+   "_manufactured": 9,
+   "_modern": 4,
+   "_fuel": 6,
+   "_rush": 5,
+   "_wonder": 2,
+   "_general": 16,
+   "_seafood": 5,
+   "_grain": 4,
+   "_livestock": 3,
+   "_luxury": 15,
+   "_future": 4
+  },
+  "placed": 692
+ },
+ "chains": {
+  "producing_buildings": 23,
+  "with_inputs": 14,
+  "free_bonuses_huge": 7
+ },
+ "recipes": [
+  {
+   "building": "Glasssmith",
+   "output": "Glass",
+   "copies": 1,
+   "needs": [
+    "Stone"
+   ],
+   "one_of": [
+    "Salt"
+   ]
+  },
+  {
+   "building": "Steel Mill",
+   "output": "Steel",
+   "copies": 1,
+   "needs": [
+    "Coal"
+   ],
+   "one_of": [
+    "Iron"
+   ]
+  },
+  {
+   "building": "Replicator Plant",
+   "output": "Personal Replicators",
+   "copies": "world size",
+   "needs": [
+    "Chemicals"
+   ],
+   "one_of": []
+  },
+  {
+   "building": "Nanite Lab",
+   "output": "Nanobots",
+   "copies": "world size",
+   "needs": [
+    "Nanotubes"
+   ],
+   "one_of": []
+  },
+  {
+   "building": "Weapon Factory",
+   "output": "Ammo",
+   "copies": "world size",
+   "needs": [
+    "Sulphur"
+   ],
+   "one_of": [
+    "Steel",
+    "Iron",
+    "Copper"
+   ]
+  },
+  {
+   "building": "Rubber Factory",
+   "output": "Vulcanized Rubber",
+   "copies": "world size",
+   "needs": [
+    "Rubber"
+   ],
+   "one_of": [
+    "Sulphur",
+    "Lead"
+   ]
+  },
+  {
+   "building": "Aluminum Factory",
+   "output": "Aluminum",
+   "copies": 1,
+   "needs": [
+    "Bauxite"
+   ],
+   "one_of": []
+  },
+  {
+   "building": "Oil Refinery",
+   "output": "Diesel",
+   "copies": 1,
+   "needs": [
+    "Oil"
+   ],
+   "one_of": []
+  },
+  {
+   "building": "Chemical Plant",
+   "output": "Chemicals",
+   "copies": "world size",
+   "needs": [
+    "Sulphur"
+   ],
+   "one_of": [
+    "Diesel",
+    "Oil"
+   ]
+  },
+  {
+   "building": "Rubber Plant",
+   "output": "Synthetic Rubber",
+   "copies": "world size",
+   "needs": [
+    "Chemicals"
+   ],
+   "one_of": []
+  },
+  {
+   "building": "Fertilizer Plant",
+   "output": "Fertilizers",
+   "copies": "world size",
+   "needs": [],
+   "one_of": [
+    "Chemicals"
+   ]
+  },
+  {
+   "building": "Biofuel Refinery",
+   "output": "Biofuel",
+   "copies": "world size",
+   "needs": [],
+   "one_of": [
+    "Sugar",
+    "Corn",
+    "Potato"
+   ]
+  },
+  {
+   "building": "Brewery",
+   "output": "Alcohol",
+   "copies": "world size",
+   "needs": [],
+   "one_of": [
+    "Apple",
+    "Wheat",
+    "Rice",
+    "Sugar",
+    "Corn"
+   ]
+  },
+  {
+   "building": "Nano Research Department",
+   "output": "Nanotubes",
+   "copies": "world size",
+   "needs": [
+    "Coal"
+   ],
+   "one_of": []
+  }
+ ],
+ "check": {
+  "Rain, geography alone (mm)": {
+   "Desert": 844.0,
+   "Plains": 637.0,
+   "Grassland": 605.0,
+   "Tundra": 269.0,
+   "Snow": 184.0
+  },
+  "Rain, blended with terrain (mm)": {
+   "Desert": 358.0,
+   "Plains": 647.0,
+   "Grassland": 1018.0,
+   "Tundra": 361.0,
+   "Snow": 230.0
+  },
+  "Temperature (\u00b0C)": {
+   "Desert": 19.0,
+   "Plains": 18.0,
+   "Grassland": 14.0,
+   "Tundra": -7.0,
+   "Snow": -18.0
+  }
+ },
+ "check_counts": {
+  "Desert": 518,
+  "Plains": 782,
+  "Grassland": 1057,
+  "Tundra": 403,
+  "Snow": 317
+ },
+ "suit": {
+  "Wheat": {
+   "placed": 16,
+   "mean_at_placed": 0.18,
+   "mean_land": 0.126,
+   "share_land_ge_half": 0.124
+  },
+  "Rice": {
+   "placed": 8,
+   "mean_at_placed": 0.23,
+   "mean_land": 0.124,
+   "share_land_ge_half": 0.132
+  },
+  "Maize": {
+   "placed": 9,
+   "mean_at_placed": 0.68,
+   "mean_land": 0.194,
+   "share_land_ge_half": 0.18
+  },
+  "Potato": {
+   "placed": 10,
+   "mean_at_placed": 0.23,
+   "mean_land": 0.138,
+   "share_land_ge_half": 0.142
+  },
+  "Cotton": {
+   "placed": 4,
+   "mean_at_placed": 0.66,
+   "mean_land": 0.135,
+   "share_land_ge_half": 0.106
+  },
+  "Coffee": {
+   "placed": 16,
+   "mean_at_placed": 0.21,
+   "mean_land": 0.069,
+   "share_land_ge_half": 0.071
+  },
+  "Olives": {
+   "placed": 7,
+   "mean_at_placed": 0.31,
+   "mean_land": 0.07,
+   "share_land_ge_half": 0.073
+  },
+  "Sugar": {
+   "placed": 12,
+   "mean_at_placed": 0.33,
+   "mean_land": 0.107,
+   "share_land_ge_half": 0.116
+  }
+ },
+ "coffee_area_half": {
+  "product": 0.189,
+  "minimum": 0.199
+ },
+ "diffusion": {
+  "Wheat": {
+   "start": 12,
+   "turn_half": 0,
+   "final_median": 1.0,
+   "origins": [
+    "Egypt",
+    "India",
+    "China",
+    "Greece",
+    "Rome",
+    "Persia",
+    "Germany",
+    "Mongol",
+    "France",
+    "Spain",
+    "England",
+    "Russia"
+   ]
+  },
+  "Maize": {
+   "start": 2,
+   "turn_half": 220,
+   "final_median": 1.0,
+   "origins": [
+    "Aztec",
+    "Iroquois"
+   ]
+  },
+  "Coffee": {
+   "start": 3,
+   "turn_half": 14,
+   "final_median": 1.0,
+   "origins": [
+    "India",
+    "Persia",
+    "Arabia"
+   ]
+  }
+ },
+ "mines": {
+  "rate": [
+   1,
+   2,
+   8
+  ],
+  "layers": [
+   120.0,
+   400.0,
+   1600.0
+  ],
+  "tech": [
+   0,
+   220,
+   340
+  ],
+  "runs": {
+   "stay": {
+    "total": 120,
+    "dry_turn": 120
+   },
+   "when_dry": {
+    "total": 1160,
+    "dry_turn": 120
+   },
+   "deepen": {
+    "total": 1640,
+    "dry_turn": 120
+   }
+  }
+ },
+ "network": {
+  "raw": {
+   "Iron ore": 6.0,
+   "Coal": 3.0,
+   "Sulphur": 2.0,
+   "Copper": 2.0
+  },
+  "runs": {
+   "Steel mill": 3,
+   "Arms factory": 1.2,
+   "Cartridge works": 0.8
+  },
+  "left": {
+   "Copper": 1.2,
+   "Steel": 4.8,
+   "Arms": 1.2,
+   "Ammo": 1.6
+  },
+  "marginal": {
+   "Iron ore": 0.2,
+   "Coal": 0.2,
+   "Sulphur": 2.08,
+   "Copper": 0.2
+  },
+  "welfare": 10.56
+ },
+ "stock": {
+  "cap": 60.0,
+  "empty_turn": 111,
+  "min_ready": 38.0
+ },
+ "fish": {
+  "r": 0.3,
+  "K": 100.0,
+  "msy": 7.5,
+  "runs": {
+   "5": {
+    "stock_after_120": 78.9,
+    "catch": 600.0
+   },
+   "7.5": {
+    "stock_after_120": 52.6,
+    "catch": 900.0
+   },
+   "9": {
+    "stock_after_120": 0.0,
+    "catch": 308.0
+   }
+  }
+ },
+ "loop": {
+  "land_q": 0.81,
+  "pop_end": 67.0,
+  "arms_min_war": 0.0
+ },
+ "regions": {
+  "Tropical": 0.314,
+  "Arid": 0.091,
+  "Temperate": 0.225,
+  "Continental and boreal": 0.126,
+  "Polar": 0.244
+ },
+ "provinces": {
+  "Iron": {
+   "seeds": 22,
+   "plots_grade_ge_half": 588
+  },
+  "Copper": {
+   "seeds": 20,
+   "plots_grade_ge_half": 520
+  },
+  "Coal": {
+   "seeds": 20,
+   "plots_grade_ge_half": 489
+  },
+  "Gold": {
+   "seeds": 15,
+   "plots_grade_ge_half": 411
+  }
+ },
+ "sea": {
+  "shelf_plots": 2111,
+  "water_plots": 5355,
+  "sea_resources": 94,
+  "mean_K_shelf": 0.53,
+  "mean_K_open": 0.2
+ }
+}
