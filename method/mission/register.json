@@ -484,5 +484,43 @@
    "fixes/graphics-paging-fix/",
    "builds/graphics-paging-fix/"
   ]
+ },
+ {
+  "id": "H7",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "Graphics paging pages plots and the units on them separately, so a plot under a unit or city that keeps its graphics (the active player's always do) loses its flag, yield symbols and route symbol, and route symbols go missing next to plots that keep theirs. The unchanged game never shows a unit without its flag or a revealed route without its symbol; the executable calls CvPlot::updateFlagSymbol, getFlagSymbol, getRouteSymbol and isRoute itself. The user's game crashed at the first unit moved with GitLab main d929b57. A harness that does what the executable does near the camera (updateFlagSymbols, then the checks) finds such states with d929b57 (100 turns from turn 0 of the Huge Mediterranean map: 27 flagless live units and 58 routes without symbol with the camera on the active player's units) and none with the DLL before paging. Keeping a plot's graphics while anything on it keeps its own, bringing the plot back with any unit or city that gets its graphics, rebuilding it when the executable asks for a flag there, and never paging routes, leaves none. Contradicted if the game still crashes or freezes with the change, or if the checks find such a state with it."
+ },
+ {
+  "id": "P12",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H7"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab main d929b57: CvPlot::canPageGraphicsOut keeps a plot's graphics while a unit or city on it keeps its own or the move being shown goes there; CvGame::pageGraphics pages a plot out after its units and city; CvUnit::setupGraphical, CvUnit::pageGraphics(true), CvUnit::setXY (the plot moved to) and CvCity::setupGraphical, CvCity::pageGraphics(true) bring the plot back first; CvPlot::updateFlagSymbol brings a paged-out plot back when a unit there keeps its graphics or the move goes there; route symbols are never paged (GRAPHICS_PAGING_PLOTS pages feature symbols only); GRAPHICS_PAGING_ZOOM defaults to 0. Harness: plot symbols, features, routes, flags and plot builders are tokens; HARNESS_CAMERA_FOLLOW=1 moves the camera from one unit of the active player to the next; HH_graphicsCheck does what the executable does near the camera and counts states the unchanged game never shows. Arm a: this build; arm b: GitLab main d929b57. Both from turn 0 of the user's Huge Mediterranean WorldBuilder map (all seats AI, HARNESS_ACTIVE=0, camera sweeping the map one plot every 5 calls, a check every update), 20 turns per run, seeds from ledger.py seeds. The crash itself is in the executable and is judged by the user's game.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "toolchain/harness/engine.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "toolchain/harness/main.cpp",
+   "fixes/graphics-paging-coherence.patch",
+   "fixes/graphics-paging-coherence/",
+   "builds/graphics-paging-coherence/"
+  ]
  }
 ]
