@@ -1,3 +1,37 @@
+From 9b3afb3b56fc370bbcecba80da68a05125a57ead Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sun, 25 Oct 2026 09:20:03 +0000
+Subject: [PATCH] Graphics paging: keep plot builders, a switch per part,
+ getCameraZoom argument
+
+The game froze when the first city was founded with paging on. Of what
+paging destroys, only the plot builder (bonus and improvement art) is never
+destroyed by vanilla during a game: CvPlot::uninit alone destroys it, while
+feature, route, yield and flag symbols and unit and city entities are
+destroyed and remade in normal play. Plot builders now stay
+(GRAPHICS_PAGING_PLOT_BUILDERS 0).
+
+Paging is split into switches, all 1 except plot builders:
+GRAPHICS_PAGING_UNITS, GRAPHICS_PAGING_CITIES, GRAPHICS_PAGING_PLOTS
+(feature and route symbols), GRAPHICS_PAGING_PLOT_BUILDERS and the existing
+GRAPHICS_PAGING_SYMBOLS. A plot remembers what its page-out removed; its
+guards and its page-in cover only that.
+
+CvGameInterface.getCameraZoom takes the argument list the game passes
+(it failed with "takes no arguments (1 given)").
+
+Serves: P11
+---
+ Assets/CvGameCoreDLL/CvCity.cpp              |  2 +-
+ Assets/CvGameCoreDLL/CvGame.cpp              | 25 ++++++-
+ Assets/CvGameCoreDLL/CvGame.h                |  6 ++
+ Assets/CvGameCoreDLL/CvPlot.cpp              | 71 ++++++++++++++------
+ Assets/CvGameCoreDLL/CvPlot.h                |  3 +
+ Assets/CvGameCoreDLL/CvUnit.cpp              |  2 +-
+ Assets/Python/EntryPoints/CvGameInterface.py |  2 +-
+ Assets/XML/GlobalDefinesAlt.xml              | 20 ++++++
+ 8 files changed, 106 insertions(+), 25 deletions(-)
+
 diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
 index 749fdcb..46cd124 100644
 --- a/Assets/CvGameCoreDLL/CvCity.cpp
@@ -329,3 +363,6 @@ index 1c1ba2d..fd46b3c 100644
  	<!-- 1: paged-out plots also drop their yield symbols and unit flags (rebuilt when the camera comes near); 0: they keep them -->
  	<Define>
  		<DefineName>GRAPHICS_PAGING_SYMBOLS</DefineName>
+-- 
+2.43.0
+

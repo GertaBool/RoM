@@ -5,7 +5,7 @@
   "tested_source_commit": "0cca5f1 (local, on 8bc3fb5); GitLab branch claude/graphics-paging-fix commit 9b3afb3b leaves the same tree",
   "tested_source_tree": "b605bb9354ec15223c207953930db5231506332f",
   "patch": "../graphics-paging-fix.patch",
-  "patch_sha256": "642a2c279474edc12906fc0b0b8f045ca90a094eeeb3cf0f26f3e926525ea047",
+  "patch_sha256": "5f7a9dbbfc69cf375bc8c19882cda8acd1aacb2f02a051b14f097f93c226286c",
   "relationship_to_prior_patch": "Apply after fixes/graphics-paging.patch and fixes/graphics-rendering.patch; on GitLab main a459d0d8 alone it gives tree b605bb93.",
   "binary_rebuilt": true,
   "save_format": {
