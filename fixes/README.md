@@ -1,5 +1,12 @@
 # Tested source fixes
 
+## Graphics paging: the crash while zooming fast
+
+[graphics-paging-zoom.patch](graphics-paging-zoom.patch) ([notes](graphics-paging-zoom/README.md)), GitLab
+[!64](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/64), build
+[`59db478feb3c`](../builds/graphics-paging-zoom/). Page-in no longer rebuilds tile art, and one update sets
+up at most 100 plots, units and cities again. P20 corroborated in 60 harness runs. Not yet tested in the game.
+
 ## Diplomacy: trade values from effects, offers by value
 
 [diplomacy-values.patch](diplomacy-values.patch) ([notes](diplomacy-values/README.md)), GitLab branch

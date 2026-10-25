@@ -40,5 +40,6 @@ ten updates.
 - **Harness pilot** (one seed per arm, 20 turns, zooming: not evidence):
   - `main` set up 352 plots in one pass;
   - this build set up at most 100 per pass and finished in the following passes.
-- **P20 evidence:** pending.
+- **P20:** corroborated. 30 of 30 runs completed in each arm (150 turns, constant zooming). The largest
+  set-up in one pass was 115 with this build and 2,988 on `main`.
 - **In game:** not yet tested.
