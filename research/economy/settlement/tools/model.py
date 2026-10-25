@@ -16,6 +16,7 @@ import numpy as np
 ROOT = sys.argv[1]
 F = json.load(open(os.path.join(ROOT, 'data', 'facts_medstd.json')))
 G = json.load(open(os.path.join(ROOT, 'data', 'games.json')))['games']
+GAMES = [g for g in G if g['completed']]
 WD, HT = F['grid']['width'], F['grid']['height']
 NP = WD * HT
 OUT = {}
@@ -131,6 +132,7 @@ NEEDS = [('staple', ['grain', 'fish'], (300, 300, 300)),   # FOOD_CONSUMPTION_PE
          ('tools', ['tools'], (0, 3, 6)),
          ('luxury', ['wine'], (3, 6, 10))]
 NN = len(NEEDS)
+NEEDS_BASE = list(NEEDS)  # the illustrative levels; calibrate_needs.py replaces NEEDS in place
 W_RANK = np.array([3, 2, 1])  # the governor's ranking of plots: food 3, production 2, commerce 1 (assumption)
 
 

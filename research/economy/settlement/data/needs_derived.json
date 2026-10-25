@@ -1,0 +1,171 @@
+{
+ "target": {
+  "variety": 0.8,
+  "clothing": 0.8,
+  "fuel": 0.8,
+  "luxury": 0.5
+ },
+ "size_shape": [
+  1.0,
+  1.4,
+  2.0
+ ],
+ "start": {
+  "variety": 35,
+  "clothing": 15,
+  "fuel": 20,
+  "luxury": 6
+ },
+ "history": [
+  {
+   "levels": {
+    "variety": 35,
+    "clothing": 15,
+    "fuel": 20,
+    "luxury": 6
+   },
+   "met": {
+    "variety": 0.4921,
+    "clothing": 0.6066,
+    "fuel": 0.4642,
+    "luxury": 0.7028
+   },
+   "staple_short": 0.0526
+  },
+  {
+   "levels": {
+    "variety": 17.5,
+    "clothing": 7.5,
+    "fuel": 10.0,
+    "luxury": 15.0
+   },
+   "met": {
+    "variety": 0.9161,
+    "clothing": 0.9178,
+    "fuel": 0.7625,
+    "luxury": 0.3906
+   },
+   "staple_short": 0.0514
+  },
+  {
+   "levels": {
+    "variety": 26.25,
+    "clothing": 11.25,
+    "fuel": 5.0,
+    "luxury": 10.5
+   },
+   "met": {
+    "variety": 0.7014,
+    "clothing": 0.7991,
+    "fuel": 0.8242,
+    "luxury": 0.601
+   },
+   "staple_short": 0.0529
+  },
+  {
+   "levels": {
+    "variety": 21.88,
+    "clothing": 9.38,
+    "fuel": 7.5,
+    "luxury": 12.75
+   },
+   "met": {
+    "variety": 0.7951,
+    "clothing": 0.8829,
+    "fuel": 0.7828,
+    "luxury": 0.5209
+   },
+   "staple_short": 0.0527
+  },
+  {
+   "levels": {
+    "variety": 19.69,
+    "clothing": 10.31,
+    "fuel": 6.25,
+    "luxury": 13.88
+   },
+   "met": {
+    "variety": 0.854,
+    "clothing": 0.8567,
+    "fuel": 0.7952,
+    "luxury": 0.476
+   },
+   "staple_short": 0.0527
+  },
+  {
+   "levels": {
+    "variety": 20.78,
+    "clothing": 10.78,
+    "fuel": 5.62,
+    "luxury": 13.31
+   },
+   "met": {
+    "variety": 0.8295,
+    "clothing": 0.8227,
+    "fuel": 0.8056,
+    "luxury": 0.4915
+   },
+   "staple_short": 0.0545
+  },
+  {
+   "levels": {
+    "variety": 21.33,
+    "clothing": 11.02,
+    "fuel": 5.94,
+    "luxury": 13.03
+   },
+   "met": {
+    "variety": 0.8136,
+    "clothing": 0.8224,
+    "fuel": 0.803,
+    "luxury": 0.5208
+   },
+   "staple_short": 0.0544
+  },
+  {
+   "levels": {
+    "variety": 21.6,
+    "clothing": 11.13,
+    "fuel": 6.09,
+    "luxury": 13.17
+   },
+   "met": {
+    "variety": 0.8111,
+    "clothing": 0.7992,
+    "fuel": 0.7952,
+    "luxury": 0.5212
+   },
+   "staple_short": 0.0544
+  },
+  {
+   "levels": {
+    "variety": 21.74,
+    "clothing": 11.07,
+    "fuel": 6.02,
+    "luxury": 13.24
+   },
+   "met": {
+    "variety": 0.8112,
+    "clothing": 0.7997,
+    "fuel": 0.803,
+    "luxury": 0.4982
+   },
+   "staple_short": 0.0546
+  }
+ ],
+ "chosen": {
+  "levels": {
+   "variety": 21.74,
+   "clothing": 11.07,
+   "fuel": 6.02,
+   "luxury": 13.24
+  },
+  "met": {
+   "variety": 0.8112,
+   "clothing": 0.7997,
+   "fuel": 0.803,
+   "luxury": 0.4982
+  },
+  "staple_short": 0.0546
+ }
+}

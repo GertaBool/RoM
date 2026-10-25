@@ -18,6 +18,7 @@ Companion to [Land, not tokens](../land-and-industry.pdf).
 | `tools/calibrate.py` | The rebuilt cities' food against the populations the games fed, in three stages |
 | `tools/analysis.py` | Per-turn needs met, shortfalls by city size, the floating-point check, land capacity per citizen |
 | `tools/yields.py` | Observed production and commerce against the rebuilt plots; trade-route profits; food under Oral Law |
+| `tools/calibrate_needs.py` | Need levels per citizen solved from design targets (share of citizens supplied) by bisection over the 30 games; writes `data/needs_derived.json` |
 | `tools/bench.c` | Cost of the goods pass and of the AI's marginal values, in C |
 | `tools/sfigures.py`, `tools/sbuild.py` | Figures and the PDF; every quoted number is read from `data/` |
 | `tools/run_all.sh` | The whole study in order |

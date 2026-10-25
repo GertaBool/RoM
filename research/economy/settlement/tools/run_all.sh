@@ -10,6 +10,8 @@ python3 tools/model.py .
 python3 tools/calibrate.py .
 python3 tools/analysis.py .
 python3 tools/yields.py .
+python3 tools/calibrate_needs.py . > data/calibrate_needs.log
 gcc -O2 -o /tmp/settlement-bench tools/bench.c && /tmp/settlement-bench > data/bench.csv
 python3 tools/sfigures.py .
 python3 tools/sbuild.py .
+cd .. && python3 vision/tools/vision.py .
