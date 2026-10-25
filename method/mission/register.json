@@ -359,5 +359,91 @@
    "toolchain/harness/HarnessHooks.cpp",
    "toolchain/harness/README.md"
   ]
+ },
+ {
+  "id": "H5",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "What the DLL asks the executable to build scales with the map and with every team's sight: 7,868 yield symbols and a flag per plot with a seen unit exist whether or not on screen, and 552 of 2,132 billboard rebuilds in three harness turns follow other teams' visibility changes, which the billboard does not show (research/graphics/README.md, R-G, R-I). Paging symbols and flags with the units, dirtying billboards only for the active team, and dropping the billboard debug logging lower the executable's memory and work without changing the game or the screen. The executable's memory and time are measured only in the real game, by the user; the harness checks that the changes neither crash nor slow the game."
+ },
+ {
+  "id": "P9",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H5"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "Three graphics changes on top of graphics paging (G1, fixes/graphics-paging.patch, the base of the branch): G4: a paged-out plot also deletes its yield symbols and unit flags, rebuilt on page-in (define GRAPHICS_PAGING_SYMBOLS, 0 = off); G2: CvPlot::changeVisibilityCount marks a city's billboard dirty only for the active team's visibility, and CvGame::setActivePlayer marks every city dirty once (define BILLBOARD_ACTIVE_TEAM_ONLY, 0 = off); G3: the three debug Format/logMsg pairs in CvGameTextMgr::buildCityBillboardIconString are removed. Arm a: this build, defines on; arm b: the tested paging build (4dadc46, source tree cedfc84a). Both in the harness with graphics initialised and the camera sweeping the map one plot per update, from the 460 AD autosave of the user's Mediterranean game, 3 turns per run, seeds from ledger.py seeds.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.h",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "fixes/graphics-rendering.patch",
+   "fixes/graphics-rendering/",
+   "builds/graphics-rendering/"
+  ]
+ },
+ {
+  "id": "P10",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H5"
+  ],
+  "variable": "turn_seconds",
+  "evidence": "runs",
+  "change": "Three graphics changes on top of graphics paging (G1, fixes/graphics-paging.patch, the base of the branch): G4: a paged-out plot also deletes its yield symbols and unit flags, rebuilt on page-in (define GRAPHICS_PAGING_SYMBOLS, 0 = off); G2: CvPlot::changeVisibilityCount marks a city's billboard dirty only for the active team's visibility, and CvGame::setActivePlayer marks every city dirty once (define BILLBOARD_ACTIVE_TEAM_ONLY, 0 = off); G3: the three debug Format/logMsg pairs in CvGameTextMgr::buildCityBillboardIconString are removed. Arm a: this build, defines on; arm b: the tested paging build (4dadc46, source tree cedfc84a). Both in the harness with graphics initialised and the camera sweeping the map one plot per update, from the 460 AD autosave of the user's Mediterranean game, 3 turns per run, seeds from ledger.py seeds.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLEntity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.h",
+   "gitlab:Assets/CvGameCoreDLL/CvUnit.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvSelectionGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreUtils.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "fixes/graphics-rendering.patch",
+   "fixes/graphics-rendering/",
+   "builds/graphics-rendering/"
+  ]
  }
 ]
