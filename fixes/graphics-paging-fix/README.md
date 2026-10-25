@@ -50,5 +50,12 @@ active player, so that crash was the harness's, not the user's freeze.
 
 - **Build:** MSVC 2003 release, 0 errors and 0 warnings.
 - **Clang gate:** 0 new diagnostics on the four changed `.cpp` files ([clang-gate.log](clang-gate.log)).
-- **Harness evidence for P11:** pending.
+- **Harness evidence for P11:** 30 seeded runs per arm, 5 turns from turn 0 of the Huge
+  Mediterranean map, with graphics set up and `HARNESS_ACTIVE=0`.
+  - Arm a was this build; arm b was the same build with `GRAPHICS_PAGING` 0.
+  - All 60 runs completed; 16 capitals are founded on turn 1.
+  - The telemetry is identical in all 30 seed pairs, apart from timings.
+  - At turn 5, arm a had 18 to 20 entities set up and arm b had 34.
+  - P11 is corroborated. The build's `provenance.json` still says pending: it was committed before
+    the evidence, and only evidence may serve P11 now.
 - **In game:** not yet tested.
