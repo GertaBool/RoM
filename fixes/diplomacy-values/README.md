@@ -61,5 +61,24 @@ is saved. `Docs/DIPLOMACY_VALUES.md` on GitLab describes the rules for players.
   - Setup: Mediterranean Standard, Normal speed, seed 777, 150 turns.
   - `HARNESS_DEFINES` does not reach scenario runs (it is applied in the graphics setup), so the
     switch was set in the mod's XML.
-- **P18 and P19 evidence:** pending.
+- **P18 and P19:** corroborated (commit `f11d5f5`, `method/mission/evidence/P18`, `P19`). Arm a is this
+  build, arm b `main` (`504830a0dee0`); 150 turns of Mediterranean Standard at Normal speed and Noble,
+  10 AI players, 30 seeds per prediction.
+  - **P18, completed:** 30 of 30 in each arm.
+  - **P19, turn seconds:** means 97.91 (a) and 98.21 (b); Welch on ranks p 0.88, A 0.49, so not slower.
+  - **A crash in `main`:** arm b's seed 200964799 stopped during turn 149: a read through a null plot in
+    `CvPlot::isCity`, reached from `CvUnit::canPillage` in the pillage loop of
+    `CvSelectionGroup::startMission` (names from a map of the same link). The same seed completes with
+    this build.
+- **Trades in P18's 30 games** (described, not claimed):
+
+| | This build | `main` |
+|---|---|---|
+| Trades | 4,064 | 4,425 |
+| Tech for lump gold | 789 | 1,131 |
+| Lump gold paid | 87,029 | 141,175 |
+| Tech for tech only | 435 | 412 |
+| With a resource | 507 | 582 |
+| With gold per turn | 20 | 1 |
+
 - **In game:** not yet tested.

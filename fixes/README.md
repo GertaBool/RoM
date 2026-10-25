@@ -1,5 +1,16 @@
 # Tested source fixes
 
+## Diplomacy: trade values from effects, offers by value
+
+[diplomacy-values.patch](diplomacy-values.patch) ([notes](diplomacy-values/README.md)), GitLab branch
+`claude/diplomacy-values`, merge request [!63](https://gitlab.com/aretemaxxing-group/rise-of-mankind/-/merge_requests/63),
+build [`c123133807f4`](../builds/diplomacy-values/). The AI prices a tech at its own research cost, values a
+resource by what it does in its own cities, refuses deals that cost its cities more than they bring,
+chooses its offers by value instead of at random, sells no tech to a higher-ranked team and keeps its gold
+reserve in tech purchases. `AI_DIPLOMACY_FLAGS` 15; 0 plays the same game as `main`. P18 (no crash) and
+P19 (no slower turns) are corroborated in 120 harness runs. Over 30 games of 150 turns, AIs bought techs
+for lump gold 789 times instead of 1,131 and paid 87,029 gold instead of 141,175. Not yet tested in the game.
+
 ## Graphics paging: the camera read through CvScreensInterface
 
 [graphics-paging-interface.patch](graphics-paging-interface.patch) applies to GitLab `main`
