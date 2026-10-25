@@ -258,6 +258,28 @@ and inclusive time and call counts (`HARNESS_PROFILE_SORT=incl` sorts by
 inclusive time). Profiled builds are several times slower; use them for shares,
 plain builds for timings.
 
+## Graphics
+
+Without the game the DLL runs with graphics not initialised: it creates no unit or
+city graphics and skips most calls into the renderer. `HARNESS_GRAPHICS=1` (save
+runs) sets graphics up after loading, as the executable does (`HH_setupGraphics`:
+plots, then each player's cities and units), and gives the DLL a camera
+(`HH_lookAtPlot`). The camera sweeps the map back and forth along rows 20 plots
+apart, moving one plot every `HARNESS_CAMERA_PERIOD` calls of `getLookAtPlot`
+(default 20; the DLL asks about once per update).
+
+Each unit and city entity is then a token that records whether it is set up.
+After each turn the run log prints a `graphics turn` line with:
+- the entities created, those set up at that moment, and the most and the mean set up
+  (sampled once a turn), which stand for the models the executable would hold;
+- the setup calls;
+- the visual calls (moves, animations, glows, visibility), and how many of them reached
+  an entity that was not set up;
+- the missions handed to the engine.
+
+`HARNESS_DEFINES="NAME=value,..."` overrides integer defines before the setup, for
+example `GRAPHICS_PAGING=0`.
+
 ## Expert oracle
 
 `HARNESS_ORACLE=<file>` scores the war AI's tactical decisions against a fixed

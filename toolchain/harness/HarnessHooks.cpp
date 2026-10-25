@@ -156,6 +156,45 @@ extern "C" __declspec(dllexport) void HH_beginPlay()
 
 extern "C" __declspec(dllexport) int HH_gameTurn() { return GC.getGameINLINE().getGameTurn(); }
 extern "C" __declspec(dllexport) void HH_update() { GC.getGameINLINE().update(); }
+
+// Graphics, as the executable sets them up after loading a game: plots, then each player's cities
+// and units. HARNESS_DEFINES ("NAME=value,NAME=value") overrides integer defines first.
+extern "C" __declspec(dllexport) void HH_setupGraphics()
+{
+	const char* szDefines = getenv("HARNESS_DEFINES");
+	if (szDefines != NULL)
+	{
+		char szName[128];
+		int iValue, iRead;
+		for (const char* p = szDefines; sscanf(p, " %127[^=]=%d%n", szName, &iValue, &iRead) == 2; p += iRead + (p[iRead] == ',' ? 1 : 0))
+		{
+			GC.setDefineINT(szName, iValue);
+			if (p[iRead] != ',') break;
+		}
+	}
+	GC.SetGraphicsInitialized(true);
+	GC.getMapINLINE().setupGraphical();
+	for (int i = 0; i < MAX_PLAYERS; ++i)
+	{
+		if (GET_PLAYER((PlayerTypes)i).isAlive()) GET_PLAYER((PlayerTypes)i).setupGraphical();
+	}
+}
+
+// The camera for HARNESS_GRAPHICS: a sweep of the map, one plot along a row every
+// HARNESS_CAMERA_PERIOD calls (default 20), back and forth, rows 20 plots apart.
+extern "C" __declspec(dllexport) CvPlot* HH_lookAtPlot()
+{
+	static long s_iCalls = 0;
+	const char* szPeriod = getenv("HARNESS_CAMERA_PERIOD");
+	const long iPeriod = std::max(1L, szPeriod != NULL ? atol(szPeriod) : 20L);
+	CvMap& kMap = GC.getMapINLINE();
+	const int iW = kMap.getGridWidthINLINE(), iH = kMap.getGridHeightINLINE();
+	const long iStep = (s_iCalls++) / iPeriod;
+	const int iRows = std::max(1, iH / 20);
+	const int iRow = (int)((iStep / iW) % iRows);
+	const int iX = (iRow % 2 == 0) ? (int)(iStep % iW) : iW - 1 - (int)(iStep % iW);
+	return kMap.plotINLINE(iX, std::min(iH - 1, 10 + 20 * iRow));
+}
 extern "C" __declspec(dllexport) int HH_numCities(int ePlayer) { return GET_PLAYER((PlayerTypes)ePlayer).getNumCities(); }
 extern "C" __declspec(dllexport) int HH_cityAt(int iX, int iY)
 {

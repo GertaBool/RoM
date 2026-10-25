@@ -1,0 +1,1534 @@
+From 4dadc46fcef53c10189e21eb33437b3db34f9100 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 25 Oct 2026 00:22:07 +0000
+Subject: [PATCH] Graphics paging: keep unit, city and plot graphics only near
+ the camera
+
+A large game (300 cities, 2,359 units) ends with the executable's memory
+allocation failure; every unit and city gets its model and every plot its
+feature, route and improvement graphics, on screen or not.
+
+CvGame::updateGraphicsPaging reads the camera's look-at plot each update and,
+when it moves two plots or every 500 ms, pages graphics: inside a window around
+it they are set up, outside the window and a margin they are removed. A paged-out
+unit or city keeps a bare entity (created, not set up, as its constructor makes
+it); a paged-out plot has no feature, route or plot-builder symbol. Visual calls
+on paged-out entities are skipped (CvDLLEntity wrappers, addEntityMission, the
+direct entity calls); a unit about to be shown moving or fighting, or moving
+into the window, is paged in first. The active player's units and cities and
+units in combat are never paged out. Graphics only: nothing is saved and the
+game plays the same.
+
+The window scales with the camera zoom (CvGameInterface.getCameraZoom, a copy
+of BtS's CvGameInterface.py with that function added). Defines GRAPHICS_PAGING*
+in GlobalDefinesAlt.xml; GRAPHICS_PAGING 0 restores the old behaviour.
+
+Serves: P7, P8
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_015smokgQ1KvKFbApTvkeH68
+---
+ Assets/CvGameCoreDLL/CvCity.cpp              |  60 +++++
+ Assets/CvGameCoreDLL/CvCity.h                |   2 +
+ Assets/CvGameCoreDLL/CvDLLEntity.cpp         |  57 ++++-
+ Assets/CvGameCoreDLL/CvDLLEntity.h           |   4 +
+ Assets/CvGameCoreDLL/CvGame.cpp              | 238 ++++++++++++++++++-
+ Assets/CvGameCoreDLL/CvGame.h                |  18 ++
+ Assets/CvGameCoreDLL/CvGameCoreUtils.cpp     |  23 ++
+ Assets/CvGameCoreDLL/CvGameCoreUtils.h       |   1 +
+ Assets/CvGameCoreDLL/CvPlayer.cpp            |  10 +-
+ Assets/CvGameCoreDLL/CvPlot.cpp              |  56 ++++-
+ Assets/CvGameCoreDLL/CvPlot.h                |   3 +
+ Assets/CvGameCoreDLL/CvSelectionGroup.cpp    |   2 +-
+ Assets/CvGameCoreDLL/CvUnit.cpp              | 150 +++++++++---
+ Assets/CvGameCoreDLL/CvUnit.h                |   2 +
+ Assets/Python/EntryPoints/CvGameInterface.py | 223 +++++++++++++++++
+ Assets/XML/GlobalDefinesAlt.xml              |  56 +++++
+ 16 files changed, 867 insertions(+), 38 deletions(-)
+ create mode 100644 Assets/Python/EntryPoints/CvGameInterface.py
+
+diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
+index 59e3f08..749fdcb 100644
+--- a/Assets/CvGameCoreDLL/CvCity.cpp
++++ b/Assets/CvGameCoreDLL/CvCity.cpp
+@@ -741,12 +741,62 @@ void CvCity::setupGraphical()
+ 		return;
+ 	}
+ 
++	// Graphics paging: far from the camera the city keeps a bare entity until the camera comes near.
++	if (GC.getGameINLINE().isGraphicsPaging() && canPageGraphicsOut() && !GC.getGameINLINE().isInGraphicsWindow(getX_INLINE(), getY_INLINE(), true))
++	{
++		pageGraphics(false);
++		return;
++	}
++
++	m_bGraphicsPagedOut = false;
+ 	CvDLLEntity::setup();
+ 
+ 	setInfoDirty(true);
+ 	setLayoutDirty(true);
+ }
+ 
++// Graphics paging. The active player's cities are never paged out.
++bool CvCity::canPageGraphicsOut() const
++{
++	return getOwnerINLINE() != NO_PLAYER && getOwnerINLINE() != GC.getGameINLINE().getActivePlayer() && plot() != NULL;
++}
++
++// Out: the entity is removed and replaced by a bare one, as the constructor makes it, and the
++// executable sees no dirty billboard or layout. In: it is set up as setupGraphical does.
++bool CvCity::pageGraphics(bool bIn)
++{
++	if (!GC.IsGraphicsInitialized() || gDLL->GetDone())
++	{
++		return false;
++	}
++
++	if (bIn)
++	{
++		if (!m_bGraphicsPagedOut)
++		{
++			return false;
++		}
++
++		m_bGraphicsPagedOut = false;
++		CvDLLEntity::setup();
++		setInfoDirty(true);
++		setLayoutDirty(true);
++		updateVisibility();
++		return true;
++	}
++
++	if (m_bGraphicsPagedOut || !canPageGraphicsOut())
++	{
++		return false;
++	}
++
++	CvDLLEntity::removeEntity();
++	CvDLLEntity::destroyEntity();
++	CvDLLEntity::createCityEntity(this);
++	m_bGraphicsPagedOut = true;
++	return true;
++}
++
+ /************************************************************************************************/
+ /* REVOLUTION_MOD                         03/29/09                                jdog5000      */
+ /*                                                                                              */
+@@ -8701,6 +8751,11 @@ void CvCity::setWallOverride(bool bOverride)
+ 
+ bool CvCity::isInfoDirty() const
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return false;
++	}
++
+ 	return m_bInfoDirty;
+ }
+ 
+@@ -8713,6 +8768,11 @@ void CvCity::setInfoDirty(bool bNewValue)
+ 
+ bool CvCity::isLayoutDirty() const
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return false;
++	}
++
+ 	return m_bLayoutDirty;
+ }
+ 
+diff --git a/Assets/CvGameCoreDLL/CvCity.h b/Assets/CvGameCoreDLL/CvCity.h
+index 078bd59..f0d7a5b 100644
+--- a/Assets/CvGameCoreDLL/CvCity.h
++++ b/Assets/CvGameCoreDLL/CvCity.h
+@@ -30,6 +30,8 @@ public:
+ 	void uninit();
+ 	void reset(int iID = 0, PlayerTypes eOwner = NO_PLAYER, int iX = 0, int iY = 0, bool bConstructorCall = false);
+ 	void setupGraphical();
++	bool pageGraphics(bool bIn);	// graphics paging around the camera; true if the city's graphics changed
++	bool canPageGraphicsOut() const;
+ 
+ /************************************************************************************************/
+ /* REVOLUTION_MOD                         03/29/09                                jdog5000      */
+diff --git a/Assets/CvGameCoreDLL/CvDLLEntity.cpp b/Assets/CvGameCoreDLL/CvDLLEntity.cpp
+index faf8afa..30ae68a 100644
+--- a/Assets/CvGameCoreDLL/CvDLLEntity.cpp
++++ b/Assets/CvGameCoreDLL/CvDLLEntity.cpp
+@@ -3,7 +3,7 @@
+ #include "CvDLLEntityIFaceBase.h"
+ #include "CvGlobals.h"
+ 
+-CvDLLEntity::CvDLLEntity() : m_pEntity(NULL)
++CvDLLEntity::CvDLLEntity() : m_pEntity(NULL), m_bGraphicsPagedOut(false)
+ {
+ 
+ }
+@@ -25,6 +25,11 @@ void CvDLLEntity::setup()
+ 
+ void CvDLLEntity::setVisible(bool bVis)
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->setVisible(getEntity(), bVis);
+ }
+ 
+@@ -45,50 +50,100 @@ void CvDLLEntity::destroyEntity()
+ 
+ bool CvDLLEntity::IsSelected() const
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return false;
++	}
++
+ 	return gDLL->getEntityIFace()->IsSelected(getEntity());
+ }
+ 
+ void CvDLLEntity::PlayAnimation(AnimationTypes eAnim, float fSpeed, bool bQueue, int iLayer, float fStartPct, float fEndPct)
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->PlayAnimation(getEntity(), eAnim, fSpeed, bQueue, iLayer, fStartPct, fEndPct);
+ }
+ 
+ void CvDLLEntity::StopAnimation(AnimationTypes eAnim)
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->StopAnimation(getEntity(), eAnim);
+ }
+ 
+ void CvDLLEntity::MoveTo( const CvPlot * pkPlot )
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->MoveTo(getUnitEntity(), pkPlot );
+ }
+ 
+ void CvDLLEntity::QueueMove( const CvPlot * pkPlot )
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->QueueMove(getUnitEntity(), pkPlot );
+ }
+ 
+ void CvDLLEntity::ExecuteMove( float fTimeToExecute, bool bCombat )
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->ExecuteMove(getUnitEntity(), fTimeToExecute, bCombat );
+ }
+ 
+ void CvDLLEntity::SetPosition( const CvPlot * pkPlot )
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->SetPosition(getUnitEntity(), pkPlot );
+ }
+ 
+ void CvDLLEntity::NotifyEntity( MissionTypes eMission )
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->NotifyEntity( getUnitEntity(), eMission );
+ }
+ 
+ void CvDLLEntity::SetSiegeTower(bool show)
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->SetSiegeTower( getUnitEntity(), show );
+ }
+ 
+ bool CvDLLEntity::GetSiegeTower()
+ {
++	if (m_bGraphicsPagedOut)
++	{
++		return false;
++	}
++
+ 	return gDLL->getEntityIFace()->GetSiegeTower(getUnitEntity());
+ }
+diff --git a/Assets/CvGameCoreDLL/CvDLLEntity.h b/Assets/CvGameCoreDLL/CvDLLEntity.h
+index bea4015..943eac2 100644
+--- a/Assets/CvGameCoreDLL/CvDLLEntity.h
++++ b/Assets/CvGameCoreDLL/CvDLLEntity.h
+@@ -56,8 +56,12 @@ public:
+ 	void SetSiegeTower(bool show);
+ 	bool GetSiegeTower();
+ 
++	// Graphics paging: while paged out the entity is bare (created, never set up) and the visual calls above do nothing.
++	bool isGraphicsPagedOut() const { return m_bGraphicsPagedOut; }
++
+ protected:
+ 	CvEntity* m_pEntity;
++	bool m_bGraphicsPagedOut;	// not saved
+ };
+ 
+ #endif	// CvDLLEntity_h
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index 1504569..61538d9 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -515,6 +515,17 @@ void CvGame::reset(HandicapTypes eHandicap, bool bConstructorCall)
+ 	m_bDebugMode = false;
+ 	m_bDebugModeCache = false;
+ 	m_bFinalInitialized = false;
++
++	m_bGraphicsPaging = false;
++	m_iPagingX = INVALID_PLOT_COORD;
++	m_iPagingY = INVALID_PLOT_COORD;
++	m_iPagingRangeX = 0;
++	m_iPagingNorth = 0;
++	m_iPagingSouth = 0;
++	m_iPagingMargin = 0;
++	m_iPagingStep = 0;
++	m_dwPagingTime = 0;
++	m_ePagingActivePlayer = NO_PLAYER;
+ 	m_bPbemTurnSent = false;
+ 	m_bHotPbemBetweenTurns = false;
+ 	m_bPlayerOptionsSent = false;
+@@ -2147,6 +2158,8 @@ void CvGame::update()
+ {
+ 	PROFILE("CvGame::update");
+ 
++	updateGraphicsPaging();
++
+ 	if (!gDLL->GetWorldBuilderMode() || isInAdvancedStart())
+ 	{
+ 		sendPlayerOptions();
+@@ -2229,6 +2242,226 @@ void CvGame::update()
+ }
+ 
+ 
++
++// Graphics paging: units, cities and plot symbols far from where the camera looks keep only a
++// bare entity or no symbol; they are set up again when the camera comes near. Graphics only.
++bool CvGame::isGraphicsPaging() const
++{
++	return m_bGraphicsPaging;
++}
++
++bool CvGame::isInGraphicsWindow(int iX, int iY, bool bMargin) const
++{
++	if (!m_bGraphicsPaging)
++	{
++		return true;
++	}
++
++	int iMargin = (bMargin ? m_iPagingMargin : 0);
++	int iDX = dxWrap(iX - m_iPagingX);
++	int iDY = dyWrap(iY - m_iPagingY);
++
++	return (abs(iDX) <= m_iPagingRangeX + iMargin) && (iDY <= m_iPagingNorth + iMargin) && (-iDY <= m_iPagingSouth + iMargin);
++}
++
++void CvGame::updateGraphicsPaging()
++{
++	PROFILE_FUNC();
++
++	if (!GC.IsGraphicsInitialized())
++	{
++		m_bGraphicsPaging = false;
++		return;
++	}
++
++	CvPlot* pLookAt = gDLL->getInterfaceIFace()->getLookAtPlot();
++	bool bOn = (GC.getDefineINT("GRAPHICS_PAGING") > 0) && (pLookAt != NULL) && !gDLL->GetWorldBuilderMode() && (getActivePlayer() != NO_PLAYER);
++
++	if (!bOn)
++	{
++		if (m_bGraphicsPaging)
++		{
++			pageGraphics(true);
++		}
++		return;
++	}
++
++	DWORD dwNow = GetTickCount();
++	bool bFirst = !m_bGraphicsPaging;
++	bool bMoved = bFirst || (abs(dxWrap(pLookAt->getX_INLINE() - m_iPagingX)) >= m_iPagingStep) || (abs(dyWrap(pLookAt->getY_INLINE() - m_iPagingY)) >= m_iPagingStep);
++	bool bActivePlayerChanged = (getActivePlayer() != m_ePagingActivePlayer);
++
++	if (!bMoved && !bActivePlayerChanged && (dwNow - m_dwPagingTime) < (DWORD)std::max(100, GC.getDefineINT("GRAPHICS_PAGING_INTERVAL_MS")))
++	{
++		return;
++	}
++
++	// The window: GRAPHICS_PAGING_RANGE_* plots from the look-at plot at the widest zoom, scaled down
++	// with the camera's zoom (CyCamera().GetZoom(), 0 to 1, larger is farther) when GRAPHICS_PAGING_ZOOM is set.
++	int iScalePercent = 100;
++	int iZoom = -1;
++	static bool s_bZoomFailed = false;	// a game without CvGameInterface.getCameraZoom: ask once
++	if (GC.getDefineINT("GRAPHICS_PAGING_ZOOM") > 0 && !s_bZoomFailed)
++	{
++		long lResult = -1;
++		CyArgsList argsList;
++		if (gDLL->getPythonIFace()->callFunction(PYGameModule, "getCameraZoom", argsList.makeFunctionArgs(), &lResult))
++		{
++			iZoom = (int)lResult;
++		}
++		else
++		{
++			s_bZoomFailed = true;
++		}
++		if (iZoom >= 0 && iZoom <= 1000)
++		{
++			iScalePercent = (iZoom * GC.getDefineINT("GRAPHICS_PAGING_ZOOM_SAFETY_PERCENT")) / 1000;
++			iScalePercent = range(iScalePercent, GC.getDefineINT("GRAPHICS_PAGING_ZOOM_MIN_PERCENT"), 100);
++		}
++	}
++
++	int iRangeX = std::max(1, (GC.getDefineINT("GRAPHICS_PAGING_RANGE_X") * iScalePercent + 99) / 100);
++	int iNorth = std::max(1, (GC.getDefineINT("GRAPHICS_PAGING_RANGE_NORTH") * iScalePercent + 99) / 100);
++	int iSouth = std::max(1, (GC.getDefineINT("GRAPHICS_PAGING_RANGE_SOUTH") * iScalePercent + 99) / 100);
++
++	m_bGraphicsPaging = true;
++	if (bMoved)
++	{
++		m_iPagingX = pLookAt->getX_INLINE();
++		m_iPagingY = pLookAt->getY_INLINE();
++	}
++	m_iPagingRangeX = iRangeX;
++	m_iPagingNorth = iNorth;
++	m_iPagingSouth = iSouth;
++	m_iPagingMargin = std::max(0, GC.getDefineINT("GRAPHICS_PAGING_MARGIN"));
++	m_iPagingStep = std::max(1, GC.getDefineINT("GRAPHICS_PAGING_STEP"));
++	m_ePagingActivePlayer = getActivePlayer();
++	m_dwPagingTime = dwNow;
++
++	if (GC.getDefineINT("GRAPHICS_PAGING_LOG") > 0 && (bMoved || bActivePlayerChanged))
++	{
++		CvString szLine;
++		szLine.Format("turn %d look (%d,%d) zoom %d scale %d%%: window x %d north %d south %d margin %d",
++			getGameTurn(), m_iPagingX, m_iPagingY, iZoom, iScalePercent, m_iPagingRangeX, m_iPagingNorth, m_iPagingSouth, m_iPagingMargin);
++		gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
++	}
++
++	pageGraphics(false);
++}
++
++// bAllIn: set everything up again and stop paging. Otherwise page in what is inside the window
++// and page out what is outside the window and its margin; what is in the margin stays as it is.
++void CvGame::pageGraphics(bool bAllIn)
++{
++	PROFILE_FUNC();
++
++	int aiIn[3] = {0, 0, 0};
++	int aiOut[3] = {0, 0, 0};
++	int aiPagedOut[3] = {0, 0, 0};
++	CvMap& kMap = GC.getMapINLINE();
++
++	if (bAllIn)
++	{
++		m_bGraphicsPaging = false;
++	}
++
++	for (int iI = 0; iI < kMap.numPlotsINLINE(); iI++)
++	{
++		CvPlot* pPlot = kMap.plotByIndexINLINE(iI);
++		int iX = pPlot->getX_INLINE();
++		int iY = pPlot->getY_INLINE();
++		int iWant = 0;	// 1 in, -1 out, 0 leave
++
++		if (bAllIn || isInGraphicsWindow(iX, iY, false))
++		{
++			iWant = 1;
++		}
++		else if (!isInGraphicsWindow(iX, iY, true))
++		{
++			iWant = -1;
++		}
++
++		if (iWant != 0)
++		{
++			bool bIn = (iWant > 0);
++			if (pPlot->pageGraphics(bIn))
++			{
++				(bIn ? aiIn : aiOut)[0]++;
++			}
++
++			CLLNode<IDInfo>* pUnitNode = pPlot->headUnitNode();
++			while (pUnitNode != NULL)
++			{
++				CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
++				pUnitNode = pPlot->nextUnitNode(pUnitNode);
++
++				if (pLoopUnit != NULL && pLoopUnit->pageGraphics(bIn))
++				{
++					(bIn ? aiIn : aiOut)[1]++;
++				}
++			}
++
++			CvCity* pCity = pPlot->getPlotCity();
++			if (pCity != NULL && pCity->pageGraphics(bIn))
++			{
++				(bIn ? aiIn : aiOut)[2]++;
++			}
++		}
++
++		if (pPlot->isGraphicsPagedOut())
++		{
++			aiPagedOut[0]++;
++		}
++		CLLNode<IDInfo>* pUnitNode = pPlot->headUnitNode();
++		while (pUnitNode != NULL)
++		{
++			CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
++			pUnitNode = pPlot->nextUnitNode(pUnitNode);
++			if (pLoopUnit != NULL && pLoopUnit->isGraphicsPagedOut())
++			{
++				aiPagedOut[1]++;
++			}
++		}
++		if (pPlot->getPlotCity() != NULL && pPlot->getPlotCity()->isGraphicsPagedOut())
++		{
++			aiPagedOut[2]++;
++		}
++	}
++
++	// The active player's units and cities stay in wherever they are; when the active player
++	// changes (hotseat), bring in the new one's.
++	if (!bAllIn && getActivePlayer() != NO_PLAYER)
++	{
++		CvPlayer& kActive = GET_PLAYER(getActivePlayer());
++		int iLoop;
++		for (CvUnit* pLoopUnit = kActive.firstUnit(&iLoop); pLoopUnit != NULL; pLoopUnit = kActive.nextUnit(&iLoop))
++		{
++			if (pLoopUnit->isGraphicsPagedOut() && pLoopUnit->pageGraphics(true))
++			{
++				aiIn[1]++;
++				aiPagedOut[1]--;
++			}
++		}
++		for (CvCity* pLoopCity = kActive.firstCity(&iLoop); pLoopCity != NULL; pLoopCity = kActive.nextCity(&iLoop))
++		{
++			if (pLoopCity->isGraphicsPagedOut() && pLoopCity->pageGraphics(true))
++			{
++				aiIn[2]++;
++				aiPagedOut[2]--;
++			}
++		}
++	}
++
++	if (GC.getDefineINT("GRAPHICS_PAGING_LOG") > 0 && (aiIn[0] + aiIn[1] + aiIn[2] + aiOut[0] + aiOut[1] + aiOut[2]) > 0)
++	{
++		CvString szLine;
++		szLine.Format("turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d",
++			getGameTurn(), m_iPagingX, m_iPagingY, bAllIn ? "all in" : "pass",
++			aiIn[0], aiIn[1], aiIn[2], aiOut[0], aiOut[1], aiOut[2], aiPagedOut[0], aiPagedOut[1], aiPagedOut[2]);
++		gDLL->logMsg("GraphicsPaging.log", szLine.c_str(), false, true);
++	}
++}
++
+ void CvGame::updateScore(bool bForce)
+ {
+ 	bool abPlayerScored[MAX_CIV_PLAYERS];
+@@ -4767,7 +5000,10 @@ void CvGame::updateUnitEnemyGlow()
+ 		for(CvUnit *pLoopUnit = GET_PLAYER(playerType).firstUnit(&iLoop); pLoopUnit != NULL; pLoopUnit = GET_PLAYER(playerType).nextUnit(&iLoop))
+ 		{
+ 			//update glow
+-			gDLL->getEntityIFace()->updateEnemyGlow(pLoopUnit->getUnitEntity());
++			if (!pLoopUnit->isGraphicsPagedOut())
++			{
++				gDLL->getEntityIFace()->updateEnemyGlow(pLoopUnit->getUnitEntity());
++			}
+ 		}
+ 	}
+ }
+diff --git a/Assets/CvGameCoreDLL/CvGame.h b/Assets/CvGameCoreDLL/CvGame.h
+index 6b70408..ab083cd 100644
+--- a/Assets/CvGameCoreDLL/CvGame.h
++++ b/Assets/CvGameCoreDLL/CvGame.h
+@@ -55,6 +55,12 @@ public:
+ 	DllExport void normalizeStartingPlots();
+ 
+ 	DllExport void update();
++
++	// Graphics paging around the camera (GRAPHICS_PAGING defines); graphics only, not saved.
++	bool isGraphicsPaging() const;
++	bool isInGraphicsWindow(int iX, int iY, bool bMargin) const;
++	void updateGraphicsPaging();
++	void pageGraphics(bool bAllIn);
+ 	DllExport void updateScore(bool bForce = false);
+ 
+ 	DllExport void updateColoredPlots();
+@@ -645,6 +651,18 @@ protected:
+ 	bool m_bDebugMode;
+ 	bool m_bDebugModeCache;
+ 	bool m_bFinalInitialized;
++
++	// Graphics paging state, not saved
++	bool m_bGraphicsPaging;
++	int m_iPagingX;
++	int m_iPagingY;
++	int m_iPagingRangeX;
++	int m_iPagingNorth;
++	int m_iPagingSouth;
++	int m_iPagingMargin;
++	int m_iPagingStep;
++	DWORD m_dwPagingTime;
++	PlayerTypes m_ePagingActivePlayer;
+ 	bool m_bPbemTurnSent;
+ 	bool m_bHotPbemBetweenTurns;
+ 	bool m_bPlayerOptionsSent;
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index eb21d9a..cf2edcf 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -208,6 +208,29 @@ CvUnit* getUnit(IDInfo unit)
+ 	return NULL;
+ }
+ 
++// Hands a mission to the engine. A unit in it whose graphics are paged out gets them back when
++// the mission's plot is visible to the active team; otherwise the mission, only a visual, is skipped.
++void addEntityMission(const CvMissionDefinition* pMission)
++{
++	const CvPlot* pPlot = pMission->getPlot();
++	bool bVisible = (pPlot != NULL) && pPlot->isActiveVisible(false);
++
++	for (int iI = 0; iI < BATTLE_UNIT_COUNT; iI++)
++	{
++		CvUnit* pUnit = pMission->getUnit((BattleUnitTypes)iI);
++		if (pUnit != NULL && pUnit->isGraphicsPagedOut())
++		{
++			if (!bVisible)
++			{
++				return;
++			}
++			pUnit->pageGraphics(true);
++		}
++	}
++
++	gDLL->getEntityIFace()->AddMission(pMission);
++}
++
+ bool isBeforeUnitCycle(const CvUnit* pFirstUnit, const CvUnit* pSecondUnit)
+ {
+ 	FAssert(pFirstUnit != NULL);
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index ebafc4d..5adcac0 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -228,6 +228,7 @@ bool isPotentialEnemy(TeamTypes eOurTeam, TeamTypes eTheirTeam);			// Exposed to
+ DllExport CvCity* getCity(IDInfo city);	// Exposed to Python
+ DllExport CvUnit* getUnit(IDInfo unit);	// Exposed to Python
+ 
++void addEntityMission(const CvMissionDefinition* pMission);	// AddMission, for graphics paging
+ bool isBeforeUnitCycle(const CvUnit* pFirstUnit, const CvUnit* pSecondUnit);
+ bool isPromotionValid(PromotionTypes ePromotion, UnitTypes eUnit, bool bLeader);	// Exposed to Python
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index 9c6c34d..0e31b45 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -12682,7 +12682,10 @@ void CvPlayer::setCurrentEra(EraTypes eNewValue)
+ 		//update unit eras
+ 		for(pLoopUnit = firstUnit(&iLoop); pLoopUnit != NULL; pLoopUnit = nextUnit(&iLoop))
+ 		{
+-			gDLL->getEntityIFace()->updateGraphicEra(pLoopUnit->getUnitEntity(), eOldEra);
++			if (!pLoopUnit->isGraphicsPagedOut())
++			{
++				gDLL->getEntityIFace()->updateGraphicEra(pLoopUnit->getUnitEntity(), eOldEra);
++			}
+ 		}
+ 
+ 		//update flag eras
+@@ -18226,7 +18229,10 @@ void CvPlayer::doWarnings()
+ 	for(pLoopUnit = firstUnit(&iLoop); pLoopUnit != NULL; pLoopUnit = nextUnit(&iLoop))
+ 	{
+ 		//update glow
+-		gDLL->getEntityIFace()->updateEnemyGlow(pLoopUnit->getUnitEntity());
++		if (!pLoopUnit->isGraphicsPagedOut())
++		{
++			gDLL->getEntityIFace()->updateEnemyGlow(pLoopUnit->getUnitEntity());
++		}
+ 	}
+ 
+ // BUG - Ignore Harmless Barbarians - start
+diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
+index 42d6846..0106327 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.cpp
++++ b/Assets/CvGameCoreDLL/CvPlot.cpp
+@@ -222,6 +222,7 @@ void CvPlot::reset(int iX, int iY, bool bConstructorCall)
+ 	m_bFlagDirty = false;
+ 	m_bPlotLayoutDirty = false;
+ 	m_bLayoutStateWorked = false;
++	m_bGraphicsPagedOut = false;
+ 	
+ 	m_eOwner = NO_PLAYER;
+ 	m_ePlotType = PLOT_OCEAN;
+@@ -272,6 +273,8 @@ void CvPlot::setupGraphical()
+ 		return;
+ 	}
+ 
++	m_bGraphicsPagedOut = false;
++
+ 	updateSymbols();
+ 	updateFeatureSymbol();
+ 	updateRiverSymbol();
+@@ -280,6 +283,45 @@ void CvPlot::setupGraphical()
+ 	updateVisibility();
+ }
+ 
++// Out: the feature and route symbols and the plot builder (bonuses, improvements) are destroyed, as uninit does.
++// In: they are made again. Rivers, flags and the terrain stay.
++bool CvPlot::pageGraphics(bool bIn)
++{
++	if (!GC.IsGraphicsInitialized())
++	{
++		return false;
++	}
++
++	if (bIn)
++	{
++		if (!m_bGraphicsPagedOut)
++		{
++			return false;
++		}
++
++		m_bGraphicsPagedOut = false;
++		updateFeatureSymbol(true);
++		updateRouteSymbol(true, false);
++		setLayoutDirty(true);
++		return true;
++	}
++
++	if (m_bGraphicsPagedOut)
++	{
++		return false;
++	}
++
++	gDLL->getFeatureIFace()->destroy(m_pFeatureSymbol);
++	gDLL->getRouteIFace()->destroy(m_pRouteSymbol);
++	if (m_pPlotBuilder != NULL)
++	{
++		gDLL->getPlotBuilderIFace()->destroy(m_pPlotBuilder);
++	}
++	m_bPlotLayoutDirty = false;
++	m_bGraphicsPagedOut = true;
++	return true;
++}
++
+ void CvPlot::updateGraphicEra()
+ {
+ 	if(m_pRouteSymbol != NULL)
+@@ -7930,6 +7972,11 @@ void CvPlot::updateFeatureSymbol(bool bForce)
+ 
+ 	gDLL->getEngineIFace()->RebuildTileArt(m_iX,m_iY);
+ 
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	if ((eFeature == NO_FEATURE) ||
+ 		  (GC.getFeatureInfo(eFeature).getArtInfo()->isRiverArt()) ||
+ 		  (GC.getFeatureInfo(eFeature).getArtInfo()->getTileArtType() != TILE_ART_TYPE_NONE))
+@@ -7990,6 +8037,11 @@ void CvPlot::updateRouteSymbol(bool bForce, bool bAdjacent)
+ 		}
+ 	}
+ 
++	if (m_bGraphicsPagedOut)
++	{
++		return;
++	}
++
+ 	eRoute = getRevealedRouteType(GC.getGameINLINE().getActiveTeam(), true);
+ 
+ 	if (eRoute == NO_ROUTE)
+@@ -9482,7 +9534,7 @@ void CvPlot::write(FDataStreamBase* pStream)
+ 
+ void CvPlot::setLayoutDirty(bool bDirty)
+ {
+-	if (!GC.IsGraphicsInitialized())
++	if (!GC.IsGraphicsInitialized() || m_bGraphicsPagedOut)
+ 	{
+ 		return;
+ 	}
+@@ -9503,7 +9555,7 @@ void CvPlot::setLayoutDirty(bool bDirty)
+ 
+ bool CvPlot::updatePlotBuilder()
+ {
+-	if (GC.IsGraphicsInitialized() && shouldUsePlotBuilder())
++	if (GC.IsGraphicsInitialized() && !m_bGraphicsPagedOut && shouldUsePlotBuilder())
+ 	{
+ 		if (m_pPlotBuilder == NULL) // we need a plot builder... but it doesn't exist
+ 		{
+diff --git a/Assets/CvGameCoreDLL/CvPlot.h b/Assets/CvGameCoreDLL/CvPlot.h
+index 8394984..92c81ca 100644
+--- a/Assets/CvGameCoreDLL/CvPlot.h
++++ b/Assets/CvGameCoreDLL/CvPlot.h
+@@ -58,6 +58,8 @@ public:
+ 	void uninit();
+ 	void reset(int iX = 0, int iY = 0, bool bConstructorCall=false);
+ 	void setupGraphical();
++	bool pageGraphics(bool bIn);	// graphics paging around the camera: feature, route and plot builder symbols; true if changed
++	bool isGraphicsPagedOut() const { return m_bGraphicsPagedOut; }
+ 	void updateGraphicEra();
+ 
+ 	DllExport void erase();																																								// Exposed to Python
+@@ -594,6 +596,7 @@ protected:
+ 	bool m_bFlagDirty:1;
+ 	bool m_bPlotLayoutDirty:1;
+ 	bool m_bLayoutStateWorked:1;
++	bool m_bGraphicsPagedOut:1;	// not saved
+ 
+ 	char /*PlayerTypes*/ m_eOwner;
+ 	short /*PlotTypes*/ m_ePlotType;
+diff --git a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+index aef01a3..4e4bae4 100644
+--- a/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvSelectionGroup.cpp
+@@ -1860,7 +1860,7 @@ void CvSelectionGroup::startMission()
+ 							kMission.setUnit(BATTLE_UNIT_DEFENDER, NULL);
+ 							kMission.setPlot(pLoopUnit->plot());
+ 							kMission.setMissionType(MISSION_GOLDEN_AGE);
+-							gDLL->getEntityIFace()->AddMission(&kMission);
++							addEntityMission(&kMission);
+ 							pLoopUnit->NotifyEntity(MISSION_GOLDEN_AGE);
+ 							bAction = true;
+ 						}
+diff --git a/Assets/CvGameCoreDLL/CvUnit.cpp b/Assets/CvGameCoreDLL/CvUnit.cpp
+index 9f7fd09..e0a2084 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.cpp
++++ b/Assets/CvGameCoreDLL/CvUnit.cpp
+@@ -438,6 +438,14 @@ void CvUnit::setupGraphical()
+ 		return;
+ 	}
+ 
++	// Graphics paging: far from the camera the unit keeps a bare entity until the camera comes near.
++	if (GC.getGameINLINE().isGraphicsPaging() && canPageGraphicsOut() && !GC.getGameINLINE().isInGraphicsWindow(getX_INLINE(), getY_INLINE(), true))
++	{
++		pageGraphics(false);
++		return;
++	}
++
++	m_bGraphicsPagedOut = false;
+ 	CvDLLEntity::setup();
+ 
+ 	if (getGroup()->getActivityType() == ACTIVITY_INTERCEPT)
+@@ -446,6 +454,55 @@ void CvUnit::setupGraphical()
+ 	}
+ }
+ 
++// Graphics paging. The active player's units, and units fighting or dying, are never paged out.
++bool CvUnit::canPageGraphicsOut() const
++{
++	if (plot() == NULL || getOwnerINLINE() == NO_PLAYER || getOwnerINLINE() == GC.getGameINLINE().getActivePlayer())
++	{
++		return false;
++	}
++
++	return !isFighting() && getCombatUnit() == NULL && getAttackPlot() == NULL && !isDelayedDeath() && !isCombatFocus();
++}
++
++// Out: the entity is removed and replaced by a bare one, as the constructor makes it. In: it is set up as setupGraphical does.
++bool CvUnit::pageGraphics(bool bIn)
++{
++	if (!GC.IsGraphicsInitialized() || gDLL->GetDone())
++	{
++		return false;
++	}
++
++	if (bIn)
++	{
++		if (!m_bGraphicsPagedOut || plot() == NULL)
++		{
++			return false;
++		}
++
++		m_bGraphicsPagedOut = false;
++		CvDLLEntity::setup();
++		if (getGroup()->getActivityType() == ACTIVITY_INTERCEPT)
++		{
++			airCircle(true);
++		}
++		gDLL->getEntityIFace()->updateEnemyGlow(getUnitEntity());
++		return true;
++	}
++
++	if (m_bGraphicsPagedOut || !canPageGraphicsOut())
++	{
++		return false;
++	}
++
++	gDLL->getEntityIFace()->RemoveUnitFromBattle(this);
++	CvDLLEntity::removeEntity();
++	CvDLLEntity::destroyEntity();
++	CvDLLEntity::createUnitEntity(this);
++	m_bGraphicsPagedOut = true;
++	return true;
++}
++
+ 
+ void CvUnit::convert(CvUnit* pUnit)
+ {
+@@ -700,7 +757,7 @@ void CvUnit::kill(bool bDelay, PlayerTypes ePlayer)
+ 				kMission.setUnit(BATTLE_UNIT_DEFENDER, NULL);
+ 				kMission.setPlot(pPlot);
+ 				kMission.setMissionType(MISSION_CAPTURED);
+-				gDLL->getEntityIFace()->AddMission(&kMission);
++				addEntityMission(&kMission);
+ 
+ 				pkCapturedUnit->finishMoves();
+ 
+@@ -723,6 +780,11 @@ void CvUnit::kill(bool bDelay, PlayerTypes ePlayer)
+ 
+ void CvUnit::NotifyEntity(MissionTypes eMission)
+ {
++	if (isGraphicsPagedOut())
++	{
++		return;
++	}
++
+ 	gDLL->getEntityIFace()->NotifyEntity(getUnitEntity(), eMission);
+ }
+ 
+@@ -849,7 +911,7 @@ void CvUnit::updateAirStrike(CvPlot* pPlot, bool bQuick, bool bFinish)
+ 
+ 			if (pPlot->isActiveVisible(false))
+ 			{
+-				gDLL->getEntityIFace()->AddMission(&kAirMission);
++				addEntityMission(&kAirMission);
+ 			}
+ 
+ 			return;
+@@ -1109,7 +1171,7 @@ void CvUnit::updateAirCombat(bool bQuick)
+ 
+ 			if (pPlot->isActiveVisible(false))
+ 			{
+-				gDLL->getEntityIFace()->AddMission(&kAirMission);
++				addEntityMission(&kAirMission);
+ 			}
+ 		}
+ 
+@@ -1483,7 +1545,7 @@ void CvUnit::updateCombat(bool bQuick)
+ 				kMission.setUnit(BATTLE_UNIT_ATTACKER, this);
+ 				kMission.setUnit(BATTLE_UNIT_DEFENDER, pDefender);
+ 				kMission.setPlot(pPlot);
+-				gDLL->getEntityIFace()->AddMission(&kMission);
++				addEntityMission(&kMission);
+ 
+ 				// Surrender mission
+ 				setCombatTimer(GC.getMissionInfo(MISSION_SURRENDER).getTime());
+@@ -1534,7 +1596,7 @@ void CvUnit::updateCombat(bool bQuick)
+ 				if (pPlot->isActiveVisible(false))
+ 				{
+ 					ExecuteMove(0.5f, true);
+-					gDLL->getEntityIFace()->AddMission(&kBattle);
++					addEntityMission(&kBattle);
+ 				}
+ 			}
+ 		}
+@@ -3092,7 +3154,7 @@ void CvUnit::attackForDamage(CvUnit *pDefender, int attackerDamageChange, int de
+ 		if (pPlot->isActiveVisible(false))
+ 		{
+ 			ExecuteMove(0.5f, true);
+-			gDLL->getEntityIFace()->AddMission(&kBattle);
++			addEntityMission(&kBattle);
+ 		}
+ 	}
+ 	else
+@@ -3875,7 +3937,7 @@ void CvUnit::airCircle(bool bStart)
+ 		kDefinition.setMissionType(MISSION_AIRPATROL);
+ 		kDefinition.setMissionTime(1.0f); // patrol is indefinite - time is ignored
+ 
+-		gDLL->getEntityIFace()->AddMission( &kDefinition );
++		addEntityMission(&kDefinition);
+ 	}
+ }
+ 
+@@ -4365,7 +4427,7 @@ bool CvUnit::nuke(int iX, int iY)
+ 			kDefiniton.setUnit(BATTLE_UNIT_DEFENDER, this);
+ 
+ 			// Add the intercepted mission (defender is not NULL)
+-			gDLL->getEntityIFace()->AddMission(&kDefiniton);
++			addEntityMission(&kDefiniton);
+ 		}
+ 
+ 		kill(true);
+@@ -4389,7 +4451,7 @@ bool CvUnit::nuke(int iX, int iY)
+ 			kAirMission.setDamage(BATTLE_UNIT_DEFENDER, 0);
+ 			kAirMission.setDamage(BATTLE_UNIT_ATTACKER, 0);
+ 
+-			gDLL->getEntityIFace()->AddMission(&kAirMission);
++			addEntityMission(&kAirMission);
+ 		}
+ 		else {
+ 			// Nuke entity mission
+@@ -4402,7 +4464,7 @@ bool CvUnit::nuke(int iX, int iY)
+ 			kDefiniton.setUnit(BATTLE_UNIT_DEFENDER, NULL);
+ 
+ 			// Add the non-intercepted mission (defender is NULL)
+-			gDLL->getEntityIFace()->AddMission(&kDefiniton);
++			addEntityMission(&kDefiniton);
+ 		}
+ 		// Dale - NB: A-Bomb END
+ /************************************************************************************************/
+@@ -4559,7 +4621,7 @@ bool CvUnit::recon(int iX, int iY)
+ 		kAirMission.setDamage(BATTLE_UNIT_ATTACKER, 0);
+ 		kAirMission.setPlot(pPlot);
+ 		kAirMission.setMissionTime(GC.getMissionInfo((MissionTypes)MISSION_RECON).getTime() * gDLL->getSecsPerTurn());
+-		gDLL->getEntityIFace()->AddMission(&kAirMission);
++		addEntityMission(&kAirMission);
+ 	}
+ 
+ 	return true;
+@@ -4664,7 +4726,7 @@ bool CvUnit::paradrop(int iX, int iY)
+ 		kAirMission.setDamage(BATTLE_UNIT_ATTACKER, 0);
+ 		kAirMission.setPlot(pPlot);
+ 		kAirMission.setMissionTime(GC.getMissionInfo((MissionTypes)MISSION_PARADROP).getTime() * gDLL->getSecsPerTurn());
+-		gDLL->getEntityIFace()->AddMission(&kAirMission);
++		addEntityMission(&kAirMission);
+ 	}
+ 
+ 	return true;
+@@ -5126,7 +5188,7 @@ bool CvUnit::airBomb(int iX, int iY)
+ 		kAirMission.setPlot(pPlot);
+ 		kAirMission.setMissionTime(GC.getMissionInfo((MissionTypes)MISSION_AIRBOMB).getTime() * gDLL->getSecsPerTurn());
+ 
+-		gDLL->getEntityIFace()->AddMission(&kAirMission);
++		addEntityMission(&kAirMission);
+ 	}
+ 
+ 	if (isSuicide())
+@@ -5275,7 +5337,7 @@ bool CvUnit::bombard()
+ 			kDefiniton.setPlot(pBombardCity->plot());
+ 			kDefiniton.setUnit(BATTLE_UNIT_ATTACKER, this);
+ 			kDefiniton.setUnit(BATTLE_UNIT_DEFENDER, pDefender);
+-			gDLL->getEntityIFace()->AddMission(&kDefiniton);
++			addEntityMission(&kDefiniton);
+ 		}
+ 	}
+ 	return true;
+@@ -5491,7 +5553,7 @@ bool CvUnit::pillage()
+ 		kDefiniton.setPlot(pPlot);
+ 		kDefiniton.setUnit(BATTLE_UNIT_ATTACKER, this);
+ 		kDefiniton.setUnit(BATTLE_UNIT_DEFENDER, NULL);
+-		gDLL->getEntityIFace()->AddMission(&kDefiniton);
++		addEntityMission(&kDefiniton);
+ 	}
+ 
+ 	if (eTempImprovement != NO_IMPROVEMENT || eTempRoute != NO_ROUTE)
+@@ -10510,6 +10572,16 @@ void CvUnit::setXY(int iX, int iY, bool bGroup, bool bUpdate, bool bShow, bool b
+ 	ActivityTypes eOldActivityType;
+ 	int iI;
+ 
++	// Graphics paging: a unit about to be shown moving, or moving into the camera's window, gets its graphics first, at the plot it leaves.
++	if (isGraphicsPagedOut() && plot() != NULL && iX != INVALID_PLOT_COORD)
++	{
++		CvPlot* pToPlot = GC.getMapINLINE().plotINLINE(iX, iY);
++		if (pToPlot != NULL && (bShow || GC.getGameINLINE().isInGraphicsWindow(iX, iY, false) || (bCheckPlotVisible && pToPlot->isVisibleToWatchingHuman())))
++		{
++			pageGraphics(true);
++		}
++	}
++
+ 	// OOS!! Temporary for Out-of-Sync madness debugging...
+ 	if (GC.getLogging())
+ 	{
+@@ -10930,7 +11002,7 @@ void CvUnit::setXY(int iX, int iY, bool bGroup, bool bUpdate, bool bShow, bool b
+ 	}
+ 
+ 	//update glow
+-	if (pNewPlot != NULL)
++	if (pNewPlot != NULL && !isGraphicsPagedOut())
+ 	{
+ 		gDLL->getEntityIFace()->updateEnemyGlow(getUnitEntity());
+ 	}
+@@ -11921,7 +11993,10 @@ void CvUnit::setPromotionReady(bool bNewValue)
+ 			getGroup()->setActivityType(ACTIVITY_AWAKE);
+ 		}
+ 
+-		gDLL->getEntityIFace()->showPromotionGlow(getUnitEntity(), bNewValue);
++		if (!isGraphicsPagedOut())
++		{
++			gDLL->getEntityIFace()->showPromotionGlow(getUnitEntity(), bNewValue);
++		}
+ 
+ 		if (IsSelected())
+ 		{
+@@ -12727,7 +12802,10 @@ void CvUnit::setHasPromotion(PromotionTypes eIndex, bool bNewValue)
+ 		}
+ 
+ 		//update graphics
+-		gDLL->getEntityIFace()->updatePromotionLayers(getUnitEntity());
++		if (!isGraphicsPagedOut())
++		{
++			gDLL->getEntityIFace()->updatePromotionLayers(getUnitEntity());
++		}
+ 	}
+ }
+ 
+@@ -13574,7 +13652,7 @@ bool CvUnit::rangeStrike(int iX, int iY)
+ 		kDefiniton.setPlot(pDefender->plot());
+ 		kDefiniton.setUnit(BATTLE_UNIT_ATTACKER, this);
+ 		kDefiniton.setUnit(BATTLE_UNIT_DEFENDER, pDefender);
+-		gDLL->getEntityIFace()->AddMission(&kDefiniton);
++		addEntityMission(&kDefiniton);
+ 
+ 		//delay death
+ /************************************************************************************************/
+@@ -14248,6 +14326,16 @@ bool CvUnit::isCombatVisible(const CvUnit* pDefender) const
+ 		}
+ 	}
+ 
++	// Graphics paging: a battle that will be shown needs both units' graphics.
++	if (bVisible)
++	{
++		const_cast<CvUnit*>(this)->pageGraphics(true);
++		if (NULL != pDefender)
++		{
++			const_cast<CvUnit*>(pDefender)->pageGraphics(true);
++		}
++	}
++
+ 	return bVisible;
+ }
+ 
+@@ -14513,7 +14601,7 @@ bool CvUnit::airBomb1(int iX, int iY)
+ 		kAirMission.setPlot(pPlot);
+ 		kAirMission.setMissionTime(GC.getMissionInfo((MissionTypes)MISSION_AIRBOMB).getTime() * gDLL->getSecsPerTurn());
+ 
+-		gDLL->getEntityIFace()->AddMission(&kAirMission);
++		addEntityMission(&kAirMission);
+ 	}
+ 	if (isSuicide())
+ 	{
+@@ -14716,7 +14804,7 @@ bool CvUnit::airBomb2(int iX, int iY)
+ 		kAirMission.setDamage(BATTLE_UNIT_ATTACKER, 0);
+ 		kAirMission.setPlot(pPlot);
+ 		kAirMission.setMissionTime(GC.getMissionInfo((MissionTypes)MISSION_AIRBOMB).getTime() * gDLL->getSecsPerTurn());
+-		gDLL->getEntityIFace()->AddMission(&kAirMission);
++		addEntityMission(&kAirMission);
+ 	}
+ 	if (isSuicide())
+ 	{
+@@ -14918,7 +15006,7 @@ bool CvUnit::airBomb3(int iX, int iY)
+ 		kAirMission.setDamage(BATTLE_UNIT_ATTACKER, 0);
+ 		kAirMission.setPlot(pPlot);
+ 		kAirMission.setMissionTime(GC.getMissionInfo((MissionTypes)MISSION_AIRBOMB).getTime() * gDLL->getSecsPerTurn());
+-		gDLL->getEntityIFace()->AddMission(&kAirMission);
++		addEntityMission(&kAirMission);
+ 	}
+ 	if (isSuicide())
+ 	{
+@@ -15144,7 +15232,7 @@ bool CvUnit::airBomb4(int iX, int iY)
+ 		kAirMission.setDamage(BATTLE_UNIT_ATTACKER, 0);
+ 		kAirMission.setPlot(pPlot);
+ 		kAirMission.setMissionTime(GC.getMissionInfo((MissionTypes)MISSION_AIRBOMB).getTime() * gDLL->getSecsPerTurn());
+-		gDLL->getEntityIFace()->AddMission(&kAirMission);
++		addEntityMission(&kAirMission);
+ 	}
+ 	if (isSuicide())
+ 	{
+@@ -15287,7 +15375,7 @@ bool CvUnit::airBomb5(int iX, int iY)
+ 		kAirMission.setDamage(BATTLE_UNIT_ATTACKER, 0);
+ 		kAirMission.setPlot(pPlot);
+ 		kAirMission.setMissionTime(GC.getMissionInfo((MissionTypes)MISSION_AIRBOMB).getTime() * gDLL->getSecsPerTurn());
+-		gDLL->getEntityIFace()->AddMission(&kAirMission);
++		addEntityMission(&kAirMission);
+ 	}
+ 	if (isSuicide())
+ 	{
+@@ -15648,7 +15736,7 @@ bool CvUnit::bombardRanged(int iX, int iY, bool sAttack)
+ 		kDefiniton.setPlot(pPlot);
+ 		kDefiniton.setUnit(BATTLE_UNIT_ATTACKER, this);
+ 		kDefiniton.setUnit(BATTLE_UNIT_DEFENDER, pLoopUnit);
+-		gDLL->getEntityIFace()->AddMission(&kDefiniton);
++		addEntityMission(&kDefiniton);
+ 	}
+ 	return true;
+ }
+@@ -15875,7 +15963,7 @@ void CvUnit::updateStackCombat(bool bQuick)
+ 				kMission.setUnit(BATTLE_UNIT_ATTACKER, this);
+ 				kMission.setUnit(BATTLE_UNIT_DEFENDER, pDefender);
+ 				kMission.setPlot(pPlot);
+-				gDLL->getEntityIFace()->AddMission(&kMission);
++				addEntityMission(&kMission);
+ 
+ 				// Surrender mission
+ 				setCombatTimer(GC.getMissionInfo(MISSION_SURRENDER).getTime());
+@@ -15928,7 +16016,7 @@ void CvUnit::updateStackCombat(bool bQuick)
+ 				{
+ 					ExecuteMove(0.5f, true);
+ 					// RevolutionDCM - stack attack - this next line is one source of stack attack CTD's
+-					gDLL->getEntityIFace()->AddMission(&kBattle);
++					addEntityMission(&kBattle);
+ 				}
+ 			}
+ 		}
+@@ -16204,7 +16292,7 @@ void CvUnit::doOpportunityFire()
+ 							kDefiniton.setPlot(pLoopPlot);
+ 							kDefiniton.setUnit(BATTLE_UNIT_ATTACKER, this);
+ 							kDefiniton.setUnit(BATTLE_UNIT_DEFENDER, pDefender);
+-							gDLL->getEntityIFace()->AddMission(&kDefiniton);
++							addEntityMission(&kDefiniton);
+ 						}
+ 					}
+ 				}
+@@ -16273,7 +16361,7 @@ void CvUnit::doActiveDefense()
+ 							setCombatTimer(GC.getMissionInfo(MISSION_AIRSTRIKE).getTime());
+ 							GC.getGameINLINE().incrementTurnTimer(getCombatTimer());
+ 							kAirMission.setMissionTime(getCombatTimer() * gDLL->getSecsPerTurn());
+-							gDLL->getEntityIFace()->AddMission(&kAirMission);
++							addEntityMission(&kAirMission);
+ 						}
+ 					}
+ 				}
+@@ -16435,7 +16523,7 @@ bool CvUnit::archerBombard(int iX, int iY, bool sAttack)
+ 		kDefiniton.setPlot(pPlot);
+ 		kDefiniton.setUnit(BATTLE_UNIT_ATTACKER, this);
+ 		kDefiniton.setUnit(BATTLE_UNIT_DEFENDER, pLoopUnit);
+-		gDLL->getEntityIFace()->AddMission(&kDefiniton);
++		addEntityMission(&kDefiniton);
+ 	}
+ 	return true;
+ }
+@@ -16571,7 +16659,7 @@ bool CvUnit::fighterEngage(int iX, int iY)
+ 			kAirMission.setMissionTime(GC.getMissionInfo(MISSION_AIRSTRIKE).getTime() * gDLL->getSecsPerTurn());
+ 			setCombatTimer(GC.getMissionInfo(MISSION_AIRSTRIKE).getTime());
+ 			GC.getGameINLINE().incrementTurnTimer(getCombatTimer());
+-			gDLL->getEntityIFace()->AddMission(&kAirMission);
++			addEntityMission(&kAirMission);
+ 		}
+ 		if (isDead())
+ 		{
+diff --git a/Assets/CvGameCoreDLL/CvUnit.h b/Assets/CvGameCoreDLL/CvUnit.h
+index ced4b75..1f3f79f 100644
+--- a/Assets/CvGameCoreDLL/CvUnit.h
++++ b/Assets/CvGameCoreDLL/CvUnit.h
+@@ -77,6 +77,8 @@ public:
+ 	void uninit();
+ 	void reset(int iID = 0, UnitTypes eUnit = NO_UNIT, PlayerTypes eOwner = NO_PLAYER, bool bConstructorCall = false);
+ 	void setupGraphical();
++	bool pageGraphics(bool bIn);	// graphics paging around the camera; true if the unit's graphics changed
++	bool canPageGraphicsOut() const;
+ 
+ 	void convert(CvUnit* pUnit);																																	// Exposed to Python
+ 	void kill(bool bDelay, PlayerTypes ePlayer = NO_PLAYER);														// Exposed to Python
+diff --git a/Assets/Python/EntryPoints/CvGameInterface.py b/Assets/Python/EntryPoints/CvGameInterface.py
+new file mode 100644
+index 0000000..65a7b96
+--- /dev/null
++++ b/Assets/Python/EntryPoints/CvGameInterface.py
+@@ -0,0 +1,223 @@
++## Sid Meier's Civilization 4
++## Copyright Firaxis Games 2005
++##
++## #####   WARNING - MODIFYING THE FUNCTION NAMES OF THIS FILE IS PROHIBITED  #####
++## 
++## The app specifically calls the functions as they are named. Use this file to pass 
++## args to another file that contains your modifications
++
++#
++import CvUtil
++import CvGameUtils
++import CvEventInterface
++from CvPythonExtensions import *
++
++# globals
++gc = CyGlobalContext()
++normalGameUtils = CvGameUtils.CvGameUtils()
++
++def gameUtils():
++	' replace normalGameUtils with your mod version'
++	return normalGameUtils
++		
++def isVictoryTest():
++	#CvUtil.pyPrint( "CvGameInterface.isVictoryTest" )
++	return gameUtils().isVictoryTest()
++
++def isPlayerResearch(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.isPlayerResearch" )
++	return gameUtils().isPlayerResearch(argsList)
++
++def createBarbarianCities():
++	#CvUtil.pyPrint( "CvGameInterface.createBarbarianCities" )
++	return gameUtils().createBarbarianCities()
++
++def createBarbarianUnits():
++	#CvUtil.pyPrint( "CvGameInterface.createBarbarianUnits" )
++	return gameUtils().createBarbarianUnits()
++
++def skipResearchPopup(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.skipResearchPopup" )
++	return gameUtils().skipResearchPopup(argsList)
++
++def showTechChooserButton(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.showTechChooserButton" )
++	return gameUtils().showTechChooserButton(argsList)
++
++def getFirstRecommendedTech(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.getFirstRecommendedTech" )
++	return gameUtils().getFirstRecommendedTech(argsList)
++
++def getSecondRecommendedTech(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.getSecondRecommendedTech" )
++	return gameUtils().getSecondRecommendedTech(argsList)
++
++def skipProductionPopup(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.skipProductionPopup" )
++	return gameUtils().skipProductionPopup(argsList)
++
++def showExamineCityButton(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.showExamineCityButton" )
++	return gameUtils().showExamineCityButton(argsList)
++
++def getRecommendedUnit(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.getRecommendedUnit" )
++	return gameUtils().getRecommendedUnit(argsList)
++
++def getRecommendedBuilding(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.getRecommendedBuilding" )
++	return gameUtils().getRecommendedBuilding(argsList)
++
++def updateColoredPlots():
++	#CvUtil.pyPrint( "CvGameInterface.updateColoredPlots" )
++	return gameUtils().updateColoredPlots()
++
++def isActionRecommended(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.isActionRecommended" )
++	return gameUtils().isActionRecommended(argsList)
++
++def cannotHandleAction(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotHandleAction" )
++	return gameUtils().cannotHandleAction(argsList)
++
++def cannotSelectionListMove(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotSelectionListMove" )
++	return gameUtils().cannotSelectionListMove(argsList)
++
++def cannotSelectionListGameNetMessage(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotSelectionListGameNetMessage" )
++	return gameUtils().cannotSelectionListGameNetMessage(argsList)
++
++def cannotDoControl(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotDoControl" )
++	return gameUtils().cannotDoControl(argsList)
++
++def canResearch(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.canResearch" )
++	return gameUtils().canResearch(argsList)
++
++def cannotResearch(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotResearch" )
++	return gameUtils().cannotResearch(argsList)
++
++def canDoCivic(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.canDoCivic" )
++	return gameUtils().canDoCivic(argsList)
++
++def cannotDoCivic(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotDoCivic" )
++	return gameUtils().cannotDoCivic(argsList)
++
++def canTrain(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.canTrain" )
++	return gameUtils().canTrain(argsList)
++
++def cannotTrain(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotTrain" )
++	return gameUtils().cannotTrain(argsList)
++
++def canConstruct(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.canConstruct" )
++	return gameUtils().canConstruct(argsList)
++
++def cannotConstruct(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotConstruct" )
++	return gameUtils().cannotConstruct(argsList)
++
++def canCreate(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.canCreate" )
++	return gameUtils().canCreate(argsList)
++
++def cannotCreate(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotCreate" )
++	return gameUtils().cannotCreate(argsList)
++
++def canMaintain(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.canMaintain" )
++	return gameUtils().canMaintain(argsList)
++
++def cannotMaintain(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.cannotMaintain" )
++	return gameUtils().cannotMaintain(argsList)
++
++def AI_chooseTech(argsList):
++	'AI chooses what to research'
++	#CvUtil.pyPrint( "CvGameInterface.AI_chooseTech" )
++	return gameUtils().AI_chooseTech(argsList)
++
++def AI_chooseProduction(argsList):
++	'AI chooses city production'
++	#CvUtil.pyPrint( "CvGameInterface.AI_chooseProduction" )
++	return gameUtils().AI_chooseProduction(argsList)
++
++def AI_unitUpdate(argsList):
++	'AI moves units - return 0 to let AI handle it, return 1 to say that the move is handled in python '
++	#CvUtil.pyPrint( "CvGameInterface.AI_unitUpdate" )
++	return gameUtils().AI_unitUpdate(argsList)
++
++def AI_doWar(argsList):
++	'AI decides whether to make war or peace - return 0 to let AI handle it, return 1 to say that the move is handled in python '
++	#CvUtil.pyPrint( "CvGameInterface.AI_doWar" )
++	return gameUtils().AI_doWar(argsList)
++
++def AI_doDiplo(argsList):
++	'AI decides does diplomacy for the turn - return 0 to let AI handle it, return 1 to say that the move is handled in python '
++	#CvUtil.pyPrint( "CvGameInterface.AI_doDiplo" )
++	return gameUtils().AI_doDiplo(argsList)
++
++def calculateScore(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.calculateScore" )
++	return gameUtils().calculateScore(argsList)
++
++def doHolyCity():
++	#CvUtil.pyPrint( "CvGameInterface.doHolyCity" )
++	return gameUtils().doHolyCity()
++
++def doHolyCityTech(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doHolyCityTech" )
++	return gameUtils().doHolyCityTech(argsList)
++
++def doGold(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doGold" )
++	return gameUtils().doGold(argsList)
++
++def doResearch(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doResearch" )
++	return gameUtils().doResearch(argsList)
++
++def doGoody(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doGoody" )
++	return gameUtils().doGoody(argsList)
++
++def doGrowth(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doGrowth" )
++	return gameUtils().doGrowth(argsList)
++
++def doProduction(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doProduction" )
++	return gameUtils().doProduction(argsList)
++
++def doCulture(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doCulture" )
++	return gameUtils().doCulture(argsList)
++
++def doPlotCulture(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doPlotCulture" )
++	return gameUtils().doPlotCulture(argsList)
++
++def doReligion(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doReligion" )
++	return gameUtils().doReligion(argsList)
++
++def doGreatPeople(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doGreatPeople" )
++	return gameUtils().doGreatPeople(argsList)
++
++def doMeltdown(argsList):
++	#CvUtil.pyPrint( "CvGameInterface.doMeltdown" )
++	return gameUtils().doMeltdown(argsList)
++
++# Rise of Mankind: the camera zoom for graphics paging (CvGame::updateGraphicsPaging), in thousandths.
++def getCameraZoom():
++	return int(CyCamera().GetZoom() * 1000)
++
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index b983673..a113065 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -887,4 +887,60 @@
+ 		<DefineName>AIAUTOPLAY_CANCEL_ON_LOAD</DefineName>
+ 		<iDefineIntVal>1</iDefineIntVal>
+ 	</Define>
++<!-- Graphics paging (CvGame::updateGraphicsPaging) -->
++	<!-- Graphics paging: 1 keeps unit, city and plot graphics only near where the camera looks; 0 keeps them everywhere -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
++	</Define>
++	<!-- plots east and west of the look-at plot, at the widest zoom -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_RANGE_X</DefineName>
++		<iDefineIntVal>40</iDefineIntVal>
++	</Define>
++	<!-- plots north (the far side of the screen), at the widest zoom -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_RANGE_NORTH</DefineName>
++		<iDefineIntVal>40</iDefineIntVal>
++	</Define>
++	<!-- plots south, at the widest zoom -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_RANGE_SOUTH</DefineName>
++		<iDefineIntVal>16</iDefineIntVal>
++	</Define>
++	<!-- plots beyond the window that keep whatever graphics they have, so a camera moving back and forth does not rebuild -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_MARGIN</DefineName>
++		<iDefineIntVal>4</iDefineIntVal>
++	</Define>
++	<!-- plots the camera moves before the window follows at once -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_STEP</DefineName>
++		<iDefineIntVal>2</iDefineIntVal>
++	</Define>
++	<!-- milliseconds between passes while the camera stands still -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_INTERVAL_MS</DefineName>
++		<iDefineIntVal>500</iDefineIntVal>
++	</Define>
++	<!-- 1 scales the window with the camera zoom (0 to 1); 0 keeps it at the widest-zoom size -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_ZOOM</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
++	</Define>
++	<!-- the window at zoom z is z times this percent of the widest, at most 100 -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_ZOOM_SAFETY_PERCENT</DefineName>
++		<iDefineIntVal>150</iDefineIntVal>
++	</Define>
++	<!-- the window is never smaller than this percent of the widest -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_ZOOM_MIN_PERCENT</DefineName>
++		<iDefineIntVal>35</iDefineIntVal>
++	</Define>
++	<!-- 1 writes the window and the counts of each pass to Logs/GraphicsPaging.log (needs logging on) -->
++	<Define>
++		<DefineName>GRAPHICS_PAGING_LOG</DefineName>
++		<iDefineIntVal>0</iDefineIntVal>
++	</Define>
+ </Civ4Defines>
+-- 
+2.43.0
+
