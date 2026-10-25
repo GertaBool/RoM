@@ -522,5 +522,40 @@
    "fixes/graphics-paging-coherence/",
    "builds/graphics-paging-coherence/"
   ]
+ },
+ {
+  "id": "H8",
+  "type": "hypothesis",
+  "line": "graphics-rendering",
+  "text": "What the screen shows follows from the camera: its eye and target (CyCamera GetCurrentPosition, GetLookAt), the frustum of FIELD_OF_VIEW (42 degrees, GlobalDefines.xml, which the executable reads through CvGlobals::getFIELD_OF_VIEW) and the screen's aspect ratio, cast onto the map's ground plane in world units of PLOT_SIZE (180) per plot (CvMap::plotXToPointX). A paging window taken from that footprint plus a margin holds everything the screen shows at any zoom, pitch and turn of the camera, where the fixed window (40 east and west, 40 north, 16 south) does not: at 6000 units and 28 degrees of pitch the screen reaches 100 plots north. Contradicted if the game shows units, cities or features without graphics with the camera window, or if the window the DLL computes differs from the geometry."
+ },
+ {
+  "id": "P13",
+  "type": "prediction",
+  "line": "graphics-rendering",
+  "hypotheses": [
+   "H8"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab claude/paging-coherence 006b7840 (P12): with GRAPHICS_PAGING_CAMERA 1, CvGame::graphicsWindowFromCamera reads the camera through CvGameInterface.getCameraView (CyCamera GetCurrentPosition and GetLookAt, the screen's resolution, CyEngine isGlobeviewUp), casts the rays through the corners and edge midpoints of the view (FIELD_OF_VIEW vertically, times the aspect ratio horizontally) onto the ground plane, and takes the footprint's extent west, east, north and south of the look-at plot, plus one plot; GRAPHICS_PAGING_RANGE_* remain the window when the camera cannot be read; a side that grows applies at once, a smaller window after GRAPHICS_PAGING_SHRINK_MS (5000); in globe view nothing changes; the zoom scaling (GRAPHICS_PAGING_ZOOM, getCameraZoom) is removed. Harness: HARNESS_CAMERA_VIEW=<distance>,<pitch>,<yaw>,<width>,<height> answers getCameraView with that camera at the look-at plot (HH_cameraView), and the engine gives the landscape's size (HH_landscapeSize). Arm a: this build, HARNESS_CAMERA_VIEW=2200,45,0,1920,1080; arm b: the P12 build (006b7840). Both from turn 0 of the user's Huge Mediterranean WorldBuilder map (all seats AI, HARNESS_ACTIVE=0, camera following the active player's units, a check every update), 20 turns per run, seeds from ledger.py seeds. The screen itself is judged by the user's game.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 30,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/Python/EntryPoints/CvGameInterface.py",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "toolchain/harness/engine.cpp",
+   "toolchain/harness/HarnessHooks.cpp",
+   "fixes/graphics-paging-camera.patch",
+   "fixes/graphics-paging-camera/",
+   "builds/graphics-paging-camera/"
+  ]
  }
 ]
