@@ -76,5 +76,30 @@ source declares those functions. This follows `HARNESS_SETTLE_REACH`. It built w
 - **Clang gate:** 0 new diagnostics on `CvGame.cpp` ([clang-gate.log](clang-gate.log)).
 - **Patch:** `apply.py --check` and apply on a clean `4ec8ebc` checkout give tree `4985d7da`
   ([manifest.json](manifest.json)).
-- **P15 evidence:** pending.
+- **GitLab:** branch `claude/paging-interface` (`8fd92c6a`, three connector commits) holds tree
+  `4985d7da`, the tested tree. Merge request !62.
+  - The connector wrote the new Python lines with LF. The third commit makes them CRLF, as the rest
+    of the file is.
+- **P15 evidence:** 30 seeded runs per arm.
+  - Setup: 20 turns from turn 0 of `PrivateMaps/Mediterranean, Huge.CivBeyondSwordWBSave` (9 players),
+    `HARNESS_GRAPHICS=1`, `HARNESS_ACTIVE=0`, `HARNESS_CAMERA_FOLLOW=1`, `HARNESS_CHECK_EVERY=1`,
+    `HARNESS_CAMERA_VIEW=2200,45,0,1920,1080`.
+  - Arms: a is build `504830a0dee0`, b is `526bbebe2dc9` (`main` `4ec8ebc`).
+  - Map: P15 names this map. The P11 to P13 notes report 16 capitals on turn 1, which fits
+    `Democragphica, Huge Mediterranean` (17 players) better. Which map they used is *open*.
+  - Completion: all 60 runs completed (ledger: corroborated, p nan, A 0.500).
+  - Game state: the telemetry, timings aside, is identical in all 30 seed pairs.
+  - Graphics lines: the turn-20 `graphics turn` line matches in only 4 pairs, because paging is timed
+    by `GetTickCount`. Three repeats of arm b with one seed gave 6, 6 and 7 entities set up, against
+    13 in its evidence run.
+  - Executable checks (cumulative over every update):
+    - arm a: no flagless live unit, route without symbol, or on-screen unit, city or feature without
+      graphics;
+    - arm b: no flagless live unit and no route without symbol; one check pass in one run (seed
+      2074952722, before turn 15) found one on-screen unit without graphics or flag.
+
+    The DLL logic of the two arms is the same: the harness answers `getCameraView` whatever the module.
+    This one case is therefore a property of camera paging in both builds, not of this change. A
+    reading: the camera had just moved to another unit, and the paging pass runs at most every
+    100 ms (`updateGraphicsPaging`), while the harness plays many updates in that time.
 - **In game:** not yet tested.

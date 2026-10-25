@@ -1,5 +1,27 @@
 # Tested source fixes
 
+## Graphics paging: the camera read through CvScreensInterface
+
+[graphics-paging-interface.patch](graphics-paging-interface.patch) applies to GitLab `main`
+`4ec8ebc` and is GitLab merge request !62. Graphics paging read the camera through a
+`CvGameInterface.py` that !57 added to the mod. That file is not the Beyond the Sword one: it lacks
+22 functions Firaxis's own DLL calls, and it bypasses BUG's dispatcher, through which RoM's
+`RoMGameUtils` rules are reached. The patch reads the camera through `CvScreensInterface` and
+deletes the mod's copy, so the game's own file answers again.
+
+Build `504830a0dee0`: 0 errors, 0 warnings. In 30 seeded harness runs per arm, all runs complete
+and the game is identical to `main`'s. The harness has no Python, so the effect on RoM's rules is
+for the game to show. Installing it means deleting one file by hand. See the
+[fault and checks](graphics-paging-interface/README.md) and the
+[build](../builds/graphics-paging-interface/README.md).
+
+## Graphics paging: the window from the camera
+
+[graphics-paging-camera.patch](graphics-paging-camera.patch) applies after
+`graphics-paging-coherence.patch`; both are GitLab merge request !60. The paging window is what the
+camera shows, computed from its eye, target, `FIELD_OF_VIEW` and the screen's aspect ratio. See the
+[notes](graphics-paging-camera/README.md) and the [build](../builds/graphics-paging-camera/README.md).
+
 ## Graphics paging coherence: the crash on moving a unit
 
 [graphics-paging-coherence.patch](graphics-paging-coherence.patch) applies to GitLab `main`

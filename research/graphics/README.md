@@ -188,16 +188,26 @@ bytes in the executable.
 ## 5. Changes, by expected effect
 
 Each changes the DLL or the mod's Python, so each needs the user's approval of its design and a
-prediction in `method/mission/register.json` before it is built (CLAUDE.md rules 9 and 10). G1 is
-built (`fixes/graphics-paging/README.md`, `builds/graphics-paging/`); G2 to G5 are not. They are
-ordered by expected effect on the crash first (memory), then on time.
+prediction in `method/mission/register.json` before it is built (CLAUDE.md rules 9 and 10). G1 to
+G4 are built and on GitLab `main`; G5 is not. They are ordered by expected effect on the crash
+first (memory), then on time.
+
+*Status (corrected 25 October, after GitLab !60):*
+- **G1:** `fixes/graphics-paging.patch` (P7, P8), then the fixes for the freeze at the first city
+  (`fixes/graphics-paging-fix.patch`, P11) and the crash on moving a unit
+  (`fixes/graphics-paging-coherence.patch`, P12).
+- **G2, G3, G4:** one bundle, `fixes/graphics-rendering.patch` (P9, P10).
+- **The window:** from the camera, not from a zoom scale (`fixes/graphics-paging-camera.patch`, P13).
+- **The camera reader:** from `CvScreensInterface`, not from a mod copy of `CvGameInterface.py`, which
+  hid the game's file (`fixes/graphics-paging-interface.patch`, P15, GitLab !62).
+- **In game:** none of these has been tested yet.
 
 ### G1. Graphics paging around the camera (space; large)
 
 **Built** as `fixes/graphics-paging.patch`, with predictions P7 and P8. Both are corroborated in
 the harness, and the game state is identical with paging on and off. The design below is the one
 approved. Two things differ in the build: battles that will be shown page their units in, and the
-window scales with the camera zoom. The memory saved in the executable is open until the user
+window scaled with the camera zoom (replaced by the window from the camera, P13). The memory saved in the executable is open until the user
 measures it. *Correction:* the trees of this map are tile art, not feature symbols (2 feature
 symbols at setup, section 3), so paging leaves trees as they are. On plots it acts on routes and
 plot builders.
