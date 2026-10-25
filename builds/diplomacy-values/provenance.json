@@ -1,0 +1,23 @@
+{
+ "serves": [
+  "P18",
+  "P19"
+ ],
+ "patch": "fixes/diplomacy-values.patch",
+ "build_id": "c123133807f4",
+ "source": "GitLab main 3bec049 plus fixes/diplomacy-values.patch: trade values from effects and offers by value, AI_DIPLOMACY_FLAGS 15",
+ "source_commit": "GitLab claude/diplomacy-values (tested locally; the connector commits hold the same tree)",
+ "source_tree": "d92c68e121f5e3f66590cf93a82564520d8ebd7d",
+ "base_commit": "3bec049",
+ "dll_sha256": "a5f0ae0d5d4c2901a55aa4ab589ad05a72483e1afaec811bfeb4546f6c42031f",
+ "dll_size": 6156288,
+ "files": {
+  "BBAI_AI_Variables_GlobalDefines.xml": "a91aad53ece98be1f027c3e549352f220e3ada31ace16a83f22aae5d5226dfea"
+ },
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine 9.0, TARGET=release; 0 errors, 0 warnings",
+ "tests": "clang gate on CvPlayerAI.cpp, CvTeamAI.cpp, CvGameCoreUtils.cpp: 0 new diagnostics (fixes/diplomacy-values/clang-gate.log). With AI_DIPLOMACY_FLAGS 0 the harness game (Mediterranean Standard, Normal, seed 777, 150 turns) is identical to build 504830a0dee0's in every turn line, timings aside. fixes/apply.py on a clean 3bec049 gives tree d92c68e1.",
+ "tested_headless": "P18 and P19 evidence pending",
+ "tested_in_game": false,
+ "previous": "builds/graphics-paging-interface (504830a0dee0)",
+ "gitlab_commit": "pending (branch claude/diplomacy-values)"
+}

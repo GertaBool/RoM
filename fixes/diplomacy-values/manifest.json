@@ -1,0 +1,51 @@
+{
+  "base_repository": "https://gitlab.com/aretemaxxing-group/rise-of-mankind.git",
+  "base_commit": "3bec049c2614c0b1e367a3162c7dde74f48c13c0",
+  "base_tree": "4985d7da7af168cfdbb4ba9cfeebc26f566b81e1",
+  "tested_source_commit": "GitLab branch claude/diplomacy-values (local commit; the connector commits hold the same tree)",
+  "tested_source_tree": "d92c68e121f5e3f66590cf93a82564520d8ebd7d",
+  "patch": "../diplomacy-values.patch",
+  "patch_sha256": "fe0712a0993d2babd384502c5e8a58e5565c4f40308e1d53cfc640fda6547f8f",
+  "relationship_to_prior_patch": "Applies to GitLab main 3bec049 (after merge request !62, fixes/graphics-paging-interface.patch).",
+  "binary_rebuilt": true,
+  "save_format": {
+    "layout_changed": false,
+    "older_readers_can_read_new_saves": true,
+    "note": "No saved state is added; the switch only changes decisions."
+  },
+  "switches": "AI_DIPLOMACY_FLAGS 15 (BBAI_AI_Variables_GlobalDefines.xml): 1 tech cost, 2 resource values and the loss check, 4 offers by value, 8 purchase reserve; 0 is the old AI.",
+  "serves": [
+    "P18",
+    "P19"
+  ],
+  "files": {
+    "Assets/CvGameCoreDLL/CvGameCoreUtils.cpp": {
+      "before_sha256": "3452a5f038f3ed18cb7a24e3bc30f90924b03ce70dcf5be691d1a216048aa2f1",
+      "after_sha256": "aa85918b612f5ea8396c8eadaf32be9796e60eb975d7afe2e1ae38b5737ad418"
+    },
+    "Assets/CvGameCoreDLL/CvGameCoreUtils.h": {
+      "before_sha256": "6b53c3eed972e1f64f6f2aa3c592752af0fa8a04ed9364e387d475c399265097",
+      "after_sha256": "2517d597d8c163b7f1ec244b684d20638a3b9148e16de6e6cb5d1526b74fef88"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.cpp": {
+      "before_sha256": "eb4867807af569c7b730d23bd970d97ca79fa83dae21730bf7cbb0d4cb9441fe",
+      "after_sha256": "0ceb536a01079af7b8d03ffc94852c11816136685f455583a2fdff0d62dd399e"
+    },
+    "Assets/CvGameCoreDLL/CvPlayerAI.h": {
+      "before_sha256": "d5511b1b099f8bcf0e14c1965b532cf1a9cb2dbccf1ef4e39b63954c34e64179",
+      "after_sha256": "6ab3ed4348c8eed17c89e6b30beb76b5aa0592d80700ad02a90659f07eba8cc5"
+    },
+    "Assets/CvGameCoreDLL/CvTeamAI.cpp": {
+      "before_sha256": "c38b16c55bc93b00444aa51198f32b1d696bf42c82505dc238fb5fd2b4e3baff",
+      "after_sha256": "febcb2cbbb340f9aa581f162939fca1e09670dbf1813bcdb9a4b58a4559278d3"
+    },
+    "Assets/XML/BBAI_AI_Variables_GlobalDefines.xml": {
+      "before_sha256": "f47ab97d3d22a92e0c067debf27aa60d6e1662dd5e5d730dabbcaea625f560e2",
+      "after_sha256": "a91aad53ece98be1f027c3e549352f220e3ada31ace16a83f22aae5d5226dfea"
+    },
+    "Docs/DIPLOMACY_VALUES.md": {
+      "before_sha256": null,
+      "after_sha256": "551b7711f9ecfc19300ef1dcff91585e06b965a99057d3e97222763ade7b3a75"
+    }
+  }
+}

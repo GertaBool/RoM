@@ -1,0 +1,630 @@
+From 584d66fb8dc94d6ce458d31424b4adffd6bbde14 Mon Sep 17 00:00:00 2001
+From: Gigachad Enthusiast <32457258-AreteMaxxing@users.noreply.gitlab.com>
+Date: Sun, 25 Oct 2026 17:50:39 +0000
+Subject: [PATCH] Diplomacy: trade values from effects, offers by value
+ (AI_DIPLOMACY_FLAGS)
+
+The AI drew every offer at random, priced techs without its research
+modifier, valued resources by fixed weights blind to its cities and
+could trade its whole treasury. AI_DIPLOMACY_FLAGS (default 15, 0 is
+the old AI): 1 a tech's value is its remaining research at the
+receiver's own research rate; 2 a resource's value is its effect in
+the valuer's own cities (happiness and health where needed, building
+yield bonuses such as Town Essentials with Coffee or a Forge with Gold
+on the cities' real yields, plus what it unlocks), and a new deal must
+cover the AI's own loss; 4 offers ask for what is worth most to the AI
+and give what is worth least, no tech sold to a higher-ranked team;
+8 tech purchases the AI proposes keep its gold target.
+
+Serves: P18, P19
+---
+ Assets/CvGameCoreDLL/CvGameCoreUtils.cpp      |   5 +
+ Assets/CvGameCoreDLL/CvGameCoreUtils.h        |  13 +
+ Assets/CvGameCoreDLL/CvPlayerAI.cpp           | 319 +++++++++++++++++-
+ Assets/CvGameCoreDLL/CvPlayerAI.h             |   3 +
+ Assets/CvGameCoreDLL/CvTeamAI.cpp             |   7 +
+ .../XML/BBAI_AI_Variables_GlobalDefines.xml   |  12 +
+ Docs/DIPLOMACY_VALUES.md                      |  95 ++++++
+ 7 files changed, 444 insertions(+), 10 deletions(-)
+ create mode 100644 Docs/DIPLOMACY_VALUES.md
+
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+index cf2edcf..d74a996 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.cpp
+@@ -7,6 +7,11 @@ bool isAICunning(int iFlag)
+ 	return (GC.getDefineINT("AI_CUNNING_FLAGS") & iFlag) != 0;
+ }
+ 
++bool isAIDiplomacy(int iFlag)
++{
++	return (GC.getDefineINT("AI_DIPLOMACY_FLAGS") & iFlag) != 0;
++}
++
+ // Collateral strength as CvUnit::collateralCombat applies it: an integer, so 25 % of
+ // strength 3 (an archer) is nothing at all.
+ int effectiveCollateral(const CvUnit* pUnit)
+diff --git a/Assets/CvGameCoreDLL/CvGameCoreUtils.h b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+index 5adcac0..fc321cd 100644
+--- a/Assets/CvGameCoreDLL/CvGameCoreUtils.h
++++ b/Assets/CvGameCoreDLL/CvGameCoreUtils.h
+@@ -412,6 +412,19 @@ int calculateLevel(int iExperience, PlayerTypes ePlayer);								// Exposed to P
+ // 32 ask and accept war help only from teams near the target, 64 city archers and
+ // siege fire ranged strikes at enemies next to the city.
+ bool isAICunning(int iFlag);
++// Diplomacy AI switches (AI_DIPLOMACY_FLAGS in BBAI_AI_Variables_GlobalDefines.xml; 0 is the old AI):
++// 1 a tech's trade value is its remaining research at the receiver's own research rate, 2 a
++// resource's trade value is its effect in the valuer's own cities, 4 offers ask for what is worth
++// most to the AI and give what is worth least to it (no tech sold to a higher-ranked team), 8 tech
++// purchases the AI proposes keep its gold target.
++enum
++{
++	AI_DIPLOMACY_TECH_COST = 1,
++	AI_DIPLOMACY_RESOURCE_VALUE = 2,
++	AI_DIPLOMACY_OFFERS = 4,
++	AI_DIPLOMACY_RESERVE = 8
++};
++bool isAIDiplomacy(int iFlag);
+ int effectiveCollateral(const CvUnit* pUnit);
+ void warLogTurn(int iTurn);
+ void warLogWar(TeamTypes eTeam, TeamTypes eTarget, int iWarPlan, bool bPeace);
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 1d65775..e675e66 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -9013,6 +9013,21 @@ bool CvPlayerAI::AI_considerOffer(PlayerTypes ePlayer, const CLinkList<TradeData
+ 	int iOurValue = GET_PLAYER(ePlayer).AI_dealVal(getID(), pOurList, false, iChange);
+ 	int iTheirValue = AI_dealVal(ePlayer, pTheirList, false, iChange);
+ 
++	// Diplomacy switch 2: what we give is valued as they value it; for a new deal, a resource we give
++	// must not cost our own cities more than that (AI_bonusTradeVal of losing it).
++	if (isAIDiplomacy(AI_DIPLOMACY_RESOURCE_VALUE) && iChange > -1)
++	{
++		int iOurLoss = 0;
++		for (pNode = pOurList->head(); pNode; pNode = pOurList->next(pNode))
++		{
++			if (pNode->m_data.m_eItemType == TRADE_RESOURCES)
++			{
++				iOurLoss += AI_bonusTradeVal((BonusTypes)(pNode->m_data.m_iData), ePlayer, -1);
++			}
++		}
++		iOurValue = std::max(iOurValue, iOurLoss);
++	}
++
+ 	if (iOurValue > 0 && 0 == pTheirList->getLength() && 0 == iTheirValue)
+ 	{
+ 		if (GET_TEAM(getTeam()).isVassal(GET_PLAYER(ePlayer).getTeam()) && CvDeal::isVassalTributeDeal(pOurList))
+@@ -10106,10 +10121,30 @@ int CvPlayerAI::AI_bonusTradeVal(BonusTypes eBonus, PlayerTypes ePlayer, int iCh
+ 
+ 	FAssertMsg(ePlayer != getID(), "shouldn't call this function on ourselves");
+ 
+-	iValue = AI_bonusVal(eBonus, iChange);
++	if (isAIDiplomacy(AI_DIPLOMACY_RESOURCE_VALUE))
++	{
++		// Diplomacy switch 2: the resource's effect in our own cities, converted as gold per turn
++		// is (AI_goldPerTurnTradeVal), plus what it unlocks and corporations, scaled by our own
++		// city count. A copy we already have, or one of two we hold, changes nothing in our cities.
++		const int iCount = getNumAvailableBonuses(eBonus);
++		const bool bLosing = (iChange < 0);
++		int iEffect100 = 0;
++		int iUnlock = 0;
++		if ((iChange == 0) || (bLosing ? (iCount <= 1) : (iCount == 0)))
++		{
++			iEffect100 = AI_bonusCityValue(eBonus, bLosing);
++			iUnlock = AI_bonusUnlockVal(eBonus);
++		}
++		iValue = ((iUnlock + AI_corporationBonusVal(eBonus)) * ((getNumCities() + 3) * 30)) / 100;
++		iValue += (iEffect100 * AI_goldTradeValuePercent()) / 10000;
++	}
++	else
++	{
++		iValue = AI_bonusVal(eBonus, iChange);
+ 
+-	iValue *= ((std::min(getNumCities(), GET_PLAYER(ePlayer).getNumCities()) + 3) * 30);
+-	iValue /= 100;
++		iValue *= ((std::min(getNumCities(), GET_PLAYER(ePlayer).getNumCities()) + 3) * 30);
++		iValue /= 100;
++	}
+ 
+ 	iValue *= std::max(0, (GC.getBonusInfo(eBonus).getAITradeModifier() + 100));
+ 	iValue /= 100;
+@@ -10123,6 +10158,264 @@ int CvPlayerAI::AI_bonusTradeVal(BonusTypes eBonus, PlayerTypes ePlayer, int iCh
+ }
+ 
+ 
++// Diplomacy switch 2: what a resource does in our cities each turn, in gold-equivalents x100. Food
++// and production count 2, commerce 1 times what a point of commerce yields in the city after its
++// commerce modifiers (a market's, a library's). Gaining: happiness lets angry citizens work (half a
++// citizen in a growing city at its limit), health removes the food lost to unhealthiness (half a
++// point in a growing city at its limit), and the city's buildings apply their BonusYieldModifiers
++// to its base yields (Town Essentials with Coffee, a Forge with Gold). Losing (bLosing): the
++// citizens and food the city would lose, and the same yields.
++int CvPlayerAI::AI_bonusCityValue(BonusTypes eBonus, bool bLosing) const
++{
++	if (GET_TEAM(getTeam()).isBonusObsolete(eBonus))
++	{
++		return 0;
++	}
++
++	const CvBonusInfo& kBonus = GC.getBonusInfo(eBonus);
++	std::vector<BuildingTypes> aeBuildings;
++	for (int iB = 0; iB < GC.getNumBuildingInfos(); iB++)
++	{
++		const CvBuildingInfo& kBuilding = GC.getBuildingInfo((BuildingTypes)iB);
++		bool bActs = (kBuilding.getBonusHappinessChanges(eBonus) > 0) || (kBuilding.getBonusHealthChanges(eBonus) > 0);
++		for (int iY = 0; !bActs && iY < NUM_YIELD_TYPES; iY++)
++		{
++			bActs = (kBuilding.getBonusYieldModifier(eBonus, iY) != 0);
++		}
++		if (bActs)
++		{
++			aeBuildings.push_back((BuildingTypes)iB);
++		}
++	}
++
++	static const int aiYieldWeight[NUM_YIELD_TYPES] = {2, 2, 1};
++	int iTotal100 = 0;
++	int iLoop;
++	for (CvCity* pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
++	{
++		int iHappy = std::max(0, kBonus.getHappiness());
++		int iHealth = std::max(0, kBonus.getHealth());
++		int aiModifier[NUM_YIELD_TYPES] = {0, 0, 0};
++		for (size_t iK = 0; iK < aeBuildings.size(); iK++)
++		{
++			const int iNum = pLoopCity->getNumActiveBuilding(aeBuildings[iK]);
++			if (iNum > 0)
++			{
++				const CvBuildingInfo& kBuilding = GC.getBuildingInfo(aeBuildings[iK]);
++				iHappy += iNum * std::max(0, kBuilding.getBonusHappinessChanges(eBonus));
++				iHealth += iNum * std::max(0, kBuilding.getBonusHealthChanges(eBonus));
++				for (int iY = 0; iY < NUM_YIELD_TYPES; iY++)
++				{
++					aiModifier[iY] += iNum * kBuilding.getBonusYieldModifier(eBonus, iY);
++				}
++			}
++		}
++
++		// commerce output per point of commerce yield, x100
++		int iCommerceOutput = 0;
++		for (int iC = 0; iC < NUM_COMMERCE_TYPES; iC++)
++		{
++			iCommerceOutput += pLoopCity->getCommerceRate((CommerceTypes)iC);
++		}
++		const int iCommerceYield = pLoopCity->getYieldRate(YIELD_COMMERCE);
++		const int iCommerceFactor100 = (iCommerceYield > 0) ? std::max(100, (100 * iCommerceOutput) / iCommerceYield) : 100;
++
++		// one working citizen: the city's weighted base yield per citizen, x100
++		int iCitizen100 = 0;
++		for (int iY = 0; iY < NUM_YIELD_TYPES; iY++)
++		{
++			iCitizen100 += aiYieldWeight[iY] * pLoopCity->getBaseYieldRate((YieldTypes)iY) * ((iY == YIELD_COMMERCE) ? iCommerceFactor100 : 100);
++		}
++		iCitizen100 /= std::max(1, pLoopCity->getPopulation());
++
++		const bool bGrowing = (pLoopCity->foodDifference() > 0);
++		const int iHappySurplus = pLoopCity->happyLevel() - pLoopCity->unhappyLevel();
++		const int iHealthSurplus = pLoopCity->goodHealth() - pLoopCity->badHealth();
++		const int iFood100 = aiYieldWeight[YIELD_FOOD] * 100;
++		if (iHappy > 0)
++		{
++			if (bLosing)
++			{
++				iTotal100 += std::max(0, iHappy - std::max(0, iHappySurplus)) * iCitizen100;
++			}
++			else
++			{
++				iTotal100 += std::min(iHappy, std::max(0, -iHappySurplus)) * iCitizen100;
++				if (iHappySurplus == 0 && bGrowing)
++				{
++					iTotal100 += iCitizen100 / 2;
++				}
++			}
++		}
++		if (iHealth > 0)
++		{
++			if (bLosing)
++			{
++				iTotal100 += std::max(0, iHealth - std::max(0, iHealthSurplus)) * iFood100;
++			}
++			else
++			{
++				iTotal100 += std::min(iHealth, std::max(0, -iHealthSurplus)) * iFood100;
++				if (iHealthSurplus == 0 && bGrowing)
++				{
++					iTotal100 += iFood100 / 2;
++				}
++			}
++		}
++		for (int iY = 0; iY < NUM_YIELD_TYPES; iY++)
++		{
++			if (aiModifier[iY] != 0)
++			{
++				// base yield times the modifier percent: the yield gained, x100
++				iTotal100 += (aiYieldWeight[iY] * pLoopCity->getBaseYieldRate((YieldTypes)iY) * aiModifier[iY] * ((iY == YIELD_COMMERCE) ? iCommerceFactor100 : 100)) / 100;
++			}
++		}
++	}
++
++	return std::max(0, iTotal100);
++}
++
++// Diplomacy switch 2 (AI_bonusUnlockVal): a known prerequisite tech doubles a unit's or building's
++// weight, as being able to train or build it does in AI_baseBonusVal, and the era distance of that
++// tech divides it (the same era multiplies it by 3/2).
++static int bonusUnlockTechWeight(const CvTeam& kTeam, EraTypes eCurrentEra, TechTypes eTech, int iValue)
++{
++	if (eTech == NO_TECH)
++	{
++		return iValue * 2;
++	}
++	if (kTeam.isHasTech(eTech))
++	{
++		iValue *= 2;
++	}
++	const int iDiff = abs(GC.getTechInfo(eTech).getEra() - eCurrentEra);
++	return (iDiff == 0) ? ((iValue * 3) / 2) : (iValue / iDiff);
++}
++
++// Diplomacy switch 2: the units, buildings and routes that need the resource, weighted as
++// AI_baseBonusVal weights them (prerequisites, production modifiers, power, era distance), with a
++// known tech in place of canTrain and canConstruct, so that it costs little and needs no cache.
++int CvPlayerAI::AI_bonusUnlockVal(BonusTypes eBonus) const
++{
++	const CvTeam& kTeam = GET_TEAM(getTeam());
++	if (kTeam.isBonusObsolete(eBonus))
++	{
++		return 0;
++	}
++
++	const EraTypes eEra = getCurrentEra();
++	int iValue = 0;
++	for (int iI = 0; iI < GC.getNumUnitClassInfos(); iI++)
++	{
++		const UnitTypes eLoopUnit = (UnitTypes)GC.getCivilizationInfo(getCivilizationType()).getCivilizationUnits(iI);
++		if (eLoopUnit == NO_UNIT)
++		{
++			continue;
++		}
++		const CvUnitInfo& kLoopUnit = GC.getUnitInfo(eLoopUnit);
++		int iTempValue = 0;
++		if (kLoopUnit.getPrereqAndBonus() == eBonus)
++		{
++			iTempValue += 50;
++		}
++		for (int iJ = 0; iJ < GC.getNUM_UNIT_PREREQ_OR_BONUSES(); iJ++)
++		{
++			if (kLoopUnit.getPrereqOrBonuses(iJ) == eBonus)
++			{
++				iTempValue += 40;
++			}
++		}
++		iTempValue += kLoopUnit.getBonusProductionModifier(eBonus) / 10;
++		if (iTempValue > 0)
++		{
++			iValue += bonusUnlockTechWeight(kTeam, eEra, (TechTypes)kLoopUnit.getPrereqAndTech(), iTempValue);
++		}
++	}
++
++	for (int iI = 0; iI < GC.getNumBuildingClassInfos(); iI++)
++	{
++		const BuildingTypes eLoopBuilding = (BuildingTypes)GC.getCivilizationInfo(getCivilizationType()).getCivilizationBuildings(iI);
++		if (eLoopBuilding == NO_BUILDING)
++		{
++			continue;
++		}
++		const CvBuildingInfo& kLoopBuilding = GC.getBuildingInfo(eLoopBuilding);
++		int iTempValue = 0;
++		if (kLoopBuilding.getPrereqAndBonus() == eBonus)
++		{
++			iTempValue += 30;
++		}
++		for (int iJ = 0; iJ < GC.getNUM_BUILDING_PREREQ_OR_BONUSES(); iJ++)
++		{
++			if (kLoopBuilding.getPrereqOrBonuses(iJ) == eBonus)
++			{
++				iTempValue += 20;
++			}
++		}
++		iTempValue += kLoopBuilding.getBonusProductionModifier(eBonus) / 10;
++		if (kLoopBuilding.getPowerBonus() == eBonus)
++		{
++			iTempValue += 60;
++			for (int iY = 0; iY < NUM_YIELD_TYPES; iY++)
++			{
++				iTempValue += kLoopBuilding.getPowerYieldModifier(iY);
++			}
++		}
++		if (iTempValue > 0)
++		{
++			iValue += bonusUnlockTechWeight(kTeam, eEra, (TechTypes)kLoopBuilding.getPrereqAndTech(), iTempValue);
++		}
++	}
++
++	const RouteTypes eBestRoute = getBestRoute();
++	for (int iI = 0; iI < GC.getNumBuildInfos(); iI++)
++	{
++		const RouteTypes eRoute = (RouteTypes)(GC.getBuildInfo((BuildTypes)iI).getRoute());
++		if (eRoute == NO_ROUTE)
++		{
++			continue;
++		}
++		int iTempValue = 0;
++		if (GC.getRouteInfo(eRoute).getPrereqBonus() == eBonus)
++		{
++			iTempValue += 80;
++		}
++		for (int iJ = 0; iJ < GC.getNUM_ROUTE_PREREQ_OR_BONUSES(); iJ++)
++		{
++			if (GC.getRouteInfo(eRoute).getPrereqOrBonus(iJ) == eBonus)
++			{
++				iTempValue += 40;
++			}
++		}
++		if ((eBestRoute != NO_ROUTE) && (GC.getRouteInfo(eBestRoute).getValue() <= GC.getRouteInfo(eRoute).getValue()))
++		{
++			iValue += iTempValue;
++		}
++		else
++		{
++			iValue += iTempValue / 2;
++		}
++	}
++
++	return iValue / 10;
++}
++
++// Diplomacy switch 4: how much we want a tech another team could give us: its trade value to us,
++// four times over if we are researching it or have queued it, twice if we could research it now.
++int CvPlayerAI::AI_techOfferValue(TechTypes eTech, TeamTypes eFromTeam) const
++{
++	int iValue = GET_TEAM(getTeam()).AI_techTradeVal(eTech, eFromTeam);
++	if (getCurrentResearch() == eTech || getQueuePosition(eTech) > 0)
++	{
++		iValue *= 4;
++	}
++	else if (canResearch(eTech))
++	{
++		iValue *= 2;
++	}
++	return std::max(1, iValue);
++}
++
+ DenialTypes CvPlayerAI::AI_bonusTrade(BonusTypes eBonus, PlayerTypes ePlayer) const
+ {
+ 	PROFILE_FUNC();
+@@ -17819,7 +18112,7 @@ void CvPlayerAI::AI_doDiplo()
+ 
+ 														if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true))
+ 														{
+-															iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Asking For Help"));
++															iValue = isAIDiplomacy(AI_DIPLOMACY_OFFERS) ? AI_techOfferValue((TechTypes)iJ, GET_PLAYER((PlayerTypes)iI).getTeam()) : (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Asking For Help"));
+ 
+ 															if (iValue > iBestValue)
+ 															{
+@@ -18220,7 +18513,7 @@ void CvPlayerAI::AI_doDiplo()
+ 
+ 													if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true))
+ 													{
+-														iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Tech Trading #1"));
++														iValue = isAIDiplomacy(AI_DIPLOMACY_OFFERS) ? AI_techOfferValue((TechTypes)iJ, GET_PLAYER((PlayerTypes)iI).getTeam()) : (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Tech Trading #1"));
+ 
+ 														if (iValue > iBestValue)
+ 														{
+@@ -18241,7 +18534,7 @@ void CvPlayerAI::AI_doDiplo()
+ 
+ 														if (canTradeItem(((PlayerTypes)iI), item, true))
+ 														{
+-															iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Tech Trading #2"));
++															iValue = isAIDiplomacy(AI_DIPLOMACY_OFFERS) ? std::max(1, MAX_INT / 2 - abs(GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).AI_techTradeVal((TechTypes)iJ, getTeam()) - GET_TEAM(getTeam()).AI_techTradeVal(eBestReceiveTech, GET_PLAYER((PlayerTypes)iI).getTeam()))) : (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Tech Trading #2"));
+ 
+ 															if (iValue > iBestValue)
+ 															{
+@@ -18291,6 +18584,11 @@ void CvPlayerAI::AI_doDiplo()
+ 														
+ 														iGoldData = ((iOurValue - iTheirValue) * 100) / iGoldValuePercent;
+ 														iGold = std::min(iGoldData, AI_maxGoldTrade((PlayerTypes)iI));
++														// Diplomacy switch 8: a purchase we propose keeps our gold target
++														if (isAIDiplomacy(AI_DIPLOMACY_RESERVE))
++														{
++															iGold = std::min(iGold, std::max(0, getGold() - AI_goldTarget()));
++														}
+ 
+ 														if (iGold > 0)
+ 														{
+@@ -18380,7 +18678,7 @@ void CvPlayerAI::AI_doDiplo()
+ 
+ 														if (canTradeItem(((PlayerTypes)iI), item, true))
+ 														{
+-															iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Tech Selling"));
++															iValue = !isAIDiplomacy(AI_DIPLOMACY_OFFERS) ? (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Tech Selling")) : ((GC.getGameINLINE().getTeamRank(GET_PLAYER((PlayerTypes)iI).getTeam()) < GC.getGameINLINE().getTeamRank(getTeam())) ? 0 : GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).AI_techTradeVal((TechTypes)iJ, getTeam()));
+ 
+ 															if (iValue > iBestValue)
+ 															{
+@@ -18459,7 +18757,7 @@ void CvPlayerAI::AI_doDiplo()
+ 
+ 														if (GET_PLAYER((PlayerTypes)iI).canTradeItem(getID(), item, true))
+ 														{
+-															iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Bonus Trading #1"));
++															iValue = isAIDiplomacy(AI_DIPLOMACY_OFFERS) ? AI_bonusTradeVal(((BonusTypes)iJ), ((PlayerTypes)iI), 1) : (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Bonus Trading #1"));
+ 
+ 															if (iValue > iBestValue)
+ 															{
+@@ -18489,7 +18787,7 @@ void CvPlayerAI::AI_doDiplo()
+ 
+ 																if (canTradeItem(((PlayerTypes)iI), item, true))
+ 																{
+-																	iValue = (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Bonus Trading #2"));
++																	iValue = isAIDiplomacy(AI_DIPLOMACY_OFFERS) ? std::max(1, MAX_INT / 2 - AI_bonusTradeVal(((BonusTypes)iJ), ((PlayerTypes)iI), -1)) : (1 + GC.getGameINLINE().getSorenRandNum(10000, "AI Bonus Trading #2"));
+ 
+ 																	if (iValue > iBestValue)
+ 																	{
+@@ -18510,8 +18808,9 @@ void CvPlayerAI::AI_doDiplo()
+ 													// gains, as in tech trades; there was no check at all.
+ 													const int iReceiveBonusValue = AI_bonusTradeVal(eBestReceiveBonus, ((PlayerTypes)iI), 1);
+ 													const int iGiveBonusValue = GET_PLAYER((PlayerTypes)iI).AI_bonusTradeVal(eBestGiveBonus, getID(), 1);
+-													if (GET_PLAYER((PlayerTypes)iI).isHuman() ? (iReceiveBonusValue >= iGiveBonusValue) :
++													if ((GET_PLAYER((PlayerTypes)iI).isHuman() ? (iReceiveBonusValue >= iGiveBonusValue) :
+ 														(3 * iReceiveBonusValue > 2 * iGiveBonusValue && 3 * iGiveBonusValue > 2 * iReceiveBonusValue))
++														&& (!isAIDiplomacy(AI_DIPLOMACY_OFFERS) || iReceiveBonusValue > AI_bonusTradeVal(eBestGiveBonus, ((PlayerTypes)iI), -1)))
+ 													{
+ 														ourList.clear();
+ 														theirList.clear();
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.h b/Assets/CvGameCoreDLL/CvPlayerAI.h
+index a93ad14..9dc6579 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.h
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.h
+@@ -304,6 +304,9 @@ public:
+ 	int AI_bonusVal(BonusTypes eBonus, int iChange = 1) const;
+ 	int AI_baseBonusVal(BonusTypes eBonus) const;
+ 	int AI_bonusTradeVal(BonusTypes eBonus, PlayerTypes ePlayer, int iChange) const;
++	int AI_bonusCityValue(BonusTypes eBonus, bool bLosing) const;	// diplomacy switch 2: per-turn effect in our cities, gold-equivalents x100
++	int AI_bonusUnlockVal(BonusTypes eBonus) const;	// diplomacy switch 2: units, buildings and routes that need the resource
++	int AI_techOfferValue(TechTypes eTech, TeamTypes eFromTeam) const;	// diplomacy switch 4: how much we want a tech offered to us
+ 	DenialTypes AI_bonusTrade(BonusTypes eBonus, PlayerTypes ePlayer) const;
+ 	int AI_corporationBonusVal(BonusTypes eBonus) const;
+ 
+diff --git a/Assets/CvGameCoreDLL/CvTeamAI.cpp b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+index 6c3f65f..8a598fe 100644
+--- a/Assets/CvGameCoreDLL/CvTeamAI.cpp
++++ b/Assets/CvGameCoreDLL/CvTeamAI.cpp
+@@ -1699,6 +1699,13 @@ int CvTeamAI::AI_techTradeVal(TechTypes eTech, TeamTypes eTeam) const
+ 
+ 	iCost = std::max(0, (getResearchCost(eTech) - getResearchProgress(eTech)));
+ 
++	// Diplomacy switch 1: what the receiver would really spend on it, at its own research rate for
++	// this tech (tech diffusion from teams that know it, known prerequisites).
++	if (isAIDiplomacy(AI_DIPLOMACY_TECH_COST) && getLeaderID() != NO_PLAYER)
++	{
++		iCost = (iCost * 100) / std::max(1, GET_PLAYER(getLeaderID()).calculateResearchModifier(eTech));
++	}
++
+ 	iValue = ((iCost * 3) / 2);
+ 
+ 	iKnownCount = 0;
+diff --git a/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml b/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
+index ad3e3ba..4ef5319 100644
+--- a/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
++++ b/Assets/XML/BBAI_AI_Variables_GlobalDefines.xml
+@@ -59,4 +59,16 @@
+ 		<DefineName>AI_CUNNING_FLAGS</DefineName>
+ 		<iDefineIntVal>127</iDefineIntVal>
+ 	</Define>
++	<Define>
++		<!-- Diplomacy AI switches, a sum of: 1 a tech's trade value is its remaining research at the
++		receiver's own research rate (tech diffusion and known prerequisites count); 2 a resource's
++		trade value is its effect in the valuer's own cities: happiness and health where a city needs
++		them, building yield bonuses (Town Essentials, Forge, ...) on each city's production and
++		commerce, plus the units, buildings and routes it unlocks; 4 offers ask for the tech or
++		resource worth most to the AI and give the one worth least to it, and no tech is sold to a
++		team ranked above it; 8 tech purchases the AI proposes keep its gold target. Default: 15,
++		all of them. 0 restores the old AI. -->
++		<DefineName>AI_DIPLOMACY_FLAGS</DefineName>
++		<iDefineIntVal>15</iDefineIntVal>
++	</Define>
+ </Civ4Defines>
+\ No newline at end of file
+diff --git a/Docs/DIPLOMACY_VALUES.md b/Docs/DIPLOMACY_VALUES.md
+new file mode 100644
+index 0000000..a56972d
+--- /dev/null
++++ b/Docs/DIPLOMACY_VALUES.md
+@@ -0,0 +1,95 @@
++# Diplomacy values and offers
++
++This document describes how the AI values trades and chooses its offers after branch
++`claude/diplomacy-values`, and the switch that turns each part on or off.
++
++## The switch
++
++`AI_DIPLOMACY_FLAGS` in `Assets/XML/BBAI_AI_Variables_GlobalDefines.xml` is a sum of the parts below.
++The default is 15, all of them. 0 gives the AI as it was before; the game then plays exactly as on
++`main` `3bec049` (checked over 150 turns in the headless harness).
++
++| Bit | Part |
++|---|---|
++| 1 | Tech values at the receiver's own research rate |
++| 2 | Resource values from their effect in the valuer's cities |
++| 4 | Offers chosen by value |
++| 8 | Tech purchases keep the gold target |
++
++## What was wrong before
++
++- **Offers were random.** Every offer the AI made started from a uniform random draw among the
++  partner's tradeable techs or spare resources: tech purchases, tech swaps, tech sales, requests for
++  help and resource swaps.
++- **Techs were priced from the raw research cost.** The receiver's research modifier was ignored:
++  tech diffusion (up to +30% from teams that know the tech) and known prerequisites.
++- **Resources were valued by fixed weights.** +100 per happiness or health, half a point per percent
++  of a building's yield bonus. Whether the AI's cities were unhappy or unhealthy, and how much
++  production and commerce its cities made, did not count. The value was scaled by the smaller of
++  the two players' city counts.
++- **Gold.** An AI with a non-negative income could trade its whole treasury for a tech.
++
++## What the AI does now
++
++**1. Tech values.** A tech's value is its remaining research divided by the receiver's research
++modifier for that tech (`CvPlayer::calculateResearchModifier`), times 1.5, plus the old premium for
++a tech few teams know.
++
++**2. Resource values.** A resource is worth what it does each turn in the valuer's own cities,
++converted as gold per turn is (2 per gold, over `PEACE_TREATY_LENGTH` turns):
++- **Happiness:** each angry citizen it lets work counts as the city's average yield per citizen;
++  half a citizen in a growing city at its happiness limit.
++- **Health:** each point of unhealthiness it removes counts as one food; half a food in a growing
++  city at its limit.
++- **Building yield bonuses:** `BonusYieldModifiers` of the buildings in the city act on the city's
++  base yields, for example Town Essentials with Coffee (+20% production, +10% commerce) or a Forge
++  with Gold (+25% commerce).
++- **Weights:** food and production count 2, commerce 1 times the city's commerce output per point of
++  commerce yield, so a Market's or Library's bonus on top counts too.
++- **Unlocks:** the units, buildings and routes that need the resource, weighted as before, scaled
++  by the valuer's own city count.
++- **Copies:** a second copy, or one of two given away, changes nothing in the cities and is worth
++  only its corporation value.
++
++When someone asks the AI for a resource, the deal must also cover what its own cities lose.
++
++**4. Offers.**
++- **Techs it asks for** (to buy, to swap, as help): the one worth most to it, four times over if
++  it is researching or has queued it, twice if it could research it now.
++- **Techs it gives in a swap:** the one whose value to the partner is closest to that.
++- **Resource swaps:** it asks for the resource it gains most from and gives the one it loses least,
++  and only if it gains more than it loses.
++- **Tech sales:** none to a team ranked above it in score.
++
++**8. Gold.** A tech purchase the AI proposes leaves its gold target (`AI_goldTarget`) untouched.
++
++## Known and not known
++
++**Known.**
++- From the headless harness (all seats AI, Mediterranean Standard, Normal speed, 150 turns): the
++  game does not crash or hang, and with the switch at 0 it plays as before.
++
++**Assumed.**
++- Food and production are worth twice a commerce point.
++- An extra citizen yields the city's average per citizen.
++- Buildings a city has not built yet do not count in the city part.
++
++**Not known.**
++- How it plays against a human. Things to look for in a game:
++  - AIs pay for techs they are researching;
++  - they keep a reserve of gold;
++  - they refuse to give a resource their cities need;
++  - they offer gold per turn for a luxury when their cities are unhappy.
++
++## Source
++
++- `CvPlayerAI.cpp`:
++  - `AI_bonusTradeVal`, `AI_bonusCityValue`, `AI_bonusUnlockVal`;
++  - `AI_techOfferValue`;
++  - the offers in `AI_doDiplo`;
++  - the loss check in `AI_considerOffer`.
++- `CvTeamAI.cpp`: `AI_techTradeVal`.
++- `CvGameCoreUtils.cpp`: `isAIDiplomacy`.
++
++Builds, the patch and the harness runs are in the GitHub repository GertaBool/RoM:
++`builds/diplomacy-values`, `fixes/diplomacy-values`.
+-- 
+2.43.0
+
