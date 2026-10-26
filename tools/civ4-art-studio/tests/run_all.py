@@ -19,6 +19,7 @@ steps=[
  ('validate_nif',[py,str(T/'validate_nif.py')],None if pyffi else 'PyFFI',['test_mesh']),
  ('browser_check',[py,str(T/'browser_check.py'),str(fonts)],None,[]),
  ('resource_check',[py,str(T/'resource_check.py'),str(mod)],None,[]),
+ ('goods_check',[py,str(T/'goods_check.py')],None if node else 'Node.js',['test_core']),
  ('building_check',[py,str(T/'building_check.py'),str(mod)],None,[]),
  ('unit_check',[py,str(T/'unit_check.py'),str(mod)],None,[]),
  ('animation_preview_check',[py,str(T/'animation_preview_check.py'),str(mod)],None if pyffi else 'PyFFI',[]),

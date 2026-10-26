@@ -77,7 +77,13 @@
    "check": {
     "kind": "manual",
     "what": "load a save from the previous build and end 10 turns"
-   }
+   },
+   "exceptions": [
+    {
+     "feature": "LQ.F8",
+     "why": "New resource records lengthen every per-resource array the game saves (CvPlayer, CvCity, CvPlot bonus counts), so a save from before them does not load: the branch needs a new game from LQ.F8 on. Later features keep I3 against saves made after LQ.F8."
+    }
+   ]
   },
   {
    "id": "I4",
@@ -563,7 +569,7 @@
     },
     {
      "id": "LQ.F8",
-     "what": "Three new goods: Timber, Dairy and Leather, as resource records never placed on the map, with art defines and Civilopedia text",
+     "what": "Four goods without a map placement: Timber, Dairy and Leather as new resource records, and Wool, whose record exists but is commented out, restored; with art defines and Civilopedia text",
      "code": [
       {
        "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
@@ -581,12 +587,12 @@
      "tasks": [
       {
        "id": "LQ.F8.T1",
-       "text": "BonusInfo records BONUS_TIMBER, BONUS_DAIRY, BONUS_LEATHER: classes, techs (Timber: Bronze Working; Dairy and Leather: Animal Husbandry), no map placement",
+       "text": "BonusInfo records BONUS_TIMBER (BONUSCLASS_RUSH: the early strategic group of the resource bar, Bronze Working), BONUS_DAIRY (BONUSCLASS_LIVESTOCK: the food group, Animal Husbandry), BONUS_LEATHER (BONUSCLASS_GENERAL like Wool and Cotton, Animal Husbandry), appended after the last record so no existing index moves, built on Wool's record: no map placement, no yields, no health or happiness",
        "status": "todo"
       },
       {
        "id": "LQ.F8.T2",
-       "text": "Art defines: button and FontButtonIndex of their own; the map model of an existing resource (they are never drawn on plots)",
+       "text": "Art defines with a button and FontButtonIndex of their own (Timber 106, Dairy 107, Leather 108); map model: Empty.nif for Timber, the cow's for Dairy and Leather (seen only if placed in the World Builder)",
        "status": "todo"
       },
       {
@@ -596,20 +602,26 @@
       },
       {
        "id": "LQ.F8.T4",
-       "text": "Pin WOC_GAMEFONT_RESOURCE_FIX before adding the records, so the symbols after the resources do not shift",
+       "text": "Pin WOC_GAMEFONT_RESOURCE_FIX to the code at which both fonts hold the extra symbols: assignFontIds puts them at the first multiple of 25 at least S + N + 2 for N resource records, S + 75 for today's 73, S + 100 (an empty row) for 74 to 98; S = 8650 from the first symbol code 8483, 3 yields, 4 commerce types, 16 religions and 27 corporations, so 8725 (audit font_pinned computes it)",
+       "status": "todo"
+      },
+      {
+       "id": "LQ.F8.T5",
+       "text": "Restore BONUS_WOOL: its record is commented out in CIV4BonusInfos.xml (GitLab main 71de0ab, lines 4113-4154) while its art define, glyph 101 and text exist and nothing else names it; probably dropped to keep 73 records when the Guilds module added BONUS_CGUILDPAPER, since a 74th moves the symbols (see T4)",
        "status": "todo"
       }
      ],
      "data": [
       {
-       "name": "3 resource records",
-       "where": "CIV4BonusInfos.xml, CIV4ArtDefines_Bonus.xml, text XML",
+       "name": "4 resource records",
+       "where": "CIV4BonusInfos.xml, CIV4ArtDefines_Bonus.xml, RoM_GameText_SettlementEconomy.xml",
        "type": "XML records",
        "saved": false
       }
      ],
      "acceptance": [
-      "The Civilopedia lists Timber, Dairy and Leather with their own buttons and inline icons; every other symbol (happy, health, trade) is unchanged at both font sizes"
+      "The Civilopedia lists Wool, Timber, Dairy and Leather with their own buttons and inline icons; every other symbol (happy, health, trade) is unchanged at both font sizes",
+      "A new game starts; old saves are not expected to load (I3 exception)"
      ],
      "checks": [
       {
@@ -663,17 +675,17 @@
       },
       {
        "id": "LQ.F9.T2",
-       "text": "Buttons: tools/civ4-art-studio, 64 x 64, Fill and crop on the identifying feature, RGBA DDS, placed under Assets/Art/Interface/Buttons/Goods/",
+       "text": "Buttons: tools/civ4-art-studio/helpers/goods_batch.py (the studio's resampler and DDS writer through core_bridge.js), 64 x 64 DDS DXT3 like the mod's own resource buttons, the object cut out or textured from the photograph inside the frame all the mod's resource buttons share (their median), placed under Assets/Art/Interface/Buttons/Goods/",
        "status": "todo"
       },
       {
        "id": "LQ.F9.T3",
-       "text": "Glyphs: the studio's Resource workshop custom GameFont slot, matching empty cells chosen independently in GameFont.tga and GameFont_75.tga for the record's FontButtonIndex; markers preserved and both sheets checked pixel by pixel",
+       "text": "Glyphs: the same batch writes each object into its FontButtonIndex cell of the resource block in GameFont.tga and GameFont_75.tga (cell = index, shown by font_index_map.py: 13 of 31 buttons match at cell = index against 0.08 by chance), empty cells only, markers preserved, every other pixel checked; the edited fonts are too large for the connector, so the branch carries the patch (Tools/GameFontPatch) and the fonts go to the user",
        "status": "todo"
       },
       {
        "id": "LQ.F9.T4",
-       "text": "The same for the second record of each shared pair (Biofuel, Smart Medicine, Synthetic Rubber)",
+       "text": "The same for the second record of each shared pair: Biofuel (own art define, 109), Smart Medicine (index 85 -> 110, glyph from its existing button), Synthetic Rubber (own art define, 111)",
        "status": "todo"
       },
       {

@@ -127,8 +127,11 @@ def coverage():
 
 # ---------- audits ----------
 def records(paths, tag):
+    """Records of the files, without those inside XML comments (the game does not load them)."""
     out = []
-    for p in paths: out += re.findall(r'<%s>(.*?)</%s>' % (tag, tag), open(p, encoding='latin-1').read(), re.S)
+    for p in paths:
+        live = re.sub(r'<!--.*?-->', '', open(p, encoding='latin-1').read(), flags=re.S)
+        out += re.findall(r'<%s>(.*?)</%s>' % (tag, tag), live, re.S)
     return out
 
 
@@ -154,10 +157,32 @@ def audit_icons(chk):
     return not problems, '%d goods, %d art defines; %s' % (len(bonus), len(art), '; '.join(problems) or 'every good has its own glyph and button')
 
 
+FIRST_SYMBOL = 8483   # first symbol code the BTS executable passes to CvGameTextMgr::assignFontIds (not in the mod's sources)
+EXTRAS_AT = 75        # both GameFont sheets hold the happy face 50 cells before resource cell 0 = bonus base + 125 - 50
+
+
+def symbol_base():
+    """The bonus base S of CvGameTextMgr::assignFontIds, step by step as the code runs: yields, a step to the next
+    multiple of 25, commerce, two steps, two codes per religion and corporation, a step (two below 25 codes). Counts
+    from the DLL enums and the XML, modules included."""
+    enums = text('Assets/CvGameCoreDLL/CvEnums.h') or ''
+    def count(name):
+        body = re.search(r'enum %s\b[^{]*\{(.*?)\}' % name, enums, re.S).group(1)
+        return len([x for x in (y.strip() for y in re.sub(r'//.*', '', body).split(',')) if x and not x.startswith(('NO_', 'NUM_', '#'))])
+    step = lambda c: c + 25 - c % 25   # do { ++c; } while (c % 25 != 0)
+    rel = len({re.search(r'<Type>(\w+)', b).group(1) for b in records(xml_paths('XML/GameInfo/CIV4ReligionInfo.xml', '*ReligionInfo*.xml'), 'ReligionInfo')})
+    corp = len({re.search(r'<Type>(\w+)', b).group(1) for b in records(xml_paths('XML/GameInfo/CIV4CorporationInfo.xml', '*CorporationInfo*.xml'), 'CorporationInfo')})
+    c = step(FIRST_SYMBOL + count('YieldTypes'))
+    c = step(step(c + count('CommerceTypes')))
+    c = step(c + 2 * (rel + corp))
+    return step(c) if 2 * (rel + corp) < 25 else c
+
+
 def audit_font_pinned(chk):
     m = re.search(r'<DefineName>WOC_GAMEFONT_RESOURCE_FIX</DefineName>\s*<iDefineIntVal>(-?\d+)', text('Assets/XML/GlobalDefinesAlt.xml') or '')
     v = int(m.group(1)) if m else None
-    return bool(v and v > 0), 'WOC_GAMEFONT_RESOURCE_FIX = %s' % v
+    want = symbol_base() + EXTRAS_AT
+    return v == want, 'WOC_GAMEFONT_RESOURCE_FIX = %s, the fonts\' extra symbols at %d' % (v, want)
 
 
 def audit_catalogue(chk):

@@ -161,6 +161,13 @@
    "kind": "request",
    "text": "Important detail:\n\nI want to have a separate test branch for this particular implementation since we are redesigning very basic layers",
    "led_to": "Request R3"
+  },
+  {
+   "id": "M24",
+   "date": "2026-10-26",
+   "kind": "request",
+   "text": "I think it's a very good idea for you to look at the art studio, refine it and implement the planned goods with proper textures.",
+   "led_to": "Request R4"
   }
  ],
  "requests": [
@@ -268,6 +275,30 @@
     }
    ],
    "prompt": "M23"
+  },
+  {
+   "id": "R4",
+   "date": "2026-10-26",
+   "status": "open",
+   "prompt": "M24",
+   "text": "I think it's a very good idea for you to look at the art studio, refine it and implement the planned goods with proper textures.",
+   "items": [
+    {
+     "id": "R4.1",
+     "what": "Look at the art studio (tools/civ4-art-studio) and refine it for this work",
+     "status": "open"
+    },
+    {
+     "id": "R4.2",
+     "what": "Implement the planned goods (Timber, Dairy, Leather; wool from sheep pastures) in the mod",
+     "status": "open"
+    },
+    {
+     "id": "R4.3",
+     "what": "Proper textures for their buttons and font glyphs",
+     "status": "open"
+    }
+   ]
   }
  ]
 }

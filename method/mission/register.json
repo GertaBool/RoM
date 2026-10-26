@@ -799,5 +799,81 @@
    "fixes/graphics-paging-zoom/",
    "builds/graphics-paging-zoom/"
   ]
+ },
+ {
+  "id": "H12",
+  "type": "hypothesis",
+  "line": "settlement-economy",
+  "text": "Resource records can be added to the mod without changing anything else the player sees or the game does (GitLab main 71de0ab). Facts: CIV4BonusInfos.xml holds 72 live records and one commented out (BONUS_WOOL, lines 4113-4154, whose art define and glyph 101 exist and which nothing else references); the Guilds module adds BONUS_CGUILDPAPER, so the game has 73. CvGameTextMgr::assignFontIds gives resource i the character S + 125 + its FontButtonIndex (CvBonusInfo::setChar adds 125) and puts the 26 extra symbols (happy, health, strength ... airport) at the first multiple of 25 that is at least S + N + 2 for N records, unless WOC_GAMEFONT_RESOURCE_FIX (GlobalDefinesAlt.xml, 0 today) is above 0, which then fixes it. Both GameFont sheets hold the happy face 50 cells before resource cell 0, that is at S + 75, which N = 73 gives and N = 74 to 98 would move to S + 100, an empty row. With the BTS first symbol code 8483, 3 yields, 4 commerce types, 16 religions and 27 corporations, S = 8650 and the happy face is character 8725. Cells 106 to 111 of the resource block are empty in both sheets; Biofuel shows Diesel's glyph 77 (shared art define), Synthetic Rubber Vulcanized Rubber's 99 (shared art define), Smart Medicine Chemicals' 85 (same index). The claim: appending records after the last one keeps every existing resource's index, and pinning WOC_GAMEFONT_RESOURCE_FIX to 8725 keeps every extra symbol where the fonts hold it, so four more records (Wool, Timber, Dairy, Leather) with their own glyphs, and own glyphs for the three shared pairs, neither crash nor slow the game and leave every other symbol unchanged. Contradicted if a run fails only with the change, if the median same-seed turn time rises above 5 %, or if in game any happy, health, strength or other extra symbol, or any existing resource icon, shows a different glyph at either font size. Old saves do not load across the change (the resource arrays grow): it needs a new game."
+ },
+ {
+  "id": "P21",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H12"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab main 71de0ab, branch claude/settlement-economy: BONUS_WOOL comes out of its comment; BONUS_TIMBER (BONUSCLASS_RUSH, TechCityTrade TECH_BRONZE_WORKING), BONUS_DAIRY (BONUSCLASS_LIVESTOCK, TECH_ANIMAL_HUSBANDRY) and BONUS_LEATHER (BONUSCLASS_GENERAL, TECH_ANIMAL_HUSBANDRY) follow it, built on Wool's record (no placement, no yields, no health or happiness); new art defines ART_DEF_BONUS_TIMBER (Empty.nif, index 106), _DAIRY and _LEATHER (Cow model, 107, 108), _BIOFUEL (Diesel's model, 109) and _SYNTHETIC_RUBBER (Vulcanized Rubber's model, 111), with buttons in Assets/Art/Interface/Buttons/Goods; BONUS_BIOFUEL and BONUS_SYNTHETIC_RUBBER point to their own art defines; ART_DEF_BONUS_SMART_MEDICINE takes index 110; WOC_GAMEFONT_RESOURCE_FIX = 8725; glyphs written into cells 106-111 of both GameFont sheets by Tools/GameFontPatch (markers untouched, every other pixel checked); names and Civilopedia text in five languages. The DLL is unchanged. Harness: arm a is this branch with the font patch applied, arm b GitLab main 71de0ab, the same DLL build, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. The symbols are judged in game at both font sizes, not by the runs. P21: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "gitlab:Assets/XML/Art/CIV4ArtDefines_Bonus.xml",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/Timber.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/Dairy.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/Leather.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/Biofuel.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/SyntheticRubber.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/ASSETS.json",
+   "gitlab:Assets/res/Fonts/GameFont.tga",
+   "gitlab:Assets/res/Fonts/GameFont_75.tga",
+   "gitlab:Tools/GameFontPatch/apply_font_patch.py",
+   "gitlab:Tools/GameFontPatch/font_patch.json",
+   "gitlab:Tools/GameFontPatch/README.txt"
+  ]
+ },
+ {
+  "id": "P22",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H12"
+  ],
+  "variable": "turn_seconds",
+  "evidence": "runs",
+  "change": "On GitLab main 71de0ab, branch claude/settlement-economy: BONUS_WOOL comes out of its comment; BONUS_TIMBER (BONUSCLASS_RUSH, TechCityTrade TECH_BRONZE_WORKING), BONUS_DAIRY (BONUSCLASS_LIVESTOCK, TECH_ANIMAL_HUSBANDRY) and BONUS_LEATHER (BONUSCLASS_GENERAL, TECH_ANIMAL_HUSBANDRY) follow it, built on Wool's record (no placement, no yields, no health or happiness); new art defines ART_DEF_BONUS_TIMBER (Empty.nif, index 106), _DAIRY and _LEATHER (Cow model, 107, 108), _BIOFUEL (Diesel's model, 109) and _SYNTHETIC_RUBBER (Vulcanized Rubber's model, 111), with buttons in Assets/Art/Interface/Buttons/Goods; BONUS_BIOFUEL and BONUS_SYNTHETIC_RUBBER point to their own art defines; ART_DEF_BONUS_SMART_MEDICINE takes index 110; WOC_GAMEFONT_RESOURCE_FIX = 8725; glyphs written into cells 106-111 of both GameFont sheets by Tools/GameFontPatch (markers untouched, every other pixel checked); names and Civilopedia text in five languages. The DLL is unchanged. Harness: arm a is this branch with the font patch applied, arm b GitLab main 71de0ab, the same DLL build, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. The symbols are judged in game at both font sizes, not by the runs. P22: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "gitlab:Assets/XML/Art/CIV4ArtDefines_Bonus.xml",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/Timber.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/Dairy.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/Leather.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/Biofuel.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/SyntheticRubber.dds",
+   "gitlab:Assets/Art/Interface/Buttons/Goods/ASSETS.json",
+   "gitlab:Assets/res/Fonts/GameFont.tga",
+   "gitlab:Assets/res/Fonts/GameFont_75.tga",
+   "gitlab:Tools/GameFontPatch/apply_font_patch.py",
+   "gitlab:Tools/GameFontPatch/font_patch.json",
+   "gitlab:Tools/GameFontPatch/README.txt"
+  ]
  }
 ]
