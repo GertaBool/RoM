@@ -342,19 +342,21 @@
   {
    "id": "R6",
    "date": "2026-10-26",
-   "status": "open",
+   "status": "done",
    "prompt": "M26",
    "text": "Make sure that wool, leather, dairy and the other goods are appropriately consumed, and maybe even offer yield/commerce bonuses",
    "items": [
     {
      "id": "R6.1",
      "what": "Wool, Leather, Dairy, Timber and the other goods are consumed appropriately",
-     "status": "open"
+     "status": "done",
+     "where": "LQ.F12 (GitLab e694caf0), D14, D15: the four goods take their peers' consumers; Sheep keeps all of its own"
     },
     {
      "id": "R6.2",
      "what": "Where it fits, the goods give yield or commerce bonuses",
-     "status": "open"
+     "status": "done",
+     "where": "LQ.F12: Dairy +3 % food per essentials building (to +12 %), +5/+8/+1 % at Commodity Market, Commercial Center, Cannery; Timber +3 % production per essentials building; guild and corporation output (Drapers gold and culture, Emperor's Clothes commerce and culture, Equestrians, Carpenters production, Grocers and Big food)"
     }
    ]
   }

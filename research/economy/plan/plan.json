@@ -900,22 +900,30 @@
       {
        "id": "LQ.F12.T1",
        "text": "Essentials buildings: Wool and Leather +1 happiness each, Dairy +3 % food, Timber +3 % production, per building; Commodity Market +5 %, Commercial Center +8 %, Cannery +1 % food for Dairy",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab e694caf0"
       },
       {
        "id": "LQ.F12.T2",
        "text": "Consumers: Drapers Guild and Emperor's Clothes take Wool and Leather, the Drapers guildhall gives +1 happiness for each, the Equestrians Guild takes Leather, the Grocers Guild and Big take Dairy, the Carpenters Guild takes Timber",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab e694caf0"
       },
       {
        "id": "LQ.F12.T3",
        "text": "Dairy +1 health of its own, as the livestock goods",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab e694caf0"
       },
       {
        "id": "LQ.F12.T4",
        "text": "NUM_CORPORATION_PREREQ_BONUSES 6 -> 8: CvCorporationInfo::read writes the list into an array of that size without a bounds check in release builds, and every other use loops up to the same constant; the longest list is now 8 (Drapers Guild)",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab e694caf0"
       }
      ],
      "data": [],

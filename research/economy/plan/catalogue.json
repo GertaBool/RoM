@@ -7058,6 +7058,17 @@
    "improvements": [],
    "given_by_buildings": [],
    "used_by": {
+    "building_happiness": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_GUILDHALL_31",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_31",
+     "CORPORATION_8"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
@@ -7099,6 +7110,15 @@
    "improvements": [],
    "given_by_buildings": [],
    "used_by": {
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_30"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
@@ -7120,7 +7140,7 @@
    "tech_trade": "TECH_ANIMAL_HUSBANDRY",
    "tech_obsolete": "NONE",
    "yields": [],
-   "health": 0,
+   "health": 1,
    "happiness": 0,
    "placed": false,
    "placement": {
@@ -7141,6 +7161,19 @@
    "improvements": [],
    "given_by_buildings": [],
    "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_10",
+     "CORPORATION_43"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
@@ -7183,6 +7216,18 @@
    "improvements": [],
    "given_by_buildings": [],
    "used_by": {
+    "building_happiness": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_GUILDHALL_31",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_31",
+     "CORPORATION_42",
+     "CORPORATION_8"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
