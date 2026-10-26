@@ -266,6 +266,13 @@
    "kind": "instruction",
    "text": "Continue with the actual body of work now. Just remember to use GitHub to store very sensitive/important files, tools and methods",
    "led_to": "Safety runs P21-P26 (plan.json current.next 1); tools and evidence kept on GitHub"
+  },
+  {
+   "id": "M39",
+   "date": "2026-10-26",
+   "kind": "answer",
+   "text": "Realistically the lumbermill should do much better, but that has to be within the right context, I still think lumber camps greatly benefit from those technologies. I don't think that Machinery should boost lumber camps",
+   "led_to": "D19 lumbermill yield (answer to the lumbermill question after LQ.F10)"
   }
  ],
  "requests": [
