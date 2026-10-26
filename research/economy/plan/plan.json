@@ -2900,7 +2900,8 @@
   "updated": "2026-10-26",
   "mod_head": "GitLab claude/settlement-economy at 02d5f85a",
   "in_flight": [
-   "P21-P26 done: all corroborated, evidence 7e9fe3d."
+   "P21-P26 done: all corroborated, evidence 7e9fe3d.",
+   "LQ.F10: edits from tools/connector/lq_f10_edits.py (29 pairs, about 54 KB of JSON: two connector batches) on local branch lq10 of the scratchpad clone (local commit dc950491, base 02d5f85a). Harness DLL built without errors ($S/hw/b-lq10). Deterministic run (Mediterranean seed 485959733, snapshots 60/100/150, HARNESS_HISTORY_DIAG state): at turn 100 four players have 1-5 lumber camps and as much Timber; at turn 150 Timber available plus exported equals camps plus mills for every player but one (one unconnected camp). Found in the first run: workers need BUILD_LUMBER_CAMP in their UnitInfo Builds (5 units), added. Safety runs P27/P28 started (tools/safety/lq10.sh: arm a root-eco-lq10, arm b root-eco-g4 = 02d5f85a); then evaluate, commit evidence, commit the pairs through the connector (Serves: P27, P28), release DLL to builds/settlement-economy/ with provenance.json, mark LQ.F10.T1-T7."
   ],
   "next": [
    "1. LQ.F10 then LQ.F11: lumber camps (Metal Casting; Timber reveal and trade to Metal Casting) and pasture and Latifundium products; one DLL change (ProducedBonuses), build with toolchain/build_dll.sh, safety prediction first.",

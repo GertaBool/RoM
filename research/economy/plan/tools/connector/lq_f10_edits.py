@@ -576,6 +576,24 @@ text('TXT_KEY_IMPROVEMENT_LUMBER_CAMP_PEDIA',
  '[TAB]El campamento maderero es donde los leñadores talan los árboles, los desraman y sacan los troncos del bosque. El bosque sigue en pie y la madera llega a cada ciudad de la red comercial. Mejores herramientas de bronce y de hierro, y la medida de las matemáticas, aumentan el rendimiento de cada campamento. Con la maquinaria el campamento puede convertirse en un aserradero.') +
 """</Civ4GameText>""")
 
+# every unit that can build a lumbermill can build a lumber camp (CvUnitInfo Builds: without it no worker builds one)
+EACH = []  # (part, file, old, new): applied at every occurrence, each pair made unique by widening it by lines
+EACH.append(('xml', X + 'Units/CIV4UnitInfos.xml',
+"""				<Build>
+					<BuildType>BUILD_LUMBERMILL</BuildType>
+					<bBuild>1</bBuild>
+				</Build>
+""",
+"""				<Build>
+					<BuildType>BUILD_LUMBERMILL</BuildType>
+					<bBuild>1</bBuild>
+				</Build>
+				<Build>
+					<BuildType>BUILD_LUMBER_CAMP</BuildType>
+					<bBuild>1</bBuild>
+				</Build>
+"""))
+
 # ---------- apply ----------
 pairs = []
 for part, f, old, new in E:
@@ -588,5 +606,25 @@ for part, f, old, new in E:
     s = s.replace(o, n)
     open(p, 'wb').write(s.encode('latin-1'))
     pairs.append({'file': f, 'old': o, 'new': n})
+for part, f, old, new in EACH:
+    if part not in parts: continue
+    p = os.path.join(mod, f)
+    s = open(p, 'rb').read().decode('latin-1')
+    crlf = '\r\n' in s
+    nl = '\r\n' if crlf else '\n'
+    o, n = (old.replace('\n', nl), new.replace('\n', nl))
+    pos = 0
+    while True:
+        i = s.find(o, pos)
+        if i < 0: break
+        a, b = i, i + len(o)
+        while s.count(s[a:b]) != 1:   # widen by one line on each side until unique
+            a = s.rfind(nl, 0, a - len(nl)) + len(nl) if a > 0 else 0
+            b = s.find(nl, b) + len(nl) if s.find(nl, b) >= 0 else len(s)
+        old_w = s[a:b]; new_w = s[a:i] + n + s[i + len(o):b]
+        pairs.append({'file': f, 'old': old_w, 'new': new_w})
+        s = s[:a] + new_w + s[b:]
+        pos = a + len(new_w)
+    open(p, 'wb').write(s.encode('latin-1'))
 json.dump(pairs, open(out, 'w'), indent=0)
 print(len(pairs), 'pairs', sum(len(json.dumps(x)) for x in pairs), 'bytes of JSON')
