@@ -203,6 +203,13 @@
    "kind": "correction",
    "text": "\"Settlement, Town, City, Metropolitan; they add up\"\n\nCheck your priors. It's one look at the actual XML and Python files away.",
    "led_to": "Correction of D14 and LQ.F12 (essentials buildings do not add up)"
+  },
+  {
+   "id": "M30",
+   "date": "2026-10-26",
+   "kind": "correction",
+   "text": "\"No download sources are recorded\"\n\nI literally gave you the Google Drive link and you had everything installed",
+   "led_to": "Toolchain source recorded in toolchain/README.md"
   }
  ],
  "requests": [

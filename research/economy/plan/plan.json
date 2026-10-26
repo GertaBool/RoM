@@ -21,6 +21,33 @@
    "repo": "GertaBool/RoM",
    "branch": "claude/gracious-mayer-n8fdyg",
    "path": "research/economy/plan"
+  },
+  "toolchain": {
+   "about": "The DLL build inputs (toolchain/README.md). Given by the user on 2026-10-25; set up in this session's scratchpad. A new session or container fetches them from the same folder and runs toolchain/setup_toolchain.sh.",
+   "source": "https://drive.google.com/drive/folders/1xfScIuSkO1vpStHG-LJWMTghMRJ6Tmj9 (folder 'platformsdk'; files download with https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t)",
+   "files": [
+    {
+     "name": "Install_Civ4_Microsoft_Windows_SDK_Visual_C_Toolkit.exe",
+     "drive_id": "1yvR_ZYCG9imjOMydIgZd9kPYrYxDCa9s",
+     "size": 16003042,
+     "sha256": "bf37b18eb095de7dad3b7e8508bbfbab23c0d5db21c8f0371502eb61914481a3"
+    },
+    {
+     "name": "5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img",
+     "drive_id": "13RtI6hrYdd9OXKARGGRfYMGeOi4pXscE",
+     "size": 414361600,
+     "sha256": "7ef138b07a8ed2e008371d8602900eb68e86ac2a832d16b53f462a9e64f24d53"
+    }
+   ],
+   "bts_sdk": "beyond-the-sword-sdk-develop-functional.tar.gz in the mod repository root (sha256 754039328d2e8484d28fcbb8142989a13c6ed9c56cbdcb6910e9b92f99166743)",
+   "installed": {
+    "VCTOOLKIT_DIR": "/tmp/claude-0/-home-user-RoM/cd72ee4b-5cb9-57d5-996a-fd6ca15cd65f/scratchpad/msvc/vctk",
+    "PSDK_DIR": "/tmp/claude-0/-home-user-RoM/cd72ee4b-5cb9-57d5-996a-fd6ca15cd65f/scratchpad/msvc/psdk",
+    "WINEPREFIX": "/tmp/claude-0/-home-user-RoM/cd72ee4b-5cb9-57d5-996a-fd6ca15cd65f/scratchpad/msvc/wine32",
+    "BTS_SDK_DIR": "/tmp/claude-0/-home-user-RoM/cd72ee4b-5cb9-57d5-996a-fd6ca15cd65f/scratchpad/sdk/beyond-the-sword-sdk-develop/CvGameCoreDLL"
+   },
+   "host": "apt: wine wine32:i386 innoextract p7zip-full msitools make (i386 architecture enabled)",
+   "check": "Before saying a tool or input is missing, look here, in the scratchpad and in this session's transcript; the user gave the link once."
   }
  },
  "files": [
