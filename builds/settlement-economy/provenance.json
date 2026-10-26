@@ -13,5 +13,7 @@
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
  "tested_headless": "Harness DLL of the same source: one deterministic Mediterranean game (seed 485959733, 150 turns): at turn 100 four AI players have 1-5 lumber camps and as much Timber; at turn 150 Timber available plus exported equals camps plus mills for 9 of 10 players (the tenth has one camp off the trade network). Safety: P27/P28 corroborated (evidence cab0938, the same tree as a local build); P31/P32 (as committed) and P29/P30 (LQ.F11) running.",
  "tested_in_game": false,
- "gitlab_commit": "507d18319b61b5aa618c54a6f2517620d1094368"
+ "gitlab_commit": "507d18319b61b5aa618c54a6f2517620d1094368",
+ "patch": "builds/settlement-economy/source.patch",
+ "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab (the branch point; the DLL source is unchanged from there to 02d5f85a) to 507d1831: the C++ of LQ.F10"
 }

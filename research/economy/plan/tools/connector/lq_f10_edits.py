@@ -617,10 +617,18 @@ for part, f, old, new in EACH:
     while True:
         i = s.find(o, pos)
         if i < 0: break
-        a, b = i, i + len(o)
-        while s.count(s[a:b]) != 1:   # widen by one line on each side until unique
-            a = s.rfind(nl, 0, a - len(nl)) + len(nl) if a > 0 else 0
-            b = s.find(nl, b) + len(nl) if s.find(nl, b) >= 0 else len(s)
+        # the shortest window around this occurrence (whole lines, any split before and after) unique in the file
+        L = s[:i].split(nl); R = s[i + len(o):].split(nl)
+        best = None
+        for kb in range(0, 200):
+            a = i - len(nl.join(L[len(L) - kb:])) - (len(nl) if kb else 0) if kb else i
+            if kb and kb > len(L): break
+            for kf in range(0, 200):
+                b = i + len(o) + (len(nl.join(R[:kf])) + (len(nl) if kf else 0) if kf else 0)
+                if best is not None and b - a >= best[1] - best[0]: break
+                if s.count(s[a:b]) == 1:
+                    best = (a, b); break
+        a, b = best
         old_w = s[a:b]; new_w = s[a:i] + n + s[i + len(o):b]
         pairs.append({'file': f, 'old': old_w, 'new': new_w})
         s = s[:a] + new_w + s[b:]
