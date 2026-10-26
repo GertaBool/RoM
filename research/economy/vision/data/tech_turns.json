@@ -1,0 +1,6332 @@
+[
+ {
+  "seed": 1011854567,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 48
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1052375320,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 47
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 47
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1143306884,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 48
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 35
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1318411352,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1325049298,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 50
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 35
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1344989816,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 22,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1357816580,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 35
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1421246327,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1428691699,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 34
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 33
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 34
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1460775677,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 5,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1467511111,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 49
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 16,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 15609192,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1697414003,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 48
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1829574304,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 47
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 35
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1840138142,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 4,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 47
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 1889415528,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 4,
+     "TECH_FERMENTATION": 14,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 200675009,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 2008443792,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 32
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 2021918518,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 35
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 2131593717,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 32
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 276067391,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 323475222,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 32
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 417793820,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 49
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 48
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 35
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 423961542,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 4,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 696153608,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 36
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 781111815,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 47
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 4,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 808621851,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 49
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 47
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 43
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 5,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 858359663,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 4,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 42
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 44
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 993750431,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 13,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 46
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 45
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 38
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ },
+ {
+  "seed": 994479328,
+  "players": {
+   "0": {
+    "civ": "CIVILIZATION_EGYPT",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_MYSTICISM"
+    ],
+    "start": 5,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 18,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "1": {
+    "civ": "CIVILIZATION_ROME",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING",
+     "TECH_ROMAN"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "2": {
+    "civ": "CIVILIZATION_PERSIA",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 37
+   },
+   "3": {
+    "civ": "CIVILIZATION_GREECE",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_GREEK",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 82
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "4": {
+    "civ": "CIVILIZATION_CELT",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 35
+   },
+   "5": {
+    "civ": "CIVILIZATION_CARTHAGE",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 39
+   },
+   "6": {
+    "civ": "CIVILIZATION_ENGLAND",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 23,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 34
+   },
+   "7": {
+    "civ": "CIVILIZATION_SPAIN",
+    "free": [
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 2,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 20,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 35
+   },
+   "8": {
+    "civ": "CIVILIZATION_HITTITES",
+    "free": [
+     "TECH_AGRICULTURE",
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 4,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 3,
+     "TECH_REFRIGERATION": 84
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 17,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 40
+   },
+   "9": {
+    "civ": "CIVILIZATION_GERMANY",
+    "free": [
+     "TECH_ANIMAL_HUSBANDRY",
+     "TECH_FISHING",
+     "TECH_HUNTING"
+    ],
+    "start": 3,
+    "need": {
+     "TECH_POTTERY": 1,
+     "TECH_FERMENTATION": 4,
+     "TECH_REFRIGERATION": 83
+    },
+    "earliest": {
+     "TECH_POTTERY": 6,
+     "TECH_FERMENTATION": 21,
+     "TECH_REFRIGERATION": null
+    },
+    "last": 41
+   }
+  },
+  "turns": 151,
+  "years": [
+   -6000,
+   -1300
+  ]
+ }
+]

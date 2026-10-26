@@ -14,4 +14,9 @@ python3 tools/calibrate_needs.py . > data/calibrate_needs.log
 gcc -O2 -o /tmp/settlement-bench tools/bench.c && /tmp/settlement-bench > data/bench.csv
 python3 tools/sfigures.py .
 python3 tools/sbuild.py .
-cd .. && python3 vision/tools/vision.py .
+cd ..
+python3 vision/tools/food_facts.py "$MOD" vision/data
+python3 vision/tools/tech_turns.py "$MOD" vision/data "$@"
+python3 vision/tools/bounds.py "$MOD" .
+python3 vision/tools/growth.py .
+python3 vision/tools/vision.py .

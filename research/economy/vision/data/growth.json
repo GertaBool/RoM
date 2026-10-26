@@ -1,0 +1,1335 @@
+{
+ "ton": 100,
+ "eat": 300,
+ "kept": 20,
+ "food_order": [
+  "fish",
+  "dairy",
+  "fruit",
+  "grain"
+ ],
+ "levels": {
+  "none": {
+   "fish": 300,
+   "dairy": 250,
+   "fruit": 150,
+   "grain": 60
+  },
+  "pottery": {
+   "fish": 200,
+   "dairy": 250,
+   "fruit": 100,
+   "grain": 10
+  },
+  "fermentation": {
+   "fish": 100,
+   "dairy": 50,
+   "fruit": 20,
+   "grain": 10
+  },
+  "refrigeration": {
+   "fish": 0,
+   "dairy": 0,
+   "fruit": 0,
+   "grain": 0
+  }
+ },
+ "games": 30,
+ "arms": {
+  "none_food": {
+   "m": {
+    "max_harvest": 9590,
+    "harvest": 447350634,
+    "eaten_need": 272452200,
+    "cityturns": 176331,
+    "popturns": 908174,
+    "eaten": 272451870,
+    "spoiled": 69165206,
+    "grow": 13920,
+    "starve": 16,
+    "max_box": 23383
+   },
+   "traj": {
+    "50": {
+     "sim": 2388,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1299,
+     "max_size": 12,
+     "median_sum": 157,
+     "games": 30
+    },
+    "100": {
+     "sim": 7906,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 1965,
+     "max_size": 18,
+     "median_sum": 121,
+     "games": 30
+    },
+    "150": {
+     "sim": 16868,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 4503,
+     "max_size": 20,
+     "median_sum": 122,
+     "games": 30
+    }
+   }
+  },
+  "pottery_food": {
+   "m": {
+    "max_harvest": 9590,
+    "harvest": 502120481,
+    "eaten_need": 339937800,
+    "cityturns": 176331,
+    "popturns": 1133126,
+    "eaten": 339935677,
+    "spoiled": 14969476,
+    "grow": 18447,
+    "starve": 32,
+    "shrink": 16,
+    "max_box": 26041
+   },
+   "traj": {
+    "50": {
+     "sim": 2933,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1780,
+     "max_size": 13,
+     "median_sum": 233,
+     "games": 30
+    },
+    "100": {
+     "sim": 9855,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 3564,
+     "max_size": 20,
+     "median_sum": 162,
+     "games": 30
+    },
+    "150": {
+     "sim": 21307,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 3780,
+     "max_size": 23,
+     "median_sum": 164,
+     "games": 30
+    }
+   }
+  },
+  "fermentation_food": {
+   "m": {
+    "max_harvest": 9590,
+    "harvest": 506044550,
+    "eaten_need": 344513400,
+    "cityturns": 176331,
+    "popturns": 1148378,
+    "eaten": 344510864,
+    "spoiled": 12436036,
+    "grow": 18647,
+    "starve": 37,
+    "shrink": 21,
+    "max_box": 26041
+   },
+   "traj": {
+    "50": {
+     "sim": 2973,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1820,
+     "max_size": 13,
+     "median_sum": 245,
+     "games": 30
+    },
+    "100": {
+     "sim": 9973,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 3682,
+     "max_size": 20,
+     "median_sum": 165,
+     "games": 30
+    },
+    "150": {
+     "sim": 21497,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 3814,
+     "max_size": 23,
+     "median_sum": 168,
+     "games": 30
+    }
+   }
+  },
+  "refrigeration_food": {
+   "m": {
+    "max_harvest": 9590,
+    "harvest": 516457282,
+    "eaten_need": 358358100,
+    "cityturns": 176331,
+    "popturns": 1194527,
+    "eaten": 358353486,
+    "spoiled": 0,
+    "grow": 19597,
+    "starve": 58,
+    "shrink": 42,
+    "max_box": 27040
+   },
+   "traj": {
+    "50": {
+     "sim": 3065,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1912,
+     "max_size": 14,
+     "median_sum": 253,
+     "games": 30
+    },
+    "100": {
+     "sim": 10394,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 4097,
+     "max_size": 21,
+     "median_sum": 169,
+     "games": 30
+    },
+    "150": {
+     "sim": 22405,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 4106,
+     "max_size": 23,
+     "median_sum": 178,
+     "games": 30
+    }
+   }
+  },
+  "none_capped": {
+   "m": {
+    "max_harvest": 8640,
+    "harvest": 383280846,
+    "eaten_need": 211486200,
+    "cityturns": 176331,
+    "popturns": 704954,
+    "eaten": 211485870,
+    "spoiled": 64804003,
+    "held": 24903,
+    "held_t": 17113033,
+    "held_t_0": 5025834,
+    "held_n_0": 7927,
+    "grow": 12608,
+    "held_t_1": 8164321,
+    "held_n_1": 11047,
+    "held_t_2": 3922878,
+    "held_n_2": 5929,
+    "starve": 16,
+    "max_box": 20828
+   },
+   "traj": {
+    "50": {
+     "sim": 1117,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 36,
+     "max_size": 5,
+     "median_sum": 64,
+     "games": 30
+    },
+    "100": {
+     "sim": 5924,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 373,
+     "max_size": 12,
+     "median_sum": 94,
+     "games": 30
+    },
+    "150": {
+     "sim": 15592,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 4981,
+     "max_size": 17,
+     "median_sum": 119,
+     "games": 30
+    }
+   }
+  },
+  "pottery_capped": {
+   "m": {
+    "max_harvest": 9509,
+    "harvest": 397531428,
+    "eaten_need": 230415300,
+    "cityturns": 176331,
+    "popturns": 768051,
+    "eaten": 230414745,
+    "spoiled": 14789446,
+    "held": 43808,
+    "held_t": 42940879,
+    "held_t_0": 8789926,
+    "held_n_0": 10196,
+    "grow": 15210,
+    "held_t_1": 18367076,
+    "held_n_1": 17879,
+    "held_t_2": 15783877,
+    "held_n_2": 15733,
+    "starve": 19,
+    "shrink": 3,
+    "max_box": 22382
+   },
+   "traj": {
+    "50": {
+     "sim": 1152,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1,
+     "max_size": 6,
+     "median_sum": 64,
+     "games": 30
+    },
+    "100": {
+     "sim": 6209,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 88,
+     "max_size": 12,
+     "median_sum": 110,
+     "games": 30
+    },
+    "150": {
+     "sim": 18169,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 2408,
+     "max_size": 18,
+     "median_sum": 149,
+     "games": 30
+    }
+   }
+  },
+  "fermentation_capped": {
+   "m": {
+    "max_harvest": 9509,
+    "harvest": 398107266,
+    "eaten_need": 231179400,
+    "cityturns": 176331,
+    "popturns": 770598,
+    "eaten": 231178758,
+    "spoiled": 11963930,
+    "held": 45264,
+    "held_t": 44981526,
+    "held_t_0": 9237511,
+    "held_n_0": 10442,
+    "grow": 15282,
+    "held_t_1": 19315756,
+    "held_n_1": 18503,
+    "held_t_2": 16428259,
+    "held_n_2": 16319,
+    "starve": 20,
+    "shrink": 4,
+    "max_box": 22382
+   },
+   "traj": {
+    "50": {
+     "sim": 1152,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1,
+     "max_size": 6,
+     "median_sum": 64,
+     "games": 30
+    },
+    "100": {
+     "sim": 6220,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 77,
+     "max_size": 12,
+     "median_sum": 108,
+     "games": 30
+    },
+    "150": {
+     "sim": 18239,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 2338,
+     "max_size": 18,
+     "median_sum": 150,
+     "games": 30
+    }
+   }
+  },
+  "refrigeration_capped": {
+   "m": {
+    "max_harvest": 9509,
+    "harvest": 399316057,
+    "eaten_need": 233585100,
+    "cityturns": 176331,
+    "popturns": 778617,
+    "eaten": 233584424,
+    "spoiled": 0,
+    "held": 49513,
+    "held_t": 52616536,
+    "held_t_0": 10285534,
+    "held_n_0": 10708,
+    "grow": 15669,
+    "held_t_1": 22009073,
+    "held_n_1": 19759,
+    "held_t_2": 20321929,
+    "held_n_2": 19046,
+    "starve": 21,
+    "shrink": 5,
+    "max_box": 22917
+   },
+   "traj": {
+    "50": {
+     "sim": 1152,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1,
+     "max_size": 6,
+     "median_sum": 64,
+     "games": 30
+    },
+    "100": {
+     "sim": 6244,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 53,
+     "max_size": 12,
+     "median_sum": 112,
+     "games": 30
+    },
+    "150": {
+     "sim": 18617,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 1960,
+     "max_size": 18,
+     "median_sum": 156,
+     "games": 30
+    }
+   }
+  },
+  "timed_food": {
+   "m": {
+    "max_harvest": 9590,
+    "harvest": 504550326,
+    "eaten_need": 342939000,
+    "cityturns": 176331,
+    "popturns": 1143130,
+    "eaten": 342936437,
+    "spoiled": 12726739,
+    "grow": 18639,
+    "starve": 37,
+    "shrink": 21,
+    "max_box": 26110
+   },
+   "traj": {
+    "50": {
+     "sim": 2920,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1767,
+     "max_size": 13,
+     "median_sum": 236,
+     "games": 30
+    },
+    "100": {
+     "sim": 9948,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 3657,
+     "max_size": 20,
+     "median_sum": 165,
+     "games": 30
+    },
+    "150": {
+     "sim": 21489,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 3808,
+     "max_size": 23,
+     "median_sum": 168,
+     "games": 30
+    }
+   }
+  },
+  "timed_capped": {
+   "m": {
+    "max_harvest": 9509,
+    "harvest": 398107266,
+    "eaten_need": 231179400,
+    "cityturns": 176331,
+    "popturns": 770598,
+    "eaten": 231178758,
+    "spoiled": 12219653,
+    "held": 44902,
+    "held_t": 44725803,
+    "held_t_0": 8984836,
+    "held_n_0": 10080,
+    "grow": 15282,
+    "held_t_1": 19315756,
+    "held_n_1": 18503,
+    "held_t_2": 16425211,
+    "held_n_2": 16319,
+    "starve": 20,
+    "shrink": 4,
+    "max_box": 22382
+   },
+   "traj": {
+    "50": {
+     "sim": 1152,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 1,
+     "max_size": 6,
+     "median_sum": 64,
+     "games": 30
+    },
+    "100": {
+     "sim": 6220,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 77,
+     "max_size": 12,
+     "median_sum": 108,
+     "games": 30
+    },
+    "150": {
+     "sim": 18239,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 2338,
+     "max_size": 18,
+     "median_sum": 150,
+     "games": 30
+    }
+   }
+  },
+  "oral_timed_food": {
+   "m": {
+    "max_harvest": 6319,
+    "harvest": 306111324,
+    "eaten_need": 223559700,
+    "cityturns": 176331,
+    "popturns": 745199,
+    "eaten": 223557720,
+    "spoiled": 8797953,
+    "grow": 11045,
+    "starve": 24,
+    "shrink": 23,
+    "max_box": 19215
+   },
+   "traj": {
+    "50": {
+     "sim": 1965,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 814,
+     "max_size": 9,
+     "median_sum": 154,
+     "games": 30
+    },
+    "100": {
+     "sim": 6435,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 994,
+     "max_size": 13,
+     "median_sum": 111,
+     "games": 30
+    },
+    "150": {
+     "sim": 14018,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 6619,
+     "max_size": 16,
+     "median_sum": 108,
+     "games": 30
+    }
+   }
+  },
+  "oral_timed_capped": {
+   "m": {
+    "max_harvest": 6007,
+    "harvest": 278637785,
+    "eaten_need": 193434900,
+    "cityturns": 176331,
+    "popturns": 644783,
+    "eaten": 193432855,
+    "spoiled": 8662957,
+    "held": 14888,
+    "held_t": 8349115,
+    "held_t_0": 3802304,
+    "held_n_0": 6975,
+    "grow": 10523,
+    "held_t_1": 3787293,
+    "held_n_1": 6417,
+    "held_t_2": 759518,
+    "held_n_2": 1496,
+    "starve": 24,
+    "shrink": 23,
+    "max_box": 17025
+   },
+   "traj": {
+    "50": {
+     "sim": 1148,
+     "obs": 1153,
+     "cities": 454,
+     "abs_err": 5,
+     "max_size": 5,
+     "median_sum": 64,
+     "games": 30
+    },
+    "100": {
+     "sim": 5565,
+     "obs": 6297,
+     "cities": 1510,
+     "abs_err": 732,
+     "max_size": 10,
+     "median_sum": 94,
+     "games": 30
+    },
+    "150": {
+     "sim": 13503,
+     "obs": 20537,
+     "cities": 3053,
+     "abs_err": 7070,
+     "max_size": 14,
+     "median_sum": 108,
+     "games": 30
+    }
+   }
+  }
+ },
+ "sweep": {
+  "0": {
+   "rates": {
+    "fish": 0,
+    "dairy": 0,
+    "fruit": 0,
+    "grain": 0
+   },
+   "food": {
+    "m": {
+     "max_harvest": 9590,
+     "harvest": 516457282,
+     "eaten_need": 358358100,
+     "cityturns": 176331,
+     "popturns": 1194527,
+     "eaten": 358353486,
+     "spoiled": 0,
+     "grow": 19597,
+     "starve": 58,
+     "shrink": 42,
+     "max_box": 27040
+    },
+    "traj": {
+     "50": {
+      "sim": 3065,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 1912,
+      "max_size": 14,
+      "median_sum": 253,
+      "games": 30
+     },
+     "100": {
+      "sim": 10394,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 4097,
+      "max_size": 21,
+      "median_sum": 169,
+      "games": 30
+     },
+     "150": {
+      "sim": 22405,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 4106,
+      "max_size": 23,
+      "median_sum": 178,
+      "games": 30
+     }
+    }
+   },
+   "capped": {
+    "m": {
+     "max_harvest": 9509,
+     "harvest": 399316057,
+     "eaten_need": 233585100,
+     "cityturns": 176331,
+     "popturns": 778617,
+     "eaten": 233584424,
+     "spoiled": 0,
+     "held": 49513,
+     "held_t": 52616536,
+     "held_t_0": 10285534,
+     "held_n_0": 10708,
+     "grow": 15669,
+     "held_t_1": 22009073,
+     "held_n_1": 19759,
+     "held_t_2": 20321929,
+     "held_n_2": 19046,
+     "starve": 21,
+     "shrink": 5,
+     "max_box": 22917
+    },
+    "traj": {
+     "50": {
+      "sim": 1152,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 1,
+      "max_size": 6,
+      "median_sum": 64,
+      "games": 30
+     },
+     "100": {
+      "sim": 6244,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 53,
+      "max_size": 12,
+      "median_sum": 112,
+      "games": 30
+     },
+     "150": {
+      "sim": 18617,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 1960,
+      "max_size": 18,
+      "median_sum": 156,
+      "games": 30
+     }
+    }
+   }
+  },
+  "25": {
+   "rates": {
+    "fish": 75,
+    "dairy": 62,
+    "fruit": 37,
+    "grain": 15
+   },
+   "food": {
+    "m": {
+     "max_harvest": 9590,
+     "harvest": 502170164,
+     "eaten_need": 339256500,
+     "cityturns": 176331,
+     "popturns": 1130855,
+     "eaten": 339255135,
+     "spoiled": 17604510,
+     "grow": 18285,
+     "starve": 32,
+     "shrink": 16,
+     "max_box": 25715
+    },
+    "traj": {
+     "50": {
+      "sim": 2945,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 1792,
+      "max_size": 13,
+      "median_sum": 241,
+      "games": 30
+     },
+     "100": {
+      "sim": 9813,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 3528,
+      "max_size": 20,
+      "median_sum": 163,
+      "games": 30
+     },
+     "150": {
+      "sim": 21142,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 3703,
+      "max_size": 22,
+      "median_sum": 163,
+      "games": 30
+     }
+    }
+   },
+   "capped": {
+    "m": {
+     "max_harvest": 9509,
+     "harvest": 397441453,
+     "eaten_need": 230121900,
+     "cityturns": 176331,
+     "popturns": 767073,
+     "eaten": 230121401,
+     "spoiled": 16619374,
+     "held": 43761,
+     "held_t": 42200307,
+     "held_t_0": 8945026,
+     "held_n_0": 10351,
+     "grow": 15115,
+     "held_t_1": 18256744,
+     "held_n_1": 17973,
+     "held_t_2": 14998537,
+     "held_n_2": 15437,
+     "starve": 19,
+     "shrink": 3,
+     "max_box": 22522
+    },
+    "traj": {
+     "50": {
+      "sim": 1152,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 1,
+      "max_size": 6,
+      "median_sum": 64,
+      "games": 30
+     },
+     "100": {
+      "sim": 6208,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 89,
+      "max_size": 12,
+      "median_sum": 108,
+      "games": 30
+     },
+     "150": {
+      "sim": 18075,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 2504,
+      "max_size": 18,
+      "median_sum": 150,
+      "games": 30
+     }
+    }
+   }
+  },
+  "50": {
+   "rates": {
+    "fish": 150,
+    "dairy": 125,
+    "fruit": 75,
+    "grain": 30
+   },
+   "food": {
+    "m": {
+     "max_harvest": 9590,
+     "harvest": 485943053,
+     "eaten_need": 318462900,
+     "cityturns": 176331,
+     "popturns": 1061543,
+     "eaten": 318462570,
+     "spoiled": 35182271,
+     "grow": 16940,
+     "starve": 16,
+     "max_box": 25441
+    },
+    "traj": {
+     "50": {
+      "sim": 2759,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 1606,
+      "max_size": 13,
+      "median_sum": 218,
+      "games": 30
+     },
+     "100": {
+      "sim": 9235,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 2974,
+      "max_size": 19,
+      "median_sum": 152,
+      "games": 30
+     },
+     "150": {
+      "sim": 19835,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 3578,
+      "max_size": 22,
+      "median_sum": 150,
+      "games": 30
+     }
+    }
+   },
+   "capped": {
+    "m": {
+     "max_harvest": 9019,
+     "harvest": 394350897,
+     "eaten_need": 225513900,
+     "cityturns": 176331,
+     "popturns": 751713,
+     "eaten": 225513570,
+     "spoiled": 33070155,
+     "held": 38125,
+     "held_t": 32779766,
+     "held_t_0": 7590927,
+     "held_n_0": 9877,
+     "grow": 14428,
+     "held_t_1": 14648836,
+     "held_n_1": 16034,
+     "held_t_2": 10540003,
+     "held_n_2": 12214,
+     "starve": 16,
+     "max_box": 21497
+    },
+    "traj": {
+     "50": {
+      "sim": 1152,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 1,
+      "max_size": 6,
+      "median_sum": 64,
+      "games": 30
+     },
+     "100": {
+      "sim": 6172,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 125,
+      "max_size": 12,
+      "median_sum": 104,
+      "games": 30
+     },
+     "150": {
+      "sim": 17392,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 3185,
+      "max_size": 18,
+      "median_sum": 143,
+      "games": 30
+     }
+    }
+   }
+  },
+  "100": {
+   "rates": {
+    "fish": 300,
+    "dairy": 250,
+    "fruit": 150,
+    "grain": 60
+   },
+   "food": {
+    "m": {
+     "max_harvest": 9590,
+     "harvest": 447350634,
+     "eaten_need": 272452200,
+     "cityturns": 176331,
+     "popturns": 908174,
+     "eaten": 272451870,
+     "spoiled": 69165206,
+     "grow": 13920,
+     "starve": 16,
+     "max_box": 23383
+    },
+    "traj": {
+     "50": {
+      "sim": 2388,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 1299,
+      "max_size": 12,
+      "median_sum": 157,
+      "games": 30
+     },
+     "100": {
+      "sim": 7906,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 1965,
+      "max_size": 18,
+      "median_sum": 121,
+      "games": 30
+     },
+     "150": {
+      "sim": 16868,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 4503,
+      "max_size": 20,
+      "median_sum": 122,
+      "games": 30
+     }
+    }
+   },
+   "capped": {
+    "m": {
+     "max_harvest": 8640,
+     "harvest": 383280846,
+     "eaten_need": 211486200,
+     "cityturns": 176331,
+     "popturns": 704954,
+     "eaten": 211485870,
+     "spoiled": 64804003,
+     "held": 24903,
+     "held_t": 17113033,
+     "held_t_0": 5025834,
+     "held_n_0": 7927,
+     "grow": 12608,
+     "held_t_1": 8164321,
+     "held_n_1": 11047,
+     "held_t_2": 3922878,
+     "held_n_2": 5929,
+     "starve": 16,
+     "max_box": 20828
+    },
+    "traj": {
+     "50": {
+      "sim": 1117,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 36,
+      "max_size": 5,
+      "median_sum": 64,
+      "games": 30
+     },
+     "100": {
+      "sim": 5924,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 373,
+      "max_size": 12,
+      "median_sum": 94,
+      "games": 30
+     },
+     "150": {
+      "sim": 15592,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 4981,
+      "max_size": 17,
+      "median_sum": 119,
+      "games": 30
+     }
+    }
+   }
+  },
+  "150": {
+   "rates": {
+    "fish": 450,
+    "dairy": 375,
+    "fruit": 225,
+    "grain": 90
+   },
+   "food": {
+    "m": {
+     "max_harvest": 9590,
+     "harvest": 393841776,
+     "eaten_need": 217689600,
+     "cityturns": 176331,
+     "popturns": 725632,
+     "eaten": 217689229,
+     "spoiled": 98080389,
+     "grow": 10258,
+     "starve": 20,
+     "max_box": 21924
+    },
+    "traj": {
+     "50": {
+      "sim": 1968,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 1149,
+      "max_size": 11,
+      "median_sum": 108,
+      "games": 30
+     },
+     "100": {
+      "sim": 6322,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 1703,
+      "max_size": 16,
+      "median_sum": 85,
+      "games": 30
+     },
+     "150": {
+      "sim": 13256,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 7385,
+      "max_size": 19,
+      "median_sum": 79,
+      "games": 30
+     }
+    }
+   },
+   "capped": {
+    "m": {
+     "max_harvest": 8517,
+     "harvest": 352644532,
+     "eaten_need": 181582500,
+     "cityturns": 176331,
+     "popturns": 605275,
+     "eaten": 181582129,
+     "spoiled": 92652932,
+     "held": 14107,
+     "held_t": 7585944,
+     "held_t_0": 3319728,
+     "held_n_0": 6616,
+     "grow": 9663,
+     "held_t_1": 3387403,
+     "held_n_1": 5808,
+     "held_t_2": 878813,
+     "held_n_2": 1683,
+     "starve": 20,
+     "max_box": 18833
+    },
+    "traj": {
+     "50": {
+      "sim": 986,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 167,
+      "max_size": 5,
+      "median_sum": 60,
+      "games": 30
+     },
+     "100": {
+      "sim": 5232,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 1065,
+      "max_size": 11,
+      "median_sum": 71,
+      "games": 30
+     },
+     "150": {
+      "sim": 12666,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 7907,
+      "max_size": 16,
+      "median_sum": 78,
+      "games": 30
+     }
+    }
+   }
+  },
+  "200": {
+   "rates": {
+    "fish": 600,
+    "dairy": 500,
+    "fruit": 300,
+    "grain": 120
+   },
+   "food": {
+    "m": {
+     "max_harvest": 8557,
+     "harvest": 338401415,
+     "eaten_need": 169727100,
+     "cityturns": 176331,
+     "popturns": 565757,
+     "eaten": 169726655,
+     "spoiled": 115501702,
+     "grow": 6885,
+     "starve": 23,
+     "max_box": 19404
+    },
+    "traj": {
+     "50": {
+      "sim": 1582,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 901,
+      "max_size": 10,
+      "median_sum": 58,
+      "games": 30
+     },
+     "100": {
+      "sim": 4975,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 1750,
+      "max_size": 14,
+      "median_sum": 46,
+      "games": 30
+     },
+     "150": {
+      "sim": 9934,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 10651,
+      "max_size": 17,
+      "median_sum": 30,
+      "games": 30
+     }
+    }
+   },
+   "capped": {
+    "m": {
+     "max_harvest": 8010,
+     "harvest": 314327257,
+     "eaten_need": 150276900,
+     "cityturns": 176331,
+     "popturns": 500923,
+     "eaten": 150276455,
+     "spoiled": 110581922,
+     "held": 7773,
+     "held_t": 2938359,
+     "held_t_0": 1898886,
+     "held_n_0": 5406,
+     "grow": 6668,
+     "held_t_1": 984270,
+     "held_n_1": 2263,
+     "held_t_2": 55203,
+     "held_n_2": 104,
+     "starve": 23,
+     "max_box": 17637
+    },
+    "traj": {
+     "50": {
+      "sim": 914,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 239,
+      "max_size": 5,
+      "median_sum": 46,
+      "games": 30
+     },
+     "100": {
+      "sim": 4515,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 1782,
+      "max_size": 11,
+      "median_sum": 46,
+      "games": 30
+     },
+     "150": {
+      "sim": 9717,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 10856,
+      "max_size": 15,
+      "median_sum": 30,
+      "games": 30
+     }
+    }
+   }
+  },
+  "300": {
+   "rates": {
+    "fish": 900,
+    "dairy": 750,
+    "fruit": 450,
+    "grain": 180
+   },
+   "food": {
+    "m": {
+     "max_harvest": 6392,
+     "harvest": 215654286,
+     "eaten_need": 81938100,
+     "cityturns": 176331,
+     "popturns": 273127,
+     "eaten": 81937366,
+     "spoiled": 117954014,
+     "grow": 1629,
+     "starve": 40,
+     "max_box": 12503
+    },
+    "traj": {
+     "50": {
+      "sim": 703,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 620,
+      "max_size": 7,
+      "median_sum": 30,
+      "games": 30
+     },
+     "100": {
+      "sim": 2415,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 3882,
+      "max_size": 9,
+      "median_sum": 30,
+      "games": 30
+     },
+     "150": {
+      "sim": 4774,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 15803,
+      "max_size": 10,
+      "median_sum": 30,
+      "games": 30
+     }
+    }
+   },
+   "capped": {
+    "m": {
+     "max_harvest": 6297,
+     "harvest": 212615843,
+     "eaten_need": 79882800,
+     "cityturns": 176331,
+     "popturns": 266276,
+     "eaten": 79882066,
+     "spoiled": 116986436,
+     "held": 708,
+     "held_t": 122200,
+     "held_t_0": 68649,
+     "held_n_0": 552,
+     "grow": 1612,
+     "held_t_1": 52144,
+     "held_n_1": 148,
+     "starve": 40,
+     "held_t_2": 1407,
+     "held_n_2": 8,
+     "max_box": 12460
+    },
+    "traj": {
+     "50": {
+      "sim": 600,
+      "obs": 1153,
+      "cities": 454,
+      "abs_err": 553,
+      "max_size": 4,
+      "median_sum": 30,
+      "games": 30
+     },
+     "100": {
+      "sim": 2394,
+      "obs": 6297,
+      "cities": 1510,
+      "abs_err": 3903,
+      "max_size": 9,
+      "median_sum": 30,
+      "games": 30
+     },
+     "150": {
+      "sim": 4757,
+      "obs": 20537,
+      "cities": 3053,
+      "abs_err": 15816,
+      "max_size": 10,
+      "median_sum": 30,
+      "games": 30
+     }
+    }
+   }
+  }
+ },
+ "determinism": true
+}

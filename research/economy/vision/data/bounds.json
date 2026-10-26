@@ -1,0 +1,17 @@
+{
+ "plot_parts": {
+  "terrain_river": 2,
+  "feature": 3,
+  "bonus": 1,
+  "improvement": 13,
+  "civic": 15,
+  "building_sea": 5
+ },
+ "plot": 39,
+ "building_food": 34,
+ "modifier_percent": 151,
+ "city_food": 2141,
+ "city_tons": 214100,
+ "int32_max": 2147483647,
+ "int64_max": 9223372036854775807
+}

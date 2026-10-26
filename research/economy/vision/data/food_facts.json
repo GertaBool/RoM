@@ -1,0 +1,282 @@
+{
+ "techs": {
+  "TECH_POTTERY": {
+   "cost": 60,
+   "era": "ERA_ANCIENT",
+   "and_": [],
+   "or_": [
+    "TECH_AGRICULTURE",
+    "TECH_FISHING"
+   ],
+   "fewest": 2,
+   "fewest_cost": 108
+  },
+  "TECH_FERMENTATION": {
+   "cost": 95,
+   "era": "ERA_ANCIENT",
+   "and_": [
+    "TECH_AGRICULTURE",
+    "TECH_NATUROPATHY",
+    "TECH_POTTERY"
+   ],
+   "or_": [],
+   "fewest": 5,
+   "fewest_cost": 275
+  },
+  "TECH_REFRIGERATION": {
+   "cost": 5200,
+   "era": "ERA_INDUSTRIAL",
+   "and_": [
+    "TECH_BIOLOGY",
+    "TECH_THERMODYNAMICS"
+   ],
+   "or_": [
+    "TECH_ELECTRICITY"
+   ],
+   "fewest": 88,
+   "fewest_cost": 151934
+  }
+ },
+ "uses": {
+  "TECH_POTTERY": [
+   {
+    "kind": "building",
+    "type": "BUILDING_TOWN_ESSENTIALS",
+    "food_kept": 30,
+    "health": 3,
+    "cost": 70
+   },
+   {
+    "kind": "build",
+    "type": "BUILD_COTTAGE",
+    "field": [
+     "PrereqTech"
+    ]
+   },
+   {
+    "kind": "civic",
+    "type": "CIVIC_TABLETS",
+    "field": [
+     "TechPrereq"
+    ]
+   }
+  ],
+  "TECH_FERMENTATION": [
+   {
+    "kind": "building",
+    "type": "BUILDING_BREWERY",
+    "food_kept": 0,
+    "health": 0,
+    "cost": 100
+   },
+   {
+    "kind": "improvement",
+    "type": "IMPROVEMENT_FARM",
+    "field": [
+     "other field"
+    ]
+   },
+   {
+    "kind": "improvement",
+    "type": "IMPROVEMENT_PASTURE",
+    "field": [
+     "other field"
+    ]
+   },
+   {
+    "kind": "build",
+    "type": "BUILD_OLIVE_FARM",
+    "field": [
+     "PrereqTech"
+    ]
+   },
+   {
+    "kind": "build",
+    "type": "BUILD_APPLE_FARM",
+    "field": [
+     "PrereqTech"
+    ]
+   },
+   {
+    "kind": "build",
+    "type": "BUILD_WINERY",
+    "field": [
+     "PrereqTech"
+    ]
+   },
+   {
+    "kind": "bonus",
+    "type": "BONUS_ALCOHOL",
+    "field": [
+     "TechCityTrade"
+    ]
+   }
+  ],
+  "TECH_REFRIGERATION": [
+   {
+    "kind": "building",
+    "type": "BUILDING_CEREAL_MILLS_FACTORY",
+    "food_kept": 0,
+    "health": 0,
+    "cost": 500
+   },
+   {
+    "kind": "building",
+    "type": "BUILDING_CORPORATION_1",
+    "food_kept": 0,
+    "health": 0,
+    "cost": -1
+   },
+   {
+    "kind": "building",
+    "type": "BUILDING_COMMERCIAL_CENTER",
+    "food_kept": 10,
+    "health": 8,
+    "cost": 600
+   },
+   {
+    "kind": "improvement",
+    "type": "IMPROVEMENT_PASTURE",
+    "field": [
+     "other field"
+    ]
+   }
+  ]
+ },
+ "food_kept_buildings": [
+  {
+   "type": "BUILDING_POTALA_PALACE",
+   "tech": "TECH_EDUCATION",
+   "food_kept": 20,
+   "free_start_era": "NONE",
+   "cost": 720,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_ROMAN_DEPOT",
+   "tech": "TECH_CITY_PLANNING",
+   "food_kept": 10,
+   "free_start_era": "NONE",
+   "cost": 60,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_PORTUS_MAXIMUS",
+   "tech": "TECH_WATERWORKS",
+   "food_kept": 10,
+   "free_start_era": null,
+   "cost": 300,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_PRAEFECTURA_ANNONAE",
+   "tech": "TECH_CODE_OF_LAWS",
+   "food_kept": 10,
+   "free_start_era": "NONE",
+   "cost": 100,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_SETTLEMENT_ESSENTIALS",
+   "tech": "NONE",
+   "food_kept": 20,
+   "free_start_era": "ERA_ANCIENT",
+   "cost": 10,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_TOWN_ESSENTIALS",
+   "tech": "TECH_MASONRY",
+   "food_kept": 30,
+   "free_start_era": "NONE",
+   "cost": 70,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_CITY_ESSENTIALS",
+   "tech": "TECH_CITY_PLANNING",
+   "food_kept": 30,
+   "free_start_era": "NONE",
+   "cost": 200,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_METROPOLITAN_ESSENTIALS",
+   "tech": "TECH_SANITATION",
+   "food_kept": 40,
+   "free_start_era": "NONE",
+   "cost": 500,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_COMMODITY_MARKET",
+   "tech": "TECH_MERCANTILISM",
+   "food_kept": 10,
+   "free_start_era": "NONE",
+   "cost": 600,
+   "wonder": false
+  },
+  {
+   "type": "BUILDING_COMMERCIAL_CENTER",
+   "tech": "TECH_REFRIGERATION",
+   "food_kept": 10,
+   "free_start_era": "NONE",
+   "cost": 600,
+   "wonder": false
+  }
+ ],
+ "defines": {
+  "BASE_CITY_GROWTH_THRESHOLD": 30,
+  "CITY_GROWTH_MULTIPLIER": 10,
+  "FOOD_CONSUMPTION_PER_POPULATION": 3,
+  "growth_percent_normal": 100
+ },
+ "calendar_normal": [
+  {
+   "months": 600,
+   "turns": 40
+  },
+  {
+   "months": 300,
+   "turns": 100
+  },
+  {
+   "months": 240,
+   "turns": 120
+  },
+  {
+   "months": 120,
+   "turns": 50
+  },
+  {
+   "months": 60,
+   "turns": 80
+  },
+  {
+   "months": 24,
+   "turns": 80
+  },
+  {
+   "months": 12,
+   "turns": 60
+  },
+  {
+   "months": 6,
+   "turns": 150
+  },
+  {
+   "months": 3,
+   "turns": 20
+  }
+ ],
+ "bonus_salt": {
+  "reveal": "NONE",
+  "city_trade": "TECH_MASONRY",
+  "health": 1,
+  "yields": [
+   "0",
+   "0",
+   "1"
+  ]
+ }
+}
