@@ -154,7 +154,7 @@
  "components": [
   {
    "id": "LQ",
-   "title": "Geography and tiles",
+   "title": "Goods on today's map",
    "statement": [
     "3.1",
     "3.2"
@@ -165,443 +165,13 @@
     "D8",
     "D9",
     "D16",
-    "D17"
+    "D17",
+    "D18",
+    "D19",
+    "D20"
    ],
-   "player_sees": "No resource tokens on the map. The land itself has qualities: crop and herd suitability, ore grade and depth, fishing grounds, shown in the plot help and a map overlay. What a tile yields follows its qualities and the improvement built on it; the improvement decides which of the plot's qualities it uses (a farm the crops, a pasture the herds, a mine the ore). Techs keep adding yield as they do now. A city still gains a resource as today, from an improved, connected tile, but the tile's quality is the source instead of a placed token. Forests yield timber through lumber camps (early) and lumbermills (Machinery). Pastures yield every good of their animals: cows meat, dairy and leather; sheep meat, wool, dairy and leather; horses horses and leather. Every good, the new ones included, has its own realistic icon.",
+   "player_sees": "Timber, Wool, Dairy and Leather on today's map: their icons, lumber camps and pastures that yield them, and what they do under today's rules.",
    "features": [
-    {
-     "id": "LQ.F1",
-     "what": "Plot qualities, saved with the plot: suitability per crop and herd good, ore grade and depth per ore good, fishing capacity",
-     "code": [
-      {
-       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-       "anchor": "void CvPlot::read(FDataStreamBase* pStream)"
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-       "anchor": "void CvPlot::write(FDataStreamBase* pStream)"
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-       "anchor": "void CvPlot::reset(int iX, int iY, bool bConstructorCall)"
-      }
-     ],
-     "checks": [
-      {
-       "kind": "added",
-       "file": "Assets/CvGameCoreDLL/CvPlot.h",
-       "text": "getLandQuality("
-      }
-     ],
-     "after": [],
-     "tasks": [
-      {
-       "id": "LQ.F1.T1",
-       "text": "Storage and accessors: getLandQuality(BonusTypes), setLandQuality, getOreDepth",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F1.T2",
-       "text": "Read and write behind a new CvPlot save version; old saves load with none (LQ.F3 builds them)",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F1.T3",
-       "text": "Clear in CvPlot::reset",
-       "status": "todo"
-      }
-     ],
-     "data": [
-      {
-       "name": "land qualities",
-       "where": "CvPlot",
-       "type": "sparse list of (good, quality) pairs, short",
-       "bounds": "quality 0..1000",
-       "saved": true
-      },
-      {
-       "name": "ore depth",
-       "where": "CvPlot",
-       "type": "char per ore good",
-       "bounds": "0 shallow, 1 deep, 2 very deep",
-       "saved": true
-      }
-     ],
-     "acceptance": [
-      "A game saved and reloaded has identical qualities on every plot"
-     ],
-     "design": [
-      "PR.tiles"
-     ]
-    },
-    {
-     "id": "LQ.F2",
-     "what": "Suitability rules from each resource record's existing placement rules (terrain, feature, latitude, hills or flat, river), read once into the good's definition",
-     "code": [
-      {
-       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
-       "anchor": "bool CvBonusInfo::read(CvXMLLoadUtility* pXML)"
-      },
-      {
-       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
-       "anchor": "<TerrainBooleans>"
-      },
-      {
-       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
-       "anchor": "<iMaxLatitude>"
-      },
-      {
-       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
-       "anchor": "<bFlatlands>"
-      }
-     ],
-     "checks": [
-      {
-       "kind": "added",
-       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
-       "text": "CvBonusInfo::getSuitability("
-      }
-     ],
-     "after": [],
-     "tasks": [
-      {
-       "id": "LQ.F2.T1",
-       "text": "CvBonusInfo::getSuitability(const CvPlot&) in 0..1000: 0 where a hard rule fails (terrain, feature, hills or flat, river side); 1000 inside the latitude window, falling to a floor over its outer tenth",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F2.T2",
-       "text": "Sea goods: the coast or ocean rule, with fishing capacity from the terrain",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F2.T3",
-       "text": "Expose it to Python (CyBonusInfo) for the overlay",
-       "status": "todo"
-      }
-     ],
-     "data": [
-      {
-       "name": "suitability rule",
-       "where": "CvBonusInfo",
-       "type": "derived from the record's TerrainBooleans, FeatureBooleans, FeatureTerrainBooleans, bHills, bFlatlands, bNoRiverSide, iMinLatitude, iMaxLatitude",
-       "saved": false
-      }
-     ],
-     "acceptance": [
-      "On the shipped WorldBuilder scenarios, every plot that holds a placed resource scores at least the availability threshold for that resource"
-     ],
-     "design": [
-      "PR.tiles"
-     ]
-    },
-    {
-     "id": "LQ.F3",
-     "what": "Qualities built once for any new game, scenario or old save; ore regions seeded from the resources the map script or scenario placed, which are then removed from the plots",
-     "code": [
-      {
-       "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-       "anchor": "void CvGame::doTurn()"
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-       "anchor": "void CvGame::read(FDataStreamBase* pStream)"
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-       "anchor": "void CvPlot::setBonusType(BonusTypes eNewValue)"
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvMapGenerator.cpp",
-       "anchor": "void CvMapGenerator::addBonuses()"
-      }
-     ],
-     "checks": [
-      {
-       "kind": "added",
-       "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-       "text": "void CvGame::buildLandQualities()"
-      }
-     ],
-     "after": [
-      "LQ.F1",
-      "LQ.F2"
-     ],
-     "tasks": [
-      {
-       "id": "LQ.F3.T1",
-       "text": "CvGame::buildLandQualities(): crop, orchard, herd, game and sea goods from suitability on every plot",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F3.T2",
-       "text": "Ore, quarry and well goods: a region around each placed token, grade highest at the token and falling with distance over suitable plots; depth by grade",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F3.T3",
-       "text": "Special goods and sites as D11 decides",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F3.T4",
-       "text": "Then setBonusType(NO_BONUS) on every plot, so the executable draws no resource model",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F3.T5",
-       "text": "Called once from CvGame::doTurn while the flag is unset: new maps, scenarios and old saves alike; no random draws",
-       "status": "todo"
-      }
-     ],
-     "data": [
-      {
-       "name": "land qualities built",
-       "where": "CvGame",
-       "type": "bool",
-       "saved": true
-      },
-      {
-       "name": "LAND_QUALITY_THRESHOLD, LAND_QUALITY_RICH, ORE_REGION_RADIUS",
-       "where": "GlobalDefinesAlt.xml",
-       "type": "int",
-       "bounds": "0..1000; radius in plots",
-       "saved": false
-      }
-     ],
-     "acceptance": [
-      "After turn 0 no plot holds a token and the globe resource layer shows none",
-      "Two runs of the same seed give identical qualities"
-     ],
-     "design": [
-      "G.tokens",
-      "PR.tiles"
-     ]
-    },
-    {
-     "id": "LQ.F4",
-     "what": "Tile yields from qualities: the yield a placed resource and its improvement add today comes from the plot's quality for the good the improvement uses; techs' yield changes stay as they are",
-     "code": [
-      {
-       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-       "anchor": "int CvPlot::calculateYield(YieldTypes eYield, bool bDisplay) const"
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
-       "anchor": "bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)"
-      },
-      {
-       "file": "Assets/XML/Terrain/CIV4ImprovementInfos.xml",
-       "anchor": "<TechYieldChanges>"
-      }
-     ],
-     "checks": [
-      {
-       "kind": "added",
-       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-       "text": "getPlotGood("
-      },
-      {
-       "kind": "audit",
-       "name": "callsites_converted",
-       "classes": [
-        "rules"
-       ]
-      }
-     ],
-     "after": [
-      "LQ.F3"
-     ],
-     "tasks": [
-      {
-       "id": "LQ.F4.T1",
-       "text": "CvPlot::getPlotGood(ImprovementTypes): the good with the highest quality among those the improvement yields (its BonusTypeStructs) that the owner's team has revealed, if at or above the threshold",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F4.T2",
-       "text": "calculateNatureYield and calculateImprovementYieldChange read the plot good; its yields scale by quality band as integers (rich: full; good: the main yield one less; below the threshold: none)",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F4.T3",
-       "text": "canHaveImprovement: an improvement that needs a resource (bBonusMakesValid) is valid where the plot has that good at or above the threshold",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F4.T4",
-       "text": "doImprovement: discovery of resources by improvements (iDiscoverRand) is retired; the land already holds its qualities",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F4.T5",
-       "text": "Techs' TechYieldChanges on improvements stay as they are",
-       "status": "todo"
-      }
-     ],
-     "acceptance": [
-      "A mine on rich copper hills yields what a mine on a copper token yields today; on poorer copper hills less; on hills without ore, what a plain mine yields"
-     ],
-     "design": [
-      "PR.tiles"
-     ]
-    },
-    {
-     "id": "LQ.F5",
-     "what": "Resource access from quality tiles: an improved, connected tile whose improvement uses a good gives that resource to the trade network under today's rules (TechCityTrade, the improvement's bonus trade)",
-     "code": [
-      {
-       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-       "anchor": "void CvPlot::updatePlotGroupBonus(bool bAdd)"
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvPlotGroup.cpp",
-       "anchor": "void CvPlotGroup::changeNumBonuses(BonusTypes eBonus, int iChange)"
-      }
-     ],
-     "checks": [
-      {
-       "kind": "manual",
-       "what": "a city builds what needs copper once a mine on copper-bearing hills is connected, as it does today with a copper token"
-      }
-     ],
-     "after": [
-      "LQ.F4"
-     ],
-     "tasks": [
-      {
-       "id": "LQ.F5.T1",
-       "text": "updatePlotGroupBonus: the improvement's plot good replaces getNonObsoleteBonusType, under today's rules (TechCityTrade, bBonusTrade, obsolescence)",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F5.T2",
-       "text": "getNonObsoleteBonusType and getVisibleBonusState follow the plot good",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F5.T3",
-       "text": "CvTeam::setHasTech, processTech and setForceRevealedBonus refresh plot groups through the plot good when reveal or trade techs arrive",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F5.T4",
-       "text": "CvCity::kill, CvPlayer::countOwnedBonuses, countUnimprovedBonuses, CvSelectionGroup::groupBuild, CvUnit::isActionRecommended and canMoveInto read the plot good",
-       "status": "todo"
-      }
-     ],
-     "design": [
-      "AR.bridge"
-     ]
-    },
-    {
-     "id": "LQ.F6",
-     "what": "Plot help and map overlay of the land, with each good's icon",
-     "code": [
-      {
-       "file": "Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
-       "anchor": "void CvGameTextMgr::setPlotHelp("
-      },
-      {
-       "file": "Assets/Python/Contrib/CvStrategyOverlay.py",
-       "anchor": "addColoredPlot"
-      }
-     ],
-     "checks": [
-      {
-       "kind": "manual",
-       "what": "hovering a plot names its qualities with the goods' icons; the overlay colours the map by a chosen good"
-      },
-      {
-       "kind": "audit",
-       "name": "callsites_converted",
-       "classes": [
-        "text",
-        "events",
-        "python"
-       ]
-      }
-     ],
-     "after": [
-      "LQ.F3",
-      "LQ.F9"
-     ],
-     "tasks": [
-      {
-       "id": "LQ.F6.T1",
-       "text": "setPlotHelp: each quality as the good's icon with a band word (rich, good, poor) and ore depth",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F6.T2",
-       "text": "CvPlayer::getResourceLayerColors becomes the land-quality layer of the globe view: a colour per plot for the chosen good",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F6.T3",
-       "text": "CyPlot exports getPlotGood and getLandQuality; Python helpers and events read them",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F6.T4",
-       "text": "setEventHelp and parseActionHelp name the plot good",
-       "status": "todo"
-      }
-     ],
-     "design": [
-      "AR.python"
-     ]
-    },
-    {
-     "id": "LQ.F7",
-     "what": "AI: city sites and worker builds from land qualities instead of placed resources",
-     "code": [
-      {
-       "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
-       "anchor": "int CvPlayerAI::AI_foundValue("
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvUnitAI.cpp",
-       "anchor": "bool CvUnitAI::AI_bestCityBuild("
-      }
-     ],
-     "checks": [
-      {
-       "kind": "manual",
-       "what": "the AI settles and improves land by its qualities"
-      },
-      {
-       "kind": "audit",
-       "name": "callsites_converted",
-       "classes": [
-        "ai"
-       ]
-      }
-     ],
-     "after": [
-      "LQ.F4"
-     ],
-     "tasks": [
-      {
-       "id": "LQ.F7.T1",
-       "text": "AI_foundValue values a site by the qualities in its radius instead of tokens",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F7.T2",
-       "text": "Worker AI (AI_bestCityBuild, AI_bestPlotBuild, AI_betterPlotBuild, AI_improveBonus, AI_connectBonus) builds the improvement whose plot good is worth most",
-       "status": "todo"
-      },
-      {
-       "id": "LQ.F7.T3",
-       "text": "Every function classed ai in callsites.json reads the plot good",
-       "status": "todo"
-      }
-     ],
-     "design": [
-      "PR.tiles"
-     ]
-    },
     {
      "id": "LQ.F8",
      "what": "Four goods without a map placement: Timber, Dairy and Leather as new resource records, and Wool, whose record exists but is commented out, restored; with art defines and Civilopedia text",
@@ -778,7 +348,7 @@
     },
     {
      "id": "LQ.F10",
-     "what": "Timber from forests: a new early lumber camp improvement and the existing lumbermill yield timber from forest plots",
+     "what": "Timber now, on today's map (D19): a lumber camp on forest from Metal Casting and the existing lumbermill (Machinery) give Timber to the trade network; Bronze Working, Iron Working and Mathematics raise lumber output",
      "code": [
       {
        "file": "Assets/XML/Terrain/CIV4ImprovementInfos.xml",
@@ -789,34 +359,52 @@
        "anchor": "<Type>BUILD_LUMBERMILL</Type>"
       },
       {
-       "file": "Assets/XML/Art/CIV4ArtDefines_Improvement.xml",
-       "anchor": "<Type>ART_DEF_IMPROVEMENT_CAMP</Type>"
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "void CvPlot::updatePlotGroupBonus(bool bAdd)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)"
       }
      ],
      "after": [
-      "LQ.F4",
       "LQ.F8"
      ],
      "tasks": [
       {
        "id": "LQ.F10.T1",
-       "text": "IMPROVEMENT_LUMBER_CAMP on forest (FeatureMakesValid FEATURE_FOREST), built by BUILD_LUMBER_CAMP from Bronze Working (proposed: the tech that already lets workers work forests); upgrades to the lumbermill once Machinery is known",
-       "status": "todo"
+       "status": "todo",
+       "text": "IMPROVEMENT_LUMBER_CAMP on forest (FeatureMakesValid FEATURE_FOREST, the forest kept), BUILD_LUMBER_CAMP from TECH_METAL_CASTING; upgrades to IMPROVEMENT_LUMBERMILL at Machinery"
       },
       {
        "id": "LQ.F10.T2",
-       "text": "Art: a new art define reusing the camp model and a realistic button (studio, reuse route); a dedicated model later",
-       "status": "todo"
+       "status": "todo",
+       "text": "Art: an art define reusing an existing camp or lumbermill model, and a button made with the studio"
       },
       {
        "id": "LQ.F10.T3",
-       "text": "Forest plots get a timber quality (LQ.F3) from the forest feature; both improvements yield timber through the plot good",
-       "status": "todo"
+       "status": "todo",
+       "text": "DLL: improvement records carry ProducedBonuses (goods the improvement yields on its plot whatever resource is placed); CvPlot::updatePlotGroupBonus adds them; CvTeam::setHasTech refreshes plots whose improvement yields a good with that tech; schema, CvImprovementInfo read and copyNonDefaults"
       },
       {
        "id": "LQ.F10.T4",
-       "text": "Lumbermill keeps its record (Machinery) and gains timber",
-       "status": "todo"
+       "status": "todo",
+       "text": "Lumber camp and lumbermill yield BONUS_TIMBER through ProducedBonuses"
+      },
+      {
+       "id": "LQ.F10.T5",
+       "status": "todo",
+       "text": "TechYieldChanges on the lumber camp: +1 production each at Bronze Working, Iron Working and Mathematics (the mine's step), checked against the lumbermill's existing ones"
+      },
+      {
+       "id": "LQ.F10.T6",
+       "status": "todo",
+       "text": "BONUS_TIMBER TechReveal and TechCityTrade from Bronze Working to Metal Casting, so the camp's timber counts when the camp can be built (to confirm with the user)"
+      },
+      {
+       "id": "LQ.F10.T7",
+       "status": "todo",
+       "text": "DLL build with the toolchain and a safety prediction registered before the mod commit"
       }
      ],
      "checks": [
@@ -831,8 +419,13 @@
        "text": "<Type>BUILD_LUMBER_CAMP</Type>"
       },
       {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "text": "ProducedBonuses"
+      },
+      {
        "kind": "manual",
-       "what": "a worker builds a lumber camp in a forest after Bronze Working; the city gains timber; the camp becomes a lumbermill with Machinery"
+       "what": "a city with a connected lumber camp has Timber"
       }
      ],
      "design": [
@@ -841,7 +434,7 @@
     },
     {
      "id": "LQ.F11",
-     "what": "Pasture co-products: one pasture yields every good of its animal (cow: meat, dairy, leather; sheep: meat, wool, dairy, leather; horse: horses, leather)",
+     "what": "Pasture and estate products now, on today's map (D20): a pasture and each Latifundium stage on an animal yield every product of it (sheep: wool, dairy, leather; cow: dairy, leather; horse: leather; pig: meat only)",
      "code": [
       {
        "file": "Assets/XML/Terrain/CIV4ImprovementInfos.xml",
@@ -853,29 +446,34 @@
       }
      ],
      "after": [
-      "LQ.F5",
-      "LQ.F8"
+      "LQ.F8",
+      "LQ.F10"
      ],
      "tasks": [
       {
        "id": "LQ.F11.T1",
-       "text": "CoProducts per BonusTypeStruct of the pasture (and of Latifundium stages that trade the same animals): the extra goods the animal yields",
-       "status": "todo"
+       "status": "todo",
+       "text": "Per BonusTypeStruct of IMPROVEMENT_PASTURE and of IMPROVEMENT_LATIFUNDIUM1-5: the products of that animal, through the ProducedBonuses mechanism of LQ.F10.T3 conditioned on the plot's resource"
       },
       {
        "id": "LQ.F11.T2",
-       "text": "getPlotGoods returns the main good and its co-products; resource access (LQ.F5) adds each to the trade network",
-       "status": "todo"
+       "status": "todo",
+       "text": "updatePlotGroupBonus adds each product to the trade network under the product's own trade tech; setHasTech refresh as LQ.F10.T3"
       },
       {
        "id": "LQ.F11.T3",
-       "text": "Pig pastures stay meat only",
-       "status": "todo"
+       "status": "todo",
+       "text": "Pig stays meat only; Sheep, Cow and Horse keep their own resource (D15)"
+      },
+      {
+       "id": "LQ.F11.T4",
+       "status": "todo",
+       "text": "Safety prediction registered before the mod commit"
       }
      ],
      "data": [
       {
-       "name": "CoProducts",
+       "name": "ProducedBonuses (conditional on the plot resource)",
        "where": "CIV4ImprovementInfos.xml BonusTypeStruct (schema CIV4TerrainSchema.xml)",
        "type": "list of BonusType",
        "saved": false
@@ -885,11 +483,11 @@
       {
        "kind": "added",
        "file": "Assets/XML/Terrain/CIV4TerrainSchema.xml",
-       "text": "CoProducts"
+       "text": "ProducedBonuses"
       },
       {
        "kind": "manual",
-       "what": "a city with a connected sheep pasture has sheep, wool, dairy and leather"
+       "what": "a city with a connected sheep pasture has sheep, wool, dairy and leather; the same with a Latifundium on sheep"
       }
      ],
      "design": [
@@ -1076,15 +674,61 @@
     "3.1",
     "6"
    ],
-   "depends_on": [
-    "LQ"
-   ],
+   "depends_on": [],
    "decisions": [
     "D1",
-    "D9"
+    "D9",
+    "D18"
    ],
    "player_sees": "Nothing changes in play. Every resource shows its own icon.",
    "features": [
+    {
+     "id": "GW.F7",
+     "what": "Module records merge completely: CvBuildingInfo and CvUnitInfo copyNonDefaults carry every field read, so bulk goods data (needs, recipes, unit costs) can go in as module files of partial records on the testing branch",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "void CvBuildingInfo::copyNonDefaults("
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "void CvUnitInfo::copyNonDefaults("
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "text": "m_iDCMAirbombMission = pClassInfo"
+      }
+     ],
+     "after": [],
+     "design": [
+      "AR.xml"
+     ],
+     "tasks": [
+      {
+       "id": "GW.F7.T1",
+       "status": "todo",
+       "text": "CvBuildingInfo::copyNonDefaults copies iDCMAirbombMission, iRevIdxDistanceModifier, iRevIdxLocal, iRevIdxNational, iUnitUpgradePriceModifier"
+      },
+      {
+       "id": "GW.F7.T2",
+       "status": "todo",
+       "text": "CvUnitInfo::copyNonDefaults copies bCanBeRebel, bCanQuellRebellion, bCanRebelCapture, bCannotDefect"
+      },
+      {
+       "id": "GW.F7.T3",
+       "status": "todo",
+       "text": "A check that lists, for every info class, the members read but not copied (the script used for M33), run by check_plan.py"
+      },
+      {
+       "id": "GW.F7.T4",
+       "status": "todo",
+       "text": "DLL build and a safety prediction"
+      }
+     ]
+    },
     {
      "id": "GW.F1",
      "what": "Goods catalogue: each existing resource record carries its unit, category (staple food, other food, fuel, raw material, intermediate, finished good, luxury, military supply), storage limit, spoilage rate per preservation technology, base value",
@@ -1378,17 +1022,17 @@
     "3.2"
    ],
    "depends_on": [
-    "GW",
-    "LQ"
+    "GW"
    ],
    "decisions": [
-    "D3"
+    "D3",
+    "D18"
    ],
    "player_sees": "Each settlement's goods screen shows what it produced this turn and from where: tiles, specialists, buildings.",
    "features": [
     {
      "id": "PR.F1",
-     "what": "Worked tiles produce goods in quantities: the plot's quality for the good its improvement uses, times citizens working it (the on/off access of LQ.F5 becomes a quantity)",
+     "what": "Worked tiles produce goods in quantities: today's placed resource and the improvement on it (and the improvement's own products, LQ.F10, LQ.F11), times citizens working it; land qualities replace the placed resource as the source later (LD.F4)",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
@@ -1407,18 +1051,17 @@
       }
      ],
      "after": [
-      "LQ.F5",
       "GW.F5"
      ],
      "tasks": [
       {
        "id": "PR.F1.T1",
-       "text": "Each worked tile adds its plot good to the city account: output per band from the improvement, per citizen working it",
+       "text": "Each worked tile adds its goods to the city account: the placed resource's good and the improvement's products, output from the improvement, per citizen working it",
        "status": "todo"
       },
       {
        "id": "PR.F1.T2",
-       "text": "Unworked improved tiles add nothing (the on/off access of LQ.F5 becomes this quantity)",
+       "text": "Unworked improved tiles add nothing (the on/off access becomes this quantity)",
        "status": "todo"
       }
      ],
@@ -1735,7 +1378,8 @@
     "D12",
     "D13",
     "D4",
-    "D16"
+    "D16",
+    "D21"
    ],
    "player_sees": "Each settlement's needs in its goods' own units: the basics from its essentials building, further goods from its market buildings, and what supplying them does to growth, health, contentment and output.",
    "features": [
@@ -2060,6 +1704,462 @@
    ]
   },
   {
+   "id": "LD",
+   "title": "Land qualities",
+   "statement": [
+    "3.1",
+    "3.2"
+   ],
+   "depends_on": [
+    "GW",
+    "PR",
+    "LQ"
+   ],
+   "decisions": [
+    "D11",
+    "D18"
+   ],
+   "player_sees": "No resource tokens on the map. The land itself has qualities: crop and herd suitability, ore grade and depth, fishing grounds, shown in the plot help and a map overlay. What a tile yields follows its qualities and the improvement built on it; the improvement decides which of the plot's qualities it uses (a farm the crops, a pasture the herds, a mine the ore). Techs keep adding yield as they do now. A city still gains a resource as today, from an improved, connected tile, but the tile's quality is the source instead of a placed token. Forests yield timber through lumber camps (early) and lumbermills (Machinery). Pastures yield every good of their animals: cows meat, dairy and leather; sheep meat, wool, dairy and leather; horses horses and leather. Every good, the new ones included, has its own realistic icon.",
+   "features": [
+    {
+     "id": "LD.F1",
+     "what": "Plot qualities, saved with the plot: suitability per crop and herd good, ore grade and depth per ore good, fishing capacity",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "void CvPlot::read(FDataStreamBase* pStream)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "void CvPlot::write(FDataStreamBase* pStream)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "void CvPlot::reset(int iX, int iY, bool bConstructorCall)"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvPlot.h",
+       "text": "getLandQuality("
+      }
+     ],
+     "after": [],
+     "tasks": [
+      {
+       "id": "LD.F1.T1",
+       "text": "Storage and accessors: getLandQuality(BonusTypes), setLandQuality, getOreDepth",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F1.T2",
+       "text": "Read and write behind a new CvPlot save version; old saves load with none (LD.F3 builds them)",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F1.T3",
+       "text": "Clear in CvPlot::reset",
+       "status": "todo"
+      }
+     ],
+     "data": [
+      {
+       "name": "land qualities",
+       "where": "CvPlot",
+       "type": "sparse list of (good, quality) pairs, short",
+       "bounds": "quality 0..1000",
+       "saved": true
+      },
+      {
+       "name": "ore depth",
+       "where": "CvPlot",
+       "type": "char per ore good",
+       "bounds": "0 shallow, 1 deep, 2 very deep",
+       "saved": true
+      }
+     ],
+     "acceptance": [
+      "A game saved and reloaded has identical qualities on every plot"
+     ],
+     "design": [
+      "PR.tiles"
+     ]
+    },
+    {
+     "id": "LD.F2",
+     "what": "Suitability rules from each resource record's existing placement rules (terrain, feature, latitude, hills or flat, river), read once into the good's definition",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "bool CvBonusInfo::read(CvXMLLoadUtility* pXML)"
+      },
+      {
+       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
+       "anchor": "<TerrainBooleans>"
+      },
+      {
+       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
+       "anchor": "<iMaxLatitude>"
+      },
+      {
+       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
+       "anchor": "<bFlatlands>"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "text": "CvBonusInfo::getSuitability("
+      }
+     ],
+     "after": [],
+     "tasks": [
+      {
+       "id": "LD.F2.T1",
+       "text": "CvBonusInfo::getSuitability(const CvPlot&) in 0..1000: 0 where a hard rule fails (terrain, feature, hills or flat, river side); 1000 inside the latitude window, falling to a floor over its outer tenth",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F2.T2",
+       "text": "Sea goods: the coast or ocean rule, with fishing capacity from the terrain",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F2.T3",
+       "text": "Expose it to Python (CyBonusInfo) for the overlay",
+       "status": "todo"
+      }
+     ],
+     "data": [
+      {
+       "name": "suitability rule",
+       "where": "CvBonusInfo",
+       "type": "derived from the record's TerrainBooleans, FeatureBooleans, FeatureTerrainBooleans, bHills, bFlatlands, bNoRiverSide, iMinLatitude, iMaxLatitude",
+       "saved": false
+      }
+     ],
+     "acceptance": [
+      "On the shipped WorldBuilder scenarios, every plot that holds a placed resource scores at least the availability threshold for that resource"
+     ],
+     "design": [
+      "PR.tiles"
+     ]
+    },
+    {
+     "id": "LD.F3",
+     "what": "Qualities built once for any new game, scenario or old save; ore regions seeded from the resources the map script or scenario placed, which are then removed from the plots",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvGame.cpp",
+       "anchor": "void CvGame::doTurn()"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvGame.cpp",
+       "anchor": "void CvGame::read(FDataStreamBase* pStream)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "void CvPlot::setBonusType(BonusTypes eNewValue)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvMapGenerator.cpp",
+       "anchor": "void CvMapGenerator::addBonuses()"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvGame.cpp",
+       "text": "void CvGame::buildLandQualities()"
+      }
+     ],
+     "after": [
+      "LD.F1",
+      "LD.F2"
+     ],
+     "tasks": [
+      {
+       "id": "LD.F3.T1",
+       "text": "CvGame::buildLandQualities(): crop, orchard, herd, game and sea goods from suitability on every plot",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F3.T2",
+       "text": "Ore, quarry and well goods: a region around each placed token, grade highest at the token and falling with distance over suitable plots; depth by grade",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F3.T3",
+       "text": "Special goods and sites as D11 decides",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F3.T4",
+       "text": "Then setBonusType(NO_BONUS) on every plot, so the executable draws no resource model",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F3.T5",
+       "text": "Called once from CvGame::doTurn while the flag is unset: new maps, scenarios and old saves alike; no random draws",
+       "status": "todo"
+      }
+     ],
+     "data": [
+      {
+       "name": "land qualities built",
+       "where": "CvGame",
+       "type": "bool",
+       "saved": true
+      },
+      {
+       "name": "LAND_QUALITY_THRESHOLD, LAND_QUALITY_RICH, ORE_REGION_RADIUS",
+       "where": "GlobalDefinesAlt.xml",
+       "type": "int",
+       "bounds": "0..1000; radius in plots",
+       "saved": false
+      }
+     ],
+     "acceptance": [
+      "After turn 0 no plot holds a token and the globe resource layer shows none",
+      "Two runs of the same seed give identical qualities"
+     ],
+     "design": [
+      "G.tokens",
+      "PR.tiles"
+     ]
+    },
+    {
+     "id": "LD.F4",
+     "what": "Tile yields from qualities: the yield a placed resource and its improvement add today comes from the plot's quality for the good the improvement uses; techs' yield changes stay as they are",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "int CvPlot::calculateYield(YieldTypes eYield, bool bDisplay) const"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)"
+      },
+      {
+       "file": "Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+       "anchor": "<TechYieldChanges>"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "text": "getPlotGood("
+      },
+      {
+       "kind": "audit",
+       "name": "callsites_converted",
+       "classes": [
+        "rules"
+       ]
+      }
+     ],
+     "after": [
+      "LD.F3",
+      "PR.F1"
+     ],
+     "tasks": [
+      {
+       "id": "LD.F4.T1",
+       "text": "CvPlot::getPlotGood(ImprovementTypes): the good with the highest quality among those the improvement yields (its BonusTypeStructs) that the owner's team has revealed, if at or above the threshold",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F4.T2",
+       "text": "calculateNatureYield and calculateImprovementYieldChange read the plot good; its yields scale by quality band as integers (rich: full; good: the main yield one less; below the threshold: none)",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F4.T3",
+       "text": "canHaveImprovement: an improvement that needs a resource (bBonusMakesValid) is valid where the plot has that good at or above the threshold",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F4.T4",
+       "text": "doImprovement: discovery of resources by improvements (iDiscoverRand) is retired; the land already holds its qualities",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F4.T5",
+       "text": "Techs' TechYieldChanges on improvements stay as they are",
+       "status": "todo"
+      }
+     ],
+     "acceptance": [
+      "A mine on rich copper hills yields what a mine on a copper token yields today; on poorer copper hills less; on hills without ore, what a plain mine yields"
+     ],
+     "design": [
+      "PR.tiles"
+     ],
+     "note": "After D18 this swaps the source of PR.F1's production from placed resources to plot qualities."
+    },
+    {
+     "id": "LD.F5",
+     "what": "Resource access from quality tiles: an improved, connected tile whose improvement uses a good gives that resource to the trade network under today's rules (TechCityTrade, the improvement's bonus trade)",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "void CvPlot::updatePlotGroupBonus(bool bAdd)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlotGroup.cpp",
+       "anchor": "void CvPlotGroup::changeNumBonuses(BonusTypes eBonus, int iChange)"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "manual",
+       "what": "a city builds what needs copper once a mine on copper-bearing hills is connected, as it does today with a copper token"
+      }
+     ],
+     "after": [
+      "LD.F4",
+      "PR.F1"
+     ],
+     "tasks": [
+      {
+       "id": "LD.F5.T1",
+       "text": "updatePlotGroupBonus: the improvement's plot good replaces getNonObsoleteBonusType, under today's rules (TechCityTrade, bBonusTrade, obsolescence)",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F5.T2",
+       "text": "getNonObsoleteBonusType and getVisibleBonusState follow the plot good",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F5.T3",
+       "text": "CvTeam::setHasTech, processTech and setForceRevealedBonus refresh plot groups through the plot good when reveal or trade techs arrive",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F5.T4",
+       "text": "CvCity::kill, CvPlayer::countOwnedBonuses, countUnimprovedBonuses, CvSelectionGroup::groupBuild, CvUnit::isActionRecommended and canMoveInto read the plot good",
+       "status": "todo"
+      }
+     ],
+     "design": [
+      "AR.bridge"
+     ]
+    },
+    {
+     "id": "LD.F6",
+     "what": "Plot help and map overlay of the land, with each good's icon",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+       "anchor": "void CvGameTextMgr::setPlotHelp("
+      },
+      {
+       "file": "Assets/Python/Contrib/CvStrategyOverlay.py",
+       "anchor": "addColoredPlot"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "manual",
+       "what": "hovering a plot names its qualities with the goods' icons; the overlay colours the map by a chosen good"
+      },
+      {
+       "kind": "audit",
+       "name": "callsites_converted",
+       "classes": [
+        "text",
+        "events",
+        "python"
+       ]
+      }
+     ],
+     "after": [
+      "LD.F3",
+      "LQ.F9"
+     ],
+     "tasks": [
+      {
+       "id": "LD.F6.T1",
+       "text": "setPlotHelp: each quality as the good's icon with a band word (rich, good, poor) and ore depth",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F6.T2",
+       "text": "CvPlayer::getResourceLayerColors becomes the land-quality layer of the globe view: a colour per plot for the chosen good",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F6.T3",
+       "text": "CyPlot exports getPlotGood and getLandQuality; Python helpers and events read them",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F6.T4",
+       "text": "setEventHelp and parseActionHelp name the plot good",
+       "status": "todo"
+      }
+     ],
+     "design": [
+      "AR.python"
+     ]
+    },
+    {
+     "id": "LD.F7",
+     "what": "AI: city sites and worker builds from land qualities instead of placed resources",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+       "anchor": "int CvPlayerAI::AI_foundValue("
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvUnitAI.cpp",
+       "anchor": "bool CvUnitAI::AI_bestCityBuild("
+      }
+     ],
+     "checks": [
+      {
+       "kind": "manual",
+       "what": "the AI settles and improves land by its qualities"
+      },
+      {
+       "kind": "audit",
+       "name": "callsites_converted",
+       "classes": [
+        "ai"
+       ]
+      }
+     ],
+     "after": [
+      "LD.F4"
+     ],
+     "tasks": [
+      {
+       "id": "LD.F7.T1",
+       "text": "AI_foundValue values a site by the qualities in its radius instead of tokens",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F7.T2",
+       "text": "Worker AI (AI_bestCityBuild, AI_bestPlotBuild, AI_betterPlotBuild, AI_improveBonus, AI_connectBonus) builds the improvement whose plot good is worth most",
+       "status": "todo"
+      },
+      {
+       "id": "LD.F7.T3",
+       "text": "Every function classed ai in callsites.json reads the plot good",
+       "status": "todo"
+      }
+     ],
+     "design": [
+      "PR.tiles"
+     ]
+    }
+   ]
+  },
+  {
    "id": "IN",
    "title": "Industry and units",
    "statement": [
@@ -2250,6 +2350,7 @@
    ],
    "depends_on": [
     "GW",
+    "LD",
     "SD"
    ],
    "decisions": [
@@ -2378,7 +2479,7 @@
      ],
      "after": [
       "TR.F1",
-      "LQ.F4"
+      "LD.F4"
      ],
      "tasks": [
       {

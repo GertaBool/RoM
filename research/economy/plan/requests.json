@@ -426,17 +426,20 @@
     {
      "id": "R7.1",
      "what": "Lumber camps (and the lumbermill) give Timber now",
-     "status": "open"
+     "status": "planned",
+     "where": "LQ.F10 (D19): lumber camp from Metal Casting, lumbermill at Machinery, on today's map"
     },
     {
      "id": "R7.2",
      "what": "Pastures give their animal goods now: Wool, Dairy, Leather",
-     "status": "open"
+     "status": "planned",
+     "where": "LQ.F11 (D20): pastures and Latifundium stages yield every product of their animal"
     },
     {
      "id": "R7.3",
      "what": "Missing art (models, buttons) taken from what the mod has or made",
-     "status": "open"
+     "status": "planned",
+     "where": "LQ.F10.T2"
     }
    ]
   },

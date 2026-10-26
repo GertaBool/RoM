@@ -279,13 +279,15 @@
   {
    "id": "D11",
    "question": "Resources that are not physical goods",
-   "status": "open",
+   "status": "decided",
    "options": [
     "outside the goods accounts: Drama, Music, Movies stay building-given resources; Ancient Temple and Thermal Vent stay map sites",
     "turned into goods"
    ],
    "proposal": "outside the goods accounts",
-   "why": "They are culture given by buildings or sites with no improvement that trades them (catalogue.json)"
+   "why": "They are culture given by buildings or sites with no improvement that trades them (catalogue.json)",
+   "choice": "Ancient Temple and Thermal Vent stay map sites outside the goods accounts: the Thermal Vent as an electricity source, the Ancient Temple for archaeology. Drama, Music and Movies are goods (entertainment media, valuable), to be reworked; how is D21.",
+   "source": "M35"
   },
   {
    "id": "D12",
@@ -335,6 +337,42 @@
    "why": "Checked in the DLL and the schemas at GitLab e694caf0: a building can have its construction sped by a good the city has (BonusProductionModifiers, CvCity::getProductionModifier(BuildingTypes), the Stone, Marble and Lead pattern), so can a unit (the Copper and Iron pattern); a building can change happiness, health and food, production or commerce percentages by good; a building or unit can require goods. There is no shortfall, no substitution among goods, no scaling with size, no spoilage, no consumption per turn and no supplies. Rules in Python are excluded by principle 7 (P7). A requirement before Timber, Wool, Leather and Dairy have producers (R7) locks content away.",
    "choice": "The bridge expresses each role through one mechanism, applied by rule to every good with that role, not hand-picked consumers: the need role as the good's own health or happiness and the essentials or market building's effects (as LQ.F12); the material role as construction speed of the buildings and units made of it (15 %, the step of Lead on buildings and of Copper and Iron on units); the fuel role in workshops as the workshop's step for each of its inputs (the Forge gives +25 % production for each of Copper, Iron and Lead). Shortfalls, substitution, size scaling, spoilage, recipes, parchment, supplies and means of production wait for CN, SD, IN and TR. No new requirements in the bridge.",
    "source": "M33"
+  },
+  {
+   "id": "D18",
+   "question": "Order of work: goods economy or land qualities first",
+   "status": "decided",
+   "why": "Land qualities (LD.F1-F7) are the deepest and riskiest change, and in the earlier order nothing of the goods economy reached the player until they were done. The user: implement the deep change gradually, and stay grounded in the actual codebase against drift (M35).",
+   "choice": "The goods economy is built first on today's resource tiles: groundwork (GW), production from placed resources and their improvements (PR), food (FG), needs (CN), storage and distribution (SD). Land qualities follow and swap the source of production from placed resources to the land. Each feature keeps its code anchors in the real source, checked by tools/check_plan.py against the mod checkout and the code map.",
+   "source": "M35"
+  },
+  {
+   "id": "D19",
+   "question": "Lumber",
+   "status": "decided",
+   "why": "Timber is essential (M31, M35): fuel and building material of every early settlement.",
+   "choice": "A lumber camp on forest from Metal Casting; it upgrades to the existing lumbermill at Machinery. Bronze Working, Iron Working and Mathematics each raise lumber output (under today's engine: the tile's production, +1 per tech, the mine's step; with the goods accounts: timber per worked camp). Timber's reveal and trade techs follow the camp to Metal Casting (proposed, to confirm).",
+   "source": "M35"
+  },
+  {
+   "id": "D20",
+   "question": "Products of pastures and estates",
+   "status": "decided",
+   "why": "A herd yields more than one good (M28, M35); latifundia are greater rural estates.",
+   "choice": "A pasture, and each Latifundium stage on the same animal, yields every product of its animal: sheep: wool, dairy, leather (and the sheep itself); cow: dairy, leather; horse: leather; pig: meat only. Under today's engine a city has or lacks each good; quantities come with the goods accounts, and shortages can be filled by distribution, trade routes and imports (SD.F3, TR), which may need allocation work.",
+   "source": "M35"
+  },
+  {
+   "id": "D21",
+   "question": "Entertainment media as goods",
+   "status": "open",
+   "options": [
+    "finished goods made by their buildings (Broadway, Rock'n'Roll, Hollywood) in quantities and consumed as comforts by the market chain",
+    "services: produced and consumed in the same settlement or network, not stored or shipped",
+    "keep today's form (a building gives the resource) until CN, then decide"
+   ],
+   "proposal": "keep today's form until CN, then decide",
+   "why": "The user: still valuable goods, but maybe reworked (M35)"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"
