@@ -319,6 +319,22 @@
    "why": "The trade design counts means of production as tradeable: coffee seeds, breeding cattle, silkworms (TR.means). The user: \"Keep sheep, we need to have seeds and cattle\" (M27).",
    "choice": "Sheep, and the other livestock and crop resources, stay goods: they stand for the breeding stock and the seed that trade carries as means of production. Their products (wool, dairy, leather, meat) are goods beside them, not instead of them, and Sheep keeps every consumer it has.",
    "source": "M27"
+  },
+  {
+   "id": "D16",
+   "question": "What a good is for",
+   "status": "decided",
+   "why": "The statement gives goods a part in every system: needs per citizen that rise with size and era (3.3), processing and industry (3.2, 3.5), storage and spoilage (3.4), supplies and unit costs (3.5), trade in goods and in the means to produce them (4.1). proposals.json gave each good one need, and D14 copied the consumers of one peer, so Wool and Leather became happiness only, Dairy a few percent of food and Timber a few percent of production (M31). The first answer to that leaned on unit requirements (M33).",
+   "choice": "Each good carries a list of roles in proposals.json, one per system it takes part in (role_kinds: need, material, fuel, storage, supplies, trade, means), with the existing buildings and units it touches and its substitutes. The need is one role among them. The systems' features (CN, PR.F3, SD, IN, TR.F3) take their data from these roles. Units are one consumer among buildings, households and trade. First written for Timber, Wool, Leather, Dairy, Sheep, Cow and Horse.",
+   "source": "M31, M33"
+  },
+  {
+   "id": "D17",
+   "question": "What of those roles today's engine expresses until the goods accounts exist",
+   "status": "decided",
+   "why": "Checked in the DLL and the schemas at GitLab e694caf0: a building can have its construction sped by a good the city has (BonusProductionModifiers, CvCity::getProductionModifier(BuildingTypes), the Stone, Marble and Lead pattern), so can a unit (the Copper and Iron pattern); a building can change happiness, health and food, production or commerce percentages by good; a building or unit can require goods. There is no shortfall, no substitution among goods, no scaling with size, no spoilage, no consumption per turn and no supplies. Rules in Python are excluded by principle 7 (P7). A requirement before Timber, Wool, Leather and Dairy have producers (R7) locks content away.",
+   "choice": "The bridge expresses each role through one mechanism, applied by rule to every good with that role, not hand-picked consumers: the need role as the good's own health or happiness and the essentials or market building's effects (as LQ.F12); the material role as construction speed of the buildings and units made of it (15 %, the step of Lead on buildings and of Copper and Iron on units); the fuel role in workshops as the workshop's step for each of its inputs (the Forge gives +25 % production for each of Copper, Iron and Lead). Shortfalls, substitution, size scaling, spoilage, recipes, parchment, supplies and means of production wait for CN, SD, IN and TR. No new requirements in the bridge.",
+   "source": "M33"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"

@@ -1,5 +1,5 @@
 {
- "about": "Proposed unit, category, land kind and need of each existing resource (D1, D3). Proposals, to be confirmed; catalogue.py joins them to the facts from the XML.",
+ "about": "Proposed unit, category, land kind and need of each existing resource (D1, D3). Proposals, to be confirmed; catalogue.py joins them to the facts from the XML. Roles (D16): every system the statement names in which a good takes part, with the existing buildings and units it touches; \"need\" is the need role only, kept for catalogue.py.",
  "units": [
   "tonnes",
   "bales",
@@ -75,7 +75,25 @@
    "unit": "tonnes",
    "category": "other food",
    "land": "herd",
-   "need": "variety"
+   "need": "variety",
+   "roles": [
+    {
+     "role": "need",
+     "what": "Meat (beef): dietary variety",
+     "where": [
+      "the essentials buildings",
+      "the market chain"
+     ]
+    },
+    {
+     "role": "material",
+     "what": "Oxen as draught animals for ploughs and carts, with leather harness"
+    },
+    {
+     "role": "means",
+     "what": "Breeding stock: the herd that yields dairy, leather and meat (D15, LQ.F11)"
+    }
+   ]
   },
   "BONUS_PIG": {
    "unit": "tonnes",
@@ -87,7 +105,21 @@
    "unit": "tonnes",
    "category": "other food",
    "land": "herd",
-   "need": "variety"
+   "need": "variety",
+   "roles": [
+    {
+     "role": "need",
+     "what": "Meat (mutton): dietary variety",
+     "where": [
+      "the essentials buildings",
+      "the market chain"
+     ]
+    },
+    {
+     "role": "means",
+     "what": "Breeding stock: the flock that yields wool, dairy, leather and meat (D15, LQ.F11)"
+    }
+   ]
   },
   "BONUS_DEER": {
    "unit": "tonnes",
@@ -196,7 +228,50 @@
    "category": "raw material",
    "land": "herd",
    "need": "clothing",
-   "note": "Yielded by sheep pastures (D10, LQ.F11); nothing placed, gave or used it before."
+   "note": "Yielded by sheep pastures (D10, LQ.F11); nothing placed, gave or used it before.",
+   "roles": [
+    {
+     "role": "need",
+     "what": "Clothing for warmth: the clothing need of every citizen (D13), larger with size and era",
+     "where": [
+      "the essentials buildings"
+     ],
+     "substitutes": [
+      "BONUS_LEATHER",
+      "BONUS_FUR",
+      "BONUS_COTTON"
+     ]
+    },
+    {
+     "role": "material",
+     "what": "Cloth and felt: the textile trade's raw material, from household spinning to the cloth guilds and textile mills",
+     "where": [
+      "CORPORATION_31 (Drapers Guild)",
+      "CORPORATION_8 (Emperor's Clothes)",
+      "BUILDING_FACTORY"
+     ]
+    },
+    {
+     "role": "material",
+     "what": "Tents, blankets, padding under armour, uniforms, and sails in the northern tradition",
+     "where": [
+      "units in the field",
+      "wooden ships"
+     ]
+    },
+    {
+     "role": "storage",
+     "what": "Durable once shorn and cleaned"
+    },
+    {
+     "role": "trade",
+     "what": "Shipped in bales; a principal trade good of the ancient and medieval economies"
+    },
+    {
+     "role": "means",
+     "what": "Sheep, the breeding stock (D15)"
+    }
+   ]
   },
   "BONUS_COTTON": {
    "unit": "bales",
@@ -354,7 +429,21 @@
    "category": "military supply",
    "land": "herd",
    "need": null,
-   "note": "\"head\": live animals; the one unit outside tonnes, bales, barrels and crates."
+   "note": "\"head\": live animals; the one unit outside tonnes, bales, barrels and crates.",
+   "roles": [
+    {
+     "role": "material",
+     "what": "Draught, transport and mounts, with leather harness and saddles",
+     "where": [
+      "mounted units",
+      "BUILDING_STABLE"
+     ]
+    },
+    {
+     "role": "means",
+     "what": "Breeding stock: horses and leather (LQ.F11)"
+    }
+   ]
   },
   "BONUS_NANOBOTS": {
    "unit": "crates",
@@ -505,7 +594,65 @@
    "land": "forest",
    "need": "fuel",
    "planned": true,
-   "note": "New (R1): lumber camps and lumbermills on forest; also the fuel before coal (D12) and a building material."
+   "note": "New (R1): lumber camps and lumbermills on forest; also the fuel before coal (D12) and a building material.",
+   "roles": [
+    {
+     "role": "fuel",
+     "what": "Firewood for heating and cooking: the fuel need of every settlement from the start (D12), larger with size; coal and then oil take over the need in their eras",
+     "where": [
+      "the essentials buildings"
+     ],
+     "substitutes": [
+      "BONUS_COAL",
+      "BONUS_OIL"
+     ]
+    },
+    {
+     "role": "fuel",
+     "what": "Charcoal for workshops before coal: smelting and smithing, glass, brewing, kilns",
+     "where": [
+      "BUILDING_FORGE",
+      "BUILDING_IRON_FORGE",
+      "BUILDING_ARMOURER",
+      "BUILDING_GLASSSMITH",
+      "BUILDING_BREWERY",
+      "BUILDING_FOUNDRY"
+     ],
+     "substitutes": [
+      "BONUS_COAL"
+     ]
+    },
+    {
+     "role": "material",
+     "what": "The building material of everything built before steel and concrete: houses, walls, granaries, markets, harbours and the scaffolding of stone buildings; then pit props for mines and sleepers for railways",
+     "where": [
+      "buildings of the ancient to medieval eras",
+      "mines",
+      "railroads"
+     ]
+    },
+    {
+     "role": "material",
+     "what": "Hulls and masts of every wooden ship; carts and wagons of settlers and workers; tools' handles; bows, shafts and siege engines",
+     "where": [
+      "wooden ships",
+      "settlers and workers",
+      "archer and siege units"
+     ]
+    },
+    {
+     "role": "storage",
+     "what": "Durable and bulky: keeps, but storage space limits stocks"
+    },
+    {
+     "role": "trade",
+     "what": "Shipped in tonnes; forest-poor regions import it"
+    },
+    {
+     "role": "means",
+     "what": "None: timber comes from forest land (LQ.F10); the means is the forest itself"
+    }
+   ]
   },
   "BONUS_DAIRY": {
    "unit": "tonnes",
@@ -513,7 +660,48 @@
    "land": "herd",
    "need": "variety",
    "planned": true,
-   "note": "New (R1): co-product of cow and sheep pastures."
+   "note": "New (R1): co-product of cow and sheep pastures.",
+   "roles": [
+    {
+     "role": "need",
+     "what": "Dietary variety: milk, cheese and butter; part of the variety need with meat, fish, fruit and oil (statement 3.3); feeds growth and health, larger with size",
+     "where": [
+      "the market chain (Market, Fair, Commodity Market, Commercial Center)",
+      "the essentials buildings"
+     ],
+     "substitutes": [
+      "BONUS_COW",
+      "BONUS_PIG",
+      "BONUS_SHEEP",
+      "BONUS_DEER",
+      "BONUS_FISH"
+     ]
+    },
+    {
+     "role": "storage",
+     "what": "Perishable as milk; cheese and butter keep (the statement's dairy processing). Spoils unless preserved: salt, then canning, then refrigeration",
+     "where": [
+      "BUILDING_CANNERY",
+      "BUILDING_FOOD_PROCESSING_PLANT"
+     ],
+     "preserved_by": [
+      "BONUS_SALT",
+      "TECH_REFRIGERATION"
+     ]
+    },
+    {
+     "role": "supplies",
+     "what": "Cheese as rations for armies in the field and ships' provisions"
+    },
+    {
+     "role": "trade",
+     "what": "Shipped in tonnes; fresh dairy only to near partners, cheese and canned dairy far"
+    },
+    {
+     "role": "means",
+     "what": "Dairy cattle and sheep, the breeding stock (D15)"
+    }
+   ]
   },
   "BONUS_LEATHER": {
    "unit": "bales",
@@ -521,7 +709,69 @@
    "land": "herd",
    "need": "clothing",
    "planned": true,
-   "note": "New (R1): co-product of horse, cow and sheep pastures."
+   "note": "New (R1): co-product of horse, cow and sheep pastures.",
+   "roles": [
+    {
+     "role": "need",
+     "what": "Clothing: footwear, belts and coats; part of the clothing need (D13)",
+     "where": [
+      "the essentials buildings"
+     ],
+     "substitutes": [
+      "BONUS_WOOL",
+      "BONUS_FUR",
+      "BONUS_COTTON"
+     ]
+    },
+    {
+     "role": "material",
+     "what": "Tools and equipment of production: harness and yokes that put draught animals to ploughs, carts and mills; bellows of forges; buckets, waterskins, straps; drive belts of early machinery",
+     "where": [
+      "farms and pastures worked with draught animals",
+      "BUILDING_FORGE",
+      "BUILDING_IRON_FORGE",
+      "settlers and workers",
+      "BUILDING_FACTORY"
+     ]
+    },
+    {
+     "role": "material",
+     "what": "Parchment and bookbinding: the writing material before paper",
+     "where": [
+      "BUILDING_SCHOOL_OF_SCRIBES",
+      "BUILDING_LIBRARY"
+     ]
+    },
+    {
+     "role": "material",
+     "what": "Saddles and harness of mounted units and chariots; shields, jerkins and bracers of early infantry and archers",
+     "where": [
+      "mounted units",
+      "melee and archer units"
+     ]
+    },
+    {
+     "role": "storage",
+     "what": "Durable once tanned"
+    },
+    {
+     "role": "trade",
+     "what": "Shipped in bales of hides"
+    },
+    {
+     "role": "means",
+     "what": "Cattle, horses, sheep and pigs, the breeding stock (D15)"
+    }
+   ]
   }
+ },
+ "role_kinds": {
+  "need": "consumed per citizen to meet a need (statement 3.3); effects of supply and of shortfall; component CN",
+  "material": "used up to make something: buildings, units, tools, other goods (3.2, 3.5); components PR.F3, IN.F1, IN.F2",
+  "fuel": "burnt for heat in homes and in workshops (3.3 fuel need; 3.5 recipes); components CN, IN.F1",
+  "storage": "how the good keeps: perishable or durable, and what preserves it (3.1, 3.4); components SD.F1, SD.F2, FG.F2",
+  "supplies": "drawn by units in the field (3.5); component IN.F3",
+  "trade": "shipped in deals as a quantity (4.1); component TR.F2",
+  "means": "the stock or seed that lets the buyer produce a good (4.1); component TR.F3"
  }
 }

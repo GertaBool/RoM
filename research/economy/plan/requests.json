@@ -224,6 +224,13 @@
    "kind": "instruction",
    "text": "You have a full codemap setup available. Use it. If it's garbage, fix it. You don't actually need to handpick entries. You can just call for them by being somewhat competent at python.",
    "led_to": "Use and, where wrong, fix codemap/ for the R7/R8 work"
+  },
+  {
+   "id": "M33",
+   "date": "2026-10-26",
+   "kind": "critique",
+   "text": "[quoting the proposal for Timber, Leather, Wool, Dairy and the order of work]\n\nThat's too military focused. You need to check your priors. I understand that you want to fulfill specific requests, but the nature of the design statement implies a lot more.",
+   "led_to": "R8 re-derived from statement.md"
   }
  ],
  "requests": [
@@ -430,22 +437,22 @@
      "id": "R8.1",
      "what": "Wool and Leather used as materials (clothing, armour, harness, tools), not only for happiness",
      "status": "planned",
-     "where": "with R7 (lumber camps and pastures), since a requirement without a producer locks units and buildings away"
+     "where": "D16 roles of Wool and Leather (need, material, storage, trade, means) in proposals.json; LQ.F13 for what today's engine expresses; IN.F1, IN.F2, TR.F3 for the rest"
     },
     {
      "id": "R8.2",
      "what": "Dairy with consequential effects",
      "status": "planned",
-     "where": "with R7 (lumber camps and pastures), since a requirement without a producer locks units and buildings away"
+     "where": "D16 roles of Dairy (variety need, perishability and preservation, rations, trade, means); SD.F2, IN.F3 and CN.F1 carry them"
     },
     {
      "id": "R8.3",
      "what": "Timber essential: what is built of wood needs or uses it",
      "status": "planned",
-     "where": "with R7 (lumber camps and pastures), since a requirement without a producer locks units and buildings away"
+     "where": "D16 roles of Timber (fuel need, workshop fuel, building and unit material); LQ.F13 T1 to T4 under today's engine; essential (a shortfall that costs) only with CN and IN.F2, D17"
     }
    ],
-   "facts": "CIV4UnitInfos.xml at GitLab e694caf0: 20 wooden ships (6 need Iron), 17 siege units, 14 archer units, 44 melee units (8 need Iron), 39 mounted units (34 need Horse, 4 Ivory); no unit needs or is cheaper with Timber, Wool or Leather. D14 copied each good's nearest peer, and the peers (Fur, Sheep, the livestock) are themselves modelled only as happiness and food."
+   "facts": "CIV4UnitInfos.xml at GitLab e694caf0: 20 wooden ships (6 need Iron), 17 siege units, 14 archer units, 44 melee units (8 need Iron), 39 mounted units (34 need Horse, 4 Ivory); no unit needs or is cheaper with Timber, Wool or Leather. D14 copied each good's nearest peer, and the peers (Fur, Sheep, the livestock) are themselves modelled only as happiness and food. Checked again for M33 at the same commit: 82 buildings of the ancient to medieval eras, 9 of them with any construction speed-up from a good; the Forge gives +25 % production for each of Copper, Iron and Lead; building records can carry BonusHappinessChanges, BonusHealthChanges, BonusProductionModifiers and BonusYieldModifiers by good, unit records BonusProductionModifiers."
   }
  ]
 }

@@ -163,7 +163,9 @@
    "decisions": [
     "D11",
     "D8",
-    "D9"
+    "D9",
+    "D16",
+    "D17"
    ],
    "player_sees": "No resource tokens on the map. The land itself has qualities: crop and herd suitability, ore grade and depth, fishing grounds, shown in the plot help and a map overlay. What a tile yields follows its qualities and the improvement built on it; the improvement decides which of the plot's qualities it uses (a farm the crops, a pasture the herds, a mine the ore). Techs keep adding yield as they do now. A city still gains a resource as today, from an improved, connected tile, but the tile's quality is the source instead of a placed token. Forests yield timber through lumber camps (early) and lumbermills (Machinery). Pastures yield every good of their animals: cows meat, dairy and leather; sheep meat, wool, dairy and leather; horses horses and leather. Every good, the new ones included, has its own realistic icon.",
    "features": [
@@ -984,6 +986,76 @@
       "AR.bridge",
       "TR.means"
      ]
+    },
+    {
+     "id": "LQ.F13",
+     "what": "The roles of Timber, Wool, Leather and Dairy under today's engine (D16, D17): fuel and material roles beside the need roles of LQ.F12",
+     "code": [
+      {
+       "file": "Assets/XML/Buildings/CIV4BuildingInfos.xml",
+       "anchor": "<Type>BUILDING_FORGE</Type>"
+      },
+      {
+       "file": "Assets/XML/Units/CIV4UnitInfos.xml"
+      },
+      {
+       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
+       "anchor": "<Type>BONUS_TIMBER</Type>"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/XML/Units/CIV4UnitInfos.xml",
+       "text": "BONUS_TIMBER"
+      },
+      {
+       "kind": "added",
+       "file": "Assets/XML/Units/CIV4UnitInfos.xml",
+       "text": "BONUS_LEATHER"
+      }
+     ],
+     "after": [
+      "LQ.F12"
+     ],
+     "design": [
+      "AR.bridge",
+      "CN.needs",
+      "IN.units",
+      "IN.recipes"
+     ],
+     "tasks": [
+      {
+       "id": "LQ.F13.T1",
+       "status": "todo",
+       "text": "Fuel need: Timber +1 health of its own (BonusInfo iHealth, as each food good has); its +3 % production from the essentials buildings (LQ.F12) goes, replaced by T2"
+      },
+      {
+       "id": "LQ.F13.T2",
+       "status": "todo",
+       "text": "Material in construction: Timber +15 % construction speed of every building and wonder whose technology is of the ancient, classical or medieval era (82 buildings: 33, 33 and 16 at GitLab e694caf0)"
+      },
+      {
+       "id": "LQ.F13.T3",
+       "status": "todo",
+       "text": "Material in units: Timber +15 % for wooden ships, settlers, workers and work boats, and archer and siege units up to the medieval era; Leather +15 % for settlers and workers (harness, carts), mounted units, and melee and archer units of the ancient and classical eras"
+      },
+      {
+       "id": "LQ.F13.T4",
+       "status": "todo",
+       "text": "Fuel in workshops: Timber +25 % production at the Forge and the Iron Forge, the step each of their inputs gives (Copper, Iron, Lead +25 %)"
+      },
+      {
+       "id": "LQ.F13.T5",
+       "status": "todo",
+       "text": "A safety prediction registered before the commit (method/mission/register.json), its runs after"
+      },
+      {
+       "id": "LQ.F13.T6",
+       "status": "todo",
+       "text": "Pedia text of the four goods lists their roles, with what waits for the goods accounts"
+      }
+     ]
     }
    ]
   },
@@ -1652,7 +1724,8 @@
     "D10",
     "D12",
     "D13",
-    "D4"
+    "D4",
+    "D16"
    ],
    "player_sees": "Each settlement's needs in its goods' own units: the basics from its essentials building, further goods from its market buildings, and what supplying them does to growth, health, contentment and output.",
    "features": [
@@ -1726,6 +1799,11 @@
        "id": "CN.F1.T3",
        "text": "Goods within a category substitute for each other",
        "status": "todo"
+      },
+      {
+       "id": "CN.F1.T4",
+       "status": "todo",
+       "text": "The needs and substitutes of each good come from its need roles in proposals.json (D16)"
       }
      ],
      "data": [
@@ -1841,7 +1919,8 @@
    ],
    "decisions": [
     "D5",
-    "D6"
+    "D6",
+    "D16"
    ],
    "player_sees": "Stocks limited by storage buildings; perishables decaying unless preserved; surpluses moving to shortages across a connected trade network, as resources reach cities today; a blockade or a cut road changing what reaches a city.",
    "features": [
@@ -1906,6 +1985,11 @@
        "id": "SD.F2.T1",
        "text": "spoilGoods: every perishable good loses its rate for the preservation techs the owner lacks",
        "status": "todo"
+      },
+      {
+       "id": "SD.F2.T2",
+       "status": "todo",
+       "text": "Perishability and what preserves each good come from its storage roles in proposals.json (Dairy: salt, canning, refrigeration)"
       }
      ],
      "design": [
@@ -1975,7 +2059,9 @@
     "PR",
     "SD"
    ],
-   "decisions": [],
+   "decisions": [
+    "D16"
+   ],
    "player_sees": "Buildings that convert inputs into outputs at set rates (2 iron ore and 1 coal make 2 steel); units that cost production plus goods; armies in the field drawing supplies.",
    "features": [
     {
@@ -2003,6 +2089,11 @@
        "id": "IN.F1.T1",
        "text": "runRecipes in dependency order inside the pass; output limited by the scarcest input and by capacity",
        "status": "todo"
+      },
+      {
+       "id": "IN.F1.T2",
+       "status": "todo",
+       "text": "Recipes from the material and fuel roles in proposals.json: Timber as charcoal for the Forge, Glasssmith, Brewery and Foundry until coal; Leather as parchment for the School of Scribes and the Library; Wool for the cloth trade"
       }
      ],
      "design": [
@@ -2047,6 +2138,11 @@
        "id": "IN.F2.T2",
        "text": "canTrain checks the stock; popOrder consumes it on completion",
        "status": "todo"
+      },
+      {
+       "id": "IN.F2.T3",
+       "status": "todo",
+       "text": "Goods costs of units and of settlers and workers from the material roles in proposals.json"
       }
      ],
      "design": [
@@ -2082,6 +2178,11 @@
        "id": "IN.F3.T2",
        "text": "Units keep their existing transport limits (cargo space); supplies need no new transport rule",
        "status": "todo"
+      },
+      {
+       "id": "IN.F3.T3",
+       "status": "todo",
+       "text": "Supplies from the supplies roles in proposals.json (Dairy as rations)"
       }
      ],
      "design": [
@@ -2143,7 +2244,8 @@
    ],
    "decisions": [
     "D6",
-    "D7"
+    "D7",
+    "D16"
    ],
    "player_sees": "The diplomacy screen offers goods in quantities, contracts over terms, seeds, breeding stock and techniques, money as lump sums or per turn, and agreements, combined into packages; deliveries need the two civilizations' trade networks to connect, as resource trades do today; war breaks contracts.",
    "features": [
@@ -2273,6 +2375,11 @@
        "id": "TR.F3.T1",
        "text": "Seeds, breeding stock and techniques as items: the buyer may then grow or raise the good where its land is suitable (canProduceGood)",
        "status": "todo"
+      },
+      {
+       "id": "TR.F3.T2",
+       "status": "todo",
+       "text": "Means of production from the means roles in proposals.json (Sheep, Cow, Horse as breeding stock)"
       }
      ],
      "design": [
