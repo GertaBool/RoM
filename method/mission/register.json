@@ -1059,5 +1059,51 @@
    "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
    "builds/settlement-economy/"
   ]
+ },
+ {
+  "id": "P29",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H15"
+  ],
+  "evidence": "runs",
+  "variable": "completed",
+  "change": "On GitLab claude/settlement-economy with LQ.F10 (P27, P28): LQ.F11 (D20). IMPROVEMENT_PASTURE and IMPROVEMENT_LATIFUNDIUM1-5 carry ProducedBonuses conditioned on the plot's resource: on Sheep Wool, Dairy and Leather; on Cow Dairy and Leather; on Horse Leather; on Pig nothing (the plot keeps giving its own animal as before). BONUS_WOOL TechCityTrade TECH_WEAVING -> TECH_ANIMAL_HUSBANDRY: TECH_WEAVING does not exist in the mod (the loader reports 'Tag: TECH_WEAVING in Info class was incorrect' in every run, so the field was -1). XML only; the DLL is LQ.F10's. Harness: arm a is LQ.F10 plus this change, arm b LQ.F10 alone, the same harness DLL, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds as the scenario seed. P29: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml"
+  ]
+ },
+ {
+  "id": "P30",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H15"
+  ],
+  "evidence": "runs",
+  "variable": "turn_seconds",
+  "change": "On GitLab claude/settlement-economy with LQ.F10 (P27, P28): LQ.F11 (D20). IMPROVEMENT_PASTURE and IMPROVEMENT_LATIFUNDIUM1-5 carry ProducedBonuses conditioned on the plot's resource: on Sheep Wool, Dairy and Leather; on Cow Dairy and Leather; on Horse Leather; on Pig nothing (the plot keeps giving its own animal as before). BONUS_WOOL TechCityTrade TECH_WEAVING -> TECH_ANIMAL_HUSBANDRY: TECH_WEAVING does not exist in the mod (the loader reports 'Tag: TECH_WEAVING in Info class was incorrect' in every run, so the field was -1). XML only; the DLL is LQ.F10's. Harness: arm a is LQ.F10 plus this change, arm b LQ.F10 alone, the same harness DLL, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds as the scenario seed. P30: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml"
+  ]
  }
 ]
