@@ -489,7 +489,7 @@
        "status": "done",
        "text": "Safety prediction registered before the mod commit",
        "done": "2026-10-26",
-       "note": "P29/P30 registered (e1827ad) before the GitLab commit 507d1831"
+       "note": "P29/P30 registered (e1827ad) before the GitLab commit 507d1831. Evidence cb9487b: P29 corroborated (every run completed); P30 REFUTED: median same-seed run time a/b 1.091, all five pairs slower (1.035-1.228). Description: at turn 150 arm a has 5-18 % more population in every seed and more buildings; time per population-turn a/b median 1.030 (0.921-1.112); LQ.F10's P32 on the same measure 0.997. Reading (not a re-decision): most of the extra time follows from larger empires (the goods feed the essentials' happiness and food), contradicted if a profile shows the time in the new code path. Deterministic run (seed 485959733): at turns 100 and 150 every player's Wool, Dairy and Leather equal the products of its pastures and latifundia; the TECH_WEAVING load error is gone."
       }
      ],
      "data": [
@@ -2921,14 +2921,13 @@
   "updated": "2026-10-26",
   "mod_head": "GitLab claude/settlement-economy at 8bb55694",
   "in_flight": [
-   "Safety runs P31, P32 (LQ.F10 as committed, root-eco-lq10 = tree of 6c7605d2, against root-eco-g4 = 02d5f85a) then P29, P30 (LQ.F11, root-eco-lq11 = tree of 507d1831, against root-eco-lq10): tools/safety/lq10c.sh, log $S/exp/lq10c.log. Then evaluate and commit the evidence ('Serves: P29, P30, P31, P32', comma-separated, in the final trailer block).",
-   "Done this round: P21-P28 evidence (7e9fe3d, cab0938, all corroborated); LQ.F10 on GitLab a57f2015, 9353147c, 6c7605d2; LQ.F11 507d1831; pedia sources 8bb55694; DLL builds/settlement-economy (b7ac6e2, 85edfe5)."
+   "None. P29-P32 evidence committed (cb9487b): P29, P31, P32 corroborated; P30 refuted (LQ.F11 slower: median run time +9.1 %, per population-turn +3.0 %)."
   ],
   "next": [
-   "1. Finish the runs above.",
-   "2. LQ.F10.T2: the lumber camp's own button (art studio, tools/civ4-art-studio).",
+   "1. Ask the user: accept LQ.F11's slower games (larger AI empires) or change it (D20 output, the essentials' effects); a profile of one turn would show whether the new code path costs time itself.",
+   "2. LQ.F10.T2: the lumber camp's own button (art studio).",
    "3. GW.F7 (copyNonDefaults), then GW.F1, GW.F6 and the rest of GW (D18 order).",
-   "Open questions for the user: lumbermill 'much better within the right context' (D19); hunting camps on cow, horse, pig and sheep trade the animal but give no products (D20 names pastures and latifundia only).",
+   "Open questions for the user: lumbermill 'much better within the right context' (D19); hunting camps on cow, horse, pig and sheep give no products (D20).",
    "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
   ],
   "environment": [
