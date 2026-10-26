@@ -175,6 +175,20 @@
    "kind": "request",
    "text": "You can also push the bigger files to github, I'll just paste them in the Gitlab IDE",
    "led_to": "Request R5"
+  },
+  {
+   "id": "M26",
+   "date": "2026-10-26",
+   "kind": "request",
+   "text": "Make sure that wool, leather, dairy and the other goods are appropriately consumed, and maybe even offer yield/commerce bonuses",
+   "led_to": "Request R6"
+  },
+  {
+   "id": "M27",
+   "date": "2026-10-26",
+   "kind": "decision",
+   "text": "Keep sheep, we need to have seeds and cattle",
+   "led_to": "Decision D15; amends D14 and LQ.F11"
   }
  ],
  "requests": [
@@ -322,6 +336,25 @@
      "what": "Push the binary mod files the GitLab connector cannot carry (the two edited GameFont sheets and the goods buttons) to GitHub, at their mod paths, for the user to upload in the GitLab web IDE",
      "status": "done",
      "where": "research/economy/mod-files (README lists paths and SHA-256)"
+    }
+   ]
+  },
+  {
+   "id": "R6",
+   "date": "2026-10-26",
+   "status": "open",
+   "prompt": "M26",
+   "text": "Make sure that wool, leather, dairy and the other goods are appropriately consumed, and maybe even offer yield/commerce bonuses",
+   "items": [
+    {
+     "id": "R6.1",
+     "what": "Wool, Leather, Dairy, Timber and the other goods are consumed appropriately",
+     "status": "open"
+    },
+    {
+     "id": "R6.2",
+     "what": "Where it fits, the goods give yield or commerce bonuses",
+     "status": "open"
     }
    ]
   }

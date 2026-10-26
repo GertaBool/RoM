@@ -875,5 +875,65 @@
    "gitlab:Tools/GameFontPatch/font_patch.json",
    "gitlab:Tools/GameFontPatch/README.txt"
   ]
+ },
+ {
+  "id": "H13",
+  "type": "hypothesis",
+  "line": "settlement-economy",
+  "text": "The four goods added on claude/settlement-economy (Wool, Timber, Dairy, Leather; GitLab bd217d67) have no consumer: no building, corporation, unit or civic names them, while the mod consumes their peers through the essentials buildings (Fur +1 happiness, livestock +3 % food each, cumulative), the market chain (livestock +5 % and +8 % food) and the guild and corporation modules (Drapers Guild and Emperor's Clothes take Sheep, Cotton, Silk, Fur and Dye; Grocers Guild and Big take foods; Equestrians Guild Horse; Carpenters Guild only guild paper). CvCorporationInfo::read writes the consumed list into an array of NUM_CORPORATION_PREREQ_BONUSES (6) entries without a bounds check outside debug builds; every other use loops up to the same constant. The claim: giving the four goods their peers' consumers and effect sizes, with the constant raised to 8 so no list exceeds it, gives them uses through rules the engine already runs, so the game neither crashes nor slows. Contradicted if a run fails only with the change, if the median same-seed turn time rises above 5 %, or if a corporation's consumed goods or output show wrongly in game."
+ },
+ {
+  "id": "P23",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H13"
+  ],
+  "evidence": "runs",
+  "variable": "completed",
+  "change": "On GitLab claude/settlement-economy at bd217d67: the four essentials buildings give Wool and Leather +1 happiness each, Dairy +3 % food and Timber +3 % production; Commodity Market +5 %, Commercial Center +8 % and Cannery +1 % food for Dairy; Dairy +1 health; the Drapers Guild and Emperor's Clothes consume Wool and Leather and the Drapers guildhall gives +1 happiness for each; the Equestrians Guild consumes Leather, the Grocers Guild and Big Dairy, the Carpenters Guild Timber; NUM_CORPORATION_PREREQ_BONUSES 6 -> 8. XML only; the DLL is unchanged. Harness: arm a is this branch, arm b the branch at bd217d67, the same DLL build, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. The goods have no producer until LQ.F10 and LQ.F11, so the runs test loading and the corporation lists, not the effects; the effects are judged in game with goods placed in the World Builder. P23: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/XML/Buildings/CIV4BuildingInfos.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "gitlab:Assets/XML/GlobalDefines.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4CorporationInfo.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingInfos.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Corporations/Corporations_CIV4CorporationInfo.xml"
+  ]
+ },
+ {
+  "id": "P24",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H13"
+  ],
+  "evidence": "runs",
+  "variable": "turn_seconds",
+  "change": "On GitLab claude/settlement-economy at bd217d67: the four essentials buildings give Wool and Leather +1 happiness each, Dairy +3 % food and Timber +3 % production; Commodity Market +5 %, Commercial Center +8 % and Cannery +1 % food for Dairy; Dairy +1 health; the Drapers Guild and Emperor's Clothes consume Wool and Leather and the Drapers guildhall gives +1 happiness for each; the Equestrians Guild consumes Leather, the Grocers Guild and Big Dairy, the Carpenters Guild Timber; NUM_CORPORATION_PREREQ_BONUSES 6 -> 8. XML only; the DLL is unchanged. Harness: arm a is this branch, arm b the branch at bd217d67, the same DLL build, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. The goods have no producer until LQ.F10 and LQ.F11, so the runs test loading and the corporation lists, not the effects; the effects are judged in game with goods placed in the World Builder. P24: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/XML/Buildings/CIV4BuildingInfos.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "gitlab:Assets/XML/GlobalDefines.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guilds_CIV4CorporationInfo.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingInfos.xml",
+   "gitlab:Assets/Modules/Projects/Vincentz/Corporations/Corporations_CIV4CorporationInfo.xml"
+  ]
  }
 ]
