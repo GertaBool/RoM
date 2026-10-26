@@ -210,6 +210,13 @@
    "kind": "correction",
    "text": "\"No download sources are recorded\"\n\nI literally gave you the Google Drive link and you had everything installed",
    "led_to": "Toolchain source recorded in toolchain/README.md"
+  },
+  {
+   "id": "M31",
+   "date": "2026-10-26",
+   "kind": "critique",
+   "text": "Why do wool and leather, key clothing ingredients that are used in a variety of circumstances and toolmaking processes, only adding happiness, and why is dairy so inconsequential?\n\nAnd why is Timber not actually essential? I'm genuinely perplexed at your decisionmaking",
+   "led_to": "Request R8"
   }
  ],
  "requests": [
@@ -404,6 +411,34 @@
      "status": "open"
     }
    ]
+  },
+  {
+   "id": "R8",
+   "date": "2026-10-26",
+   "status": "open",
+   "prompt": "M31",
+   "text": "Why do wool and leather, key clothing ingredients that are used in a variety of circumstances and toolmaking processes, only adding happiness, and why is dairy so inconsequential?\n\nAnd why is Timber not actually essential? I'm genuinely perplexed at your decisionmaking",
+   "items": [
+    {
+     "id": "R8.1",
+     "what": "Wool and Leather used as materials (clothing, armour, harness, tools), not only for happiness",
+     "status": "planned",
+     "where": "with R7 (lumber camps and pastures), since a requirement without a producer locks units and buildings away"
+    },
+    {
+     "id": "R8.2",
+     "what": "Dairy with consequential effects",
+     "status": "planned",
+     "where": "with R7 (lumber camps and pastures), since a requirement without a producer locks units and buildings away"
+    },
+    {
+     "id": "R8.3",
+     "what": "Timber essential: what is built of wood needs or uses it",
+     "status": "planned",
+     "where": "with R7 (lumber camps and pastures), since a requirement without a producer locks units and buildings away"
+    }
+   ],
+   "facts": "CIV4UnitInfos.xml at GitLab e694caf0: 20 wooden ships (6 need Iron), 17 siege units, 14 archer units, 44 melee units (8 need Iron), 39 mounted units (34 need Horse, 4 Ivory); no unit needs or is cheaper with Timber, Wool or Leather. D14 copied each good's nearest peer, and the peers (Fur, Sheep, the livestock) are themselves modelled only as happiness and food."
   }
  ]
 }
