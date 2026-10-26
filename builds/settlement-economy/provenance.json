@@ -1,0 +1,17 @@
+{
+ "serves": [
+  "P31",
+  "P32"
+ ],
+ "build_id": "27e464d76e49",
+ "source": "GitLab aretemaxxing-group/rise-of-mankind, branch claude/settlement-economy at 507d1831 (LQ.F10 a57f2015..6c7605d2: ProducedBonuses, the lumber camp; LQ.F11 507d1831: pasture and estate products, XML only). The DLL source is GitLab main's plus LQ.F10's C++ changes (CvInfos, CvPlot, CvTeam, CvCityAI, CvGameTextMgr).",
+ "source_commit": "507d18319b61b5aa618c54a6f2517620d1094368",
+ "source_tree": "27e464d76e4992a8f493c6d9dcde75b8aa95ace0",
+ "base_commit": "02d5f85a",
+ "dll_sha256": "961cb8617b926049fc7e0cd2428490e791a27b3a22619a5996d60946cb1df983",
+ "dll_size": 6160384,
+ "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
+ "tested_headless": "Harness DLL of the same source: one deterministic Mediterranean game (seed 485959733, 150 turns): at turn 100 four AI players have 1-5 lumber camps and as much Timber; at turn 150 Timber available plus exported equals camps plus mills for 9 of 10 players (the tenth has one camp off the trade network). Safety: P27/P28 corroborated (evidence cab0938, the same tree as a local build); P31/P32 (as committed) and P29/P30 (LQ.F11) running.",
+ "tested_in_game": false,
+ "gitlab_commit": "507d18319b61b5aa618c54a6f2517620d1094368"
+}
