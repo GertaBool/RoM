@@ -1105,5 +1105,75 @@
    "gitlab:Assets/XML/Terrain/CIV4ImprovementInfos.xml",
    "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml"
   ]
+ },
+ {
+  "id": "P31",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H15"
+  ],
+  "evidence": "runs",
+  "variable": "completed",
+  "change": "LQ.F10 as committed to GitLab claude/settlement-economy on 02d5f85a: the change of P27/P28 (whose runs, evidence cab0938, tested this same tree as a local build) plus what their paths did not name: CvCityAI::AI_bestPlotBuild values a good the improvement produces like a connected resource (AI_bonusVal x 10) when the city lacks it or the plot's improvement already gives it; CvGameTextMgr::setImprovementHelp lists the produced goods; the five units that list BUILD_LUMBERMILL list BUILD_LUMBER_CAMP too (CIV4UnitInfos.xml; without it no worker built a camp in a deterministic run). Harness: arm a the branch with LQ.F10 and a harness DLL built from its source, arm b 02d5f85a with its own, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds as the scenario seed. P31: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvInfos.h",
+   "gitlab:Assets/CvGameCoreDLL/CvInfos.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvTeam.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/XML/Terrain/CIV4TerrainSchema.xml",
+   "gitlab:Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+   "gitlab:Assets/XML/Units/CIV4BuildInfos.xml",
+   "gitlab:Assets/XML/Units/CIV4UnitInfos.xml",
+   "gitlab:Assets/XML/Art/CIV4ArtDefines_Improvement.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "builds/settlement-economy/"
+  ]
+ },
+ {
+  "id": "P32",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H15"
+  ],
+  "evidence": "runs",
+  "variable": "turn_seconds",
+  "change": "LQ.F10 as committed to GitLab claude/settlement-economy on 02d5f85a: the change of P27/P28 (whose runs, evidence cab0938, tested this same tree as a local build) plus what their paths did not name: CvCityAI::AI_bestPlotBuild values a good the improvement produces like a connected resource (AI_bonusVal x 10) when the city lacks it or the plot's improvement already gives it; CvGameTextMgr::setImprovementHelp lists the produced goods; the five units that list BUILD_LUMBERMILL list BUILD_LUMBER_CAMP too (CIV4UnitInfos.xml; without it no worker built a camp in a deterministic run). Harness: arm a the branch with LQ.F10 and a harness DLL built from its source, arm b 02d5f85a with its own, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds as the scenario seed. P32: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvInfos.h",
+   "gitlab:Assets/CvGameCoreDLL/CvInfos.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvTeam.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvCityAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/XML/Terrain/CIV4TerrainSchema.xml",
+   "gitlab:Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+   "gitlab:Assets/XML/Units/CIV4BuildInfos.xml",
+   "gitlab:Assets/XML/Units/CIV4UnitInfos.xml",
+   "gitlab:Assets/XML/Art/CIV4ArtDefines_Improvement.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "builds/settlement-economy/"
+  ]
  }
 ]
