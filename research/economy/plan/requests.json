@@ -189,6 +189,20 @@
    "kind": "decision",
    "text": "Keep sheep, we need to have seeds and cattle",
    "led_to": "Decision D15; amends D14 and LQ.F11"
+  },
+  {
+   "id": "M28",
+   "date": "2026-10-26",
+   "kind": "request",
+   "text": "Just add lumber camps and pastures, it's literally a button click away. If anything is missing, just check whatever models are available or make them.",
+   "led_to": "Request R7"
+  },
+  {
+   "id": "M29",
+   "date": "2026-10-26",
+   "kind": "correction",
+   "text": "\"Settlement, Town, City, Metropolitan; they add up\"\n\nCheck your priors. It's one look at the actual XML and Python files away.",
+   "led_to": "Correction of D14 and LQ.F12 (essentials buildings do not add up)"
   }
  ],
  "requests": [
@@ -356,7 +370,31 @@
      "id": "R6.2",
      "what": "Where it fits, the goods give yield or commerce bonuses",
      "status": "done",
-     "where": "LQ.F12: Dairy +3 % food per essentials building (to +12 %), +5/+8/+1 % at Commodity Market, Commercial Center, Cannery; Timber +3 % production per essentials building; guild and corporation output (Drapers gold and culture, Emperor's Clothes commerce and culture, Equestrians, Carpenters production, Grocers and Big food)"
+     "where": "LQ.F12: Dairy +3 % food from the city's essentials building, +5 % with a Commodity Market or +8 % with a Commercial Center, +1 % with a Cannery; Timber +3 % production from the essentials building; Wool and Leather +1 happiness each; guild and corporation output (Drapers gold and culture, Emperor's Clothes commerce and culture, Equestrians and Carpenters production, Grocers and Big food). One essentials and one market building are held at a time (M29)."
+    }
+   ]
+  },
+  {
+   "id": "R7",
+   "date": "2026-10-26",
+   "status": "open",
+   "prompt": "M28",
+   "text": "Just add lumber camps and pastures, it's literally a button click away. If anything is missing, just check whatever models are available or make them.",
+   "items": [
+    {
+     "id": "R7.1",
+     "what": "Lumber camps (and the lumbermill) give Timber now",
+     "status": "open"
+    },
+    {
+     "id": "R7.2",
+     "what": "Pastures give their animal goods now: Wool, Dairy, Leather",
+     "status": "open"
+    },
+    {
+     "id": "R7.3",
+     "what": "Missing art (models, buttons) taken from what the mod has or made",
+     "status": "open"
     }
    ]
   }

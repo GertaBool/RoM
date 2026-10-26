@@ -899,7 +899,7 @@
      "tasks": [
       {
        "id": "LQ.F12.T1",
-       "text": "Essentials buildings: Wool and Leather +1 happiness each, Dairy +3 % food, Timber +3 % production, per building; Commodity Market +5 %, Commercial Center +8 %, Cannery +1 % food for Dairy",
+       "text": "Essentials buildings (one held at a time): Wool and Leather +1 happiness each, Dairy +3 % food, Timber +3 % production; Dairy +5 % food with a Commodity Market, +8 % with a Commercial Center (one market building at a time), +1 % with a Cannery",
        "status": "done",
        "done": "2026-10-26",
        "note": "GitLab e694caf0"
@@ -949,7 +949,7 @@
       },
       {
        "kind": "manual",
-       "what": "a city given wool, leather, dairy and timber in the World Builder shows +1 happiness per essentials building for wool and leather, the food and production modifiers, and the guilds' extra output"
+       "what": "a city given wool, leather, dairy and timber in the World Builder shows +1 happiness each for wool and leather, +3 % food and +3 % production from its essentials building, the market and Cannery food modifiers, and the guilds' extra output"
       }
      ],
      "design": [
