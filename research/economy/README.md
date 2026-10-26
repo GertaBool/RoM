@@ -7,7 +7,9 @@ types survive only as the names of goods, so the engine's existing resource path
 
 [settlement/](settlement/README.md) holds the quantitative follow-up: a deterministic model of settlement goods economies run on 30 real harness games.
 
-[vision/](vision/README.md) sets out the whole design in one piece: The Living Economy, the game as it would play with land, people, goods, markets, trade, the state and war rebuilt together.
+[plan/](plan/README.md) is the implementation plan: the design statement and a checked plan of the components and code sections that implement it.
+
+[vision/](vision/README.md) (The Living Economy) is set aside: it went beyond the design statement and is kept only as a record.
 
 It is a design, not a change: nothing in the mod is altered, and no prediction is registered for it.
 
