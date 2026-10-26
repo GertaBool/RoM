@@ -8,9 +8,9 @@ ctags only	AIMissionTargetIndex.h	253	numEntries
 ctags only	AISettlementPolicy.h	15	operator <
 ctags only	AIStrategicContextPolicy.h	48	Snapshot
 ctags only	CvArtFileMgr.h	88	operator ()
-ctags only	CvCity.cpp	9473	calculateTradeProfitTimes100
-ctags only	CvCity.cpp	9488	calculateTradeProfit
-ctags only	CvCity.cpp	14553	operator () 
+ctags only	CvCity.cpp	9541	calculateTradeProfitTimes100
+ctags only	CvCity.cpp	9556	calculateTradeProfit
+ctags only	CvCity.cpp	14621	operator () 
 ctags only	CvDLLEntityIFaceBase.h	24	removeEntity
 ctags only	CvDLLEntityIFaceBase.h	25	addEntity
 ctags only	CvDLLEntityIFaceBase.h	26	setup
@@ -55,8 +55,8 @@ ctags only	CvDLLSymbolIFaceBase.h	78	Hide
 ctags only	CvDLLSymbolIFaceBase.h	79	IsHidden
 ctags only	CvDLLSymbolIFaceBase.h	80	updatePosition
 ctags only	CvDiploParameters.cpp	4	CvDiploParameters
-ctags only	CvGame.cpp	10125	checkCRCs
-ctags only	CvGame.cpp	10131	getWarningStatus
+ctags only	CvGame.cpp	10611	checkCRCs
+ctags only	CvGame.cpp	10617	getWarningStatus
 ctags only	CvGameCoreDLL.cpp	89	DllMain
 ctags only	CvGameCoreDLL.h	62	operator ==
 ctags only	CvGameCoreDLL.h	65	operator +
@@ -141,8 +141,8 @@ ctags only	CvInfos.h	6637	Response
 ctags only	CvMessageData.cpp	468	CvNetAdvancedStartAction
 ctags only	CvMessageData.cpp	607	CvNetFoundReligion
 ctags only	CvMessageData.cpp	672	CvNetEventTriggered
-ctags only	CvPlayerAI.cpp	12687	operator ()
-ctags only	CvPlot.cpp	4146	waterArea
+ctags only	CvPlayerAI.cpp	12980	operator ()
+ctags only	CvPlot.cpp	4255	waterArea
 ctags only	CvPopupInfo.cpp	4	CvPopupInfo
 ctags only	CvPopupReturn.h	24	PopupReturn
 ctags only	CvPopupReturn.h	33	setSelectedRadioButton
@@ -371,7 +371,7 @@ compiled only	CvArtFileMgr.h	104	CvArtFileMgr::getMovieArtInfo()
 compiled only	CvArtFileMgr.h	104	CvArtFileMgr::getNumMovieArtInfos
 compiled only	CvArtFileMgr.h	105	CvArtFileMgr::getInterfaceArtInfo()
 compiled only	CvArtFileMgr.h	105	CvArtFileMgr::getNumInterfaceArtInfos
-compiled only	CvCity.cpp	14554	VisibleBuildingComparator::operator
+compiled only	CvCity.cpp	14622	VisibleBuildingComparator::operator
 compiled only	CvDiploParameters.cpp	14	CvDiploParameters::CvDiploParameters
 compiled only	CvDiploParameters.cpp	71	CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, CvWString, int)
 compiled only	CvDiploParameters.cpp	74	CvDiploParameters::setDiploComment(DiploCommentTypes, CvWString, int, CvWString)
@@ -382,7 +382,7 @@ compiled only	CvDiploParameters.cpp	86	CvDiploParameters::setDiploComment(DiploC
 compiled only	CvDiploParameters.cpp	89	CvDiploParameters::setDiploComment(DiploCommentTypes, int, int, int)
 compiled only	CvDiploParameters.cpp	92	CvDiploParameters::setDiploComment(DiploCommentTypes, std::vector<FVariable, std::allocator<FVariable>> const*)
 compiled only	CvGameCoreDLL.cpp	92	_DllMain@12
-compiled only	CvGameCoreUtils.cpp	2958	_$E9
+compiled only	CvGameCoreUtils.cpp	2986	_$E9
 compiled only	CvGlobals.cpp	115	
 compiled only	CvGlobals.cpp	373	CvGlobals::CvGlobals
 compiled only	CvInfos.cpp	469	CvHotkeyInfo::CvHotkeyInfo()
@@ -446,8 +446,8 @@ compiled only	CvInitCore.cpp	36
 compiled only	CvMessageData.cpp	475	CvNetAdvancedStartAction::CvNetAdvancedStartAction
 compiled only	CvMessageData.cpp	611	CvNetFoundReligion::CvNetFoundReligion
 compiled only	CvMessageData.cpp	676	CvNetEventTriggered::CvNetEventTriggered
-compiled only	CvPlayerAI.cpp	12688	`anonymous namespace'::UnitTargetCounter::operator
-compiled only	CvPlot.cpp	4150	CvPlot::waterArea
+compiled only	CvPlayerAI.cpp	12981	`anonymous namespace'::UnitTargetCounter::operator
+compiled only	CvPlot.cpp	4259	CvPlot::waterArea
 compiled only	CvPopupInfo.cpp	13	CvPopupInfo::CvPopupInfo
 compiled only	CvReplayInfo.cpp	32	CvReplayInfo::CvReplayInfo
 compiled only	CvReplayMessage.cpp	11	CvReplayMessage::CvReplayMessage

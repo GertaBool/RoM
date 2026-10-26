@@ -20,7 +20,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - called by (4): CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getTerrainDataForWB, CvInfoBase::copyNonDefaults, CyInfoPythonInterface1
 - **84** `CvInfoBase::getType() const` (exported; Python: getType)
   - calls: CvString::operator char const * [CvString.h]
-  - called by (260): CvActionInfo::getType, CvAssetInfoBase::getTag, CvCity::getBuildQueue, CvDllTranslator::initializeTags, CvGame::loadBuildQueue, CvGameTextMgr::buildCityBillboardIconString, CvHandicapInfo::copyNonDefaults, CvInfoBase::copyNonDefaults, CvInfoBase::isMatchForLink, CvInitCore::getCalendarKey, CvInitCore::getClimateKey, CvInitCore::getEraKey …
+  - called by (259): CvActionInfo::getType, CvAssetInfoBase::getTag, CvCity::getBuildQueue, CvDllTranslator::initializeTags, CvGame::loadBuildQueue, CvHandicapInfo::copyNonDefaults, CvInfoBase::copyNonDefaults, CvInfoBase::isMatchForLink, CvInitCore::getCalendarKey, CvInitCore::getClimateKey, CvInitCore::getEraKey, CvInitCore::getGameSpeedKey …
 - **105** `CvInfoBase::getButton() const` (virtual)
   - calls: CvString::operator char const * [CvString.h]
   - called by (41): CvActionInfo::getButton, CvBonusInfo::getButton, CvBuildingInfo::getButton, CvCity::doCheckProduction, CvCity::getCityBillboardProductionIcon, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCivilizationInfo::getButton, CvDLLButtonPopup::launchChooseTechPopup …
@@ -260,7 +260,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **1467** `CvTechInfo::getAdvancedStartCostIncrease() const`
   - called by (2): CvPlayer::getAdvancedStartTechCost, CvTechInfo::copyNonDefaults
 - **1472** `CvTechInfo::getEra() const` (Python: getEra)
-  - called by (18): CvGame::initFreeState, CvGame::initScoreCalculation, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::setTechTradeHelp, CvPlayer::calculateResearchModifier, CvPlayer::canBuild, CvPlayer::foundCorporation, CvPlayer::foundReligion, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bestTech, CvPlayerAI::AI_doEnemyUnitData …
+  - called by (19): CvGame::initFreeState, CvGame::initScoreCalculation, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::setTechTradeHelp, CvPlayer::calculateResearchModifier, CvPlayer::canBuild, CvPlayer::foundCorporation, CvPlayer::foundReligion, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bestTech, CvPlayerAI::AI_doEnemyUnitData …
 - **1477** `CvTechInfo::getTradeRoutes() const` (Python: getTradeRoutes)
   - called by (5): CvGameTextMgr::buildTradeRouteString, CvPlayerAI::AI_techValue, CvTeam::processTech, CvTechInfo::copyNonDefaults, CyInfoPythonInterface1
 - **1482** `CvTechInfo::getFeatureProductionModifier() const` (Python: getFeatureProductionModifier)
@@ -839,9 +839,9 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **4556** `CvUnitInfo::getPrereqBuilding() const` (Python: getPrereqBuilding)
   - called by (8): CvCity::isPlotTrainable, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_techBuildingValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
 - **4561** `CvUnitInfo::getPrereqAndTech() const` (Python: getPrereqAndTech)
-  - called by (14): CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_calculateUnitAIViability, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techUnitValue, CvTeamAI::AI_getTechMonopolyValue, CvUnitInfo::copyNonDefaults …
+  - called by (15): CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_calculateUnitAIViability, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techUnitValue, CvTeamAI::AI_getTechMonopolyValue …
 - **4566** `CvUnitInfo::getPrereqAndBonus() const` (Python: getPrereqAndBonus)
-  - called by (10): CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
+  - called by (11): CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
 - **4571** `CvUnitInfo::getGroupSize() const` (Python: getGroupSize)
   - called by (5): CvUnit::getGroupSize, CvUnit::getSubUnitCount, CvUnit::getSubUnitsAlive(int) const, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
 - **4576** `CvUnitInfo::getGroupDefinitions() const` (Python: getGroupDefinitions)
@@ -964,7 +964,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **4911** `CvUnitInfo::getPrereqAndTechs(int) const` (Python: getPrereqAndTechs)
   - called by (8): CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_techBuildingValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isTechRequiredForUnit
 - **4918** `CvUnitInfo::getPrereqOrBonuses(int) const` (Python: getPrereqOrBonuses)
-  - called by (10): CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
+  - called by (11): CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
 - **4925** `CvUnitInfo::getProductionTraits(int) const` (Python: getProductionTraits)
   - called by (6): CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setProductionHelp, CvPlayer::getProductionModifier(UnitTypes) const, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
 - **4932** `CvUnitInfo::getFlavorValue(int) const` (Python: getFlavorValue)
@@ -988,7 +988,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **4995** `CvUnitInfo::getDomainModifier(int) const` (Python: getDomainModifier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::domainModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
 - **5002** `CvUnitInfo::getBonusProductionModifier(int) const` (Python: getBonusProductionModifier)
-  - called by (6): CvCity::getProductionModifier(UnitTypes) const, CvGameTextMgr::setProductionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_baseBonusVal, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
+  - called by (7): CvCity::getProductionModifier(UnitTypes) const, CvGameTextMgr::setProductionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
 - **5009** `CvUnitInfo::getUnitGroupRequired(int) const` (Python: getUnitGroupRequired)
   - called by (3): CvUnit::getUnitGroupRequired, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
 - **5016** `CvUnitInfo::getUpgradeUnitClass(int) const` (Python: getUpgradeUnitClass)
@@ -1429,11 +1429,11 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **9440** `CvBuildingInfo::getObsoleteTech() const` (Python: getObsoleteTech)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setTechTradeHelp, CvTeam::processTech, CyInfoPythonInterface1
 - **9445** `CvBuildingInfo::getPrereqAndTech() const` (Python: getPrereqAndTech)
-  - called by (12): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techValue, CyInfoPythonInterface1, `anonymous namespace'::AI_buildingTechReadinessPercent, `anonymous namespace'::AI_hasBuildingTechs, isTechRequiredForBuilding
+  - called by (13): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techValue, CyInfoPythonInterface1, `anonymous namespace'::AI_buildingTechReadinessPercent, `anonymous namespace'::AI_hasBuildingTechs …
 - **9450** `CvBuildingInfo::getNoBonus() const` (Python: getNoBonus)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
 - **9455** `CvBuildingInfo::getPowerBonus() const` (Python: getPowerBonus)
-  - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusPower, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1
+  - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusPower, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
 - **9460** `CvBuildingInfo::getFreeBonus() const` (Python: getFreeBonus)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
 - **9465** `CvBuildingInfo::getNumFreeBonuses() const` (Python: getNumFreeBonuses)
@@ -1560,7 +1560,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **9778** `CvBuildingInfo::getGlobalCorporationCommerce() const` (Python: getGlobalCorporationCommerce)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
 - **9783** `CvBuildingInfo::getPrereqAndBonus() const` (Python: getPrereqAndBonus)
-  - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface1
+  - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
 - **9788** `CvBuildingInfo::getGreatPeopleUnitClass() const` (Python: getGreatPeopleUnitClass)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
 - **9793** `CvBuildingInfo::getGreatPeopleRateChange() const` (Python: getGreatPeopleRateChange)
@@ -1681,7 +1681,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **10088** `CvBuildingInfo::getYieldModifierArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
 - **10093** `CvBuildingInfo::getPowerYieldModifier(int) const` (Python: getPowerYieldModifier)
-  - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1
+  - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
 - **10100** `CvBuildingInfo::getPowerYieldModifierArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
 - **10105** `CvBuildingInfo::getAreaYieldModifier(int) const`
@@ -1737,11 +1737,11 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **10265** `CvBuildingInfo::getFreeSpecialistCount(int) const` (Python: getFreeSpecialistCount)
   - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::getAddedFreeSpecialistCount, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalBaseGreatPeopleRateByBuilding, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
 - **10272** `CvBuildingInfo::getBonusHealthChanges(int) const` (Python: getBonusHealthChanges)
-  - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getBonusHealth, CvCity::processBonus, CvCity::processBuilding, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1
+  - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getBonusHealth, CvCity::processBonus, CvCity::processBuilding, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CyInfoPythonInterface1
 - **10279** `CvBuildingInfo::getBonusHappinessChanges(int) const` (Python: getBonusHappinessChanges)
-  - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBonusHappiness, CvCity::processBonus, CvCity::processBuilding, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1
+  - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBonusHappiness, CvCity::processBonus, CvCity::processBuilding, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CyInfoPythonInterface1
 - **10286** `CvBuildingInfo::getBonusProductionModifier(int) const` (Python: getBonusProductionModifier)
-  - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getProductionModifier(BuildingTypes) const, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setProductionHelp, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1
+  - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getProductionModifier(BuildingTypes) const, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setProductionHelp, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
 - **10293** `CvBuildingInfo::getUnitCombatFreeExperience(int) const` (Python: getUnitCombatFreeExperience)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getProductionExperience, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
 - **10300** `CvBuildingInfo::getDomainFreeExperience(int) const` (Python: getDomainFreeExperience)
@@ -1751,7 +1751,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **10314** `CvBuildingInfo::getPrereqAndTechs(int) const` (Python: getPrereqAndTechs)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1, `anonymous namespace'::AI_buildingTechReadinessPercent, `anonymous namespace'::AI_hasBuildingTechs, isTechRequiredForBuilding
 - **10321** `CvBuildingInfo::getPrereqOrBonuses(int) const` (Python: getPrereqOrBonuses)
-  - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface1
+  - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
 - **10328** `CvBuildingInfo::getProductionTraits(int) const` (Python: getProductionTraits)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setProductionHelp, CvPlayer::getProductionModifier(BuildingTypes) const, CyInfoPythonInterface1
 - **10335** `CvBuildingInfo::getHappinessTraits(int) const` (Python: getHappinessTraits)
@@ -1775,7 +1775,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **10400** `CvBuildingInfo::getSpecialistYieldChangeArray(int) const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
 - **10407** `CvBuildingInfo::getBonusYieldModifier(int, int) const` (Python: getBonusYieldModifier)
-  - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusYieldRateModifier(YieldTypes, BonusTypes) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1
+  - called by (8): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusYieldRateModifier(YieldTypes, BonusTypes) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CyInfoPythonInterface1
 - **10416** `CvBuildingInfo::getBonusYieldModifierArray(int) const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
 - **10423** `CvBuildingInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
@@ -1976,9 +1976,9 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*)
 - **12869** `CvCivilizationInfo::getCivilizationBuildings(int) const` (exported; Python: getCivilizationBuildings)
-  - called by (64): CvCity::applyEvent, CvCity::canApplyEvent, CvCity::canConstruct, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getProductionExperience, CvCity::getTriggerValue, CvCity::init, CvCity::isPlotTrainable, CvCity::setBuildingHappyChange, CvCity::setBuildingHealthChange, CvCity::setBuildingYieldChange, CvCityAI::AI_bestBuildingThreshold …
+  - called by (65): CvCity::applyEvent, CvCity::canApplyEvent, CvCity::canConstruct, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getProductionExperience, CvCity::getTriggerValue, CvCity::init, CvCity::isPlotTrainable, CvCity::setBuildingHappyChange, CvCity::setBuildingHealthChange, CvCity::setBuildingYieldChange, CvCityAI::AI_bestBuildingThreshold …
 - **12876** `CvCivilizationInfo::getCivilizationUnits(int) const` (exported; Python: getCivilizationUnits)
-  - called by (69): CvCity::allUpgradesAvailable, CvCity::applyEvent, CvCity::canTrain(UnitCombatTypes) const, CvCity::getConscriptUnit, CvCity::isForceObsoleteUnitClassAvailable, CvCity::processBuilding, CvCity::processSpecialist, CvCity::setHeadquarters, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction …
+  - called by (70): CvCity::allUpgradesAvailable, CvCity::applyEvent, CvCity::canTrain(UnitCombatTypes) const, CvCity::getConscriptUnit, CvCity::isForceObsoleteUnitClassAvailable, CvCity::processBuilding, CvCity::processSpecialist, CvCity::setHeadquarters, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction …
 - **12883** `CvCivilizationInfo::getCivilizationFreeUnitsClass(int) const` (exported; Python: getCivilizationFreeUnitsClass)
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
 - **12890** `CvCivilizationInfo::getCivilizationInitialCivics(int) const` (exported; Python: getCivilizationInitialCivics)
@@ -2308,7 +2308,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **15002** `CvBuildInfo::getImprovement() const` (Python: getImprovement)
   - called by (30): CvBuildInfo::copyNonDefaults, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere, CvDLLWidgetData::doPediaBuildJump, CvDLLWidgetData::parseActionHelp, CvGame::updateColoredPlots …
 - **15007** `CvBuildInfo::getRoute() const` (Python: getRoute)
-  - called by (17): CvBuildInfo::copyNonDefaults, CvCityAI::AI_bestPlotBuild, CvDLLWidgetData::parseActionHelp, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_techValue, CvPlot::canBuild, CvPlot::changeBuildProgress, CvPlot::getYieldWithBuild, CvSelectionGroup::getBestBuildRoute, CvTeam::processTech …
+  - called by (18): CvBuildInfo::copyNonDefaults, CvCityAI::AI_bestPlotBuild, CvDLLWidgetData::parseActionHelp, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_techValue, CvPlot::canBuild, CvPlot::changeBuildProgress, CvPlot::getYieldWithBuild, CvSelectionGroup::getBestBuildRoute …
 - **15012** `CvBuildInfo::getEntityEvent() const` (exported; Python: getEntityEvent)
   - called by (2): CvBuildInfo::copyNonDefaults, CyInfoPythonInterface2
 - **15017** `CvBuildInfo::getMissionType() const` (exported; Python: getMissionType)
@@ -2388,19 +2388,19 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **15373** `CvRouteInfo::getAdvancedStartCostIncrease() const`
   - called by (2): CvPlayer::getAdvancedStartRouteCost, CvRouteInfo::copyNonDefaults
 - **15378** `CvRouteInfo::getValue() const` (Python: getValue)
-  - called by (9): CvCityAI::AI_bestPlotBuild, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bestAdvancedStartRoute, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CvSelectionGroup::getBestBuildRoute, CvUnitAI::AI_betterPlotBuild, CyInfoPythonInterface2
+  - called by (10): CvCityAI::AI_bestPlotBuild, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bestAdvancedStartRoute, CvPlayerAI::AI_bonusUnlockVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CvSelectionGroup::getBestBuildRoute, CvUnitAI::AI_betterPlotBuild, CyInfoPythonInterface2
 - **15383** `CvRouteInfo::getMovementCost() const` (Python: getMovementCost)
   - called by (6): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildMoveString, CvPlot::movementCost, CvRouteInfo::copyNonDefaults, CvUnitAI::AI_minPathStepsPerTurn, CyInfoPythonInterface2
 - **15388** `CvRouteInfo::getFlatMovementCost() const` (Python: getFlatMovementCost)
   - called by (5): CvDLLWidgetData::parseActionHelp, CvPlot::movementCost, CvRouteInfo::copyNonDefaults, CvUnitAI::AI_minPathStepsPerTurn, CyInfoPythonInterface2
 - **15393** `CvRouteInfo::getPrereqBonus() const` (Python: getPrereqBonus)
-  - called by (5): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CyInfoPythonInterface2
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CyInfoPythonInterface2
 - **15400** `CvRouteInfo::getYieldChange(int) const` (Python: getYieldChange)
   - called by (5): CvPlayerAI::AI_techValue, CvPlot::calculateMaxYield, CvPlot::calculateYield, CvRouteInfo::copyNonDefaults, CyInfoPythonInterface2
 - **15407** `CvRouteInfo::getTechMovementChange(int) const` (Python: getTechMovementChange)
   - called by (5): CvGameTextMgr::buildMoveString, CvPlayerAI::AI_techValue, CvRouteInfo::copyNonDefaults, CvTeam::processTech, CyInfoPythonInterface2
 - **15414** `CvRouteInfo::getPrereqOrBonus(int) const` (Python: getPrereqOrBonus)
-  - called by (5): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CyInfoPythonInterface2
+  - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CyInfoPythonInterface2
 - **15419** `CvRouteInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvGlobals::getNUM_ROUTE_PREREQ_OR_BONUSES [CvGlobals.cpp], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp]
 - **15501** `CvRouteInfo::copyNonDefaults(CvRouteInfo*)`
@@ -2595,9 +2595,9 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **16794** `CvBonusInfo::getAIObjective() const` (Python: getAIObjective)
   - called by (5): CvBonusInfo::copyNonDefaults, CvTeamAI::AI_calculatePlotWarValue, CvUnitAI::AI_guardBonus, CvUnitAI::AI_improveBonus, CyInfoPythonInterface2
 - **16799** `CvBonusInfo::getHealth() const` (Python: getHealth)
-  - called by (11): CvBonusInfo::copyNonDefaults, CvCity::getBonusHealth, CvCity::processBonus, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setPlotHelp, CvPlayer::getResourceLayerColors, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface2
+  - called by (12): CvBonusInfo::copyNonDefaults, CvCity::getBonusHealth, CvCity::processBonus, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setPlotHelp, CvPlayer::getResourceLayerColors, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface2
 - **16804** `CvBonusInfo::getHappiness() const` (Python: getHappiness)
-  - called by (11): CvBonusInfo::copyNonDefaults, CvCity::getBonusHappiness, CvCity::processBonus, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setPlotHelp, CvPlayer::getResourceLayerColors, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface2
+  - called by (12): CvBonusInfo::copyNonDefaults, CvCity::getBonusHappiness, CvCity::processBonus, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setPlotHelp, CvPlayer::getResourceLayerColors, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface2
 - **16809** `CvBonusInfo::getMinAreaSize() const` (Python: getMinAreaSize)
   - called by (3): CvBonusInfo::copyNonDefaults, CvPlot::canHaveBonus, CyInfoPythonInterface2
 - **16814** `CvBonusInfo::getMinLatitude() const` (Python: getMinLatitude)
@@ -2756,7 +2756,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - called by (3): CvPlot::changeBuildProgress, CvPlot::doFeature, CvSelectionGroup::groupBuild
 - **17534** `CvFeatureInfo::getArtInfo() const` (exported)
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getFeatureArtInfo(char const*) const [CvArtFileMgr.cpp], CvFeatureInfo::getArtDefineTag
-  - called by (5): CvFeatureInfo::getButton, CvFeatureInfo::getNumVarieties, CvGameTextMgr::getTerrainDataForWB, CvPlot::setFeatureType, CvPlot::updateFeatureSymbol
+  - called by (5): CvFeatureInfo::getButton, CvFeatureInfo::getNumVarieties, CvGameTextMgr::getTerrainDataForWB, CvPlot::setFeatureType, CvPlot::updateFeatureSymbolEntity
 - **17539** `CvFeatureInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvFeatureInfo::setArtDefineTag, CvString::operator char const * [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumFootstepAudioTypes [CvGlobals.cpp], CvGlobals::getFootstepAudioTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int**, char const*, CvString*, int, int) [CvXMLLoadUtilitySet.cpp], CvString::GetLength [CvString.h], CvDLLUtilityIFaceBase::getAudioTagIndex [CvDLLUtilityIFaceBase.h], CvString::GetCString [CvString.h], CvFeatureInfo::setGrowthSound, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp]
 - **17639** `CvFeatureInfo::copyNonDefaults(CvFeatureInfo*)`
@@ -3370,7 +3370,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **20996** `CvReligionInfo::getChar() const` (Python: getChar)
   - called by (12): CvDLLButtonPopup::launchChangeReligionPopup, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::getFontSymbols, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvGlobals::StoreExeSettings, CvUnit::spread, CyInfoPythonInterface3, createTestFontString
 - **21013** `CvReligionInfo::getTGAIndex() const` (Python: getTGAIndex)
-  - called by (7): CvGameTextMgr::buildCityBillboardIconString, CvReligionInfo::copyNonDefaults, CvXMLLoadUtility::AddTGABogus<class CvCorporationInfo>, CvXMLLoadUtility::AddTGABogus<class CvReligionInfo>, CvXMLLoadUtility::ArrangeTGA<class CvCorporationInfo>, CvXMLLoadUtility::ArrangeTGA<class CvReligionInfo>, CyInfoPythonInterface3
+  - called by (6): CvReligionInfo::copyNonDefaults, CvXMLLoadUtility::AddTGABogus<class CvCorporationInfo>, CvXMLLoadUtility::AddTGABogus<class CvReligionInfo>, CvXMLLoadUtility::ArrangeTGA<class CvCorporationInfo>, CvXMLLoadUtility::ArrangeTGA<class CvReligionInfo>, CyInfoPythonInterface3
 - **21018** `CvReligionInfo::setTGAIndex(int)`
 - **21025** `CvReligionInfo::setChar(int)`
   - called by (2): CvGameTextMgr::assignFontIds, CvGlobals::LoadExeSettings
@@ -4056,9 +4056,9 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **24492** `CvArtInfoFeature::isAnimated() const` (exported)
   - called by (1): CyInfoPythonInterface3
 - **24497** `CvArtInfoFeature::isRiverArt() const` (exported)
-  - called by (3): CvPlot::setFeatureType, CvPlot::updateFeatureSymbol, CyInfoPythonInterface3
+  - called by (3): CvPlot::setFeatureType, CvPlot::updateFeatureSymbolEntity, CyInfoPythonInterface3
 - **24502** `CvArtInfoFeature::getTileArtType() const` (exported)
-  - called by (1): CvPlot::updateFeatureSymbol
+  - called by (1): CvPlot::updateFeatureSymbolEntity
 - **24507** `CvArtInfoFeature::getLightType() const` (exported)
 - **24512** `CvArtInfoFeature::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
   - calls: CvArtInfoScalableAsset::read, CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::CompareNoCase [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvArtInfoFeature::FeatureVariety::FeatureVariety [CvInfos.h], CvArtInfoFeature::getConnectionMaskFromString, CvXMLLoadUtility::GetXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoFeature::FeatureVariety::createFeatureArtPieceFromConnectionMask [CvInfos.h], CvArtInfoFeature::FeatureArtModel::FeatureArtModel [CvInfos.h], CvArtInfoFeature::getRotatedConnectionMask, CvDLLXmlIFaceBase::LocateNextSiblingNodeByTagName [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvArtInfoFeature::FeatureVariety::createFeatureDummyNode [CvInfos.h], CvString::~CvString [CvString.h]
@@ -5352,6 +5352,8 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvRouteInfo::~CvRouteInfo
 - **·** `CvSeaLevelInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvSeaLevelInfo::~CvSeaLevelInfo
+- **·** `CvSpecialBuildingInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvSpecialBuildingInfo::~CvSpecialBuildingInfo
 - **·** `CvSpecialUnitInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvSpecialUnitInfo::~CvSpecialUnitInfo
 - **·** `CvSpecialistInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)

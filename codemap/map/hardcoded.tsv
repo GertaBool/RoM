@@ -1,252 +1,252 @@
 function	kind	entry	line	depends_on	status	detail
-2184	export	?update@CvGame@@QAEXXZ	2147	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
-2184	original	CvGame::update	2147	the original SDK	in the original SDK	24 of 33 code lines as in the original function
-2184	fork change	221c15b828dd	2164	the mod repository	changed after the file was added	2026-09-19 Source code fixes (19 lines: 2164-2182)
-2184	exe call	GetWorldBuilderMode	2150	the game exe implements it	in the original SDK interfaces	
-2184	exe call	AutoSave	2161	the game exe implements it	in the original SDK interfaces	
-2184	exe call	GetAutorun	2210	the game exe implements it	in the original SDK interfaces	
-2184	exe call	isInAdvancedStart	2223	the game exe implements it	in the original SDK interfaces	
-2184	exe call	setInAdvancedStart	2225	the game exe implements it	in the original SDK interfaces	
-2184	exe call	setWorldBuilder	2226	the game exe implements it	in the original SDK interfaces	
-2184	event	gameUpdate	2157	Python handlers registered for the event	4 handlers	BugUtil.doDeferredCalls (Config/BUG Core.xml:97); CvEventManager.onGameUpdate (base/CvEventManager.py:130); BugEventManager.__init__: self.onGameUpdate (BUG/BugEventManager.py:192); addEvents: onGameUpdate (BUG/DealUtil.py:147)
-2184	enum values	GameStateTypes	2210	the game exe, compiled with the original values	ok	3 values in the original SDK
-2184	enum values	PlayerTypes	2223	the game exe, compiled with the original values	ok	1 values in the original SDK
-2184	log format	Turn-active count repaired from %d to %d on turn %d	2178	tools that read the log	not read by the tools of this repository	searched for "Turn-active count repaired from"
-2184	state	m_iNumGameTurnActive	2180	the other functions that set it	set by 2 other functions	changeNumGameTurnActive, reset
-10857	export	?LoadPreMenuGlobals@CvXMLLoadUtility@@QAE_NXZ	768	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
-10857	original	CvXMLLoadUtility::LoadPreMenuGlobals	768	the original SDK	in the original SDK	81 of 87 code lines as in the original function
-10857	exe call	MessageBox	902	the game exe implements it	in the original SDK interfaces	
-10857	xml file	GameInfo/CIV4GameSpeedInfo.xml	774	mod XML folder	ok	GC.getGameSpeedInfo(); path Civ4GameSpeedInfo/GameSpeedInfos/GameSpeedInfo; 6 records
-10857	xml file	GameInfo/CIV4GameOptionInfos.xml	780	mod XML folder	ok	GC.getGameOptionInfo(); path Civ4GameOptionInfos/GameOptionInfos/GameOptionInfo; 32 records
-10857	xml file	GameInfo/CIV4TurnTimerInfo.xml	784	Civilization IV XML folder	ok	GC.getTurnTimerInfo(); path Civ4TurnTimerInfo/TurnTimerInfos/TurnTimerInfo; 6 records
-10857	xml file	GameInfo/CIV4WorldInfo.xml	785	mod XML folder	ok	GC.getWorldInfo(); path Civ4WorldInfo/WorldInfos/WorldInfo; 8 records
-10857	xml file	GameInfo/CIV4ClimateInfo.xml	786	Civilization IV XML folder	ok	GC.getClimateInfo(); path Civ4ClimateInfo/ClimateInfos/ClimateInfo; 5 records
-10857	xml file	GameInfo/CIV4SeaLevelInfo.xml	787	Civilization IV XML folder	ok	GC.getSeaLevelInfo(); path Civ4SeaLevelInfo/SeaLevelInfos/SeaLevelInfo; 3 records
-10857	xml file	Interface/CIV4AdvisorInfos.xml	788	Civilization IV XML folder	ok	GC.getAdvisorInfo(); path Civ4AdvisorInfos/AdvisorInfos/AdvisorInfo; 6 records
-10857	xml file	Terrain/CIV4TerrainInfos.xml	789	mod XML folder	ok	GC.getTerrainInfo(); path Civ4TerrainInfos/TerrainInfos/TerrainInfo; 10 records
-10857	xml file	GameInfo/CIV4EraInfos.xml	790	mod XML folder	ok	GC.getEraInfo(); path Civ4EraInfos/EraInfos/EraInfo; 8 records
-10857	xml file	Units/CIV4UnitClassInfos.xml	791	mod XML folder	ok	GC.getUnitClassInfo(); path Civ4UnitClassInfos/UnitClassInfos/UnitClassInfo; 262 records; 16 module files add to it
-10857	xml file	GameInfo/CIV4SpecialistInfos.xml	792	mod XML folder	ok	GC.getSpecialistInfo(); path Civ4SpecialistInfos/SpecialistInfos/SpecialistInfo; 18 records
-10857	xml file	GameInfo/CIV4VoteSourceInfos.xml	793	Beyond the Sword XML folder	ok	GC.getVoteSourceInfo(); path Civ4VoteSourceInfos/VoteSourceInfos/VoteSourceInfo; 2 records
-10857	xml file	Technologies/CIV4TechInfos.xml	794	mod XML folder	ok	GC.getTechInfo(); path Civ4TechInfos/TechInfos/TechInfo; 308 records
-10857	xml file	Terrain/Civ4FeatureInfos.xml	795	mod XML folder	ok	GC.getFeatureInfo(); path Civ4FeatureInfos/FeatureInfos/FeatureInfo; 8 records
-10857	xml file	GameInfo/CIV4ReligionInfo.xml	796	mod XML folder	ok	GC.getReligionInfo(); path Civ4ReligionInfo/ReligionInfos/ReligionInfo; 16 records
-10857	xml file	Units/CIV4AnimationInfos.xml	808	Beyond the Sword XML folder	ok	GC.getAnimationCategoryInfo(); path Civ4AnimationInfos/AnimationCategories/AnimationCategory; 51 records
-10857	xml file	Units/CIV4AnimationPathInfos.xml	809	Beyond the Sword XML folder	ok	GC.getAnimationPathInfo(); path Civ4AnimationPathInfos/AnimationPaths/AnimationPath; 41 records
-10857	xml file	Units/CIV4PromotionInfos.xml	810	mod XML folder	ok	GC.getPromotionInfo(); path Civ4PromotionInfos/PromotionInfos/PromotionInfo; 244 records
-10857	xml file	Civilizations/CIV4TraitInfos.xml	811	mod XML folder	ok	GC.getTraitInfo(); path Civ4TraitInfos/TraitInfos/TraitInfo; 17 records
-10857	xml file	GameInfo/CIV4GoodyInfo.xml	812	Civilization IV XML folder	ok	GC.getGoodyInfo(); path Civ4GoodyInfo/GoodyInfos/GoodyInfo; 12 records
-10857	xml file	GameInfo/CIV4HandicapInfo.xml	813	mod XML folder	ok	GC.getHandicapInfo(); path Civ4HandicapInfo/HandicapInfos/HandicapInfo; 9 records
-10857	xml file	GameInfo/CIV4CursorInfo.xml	814	Beyond the Sword XML folder	ok	GC.getCursorInfo(); path Civ4CursorInfo/CursorInfos/CursorInfo; 23 records
-10857	xml file	GameInfo/CIV4CivicOptionInfos.xml	815	mod XML folder	ok	GC.getCivicOptionInfo(); path Civ4CivicOptionInfos/CivicOptionInfos/CivicOptionInfo; 8 records
-10857	xml file	GameInfo/CIV4UpkeepInfo.xml	816	Civilization IV XML folder	ok	GC.getUpkeepInfo(); path Civ4UpkeepInfo/UpkeepInfos/UpkeepInfo; 3 records
-10857	xml file	GameInfo/CIV4HurryInfo.xml	817	Civilization IV XML folder	ok	GC.getHurryInfo(); path Civ4HurryInfo/HurryInfos/HurryInfo; 2 records
-10857	xml file	Buildings/CIV4SpecialBuildingInfos.xml	818	mod XML folder	ok	GC.getSpecialBuildingInfo(); path Civ4SpecialBuildingInfos/SpecialBuildingInfos/SpecialBuildingInfo; 11 records
-10857	xml file	GameInfo/CIV4CultureLevelInfo.xml	819	mod XML folder	ok	GC.getCultureLevelInfo(); path Civ4CultureLevelInfo/CultureLevelInfos/CultureLevelInfo; 7 records
-10857	xml file	Terrain/CIV4BonusClassInfos.xml	820	mod XML folder	ok	GC.getBonusClassInfo(); path Civ4BonusClassInfos/BonusClassInfos/BonusClassInfo; 11 records
-10857	xml file	GameInfo/CIV4VictoryInfo.xml	821	mod XML folder	ok	GC.getVictoryInfo(); path Civ4VictoryInfo/VictoryInfos/VictoryInfo; 9 records
-10857	xml file	Terrain/CIV4BonusInfos.xml	822	mod XML folder	ok	GC.getBonusInfo(); path Civ4BonusInfos/BonusInfos/BonusInfo; 72 records; 2 module files add to it
-10857	xml file	GameInfo/CIV4CorporationInfo.xml	823	mod XML folder	ok	GC.getCorporationInfo(); path Civ4CorporationInfo/CorporationInfos/CorporationInfo; 7 records; 2 module files add to it
-10857	xml file	Misc/Civ4RouteInfos.xml	834	mod XML folder	ok	GC.getRouteInfo(); path Civ4RouteInfos/RouteInfos/RouteInfo; 9 records
-10857	xml file	Terrain/CIV4ImprovementInfos.xml	835	mod XML folder	ok	GC.getImprovementInfo(); path Civ4ImprovementInfos/ImprovementInfos/ImprovementInfo; 53 records; 1 module files add to it
-10857	xml file	Buildings/CIV4BuildingClassInfos.xml	836	mod XML folder	ok	GC.getBuildingClassInfo(); path Civ4BuildingClassInfos/BuildingClassInfos/BuildingClassInfo; 369 records; 7 module files add to it
-10857	xml file	Buildings/CIV4BuildingInfos.xml	837	mod XML folder	ok	GC.getBuildingInfo(); path Civ4BuildingInfos/BuildingInfos/BuildingInfo; 389 records; 7 module files add to it
-10857	xml file	Units/CIV4SpecialUnitInfos.xml	842	mod XML folder	ok	GC.getSpecialUnitInfo(); path Civ4SpecialUnitInfos/SpecialUnitInfos/SpecialUnitInfo; 6 records
-10857	xml file	GameInfo/CIV4ProjectInfo.xml	843	mod XML folder	ok	GC.getProjectInfo(); path Civ4ProjectInfo/ProjectInfos/ProjectInfo; 17 records
-10857	xml file	GameInfo/CIV4CivicInfos.xml	844	mod XML folder	ok	GC.getCivicInfo(); path Civ4CivicInfos/CivicInfos/CivicInfo; 68 records; 2 module files add to it
-10857	xml file	Civilizations/CIV4LeaderHeadInfos.xml	849	mod XML folder	ok	GC.getLeaderHeadInfo(); path Civ4LeaderHeadInfos/LeaderHeadInfos/LeaderHeadInfo; 60 records; 23 module files add to it
-10857	xml file	Interface/CIV4ColorVals.xml	859	mod XML folder	ok	GC.getColorInfo(); path Civ4ColorVals/ColorVals/ColorVal; 337 records
-10857	xml file	Interface/CIV4PlayerColorInfos.xml	860	mod XML folder	ok	GC.getPlayerColorInfo(); path Civ4PlayerColorInfos/PlayerColorInfos/PlayerColorInfo; 49 records
-10857	xml file	Misc/CIV4EffectInfos.xml	861	mod XML folder	ok	GC.getEffectInfo(); path Civ4EffectInfos/EffectInfos/EffectInfo; 322 records
-10857	xml file	Units/CIV4EntityEventInfos.xml	862	Beyond the Sword XML folder	ok	GC.getEntityEventInfo(); path Civ4EntityEventInfos/EntityEventInfos/EntityEventInfo; 34 records
-10857	xml file	Units/CIV4BuildInfos.xml	863	mod XML folder	ok	GC.getBuildInfo(); path Civ4BuildInfos/BuildInfos/BuildInfo; 55 records; 1 module files add to it
-10857	xml file	Units/CIV4UnitInfos.xml	864	mod XML folder	ok	GC.getUnitInfo(); path Civ4UnitInfos/UnitInfos/UnitInfo; 373 records; 17 module files add to it
-10857	xml file	Civilizations/CIV4UnitArtStyleTypeInfos.xml	869	mod XML folder	ok	GC.getUnitArtStyleTypeInfo(); path Civ4UnitArtStyleTypeInfos/UnitArtStyleTypeInfos/UnitArtStyleTypeInfo; 8 records; 15 module files add to it
-10857	xml file	Civilizations/CIV4CivilizationInfos.xml	870	mod XML folder	ok	GC.getCivilizationInfo(); path Civ4CivilizationInfos/CivilizationInfos/CivilizationInfo; 41 records; 37 module files add to it
-10857	xml file	GameInfo/CIV4Hints.xml	880	mod XML folder	ok	GC.getHints(); path Civ4Hints/HintInfos/HintInfo; 309 records
-10857	xml file	Art/CIV4MainMenus.xml	881	mod XML folder	ok	GC.getMainMenus(); path Civ4MainMenus/MainMenus/MainMenu; 5 records
-10857	xml file	Interface/CIV4SlideShowInfos.xml	882	Beyond the Sword XML folder	ok	GC.getSlideShowInfo(); path Civ4SlideShowInfos/SlideShowInfos/SlideShowInfo; 48 records
-10857	xml file	Interface/CIV4SlideShowRandomInfos.xml	883	Beyond the Sword XML folder	ok	GC.getSlideShowRandomInfo(); path Civ4SlideShowRandomInfos/SlideShowRandomInfos/SlideShowRandomInfo; 109 records
-10857	xml file	Interface/CIV4WorldPickerInfos.xml	884	mod XML folder	ok	GC.getWorldPickerInfo(); path Civ4WorldPickerInfos/WorldPickerInfos/WorldPickerInfo; 32 records
-10857	xml file	Interface/Civ4SpaceShipInfos.xml	885	Beyond the Sword XML folder	ok	GC.getSpaceShipInfo(); path Civ4SpaceShipInfos/SpaceShipInfos/SpaceShipInfo; 147 records
-10857	xml file	Terrain/CIV4YieldInfos.xml	888	mod XML folder	ok	GC.getYieldInfo(); path Civ4YieldInfos/YieldInfos/YieldInfo; 3 records
-10857	xml file	GameInfo/CIV4CommerceInfo.xml	889	mod XML folder	ok	GC.getCommerceInfo(); path Civ4CommerceInfo/CommerceInfos/CommerceInfo; 4 records
-10857	xml file	GameInfo/CIV4MPOptionInfos.xml	890	Beyond the Sword XML folder	ok	GC.getMPOptionInfo(); path Civ4MPOptionInfos/MPOptionInfos/MPOptionInfo; 5 records
-10857	xml file	GameInfo/CIV4ForceControlInfos.xml	891	Beyond the Sword XML folder	ok	GC.getForceControlInfo(); path Civ4ForceControlInfos/ForceControlInfos/ForceControlInfo; 7 records
-10857	xml order	GameInfo/CIV4GameOptionInfos.xml	780	enum GameOptionTypes (CvEnums.h)	ok	32 records in the order of GameOptionTypes
-10857	xml order	GameInfo/CIV4WorldInfo.xml	785	enum WorldSizeTypes (CvEnums.h)	ok	the 6 values of WorldSizeTypes are its first records, in order; 2 more records have no enum value
-10857	xml order	Units/CIV4AnimationPathInfos.xml	809	enum AnimationPathTypes (CvEnums.h)	ok	41 records in the order of AnimationPathTypes
-10857	xml order	Terrain/CIV4YieldInfos.xml	888	enum YieldTypes (CvEnums.h)	ok	3 records in the order of YieldTypes
-10857	xml order	GameInfo/CIV4CommerceInfo.xml	889	enum CommerceTypes (CvEnums.h)	ok	4 records in the order of CommerceTypes
-10857	xml order	GameInfo/CIV4MPOptionInfos.xml	890	enum MultiplayerOptionTypes (CvEnums.h)	ok	5 records in the order of MultiplayerOptionTypes
-10857	xml order	GameInfo/CIV4ForceControlInfos.xml	891	enum ForceControlTypes (CvEnums.h)	ok	7 records in the order of ForceControlTypes
-10857	number	1024	900	fixed in the code	fixed	char szMessage[1024];
-10857	log format	cursor type already set? \n Current XML file is: %s	901	tools that read the log	not read by the tools of this repository	searched for "cursor type already set?"
-10857	return value	bool	768	the functions that call it	1 callers	CvXMLLoadUtility::doResetInfoClasses()
-2449	original	CvGame::updateMoves	7223	the original SDK	in the original SDK	23 of 23 code lines as in the original function
-2449	enum values	MultiplayerOptionTypes	7229	the game exe, compiled with the original values	ok	7 values in the original SDK
-2449	random	getSorenRand	7231	network sync and replays from a seed	synchronised	getSorenRand()
-2449	random	shuffleArray	7231	network sync and replays from a seed	synchronised	shuffleArray(aiShuffle, MAX_PLAYERS, getSorenRand())
-7863	original	CvPlayerAI::AI_unitUpdate	1572	the original SDK	in the original SDK	47 of 55 code lines as in the original function
-7863	fork change	e48d8aac1bf3	1661	the mod repository	changed after the file was added	2026-10-14 Autorun fixes (4/13): unit update watchdog, settler retirement and escort (14 lines: 1661-1663, 1666-1676)
-8803	original	CvSelectionGroupAI::AI_update	184	the original SDK	in the original SDK	70 of 80 code lines as in the original function
-8803	fork change	2459a276c8ce	254	the mod repository	changed after the file was added	2026-09-23 fixes (17 lines: 254-270)
-8803	exe call	messageControlLog	250	the game exe implements it	in the original SDK interfaces	
-8803	enum values	PlayerTypes	192	the game exe, compiled with the original values	ok	1 values in the original SDK
-8803	enum values	ActivityTypes	209	the game exe, compiled with the original values	ok	11 values in the original SDK; 3 added by the mod
-8803	enum values	MissionTypes	353	the game exe, compiled with the original values	ok	49 values in the original SDK; 13 added by the mod
-8803	number	100	237	fixed in the code	fixed	if (iTempHack > 100)
-8803	number	1024	245	fixed in the code	fixed	TCHAR szOut[1024];
-8803	log format	Unit stuck in loop: %S(%S)[%d, %d] (%S)\n	248	tools that read the log	not read by the tools of this repository	searched for "Unit stuck in loop"
-8803	state	m_bGroupAttack	277	the other functions that set it	set by 3 other functions	AI_cancelGroupAttack, AI_queueGroupAttack, AI_reset
-8803	return value	bool	184	the functions that call it	2 callers	CvPlayerAI::AI_unitUpdate(), CvUnitAI::AI_carrierSeaTransport() (through CvSelectionGroup::AI_update(…))
-10322	original	CvUnitAI::AI_update	195	the original SDK	in the original SDK	209 of 217 code lines as in the original function
-10322	fork change	2b5af764c439	203	the mod repository	changed after the file was added	2026-09-12 some minor optimizations (14 lines: 203-206, 208-217)
-10322	fork change	e97377e5725c	220	the mod repository	changed after the file was added	2026-10-12 Settlement placement patch (2 lines: 220-221)
-10322	fork change	975542551d31	249	the mod repository	changed after the file was added	2026-10-15 War AI: choose, join, end and fight wars like a strategist (patch 0018) (11 lines: 249-259)
-10322	fork change	09b49bc091da	365	the mod repository	changed after the file was added	2026-09-22 Value productive spending and strengthen AI operation control (2 lines: 365-366)
-10322	exe call	makePythonObject	210	the game exe implements it	in the original SDK interfaces	
-10322	exe call	callFunction	212	the game exe implements it	in the original SDK interfaces	
-10322	python call	CvGameInterface.AI_unitUpdate	212	the Python function of that name	ok	base/EntryPoints/CvGameInterface.py:153
-10322	define	USE_AI_UNIT_UPDATE_CALLBACK	206	the global defines the DLL loads	ok	0 in XML/GlobalDefinesAlt.xml
-10322	enum values	DomainTypes	222	the game exe, compiled with the original values	ok	6 values in the original SDK
-10322	enum values	MissionTypes	226	the game exe, compiled with the original values	ok	49 values in the original SDK; 13 added by the mod
-10322	enum values	AutomateTypes	264	the game exe, compiled with the original values	ok	7 values in the original SDK
-10322	enum values	UnitAITypes	265	the game exe, compiled with the original values	ok	43 values in the original SDK
-10322	enum values	ActivityTypes	301	the game exe, compiled with the original values	ok	11 values in the original SDK; 3 added by the mod
-10322	enum switch	AutomateTypes	262	enum AutomateTypes: a value added later needs a case	every value has a case	5 cases of 5 values; default case present
-10322	enum switch	DomainTypes	290	enum DomainTypes: a value added later needs a case	1 values without a case	3 cases of 4 values; default case present; without a case: DOMAIN_IMMOBILE
-10322	enum switch	UnitAITypes	367	enum UnitAITypes: a value added later needs a case	every value has a case	41 cases of 41 values; default case present
-10322	number	64	251	fixed in the code	fixed	if (isAICunning(64) && !getGroup()->isAutomated() && getDomainType() == DOMAIN_LAND &&
-10322	return value	bool	195	the functions that call it	1 callers	CvSelectionGroupAI::AI_update() (through CvUnit::AI_update(…))
-7093	export	?setTurnActive@CvPlayer@@QAEX_N0@Z	12160	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
-7093	original	CvPlayer::setTurnActive	12160	the original SDK	in the original SDK	74 of 129 code lines as in the original function
-7093	fork change	dc01e754ad4c	12191	the mod repository	changed after the file was added	2026-10-12 Turn time, research planning and compiler-found defects (1 lines: 12191)
-7093	fork change	6c2dffb71a8f	12360	the mod repository	changed after the file was added	2026-10-18 War log: turn-start snapshot of the human's units, nearby foreign cities and relations (3 lines: 12360-12362)
-7093	exe call	getChtLvl	12171	the game exe implements it	in the original SDK interfaces	
-7093	exe call	messageControlLog	12175	the game exe implements it	in the original SDK interfaces	
-7093	exe call	IsPitbossHost	12306	the game exe implements it	in the original SDK interfaces	
-7093	exe call	clearEventMessages	12317	the game exe implements it	in the original SDK interfaces	
-7093	exe call	setResourceLayer	12318	the game exe implements it	in the original SDK interfaces	
-7093	exe call	addMessage	12349	the game exe implements it	in the original SDK interfaces	
-7093	exe call	getText	12349	the game exe implements it	in the original SDK interfaces	
-7093	exe call	playGeneralSound	12353	the game exe implements it	in the original SDK interfaces	
-7093	exe call	getLengthSelectionList	12365	the game exe implements it	in the original SDK interfaces	
-7093	exe call	setCycleSelectionCounter	12367	the game exe implements it	in the original SDK interfaces	
-7093	exe call	setDirty	12370	the game exe implements it	in the original SDK interfaces	
-7093	exe call	getChtLvl	12377	the game exe implements it	in the original SDK interfaces	
-7093	exe call	messageControlLog	12381	the game exe implements it	in the original SDK interfaces	
-7093	exe call	setForcePopup	12387	the game exe implements it	in the original SDK interfaces	
-7093	exe call	clearQueuedPopups	12388	the game exe implements it	in the original SDK interfaces	
-7093	exe call	flushTalkingHeadMessages	12389	the game exe implements it	in the original SDK interfaces	
-7093	exe call	sendPbemTurn	12438	the game exe implements it	in the original SDK interfaces	
-7093	exe call	updateCursorType	12453	the game exe implements it	in the original SDK interfaces	
-7093	exe call	setDirty	12455	the game exe implements it	in the original SDK interfaces	
-7093	text key	TXT_KEY_MISC_TURN_BEGINS	12349	the text XML	ok	in the Civilization IV text
-7093	sound	AS2D_NEWTURN	12349	the audio scripts	ok	in the mod audio XML
-7093	sound	AS2D_NEWTURN	12353	the audio scripts	ok	in the mod audio XML
-7093	enum values	WarPlanTypes	12280	the game exe, compiled with the original values	ok	8 values in the original SDK
-7093	enum values	MultiplayerOptionTypes	12336	the game exe, compiled with the original values	ok	7 values in the original SDK
-7093	enum values	InterfaceMessageTypes	12349	the game exe, compiled with the original values	ok	9 values in the original SDK
-7093	number	1024	12173	fixed in the code	fixed	TCHAR szOut[1024];
-7093	number	25	12187	fixed in the code	fixed	if( GC.getGameINLINE().getGameTurn() > 0 && (GC.getGameINLINE().getGameTurn() % 25) == 0 && !isBarbarian() )
-7093	number	5	12200	fixed in the code	fixed	for( int iI = 1; iI <= 5; iI++ )
-7093	number	2	12218	fixed in the code	fixed	if( gPlayerLogLevel >= 2 )
-7093	number	1024	12379	fixed in the code	fixed	TCHAR szOut[1024];
-7093	log format	Player %d Turn ON\n	12174	tools that read the log	not searched	its longest fixed text, "Turn ON", is too short to search for
-7093	log format	Player %d (%S) setTurnActive for turn %d	12185	tools that read the log	read by 1 files	searched for "setTurnActive for turn": research/rome-and-settlers/tools/settlebal.py
-7093	log format	  Total Score: %d, Population Score: %d (%d total pop), Land Score: %d, Tech Score: %d, Wo	12194	tools that read the log	not read by the tools of this repository	searched for "total pop), Land Score"
-7093	log format	  Economy avg: %d,  Industry avg: %d,  Agriculture avg: %d	12214	tools that read the log	not read by the tools of this repository	searched for "Agriculture avg"
-7093	log format	    Player %d (%S) has %d cities, %d pop, %d power, %d tech percent	12222	tools that read the log	not read by the tools of this repository	searched for "tech percent"
-7093	log format	    Team %d has met: 	12229	tools that read the log	not searched	its longest fixed text, "has met", is too short to search for
-7093	log format	    Enemy power perc: %d (%d with others reduction)	12294	tools that read the log	not read by the tools of this repository	searched for "with others reduction"
-7093	log format	Player %d Turn OFF\n	12380	tools that read the log	not searched	its longest fixed text, "Turn OFF", is too short to search for
-7093	log call	warLogTurnStart	12361	Logs/WarLog.log and the tools that read it	read by 4 files	method/ledger.py, research/ai-warfare/tools/extract.py, research/ai-warfare/tools/gamedata.py, toolchain/analysis/rebuild.sh
-7093	state	m_bTurnActive	12165	the other functions that set it	set by 2 other functions	reset, setTurnActiveForPbem
-10858	export	?LoadPostMenuGlobals@CvXMLLoadUtility@@QAE_NXZ	949	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
-10858	original	CvXMLLoadUtility::LoadPostMenuGlobals	949	the original SDK	in the original SDK	42 of 42 code lines as in the original function
-10858	xml file	Interface/CIV4ThroneRoomCameraInfos.xml	959	Beyond the Sword XML folder	ok	GC.getThroneRoomCamera(); path Civ4ThroneRoomCameraInfos/ThroneRoomCameraInfos/ThroneRoomCamera; 1 records
-10858	xml file	Interface/CIV4ThroneRoomInfos.xml	960	Beyond the Sword XML folder	ok	GC.getThroneRoomInfo(); path Civ4ThroneRoomInfos/ThroneRoomInfos/ThroneRoomInfo; 7 records
-10858	xml file	Interface/CIV4ThroneRoomStyleInfos.xml	961	Civilization IV XML folder	ok	GC.getThroneRoomStyleInfo(); path Civ4ThroneRoomStyleInfos/ThroneRoomStyleInfos/ThroneRoomStyleInfo; 42 records
-10858	xml file	Events/CIV4EventInfos.xml	967	mod XML folder	ok	GC.getEventInfo(); path Civ4EventInfos/EventInfos/EventInfo; 517 records
-10858	xml file	Events/CIV4EventTriggerInfos.xml	968	mod XML folder	ok	GC.getEventTriggerInfo(); path Civ4EventTriggerInfos/EventTriggerInfos/EventTriggerInfo; 310 records
-10858	xml file	Art/Civ4RouteModelInfos.xml	973	mod XML folder	ok	GC.getRouteModelInfo(); path Civ4RouteModelInfos/RouteModelInfos/RouteModelInfo; 630 records
-10858	xml file	Misc/CIV4RiverInfos.xml	977	Beyond the Sword XML folder	ok	GC.getRiverInfo(); path Civ4RiverInfos/RiverInfos/RiverInfo; 1 records
-10858	xml file	Art/CIV4RiverModelInfos.xml	978	Civilization IV XML folder	ok	GC.getRiverModelInfo(); path Civ4RiverModelInfos/RiverModelInfos/RiverModelInfo; 32 records
-10858	xml file	Misc/CIV4WaterPlaneInfos.xml	982	Beyond the Sword XML folder	ok	GC.getWaterPlaneInfo(); path Civ4WaterPlaneInfos/WaterPlaneInfos/WaterPlaneInfo; 2 records
-10858	xml file	Misc/CIV4TerrainPlaneInfos.xml	983	Beyond the Sword XML folder	ok	GC.getTerrainPlaneInfo(); path Civ4TerrainPlaneInfos/TerrainPlaneInfos/TerrainPlaneInfo; 1 records
-10858	xml file	Misc/CIV4CameraOverlayInfos.xml	984	Beyond the Sword XML folder	ok	GC.getCameraOverlayInfo(); path Civ4CameraOverlayInfos/CameraOverlayInfos/CameraOverlayInfo; 2 records
-10858	xml file	GameInfo/CIV4ProcessInfo.xml	989	mod XML folder	ok	GC.getProcessInfo(); path Civ4ProcessInfo/ProcessInfos/ProcessInfo; 3 records
-10858	xml file	GameInfo/CIV4EmphasizeInfo.xml	993	Civilization IV XML folder	ok	GC.getEmphasizeInfo(); path Civ4EmphasizeInfo/EmphasizeInfos/EmphasizeInfo; 6 records
-10858	xml file	Units/CIV4MissionInfos.xml	997	mod XML folder	ok	GC.getMissionInfo(); path Civ4MissionInfos/MissionInfos/MissionInfo; 60 records
-10858	xml file	Units/CIV4ControlInfos.xml	998	Beyond the Sword XML folder	ok	GC.getControlInfo(); path Civ4ControlInfos/ControlInfos/ControlInfo; 63 records
-10858	xml file	Units/CIV4CommandInfos.xml	999	Civilization IV XML folder	ok	GC.getCommandInfo(); path Civ4CommandInfos/CommandInfos/CommandInfo; 14 records
-10858	xml file	Units/CIV4AutomateInfos.xml	1000	Beyond the Sword XML folder	ok	GC.getAutomateInfo(); path Civ4AutomateInfos/AutomateInfos/AutomateInfo; 5 records
-10858	xml file	GameInfo/CIV4VoteInfo.xml	1004	mod XML folder	ok	GC.getVoteInfo(); path Civ4VoteInfo/VoteInfos/VoteInfo; 23 records
-10858	xml file	Interface/CIV4CameraInfos.xml	1008	Civilization IV XML folder	ok	GC.getCameraInfo(); path Civ4CameraInfos/CameraInfos/CameraInfo; 1 records
-10858	xml file	Interface/CIV4InterfaceModeInfos.xml	1009	mod XML folder	ok	GC.getInterfaceModeInfo(); path Civ4InterfaceModeInfos/InterfaceModeInfos/InterfaceModeInfo; 28 records
-10858	xml file	Units/CIV4FormationInfos.xml	1015	mod XML folder	ok	GC.getUnitFormationInfo(); path UnitFormations/UnitFormation; 38 records
-10858	xml file	Misc/CIV4AttachableInfos.xml	1018	Beyond the Sword XML folder	ok	GC.getAttachableInfo(); path Civ4AttachableInfos/AttachableInfos/AttachableInfo; 71 records
-10858	xml file	GameInfo/CIV4DiplomacyInfos.xml	1021	mod XML folder	ok	GC.getDiplomacyInfo(); path Civ4DiplomacyInfos/DiplomacyInfos/DiplomacyInfo; 106 records; 23 module files add to it
-10858	xml file	Misc/Civ4QuestInfos.xml	1023	Civilization IV XML folder	ok	GC.getQuestInfo(); path Civ4QuestInfos/QuestInfo; 1 records
-10858	xml file	Misc/Civ4TutorialInfos.xml	1024	Civilization IV XML folder	ok	GC.getTutorialInfo(); path Civ4TutorialInfos/TutorialInfo; 1 records
-10858	xml file	GameInfo/CIV4EspionageMissionInfo.xml	1026	mod XML folder	ok	GC.getEspionageMissionInfo(); path Civ4EspionageMissionInfo/EspionageMissionInfos/EspionageMissionInfo; 20 records
-10858	xml order	Units/CIV4MissionInfos.xml	997	enum MissionTypes (CvEnums.h)	ok	60 records in the order of MissionTypes
-10858	xml order	Units/CIV4ControlInfos.xml	998	enum ControlTypes (CvEnums.h)	ok	63 records in the order of ControlTypes
-10858	xml order	Units/CIV4CommandInfos.xml	999	enum CommandTypes (CvEnums.h)	ok	14 records in the order of CommandTypes
-10858	xml order	Interface/CIV4InterfaceModeInfos.xml	1009	enum InterfaceModeTypes (CvEnums.h)	ok	28 records in the order of InterfaceModeTypes
-10858	return value	bool	949	the functions that call it	1 callers	CvXMLLoadUtility::doResetInfoClasses()
-1777	export	?parseHelp@CvDLLWidgetData@@QAEXAAVCvWStringBuffer@@AAUCvWidgetDataStruct@@@Z	53	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
-1777	original	CvDLLWidgetData::parseHelp	53	the original SDK	in the original SDK	394 of 426 code lines as in the original function
-1777	exe call	getText	61	the game exe implements it	in the original SDK interfaces	
-1777	exe call	getText	76	the game exe implements it	in the original SDK interfaces	
-1777	exe call	getText	80	the game exe implements it	in the original SDK interfaces	
-1777	exe call	getText	84	the game exe implements it	in the original SDK interfaces	
-1777	exe call	getText	108	the game exe implements it	in the original SDK interfaces	
-1777	exe call	getText	173	the game exe implements it	in the original SDK interfaces	
-1777	exe call	getText	187	the game exe implements it	in the original SDK interfaces	
-1777	exe call	getText	191	the game exe implements it	in the original SDK interfaces	
-1777	define	MAX_PLOT_LIST_SIZE	61	the global defines the DLL loads	ok	10 in XML/GlobalDefines.xml
-1777	bug option	MiscHover__CDAZoomCityDetails	175	the BUG configuration (Python), else a global define	ok	in Config/BULL Misc Hovers.xml; fallback define BUG_CDA_ZOOM_CITY_DETAILS: 1 in XML/GlobalDefinesAlt.xml
-1777	text key	TXT_KEY_MISC_CTRL_SHIFT	61	the text XML	ok	in the Civilization IV text
-1777	text key	TXT_KEY_CHANGE_NAME	76	the text XML	ok	in the Civilization IV text
-1777	text key	TXT_KEY_WIDGET_CREATE_GROUP	80	the text XML	ok	in the Civilization IV text
-1777	text key	TXT_KEY_WIDGET_DELETE_GROUP	84	the text XML	ok	in the Civilization IV text
-1777	text key	TXT_KEY_MAIN_MENU	108	the text XML	ok	in the Civilization IV text
-1777	text key	TXT_KEY_ZOOM_CITY_HELP	173	the text XML	ok	in the Civilization IV text
-1777	text key	TXT_KEY_WIDGET_END_TURN	187	the text XML	ok	in the Civilization IV text
-1777	text key	TXT_KEY_WIDGET_LAUNCH_VICTORY	191	the text XML	ok	in the Beyond the Sword text
-1777	enum values	WidgetTypes	56	the game exe, compiled with the original values	ok	164 values in the original SDK; 9 added by the mod
-1777	enum values	SpecialistTypes	571	the game exe, compiled with the original values	ok	1 values in the original SDK
-1777	enum switch	WidgetTypes	54	enum WidgetTypes: a value added later needs a case	30 values without a case	142 cases of 172 values; no default case; without a case: WIDGET_CONVERT, WIDGET_DIPLOMACY_RESPONSE, WIDGET_GENERAL, WIDGET_FILE_LISTBOX, WIDGET_FILE_EDITBOX, WIDGET_WB_UNITNAME_EDITBOX, WIDGET_WB_CITYNAME_EDITBOX, WIDGET_WB_SAVE_BUTTON, WIDGET_WB_LOAD_BUTTON, WIDGET_WB_ALL_PLOTS_BUTTON, WIDGET_WB_LANDMARK_BUTTON, WIDGET_WB_ERASE_BUTTON …
-7499	original	CvPlayer::doTurn	3918	the original SDK	in the original SDK	41 of 54 code lines as in the original function
-7499	fork change	09b49bc091da	3975	the mod repository	changed after the file was added	2026-09-22 Value productive spending and strengthen AI operation control (2 lines: 3975-3976)
-7499	fork change	19e4d59e0a8f	3977	the mod repository	changed after the file was added	2026-10-11 Fixes (1 lines: 3977)
-7499	exe call	setDirty	4046	the game exe implements it	in the original SDK interfaces	
-7499	event	BeginPlayerTurn	3927	Python handlers registered for the event	12 handlers	?.onBeginPlayerTurn (Config/Better Espionage.xml:80); BugUtil.doHotSeatCheck (Config/BUG Core.xml:98); RevDCMReligionControl.onBeginPlayerTurn (Config/RevDCM.xml:16); CvEventManager.onBeginPlayerTurn (base/CvEventManager.py:87); AIAutoPlay.__init__: self.onBeginPlayerTurn (Revolution/Gameready/AIAutoPlay.py:94); AutoLogEvent.__init__: self.onBeginPlayerTurn (Contrib/autologEventManager.py:150); DynamicCivNames.__init__: self.onBeginPlayerTurn (Revolution/Gameready/DynamicCivNames.py:41); EspionageEventEvent.__init__: self.onBeginPlayerTurn (Contrib/EspionageEventManager.py:49) …
-7499	event	EndPlayerTurn	4063	Python handlers registered for the event	7 handlers	CvEventManager.onEndPlayerTurn (base/CvEventManager.py:88); AIAutoPlay.__init__: self.onEndPlayerTurn (Revolution/Gameready/AIAutoPlay.py:95); AutoLogEvent.__init__: self.onEndPlayerTurn (Contrib/autologEventManager.py:151); BarbarianCiv.__init__: self.onEndPlayerTurn (Revolution/Gameready/BarbarianCiv.py:88); Revolution.__init__: self.onEndPlayerTurn (Revolution/Gameready/Revolution.py:180); init: onEndPlayerTurn (Revolution/Gameready/StartAsMinors.py:51); init: onEndPlayerTurn (Revolution/RevEvents.py:80)
-7499	enum values	MultiplayerOptionTypes	3925	the game exe, compiled with the original values	ok	7 values in the original SDK
-7499	enum values	GameOptionTypes	3962	the game exe, compiled with the original values	ok	26 values in the original SDK; 8 added by the mod
-7499	enum values	CommerceTypes	3964	the game exe, compiled with the original values	ok	6 values in the original SDK
-7499	enum values	YieldTypes	4027	the game exe, compiled with the original values	ok	5 values in the original SDK
-3477	original	CvGlobals::deleteInfoArrays	3809	the original SDK	in the original SDK	114 of 118 code lines as in the original function
-3477	release	103 tables	3809	the tables the XML loaders fill	ok	100 tables filled by LoadGlobalClassInfo/LoadDiplomacyInfo; 100 of them freed here
-3477	release	m_paPythonModulesInfo	3828	the tables the XML loaders fill	freed, filled elsewhere	not filled by LoadGlobalClassInfo/LoadDiplomacyInfo
-3477	release	m_paModLoadControls	3831	the tables the XML loaders fill	freed, filled elsewhere	not filled by LoadGlobalClassInfo/LoadDiplomacyInfo
-3477	release	m_paActionInfo	3891	the tables the XML loaders fill	freed, filled elsewhere	not filled by LoadGlobalClassInfo/LoadDiplomacyInfo
-2438	original	CvGame::doTurn	5921	the original SDK	in the original SDK	55 of 63 code lines as in the original function
-2438	fork change	68646cc06e56	5933	the mod repository	changed after the file was added	2026-10-14 Late-game turn time and save consistency (1/2): best-unit reuse, border-danger flags, test (7 lines: 5933-5939)
-2438	fork change	5c738d7abb9a	6021	the mod repository	changed after the file was added	2026-10-11 Fix worker scoring, AI save history, event lifecycle and team rollover (1 lines: 6021)
-2438	exe call	setEndTurnMessage	5973	the game exe implements it	in the original SDK interfaces	
-2438	exe call	setHasMovedUnit	5974	the game exe implements it	in the original SDK interfaces	
-2438	exe call	sendPbemTurn	6041	the game exe implements it	in the original SDK interfaces	
-2438	exe call	SetDirty	6057	the game exe implements it	in the original SDK interfaces	
-2438	exe call	DoTurn	6058	the game exe implements it	in the original SDK interfaces	
-2438	exe call	AutoSave	6064	the game exe implements it	in the original SDK interfaces	
-2438	event	BeginGameTurn	5929	Python handlers registered for the event	5 handlers	CvEventManager.onBeginGameTurn (base/CvEventManager.py:85); AIAutoPlay.__init__: self.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:115); AIAutoPlay.removeEventHandlers: self.customEM.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:148); BarbarianCiv.__init__: self.onBeginGameTurn (Revolution/Gameready/BarbarianCiv.py:87); TechDiffusion.__init__: self.onBeginGameTurn (Revolution/Gameready/TechDiffusion.py:42)
-2438	event	PreEndGameTurn	5971	Python handlers registered for the event	2 handlers	AIAutoPlay.__init__: self.onEndGameTurn (Revolution/Gameready/AIAutoPlay.py:90); Revolution.__init__: self.onEndGameTurn (Revolution/Gameready/Revolution.py:175)
-2438	event	EndGameTurn	5993	Python handlers registered for the event	4 handlers	CvEventManager.onEndGameTurn (base/CvEventManager.py:86); AutoLogEvent.__init__: self.onEndGameTurn (Contrib/autologEventManager.py:149); ReminderEventManager.__init__: self.onEndGameTurn (Contrib/ReminderEventManager.py:65); init: onEndGameTurn (Revolution/RevEvents.py:78)
-2438	enum values	MultiplayerOptionTypes	5998	the game exe, compiled with the original values	ok	7 values in the original SDK
-2438	enum values	GameType	6036	the game exe, compiled with the original values	ok	15 values in the original SDK
-2438	random	getSorenRand	6000	network sync and replays from a seed	synchronised	getSorenRand()
-2438	random	shuffleArray	6000	network sync and replays from a seed	synchronised	shuffleArray(aiShuffle, MAX_PLAYERS, getSorenRand())
+2194	export	?update@CvGame@@QAEXXZ	2147	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
+2194	original	CvGame::update	2147	the original SDK	in the original SDK	24 of 33 code lines as in the original function
+2194	fork change	221c15b828dd	2164	the mod repository	changed after the file was added	2026-09-19 Source code fixes (19 lines: 2164-2182)
+2194	exe call	GetWorldBuilderMode	2150	the game exe implements it	in the original SDK interfaces	
+2194	exe call	AutoSave	2161	the game exe implements it	in the original SDK interfaces	
+2194	exe call	GetAutorun	2210	the game exe implements it	in the original SDK interfaces	
+2194	exe call	isInAdvancedStart	2223	the game exe implements it	in the original SDK interfaces	
+2194	exe call	setInAdvancedStart	2225	the game exe implements it	in the original SDK interfaces	
+2194	exe call	setWorldBuilder	2226	the game exe implements it	in the original SDK interfaces	
+2194	event	gameUpdate	2157	Python handlers registered for the event	4 handlers	BugUtil.doDeferredCalls (Config/BUG Core.xml:97); CvEventManager.onGameUpdate (base/CvEventManager.py:130); BugEventManager.__init__: self.onGameUpdate (BUG/BugEventManager.py:192); addEvents: onGameUpdate (BUG/DealUtil.py:147)
+2194	enum values	GameStateTypes	2210	the game exe, compiled with the original values	ok	3 values in the original SDK
+2194	enum values	PlayerTypes	2223	the game exe, compiled with the original values	ok	1 values in the original SDK
+2194	log format	Turn-active count repaired from %d to %d on turn %d	2178	tools that read the log	not read by the tools of this repository	searched for "Turn-active count repaired from"
+2194	state	m_iNumGameTurnActive	2180	the other functions that set it	set by 2 other functions	changeNumGameTurnActive, reset
+10881	export	?LoadPreMenuGlobals@CvXMLLoadUtility@@QAE_NXZ	768	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
+10881	original	CvXMLLoadUtility::LoadPreMenuGlobals	768	the original SDK	in the original SDK	81 of 87 code lines as in the original function
+10881	exe call	MessageBox	902	the game exe implements it	in the original SDK interfaces	
+10881	xml file	GameInfo/CIV4GameSpeedInfo.xml	774	mod XML folder	ok	GC.getGameSpeedInfo(); path Civ4GameSpeedInfo/GameSpeedInfos/GameSpeedInfo; 6 records
+10881	xml file	GameInfo/CIV4GameOptionInfos.xml	780	mod XML folder	ok	GC.getGameOptionInfo(); path Civ4GameOptionInfos/GameOptionInfos/GameOptionInfo; 32 records
+10881	xml file	GameInfo/CIV4TurnTimerInfo.xml	784	Civilization IV XML folder	ok	GC.getTurnTimerInfo(); path Civ4TurnTimerInfo/TurnTimerInfos/TurnTimerInfo; 6 records
+10881	xml file	GameInfo/CIV4WorldInfo.xml	785	mod XML folder	ok	GC.getWorldInfo(); path Civ4WorldInfo/WorldInfos/WorldInfo; 8 records
+10881	xml file	GameInfo/CIV4ClimateInfo.xml	786	Civilization IV XML folder	ok	GC.getClimateInfo(); path Civ4ClimateInfo/ClimateInfos/ClimateInfo; 5 records
+10881	xml file	GameInfo/CIV4SeaLevelInfo.xml	787	Civilization IV XML folder	ok	GC.getSeaLevelInfo(); path Civ4SeaLevelInfo/SeaLevelInfos/SeaLevelInfo; 3 records
+10881	xml file	Interface/CIV4AdvisorInfos.xml	788	Civilization IV XML folder	ok	GC.getAdvisorInfo(); path Civ4AdvisorInfos/AdvisorInfos/AdvisorInfo; 6 records
+10881	xml file	Terrain/CIV4TerrainInfos.xml	789	mod XML folder	ok	GC.getTerrainInfo(); path Civ4TerrainInfos/TerrainInfos/TerrainInfo; 10 records
+10881	xml file	GameInfo/CIV4EraInfos.xml	790	mod XML folder	ok	GC.getEraInfo(); path Civ4EraInfos/EraInfos/EraInfo; 8 records
+10881	xml file	Units/CIV4UnitClassInfos.xml	791	mod XML folder	ok	GC.getUnitClassInfo(); path Civ4UnitClassInfos/UnitClassInfos/UnitClassInfo; 262 records; 16 module files add to it
+10881	xml file	GameInfo/CIV4SpecialistInfos.xml	792	mod XML folder	ok	GC.getSpecialistInfo(); path Civ4SpecialistInfos/SpecialistInfos/SpecialistInfo; 18 records
+10881	xml file	GameInfo/CIV4VoteSourceInfos.xml	793	Beyond the Sword XML folder	ok	GC.getVoteSourceInfo(); path Civ4VoteSourceInfos/VoteSourceInfos/VoteSourceInfo; 2 records
+10881	xml file	Technologies/CIV4TechInfos.xml	794	mod XML folder	ok	GC.getTechInfo(); path Civ4TechInfos/TechInfos/TechInfo; 308 records
+10881	xml file	Terrain/Civ4FeatureInfos.xml	795	mod XML folder	ok	GC.getFeatureInfo(); path Civ4FeatureInfos/FeatureInfos/FeatureInfo; 8 records
+10881	xml file	GameInfo/CIV4ReligionInfo.xml	796	mod XML folder	ok	GC.getReligionInfo(); path Civ4ReligionInfo/ReligionInfos/ReligionInfo; 16 records
+10881	xml file	Units/CIV4AnimationInfos.xml	808	Beyond the Sword XML folder	ok	GC.getAnimationCategoryInfo(); path Civ4AnimationInfos/AnimationCategories/AnimationCategory; 51 records
+10881	xml file	Units/CIV4AnimationPathInfos.xml	809	Beyond the Sword XML folder	ok	GC.getAnimationPathInfo(); path Civ4AnimationPathInfos/AnimationPaths/AnimationPath; 41 records
+10881	xml file	Units/CIV4PromotionInfos.xml	810	mod XML folder	ok	GC.getPromotionInfo(); path Civ4PromotionInfos/PromotionInfos/PromotionInfo; 244 records
+10881	xml file	Civilizations/CIV4TraitInfos.xml	811	mod XML folder	ok	GC.getTraitInfo(); path Civ4TraitInfos/TraitInfos/TraitInfo; 17 records
+10881	xml file	GameInfo/CIV4GoodyInfo.xml	812	Civilization IV XML folder	ok	GC.getGoodyInfo(); path Civ4GoodyInfo/GoodyInfos/GoodyInfo; 12 records
+10881	xml file	GameInfo/CIV4HandicapInfo.xml	813	mod XML folder	ok	GC.getHandicapInfo(); path Civ4HandicapInfo/HandicapInfos/HandicapInfo; 9 records
+10881	xml file	GameInfo/CIV4CursorInfo.xml	814	Beyond the Sword XML folder	ok	GC.getCursorInfo(); path Civ4CursorInfo/CursorInfos/CursorInfo; 23 records
+10881	xml file	GameInfo/CIV4CivicOptionInfos.xml	815	mod XML folder	ok	GC.getCivicOptionInfo(); path Civ4CivicOptionInfos/CivicOptionInfos/CivicOptionInfo; 8 records
+10881	xml file	GameInfo/CIV4UpkeepInfo.xml	816	Civilization IV XML folder	ok	GC.getUpkeepInfo(); path Civ4UpkeepInfo/UpkeepInfos/UpkeepInfo; 3 records
+10881	xml file	GameInfo/CIV4HurryInfo.xml	817	Civilization IV XML folder	ok	GC.getHurryInfo(); path Civ4HurryInfo/HurryInfos/HurryInfo; 2 records
+10881	xml file	Buildings/CIV4SpecialBuildingInfos.xml	818	mod XML folder	ok	GC.getSpecialBuildingInfo(); path Civ4SpecialBuildingInfos/SpecialBuildingInfos/SpecialBuildingInfo; 11 records
+10881	xml file	GameInfo/CIV4CultureLevelInfo.xml	819	mod XML folder	ok	GC.getCultureLevelInfo(); path Civ4CultureLevelInfo/CultureLevelInfos/CultureLevelInfo; 7 records
+10881	xml file	Terrain/CIV4BonusClassInfos.xml	820	mod XML folder	ok	GC.getBonusClassInfo(); path Civ4BonusClassInfos/BonusClassInfos/BonusClassInfo; 11 records
+10881	xml file	GameInfo/CIV4VictoryInfo.xml	821	mod XML folder	ok	GC.getVictoryInfo(); path Civ4VictoryInfo/VictoryInfos/VictoryInfo; 9 records
+10881	xml file	Terrain/CIV4BonusInfos.xml	822	mod XML folder	ok	GC.getBonusInfo(); path Civ4BonusInfos/BonusInfos/BonusInfo; 72 records; 2 module files add to it
+10881	xml file	GameInfo/CIV4CorporationInfo.xml	823	mod XML folder	ok	GC.getCorporationInfo(); path Civ4CorporationInfo/CorporationInfos/CorporationInfo; 7 records; 2 module files add to it
+10881	xml file	Misc/Civ4RouteInfos.xml	834	mod XML folder	ok	GC.getRouteInfo(); path Civ4RouteInfos/RouteInfos/RouteInfo; 9 records
+10881	xml file	Terrain/CIV4ImprovementInfos.xml	835	mod XML folder	ok	GC.getImprovementInfo(); path Civ4ImprovementInfos/ImprovementInfos/ImprovementInfo; 53 records; 1 module files add to it
+10881	xml file	Buildings/CIV4BuildingClassInfos.xml	836	mod XML folder	ok	GC.getBuildingClassInfo(); path Civ4BuildingClassInfos/BuildingClassInfos/BuildingClassInfo; 369 records; 7 module files add to it
+10881	xml file	Buildings/CIV4BuildingInfos.xml	837	mod XML folder	ok	GC.getBuildingInfo(); path Civ4BuildingInfos/BuildingInfos/BuildingInfo; 389 records; 7 module files add to it
+10881	xml file	Units/CIV4SpecialUnitInfos.xml	842	mod XML folder	ok	GC.getSpecialUnitInfo(); path Civ4SpecialUnitInfos/SpecialUnitInfos/SpecialUnitInfo; 6 records
+10881	xml file	GameInfo/CIV4ProjectInfo.xml	843	mod XML folder	ok	GC.getProjectInfo(); path Civ4ProjectInfo/ProjectInfos/ProjectInfo; 17 records
+10881	xml file	GameInfo/CIV4CivicInfos.xml	844	mod XML folder	ok	GC.getCivicInfo(); path Civ4CivicInfos/CivicInfos/CivicInfo; 68 records; 2 module files add to it
+10881	xml file	Civilizations/CIV4LeaderHeadInfos.xml	849	mod XML folder	ok	GC.getLeaderHeadInfo(); path Civ4LeaderHeadInfos/LeaderHeadInfos/LeaderHeadInfo; 60 records; 23 module files add to it
+10881	xml file	Interface/CIV4ColorVals.xml	859	mod XML folder	ok	GC.getColorInfo(); path Civ4ColorVals/ColorVals/ColorVal; 337 records
+10881	xml file	Interface/CIV4PlayerColorInfos.xml	860	mod XML folder	ok	GC.getPlayerColorInfo(); path Civ4PlayerColorInfos/PlayerColorInfos/PlayerColorInfo; 49 records
+10881	xml file	Misc/CIV4EffectInfos.xml	861	mod XML folder	ok	GC.getEffectInfo(); path Civ4EffectInfos/EffectInfos/EffectInfo; 322 records
+10881	xml file	Units/CIV4EntityEventInfos.xml	862	Beyond the Sword XML folder	ok	GC.getEntityEventInfo(); path Civ4EntityEventInfos/EntityEventInfos/EntityEventInfo; 34 records
+10881	xml file	Units/CIV4BuildInfos.xml	863	mod XML folder	ok	GC.getBuildInfo(); path Civ4BuildInfos/BuildInfos/BuildInfo; 55 records; 1 module files add to it
+10881	xml file	Units/CIV4UnitInfos.xml	864	mod XML folder	ok	GC.getUnitInfo(); path Civ4UnitInfos/UnitInfos/UnitInfo; 373 records; 17 module files add to it
+10881	xml file	Civilizations/CIV4UnitArtStyleTypeInfos.xml	869	mod XML folder	ok	GC.getUnitArtStyleTypeInfo(); path Civ4UnitArtStyleTypeInfos/UnitArtStyleTypeInfos/UnitArtStyleTypeInfo; 8 records; 15 module files add to it
+10881	xml file	Civilizations/CIV4CivilizationInfos.xml	870	mod XML folder	ok	GC.getCivilizationInfo(); path Civ4CivilizationInfos/CivilizationInfos/CivilizationInfo; 41 records; 37 module files add to it
+10881	xml file	GameInfo/CIV4Hints.xml	880	mod XML folder	ok	GC.getHints(); path Civ4Hints/HintInfos/HintInfo; 309 records
+10881	xml file	Art/CIV4MainMenus.xml	881	mod XML folder	ok	GC.getMainMenus(); path Civ4MainMenus/MainMenus/MainMenu; 5 records
+10881	xml file	Interface/CIV4SlideShowInfos.xml	882	Beyond the Sword XML folder	ok	GC.getSlideShowInfo(); path Civ4SlideShowInfos/SlideShowInfos/SlideShowInfo; 48 records
+10881	xml file	Interface/CIV4SlideShowRandomInfos.xml	883	Beyond the Sword XML folder	ok	GC.getSlideShowRandomInfo(); path Civ4SlideShowRandomInfos/SlideShowRandomInfos/SlideShowRandomInfo; 109 records
+10881	xml file	Interface/CIV4WorldPickerInfos.xml	884	mod XML folder	ok	GC.getWorldPickerInfo(); path Civ4WorldPickerInfos/WorldPickerInfos/WorldPickerInfo; 32 records
+10881	xml file	Interface/Civ4SpaceShipInfos.xml	885	Beyond the Sword XML folder	ok	GC.getSpaceShipInfo(); path Civ4SpaceShipInfos/SpaceShipInfos/SpaceShipInfo; 147 records
+10881	xml file	Terrain/CIV4YieldInfos.xml	888	mod XML folder	ok	GC.getYieldInfo(); path Civ4YieldInfos/YieldInfos/YieldInfo; 3 records
+10881	xml file	GameInfo/CIV4CommerceInfo.xml	889	mod XML folder	ok	GC.getCommerceInfo(); path Civ4CommerceInfo/CommerceInfos/CommerceInfo; 4 records
+10881	xml file	GameInfo/CIV4MPOptionInfos.xml	890	Beyond the Sword XML folder	ok	GC.getMPOptionInfo(); path Civ4MPOptionInfos/MPOptionInfos/MPOptionInfo; 5 records
+10881	xml file	GameInfo/CIV4ForceControlInfos.xml	891	Beyond the Sword XML folder	ok	GC.getForceControlInfo(); path Civ4ForceControlInfos/ForceControlInfos/ForceControlInfo; 7 records
+10881	xml order	GameInfo/CIV4GameOptionInfos.xml	780	enum GameOptionTypes (CvEnums.h)	ok	32 records in the order of GameOptionTypes
+10881	xml order	GameInfo/CIV4WorldInfo.xml	785	enum WorldSizeTypes (CvEnums.h)	ok	the 6 values of WorldSizeTypes are its first records, in order; 2 more records have no enum value
+10881	xml order	Units/CIV4AnimationPathInfos.xml	809	enum AnimationPathTypes (CvEnums.h)	ok	41 records in the order of AnimationPathTypes
+10881	xml order	Terrain/CIV4YieldInfos.xml	888	enum YieldTypes (CvEnums.h)	ok	3 records in the order of YieldTypes
+10881	xml order	GameInfo/CIV4CommerceInfo.xml	889	enum CommerceTypes (CvEnums.h)	ok	4 records in the order of CommerceTypes
+10881	xml order	GameInfo/CIV4MPOptionInfos.xml	890	enum MultiplayerOptionTypes (CvEnums.h)	ok	5 records in the order of MultiplayerOptionTypes
+10881	xml order	GameInfo/CIV4ForceControlInfos.xml	891	enum ForceControlTypes (CvEnums.h)	ok	7 records in the order of ForceControlTypes
+10881	number	1024	900	fixed in the code	fixed	char szMessage[1024];
+10881	log format	cursor type already set? \n Current XML file is: %s	901	tools that read the log	not read by the tools of this repository	searched for "cursor type already set?"
+10881	return value	bool	768	the functions that call it	1 callers	CvXMLLoadUtility::doResetInfoClasses()
+2467	original	CvGame::updateMoves	7223	the original SDK	in the original SDK	23 of 23 code lines as in the original function
+2467	enum values	MultiplayerOptionTypes	7229	the game exe, compiled with the original values	ok	7 values in the original SDK
+2467	random	getSorenRand	7231	network sync and replays from a seed	synchronised	getSorenRand()
+2467	random	shuffleArray	7231	network sync and replays from a seed	synchronised	shuffleArray(aiShuffle, MAX_PLAYERS, getSorenRand())
+7870	original	CvPlayerAI::AI_unitUpdate	1572	the original SDK	in the original SDK	47 of 55 code lines as in the original function
+7870	fork change	e48d8aac1bf3	1661	the mod repository	changed after the file was added	2026-10-14 Autorun fixes (4/13): unit update watchdog, settler retirement and escort (14 lines: 1661-1663, 1666-1676)
+8823	original	CvSelectionGroupAI::AI_update	184	the original SDK	in the original SDK	70 of 80 code lines as in the original function
+8823	fork change	2459a276c8ce	254	the mod repository	changed after the file was added	2026-09-23 fixes (17 lines: 254-270)
+8823	exe call	messageControlLog	250	the game exe implements it	in the original SDK interfaces	
+8823	enum values	PlayerTypes	192	the game exe, compiled with the original values	ok	1 values in the original SDK
+8823	enum values	ActivityTypes	209	the game exe, compiled with the original values	ok	11 values in the original SDK; 3 added by the mod
+8823	enum values	MissionTypes	353	the game exe, compiled with the original values	ok	49 values in the original SDK; 13 added by the mod
+8823	number	100	237	fixed in the code	fixed	if (iTempHack > 100)
+8823	number	1024	245	fixed in the code	fixed	TCHAR szOut[1024];
+8823	log format	Unit stuck in loop: %S(%S)[%d, %d] (%S)\n	248	tools that read the log	not read by the tools of this repository	searched for "Unit stuck in loop"
+8823	state	m_bGroupAttack	277	the other functions that set it	set by 3 other functions	AI_cancelGroupAttack, AI_queueGroupAttack, AI_reset
+8823	return value	bool	184	the functions that call it	2 callers	CvPlayerAI::AI_unitUpdate(), CvUnitAI::AI_carrierSeaTransport() (through CvSelectionGroup::AI_update(…))
+10346	original	CvUnitAI::AI_update	195	the original SDK	in the original SDK	209 of 217 code lines as in the original function
+10346	fork change	2b5af764c439	203	the mod repository	changed after the file was added	2026-09-12 some minor optimizations (14 lines: 203-206, 208-217)
+10346	fork change	e97377e5725c	220	the mod repository	changed after the file was added	2026-10-12 Settlement placement patch (2 lines: 220-221)
+10346	fork change	975542551d31	249	the mod repository	changed after the file was added	2026-10-15 War AI: choose, join, end and fight wars like a strategist (patch 0018) (11 lines: 249-259)
+10346	fork change	09b49bc091da	365	the mod repository	changed after the file was added	2026-09-22 Value productive spending and strengthen AI operation control (2 lines: 365-366)
+10346	exe call	makePythonObject	210	the game exe implements it	in the original SDK interfaces	
+10346	exe call	callFunction	212	the game exe implements it	in the original SDK interfaces	
+10346	python call	CvGameInterface.AI_unitUpdate	212	the Python function of that name	ok	base/EntryPoints/CvGameInterface.py:153
+10346	define	USE_AI_UNIT_UPDATE_CALLBACK	206	the global defines the DLL loads	ok	0 in XML/GlobalDefinesAlt.xml
+10346	enum values	DomainTypes	222	the game exe, compiled with the original values	ok	6 values in the original SDK
+10346	enum values	MissionTypes	226	the game exe, compiled with the original values	ok	49 values in the original SDK; 13 added by the mod
+10346	enum values	AutomateTypes	264	the game exe, compiled with the original values	ok	7 values in the original SDK
+10346	enum values	UnitAITypes	265	the game exe, compiled with the original values	ok	43 values in the original SDK
+10346	enum values	ActivityTypes	301	the game exe, compiled with the original values	ok	11 values in the original SDK; 3 added by the mod
+10346	enum switch	AutomateTypes	262	enum AutomateTypes: a value added later needs a case	every value has a case	5 cases of 5 values; default case present
+10346	enum switch	DomainTypes	290	enum DomainTypes: a value added later needs a case	1 values without a case	3 cases of 4 values; default case present; without a case: DOMAIN_IMMOBILE
+10346	enum switch	UnitAITypes	367	enum UnitAITypes: a value added later needs a case	every value has a case	41 cases of 41 values; default case present
+10346	number	64	251	fixed in the code	fixed	if (isAICunning(64) && !getGroup()->isAutomated() && getDomainType() == DOMAIN_LAND &&
+10346	return value	bool	195	the functions that call it	1 callers	CvSelectionGroupAI::AI_update() (through CvUnit::AI_update(…))
+7105	export	?setTurnActive@CvPlayer@@QAEX_N0@Z	12160	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
+7105	original	CvPlayer::setTurnActive	12160	the original SDK	in the original SDK	74 of 129 code lines as in the original function
+7105	fork change	dc01e754ad4c	12191	the mod repository	changed after the file was added	2026-10-12 Turn time, research planning and compiler-found defects (1 lines: 12191)
+7105	fork change	6c2dffb71a8f	12360	the mod repository	changed after the file was added	2026-10-18 War log: turn-start snapshot of the human's units, nearby foreign cities and relations (3 lines: 12360-12362)
+7105	exe call	getChtLvl	12171	the game exe implements it	in the original SDK interfaces	
+7105	exe call	messageControlLog	12175	the game exe implements it	in the original SDK interfaces	
+7105	exe call	IsPitbossHost	12306	the game exe implements it	in the original SDK interfaces	
+7105	exe call	clearEventMessages	12317	the game exe implements it	in the original SDK interfaces	
+7105	exe call	setResourceLayer	12318	the game exe implements it	in the original SDK interfaces	
+7105	exe call	addMessage	12349	the game exe implements it	in the original SDK interfaces	
+7105	exe call	getText	12349	the game exe implements it	in the original SDK interfaces	
+7105	exe call	playGeneralSound	12353	the game exe implements it	in the original SDK interfaces	
+7105	exe call	getLengthSelectionList	12365	the game exe implements it	in the original SDK interfaces	
+7105	exe call	setCycleSelectionCounter	12367	the game exe implements it	in the original SDK interfaces	
+7105	exe call	setDirty	12370	the game exe implements it	in the original SDK interfaces	
+7105	exe call	getChtLvl	12377	the game exe implements it	in the original SDK interfaces	
+7105	exe call	messageControlLog	12381	the game exe implements it	in the original SDK interfaces	
+7105	exe call	setForcePopup	12387	the game exe implements it	in the original SDK interfaces	
+7105	exe call	clearQueuedPopups	12388	the game exe implements it	in the original SDK interfaces	
+7105	exe call	flushTalkingHeadMessages	12389	the game exe implements it	in the original SDK interfaces	
+7105	exe call	sendPbemTurn	12438	the game exe implements it	in the original SDK interfaces	
+7105	exe call	updateCursorType	12453	the game exe implements it	in the original SDK interfaces	
+7105	exe call	setDirty	12455	the game exe implements it	in the original SDK interfaces	
+7105	text key	TXT_KEY_MISC_TURN_BEGINS	12349	the text XML	ok	in the Civilization IV text
+7105	sound	AS2D_NEWTURN	12349	the audio scripts	ok	in the mod audio XML
+7105	sound	AS2D_NEWTURN	12353	the audio scripts	ok	in the mod audio XML
+7105	enum values	WarPlanTypes	12280	the game exe, compiled with the original values	ok	8 values in the original SDK
+7105	enum values	MultiplayerOptionTypes	12336	the game exe, compiled with the original values	ok	7 values in the original SDK
+7105	enum values	InterfaceMessageTypes	12349	the game exe, compiled with the original values	ok	9 values in the original SDK
+7105	number	1024	12173	fixed in the code	fixed	TCHAR szOut[1024];
+7105	number	25	12187	fixed in the code	fixed	if( GC.getGameINLINE().getGameTurn() > 0 && (GC.getGameINLINE().getGameTurn() % 25) == 0 && !isBarbarian() )
+7105	number	5	12200	fixed in the code	fixed	for( int iI = 1; iI <= 5; iI++ )
+7105	number	2	12218	fixed in the code	fixed	if( gPlayerLogLevel >= 2 )
+7105	number	1024	12379	fixed in the code	fixed	TCHAR szOut[1024];
+7105	log format	Player %d Turn ON\n	12174	tools that read the log	not searched	its longest fixed text, "Turn ON", is too short to search for
+7105	log format	Player %d (%S) setTurnActive for turn %d	12185	tools that read the log	read by 1 files	searched for "setTurnActive for turn": research/rome-and-settlers/tools/settlebal.py
+7105	log format	  Total Score: %d, Population Score: %d (%d total pop), Land Score: %d, Tech Score: %d, Wo	12194	tools that read the log	not read by the tools of this repository	searched for "total pop), Land Score"
+7105	log format	  Economy avg: %d,  Industry avg: %d,  Agriculture avg: %d	12214	tools that read the log	not read by the tools of this repository	searched for "Agriculture avg"
+7105	log format	    Player %d (%S) has %d cities, %d pop, %d power, %d tech percent	12222	tools that read the log	not read by the tools of this repository	searched for "tech percent"
+7105	log format	    Team %d has met: 	12229	tools that read the log	not searched	its longest fixed text, "has met", is too short to search for
+7105	log format	    Enemy power perc: %d (%d with others reduction)	12294	tools that read the log	not read by the tools of this repository	searched for "with others reduction"
+7105	log format	Player %d Turn OFF\n	12380	tools that read the log	not searched	its longest fixed text, "Turn OFF", is too short to search for
+7105	log call	warLogTurnStart	12361	Logs/WarLog.log and the tools that read it	read by 4 files	method/ledger.py, research/ai-warfare/tools/extract.py, research/ai-warfare/tools/gamedata.py, toolchain/analysis/rebuild.sh
+7105	state	m_bTurnActive	12165	the other functions that set it	set by 2 other functions	reset, setTurnActiveForPbem
+10882	export	?LoadPostMenuGlobals@CvXMLLoadUtility@@QAE_NXZ	949	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
+10882	original	CvXMLLoadUtility::LoadPostMenuGlobals	949	the original SDK	in the original SDK	42 of 42 code lines as in the original function
+10882	xml file	Interface/CIV4ThroneRoomCameraInfos.xml	959	Beyond the Sword XML folder	ok	GC.getThroneRoomCamera(); path Civ4ThroneRoomCameraInfos/ThroneRoomCameraInfos/ThroneRoomCamera; 1 records
+10882	xml file	Interface/CIV4ThroneRoomInfos.xml	960	Beyond the Sword XML folder	ok	GC.getThroneRoomInfo(); path Civ4ThroneRoomInfos/ThroneRoomInfos/ThroneRoomInfo; 7 records
+10882	xml file	Interface/CIV4ThroneRoomStyleInfos.xml	961	Civilization IV XML folder	ok	GC.getThroneRoomStyleInfo(); path Civ4ThroneRoomStyleInfos/ThroneRoomStyleInfos/ThroneRoomStyleInfo; 42 records
+10882	xml file	Events/CIV4EventInfos.xml	967	mod XML folder	ok	GC.getEventInfo(); path Civ4EventInfos/EventInfos/EventInfo; 517 records
+10882	xml file	Events/CIV4EventTriggerInfos.xml	968	mod XML folder	ok	GC.getEventTriggerInfo(); path Civ4EventTriggerInfos/EventTriggerInfos/EventTriggerInfo; 310 records
+10882	xml file	Art/Civ4RouteModelInfos.xml	973	mod XML folder	ok	GC.getRouteModelInfo(); path Civ4RouteModelInfos/RouteModelInfos/RouteModelInfo; 630 records
+10882	xml file	Misc/CIV4RiverInfos.xml	977	Beyond the Sword XML folder	ok	GC.getRiverInfo(); path Civ4RiverInfos/RiverInfos/RiverInfo; 1 records
+10882	xml file	Art/CIV4RiverModelInfos.xml	978	Civilization IV XML folder	ok	GC.getRiverModelInfo(); path Civ4RiverModelInfos/RiverModelInfos/RiverModelInfo; 32 records
+10882	xml file	Misc/CIV4WaterPlaneInfos.xml	982	Beyond the Sword XML folder	ok	GC.getWaterPlaneInfo(); path Civ4WaterPlaneInfos/WaterPlaneInfos/WaterPlaneInfo; 2 records
+10882	xml file	Misc/CIV4TerrainPlaneInfos.xml	983	Beyond the Sword XML folder	ok	GC.getTerrainPlaneInfo(); path Civ4TerrainPlaneInfos/TerrainPlaneInfos/TerrainPlaneInfo; 1 records
+10882	xml file	Misc/CIV4CameraOverlayInfos.xml	984	Beyond the Sword XML folder	ok	GC.getCameraOverlayInfo(); path Civ4CameraOverlayInfos/CameraOverlayInfos/CameraOverlayInfo; 2 records
+10882	xml file	GameInfo/CIV4ProcessInfo.xml	989	mod XML folder	ok	GC.getProcessInfo(); path Civ4ProcessInfo/ProcessInfos/ProcessInfo; 3 records
+10882	xml file	GameInfo/CIV4EmphasizeInfo.xml	993	Civilization IV XML folder	ok	GC.getEmphasizeInfo(); path Civ4EmphasizeInfo/EmphasizeInfos/EmphasizeInfo; 6 records
+10882	xml file	Units/CIV4MissionInfos.xml	997	mod XML folder	ok	GC.getMissionInfo(); path Civ4MissionInfos/MissionInfos/MissionInfo; 60 records
+10882	xml file	Units/CIV4ControlInfos.xml	998	Beyond the Sword XML folder	ok	GC.getControlInfo(); path Civ4ControlInfos/ControlInfos/ControlInfo; 63 records
+10882	xml file	Units/CIV4CommandInfos.xml	999	Civilization IV XML folder	ok	GC.getCommandInfo(); path Civ4CommandInfos/CommandInfos/CommandInfo; 14 records
+10882	xml file	Units/CIV4AutomateInfos.xml	1000	Beyond the Sword XML folder	ok	GC.getAutomateInfo(); path Civ4AutomateInfos/AutomateInfos/AutomateInfo; 5 records
+10882	xml file	GameInfo/CIV4VoteInfo.xml	1004	mod XML folder	ok	GC.getVoteInfo(); path Civ4VoteInfo/VoteInfos/VoteInfo; 23 records
+10882	xml file	Interface/CIV4CameraInfos.xml	1008	Civilization IV XML folder	ok	GC.getCameraInfo(); path Civ4CameraInfos/CameraInfos/CameraInfo; 1 records
+10882	xml file	Interface/CIV4InterfaceModeInfos.xml	1009	mod XML folder	ok	GC.getInterfaceModeInfo(); path Civ4InterfaceModeInfos/InterfaceModeInfos/InterfaceModeInfo; 28 records
+10882	xml file	Units/CIV4FormationInfos.xml	1015	mod XML folder	ok	GC.getUnitFormationInfo(); path UnitFormations/UnitFormation; 38 records
+10882	xml file	Misc/CIV4AttachableInfos.xml	1018	Beyond the Sword XML folder	ok	GC.getAttachableInfo(); path Civ4AttachableInfos/AttachableInfos/AttachableInfo; 71 records
+10882	xml file	GameInfo/CIV4DiplomacyInfos.xml	1021	mod XML folder	ok	GC.getDiplomacyInfo(); path Civ4DiplomacyInfos/DiplomacyInfos/DiplomacyInfo; 106 records; 23 module files add to it
+10882	xml file	Misc/Civ4QuestInfos.xml	1023	Civilization IV XML folder	ok	GC.getQuestInfo(); path Civ4QuestInfos/QuestInfo; 1 records
+10882	xml file	Misc/Civ4TutorialInfos.xml	1024	Civilization IV XML folder	ok	GC.getTutorialInfo(); path Civ4TutorialInfos/TutorialInfo; 1 records
+10882	xml file	GameInfo/CIV4EspionageMissionInfo.xml	1026	mod XML folder	ok	GC.getEspionageMissionInfo(); path Civ4EspionageMissionInfo/EspionageMissionInfos/EspionageMissionInfo; 20 records
+10882	xml order	Units/CIV4MissionInfos.xml	997	enum MissionTypes (CvEnums.h)	ok	60 records in the order of MissionTypes
+10882	xml order	Units/CIV4ControlInfos.xml	998	enum ControlTypes (CvEnums.h)	ok	63 records in the order of ControlTypes
+10882	xml order	Units/CIV4CommandInfos.xml	999	enum CommandTypes (CvEnums.h)	ok	14 records in the order of CommandTypes
+10882	xml order	Interface/CIV4InterfaceModeInfos.xml	1009	enum InterfaceModeTypes (CvEnums.h)	ok	28 records in the order of InterfaceModeTypes
+10882	return value	bool	949	the functions that call it	1 callers	CvXMLLoadUtility::doResetInfoClasses()
+1780	export	?parseHelp@CvDLLWidgetData@@QAEXAAVCvWStringBuffer@@AAUCvWidgetDataStruct@@@Z	53	the game exe calls it by this decorated name	in the original SDK	its name, arguments, class and calling convention fix the name
+1780	original	CvDLLWidgetData::parseHelp	53	the original SDK	in the original SDK	394 of 426 code lines as in the original function
+1780	exe call	getText	61	the game exe implements it	in the original SDK interfaces	
+1780	exe call	getText	76	the game exe implements it	in the original SDK interfaces	
+1780	exe call	getText	80	the game exe implements it	in the original SDK interfaces	
+1780	exe call	getText	84	the game exe implements it	in the original SDK interfaces	
+1780	exe call	getText	108	the game exe implements it	in the original SDK interfaces	
+1780	exe call	getText	173	the game exe implements it	in the original SDK interfaces	
+1780	exe call	getText	187	the game exe implements it	in the original SDK interfaces	
+1780	exe call	getText	191	the game exe implements it	in the original SDK interfaces	
+1780	define	MAX_PLOT_LIST_SIZE	61	the global defines the DLL loads	ok	10 in XML/GlobalDefines.xml
+1780	bug option	MiscHover__CDAZoomCityDetails	175	the BUG configuration (Python), else a global define	ok	in Config/BULL Misc Hovers.xml; fallback define BUG_CDA_ZOOM_CITY_DETAILS: 1 in XML/GlobalDefinesAlt.xml
+1780	text key	TXT_KEY_MISC_CTRL_SHIFT	61	the text XML	ok	in the Civilization IV text
+1780	text key	TXT_KEY_CHANGE_NAME	76	the text XML	ok	in the Civilization IV text
+1780	text key	TXT_KEY_WIDGET_CREATE_GROUP	80	the text XML	ok	in the Civilization IV text
+1780	text key	TXT_KEY_WIDGET_DELETE_GROUP	84	the text XML	ok	in the Civilization IV text
+1780	text key	TXT_KEY_MAIN_MENU	108	the text XML	ok	in the Civilization IV text
+1780	text key	TXT_KEY_ZOOM_CITY_HELP	173	the text XML	ok	in the Civilization IV text
+1780	text key	TXT_KEY_WIDGET_END_TURN	187	the text XML	ok	in the Civilization IV text
+1780	text key	TXT_KEY_WIDGET_LAUNCH_VICTORY	191	the text XML	ok	in the Beyond the Sword text
+1780	enum values	WidgetTypes	56	the game exe, compiled with the original values	ok	164 values in the original SDK; 9 added by the mod
+1780	enum values	SpecialistTypes	571	the game exe, compiled with the original values	ok	1 values in the original SDK
+1780	enum switch	WidgetTypes	54	enum WidgetTypes: a value added later needs a case	30 values without a case	142 cases of 172 values; no default case; without a case: WIDGET_CONVERT, WIDGET_DIPLOMACY_RESPONSE, WIDGET_GENERAL, WIDGET_FILE_LISTBOX, WIDGET_FILE_EDITBOX, WIDGET_WB_UNITNAME_EDITBOX, WIDGET_WB_CITYNAME_EDITBOX, WIDGET_WB_SAVE_BUTTON, WIDGET_WB_LOAD_BUTTON, WIDGET_WB_ALL_PLOTS_BUTTON, WIDGET_WB_LANDMARK_BUTTON, WIDGET_WB_ERASE_BUTTON …
+7511	original	CvPlayer::doTurn	3918	the original SDK	in the original SDK	41 of 54 code lines as in the original function
+7511	fork change	09b49bc091da	3975	the mod repository	changed after the file was added	2026-09-22 Value productive spending and strengthen AI operation control (2 lines: 3975-3976)
+7511	fork change	19e4d59e0a8f	3977	the mod repository	changed after the file was added	2026-10-11 Fixes (1 lines: 3977)
+7511	exe call	setDirty	4046	the game exe implements it	in the original SDK interfaces	
+7511	event	BeginPlayerTurn	3927	Python handlers registered for the event	12 handlers	?.onBeginPlayerTurn (Config/Better Espionage.xml:80); BugUtil.doHotSeatCheck (Config/BUG Core.xml:98); RevDCMReligionControl.onBeginPlayerTurn (Config/RevDCM.xml:16); CvEventManager.onBeginPlayerTurn (base/CvEventManager.py:87); AIAutoPlay.__init__: self.onBeginPlayerTurn (Revolution/Gameready/AIAutoPlay.py:94); AutoLogEvent.__init__: self.onBeginPlayerTurn (Contrib/autologEventManager.py:150); DynamicCivNames.__init__: self.onBeginPlayerTurn (Revolution/Gameready/DynamicCivNames.py:41); EspionageEventEvent.__init__: self.onBeginPlayerTurn (Contrib/EspionageEventManager.py:49) …
+7511	event	EndPlayerTurn	4063	Python handlers registered for the event	7 handlers	CvEventManager.onEndPlayerTurn (base/CvEventManager.py:88); AIAutoPlay.__init__: self.onEndPlayerTurn (Revolution/Gameready/AIAutoPlay.py:95); AutoLogEvent.__init__: self.onEndPlayerTurn (Contrib/autologEventManager.py:151); BarbarianCiv.__init__: self.onEndPlayerTurn (Revolution/Gameready/BarbarianCiv.py:88); Revolution.__init__: self.onEndPlayerTurn (Revolution/Gameready/Revolution.py:180); init: onEndPlayerTurn (Revolution/Gameready/StartAsMinors.py:51); init: onEndPlayerTurn (Revolution/RevEvents.py:80)
+7511	enum values	MultiplayerOptionTypes	3925	the game exe, compiled with the original values	ok	7 values in the original SDK
+7511	enum values	GameOptionTypes	3962	the game exe, compiled with the original values	ok	26 values in the original SDK; 8 added by the mod
+7511	enum values	CommerceTypes	3964	the game exe, compiled with the original values	ok	6 values in the original SDK
+7511	enum values	YieldTypes	4027	the game exe, compiled with the original values	ok	5 values in the original SDK
+3487	original	CvGlobals::deleteInfoArrays	3809	the original SDK	in the original SDK	114 of 118 code lines as in the original function
+3487	release	103 tables	3809	the tables the XML loaders fill	ok	100 tables filled by LoadGlobalClassInfo/LoadDiplomacyInfo; 100 of them freed here
+3487	release	m_paPythonModulesInfo	3828	the tables the XML loaders fill	freed, filled elsewhere	not filled by LoadGlobalClassInfo/LoadDiplomacyInfo
+3487	release	m_paModLoadControls	3831	the tables the XML loaders fill	freed, filled elsewhere	not filled by LoadGlobalClassInfo/LoadDiplomacyInfo
+3487	release	m_paActionInfo	3891	the tables the XML loaders fill	freed, filled elsewhere	not filled by LoadGlobalClassInfo/LoadDiplomacyInfo
+2456	original	CvGame::doTurn	5921	the original SDK	in the original SDK	55 of 63 code lines as in the original function
+2456	fork change	68646cc06e56	5933	the mod repository	changed after the file was added	2026-10-14 Late-game turn time and save consistency (1/2): best-unit reuse, border-danger flags, test (7 lines: 5933-5939)
+2456	fork change	5c738d7abb9a	6021	the mod repository	changed after the file was added	2026-10-11 Fix worker scoring, AI save history, event lifecycle and team rollover (1 lines: 6021)
+2456	exe call	setEndTurnMessage	5973	the game exe implements it	in the original SDK interfaces	
+2456	exe call	setHasMovedUnit	5974	the game exe implements it	in the original SDK interfaces	
+2456	exe call	sendPbemTurn	6041	the game exe implements it	in the original SDK interfaces	
+2456	exe call	SetDirty	6057	the game exe implements it	in the original SDK interfaces	
+2456	exe call	DoTurn	6058	the game exe implements it	in the original SDK interfaces	
+2456	exe call	AutoSave	6064	the game exe implements it	in the original SDK interfaces	
+2456	event	BeginGameTurn	5929	Python handlers registered for the event	5 handlers	CvEventManager.onBeginGameTurn (base/CvEventManager.py:85); AIAutoPlay.__init__: self.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:115); AIAutoPlay.removeEventHandlers: self.customEM.onBeginGameTurn (Revolution/Gameready/AIAutoPlay.py:148); BarbarianCiv.__init__: self.onBeginGameTurn (Revolution/Gameready/BarbarianCiv.py:87); TechDiffusion.__init__: self.onBeginGameTurn (Revolution/Gameready/TechDiffusion.py:42)
+2456	event	PreEndGameTurn	5971	Python handlers registered for the event	2 handlers	AIAutoPlay.__init__: self.onEndGameTurn (Revolution/Gameready/AIAutoPlay.py:90); Revolution.__init__: self.onEndGameTurn (Revolution/Gameready/Revolution.py:175)
+2456	event	EndGameTurn	5993	Python handlers registered for the event	4 handlers	CvEventManager.onEndGameTurn (base/CvEventManager.py:86); AutoLogEvent.__init__: self.onEndGameTurn (Contrib/autologEventManager.py:149); ReminderEventManager.__init__: self.onEndGameTurn (Contrib/ReminderEventManager.py:65); init: onEndGameTurn (Revolution/RevEvents.py:78)
+2456	enum values	MultiplayerOptionTypes	5998	the game exe, compiled with the original values	ok	7 values in the original SDK
+2456	enum values	GameType	6036	the game exe, compiled with the original values	ok	15 values in the original SDK
+2456	random	getSorenRand	6000	network sync and replays from a seed	synchronised	getSorenRand()
+2456	random	shuffleArray	6000	network sync and replays from a seed	synchronised	shuffleArray(aiShuffle, MAX_PLAYERS, getSorenRand())

@@ -2,7 +2,7 @@
 
 How control reaches the source from outside, from `map/`.
 
-## Offered to the game exe: exported functions (2446)
+## Offered to the game exe: exported functions (2447)
 
 Functions declared `DllExport` (directly, or as members of a class declared `DllExport`): the DLL offers them to the exe. Which of them the exe actually calls cannot be seen from the source.
 
@@ -41,7 +41,7 @@ Functions declared `DllExport` (directly, or as members of a class declared `Dll
 - **CvControlInfo** (2): CvControlInfo, ~CvControlInfo
 - **CvCursorInfo** (1): getPath
 - **CvDLLButtonPopup** (6): OnAltExecute, OnFocus, OnOkClicked, freeInstance, getInstance, launchButtonPopup
-- **CvDLLEntity** (27): CvDLLEntity, ExecuteMove, GetSiegeTower, IsSelected, MoveTo, NotifyEntity, PlayAnimation, QueueMove, SetPosition, SetSiegeTower, StopAnimation, createCityEntity, createUnitEntity, destroyEntity, getCityEntity, getEntity, getUnitEntity, operator=, removeEntity, setEntity, setVisible, setup, ~CvDLLEntity
+- **CvDLLEntity** (28): CvDLLEntity, ExecuteMove, GetSiegeTower, IsSelected, MoveTo, NotifyEntity, PlayAnimation, QueueMove, SetPosition, SetSiegeTower, StopAnimation, createCityEntity, createUnitEntity, destroyEntity, getCityEntity, getEntity, getUnitEntity, isGraphicsPagedOut, operator=, removeEntity, setEntity, setVisible, setup, ~CvDLLEntity
 - **CvDLLWidgetData** (6): executeAction, executeAltAction, freeInstance, getInstance, isLink, parseHelp
 - **CvDeal** (20): getFirstPlayer, getGoldItem, getGoldPerTurnItem, getID, getPeaceItem, getSecondPlayer, hasData, headFirstTradesNode, headSecondTradesNode, isAnnual, isCancelable, isDual, isEndWar, isGold, isVassal, isVassalTributeDeal, kill, nextFirstTradesNode, nextSecondTradesNode, turnsToCancel
 - **CvDiploParameters** (37): CvDiploParameters, getAIContact, getChatText, getData, getDiploComment, getDiploCommentArgs, getHumanDiplo, getOurOfferList, getOurOffering, getPendingDelete, getRenegotiate, getTheirOfferList, getTheirOffering, getWhoTalkingTo, read, setAIContact, setChatText, setData, setDiploComment, setHumanDiplo, setOurOfferList, setOurOffering, setPendingDelete, setRenegotiate, setTheirOfferList, setTheirOffering, setWhoTalkingTo, write, ~CvDiploParameters

@@ -18,96 +18,86 @@ caller	file	line	reason	what
 240	CvArtFileMgr.cpp	181	virtual call: no class has a method named in the statement at its slot	slot 0:  ART_INFO_DEFN(Feature);
 246	CvArtFileMgr.cpp	182	virtual call: no class has a method named in the statement at its slot	slot 0:  ART_INFO_DEFN(Movie);
 252	CvArtFileMgr.cpp	183	virtual call: no class has a method named in the statement at its slot	slot 0:  ART_INFO_DEFN(Interface);
-451	CvCity.cpp	12681	through a function pointer	     switch (eOrder)
-480	CvCity.cpp	1447	through a function pointer	  switch (eTask)
-486	CvCity.cpp	14745	through a function pointer	   switch(pOrderNode->m_data.eOrderType)
-523	CvCity.cpp	16140	through a function pointer	  {    switch (pNode->m_data.eOrderType)
-557	CvCity.cpp	2771	through a function pointer	  switch (order.eOrderType)
-565	CvCity.cpp	3067	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
-566	CvCity.cpp	3101	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
-567	CvCity.cpp	3135	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
-1133	CvCityAI.cpp	13100	through a function pointer	     {       switch (GET_PLAYER(getOwnerINLINE()).AI_getAttitude((PlayerTypes)iI))
-1194	CvCityAI.cpp	1042	through a function pointer	  }   switch (m_iGovernorType)
-1194	CvCityAI.cpp	2534	through a function pointer	      switch (pArea->getAreaAIType(getTeam()))
-1251	CvDLLButtonPopup.cpp	49	virtual destructor (delete)	slot 0:   delete m_pInst;
-1255	CvDLLButtonPopup.cpp	79	through a function pointer	  int iExamineCityID;   int iI;     switch (info.getButtonPopupType())
-1255	CvDLLButtonPopup.cpp	87	through a function pointer	   {     switch (info.getData1())
-1256	CvDLLButtonPopup.cpp	768	through a function pointer	  }     switch (info.getButtonPopupType())
-1257	CvDLLButtonPopup.cpp	858	through a function pointer	    switch (info.getButtonPopupType())
-1524	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
-1524	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
-1524	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
-1525	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
-1674	CvDLLWidgetData.cpp	1074	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
-1754	CvDLLWidgetData.cpp	4671	through a function pointer	  {    // Data1 is the heading    switch (widgetDataStruct.m_iData1)
-1754	CvDLLWidgetData.cpp	4752	through a function pointer	    {      switch(eDenial)
-1767	CvDLLWidgetData.cpp	5187	through a function pointer	   {     switch (pOrder->eOrderType)
-1777	CvDLLWidgetData.cpp	54	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
-1845	CvDLLWidgetData.cpp	5738	through a function pointer	  switch (eType)
-1858	CvDLLWidgetData.cpp	660	through a function pointer	    switch (widgetDataStruct.m_eWidgetType)
-1859	CvDLLWidgetData.cpp	989	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
-1881	CvDeal.cpp	1097	through a function pointer	  int iI, iJ;     switch (trade.m_eItemType)
-1887	CvDeal.cpp	1302	through a function pointer	  switch (eItem)
-1929	CvDeal.cpp	705	through a function pointer	    switch (trade.m_eItemType)
-2142	CvEventReporter.cpp	571	virtual call: several candidate methods	3 candidates:   m_kStatistics.read(pStream);
-2143	CvEventReporter.cpp	575	virtual call: several candidate methods	3 candidates:   m_kStatistics.write(pStream);
-2172	CvGame.cpp	120	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_deals.init();
-2172	CvGame.cpp	121	virtual call: several candidate methods	12 candidates:   m_voteSelections.init();
-2172	CvGame.cpp	122	virtual call: several candidate methods	12 candidates:   m_votesTriggered.init();
-2326	CvGame.cpp	463	virtual call: several candidate methods	9 candidates:     m_deals.uninit();
-2326	CvGame.cpp	464	virtual call: several candidate methods	9 candidates:   m_voteSelections.uninit();
-2326	CvGame.cpp	465	virtual call: several candidate methods	9 candidates:   m_votesTriggered.uninit();
-2326	CvGame.cpp	471	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_pReplayInfo);
-2355	CvGame.cpp	685	virtual call: several candidate methods	9 candidates:   }     m_deals.removeAll();
-2355	CvGame.cpp	686	virtual call: several candidate methods	9 candidates:   m_voteSelections.removeAll();
-2355	CvGame.cpp	687	virtual call: several candidate methods	9 candidates:   m_votesTriggered.removeAll();
-2460	CvGame.cpp	7967	virtual call: several candidate methods	9 candidates:   return ((CvDeal *)(m_deals.getAt(iID)));
-2469	CvGame.cpp	8047	through a function pointer	      switch (getTurnSlice() % 4)
-2472	CvGame.cpp	8173	virtual destructor (delete)	slot 0:    {     delete pMessage;
-2485	CvGame.cpp	8704	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_pReplayInfo);
-2489	CvGame.cpp	8820	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_pReplayInfo);
-2511	CvGame.cpp	9301	virtual call: several candidate methods	9 candidates:   return ((VoteSelectionData*)(m_voteSelections.getAt(iID)));
-2514	CvGame.cpp	9453	virtual call: several candidate methods	9 candidates:   return ((VoteTriggeredData*)(m_votesTriggered.getAt(iID)));
-2518	CvGame.cpp	9649	through a function pointer	        {          switch ((PlayerVoteTypes)iI)
-2587	CvGameCoreUtils.cpp	139	through a function pointer	  switch( eDirection )
-2652	CvGameCoreUtils.cpp	2664	through a function pointer	    switch (eCalendar)
-2653	CvGameCoreUtils.cpp	2722	through a function pointer	  switch (eDirectionType)
-2655	CvGameCoreUtils.cpp	2746	through a function pointer	  switch (eActivityType)
-2656	CvGameCoreUtils.cpp	2771	through a function pointer	  switch (eMissionType)
-2657	CvGameCoreUtils.cpp	2849	through a function pointer	  switch (eMissionAI)
-2658	CvGameCoreUtils.cpp	2892	through a function pointer	  // note, GC.getUnitAIInfo(eUnitAI).getDescription() is a international friendly way to get string (but it will be longer)      switch (eUnitAI)
-2693	CvGameCoreUtils.cpp	3701	through a function pointer	  switch (eOrder)
-2732	CvGameCoreUtils.cpp	83	through a function pointer	  switch (eCard)
-2734	CvGameCoreUtils.cpp	99	through a function pointer	  switch( eDirection )
-2758	CvGameInterface.cpp	1459	through a function pointer	  }     switch (eControl)
-2759	CvGameInterface.cpp	1625	through a function pointer	  }     switch (eControl)
-2763	CvGameInterface.cpp	2290	through a function pointer	  {    switch (kItem.m_eFlyout)
-2765	CvGameInterface.cpp	2462	through a function pointer	   {     switch (gDLL->getInterfaceIFace()->getInterfaceMode())
-2884	CvGameTextMgr.cpp	15158	through a function pointer	  switch (eWarPlan)
-2887	CvGameTextMgr.cpp	15443	through a function pointer	  switch (tradeData.m_eItemType)
-2914	CvGameTextMgr.cpp	177	through a function pointer	    switch (eCalendar)
-2939	CvGameTextMgr.cpp	19400	through a function pointer	  switch (eType)
-2939	CvGameTextMgr.cpp	19403	through a function pointer	  {   case GLOBE_LAYER_STRATEGY:    switch(iOption)
-2939	CvGameTextMgr.cpp	19423	through a function pointer	  case GLOBE_LAYER_UNIT:    switch(iOption)
-2939	CvGameTextMgr.cpp	19443	through a function pointer	  case GLOBE_LAYER_RESOURCE:    switch(iOption)
-2972	CvGameTextMgr.cpp	364	through a function pointer	  CvCity* pCity;   UnitTypes eTrainUnit;   BuildingTypes eConstructBuilding;   ProjectTypes eCreateProject;   ReligionTypes eReligion;   CivicTypes eCivic;     
-3593	CvGlobals.cpp	543	virtual destructor (delete)	slot 0:     SAFE_DELETE(m_game);
-3593	CvGlobals.cpp	544	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_map);
-3593	CvGlobals.cpp	549	virtual destructor (delete)	slot 0:     SAFE_DELETE(m_asyncRand);
-3593	CvGlobals.cpp	550	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_initCore);
-3593	CvGlobals.cpp	551	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_loadedInitCore);
-3593	CvGlobals.cpp	552	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_iniInitCore);
-3593	CvGlobals.cpp	555	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_VarSystem);
-3597	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3598	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3599	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3600	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3601	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3602	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3603	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3604	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3605	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3606	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+454	CvCity.cpp	12749	through a function pointer	     switch (eOrder)
+486	CvCity.cpp	14813	through a function pointer	   switch(pOrderNode->m_data.eOrderType)
+495	CvCity.cpp	1505	through a function pointer	  switch (eTask)
+524	CvCity.cpp	16208	through a function pointer	  {    switch (pNode->m_data.eOrderType)
+560	CvCity.cpp	2829	through a function pointer	  switch (order.eOrderType)
+568	CvCity.cpp	3125	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
+569	CvCity.cpp	3159	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
+570	CvCity.cpp	3193	through a function pointer	  {    switch (pOrderNode->m_data.eOrderType)
+1135	CvCityAI.cpp	13100	through a function pointer	     {       switch (GET_PLAYER(getOwnerINLINE()).AI_getAttitude((PlayerTypes)iI))
+1196	CvCityAI.cpp	1042	through a function pointer	  }   switch (m_iGovernorType)
+1196	CvCityAI.cpp	2534	through a function pointer	      switch (pArea->getAreaAIType(getTeam()))
+1253	CvDLLButtonPopup.cpp	49	virtual destructor (delete)	slot 0:   delete m_pInst;
+1257	CvDLLButtonPopup.cpp	79	through a function pointer	  int iExamineCityID;   int iI;     switch (info.getButtonPopupType())
+1257	CvDLLButtonPopup.cpp	87	through a function pointer	   {     switch (info.getData1())
+1258	CvDLLButtonPopup.cpp	768	through a function pointer	  }     switch (info.getButtonPopupType())
+1259	CvDLLButtonPopup.cpp	858	through a function pointer	    switch (info.getButtonPopupType())
+1527	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
+1527	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
+1527	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
+1528	CvDLLPythonIFaceBase.h	112	virtual call: no class has a method named in the statement at its slot	slot 6:    Py_DECREF(item);
+1677	CvDLLWidgetData.cpp	1074	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
+1757	CvDLLWidgetData.cpp	4671	through a function pointer	  {    // Data1 is the heading    switch (widgetDataStruct.m_iData1)
+1757	CvDLLWidgetData.cpp	4752	through a function pointer	    {      switch(eDenial)
+1770	CvDLLWidgetData.cpp	5187	through a function pointer	   {     switch (pOrder->eOrderType)
+1780	CvDLLWidgetData.cpp	54	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
+1848	CvDLLWidgetData.cpp	5738	through a function pointer	  switch (eType)
+1861	CvDLLWidgetData.cpp	660	through a function pointer	    switch (widgetDataStruct.m_eWidgetType)
+1862	CvDLLWidgetData.cpp	989	through a function pointer	  switch (widgetDataStruct.m_eWidgetType)
+1884	CvDeal.cpp	1097	through a function pointer	  int iI, iJ;     switch (trade.m_eItemType)
+1890	CvDeal.cpp	1302	through a function pointer	  switch (eItem)
+1932	CvDeal.cpp	705	through a function pointer	    switch (trade.m_eItemType)
+2145	CvEventReporter.cpp	571	virtual call: several candidate methods	3 candidates:   m_kStatistics.read(pStream);
+2146	CvEventReporter.cpp	575	virtual call: several candidate methods	3 candidates:   m_kStatistics.write(pStream);
+2181	CvGame.cpp	120	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_deals.init();
+2181	CvGame.cpp	121	virtual call: several candidate methods	12 candidates:   m_voteSelections.init();
+2181	CvGame.cpp	122	virtual call: several candidate methods	12 candidates:   m_votesTriggered.init();
+2307	CvGame.cpp	463	virtual call: several candidate methods	9 candidates:     m_deals.uninit();
+2307	CvGame.cpp	464	virtual call: several candidate methods	9 candidates:   m_voteSelections.uninit();
+2307	CvGame.cpp	465	virtual call: several candidate methods	9 candidates:   m_votesTriggered.uninit();
+2307	CvGame.cpp	471	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_pReplayInfo);
+2345	CvGame.cpp	705	virtual call: several candidate methods	9 candidates:   }     m_deals.removeAll();
+2345	CvGame.cpp	706	virtual call: several candidate methods	9 candidates:   m_voteSelections.removeAll();
+2345	CvGame.cpp	707	virtual call: several candidate methods	9 candidates:   m_votesTriggered.removeAll();
+2479	CvGame.cpp	8453	virtual call: several candidate methods	9 candidates:   return ((CvDeal *)(m_deals.getAt(iID)));
+2488	CvGame.cpp	8533	through a function pointer	      switch (getTurnSlice() % 4)
+2492	CvGame.cpp	8659	virtual destructor (delete)	slot 0:    {     delete pMessage;
+2503	CvGame.cpp	9190	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_pReplayInfo);
+2507	CvGame.cpp	9306	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_pReplayInfo);
+2530	CvGame.cpp	9787	virtual call: several candidate methods	9 candidates:   return ((VoteSelectionData*)(m_voteSelections.getAt(iID)));
+2533	CvGame.cpp	9939	virtual call: several candidate methods	9 candidates:   return ((VoteTriggeredData*)(m_votesTriggered.getAt(iID)));
+2537	CvGame.cpp	10135	through a function pointer	        {          switch ((PlayerVoteTypes)iI)
+2580	CvGameCoreUtils.cpp	104	through a function pointer	  switch( eDirection )
+2599	CvGameCoreUtils.cpp	144	through a function pointer	  switch( eDirection )
+2663	CvGameCoreUtils.cpp	2692	through a function pointer	    switch (eCalendar)
+2664	CvGameCoreUtils.cpp	2750	through a function pointer	  switch (eDirectionType)
+2666	CvGameCoreUtils.cpp	2774	through a function pointer	  switch (eActivityType)
+2667	CvGameCoreUtils.cpp	2799	through a function pointer	  switch (eMissionType)
+2669	CvGameCoreUtils.cpp	2877	through a function pointer	  switch (eMissionAI)
+2670	CvGameCoreUtils.cpp	2920	through a function pointer	  // note, GC.getUnitAIInfo(eUnitAI).getDescription() is a international friendly way to get string (but it will be longer)      switch (eUnitAI)
+2705	CvGameCoreUtils.cpp	3729	through a function pointer	  switch (eOrder)
+2744	CvGameCoreUtils.cpp	88	through a function pointer	  switch (eCard)
+2768	CvGameInterface.cpp	1459	through a function pointer	  }     switch (eControl)
+2769	CvGameInterface.cpp	1625	through a function pointer	  }     switch (eControl)
+2773	CvGameInterface.cpp	2290	through a function pointer	  {    switch (kItem.m_eFlyout)
+2775	CvGameInterface.cpp	2462	through a function pointer	   {     switch (gDLL->getInterfaceIFace()->getInterfaceMode())
+2894	CvGameTextMgr.cpp	15158	through a function pointer	  switch (eWarPlan)
+2897	CvGameTextMgr.cpp	15443	through a function pointer	  switch (tradeData.m_eItemType)
+2924	CvGameTextMgr.cpp	177	through a function pointer	    switch (eCalendar)
+2949	CvGameTextMgr.cpp	19393	through a function pointer	  switch (eType)
+2949	CvGameTextMgr.cpp	19396	through a function pointer	  {   case GLOBE_LAYER_STRATEGY:    switch(iOption)
+2949	CvGameTextMgr.cpp	19416	through a function pointer	  case GLOBE_LAYER_UNIT:    switch(iOption)
+2949	CvGameTextMgr.cpp	19436	through a function pointer	  case GLOBE_LAYER_RESOURCE:    switch(iOption)
+2982	CvGameTextMgr.cpp	364	through a function pointer	  CvCity* pCity;   UnitTypes eTrainUnit;   BuildingTypes eConstructBuilding;   ProjectTypes eCreateProject;   ReligionTypes eReligion;   CivicTypes eCivic;     
+3603	CvGlobals.cpp	543	virtual destructor (delete)	slot 0:     SAFE_DELETE(m_game);
+3603	CvGlobals.cpp	544	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_map);
+3603	CvGlobals.cpp	549	virtual destructor (delete)	slot 0:     SAFE_DELETE(m_asyncRand);
+3603	CvGlobals.cpp	550	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_initCore);
+3603	CvGlobals.cpp	551	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_loadedInitCore);
+3603	CvGlobals.cpp	552	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_iniInitCore);
+3603	CvGlobals.cpp	555	virtual destructor (delete)	slot 0:   SAFE_DELETE(m_VarSystem);
 3607	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
 3608	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
 3609	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
@@ -187,341 +177,135 @@ caller	file	line	reason	what
 3683	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
 3684	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
 3685	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-3776	CvHallOfFameInfo.cpp	13	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(m_aReplays[i]);
-4329	CvInfos.cpp	15710	virtual destructor (delete)	slot 0:   {    SAFE_DELETE_ARRAY(m_paImprovementBonus); // XXX make sure this isn't leaking memory...
-4392	CvInfos.cpp	16129	virtual destructor (delete)	slot 0:     SAFE_DELETE_ARRAY(m_paImprovementBonus);
-5262	CvInfos.cpp	25913	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_pResponses); 
-5328	CvInfos.cpp	26733	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_paTutorialMessages);
-5684	CvInfos.cpp	3596	through a function pointer	  switch (getSubType())
-6067	CvInfos.cpp	8537	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
-6425	CvInitCore.cpp	247	through a function pointer	  switch (getType())
-6426	CvInitCore.cpp	265	through a function pointer	  switch (getType())
-6524	CvMap.cpp	111	virtual destructor (delete)	slot 0:     SAFE_DELETE_ARRAY(m_pMapPlots);
-6524	CvMap.cpp	113	virtual call: several candidate methods	9 candidates:     m_areas.uninit();
-6538	CvMap.cpp	1174	virtual call: several candidate methods	9 candidates:   return m_areas.getAt(iID);
-6541	CvMap.cpp	238	virtual call: several candidate methods	9 candidates:   }     m_areas.removeAll();
-6544	CvMap.cpp	1213	virtual call: several candidate methods	9 candidates:     m_areas.removeAll();
-6576	CvMap.cpp	83	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_areas.init();
-6629	CvMapGenerator.cpp	567	through a function pointer	         switch (aiShuffle[iI])
-6640	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
-6640	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
-6640	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
-6640	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
-6640	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
-6640	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
-6724	CvMessageData.cpp	11	through a function pointer	  switch (eType)
-7258	CvPlayer.cpp	14791	virtual call: several candidate methods	9 candidates:   return((CvPlotGroup *)(m_plotGroups.getAt(iID)));
-7264	CvPlayer.cpp	14827	virtual call: several candidate methods	9 candidates:   return(m_cities.getAt(iID));
-7270	CvPlayer.cpp	14863	virtual call: several candidate methods	9 candidates:   return (m_units.getAt(iID));
-7276	CvPlayer.cpp	14899	virtual call: several candidate methods	9 candidates:   return ((CvSelectionGroup *)(m_selectionGroups.getAt(iID)));
-7282	CvPlayer.cpp	14933	virtual call: several candidate methods	9 candidates:   return ((EventTriggeredData*)(m_eventsTriggered.getAt(iID)));
-7289	CvPlayer.cpp	15004	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(pInfo);
-7290	CvPlayer.cpp	15017	virtual destructor (delete)	slot 0:    {     delete pInfo;
-7294	CvPlayer.cpp	15059	virtual destructor (delete)	slot 0:    {     delete pDiplo;
-7298	CvPlayer.cpp	15104	virtual destructor (delete)	slot 0:      SAFE_DELETE(pInfo);
-7336	CvPlayer.cpp	16766	through a function pointer	   }   }     switch (eAction)
-7366	CvPlayer.cpp	203	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_plotGroups.init();
-7366	CvPlayer.cpp	205	virtual call: several candidate methods	12 candidates:     m_cities.init();
-7366	CvPlayer.cpp	207	virtual call: several candidate methods	12 candidates:     m_units.init();
-7366	CvPlayer.cpp	209	virtual call: several candidate methods	12 candidates:     m_selectionGroups.init();
-7366	CvPlayer.cpp	211	virtual call: several candidate methods	12 candidates:     m_eventsTriggered.init();
-7450	CvPlayer.cpp	23842	through a function pointer	     // Build what we need to build for this item    switch (i)
-7451	CvPlayer.cpp	23974	through a function pointer	    switch ( eItem )
-7452	CvPlayer.cpp	24021	through a function pointer	    switch (zTradeData.m_eItemType)
-7456	CvPlayer.cpp	24302	through a function pointer	  switch (eGlobeLayerType)
-7458	CvPlayer.cpp	24406	through a function pointer	          switch (eOption)
-7459	CvPlayer.cpp	24563	through a function pointer	     switch (eOption)
-7471	CvPlayer.cpp	3162	through a function pointer	       }          switch (pLoopUnit->AI_getUnitAIType())
-7501	CvPlayer.cpp	4085	through a function pointer	   {     switch (pLoopSelectionGroup->getDomainType())
-7525	CvPlayer.cpp	457	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_plotGroups.init();
-7525	CvPlayer.cpp	459	virtual call: several candidate methods	12 candidates:     m_cities.init();
-7525	CvPlayer.cpp	461	virtual call: several candidate methods	12 candidates:     m_units.init();
-7525	CvPlayer.cpp	463	virtual call: several candidate methods	12 candidates:     m_selectionGroups.init();
-7525	CvPlayer.cpp	465	virtual call: several candidate methods	12 candidates:     m_eventsTriggered.init();
-7549	CvPlayer.cpp	5157	through a function pointer	  CivicTypes* paeNewCivics;   CvCity* pCity;   int iI;      /************************************************************************************************/  
-7552	CvPlayer.cpp	5424	through a function pointer	  }     switch (item.m_eItemType)
-7553	CvPlayer.cpp	5732	through a function pointer	  CvCity* pCity;     switch (item.m_eItemType)
-7578	CvPlayer.cpp	783	virtual call: several candidate methods	9 candidates:       m_plotGroups.uninit();
-7578	CvPlayer.cpp	785	virtual call: several candidate methods	9 candidates:     m_cities.uninit();
-7578	CvPlayer.cpp	787	virtual call: several candidate methods	9 candidates:     m_units.uninit();
-7578	CvPlayer.cpp	789	virtual call: several candidate methods	9 candidates:     m_selectionGroups.uninit();
-7578	CvPlayer.cpp	791	virtual call: several candidate methods	9 candidates:     m_eventsTriggered.uninit();
-7600	CvPlayer.cpp	1221	virtual call: several candidate methods	9 candidates:   }     m_plotGroups.removeAll();
-7600	CvPlayer.cpp	1223	virtual call: several candidate methods	9 candidates:     m_cities.removeAll();
-7600	CvPlayer.cpp	1225	virtual call: several candidate methods	9 candidates:     m_units.removeAll();
-7600	CvPlayer.cpp	1227	virtual call: several candidate methods	9 candidates:     m_selectionGroups.removeAll();
-7600	CvPlayer.cpp	1229	virtual call: several candidate methods	9 candidates:     m_eventsTriggered.removeAll();
-7752	CvPlayerAI.cpp	10364	through a function pointer	    switch (GET_TEAM(GET_PLAYER(ePlayer).getTeam()).AI_getAttitude(eTradeTeam))
-7759	CvPlayerAI.cpp	10731	through a function pointer	  {    switch (eUnitAI)
-7759	CvPlayerAI.cpp	11180	through a function pointer	     int iFastMoverMultiplier;     switch (eUnitAI)
-7878	CvPlayerAI.cpp	19329	through a function pointer	   {     switch (AI_getAttitude(kTriggeredData.m_eOtherPlayer))
-7885	CvPlayerAI.cpp	20108	through a function pointer	         }         }           // Multiplying by higher number means unit has higher priority, less likely to be disbanded         switch (pLoopUnit->AI_getUnit
-7887	CvPlayerAI.cpp	2025	through a function pointer	  switch (eUnitAI)
-7900	CvPlayerAI.cpp	2122	through a function pointer	     //XXX Add something for 100%/0% type situations   switch (eCommerce)
-7960	CvPlayerAI.cpp	24876	through a function pointer	  switch (AI_getAttitude(ePlayer))
-8023	CvPlayerAI.cpp	681	through a function pointer	      switch (iPass)
-8024	CvPlayerAI.cpp	6671	through a function pointer	        // BBAI TODO: Change this to evaluating all unitai types defined in XML for unit?       // Without this change many unit types are hard to evaluate, lik
-8063	CvPlayerAI.cpp	82	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_aPlayers);
-8066	CvPlayerAI.cpp	8841	through a function pointer	  {    FAssertMsg(!(pNode->m_data.m_bHidden), "(pNode->m_data.m_bHidden) did not return false as expected");      switch (pNode->m_data.m_eItemType)
-8119	CvPlot.cpp	1482	through a function pointer	  CvPlot *pPlot;   switch(eDirection)
-8122	CvPlot.cpp	1548	through a function pointer	  }     switch (eDirection)
-8167	CvPlot.cpp	3315	through a function pointer	    {      func(pLoopUnit, iData1, iData2);
-8168	CvPlot.cpp	3341	through a function pointer	    {      if ((funcA == NULL) || funcA(pLoopUnit, iData1A, iData2A))
-8168	CvPlot.cpp	3343	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
-8169	CvPlot.cpp	3372	through a function pointer	    {      if (funcA(pLoopUnit, iData1A, iData2A))
-8169	CvPlot.cpp	3374	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
-8214	CvPlot.cpp	4005	through a function pointer	  switch (unit.getDomainType())
-8260	CvPlot.cpp	4564	through a function pointer	  {    switch (aiShuffle[iI])
-8358	CvPlot.cpp	7388	through a function pointer	  {    switch (eIndex)
-8549	CvReplayInfo.cpp	335	virtual destructor (delete)	slot 0:    {     delete pMessage;
-8552	CvReplayInfo.cpp	41	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(m_listReplayMessages[i]);
-8615	CvSelectionGroup.cpp	1425	through a function pointer	  {    FAssertMsg(GET_PLAYER(getOwnerINLINE()).isTurnActive() || GET_PLAYER(getOwnerINLINE()).isHuman(), "It's expected that either the turn is active for this 
-8615	CvSelectionGroup.cpp	1658	through a function pointer	     {       switch (headMissionQueueNode()->m_data.eMissionType)
-8619	CvSelectionGroup.cpp	2089	through a function pointer	    {      switch (headMissionQueueNode()->m_data.eMissionType)
-8619	CvSelectionGroup.cpp	2391	through a function pointer	   {     switch (headMissionQueueNode()->m_data.eMissionType)
-8623	CvSelectionGroup.cpp	2765	through a function pointer	     switch (eInterfaceMode)
-8624	CvSelectionGroup.cpp	2964	through a function pointer	     switch (eInterfaceMode)
-8714	CvSelectionGroup.cpp	5729	through a function pointer	     switch (getActivityType())
-8757	CvSelectionGroup.cpp	953	through a function pointer	     switch (iMission)
-8818	CvSelectionGroupAI.cpp	699	through a function pointer	   {     switch (pHeadUnit->AI_getUnitAIType())
-9195	CvTalkingHeadMessage.cpp	205	through a function pointer	  switch (m_eMessageType)
-9509	CvTeamAI.cpp	1327	through a function pointer	  }  /************************************************************************************************/  /* BETTER_BTS_AI_MOD                       END         
-9513	CvTeamAI.cpp	1655	through a function pointer	    }       switch (AI_getAttitude(eTeam))
-9538	CvTeamAI.cpp	3077	through a function pointer	    switch ((GET_TEAM(eTeam).AI_getAttitude(ePeaceTeam) + GET_TEAM(ePeaceTeam).AI_getAttitude(eTeam)) / 2)
-9540	CvTeamAI.cpp	3182	through a function pointer	    switch (GET_TEAM(eTeam).AI_getAttitude(eWarTeam))
-9540	CvTeamAI.cpp	3237	through a function pointer	  {    switch (GET_TEAM(eTeam).AI_getAttitude(getID()))
-9585	CvTeamAI.cpp	3935	through a function pointer	  switch (AI_getWarPlan(eIndex))
-9600	CvTeamAI.cpp	44	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_aTeams);
-9616	CvTeamAI.cpp	5504	through a function pointer	  switch (AI_getAttitude(eTeam))
-9618	CvTeamAI.cpp	5574	through a function pointer	      }         switch (GC.getUnitInfo(eLoopUnit).getDefaultUnitAIType())
-9962	CvUnit.cpp	2239	through a function pointer	  }     switch (eCommand)
-9963	CvUnit.cpp	2357	through a function pointer	  {    switch (eCommand)
-9971	CvUnit.cpp	2677	through a function pointer	       }       }      }     }    }   }     switch (getDomainType())
-9981	CvUnit.cpp	3254	through a function pointer	  }  /************************************************************************************************/  /* Afforess                      END                   
-10025	CvUnit.cpp	5060	through a function pointer	     }      switch(iMis0)
-10322	CvUnitAI.cpp	262	through a function pointer	  {    switch (getGroup()->getAutomateType())
-10322	CvUnitAI.cpp	367	through a function pointer	     switch (AI_getUnitAIType())
-10409	CvUnitAI.cpp	5575	through a function pointer	  {    switch (GET_PLAYER(getOwnerINLINE()).AI_getAttitude(plot()->getOwnerINLINE()))
-10422	CvUnitAI.cpp	730	through a function pointer	  switch (AI_getUnitAIType())
-10446	CvXMLLoadUtility.cpp	156	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getLandscapeInfo()[i]);
-10447	CvXMLLoadUtility.cpp	175	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getEffectInfo()[i]);
-10456	CvXMLLoadUtility.cpp	677	virtual call: no class has a method named in the statement at its slot	slot 3:   {    m_pCBFxn(++m_iCurProgressStep, GetNumProgressSteps(), CvString::format("Reading XML %s",     szMessage ? szMessage : "").c_str());
-10524	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10524	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10524	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10524	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10524	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10524	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10524	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10524	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10524	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10525	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10525	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10525	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10525	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10525	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10525	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10525	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10525	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10525	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10526	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10526	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10526	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10526	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10526	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10526	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10526	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10526	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10526	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10527	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10527	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10527	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10527	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10527	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10527	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10527	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10527	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10527	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10528	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10528	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10528	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10528	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10528	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10528	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10528	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10528	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10528	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10529	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10529	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10529	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10529	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10529	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10529	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10529	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10529	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10529	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10530	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10530	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10530	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10530	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10530	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10530	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10530	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10530	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10530	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10531	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10531	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10531	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10531	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10531	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10531	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10531	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10531	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10531	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10532	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10532	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10532	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10532	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10532	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10532	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10532	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10532	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10532	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10533	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10533	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10533	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10533	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10533	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10533	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10533	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10533	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10533	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10534	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10534	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10534	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10534	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10534	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10534	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10534	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10534	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10534	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10535	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10535	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10535	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10535	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10535	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10535	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10535	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10535	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10535	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10536	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10536	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10536	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10536	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10536	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10536	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10536	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10536	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10536	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10537	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10537	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10537	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10537	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10537	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10537	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10537	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10537	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10537	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10538	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10538	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10538	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10538	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10538	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10538	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10538	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10538	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10538	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10539	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10539	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10539	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10539	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10539	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10539	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10539	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10539	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10539	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10540	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10540	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10540	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10540	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10540	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10540	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10540	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10540	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10540	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10541	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10541	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10541	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10541	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10541	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10541	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10541	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10541	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10541	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10542	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10542	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10542	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10542	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10542	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10542	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10542	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10542	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10542	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10543	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10543	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10543	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10543	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10543	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10543	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10543	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10543	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10543	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10544	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10544	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10544	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10544	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10544	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10544	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10544	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10544	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10544	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10545	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10545	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10545	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10545	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10545	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10545	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10545	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10545	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10545	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10546	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10546	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10546	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10546	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10546	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10546	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10546	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10546	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10546	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10547	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
-10547	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10547	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
-10547	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10547	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
-10547	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
-10547	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
-10547	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
-10547	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+3686	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3687	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3688	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3689	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3690	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3691	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3692	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3693	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3694	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3695	CvGlobals.cpp	63	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+3787	CvHallOfFameInfo.cpp	13	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(m_aReplays[i]);
+4341	CvInfos.cpp	15710	virtual destructor (delete)	slot 0:   {    SAFE_DELETE_ARRAY(m_paImprovementBonus); // XXX make sure this isn't leaking memory...
+4404	CvInfos.cpp	16129	virtual destructor (delete)	slot 0:     SAFE_DELETE_ARRAY(m_paImprovementBonus);
+5274	CvInfos.cpp	25913	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_pResponses); 
+5340	CvInfos.cpp	26733	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_paTutorialMessages);
+5696	CvInfos.cpp	3596	through a function pointer	  switch (getSubType())
+6079	CvInfos.cpp	8537	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(*it);
+6436	CvInitCore.cpp	247	through a function pointer	  switch (getType())
+6437	CvInitCore.cpp	265	through a function pointer	  switch (getType())
+6535	CvMap.cpp	111	virtual destructor (delete)	slot 0:     SAFE_DELETE_ARRAY(m_pMapPlots);
+6535	CvMap.cpp	113	virtual call: several candidate methods	9 candidates:     m_areas.uninit();
+6549	CvMap.cpp	1174	virtual call: several candidate methods	9 candidates:   return m_areas.getAt(iID);
+6552	CvMap.cpp	238	virtual call: several candidate methods	9 candidates:   }     m_areas.removeAll();
+6555	CvMap.cpp	1213	virtual call: several candidate methods	9 candidates:     m_areas.removeAll();
+6587	CvMap.cpp	83	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_areas.init();
+6641	CvMapGenerator.cpp	567	through a function pointer	         switch (aiShuffle[iI])
+6652	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
+6652	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
+6652	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
+6652	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
+6652	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
+6652	CvMapGenerator.h	18	virtual destructor (delete)	slot 0:   DllExport static void FreeInstance() { SAFE_DELETE(m_pInst); }
+6736	CvMessageData.cpp	11	through a function pointer	  switch (eType)
+7270	CvPlayer.cpp	14794	virtual call: several candidate methods	9 candidates:   return((CvPlotGroup *)(m_plotGroups.getAt(iID)));
+7276	CvPlayer.cpp	14830	virtual call: several candidate methods	9 candidates:   return(m_cities.getAt(iID));
+7282	CvPlayer.cpp	14866	virtual call: several candidate methods	9 candidates:   return (m_units.getAt(iID));
+7288	CvPlayer.cpp	14902	virtual call: several candidate methods	9 candidates:   return ((CvSelectionGroup *)(m_selectionGroups.getAt(iID)));
+7294	CvPlayer.cpp	14936	virtual call: several candidate methods	9 candidates:   return ((EventTriggeredData*)(m_eventsTriggered.getAt(iID)));
+7301	CvPlayer.cpp	15007	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(pInfo);
+7302	CvPlayer.cpp	15020	virtual destructor (delete)	slot 0:    {     delete pInfo;
+7306	CvPlayer.cpp	15062	virtual destructor (delete)	slot 0:    {     delete pDiplo;
+7310	CvPlayer.cpp	15107	virtual destructor (delete)	slot 0:      SAFE_DELETE(pInfo);
+7348	CvPlayer.cpp	16769	through a function pointer	   }   }     switch (eAction)
+7378	CvPlayer.cpp	203	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_plotGroups.init();
+7378	CvPlayer.cpp	205	virtual call: several candidate methods	12 candidates:     m_cities.init();
+7378	CvPlayer.cpp	207	virtual call: several candidate methods	12 candidates:     m_units.init();
+7378	CvPlayer.cpp	209	virtual call: several candidate methods	12 candidates:     m_selectionGroups.init();
+7378	CvPlayer.cpp	211	virtual call: several candidate methods	12 candidates:     m_eventsTriggered.init();
+7462	CvPlayer.cpp	23848	through a function pointer	     // Build what we need to build for this item    switch (i)
+7463	CvPlayer.cpp	23980	through a function pointer	    switch ( eItem )
+7464	CvPlayer.cpp	24027	through a function pointer	    switch (zTradeData.m_eItemType)
+7468	CvPlayer.cpp	24308	through a function pointer	  switch (eGlobeLayerType)
+7470	CvPlayer.cpp	24412	through a function pointer	          switch (eOption)
+7471	CvPlayer.cpp	24569	through a function pointer	     switch (eOption)
+7483	CvPlayer.cpp	3162	through a function pointer	       }          switch (pLoopUnit->AI_getUnitAIType())
+7513	CvPlayer.cpp	4085	through a function pointer	   {     switch (pLoopSelectionGroup->getDomainType())
+7537	CvPlayer.cpp	457	virtual call: several candidate methods	12 candidates:     //--------------------------------   // Init containers   m_plotGroups.init();
+7537	CvPlayer.cpp	459	virtual call: several candidate methods	12 candidates:     m_cities.init();
+7537	CvPlayer.cpp	461	virtual call: several candidate methods	12 candidates:     m_units.init();
+7537	CvPlayer.cpp	463	virtual call: several candidate methods	12 candidates:     m_selectionGroups.init();
+7537	CvPlayer.cpp	465	virtual call: several candidate methods	12 candidates:     m_eventsTriggered.init();
+7561	CvPlayer.cpp	5157	through a function pointer	  CivicTypes* paeNewCivics;   CvCity* pCity;   int iI;      /************************************************************************************************/  
+7564	CvPlayer.cpp	5424	through a function pointer	  }     switch (item.m_eItemType)
+7565	CvPlayer.cpp	5732	through a function pointer	  CvCity* pCity;     switch (item.m_eItemType)
+7590	CvPlayer.cpp	783	virtual call: several candidate methods	9 candidates:       m_plotGroups.uninit();
+7590	CvPlayer.cpp	785	virtual call: several candidate methods	9 candidates:     m_cities.uninit();
+7590	CvPlayer.cpp	787	virtual call: several candidate methods	9 candidates:     m_units.uninit();
+7590	CvPlayer.cpp	789	virtual call: several candidate methods	9 candidates:     m_selectionGroups.uninit();
+7590	CvPlayer.cpp	791	virtual call: several candidate methods	9 candidates:     m_eventsTriggered.uninit();
+7612	CvPlayer.cpp	1221	virtual call: several candidate methods	9 candidates:   }     m_plotGroups.removeAll();
+7612	CvPlayer.cpp	1223	virtual call: several candidate methods	9 candidates:     m_cities.removeAll();
+7612	CvPlayer.cpp	1225	virtual call: several candidate methods	9 candidates:     m_units.removeAll();
+7612	CvPlayer.cpp	1227	virtual call: several candidate methods	9 candidates:     m_selectionGroups.removeAll();
+7612	CvPlayer.cpp	1229	virtual call: several candidate methods	9 candidates:     m_eventsTriggered.removeAll();
+7768	CvPlayerAI.cpp	10657	through a function pointer	    switch (GET_TEAM(GET_PLAYER(ePlayer).getTeam()).AI_getAttitude(eTradeTeam))
+7775	CvPlayerAI.cpp	11024	through a function pointer	  {    switch (eUnitAI)
+7775	CvPlayerAI.cpp	11473	through a function pointer	     int iFastMoverMultiplier;     switch (eUnitAI)
+7894	CvPlayerAI.cpp	19628	through a function pointer	   {     switch (AI_getAttitude(kTriggeredData.m_eOtherPlayer))
+7901	CvPlayerAI.cpp	2025	through a function pointer	  switch (eUnitAI)
+7903	CvPlayerAI.cpp	20407	through a function pointer	         }         }           // Multiplying by higher number means unit has higher priority, less likely to be disbanded         switch (pLoopUnit->AI_getUnit
+7910	CvPlayerAI.cpp	2122	through a function pointer	     //XXX Add something for 100%/0% type situations   switch (eCommerce)
+7976	CvPlayerAI.cpp	25175	through a function pointer	  switch (AI_getAttitude(ePlayer))
+8039	CvPlayerAI.cpp	681	through a function pointer	      switch (iPass)
+8040	CvPlayerAI.cpp	6671	through a function pointer	        // BBAI TODO: Change this to evaluating all unitai types defined in XML for unit?       // Without this change many unit types are hard to evaluate, lik
+8079	CvPlayerAI.cpp	82	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_aPlayers);
+8082	CvPlayerAI.cpp	8841	through a function pointer	  {    FAssertMsg(!(pNode->m_data.m_bHidden), "(pNode->m_data.m_bHidden) did not return false as expected");      switch (pNode->m_data.m_eItemType)
+8138	CvPlot.cpp	1591	through a function pointer	  CvPlot *pPlot;   switch(eDirection)
+8141	CvPlot.cpp	1657	through a function pointer	  }     switch (eDirection)
+8185	CvPlot.cpp	3424	through a function pointer	    {      func(pLoopUnit, iData1, iData2);
+8186	CvPlot.cpp	3450	through a function pointer	    {      if ((funcA == NULL) || funcA(pLoopUnit, iData1A, iData2A))
+8186	CvPlot.cpp	3452	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
+8187	CvPlot.cpp	3481	through a function pointer	    {      if (funcA(pLoopUnit, iData1A, iData2A))
+8187	CvPlot.cpp	3483	through a function pointer	     {       if ((funcB == NULL) || funcB(pLoopUnit, iData1B, iData2B))
+8230	CvPlot.cpp	4114	through a function pointer	  switch (unit.getDomainType())
+8276	CvPlot.cpp	4673	through a function pointer	  {    switch (aiShuffle[iI])
+8377	CvPlot.cpp	7498	through a function pointer	  {    switch (eIndex)
+8569	CvReplayInfo.cpp	335	virtual destructor (delete)	slot 0:    {     delete pMessage;
+8572	CvReplayInfo.cpp	41	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(m_listReplayMessages[i]);
+8635	CvSelectionGroup.cpp	1425	through a function pointer	  {    FAssertMsg(GET_PLAYER(getOwnerINLINE()).isTurnActive() || GET_PLAYER(getOwnerINLINE()).isHuman(), "It's expected that either the turn is active for this 
+8635	CvSelectionGroup.cpp	1658	through a function pointer	     {       switch (headMissionQueueNode()->m_data.eMissionType)
+8639	CvSelectionGroup.cpp	2089	through a function pointer	    {      switch (headMissionQueueNode()->m_data.eMissionType)
+8639	CvSelectionGroup.cpp	2391	through a function pointer	   {     switch (headMissionQueueNode()->m_data.eMissionType)
+8643	CvSelectionGroup.cpp	2765	through a function pointer	     switch (eInterfaceMode)
+8644	CvSelectionGroup.cpp	2964	through a function pointer	     switch (eInterfaceMode)
+8734	CvSelectionGroup.cpp	5729	through a function pointer	     switch (getActivityType())
+8777	CvSelectionGroup.cpp	953	through a function pointer	     switch (iMission)
+8838	CvSelectionGroupAI.cpp	699	through a function pointer	   {     switch (pHeadUnit->AI_getUnitAIType())
+9215	CvTalkingHeadMessage.cpp	205	through a function pointer	  switch (m_eMessageType)
+9529	CvTeamAI.cpp	1327	through a function pointer	  }  /************************************************************************************************/  /* BETTER_BTS_AI_MOD                       END         
+9533	CvTeamAI.cpp	1655	through a function pointer	    }       switch (AI_getAttitude(eTeam))
+9558	CvTeamAI.cpp	3084	through a function pointer	    switch ((GET_TEAM(eTeam).AI_getAttitude(ePeaceTeam) + GET_TEAM(ePeaceTeam).AI_getAttitude(eTeam)) / 2)
+9560	CvTeamAI.cpp	3189	through a function pointer	    switch (GET_TEAM(eTeam).AI_getAttitude(eWarTeam))
+9560	CvTeamAI.cpp	3244	through a function pointer	  {    switch (GET_TEAM(eTeam).AI_getAttitude(getID()))
+9605	CvTeamAI.cpp	3942	through a function pointer	  switch (AI_getWarPlan(eIndex))
+9619	CvTeamAI.cpp	44	virtual destructor (delete)	slot 0:   SAFE_DELETE_ARRAY(m_aTeams);
+9636	CvTeamAI.cpp	5511	through a function pointer	  switch (AI_getAttitude(eTeam))
+9638	CvTeamAI.cpp	5581	through a function pointer	      }         switch (GC.getUnitInfo(eLoopUnit).getDefaultUnitAIType())
+9990	CvUnit.cpp	2306	through a function pointer	  }     switch (eCommand)
+9991	CvUnit.cpp	2424	through a function pointer	  {    switch (eCommand)
+9999	CvUnit.cpp	2744	through a function pointer	       }       }      }     }    }   }     switch (getDomainType())
+10009	CvUnit.cpp	3321	through a function pointer	  }  /************************************************************************************************/  /* Afforess                      END                   
+10054	CvUnit.cpp	5127	through a function pointer	     }      switch(iMis0)
+10346	CvUnitAI.cpp	262	through a function pointer	  {    switch (getGroup()->getAutomateType())
+10346	CvUnitAI.cpp	367	through a function pointer	     switch (AI_getUnitAIType())
+10433	CvUnitAI.cpp	5575	through a function pointer	  {    switch (GET_PLAYER(getOwnerINLINE()).AI_getAttitude(plot()->getOwnerINLINE()))
+10446	CvUnitAI.cpp	730	through a function pointer	  switch (AI_getUnitAIType())
+10470	CvXMLLoadUtility.cpp	156	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getLandscapeInfo()[i]);
+10471	CvXMLLoadUtility.cpp	175	virtual destructor (delete)	slot 0:   {    SAFE_DELETE(GC.getEffectInfo()[i]);
+10480	CvXMLLoadUtility.cpp	677	virtual call: no class has a method named in the statement at its slot	slot 3:   {    m_pCBFxn(++m_iCurProgressStep, GetNumProgressSteps(), CvString::format("Reading XML %s",     szMessage ? szMessage : "").c_str());
 10548	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
 10548	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
 10548	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
@@ -1179,102 +963,222 @@ caller	file	line	reason	what
 10620	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
 10620	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
 10620	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
-10622	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10622	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10622	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10622	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10623	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10623	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10623	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10623	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10624	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10624	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10624	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10624	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10625	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10625	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10625	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10625	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10626	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10626	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10626	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10626	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10627	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10627	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10627	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10627	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10628	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10628	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10628	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10628	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10629	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10629	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10629	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10629	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10630	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10630	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10630	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10630	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10631	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10631	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10631	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10631	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10632	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10632	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10632	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10632	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10633	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10633	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10633	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10633	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10634	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10634	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10634	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10634	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10635	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10635	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10635	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10635	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10636	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10636	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10636	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10636	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10637	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10637	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10637	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10637	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10638	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10638	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10638	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10638	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10639	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10639	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10639	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10639	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10640	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10640	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10640	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10640	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10641	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10641	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10641	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10641	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10642	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10642	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10642	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10642	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10643	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10643	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10643	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10643	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10644	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10644	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10644	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10644	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10645	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-10645	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
-10645	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
-10645	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10621	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10621	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10621	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10621	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10621	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10621	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10621	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10621	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10621	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10622	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10622	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10622	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10622	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10622	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10622	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10622	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10622	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10622	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10623	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10623	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10623	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10623	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10623	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10623	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10623	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10623	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10623	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10624	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10624	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10624	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10624	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10624	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10624	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10624	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10624	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10624	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10625	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10625	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10625	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10625	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10625	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10625	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10625	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10625	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10625	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10626	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10626	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10626	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10626	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10626	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10626	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10626	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10626	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10626	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10627	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10627	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10627	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10627	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10627	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10627	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10627	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10627	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10627	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10628	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10628	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10628	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10628	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10628	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10628	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10628	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10628	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10628	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10629	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10629	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10629	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10629	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10629	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10629	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10629	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10629	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10629	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10630	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10630	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10630	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10630	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10630	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10630	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10630	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10630	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10630	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10631	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10631	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10631	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10631	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10631	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10631	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10631	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10631	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10631	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10632	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10632	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10632	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10632	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10632	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10632	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10632	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10632	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10632	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10633	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10633	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10633	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10633	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10633	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10633	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10633	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10633	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10633	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10634	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10634	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10634	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10634	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10634	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10634	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10634	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10634	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10634	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10635	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10635	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10635	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10635	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10635	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10635	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10635	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10635	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10635	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10636	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10636	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10636	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10636	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10636	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10636	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10636	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10636	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10636	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10637	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10637	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10637	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10637	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10637	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10637	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10637	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10637	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10637	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10638	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10638	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10638	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10638	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10638	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10638	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10638	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10638	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10638	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10639	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10639	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10639	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10639	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10639	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10639	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10639	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10639	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10639	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10640	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10640	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10640	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10640	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10640	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10640	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10640	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10640	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10640	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10641	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10641	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10641	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10641	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10641	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10641	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10641	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10641	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10641	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10642	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10642	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10642	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10642	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10642	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10642	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10642	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10642	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10642	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10643	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10643	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10643	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10643	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10643	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10643	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10643	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10643	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10643	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
+10644	CvXMLLoadUtilitySet.cpp	1581	virtual destructor (delete)	slot 0:       //#endif        delete pClassInfo;
+10644	CvXMLLoadUtilitySet.cpp	1600	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10644	CvXMLLoadUtilitySet.cpp	1686	virtual destructor (delete)	slot 0:        //#endif        delete pClassInfo;
+10644	CvXMLLoadUtilitySet.cpp	1700	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10644	CvXMLLoadUtilitySet.cpp	1752	virtual destructor (delete)	slot 0:  /************************************************************************************************/  /* XMLCOPY                                 END   
+10644	CvXMLLoadUtilitySet.cpp	1825	virtual destructor (delete)	slot 0:        {         delete pClassInfo;
+10644	CvXMLLoadUtilitySet.cpp	1864	virtual destructor (delete)	slot 0:        {         // We found that any of the 3! conditions NOT to load this class info has been met!         delete pClassInfo;
+10644	CvXMLLoadUtilitySet.cpp	1875	virtual destructor (delete)	slot 0:         {          delete pClassInfo;
+10644	CvXMLLoadUtilitySet.cpp	1891	virtual destructor (delete)	slot 0:       SAFE_DELETE(pClassInfo);
 10646	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
 10646	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
 10646	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
@@ -1563,30 +1467,102 @@ caller	file	line	reason	what
 10717	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
 10717	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
 10717	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
-10719	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10720	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10721	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10722	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10723	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10724	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10725	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10726	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10727	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10728	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10729	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10730	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10731	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10732	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10733	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10734	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10735	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10736	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10737	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10738	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10739	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10740	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10741	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10742	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10718	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10718	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10718	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10718	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10719	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10719	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10719	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10719	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10720	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10720	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10720	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10720	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10721	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10721	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10721	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10721	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10722	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10722	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10722	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10722	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10723	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10723	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10723	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10723	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10724	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10724	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10724	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10724	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10725	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10725	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10725	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10725	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10726	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10726	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10726	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10726	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10727	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10727	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10727	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10727	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10728	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10728	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10728	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10728	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10729	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10729	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10729	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10729	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10730	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10730	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10730	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10730	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10731	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10731	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10731	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10731	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10732	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10732	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10732	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10732	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10733	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10733	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10733	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10733	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10734	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10734	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10734	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10734	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10735	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10735	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10735	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10735	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10736	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10736	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10736	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10736	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10737	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10737	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10737	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10737	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10738	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10738	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10738	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10738	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10739	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10739	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10739	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10739	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10740	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10740	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10740	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10740	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
+10741	CvXMLLoadUtilitySet.cpp	1944	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+10741	CvXMLLoadUtilitySet.cpp	1983	virtual destructor (delete)	slot 0:      {       // We found that any of the 3! conditions NOT to load this class info has been met!       delete pClassInfo;
+10741	CvXMLLoadUtilitySet.cpp	1994	virtual destructor (delete)	slot 0:       {        delete pClassInfo;
+10741	CvXMLLoadUtilitySet.cpp	2007	virtual destructor (delete)	slot 0:     SAFE_DELETE(pClassInfo);
 10743	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
 10744	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
 10745	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
@@ -1659,65 +1635,89 @@ caller	file	line	reason	what
 10812	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
 10813	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
 10814	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10815	CvXMLLoadUtilitySet.cpp	2405	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
-10839	CvXMLLoadUtilitySet.cpp	3905	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
-13657	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
-13658	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
-13659	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
-13660	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
-13661	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
-13662	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
-13666	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
-13667	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
-13668	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
-13669	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
-13670	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
-13671	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
-13690	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13691	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13692	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13693	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13693	FFreeListTrashArray.h	512	virtual call: several candidate methods	5 candidates:    pData->read( pStream );
-13694	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13695	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13696	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13697	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13697	FFreeListTrashArray.h	512	virtual call: several candidate methods	5 candidates:    pData->read( pStream );
-13698	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
-13804	FVariableSystem.inl	114	virtual destructor (delete)	slot 0:    if ( pkVariable != NULL ) delete pkVariable;
-13809	FVariableSystem.inl	372	through a function pointer	    switch (pkVariable->m_eType)
-13813	FVariableSystem.inl	537	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13814	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13814	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13816	FVariableSystem.inl	691	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13816	FVariableSystem.inl	691	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13817	FVariableSystem.inl	735	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13817	FVariableSystem.inl	735	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
-13836	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13836	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13836	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13837	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13837	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13837	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13837	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13838	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13839	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13840	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13840	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13840	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13840	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13840	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13840	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13840	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13840	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13841	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13842	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13843	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
-13865	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13865	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13866	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13866	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13867	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13868	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13869	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
-13870	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+10815	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10816	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10817	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10818	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10819	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10820	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10821	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10822	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10823	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10824	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10825	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10826	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10827	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10828	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10829	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10830	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10831	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10832	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10833	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10834	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10835	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10836	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10837	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10838	CvXMLLoadUtilitySet.cpp	2113	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10839	CvXMLLoadUtilitySet.cpp	2405	through a function pointer	  {    pCache = (gDLL->*pArgFunction)(CvString::format("%s.dat", szFileRoot)); // cache file name
+10863	CvXMLLoadUtilitySet.cpp	3905	virtual destructor (delete)	slot 0:      {       delete pClassInfo;
+13681	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
+13682	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
+13683	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
+13684	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
+13685	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
+13686	FFreeListTrashArray.h	314	virtual destructor (delete)	slot 0:    {     delete m_pArray[iIndex].pData;
+13690	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
+13691	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
+13692	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
+13693	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
+13694	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
+13695	FFreeListTrashArray.h	352	virtual destructor (delete)	slot 0:    {     delete m_pArray[iI].pData;
+13714	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13715	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13716	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13717	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13717	FFreeListTrashArray.h	512	virtual call: several candidate methods	5 candidates:    pData->read( pStream );
+13718	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13719	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13720	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13721	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13721	FFreeListTrashArray.h	512	virtual call: several candidate methods	5 candidates:    pData->read( pStream );
+13722	FFreeListTrashArray.h	488	virtual call: several candidate methods	12 candidates:   flist.init( iTemp );
+13828	FVariableSystem.inl	114	virtual destructor (delete)	slot 0:    if ( pkVariable != NULL ) delete pkVariable;
+13833	FVariableSystem.inl	372	through a function pointer	    switch (pkVariable->m_eType)
+13837	FVariableSystem.inl	537	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13838	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13838	FVariableSystem.inl	647	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13840	FVariableSystem.inl	691	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13840	FVariableSystem.inl	691	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13841	FVariableSystem.inl	735	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13841	FVariableSystem.inl	735	virtual destructor (delete)	slot 0:   {    delete iIterator->second;
+13860	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13860	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13860	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13861	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13861	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13861	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13861	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13862	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13863	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13864	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13864	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13864	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13864	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13864	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13864	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13864	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13864	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13865	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13866	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13867	LinkedList.h	120	virtual destructor (delete)	slot 0:    SAFE_DELETE(pCurrNode);
+13889	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13889	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13890	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13890	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13891	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13892	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13893	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);
+13894	LinkedList.h	265	virtual destructor (delete)	slot 0:   }     SAFE_DELETE(pNode);

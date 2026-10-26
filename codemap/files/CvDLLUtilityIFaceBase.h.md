@@ -3,19 +3,19 @@
 Group: engine interface. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **46** `CvDLLUtilityIFaceBase::getEntityIFace(…)` (virtual; pure virtual, provided by the exe)
-  - called by (55): CvDLLEntity::ExecuteMove, CvDLLEntity::GetSiegeTower, CvDLLEntity::IsSelected, CvDLLEntity::MoveTo, CvDLLEntity::NotifyEntity, CvDLLEntity::PlayAnimation, CvDLLEntity::QueueMove, CvDLLEntity::SetPosition, CvDLLEntity::SetSiegeTower, CvDLLEntity::StopAnimation, CvDLLEntity::createCityEntity, CvDLLEntity::createUnitEntity …
+  - called by (36): CvDLLEntity::ExecuteMove, CvDLLEntity::GetSiegeTower, CvDLLEntity::IsSelected, CvDLLEntity::MoveTo, CvDLLEntity::NotifyEntity, CvDLLEntity::PlayAnimation, CvDLLEntity::QueueMove, CvDLLEntity::SetPosition, CvDLLEntity::SetSiegeTower, CvDLLEntity::StopAnimation, CvDLLEntity::createCityEntity, CvDLLEntity::createUnitEntity …
 - **47** `CvDLLUtilityIFaceBase::getInterfaceIFace(…)` (virtual; pure virtual, provided by the exe)
-  - called by (378): CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvCity::applyEvent, CvCity::chooseProduction, CvCity::conscript, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::hurry, CvCity::isCitySelected, CvCity::kill, CvCity::liberate …
+  - called by (380): CvArea::changeCleanPowerCount, CvArea::changeYieldRateModifier, CvCity::applyEvent, CvCity::chooseProduction, CvCity::conscript, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::hurry, CvCity::isCitySelected, CvCity::kill, CvCity::liberate …
 - **48** `CvDLLUtilityIFaceBase::getEngineIFace(…)` (virtual; pure virtual, provided by the exe)
   - called by (38): CvCity::setNumRealBuildingTimed, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::doGotoTurnEvent, CvDllPythonEvents::reportKbdEvent, CvDllPythonEvents::reportMouseEvent, CvGame::doControl, CvGame::doTurn, CvGame::drawBattleEffects, CvGame::regenerateMap, CvGame::saveReplay, CvGame::setActivePlayer, CvGame::toggleDebugMode …
 - **50** `CvDLLUtilityIFaceBase::getSymbolIFace(…)` (virtual; pure virtual, provided by the exe)
   - called by (5): CvPlot::addSymbol, CvPlot::deleteAllSymbols, CvPlot::updateSymbolDisplay, CvPlot::updateSymbolVisibility, CvPlot::updateSymbols
 - **51** `CvDLLUtilityIFaceBase::getFeatureIFace(…)` (virtual; pure virtual, provided by the exe)
-  - called by (8): CvPlot::addFeatureDummyModel, CvPlot::pickFeatureDummyTag, CvPlot::resetFeatureModel, CvPlot::setFeatureDummyTexture, CvPlot::setFeatureDummyVisibility, CvPlot::uninit, CvPlot::updateFeatureSymbol, CvPlot::updateFeatureSymbolVisibility
+  - called by (9): CvPlot::addFeatureDummyModel, CvPlot::pageGraphics, CvPlot::pickFeatureDummyTag, CvPlot::resetFeatureModel, CvPlot::setFeatureDummyTexture, CvPlot::setFeatureDummyVisibility, CvPlot::uninit, CvPlot::updateFeatureSymbolEntity, CvPlot::updateFeatureSymbolVisibility
 - **52** `CvDLLUtilityIFaceBase::getRouteIFace(…)` (virtual; pure virtual, provided by the exe)
   - called by (4): CvGameTextMgr::setPlotHelp, CvPlot::uninit, CvPlot::updateGraphicEra, CvPlot::updateRouteSymbol
 - **53** `CvDLLUtilityIFaceBase::getPlotBuilderIFace(…)` (virtual; pure virtual, provided by the exe)
-  - called by (2): CvPlot::uninit, CvPlot::updatePlotBuilder
+  - called by (3): CvPlot::pageGraphics, CvPlot::uninit, CvPlot::updatePlotBuilder
 - **54** `CvDLLUtilityIFaceBase::getRiverIFace(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvPlot::uninit, CvPlot::updateRiverSymbol
 - **55** `CvDLLUtilityIFaceBase::getFAStarIFace(…)` (virtual; pure virtual, provided by the exe)
@@ -23,9 +23,9 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **56** `CvDLLUtilityIFaceBase::getXMLIFace(…)` (virtual; pure virtual, provided by the exe)
   - called by (298): CvAdvisorInfo::read, CvAnimationPathInfo::read, CvArtInfoFeature::read, CvArtInfoUnit::read, CvBonusInfo::read(CvXMLLoadUtility*), CvBuildingInfo::read(CvXMLLoadUtility*), CvCivicInfo::read(CvXMLLoadUtility*), CvCivilizationInfo::read(CvXMLLoadUtility*), CvCorporationInfo::read, CvDiplomacyInfo::copyNonDefaults, CvDiplomacyInfo::read(CvXMLLoadUtility*), CvDiplomacyResponse::read(CvXMLLoadUtility*) …
 - **57** `CvDLLUtilityIFaceBase::getFlagEntityIFace(…)` (virtual; pure virtual, provided by the exe)
-  - called by (3): CvPlot::uninit, CvPlot::updateFlagSymbol, CvPlot::updateGraphicEra
+  - called by (4): CvPlot::pageGraphics, CvPlot::uninit, CvPlot::updateFlagSymbol, CvPlot::updateGraphicEra
 - **58** `CvDLLUtilityIFaceBase::getPythonIFace(…)` (virtual; pure virtual, provided by the exe)
-  - called by (188): CvCity::canConstruct, CvCity::canCreate, CvCity::canMaintain, CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const, CvCity::doCulture, CvCity::doGreatPeople, CvCity::doGrowth, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doProduction, CvCity::doReligion, CvCity::getConscriptUnit …
+  - called by (189): CvCity::canConstruct, CvCity::canCreate, CvCity::canMaintain, CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const, CvCity::doCulture, CvCity::doGreatPeople, CvCity::doGrowth, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doProduction, CvCity::doReligion, CvCity::getConscriptUnit …
 - **60** `CvDLLUtilityIFaceBase::delMem(…)` (virtual; pure virtual, provided by the exe)
   - called by (3): operator delete(void*), operator delete(void*, char*, int), operator delete[](void*, char*, int)
 - **61** `CvDLLUtilityIFaceBase::newMem(…)` (virtual; pure virtual, provided by the exe)
@@ -65,7 +65,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **92** `CvDLLUtilityIFaceBase::setChtLvl(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvDLLButtonPopup::OnOkClicked
 - **93** `CvDLLUtilityIFaceBase::GetWorldBuilderMode(…)` (virtual; pure virtual, provided by the exe)
-  - called by (21): CvCity::setNumRealBuildingTimed, CvDLLButtonPopup::OnOkClicked, CvGame::doControl, CvGame::getNewHighlightPlot, CvGame::getPlotHighlightColor, CvGame::setHeadquarters, CvGame::setHolyCity, CvGame::shouldDisplayEndTurnButton, CvGame::shouldDisplayFlag, CvGame::shouldDisplayUnitModel, CvGame::shouldShowResearchButtons, CvGame::update …
+  - called by (22): CvCity::setNumRealBuildingTimed, CvDLLButtonPopup::OnOkClicked, CvGame::doControl, CvGame::getNewHighlightPlot, CvGame::getPlotHighlightColor, CvGame::setHeadquarters, CvGame::setHolyCity, CvGame::shouldDisplayEndTurnButton, CvGame::shouldDisplayFlag, CvGame::shouldDisplayUnitModel, CvGame::shouldShowResearchButtons, CvGame::update …
 - **94** `CvDLLUtilityIFaceBase::getCurrentLanguage(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvGameTextMgr::getCurrentLanguage, CyGame::getCurrentLanguage
 - **95** `CvDLLUtilityIFaceBase::setCurrentLanguage(…)` (virtual; pure virtual, provided by the exe)
@@ -131,7 +131,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **151** `CvDLLUtilityIFaceBase::SetDone(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvDLLButtonPopup::OnOkClicked
 - **152** `CvDLLUtilityIFaceBase::GetDone(…)` (virtual; pure virtual, provided by the exe)
-  - called by (2): CvUnit::reloadEntity, CvUnit::~CvUnit
+  - called by (4): CvCity::pageGraphics, CvUnit::pageGraphics, CvUnit::reloadEntity, CvUnit::~CvUnit
 - **153** `CvDLLUtilityIFaceBase::GetAutorun(…)` (virtual; pure virtual, provided by the exe)
   - called by (4): CvGame::doControl, CvGame::setWinner, CvGame::testVictory(), CvGame::update
 - **155** `CvDLLUtilityIFaceBase::beginDiplomacy(…)` (virtual; pure virtual, provided by the exe)
@@ -173,7 +173,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **196** `CvDLLUtilityIFaceBase::fileManagerEnabled(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvXMLLoadUtility::LoadCivXml
 - **198** `CvDLLUtilityIFaceBase::logMsg(…)` (virtual; pure virtual, provided by the exe)
-  - called by (14): CvGame::logMsg, CvGameTextMgr::buildCityBillboardIconString, CvGlobals::getInfoTypeForString, CvGlobals::logInfoTypeMap, CvHandicapInfo::copyNonDefaults, CvPlayer::logMsg, CvTeam::logMsg, CvTechInfo::readPass2, CvXMLLoadUtility::logMLF, CvXMLLoadUtility::logMsg, CvXMLLoadUtility::logXmlDependencyTypes, CvXMLLoadUtilitySetMod::MLFEnumerateFiles …
+  - called by (15): CvGame::logMsg, CvGame::pageGraphics, CvGame::updateGraphicsPaging, CvGlobals::getInfoTypeForString, CvGlobals::logInfoTypeMap, CvHandicapInfo::copyNonDefaults, CvPlayer::logMsg, CvTeam::logMsg, CvTechInfo::readPass2, CvXMLLoadUtility::logMLF, CvXMLLoadUtility::logMsg, CvXMLLoadUtility::logXmlDependencyTypes …
 - **199** `CvDLLUtilityIFaceBase::logMemState(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvMap::init, CvMapGenerator::addGameElements
 - **201** `CvDLLUtilityIFaceBase::getSymbolID(…)` (virtual; pure virtual, provided by the exe)

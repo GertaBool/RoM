@@ -17,975 +17,984 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **180** `CvPlot::reset(int, int, bool)`
   - calls: CvPlot::uninit, IDInfo::reset [CvStructs.h]
   - called by (3): CvPlot::CvPlot, CvPlot::init, CvPlot::read
-- **267** `CvPlot::setupGraphical()`
+- **271** `CvPlot::setupGraphical()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::updateSymbols, CvPlot::updateFeatureSymbol, CvPlot::updateRiverSymbol, CvPlot::updateMinimapColor, CvPlot::updateVisibility
   - called by (1): CvMap::setupGraphical
-- **284** `CvPlot::updateGraphicEra()`
+- **300** `CvPlot::pageGraphics(bool)`
+  - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::updateFeatureSymbolEntity, CvPlot::setLayoutDirty, CvPlot::updateSymbols, CvPlot::setFlagDirty, CvPlot::canPageGraphicsOut, CvGlobals::getGameINLINE [CvGlobals.h], CvGame::isGraphicsPagingPlots [CvGame.cpp], CvGame::isGraphicsPagingBuilders [CvGame.cpp], CvGame::isGraphicsPagingSymbols [CvGame.cpp], CvDLLFeatureIFaceBase::destroy [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLPlotBuilderIFaceBase::destroy [CvDLLPlotBuilderIFaceBase.h], CvDLLUtilityIFaceBase::getPlotBuilderIFace [CvDLLUtilityIFaceBase.h], CvPlot::deleteAllSymbols, CvDLLFlagEntityIFaceBase::destroy [CvDLLFlagEntityIFaceBase.h], CvDLLUtilityIFaceBase::getFlagEntityIFace [CvDLLUtilityIFaceBase.h]
+  - called by (7): CvCity::pageGraphics, CvCity::setupGraphical, CvGame::pageGraphics, CvPlot::updateFlagSymbol, CvUnit::pageGraphics, CvUnit::setXY, CvUnit::setupGraphical
+- **371** `CvPlot::canPageGraphicsOut() const`
+  - calls: CvPlot::getPlotCity, CvDLLEntity::isGraphicsPagedOut [CvDLLEntity.h], CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvDLLInterfaceIFaceBase::getSingleMoveGotoPlot [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
+  - called by (2): CvPlot::pageGraphics, CvPlot::updateFlagSymbol
+- **393** `CvPlot::updateGraphicEra()`
   - calls: CvDLLRouteIFaceBase::updateGraphicEra [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getRouteIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLFlagEntityIFaceBase::updateGraphicEra [CvDLLFlagEntityIFaceBase.h], CvDLLUtilityIFaceBase::getFlagEntityIFace [CvDLLUtilityIFaceBase.h]
   - called by (1): CvPlayer::setCurrentEra
-- **293** `CvPlot::erase()` (exported)
+- **402** `CvPlot::erase()` (exported)
   - calls: CLinkList<IDInfo>::CLinkList<struct IDInfo> [LinkedList.h], CLinkList<IDInfo>::clear [LinkedList.h], CvPlot::headUnitNode, CLinkList<IDInfo>::insertAtEnd [LinkedList.h], CvPlot::nextUnitNode, CLinkList<IDInfo>::head [LinkedList.h], getUnit [CvGameCoreUtils.cpp], CLinkList<IDInfo>::next [LinkedList.h], CvUnit::kill [CvUnit.cpp], CvPlot::getPlotCity, CvCity::kill [CvCity.cpp], CvPlot::setBonusType, CvPlot::setImprovementType, CvPlot::setRouteType, CvPlot::setFeatureType, CvPlot::setNOfRiver, CvPlot::setWOfRiver, CvPlot::setRiverID, CLinkList<IDInfo>::~CLinkList<struct IDInfo> [LinkedList.h]
   - called by (3): CvMap::erasePlots, CvPlot::setPlotType, CyPlot::erase
-- **343** `CvPlot::getPointX() const` (exported)
+- **452** `CvPlot::getPointX() const` (exported)
   - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotXToPointX [CvMap.cpp], CvPlot::getX_INLINE [CvPlot.h]
   - called by (1): CvPlot::getPoint
-- **349** `CvPlot::getPointY() const` (exported)
+- **458** `CvPlot::getPointY() const` (exported)
   - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotYToPointY [CvMap.cpp], CvPlot::getY_INLINE [CvPlot.h]
   - called by (1): CvPlot::getPoint
-- **355** `CvPlot::getPoint() const` (exported)
+- **464** `CvPlot::getPoint() const` (exported)
   - calls: NiPoint3::NiPoint3() [CvGameCoreDLL.h], CvPlot::getPointX, CvPlot::getPointY, CvDLLEngineIFaceBase::GetHeightmapZ [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (14): CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::doGotoTurnEvent, CvGame::drawBattleEffects, CvGame::regenerateMap, CvPlayer::doEspionageMission, CvSelectionGroup::continueMission, CvSelectionGroup::playActionSound, CvUnit::attackForDamage, CvUnit::found, CvUnit::move, CvUnit::performInquisition, CvUnit::updateCombat …
-- **369** `CvPlot::getSymbolSize() const`
+- **478** `CvPlot::getSymbolSize() const`
   - calls: CvPlot::isVisibleWorked, CvPlot::isShowCitySymbols
   - called by (2): CvPlot::getSymbolOffsetX, CvPlot::updateSymbolDisplay
-- **396** `CvPlot::getSymbolOffsetX(int) const` (exported)
+- **505** `CvPlot::getSymbolOffsetX(int) const` (exported)
   - calls: CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getSymbolSize
-- **402** `CvPlot::getSymbolOffsetY(int) const` (exported)
+- **511** `CvPlot::getSymbolOffsetY(int) const` (exported)
   - calls: CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
-- **408** `CvPlot::getTeam() const`
+- **517** `CvPlot::getTeam() const`
   - calls: CvPlot::isOwned, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getOwnerINLINE [CvPlot.h]
   - called by (158): CvCityAI::AI_calculateCulturePressure, CvCityAI::AI_neededAirDefenders, CvDLLButtonPopup::launchDeclareWarMovePopup, CvDLLWidgetData::parseActionHelp, CvGame::selectionListMove, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvPlayer::assimilatePlayer, CvPlayer::disbandUnit, CvPlayer::getTradeLayerColors, CvPlayerAI::AI_advancedStartPlaceExploreUnits, CvPlayerAI::AI_bestPlotEspionage …
-- **421** `CvPlot::doTurn()`
+- **530** `CvPlot::doTurn()`
   - calls: CvPlot::getForceUnownedTimer, CvPlot::changeForceUnownedTimer, CvPlot::isOwned, CvPlot::changeOwnershipDuration, CvPlot::getImprovementType, CvPlot::changeImprovementDuration, CvPlot::doFeature, CvPlot::doCulture, CvPlot::verifyUnitValidPlot
   - called by (1): CvMap::doTurn
-- **474** `CvPlot::doImprovement()`
+- **583** `CvPlot::doImprovement()`
   - calls: CvWString::CvWString() [CvString.h], CvPlot::getImprovementType, CvPlot::getBonusType, CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvBonusInfo::getTechReveal [CvInfos.cpp], CvPlot::getTeam, CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getImprovementBonusDiscoverRand [CvInfos.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getVictoryDelayPercent [CvInfos.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvPlot::setBonusType, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::findCity [CvMap.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getOwnerINLINE [CvPlot.h], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvBonusInfo::getButton [CvInfos.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvPlot::doImprovementUpgrade
   - called by (1): CvCity::doTurn
-- **537** `CvPlot::doImprovementUpgrade()`
+- **646** `CvPlot::doImprovementUpgrade()`
   - calls: CvPlot::getImprovementType, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::getImprovementUpgrade [CvInfos.cpp], CvImprovementInfo::isOutsideBorders [CvInfos.cpp], CvPlot::isBeingWorked, CvPlayer::getImprovementUpgradeRate [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::changeUpgradeProgress, CvPlot::getOwnerINLINE [CvPlot.h], CvGame::getImprovementUpgradeTime [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getUpgradeProgress, CvPlot::setImprovementType
   - called by (1): CvPlot::doImprovement
-- **557** `CvPlot::updateCulture(bool, bool)`
+- **666** `CvPlot::updateCulture(bool, bool)`
   - calls: CvPlot::isCity, CvPlot::calculateCulturalOwner, CvPlot::setOwner
   - called by (7): CvCity::init, CvCity::kill, CvPlayer::assimilatePlayer, CvPlot::changeCultureRangeCities, CvPlot::doCulture, CvPlot::setCulture, CvTeam::setVassal
-- **566** `CvPlot::updateFog()`
+- **675** `CvPlot::updateFog()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::isRevealed, CvDLLInterfaceIFaceBase::isBareMapMode [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLEngineIFaceBase::LightenVisibility [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvPlot::getFOWIndex, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvDLLInterfaceIFaceBase::isCityScreenUp [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::getHeadSelectedCity [CvDLLInterfaceIFaceBase.h], CvPlot::getWorkingCity, CvDLLEngineIFaceBase::DarkenVisibility [CvDLLEngineIFaceBase.h], CvPlot::isActiveVisible, CvDLLEngineIFaceBase::BlackenVisibility [CvDLLEngineIFaceBase.h]
   - called by (5): CvMap::updateFog, CvPlot::changeStolenVisibilityCount, CvPlot::changeVisibilityCount, CvPlot::setRevealed, CvPlot::updateWorkingCity
-- **607** `CvPlot::updateVisibility()`
+- **716** `CvPlot::updateVisibility()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::setLayoutDirty, CvPlot::updateSymbolVisibility, CvPlot::updateFeatureSymbolVisibility, CvPlot::updateRouteSymbol, CvPlot::getPlotCity, CvCity::updateVisibility [CvCity.cpp]
   - called by (4): CvMap::updateVisibility, CvPlot::setRevealed, CvPlot::setupGraphical, CyPlot::updateVisibility
-- **630** `CvPlot::updateSymbolDisplay()`
+- **739** `CvPlot::updateSymbolDisplay()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getNumSymbols, CvPlot::getSymbol, CvPlot::isShowCitySymbols, CvDLLSymbolIFaceBase::setAlpha [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::isVisibleWorked, CvDLLSymbolIFaceBase::setScale [CvDLLSymbolIFaceBase.h], CvPlot::getSymbolSize, CvDLLSymbolIFaceBase::updatePosition [CvDLLSymbolIFaceBase.h]
   - called by (3): CvCity::setWorkingPlot(int, bool), CvPlot::updateShowCitySymbols, CvPlot::updateSymbols
-- **663** `CvPlot::updateSymbolVisibility()`
+- **772** `CvPlot::updateSymbolVisibility()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getNumSymbols, CvPlot::getSymbol, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::isRevealed, CvPlot::isShowCitySymbols, CvDLLInterfaceIFaceBase::isShowYields [CvDLLInterfaceIFaceBase.h], CvDLLInterfaceIFaceBase::isCityScreenUp [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLSymbolIFaceBase::Hide [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h]
   - called by (4): CvMap::updateSymbolVisibility, CvPlot::updateShowCitySymbols, CvPlot::updateSymbols, CvPlot::updateVisibility
-- **696** `CvPlot::updateSymbols()`
+- **805** `CvPlot::updateSymbols()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::deleteAllSymbols, CvPlot::calculateYield, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlot::addSymbol, CvDLLSymbolIFaceBase::setTypeYield [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::getNumSymbols, CvPlot::getSymbol, CvDLLSymbolIFaceBase::init [CvDLLSymbolIFaceBase.h], CvDLLSymbolIFaceBase::getID [CvDLLSymbolIFaceBase.h], CvPlot::updateSymbolDisplay, CvPlot::updateSymbolVisibility
-  - called by (8): CvCity::setRevealed, CvMap::updateSymbols, CvPlot::setOwner, CvPlot::setRevealed, CvPlot::setRevealedImprovementType, CvPlot::setRevealedRouteType, CvPlot::setupGraphical, CvPlot::updateYield
-- **751** `CvPlot::updateMinimapColor()`
+  - called by (9): CvCity::setRevealed, CvMap::updateSymbols, CvPlot::pageGraphics, CvPlot::setOwner, CvPlot::setRevealed, CvPlot::setRevealedImprovementType, CvPlot::setRevealedRouteType, CvPlot::setupGraphical, CvPlot::updateYield
+- **860** `CvPlot::updateMinimapColor()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvDLLInterfaceIFaceBase::setMinimapColor [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::plotMinimapColor, CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (9): CvMap::updateMinimapColor, CvPlot::changeStolenVisibilityCount, CvPlot::changeVisibilityCount, CvPlot::setCenterUnit, CvPlot::setOwner, CvPlot::setPlotCity, CvPlot::setRevealedOwner, CvPlot::setupGraphical, CvUnit::setXY
-- **764** `CvPlot::updateCenterUnit()`
+- **873** `CvPlot::updateCenterUnit()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::isActiveVisible, CvPlot::setCenterUnit, CvPlot::getSelectedUnit, CvPlot::getCenterUnit, CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getBestDefender, CvDLLInterfaceIFaceBase::getHeadSelectedUnit [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (8): CvMap::updateCenterUnit, CvPlot::addUnit, CvPlot::changeInvisibleVisibilityCount, CvPlot::changeStolenVisibilityCount, CvPlot::changeVisibilityCount, CvPlot::removeUnit, CvUnit::init, CvUnit::setXY
-- **806** `CvPlot::verifyUnitValidPlot()`
-  - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::atPlot [CvUnit.cpp], CvUnit::isCargo [CvUnit.cpp], CvUnit::isCombat [CvUnit.cpp], CvPlot::isValidDomainForLocation, CvPlot::getTeam, CvPlot::area, CvUnit::canEnterArea [CvUnit.cpp], CvUnit::jumpToNearestValidPlot [CvUnit.cpp], CvPlot::isOwned, CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam [CvUnit.cpp], CvPlot::isVisibleEnemyUnit(CvUnit const*) const, CvUnit::isInvisible [CvUnit.cpp]
+- **915** `CvPlot::verifyUnitValidPlot()`
+  - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::atPlot [CvUnit.cpp], CvUnit::isCargo [CvUnit.cpp], CvUnit::isCombat [CvUnit.cpp], CvPlot::isValidDomainForLocation, CvPlot::area, CvPlot::getTeam, CvUnit::canEnterArea [CvUnit.cpp], CvUnit::jumpToNearestValidPlot [CvUnit.cpp], CvPlot::isOwned, CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnit::getTeam [CvUnit.cpp], CvPlot::isVisibleEnemyUnit(CvUnit const*) const, CvUnit::isInvisible [CvUnit.cpp]
   - called by (4): CvMap::verifyUnitValidPlot, CvPlot::doTurn, CvPlot::setImprovementType, CvPlot::setOwner
-- **902** `CvPlot::nukeExplosion(int, CvUnit*)`
-  - calls: CLinkList<IDInfo>::CLinkList<struct IDInfo> [LinkedList.h], CvWString::CvWString() [CvString.h], CvGame::changeNukesExploded [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getPlotCity, CvPlot::isImpassable, CvPlot::isWater, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::isNukeImmune [CvInfos.cpp], CvPlot::getFeatureType, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlot::setImprovementType, CvPlot::setFeatureType, CLinkList<IDInfo>::clear [LinkedList.h], CvPlot::headUnitNode, CLinkList<IDInfo>::insertAtEnd [LinkedList.h], CvPlot::nextUnitNode, CLinkList<IDInfo>::head [LinkedList.h], getUnit [CvGameCoreUtils.cpp], CLinkList<IDInfo>::next [LinkedList.h], CvUnit::isDelayedDeath [CvUnit.cpp], CvUnit::isNukeImmune [CvUnit.cpp], CvCity::getNukeModifier [CvCity.cpp], CvUnit::canFight [CvUnit.cpp], CvUnit::airBaseCombatStr [CvUnit.cpp], CvUnit::changeDamage [CvUnit.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::kill [CvUnit.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::isNukeImmune [CvInfos.cpp], CvCity::setNumRealBuilding [CvCity.cpp], CvCity::getPopulation [CvCity.cpp], CvCity::changePopulation [CvCity.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::nukeExplosion [CvEventReporter.cpp], CvWString::~CvWString [CvString.h], CLinkList<IDInfo>::~CLinkList<struct IDInfo> [LinkedList.h]
+- **1011** `CvPlot::nukeExplosion(int, CvUnit*)`
+  - calls: CLinkList<IDInfo>::CLinkList<struct IDInfo> [LinkedList.h], CvWString::CvWString() [CvString.h], CvGame::changeNukesExploded [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getPlotCity, CvPlot::isImpassable, CvPlot::isWater, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::isNukeImmune [CvInfos.cpp], CvPlot::getFeatureType, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlot::setImprovementType, CvPlot::setFeatureType, CLinkList<IDInfo>::clear [LinkedList.h], CvPlot::headUnitNode, CLinkList<IDInfo>::insertAtEnd [LinkedList.h], CvPlot::nextUnitNode, CLinkList<IDInfo>::head [LinkedList.h], getUnit [CvGameCoreUtils.cpp], CLinkList<IDInfo>::next [LinkedList.h], CvUnit::isNukeImmune [CvUnit.cpp], CvUnit::isDelayedDeath [CvUnit.cpp], CvCity::getNukeModifier [CvCity.cpp], CvUnit::canFight [CvUnit.cpp], CvUnit::airBaseCombatStr [CvUnit.cpp], CvUnit::changeDamage [CvUnit.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::kill [CvUnit.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::isNukeImmune [CvInfos.cpp], CvCity::setNumRealBuilding [CvCity.cpp], CvCity::getPopulation [CvCity.cpp], CvCity::changePopulation [CvCity.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::nukeExplosion [CvEventReporter.cpp], CvWString::~CvWString [CvString.h], CLinkList<IDInfo>::~CLinkList<struct IDInfo> [LinkedList.h]
   - called by (3): CvCity::doMeltdown, CvUnit::kill, CyPlot::nukeExplosion
-- **1019** `CvPlot::isConnectedTo(CvCity const*) const`
+- **1128** `CvPlot::isConnectedTo(CvCity const*) const`
   - calls: CvCity::plotGroup [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlot::getPlotGroup, CvPlot::getOwnerINLINE [CvPlot.h]
   - called by (4): CvCity::isConnectedTo, CvPlot::isConnectedToCapital, CvUnitAI::AI_connectPlot, CyPlot::isConnectedTo
-- **1026** `CvPlot::isConnectedToCapital(PlayerTypes) const`
+- **1135** `CvPlot::isConnectedToCapital(PlayerTypes) const`
   - calls: CvPlot::getOwnerINLINE [CvPlot.h], CvPlayer::getCapitalCity [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::isConnectedTo
   - called by (8): CvCity::isConnectedToCapital, CvCityAI::AI_bestPlotBuild, CvPlayerAI::AI_advancedStartRouteTerritory, CvUnitAI::AI_connectBonus, CvUnitAI::AI_improveBonus, CvUnitAI::AI_pillageValue, CvUnitAI::AI_workerMove, CyPlot::isConnectedToCapital
-- **1049** `CvPlot::getPlotGroupConnectedBonus(PlayerTypes, BonusTypes) const`
+- **1158** `CvPlot::getPlotGroupConnectedBonus(PlayerTypes, BonusTypes) const`
   - calls: CvPlot::getPlotGroup, CvPlotGroup::getNumBonuses [CvPlotGroup.cpp]
   - called by (4): CvPlot::isPlotGroupConnectedBonus, CvUnitAI::AI_guardBonus, CvUnitAI::AI_pillageValue, CyPlot::getPlotGroupConnectedBonus
-- **1069** `CvPlot::isPlotGroupConnectedBonus(PlayerTypes, BonusTypes) const`
+- **1178** `CvPlot::isPlotGroupConnectedBonus(PlayerTypes, BonusTypes) const`
   - calls: CvPlot::getPlotGroupConnectedBonus
   - called by (4): CvGameTextMgr::setPlotHelp, CvPlot::canTrain, CvPlot::isAdjacentPlotGroupConnectedBonus, CyPlot::isPlotGroupConnectedBonus
-- **1075** `CvPlot::isAdjacentPlotGroupConnectedBonus(PlayerTypes, BonusTypes) const`
+- **1184** `CvPlot::isAdjacentPlotGroupConnectedBonus(PlayerTypes, BonusTypes) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isPlotGroupConnectedBonus
   - called by (3): CvDLLWidgetData::parseActionHelp, CvPlot::canBuild, CyPlot::isAdjacentPlotGroupConnectedBonus
-- **1097** `CvPlot::updatePlotGroupBonus(bool)`
+- **1206** `CvPlot::updatePlotGroupBonus(bool)`
   - calls: CvPlot::isOwned, CvPlot::getPlotGroup, CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::getPlotCity, CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getTeam, CvTeam::isBonusObsolete [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvCity::getFreeBonus [CvCity.cpp], CvPlotGroup::changeNumBonuses [CvPlotGroup.cpp], CvCity::isCapital [CvCity.cpp], CvPlayer::getBonusExport [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getBonusImport [CvPlayer.cpp], CvPlot::getNonObsoleteBonusType, CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvBonusInfo::getTechCityTrade [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvPlot::isCity, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isImprovementBonusTrade [CvInfos.cpp], CvPlot::getImprovementType, CvPlot::isBonusNetwork
   - called by (14): CvCity::changeFreeBonus, CvPlayer::changeBonusExport, CvPlayer::changeBonusImport, CvPlayer::setCapitalCity, CvPlot::setBonusType, CvPlot::setImprovementType, CvPlot::setNOfRiver, CvPlot::setOwner, CvPlot::setPlotCity, CvPlot::setPlotGroup, CvPlot::setRouteType, CvPlot::setWOfRiver …
-- **1157** `CvPlot::isAdjacentToArea(int) const`
+- **1266** `CvPlot::isAdjacentToArea(int) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getArea
   - called by (7): CvPlayer::countNumCoastalCitiesByArea, CvPlayerAI::AI_getNumAdjacentAreaCitySites, CvPlayerAI::AI_getWaterDanger, CvPlot::isAdjacentToArea(CvArea const*) const, CvPlot::shareAdjacentArea, CvTeamAI::AI_isWaterAreaRelevant, pathDestValid
-- **1180** `CvPlot::isAdjacentToArea(CvArea const*) const`
+- **1289** `CvPlot::isAdjacentToArea(CvArea const*) const`
   - calls: CvArea::getID [CvArea.cpp], CvPlot::isAdjacentToArea(int) const
   - called by (9): CvGame::updateColoredPlots, CvPlayer::splitEmpire, CvPlayerAI::AI_bestAreaUnitAIValue, CvUnit::collectBlockadeGold, CvUnit::jumpToNearestValidPlot, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_improveBonus, CvUnitAI::AI_pirateBlockade, CyPlot::isAdjacentToArea
-- **1186** `CvPlot::shareAdjacentArea(CvPlot const*) const`
+- **1295** `CvPlot::shareAdjacentArea(CvPlot const*) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getArea, CvPlot::isAdjacentToArea(int) const
   - called by (1): CyPlot::shareAdjacentArea
-- **1221** `CvPlot::isAdjacentToLand() const`
+- **1330** `CvPlot::isAdjacentToLand() const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isWater
   - called by (10): CvGame::initScoreCalculation, CvGame::normalizeAddExtras, CvGame::normalizeRemoveBadFeatures, CvMap::syncRandPlot, CvMapGenerator::setPlotTypes, CvPlot::setPlotType, CvUnitAI::AI_carrierSeaTransport, CvUnitAI::AI_explore, CvUnitAI::AI_exploreRange, CyPlot::isAdjacentToLand
-- **1245** `CvPlot::isCoastalLand(int) const`
+- **1354** `CvPlot::isCoastalLand(int) const`
   - calls: CvPlot::isWater, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvArea::getNumTiles [CvArea.cpp], CvPlot::area
   - called by (29): CvArea::countCoastalLand, CvCity::isCoastal, CvGame::doGlobalWarming, CvGame::normalizeFindLakePlot, CvGame::normalizeRemoveBadTerrain, CvMapGenerator::addLakes, CvMapGenerator::addRivers, CvPlayer::canFound, CvPlayerAI::AI_foundValue, CvPlot::canHaveFeature, CvPlot::canTrain, CvSelectionGroup::isAmphibPlot …
-- **1277** `CvPlot::isVisibleWorked() const`
+- **1386** `CvPlot::isVisibleWorked() const`
   - calls: CvPlot::isBeingWorked, CvGame::getActiveTeam [CvGame.cpp], CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getTeam
   - called by (2): CvPlot::getSymbolSize, CvPlot::updateSymbolDisplay
-- **1291** `CvPlot::isWithinTeamCityRadius(TeamTypes, PlayerTypes) const`
+- **1400** `CvPlot::isWithinTeamCityRadius(TeamTypes, PlayerTypes) const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlot::isPlayerCityRadius
   - called by (1): CyPlot::isWithinTeamCityRadius
-- **1318** `CvPlot::isLake() const` (exported)
+- **1427** `CvPlot::isLake() const` (exported)
   - calls: CvPlot::area, CvArea::isLake [CvArea.cpp]
   - called by (6): CvGameTextMgr::setPlotHelp, CvPlot::calculateNatureYield, CvPlot::getAqueductSourceWeight, CvPlot::isFreshWater, CvPlot::setArea, CyPlot::isLake
-- **1332** `CvPlot::isFreshWater() const`
+- **1441** `CvPlot::isFreshWater() const`
   - calls: CvPlot::isWater, CvPlot::isImpassable, CvPlot::isRiver, plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isLake, CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::isAddsFreshWater [CvInfos.cpp]
   - called by (14): CvCity::updateFreshWaterHealth, CvCityAI::AI_bestPlotBuild, CvGame::normalizeAddRiver, CvGame::normalizeFindLakePlot, CvGameTextMgr::setPlotHelp, CvMap::findWater, CvPlayer::canFound, CvPlayerAI::AI_doAdvancedStart, CvPlayerAI::AI_foundValue, CvPlot::canHaveImprovement, CvPlot::isIrrigationAvailable, CvUnit::canPlunder …
-- **1380** `CvPlot::isPotentialIrrigation() const`
+- **1489** `CvPlot::isPotentialIrrigation() const`
   - calls: CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::isCarriesIrrigation [CvInfos.cpp], CvPlot::isCity, CvPlot::isHills, CvPlot::getImprovementType, CvPlot::getTeam, CvTeam::isIrrigation [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
   - called by (4): CvCityAI::AI_bestPlotBuild, CvPlot::updateIrrigated, CyPlot::isPotentialIrrigation, potentialIrrigation
-- **1394** `CvPlot::canHavePotentialIrrigation() const`
+- **1503** `CvPlot::canHavePotentialIrrigation() const`
   - calls: CvPlot::isCity, CvPlot::isHills, CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isCarriesIrrigation [CvInfos.cpp], CvPlot::canHaveImprovement
   - called by (2): CvCityAI::AI_bestPlotBuild, CyPlot::canHavePotentialIrrigation
-- **1418** `CvPlot::isIrrigationAvailable(bool) const` (exported)
+- **1527** `CvPlot::isIrrigationAvailable(bool) const` (exported)
   - calls: CvPlot::isIrrigated, CvPlot::isFreshWater, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (9): CvCityAI::AI_bestPlotBuild, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setPlotHelp, CvPlot::calculateImprovementYieldChange, CvPlot::canHaveImprovement, CvPlot::updateIrrigated, CvUnit::isActionRecommended, CvUnitAI::AI_irrigateTerritory, CyPlot::isIrrigationAvailable
-- **1450** `CvPlot::isRiverMask() const` (exported)
+- **1559** `CvPlot::isRiverMask() const` (exported)
   - calls: CvPlot::isNOfRiver, CvPlot::isWOfRiver, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (1): CvPlot::updateRiverSymbol
-- **1480** `CvPlot::isRiverCrossingFlowClockwise(DirectionTypes) const` (exported)
+- **1589** `CvPlot::isRiverCrossingFlowClockwise(DirectionTypes) const` (exported)
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getRiverWEDirection, CvPlot::getRiverNSDirection
-- **1514** `CvPlot::isRiverSide() const`
+- **1623** `CvPlot::isRiverSide() const`
   - calls: plotCardinalDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], directionXY(CvPlot const*, CvPlot const*) [CvGameCoreUtils.h], CvPlot::isRiverCrossing
   - called by (4): CvPlot::calculateImprovementYieldChange, CvPlot::canHaveBonus, CvPlot::canHaveImprovement, CyPlot::isRiverSide
-- **1536** `CvPlot::isRiver() const`
+- **1645** `CvPlot::isRiver() const`
   - calls: CvPlot::getRiverCrossingCount
   - called by (18): CvCity::countNumRiverPlots, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::isValidBuildingLocation, CvGame::normalizeFindLakePlot, CvMapGenerator::addLakes, CvMapGenerator::addRiver, CvPlayerAI::AI_doAdvancedStart, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_techBuildingValue, CvPlot::calculateMaxYield, CvPlot::calculateNatureYield, CvPlot::calculateYield …
-- **1542** `CvPlot::isRiverConnection(DirectionTypes) const`
+- **1651** `CvPlot::isRiverConnection(DirectionTypes) const`
   - calls: CvPlot::isRiverCrossing
   - called by (2): CvPlot::isTradeNetworkConnected, CyPlot::isRiverConnection
-- **1592** `CvPlot::getNearestLandPlotInternal(int) const`
+- **1701** `CvPlot::getNearestLandPlotInternal(int) const`
   - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isWater, CvPlot::getNearestLandPlotInternal
   - called by (2): CvPlot::getNearestLandPlot, CvPlot::getNearestLandPlotInternal
-- **1620** `CvPlot::getNearestLandArea() const`
+- **1729** `CvPlot::getNearestLandArea() const`
   - calls: CvPlot::getNearestLandPlot, CvPlot::getArea
   - called by (1): CyPlot::getNearestLandArea
-- **1627** `CvPlot::getNearestLandPlot() const`
+- **1736** `CvPlot::getNearestLandPlot() const`
   - calls: CvPlot::getNearestLandPlotInternal
   - called by (2): CvPlot::getNearestLandArea, CyPlot::getNearestLandPlot
-- **1633** `CvPlot::seeFromLevel(TeamTypes) const`
+- **1742** `CvPlot::seeFromLevel(TeamTypes) const`
   - calls: CvPlot::getTerrainType, CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTerrainInfo::getSeeFromLevel [CvInfos.cpp], CvPlot::isPeak, CvGlobals::getPEAK_SEE_FROM_CHANGE [CvGlobals.cpp], CvPlot::isHills, CvGlobals::getHILLS_SEE_FROM_CHANGE [CvGlobals.cpp], CvPlot::isWater, CvGlobals::getSEAWATER_SEE_FROM_CHANGE [CvGlobals.cpp], CvTeam::isExtraWaterSeeFrom [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
   - called by (2): CvPlot::canSeeDisplacementPlot, CyPlot::seeFromLevel
-- **1665** `CvPlot::seeThroughLevel() const`
+- **1774** `CvPlot::seeThroughLevel() const`
   - calls: CvPlot::getTerrainType, CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTerrainInfo::getSeeThroughLevel [CvInfos.cpp], CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getSeeThroughChange [CvInfos.cpp], CvPlot::isPeak, CvGlobals::getPEAK_SEE_THROUGH_CHANGE [CvGlobals.cpp], CvPlot::isHills, CvGlobals::getHILLS_SEE_THROUGH_CHANGE [CvGlobals.cpp], CvPlot::isWater, CvGlobals::getSEAWATER_SEE_FROM_CHANGE [CvGlobals.cpp]
   - called by (2): CvPlot::canSeeDisplacementPlot, CyPlot::seeThroughLevel
-- **1698** `CvPlot::changeAdjacentSight(TeamTypes, int, bool, CvUnit*, bool)`
+- **1807** `CvPlot::changeAdjacentSight(TeamTypes, int, bool, CvUnit*, bool)`
   - calls: CvUnit::getDomainType [CvUnit.cpp], CvUnit::getFacingDirection [CvUnit.cpp], CvUnit::getNumSeeInvisibleTypes [CvUnit.cpp], CvUnit::getSeeInvisibleType [CvUnit.cpp], CvPlot::shouldProcessDisplacementPlot, CvPlot::canSeeDisplacementPlot, plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::changeVisibilityCount
   - called by (8): CvCity::init, CvCity::kill, CvPlot::setOwner, CvPlot::updateSight, CvUnit::changeExtraVisibilityRange, CvUnit::setFacingDirection, CvUnit::setReconPlot, CvUnit::setXY
-- **1772** `CvPlot::canSeePlot(CvPlot*, TeamTypes, int, DirectionTypes) const`
+- **1881** `CvPlot::canSeePlot(CvPlot*, TeamTypes, int, DirectionTypes) const`
   - calls: CvPlot::getX, CvPlot::getY, dxWrap [CvGameCoreUtils.h], dyWrap [CvGameCoreUtils.h], CvPlot::shouldProcessDisplacementPlot, CvPlot::canSeeDisplacementPlot
   - called by (4): CvGame::updateColoredPlots, CvSelectionGroup::sentryAlert, CvUnit::canRangeStrikeAt, CvUnit::willRevealByMove
-- **1806** `CvPlot::canSeeDisplacementPlot(TeamTypes, int, int, int, int, bool, bool) const`
+- **1915** `CvPlot::canSeeDisplacementPlot(TeamTypes, int, int, int, int, bool, bool) const`
   - calls: plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], getSign<int> [CvGameCoreUtils.h], CvPlot::canSeeDisplacementPlot, CvPlot::seeFromLevel, CvPlot::seeThroughLevel
   - called by (3): CvPlot::canSeeDisplacementPlot, CvPlot::canSeePlot, CvPlot::changeAdjacentSight
-- **1883** `CvPlot::shouldProcessDisplacementPlot(int, int, int, DirectionTypes) const`
+- **1992** `CvPlot::shouldProcessDisplacementPlot(int, int, int, DirectionTypes) const`
   - called by (2): CvPlot::canSeePlot, CvPlot::changeAdjacentSight
-- **1936** `CvPlot::updateSight(bool, bool)`
+- **2045** `CvPlot::updateSight(bool, bool)`
   - calls: CvPlot::getPlotCity, CvPlot::getTeam, CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::changeAdjacentSight, CvCity::getEspionageVisibility [CvCity.cpp], CvPlot::isOwned, CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getTeam [CvUnit.cpp], CvUnit::visibilityRange [CvUnit.cpp], CvPlot::getReconCount, CvPlayer::firstUnit [CvPlayer.cpp], CvPlayer::nextUnit [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getReconPlot [CvUnit.cpp]
   - called by (4): CvCity::setEspionageVisibility, CvMap::updateSight, CvPlayer::updateCitySight, CvPlot::updateSeeFromSight
-- **2021** `CvPlot::updateSeeFromSight(bool, bool)`
+- **2130** `CvPlot::updateSeeFromSight(bool, bool)`
   - calls: CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvPromotionInfo::getVisibilityChange [CvInfos.cpp], plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::updateSight
   - called by (3): CvPlot::setFeatureType, CvPlot::setPlotType, CvPlot::setTerrainType
-- **2049** `CvPlot::canHaveBonus(BonusTypes, bool) const`
+- **2158** `CvPlot::canHaveBonus(BonusTypes, bool) const`
   - calls: CvPlot::getBonusType, CvPlot::isPeak, CvPlot::getFeatureType, CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBonusInfo::isFeature [CvInfos.cpp], CvBonusInfo::isFeatureTerrain [CvInfos.cpp], CvPlot::getTerrainType, CvBonusInfo::isTerrain [CvInfos.cpp], CvPlot::isHills, CvBonusInfo::isHills [CvInfos.cpp], CvPlot::isFlatlands, CvBonusInfo::isFlatlands [CvInfos.cpp], CvBonusInfo::isNoRiverSide [CvInfos.cpp], CvPlot::isRiverSide, CvBonusInfo::getMinAreaSize [CvInfos.cpp], CvArea::getNumTiles [CvArea.cpp], CvPlot::area, CvBonusInfo::getMaxLatitude [CvInfos.cpp], CvPlot::getLatitude, CvBonusInfo::getMinLatitude [CvInfos.cpp], CvPlot::isPotentialCityWork
   - called by (6): CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvMapGenerator::calculateNumBonusesToAdd, CvMapGenerator::canPlaceBonusAt, CvPlot::canApplyEvent, CyPlot::canHaveBonus
-- **2141** `CvPlot::canHaveImprovement(ImprovementTypes, TeamTypes, bool) const`
+- **2250** `CvPlot::canHaveImprovement(ImprovementTypes, TeamTypes, bool) const`
   - calls: CvPlot::isCity, CvPlot::isImpassable, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::isWater [CvInfos.cpp], CvPlot::isWater, CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::isNoImprovement [CvInfos.cpp], CvImprovementInfo::isImprovementBonusMakesValid [CvInfos.cpp], CvPlot::getBonusType, CvImprovementInfo::isNoFreshWater [CvInfos.cpp], CvPlot::isFreshWater, CvImprovementInfo::isRequiresFlatlands [CvInfos.cpp], CvPlot::isFlatlands, CvImprovementInfo::isRequiresFeature [CvInfos.cpp], CvImprovementInfo::isHillsMakesValid [CvInfos.cpp], CvPlot::isHills, CvImprovementInfo::isFreshWaterMakesValid [CvInfos.cpp], CvImprovementInfo::isRiverSideMakesValid [CvInfos.cpp], CvPlot::isRiverSide, CvImprovementInfo::getTerrainMakesValid [CvInfos.cpp], CvPlot::getTerrainType, CvImprovementInfo::getFeatureMakesValid [CvInfos.cpp], CvImprovementInfo::isRequiresRiverSide [CvInfos.cpp], plotCardinalDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], directionXY(CvPlot const*, CvPlot const*) [CvGameCoreUtils.h], CvPlot::isRiverCrossing, CvPlot::getImprovementType, CvImprovementInfo::getPrereqNatureYield [CvInfos.cpp], CvPlot::calculateNatureYield, CvPlot::getTeam, CvTeam::isIgnoreIrrigation [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvImprovementInfo::isRequiresIrrigation [CvInfos.cpp], CvPlot::isIrrigationAvailable
   - called by (8): CvCity::countNumImprovedPlots, CvGameTextMgr::setPlotHelp, CvMapGenerator::canPlaceGoodyAt, CvPlayer::getAdvancedStartImprovementCost, CvPlot::canApplyEvent, CvPlot::canBuild, CvPlot::canHavePotentialIrrigation, CyPlot::canHaveImprovement
-- **2272** `CvPlot::canBuild(BuildTypes, PlayerTypes, bool) const`
+- **2381** `CvPlot::canBuild(BuildTypes, PlayerTypes, bool) const`
   - calls: CvGlobals::getUSE_CAN_BUILD_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CvPlot::getX_INLINE [CvPlot.h], CyArgsList::add(int) [CyArgsList.cpp], CvPlot::getY_INLINE [CvPlot.h], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getImprovement [CvInfos.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::canHaveImprovement, CvPlot::getImprovementType, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isPermanent [CvInfos.cpp], finalImprovementUpgrade [CvGameCoreUtils.cpp], CvPlot::getTeam, CvImprovementInfo::isOutsideBorders [CvInfos.cpp], CvBuildInfo::getRoute [CvInfos.cpp], CvPlot::getRouteType, CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvRouteInfo::getValue [CvInfos.cpp], CvRouteInfo::getPrereqBonus [CvInfos.cpp], CvPlot::isAdjacentPlotGroupConnectedBonus, CvGlobals::getNUM_ROUTE_PREREQ_OR_BONUSES [CvGlobals.cpp], CvRouteInfo::getPrereqOrBonus [CvInfos.cpp], CvPlot::getFeatureType, CvBuildInfo::isFeatureRemove [CvInfos.cpp], atWar [CvGameCoreUtils.cpp], CvPlot::isOwned
   - called by (4): CvCityAI::AI_countNumImprovableBonuses, CvGameTextMgr::setPlotHelp, CvPlayer::canBuild, CyPlot::canBuild
-- **2422** `CvPlot::getBuildTime(BuildTypes) const`
+- **2531** `CvPlot::getBuildTime(BuildTypes) const`
   - calls: CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildInfo::getTime [CvInfos.cpp], CvPlot::getFeatureType, CvBuildInfo::getFeatureTime [CvInfos.cpp], CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvTerrainInfo::getBuildModifier [CvInfos.cpp], CvPlot::getTerrainType, CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getBuildPercent [CvInfos.cpp], CvGame::getStartEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvEraInfo::getBuildPercent [CvInfos.cpp]
   - called by (4): CvPlot::changeBuildProgress, CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool) const, CvUnitAI::AI_calculatePlotWorkersNeeded, CyPlot::getBuildTime
-- **2449** `CvPlot::getBuildTurnsLeft(BuildTypes, PlayerTypes) const`
+- **2558** `CvPlot::getBuildTurnsLeft(BuildTypes, PlayerTypes) const`
   - calls: CvPlayer::getWorkRate [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool) const
   - called by (2): CvGameTextMgr::setPlotHelp, CvSelectionGroup::groupBuild
-- **2465** `CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool) const`
+- **2574** `CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool) const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getBuildType [CvUnit.cpp], CvUnit::canMove [CvUnit.cpp], CvUnit::workRate [CvUnit.cpp], CvPlot::getBuildTime, CvPlot::getBuildProgress
   - called by (9): CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlot::getBuildTurnsLeft(BuildTypes, PlayerTypes) const, CvUnitAI::AI_improveBonus, CyPlot::getBuildTurnsLeft
-- **2529** `CvPlot::getFeatureProduction(BuildTypes, TeamTypes, CvCity**) const`
+- **2638** `CvPlot::getFeatureProduction(BuildTypes, TeamTypes, CvCity**) const`
   - calls: CvPlot::getFeatureType, CvPlot::getWorkingCity, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::findCity [CvMap.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], plotDistance [CvGameCoreUtils.h], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getFeatureProduction [CvInfos.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getFeatureProductionModifier [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getFeatureProductionPercent [CvInfos.cpp], CvCity::getPopulation [CvCity.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlot::getTeam
   - called by (6): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvDLLWidgetData::parseActionHelp, CvPlot::changeBuildProgress, CvSelectionGroup::groupBuild, CyPlot::getFeatureProduction
-- **2571** `CvPlot::getBestDefender(PlayerTypes, PlayerTypes, CvUnit const*, bool, bool, bool) const` (exported)
+- **2680** `CvPlot::getBestDefender(PlayerTypes, PlayerTypes, CvUnit const*, bool, bool, bool) const` (exported)
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::isInvisible [CvUnit.cpp], CvUnit::isEnemy [CvUnit.cpp], CvUnit::isPotentialEnemy [CvUnit.cpp], CvUnit::isCargo [CvUnit.cpp], CvUnit::canMove [CvUnit.cpp], CvUnit::getDamage [CvUnit.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::airCombatLimit [CvUnit.cpp], CvUnit::isBetterDefenderThan(CvUnit const*, CvUnit const*, int*) const [CvUnit.cpp]
   - called by (30): CvGameTextMgr::setCombatPlotHelp, CvPlayer::getUnitLayerColors, CvPlayerAI::AI_convertUnitAITypesForCrush, CvPlayerAI::AI_doTurnUnitsPost, CvPlot::updateCenterUnit, CvSelectionGroup::continueMission, CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::airStrikeTarget, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged …
-- **2629** `CvPlot::AI_sumStrength(PlayerTypes, PlayerTypes, DomainTypes, bool, bool, bool) const`
+- **2738** `CvPlot::AI_sumStrength(PlayerTypes, PlayerTypes, DomainTypes, bool, bool, bool) const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::isInvisible [CvUnit.cpp], atWar [CvGameCoreUtils.cpp], CvUnit::getTeam [CvUnit.cpp], CvUnit::isPotentialEnemy [CvUnit.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::currEffectiveStr [CvUnit.cpp]
   - called by (4): CvGameTextMgr::setPlotHelp, CvSelectionGroupAI::AI_compareStacks, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_bombardCity
-- **2671** `CvPlot::getSelectedUnit() const`
+- **2780** `CvPlot::getSelectedUnit() const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvDLLEntity::IsSelected [CvDLLEntity.cpp]
   - called by (2): CvPlot::updateCenterUnit, CyPlot::getSelectedUnit
-- **2693** `CvPlot::getUnitPower(PlayerTypes) const`
+- **2802** `CvPlot::getUnitPower(PlayerTypes) const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getOwnerINLINE [CvUnit.h], CvUnitInfo::getPowerValue [CvInfos.cpp], CvUnit::getUnitInfo [CvUnit.cpp]
   - called by (2): CvPlot::processArea, CyPlot::getUnitPower
-- **2718** `CvPlot::defenseModifier(TeamTypes, bool, bool) const`
+- **2827** `CvPlot::defenseModifier(TeamTypes, bool, bool) const`
   - calls: CvPlot::getTerrainType, CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::getDefenseModifier [CvInfos.cpp], CvTerrainInfo::getDefenseModifier [CvInfos.cpp], CvPlot::getFeatureType, CvPlot::isHills, CvGlobals::getHILLS_EXTRA_DEFENSE [CvGlobals.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getRevealedImprovementType, CvPlot::getImprovementType, CvPlot::getTeam, CvTeam::isFriendlyTerritory [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getDefenseModifier [CvInfos.cpp], CvPlot::getPlotCity, CvCity::getDefenseModifier [CvCity.cpp]
   - called by (15): CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_getPlotAirbaseValue, CvUnit::maxCombatStr, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_choke, CvUnitAI::AI_getPlotDefendersNeeded, CvUnitAI::AI_goToTargetBarbCity, CvUnitAI::AI_goToTargetCity, CvUnitAI::AI_hide, CvUnitAI::AI_paradrop, CvUnitAI::AI_pillageAroundCity …
-- **2764** `CvPlot::movementCost(CvUnit const*, CvPlot const*) const`
+- **2873** `CvPlot::movementCost(CvUnit const*, CvPlot const*) const`
   - calls: CvUnit::getDomainType [CvUnit.cpp], CvUnit::flatMovementCost [CvUnit.cpp], CvGlobals::getMOVE_DENOMINATOR [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::isHuman [CvUnit.cpp], CvPlot::isRevealed, CvUnit::getTeam [CvUnit.cpp], CvUnit::maxMoves [CvUnit.cpp], CvPlot::isValidDomainForLocation, CvPlot::isValidDomainForAction, CvUnit::ignoreTerrainCost [CvUnit.cpp], CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getMovementCost [CvInfos.cpp], CvTerrainInfo::getMovementCost [CvInfos.cpp], CvPlot::getTerrainType, CvPlot::getFeatureType, CvPlot::isHills, CvGlobals::getHILLS_EXTRA_MOVEMENT [CvGlobals.cpp], CvUnit::getExtraMoveDiscount [CvUnit.cpp], CvUnit::baseMoves [CvUnit.cpp], CvUnit::isTerrainDoubleMove [CvUnit.cpp], CvUnit::isFeatureDoubleMove [CvUnit.cpp], CvUnit::isHillsDoubleMove [CvUnit.cpp], directionXY(CvPlot const*, CvPlot const*) [CvGameCoreUtils.h], CvPlot::isValidRoute, CvPlot::isRiverCrossing, CvTeam::isBridgeBuilding [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvRouteInfo::getMovementCost [CvInfos.cpp], CvPlot::getRouteType, CvTeam::getRouteChange [CvTeam.cpp], CvRouteInfo::getFlatMovementCost [CvInfos.cpp]
   - called by (6): CvUnit::move, CvUnit::updateCombat, CvUnit::updateStackCombat, CyPlot::movementCost, pathAdd, pathCost
-- **2847** `CvPlot::getExtraMovePathCost() const`
+- **2956** `CvPlot::getExtraMovePathCost() const`
   - calls: CvGame::getPlotExtraCost [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (2): CyPlot::getExtraMovePathCost, pathCost
-- **2853** `CvPlot::changeExtraMovePathCost(int)`
+- **2962** `CvPlot::changeExtraMovePathCost(int)`
   - calls: CvGame::changePlotExtraCost [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (1): CyPlot::changeExtraMovePathCost
-- **2858** `CvPlot::isAdjacentOwned() const`
+- **2967** `CvPlot::isAdjacentOwned() const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isOwned
   - called by (4): CvMap::syncRandPlot, CvUnitAI::AI_patrol, CvUnitAI::AI_pirateBlockade, CyPlot::isAdjacentOwned
-- **2880** `CvPlot::isAdjacentPlayer(PlayerTypes, bool) const`
+- **2989** `CvPlot::isAdjacentPlayer(PlayerTypes, bool) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::isWater
   - called by (4): CvPlayer::canTrigger, CvPlayer::doWarnings, CvPlayerAI::AI_targetCityValue, CyPlot::isAdjacentPlayer
-- **2905** `CvPlot::isAdjacentTeam(TeamTypes, bool) const`
+- **3014** `CvPlot::isAdjacentTeam(TeamTypes, bool) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getTeam, CvPlot::isWater
   - called by (9): CvTeamAI::AI_calculateAdjacentLandPlots, CvTeamAI::AI_calculateBonusWarValue, CvTeamAI::AI_calculatePlotWarValue, CvUnitAI::AI_Abombard, CvUnitAI::AI_FEngage, CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_airStrike, CyPlot::isAdjacentTeam
-- **2930** `CvPlot::isWithinCultureRange(PlayerTypes) const`
+- **3039** `CvPlot::isWithinCultureRange(PlayerTypes) const`
   - calls: CvGlobals::getNumCultureLevelInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::isCultureRangeCity
   - called by (2): CvPlot::calculateCulturalOwner, CyPlot::isWithinCultureRange
-- **2946** `CvPlot::getNumCultureRangeCities(PlayerTypes) const`
+- **3055** `CvPlot::getNumCultureRangeCities(PlayerTypes) const`
   - calls: CvGlobals::getNumCultureLevelInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getCultureRangeCities
   - called by (2): CvPlayer::acquireCity, CyPlot::getNumCultureRangeCities
-- **2966** `CvPlot::isHasPathToEnemyCity(TeamTypes, bool)`
+- **3075** `CvPlot::isHasPathToEnemyCity(TeamTypes, bool)`
   - calls: CvArea::getNumCities [CvArea.cpp], CvPlot::area, CvTeam::countNumCitiesByArea [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvDLLFAStarIFaceBase::create [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLFAStarIFaceBase::Initialize [CvDLLFAStarIFaceBase.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h], CvDLLFAStarIFaceBase::SetData [CvDLLFAStarIFaceBase.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeamAI::AI_getWarPlan [CvTeamAI.cpp], CvPlayer::isMinorCiv [CvPlayer.cpp], CvPlayer::isBarbarian [CvPlayer.cpp], CvPlayer::getCapitalCity [CvPlayer.cpp], CvCity::area [CvCity.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLFAStarIFaceBase::GeneratePath [CvDLLFAStarIFaceBase.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvCity::isCapital [CvCity.cpp], CvDLLFAStarIFaceBase::destroy [CvDLLFAStarIFaceBase.h]
   - takes the address of: stepDestValid [CvGameCoreUtils.cpp], stepHeuristic [CvGameCoreUtils.cpp], stepCost [CvGameCoreUtils.cpp], teamStepValid [CvGameCoreUtils.cpp], stepAdd [CvGameCoreUtils.cpp]
   - called by (2): CvCityAI::AI_chooseProduction, CvGameTextMgr::setPlotHelp
-- **3045** `CvPlot::isHasPathToPlayerCity(TeamTypes, PlayerTypes)`
+- **3154** `CvPlot::isHasPathToPlayerCity(TeamTypes, PlayerTypes)`
   - calls: CvArea::getCitiesPerPlayer [CvArea.cpp], CvPlot::area, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvDLLFAStarIFaceBase::create [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLFAStarIFaceBase::Initialize [CvDLLFAStarIFaceBase.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h], CvDLLFAStarIFaceBase::SetData [CvDLLFAStarIFaceBase.h], CvPlayer::firstCity [CvPlayer.cpp], CvPlayer::nextCity [CvPlayer.cpp], CvCity::area [CvCity.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvDLLFAStarIFaceBase::GeneratePath [CvDLLFAStarIFaceBase.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvDLLFAStarIFaceBase::destroy [CvDLLFAStarIFaceBase.h]
   - takes the address of: stepDestValid [CvGameCoreUtils.cpp], stepHeuristic [CvGameCoreUtils.cpp], stepCost [CvGameCoreUtils.cpp], teamStepValid [CvGameCoreUtils.cpp], stepAdd [CvGameCoreUtils.cpp]
   - called by (3): CvGameTextMgr::setPlotHelp, CvPlayerAI::getReligiousVictoryTarget, CvTeam::setIsMinorCiv
-- **3088** `CvPlot::calculatePathDistanceToPlot(TeamTypes, CvPlot*)`
+- **3197** `CvPlot::calculatePathDistanceToPlot(TeamTypes, CvPlot*)`
   - calls: CvPlot::area, CvDLLFAStarIFaceBase::create [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLFAStarIFaceBase::Initialize [CvDLLFAStarIFaceBase.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h], CvDLLFAStarIFaceBase::SetData [CvDLLFAStarIFaceBase.h], CvDLLFAStarIFaceBase::GeneratePath [CvDLLFAStarIFaceBase.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvDLLFAStarIFaceBase::GetLastNode [CvDLLFAStarIFaceBase.h], CvGlobals::getStepFinder [CvGlobals.cpp], CvDLLFAStarIFaceBase::destroy [CvDLLFAStarIFaceBase.h]
   - takes the address of: stepDestValid [CvGameCoreUtils.cpp], stepHeuristic [CvGameCoreUtils.cpp], stepCost [CvGameCoreUtils.cpp], teamStepValid [CvGameCoreUtils.cpp], stepAdd [CvGameCoreUtils.cpp]
   - called by (3): CvPlayerAI::getInquisitionRevoltCity, CvPlayerAI::getReligiousVictoryTarget, CvPlayerAI::getTeamInquisitionRevoltCity
-- **3133** `CvPlot::isActivePlayerNoDangerCache() const`
+- **3242** `CvPlot::isActivePlayerNoDangerCache() const`
   - called by (2): CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getPlotDanger
-- **3138** `CvPlot::isTeamBorderCache(TeamTypes) const`
+- **3247** `CvPlot::isTeamBorderCache(TeamTypes) const`
   - called by (1): CvPlayerAI::AI_getAnyPlotDanger
-- **3143** `CvPlot::setIsActivePlayerNoDangerCache(bool)`
+- **3252** `CvPlot::setIsActivePlayerNoDangerCache(bool)`
   - called by (2): CvMap::invalidateIsActivePlayerNoDangerCache, CvPlayerAI::AI_getAnyPlotDanger
-- **3149** `CvPlot::setIsTeamBorderCache(TeamTypes, bool)`
+- **3258** `CvPlot::setIsTeamBorderCache(TeamTypes, bool)`
   - called by (2): CvMap::invalidateIsTeamBorderCache, CvPlayerAI::AI_getAnyPlotDanger
-- **3155** `CvPlot::invalidateIsTeamBorderCache()`
+- **3264** `CvPlot::invalidateIsTeamBorderCache()`
   - called by (3): CvGame::doTurn, CvPlot::read, CvPlot::setOwner
-- **3168** `CvPlot::calculateCulturalOwner() const`
+- **3277** `CvPlot::calculateCulturalOwner() const`
   - calls: CvPlot::isForceUnowned, CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getCulture, CvPlot::isWithinCultureRange, CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::isCity, plotCity [CvGameCoreUtils.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getPlotCity, CvCity::getTeam [CvCity.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvCity::getOwnerINLINE [CvCity.h], CvGlobals::getCityPlotPriority [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], plotCardinalDirection [CvGameCoreUtils.h], CvPlot::isOwned
   - called by (6): CvDLLWidgetData::parseNationalityHelp, CvGameTextMgr::setCityBarHelp, CvPlot::doCulture, CvPlot::updateCulture, CvUnitAI::AI_promotionValue, CyPlot::calculateCulturalOwner
-- **3300** `CvPlot::plotAction(bool (__cdecl*)(CvUnit*, int, int), int, int, PlayerTypes, TeamTypes)`
+- **3409** `CvPlot::plotAction(bool (__cdecl*)(CvUnit*, int, int), int, int, PlayerTypes, TeamTypes)`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getTeam [CvUnit.cpp]
   - called by (3): CvCity::changeBuildingDefense, CvCity::changeDefenseDamage, CvCity::setPopulation
-- **3323** `CvPlot::plotCount(bool (__cdecl*)(CvUnit const*, int, int), int, int, PlayerTypes, TeamTypes, bool (__cdecl*)(CvUnit const*, int, int), int, int) const`
+- **3432** `CvPlot::plotCount(bool (__cdecl*)(CvUnit const*, int, int), int, int, PlayerTypes, TeamTypes, bool (__cdecl*)(CvUnit const*, int, int), int, int) const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getTeam [CvUnit.cpp]
   - called by (50): CvCity::init, CvCityAI::AI_chooseProduction, CvCityAI::AI_isDefended, CvCityAI::AI_updateWorkersNeededHere, CvDLLWidgetData::parsePlotListHelp, CvGameTextMgr::setPlotHelp, CvPlayer::disbandUnit, CvPlayerAI::AI_advancedStartPlaceExploreUnits, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_countNumAreaHostileUnits, CvPlayerAI::AI_disbandUnit, CvPlayerAI::AI_doTurnUnitsPost …
-- **3357** `CvPlot::plotCheck(bool (__cdecl*)(CvUnit const*, int, int), int, int, PlayerTypes, TeamTypes, bool (__cdecl*)(CvUnit const*, int, int), int, int) const`
+- **3466** `CvPlot::plotCheck(bool (__cdecl*)(CvUnit const*, int, int), int, int, PlayerTypes, TeamTypes, bool (__cdecl*)(CvUnit const*, int, int), int, int) const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getTeam [CvUnit.cpp]
   - called by (18): CvCity::canWork, CvCityAI::AI_chooseDefender, CvCityAI::AI_chooseProduction, CvCityAI::AI_doHurry, CvPlayer::doEspionageMission, CvPlayerAI::AI_foundValue, CvPlot::getVisibleEnemyDefender, CvPlot::isFighting, CvPlot::isInvestigate, CvPlot::isVisibleEnemyDefender, CvPlot::isVisibleEnemyUnit(CvUnit const*) const, CvPlot::isVisibleEnemyUnit(PlayerTypes) const …
-- **3388** `CvPlot::isOwned() const`
+- **3497** `CvPlot::isOwned() const`
   - calls: CvPlot::getOwnerINLINE [CvPlot.h]
   - called by (88): CvCity::doPlotCulture, CvCityAI::AI_countNumBonuses, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_neededAirDefenders, CvGameTextMgr::setPlotHelp, CvMap::syncRandPlot, CvPlayer::canFound, CvPlayer::setCurrentEra, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_countNumAreaHostileUnits, CvPlayerAI::AI_enemyTargetMissionAIs(MissionAITypes*, int, CvSelectionGroup*) const, CvPlayerAI::AI_enemyTargetMissions …
-- **3394** `CvPlot::isBarbarian() const`
+- **3503** `CvPlot::isBarbarian() const`
   - calls: CvPlot::getOwnerINLINE [CvPlot.h]
   - called by (7): CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_carrierSeaTransport, CvUnitAI::AI_pillage, CvUnitAI::AI_pillageAroundCity, CvUnitAI::AI_pillageRange, CyPlot::isBarbarian
-- **3400** `CvPlot::isRevealedBarbarian() const`
+- **3509** `CvPlot::isRevealedBarbarian() const`
   - calls: CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getRevealedOwner
   - called by (2): CvPlot::plotMinimapColor, CyPlot::isRevealedBarbarian
-- **3406** `CvPlot::isVisible(TeamTypes, bool) const` (exported)
+- **3515** `CvPlot::isVisible(TeamTypes, bool) const` (exported)
   - calls: CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getVisibilityCount, CvPlot::getStolenVisibilityCount
   - called by (42): CvCity::init, CvCity::isVisible, CvGame::canHandleAction, CvGame::doGlobalWarming, CvGame::updateColoredPlots, CvGameTextMgr::setPlotListHelp, CvPlayer::canSpyDestroyUnit, CvPlayer::doEspionageMission, CvPlayer::doWarnings, CvPlayer::getUnitLayerColors, CvPlayerAI::AI_countNumAreaHostileUnits, CvPlayerAI::AI_doEnemyUnitData …
-- **3424** `CvPlot::isActiveVisible(bool) const` (exported)
+- **3533** `CvPlot::isActiveVisible(bool) const` (exported)
   - calls: CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::isVisible
-  - called by (52): CvGameTextMgr::getPlotHelp, CvGameTextMgr::setPlotHelp, CvPlayer::killGoldenAgeUnits, CvPlot::getSoundScriptId, CvPlot::getVisibleImprovementState, CvPlot::plotMinimapColor, CvPlot::updateCenterUnit, CvPlot::updateFog, CvSelectionGroup::continueMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2 …
-- **3430** `CvPlot::isVisibleToCivTeam() const`
+  - called by (53): CvGameTextMgr::getPlotHelp, CvGameTextMgr::setPlotHelp, CvPlayer::killGoldenAgeUnits, CvPlot::getSoundScriptId, CvPlot::getVisibleImprovementState, CvPlot::plotMinimapColor, CvPlot::updateCenterUnit, CvPlot::updateFog, CvSelectionGroup::continueMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2 …
+- **3539** `CvPlot::isVisibleToCivTeam() const`
   - calls: CvTeam::isAlive [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::isVisible
   - called by (2): CvGame::createBarbarianCities, CvMap::syncRandPlot
-- **3449** `CvPlot::isVisibleToWatchingHuman() const`
+- **3558** `CvPlot::isVisibleToWatchingHuman() const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isHuman [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlot::isVisible
   - called by (5): CvSelectionGroup::continueMission, CvSelectionGroup::startMission, CvUnit::move, CvUnit::setXY, CyPlot::isVisibleToWatchingHuman
-- **3471** `CvPlot::isAdjacentVisible(TeamTypes, bool) const`
+- **3580** `CvPlot::isAdjacentVisible(TeamTypes, bool) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isVisible
   - called by (1): CyPlot::isAdjacentVisible
-- **3492** `CvPlot::isAdjacentNonvisible(TeamTypes) const`
+- **3601** `CvPlot::isAdjacentNonvisible(TeamTypes) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isVisible
   - called by (1): CyPlot::isAdjacentNonvisible
-- **3514** `CvPlot::isGoody(TeamTypes) const` (exported)
+- **3623** `CvPlot::isGoody(TeamTypes) const` (exported)
   - calls: CvTeam::isBarbarian [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::isGoody [CvInfos.cpp], CvPlot::getImprovementType
   - called by (9): CvMapGenerator::eraseGoodies, CvPlayer::addFreeUnit, CvPlayerAI::AI_advancedStartPlaceExploreUnits, CvPlayerAI::AI_foundValue, CvPlot::isRevealedGoody, CvPlot::setOwner, CvUnit::setXY, CvUnitAI::AI_barbAttackMove, CyPlot::isGoody
-- **3525** `CvPlot::isRevealedGoody(TeamTypes) const`
+- **3634** `CvPlot::isRevealedGoody(TeamTypes) const`
   - calls: CvPlot::isGoody, CvTeam::isBarbarian [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::isGoody [CvInfos.cpp], CvPlot::getRevealedImprovementType
   - called by (6): CvGame::updateColoredPlots, CvUnitAI::AI_explore, CvUnitAI::AI_exploreRange, CvUnitAI::AI_goody, CvUnitAI::AI_patrol, CyPlot::isRevealedGoody
-- **3541** `CvPlot::removeGoody()`
+- **3650** `CvPlot::removeGoody()`
   - calls: CvPlot::setImprovementType
   - called by (3): CvMapGenerator::eraseGoodies, CvPlayer::doGoody, CyPlot::removeGoody
-- **3547** `CvPlot::isCity(bool, TeamTypes) const` (exported)
+- **3656** `CvPlot::isCity(bool, TeamTypes) const` (exported)
   - calls: CvPlot::getImprovementType, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::isActsAsCity [CvInfos.cpp], CvImprovementInfo::isOutsideBorders [CvInfos.cpp], CvPlot::getTeam, CvTeam::isFriendlyTerritory [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::getPlotCity
   - called by (116): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_neededAirDefenders, CvDLLWidgetData::parseActionHelp, CvGame::foundBarbarianCity, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvMap::syncRandPlot, CvPlayer::applyEvent, CvPlayer::canFound, CvPlayer::countUnimprovedBonuses, CvPlayer::disbandUnit …
-- **3564** `CvPlot::isFriendlyCity(CvUnit const&, bool) const`
+- **3673** `CvPlot::isFriendlyCity(CvUnit const&, bool) const`
   - calls: CvPlot::isCity, CvUnit::getTeam [CvUnit.cpp], CvPlot::isVisibleEnemyUnit(CvUnit const*) const, CvPlot::getTeam, CvUnit::isEnemy [CvUnit.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getCombatOwner [CvUnit.cpp], CvTeam::isOpenBorders [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isVassal [CvTeam.cpp]
   - called by (10): CvGameTextMgr::getRebasePlotHelp, CvSelectionGroup::continueMission, CvSelectionGroup::isAmphibPlot, CvUnit::canMoveInto, CvUnit::canParadrop, CvUnit::canUnload, CvUnit::jumpToNearestValidPlot, CvUnit::shouldLoadOnMove, CvUnitAI::AI_plotValid, CyPlot::isFriendlyCity
-- **3607** `CvPlot::isEnemyCity(CvUnit const&) const`
+- **3716** `CvPlot::isEnemyCity(CvUnit const&) const`
   - calls: CvPlot::getPlotCity, CvCity::getTeam [CvCity.cpp], CvUnit::isEnemy [CvUnit.cpp]
   - called by (7): CvSelectionGroup::groupMove, CvSelectionGroup::groupPathTo, CvUnit::canAdvance, CvUnit::canMoveInto, CvUnit::canParadropAt, CvUnit::doVictoryInfluence, CyPlot::isEnemyCity
-- **3620** `CvPlot::isOccupation() const`
+- **3729** `CvPlot::isOccupation() const`
   - calls: CvPlot::getPlotCity, CvCity::isOccupation [CvCity.cpp]
   - called by (1): CyPlot::isOccupation
-- **3635** `CvPlot::isBeingWorked() const`
+- **3744** `CvPlot::isBeingWorked() const`
   - calls: CvPlot::getWorkingCity, CvCity::isWorkingPlot(CvPlot const*) const [CvCity.cpp]
   - called by (20): CvCity::doTurn, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_buildingSpecialYieldChangeValue, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_countGoodTiles, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere, CvGameTextMgr::setPlotHelp, CvPlot::doImprovementUpgrade …
-- **3650** `CvPlot::isUnit() const`
+- **3759** `CvPlot::isUnit() const`
   - calls: CvPlot::getNumUnits
   - called by (4): CvMap::syncRandPlot, CvPlayer::addFreeUnit, CvPlot::doFeature, CyPlot::isUnit
-- **3656** `CvPlot::isInvestigate(TeamTypes) const`
+- **3765** `CvPlot::isInvestigate(TeamTypes) const`
   - calls: CvPlot::plotCheck
   - takes the address of: PUF_isInvestigate [CvGameCoreUtils.cpp]
   - called by (2): CvCity::canBeSelected, CyPlot::isInvestigate
-- **3662** `CvPlot::isVisibleEnemyDefender(CvUnit const*) const`
+- **3771** `CvPlot::isVisibleEnemyDefender(CvUnit const*) const`
   - calls: CvPlot::plotCheck, CvUnit::isAlwaysHostile [CvUnit.cpp], CvUnit::getOwnerINLINE [CvUnit.h]
   - takes the address of: PUF_isVisible [CvGameCoreUtils.cpp], PUF_canDefendEnemy [CvGameCoreUtils.cpp]
   - called by (2): CyPlot::isVisibleEnemyDefender, pathCost
-- **3668** `CvPlot::getVisibleEnemyDefender(PlayerTypes) const`
+- **3777** `CvPlot::getVisibleEnemyDefender(PlayerTypes) const`
   - calls: CvPlot::plotCheck
   - takes the address of: PUF_isVisible [CvGameCoreUtils.cpp], PUF_canDefendEnemy [CvGameCoreUtils.cpp]
   - called by (1): CvPlayer::doWarnings
-- **3674** `CvPlot::getNumDefenders(PlayerTypes) const`
+- **3783** `CvPlot::getNumDefenders(PlayerTypes) const`
   - calls: CvPlot::plotCount
   - takes the address of: PUF_canDefend [CvGameCoreUtils.cpp]
   - called by (9): CvCityAI::AI_chooseProduction, CvUnit::isActionRecommended, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_choke, CvUnitAI::AI_reinforceOperation, CyPlot::getNumDefenders, warLogCities
-- **3680** `CvPlot::getNumVisibleEnemyDefenders(CvUnit const*) const`
+- **3789** `CvPlot::getNumVisibleEnemyDefenders(CvUnit const*) const`
   - calls: CvPlot::plotCount, CvUnit::isAlwaysHostile [CvUnit.cpp], CvUnit::getOwnerINLINE [CvUnit.h]
   - takes the address of: PUF_isVisible [CvGameCoreUtils.cpp], PUF_canDefendEnemy [CvGameCoreUtils.cpp]
   - called by (30): CvPlayerAI::AI_updateMilitaryOperations, CvSelectionGroupAI::AI_getBestGroupAttacker, CvUnit::archerBombard, CvUnit::canAdvance, CvUnit::canArcherBombardAt, CvUnit::canBombardAtRanged, CvUnit::canMoveInto, CvUnit::collateralCombat, CvUnit::doVictoryInfluence, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnitAI::AI_Abombard …
-- **3686** `CvPlot::getNumVisiblePotentialEnemyDefenders(CvUnit const*) const`
+- **3795** `CvPlot::getNumVisiblePotentialEnemyDefenders(CvUnit const*) const`
   - calls: CvPlot::plotCount, CvUnit::isAlwaysHostile [CvUnit.cpp], CvUnit::getOwnerINLINE [CvUnit.h]
   - takes the address of: PUF_isVisible [CvGameCoreUtils.cpp], PUF_canDefendPotentialEnemy [CvGameCoreUtils.cpp]
   - called by (2): CvUnitAI::AI_finalOddsThreshold, CyPlot::getNumVisiblePotentialEnemyDefenders
-- **3692** `CvPlot::isVisibleEnemyUnit(PlayerTypes) const` (exported)
+- **3801** `CvPlot::isVisibleEnemyUnit(PlayerTypes) const` (exported)
   - calls: CvPlot::plotCheck
   - takes the address of: PUF_isEnemy [CvGameCoreUtils.cpp], PUF_isVisible [CvGameCoreUtils.cpp]
   - called by (3): CvCity::getLiberationPlayer, CvUnit::canGift, CyPlot::isVisibleEnemyUnit
-- **3697** `CvPlot::getNumVisibleUnits(PlayerTypes) const` (exported)
+- **3806** `CvPlot::getNumVisibleUnits(PlayerTypes) const` (exported)
   - calls: CvPlot::plotCount
   - takes the address of: PUF_isVisibleDebug [CvGameCoreUtils.cpp]
-- **3703** `CvPlot::isVisibleEnemyUnit(CvUnit const*) const`
+- **3812** `CvPlot::isVisibleEnemyUnit(CvUnit const*) const`
   - calls: CvPlot::plotCheck, CvUnit::isAlwaysHostile [CvUnit.cpp], CvUnit::getOwnerINLINE [CvUnit.h]
   - takes the address of: PUF_isEnemy [CvGameCoreUtils.cpp], PUF_isVisible [CvGameCoreUtils.cpp]
   - called by (64): CvPlot::isFriendlyCity, CvPlot::verifyUnitValidPlot, CvSelectionGroup::sentryAlert, CvUnit::canGift, CvUnit::canMoveInto, CvUnit::canParadropAt, CvUnit::verifyStackValid, CvUnitAI::AI_RbombardUnit, CvUnitAI::AI_anyAttack, CvUnitAI::AI_bestCityBuild, CvUnitAI::AI_blockade, CvUnitAI::AI_carrierSeaTransport …
-- **3708** `CvPlot::isVisibleOtherUnit(PlayerTypes) const`
+- **3817** `CvPlot::isVisibleOtherUnit(PlayerTypes) const`
   - calls: CvPlot::plotCheck
   - takes the address of: PUF_isOtherTeam [CvGameCoreUtils.cpp], PUF_isVisible [CvGameCoreUtils.cpp]
   - called by (2): CvUnit::canMoveInto, CyPlot::isVisibleOtherUnit
-- **3714** `CvPlot::isFighting() const` (exported)
+- **3823** `CvPlot::isFighting() const` (exported)
   - calls: CvPlot::plotCheck
   - takes the address of: PUF_isFighting [CvGameCoreUtils.cpp]
   - called by (6): CvSelectionGroup::groupAttack, CvUnit::attackForDamage, CvUnit::canScrap, CvUnit::updateAirCombat, CvUnit::updateCombat, CyPlot::isFighting
-- **3720** `CvPlot::canHaveFeature(FeatureTypes) const`
+- **3829** `CvPlot::canHaveFeature(FeatureTypes) const`
   - calls: CvPlot::getFeatureType, CvPlot::isPeak, CvPlot::isCity, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::isTerrain [CvInfos.cpp], CvPlot::getTerrainType, CvFeatureInfo::isNoCoast [CvInfos.cpp], CvPlot::isCoastalLand, CvFeatureInfo::isNoRiver [CvInfos.cpp], CvPlot::isRiver, CvFeatureInfo::isRequiresFlatlands [CvInfos.cpp], CvPlot::isHills, CvFeatureInfo::isNoAdjacent [CvInfos.cpp], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvFeatureInfo::isRequiresRiver [CvInfos.cpp]
   - called by (7): CvCity::kill, CvGame::normalizeAddExtras, CvGame::normalizeAddRiver, CvMapGenerator::addFeatures, CvPlot::canApplyEvent, CvPlot::doFeature, CyPlot::canHaveFeature
-- **3792** `CvPlot::isRoute() const` (exported)
+- **3901** `CvPlot::isRoute() const` (exported)
   - calls: CvPlot::getRouteType
   - called by (14): CvPlayerAI::AI_advancedStartRouteTerritory, CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getPlotDanger, CvPlot::doFeature, CvPlot::isBonusNetwork, CvPlot::isTradeNetworkConnected, CvPlot::isValidRoute, CvPlot::setRouteType, CvUnit::canPillage, CvUnit::isActionRecommended, CvUnit::pillage, CvUnitAI::AI_airOffenseBaseValue …
-- **3798** `CvPlot::isValidRoute(CvUnit const*) const`
+- **3907** `CvPlot::isValidRoute(CvUnit const*) const`
   - calls: CvPlot::isRoute, CvPlot::getTeam, CvUnit::isEnemyRoute [CvUnit.cpp], CvUnit::isEnemy [CvUnit.cpp]
   - called by (4): CvPlayerAI::AI_getAnyPlotDanger, CvPlayerAI::AI_getEnemyPlotStrength, CvPlayerAI::AI_getPlotDanger, CvPlot::movementCost
-- **3812** `CvPlot::isTradeNetworkImpassable(TeamTypes) const`
+- **3921** `CvPlot::isTradeNetworkImpassable(TeamTypes) const`
   - calls: CvPlot::isRiverNetwork, CvPlot::isImpassable
   - called by (3): CvPlot::isTradeNetwork, CvPlot::isTradeNetworkConnected, CyPlot::isTradeNetworkImpassable
-- **3817** `CvPlot::isRiverNetwork(TeamTypes) const`
+- **3926** `CvPlot::isRiverNetwork(TeamTypes) const`
   - calls: CvPlot::isRiver, CvTeam::isRiverTrade [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::getTeam
   - called by (3): CvPlot::isBonusNetwork, CvPlot::isTradeNetworkConnected, CvPlot::isTradeNetworkImpassable
-- **3837** `CvPlot::isNetworkTerrain(TeamTypes) const`
+- **3946** `CvPlot::isNetworkTerrain(TeamTypes) const`
   - calls: CvPlot::getTerrainType, CvTeam::isTerrainTrade [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::isWater, CvPlot::getTeam
   - called by (3): CvPlot::isBonusNetwork, CvPlot::isTradeNetworkConnected, CyPlot::isNetworkTerrain
-- **3859** `CvPlot::isBonusNetwork(TeamTypes) const`
+- **3968** `CvPlot::isBonusNetwork(TeamTypes) const`
   - calls: CvPlot::isRoute, CvPlot::isRiverNetwork, CvPlot::isNetworkTerrain
   - called by (4): CvGameTextMgr::setPlotHelp, CvPlot::isTradeNetwork, CvPlot::updatePlotGroupBonus, CyPlot::isBonusNetwork
-- **3880** `CvPlot::isTradeNetwork(TeamTypes) const`
+- **3989** `CvPlot::isTradeNetwork(TeamTypes) const`
   - calls: atWar [CvGameCoreUtils.cpp], CvPlot::getTeam, CvPlot::getBlockadedCount, CvPlot::isTradeNetworkImpassable, CvPlot::isOwned, CvPlot::isRevealed, CvPlot::isBonusNetwork
   - called by (4): CvPlot::updatePlotGroup(PlayerTypes, bool), CvUnit::updatePlunder, CyPlot::isTradeNetwork, plotGroupValid
-- **3911** `CvPlot::isTradeNetworkConnected(CvPlot const*, TeamTypes) const`
+- **4020** `CvPlot::isTradeNetworkConnected(CvPlot const*, TeamTypes) const`
   - calls: atWar [CvGameCoreUtils.cpp], CvPlot::getTeam, CvPlot::isTradeNetworkImpassable, CvPlot::isOwned, CvPlot::isRevealed, CvPlot::isRoute, CvPlot::isCity, CvPlot::isNetworkTerrain, CvPlot::isRiverNetwork, directionXY(CvPlot const*, CvPlot const*) [CvGameCoreUtils.h], CvPlot::isRiverConnection
   - called by (3): CvPlot::updatePlotGroup(PlayerTypes, bool), CyPlot::isTradeNetworkConnected, plotGroupValid
-- **3993** `CvPlot::isValidDomainForLocation(CvUnit const&) const`
+- **4102** `CvPlot::isValidDomainForLocation(CvUnit const&) const`
   - calls: CvPlot::isValidDomainForAction, CvPlot::isCity, CvUnit::getTeam [CvUnit.cpp]
   - called by (9): CvPlot::movementCost, CvPlot::verifyUnitValidPlot, CvUnit::canAirDefend, CvUnit::canGift, CvUnit::canUnload, CvUnit::jumpToNearestValidPlot, CvUnit::kill, CvUnitAI::AI_workerSeaMove, CyPlot::isValidDomainForLocation
-- **4004** `CvPlot::isValidDomainForAction(CvUnit const&) const`
+- **4113** `CvPlot::isValidDomainForAction(CvUnit const&) const`
   - calls: CvUnit::getDomainType [CvUnit.cpp], CvPlot::isWater, CvUnit::canMoveAllTerrain [CvUnit.cpp]
   - called by (8): CvPlayerAI::AI_getEnemyPlotStrength, CvPlot::isValidDomainForLocation, CvPlot::movementCost, CvUnit::canBuild, CvUnit::canDefend, CvUnit::canPillage, CvUnit::canPlunder, CyPlot::isValidDomainForAction
-- **4030** `CvPlot::isImpassable() const`
+- **4139** `CvPlot::isImpassable() const`
   - calls: CvPlot::isPeak, CvPlot::getTerrainType, CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::isImpassable [CvInfos.cpp], CvTerrainInfo::isImpassable [CvInfos.cpp], CvPlot::getFeatureType
   - called by (26): CvGame::foundBarbarianCity, CvGameTextMgr::setPlotHelp, CvMap::syncRandPlot, CvMapGenerator::canPlaceGoodyAt, CvPlayer::addFreeUnit, CvPlayer::canFound, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getAdvancedStartUnitCost, CvPlayer::receiveGoody, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_updateBadStart, CvPlayerAI::AI_updateSettleReach …
-- **4046** `CvPlot::getX() const` (exported)
+- **4155** `CvPlot::getX() const` (exported)
   - called by (23): CvCityAI::AI_updateBestBuild, CvDllPythonEvents::reportKbdEvent, CvDllPythonEvents::reportMouseEvent, CvGame::cycleSelectionGroups, CvGame::handleCityPlotRightPicked, CvGame::normalizeAddExtras, CvGame::selectionListMove, CvGame::startFlyoutMenu, CvPlayer::getAdvancedStartCityCost, CvPlayer::getResourceLayerColors, CvPlayerAI::AI_advancedStartDoRoute, CvPlayerAI::AI_advancedStartPlaceCity …
-- **4052** `CvPlot::getY() const` (exported)
+- **4161** `CvPlot::getY() const` (exported)
   - called by (23): CvCityAI::AI_updateBestBuild, CvDllPythonEvents::reportKbdEvent, CvDllPythonEvents::reportMouseEvent, CvGame::cycleSelectionGroups, CvGame::handleCityPlotRightPicked, CvGame::normalizeAddExtras, CvGame::selectionListMove, CvGame::startFlyoutMenu, CvPlayer::getAdvancedStartCityCost, CvPlayer::getResourceLayerColors, CvPlayerAI::AI_advancedStartDoRoute, CvPlayerAI::AI_advancedStartPlaceCity …
-- **4058** `CvPlot::at(int, int) const`
+- **4167** `CvPlot::at(int, int) const`
   - calls: CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (2): CvSelectionGroup::canStartMission, CyPlot::at
-- **4069** `CvPlot::calculateMinutes(int, int, bool, int, int) const`
+- **4178** `CvPlot::calculateMinutes(int, int, bool, int, int) const`
   - called by (2): CvPlot::getLatitudeMinutes, CvPlot::getLongitudeMinutes
-- **4078** `CvPlot::getLongitudeMinutes() const`
+- **4187** `CvPlot::getLongitudeMinutes() const`
   - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::getGridWidthINLINE [CvMap.h], CvPlot::calculateMinutes, CvPlot::getX_INLINE [CvPlot.h], CvMap::isWrapYINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (1): CvGameTextMgr::setPlotHelp
-- **4097** `CvPlot::getLatitudeMinutes() const`
+- **4206** `CvPlot::getLatitudeMinutes() const`
   - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::getTopLatitude [CvMap.cpp], CvMap::getBottomLatitude [CvMap.cpp], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h], CvPlot::calculateMinutes, CvPlot::getY_INLINE [CvPlot.h], CvMap::getGridWidthINLINE [CvMap.h], CvPlot::getX_INLINE [CvPlot.h]
   - called by (2): CvGameTextMgr::setPlotHelp, CvPlot::getLatitude
-- **4116** `CvPlot::getLatitude() const`
+- **4225** `CvPlot::getLatitude() const`
   - calls: CvPlot::getLatitudeMinutes
   - called by (6): CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setPlotHelp, CvPlot::canHaveBonus, CvPlot::setFeatureType, CyPlot::getLatitude
-- **4124** `CvPlot::getFOWIndex() const`
+- **4233** `CvPlot::getFOWIndex() const`
   - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidth [CvMap.cpp], CvMap::getGridHeight [CvMap.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (1): CvPlot::updateFog
-- **4130** `CvPlot::area() const`
+- **4239** `CvPlot::area() const`
   - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getArea [CvMap.cpp], CvPlot::getArea
   - called by (84): CvCity::area, CvCityAI::AI_countBestBuilds, CvCityAI::AI_countNumBonuses, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_totalBestBuildValue, CvGame::createBarbarianCities, CvGame::updateColoredPlots, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvMap::updateMinOriginalStartDist, CvMapGenerator::addRivers …
-- **4150** `CvPlot::waterArea(bool) const`
+- **4259** `CvPlot::waterArea(bool) const`
   - calls: CvPlot::isWater, CvPlot::area, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isImpassable, CvArea::getNumTiles [CvArea.cpp]
   - called by (12): CvCity::waterArea, CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_advancedStartPlaceExploreUnits, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getWaterDanger, CvPlot::secondWaterArea, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_exploreSeaMove, CvUnitAI::AI_pirateSeaMove, CvUnitAI::AI_settlerSeaFerry, CvUnitAI::AI_settlerSeaMove, CyPlot::waterArea
-- **4199** `CvPlot::secondWaterArea() const`
+- **4308** `CvPlot::secondWaterArea() const`
   - calls: CvPlot::waterArea, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvArea::getID [CvArea.cpp], CvPlot::getArea, CvPlot::isWater, CvArea::getNumTiles [CvArea.cpp], CvPlot::area
   - called by (2): CvCity::secondWaterArea, CvPlayerAI::AI_getPlotCanalValue
-- **4238** `CvPlot::getArea() const`
+- **4347** `CvPlot::getArea() const`
   - called by (33): CvArea::calculateTotalBestNatureYield, CvArea::countCoastalLand, CvCity::getArea, CvCityAI::AI_updateWorkersNeededHere, CvGameTextMgr::setPlotHelp, CvMap::calculateAreas, CvMap::syncRandPlot, CvMapGenerator::addGoodies, CvPlayer::addFreeUnit, CvPlayer::findStartingPlot, CvPlayer::receiveGoody, CvPlayer::startingPlotDistanceFactor …
-- **4244** `CvPlot::setArea(int)`
+- **4353** `CvPlot::setArea(int)`
   - calls: CvPlot::getArea, CvPlot::isLake, CvPlot::area, CvPlot::processArea, CvPlot::updateIrrigated, CvPlot::updateYield
   - called by (4): CvMap::calculateAreas, CvMap::recalculateAreas, CvPlot::setPlotType, joinArea
-- **4271** `CvPlot::getFeatureVariety() const` (exported)
+- **4380** `CvPlot::getFeatureVariety() const` (exported)
   - called by (1): CyPlot::getFeatureVariety
-- **4279** `CvPlot::getOwnershipDuration() const`
+- **4388** `CvPlot::getOwnershipDuration() const`
   - called by (4): CvPlot::changeOwnershipDuration, CvPlot::isOwnershipScore, CvPlot::setOwnershipDuration, CyPlot::getOwnershipDuration
-- **4285** `CvPlot::isOwnershipScore() const`
+- **4394** `CvPlot::isOwnershipScore() const`
   - calls: CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getOwnershipDuration
   - called by (3): CvPlot::setOwner, CvPlot::setOwnershipDuration, CyPlot::isOwnershipScore
-- **4291** `CvPlot::setOwnershipDuration(int)`
+- **4400** `CvPlot::setOwnershipDuration(int)`
   - calls: CvPlot::getOwnershipDuration, CvPlot::isOwnershipScore, CvPlot::isOwned, CvPlot::isWater, CvPlayer::changeTotalLandScored [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getOwnerINLINE [CvPlot.h]
   - called by (3): CvPlot::changeOwnershipDuration, CvPlot::setOwner, CyPlot::setOwnershipDuration
-- **4316** `CvPlot::changeOwnershipDuration(int)`
+- **4425** `CvPlot::changeOwnershipDuration(int)`
   - calls: CvPlot::getOwnershipDuration, CvPlot::setOwnershipDuration
   - called by (2): CvPlot::doTurn, CyPlot::changeOwnershipDuration
-- **4322** `CvPlot::getImprovementDuration() const`
+- **4431** `CvPlot::getImprovementDuration() const`
   - called by (4): CvPlot::changeImprovementDuration, CvUnitAI::AI_RbombardPlot, CvUnitAI::AI_pillageValue, CyPlot::getImprovementDuration
-- **4328** `CvPlot::setImprovementDuration(int)`
+- **4437** `CvPlot::setImprovementDuration(int)`
   - called by (3): CvPlot::changeImprovementDuration, CvPlot::setImprovementType, CyPlot::setImprovementDuration
-- **4335** `CvPlot::changeImprovementDuration(int)`
+- **4444** `CvPlot::changeImprovementDuration(int)`
   - calls: CvPlot::getImprovementDuration, CvPlot::setImprovementDuration
   - called by (2): CvPlot::doTurn, CyPlot::changeImprovementDuration
-- **4341** `CvPlot::getUpgradeProgress() const`
+- **4450** `CvPlot::getUpgradeProgress() const`
   - called by (7): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvGameTextMgr::setPlotHelp, CvPlot::changeUpgradeProgress, CvPlot::doImprovementUpgrade, CvPlot::getUpgradeTimeLeft, CyPlot::getUpgradeProgress
-- **4347** `CvPlot::getUpgradeTimeLeft(ImprovementTypes, PlayerTypes) const`
+- **4456** `CvPlot::getUpgradeTimeLeft(ImprovementTypes, PlayerTypes) const`
   - calls: CvGame::getImprovementUpgradeTime [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getUpgradeProgress, CvPlot::getImprovementType, CvPlayer::getImprovementUpgradeRate [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (4): CvCityAI::AI_plotValue, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setPlotHelp, CyPlot::getUpgradeTimeLeft
-- **4378** `CvPlot::setUpgradeProgress(int)`
+- **4487** `CvPlot::setUpgradeProgress(int)`
   - called by (3): CvPlot::changeUpgradeProgress, CvPlot::setImprovementType, CyPlot::setUpgradeProgress
-- **4385** `CvPlot::changeUpgradeProgress(int)`
+- **4494** `CvPlot::changeUpgradeProgress(int)`
   - calls: CvPlot::getUpgradeProgress, CvPlot::setUpgradeProgress
   - called by (2): CvPlot::doImprovementUpgrade, CyPlot::changeUpgradeProgress
-- **4391** `CvPlot::getForceUnownedTimer() const`
+- **4500** `CvPlot::getForceUnownedTimer() const`
   - called by (4): CvPlot::changeForceUnownedTimer, CvPlot::doTurn, CvPlot::isForceUnowned, CyPlot::getForceUnownedTimer
-- **4397** `CvPlot::isForceUnowned() const`
+- **4506** `CvPlot::isForceUnowned() const`
   - calls: CvPlot::getForceUnownedTimer
   - called by (2): CvPlot::calculateCulturalOwner, CyPlot::isForceUnowned
-- **4403** `CvPlot::setForceUnownedTimer(int)`
+- **4512** `CvPlot::setForceUnownedTimer(int)`
   - called by (3): CvPlayer::acquireCity, CvPlot::changeForceUnownedTimer, CyPlot::setForceUnownedTimer
-- **4410** `CvPlot::changeForceUnownedTimer(int)`
+- **4519** `CvPlot::changeForceUnownedTimer(int)`
   - calls: CvPlot::getForceUnownedTimer, CvPlot::setForceUnownedTimer
   - called by (2): CvPlot::doTurn, CyPlot::changeForceUnownedTimer
-- **4416** `CvPlot::getCityRadiusCount() const`
+- **4525** `CvPlot::getCityRadiusCount() const`
   - called by (3): CvCityAI::AI_getImprovementValue, CvPlot::isCityRadius, CyPlot::getCityRadiusCount
-- **4422** `CvPlot::isCityRadius() const`
+- **4531** `CvPlot::isCityRadius() const`
   - calls: CvPlot::getCityRadiusCount
   - called by (9): CvCityAI::AI_bestPlotBuild, CvPlayer::countOwnedBonuses, CvPlayerAI::AI_countDeadlockedBonuses, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getPlotAirbaseValue, CvPlayerAI::AI_getPlotCanalValue, CvUnitAI::AI_improveBonus, CvUnitAI::AI_improveLocalPlot, CyPlot::isCityRadius
-- **4428** `CvPlot::changeCityRadiusCount(int)`
+- **4537** `CvPlot::changeCityRadiusCount(int)`
   - called by (1): CvPlot::setPlotCity
-- **4435** `CvPlot::isStartingPlot() const`
+- **4544** `CvPlot::isStartingPlot() const`
   - called by (3): CvGame::assignStartingPlots, CvPlayerAI::AI_foundValue, CyPlot::isStartingPlot
-- **4441** `CvPlot::setStartingPlot(bool)`
+- **4550** `CvPlot::setStartingPlot(bool)`
   - called by (1): CyPlot::setStartingPlot
-- **4447** `CvPlot::isNOfRiver() const` (exported)
+- **4556** `CvPlot::isNOfRiver() const` (exported)
   - called by (7): CvMapGenerator::doRiver, CvMapGenerator::eraseRivers, CvPlot::isRiverMask, CvPlot::processArea, CvPlot::setNOfRiver, CvPlot::updateRiverCrossing(DirectionTypes), CyPlot::isNOfRiver
-- **4453** `CvPlot::setNOfRiver(bool, CardinalDirectionTypes)` (exported)
+- **4562** `CvPlot::setNOfRiver(bool, CardinalDirectionTypes)` (exported)
   - calls: CvPlot::isNOfRiver, CvPlot::updatePlotGroupBonus, CvPlot::updateRiverCrossing(), CvPlot::updateYield, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::area, CvArea::changeNumRiverEdges [CvArea.cpp], CvPlot::updateRiverSymbol
   - called by (4): CvMapGenerator::doRiver, CvMapGenerator::eraseRivers, CvPlot::erase, CyPlot::setNOfRiver
-- **4494** `CvPlot::isWOfRiver() const` (exported)
+- **4603** `CvPlot::isWOfRiver() const` (exported)
   - called by (7): CvMapGenerator::doRiver, CvMapGenerator::eraseRivers, CvPlot::isRiverMask, CvPlot::processArea, CvPlot::setWOfRiver, CvPlot::updateRiverCrossing(DirectionTypes), CyPlot::isWOfRiver
-- **4500** `CvPlot::setWOfRiver(bool, CardinalDirectionTypes)` (exported)
+- **4609** `CvPlot::setWOfRiver(bool, CardinalDirectionTypes)` (exported)
   - calls: CvPlot::isWOfRiver, CvPlot::updatePlotGroupBonus, CvPlot::updateRiverCrossing(), CvPlot::updateYield, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::area, CvArea::changeNumRiverEdges [CvArea.cpp], CvPlot::updateRiverSymbol
   - called by (4): CvMapGenerator::doRiver, CvMapGenerator::eraseRivers, CvPlot::erase, CyPlot::setWOfRiver
-- **4541** `CvPlot::getRiverNSDirection() const` (exported)
+- **4650** `CvPlot::getRiverNSDirection() const` (exported)
   - called by (3): CvGameTextMgr::setPlotHelp, CvPlot::isRiverCrossingFlowClockwise, CyPlot::getRiverNSDirection
-- **4547** `CvPlot::getRiverWEDirection() const` (exported)
+- **4656** `CvPlot::getRiverWEDirection() const` (exported)
   - called by (3): CvGameTextMgr::setPlotHelp, CvPlot::isRiverCrossingFlowClockwise, CyPlot::getRiverWEDirection
-- **4556** `CvPlot::getInlandCorner() const`
+- **4665** `CvPlot::getInlandCorner() const`
   - calls: CvGame::getMapRand [CvGame.cpp], shuffleArray [CvGameCoreUtils.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], plotDirection [CvGameCoreUtils.h], CvPlot::hasCoastAtSECorner
   - called by (1): CvMapGenerator::addRivers
-- **4590** `CvPlot::hasCoastAtSECorner() const`
+- **4699** `CvPlot::hasCoastAtSECorner() const`
   - calls: CvPlot::isWater, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (3): CvMapGenerator::addRiver, CvMapGenerator::doRiver, CvPlot::getInlandCorner
-- **4621** `CvPlot::isIrrigated() const`
+- **4730** `CvPlot::isIrrigated() const`
   - called by (6): CvCityAI::AI_bestPlotBuild, CvPlot::isIrrigationAvailable, CvPlot::setIrrigated, CvPlot::updateIrrigated, CvUnit::isActionRecommended, CyPlot::isIrrigated
-- **4627** `CvPlot::setIrrigated(bool)`
+- **4736** `CvPlot::setIrrigated(bool)`
   - calls: CvPlot::isIrrigated, plotXY [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::updateYield, CvPlot::setLayoutDirty
   - called by (2): CvPlot::updateIrrigated, changeIrrigated
-- **4653** `CvPlot::updateIrrigated()`
+- **4762** `CvPlot::updateIrrigated()`
   - calls: CvPlot::area, CvGame::isFinalInitialized [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLFAStarIFaceBase::create [CvDLLFAStarIFaceBase.h], CvDLLUtilityIFaceBase::getFAStarIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::isIrrigated, CvPlot::isPotentialIrrigation, CvPlot::setIrrigated, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvDLLFAStarIFaceBase::Initialize [CvDLLFAStarIFaceBase.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h], CvDLLFAStarIFaceBase::GeneratePath [CvDLLFAStarIFaceBase.h], CvPlot::isIrrigationAvailable, CvDLLFAStarIFaceBase::destroy [CvDLLFAStarIFaceBase.h]
   - takes the address of: potentialIrrigation [CvGameCoreUtils.cpp], checkFreshWater [CvGameCoreUtils.cpp], changeIrrigated [CvGameCoreUtils.cpp]
   - called by (5): CvMap::updateIrrigated, CvPlot::setArea, CvPlot::setImprovementType, CvPlot::setOwner, CvPlot::setPlotCity
-- **4715** `CvPlot::isPotentialCityWork() const`
+- **4824** `CvPlot::isPotentialCityWork() const`
   - called by (4): CvPlot::calculateYield, CvPlot::canHaveBonus, CvPlot::updatePotentialCityWork, CyPlot::isPotentialCityWork
-- **4721** `CvPlot::isPotentialCityWorkForArea(CvArea*) const`
+- **4830** `CvPlot::isPotentialCityWorkForArea(CvArea*) const`
   - calls: plotCity [CvGameCoreUtils.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::isWater, CvPlot::area
   - called by (2): CvCity::doPlotCulture, CyPlot::isPotentialCityWorkForArea
-- **4748** `CvPlot::updatePotentialCityWork()`
+- **4857** `CvPlot::updatePotentialCityWork()`
   - calls: plotCity [CvGameCoreUtils.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isWater, CvPlot::isPotentialCityWork, CvPlot::updateYield
   - called by (1): CvPlot::setPlotType
-- **4781** `CvPlot::isShowCitySymbols() const`
+- **4890** `CvPlot::isShowCitySymbols() const`
   - called by (4): CvPlot::getSymbolSize, CvPlot::updateShowCitySymbols, CvPlot::updateSymbolDisplay, CvPlot::updateSymbolVisibility
-- **4787** `CvPlot::updateShowCitySymbols()`
+- **4896** `CvPlot::updateShowCitySymbols()`
   - calls: plotCity [CvGameCoreUtils.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getPlotCity, CvCity::isCitySelected [CvCity.cpp], CvDLLInterfaceIFaceBase::isCityScreenUp [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvCity::canWork [CvCity.cpp], CvPlot::isShowCitySymbols, CvPlot::updateSymbolDisplay, CvPlot::updateSymbolVisibility
   - called by (2): CvCity::updateSelectedCity, CvPlot::updateWorkingCity
-- **4828** `CvPlot::isFlagDirty() const`
+- **4937** `CvPlot::isFlagDirty() const`
   - called by (2): CvMap::updateFlagSymbols, CyPlot::isFlagDirty
-- **4834** `CvPlot::setFlagDirty(bool)`
-  - called by (10): CvMap::updateFlagSymbols, CvPlot::addUnit, CvPlot::removeUnit, CvPlot::setCenterUnit, CvSelectionGroup::setActivityType, CvUnit::init, CvUnit::joinGroup, CvUnit::setMoves, CvUnit::setXY, CyPlot::setFlagDirty
-- **4840** `CvPlot::getOwner() const` (exported)
+- **4943** `CvPlot::setFlagDirty(bool)`
+  - called by (11): CvMap::updateFlagSymbols, CvPlot::addUnit, CvPlot::pageGraphics, CvPlot::removeUnit, CvPlot::setCenterUnit, CvSelectionGroup::setActivityType, CvUnit::init, CvUnit::joinGroup, CvUnit::setMoves, CvUnit::setXY, CyPlot::setFlagDirty
+- **4949** `CvPlot::getOwner() const` (exported)
   - calls: CvPlot::getOwnerINLINE [CvPlot.h]
   - called by (12): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_neededAirDefenders, CvGame::doGlobalWarming, CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_advancedStartRouteTerritory, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CvSelectionGroup::calculateIsStranded, CvUnit::doPillageInfluence, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_attackAirMove, CvUnitAI::AI_bonusOffenseSpy
-- **4846** `CvPlot::setOwner(PlayerTypes, bool, bool)`
+- **4955** `CvPlot::setOwner(PlayerTypes, bool, bool)`
   - calls: CvWString::CvWString() [CvString.h], CvPlot::getOwnerINLINE [CvPlot.h], CvGame::addReplayMessage [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(char const*) [CvString.h], CvPlot::getPlotCity, CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getCivilizationDescriptionKey [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getInterfaceArtInfo(char const*) const [CvArtFileMgr.cpp], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvAssetInfoBase::getPath [CvInfos.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvPlayer::acquireCity [CvPlayer.cpp], CLinkList<IDInfo>::CLinkList<struct IDInfo> [LinkedList.h], CvPlot::headUnitNode, CLinkList<IDInfo>::insertAtEnd [LinkedList.h], CvPlot::nextUnitNode, CLinkList<IDInfo>::head [LinkedList.h], getUnit [CvGameCoreUtils.cpp], CLinkList<IDInfo>::next [LinkedList.h], CvPlayer::getTeam [CvPlayer.cpp], CvUnit::isEnemy [CvUnit.cpp], CvUnit::kill [CvUnit.cpp], CvCity::AI_bestUnitAI [CvCity.h] ⇢ CvCityAI::AI_bestUnitAI, CvCity::getHighestPopulation [CvCity.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlayer::initUnit [CvPlayer.cpp], CLinkList<IDInfo>::~CLinkList<struct IDInfo> [LinkedList.h], CvPlot::setOwnershipDuration, CvPlot::isOwned, CvPlot::changeAdjacentSight, CvPlot::getTeam, CvPlot::area, CvArea::changeNumOwnedTiles [CvArea.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::changeOwnedPlots [CvMap.cpp], CvPlot::isWater, CvPlayer::changeTotalLand [CvPlayer.cpp], CvTeam::changeTotalLand [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::isOwnershipScore, CvPlayer::changeTotalLandScored [CvPlayer.cpp], CvPlot::getImprovementType, CvPlayer::changeImprovementCount [CvPlayer.cpp], CvPlot::updatePlotGroupBonus, CvTeam::isVassal [CvTeam.cpp], CvUnit::getTeam [CvUnit.cpp], CvPlayer::changeNumOutsideUnits [CvPlayer.cpp], CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::isBlockading [CvUnit.cpp], CvUnit::setBlockading [CvUnit.cpp], CvSelectionGroup::clearMissionQueue [CvSelectionGroup.cpp], CvUnit::getGroup [CvUnit.cpp], CvSelectionGroup::setActivityType [CvSelectionGroup.cpp], CvPlot::setWorkingCityOverride, CvPlot::updateWorkingCity, CvTeam::isAlive [CvTeam.cpp], CvPlot::updateRevealedOwner, CvPlot::updateIrrigated, CvPlot::updateYield, CvPlot::updatePlotGroup(), CvPlot::verifyUnitValidPlot, CvPlot::isGoody, CvPlayer::doGoody [CvPlayer.cpp], CvPlot::isVisible, CvTeam::meet [CvTeam.cpp], CvGame::isDebugMode [CvGame.cpp], CvPlot::updateMinimapColor, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLEngineIFaceBase::SetDirty [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], plotXY [CvGameCoreUtils.h], CvPlot::invalidateIsTeamBorderCache, CvPlot::updateSymbols
   - called by (6): CvCity::init, CvPlayer::assimilatePlayer, CvPlot::doCulture, CvPlot::updateCulture, CyPlot::setOwner, CyPlot::setOwnerNoUnitCheck
-- **5106** `CvPlot::getPlotType() const`
+- **5215** `CvPlot::getPlotType() const`
   - called by (8): CvMapGenerator::getRiverValueAtPlot, CvPlot::canTrigger, CvPlot::isFlatlands, CvPlot::isHills, CvPlot::isPeak, CvPlot::isWater, CvPlot::setPlotType, CyPlot::getPlotType
-- **5112** `CvPlot::isWater() const` (exported)
+- **5221** `CvPlot::isWater() const` (exported)
   - calls: CvPlot::getPlotType
   - called by (112): CvCity::canWork, CvCity::countNumWaterPlots, CvCity::getAdditionalBaseYieldRateByBuilding, CvCityAI::AI_buildingSpecialYieldChangeValue, CvCityAI::AI_countNumBonuses, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_updateLocalGovernor, CvGame::createBarbarianCities, CvGame::doGlobalWarming, CvGame::foundBarbarianCity, CvGame::initScoreCalculation, CvGame::normalizeAddExtras …
-- **5118** `CvPlot::isFlatlands() const`
+- **5227** `CvPlot::isFlatlands() const`
   - calls: CvPlot::getPlotType
   - called by (3): CvPlot::canHaveBonus, CvPlot::canHaveImprovement, CyPlot::isFlatlands
-- **5124** `CvPlot::isHills() const` (exported)
+- **5233** `CvPlot::isHills() const` (exported)
   - calls: CvPlot::getPlotType
   - called by (33): CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_neededDefenders, CvCityAI::AI_updateBestBuild, CvGame::doGlobalWarming, CvGame::normalizeAddExtras, CvGame::normalizeAddGoodTerrain, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotHelp, CvMapGenerator::addRivers, CvPlayerAI::AI_doAdvancedStart, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getPlotAirbaseValue …
-- **5130** `CvPlot::isPeak() const` (exported)
+- **5239** `CvPlot::isPeak() const` (exported)
   - calls: CvPlot::getPlotType
   - called by (12): CvGame::doGlobalWarming, CvGame::normalizeRemovePeaks, CvGameTextMgr::setPlotHelp, CvMapGenerator::addRivers, CvPlot::calculateNatureYield, CvPlot::canHaveBonus, CvPlot::canHaveFeature, CvPlot::getAqueductSourceWeight, CvPlot::isImpassable, CvPlot::seeFromLevel, CvPlot::seeThroughLevel, CyPlot::isPeak
-- **5136** `CvPlot::setPlotType(PlotTypes, bool, bool)`
+- **5245** `CvPlot::setPlotType(PlotTypes, bool, bool)`
   - calls: CvPlot::getPlotType, CvPlot::erase, CvPlot::isWater, CvPlot::updateSeeFromSight, CvPlot::updateYield, CvPlot::updatePlotGroup(), CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTerrainInfo::isWater [CvInfos.cpp], CvPlot::getTerrainType, CvPlot::isAdjacentToLand, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlot::setTerrainType, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::resetPathDistance [CvMap.cpp], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], plotCity [CvGameCoreUtils.cpp], CvPlot::updatePotentialCityWork, CvMap::changeLandPlots [CvMap.cpp], CvPlot::getBonusType, CvMap::changeNumBonusesOnLand [CvMap.cpp], CvPlot::isOwned, CvPlayer::changeTotalLand [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::getTeam, CvTeam::changeTotalLand [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], plotCardinalDirection [CvGameCoreUtils.h], CvArea::isWater [CvArea.cpp], CvPlot::area, CvMap::recalculateAreas [CvMap.cpp], CvPlot::setArea, CvArea::getNumTiles [CvArea.cpp], CvMap::deleteArea [CvMap.cpp], CvPlot::getArea, CvMap::addArea [CvMap.cpp], CvArea::init [CvArea.cpp], CvArea::getID [CvArea.cpp], CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvDLLEngineIFaceBase::RebuildPlot [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::updateFeatureSymbol, CvPlot::setLayoutDirty, CvPlot::updateRouteSymbol, CvPlot::updateRiverSymbol
   - called by (8): CvGame::normalizeAddExtras, CvGame::normalizeAddLakes, CvGame::normalizeRemovePeaks, CvMap::setAllPlotTypes, CvMapGenerator::addLakes, CvMapGenerator::setPlotTypes, CvPlot::setTerrainType, CyPlot::setPlotType
-- **5380** `CvPlot::getTerrainType() const` (exported)
+- **5489** `CvPlot::getTerrainType() const` (exported)
   - called by (37): CvGame::createAnimals, CvGame::doGlobalWarming, CvGame::normalizeAddGoodTerrain, CvGame::normalizeRemoveBadTerrain, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setPlotHelp, CvPlayer::canFound, CvPlayer::getAdvancedStartUnitCost, CvPlayer::initTriggeredData, CvPlayerAI::AI_doAdvancedStart, CvPlayerAI::AI_updateSettleReach, CvPlot::calculateMaxYield …
-- **5386** `CvPlot::setTerrainType(TerrainTypes, bool, bool)`
+- **5495** `CvPlot::setTerrainType(TerrainTypes, bool, bool)`
   - calls: CvPlot::getTerrainType, CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvTerrainInfo::getSeeFromLevel [CvInfos.cpp], CvGlobals::getInstance [CvGlobals.h], CvTerrainInfo::getSeeThroughLevel [CvInfos.cpp], CvPlot::updateSeeFromSight, CvPlot::updateYield, CvPlot::updatePlotGroup(), CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvDLLEngineIFaceBase::RebuildPlot [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvTerrainInfo::isWater [CvInfos.cpp], CvPlot::isWater, CvPlot::setPlotType
   - called by (7): CvGame::doGlobalWarming, CvGame::normalizeAddGoodTerrain, CvGame::normalizeRemoveBadTerrain, CvMapGenerator::generateTerrain, CvMapGenerator::setPlotTypes, CvPlot::setPlotType, CyPlot::setTerrainType
-- **5435** `CvPlot::getFeatureType() const` (exported)
+- **5544** `CvPlot::getFeatureType() const` (exported)
   - called by (73): CvCity::init, CvCity::updateFeatureHappiness, CvCity::updateFeatureHealth, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvDLLWidgetData::parseActionHelp, CvGame::createAnimals …
-- **5441** `CvPlot::setFeatureType(FeatureTypes, int)` (exported)
+- **5550** `CvPlot::setFeatureType(FeatureTypes, int)` (exported)
   - calls: CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::getArtInfo [CvInfos.cpp], CvArtInfoFeature::getNumVarieties [CvInfos.cpp], CvPlot::getLatitude, range(int, int, int) [CvGameCoreUtils.h], CvFeatureInfo::getSeeThroughChange [CvInfos.cpp], CvPlot::updateSeeFromSight, CvPlot::updateYield, CvPlot::updateFeatureSymbol, CvArtInfoFeature::isRiverArt [CvInfos.cpp], CvPlot::updateRiverSymbolArt, plotCity [CvGameCoreUtils.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getPlotCity, CvCity::updateFeatureHealth [CvCity.cpp], CvCity::updateFeatureHappiness [CvCity.cpp], CvPlot::getImprovementType, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isRequiresFeature [CvInfos.cpp], CvPlot::setImprovementType
   - called by (18): CvCity::init, CvCity::kill, CvGame::doGlobalWarming, CvGame::normalizeAddExtras, CvGame::normalizeAddGoodTerrain, CvGame::normalizeAddRiver, CvGame::normalizeRemoveBadFeatures, CvMapGenerator::addFeatures, CvMapGenerator::eraseFeatures, CvPlayer::doAdvancedStartAction, CvPlayer::doEspionageMission, CvPlot::applyEvent …
-- **5530** `CvPlot::setFeatureDummyVisibility(char const*, bool)` (exported)
+- **5639** `CvPlot::setFeatureDummyVisibility(char const*, bool)` (exported)
   - calls: CvDLLFeatureIFaceBase::setDummyVisibility [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CyPlot::setFeatureDummyVisibility
-- **5539** `CvPlot::addFeatureDummyModel(char const*, char const*)` (exported)
+- **5648** `CvPlot::addFeatureDummyModel(char const*, char const*)` (exported)
   - calls: CvDLLFeatureIFaceBase::addDummyModel [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CyPlot::addFeatureDummyModel
-- **5548** `CvPlot::setFeatureDummyTexture(char const*, char const*)` (exported)
+- **5657** `CvPlot::setFeatureDummyTexture(char const*, char const*)` (exported)
   - calls: CvDLLFeatureIFaceBase::setDummyTexture [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CyPlot::setFeatureDummyTexture
-- **5557** `CvPlot::pickFeatureDummyTag(int, int)` (exported)
+- **5666** `CvPlot::pickFeatureDummyTag(int, int)` (exported)
   - calls: CvDLLFeatureIFaceBase::pickDummyTag [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::CvString(int) [CvString.h]
   - called by (1): CyPlot::pickFeatureDummyTag
-- **5568** `CvPlot::resetFeatureModel()` (exported)
+- **5677** `CvPlot::resetFeatureModel()` (exported)
   - calls: CvDLLFeatureIFaceBase::resetModel [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CyPlot::resetFeatureModel
-- **5577** `CvPlot::getBonusType(TeamTypes) const` (exported)
+- **5686** `CvPlot::getBonusType(TeamTypes) const` (exported)
   - calls: CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBonusInfo::getTechReveal [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeam::isForceRevealedBonus [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
   - called by (60): CvCity::kill, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_buildingSpecialYieldChangeValue, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_countNumBonuses, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_plotValue, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateLocalGovernor, CvDLLWidgetData::parseActionHelp …
-- **5594** `CvPlot::getNonObsoleteBonusType(TeamTypes) const`
+- **5703** `CvPlot::getNonObsoleteBonusType(TeamTypes) const`
   - calls: CvPlot::getBonusType, CvTeam::isBonusObsolete [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
   - called by (25): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_calculateCulturePressure, CvCityAI::AI_getImprovementValue, CvGameTextMgr::setPlotHelp, CvPlayer::countUnimprovedBonuses, CvPlayerAI::AI_espionageVal, CvPlot::updatePlotGroupBonus, CvSelectionGroup::groupBuild, CvTeamAI::AI_acceptSurrender, CvTeamAI::AI_calculateBonusWarValue, CvUnitAI::AI_betterPlotBuild, CvUnitAI::AI_calculatePlotWorkersNeeded …
-- **5611** `CvPlot::setBonusType(BonusTypes)`
+- **5720** `CvPlot::setBonusType(BonusTypes)`
   - calls: CvPlot::getBonusType, CvPlot::area, CvArea::changeNumBonuses [CvArea.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::changeNumBonuses [CvMap.cpp], CvPlot::isWater, CvMap::changeNumBonusesOnLand [CvMap.cpp], CvPlot::updatePlotGroupBonus, CvPlot::updateYield, CvPlot::setLayoutDirty, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (10): CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGame::normalizeAddRiver, CvMapGenerator::addNonUniqueBonusType, CvMapGenerator::addUniqueBonusType, CvMapGenerator::eraseBonuses, CvPlot::applyEvent, CvPlot::doImprovement, CvPlot::erase, CyPlot::setBonusType
-- **5656** `CvPlot::getImprovementType() const` (exported)
+- **5765** `CvPlot::getImprovementType() const` (exported)
   - called by (88): CvCity::applyEvent, CvCity::canApplyEvent, CvCity::countNumImprovedPlots, CvCity::updateFeatureHappiness, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getPlotMagicValue, CvCityAI::AI_plotValue, CvCityAI::AI_totalBestBuildValue, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere …
-- **5662** `CvPlot::setImprovementType(ImprovementTypes)` (exported)
+- **5771** `CvPlot::setImprovementType(ImprovementTypes)` (exported)
   - calls: CvPlot::getImprovementType, CvPlot::area, CvArea::changeNumImprovements [CvArea.cpp], CvPlot::isOwned, CvPlayer::changeImprovementCount [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::updatePlotGroupBonus, CvPlot::setImprovementDuration, CvPlot::setUpgradeProgress, CvTeam::isAlive [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::isVisible, CvPlot::setRevealedImprovementType, CvPlot::updateIrrigated, CvPlot::updateYield, plotCity [CvGameCoreUtils.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getPlotCity, CvCity::updateFeatureHappiness [CvCity.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isActsAsCity [CvInfos.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::updatePlotGroup(), CvPlot::verifyUnitValidPlot, CvGame::isDebugMode [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::setLayoutDirty, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::improvementBuilt [CvEventReporter.cpp], CvEventReporter::improvementDestroyed [CvEventReporter.cpp], CvPlot::getWorkingCity, CvCity::getImprovementFreeSpecialists [CvCity.cpp], CvCity::AI_setAssignWorkDirty [CvCity.h] ⇢ CvCityAI::AI_setAssignWorkDirty, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (21): CvCity::applyEvent, CvCity::init, CvCity::kill, CvGame::doGlobalWarming, CvMapGenerator::addGoodies, CvPlayer::applyEvent, CvPlayer::doAdvancedStartAction, CvPlayer::doEspionageMission, CvPlot::applyEvent, CvPlot::changeBuildProgress, CvPlot::doImprovementUpgrade, CvPlot::erase …
-- **5777** `CvPlot::getRouteType() const` (exported)
+- **5886** `CvPlot::getRouteType() const` (exported)
   - called by (31): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_updateBestBuild, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setEventHelp, CvGameTextMgr::setPlotHelp, CvPlayer::doAdvancedStartAction, CvPlayer::doEspionageMission, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayer::getEspionageMissionBaseCost, CvPlayer::initTriggeredData, CvPlayerAI::AI_advancedStartRouteTerritory …
-- **5783** `CvPlot::setRouteType(RouteTypes, bool)` (exported)
+- **5892** `CvPlot::setRouteType(RouteTypes, bool)` (exported)
   - calls: CvPlot::getRouteType, CvPlot::isRoute, CvPlot::updatePlotGroupBonus, CvTeam::isAlive [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::isVisible, CvPlot::setRevealedRouteType, CvPlot::updateYield, CvPlot::updatePlotGroup(), CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::updateRouteSymbol, CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::routeBuilt [CvEventReporter.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (8): CvPlayer::doAdvancedStartAction, CvPlayer::doEspionageMission, CvPlot::applyEvent, CvPlot::changeBuildProgress, CvPlot::erase, CvPlot::updateCityRoute, CvUnit::pillage, CyPlot::setRouteType
-- **5830** `CvPlot::updateCityRoute(bool)`
+- **5939** `CvPlot::updateCityRoute(bool)`
   - calls: CvPlot::isCity, CvPlayer::getBestRoute [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getOwnerINLINE [CvPlot.h], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::setRouteType
   - called by (2): CvCity::init, CvTeam::processTech
-- **5850** `CvPlot::getPlotCity() const` (exported)
+- **5959** `CvPlot::getPlotCity() const` (exported)
   - calls: getCity [CvGameCoreUtils.cpp]
-  - called by (160): CvCity::liberate, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp, CvGame::applyFlyoutMenu, CvGame::startFlyoutMenu, CvGameTextMgr::getRebasePlotHelp, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setEspionageCostHelp, CvGameTextMgr::setPlotHelp, CvPlayer::assimilatePlayer, CvPlayer::createGreatPeople, CvPlayer::doAdvancedStartAction …
-- **5856** `CvPlot::setPlotCity(CvCity*)`
+  - called by (162): CvCity::liberate, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp, CvGame::applyFlyoutMenu, CvGame::pageGraphics, CvGame::startFlyoutMenu, CvGameTextMgr::getRebasePlotHelp, CvGameTextMgr::setCombatPlotHelp, CvGameTextMgr::setEspionageCostHelp, CvGameTextMgr::setPlotHelp, CvPlayer::assimilatePlayer, CvPlayer::createGreatPeople …
+- **5965** `CvPlot::setPlotCity(CvCity*)`
   - calls: CvPlot::getPlotCity, CvPlot::isCity, plotCity [CvGameCoreUtils.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::changeCityRadiusCount, CvCity::getOwnerINLINE [CvCity.h], CvPlot::changePlayerCityRadiusCount, CvPlot::updatePlotGroupBonus, CvPlot::getPlotGroup, CvPlot::getOwnerINLINE [CvPlot.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCity::changeNumBonuses [CvCity.cpp], CvPlotGroup::getNumBonuses [CvPlotGroup.cpp], CvCity::getIDInfo [CvCity.cpp], IDInfo::reset [CvStructs.h], CvPlot::updateIrrigated, CvPlot::updateYield, CvPlot::updateMinimapColor
   - called by (2): CvCity::init, CvCity::kill
-- **5937** `CvPlot::getWorkingCity() const`
+- **6046** `CvPlot::getWorkingCity() const`
   - calls: getCity [CvGameCoreUtils.cpp]
   - called by (60): CvCity::canWork, CvCity::countNumImprovedPlots, CvCity::countNumRiverPlots, CvCity::countNumWaterPlots, CvCity::doTurn, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_buildingSpecialYieldChangeValue, CvCityAI::AI_countGoodTiles, CvCityAI::AI_countNumBonuses, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_doEmphasize …
-- **5943** `CvPlot::updateWorkingCity()`
+- **6052** `CvPlot::updateWorkingCity()`
   - calls: CvPlot::getPlotCity, CvPlot::getWorkingCityOverride, CvPlot::isOwned, plotCity [CvGameCoreUtils.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvCity::getOwnerINLINE [CvCity.h], CvPlot::getOwnerINLINE [CvPlot.h], CvGlobals::getCityPlotPriority [CvGlobals.cpp], CvCity::getGameTurnFounded [CvCity.cpp], CvCity::getID [CvCity.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getWorkingCity, CvCity::setWorkingPlot(CvPlot*, bool) [CvCity.cpp], CvCity::getIDInfo [CvCity.cpp], IDInfo::reset [CvStructs.h], CvCity::AI_setAssignWorkDirty [CvCity.h] ⇢ CvCityAI::AI_setAssignWorkDirty, CvPlot::updateYield, CvPlot::updateFog, CvPlot::updateShowCitySymbols, CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLUtilityIFaceBase::getGraphicOption [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLInterfaceIFaceBase::canSelectionListFound [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h]
   - called by (3): CvMap::updateWorkingCity, CvPlot::setOwner, CvPlot::setWorkingCityOverride
-- **6041** `CvPlot::getWorkingCityOverride() const`
+- **6150** `CvPlot::getWorkingCityOverride() const`
   - calls: getCity [CvGameCoreUtils.cpp]
   - called by (5): CvCity::kill, CvCityAI::AI_stealPlots, CvPlot::setWorkingCityOverride, CvPlot::updateWorkingCity, CyPlot::getWorkingCityOverride
-- **6047** `CvPlot::setWorkingCityOverride(CvCity const*)`
+- **6156** `CvPlot::setWorkingCityOverride(CvCity const*)`
   - calls: CvPlot::getWorkingCityOverride, CvCity::getIDInfo [CvCity.cpp], IDInfo::reset [CvStructs.h], CvPlot::updateWorkingCity
   - called by (5): CvCity::alterWorkingPlot, CvCity::clearWorkingOverride, CvCity::kill, CvCityAI::AI_stealPlots, CvPlot::setOwner
-- **6066** `CvPlot::getRiverID() const`
+- **6175** `CvPlot::getRiverID() const`
   - called by (2): CvMapGenerator::doRiver, CyPlot::getRiverID
-- **6072** `CvPlot::setRiverID(int)`
+- **6181** `CvPlot::setRiverID(int)`
   - called by (3): CvMapGenerator::doRiver, CvPlot::erase, CyPlot::setRiverID
-- **6078** `CvPlot::getMinOriginalStartDist() const`
+- **6187** `CvPlot::getMinOriginalStartDist() const`
   - called by (3): CvMap::updateMinOriginalStartDist, CvPlayerAI::AI_foundValue, CyPlot::getMinOriginalStartDist
-- **6084** `CvPlot::setMinOriginalStartDist(int)`
+- **6193** `CvPlot::setMinOriginalStartDist(int)`
   - called by (1): CvMap::updateMinOriginalStartDist
-- **6090** `CvPlot::getReconCount() const`
+- **6199** `CvPlot::getReconCount() const`
   - called by (2): CvPlot::updateSight, CyPlot::getReconCount
-- **6096** `CvPlot::changeReconCount(int)`
+- **6205** `CvPlot::changeReconCount(int)`
   - called by (1): CvUnit::setReconPlot
-- **6103** `CvPlot::getRiverCrossingCount() const`
+- **6212** `CvPlot::getRiverCrossingCount() const`
   - called by (2): CvPlot::isRiver, CyPlot::getRiverCrossingCount
-- **6109** `CvPlot::changeRiverCrossingCount(int)`
+- **6218** `CvPlot::changeRiverCrossingCount(int)`
   - called by (1): CvPlot::updateRiverCrossing(DirectionTypes)
-- **6116** `CvPlot::getYield()`
+- **6225** `CvPlot::getYield()`
   - called by (1): CvCityAI::AI_foodAvailable
-- **6122** `CvPlot::getYield(YieldTypes) const` (exported)
+- **6231** `CvPlot::getYield(YieldTypes) const` (exported)
   - called by (24): CvCity::getBestYieldAvailable, CvCity::setWorkingPlot(int, bool), CvCityAI::AI_buildingSpecialYieldChangeValue, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_doEmphasize, CvCityAI::AI_doHurry, CvCityAI::AI_foodAvailable, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getPlotMagicValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_plotValue …
-- **6130** `CvPlot::calculateNatureYield(YieldTypes, TeamTypes, bool) const`
+- **6239** `CvPlot::calculateNatureYield(YieldTypes, TeamTypes, bool) const`
   - calls: CvPlot::isImpassable, CvPlot::getTerrainType, CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTerrainInfo::getYield [CvInfos.cpp], CvPlot::isHills, CvGlobals::getYieldInfo(YieldTypes) [CvGlobals.cpp], CvYieldInfo::getHillsChange [CvInfos.cpp], CvPlot::isPeak, CvYieldInfo::getPeakChange [CvInfos.cpp], CvPlot::isLake, CvYieldInfo::getLakeChange [CvInfos.cpp], CvPlot::getBonusType, CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvBonusInfo::getYieldChange [CvInfos.cpp], CvPlot::isRiver, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getRiverYieldChange [CvInfos.cpp], CvTerrainInfo::getRiverYieldChange [CvInfos.cpp], CvPlot::getFeatureType, CvFeatureInfo::getHillsYieldChange [CvInfos.cpp], CvTerrainInfo::getHillsYieldChange [CvInfos.cpp], CvFeatureInfo::getYieldChange [CvInfos.cpp]
   - called by (14): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvGame::normalizeAddGoodTerrain, CvPlot::calculateBestNatureYield, CvPlot::calculateMaxYield, CvPlot::calculateYield, CvPlot::canHaveImprovement, CvPlot::getYieldWithBuild …
-- **6191** `CvPlot::calculateBestNatureYield(YieldTypes, TeamTypes) const`
+- **6300** `CvPlot::calculateBestNatureYield(YieldTypes, TeamTypes) const`
   - calls: CvPlot::calculateNatureYield
   - called by (7): CvGame::doGlobalWarming, CvGame::initScoreCalculation, CvGame::normalizeAddFoodBonuses, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_updateBadStart, CvPlot::calculateTotalBestNatureYield, CyPlot::calculateBestNatureYield
-- **6197** `CvPlot::calculateTotalBestNatureYield(TeamTypes) const`
+- **6306** `CvPlot::calculateTotalBestNatureYield(TeamTypes) const`
   - calls: CvPlot::calculateBestNatureYield
   - called by (4): CvArea::calculateTotalBestNatureYield, CvGame::doGlobalWarming, CvPlayerAI::AI_foundValue, CyPlot::calculateTotalBestNatureYield
-- **6207** `CvPlot::calculateImprovementYieldChange(ImprovementTypes, YieldTypes, PlayerTypes, bool, bool) const`
+- **6316** `CvPlot::calculateImprovementYieldChange(ImprovementTypes, YieldTypes, PlayerTypes, bool, bool) const`
   - calls: CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::getYieldChange [CvInfos.cpp], CvPlot::isRiverSide, CvImprovementInfo::getRiverSideYieldChange [CvInfos.cpp], CvPlot::isHills, CvImprovementInfo::getHillsYieldChange [CvInfos.cpp], CvPlot::isIrrigationAvailable, CvImprovementInfo::getIrrigatedYieldChange [CvInfos.cpp], CvGlobals::getNumRouteInfos [CvGlobals.cpp], CvImprovementInfo::getRouteYieldChanges [CvInfos.cpp], CvPlot::getRouteType, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h], CvPlayer::getBestRoute [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvImprovementInfo::getTechYieldChanges [CvInfos.cpp], CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvCivicInfo::getImprovementYieldChanges [CvInfos.cpp], CvPlayer::getImprovementYieldChange [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::getImprovementYieldChange [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::getBonusType, CvImprovementInfo::getImprovementBonusYield [CvInfos.cpp]
   - called by (16): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getPlotMagicValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_plotValue, CvCityAI::AI_updateBestBuild, CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_espionageVal, CvPlot::calculateMaxYield, CvPlot::calculateYield …
-- **6293** `CvPlot::calculateYield(YieldTypes, bool) const`
+- **6402** `CvPlot::calculateYield(YieldTypes, bool) const`
   - calls: CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getYield(YieldTypes) const, CvPlot::getTerrainType, CvPlot::isPotentialCityWork, CvGame::getActiveTeam [CvGame.cpp], CvPlot::getRevealedOwner, CvPlot::getRevealedImprovementType, CvPlot::getRevealedRouteType, CvGame::getActivePlayer [CvGame.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::getImprovementType, CvPlot::getRouteType, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::calculateNatureYield, CvPlot::calculateImprovementYieldChange, CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvRouteInfo::getYieldChange [CvInfos.cpp], CvPlot::getPlotCity, CvCity::isRevealed [CvCity.cpp], CvGlobals::getYieldInfo(YieldTypes) [CvGlobals.cpp], CvYieldInfo::getCityChange [CvInfos.cpp], CvYieldInfo::getPopulationChangeDivisor [CvInfos.cpp], CvCity::getPopulation [CvCity.cpp], CvYieldInfo::getPopulationChangeOffset [CvInfos.cpp], CvPlot::isWater, CvPlot::isImpassable, CvPlayer::getSeaPlotYield [CvPlayer.cpp], CvPlot::getWorkingCity, CvCity::getSeaPlotYield [CvCity.cpp], CvPlot::isRiver, CvCity::getRiverPlotYield [CvCity.cpp], CvYieldInfo::getMinCity [CvInfos.cpp], CvGame::getPlotExtraYield [CvGame.cpp], CvPlayer::getExtraYieldThreshold [CvPlayer.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlayer::isGoldenAge [CvPlayer.cpp], CvYieldInfo::getGoldenAgeYieldThreshold [CvInfos.cpp], CvYieldInfo::getGoldenAgeYield [CvInfos.cpp], CvPlot::isBattle
   - called by (4): CvGameTextMgr::setPlotHelp, CvPlot::updateSymbols, CvPlot::updateYield, CyPlot::calculateYield
-- **6456** `CvPlot::hasYield() const`
+- **6565** `CvPlot::hasYield() const`
   - calls: CvPlot::getYield(YieldTypes) const
   - called by (3): CvCity::canWork, CvGameTextMgr::setPlotHelp, CyPlot::hasYield
-- **6472** `CvPlot::updateYield()`
+- **6581** `CvPlot::updateYield()`
   - calls: CvPlot::area, CvPlot::calculateYield, CvPlot::getYield(YieldTypes) const, CvPlot::getWorkingCity, CvPlot::isBeingWorked, CvCity::changeBaseYieldRate [CvCity.cpp], CvCity::AI_setAssignWorkDirty [CvCity.h] ⇢ CvCityAI::AI_setAssignWorkDirty, CvPlot::updateSymbols
   - called by (22): CvCity::setPopulation, CvCity::updateYield, CvGame::removePlotExtraYield, CvGame::setPlotExtraYield, CvMap::updateYield, CvPlayer::updateCityPlotYield, CvPlot::setArea, CvPlot::setBonusType, CvPlot::setFeatureType, CvPlot::setImprovementType, CvPlot::setIrrigated, CvPlot::setNOfRiver …
-- **6521** `CvPlot::getCulture(PlayerTypes) const`
+- **6630** `CvPlot::getCulture(PlayerTypes) const`
   - called by (25): CvCity::cultureStrength, CvCity::getCulturePercentAnger, CvCity::init, CvCityAI::AI_countNumBonuses, CvGameTextMgr::setEspionageCostHelp, CvGameTextMgr::setPlotHelp, CvPlayer::assimilatePlayer, CvPlayer::getCultureLayerColors, CvPlayer::getEspionageMissionBaseCost, CvPlayer::splitEmpire, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_espionageVal …
-- **6535** `CvPlot::countTotalCulture() const`
+- **6644** `CvPlot::countTotalCulture() const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getCulture
   - called by (6): CvCity::getCulturePercentAnger, CvPlayer::getCultureLayerColors, CvPlot::calculateCulturePercent, CvUnit::doPillageInfluence, CvUnit::doVictoryInfluence, CyPlot::countTotalCulture
-- **6554** `CvPlot::findHighestCultureTeam() const`
+- **6663** `CvPlot::findHighestCultureTeam() const`
   - calls: CvPlot::findHighestCulturePlayer, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (1): CyPlot::findHighestCultureTeam
-- **6567** `CvPlot::findHighestCulturePlayer() const`
+- **6676** `CvPlot::findHighestCulturePlayer() const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getCulture
   - called by (2): CvGame::addVoteSelection, CvPlot::findHighestCultureTeam
-- **6590** `CvPlot::calculateCulturePercent(PlayerTypes) const`
+- **6699** `CvPlot::calculateCulturePercent(PlayerTypes) const`
   - calls: CvPlot::countTotalCulture, CvPlot::getCulture
   - called by (12): CvCityAI::AI_calculateCulturePressure, CvCityAI::AI_doHurry, CvCityAI::AI_processValue(ProcessTypes, CommerceTypes), CvDLLWidgetData::parseNationalityHelp, CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_cityTrade, CvPlayerAI::AI_cityTradeVal, CvPlayerAI::AI_commerceWeight, CvPlayerAI::AI_doPeace, CvPlot::calculateTeamCulturePercent, CvUnitAI::AI_getEspionageTargetValue, CyPlot::calculateCulturePercent
-- **6605** `CvPlot::calculateTeamCulturePercent(TeamTypes) const`
+- **6714** `CvPlot::calculateTeamCulturePercent(TeamTypes) const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlot::calculateCulturePercent
   - called by (3): CvCity::canConscript, CvDLLWidgetData::parseConscriptHelp, CyPlot::calculateTeamCulturePercent
-- **6627** `CvPlot::setCulture(PlayerTypes, int, bool, bool)`
+- **6736** `CvPlot::setCulture(PlayerTypes, int, bool, bool)`
   - calls: CvPlot::getCulture, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::updateCulture, CvPlot::getPlotCity, CvCity::AI_setAssignWorkDirty [CvCity.h] ⇢ CvCityAI::AI_setAssignWorkDirty
   - called by (7): CvCity::init, CvPlayer::acquireCity, CvPlayer::resetPlotAndCityData, CvPlayer::splitEmpire, CvPlot::changeCulture, CvUnit::influencePlots, CyPlot::setCulture
-- **6665** `CvPlot::changeCulture(PlayerTypes, int, bool)`
+- **6774** `CvPlot::changeCulture(PlayerTypes, int, bool)`
   - calls: CvPlot::getCulture, CvPlot::setCulture
   - called by (5): CvCity::doPlotCulture, CvPlayer::assimilatePlayer, CvUnit::doPillageInfluence, CvUnit::influencePlots, CyPlot::changeCulture
-- **6674** `CvPlot::getFoundValue(PlayerTypes)`
+- **6783** `CvPlot::getFoundValue(PlayerTypes)`
   - calls: CvGlobals::getUSE_GET_CITY_FOUND_VALUE_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CvPlot::getX, CvPlot::getY, CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvPlayerAI::AI_foundValue [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvArea::getBestFoundValue [CvArea.cpp], CvPlot::area, CvArea::setBestFoundValue [CvArea.cpp]
   - called by (11): CvGameTextMgr::setPlotHelp, CvPlayer::findStartingPlot, CvPlayerAI::AI_advancedStartFindCapitalPlot, CvPlayerAI::AI_doAdvancedStart, CvPlayerAI::AI_getNumAdjacentAreaCitySites, CvPlayerAI::AI_getNumAreaCitySites, CvPlayerAI::AI_updateCitySites, CvPlayerAI::AI_updateFoundValues, CvUnitAI::AI_foundRange, CvUnitAI::AI_guardCitySite, CyPlot::getFoundValue
-- **6711** `CvPlot::isBestAdjacentFound(PlayerTypes)`
+- **6820** `CvPlot::isBestAdjacentFound(PlayerTypes)`
   - calls: CvPlayerAI::AI_foundValue [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], plotDirection [CvGameCoreUtils.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlot::isRevealed
   - called by (3): CvGame::createBarbarianCities, CvUnit::isActionRecommended, CyPlot::isBestAdjacentFound
-- **6741** `CvPlot::setFoundValue(PlayerTypes, int)`
+- **6850** `CvPlot::setFoundValue(PlayerTypes, int)`
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp]
   - called by (3): CvPlayer::resetPlotAndCityData, CvPlayerAI::AI_recalculateFoundValues, CvPlayerAI::AI_updateFoundValues
-- **6763** `CvPlot::getPlayerCityRadiusCount(PlayerTypes) const`
+- **6872** `CvPlot::getPlayerCityRadiusCount(PlayerTypes) const`
   - called by (3): CvCityAI::AI_bestPlotBuild, CvPlot::isPlayerCityRadius, CyPlot::getPlayerCityRadiusCount
-- **6777** `CvPlot::isPlayerCityRadius(PlayerTypes) const`
+- **6886** `CvPlot::isPlayerCityRadius(PlayerTypes) const`
   - calls: CvPlot::getPlayerCityRadiusCount
   - called by (4): CvPlayerAI::AI_calculateStolenCityRadiusPlots, CvPlot::isWithinTeamCityRadius, CvUnitAI::AI_defensiveAirStrike, CyPlot::isPlayerCityRadius
-- **6783** `CvPlot::changePlayerCityRadiusCount(PlayerTypes, int)`
+- **6892** `CvPlot::changePlayerCityRadiusCount(PlayerTypes, int)`
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp]
   - called by (1): CvPlot::setPlotCity
-- **6805** `CvPlot::getPlotGroup(PlayerTypes) const`
+- **6914** `CvPlot::getPlotGroup(PlayerTypes) const`
   - calls: CvPlayer::getPlotGroup [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (14): CvCity::plotGroup, CvGameTextMgr::setPlotHelp, CvPlayer::getTradeLayerColors, CvPlot::getOwnerPlotGroup, CvPlot::getPlotGroupConnectedBonus, CvPlot::isConnectedTo, CvPlot::setPlotCity, CvPlot::setPlotGroup, CvPlot::updatePlotGroup(PlayerTypes, bool), CvPlot::updatePlotGroupBonus, CvUnitAI::AI_betterPlotBuild, CvUnitAI::AI_canPillage …
-- **6819** `CvPlot::getOwnerPlotGroup() const`
+- **6928** `CvPlot::getOwnerPlotGroup() const`
   - calls: CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::getPlotGroup
   - called by (2): CvPlayer::getNumAvailableBonuses, CvPlayer::setCapitalCity
-- **6830** `CvPlot::setPlotGroup(PlayerTypes, CvPlotGroup*)`
+- **6939** `CvPlot::setPlotGroup(PlayerTypes, CvPlotGroup*)`
   - calls: CvPlot::getPlotGroup, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::getPlotCity, CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::updatePlotGroupBonus, CvCity::getOwnerINLINE [CvCity.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCity::changeNumBonuses [CvCity.cpp], CvPlotGroup::getNumBonuses [CvPlotGroup.cpp], CvPlotGroup::getID [CvPlotGroup.cpp]
   - called by (3): CvPlotGroup::addPlot, CvPlotGroup::recalculatePlots, CvPlotGroup::removePlot
-- **6900** `CvPlot::updatePlotGroup()`
+- **7009** `CvPlot::updatePlotGroup()`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::updatePlotGroup(PlayerTypes, bool)
   - called by (5): CvPlot::setImprovementType, CvPlot::setOwner, CvPlot::setPlotType, CvPlot::setRouteType, CvPlot::setTerrainType
-- **6916** `CvPlot::updatePlotGroup(PlayerTypes, bool)`
+- **7025** `CvPlot::updatePlotGroup(PlayerTypes, bool)`
   - calls: CvGame::isFinalInitialized [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getPlotGroup, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::isTradeNetwork, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isTradeNetworkConnected, CvPlotGroup::getLengthPlots [CvPlotGroup.cpp], CvPlotGroup::removePlot [CvPlotGroup.cpp], CvPlotGroup::recalculatePlots [CvPlotGroup.cpp], CvPlotGroup::addPlot [CvPlotGroup.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::combinePlotGroups [CvMap.cpp], CvPlayer::initPlotGroup [CvPlayer.cpp]
   - called by (4): CvPlayer::updatePlotGroups, CvPlot::setRevealed, CvPlot::updatePlotGroup(), CvPlotGroup::recalculatePlots
-- **7019** `CvPlot::getVisibilityCount(TeamTypes) const`
+- **7128** `CvPlot::getVisibilityCount(TeamTypes) const`
   - called by (3): CvPlot::isVisible, CvTeam::addTeam, CyPlot::getVisibilityCount
-- **7033** `CvPlot::changeVisibilityCount(TeamTypes, int, InvisibleTypes, bool)`
-  - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::isVisible, CvPlot::changeInvisibleVisibilityCount, CvPlot::setRevealed, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::updateRevealedOwner, CvPlot::getTeam, CvTeam::meet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::getPlotCity, CvCity::setInfoDirty [CvCity.cpp], CvTeam::isAlive [CvTeam.cpp], CvTeam::isStolenVisibility [CvTeam.cpp], CvPlot::changeStolenVisibilityCount, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::updateFog, CvPlot::updateMinimapColor, CvPlot::updateCenterUnit
+- **7142** `CvPlot::changeVisibilityCount(TeamTypes, int, InvisibleTypes, bool)`
+  - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::isVisible, CvPlot::changeInvisibleVisibilityCount, CvPlot::setRevealed, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::updateRevealedOwner, CvPlot::getTeam, CvTeam::meet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::getPlotCity, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::setInfoDirty [CvCity.cpp], CvTeam::isAlive [CvTeam.cpp], CvTeam::isStolenVisibility [CvTeam.cpp], CvPlot::changeStolenVisibilityCount, CvPlot::updateFog, CvPlot::updateMinimapColor, CvPlot::updateCenterUnit
   - called by (3): CvPlot::changeAdjacentSight, CvTeam::addTeam, CyPlot::changeVisibilityCount
-- **7115** `CvPlot::getStolenVisibilityCount(TeamTypes) const`
+- **7225** `CvPlot::getStolenVisibilityCount(TeamTypes) const`
   - called by (2): CvPlot::isVisible, CyPlot::getStolenVisibilityCount
-- **7129** `CvPlot::changeStolenVisibilityCount(TeamTypes, int)`
+- **7239** `CvPlot::changeStolenVisibilityCount(TeamTypes, int)`
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::isVisible, CvPlot::setRevealed, CvPlot::getPlotCity, CvCity::setInfoDirty [CvCity.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::updateFog, CvPlot::updateMinimapColor, CvPlot::updateCenterUnit
   - called by (2): CvPlot::changeVisibilityCount, CvTeam::setStolenVisibilityTimer
-- **7178** `CvPlot::getBlockadedCount(TeamTypes) const`
+- **7288** `CvPlot::getBlockadedCount(TeamTypes) const`
   - called by (8): CvCity::canWork, CvCity::isBlockaded, CvGame::updateBlockadedPlots, CvGameTextMgr::setPlotHelp, CvPlot::changeBlockadedCount, CvPlot::isTradeNetwork, CvUnit::updatePlunder, CvUnitAI::AI_pirateBlockade
-- **7191** `CvPlot::changeBlockadedCount(TeamTypes, int)`
+- **7301** `CvPlot::changeBlockadedCount(TeamTypes, int)`
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::getBlockadedCount, CvPlot::getWorkingCity, CvCity::AI_setAssignWorkDirty [CvCity.h] ⇢ CvCityAI::AI_setAssignWorkDirty
   - called by (1): CvUnit::updatePlunder
-- **7235** `CvPlot::getRevealedOwner(TeamTypes, bool) const` (exported)
+- **7345** `CvPlot::getRevealedOwner(TeamTypes, bool) const` (exported)
   - calls: CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getOwnerINLINE [CvPlot.h]
   - called by (11): CvGameTextMgr::setPlotHelp, CvPlayer::getCultureLayerColors, CvPlayer::getResourceLayerColors, CvPlayer::splitEmpire, CvPlot::calculateYield, CvPlot::getRevealedTeam, CvPlot::isRevealedBarbarian, CvPlot::plotMinimapColor, CvPlot::setRevealed, CvPlot::setRevealedOwner, CyPlot::getRevealedOwner
-- **7256** `CvPlot::getRevealedTeam(TeamTypes, bool) const` (exported)
+- **7366** `CvPlot::getRevealedTeam(TeamTypes, bool) const` (exported)
   - calls: CvPlot::getRevealedOwner, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (5): CvPlot::shouldDisplayBridge, CvUnit::canMoveInto, CvUnit::getDeclareWarMove, CvUnitAI::AI_explore, CyPlot::getRevealedTeam
-- **7274** `CvPlot::setRevealedOwner(TeamTypes, PlayerTypes)`
+- **7384** `CvPlot::setRevealedOwner(TeamTypes, PlayerTypes)`
   - calls: CvPlot::getRevealedOwner, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::updateMinimapColor, CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLEngineIFaceBase::SetDirty [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h]
   - called by (4): CvPlayer::splitEmpire, CvPlot::setRevealed, CvPlot::updateRevealedOwner, CvTeam::resetPlotAndCityData
-- **7309** `CvPlot::updateRevealedOwner(TeamTypes)`
+- **7419** `CvPlot::updateRevealedOwner(TeamTypes)`
   - calls: CvPlot::isVisible, plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::setRevealedOwner, CvPlot::getOwnerINLINE [CvPlot.h]
   - called by (2): CvPlot::changeVisibilityCount, CvPlot::setOwner
-- **7352** `CvPlot::isRiverCrossing(DirectionTypes) const` (exported)
+- **7462** `CvPlot::isRiverCrossing(DirectionTypes) const` (exported)
   - called by (12): CvGameTextMgr::setCombatPlotHelp, CvPlot::canHaveImprovement, CvPlot::isRiverConnection, CvPlot::isRiverSide, CvPlot::movementCost, CvPlot::updateRiverCrossing(DirectionTypes), CvUnit::maxCombatStr, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_goToTargetBarbCity, CvUnitAI::AI_goToTargetCity, CyPlot::isRiverCrossing, pathCost
-- **7370** `CvPlot::updateRiverCrossing(DirectionTypes)`
+- **7480** `CvPlot::updateRiverCrossing(DirectionTypes)`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isWater, CvPlot::isNOfRiver, CvPlot::isWOfRiver, CvPlot::isRiverCrossing, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::changeRiverCrossingCount
   - called by (1): CvPlot::updateRiverCrossing()
-- **7514** `CvPlot::updateRiverCrossing()`
+- **7624** `CvPlot::updateRiverCrossing()`
   - calls: CvPlot::updateRiverCrossing(DirectionTypes)
   - called by (2): CvPlot::setNOfRiver, CvPlot::setWOfRiver
-- **7525** `CvPlot::isRevealed(TeamTypes, bool) const` (exported)
+- **7635** `CvPlot::isRevealed(TeamTypes, bool) const` (exported)
   - calls: CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (52): CvDLLWidgetData::doGotoTurnEvent, CvDeal::startTrade, CvGame::canDoPing, CvGame::getPlotHighlightColor, CvGame::updateBlockadedPlots, CvGame::updateColoredPlots, CvGameTextMgr::getPlotHelp, CvGameTextMgr::setPlotHelp, CvPlayer::applyEvent, CvPlayer::assimilatePlayer, CvPlayer::countOwnedBonuses, CvPlayer::createGreatPeople …
-- **7544** `CvPlot::setRevealed(TeamTypes, bool, bool, TeamTypes, bool)` (exported)
+- **7654** `CvPlot::setRevealed(TeamTypes, bool, bool, TeamTypes, bool)` (exported)
   - calls: CvPlot::getPlotCity, CvPlot::isRevealed, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvPlot::area, CvArea::changeNumRevealedTiles [CvArea.cpp], CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlot::updatePlotGroup(PlayerTypes, bool), CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::updateSymbols, CvPlot::updateFog, CvPlot::updateVisibility, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::plotRevealed [CvEventReporter.cpp], CvPlot::setRevealedOwner, CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::getImprovementType, CvPlot::setRevealedImprovementType, CvPlot::getRouteType, CvPlot::setRevealedRouteType, CvCity::setRevealed [CvCity.cpp], CvPlot::getRevealedOwner, CvPlot::getRevealedImprovementType, CvPlot::getRevealedRouteType, CvCity::isRevealed [CvCity.cpp]
   - called by (14): CvDeal::startTrade, CvMap::setRevealedPlots, CvPlayer::acquireCity, CvPlayer::assimilatePlayer, CvPlayer::doAdvancedStartAction, CvPlayer::initFreeUnits, CvPlayer::receiveGoody, CvPlayer::splitEmpire, CvPlayerAI::AI_doAdvancedStart, CvPlot::changeStolenVisibilityCount, CvPlot::changeVisibilityCount, CvTeam::addTeam …
-- **7658** `CvPlot::isAdjacentRevealed(TeamTypes) const`
+- **7768** `CvPlot::isAdjacentRevealed(TeamTypes) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isRevealed
   - called by (2): CvPlayer::getAdvancedStartVisibilityCost, CyPlot::isAdjacentRevealed
-- **7679** `CvPlot::isAdjacentNonrevealed(TeamTypes) const`
+- **7789** `CvPlot::isAdjacentNonrevealed(TeamTypes) const`
   - calls: plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isRevealed
   - called by (1): CyPlot::isAdjacentNonrevealed
-- **7701** `CvPlot::getRevealedImprovementType(TeamTypes, bool) const` (exported)
+- **7811** `CvPlot::getRevealedImprovementType(TeamTypes, bool) const` (exported)
   - calls: CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getImprovementType
   - called by (12): CvGameTextMgr::setPlotHelp, CvPlayer::setCurrentEra, CvPlot::calculateYield, CvPlot::defenseModifier, CvPlot::getVisibleBonusState, CvPlot::getVisibleImprovementState, CvPlot::isRevealedGoody, CvPlot::setRevealed, CvPlot::setRevealedImprovementType, CvUnitAI::AI_RbombardPlot, CvUnitAI::AI_pillageValue, CyPlot::getRevealedImprovementType
-- **7722** `CvPlot::setRevealedImprovementType(TeamTypes, ImprovementTypes)`
+- **7832** `CvPlot::setRevealedImprovementType(TeamTypes, ImprovementTypes)`
   - calls: CvPlot::getRevealedImprovementType, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::updateSymbols, CvPlot::setLayoutDirty
   - called by (3): CvPlot::setImprovementType, CvPlot::setRevealed, CvTeam::resetPlotAndCityData
-- **7750** `CvPlot::getRevealedRouteType(TeamTypes, bool) const` (exported)
+- **7860** `CvPlot::getRevealedRouteType(TeamTypes, bool) const` (exported)
   - calls: CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getRouteType
   - called by (6): CvGameTextMgr::setPlotHelp, CvPlot::calculateYield, CvPlot::setRevealed, CvPlot::setRevealedRouteType, CvPlot::updateRouteSymbol, CyPlot::getRevealedRouteType
-- **7771** `CvPlot::setRevealedRouteType(TeamTypes, RouteTypes)`
+- **7881** `CvPlot::setRevealedRouteType(TeamTypes, RouteTypes)`
   - calls: CvPlot::getRevealedRouteType, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::updateSymbols, CvPlot::updateRouteSymbol
   - called by (3): CvPlot::setRevealed, CvPlot::setRouteType, CvTeam::resetPlotAndCityData
-- **7798** `CvPlot::getBuildProgress(BuildTypes) const`
+- **7908** `CvPlot::getBuildProgress(BuildTypes) const`
   - called by (6): CvGameTextMgr::setPlotHelp, CvPlayer::getBuildCost, CvPlot::changeBuildProgress, CvPlot::getBuildTurnsLeft(BuildTypes, int, int, bool) const, CvUnitAI::AI_calculatePlotWorkersNeeded, CyPlot::getBuildProgress
-- **7810** `CvPlot::changeBuildProgress(BuildTypes, int, TeamTypes)`
+- **7920** `CvPlot::changeBuildProgress(BuildTypes, int, TeamTypes)`
   - calls: CvWString::CvWString() [CvString.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getBuildProgress, CvPlot::getBuildTime, CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getImprovement [CvInfos.cpp], CvPlot::setImprovementType, CvBuildInfo::getRoute [CvInfos.cpp], CvPlot::setRouteType, CvPlot::getFeatureType, CvBuildInfo::isFeatureRemove [CvInfos.cpp], CvPlot::getFeatureProduction, CvCity::changeFeatureProduction [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getInterfaceArtInfo(char const*) const [CvArtFileMgr.cpp], CvCity::getOwnerINLINE [CvCity.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvFeatureInfo::getButton [CvInfos.cpp], CvAssetInfoBase::getPath [CvInfos.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvWString::CvWString(CvWString const&) [CvString.h], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::plotFeatureRemoved [CvEventReporter.cpp], CvPlot::setFeatureType
   - called by (2): CvUnit::build, CyPlot::changeBuildProgress
-- **7884** `CvPlot::hasAnyBuildProgress() const`
+- **7994** `CvPlot::hasAnyBuildProgress() const`
   - called by (1): CvGameTextMgr::setPlotHelp
-- **7891** `CvPlot::updateFeatureSymbolVisibility()`
+- **8001** `CvPlot::updateFeatureSymbolVisibility()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::isRevealed, CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::isVisibleAlways [CvInfos.cpp], CvDLLFeatureIFaceBase::IsHidden [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLFeatureIFaceBase::Hide [CvDLLSymbolIFaceBase.h], CvDLLEngineIFaceBase::MarkPlotTextureAsDirty [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h]
-  - called by (2): CvPlot::updateFeatureSymbol, CvPlot::updateVisibility
-- **7919** `CvPlot::updateFeatureSymbol(bool)`
-  - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getFeatureType, CvDLLEngineIFaceBase::RebuildTileArt [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getArtInfo [CvInfos.cpp], CvArtInfoFeature::isRiverArt [CvInfos.cpp], CvArtInfoFeature::getTileArtType [CvInfos.cpp], CvDLLFeatureIFaceBase::destroy [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvDLLFeatureIFaceBase::getFeature [CvDLLSymbolIFaceBase.h], CvDLLFeatureIFaceBase::createFeature [CvDLLSymbolIFaceBase.h], CvDLLFeatureIFaceBase::init [CvDLLSymbolIFaceBase.h], CvPlot::updateFeatureSymbolVisibility, CvDLLEntityIFaceBase::updatePosition [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - called by (2): CvPlot::updateFeatureSymbolEntity, CvPlot::updateVisibility
+- **8029** `CvPlot::updateFeatureSymbol(bool)`
+  - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvDLLEngineIFaceBase::RebuildTileArt [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlot::updateFeatureSymbolEntity
   - called by (3): CvPlot::setFeatureType, CvPlot::setPlotType, CvPlot::setupGraphical
-- **7960** `CvPlot::getRouteSymbol() const` (exported)
+- **8043** `CvPlot::updateFeatureSymbolEntity(bool)`
+  - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getArtInfo [CvInfos.cpp], CvArtInfoFeature::isRiverArt [CvInfos.cpp], CvArtInfoFeature::getTileArtType [CvInfos.cpp], CvDLLFeatureIFaceBase::destroy [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getFeatureIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLFeatureIFaceBase::getFeature [CvDLLSymbolIFaceBase.h], CvDLLFeatureIFaceBase::createFeature [CvDLLSymbolIFaceBase.h], CvDLLFeatureIFaceBase::init [CvDLLSymbolIFaceBase.h], CvPlot::updateFeatureSymbolVisibility, CvDLLEntityIFaceBase::updatePosition [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
+  - called by (2): CvPlot::pageGraphics, CvPlot::updateFeatureSymbol
+- **8085** `CvPlot::getRouteSymbol() const` (exported)
   - called by (1): CvGameTextMgr::setPlotHelp
-- **7967** `CvPlot::updateRouteSymbol(bool, bool)`
+- **8092** `CvPlot::updateRouteSymbol(bool, bool)`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::updateRouteSymbol, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getRevealedRouteType, CvDLLRouteIFaceBase::destroy [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getRouteIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLRouteIFaceBase::getRoute [CvDLLSymbolIFaceBase.h], CvDLLRouteIFaceBase::createRoute [CvDLLSymbolIFaceBase.h], CvDLLRouteIFaceBase::init [CvDLLSymbolIFaceBase.h], CvPlot::setLayoutDirty, CvDLLEntityIFaceBase::updatePosition [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h]
   - called by (5): CvPlot::setPlotType, CvPlot::setRevealedRouteType, CvPlot::setRouteType, CvPlot::updateRouteSymbol, CvPlot::updateVisibility
-- **8018** `CvPlot::getRiverSymbol() const` (exported)
-- **8024** `CvPlot::getFeatureSymbol() const`
-- **8030** `CvPlot::updateRiverSymbol(bool, bool)`
+- **8143** `CvPlot::getRiverSymbol() const` (exported)
+- **8149** `CvPlot::getFeatureSymbol() const`
+- **8155** `CvPlot::updateRiverSymbol(bool, bool)`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::updateRiverSymbol, CvPlot::isRiverMask, CvDLLRiverIFaceBase::destroy [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getRiverIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLRiverIFaceBase::createRiver [CvDLLSymbolIFaceBase.h], CvDLLRiverIFaceBase::init [CvDLLSymbolIFaceBase.h], CvDLLEngineIFaceBase::ForceTreeOffsets [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvPlot::getX, CvPlot::getY, CvDLLEngineIFaceBase::RebuildRiverPlotTile [CvDLLEngineIFaceBase.h], CvDLLEntityIFaceBase::updatePosition [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvPlot::setLayoutDirty
   - called by (5): CvPlot::setNOfRiver, CvPlot::setPlotType, CvPlot::setWOfRiver, CvPlot::setupGraphical, CvPlot::updateRiverSymbol
-- **8101** `CvPlot::updateRiverSymbolArt(bool)`
+- **8226** `CvPlot::updateRiverSymbolArt(bool)`
   - calls: CvDLLEntityIFaceBase::setupFloodPlains [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (1): CvPlot::setFeatureType
-- **8119** `CvPlot::getFlagSymbol() const` (exported)
-- **8124** `CvPlot::getFlagSymbolOffset() const` (exported)
-- **8129** `CvPlot::updateFlagSymbol()` (exported)
-  - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getCenterUnit, CvUnit::getVisualOwner [CvUnit.cpp], CvDLLInterfaceIFaceBase::getSingleMoveGotoPlot [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLFlagEntityIFaceBase::destroy [CvDLLFlagEntityIFaceBase.h], CvDLLUtilityIFaceBase::getFlagEntityIFace [CvDLLUtilityIFaceBase.h], CvDLLFlagEntityIFaceBase::getPlayer [CvDLLFlagEntityIFaceBase.h], CvDLLFlagEntityIFaceBase::create [CvDLLFlagEntityIFaceBase.h], CvDLLFlagEntityIFaceBase::setPlot [CvDLLFlagEntityIFaceBase.h], CvDLLFlagEntityIFaceBase::updateUnitInfo [CvDLLFlagEntityIFaceBase.h]
+- **8244** `CvPlot::getFlagSymbol() const` (exported)
+- **8249** `CvPlot::getFlagSymbolOffset() const` (exported)
+- **8254** `CvPlot::updateFlagSymbol()` (exported)
+  - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::canPageGraphicsOut, CvPlot::pageGraphics, CvPlot::getCenterUnit, CvUnit::getVisualOwner [CvUnit.cpp], CvDLLInterfaceIFaceBase::getSingleMoveGotoPlot [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLFlagEntityIFaceBase::destroy [CvDLLFlagEntityIFaceBase.h], CvDLLUtilityIFaceBase::getFlagEntityIFace [CvDLLUtilityIFaceBase.h], CvDLLFlagEntityIFaceBase::getPlayer [CvDLLFlagEntityIFaceBase.h], CvDLLFlagEntityIFaceBase::create [CvDLLFlagEntityIFaceBase.h], CvDLLFlagEntityIFaceBase::setPlot [CvDLLFlagEntityIFaceBase.h], CvDLLFlagEntityIFaceBase::updateUnitInfo [CvDLLFlagEntityIFaceBase.h]
   - called by (1): CvMap::updateFlagSymbols
-- **8224** `CvPlot::getCenterUnit() const` (exported)
+- **8360** `CvPlot::getCenterUnit() const` (exported)
   - called by (5): CvGameTextMgr::setPlotListHelp, CvPlot::getDebugCenterUnit, CvPlot::setCenterUnit, CvPlot::updateCenterUnit, CvPlot::updateFlagSymbol
-- **8230** `CvPlot::getDebugCenterUnit() const` (exported)
+- **8366** `CvPlot::getDebugCenterUnit() const` (exported)
   - calls: CvPlot::getCenterUnit, CvGame::isDebugMode [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp]
   - called by (2): CvGame::selectAll, CvPlot::plotMinimapColor
-- **8252** `CvPlot::setCenterUnit(CvUnit*)`
+- **8388** `CvPlot::setCenterUnit(CvUnit*)`
   - calls: CvPlot::getCenterUnit, CvPlot::updateMinimapColor, CvPlot::setFlagDirty, CvUnit::setInfoBarDirty [CvUnit.cpp]
   - called by (1): CvPlot::updateCenterUnit
-- **8273** `CvPlot::getCultureRangeCities(PlayerTypes, int) const`
+- **8409** `CvPlot::getCultureRangeCities(PlayerTypes, int) const`
   - called by (3): CvPlot::getNumCultureRangeCities, CvPlot::isCultureRangeCity, CyPlot::getCultureRangeCities
-- **8293** `CvPlot::isCultureRangeCity(PlayerTypes, int) const`
+- **8429** `CvPlot::isCultureRangeCity(PlayerTypes, int) const`
   - calls: CvPlot::getCultureRangeCities
   - called by (4): CvPlayer::canRaze, CvPlot::changeCultureRangeCities, CvPlot::isWithinCultureRange, CyPlot::isCultureRangeCity
-- **8299** `CvPlot::changeCultureRangeCities(PlayerTypes, int, int, bool)`
+- **8435** `CvPlot::changeCultureRangeCities(PlayerTypes, int, int, bool)`
   - calls: CvPlot::isCultureRangeCity, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumCultureLevelInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::updateCulture
   - called by (1): CvCity::setCultureLevel
-- **8340** `CvPlot::getInvisibleVisibilityCount(TeamTypes, InvisibleTypes) const`
+- **8476** `CvPlot::getInvisibleVisibilityCount(TeamTypes, InvisibleTypes) const`
   - called by (3): CvPlot::isInvisibleVisible, CvTeam::addTeam, CyPlot::getInvisibleVisibilityCount
-- **8360** `CvPlot::isInvisibleVisible(TeamTypes, InvisibleTypes) const`
+- **8496** `CvPlot::isInvisibleVisible(TeamTypes, InvisibleTypes) const`
   - calls: CvPlot::getInvisibleVisibilityCount
   - called by (4): CvPlot::changeInvisibleVisibilityCount, CvUnit::isInvisible, CvUnitAI::AI_hide, CyPlot::isInvisibleVisible
-- **8366** `CvPlot::changeInvisibleVisibilityCount(TeamTypes, InvisibleTypes, int)`
+- **8502** `CvPlot::changeInvisibleVisibilityCount(TeamTypes, InvisibleTypes, int)`
   - calls: CvPlot::isInvisibleVisible, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumInvisibleInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::updateCenterUnit
   - called by (3): CvPlot::changeVisibilityCount, CvTeam::addTeam, CyPlot::changeInvisibleVisibilityCount
-- **8410** `CvPlot::getNumUnits() const` (exported)
+- **8546** `CvPlot::getNumUnits() const` (exported)
   - calls: CLinkList<IDInfo>::getLength [LinkedList.h]
   - called by (15): CvPlayer::doEspionageMission, CvPlayer::getUnitLayerColors, CvPlayer::receiveGoody, CvPlot::isUnit, CvSelectionGroup::groupAttack, CvSelectionGroup::groupStackAttack, CvUnit::canMoveInto, CvUnit::doActiveDefense, CvUnit::doOpportunityFire, CvUnit::getRbombardSeigeCount, CvUnit::isRbombardable, CvUnitAI::AI_RbombardCity …
-- **8416** `CvPlot::getUnitByIndex(int) const` (exported)
+- **8552** `CvPlot::getUnitByIndex(int) const` (exported)
   - calls: CLinkList<IDInfo>::nodeNum [LinkedList.h], getUnit [CvGameCoreUtils.cpp]
   - called by (4): CvPlayer::doEspionageMission, CvUnit::getRbombardSeigeCount, CvUnit::isRbombardable, CyPlot::getUnit
-- **8433** `CvPlot::addUnit(CvUnit*, bool)`
+- **8569** `CvPlot::addUnit(CvUnit*, bool)`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], isBeforeUnitCycle [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getIDInfo [CvUnit.cpp], CLinkList<IDInfo>::insertBefore [LinkedList.h], CLinkList<IDInfo>::insertAtEnd [LinkedList.h], CvPlot::updateCenterUnit, CvPlot::setFlagDirty
   - called by (1): CvUnit::setXY
-- **8472** `CvPlot::removeUnit(CvUnit*, bool)`
+- **8608** `CvPlot::removeUnit(CvUnit*, bool)`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CLinkList<IDInfo>::deleteNode [LinkedList.h], CvPlot::nextUnitNode, CvPlot::updateCenterUnit, CvPlot::setFlagDirty
   - called by (1): CvUnit::setXY
-- **8501** `CvPlot::nextUnitNode(CLLNode<IDInfo>*) const` (exported)
+- **8637** `CvPlot::nextUnitNode(CLLNode<IDInfo>*) const` (exported)
   - calls: CLinkList<IDInfo>::next [LinkedList.h]
-  - called by (98): CvCity::cultureGarrison, CvCity::getRevoltTestProbability, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_isAirDefended, CvCityAI::AI_updateBestBuild, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup …
-- **8507** `CvPlot::prevUnitNode(CLLNode<IDInfo>*) const` (exported)
+  - called by (100): CvCity::cultureGarrison, CvCity::getRevoltTestProbability, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_isAirDefended, CvCityAI::AI_updateBestBuild, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup …
+- **8643** `CvPlot::prevUnitNode(CLLNode<IDInfo>*) const` (exported)
   - calls: CLinkList<IDInfo>::prev [LinkedList.h]
   - called by (1): CvGame::cyclePlotUnits
-- **8513** `CvPlot::headUnitNode() const` (exported)
+- **8649** `CvPlot::headUnitNode() const` (exported)
   - calls: CLinkList<IDInfo>::head [LinkedList.h]
-  - called by (100): CvCity::cultureGarrison, CvCity::getRevoltTestProbability, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_isAirDefended, CvCityAI::AI_updateBestBuild, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup …
-- **8519** `CvPlot::tailUnitNode() const` (exported)
+  - called by (102): CvCity::cultureGarrison, CvCity::getRevoltTestProbability, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_isAirDefended, CvCityAI::AI_updateBestBuild, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchLeadUnitPopup, CvDLLButtonPopup::launchLoadUnitPopup …
+- **8655** `CvPlot::tailUnitNode() const` (exported)
   - calls: CLinkList<IDInfo>::tail [LinkedList.h]
   - called by (1): CvGame::cyclePlotUnits
-- **8525** `CvPlot::getNumSymbols() const` (exported)
+- **8661** `CvPlot::getNumSymbols() const` (exported)
   - called by (4): CvPlot::deleteAllSymbols, CvPlot::updateSymbolDisplay, CvPlot::updateSymbolVisibility, CvPlot::updateSymbols
-- **8531** `CvPlot::getSymbol(int) const`
+- **8667** `CvPlot::getSymbol(int) const`
   - called by (3): CvPlot::updateSymbolDisplay, CvPlot::updateSymbolVisibility, CvPlot::updateSymbols
-- **8537** `CvPlot::addSymbol()`
+- **8673** `CvPlot::addSymbol()`
   - calls: CvDLLSymbolIFaceBase::createSymbol [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvPlot::updateSymbols
-- **8545** `CvPlot::deleteSymbol(int)`
-- **8551** `CvPlot::deleteAllSymbols()`
+- **8681** `CvPlot::deleteSymbol(int)`
+- **8687** `CvPlot::deleteAllSymbols()`
   - calls: CvPlot::getNumSymbols, CvDLLSymbolIFaceBase::destroy [CvDLLSymbolIFaceBase.h], CvDLLUtilityIFaceBase::getSymbolIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-  - called by (2): CvPlot::uninit, CvPlot::updateSymbols
-- **8561** `CvPlot::getScriptData() const`
+  - called by (3): CvPlot::pageGraphics, CvPlot::uninit, CvPlot::updateSymbols
+- **8697** `CvPlot::getScriptData() const`
   - calls: CvString::CvString(char const*) [CvString.h]
   - called by (2): CvDLLButtonPopup::launchMainMenuPopup, CyPlot::getScriptData
-- **8566** `CvPlot::setScriptData(char const*)`
+- **8702** `CvPlot::setScriptData(char const*)`
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (1): CyPlot::setScriptData
-- **8574** `CvPlot::doFeature()`
+- **8710** `CvPlot::doFeature()`
   - calls: CvWString::CvWString() [CvString.h], CvGlobals::getDCM_BATTLE_EFFECTS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getBattleCountdown, CvPlot::changeBattleCountdown, CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getDisappearanceProbability [CvInfos.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGameSpeedInfo::getVictoryDelayPercent [CvInfos.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvPlot::setFeatureType, CvPlot::isUnit, CvPlot::getImprovementType, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvPlot::canHaveFeature, CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvBonusInfo::isFeature [CvInfos.cpp], CvPlot::getBonusType, plotCardinalDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvFeatureInfo::getGrowthProbability [CvInfos.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getFeatureGrowthProbability [CvInfos.cpp], CvGlobals::getFEATURE_GROWTH_MODIFIER [CvGlobals.cpp], CvPlot::isRoute, CvGlobals::getROUTE_FEATURE_GROWTH_MODIFIER [CvGlobals.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::findCity [CvMap.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvFeatureInfo::getGrowthSound [CvInfos.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvFeatureInfo::getButton [CvInfos.cpp], CvWString::CvWString(CvWString const&) [CvString.h]
   - called by (1): CvPlot::doTurn
-- **8732** `CvPlot::doCulture()`
+- **8868** `CvPlot::doCulture()`
   - calls: CvWString::CvWString() [CvString.h], CvPlot::getPlotCity, CvPlot::calculateCulturalOwner, CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getTeam, CvCity::isOccupation [CvCity.cpp], CvCity::getRevoltTestProbability [CvCity.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::cultureStrength [CvCity.cpp], CvCity::cultureGarrison [CvCity.cpp], CvCity::isBarbarian [CvCity.cpp], CLinkList<IDInfo>::CLinkList<struct IDInfo> [LinkedList.h], CvPlot::headUnitNode, CLinkList<IDInfo>::insertAtEnd [LinkedList.h], CvPlot::nextUnitNode, CLinkList<IDInfo>::head [LinkedList.h], getUnit [CvGameCoreUtils.cpp], CvUnit::isBarbarian [CvUnit.cpp], CvUnit::kill [CvUnit.cpp], CvUnit::canDefend [CvUnit.cpp], CvUnit::changeDamage [CvUnit.cpp], CvUnit::currHitPoints [CvUnit.cpp], CvCity::getNumRevolts [CvCity.cpp], CvCity::isEverOwned [CvCity.cpp], CvGame::isOption [CvGame.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlayer::isHuman [CvPlayer.cpp], CvCity::kill [CvCity.cpp], CvPlot::setOwner, CvCity::changeNumRevolts [CvCity.cpp], CvCity::changeOccupationTimer [CvCity.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getCivilizationAdjective [CvPlayer.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getInterfaceArtInfo(char const*) const [CvArtFileMgr.cpp], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvAssetInfoBase::getPath [CvInfos.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getOwnerINLINE [CvPlot.h], CvWString::CvWString(CvWString const&) [CvString.h], CLinkList<IDInfo>::~CLinkList<struct IDInfo> [LinkedList.h], CvPlot::updateCulture
   - called by (1): CvPlot::doTurn
-- **8839** `CvPlot::processArea(CvArea*, int)`
+- **8975** `CvPlot::processArea(CvArea*, int)`
   - calls: CvArea::changeNumTiles [CvArea.cpp], CvPlot::isOwned, CvArea::changeNumOwnedTiles [CvArea.cpp], CvPlot::isNOfRiver, CvArea::changeNumRiverEdges [CvArea.cpp], CvPlot::isWOfRiver, CvPlot::getBonusType, CvArea::changeNumBonuses [CvArea.cpp], CvPlot::getImprovementType, CvArea::changeNumImprovements [CvArea.cpp], CvPlayer::getStartingPlot [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvArea::changeNumStartingPlots [CvArea.cpp], CvArea::changePower [CvArea.cpp], CvPlot::getUnitPower, CvArea::changeUnitsPerPlayer [CvArea.cpp], CvPlot::plotCount, CvArea::changeAnimalsPerPlayer [CvArea.cpp], CvArea::changeNumAIUnits [CvArea.cpp], CvPlot::isRevealed, CvArea::changeNumRevealedTiles [CvArea.cpp], CvPlot::getPlotCity, CvCity::getPopulation [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], getPopulationPower [CvGameCoreUtils.cpp], CvArea::changeCitiesPerPlayer [CvArea.cpp], CvArea::changePopulationPerPlayer [CvArea.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCity::getNumActiveBuilding [CvCity.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getPowerValue [CvInfos.cpp], CvBuildingInfo::getAreaHealth [CvInfos.cpp], CvArea::changeBuildingGoodHealth [CvArea.cpp], CvArea::changeBuildingBadHealth [CvArea.cpp], CvArea::changeBuildingHappiness [CvArea.cpp], CvBuildingInfo::getAreaHappiness [CvInfos.cpp], CvArea::changeFreeSpecialist [CvArea.cpp], CvBuildingInfo::getAreaFreeSpecialist [CvInfos.cpp], CvArea::changeCleanPowerCount [CvArea.cpp], CvCity::getTeam [CvCity.cpp], CvBuildingInfo::isAreaCleanPower [CvInfos.cpp], CvArea::changeBorderObstacleCount [CvArea.cpp], CvBuildingInfo::isAreaBorderObstacle [CvInfos.cpp], CvArea::changeYieldRateModifier [CvArea.cpp], CvBuildingInfo::getAreaYieldModifier [CvInfos.cpp], CvArea::changeNumTrainAIUnits [CvArea.cpp], CvCity::getNumTrainUnitAI [CvCity.cpp], CvArea::getTargetCity [CvArea.cpp], CvArea::setTargetCity [CvArea.cpp]
   - takes the address of: PUF_isPlayer [CvGameCoreUtils.cpp], PUF_isAnimal [CvGameCoreUtils.cpp], PUF_isUnitAIType [CvGameCoreUtils.cpp]
   - called by (1): CvPlot::setArea
-- **8952** `CvPlot::plotMinimapColor()`
+- **9088** `CvPlot::plotMinimapColor()`
   - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getPlotCity, CvCity::isRevealed [CvCity.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvPlot::isActiveVisible, CvPlot::getDebugCenterUnit, CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvPlayerColorInfo::getColorTypePrimary [CvInfos.cpp], CvPlayer::getPlayerColor [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::getVisualOwner [CvUnit.cpp], CvPlot::isRevealedBarbarian, CvPlot::getRevealedOwner
   - called by (1): CvPlot::updateMinimapColor
-- **8990** `CvPlot::read(FDataStreamBase*)`
+- **9126** `CvPlot::read(FDataStreamBase*)`
   - calls: CvPlot::reset, FDataStreamBase::Read [FDataStreamBase.h], CvPlot::invalidateIsTeamBorderCache, operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], FDataStreamBase::ReadString [FDataStreamBase.h], CLinkList<IDInfo>::Read [LinkedList.h]
   - called by (1): CvMap::read
-- **9244** `CvPlot::write(FDataStreamBase*)`
+- **9380** `CvPlot::write(FDataStreamBase*)`
   - calls: FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumCultureLevelInfos [CvGlobals.cpp], CvGlobals::getNumInvisibleInfos [CvGlobals.cpp], CLinkList<IDInfo>::Write [LinkedList.h]
   - called by (1): CvMap::write
-- **9484** `CvPlot::setLayoutDirty(bool)` (exported)
+- **9620** `CvPlot::setLayoutDirty(bool)` (exported)
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::isLayoutDirty, CvPlot::updatePlotBuilder
-  - called by (11): CvPlayer::setCurrentEra, CvPlot::setBonusType, CvPlot::setImprovementType, CvPlot::setIrrigated, CvPlot::setPlotType, CvPlot::setRevealedImprovementType, CvPlot::updateRiverSymbol, CvPlot::updateRouteSymbol, CvPlot::updateVisibility, CvTeam::processTech, CvTeam::setForceRevealedBonus
-- **9505** `CvPlot::updatePlotBuilder()`
+  - called by (12): CvPlayer::setCurrentEra, CvPlot::pageGraphics, CvPlot::setBonusType, CvPlot::setImprovementType, CvPlot::setIrrigated, CvPlot::setPlotType, CvPlot::setRevealedImprovementType, CvPlot::updateRiverSymbol, CvPlot::updateRouteSymbol, CvPlot::updateVisibility, CvTeam::processTech, CvTeam::setForceRevealedBonus
+- **9641** `CvPlot::updatePlotBuilder()`
   - calls: CvGlobals::IsGraphicsInitialized [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::shouldUsePlotBuilder, CvDLLPlotBuilderIFaceBase::create [CvDLLPlotBuilderIFaceBase.h], CvDLLUtilityIFaceBase::getPlotBuilderIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLPlotBuilderIFaceBase::init [CvDLLPlotBuilderIFaceBase.h]
   - called by (2): CvCity::setWorkingPlot(int, bool), CvPlot::setLayoutDirty
-- **9521** `CvPlot::isLayoutDirty() const` (exported)
+- **9657** `CvPlot::isLayoutDirty() const` (exported)
   - called by (1): CvPlot::setLayoutDirty
-- **9526** `CvPlot::isLayoutStateDifferent() const` (exported)
+- **9662** `CvPlot::isLayoutStateDifferent() const` (exported)
   - calls: CvPlot::isBeingWorked
-- **9536** `CvPlot::setLayoutStateToCurrent()` (exported)
+- **9672** `CvPlot::setLayoutStateToCurrent()` (exported)
   - calls: CvPlot::isBeingWorked
-- **9543** `CvPlot::getVisibleImprovementState(ImprovementTypes&, bool&)` (exported)
+- **9679** `CvPlot::getVisibleImprovementState(ImprovementTypes&, bool&)` (exported)
   - calls: CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getRevealedImprovementType, CvPlot::isActiveVisible, CvPlot::isCity, CvPlot::isBeingWorked, CvPlot::isWater, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp]
   - called by (1): CvPlot::shouldUsePlotBuilder
-- **9580** `CvPlot::getVisibleBonusState(BonusTypes&, bool&, bool&)` (exported)
+- **9716** `CvPlot::getVisibleBonusState(BonusTypes&, bool&, bool&)` (exported)
   - calls: CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGame::isDebugMode [CvGame.cpp], CvPlot::getBonusType, CvPlot::isRevealed, CvPlot::getRevealedImprovementType, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isImprovementBonusTrade [CvInfos.cpp], CvPlot::isBeingWorked
   - called by (1): CvPlot::shouldUsePlotBuilder
-- **9613** `CvPlot::shouldUsePlotBuilder()` (exported)
+- **9749** `CvPlot::shouldUsePlotBuilder()` (exported)
   - calls: CvPlot::getVisibleBonusState, CvPlot::getVisibleImprovementState
   - called by (1): CvPlot::updatePlotBuilder
-- **9628** `CvPlot::calculateMaxYield(YieldTypes) const`
+- **9764** `CvPlot::calculateMaxYield(YieldTypes) const`
   - calls: CvPlot::getTerrainType, CvPlot::calculateNatureYield, CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::calculateImprovementYieldChange, CvGlobals::getNumRouteInfos [CvGlobals.cpp], CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvRouteInfo::getYieldChange [CvInfos.cpp], CvPlot::isImpassable, CvPlot::isWater, CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getSeaPlotYieldChange [CvInfos.cpp], CvBuildingInfo::getGlobalSeaPlotYieldChange [CvInfos.cpp], CvPlot::isRiver, CvBuildingInfo::getRiverPlotYieldChange [CvInfos.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getTraitInfo(TraitTypes) [CvGlobals.cpp], CvTraitInfo::getExtraYieldThreshold [CvInfos.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp]
-- **9687** `CvPlot::getYieldWithBuild(BuildTypes, YieldTypes, bool) const`
+- **9823** `CvPlot::getYieldWithBuild(BuildTypes, YieldTypes, bool) const`
   - calls: CvPlot::getFeatureType, CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildInfo::isFeatureRemove [CvInfos.cpp], CvPlot::getTeam, CvPlot::calculateNatureYield, CvBuildInfo::getImprovement [CvInfos.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::getImprovementUpgrade [CvInfos.cpp], CvGlobals::getFOOD_CONSUMPTION_PER_POPULATION [CvGlobals.cpp], CvPlot::getYield(YieldTypes) const, CvPlot::calculateImprovementYieldChange, CvPlot::getOwnerINLINE [CvPlot.h], CvBuildInfo::getRoute [CvInfos.cpp], CvPlot::getImprovementType, CvImprovementInfo::getRouteYieldChanges [CvInfos.cpp], CvPlot::getRouteType
   - called by (3): CvCityAI::AI_getPlotMagicValue, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere
-- **9754** `CvPlot::canTrigger(EventTriggerTypes, PlayerTypes) const`
+- **9890** `CvPlot::canTrigger(EventTriggerTypes, PlayerTypes) const`
   - calls: CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventTriggerInfo::isOwnPlot [CvInfos.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvEventTriggerInfo::getPlotType [CvInfos.cpp], CvPlot::getPlotType, CvEventTriggerInfo::getNumFeaturesRequired [CvInfos.cpp], CvEventTriggerInfo::getFeatureRequired [CvInfos.cpp], CvPlot::getFeatureType, CvEventTriggerInfo::getNumTerrainsRequired [CvInfos.cpp], CvEventTriggerInfo::getTerrainRequired [CvInfos.cpp], CvPlot::getTerrainType, CvEventTriggerInfo::getNumImprovementsRequired [CvInfos.cpp], CvEventTriggerInfo::getImprovementRequired [CvInfos.cpp], CvPlot::getImprovementType, CvEventTriggerInfo::getNumBonusesRequired [CvInfos.cpp], CvEventTriggerInfo::getBonusRequired [CvInfos.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getBonusType, CvEventTriggerInfo::getNumRoutesRequired [CvInfos.cpp], CvPlot::getPlotCity, CvEventTriggerInfo::getRouteRequired [CvInfos.cpp], CvPlot::getRouteType, CvEventTriggerInfo::isUnitsOnPlot [CvInfos.cpp], CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getOwnerINLINE [CvUnit.h], CvUnit::getTriggerValue [CvUnit.cpp], CvEventTriggerInfo::getNumPrereqEvents [CvInfos.cpp], CvEventTriggerInfo::isPrereqEventCity [CvInfos.cpp], CvEventTriggerInfo::getPrereqEvent [CvInfos.cpp], CvPlayer::getEventOccured [CvPlayer.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h]
   - called by (2): CvPlayer::initTriggeredData, CvUnit::getTriggerValue
-- **9924** `CvPlot::canApplyEvent(EventTypes) const`
+- **10060** `CvPlot::canApplyEvent(EventTypes) const`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getFeatureChange [CvInfos.cpp], CvEventInfo::getFeature [CvInfos.cpp], CvPlot::canHaveFeature, CvPlot::getImprovementType, CvPlot::getFeatureType, CvEventInfo::getImprovementChange [CvInfos.cpp], CvEventInfo::getImprovement [CvInfos.cpp], CvPlot::canHaveImprovement, CvPlot::getTeam, CvEventInfo::getBonusChange [CvInfos.cpp], CvEventInfo::getBonus [CvInfos.cpp], CvPlot::canHaveBonus, CvPlot::getBonusType, CvEventInfo::getRouteChange [CvInfos.cpp], CvPlot::getRouteType, CvPlot::isCity
   - called by (1): CvPlayer::canDoEvent
-- **9998** `CvPlot::applyEvent(EventTypes)`
+- **10134** `CvPlot::applyEvent(EventTypes)`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getFeatureChange [CvInfos.cpp], CvEventInfo::getFeature [CvInfos.cpp], CvPlot::setFeatureType, CvEventInfo::getImprovementChange [CvInfos.cpp], CvEventInfo::getImprovement [CvInfos.cpp], CvPlot::setImprovementType, CvEventInfo::getBonusChange [CvInfos.cpp], CvEventInfo::getBonus [CvInfos.cpp], CvPlot::setBonusType, CvEventInfo::getRouteChange [CvInfos.cpp], CvEventInfo::getRoute [CvInfos.cpp], CvPlot::setRouteType, CvEventInfo::getPlotExtraYield [CvInfos.cpp], CvGame::setPlotExtraYield [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (1): CvPlayer::applyEvent
-- **10060** `CvPlot::canTrain(UnitTypes, bool, bool) const`
+- **10196** `CvPlot::canTrain(UnitTypes, bool, bool) const`
   - calls: CvPlot::getPlotCity, CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::isPrereqReligion [CvInfos.cpp], CvCity::getReligionCount [CvCity.cpp], CvUnitInfo::getPrereqReligion [CvInfos.cpp], CvCity::isHasReligion [CvCity.cpp], CvUnitInfo::getPrereqCorporation [CvInfos.cpp], CvCity::isActiveCorporation [CvCity.cpp], CvUnitInfo::isPrereqBonuses [CvInfos.cpp], CvUnitInfo::getDomainType [CvInfos.cpp], plotDirection [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::isWater, CvArea::getNumTotalBonuses [CvArea.cpp], CvPlot::area, CvPlot::isCity, CvUnitInfo::getMinAreaSize [CvInfos.cpp], CvPlot::isCoastalLand, CvArea::getNumTiles [CvArea.cpp], CvUnitInfo::getHolyCity [CvInfos.cpp], CvCity::isHolyCity(ReligionTypes) const [CvCity.cpp], CvUnitInfo::getPrereqAndBonus [CvInfos.cpp], CvPlot::isPlotGroupConnectedBonus, CvPlot::getOwnerINLINE [CvPlot.h], CvCity::hasBonus [CvCity.cpp], CvGlobals::getNUM_UNIT_PREREQ_OR_BONUSES [CvGlobals.cpp], CvUnitInfo::getPrereqOrBonuses [CvInfos.cpp]
   - called by (2): CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const, CvPlayer::getAdvancedStartUnitCost
-- **10246** `CvPlot::countFriendlyCulture(TeamTypes) const`
+- **10382** `CvPlot::countFriendlyCulture(TeamTypes) const`
   - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isOpenBorders [CvTeam.cpp], CvTeam::isVassal [CvTeam.cpp], CvPlot::getCulture
   - called by (1): CvTeam::changeWarWeariness(TeamTypes, CvPlot const&, int)
-- **10266** `CvPlot::countNumAirUnits(TeamTypes) const`
+- **10402** `CvPlot::countNumAirUnits(TeamTypes) const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getTeam [CvUnit.cpp], CvUnit::isCargo [CvUnit.cpp], CvUnit::getDomainType [CvUnit.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getAirUnitCap [CvInfos.cpp], CvUnit::getUnitType [CvUnit.cpp]
   - called by (6): CvCity::popOrder, CvGameTextMgr::getRebasePlotHelp, CvGameTextMgr::setCityBarHelp, CvPlot::airUnitSpaceAvailable, CvUnit::canUnload, CyPlot::countNumAirUnits
-- **10285** `CvPlot::airUnitSpaceAvailable(TeamTypes) const`
+- **10421** `CvPlot::airUnitSpaceAvailable(TeamTypes) const`
   - calls: CvPlot::getPlotCity, CvCity::getAirUnitCapacity [CvCity.cpp], CvPlot::getTeam, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::countNumAirUnits
   - called by (2): CvUnit::canMoveInto, CvUnit::shouldLoadOnMove
-- **10307** `CvPlot::countAirInterceptorsActive(TeamTypes) const`
+- **10443** `CvPlot::countAirInterceptorsActive(TeamTypes) const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getTeam [CvUnit.cpp], CvUnit::isCargo [CvUnit.cpp], CvUnit::getDomainType [CvUnit.cpp], CvSelectionGroup::getActivityType [CvSelectionGroup.cpp], CvUnit::getGroup [CvUnit.cpp]
   - called by (1): CvUnitAI::AI_defenseAirMove
-- **10333** `CvPlot::isEspionageCounterSpy(TeamTypes) const`
+- **10469** `CvPlot::isEspionageCounterSpy(TeamTypes) const`
   - calls: CvPlot::getPlotCity, CvCity::getTeam [CvCity.cpp], CvCity::getEspionageDefenseModifier [CvCity.cpp], CvPlot::plotCount
   - takes the address of: PUF_isCounterSpy [CvGameCoreUtils.cpp]
   - called by (2): CvUnit::getSpyInterceptPercent, CvUnit::testSpyIntercepted
-- **10353** `CvPlot::getAreaIdForGreatWall() const` (exported)
+- **10489** `CvPlot::getAreaIdForGreatWall() const` (exported)
   - calls: CvPlot::getArea
-- **10358** `CvPlot::getSoundScriptId() const` (exported)
+- **10494** `CvPlot::getSoundScriptId() const` (exported)
   - calls: CvPlot::isActiveVisible, CvPlot::getImprovementType, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::getWorldSoundscapeScriptId [CvInfos.cpp], CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getWorldSoundscapeScriptId [CvInfos.cpp], CvPlot::getTerrainType, CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvTerrainInfo::getWorldSoundscapeScriptId [CvInfos.cpp]
-- **10379** `CvPlot::get3DAudioScriptFootstepIndex(int) const` (exported)
+- **10515** `CvPlot::get3DAudioScriptFootstepIndex(int) const` (exported)
   - calls: CvPlot::getFeatureType, CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::get3DAudioScriptFootstepIndex [CvInfos.cpp], CvPlot::getTerrainType, CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvTerrainInfo::get3DAudioScriptFootstepIndex [CvInfos.cpp]
-- **10394** `CvPlot::getAqueductSourceWeight() const` (exported)
+- **10530** `CvPlot::getAqueductSourceWeight() const` (exported)
   - calls: CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::isAddsFreshWater [CvInfos.cpp], CvPlot::isLake, CvPlot::isPeak, CvPlot::getFeatureType, CvPlot::isHills
-- **10409** `CvPlot::shouldDisplayBridge(CvPlot*, PlayerTypes) const` (exported)
+- **10545** `CvPlot::shouldDisplayBridge(CvPlot*, PlayerTypes) const` (exported)
   - calls: CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getRevealedTeam, CvTeam::isBridgeBuilding [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
-- **10437** `CvPlot::checkLateEra() const` (exported)
+- **10573** `CvPlot::checkLateEra() const` (exported)
   - calls: CvPlot::getOwnerINLINE [CvPlot.h], CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlot::getCulture, CvGlobals::getNumEraInfos [CvGlobals.cpp], CvPlayer::getCurrentEra [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
-- **10465** `CvPlot::hasDefender(bool, PlayerTypes, PlayerTypes, CvUnit const*, bool, bool, bool) const`
+- **10601** `CvPlot::hasDefender(bool, PlayerTypes, PlayerTypes, CvUnit const*, bool, bool, bool) const`
   - calls: CvPlot::headUnitNode, getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode, CvUnit::getOwnerINLINE [CvUnit.h], CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvUnit::isInvisible [CvUnit.cpp], CvUnit::isEnemy [CvUnit.cpp], CvUnit::isPotentialEnemy [CvUnit.cpp], CvUnit::isCargo [CvUnit.cpp], CvUnit::canMove [CvUnit.cpp], CvUnit::getDamage [CvUnit.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::airCombatLimit [CvUnit.cpp], CvUnit::canAttack(CvUnit const&) const [CvUnit.cpp]
   - called by (4): CvSelectionGroup::groupAttack, CvSelectionGroupAI::AI_attackOdds, CvUnit::canMoveInto, CvUnitAI::AI_assaultSeaReinforce
-- **10514** `CvPlot::changeBattleCountdown(int)`
+- **10650** `CvPlot::changeBattleCountdown(int)`
   - called by (2): CvPlot::doFeature, CvUnit::setBattlePlot
-- **10522** `CvPlot::setBattleCountdown(int)`
-- **10527** `CvPlot::getBattleCountdown() const`
+- **10658** `CvPlot::setBattleCountdown(int)`
+- **10663** `CvPlot::getBattleCountdown() const`
   - calls: CvGlobals::getDCM_BATTLE_EFFECTS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
   - called by (3): CvPlot::doFeature, CvPlot::isBattle, CvUnit::setBattlePlot
-- **10532** `CvPlot::isBattle() const`
+- **10668** `CvPlot::isBattle() const`
   - calls: CvPlot::getBattleCountdown
   - called by (2): CvGame::drawBattleEffects, CvPlot::calculateYield
-- **10537** `CvPlot::canHaveBattleEffect(CvUnit const*, CvUnit const*) const`
+- **10673** `CvPlot::canHaveBattleEffect(CvUnit const*, CvUnit const*) const`
   - calls: CvUnit::isAnimal [CvUnit.cpp], CvUnitInfo::getDomainType [CvInfos.cpp], CvUnit::getUnitInfo [CvUnit.cpp], CvPlot::isWater
   - called by (1): CvUnit::setBattlePlot
-- **10571** `CvPlot::getBattleEffect()`
+- **10707** `CvPlot::getBattleEffect()`
   - calls: CvPlot::setBattleEffect
   - called by (1): CvGame::drawBattleEffects
-- **10581** `CvPlot::setBattleEffect()`
+- **10717** `CvPlot::setBattleEffect()`
   - calls: CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getNumEffectInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getEffectInfo(int) [CvGlobals.cpp], CvEffectInfo::isBattleEffect [CvInfos.cpp]
   - called by (1): CvPlot::getBattleEffect
 - **·** `CvPlot::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)

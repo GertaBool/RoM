@@ -6,6 +6,7 @@ _GetCurrentDirectoryA@8	1
 _GetKeyState@4	2
 _GetLastError@0	2
 _GetModuleFileNameA@12	2
+_GetTickCount@0	1
 _MultiByteToWideChar@24	2
 _PyFloat_FromDouble	2
 _PyInt_AsLong	4
@@ -59,7 +60,7 @@ bool __cdecl std::operator==<unsigned short, struct std::char_traits<unsigned sh
 bool __cdecl std::operator==<unsigned short, struct std::char_traits<unsigned short>, class std::allocator<unsigned short>>(unsigned short const *, class std::basic_string<unsigned short, struct std::char_traits<unsigned short>, class std::allocator<unsigned short>> const &)	15
 public: __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>(char const *)	42
 public: __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>(class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> const &)	45
-public: __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>(void)	88
+public: __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>(void)	87
 public: __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::~basic_string<char, struct std::char_traits<char>, class std::allocator<char>>(void)	1400
 public: __thiscall std::basic_string<unsigned short, struct std::char_traits<unsigned short>, class std::allocator<unsigned short>>::basic_string<unsigned short, struct std::char_traits<unsigned short>, class std::allocator<unsigned short>>(class std::basic_string<unsigned short, struct std::char_traits<unsigned short>, class std::allocator<unsigned short>> const &)	76
 public: __thiscall std::basic_string<unsigned short, struct std::char_traits<unsigned short>, class std::allocator<unsigned short>>::basic_string<unsigned short, struct std::char_traits<unsigned short>, class std::allocator<unsigned short>>(unsigned int, unsigned short)	30
@@ -69,10 +70,10 @@ public: __thiscall std::basic_string<unsigned short, struct std::char_traits<uns
 public: bool __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::empty(void) const	21
 public: bool __thiscall std::basic_string<unsigned short, struct std::char_traits<unsigned short>, class std::allocator<unsigned short>>::empty(void) const	84
 public: char & __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::operator[](unsigned int)	2
-public: char const * __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::c_str(void) const	853
+public: char const * __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::c_str(void) const	851
 public: class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> & __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::append(char const *)	12
 public: class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> & __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::append(class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> const &)	5
-public: class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> & __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::assign(char const *)	53
+public: class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> & __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::assign(char const *)	52
 public: class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> & __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::erase(unsigned int, unsigned int)	7
 public: class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> & __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::operator+=(char const *)	15
 public: class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> & __thiscall std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>>::operator+=(class std::basic_string<char, struct std::char_traits<char>, class std::allocator<char>> const &)	6

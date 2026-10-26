@@ -215,7 +215,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (1): CvGame::doHeadquarters
 - **3301** `CvTeam::isBonusObsolete(BonusTypes) const`
   - calls: CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBonusInfo::getTechObsolete [CvInfos.cpp], CvTeam::isHasTech
-  - called by (7): CvCity::updateCorporationBonus, CvDLLWidgetData::parseActionHelp, CvDeal::verify, CvPlayer::canTradeItem, CvPlayerAI::AI_baseBonusVal, CvPlot::getNonObsoleteBonusType, CvPlot::updatePlotGroupBonus
+  - called by (9): CvCity::updateCorporationBonus, CvDLLWidgetData::parseActionHelp, CvDeal::verify, CvPlayer::canTradeItem, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CvPlayerAI::AI_bonusUnlockVal, CvPlot::getNonObsoleteBonusType, CvPlot::updatePlotGroupBonus
 - **3312** `CvTeam::isHuman() const`
   - calls: CvPlayer::getTeam [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::getID, CvPlayer::isHuman [CvPlayer.cpp]
   - called by (40): CvCityAI::AI_bestProject, CvGame::initFreeState, CvGame::updateWar, CvGameAI::AI_updateAssignWork, CvGameTextMgr::getActiveTeamRelationsString, CvGameTextMgr::getOtherRelationsString(CvWStringBuffer&, TeamTypes, TeamTypes, TeamTypes), CvPlayer::canTradeItem, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvPlayerAI::AI_getKnownPlayerRank, CvPlayerAI::AI_isWillingToTalk, CvPlayerAI::AI_launch …
@@ -230,7 +230,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (1): CyTeam::setIsMinorCiv
 - **3649** `CvTeam::getLeaderID() const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::getID
-  - called by (29): CvGame::addVoteSelection, CvGame::setWinner, CvPlayerAI::AI_doCommerce, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvTeam::addTeam, CvTeam::changeProjectCount, CvTeam::countEnemyDangerByArea, CvTeam::declareWar, CvTeam::doTurn, CvTeam::getSecretaryID, CvTeam::makeHasMet …
+  - called by (30): CvGame::addVoteSelection, CvGame::setWinner, CvPlayerAI::AI_doCommerce, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvTeam::addTeam, CvTeam::changeProjectCount, CvTeam::countEnemyDangerByArea, CvTeam::declareWar, CvTeam::doTurn, CvTeam::getSecretaryID, CvTeam::makeHasMet …
 - **3676** `CvTeam::getSecretaryID() const`
   - calls: CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isHuman [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::getID, CvTeam::getLeaderID
   - called by (2): CvGame::doVoteSelection, CyTeam::getSecretaryID
@@ -586,7 +586,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - calls: CvTeam::getID, CvTeam::isVassal, CvTeamAI::getTeam [CvTeamAI.h], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayer::getTeam [CvPlayer.cpp], CvPlayer::getParent [CvPlayer.cpp]
   - called by (3): CvGameTextMgr::setVassalRevoltHelp, CvPlayerAI::AI_doSplit, CvTeamAI::AI_surrenderTrade
 - **5916** `CvTeam::isHasTech(TechTypes) const`
-  - called by (77): CvCity::updateCorporationBonus, CvCityAI::AI_plotValue, CvDLLWidgetData::parseActionHelp, CvGame::cheatSpaceship, CvGame::countKnownTechNumTeams, CvGame::createBarbarianUnits, CvGame::doHeadquarters, CvGame::doHolyCity, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::buildSingleLineTechTreeString …
+  - called by (78): CvCity::updateCorporationBonus, CvCityAI::AI_plotValue, CvDLLWidgetData::parseActionHelp, CvGame::cheatSpaceship, CvGame::countKnownTechNumTeams, CvGame::createBarbarianUnits, CvGame::doHeadquarters, CvGame::doHolyCity, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::buildSingleLineTechTreeString …
 - **5929** `CvTeam::announceTechToPlayers(TechTypes, bool)`
   - calls: CvDLLInterfaceIFaceBase::noTechSplash [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGame::isNetworkMultiPlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::isAlive [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam [CvPlayer.cpp], CvTeam::getID, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvTechInfo::getSoundMP [CvInfos.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (1): CvTeam::setHasTech

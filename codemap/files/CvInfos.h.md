@@ -274,5 +274,3 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - takes the address of: CvMissionInfo::~CvMissionInfo [CvInfos.cpp]
 - **·** `CvArtInfoScalableAsset::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoScalableAsset::~CvArtInfoScalableAsset
-- **·** `CvSpecialBuildingInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvSpecialBuildingInfo::~CvSpecialBuildingInfo [CvInfos.cpp]

@@ -2,110 +2,110 @@
 
 Group: game objects. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
-- **321** `CvCity::getX_INLINE() const`
-  - called by (124): CvCity::applyEvent, CvCity::at(int, int) const, CvCity::calculateDistanceMaintenanceTimes100, CvCity::createGreatPeople, CvCity::cultureStrength, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doReligion, CvCity::emergencyConscript, CvCity::getBaseTradeProfit …
-- **328** `CvCity::getY_INLINE() const`
-  - called by (124): CvCity::applyEvent, CvCity::at(int, int) const, CvCity::calculateDistanceMaintenanceTimes100, CvCity::createGreatPeople, CvCity::cultureStrength, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doReligion, CvCity::emergencyConscript, CvCity::getBaseTradeProfit …
-- **703** `CvCity::getOwnerINLINE() const`
-  - called by (341): CvCity::alterWorkingPlot, CvCity::applyEvent, CvCity::badHealth, CvCity::calculateColonyMaintenanceTimes100, CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes) const, CvCity::calculateDistanceMaintenanceTimes100, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::calculateTradeTotals, CvCity::calculateTradeYield, CvCity::canApplyEvent, CvCity::canBeSelected, CvCity::canConscript …
-- **1076** `CvCity::AI_init(…)` (virtual; pure virtual)
+- **323** `CvCity::getX_INLINE() const`
+  - called by (125): CvCity::applyEvent, CvCity::at(int, int) const, CvCity::calculateDistanceMaintenanceTimes100, CvCity::createGreatPeople, CvCity::cultureStrength, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doReligion, CvCity::emergencyConscript, CvCity::getBaseTradeProfit …
+- **330** `CvCity::getY_INLINE() const`
+  - called by (125): CvCity::applyEvent, CvCity::at(int, int) const, CvCity::calculateDistanceMaintenanceTimes100, CvCity::createGreatPeople, CvCity::cultureStrength, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doReligion, CvCity::emergencyConscript, CvCity::getBaseTradeProfit …
+- **705** `CvCity::getOwnerINLINE() const`
+  - called by (342): CvCity::alterWorkingPlot, CvCity::applyEvent, CvCity::badHealth, CvCity::calculateColonyMaintenanceTimes100, CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes) const, CvCity::calculateDistanceMaintenanceTimes100, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::calculateTradeTotals, CvCity::calculateTradeYield, CvCity::canApplyEvent, CvCity::canBeSelected, CvCity::canConscript …
+- **1078** `CvCity::AI_init(…)` (virtual; pure virtual)
   - called by (1): CvCity::init
-- **1077** `CvCity::AI_reset(…)` (virtual; pure virtual)
+- **1079** `CvCity::AI_reset(…)` (virtual; pure virtual)
   - called by (1): CvCity::reset
-- **1078** `CvCity::AI_doTurn(…)` (virtual; pure virtual)
+- **1080** `CvCity::AI_doTurn(…)` (virtual; pure virtual)
   - called by (1): CvCity::doTurn
-- **1079** `CvCity::AI_assignWorkingPlots(…)` (virtual; pure virtual)
+- **1081** `CvCity::AI_assignWorkingPlots(…)` (virtual; pure virtual)
   - called by (4): CvCity::kill, CvCity::popOrder, CvCity::setCitizensAutomated, CvPlayerAI::AI_assignWorkingPlots
-- **1080** `CvCity::AI_updateAssignWork(…)` (virtual; pure virtual)
+- **1082** `CvCity::AI_updateAssignWork(…)` (virtual; pure virtual)
   - called by (3): CvCity::setNumRealBuildingTimed, CvPlayerAI::AI_advancedStartPlaceCity, CvPlayerAI::AI_updateAssignWork
-- **1081** `CvCity::AI_avoidGrowth(…)` (virtual; pure virtual)
+- **1083** `CvCity::AI_avoidGrowth(…)` (virtual; pure virtual)
   - called by (4): CvGameTextMgr::setPlotHelp, CvUnitAI::AI_artistCultureVictoryMove, CvUnitAI::AI_join, CyCity::AI_avoidGrowth
-- **1082** `CvCity::AI_specialistValue(…)` (virtual; pure virtual)
+- **1084** `CvCity::AI_specialistValue(…)` (virtual; pure virtual)
   - called by (3): CvPlayerAI::AI_eventValue, CvUnitAI::AI_artistCultureVictoryMove, CvUnitAI::AI_join
-- **1083** `CvCity::AI_chooseProduction(…)` (virtual; pure virtual)
+- **1085** `CvCity::AI_chooseProduction(…)` (virtual; pure virtual)
   - called by (3): CvCity::doProduction, CvCity::popOrder, CvCity::setProductionAutomated
-- **1084** `CvCity::AI_bestUnit(…)` (virtual; pure virtual)
+- **1086** `CvCity::AI_bestUnit(…)` (virtual; pure virtual)
   - called by (2): CvDLLButtonPopup::launchProductionPopup, CyCity::AI_bestUnit
-- **1085** `CvCity::AI_bestUnitAI(…)` (virtual; pure virtual)
+- **1087** `CvCity::AI_bestUnitAI(…)` (virtual; pure virtual)
   - called by (5): CvGame::createBarbarianUnits, CvPlayer::found, CvPlayer::getBestAttackUnitKey, CvPlot::setOwner, CyCity::AI_bestUnitAI
-- **1086** `CvCity::AI_bestBuilding(…)` (virtual; pure virtual)
+- **1088** `CvCity::AI_bestBuilding(…)` (virtual; pure virtual)
   - called by (2): CvDLLButtonPopup::launchProductionPopup, CyCity::AI_bestBuilding
-- **1087** `CvCity::AI_buildingValue(…)` (virtual; pure virtual)
+- **1089** `CvCity::AI_buildingValue(…)` (virtual; pure virtual)
   - called by (4): CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_espionageVal, CvUnitAI::AI_construct, CvUnitAI::AI_switchHurry
-- **1088** `CvCity::AI_projectValue(…)` (virtual; pure virtual)
-- **1089** `CvCity::AI_neededSeaWorkers(…)` (virtual; pure virtual)
+- **1090** `CvCity::AI_projectValue(…)` (virtual; pure virtual)
+- **1091** `CvCity::AI_neededSeaWorkers(…)` (virtual; pure virtual)
   - called by (2): CvGameTextMgr::setPlotHelp, CvUnitAI::AI_workerSeaMove
-- **1090** `CvCity::AI_isDefended(…)` (virtual; pure virtual)
+- **1092** `CvCity::AI_isDefended(…)` (virtual; pure virtual)
   - called by (4): CvUnitAI::AI_chokeDefend, CvUnitAI::AI_guardCity, CvUnitAI::AI_guardCityAirlift, CvUnitAI::AI_pickup
-- **1097** `CvCity::AI_isAirDefended(…)` (virtual; pure virtual)
+- **1099** `CvCity::AI_isAirDefended(…)` (virtual; pure virtual)
   - called by (3): CvUnitAI::AI_airDefensiveCity, CvUnitAI::AI_attackAirMove, CvUnitAI::AI_defenseAirMove
-- **1103** `CvCity::AI_isDanger(…)` (virtual; pure virtual)
+- **1105** `CvCity::AI_isDanger(…)` (virtual; pure virtual)
   - called by (10): CvUnitAI::AI_RbombardNaval, CvUnitAI::AI_airBombDefenses, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_assaultSeaMove, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_defendPlot, CvUnitAI::AI_guardCity, CvUnitAI::AI_guardCityAirlift, CvUnitAI::AI_offensiveAirlift, CvUnitAI::AI_pickup
-- **1104** `CvCity::AI_neededDefenders(…)` (virtual; pure virtual)
+- **1106** `CvCity::AI_neededDefenders(…)` (virtual; pure virtual)
   - called by (4): CvGameTextMgr::setPlotHelp, CvUnitAI::AI_assaultSeaTransport, CvUnitAI::AI_chokeDefend, CvUnitAI::AI_pickup
-- **1105** `CvCity::AI_neededAirDefenders(…)` (virtual; pure virtual)
+- **1107** `CvCity::AI_neededAirDefenders(…)` (virtual; pure virtual)
   - called by (3): CvGameTextMgr::setPlotHelp, CvUnitAI::AI_airDefensiveCity, CvUnitAI::AI_defenseAirMove
-- **1106** `CvCity::AI_minDefenders(…)` (virtual; pure virtual)
+- **1108** `CvCity::AI_minDefenders(…)` (virtual; pure virtual)
   - called by (2): CvUnitAI::AI_guardCityMinDefender, CvUnitAI::AI_recruitSettlerEscort
-- **1107** `CvCity::AI_isEmphasizeAvoidGrowth(…)` (virtual; pure virtual)
+- **1109** `CvCity::AI_isEmphasizeAvoidGrowth(…)` (virtual; pure virtual)
   - called by (2): CvCity::doGrowth, CvGameTextMgr::buildCityBillboardCityNameString
-- **1108** `CvCity::AI_isAssignWorkDirty(…)` (virtual; pure virtual)
-- **1109** `CvCity::AI_getRouteToCity(…)` (virtual; pure virtual)
+- **1110** `CvCity::AI_isAssignWorkDirty(…)` (virtual; pure virtual)
+- **1111** `CvCity::AI_getRouteToCity(…)` (virtual; pure virtual)
   - called by (1): CvUnitAI::AI_routeCity
-- **1110** `CvCity::AI_setAssignWorkDirty(…)` (virtual; pure virtual)
+- **1112** `CvCity::AI_setAssignWorkDirty(…)` (virtual; pure virtual)
   - called by (52): CvCity::changeBonusBadHappiness, CvCity::changeBonusBadHealth, CvCity::changeBonusGoodHappiness, CvCity::changeBonusGoodHealth, CvCity::changeBonusYieldRateModifier, CvCity::changeBuildingBadHappiness, CvCity::changeBuildingBadHealth, CvCity::changeBuildingGoodHappiness, CvCity::changeBuildingGoodHealth, CvCity::changeBuildingOnlyHealthyCount, CvCity::changeCommerceHappinessPer, CvCity::changeCommerceRateModifier …
-- **1111** `CvCity::AI_isChooseProductionDirty(…)` (virtual; pure virtual)
+- **1113** `CvCity::AI_isChooseProductionDirty(…)` (virtual; pure virtual)
   - called by (1): CvCity::doProduction
-- **1112** `CvCity::AI_setChooseProductionDirty(…)` (virtual; pure virtual)
+- **1114** `CvCity::AI_setChooseProductionDirty(…)` (virtual; pure virtual)
   - called by (3): CvCity::setPopulation, CvGame::createBarbarianUnits, CvPlayerAI::AI_makeProductionDirty
-- **1113** `CvCity::AI_isEmphasize(…)` (virtual; pure virtual)
+- **1115** `CvCity::AI_isEmphasize(…)` (virtual; pure virtual)
   - called by (3): CvDLLWidgetData::doEmphasize, CvDLLWidgetData::parseEmphasizeHelp, CyCity::AI_isEmphasize
-- **1114** `CvCity::AI_setEmphasize(…)` (virtual; pure virtual)
+- **1116** `CvCity::AI_setEmphasize(…)` (virtual; pure virtual)
   - called by (1): CvCity::doTask
-- **1115** `CvCity::AI_getBestBuildValue(…)` (virtual; pure virtual)
+- **1117** `CvCity::AI_getBestBuildValue(…)` (virtual; pure virtual)
   - called by (5): CvGame::updateColoredPlots, CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_advancedStartPlaceCity, CvUnitAI::AI_bestCityBuild, CvUnitAI::AI_improveLocalPlot
-- **1121** `CvCity::AI_getTargetSize(…)` (virtual; pure virtual)
+- **1123** `CvCity::AI_getTargetSize(…)` (virtual; pure virtual)
   - called by (1): CvGameTextMgr::setPlotHelp
-- **1122** `CvCity::AI_getGoodTileCount(…)` (virtual; pure virtual)
+- **1124** `CvCity::AI_getGoodTileCount(…)` (virtual; pure virtual)
   - called by (1): CvGameTextMgr::setPlotHelp
-- **1123** `CvCity::AI_getImprovementValue(…)` (virtual; pure virtual)
+- **1125** `CvCity::AI_getImprovementValue(…)` (virtual; pure virtual)
   - called by (1): CvGameTextMgr::setPlotHelp
-- **1124** `CvCity::AI_getYieldMultipliers(…)` (virtual; pure virtual)
+- **1126** `CvCity::AI_getYieldMultipliers(…)` (virtual; pure virtual)
   - called by (1): CvGameTextMgr::setPlotHelp
-- **1128** `CvCity::AI_totalBestBuildValue(…)` (virtual; pure virtual)
+- **1130** `CvCity::AI_totalBestBuildValue(…)` (virtual; pure virtual)
   - called by (1): CvUnitAI::AI_nextCityToImproveAirlift
-- **1129** `CvCity::AI_countBestBuilds(…)` (virtual; pure virtual)
+- **1131** `CvCity::AI_countBestBuilds(…)` (virtual; pure virtual)
   - called by (1): CyCity::AI_countBestBuilds
-- **1130** `CvCity::AI_getBestBuild(…)` (virtual; pure virtual)
+- **1132** `CvCity::AI_getBestBuild(…)` (virtual; pure virtual)
   - called by (8): CvGame::updateColoredPlots, CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_advancedStartPlaceCity, CvPlayerAI::AI_getPlotAirbaseValue, CvPlayerAI::AI_getPlotCanalValue, CvUnit::isActionRecommended, CvUnitAI::AI_bestCityBuild, CvUnitAI::AI_improveLocalPlot
-- **1131** `CvCity::AI_updateBestBuild(…)` (virtual; pure virtual)
+- **1133** `CvCity::AI_updateBestBuild(…)` (virtual; pure virtual)
   - called by (1): CvPlayerAI::AI_advancedStartPlaceCity
-- **1132** `CvCity::AI_cityValue(…)` (virtual; pure virtual)
+- **1134** `CvCity::AI_cityValue(…)` (virtual; pure virtual)
   - called by (2): CvPlayerAI::AI_doSplit, CyCity::AI_cityValue
-- **1133** `CvCity::AI_clearFeatureValue(…)` (virtual; pure virtual)
-- **1135** `CvCity::AI_calculateCulturePressure(…)` (virtual; pure virtual)
+- **1135** `CvCity::AI_clearFeatureValue(…)` (virtual; pure virtual)
+- **1137** `CvCity::AI_calculateCulturePressure(…)` (virtual; pure virtual)
   - called by (2): CvGameTextMgr::setPlotHelp, CvUnitAI::AI_greatWork
-- **1136** `CvCity::AI_calculateWaterWorldPercent(…)` (virtual; pure virtual)
+- **1138** `CvCity::AI_calculateWaterWorldPercent(…)` (virtual; pure virtual)
   - called by (1): CvGameTextMgr::setPlotHelp
-- **1137** `CvCity::AI_countNumBonuses(…)` (virtual; pure virtual)
+- **1139** `CvCity::AI_countNumBonuses(…)` (virtual; pure virtual)
   - called by (1): CvPlayer::countOwnedBonuses
-- **1138** `CvCity::AI_yieldMultiplier(…)` (virtual; pure virtual)
+- **1140** `CvCity::AI_yieldMultiplier(…)` (virtual; pure virtual)
   - called by (2): CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_calculateAverages
-- **1139** `CvCity::AI_playerCloseness(…)` (virtual; pure virtual)
+- **1141** `CvCity::AI_playerCloseness(…)` (virtual; pure virtual)
   - called by (6): CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_conquerCity, CvPlayerAI::AI_playerCloseness, CvTeamAI::AI_acceptSurrender, CvTeamAI::AI_calculateBonusWarValue, CvUnitAI::AI_assaultSeaTransport
-- **1140** `CvCity::AI_cityThreat(…)` (virtual; pure virtual)
+- **1142** `CvCity::AI_cityThreat(…)` (virtual; pure virtual)
   - called by (6): CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_getTotalAreaCityThreat, CvUnitAI::AI_airDefensiveCity, CvUnitAI::AI_airOffenseBaseValue, CvUnitAI::AI_assaultSeaReinforce, CvUnitAI::AI_moveToStagingCity
-- **1141** `CvCity::AI_bestAdvancedStartBuilding(…)` (virtual; pure virtual)
+- **1143** `CvCity::AI_bestAdvancedStartBuilding(…)` (virtual; pure virtual)
   - called by (1): CvPlayerAI::AI_doAdvancedStart
-- **1143** `CvCity::AI_getWorkersHave(…)` (virtual; pure virtual)
+- **1145** `CvCity::AI_getWorkersHave(…)` (virtual; pure virtual)
   - called by (6): CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvUnitAI::AI_betterPlotBuild, CvUnitAI::AI_improveLocalPlot, CvUnitAI::AI_nextCityToImprove, CvUnitAI::AI_workerMove
-- **1144** `CvCity::AI_getWorkersNeeded(…)` (virtual; pure virtual)
+- **1146** `CvCity::AI_getWorkersNeeded(…)` (virtual; pure virtual)
   - called by (8): CvGame::createBarbarianUnits, CvGameTextMgr::setPlotHelp, CvPlayerAI::AI_disbandUnit, CvPlayerAI::AI_neededWorkers, CvUnitAI::AI_improveLocalPlot, CvUnitAI::AI_nextCityToImprove, CvUnitAI::AI_settlerSeaFerry, CvUnitAI::AI_workerMove
-- **1145** `CvCity::AI_changeWorkersHave(…)` (virtual; pure virtual)
+- **1147** `CvCity::AI_changeWorkersHave(…)` (virtual; pure virtual)
   - called by (2): CvUnitAI::AI_improveLocalPlot, CvUnitAI::AI_nextCityToImprove
-- **1402** `CvCity::AI_addBestCitizen(…)` (virtual; pure virtual)
+- **1404** `CvCity::AI_addBestCitizen(…)` (virtual; pure virtual)
   - called by (2): CvCity::alterSpecialistCount, CvCity::alterWorkingPlot
-- **1403** `CvCity::AI_removeWorstCitizen(…)` (virtual; pure virtual)
+- **1405** `CvCity::AI_removeWorstCitizen(…)` (virtual; pure virtual)
   - called by (2): CvCity::alterSpecialistCount, CvCity::alterWorkingPlot
 - **·** `CombatDetails::CombatDetails()` (exported; written by the compiler)
   - called by (1): CvUnit::resolveCombat

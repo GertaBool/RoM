@@ -121,6 +121,7 @@ def tree(i, g, depth, d=0, seen=()):
 
 
 def main():
+    if len(sys.argv) < 2: sys.exit(__doc__)
     cmd, args = sys.argv[1], sys.argv[2:]
     if cmd == 'find':
         for i in F:

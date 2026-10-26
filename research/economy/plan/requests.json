@@ -217,6 +217,13 @@
    "kind": "critique",
    "text": "Why do wool and leather, key clothing ingredients that are used in a variety of circumstances and toolmaking processes, only adding happiness, and why is dairy so inconsequential?\n\nAnd why is Timber not actually essential? I'm genuinely perplexed at your decisionmaking",
    "led_to": "Request R8"
+  },
+  {
+   "id": "M32",
+   "date": "2026-10-26",
+   "kind": "instruction",
+   "text": "You have a full codemap setup available. Use it. If it's garbage, fix it. You don't actually need to handpick entries. You can just call for them by being somewhat competent at python.",
+   "led_to": "Use and, where wrong, fix codemap/ for the R7/R8 work"
   }
  ],
  "requests": [

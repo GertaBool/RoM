@@ -363,7 +363,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (7): CvDLLButtonPopup::launchVassalDemandTributePopup, CvDeal::verify, CvGameTextMgr::buildTradeString, CvPlayer::canDoEvent, CvPlayer::canTradeItem, CvPlayer::canTradeWith, CyPlayer::canTradeNetworkWith
 - **5825** `CvPlayer::getNumAvailableBonuses(BonusTypes) const`
   - calls: CvCity::plot [CvCity.cpp], CvPlayer::getCapitalCity, CvPlot::getOwnerPlotGroup [CvPlot.cpp], CvPlotGroup::getNumBonuses [CvPlotGroup.cpp]
-  - called by (13): CvDLLButtonPopup::launchVassalDemandTributePopup, CvGame::calculateSyncChecksum, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setPlotHelp, CvPlayer::canDoEvent, CvPlayer::getNumTradeableBonuses, CvPlayerAI::AI_bestTech, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusVal, CvPlayerAI::AI_corporationValue, CvPlayerAI::AI_doDiplo, CyPlayer::getNumAvailableBonuses …
+  - called by (14): CvDLLButtonPopup::launchVassalDemandTributePopup, CvGame::calculateSyncChecksum, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setPlotHelp, CvPlayer::canDoEvent, CvPlayer::getNumTradeableBonuses, CvPlayerAI::AI_bestTech, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusTradeVal, CvPlayerAI::AI_bonusVal, CvPlayerAI::AI_corporationValue, CvPlayerAI::AI_doDiplo …
 - **5840** `CvPlayer::getNumTradeableBonuses(BonusTypes) const` (exported)
   - calls: CvPlayer::getBonusImport, CvPlayer::getNumAvailableBonuses
   - called by (13): CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_calculateCulturePressure, CvDLLButtonPopup::launchVassalDemandTributePopup, CvDeal::verify, CvPlayer::canDoEvent, CvPlayer::canTradeItem, CvPlayer::getItemTradeString, CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getStrategyHash, CvUnitAI::AI_improveBonus …
@@ -472,7 +472,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **7890** `CvPlayer::getBestRoute(CvPlot*) const`
   - calls: CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getRoute [CvInfos.cpp], CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvRouteInfo::getValue [CvInfos.cpp], CvBuildInfo::getTechPrereq [CvInfos.cpp], CvPlayer::getTeam, CvPlayer::canBuild, CvPlot::getRouteType [CvPlot.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
   - takes the address of: _$E9 [CvGameCoreUtils.cpp]
-  - called by (8): CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_neededWorkers, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CvPlot::updateCityRoute, CvUnitAI::AI_routeTerritory, CyPlayer::getBestRoute, routeValid
+  - called by (9): CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_neededWorkers, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CvPlot::updateCityRoute, CvUnitAI::AI_routeTerritory, CyPlayer::getBestRoute, routeValid
 - **7933** `CvPlayer::getImprovementUpgradeRate() const`
   - calls: CvPlayer::getImprovementUpgradeRateModifier
   - called by (3): CvPlot::doImprovementUpgrade, CvPlot::getUpgradeTimeLeft, CyPlayer::getImprovementUpgradeRate
@@ -527,7 +527,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (4): CvPlayer::calculateGoldRate, CvPlayer::calculateResearchRate, CvPlayer::calculateTotalCommerce, CvPlayerAI::AI_civicValue
 - **8353** `CvPlayer::calculateResearchModifier(TechTypes) const`
   - calls: CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTeam::isAlive [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isHasTech [CvTeam.cpp], CvPlayer::getTeam, CvTeam::isHasMet [CvTeam.cpp], CvTeam::isOpenBorders [CvTeam.cpp], CvTeam::isVassal [CvTeam.cpp], CvTeam::isAtWar [CvTeam.cpp], CvGlobals::getTECH_DIFFUSION_KNOWN_TEAM_MODIFIER [CvGlobals.cpp], CvTeam::getBestKnownTechScorePercent [CvTeam.cpp], CvGlobals::getTECH_DIFFUSION_WELFARE_THRESHOLD [CvGlobals.cpp], CvGame::getCurrentEra [CvGame.cpp], CvGlobals::getTECH_DIFFUSION_WELFARE_MODIFIER [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getNUM_OR_TECH_PREREQS [CvGlobals.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvTechInfo::getPrereqOrTechs [CvInfos.cpp], CvGlobals::getTECH_COST_FIRST_KNOWN_PREREQ_MODIFIER [CvGlobals.cpp], CvGlobals::getTECH_COST_KNOWN_PREREQ_MODIFIER [CvGlobals.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvTechInfo::getEra [CvInfos.cpp], CvEraInfo::getTechCostModifier [CvInfos.cpp], CvGlobals::getTECH_COST_MODIFIER [CvGlobals.cpp]
-  - called by (6): CvDLLWidgetData::parseContactCivHelp, CvPlayer::calculateBaseNetResearch, CvPlayer::doResearch, CvPlayer::getResearchTurnsLeftTimes100, CvTeam::setResearchProgress, CyPlayer::calculateResearchModifier
+  - called by (7): CvDLLWidgetData::parseContactCivHelp, CvPlayer::calculateBaseNetResearch, CvPlayer::doResearch, CvPlayer::getResearchTurnsLeftTimes100, CvTeam::setResearchProgress, CvTeamAI::AI_techTradeVal, CyPlayer::calculateResearchModifier
 - **8474** `CvPlayer::calculateBaseNetResearch(TechTypes) const`
   - calls: CvPlayer::getCurrentResearch, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getCommerceRate, CvPlayer::calculateResearchModifier
   - called by (4): CvPlayer::calculateGoldRate, CvPlayer::calculateResearchRate, CvPlayer::calculateTotalCommerce, CyPlayer::calculateBaseNetResearch
@@ -548,10 +548,10 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (6): CvNetResearch::Execute, CvPlayer::canResearch, CvPlayer::pushResearch, CvPlayerAI::AI_bestTech, CvResearchGraph::researchable, CyPlayer::canEverResearch
 - **8593** `CvPlayer::canResearch(TechTypes, bool) const` (exported)
   - calls: CvGlobals::getUSE_CAN_RESEARCH_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CvPlayer::getID, CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvPlayer::isResearch, CvPlayer::getAdvancedStartPoints, CvPlayer::getTeam, CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getNUM_OR_TECH_PREREQS [CvGlobals.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvTechInfo::getPrereqOrTechs [CvInfos.cpp], CvGame::isOption [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvTeam::isNoTradeTech [CvTeam.cpp], CvGlobals::getNUM_AND_TECH_PREREQS [CvGlobals.cpp], CvTechInfo::getPrereqAndTechs [CvInfos.cpp], CvPlayer::canEverResearch
-  - called by (14): CvDLLButtonPopup::launchChooseTechPopup, CvGameTextMgr::buildSingleLineTechTreeString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canReceiveGoody, CvPlayer::canStealTech, CvPlayer::canTradeItem, CvPlayer::getAdvancedStartTechCost, CvPlayer::isNoResearchAvailable, CvPlayer::isValidEventTech, CvPlayer::receiveGoody, CvPlayerAI::AI_chooseResearch, CvPlayerAI::AI_eventValue …
+  - called by (15): CvDLLButtonPopup::launchChooseTechPopup, CvGameTextMgr::buildSingleLineTechTreeString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canReceiveGoody, CvPlayer::canStealTech, CvPlayer::canTradeItem, CvPlayer::getAdvancedStartTechCost, CvPlayer::isNoResearchAvailable, CvPlayer::isValidEventTech, CvPlayer::receiveGoody, CvPlayerAI::AI_chooseResearch, CvPlayerAI::AI_eventValue …
 - **8675** `CvPlayer::getCurrentResearch() const` (exported)
   - calls: CvPlayer::headResearchQueueNode
-  - called by (23): CvCityAI::AI_chooseProduction, CvCityAI::AI_doEmphasize, CvDLLButtonPopup::OnFocus, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseResearchHelp, CvGame::shouldShowResearchButtons, CvGameTextMgr::setResearchStr, CvGameTextMgr::setTechTradeHelp, CvPlayer::calculateBaseNetResearch, CvPlayer::cheat, CvPlayer::doResearch, CvPlayer::getBestEventTech …
+  - called by (24): CvCityAI::AI_chooseProduction, CvCityAI::AI_doEmphasize, CvDLLButtonPopup::OnFocus, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseResearchHelp, CvGame::shouldShowResearchButtons, CvGameTextMgr::setResearchStr, CvGameTextMgr::setTechTradeHelp, CvPlayer::calculateBaseNetResearch, CvPlayer::cheat, CvPlayer::doResearch, CvPlayer::getBestEventTech …
 - **8692** `CvPlayer::isCurrentResearchRepeat() const`
   - calls: CvPlayer::getCurrentResearch, CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTechInfo::isRepeat [CvInfos.cpp]
   - called by (4): CvPlayerAI::AI_avoidScience, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_isFinancialTrouble, CyPlayer::isCurrentResearchRepeat
@@ -1172,7 +1172,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getMinorNationCiv [CvInitCore.cpp]
   - called by (30): CvDLLWidgetData::parseContactCivHelp, CvGame::canDoResolution, CvGame::isValidVoteSelection, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayer::canConstruct, CvPlayer::canContact, CvPlayer::canCreate, CvPlayer::getCivilizationCityName, CvPlayer::getModifiedWarWearinessPercentAnger, CvPlayer::init, CvPlayer::initInGame …
 - **11804** `CvPlayer::isAlive() const` (exported)
-  - called by (292): CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::calculateTeamCulturePercent, CvCity::countTotalCultureTimes100, CvCity::doReligion, CvCity::findHighestCulture, CvCity::getCulturePercentAnger, CvCity::getLiberationPlayer, CvCity::getReligionPercentAnger, CvCity::liberate, CvCity::setCultureLevel, CvCity::setHasCorporation …
+  - called by (293): CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::calculateTeamCulturePercent, CvCity::countTotalCultureTimes100, CvCity::doReligion, CvCity::findHighestCulture, CvCity::getCulturePercentAnger, CvCity::getLiberationPlayer, CvCity::getReligionPercentAnger, CvCity::liberate, CvCity::setCultureLevel, CvCity::setHasCorporation …
 - **11810** `CvPlayer::isEverAlive() const` (exported)
   - called by (21): CvEventReporter::victory, CvGame::calculateSyncChecksum, CvGame::countCivPlayersEverAlive, CvGame::countCivTeamsEverAlive, CvGame::isCivEverActive, CvGame::isLeaderEverActive, CvGameTextMgr::getTerritoryDataForWB, CvPlayer::changeCiv, CvPlayer::changeLeader, CvPlayer::getSplitEmpireLeaders, CvPlayer::getSplitEmpirePlayer, CvPlayer::setAlive …
 - **11816** `CvPlayer::setAlive(bool)`
@@ -1225,7 +1225,7 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (17): CvCity::getHandicapType, CvGameTextMgr::setCombatPlotHelp, CvPlayer::calculateInflationRate, CvPlayer::calculateUnitCost(int&, int&, int&, int&, int&, int&, int&) const, CvPlayer::doGoody, CvPlayer::getSingleCivicUpkeep, CvPlayer::initFreeState, CvPlayer::initFreeUnits, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_getAttitudeVal, CvPlayerAI::AI_getFirstImpressionAttitude, CvReplayInfo::createInfo …
 - **12613** `CvPlayer::getCivilizationType() const` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getCiv [CvInitCore.cpp], CvPlayer::getID
-  - called by (94): CvCity::getCivilizationType, CvCity::getProductionExperience, CvCityAI::AI_trainInquisitor, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseFlagHelp, CvGame::addPlayer, CvGame::canTrainNukes, CvGame::createAnimals, CvGame::createBarbarianUnits, CvGame::getActiveCivilizationType, CvGame::initFreeState, CvGame::isCivEverActive …
+  - called by (95): CvCity::getCivilizationType, CvCity::getProductionExperience, CvCityAI::AI_trainInquisitor, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseFlagHelp, CvGame::addPlayer, CvGame::canTrainNukes, CvGame::createAnimals, CvGame::createBarbarianUnits, CvGame::getActiveCivilizationType, CvGame::initFreeState, CvGame::isCivEverActive …
 - **12619** `CvPlayer::getLeaderType() const` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getLeader [CvInitCore.cpp], CvPlayer::getID
   - called by (15): CvCity::getMusicScriptId, CvDLLWidgetData::parseFlagHelp, CvEventReporter::newPlayer, CvGame::addPlayer, CvGame::isLeaderEverActive, CvPlayer::changeLeader, CvPlayer::changePersonalityType, CvPlayer::getIntroMusicScriptId, CvPlayer::getMusicScriptId, CvPlayer::getName, CvPlayer::getNameKey, CvPlayer::hasTrait …
@@ -1234,846 +1234,846 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **12631** `CvPlayer::setPersonalityType(LeaderHeadTypes)`
   - called by (4): CvPlayer::changePersonalityType, CvPlayer::init, CvPlayer::initInGame, CyPlayer::setPersonalityType
 - **12637** `CvPlayer::getCurrentEra() const` (exported)
-  - called by (64): CvCity::getMusicScriptId, CvCity::getSoundscapeScriptId, CvCity::popOrder, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_chooseProduction, CvCityAI::AI_cityThreat, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getTargetSize, CvCityAI::AI_minDefenders, CvCityAI::AI_specialistValue, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere …
+  - called by (65): CvCity::getMusicScriptId, CvCity::getSoundscapeScriptId, CvCity::popOrder, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_chooseProduction, CvCityAI::AI_cityThreat, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getTargetSize, CvCityAI::AI_minDefenders, CvCityAI::AI_specialistValue, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere …
 - **12644** `CvPlayer::setCurrentEra(EraTypes)`
-  - calls: CvPlayer::getCurrentEra, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateGraphicEra [CvPlot.cpp], CvPlot::getRevealedImprovementType [CvPlot.cpp], CvGame::getActivePlayer [CvGame.cpp], CvPlayer::getID, CvPlot::isOwned [CvPlot.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::setLayoutDirty [CvPlot.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::getOwnerINLINE [CvCity.h], CvCity::setLayoutDirty [CvCity.cpp], CvPlayer::firstUnit, CvPlayer::nextUnit, CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::updateGraphicEra [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGame::isNetworkMultiPlayer [CvGame.cpp], CvGame::getStartEra [CvGame.cpp], CvPlayer::isHuman, CvDLLUtilityIFaceBase::GetWorldBuilderMode [CvDLLUtilityIFaceBase.h], CvGame::isFinalInitialized [CvGame.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvPopupInfo::setData1 [CvPopupInfo.cpp], CvPopupInfo::setText [CvPopupInfo.cpp], CvPlayer::addPopup, operator delete(void*) [CvGameCoreDLL.cpp]
+  - calls: CvPlayer::getCurrentEra, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::updateGraphicEra [CvPlot.cpp], CvPlot::getRevealedImprovementType [CvPlot.cpp], CvGame::getActivePlayer [CvGame.cpp], CvPlayer::getID, CvPlot::isOwned [CvPlot.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvPlot::setLayoutDirty [CvPlot.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::getOwnerINLINE [CvCity.h], CvCity::setLayoutDirty [CvCity.cpp], CvPlayer::firstUnit, CvPlayer::nextUnit, CvDLLEntity::isGraphicsPagedOut [CvDLLEntity.h], CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::updateGraphicEra [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGame::isNetworkMultiPlayer [CvGame.cpp], CvGame::getStartEra [CvGame.cpp], CvPlayer::isHuman, CvDLLUtilityIFaceBase::GetWorldBuilderMode [CvDLLUtilityIFaceBase.h], CvGame::isFinalInitialized [CvGame.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvPopupInfo::setData1 [CvPopupInfo.cpp], CvPopupInfo::setText [CvPopupInfo.cpp], CvPlayer::addPopup, operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (3): CvPlayer::changeCiv, CvTeam::setHasTech, CyPlayer::setCurrentEra
-- **12714** `CvPlayer::getLastStateReligion() const`
+- **12717** `CvPlayer::getLastStateReligion() const`
   - called by (5): CvPlayer::canConvert, CvPlayer::getStateReligion, CvPlayer::setLastStateReligion, CvPlayerAI::AI_RevCalcCivicRelEffect, CvTeam::setHasTech
-- **12720** `CvPlayer::getStateReligion() const` (exported)
+- **12723** `CvPlayer::getStateReligion() const` (exported)
   - calls: CvPlayer::isStateReligion, CvPlayer::getLastStateReligion
   - called by (82): CvCity::canConstruct, CvCity::cultureStrength, CvCity::doReligion, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBuildingCommerceByBuilding, CvCity::getBuildingHappiness, CvCity::getCurrentStateReligionHappiness, CvCity::getProductionExperience, CvCity::getProductionModifier(BuildingTypes) const, CvCity::getProductionModifier(UnitTypes) const, CvCity::getReligionCommerceByReligion …
-- **12726** `CvPlayer::setLastStateReligion(ReligionTypes)`
+- **12729** `CvPlayer::setLastStateReligion(ReligionTypes)`
   - calls: CvWString::CvWString() [CvString.h], CvPlayer::getLastStateReligion, CvPlayer::updateMaintenance, CvPlayer::updateReligionHappiness, CvPlayer::updateReligionCommerce, CvGame::updateSecretaryGeneral [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGameAI::AI_makeAssignWorkDirty [CvGameAI.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGame::isFinalInitialized [CvGame.cpp], CvDLLUtilityIFaceBase::isDiplomacy [CvDLLUtilityIFaceBase.h], CvDLLUtilityIFaceBase::getDiplomacyPlayer [CvDLLUtilityIFaceBase.h], CvPlayer::getID, CvDLLUtilityIFaceBase::updateDiplomacyAttitude [CvDLLUtilityIFaceBase.h], CvPlayer::isBarbarian, CvPlayer::isAlive, CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam, CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvPlayer::getNameKey, CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvGame::addReplayMessage [CvGame.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::playerChangeStateReligion [CvEventReporter.cpp], CvGlobals::getMAX_PLAYERS [CvGlobals.cpp], CvPlayer::getStateReligion, CvPlayerAI::AI_invalidateAttitudeCache(PlayerTypes) [CvPlayerAI.cpp]
   - called by (3): CvPlayer::convert, CvPlayer::doEspionageMission, CyPlayer::setLastStateReligion
-- **12817** `CvPlayer::getParent() const`
+- **12820** `CvPlayer::getParent() const`
   - called by (6): CvCity::getLiberationPlayer, CvGame::countCivPlayersEverAlive, CvGame::countCivTeamsEverAlive, CvPlayer::getSplitEmpirePlayer, CvPlayerAI::AI_getColonyAttitude, CvTeam::isParent
-- **12822** `CvPlayer::setParent(PlayerTypes)`
+- **12825** `CvPlayer::setParent(PlayerTypes)`
   - calls: CvPlayer::getID, CvPlayerAI::AI_invalidateAttitudeCache(PlayerTypes) [CvPlayerAI.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (1): CvPlayer::splitEmpire
-- **12841** `CvPlayer::getTeam() const` (exported)
-  - called by (514): CvArea::changeYieldRateModifier, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::calculateTeamCulturePercent, CvCity::cultureGarrison, CvCity::getCulturePercentAnger, CvCity::getLiberationPlayer, CvCity::getReligionPercentAnger, CvCity::getTeam, CvCity::kill, CvCity::liberate, CvCity::processBuilding, CvCity::setCultureLevel …
-- **12846** `CvPlayer::updateTeamType()`
+- **12844** `CvPlayer::getTeam() const` (exported)
+  - called by (517): CvArea::changeYieldRateModifier, CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::calculateTeamCulturePercent, CvCity::cultureGarrison, CvCity::getCulturePercentAnger, CvCity::getLiberationPlayer, CvCity::getReligionPercentAnger, CvCity::getTeam, CvCity::kill, CvCity::liberate, CvCity::processBuilding, CvCity::setCultureLevel …
+- **12849** `CvPlayer::updateTeamType()`
   - calls: CvPlayer::getID, CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getTeam [CvInitCore.cpp]
   - called by (6): CvInitCore::read, CvInitCore::reassignPlayer, CvInitCore::resetPlayer(PlayerTypes), CvInitCore::setTeam, CvPlayer::read, CvPlayer::reset
-- **12858** `CvPlayer::setTeam(TeamTypes)`
+- **12861** `CvPlayer::setTeam(TeamTypes)`
   - calls: CvPlayer::getTeam, CvTeamAI::getTeam [CvTeamAI.h], CvTeam::changeNumMembers [CvTeam.cpp], CvPlayer::isAlive, CvTeam::changeAliveCount [CvTeam.cpp], CvPlayer::isEverAlive, CvTeam::changeEverAliveCount [CvTeam.cpp], CvPlayer::getNumCities, CvTeam::changeNumCities [CvTeam.cpp], CvPlayer::getTotalPopulation, CvTeam::changeTotalPopulation [CvTeam.cpp], CvPlayer::getTotalLand, CvTeam::changeTotalLand [CvTeam.cpp], CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::setTeam [CvInitCore.cpp], CvPlayer::getID, CvGame::isFinalInitialized [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayerAI::AI_invalidateAttitudeCache(PlayerTypes) [CvPlayerAI.cpp]
   - called by (1): CvTeam::addTeam
-- **12921** `CvPlayer::setDoNotBotherStatus(PlayerTypes)`
+- **12924** `CvPlayer::setDoNotBotherStatus(PlayerTypes)`
   - called by (5): CvPlayer::CvPlayer, CvPlayer::handleDiploEvent, CvPlayer::init, CvPlayer::initInGame, CvPlayer::reset
-- **12926** `CvPlayer::isDoNotBotherStatus(PlayerTypes) const`
+- **12929** `CvPlayer::isDoNotBotherStatus(PlayerTypes) const`
   - called by (2): CvPlayerAI::AI_beginDiplomacy, CyPlayer::isDoNotBotherStatus
-- **12940** `CvPlayer::getPlayerColor() const` (exported)
+- **12943** `CvPlayer::getPlayerColor() const` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getColor [CvInitCore.cpp], CvPlayer::getID
   - called by (14): CvCity::getCityBillboardSizeIconColors, CvGame::addPlayer, CvGame::updateColoredPlots, CvPlayer::changeCiv, CvPlayer::getCultureLayerColors, CvPlayer::getPlayerTextColorA, CvPlayer::getPlayerTextColorB, CvPlayer::getPlayerTextColorG, CvPlayer::getPlayerTextColorR, CvPlayer::getResourceLayerColors, CvPlayer::getUnitLayerColors, CvPlot::plotMinimapColor …
-- **12946** `CvPlayer::getPlayerTextColorR() const` (exported)
+- **12949** `CvPlayer::getPlayerTextColorR() const` (exported)
   - calls: CvPlayer::getPlayerColor, CvGlobals::getColorInfo(ColorTypes) [CvGlobals.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvColorInfo::getColor [CvInfos.cpp], CvPlayerColorInfo::getTextColorType [CvInfos.cpp]
   - called by (6): CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseNationalityHelp, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CyPlayer::getPlayerTextColorR
-- **12953** `CvPlayer::getPlayerTextColorG() const` (exported)
+- **12956** `CvPlayer::getPlayerTextColorG() const` (exported)
   - calls: CvPlayer::getPlayerColor, CvGlobals::getColorInfo(ColorTypes) [CvGlobals.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvColorInfo::getColor [CvInfos.cpp], CvPlayerColorInfo::getTextColorType [CvInfos.cpp]
   - called by (6): CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseNationalityHelp, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CyPlayer::getPlayerTextColorG
-- **12960** `CvPlayer::getPlayerTextColorB() const` (exported)
+- **12963** `CvPlayer::getPlayerTextColorB() const` (exported)
   - calls: CvPlayer::getPlayerColor, CvGlobals::getColorInfo(ColorTypes) [CvGlobals.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvColorInfo::getColor [CvInfos.cpp], CvPlayerColorInfo::getTextColorType [CvInfos.cpp]
   - called by (6): CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseNationalityHelp, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CyPlayer::getPlayerTextColorB
-- **12967** `CvPlayer::getPlayerTextColorA() const` (exported)
+- **12970** `CvPlayer::getPlayerTextColorA() const` (exported)
   - calls: CvPlayer::getPlayerColor, CvGlobals::getColorInfo(ColorTypes) [CvGlobals.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvColorInfo::getColor [CvInfos.cpp], CvPlayerColorInfo::getTextColorType [CvInfos.cpp]
   - called by (6): CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseNationalityHelp, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CyPlayer::getPlayerTextColorA
-- **12974** `CvPlayer::getSeaPlotYield(YieldTypes) const`
+- **12977** `CvPlayer::getSeaPlotYield(YieldTypes) const`
   - called by (2): CvPlot::calculateYield, CyPlayer::getSeaPlotYield
-- **12982** `CvPlayer::changeSeaPlotYield(YieldTypes, int)`
+- **12985** `CvPlayer::changeSeaPlotYield(YieldTypes, int)`
   - calls: CvPlayer::updateYield
   - called by (1): CvPlayer::processBuilding
-- **12996** `CvPlayer::getYieldRateModifier(YieldTypes) const`
+- **12999** `CvPlayer::getYieldRateModifier(YieldTypes) const`
   - called by (2): CvCity::getBaseYieldRateModifier, CyPlayer::getYieldRateModifier
-- **13004** `CvPlayer::changeYieldRateModifier(YieldTypes, int)`
+- **13007** `CvPlayer::changeYieldRateModifier(YieldTypes, int)`
   - calls: CvPlayer::invalidateYieldRankCache, CvPlayer::updateCommerce(), CvPlayer::AI_makeAssignWorkDirty [CvPlayer.h] ⇢ CvPlayerAI::AI_makeAssignWorkDirty, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (2): CvPlayer::processBuilding, CvPlayer::processCivics
-- **13030** `CvPlayer::getCapitalYieldRateModifier(YieldTypes) const`
+- **13033** `CvPlayer::getCapitalYieldRateModifier(YieldTypes) const`
   - called by (3): CvCity::getBaseYieldRateModifier, CvGameTextMgr::setYieldHelp, CyPlayer::getCapitalYieldRateModifier
-- **13038** `CvPlayer::changeCapitalYieldRateModifier(YieldTypes, int)`
+- **13041** `CvPlayer::changeCapitalYieldRateModifier(YieldTypes, int)`
   - calls: CvPlayer::invalidateYieldRankCache, CvPlayer::getCapitalCity, CvCity::updateCommerce() [CvCity.cpp], CvCity::AI_setAssignWorkDirty [CvCity.h] ⇢ CvCityAI::AI_setAssignWorkDirty, CvCity::getTeam [CvCity.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::setInfoDirty [CvCity.cpp]
   - called by (1): CvPlayer::processCivics
-- **13071** `CvPlayer::getExtraYieldThreshold(YieldTypes) const`
+- **13074** `CvPlayer::getExtraYieldThreshold(YieldTypes) const`
   - called by (3): CvPlayer::updateExtraYieldThreshold, CvPlot::calculateYield, CyPlayer::getExtraYieldThreshold
-- **13079** `CvPlayer::updateExtraYieldThreshold(YieldTypes)`
+- **13082** `CvPlayer::updateExtraYieldThreshold(YieldTypes)`
   - calls: CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::hasTrait, CvGlobals::getTraitInfo(TraitTypes) [CvGlobals.cpp], CvTraitInfo::getExtraYieldThreshold [CvInfos.cpp], CvPlayer::getExtraYieldThreshold, CvPlayer::updateYield
   - called by (3): CvPlayer::addTraitBonuses, CvPlayer::init, CvPlayer::initInGame
-- **13114** `CvPlayer::getTradeYieldModifier(YieldTypes) const`
+- **13117** `CvPlayer::getTradeYieldModifier(YieldTypes) const`
   - called by (4): CvCity::calculateTradeYield, CvCity::getAdditionalBaseYieldRateByBuilding, CvPlayerAI::AI_civicValue, CyPlayer::getTradeYieldModifier
-- **13122** `CvPlayer::changeTradeYieldModifier(YieldTypes, int)`
+- **13125** `CvPlayer::changeTradeYieldModifier(YieldTypes, int)`
   - calls: CvPlayer::updateTradeRoutes
   - called by (5): CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvPlayer::processCivics
-- **13136** `CvPlayer::getFreeCityCommerce(CommerceTypes) const`
+- **13139** `CvPlayer::getFreeCityCommerce(CommerceTypes) const`
   - called by (5): CvCity::getBaseCommerceRateTimes100, CvGameTextMgr::setCommerceHelp, CvPlayerAI::AI_calculateAverages, CvPlayerAI::AI_techBuildingValue, CyPlayer::getFreeCityCommerce
-- **13144** `CvPlayer::changeFreeCityCommerce(CommerceTypes, int)`
+- **13147** `CvPlayer::changeFreeCityCommerce(CommerceTypes, int)`
   - calls: CvPlayer::updateCommerce(CommerceTypes)
   - called by (4): CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame
-- **13159** `CvPlayer::getCommercePercent(CommerceTypes) const`
+- **13162** `CvPlayer::getCommercePercent(CommerceTypes) const`
   - called by (18): CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBuildingHappiness, CvCity::getCommerceFromPercent, CvCity::getCommerceHappinessByType, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvCityAI::AI_yieldValue, CvDLLWidgetData::doSetPercent, CvGameTextMgr::setCommerceHelp, CvPlayer::changeCommercePercent, CvPlayer::setCommercePercent, CvPlayer::verifyGoldCommercePercent …
-- **13167** `CvPlayer::setCommercePercent(CommerceTypes, int)`
+- **13170** `CvPlayer::setCommercePercent(CommerceTypes, int)`
   - calls: CvPlayer::getCommercePercent, range(int, int, int) [CvGameCoreUtils.h], CvPlayer::updateCommerce(), CvPlayer::AI_makeAssignWorkDirty [CvPlayer.h] ⇢ CvPlayerAI::AI_makeAssignWorkDirty, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (7): CvPlayer::changeCommerceFlexibleCount, CvPlayer::changeCommercePercent, CvPlayer::doTurn, CvPlayer::init, CvPlayer::initInGame, CvPlayerAI::AI_doCommerce, CyPlayer::setCommercePercent
-- **13223** `CvPlayer::changeCommercePercent(CommerceTypes, int)` (exported)
+- **13226** `CvPlayer::changeCommercePercent(CommerceTypes, int)` (exported)
   - calls: CvPlayer::getCommercePercent, CvPlayer::setCommercePercent
   - called by (4): CvNetPercentChange::Execute, CvPlayer::verifyGoldCommercePercent, CvPlayerAI::AI_doCommerce, CyPlayer::changeCommercePercent
-- **13229** `CvPlayer::getCommerceRate(CommerceTypes) const`
+- **13232** `CvPlayer::getCommerceRate(CommerceTypes) const`
   - calls: CvGame::isOption [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (14): CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateSpecialYieldMultiplier, CvGame::calculateSyncChecksum, CvPlayer::calculateBaseNetGold, CvPlayer::calculateBaseNetResearch, CvPlayer::calculateTotalCommerce, CvPlayer::doEspionagePoints, CvPlayer::getEspionageSpending, CvPlayerAI::AI_doCommerce, CvPlayerAI::AI_getMinFoundValue, CvPlayerAI::AI_goldTarget …
-- **13251** `CvPlayer::changeCommerceRate(CommerceTypes, int)`
+- **13254** `CvPlayer::changeCommerceRate(CommerceTypes, int)`
   - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvCity::updateCommerce(CommerceTypes)
-- **13268** `CvPlayer::getCommerceRateModifier(CommerceTypes) const`
+- **13271** `CvPlayer::getCommerceRateModifier(CommerceTypes) const`
   - called by (2): CvCity::getTotalCommerceRateModifier, CyPlayer::getCommerceRateModifier
-- **13276** `CvPlayer::changeCommerceRateModifier(CommerceTypes, int)`
+- **13279** `CvPlayer::changeCommerceRateModifier(CommerceTypes, int)`
   - calls: CvPlayer::updateCommerce(CommerceTypes), CvPlayer::AI_makeAssignWorkDirty [CvPlayer.h] ⇢ CvPlayerAI::AI_makeAssignWorkDirty
   - called by (6): CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvPlayer::processBuilding, CvPlayer::processCivics
-- **13292** `CvPlayer::getCapitalCommerceRateModifier(CommerceTypes) const`
+- **13295** `CvPlayer::getCapitalCommerceRateModifier(CommerceTypes) const`
   - called by (3): CvCity::getTotalCommerceRateModifier, CvGameTextMgr::setCommerceHelp, CyPlayer::getCapitalCommerceRateModifier
-- **13300** `CvPlayer::changeCapitalCommerceRateModifier(CommerceTypes, int)`
+- **13303** `CvPlayer::changeCapitalCommerceRateModifier(CommerceTypes, int)`
   - calls: CvPlayer::getCapitalCity, CvCity::updateCommerce() [CvCity.cpp], CvCity::AI_setAssignWorkDirty [CvCity.h] ⇢ CvCityAI::AI_setAssignWorkDirty
   - called by (1): CvPlayer::processCivics
-- **13323** `CvPlayer::getStateReligionBuildingCommerce(CommerceTypes) const`
+- **13326** `CvPlayer::getStateReligionBuildingCommerce(CommerceTypes) const`
   - called by (4): CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvPlayerAI::AI_civicValue, CyPlayer::getStateReligionBuildingCommerce
-- **13331** `CvPlayer::changeStateReligionBuildingCommerce(CommerceTypes, int)`
+- **13334** `CvPlayer::changeStateReligionBuildingCommerce(CommerceTypes, int)`
   - calls: CvPlayer::updateCommerce(CommerceTypes)
   - called by (1): CvPlayer::processBuilding
-- **13346** `CvPlayer::getSpecialistExtraCommerce(CommerceTypes) const`
+- **13349** `CvPlayer::getSpecialistExtraCommerce(CommerceTypes) const`
   - called by (6): CvCity::getAdditionalBaseCommerceRateBySpecialistImpl, CvCity::getBaseCommerceRateTimes100, CvGameTextMgr::setCommerceHelp, CvPlayer::specialistCommerce, CvPlayerAI::AI_calculateAverages, CyPlayer::getSpecialistExtraCommerce
-- **13354** `CvPlayer::changeSpecialistExtraCommerce(CommerceTypes, int)`
+- **13357** `CvPlayer::changeSpecialistExtraCommerce(CommerceTypes, int)`
   - calls: CvPlayer::updateCommerce(CommerceTypes), CvPlayer::AI_makeAssignWorkDirty [CvPlayer.h] ⇢ CvPlayerAI::AI_makeAssignWorkDirty
   - called by (2): CvPlayer::processBuilding, CvPlayer::processCivics
-- **13371** `CvPlayer::getCommerceFlexibleCount(CommerceTypes) const`
+- **13374** `CvPlayer::getCommerceFlexibleCount(CommerceTypes) const`
   - called by (1): CvPlayer::isCommerceFlexible
-- **13379** `CvPlayer::isCommerceFlexible(CommerceTypes) const`
+- **13382** `CvPlayer::isCommerceFlexible(CommerceTypes) const`
   - calls: CvPlayer::isFoundedFirstCity, CvGame::isOption [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam, CvTeam::getHasMetCivCount [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getCommerceInfo(CommerceTypes) [CvGlobals.cpp], CvCommerceInfo::isFlexiblePercent [CvInfos.cpp], CvPlayer::getCommerceFlexibleCount, CvTeam::isCommerceFlexible [CvTeam.cpp]
   - called by (6): CvCityAI::AI_buildingValueThreshold, CvPlayer::calculateGoldRate, CvPlayer::calculateResearchRate, CvPlayer::changeCommerceFlexibleCount, CvPlayerAI::AI_doCommerce, CyPlayer::isCommerceFlexible
-- **13401** `CvPlayer::changeCommerceFlexibleCount(CommerceTypes, int)`
+- **13404** `CvPlayer::changeCommerceFlexibleCount(CommerceTypes, int)`
   - calls: CvPlayer::isCommerceFlexible, CvPlayer::setCommercePercent, CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvPlayer::processBuilding
-- **13425** `CvPlayer::getGoldPerTurnByPlayer(PlayerTypes) const`
+- **13428** `CvPlayer::getGoldPerTurnByPlayer(PlayerTypes) const`
   - called by (3): CvGameTextMgr::buildFinanceForeignIncomeString, CvPlayerAI::AI_maxGoldPerTurnTrade, CyPlayer::getGoldPerTurnByPlayer
-- **13433** `CvPlayer::changeGoldPerTurnByPlayer(PlayerTypes, int)`
+- **13436** `CvPlayer::changeGoldPerTurnByPlayer(PlayerTypes, int)`
   - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::isHuman, CvPlayer::AI_doCommerce [CvPlayer.h] ⇢ CvPlayerAI::AI_doCommerce
   - called by (2): CvDeal::endTrade, CvDeal::startTrade
-- **13456** `CvPlayer::isFeatAccomplished(FeatTypes) const`
+- **13459** `CvPlayer::isFeatAccomplished(FeatTypes) const`
   - called by (1): CyPlayer::isFeatAccomplished
-- **13464** `CvPlayer::setFeatAccomplished(FeatTypes, bool)`
+- **13467** `CvPlayer::setFeatAccomplished(FeatTypes, bool)`
   - called by (1): CyPlayer::setFeatAccomplished
-- **13472** `CvPlayer::isOption(PlayerOptionTypes) const` (exported)
+- **13475** `CvPlayer::isOption(PlayerOptionTypes) const` (exported)
   - called by (27): CvCity::popOrder, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvCityAI::AI_totalBestBuildValue, CvGame::calculateOptionsChecksum, CvGame::changeHumanPlayer, CvGame::updateColoredPlots, CvGame::updateSelectionList, CvGame::updateTestEndTurn, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*) …
-- **13480** `CvPlayer::setOption(PlayerOptionTypes, bool)` (exported)
+- **13483** `CvPlayer::setOption(PlayerOptionTypes, bool)` (exported)
   - called by (2): CvGame::changeHumanPlayer, CyPlayer::setOption
-- **13487** `CvPlayer::isPlayable() const` (exported)
+- **13490** `CvPlayer::isPlayable() const` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getPlayableCiv [CvInitCore.cpp], CvPlayer::getID
   - called by (1): CyPlayer::isPlayable
-- **13492** `CvPlayer::setPlayable(bool)` (exported)
+- **13495** `CvPlayer::setPlayable(bool)` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::setPlayableCiv [CvInitCore.cpp], CvPlayer::getID
   - called by (1): CyPlayer::setPlayable
-- **13498** `CvPlayer::getBonusExport(BonusTypes) const`
+- **13501** `CvPlayer::getBonusExport(BonusTypes) const`
   - called by (3): CvGame::calculateSyncChecksum, CvPlot::updatePlotGroupBonus, CyPlayer::getBonusExport
-- **13506** `CvPlayer::changeBonusExport(BonusTypes, int)`
+- **13509** `CvPlayer::changeBonusExport(BonusTypes, int)`
   - calls: CvPlayer::getCapitalCity, CvCity::plot [CvCity.cpp], CvPlot::updatePlotGroupBonus [CvPlot.cpp]
   - called by (2): CvDeal::endTrade, CvDeal::startTrade
-- **13530** `CvPlayer::getBonusImport(BonusTypes) const`
+- **13533** `CvPlayer::getBonusImport(BonusTypes) const`
   - called by (4): CvGame::calculateSyncChecksum, CvPlayer::getNumTradeableBonuses, CvPlot::updatePlotGroupBonus, CyPlayer::getBonusImport
-- **13538** `CvPlayer::changeBonusImport(BonusTypes, int)`
+- **13541** `CvPlayer::changeBonusImport(BonusTypes, int)`
   - calls: CvPlayer::getCapitalCity, CvCity::plot [CvCity.cpp], CvPlot::updatePlotGroupBonus [CvPlot.cpp]
   - called by (2): CvDeal::endTrade, CvDeal::startTrade
-- **13562** `CvPlayer::getImprovementCount(ImprovementTypes) const`
+- **13565** `CvPlayer::getImprovementCount(ImprovementTypes) const`
   - called by (4): CvGame::calculateSyncChecksum, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_techValue, CyPlayer::getImprovementCount
-- **13570** `CvPlayer::changeImprovementCount(ImprovementTypes, int)`
+- **13573** `CvPlayer::changeImprovementCount(ImprovementTypes, int)`
   - called by (2): CvPlot::setImprovementType, CvPlot::setOwner
-- **13579** `CvPlayer::getFreeBuildingCount(BuildingTypes) const`
+- **13582** `CvPlayer::getFreeBuildingCount(BuildingTypes) const`
   - called by (2): CvPlayer::changeFreeBuildingCount, CvPlayer::isBuildingFree
-- **13587** `CvPlayer::isBuildingFree(BuildingTypes) const`
+- **13590** `CvPlayer::isBuildingFree(BuildingTypes) const`
   - calls: CvPlayer::getFreeBuildingCount
   - called by (2): CvCity::init, CyPlayer::isBuildingFree
-- **13593** `CvPlayer::changeFreeBuildingCount(BuildingTypes, int)`
+- **13596** `CvPlayer::changeFreeBuildingCount(BuildingTypes, int)`
   - calls: CvPlayer::getFreeBuildingCount, CvPlayer::firstCity, CvPlayer::nextCity, CvCity::setNumFreeBuilding [CvCity.cpp]
   - called by (1): CvPlayer::processBuilding
-- **13631** `CvPlayer::getExtraBuildingHappiness(BuildingTypes) const`
+- **13634** `CvPlayer::getExtraBuildingHappiness(BuildingTypes) const`
   - called by (4): CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBuildingHappiness, CvCity::updateExtraBuildingHappiness, CyPlayer::getExtraBuildingHappiness
-- **13639** `CvPlayer::changeExtraBuildingHappiness(BuildingTypes, int)`
+- **13642** `CvPlayer::changeExtraBuildingHappiness(BuildingTypes, int)`
   - calls: CvPlayer::updateExtraBuildingHappiness
   - called by (7): CvPlayer::addTraitBonuses, CvPlayer::applyEvent, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvPlayer::processBuilding, CvPlayer::processCivics
-- **13652** `CvPlayer::getExtraBuildingHealth(BuildingTypes) const`
+- **13655** `CvPlayer::getExtraBuildingHealth(BuildingTypes) const`
   - called by (6): CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getBuildingBadHealth(BuildingTypes) const, CvCity::getBuildingGoodHealth(BuildingTypes) const, CvCity::updateExtraBuildingHealth, CvGameTextMgr::setBuildingHelpActual, CyPlayer::getExtraBuildingHealth
-- **13660** `CvPlayer::changeExtraBuildingHealth(BuildingTypes, int)`
+- **13663** `CvPlayer::changeExtraBuildingHealth(BuildingTypes, int)`
   - calls: CvPlayer::updateExtraBuildingHealth
   - called by (2): CvPlayer::applyEvent, CvPlayer::processCivics
-- **13674** `CvPlayer::getFeatureHappiness(FeatureTypes) const`
+- **13677** `CvPlayer::getFeatureHappiness(FeatureTypes) const`
   - called by (4): CvCity::updateFeatureHappiness, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CyPlayer::getFeatureHappiness
-- **13682** `CvPlayer::changeFeatureHappiness(FeatureTypes, int)`
+- **13685** `CvPlayer::changeFeatureHappiness(FeatureTypes, int)`
   - calls: CvPlayer::updateFeatureHappiness
   - called by (1): CvPlayer::processCivics
-- **13696** `CvPlayer::getUnitClassCount(UnitClassTypes) const`
+- **13699** `CvPlayer::getUnitClassCount(UnitClassTypes) const`
   - called by (12): CvPlayer::getProductionNeeded(UnitTypes) const, CvPlayer::getUnitClassCountPlusMaking, CvPlayer::isUnitClassMaxedOut, CvPlayerAI::AI_calculateTotalBombard, CvPlayerAI::AI_unitValue, CvPlayerAI::AI_updateSettleReach, CvUnitAI::AI_artistMove, CvUnitAI::AI_engineerMove, CvUnitAI::AI_merchantMove, CvUnitAI::AI_prophetMove, CvUnitAI::AI_scientistMove, CyPlayer::getUnitClassCount
-- **13704** `CvPlayer::isUnitClassMaxedOut(UnitClassTypes, int) const`
+- **13707** `CvPlayer::isUnitClassMaxedOut(UnitClassTypes, int) const`
   - calls: isNationalUnitClass [CvGameCoreUtils.cpp], CvGlobals::getUnitClassInfo(UnitClassTypes) [CvGlobals.cpp], CvUnitClassInfo::getMaxPlayerInstances [CvInfos.cpp], CvPlayer::getUnitClassCount, CvGlobals::getInstance [CvGlobals.h]
   - called by (4): CvPlayer::canTrain, CvPlayer::isProductionMaxedUnitClass, CvUnit::canGift, CyPlayer::isUnitClassMaxedOut
-- **13720** `CvPlayer::changeUnitClassCount(UnitClassTypes, int)`
+- **13723** `CvPlayer::changeUnitClassCount(UnitClassTypes, int)`
   - called by (2): CvUnit::init, CvUnit::kill
-- **13729** `CvPlayer::getUnitClassMaking(UnitClassTypes) const`
+- **13732** `CvPlayer::getUnitClassMaking(UnitClassTypes) const`
   - called by (5): CvPlayer::canTrain, CvPlayer::getUnitClassCountPlusMaking, CvTeam::getUnitClassMaking, CvUnit::canGift, CyPlayer::getUnitClassMaking
-- **13737** `CvPlayer::changeUnitClassMaking(UnitClassTypes, int)`
+- **13740** `CvPlayer::changeUnitClassMaking(UnitClassTypes, int)`
   - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (3): CvCity::doCheckProduction, CvCity::popOrder, CvCity::pushOrder
-- **13755** `CvPlayer::getUnitClassCountPlusMaking(UnitClassTypes) const`
+- **13758** `CvPlayer::getUnitClassCountPlusMaking(UnitClassTypes) const`
   - calls: CvPlayer::getUnitClassCount, CvPlayer::getUnitClassMaking
   - called by (5): CvCityAI::AI_bestUnitAI, CvGame::calculateSyncChecksum, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_bestAdvancedStartUnitAI, CyPlayer::getUnitClassCountPlusMaking
-- **13761** `CvPlayer::getBuildingClassCount(BuildingClassTypes) const`
+- **13764** `CvPlayer::getBuildingClassCount(BuildingClassTypes) const`
   - called by (12): CvCityAI::AI_buildingValueThreshold, CvGame::getSecretaryGeneral, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct, CvPlayer::getBuildingClassCountPlusMaking, CvPlayer::getBuildingClassPrereqBuilding, CvPlayer::getEventTriggerWeight, CvPlayer::initTriggeredData, CvPlayer::isBuildingClassMaxedOut, CvUnitAI::AI_construct, CyPlayer::getBuildingClassCount
-- **13769** `CvPlayer::isBuildingClassMaxedOut(BuildingClassTypes, int) const`
+- **13772** `CvPlayer::isBuildingClassMaxedOut(BuildingClassTypes, int) const`
   - calls: isNationalWonderClass [CvGameCoreUtils.cpp], CvGlobals::getBuildingClassInfo(BuildingClassTypes) [CvGlobals.cpp], CvBuildingClassInfo::getMaxPlayerInstances [CvInfos.cpp], CvBuildingClassInfo::getExtraPlayerInstances [CvInfos.cpp], CvPlayer::getBuildingClassCount, CvGlobals::getInstance [CvGlobals.h]
   - called by (5): CvCity::popOrder, CvCityAI::AI_bestBuildingThreshold, CvPlayer::canConstruct, CvPlayer::isProductionMaxedBuildingClass, CyPlayer::isBuildingClassMaxedOut
-- **13785** `CvPlayer::changeBuildingClassCount(BuildingClassTypes, int)`
+- **13788** `CvPlayer::changeBuildingClassCount(BuildingClassTypes, int)`
   - called by (1): CvCity::processBuilding
-- **13794** `CvPlayer::getBuildingClassMaking(BuildingClassTypes) const`
+- **13797** `CvPlayer::getBuildingClassMaking(BuildingClassTypes) const`
   - called by (4): CvPlayer::canConstruct, CvPlayer::getBuildingClassCountPlusMaking, CvTeam::getBuildingClassMaking, CyPlayer::getBuildingClassMaking
-- **13802** `CvPlayer::changeBuildingClassMaking(BuildingClassTypes, int)`
+- **13805** `CvPlayer::changeBuildingClassMaking(BuildingClassTypes, int)`
   - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (2): CvCity::popOrder, CvCity::pushOrder
-- **13820** `CvPlayer::getBuildingClassCountPlusMaking(BuildingClassTypes) const`
+- **13823** `CvPlayer::getBuildingClassCountPlusMaking(BuildingClassTypes) const`
   - calls: CvPlayer::getBuildingClassCount, CvPlayer::getBuildingClassMaking
   - called by (7): CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_buildingValueThreshold, CvGame::calculateSyncChecksum, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_civicValue, CyPlayer::getBuildingClassCountPlusMaking, `anonymous namespace'::AI_unitReadinessPercent
-- **13826** `CvPlayer::getHurryCount(HurryTypes) const`
+- **13829** `CvPlayer::getHurryCount(HurryTypes) const`
   - called by (2): CvPlayer::canHurry, CyPlayer::getHurryCount
-- **13834** `CvPlayer::canHurry(HurryTypes) const` (exported)
+- **13837** `CvPlayer::canHurry(HurryTypes) const` (exported)
   - calls: CvPlayer::getHurryCount
   - called by (6): CvCity::canHurry, CvCity::canHurryBuilding, CvCity::canHurryUnit, CvDLLWidgetData::parseHurryHelp, CvPlayerAI::AI_doCommerce, CyPlayer::canHurry
-- **13840** `CvPlayer::canPopRush()`
+- **13843** `CvPlayer::canPopRush()`
   - called by (3): CvCityAI::AI_avoidGrowth, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_yieldValue
-- **13845** `CvPlayer::changeHurryCount(HurryTypes, int)`
+- **13848** `CvPlayer::changeHurryCount(HurryTypes, int)`
   - calls: CvGlobals::getHurryInfo(HurryTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvHurryInfo::getProductionPerPopulation [CvInfos.cpp]
   - called by (1): CvPlayer::processCivics
-- **13866** `CvPlayer::getSpecialBuildingNotRequiredCount(SpecialBuildingTypes) const`
+- **13869** `CvPlayer::getSpecialBuildingNotRequiredCount(SpecialBuildingTypes) const`
   - called by (2): CvPlayer::isSpecialBuildingNotRequired, CyPlayer::getSpecialBuildingNotRequiredCount
-- **13874** `CvPlayer::isSpecialBuildingNotRequired(SpecialBuildingTypes) const`
+- **13877** `CvPlayer::isSpecialBuildingNotRequired(SpecialBuildingTypes) const`
   - calls: CvPlayer::getSpecialBuildingNotRequiredCount
   - called by (3): CvCity::isPlotTrainable, CyPlayer::isSpecialBuildingNotRequired, `anonymous namespace'::AI_unitReadinessPercent
-- **13880** `CvPlayer::changeSpecialBuildingNotRequiredCount(SpecialBuildingTypes, int)`
+- **13883** `CvPlayer::changeSpecialBuildingNotRequiredCount(SpecialBuildingTypes, int)`
   - called by (1): CvPlayer::processCivics
-- **13889** `CvPlayer::getHasCivicOptionCount(CivicOptionTypes) const`
+- **13892** `CvPlayer::getHasCivicOptionCount(CivicOptionTypes) const`
   - called by (1): CvPlayer::isHasCivicOption
-- **13897** `CvPlayer::isHasCivicOption(CivicOptionTypes) const`
+- **13900** `CvPlayer::isHasCivicOption(CivicOptionTypes) const`
   - calls: CvPlayer::getHasCivicOptionCount
   - called by (3): CvPlayer::canDoCivics, CvTeam::setHasTech, CyPlayer::isHasCivicOption
-- **13903** `CvPlayer::changeHasCivicOptionCount(CivicOptionTypes, int)`
+- **13906** `CvPlayer::changeHasCivicOptionCount(CivicOptionTypes, int)`
   - called by (1): CvPlayer::processBuilding
-- **13912** `CvPlayer::getNoCivicUpkeepCount(CivicOptionTypes) const`
+- **13915** `CvPlayer::getNoCivicUpkeepCount(CivicOptionTypes) const`
   - called by (1): CvPlayer::isNoCivicUpkeep
-- **13920** `CvPlayer::isNoCivicUpkeep(CivicOptionTypes) const`
+- **13923** `CvPlayer::isNoCivicUpkeep(CivicOptionTypes) const`
   - calls: CvPlayer::getNoCivicUpkeepCount
   - called by (2): CvPlayer::getSingleCivicUpkeep, CyPlayer::isNoCivicUpkeep
-- **13926** `CvPlayer::changeNoCivicUpkeepCount(CivicOptionTypes, int)`
+- **13929** `CvPlayer::changeNoCivicUpkeepCount(CivicOptionTypes, int)`
   - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (4): CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame
-- **13944** `CvPlayer::getHasReligionCount(ReligionTypes) const`
+- **13947** `CvPlayer::getHasReligionCount(ReligionTypes) const`
   - called by (24): CvCity::getReligionPercentAnger, CvCity::setHasReligion, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_buildingValueThreshold, CvGame::countReligionLevels, CvGame::doHolyCity, CvPlayer::canTrigger, CvPlayer::countTotalHasReligion, CvPlayer::findHighestHasReligionCount, CvPlayer::getVotes, CvPlayer::initTriggeredData, CvPlayer::isValidTriggerReligion …
-- **13952** `CvPlayer::countTotalHasReligion() const`
+- **13955** `CvPlayer::countTotalHasReligion() const`
   - calls: CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getHasReligionCount
   - called by (7): CvPlayerAI::AI_bestReligion, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_getCultureVictoryStage, CvPlayerAI::AI_missionaryValue, CvPlayerAI::AI_techValue, CvUnitAI::AI_spreadReligion, CyPlayer::countTotalHasReligion
-- **13967** `CvPlayer::getHasCorporationCount(CorporationTypes) const`
+- **13970** `CvPlayer::getHasCorporationCount(CorporationTypes) const`
   - calls: CvPlayer::isActiveCorporation
   - called by (12): CvCityAI::AI_bestSpreadUnit, CvGame::countCorporationLevels, CvGame::doHeadquarters, CvPlayer::countTotalHasCorporation, CvPlayer::initTriggeredData, CvPlayer::isValidTriggerCorporation, CvPlayerAI::AI_corporationBonusVal, CvPlayerAI::AI_executiveValue, CvPlayerAI::AI_goldTarget, CvTeam::getHasCorporationCount, CyPlayer::getHasCorporationCount, `anonymous namespace'::AI_unitReadinessPercent
-- **13978** `CvPlayer::countTotalHasCorporation() const`
+- **13981** `CvPlayer::countTotalHasCorporation() const`
   - calls: CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getHasCorporationCount
   - called by (1): CyPlayer::countTotalHasCorporation
-- **13990** `CvPlayer::isActiveCorporation(CorporationTypes) const`
+- **13993** `CvPlayer::isActiveCorporation(CorporationTypes) const`
   - calls: CvPlayer::isNoCorporations, CvPlayer::isNoForeignCorporations, CvPlayer::hasHeadquarters
   - called by (7): CvCity::isActiveCorporation, CvCity::isCorporationBonus, CvCity::updateCorporationBonus, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBonusTradeHelp, CvPlayer::getHasCorporationCount, CvUnit::canSpreadCorporation
-- **14006** `CvPlayer::findHighestHasReligionCount() const`
+- **14009** `CvPlayer::findHighestHasReligionCount() const`
   - calls: CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getHasReligionCount
   - called by (1): CyPlayer::findHighestHasReligionCount
-- **14028** `CvPlayer::changeHasReligionCount(ReligionTypes, int)`
+- **14031** `CvPlayer::changeHasReligionCount(ReligionTypes, int)`
   - calls: CvGame::updateBuildingCommerce [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGameAI::AI_makeAssignWorkDirty [CvGameAI.cpp]
   - called by (1): CvCity::setHasReligion
-- **14045** `CvPlayer::changeHasCorporationCount(CorporationTypes, int)`
+- **14048** `CvPlayer::changeHasCorporationCount(CorporationTypes, int)`
   - calls: CvGame::updateBuildingCommerce [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGameAI::AI_makeAssignWorkDirty [CvGameAI.cpp]
   - called by (1): CvCity::setHasCorporation
-- **14062** `CvPlayer::getUpkeepCount(UpkeepTypes) const`
+- **14065** `CvPlayer::getUpkeepCount(UpkeepTypes) const`
   - called by (1): CyPlayer::getUpkeepCount
-- **14071** `CvPlayer::changeUpkeepCount(UpkeepTypes, int)`
+- **14074** `CvPlayer::changeUpkeepCount(UpkeepTypes, int)`
   - calls: CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
-- **14090** `CvPlayer::getSpecialistValidCount(SpecialistTypes) const`
+- **14093** `CvPlayer::getSpecialistValidCount(SpecialistTypes) const`
   - called by (1): CvPlayer::isSpecialistValid
-- **14099** `CvPlayer::isSpecialistValid(SpecialistTypes) const` (exported)
+- **14102** `CvPlayer::isSpecialistValid(SpecialistTypes) const` (exported)
   - calls: CvPlayer::getSpecialistValidCount
   - called by (5): CvCity::isSpecialistValid, CvCityAI::AI_assignWorkingPlots, CvCityAI::AI_buildingValueThreshold, CvDLLWidgetData::parseChangeSpecialistHelp, CyPlayer::isSpecialistValid
-- **14105** `CvPlayer::changeSpecialistValidCount(SpecialistTypes, int)`
+- **14108** `CvPlayer::changeSpecialistValidCount(SpecialistTypes, int)`
   - calls: CvPlayer::AI_makeAssignWorkDirty [CvPlayer.h] ⇢ CvPlayerAI::AI_makeAssignWorkDirty
   - called by (1): CvPlayer::processCivics
-- **14121** `CvPlayer::isResearchingTech(TechTypes) const` (exported)
+- **14124** `CvPlayer::isResearchingTech(TechTypes) const` (exported)
   - called by (7): CvNetResearch::Execute, CvPlayer::pushResearch, CvPlayer::setResearchingTech, CvPlayerAI::AI_getSpaceVictoryStage, CvResearchGraph::satisfied, CvTeam::setHasTech, CyPlayer::isResearchingTech
-- **14129** `CvPlayer::setResearchingTech(TechTypes, bool)`
+- **14132** `CvPlayer::setResearchingTech(TechTypes, bool)`
   - calls: CvPlayer::isResearchingTech, CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (3): CvPlayer::clearResearchQueue, CvPlayer::popResearch, CvPlayer::pushResearch
-- **14145** `CvPlayer::isLoyalMember(VoteSourceTypes) const` (exported)
+- **14148** `CvPlayer::isLoyalMember(VoteSourceTypes) const` (exported)
   - called by (4): CvCity::processVoteSourceBonus, CvPlayer::isFullMember, CvPlayer::setLoyalMember, CyPlayer::isLoyalMember
-- **14152** `CvPlayer::setLoyalMember(VoteSourceTypes, bool)` (exported)
+- **14155** `CvPlayer::setLoyalMember(VoteSourceTypes, bool)` (exported)
   - calls: CvPlayer::isLoyalMember, CvPlayer::processVoteSourceBonus, CvGame::updateSecretaryGeneral [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (3): CvPlayer::setDefiedResolution, CvPlayer::setEndorsedResolution, CyPlayer::setLoyalMember
-- **14167** `CvPlayer::getCivics(CivicOptionTypes) const` (exported)
+- **14170** `CvPlayer::getCivics(CivicOptionTypes) const` (exported)
   - called by (24): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup, CvDeal::startTrade, CvGame::doGlobalWarming, CvGameTextMgr::buildFinanceCivicUpkeepString, CvGameTextMgr::getTradeScreenIcons, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::setCommerceHelp, CvGameTextMgr::setYieldHelp, CvPlayer::canRevolution, CvPlayer::getCivicAnarchyLength, CvPlayer::getCivicPercentAnger …
-- **14175** `CvPlayer::getSingleCivicUpkeep(CivicTypes, bool) const`
+- **14178** `CvPlayer::getSingleCivicUpkeep(CivicTypes, bool) const`
   - calls: CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCivicInfo::getCivicOptionType [CvInfos.cpp], CvPlayer::isNoCivicUpkeep, CvCivicInfo::getUpkeep [CvInfos.cpp], CvPlayer::isAnarchy, CvGlobals::getUpkeepInfo(UpkeepTypes) [CvGlobals.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvUpkeepInfo::getPopulationPercent [CvInfos.cpp], CvPlayer::getTotalPopulation, CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvUpkeepInfo::getCityPercent [CvInfos.cpp], CvPlayer::getNumCities, CvPlayer::getUpkeepModifier, CvGlobals::getHandicapInfo(HandicapTypes) [CvGlobals.cpp], CvHandicapInfo::getCivicUpkeepPercent [CvInfos.cpp], CvPlayer::getHandicapType, CvPlayer::isHuman, CvPlayer::isBarbarian, CvGame::getHandicapType [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvHandicapInfo::getAICivicUpkeepPercent [CvInfos.cpp], CvHandicapInfo::getAIPerEraModifier [CvInfos.cpp], CvPlayer::getCurrentEra
   - called by (4): CvGameTextMgr::buildFinanceCivicUpkeepString, CvPlayer::getCivicUpkeep, CvPlayerAI::AI_civicValue, CyPlayer::getSingleCivicUpkeep
-- **14227** `CvPlayer::getCivicUpkeep(CivicTypes*, bool) const`
+- **14230** `CvPlayer::getCivicUpkeep(CivicTypes*, bool) const`
   - calls: CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getSingleCivicUpkeep, CvPlayer::isRebel
   - called by (3): CvGameTextMgr::buildFinanceCivicUpkeepString, CvPlayer::calculatePreInflatedCosts, CyPlayer::getCivicUpkeep
-- **14258** `CvPlayer::setCivics(CivicOptionTypes, CivicTypes)`
+- **14261** `CvPlayer::setCivics(CivicOptionTypes, CivicTypes)`
   - calls: CvWString::CvWString() [CvString.h], CvPlayer::getCivics, CvPlayer::processCivics, CvGame::updateSecretaryGeneral [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvGameAI::AI_makeAssignWorkDirty [CvGameAI.cpp], CvGame::isFinalInitialized [CvGame.cpp], CvDLLUtilityIFaceBase::isDiplomacy [CvDLLUtilityIFaceBase.h], CvDLLUtilityIFaceBase::getDiplomacyPlayer [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getID, CvDLLUtilityIFaceBase::updateDiplomacyAttitude [CvDLLUtilityIFaceBase.h], CvPlayer::isBarbarian, CvPlayer::isMinorCiv, CvPlayer::isAlive, CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationInitialCivics [CvInfos.cpp], CvPlayer::getCivilizationType, CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getTeam, CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvPlayer::getNameKey, CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvGame::addReplayMessage [CvGame.cpp], CvPlayerAI::AI_invalidateAttitudeCache(PlayerTypes) [CvPlayerAI.cpp]
   - called by (7): CvPlayer::doEspionageMission, CvPlayer::init, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects, CvPlayer::revolution, CvPlayer::verifyCivics, CyPlayer::setCivics
-- **14353** `CvPlayer::getSpecialistExtraYield(SpecialistTypes, YieldTypes) const`
+- **14356** `CvPlayer::getSpecialistExtraYield(SpecialistTypes, YieldTypes) const`
   - called by (4): CvCity::getAdditionalBaseYieldRateBySpecialist, CvCity::getExtraSpecialistYield(YieldTypes, SpecialistTypes) const, CvPlayer::specialistYield, CyPlayer::getSpecialistExtraYield
-- **14363** `CvPlayer::changeSpecialistExtraYield(SpecialistTypes, YieldTypes, int)`
+- **14366** `CvPlayer::changeSpecialistExtraYield(SpecialistTypes, YieldTypes, int)`
   - calls: CvPlayer::updateExtraSpecialistYield, CvPlayer::AI_makeAssignWorkDirty [CvPlayer.h] ⇢ CvPlayerAI::AI_makeAssignWorkDirty
   - called by (1): CvPlayer::processBuilding
-- **14382** `CvPlayer::getImprovementYieldChange(ImprovementTypes, YieldTypes) const`
+- **14385** `CvPlayer::getImprovementYieldChange(ImprovementTypes, YieldTypes) const`
   - called by (1): CvPlot::calculateImprovementYieldChange
-- **14392** `CvPlayer::changeImprovementYieldChange(ImprovementTypes, YieldTypes, int)`
+- **14395** `CvPlayer::changeImprovementYieldChange(ImprovementTypes, YieldTypes, int)`
   - calls: CvPlayer::updateYield
   - called by (1): CvPlayer::processCivics
-- **14410** `CvPlayer::updateGroupCycle(CvUnit*)`
+- **14413** `CvPlayer::updateGroupCycle(CvUnit*)`
   - calls: CvUnit::onMap [CvUnit.cpp], CvPlayer::removeGroupCycle, CvUnit::getGroupID [CvUnit.cpp], CvUnit::plot [CvUnit.cpp], CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::isGroupHead [CvUnit.cpp], isBeforeUnitCycle [CvGameCoreUtils.cpp], CvPlayer::headGroupCycleNode, CvPlayer::getSelectionGroup, CvSelectionGroup::getHeadUnit [CvSelectionGroup.cpp], CvPlayer::nextGroupCycleNode, plotDistance [CvGameCoreUtils.h], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CLinkList<int>::insertBefore [LinkedList.h], CLinkList<int>::insertAtEnd [LinkedList.h]
   - called by (2): CvUnit::joinGroup, CvUnit::setXY
-- **14518** `CvPlayer::removeGroupCycle(int)`
+- **14521** `CvPlayer::removeGroupCycle(int)`
   - calls: CvPlayer::headGroupCycleNode, CvPlayer::deleteGroupCycleNode, CvPlayer::nextGroupCycleNode
   - called by (2): CvPlayer::updateGroupCycle, CvSelectionGroup::kill
-- **14539** `CvPlayer::deleteGroupCycleNode(CLLNode<int>*)`
+- **14542** `CvPlayer::deleteGroupCycleNode(CLLNode<int>*)`
   - calls: CLinkList<int>::deleteNode [LinkedList.h]
   - called by (1): CvPlayer::removeGroupCycle
-- **14545** `CvPlayer::nextGroupCycleNode(CLLNode<int>*) const`
+- **14548** `CvPlayer::nextGroupCycleNode(CLLNode<int>*) const`
   - calls: CLinkList<int>::next [LinkedList.h]
   - called by (4): CvPlayer::cycleSelectionGroups, CvPlayer::removeGroupCycle, CvPlayer::updateGroupCycle, CvPlayerAI::AI_unitUpdate
-- **14551** `CvPlayer::previousGroupCycleNode(CLLNode<int>*) const`
+- **14554** `CvPlayer::previousGroupCycleNode(CLLNode<int>*) const`
   - calls: CLinkList<int>::prev [LinkedList.h]
   - called by (1): CvPlayer::cycleSelectionGroups
-- **14557** `CvPlayer::headGroupCycleNode() const`
+- **14560** `CvPlayer::headGroupCycleNode() const`
   - calls: CLinkList<int>::head [LinkedList.h]
   - called by (4): CvPlayer::cycleSelectionGroups, CvPlayer::removeGroupCycle, CvPlayer::updateGroupCycle, CvPlayerAI::AI_unitUpdate
-- **14563** `CvPlayer::tailGroupCycleNode() const`
+- **14566** `CvPlayer::tailGroupCycleNode() const`
   - calls: CLinkList<int>::tail [LinkedList.h]
   - called by (1): CvPlayer::cycleSelectionGroups
-- **14570** `CvPlayer::findPathLength(TechTypes, bool) const`
+- **14573** `CvPlayer::findPathLength(TechTypes, bool) const`
   - calls: CvResearchGraph::CvResearchGraph [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::Planner<class CvResearchGraph> [ResearchPathPlan.h], ResearchPathPlan::Planner<CvResearchGraph>::~Planner<class CvResearchGraph> [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::steps [ResearchPathPlan.h], ResearchPathPlan::Planner<CvResearchGraph>::cost [ResearchPathPlan.h]
   - called by (2): CvGameTextMgr::setPlotHelp, CyPlayer::findPathLength
-- **14583** `CvPlayer::getQueuePosition(TechTypes) const`
+- **14586** `CvPlayer::getQueuePosition(TechTypes) const`
   - calls: CvPlayer::nextResearchQueueNode, CvPlayer::headResearchQueueNode
-  - called by (1): CyPlayer::getQueuePosition
-- **14601** `CvPlayer::clearResearchQueue()` (exported)
+  - called by (2): CvPlayerAI::AI_techOfferValue, CyPlayer::getQueuePosition
+- **14604** `CvPlayer::clearResearchQueue()` (exported)
   - calls: CLinkList<TechTypes>::clear [LinkedList.h], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::setResearchingTech, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (11): CvNetResearch::Execute, CvPlayer::doResearch, CvPlayer::initFreeState, CvPlayer::pushResearch, CvPlayer::setAlive, CvPlayer::setNewPlayerAlive, CvPlayerAI::AI_chooseFreeTech, CvPlayerAI::AI_chooseResearch, CvTeam::makeHasMet, CvTeam::setHasTech, CyPlayer::clearResearchQueue
-- **14624** `CvPlayer::pushResearch(TechTypes, bool)` (exported)
+- **14627** `CvPlayer::pushResearch(TechTypes, bool)` (exported)
   - calls: CvPlayer::getTeam, CvPlayer::isResearchingTech, CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::canEverResearch, CvPlayer::clearResearchQueue, CvResearchGraph::CvResearchGraph [CvResearchGraph.h], ResearchPathPlan::Planner<CvResearchGraph>::Planner<class CvResearchGraph> [ResearchPathPlan.h], ResearchPathPlan::Planner<CvResearchGraph>::plan(int, std::vector<int, std::allocator<int>>&) [ResearchPathPlan.h], ResearchPathPlan::Planner<CvResearchGraph>::~Planner<class CvResearchGraph> [CvResearchGraph.h], CLinkList<TechTypes>::insertAtEnd [LinkedList.h], CvPlayer::setResearchingTech, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::techSelected [CvEventReporter.cpp], CvPlayer::getID
   - called by (4): CvNetResearch::Execute, CvPlayer::handleDiploEvent, CvPlayerAI::AI_chooseResearch, CyPlayer::pushResearch
-- **14683** `CvPlayer::popResearch(TechTypes)`
+- **14686** `CvPlayer::popResearch(TechTypes)`
   - calls: CvPlayer::nextResearchQueueNode, CvPlayer::headResearchQueueNode, CLinkList<TechTypes>::deleteNode [LinkedList.h], CvPlayer::setResearchingTech, CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (2): CvTeam::setHasTech, CyPlayer::popResearch
-- **14707** `CvPlayer::getLengthResearchQueue() const`
+- **14710** `CvPlayer::getLengthResearchQueue() const`
   - calls: CLinkList<TechTypes>::getLength [LinkedList.h]
   - called by (1): CyPlayer::getLengthResearchQueue
-- **14713** `CvPlayer::nextResearchQueueNode(CLLNode<TechTypes>*) const`
+- **14716** `CvPlayer::nextResearchQueueNode(CLLNode<TechTypes>*) const`
   - calls: CLinkList<TechTypes>::next [LinkedList.h]
   - called by (2): CvPlayer::getQueuePosition, CvPlayer::popResearch
-- **14719** `CvPlayer::headResearchQueueNode() const`
+- **14722** `CvPlayer::headResearchQueueNode() const`
   - calls: CLinkList<TechTypes>::head [LinkedList.h]
   - called by (3): CvPlayer::getCurrentResearch, CvPlayer::getQueuePosition, CvPlayer::popResearch
-- **14725** `CvPlayer::tailResearchQueueNode() const`
+- **14728** `CvPlayer::tailResearchQueueNode() const`
   - calls: CLinkList<TechTypes>::tail [LinkedList.h]
-- **14731** `CvPlayer::addCityName(CvWString const&)`
+- **14734** `CvPlayer::addCityName(CvWString const&)`
   - calls: CLinkList<CvWString>::insertAtEnd [LinkedList.h]
   - called by (1): CyPlayer::addCityName
-- **14737** `CvPlayer::getNumCityNames() const`
+- **14740** `CvPlayer::getNumCityNames() const`
   - calls: CLinkList<CvWString>::getLength [LinkedList.h]
   - called by (1): CyPlayer::getNumCityNames
-- **14743** `CvPlayer::getCityName(int) const`
+- **14746** `CvPlayer::getCityName(int) const`
   - calls: CLinkList<CvWString>::nodeNum [LinkedList.h], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h]
   - called by (1): CyPlayer::getCityName
-- **14760** `CvPlayer::nextCityNameNode(CLLNode<CvWString>*) const`
+- **14763** `CvPlayer::nextCityNameNode(CLLNode<CvWString>*) const`
   - calls: CLinkList<CvWString>::next [LinkedList.h]
   - called by (1): CvPlayer::getNewCityName
-- **14766** `CvPlayer::headCityNameNode() const`
+- **14769** `CvPlayer::headCityNameNode() const`
   - calls: CLinkList<CvWString>::head [LinkedList.h]
   - called by (1): CvPlayer::getNewCityName
-- **14772** `CvPlayer::firstPlotGroup(int*, bool) const`
+- **14775** `CvPlayer::firstPlotGroup(int*, bool) const`
   - calls: FFreeListArrayBase<CvPlotGroup>::endIter [FFreeListArrayBase.h], FFreeListArrayBase<CvPlotGroup>::beginIter [FFreeListArrayBase.h]
   - called by (1): CvPlayer::updatePlotGroups
-- **14778** `CvPlayer::nextPlotGroup(int*, bool) const`
+- **14781** `CvPlayer::nextPlotGroup(int*, bool) const`
   - calls: FFreeListArrayBase<CvPlotGroup>::nextIter [FFreeListArrayBase.h], FFreeListArrayBase<CvPlotGroup>::prevIter [FFreeListArrayBase.h]
   - called by (1): CvPlayer::updatePlotGroups
-- **14784** `CvPlayer::getNumPlotGroups() const`
+- **14787** `CvPlayer::getNumPlotGroups() const`
   - calls: FFreeListArrayBase<CvPlotGroup>::getCount [FFreeListArrayBase.h]
-- **14790** `CvPlayer::getPlotGroup(int) const`
+- **14793** `CvPlayer::getPlotGroup(int) const`
   - calls: FFreeListArrayBase<CvArea>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::getAt, FFreeListArrayBase<CvCityAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::getAt, FFreeListArrayBase<CvDeal>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::getAt, FFreeListArrayBase<CvPlotGroup>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::getAt, FFreeListArrayBase<CvSelectionGroupAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::getAt, FFreeListArrayBase<CvUnitAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::getAt, FFreeListArrayBase<EventTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::getAt, FFreeListArrayBase<VoteSelectionData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::getAt, FFreeListArrayBase<VoteTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::getAt
   - called by (1): CvPlot::getPlotGroup
-- **14796** `CvPlayer::addPlotGroup()`
+- **14799** `CvPlayer::addPlotGroup()`
   - calls: FFreeListTrashArray<CvPlotGroup>::add [FFreeListTrashArray.h]
   - called by (1): CvPlayer::initPlotGroup
-- **14802** `CvPlayer::deletePlotGroup(int)`
+- **14805** `CvPlayer::deletePlotGroup(int)`
   - calls: FFreeListTrashArray<CvPlotGroup>::removeAt [FFreeListTrashArray.h]
   - called by (1): CvPlotGroup::deletePlotsNode
-- **14808** `CvPlayer::firstCity(int*, bool) const` (exported)
+- **14811** `CvPlayer::firstCity(int*, bool) const` (exported)
   - calls: FFreeListArrayBase<CvCityAI>::endIter [FFreeListArrayBase.h], FFreeListArrayBase<CvCityAI>::beginIter [FFreeListArrayBase.h]
-  - called by (184): CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::calculateDistanceMaintenanceTimes100, CvCity::doReligion, CvCity::findBaseYieldRateRank, CvCity::findCommerceRateRank, CvCity::findPopulationRank, CvCity::findYieldRateRank, CvCity::setNumRealBuildingTimed, CvCity::updateTradeRoutes, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_cachePlayerCloseness …
-- **14814** `CvPlayer::nextCity(int*, bool) const` (exported)
+  - called by (187): CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::calculateDistanceMaintenanceTimes100, CvCity::doReligion, CvCity::findBaseYieldRateRank, CvCity::findCommerceRateRank, CvCity::findPopulationRank, CvCity::findYieldRateRank, CvCity::setNumRealBuildingTimed, CvCity::updateTradeRoutes, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_cachePlayerCloseness …
+- **14817** `CvPlayer::nextCity(int*, bool) const` (exported)
   - calls: FFreeListArrayBase<CvCityAI>::nextIter [FFreeListArrayBase.h], FFreeListArrayBase<CvCityAI>::prevIter [FFreeListArrayBase.h]
-  - called by (184): CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::calculateDistanceMaintenanceTimes100, CvCity::doReligion, CvCity::findBaseYieldRateRank, CvCity::findCommerceRateRank, CvCity::findPopulationRank, CvCity::findYieldRateRank, CvCity::setNumRealBuildingTimed, CvCity::updateTradeRoutes, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_cachePlayerCloseness …
-- **14820** `CvPlayer::getNumCities() const` (exported)
+  - called by (187): CvArea::countHasCorporation, CvArea::countHasReligion, CvCity::calculateDistanceMaintenanceTimes100, CvCity::doReligion, CvCity::findBaseYieldRateRank, CvCity::findCommerceRateRank, CvCity::findPopulationRank, CvCity::findYieldRateRank, CvCity::setNumRealBuildingTimed, CvCity::updateTradeRoutes, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_cachePlayerCloseness …
+- **14823** `CvPlayer::getNumCities() const` (exported)
   - calls: FFreeListArrayBase<CvCityAI>::getCount [FFreeListArrayBase.h]
   - called by (93): CvCity::calculateNumCitiesMaintenanceTimes100, CvCity::init, CvCity::setPopulation, CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_bestProject, CvCityAI::AI_bestUnit, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_doEmphasize, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_specialistValue …
-- **14826** `CvPlayer::getCity(int) const` (exported)
+- **14829** `CvPlayer::getCity(int) const` (exported)
   - calls: FFreeListArrayBase<CvArea>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::getAt, FFreeListArrayBase<CvCityAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::getAt, FFreeListArrayBase<CvDeal>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::getAt, FFreeListArrayBase<CvPlotGroup>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::getAt, FFreeListArrayBase<CvSelectionGroupAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::getAt, FFreeListArrayBase<CvUnitAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::getAt, FFreeListArrayBase<EventTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::getAt, FFreeListArrayBase<VoteSelectionData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::getAt, FFreeListArrayBase<VoteTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::getAt
   - called by (36): CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchDisbandCityPopup, CvDLLButtonPopup::launchEventPopup, CvDLLButtonPopup::launchProductionPopup, CvDLLButtonPopup::launchRazeCityPopup, CvDLLWidgetData::parseConstructHelp, CvDLLWidgetData::parseCreateHelp, CvDLLWidgetData::parseHelp, CvDLLWidgetData::parseTrainHelp, CvDeal::startTrade, CvGame::isValidVoteSelection …
-- **14832** `CvPlayer::addCity()`
+- **14835** `CvPlayer::addCity()`
   - calls: FFreeListTrashArray<CvCityAI>::add [FFreeListTrashArray.h]
   - called by (1): CvPlayer::initCity
-- **14838** `CvPlayer::deleteCity(int)`
+- **14841** `CvPlayer::deleteCity(int)`
   - calls: FFreeListTrashArray<CvCityAI>::removeAt [FFreeListTrashArray.h]
   - called by (1): CvCity::kill
-- **14844** `CvPlayer::firstUnit(int*, bool) const` (exported)
+- **14847** `CvPlayer::firstUnit(int*, bool) const` (exported)
   - calls: FFreeListArrayBase<CvUnitAI>::endIter [FFreeListArrayBase.h], FFreeListArrayBase<CvUnitAI>::beginIter [FFreeListArrayBase.h]
-  - called by (59): CvCityAI::AI_bestSpreadUnit, CvGame::calculateSyncChecksum, CvGame::createBarbarianUnits, CvGame::initSelection, CvGame::replaceCorporation, CvGame::selectionListGameNetMessage, CvGame::updateColoredPlots, CvGame::updateUnitEnemyGlow, CvNetDoCommand::Execute, CvPlayer::applyEvent, CvPlayer::assimilatePlayer, CvPlayer::changeCiv …
-- **14850** `CvPlayer::nextUnit(int*, bool) const` (exported)
+  - called by (60): CvCityAI::AI_bestSpreadUnit, CvGame::calculateSyncChecksum, CvGame::createBarbarianUnits, CvGame::initSelection, CvGame::pageGraphics, CvGame::replaceCorporation, CvGame::selectionListGameNetMessage, CvGame::updateColoredPlots, CvGame::updateUnitEnemyGlow, CvNetDoCommand::Execute, CvPlayer::applyEvent, CvPlayer::assimilatePlayer …
+- **14853** `CvPlayer::nextUnit(int*, bool) const` (exported)
   - calls: FFreeListArrayBase<CvUnitAI>::nextIter [FFreeListArrayBase.h], FFreeListArrayBase<CvUnitAI>::prevIter [FFreeListArrayBase.h]
-  - called by (59): CvCityAI::AI_bestSpreadUnit, CvGame::calculateSyncChecksum, CvGame::createBarbarianUnits, CvGame::initSelection, CvGame::replaceCorporation, CvGame::selectionListGameNetMessage, CvGame::updateColoredPlots, CvGame::updateUnitEnemyGlow, CvNetDoCommand::Execute, CvPlayer::applyEvent, CvPlayer::assimilatePlayer, CvPlayer::changeCiv …
-- **14856** `CvPlayer::getNumUnits() const` (exported)
+  - called by (60): CvCityAI::AI_bestSpreadUnit, CvGame::calculateSyncChecksum, CvGame::createBarbarianUnits, CvGame::initSelection, CvGame::pageGraphics, CvGame::replaceCorporation, CvGame::selectionListGameNetMessage, CvGame::updateColoredPlots, CvGame::updateUnitEnemyGlow, CvNetDoCommand::Execute, CvPlayer::applyEvent, CvPlayer::assimilatePlayer …
+- **14859** `CvPlayer::getNumUnits() const` (exported)
   - calls: FFreeListArrayBase<CvUnitAI>::getCount [FFreeListArrayBase.h]
   - called by (11): CvGame::calculateSyncChecksum, CvGame::getMaxTurnLen, CvGame::initFreeUnits, CvGameTextMgr::buildFinanceUnitCostString, CvPlayer::calculateUnitCost(int&, int&, int&, int&, int&, int&, int&) const, CvPlayer::updateTimers, CvPlayer::verifyAlive, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_reset, CvTeam::makePeace, CyPlayer::getNumUnits
-- **14862** `CvPlayer::getUnit(int) const` (exported)
+- **14865** `CvPlayer::getUnit(int) const` (exported)
   - calls: FFreeListArrayBase<CvArea>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::getAt, FFreeListArrayBase<CvCityAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::getAt, FFreeListArrayBase<CvDeal>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::getAt, FFreeListArrayBase<CvPlotGroup>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::getAt, FFreeListArrayBase<CvSelectionGroupAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::getAt, FFreeListArrayBase<CvUnitAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::getAt, FFreeListArrayBase<EventTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::getAt, FFreeListArrayBase<VoteSelectionData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::getAt, FFreeListArrayBase<VoteTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::getAt
   - called by (25): CvGame::applyFlyoutMenu, CvGameTextMgr::setEspionageCostHelp, CvGameTextMgr::setEventHelp, CvNetAutoMission::Execute, CvNetDoCommand::Execute, CvNetJoinGroup::Execute, CvNetPushMission::Execute, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::checkExpireEvent, CvPlayer::initTriggeredData, CvPlayerAI::AI_eventValue …
-- **14868** `CvPlayer::addUnit()`
+- **14871** `CvPlayer::addUnit()`
   - calls: FFreeListTrashArray<CvUnitAI>::add [FFreeListTrashArray.h]
   - called by (1): CvPlayer::initUnit
-- **14874** `CvPlayer::deleteUnit(int)`
+- **14877** `CvPlayer::deleteUnit(int)`
   - calls: FFreeListTrashArray<CvUnitAI>::removeAt [FFreeListTrashArray.h]
   - called by (1): CvUnit::kill
-- **14880** `CvPlayer::firstSelectionGroup(int*, bool) const` (exported)
+- **14883** `CvPlayer::firstSelectionGroup(int*, bool) const` (exported)
   - calls: FFreeListArrayBase<CvSelectionGroupAI>::endIter [FFreeListArrayBase.h], FFreeListArrayBase<CvSelectionGroupAI>::beginIter [FFreeListArrayBase.h]
   - called by (27): CvGame::selectionListGameNetMessage, CvGame::setAIAutoPlay, CvGame::updateMoves, CvMap::findSelectionGroup, CvPlayer::doTurnUnits, CvPlayer::hasAutoUnit, CvPlayer::hasBusyUnit, CvPlayer::hasReadyUnit, CvPlayer::updateTimers, CvPlayerAI::AI_areaMissionAIs, CvPlayerAI::AI_cityTargetUnitsByPath, CvPlayerAI::AI_countIncomingOperationRole …
-- **14886** `CvPlayer::nextSelectionGroup(int*, bool) const` (exported)
+- **14889** `CvPlayer::nextSelectionGroup(int*, bool) const` (exported)
   - calls: FFreeListArrayBase<CvSelectionGroupAI>::nextIter [FFreeListArrayBase.h], FFreeListArrayBase<CvSelectionGroupAI>::prevIter [FFreeListArrayBase.h]
   - called by (27): CvGame::selectionListGameNetMessage, CvGame::setAIAutoPlay, CvGame::updateMoves, CvMap::findSelectionGroup, CvPlayer::doTurnUnits, CvPlayer::hasAutoUnit, CvPlayer::hasBusyUnit, CvPlayer::hasReadyUnit, CvPlayer::updateTimers, CvPlayerAI::AI_areaMissionAIs, CvPlayerAI::AI_cityTargetUnitsByPath, CvPlayerAI::AI_countIncomingOperationRole …
-- **14892** `CvPlayer::getNumSelectionGroups() const`
+- **14895** `CvPlayer::getNumSelectionGroups() const`
   - calls: FFreeListArrayBase<CvSelectionGroupAI>::getCount [FFreeListArrayBase.h]
   - called by (3): CvGame::calculateSyncChecksum, CvPlayer::updateTimers, CyPlayer::getNumSelectionGroups
-- **14898** `CvPlayer::getSelectionGroup(int) const`
+- **14901** `CvPlayer::getSelectionGroup(int) const`
   - calls: FFreeListArrayBase<CvArea>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::getAt, FFreeListArrayBase<CvCityAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::getAt, FFreeListArrayBase<CvDeal>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::getAt, FFreeListArrayBase<CvPlotGroup>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::getAt, FFreeListArrayBase<CvSelectionGroupAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::getAt, FFreeListArrayBase<CvUnitAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::getAt, FFreeListArrayBase<EventTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::getAt, FFreeListArrayBase<VoteSelectionData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::getAt, FFreeListArrayBase<VoteTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::getAt
   - called by (10): CvPlayer::cycleSelectionGroups, CvPlayer::updateGroupCycle, CvPlayerAI::AI_getGeneralOperationGroup, CvPlayerAI::AI_getOperationReinforcementGroup, CvPlayerAI::AI_getOperationRoleTarget, CvPlayerAI::AI_unitUpdate, CvPlayerAI::AI_updateMilitaryOperations, CvUnit::getGroup, CvUnit::joinGroup, CyPlayer::getSelectionGroup
-- **14904** `CvPlayer::addSelectionGroup()`
+- **14907** `CvPlayer::addSelectionGroup()`
   - calls: FFreeListTrashArray<CvSelectionGroupAI>::add [FFreeListTrashArray.h]
   - called by (1): CvUnit::joinGroup
-- **14910** `CvPlayer::deleteSelectionGroup(int)`
+- **14913** `CvPlayer::deleteSelectionGroup(int)`
   - calls: FFreeListTrashArray<CvSelectionGroupAI>::removeAt [FFreeListTrashArray.h]
   - called by (1): CvSelectionGroup::kill
-- **14917** `CvPlayer::firstEventTriggered(int*, bool) const`
+- **14920** `CvPlayer::firstEventTriggered(int*, bool) const`
   - calls: FFreeListArrayBase<EventTriggeredData>::endIter [FFreeListArrayBase.h], FFreeListArrayBase<EventTriggeredData>::beginIter [FFreeListArrayBase.h]
-- **14922** `CvPlayer::nextEventTriggered(int*, bool) const`
+- **14925** `CvPlayer::nextEventTriggered(int*, bool) const`
   - calls: FFreeListArrayBase<EventTriggeredData>::nextIter [FFreeListArrayBase.h], FFreeListArrayBase<EventTriggeredData>::prevIter [FFreeListArrayBase.h]
-- **14927** `CvPlayer::getNumEventsTriggered() const`
+- **14930** `CvPlayer::getNumEventsTriggered() const`
   - calls: FFreeListArrayBase<EventTriggeredData>::getCount [FFreeListArrayBase.h]
-- **14932** `CvPlayer::getEventTriggered(int) const`
+- **14935** `CvPlayer::getEventTriggered(int) const`
   - calls: FFreeListArrayBase<CvArea>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvArea>::getAt, FFreeListArrayBase<CvCityAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvCityAI>::getAt, FFreeListArrayBase<CvDeal>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvDeal>::getAt, FFreeListArrayBase<CvPlotGroup>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvPlotGroup>::getAt, FFreeListArrayBase<CvSelectionGroupAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvSelectionGroupAI>::getAt, FFreeListArrayBase<CvUnitAI>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<CvUnitAI>::getAt, FFreeListArrayBase<EventTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<EventTriggeredData>::getAt, FFreeListArrayBase<VoteSelectionData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteSelectionData>::getAt, FFreeListArrayBase<VoteTriggeredData>::getAt [FFreeListArrayBase.h] ⇢ FFreeListTrashArray<VoteTriggeredData>::getAt
   - called by (6): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchEventPopup, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_chooseEvent, CyPlayer::getEventTriggered
-- **14937** `CvPlayer::addEventTriggered()`
+- **14940** `CvPlayer::addEventTriggered()`
   - calls: FFreeListTrashArray<EventTriggeredData>::add [FFreeListTrashArray.h]
   - called by (1): CvPlayer::initTriggeredData
-- **14942** `CvPlayer::deleteEventTriggered(int)`
+- **14945** `CvPlayer::deleteEventTriggered(int)`
   - calls: FFreeListTrashArray<EventTriggeredData>::removeAt [FFreeListTrashArray.h]
   - called by (3): CvPlayer::applyEvent, CvPlayer::doEvents, CvPlayer::initTriggeredData
-- **14948** `CvPlayer::addMessage(CvTalkingHeadMessage const&)` (exported)
-- **14954** `CvPlayer::clearMessages()`
+- **14951** `CvPlayer::addMessage(CvTalkingHeadMessage const&)` (exported)
+- **14957** `CvPlayer::clearMessages()`
   - called by (1): CvPlayer::uninit
-- **14960** `CvPlayer::getGameMessages() const` (exported)
-- **14966** `CvPlayer::expireMessages()` (exported)
+- **14963** `CvPlayer::getGameMessages() const` (exported)
+- **14969** `CvPlayer::expireMessages()` (exported)
   - calls: CvGame::getGameTurn [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvTalkingHeadMessage::getExpireTurn [CvTalkingHeadMessage.cpp], CvDLLInterfaceIFaceBase::dirtyTurnLog [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getID
   - called by (1): CvPlayer::doTurn
-- **14990** `CvPlayer::addPopup(CvPopupInfo*, bool)` (exported)
+- **14993** `CvPlayer::addPopup(CvPopupInfo*, bool)` (exported)
   - calls: CvPlayer::isHuman
   - called by (7): CvGame::setGameState, CvGame::showEndGameSequence, CvPlayer::applyEvent, CvPlayer::doEspionageMission, CvPlayer::setCurrentEra, CvPlayer::showSpaceShip, CvPlayer::trigger(EventTriggeredData const&)
-- **15010** `CvPlayer::clearPopups()`
+- **15013** `CvPlayer::clearPopups()`
   - called by (2): CvPlayer::read, CvPlayer::uninit
-- **15025** `CvPlayer::popFrontPopup()` (exported)
-- **15037** `CvPlayer::getPopups() const` (exported)
-- **15043** `CvPlayer::addDiplomacy(CvDiploParameters*)` (exported)
-- **15052** `CvPlayer::clearDiplomacy()`
+- **15028** `CvPlayer::popFrontPopup()` (exported)
+- **15040** `CvPlayer::getPopups() const` (exported)
+- **15046** `CvPlayer::addDiplomacy(CvDiploParameters*)` (exported)
+- **15055** `CvPlayer::clearDiplomacy()`
   - called by (2): CvPlayer::read, CvPlayer::uninit
-- **15067** `CvPlayer::getDiplomacy() const` (exported)
-- **15073** `CvPlayer::popFrontDiplomacy()` (exported)
-- **15085** `CvPlayer::showSpaceShip()` (exported)
+- **15070** `CvPlayer::getDiplomacy() const` (exported)
+- **15076** `CvPlayer::popFrontDiplomacy()` (exported)
+- **15088** `CvPlayer::showSpaceShip()` (exported)
   - calls: operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvPopupInfo::setData1 [CvPopupInfo.cpp], CvPopupInfo::setText [CvPopupInfo.cpp], CvPlayer::addPopup, operator delete(void*) [CvGameCoreDLL.cpp]
-- **15093** `CvPlayer::clearSpaceShipPopups()` (exported)
+- **15096** `CvPlayer::clearSpaceShipPopups()` (exported)
   - calls: CvPopupInfo::getText [CvPopupInfo.cpp]
-- **15119** `CvPlayer::getScoreHistory(int) const`
+- **15122** `CvPlayer::getScoreHistory(int) const`
   - called by (2): CvReplayInfo::createInfo, CyPlayer::getScoreHistory
-- **15129** `CvPlayer::updateScoreHistory(int, int)`
+- **15132** `CvPlayer::updateScoreHistory(int, int)`
   - called by (1): CvGame::updateScore
-- **15134** `CvPlayer::getEconomyHistory(int) const`
+- **15137** `CvPlayer::getEconomyHistory(int) const`
   - called by (3): CvPlayer::setTurnActive, CvReplayInfo::createInfo, CyPlayer::getEconomyHistory
-- **15144** `CvPlayer::updateEconomyHistory(int, int)`
+- **15147** `CvPlayer::updateEconomyHistory(int, int)`
   - called by (1): CvPlayer::doTurn
-- **15149** `CvPlayer::getIndustryHistory(int) const`
+- **15152** `CvPlayer::getIndustryHistory(int) const`
   - called by (3): CvPlayer::setTurnActive, CvReplayInfo::createInfo, CyPlayer::getIndustryHistory
-- **15159** `CvPlayer::updateIndustryHistory(int, int)`
+- **15162** `CvPlayer::updateIndustryHistory(int, int)`
   - called by (1): CvPlayer::doTurn
-- **15164** `CvPlayer::getAgricultureHistory(int) const`
+- **15167** `CvPlayer::getAgricultureHistory(int) const`
   - called by (3): CvPlayer::setTurnActive, CvReplayInfo::createInfo, CyPlayer::getAgricultureHistory
-- **15174** `CvPlayer::updateAgricultureHistory(int, int)`
+- **15177** `CvPlayer::updateAgricultureHistory(int, int)`
   - called by (1): CvPlayer::doTurn
-- **15179** `CvPlayer::getPowerHistory(int) const`
+- **15182** `CvPlayer::getPowerHistory(int) const`
   - called by (1): CyPlayer::getPowerHistory
-- **15189** `CvPlayer::updatePowerHistory(int, int)`
+- **15192** `CvPlayer::updatePowerHistory(int, int)`
   - called by (1): CvPlayer::doTurn
-- **15194** `CvPlayer::getCultureHistory(int) const`
+- **15197** `CvPlayer::getCultureHistory(int) const`
   - called by (1): CyPlayer::getCultureHistory
-- **15204** `CvPlayer::updateCultureHistory(int, int)`
+- **15207** `CvPlayer::updateCultureHistory(int, int)`
   - called by (1): CvPlayer::doTurn
-- **15209** `CvPlayer::getEspionageHistory(int) const`
+- **15212** `CvPlayer::getEspionageHistory(int) const`
   - called by (1): CyPlayer::getEspionageHistory
-- **15219** `CvPlayer::updateEspionageHistory(int, int)`
+- **15222** `CvPlayer::updateEspionageHistory(int, int)`
   - called by (1): CvPlayer::doTurn
-- **15232** `CvPlayer::getRevolutionStabilityHistory(int) const`
+- **15235** `CvPlayer::getRevolutionStabilityHistory(int) const`
   - called by (1): CyPlayer::getRevolutionStabilityHistory
-- **15242** `CvPlayer::updateRevolutionStabilityHistory(int, int)`
+- **15245** `CvPlayer::updateRevolutionStabilityHistory(int, int)`
   - called by (1): CvPlayer::doTurn
-- **15252** `CvPlayer::getScriptData() const`
+- **15255** `CvPlayer::getScriptData() const`
   - called by (1): CyPlayer::getScriptData
-- **15257** `CvPlayer::setScriptData(std::basic_string<char, std::char_traits<char>, std::allocator<char>>)`
+- **15260** `CvPlayer::setScriptData(std::basic_string<char, std::char_traits<char>, std::allocator<char>>)`
   - calls: CvString::operator=(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&) [CvString.h]
   - called by (1): CyPlayer::setScriptData
-- **15262** `CvPlayer::getPbemEmailAddress() const` (exported)
+- **15265** `CvPlayer::getPbemEmailAddress() const` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getEmail [CvInitCore.cpp], CvPlayer::getID, CvString::CvString(CvString const&) [CvString.h]
   - called by (1): CvPlayer::sendReminder
-- **15267** `CvPlayer::setPbemEmailAddress(char const*)` (exported)
+- **15270** `CvPlayer::setPbemEmailAddress(char const*)` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::setEmail [CvInitCore.cpp], CvPlayer::getID, CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h]
-- **15272** `CvPlayer::getSmtpHost() const` (exported)
+- **15275** `CvPlayer::getSmtpHost() const` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::getSmtpHost [CvInitCore.cpp], CvPlayer::getID, CvString::CvString(CvString const&) [CvString.h]
-- **15277** `CvPlayer::setSmtpHost(char const*)` (exported)
+- **15280** `CvPlayer::setSmtpHost(char const*)` (exported)
   - calls: CvGlobals::getInitCore [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInitCore::setSmtpHost [CvInitCore.cpp], CvPlayer::getID, CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h]
-- **15284** `CvPlayer::doGold()`
+- **15287** `CvPlayer::doGold()`
   - calls: CvGlobals::getUSE_CAN_DO_GOLD_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CvPlayer::getID, CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvPlayer::calculateGoldRate, CvPlayer::changeGold, CvPlayer::getGold, CvPlayer::setGold, CvPlayer::getNumCities, CvPlayer::isBarbarian, CvPlayer::setStrike, CvPlayer::changeStrikeTurns, CvPlayer::getStrikeTurns, CvPlayer::disbandUnit
   - called by (1): CvPlayer::doTurn
-- **15355** `CvPlayer::doResearch()`
+- **15358** `CvPlayer::doResearch()`
   - calls: CvGlobals::getUSE_CAN_DO_RESEARCH_CALLBACK [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CyArgsList::CyArgsList [CyArgsList.h], CvPlayer::getID, CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvPlayer::isResearch, CvPlayer::getCurrentResearch, CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::chooseTech, CvWString::CvWString(char const*) [CvString.h], CvGame::getElapsedGameTurns [CvGame.cpp], CvPlayer::AI_chooseResearch [CvPlayer.h] ⇢ CvPlayerAI::AI_chooseResearch, CvPlayer::calculateResearchModifier, CvPlayer::calculateResearchRate, CvPlayer::changeOverflowResearch, CvPlayer::getOverflowResearch, CvPlayer::setOverflowResearch, CvPlayer::getTeam, CvTeam::changeResearchProgress [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::clearResearchQueue
   - called by (1): CvPlayer::doTurn
-- **15418** `CvPlayer::doEspionagePoints()`
+- **15421** `CvPlayer::doEspionagePoints()`
   - calls: CvPlayer::getCommerceRate, CvPlayer::getTeam, CvTeam::changeEspionagePointsEver [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isAlive [CvTeam.cpp], CvTeam::isHasMet [CvTeam.cpp], CvPlayer::getEspionageSpending, CvTeam::changeEspionagePointsAgainstTeam [CvTeam.cpp]
   - called by (1): CvPlayer::doTurn
-- **15448** `CvPlayer::getEspionageSpending(TeamTypes) const`
+- **15451** `CvPlayer::getEspionageSpending(TeamTypes) const`
   - calls: CvPlayer::getCommerceRate, CvPlayer::getTeam, CvTeam::isAlive [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isHasMet [CvTeam.cpp], CvPlayer::getEspionageSpendingWeightAgainstTeam
   - called by (2): CvPlayer::doEspionagePoints, CyPlayer::getEspionageSpending
-- **15552** `CvPlayer::canDoEspionageMission(EspionageMissionTypes, PlayerTypes, CvPlot const*, int, CvUnit const*) const` (exported)
+- **15555** `CvPlayer::canDoEspionageMission(EspionageMissionTypes, PlayerTypes, CvPlot const*, int, CvUnit const*) const` (exported)
   - calls: CvPlayer::getID, CvPlayer::isAlive, CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getEspionageMissionInfo(EspionageMissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEspionageMissionInfo::getTechPrereq [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvPlayer::getEspionageMissionCost, CvTeam::getEspionagePointsAgainstTeam [CvTeam.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvEspionageMissionInfo::getBuyUnitCostFactor [CvInfos.cpp], CvEspionageMissionInfo::getDestroyUnitCostFactor [CvInfos.cpp]
   - called by (10): CvCity::canBeSelected, CvCity::updateEspionageVisibility, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvPlayer::canSpiesEnterBorders, CvPlayer::doEspionageMission, CvPlayerAI::AI_espionageVal, CvUnitAI::AI_espionageSpy, CvUnitAI::AI_revoltCitySpy, CyPlayer::canDoEspionageMission
-- **15623** `CvPlayer::getEspionageMissionCost(EspionageMissionTypes, PlayerTypes, CvPlot const*, int, CvUnit const*) const`
+- **15626** `CvPlayer::getEspionageMissionCost(EspionageMissionTypes, PlayerTypes, CvPlot const*, int, CvUnit const*) const`
   - calls: CvPlayer::getEspionageMissionBaseCost, CvPlayer::getEspionageMissionCostModifier, CvPlayer::getTeam, CvTeam::getNumMembers [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
   - called by (8): CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvGameTextMgr::setEspionageCostHelp, CvPlayer::canDoEspionageMission, CvPlayer::doEspionageMission, CvPlayerAI::AI_doCommerce, CvPlayerAI::AI_espionageVal, CyPlayer::getEspionageMissionCost
-- **15641** `CvPlayer::getEspionageMissionBaseCost(EspionageMissionTypes, PlayerTypes, CvPlot const*, int, CvUnit const*) const`
+- **15644** `CvPlayer::getEspionageMissionBaseCost(EspionageMissionTypes, PlayerTypes, CvPlot const*, int, CvUnit const*) const`
   - calls: CvGlobals::getEspionageMissionInfo(EspionageMissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEspionageMissionInfo::getCost [CvInfos.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvEspionageMissionInfo::isSelectPlot [CvInfos.cpp], CvPlayer::getTeam, CvPlot::isRevealed [CvPlot.cpp], CvEspionageMissionInfo::isTargetsCity [CvInfos.cpp], CvEspionageMissionInfo::getStealTreasuryTypes [CvInfos.cpp], CvPlayer::getGold, CvPlayerAI::getPlayer [CvPlayerAI.h], CvCity::getPopulation [CvCity.cpp], CvPlayer::getTotalPopulation, CvEspionageMissionInfo::getBuyTechCostFactor [CvInfos.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvPlayer::canStealTech, CvTeam::getResearchCost [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvEspionageMissionInfo::getSwitchCivicCostFactor [CvInfos.cpp], CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvPlayer::canForceCivics, CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getAnarchyPercent [CvInfos.cpp], CvEspionageMissionInfo::getSwitchReligionCostFactor [CvInfos.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvPlayer::canForceReligion, CvEspionageMissionInfo::getDestroyUnitCostFactor [CvInfos.cpp], CvUnit::canAssassin [CvUnit.cpp], CvEspionageMissionInfo::getDestroyProjectCostFactor [CvInfos.cpp], CvGlobals::getNumProjectInfos [CvGlobals.cpp], CvPlayer::canSpyDestroyProject, CvPlayer::getProductionNeeded(ProjectTypes) const, CvEspionageMissionInfo::getDestroyProductionCostFactor [CvInfos.cpp], CvCity::getProduction [CvCity.cpp], CvEspionageMissionInfo::getBuyUnitCostFactor [CvInfos.cpp], CvUnit::canBribe [CvUnit.cpp], CvEspionageMissionInfo::getDestroyBuildingCostFactor [CvInfos.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvPlayer::canSpyDestroyBuilding, CvPlayer::getProductionNeeded(BuildingTypes) const, CvEspionageMissionInfo::getBuyCityCostFactor [CvInfos.cpp], CvGameSpeedInfo::getGrowthPercent [CvInfos.cpp], CvEspionageMissionInfo::getCityInsertCultureCostFactor [CvInfos.cpp], CvPlayer::getID, CvPlot::getCulture [CvPlot.cpp], CvCity::countTotalCultureTimes100 [CvCity.cpp], CvEspionageMissionInfo::getCityInsertCultureAmountFactor [CvInfos.cpp], CvEspionageMissionInfo::isDestroyImprovement [CvInfos.cpp], CvPlot::isCity [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvPlot::getRouteType [CvPlot.cpp], CvGameSpeedInfo::getBuildPercent [CvInfos.cpp], CvEspionageMissionInfo::getCityPoisonWaterCounter [CvInfos.cpp], CvCity::getEspionageHealthCounter [CvCity.cpp], CvEspionageMissionInfo::getCityUnhappinessCounter [CvInfos.cpp], CvCity::getEspionageHappinessCounter [CvCity.cpp], CvEspionageMissionInfo::getCityRevoltCounter [CvInfos.cpp], CvCity::getOccupationTimer [CvCity.cpp], CvEspionageMissionInfo::getCounterespionageMod [CvInfos.cpp], CvTeam::getCounterespionageTurnsLeftAgainstTeam [CvTeam.cpp], CvGameSpeedInfo::getResearchPercent [CvInfos.cpp], CvEspionageMissionInfo::getPlayerAnarchyCounter [CvInfos.cpp], CvPlayer::isAnarchy, CvEspionageMissionInfo::isPassive [CvInfos.cpp], CvTeam::getEspionagePointsAgainstTeam [CvTeam.cpp]
   - called by (2): CvGameTextMgr::setEspionageCostHelp, CvPlayer::getEspionageMissionCost
-- **15991** `CvPlayer::getEspionageMissionCostModifier(EspionageMissionTypes, PlayerTypes, CvPlot const*, int, CvUnit const*) const`
+- **15994** `CvPlayer::getEspionageMissionCostModifier(EspionageMissionTypes, PlayerTypes, CvPlot const*, int, CvUnit const*) const`
   - calls: CvGlobals::getEspionageMissionInfo(EspionageMissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlot::getPlotCity [CvPlot.cpp], CvPlayer::getID, CvEspionageMissionInfo::isTargetsCity [CvInfos.cpp], CvCity::getPopulation [CvCity.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvCity::isTradeRoute [CvCity.cpp], CvPlayer::getStateReligion, CvCity::isHasReligion [CvCity.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::hasHolyCity(ReligionTypes) const, CvCity::getCultureTimes100 [CvCity.cpp], CvCity::getEspionageDefenseModifier [CvCity.cpp], CvGlobals::getMap [CvGlobals.cpp], CvMap::maxPlotDistance [CvMap.cpp], CvPlayer::getCapitalCity, CvEspionageMissionInfo::isSelectPlot [CvInfos.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvGlobals::getMapINLINE [CvGlobals.h], CvUnit::getFortifyTurns [CvUnit.cpp], CvUnit::getUpgradeDiscount [CvUnit.cpp], CvPlayer::getTeam, CvTeam::getEspionagePointsEver [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::getCounterespionageModAgainstTeam [CvTeam.cpp]
   - called by (1): CvPlayer::getEspionageMissionCost
-- **16106** `CvPlayer::doEspionageMission(EspionageMissionTypes, PlayerTypes, CvPlot*, int, CvUnit*)`
+- **16109** `CvPlayer::doEspionageMission(EspionageMissionTypes, PlayerTypes, CvPlot*, int, CvUnit*)`
   - calls: CvPlayer::canDoEspionageMission, CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvGlobals::getEspionageMissionInfo(EspionageMissionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvWString::CvWString() [CvString.h], CvPlayer::getEspionageMissionCost, CvEspionageMissionInfo::isDestroyImprovement [CvInfos.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::findCity [CvMap.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::getImprovementType [CvPlot.cpp], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvInfoBase::getDescription [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h], CvImprovementInfo::getImprovementPillage [CvInfos.cpp], CvPlot::setImprovementType [CvPlot.cpp], CvPlot::getRouteType [CvPlot.cpp], CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvPlot::setRouteType [CvPlot.cpp], CvUnit::isAmphib [CvUnit.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlot::setFeatureType [CvPlot.cpp], CvEspionageMissionInfo::getDestroyBuildingCostFactor [CvInfos.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvCity::setNumRealBuilding [CvCity.cpp], CvEspionageMissionInfo::getDestroyProjectCostFactor [CvInfos.cpp], CvGlobals::getProjectInfo(ProjectTypes) [CvGlobals.cpp], CvTeam::changeProjectCount [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvEspionageMissionInfo::getDestroyProductionCostFactor [CvInfos.cpp], CvCity::getProductionName [CvCity.cpp], CvWString::operator=(CvWString const&) [CvString.h], CvCity::setProduction [CvCity.cpp], CvEspionageMissionInfo::getDestroyUnitCostFactor [CvInfos.cpp], CvUnit::canAssassin [CvUnit.cpp], CvCity::changeFreeSpecialistCount [CvCity.cpp], CvGlobals::getSpecialistInfo(SpecialistTypes) [CvGlobals.cpp], CvEspionageMissionInfo::getBuyUnitCostFactor [CvInfos.cpp], CvUnit::canBribe [CvUnit.cpp], CvPlayer::getID, CvPlot::plotCheck [CvPlot.cpp], CvPlot::getNumUnits [CvPlot.cpp], CvPlot::getUnitByIndex [CvPlot.cpp], CvUnit::AI_getUnitAIType [CvUnit.h] ⇢ CvUnitAI::AI_getUnitAIType, CvUnit::getTeam [CvUnit.cpp], CvUnit::getNameKey [CvUnit.cpp], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::getUnitType [CvUnit.cpp], CvUnit::kill [CvUnit.cpp], CvPlayer::initUnit, CvPlayer::getCapitalCity, CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvUnit::setXY [CvUnit.cpp], CvUnit::finishMoves [CvUnit.cpp], CvEspionageMissionInfo::getBuyCityCostFactor [CvInfos.cpp], CvPlayer::acquireCity, CvEspionageMissionInfo::getCityInsertCultureCostFactor [CvInfos.cpp], CvCity::countTotalCultureTimes100 [CvCity.cpp], CvEspionageMissionInfo::getCityInsertCultureAmountFactor [CvInfos.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getUnitGreatWorkPercent [CvInfos.cpp], CvCity::changeCulture [CvCity.cpp], CvEspionageMissionInfo::getCityPoisonWaterCounter [CvInfos.cpp], CvCity::changeEspionageHealthCounter [CvCity.cpp], CvUnit::getExtraFriendlyHeal [CvUnit.cpp], CvEspionageMissionInfo::getCityUnhappinessCounter [CvInfos.cpp], CvCity::changeEspionageHappinessCounter [CvCity.cpp], CvUnit::getExtraEnemyHeal [CvUnit.cpp], CvEspionageMissionInfo::getCityRevoltCounter [CvInfos.cpp], CvCity::changeCultureUpdateTimer [CvCity.cpp], CvUnit::getExtraNeutralHeal [CvUnit.cpp], CvCity::changeOccupationTimer [CvCity.cpp], logBBAI [BetterBTSAI.cpp], CvCity::getName [CvCity.cpp], CvCity::getOwner [CvCity.cpp], CvPlayer::getCivilizationDescription, CvEspionageMissionInfo::getStealTreasuryTypes [CvInfos.cpp], CvPlayer::getGold, CvCity::getPopulation [CvCity.cpp], CvPlayer::getTotalPopulation, CvPlayer::changeGold, CvEspionageMissionInfo::getBuyTechCostFactor [CvInfos.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvTeam::setHasTech [CvTeam.cpp], CvTeam::setNoTradeTech [CvTeam.cpp], CvEspionageMissionInfo::getSwitchCivicCostFactor [CvInfos.cpp], CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvCivicInfo::getCivicOptionType [CvInfos.cpp], CvPlayer::setCivics, CvPlayer::getAnarchyModifier, CvPlayer::setRevolutionTimer, CvEspionageMissionInfo::getSwitchReligionCostFactor [CvInfos.cpp], CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp], CvPlayer::setLastStateReligion, CvPlayer::setConversionTimer, CvEspionageMissionInfo::getPlayerAnarchyCounter [CvInfos.cpp], CvGameSpeedInfo::getAnarchyPercent [CvInfos.cpp], CvPlayer::changeAnarchyTurns, CvEspionageMissionInfo::getCounterespionageNumTurns [CvInfos.cpp], CvEspionageMissionInfo::getCounterespionageMod [CvInfos.cpp], CvGameSpeedInfo::getResearchPercent [CvInfos.cpp], CvTeam::changeCounterespionageTurnsLeftAgainstTeam [CvTeam.cpp], CvTeam::changeCounterespionageModAgainstTeam [CvTeam.cpp], CvUnit::currInterceptionProbability [CvUnit.cpp], CvTeam::getEspionagePointsAgainstTeam [CvTeam.cpp], CvTeam::changeEspionagePointsAgainstTeam [CvTeam.cpp], CvGame::getActiveTeam [CvGame.cpp], CvGlobals::getGame [CvGlobals.cpp], CvPlot::isVisible [CvPlot.cpp], CvGlobals::getEntityEventInfo(EntityEventTypes) [CvGlobals.cpp], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvEntityEventInfo::getEffectType [CvInfos.cpp], CvMissionInfo::getEntityEvent [CvInfos.cpp], CvDLLEngineIFaceBase::TriggerEffect [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getASyncRand [CvGlobals.cpp], CvPlot::getPoint [CvPlot.cpp], CvRandom::get [CvRandom.cpp], CvDLLInterfaceIFaceBase::playGeneralSound [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getInterfaceArtInfo(char const*) const [CvArtFileMgr.cpp], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvAssetInfoBase::getPath [CvInfos.cpp], CvGame::getActivePlayer [CvGame.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvPopupInfo::setText [CvPopupInfo.cpp], CvWString::operator unsigned short const * [CvString.h], CvPlayer::addPopup, CvWString::CvWString(CvWString const&) [CvString.h], operator delete(void*) [CvGameCoreDLL.cpp]
   - takes the address of: PUF_isOtherTeam [CvGameCoreUtils.cpp], PUF_isVisible [CvGameCoreUtils.cpp]
   - called by (2): CvUnit::espionage, CyPlayer::doEspionageMission
-- **16701** `CvPlayer::getEspionageSpendingWeightAgainstTeam(TeamTypes) const`
+- **16704** `CvPlayer::getEspionageSpendingWeightAgainstTeam(TeamTypes) const`
   - called by (4): CvPlayer::changeEspionageSpendingWeightAgainstTeam, CvPlayer::getEspionageSpending, CvPlayer::setEspionageSpendingWeightAgainstTeam, CyPlayer::getEspionageSpendingWeightAgainstTeam
-- **16708** `CvPlayer::setEspionageSpendingWeightAgainstTeam(TeamTypes, int)`
+- **16711** `CvPlayer::setEspionageSpendingWeightAgainstTeam(TeamTypes, int)`
   - calls: CvPlayer::getEspionageSpendingWeightAgainstTeam, CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (4): CvPlayer::changeEspionageSpendingWeightAgainstTeam, CvPlayer::reset, CvPlayerAI::AI_doCommerce, CyPlayer::setEspionageSpendingWeightAgainstTeam
-- **16724** `CvPlayer::changeEspionageSpendingWeightAgainstTeam(TeamTypes, int)` (exported)
+- **16727** `CvPlayer::changeEspionageSpendingWeightAgainstTeam(TeamTypes, int)` (exported)
   - calls: CvPlayer::getEspionageSpendingWeightAgainstTeam, CvPlayer::setEspionageSpendingWeightAgainstTeam
   - called by (2): CvNetEspionageChange::Execute, CyPlayer::changeEspionageSpendingWeightAgainstTeam
-- **16732** `CvPlayer::doAdvancedStartAction(AdvancedStartActionTypes, int, int, int, bool)` (exported)
+- **16735** `CvPlayer::doAdvancedStartAction(AdvancedStartActionTypes, int, int, int, bool)` (exported)
   - calls: CvPlayer::getAdvancedStartPoints, CvGlobals::getMap [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMap::plot [CvMap.cpp], CvPlayer::getNumCities, CvGame::getActivePlayer [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::setBusy [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::AI_doAdvancedStart [CvPlayer.h] ⇢ CvPlayerAI::AI_doAdvancedStart, CvPlayer::changeGold, CvPlayer::setAdvancedStartPoints, CvDLLInterfaceIFaceBase::setInAdvancedStart [CvDLLInterfaceIFaceBase.h], CvPlayer::isHuman, CvPlayer::firstCity, CvPlayer::nextCity, CvCity::chooseProduction [CvCity.cpp], CvPlayer::chooseTech, CvWString::CvWString(char const*) [CvString.h], CvPlayer::canRevolution, operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvDLLInterfaceIFaceBase::addPopup [CvDLLInterfaceIFaceBase.h], CvPlayer::getAdvancedStartUnitCost, CvPlayer::initUnit, CvUnit::finishMoves [CvUnit.cpp], CvPlayer::changeAdvancedStartPoints, CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getUnitType [CvUnit.cpp], CvUnit::kill [CvUnit.cpp], CvDLLInterfaceIFaceBase::setDirty [CvDLLInterfaceIFaceBase.h], CvPlayer::getAdvancedStartCityCost, CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive, CvPlayer::getTeam, CvPlayer::getStartingPlot, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlayer::setStartingPlot, CvPlayer::found, CvGame::updateColoredPlots [CvGameInterface.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getPopulation [CvCity.cpp], CvCity::growthThreshold [CvCity.cpp], CvCity::setFood [CvCity.cpp], CvPlot::setRouteType [CvPlot.cpp], CvCity::kill [CvCity.cpp], CvPlot::setImprovementType [CvPlot.cpp], CvPlayer::getAdvancedStartPopCost, CvCity::changePopulation [CvCity.cpp], CvCity::setHighestPopulation [CvCity.cpp], CvCity::setFoodKept [CvCity.cpp], CvCity::getFood [CvCity.cpp], CvCity::getMaxFoodKeptPercent [CvCity.cpp], CvPlayer::getAdvancedStartCultureCost, CvCity::setCulture [CvCity.cpp], CvCity::getCultureThreshold() const [CvCity.cpp], CvCity::getCultureLevel [CvCity.cpp], CvCity::getCultureThreshold(CultureLevelTypes) [CvCity.cpp], CvPlayer::getAdvancedStartBuildingCost, CvCity::getNumRealBuilding [CvCity.cpp], CvCity::setNumRealBuilding [CvCity.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getFoodKept [CvInfos.cpp], CvPlayer::getAdvancedStartRouteCost, CvPlot::getRouteType [CvPlot.cpp], CvPlayer::getAdvancedStartImprovementCost, CvPlot::getFeatureType [CvPlot.cpp], CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getImprovement [CvInfos.cpp], CvBuildInfo::isFeatureRemove [CvInfos.cpp], CvPlayer::canBuild, CvPlot::setFeatureType [CvPlot.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvPlayer::getAdvancedStartTechCost, CvTeam::setHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::getAdvancedStartVisibilityCost, CvPlot::setRevealed [CvPlot.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (7): CvNetAdvancedStartAction::Execute, CvPlayerAI::AI_advancedStartDoRoute, CvPlayerAI::AI_advancedStartPlaceCity, CvPlayerAI::AI_advancedStartPlaceExploreUnits, CvPlayerAI::AI_advancedStartRevealRadius, CvPlayerAI::AI_advancedStartRouteTerritory, CvPlayerAI::AI_doAdvancedStart
-- **17273** `CvPlayer::getAdvancedStartUnitCost(UnitTypes, bool, CvPlot*) const` (exported)
+- **17276** `CvPlayer::getAdvancedStartUnitCost(UnitTypes, bool, CvPlot*) const` (exported)
   - calls: CvPlayer::getNumCities, CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getAdvancedStartCost [CvInfos.cpp], CvPlayer::getProductionNeeded(UnitTypes) const, CvPlayer::firstCity, CvPlayer::nextCity, CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const [CvCity.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getID, CvCity::getProductionModifier(UnitTypes) const [CvCity.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvPlayer::getProductionModifier(UnitTypes) const, CvUnitInfo::isMilitarySupport [CvInfos.cpp], CvPlayer::getNumMilitaryUnits, CvPlot::canTrain [CvPlot.cpp], CvUnitInfo::isCanMoveImpassable [CvInfos.cpp], CvPlot::isImpassable [CvPlot.cpp], CvPlot::getFeatureType [CvPlot.cpp], CvUnitInfo::getFeatureImpassable [CvInfos.cpp], CvUnitInfo::getFeaturePassableTech [CvInfos.cpp], CvPlayer::getTeam, CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvUnitInfo::getTerrainImpassable [CvInfos.cpp], CvPlot::getTerrainType [CvPlot.cpp], CvUnitInfo::getTerrainPassableTech [CvInfos.cpp], CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode [CvPlot.cpp], CvUnit::getUnitType [CvUnit.cpp], CvUnitInfo::getAdvancedStartCostIncrease [CvInfos.cpp], CvPlayer::firstUnit, CvPlayer::nextUnit
   - called by (5): CvGameTextMgr::getUnitDataForAS, CvPlayer::doAdvancedStartAction, CvPlayerAI::AI_bestAdvancedStartUnitAI, CvPlayerAI::AI_doAdvancedStart, CyPlayer::getAdvancedStartUnitCost
-- **17446** `CvPlayer::getAdvancedStartCityCost(bool, CvPlot*) const` (exported)
+- **17449** `CvPlayer::getAdvancedStartCityCost(bool, CvPlot*) const` (exported)
   - calls: CvPlayer::getNumCities, CvPlayer::getNewCityProductionValue, CvPlayer::canFound, CvPlot::getX [CvPlot.cpp], CvPlot::getY [CvPlot.cpp], CvPlot::isCity [CvPlot.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getID, CvPlot::getPlotCity [CvPlot.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive, CvPlayer::getStartingPlot, plotDistance [CvGameCoreUtils.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlayer::getTeam
   - called by (6): CvGame::updateColoredPlots, CvGameTextMgr::getCityDataForAS, CvPlayer::doAdvancedStartAction, CvPlayerAI::AI_advancedStartFindCapitalPlot, CvPlayerAI::AI_doAdvancedStart, CyPlayer::getAdvancedStartCityCost
-- **17548** `CvPlayer::getAdvancedStartPopCost(bool, CvCity*) const` (exported)
+- **17551** `CvPlayer::getAdvancedStartPopCost(bool, CvCity*) const` (exported)
   - calls: CvPlayer::getNumCities, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getGrowthThreshold, CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getID, CvCity::getPopulation [CvCity.cpp], CvGame::getStartEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvEraInfo::getFreePopulation [CvInfos.cpp]
   - called by (5): CvGameTextMgr::getCityDataForAS, CvPlayer::doAdvancedStartAction, CvPlayerAI::AI_advancedStartPlaceCity, CvPlayerAI::AI_doAdvancedStart, CyPlayer::getAdvancedStartPopCost
-- **17599** `CvPlayer::getAdvancedStartCultureCost(bool, CvCity*) const` (exported)
+- **17602** `CvPlayer::getAdvancedStartCultureCost(bool, CvCity*) const` (exported)
   - calls: CvPlayer::getNumCities, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getID, CvCity::getCultureLevel [CvCity.cpp], CvCity::getCulture [CvCity.cpp], CvCity::getCultureThreshold(CultureLevelTypes) [CvCity.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getHurryPercent [CvInfos.cpp]
   - called by (3): CvGameTextMgr::getCityDataForAS, CvPlayer::doAdvancedStartAction, CyPlayer::getAdvancedStartCultureCost
-- **17649** `CvPlayer::getAdvancedStartBuildingCost(BuildingTypes, bool, CvCity*) const` (exported)
+- **17652** `CvPlayer::getAdvancedStartBuildingCost(BuildingTypes, bool, CvCity*) const` (exported)
   - calls: CvPlayer::getNumCities, CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildingInfo::getAdvancedStartCost [CvInfos.cpp], CvPlayer::getProductionNeeded(BuildingTypes) const, CvGame::getStartEra [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvBuildingInfo::getFreeStartEra [CvInfos.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::canConstruct [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getID, CvCity::getProductionModifier(BuildingTypes) const [CvCity.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvCity::getNumBuilding [CvCity.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvBuildingInfo::isBuildingClassNeededInCity [CvInfos.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationBuildings [CvInfos.cpp], CvPlayer::getCivilizationType, CvBuildingInfo::getAdvancedStartCostIncrease [CvInfos.cpp], CvPlayer::countNumBuildings
   - called by (4): CvGameTextMgr::getCityDataForAS, CvPlayer::doAdvancedStartAction, CvPlayerAI::AI_doAdvancedStart, CyPlayer::getAdvancedStartBuildingCost
-- **17765** `CvPlayer::getAdvancedStartRouteCost(RouteTypes, bool, CvPlot*) const` (exported)
+- **17768** `CvPlayer::getAdvancedStartRouteCost(RouteTypes, bool, CvPlot*) const` (exported)
   - calls: CvPlayer::getNumCities, CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvRouteInfo::getAdvancedStartCost [CvInfos.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getBuildPercent [CvInfos.cpp], CvPlot::isCity [CvPlot.cpp], CvPlot::isImpassable [CvPlot.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::getRouteType [CvPlot.cpp], CvPlayer::getID, CvPlot::getOwnerINLINE [CvPlot.h], CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getRoute [CvInfos.cpp], CvBuildInfo::getTechPrereq [CvInfos.cpp], CvPlayer::getTeam, CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvRouteInfo::getAdvancedStartCostIncrease [CvInfos.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlots [CvMap.cpp], CvMap::plotByIndex [CvMap.cpp]
   - called by (5): CvGameTextMgr::getImprovementDataForAS, CvPlayer::doAdvancedStartAction, CvPlayerAI::AI_advancedStartDoRoute, CvPlayerAI::AI_bestAdvancedStartRoute, CyPlayer::getAdvancedStartRouteCost
-- **17873** `CvPlayer::getAdvancedStartImprovementCost(ImprovementTypes, bool, CvPlot*) const` (exported)
+- **17876** `CvPlayer::getAdvancedStartImprovementCost(ImprovementTypes, bool, CvPlot*) const` (exported)
   - calls: CvPlayer::getNumCities, CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::getAdvancedStartCost [CvInfos.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getBuildPercent [CvInfos.cpp], CvPlayer::getTeam, CvPlot::canHaveImprovement [CvPlot.cpp], CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvBuildInfo::getImprovement [CvInfos.cpp], CvPlayer::canBuild, CvPlot::getFeatureType [CvPlot.cpp], CvBuildInfo::isFeatureRemove [CvInfos.cpp], CvGlobals::getFeatureInfo(FeatureTypes) [CvGlobals.cpp], CvFeatureInfo::getAdvancedStartRemoveCost [CvInfos.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvPlayer::getID, CvPlot::getOwnerINLINE [CvPlot.h], CvBuildInfo::getTechPrereq [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvImprovementInfo::getAdvancedStartCostIncrease [CvInfos.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlots [CvMap.cpp], CvMap::plotByIndex [CvMap.cpp]
   - called by (3): CvGameTextMgr::getImprovementDataForAS, CvPlayer::doAdvancedStartAction, CyPlayer::getAdvancedStartImprovementCost
-- **18003** `CvPlayer::getAdvancedStartTechCost(TechTypes, bool) const` (exported)
+- **18006** `CvPlayer::getAdvancedStartTechCost(TechTypes, bool) const` (exported)
   - calls: CvPlayer::getNumCities, CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTechInfo::getAdvancedStartCost [CvInfos.cpp], CvPlayer::getTeam, CvTeam::getResearchCost [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::canResearch, CvTeam::isHasTech [CvTeam.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getNUM_OR_TECH_PREREQS [CvGlobals.cpp], CvTechInfo::getPrereqOrTechs [CvInfos.cpp], CvGlobals::getNUM_AND_TECH_PREREQS [CvGlobals.cpp], CvTechInfo::getPrereqAndTechs [CvInfos.cpp], CvPlayer::firstUnit, CvPlayer::nextUnit, CvUnitInfo::getPrereqAndTech [CvInfos.cpp], CvUnit::getUnitInfo [CvUnit.cpp], CvGlobals::getNUM_UNIT_AND_TECH_PREREQS [CvGlobals.cpp], CvUnitInfo::getPrereqAndTechs [CvInfos.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvCity::getNumRealBuilding [CvCity.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getPrereqAndTech [CvInfos.cpp], CvGlobals::getNUM_BUILDING_AND_TECH_PREREQS [CvGlobals.cpp], CvBuildingInfo::getPrereqAndTechs [CvInfos.cpp], CvTechInfo::getAdvancedStartCostIncrease [CvInfos.cpp]
   - called by (3): CvPlayer::doAdvancedStartAction, CvPlayerAI::AI_doAdvancedStart, CyPlayer::getAdvancedStartTechCost
-- **18146** `CvPlayer::getAdvancedStartVisibilityCost(bool, CvPlot*) const` (exported)
+- **18149** `CvPlayer::getAdvancedStartVisibilityCost(bool, CvPlot*) const` (exported)
   - calls: CvPlayer::getNumCities, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getTeam, CvPlot::isRevealed [CvPlot.cpp], CvPlot::isAdjacentRevealed [CvPlot.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlots [CvMap.cpp], CvMap::plotByIndex [CvMap.cpp]
   - called by (5): CvGameTextMgr::getVisibilityDataForAS, CvPlayer::doAdvancedStartAction, CvPlayerAI::AI_advancedStartRevealRadius, CvPlayerAI::AI_doAdvancedStart, CyPlayer::getAdvancedStartVisibilityCost
-- **18216** `CvPlayer::doWarnings()`
-  - calls: CvPlayer::firstUnit, CvPlayer::nextUnit, CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::updateEnemyGlow [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::isHuman, range(int, int, int) [CvGameCoreUtils.h], CvPlayer::getNumCities, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlayer::getID, CvPlot::isAdjacentPlayer [CvPlot.cpp], CvPlot::isCity [CvPlot.cpp], CvPlayer::getTeam, CvPlot::isVisible [CvPlot.cpp], CvPlot::getVisibleEnemyDefender [CvPlot.cpp], CvUnit::isAnimal [CvUnit.cpp], CvGame::getElapsedGameTurns [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], getBugOptionBOOL [CvBugOptions.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::isBarbarian [CvUnit.cpp], CvUnit::area [CvUnit.cpp], CvArea::isBorderObstacle [CvArea.cpp], CvMap::findCity [CvMap.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(unsigned short const*) [CvString.h], CvUnit::getButton [CvUnit.cpp]
+- **18219** `CvPlayer::doWarnings()`
+  - calls: CvPlayer::firstUnit, CvPlayer::nextUnit, CvDLLEntity::isGraphicsPagedOut [CvDLLEntity.h], CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::updateEnemyGlow [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::isHuman, range(int, int, int) [CvGameCoreUtils.h], CvPlayer::getNumCities, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlayer::getID, CvPlot::isAdjacentPlayer [CvPlot.cpp], CvPlot::isCity [CvPlot.cpp], CvPlayer::getTeam, CvPlot::isVisible [CvPlot.cpp], CvPlot::getVisibleEnemyDefender [CvPlot.cpp], CvUnit::isAnimal [CvUnit.cpp], CvGame::getElapsedGameTurns [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], getBugOptionBOOL [CvBugOptions.cpp], CvUnit::getDomainType [CvUnit.cpp], CvUnit::isBarbarian [CvUnit.cpp], CvUnit::area [CvUnit.cpp], CvArea::isBorderObstacle [CvArea.cpp], CvMap::findCity [CvMap.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvCity::getNameKey [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::GetCString [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(unsigned short const*) [CvString.h], CvUnit::getButton [CvUnit.cpp]
   - called by (1): CvPlayer::setTurnActive
-- **18295** `CvPlayer::verifyGoldCommercePercent()`
+- **18301** `CvPlayer::verifyGoldCommercePercent()`
   - calls: CvPlayer::calculateGoldRate, CvPlayer::getGold, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::changeCommercePercent, CvPlayer::getCommercePercent
   - called by (2): CvPlayer::doTurn, CvPlayerAI::AI_doCommerce
-- **18309** `CvPlayer::processCivics(CivicTypes, int)`
+- **18315** `CvPlayer::processCivics(CivicTypes, int)`
   - calls: CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCivicInfo::getGreatPeopleRateModifier [CvInfos.cpp], CvPlayer::changeGreatPeopleRateModifier, CvCivicInfo::getGreatGeneralRateModifier [CvInfos.cpp], CvPlayer::changeGreatGeneralRateModifier, CvCivicInfo::getDomesticGreatGeneralRateModifier [CvInfos.cpp], CvPlayer::changeDomesticGreatGeneralRateModifier, CvCivicInfo::getStateReligionGreatPeopleRateModifier [CvInfos.cpp], CvPlayer::changeStateReligionGreatPeopleRateModifier, CvCivicInfo::getDistanceMaintenanceModifier [CvInfos.cpp], CvPlayer::changeDistanceMaintenanceModifier, CvCivicInfo::getNumCitiesMaintenanceModifier [CvInfos.cpp], CvPlayer::changeNumCitiesMaintenanceModifier, CvCivicInfo::getCorporationMaintenanceModifier [CvInfos.cpp], CvPlayer::changeCorporationMaintenanceModifier, CvCivicInfo::getExtraHealth [CvInfos.cpp], CvPlayer::changeExtraHealth, CvCivicInfo::getFreeExperience [CvInfos.cpp], CvPlayer::changeFreeExperience, CvCivicInfo::getWorkerSpeedModifier [CvInfos.cpp], CvPlayer::changeWorkerSpeedModifier, CvCivicInfo::getImprovementUpgradeRateModifier [CvInfos.cpp], CvPlayer::changeImprovementUpgradeRateModifier, CvCivicInfo::getMilitaryProductionModifier [CvInfos.cpp], CvPlayer::changeMilitaryProductionModifier, CvCivicInfo::getBaseFreeUnits [CvInfos.cpp], CvPlayer::changeBaseFreeUnits, CvCivicInfo::getBaseFreeMilitaryUnits [CvInfos.cpp], CvPlayer::changeBaseFreeMilitaryUnits, CvCivicInfo::getFreeUnitsPopulationPercent [CvInfos.cpp], CvPlayer::changeFreeUnitsPopulationPercent, CvCivicInfo::getFreeMilitaryUnitsPopulationPercent [CvInfos.cpp], CvPlayer::changeFreeMilitaryUnitsPopulationPercent, CvCivicInfo::getGoldPerUnit [CvInfos.cpp], CvPlayer::changeGoldPerUnit, CvCivicInfo::getGoldPerMilitaryUnit [CvInfos.cpp], CvPlayer::changeGoldPerMilitaryUnit, CvCivicInfo::getHappyPerMilitaryUnit [CvInfos.cpp], CvPlayer::changeHappyPerMilitaryUnit, CvCivicInfo::isMilitaryFoodProduction [CvInfos.cpp], CvPlayer::changeMilitaryFoodProductionCount, getWorldSizeMaxConscript [CvGameCoreUtils.cpp], CvPlayer::changeMaxConscript, CvCivicInfo::isNoUnhealthyPopulation [CvInfos.cpp], CvPlayer::changeNoUnhealthyPopulationCount, CvCivicInfo::isBuildingOnlyHealthy [CvInfos.cpp], CvPlayer::changeBuildingOnlyHealthyCount, CvCivicInfo::getLargestCityHappiness [CvInfos.cpp], CvPlayer::changeLargestCityHappiness, CvCivicInfo::getWarWearinessModifier [CvInfos.cpp], CvPlayer::changeWarWearinessModifier, CvCivicInfo::getFreeSpecialist [CvInfos.cpp], CvPlayer::changeFreeSpecialist, CvCivicInfo::getTradeRoutes [CvInfos.cpp], CvPlayer::changeTradeRoutes, CvCivicInfo::isNoForeignTrade [CvInfos.cpp], CvPlayer::changeNoForeignTradeCount, CvCivicInfo::isNoCorporations [CvInfos.cpp], CvPlayer::changeNoCorporationsCount, CvCivicInfo::isNoForeignCorporations [CvInfos.cpp], CvPlayer::changeNoForeignCorporationsCount, CvCivicInfo::isStateReligion [CvInfos.cpp], CvPlayer::changeStateReligionCount, CvCivicInfo::isNoNonStateReligionSpread [CvInfos.cpp], CvPlayer::changeNoNonStateReligionSpreadCount, CvCivicInfo::getStateReligionHappiness [CvInfos.cpp], CvPlayer::changeStateReligionHappiness, CvCivicInfo::getNonStateReligionHappiness [CvInfos.cpp], CvPlayer::changeNonStateReligionHappiness, CvCivicInfo::getStateReligionUnitProductionModifier [CvInfos.cpp], CvPlayer::changeStateReligionUnitProductionModifier, CvCivicInfo::getStateReligionBuildingProductionModifier [CvInfos.cpp], CvPlayer::changeStateReligionBuildingProductionModifier, CvCivicInfo::getStateReligionFreeExperience [CvInfos.cpp], CvPlayer::changeStateReligionFreeExperience, CvCivicInfo::getExpInBorderModifier [CvInfos.cpp], CvPlayer::changeExpInBorderModifier, CvCivicInfo::isUpgradeAnywhere [CvInfos.cpp], CvPlayer::setUpgradeAnywhere, CvCivicInfo::getRevIdxNational [CvInfos.cpp], CvPlayer::changeRevIdxNational, CvCivicInfo::isAllowInquisitions [CvInfos.cpp], CvCivicInfo::isDisallowInquisitions [CvInfos.cpp], CvPlayer::setInquisitionConditions, CvCivicInfo::getYieldModifier [CvInfos.cpp], CvPlayer::changeYieldRateModifier, CvCivicInfo::getCapitalYieldModifier [CvInfos.cpp], CvPlayer::changeCapitalYieldRateModifier, CvCivicInfo::getTradeYieldModifier [CvInfos.cpp], CvPlayer::changeTradeYieldModifier, CvCivicInfo::getCommerceModifier [CvInfos.cpp], CvPlayer::changeCommerceRateModifier, CvCivicInfo::getCapitalCommerceModifier [CvInfos.cpp], CvPlayer::changeCapitalCommerceRateModifier, CvCivicInfo::getSpecialistExtraCommerce [CvInfos.cpp], CvPlayer::changeSpecialistExtraCommerce, CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationBuildings [CvInfos.cpp], CvPlayer::getCivilizationType, CvCivicInfo::getBuildingHappinessChanges [CvInfos.cpp], CvPlayer::changeExtraBuildingHappiness, CvCivicInfo::getBuildingHealthChanges [CvInfos.cpp], CvPlayer::changeExtraBuildingHealth, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvCivicInfo::getFeatureHappinessChanges [CvInfos.cpp], CvPlayer::changeFeatureHappiness, CvGlobals::getNumHurryInfos [CvGlobals.cpp], CvCivicInfo::isHurry [CvInfos.cpp], CvPlayer::changeHurryCount, CvGlobals::getNumSpecialBuildingInfos [CvGlobals.cpp], CvCivicInfo::isSpecialBuildingNotRequired [CvInfos.cpp], CvPlayer::changeSpecialBuildingNotRequiredCount, CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvCivicInfo::isSpecialistValid [CvInfos.cpp], CvPlayer::changeSpecialistValidCount, CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvCivicInfo::getImprovementYieldChanges [CvInfos.cpp], CvPlayer::changeImprovementYieldChange
   - called by (1): CvPlayer::setCivics
-- **18427** `CvPlayer::showMissedMessages()`
+- **18433** `CvPlayer::showMissedMessages()`
   - calls: CvTalkingHeadMessage::getShown [CvTalkingHeadMessage.cpp], CvTalkingHeadMessage::setShown [CvTalkingHeadMessage.cpp], CvDLLInterfaceIFaceBase::showMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvGame::setActivePlayer
-- **18442** `CvPlayer::isPbemNewTurn() const` (exported)
-- **18447** `CvPlayer::setPbemNewTurn(bool)` (exported)
-- **18458** `CvPlayer::read(FDataStreamBase*)` (virtual)
+- **18448** `CvPlayer::isPbemNewTurn() const` (exported)
+- **18453** `CvPlayer::setPbemNewTurn(bool)` (exported)
+- **18464** `CvPlayer::read(FDataStreamBase*)` (virtual)
   - calls: CvPlayer::reset, FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], CvPlayer::updateTeamType, CvPlayer::updateHuman, CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getNumHurryInfos [CvGlobals.cpp], CvGlobals::getNumSpecialBuildingInfos [CvGlobals.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getNumUpkeepInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getNumVoteSourceInfos [CvGlobals.cpp], CLinkList<int>::Read [LinkedList.h], CLinkList<TechTypes>::Read [LinkedList.h], CLinkList<CvWString>::clear [LinkedList.h], CvWString::CvWString() [CvString.h], CLinkList<CvWString>::insertAtEnd [LinkedList.h], CvWString::~CvWString [CvString.h], ReadStreamableFFreeListTrashArray<class CvPlotGroup> [FFreeListTrashArray.h], ReadStreamableFFreeListTrashArray<class CvCityAI> [FFreeListTrashArray.h], ReadStreamableFFreeListTrashArray<class CvUnitAI> [FFreeListTrashArray.h], ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI> [FFreeListTrashArray.h], ReadStreamableFFreeListTrashArray<struct EventTriggeredData> [FFreeListTrashArray.h], CvTalkingHeadMessage::CvTalkingHeadMessage [CvTalkingHeadMessage.cpp], CvTalkingHeadMessage::read [CvTalkingHeadMessage.cpp], CvTalkingHeadMessage::~CvTalkingHeadMessage [CvTalkingHeadMessage.cpp], CvPlayer::clearPopups, operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvPopupInfo::read [CvPopupInfo.cpp], CvPlayer::clearDiplomacy, CvDiploParameters::CvDiploParameters [CvDiploParameters.cpp], CvDiploParameters::read [CvDiploParameters.cpp], EventTriggeredData::read [CvStructs.cpp], EventTriggeredData::~EventTriggeredData, CvGlobals::getNumEventTriggerInfos [CvGlobals.cpp], CvPlayer::isBarbarian, CvDLLUtilityIFaceBase::getAssignedNetworkID [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::setNetID, CvPlayer::getID, CvGame::isOption [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::getCommerceRateTimes100 [CvCity.cpp], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CvPlayerAI::read
-- **19013** `CvPlayer::write(FDataStreamBase*)` (virtual)
+- **19019** `CvPlayer::write(FDataStreamBase*)` (virtual)
   - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGame::isPbem [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getNumHurryInfos [CvGlobals.cpp], CvGlobals::getNumSpecialBuildingInfos [CvGlobals.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getNumUpkeepInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getNumVoteSourceInfos [CvGlobals.cpp], CLinkList<int>::Write [LinkedList.h], CLinkList<TechTypes>::Write [LinkedList.h], CLinkList<CvWString>::getLength [LinkedList.h], CLinkList<CvWString>::head [LinkedList.h], CLinkList<CvWString>::next [LinkedList.h], WriteStreamableFFreeListTrashArray<class CvPlotGroup> [FFreeListTrashArray.h], WriteStreamableFFreeListTrashArray<class CvCityAI> [FFreeListTrashArray.h], WriteStreamableFFreeListTrashArray<class CvUnitAI> [FFreeListTrashArray.h], WriteStreamableFFreeListTrashArray<class CvSelectionGroupAI> [FFreeListTrashArray.h], WriteStreamableFFreeListTrashArray<struct EventTriggeredData> [FFreeListTrashArray.h], CvTalkingHeadMessage::write [CvTalkingHeadMessage.cpp], CvGame::isNetworkMultiPlayer [CvGame.cpp], CvDLLInterfaceIFaceBase::getDisplayedButtonPopups [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPopupInfo::write [CvPopupInfo.cpp], CvDiploParameters::write [CvDiploParameters.cpp], EventTriggeredData::write [CvStructs.cpp]
   - called by (1): CvPlayerAI::write
-- **19499** `CvPlayer::createGreatPeople(UnitTypes, bool, bool, int, int)`
+- **19505** `CvPlayer::createGreatPeople(UnitTypes, bool, bool, int, int)`
   - calls: CvPlayer::initUnit, CvPlayer::incrementGreatPeopleCreated, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getGreatPeopleCreated, CvPlayer::changeGreatPeopleThresholdModifier, CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::incrementGreatGeneralsCreated, CvPlayer::getGreatGeneralsCreated, CvPlayer::changeGreatGeneralsThresholdModifier, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plot [CvMap.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvWString::CvWString() [CvString.h], CvCity::getName [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getName, CvWString::~CvWString [CvString.h], CvWString::Format [CvString.h], CvWString::GetCString [CvString.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(char const*) [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvUnit::getName [CvUnit.cpp], CvGame::addReplayMessage [CvGame.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CvWString::CvWString(CvWString const&) [CvString.h], CvPlayer::isAlive, CvPlot::isRevealed [CvPlot.cpp], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvUnit::getButton [CvUnit.cpp], CvEventReporter::getInstance [CvEventReporter.cpp], CvEventReporter::greatPersonBorn [CvEventReporter.cpp]
   - called by (2): CvCity::createGreatPeople, CyPlayer::createGreatPeople
-- **19583** `CvPlayer::getEventOccured(EventTypes) const`
+- **19589** `CvPlayer::getEventOccured(EventTypes) const`
   - called by (4): CvPlayer::getEventTriggerWeight, CvPlayer::initInGame, CvPlot::canTrigger, CyPlayer::getEventOccured
-- **19597** `CvPlayer::isTriggerFired(EventTriggerTypes) const`
+- **19603** `CvPlayer::isTriggerFired(EventTriggerTypes) const`
   - called by (3): CvPlayer::canDoEvent, CvPlayer::getEventTriggerWeight, CvPlayer::setTriggerFired
-- **19602** `CvPlayer::resetEventOccured(EventTypes, bool)`
+- **19608** `CvPlayer::resetEventOccured(EventTypes, bool)`
   - calls: CvPlayer::expireEvent
   - called by (5): CvPlayer::applyEvent, CvPlayer::init, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects, CyPlayer::resetEventOccured
-- **19615** `CvPlayer::setEventOccured(EventTypes, EventTriggeredData const&, bool)`
+- **19621** `CvPlayer::setEventOccured(EventTypes, EventTriggeredData const&, bool)`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::isQuest [CvInfos.cpp], CvWStringBuffer::CvWStringBuffer [CvString.h], CvInfoBase::getDescription [CvInfos.cpp], CvWStringBuffer::append(unsigned short const*) [CvString.h], CvGameTextMgr::setEventHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvPlayer::getID, EventTriggeredData::getID [CvStructs.cpp], CvDLLInterfaceIFaceBase::addQuestMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWStringBuffer::getCString [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWStringBuffer::~CvWStringBuffer [CvString.h], CvEventInfo::isGlobal [CvInfos.cpp], CvPlayer::setEventOccured, CvPlayerAI::getPlayer [CvPlayerAI.h], CvEventInfo::isTeam [CvInfos.cpp], CvPlayer::getTeam, CvWString::~CvWString [CvString.h]
   - called by (2): CvPlayer::applyEvent, CvPlayer::setEventOccured
-- **19655** `CvPlayer::getEventCountdown(EventTypes) const`
+- **19661** `CvPlayer::getEventCountdown(EventTypes) const`
   - called by (2): CvPlayer::applyEvent, CvPlayer::doEvents
-- **19669** `CvPlayer::setEventCountdown(EventTypes, EventTriggeredData const&)`
+- **19675** `CvPlayer::setEventCountdown(EventTypes, EventTriggeredData const&)`
   - called by (1): CvPlayer::applyEvent
-- **19676** `CvPlayer::resetEventCountdown(EventTypes)`
+- **19682** `CvPlayer::resetEventCountdown(EventTypes)`
   - called by (1): CvPlayer::doEvents
-- **19689** `CvPlayer::resetTriggerFired(EventTriggerTypes)`
+- **19695** `CvPlayer::resetTriggerFired(EventTriggerTypes)`
   - called by (3): CvPlayer::init, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects
-- **19699** `CvPlayer::setTriggerFired(EventTriggeredData const&, bool, bool)`
+- **19705** `CvPlayer::setTriggerFired(EventTriggeredData const&, bool, bool)`
   - calls: CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::isTriggerFired, CvEventTriggerInfo::isGlobal [CvInfos.cpp], CvPlayer::getID, CvPlayer::setTriggerFired, CvPlayerAI::getPlayer [CvPlayerAI.h], CvEventTriggerInfo::isTeam [CvInfos.cpp], CvPlayer::getTeam, CvEventTriggerInfo::getPythonCallback [CvInfos.cpp], CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CyArgsList::CyArgsList [CyArgsList.h], CvDLLPythonIFaceBase::makePythonObject<struct EventTriggeredData const> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void*) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plot [CvMap.cpp], CvPlayer::isAlive, CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvEventTriggerInfo::isShowPlot [CvInfos.cpp], CvPlot::isRevealed [CvPlot.cpp], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (3): CvPlayer::applyEvent, CvPlayer::initInGame, CvPlayer::setTriggerFired
-- **19809** `CvPlayer::initTriggeredData(EventTriggerTypes, bool, int, int, int, PlayerTypes, int, ReligionTypes, CorporationTypes, int, BuildingTypes)`
+- **19815** `CvPlayer::initTriggeredData(EventTriggerTypes, bool, int, int, int, PlayerTypes, int, ReligionTypes, CorporationTypes, int, BuildingTypes)`
   - calls: CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getCity, CvPlayerAI::getPlayer [CvPlayerAI.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plot [CvMap.cpp], CvPlayer::getUnit, isPlotEventTrigger [CvGameCoreUtils.cpp], CvEventTriggerInfo::isPickCity [CvInfos.cpp], CvPlayer::pickTriggerCity, CvCity::getCityIndexPlot [CvCity.cpp], CvPlayer::getID, CvPlot::canTrigger [CvPlot.cpp], CvEventTriggerInfo::getNumBuildingsRequired [CvInfos.cpp], CvEventTriggerInfo::getNumBuildings [CvInfos.cpp], CvEventTriggerInfo::getBuildingRequired [CvInfos.cpp], CvPlayer::getBuildingClassCount, CvEventTriggerInfo::getNumReligions [CvInfos.cpp], CvEventTriggerInfo::getNumReligionsRequired [CvInfos.cpp], CvEventTriggerInfo::getReligionRequired [CvInfos.cpp], CvPlayer::getHasReligionCount, CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvEventTriggerInfo::getNumCorporations [CvInfos.cpp], CvEventTriggerInfo::getNumCorporationsRequired [CvInfos.cpp], CvEventTriggerInfo::getCorporationRequired [CvInfos.cpp], CvPlayer::getHasCorporationCount, CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvEventTriggerInfo::getMinPopulation [CvInfos.cpp], CvPlayer::getTotalPopulation, CvEventTriggerInfo::getMaxPopulation [CvInfos.cpp], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvEventTriggerInfo::isPickReligion [CvInfos.cpp], CvEventTriggerInfo::isStateReligion [CvInfos.cpp], CvPlayer::getStateReligion, CvPlayer::isValidTriggerReligion, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvEventTriggerInfo::isPickCorporation [CvInfos.cpp], CvPlayer::isValidTriggerCorporation, CvMap::findCity [CvMap.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvCity::plot [CvCity.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationBuildings [CvInfos.cpp], CvPlayer::getCivilizationType, CvCity::getNumRealBuilding [CvCity.cpp], CvPlayer::pickTriggerUnit, CvEventTriggerInfo::getNumUnits [CvInfos.cpp], CvUnit::plot [CvUnit.cpp], CvEventTriggerInfo::getNumUnitsGlobal [CvInfos.cpp], CvPlayer::isAlive, CvPlayer::firstUnit, CvPlayer::nextUnit, CvUnit::getTriggerValue [CvUnit.cpp], CvEventTriggerInfo::getNumBuildingsGlobal [CvInfos.cpp], CvEventTriggerInfo::isPickPlayer [CvInfos.cpp], CvPlayer::canTrigger, CvEventTriggerInfo::isPickOtherPlayerCity [CvInfos.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvPlayer::addEventTriggered, CvGame::getGameTurn [CvGame.cpp], CvCity::getID [CvCity.cpp], CvUnit::getID [CvUnit.cpp], CvEventTriggerInfo::getPythonCanDo [CvInfos.cpp], CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CyArgsList::CyArgsList [CyArgsList.h], CvDLLPythonIFaceBase::makePythonObject<struct EventTriggeredData> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void*) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvPlayer::deleteEventTriggered, EventTriggeredData::getID [CvStructs.cpp], CvEventTriggerInfo::getNumTexts [CvInfos.cpp], CvEventTriggerInfo::getTextEra [CvInfos.cpp], CvPlayer::getCurrentEra, CvEventTriggerInfo::getText [CvInfos.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvWString::GetCString [CvString.h], CvPlayer::getCivilizationAdjectiveKey, CvCity::getNameKey [CvCity.cpp], CvUnit::getNameKey [CvUnit.cpp], CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp], CvReligionInfo::getAdjectiveKey [CvInfos.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvGlobals::getTerrainInfo(TerrainTypes) [CvGlobals.cpp], CvPlot::getTerrainType [CvPlot.cpp], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvPlot::getBonusType [CvPlot.cpp], CvGlobals::getRouteInfo(RouteTypes) [CvGlobals.cpp], CvPlot::getRouteType [CvPlot.cpp], CvGlobals::getCorporationInfo(CorporationTypes) [CvGlobals.cpp], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h], CvEventTriggerInfo::getNumWorldNews [CvInfos.cpp], CvEventTriggerInfo::getWorldNews [CvInfos.cpp], CvPlayer::trigger(EventTriggeredData const&)
   - called by (3): CvPlayer::doEvents, CvPlayer::trigger(EventTriggerTypes), CyPlayer::initTriggeredData
-- **20323** `CvPlayer::canDoEvent(EventTypes, EventTriggeredData const&) const`
+- **20329** `CvPlayer::canDoEvent(EventTypes, EventTriggeredData const&) const`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getEventCost, CvEventInfo::isGoldToPlayer [CvInfos.cpp], CvPlayer::getGold, CvPlayerAI::getPlayer [CvPlayerAI.h], CvEventInfo::getSpaceProductionModifier [CvInfos.cpp], CvGlobals::getNumProjectInfos [CvGlobals.cpp], CvGlobals::getProjectInfo(ProjectTypes) [CvGlobals.cpp], CvProjectInfo::isSpaceship [CvInfos.cpp], CvProjectInfo::getVictoryPrereq [CvInfos.cpp], CvGame::isVictoryValid [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGame::isOption [CvGame.cpp], CvEventInfo::getEspionagePoints [CvInfos.cpp], CvPlayer::getTeam, CvTeam::getEspionagePointsAgainstTeam [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvEventInfo::getTechPercent [CvInfos.cpp], CvEventInfo::getTechCostPercent [CvInfos.cpp], CvPlayer::getBestEventTech, CvEventInfo::getPrereqTech [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvEventInfo::getBonusGift [CvInfos.cpp], CvPlayer::canTradeNetworkWith, CvPlayer::getNumAvailableBonuses, CvPlayer::getNumTradeableBonuses, CvEventInfo::getUnitClass [CvInfos.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationUnits [CvInfos.cpp], CvPlayer::getCivilizationType, CvEventInfo::isCityEffect [CvInfos.cpp], CvPlayer::getCity, CvCity::canApplyEvent [CvCity.cpp], CvEventInfo::isOtherPlayerCityEffect [CvInfos.cpp], isPlotEventTrigger [CvGameCoreUtils.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotINLINE [CvMap.h], CvPlot::canApplyEvent [CvPlot.cpp], CvPlayer::getUnit, CvUnit::canApplyEvent [CvUnit.cpp], CvEventInfo::getBonusRevealed [CvInfos.cpp], CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvBonusInfo::getTechReveal [CvInfos.cpp], CvTeam::isForceRevealedBonus [CvTeam.cpp], CvEventInfo::getConvertOwnCities [CvInfos.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::isHasReligion [CvCity.cpp], CvCity::getReligionCount [CvCity.cpp], CvEventInfo::getMaxNumReligions [CvInfos.cpp], CvEventInfo::getConvertOtherCities [CvInfos.cpp], CvEventInfo::getAttitudeModifier [CvInfos.cpp], CvPlayer::isHuman, CvEventInfo::getOurAttitudeModifier [CvInfos.cpp], CvEventInfo::getTheirEnemyAttitudeModifier [CvInfos.cpp], CvTeamAI::AI_getWorstEnemy [CvTeamAI.cpp], CvTeam::isAlive [CvTeam.cpp], CvEventInfo::isDeclareWar [CvInfos.cpp], CvTeam::canDeclareWar [CvTeam.cpp], CvEventInfo::isQuest [CvInfos.cpp], CvGlobals::getNumEventTriggerInfos [CvGlobals.cpp], CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvEventTriggerInfo::isRecurring [CvInfos.cpp], CvEventTriggerInfo::getNumPrereqEvents [CvInfos.cpp], CvEventTriggerInfo::getPrereqEvent [CvInfos.cpp], CvPlayer::isTriggerFired, CvEventInfo::getPythonCanDo [CvInfos.cpp], CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::makePythonObject<struct EventTriggeredData const> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void*) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp]
   - called by (4): CvDLLButtonPopup::launchEventPopup, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_chooseEvent
-- **20650** `CvPlayer::applyEvent(EventTypes, int, bool)` (exported)
+- **20656** `CvPlayer::applyEvent(EventTypes, int, bool)` (exported)
   - calls: CvPlayer::getEventTriggered, CvPlayer::deleteEventTriggered, CvPlayer::setTriggerFired, CvPlayer::canDoEvent, CvPlayer::setEventOccured, CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getCity, CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getEventCost, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::changeGold, CvEventInfo::isGoldToPlayer [CvInfos.cpp], CvEventInfo::getEspionagePoints [CvInfos.cpp], CvPlayer::getTeam, CvTeam::changeEspionagePointsAgainstTeam [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvEventInfo::getTechPercent [CvInfos.cpp], CvPlayer::getBestEventTech, CvPlayer::getID, CvTeam::changeResearchProgressPercent [CvTeam.cpp], CvPlayer::isAlive, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvWString::CvWString(char const*) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h], CvEventInfo::isGoldenAge [CvInfos.cpp], CvPlayer::changeGoldenAgeTurns, CvPlayer::getGoldenAgeLength, CvEventInfo::getInflationModifier [CvInfos.cpp], CvEventInfo::getSpaceProductionModifier [CvInfos.cpp], CvPlayer::changeSpaceProductionModifier, CvEventInfo::getFreeUnitSupport [CvInfos.cpp], CvPlayer::changeBaseFreeUnits, CvEventInfo::isDeclareWar [CvInfos.cpp], logBBAI [BetterBTSAI.cpp], CvPlayer::getCivilizationDescription, CvTeam::declareWar [CvTeam.cpp], CvEventInfo::getBonusGift [CvInfos.cpp], CLinkList<TradeData>::CLinkList<struct TradeData> [LinkedList.h], setTradeItem [CvGameCoreUtils.cpp], CLinkList<TradeData>::insertAtEnd [LinkedList.h], CvGame::implementDeal [CvGame.cpp], CLinkList<TradeData>::~CLinkList<struct TradeData> [LinkedList.h], CvGlobals::getNumEventInfos [CvGlobals.cpp], CvEventInfo::getClearEventChance [CvInfos.cpp], CvEventInfo::isGlobal [CvInfos.cpp], CvPlayer::resetEventOccured, CvEventInfo::isTeam [CvInfos.cpp], CvEventInfo::isCityEffect [CvInfos.cpp], CvCity::applyEvent [CvCity.cpp], CvEventInfo::isOtherPlayerCityEffect [CvInfos.cpp], CvEventInfo::getHappy [CvInfos.cpp], CvPlayer::changeExtraHappiness, CvEventInfo::getHealth [CvInfos.cpp], CvPlayer::changeExtraHealth, CvEventInfo::getNumBuildingYieldChanges [CvInfos.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::changeBuildingYieldChange [CvCity.cpp], CvEventInfo::getBuildingYieldChange [CvInfos.cpp], CvEventInfo::getNumBuildingCommerceChanges [CvInfos.cpp], CvCity::changeBuildingCommerceChange [CvCity.cpp], CvEventInfo::getBuildingCommerceChange [CvInfos.cpp], CvEventInfo::getNumBuildingHappyChanges [CvInfos.cpp], CvEventInfo::getBuildingHappyChange [CvInfos.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationBuildings [CvInfos.cpp], CvPlayer::getCivilizationType, CvPlayer::changeExtraBuildingHappiness, CvEventInfo::getNumBuildingHealthChanges [CvInfos.cpp], CvEventInfo::getBuildingHealthChange [CvInfos.cpp], CvPlayer::changeExtraBuildingHealth, CvEventInfo::getHurryAnger [CvInfos.cpp], CvCity::flatHurryAngerLength [CvCity.cpp], CvCity::changeHurryAngerTimer [CvCity.cpp], CvEventInfo::getHappyTurns [CvInfos.cpp], CvCity::changeHappinessTimer [CvCity.cpp], CvEventInfo::getMaxPillage [CvInfos.cpp], CvEventInfo::getMinPillage [CvInfos.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::isCity [CvPlot.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvGlobals::getImprovementInfo(ImprovementTypes) [CvGlobals.cpp], CvImprovementInfo::isPermanent [CvInfos.cpp], CvPlot::getImprovementType [CvPlot.cpp], CvImprovementInfo::getButton [CvInfos.cpp], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvPlot::setImprovementType [CvPlot.cpp], CvPlayer::getCivilizationAdjectiveKey, CvEventInfo::getFood [CvInfos.cpp], CvCity::changeFood [CvCity.cpp], CvEventInfo::getFoodPercent [CvInfos.cpp], CvCity::getFood [CvCity.cpp], CvEventInfo::getPopulationChange [CvInfos.cpp], CvCity::getPopulation [CvCity.cpp], CvCity::changePopulation [CvCity.cpp], CvEventInfo::getCulture [CvInfos.cpp], CvCity::getCultureTimes100 [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvCity::changeCulture [CvCity.cpp], CvEventInfo::getUnitClass [CvInfos.cpp], CvCivilizationInfo::getCivilizationUnits [CvInfos.cpp], CvPlayer::getCapitalCity, CvEventInfo::getNumUnits [CvInfos.cpp], CvCity::getX_INLINE [CvCity.h], CvCity::getY_INLINE [CvCity.h], CvPlayer::initUnit, CvMap::plotINLINE [CvMap.h], isPlotEventTrigger [CvGameCoreUtils.cpp], CvPlot::applyEvent [CvPlot.cpp], CvPlayer::getUnit, CvUnit::applyEvent [CvUnit.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvEventInfo::getUnitCombatPromotion [CvInfos.cpp], CvPlayer::firstUnit, CvPlayer::nextUnit, CvUnit::getUnitCombatType [CvUnit.cpp], CvUnit::setHasPromotion [CvUnit.cpp], CvPlayer::setFreePromotion(UnitCombatTypes, PromotionTypes, bool), CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvEventInfo::getUnitClassPromotion [CvInfos.cpp], CvUnit::getUnitClassType [CvUnit.cpp], CvPlayer::setFreePromotion(UnitClassTypes, PromotionTypes, bool), CvEventInfo::getBonusRevealed [CvInfos.cpp], CvTeam::setForceRevealedBonus [CvTeam.cpp], CvEventInfo::getConvertOwnCities [CvInfos.cpp], CvCity::isHasReligion [CvCity.cpp], CvCity::getReligionCount [CvCity.cpp], CvEventInfo::getMaxNumReligions [CvInfos.cpp], CvCity::setHasReligion [CvCity.cpp], CvEventInfo::getConvertOtherCities [CvInfos.cpp], CvEventInfo::getOurAttitudeModifier [CvInfos.cpp], CvPlayer::AI_changeMemoryCount [CvPlayer.h] ⇢ CvPlayerAI::AI_changeMemoryCount, CvEventInfo::getAttitudeModifier [CvInfos.cpp], CvPlayerAI::AI_changeMemoryCount [CvPlayerAI.cpp], CvEventInfo::getTheirEnemyAttitudeModifier [CvInfos.cpp], CvTeamAI::AI_getWorstEnemy [CvTeamAI.cpp], CvEventInfo::getPythonCallback [CvInfos.cpp], CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::makePythonObject<struct EventTriggeredData> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CyArgsList::add(void*) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvEventInfo::getNumWorldNews [CvInfos.cpp], CvWString::CvWString() [CvString.h], CvEventInfo::getWorldNews [CvInfos.cpp], CvWString::GetCString [CvString.h], CvCity::getNameKey [CvCity.cpp], CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp], CvReligionInfo::getAdjectiveKey [CvInfos.cpp], CvTeam::getName [CvTeam.cpp], CvGlobals::getCorporationInfo(CorporationTypes) [CvGlobals.cpp], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvTeam::isHasMet [CvTeam.cpp], CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvEventTriggerInfo::isShowPlot [CvInfos.cpp], CvPlot::isRevealed [CvPlot.cpp], CvEventInfo::getLocalInfoTextKey [CvInfos.cpp], CvEventInfo::getOtherPlayerPopup [CvInfos.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], CvPopupInfo::setText [CvPopupInfo.cpp], CvWString::operator unsigned short const * [CvString.h], CvPlayer::addPopup, CvEventInfo::getAdditionalEventTime [CvInfos.cpp], CvEventInfo::getAdditionalEventChance [CvInfos.cpp], CvPlayer::applyEvent, CvGame::getGameTurn [CvGame.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGameSpeedInfo::getGrowthPercent [CvInfos.cpp], CvPlayer::getEventCountdown, CvPlayer::setEventCountdown, EventTriggeredData::~EventTriggeredData, operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (4): CvNetEventTriggered::Execute, CvPlayer::applyEvent, CvPlayer::doEvents, CvPlayer::trigger(EventTriggeredData const&)
-- **21412** `CvPlayer::isValidEventTech(TechTypes, EventTypes, PlayerTypes) const`
+- **21418** `CvPlayer::isValidEventTech(TechTypes, EventTypes, PlayerTypes) const`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getTechPercent [CvInfos.cpp], CvEventInfo::getTechCostPercent [CvInfos.cpp], CvPlayer::getTeam, CvTeam::getResearchProgress [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::canResearch, CvEventInfo::getTechMinTurnsLeft [CvInfos.cpp], CvPlayer::getResearchTurnsLeft, CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isHasTech [CvTeam.cpp]
   - called by (1): CvPlayer::getBestEventTech
-- **21445** `CvPlayer::getBestEventTech(EventTypes, PlayerTypes) const`
+- **21451** `CvPlayer::getBestEventTech(EventTypes, PlayerTypes) const`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getTechPercent [CvInfos.cpp], CvEventInfo::getTechCostPercent [CvInfos.cpp], CvEventInfo::getTech [CvInfos.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvEventInfo::getTechFlavorValue [CvInfos.cpp], CvPlayer::getCurrentResearch, CvPlayer::isValidEventTech, CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvTechInfo::getFlavorValue [CvInfos.cpp]
   - called by (4): CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::getEventCost
-- **21509** `CvPlayer::getEventCost(EventTypes, PlayerTypes, bool) const`
+- **21515** `CvPlayer::getEventCost(EventTypes, PlayerTypes, bool) const`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getGold [CvInfos.cpp], CvEventInfo::getRandomGold [CvInfos.cpp], CvPlayer::calculateInflationRate, CvPlayer::getBestEventTech, CvEventInfo::getTechCostPercent [CvInfos.cpp], CvPlayer::getTeam, CvTeam::getResearchCost [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
   - called by (4): CvGameTextMgr::eventGoldHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue
-- **21533** `CvPlayer::doEvents()`
+- **21539** `CvPlayer::doEvents()`
   - calls: CvGame::isOption [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::isBarbarian, CvPlayer::checkExpireEvent, CvPlayer::expireEvent, CvGame::getElapsedGameTurns [CvGame.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvEraInfo::getEventChancePerTurn [CvInfos.cpp], CvPlayer::getCurrentEra, CvGlobals::getNumEventTriggerInfos [CvGlobals.cpp], CvPlayer::getEventTriggerWeight, CvPlayer::trigger(EventTriggerTypes), CvPlayer::initTriggeredData, CvPlayer::trigger(EventTriggeredData const&), CvPlayer::deleteEventTriggered, EventTriggeredData::getID [CvStructs.cpp], CvGlobals::getNumEventInfos [CvGlobals.cpp], CvPlayer::getEventCountdown, CvGame::getGameTurn [CvGame.cpp], CvPlayer::applyEvent, CvPlayer::resetEventCountdown
   - called by (1): CvPlayer::doTurn
-- **21667** `CvPlayer::expireEvent(EventTypes, EventTriggeredData const&, bool)`
+- **21673** `CvPlayer::expireEvent(EventTypes, EventTriggeredData const&, bool)`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvEventInfo::isQuest [CvInfos.cpp], CvGlobals::getInstance [CvGlobals.h], EventTriggeredData::getID [CvStructs.cpp], CvTalkingHeadMessage::getLength [CvTalkingHeadMessage.cpp], CvDLLInterfaceIFaceBase::dirtyTurnLog [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getID, CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvEventInfo::getQuestFailTextKey [CvInfos.cpp], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (2): CvPlayer::doEvents, CvPlayer::resetEventOccured
-- **21695** `CvPlayer::checkExpireEvent(EventTypes, EventTriggeredData const&) const`
+- **21701** `CvPlayer::checkExpireEvent(EventTypes, EventTriggeredData const&) const`
   - calls: CvGlobals::getEventInfo(EventTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getPythonExpireCheck [CvInfos.cpp], CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CyArgsList::CyArgsList [CyArgsList.h], CyArgsList::add(int) [CyArgsList.cpp], CvDLLPythonIFaceBase::makePythonObject<struct EventTriggeredData const> [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CyArgsList::add(void*) [CyArgsList.cpp], CvDLLPythonIFaceBase::callFunction [CvDLLPythonIFaceBase.h], CyArgsList::makeFunctionArgs [CyArgsList.cpp], CvEventInfo::isQuest [CvInfos.cpp], CvGame::getGameTurn [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvEventTriggerInfo::isPickReligion [CvInfos.cpp], CvEventTriggerInfo::isStateReligion [CvInfos.cpp], CvPlayer::getStateReligion, CvEventTriggerInfo::getCivic [CvInfos.cpp], CvPlayer::isCivic, CvPlayer::getCity, CvPlayer::getUnit, CvPlayer::isAlive, CvEventTriggerInfo::getNumObsoleteTechs [CvInfos.cpp], CvEventTriggerInfo::getObsoleteTech [CvInfos.cpp], CvPlayer::getTeam, CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
   - called by (1): CvPlayer::doEvents
-- **21794** `CvPlayer::trigger(EventTriggerTypes)`
+- **21800** `CvPlayer::trigger(EventTriggerTypes)`
   - calls: CvPlayer::initTriggeredData
   - called by (2): CvPlayer::doEvents, CyPlayer::trigger
-- **21799** `CvPlayer::trigger(EventTriggeredData const&)`
+- **21805** `CvPlayer::trigger(EventTriggeredData const&)`
   - calls: CvPlayer::isHuman, operator new(unsigned int) [CvGameCoreDLL.cpp], CvPopupInfo::CvPopupInfo [CvPopupInfo.cpp], EventTriggeredData::getID [CvStructs.cpp], CvPlayer::addPopup, CvPlayer::AI_chooseEvent [CvPlayer.h] ⇢ CvPlayerAI::AI_chooseEvent, CvPlayer::applyEvent, operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (2): CvPlayer::doEvents, CvPlayer::initTriggeredData
-- **21816** `CvPlayer::canTrigger(EventTriggerTypes, PlayerTypes, ReligionTypes) const`
+- **21822** `CvPlayer::canTrigger(EventTriggerTypes, PlayerTypes, ReligionTypes) const`
   - calls: CvPlayer::isAlive, CvPlayer::getID, CvPlayerAI::getPlayer [CvPlayerAI.h], CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getTeam, CvEventTriggerInfo::isPickPlayer [CvInfos.cpp], CvTeam::isHasMet [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvEventTriggerInfo::isOtherPlayerAI [CvInfos.cpp], CvPlayer::isHuman, CvEventTriggerInfo::isOtherPlayerWar [CvInfos.cpp], CvTeam::isAtWar [CvTeam.cpp], CvEventTriggerInfo::getOtherPlayerHasTech [CvInfos.cpp], CvTeam::isHasTech [CvTeam.cpp], CvEventTriggerInfo::getOtherPlayerShareBorders [CvInfos.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::isWater [CvPlot.cpp], CvPlot::isAdjacentPlayer [CvPlot.cpp], CvPlot::getOwnerINLINE [CvPlot.h], CvEventTriggerInfo::isStateReligion [CvInfos.cpp], CvPlayer::getStateReligion, CvPlayer::getHasReligionCount, CvEventTriggerInfo::isOtherPlayerHasReligion [CvInfos.cpp], CvEventTriggerInfo::isOtherPlayerHasOtherReligion [CvInfos.cpp]
   - called by (1): CvPlayer::initTriggeredData
-- **21917** `CvPlayer::pickTriggerCity(EventTriggerTypes) const`
+- **21923** `CvPlayer::pickTriggerCity(EventTriggerTypes) const`
   - calls: CvPlayer::firstCity, CvPlayer::nextCity, CvCity::getTriggerValue [CvCity.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (1): CvPlayer::initTriggeredData
-- **21948** `CvPlayer::pickTriggerUnit(EventTriggerTypes, CvPlot*, bool) const`
+- **21954** `CvPlayer::pickTriggerUnit(EventTriggerTypes, CvPlot*, bool) const`
   - calls: CvPlayer::firstUnit, CvPlayer::nextUnit, CvUnit::getTriggerValue [CvUnit.cpp], CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h]
   - called by (1): CvPlayer::initTriggeredData
-- **21978** `CvPlayer::getEventTriggerWeight(EventTriggerTypes) const`
+- **21984** `CvPlayer::getEventTriggerWeight(EventTriggerTypes) const`
   - calls: CvGlobals::getEventTriggerInfo(EventTriggerTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventTriggerInfo::getMinDifficulty [CvInfos.cpp], CvGame::getHandicapType [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGame::isGameMultiPlayer [CvGame.cpp], CvEventTriggerInfo::isSinglePlayer [CvInfos.cpp], CvGame::isEventActive [CvGame.cpp], CvEventTriggerInfo::getNumObsoleteTechs [CvInfos.cpp], CvEventTriggerInfo::getObsoleteTech [CvInfos.cpp], CvPlayer::getTeam, CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvEventTriggerInfo::isRecurring [CvInfos.cpp], CvPlayer::isTriggerFired, CvEventTriggerInfo::getNumPrereqOrTechs [CvInfos.cpp], CvEventTriggerInfo::getPrereqOrTechs [CvInfos.cpp], CvEventTriggerInfo::getNumPrereqAndTechs [CvInfos.cpp], CvEventTriggerInfo::getPrereqAndTechs [CvInfos.cpp], CvEventTriggerInfo::getNumPrereqEvents [CvInfos.cpp], CvEventTriggerInfo::getPrereqEvent [CvInfos.cpp], CvPlayer::getEventOccured, CvEventTriggerInfo::getCivic [CvInfos.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvPlayer::getCivics, CvEventTriggerInfo::getMinTreasury [CvInfos.cpp], CvPlayer::getGold, CvGlobals::getMapINLINE [CvGlobals.h], CvEventTriggerInfo::getMinMapLandmass [CvInfos.cpp], CvMap::getNumLandAreas [CvMap.cpp], CvEventTriggerInfo::getMinOurLandmass [CvInfos.cpp], CvEventTriggerInfo::getMaxOurLandmass [CvInfos.cpp], CvMap::firstArea [CvMap.cpp], CvMap::nextArea [CvMap.cpp], CvArea::isWater [CvArea.cpp], CvArea::getCitiesPerPlayer [CvArea.cpp], CvPlayer::getID, CvEventTriggerInfo::getProbability [CvInfos.cpp], CvEventTriggerInfo::getNumUnits [CvInfos.cpp], CvEventTriggerInfo::isProbabilityUnitMultiply [CvInfos.cpp], CvPlayer::firstUnit, CvPlayer::nextUnit, CvUnit::getTriggerValue [CvUnit.cpp], CvEventTriggerInfo::getNumBuildings [CvInfos.cpp], CvEventTriggerInfo::isProbabilityBuildingMultiply [CvInfos.cpp], CvEventTriggerInfo::getNumBuildingsRequired [CvInfos.cpp], CvEventTriggerInfo::getBuildingRequired [CvInfos.cpp], CvPlayer::getBuildingClassCount
   - called by (2): CvPlayer::doEvents, CyPlayer::getEventTriggerWeight
-- **22175** `CvPlayer::getSplitEmpirePlayer(int) const`
+- **22181** `CvPlayer::getSplitEmpirePlayer(int) const`
   - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive, CvPlayer::getID, CvPlayer::getParent, CvPlayer::getCapitalCity, CvArea::getID [CvArea.cpp], CvCity::area [CvCity.cpp], CvPlayer::isEverAlive
   - called by (3): CvCity::getLiberationPlayer, CvPlayer::canSplitArea, CvPlayer::splitEmpire
-- **22222** `CvPlayer::canSplitEmpire() const`
+- **22228** `CvPlayer::canSplitEmpire() const`
   - calls: CvGame::isOption [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam, CvTeam::isAVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::getSplitEmpireLeaders, CvGlobals::getMapINLINE [CvGlobals.h], CvMap::firstArea [CvMap.cpp], CvMap::nextArea [CvMap.cpp], CvArea::getID [CvArea.cpp], CvPlayer::canSplitArea
   - called by (5): CvCity::getLiberationPlayer, CvDLLButtonPopup::launchFreeColonyPopup, CvPlayer::splitEmpire, CvPlayerAI::AI_doSplit, CyPlayer::canSplitEmpire
-- **22261** `CvPlayer::canSplitArea(int) const`
+- **22267** `CvPlayer::canSplitArea(int) const`
   - calls: CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getArea [CvMap.cpp], CvPlayer::getCapitalCity, CvCity::area [CvCity.cpp], CvArea::getCitiesPerPlayer [CvArea.cpp], CvPlayer::getID, CvArea::getID [CvArea.cpp], CvPlayer::getSplitEmpirePlayer, CvPlayer::isAlive, CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (6): CvCity::getLiberationPlayer, CvDLLButtonPopup::launchFreeColonyPopup, CvPlayer::canSplitEmpire, CvPlayer::splitEmpire, CvPlayerAI::AI_doSplit, CyPlayer::canSplitArea
-- **22298** `CvPlayer::getSplitEmpireLeaders(std::vector<std::pair<CivilizationTypes, LeaderHeadTypes>, std::allocator<std::pair<CivilizationTypes, LeaderHeadTypes>>>&) const`
+- **22304** `CvPlayer::getSplitEmpireLeaders(std::vector<std::pair<CivilizationTypes, LeaderHeadTypes>, std::allocator<std::pair<CivilizationTypes, LeaderHeadTypes>>>&) const`
   - calls: CvGlobals::getNumCivilizationInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getCivilizationType, CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::isAIPlayable [CvInfos.cpp], CvCivilizationInfo::isPlayable [CvInfos.cpp], CvPlayer::isEverAlive, CvPlayer::getID, CvPlayerAI::getPlayer [CvPlayerAI.h], CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvGame::isOption [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvCivilizationInfo::isLeaders [CvInfos.cpp], CvPlayer::getPersonalityType
   - called by (2): CvPlayer::canSplitEmpire, CvPlayer::splitEmpire
-- **22363** `CvPlayer::splitEmpire(int)` (exported)
+- **22369** `CvPlayer::splitEmpire(int)` (exported)
   - calls: CvPlayer::canSplitEmpire, CvPlayer::canSplitArea, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getArea [CvMap.cpp], CvPlayer::getSplitEmpirePlayer, CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isAlive [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::getSplitEmpireLeaders, CvGame::getSorenRandNum [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getDerivativeCiv [CvInfos.cpp], CvPlayer::getCivilizationType, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getLeaderHeadInfo(LeaderHeadTypes) [CvGlobals.cpp], CvGlobals::getDLLIFace [CvGlobals.h], CvCivilizationInfo::getShortDescriptionKey [CvInfos.cpp], CvInfoBase::getTextKeyWide [CvInfos.cpp], CvPlayer::getNameKey, CvWString::CvWString(char const*) [CvString.h], CvPlayer::isAlive, CvPlayer::getID, CvTeam::isHasMet [CvTeam.cpp], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getInterfaceArtInfo(char const*) const [CvArtFileMgr.cpp], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvAssetInfoBase::getPath [CvInfos.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvGame::addReplayMessage [CvGame.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGame::addPlayer [CvGame.cpp], CvPlayer::setParent, CvGlobals::getInitCore [CvGlobals.cpp], CvInitCore::setLeaderName [CvInitCore.cpp], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeam::setHasTech [CvTeam.cpp], CvGame::isOption [CvGame.cpp], CvTeam::isNoTradeTech [CvTeam.cpp], CvTeam::setNoTradeTech [CvTeam.cpp], CvTeam::getEspionagePointsAgainstTeam [CvTeam.cpp], CvTeam::setEspionagePointsAgainstTeam [CvTeam.cpp], CvTeam::getEspionagePointsEver [CvTeam.cpp], CvTeam::setEspionagePointsEver [CvTeam.cpp], CvTeam::assignVassal [CvTeam.cpp], CvPlayer::AI_updateBonusValue [CvPlayer.h] ⇢ CvPlayerAI::AI_updateBonusValue(BonusTypes), CvPlayerAI::AI_updateBonusValue(), CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::area [CvPlot.cpp], CvPlot::getWorkingCity [CvPlot.cpp], CvCity::area [CvCity.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlot::isAdjacentToArea(CvArea const*) const [CvPlot.cpp], CvPlot::isWater [CvPlot.cpp], CvPlot::getCulture [CvPlot.cpp], CvPlot::isRevealed [CvPlot.cpp], CvPlot::setRevealed [CvPlot.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::getCultureTimes100 [CvCity.cpp], CvCity::plot [CvCity.cpp], CvPlayer::acquireCity, CvPlot::getPlotCity [CvPlot.cpp], CvCity::setCultureTimes100 [CvCity.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvCity::initConscriptedUnit [CvCity.cpp], CvPlot::setCulture [CvPlot.cpp], CvPlot::getRevealedOwner [CvPlot.cpp], CvPlot::setRevealedOwner [CvPlot.cpp], CvGame::updatePlotGroups [CvGame.cpp]
   - called by (3): CvNetEmpireSplit::Execute, CvPlayerAI::AI_doSplit, CyPlayer::splitEmpire
-- **22587** `CvPlayer::assimilatePlayer(PlayerTypes)`
+- **22593** `CvPlayer::assimilatePlayer(PlayerTypes)`
   - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive, CvPlayer::getTeam, CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::getCapitalCity, CvTeam::isAtWar [CvTeam.cpp], CvTeam::makePeace [CvTeam.cpp], CvPlayer::canContact, CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getCivilizationDescription, CvWString::CvWString(char const*) [CvString.h], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h], CvPlayer::firstUnit, CvPlayer::nextUnit, CvPlayer::initUnit, CvUnit::getUnitType [CvUnit.cpp], CvUnit::getX_INLINE [CvUnit.h], CvUnit::getY_INLINE [CvUnit.h], CvUnit::convert [CvUnit.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::plot [CvCity.cpp], CvPlayer::getID, CvPlot::setOwner [CvPlot.cpp], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getCultureTimes100 [CvCity.cpp], CvCity::changeCultureTimes100 [CvCity.cpp], CvPlot::getCulture [CvPlot.cpp], CvPlot::changeCulture [CvPlot.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvTeam::isHasTech [CvTeam.cpp], CvTeam::setHasTech [CvTeam.cpp], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::isRevealed [CvPlot.cpp], CvTeam::getID [CvTeam.cpp], CvPlot::setRevealed [CvPlot.cpp], CvTeam::isAlive [CvTeam.cpp], CvTeam::isHasMet [CvTeam.cpp], CvTeam::meet [CvTeam.cpp], CvPlayer::killUnits, CvPlayer::killCities, CvPlot::getTeam [CvPlot.cpp], CvPlot::updateCulture [CvPlot.cpp], CvGame::updatePlotGroups [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvMap::verifyUnitValidPlot [CvMap.cpp], CvTeamAI::AI_updateWorstEnemy [CvTeamAI.cpp], CvTeamAI::AI_updateAreaStragies [CvTeamAI.cpp], CvGame::updateScore [CvGame.cpp]
   - called by (1): CyPlayer::assimilatePlayer
-- **22700** `CvPlayer::isValidTriggerReligion(CvEventTriggerInfo const&, CvCity*, ReligionTypes) const`
+- **22706** `CvPlayer::isValidTriggerReligion(CvEventTriggerInfo const&, CvCity*, ReligionTypes) const`
   - calls: CvEventTriggerInfo::getNumReligionsRequired [CvInfos.cpp], CvEventTriggerInfo::getReligionRequired [CvInfos.cpp], CvCity::isHasReligion [CvCity.cpp], CvEventTriggerInfo::isHolyCity [CvInfos.cpp], CvCity::isHolyCity(ReligionTypes) const [CvCity.cpp], CvPlayer::getHasReligionCount, CvGame::getHolyCity [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getID
   - called by (1): CvPlayer::initTriggeredData
-- **22756** `CvPlayer::isValidTriggerCorporation(CvEventTriggerInfo const&, CvCity*, CorporationTypes) const`
+- **22762** `CvPlayer::isValidTriggerCorporation(CvEventTriggerInfo const&, CvCity*, CorporationTypes) const`
   - calls: CvEventTriggerInfo::getNumCorporationsRequired [CvInfos.cpp], CvEventTriggerInfo::getCorporationRequired [CvInfos.cpp], CvCity::isHasCorporation [CvCity.cpp], CvEventTriggerInfo::isHeadquarters [CvInfos.cpp], CvCity::isHeadquarters(CorporationTypes) const [CvCity.cpp], CvPlayer::getHasCorporationCount, CvGame::getHeadquarters [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getID
   - called by (1): CvPlayer::initTriggeredData
-- **22812** `CvPlayer::launch(VictoryTypes)` (exported)
+- **22818** `CvPlayer::launch(VictoryTypes)` (exported)
   - calls: CvPlayer::getTeam, CvTeamAI::getTeam [CvTeamAI.h], CvTeam::canLaunch [CvTeam.cpp], CvTeam::finalizeProjectArtTypes [CvTeam.cpp], CvTeam::setVictoryCountdown [CvTeam.cpp], CvTeam::getVictoryDelay [CvTeam.cpp], CvDLLEngineIFaceBase::AddLaunch [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getID, CvTeam::setCanLaunch [CvTeam.cpp], CvPlayer::getCapitalCity, CvWString::CvWString() [CvString.h], CvPlayer::isAlive, CvPlayerAI::getPlayer [CvPlayerAI.h], CvCity::isRevealed [CvCity.cpp], CvCity::getX [CvCity.cpp], CvCity::getY [CvCity.cpp], CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvWString::GetCString [CvString.h], CvTeam::getName [CvTeam.cpp], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getMiscArtInfo(char const*) const [CvArtFileMgr.cpp], CvDLLInterfaceIFaceBase::addMessage [CvDLLInterfaceIFaceBase.h], CvDLLUtilityIFaceBase::getInterfaceIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getEVENT_MESSAGE_TIME [CvGlobals.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvAssetInfoBase::getPath [CvInfos.cpp], CvWString::CvWString(CvWString const&) [CvString.h]
   - called by (2): CvNetLaunchSpaceship::Execute, CvPlayerAI::AI_launch
-- **22858** `CvPlayer::isFreePromotion(UnitCombatTypes, PromotionTypes) const`
+- **22864** `CvPlayer::isFreePromotion(UnitCombatTypes, PromotionTypes) const`
   - called by (2): CvPlayerAI::AI_bestAdvancedStartUnitAI, CvUnit::init
-- **22871** `CvPlayer::setFreePromotion(UnitCombatTypes, PromotionTypes, bool)`
+- **22877** `CvPlayer::setFreePromotion(UnitCombatTypes, PromotionTypes, bool)`
   - called by (1): CvPlayer::applyEvent
-- **22891** `CvPlayer::isFreePromotion(UnitClassTypes, PromotionTypes) const`
+- **22897** `CvPlayer::isFreePromotion(UnitClassTypes, PromotionTypes) const`
   - called by (2): CvPlayerAI::AI_bestAdvancedStartUnitAI, CvUnit::init
-- **22904** `CvPlayer::setFreePromotion(UnitClassTypes, PromotionTypes, bool)`
+- **22910** `CvPlayer::setFreePromotion(UnitClassTypes, PromotionTypes, bool)`
   - called by (1): CvPlayer::applyEvent
-- **22924** `CvPlayer::getVote(int) const`
+- **22930** `CvPlayer::getVote(int) const`
   - called by (1): CvGame::getPlayerVote
-- **22937** `CvPlayer::setVote(int, PlayerVoteTypes)`
+- **22943** `CvPlayer::setVote(int, PlayerVoteTypes)`
   - called by (2): CvGame::setPlayerVote, CvGame::setVoteOutcome
-- **22961** `CvPlayer::getUnitExtraCost(UnitClassTypes) const`
+- **22967** `CvPlayer::getUnitExtraCost(UnitClassTypes) const`
   - called by (1): CvPlayer::getProductionNeeded(UnitTypes) const
-- **22974** `CvPlayer::setUnitExtraCost(UnitClassTypes, int)`
+- **22980** `CvPlayer::setUnitExtraCost(UnitClassTypes, int)`
   - called by (3): CvPlayer::init, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects
-- **23000** `CvPlayer::hasShrine(ReligionTypes)`
+- **23006** `CvPlayer::hasShrine(ReligionTypes)`
   - calls: CvGame::getHolyCity [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::getOwnerINLINE [CvCity.h], CvPlayer::getID, CvCity::hasShrine [CvCity.cpp]
-- **23015** `CvPlayer::invalidatePopulationRankCache()`
+- **23021** `CvPlayer::invalidatePopulationRankCache()`
   - calls: CvPlayer::firstCity, CvPlayer::nextCity, CvCity::invalidatePopulationRankCache [CvCity.cpp]
   - called by (1): CvCity::setPopulation
-- **23025** `CvPlayer::invalidateYieldRankCache(YieldTypes)`
+- **23031** `CvPlayer::invalidateYieldRankCache(YieldTypes)`
   - calls: CvPlayer::firstCity, CvPlayer::nextCity, CvCity::invalidateYieldRankCache [CvCity.cpp]
   - called by (10): CvArea::changeYieldRateModifier, CvCity::changeBonusYieldRateModifier, CvCity::changePowerCount, CvCity::changePowerYieldRateModifier, CvCity::changeSpecialistPopulation, CvCity::changeYieldRateModifier, CvCity::updateCommerce(), CvPlayer::changeCapitalYieldRateModifier, CvPlayer::changeYieldRateModifier, CvTeam::setHasTech
-- **23035** `CvPlayer::invalidateCommerceRankCache(CommerceTypes)`
+- **23041** `CvPlayer::invalidateCommerceRankCache(CommerceTypes)`
   - calls: CvPlayer::firstCity, CvPlayer::nextCity, CvCity::invalidateCommerceRankCache [CvCity.cpp]
   - called by (1): CvCity::updateCommerce(CommerceTypes)
-- **23046** `CvPlayer::doUpdateCacheOnTurn()`
+- **23052** `CvPlayer::doUpdateCacheOnTurn()`
   - called by (1): CvPlayer::doTurn
-- **23052** `CvPlayer::processVoteSourceBonus(VoteSourceTypes, bool)`
+- **23058** `CvPlayer::processVoteSourceBonus(VoteSourceTypes, bool)`
   - calls: CvPlayer::firstCity, CvPlayer::nextCity, CvCity::processVoteSourceBonus [CvCity.cpp]
   - called by (2): CvGame::changeDiploVote, CvPlayer::setLoyalMember
-- **23061** `CvPlayer::getVotes(VoteTypes, VoteSourceTypes) const`
+- **23067** `CvPlayer::getVotes(VoteTypes, VoteSourceTypes) const`
   - calls: CvGame::getVoteSourceReligion [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getReligionPopulation, CvPlayer::getTotalPopulation, CvGlobals::getVoteInfo(VoteTypes) [CvGlobals.cpp], CvVoteInfo::isVoteSourceType [CvInfos.cpp], CvVoteInfo::isCivVoting [CvInfos.cpp], CvPlayer::getHasReligionCount, CvVoteInfo::isCityVoting [CvInfos.cpp], CvPlayer::getNumCities, CvPlayer::getStateReligion, CvVoteInfo::getStateReligionVotePercent [CvInfos.cpp]
   - called by (6): CvGame::countPossibleVote, CvGame::countVote, CvGame::doVoteResults, CvPlayer::isVotingMember, CvTeam::getVotes, CyPlayer::getVotes
-- **23125** `CvPlayer::canDoResolution(VoteSourceTypes, VoteSelectionSubData const&) const`
+- **23131** `CvPlayer::canDoResolution(VoteSourceTypes, VoteSelectionSubData const&) const`
   - calls: CvPlayer::getTeam, CvTeamAI::getTeam [CvTeamAI.h], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isHasMet [CvTeam.cpp], CvGlobals::getVoteInfo(VoteTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvVoteInfo::isOpenBorders [CvInfos.cpp], CvTeam::isVotingMember [CvTeam.cpp], CvTeam::isOpenBordersTrading [CvTeam.cpp], CvTeam::isAtWar [CvTeam.cpp], CvVoteInfo::isDefensivePact [CvInfos.cpp], CvTeam::isDefensivePactTrading [CvTeam.cpp], CvTeam::getAtWarCount [CvTeam.cpp], CvTeam::canSignDefensivePact [CvTeam.cpp], CvVoteInfo::isForcePeace [CvInfos.cpp], CvPlayer::getID, CvTeam::isVassal [CvTeam.cpp], CvTeam::canContact [CvTeam.cpp], CvVoteInfo::isForceWar [CvInfos.cpp], CvTeam::canDeclareWar [CvTeam.cpp], CvVoteInfo::isForceNoTrade [CvInfos.cpp], CvPlayer::canStopTradingWithTeam, CvVoteInfo::isAssignCity [CvInfos.cpp]
   - called by (1): CvGame::canDoResolution
-- **23255** `CvPlayer::canDefyResolution(VoteSourceTypes, VoteSelectionSubData const&) const`
+- **23261** `CvPlayer::canDefyResolution(VoteSourceTypes, VoteSelectionSubData const&) const`
   - calls: CvGame::getSecretaryGeneral [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam, CvGlobals::getVoteInfo(VoteTypes) [CvGlobals.cpp], CvVoteInfo::isOpenBorders [CvInfos.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isVotingMember [CvTeam.cpp], CvTeam::isOpenBorders [CvTeam.cpp], CvVoteInfo::isDefensivePact [CvInfos.cpp], CvTeam::isDefensivePact [CvTeam.cpp], CvVoteInfo::isForceNoTrade [CvInfos.cpp], CvVoteInfo::isForceWar [CvInfos.cpp], atWar [CvGameCoreUtils.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isAVassal [CvTeam.cpp], CvVoteInfo::isForcePeace [CvInfos.cpp], CvVoteInfo::isAssignCity [CvInfos.cpp], CvPlayer::getID, CvGame::isTeamVote [CvGame.cpp]
   - called by (2): CvDLLButtonPopup::launchDiploVotePopup, CvPlayerAI::AI_diploVote
-- **23347** `CvPlayer::setDefiedResolution(VoteSourceTypes, VoteSelectionSubData const&)`
+- **23353** `CvPlayer::setDefiedResolution(VoteSourceTypes, VoteSelectionSubData const&)`
   - calls: CvPlayer::firstCity, CvPlayer::nextCity, CvGame::getVoteSourceReligion [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvCity::isHasReligion [CvCity.cpp], CvCity::flatDefyResolutionAngerLength [CvCity.cpp], CvCity::getReligionCount [CvCity.cpp], CvCity::changeDefyResolutionAngerTimer [CvCity.cpp], CvPlayer::setLoyalMember
   - called by (1): CvGame::doVoteResults
-- **23373** `CvPlayer::setEndorsedResolution(VoteSourceTypes, VoteSelectionSubData const&)`
+- **23379** `CvPlayer::setEndorsedResolution(VoteSourceTypes, VoteSelectionSubData const&)`
   - calls: CvPlayer::setLoyalMember
   - called by (1): CvGame::doVoteResults
-- **23378** `CvPlayer::isFullMember(VoteSourceTypes) const`
+- **23384** `CvPlayer::isFullMember(VoteSourceTypes) const`
   - calls: CvGame::getVoteSourceReligion [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getStateReligion, CvGlobals::getVoteSourceInfo(VoteSourceTypes) [CvGlobals.cpp], CvVoteSourceInfo::getCivic [CvInfos.cpp], CvPlayer::isCivic, CvPlayer::isLoyalMember, CvPlayer::isVotingMember
   - called by (3): CvGame::isValidVoteSelection, CvTeam::isFullMember, CyPlayer::isFullMember
-- **23404** `CvPlayer::isVotingMember(VoteSourceTypes) const`
+- **23410** `CvPlayer::isVotingMember(VoteSourceTypes) const`
   - calls: CvPlayer::getVotes
   - called by (7): CvGame::addVoteTriggered(VoteSourceTypes, VoteSelectionSubData const&), CvGame::canDoResolution, CvGame::doVoteResults, CvGame::isValidVoteSelection, CvGame::processVote, CvPlayer::isFullMember, CyPlayer::isVotingMember
-- **23409** `CvPlayer::pickConqueredCityOwner(CvCity const&) const`
+- **23415** `CvPlayer::pickConqueredCityOwner(CvCity const&) const`
   - calls: CvCity::getLiberationPlayer [CvCity.cpp], CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::getID
   - called by (1): CvUnit::setXY
-- **23424** `CvPlayer::canHaveTradeRoutesWith(PlayerTypes) const`
+- **23430** `CvPlayer::canHaveTradeRoutesWith(PlayerTypes) const`
   - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::isAlive, CvPlayer::getTeam, CvTeam::isFreeTrade [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvTeam::isVassal [CvTeam.cpp], CvPlayer::isNoForeignTrade
   - called by (3): CvCity::updateTradeRoutes, CvGameTextMgr::buildTradeString, CyPlayer::canHaveTradeRoutesWith
-- **23459** `CvPlayer::canStealTech(PlayerTypes, TechTypes) const`
+- **23465** `CvPlayer::canStealTech(PlayerTypes, TechTypes) const`
   - calls: CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlayer::canResearch
   - called by (1): CvPlayer::getEspionageMissionBaseCost
-- **23472** `CvPlayer::canForceCivics(PlayerTypes, CivicTypes) const`
+- **23478** `CvPlayer::canForceCivics(PlayerTypes, CivicTypes) const`
   - calls: CvPlayer::isCivic, CvPlayer::canDoCivics, CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (1): CvPlayer::getEspionageMissionBaseCost
-- **23477** `CvPlayer::canForceReligion(PlayerTypes, ReligionTypes) const`
+- **23483** `CvPlayer::canForceReligion(PlayerTypes, ReligionTypes) const`
   - calls: CvPlayer::getStateReligion, CvPlayer::canDoReligion, CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (1): CvPlayer::getEspionageMissionBaseCost
-- **23482** `CvPlayer::canSpyDestroyUnit(PlayerTypes, CvUnit&) const`
+- **23488** `CvPlayer::canSpyDestroyUnit(PlayerTypes, CvUnit&) const`
   - calls: CvPlayer::getTeam, CvUnit::getTeam [CvUnit.cpp], CvUnitInfo::getProductionCost [CvInfos.cpp], CvUnit::getUnitInfo [CvUnit.cpp], CvPlot::isVisible [CvPlot.cpp], CvUnit::plot [CvUnit.cpp]
   - called by (1): CvPlayer::canSpyBribeUnit
-- **23502** `CvPlayer::canSpyBribeUnit(PlayerTypes, CvUnit&) const`
+- **23508** `CvPlayer::canSpyBribeUnit(PlayerTypes, CvUnit&) const`
   - calls: CvPlayer::canSpyDestroyUnit, CvPlayer::getTeam, CvUnit::isEnemy [CvUnit.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::isOpenBorders [CvTeam.cpp], CvTeam::isFriendlyTerritory [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvPlot::headUnitNode [CvPlot.cpp], CvUnit::plot [CvUnit.cpp], getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode [CvPlot.cpp]
-- **23541** `CvPlayer::canSpyDestroyBuilding(PlayerTypes, BuildingTypes) const`
+- **23547** `CvPlayer::canSpyDestroyBuilding(PlayerTypes, BuildingTypes) const`
   - calls: CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildingInfo::getProductionCost [CvInfos.cpp], isLimitedWonderClass [CvGameCoreUtils.cpp], CvBuildingInfo::getBuildingClassType [CvInfos.cpp]
   - called by (2): CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_espionageVal
-- **23557** `CvPlayer::canSpyDestroyProject(PlayerTypes, ProjectTypes) const`
+- **23563** `CvPlayer::canSpyDestroyProject(PlayerTypes, ProjectTypes) const`
   - calls: CvGlobals::getProjectInfo(ProjectTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvProjectInfo::getProductionCost [CvInfos.cpp], CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvTeam::getProjectCount [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], isWorldProject [CvGameCoreUtils.cpp], CvProjectInfo::isSpaceship [CvInfos.cpp], CvProjectInfo::getVictoryPrereq [CvInfos.cpp], CvTeam::getVictoryCountdown [CvTeam.cpp]
   - called by (2): CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_espionageVal
-- **23595** `CvPlayer::forcePeace(PlayerTypes)`
+- **23601** `CvPlayer::forcePeace(PlayerTypes)`
   - calls: CvPlayer::getTeam, CvTeam::isAVassal [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CLinkList<TradeData>::CLinkList<struct TradeData> [LinkedList.h], setTradeItem [CvGameCoreUtils.cpp], CLinkList<TradeData>::insertAtEnd [LinkedList.h], CvGame::implementDeal [CvGame.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getID, CLinkList<TradeData>::~CLinkList<struct TradeData> [LinkedList.h]
   - called by (3): CvGame::processVote, CvPlayer::handleDiploEvent, CyPlayer::forcePeace
-- **23612** `CvPlayer::canSpiesEnterBorders(PlayerTypes) const`
+- **23618** `CvPlayer::canSpiesEnterBorders(PlayerTypes) const`
   - calls: CvGlobals::getNumEspionageMissionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getEspionageMissionInfo(EspionageMissionTypes) [CvGlobals.cpp], CvEspionageMissionInfo::isPassive [CvInfos.cpp], CvEspionageMissionInfo::isNoActiveMissions [CvInfos.cpp], CvPlayer::getID, CvPlayer::canDoEspionageMission, CvPlayerAI::getPlayer [CvPlayerAI.h]
   - called by (2): CvTeam::verifySpyUnitsValidPlot, CvUnit::canMoveInto
-- **23628** `CvPlayer::getReligionPopulation(ReligionTypes) const`
+- **23634** `CvPlayer::getReligionPopulation(ReligionTypes) const`
   - calls: CvPlayer::firstCity, CvPlayer::nextCity, CvCity::isHasReligion [CvCity.cpp], CvCity::getPopulation [CvCity.cpp]
   - called by (1): CvPlayer::getVotes
-- **23643** `CvPlayer::getNewCityProductionValue() const`
+- **23649** `CvPlayer::getNewCityProductionValue() const`
   - calls: CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationBuildings [CvInfos.cpp], CvPlayer::getCivilizationType, CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getFreeStartEra [CvInfos.cpp], CvGame::getStartEra [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getProductionNeeded(BuildingTypes) const, CvPlayer::getProductionModifier(BuildingTypes) const, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGameSpeedInfo::getGrowthPercent [CvInfos.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvEraInfo::getFreePopulation [CvInfos.cpp], CvPlayer::getGrowthThreshold
   - called by (4): CvPlayer::getAdvancedStartCityCost, CvPlayer::init, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects
-- **23676** `CvPlayer::getGrowthThreshold(int) const`
+- **23682** `CvPlayer::getGrowthThreshold(int) const`
   - calls: CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGame::getGameSpeedType [CvGame.cpp], CvGlobals::getGameSpeedInfo(GameSpeedTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvGameSpeedInfo::getGrowthPercent [CvInfos.cpp], CvGame::getStartEra [CvGame.cpp], CvGlobals::getEraInfo(EraTypes) [CvGlobals.cpp], CvEraInfo::getGrowthPercent [CvInfos.cpp], CvPlayer::isHuman, CvPlayer::isBarbarian, CvGame::getHandicapType [CvGame.cpp], CvGlobals::getHandicapInfo(HandicapTypes) [CvGlobals.cpp], CvHandicapInfo::getAIGrowthPercent [CvInfos.cpp], CvHandicapInfo::getAIPerEraModifier [CvInfos.cpp], CvPlayer::getCurrentEra
   - called by (3): CvCity::growthThreshold, CvPlayer::getAdvancedStartPopCost, CvPlayer::getNewCityProductionValue
-- **23700** `CvPlayer::verifyUnitStacksValid()`
+- **23706** `CvPlayer::verifyUnitStacksValid()`
   - calls: CvPlayer::firstUnit, CvPlayer::nextUnit, CvUnit::verifyStackValid [CvUnit.cpp]
   - called by (1): CvTeam::declareWar
-- **23709** `CvPlayer::getTechFreeUnit(TechTypes) const`
+- **23715** `CvPlayer::getTechFreeUnit(TechTypes) const`
   - calls: CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTechInfo::getFirstFreeUnitClass [CvInfos.cpp], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationUnits [CvInfos.cpp], CvPlayer::getCivilizationType, CvGame::isOption [CvGame.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnitInfo::getEspionagePoints [CvInfos.cpp]
   - called by (4): CvGameTextMgr::buildFreeUnitString, CvPlayerAI::AI_isFirstTech, CvPlayerAI::AI_techValue, CvTeam::setHasTech
-- **23739** `CvPlayer::calculateTradeTotals(YieldTypes, int&, int&, int&, int&, PlayerTypes, bool, bool) const`
+- **23745** `CvPlayer::calculateTradeTotals(YieldTypes, int&, int&, int&, int&, PlayerTypes, bool, bool) const`
   - calls: CvPlayer::firstCity, CvPlayer::nextCity, CvCity::calculateTradeTotals [CvCity.cpp]
   - called by (2): CvGameTextMgr::buildTradeString, CvPlayer::calculateTotalTradeYield
-- **23755** `CvPlayer::calculateTotalTradeYield(YieldTypes, PlayerTypes, bool, bool) const`
+- **23761** `CvPlayer::calculateTotalTradeYield(YieldTypes, PlayerTypes, bool, bool) const`
   - calls: CvPlayer::calculateTradeTotals
-- **23768** `CvPlayer::buildTradeTable(PlayerTypes, CLinkList<TradeData>&) const` (exported)
+- **23774** `CvPlayer::buildTradeTable(PlayerTypes, CLinkList<TradeData>&) const` (exported)
   - calls: setTradeItem [CvGameCoreUtils.cpp], CvPlayer::canTradeItem, CLinkList<TradeData>::insertAtEnd [LinkedList.h], atWar [CvGameCoreUtils.cpp], CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::getID [CvCity.cpp], CvPlayer::isHuman, CvTeam::isAlive [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp]
-- **23971** `CvPlayer::getHeadingTradeString(PlayerTypes, TradeableItems, CvWString&, CvString&) const` (exported)
+- **23977** `CvPlayer::getHeadingTradeString(PlayerTypes, TradeableItems, CvWString&, CvString&) const` (exported)
   - calls: CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h]
-- **24018** `CvPlayer::getItemTradeString(PlayerTypes, bool, bool, TradeData const&, CvWString&, CvString&) const` (exported)
+- **24024** `CvPlayer::getItemTradeString(PlayerTypes, bool, bool, TradeData const&, CvWString&, CvString&) const` (exported)
   - calls: CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(char const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator=(CvWString const&) [CvString.h], CvPlayer::AI_maxGoldTrade [CvPlayer.h] ⇢ CvPlayerAI::AI_maxGoldTrade, CvPlayer::AI_maxGoldPerTurnTrade [CvPlayer.h] ⇢ CvPlayerAI::AI_maxGoldPerTurnTrade, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getTechInfo(TechTypes) [CvGlobals.cpp], CvInfoBase::getDescription [CvInfos.cpp], CvWString::operator=(unsigned short const*) [CvString.h], CvInfoBase::getButton [CvInfos.cpp], CvString::operator=(char const*) [CvString.h], CvPlayer::getNumTradeableBonuses, CvPlayerAI::getPlayer [CvPlayerAI.h], CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvWString::Format [CvString.h], CvBonusInfo::getButton [CvInfos.cpp], CvPlayer::getCity, CvCity::getLiberationPlayer [CvCity.cpp], CvCity::getName [CvCity.cpp], CvWString::GetCString [CvString.h], CvCity::getNameKey [CvCity.cpp], CvTeam::getName [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], operator+(unsigned short const*, CvWString const&) [CvString.h], CvGlobals::getCivicInfo(CivicTypes) [CvGlobals.cpp], CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp]
-- **24175** `CvPlayer::updateTradeList(PlayerTypes, CLinkList<TradeData>&, CLinkList<TradeData> const&, CLinkList<TradeData> const&) const` (exported)
+- **24181** `CvPlayer::updateTradeList(PlayerTypes, CLinkList<TradeData>&, CLinkList<TradeData> const&, CLinkList<TradeData> const&) const` (exported)
   - calls: CLinkList<TradeData>::next [LinkedList.h], CLinkList<TradeData>::head [LinkedList.h], atWar [CvGameCoreUtils.cpp], CvPlayer::getTeam, CvPlayerAI::getPlayer [CvPlayerAI.h], CvGame::isOption [CvGame.cpp], CvGlobals::getGame [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvDeal::isVassal [CvDeal.cpp], CvDeal::isEndWar [CvDeal.cpp], CvPlayer::isHuman, CvDeal::isAnnual [CvDeal.cpp]
-- **24270** `CvPlayer::getIntroMusicScriptId(PlayerTypes) const` (exported)
+- **24276** `CvPlayer::getIntroMusicScriptId(PlayerTypes) const` (exported)
   - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getCurrentEra, CvGlobals::getLeaderHeadInfo(LeaderHeadTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getLeaderType, CvPlayer::getTeam, CvTeam::isAtWar [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvLeaderHeadInfo::getDiploWarIntroMusicScriptIds [CvInfos.cpp], CvLeaderHeadInfo::getDiploPeaceIntroMusicScriptIds [CvInfos.cpp]
-- **24285** `CvPlayer::getMusicScriptId(PlayerTypes) const` (exported)
+- **24291** `CvPlayer::getMusicScriptId(PlayerTypes) const` (exported)
   - calls: CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::getCurrentEra, CvGlobals::getLeaderHeadInfo(LeaderHeadTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPlayer::getLeaderType, CvPlayer::getTeam, CvTeam::isAtWar [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvLeaderHeadInfo::getDiploWarMusicScriptIds [CvInfos.cpp], CvLeaderHeadInfo::getDiploPeaceMusicScriptIds [CvInfos.cpp]
-- **24301** `CvPlayer::getGlobeLayerColors(GlobeLayerTypes, int, std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const` (exported)
+- **24307** `CvPlayer::getGlobeLayerColors(GlobeLayerTypes, int, std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const` (exported)
   - calls: CvPlayer::getTradeLayerColors, CvPlayer::getUnitLayerColors, CvPlayer::getResourceLayerColors, CvPlayer::getReligionLayerColors, CvPlayer::getCultureLayerColors
-- **24326** `CvPlayer::getTradeLayerColors(std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
+- **24332** `CvPlayer::getTradeLayerColors(std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
   - calls: NiColorA::NiColorA(float, float, float, float) [CvGameCoreDLL.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlayer::getID, CvPlot::getPlotGroup [CvPlot.cpp], CvPlayer::getTeam, CvPlot::getTeam [CvPlot.cpp], CvPlot::isRevealed [CvPlot.cpp], CvPlotGroup::getID [CvPlotGroup.cpp], CvRandom::CvRandom [CvRandom.cpp], CvRandom::init [CvRandom.cpp], CvRandom::getFloat [CvRandom.cpp], CvRandom::~CvRandom [CvRandom.cpp]
   - called by (1): CvPlayer::getGlobeLayerColors
-- **24356** `CvPlayer::getUnitLayerColors(GlobeLayerUnitOptionTypes, std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
+- **24362** `CvPlayer::getUnitLayerColors(GlobeLayerUnitOptionTypes, std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
   - calls: NiColorA::NiColorA(float, float, float, float) [CvGameCoreDLL.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvPlayer::isAlive, CvPlayerAI::getPlayer [CvPlayerAI.h], CvWStringBuffer::CvWStringBuffer [CvString.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::getNumUnits [CvPlot.cpp], CvPlayer::getTeam, CvPlot::isVisible [CvPlot.cpp], CvPlot::headUnitNode [CvPlot.cpp], getUnit [CvGameCoreUtils.cpp], CvPlot::nextUnitNode [CvPlot.cpp], CvGame::isDebugMode [CvGame.cpp], CvGlobals::getGameINLINE [CvGlobals.h], CvUnit::getVisualOwner [CvUnit.cpp], CvUnit::isInvisible [CvUnit.cpp], CvUnit::baseCombatStr [CvUnit.cpp], CvUnit::isEnemy [CvUnit.cpp], CvUnit::getTeam [CvUnit.cpp], CvUnit::maxHitPoints [CvUnit.cpp], CvUnit::currHitPoints [CvUnit.cpp], CvPlot::getBestDefender [CvPlot.cpp], CvPlayer::getPlayerColor, CvGlobals::getColorInfo(ColorTypes) [CvGlobals.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvColorInfo::getColor [CvInfos.cpp], CvPlayerColorInfo::getColorTypePrimary [CvInfos.cpp], CvWStringBuffer::clear [CvString.h], CvGameTextMgr::setPlotListHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvPlotIndicatorData::CvPlotIndicatorData() [CvStructs.h], CvString::operator=(char const*) [CvString.h], CvUnit::getButton [CvUnit.cpp], CvWStringBuffer::getCString [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h], CvPlotIndicatorData::~CvPlotIndicatorData [CvGameCoreDLL.h], CvWStringBuffer::~CvWStringBuffer [CvString.h]
   - called by (1): CvPlayer::getGlobeLayerColors
-- **24543** `CvPlayer::getResourceLayerColors(GlobeLayerResourceOptionTypes, std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
+- **24549** `CvPlayer::getResourceLayerColors(GlobeLayerResourceOptionTypes, std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
   - calls: CvPlayer::getPlayerColor, CvWStringBuffer::CvWStringBuffer [CvString.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlayer::getTeam, CvPlot::getRevealedOwner [CvPlot.cpp], CvPlot::isRevealed [CvPlot.cpp], CvGame::isDebugMode [CvGame.cpp], CvGlobals::getGame [CvGlobals.cpp], CvPlot::getBonusType [CvPlot.cpp], CvGlobals::getBonusInfo(BonusTypes) [CvGlobals.cpp], CvBonusInfo::getHealth [CvInfos.cpp], CvBonusInfo::getHappiness [CvInfos.cpp], CvPlotIndicatorData::CvPlotIndicatorData() [CvStructs.h], CvString::operator=(char const*) [CvString.h], CvBonusInfo::getButton [CvInfos.cpp], CvPlot::getX [CvPlot.cpp], CvPlot::getY [CvPlot.cpp], NiPoint2::NiPoint2(float, float) [CvGameCoreDLL.h], CvMap::plotXToPointX [CvMap.cpp], CvMap::plotYToPointY [CvMap.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvGlobals::getColorInfo(ColorTypes) [CvGlobals.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvColorInfo::getColor [CvInfos.cpp], CvPlayerColorInfo::getColorTypePrimary [CvInfos.cpp], CvWStringBuffer::clear [CvString.h], CvGameTextMgr::setBonusHelp [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvWStringBuffer::getCString [CvString.h], CvWString::operator=(unsigned short const*) [CvString.h], CvPlotIndicatorData::~CvPlotIndicatorData [CvGameCoreDLL.h], CvWStringBuffer::~CvWStringBuffer [CvString.h]
   - called by (1): CvPlayer::getGlobeLayerColors
-- **24618** `CvPlayer::getReligionLayerColors(ReligionTypes, std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
+- **24624** `CvPlayer::getReligionLayerColors(ReligionTypes, std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
   - calls: NiColorA::NiColorA(float, float, float, float) [CvGameCoreDLL.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvRandom::CvRandom [CvRandom.cpp], CvRandom::init [CvRandom.cpp], CvRandom::getFloat [CvRandom.cpp], CvPlayer::isAlive, CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlayer::firstCity, CvPlayer::nextCity, CvCity::isRevealed [CvCity.cpp], CvPlayer::getTeam, CvCity::isHasReligion [CvCity.cpp], CvCity::isHolyCity(ReligionTypes) const [CvCity.cpp], CvCity::getX [CvCity.cpp], CvCity::getY [CvCity.cpp], plotCity [CvGameCoreUtils.cpp], CvPlot::isRevealed [CvPlot.cpp], CvMap::plotNumINLINE [CvMap.h], CvPlot::getX_INLINE [CvPlot.h], CvPlot::getY_INLINE [CvPlot.h], CvRandom::~CvRandom [CvRandom.cpp]
   - called by (1): CvPlayer::getGlobeLayerColors
-- **24669** `CvPlayer::getCultureLayerColors(std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
+- **24675** `CvPlayer::getCultureLayerColors(std::vector<NiColorA, std::allocator<NiColorA>>&, std::vector<CvPlotIndicatorData, std::allocator<CvPlotIndicatorData>>&) const`
   - calls: NiColorA::NiColorA(float, float, float, float) [CvGameCoreDLL.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::numPlotsINLINE [CvMap.h], CvMap::plotByIndexINLINE [CvMap.h], CvPlot::countTotalCulture [CvPlot.cpp], CvPlayer::getTeam, CvPlot::getRevealedOwner [CvPlot.cpp], CvPlayer::isAlive, CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlot::getCulture [CvPlot.cpp], CvGlobals::getColorInfo(ColorTypes) [CvGlobals.cpp], CvGlobals::getPlayerColorInfo(PlayerColorTypes) [CvGlobals.cpp], CvColorInfo::getColor [CvInfos.cpp], CvPlayerColorInfo::getColorTypePrimary [CvInfos.cpp], CvPlayer::getPlayerColor
   - called by (1): CvPlayer::getGlobeLayerColors
-- **24734** `CvPlayer::cheat(bool, bool, bool)` (exported)
+- **24740** `CvPlayer::cheat(bool, bool, bool)` (exported)
   - calls: CvDLLUtilityIFaceBase::getChtLvl [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvPlayer::getID, CvPlayer::getTeam, CvPlayer::getCurrentResearch, CvTeam::setHasTech [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h]
-- **24742** `CvPlayer::getUnitArtInfo(UnitTypes, int) const` (exported)
+- **24748** `CvPlayer::getUnitArtInfo(UnitTypes, int) const` (exported)
   - calls: CvPlayer::getCivilizationType, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getCivilizationInfo(CivilizationTypes) [CvGlobals.cpp], CvCivilizationInfo::getUnitArtStyleType [CvInfos.cpp], CvPlayer::getCurrentEra, CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getArtInfo [CvInfos.cpp]
-- **24758** `CvPlayer::hasSpaceshipArrived() const` (exported)
+- **24764** `CvPlayer::hasSpaceshipArrived() const` (exported)
   - calls: CvGame::getSpaceVictory [CvGameInterface.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getGameINLINE [CvGlobals.h], CvPlayer::getTeam, CvTeam::getVictoryCountdown [CvTeam.cpp], CvTeamAI::getTeam [CvTeamAI.h], CvGame::getGameState [CvGame.cpp]
-- **24775** `CvPlayer::addReminder(int, CvWString) const`
+- **24781** `CvPlayer::addReminder(int, CvWString) const`
   - calls: CvMessageControl::sendAddReminder [CvMessageControl.cpp], CvMessageControl::getInstance [CvMessageControl.cpp], CvPlayer::getID, CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (1): CyPlayer::addReminder
 - **·** `EventTriggeredData::~EventTriggeredData()` (written by the compiler)

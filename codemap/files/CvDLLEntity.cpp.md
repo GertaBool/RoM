@@ -8,44 +8,44 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (6): CvCity::CvCity, CvCity::~CvCity, CvDLLEntity::`scalar deleting dtor', CvDLLEntity::`vector deleting dtor', CvUnit::CvUnit, CvUnit::~CvUnit
 - **17** `CvDLLEntity::removeEntity()` (exported)
   - calls: CvDLLEntity::getEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::removeEntity [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-  - called by (3): CvCity::~CvCity, CvUnit::reloadEntity, CvUnit::~CvUnit
+  - called by (5): CvCity::pageGraphics, CvCity::~CvCity, CvUnit::pageGraphics, CvUnit::reloadEntity, CvUnit::~CvUnit
 - **22** `CvDLLEntity::setup()` (exported; virtual)
   - calls: CvDLLEntity::getEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::setup [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-  - called by (2): CvCity::setupGraphical, CvUnit::setupGraphical
+  - called by (4): CvCity::pageGraphics, CvCity::setupGraphical, CvUnit::pageGraphics, CvUnit::setupGraphical
 - **27** `CvDLLEntity::setVisible(bool)` (exported)
   - calls: CvDLLEntity::getEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::setVisible [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvCity::updateVisibility
-- **32** `CvDLLEntity::createCityEntity(CvCity*)` (exported)
+- **37** `CvDLLEntity::createCityEntity(CvCity*)` (exported)
   - calls: CvDLLEntityIFaceBase::createCityEntity [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-  - called by (1): CvCity::CvCity
-- **37** `CvDLLEntity::createUnitEntity(CvUnit*)` (exported)
+  - called by (2): CvCity::CvCity, CvCity::pageGraphics
+- **42** `CvDLLEntity::createUnitEntity(CvUnit*)` (exported)
   - calls: CvDLLEntityIFaceBase::createUnitEntity [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-  - called by (2): CvUnit::CvUnit, CvUnit::reloadEntity
-- **42** `CvDLLEntity::destroyEntity()` (exported)
+  - called by (3): CvUnit::CvUnit, CvUnit::pageGraphics, CvUnit::reloadEntity
+- **47** `CvDLLEntity::destroyEntity()` (exported)
   - calls: CvDLLEntityIFaceBase::destroyEntity [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-  - called by (3): CvCity::~CvCity, CvUnit::reloadEntity, CvUnit::~CvUnit
-- **47** `CvDLLEntity::IsSelected() const` (exported)
+  - called by (5): CvCity::pageGraphics, CvCity::~CvCity, CvUnit::pageGraphics, CvUnit::reloadEntity, CvUnit::~CvUnit
+- **52** `CvDLLEntity::IsSelected() const` (exported)
   - calls: CvDLLEntity::getEntity() const [CvDLLEntity.h], CvDLLEntityIFaceBase::IsSelected [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (23): CvGame::cyclePlotUnits, CvGame::selectUnit, CvPlot::getSelectedUnit, CvSelectionGroup::IsSelected, CvUnit::checkRemoveSelectionAfterAttack, CvUnit::doCommand, CvUnit::joinGroup, CvUnit::kill, CvUnit::promote, CvUnit::setCombatUnit, CvUnit::setDamage, CvUnit::setExperience …
-- **52** `CvDLLEntity::PlayAnimation(AnimationTypes, float, bool, int, float, float)` (exported)
+- **62** `CvDLLEntity::PlayAnimation(AnimationTypes, float, bool, int, float, float)` (exported)
   - calls: CvDLLEntity::getEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::PlayAnimation [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-- **57** `CvDLLEntity::StopAnimation(AnimationTypes)` (exported)
+- **72** `CvDLLEntity::StopAnimation(AnimationTypes)` (exported)
   - calls: CvDLLEntity::getEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::StopAnimation [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-- **62** `CvDLLEntity::MoveTo(CvPlot const*)` (exported)
+- **82** `CvDLLEntity::MoveTo(CvPlot const*)` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::MoveTo [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-- **67** `CvDLLEntity::QueueMove(CvPlot const*)` (exported)
+- **92** `CvDLLEntity::QueueMove(CvPlot const*)` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::QueueMove [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvUnit::setXY
-- **72** `CvDLLEntity::ExecuteMove(float, bool)` (exported)
+- **102** `CvDLLEntity::ExecuteMove(float, bool)` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::ExecuteMove [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (4): CvSelectionGroup::groupMove, CvUnit::attackForDamage, CvUnit::updateCombat, CvUnit::updateStackCombat
-- **77** `CvDLLEntity::SetPosition(CvPlot const*)` (exported)
+- **112** `CvDLLEntity::SetPosition(CvPlot const*)` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::SetPosition [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvUnit::setXY
-- **82** `CvDLLEntity::NotifyEntity(MissionTypes)` (exported)
+- **122** `CvDLLEntity::NotifyEntity(MissionTypes)` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::NotifyEntity [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-- **87** `CvDLLEntity::SetSiegeTower(bool)` (exported)
+- **132** `CvDLLEntity::SetSiegeTower(bool)` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::SetSiegeTower [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
   - called by (1): CvUnit::setCombatUnit
-- **92** `CvDLLEntity::GetSiegeTower()` (exported)
+- **142** `CvDLLEntity::GetSiegeTower()` (exported)
   - calls: CvDLLEntity::getUnitEntity() [CvDLLEntity.h], CvDLLEntityIFaceBase::GetSiegeTower [CvDLLEntityIFaceBase.h], CvDLLUtilityIFaceBase::getEntityIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
