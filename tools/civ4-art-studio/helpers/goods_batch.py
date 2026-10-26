@@ -25,10 +25,11 @@ The spec (JSON) lists the mod folder, an output folder and the goods. Per good:
               "smooth": blur radius in master pixels, for textures whose grain turns to noise at glyph size}
 Buttons and glyphs go through app/core.js (helpers/core_bridge.js): linear-light Lanczos resampling, the DDS writer,
 and GameFont replacement that preserves markers and verifies every pixel. Outputs, under the output folder:
-patch/Assets/... (buttons), fonts/ (both edited sheets), font_patch.json (for apply_font_patch.py), ASSETS.json
+patch/Assets/... (buttons), fonts/ (both edited sheets), font_patch.json (glyph cells and buttons, for
+apply_font_patch.py, so that a channel carrying only text can install them), ASSETS.json
 (sources, licences, SHA-256 of every file), masters/ and preview.png.
 usage: goods_batch.py <spec.json>"""
-import base64, hashlib, json, os, subprocess, sys, tempfile
+import base64, hashlib, json, os, subprocess, sys, tempfile, zlib
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
@@ -195,6 +196,9 @@ def glyph(subject, cw, ch, tmp):
 def sha(path): return hashlib.sha256(open(path, 'rb').read()).hexdigest()
 
 
+def pack(data): return base64.b64encode(zlib.compress(data, 9)).decode()
+
+
 def main():
     if len(sys.argv) != 2: raise SystemExit(__doc__)
     spec = json.load(open(sys.argv[1])); base = os.path.dirname(os.path.abspath(sys.argv[1]))
@@ -238,10 +242,14 @@ def main():
             rp = to_rgba_file(cell, os.path.join(tmp, '%s_%s.rgba' % (name, g['art'])))
             f['edits'].append(dict(cell=dict(x=c['x'], y=c['y'], width=c['width'], height=c['height']), rgba=rp))
             f['patch'].append(dict(index=g['font_index'], art=g['art'], x=c['x'], y=c['y'], width=c['width'], height=c['height'],
-                                   rgba_b64=base64.b64encode(open(rp, 'rb').read()).decode()))
+                                   rgba_zb64=pack(open(rp, 'rb').read())))
             glyphs[name] = cell
         manifest['goods'].append(entry); previews.append((g, master, button, glyphs))
-    patch = dict(format=1, made_by=manifest['made_by'], fonts={})
+    patch = dict(format=2, made_by=manifest['made_by'], fonts={}, files={})
+    for e in manifest['goods']:
+        if 'button' in e:
+            data = open(os.path.join(out, 'patch', 'Assets', e['button']), 'rb').read()
+            patch['files']['Assets/' + e['button']] = dict(sha256=hashlib.sha256(data).hexdigest(), zb64=pack(data))
     for name, f in fonts.items():
         ej = os.path.join(tmp, name + '.json'); json.dump(f['edits'], open(ej, 'w'))
         dst = os.path.join(out, 'fonts', name)

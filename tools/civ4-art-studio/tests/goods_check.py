@@ -1,7 +1,7 @@
 """Checks the resource-icon helpers end to end on a synthetic mod: font_index_map.py finds the resource block, maps
 FontButtonIndex to cells and reports a shared glyph; goods_batch.py makes framed buttons and glyphs (cutout, fill and
-existing-button sources) into empty cells only; apply_font_patch.py reproduces the edited fonts byte for byte, refuses a
-filled cell and reports a second run as already applied. Markers and every pixel outside the new cells stay unchanged.
+existing-button sources) into empty cells only; apply_font_patch.py reproduces the edited fonts and the buttons byte
+for byte, refuses a filled cell and a damaged copy, and reports a second run as already applied. Markers and every pixel outside the new cells stay unchanged.
 python tests/goods_check.py   (needs Node.js, Pillow, numpy and OpenCV)"""
 import json, os, shutil, subprocess, sys, tempfile
 from pathlib import Path
@@ -100,15 +100,24 @@ def main():
         g = after[cells[0]['y']:cells[0]['y'] + ch, cells[0]['x']:cells[0]['x'] + cw]
         assert g[..., 3].max() == 255 and (g[..., 3] == 0).any(), name           # an opaque object on a clear ground
 
-    fonts2 = tmp / 'fonts2'; shutil.copytree(A / 'res/Fonts', fonts2)
-    run = lambda *x: subprocess.run([sys.executable, str(H / 'apply_font_patch.py'), str(out / 'font_patch.json'), str(fonts2), *x], capture_output=True, text=True)
-    r = run('--check'); assert r.returncode == 0 and r.stdout.count('ready (exact original)') == 2, r.stdout + r.stderr
-    r = run(); assert r.returncode == 0 and r.stdout.count('written and verified') == 2, r.stdout + r.stderr
+    mod2 = tmp / 'mod2'; shutil.copytree(A / 'res/Fonts', mod2 / 'Assets/res/Fonts'); fonts2 = mod2 / 'Assets/res/Fonts'
+    run = lambda *x: subprocess.run([sys.executable, str(H / 'apply_font_patch.py'), str(out / 'font_patch.json'), str(mod2), *x], capture_output=True, text=True)
+    assert sorted(patch['files']) == ['Assets/Art/Interface/Buttons/Goods/New1.dds', 'Assets/Art/Interface/Buttons/Goods/New2.dds'], sorted(patch['files'])
+    r = run('--check'); assert r.returncode == 0 and r.stdout.count('ready (exact original)') == 2 and r.stdout.count(': ready\n') == 2, r.stdout + r.stderr
+    r = run(); assert r.returncode == 0 and r.stdout.count('written and verified') == 2 and r.stdout.count(': written\n') == 2, r.stdout + r.stderr
     for name in ('GameFont.tga', 'GameFont_75.tga'): assert (fonts2 / name).read_bytes() == (out / 'fonts' / name).read_bytes(), name
+    for n in ('New1', 'New2'):
+        rel = f'Art/Interface/Buttons/Goods/{n}.dds'
+        assert (mod2 / 'Assets' / rel).read_bytes() == (out / 'patch/Assets' / rel).read_bytes(), n
     r = run(); assert r.returncode == 0 and r.stdout.count('already applied') == 2, r.stdout
     edited = bytearray((fonts2 / 'GameFont.tga').read_bytes()); edited[-30] ^= 1  # a patched font that differs elsewhere
     (fonts2 / 'GameFont.tga').write_bytes(bytes(edited))
     r = run('--check'); assert r.returncode != 0 and 'already holds artwork' in r.stdout + r.stderr, r.stdout + r.stderr
+    damaged = json.loads((out / 'font_patch.json').read_text()); f = damaged['files']['Assets/Art/Interface/Buttons/Goods/New1.dds']
+    f['zb64'] = __import__('base64').b64encode(__import__('zlib').compress(b'not the button')).decode()
+    (tmp / 'damaged.json').write_text(json.dumps(damaged))
+    r = subprocess.run([sys.executable, str(H / 'apply_font_patch.py'), str(tmp / 'damaged.json'), str(mod2)], capture_output=True, text=True)
+    assert r.returncode != 0 and 'damaged' in r.stdout + r.stderr, r.stdout + r.stderr
     print('goods helpers: map, batch, buttons, glyphs and patch checked on a synthetic mod')
     shutil.rmtree(tmp)
 

@@ -1,6 +1,6 @@
 {
  "checked": "2026-10-26",
- "mod_commit": "71de0ab",
+ "mod_commit": "bd217d6",
  "mod_branch": "claude/settlement-economy",
  "checks": {
   "LQ.F1": false,
@@ -10,7 +10,7 @@
   "LQ.F5": false,
   "LQ.F6": false,
   "LQ.F7": false,
-  "LQ.F8": false,
+  "LQ.F8": true,
   "LQ.F9": false,
   "LQ.F10": false,
   "LQ.F11": false,

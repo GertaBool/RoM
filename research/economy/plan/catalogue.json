@@ -5820,9 +5820,9 @@
   },
   "BONUS_SYNTHETIC_RUBBER": {
    "cls": "BONUSCLASS_MANUFACTURED",
-   "art": "ART_DEF_BONUS_VULCANIZED_RUBBER",
-   "font_index": 99,
-   "button": "Art/Interface/Buttons/WorldBuilder/vulcanized_rubber.dds",
+   "art": "ART_DEF_BONUS_SYNTHETIC_RUBBER",
+   "font_index": 111,
+   "button": "Art/Interface/Buttons/Goods/SyntheticRubber.dds",
    "tech_reveal": "NONE",
    "tech_trade": "TECH_ORGANIC_CHEMISTRY",
    "tech_obsolete": "NONE",
@@ -6742,7 +6742,7 @@
   "BONUS_SMART_MEDICINE": {
    "cls": "BONUSCLASS_FUTURE",
    "art": "ART_DEF_BONUS_SMART_MEDICINE",
-   "font_index": 85,
+   "font_index": 110,
    "button": "Art/Interface/Buttons/WorldBuilder/Medicine.dds",
    "tech_reveal": "NONE",
    "tech_trade": "TECH_SMART_DRUGS",
@@ -6783,9 +6783,9 @@
   },
   "BONUS_BIOFUEL": {
    "cls": "BONUSCLASS_FUEL",
-   "art": "ART_DEF_BONUS_DIESEL",
-   "font_index": 77,
-   "button": "Art/Interface/Buttons/WorldBuilder/diesel_button.dds",
+   "art": "ART_DEF_BONUS_BIOFUEL",
+   "font_index": 109,
+   "button": "Art/Interface/Buttons/Goods/Biofuel.dds",
    "tech_reveal": "NONE",
    "tech_trade": "TECH_BIOFUELS",
    "tech_obsolete": "NONE",
@@ -7067,6 +7067,132 @@
     "land": "herd",
     "need": "clothing",
     "note": "Yielded by sheep pastures (D10, LQ.F11); nothing placed, gave or used it before."
+   }
+  },
+  "BONUS_TIMBER": {
+   "cls": "BONUSCLASS_RUSH",
+   "art": "ART_DEF_BONUS_TIMBER",
+   "font_index": 106,
+   "button": "Art/Interface/Buttons/Goods/Timber.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_BRONZE_WORKING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "forest",
+    "need": "fuel",
+    "planned": true,
+    "note": "New (R1): lumber camps and lumbermills on forest; also the fuel before coal (D12) and a building material."
+   }
+  },
+  "BONUS_DAIRY": {
+   "cls": "BONUSCLASS_LIVESTOCK",
+   "art": "ART_DEF_BONUS_DAIRY",
+   "font_index": 107,
+   "button": "Art/Interface/Buttons/Goods/Dairy.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_ANIMAL_HUSBANDRY",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "herd",
+    "need": "variety",
+    "planned": true,
+    "note": "New (R1): co-product of cow and sheep pastures."
+   }
+  },
+  "BONUS_LEATHER": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_LEATHER",
+   "font_index": 108,
+   "button": "Art/Interface/Buttons/Goods/Leather.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_ANIMAL_HUSBANDRY",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "bales",
+    "category": "raw material",
+    "land": "herd",
+    "need": "clothing",
+    "planned": true,
+    "note": "New (R1): co-product of horse, cow and sheep pastures."
    }
   },
   "BONUS_CGUILDPAPER": {
@@ -7434,6 +7560,9 @@
    }
   ],
   "BONUS_WOOL": [],
+  "BONUS_TIMBER": [],
+  "BONUS_DAIRY": [],
+  "BONUS_LEATHER": [],
   "BONUS_CGUILDPAPER": [
    {
     "source": "BUILDING_CGUILDHALL",

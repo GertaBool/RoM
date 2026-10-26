@@ -204,8 +204,8 @@
     {
      "id": "R1.5",
      "what": "Icons for the new goods from the art studio on GitHub: realistic textures for the buttons and the font atlas (TGA) entries",
-     "status": "planned",
-     "where": "design.json D9, LQ.F9"
+     "status": "done",
+     "where": "LQ.F9 (see R4.3)"
     },
     {
      "id": "R1.6",
@@ -286,17 +286,20 @@
     {
      "id": "R4.1",
      "what": "Look at the art studio (tools/civ4-art-studio) and refine it for this work",
-     "status": "open"
+     "status": "done",
+     "where": "tools/civ4-art-studio/helpers: font_index_map.py, goods_batch.py, core_bridge.js, apply_font_patch.py; tests/goods_check.py; README 'Resource icons in batch'"
     },
     {
      "id": "R4.2",
      "what": "Implement the planned goods (Timber, Dairy, Leather; wool from sheep pastures) in the mod",
-     "status": "open"
+     "status": "planned",
+     "where": "Records on GitLab claude/settlement-economy (LQ.F8 done: Wool restored, Timber, Dairy, Leather); their production waits on LQ.F10 (lumber camps) and LQ.F11 (pastures), after LQ.F4/F5"
     },
     {
      "id": "R4.3",
      "what": "Proper textures for their buttons and font glyphs",
-     "status": "open"
+     "status": "done",
+     "where": "LQ.F9: buttons and glyphs from photographs, Tools/GameFontPatch on the branch; in-game check LQ.F9.T5 open"
     }
    ]
   }

@@ -8,7 +8,13 @@
    "branch": "claude/settlement-economy",
    "created_from": "main at 71de0abe (2026-10-26)",
    "access": "GitLab MCP tools (mcp__gitlab__*); no separate authorization needed",
-   "rule": "All Settlement Economy mod work goes to this test branch; main stays untouched until the user decides (R3)"
+   "rule": "All Settlement Economy mod work goes to this test branch; main stays untouched until the user decides (R3)",
+   "connector": [
+    "add_commit stores content sent with encoding base64 as that base64 text, not as the decoded bytes: binary files (DDS, TGA) cannot be committed through it. They travel inside a text patch (Tools/GameFontPatch/font_patch.json, zlib and base64 with SHA-256 per file) that apply_font_patch.py installs; the written files are then committed with git by someone who can push.",
+    "old_str and new_str are matched byte for byte: the mod's XML uses CRLF, so the actions JSON must carry \\r\\n.",
+    "A file it edits is written back in UTF-8: a file with Latin-1 bytes (declared ISO-8859-1) gets two-byte sequences. Write non-ASCII text as XML character references, and convert any Latin-1 bytes in a file before editing it (bd217d67 repaired RoM_GameText_Civilopedia_Bonuses.xml).",
+    "Verify every commit by fetching the branch (git fetch over HTTPS works read-only from the session) and comparing with the checked local result."
+   ]
   },
   "plan": {
    "host": "GitHub",
@@ -588,27 +594,37 @@
       {
        "id": "LQ.F8.T1",
        "text": "BonusInfo records BONUS_TIMBER (BONUSCLASS_RUSH: the early strategic group of the resource bar, Bronze Working), BONUS_DAIRY (BONUSCLASS_LIVESTOCK: the food group, Animal Husbandry), BONUS_LEATHER (BONUSCLASS_GENERAL like Wool and Cotton, Animal Husbandry), appended after the last record so no existing index moves, built on Wool's record: no map placement, no yields, no health or happiness",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab b3255dc5"
       },
       {
        "id": "LQ.F8.T2",
        "text": "Art defines with a button and FontButtonIndex of their own (Timber 106, Dairy 107, Leather 108); map model: Empty.nif for Timber, the cow's for Dairy and Leather (seen only if placed in the World Builder)",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab b3255dc5"
       },
       {
        "id": "LQ.F8.T3",
        "text": "Civilopedia and help text in the mod's languages; units and categories from proposals.json",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab b3255dc5: names and Civilopedia in English, French, German, Italian, Spanish, and Wool's empty entry; units and categories go into help text with the goods accounts (GW), where they mean something to the player"
       },
       {
        "id": "LQ.F8.T4",
        "text": "Pin WOC_GAMEFONT_RESOURCE_FIX to the code at which both fonts hold the extra symbols: assignFontIds puts them at the first multiple of 25 at least S + N + 2 for N resource records, S + 75 for today's 73, S + 100 (an empty row) for 74 to 98; S = 8650 from the first symbol code 8483, 3 yields, 4 commerce types, 16 religions and 27 corporations, so 8725 (audit font_pinned computes it)",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab 93738c0c: WOC_GAMEFONT_RESOURCE_FIX 8725; audit font_pinned computes it"
       },
       {
        "id": "LQ.F8.T5",
        "text": "Restore BONUS_WOOL: its record is commented out in CIV4BonusInfos.xml (GitLab main 71de0ab, lines 4113-4154) while its art define, glyph 101 and text exist and nothing else names it; probably dropped to keep 73 records when the Guilds module added BONUS_CGUILDPAPER, since a 74th moves the symbols (see T4)",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "GitLab b3255dc5"
       }
      ],
      "data": [
@@ -671,22 +687,30 @@
       {
        "id": "LQ.F9.T1",
        "text": "Source photographs whose licence allows use in the mod (public domain or CC0 preferred); record each source, author and licence in an asset manifest",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "Assets/Art/Interface/Buttons/Goods/ASSETS.json (GitLab a1efa77d): Wikimedia Commons, public domain and CC0"
       },
       {
        "id": "LQ.F9.T2",
        "text": "Buttons: tools/civ4-art-studio/helpers/goods_batch.py (the studio's resampler and DDS writer through core_bridge.js), 64 x 64 DDS DXT3 like the mod's own resource buttons, the object cut out or textured from the photograph inside the frame all the mod's resource buttons share (their median), placed under Assets/Art/Interface/Buttons/Goods/",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "Buttons travel in Tools/GameFontPatch/font_patch.json (GitLab 003ed8ef): the connector stores binary content as text; applying the patch to a clean checkout gives them byte for byte"
       },
       {
        "id": "LQ.F9.T3",
        "text": "Glyphs: the same batch writes each object into its FontButtonIndex cell of the resource block in GameFont.tga and GameFont_75.tga (cell = index, shown by font_index_map.py: 13 of 31 buttons match at cell = index against 0.08 by chance), empty cells only, markers preserved, every other pixel checked; the edited fonts are too large for the connector, so the branch carries the patch (Tools/GameFontPatch) and the fonts go to the user",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "Cells 106-111 of both sheets in Tools/GameFontPatch (GitLab 003ed8ef); the edited sheets go to the user"
       },
       {
        "id": "LQ.F9.T4",
        "text": "The same for the second record of each shared pair: Biofuel (own art define, 109), Smart Medicine (index 85 -> 110, glyph from its existing button), Synthetic Rubber (own art define, 111)",
-       "status": "todo"
+       "status": "done",
+       "done": "2026-10-26",
+       "note": "Biofuel 109, Smart Medicine 110 (glyph from its button), Synthetic Rubber 111; audit icons: no glyph shared"
       },
       {
        "id": "LQ.F9.T5",
