@@ -7066,7 +7066,7 @@
     "category": "raw material",
     "land": "herd",
     "need": "clothing",
-    "note": "Nothing places, gives or uses it today. Proposed: pastures on sheep land yield it beside meat (Q1)."
+    "note": "Yielded by sheep pastures (D10, LQ.F11); nothing placed, gave or used it before."
    }
   },
   "BONUS_CGUILDPAPER": {

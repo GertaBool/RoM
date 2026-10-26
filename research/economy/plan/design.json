@@ -1,0 +1,308 @@
+{
+ "title": "Settlement Economy: production, consumption and trade of goods",
+ "about": "The design: the statement (statement.md) as elements, each quoting its text, and the decisions that refine it. plan.json implements it: every feature names the design elements it serves, and tools/check_plan.py reports any element no feature serves.",
+ "source": "statement.md (verbatim from the user, prompt M16 in requests.json)",
+ "summary": "Resources stop being map tokens that a civilization either has or lacks. They become **goods measured in physical quantities**: tonnes of wheat, dairy and coal, bales of cotton, crates of arms. Each settlement **produces** goods from the land it works, its improvements, its buildings, its specialists and its population. It **consumes** them in proportion to its size and way of life. Surpluses and shortages drive growth, contentment, industry, trade and war. Diplomacy moves from leasing a resource for gold per turn to **real commerce**: shipping goods, selling seeds and breeding stock, and negotiating multi-part contracts.",
+ "elements": [
+  {
+   "id": "P1",
+   "section": "2",
+   "text": "1. **Physical quantities.** Every good is counted in units that mean something (tonnes, bales, barrels, crates) and is conserved: it is made, moved, stored, used up or spoiled. Nothing appears from nowhere.",
+   "cross_cutting": true
+  },
+  {
+   "id": "P2",
+   "section": "2",
+   "text": "2. **Production comes from the whole settlement.** Output combines worked tiles and their improvements, buildings, specialists and available labour. Land sets what is possible; people and capital set how much of it is realised.",
+   "cross_cutting": true
+  },
+  {
+   "id": "P3",
+   "section": "2",
+   "text": "3. **Consumption comes from population.** A settlement of a given size needs a plausible amount of food, fuel, clothing and comforts. Needs rise with size and with era.",
+   "cross_cutting": true
+  },
+  {
+   "id": "P4",
+   "section": "2",
+   "text": "4. **Industry transforms goods.** Factories turn inputs into outputs at defined rates, and the scarcest input limits the result.",
+   "cross_cutting": true
+  },
+  {
+   "id": "P5",
+   "section": "2",
+   "text": "5. **Military power has a material cost.** Units are built from production and goods, and armies in the field use supplies.",
+   "cross_cutting": true
+  },
+  {
+   "id": "P6",
+   "section": "2",
+   "text": "6. **Trade carries the goods themselves.** Civilizations exchange goods, the means to produce them (seeds, livestock, techniques), money and treaties, in deals of any shape.",
+   "cross_cutting": true
+  },
+  {
+   "id": "P7",
+   "section": "2",
+   "text": "7. **The simulation lives in the DLL.** The game's rules run in the DLL; XML holds the data and Python shows it to the player.",
+   "cross_cutting": true
+  },
+  {
+   "id": "G.catalogue",
+   "section": "3.1",
+   "text": "- **A catalogue of goods** defined in XML, each with:\n  - its unit;\n  - its category: staple food, other food, fuel, raw material, intermediate, finished good, luxury, military supply;\n  - its storage limit and how fast it spoils;\n  - its base value."
+  },
+  {
+   "id": "G.tokens",
+   "section": "3.1",
+   "text": "**Today's resource types become entries in this catalogue.** No good sits on a map plot."
+  },
+  {
+   "id": "PR.tiles",
+   "section": "3.2",
+   "text": "**Tiles:** the land's qualities for that good (climate, soil, ore grade, fishing grounds), times the improvement built on the tile.",
+   "cross_cutting": true
+  },
+  {
+   "id": "PR.labour",
+   "section": "3.2",
+   "text": "**Labour:** citizens working tiles produce raw goods. Specialists produce specific goods or multiply buildings' output, for example a miller, a smith or an engineer.",
+   "cross_cutting": true
+  },
+  {
+   "id": "PR.processing",
+   "section": "3.2",
+   "text": "processing (a mill makes flour; a dairy turns milk into cheese and butter);",
+   "cross_cutting": true
+  },
+  {
+   "id": "PR.storage_buildings",
+   "section": "3.2",
+   "text": "storage (granary, warehouse);",
+   "cross_cutting": true
+  },
+  {
+   "id": "PR.industry",
+   "section": "3.2",
+   "text": "industry (foundry, textile mill, arsenal).",
+   "cross_cutting": true
+  },
+  {
+   "id": "PR.tech_policy",
+   "section": "3.2",
+   "text": "**Technology and policy:** multipliers on yields, and new production methods.",
+   "cross_cutting": true
+  },
+  {
+   "id": "CN.needs",
+   "section": "3.3",
+   "text": "- **Needs per citizen,** set by era and by the settlement's level of development:\n  - staple food;\n  - dietary variety: dairy, meat, fruit, oil;\n  - fuel: wood, then coal, then oil;\n  - clothing: wool, cotton, linen;\n  - comforts and luxuries: coffee, wine, spices, fine goods."
+  },
+  {
+   "id": "CN.effects",
+   "section": "3.3",
+   "text": "**Effects of being supplied:** a need that is met adds to growth, health and contentment, with diminishing returns. A shortfall causes hunger, illness, unrest and lost production. Larger settlements need proportionally more, so a single shipment of coffee no longer satisfies an empire."
+  },
+  {
+   "id": "SD.stocks",
+   "section": "3.4",
+   "text": "**Stocks** sit in the settlement and are limited by its storage buildings. Perishable goods (fish, dairy, fruit) decay unless preserved."
+  },
+  {
+   "id": "SD.network",
+   "section": "3.4",
+   "text": "**Within a trade network,** surpluses flow to shortages automatically, limited by roads, rivers, ports and harbours. A blockade or a cut road changes what reaches a city."
+  },
+  {
+   "id": "IN.recipes",
+   "section": "3.5",
+   "text": "**Recipes:** buildings convert inputs into outputs at set rates and capacities. For example, 2 iron ore and 1 coal make 2 steel; 1 steel and 1 sulphur make 1 crate of arms."
+  },
+  {
+   "id": "IN.units",
+   "section": "3.5",
+   "text": "**Units** cost production plus goods, such as muskets, horses, steel and fuel. In later eras, armies in the field draw supplies, so industrial capacity and supply lines become part of warfare."
+  },
+  {
+   "id": "TR.goods",
+   "section": "4.1",
+   "text": "| Goods | 50 tonnes of wheat; 10 crates of arms; coffee | Physical: shipped and used up |"
+  },
+  {
+   "id": "TR.means",
+   "section": "4.1",
+   "text": "| Means of production | Coffee seeds, breeding cattle, silkworms, mining or brewing techniques | Knowledge or stock: the buyer can then produce it |"
+  },
+  {
+   "id": "TR.money",
+   "section": "4.1",
+   "text": "| Money | Lump sum, instalments | Financial |"
+  },
+  {
+   "id": "TR.agreements",
+   "section": "4.1",
+   "text": "| Agreements | Open borders, alliances, rights to fishing grounds, exclusivity clauses | Political |"
+  },
+  {
+   "id": "TR.spot",
+   "section": "4.2",
+   "text": "**Spot deals:** one shipment, delivered now."
+  },
+  {
+   "id": "TR.contracts",
+   "section": "4.2",
+   "text": "**Supply contracts:** a quantity per turn for a set term at an agreed price, with penalties for failing to deliver."
+  },
+  {
+   "id": "TR.packages",
+   "section": "4.2",
+   "text": "**Packages:** any combination. For example: 20 tonnes of grain per turn for 30 turns, plus coffee seeds, in exchange for iron ore, open borders and a lump sum."
+  },
+  {
+   "id": "TR.delivery",
+   "section": "4.2",
+   "text": "**Delivery is physical.** Goods travel by land or sea routes. Distance, ports and blockades affect what arrives, and war can break contracts."
+  },
+  {
+   "id": "AI.marginal",
+   "section": "4.3",
+   "text": "The AI values a good by its **marginal value**: what one more unit changes in its own settlements' growth, contentment and output."
+  },
+  {
+   "id": "AI.gold",
+   "section": "4.3",
+   "text": "Gold is valued at what it can buy."
+  },
+  {
+   "id": "AI.strategic",
+   "section": "4.3",
+   "text": "It also weighs the strategic cost of giving a rival the means to produce a good, for example selling seeds versus selling the harvest."
+  },
+  {
+   "id": "MP.prices",
+   "section": "4.4",
+   "text": "Prices come from supply and demand among trading partners. That rewards monopolies, specialisation and stockpiling, and lets the player see why a good is valuable.",
+   "optional": true
+  },
+  {
+   "id": "AR.dll",
+   "section": "6",
+   "text": "**DLL:**\n  - the per-settlement goods accounts;\n  - production, consumption, spoilage, distribution, recipes;\n  - unit costs;\n  - new deal item types;\n  - AI valuation."
+  },
+  {
+   "id": "AR.xml",
+   "section": "6",
+   "text": "**XML:** the goods catalogue, needs per citizen, building recipes and capacities, specialist outputs, and unit costs."
+  },
+  {
+   "id": "AR.python",
+   "section": "6",
+   "text": "**Python:** the settlement goods screen, trade and contract views, and map overlays of land qualities."
+  },
+  {
+   "id": "AR.bridge",
+   "section": "6",
+   "text": "**The bridge to the existing engine:** a settlement that is supplied with a good also holds the matching resource count. That keeps existing building requirements, the AI and the trade screen working while the new systems are built. I checked in the code that a city's resource count reaches its trade network."
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "Scale of units",
+   "status": "decided",
+   "choice": "Real quantities in whole integers, each good in its own unit (tonnes, bales, barrels, crates), sized so no value can overflow; never shown as a fulfilment ratio.",
+   "source": "user, 2026-10-25"
+  },
+  {
+   "id": "D2",
+   "question": "Food",
+   "status": "decided",
+   "choice": "Staple food is a good in tonnes. A city eats first and grows from its surplus; citizens starve only when stores are empty. Spoilage of food depends on the preservation technologies the owner lacks.",
+   "source": "user, 2026-10-26"
+  },
+  {
+   "id": "D3",
+   "question": "Number of goods",
+   "status": "decided",
+   "choice": "The game's existing resource types, plus three new goods: Timber (from lumber camps and lumbermills on forest), Dairy (from cow and sheep pastures) and Leather (from horse, cow and sheep pastures).",
+   "source": "user, 2026-10-26 (request R1, requests.json)"
+  },
+  {
+   "id": "D4",
+   "question": "Need tiers",
+   "status": "decided",
+   "choice": "Needs grow along two building chains the game already has. The essentials buildings (Settlement, Town, City, Metropolitan) set how much a citizen needs of the basics (staple food, fuel, clothing). The market chain (Market, Fair, Commodity Market, Commercial Center, Hypermarket) sets which further goods a citizen wants and how much (variety, comforts, luxuries). Technological progression raises output through the techs' existing yield changes.",
+   "source": "user, 2026-10-26"
+  },
+  {
+   "id": "D5",
+   "question": "Spoilage and storage",
+   "status": "decided",
+   "choice": "From the start, with D2.",
+   "source": "follows from D2"
+  },
+  {
+   "id": "D6",
+   "question": "Distribution",
+   "status": "decided",
+   "choice": "As the game works now: goods are shared across a connected trade network (CvPlotGroup: roads, rivers, coast). Blockades count: enemy ships blockading water plots take them out of the network (CvUnit::updatePlunder, CvPlot::isTradeNetwork), which changes what reaches a city and what deliveries arrive. Transport limits apply only to units (their cargo), not to goods.",
+   "source": "user, 2026-10-26"
+  },
+  {
+   "id": "D7",
+   "question": "Contracts and the trade screen",
+   "status": "decided",
+   "choice": "Modify the executable's diplomacy screen through the DLL (item list and item text); no separate trade screen.",
+   "source": "user, 2026-10-26"
+  },
+  {
+   "id": "D8",
+   "question": "Order of work",
+   "status": "decided",
+   "choice": "Geography and the way tiles work first (component LQ), then the goods accounts and production.",
+   "source": "user, 2026-10-26"
+  },
+  {
+   "id": "D9",
+   "question": "Icons",
+   "status": "decided",
+   "choice": "Every good keeps its icon; no icon is missing or shared. New goods get their own button, art define and glyph in both font atlases (GameFont.tga, GameFont_75.tga), made with the repository's art studio (tools/civ4-art-studio) from realistic photographic textures whose licence allows use in the mod; the source and licence of each image are recorded.",
+   "source": "user, 2026-10-26 (request R1, requests.json)"
+  },
+  {
+   "id": "D10",
+   "question": "Wool",
+   "status": "decided",
+   "why": "Nothing places, gives or uses BONUS_WOOL today (catalogue.json), yet clothing needs it",
+   "choice": "Sheep pastures yield wool, beside meat, dairy and leather.",
+   "source": "user, 2026-10-26 (request R1, requests.json)"
+  },
+  {
+   "id": "D11",
+   "question": "Resources that are not physical goods",
+   "status": "open",
+   "options": [
+    "outside the goods accounts: Drama, Music, Movies stay building-given resources; Ancient Temple and Thermal Vent stay map sites",
+    "turned into goods"
+   ],
+   "proposal": "outside the goods accounts",
+   "why": "They are culture given by buildings or sites with no improvement that trades them (catalogue.json)"
+  },
+  {
+   "id": "D12",
+   "question": "Fuel before coal",
+   "status": "decided",
+   "why": "No timber or wood resource exists; the existing fuel goods are coal, oil, uranium, diesel, methane, biofuel and whale (catalogue.json)",
+   "choice": "Timber is the fuel before coal: the fuel need applies from the start, met by timber, then coal, then oil.",
+   "source": "follows from R1 (timber added)"
+  },
+  {
+   "id": "D13",
+   "question": "Clothing in the early game",
+   "status": "decided",
+   "why": "These are the only existing clothing goods (catalogue.json)",
+   "choice": "The clothing goods are wool, leather, fur and cotton.",
+   "source": "follows from R1 (wool and leather added)"
+  }
+ ],
+ "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"
+}

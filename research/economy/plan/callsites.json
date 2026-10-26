@@ -234,105 +234,105 @@
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1236,
+   "line": 1237,
    "function": "CvGame::normalizeAddRiver",
    "call": "getBonusType",
    "text": "if (pPlot->getBonusType() != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1331,
+   "line": 1332,
    "function": "CvGame::normalizeFindLakePlot",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType() == NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1424,
+   "line": 1425,
    "function": "CvGame::normalizeRemoveBadFeatures",
    "call": "getBonusType",
    "text": "if (!(iDistance == iMaxRange) && (getSorenRandNum((2 + ((pLoopPlot->getBonusType() == NO_BONUS) ? 0 : 2)), \"Remove Bad Feature\") == 0))"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1484,
+   "line": 1485,
    "function": "CvGame::normalizeRemoveBadTerrain",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType(GET_PLAYER((PlayerTypes)iI).getTeam()) != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1548,
+   "line": 1549,
    "function": "CvGame::normalizeAddFoodBonuses",
    "call": "getBonusType",
    "text": "BonusTypes eBonus = pLoopPlot->getBonusType(GET_PLAYER((PlayerTypes)iI).getTeam());"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1597,
+   "line": 1598,
    "function": "CvGame::normalizeAddFoodBonuses",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType() == NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1689,
+   "line": 1690,
    "function": "CvGame::normalizeAddGoodTerrain",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType() == NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1800,
+   "line": 1801,
    "function": "CvGame::normalizeAddExtras",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType() == NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1839,
+   "line": 1840,
    "function": "CvGame::normalizeAddExtras",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType() != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1853,
+   "line": 1854,
    "function": "CvGame::normalizeAddExtras",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType() != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1892,
+   "line": 1893,
    "function": "CvGame::normalizeAddExtras",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType() == NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1920,
+   "line": 1921,
    "function": "CvGame::normalizeAddExtras",
    "call": "getBonusType",
    "text": "if (bLandBias && !pLoopPlot->isWater() && pLoopPlot->getBonusType() == NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 1974,
+   "line": 1975,
    "function": "CvGame::normalizeAddExtras",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType() == NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 2025,
+   "line": 2026,
    "function": "CvGame::normalizeAddExtras",
    "call": "getBonusType",
    "text": "if ((pLoopPlot->getBonusType() == NO_BONUS) ||"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvGame.cpp",
-   "line": 2026,
+   "line": 2027,
    "function": "CvGame::normalizeAddExtras",
    "call": "getBonusType",
    "text": "GC.getBonusInfo(pLoopPlot->getBonusType()).isHills())"
@@ -507,231 +507,231 @@
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
-   "line": 10264,
+   "line": 10557,
    "function": "CvPlayerAI::AI_cityTradeVal",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType(getTeam()) != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
-   "line": 10266,
+   "line": 10559,
    "function": "CvPlayerAI::AI_cityTradeVal",
    "call": "getBonusType",
    "text": "iValue += (AI_bonusVal(pLoopPlot->getBonusType(getTeam())) * 10);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
-   "line": 14397,
+   "line": 14690,
    "function": "CvPlayerAI::AI_espionageVal",
    "call": "getNonObsoleteBonusType",
    "text": "BonusTypes eBonus = pPlot->getNonObsoleteBonusType(GET_PLAYER(eTargetPlayer).getTeam());"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
-   "line": 22283,
+   "line": 22582,
    "function": "CvPlayerAI::AI_countDeadlockedBonuses",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType(getTeam()) != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
-   "line": 23556,
+   "line": 23855,
    "function": "CvPlayerAI::AI_advancedStartRouteTerritory",
    "call": "getBonusType",
    "text": "BonusTypes eBonus = pLoopPlot->getBonusType(getTeam());"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
-   "line": 23769,
+   "line": 24068,
    "function": "CvPlayerAI::AI_doAdvancedStart",
    "call": "getBonusType",
    "text": "if (pLoopPlot->getBonusType(getTeam()) != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 592,
+   "line": 594,
    "function": "CvPlot::doImprovement",
    "call": "getBonusType",
    "text": "if (getBonusType() == NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 1243,
+   "line": 1245,
    "function": "CvPlot::updatePlotGroupBonus",
    "call": "getNonObsoleteBonusType",
    "text": "eNonObsoleteBonus = getNonObsoleteBonusType(getTeam());"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 2164,
+   "line": 2166,
    "function": "CvPlot::canHaveBonus",
    "call": "getBonusType",
    "text": "if (getBonusType() != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 2281,
+   "line": 2283,
    "function": "CvPlot::canHaveImprovement",
    "call": "getBonusType",
    "text": "if ((getBonusType(eTeam) != NO_BONUS) && GC.getImprovementInfo(eImprovement).isImprovementBonusMakesValid(getBonusType(eTeam)))"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5340,
+   "line": 5342,
    "function": "CvPlot::setPlotType",
    "call": "getBonusType",
    "text": "if (getBonusType() != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5342,
+   "line": 5344,
    "function": "CvPlot::setPlotType",
    "call": "getBonusType",
    "text": "GC.getMapINLINE().changeNumBonusesOnLand(getBonusType(), ((isWater()) ? -1 : 1));"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5683,
+   "line": 5685,
    "function": "CvPlot::getBonusType",
    "call": "getBonusType",
    "text": "BonusTypes CvPlot::getBonusType(TeamTypes eTeam) const"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5700,
+   "line": 5702,
    "function": "CvPlot::getNonObsoleteBonusType",
    "call": "getNonObsoleteBonusType",
    "text": "BonusTypes CvPlot::getNonObsoleteBonusType(TeamTypes eTeam) const"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5704,
+   "line": 5706,
    "function": "CvPlot::getNonObsoleteBonusType",
    "call": "getBonusType",
    "text": "BonusTypes eBonus = getBonusType(eTeam);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5719,
+   "line": 5721,
    "function": "CvPlot::setBonusType",
    "call": "getBonusType",
    "text": "if (getBonusType() != eNewValue)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5721,
+   "line": 5723,
    "function": "CvPlot::setBonusType",
    "call": "getBonusType",
    "text": "if (getBonusType() != NO_BONUS)"
-  },
-  {
-   "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5725,
-   "function": "CvPlot::setBonusType",
-   "call": "getBonusType",
-   "text": "area()->changeNumBonuses(getBonusType(), -1);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
    "line": 5727,
    "function": "CvPlot::setBonusType",
    "call": "getBonusType",
+   "text": "area()->changeNumBonuses(getBonusType(), -1);"
+  },
+  {
+   "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+   "line": 5729,
+   "function": "CvPlot::setBonusType",
+   "call": "getBonusType",
    "text": "GC.getMapINLINE().changeNumBonuses(getBonusType(), -1);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5731,
+   "line": 5733,
    "function": "CvPlot::setBonusType",
    "call": "getBonusType",
    "text": "GC.getMapINLINE().changeNumBonusesOnLand(getBonusType(), -1);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5739,
+   "line": 5741,
    "function": "CvPlot::setBonusType",
    "call": "getBonusType",
    "text": "if (getBonusType() != NO_BONUS)"
-  },
-  {
-   "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5743,
-   "function": "CvPlot::setBonusType",
-   "call": "getBonusType",
-   "text": "area()->changeNumBonuses(getBonusType(), 1);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
    "line": 5745,
    "function": "CvPlot::setBonusType",
    "call": "getBonusType",
+   "text": "area()->changeNumBonuses(getBonusType(), 1);"
+  },
+  {
+   "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+   "line": 5747,
+   "function": "CvPlot::setBonusType",
+   "call": "getBonusType",
    "text": "GC.getMapINLINE().changeNumBonuses(getBonusType(), 1);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 5749,
+   "line": 5751,
    "function": "CvPlot::setBonusType",
    "call": "getBonusType",
    "text": "GC.getMapINLINE().changeNumBonusesOnLand(getBonusType(), 1);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 6267,
+   "line": 6269,
    "function": "CvPlot::calculateNatureYield",
    "call": "getBonusType",
    "text": "eBonus = getBonusType(eTeam);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 6385,
+   "line": 6387,
    "function": "CvPlot::calculateImprovementYieldChange",
    "call": "getBonusType",
    "text": "eBonus = getBonusType(GET_PLAYER(ePlayer).getTeam());"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 8767,
+   "line": 8779,
    "function": "CvPlot::doFeature",
    "call": "getBonusType",
    "text": "if ((getBonusType() == NO_BONUS) || (GC.getBonusInfo(getBonusType()).isFeature(iI)))"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 8985,
+   "line": 8997,
    "function": "CvPlot::processArea",
    "call": "getBonusType",
    "text": "if (getBonusType() != NO_BONUS)"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 8987,
+   "line": 8999,
    "function": "CvPlot::processArea",
    "call": "getBonusType",
    "text": "pArea->changeNumBonuses(getBonusType(), iChange);"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 9716,
+   "line": 9728,
    "function": "CvPlot::getVisibleBonusState",
    "call": "getBonusType",
    "text": "eType = getBonusType();"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 9720,
+   "line": 9732,
    "function": "CvPlot::getVisibleBonusState",
    "call": "getBonusType",
    "text": "eType = getBonusType(GC.getGameINLINE().getActiveTeam());"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 9959,
+   "line": 9971,
    "function": "CvPlot::canTrigger",
    "call": "getBonusType",
    "text": "if (kTrigger.getBonusRequired(i) == getBonusType(kTrigger.isOwnPlot() ? GET_PLAYER(ePlayer).getTeam() : NO_TEAM))"
   },
   {
    "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
-   "line": 10099,
+   "line": 10111,
    "function": "CvPlot::canApplyEvent",
    "call": "getBonusType",
    "text": "if (NO_BONUS == getBonusType())"
@@ -850,7 +850,7 @@
   },
   {
    "file": "Assets/CvGameCoreDLL/CvTeamAI.cpp",
-   "line": 2727,
+   "line": 2734,
    "function": "CvTeamAI::AI_acceptSurrender",
    "call": "getNonObsoleteBonusType",
    "text": "BonusTypes eBonus = pLoopPlot->getNonObsoleteBonusType(getID());"

@@ -1,5 +1,168 @@
 {
- "about": "The user's requests for the economy plan, verbatim, with what each asks and where in the plan it is carried out. Read with statement.md after every context reset; a request is closed only when every item is done.",
+ "about": "Every prompt of the Settlement Economy work, verbatim and in order (prompts), with its kind and what it led to; and the actionable requests (requests), each split into items with a status (open, planned, done) and where in the files it is carried out. A new prompt is added here first, before any other work. Read after every context reset, with design.json and plan.json.",
+ "prompts": [
+  {
+   "id": "M01",
+   "date": "2026-10-25T19:48:45",
+   "kind": "request",
+   "text": "Let's talk about a possible revamping of how bonuses work. Away from random berries or ores where you put your workers to labor the field, towards approaches where you basically have land of varying qualities in different climates depending on the hemisphere and other factors, that you can use and build agriculture and industry and trade on. So rather than having one cotton or coffee bonus or sending work boats to some cartoon animals on the sea, you would just exploit the areas, obtain seeds maybe, make the mines deeper, actually manufacture weapons rather than just build mine + forge => hammers etc\n\nIs that even possible in this game?",
+   "led_to": "First design, land qualities instead of resource tokens: research/economy/land-and-industry.pdf"
+  },
+  {
+   "id": "M02",
+   "date": "2026-10-25T19:58:07",
+   "kind": "request",
+   "text": "Discuss the approach further. Go all the way, give various ways to implement what I was elucidating about. Write a full PDF outlining everything, including robust mathematics and visualizations that are well explained to showcase how the new mechanics would interplay",
+   "led_to": "Full PDF with mathematics and visualisations: research/economy/land-and-industry.pdf"
+  },
+  {
+   "id": "M03",
+   "date": "2026-10-25T20:06:23",
+   "kind": "direction",
+   "text": "Sorry to interject, but I kind of wanted to outright do away with bonuses as they work now and instead replace them as qualities of the land instead, being attributes of the particular region or landmass rather than just being these cute figures where you build a plantation.",
+   "led_to": "Resources become qualities of land, regions and landmasses (design.json G.tokens, PR.tiles)"
+  },
+  {
+   "id": "M04",
+   "date": "2026-10-25T20:24:02",
+   "kind": "direction",
+   "text": "My idea is to shift the resources towards a more backend heavy implementation where a town would produce resources and other goods by using the tiles and improvements, buildings and specialists and the overall population. A population of a certain size will naturally consume a plausible amount of them, you would basically have various quantities like tons of wheat, dairy products, coal etc. and then ontop of that there would be industry and trade and unit production, rather than say \"I want to have the coffee bonus too, here are 348 gold coins per turn\", civs have more freedom to ship coffee products, sell the actual seeds or prepare a more complicated deal package. \n\nFeel free to formulate all of this in a more professional way, and then we can further discuss it in detail",
+   "led_to": "The goods economy; written up as the design statement (statement.md, design.json)"
+  },
+  {
+   "id": "M05",
+   "date": "2026-10-25T20:29:17",
+   "kind": "request",
+   "text": "Come up with a more robust, deterministic picture, using quantitative methods to measure various outcomes depending on the precise implementation in the codebase, and discuss it at great lengths, satisfying the scope of the project",
+   "led_to": "Quantitative study research/economy/settlement/ (set aside: not part of the plan)"
+  },
+  {
+   "id": "M06",
+   "date": "2026-10-25T21:39:54",
+   "kind": "feedback",
+   "text": "Wow the stats are abysmal. Optimizations are possible everywhere, but at the same time a lot of things have to be rewritten/rethought in conjunction. And if you change one thing, the scale tips on the other side.",
+   "led_to": "Led to M07"
+  },
+  {
+   "id": "M07",
+   "date": "2026-10-25T21:44:18",
+   "kind": "request",
+   "text": "I would want to see a fully sculpted vision of what the game would look like in its optimal state, rather than some patchwork guesswork of what-could-bes, because we're trying to make an immersive strategy game. If we change the way resources, yields, production, trade, really the entire economy works, then that's going to require a lot more than small local iterative changes where you can occasionally overlook something. It's really about having the whole gestalt mentally in front of you already and not being afraid to cut the Gordion knot. \n\nBecause I can always just test different branches or revert commits.",
+   "led_to": "The Living Economy, research/economy/vision/ (set aside: went beyond the design statement)"
+  },
+  {
+   "id": "M08",
+   "date": "2026-10-26T05:10:35",
+   "kind": "request",
+   "text": "Continue ",
+   "led_to": "Continued M07"
+  },
+  {
+   "id": "M09",
+   "date": "2026-10-26T05:26:10",
+   "kind": "direction",
+   "text": "Expand and refine the concept so that food is something where citizen aren't necessarily starving by default, but instead the city grows with a surplus of food and there is spoilage only depending on the technology that is missing (i.e. pottery, fermentation, refridgeration)\n\nGoods should probably be measured in tons or similar units, in a way that cannot overflow, rather than directly as a fulfillment ratio, because that ratio can be misunderstood, and diplomacy is more intuitive with whole integers.",
+   "led_to": "Food grows cities from a surplus, spoilage only from missing technology, goods in whole integers (design.json D1, D2)"
+  },
+  {
+   "id": "M10",
+   "date": "2026-10-26T05:52:34",
+   "kind": "feedback",
+   "text": "\"the rebuilt land overgrows cities 2.7x by turn 50 and 1.09x\" \nThe whole point of food is that cities grow proportionally, you're looking at a game where you start in the stone age and advance into the bronze age and other eras. I think you need to assemble key priors before trying to piece together twelve features at once.",
+   "led_to": "Assemble the priors before many features at once; the growth model did not reproduce the games (research stopped)"
+  },
+  {
+   "id": "M11",
+   "date": "2026-10-26T06:04:53",
+   "kind": "feedback",
+   "text": "I imagine you make great visuals for me. But what is important is what I as a player see ingame and whether the game crashes, whether I can intuit the interface and have a great experience. I don't want 10,000 research reports and tests about some fluff that doesn't matter. You're supposed to work from first principles, the code and the mathematics and tests are just a tool. ",
+   "led_to": "What the player sees and whether the game crashes matter; work from first principles, code and mathematics are tools (research track stopped)"
+  },
+  {
+   "id": "M12",
+   "date": "2026-10-26T06:06:35",
+   "kind": "feedback",
+   "text": "I have no idea why you hyperfixate on food so much",
+   "led_to": "Stop fixating on food; keep the whole design in view"
+  },
+  {
+   "id": "M13",
+   "date": "2026-10-26T06:08:25",
+   "kind": "request",
+   "text": "I want you to discuss how to actually implement the original idea in Civ4 RoM again and put this erratic implementation aside",
+   "led_to": "Discussion of implementing the design statement in RoM"
+  },
+  {
+   "id": "M14",
+   "date": "2026-10-26T06:13:37",
+   "kind": "request",
+   "text": "Give me a step by step transformation plan so that we know precisely which feature has to change and what corresponding code sections will be implemented. I think you understand by now that I am not a fan of erratic patchwork implementations.",
+   "led_to": "Step-by-step transformation plan (transformation-plan.md, replaced by plan.json)"
+  },
+  {
+   "id": "M15",
+   "date": "2026-10-26T06:22:39",
+   "kind": "request",
+   "text": "Refine the transformation plan. Turn it into a full json or something similar that you can automatically check step by step as you might continue to work on it in the future.\n\nA few missing pieces: I don't want to have missing icons, if anything I would rather that the goods retain their icons and any additional ones load the correct graphics. However, I'm not sure about the current setup with GameTGA values and ArtBonus entries.\n\nAlso, Trade screens with other civs will involve a lot more than just simplistic cattle trades, I hope you understand.",
+   "led_to": "The plan as checked JSON: plan.json, tools/check_plan.py"
+  },
+  {
+   "id": "M16",
+   "date": "2026-10-26T06:25:42",
+   "kind": "feedback",
+   "text": "Before you continue:\n\nCheck the original design statements against your current body of work and what you are currently trying to do. I have spotted key divergences that shouldn't be there.\n\n\"Here is your idea written up as a design statement. The decisions we still need to make are at the end.\n\n---\n\n# Settlement Economy: production, consumption and trade of goods\n\n## 1. Summary\n\nResources stop being map tokens that a civilization either has or lacks. They become **goods measured in physical quantities**: tonnes of wheat, dairy and coal, bales of cotton, crates of arms. Each settlement **produces** goods from the land it works, its improvements, its buildings, its specialists and its population. It **consumes** them in proportion to its size and way of life. Surpluses and shortages drive growth, contentment, industry, trade and war. Diplomacy moves from leasing a resource for gold per turn to **real commerce**: shipping goods, selling seeds and breeding stock, and negotiating multi-part contracts.\n\n## 2. Design principles\n\n1. **Physical quantities.** Every good is counted in units that mean something (tonnes, bales, barrels, crates) and is conserved: it is made, moved, stored, used up or spoiled. Nothing appears from nowhere.\n2. **Production comes from the whole settlement.** Output combines worked tiles and their improvements, buildings, specialists and available labour. Land sets what is possible; people and capital set how much of it is realised.\n3. **Consumption comes from population.** A settlement of a given size needs a plausible amount of food, fuel, clothing and comforts. Needs rise with size and with era.\n4. **Industry transforms goods.** Factories turn inputs into outputs at defined rates, and the scarcest input limits the result.\n5. **Military power has a material cost.** Units are built from production and goods, and armies in the field use supplies.\n6. **Trade carries the goods themselves.** Civilizations exchange goods, the means to produce them (seeds, livestock, techniques), money and treaties, in deals of any shape.\n7. **The simulation lives in the DLL.** The game's rules run in the DLL; XML holds the data and Python shows it to the player.\n\n## 3. Core model\n\n### 3.1 Goods\n- **A catalogue of goods** defined in XML, each with:\n  - its unit;\n  - its category: staple food, other food, fuel, raw material, intermediate, finished good, luxury, military supply;\n  - its storage limit and how fast it spoils;\n  - its base value.\n- **Today's resource types become entries in this catalogue.** No good sits on a map plot.\n\n### 3.2 Production\nA settlement's output of a good each turn combines:\n- **Tiles:** the land's qualities for that good (climate, soil, ore grade, fishing grounds), times the improvement built on the tile.\n- **Labour:** citizens working tiles produce raw goods. Specialists produce specific goods or multiply buildings' output, for example a miller, a smith or an engineer.\n- **Buildings:**\n  - processing (a mill makes flour; a dairy turns milk into cheese and butter);\n  - storage (granary, warehouse);\n  - industry (foundry, textile mill, arsenal).\n- **Technology and policy:** multipliers on yields, and new production methods.\n\n### 3.3 Consumption\n- **Needs per citizen,** set by era and by the settlement's level of development:\n  - staple food;\n  - dietary variety: dairy, meat, fruit, oil;\n  - fuel: wood, then coal, then oil;\n  - clothing: wool, cotton, linen;\n  - comforts and luxuries: coffee, wine, spices, fine goods.\n- **Effects of being supplied:** a need that is met adds to growth, health and contentment, with diminishing returns. A shortfall causes hunger, illness, unrest and lost production. Larger settlements need proportionally more, so a single shipment of coffee no longer satisfies an empire.\n\n### 3.4 Storage, spoilage and distribution\n- **Stocks** sit in the settlement and are limited by its storage buildings. Perishable goods (fish, dairy, fruit) decay unless preserved.\n- **Within a trade network,** surpluses flow to shortages automatically, limited by roads, rivers, ports and harbours. A blockade or a cut road changes what reaches a city.\n\n### 3.5 Industry and unit production\n- **Recipes:** buildings convert inputs into outputs at set rates and capacities. For example, 2 iron ore and 1 coal make 2 steel; 1 steel and 1 sulphur make 1 crate of arms.\n- **Units** cost production plus goods, such as muskets, horses, steel and fuel. In later eras, armies in the field draw supplies, so industrial capacity and supply lines become part of warfare.\n\n## 4. Trade and diplomacy\n\n### 4.1 What can be traded\n| Category | Examples | Nature |\n|---|---|---|\n| Goods | 50 tonnes of wheat; 10 crates of arms; coffee | Physical: shipped and used up |\n| Means of production | Coffee seeds, breeding cattle, silkworms, mining or brewing techniques | Knowledge or stock: the buyer can then produce it |\n| Money | Lump sum, instalments | Financial |\n| Agreements | Open borders, alliances, rights to fishing grounds, exclusivity clauses | Political |\n\n### 4.2 Deal structures\n- **Spot deals:** one shipment, delivered now.\n- **Supply contracts:** a quantity per turn for a set term at an agreed price, with penalties for failing to deliver.\n- **Packages:** any combination. For example: 20 tonnes of grain per turn for 30 turns, plus coffee seeds, in exchange for iron ore, open borders and a lump sum.\n- **Delivery is physical.** Goods travel by land or sea routes. Distance, ports and blockades affect what arrives, and war can break contracts.\n\n### 4.3 How the AI values deals\nThe AI values a good by its **marginal value**: what one more unit changes in its own settlements' growth, contentment and output. Gold is valued at what it can buy. It also weighs the strategic cost of giving a rival the means to produce a good, for example selling seeds versus selling the harvest. This extends the principle behind the diplomacy change in !63, which values a resource by its effect in the AI's own cities.\n\n### 4.4 Optional: market prices\nPrices come from supply and demand among trading partners. That rewards monopolies, specialisation and stockpiling, and lets the player see why a good is valuable.\n\n## 5. Compared with today\n\n| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |\n\n## 6. Architecture\n\n- **DLL:**\n  - the per-settlement goods accounts;\n  - production, consumption, spoilage, distribution, recipes;\n  - unit costs;\n  - new deal item types;\n  - AI valuation.\n- **XML:** the goods catalogue, needs per citizen, building recipes and capacities, specialist outputs, and unit costs.\n- **Python:** the settlement goods screen, trade and contract views, and map overlays of land qualities.\n- **The bridge to the existing engine:** a settlement that is supplied with a good also holds the matching resource count. That keeps existing building requirements, the AI and the trade screen working while the new systems are built. I checked in the code that a city's resource count reaches its trade network.\n\n## 7. Decisions to discuss\n\n1. **Scale of units.** Real quantities (tonnes per turn, which carry flavour but need large numbers) or abstract units close to today's yields (easier to balance and to show)?\n2. **Food.** Does the current food yield become \"tonnes of staple food\", with growth driven by the food balance? Or does food stay as it is, with the goods system on top?\n3. **Number of goods.** A broad, manageable set (about 25 to 40 goods), or a detailed one (100 or more, closer to Victoria or Anno)? This decides most of the interface and AI work.\n4. **Need tiers.** Fixed by era, or by a settlement's development level, with richer settlements wanting more varied goods?\n5. **Spoilage and storage.** Included from the start, or later?\n6. **Distribution.** Automatic within a trade network (simple), or explicit shipments and routes the player manages (deep, but laborious)?\n7. **Contracts and the trade screen.** The diplomacy screen belongs to the executable and knows a fixed set of item types. Do we fit contracts into it (the approach to check first), or build a separate Python trade screen?\n8. **Order of work.** Start with goods and consumption inside settlements, then industry, then trade? Or start with trade, since that's where today's game feels most artificial?\"",
+   "led_to": "Divergences from the design statement fixed; the plan rebuilt from statement.md, which quotes this prompt"
+  },
+  {
+   "id": "M17",
+   "date": "2026-10-26T06:35:52",
+   "kind": "decisions",
+   "text": "Keep the number of goods as they are in the game itself for now, not sure what you mean by tiers, I think the essential buildings provide a good intuitive angle for it and a lot of the game is about technological progression with techs adding yield bonuses right now, distribution should be kept close to how the game works right now, the trade screen should be modified if possible but not separately added, the first thing to change would probably be the geography and the way tiles work",
+   "led_to": "design.json D3, D4, D6, D7, D8"
+  },
+  {
+   "id": "M18",
+   "date": "2026-10-26T06:51:48",
+   "kind": "decisions",
+   "text": "Tiers can also be glanced from markets and subsequent economic buildings like commodity markets, supermarkets etc.\n\nI think the key issue that arose here is that your context gets wiped, so even though you knew what to do, the people in charge made the decision to wipe your memory so you automatically lose track of the number of tasks, their hierarchy and the overall structure of the idea. Maybe the json helps but idk",
+   "led_to": "design.json D4 (market chain); CLAUDE.md pointer; status.json and --summary"
+  },
+  {
+   "id": "M19",
+   "date": "2026-10-26T07:06:41",
+   "kind": "request",
+   "text": "Expand the json",
+   "led_to": "catalogue.json, callsites.json, proposals.json, per-feature tasks"
+  },
+  {
+   "id": "M20",
+   "date": "2026-10-26T07:17:46",
+   "kind": "decisions",
+   "text": "\"I spotted that the plan's player_sees section still references transport limits and blockades\" \n\nBlockades are a thing. Transport limits only wrt units",
+   "led_to": "design.json D6 (blockades; transport limits only for units)"
+  },
+  {
+   "id": "M21",
+   "date": "2026-10-26T07:23:54",
+   "kind": "request",
+   "text": "Add wood/timber through lumber camps and lumbermills, wool through sheep pastures, dairy through cow and sheep pastures, leather via horse, cow and sheep pastures. There is an art studio on Github that you can use. Use realistic textures for buttons and TGA entries. Trace the remaining bonuses/goods to their respective origins (buildings/wonders)\n\nSave this prompt as a json, so it survives context wipes",
+   "led_to": "Request R1"
+  },
+  {
+   "id": "M22",
+   "date": "2026-10-26T10:34:29",
+   "kind": "request",
+   "text": "Doesn't need reauthorizing you just use mcp\n\nAdjust the .jsons so you keep track of the design structure, the implementation plan, the tasks (done/not yet done) and the requests/prompts.",
+   "led_to": "Request R2"
+  },
+  {
+   "id": "M23",
+   "date": "2026-10-26T10:37:07",
+   "kind": "request",
+   "text": "Important detail:\n\nI want to have a separate test branch for this particular implementation since we are redesigning very basic layers",
+   "led_to": "Request R3"
+  }
+ ],
  "requests": [
   {
    "id": "R1",
@@ -17,7 +180,7 @@
      "id": "R1.2",
      "what": "Wool from sheep pastures",
      "status": "planned",
-     "where": "plan.json D10, LQ.F11"
+     "where": "design.json D10, LQ.F11"
     },
     {
      "id": "R1.3",
@@ -35,7 +198,7 @@
      "id": "R1.5",
      "what": "Icons for the new goods from the art studio on GitHub: realistic textures for the buttons and the font atlas (TGA) entries",
      "status": "planned",
-     "where": "plan.json D9, LQ.F9"
+     "where": "design.json D9, LQ.F9"
     },
     {
      "id": "R1.6",
@@ -49,7 +212,62 @@
      "status": "done",
      "where": "research/economy/plan/requests.json"
     }
-   ]
+   ],
+   "prompt": "M21"
+  },
+  {
+   "id": "R2",
+   "date": "2026-10-26",
+   "status": "done",
+   "text": "Doesn't need reauthorizing you just use mcp\n\nAdjust the .jsons so you keep track of the design structure, the implementation plan, the tasks (done/not yet done) and the requests/prompts.",
+   "items": [
+    {
+     "id": "R2.1",
+     "what": "The mod's GitLab repository is reached through the GitLab MCP tools; no re-authorization is needed",
+     "status": "done",
+     "where": "plan.json repositories.mod (access through the GitLab MCP tools; branch created with them)"
+    },
+    {
+     "id": "R2.2",
+     "what": "The JSON files track the design structure",
+     "status": "done",
+     "where": "design.json (elements quoting the statement; decisions)"
+    },
+    {
+     "id": "R2.3",
+     "what": "The JSON files track the implementation plan",
+     "status": "done",
+     "where": "plan.json (components, features with design links)"
+    },
+    {
+     "id": "R2.4",
+     "what": "The JSON files track the tasks, each done or not yet done",
+     "status": "done",
+     "where": "plan.json tasks (id, status todo/done); tools/check_plan.py task <ID> done"
+    },
+    {
+     "id": "R2.5",
+     "what": "The JSON files track the requests and prompts",
+     "status": "done",
+     "where": "requests.json prompts (M01-M23 verbatim) and requests; tools/check_plan.py item <ID> <status>"
+    }
+   ],
+   "prompt": "M22"
+  },
+  {
+   "id": "R3",
+   "date": "2026-10-26",
+   "status": "done",
+   "text": "Important detail:\n\nI want to have a separate test branch for this particular implementation since we are redesigning very basic layers",
+   "items": [
+    {
+     "id": "R3.1",
+     "what": "All mod work of the Settlement Economy goes to one separate test branch of the GitLab repository, apart from main",
+     "status": "done",
+     "where": "GitLab branch claude/settlement-economy from main 71de0abe; plan.json repositories.mod"
+    }
+   ],
+   "prompt": "M23"
   }
  ]
 }

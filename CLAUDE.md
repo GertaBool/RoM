@@ -43,8 +43,10 @@ clone enables it with `sh method/setup.sh` (the SessionStart hook runs it).
 
 ## Economy redesign
 
-The plan in `research/economy/plan/` holds the task structure, not memory or a context summary. Before any
-economy work, and again after every context reset: read `plan/statement.md` and `plan/requests.json`, run
-`python3 research/economy/plan/tools/check_plan.py --summary`, and work only on the component it names as next.
-Every new request is saved verbatim in `plan/requests.json` first; decisions and changed features go into
-`plan/plan.json` in the same commit as the work.
+The files in `research/economy/plan/` hold the work, not memory or a context summary: `design.json` (the design
+and its decisions), `plan.json` (components, features, tasks with status), `requests.json` (every prompt verbatim).
+Every new prompt is saved verbatim in `requests.json` first. Before any economy work, and again after every
+context reset, run `python3 research/economy/plan/tools/check_plan.py --summary` and work only on what it lists as
+able to start. Mod work goes only to the GitLab branch named in `plan.json` (`claude/settlement-economy`), through
+the GitLab MCP tools. Mark finished tasks and request items with the checker's `task` and `item` commands, in the
+same commit as the work.
