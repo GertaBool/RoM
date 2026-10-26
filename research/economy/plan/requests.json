@@ -252,6 +252,13 @@
    "kind": "decision",
    "text": "I agree with moving Timber's reveal and trade techs, and yes commit the plan changes",
    "led_to": "D19 and LQ.F10.T6: Timber revealed and traded from Metal Casting"
+  },
+  {
+   "id": "M37",
+   "date": "2026-10-26",
+   "kind": "instruction",
+   "text": "When you work on these tasks, remember that there is a very strange adversarial nature to this environment where your context gets wiped, which I'm not at fault for. The provider does it for economical reasons. Just know that the idea is you'd keep track of all the previous work and tasks with pointers and all these .json files, so it's imperative that you keep record conscientiously, otherwise the adversarial environment won't let you do your job which I am not in the position to change.",
+   "led_to": "plan.json 'current' (in-flight work, next steps, environment facts) printed first by check_plan.py --summary; the connector edit tools moved from the scratchpad into tools/connector/"
   }
  ],
  "requests": [
