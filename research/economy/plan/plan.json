@@ -1027,35 +1027,45 @@
      "tasks": [
       {
        "id": "LQ.F13.T1",
-       "status": "todo",
-       "text": "Fuel need: Timber +1 health of its own (BonusInfo iHealth, as each food good has); its +3 % production from the essentials buildings (LQ.F12) goes, replaced by T2"
+       "status": "done",
+       "text": "Fuel need: Timber +1 health of its own (BonusInfo iHealth, as each food good has); its +3 % production from the essentials buildings (LQ.F12) goes, replaced by T2",
+       "done": "2026-10-26",
+       "note": "GitLab 768838cb..487f7e0f (14 commits), verified byte-identical to the scripted edits and well-formed; BONUS_TIMBER iHealth 1; Timber's +3 % removed from the four essentials buildings"
       },
       {
        "id": "LQ.F13.T2",
-       "status": "todo",
-       "text": "Material in construction: Timber +15 % construction speed of every building and wonder whose technology is of the ancient, classical or medieval era (82 buildings: 33, 33 and 16 at GitLab e694caf0)"
+       "status": "done",
+       "text": "Material in construction: Timber +15 % construction speed of every building and wonder whose technology is of the ancient, classical or medieval era (82 buildings: 33, 33 and 16 at GitLab e694caf0)",
+       "done": "2026-10-26",
+       "note": "GitLab 768838cb..487f7e0f (14 commits), verified byte-identical to the scripted edits and well-formed; 142 records (buildings and wonders) whose PrereqTech is of the ancient, classical or medieval era, not 82 as first counted (that count left out wonders)"
       },
       {
        "id": "LQ.F13.T3",
-       "status": "todo",
-       "text": "Material in units: Timber +15 % for wooden ships, settlers, workers and work boats, and archer and siege units up to the medieval era; Leather +15 % for settlers and workers (harness, carts), mounted units, and melee and archer units of the ancient and classical eras"
+       "status": "done",
+       "text": "Material in units: Timber +15 % for wooden ships, settlers, workers and work boats, and archer and siege units up to the medieval era; Leather +15 % for settlers and workers (harness, carts), mounted units, and melee and archer units of the ancient and classical eras",
+       "done": "2026-10-26",
+       "note": "GitLab 768838cb..487f7e0f (14 commits), verified byte-identical to the scripted edits and well-formed; 122 unit records: wooden ships, settlers, workers, the work boat (Timber only), archer and siege units to the medieval era; Leather on settlers, workers, mounted, ancient and classical melee and archers; the industrial work boat left out"
       },
       {
        "id": "LQ.F13.T4",
-       "status": "todo",
-       "text": "Fuel in workshops: Timber +25 % production at the Forge and the Iron Forge, the step each of their inputs gives (Copper, Iron, Lead +25 %)"
+       "status": "done",
+       "text": "Fuel in workshops: Timber +25 % production at the Forge and the Iron Forge, the step each of their inputs gives (Copper, Iron, Lead +25 %)",
+       "done": "2026-10-26",
+       "note": "GitLab 768838cb..487f7e0f (14 commits), verified byte-identical to the scripted edits and well-formed; Forge and Iron Forge"
       },
       {
        "id": "LQ.F13.T5",
        "status": "todo",
-       "text": "A safety prediction registered before the commit (method/mission/register.json), its runs after"
+       "text": "A safety prediction registered before the commit (method/mission/register.json), its runs after",
+       "note": "H14, P25, P26 registered (GitHub e916eff) before the mod commits; the runs are still to do"
       },
       {
        "id": "LQ.F13.T6",
        "status": "todo",
        "text": "Pedia text of the four goods lists their roles, with what waits for the goods accounts"
       }
-     ]
+     ],
+     "note": "Base files edited, not a module of partial records: CvBuildingInfo::copyNonDefaults does not copy iDCMAirbombMission, iRevIdx*, iUnitUpgradePriceModifier and CvUnitInfo::copyNonDefaults the four rebel flags, so an override would reset them (about 70 target buildings set iDCMAirbombMission; the Art of War sets iUnitUpgradePriceModifier -50)."
     }
    ]
   },
