@@ -989,5 +989,75 @@
    "gitlab:Assets/XML/Units/CIV4UnitInfos.xml",
    "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml"
   ]
+ },
+ {
+  "id": "H15",
+  "type": "hypothesis",
+  "line": "settlement-economy",
+  "text": "An improvement can give goods to the trade network the way a resource under it does (CvPlot::updatePlotGroupBonus, which every change of owner, improvement, route, plot group and, through setHasTech, tech brackets with a remove and an add). The claim: a list of produced goods per improvement record, counted in that same function and refreshed in the same brackets, lets lumber camps and lumbermills give Timber (D19) and pastures their animal products (D20, LQ.F11) without a crash, a hang or a slower game. Contradicted if a run fails only with the change, if the median same-seed turn time rises above 5 %, or if a plot group's goods count goes negative or drifts (a city keeps Timber after its camp is gone)."
+ },
+ {
+  "id": "P27",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H15"
+  ],
+  "evidence": "runs",
+  "variable": "completed",
+  "change": "On GitLab claude/settlement-economy at 02d5f85a (LQ.F10, D19): improvement records carry ProducedBonuses (a good, optionally conditioned on the plot's resource), read by CvImprovementInfo::read, copied by copyNonDefaults and kept in the XML cache stream (record version 1); CvPlot::updatePlotGroupBonus adds each produced good to the plot group when the plot is on the bonus network, the good's TechCityTrade is known and it is not obsolete; CvTeam::setHasTech refreshes, through the new CvPlot::isBonusTech, plots whose resource or produced goods name the tech (before: only plots with a resource). XML: IMPROVEMENT_LUMBER_CAMP on forest (forest kept), built by BUILD_LUMBER_CAMP from TECH_METAL_CASTING, no base yield, +1 production at each of Bronze Working, Iron Working and Mathematics, Timber produced; IMPROVEMENT_LUMBERMILL produces Timber and its production 2 -> 4; BONUS_TIMBER TechCityTrade Bronze Working -> Metal Casting; art define reusing the camp model; schema elements ProducedBonuses, ProducedBonus, PrereqBonus. New improvement and build records are appended, so existing indices do not move. Harness: arm a is the branch with this change and a harness DLL built from its source, arm b the branch at 02d5f85a with a harness DLL built from that source, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. Unlike P21-P26 the runs exercise the effect: the AI can build lumber camps and its cities then have Timber (seen in the state files). P27: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvInfos.h",
+   "gitlab:Assets/CvGameCoreDLL/CvInfos.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvTeam.cpp",
+   "gitlab:Assets/XML/Terrain/CIV4TerrainSchema.xml",
+   "gitlab:Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+   "gitlab:Assets/XML/Units/CIV4BuildInfos.xml",
+   "gitlab:Assets/XML/Art/CIV4ArtDefines_Improvement.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "builds/settlement-economy/"
+  ]
+ },
+ {
+  "id": "P28",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H15"
+  ],
+  "evidence": "runs",
+  "variable": "turn_seconds",
+  "change": "On GitLab claude/settlement-economy at 02d5f85a (LQ.F10, D19): improvement records carry ProducedBonuses (a good, optionally conditioned on the plot's resource), read by CvImprovementInfo::read, copied by copyNonDefaults and kept in the XML cache stream (record version 1); CvPlot::updatePlotGroupBonus adds each produced good to the plot group when the plot is on the bonus network, the good's TechCityTrade is known and it is not obsolete; CvTeam::setHasTech refreshes, through the new CvPlot::isBonusTech, plots whose resource or produced goods name the tech (before: only plots with a resource). XML: IMPROVEMENT_LUMBER_CAMP on forest (forest kept), built by BUILD_LUMBER_CAMP from TECH_METAL_CASTING, no base yield, +1 production at each of Bronze Working, Iron Working and Mathematics, Timber produced; IMPROVEMENT_LUMBERMILL produces Timber and its production 2 -> 4; BONUS_TIMBER TechCityTrade Bronze Working -> Metal Casting; art define reusing the camp model; schema elements ProducedBonuses, ProducedBonus, PrereqBonus. New improvement and build records are appended, so existing indices do not move. Harness: arm a is the branch with this change and a harness DLL built from its source, arm b the branch at 02d5f85a with a harness DLL built from that source, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. Unlike P21-P26 the runs exercise the effect: the AI can build lumber camps and its cities then have Timber (seen in the state files). P28: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvInfos.h",
+   "gitlab:Assets/CvGameCoreDLL/CvInfos.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvTeam.cpp",
+   "gitlab:Assets/XML/Terrain/CIV4TerrainSchema.xml",
+   "gitlab:Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+   "gitlab:Assets/XML/Units/CIV4BuildInfos.xml",
+   "gitlab:Assets/XML/Art/CIV4ArtDefines_Improvement.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml",
+   "builds/settlement-economy/"
+  ]
  }
 ]
