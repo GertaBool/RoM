@@ -40,3 +40,10 @@ Hard rules (details in the protocol):
 
 Everything the checks and the gate need is in `method/` (see `method/README.md`); a new session or
 clone enables it with `sh method/setup.sh` (the SessionStart hook runs it).
+
+## Economy redesign
+
+The plan in `research/economy/plan/` holds the task structure, not memory or a context summary. Before any
+economy work, and again after every context reset: read `plan/statement.md`, run
+`python3 research/economy/plan/tools/check_plan.py --summary`, and work only on the component it names as next.
+Decisions and changed features go into `plan/plan.json` in the same commit as the work.

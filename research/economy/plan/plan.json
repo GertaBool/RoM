@@ -39,7 +39,7 @@
    "id": "D4",
    "question": "Need tiers",
    "status": "decided",
-   "choice": "Development stages are the essentials buildings (Settlement, Town, City, Metropolitan Essentials): each carries its stage's needs per citizen. Technological progression raises output through the techs' existing yield changes.",
+   "choice": "Needs grow along two building chains the game already has. The essentials buildings (Settlement, Town, City, Metropolitan) set how much a citizen needs of the basics (staple food, fuel, clothing). The market chain (Market, Fair, Commodity Market, Commercial Center, Hypermarket) sets which further goods a citizen wants and how much (variety, comforts, luxuries). Technological progression raises output through the techs' existing yield changes.",
    "source": "user, 2026-10-26"
   },
   {
@@ -678,11 +678,11 @@
    "decisions": [
     "D4"
    ],
-   "player_sees": "Each settlement's needs in quantities (staple, dietary variety, fuel, clothing, comforts and luxuries) and what supplying them does to growth, health, contentment and output.",
+   "player_sees": "Each settlement's needs in its goods' own units: the basics from its essentials building, further goods from its market buildings, and what supplying them does to growth, health, contentment and output.",
    "features": [
     {
      "id": "CN.F1",
-     "what": "Needs per citizen by development stage: each essentials building (Settlement, Town, City, Metropolitan) carries its stage's needs for staple food, variety, fuel, clothing, comforts and luxuries, in the goods' own units",
+     "what": "Needs per citizen from two building chains: the essentials buildings carry the basics (staple food, fuel, clothing); the market chain (Market, Fair, Commodity Market, Commercial Center, Hypermarket) carries the further goods (variety, comforts, luxuries)",
      "code": [
       {
        "file": "Assets/XML/Buildings/CIV4BuildingInfos.xml",
@@ -703,6 +703,26 @@
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
        "anchor": "bool CvBuildingInfo::read(CvXMLLoadUtility* pXML)"
+      },
+      {
+       "file": "Assets/XML/Buildings/CIV4BuildingInfos.xml",
+       "anchor": "<Type>BUILDING_MARKET</Type>"
+      },
+      {
+       "file": "Assets/XML/Buildings/CIV4BuildingInfos.xml",
+       "anchor": "<Type>BUILDING_FAIR</Type>"
+      },
+      {
+       "file": "Assets/XML/Buildings/CIV4BuildingInfos.xml",
+       "anchor": "<Type>BUILDING_COMMODITY_MARKET</Type>"
+      },
+      {
+       "file": "Assets/XML/Buildings/CIV4BuildingInfos.xml",
+       "anchor": "<Type>BUILDING_COMMERCIAL_CENTER</Type>"
+      },
+      {
+       "file": "Assets/XML/Buildings/CIV4BuildingInfos.xml",
+       "anchor": "<Type>BUILDING_HYPERMARKET</Type>"
       }
      ],
      "checks": [
@@ -1269,5 +1289,12 @@
     }
    ]
   }
+ ],
+ "resume": [
+  "The plan, not memory or a summary, holds the task structure. A new or compacted session starts here.",
+  "1. Read statement.md (the design) and the decisions in plan.json.",
+  "2. Run tools/check_plan.py --summary (no checkout needed) for progress and the next component; with a mod checkout, run tools/check_plan.py <checkout> to refresh status.json.",
+  "3. Work only on a component the checker lists as ready, feature by feature; a feature is done when its checks pass.",
+  "4. A new decision or a changed feature goes into plan.json in the same commit as the work; status.json is refreshed by the checker and committed with it."
  ]
 }

@@ -7,12 +7,14 @@
   'manual' (recorded in confirmations.json);
 - reports per component: anchors, features done, open decisions, and which components can start next.
 Exit code 1 when the plan is invalid or an anchor is broken.
-usage: check_plan.py <mod checkout> [--plan plan.json] [--component ID]"""
+With a checkout it writes status.json (each feature done or not, broken anchors, the commit checked); --summary
+needs no checkout and prints the decisions, the components in order with their recorded progress, and what to do next.
+usage: check_plan.py <mod checkout> [--plan plan.json] [--component ID] | check_plan.py --summary"""
 import argparse, glob, json, os, re, sys
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ap = argparse.ArgumentParser()
-ap.add_argument('mod'); ap.add_argument('--plan', default=os.path.join(HERE, 'plan.json')); ap.add_argument('--component')
+ap.add_argument('mod', nargs='?'); ap.add_argument('--summary', action='store_true'); ap.add_argument('--plan', default=os.path.join(HERE, 'plan.json')); ap.add_argument('--component')
 a = ap.parse_args()
 P = json.load(open(a.plan))
 CONF_PATH = os.path.join(os.path.dirname(a.plan), 'confirmations.json')
@@ -120,11 +122,38 @@ def run_check(chk, cid):
     return False, 'unknown check kind ' + k
 
 
+STATUS_PATH = os.path.join(os.path.dirname(a.plan), 'status.json')
+
+
+def summary():
+    st = json.load(open(STATUS_PATH)) if os.path.exists(STATUS_PATH) else {}
+    feats = st.get('features', {})
+    print('Settlement Economy plan: %s' % ('status of %s, %s' % (st.get('checked'), st.get('mod_commit')) if st else 'no status recorded yet'))
+    for d in P['decisions']:
+        print('  %s %s: %s' % (d['id'], d['question'], d.get('choice') if d['status'] == 'decided' else 'OPEN'))
+    done = set()
+    for c in P['components']:
+        n = sum(1 for f in c['features'] if feats.get(f['id']))
+        if n == len(c['features']): done.add(c['id'])
+        print('  %s %s: %d/%d features done%s' % (c['id'], c['title'], n, len(c['features']), ' (after ' + ', '.join(c['depends_on']) + ')' if c['depends_on'] else ''))
+    ready = [c for c in P['components'] if c['id'] not in done and all(x in done for x in c['depends_on'])]
+    for c in ready[:1]:
+        print('next: %s %s' % (c['id'], c['title']))
+        for f in c['features']:
+            if not feats.get(f['id']): print('  - %s %s' % (f['id'], f['what']))
+    for l in P.get('resume', []): print(l)
+
+
+if a.summary or not a.mod:
+    errors = validate()
+    if errors: print('PLAN INVALID: ' + '; '.join(errors)); sys.exit(1)
+    summary(); sys.exit(0)
+
 errors = validate()
 if errors:
     print('PLAN INVALID'); [print('  ' + e) for e in errors]; sys.exit(1)
 open_dec = {d['id'] for d in P['decisions'] if d['status'] == 'open'}
-broken = 0; done_comp = set(); report = []
+broken = 0; done_comp = set(); report = []; FEAT_DONE = {}; BROKEN = []
 for c in P['components']:
     if a.component and c['id'] != a.component: continue
     anchors_ok = anchors = 0; fdone = 0; lines = []
@@ -135,7 +164,7 @@ for c in P['components']:
             ok = t is not None and (('anchor' not in s) or s['anchor'] in t)
             anchors_ok += ok
             if not ok:
-                broken += 1; lines.append('    ANCHOR BROKEN %s: %s' % (s['file'], s.get('anchor', '(file)')))
+                broken += 1; BROKEN.append('%s: %s' % (s['file'], s.get('anchor', '(file)'))); lines.append('    ANCHOR BROKEN %s: %s' % (s['file'], s.get('anchor', '(file)')))
         res = [(run_check(chk, f['id'] + '.%d' % i), chk) for i, chk in enumerate(f['checks'])]
         ok = all(r[0][0] for r in res)
         fdone += ok
@@ -144,6 +173,8 @@ for c in P['components']:
             if not passed: lines.append('        - %s' % msg[:200])
     blocked = sorted(set(c['decisions']) & open_dec)
     if fdone == len(c['features']): done_comp.add(c['id'])
+    for f in c['features']:
+        FEAT_DONE[f['id']] = all(run_check(chk, f['id'] + '.%d' % i)[0] for i, chk in enumerate(f['checks']))
     report.append((c, anchors_ok, anchors, fdone, blocked, lines))
 for c, aok, an, fd, blocked, lines in report:
     print('%s %s: features %d/%d done, anchors %d/%d%s' % (c['id'], c['title'], fd, len(c['features']), aok, an,
@@ -157,4 +188,10 @@ if not a.component:
     ready = [c['id'] for c in P['components'] if c['id'] not in done_comp and all(d in done_comp for d in c['depends_on'])]
     print('\ndecisions open: %s' % (', '.join('%s %s' % (d['id'], d['question']) for d in P['decisions'] if d['status'] == 'open') or 'none'))
     print('components that can start: %s' % ', '.join(ready))
+if not a.component:
+    import datetime, subprocess
+    try: commit = subprocess.run(['git', '-C', a.mod, 'rev-parse', '--short', 'HEAD'], capture_output=True, text=True).stdout.strip() or None
+    except Exception: commit = None
+    json.dump(dict(checked=datetime.date.today().isoformat(), mod_commit=commit, features=FEAT_DONE, broken_anchors=BROKEN),
+              open(STATUS_PATH, 'w'), indent=1)
 sys.exit(1 if broken else 0)
