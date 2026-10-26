@@ -238,6 +238,13 @@
    "kind": "instruction",
    "text": "When you're done, assess the state of the design, the plan and the task list. Order what's left into a reasonable hierarchy and if needes rearrange tasks and edit the plan based on new knowledge (ask me in plain terms though because specifics matter and I'm patient enough to discuss them)",
    "led_to": "Assessment of design, plan and tasks; proposed reordering put to the user before editing"
+  },
+  {
+   "id": "M35",
+   "date": "2026-10-26",
+   "kind": "decision",
+   "text": "If the deepest and riskiest change is desired, then we want to approach the implementation at least gradually rather than focus on smaller things along the way. However, there is a real danger of ignorant drift. So it does help to be somewhat grounded in the actual codebase. The proposed order seems justified.\n\nQuestion 1: Sure I think that can make sense.\n\nQuestion 2: I think metal casting makes more sense, lumbermills being unlocked by machinery is already an alright setting, but techs like bronzeworking, ironworking, mathematics should all boost productivity when it comes to lumber production, it can get more complicated than that but I would view lumber as essential \n\nQuestion 3: Yes I think the pastures should yield every product of its animal. It should also apply to latifundia since they are more like greater rural estates. The account issue should be resolvable once we are there, but trade routes and imports from other nations could also fix it, maybe needs some algorithm work.\n\nQuestion 4: The issue with merging with main right now is that it's supposed to be a completely separate testing branch until the very moment where it's extremely refined and free from bugs. But I guess if you want to make the procedures more efficient there is nothing wrong with that and actually is within my philosophy.\n\nQuestion 5: I wouldn't necessarily agree except for Ancient temples and thermal sites. Entertainment media are still valuable goods, but maybe they need to be reworked a bit. Thermal vents I assume provide an electricity source and ancient temples serve archaeology. \n\nQuestion 6: I'll do that at some point and if something goes wrong at any point you'll probably know.",
+   "led_to": "D11 decided, D18-D21; plan reordered (goods economy before land qualities), LQ.F10/F11 re-scoped to today's map, GW.F7"
   }
  ],
  "requests": [
