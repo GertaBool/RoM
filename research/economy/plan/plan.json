@@ -1,6 +1,6 @@
 {
  "title": "Settlement Economy: production, consumption and trade of goods",
- "about": "The implementation plan for the design statement below, as components with features, the code each feature changes, and checks. tools/check_plan.py validates the plan, confirms every anchor still matches the mod source, and reports which features are done. Anchors are literal text in the mod checkout (GitLab main); 'added' checks are text the work will add.",
+ "about": "The implementation plan for the design statement (statement.md): components with features; each feature names the code it changes, its ordered tasks, the data it adds, the features it comes after, what the player can verify, and the checks that say it is done. tools/check_plan.py validates the plan, confirms every anchor in the mod source, runs the audits and reports progress; --summary works without a checkout. Anchors are literal text in the mod checkout (GitLab main); 'added' checks are text the work adds.",
  "statement": {
   "summary": "Resources stop being map tokens a civilization has or lacks. They become goods in physical quantities, produced by each settlement from the land it works, its improvements, buildings, specialists and population, consumed in proportion to its size and way of life. Surpluses and shortages drive growth, contentment, industry, trade and war. Diplomacy moves from leasing a resource for gold per turn to real commerce: shipping goods, selling seeds and breeding stock, multi-part contracts.",
   "principles": [
@@ -76,6 +76,50 @@
    "status": "decided",
    "choice": "Every good keeps its icon; no icon is missing or shared; any icon added later loads its own glyph, button and art define.",
    "source": "user, 2026-10-26"
+  },
+  {
+   "id": "D10",
+   "question": "Wool",
+   "status": "open",
+   "options": [
+    "sheep pastures yield wool beside meat and dairy",
+    "wool stays unused"
+   ],
+   "proposal": "sheep pastures yield wool",
+   "why": "Nothing places, gives or uses BONUS_WOOL today (catalogue.json), yet clothing needs it"
+  },
+  {
+   "id": "D11",
+   "question": "Resources that are not physical goods",
+   "status": "open",
+   "options": [
+    "outside the goods accounts: Drama, Music, Movies stay building-given resources; Ancient Temple and Thermal Vent stay map sites",
+    "turned into goods"
+   ],
+   "proposal": "outside the goods accounts",
+   "why": "They are culture given by buildings or sites with no improvement that trades them (catalogue.json)"
+  },
+  {
+   "id": "D12",
+   "question": "Fuel before coal",
+   "status": "open",
+   "options": [
+    "the fuel need starts with coal (its era)",
+    "forests yield a fuel good, which needs one new resource type despite D3"
+   ],
+   "proposal": "the fuel need starts with coal",
+   "why": "No timber or wood resource exists; the existing fuel goods are coal, oil, uranium, diesel, methane, biofuel and whale (catalogue.json)"
+  },
+  {
+   "id": "D13",
+   "question": "Clothing in the early game",
+   "status": "open",
+   "options": [
+    "wool (D10), fur and cotton are the clothing goods",
+    "the clothing need starts once two of them are available"
+   ],
+   "proposal": "wool, fur and cotton",
+   "why": "These are the only existing clothing goods (catalogue.json)"
   }
  ],
  "invariants": [
@@ -117,6 +161,22 @@
     "kind": "manual",
     "what": "a city supplied with a good can build what needs the matching resource"
    }
+  },
+  {
+   "id": "I6",
+   "what": "Every call that reads a plot resource token is classified (callsites.json)",
+   "check": {
+    "kind": "audit",
+    "name": "callsites_classified"
+   }
+  },
+  {
+   "id": "I7",
+   "what": "Every resource in the mod XML has a proposal and the catalogue is current",
+   "check": {
+    "kind": "audit",
+    "name": "catalogue"
+   }
   }
  ],
  "components": [
@@ -129,6 +189,7 @@
    ],
    "depends_on": [],
    "decisions": [
+    "D11",
     "D8",
     "D9"
    ],
@@ -145,6 +206,10 @@
       {
        "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
        "anchor": "void CvPlot::write(FDataStreamBase* pStream)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "void CvPlot::reset(int iX, int iY, bool bConstructorCall)"
       }
      ],
      "checks": [
@@ -153,6 +218,31 @@
        "file": "Assets/CvGameCoreDLL/CvPlot.h",
        "text": "getLandQuality("
       }
+     ],
+     "after": [],
+     "tasks": [
+      "Storage and accessors: getLandQuality(BonusTypes), setLandQuality, getOreDepth",
+      "Read and write behind a new CvPlot save version; old saves load with none (LQ.F3 builds them)",
+      "Clear in CvPlot::reset"
+     ],
+     "data": [
+      {
+       "name": "land qualities",
+       "where": "CvPlot",
+       "type": "sparse list of (good, quality) pairs, short",
+       "bounds": "quality 0..1000",
+       "saved": true
+      },
+      {
+       "name": "ore depth",
+       "where": "CvPlot",
+       "type": "char per ore good",
+       "bounds": "0 shallow, 1 deep, 2 very deep",
+       "saved": true
+      }
+     ],
+     "acceptance": [
+      "A game saved and reloaded has identical qualities on every plot"
      ]
     },
     {
@@ -182,6 +272,23 @@
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
        "text": "CvBonusInfo::getSuitability("
       }
+     ],
+     "after": [],
+     "tasks": [
+      "CvBonusInfo::getSuitability(const CvPlot&) in 0..1000: 0 where a hard rule fails (terrain, feature, hills or flat, river side); 1000 inside the latitude window, falling to a floor over its outer tenth",
+      "Sea goods: the coast or ocean rule, with fishing capacity from the terrain",
+      "Expose it to Python (CyBonusInfo) for the overlay"
+     ],
+     "data": [
+      {
+       "name": "suitability rule",
+       "where": "CvBonusInfo",
+       "type": "derived from the record's TerrainBooleans, FeatureBooleans, FeatureTerrainBooleans, bHills, bFlatlands, bNoRiverSide, iMinLatitude, iMaxLatitude",
+       "saved": false
+      }
+     ],
+     "acceptance": [
+      "On the shipped WorldBuilder scenarios, every plot that holds a placed resource scores at least the availability threshold for that resource"
      ]
     },
     {
@@ -211,6 +318,36 @@
        "file": "Assets/CvGameCoreDLL/CvGame.cpp",
        "text": "void CvGame::buildLandQualities()"
       }
+     ],
+     "after": [
+      "LQ.F1",
+      "LQ.F2"
+     ],
+     "tasks": [
+      "CvGame::buildLandQualities(): crop, orchard, herd, game and sea goods from suitability on every plot",
+      "Ore, quarry and well goods: a region around each placed token, grade highest at the token and falling with distance over suitable plots; depth by grade",
+      "Special goods and sites as D11 decides",
+      "Then setBonusType(NO_BONUS) on every plot, so the executable draws no resource model",
+      "Called once from CvGame::doTurn while the flag is unset: new maps, scenarios and old saves alike; no random draws"
+     ],
+     "data": [
+      {
+       "name": "land qualities built",
+       "where": "CvGame",
+       "type": "bool",
+       "saved": true
+      },
+      {
+       "name": "LAND_QUALITY_THRESHOLD, LAND_QUALITY_RICH, ORE_REGION_RADIUS",
+       "where": "GlobalDefinesAlt.xml",
+       "type": "int",
+       "bounds": "0..1000; radius in plots",
+       "saved": false
+      }
+     ],
+     "acceptance": [
+      "After turn 0 no plot holds a token and the globe resource layer shows none",
+      "Two runs of the same seed give identical qualities"
      ]
     },
     {
@@ -235,7 +372,27 @@
        "kind": "added",
        "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
        "text": "getPlotGood("
+      },
+      {
+       "kind": "audit",
+       "name": "callsites_converted",
+       "classes": [
+        "rules"
+       ]
       }
+     ],
+     "after": [
+      "LQ.F3"
+     ],
+     "tasks": [
+      "CvPlot::getPlotGood(ImprovementTypes): the good with the highest quality among those the improvement yields (its BonusTypeStructs) that the owner's team has revealed, if at or above the threshold",
+      "calculateNatureYield and calculateImprovementYieldChange read the plot good; its yields scale by quality band as integers (rich: full; good: the main yield one less; below the threshold: none)",
+      "canHaveImprovement: an improvement that needs a resource (bBonusMakesValid) is valid where the plot has that good at or above the threshold",
+      "doImprovement: discovery of resources by improvements (iDiscoverRand) is retired; the land already holds its qualities",
+      "Techs' TechYieldChanges on improvements stay as they are"
+     ],
+     "acceptance": [
+      "A mine on rich copper hills yields what a mine on a copper token yields today; on poorer copper hills less; on hills without ore, what a plain mine yields"
      ]
     },
     {
@@ -256,6 +413,15 @@
        "kind": "manual",
        "what": "a city builds what needs copper once a mine on copper-bearing hills is connected, as it does today with a copper token"
       }
+     ],
+     "after": [
+      "LQ.F4"
+     ],
+     "tasks": [
+      "updatePlotGroupBonus: the improvement's plot good replaces getNonObsoleteBonusType, under today's rules (TechCityTrade, bBonusTrade, obsolescence)",
+      "getNonObsoleteBonusType and getVisibleBonusState follow the plot good",
+      "CvTeam::setHasTech, processTech and setForceRevealedBonus refresh plot groups through the plot good when reveal or trade techs arrive",
+      "CvCity::kill, CvPlayer::countOwnedBonuses, countUnimprovedBonuses, CvSelectionGroup::groupBuild, CvUnit::isActionRecommended and canMoveInto read the plot good"
      ]
     },
     {
@@ -275,7 +441,25 @@
       {
        "kind": "manual",
        "what": "hovering a plot names its qualities with the goods' icons; the overlay colours the map by a chosen good"
+      },
+      {
+       "kind": "audit",
+       "name": "callsites_converted",
+       "classes": [
+        "text",
+        "events",
+        "python"
+       ]
       }
+     ],
+     "after": [
+      "LQ.F3"
+     ],
+     "tasks": [
+      "setPlotHelp: each quality as the good's icon with a band word (rich, good, poor) and ore depth",
+      "CvPlayer::getResourceLayerColors becomes the land-quality layer of the globe view: a colour per plot for the chosen good",
+      "CyPlot exports getPlotGood and getLandQuality; Python helpers and events read them",
+      "setEventHelp and parseActionHelp name the plot good"
      ]
     },
     {
@@ -295,7 +479,22 @@
       {
        "kind": "manual",
        "what": "the AI settles and improves land by its qualities"
+      },
+      {
+       "kind": "audit",
+       "name": "callsites_converted",
+       "classes": [
+        "ai"
+       ]
       }
+     ],
+     "after": [
+      "LQ.F4"
+     ],
+     "tasks": [
+      "AI_foundValue values a site by the qualities in its radius instead of tokens",
+      "Worker AI (AI_bestCityBuild, AI_bestPlotBuild, AI_betterPlotBuild, AI_improveBonus, AI_connectBonus) builds the improvement whose plot good is worth most",
+      "Every function classed ai in callsites.json reads the plot good"
      ]
     }
    ]
@@ -348,6 +547,21 @@
        "file": "Assets/XML/Terrain/CIV4TerrainSchema.xml",
        "text": "GoodCategory"
       }
+     ],
+     "after": [],
+     "tasks": [
+      "Schema tags on BonusInfo",
+      "CvBonusInfo::read and copyNonDefaults read them (modules included)",
+      "Fill CIV4BonusInfos.xml from proposals.json once confirmed"
+     ],
+     "data": [
+      {
+       "name": "GoodUnit, GoodCategory, iStorage, SpoilageTechs, iBaseValue",
+       "where": "CvBonusInfo (CIV4TerrainSchema.xml, CIV4BonusInfos.xml)",
+       "type": "unit and category as enums; ints",
+       "bounds": "storage and value per D1 bounds",
+       "saved": false
+      }
      ]
     },
     {
@@ -382,6 +596,12 @@
        "kind": "manual",
        "what": "the Civilopedia and city screen show the right icon for every good; happy, health and other symbols unchanged"
       }
+     ],
+     "after": [],
+     "tasks": [
+      "Find free glyph slots in GameFont.tga and GameFont_75.tga, or draw the three missing glyphs into both",
+      "Point the second record of each shared pair at its own FontButtonIndex",
+      "Pin WOC_GAMEFONT_RESOURCE_FIX to the first symbol after the resource block, so any future resource record cannot shift the symbols"
      ]
     },
     {
@@ -406,6 +626,22 @@
        "kind": "added",
        "file": "Assets/CvGameCoreDLL/CvCity.h",
        "text": "m_paiGoodStock"
+      }
+     ],
+     "after": [
+      "GW.F1"
+     ],
+     "tasks": [
+      "Arrays sized by the number of goods; reset, read and write behind a new CvCity save version",
+      "Accessors for each flow; old saves load with empty accounts"
+     ],
+     "data": [
+      {
+       "name": "stock, produced, consumed, received, sent, spoiled",
+       "where": "CvCity",
+       "type": "int per good",
+       "bounds": "GW.F6",
+       "saved": true
       }
      ]
     },
@@ -432,6 +668,14 @@
        "file": "Assets/CvGameCoreDLL/CvCity.cpp",
        "text": "void CvCity::changeGoodsBonus("
       }
+     ],
+     "after": [
+      "GW.F3"
+     ],
+     "tasks": [
+      "CvCity::changeGoodsBonus, the same pattern as changeFreeBonus: remove from the plot group, change, add back",
+      "updatePlotGroupBonus adds each city's goods-supplied count next to its free bonus count",
+      "The pass sets the count from stock each turn (1 when supplied, 0 when not)"
      ]
     },
     {
@@ -449,6 +693,13 @@
        "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
        "text": "void CvPlayer::doGoods()"
       }
+     ],
+     "after": [
+      "GW.F3"
+     ],
+     "tasks": [
+      "CvPlayer::doGoods() called from CvPlayer::doTurn before the city loop",
+      "Fixed order: produce, run recipes, distribute, consume, store and spoil; each step a separate function"
      ]
     },
     {
@@ -465,6 +716,11 @@
        "kind": "manual",
        "what": "bounds written next to each new stock and flow; no product computed in 32-bit"
       }
+     ],
+     "after": [],
+     "tasks": [
+      "Bound every new stock and flow from the records (largest harvest, largest store) and write it next to the declaration",
+      "Sums over cities and players, and every product, in __int64; divide last"
      ]
     }
    ]
@@ -503,6 +759,14 @@
        "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
        "text": "produceTileGoods"
       }
+     ],
+     "after": [
+      "LQ.F5",
+      "GW.F5"
+     ],
+     "tasks": [
+      "Each worked tile adds its plot good to the city account: output per band from the improvement, per citizen working it",
+      "Unworked improved tiles add nothing (the on/off access of LQ.F5 becomes this quantity)"
      ]
     },
     {
@@ -520,6 +784,13 @@
        "file": "Assets/XML/GameInfo/CIV4GameInfoSchema.xml",
        "text": "SpecialistGoods"
       }
+     ],
+     "after": [
+      "GW.F5"
+     ],
+     "tasks": [
+      "SpecialistGoods on specialist records: goods produced per specialist, or a multiplier on a building's recipe",
+      "The pass adds them"
      ]
     },
     {
@@ -541,6 +812,13 @@
        "file": "Assets/XML/Buildings/CIV4BuildingsSchema.xml",
        "text": "GoodRecipes"
       }
+     ],
+     "after": [
+      "GW.F5"
+     ],
+     "tasks": [
+      "GoodRecipes on building records: inputs and outputs among existing goods, capacity",
+      "Candidates: the buildings that require goods today (catalogue.json buildings_requiring_goods)"
      ]
     },
     {
@@ -562,6 +840,12 @@
        "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
        "text": "getGoodOutput("
       }
+     ],
+     "after": [
+      "PR.F1"
+     ],
+     "tasks": [
+      "Goods output per band rises with the techs' existing TechYieldChanges of the tile's improvement and with building yield changes, as yields rise today"
      ]
     },
     {
@@ -582,6 +866,13 @@
        "kind": "manual",
        "what": "AI cities work the tiles whose goods they need"
       }
+     ],
+     "after": [
+      "PR.F1"
+     ],
+     "tasks": [
+      "AI_yieldValue adds the value of the goods a tile or specialist gives",
+      "AI_juggleCitizens works the tiles whose goods the city lacks"
      ]
     }
    ]
@@ -620,6 +911,23 @@
        "file": "Assets/CvGameCoreDLL/CvCity.cpp",
        "text": "getStapleStock("
       }
+     ],
+     "after": [
+      "PR.F1"
+     ],
+     "tasks": [
+      "The food box becomes the stock of staple goods in tonnes; citizens eat first; the growth threshold in tonnes",
+      "foodDifference is the view in yield units for the city screen",
+      "Starvation only when the staple stock is empty, as today when the box is empty"
+     ],
+     "data": [
+      {
+       "name": "FOOD_TONNES_PER_YIELD",
+       "where": "GlobalDefinesAlt.xml",
+       "type": "int",
+       "bounds": "tonnes per unit of food yield",
+       "saved": false
+      }
      ]
     },
     {
@@ -645,6 +953,14 @@
        "file": "Assets/XML/Terrain/CIV4TerrainSchema.xml",
        "text": "SpoilageTechs"
       }
+     ],
+     "after": [
+      "FG.F1",
+      "GW.F1"
+     ],
+     "tasks": [
+      "SpoilageTechs per staple and food good: the rate lost per turn, removed by each preservation tech the owner knows (Pottery, Fermentation, Refrigeration)",
+      "Applied to what is stored after eating"
      ]
     },
     {
@@ -661,6 +977,12 @@
        "kind": "manual",
        "what": "the food tooltip reads in tonnes, with spoilage and its technology"
       }
+     ],
+     "after": [
+      "FG.F1"
+     ],
+     "tasks": [
+      "setFoodHelp in tonnes: produced, eaten, stored, spoiled, and the tech that would stop the loss"
      ]
     }
    ]
@@ -676,6 +998,9 @@
     "FG"
    ],
    "decisions": [
+    "D10",
+    "D12",
+    "D13",
     "D4"
    ],
    "player_sees": "Each settlement's needs in its goods' own units: the basics from its essentials building, further goods from its market buildings, and what supplying them does to growth, health, contentment and output.",
@@ -731,6 +1056,22 @@
        "file": "Assets/XML/Buildings/CIV4BuildingsSchema.xml",
        "text": "GoodNeeds"
       }
+     ],
+     "after": [
+      "PR.F1"
+     ],
+     "tasks": [
+      "GoodNeeds on the four essentials buildings (basics) and the five market buildings (further goods)",
+      "A city's need per category is the highest stage it has built, times its citizens",
+      "Goods within a category substitute for each other"
+     ],
+     "data": [
+      {
+       "name": "GoodNeeds",
+       "where": "building records of the essentials and market chains",
+       "type": "per need category: units per citizen",
+       "saved": false
+      }
      ]
     },
     {
@@ -760,6 +1101,13 @@
        "file": "Assets/CvGameCoreDLL/CvCity.cpp",
        "text": "applyNeeds("
       }
+     ],
+     "after": [
+      "CN.F1"
+     ],
+     "tasks": [
+      "applyNeeds: supplied units per citizen give growth, health and contentment with diminishing returns; shortfalls illness, unrest and lost production",
+      "The flat per-resource health and happiness of processBonus is replaced for goods inside the accounts"
      ]
     },
     {
@@ -788,6 +1136,12 @@
        "kind": "manual",
        "what": "happiness and health tooltips list the goods supplied and short, in quantities"
       }
+     ],
+     "after": [
+      "CN.F2"
+     ],
+     "tasks": [
+      "Happiness and health breakdowns list each need with its goods: supplied and short, in their units"
      ]
     }
    ]
@@ -805,7 +1159,7 @@
     "D5",
     "D6"
    ],
-   "player_sees": "Stocks limited by storage buildings; perishables decaying unless preserved; surpluses moving to shortages inside a trade network as far as roads, rivers, ports and harbours carry them; a blockade or a cut road changing what arrives.",
+   "player_sees": "Stocks limited by storage buildings; perishables decaying unless preserved; surpluses moving to shortages across a connected trade network, as resources reach cities today.",
    "features": [
     {
      "id": "SD.F1",
@@ -822,6 +1176,13 @@
        "file": "Assets/XML/Buildings/CIV4BuildingsSchema.xml",
        "text": "GoodStorage"
       }
+     ],
+     "after": [
+      "GW.F3"
+     ],
+     "tasks": [
+      "GoodStorage on building records: storage per good or category",
+      "A base storage per city from its essentials building"
      ]
     },
     {
@@ -839,6 +1200,13 @@
        "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
        "text": "spoilGoods("
       }
+     ],
+     "after": [
+      "GW.F5",
+      "GW.F1"
+     ],
+     "tasks": [
+      "spoilGoods: every perishable good loses its rate for the preservation techs the owner lacks"
      ]
     },
     {
@@ -856,6 +1224,13 @@
        "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
        "text": "distributeGoods("
       }
+     ],
+     "after": [
+      "GW.F5"
+     ],
+     "tasks": [
+      "distributeGoods: surpluses move to shortages across the cities of one trade network (the CvPlotGroup the engine keeps), exact integer rationing",
+      "No transport capacity; a city cut off from the network gets nothing, as with resources today"
      ]
     }
    ]
@@ -888,6 +1263,13 @@
        "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
        "text": "runRecipes("
       }
+     ],
+     "after": [
+      "PR.F3",
+      "SD.F3"
+     ],
+     "tasks": [
+      "runRecipes in dependency order inside the pass; output limited by the scarcest input and by capacity"
      ]
     },
     {
@@ -913,6 +1295,13 @@
        "file": "Assets/XML/Units/CIV4UnitSchema.xml",
        "text": "GoodCosts"
       }
+     ],
+     "after": [
+      "GW.F3"
+     ],
+     "tasks": [
+      "GoodCosts on unit records",
+      "canTrain checks the stock; popOrder consumes it on completion"
      ]
     },
     {
@@ -930,6 +1319,12 @@
        "file": "Assets/CvGameCoreDLL/CvUnit.cpp",
        "text": "drawSupplies("
       }
+     ],
+     "after": [
+      "SD.F3"
+     ],
+     "tasks": [
+      "drawSupplies: units outside friendly cities draw goods from the nearest connected city; without them they lose strength"
      ]
     },
     {
@@ -950,6 +1345,14 @@
        "kind": "manual",
        "what": "AI builds a foundry where ore and coal meet and stops training units it cannot supply"
       }
+     ],
+     "after": [
+      "IN.F1",
+      "IN.F2"
+     ],
+     "tasks": [
+      "AI_buildingValue values recipe buildings by output over inputs",
+      "AI_chooseProduction checks goods costs"
      ]
     }
    ]
@@ -998,6 +1401,20 @@
        "file": "Assets/CvGameCoreDLL/CvDeal.h",
        "text": "DealTerms"
       }
+     ],
+     "after": [
+      "TR.F7"
+     ],
+     "tasks": [
+      "Store terms per item; read and write with the deal"
+     ],
+     "data": [
+      {
+       "name": "DealTerms",
+       "where": "CvDeal",
+       "type": "per item: good, quantity, once or per turn, term, price, penalty",
+       "saved": true
+      }
      ]
     },
     {
@@ -1027,6 +1444,14 @@
        "file": "Assets/CvGameCoreDLL/CvDeal.cpp",
        "text": "runContract("
       }
+     ],
+     "after": [
+      "TR.F1",
+      "SD.F3"
+     ],
+     "tasks": [
+      "runContract each turn: move goods between the two networks, pay the price, count shortfalls",
+      "Penalty on failure; war ends contracts (isCancelable, kill)"
      ]
     },
     {
@@ -1044,6 +1469,13 @@
        "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
        "text": "canProduceGood("
       }
+     ],
+     "after": [
+      "TR.F1",
+      "LQ.F4"
+     ],
+     "tasks": [
+      "Seeds, breeding stock and techniques as items: the buyer may then grow or raise the good where its land is suitable (canProduceGood)"
      ]
     },
     {
@@ -1060,6 +1492,12 @@
        "kind": "manual",
        "what": "a deal pays a sum in instalments over a term"
       }
+     ],
+     "after": [
+      "TR.F1"
+     ],
+     "tasks": [
+      "Lump sums and per-turn payments as the screen has them; instalments as per-turn payments over a term"
      ]
     },
     {
@@ -1076,6 +1514,12 @@
        "kind": "manual",
        "what": "a deal grants fishing rights or exclusive supply and the game enforces it"
       }
+     ],
+     "after": [
+      "TR.F7"
+     ],
+     "tasks": [
+      "Fishing rights and exclusive supply, if TR.F7 shows new items can appear; enforced in getTradeDenial and in the goods pass"
      ]
     },
     {
@@ -1093,6 +1537,12 @@
        "file": "Assets/CvGameCoreDLL/CvDeal.cpp",
        "text": "deliverGoods("
       }
+     ],
+     "after": [
+      "TR.F2"
+     ],
+     "tasks": [
+      "deliverGoods only while canTradeNetworkWith holds between the two civilizations"
      ]
     },
     {
@@ -1117,6 +1567,11 @@
        "kind": "manual",
        "what": "the diplomacy screen lists and accepts a goods item with its quantity and term in the text, and shows whether a new item type can appear"
       }
+     ],
+     "after": [],
+     "tasks": [
+      "Build a test item list in buildTradeTable and its text in getTradeString; see what the executable lists, accepts and shows",
+      "Test whether a value beyond the executable's item enum can appear"
      ]
     }
    ]
@@ -1129,7 +1584,8 @@
    ],
    "depends_on": [
     "PR",
-    "CN"
+    "CN",
+    "TR"
    ],
    "decisions": [],
    "player_sees": "AI partners that ask for what they lack, sell what they have spare, price gold by what it buys, and think twice before selling seeds to a rival.",
@@ -1153,6 +1609,13 @@
        "file": "Assets/CvGameCoreDLL/CvPlayerAI.cpp",
        "text": "AI_goodMarginalValue("
       }
+     ],
+     "after": [
+      "CN.F2"
+     ],
+     "tasks": [
+      "AI_goodMarginalValue: the change in the AI's growth, contentment and output from one more unit per turn",
+      "AI_baseBonusVal and AI_bonusVal read it"
      ]
     },
     {
@@ -1177,6 +1640,13 @@
        "kind": "manual",
        "what": "the AI prices seeds above the harvest for a rival and refuses a contract it cannot deliver"
       }
+     ],
+     "after": [
+      "AI.F1",
+      "TR.F2"
+     ],
+     "tasks": [
+      "AI_dealVal sums items over their term; gold at what it buys; a premium against giving a rival the means to produce"
      ]
     },
     {
@@ -1205,6 +1675,12 @@
        "kind": "manual",
        "what": "the AI proposes a package of goods, money and agreements and counter-proposes when a deal is unfair"
       }
+     ],
+     "after": [
+      "AI.F2"
+     ],
+     "tasks": [
+      "AI_considerOffer, AI_counterPropose and AI_doDiplo build and judge packages of goods, money and agreements"
      ]
     }
    ]
@@ -1237,6 +1713,12 @@
        "kind": "manual",
        "what": "the city screen lists each good with stock, produced, consumed and its icon"
       }
+     ],
+     "after": [
+      "GW.F3"
+     ],
+     "tasks": [
+      "The city screen's resource list becomes the goods panel: stock, produced, consumed, with icons"
      ]
     },
     {
@@ -1253,6 +1735,12 @@
        "kind": "manual",
        "what": "the Civilopedia page of a good shows its sources and uses"
       }
+     ],
+     "after": [
+      "GW.F1"
+     ],
+     "tasks": [
+      "setBonusHelp shows unit, category, storage, spoilage, sources and uses"
      ]
     }
    ]
@@ -1285,6 +1773,13 @@
        "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
        "text": "updatePrices("
       }
+     ],
+     "after": [
+      "TR.F2",
+      "AI.F1"
+     ],
+     "tasks": [
+      "updatePrices per good per network from supply and demand, bounded per turn"
      ]
     }
    ]
@@ -1292,9 +1787,36 @@
  ],
  "resume": [
   "The plan, not memory or a summary, holds the task structure. A new or compacted session starts here.",
-  "1. Read statement.md (the design) and the decisions in plan.json.",
-  "2. Run tools/check_plan.py --summary (no checkout needed) for progress and the next component; with a mod checkout, run tools/check_plan.py <checkout> to refresh status.json.",
-  "3. Work only on a component the checker lists as ready, feature by feature; a feature is done when its checks pass.",
-  "4. A new decision or a changed feature goes into plan.json in the same commit as the work; status.json is refreshed by the checker and committed with it."
+  "1. Read statement.md (the design) and the decisions in plan.json; open decisions show the proposal to put to the user.",
+  "2. Run tools/check_plan.py --summary (no checkout needed): progress, the next component, the features that can start and their tasks.",
+  "3. With a mod checkout: tools/catalogue.py and tools/callsites.py to refresh the generated files, then tools/check_plan.py <checkout> to refresh status.json.",
+  "4. Work only on features the summary lists as able to start; a feature is done when its checks pass.",
+  "5. A new decision, a changed feature or a reclassified call site goes into the plan files in the same commit as the work, with status.json refreshed."
+ ],
+ "files": [
+  {
+   "file": "statement.md",
+   "what": "The design statement; the plan implements it and nothing beyond it"
+  },
+  {
+   "file": "proposals.json",
+   "what": "Proposed unit, category, land kind and need for each existing resource (owned by the plan; to be confirmed)"
+  },
+  {
+   "file": "catalogue.json",
+   "what": "Generated by tools/catalogue.py from the mod XML: every resource with its placement rules, improvements, givers and uses, joined to proposals.json; the essentials and market chains; storage buildings; buildings that require goods"
+  },
+  {
+   "file": "callsites.json",
+   "what": "Generated by tools/callsites.py from the mod source: every call that reads a plot resource token, with its enclosing function and its class (owned by the plan): what LQ changes, line by line"
+  },
+  {
+   "file": "status.json",
+   "what": "Written by tools/check_plan.py against a checkout: features done, broken anchors, the commit checked"
+  },
+  {
+   "file": "confirmations.json",
+   "what": "In-game confirmations of manual checks, keyed by check id"
+  }
  ]
 }

@@ -1,18 +1,17 @@
 # Settlement Economy: the implementation plan
 
-- `statement.md`: the design statement. The plan implements it and nothing beyond it.
-- `plan.json`: components in dependency order (Geography and tiles, Groundwork, Production, Food and growth,
-  Consumption and needs, Storage and distribution, Industry and units, Trade and diplomacy, AI valuation, Interface,
-  optional Market prices), each
-  with what the player sees, the statement sections it implements, its dependencies and decisions, and features
-  that name the code they change and the checks that say when they are done. Decisions record what is decided and
-  what is still open; the invariants hold after every component.
-- `tools/check_plan.py --summary`: the decisions, the components in order with their progress, the next features and how to resume. Run it first in every session.
-- `tools/check_plan.py <mod checkout>`: validates the plan, confirms every code anchor still exists in the mod
-  source, evaluates the checks (text the work adds, the icon and font audits, evidence files, in-game confirmations)
-  and lists the components that can start. Exit 1 if the plan is invalid or an anchor is broken.
-- `status.json`: what the last checker run against a mod checkout found (features done, broken anchors, the commit); `--summary` reads it, so a session without a checkout still knows where the work stands.
-- `confirmations.json` (created when needed): in-game confirmations, keyed by check id (`GW.F2.2`, `I3`), each
-  `{"date": ..., "note": ...}`.
+Start every session with `python3 tools/check_plan.py --summary`. The plan holds the task structure, not memory.
 
-Work proceeds component by component in dependency order; a component is done when every feature's checks pass.
+| File | What it is | Made by |
+|---|---|---|
+| `statement.md` | The design statement; the plan implements it and nothing beyond it | the user |
+| `plan.json` | Decisions; components in dependency order; per feature: the code it changes (anchors), ordered tasks, the data it adds, the features it comes after, acceptance, checks; invariants | edited with the work |
+| `proposals.json` | Proposed unit, category, land kind and need for each existing resource | edited with the work |
+| `catalogue.json` | Every resource from the mod XML: placement rules, improvements, givers, uses; the essentials and market chains; storage buildings; buildings that require goods; joined to the proposals | `tools/catalogue.py <checkout>` |
+| `callsites.json` | Every call that reads a plot's resource token, with its function and class (what LQ changes, line by line) | `tools/callsites.py <checkout>`; classes edited with the work |
+| `status.json` | Features done, broken anchors, the mod commit checked | `tools/check_plan.py <checkout>` |
+| `confirmations.json` | In-game confirmations of manual checks, by check id (`LQ.F5.0`) | added when confirmed |
+
+`tools/check_plan.py <checkout>` confirms every anchor in the mod source, runs the checks and audits (icons, font,
+catalogue, call sites classified and converted) and writes `status.json`. Exit 1 if the plan is invalid or an anchor
+is broken. Regenerate `catalogue.json` and `callsites.json` whenever the mod source changes.

@@ -1,0 +1,7268 @@
+{
+ "source": "mod XML at the checked commit",
+ "goods": {
+  "BONUS_ALUMINUM": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_ALUMINUM",
+   "font_index": 0,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Aluminum.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,1,12",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_ALUMINUM_FACTORY"
+   ],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_ANDROID_FACTORY",
+     "BUILDING_MANUFACTURING_PLANT"
+    ],
+    "building_build_speed": [
+     "BUILDING_SETI_PROGRAM"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_A10_BOMBER",
+     "UNIT_ACV",
+     "UNIT_ACVSAM",
+     "UNIT_ARMOR_CENTURION",
+     "UNIT_ARMOR_M60",
+     "UNIT_ARMOR_T72TAN",
+     "UNIT_ASSAULT_DROID",
+     "UNIT_DRONE",
+     "UNIT_F117",
+     "UNIT_F15",
+     "UNIT_FUTURE_ARMOR",
+     "UNIT_HUMVEE",
+     "UNIT_JA37",
+     "UNIT_JET_FIGHTER",
+     "UNIT_MODERN_ARMOR",
+     "UNIT_MODERN_ARMOR_2A5",
+     "UNIT_MODERN_ARMOR_T84",
+     "UNIT_MODERN_ARMOR_TYPE99",
+     "UNIT_NUCLEAR_CARRIER",
+     "UNIT_POWER_ARMORED_INFANTRY",
+     "UNIT_SIEGE_DROID",
+     "UNIT_SR71",
+     "UNIT_STEALTH_ARMOR",
+     "UNIT_STEALTH_BOMBER",
+     "UNIT_T95",
+     "UNIT_UAV",
+     "UNIT_WALKER",
+     "UNIT_f35",
+     "UNIT_mig21",
+     "UNIT_mig25"
+    ],
+    "unit_requires": [
+     "UNIT_FUTURE_APC",
+     "UNIT_ORBITAL_BOMBER",
+     "UNIT_ORBITAL_FIGHTER",
+     "UNIT_PLASMA_ARMOR",
+     "UNIT_SCRAMJET",
+     "UNIT_STEALTH_TORPEDOBOAT",
+     "UNIT_STILETTO_BOAT"
+    ],
+    "corporation_produces": [
+     "CORPORATION_6"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_BAUXITE": {
+   "cls": "BONUSCLASS_MODERN",
+   "art": "ART_DEF_BONUS_BAUXITE",
+   "font_index": 95,
+   "button": "Art/Interface/Buttons/WorldBuilder/bauxite2.dds",
+   "tech_reveal": "TECH_INDUSTRIALISM",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      2
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_ALUMINUM_CO_R_AND_D",
+     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE"
+    ],
+    "building_requires": [
+     "BUILDING_ALUMINUM_FACTORY"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_4",
+     "CORPORATION_6"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "ore",
+    "need": null
+   }
+  },
+  "BONUS_COAL": {
+   "cls": "BONUSCLASS_FUEL",
+   "art": "ART_DEF_BONUS_COAL",
+   "font_index": 1,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Coal.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,4,12",
+   "tech_reveal": "TECH_STEAM_POWER",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": -1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_MARSH"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST",
+     "FEATURE_SWAMP"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_COAL_PLANT",
+     "BUILDING_NANO_RESEARCH_DEPARTMENT",
+     "BUILDING_STEEL_MILL"
+    ],
+    "building_health": [
+     "BUILDING_FACTORY",
+     "BUILDING_GERMAN_ASSEMBLY_PLANT",
+     "BUILDING_INDUSTRIAL_PARK"
+    ],
+    "building_build_speed": [
+     "BUILDING_GERMAN_ASSEMBLY_PLANT"
+    ],
+    "building_yield": [
+     "BUILDING_ALUMINUM_CO_R_AND_D",
+     "BUILDING_IRON_WORKS",
+     "BUILDING_MINING_INC_SURVEY_OFFICE"
+    ],
+    "unit_requires": [
+     "UNIT_BATTLECRUISER",
+     "UNIT_DREADNOUGHT_HELGOLAND",
+     "UNIT_IRONCLAD",
+     "UNIT_PRE_DREADNOUGHT",
+     "UNIT_STEAM_DESTROYER",
+     "UNIT_TORPEDOBOAT"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_WW1_DESTROYER"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_5",
+     "CORPORATION_6"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "fuel",
+    "land": "ore",
+    "need": "fuel"
+   }
+  },
+  "BONUS_COPPER": {
+   "cls": "BONUSCLASS_RUSH",
+   "art": "ART_DEF_BONUS_COPPER",
+   "font_index": 2,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Copper.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,5,12",
+   "tech_reveal": "TECH_METAL_CASTING",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 128,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE",
+     "BUILDING_FORGE",
+     "BUILDING_IRON_FORGE",
+     "BUILDING_MALI_MINT",
+     "BUILDING_MINING_INC_SURVEY_OFFICE"
+    ],
+    "building_requires": [
+     "BUILDING_TELEPHONE_NETWORK"
+    ],
+    "building_build_speed": [
+     "BUILDING_BUDDHIST_CATHEDRAL",
+     "BUILDING_COMPUTER_CENTER",
+     "BUILDING_COMPUTER_NETWORK",
+     "BUILDING_CONFUCIAN_CATHEDRAL",
+     "BUILDING_ORACLE",
+     "BUILDING_PETRA",
+     "BUILDING_PYRAMID",
+     "BUILDING_SPHINX",
+     "BUILDING_TAOIST_CATHEDRAL"
+    ],
+    "building_requires_one_of": [
+     "BUILDING_WAFFENMANUFAKTUR"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_ARABIAN_ANSAR",
+     "UNIT_AUXILIAR",
+     "UNIT_AXEMAN",
+     "UNIT_CELTIC_GALLIC_WARRIOR",
+     "UNIT_CELTIC_SWORDSMAN",
+     "UNIT_CENTURIO",
+     "UNIT_COMITATENSES",
+     "UNIT_DUTCH_BATAVIAN_CAVALRY",
+     "UNIT_GREEK_PHALANX",
+     "UNIT_HASTATI",
+     "UNIT_HOLY_ROMAN_LANDSKNECHT",
+     "UNIT_HYPASPISTS",
+     "UNIT_INCAN_QUECHUA2",
+     "UNIT_LIGHT_CAVALRY",
+     "UNIT_LIGHT_SWORDSMAN",
+     "UNIT_MACEMAN",
+     "UNIT_MONGOL_MOUNTED_SWORDSMAN",
+     "UNIT_MOUNTED_INFANTRY",
+     "UNIT_MOUNTED_INFANTRY_SCYTHIA",
+     "UNIT_NORSE_WARHORSE",
+     "UNIT_PIKEMAN",
+     "UNIT_PIKEMAN_JAPAN_ASHIGARU",
+     "UNIT_PRINCIPES",
+     "UNIT_PRIVATEER",
+     "UNIT_ROME_CAVALRY",
+     "UNIT_ROME_LEGIONARY",
+     "UNIT_ROME_PRAETORIAN",
+     "UNIT_SARISSA",
+     "UNIT_SEARAIDER",
+     "UNIT_SUMERIAN_VULTURE",
+     "UNIT_TRIARII",
+     "UNIT_VIKING_BESERKER",
+     "UNIT_WARDOG"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_4",
+     "CORPORATION_5"
+    ]
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "ore",
+    "need": null
+   }
+  },
+  "BONUS_HORSE": {
+   "cls": "BONUSCLASS_RUSH",
+   "art": "ART_DEF_BONUS_HORSE",
+   "font_index": 3,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Horse.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,4,13",
+   "tech_reveal": "TECH_HUNTING",
+   "tech_trade": "TECH_ANIMAL_HUSBANDRY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_TUNDRA"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 256,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PASTURE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [
+    "BUILDING_STABLE"
+   ],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_BYZANTINE_HIPPODROME",
+     "BUILDING_CIRCUS_MAXIMUS"
+    ],
+    "building_build_speed": [
+     "BUILDING_COURIER_SYSTEM"
+    ],
+    "unit_requires": [
+     "UNIT_ADVENTURER",
+     "UNIT_ARABIAN_ANSAR",
+     "UNIT_BYZANTINE_CATAPHRACT",
+     "UNIT_CARTHAGE_NUMIDIAN_CAVALRY",
+     "UNIT_CAVALRY",
+     "UNIT_CELTIC_CHARIOT",
+     "UNIT_CHARIOT",
+     "UNIT_CHIVALRY",
+     "UNIT_COMPANION_CAVALRY",
+     "UNIT_CUIRASSIER",
+     "UNIT_DUTCH_BATAVIAN_CAVALRY",
+     "UNIT_EGYPT_WARCHARIOT",
+     "UNIT_FRENCH_CHIVALRY",
+     "UNIT_FRENCH_DRAGOON",
+     "UNIT_GERMAN_CHIVALRY",
+     "UNIT_HEAVY_CAVALRY",
+     "UNIT_HITTITES_HITTITE_CHARIOT",
+     "UNIT_HORSEMAN",
+     "UNIT_HORSEMAN_SCYTHIA",
+     "UNIT_HORSE_ARCHER",
+     "UNIT_KNIGHT",
+     "UNIT_LIGHT_CAVALRY",
+     "UNIT_MALI_CAVALRY",
+     "UNIT_MONGOL_KESHIK",
+     "UNIT_MONGOL_MOUNTED_SWORDSMAN",
+     "UNIT_MOUNTED_INFANTRY",
+     "UNIT_MOUNTED_INFANTRY_SCYTHIA",
+     "UNIT_NORSE_WARHORSE",
+     "UNIT_PERSIA_IMMORTAL",
+     "UNIT_PERSIA_SIPAHI",
+     "UNIT_PRODROMOI",
+     "UNIT_ROME_CAVALRY",
+     "UNIT_ROME_CAVALRY_AUXILIA",
+     "UNIT_RUSSIA_COSSACK",
+     "UNIT_SPANISH_CONQUISTADOR"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "head",
+    "category": "military supply",
+    "land": "herd",
+    "need": null,
+    "note": "\"head\": live animals; the one unit outside tonnes, bales, barrels and crates."
+   }
+  },
+  "BONUS_IRON": {
+   "cls": "BONUSCLASS_RUSH",
+   "art": "ART_DEF_BONUS_IRON",
+   "font_index": 4,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Iron.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,6,13",
+   "tech_reveal": "TECH_IRON_WORKING",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 128,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_CANNON_FORGE",
+     "BUILDING_KNIGHT_STABLE"
+    ],
+    "building_yield": [
+     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE",
+     "BUILDING_FORGE",
+     "BUILDING_IRON_FORGE",
+     "BUILDING_IRON_WORKS",
+     "BUILDING_MALI_MINT",
+     "BUILDING_MINING_INC_SURVEY_OFFICE"
+    ],
+    "building_build_speed": [
+     "BUILDING_PYRAMID"
+    ],
+    "building_requires_one_of": [
+     "BUILDING_WAFFENMANUFAKTUR"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_ARABIAN_ANSAR",
+     "UNIT_AUXILIAR",
+     "UNIT_AXEMAN",
+     "UNIT_AZTEC_ELITE_JAGUAR",
+     "UNIT_BATTLECRUISER",
+     "UNIT_BYZANTINE_CATAPHRACT",
+     "UNIT_CELTIC_GALLIC_WARRIOR",
+     "UNIT_CELTIC_SWORDSMAN",
+     "UNIT_CENTURIO",
+     "UNIT_CHIVALRY",
+     "UNIT_COMITATENSES",
+     "UNIT_CUIRASSIER",
+     "UNIT_DREADNOUGHT",
+     "UNIT_DREADNOUGHT_HELGOLAND",
+     "UNIT_DUTCH_BATAVIAN_CAVALRY",
+     "UNIT_FRENCH_CHIVALRY",
+     "UNIT_GERMAN_CHIVALRY",
+     "UNIT_GREEK_PHALANX",
+     "UNIT_HASTATI",
+     "UNIT_HEAVY_CAVALRY",
+     "UNIT_HOLY_ROMAN_LANDSKNECHT",
+     "UNIT_HYPASPISTS",
+     "UNIT_INCAN_QUECHUA2",
+     "UNIT_IRONCLAD",
+     "UNIT_IRON_FRIGATE",
+     "UNIT_KNIGHT",
+     "UNIT_LIGHT_CAVALRY",
+     "UNIT_LIGHT_SWORDSMAN",
+     "UNIT_MACEMAN",
+     "UNIT_MONGOL_MOUNTED_SWORDSMAN",
+     "UNIT_MOUNTED_INFANTRY",
+     "UNIT_MOUNTED_INFANTRY_SCYTHIA",
+     "UNIT_NORSE_WARHORSE",
+     "UNIT_PERSIA_SIPAHI",
+     "UNIT_PIKEMAN",
+     "UNIT_PIKEMAN_JAPAN_ASHIGARU",
+     "UNIT_PRE_DREADNOUGHT",
+     "UNIT_PRINCIPES",
+     "UNIT_PRIVATEER",
+     "UNIT_ROME_CAVALRY",
+     "UNIT_ROME_LEGIONARY",
+     "UNIT_ROME_PRAETORIAN",
+     "UNIT_SARISSA",
+     "UNIT_SEARAIDER",
+     "UNIT_SPANISH_CONQUISTADOR",
+     "UNIT_STEAM_DESTROYER",
+     "UNIT_SUMERIAN_VULTURE",
+     "UNIT_THERMOBARIC_TANK",
+     "UNIT_TORPEDOBOAT",
+     "UNIT_TRIARII",
+     "UNIT_VIKING_BESERKER",
+     "UNIT_WARDOG"
+    ],
+    "unit_requires": [
+     "UNIT_AZTEC_EAGLE",
+     "UNIT_BOMBARD",
+     "UNIT_BRIGANTINE",
+     "UNIT_CANNON",
+     "UNIT_CARTHAGE_SACRED_BAND",
+     "UNIT_FRIGATE",
+     "UNIT_GERMAN_TEUTONIC",
+     "UNIT_HEAVY_PIKEMAN",
+     "UNIT_HEAVY_SWORDSMAN",
+     "UNIT_JAPAN_HEAVY_ASHIGARU",
+     "UNIT_JAPAN_SAMURAI",
+     "UNIT_MANOWAR",
+     "UNIT_SHIP_OF_THE_LINE",
+     "UNIT_SLOOP",
+     "UNIT_SWORDSMAN",
+     "UNIT_XEBEC"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_4",
+     "CORPORATION_5"
+    ]
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "ore",
+    "need": null
+   }
+  },
+  "BONUS_MARBLE": {
+   "cls": "BONUSCLASS_WONDER",
+   "art": "ART_DEF_BONUS_MARBLE",
+   "font_index": 5,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Marble.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,8,13",
+   "tech_reveal": "TECH_MASONRY",
+   "tech_trade": "TECH_MASONRY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW",
+     "TERRAIN_DESERT"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_QUARRY",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      2
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_build_speed": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_EGYPT_MYTH_CATHEDRAL",
+     "BUILDING_GREAT_LIBRARY",
+     "BUILDING_HAGIA_SOPHIA",
+     "BUILDING_HELLENIC_CATHEDRAL",
+     "BUILDING_HERMITAGE",
+     "BUILDING_HEROIC_EPIC",
+     "BUILDING_HINDU_CATHEDRAL",
+     "BUILDING_ISLAMIC_CATHEDRAL",
+     "BUILDING_JSBACH_CATHEDRAL",
+     "BUILDING_MAUSOLEUM_OF_MAUSSOLLOS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_NATIONAL_EPIC",
+     "BUILDING_PARTHENON",
+     "BUILDING_PHOEN_TEMPLE",
+     "BUILDING_SISTINE_CHAPEL",
+     "BUILDING_STATUE_OF_CHAMPION",
+     "BUILDING_TAOIST_TEMPLE_OF_HEAVEN",
+     "BUILDING_TOWN_ESSENTIALS",
+     "BUILDING_VERSAILLES",
+     "BUILDING_ZOROASTRIAN_CATHEDRAL"
+    ],
+    "building_requires": [
+     "BUILDING_BATH_HOUSE",
+     "BUILDING_FORUM_ROMANUM"
+    ],
+    "building_yield": [
+     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_4"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "quarry",
+    "need": null
+   }
+  },
+  "BONUS_OIL": {
+   "cls": "BONUSCLASS_FUEL",
+   "art": "ART_DEF_BONUS_OIL",
+   "font_index": 6,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Oil.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,7,15",
+   "tech_reveal": "TECH_SCIENTIFIC_METHOD",
+   "tech_trade": "TECH_REFINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": -1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW",
+     "TERRAIN_OCEAN",
+     "TERRAIN_MARSH"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_SWAMP"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 512,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_WELL",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_OFFSHORE_PLATFORM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_MILITARY_AIRBASE",
+     "BUILDING_OIL_PLANT",
+     "BUILDING_OIL_REFINERY"
+    ],
+    "building_health": [
+     "BUILDING_FACTORY",
+     "BUILDING_GERMAN_ASSEMBLY_PLANT",
+     "BUILDING_INDUSTRIAL_PARK",
+     "BUILDING_OIL_REFINERY",
+     "BUILDING_PERSONAL_RAPID_TRAIN",
+     "BUILDING_PUBLIC_TRANSPORTATION"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "fuel",
+    "land": "well",
+    "need": "fuel"
+   }
+  },
+  "BONUS_STONE": {
+   "cls": "BONUSCLASS_WONDER",
+   "art": "ART_DEF_BONUS_STONE",
+   "font_index": 7,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Stone.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,6,14",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_MASONRY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_QUARRY",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_build_speed": [
+     "BUILDING_ANGKOR_WAT",
+     "BUILDING_CASTLE",
+     "BUILDING_CELTIC_DUN",
+     "BUILDING_CELTIC_TEMPLE",
+     "BUILDING_CHRISTIAN_CATHEDRAL",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_CONFUCIAN_CATHEDRAL",
+     "BUILDING_EGYPT_MYTH_CATHEDRAL",
+     "BUILDING_HANGING_GARDEN",
+     "BUILDING_HELLENIC_CATHEDRAL",
+     "BUILDING_HIGH_WALLS",
+     "BUILDING_HINDU_BRIHADEESWARAR",
+     "BUILDING_ISLAMIC_CATHEDRAL",
+     "BUILDING_JEWISH_CATHEDRAL",
+     "BUILDING_MESOAMERICAN_CATHEDRAL",
+     "BUILDING_MESOAMERICAN_MAGICIAN_PYRAMID",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_MOAI_STATUES",
+     "BUILDING_MT_RUSHMORE",
+     "BUILDING_NOTRE_DAME",
+     "BUILDING_OXFORD_UNIVERSITY",
+     "BUILDING_SHINTO_TEMPLE",
+     "BUILDING_SPANISH_CITADEL",
+     "BUILDING_SPIRAL_MINARET",
+     "BUILDING_STONEHENGE",
+     "BUILDING_SUMER_TEMPLE",
+     "BUILDING_TEMPLE_OF_ISIS",
+     "BUILDING_TEMPLE_OF_OSIRIS",
+     "BUILDING_TEMPLE_OF_SET",
+     "BUILDING_TOWN_ESSENTIALS",
+     "BUILDING_WALLS",
+     "BUILDING_WEST_POINT",
+     "BUILDING_ZOROASTRIAN_CATHEDRAL"
+    ],
+    "building_requires": [
+     "BUILDING_COLOSSEUM",
+     "BUILDING_GLASSSMITH"
+    ],
+    "building_yield": [
+     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_4"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "quarry",
+    "need": null
+   }
+  },
+  "BONUS_URANIUM": {
+   "cls": "BONUSCLASS_FUEL",
+   "art": "ART_DEF_BONUS_URANIUM",
+   "font_index": 8,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Uranium.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,8,14",
+   "tech_reveal": "TECH_QUANTUM_PHYSICS",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    0
+   ],
+   "health": 0,
+   "happiness": -1,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      4
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_NUCLEAR_PLANT"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_AEGIS",
+     "UNIT_ATTACK_SUBMARINE",
+     "UNIT_BATTLESHIP",
+     "UNIT_BATTLESHIP_YAMATO",
+     "UNIT_CARRIER",
+     "UNIT_LANDING_SHIP",
+     "UNIT_LITTORAL_COMBAT_SHIP",
+     "UNIT_MISSILE_CRUISER",
+     "UNIT_NUCLEAR_SUBMARINE",
+     "UNIT_STEALTH_DESTROYER",
+     "UNIT_STEALTH_TORPEDOBOAT",
+     "UNIT_SUBMARINE",
+     "UNIT_TRANSPORT"
+    ],
+    "unit_requires": [
+     "UNIT_ATOMIC",
+     "UNIT_ICBM",
+     "UNIT_NUCLEAR_CARRIER",
+     "UNIT_TACTICAL_NUKE"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "fuel",
+    "land": "ore",
+    "need": null
+   }
+  },
+  "BONUS_BANANA": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_BANANA",
+   "font_index": 9,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Banana.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,2,12",
+   "tech_reveal": "TECH_NATUROPATHY",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS"
+    ],
+    "building_health": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "crop",
+    "need": "variety"
+   }
+  },
+  "BONUS_CLAM": {
+   "cls": "BONUSCLASS_SEAFOOD",
+   "art": "ART_DEF_BONUS_CLAM",
+   "font_index": 10,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Clam.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,3,12",
+   "tech_reveal": "TECH_FISHING",
+   "tech_trade": "NONE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_COAST"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     50
+    ],
+    "area": false,
+    "tiles_per": 32,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FISHING_BOATS",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_CARTHAGE_COTHON",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_HARBOR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_PORT",
+     "BUILDING_SID_SUSHI_RESTAURANT"
+    ],
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_SID_SUSHI_RESTAURANT",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_2"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "sea",
+    "need": "variety"
+   }
+  },
+  "BONUS_CORN": {
+   "cls": "BONUSCLASS_GRAIN",
+   "art": "ART_DEF_BONUS_CORN",
+   "font_index": 11,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Corn.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,6,12",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_AGRICULTURE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_VERTICAL_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CEREAL_MILLS_FACTORY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_STANDARD_ETHANOL_DISTILLERY",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires_one_of": [
+     "BUILDING_BROTMANUFAKTUR"
+    ],
+    "building_health": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_1",
+     "CORPORATION_3"
+    ],
+    "building_requires": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "staple food",
+    "land": "crop",
+    "need": "staple"
+   }
+  },
+  "BONUS_COW": {
+   "cls": "BONUSCLASS_LIVESTOCK",
+   "art": "ART_DEF_BONUS_COW",
+   "font_index": 12,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Cow.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,7,12",
+   "tech_reveal": "TECH_HUNTING",
+   "tech_trade": "TECH_ANIMAL_HUSBANDRY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     50
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PASTURE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      2,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      1,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "herd",
+    "need": "variety"
+   }
+  },
+  "BONUS_CRAB": {
+   "cls": "BONUSCLASS_SEAFOOD",
+   "art": "ART_DEF_BONUS_CRAB",
+   "font_index": 13,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Crab.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,8,12",
+   "tech_reveal": "NONE",
+   "tech_trade": "NONE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_COAST"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     40,
+     80
+    ],
+    "area": false,
+    "tiles_per": 32,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FISHING_BOATS",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      2
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_CARTHAGE_COTHON",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_HARBOR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_PORT",
+     "BUILDING_SID_SUSHI_RESTAURANT"
+    ],
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_SID_SUSHI_RESTAURANT"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_2"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "sea",
+    "need": "variety"
+   }
+  },
+  "BONUS_DEER": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_DEER",
+   "font_index": 14,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Deer.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,1,15",
+   "tech_reveal": "TECH_HUNTING",
+   "tech_trade": "TECH_HUNTING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_TUNDRA",
+     "TERRAIN_MARSH"
+    ],
+    "features": [
+     "FEATURE_FOREST",
+     "FEATURE_SWAMP"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     30,
+     80
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "game",
+    "need": "variety"
+   }
+  },
+  "BONUS_FISH": {
+   "cls": "BONUSCLASS_SEAFOOD",
+   "art": "ART_DEF_BONUS_FISH",
+   "font_index": 15,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Fish.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,4,15",
+   "tech_reveal": "NONE",
+   "tech_trade": "NONE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_COAST",
+     "TERRAIN_OCEAN"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 32,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FISHING_BOATS",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_CARTHAGE_COTHON",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_HARBOR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_PORT",
+     "BUILDING_SID_SUSHI_RESTAURANT"
+    ],
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_SID_SUSHI_RESTAURANT",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_2"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "staple food",
+    "land": "sea",
+    "need": "staple"
+   }
+  },
+  "BONUS_PIG": {
+   "cls": "BONUSCLASS_LIVESTOCK",
+   "art": "ART_DEF_BONUS_PIG",
+   "font_index": 16,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Pig.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,8,15",
+   "tech_reveal": "TECH_HUNTING",
+   "tech_trade": "TECH_ANIMAL_HUSBANDRY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS"
+    ],
+    "features": [
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     10,
+     50
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PASTURE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "herd",
+    "need": "variety"
+   }
+  },
+  "BONUS_RICE": {
+   "cls": "BONUSCLASS_GRAIN",
+   "art": "ART_DEF_BONUS_RICE",
+   "font_index": 17,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Rice.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,1,14",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_AGRICULTURE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_MARSH"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_SWAMP"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     40
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_VERTICAL_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_SID_SUSHI_RESTAURANT",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_yield": [
+     "BUILDING_CEREAL_MILLS_FACTORY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SID_SUSHI_RESTAURANT",
+     "BUILDING_STANDARD_ETHANOL_DISTILLERY",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires_one_of": [
+     "BUILDING_BROTMANUFAKTUR"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_1",
+     "CORPORATION_2",
+     "CORPORATION_3"
+    ],
+    "building_requires": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "staple food",
+    "land": "crop",
+    "need": "staple"
+   }
+  },
+  "BONUS_SHEEP": {
+   "cls": "BONUSCLASS_LIVESTOCK",
+   "art": "ART_DEF_BONUS_SHEEP",
+   "font_index": 18,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Sheep.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,2,14",
+   "tech_reveal": "TECH_HUNTING",
+   "tech_trade": "TECH_ANIMAL_HUSBANDRY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     30,
+     80
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PASTURE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "herd",
+    "need": "variety"
+   }
+  },
+  "BONUS_WHEAT": {
+   "cls": "BONUSCLASS_GRAIN",
+   "art": "ART_DEF_BONUS_WHEAT",
+   "font_index": 19,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Wheat.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,2,16",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_AGRICULTURE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS",
+     "TERRAIN_GRASS"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_VERTICAL_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CEREAL_MILLS_FACTORY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TEMPLE_OF_OSIRIS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires_one_of": [
+     "BUILDING_BROTMANUFAKTUR"
+    ],
+    "building_health": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_1"
+    ],
+    "building_requires": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "staple food",
+    "land": "crop",
+    "need": "staple"
+   }
+  },
+  "BONUS_DYE": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_DYE",
+   "font_index": 20,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Dye.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,3,15",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY"
+    ],
+    "building_happiness": [
+     "BUILDING_ARTIST_GUILD",
+     "BUILDING_CHINESE_PAVILLION",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_MARKET",
+     "BUILDING_OPERA_HOUSE",
+     "BUILDING_ROMAN_FORUM",
+     "BUILDING_THEATRE"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "intermediate",
+    "land": "crop",
+    "need": "comforts"
+   }
+  },
+  "BONUS_FUR": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_FUR",
+   "font_index": 21,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Fur.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,1,13",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_HUNTING",
+   "tech_obsolete": "TECH_SENTIENT_EARTH",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW",
+     "TERRAIN_MARSH"
+    ],
+    "features": [
+     "FEATURE_FOREST",
+     "FEATURE_SWAMP"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_PORT",
+     "BUILDING_ROMAN_FORUM",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "bales",
+    "category": "luxury",
+    "land": "game",
+    "need": "clothing"
+   }
+  },
+  "BONUS_GEMS": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_GEMS",
+   "font_index": 22,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Gems.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,2,13",
+   "tech_reveal": "TECH_MINING",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -1,
+      5
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -1,
+      5
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -1,
+      6
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CIVILIZED_JEWELERS_STORE",
+     "BUILDING_FORGE",
+     "BUILDING_IRON_FORGE",
+     "BUILDING_MALI_MINT"
+    ],
+    "building_happiness": [
+     "BUILDING_JEWELLERY"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_7"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "luxury",
+    "land": "ore",
+    "need": "luxuries"
+   }
+  },
+  "BONUS_GOLD": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_GOLD",
+   "font_index": 23,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Gold.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,3,13",
+   "tech_reveal": "TECH_MINING",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 80
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -1,
+      6
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -1,
+      6
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -2,
+      7
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CIVILIZED_JEWELERS_STORE",
+     "BUILDING_FORGE",
+     "BUILDING_IRON_FORGE",
+     "BUILDING_MALI_MINT",
+     "BUILDING_MINING_INC_SURVEY_OFFICE"
+    ],
+    "building_requires": [
+     "BUILDING_GUILDHALL"
+    ],
+    "building_happiness": [
+     "BUILDING_JEWELLERY"
+    ],
+    "building_build_speed": [
+     "BUILDING_BUDDHIST_CATHEDRAL",
+     "BUILDING_MESOAMERICAN_CATHEDRAL",
+     "BUILDING_SHWEDAGON_PAYA",
+     "BUILDING_WORLD_BANK"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_5",
+     "CORPORATION_7"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "luxury",
+    "land": "ore",
+    "need": "luxuries"
+   }
+  },
+  "BONUS_INCENSE": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_INCENSE",
+   "font_index": 24,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Incense.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,5,13",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_DESERT"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      5
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_BUDDHIST_CATHEDRAL",
+     "BUILDING_CHRISTIAN_CATHEDRAL",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_CONFUCIAN_CATHEDRAL",
+     "BUILDING_EGYPT_MYTH_CATHEDRAL",
+     "BUILDING_HELLENIC_CATHEDRAL",
+     "BUILDING_HINDU_BRIHADEESWARAR",
+     "BUILDING_HINDU_CATHEDRAL",
+     "BUILDING_ISLAMIC_CATHEDRAL",
+     "BUILDING_JEWISH_CATHEDRAL",
+     "BUILDING_JSBACH_CATHEDRAL",
+     "BUILDING_TAOIST_CATHEDRAL",
+     "BUILDING_ZOROASTRIAN_CATHEDRAL"
+    ],
+    "building_health": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "luxury",
+    "land": "crop",
+    "need": "comforts"
+   }
+  },
+  "BONUS_IVORY": {
+   "cls": "BONUSCLASS_RUSH",
+   "art": "ART_DEF_BONUS_IVORY",
+   "font_index": 25,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Ivory.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,7,13",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_HUNTING",
+   "tech_obsolete": "TECH_SENTIENT_EARTH",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS"
+    ],
+    "features": [
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     40
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      2
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SAFARI",
+     "trade": false,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      4
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_MARKET",
+     "BUILDING_ROMAN_FORUM"
+    ],
+    "building_build_speed": [
+     "BUILDING_HINDU_CATHEDRAL"
+    ],
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "unit_requires": [
+     "UNIT_ELEPHANT_RIDER",
+     "UNIT_KHMER_BALLISTA_ELEPHANT",
+     "UNIT_SIAM_ELEPHANT",
+     "UNIT_WAR_ELEPHANT"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "luxury",
+    "land": "game",
+    "need": "luxuries"
+   }
+  },
+  "BONUS_SILK": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_SILK",
+   "font_index": 26,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Silk.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,3,14",
+   "tech_reveal": "TECH_ANIMAL_HUSBANDRY",
+   "tech_trade": "TECH_TRADE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_SILK_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_MARKET",
+     "BUILDING_PORT",
+     "BUILDING_ROMAN_FORUM",
+     "BUILDING_SILK_ROAD"
+    ],
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "bales",
+    "category": "luxury",
+    "land": "crop",
+    "need": "luxuries"
+   }
+  },
+  "BONUS_SILVER": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_SILVER",
+   "font_index": 27,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Silver.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,4,14",
+   "tech_reveal": "TECH_MINING",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW",
+     "TERRAIN_GRASS"
+    ],
+    "features": [
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -1,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -1,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      -2,
+      5
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CIVILIZED_JEWELERS_STORE",
+     "BUILDING_FORGE",
+     "BUILDING_IRON_FORGE",
+     "BUILDING_MALI_MINT",
+     "BUILDING_MINING_INC_SURVEY_OFFICE"
+    ],
+    "building_happiness": [
+     "BUILDING_JEWELLERY"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_5",
+     "CORPORATION_7"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "luxury",
+    "land": "ore",
+    "need": "luxuries"
+   }
+  },
+  "BONUS_SPICES": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_SPICES",
+   "font_index": 28,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Spices.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,5,14",
+   "tech_reveal": "TECH_NATUROPATHY",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     60
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_health": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "luxury",
+    "land": "crop",
+    "need": "comforts"
+   }
+  },
+  "BONUS_SUGAR": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_SUGAR",
+   "font_index": 29,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Sugar.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,7,14",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_STANDARD_ETHANOL_DISTILLERY"
+    ],
+    "building_health": [
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_CENTER"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_3"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "crop",
+    "need": "comforts"
+   }
+  },
+  "BONUS_WINE": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_WINE",
+   "font_index": 96,
+   "button": "Art/Interface/Buttons/WorldBuilder/Wine2.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     20,
+     50
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_WINERY",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_PORT",
+     "BUILDING_ROMAN_FORUM"
+    ],
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_health": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "luxury",
+    "land": "orchard",
+    "need": "comforts"
+   }
+  },
+  "BONUS_WHALE": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_WHALE",
+   "font_index": 31,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Whale.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,1,16",
+   "tech_reveal": "TECH_SAILING",
+   "tech_trade": "NONE",
+   "tech_obsolete": "TECH_SENTIENT_EARTH",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_OCEAN"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     50,
+     80
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_WHALING_BOATS",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      1,
+      4
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_MARKET",
+     "BUILDING_ROMAN_FORUM"
+    ],
+    "building_yield": [
+     "BUILDING_CANNERY"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "fuel",
+    "land": "sea",
+    "need": "fuel"
+   }
+  },
+  "BONUS_DRAMA": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_DRAMA",
+   "font_index": 32,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Drama.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,2,15",
+   "tech_reveal": "NONE",
+   "tech_trade": "NONE",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_BROADWAY"
+   ],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_BROADCAST_TOWER",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMUNICATION_TOWER",
+     "BUILDING_NETWORK_NODE"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": null,
+    "category": null,
+    "land": "building",
+    "need": null,
+    "note": "Not a physical good: given by buildings (theatre culture). Proposed to stay a building-given resource outside the goods accounts (open question Q2).",
+    "outside_accounts": true
+   }
+  },
+  "BONUS_MUSIC": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_MUSIC",
+   "font_index": 33,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Music.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,4,16",
+   "tech_reveal": "NONE",
+   "tech_trade": "NONE",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_ROCKNROLL"
+   ],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_AMUSEMENT_PARK",
+     "BUILDING_BROADCAST_TOWER",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMUNICATION_TOWER",
+     "BUILDING_GREEK_ODEON",
+     "BUILDING_NETWORK_NODE",
+     "BUILDING_VR_THEATER"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": null,
+    "category": null,
+    "land": "building",
+    "need": null,
+    "note": "Not a physical good: given by buildings. Proposed to stay a building-given resource outside the goods accounts (Q2).",
+    "outside_accounts": true
+   }
+  },
+  "BONUS_MOVIES": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_MOVIES",
+   "font_index": 34,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Movies.dds,Art/Interface/Buttons/Unit_Resource_Atlas.dds,5,15",
+   "tech_reveal": "NONE",
+   "tech_trade": "NONE",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_HOLLYWOOD"
+   ],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_MOVIETHEATRE"
+    ],
+    "building_happiness": [
+     "BUILDING_BROADCAST_TOWER",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMUNICATION_TOWER",
+     "BUILDING_MOVIETHEATRE",
+     "BUILDING_NETWORK_NODE",
+     "BUILDING_VR_THEATER"
+    ],
+    "building_yield": [
+     "BUILDING_NATIONAL_TV_STATION"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": null,
+    "category": null,
+    "land": "building",
+    "need": null,
+    "note": "Not a physical good: given by buildings. Proposed to stay a building-given resource outside the goods accounts (Q2).",
+    "outside_accounts": true
+   }
+  },
+  "BONUS_CANNABIS": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_CANNABIS",
+   "font_index": 35,
+   "button": "Art/Interface/Buttons/WorldBuilder/hemp.dds",
+   "tech_reveal": "TECH_MYSTICISM",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_FOREST",
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_MESOAMERICAN_CATHEDRAL",
+     "BUILDING_SACRIFICIAL_ALTAR"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "bales",
+    "category": "luxury",
+    "land": "crop",
+    "need": "comforts"
+   }
+  },
+  "BONUS_SALT": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_SALT",
+   "font_index": 36,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Music.dds,Art/RoM_Atlas.dds,2,1",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_MASONRY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 128,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_QUARRY",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      4
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "quarry",
+    "need": "variety"
+   }
+  },
+  "BONUS_POTATO": {
+   "cls": "BONUSCLASS_GRAIN",
+   "art": "ART_DEF_BONUS_POTATO",
+   "font_index": 37,
+   "button": "Art/Interface/Buttons/WorldBuilder/potato.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_AGRICULTURE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS",
+     "TERRAIN_MARSH"
+    ],
+    "features": [
+     "FEATURE_SWAMP"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 0
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_VERTICAL_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      0,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CEREAL_MILLS_FACTORY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_STANDARD_ETHANOL_DISTILLERY",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_health": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_1",
+     "CORPORATION_3"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "staple food",
+    "land": "crop",
+    "need": "staple"
+   }
+  },
+  "BONUS_COFFEE": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_COFFEE",
+   "font_index": 38,
+   "button": "Art/Interface/Buttons/WorldBuilder/coffee.dds",
+   "tech_reveal": "TECH_NATUROPATHY",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     60
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 80
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "luxury",
+    "land": "crop",
+    "need": "comforts"
+   }
+  },
+  "BONUS_SULPHUR": {
+   "cls": "BONUSCLASS_RUSH",
+   "art": "ART_DEF_BONUS_SULPHUR",
+   "font_index": 39,
+   "button": "Art/Interface/Buttons/WorldBuilder/sulphur.dds",
+   "tech_reveal": "TECH_GUNPOWDER",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    -2,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      2
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      2
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      2
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_CHEMICAL_PLANT",
+     "BUILDING_WEAPON_FACTORY"
+    ],
+    "unit_requires": [
+     "UNIT_ARQUEBUSIER",
+     "UNIT_ETHIOPIAN_OROMO_WARRIOR",
+     "UNIT_FRENCH_MUSKETEER",
+     "UNIT_GRENADIER",
+     "UNIT_IRON_FRIGATE",
+     "UNIT_MINUTEMAN",
+     "UNIT_MUSKETMAN",
+     "UNIT_OTTOMAN_JANISSARY"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_BOMBARD",
+     "UNIT_BRIGANTINE",
+     "UNIT_CANNON",
+     "UNIT_CUIRASSIER",
+     "UNIT_FRIGATE",
+     "UNIT_MANOWAR",
+     "UNIT_SHIP_OF_THE_LINE",
+     "UNIT_SLOOP",
+     "UNIT_SPANISH_CONQUISTADOR",
+     "UNIT_XEBEC"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "ore",
+    "need": null
+   }
+  },
+  "BONUS_PEARLS": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_PEARLS",
+   "font_index": 40,
+   "button": "Art/Interface/Buttons/WorldBuilder/pearls.dds",
+   "tech_reveal": "TECH_FISHING",
+   "tech_trade": "TECH_TRADE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_COAST"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     60
+    ],
+    "area": false,
+    "tiles_per": 32,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FISHING_BOATS",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_JEWELLERY",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_CIVILIZED_JEWELERS_STORE",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_7"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "luxury",
+    "land": "sea",
+    "need": "luxuries"
+   }
+  },
+  "BONUS_LEMON": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_LEMON",
+   "font_index": 41,
+   "button": "Art/Interface/Buttons/WorldBuilder/lemon.dds",
+   "tech_reveal": "TECH_NATUROPATHY",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     60
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS"
+    ],
+    "building_health": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "orchard",
+    "need": "variety"
+   }
+  },
+  "BONUS_COTTON": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_COTTON2",
+   "font_index": 42,
+   "button": ", ,Art/RoM_Atlas.dds,8,1",
+   "tech_reveal": "TECH_AGRICULTURE",
+   "tech_trade": "TECH_AGRICULTURE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_MARKET",
+     "BUILDING_ROMAN_FORUM"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "bales",
+    "category": "raw material",
+    "land": "crop",
+    "need": "clothing"
+   }
+  },
+  "BONUS_ANCIENTTEMPLE": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_ANCIENTTEMPLE",
+   "font_index": 90,
+   "button": ", ,Art/RoM_Atlas.dds,2,2",
+   "tech_reveal": "TECH_ASTRONOMY",
+   "tech_trade": "TECH_ASTRONOMY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    -2,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     60
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_EXPLORETEMPLE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      5
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_MUSEUM"
+    ],
+    "building_yield": [
+     "BUILDING_MUSEUM"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": null,
+    "category": null,
+    "land": "site",
+    "need": null,
+    "note": "A site, not a good: an explorable ruin with its own improvement. Proposed to stay a plot feature of the map (Q2).",
+    "outside_accounts": true
+   }
+  },
+  "BONUS_GLASS": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_GLASS",
+   "font_index": 71,
+   "button": "Art/Interface/Buttons/WorldBuilder/Wine.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_GLASS_BLOWING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_GLASSSMITH"
+   ],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_COPERNICUS_OBSERVATORY",
+     "BUILDING_LAB"
+    ],
+    "building_build_speed": [
+     "BUILDING_FRENCH_SALON",
+     "BUILDING_OBSERVATORY"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_DIESEL": {
+   "cls": "BONUSCLASS_FUEL",
+   "art": "ART_DEF_BONUS_DIESEL",
+   "font_index": 77,
+   "button": "Art/Interface/Buttons/WorldBuilder/diesel_button.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_COMBUSTION",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_OIL_REFINERY",
+    "BUILDING_JAPANESE_SHALE_PLANT"
+   ],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_COMMERCIAL_AIRPORT"
+    ],
+    "unit_requires": [
+     "UNIT_A10_BOMBER",
+     "UNIT_A7V",
+     "UNIT_ACV",
+     "UNIT_ACVSAM",
+     "UNIT_AH64_GUNSHIP",
+     "UNIT_ARMORED_CAR",
+     "UNIT_ARMOR_CENTURION",
+     "UNIT_ARMOR_M60",
+     "UNIT_ARMOR_T72TAN",
+     "UNIT_B52",
+     "UNIT_BOMBER",
+     "UNIT_BT2",
+     "UNIT_BTR80",
+     "UNIT_BTR80",
+     "UNIT_CAPRONI",
+     "UNIT_CRUISER",
+     "UNIT_DREADNOUGHT",
+     "UNIT_DROPSHIP",
+     "UNIT_EARLY_TANK",
+     "UNIT_F117",
+     "UNIT_F15",
+     "UNIT_F86",
+     "UNIT_FIGHTER",
+     "UNIT_FIGHTER_MIG3",
+     "UNIT_FOKKERDR1",
+     "UNIT_FT17",
+     "UNIT_FT17S",
+     "UNIT_FT17US",
+     "UNIT_FUTURE_ARMOR",
+     "UNIT_GERMAN_PANZER",
+     "UNIT_GUNSHIP",
+     "UNIT_HALFTRACK",
+     "UNIT_HEAVY_CRUISER",
+     "UNIT_HEAVY_TANK_IS2",
+     "UNIT_HEAVY_TANK_M26",
+     "UNIT_HEAVY_TANK_PZKPFWVI",
+     "UNIT_HUMVEE",
+     "UNIT_HYBRID_GUNSHIP",
+     "UNIT_IL2",
+     "UNIT_J2F",
+     "UNIT_JA37",
+     "UNIT_JAPAN_ZERO",
+     "UNIT_JEEP",
+     "UNIT_JET_FIGHTER",
+     "UNIT_L640",
+     "UNIT_LIGHT_TANK",
+     "UNIT_M3A1",
+     "UNIT_MI26",
+     "UNIT_MOBILE_ARTILLERY",
+     "UNIT_MOBILE_SAM",
+     "UNIT_MODERN_ARMOR",
+     "UNIT_MODERN_ARMOR_2A5",
+     "UNIT_MODERN_ARMOR_T84",
+     "UNIT_MODERN_ARMOR_TYPE99",
+     "UNIT_MOTORCYCLE",
+     "UNIT_NLOS_CANNON",
+     "UNIT_P59",
+     "UNIT_PZKPFWII",
+     "UNIT_R35",
+     "UNIT_ROCKET_ARTILLERY",
+     "UNIT_SEAPLANE",
+     "UNIT_SEAPLANE_TENDER",
+     "UNIT_SR71",
+     "UNIT_STEALTH_ARMOR",
+     "UNIT_STEALTH_BOMBER",
+     "UNIT_T95",
+     "UNIT_TANK",
+     "UNIT_TANK_CHARBIS",
+     "UNIT_TANK_CHURCHILL",
+     "UNIT_TANK_M4A3",
+     "UNIT_TANK_PZKPFWIVAUSFF",
+     "UNIT_TANK_T34",
+     "UNIT_THERMOBARIC_TANK",
+     "UNIT_UAV",
+     "UNIT_VAMPIRE",
+     "UNIT_WHIPPET",
+     "UNIT_b17",
+     "UNIT_f35",
+     "UNIT_fw190a",
+     "UNIT_he111",
+     "UNIT_mig15",
+     "UNIT_mig21",
+     "UNIT_mig25",
+     "UNIT_spitfire"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_AEGIS",
+     "UNIT_ATTACK_SUBMARINE",
+     "UNIT_BATTLESHIP",
+     "UNIT_BATTLESHIP_YAMATO",
+     "UNIT_CARRIER",
+     "UNIT_DESTROYER",
+     "UNIT_EARLY_CARRIER",
+     "UNIT_FLAMETHROWER",
+     "UNIT_LANDING_SHIP",
+     "UNIT_LITTORAL_COMBAT_SHIP",
+     "UNIT_MISSILE_CRUISER",
+     "UNIT_STEALTH_DESTROYER",
+     "UNIT_STEALTH_TORPEDOBOAT",
+     "UNIT_STILETTO_BOAT",
+     "UNIT_SUBMARINE",
+     "UNIT_TRANSPORT",
+     "UNIT_WW1_DESTROYER",
+     "UNIT_WW2_BATTLESHIP"
+    ],
+    "corporation_produces": [
+     "CORPORATION_3"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "fuel",
+    "land": "made",
+    "need": "fuel"
+   }
+  },
+  "BONUS_AMMO": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_AMMO",
+   "font_index": 92,
+   "button": "Art/Interface/Buttons/WorldBuilder/ammo_button.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_RIFLING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_WEAPON_FACTORY"
+   ],
+   "used_by": {
+    "unit_requires": [
+     "UNIT_AMERICAN_NAVY_SEAL",
+     "UNIT_ARTILLERY",
+     "UNIT_BAZOOKA",
+     "UNIT_FRENCH_MARINE",
+     "UNIT_GUERRILLA",
+     "UNIT_LIGHT_ARTILLERY",
+     "UNIT_MACHINE_GUN",
+     "UNIT_MARINE",
+     "UNIT_MODERN_GRENADIER",
+     "UNIT_MODERN_INFANTRY",
+     "UNIT_MODERN_MARINE",
+     "UNIT_MODERN_PARATROOPER",
+     "UNIT_PARATROOPER",
+     "UNIT_SAM_INFANTRY",
+     "UNIT_SPECIAL_FORCES"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_A10_BOMBER",
+     "UNIT_CAPRONI",
+     "UNIT_F117",
+     "UNIT_F15",
+     "UNIT_F86",
+     "UNIT_FOKKERDR1",
+     "UNIT_IL2",
+     "UNIT_J2F",
+     "UNIT_JA37",
+     "UNIT_JET_FIGHTER",
+     "UNIT_ORBITAL_FIGHTER",
+     "UNIT_P59",
+     "UNIT_SCRAMJET",
+     "UNIT_SEAPLANE",
+     "UNIT_VAMPIRE",
+     "UNIT_f35",
+     "UNIT_mig15",
+     "UNIT_mig21",
+     "UNIT_mig25"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "military supply",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_STEEL": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_STEEL",
+   "font_index": 97,
+   "button": "Art/Interface/Buttons/WorldBuilder/Steel.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_STEEL",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_STEEL_MILL",
+    "BUILDING_IRON_WORKS"
+   ],
+   "used_by": {
+    "unit_requires_one_of": [
+     "UNIT_A7V",
+     "UNIT_ARMOR_CENTURION",
+     "UNIT_ARMOR_M60",
+     "UNIT_ARMOR_T72TAN",
+     "UNIT_BATTLECRUISER",
+     "UNIT_BT2",
+     "UNIT_CRUISER",
+     "UNIT_DREADNOUGHT",
+     "UNIT_DREADNOUGHT_HELGOLAND",
+     "UNIT_EARLY_TANK",
+     "UNIT_FT17",
+     "UNIT_FT17S",
+     "UNIT_FT17US",
+     "UNIT_GERMAN_PANZER",
+     "UNIT_HEAVY_CRUISER",
+     "UNIT_HEAVY_TANK_IS2",
+     "UNIT_HEAVY_TANK_M26",
+     "UNIT_HEAVY_TANK_PZKPFWVI",
+     "UNIT_IRONCLAD",
+     "UNIT_IRON_FRIGATE",
+     "UNIT_L640",
+     "UNIT_LIGHT_TANK",
+     "UNIT_M3A1",
+     "UNIT_MODERN_ARMOR",
+     "UNIT_MODERN_ARMOR_2A5",
+     "UNIT_MODERN_ARMOR_T84",
+     "UNIT_MODERN_ARMOR_TYPE99",
+     "UNIT_NUCLEAR_CARRIER",
+     "UNIT_PRE_DREADNOUGHT",
+     "UNIT_PZKPFWII",
+     "UNIT_R35",
+     "UNIT_SEAPLANE_TENDER",
+     "UNIT_STEAM_DESTROYER",
+     "UNIT_TANK",
+     "UNIT_TANK_CHARBIS",
+     "UNIT_TANK_CHURCHILL",
+     "UNIT_TANK_M4A3",
+     "UNIT_TANK_PZKPFWIVAUSFF",
+     "UNIT_TANK_T34",
+     "UNIT_THERMOBARIC_TANK",
+     "UNIT_TORPEDOBOAT",
+     "UNIT_WHIPPET"
+    ],
+    "unit_requires": [
+     "UNIT_AEGIS",
+     "UNIT_ATTACK_SUBMARINE",
+     "UNIT_BATTLESHIP",
+     "UNIT_BATTLESHIP_YAMATO",
+     "UNIT_CARRIER",
+     "UNIT_DESTROYER",
+     "UNIT_EARLY_CARRIER",
+     "UNIT_FUSION_SUBMARINE",
+     "UNIT_LITTORAL_COMBAT_SHIP",
+     "UNIT_MISSILE_CRUISER",
+     "UNIT_NUCLEAR_SUBMARINE",
+     "UNIT_OFFSHORE_PLATFORM",
+     "UNIT_STEALTH_DESTROYER",
+     "UNIT_STEALTH_SUBMARINE",
+     "UNIT_SUBMARINE",
+     "UNIT_WW1_DESTROYER",
+     "UNIT_WW2_BATTLESHIP"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_OLIVES": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_OLIVES",
+   "font_index": 51,
+   "button": ",Art/Interface/Buttons/WorldBuilder/Spices.dds,Art/Interface/Buttons/Warlords_Atlas_1.dds,1,14",
+   "tech_reveal": "TECH_NATUROPATHY",
+   "tech_trade": "TECH_BRONZE_WORKING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     10,
+     50
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_OLIVE_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET"
+    ],
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_MARKET",
+     "BUILDING_ROMAN_FORUM"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "orchard",
+    "need": "variety"
+   }
+  },
+  "BONUS_TOBACCO": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_TOBACCO",
+   "font_index": 53,
+   "button": "Art/Interface/Buttons/WorldBuilder/Tobacco.dds",
+   "tech_reveal": "TECH_MYSTICISM",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS"
+    ],
+    "features": [
+     "FEATURE_FOREST",
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     40
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_happiness": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_yield": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "bales",
+    "category": "luxury",
+    "land": "crop",
+    "need": "comforts"
+   }
+  },
+  "BONUS_APPLE": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_APPLE",
+   "font_index": 47,
+   "button": "Art/Interface/Buttons/WorldBuilder/Apple.dds",
+   "tech_reveal": "TECH_NATUROPATHY",
+   "tech_trade": "TECH_BRONZE_WORKING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     20,
+     60
+    ],
+    "area": true,
+    "tiles_per": 16,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_APPLE_FARM",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      4,
+      0,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      2,
+      0,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS"
+    ],
+    "building_health": [
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "orchard",
+    "need": "variety"
+   }
+  },
+  "BONUS_RUBBER": {
+   "cls": "BONUSCLASS_MODERN",
+   "art": "ART_DEF_BONUS_RUBBER",
+   "font_index": 44,
+   "button": "Art/Interface/Buttons/WorldBuilder/Rubber.dds",
+   "tech_reveal": "TECH_ALCHEMY",
+   "tech_trade": "TECH_CHEMISTRY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_PLAINS",
+     "TERRAIN_GRASS"
+    ],
+    "features": [
+     "FEATURE_JUNGLE"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 125
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      4
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_RUBBER_FACTORY"
+    ],
+    "building_health": [
+     "BUILDING_RUBBER_FACTORY"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "crop",
+    "need": null
+   }
+  },
+  "BONUS_VULCANIZED_RUBBER": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_VULCANIZED_RUBBER",
+   "font_index": 99,
+   "button": "Art/Interface/Buttons/WorldBuilder/vulcanized_rubber.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_REFINING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_RUBBER_FACTORY"
+   ],
+   "used_by": {
+    "unit_requires_one_of": [
+     "UNIT_ACV",
+     "UNIT_ACVSAM",
+     "UNIT_ARMORED_CAR",
+     "UNIT_BTR80",
+     "UNIT_BTR80",
+     "UNIT_FUTURE_APC",
+     "UNIT_HALFTRACK",
+     "UNIT_HUMVEE",
+     "UNIT_JEEP",
+     "UNIT_MOBILE_SAM",
+     "UNIT_MOTORCYCLE"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_SYNTHETIC_RUBBER": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_VULCANIZED_RUBBER",
+   "font_index": 99,
+   "button": "Art/Interface/Buttons/WorldBuilder/vulcanized_rubber.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_ORGANIC_CHEMISTRY",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_RUBBER_PLANT"
+   ],
+   "used_by": {
+    "unit_requires_one_of": [
+     "UNIT_ACV",
+     "UNIT_ACVSAM",
+     "UNIT_ARMORED_CAR",
+     "UNIT_BTR80",
+     "UNIT_BTR80",
+     "UNIT_FUTURE_APC",
+     "UNIT_HALFTRACK",
+     "UNIT_HUMVEE",
+     "UNIT_JEEP",
+     "UNIT_MOBILE_SAM",
+     "UNIT_MOTORCYCLE"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_OBSIDIAN": {
+   "cls": "BONUSCLASS_RUSH",
+   "art": "ART_DEF_BONUS_OBSIDIAN",
+   "font_index": 98,
+   "button": "Art/Interface/Buttons/WorldBuilder/Obsidian.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 128,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_QUARRY",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      2
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_HOSPITAL",
+     "BUILDING_MEDICAL_CENTER"
+    ],
+    "building_build_speed": [
+     "BUILDING_CHICHEN_ITZA"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_ARABIAN_ANSAR",
+     "UNIT_AUXILIAR",
+     "UNIT_AXEMAN",
+     "UNIT_AZTEC_ELITE_JAGUAR",
+     "UNIT_CELTIC_SWORDSMAN",
+     "UNIT_GREEK_PHALANX",
+     "UNIT_HASTATI",
+     "UNIT_INCAN_QUECHUA2",
+     "UNIT_LIGHT_CAVALRY",
+     "UNIT_PRINCIPES",
+     "UNIT_SUMERIAN_VULTURE",
+     "UNIT_TRIARII",
+     "UNIT_WARDOG"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "quarry",
+    "need": null
+   }
+  },
+  "BONUS_LEAD": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_LEAD",
+   "font_index": 57,
+   "button": "Art/Interface/Buttons/WorldBuilder/Lead.dds",
+   "tech_reveal": "TECH_MINING",
+   "tech_trade": "TECH_MINING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_SHAFT_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_MODERN_MINE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      1,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_build_speed": [
+     "BUILDING_BATH_HOUSE",
+     "BUILDING_CHRISTIAN_CATHEDRAL",
+     "BUILDING_JEWISH_CATHEDRAL",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TAOIST_CATHEDRAL"
+    ],
+    "building_health": [
+     "BUILDING_HOSPITAL",
+     "BUILDING_MEDICAL_CENTER"
+    ],
+    "building_yield": [
+     "BUILDING_FORGE",
+     "BUILDING_IRON_FORGE",
+     "BUILDING_MALI_MINT",
+     "BUILDING_MINING_INC_SURVEY_OFFICE"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_5"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "raw material",
+    "land": "ore",
+    "need": null
+   }
+  },
+  "BONUS_TEA": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_TEA",
+   "font_index": 93,
+   "button": "Art/Interface/Buttons/WorldBuilder/Tea.dds",
+   "tech_reveal": "TECH_MYSTICISM",
+   "tech_trade": "TECH_NATUROPATHY",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    1
+   ],
+   "health": 0,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     60
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 40
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_PLANTATION",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      1,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_CAMP",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM1",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM2",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM3",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM4",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_LATIFUNDIUM5",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      3
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_happiness": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "luxury",
+    "land": "crop",
+    "need": "comforts"
+   }
+  },
+  "BONUS_SHRIMP": {
+   "cls": "BONUSCLASS_SEAFOOD",
+   "art": "ART_DEF_BONUS_SHRIMP",
+   "font_index": 94,
+   "button": "Art/Interface/Buttons/WorldBuilder/Shrimp.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "NONE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    1,
+    0,
+    0
+   ],
+   "health": 1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_COAST",
+     "TERRAIN_OCEAN"
+    ],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 32,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_FISHING_BOATS",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      3,
+      0,
+      0
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_health": [
+     "BUILDING_CARTHAGE_COTHON",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_HARBOR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_PORT",
+     "BUILDING_SID_SUSHI_RESTAURANT"
+    ],
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_SID_SUSHI_RESTAURANT",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_2"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "other food",
+    "land": "sea",
+    "need": "variety"
+   }
+  },
+  "BONUS_METHANE": {
+   "cls": "BONUSCLASS_FUEL",
+   "art": "ART_DEF_BONUS_METHANE",
+   "font_index": 46,
+   "button": "Art/Interface/Buttons/WorldBuilder/Methane_hydrate.dds",
+   "tech_reveal": "TECH_SEISMOLOGY",
+   "tech_trade": "TECH_SUPERSTRONG_ALLOYS",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    1
+   ],
+   "health": -1,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_OCEAN"
+    ],
+    "features": [
+     "FEATURE_STORM"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 512,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_EXTRACTION_FACILITY",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      1
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "fuel",
+    "land": "well",
+    "need": "fuel"
+   }
+  },
+  "BONUS_THERMAL_VENT": {
+   "cls": "BONUSCLASS_MODERN",
+   "art": "ART_DEF_BONUS_THERMAL_VENT",
+   "font_index": 69,
+   "button": "Art/Interface/Buttons/WorldBuilder/Methane.dds",
+   "tech_reveal": "TECH_SEISMOLOGY",
+   "tech_trade": "TECH_ECOLOGICAL_ENGINEERING",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    1,
+    0
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_PLAINS",
+     "TERRAIN_DESERT",
+     "TERRAIN_TUNDRA",
+     "TERRAIN_SNOW"
+    ],
+    "features": [
+     "FEATURE_JUNGLE",
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": true,
+    "flatlands": true,
+    "no_river_side": true,
+    "latitude": [
+     0,
+     80
+    ],
+    "area": false,
+    "tiles_per": 128,
+    "const_appearance": 100
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_GEOTHERMAL_BOREHOLE",
+     "trade": false,
+     "makes_valid": true,
+     "yields": [
+      0,
+      2,
+      2
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": null,
+    "category": null,
+    "land": "site",
+    "need": null,
+    "note": "A site, not a good: no improvement yields or trades it. Proposed to stay a plot feature of the map (Q2).",
+    "outside_accounts": true
+   }
+  },
+  "BONUS_NANOBOTS": {
+   "cls": "BONUSCLASS_FUTURE",
+   "art": "ART_DEF_BONUS_NANOBOTS",
+   "font_index": 103,
+   "button": "Art/Interface/Buttons/WorldBuilder/Nanobots.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_NANOELECTRONICS",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 1,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_NANITE_LAB"
+   ],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_NANITE_DEFUSER",
+     "BUILDING_NANITE_POPULATION",
+     "BUILDING_NANOFACTORY",
+     "BUILDING_NETWORK_NODE"
+    ],
+    "unit_requires": [
+     "UNIT_NANITE_CLOUD",
+     "UNIT_NANITE_SPY",
+     "UNIT_NANITE_SWARM"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "finished good",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_ALCOHOL": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_BEER",
+   "font_index": 100,
+   "button": "Art/Interface/Buttons/WorldBuilder/Beer.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_FERMENTATION",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_BREWERY"
+   ],
+   "used_by": {
+    "building_happiness": [
+     "BUILDING_CARTHAGE_COTHON",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_PORT",
+     "BUILDING_HARBOR",
+     "BUILDING_INTERNATIONAL_PORT",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_PORT",
+     "BUILDING_RIVER_PORT",
+     "BUILDING_SETTLEMENT_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_yield": [
+     "BUILDING_CANNERY",
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "luxury",
+    "land": "made",
+    "need": "comforts"
+   }
+  },
+  "BONUS_CEMENT": {
+   "cls": "BONUSCLASS_MODERN",
+   "art": "ART_DEF_BONUS_CONCRETE",
+   "font_index": 102,
+   "button": "Art/Interface/Buttons/WorldBuilder/Cement.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_CIVIL_ENGINEERING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_CEMENT_MILL"
+   ],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_BOMB_SHELTER",
+     "BUILDING_BUNKER",
+     "BUILDING_FLAK_TOWER",
+     "BUILDING_GREAT_DAM",
+     "BUILDING_HYDRO_PLANT",
+     "BUILDING_SKYSCRAPER"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_NANOTUBES": {
+   "cls": "BONUSCLASS_FUTURE",
+   "art": "ART_DEF_BONUS_NANOTUBE",
+   "font_index": 105,
+   "button": "Art/Interface/Buttons/WorldBuilder/Nanotube.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_NANOTECHNOLOGY",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 1,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_NANO_RESEARCH_DEPARTMENT"
+   ],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_AEROSPACE_COMPLEX",
+     "BUILDING_NANITE_LAB"
+    ],
+    "building_build_speed": [
+     "BUILDING_SPACE_ELEVATOR"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_ASSAULT_DROID",
+     "UNIT_DRONE",
+     "UNIT_DROPSHIP",
+     "UNIT_HITECH_ROBOT",
+     "UNIT_POWER_ARMORED_INFANTRY",
+     "UNIT_SENTINEL",
+     "UNIT_SIEGE_DROID",
+     "UNIT_WALKER"
+    ],
+    "unit_requires": [
+     "UNIT_ANTI_PERSONNEL_MECH",
+     "UNIT_ASSAULT_MECH",
+     "UNIT_EXTRACTION_FACILITY",
+     "UNIT_SCOUT_MECH",
+     "UNIT_SUBMERGED_TOWN_PLATFORM"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_SEMICONDUCTORS": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_SEMICONDUCTORS",
+   "font_index": 82,
+   "button": "Art/Interface/Buttons/WorldBuilder/Semiconductors.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_MICROCHIP",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_SILICON_VALLEY"
+   ],
+   "used_by": {
+    "unit_requires": [
+     "UNIT_ASSAULT_DROID",
+     "UNIT_DRONE",
+     "UNIT_HITECH_ROBOT",
+     "UNIT_SENTINEL",
+     "UNIT_SIEGE_DROID",
+     "UNIT_WALKER"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_PERSONAL_REPLICATORS": {
+   "cls": "BONUSCLASS_FUTURE",
+   "art": "ART_DEF_BONUS_MANUFACTURED_MOLECULES",
+   "font_index": 81,
+   "button": "Art/Interface/Buttons/WorldBuilder/Manufactured_molecules.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_RAPID_PROTOTYPING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 1,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_REPLICATOR_PLANT"
+   ],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "finished good",
+    "land": "made",
+    "need": "luxuries"
+   }
+  },
+  "BONUS_SMART_MEDICINE": {
+   "cls": "BONUSCLASS_FUTURE",
+   "art": "ART_DEF_BONUS_SMART_MEDICINE",
+   "font_index": 85,
+   "button": "Art/Interface/Buttons/WorldBuilder/Medicine.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_SMART_DRUGS",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 2,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_RESEARCH_HOSPITAL"
+   ],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "finished good",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_BIOFUEL": {
+   "cls": "BONUSCLASS_FUEL",
+   "art": "ART_DEF_BONUS_DIESEL",
+   "font_index": 77,
+   "button": "Art/Interface/Buttons/WorldBuilder/diesel_button.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_BIOFUELS",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 1,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_BIOFUEL_REFINERY"
+   ],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "fuel",
+    "land": "made",
+    "need": "fuel"
+   }
+  },
+  "BONUS_CHEMICALS": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_CHEMICALS",
+   "font_index": 85,
+   "button": "Art/Interface/Buttons/WorldBuilder/Chemicals_button.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_REFINING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": -1,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_CHEMICAL_PLANT"
+   ],
+   "used_by": {
+    "building_requires": [
+     "BUILDING_REPLICATOR_PLANT",
+     "BUILDING_RUBBER_PLANT"
+    ],
+    "unit_requires_one_of": [
+     "UNIT_FLAMETHROWER"
+    ],
+    "unit_requires": [
+     "UNIT_BIOLOGICAL_WARFARE_MISSILE"
+    ],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "barrels",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_FERTILIZERS": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_FERTILIZERS",
+   "font_index": 67,
+   "button": "Art/Interface/Buttons/WorldBuilder/Fertilizer.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_PESTICIDES",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 2,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [
+    "BUILDING_FERTILIZER_PLANT"
+   ],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "tonnes",
+    "category": "intermediate",
+    "land": "made",
+    "need": null
+   }
+  },
+  "BONUS_BERNSTEIN": {
+   "cls": "BONUSCLASS_LUXURY",
+   "art": "ART_DEF_BONUS_BERNSTEIN",
+   "font_index": 48,
+   "button": "art/Interface/Buttons/Bonus/Amber.dds",
+   "tech_reveal": "TECH_FISHING",
+   "tech_trade": "NONE",
+   "tech_obsolete": "NONE",
+   "yields": [
+    0,
+    0,
+    2
+   ],
+   "health": 1,
+   "happiness": 1,
+   "placed": true,
+   "placement": {
+    "terrains": [
+     "TERRAIN_GRASS",
+     "TERRAIN_TUNDRA"
+    ],
+    "features": [
+     "FEATURE_FOREST"
+    ],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": true,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": true,
+    "tiles_per": 0,
+    "const_appearance": 50
+   },
+   "improvements": [
+    {
+     "improvement": "IMPROVEMENT_COTTAGE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_HAMLET",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_VILLAGE",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      4
+     ]
+    },
+    {
+     "improvement": "IMPROVEMENT_TOWN",
+     "trade": true,
+     "makes_valid": true,
+     "yields": [
+      0,
+      0,
+      4
+     ]
+    }
+   ],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_yield": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FORGE",
+     "BUILDING_IRON_FORGE",
+     "BUILDING_MALI_MINT",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_happiness": [
+     "BUILDING_CITY_ESSENTIALS",
+     "BUILDING_COMMERCIAL_CENTER",
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_FAIR",
+     "BUILDING_JEWELLERY",
+     "BUILDING_MARKET",
+     "BUILDING_METROPOLITAN_ESSENTIALS",
+     "BUILDING_ROMAN_FORUM",
+     "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "luxury",
+    "land": "special",
+    "need": "luxuries",
+    "note": "Amber; yielded by cottages, hamlets and villages today."
+   }
+  },
+  "BONUS_WOOL": {
+   "cls": "BONUSCLASS_GENERAL",
+   "art": "ART_DEF_BONUS_WOOL",
+   "font_index": 101,
+   "button": "Art/Interface/Buttons/WorldBuilder/Wool.dds",
+   "tech_reveal": "NONE",
+   "tech_trade": "TECH_WEAVING",
+   "tech_obsolete": "NONE",
+   "yields": [],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "bales",
+    "category": "raw material",
+    "land": "herd",
+    "need": "clothing",
+    "note": "Nothing places, gives or uses it today. Proposed: pastures on sheep land yield it beside meat (Q1)."
+   }
+  },
+  "BONUS_CGUILDPAPER": {
+   "cls": "BONUSCLASS_MANUFACTURED",
+   "art": "ART_DEF_BONUS_CGUILDPAPER",
+   "font_index": 104,
+   "button": "Modules/Projects/Vincentz/Guilds/Buttons/BGC.dds",
+   "tech_reveal": "TECH_GUILDS",
+   "tech_trade": "TECH_GUILDS",
+   "tech_obsolete": "TECH_LABOR_UNION",
+   "yields": [
+    1,
+    1,
+    1
+   ],
+   "health": 0,
+   "happiness": 0,
+   "placed": false,
+   "placement": {
+    "terrains": [],
+    "features": [],
+    "feature_terrains": [],
+    "hills": false,
+    "flatlands": false,
+    "no_river_side": false,
+    "latitude": [
+     0,
+     90
+    ],
+    "area": false,
+    "tiles_per": 0,
+    "const_appearance": 0
+   },
+   "improvements": [],
+   "given_by_buildings": [],
+   "used_by": {
+    "building_requires": [],
+    "building_requires_one_of": []
+   },
+   "proposed": {
+    "unit": "crates",
+    "category": "intermediate",
+    "land": "made",
+    "need": null,
+    "note": "From the Guilds module; nothing places, gives or uses it in the base records."
+   }
+  }
+ },
+ "chains": {
+  "essentials": {
+   "BUILDING_SETTLEMENT_ESSENTIALS": {
+    "cls": "BUILDINGCLASS_SETTLEMENT_ESSENTIALS",
+    "tech": "NONE",
+    "techs": [],
+    "cost": 10,
+    "needs": [],
+    "food_kept": 20,
+    "health": 0,
+    "happiness": 0,
+    "free_start_era": "ERA_ANCIENT"
+   },
+   "BUILDING_TOWN_ESSENTIALS": {
+    "cls": "BUILDINGCLASS_TOWN_ESSENTIALS",
+    "tech": "TECH_MASONRY",
+    "techs": [
+     "TECH_POTTERY"
+    ],
+    "cost": 70,
+    "needs": [
+     "BUILDINGCLASS_SETTLEMENT_ESSENTIALS"
+    ],
+    "food_kept": 30,
+    "health": 3,
+    "happiness": 3,
+    "free_start_era": "NONE"
+   },
+   "BUILDING_CITY_ESSENTIALS": {
+    "cls": "BUILDINGCLASS_CITY_ESSENTIALS",
+    "tech": "TECH_CITY_PLANNING",
+    "techs": [
+     "TECH_BRONZE_WORKING",
+     "TECH_MASONRY",
+     "TECH_SAILING"
+    ],
+    "cost": 200,
+    "needs": [
+     "BUILDINGCLASS_TOWN_ESSENTIALS"
+    ],
+    "food_kept": 30,
+    "health": 6,
+    "happiness": 5,
+    "free_start_era": "NONE"
+   },
+   "BUILDING_METROPOLITAN_ESSENTIALS": {
+    "cls": "BUILDINGCLASS_METROPOLITAN_ESSENTIALS",
+    "tech": "TECH_SANITATION",
+    "techs": [
+     "TECH_CODE_OF_LAWS",
+     "TECH_MACHINERY"
+    ],
+    "cost": 500,
+    "needs": [
+     "BUILDINGCLASS_CITY_ESSENTIALS"
+    ],
+    "food_kept": 40,
+    "health": 12,
+    "happiness": 8,
+    "free_start_era": "NONE"
+   }
+  },
+  "market": {
+   "BUILDING_MARKET": {
+    "cls": "BUILDINGCLASS_MARKET",
+    "tech": "TECH_TRADE",
+    "techs": [],
+    "cost": 150,
+    "needs": [],
+    "food_kept": 0,
+    "health": 0,
+    "happiness": 0,
+    "free_start_era": "ERA_INDUSTRIAL"
+   },
+   "BUILDING_FAIR": {
+    "cls": "BUILDINGCLASS_FAIR",
+    "tech": "TECH_GUILDS",
+    "techs": [
+     "TECH_CURRENCY"
+    ],
+    "cost": 300,
+    "needs": [
+     "BUILDINGCLASS_MARKET"
+    ],
+    "food_kept": 0,
+    "health": 0,
+    "happiness": 0,
+    "free_start_era": "NONE"
+   },
+   "BUILDING_COMMODITY_MARKET": {
+    "cls": "BUILDINGCLASS_COMMODITY_MARKET",
+    "tech": "TECH_MERCANTILISM",
+    "techs": [
+     "TECH_OPTICS"
+    ],
+    "cost": 600,
+    "needs": [
+     "BUILDINGCLASS_FAIR"
+    ],
+    "food_kept": 10,
+    "health": 5,
+    "happiness": 0,
+    "free_start_era": "NONE"
+   },
+   "BUILDING_COMMERCIAL_CENTER": {
+    "cls": "BUILDINGCLASS_COMMERCIAL_CENTER",
+    "tech": "TECH_REFRIGERATION",
+    "techs": [
+     "TECH_ECONOMICS"
+    ],
+    "cost": 600,
+    "needs": [
+     "BUILDINGCLASS_COMMODITY_MARKET"
+    ],
+    "food_kept": 10,
+    "health": 8,
+    "happiness": 0,
+    "free_start_era": "NONE"
+   },
+   "BUILDING_HYPERMARKET": {
+    "cls": "BUILDINGCLASS_HYPERMARKET",
+    "tech": "TECH_PLASTIC_ELECTRONICS",
+    "techs": [],
+    "cost": 850,
+    "needs": [
+     "BUILDINGCLASS_COMMERCIAL_CENTER"
+    ],
+    "food_kept": 0,
+    "health": 0,
+    "happiness": 0,
+    "free_start_era": "NONE"
+   }
+  }
+ },
+ "storage_buildings": {
+  "BUILDING_POTALA_PALACE": {
+   "cls": "BUILDINGCLASS_POTALA_PALACE",
+   "tech": "TECH_EDUCATION",
+   "techs": [],
+   "cost": 720,
+   "needs": [],
+   "food_kept": 20,
+   "health": 0,
+   "happiness": 0,
+   "free_start_era": "NONE"
+  },
+  "BUILDING_ROMAN_DEPOT": {
+   "cls": "BUILDINGCLASS_ROMAN_DEPOT",
+   "tech": "TECH_CITY_PLANNING",
+   "techs": [
+    "TECH_ROMAN"
+   ],
+   "cost": 60,
+   "needs": [],
+   "food_kept": 10,
+   "health": 2,
+   "happiness": 0,
+   "free_start_era": "NONE"
+  },
+  "BUILDING_PORTUS_MAXIMUS": {
+   "cls": "BUILDINGCLASS_PORTUS_MAXIMUS",
+   "tech": "TECH_WATERWORKS",
+   "techs": [
+    "TECH_SEAFARING",
+    "TECH_ROMAN"
+   ],
+   "cost": 300,
+   "needs": [
+    "BUILDINGCLASS_PALACE"
+   ],
+   "food_kept": 10,
+   "health": 0,
+   "happiness": 0,
+   "free_start_era": ""
+  },
+  "BUILDING_PRAEFECTURA_ANNONAE": {
+   "cls": "BUILDINGCLASS_PRAEFECTURA_ANNONAE",
+   "tech": "TECH_CODE_OF_LAWS",
+   "techs": [
+    "TECH_ROMAN"
+   ],
+   "cost": 100,
+   "needs": [
+    "BUILDINGCLASS_PALACE"
+   ],
+   "food_kept": 10,
+   "health": 0,
+   "happiness": 0,
+   "free_start_era": "NONE"
+  },
+  "BUILDING_SETTLEMENT_ESSENTIALS": {
+   "cls": "BUILDINGCLASS_SETTLEMENT_ESSENTIALS",
+   "tech": "NONE",
+   "techs": [],
+   "cost": 10,
+   "needs": [],
+   "food_kept": 20,
+   "health": 0,
+   "happiness": 0,
+   "free_start_era": "ERA_ANCIENT"
+  },
+  "BUILDING_TOWN_ESSENTIALS": {
+   "cls": "BUILDINGCLASS_TOWN_ESSENTIALS",
+   "tech": "TECH_MASONRY",
+   "techs": [
+    "TECH_POTTERY"
+   ],
+   "cost": 70,
+   "needs": [
+    "BUILDINGCLASS_SETTLEMENT_ESSENTIALS"
+   ],
+   "food_kept": 30,
+   "health": 3,
+   "happiness": 3,
+   "free_start_era": "NONE"
+  },
+  "BUILDING_CITY_ESSENTIALS": {
+   "cls": "BUILDINGCLASS_CITY_ESSENTIALS",
+   "tech": "TECH_CITY_PLANNING",
+   "techs": [
+    "TECH_BRONZE_WORKING",
+    "TECH_MASONRY",
+    "TECH_SAILING"
+   ],
+   "cost": 200,
+   "needs": [
+    "BUILDINGCLASS_TOWN_ESSENTIALS"
+   ],
+   "food_kept": 30,
+   "health": 6,
+   "happiness": 5,
+   "free_start_era": "NONE"
+  },
+  "BUILDING_METROPOLITAN_ESSENTIALS": {
+   "cls": "BUILDINGCLASS_METROPOLITAN_ESSENTIALS",
+   "tech": "TECH_SANITATION",
+   "techs": [
+    "TECH_CODE_OF_LAWS",
+    "TECH_MACHINERY"
+   ],
+   "cost": 500,
+   "needs": [
+    "BUILDINGCLASS_CITY_ESSENTIALS"
+   ],
+   "food_kept": 40,
+   "health": 12,
+   "happiness": 8,
+   "free_start_era": "NONE"
+  },
+  "BUILDING_COMMODITY_MARKET": {
+   "cls": "BUILDINGCLASS_COMMODITY_MARKET",
+   "tech": "TECH_MERCANTILISM",
+   "techs": [
+    "TECH_OPTICS"
+   ],
+   "cost": 600,
+   "needs": [
+    "BUILDINGCLASS_FAIR"
+   ],
+   "food_kept": 10,
+   "health": 5,
+   "happiness": 0,
+   "free_start_era": "NONE"
+  },
+  "BUILDING_COMMERCIAL_CENTER": {
+   "cls": "BUILDINGCLASS_COMMERCIAL_CENTER",
+   "tech": "TECH_REFRIGERATION",
+   "techs": [
+    "TECH_ECONOMICS"
+   ],
+   "cost": 600,
+   "needs": [
+    "BUILDINGCLASS_COMMODITY_MARKET"
+   ],
+   "food_kept": 10,
+   "health": 8,
+   "happiness": 0,
+   "free_start_era": "NONE"
+  }
+ },
+ "buildings_requiring_goods": [
+  "BUILDING_AEROSPACE_COMPLEX",
+  "BUILDING_ALUMINUM_FACTORY",
+  "BUILDING_ANDROID_FACTORY",
+  "BUILDING_BATH_HOUSE",
+  "BUILDING_BOMB_SHELTER",
+  "BUILDING_BROTMANUFAKTUR",
+  "BUILDING_BUNKER",
+  "BUILDING_CANNON_FORGE",
+  "BUILDING_CHEMICAL_PLANT",
+  "BUILDING_COAL_PLANT",
+  "BUILDING_COLOSSEUM",
+  "BUILDING_COMMERCIAL_AIRPORT",
+  "BUILDING_COPERNICUS_OBSERVATORY",
+  "BUILDING_FLAK_TOWER",
+  "BUILDING_FORUM_ROMANUM",
+  "BUILDING_GLASSSMITH",
+  "BUILDING_GREAT_DAM",
+  "BUILDING_GUILDHALL",
+  "BUILDING_HYDRO_PLANT",
+  "BUILDING_INTERNATIONAL_PORT",
+  "BUILDING_KNIGHT_STABLE",
+  "BUILDING_LAB",
+  "BUILDING_MANUFACTURING_PLANT",
+  "BUILDING_MILITARY_AIRBASE",
+  "BUILDING_MOVIETHEATRE",
+  "BUILDING_NANITE_DEFUSER",
+  "BUILDING_NANITE_LAB",
+  "BUILDING_NANITE_POPULATION",
+  "BUILDING_NANOFACTORY",
+  "BUILDING_NANO_RESEARCH_DEPARTMENT",
+  "BUILDING_NETWORK_NODE",
+  "BUILDING_NUCLEAR_PLANT",
+  "BUILDING_OIL_PLANT",
+  "BUILDING_OIL_REFINERY",
+  "BUILDING_REPLICATOR_PLANT",
+  "BUILDING_RUBBER_FACTORY",
+  "BUILDING_RUBBER_PLANT",
+  "BUILDING_SKYSCRAPER",
+  "BUILDING_STEEL_MILL",
+  "BUILDING_TELEPHONE_NETWORK",
+  "BUILDING_WAFFENMANUFAKTUR",
+  "BUILDING_WEAPON_FACTORY"
+ ],
+ "without_proposal": []
+}

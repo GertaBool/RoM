@@ -1,0 +1,502 @@
+{
+ "about": "Proposed unit, category, land kind and need of each existing resource (D1, D3). Proposals, to be confirmed; catalogue.py joins them to the facts from the XML.",
+ "units": [
+  "tonnes",
+  "bales",
+  "barrels",
+  "crates",
+  "head"
+ ],
+ "categories": [
+  "staple food",
+  "other food",
+  "fuel",
+  "raw material",
+  "intermediate",
+  "finished good",
+  "luxury",
+  "military supply"
+ ],
+ "land_kinds": [
+  "crop",
+  "orchard",
+  "herd",
+  "game",
+  "sea",
+  "ore",
+  "quarry",
+  "well",
+  "special",
+  "made",
+  "site",
+  "building"
+ ],
+ "needs": [
+  "staple",
+  "variety",
+  "fuel",
+  "clothing",
+  "comforts",
+  "luxuries"
+ ],
+ "goods": {
+  "BONUS_WHEAT": {
+   "unit": "tonnes",
+   "category": "staple food",
+   "land": "crop",
+   "need": "staple"
+  },
+  "BONUS_RICE": {
+   "unit": "tonnes",
+   "category": "staple food",
+   "land": "crop",
+   "need": "staple"
+  },
+  "BONUS_CORN": {
+   "unit": "tonnes",
+   "category": "staple food",
+   "land": "crop",
+   "need": "staple"
+  },
+  "BONUS_POTATO": {
+   "unit": "tonnes",
+   "category": "staple food",
+   "land": "crop",
+   "need": "staple"
+  },
+  "BONUS_FISH": {
+   "unit": "tonnes",
+   "category": "staple food",
+   "land": "sea",
+   "need": "staple"
+  },
+  "BONUS_COW": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "herd",
+   "need": "variety"
+  },
+  "BONUS_PIG": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "herd",
+   "need": "variety"
+  },
+  "BONUS_SHEEP": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "herd",
+   "need": "variety"
+  },
+  "BONUS_DEER": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "game",
+   "need": "variety"
+  },
+  "BONUS_CLAM": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "sea",
+   "need": "variety"
+  },
+  "BONUS_CRAB": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "sea",
+   "need": "variety"
+  },
+  "BONUS_SHRIMP": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "sea",
+   "need": "variety"
+  },
+  "BONUS_BANANA": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "crop",
+   "need": "variety"
+  },
+  "BONUS_LEMON": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "orchard",
+   "need": "variety"
+  },
+  "BONUS_APPLE": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "orchard",
+   "need": "variety"
+  },
+  "BONUS_OLIVES": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "orchard",
+   "need": "variety"
+  },
+  "BONUS_SUGAR": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "crop",
+   "need": "comforts"
+  },
+  "BONUS_SALT": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "quarry",
+   "need": "variety"
+  },
+  "BONUS_COAL": {
+   "unit": "tonnes",
+   "category": "fuel",
+   "land": "ore",
+   "need": "fuel"
+  },
+  "BONUS_OIL": {
+   "unit": "barrels",
+   "category": "fuel",
+   "land": "well",
+   "need": "fuel"
+  },
+  "BONUS_URANIUM": {
+   "unit": "tonnes",
+   "category": "fuel",
+   "land": "ore",
+   "need": null
+  },
+  "BONUS_DIESEL": {
+   "unit": "barrels",
+   "category": "fuel",
+   "land": "made",
+   "need": "fuel"
+  },
+  "BONUS_BIOFUEL": {
+   "unit": "barrels",
+   "category": "fuel",
+   "land": "made",
+   "need": "fuel"
+  },
+  "BONUS_METHANE": {
+   "unit": "barrels",
+   "category": "fuel",
+   "land": "well",
+   "need": "fuel"
+  },
+  "BONUS_WHALE": {
+   "unit": "barrels",
+   "category": "fuel",
+   "land": "sea",
+   "need": "fuel"
+  },
+  "BONUS_WOOL": {
+   "unit": "bales",
+   "category": "raw material",
+   "land": "herd",
+   "need": "clothing",
+   "note": "Nothing places, gives or uses it today. Proposed: pastures on sheep land yield it beside meat (Q1)."
+  },
+  "BONUS_COTTON": {
+   "unit": "bales",
+   "category": "raw material",
+   "land": "crop",
+   "need": "clothing"
+  },
+  "BONUS_SILK": {
+   "unit": "bales",
+   "category": "luxury",
+   "land": "crop",
+   "need": "luxuries"
+  },
+  "BONUS_FUR": {
+   "unit": "bales",
+   "category": "luxury",
+   "land": "game",
+   "need": "clothing"
+  },
+  "BONUS_COPPER": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "ore",
+   "need": null
+  },
+  "BONUS_IRON": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "ore",
+   "need": null
+  },
+  "BONUS_LEAD": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "ore",
+   "need": null
+  },
+  "BONUS_SULPHUR": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "ore",
+   "need": null
+  },
+  "BONUS_BAUXITE": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "ore",
+   "need": null
+  },
+  "BONUS_STONE": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "quarry",
+   "need": null
+  },
+  "BONUS_MARBLE": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "quarry",
+   "need": null
+  },
+  "BONUS_OBSIDIAN": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "quarry",
+   "need": null
+  },
+  "BONUS_RUBBER": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "crop",
+   "need": null
+  },
+  "BONUS_DYE": {
+   "unit": "barrels",
+   "category": "intermediate",
+   "land": "crop",
+   "need": "comforts"
+  },
+  "BONUS_ALUMINUM": {
+   "unit": "tonnes",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_STEEL": {
+   "unit": "tonnes",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_GLASS": {
+   "unit": "crates",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_CEMENT": {
+   "unit": "tonnes",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_CHEMICALS": {
+   "unit": "barrels",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_FERTILIZERS": {
+   "unit": "tonnes",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_VULCANIZED_RUBBER": {
+   "unit": "tonnes",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_SYNTHETIC_RUBBER": {
+   "unit": "tonnes",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_SEMICONDUCTORS": {
+   "unit": "crates",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_NANOTUBES": {
+   "unit": "crates",
+   "category": "intermediate",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_CGUILDPAPER": {
+   "unit": "crates",
+   "category": "intermediate",
+   "land": "made",
+   "need": null,
+   "note": "From the Guilds module; nothing places, gives or uses it in the base records."
+  },
+  "BONUS_AMMO": {
+   "unit": "crates",
+   "category": "military supply",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_HORSE": {
+   "unit": "head",
+   "category": "military supply",
+   "land": "herd",
+   "need": null,
+   "note": "\"head\": live animals; the one unit outside tonnes, bales, barrels and crates."
+  },
+  "BONUS_NANOBOTS": {
+   "unit": "crates",
+   "category": "finished good",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_PERSONAL_REPLICATORS": {
+   "unit": "crates",
+   "category": "finished good",
+   "land": "made",
+   "need": "luxuries"
+  },
+  "BONUS_SMART_MEDICINE": {
+   "unit": "crates",
+   "category": "finished good",
+   "land": "made",
+   "need": null
+  },
+  "BONUS_WINE": {
+   "unit": "barrels",
+   "category": "luxury",
+   "land": "orchard",
+   "need": "comforts"
+  },
+  "BONUS_ALCOHOL": {
+   "unit": "barrels",
+   "category": "luxury",
+   "land": "made",
+   "need": "comforts"
+  },
+  "BONUS_TEA": {
+   "unit": "tonnes",
+   "category": "luxury",
+   "land": "crop",
+   "need": "comforts"
+  },
+  "BONUS_COFFEE": {
+   "unit": "tonnes",
+   "category": "luxury",
+   "land": "crop",
+   "need": "comforts"
+  },
+  "BONUS_TOBACCO": {
+   "unit": "bales",
+   "category": "luxury",
+   "land": "crop",
+   "need": "comforts"
+  },
+  "BONUS_SPICES": {
+   "unit": "crates",
+   "category": "luxury",
+   "land": "crop",
+   "need": "comforts"
+  },
+  "BONUS_INCENSE": {
+   "unit": "crates",
+   "category": "luxury",
+   "land": "crop",
+   "need": "comforts"
+  },
+  "BONUS_CANNABIS": {
+   "unit": "bales",
+   "category": "luxury",
+   "land": "crop",
+   "need": "comforts"
+  },
+  "BONUS_GEMS": {
+   "unit": "crates",
+   "category": "luxury",
+   "land": "ore",
+   "need": "luxuries"
+  },
+  "BONUS_GOLD": {
+   "unit": "tonnes",
+   "category": "luxury",
+   "land": "ore",
+   "need": "luxuries"
+  },
+  "BONUS_SILVER": {
+   "unit": "tonnes",
+   "category": "luxury",
+   "land": "ore",
+   "need": "luxuries"
+  },
+  "BONUS_PEARLS": {
+   "unit": "crates",
+   "category": "luxury",
+   "land": "sea",
+   "need": "luxuries"
+  },
+  "BONUS_IVORY": {
+   "unit": "crates",
+   "category": "luxury",
+   "land": "game",
+   "need": "luxuries"
+  },
+  "BONUS_BERNSTEIN": {
+   "unit": "crates",
+   "category": "luxury",
+   "land": "special",
+   "need": "luxuries",
+   "note": "Amber; yielded by cottages, hamlets and villages today."
+  },
+  "BONUS_DRAMA": {
+   "unit": null,
+   "category": null,
+   "land": "building",
+   "need": null,
+   "note": "Not a physical good: given by buildings (theatre culture). Proposed to stay a building-given resource outside the goods accounts (open question Q2).",
+   "outside_accounts": true
+  },
+  "BONUS_MUSIC": {
+   "unit": null,
+   "category": null,
+   "land": "building",
+   "need": null,
+   "note": "Not a physical good: given by buildings. Proposed to stay a building-given resource outside the goods accounts (Q2).",
+   "outside_accounts": true
+  },
+  "BONUS_MOVIES": {
+   "unit": null,
+   "category": null,
+   "land": "building",
+   "need": null,
+   "note": "Not a physical good: given by buildings. Proposed to stay a building-given resource outside the goods accounts (Q2).",
+   "outside_accounts": true
+  },
+  "BONUS_ANCIENTTEMPLE": {
+   "unit": null,
+   "category": null,
+   "land": "site",
+   "need": null,
+   "note": "A site, not a good: an explorable ruin with its own improvement. Proposed to stay a plot feature of the map (Q2).",
+   "outside_accounts": true
+  },
+  "BONUS_THERMAL_VENT": {
+   "unit": null,
+   "category": null,
+   "land": "site",
+   "need": null,
+   "note": "A site, not a good: no improvement yields or trades it. Proposed to stay a plot feature of the map (Q2).",
+   "outside_accounts": true
+  }
+ }
+}
