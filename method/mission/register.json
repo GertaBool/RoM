@@ -935,5 +935,59 @@
    "gitlab:Assets/Modules/Projects/Vincentz/Guilds/Guildhalls_CIV4BuildingInfos.xml",
    "gitlab:Assets/Modules/Projects/Vincentz/Corporations/Corporations_CIV4CorporationInfo.xml"
   ]
+ },
+ {
+  "id": "H14",
+  "type": "hypothesis",
+  "line": "settlement-economy",
+  "text": "Building and unit records can carry BonusProductionModifiers (construction speed when the city has the good; CvCity::getProductionModifier for buildings and units adds getBonusProductionModifier for every good hasBonus finds) and building records BonusYieldModifiers; both are read by CvBuildingInfo::read and CvUnitInfo::read into arrays of the number of goods, and the mod already uses them (Stone, Marble, Lead, Copper, Iron). The claim: giving Timber and Leather their material and fuel roles through these lists (D17), on 142 building and 122 unit records, adds no rule the engine does not already run, so the game neither crashes nor slows. Contradicted if a run fails only with the change, if the median same-seed turn time rises above 5 %, or if a building or unit shows a wrong construction speed in game."
+ },
+ {
+  "id": "P25",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H14"
+  ],
+  "evidence": "runs",
+  "variable": "completed",
+  "change": "On GitLab claude/settlement-economy at e694caf0 (LQ.F13, D16, D17): Timber +15 % construction speed of the 142 buildings and wonders whose technology is of the ancient, classical or medieval era, and +25 % production at the Forge and the Iron Forge; Timber's +3 % production in the four essentials buildings removed; Timber +1 health of its own; units: Timber +15 % for wooden ships, settlers, workers, the work boat, and archer and siege units up to the medieval era, Leather +15 % for settlers, workers, mounted units, and melee and archer units of the ancient and classical eras (122 unit records). XML only, base files (a module of partial records would reset iDCMAirbombMission and iUnitUpgradePriceModifier, which CvBuildingInfo::copyNonDefaults does not copy); the DLL is unchanged. Harness: arm a is this branch, arm b the branch at e694caf0, the same DLL build, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. Timber and Leather have no producer until LQ.F10 and LQ.F11, so the runs test loading and schema order, not the effects; the effects are judged in game with goods placed in the World Builder. P25: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/XML/Buildings/CIV4BuildingInfos.xml",
+   "gitlab:Assets/XML/Units/CIV4UnitInfos.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml"
+  ]
+ },
+ {
+  "id": "P26",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H14"
+  ],
+  "evidence": "runs",
+  "variable": "turn_seconds",
+  "change": "On GitLab claude/settlement-economy at e694caf0 (LQ.F13, D16, D17): Timber +15 % construction speed of the 142 buildings and wonders whose technology is of the ancient, classical or medieval era, and +25 % production at the Forge and the Iron Forge; Timber's +3 % production in the four essentials buildings removed; Timber +1 health of its own; units: Timber +15 % for wooden ships, settlers, workers, the work boat, and archer and siege units up to the medieval era, Leather +15 % for settlers, workers, mounted units, and melee and archer units of the ancient and classical eras (122 unit records). XML only, base files (a module of partial records would reset iDCMAirbombMission and iUnitUpgradePriceModifier, which CvBuildingInfo::copyNonDefaults does not copy); the DLL is unchanged. Harness: arm a is this branch, arm b the branch at e694caf0, the same DLL build, both from turn 0 of PrivateMaps/Mediterranean, Standard.CivBeyondSwordWBSave (10 players, all AI), GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, no graphics, seeds from ledger.py seeds as the scenario seed. Timber and Leather have no producer until LQ.F10 and LQ.F11, so the runs test loading and schema order, not the effects; the effects are judged in game with goods placed in the World Builder. P26: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/XML/Buildings/CIV4BuildingInfos.xml",
+   "gitlab:Assets/XML/Units/CIV4UnitInfos.xml",
+   "gitlab:Assets/XML/Terrain/CIV4BonusInfos.xml"
+  ]
  }
 ]
