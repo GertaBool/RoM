@@ -168,6 +168,13 @@
    "kind": "request",
    "text": "I think it's a very good idea for you to look at the art studio, refine it and implement the planned goods with proper textures.",
    "led_to": "Request R4"
+  },
+  {
+   "id": "M25",
+   "date": "2026-10-26",
+   "kind": "request",
+   "text": "You can also push the bigger files to github, I'll just paste them in the Gitlab IDE",
+   "led_to": "Request R5"
   }
  ],
  "requests": [
@@ -300,6 +307,21 @@
      "what": "Proper textures for their buttons and font glyphs",
      "status": "done",
      "where": "LQ.F9: buttons and glyphs from photographs, Tools/GameFontPatch on the branch; in-game check LQ.F9.T5 open"
+    }
+   ]
+  },
+  {
+   "id": "R5",
+   "date": "2026-10-26",
+   "status": "done",
+   "prompt": "M25",
+   "text": "You can also push the bigger files to github, I'll just paste them in the Gitlab IDE",
+   "items": [
+    {
+     "id": "R5.1",
+     "what": "Push the binary mod files the GitLab connector cannot carry (the two edited GameFont sheets and the goods buttons) to GitHub, at their mod paths, for the user to upload in the GitLab web IDE",
+     "status": "done",
+     "where": "research/economy/mod-files (README lists paths and SHA-256)"
     }
    ]
   }

@@ -10,7 +10,7 @@
    "access": "GitLab MCP tools (mcp__gitlab__*); no separate authorization needed",
    "rule": "All Settlement Economy mod work goes to this test branch; main stays untouched until the user decides (R3)",
    "connector": [
-    "add_commit stores content sent with encoding base64 as that base64 text, not as the decoded bytes: binary files (DDS, TGA) cannot be committed through it. They travel inside a text patch (Tools/GameFontPatch/font_patch.json, zlib and base64 with SHA-256 per file) that apply_font_patch.py installs; the written files are then committed with git by someone who can push.",
+    "add_commit stores content sent with encoding base64 as that base64 text, not as the decoded bytes: binary files (DDS, TGA) cannot be committed through it. They go to GitHub research/economy/mod-files/ at their mod paths (with SHA-256 in its README), and the user uploads them in the GitLab web IDE (R5); the same files also travel in the text patch Tools/GameFontPatch/font_patch.json on the branch, which apply_font_patch.py installs and checks.",
     "old_str and new_str are matched byte for byte: the mod's XML uses CRLF, so the actions JSON must carry \\r\\n.",
     "A file it edits is written back in UTF-8: a file with Latin-1 bytes (declared ISO-8859-1) gets two-byte sequences. Write non-ASCII text as XML character references, and convert any Latin-1 bytes in a file before editing it (bd217d67 repaired RoM_GameText_Civilopedia_Bonuses.xml).",
     "Verify every commit by fetching the branch (git fetch over HTTPS works read-only from the session) and comparing with the checked local result."
