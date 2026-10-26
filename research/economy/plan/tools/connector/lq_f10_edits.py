@@ -282,6 +282,95 @@ for add in ('false', 'true'):
 """ % add)
 
 
+# ---------- DLL: helper and the city AI's build choice ----------
+e('dll', D + 'CvInfos.h',
+"""	BonusTypes getProducedBonusPrereq(int i) const;		// the resource the plot must have; NO_BONUS: any plot
+""",
+"""	BonusTypes getProducedBonusPrereq(int i) const;		// the resource the plot must have; NO_BONUS: any plot
+	bool isProducedBonus(BonusTypes eProduced, BonusTypes ePlotBonus) const;	// produced on a plot with that resource
+""")
+e('dll', D + 'CvInfos.cpp',
+"""	return m_aProducedBonuses[i].second;
+}
+""",
+"""	return m_aProducedBonuses[i].second;
+}
+
+bool CvImprovementInfo::isProducedBonus(BonusTypes eProduced, BonusTypes ePlotBonus) const
+{
+	for (int i = 0; i < getNumProducedBonuses(); i++)
+	{
+		if (m_aProducedBonuses[i].first == eProduced && (m_aProducedBonuses[i].second == NO_BONUS || m_aProducedBonuses[i].second == ePlotBonus))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+""")
+e('dll', D + 'CvCityAI.cpp',
+"""/************************************************************************************************/
+/* BETTER_BTS_AI_MOD                       END                                                  */
+/************************************************************************************************/
+
+				iValue = 0;
+				
+				if (eBonus != NO_BONUS)
+				{
+/*************************************************************************************************/
+/**	Forts Connect Resources									02/12/10			Xienwolf & Fuyu	**/
+""",
+"""/************************************************************************************************/
+/* BETTER_BTS_AI_MOD                       END                                                  */
+/************************************************************************************************/
+
+				iValue = 0;
+
+				// Settlement economy: a good the improvement produces counts like a connected resource when the city
+				// lacks it, or when the plot's improvement already gives it (so a camp is kept, or upgraded to a mill)
+				{
+					CvImprovementInfo& kFinal = GC.getImprovementInfo(eFinalImprovement);
+					for (iJ = 0; iJ < kFinal.getNumProducedBonuses(); iJ++)
+					{
+						BonusTypes eProduced = kFinal.getProducedBonus(iJ);
+						if (kFinal.isProducedBonus(eProduced, eNonObsoleteBonus) &&
+							(!hasBonus(eProduced) || (eCurImprovement != NO_IMPROVEMENT && GC.getImprovementInfo(eCurImprovement).isProducedBonus(eProduced, eNonObsoleteBonus))))
+						{
+							iValue += (GET_PLAYER(getOwnerINLINE()).AI_bonusVal(eProduced) * 10);
+						}
+					}
+				}
+				
+				if (eBonus != NO_BONUS)
+				{
+/*************************************************************************************************/
+/**	Forts Connect Resources									02/12/10			Xienwolf & Fuyu	**/
+""")
+
+e('dll', D + 'CvGameTextMgr.cpp',
+"""		szBuffer.append(gDLL->getText("TXT_KEY_IMPROVEMENT_EVOLVES", GC.getImprovementInfo((ImprovementTypes) info.getImprovementUpgrade()).getTextKeyWide(), iTurns));
+	}
+""",
+"""		szBuffer.append(gDLL->getText("TXT_KEY_IMPROVEMENT_EVOLVES", GC.getImprovementInfo((ImprovementTypes) info.getImprovementUpgrade()).getTextKeyWide(), iTurns));
+	}
+
+	// Settlement economy: goods the improvement gives to the trade network
+	for (int iProduced = 0; iProduced < info.getNumProducedBonuses(); iProduced++)
+	{
+		CvBonusInfo& kProduced = GC.getBonusInfo(info.getProducedBonus(iProduced));
+		szBuffer.append(NEWLINE);
+		if (info.getProducedBonusPrereq(iProduced) == NO_BONUS)
+		{
+			szBuffer.append(gDLL->getText("TXT_KEY_IMPROVEMENT_PRODUCES_BONUS", kProduced.getChar(), kProduced.getTextKeyWide()));
+		}
+		else
+		{
+			CvBonusInfo& kPrereq = GC.getBonusInfo(info.getProducedBonusPrereq(iProduced));
+			szBuffer.append(gDLL->getText("TXT_KEY_IMPROVEMENT_PRODUCES_BONUS_ON", kProduced.getChar(), kProduced.getTextKeyWide(), kPrereq.getChar(), kPrereq.getTextKeyWide()));
+		}
+	}
+""")
+
 # ---------- XML ----------
 X = 'Assets/XML/'
 # schema: the list, after BonusTypeStructs
@@ -476,6 +565,8 @@ def text(tag, en, fr, de, it, es):
 e('xml', X + 'Text/RoM_GameText_SettlementEconomy.xml',
 """</Civ4GameText>""",
 text('TXT_KEY_IMPROVEMENT_LUMBER_CAMP', 'Lumber Camp', 'Camp de bûcherons', 'Holzfällerlager', 'Campo di taglialegna', 'Campamento maderero') +
+text('TXT_KEY_IMPROVEMENT_PRODUCES_BONUS', '[ICON_BULLET]Provides %F1 %s2 to the trade network', '[ICON_BULLET]Fournit %F1 %s2 au r\u00e9seau commercial', '[ICON_BULLET]Liefert %F1 %s2 ins Handelsnetz', '[ICON_BULLET]Fornisce %F1 %s2 alla rete commerciale', '[ICON_BULLET]Proporciona %F1 %s2 a la red comercial') +
+text('TXT_KEY_IMPROVEMENT_PRODUCES_BONUS_ON', '[ICON_BULLET]On %F3 %s4: provides %F1 %s2 to the trade network', '[ICON_BULLET]Sur %F3 %s4 : fournit %F1 %s2 au r\u00e9seau commercial', '[ICON_BULLET]Auf %F3 %s4: liefert %F1 %s2 ins Handelsnetz', '[ICON_BULLET]Su %F3 %s4: fornisce %F1 %s2 alla rete commerciale', '[ICON_BULLET]Sobre %F3 %s4: proporciona %F1 %s2 a la red comercial') +
 text('TXT_KEY_BUILD_LUMBER_CAMP', 'Build Lumber Camp', 'Construire un camp de bûcherons', 'Holzfällerlager bauen', 'Costruisci campo di taglialegna', 'Construir campamento maderero') +
 text('TXT_KEY_IMPROVEMENT_LUMBER_CAMP_PEDIA',
  '[TAB]A lumber camp is where woodcutters fell trees, trim them and drag the logs out of the forest. It keeps the forest standing and sends timber to every city on the trade network. Better tools of bronze and iron, and the measuring of mathematics, make each camp yield more. With machinery the camp can become a lumbermill.',
