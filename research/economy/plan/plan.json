@@ -32,8 +32,8 @@
    "id": "D3",
    "question": "Number of goods",
    "status": "decided",
-   "choice": "The game's existing resource types are the goods, as they are now; no new goods for now.",
-   "source": "user, 2026-10-26"
+   "choice": "The game's existing resource types, plus three new goods: Timber (from lumber camps and lumbermills on forest), Dairy (from cow and sheep pastures) and Leather (from horse, cow and sheep pastures).",
+   "source": "user, 2026-10-26 (request R1, requests.json)"
   },
   {
    "id": "D4",
@@ -74,19 +74,16 @@
    "id": "D9",
    "question": "Icons",
    "status": "decided",
-   "choice": "Every good keeps its icon; no icon is missing or shared; any icon added later loads its own glyph, button and art define.",
-   "source": "user, 2026-10-26"
+   "choice": "Every good keeps its icon; no icon is missing or shared. New goods get their own button, art define and glyph in both font atlases (GameFont.tga, GameFont_75.tga), made with the repository's art studio (tools/civ4-art-studio) from realistic photographic textures whose licence allows use in the mod; the source and licence of each image are recorded.",
+   "source": "user, 2026-10-26 (request R1, requests.json)"
   },
   {
    "id": "D10",
    "question": "Wool",
-   "status": "open",
-   "options": [
-    "sheep pastures yield wool beside meat and dairy",
-    "wool stays unused"
-   ],
-   "proposal": "sheep pastures yield wool",
-   "why": "Nothing places, gives or uses BONUS_WOOL today (catalogue.json), yet clothing needs it"
+   "status": "decided",
+   "why": "Nothing places, gives or uses BONUS_WOOL today (catalogue.json), yet clothing needs it",
+   "choice": "Sheep pastures yield wool, beside meat, dairy and leather.",
+   "source": "user, 2026-10-26 (request R1, requests.json)"
   },
   {
    "id": "D11",
@@ -102,24 +99,18 @@
   {
    "id": "D12",
    "question": "Fuel before coal",
-   "status": "open",
-   "options": [
-    "the fuel need starts with coal (its era)",
-    "forests yield a fuel good, which needs one new resource type despite D3"
-   ],
-   "proposal": "the fuel need starts with coal",
-   "why": "No timber or wood resource exists; the existing fuel goods are coal, oil, uranium, diesel, methane, biofuel and whale (catalogue.json)"
+   "status": "decided",
+   "why": "No timber or wood resource exists; the existing fuel goods are coal, oil, uranium, diesel, methane, biofuel and whale (catalogue.json)",
+   "choice": "Timber is the fuel before coal: the fuel need applies from the start, met by timber, then coal, then oil.",
+   "source": "follows from R1 (timber added)"
   },
   {
    "id": "D13",
    "question": "Clothing in the early game",
-   "status": "open",
-   "options": [
-    "wool (D10), fur and cotton are the clothing goods",
-    "the clothing need starts once two of them are available"
-   ],
-   "proposal": "wool, fur and cotton",
-   "why": "These are the only existing clothing goods (catalogue.json)"
+   "status": "decided",
+   "why": "These are the only existing clothing goods (catalogue.json)",
+   "choice": "The clothing goods are wool, leather, fur and cotton.",
+   "source": "follows from R1 (wool and leather added)"
   }
  ],
  "invariants": [
@@ -193,7 +184,7 @@
     "D8",
     "D9"
    ],
-   "player_sees": "No resource tokens on the map. The land itself has qualities: crop and herd suitability, ore grade and depth, fishing grounds, shown in the plot help and a map overlay. What a tile yields follows its qualities and the improvement built on it; the improvement decides which of the plot's qualities it uses (a farm the crops, a pasture the herds, a mine the ore). Techs keep adding yield as they do now. A city still gains a resource as today, from an improved, connected tile, but the tile's quality is the source instead of a placed token.",
+   "player_sees": "No resource tokens on the map. The land itself has qualities: crop and herd suitability, ore grade and depth, fishing grounds, shown in the plot help and a map overlay. What a tile yields follows its qualities and the improvement built on it; the improvement decides which of the plot's qualities it uses (a farm the crops, a pasture the herds, a mine the ore). Techs keep adding yield as they do now. A city still gains a resource as today, from an improved, connected tile, but the tile's quality is the source instead of a placed token. Forests yield timber through lumber camps (early) and lumbermills (Machinery). Pastures yield every good of their animals: cows meat, dairy and leather; sheep meat, wool, dairy and leather; horses horses and leather. Every good, the new ones included, has its own realistic icon.",
    "features": [
     {
      "id": "LQ.F1",
@@ -453,7 +444,8 @@
       }
      ],
      "after": [
-      "LQ.F3"
+      "LQ.F3",
+      "LQ.F9"
      ],
      "tasks": [
       "setPlotHelp: each quality as the good's icon with a band word (rich, good, poor) and ore depth",
@@ -495,6 +487,199 @@
       "AI_foundValue values a site by the qualities in its radius instead of tokens",
       "Worker AI (AI_bestCityBuild, AI_bestPlotBuild, AI_betterPlotBuild, AI_improveBonus, AI_connectBonus) builds the improvement whose plot good is worth most",
       "Every function classed ai in callsites.json reads the plot good"
+     ]
+    },
+    {
+     "id": "LQ.F8",
+     "what": "Three new goods: Timber, Dairy and Leather, as resource records never placed on the map, with art defines and Civilopedia text",
+     "code": [
+      {
+       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
+       "anchor": "<Type>BONUS_WOOL</Type>"
+      },
+      {
+       "file": "Assets/XML/Art/CIV4ArtDefines_Bonus.xml",
+       "anchor": "<BonusArtInfo>"
+      },
+      {
+       "file": "Assets/XML/Terrain/CIV4BonusClassInfos.xml"
+      }
+     ],
+     "after": [],
+     "tasks": [
+      "BonusInfo records BONUS_TIMBER, BONUS_DAIRY, BONUS_LEATHER: classes, techs (Timber: Bronze Working; Dairy and Leather: Animal Husbandry), no map placement",
+      "Art defines: button and FontButtonIndex of their own; the map model of an existing resource (they are never drawn on plots)",
+      "Civilopedia and help text in the mod's languages; units and categories from proposals.json",
+      "Pin WOC_GAMEFONT_RESOURCE_FIX before adding the records, so the symbols after the resources do not shift"
+     ],
+     "data": [
+      {
+       "name": "3 resource records",
+       "where": "CIV4BonusInfos.xml, CIV4ArtDefines_Bonus.xml, text XML",
+       "type": "XML records",
+       "saved": false
+      }
+     ],
+     "acceptance": [
+      "The Civilopedia lists Timber, Dairy and Leather with their own buttons and inline icons; every other symbol (happy, health, trade) is unchanged at both font sizes"
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
+       "text": "<Type>BONUS_TIMBER</Type>"
+      },
+      {
+       "kind": "added",
+       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
+       "text": "<Type>BONUS_DAIRY</Type>"
+      },
+      {
+       "kind": "added",
+       "file": "Assets/XML/Terrain/CIV4BonusInfos.xml",
+       "text": "<Type>BONUS_LEATHER</Type>"
+      },
+      {
+       "kind": "audit",
+       "name": "font_pinned"
+      }
+     ]
+    },
+    {
+     "id": "LQ.F9",
+     "what": "Icons with realistic textures: buttons (DDS) and font glyphs (both atlases) for Timber, Dairy and Leather, and own glyphs for the three pairs that share one today, made with the art studio",
+     "code": [
+      {
+       "file": "Assets/res/Fonts/GameFont.tga"
+      },
+      {
+       "file": "Assets/res/Fonts/GameFont_75.tga"
+      },
+      {
+       "file": "Assets/XML/Art/CIV4ArtDefines_Bonus.xml",
+       "anchor": "<FontButtonIndex>"
+      }
+     ],
+     "after": [
+      "LQ.F8"
+     ],
+     "tasks": [
+      "Source photographs whose licence allows use in the mod (public domain or CC0 preferred); record each source, author and licence in an asset manifest",
+      "Buttons: tools/civ4-art-studio, 64 x 64, Fill and crop on the identifying feature, RGBA DDS, placed under Assets/Art/Interface/Buttons/Goods/",
+      "Glyphs: the studio's Resource workshop custom GameFont slot, matching empty cells chosen independently in GameFont.tga and GameFont_75.tga for the record's FontButtonIndex; markers preserved and both sheets checked pixel by pixel",
+      "The same for the second record of each shared pair (Biofuel, Smart Medicine, Synthetic Rubber)",
+      "In-game check at both font sizes, then mark the mapping verified"
+     ],
+     "data": [
+      {
+       "name": "asset manifest",
+       "where": "Assets/Art/Interface/Buttons/Goods/ASSETS.json (with the patch)",
+       "type": "per image: file, source URL, author, licence, sha256",
+       "saved": false
+      }
+     ],
+     "acceptance": [
+      "Each new good and each formerly shared good shows its own recognisable icon in the Civilopedia, city screen and help text at both font sizes"
+     ],
+     "checks": [
+      {
+       "kind": "audit",
+       "name": "icons"
+      },
+      {
+       "kind": "added",
+       "file": "Assets/Art/Interface/Buttons/Goods/ASSETS.json"
+      },
+      {
+       "kind": "manual",
+       "what": "icons of the new and formerly shared goods are right at both font sizes; existing symbols unchanged"
+      }
+     ]
+    },
+    {
+     "id": "LQ.F10",
+     "what": "Timber from forests: a new early lumber camp improvement and the existing lumbermill yield timber from forest plots",
+     "code": [
+      {
+       "file": "Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+       "anchor": "<Type>IMPROVEMENT_LUMBERMILL</Type>"
+      },
+      {
+       "file": "Assets/XML/Units/CIV4BuildInfos.xml",
+       "anchor": "<Type>BUILD_LUMBERMILL</Type>"
+      },
+      {
+       "file": "Assets/XML/Art/CIV4ArtDefines_Improvement.xml",
+       "anchor": "<Type>ART_DEF_IMPROVEMENT_CAMP</Type>"
+      }
+     ],
+     "after": [
+      "LQ.F4",
+      "LQ.F8"
+     ],
+     "tasks": [
+      "IMPROVEMENT_LUMBER_CAMP on forest (FeatureMakesValid FEATURE_FOREST), built by BUILD_LUMBER_CAMP from Bronze Working (proposed: the tech that already lets workers work forests); upgrades to the lumbermill once Machinery is known",
+      "Art: a new art define reusing the camp model and a realistic button (studio, reuse route); a dedicated model later",
+      "Forest plots get a timber quality (LQ.F3) from the forest feature; both improvements yield timber through the plot good",
+      "Lumbermill keeps its record (Machinery) and gains timber"
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+       "text": "<Type>IMPROVEMENT_LUMBER_CAMP</Type>"
+      },
+      {
+       "kind": "added",
+       "file": "Assets/XML/Units/CIV4BuildInfos.xml",
+       "text": "<Type>BUILD_LUMBER_CAMP</Type>"
+      },
+      {
+       "kind": "manual",
+       "what": "a worker builds a lumber camp in a forest after Bronze Working; the city gains timber; the camp becomes a lumbermill with Machinery"
+      }
+     ]
+    },
+    {
+     "id": "LQ.F11",
+     "what": "Pasture co-products: one pasture yields every good of its animal (cow: meat, dairy, leather; sheep: meat, wool, dairy, leather; horse: horses, leather)",
+     "code": [
+      {
+       "file": "Assets/XML/Terrain/CIV4ImprovementInfos.xml",
+       "anchor": "<Type>IMPROVEMENT_PASTURE</Type>"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "void CvPlot::updatePlotGroupBonus(bool bAdd)"
+      }
+     ],
+     "after": [
+      "LQ.F5",
+      "LQ.F8"
+     ],
+     "tasks": [
+      "CoProducts per BonusTypeStruct of the pasture (and of Latifundium stages that trade the same animals): the extra goods the animal yields",
+      "getPlotGoods returns the main good and its co-products; resource access (LQ.F5) adds each to the trade network",
+      "Pig pastures stay meat only"
+     ],
+     "data": [
+      {
+       "name": "CoProducts",
+       "where": "CIV4ImprovementInfos.xml BonusTypeStruct (schema CIV4TerrainSchema.xml)",
+       "type": "list of BonusType",
+       "saved": false
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/XML/Terrain/CIV4TerrainSchema.xml",
+       "text": "CoProducts"
+      },
+      {
+       "kind": "manual",
+       "what": "a city with a connected sheep pasture has sheep, wool, dairy and leather"
+      }
      ]
     }
    ]
@@ -566,7 +751,7 @@
     },
     {
      "id": "GW.F2",
-     "what": "Icons: the three shared glyphs (Diesel and Biofuel, Smart Medicine and Chemicals, Vulcanized and Synthetic Rubber) get their own; the symbol block after the resources is pinned before any resource record is ever added",
+     "what": "Icons kept right as goods data is added: the icon audit and the pinned symbol block hold after every change (the new glyphs themselves are LQ.F9)",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
@@ -597,11 +782,12 @@
        "what": "the Civilopedia and city screen show the right icon for every good; happy, health and other symbols unchanged"
       }
      ],
-     "after": [],
+     "after": [
+      "GW.F1"
+     ],
      "tasks": [
-      "Find free glyph slots in GameFont.tga and GameFont_75.tga, or draw the three missing glyphs into both",
-      "Point the second record of each shared pair at its own FontButtonIndex",
-      "Pin WOC_GAMEFONT_RESOURCE_FIX to the first symbol after the resource block, so any future resource record cannot shift the symbols"
+      "Re-run the icon audit and font check after the goods fields are added to every resource record",
+      "Confirm in game that no symbol moved"
      ]
     },
     {
@@ -1800,7 +1986,7 @@
  ],
  "resume": [
   "The plan, not memory or a summary, holds the task structure. A new or compacted session starts here.",
-  "1. Read statement.md (the design) and the decisions in plan.json; open decisions show the proposal to put to the user.",
+  "1. Read statement.md (the design), requests.json (the user's requests, verbatim, and where each item is carried out) and the decisions in plan.json; open decisions show the proposal to put to the user.",
   "2. Run tools/check_plan.py --summary (no checkout needed): progress, the next component, the features that can start and their tasks.",
   "3. With a mod checkout: tools/catalogue.py and tools/callsites.py to refresh the generated files, then tools/check_plan.py <checkout> to refresh status.json.",
   "4. Work only on features the summary lists as able to start; a feature is done when its checks pass.",
@@ -1810,6 +1996,10 @@
   {
    "file": "statement.md",
    "what": "The design statement; the plan implements it and nothing beyond it"
+  },
+  {
+   "file": "requests.json",
+   "what": "The user's requests, verbatim, each split into items with status and where in the plan it is carried out"
   },
   {
    "file": "proposals.json",

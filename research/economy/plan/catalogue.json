@@ -434,6 +434,7 @@
      "UNIT_WARDOG"
     ],
     "corporation_consumes": [
+     "CORPORATION_34",
      "CORPORATION_4",
      "CORPORATION_5"
     ]
@@ -553,7 +554,8 @@
     }
    ],
    "given_by_buildings": [
-    "BUILDING_STABLE"
+    "BUILDING_STABLE",
+    "BUILDING_GUILDHALL_42"
    ],
    "used_by": {
     "building_happiness": [
@@ -599,6 +601,10 @@
      "UNIT_ROME_CAVALRY_AUXILIA",
      "UNIT_RUSSIA_COSSACK",
      "UNIT_SPANISH_CONQUISTADOR"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_12",
+     "CORPORATION_42"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -776,6 +782,7 @@
      "UNIT_XEBEC"
     ],
     "corporation_consumes": [
+     "CORPORATION_34",
      "CORPORATION_4",
      "CORPORATION_5"
     ]
@@ -865,9 +872,11 @@
      "BUILDING_FORUM_ROMANUM"
     ],
     "building_yield": [
-     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE"
+     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE",
+     "BUILDING_GUILDHALL_33"
     ],
     "corporation_consumes": [
+     "CORPORATION_33",
      "CORPORATION_4"
     ],
     "building_requires_one_of": []
@@ -1018,6 +1027,7 @@
    "given_by_buildings": [],
    "used_by": {
     "building_build_speed": [
+     "BUILDING_AL_AQSA_MOSQUE",
      "BUILDING_ANGKOR_WAT",
      "BUILDING_CASTLE",
      "BUILDING_CELTIC_DUN",
@@ -1032,10 +1042,12 @@
      "BUILDING_HINDU_BRIHADEESWARAR",
      "BUILDING_ISLAMIC_CATHEDRAL",
      "BUILDING_JEWISH_CATHEDRAL",
+     "BUILDING_KRAK_DES_CHEVALIERS",
      "BUILDING_MESOAMERICAN_CATHEDRAL",
      "BUILDING_MESOAMERICAN_MAGICIAN_PYRAMID",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_MOAI_STATUES",
+     "BUILDING_MONTFORT",
      "BUILDING_MT_RUSHMORE",
      "BUILDING_NOTRE_DAME",
      "BUILDING_OXFORD_UNIVERSITY",
@@ -1057,9 +1069,12 @@
      "BUILDING_GLASSSMITH"
     ],
     "building_yield": [
-     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE"
+     "BUILDING_CREATIVE_CONSTRUCTIONS_OFFICE",
+     "BUILDING_GUILDHALL_33"
     ],
     "corporation_consumes": [
+     "CORPORATION_33",
+     "CORPORATION_37",
      "CORPORATION_4"
     ],
     "building_requires_one_of": []
@@ -1289,12 +1304,17 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_43",
      "BUILDING_METROPOLITAN_ESSENTIALS"
     ],
     "building_health": [
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_FAIR"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_11",
+     "CORPORATION_43"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -1369,7 +1389,9 @@
      "BUILDING_TOWN_ESSENTIALS"
     ],
     "corporation_consumes": [
-     "CORPORATION_2"
+     "CORPORATION_12",
+     "CORPORATION_2",
+     "CORPORATION_32"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -1494,6 +1516,7 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_36",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_STANDARD_ETHANOL_DISTILLERY",
      "BUILDING_TOWN_ESSENTIALS"
@@ -1509,7 +1532,8 @@
     ],
     "corporation_consumes": [
      "CORPORATION_1",
-     "CORPORATION_3"
+     "CORPORATION_3",
+     "CORPORATION_36"
     ],
     "building_requires": []
    },
@@ -1633,9 +1657,14 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_41",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_SETTLEMENT_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_10",
+     "CORPORATION_41"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -1707,7 +1736,8 @@
      "BUILDING_SID_SUSHI_RESTAURANT"
     ],
     "corporation_consumes": [
-     "CORPORATION_2"
+     "CORPORATION_2",
+     "CORPORATION_32"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -1775,9 +1805,13 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_41",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_SETTLEMENT_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_41"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -1854,7 +1888,8 @@
      "BUILDING_TOWN_ESSENTIALS"
     ],
     "corporation_consumes": [
-     "CORPORATION_2"
+     "CORPORATION_2",
+     "CORPORATION_32"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -1980,9 +2015,14 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_41",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_SETTLEMENT_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_10",
+     "CORPORATION_41"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -2117,6 +2157,7 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_36",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_SID_SUSHI_RESTAURANT",
      "BUILDING_STANDARD_ETHANOL_DISTILLERY",
@@ -2128,7 +2169,8 @@
     "corporation_consumes": [
      "CORPORATION_1",
      "CORPORATION_2",
-     "CORPORATION_3"
+     "CORPORATION_3",
+     "CORPORATION_36"
     ],
     "building_requires": []
    },
@@ -2252,9 +2294,18 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_41",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_SETTLEMENT_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_happiness": [
+     "BUILDING_GUILDHALL_31"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_31",
+     "CORPORATION_41",
+     "CORPORATION_8"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -2379,6 +2430,7 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_36",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_TEMPLE_OF_OSIRIS",
      "BUILDING_TOWN_ESSENTIALS"
@@ -2393,7 +2445,9 @@
      "BUILDING_TOWN_ESSENTIALS"
     ],
     "corporation_consumes": [
-     "CORPORATION_1"
+     "CORPORATION_1",
+     "CORPORATION_10",
+     "CORPORATION_36"
     ],
     "building_requires": []
    },
@@ -2512,7 +2566,8 @@
    "given_by_buildings": [],
    "used_by": {
     "building_yield": [
-     "BUILDING_CANNERY"
+     "BUILDING_CANNERY",
+     "BUILDING_CORPORATION_39"
     ],
     "building_happiness": [
      "BUILDING_ARTIST_GUILD",
@@ -2520,10 +2575,15 @@
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_FAIR",
+     "BUILDING_GUILDHALL_31",
      "BUILDING_MARKET",
      "BUILDING_OPERA_HOUSE",
      "BUILDING_ROMAN_FORUM",
      "BUILDING_THEATRE"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_31",
+     "CORPORATION_8"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -2593,6 +2653,7 @@
      "BUILDING_COMMERCIAL_PORT",
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_FAIR",
+     "BUILDING_GUILDHALL_31",
      "BUILDING_INTERNATIONAL_PORT",
      "BUILDING_MARKET",
      "BUILDING_METROPOLITAN_ESSENTIALS",
@@ -2600,6 +2661,13 @@
      "BUILDING_ROMAN_FORUM",
      "BUILDING_SETTLEMENT_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "building_yield": [
+     "BUILDING_CORPORATION_39"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_31",
+     "CORPORATION_8"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -2688,6 +2756,7 @@
      "BUILDING_JEWELLERY"
     ],
     "corporation_consumes": [
+     "CORPORATION_40",
      "CORPORATION_7"
     ],
     "building_requires": [],
@@ -2791,6 +2860,7 @@
      "BUILDING_WORLD_BANK"
     ],
     "corporation_consumes": [
+     "CORPORATION_40",
      "CORPORATION_5",
      "CORPORATION_7"
     ],
@@ -2861,6 +2931,7 @@
    "given_by_buildings": [],
    "used_by": {
     "building_happiness": [
+     "BUILDING_AL_AQSA_MOSQUE",
      "BUILDING_BUDDHIST_CATHEDRAL",
      "BUILDING_CHRISTIAN_CATHEDRAL",
      "BUILDING_COMMERCIAL_CENTER",
@@ -2972,6 +3043,9 @@
      "UNIT_SIAM_ELEPHANT",
      "UNIT_WAR_ELEPHANT"
     ],
+    "corporation_consumes": [
+     "CORPORATION_12"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
@@ -3034,6 +3108,7 @@
      "BUILDING_COMMERCIAL_PORT",
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_FAIR",
+     "BUILDING_GUILDHALL_31",
      "BUILDING_INTERNATIONAL_PORT",
      "BUILDING_MARKET",
      "BUILDING_PORT",
@@ -3044,8 +3119,14 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_39",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_13",
+     "CORPORATION_31",
+     "CORPORATION_8"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -3139,6 +3220,7 @@
      "BUILDING_JEWELLERY"
     ],
     "corporation_consumes": [
+     "CORPORATION_40",
      "CORPORATION_5",
      "CORPORATION_7"
     ],
@@ -3264,6 +3346,7 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_43",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
     ],
@@ -3271,6 +3354,10 @@
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_FAIR"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_13",
+     "CORPORATION_39"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -3400,7 +3487,11 @@
      "BUILDING_COMMERCIAL_CENTER"
     ],
     "corporation_consumes": [
-     "CORPORATION_3"
+     "CORPORATION_13",
+     "CORPORATION_3",
+     "CORPORATION_36",
+     "CORPORATION_39",
+     "CORPORATION_9"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -3532,6 +3623,8 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_39",
+     "BUILDING_GUILDHALL_37",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
     ],
@@ -3609,6 +3702,10 @@
     "building_yield": [
      "BUILDING_CANNERY"
     ],
+    "corporation_consumes": [
+     "CORPORATION_12",
+     "CORPORATION_32"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
@@ -3656,6 +3753,9 @@
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMUNICATION_TOWER",
      "BUILDING_NETWORK_NODE"
+    ],
+    "corporation_produces": [
+     "CORPORATION_35"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -3709,6 +3809,9 @@
      "BUILDING_GREEK_ODEON",
      "BUILDING_NETWORK_NODE",
      "BUILDING_VR_THEATER"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_9"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -3892,6 +3995,9 @@
      "BUILDING_MESOAMERICAN_CATHEDRAL",
      "BUILDING_SACRIFICIAL_ALTAR"
     ],
+    "corporation_produces": [
+     "CORPORATION_9"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
@@ -3962,6 +4068,10 @@
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_10",
+     "CORPORATION_37"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -4088,6 +4198,7 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_36",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_STANDARD_ETHANOL_DISTILLERY",
      "BUILDING_TOWN_ESSENTIALS"
@@ -4100,7 +4211,10 @@
     ],
     "corporation_consumes": [
      "CORPORATION_1",
-     "CORPORATION_3"
+     "CORPORATION_10",
+     "CORPORATION_11",
+     "CORPORATION_3",
+     "CORPORATION_43"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -4236,9 +4350,15 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_39",
      "BUILDING_FAIR",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_13",
+     "CORPORATION_39",
+     "CORPORATION_9"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -4421,6 +4541,7 @@
      "BUILDING_TOWN_ESSENTIALS"
     ],
     "corporation_consumes": [
+     "CORPORATION_40",
      "CORPORATION_7"
     ],
     "building_requires": [],
@@ -4546,12 +4667,17 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_43",
      "BUILDING_METROPOLITAN_ESSENTIALS"
     ],
     "building_health": [
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_FAIR"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_11",
+     "CORPORATION_43"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -4675,8 +4801,17 @@
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_FAIR",
+     "BUILDING_GUILDHALL_31",
      "BUILDING_MARKET",
      "BUILDING_ROMAN_FORUM"
+    ],
+    "building_yield": [
+     "BUILDING_CORPORATION_43"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_13",
+     "CORPORATION_31",
+     "CORPORATION_8"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -4741,6 +4876,9 @@
     "building_yield": [
      "BUILDING_MUSEUM"
     ],
+    "corporation_consumes": [
+     "CORPORATION_12"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
@@ -4782,7 +4920,8 @@
    },
    "improvements": [],
    "given_by_buildings": [
-    "BUILDING_GLASSSMITH"
+    "BUILDING_GLASSSMITH",
+    "BUILDING_GUILDHALL_37"
    ],
    "used_by": {
     "building_requires": [
@@ -4792,6 +4931,12 @@
     "building_build_speed": [
      "BUILDING_FRENCH_SALON",
      "BUILDING_OBSERVATORY"
+    ],
+    "building_yield": [
+     "BUILDING_GUILDHALL_37"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_37"
     ],
     "building_requires_one_of": []
    },
@@ -5253,7 +5398,9 @@
     "building_yield": [
      "BUILDING_CANNERY",
      "BUILDING_COMMERCIAL_CENTER",
-     "BUILDING_COMMODITY_MARKET"
+     "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_39",
+     "BUILDING_CORPORATION_43"
     ],
     "building_happiness": [
      "BUILDING_COMMERCIAL_CENTER",
@@ -5261,6 +5408,10 @@
      "BUILDING_FAIR",
      "BUILDING_MARKET",
      "BUILDING_ROMAN_FORUM"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_11",
+     "CORPORATION_43"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -5395,7 +5546,12 @@
     "building_yield": [
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_39",
      "BUILDING_FAIR"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_39",
+     "CORPORATION_9"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -5520,12 +5676,17 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_43",
      "BUILDING_METROPOLITAN_ESSENTIALS"
     ],
     "building_health": [
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
      "BUILDING_FAIR"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_11",
+     "CORPORATION_43"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -5769,6 +5930,9 @@
     "building_build_speed": [
      "BUILDING_CHICHEN_ITZA"
     ],
+    "building_yield": [
+     "BUILDING_GUILDHALL_33"
+    ],
     "unit_requires_one_of": [
      "UNIT_ARABIAN_ANSAR",
      "UNIT_AUXILIAR",
@@ -5783,6 +5947,9 @@
      "UNIT_SUMERIAN_VULTURE",
      "UNIT_TRIARII",
      "UNIT_WARDOG"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_33"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -5886,6 +6053,7 @@
      "BUILDING_MINING_INC_SURVEY_OFFICE"
     ],
     "corporation_consumes": [
+     "CORPORATION_34",
      "CORPORATION_5"
     ],
     "building_requires": [],
@@ -6028,9 +6196,13 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_39",
      "BUILDING_FAIR",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
+    ],
+    "corporation_consumes": [
+     "CORPORATION_39"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -6107,7 +6279,8 @@
      "BUILDING_TOWN_ESSENTIALS"
     ],
     "corporation_consumes": [
-     "CORPORATION_2"
+     "CORPORATION_2",
+     "CORPORATION_32"
     ],
     "building_requires": [],
     "building_requires_one_of": []
@@ -6345,6 +6518,8 @@
      "BUILDING_CITY_ESSENTIALS",
      "BUILDING_COMMERCIAL_CENTER",
      "BUILDING_COMMODITY_MARKET",
+     "BUILDING_CORPORATION_43",
+     "BUILDING_GUILDHALL_37",
      "BUILDING_METROPOLITAN_ESSENTIALS",
      "BUILDING_TOWN_ESSENTIALS"
     ],
@@ -6926,8 +7101,28 @@
     "const_appearance": 0
    },
    "improvements": [],
-   "given_by_buildings": [],
+   "given_by_buildings": [
+    "BUILDING_CGUILDHALL",
+    "BUILDING_VGUILDHALL",
+    "BUILDING_SGUILDHALL"
+   ],
    "used_by": {
+    "corporation_consumes": [
+     "CORPORATION_30",
+     "CORPORATION_31",
+     "CORPORATION_32",
+     "CORPORATION_33",
+     "CORPORATION_34",
+     "CORPORATION_35",
+     "CORPORATION_36",
+     "CORPORATION_37",
+     "CORPORATION_39",
+     "CORPORATION_40",
+     "CORPORATION_41",
+     "CORPORATION_42",
+     "CORPORATION_43",
+     "CORPORATION_44"
+    ],
     "building_requires": [],
     "building_requires_one_of": []
    },
@@ -6940,6 +7135,335 @@
    }
   }
  },
+ "origins": {
+  "BONUS_ALUMINUM": [
+   {
+    "source": "BUILDING_ALUMINUM_FACTORY",
+    "kind": "national wonder",
+    "tech": "TECH_INDUSTRIALISM",
+    "copies": 1,
+    "requires": [
+     "BONUS_BAUXITE"
+    ],
+    "requires_one_of": [],
+    "cost": 325
+   },
+   {
+    "source": "CORPORATION_6",
+    "kind": "corporation",
+    "tech": "NONE",
+    "consumes": [
+     "BONUS_COAL",
+     "BONUS_BAUXITE"
+    ]
+   }
+  ],
+  "BONUS_DRAMA": [
+   {
+    "source": "BUILDING_BROADWAY",
+    "kind": "world wonder",
+    "tech": "TECH_ELECTRICITY",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 1040
+   },
+   {
+    "source": "CORPORATION_35",
+    "kind": "corporation",
+    "tech": "NONE",
+    "consumes": [
+     "BONUS_CGUILDPAPER"
+    ]
+   }
+  ],
+  "BONUS_MUSIC": [
+   {
+    "source": "BUILDING_ROCKNROLL",
+    "kind": "world wonder",
+    "tech": "TECH_ELECTRONICS",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 1040
+   }
+  ],
+  "BONUS_MOVIES": [
+   {
+    "source": "BUILDING_HOLLYWOOD",
+    "kind": "world wonder",
+    "tech": "TECH_MOTION_PICTURES",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 1300
+   }
+  ],
+  "BONUS_GLASS": [
+   {
+    "source": "BUILDING_GLASSSMITH",
+    "kind": "building",
+    "tech": "TECH_GLASS_BLOWING",
+    "copies": 1,
+    "requires": [
+     "BONUS_STONE"
+    ],
+    "requires_one_of": [],
+    "cost": 140
+   },
+   {
+    "source": "BUILDING_GUILDHALL_37",
+    "kind": "building",
+    "tech": "NONE",
+    "copies": 1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 100
+   }
+  ],
+  "BONUS_DIESEL": [
+   {
+    "source": "BUILDING_JAPANESE_SHALE_PLANT",
+    "kind": "building",
+    "tech": "TECH_THERMODYNAMICS",
+    "copies": 1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 150
+   },
+   {
+    "source": "BUILDING_OIL_REFINERY",
+    "kind": "building",
+    "tech": "TECH_REFINING",
+    "copies": 1,
+    "requires": [
+     "BONUS_OIL"
+    ],
+    "requires_one_of": [],
+    "cost": 260
+   },
+   {
+    "source": "CORPORATION_3",
+    "kind": "corporation",
+    "tech": "NONE",
+    "consumes": [
+     "BONUS_CORN",
+     "BONUS_SUGAR",
+     "BONUS_RICE",
+     "BONUS_POTATO"
+    ]
+   }
+  ],
+  "BONUS_AMMO": [
+   {
+    "source": "BUILDING_WEAPON_FACTORY",
+    "kind": "national wonder",
+    "tech": "TECH_EXPLOSIVES",
+    "copies": -1,
+    "requires": [
+     "BONUS_SULPHUR"
+    ],
+    "requires_one_of": [],
+    "cost": 180
+   }
+  ],
+  "BONUS_STEEL": [
+   {
+    "source": "BUILDING_IRON_WORKS",
+    "kind": "national wonder",
+    "tech": "TECH_STEEL",
+    "copies": 1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 910
+   },
+   {
+    "source": "BUILDING_STEEL_MILL",
+    "kind": "building",
+    "tech": "TECH_STEEL",
+    "copies": 1,
+    "requires": [
+     "BONUS_COAL"
+    ],
+    "requires_one_of": [],
+    "cost": 520
+   }
+  ],
+  "BONUS_VULCANIZED_RUBBER": [
+   {
+    "source": "BUILDING_RUBBER_FACTORY",
+    "kind": "national wonder",
+    "tech": "TECH_REFINING",
+    "copies": -1,
+    "requires": [
+     "BONUS_RUBBER"
+    ],
+    "requires_one_of": [],
+    "cost": 325
+   }
+  ],
+  "BONUS_SYNTHETIC_RUBBER": [
+   {
+    "source": "BUILDING_RUBBER_PLANT",
+    "kind": "national wonder",
+    "tech": "TECH_ORGANIC_CHEMISTRY",
+    "copies": -1,
+    "requires": [
+     "BONUS_CHEMICALS"
+    ],
+    "requires_one_of": [],
+    "cost": 700
+   }
+  ],
+  "BONUS_NANOBOTS": [
+   {
+    "source": "BUILDING_NANITE_LAB",
+    "kind": "national wonder",
+    "tech": "TECH_NANOELECTRONICS",
+    "copies": -1,
+    "requires": [
+     "BONUS_NANOTUBES"
+    ],
+    "requires_one_of": [],
+    "cost": 1250
+   }
+  ],
+  "BONUS_ALCOHOL": [
+   {
+    "source": "BUILDING_BREWERY",
+    "kind": "national wonder",
+    "tech": "TECH_FERMENTATION",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 100
+   }
+  ],
+  "BONUS_CEMENT": [
+   {
+    "source": "BUILDING_CEMENT_MILL",
+    "kind": "national wonder",
+    "tech": "TECH_THERMODYNAMICS",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 325
+   }
+  ],
+  "BONUS_NANOTUBES": [
+   {
+    "source": "BUILDING_NANO_RESEARCH_DEPARTMENT",
+    "kind": "national wonder",
+    "tech": "TECH_NANOTECHNOLOGY",
+    "copies": -1,
+    "requires": [
+     "BONUS_COAL"
+    ],
+    "requires_one_of": [],
+    "cost": 1000
+   }
+  ],
+  "BONUS_SEMICONDUCTORS": [
+   {
+    "source": "BUILDING_SILICON_VALLEY",
+    "kind": "world wonder",
+    "tech": "TECH_MICROCHIP",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 2100
+   }
+  ],
+  "BONUS_PERSONAL_REPLICATORS": [
+   {
+    "source": "BUILDING_REPLICATOR_PLANT",
+    "kind": "national wonder",
+    "tech": "TECH_RAPID_PROTOTYPING",
+    "copies": -1,
+    "requires": [
+     "BONUS_CHEMICALS"
+    ],
+    "requires_one_of": [],
+    "cost": 1250
+   }
+  ],
+  "BONUS_SMART_MEDICINE": [
+   {
+    "source": "BUILDING_RESEARCH_HOSPITAL",
+    "kind": "national wonder",
+    "tech": "TECH_SMART_DRUGS",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 1200
+   }
+  ],
+  "BONUS_BIOFUEL": [
+   {
+    "source": "BUILDING_BIOFUEL_REFINERY",
+    "kind": "national wonder",
+    "tech": "TECH_BIOFUELS",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 2000
+   }
+  ],
+  "BONUS_CHEMICALS": [
+   {
+    "source": "BUILDING_CHEMICAL_PLANT",
+    "kind": "national wonder",
+    "tech": "TECH_REFINING",
+    "copies": -1,
+    "requires": [
+     "BONUS_SULPHUR"
+    ],
+    "requires_one_of": [],
+    "cost": 700
+   }
+  ],
+  "BONUS_FERTILIZERS": [
+   {
+    "source": "BUILDING_FERTILIZER_PLANT",
+    "kind": "national wonder",
+    "tech": "TECH_ORGANIC_CHEMISTRY",
+    "copies": -1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 700
+   }
+  ],
+  "BONUS_WOOL": [],
+  "BONUS_CGUILDPAPER": [
+   {
+    "source": "BUILDING_CGUILDHALL",
+    "kind": "national wonder",
+    "tech": "TECH_GUILDS",
+    "copies": 1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 100
+   },
+   {
+    "source": "BUILDING_SGUILDHALL",
+    "kind": "national wonder",
+    "tech": "TECH_CIVIL_SERVICE",
+    "copies": 1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 100
+   },
+   {
+    "source": "BUILDING_VGUILDHALL",
+    "kind": "national wonder",
+    "tech": "TECH_AGRICULTURAL_TOOLS",
+    "copies": 1,
+    "requires": [],
+    "requires_one_of": [],
+    "cost": 100
+   }
+  ]
+ },
  "chains": {
   "essentials": {
    "BUILDING_SETTLEMENT_ESSENTIALS": {
@@ -6951,7 +7475,12 @@
     "food_kept": 20,
     "health": 0,
     "happiness": 0,
-    "free_start_era": "ERA_ANCIENT"
+    "free_start_era": "ERA_ANCIENT",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    },
    "BUILDING_TOWN_ESSENTIALS": {
     "cls": "BUILDINGCLASS_TOWN_ESSENTIALS",
@@ -6966,7 +7495,12 @@
     "food_kept": 30,
     "health": 3,
     "happiness": 3,
-    "free_start_era": "NONE"
+    "free_start_era": "NONE",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    },
    "BUILDING_CITY_ESSENTIALS": {
     "cls": "BUILDINGCLASS_CITY_ESSENTIALS",
@@ -6983,7 +7517,12 @@
     "food_kept": 30,
     "health": 6,
     "happiness": 5,
-    "free_start_era": "NONE"
+    "free_start_era": "NONE",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    },
    "BUILDING_METROPOLITAN_ESSENTIALS": {
     "cls": "BUILDINGCLASS_METROPOLITAN_ESSENTIALS",
@@ -6999,7 +7538,12 @@
     "food_kept": 40,
     "health": 12,
     "happiness": 8,
-    "free_start_era": "NONE"
+    "free_start_era": "NONE",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    }
   },
   "market": {
@@ -7012,7 +7556,12 @@
     "food_kept": 0,
     "health": 0,
     "happiness": 0,
-    "free_start_era": "ERA_INDUSTRIAL"
+    "free_start_era": "ERA_INDUSTRIAL",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    },
    "BUILDING_FAIR": {
     "cls": "BUILDINGCLASS_FAIR",
@@ -7027,7 +7576,12 @@
     "food_kept": 0,
     "health": 0,
     "happiness": 0,
-    "free_start_era": "NONE"
+    "free_start_era": "NONE",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    },
    "BUILDING_COMMODITY_MARKET": {
     "cls": "BUILDINGCLASS_COMMODITY_MARKET",
@@ -7042,7 +7596,12 @@
     "food_kept": 10,
     "health": 5,
     "happiness": 0,
-    "free_start_era": "NONE"
+    "free_start_era": "NONE",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    },
    "BUILDING_COMMERCIAL_CENTER": {
     "cls": "BUILDINGCLASS_COMMERCIAL_CENTER",
@@ -7057,7 +7616,12 @@
     "food_kept": 10,
     "health": 8,
     "happiness": 0,
-    "free_start_era": "NONE"
+    "free_start_era": "NONE",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    },
    "BUILDING_HYPERMARKET": {
     "cls": "BUILDINGCLASS_HYPERMARKET",
@@ -7070,7 +7634,12 @@
     "food_kept": 0,
     "health": 0,
     "happiness": 0,
-    "free_start_era": "NONE"
+    "free_start_era": "NONE",
+    "kind": "building",
+    "requires": [],
+    "requires_one_of": [],
+    "free_bonus": "NONE",
+    "free_bonus_count": 0
    }
   }
  },
@@ -7084,7 +7653,12 @@
    "food_kept": 20,
    "health": 0,
    "happiness": 0,
-   "free_start_era": "NONE"
+   "free_start_era": "NONE",
+   "kind": "world wonder",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_ROMAN_DEPOT": {
    "cls": "BUILDINGCLASS_ROMAN_DEPOT",
@@ -7097,7 +7671,12 @@
    "food_kept": 10,
    "health": 2,
    "happiness": 0,
-   "free_start_era": "NONE"
+   "free_start_era": "NONE",
+   "kind": "building",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_PORTUS_MAXIMUS": {
    "cls": "BUILDINGCLASS_PORTUS_MAXIMUS",
@@ -7113,7 +7692,12 @@
    "food_kept": 10,
    "health": 0,
    "happiness": 0,
-   "free_start_era": ""
+   "free_start_era": "",
+   "kind": "world wonder",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_PRAEFECTURA_ANNONAE": {
    "cls": "BUILDINGCLASS_PRAEFECTURA_ANNONAE",
@@ -7128,7 +7712,12 @@
    "food_kept": 10,
    "health": 0,
    "happiness": 0,
-   "free_start_era": "NONE"
+   "free_start_era": "NONE",
+   "kind": "world wonder",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_SETTLEMENT_ESSENTIALS": {
    "cls": "BUILDINGCLASS_SETTLEMENT_ESSENTIALS",
@@ -7139,7 +7728,12 @@
    "food_kept": 20,
    "health": 0,
    "happiness": 0,
-   "free_start_era": "ERA_ANCIENT"
+   "free_start_era": "ERA_ANCIENT",
+   "kind": "building",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_TOWN_ESSENTIALS": {
    "cls": "BUILDINGCLASS_TOWN_ESSENTIALS",
@@ -7154,7 +7748,12 @@
    "food_kept": 30,
    "health": 3,
    "happiness": 3,
-   "free_start_era": "NONE"
+   "free_start_era": "NONE",
+   "kind": "building",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_CITY_ESSENTIALS": {
    "cls": "BUILDINGCLASS_CITY_ESSENTIALS",
@@ -7171,7 +7770,12 @@
    "food_kept": 30,
    "health": 6,
    "happiness": 5,
-   "free_start_era": "NONE"
+   "free_start_era": "NONE",
+   "kind": "building",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_METROPOLITAN_ESSENTIALS": {
    "cls": "BUILDINGCLASS_METROPOLITAN_ESSENTIALS",
@@ -7187,7 +7791,12 @@
    "food_kept": 40,
    "health": 12,
    "happiness": 8,
-   "free_start_era": "NONE"
+   "free_start_era": "NONE",
+   "kind": "building",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_COMMODITY_MARKET": {
    "cls": "BUILDINGCLASS_COMMODITY_MARKET",
@@ -7202,7 +7811,12 @@
    "food_kept": 10,
    "health": 5,
    "happiness": 0,
-   "free_start_era": "NONE"
+   "free_start_era": "NONE",
+   "kind": "building",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   },
   "BUILDING_COMMERCIAL_CENTER": {
    "cls": "BUILDINGCLASS_COMMERCIAL_CENTER",
@@ -7217,7 +7831,12 @@
    "food_kept": 10,
    "health": 8,
    "happiness": 0,
-   "free_start_era": "NONE"
+   "free_start_era": "NONE",
+   "kind": "building",
+   "requires": [],
+   "requires_one_of": [],
+   "free_bonus": "NONE",
+   "free_bonus_count": 0
   }
  },
  "buildings_requiring_goods": [

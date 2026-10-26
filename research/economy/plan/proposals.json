@@ -18,18 +18,19 @@
   "military supply"
  ],
  "land_kinds": [
+  "building",
   "crop",
-  "orchard",
-  "herd",
+  "forest",
   "game",
-  "sea",
+  "herd",
+  "made",
+  "orchard",
   "ore",
   "quarry",
-  "well",
-  "special",
-  "made",
+  "sea",
   "site",
-  "building"
+  "special",
+  "well"
  ],
  "needs": [
   "staple",
@@ -195,7 +196,7 @@
    "category": "raw material",
    "land": "herd",
    "need": "clothing",
-   "note": "Nothing places, gives or uses it today. Proposed: pastures on sheep land yield it beside meat (Q1)."
+   "note": "Yielded by sheep pastures (D10, LQ.F11); nothing placed, gave or used it before."
   },
   "BONUS_COTTON": {
    "unit": "bales",
@@ -497,6 +498,30 @@
    "need": null,
    "note": "A site, not a good: no improvement yields or trades it. Proposed to stay a plot feature of the map (Q2).",
    "outside_accounts": true
+  },
+  "BONUS_TIMBER": {
+   "unit": "tonnes",
+   "category": "raw material",
+   "land": "forest",
+   "need": "fuel",
+   "planned": true,
+   "note": "New (R1): lumber camps and lumbermills on forest; also the fuel before coal (D12) and a building material."
+  },
+  "BONUS_DAIRY": {
+   "unit": "tonnes",
+   "category": "other food",
+   "land": "herd",
+   "need": "variety",
+   "planned": true,
+   "note": "New (R1): co-product of cow and sheep pastures."
+  },
+  "BONUS_LEATHER": {
+   "unit": "bales",
+   "category": "raw material",
+   "land": "herd",
+   "need": "clothing",
+   "planned": true,
+   "note": "New (R1): co-product of horse, cow and sheep pastures."
   }
  }
 }

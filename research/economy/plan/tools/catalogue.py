@@ -64,13 +64,29 @@ for b in recs([os.path.join(X, 'Terrain', 'CIV4ImprovementInfos.xml')], 'Improve
             goods[g]['improvements'].append(dict(improvement=imp, trade=one(s, 'bBonusTrade') == '1', makes_valid=one(s, 'bBonusMakesValid') == '1',
                                                  yields=ints(s, 'YieldChanges', 'iYieldChange')))
 
+LIMITS = {}
+for b in recs([os.path.join(X, 'Buildings', 'CIV4BuildingClassInfos.xml')] + mods('*BuildingClassInfos.xml'), 'BuildingClassInfo'):
+    LIMITS[one(b, 'Type')] = dict(world=int(one(b, 'iMaxGlobalInstances', '-1')), team=int(one(b, 'iMaxTeamInstances', '-1')), player=int(one(b, 'iMaxPlayerInstances', '-1')))
+
+
+def kind(cls):
+    l = LIMITS.get(cls, {})
+    if l.get('world', -1) > 0: return 'world wonder'
+    if l.get('team', -1) > 0: return 'team wonder'
+    if l.get('player', -1) > 0: return 'national wonder'
+    return 'building'
+
+
 BUILDINGS = {}
-for b in recs([os.path.join(X, 'Buildings', 'CIV4BuildingInfos.xml')], 'BuildingInfo'):
+for b in recs([os.path.join(X, 'Buildings', 'CIV4BuildingInfos.xml')] + mods('*BuildingInfos.xml'), 'BuildingInfo'):
     ty = one(b, 'Type')
     need = re.findall(r'<BuildingClassNeeded>\s*<BuildingClassType>(\w+)</BuildingClassType>\s*<bNeededInCity>1', b)
     BUILDINGS[ty] = dict(cls=one(b, 'BuildingClass'), tech=one(b, 'PrereqTech'), techs=[t for t in re.findall(r'<TechTypes>(.*?)</TechTypes>', b, re.S)[0:1] for t in re.findall(r'<PrereqTech>(\w+)', t) if t != 'NONE'] if '<TechTypes>' in b else [],
                          cost=int(one(b, 'iCost', '0')), needs=need, food_kept=int(one(b, 'iFoodKept', '0')), health=int(one(b, 'iHealth', '0')),
-                         happiness=int(one(b, 'iHappiness', '0')), free_start_era=one(b, 'FreeStartEra'))
+                         happiness=int(one(b, 'iHappiness', '0')), free_start_era=one(b, 'FreeStartEra'), kind=kind(one(b, 'BuildingClass')),
+                         requires=[x for x in [one(b, 'Bonus')] if x and x != 'NONE'],
+                         requires_one_of=re.findall(r'<BonusType>(\w+)</BonusType>', (re.search(r'<PrereqBonuses>(.*?)</PrereqBonuses>', b, re.S) or [None, ''])[1]),
+                         free_bonus=one(b, 'FreeBonus'), free_bonus_count=int(one(b, 'iNumFreeBonuses', '0')))
     pre = one(b, 'Bonus')
     if pre in goods: goods[pre]['used_by']['building_requires'].append(ty)
     m = re.search(r'<PrereqBonuses>(.*?)</PrereqBonuses>', b, re.S)
@@ -92,13 +108,16 @@ for b in recs([os.path.join(X, 'Units', 'CIV4UnitInfos.xml')], 'UnitInfo'):
     for g in re.findall(r'<BonusType>(\w+)</BonusType>', m.group(1)) if m else []:
         if g in goods: goods[g]['used_by']['unit_requires_one_of'].append(ty)
 
-for b in recs([os.path.join(X, 'GameInfo', 'CIV4CorporationInfo.xml')], 'CorporationInfo'):
+CORP = {}
+for b in recs([os.path.join(X, 'GameInfo', 'CIV4CorporationInfo.xml')] + mods('*CorporationInfo*.xml'), 'CorporationInfo'):
     ty = one(b, 'Type')
     m = re.search(r'<PrereqBonuses>(.*?)</PrereqBonuses>', b, re.S)
     for g in re.findall(r'<BonusType>(\w+)</BonusType>', m.group(1)) if m else []:
         if g in goods: goods[g]['used_by']['corporation_consumes'].append(ty)
     p = one(b, 'BonusProduced')
-    if p in goods: goods[p]['used_by']['corporation_produces'].append(ty)
+    if p in goods:
+        goods[p]['used_by']['corporation_produces'].append(ty)
+        CORP[ty] = dict(produces=p, consumes=re.findall(r'<BonusType>(\w+)</BonusType>', m.group(1)) if m else [], tech=one(b, 'TechPrereq'))
 
 # building chains
 by_cls = {v['cls']: k for k, v in BUILDINGS.items()}
@@ -118,6 +137,16 @@ chain_detail = {k: {b: BUILDINGS[b] for b in v} for k, v in chains.items()}
 storage = {k: BUILDINGS[k] for k, v in BUILDINGS.items() if v['food_kept']}
 processing = sorted({b for g in goods.values() for key in ('building_requires', 'building_requires_one_of') for b in g['used_by'][key]})
 
+# origins of every good not placed on the map: the buildings, wonders and corporations that give it, with their tech and inputs
+origins = {}
+for ty, g in goods.items():
+    if g['placed']: continue
+    givers = [dict(source=bt, kind=BUILDINGS[bt]['kind'], tech=BUILDINGS[bt]['tech'], copies=BUILDINGS[bt]['free_bonus_count'],
+                   requires=BUILDINGS[bt]['requires'], requires_one_of=BUILDINGS[bt]['requires_one_of'], cost=BUILDINGS[bt]['cost'])
+              for bt in sorted(g['given_by_buildings']) if bt in BUILDINGS]
+    givers += [dict(source=ct, kind='corporation', tech=c['tech'], consumes=c['consumes']) for ct, c in sorted(CORP.items()) if c['produces'] == ty]
+    origins[ty] = givers
+
 prop_path = os.path.join(HERE, 'proposals.json')
 props = json.load(open(prop_path)) if os.path.exists(prop_path) else {}
 missing = []
@@ -126,8 +155,9 @@ for ty, g in goods.items():
     if p: g['proposed'] = p
     else: missing.append(ty)
     g['used_by'] = {k: sorted(v) for k, v in g['used_by'].items()}
-out = dict(source='mod XML at the checked commit', goods=goods, chains=chain_detail, storage_buildings=storage,
+out = dict(source='mod XML at the checked commit', goods=goods, origins=origins, chains=chain_detail, storage_buildings=storage,
            buildings_requiring_goods=processing, without_proposal=missing)
 json.dump(out, open(os.path.join(HERE, 'catalogue.json'), 'w'), indent=1)
-print('%d goods (%d placed on the map), %d without a proposal; essentials %s; market %s; %d storage buildings; %d buildings require goods'
-      % (len(goods), sum(g['placed'] for g in goods.values()), len(missing), chains['essentials'], chains['market'], len(storage), len(processing)))
+print('%d goods (%d placed on the map), %d without a proposal; essentials %s; market %s; %d storage buildings; %d buildings require goods; %d off-map goods without an origin: %s'
+      % (len(goods), sum(g['placed'] for g in goods.values()), len(missing), chains['essentials'], chains['market'], len(storage), len(processing),
+         sum(1 for v in origins.values() if not v), [k for k, v in origins.items() if not v]))

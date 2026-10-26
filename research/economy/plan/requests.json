@@ -1,0 +1,55 @@
+{
+ "about": "The user's requests for the economy plan, verbatim, with what each asks and where in the plan it is carried out. Read with statement.md after every context reset; a request is closed only when every item is done.",
+ "requests": [
+  {
+   "id": "R1",
+   "date": "2026-10-26",
+   "status": "open",
+   "text": "Add wood/timber through lumber camps and lumbermills, wool through sheep pastures, dairy through cow and sheep pastures, leather via horse, cow and sheep pastures. There is an art studio on Github that you can use. Use realistic textures for buttons and TGA entries. Trace the remaining bonuses/goods to their respective origins (buildings/wonders)\n\nSave this prompt as a json, so it survives context wipes",
+   "items": [
+    {
+     "id": "R1.1",
+     "what": "Timber (wood) as a good, from lumber camps and lumbermills",
+     "status": "planned",
+     "where": "plan.json LQ.F8, LQ.F10; proposals.json BONUS_TIMBER"
+    },
+    {
+     "id": "R1.2",
+     "what": "Wool from sheep pastures",
+     "status": "planned",
+     "where": "plan.json D10, LQ.F11"
+    },
+    {
+     "id": "R1.3",
+     "what": "Dairy as a good, from cow and sheep pastures",
+     "status": "planned",
+     "where": "plan.json LQ.F8, LQ.F11; proposals.json BONUS_DAIRY"
+    },
+    {
+     "id": "R1.4",
+     "what": "Leather as a good, from horse, cow and sheep pastures",
+     "status": "planned",
+     "where": "plan.json LQ.F8, LQ.F11; proposals.json BONUS_LEATHER"
+    },
+    {
+     "id": "R1.5",
+     "what": "Icons for the new goods from the art studio on GitHub: realistic textures for the buttons and the font atlas (TGA) entries",
+     "status": "planned",
+     "where": "plan.json D9, LQ.F9"
+    },
+    {
+     "id": "R1.6",
+     "what": "Trace every remaining resource that is not on the map to its origin: the buildings and wonders that give it",
+     "status": "done",
+     "where": "catalogue.json origins (tools/catalogue.py)"
+    },
+    {
+     "id": "R1.7",
+     "what": "Save the request as JSON so it survives context resets",
+     "status": "done",
+     "where": "research/economy/plan/requests.json"
+    }
+   ]
+  }
+ ]
+}

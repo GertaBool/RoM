@@ -5,9 +5,10 @@ Start every session with `python3 tools/check_plan.py --summary`. The plan holds
 | File | What it is | Made by |
 |---|---|---|
 | `statement.md` | The design statement; the plan implements it and nothing beyond it | the user |
+| `requests.json` | The user's requests, verbatim, split into items with status and where each is carried out | added with each request |
 | `plan.json` | Decisions; components in dependency order; per feature: the code it changes (anchors), ordered tasks, the data it adds, the features it comes after, acceptance, checks; invariants | edited with the work |
 | `proposals.json` | Proposed unit, category, land kind and need for each existing resource | edited with the work |
-| `catalogue.json` | Every resource from the mod XML: placement rules, improvements, givers, uses; the essentials and market chains; storage buildings; buildings that require goods; joined to the proposals | `tools/catalogue.py <checkout>` |
+| `catalogue.json` | Every resource from the mod XML: placement rules, improvements, givers, uses; the origins of every good not on the map (buildings, wonders, corporations, with tech and inputs); the essentials and market chains; storage buildings; buildings that require goods; joined to the proposals | `tools/catalogue.py <checkout>` |
 | `callsites.json` | Every call that reads a plot's resource token, with its function and class (what LQ changes, line by line) | `tools/callsites.py <checkout>`; classes edited with the work |
 | `status.json` | Features done, broken anchors, the mod commit checked | `tools/check_plan.py <checkout>` |
 | `confirmations.json` | In-game confirmations of manual checks, by check id (`LQ.F5.0`) | added when confirmed |
