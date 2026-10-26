@@ -231,6 +231,13 @@
    "kind": "critique",
    "text": "[quoting the proposal for Timber, Leather, Wool, Dairy and the order of work]\n\nThat's too military focused. You need to check your priors. I understand that you want to fulfill specific requests, but the nature of the design statement implies a lot more.",
    "led_to": "R8 re-derived from statement.md"
+  },
+  {
+   "id": "M34",
+   "date": "2026-10-26",
+   "kind": "instruction",
+   "text": "When you're done, assess the state of the design, the plan and the task list. Order what's left into a reasonable hierarchy and if needes rearrange tasks and edit the plan based on new knowledge (ask me in plain terms though because specifics matter and I'm patient enough to discuss them)",
+   "led_to": "Assessment of design, plan and tasks; proposed reordering put to the user before editing"
   }
  ],
  "requests": [
