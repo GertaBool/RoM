@@ -245,6 +245,11 @@ def summary():
     m = PLAN['repositories']['mod']
     print('Settlement Economy. Mod work: %s, branch %s (%s). Checks recorded: %s' % (m['project'], m['branch'], m['access'],
           '%s, mod %s' % (STATUS.get('checked'), STATUS.get('mod_commit')) if STATUS else 'none yet'))
+    cur = PLAN.get('current', {})
+    if cur:
+        print('CURRENT (read first; update it with every commit): %s, as of %s' % (cur.get('mod_head', '?'), cur.get('updated', '?')))
+        for k in ('in_flight', 'next', 'environment'):
+            for l in cur.get(k, []): print('  %s: %s' % (k, l))
     print('Requests open:')
     for r in REQ['requests']:
         for i in r['items']:
