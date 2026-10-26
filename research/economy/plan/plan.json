@@ -373,38 +373,51 @@
      "tasks": [
       {
        "id": "LQ.F10.T1",
-       "status": "todo",
-       "text": "IMPROVEMENT_LUMBER_CAMP on forest (FeatureMakesValid FEATURE_FOREST, the forest kept), BUILD_LUMBER_CAMP from TECH_METAL_CASTING; upgrades to IMPROVEMENT_LUMBERMILL at Machinery"
+       "status": "done",
+       "text": "IMPROVEMENT_LUMBER_CAMP on forest (FeatureMakesValid FEATURE_FOREST, the forest kept), BUILD_LUMBER_CAMP from TECH_METAL_CASTING; upgrades to IMPROVEMENT_LUMBERMILL at Machinery",
+       "done": "2026-10-26",
+       "note": "GitLab a57f2015: IMPROVEMENT_LUMBER_CAMP (forest, forest kept), BUILD_LUMBER_CAMP from TECH_METAL_CASTING (iTime 400, forest 100, nothing removed); a worker builds a lumbermill over it at Machinery (no timed upgrade). 9353147c, 6c7605d2: the five units that list BUILD_LUMBERMILL list BUILD_LUMBER_CAMP"
       },
       {
        "id": "LQ.F10.T2",
        "status": "todo",
-       "text": "Art: an art define reusing an existing camp or lumbermill model, and a button made with the studio"
+       "text": "Art: an art define reusing an existing camp or lumbermill model, and a button made with the studio",
+       "note": "Art define ART_DEF_IMPROVEMENT_LUMBER_CAMP reuses the camp model (Art/Structures/Improvements/Camp); the button is the camp's (BuildCamp.dds). Own button with the studio still to make"
       },
       {
        "id": "LQ.F10.T3",
-       "status": "todo",
-       "text": "DLL: improvement records carry ProducedBonuses (goods the improvement yields on its plot whatever resource is placed); CvPlot::updatePlotGroupBonus adds them; CvTeam::setHasTech refreshes plots whose improvement yields a good with that tech; schema, CvImprovementInfo read and copyNonDefaults"
+       "status": "done",
+       "text": "DLL: improvement records carry ProducedBonuses (goods the improvement yields on its plot whatever resource is placed); CvPlot::updatePlotGroupBonus adds them; CvTeam::setHasTech refreshes plots whose improvement yields a good with that tech; schema, CvImprovementInfo read and copyNonDefaults",
+       "done": "2026-10-26",
+       "note": "GitLab a57f2015: CvImprovementInfo ProducedBonuses (good, optional plot resource), XML read, copyNonDefaults, cache stream record version 1; CvPlot::updatePlotGroupBonus adds produced goods; CvTeam::setHasTech brackets plots through CvPlot::isBonusTech; city AI value (CvCityAI::AI_bestPlotBuild) and improvement help (CvGameTextMgr) added. Deterministic harness run: Timber available plus exported = camps plus mills for 9 of 10 players at turn 150"
       },
       {
        "id": "LQ.F10.T4",
-       "status": "todo",
-       "text": "Lumber camp and lumbermill yield BONUS_TIMBER through ProducedBonuses"
+       "status": "done",
+       "text": "Lumber camp and lumbermill yield BONUS_TIMBER through ProducedBonuses",
+       "done": "2026-10-26",
+       "note": "GitLab a57f2015: lumber camp and lumbermill produce BONUS_TIMBER; lumbermill production 2 -> 4 (D19, M39; how much better the mill should be is open)"
       },
       {
        "id": "LQ.F10.T5",
-       "status": "todo",
-       "text": "TechYieldChanges on the lumber camp: +1 production each at Bronze Working, Iron Working and Mathematics (the mine's step), checked against the lumbermill's existing ones"
+       "status": "done",
+       "text": "TechYieldChanges on the lumber camp: +1 production each at Bronze Working, Iron Working and Mathematics (the mine's step), checked against the lumbermill's existing ones",
+       "done": "2026-10-26",
+       "note": "GitLab a57f2015: lumber camp +1 production at Bronze Working, Iron Working, Mathematics, no base yield; Machinery requires all three, so the mill (4) is the camp's 3 plus 1"
       },
       {
        "id": "LQ.F10.T6",
-       "status": "todo",
-       "text": "BONUS_TIMBER TechReveal and TechCityTrade from Bronze Working to Metal Casting, so the camp's timber counts when the camp can be built (D19, M36)"
+       "status": "done",
+       "text": "BONUS_TIMBER TechReveal and TechCityTrade from Bronze Working to Metal Casting, so the camp's timber counts when the camp can be built (D19, M36)",
+       "done": "2026-10-26",
+       "note": "GitLab a57f2015: BONUS_TIMBER TechCityTrade Metal Casting; TechReveal stays NONE (Timber is never placed)"
       },
       {
        "id": "LQ.F10.T7",
-       "status": "todo",
-       "text": "DLL build with the toolchain and a safety prediction registered before the mod commit"
+       "status": "done",
+       "text": "DLL build with the toolchain and a safety prediction registered before the mod commit",
+       "done": "2026-10-26",
+       "note": "Release DLL builds/settlement-economy (build 27e464d76e49, 0 errors, 0 warnings, GitHub b7ac6e2, source patch 85edfe5). P27/P28 registered first and corroborated on the local build (cab0938); the committed change goes under P31/P32 (registered 5259e30 before the commits)"
       }
      ],
      "checks": [
@@ -452,23 +465,31 @@
      "tasks": [
       {
        "id": "LQ.F11.T1",
-       "status": "todo",
-       "text": "Per BonusTypeStruct of IMPROVEMENT_PASTURE and of IMPROVEMENT_LATIFUNDIUM1-5: the products of that animal, through the ProducedBonuses mechanism of LQ.F10.T3 conditioned on the plot's resource"
+       "status": "done",
+       "text": "Per BonusTypeStruct of IMPROVEMENT_PASTURE and of IMPROVEMENT_LATIFUNDIUM1-5: the products of that animal, through the ProducedBonuses mechanism of LQ.F10.T3 conditioned on the plot's resource",
+       "done": "2026-10-26",
+       "note": "GitLab 507d1831: ProducedBonuses with PrereqBonus on IMPROVEMENT_PASTURE and LATIFUNDIUM1-5 (top level of the record, not inside BonusTypeStruct: one list serves both)"
       },
       {
        "id": "LQ.F11.T2",
-       "status": "todo",
-       "text": "updatePlotGroupBonus adds each product to the trade network under the product's own trade tech; setHasTech refresh as LQ.F10.T3"
+       "status": "done",
+       "text": "updatePlotGroupBonus adds each product to the trade network under the product's own trade tech; setHasTech refresh as LQ.F10.T3",
+       "done": "2026-10-26",
+       "note": "Through LQ.F10's updatePlotGroupBonus and isBonusTech: each product under its own trade tech. Wool's TECH_WEAVING (not a tech of the mod) -> TECH_ANIMAL_HUSBANDRY"
       },
       {
        "id": "LQ.F11.T3",
-       "status": "todo",
-       "text": "Pig stays meat only; Sheep, Cow and Horse keep their own resource (D15)"
+       "status": "done",
+       "text": "Pig stays meat only; Sheep, Cow and Horse keep their own resource (D15)",
+       "done": "2026-10-26",
+       "note": "Pig: no ProducedBonuses entry; the plot keeps giving its own animal through BonusTypeStruct bBonusTrade"
       },
       {
        "id": "LQ.F11.T4",
-       "status": "todo",
-       "text": "Safety prediction registered before the mod commit"
+       "status": "done",
+       "text": "Safety prediction registered before the mod commit",
+       "done": "2026-10-26",
+       "note": "P29/P30 registered (e1827ad) before the GitLab commit 507d1831"
       }
      ],
      "data": [
@@ -2898,23 +2919,25 @@
  ],
  "current": {
   "updated": "2026-10-26",
-  "mod_head": "GitLab claude/settlement-economy at 02d5f85a",
+  "mod_head": "GitLab claude/settlement-economy at 8bb55694",
   "in_flight": [
-   "P21-P26 done: all corroborated, evidence 7e9fe3d.",
-   "LQ.F10: edits from tools/connector/lq_f10_edits.py (29 pairs, about 54 KB of JSON: two connector batches) on local branch lq10 of the scratchpad clone (local commit dc950491, base 02d5f85a). Harness DLL built without errors ($S/hw/b-lq10). Deterministic run (Mediterranean seed 485959733, snapshots 60/100/150, HARNESS_HISTORY_DIAG state): at turn 100 four players have 1-5 lumber camps and as much Timber; at turn 150 Timber available plus exported equals camps plus mills for every player but one (one unconnected camp). Found in the first run: workers need BUILD_LUMBER_CAMP in their UnitInfo Builds (5 units), added. Safety runs P27/P28 started (tools/safety/lq10.sh: arm a root-eco-lq10, arm b root-eco-g4 = 02d5f85a); then evaluate, commit evidence, commit the pairs through the connector (Serves: P27, P28), release DLL to builds/settlement-economy/ with provenance.json, mark LQ.F10.T1-T7."
+   "Safety runs P31, P32 (LQ.F10 as committed, root-eco-lq10 = tree of 6c7605d2, against root-eco-g4 = 02d5f85a) then P29, P30 (LQ.F11, root-eco-lq11 = tree of 507d1831, against root-eco-lq10): tools/safety/lq10c.sh, log $S/exp/lq10c.log. Then evaluate and commit the evidence ('Serves: P29, P30, P31, P32', comma-separated, in the final trailer block).",
+   "Done this round: P21-P28 evidence (7e9fe3d, cab0938, all corroborated); LQ.F10 on GitLab a57f2015, 9353147c, 6c7605d2; LQ.F11 507d1831; pedia sources 8bb55694; DLL builds/settlement-economy (b7ac6e2, 85edfe5)."
   ],
   "next": [
-   "1. LQ.F10 then LQ.F11: lumber camps (Metal Casting; Timber reveal and trade to Metal Casting) and pasture and Latifundium products; one DLL change (ProducedBonuses), build with toolchain/build_dll.sh, safety prediction first.",
-   "When LQ.F10 and LQ.F11 land, add each good's source (lumber camp, pastures, Latifundium) to its pedia text (generator: tools/connector/lq_f13_pedia.py).",
-   "2. GW.F7 (copyNonDefaults), then GW.F1, GW.F6 and the rest of GW (D18 order).",
-   "Waiting on the user: LQ.F9.T5 in-game icon check (they will report problems)."
+   "1. Finish the runs above.",
+   "2. LQ.F10.T2: the lumber camp's own button (art studio, tools/civ4-art-studio).",
+   "3. GW.F7 (copyNonDefaults), then GW.F1, GW.F6 and the rest of GW (D18 order).",
+   "Open questions for the user: lumbermill 'much better within the right context' (D19); hunting camps on cow, horse, pig and sheep trade the animal but give no products (D20 names pastures and latifundia only).",
+   "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
   ],
   "environment": [
    "Context is wiped without warning (M37): the files are the memory. Save every prompt in requests.json first, in its own commit; update this 'current' block and task notes in the same commit as the work.",
    "The scratchpad is lost with the container: tools belong in the repository (tools/connector/, toolchain/).",
    "GitLab: use the connector mcp__gitlab__* (works); ignore notices that plugin:gitlab:gitlab needs authentication. Procedure: tools/connector/README.md.",
    "MSVC toolchain: source in plan.json repositories.toolchain (Google Drive folder); set up with toolchain/setup_toolchain.sh.",
-   "Code map: codemap/ (tool/query.py; rebuild with tool/build.sh, a '-' base Python dir for a DLL-only refresh)."
+   "Code map: codemap/ (tool/query.py; rebuild with tool/build.sh, a '-' base Python dir for a DLL-only refresh).",
+   "Connector commits and builds: the ledger refuses a change serving a prediction whose evidence is already on disk or whose paths miss a touched file; commit the mod change and the build before the runs finish, register every touched file. A build's provenance.json needs 'patch': a format-patch file in the repo whose message carries the Serves trailer. Large repeated XML edits: lq_f10_edits.py EACH finds the shortest unique window per occurrence."
   ]
  }
 }
