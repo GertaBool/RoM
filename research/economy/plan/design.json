@@ -351,8 +351,8 @@
    "question": "Lumber",
    "status": "decided",
    "why": "Timber is essential (M31, M35): fuel and building material of every early settlement.",
-   "choice": "A lumber camp on forest from Metal Casting; it upgrades to the existing lumbermill at Machinery. Bronze Working, Iron Working and Mathematics each raise lumber output (under today's engine: the tile's production, +1 per tech, the mine's step; with the goods accounts: timber per worked camp). Timber's reveal and trade techs follow the camp to Metal Casting (proposed, to confirm).",
-   "source": "M35"
+   "choice": "A lumber camp on forest from Metal Casting; it upgrades to the existing lumbermill at Machinery. Bronze Working, Iron Working and Mathematics each raise lumber output (under today's engine: the tile's production, +1 per tech, the mine's step; with the goods accounts: timber per worked camp). Timber's reveal and trade techs move from Bronze Working to Metal Casting, so a camp's timber counts as soon as it is built (M36).",
+   "source": "M35, M36"
   },
   {
    "id": "D20",
