@@ -53,7 +53,7 @@
    "id": "D6",
    "question": "Distribution",
    "status": "decided",
-   "choice": "As the game works now: goods are shared across a connected trade network (CvPlotGroup: roads, rivers, coast); no transport capacities or managed shipments.",
+   "choice": "As the game works now: goods are shared across a connected trade network (CvPlotGroup: roads, rivers, coast). Blockades count: enemy ships blockading water plots take them out of the network (CvUnit::updatePlunder, CvPlot::isTradeNetwork), which changes what reaches a city and what deliveries arrive. Transport limits apply only to units (their cargo), not to goods.",
    "source": "user, 2026-10-26"
   },
   {
@@ -1159,7 +1159,7 @@
     "D5",
     "D6"
    ],
-   "player_sees": "Stocks limited by storage buildings; perishables decaying unless preserved; surpluses moving to shortages across a connected trade network, as resources reach cities today.",
+   "player_sees": "Stocks limited by storage buildings; perishables decaying unless preserved; surpluses moving to shortages across a connected trade network, as resources reach cities today; a blockade or a cut road changing what reaches a city.",
    "features": [
     {
      "id": "SD.F1",
@@ -1211,11 +1211,19 @@
     },
     {
      "id": "SD.F3",
-     "what": "Distribution as the game works now: goods are shared across a connected trade network (roads, rivers, coast), the network the engine already keeps",
+     "what": "Distribution as the game works now: goods are shared across a connected trade network (roads, rivers, coast), the network the engine already keeps; blockades and cut roads change it as they do today; no transport capacity on goods",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvPlotGroup.cpp",
        "anchor": "void CvPlotGroup::changeNumBonuses(BonusTypes eBonus, int iChange)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlot.cpp",
+       "anchor": "bool CvPlot::isTradeNetwork(TeamTypes eTeam) const"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvUnit.cpp",
+       "anchor": "void CvUnit::updatePlunder(int iChange, bool bUpdatePlotGroups)"
       }
      ],
      "checks": [
@@ -1230,7 +1238,11 @@
      ],
      "tasks": [
       "distributeGoods: surpluses move to shortages across the cities of one trade network (the CvPlotGroup the engine keeps), exact integer rationing",
-      "No transport capacity; a city cut off from the network gets nothing, as with resources today"
+      "Blockades and cut roads need no new rule: blockaded water plots leave the network (CvPlot::isTradeNetwork) and plot groups split, so the goods pass sees the smaller network",
+      "No transport capacity on goods; a city cut off from the network gets nothing, as with resources today"
+     ],
+     "acceptance": [
+      "A blockading fleet off a port cuts that port from the rest of the network, and its goods stop flowing until the blockade lifts"
      ]
     }
    ]
@@ -1324,7 +1336,8 @@
       "SD.F3"
      ],
      "tasks": [
-      "drawSupplies: units outside friendly cities draw goods from the nearest connected city; without them they lose strength"
+      "drawSupplies: units outside friendly cities draw goods from the nearest connected city; without them they lose strength",
+      "Units keep their existing transport limits (cargo space); supplies need no new transport rule"
      ]
     },
     {
@@ -1524,7 +1537,7 @@
     },
     {
      "id": "TR.F6",
-     "what": "Delivery as today: the two civilizations' trade networks must connect (CvPlayer::canTradeNetworkWith); goods move from the seller's network to the buyer's",
+     "what": "Delivery as today: the two civilizations' trade networks must connect (CvPlayer::canTradeNetworkWith), so a blockade or war that splits them stops deliveries; goods move from the seller's network to the buyer's",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
