@@ -703,8 +703,9 @@
    "depends_on": [],
    "decisions": [
     "D1",
-    "D9",
-    "D18"
+    "D18",
+    "D22",
+    "D9"
    ],
    "player_sees": "Nothing changes in play. Every resource shows its own icon.",
    "features": [
@@ -804,29 +805,35 @@
      "tasks": [
       {
        "id": "GW.F1.T1",
-       "text": "Schema tags on BonusInfo",
+       "text": "Schema tags on BonusInfo: GoodUnit and GoodCategory (D22)",
        "status": "todo",
-       "done_when": "CIV4TerrainSchema.xml declares on BonusInfo, all optional (minOccurs 0) after the existing elements: GoodUnit (one of proposals.json units), GoodCategory (one of its 8 categories), iStorage (a settlement's store cap, in the good's unit), iSpoilage (per mille lost per turn with no preservation) with SpoilageTechs (TechType and iSpoilageChange, per mille, applied when the owner has the tech) and iBaseValue; every existing BonusInfo file still loads; consumers: GW.F3 accounts, GW.F5 pass, SD storage and spoilage, TR trade value; checked by a deterministic harness run with identical telemetry (no record sets them yet)"
+       "done_when": "CIV4TerrainSchema.xml declares GoodUnit and GoodCategory on BonusInfo, optional (minOccurs 0), after the existing elements, with text values from proposals.json units (tonnes, bales, barrels, crates, head) and categories (staple food ... military supply); every BonusInfo file of the mod and its modules still loads; consumers later: GW.F3 accounts, the UI; checked by a deterministic harness run with identical telemetry"
       },
       {
        "id": "GW.F1.T2",
-       "text": "CvBonusInfo::read and copyNonDefaults read them (modules included)",
+       "text": "CvBonusInfo::read and copyNonDefaults read GoodUnit and GoodCategory (modules included)",
        "status": "todo",
-       "done_when": "CvBonusInfo stores the fields (unit and category as ints from fixed lists in the DLL, -1 when absent), reads them in read(CvXMLLoadUtility*), carries them in copyNonDefaults (copy_audit.py clean) and in the cache stream behind a version flag; accessors exist; no game code reads them yet; the DLL builds and the same deterministic run is identical"
+       "done_when": "CvBonusInfo holds the unit and category as indices into fixed lists in the DLL that match proposals.json (-1 when absent; an unknown text is reported on load), reads them in read(CvXMLLoadUtility*), carries them in copyNonDefaults (copy_audit.py clean) and in the cache stream behind a version flag; getters exist; no game code reads them yet; the DLL builds and the deterministic run is identical"
       },
       {
        "id": "GW.F1.T3",
-       "text": "Fill CIV4BonusInfos.xml from proposals.json once confirmed",
+       "text": "Fill CIV4BonusInfos.xml (and module bonus records) with the unit and category proposed in proposals.json (confirmed, M50)",
        "status": "todo",
-       "done_when": "Each resource record in CIV4BonusInfos.xml (and module records) carries the values the user confirmed: unit and category from proposals.json, storage, spoilage and base value from a confirmed table (proposals.json has no numbers for these yet); checked by catalogue.py listing every resource with all fields and no unknown value"
+       "done_when": "Every resource record of the mod and its modules carries GoodUnit and GoodCategory equal to proposals.json; catalogue.py (or a check beside it) lists every resource with both fields and none missing or unknown; the deterministic run is identical (nothing reads them)"
+      },
+      {
+       "id": "GW.F1.T4",
+       "status": "todo",
+       "text": "Storage limit, spoilage per preservation technology and base value: fields and values, once the goods system works (D22, M50)",
+       "done_when": "Waits for GW.F3 and GW.F5; its done_when is written then, from the system's behaviour"
       }
      ],
      "data": [
       {
-       "name": "GoodUnit, GoodCategory, iStorage, SpoilageTechs, iBaseValue",
+       "name": "GoodUnit, GoodCategory",
        "where": "CvBonusInfo (CIV4TerrainSchema.xml, CIV4BonusInfos.xml)",
-       "type": "unit and category as enums; ints",
-       "bounds": "storage and value per D1 bounds",
+       "type": "unit and category as ints from fixed lists (proposals.json units and categories)",
+       "bounds": "index into the list, -1 when absent",
        "saved": false
       }
      ],

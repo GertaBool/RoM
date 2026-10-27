@@ -373,6 +373,14 @@
    ],
    "proposal": "keep today's form until CN, then decide",
    "why": "The user: still valuable goods, but maybe reworked (M35)"
+  },
+  {
+   "id": "D22",
+   "question": "Goods catalogue fields now",
+   "status": "decided",
+   "why": "Fields whose meaning is not fixed should not be built (rule A); spoilage, storage and value need the working goods system to be judged (M50).",
+   "choice": "Each resource record gets its unit and category now, as proposed in proposals.json (M50, question 1). Storage limits, spoilage (and its representation per preservation technology) and base values wait until the goods system works (GW.F3, GW.F5); no fields for them before then.",
+   "source": "M50"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"
