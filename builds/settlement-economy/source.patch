@@ -1,10 +1,10 @@
-From 1fdd6ba1dcab53566a2379b65064627bab72440c Mon Sep 17 00:00:00 2001
-Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate
+From 84ea7fc53147210dd3740f1f85c385008a27e25d Mon Sep 17 00:00:00 2001
+Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults
 
-Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 1fdd6ba1 against GitLab main
-71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1.
+Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 84ea7fc5 against GitLab main
+71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5.
 
-Serves: P37, P38
+Serves: P40, P41
 ---
 diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
 index 533e42d..3643079 100644
@@ -168,10 +168,45 @@ index fbac12d..d7e9eb3 100644
  	for (int iBonus = 0; iBonus < GC.getNumBonusInfos(); iBonus++)
  	{
 diff --git a/Assets/CvGameCoreDLL/CvInfos.cpp b/Assets/CvGameCoreDLL/CvInfos.cpp
-index ee85ca7..2f70c82 100644
+index ee85ca7..3a451a4 100644
 --- a/Assets/CvGameCoreDLL/CvInfos.cpp
 +++ b/Assets/CvGameCoreDLL/CvInfos.cpp
-@@ -16018,6 +16018,37 @@ int CvImprovementInfo::getImprovementBonusDiscoverRand(int i) const
+@@ -2163,6 +2163,9 @@ void CvTechInfo::copyNonDefaults(CvTechInfo* pClassInfo)
+ 	{
+ 		m_piPrereqAndTechs[j] = pClassInfo->getPrereqAndTechs(j); 
+ 	}
++	// GW.F7: members the XML read sets that this copy did not carry (research/economy/plan/tools/copy_audit.py)
++	if (m_bDCMAirBombTech1 == 0) m_bDCMAirBombTech1 = pClassInfo->m_bDCMAirBombTech1;
++	if (m_bDCMAirBombTech2 == 0) m_bDCMAirBombTech2 = pClassInfo->m_bDCMAirBombTech2;
+ }
+ 
+ void CvTechInfo::copyNonDefaultsReadPass2(CvTechInfo* pClassInfo)
+@@ -6840,6 +6843,11 @@ void CvUnitInfo::copyNonDefaults(CvUnitInfo* pClassInfo)
+ 	}
+ 
+ 	updateArtDefineButton();
++	// GW.F7: members the XML read sets that this copy did not carry (research/economy/plan/tools/copy_audit.py)
++	if (m_bCanBeRebel == false) m_bCanBeRebel = pClassInfo->m_bCanBeRebel;
++	if (m_bCanQuellRebellion == false) m_bCanQuellRebellion = pClassInfo->m_bCanQuellRebellion;
++	if (m_bCanRebelCapture == false) m_bCanRebelCapture = pClassInfo->m_bCanRebelCapture;
++	if (m_bCannotDefect == false) m_bCannotDefect = pClassInfo->m_bCannotDefect;
+ }
+ /************************************************************************************************/
+ /* XMLCOPY                                 END                                                  */
+@@ -12102,6 +12110,12 @@ void CvBuildingInfo::copyNonDefaults(CvBuildingInfo* pClassInfo)
+ 			m_piBuildingHappinessChanges[j] = pClassInfo->getBuildingHappinessChanges(j);
+ 		}
+ 	}
++	// GW.F7: members the XML read sets that this copy did not carry (research/economy/plan/tools/copy_audit.py)
++	if (m_iDCMAirbombMission == 0) m_iDCMAirbombMission = pClassInfo->m_iDCMAirbombMission;
++	if (m_iRevIdxDistanceModifier == 0) m_iRevIdxDistanceModifier = pClassInfo->m_iRevIdxDistanceModifier;
++	if (m_iRevIdxLocal == 0) m_iRevIdxLocal = pClassInfo->m_iRevIdxLocal;
++	if (m_iRevIdxNational == 0) m_iRevIdxNational = pClassInfo->m_iRevIdxNational;
++	if (m_iUnitUpgradePriceModifier == 0) m_iUnitUpgradePriceModifier = pClassInfo->m_iUnitUpgradePriceModifier;
+ }
+ /************************************************************************************************/
+ /* XMLCOPY                                 END                                                  */
+@@ -16018,6 +16032,37 @@ int CvImprovementInfo::getImprovementBonusDiscoverRand(int i) const
  	return m_paImprovementBonus[i].m_iDiscoverRand; 
  }
  
@@ -209,7 +244,7 @@ index ee85ca7..2f70c82 100644
  const TCHAR* CvImprovementInfo::getButton() const
  {
  /************************************************************************************************/
-@@ -16165,13 +16196,27 @@ void CvImprovementInfo::read(FDataStreamBase* stream)
+@@ -16165,13 +16210,27 @@ void CvImprovementInfo::read(FDataStreamBase* stream)
  		m_ppiRouteYieldChanges[i]  = new int[NUM_YIELD_TYPES];
  		stream->Read(NUM_YIELD_TYPES, m_ppiRouteYieldChanges[i]);
  	}
@@ -238,7 +273,7 @@ index ee85ca7..2f70c82 100644
  	stream->Write(uiFlag);		// flag for expansion
  
  	stream->Write(m_iAdvancedStartCost);
-@@ -16232,6 +16277,13 @@ void CvImprovementInfo::write(FDataStreamBase* stream)
+@@ -16232,6 +16291,13 @@ void CvImprovementInfo::write(FDataStreamBase* stream)
  	{
  		stream->Write(NUM_YIELD_TYPES, m_ppiRouteYieldChanges[i]);
  	}
@@ -252,7 +287,7 @@ index ee85ca7..2f70c82 100644
  }
  bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)
  {
-@@ -16341,6 +16393,39 @@ bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)
+@@ -16341,6 +16407,39 @@ bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)
  		pXML->InitImprovementBonusList(&m_paImprovementBonus, GC.getNumBonusInfos());
  	}
  
@@ -292,7 +327,7 @@ index ee85ca7..2f70c82 100644
  	// initialize the boolean list to the correct size and all the booleans to false
  	FAssertMsg((GC.getNumTechInfos() > 0) && (NUM_YIELD_TYPES) > 0,"either the number of tech infos is zero or less or the number of yield types is zero or less");
  	pXML->Init2DIntList(&m_ppiTechYieldChanges, GC.getNumTechInfos(), NUM_YIELD_TYPES);
-@@ -16597,6 +16682,7 @@ void CvImprovementInfo::copyNonDefaults(CvImprovementInfo* pClassInfo)
+@@ -16597,6 +16696,7 @@ void CvImprovementInfo::copyNonDefaults(CvImprovementInfo* pClassInfo)
  	}
  	
  	if (m_iWorldSoundscapeScriptId == iTextDefault) m_iWorldSoundscapeScriptId = pClassInfo->getWorldSoundscapeScriptId();
@@ -300,6 +335,55 @@ index ee85ca7..2f70c82 100644
  	//Readpass2 stuff
  	if (m_iImprovementPillage == iTextDefault) m_iImprovementPillage = pClassInfo->getImprovementPillage();
  	if (m_iImprovementUpgrade == iTextDefault) m_iImprovementUpgrade = pClassInfo->getImprovementUpgrade();
+@@ -17707,6 +17807,8 @@ void CvFeatureInfo::copyNonDefaults(CvFeatureInfo* pClassInfo)
+ 			m_pbTerrain[i] = pClassInfo->isTerrain(i);
+ 		}
+ 	}
++	// GW.F7: members the XML read sets that this copy did not carry (research/economy/plan/tools/copy_audit.py)
++	if (m_iWarmingDefense == 0) m_iWarmingDefense = pClassInfo->m_iWarmingDefense;
+ }
+ /************************************************************************************************/
+ /* XMLCOPY                                 END                                                  */
+@@ -19865,6 +19967,12 @@ void CvLeaderHeadInfo::copyNonDefaults(CvLeaderHeadInfo* pClassInfo)
+ 			m_piDiploWarMusicScriptIds[j] = pClassInfo->getDiploWarMusicScriptIds(j);
+ 		}
+ 	}
++	// GW.F7: members the XML read sets that this copy did not carry (research/economy/plan/tools/copy_audit.py)
++	if (m_iConquestVictoryWeight == 0) m_iConquestVictoryWeight = pClassInfo->m_iConquestVictoryWeight;
++	if (m_iCultureVictoryWeight == 0) m_iCultureVictoryWeight = pClassInfo->m_iCultureVictoryWeight;
++	if (m_iDiplomacyVictoryWeight == 0) m_iDiplomacyVictoryWeight = pClassInfo->m_iDiplomacyVictoryWeight;
++	if (m_iDominationVictoryWeight == 0) m_iDominationVictoryWeight = pClassInfo->m_iDominationVictoryWeight;
++	if (m_iSpaceVictoryWeight == 0) m_iSpaceVictoryWeight = pClassInfo->m_iSpaceVictoryWeight;
+ }
+ /************************************************************************************************/
+ /* XMLCOPY                                 END                                                  */
+@@ -22182,6 +22290,17 @@ void CvTraitInfo::copyNonDefaults(CvTraitInfo* pClassInfo)
+ 			m_pabFreePromotionUnitCombat[j] = pClassInfo->isFreePromotionUnitCombat(j);
+ 		}
+ 	}	
++	// GW.F7: members the XML read sets that this copy did not carry (research/economy/plan/tools/copy_audit.py)
++	if (m_bNonStateReligionCommerce == false) m_bNonStateReligionCommerce = pClassInfo->m_bNonStateReligionCommerce;
++	if (m_bUpgradeAnywhere == false) m_bUpgradeAnywhere = pClassInfo->m_bUpgradeAnywhere;
++	if (m_fRevIdxBadReligionMod == 0) m_fRevIdxBadReligionMod = pClassInfo->m_fRevIdxBadReligionMod;
++	if (m_fRevIdxGoodReligionMod == 0) m_fRevIdxGoodReligionMod = pClassInfo->m_fRevIdxGoodReligionMod;
++	if (m_fRevIdxNationalityMod == 0) m_fRevIdxNationalityMod = pClassInfo->m_fRevIdxNationalityMod;
++	if (m_iRevIdxDistanceModifier == 0) m_iRevIdxDistanceModifier = pClassInfo->m_iRevIdxDistanceModifier;
++	if (m_iRevIdxHolyCityBad == 0) m_iRevIdxHolyCityBad = pClassInfo->m_iRevIdxHolyCityBad;
++	if (m_iRevIdxHolyCityGood == 0) m_iRevIdxHolyCityGood = pClassInfo->m_iRevIdxHolyCityGood;
++	if (m_iRevIdxLocal == 0) m_iRevIdxLocal = pClassInfo->m_iRevIdxLocal;
++	if (m_iRevIdxNational == 0) m_iRevIdxNational = pClassInfo->m_iRevIdxNational;
+ }
+ /************************************************************************************************/
+ /* XMLCOPY                                 END                                                  */
+@@ -25370,6 +25489,8 @@ void CvEraInfo::copyNonDefaults(CvEraInfo* pClassInfo)
+ 			m_paiCitySoundscapeSciptIds[i] = pClassInfo->getCitySoundscapeSciptId(i);
+ 		}
+ 	}
++	// GW.F7: members the XML read sets that this copy did not carry (research/economy/plan/tools/copy_audit.py)
++	if (m_iTechCostModifier == 0) m_iTechCostModifier = pClassInfo->m_iTechCostModifier;
+ }
+ /************************************************************************************************/
+ /* XMLCOPY                                 END                                                  */
 diff --git a/Assets/CvGameCoreDLL/CvInfos.h b/Assets/CvGameCoreDLL/CvInfos.h
 index f92c2f0..7a56fe5 100644
 --- a/Assets/CvGameCoreDLL/CvInfos.h
