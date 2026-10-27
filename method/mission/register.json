@@ -1291,5 +1291,57 @@
    "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
    "builds/settlement-economy/"
   ]
+ },
+ {
+  "id": "H18",
+  "type": "hypothesis",
+  "line": "settlement-economy",
+  "text": "CvPlayerAI::AI_baseBonusVal recomputes each good's value once per turn (and after a team's tech) and, in its building loop, called canConstruct for every building class of the civilization even when no term of the building depends on the good; every later step multiplies, divides or zeroes the building's term, so skipping buildings whose term is 0 leaves the value unchanged. More goods (LQ.F10, LQ.F11) mean more recomputations, so this is part of the cost the goods add (M44). Before registration, deterministic runs (Mediterranean, 150 turns, f70541a9 XML): identical telemetry with and without the gate, run time 0.967 (seed 485959733) and 0.973 (seed 2086998694). Contradicted if a run fails or the median same-seed run time rises above 5 %."
+ },
+ {
+  "id": "P37",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H18"
+  ],
+  "evidence": "runs",
+  "variable": "completed",
+  "change": "On GitLab claude/settlement-economy at cf43846b: CvPlayerAI::AI_baseBonusVal's building loop skips a building whose bonus-dependent terms sum to 0 (if (iTempValue != 0) around the tech, canConstruct, water and era steps). Harness: arm a this change, arm b cf43846b, the same XML, each with its harness DLL, Mediterranean turn 0, GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds. P37: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "builds/settlement-economy/"
+  ]
+ },
+ {
+  "id": "P38",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H18"
+  ],
+  "evidence": "runs",
+  "variable": "turn_seconds",
+  "change": "On GitLab claude/settlement-economy at cf43846b: CvPlayerAI::AI_baseBonusVal's building loop skips a building whose bonus-dependent terms sum to 0 (if (iTempValue != 0) around the tech, canConstruct, water and era steps). Harness: arm a this change, arm b cf43846b, the same XML, each with its harness DLL, Mediterranean turn 0, GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds. P38: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "builds/settlement-economy/"
+  ]
  }
 ]
