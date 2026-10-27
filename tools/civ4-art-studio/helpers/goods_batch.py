@@ -8,7 +8,8 @@ filling the cell, with a soft dark edge so they read on the parchment of the cit
 
 The spec (JSON) lists the mod folder, an output folder and the goods. Per good:
   art         the resource art define (e.g. ART_DEF_BONUS_DAIRY)
-  font_index  its FontButtonIndex: the cell of the resource block it takes (see font_index_map.py); must be empty
+  font_index  its FontButtonIndex: the cell of the resource block it takes (see font_index_map.py); must be empty;
+              omit (or null) for art without a glyph, such as an improvement's button
   button      the button path inside Assets (e.g. Art/Interface/Buttons/Goods/Dairy.dds); omit to keep the existing
               button (glyph only)
   source      the photograph: file, title, page, author, license (recorded in ASSETS.json); or {"button": "<path in
@@ -228,7 +229,7 @@ def main():
         subject = adjust(subject, g.get('adjust'))
         master = master_of(subject)
         master.save(os.path.join(out, 'masters', g['art'] + '.png'))
-        entry = dict(art=g['art'], font_index=g['font_index'], source=g['source'], make=g['make'])
+        entry = dict(art=g['art'], font_index=g.get('font_index'), source=g['source'], make=g['make'])
         button = None
         if g.get('button'):
             button = button_of(master, frame, tmp)
@@ -236,7 +237,7 @@ def main():
             bridge('dds', to_rgba_file(button, os.path.join(tmp, 'b.rgba')), 64, 64, spec.get('dds', 'DXT3'), bpath)
             entry.update(button=g['button'], button_sha256=sha(bpath))
         glyphs = {}
-        for name, f in fonts.items():
+        for name, f in (fonts.items() if g.get('font_index') is not None else []):
             c = f['block'][g['font_index']]
             cell = glyph(subject, c['width'], c['height'], tmp)
             rp = to_rgba_file(cell, os.path.join(tmp, '%s_%s.rgba' % (name, g['art'])))
@@ -251,6 +252,7 @@ def main():
             data = open(os.path.join(out, 'patch', 'Assets', e['button']), 'rb').read()
             patch['files']['Assets/' + e['button']] = dict(sha256=hashlib.sha256(data).hexdigest(), zb64=pack(data))
     for name, f in fonts.items():
+        if not f['edits']: continue   # no glyph in this batch: the font stays as it is
         ej = os.path.join(tmp, name + '.json'); json.dump(f['edits'], open(ej, 'w'))
         dst = os.path.join(out, 'fonts', name)
         report = json.loads(bridge('font', f['path'], ej, dst))
@@ -288,7 +290,7 @@ def preview(out, items, fonts):
             sheet.paste(big.convert('RGB'), (x, y))
             sheet.paste(strip.convert('RGB'), (x, y + big.height + 6))
             x += big.width + 20
-        d.text((6, y + 104), '%s  cell %d  %s (%s)' % (g['art'], g['font_index'], g['source'].get('title', g['source'].get('button', ''))[:70],
+        d.text((6, y + 104), '%s  cell %s  %s (%s)' % (g['art'], g.get('font_index', '-'), g['source'].get('title', g['source'].get('button', ''))[:70],
                                                       g['source'].get('license', 'existing button')), fill=(235, 235, 235))
     sheet.save(os.path.join(out, 'preview.png'))
 
