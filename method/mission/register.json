@@ -1231,5 +1231,65 @@
    "gitlab:Assets/XML/Terrain/CIV4ImprovementInfos.xml",
    "builds/settlement-economy/"
   ]
+ },
+ {
+  "id": "H17",
+  "type": "hypothesis",
+  "line": "settlement-economy",
+  "text": "A plot's whole change of goods can be applied as one vector (M43): CvPlotGroup walks its plots once and each city applies all counts and updates its corporations once. The end state equals one good at a time, because CvCity::processBonus is additive (every effect is change(value x iChange), values from buildings that a count change does not alter) and CvCity::updateCorporation recomputes everything it sets from the counts. Before registration, deterministic runs (Mediterranean, seed 485959733, 150 turns): the batched and unbatched DLLs give identical telemetry on GitLab f70541a9 XML (run time 0.999); on 02d5f85a XML (no produced goods) the new and the old DLL give identical telemetry (0.997; seed 2086998694: 0.992). Contradicted if a run fails or the median same-seed run time rises above 5 %."
+ },
+ {
+  "id": "P35",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H17"
+  ],
+  "evidence": "runs",
+  "variable": "completed",
+  "change": "On GitLab claude/settlement-economy at f70541a9: CvPlot::updatePlotGroupBonus builds one change vector per plot (free goods, the capital's imports and exports, the plot's resource, produced goods) and returns at once for a plot with no city, resource or producing improvement; CvPlotGroup::changeNumBonuses(vector) walks the plots once; CvCity::changeNumBonuses(vector) applies all counts and calls updateCorporation once (CvCity::changeNumBonusesNoCorporation holds the per-good step); CvPlot::setPlotCity and setPlotGroup hand a city's whole count to it as one vector. Harness: arm a this change, arm b f70541a9, the same XML, each with its harness DLL, Mediterranean turn 0, GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds. P35: no crash or hang.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlotGroup.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlotGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "builds/settlement-economy/"
+  ]
+ },
+ {
+  "id": "P36",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H17"
+  ],
+  "evidence": "runs",
+  "variable": "turn_seconds",
+  "change": "On GitLab claude/settlement-economy at f70541a9: CvPlot::updatePlotGroupBonus builds one change vector per plot (free goods, the capital's imports and exports, the plot's resource, produced goods) and returns at once for a plot with no city, resource or producing improvement; CvPlotGroup::changeNumBonuses(vector) walks the plots once; CvCity::changeNumBonuses(vector) applies all counts and calls updateCorporation once (CvCity::changeNumBonusesNoCorporation holds the per-good step); CvPlot::setPlotCity and setPlotGroup hand a city's whole count to it as one vector. Harness: arm a this change, arm b f70541a9, the same XML, each with its harness DLL, Mediterranean turn 0, GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds. P36: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/CvCity.h",
+   "gitlab:Assets/CvGameCoreDLL/CvCity.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlotGroup.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlotGroup.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlot.cpp",
+   "builds/settlement-economy/"
+  ]
  }
 ]
