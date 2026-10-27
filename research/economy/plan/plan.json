@@ -806,14 +806,18 @@
       {
        "id": "GW.F1.T1",
        "text": "Schema tags on BonusInfo: GoodUnit and GoodCategory (D22)",
-       "status": "todo",
-       "done_when": "CIV4TerrainSchema.xml declares GoodUnit and GoodCategory on BonusInfo, optional (minOccurs 0), after the existing elements, with text values from proposals.json units (tonnes, bales, barrels, crates, head) and categories (staple food ... military supply); every BonusInfo file of the mod and its modules still loads; consumers later: GW.F3 accounts, the UI; checked by a deterministic harness run with identical telemetry"
+       "status": "done",
+       "done_when": "CIV4TerrainSchema.xml declares GoodUnit and GoodCategory on BonusInfo, optional (minOccurs 0), after the existing elements, with text values from proposals.json units (tonnes, bales, barrels, crates, head) and categories (staple food ... military supply); every BonusInfo file of the mod and its modules still loads; consumers later: GW.F3 accounts, the UI; checked by a deterministic harness run with identical telemetry",
+       "done": "2026-10-27",
+       "note": "GitLab 9a5795e9 (gw_f1_edits.py): GoodUnit and GoodCategory optional at the end of BonusInfo in CIV4TerrainSchema.xml. The harness loads the mod with its modules ('XML loaded (ok)'); the 150-turn run, seed 485959733, gives identical telemetry to 84ea7fc5 (152 records, run time 0.995). Safety runs P42/P43."
       },
       {
        "id": "GW.F1.T2",
        "text": "CvBonusInfo::read and copyNonDefaults read GoodUnit and GoodCategory (modules included)",
-       "status": "todo",
-       "done_when": "CvBonusInfo holds the unit and category as indices into fixed lists in the DLL that match proposals.json (-1 when absent; an unknown text is reported on load), reads them in read(CvXMLLoadUtility*), carries them in copyNonDefaults (copy_audit.py clean) and in the cache stream behind a version flag; getters exist; no game code reads them yet; the DLL builds and the deterministic run is identical"
+       "status": "done",
+       "done_when": "CvBonusInfo holds the unit and category as indices into fixed lists in the DLL that match proposals.json (-1 when absent; an unknown text is reported on load), reads them in read(CvXMLLoadUtility*), carries them in copyNonDefaults (copy_audit.py clean) and in the cache stream behind a version flag; getters exist; no game code reads them yet; the DLL builds and the deterministic run is identical",
+       "done": "2026-10-27",
+       "note": "GitLab 9a5795e9: m_iGoodUnit, m_iGoodCategory (indices into lists from proposals.json, -1 when absent) read in read(CvXMLLoadUtility*), copied in copyNonDefaults (copy_audit.py clean), kept in the cache stream behind uiFlag 1, getters only. Real case: a 2-turn run with BONUS_WHEAT 'tonnes'/'staple food' and BONUS_RICE 'kilos' logged only \"BONUS_RICE: unknown GoodUnit 'kilos'\". Release build e7da41335d50 (0 warnings) in builds/settlement-economy."
       },
       {
        "id": "GW.F1.T3",
@@ -2943,13 +2947,13 @@
  ],
  "current": {
   "updated": "2026-10-27",
-  "mod_head": "GitLab claude/settlement-economy at 84ea7fc5",
+  "mod_head": "GitLab claude/settlement-economy at 9a5795e9",
   "in_flight": [
-   "None. GW.F7 done (P40/P41 corroborated). LQ.F10.T2 BLOCKED (Commons HTTP 429). GW.F1 T1-T3 done_when written; T3 waits on the user's answers (unit and category as proposed? numbers for storage, spoilage, base value? spoilage as base loss plus per-tech reductions?)."
+   "P42/P43 safety runs (tools/safety/p42.sh: root-eco-gwf1 against root-eco-gwf7), started 2026-10-27; then commit the evidence with Serves: P42, P43. GW.F1.T1/T2 done (GitLab 9a5795e9, build e7da41335d50). LQ.F10.T2 BLOCKED (Commons HTTP 429)."
   ],
   "next": [
-   "1. After P40/P41: GW.F1 (goods catalogue fields on BonusInfo) per D18 order; write each task's done_when first (rule A).",
-   "2. LQ.F10.T2 when Commons answers again.",
+   "1. After P42/P43: GW.F1.T3, fill the 72 records (proposals.json) and the Guilds schema, with a check listing every record's fields (done_when in plan.json).",
+   "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
   ],
   "environment": [
