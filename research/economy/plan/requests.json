@@ -350,6 +350,13 @@
    "kind": "answer",
    "text": "Question 1) Yes\n\nQuestion 2) Let's deal with spoilage later when the system works\n\nQuestion 3) same as above",
    "led_to": "GW.F1: unit and category as proposed (proposals.json) go in now; storage, spoilage and base value later, when the goods system works (D22)"
+  },
+  {
+   "id": "M51",
+   "date": "2026-10-27",
+   "kind": "answer",
+   "text": "Question 1) Yes\n\nQuestion 2) Let's deal with spoilage later when the system works\n\nQuestion 3) same as above",
+   "led_to": "Same text as M50, already applied (D22; GW.F1 T1/T2 done at GitLab 9a5795e9, T3 next, T4 later); nothing changes"
   }
  ],
  "requests": [
