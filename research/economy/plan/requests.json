@@ -287,6 +287,13 @@
    "kind": "answer",
    "text": "Lumbermills should be 5. I think you're not correct about P30, you probably caused slow games with inefficient coding or by making a mistake. \n\nI think hunting camps shouldn't give wool or dairy, but the rest seems fine, otherwise it's unrealistic",
    "led_to": "D19 lumbermill 5; P30 re-examined for a coding cause; D20 hunting camps give Leather on Sheep, Cow and Horse"
+  },
+  {
+   "id": "M42",
+   "date": "2026-10-27",
+   "kind": "instruction",
+   "text": "Sorry, but I don't think testing is going to do much here. Just look at the codebase",
+   "led_to": "P30: code review of the LQ.F10/F11 changes for the slowdown"
   }
  ],
  "requests": [
