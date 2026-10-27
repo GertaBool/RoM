@@ -343,6 +343,13 @@
    "kind": "answer",
    "text": "Generally speaking meaning before means is correct",
    "led_to": "Rule A confirmed; continue with LQ.F10.T2 by establishing the build-button family first"
+  },
+  {
+   "id": "M50",
+   "date": "2026-10-27",
+   "kind": "answer",
+   "text": "Question 1) Yes\n\nQuestion 2) Let's deal with spoilage later when the system works\n\nQuestion 3) same as above",
+   "led_to": "GW.F1: unit and category as proposed (proposals.json) go in now; storage, spoilage and base value later, when the goods system works (D22)"
   }
  ],
  "requests": [
