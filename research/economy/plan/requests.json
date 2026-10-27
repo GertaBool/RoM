@@ -301,6 +301,13 @@
    "kind": "instruction",
    "text": "Optimize the relevant functions with self-explanatory robust mathematics",
    "led_to": "Batched plot-group bonus updates: one network walk per plot change, one corporation update per city"
+  },
+  {
+   "id": "M44",
+   "date": "2026-10-27",
+   "kind": "instruction",
+   "text": "\"the remaining slowdown stems from divergent gameplay once goods exist, not inefficient code\"\n\nThat's interesting. Find the responsible functions and optimize them.",
+   "led_to": "Profile the functions whose time grows with the goods (pathfinding, bonus valuation) and optimize them without changing play"
   }
  ],
  "requests": [
