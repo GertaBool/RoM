@@ -2949,10 +2949,10 @@
   "updated": "2026-10-27",
   "mod_head": "GitLab claude/settlement-economy at 9a5795e9",
   "in_flight": [
-   "P42/P43 safety runs (tools/safety/p42.sh: root-eco-gwf1 against root-eco-gwf7), started 2026-10-27; then commit the evidence with Serves: P42, P43. GW.F1.T1/T2 done (GitLab 9a5795e9, build e7da41335d50). LQ.F10.T2 BLOCKED (Commons HTTP 429)."
+   "None. GW.F1.T1/T2 done (GitLab 9a5795e9, build e7da41335d50); P42 (0 of 5 runs failed on either arm) and P43 (median same-seed run time 0.998) corroborated. LQ.F10.T2 BLOCKED (Commons HTTP 429)."
   ],
   "next": [
-   "1. After P42/P43: GW.F1.T3, fill the 72 records (proposals.json) and the Guilds schema, with a check listing every record's fields (done_when in plan.json).",
+   "1. GW.F1.T3: fill the 72 records (proposals.json) and the Guilds schema, with a check listing every record's fields (done_when in plan.json).",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
   ],
