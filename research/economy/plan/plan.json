@@ -2919,12 +2919,12 @@
  ],
  "current": {
   "updated": "2026-10-26",
-  "mod_head": "GitLab claude/settlement-economy at f70541a9",
+  "mod_head": "GitLab claude/settlement-economy at 1fdd6ba1",
   "in_flight": [
-   "None. P33 corroborated, P34 refuted narrowly (1.059)."
+   "Safety runs P37, P38 (tools/safety/p37.sh: the AI_baseBonusVal gate, root-eco-bv against root-eco-batch). Then evidence commit 'Serves: P37, P38'."
   ],
   "next": [
-   "1. Ask the user whether to batch the produced goods' plot-group updates (one network walk per plot instead of one per good; engine change in CvPlot/CvPlotGroup/CvCity) to remove the remaining cost.",
+   "1. After P37/P38: the goods' cost against LQ.F10 now (P34 was 1.059 before cf43846b and 1fdd6ba1). Profile shares (10 turns, LQ.F11): pathfinding 52 % (generatePath's self time is the harness's A*, the executable in the game; pathValid and pathCost are already memoized), CvCity::canTrain 6 %, AI_baseBonusVal recalc 3 % (gated in 1fdd6ba1).",
    "2. LQ.F10.T2: the lumber camp's own button (art studio).",
    "3. GW.F7 (copyNonDefaults), then GW.F1, GW.F6 and the rest of GW (D18 order).",
    "Known cost to consider: each produced good is a separate CvPlotGroup::changeNumBonuses walk of the network plus updateCorporation in each city for corporation goods (engine pattern; a batched update would need engine work).",
