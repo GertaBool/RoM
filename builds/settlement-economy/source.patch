@@ -1,11 +1,101 @@
-From f70541a93caa4bf2bedffdeb577a14d1634fd1dc Mon Sep 17 00:00:00 2001
-Subject: [PATCH] Settlement economy DLL source: ProducedBonuses, the lumber camp, the AI term fixed
+From cf43846b9cda833193a69a2364beecacb7e2286f Mon Sep 17 00:00:00 2001
+Subject: [PATCH] Settlement economy DLL source: produced goods, the AI term, batched good counts
 
-Assets/CvGameCoreDLL of GitLab claude/settlement-economy at f70541a9 against GitLab main
-71de0ab (the branch point): LQ.F10 (a57f2015) and the produced-goods AI term fixed (f70541a9).
+Assets/CvGameCoreDLL of GitLab claude/settlement-economy at cf43846b against GitLab main
+71de0ab: LQ.F10 (a57f2015), the AI term fixed (f70541a9), batched good-count updates (cf43846b).
 
-Serves: P33, P34
+Serves: P35, P36
 ---
+diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
+index 533e42d..3643079 100644
+--- a/Assets/CvGameCoreDLL/CvCity.cpp
++++ b/Assets/CvGameCoreDLL/CvCity.cpp
+@@ -11105,33 +11105,56 @@ bool CvCity::hasBonus(BonusTypes eIndex) const
+ 
+ 
+ void CvCity::changeNumBonuses(BonusTypes eIndex, int iChange)
++{
++	if (changeNumBonusesNoCorporation(eIndex, iChange))
++	{
++		updateCorporation();
++	}
++}
++
++// Adds iChange to the count of eIndex and processes the gain or loss of the good; leaves the corporations to the caller.
++// Returns whether a corporation of the city consumes eIndex, so that its output depends on the count.
++bool CvCity::changeNumBonusesNoCorporation(BonusTypes eIndex, int iChange)
+ {
+ 	FAssertMsg(eIndex >= 0, "eIndex expected to be >= 0");
+ 	FAssertMsg(eIndex < GC.getNumBonusInfos(), "eIndex expected to be < GC.getNumBonusInfos()");
+ 
+-	if (iChange != 0)
++	if (iChange == 0)
+ 	{
+-		bool bOldHasBonus = hasBonus(eIndex);
++		return false;
++	}
+ 
+-		m_paiNumBonuses[eIndex] += iChange;
++	bool bOldHasBonus = hasBonus(eIndex);
+ 
+-		if (bOldHasBonus != hasBonus(eIndex))
+-		{
+-			if (hasBonus(eIndex))
+-			{
+-				processBonus(eIndex, 1);
+-			}
+-			else
+-			{
+-				processBonus(eIndex, -1);
+-			}
+-		}
++	m_paiNumBonuses[eIndex] += iChange;
++
++	if (bOldHasBonus != hasBonus(eIndex))
++	{
++		processBonus(eIndex, hasBonus(eIndex) ? 1 : -1);
++	}
++
++	return isCorporationBonus(eIndex);
++}
++
++// All counts first, then one corporation update. The end state equals applying the goods one at a time:
++// processBonus is additive (a gain followed by a loss cancels), so only each good's net gain or loss counts, and
++// updateCorporation recomputes everything it sets from the counts, so one call after the last count equals one per count.
++void CvCity::changeNumBonuses(const std::vector<int>& aiChange)
++{
++	bool bCorporation = false;
+ 
+-		if (isCorporationBonus(eIndex))
++	for (int iI = 0; iI < (int)aiChange.size(); ++iI)
++	{
++		if (changeNumBonusesNoCorporation((BonusTypes)iI, aiChange[iI]))
+ 		{
+-			updateCorporation();
++			bCorporation = true;
+ 		}
+ 	}
++
++	if (bCorporation)
++	{
++		updateCorporation();
++	}
+ }
+ 
+ int CvCity::getNumCorpProducedBonuses(BonusTypes eIndex) const
+diff --git a/Assets/CvGameCoreDLL/CvCity.h b/Assets/CvGameCoreDLL/CvCity.h
+index f0d7a5b..bfed9ae 100644
+--- a/Assets/CvGameCoreDLL/CvCity.h
++++ b/Assets/CvGameCoreDLL/CvCity.h
+@@ -881,6 +881,8 @@ public:
+ 	int getNumBonuses(BonusTypes eIndex) const;																		// Exposed to Python
+ 	bool hasBonus(BonusTypes eIndex) const;															// Exposed to Python
+ 	void changeNumBonuses(BonusTypes eIndex, int iChange);
++	void changeNumBonuses(const std::vector<int>& aiChange);	// aiChange[e]: change of the count of good e
++	bool changeNumBonusesNoCorporation(BonusTypes eIndex, int iChange);	// true if a corporation of the city consumes eIndex
+ 
+ 	int getNumCorpProducedBonuses(BonusTypes eIndex) const;
+ 	bool isCorporationBonus(BonusTypes eBonus) const;
 diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
 index 355975e..56ecfb1 100644
 --- a/Assets/CvGameCoreDLL/CvCityAI.cpp
@@ -237,35 +327,126 @@ index f92c2f0..7a56fe5 100644
  
  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
-index 466472c..dd829a4 100644
+index 466472c..c406d11 100644
 --- a/Assets/CvGameCoreDLL/CvPlot.cpp
 +++ b/Assets/CvGameCoreDLL/CvPlot.cpp
-@@ -1258,7 +1258,56 @@ void CvPlot::updatePlotGroupBonus(bool bAdd)
- 				}
+@@ -1206,59 +1206,118 @@ void CvPlot::updatePlotGroupBonus(bool bAdd)
+ {
+ 	PROFILE_FUNC();
+ 
+-	CvCity* pPlotCity;
+-	CvPlotGroup* pPlotGroup;
+-	BonusTypes eNonObsoleteBonus;
+-	int iI;
+-
+ 	if (!isOwned())
+ 	{
+ 		return;
+ 	}
+ 
+-	pPlotGroup = getPlotGroup(getOwnerINLINE());
++	CvPlotGroup* pPlotGroup = getPlotGroup(getOwnerINLINE());
+ 
+-	if (pPlotGroup != NULL)
++	if (pPlotGroup == NULL)
++	{
++		return;
++	}
++
++	CvCity* pPlotCity = getPlotCity();
++	BonusTypes eNonObsoleteBonus = getNonObsoleteBonusType(getTeam());
++	ImprovementTypes eImprovement = getImprovementType();
++
++	// Most plots give nothing: no city, no resource and no improvement that produces goods
++	if (pPlotCity == NULL && eNonObsoleteBonus == NO_BONUS &&
++		(eImprovement == NO_IMPROVEMENT || GC.getImprovementInfo(eImprovement).getNumProducedBonuses() == 0))
+ 	{
+-		pPlotCity = getPlotCity();
++		return;
++	}
+ 
+-		if (pPlotCity != NULL)
++	// What the plot gives, as one change vector: aiChange[e] = iSign x (instances of good e this plot gives)
++	const int iSign = bAdd ? 1 : -1;
++	CvTeam& kTeam = GET_TEAM(getTeam());
++	std::vector<int> aiChange(GC.getNumBonusInfos(), 0);
++
++	if (pPlotCity != NULL)
++	{
++		for (int iI = 0; iI < GC.getNumBonusInfos(); ++iI)
+ 		{
+-			for (iI = 0; iI < GC.getNumBonusInfos(); ++iI)
++			if (!kTeam.isBonusObsolete((BonusTypes)iI))
+ 			{
+-				if (!GET_TEAM(getTeam()).isBonusObsolete((BonusTypes)iI))
+-				{
+-					pPlotGroup->changeNumBonuses(((BonusTypes)iI), (pPlotCity->getFreeBonus((BonusTypes)iI) * ((bAdd) ? 1 : -1)));
+-				}
++				aiChange[iI] += iSign * pPlotCity->getFreeBonus((BonusTypes)iI);
  			}
- 		}
-+
-+		// Settlement economy: goods the improvement produces (lumber camp: timber; pasture on sheep: wool ...)
-+		if ((getImprovementType() != NO_IMPROVEMENT) && (GC.getImprovementInfo(getImprovementType()).getNumProducedBonuses() > 0) && isBonusNetwork(getTeam()))
++		}
+ 
+-			if (pPlotCity->isCapital())
++		if (pPlotCity->isCapital())
 +		{
-+			CvImprovementInfo& kImprovement = GC.getImprovementInfo(getImprovementType());
-+			CvTeam& kTeam = GET_TEAM(getTeam());
-+
-+			for (iI = 0; iI < kImprovement.getNumProducedBonuses(); ++iI)
-+			{
-+				BonusTypes eProduced = kImprovement.getProducedBonus(iI);
-+				BonusTypes ePrereq = kImprovement.getProducedBonusPrereq(iI);
-+				TechTypes eTrade = (TechTypes)GC.getBonusInfo(eProduced).getTechCityTrade();
-+
-+				if ((ePrereq == NO_BONUS || ePrereq == eNonObsoleteBonus) &&
-+					!kTeam.isBonusObsolete(eProduced) &&
-+					(eTrade == NO_TECH || kTeam.isHasTech(eTrade)))
-+				{
-+					pPlotGroup->changeNumBonuses(eProduced, ((bAdd) ? 1 : -1));
-+				}
++			CvPlayer& kOwner = GET_PLAYER(getOwnerINLINE());
++			for (int iI = 0; iI < GC.getNumBonusInfos(); ++iI)
+ 			{
+-				for (iI = 0; iI < GC.getNumBonusInfos(); ++iI)
++				aiChange[iI] += iSign * (kOwner.getBonusImport((BonusTypes)iI) - kOwner.getBonusExport((BonusTypes)iI));
 +			}
 +		}
 +	}
++
++	if (eNonObsoleteBonus != NO_BONUS)
++	{
++		if (kTeam.isHasTech((TechTypes)(GC.getBonusInfo(eNonObsoleteBonus).getTechCityTrade())))
++		{
++			if (isCity(true, getTeam()) ||
++				((eImprovement != NO_IMPROVEMENT) && GC.getImprovementInfo(eImprovement).isImprovementBonusTrade(eNonObsoleteBonus)))
++			{
++				if (isBonusNetwork(getTeam()))
+ 				{
+-					pPlotGroup->changeNumBonuses(((BonusTypes)iI), (GET_PLAYER(getOwnerINLINE()).getBonusExport((BonusTypes)iI) * ((bAdd) ? -1 : 1)));
+-					pPlotGroup->changeNumBonuses(((BonusTypes)iI), (GET_PLAYER(getOwnerINLINE()).getBonusImport((BonusTypes)iI) * ((bAdd) ? 1 : -1)));
++					aiChange[eNonObsoleteBonus] += iSign;
+ 				}
+ 			}
+ 		}
++	}
+ 
+-		eNonObsoleteBonus = getNonObsoleteBonusType(getTeam());
++	// Settlement economy: goods the improvement produces (lumber camp: timber; pasture on sheep: wool ...)
++	if ((eImprovement != NO_IMPROVEMENT) && (GC.getImprovementInfo(eImprovement).getNumProducedBonuses() > 0) && isBonusNetwork(getTeam()))
++	{
++		CvImprovementInfo& kImprovement = GC.getImprovementInfo(eImprovement);
+ 
+-		if (eNonObsoleteBonus != NO_BONUS)
++		for (int iI = 0; iI < kImprovement.getNumProducedBonuses(); ++iI)
+ 		{
+-			if (GET_TEAM(getTeam()).isHasTech((TechTypes)(GC.getBonusInfo(eNonObsoleteBonus).getTechCityTrade())))
++			BonusTypes eProduced = kImprovement.getProducedBonus(iI);
++			BonusTypes ePrereq = kImprovement.getProducedBonusPrereq(iI);
++			TechTypes eTrade = (TechTypes)GC.getBonusInfo(eProduced).getTechCityTrade();
++
++			if ((ePrereq == NO_BONUS || ePrereq == eNonObsoleteBonus) &&
++				!kTeam.isBonusObsolete(eProduced) &&
++				(eTrade == NO_TECH || kTeam.isHasTech(eTrade)))
+ 			{
+-				if (isCity(true, getTeam()) ||
+-					((getImprovementType() != NO_IMPROVEMENT) && GC.getImprovementInfo(getImprovementType()).isImprovementBonusTrade(eNonObsoleteBonus)))
+-				{
+-					if ((pPlotGroup != NULL) && isBonusNetwork(getTeam()))
+-					{
+-						pPlotGroup->changeNumBonuses(eNonObsoleteBonus, ((bAdd) ? 1 : -1));
+-					}
+-				}
++				aiChange[eProduced] += iSign;
+ 			}
+ 		}
+ 	}
++
++	pPlotGroup->changeNumBonuses(aiChange);
 +}
 +
 +
@@ -278,7 +459,7 @@ index 466472c..dd829a4 100644
 +		{
 +			return true;
 +		}
- 	}
++	}
 +
 +	if (getImprovementType() != NO_IMPROVEMENT)
 +	{
@@ -297,6 +478,62 @@ index 466472c..dd829a4 100644
  }
  
  
+@@ -5991,10 +6050,12 @@ void CvPlot::setPlotCity(CvCity* pNewValue)
+ 			if (pPlotGroup != NULL)
+ 			{
+ 				FAssertMsg((0 < GC.getNumBonusInfos()), "GC.getNumBonusInfos() is not greater than zero but an array is being allocated in CvPlot::setPlotCity");
++				std::vector<int> aiChange(GC.getNumBonusInfos());
+ 				for (iI = 0; iI < GC.getNumBonusInfos(); ++iI)
+ 				{
+-					getPlotCity()->changeNumBonuses(((BonusTypes)iI), -(pPlotGroup->getNumBonuses((BonusTypes)iI)));
++					aiChange[iI] = -(pPlotGroup->getNumBonuses((BonusTypes)iI));
+ 				}
++				getPlotCity()->changeNumBonuses(aiChange);
+ 			}
+ 		}
+ 		if (pNewValue != NULL)
+@@ -6012,10 +6073,12 @@ void CvPlot::setPlotCity(CvCity* pNewValue)
+ 			if (pPlotGroup != NULL)
+ 			{
+ 				FAssertMsg((0 < GC.getNumBonusInfos()), "GC.getNumBonusInfos() is not greater than zero but an array is being allocated in CvPlot::setPlotCity");
++				std::vector<int> aiChange(GC.getNumBonusInfos());
+ 				for (iI = 0; iI < GC.getNumBonusInfos(); ++iI)
+ 				{
+-					getPlotCity()->changeNumBonuses(((BonusTypes)iI), pPlotGroup->getNumBonuses((BonusTypes)iI));
++					aiChange[iI] = pPlotGroup->getNumBonuses((BonusTypes)iI);
+ 				}
++				getPlotCity()->changeNumBonuses(aiChange);
+ 			}
+ 		}
+ 		updatePlotGroupBonus(true);
+@@ -6966,10 +7029,12 @@ void CvPlot::setPlotGroup(PlayerTypes ePlayer, CvPlotGroup* pNewValue)
+ 				if (pCity->getOwnerINLINE() == ePlayer)
+ 				{
+ 					FAssertMsg((0 < GC.getNumBonusInfos()), "GC.getNumBonusInfos() is not greater than zero but an array is being allocated in CvPlot::setPlotGroup");
++					std::vector<int> aiChange(GC.getNumBonusInfos());
+ 					for (iI = 0; iI < GC.getNumBonusInfos(); ++iI)
+ 					{
+-						pCity->changeNumBonuses(((BonusTypes)iI), -(pOldPlotGroup->getNumBonuses((BonusTypes)iI)));
++						aiChange[iI] = -(pOldPlotGroup->getNumBonuses((BonusTypes)iI));
+ 					}
++					pCity->changeNumBonuses(aiChange);
+ 				}
+ 			}
+ 		}
+@@ -6990,10 +7055,12 @@ void CvPlot::setPlotGroup(PlayerTypes ePlayer, CvPlotGroup* pNewValue)
+ 				if (pCity->getOwnerINLINE() == ePlayer)
+ 				{
+ 					FAssertMsg((0 < GC.getNumBonusInfos()), "GC.getNumBonusInfos() is not greater than zero but an array is being allocated in CvPlot::setPlotGroup");
++					std::vector<int> aiChange(GC.getNumBonusInfos());
+ 					for (iI = 0; iI < GC.getNumBonusInfos(); ++iI)
+ 					{
+-						pCity->changeNumBonuses(((BonusTypes)iI), getPlotGroup(ePlayer)->getNumBonuses((BonusTypes)iI));
++						aiChange[iI] = getPlotGroup(ePlayer)->getNumBonuses((BonusTypes)iI);
+ 					}
++					pCity->changeNumBonuses(aiChange);
+ 				}
+ 			}
+ 		}
 diff --git a/Assets/CvGameCoreDLL/CvPlot.h b/Assets/CvGameCoreDLL/CvPlot.h
 index 0a2cf17..9df2cc7 100644
 --- a/Assets/CvGameCoreDLL/CvPlot.h
@@ -311,6 +548,61 @@ index 0a2cf17..9df2cc7 100644
  	bool isTradeNetwork(TeamTypes eTeam) const;																												// Exposed to Python
  	bool isTradeNetworkConnected(const CvPlot * pPlot, TeamTypes eTeam) const;												// Exposed to Python
  	bool isRiverNetwork(TeamTypes eTeam) const;
+diff --git a/Assets/CvGameCoreDLL/CvPlotGroup.cpp b/Assets/CvGameCoreDLL/CvPlotGroup.cpp
+index 61e85ec..f1581bc 100644
+--- a/Assets/CvGameCoreDLL/CvPlotGroup.cpp
++++ b/Assets/CvGameCoreDLL/CvPlotGroup.cpp
+@@ -251,6 +251,38 @@ void CvPlotGroup::changeNumBonuses(BonusTypes eBonus, int iChange)
+ }
+ 
+ 
++// Every good at once: the counts change, then the plots are walked once and each city of the owner applies the whole
++// vector (CvCity::changeNumBonuses), instead of one walk and one corporation update per good.
++void CvPlotGroup::changeNumBonuses(const std::vector<int>& aiChange)
++{
++	bool bChange = false;
++
++	for (int iI = 0; iI < (int)aiChange.size(); ++iI)
++	{
++		if (aiChange[iI] != 0)
++		{
++			m_paiNumBonuses[iI] += aiChange[iI];
++			bChange = true;
++		}
++	}
++
++	if (!bChange)
++	{
++		return;
++	}
++
++	for (CLLNode<XYCoords>* pPlotNode = headPlotsNode(); pPlotNode != NULL; pPlotNode = nextPlotsNode(pPlotNode))
++	{
++		CvCity* pCity = GC.getMapINLINE().plotSorenINLINE(pPlotNode->m_data.iX, pPlotNode->m_data.iY)->getPlotCity();
++
++		if (pCity != NULL && pCity->getOwnerINLINE() == getOwnerINLINE())
++		{
++			pCity->changeNumBonuses(aiChange);
++		}
++	}
++}
++
++
+ void CvPlotGroup::insertAtEndPlots(XYCoords xy)
+ {
+ 	m_plots.insertAtEnd(xy);
+diff --git a/Assets/CvGameCoreDLL/CvPlotGroup.h b/Assets/CvGameCoreDLL/CvPlotGroup.h
+index dd75271..b2ffef6 100644
+--- a/Assets/CvGameCoreDLL/CvPlotGroup.h
++++ b/Assets/CvGameCoreDLL/CvPlotGroup.h
+@@ -38,6 +38,7 @@ public:
+ 	int getNumBonuses(BonusTypes eBonus) const;
+ 	bool hasBonus(BonusTypes eBonus);										
+ 	void changeNumBonuses(BonusTypes eBonus, int iChange);
++	void changeNumBonuses(const std::vector<int>& aiChange);	// aiChange[e]: change of the count of good e; one walk of the plots
+ 
+ 	void insertAtEndPlots(XYCoords xy);			
+ 	CLLNode<XYCoords>* deletePlotsNode(CLLNode<XYCoords>* pNode);
 diff --git a/Assets/CvGameCoreDLL/CvTeam.cpp b/Assets/CvGameCoreDLL/CvTeam.cpp
 index 853a593..c0f45fa 100644
 --- a/Assets/CvGameCoreDLL/CvTeam.cpp

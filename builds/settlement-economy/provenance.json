@@ -1,20 +1,20 @@
 {
  "serves": [
-  "P33",
-  "P34"
+  "P35",
+  "P36"
  ],
- "build_id": "98ef1d5930ae",
- "source": "GitLab claude/settlement-economy at f70541a9: LQ.F10 (ProducedBonuses, the lumber camp), LQ.F11 (pasture and estate products), the produced-goods AI term fixed after P30, lumbermill 5, hunting camps give Leather. The DLL source is GitLab main's plus the C++ of a57f2015 and f70541a9.",
- "source_commit": "f70541a93caa4bf2bedffdeb577a14d1634fd1dc",
- "source_tree": "98ef1d5930ae582f352f8c2ce52f78e46b297e5a",
+ "build_id": "22ae273c8c3d",
+ "source": "GitLab claude/settlement-economy at cf43846b: LQ.F10, LQ.F11, the produced-goods AI term fixed (f70541a9), lumbermill 5, hunting camps give Leather, batched good-count updates (cf43846b).",
+ "source_commit": "cf43846b9cda833193a69a2364beecacb7e2286f",
+ "source_tree": "22ae273c8c3dd31f91b669f5c12fa95a4034eb0a",
  "base_commit": "02d5f85a",
- "dll_sha256": "7334430d0bfe4e92adcb08836b5d0935f33d1ef9783706ffbc98a70d4c61a313",
+ "dll_sha256": "1304da7d9cf61c765d8f98c22348dcac5fdadeb54b38b896c31650d83b4206e7",
  "dll_size": 6160384,
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
- "tested_headless": "Compiled without errors or warnings. The previous build's tests: P27-P32 (evidence cab0938, cb9487b). Safety runs of this change: P33, P34.",
+ "tested_headless": "Deterministic harness runs before registration: batched and unbatched DLLs give identical telemetry on f70541a9 XML (seed 485959733, run time 0.999); on 02d5f85a XML the new and the old DLL give identical telemetry (0.997; seed 2086998694: 0.992). Safety runs P35, P36.",
  "tested_in_game": false,
- "gitlab_commit": "f70541a93caa4bf2bedffdeb577a14d1634fd1dc",
+ "gitlab_commit": "cf43846b9cda833193a69a2364beecacb7e2286f",
  "patch": "builds/settlement-economy/source.patch",
- "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab (the branch point) to f70541a9",
- "previous": "build 27e464d76e49 (GitLab 507d1831), whose AI term P30's slowdown traced to"
+ "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to cf43846b",
+ "previous": "build 98ef1d5930ae (GitLab f70541a9)"
 }
