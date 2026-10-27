@@ -315,6 +315,13 @@
    "kind": "instruction",
    "text": "When you are done, continue working through the plan and the task list, and continue with the next task",
    "led_to": "After P39: LQ.F10.T2 (lumber camp button), then GW.F7 and the rest of GW"
+  },
+  {
+   "id": "M46",
+   "date": "2026-10-27",
+   "kind": "instruction",
+   "text": "\"I'm making the glyph optional in goods_batch.py.\"\n\nCareful here. Check what you have done here.",
+   "led_to": "Review of the goods_batch.py change (a908aa2)"
   }
  ],
  "requests": [
