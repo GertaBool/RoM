@@ -1,31 +1,49 @@
-From 507d18319b61b5aa618c54a6f2517620d1094368 Mon Sep 17 00:00:00 2001
-Subject: [PATCH] Settlement economy DLL source: ProducedBonuses and the lumber camp (LQ.F10)
+From f70541a93caa4bf2bedffdeb577a14d1634fd1dc Mon Sep 17 00:00:00 2001
+Subject: [PATCH] Settlement economy DLL source: ProducedBonuses, the lumber camp, the AI term fixed
 
-Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 507d1831 against GitLab main
-71de0ab (the branch point). The change is LQ.F10, committed as a57f2015 on the branch.
+Assets/CvGameCoreDLL of GitLab claude/settlement-economy at f70541a9 against GitLab main
+71de0ab (the branch point): LQ.F10 (a57f2015) and the produced-goods AI term fixed (f70541a9).
 
-Serves: P31, P32
+Serves: P33, P34
 ---
 diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
-index 355975e..924874c 100644
+index 355975e..56ecfb1 100644
 --- a/Assets/CvGameCoreDLL/CvCityAI.cpp
 +++ b/Assets/CvGameCoreDLL/CvCityAI.cpp
-@@ -11415,6 +11415,21 @@ void CvCityAI::AI_bestPlotBuild(CvPlot* pPlot, int* piBestValue, BuildTypes* peB
+@@ -11415,6 +11415,39 @@ void CvCityAI::AI_bestPlotBuild(CvPlot* pPlot, int* piBestValue, BuildTypes* peB
  /************************************************************************************************/
  
  				iValue = 0;
 +
-+				// Settlement economy: a good the improvement produces counts like a connected resource when the city
-+				// lacks it, or when the plot's improvement already gives it (so a camp is kept, or upgraded to a mill)
++				// Settlement economy: goods improvements produce, valued as the resource code below values a resource:
++				// building one that gives a good the city lacks and can trade is worth the good; replacing the one that
++				// gives the city its only instance of a good costs it; keeping the improvement on the plot is neither
++				if (eImprovement != eCurImprovement)
 +				{
 +					CvImprovementInfo& kFinal = GC.getImprovementInfo(eFinalImprovement);
 +					for (iJ = 0; iJ < kFinal.getNumProducedBonuses(); iJ++)
 +					{
 +						BonusTypes eProduced = kFinal.getProducedBonus(iJ);
-+						if (kFinal.isProducedBonus(eProduced, eNonObsoleteBonus) &&
-+							(!hasBonus(eProduced) || (eCurImprovement != NO_IMPROVEMENT && GC.getImprovementInfo(eCurImprovement).isProducedBonus(eProduced, eNonObsoleteBonus))))
++						TechTypes eTrade = (TechTypes)GC.getBonusInfo(eProduced).getTechCityTrade();
++						if (kFinal.isProducedBonus(eProduced, eNonObsoleteBonus) && !hasBonus(eProduced) &&
++							(eCurImprovement == NO_IMPROVEMENT || !GC.getImprovementInfo(eCurImprovement).isProducedBonus(eProduced, eNonObsoleteBonus)) &&
++							(eTrade == NO_TECH || GET_TEAM(getTeam()).isHasTech(eTrade)))
 +						{
 +							iValue += (GET_PLAYER(getOwnerINLINE()).AI_bonusVal(eProduced) * 10);
++						}
++					}
++					if (eCurImprovement != NO_IMPROVEMENT)
++					{
++						CvImprovementInfo& kCurrent = GC.getImprovementInfo(eCurImprovement);
++						for (iJ = 0; iJ < kCurrent.getNumProducedBonuses(); iJ++)
++						{
++							BonusTypes eProduced = kCurrent.getProducedBonus(iJ);
++							if (kCurrent.isProducedBonus(eProduced, eNonObsoleteBonus) && !kFinal.isProducedBonus(eProduced, eNonObsoleteBonus) &&
++								getNumBonuses(eProduced) == 1)
++							{
++								iValue -= 1000;
++								break;
++							}
 +						}
 +					}
 +				}
@@ -219,7 +237,7 @@ index f92c2f0..7a56fe5 100644
  
  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
-index 466472c..1a47b9d 100644
+index 466472c..dd829a4 100644
 --- a/Assets/CvGameCoreDLL/CvPlot.cpp
 +++ b/Assets/CvGameCoreDLL/CvPlot.cpp
 @@ -1258,7 +1258,56 @@ void CvPlot::updatePlotGroupBonus(bool bAdd)
@@ -228,7 +246,7 @@ index 466472c..1a47b9d 100644
  		}
 +
 +		// Settlement economy: goods the improvement produces (lumber camp: timber; pasture on sheep: wool ...)
-+		if ((getImprovementType() != NO_IMPROVEMENT) && isBonusNetwork(getTeam()))
++		if ((getImprovementType() != NO_IMPROVEMENT) && (GC.getImprovementInfo(getImprovementType()).getNumProducedBonuses() > 0) && isBonusNetwork(getTeam()))
 +		{
 +			CvImprovementInfo& kImprovement = GC.getImprovementInfo(getImprovementType());
 +			CvTeam& kTeam = GET_TEAM(getTeam());

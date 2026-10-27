@@ -1,19 +1,20 @@
 {
  "serves": [
-  "P31",
-  "P32"
+  "P33",
+  "P34"
  ],
- "build_id": "27e464d76e49",
- "source": "GitLab aretemaxxing-group/rise-of-mankind, branch claude/settlement-economy at 507d1831 (LQ.F10 a57f2015..6c7605d2: ProducedBonuses, the lumber camp; LQ.F11 507d1831: pasture and estate products, XML only). The DLL source is GitLab main's plus LQ.F10's C++ changes (CvInfos, CvPlot, CvTeam, CvCityAI, CvGameTextMgr).",
- "source_commit": "507d18319b61b5aa618c54a6f2517620d1094368",
- "source_tree": "27e464d76e4992a8f493c6d9dcde75b8aa95ace0",
+ "build_id": "98ef1d5930ae",
+ "source": "GitLab claude/settlement-economy at f70541a9: LQ.F10 (ProducedBonuses, the lumber camp), LQ.F11 (pasture and estate products), the produced-goods AI term fixed after P30, lumbermill 5, hunting camps give Leather. The DLL source is GitLab main's plus the C++ of a57f2015 and f70541a9.",
+ "source_commit": "f70541a93caa4bf2bedffdeb577a14d1634fd1dc",
+ "source_tree": "98ef1d5930ae582f352f8c2ce52f78e46b297e5a",
  "base_commit": "02d5f85a",
- "dll_sha256": "961cb8617b926049fc7e0cd2428490e791a27b3a22619a5996d60946cb1df983",
+ "dll_sha256": "7334430d0bfe4e92adcb08836b5d0935f33d1ef9783706ffbc98a70d4c61a313",
  "dll_size": 6160384,
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
- "tested_headless": "Harness DLL of the same source: one deterministic Mediterranean game (seed 485959733, 150 turns): at turn 100 four AI players have 1-5 lumber camps and as much Timber; at turn 150 Timber available plus exported equals camps plus mills for 9 of 10 players (the tenth has one camp off the trade network). Safety: P27/P28 corroborated (evidence cab0938, the same tree as a local build); P31/P32 (as committed) and P29/P30 (LQ.F11) running.",
+ "tested_headless": "Compiled without errors or warnings. The previous build's tests: P27-P32 (evidence cab0938, cb9487b). Safety runs of this change: P33, P34.",
  "tested_in_game": false,
- "gitlab_commit": "507d18319b61b5aa618c54a6f2517620d1094368",
+ "gitlab_commit": "f70541a93caa4bf2bedffdeb577a14d1634fd1dc",
  "patch": "builds/settlement-economy/source.patch",
- "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab (the branch point; the DLL source is unchanged from there to 02d5f85a) to 507d1831: the C++ of LQ.F10"
+ "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab (the branch point) to f70541a9",
+ "previous": "build 27e464d76e49 (GitLab 507d1831), whose AI term P30's slowdown traced to"
 }
