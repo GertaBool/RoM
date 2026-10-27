@@ -294,6 +294,13 @@
    "kind": "instruction",
    "text": "Sorry, but I don't think testing is going to do much here. Just look at the codebase",
    "led_to": "P30: code review of the LQ.F10/F11 changes for the slowdown"
+  },
+  {
+   "id": "M43",
+   "date": "2026-10-27",
+   "kind": "instruction",
+   "text": "Optimize the relevant functions with self-explanatory robust mathematics",
+   "led_to": "Batched plot-group bonus updates: one network walk per plot change, one corporation update per city"
   }
  ],
  "requests": [
