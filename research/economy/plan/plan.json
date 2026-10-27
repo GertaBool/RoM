@@ -2921,13 +2921,11 @@
   "updated": "2026-10-26",
   "mod_head": "GitLab claude/settlement-economy at 1fdd6ba1",
   "in_flight": [
-   "Safety runs P37, P38 (tools/safety/p37.sh: the AI_baseBonusVal gate, root-eco-bv against root-eco-batch). Then evidence commit 'Serves: P37, P38'."
+   "P39 running (tools/safety/p39.sh: the branch at 1fdd6ba1 against LQ.F10; registered 2026-10-27). Then evidence commit 'Serves: P39'. P35-P38 corroborated (batched counts 0.992, AI_baseBonusVal gate 0.974)."
   ],
   "next": [
-   "1. After P37/P38: the goods' cost against LQ.F10 now (P34 was 1.059 before cf43846b and 1fdd6ba1). Profile shares (10 turns, LQ.F11): pathfinding 52 % (generatePath's self time is the harness's A*, the executable in the game; pathValid and pathCost are already memoized), CvCity::canTrain 6 %, AI_baseBonusVal recalc 3 % (gated in 1fdd6ba1).",
-   "2. LQ.F10.T2: the lumber camp's own button (art studio).",
-   "3. GW.F7 (copyNonDefaults), then GW.F1, GW.F6 and the rest of GW (D18 order).",
-   "Known cost to consider: each produced good is a separate CvPlotGroup::changeNumBonuses walk of the network plus updateCorporation in each city for corporation goods (engine pattern; a batched update would need engine work).",
+   "1. LQ.F10.T2: the lumber camp's own button (art studio).",
+   "2. GW.F7 (copyNonDefaults), then GW.F1, GW.F6 and the rest of GW (D18 order).",
    "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
   ],
   "environment": [
