@@ -314,7 +314,8 @@
       {
        "id": "LQ.F9.T5",
        "text": "In-game check at both font sizes, then mark the mapping verified",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "The user reports that the glyphs of Timber, Dairy, Leather, Biofuel, Smart Medicine and Synthetic Rubber show at both font sizes in game and that no other symbol moved; until then the task stays open"
       }
      ],
      "data": [
@@ -382,7 +383,8 @@
        "id": "LQ.F10.T2",
        "status": "todo",
        "text": "Art: an art define reusing an existing camp or lumbermill model, and a button made with the studio",
-       "note": "Art define ART_DEF_IMPROVEMENT_LUMBER_CAMP reuses the camp model (Art/Structures/Improvements/Camp); the button is the camp's (BuildCamp.dds). Own button with the studio still to make 2026-10-27 (M46): a change to goods_batch.py making the glyph optional (a908aa2) was reverted: the tool frames every button with the median of the mod's RESOURCE buttons, so it would give the lumber camp a resource-style button, not a build button; it was not run once; and each run writes its own ASSETS.json and font_patch.json, which installed as they are would replace the goods' records. The camp's button needs the frame of the mod's build buttons (Actions_Builds atlas style) and an output that adds to the existing art patch."
+       "note": "Art define ART_DEF_IMPROVEMENT_LUMBER_CAMP reuses the camp model (Art/Structures/Improvements/Camp); the button is the camp's (BuildCamp.dds). Own button with the studio still to make 2026-10-27 (M46): a change to goods_batch.py making the glyph optional (a908aa2) was reverted: the tool frames every button with the median of the mod's RESOURCE buttons, so it would give the lumber camp a resource-style button, not a build button; it was not run once; and each run writes its own ASSETS.json and font_patch.json, which installed as they are would replace the goods' records. The camp's button needs the frame of the mod's build buttons (Actions_Builds atlas style) and an output that adds to the existing art patch.",
+       "done_when": "BUILD_LUMBER_CAMP and ART_DEF_IMPROVEMENT_LUMBER_CAMP point to the camp's own 64x64 DDS button, made in the family of the mod's build buttons (the style of BUILD_CAMP and BUILD_LUMBERMILL in the Actions_Builds atlas, not the resource-button frame of goods_batch.py), from a photograph whose licence allows use, with source and licence recorded next to the existing art records without replacing them; installed through the art patch (Tools/GameFontPatch, which adds files only after their SHA-256 checks); checked by apply_font_patch.py --check on the branch and by comparing the button beside the camp and lumbermill buttons"
       },
       {
        "id": "LQ.F10.T3",
@@ -734,22 +736,26 @@
       {
        "id": "GW.F7.T1",
        "status": "todo",
-       "text": "CvBuildingInfo::copyNonDefaults copies iDCMAirbombMission, iRevIdxDistanceModifier, iRevIdxLocal, iRevIdxNational, iUnitUpgradePriceModifier"
+       "text": "CvBuildingInfo::copyNonDefaults copies iDCMAirbombMission, iRevIdxDistanceModifier, iRevIdxLocal, iRevIdxNational, iUnitUpgradePriceModifier",
+       "done_when": "CvBuildingInfo::copyNonDefaults copies iDCMAirbombMission, iRevIdxDistanceModifier, iRevIdxLocal, iRevIdxNational and iUnitUpgradePriceModifier when the module leaves them at their constructor default; copy_audit.py lists nothing for CvBuildingInfo on the branch; the DLL builds without errors or warnings"
       },
       {
        "id": "GW.F7.T2",
        "status": "todo",
-       "text": "CvUnitInfo::copyNonDefaults copies bCanBeRebel, bCanQuellRebellion, bCanRebelCapture, bCannotDefect"
+       "text": "CvUnitInfo::copyNonDefaults copies bCanBeRebel, bCanQuellRebellion, bCanRebelCapture, bCannotDefect",
+       "done_when": "CvUnitInfo::copyNonDefaults copies bCanBeRebel, bCanQuellRebellion, bCanRebelCapture and bCannotDefect the same way; copy_audit.py lists nothing for CvUnitInfo; the DLL builds"
       },
       {
        "id": "GW.F7.T3",
        "status": "todo",
-       "text": "A check that lists, for every info class, the members read but not copied (the script used for M33), run by check_plan.py"
+       "text": "A check that lists, for every info class, the members read but not copied (the script used for M33), run by check_plan.py",
+       "done_when": "copy_audit.py (research/economy/plan/tools) lists every info class whose XML read sets a member copyNonDefaults does not carry, with the known exceptions and their reasons in the script; check_plan.py runs it when given a mod checkout; on the branch it reports no class (so the other five classes it found, CvEraInfo, CvFeatureInfo, CvLeaderHeadInfo, CvTechInfo, CvTraitInfo, are fixed too)"
       },
       {
        "id": "GW.F7.T4",
        "status": "todo",
-       "text": "DLL build and a safety prediction"
+       "text": "DLL build and a safety prediction",
+       "done_when": "Safety predictions registered before the GitLab commit name every touched file; a deterministic harness run against the branch before the fix shows whether today's game changes (modules that override records whose base sets these members) and the result is written in the task note; the safety runs' evidence is committed; builds/settlement-economy carries the DLL"
       }
      ]
     },
@@ -2918,13 +2924,13 @@
   "5. New decisions go into design.json, changed features into plan.json, in the same commit as the work."
  ],
  "current": {
-  "updated": "2026-10-26",
+  "updated": "2026-10-27",
   "mod_head": "GitLab claude/settlement-economy at 1fdd6ba1",
   "in_flight": [
    "GW.F7 fix generated (tools/connector/gw_f7_edits.py, 28 members in 7 classes; compiles; copy_audit.py clean) and run by check_plan.py; not yet registered or committed. LQ.F10.T2 waits: needs a build-button frame (see its note); goods_batch.py change reverted (M46)."
   ],
   "next": [
-   "1. LQ.F10.T2: the lumber camp's own button (art studio).",
+   "1. LQ.F10.T2 per its done_when: first establish what the build-button family is (where the BUILD_CAMP and BUILD_LUMBERMILL buttons come from, their atlas, their frame) and how the art patch adds a file without replacing records; no tool change before that (rule A).",
    "2. GW.F7 (copyNonDefaults), then GW.F1, GW.F6 and the rest of GW (D18 order).",
    "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
   ],
@@ -2935,6 +2941,13 @@
    "MSVC toolchain: source in plan.json repositories.toolchain (Google Drive folder); set up with toolchain/setup_toolchain.sh.",
    "Code map: codemap/ (tool/query.py; rebuild with tool/build.sh, a '-' base Python dir for a DLL-only refresh).",
    "Connector commits and builds: the ledger refuses a change serving a prediction whose evidence is already on disk or whose paths miss a touched file; commit the mod change and the build before the runs finish, register every touched file. A build's provenance.json needs 'patch': a format-patch file in the repo whose message carries the Serves trailer. Large repeated XML edits: lq_f10_edits.py EACH finds the shortest unique window per occurrence."
+  ],
+  "rules": [
+   "A. Meaning before means (M47): before changing or reusing a tool, write in the task's done_when what the artifact is, which existing family it belongs to, who consumes it and how done is checked; then read the tool's stated purpose. If they differ, stop and plan; never bend the tool to fit.",
+   "B. Blocked: record the block in the task note and in current.in_flight, then go to the next planned task. Never reshape a tool or work around the block.",
+   "C. Run every change to a tool or script on a real case before committing it, and check every consumer of its output (installers, manifests, files it overwrites).",
+   "D. One concern per commit; the message names every area it touches. Shared tools never ride along with evidence or plan commits.",
+   "E. Finish what is running before starting new work: while runs are in flight, plan or read, do not start new code."
   ]
  }
 }

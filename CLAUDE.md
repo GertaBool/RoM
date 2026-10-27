@@ -41,6 +41,21 @@ Hard rules (details in the protocol):
 Everything the checks and the gate need is in `method/` (see `method/README.md`); a new session or
 clone enables it with `sh method/setup.sh` (the SessionStart hook runs it).
 
+## Working discipline (M47)
+
+The semantics of a task come before its means. These rules are also printed first by
+`check_plan.py --summary` (`plan.json` `current.rules`), so they survive a context wipe.
+- **A. Meaning before means.** Before changing or reusing a tool, write the task's `done_when`
+  (`check_plan.py task <id> todo --done-when "..."`): what the artifact is, which existing family it
+  belongs to, who consumes it, how done is checked. Then read the tool's stated purpose; if it
+  differs, stop and plan. Never bend a tool to fit. A task cannot be marked done without `done_when`.
+- **B. Blocked:** record it in the task note and in `current.in_flight`, then go to the next planned
+  task. Never reshape a tool to get around a block.
+- **C.** Run every change to a tool or script on a real case before committing it, and check every
+  consumer of its output.
+- **D.** One concern per commit; the message names every area it touches.
+- **E.** Finish what is running before starting new work; while runs are in flight, plan or read.
+
 ## Economy redesign
 
 The files in `research/economy/plan/` hold the work, not memory or a context summary: `design.json` (the design

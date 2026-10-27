@@ -32,10 +32,16 @@ TODAY = datetime.date.today().isoformat()
 # ---------- edits ----------
 if len(sys.argv) > 1 and sys.argv[1] in ('task', 'item'):
     ap = argparse.ArgumentParser(); ap.add_argument('what'); ap.add_argument('id'); ap.add_argument('status')
-    ap.add_argument('--note'); ap.add_argument('--where'); e = ap.parse_args()
+    ap.add_argument('--note'); ap.add_argument('--where')
+    ap.add_argument('--done-when', dest='done_when', help='what observable state makes the task done (rule A, M47)'); e = ap.parse_args()
     if e.what == 'task':
         if e.id not in TASKS or e.status not in ('todo', 'done'): sys.exit('unknown task %s or status %s' % (e.id, e.status))
-        t = TASKS[e.id][1]; t['status'] = e.status
+        t = TASKS[e.id][1]
+        if e.done_when: t['done_when'] = e.done_when
+        # Rule A (M47): a task is done only against what was written down beforehand as its done state
+        if e.status == 'done' and t.get('status') != 'done' and not t.get('done_when'):
+            sys.exit('task %s has no done_when: write what makes it done (artifact, its family, its consumer, the check) with --done-when first' % e.id)
+        t['status'] = e.status
         if e.status == 'done': t['done'] = TODAY
         else: t.pop('done', None)
         if e.note: t['note'] = e.note
@@ -117,6 +123,8 @@ def validate():
         errs += ['item %s has status %s' % (i['id'], i['status']) for i in r['items'] if i['status'] not in ('open', 'planned', 'done')]
     errs += ['components: ' + e for e in cycles({c['id']: c['depends_on'] for c in PLAN['components']})]
     errs += ['features: ' + e for e in cycles({k: f.get('after', []) for k, (c, f) in FEATURES.items()})]
+    # The working rules (M47, M48) are read first after every context wipe; they may be reworded, not dropped
+    if len(PLAN.get('current', {}).get('rules', [])) < 5: errs.append('plan.json current.rules: the working rules A-E (M47) are missing')
     return errs
 
 
@@ -248,7 +256,7 @@ def summary():
     cur = PLAN.get('current', {})
     if cur:
         print('CURRENT (read first; update it with every commit): %s, as of %s' % (cur.get('mod_head', '?'), cur.get('updated', '?')))
-        for k in ('in_flight', 'next', 'environment'):
+        for k in ('rules', 'in_flight', 'next', 'environment'):
             for l in cur.get(k, []): print('  %s: %s' % (k, l))
     print('Requests open:')
     for r in REQ['requests']:
@@ -275,7 +283,10 @@ def summary():
             print('  %s %s %s' % ('can start:' if not waiting else 'after %s:' % ', '.join(waiting), f['id'], f['what']))
             if not waiting:
                 for t in f['tasks']:
-                    if t['status'] != 'done': print('      %s %s' % (t['id'], t['text']))
+                    if t['status'] == 'done': continue
+                    print('      %s %s' % (t['id'], t['text']))
+                    print('          done when: %s' % t['done_when'] if t.get('done_when') else
+                          '          NOT READY: define done_when first (rule A: artifact, family, consumer, check)')
     for l in PLAN.get('resume', []): print(l)
 
 
