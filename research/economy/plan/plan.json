@@ -735,27 +735,34 @@
      "tasks": [
       {
        "id": "GW.F7.T1",
-       "status": "todo",
+       "status": "done",
        "text": "CvBuildingInfo::copyNonDefaults copies iDCMAirbombMission, iRevIdxDistanceModifier, iRevIdxLocal, iRevIdxNational, iUnitUpgradePriceModifier",
-       "done_when": "CvBuildingInfo::copyNonDefaults copies iDCMAirbombMission, iRevIdxDistanceModifier, iRevIdxLocal, iRevIdxNational and iUnitUpgradePriceModifier when the module leaves them at their constructor default; copy_audit.py lists nothing for CvBuildingInfo on the branch; the DLL builds without errors or warnings"
+       "done_when": "CvBuildingInfo::copyNonDefaults copies iDCMAirbombMission, iRevIdxDistanceModifier, iRevIdxLocal, iRevIdxNational and iUnitUpgradePriceModifier when the module leaves them at their constructor default; copy_audit.py lists nothing for CvBuildingInfo on the branch; the DLL builds without errors or warnings",
+       "done": "2026-10-27",
+       "note": "GitLab 84ea7fc5 (verified identical with gw_f7_edits.py); copy_audit.py clean for CvBuildingInfo; release DLL 5f5c2224be00 0 errors, 0 warnings"
       },
       {
        "id": "GW.F7.T2",
-       "status": "todo",
+       "status": "done",
        "text": "CvUnitInfo::copyNonDefaults copies bCanBeRebel, bCanQuellRebellion, bCanRebelCapture, bCannotDefect",
-       "done_when": "CvUnitInfo::copyNonDefaults copies bCanBeRebel, bCanQuellRebellion, bCanRebelCapture and bCannotDefect the same way; copy_audit.py lists nothing for CvUnitInfo; the DLL builds"
+       "done_when": "CvUnitInfo::copyNonDefaults copies bCanBeRebel, bCanQuellRebellion, bCanRebelCapture and bCannotDefect the same way; copy_audit.py lists nothing for CvUnitInfo; the DLL builds",
+       "done": "2026-10-27",
+       "note": "GitLab 84ea7fc5; copy_audit.py clean for CvUnitInfo; DLL builds"
       },
       {
        "id": "GW.F7.T3",
-       "status": "todo",
+       "status": "done",
        "text": "A check that lists, for every info class, the members read but not copied (the script used for M33), run by check_plan.py",
-       "done_when": "copy_audit.py (research/economy/plan/tools) lists every info class whose XML read sets a member copyNonDefaults does not carry, with the known exceptions and their reasons in the script; check_plan.py runs it when given a mod checkout; on the branch it reports no class (so the other five classes it found, CvEraInfo, CvFeatureInfo, CvLeaderHeadInfo, CvTechInfo, CvTraitInfo, are fixed too)"
+       "done_when": "copy_audit.py (research/economy/plan/tools) lists every info class whose XML read sets a member copyNonDefaults does not carry, with the known exceptions and their reasons in the script; check_plan.py runs it when given a mod checkout; on the branch it reports no class (so the other five classes it found, CvEraInfo, CvFeatureInfo, CvLeaderHeadInfo, CvTechInfo, CvTraitInfo, are fixed too)",
+       "done": "2026-10-27",
+       "note": "research/economy/plan/tools/copy_audit.py with KNOWN exceptions and reasons; check_plan.py runs it with a mod checkout; on the branch at 84ea7fc5 it reports no class (the five other classes it found are fixed in the same commit)"
       },
       {
        "id": "GW.F7.T4",
        "status": "todo",
        "text": "DLL build and a safety prediction",
-       "done_when": "Safety predictions registered before the GitLab commit name every touched file; a deterministic harness run against the branch before the fix shows whether today's game changes (modules that override records whose base sets these members) and the result is written in the task note; the safety runs' evidence is committed; builds/settlement-economy carries the DLL"
+       "done_when": "Safety predictions registered before the GitLab commit name every touched file; a deterministic harness run against the branch before the fix shows whether today's game changes (modules that override records whose base sets these members) and the result is written in the task note; the safety runs' evidence is committed; builds/settlement-economy carries the DLL",
+       "note": "H19, P40, P41 registered before GitLab 84ea7fc5; deterministic run (seed 485959733, 150 turns): identical telemetry with and without the fix, run time 1.001, so no module of today's mod relied on the missing copies; builds/settlement-economy a004850; safety runs P40/P41 in flight (tools/safety/p40.sh)"
       }
      ]
     },
@@ -2925,13 +2932,13 @@
  ],
  "current": {
   "updated": "2026-10-27",
-  "mod_head": "GitLab claude/settlement-economy at 1fdd6ba1",
+  "mod_head": "GitLab claude/settlement-economy at 84ea7fc5",
   "in_flight": [
-   "LQ.F10.T2 BLOCKED (Commons HTTP 429); means planned in its note. Working on GW.F7: fix generated (tools/connector/gw_f7_edits.py, 28 members in 7 classes; compiles; copy_audit.py clean); next: deterministic run before/after on the branch, then register, commit, build, safety runs (GW.F7.T4 done_when)."
+   "Safety runs P40/P41 (GW.F7, tools/safety/p40.sh); then evidence 'Serves: P40, P41' and GW.F7.T4 done. LQ.F10.T2 BLOCKED (Commons HTTP 429); means planned in its note."
   ],
   "next": [
-   "1. LQ.F10.T2 per its done_when: first establish what the build-button family is (where the BUILD_CAMP and BUILD_LUMBERMILL buttons come from, their atlas, their frame) and how the art patch adds a file without replacing records; no tool change before that (rule A).",
-   "2. GW.F7 (copyNonDefaults), then GW.F1, GW.F6 and the rest of GW (D18 order).",
+   "1. After P40/P41: GW.F1 (goods catalogue fields on BonusInfo) per D18 order; write each task's done_when first (rule A).",
+   "2. LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
   ],
   "environment": [
