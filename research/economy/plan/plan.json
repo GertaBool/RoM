@@ -759,10 +759,11 @@
       },
       {
        "id": "GW.F7.T4",
-       "status": "todo",
+       "status": "done",
        "text": "DLL build and a safety prediction",
        "done_when": "Safety predictions registered before the GitLab commit name every touched file; a deterministic harness run against the branch before the fix shows whether today's game changes (modules that override records whose base sets these members) and the result is written in the task note; the safety runs' evidence is committed; builds/settlement-economy carries the DLL",
-       "note": "H19, P40, P41 registered before GitLab 84ea7fc5; deterministic run (seed 485959733, 150 turns): identical telemetry with and without the fix, run time 1.001, so no module of today's mod relied on the missing copies; builds/settlement-economy a004850; safety runs P40/P41 in flight (tools/safety/p40.sh)"
+       "note": "H19, P40, P41 registered before GitLab 84ea7fc5; deterministic run identical with and without the fix (1.001); P40 corroborated (every run completed), P41 corroborated (median 0.982); builds/settlement-economy a004850",
+       "done": "2026-10-27"
       }
      ]
     },
@@ -2937,7 +2938,7 @@
   "updated": "2026-10-27",
   "mod_head": "GitLab claude/settlement-economy at 84ea7fc5",
   "in_flight": [
-   "Safety runs P40/P41 (GW.F7, tools/safety/p40.sh); then evidence 'Serves: P40, P41' and GW.F7.T4 done. LQ.F10.T2 BLOCKED (Commons HTTP 429); means planned in its note."
+   "None. GW.F7 done (P40/P41 corroborated). LQ.F10.T2 BLOCKED (Commons HTTP 429). GW.F1 T1-T3 done_when written; T3 waits on the user's answers (unit and category as proposed? numbers for storage, spoilage, base value? spoilage as base loss plus per-tech reductions?)."
   ],
   "next": [
    "1. After P40/P41: GW.F1 (goods catalogue fields on BonusInfo) per D18 order; write each task's done_when first (rule A).",
