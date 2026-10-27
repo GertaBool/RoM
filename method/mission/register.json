@@ -1343,5 +1343,28 @@
    "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
    "builds/settlement-economy/"
   ]
+ },
+ {
+  "id": "P39",
+  "type": "prediction",
+  "line": "settlement-economy",
+  "hypotheses": [
+   "H16",
+   "H18"
+  ],
+  "evidence": "runs",
+  "variable": "turn_seconds",
+  "change": "The branch at GitLab 1fdd6ba1 (LQ.F11, the AI term fixed in f70541a9, batched counts in cf43846b, the AI_baseBonusVal gate in 1fdd6ba1, lumbermill 5, hunting camps give Leather) against LQ.F10 as committed (6c7605d2): the question P30 and P34 refuted. Harness: arm a root-eco-bv (1fdd6ba1 DLL, f70541a9 XML = 1fdd6ba1 XML), arm b root-eco-lq10, Mediterranean turn 0, GAMESPEED_NORMAL, HANDICAP_NOBLE, 150 turns, seeds from ledger.py seeds. P39: no slower.",
+  "claim": {
+   "direction": "a<=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0,
+   "test": "safety"
+  },
+  "paths": [
+   "builds/settlement-economy/"
+  ]
  }
 ]
