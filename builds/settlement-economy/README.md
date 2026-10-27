@@ -1,6 +1,6 @@
 # Settlement economy test build
 
-This DLL goes with the GitLab branch `claude/settlement-economy` (at `cf43846b`), a separate testing branch of
+This DLL goes with the GitLab branch `claude/settlement-economy` (at `1fdd6ba1`), a separate testing branch of
 Rise of Mankind for the settlement economy. The branch's own `Assets/CvGameCoreDLL.dll` is still GitLab `main`'s:
 the connector that writes the branch cannot carry a binary, so the DLL is kept here. Without it the branch's XML
 loads, but lumber camps, lumbermills, pastures and latifundia give no goods.
@@ -24,7 +24,7 @@ loads, but lumber camps, lumbermills, pastures and latifundia give no goods.
 2. Copy `CvGameCoreDLL.dll` from this folder over `Assets/CvGameCoreDLL.dll` of that checkout (back up the old one).
 3. Start a new game. Saves from other builds may not load correctly.
 
-`provenance.json` names the source commit, the build id (`22ae273c8c3d`) and the DLL's hash.
+`provenance.json` names the source commit, the build id (`76496d63f0da`) and the DLL's hash.
 
 ## What to look at
 

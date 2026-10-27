@@ -1,20 +1,20 @@
 {
  "serves": [
-  "P35",
-  "P36"
+  "P37",
+  "P38"
  ],
- "build_id": "22ae273c8c3d",
- "source": "GitLab claude/settlement-economy at cf43846b: LQ.F10, LQ.F11, the produced-goods AI term fixed (f70541a9), lumbermill 5, hunting camps give Leather, batched good-count updates (cf43846b).",
- "source_commit": "cf43846b9cda833193a69a2364beecacb7e2286f",
- "source_tree": "22ae273c8c3dd31f91b669f5c12fa95a4034eb0a",
+ "build_id": "76496d63f0da",
+ "source": "GitLab claude/settlement-economy at 1fdd6ba1: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts (cf43846b), AI_baseBonusVal gate (1fdd6ba1).",
+ "source_commit": "1fdd6ba1dcab53566a2379b65064627bab72440c",
+ "source_tree": "76496d63f0da1794e996defff166871ae0ebcf31",
  "base_commit": "02d5f85a",
- "dll_sha256": "1304da7d9cf61c765d8f98c22348dcac5fdadeb54b38b896c31650d83b4206e7",
+ "dll_sha256": "d3d68a2f3984bc2f4bfacfd4371a3492db5a7f481bfda4e58aa0bfee643d5b1e",
  "dll_size": 6160384,
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
- "tested_headless": "Deterministic harness runs before registration: batched and unbatched DLLs give identical telemetry on f70541a9 XML (seed 485959733, run time 0.999); on 02d5f85a XML the new and the old DLL give identical telemetry (0.997; seed 2086998694: 0.992). Safety runs P35, P36.",
+ "tested_headless": "P35/P36 (batched counts) corroborated. Gate: identical telemetry with and without it, run time 0.967 and 0.973 (two seeds). Safety runs P37, P38.",
  "tested_in_game": false,
- "gitlab_commit": "cf43846b9cda833193a69a2364beecacb7e2286f",
+ "gitlab_commit": "1fdd6ba1dcab53566a2379b65064627bab72440c",
  "patch": "builds/settlement-economy/source.patch",
- "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to cf43846b",
- "previous": "build 98ef1d5930ae (GitLab f70541a9)"
+ "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to 1fdd6ba1",
+ "previous": "build 22ae273c8c3d (GitLab cf43846b)"
 }
