@@ -329,6 +329,13 @@
    "kind": "instruction",
    "text": "Assess why you lost track of the semantics of the task and prevent such an issue from occurring again. Don't immediately rush to coding, that is a bad idea.",
    "led_to": "Assessment of the goods_batch.py episode; working rules proposed"
+  },
+  {
+   "id": "M48",
+   "date": "2026-10-27",
+   "kind": "instruction",
+   "text": "Fulfill the proposal and make the change persistent across context wipes",
+   "led_to": "Working rules A-E in CLAUDE.md and plan.json current; 'done_when' required by check_plan.py before a task can start or be marked done"
   }
  ],
  "requests": [
