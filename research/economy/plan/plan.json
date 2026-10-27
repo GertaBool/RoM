@@ -819,7 +819,7 @@
        "id": "GW.F1.T3",
        "text": "Fill CIV4BonusInfos.xml (and module bonus records) with the unit and category proposed in proposals.json (confirmed, M50)",
        "status": "todo",
-       "done_when": "Every resource record of the mod and its modules carries GoodUnit and GoodCategory equal to proposals.json; catalogue.py (or a check beside it) lists every resource with both fields and none missing or unknown; the deterministic run is identical (nothing reads them)"
+       "done_when": "The 71 base records that proposals.json gives a unit and category carry GoodUnit and GoodCategory equal to it, and so does BONUS_CGUILDPAPER in the Guilds module (whose Guilds_CIV4TerrainSchema.xml then declares the two tags); the Corporations module's partial records of Fur, Ivory and Whale inherit them through copyNonDefaults; five records stay without: Ancient Temple and Thermal Vent (sites, D11) and Drama, Music, Movies (goods by D11, form open in D21); a check lists every record with its fields, none unknown, the five named as intended; the deterministic run is identical (nothing reads them)"
       },
       {
        "id": "GW.F1.T4",
