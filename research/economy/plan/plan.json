@@ -382,7 +382,7 @@
        "id": "LQ.F10.T2",
        "status": "todo",
        "text": "Art: an art define reusing an existing camp or lumbermill model, and a button made with the studio",
-       "note": "Art define ART_DEF_IMPROVEMENT_LUMBER_CAMP reuses the camp model (Art/Structures/Improvements/Camp); the button is the camp's (BuildCamp.dds). Own button with the studio still to make"
+       "note": "Art define ART_DEF_IMPROVEMENT_LUMBER_CAMP reuses the camp model (Art/Structures/Improvements/Camp); the button is the camp's (BuildCamp.dds). Own button with the studio still to make 2026-10-27 (M46): a change to goods_batch.py making the glyph optional (a908aa2) was reverted: the tool frames every button with the median of the mod's RESOURCE buttons, so it would give the lumber camp a resource-style button, not a build button; it was not run once; and each run writes its own ASSETS.json and font_patch.json, which installed as they are would replace the goods' records. The camp's button needs the frame of the mod's build buttons (Actions_Builds atlas style) and an output that adds to the existing art patch."
       },
       {
        "id": "LQ.F10.T3",
@@ -2921,7 +2921,7 @@
   "updated": "2026-10-26",
   "mod_head": "GitLab claude/settlement-economy at 1fdd6ba1",
   "in_flight": [
-   "GW.F7: research/economy/plan/tools/copy_audit.py lists members read but not copied (CvBuildingInfo 5, CvUnitInfo 4, CvEraInfo 1, CvFeatureInfo 1, CvLeaderHeadInfo 5, CvTechInfo 2, CvTraitInfo 10); fix generator next; LQ.F10.T2 button waits for Wikimedia Commons (HTTP 429 on 2026-10-27; goods_batch.py now makes buttons without a glyph)."
+   "GW.F7 fix generated (tools/connector/gw_f7_edits.py, 28 members in 7 classes; compiles; copy_audit.py clean) and run by check_plan.py; not yet registered or committed. LQ.F10.T2 waits: needs a build-button frame (see its note); goods_batch.py change reverted (M46)."
   ],
   "next": [
    "1. LQ.F10.T2: the lumber camp's own button (art studio).",

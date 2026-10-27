@@ -286,6 +286,12 @@ if a.summary or not a.mod:
     summary(); sys.exit(0)
 
 broken, report, checks_ok = [], [], {}
+# GW.F7.T3: members an info class's XML read sets that its copyNonDefaults does not carry (module records lose them)
+import subprocess
+_audit = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'copy_audit.py'), os.path.join(a.mod, 'Assets', 'CvGameCoreDLL')],
+                        capture_output=True, text=True)
+print('Copy audit (GW.F7): ' + ('every member read is copied' if _audit.returncode == 0 else 'MISSING'))
+for _l in _audit.stdout.splitlines(): print('  ' + _l)
 for c in PLAN['components']:
     if a.component and c['id'] != a.component: continue
     lines, aok, an = [], 0, 0
