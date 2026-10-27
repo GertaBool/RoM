@@ -322,6 +322,13 @@
    "kind": "instruction",
    "text": "\"I'm making the glyph optional in goods_batch.py.\"\n\nCareful here. Check what you have done here.",
    "led_to": "Review of the goods_batch.py change (a908aa2)"
+  },
+  {
+   "id": "M47",
+   "date": "2026-10-27",
+   "kind": "instruction",
+   "text": "Assess why you lost track of the semantics of the task and prevent such an issue from occurring again. Don't immediately rush to coding, that is a bad idea.",
+   "led_to": "Assessment of the goods_batch.py episode; working rules proposed"
   }
  ],
  "requests": [
