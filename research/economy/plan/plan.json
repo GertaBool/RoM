@@ -804,17 +804,20 @@
       {
        "id": "GW.F1.T1",
        "text": "Schema tags on BonusInfo",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "CIV4TerrainSchema.xml declares on BonusInfo, all optional (minOccurs 0) after the existing elements: GoodUnit (one of proposals.json units), GoodCategory (one of its 8 categories), iStorage (a settlement's store cap, in the good's unit), iSpoilage (per mille lost per turn with no preservation) with SpoilageTechs (TechType and iSpoilageChange, per mille, applied when the owner has the tech) and iBaseValue; every existing BonusInfo file still loads; consumers: GW.F3 accounts, GW.F5 pass, SD storage and spoilage, TR trade value; checked by a deterministic harness run with identical telemetry (no record sets them yet)"
       },
       {
        "id": "GW.F1.T2",
        "text": "CvBonusInfo::read and copyNonDefaults read them (modules included)",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "CvBonusInfo stores the fields (unit and category as ints from fixed lists in the DLL, -1 when absent), reads them in read(CvXMLLoadUtility*), carries them in copyNonDefaults (copy_audit.py clean) and in the cache stream behind a version flag; accessors exist; no game code reads them yet; the DLL builds and the same deterministic run is identical"
       },
       {
        "id": "GW.F1.T3",
        "text": "Fill CIV4BonusInfos.xml from proposals.json once confirmed",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "Each resource record in CIV4BonusInfos.xml (and module records) carries the values the user confirmed: unit and category from proposals.json, storage, spoilage and base value from a confirmed table (proposals.json has no numbers for these yet); checked by catalogue.py listing every resource with all fields and no unknown value"
       }
      ],
      "data": [
