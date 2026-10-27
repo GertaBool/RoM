@@ -1,10 +1,10 @@
-From 84ea7fc53147210dd3740f1f85c385008a27e25d Mon Sep 17 00:00:00 2001
-Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults
+From 9a5795e9b5094d392d9633a80d33f9d19be5722c Mon Sep 17 00:00:00 2001
+Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields
 
-Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 84ea7fc5 against GitLab main
-71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5.
+Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 9a5795e9 against GitLab main
+71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9.
 
-Serves: P40, P41
+Serves: P42, P43
 ---
 diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
 index 533e42d..3643079 100644
@@ -168,7 +168,7 @@ index fbac12d..d7e9eb3 100644
  	for (int iBonus = 0; iBonus < GC.getNumBonusInfos(); iBonus++)
  	{
 diff --git a/Assets/CvGameCoreDLL/CvInfos.cpp b/Assets/CvGameCoreDLL/CvInfos.cpp
-index ee85ca7..3a451a4 100644
+index ee85ca7..9f30407 100644
 --- a/Assets/CvGameCoreDLL/CvInfos.cpp
 +++ b/Assets/CvGameCoreDLL/CvInfos.cpp
 @@ -2163,6 +2163,9 @@ void CvTechInfo::copyNonDefaults(CvTechInfo* pClassInfo)
@@ -335,7 +335,137 @@ index ee85ca7..3a451a4 100644
  	//Readpass2 stuff
  	if (m_iImprovementPillage == iTextDefault) m_iImprovementPillage = pClassInfo->getImprovementPillage();
  	if (m_iImprovementUpgrade == iTextDefault) m_iImprovementUpgrade = pClassInfo->getImprovementUpgrade();
-@@ -17707,6 +17807,8 @@ void CvFeatureInfo::copyNonDefaults(CvFeatureInfo* pClassInfo)
+@@ -16720,6 +16820,8 @@ m_bHills(false),
+ m_bFlatlands(false),
+ m_bNoRiverSide(false),
+ m_bNormalize(false),
++m_iGoodUnit(-1),
++m_iGoodCategory(-1),
+ m_piYieldChange(NULL),
+ m_piImprovementChange(NULL),
+ m_pbTerrain(NULL),
+@@ -16957,6 +17059,66 @@ bool CvBonusInfo::isFeatureTerrain(int i) const
+ 	return m_pbFeatureTerrain ?	m_pbFeatureTerrain[i] : false; 
+ }
+ 
++// Goods catalogue (GW.F1, D22): the texts GoodUnit and GoodCategory take, as in
++// research/economy/plan/proposals.json (units, categories)
++static const char* const s_aszGoodUnits[] = { "tonnes", "bales", "barrels", "crates", "head" };
++static const char* const s_aszGoodCategories[] = { "staple food", "other food", "fuel", "raw material", "intermediate", "finished good", "luxury", "military supply" };
++static const int NUM_GOOD_UNITS = sizeof(s_aszGoodUnits) / sizeof(s_aszGoodUnits[0]);
++static const int NUM_GOOD_CATEGORIES = sizeof(s_aszGoodCategories) / sizeof(s_aszGoodCategories[0]);
++
++// the index of szVal in aszNames; -1 for an empty text, and for an unknown one, which is reported
++static int findGoodName(const CvString& szVal, const char* const* aszNames, int iNum, const char* szTag, const char* szType)
++{
++	if (szVal.empty())
++	{
++		return -1;
++	}
++	for (int i = 0; i < iNum; i++)
++	{
++		if (szVal == aszNames[i])
++		{
++			return i;
++		}
++	}
++	CvString szError;
++	szError.Format("%s: unknown %s '%s'", szType, szTag, szVal.c_str());
++	gDLL->logMsg("CvBonusInfo_read.log", szError.c_str());
++	FAssertMsg(false, szError.c_str());
++	return -1;
++}
++
++int CvBonusInfo::getGoodUnit() const
++{
++	return m_iGoodUnit;
++}
++
++int CvBonusInfo::getGoodCategory() const
++{
++	return m_iGoodCategory;
++}
++
++int CvBonusInfo::getNumGoodUnits()
++{
++	return NUM_GOOD_UNITS;
++}
++
++const char* CvBonusInfo::getGoodUnitName(int i)
++{
++	FAssertMsg(i >= 0 && i < NUM_GOOD_UNITS, "Index out of bounds");
++	return s_aszGoodUnits[i];
++}
++
++int CvBonusInfo::getNumGoodCategories()
++{
++	return NUM_GOOD_CATEGORIES;
++}
++
++const char* CvBonusInfo::getGoodCategoryName(int i)
++{
++	FAssertMsg(i >= 0 && i < NUM_GOOD_CATEGORIES, "Index out of bounds");
++	return s_aszGoodCategories[i];
++}
++
+ const TCHAR* CvBonusInfo::getButton() const
+ {
+ /************************************************************************************************/
+@@ -17045,13 +17207,21 @@ void CvBonusInfo::read(FDataStreamBase* stream)
+ 	SAFE_DELETE_ARRAY(m_pbFeatureTerrain);
+ 	m_pbFeatureTerrain = new bool[GC.getNumTerrainInfos()];
+ 	stream->Read(GC.getNumTerrainInfos(), m_pbFeatureTerrain);
++
++	m_iGoodUnit = -1;
++	m_iGoodCategory = -1;
++	if (uiFlag >= 1)
++	{
++		stream->Read(&m_iGoodUnit);
++		stream->Read(&m_iGoodCategory);
++	}
+ }
+ 
+ void CvBonusInfo::write(FDataStreamBase* stream)
+ {
+ 	CvInfoBase::write(stream);
+ 
+-	uint uiFlag=0;
++	uint uiFlag=1;
+ 	stream->Write(uiFlag);		// flag for expansion
+ 
+ 	stream->Write(m_iBonusClassType);
+@@ -17094,6 +17264,9 @@ void CvBonusInfo::write(FDataStreamBase* stream)
+ 	stream->Write(GC.getNumTerrainInfos(), m_pbTerrain);
+ 	stream->Write(GC.getNumFeatureInfos(), m_pbFeature);
+ 	stream->Write(GC.getNumTerrainInfos(), m_pbFeatureTerrain);
++
++	stream->Write(m_iGoodUnit);
++	stream->Write(m_iGoodCategory);
+ }
+ 
+ bool CvBonusInfo::read(CvXMLLoadUtility* pXML)
+@@ -17167,6 +17340,11 @@ bool CvBonusInfo::read(CvXMLLoadUtility* pXML)
+ 	pXML->SetVariableListTagPair(&m_pbFeature, "FeatureBooleans", sizeof(GC.getFeatureInfo((FeatureTypes)0)), GC.getNumFeatureInfos());
+ 	pXML->SetVariableListTagPair(&m_pbFeatureTerrain, "FeatureTerrainBooleans", sizeof(GC.getTerrainInfo((TerrainTypes)0)), GC.getNumTerrainInfos());
+ 
++	pXML->GetChildXmlValByName(szTextVal, "GoodUnit");
++	m_iGoodUnit = findGoodName(szTextVal, s_aszGoodUnits, NUM_GOOD_UNITS, "GoodUnit", getType());
++	pXML->GetChildXmlValByName(szTextVal, "GoodCategory");
++	m_iGoodCategory = findGoodName(szTextVal, s_aszGoodCategories, NUM_GOOD_CATEGORIES, "GoodCategory", getType());
++
+ 	return true;
+ }
+ /************************************************************************************************/
+@@ -17225,6 +17403,8 @@ void CvBonusInfo::copyNonDefaults(CvBonusInfo* pClassInfo)
+ 	if (isFlatlands() == bDefault) m_bFlatlands = pClassInfo->isFlatlands();
+ 	if (isNoRiverSide() == bDefault) m_bNoRiverSide = pClassInfo->isNoRiverSide();
+ 	if (isNormalize() == bDefault) m_bNormalize = pClassInfo->isNormalize();
++	if (getGoodUnit() == -1) m_iGoodUnit = pClassInfo->getGoodUnit();
++	if (getGoodCategory() == -1) m_iGoodCategory = pClassInfo->getGoodCategory();
+ 
+ 	for ( int i = 0; i < GC.getNumTerrainInfos(); i++)
+ 	{
+@@ -17707,6 +17887,8 @@ void CvFeatureInfo::copyNonDefaults(CvFeatureInfo* pClassInfo)
  			m_pbTerrain[i] = pClassInfo->isTerrain(i);
  		}
  	}
@@ -344,7 +474,7 @@ index ee85ca7..3a451a4 100644
  }
  /************************************************************************************************/
  /* XMLCOPY                                 END                                                  */
-@@ -19865,6 +19967,12 @@ void CvLeaderHeadInfo::copyNonDefaults(CvLeaderHeadInfo* pClassInfo)
+@@ -19865,6 +20047,12 @@ void CvLeaderHeadInfo::copyNonDefaults(CvLeaderHeadInfo* pClassInfo)
  			m_piDiploWarMusicScriptIds[j] = pClassInfo->getDiploWarMusicScriptIds(j);
  		}
  	}
@@ -357,7 +487,7 @@ index ee85ca7..3a451a4 100644
  }
  /************************************************************************************************/
  /* XMLCOPY                                 END                                                  */
-@@ -22182,6 +22290,17 @@ void CvTraitInfo::copyNonDefaults(CvTraitInfo* pClassInfo)
+@@ -22182,6 +22370,17 @@ void CvTraitInfo::copyNonDefaults(CvTraitInfo* pClassInfo)
  			m_pabFreePromotionUnitCombat[j] = pClassInfo->isFreePromotionUnitCombat(j);
  		}
  	}	
@@ -375,7 +505,7 @@ index ee85ca7..3a451a4 100644
  }
  /************************************************************************************************/
  /* XMLCOPY                                 END                                                  */
-@@ -25370,6 +25489,8 @@ void CvEraInfo::copyNonDefaults(CvEraInfo* pClassInfo)
+@@ -25370,6 +25569,8 @@ void CvEraInfo::copyNonDefaults(CvEraInfo* pClassInfo)
  			m_paiCitySoundscapeSciptIds[i] = pClassInfo->getCitySoundscapeSciptId(i);
  		}
  	}
@@ -385,7 +515,7 @@ index ee85ca7..3a451a4 100644
  /************************************************************************************************/
  /* XMLCOPY                                 END                                                  */
 diff --git a/Assets/CvGameCoreDLL/CvInfos.h b/Assets/CvGameCoreDLL/CvInfos.h
-index f92c2f0..7a56fe5 100644
+index f92c2f0..c702260 100644
 --- a/Assets/CvGameCoreDLL/CvInfos.h
 +++ b/Assets/CvGameCoreDLL/CvInfos.h
 @@ -3510,6 +3510,12 @@ public:
@@ -410,6 +540,31 @@ index f92c2f0..7a56fe5 100644
  };
  
  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ -3694,6 +3702,14 @@ public:
+ 	const TCHAR* getButton() const; // Exposed to Python
+ 	DllExport const CvArtInfoBonus* getArtInfo() const; // Exposed to Python
+ 
++	// Goods catalogue (GW.F1, D22): index into the fixed lists below, -1 when the record has none
++	int getGoodUnit() const;
++	int getGoodCategory() const;
++	static int getNumGoodUnits();
++	static const char* getGoodUnitName(int i);
++	static int getNumGoodCategories();
++	static const char* getGoodCategoryName(int i);
++
+ 	void read(FDataStreamBase* stream);
+ 	void write(FDataStreamBase* stream);
+ 
+@@ -3743,6 +3759,9 @@ protected:
+ 	bool m_bNoRiverSide;
+ 	bool m_bNormalize;
+ 
++	int m_iGoodUnit;
++	int m_iGoodCategory;
++
+ 	CvString m_szArtDefineTag;
+ 
+ 	// Arrays
 diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
 index e675e66..ee888db 100644
 --- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp

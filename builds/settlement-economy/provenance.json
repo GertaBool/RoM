@@ -1,20 +1,20 @@
 {
  "serves": [
-  "P40",
-  "P41"
+  "P42",
+  "P43"
  ],
- "build_id": "5f5c2224be00",
- "source": "GitLab claude/settlement-economy at 84ea7fc5: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts, AI_baseBonusVal gate, copyNonDefaults carries every member read (GW.F7).",
- "source_commit": "84ea7fc53147210dd3740f1f85c385008a27e25d",
- "source_tree": "5f5c2224be00cc3ed321d85f625ddd347ce10d7a",
+ "build_id": "e7da41335d50",
+ "source": "GitLab claude/settlement-economy at 9a5795e9: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts, AI_baseBonusVal gate, copyNonDefaults carries every member read (GW.F7), GoodUnit and GoodCategory read on BonusInfo (GW.F1.T1/T2).",
+ "source_commit": "9a5795e9b5094d392d9633a80d33f9d19be5722c",
+ "source_tree": "e7da41335d505381a1f56f7b8db2fd28b1b689a6",
  "base_commit": "02d5f85a",
- "dll_sha256": "9076dba953b2e0013979de714bb2223be13d0e2dc90b012dbf5ab887e79d225b",
+ "dll_sha256": "fb894f8cddc8a5cd813d0c6d30747af8d18a5abe40fc59b561b77c268bfd1c6a",
  "dll_size": 6160384,
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
- "tested_headless": "P37/P38 (gate) and P39 (branch against LQ.F10, 1.036) corroborated. GW.F7: identical telemetry with and without (run time 1.001). Safety runs P40, P41.",
+ "tested_headless": "GW.F1.T1/T2: identical telemetry with and without (seed 485959733, 150 turns, run time 0.995); a 2-turn run reads 'tonnes' silently and logs an unknown 'kilos'. Safety runs P42, P43.",
  "tested_in_game": false,
- "gitlab_commit": "84ea7fc53147210dd3740f1f85c385008a27e25d",
+ "gitlab_commit": "9a5795e9b5094d392d9633a80d33f9d19be5722c",
  "patch": "builds/settlement-economy/source.patch",
- "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to 84ea7fc5",
- "previous": "build 76496d63f0da (GitLab 1fdd6ba1)"
+ "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to 9a5795e9",
+ "previous": "build 5f5c2224be00 (GitLab 84ea7fc5)"
 }
