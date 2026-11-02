@@ -371,6 +371,13 @@
    "kind": "answer",
    "text": "\"Output per improvement\"\n\nThis should map against population numbers, land quality and tech, and the kind of good in question\n\n\"you decided on real quantities in whole numbers (D1). What's open is the size: for example, whether a worked wheat farm makes about 2 t per turn or about 20 t.\"\n\nIt should depend on the real population employed to work these farms, the true efficiency of these farms based on the technologies and resources available, land quality and the kind of good (here: wheat) that is being grown. The goal is to be somewhat true to a real agricultural economy",
    "led_to": "R10: production quantities from the people employed, the technologies and resources available, land quality and the kind of good, true to a real agricultural economy (PR.F1 design)"
+  },
+  {
+   "id": "M54",
+   "date": "2026-11-02",
+   "kind": "answer",
+   "text": "\"Fermentation leaves wheat unchanged.\" Ever heard of nutritional bioavailability? How people fermented grains for millennia? \n\n\"1. Annual or per-turn amounts\" (a) for the sake of the gameplay, until we get to sub year turns\n\n\"2. How many real people does one working citizen stand for?\" I pick (a)\n\n\"3. How much farmland is in one tile?\" Depends on the map. However, here the issue lies in assuming map sizes necessarily translate to corresponding or contra correlating scales. It's not an easy question",
+   "led_to": "D23: fermentation raises the food value of grain (bioavailability, preservation), not the harvest; flows per year while turns last a year or more; workers from the game's real population; tile farmland stays open (map scale is not given by map size)"
   }
  ],
  "requests": [
