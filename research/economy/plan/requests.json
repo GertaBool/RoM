@@ -364,6 +364,13 @@
    "kind": "request",
    "text": "Continue. Also provide a good visualization for what the UI would show ingame, so I can gauge whether it aligns with my vision",
    "led_to": "R9: a mock-up of the planned in-game UI (UI.F1 city screen, UI.F2 Civilopedia, LD.F6 plot help) from the plan's features and the statement; continue GW.F3"
+  },
+  {
+   "id": "M53",
+   "date": "2026-11-02",
+   "kind": "answer",
+   "text": "\"Output per improvement\"\n\nThis should map against population numbers, land quality and tech, and the kind of good in question\n\n\"you decided on real quantities in whole numbers (D1). What's open is the size: for example, whether a worked wheat farm makes about 2 t per turn or about 20 t.\"\n\nIt should depend on the real population employed to work these farms, the true efficiency of these farms based on the technologies and resources available, land quality and the kind of good (here: wheat) that is being grown. The goal is to be somewhat true to a real agricultural economy",
+   "led_to": "R10: production quantities from the people employed, the technologies and resources available, land quality and the kind of good, true to a real agricultural economy (PR.F1 design)"
   }
  ],
  "requests": [
@@ -608,6 +615,35 @@
      "what": "Continue the plan (GW.F3 next)",
      "status": "planned",
      "where": "GW.F3 next (plan.json current)"
+    }
+   ]
+  },
+  {
+   "id": "R10",
+   "date": "2026-11-02",
+   "status": "open",
+   "prompt": "M53",
+   "text": "\"Output per improvement\"\n\nThis should map against population numbers, land quality and tech, and the kind of good in question\n\n\"you decided on real quantities in whole numbers (D1). What's open is the size: for example, whether a worked wheat farm makes about 2 t per turn or about 20 t.\"\n\nIt should depend on the real population employed to work these farms, the true efficiency of these farms based on the technologies and resources available, land quality and the kind of good (here: wheat) that is being grown. The goal is to be somewhat true to a real agricultural economy",
+   "items": [
+    {
+     "id": "R10.1",
+     "what": "Output of a worked tile from the real population employed on it, not a fixed number per improvement",
+     "status": "open"
+    },
+    {
+     "id": "R10.2",
+     "what": "Efficiency per worker from the technologies and resources (tools, draught animals, fertiliser) available",
+     "status": "open"
+    },
+    {
+     "id": "R10.3",
+     "what": "Land quality and the kind of good (wheat, rice, cattle, ore, timber) set the yield",
+     "status": "open"
+    },
+    {
+     "id": "R10.4",
+     "what": "Quantities somewhat true to a real agricultural economy, with sources",
+     "status": "open"
     }
    ]
   }
