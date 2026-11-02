@@ -987,17 +987,20 @@
       {
        "id": "GW.F4.T1",
        "text": "CvCity::changeGoodsBonus, the same pattern as changeFreeBonus: remove from the plot group, change, add back",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "CvCity holds m_paiGoodsBonus per good (instances the accounts supply, 0 or more) with getGoodsBonus and changeGoodsBonus written as changeFreeBonus is: remove the plot's goods from its plot group (updatePlotGroupBonus(false)), change, add back; reset() zeroes it, uninit() frees it, CvCity::write/read save it behind uiFlag 2 so a reload gives the same plot-group counts; consumers: CvPlotGroup counts, hence buildings' resource requirements, the AI and the trade screen (design AR.bridge). Checked with T2"
       },
       {
        "id": "GW.F4.T2",
        "text": "updatePlotGroupBonus adds each city's goods-supplied count next to its free bonus count",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "CvPlot::updatePlotGroupBonus adds each city's getGoodsBonus to the change vector next to getFreeBonus (obsolete goods excluded the same way); with every goods bonus 0 the counts are unchanged: the DLL builds, a 150-turn run gives identical telemetry and the snapshot round trip and old-snapshot load stay identical (as GW.F3)"
       },
       {
        "id": "GW.F4.T3",
        "text": "The pass sets the count from stock each turn (1 when supplied, 0 when not)",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "The economy pass (GW.F5) sets each city's goods bonus from its stock after the storage step: 1 while the stock is above 0, else 0, changed only when it differs; with empty stocks (nothing produces into them until PR) the run is identical. Constraint written next to it for PR: once a plot's good goes into the accounts, its direct plot-group count must stop, so a good is not counted twice"
       }
      ],
      "design": [
@@ -1027,12 +1030,14 @@
       {
        "id": "GW.F5.T1",
        "text": "CvPlayer::doGoods() called from CvPlayer::doTurn before the city loop",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "CvPlayer::doGoods() exists and is called once per turn from CvPlayer::doTurn, after doEspionagePoints and before the city loop; it visits the player's cities in the order firstCity/nextCity gives (deterministic), draws no random number; the DLL builds and a 150-turn run gives identical telemetry"
       },
       {
        "id": "GW.F5.T2",
        "text": "Fixed order: produce, run recipes, distribute, consume, store and spoil; each step a separate function",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "doGoods runs, as separate functions in this order: reset the five flows of every city, produce, run recipes, distribute, consume, store and spoil, update the goods bonus (GW.F4.T3); the steps PR, IN, SD and CN fill are empty functions with a comment naming the feature that fills them; sums over cities in __int64 (GW.F6.T2); the run is identical and the median same-seed run time stays within 5 % of 9213dc33 (safety runs)"
       }
      ],
      "design": [
