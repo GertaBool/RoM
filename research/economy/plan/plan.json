@@ -1003,8 +1003,10 @@
       {
        "id": "GW.F4.T3",
        "text": "The pass sets the count from stock each turn (1 when supplied, 0 when not)",
-       "status": "todo",
-       "done_when": "The economy pass (GW.F5) sets each city's goods bonus from its stock after the storage step: 1 while the stock is above 0, else 0, changed only when it differs; with empty stocks (nothing produces into them until PR) the run is identical. Constraint written next to it for PR: once a plot's good goes into the accounts, its direct plot-group count must stop, so a good is not counted twice"
+       "status": "done",
+       "done_when": "The economy pass (GW.F5) sets each city's goods bonus from its stock after the storage step: 1 while the stock is above 0, else 0, changed only when it differs; with empty stocks (nothing produces into them until PR) the run is identical. Constraint written next to it for PR: once a plot's good goes into the accounts, its direct plot-group count must stop, so a good is not counted twice",
+       "done": "2026-11-02",
+       "note": "GitLab ba209b49: updateGoodsBonus sets 1 while stock > 0, else 0, changing only on a difference. Real case (scratch build, not committed): 3 t timber in each capital on turns 5-8 raised the capital's Timber count 0 -> 1 at turn 5 and back to 0 at turn 9 (logs/goodstest.log). The count does not wait for the good's trade tech, as with a building's free bonus. The PR constraint (stop the plot's direct count once its good enters the accounts) is written next to it."
       }
      ],
      "design": [
@@ -1034,14 +1036,18 @@
       {
        "id": "GW.F5.T1",
        "text": "CvPlayer::doGoods() called from CvPlayer::doTurn before the city loop",
-       "status": "todo",
-       "done_when": "CvPlayer::doGoods() exists and is called once per turn from CvPlayer::doTurn, after doEspionagePoints and before the city loop; it visits the player's cities in the order firstCity/nextCity gives (deterministic), draws no random number; the DLL builds and a 150-turn run gives identical telemetry"
+       "status": "done",
+       "done_when": "CvPlayer::doGoods() exists and is called once per turn from CvPlayer::doTurn, after doEspionagePoints and before the city loop; it visits the player's cities in the order firstCity/nextCity gives (deterministic), draws no random number; the DLL builds and a 150-turn run gives identical telemetry",
+       "done": "2026-11-02",
+       "note": "GitLab ba209b49 (gw_f5_edits.py): doGoods called from doTurn after doEspionagePoints, before the city loop; firstCity/nextCity order; no random numbers. Seed 485959733: 150-turn telemetry identical to 72b86393; turn-60 round trip and a 72b86393 snapshot identical to turn 80. Build e42220fcb075. Safety runs P50/P51."
       },
       {
        "id": "GW.F5.T2",
        "text": "Fixed order: produce, run recipes, distribute, consume, store and spoil; each step a separate function",
-       "status": "todo",
-       "done_when": "doGoods runs, as separate functions in this order: reset the five flows of every city, produce, run recipes, distribute, consume, store and spoil, update the goods bonus (GW.F4.T3); the steps PR, IN, SD and CN fill are empty functions with a comment naming the feature that fills them; sums over cities in __int64 (GW.F6.T2); the run is identical and the median same-seed run time stays within 5 % of 9213dc33 (safety runs)"
+       "status": "done",
+       "done_when": "doGoods runs, as separate functions in this order: reset the five flows of every city, produce, run recipes, distribute, consume, store and spoil, update the goods bonus (GW.F4.T3); the steps PR, IN, SD and CN fill are empty functions with a comment naming the feature that fills them; sums over cities in __int64 (GW.F6.T2); the run is identical and the median same-seed run time stays within 5 % of 9213dc33 (safety runs)",
+       "done": "2026-11-02",
+       "note": "GitLab ba209b49: resetGoodsFlows, produceGoods (PR), runGoodsRecipes (IN.F1), distributeGoods (SD.F3), consumeGoods (CN), storeAndSpoilGoods (SD.F1/F2), updateGoodsBonus; empty steps name their feature. No sums over cities yet (GW.F6.T2 stays open until one exists). Run time: P51."
       }
      ],
      "design": [
@@ -3012,12 +3018,12 @@
  ],
  "current": {
   "updated": "2026-11-02",
-  "mod_head": "GitLab claude/settlement-economy at 72b86393",
+  "mod_head": "GitLab claude/settlement-economy at ba209b49",
   "in_flight": [
-   "None. GW.F4.T1/T2 done (GitLab 72b86393, build d45c19c7a25b); P48 (no failed run) and P49 (median same-seed run time 0.997) corroborated. Earlier P47 (GW.F3) 1.023. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "P50/P51 safety runs (tools/safety/p50.sh: root-eco-gwf5 against root-eco-gwf4), started 2026-11-02; then commit the evidence with Serves: P50, P51. GW.F3, GW.F4, GW.F5 done (GitLab ba209b49, build e42220fcb075). GW.F6.T2 open until a sum exists. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. After P48/P49: GW.F5 (CvPlayer::doGoods, the pass) with GW.F4.T3 (goods bonus from stock) and GW.F6.T2; done_when written.",
+   "1. After P50/P51: GW is done except GW.F2.T2 (user), GW.F6.T2 (with the first sum) and GW.F8 (after the system works). Next component in D18 order: PR (production into the accounts); check_plan.py --summary, done_when first (rule A). The open question in the mock-up (how goods in different units add up within a need, CN.F1.T3) bears on CN, not PR.",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
