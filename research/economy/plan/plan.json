@@ -929,14 +929,18 @@
       {
        "id": "GW.F3.T1",
        "text": "Arrays sized by the number of goods; reset, read and write behind a new CvCity save version",
-       "status": "todo",
-       "done_when": "CvCity holds per good (GC.getNumBonusInfos()) six int arrays: m_paiGoodStock (carried from turn to turn) and the last completed turn's m_paiGoodProduced, Consumed, Received, Sent, Spoiled (reset by the pass, GW.F5), in whole units of the good's GoodUnit (D1); allocated and zeroed in reset(), freed in uninit(), written at the end of write() and read at the end of read() behind CvCity uiFlag 1, so a uiFlag 0 save loads with zeros; nothing writes them yet; consumers: GW.F4 bridge, GW.F5 pass, UI.F1 city screen, CN, SD. Checked by: the DLL builds; a deterministic 150-turn run gives identical telemetry; a turn-start snapshot written and reloaded by the new DLL rewrites the same bytes; a snapshot written by the previous DLL loads in the new one and the continuation's telemetry equals the previous DLL's continuation"
+       "status": "done",
+       "done_when": "CvCity holds per good (GC.getNumBonusInfos()) six int arrays: m_paiGoodStock (carried from turn to turn) and the last completed turn's m_paiGoodProduced, Consumed, Received, Sent, Spoiled (reset by the pass, GW.F5), in whole units of the good's GoodUnit (D1); allocated and zeroed in reset(), freed in uninit(), written at the end of write() and read at the end of read() behind CvCity uiFlag 1, so a uiFlag 0 save loads with zeros; nothing writes them yet; consumers: GW.F4 bridge, GW.F5 pass, UI.F1 city screen, CN, SD. Checked by: the DLL builds; a deterministic 150-turn run gives identical telemetry; a turn-start snapshot written and reloaded by the new DLL rewrites the same bytes; a snapshot written by the previous DLL loads in the new one and the continuation's telemetry equals the previous DLL's continuation",
+       "done": "2026-11-02",
+       "note": "GitLab 9213dc33 (gw_f3_edits.py). Checks, seed 485959733: 150-turn telemetry identical to 4bea4e0e; turn-60 snapshot of the new DLL reloaded and played to 80 identical; rewriting it gives byte-identical cities, units, groups and plot groups (file +66 bytes, as the old DLL's rewrite); a turn-60 snapshot of the 4bea4e0e DLL continues identically in the new one. Snapshot +36,960 bytes for 20 cities. Build f4aaa10d94b4. Safety runs P46/P47."
       },
       {
        "id": "GW.F3.T2",
        "text": "Accessors for each flow; old saves load with empty accounts",
-       "status": "todo",
-       "done_when": "CvCity has getGood<Flow>(BonusTypes) for the six arrays and changeGood<Flow>(BonusTypes, int) for each, with index asserts (FAssertMsg) and the stock clamped at 0 with an assert when a change would take it below; declared next to getNumBonuses in CvCity.h; no caller yet (the pass, GW.F5, is the first); the DLL builds and the deterministic run is identical"
+       "status": "done",
+       "done_when": "CvCity has getGood<Flow>(BonusTypes) for the six arrays and changeGood<Flow>(BonusTypes, int) for each, with index asserts (FAssertMsg) and the stock clamped at 0 with an assert when a change would take it below; declared next to getNumBonuses in CvCity.h; no caller yet (the pass, GW.F5, is the first); the DLL builds and the deterministic run is identical",
+       "done": "2026-11-02",
+       "note": "GitLab 9213dc33: getGood<Account>/changeGood<Account> for Stock, Produced, Consumed, Received, Sent, Spoiled; changeGoodAccount sums in __int64, asserts a fall below 0, clamps to 0..MAX_INT; no caller yet."
       }
      ],
      "data": [
@@ -1055,8 +1059,10 @@
       {
        "id": "GW.F6.T1",
        "text": "Bound every new stock and flow from the records (largest harvest, largest store) and write it next to the declaration",
-       "status": "todo",
-       "done_when": "Every stock and flow GW.F3 declares carries a comment with its bound: the int range, stocks clamped to 0..MAX_INT in the setter, until PR fixes harvest and storage quantities, when the comment is refined from the records; checked by reading the GW.F3 diff"
+       "status": "done",
+       "done_when": "Every stock and flow GW.F3 declares carries a comment with its bound: the int range, stocks clamped to 0..MAX_INT in the setter, until PR fixes harvest and storage quantities, when the comment is refined from the records; checked by reading the GW.F3 diff",
+       "done": "2026-11-02",
+       "note": "GitLab 9213dc33: the bound is written next to the declarations in CvCity.h (each account 0..MAX_INT, clamped in changeGoodAccount); to be refined from the records when PR sets quantities."
       },
       {
        "id": "GW.F6.T2",
@@ -2997,12 +3003,12 @@
  ],
  "current": {
   "updated": "2026-11-02",
-  "mod_head": "GitLab claude/settlement-economy at 4bea4e0e",
+  "mod_head": "GitLab claude/settlement-economy at 9213dc33",
   "in_flight": [
-   "None. GW.F1 done (GitLab 4bea4e0e; P42-P45 corroborated: no failed run, same-seed run time 0.998 and 0.998). Open: builds/settlement-economy/README.md line on GoodUnit/GoodCategory ('none does yet') to correct with the next build commit (gate needs Serves). LQ.F10.T2 BLOCKED (Commons HTTP 429)."
+   "P46/P47 safety runs (tools/safety/p46.sh: root-eco-gwf3 against root-eco-gwf1f), started 2026-11-02; then commit the evidence with Serves: P46, P47. GW.F3 and GW.F6.T1 done (GitLab 9213dc33, build f4aaa10d94b4). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up done: https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD, waiting on the user's judgement."
   ],
   "next": [
-   "1. GW.F3 (goods accounts per settlement) with GW.F6.T1 (bounds at declaration): done_when written; register predictions before the GitLab commit. Storage, spoilage and base value are GW.F8 (after GW.F3, GW.F5).",
+   "1. After P46/P47: GW.F4 (the bridge) and GW.F5 (the economy pass) can start; write their done_when first (rule A). GW.F6.T2 applies once sums exist (GW.F5).",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
