@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Civilopedia: Dairy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#e7c56a}a:hover{color:#f3dc9a}
+</style>
+</helmet>
+<div style="width: 1000px; height: 760px; box-sizing: border-box; padding: 22px; background: #121a23; color: #ece6d6; font-family: 'Source Sans 3', sans-serif; display: flex; flex-direction: column; gap: 14px">
+  <div style="display: flex; align-items: center; gap: 16px; border-bottom: 2px solid #8a7334; padding-bottom: 12px">
+    <span aria-hidden="true" style="width: 64px; height: 64px; border-radius: 10px; background: #efe8d2; color: #10161d; font-weight: 700; font-size: 20px; display: flex; align-items: center; justify-content: center">DA</span>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <h1 style="margin: 0; font-family: Cinzel, serif; font-size: 30px; color: #e7c56a">Dairy</h1>
+      <span style="font-size: 15px; color: #c3ccd6">Civilopedia · Goods</span>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 16px; flex-grow: 1; min-height: 0">
+    <div style="width: 330px; display: flex; flex-direction: column; gap: 12px">
+      <div style="background: #1c2632; border: 1px solid #5f5230; padding: 14px 16px; display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px 10px; font-size: 15px">
+        <span style="color: #a7b2be">Unit</span><span style="font-weight: 600">tonnes</span>
+        <span style="color: #a7b2be">Category</span><span style="font-weight: 600">Other food</span>
+        <span style="color: #a7b2be">Need</span><span style="font-weight: 600">Variety</span>
+        <span style="color: #a7b2be">Keeps</span><span style="font-weight: 600">Perishable</span>
+        <span style="color: #a7b2be">Storage</span><span style="color: #f0b27a">[limit not designed yet]</span>
+        <span style="color: #a7b2be">Spoilage</span><span style="color: #f0b27a">[rate not designed yet]</span>
+        <span style="color: #a7b2be">Preserved by</span><span>Salt, Refrigeration</span>
+      </div>
+      <div style="background: #1c2632; border: 1px solid #5f5230; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; font-family: Cinzel, serif; font-size: 17px; color: #e7c56a">Comes from</h2>
+        <div style="font-size: 15px">Pastures on Cow and Sheep</div>
+        <div style="font-size: 15px">Every Latifundium stage on Cow and Sheep</div>
+        <div style="font-size: 14px; color: #a7b2be">Breeding stock: Cow, Sheep</div>
+      </div>
+      <div style="background: #1c2632; border: 1px solid #5f5230; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; font-family: Cinzel, serif; font-size: 17px; color: #e7c56a">Stands in for</h2>
+        <div style="font-size: 15px">Cow, Pig, Sheep, Deer, Fish</div>
+      </div>
+    </div>
+
+    <div style="flex-grow: 1; background: #1c2632; border: 1px solid #5f5230; padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+      <h2 style="margin: 0; font-family: Cinzel, serif; font-size: 17px; color: #e7c56a">Used for</h2>
+      <sc-for list="{{uses}}" as="u" hint-placeholder-count="5">
+        <div style="display: flex; flex-direction: column; gap: 3px; border-bottom: 1px solid #27323f; padding-bottom: 10px">
+          <div style="font-size: 13px; color: #d9bd6a; text-transform: uppercase; letter-spacing: 0.6px">{{u.role}}</div>
+          <div style="font-size: 15px; line-height: 1.4">{{u.what}}</div>
+          <div style="font-size: 14px; color: #a7b2be">{{u.where}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1000,"height":760}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      uses: [
+        { role: 'Need', what: 'Dietary variety: milk, cheese and butter, with meat, fish, fruit and oil. Feeds growth and health; a larger city needs more.', where: 'Market chain: Market, Fair, Commodity Market, Commercial Center · essentials buildings' },
+        { role: 'Storage', what: 'Spoils as milk; cheese and butter keep. Salt, then canning, then refrigeration preserve it.', where: 'Cannery, Food Processing Plant' },
+        { role: 'Supplies', what: 'Cheese as rations for armies in the field and provisions for ships.', where: 'Units in the field' },
+        { role: 'Trade', what: 'Shipped in tonnes: fresh dairy only to near partners, cheese and canned dairy far.', where: 'Deals and supply contracts' },
+        { role: 'Means of production', what: 'Dairy cattle and sheep, the breeding stock, can be traded so the buyer produces it.', where: 'Deals' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

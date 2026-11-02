@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Plot help</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#e7c56a}a:hover{color:#f3dc9a}
+</style>
+</helmet>
+<div style="width: 640px; height: 440px; box-sizing: border-box; background: #121a23; color: #ece6d6; font-family: 'Source Sans 3', sans-serif; position: relative; overflow: hidden">
+  <div aria-hidden="true" style="position: absolute; left: 24px; top: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; width: 300px; height: 300px">
+    <span style="background: #4d7a3a"></span><span style="background: #2f5a2c"></span><span style="background: #2f5a2c"></span><span style="background: #8a7b52"></span>
+    <span style="background: #4d7a3a"></span><span style="background: #3d6e34; outline: 3px solid #e7c56a; outline-offset: -3px"></span><span style="background: #2f5a2c"></span><span style="background: #8a7b52"></span>
+    <span style="background: #3a6c9a"></span><span style="background: #4d7a3a"></span><span style="background: #4d7a3a"></span><span style="background: #9b8f6b"></span>
+    <span style="background: #2c5b86"></span><span style="background: #3a6c9a"></span><span style="background: #4d7a3a"></span><span style="background: #9b8f6b"></span>
+  </div>
+  <div style="position: absolute; left: 230px; top: 92px; width: 380px; background: #1c2632; border: 1px solid #8a7334; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.5)">
+    <div style="font-size: 16px; font-weight: 700">Grassland Hills, Forest, River</div>
+    <div style="font-size: 14px; color: #c3ccd6">2 food · 2 production · 1 commerce</div>
+    <div style="font-family: Cinzel, serif; font-size: 14px; color: #d9bd6a; border-top: 1px solid #3b4652; padding-top: 8px">The land</div>
+    <sc-for list="{{qualities}}" as="q" hint-placeholder-count="4">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 15px">
+        <span aria-hidden="true" style="width: 22px; height: 22px; border-radius: 5px; background: {{q.tint}}; color: #10161d; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{q.code}}</span>
+        <span style="width: 70px; font-weight: 600">{{q.good}}</span>
+        <span style="color: {{q.color}}; font-weight: 600">{{q.band}}</span>
+        <span style="color: #a7b2be">{{q.extra}}</span>
+      </div>
+    </sc-for>
+    <div style="font-size: 13px; color: #a7b2be; border-top: 1px solid #3b4652; padding-top: 8px">Lumber camp here would give Timber to the trade network</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":640,"height":440}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const c = { rich: '#8fc0ee', good: '#ece6d6', poor: '#f0b27a' };
+    return {
+      qualities: [
+        { code: 'TI', tint: '#b98a5a', good: 'Timber', band: 'rich', color: c.rich, extra: 'old forest' },
+        { code: 'CO', tint: '#d9c8a8', good: 'Cow', band: 'good', color: c.good, extra: 'grazing' },
+        { code: 'WH', tint: '#e3c26b', good: 'Wheat', band: 'poor', color: c.poor, extra: 'hill soil' },
+        { code: 'IR', tint: '#9aa3ad', good: 'Iron', band: 'good', color: c.good, extra: 'ore deep' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

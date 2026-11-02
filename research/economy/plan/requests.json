@@ -600,12 +600,14 @@
     {
      "id": "R9.1",
      "what": "A visualization of what the in-game UI would show, built from the planned UI features, for the user to judge against their vision",
-     "status": "open"
+     "status": "done",
+     "where": "Design canvas https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD; source in research/economy/ui-mockup/"
     },
     {
      "id": "R9.2",
      "what": "Continue the plan (GW.F3 next)",
-     "status": "open"
+     "status": "planned",
+     "where": "GW.F3 next (plan.json current)"
     }
    ]
   }

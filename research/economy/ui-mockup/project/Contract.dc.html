@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Supply contract</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#e7c56a}a:hover{color:#f3dc9a}
+</style>
+</helmet>
+<div style="width: 1000px; height: 660px; box-sizing: border-box; padding: 22px; background: #121a23; color: #ece6d6; font-family: 'Source Sans 3', sans-serif; display: flex; flex-direction: column; gap: 14px">
+  <div style="display: flex; align-items: baseline; gap: 16px; border-bottom: 2px solid #8a7334; padding-bottom: 10px">
+    <h1 style="margin: 0; font-family: Cinzel, serif; font-size: 26px; color: #e7c56a">Trade with Carthage</h1>
+    <span style="font-size: 15px; color: #c3ccd6">Diplomacy screen · proposed package</span>
+  </div>
+
+  <div style="display: flex; gap: 16px; flex-grow: 1; min-height: 0">
+    <div style="flex: 1 1 0; background: #1c2632; border: 1px solid #5f5230; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-family: Cinzel, serif; font-size: 17px; color: #e7c56a">You give</h2>
+      <div style="border: 1px solid #3b4652; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span aria-hidden="true" style="width: 24px; height: 24px; border-radius: 5px; background: #e3c26b; color: #10161d; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">WH</span>
+          <span style="font-size: 16px; font-weight: 700">Wheat · supply contract</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 4px 10px; font-size: 15px">
+          <span style="color: #a7b2be">Quantity</span><span>20 tonnes per turn</span>
+          <span style="color: #a7b2be">Term</span><span>30 turns</span>
+          <span style="color: #a7b2be">From</span><span>Eboracum network (5 cities)</span>
+          <span style="color: #a7b2be">Route</span><span>by sea, Eboracum harbour to Carthage</span>
+          <span style="color: #a7b2be">Penalty</span><span>60 gold per turn short</span>
+        </div>
+      </div>
+      <div style="border: 1px solid #3b4652; padding: 10px 12px; display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="width: 24px; height: 24px; border-radius: 5px; background: #8a5a3c; color: #f3ead8; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">CF</span>
+        <span style="font-size: 16px; font-weight: 700">Coffee seeds</span>
+        <span style="font-size: 14px; color: #a7b2be">means of production · once</span>
+      </div>
+      <div style="margin-top: auto; font-size: 14px; color: #c3ccd6">Your wheat surplus: +2 t per turn now; the contract needs 20 t.</div>
+    </div>
+
+    <div style="flex: 1 1 0; background: #1c2632; border: 1px solid #5f5230; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-family: Cinzel, serif; font-size: 17px; color: #e7c56a">You receive</h2>
+      <div style="border: 1px solid #3b4652; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span aria-hidden="true" style="width: 24px; height: 24px; border-radius: 5px; background: #9aa3ad; color: #10161d; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">IR</span>
+          <span style="font-size: 16px; font-weight: 700">Iron · supply contract</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 4px 10px; font-size: 15px">
+          <span style="color: #a7b2be">Quantity</span><span>6 tonnes per turn</span>
+          <span style="color: #a7b2be">Term</span><span>30 turns</span>
+          <span style="color: #a7b2be">Route</span><span>by sea, Carthage to Eboracum harbour</span>
+        </div>
+      </div>
+      <div style="border: 1px solid #3b4652; padding: 10px 12px; font-size: 16px; font-weight: 700">Open borders</div>
+      <div style="border: 1px solid #3b4652; padding: 10px 12px; display: flex; gap: 10px; align-items: baseline">
+        <span style="font-size: 16px; font-weight: 700">400 gold</span>
+        <span style="font-size: 14px; color: #a7b2be">lump sum</span>
+      </div>
+      <div style="margin-top: auto; font-size: 14px; color: #c3ccd6">Carthage values the wheat by what it adds to its own cities' growth.</div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 12px; align-items: center">
+    <span style="font-size: 14px; color: #f0b27a">A blockade of either harbour stops delivery; war ends the contract.</span>
+    <button type="button" style="margin-left: auto; min-height: 44px; padding: 0 22px; background: #1c2632; color: #ece6d6; border: 1px solid #5f5230; font-family: 'Source Sans 3', sans-serif; font-size: 15px">Counter-propose</button>
+    <button type="button" style="min-height: 44px; padding: 0 22px; background: #8a7334; color: #10161d; border: 1px solid #e7c56a; font-family: 'Source Sans 3', sans-serif; font-size: 15px; font-weight: 700">Propose</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1000,"height":660}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
