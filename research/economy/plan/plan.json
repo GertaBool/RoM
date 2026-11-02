@@ -3020,7 +3020,7 @@
   "updated": "2026-11-02",
   "mod_head": "GitLab claude/settlement-economy at ba209b49",
   "in_flight": [
-   "P50/P51 safety runs (tools/safety/p50.sh: root-eco-gwf5 against root-eco-gwf4), started 2026-11-02; then commit the evidence with Serves: P50, P51. GW.F3, GW.F4, GW.F5 done (GitLab ba209b49, build e42220fcb075). GW.F6.T2 open until a sum exists. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "None. GW.F3, GW.F4, GW.F5 done (GitLab ba209b49, build e42220fcb075); P50 (no failed run) and P51 (median same-seed run time 0.990) corroborated; earlier P47 1.023, P49 0.997. GW open: GW.F2.T2 (user), GW.F6.T2 (with the first sum), GW.F8 (after the system works). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
    "1. After P50/P51: GW is done except GW.F2.T2 (user), GW.F6.T2 (with the first sum) and GW.F8 (after the system works). Next component in D18 order: PR (production into the accounts); check_plan.py --summary, done_when first (rule A). The open question in the mock-up (how goods in different units add up within a need, CN.F1.T3) bears on CN, not PR.",
