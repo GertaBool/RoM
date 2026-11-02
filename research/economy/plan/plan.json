@@ -2999,10 +2999,10 @@
   "updated": "2026-11-02",
   "mod_head": "GitLab claude/settlement-economy at 4bea4e0e",
   "in_flight": [
-   "P44/P45 safety runs (tools/safety/p44.sh: root-eco-gwf1f against root-eco-gwf1), started 2026-11-02; then commit the evidence with Serves: P44, P45. GW.F1.T1-T3 done (GitLab 4bea4e0e; DLL build e7da41335d50 unchanged). Open: builds/settlement-economy/README.md line on GoodUnit/GoodCategory ('none does yet') to correct with the next build commit (gate needs Serves). LQ.F10.T2 BLOCKED (Commons HTTP 429)."
+   "None. GW.F1 done (GitLab 4bea4e0e; P42-P45 corroborated: no failed run, same-seed run time 0.998 and 0.998). Open: builds/settlement-economy/README.md line on GoodUnit/GoodCategory ('none does yet') to correct with the next build commit (gate needs Serves). LQ.F10.T2 BLOCKED (Commons HTTP 429)."
   ],
   "next": [
-   "1. After P44/P45: GW in D18 order: GW.F6 (integer rules) and GW.F3 (goods accounts per settlement) can start, then GW.F2 once data changes the icons; write each task's done_when first (rule A). Storage, spoilage and base value are GW.F8 (after GW.F3, GW.F5).",
+   "1. GW.F3 (goods accounts per settlement) with GW.F6.T1 (bounds at declaration): done_when written; register predictions before the GitLab commit. Storage, spoilage and base value are GW.F8 (after GW.F3, GW.F5).",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
