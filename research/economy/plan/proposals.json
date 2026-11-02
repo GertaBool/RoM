@@ -880,9 +880,9 @@
   "farmland": {
    "status": "open (M54: depends on the map; map size does not by itself give a scale, larger or smaller maps need not mean finer or coarser land)",
    "facts": [
-    "The game has no map scale: no km per tile in the map scripts or world sizes read so far (to be checked: CIV4WorldInfo.xml)",
-    "A city works at most its 21-tile fat cross (fewer with RoM's city size limits to be checked)",
-    "Real population grows as size^2.8, independent of the map"
+    "CIV4WorldInfo.xml has no scale field (its tags: grid width and height, maintenance, research and other modifiers); the world sizes run from Duel (40 x 24 plots) to Gigantic (200 x 120 plots), and the same Earth-like map can be played at any of them",
+    "A city works at most NUM_CITY_PLOTS = 21 plots (CvDefines.h, radius 2)",
+    "Real population grows as size^2.8 x 1000, the same on every map and world size"
    ],
    "options": [
     "(i) a scale declared per map or scenario (km^2 per tile), the map's author's choice",
