@@ -987,14 +987,18 @@
       {
        "id": "GW.F4.T1",
        "text": "CvCity::changeGoodsBonus, the same pattern as changeFreeBonus: remove from the plot group, change, add back",
-       "status": "todo",
-       "done_when": "CvCity holds m_paiGoodsBonus per good (instances the accounts supply, 0 or more) with getGoodsBonus and changeGoodsBonus written as changeFreeBonus is: remove the plot's goods from its plot group (updatePlotGroupBonus(false)), change, add back; reset() zeroes it, uninit() frees it, CvCity::write/read save it behind uiFlag 2 so a reload gives the same plot-group counts; consumers: CvPlotGroup counts, hence buildings' resource requirements, the AI and the trade screen (design AR.bridge). Checked with T2"
+       "status": "done",
+       "done_when": "CvCity holds m_paiGoodsBonus per good (instances the accounts supply, 0 or more) with getGoodsBonus and changeGoodsBonus written as changeFreeBonus is: remove the plot's goods from its plot group (updatePlotGroupBonus(false)), change, add back; reset() zeroes it, uninit() frees it, CvCity::write/read save it behind uiFlag 2 so a reload gives the same plot-group counts; consumers: CvPlotGroup counts, hence buildings' resource requirements, the AI and the trade screen (design AR.bridge). Checked with T2",
+       "done": "2026-11-02",
+       "note": "GitLab 72b86393 (gw_f4_edits.py): m_paiGoodsBonus, getGoodsBonus, changeGoodsBonus as changeFreeBonus, saved behind CvCity uiFlag 2. Build d45c19c7a25b. A non-zero goods bonus is exercised first by GW.F4.T3."
       },
       {
        "id": "GW.F4.T2",
        "text": "updatePlotGroupBonus adds each city's goods-supplied count next to its free bonus count",
-       "status": "todo",
-       "done_when": "CvPlot::updatePlotGroupBonus adds each city's getGoodsBonus to the change vector next to getFreeBonus (obsolete goods excluded the same way); with every goods bonus 0 the counts are unchanged: the DLL builds, a 150-turn run gives identical telemetry and the snapshot round trip and old-snapshot load stay identical (as GW.F3)"
+       "status": "done",
+       "done_when": "CvPlot::updatePlotGroupBonus adds each city's getGoodsBonus to the change vector next to getFreeBonus (obsolete goods excluded the same way); with every goods bonus 0 the counts are unchanged: the DLL builds, a 150-turn run gives identical telemetry and the snapshot round trip and old-snapshot load stay identical (as GW.F3)",
+       "done": "2026-11-02",
+       "note": "GitLab 72b86393: updatePlotGroupBonus adds getGoodsBonus next to getFreeBonus. Seed 485959733: 150-turn telemetry identical to 9213dc33; turn-60 round trip identical to turn 80; a 9213dc33 snapshot continues identically; snapshot +6,160 bytes for 20 cities. Safety runs P48/P49."
       },
       {
        "id": "GW.F4.T3",
@@ -3008,12 +3012,12 @@
  ],
  "current": {
   "updated": "2026-11-02",
-  "mod_head": "GitLab claude/settlement-economy at 9213dc33",
+  "mod_head": "GitLab claude/settlement-economy at 72b86393",
   "in_flight": [
-   "None. GW.F3 and GW.F6.T1 done (GitLab 9213dc33, build f4aaa10d94b4); P46 (no failed run) and P47 corroborated: median same-seed run time 1.023 (per seed 1.033, 0.971, 1.023, 1.013, 1.096; limit 1.05), higher than P43/P45 (0.998) although nothing calls the accounts: watch the run time of GW.F5 against this. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "P48/P49 safety runs (tools/safety/p48.sh: root-eco-gwf4 against root-eco-gwf3), started 2026-11-02; then commit the evidence with Serves: P48, P49. GW.F4.T1/T2 done (GitLab 72b86393, build d45c19c7a25b). P47 run time 1.023 (limit 1.05): watch GW.F5's run time. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. After P46/P47: GW.F4 (the bridge) and GW.F5 (the economy pass) can start; write their done_when first (rule A). GW.F6.T2 applies once sums exist (GW.F5).",
+   "1. After P48/P49: GW.F5 (CvPlayer::doGoods, the pass) with GW.F4.T3 (goods bonus from stock) and GW.F6.T2; done_when written.",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
