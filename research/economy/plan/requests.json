@@ -357,6 +357,13 @@
    "kind": "answer",
    "text": "Question 1) Yes\n\nQuestion 2) Let's deal with spoilage later when the system works\n\nQuestion 3) same as above",
    "led_to": "Same text as M50, already applied (D22; GW.F1 T1/T2 done at GitLab 9a5795e9, T3 next, T4 later); nothing changes"
+  },
+  {
+   "id": "M52",
+   "date": "2026-11-02",
+   "kind": "request",
+   "text": "Continue. Also provide a good visualization for what the UI would show ingame, so I can gauge whether it aligns with my vision",
+   "led_to": "R9: a mock-up of the planned in-game UI (UI.F1 city screen, UI.F2 Civilopedia, LD.F6 plot help) from the plan's features and the statement; continue GW.F3"
   }
  ],
  "requests": [
@@ -582,6 +589,25 @@
     }
    ],
    "facts": "CIV4UnitInfos.xml at GitLab e694caf0: 20 wooden ships (6 need Iron), 17 siege units, 14 archer units, 44 melee units (8 need Iron), 39 mounted units (34 need Horse, 4 Ivory); no unit needs or is cheaper with Timber, Wool or Leather. D14 copied each good's nearest peer, and the peers (Fur, Sheep, the livestock) are themselves modelled only as happiness and food. Checked again for M33 at the same commit: 82 buildings of the ancient to medieval eras, 9 of them with any construction speed-up from a good; the Forge gives +25 % production for each of Copper, Iron and Lead; building records can carry BonusHappinessChanges, BonusHealthChanges, BonusProductionModifiers and BonusYieldModifiers by good, unit records BonusProductionModifiers."
+  },
+  {
+   "id": "R9",
+   "date": "2026-11-02",
+   "status": "open",
+   "prompt": "M52",
+   "text": "Continue. Also provide a good visualization for what the UI would show ingame, so I can gauge whether it aligns with my vision",
+   "items": [
+    {
+     "id": "R9.1",
+     "what": "A visualization of what the in-game UI would show, built from the planned UI features, for the user to judge against their vision",
+     "status": "open"
+    },
+    {
+     "id": "R9.2",
+     "what": "Continue the plan (GW.F3 next)",
+     "status": "open"
+    }
+   ]
   }
  ]
 }
