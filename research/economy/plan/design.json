@@ -381,6 +381,17 @@
    "why": "Fields whose meaning is not fixed should not be built (rule A); spoilage, storage and value need the working goods system to be judged (M50).",
    "choice": "Each resource record gets its unit and category now, as proposed in proposals.json (M50, question 1). Storage limits, spoilage (and its representation per preservation technology) and base values wait until the goods system works (GW.F3, GW.F5); no fields for them before then.",
    "source": "M50"
+  },
+  {
+   "id": "D23",
+   "question": "How much a worked tile produces (R10, M53)",
+   "status": "open",
+   "source": "M53",
+   "why": "The user: output from the real population employed, the true efficiency given technologies and resources, land quality and the kind of good, somewhat true to a real agricultural economy",
+   "options": [
+    "the model in proposals.json production: area worked (workers x hectares per worker, capped by the tile) x yield per hectare x land quality x (1 - seed), with the game's farm techs as the stages"
+   ],
+   "proposal": "the model in proposals.json production; open within it: (1) flows per year or per turn (turns span 50 years down to 3 months); (2) how many real people one working citizen stands for (the game's population grows as size^2.8, so per citizen from 1,000 at size 1 to 220,000 at size 20); (3) the tile's arable area, which caps output once labour is plentiful"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"

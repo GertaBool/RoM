@@ -773,5 +773,91 @@
   "supplies": "drawn by units in the field (3.5); component IN.F3",
   "trade": "shipped in deals as a quantity (4.1); component TR.F2",
   "means": "the stock or seed that lets the buyer produce a good (4.1); component TR.F3"
+ },
+ "production": {
+  "about": "Proposal for PR.F1 (R10, M53): a worked tile's output from the real people employed on it, the technologies and resources available, land quality and the kind of good. Status: open (D23). Figures marked 'source' come from the sources listed; figures marked 'estimate' are mine, to be replaced by sourced ones.",
+  "model": {
+   "formula": "output per year (tonnes) = area worked (ha) x gross yield (t/ha) x land quality x (1 - seed share)",
+   "area_worked": "min(the tile's arable area, workers on the tile x hectares one worker can farm at the owner's technology)",
+   "workers": "the real people one working citizen stands for (open: D23 question 2)",
+   "yield": "per good and technology stage; the game's own farm techs (IMPROVEMENT_FARM TechYieldChanges) are the stages",
+   "land_quality": "a multiplier per tile and good: today from terrain, fresh water and the placed resource; land qualities (LD) replace it later",
+   "time": "flows per year (open: D23 question 1)",
+   "integers": "whole tonnes per year; a size-20 city of 4.4 million at about 0.25 t of grain each eats about 1.1 million t a year, far below 2^31 (rule F)"
+  },
+  "game_facts": {
+   "real_population": "CvCity::getRealPopulation = size^2.8 x 1000: size 1 = 1,000; size 8 = 337,000; size 20 = 4.4 million (per citizen: 1,000; 42,000; 220,000)",
+   "turn_length_normal": "GAMESPEED_NORMAL (CIV4GameSpeedInfo.xml): 50 years a turn for 40 turns, 25 for 100, 20 for 120, 10 for 50, 5 for 80, 2 for 80, 1 for 60, half a year for 150, a quarter for 20: 700 turns",
+   "farm_techs": "IMPROVEMENT_FARM: +2 food irrigated; +1 food each at Fermentation, Mathematics, Waterworks, Crop Rotation, Biology, Pesticides, Machine Tools (-1 production), Gene Manipulation"
+  },
+  "wheat": {
+   "stages": [
+    {
+     "tech": "(farm built: Agriculture)",
+     "yield_t_ha": 0.5,
+     "ha_per_worker": 3,
+     "seed_share": 0.25,
+     "basis": "source: Winchester manors c.1300 gross 0.515 t/ha, net 0.385, 4 grains per grain sown (Pretty 1990); Columella 42 person-days/ha before harvest (White 1965), 78 with missing tasks (Rosenstein): 250 working days give 3-6 ha"
+    },
+    {
+     "tech": "TECH_MATHEMATICS",
+     "yield_t_ha": 0.6,
+     "ha_per_worker": 4,
+     "seed_share": 0.25,
+     "basis": "estimate: Roman estate management; Kent manors before 1303 about 0.8 t/ha at 2.9 grains per grain (Mate 1985, my conversion)"
+    },
+    {
+     "tech": "TECH_CROP_ROTATION",
+     "yield_t_ha": 1.2,
+     "ha_per_worker": 6,
+     "seed_share": 0.15,
+     "basis": "estimate: four-course rotation with clover; to be sourced (English yields about 1800)"
+    },
+    {
+     "tech": "TECH_BIOLOGY",
+     "yield_t_ha": 2.0,
+     "ha_per_worker": 15,
+     "seed_share": 0.08,
+     "basis": "source: UK wheat just over 2 t/ha in the early 20th century (Mackay et al. 2020, PMC7211843); US wheat 56 worker-hours per acre in 1800"
+    },
+    {
+     "tech": "TECH_MACHINE_TOOLS",
+     "yield_t_ha": 3.0,
+     "ha_per_worker": 100,
+     "seed_share": 0.05,
+     "basis": "estimate for yield; source for labour: US wheat 3 worker-hours per acre by 1970 (about 7 h/ha)"
+    },
+    {
+     "tech": "TECH_PESTICIDES",
+     "yield_t_ha": 5.0,
+     "ha_per_worker": 100,
+     "seed_share": 0.04,
+     "basis": "estimate"
+    },
+    {
+     "tech": "TECH_GENEMANIPULATION",
+     "yield_t_ha": 8.0,
+     "ha_per_worker": 300,
+     "seed_share": 0.03,
+     "basis": "source: UK wheat about 8 t/ha today (Mackay et al. 2020)"
+    }
+   ],
+   "not_mapped": "Fermentation and Waterworks also raise the farm's food in the game; proposed: Waterworks raises land quality on watered land (irrigation), Fermentation changes no wheat yield (it belongs to drink, IN)",
+   "example": "Before Mathematics, 17,000 workers on a good wheat tile (if a size-8 city's working citizen stands for 40 % of its 42,000 people): 17,000 x 3 ha x 0.5 t x 1.0 x 0.75 = 19,125 t a year; the city's 337,000 people at about 0.2 t of grain each eat about 67,000 t, so about three such tiles with other foods"
+  },
+  "land_quality_today": {
+   "rich": 1.5,
+   "good": 1.0,
+   "poor": 0.6,
+   "basis": "estimate; rich = flood plains or a river with the crop's resource, good = grassland or plains with the resource or fresh water, poor = otherwise; the best single Winchester harvest (1.8 t/ha against 0.5) shows the spread is real"
+  },
+  "other_goods": "The same model per good: rice (higher yield, more labour per ha), corn, potato (fresh weight), livestock (head and product per head per year: milk, wool, hides), timber (cubic metres or tonnes per woodcutter per year), ore (tonnes per miner per year). Written after D23 is decided, each with sources.",
+  "sources": [
+   "Pretty, J. (1990) Sustainable Agriculture in the Middle Ages: The English Manor, Agricultural History Review 38: https://www.bahs.org.uk/AGHR/ARTICLES/38n1a1.pdf",
+   "Mate, M. (1985) Medieval Agrarian Practices: The Determining Factors?, Agricultural History Review 33: https://www.bahs.org.uk/AGHR/ARTICLES/33n1a2.pdf",
+   "Columella, De Re Rustica II.12 (via secondary summaries; White 1965, Spurr, Rosenstein): https://acoup.blog/2025/09/05/collections-life-work-death-and-the-peasant-part-ivb-working-days/",
+   "Mackay, I. et al. (2020) estimating the upper yield boundary of winter wheat: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7211843/",
+   "US worker-hours per acre of wheat 1800-1970 (teaching resource): https://www.digitalhistory.uh.edu/disp_textbook.cfm?psid=3837&smtID=11"
+  ]
  }
 }

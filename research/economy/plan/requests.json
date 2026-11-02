@@ -628,22 +628,26 @@
     {
      "id": "R10.1",
      "what": "Output of a worked tile from the real population employed on it, not a fixed number per improvement",
-     "status": "open"
+     "status": "planned",
+     "where": "D23 (open), proposals.json production"
     },
     {
      "id": "R10.2",
      "what": "Efficiency per worker from the technologies and resources (tools, draught animals, fertiliser) available",
-     "status": "open"
+     "status": "planned",
+     "where": "D23 (open), proposals.json production"
     },
     {
      "id": "R10.3",
      "what": "Land quality and the kind of good (wheat, rice, cattle, ore, timber) set the yield",
-     "status": "open"
+     "status": "planned",
+     "where": "D23 (open), proposals.json production"
     },
     {
      "id": "R10.4",
      "what": "Quantities somewhat true to a real agricultural economy, with sources",
-     "status": "open"
+     "status": "planned",
+     "where": "D23 (open), proposals.json production"
     }
    ]
   }
