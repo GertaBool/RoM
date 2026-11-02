@@ -3005,7 +3005,7 @@
   "updated": "2026-11-02",
   "mod_head": "GitLab claude/settlement-economy at 9213dc33",
   "in_flight": [
-   "P46/P47 safety runs (tools/safety/p46.sh: root-eco-gwf3 against root-eco-gwf1f), started 2026-11-02; then commit the evidence with Serves: P46, P47. GW.F3 and GW.F6.T1 done (GitLab 9213dc33, build f4aaa10d94b4). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up done: https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD, waiting on the user's judgement."
+   "None. GW.F3 and GW.F6.T1 done (GitLab 9213dc33, build f4aaa10d94b4); P46 (no failed run) and P47 corroborated: median same-seed run time 1.023 (per seed 1.033, 0.971, 1.023, 1.013, 1.096; limit 1.05), higher than P43/P45 (0.998) although nothing calls the accounts: watch the run time of GW.F5 against this. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
    "1. After P46/P47: GW.F4 (the bridge) and GW.F5 (the economy pass) can start; write their done_when first (rule A). GW.F6.T2 applies once sums exist (GW.F5).",
