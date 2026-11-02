@@ -1,16 +1,67 @@
-From 9a5795e9b5094d392d9633a80d33f9d19be5722c Mon Sep 17 00:00:00 2001
-Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields
+From 9213dc332507135dd0e9ab76318cb2ab4150567e Mon Sep 17 00:00:00 2001
+Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields, goods accounts
 
-Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 9a5795e9 against GitLab main
-71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9.
+Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 9213dc33 against GitLab main
+71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9, 9213dc33.
 
-Serves: P42, P43
+Serves: P46, P47
 ---
 diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
-index 533e42d..3643079 100644
+index 533e42d..c510ecb 100644
 --- a/Assets/CvGameCoreDLL/CvCity.cpp
 +++ b/Assets/CvGameCoreDLL/CvCity.cpp
-@@ -11105,33 +11105,56 @@ bool CvCity::hasBonus(BonusTypes eIndex) const
+@@ -72,6 +72,12 @@ CvCity::CvCity()
+ 	m_paiFreeBonus = NULL;
+ 	m_paiNumBonuses = NULL;
+ 	m_paiNumCorpProducedBonuses = NULL;
++	m_paiGoodStock = NULL;
++	m_paiGoodProduced = NULL;
++	m_paiGoodConsumed = NULL;
++	m_paiGoodReceived = NULL;
++	m_paiGoodSent = NULL;
++	m_paiGoodSpoiled = NULL;
+ 	m_paiProjectProduction = NULL;
+ 	m_paiBuildingProduction = NULL;
+ 	m_paiBuildingProductionTime = NULL;
+@@ -349,6 +355,12 @@ void CvCity::uninit()
+ 	SAFE_DELETE_ARRAY(m_paiFreeBonus);
+ 	SAFE_DELETE_ARRAY(m_paiNumBonuses);
+ 	SAFE_DELETE_ARRAY(m_paiNumCorpProducedBonuses);
++	SAFE_DELETE_ARRAY(m_paiGoodStock);
++	SAFE_DELETE_ARRAY(m_paiGoodProduced);
++	SAFE_DELETE_ARRAY(m_paiGoodConsumed);
++	SAFE_DELETE_ARRAY(m_paiGoodReceived);
++	SAFE_DELETE_ARRAY(m_paiGoodSent);
++	SAFE_DELETE_ARRAY(m_paiGoodSpoiled);
+ 	SAFE_DELETE_ARRAY(m_paiProjectProduction);
+ 	SAFE_DELETE_ARRAY(m_paiBuildingProduction);
+ 	SAFE_DELETE_ARRAY(m_paiBuildingProductionTime);
+@@ -607,12 +619,24 @@ void CvCity::reset(int iID, PlayerTypes eOwner, int iX, int iY, bool bConstructo
+ 		m_paiFreeBonus = new int[GC.getNumBonusInfos()];
+ 		m_paiNumBonuses = new int[GC.getNumBonusInfos()];
+ 		m_paiNumCorpProducedBonuses = new int[GC.getNumBonusInfos()];
++		m_paiGoodStock = new int[GC.getNumBonusInfos()];
++		m_paiGoodProduced = new int[GC.getNumBonusInfos()];
++		m_paiGoodConsumed = new int[GC.getNumBonusInfos()];
++		m_paiGoodReceived = new int[GC.getNumBonusInfos()];
++		m_paiGoodSent = new int[GC.getNumBonusInfos()];
++		m_paiGoodSpoiled = new int[GC.getNumBonusInfos()];
+ 		for (iI = 0; iI < GC.getNumBonusInfos(); iI++)
+ 		{
+ 			m_paiNoBonus[iI] = 0;
+ 			m_paiFreeBonus[iI] = 0;
+ 			m_paiNumBonuses[iI] = 0;
+ 			m_paiNumCorpProducedBonuses[iI] = 0;
++			m_paiGoodStock[iI] = 0;
++			m_paiGoodProduced[iI] = 0;
++			m_paiGoodConsumed[iI] = 0;
++			m_paiGoodReceived[iI] = 0;
++			m_paiGoodSent[iI] = 0;
++			m_paiGoodSpoiled[iI] = 0;
+ 		}
+ 
+ 		m_paiProjectProduction = new int[GC.getNumProjectInfos()];
+@@ -11105,33 +11129,56 @@ bool CvCity::hasBonus(BonusTypes eIndex) const
  
  
  void CvCity::changeNumBonuses(BonusTypes eIndex, int iChange)
@@ -55,7 +106,8 @@ index 533e42d..3643079 100644
 +	{
 +		processBonus(eIndex, hasBonus(eIndex) ? 1 : -1);
 +	}
-+
+ 
+-		if (isCorporationBonus(eIndex))
 +	return isCorporationBonus(eIndex);
 +}
 +
@@ -65,8 +117,7 @@ index 533e42d..3643079 100644
 +void CvCity::changeNumBonuses(const std::vector<int>& aiChange)
 +{
 +	bool bCorporation = false;
- 
--		if (isCorporationBonus(eIndex))
++
 +	for (int iI = 0; iI < (int)aiChange.size(); ++iI)
 +	{
 +		if (changeNumBonusesNoCorporation((BonusTypes)iI, aiChange[iI]))
@@ -83,19 +134,171 @@ index 533e42d..3643079 100644
  }
  
  int CvCity::getNumCorpProducedBonuses(BonusTypes eIndex) const
+@@ -11142,6 +11189,82 @@ int CvCity::getNumCorpProducedBonuses(BonusTypes eIndex) const
+ }
+ 
+ 
++// Goods accounts (GW.F3). Adds iChange to the account of eGood and keeps it in 0..MAX_INT (GW.F6): the sum is
++// taken in 64 bits, a result below 0 is a caller's error (asserted) and is set to 0.
++static void changeGoodAccount(int* paiAccount, BonusTypes eGood, int iChange)
++{
++	FAssertMsg(eGood >= 0 && eGood < GC.getNumBonusInfos(), "eGood out of range");
++	__int64 iNew = (__int64)paiAccount[eGood] + iChange;
++	FAssertMsg(iNew >= 0, "goods account would go below 0");
++	paiAccount[eGood] = (int)std::max<__int64>(0, std::min<__int64>(MAX_INT, iNew));
++}
++
++int CvCity::getGoodStock(BonusTypes eGood) const
++{
++	FAssertMsg(eGood >= 0 && eGood < GC.getNumBonusInfos(), "eGood out of range");
++	return m_paiGoodStock[eGood];
++}
++
++void CvCity::changeGoodStock(BonusTypes eGood, int iChange)
++{
++	changeGoodAccount(m_paiGoodStock, eGood, iChange);
++}
++
++int CvCity::getGoodProduced(BonusTypes eGood) const
++{
++	FAssertMsg(eGood >= 0 && eGood < GC.getNumBonusInfos(), "eGood out of range");
++	return m_paiGoodProduced[eGood];
++}
++
++void CvCity::changeGoodProduced(BonusTypes eGood, int iChange)
++{
++	changeGoodAccount(m_paiGoodProduced, eGood, iChange);
++}
++
++int CvCity::getGoodConsumed(BonusTypes eGood) const
++{
++	FAssertMsg(eGood >= 0 && eGood < GC.getNumBonusInfos(), "eGood out of range");
++	return m_paiGoodConsumed[eGood];
++}
++
++void CvCity::changeGoodConsumed(BonusTypes eGood, int iChange)
++{
++	changeGoodAccount(m_paiGoodConsumed, eGood, iChange);
++}
++
++int CvCity::getGoodReceived(BonusTypes eGood) const
++{
++	FAssertMsg(eGood >= 0 && eGood < GC.getNumBonusInfos(), "eGood out of range");
++	return m_paiGoodReceived[eGood];
++}
++
++void CvCity::changeGoodReceived(BonusTypes eGood, int iChange)
++{
++	changeGoodAccount(m_paiGoodReceived, eGood, iChange);
++}
++
++int CvCity::getGoodSent(BonusTypes eGood) const
++{
++	FAssertMsg(eGood >= 0 && eGood < GC.getNumBonusInfos(), "eGood out of range");
++	return m_paiGoodSent[eGood];
++}
++
++void CvCity::changeGoodSent(BonusTypes eGood, int iChange)
++{
++	changeGoodAccount(m_paiGoodSent, eGood, iChange);
++}
++
++int CvCity::getGoodSpoiled(BonusTypes eGood) const
++{
++	FAssertMsg(eGood >= 0 && eGood < GC.getNumBonusInfos(), "eGood out of range");
++	return m_paiGoodSpoiled[eGood];
++}
++
++void CvCity::changeGoodSpoiled(BonusTypes eGood, int iChange)
++{
++	changeGoodAccount(m_paiGoodSpoiled, eGood, iChange);
++}
++
+ bool CvCity::isCorporationBonus(BonusTypes eBonus) const
+ {
+ 	FAssert(eBonus >= 0);
+@@ -14367,13 +14490,23 @@ void CvCity::read(FDataStreamBase* pStream)
+ 		pStream->Read(&iChange);
+ 		m_aBuildingHealthChange.push_back(std::make_pair((BuildingClassTypes)iBuildingClass, iChange));
+ 	}
++
++	if (uiFlag >= 1)	// older saves keep the zeros reset() set
++	{
++		pStream->Read(GC.getNumBonusInfos(), m_paiGoodStock);
++		pStream->Read(GC.getNumBonusInfos(), m_paiGoodProduced);
++		pStream->Read(GC.getNumBonusInfos(), m_paiGoodConsumed);
++		pStream->Read(GC.getNumBonusInfos(), m_paiGoodReceived);
++		pStream->Read(GC.getNumBonusInfos(), m_paiGoodSent);
++		pStream->Read(GC.getNumBonusInfos(), m_paiGoodSpoiled);
++	}
+ }
+ 
+ void CvCity::write(FDataStreamBase* pStream)
+ {
+ 	int iI;
+ 
+-	uint uiFlag=0;
++	uint uiFlag=1;	// 1: goods accounts (GW.F3) at the end
+ 	pStream->Write(uiFlag);		// flag for expansion
+ 
+ 	pStream->Write(m_iID);
+@@ -14611,6 +14744,13 @@ void CvCity::write(FDataStreamBase* pStream)
+ 		pStream->Write((*it).first);
+ 		pStream->Write((*it).second);
+ 	}
++
++	pStream->Write(GC.getNumBonusInfos(), m_paiGoodStock);
++	pStream->Write(GC.getNumBonusInfos(), m_paiGoodProduced);
++	pStream->Write(GC.getNumBonusInfos(), m_paiGoodConsumed);
++	pStream->Write(GC.getNumBonusInfos(), m_paiGoodReceived);
++	pStream->Write(GC.getNumBonusInfos(), m_paiGoodSent);
++	pStream->Write(GC.getNumBonusInfos(), m_paiGoodSpoiled);
+ }
+ 
+ 
 diff --git a/Assets/CvGameCoreDLL/CvCity.h b/Assets/CvGameCoreDLL/CvCity.h
-index f0d7a5b..bfed9ae 100644
+index f0d7a5b..6c45a59 100644
 --- a/Assets/CvGameCoreDLL/CvCity.h
 +++ b/Assets/CvGameCoreDLL/CvCity.h
-@@ -881,6 +881,8 @@ public:
+@@ -881,6 +881,25 @@ public:
  	int getNumBonuses(BonusTypes eIndex) const;																		// Exposed to Python
  	bool hasBonus(BonusTypes eIndex) const;															// Exposed to Python
  	void changeNumBonuses(BonusTypes eIndex, int iChange);
 +	void changeNumBonuses(const std::vector<int>& aiChange);	// aiChange[e]: change of the count of good e
 +	bool changeNumBonusesNoCorporation(BonusTypes eIndex, int iChange);	// true if a corporation of the city consumes eIndex
++
++	// Goods accounts (GW.F3): per good, in whole units of its GoodUnit (CvBonusInfo::getGoodUnit). The stock carries
++	// over from turn to turn; the other five are the last completed turn's flows, reset by the economy pass (GW.F5).
++	// Bounds (GW.F6): each account is kept in 0..MAX_INT; tighter bounds come from the records once PR sets
++	// harvest and storage quantities.
++	int getGoodStock(BonusTypes eGood) const;
++	void changeGoodStock(BonusTypes eGood, int iChange);
++	int getGoodProduced(BonusTypes eGood) const;
++	void changeGoodProduced(BonusTypes eGood, int iChange);
++	int getGoodConsumed(BonusTypes eGood) const;
++	void changeGoodConsumed(BonusTypes eGood, int iChange);
++	int getGoodReceived(BonusTypes eGood) const;
++	void changeGoodReceived(BonusTypes eGood, int iChange);
++	int getGoodSent(BonusTypes eGood) const;
++	void changeGoodSent(BonusTypes eGood, int iChange);
++	int getGoodSpoiled(BonusTypes eGood) const;
++	void changeGoodSpoiled(BonusTypes eGood, int iChange);
  
  	int getNumCorpProducedBonuses(BonusTypes eIndex) const;
  	bool isCorporationBonus(BonusTypes eBonus) const;
+@@ -1329,6 +1348,12 @@ protected:
+ 	int* m_paiFreeBonus;
+ 	int* m_paiNumBonuses;
+ 	int* m_paiNumCorpProducedBonuses;
++	int* m_paiGoodStock;
++	int* m_paiGoodProduced;
++	int* m_paiGoodConsumed;
++	int* m_paiGoodReceived;
++	int* m_paiGoodSent;
++	int* m_paiGoodSpoiled;
+ 	int* m_paiProjectProduction;
+ 	int* m_paiBuildingProduction;
+ 	int* m_paiBuildingProductionTime;
 diff --git a/Assets/CvGameCoreDLL/CvCityAI.cpp b/Assets/CvGameCoreDLL/CvCityAI.cpp
 index 355975e..56ecfb1 100644
 --- a/Assets/CvGameCoreDLL/CvCityAI.cpp

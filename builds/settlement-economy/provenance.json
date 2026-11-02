@@ -1,20 +1,20 @@
 {
  "serves": [
-  "P42",
-  "P43"
+  "P46",
+  "P47"
  ],
- "build_id": "e7da41335d50",
- "source": "GitLab claude/settlement-economy at 9a5795e9: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts, AI_baseBonusVal gate, copyNonDefaults carries every member read (GW.F7), GoodUnit and GoodCategory read on BonusInfo (GW.F1.T1/T2).",
- "source_commit": "9a5795e9b5094d392d9633a80d33f9d19be5722c",
- "source_tree": "e7da41335d505381a1f56f7b8db2fd28b1b689a6",
+ "build_id": "f4aaa10d94b4",
+ "source": "GitLab claude/settlement-economy at 9213dc33: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts, AI_baseBonusVal gate, copyNonDefaults carries every member read (GW.F7), GoodUnit and GoodCategory on every resource (GW.F1), goods accounts per city (GW.F3).",
+ "source_commit": "9213dc332507135dd0e9ab76318cb2ab4150567e",
+ "source_tree": "f4aaa10d94b4377ccccdbd190481bbdf12971a48",
  "base_commit": "02d5f85a",
- "dll_sha256": "fb894f8cddc8a5cd813d0c6d30747af8d18a5abe40fc59b561b77c268bfd1c6a",
+ "dll_sha256": "88fd0a7308d93c977ecc328489b801efd1ed7890a6dfbbc824051c2f3af29575",
  "dll_size": 6160384,
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
- "tested_headless": "GW.F1.T1/T2: identical telemetry with and without (seed 485959733, 150 turns, run time 0.995); a 2-turn run reads 'tonnes' silently and logs an unknown 'kilos'. Safety runs P42, P43.",
+ "tested_headless": "GW.F3: identical 150-turn telemetry; turn-60 snapshot round trip identical for turns 60-80 and byte-identical cities after rewrite; a snapshot of the previous build continues identically. Safety runs P46, P47.",
  "tested_in_game": false,
- "gitlab_commit": "9a5795e9b5094d392d9633a80d33f9d19be5722c",
+ "gitlab_commit": "9213dc332507135dd0e9ab76318cb2ab4150567e",
  "patch": "builds/settlement-economy/source.patch",
- "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to 9a5795e9",
- "previous": "build 5f5c2224be00 (GitLab 84ea7fc5)"
+ "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to 9213dc33",
+ "previous": "build e7da41335d50 (GitLab 9a5795e9)"
 }
