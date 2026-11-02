@@ -3014,7 +3014,7 @@
   "updated": "2026-11-02",
   "mod_head": "GitLab claude/settlement-economy at 72b86393",
   "in_flight": [
-   "P48/P49 safety runs (tools/safety/p48.sh: root-eco-gwf4 against root-eco-gwf3), started 2026-11-02; then commit the evidence with Serves: P48, P49. GW.F4.T1/T2 done (GitLab 72b86393, build d45c19c7a25b). P47 run time 1.023 (limit 1.05): watch GW.F5's run time. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "None. GW.F4.T1/T2 done (GitLab 72b86393, build d45c19c7a25b); P48 (no failed run) and P49 (median same-seed run time 0.997) corroborated. Earlier P47 (GW.F3) 1.023. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
    "1. After P48/P49: GW.F5 (CvPlayer::doGoods, the pass) with GW.F4.T3 (goods bonus from stock) and GW.F6.T2; done_when written.",
