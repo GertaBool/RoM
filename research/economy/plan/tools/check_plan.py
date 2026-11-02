@@ -274,7 +274,7 @@ def summary():
         if fd == len(c['features']): done_c.add(c['id'])
         print('  %s %s: features %d/%d, tasks %d/%d%s' % (c['id'], c['title'], fd, len(c['features']), td, tt, ' (after ' + ', '.join(c['depends_on']) + ')' if c['depends_on'] else ''))
     ready = [c for c in PLAN['components'] if c['id'] not in done_c and all(x in done_c for x in c['depends_on'])]
-    for c in ready[:1]:
+    for c in ready:   # every component whose dependencies are done, not only the first
         od = [d for d in c['decisions'] if DECISIONS[d]['status'] == 'open']
         print('Next component: %s %s%s' % (c['id'], c['title'], ' (open decisions: %s)' % ', '.join(od) if od else ''))
         for f in c['features']:
