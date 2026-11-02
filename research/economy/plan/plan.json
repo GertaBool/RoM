@@ -3019,7 +3019,7 @@
    "None. GW.F3, GW.F4, GW.F5 done (GitLab ba209b49, build e42220fcb075); P50 (no failed run) and P51 (median same-seed run time 0.990) corroborated; earlier P47 1.023, P49 0.997. GW open: GW.F2.T2 (user), GW.F6.T2 (with the first sum), GW.F8 (after the system works). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. PR (production into the accounts) can start: check_plan.py --summary, done_when first (rule A). SD.F4 (was GW.F8: storage, spoilage, base value) comes with SD after PR; LQ.F9.T6 (was GW.F2.T2) waits on the user's in-game look.",
+   "1. PR.F1 waits on D23 (open): the user's answers on the time base, people per working citizen and tile area; then write PR.F1 done_when and the other goods' tables with sources (proposals.json production).",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
