@@ -1,10 +1,10 @@
-From 72b863935bef189f5d517b61a5150eaf15a9b2f1 Mon Sep 17 00:00:00 2001
-Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields, goods accounts, goods bonus
+From ba209b498dcc91f353aac5583f1b40b8a698c823 Mon Sep 17 00:00:00 2001
+Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields, goods accounts, goods bonus, economy pass
 
-Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 72b86393 against GitLab main
-71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9, 9213dc33, 72b86393.
+Assets/CvGameCoreDLL of GitLab claude/settlement-economy at ba209b49 against GitLab main
+71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9, 9213dc33, 72b86393, ba209b49.
 
-Serves: P48, P49
+Serves: P50, P51
 ---
 diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
 index 533e42d..3405c2c 100644
@@ -810,6 +810,118 @@ index f92c2f0..c702260 100644
  	CvString m_szArtDefineTag;
  
  	// Arrays
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index 0e31b45..9d4b1e8 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -3972,6 +3972,8 @@ void CvPlayer::doTurn()
+ 
+ 	doEspionagePoints();
+ 
++	doGoods();
++
+ 	// Allocate liquid gold before city production resolves this turn.
+ 	GET_PLAYER(getID()).AI_doGoldHurry();
+ 	
+@@ -15417,6 +15419,78 @@ void CvPlayer::doResearch()
+ 	}
+ }
+ 
++// The economy pass (GW.F5): one call per player per turn, from doTurn before the city loop. The steps run in a fixed
++// order over the cities in firstCity/nextCity order and draw no random number.
++void CvPlayer::doGoods()
++{
++	resetGoodsFlows();
++	produceGoods();
++	runGoodsRecipes();
++	distributeGoods();
++	consumeGoods();
++	storeAndSpoilGoods();
++	updateGoodsBonus();
++}
++
++// The five flows hold the last completed turn: cleared before this turn's steps fill them; the stock carries over.
++void CvPlayer::resetGoodsFlows()
++{
++	int iLoop;
++	for (CvCity* pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
++	{
++		for (int iI = 0; iI < GC.getNumBonusInfos(); iI++)
++		{
++			BonusTypes eGood = (BonusTypes)iI;
++			pLoopCity->changeGoodProduced(eGood, -pLoopCity->getGoodProduced(eGood));
++			pLoopCity->changeGoodConsumed(eGood, -pLoopCity->getGoodConsumed(eGood));
++			pLoopCity->changeGoodReceived(eGood, -pLoopCity->getGoodReceived(eGood));
++			pLoopCity->changeGoodSent(eGood, -pLoopCity->getGoodSent(eGood));
++			pLoopCity->changeGoodSpoiled(eGood, -pLoopCity->getGoodSpoiled(eGood));
++		}
++	}
++}
++
++void CvPlayer::produceGoods()
++{
++	// Filled by PR: tiles, improvements, buildings and specialists add to the stock and the produced flow
++}
++
++void CvPlayer::runGoodsRecipes()
++{
++	// Filled by IN.F1: buildings turn inputs into outputs
++}
++
++void CvPlayer::distributeGoods()
++{
++	// Filled by SD.F3: surpluses move to shortages within each trade network
++}
++
++void CvPlayer::consumeGoods()
++{
++	// Filled by CN: citizens use goods for their needs
++}
++
++void CvPlayer::storeAndSpoilGoods()
++{
++	// Filled by SD.F1, SD.F2: storage limits and spoilage
++}
++
++// The bridge (GW.F4.T3): a city with a stock of a good holds one instance of it in its trade network.
++// For PR: once a plot's good goes into the accounts, its direct plot-group count must stop, or it counts twice.
++void CvPlayer::updateGoodsBonus()
++{
++	int iLoop;
++	for (CvCity* pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
++	{
++		for (int iI = 0; iI < GC.getNumBonusInfos(); iI++)
++		{
++			BonusTypes eGood = (BonusTypes)iI;
++			int iSupplied = (pLoopCity->getGoodStock(eGood) > 0) ? 1 : 0;
++			pLoopCity->changeGoodsBonus(eGood, iSupplied - pLoopCity->getGoodsBonus(eGood));
++		}
++	}
++}
++
+ void CvPlayer::doEspionagePoints()
+ {
+ 	if (getCommerceRate(COMMERCE_ESPIONAGE) > 0)
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.h b/Assets/CvGameCoreDLL/CvPlayer.h
+index 0ba642b..66fae12 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.h
++++ b/Assets/CvGameCoreDLL/CvPlayer.h
+@@ -1529,6 +1529,15 @@ protected:
+ 	void doGold();
+ 	void doResearch();
+ 	void doEspionagePoints();
++	// The economy pass (GW.F5): once per turn, before the cities, in this order
++	void doGoods();
++	void resetGoodsFlows();
++	void produceGoods();
++	void runGoodsRecipes();
++	void distributeGoods();
++	void consumeGoods();
++	void storeAndSpoilGoods();
++	void updateGoodsBonus();
+ 	void doWarnings();
+ 	void doEvents();
+ 
 diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
 index e675e66..ee888db 100644
 --- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
