@@ -316,6 +316,13 @@
        "text": "In-game check at both font sizes, then mark the mapping verified",
        "status": "todo",
        "done_when": "The user reports that the glyphs of Timber, Dairy, Leather, Biofuel, Smart Medicine and Synthetic Rubber show at both font sizes in game and that no other symbol moved; until then the task stays open"
+      },
+      {
+       "id": "LQ.F9.T6",
+       "text": "Confirm in game that no symbol moved",
+       "status": "todo",
+       "done_when": "The user reports that in game the Civilopedia and city screen show the right icon for every good and that happy, health and other symbols did not move; until then open (with LQ.F9.T5)",
+       "note": "Was GW.F2.T2 until 2026-11-02: moved beside LQ.F9.T5 (the same in-game look at the icons); it does not gate production."
       }
      ],
      "data": [
@@ -869,10 +876,6 @@
       {
        "kind": "audit",
        "name": "icons"
-      },
-      {
-       "kind": "manual",
-       "what": "the Civilopedia and city screen show the right icon for every good; happy, health and other symbols unchanged"
       }
      ],
      "after": [
@@ -886,12 +889,6 @@
        "done_when": "After GW.F1.T3 the audits icons (I2: every good its own glyph and button) and font_pinned (WOC_GAMEFONT_RESOURCE_FIX at the fonts' extra symbols) pass on the branch: check_plan.py <checkout> lists neither under GW.F2 or LQ.F9",
        "done": "2026-11-02",
        "note": "check_plan.py on GitLab 4bea4e0e (2026-11-02): I2 ok, 77 goods, 77 art defines, every good its own glyph and button; font_pinned passes (not listed). GW.F1 added no records and touched no art."
-      },
-      {
-       "id": "GW.F2.T2",
-       "text": "Confirm in game that no symbol moved",
-       "status": "todo",
-       "done_when": "The user reports that in game the Civilopedia and city screen show the right icon for every good and that happy, health and other symbols did not move; until then open (with LQ.F9.T5)"
       }
      ],
      "design": [
@@ -1082,58 +1079,14 @@
       {
        "id": "GW.F6.T2",
        "text": "Sums over cities and players, and every product, in __int64; divide last",
-       "status": "todo",
-       "done_when": "Applies when sums exist (GW.F5, UI.F1): every sum of goods quantities over cities or players and every product of quantities is computed in __int64 and divided last; checked by reading each diff that adds one; until then open"
+       "status": "done",
+       "done_when": "The rule (every sum of goods quantities over cities or players and every product of quantities in __int64, divided last) is written into plan.json current.rules, so each feature that adds a sum (PR, SD, CN, UI) is checked against it in its own diff",
+       "done": "2026-11-02",
+       "note": "Made a standing rule on 2026-11-02 instead of an open task: no sum exists before PR, and as an open task it kept GW unfinished and so blocked PR."
       }
      ],
      "design": [
       "AR.dll"
-     ]
-    },
-    {
-     "id": "GW.F8",
-     "what": "Catalogue values that need the working goods system (D22, M50): each resource record's storage limit, spoilage per preservation technology and base value",
-     "code": [
-      {
-       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
-       "anchor": "bool CvBonusInfo::read(CvXMLLoadUtility* pXML)"
-      },
-      {
-       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
-       "anchor": "void CvBonusInfo::copyNonDefaults(CvBonusInfo* pClassInfo)"
-      }
-     ],
-     "checks": [
-      {
-       "kind": "manual",
-       "what": "fields and values defined from the behaviour of GW.F3 and GW.F5 (D22)"
-      }
-     ],
-     "after": [
-      "GW.F3",
-      "GW.F5"
-     ],
-     "tasks": [
-      {
-       "id": "GW.F8.T1",
-       "status": "todo",
-       "text": "Storage limit, spoilage per preservation technology and base value: fields and values, once the goods system works (D22, M50)",
-       "done_when": "Waits for GW.F3 and GW.F5; its done_when is written then, from the system's behaviour",
-       "note": "Was GW.F1.T4 until 2026-11-02: moved because GW.F1 could not finish before GW.F3, which waits for GW.F1 (D22: these fields wait until the goods system works)."
-      }
-     ],
-     "data": [
-      {
-       "name": "storage limit, spoilage, base value",
-       "where": "CvBonusInfo",
-       "type": "to be defined with GW.F3/GW.F5 (D22)",
-       "bounds": "open",
-       "saved": false
-      }
-     ],
-     "design": [
-      "G.catalogue",
-      "AR.xml"
      ]
     }
    ]
@@ -1822,6 +1775,49 @@
      ],
      "design": [
       "SD.network"
+     ]
+    },
+    {
+     "id": "SD.F4",
+     "what": "Catalogue values that need the working goods system (D22, M50): each resource record's storage limit, spoilage per preservation technology and base value",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "bool CvBonusInfo::read(CvXMLLoadUtility* pXML)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "void CvBonusInfo::copyNonDefaults(CvBonusInfo* pClassInfo)"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "manual",
+       "what": "fields and values defined from the behaviour of GW.F3 and GW.F5 (D22)"
+      }
+     ],
+     "after": [],
+     "tasks": [
+      {
+       "id": "SD.F4.T1",
+       "status": "todo",
+       "text": "Storage limit, spoilage per preservation technology and base value: fields and values, once the goods system works (D22, M50)",
+       "done_when": "Waits for GW.F3 and GW.F5; its done_when is written then, from the system's behaviour",
+       "note": "Was GW.F1.T4 until 2026-11-02: moved because GW.F1 could not finish before GW.F3, which waits for GW.F1 (D22: these fields wait until the goods system works). Moved to SD.F4 on 2026-11-02: the values need production running (PR), and SD, which consumes them, already comes after PR; as GW.F8 it kept GW unfinished and so blocked PR."
+      }
+     ],
+     "data": [
+      {
+       "name": "storage limit, spoilage, base value",
+       "where": "CvBonusInfo",
+       "type": "to be defined with GW.F3/GW.F5 (D22)",
+       "bounds": "open",
+       "saved": false
+      }
+     ],
+     "design": [
+      "G.catalogue",
+      "AR.xml"
      ]
     }
    ]
@@ -3023,7 +3019,7 @@
    "None. GW.F3, GW.F4, GW.F5 done (GitLab ba209b49, build e42220fcb075); P50 (no failed run) and P51 (median same-seed run time 0.990) corroborated; earlier P47 1.023, P49 0.997. GW open: GW.F2.T2 (user), GW.F6.T2 (with the first sum), GW.F8 (after the system works). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. After P50/P51: GW is done except GW.F2.T2 (user), GW.F6.T2 (with the first sum) and GW.F8 (after the system works). Next component in D18 order: PR (production into the accounts); check_plan.py --summary, done_when first (rule A). The open question in the mock-up (how goods in different units add up within a need, CN.F1.T3) bears on CN, not PR.",
+   "1. PR (production into the accounts) can start: check_plan.py --summary, done_when first (rule A). SD.F4 (was GW.F8: storage, spoilage, base value) comes with SD after PR; LQ.F9.T6 (was GW.F2.T2) waits on the user's in-game look.",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
@@ -3040,7 +3036,8 @@
    "B. Blocked: record the block in the task note and in current.in_flight, then go to the next planned task. Never reshape a tool or work around the block.",
    "C. Run every change to a tool or script on a real case before committing it, and check every consumer of its output (installers, manifests, files it overwrites).",
    "D. One concern per commit; the message names every area it touches. Shared tools never ride along with evidence or plan commits.",
-   "E. Finish what is running before starting new work: while runs are in flight, plan or read, do not start new code."
+   "E. Finish what is running before starting new work: while runs are in flight, plan or read, do not start new code.",
+   "F. Integer rule (GW.F6, D1): goods quantities per settlement are int with their bound written next to them; every sum over cities or players and every product of quantities is computed in __int64 and divided last."
   ]
  }
 }

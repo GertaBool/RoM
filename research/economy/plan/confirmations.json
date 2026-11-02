@@ -1,0 +1,8 @@
+{
+ "about": "Manual checks confirmed, keyed '<feature>.<check index>' (check_plan.py run_check). Each entry says who confirmed it, how, and on which commit.",
+ "GW.F6.0": {
+  "date": "2026-11-02",
+  "by": "Claude, by reading the diff",
+  "note": "GitLab 4bea4e0e..ba209b49 (GW.F3-F5): the bound of every new stock and flow is written next to the declarations in CvCity.h (each account 0..MAX_INT); the only arithmetic on quantities is changeGoodAccount, which sums in __int64 and clamps; m_paiGoodsBonus is a count changed like m_paiFreeBonus. No product of quantities and no sum over cities exist yet (rule F covers them)."
+ }
+}
