@@ -925,12 +925,14 @@
       {
        "id": "GW.F3.T1",
        "text": "Arrays sized by the number of goods; reset, read and write behind a new CvCity save version",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "CvCity holds per good (GC.getNumBonusInfos()) six int arrays: m_paiGoodStock (carried from turn to turn) and the last completed turn's m_paiGoodProduced, Consumed, Received, Sent, Spoiled (reset by the pass, GW.F5), in whole units of the good's GoodUnit (D1); allocated and zeroed in reset(), freed in uninit(), written at the end of write() and read at the end of read() behind CvCity uiFlag 1, so a uiFlag 0 save loads with zeros; nothing writes them yet; consumers: GW.F4 bridge, GW.F5 pass, UI.F1 city screen, CN, SD. Checked by: the DLL builds; a deterministic 150-turn run gives identical telemetry; a turn-start snapshot written and reloaded by the new DLL rewrites the same bytes; a snapshot written by the previous DLL loads in the new one and the continuation's telemetry equals the previous DLL's continuation"
       },
       {
        "id": "GW.F3.T2",
        "text": "Accessors for each flow; old saves load with empty accounts",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "CvCity has getGood<Flow>(BonusTypes) for the six arrays and changeGood<Flow>(BonusTypes, int) for each, with index asserts (FAssertMsg) and the stock clamped at 0 with an assert when a change would take it below; declared next to getNumBonuses in CvCity.h; no caller yet (the pass, GW.F5, is the first); the DLL builds and the deterministic run is identical"
       }
      ],
      "data": [
@@ -1049,12 +1051,14 @@
       {
        "id": "GW.F6.T1",
        "text": "Bound every new stock and flow from the records (largest harvest, largest store) and write it next to the declaration",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "Every stock and flow GW.F3 declares carries a comment with its bound: the int range, stocks clamped to 0..MAX_INT in the setter, until PR fixes harvest and storage quantities, when the comment is refined from the records; checked by reading the GW.F3 diff"
       },
       {
        "id": "GW.F6.T2",
        "text": "Sums over cities and players, and every product, in __int64; divide last",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "Applies when sums exist (GW.F5, UI.F1): every sum of goods quantities over cities or players and every product of quantities is computed in __int64 and divided last; checked by reading each diff that adds one; until then open"
       }
      ],
      "design": [
