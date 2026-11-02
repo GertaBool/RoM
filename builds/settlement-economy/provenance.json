@@ -1,20 +1,20 @@
 {
  "serves": [
-  "P46",
-  "P47"
+  "P48",
+  "P49"
  ],
- "build_id": "f4aaa10d94b4",
- "source": "GitLab claude/settlement-economy at 9213dc33: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts, AI_baseBonusVal gate, copyNonDefaults carries every member read (GW.F7), GoodUnit and GoodCategory on every resource (GW.F1), goods accounts per city (GW.F3).",
- "source_commit": "9213dc332507135dd0e9ab76318cb2ab4150567e",
- "source_tree": "f4aaa10d94b4377ccccdbd190481bbdf12971a48",
+ "build_id": "d45c19c7a25b",
+ "source": "GitLab claude/settlement-economy at 72b86393: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts, AI_baseBonusVal gate, copyNonDefaults carries every member read (GW.F7), GoodUnit and GoodCategory on every resource (GW.F1), goods accounts per city (GW.F3), goods bonus counted in the trade network (GW.F4.T1/T2).",
+ "source_commit": "72b863935bef189f5d517b61a5150eaf15a9b2f1",
+ "source_tree": "d45c19c7a25b5cfddf660796291e43f6747debf9",
  "base_commit": "02d5f85a",
- "dll_sha256": "88fd0a7308d93c977ecc328489b801efd1ed7890a6dfbbc824051c2f3af29575",
+ "dll_sha256": "21234210abddd2e0a4f84f1c57c5eaadbde12bf8e523a72b3a2e07e84edd1a85",
  "dll_size": 6160384,
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
- "tested_headless": "GW.F3: identical 150-turn telemetry; turn-60 snapshot round trip identical for turns 60-80 and byte-identical cities after rewrite; a snapshot of the previous build continues identically. Safety runs P46, P47.",
+ "tested_headless": "GW.F4.T1/T2: identical 150-turn telemetry; turn-60 snapshot round trip identical for turns 60-80; a snapshot of the previous build continues identically. Safety runs P48, P49.",
  "tested_in_game": false,
- "gitlab_commit": "9213dc332507135dd0e9ab76318cb2ab4150567e",
+ "gitlab_commit": "72b863935bef189f5d517b61a5150eaf15a9b2f1",
  "patch": "builds/settlement-economy/source.patch",
- "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to 9213dc33",
- "previous": "build e7da41335d50 (GitLab 9a5795e9)"
+ "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to 72b86393",
+ "previous": "build f4aaa10d94b4 (GitLab 9213dc33)"
 }

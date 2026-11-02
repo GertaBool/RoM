@@ -1,16 +1,16 @@
-From 9213dc332507135dd0e9ab76318cb2ab4150567e Mon Sep 17 00:00:00 2001
-Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields, goods accounts
+From 72b863935bef189f5d517b61a5150eaf15a9b2f1 Mon Sep 17 00:00:00 2001
+Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields, goods accounts, goods bonus
 
-Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 9213dc33 against GitLab main
-71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9, 9213dc33.
+Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 72b86393 against GitLab main
+71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9, 9213dc33, 72b86393.
 
-Serves: P46, P47
+Serves: P48, P49
 ---
 diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
-index 533e42d..c510ecb 100644
+index 533e42d..3405c2c 100644
 --- a/Assets/CvGameCoreDLL/CvCity.cpp
 +++ b/Assets/CvGameCoreDLL/CvCity.cpp
-@@ -72,6 +72,12 @@ CvCity::CvCity()
+@@ -72,6 +72,13 @@ CvCity::CvCity()
  	m_paiFreeBonus = NULL;
  	m_paiNumBonuses = NULL;
  	m_paiNumCorpProducedBonuses = NULL;
@@ -20,10 +20,11 @@ index 533e42d..c510ecb 100644
 +	m_paiGoodReceived = NULL;
 +	m_paiGoodSent = NULL;
 +	m_paiGoodSpoiled = NULL;
++	m_paiGoodsBonus = NULL;
  	m_paiProjectProduction = NULL;
  	m_paiBuildingProduction = NULL;
  	m_paiBuildingProductionTime = NULL;
-@@ -349,6 +355,12 @@ void CvCity::uninit()
+@@ -349,6 +356,13 @@ void CvCity::uninit()
  	SAFE_DELETE_ARRAY(m_paiFreeBonus);
  	SAFE_DELETE_ARRAY(m_paiNumBonuses);
  	SAFE_DELETE_ARRAY(m_paiNumCorpProducedBonuses);
@@ -33,10 +34,11 @@ index 533e42d..c510ecb 100644
 +	SAFE_DELETE_ARRAY(m_paiGoodReceived);
 +	SAFE_DELETE_ARRAY(m_paiGoodSent);
 +	SAFE_DELETE_ARRAY(m_paiGoodSpoiled);
++	SAFE_DELETE_ARRAY(m_paiGoodsBonus);
  	SAFE_DELETE_ARRAY(m_paiProjectProduction);
  	SAFE_DELETE_ARRAY(m_paiBuildingProduction);
  	SAFE_DELETE_ARRAY(m_paiBuildingProductionTime);
-@@ -607,12 +619,24 @@ void CvCity::reset(int iID, PlayerTypes eOwner, int iX, int iY, bool bConstructo
+@@ -607,12 +621,26 @@ void CvCity::reset(int iID, PlayerTypes eOwner, int iX, int iY, bool bConstructo
  		m_paiFreeBonus = new int[GC.getNumBonusInfos()];
  		m_paiNumBonuses = new int[GC.getNumBonusInfos()];
  		m_paiNumCorpProducedBonuses = new int[GC.getNumBonusInfos()];
@@ -46,6 +48,7 @@ index 533e42d..c510ecb 100644
 +		m_paiGoodReceived = new int[GC.getNumBonusInfos()];
 +		m_paiGoodSent = new int[GC.getNumBonusInfos()];
 +		m_paiGoodSpoiled = new int[GC.getNumBonusInfos()];
++		m_paiGoodsBonus = new int[GC.getNumBonusInfos()];
  		for (iI = 0; iI < GC.getNumBonusInfos(); iI++)
  		{
  			m_paiNoBonus[iI] = 0;
@@ -58,10 +61,37 @@ index 533e42d..c510ecb 100644
 +			m_paiGoodReceived[iI] = 0;
 +			m_paiGoodSent[iI] = 0;
 +			m_paiGoodSpoiled[iI] = 0;
++			m_paiGoodsBonus[iI] = 0;
  		}
  
  		m_paiProjectProduction = new int[GC.getNumProjectInfos()];
-@@ -11105,33 +11129,56 @@ bool CvCity::hasBonus(BonusTypes eIndex) const
+@@ -11084,6 +11112,25 @@ void CvCity::changeFreeBonus(BonusTypes eIndex, int iChange)
+ 	}
+ }
+ 
++int CvCity::getGoodsBonus(BonusTypes eIndex) const
++{
++	FAssertMsg(eIndex >= 0 && eIndex < GC.getNumBonusInfos(), "eIndex out of range");
++	return m_paiGoodsBonus[eIndex];
++}
++
++void CvCity::changeGoodsBonus(BonusTypes eIndex, int iChange)
++{
++	FAssertMsg(eIndex >= 0 && eIndex < GC.getNumBonusInfos(), "eIndex out of range");
++
++	if (iChange != 0)
++	{
++		plot()->updatePlotGroupBonus(false);
++		m_paiGoodsBonus[eIndex] += iChange;
++		FAssert(getGoodsBonus(eIndex) >= 0);
++		plot()->updatePlotGroupBonus(true);
++	}
++}
++
+ int CvCity::getNumBonuses(BonusTypes eIndex) const
+ {
+ 	FAssertMsg(eIndex >= 0, "eIndex expected to be >= 0");
+@@ -11105,33 +11152,56 @@ bool CvCity::hasBonus(BonusTypes eIndex) const
  
  
  void CvCity::changeNumBonuses(BonusTypes eIndex, int iChange)
@@ -106,11 +136,11 @@ index 533e42d..c510ecb 100644
 +	{
 +		processBonus(eIndex, hasBonus(eIndex) ? 1 : -1);
 +	}
- 
--		if (isCorporationBonus(eIndex))
++
 +	return isCorporationBonus(eIndex);
 +}
-+
+ 
+-		if (isCorporationBonus(eIndex))
 +// All counts first, then one corporation update. The end state equals applying the goods one at a time:
 +// processBonus is additive (a gain followed by a loss cancels), so only each good's net gain or loss counts, and
 +// updateCorporation recomputes everything it sets from the counts, so one call after the last count equals one per count.
@@ -134,7 +164,7 @@ index 533e42d..c510ecb 100644
  }
  
  int CvCity::getNumCorpProducedBonuses(BonusTypes eIndex) const
-@@ -11142,6 +11189,82 @@ int CvCity::getNumCorpProducedBonuses(BonusTypes eIndex) const
+@@ -11142,6 +11212,82 @@ int CvCity::getNumCorpProducedBonuses(BonusTypes eIndex) const
  }
  
  
@@ -217,7 +247,7 @@ index 533e42d..c510ecb 100644
  bool CvCity::isCorporationBonus(BonusTypes eBonus) const
  {
  	FAssert(eBonus >= 0);
-@@ -14367,13 +14490,23 @@ void CvCity::read(FDataStreamBase* pStream)
+@@ -14367,13 +14513,27 @@ void CvCity::read(FDataStreamBase* pStream)
  		pStream->Read(&iChange);
  		m_aBuildingHealthChange.push_back(std::make_pair((BuildingClassTypes)iBuildingClass, iChange));
  	}
@@ -231,6 +261,10 @@ index 533e42d..c510ecb 100644
 +		pStream->Read(GC.getNumBonusInfos(), m_paiGoodSent);
 +		pStream->Read(GC.getNumBonusInfos(), m_paiGoodSpoiled);
 +	}
++	if (uiFlag >= 2)
++	{
++		pStream->Read(GC.getNumBonusInfos(), m_paiGoodsBonus);
++	}
  }
  
  void CvCity::write(FDataStreamBase* pStream)
@@ -238,11 +272,11 @@ index 533e42d..c510ecb 100644
  	int iI;
  
 -	uint uiFlag=0;
-+	uint uiFlag=1;	// 1: goods accounts (GW.F3) at the end
++	uint uiFlag=2;	// 1: goods accounts (GW.F3) at the end; 2: then the goods bonus (GW.F4)
  	pStream->Write(uiFlag);		// flag for expansion
  
  	pStream->Write(m_iID);
-@@ -14611,6 +14744,13 @@ void CvCity::write(FDataStreamBase* pStream)
+@@ -14611,6 +14771,14 @@ void CvCity::write(FDataStreamBase* pStream)
  		pStream->Write((*it).first);
  		pStream->Write((*it).second);
  	}
@@ -253,14 +287,21 @@ index 533e42d..c510ecb 100644
 +	pStream->Write(GC.getNumBonusInfos(), m_paiGoodReceived);
 +	pStream->Write(GC.getNumBonusInfos(), m_paiGoodSent);
 +	pStream->Write(GC.getNumBonusInfos(), m_paiGoodSpoiled);
++	pStream->Write(GC.getNumBonusInfos(), m_paiGoodsBonus);
  }
  
  
 diff --git a/Assets/CvGameCoreDLL/CvCity.h b/Assets/CvGameCoreDLL/CvCity.h
-index f0d7a5b..6c45a59 100644
+index f0d7a5b..e1f1ae6 100644
 --- a/Assets/CvGameCoreDLL/CvCity.h
 +++ b/Assets/CvGameCoreDLL/CvCity.h
-@@ -881,6 +881,25 @@ public:
+@@ -877,10 +877,31 @@ public:
+ 
+ 	int getFreeBonus(BonusTypes eIndex) const;																		// Exposed to Python
+ 	void changeFreeBonus(BonusTypes eIndex, int iChange);																		// Exposed to Python
++	int getGoodsBonus(BonusTypes eIndex) const;	// instances of eIndex the goods accounts supply (GW.F4)
++	void changeGoodsBonus(BonusTypes eIndex, int iChange);	// as changeFreeBonus: counted in the plot group
+ 
  	int getNumBonuses(BonusTypes eIndex) const;																		// Exposed to Python
  	bool hasBonus(BonusTypes eIndex) const;															// Exposed to Python
  	void changeNumBonuses(BonusTypes eIndex, int iChange);
@@ -286,7 +327,7 @@ index f0d7a5b..6c45a59 100644
  
  	int getNumCorpProducedBonuses(BonusTypes eIndex) const;
  	bool isCorporationBonus(BonusTypes eBonus) const;
-@@ -1329,6 +1348,12 @@ protected:
+@@ -1329,6 +1350,13 @@ protected:
  	int* m_paiFreeBonus;
  	int* m_paiNumBonuses;
  	int* m_paiNumCorpProducedBonuses;
@@ -296,6 +337,7 @@ index f0d7a5b..6c45a59 100644
 +	int* m_paiGoodReceived;
 +	int* m_paiGoodSent;
 +	int* m_paiGoodSpoiled;
++	int* m_paiGoodsBonus;
  	int* m_paiProjectProduction;
  	int* m_paiBuildingProduction;
  	int* m_paiBuildingProductionTime;
@@ -783,7 +825,7 @@ index e675e66..ee888db 100644
  						// determine whether we have the tech for this building
  						bool bHasTechForBuilding = true;
 diff --git a/Assets/CvGameCoreDLL/CvPlot.cpp b/Assets/CvGameCoreDLL/CvPlot.cpp
-index 466472c..c406d11 100644
+index 466472c..5548ea2 100644
 --- a/Assets/CvGameCoreDLL/CvPlot.cpp
 +++ b/Assets/CvGameCoreDLL/CvPlot.cpp
 @@ -1206,59 +1206,118 @@ void CvPlot::updatePlotGroupBonus(bool bAdd)
@@ -838,7 +880,7 @@ index 466472c..c406d11 100644
 -				{
 -					pPlotGroup->changeNumBonuses(((BonusTypes)iI), (pPlotCity->getFreeBonus((BonusTypes)iI) * ((bAdd) ? 1 : -1)));
 -				}
-+				aiChange[iI] += iSign * pPlotCity->getFreeBonus((BonusTypes)iI);
++				aiChange[iI] += iSign * (pPlotCity->getFreeBonus((BonusTypes)iI) + pPlotCity->getGoodsBonus((BonusTypes)iI));
  			}
 +		}
  
