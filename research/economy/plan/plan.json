@@ -882,12 +882,16 @@
       {
        "id": "GW.F2.T1",
        "text": "Re-run the icon audit and font check after the goods fields are added to every resource record",
-       "status": "todo"
+       "status": "done",
+       "done_when": "After GW.F1.T3 the audits icons (I2: every good its own glyph and button) and font_pinned (WOC_GAMEFONT_RESOURCE_FIX at the fonts' extra symbols) pass on the branch: check_plan.py <checkout> lists neither under GW.F2 or LQ.F9",
+       "done": "2026-11-02",
+       "note": "check_plan.py on GitLab 4bea4e0e (2026-11-02): I2 ok, 77 goods, 77 art defines, every good its own glyph and button; font_pinned passes (not listed). GW.F1 added no records and touched no art."
       },
       {
        "id": "GW.F2.T2",
        "text": "Confirm in game that no symbol moved",
-       "status": "todo"
+       "status": "todo",
+       "done_when": "The user reports that in game the Civilopedia and city screen show the right icon for every good and that happy, health and other symbols did not move; until then open (with LQ.F9.T5)"
       }
      ],
      "design": [
@@ -3000,7 +3004,7 @@
   "next": [
    "1. After P44/P45: GW in D18 order: GW.F6 (integer rules) and GW.F3 (goods accounts per settlement) can start, then GW.F2 once data changes the icons; write each task's done_when first (rule A). Storage, spoilage and base value are GW.F8 (after GW.F3, GW.F5).",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
-   "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
+   "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
   "environment": [
    "Context is wiped without warning (M37): the files are the memory. Save every prompt in requests.json first, in its own commit; update this 'current' block and task notes in the same commit as the work.",
