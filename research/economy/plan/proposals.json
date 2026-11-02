@@ -778,11 +778,11 @@
   "about": "Proposal for PR.F1 (R10, M53): a worked tile's output from the real people employed on it, the technologies and resources available, land quality and the kind of good. Status: open (D23). Figures marked 'source' come from the sources listed; figures marked 'estimate' are mine, to be replaced by sourced ones.",
   "model": {
    "formula": "output per year (tonnes) = area worked (ha) x gross yield (t/ha) x land quality x (1 - seed share)",
-   "area_worked": "min(the tile's arable area, workers on the tile x hectares one worker can farm at the owner's technology)",
-   "workers": "the real people one working citizen stands for (open: D23 question 2)",
+   "area_worked": "min(the tile's farmland, workers x hectares per worker); the tile's farmland is open (D23 question 3)",
+   "workers": "decided (M54): the game's real population per working citizen (size^2.8 x 1000 / size) times the share of people who work (estimate 40 %, to be sourced): about 400 at size 1, 17,000 at size 8, 88,000 at size 20",
    "yield": "per good and technology stage; the game's own farm techs (IMPROVEMENT_FARM TechYieldChanges) are the stages",
    "land_quality": "a multiplier per tile and good: today from terrain, fresh water and the placed resource; land qualities (LD) replace it later",
-   "time": "flows per year (open: D23 question 1)",
+   "time": "decided (M54): flows per year while a turn lasts a year or more; a turn shorter than a year (at Normal speed 6 months for 150 turns, then 3 months for 20) produces and consumes its fraction of a year",
    "integers": "whole tonnes per year; a size-20 city of 4.4 million at about 0.25 t of grain each eats about 1.1 million t a year, far below 2^31 (rule F)"
   },
   "game_facts": {
@@ -842,8 +842,8 @@
      "basis": "source: UK wheat about 8 t/ha today (Mackay et al. 2020)"
     }
    ],
-   "not_mapped": "Fermentation and Waterworks also raise the farm's food in the game; proposed: Waterworks raises land quality on watered land (irrigation), Fermentation changes no wheat yield (it belongs to drink, IN)",
-   "example": "Before Mathematics, 17,000 workers on a good wheat tile (if a size-8 city's working citizen stands for 40 % of its 42,000 people): 17,000 x 3 ha x 0.5 t x 1.0 x 0.75 = 19,125 t a year; the city's 337,000 people at about 0.2 t of grain each eat about 67,000 t, so about three such tiles with other foods"
+   "not_mapped": "Waterworks: irrigation, raises land quality on watered land (proposed). Fermentation: see fermentation below (corrected after M54).",
+   "example": "Before Mathematics, 17,000 workers on a good wheat tile (a size-8 city's citizen: 42,000 people x 40 %): 17,000 x 3 ha x 0.5 t x 1.0 x 0.75 = 19,125 t a year, if the tile's farmland is at least 51,000 ha; the city's 337,000 people at about 0.2 t of grain each eat about 67,000 t"
   },
   "land_quality_today": {
    "rich": 1.5,
@@ -857,7 +857,39 @@
    "Mate, M. (1985) Medieval Agrarian Practices: The Determining Factors?, Agricultural History Review 33: https://www.bahs.org.uk/AGHR/ARTICLES/33n1a2.pdf",
    "Columella, De Re Rustica II.12 (via secondary summaries; White 1965, Spurr, Rosenstein): https://acoup.blog/2025/09/05/collections-life-work-death-and-the-peasant-part-ivb-working-days/",
    "Mackay, I. et al. (2020) estimating the upper yield boundary of winter wheat: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7211843/",
-   "US worker-hours per acre of wheat 1800-1970 (teaching resource): https://www.digitalhistory.uh.edu/disp_textbook.cfm?psid=3837&smtID=11"
-  ]
+   "US worker-hours per acre of wheat 1800-1970 (teaching resource): https://www.digitalhistory.uh.edu/disp_textbook.cfm?psid=3837&smtID=11",
+   "Sourdough Bread Quality: Facts and Factors (review): https://pmc.ncbi.nlm.nih.gov/articles/PMC11241011/",
+   "Effects of sourdough or regular bread fermentation and phytate reduction on iron (systematic review, 2026): https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2026.1778997/full",
+   "Leenhardt et al., moderate decrease of pH by sourdough fermentation reduces phytate: https://www.researchgate.net/publication/8098531",
+   "Fermentation of sorghum flour (Agritech 2017): https://journal.ugm.ac.id/agritech/article/view/16769",
+   "Microbial fermentation of cereals (review): https://pmc.ncbi.nlm.nih.gov/articles/PMC9368413"
+  ],
+  "fermentation": {
+   "correction": "My first proposal said Fermentation leaves wheat unchanged. Wrong (M54): fermentation does not change the tonnes harvested, but it changes how much of the grain's nutrition people get from each tonne eaten, and how the grain keeps (bread, sourdough, beer, malted and fermented porridges).",
+   "facts": [
+    "Sourdough fermentation degrades phytic acid by up to 96.6 % with mixed fermentation, against up to 56 % with yeast alone; a slight acidification to pH 5.5 cuts phytate by about 35 % (review, PMC11241011; Leenhardt et al.)",
+    "Bioavailability of iron and zinc in bread rises by about 10 % and 25 % with sourdough fermentation, from a low base (about 10 % for iron, 25 % for zinc from wheat) (review, PMC11241011)",
+    "Whole-wheat sourdough fermented 4 hours at 30 C: iron and zinc absorption up over 30 % in vivo, with 60 % less phytate (cited in the same review)",
+    "Sorghum fermented with Rhizopus, Lactobacillus plantarum and yeast: protein digestibility 3.5 to 5 times the unfermented control, protein content unchanged (Agritech 2017)",
+    "Malted sorghum and millet: protein digestibility 34.5-68.1 %; fermented flours 97.4-98.3 % (study in the same search)",
+    "Against too large an effect: a 2026 systematic review finds higher iron bioavailability in acute trials but no better iron status in long-term trials (Frontiers in Nutrition, fnut.2026.1778997)"
+   ],
+   "proposal": "Each food good gets a food value per tonne (the nutrition people get from it; FG and CN use it). Fermentation raises the food value of the cereals people ferment (wheat, barley in beer, rice, corn, sorghum and millet where present) and lets them keep longer as bread and drink (SD.F2). Size: estimate +15 % food value for cereals, between the mineral gains (+10 % iron, +25 % zinc) and the protein gains for coarse grains, kept modest because long-term human trials show smaller effects. The game's own +1 farm food at Fermentation matches this reading: food value, not harvest.",
+   "where": "FG.F1 (food value of staple goods), CN.F1 (needs met per tonne), SD.F2 (keeping)"
+  },
+  "farmland": {
+   "status": "open (M54: depends on the map; map size does not by itself give a scale, larger or smaller maps need not mean finer or coarser land)",
+   "facts": [
+    "The game has no map scale: no km per tile in the map scripts or world sizes read so far (to be checked: CIV4WorldInfo.xml)",
+    "A city works at most its 21-tile fat cross (fewer with RoM's city size limits to be checked)",
+    "Real population grows as size^2.8, independent of the map"
+   ],
+   "options": [
+    "(i) a scale declared per map or scenario (km^2 per tile), the map's author's choice",
+    "(ii) no area: each additional worker on a tile adds less (a diminishing return), with no km^2 at all",
+    "(iii) farmland per tile derived from the game's own population numbers, not the map: the area at which a city's land, at the era's yields, feeds the population the game already shows. Example before Mathematics: a size-8 city (337,000 people, 67,000 t of grain a year) at 0.375 t/ha net needs about 180,000 ha of grain land; on about 8 farmed tiles that is about 22,000 ha (220 km^2) of farmland per tile"
+   ],
+   "note": "(iii) ties the scale to what the game already claims about its cities, so the map's size does not enter; it fixes one scale for all maps, which (i) would let a map override"
+  }
  }
 }
