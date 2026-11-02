@@ -770,7 +770,7 @@
     },
     {
      "id": "GW.F1",
-     "what": "Goods catalogue: each existing resource record carries its unit, category (staple food, other food, fuel, raw material, intermediate, finished good, luxury, military supply), storage limit, spoilage rate per preservation technology, base value",
+     "what": "Goods catalogue: each existing resource record carries its unit and category (staple food, other food, fuel, raw material, intermediate, finished good, luxury, military supply) (D22); storage limit, spoilage and base value are GW.F8",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
@@ -822,14 +822,10 @@
       {
        "id": "GW.F1.T3",
        "text": "Fill CIV4BonusInfos.xml (and module bonus records) with the unit and category proposed in proposals.json (confirmed, M50)",
-       "status": "todo",
-       "done_when": "The 71 base records that proposals.json gives a unit and category carry GoodUnit and GoodCategory equal to it, and so does BONUS_CGUILDPAPER in the Guilds module (whose Guilds_CIV4TerrainSchema.xml then declares the two tags); the Corporations module's partial records of Fur, Ivory and Whale inherit them through copyNonDefaults; five records stay without: Ancient Temple and Thermal Vent (sites, D11) and Drama, Music, Movies (goods by D11, form open in D21); a check lists every record with its fields, none unknown, the five named as intended; the deterministic run is identical (nothing reads them)"
-      },
-      {
-       "id": "GW.F1.T4",
-       "status": "todo",
-       "text": "Storage limit, spoilage per preservation technology and base value: fields and values, once the goods system works (D22, M50)",
-       "done_when": "Waits for GW.F3 and GW.F5; its done_when is written then, from the system's behaviour"
+       "status": "done",
+       "done_when": "The 71 base records that proposals.json gives a unit and category carry GoodUnit and GoodCategory equal to it, and so does BONUS_CGUILDPAPER in the Guilds module (whose Guilds_CIV4TerrainSchema.xml then declares the two tags); the Corporations module's partial records of Fur, Ivory and Whale inherit them through copyNonDefaults; five records stay without: Ancient Temple and Thermal Vent (sites, D11) and Drama, Music, Movies (goods by D11, form open in D21); a check lists every record with its fields, none unknown, the five named as intended; the deterministic run is identical (nothing reads them)",
+       "done": "2026-11-02",
+       "note": "GitLab 4bea4e0e (gw_f1_fill.py, 74 pairs): 71 base records and BONUS_CGUILDPAPER carry GoodUnit and GoodCategory from proposals.json; Guilds_CIV4TerrainSchema.xml declares them. goods_fields.py on 4bea4e0e: 80 records, 72 set, 3 inherit (Corporations Fur, Ivory, Whale), 5 without (Drama, Music, Movies, Ancient Temple, Thermal Vent), no error. 150-turn run, seed 485959733: identical telemetry to 9a5795e9, CvBonusInfo_read.log empty. Safety runs P44/P45. builds/settlement-economy/README.md still says no record carries the fields: the gate refuses a text-only builds commit without Serves; correct it with the next build."
       }
      ],
      "data": [
@@ -1063,6 +1059,52 @@
      ],
      "design": [
       "AR.dll"
+     ]
+    },
+    {
+     "id": "GW.F8",
+     "what": "Catalogue values that need the working goods system (D22, M50): each resource record's storage limit, spoilage per preservation technology and base value",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "bool CvBonusInfo::read(CvXMLLoadUtility* pXML)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "void CvBonusInfo::copyNonDefaults(CvBonusInfo* pClassInfo)"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "manual",
+       "what": "fields and values defined from the behaviour of GW.F3 and GW.F5 (D22)"
+      }
+     ],
+     "after": [
+      "GW.F3",
+      "GW.F5"
+     ],
+     "tasks": [
+      {
+       "id": "GW.F8.T1",
+       "status": "todo",
+       "text": "Storage limit, spoilage per preservation technology and base value: fields and values, once the goods system works (D22, M50)",
+       "done_when": "Waits for GW.F3 and GW.F5; its done_when is written then, from the system's behaviour",
+       "note": "Was GW.F1.T4 until 2026-11-02: moved because GW.F1 could not finish before GW.F3, which waits for GW.F1 (D22: these fields wait until the goods system works)."
+      }
+     ],
+     "data": [
+      {
+       "name": "storage limit, spoilage, base value",
+       "where": "CvBonusInfo",
+       "type": "to be defined with GW.F3/GW.F5 (D22)",
+       "bounds": "open",
+       "saved": false
+      }
+     ],
+     "design": [
+      "G.catalogue",
+      "AR.xml"
      ]
     }
    ]
@@ -2946,13 +2988,13 @@
   "5. New decisions go into design.json, changed features into plan.json, in the same commit as the work."
  ],
  "current": {
-  "updated": "2026-10-27",
-  "mod_head": "GitLab claude/settlement-economy at 9a5795e9",
+  "updated": "2026-11-02",
+  "mod_head": "GitLab claude/settlement-economy at 4bea4e0e",
   "in_flight": [
-   "None. GW.F1.T1/T2 done (GitLab 9a5795e9, build e7da41335d50); P42 (0 of 5 runs failed on either arm) and P43 (median same-seed run time 0.998) corroborated. LQ.F10.T2 BLOCKED (Commons HTTP 429)."
+   "P44/P45 safety runs (tools/safety/p44.sh: root-eco-gwf1f against root-eco-gwf1), started 2026-11-02; then commit the evidence with Serves: P44, P45. GW.F1.T1-T3 done (GitLab 4bea4e0e; DLL build e7da41335d50 unchanged). Open: builds/settlement-economy/README.md line on GoodUnit/GoodCategory ('none does yet') to correct with the next build commit (gate needs Serves). LQ.F10.T2 BLOCKED (Commons HTTP 429)."
   ],
   "next": [
-   "1. GW.F1.T3: fill the 72 records (proposals.json) and the Guilds schema, with a check listing every record's fields (done_when in plan.json).",
+   "1. After P44/P45: GW in D18 order: GW.F6 (integer rules) and GW.F3 (goods accounts per settlement) can start, then GW.F2 once data changes the icons; write each task's done_when first (rule A). Storage, spoilage and base value are GW.F8 (after GW.F3, GW.F5).",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 in-game icon check; a test game with builds/settlement-economy."
   ],

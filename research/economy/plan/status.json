@@ -1,6 +1,6 @@
 {
- "checked": "2026-10-27",
- "mod_commit": "1fdd6ba",
+ "checked": "2026-11-02",
+ "mod_commit": "4bea4e0",
  "mod_branch": null,
  "checks": {
   "LQ.F8": true,
@@ -9,8 +9,8 @@
   "LQ.F11": false,
   "LQ.F12": false,
   "LQ.F13": true,
-  "GW.F7": false,
-  "GW.F1": false,
+  "GW.F7": true,
+  "GW.F1": true,
   "GW.F2": false,
   "GW.F3": false,
   "GW.F4": false,
