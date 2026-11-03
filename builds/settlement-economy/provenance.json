@@ -1,20 +1,20 @@
 {
  "serves": [
-  "P50",
-  "P51"
+  "P52",
+  "P53"
  ],
- "build_id": "e42220fcb075",
- "source": "GitLab claude/settlement-economy at ba209b49: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts, AI_baseBonusVal gate, copyNonDefaults carries every member read (GW.F7), GoodUnit and GoodCategory on every resource (GW.F1), goods accounts per city (GW.F3), goods bonus counted in the trade network (GW.F4), the economy pass with empty steps (GW.F5).",
- "source_commit": "ba209b498dcc91f353aac5583f1b40b8a698c823",
- "source_tree": "e42220fcb075e47e7ad8286f8c78e08e3f923fb5",
+ "build_id": "598b55c2f4ce",
+ "source": "GitLab claude/settlement-economy at 857ca9f3: LQ.F10, LQ.F11, the AI term fixed, lumbermill 5, hunting camps give Leather, batched good counts, AI_baseBonusVal gate, copyNonDefaults carries every member read (GW.F7), GoodUnit and GoodCategory on every resource (GW.F1), goods accounts per city (GW.F3), goods bonus counted in the trade network (GW.F4), the economy pass with empty steps (GW.F5), the map scale on CvMap (PR.F6.T1).",
+ "source_commit": "857ca9f322bbca9b20abb984c13ebbe91c4bc909",
+ "source_tree": "598b55c2f4ceae87de90f1a53010f1f6fac61bf2",
  "base_commit": "02d5f85a",
- "dll_sha256": "28c539174850ea818b53a98d8f9e1d654526ae0996368ce533e4e6d80eb966fe",
- "dll_size": 6164480,
+ "dll_sha256": "ebff482ecac9299571f83dc0188907e529b20852019a66345de371bd5b464b0f",
+ "dll_size": 6168576,
  "build": "toolchain/build_dll.sh, MSVC 2003 (Visual C++ Toolkit 2003) under Wine, TARGET=release; 0 errors, 0 warnings",
- "tested_headless": "GW.F5: identical 150-turn telemetry; turn-60 snapshot round trip identical for turns 60-80; a snapshot of the previous build continues identically; a scratch build with timber put in each capital shows the bridge raising and lowering the count. Safety runs P50, P51.",
+ "tested_headless": "PR.F6.T1: identical 150-turn telemetry; turn-60 snapshot round trip identical for turns 60-80; a snapshot of the previous build continues identically. The map-script declaration path does not run in the harness; to check in game. Safety runs P52, P53.",
  "tested_in_game": false,
- "gitlab_commit": "ba209b498dcc91f353aac5583f1b40b8a698c823",
+ "gitlab_commit": "857ca9f322bbca9b20abb984c13ebbe91c4bc909",
  "patch": "builds/settlement-economy/source.patch",
- "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to ba209b49",
- "previous": "build d45c19c7a25b (GitLab 72b86393)"
+ "patch_about": "git diff of Assets/CvGameCoreDLL from GitLab main 71de0ab to 857ca9f3",
+ "previous": "build e42220fcb075 (GitLab ba209b49)"
 }

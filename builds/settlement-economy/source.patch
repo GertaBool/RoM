@@ -1,10 +1,10 @@
-From ba209b498dcc91f353aac5583f1b40b8a698c823 Mon Sep 17 00:00:00 2001
-Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields, goods accounts, goods bonus, economy pass
+From 857ca9f322bbca9b20abb984c13ebbe91c4bc909 Mon Sep 17 00:00:00 2001
+Subject: [PATCH] Settlement economy DLL source: produced goods, AI term, batched counts, bonus value gate, copyNonDefaults, goods catalogue fields, goods accounts, goods bonus, economy pass, map scale
 
-Assets/CvGameCoreDLL of GitLab claude/settlement-economy at ba209b49 against GitLab main
-71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9, 9213dc33, 72b86393, ba209b49.
+Assets/CvGameCoreDLL of GitLab claude/settlement-economy at 857ca9f3 against GitLab main
+71de0ab: a57f2015, f70541a9, cf43846b, 1fdd6ba1, 84ea7fc5, 9a5795e9, 9213dc33, 72b86393, ba209b49, 857ca9f3.
 
-Serves: P50, P51
+Serves: P52, P53
 ---
 diff --git a/Assets/CvGameCoreDLL/CvCity.cpp b/Assets/CvGameCoreDLL/CvCity.cpp
 index 533e42d..3405c2c 100644
@@ -810,6 +810,119 @@ index f92c2f0..c702260 100644
  	CvString m_szArtDefineTag;
  
  	// Arrays
+diff --git a/Assets/CvGameCoreDLL/CvMap.cpp b/Assets/CvGameCoreDLL/CvMap.cpp
+index df094f4..8a8177f 100644
+--- a/Assets/CvGameCoreDLL/CvMap.cpp
++++ b/Assets/CvGameCoreDLL/CvMap.cpp
+@@ -187,6 +187,24 @@ void CvMap::reset(CvMapInitData* pInitInfo)
+ 		}
+ 	}
+ 
++	// Map scale (PR.F6): a map script may declare the area of one plot; a scenario declares it after loading
++	m_iPlotAreaKm2 = 0;
++	if (!pInitInfo)
++	{
++		long lPlotArea = 0;
++		bool bOk = gDLL->getPythonIFace()->callFunction(gDLL->getPythonIFace()->getMapScriptModule(), "getPlotAreaKm2", NULL, &lPlotArea);
++		if (bOk && !gDLL->getPythonIFace()->pythonUsingDefaultImpl() && lPlotArea > 0)
++		{
++			m_iPlotAreaKm2 = (int)lPlotArea;
++		}
++		else
++		{
++			CvString szLog;
++			szLog.Format("map script %S declares no getPlotAreaKm2(): the whole-planet default applies", gDLL->getMapScriptName().GetCString());
++			gDLL->logMsg("CvMap_plotArea.log", szLog.c_str());
++		}
++	}
++
+ 	m_iTopLatitude = std::min(m_iTopLatitude, 90);
+ 	m_iTopLatitude = std::max(m_iTopLatitude, -90);
+ 	m_iBottomLatitude = std::min(m_iBottomLatitude, 90);
+@@ -1019,6 +1037,28 @@ int CvMap::getTopLatitude()
+ 	return m_iTopLatitude;
+ }
+ 
++// Earth's surface, 510,100,000 km2, over the map's plots when the map declares no scale; at least 1
++int CvMap::getPlotAreaKm2() const
++{
++	if (m_iPlotAreaKm2 > 0)
++	{
++		return m_iPlotAreaKm2;
++	}
++	int iPlots = m_iGridWidth * m_iGridHeight;
++	return (iPlots > 0) ? std::max(1, 510100000 / iPlots) : 1;
++}
++
++void CvMap::setPlotAreaKm2(int iNewValue)
++{
++	FAssertMsg(iNewValue >= 0, "plot area must not be negative");
++	m_iPlotAreaKm2 = std::max(0, iNewValue);
++}
++
++bool CvMap::isPlotAreaDeclared() const
++{
++	return m_iPlotAreaKm2 > 0;
++}
++
+ 
+ int CvMap::getBottomLatitude()
+ {
+@@ -1317,6 +1357,12 @@ void CvMap::read(FDataStreamBase* pStream)
+ 	pStream->Read(&m_bWrapX);
+ 	pStream->Read(&m_bWrapY);
+ 
++	m_iPlotAreaKm2 = 0;
++	if (uiFlag >= 1)
++	{
++		pStream->Read(&m_iPlotAreaKm2);
++	}
++
+ 	FAssertMsg((0 < GC.getNumBonusInfos()), "GC.getNumBonusInfos() is not greater than zero but an array is being allocated");
+ 	pStream->Read(GC.getNumBonusInfos(), m_paiNumBonus);
+ 	pStream->Read(GC.getNumBonusInfos(), m_paiNumBonusOnLand);
+@@ -1342,7 +1388,7 @@ void CvMap::read(FDataStreamBase* pStream)
+ //
+ void CvMap::write(FDataStreamBase* pStream)
+ {
+-	uint uiFlag=0;
++	uint uiFlag=1;	// 1: plot area (PR.F6)
+ 	pStream->Write(uiFlag);		// flag for expansion
+ 
+ 	pStream->Write(m_iGridWidth);
+@@ -1356,6 +1402,8 @@ void CvMap::write(FDataStreamBase* pStream)
+ 	pStream->Write(m_bWrapX);
+ 	pStream->Write(m_bWrapY);
+ 
++	pStream->Write(m_iPlotAreaKm2);
++
+ 	FAssertMsg((0 < GC.getNumBonusInfos()), "GC.getNumBonusInfos() is not greater than zero but an array is being allocated");
+ 	pStream->Write(GC.getNumBonusInfos(), m_paiNumBonus);
+ 	pStream->Write(GC.getNumBonusInfos(), m_paiNumBonusOnLand);
+diff --git a/Assets/CvGameCoreDLL/CvMap.h b/Assets/CvGameCoreDLL/CvMap.h
+index 8f4c77d..3dc150a 100644
+--- a/Assets/CvGameCoreDLL/CvMap.h
++++ b/Assets/CvGameCoreDLL/CvMap.h
+@@ -179,6 +179,11 @@ public:
+ 	int getTopLatitude();																									// Exposed to Python
+ 	int getBottomLatitude();																							// Exposed to Python
+ 
++	// Map scale (PR.F6): km2 of one plot as the map or scenario declares it; undeclared: Earth's surface over the plots
++	int getPlotAreaKm2() const;
++	void setPlotAreaKm2(int iNewValue);
++	bool isPlotAreaDeclared() const;
++
+ 	int getNextRiverID();																									// Exposed to Python
+ 	void incrementNextRiverID();																					// Exposed to Python
+ 
+@@ -288,6 +293,7 @@ protected:
+ 	int m_iTopLatitude;
+ 	int m_iBottomLatitude;
+ 	int m_iNextRiverID;
++	int m_iPlotAreaKm2;	// 0: not declared
+ 
+ 	bool m_bWrapX;
+ 	bool m_bWrapY;
 diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
 index 0e31b45..9d4b1e8 100644
 --- a/Assets/CvGameCoreDLL/CvPlayer.cpp
@@ -1257,3 +1370,60 @@ index 853a593..c0f45fa 100644
  				}
  			}
  		}
+diff --git a/Assets/CvGameCoreDLL/CyMap.cpp b/Assets/CvGameCoreDLL/CyMap.cpp
+index 6f37134..190b85e 100644
+--- a/Assets/CvGameCoreDLL/CyMap.cpp
++++ b/Assets/CvGameCoreDLL/CyMap.cpp
+@@ -141,6 +141,24 @@ int CyMap::getTopLatitude()
+ 	return m_pMap ? m_pMap->getTopLatitude() : -1;
+ }
+ 
++int CyMap::getPlotAreaKm2()
++{
++	return m_pMap ? m_pMap->getPlotAreaKm2() : -1;
++}
++
++void CyMap::setPlotAreaKm2(int iNewValue)
++{
++	if (m_pMap)
++	{
++		m_pMap->setPlotAreaKm2(iNewValue);
++	}
++}
++
++bool CyMap::isPlotAreaDeclared()
++{
++	return m_pMap ? m_pMap->isPlotAreaDeclared() : false;
++}
++
+ int CyMap::getBottomLatitude()
+ {
+ 	return m_pMap ? m_pMap->getBottomLatitude() : -1;
+diff --git a/Assets/CvGameCoreDLL/CyMap.h b/Assets/CvGameCoreDLL/CyMap.h
+index ca0def9..85c7f31 100644
+--- a/Assets/CvGameCoreDLL/CyMap.h
++++ b/Assets/CvGameCoreDLL/CyMap.h
+@@ -60,6 +60,9 @@ public:
+ 
+ 	int getTopLatitude();
+ 	int getBottomLatitude();
++	int getPlotAreaKm2();
++	void setPlotAreaKm2(int iNewValue);
++	bool isPlotAreaDeclared();
+ 
+ 	int getNextRiverID();
+ 	void incrementNextRiverID();
+diff --git a/Assets/CvGameCoreDLL/CyMapInterface.cpp b/Assets/CvGameCoreDLL/CyMapInterface.cpp
+index 558a57e..7cc5796 100644
+--- a/Assets/CvGameCoreDLL/CyMapInterface.cpp
++++ b/Assets/CvGameCoreDLL/CyMapInterface.cpp
+@@ -55,6 +55,9 @@ void CyMapPythonInterface()
+ 
+ 		.def("getTopLatitude", &CyMap::getTopLatitude, "int () - top latitude (usually 90)")
+ 		.def("getBottomLatitude", &CyMap::getBottomLatitude, "int () - bottom latitude (usually -90)")
++		.def("getPlotAreaKm2", &CyMap::getPlotAreaKm2, "int () - km2 of one plot (declared by the map or scenario, else Earth's surface over the plots)")
++		.def("setPlotAreaKm2", &CyMap::setPlotAreaKm2, "void (int) - declare the km2 of one plot (0: undeclared)")
++		.def("isPlotAreaDeclared", &CyMap::isPlotAreaDeclared, "bool () - whether the map or scenario declared its plot area")
+ 
+ 		.def("getNextRiverID", &CyMap::getNextRiverID, "int ()")
+ 		.def("incrementNextRiverID", &CyMap::incrementNextRiverID, "void ()")
