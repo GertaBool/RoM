@@ -1337,8 +1337,10 @@
       {
        "id": "PR.F6.T3",
        "text": "A tool edits the mod's 44 scenarios and 39 map scripts to declare their plot area, from a table of values with each one's basis",
-       "status": "todo",
-       "done_when": "research/economy/plan/map_scale.json lists every scenario and map script with its plot area and basis (whole planet, real region, chosen for a fictional map); a generator writes the BeginEconomy blocks and the getPlotAreaKm2 functions as connector pairs; a check lists every map with its declared value and finds none missing; the harness loads a scenario with the block identically"
+       "status": "done",
+       "done_when": "research/economy/plan/map_scale.json lists every scenario and map script with its plot area and basis (whole planet, real region, chosen for a fictional map); a generator writes the BeginEconomy blocks and the getPlotAreaKm2 functions as connector pairs; a check lists every map with its declared value and finds none missing; the harness loads a scenario with the block identically",
+       "done": "2026-11-03",
+       "note": "GitLab c194903a, 7470d14f, 4ff39fec (44 scenarios: BeginEconomy blocks), d2a8f756 (37 map scripts: getPlotAreaKm2(), Earth-sized planet; RoM_Full_of_Resources_3_00.py and RoM_Planet_Generator_0_68.py skipped for non-ASCII bytes, default applies). Values: map_scale.json (map_scale_table.py; fits by map_georef.py on Natural Earth 1:50m land; land-based, method proposed to the user 2026-11-03). map_scale_check.py on d2a8f756: 81 declare, two skipped, no error. 80 files byte-equal to the generator's output; RoM_PerfectWorld.py has its function one blank line early (overlapping anchor; valid; generator fixed). Mediterranean Standard converts to MAPSCALE 4470, otherwise identical. Safety runs P56/P57. In-game checks open."
       }
      ],
      "data": [
@@ -3077,12 +3079,12 @@
  ],
  "current": {
   "updated": "2026-11-03",
-  "mod_head": "GitLab claude/settlement-economy at a1d9c3f2",
+  "mod_head": "GitLab claude/settlement-economy at d2a8f756",
   "in_flight": [
-   "None. PR.F6.T1/T2 done (GitLab 857ca9f3, a1d9c3f2); P52-P55 corroborated (no failed run; run time 0.997, 1.007); in-game checks open for the map-script and scenario paths. PR.F6.T3 facts in map_scale_facts.tsv; land-based scale proposed to the user (proposals.json production.farmland.method_proposed). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "P56/P57 safety runs (tools/safety/p56.sh: root-eco-prf6t3, Mediterranean Standard with its block, against root-eco-prf6t2), started 2026-11-03; then commit the evidence with Serves: P56, P57. PR.F6 done (GitLab 857ca9f3, a1d9c3f2, c194903a..d2a8f756); in-game checks open: a map script's and a scenario's scale read back with CyMap().getPlotAreaKm2(), a WorldBuilder save keeps the block. Land-based method proposed to the user, may be overruled. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. After P54/P55: PR.F6.T3: research/economy/plan/map_scale.json (every scenario and map script, plot area and basis, sources), a generator for the BeginEconomy blocks and getPlotAreaKm2 functions, a check that none is missing; then PR.F1.",
+   "1. After P56/P57: PR.F1 (production into the accounts, D23): write its done_when from proposals.json production (area worked = min(tile farmland from the plot area, workers x ha per worker) x yield x land quality x (1 - seed)); the other goods' tables with sources first (rice, corn, potato, livestock, timber, ore).",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],

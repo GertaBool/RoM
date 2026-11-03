@@ -668,21 +668,21 @@
   {
    "id": "R11",
    "date": "2026-11-03",
-   "status": "open",
+   "status": "done",
    "prompt": "M55",
    "text": "I am not hostile towards \n\n(i) Per-map scale: each map or scenario declares its own area per tile.\n\nIt's the least lazy, and most common sensical option, and enables us to do more refined work later. The only issue that remains is compatibility, scenarios and map scripts can/should be automatically edited though to fit the schema.",
    "items": [
     {
      "id": "R11.1",
      "what": "Each map or scenario declares its own area per tile (the scale PR.F1 uses for a tile's farmland)",
-     "status": "planned",
-     "where": "PR.F6 (D23)"
+     "status": "done",
+     "where": "PR.F6 (GitLab 857ca9f3, a1d9c3f2)"
     },
     {
      "id": "R11.2",
      "what": "Existing scenarios and map scripts are edited automatically to declare it",
-     "status": "planned",
-     "where": "PR.F6 (D23)"
+     "status": "done",
+     "where": "PR.F6.T3 (GitLab c194903a..d2a8f756; map_scale.json)"
     }
    ]
   }
