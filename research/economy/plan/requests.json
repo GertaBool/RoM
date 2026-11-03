@@ -385,6 +385,13 @@
    "kind": "answer",
    "text": "I am not hostile towards \n\n(i) Per-map scale: each map or scenario declares its own area per tile.\n\nIt's the least lazy, and most common sensical option, and enables us to do more refined work later. The only issue that remains is compatibility, scenarios and map scripts can/should be automatically edited though to fit the schema.",
    "led_to": "D23 farmland: option (i), each map or scenario declares its area per tile; compatibility by automatically editing the scenarios and map scripts to the schema"
+  },
+  {
+   "id": "M56",
+   "date": "2026-11-03",
+   "kind": "ideas",
+   "text": "\"BeginEconomy\n\tplot area km2=<n>\nEndEconomy\"\n\nThis line of code is actually a massive boon, because right there we can set a massive amount of variables that are going to be of great use and reduce the need to precompute values for each tile in the actual game.\n\nSay, I want to set a mineral or metal ore deposit value, so that the map now has a finite amount of ore resources spread across the map on the key locations as indicated by the corresponding bonuses (Copper, Iron, Gold). \n\nSay, I'd want to set a range of fertility values for various tile types under various conditions. Now, these can be preset and changed, both under the terrain XML schemas as well as the actual maps with custom specifications. \n\nSay, I would want to specify the amount of starter seeds per grain or plant bonus, suddenly one can trade a various amount of coffee or wheat seeds from the start.\n\nSay, I would want to set trade route related custom settings, or similar to the revolution screen, enable or disable economy related UIs with their own mechanics, i.e. import/export trade screens, loans, bonds, national budget (for a central panel to hurry units, buildings and wonders), national debt (to issue bonds, take loans and monitor statistics) and communist central planning UIs, which may themselves depend on various civics (the Roman senate may have its own UI/its own mechanics which even influence the Roman AI)\n\nJust some ideas though",
+   "led_to": "R12: ideas for what maps declare in the BeginEconomy block, recorded as proposals (D24 open), not yet planned work"
   }
  ],
  "requests": [
@@ -683,6 +690,40 @@
      "what": "Existing scenarios and map scripts are edited automatically to declare it",
      "status": "done",
      "where": "PR.F6.T3 (GitLab c194903a..d2a8f756; map_scale.json)"
+    }
+   ]
+  },
+  {
+   "id": "R12",
+   "date": "2026-11-03",
+   "status": "open",
+   "prompt": "M56",
+   "text": "\"BeginEconomy\n\tplot area km2=<n>\nEndEconomy\"\n\nThis line of code is actually a massive boon, because right there we can set a massive amount of variables that are going to be of great use and reduce the need to precompute values for each tile in the actual game.\n\nSay, I want to set a mineral or metal ore deposit value, so that the map now has a finite amount of ore resources spread across the map on the key locations as indicated by the corresponding bonuses (Copper, Iron, Gold). \n\nSay, I'd want to set a range of fertility values for various tile types under various conditions. Now, these can be preset and changed, both under the terrain XML schemas as well as the actual maps with custom specifications. \n\nSay, I would want to specify the amount of starter seeds per grain or plant bonus, suddenly one can trade a various amount of coffee or wheat seeds from the start.\n\nSay, I would want to set trade route related custom settings, or similar to the revolution screen, enable or disable economy related UIs with their own mechanics, i.e. import/export trade screens, loans, bonds, national budget (for a central panel to hurry units, buildings and wonders), national debt (to issue bonds, take loans and monitor statistics) and communist central planning UIs, which may themselves depend on various civics (the Roman senate may have its own UI/its own mechanics which even influence the Roman AI)\n\nJust some ideas though",
+   "items": [
+    {
+     "id": "R12.1",
+     "what": "Finite ore deposits (copper, iron, gold ...) at the places the map's resources mark, declared by the map",
+     "status": "open"
+    },
+    {
+     "id": "R12.2",
+     "what": "Fertility ranges per tile type and condition: defaults in the terrain XML, overridden by a map's own specification",
+     "status": "open"
+    },
+    {
+     "id": "R12.3",
+     "what": "Starter seed stocks per grain or plant resource, so seeds (coffee, wheat) can be traded from the start",
+     "status": "open"
+    },
+    {
+     "id": "R12.4",
+     "what": "Trade-route settings per map",
+     "status": "open"
+    },
+    {
+     "id": "R12.5",
+     "what": "Economy screens and mechanics switched on or off per game, like the Revolution options: import/export trade, loans, bonds, a national budget (a central panel to hurry units, buildings and wonders), national debt, central planning; some tied to civics (a Roman senate with its own screen and mechanics that also move the Roman AI)",
+     "status": "open"
     }
    ]
   }
