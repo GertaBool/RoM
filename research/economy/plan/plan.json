@@ -3077,7 +3077,7 @@
   "updated": "2026-11-03",
   "mod_head": "GitLab claude/settlement-economy at 857ca9f3",
   "in_flight": [
-   "P52/P53 safety runs (tools/safety/p52.sh: root-eco-prf6 against root-eco-gwf5), started 2026-11-03; then commit the evidence with Serves: P52, P53. PR.F6.T1 done (GitLab 857ca9f3, build 598b55c2f4ce); its map-script path and Python read-back need an in-game check. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "None. PR.F6.T1 done (GitLab 857ca9f3, build 598b55c2f4ce); P52 (no failed run) and P53 (median same-seed run time 0.997) corroborated; its map-script path and Python read-back need an in-game check. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
    "1. After P52/P53: PR.F6.T2 (scenarios: BeginEconomy block read in CvWBInterface.py, written back on save; wbs2scn.py and the harness carry it) and PR.F6.T3 (map_scale.json values with their basis, automatic edits of 44 scenarios and 39 map scripts); then PR.F1.",
