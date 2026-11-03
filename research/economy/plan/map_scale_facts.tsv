@@ -1,0 +1,45 @@
+scenario	grid_w	grid_h	plots	land_plots	wrap_x
+Antarctic	132	104	13728	3369	0
+Australia and New Zealan	114	80	9120	2312	0
+CarterEarth(32BtS	192	120	23040	6652	1
+CarterEarth(4BtS	192	120	23040	6652	1
+CarterEarth(Random32BtS	192	120	23040	6652	1
+Colonization 1500A	58	72	4176	1206	0
+Democragphica, Huge Mediterranea	100	73	7300	4880	0
+Earth 12 preset civs, Standar	84	52	4368	1625	1
+Earth 18 preset civs, Hug	124	68	8432	3077	1
+Earth 23 preset civs, Standar	84	52	4368	1625	1
+Earth 28 preset civs, Hug	124	68	8432	3075	1
+Earth 3 preset civs, Hug	124	68	8432	3077	1
+Earth 3 preset civs, Standar	84	52	4368	1625	1
+Earth Ice Ag	124	68	8432	3757	1
+EarthSe	158	76	12008	1859	1
+Eurasia mediu	114	51	5814	3904	0
+Eurasi	200	80	16000	12295	0
+Europ	100	73	7300	4880	0
+Giant Earth Map 31 preset civ	210	90	18900	7178	1
+Giant Earth Map no preset civ	210	90	18900	7178	1
+Giant Earth Ma	210	90	18900	7181	1
+Huge Europ	107	87	9309	6347	0
+Huge_Europe_ancient_flattened_grecorom	107	87	9309	6353	0
+Huge_Europe_edited_v	107	87	9309	6350	0
+Mars Colonization on Future Er	80	57	4560	3322	1
+Mar	80	57	4560	3322	1
+Mediterranean, Hug	120	40	4800	3301	0
+Mediterranean, Standar	64	44	2816	1842	0
+Mediterranean_Huge_1000B	120	40	4800	3301	0
+Mediterranean_Huge_edite	120	40	4800	3301	0
+Mediterranean_Standard_edite	64	44	2816	1842	0
+Mediterranean_Standard_edited_v	64	44	2816	1842	0
+New Zealan	79	99	7821	1609	0
+Niho	108	114	12312	2953	0
+North and South Americ	58	72	4176	1206	0
+Orio	106	100	10600	3331	0
+PAE Europe III Standar	64	44	2816	1747	0
+PAE Europe IV Mediu	84	46	3864	2578	0
+PAE Europe V Larg	84	64	5376	3532	0
+RFC Earth with big Europe 50 civ	124	68	8432	3189	1
+Siriu	132	84	11088	2568	1
+Tamriel Huge 138x96 1.0	138	96	13248	4585	0
+Tamriel Large 112x80 1.0	112	80	8960	2907	0
+afric	54	66	3564	1632	0

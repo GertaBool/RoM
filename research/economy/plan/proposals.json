@@ -886,7 +886,9 @@
     "The mod has 44 WorldBuilder scenarios and 39 map scripts, all in PrivateMaps (GitLab ba209b49)",
     "Scenarios are read by the base game's pyWB/CvWBDesc.py, which the mod does not ship (codemap/python.md lists it from the base game); the mod's own EntryPoints/CvWBInterface.py calls WBDesc.read, applyMap and write",
     "Map scripts are Python modules the DLL calls by function name through gDLL->getPythonIFace()->callFunction (CvMapGenerator.cpp: addRivers, addFeatures, addBonuses, ...); a missing function falls back to the default",
-    "Of the 44 scenarios, 8 cover the whole Earth (wrap X, latitude 90 to -90: Earth 3/12/18/23/28 preset civs, Earth Ice Age, Giant Earth Map x3, RFC Earth), 3 CarterEarth to -66, many regional maps carry latitude 0..0 (unset), Mars two maps, and fictional maps (Tamriel x2, Orion, Sirius)"
+    "Of the 44 scenarios, 8 cover the whole Earth (wrap X, latitude 90 to -90: Earth 3/12/18/23/28 preset civs, Earth Ice Age, Giant Earth Map x3, RFC Earth), 3 CarterEarth to -66, many regional maps carry latitude 0..0 (unset), Mars two maps, and fictional maps (Tamriel x2, Orion, Sirius)",
+    "The whole-Earth scenarios show 36-38 % of their plots as land against Earth's 29 % (148.9 of 510.1 million km2): land is drawn larger than the sea, so the scale from Earth's whole surface over all plots and the scale from Earth's land over the land plots differ by about 27 % (Earth Standard 84 x 52: 116,780 against 91,630 km2 per plot)",
+    "'Democragphica, Huge Mediterranean' and 'Europe' have the same grid, plots and land plots (100 x 73, 4,880 land): to compare plot by plot"
    ],
    "options": [
     "(i) a scale declared per map or scenario (km^2 per tile), the map's author's choice",
@@ -899,7 +901,9 @@
     "map_scripts": "an optional function getPlotAreaKm2() in each map script, which the DLL asks for when it generates a map (a whole-planet script can compute it from the grid size: the planet's surface over the number of plots)",
     "game": "CvMap keeps the value, saved with the map; maps that declare nothing get a default and a log line naming the map",
     "values": "per map, each with its basis: whole-Earth maps from Earth's surface (510.1 million km2) over the plots; regional maps from the region's real extent; Mars from its surface (144.8 million km2); fictional maps a chosen value, said so; refined later per plot by latitude (cos of latitude) where a map has real latitudes"
-   }
+   },
+   "facts_per_scenario": "research/economy/plan/map_scale_facts.tsv (GitLab a1d9c3f2): grid, plots, land plots (plot types peak, hills, flat), wrap; counted from each scenario's plot records",
+   "method_proposed": "the scale for farmland from land: a map's plot area = the real land area of what it shows / its land plots (whole-Earth maps: 148.9 million km2; Mars: 144.8 million km2, all land; regional maps: the land area inside the region the map shows, sourced per map; fictional maps: a chosen value, said so). The whole-surface value is kept beside it as a cross-check"
   }
  }
 }
