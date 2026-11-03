@@ -1291,6 +1291,65 @@
      "design": [
       "PR.labour"
      ]
+    },
+    {
+     "id": "PR.F6",
+     "what": "Map scale (D23, M55): each map or scenario declares its area per plot; the game keeps it with the map; the mod's scenarios and map scripts are edited automatically to declare it",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvMap.cpp",
+       "anchor": "void CvMap::read(FDataStreamBase* pStream)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvMapGenerator.cpp",
+       "anchor": "callFunction"
+      },
+      {
+       "file": "Assets/Python/EntryPoints/CvWBInterface.py",
+       "anchor": "WBDesc.read(fileName)"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvMap.h",
+       "text": "getPlotAreaKm2"
+      }
+     ],
+     "after": [],
+     "tasks": [
+      {
+       "id": "PR.F6.T1",
+       "text": "CvMap keeps the plot area (km2 per plot): member, getter and setter, saved behind CvMap uiFlag 1; exported to Python (CyMap); a map script's optional getPlotAreaKm2() sets it when a map is generated; a default and a log line when nothing declares it",
+       "status": "todo",
+       "done_when": "CvMap::m_iPlotAreaKm2 with getPlotAreaKm2/setPlotAreaKm2, written and read behind CvMap uiFlag 1 (older saves get the default); CyMap exports both; CvMapGenerator asks the map script for getPlotAreaKm2() and sets it, else the default with a log line naming the script; nothing reads it yet (PR.F1 will); the DLL builds, the 150-turn run is identical, the snapshot round trip and an old snapshot stay identical, and a scratch map script declaring a value shows it read back"
+      },
+      {
+       "id": "PR.F6.T2",
+       "text": "Scenarios: CvWBInterface.py reads the BeginEconomy block after WBDesc.read and sets the plot area; writes the block back when the WorldBuilder saves",
+       "status": "todo",
+       "done_when": "CvWBInterface.readAndApplyDesc reads 'plot area km2' from a BeginEconomy block at the end of the file and calls CyMap().setPlotAreaKm2; writeDesc appends the block with the current value; a scenario without the block gets the default and a log line; checked by the harness loading a scenario with the block (wbs2scn.py and HH_loadScenario carry it) and by the user loading one in game"
+      },
+      {
+       "id": "PR.F6.T3",
+       "text": "A tool edits the mod's 44 scenarios and 39 map scripts to declare their plot area, from a table of values with each one's basis",
+       "status": "todo",
+       "done_when": "research/economy/plan/map_scale.json lists every scenario and map script with its plot area and basis (whole planet, real region, chosen for a fictional map); a generator writes the BeginEconomy blocks and the getPlotAreaKm2 functions as connector pairs; a check lists every map with its declared value and finds none missing; the harness loads a scenario with the block identically"
+      }
+     ],
+     "data": [
+      {
+       "name": "plot area",
+       "where": "CvMap",
+       "type": "int km2 per plot",
+       "bounds": "1..10,000,000 (Earth over the smallest map: 510 million km2 / 960 plots = about 530,000)",
+       "saved": true
+      }
+     ],
+     "design": [
+      "AR.dll",
+      "AR.xml"
+     ]
     }
    ]
   },
@@ -3019,7 +3078,7 @@
    "None. GW.F3, GW.F4, GW.F5 done (GitLab ba209b49, build e42220fcb075); P50 (no failed run) and P51 (median same-seed run time 0.990) corroborated; earlier P47 1.023, P49 0.997. GW open: GW.F2.T2 (user), GW.F6.T2 (with the first sum), GW.F8 (after the system works). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. PR.F1 waits on D23's last open point, the tile's farmland (options i-iii in proposals.json production.farmland); time base and workers decided (M54); fermentation is food value (FG.F1, CN.F1, SD.F2). Then PR.F1 done_when and the other goods' tables with sources.",
+   "1. PR.F6 (map scale, D23 decided M55): T1 DLL field and map-script function, T2 scenarios through CvWBInterface.py, T3 the values table and automatic edits; then PR.F1 (production) uses the plot area for a tile's farmland.",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],

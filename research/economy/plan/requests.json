@@ -675,12 +675,14 @@
     {
      "id": "R11.1",
      "what": "Each map or scenario declares its own area per tile (the scale PR.F1 uses for a tile's farmland)",
-     "status": "open"
+     "status": "planned",
+     "where": "PR.F6 (D23)"
     },
     {
      "id": "R11.2",
      "what": "Existing scenarios and map scripts are edited automatically to declare it",
-     "status": "open"
+     "status": "planned",
+     "where": "PR.F6 (D23)"
     }
    ]
   }

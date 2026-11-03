@@ -385,13 +385,14 @@
   {
    "id": "D23",
    "question": "How much a worked tile produces (R10, M53)",
-   "status": "open",
-   "source": "M53, M54",
+   "status": "decided",
+   "source": "M53, M54, M55",
    "why": "The user: output from the real population employed, the true efficiency given technologies and resources, land quality and the kind of good, somewhat true to a real agricultural economy",
    "options": [
     "the model in proposals.json production: area worked (workers x hectares per worker, capped by the tile) x yield per hectare x land quality x (1 - seed), with the game's farm techs as the stages"
    ],
-   "proposal": "the model in proposals.json production. Decided (M54): flows per year while turns last a year or more, the turn's fraction of a year below that; workers from the game's real population per citizen. Corrected (M54): Fermentation raises the food value of cereals and how they keep, not the harvest. Open: the tile's farmland (options in proposals.json production.farmland)"
+   "proposal": "the model in proposals.json production. Decided (M54): flows per year while turns last a year or more, the turn's fraction of a year below that; workers from the game's real population per citizen. Corrected (M54): Fermentation raises the food value of cereals and how they keep, not the harvest. Decided (M55): each map or scenario declares its area per tile (option i); the mod's scenarios and map scripts are edited automatically to declare it (PR.F6). Open: none in the model; the per-map values are data (PR.F6.T3)",
+   "choice": "the model in proposals.json production. Decided (M54): flows per year while turns last a year or more, the turn's fraction of a year below that; workers from the game's real population per citizen. Corrected (M54): Fermentation raises the food value of cereals and how they keep, not the harvest. Decided (M55): each map or scenario declares its area per tile (option i); the mod's scenarios and map scripts are edited automatically to declare it (PR.F6). Open: none in the model; the per-map values are data (PR.F6.T3)"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"
