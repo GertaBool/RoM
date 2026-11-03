@@ -392,6 +392,13 @@
    "kind": "ideas",
    "text": "\"BeginEconomy\n\tplot area km2=<n>\nEndEconomy\"\n\nThis line of code is actually a massive boon, because right there we can set a massive amount of variables that are going to be of great use and reduce the need to precompute values for each tile in the actual game.\n\nSay, I want to set a mineral or metal ore deposit value, so that the map now has a finite amount of ore resources spread across the map on the key locations as indicated by the corresponding bonuses (Copper, Iron, Gold). \n\nSay, I'd want to set a range of fertility values for various tile types under various conditions. Now, these can be preset and changed, both under the terrain XML schemas as well as the actual maps with custom specifications. \n\nSay, I would want to specify the amount of starter seeds per grain or plant bonus, suddenly one can trade a various amount of coffee or wheat seeds from the start.\n\nSay, I would want to set trade route related custom settings, or similar to the revolution screen, enable or disable economy related UIs with their own mechanics, i.e. import/export trade screens, loans, bonds, national budget (for a central panel to hurry units, buildings and wonders), national debt (to issue bonds, take loans and monitor statistics) and communist central planning UIs, which may themselves depend on various civics (the Roman senate may have its own UI/its own mechanics which even influence the Roman AI)\n\nJust some ideas though",
    "led_to": "R12: ideas for what maps declare in the BeginEconomy block, recorded as proposals (D24 open), not yet planned work"
+  },
+  {
+   "id": "M57",
+   "date": "2026-11-03",
+   "kind": "answer",
+   "text": "\"Land- or whole-surface scaling\"\n\nThe issue is that maritime resources are also a thing. So for example fish constitute a pretty reliable food source until the point of overfishing. Then there are pearls, oil and other resources found at sea, which have to have their own mechanics, esp. because oil functions more like an ore but not quite. \n\nOtherwise I would rather scale by land yeah.\n\n\"The UI mock-up: your view on it, especially how goods in different units add up within one need\"\n\nSimilar to Anno would make sense to me UI wise. You have basic categories that each good belongs to, but you also separate between basic resources like seeds, timber, ore and leather, and essential needs, artisanal products and industrial goods and luxury goods.\n\nYou should be able to see an overview of each sector and the resource overview within the city screen for each city, as well as a total encompassing overview in the economic advisor screen.\n\nThe UI should be consistent with the rest of the game, it shouldn't look out of place, but rather fit in smoothly and be intuitively accessible from a UX perspective. \n\n\nBtw, wrt food specifically: \n\nMeat, dairy and fish should provide the most nutrition, therefore give the most actual contribution to the satiety of the population, besides that these high protein foods should also establish independent strength bonuses for units other than siege equipment, vehicles, robots and other machines. Cereal products, dried fruit, fermented dairy and cured meat and fish should rank highest when it comes to shelf life and add more to the food storage/\"granary\" so to speak.",
+   "led_to": "D25 land scale kept, sea needs its own scale and mechanics (fishing grounds with overfishing; pearls; offshore oil like an ore but not quite); D26 UI like Anno: sectors beside categories, sector and resource overviews per city and in the economic advisor, in the game's own look; D27 food: protein foods most satiety and a strength bonus for living units, preserved foods longest shelf life and most to the store"
   }
  ],
  "requests": [
@@ -729,6 +736,45 @@
      "what": "Economy screens and mechanics switched on or off per game, like the Revolution options: import/export trade, loans, bonds, a national budget (a central panel to hurry units, buildings and wonders), national debt, central planning; some tied to civics (a Roman senate with its own screen and mechanics that also move the Roman AI)",
      "status": "planned",
      "where": "D24 (open): recorded; designed with LD, TR.F3, TR and a new economy-screens component"
+    }
+   ]
+  },
+  {
+   "id": "R13",
+   "date": "2026-11-03",
+   "status": "open",
+   "prompt": "M57",
+   "text": "\"Land- or whole-surface scaling\"\n\nThe issue is that maritime resources are also a thing. So for example fish constitute a pretty reliable food source until the point of overfishing. Then there are pearls, oil and other resources found at sea, which have to have their own mechanics, esp. because oil functions more like an ore but not quite. \n\nOtherwise I would rather scale by land yeah.\n\n\"The UI mock-up: your view on it, especially how goods in different units add up within one need\"\n\nSimilar to Anno would make sense to me UI wise. You have basic categories that each good belongs to, but you also separate between basic resources like seeds, timber, ore and leather, and essential needs, artisanal products and industrial goods and luxury goods.\n\nYou should be able to see an overview of each sector and the resource overview within the city screen for each city, as well as a total encompassing overview in the economic advisor screen.\n\nThe UI should be consistent with the rest of the game, it shouldn't look out of place, but rather fit in smoothly and be intuitively accessible from a UX perspective. \n\n\nBtw, wrt food specifically: \n\nMeat, dairy and fish should provide the most nutrition, therefore give the most actual contribution to the satiety of the population, besides that these high protein foods should also establish independent strength bonuses for units other than siege equipment, vehicles, robots and other machines. Cereal products, dried fruit, fermented dairy and cured meat and fish should rank highest when it comes to shelf life and add more to the food storage/\"granary\" so to speak.",
+   "items": [
+    {
+     "id": "R13.1",
+     "what": "Scale by land (confirmed); sea resources get their own mechanics: fish as a renewable stock until overfishing, pearls, offshore oil (like an ore but not quite)",
+     "status": "open"
+    },
+    {
+     "id": "R13.2",
+     "what": "UI like Anno: each good has a category and a sector (basic resources such as seeds, timber, ore, leather; essential needs; artisanal products; industrial goods; luxury goods)",
+     "status": "open"
+    },
+    {
+     "id": "R13.3",
+     "what": "Sector overview and resource overview in each city's screen; an empire-wide overview in the economic advisor",
+     "status": "open"
+    },
+    {
+     "id": "R13.4",
+     "what": "The UI consistent with the rest of the game, not out of place, intuitive to reach",
+     "status": "open"
+    },
+    {
+     "id": "R13.5",
+     "what": "Meat, dairy and fish give the most nutrition (most to satiety) and a strength bonus to units other than siege equipment, vehicles, robots and other machines",
+     "status": "open"
+    },
+    {
+     "id": "R13.6",
+     "what": "Cereal products, dried fruit, fermented dairy, cured meat and fish keep longest and add most to the food store",
+     "status": "open"
     }
    ]
   }
