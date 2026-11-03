@@ -413,6 +413,41 @@
     "Economy screens and mechanics as game options and a Config/Economy.xml, as Revolution does: import/export trade, loans and bonds, a national budget (hurry from a central panel), national debt, central planning; some opened by civics (a Roman senate), with the AI reading them"
    ],
    "proposal": "Record now, design when each part's component comes: the layering for LD (fertility, deposits) and TR.F3 (seeds); the screens as a new component after TR and AI, its mechanics designed with the user first (what a loan, a bond, a budget does), each behind a game option"
+  },
+  {
+   "id": "D25",
+   "question": "Scale by land or by surface, and the sea (M57)",
+   "status": "decided",
+   "source": "M57",
+   "choice": "Scale by land (map_scale.json as it is). Sea resources get their own mechanics: fish (and clams, crabs, shrimp, whales) a renewable stock that fishing draws and that collapses when overfished; pearls their own; offshore oil like an ore deposit but not quite (a reservoir drawn by wells, its rate falling as it empties, open). The sea plots need their own scale, the real sea a map shows over its sea plots, measured as the land scale was (map_georef.py), for the fishing grounds' size",
+   "facts": [
+    "Sea goods in proposals.json (land 'sea'): Fish, Clam, Crab, Shrimp, Whale, Pearls; Oil is 'well' (on land today)",
+    "LD.F1 plans fishing capacity per plot"
+   ]
+  },
+  {
+   "id": "D26",
+   "question": "How the goods are shown (M57)",
+   "status": "decided",
+   "source": "M57",
+   "choice": "As Anno does: each good has a category (what it is: staple food, fuel, ...) and a sector (where it stands in the economy): basic resources (seeds, timber, ore, leather and other raw goods), essential needs, artisanal products, industrial goods, luxury goods. The city screen shows an overview per sector and the resource overview of that city; the economic advisor an empire-wide overview. The screens use the game's own look and controls and are reached where the player already looks (the city screen's resource list, the domestic advisor)",
+   "facts": [
+    "UI.F1 already replaces the city screen's resource list with the goods panel",
+    "The mod's domestic advisor (Assets/Python/Screens/CvCustomizableDomesticAdvisor.py) shows a table of cities with configurable pages of columns; the finance advisor is BugFinanceAdvisor.py"
+   ],
+   "open": "Which sector each good belongs to: with no processed goods yet (D3) nearly all of today's goods are basic resources or essential foods; the artisanal and industrial sectors fill as recipes (IN.F1) make goods. A proposed mapping goes to the user with the next mock-up"
+  },
+  {
+   "id": "D27",
+   "question": "Food: nutrition and keeping (M57)",
+   "status": "decided",
+   "source": "M57",
+   "choice": "Meat, dairy and fish give the most nutrition per tonne, so the most to satiety; they also give a strength bonus to living units (not siege equipment, vehicles, robots or other machines). Cereal products, dried fruit, fermented dairy, cured meat and cured fish keep longest and add most to the food store. Values per tonne and the bonus size are to be sourced (nutrition per kg, shelf life)",
+   "facts": [
+    "Unit combat types (CIV4UnitCombatInfos.xml): living: recon, archer, mounted, melee, gun, spy; machines: siege, wheeled, tracked, helicopter, every ship and aircraft type, assault mech, robot, nanite, missile; unclear: hitech, biological, clones, worker, settler, animal",
+    "Fermentation raises cereals' food value and keeping (M54)"
+   ],
+   "open": "Whether hitech, biological, clones, workers and settlers count as living for the bonus; preserved forms (cured meat, dried fruit, cheese) need processing recipes (IN.F1) or a preservation share per good"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"

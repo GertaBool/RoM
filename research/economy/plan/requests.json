@@ -749,32 +749,38 @@
     {
      "id": "R13.1",
      "what": "Scale by land (confirmed); sea resources get their own mechanics: fish as a renewable stock until overfishing, pearls, offshore oil (like an ore but not quite)",
-     "status": "open"
+     "status": "planned",
+     "where": "D25-D27"
     },
     {
      "id": "R13.2",
      "what": "UI like Anno: each good has a category and a sector (basic resources such as seeds, timber, ore, leather; essential needs; artisanal products; industrial goods; luxury goods)",
-     "status": "open"
+     "status": "planned",
+     "where": "D25-D27"
     },
     {
      "id": "R13.3",
      "what": "Sector overview and resource overview in each city's screen; an empire-wide overview in the economic advisor",
-     "status": "open"
+     "status": "planned",
+     "where": "D25-D27"
     },
     {
      "id": "R13.4",
      "what": "The UI consistent with the rest of the game, not out of place, intuitive to reach",
-     "status": "open"
+     "status": "planned",
+     "where": "D25-D27"
     },
     {
      "id": "R13.5",
      "what": "Meat, dairy and fish give the most nutrition (most to satiety) and a strength bonus to units other than siege equipment, vehicles, robots and other machines",
-     "status": "open"
+     "status": "planned",
+     "where": "D25-D27"
     },
     {
      "id": "R13.6",
      "what": "Cereal products, dried fruit, fermented dairy, cured meat and fish keep longest and add most to the food store",
-     "status": "open"
+     "status": "planned",
+     "where": "D25-D27"
     }
    ]
   }
