@@ -393,6 +393,26 @@
    ],
    "proposal": "the model in proposals.json production. Decided (M54): flows per year while turns last a year or more, the turn's fraction of a year below that; workers from the game's real population per citizen. Corrected (M54): Fermentation raises the food value of cereals and how they keep, not the harvest. Decided (M55): each map or scenario declares its area per tile (option i); the mod's scenarios and map scripts are edited automatically to declare it (PR.F6). Open: none in the model; the per-map values are data (PR.F6.T3)",
    "choice": "the model in proposals.json production. Decided (M54): flows per year while turns last a year or more, the turn's fraction of a year below that; workers from the game's real population per citizen. Corrected (M54): Fermentation raises the food value of cereals and how they keep, not the harvest. Decided (M55): each map or scenario declares its area per tile (option i); the mod's scenarios and map scripts are edited automatically to declare it (PR.F6). Open: none in the model; the per-map values are data (PR.F6.T3)"
+  },
+  {
+   "id": "D24",
+   "question": "What a map declares in its BeginEconomy block, and how map, XML and game options layer (R12, M56)",
+   "status": "open",
+   "source": "M56",
+   "why": "The user: the block can carry many values so the game need not precompute them per tile; ideas: finite ore deposits, fertility ranges, starter seeds, trade-route settings, switchable economy screens and mechanics tied to civics",
+   "facts": [
+    "The block is read by the mod's CvWBInterface.py after the base game's reader has finished (a1d9c3f2), so it can grow without breaking the base game; the harness converter (wbs2scn.py) and the WorldBuilder save must carry every key it gains",
+    "Map scripts generate their maps and have no file to hold such a block: their values come from functions (as getPlotAreaKm2) or from rules applied to what they place",
+    "The plan already has: ore grade and depth per ore good, and suitability per crop and herd good, saved with the plot (LD.F1), built from each resource's placement rules (LD.F2) and seeded from the resources a map placed (LD.F3); means of production traded as seeds and breeding stock (TR.F3); goods accounts per city with a stock per good (GW.F3)",
+    "Revolution is switched by a game option (GAMEOPTION_NO_REVOLUTION, CIV4GameOptionInfos.xml) and configured in Assets/Config/Revolution.xml, which init.xml loads"
+   ],
+   "options": [
+    "Layering: defaults in XML (terrain, feature and resource records: fertility ranges, deposit sizes, seed stocks) -> a map script's or scenario's map-wide values in the block -> per-plot values in the block keyed by x,y (a deposit's reserve, a field's fertility) -> the game state, saved with the plot and the city",
+    "Ore: a deposit per ore resource the map places, with a finite reserve that mining draws down (new; LD.F1 has grade and depth, not depletion)",
+    "Seeds: starting stocks of means-of-production goods per player or city, so they can be traded from turn 1 (TR.F3 with GW.F3 accounts)",
+    "Economy screens and mechanics as game options and a Config/Economy.xml, as Revolution does: import/export trade, loans and bonds, a national budget (hurry from a central panel), national debt, central planning; some opened by civics (a Roman senate), with the AI reading them"
+   ],
+   "proposal": "Record now, design when each part's component comes: the layering for LD (fertility, deposits) and TR.F3 (seeds); the screens as a new component after TR and AI, its mechanics designed with the user first (what a loan, a bond, a budget does), each behind a game option"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"

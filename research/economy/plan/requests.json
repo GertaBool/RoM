@@ -703,27 +703,32 @@
     {
      "id": "R12.1",
      "what": "Finite ore deposits (copper, iron, gold ...) at the places the map's resources mark, declared by the map",
-     "status": "open"
+     "status": "planned",
+     "where": "D24 (open): recorded; designed with LD, TR.F3, TR and a new economy-screens component"
     },
     {
      "id": "R12.2",
      "what": "Fertility ranges per tile type and condition: defaults in the terrain XML, overridden by a map's own specification",
-     "status": "open"
+     "status": "planned",
+     "where": "D24 (open): recorded; designed with LD, TR.F3, TR and a new economy-screens component"
     },
     {
      "id": "R12.3",
      "what": "Starter seed stocks per grain or plant resource, so seeds (coffee, wheat) can be traded from the start",
-     "status": "open"
+     "status": "planned",
+     "where": "D24 (open): recorded; designed with LD, TR.F3, TR and a new economy-screens component"
     },
     {
      "id": "R12.4",
      "what": "Trade-route settings per map",
-     "status": "open"
+     "status": "planned",
+     "where": "D24 (open): recorded; designed with LD, TR.F3, TR and a new economy-screens component"
     },
     {
      "id": "R12.5",
      "what": "Economy screens and mechanics switched on or off per game, like the Revolution options: import/export trade, loans, bonds, a national budget (a central panel to hurry units, buildings and wonders), national debt, central planning; some tied to civics (a Roman senate with its own screen and mechanics that also move the Roman AI)",
-     "status": "open"
+     "status": "planned",
+     "where": "D24 (open): recorded; designed with LD, TR.F3, TR and a new economy-screens component"
     }
    ]
   }
