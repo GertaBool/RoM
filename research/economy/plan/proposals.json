@@ -903,7 +903,44 @@
     "values": "per map, each with its basis: whole-Earth maps from Earth's surface (510.1 million km2) over the plots; regional maps from the region's real extent; Mars from its surface (144.8 million km2); fictional maps a chosen value, said so; refined later per plot by latitude (cos of latitude) where a map has real latitudes"
    },
    "facts_per_scenario": "research/economy/plan/map_scale_facts.tsv (GitLab a1d9c3f2): grid, plots, land plots (plot types peak, hills, flat), wrap; counted from each scenario's plot records",
-   "method_proposed": "the scale for farmland from land: a map's plot area = the real land area of what it shows / its land plots (whole-Earth maps: 148.9 million km2; Mars: 144.8 million km2, all land; regional maps: the land area inside the region the map shows, sourced per map; fictional maps: a chosen value, said so). The whole-surface value is kept beside it as a cross-check"
+   "method_proposed": "the scale for farmland from land: a map's plot area = the real land area of what it shows / its land plots (whole-Earth maps: 148.9 million km2; Mars: 144.8 million km2, all land; regional maps: the land area inside the region the map shows, sourced per map; fictional maps: a chosen value, said so). The whole-surface value is kept beside it as a cross-check",
+   "what_each_map_shows": {
+    "about": "Read from renderings of each scenario's land and sea (research/economy/plan/map_scale/sheet1-4.png; green land, tan desert, white snow, ice and tundra), not from the names alone",
+    "whole_earth": [
+     "Earth 3/12/23 preset civs, Standard (84x52)",
+     "Earth 3/18/28 preset civs, Huge (124x68)",
+     "RFC Earth with big Europe 50 civs (124x68)",
+     "Giant Earth Map x3 (210x90)",
+     "CarterEarth x3 (192x120, latitude 90 to -66: no Antarctica)"
+    ],
+    "whole_earth_other": [
+     "Earth Ice Age (124x68): a whole Earth with more land (45 % of plots)"
+    ],
+    "regional": {
+     "Antarctica": "Antarctic (132x104), with islands around it",
+     "Australia, New Zealand, New Guinea and the edge of Indonesia": "Australia and New Zealand (114x80)",
+     "The Americas with part of Greenland": "North and South America (58x72) and Colonization 1500AD (58x72): the same picture",
+     "Africa with Madagascar": "africa (54x66)",
+     "New Zealand": "New Zealand (79x99)",
+     "Japan, Korea and the coast of mainland Asia": "Nihon (108x114)",
+     "Europe from Iceland and Scandinavia to the Sahara, the Atlantic to the Caspian": "Europe (100x73); Democragphica, Huge Mediterranean renders the same",
+     "Europe from Ireland to the Urals and the Caspian, Scandinavia to the Sahara and Egypt": "Huge Europe x3 (107x87)",
+     "Europe and the Mediterranean, Spain to the Black Sea and the Levant": "Mediterranean Standard x3 (64x44)",
+     "the Mediterranean in a narrow band, Iberia to Mesopotamia and Arabia": "Mediterranean Huge x3 (120x40)",
+     "Europe, the Mediterranean and the Middle East": "PAE Europe III, IV, V",
+     "North Africa and Europe to China and India": "Eurasia medium (114x51)",
+     "Europe and North Africa to Japan": "Eurasia (200x80)"
+    },
+    "mars": "Mars and Mars Colonization (80x57): Mars with seas (73 % land)",
+    "fictional": [
+     "EarthSea (158x76)",
+     "Orion (106x100)",
+     "Sirius (132x84)",
+     "Tamriel Huge (138x96)",
+     "Tamriel Large (112x80)"
+    ]
+   },
+   "next_step": "Regional values need the real land area inside each map's extent: georeference each map by two landmarks (e.g. Gibraltar and the Bosporus), take its latitude-longitude box, and measure land inside it on a public-domain land mask (Natural Earth); whole-Earth and Mars values from their sourced land areas; fictional maps a chosen value"
   }
  }
 }
