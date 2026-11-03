@@ -794,34 +794,39 @@
   {
    "id": "R14",
    "date": "2026-11-03",
-   "status": "open",
+   "status": "done",
    "prompt": "M58",
    "text": "\"Should hi-tech, biological, clone, worker, settler and animal units get the protein bonus?\"\n\nNo.\n\n\"Do the sector assignments match what you have in mind? For example, wine and whale are under luxury, and livestock under basic resources.\"\n\nYes.\n\nContinue. Assess the required agricultural, artisanal and industrial production chain, which buildings are or could be meaningfully involved beyond mere percentage modifiers, tech unlocks, and which goods require new entries in which files, and which goods still require a proper texture. \n\nI don't think seeds or livestock necessarily need a new texture, but you should test that assumption.",
    "items": [
     {
      "id": "R14.1",
      "what": "The agricultural, artisanal and industrial production chains the economy needs",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/production_chains.md (D28 open)"
     },
     {
      "id": "R14.2",
      "what": "Which buildings are or could be involved in them beyond percentage modifiers",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/production_chains.md (D28 open)"
     },
     {
      "id": "R14.3",
      "what": "Which techs unlock each step",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/production_chains.md (D28 open)"
     },
     {
      "id": "R14.4",
      "what": "Which goods need new entries, in which files",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/production_chains.md (D28 open)"
     },
     {
      "id": "R14.5",
      "what": "Which goods still need a proper texture; test whether seeds and livestock need one",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/production_chains.md (D28 open)"
     }
    ]
   }

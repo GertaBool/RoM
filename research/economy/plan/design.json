@@ -448,6 +448,14 @@
     "Fermentation raises cereals' food value and keeping (M54)"
    ],
    "open": "preserved forms (cured meat, dried fruit, cheese) need processing recipes (IN.F1) or a preservation share per good"
+  },
+  {
+   "id": "D28",
+   "question": "The production chains: which goods are made where (R14, M58)",
+   "status": "open",
+   "source": "M58",
+   "facts": "research/economy/production_chains.md sections 1 and 3 (GitLab d2a8f756): converting buildings today use presence not quantity; four buildings make goods from nothing; two need inputs and make nothing; the Vincentz guilds are the artisan trades but make no goods; no granary, mill, bakery, smokehouse, tannery, weaver, sawmill or kiln building exists; Watermill, Windmill and Workshop improvements give nothing",
+   "proposal": "research/economy/production_chains.md section 2: agricultural, artisanal and industrial chains on existing buildings, guilds and improvements; 15 new goods (Flour, Bread, Meat, Cheese, Cured Meat, Cured Fish, Dried Fruit, Canned Food, Cloth, Fine Cloth, Charcoal, Tools, Arms, Jewellery, Machinery); Cow, Pig, Sheep counted in head with Meat as the product; inputs for the four buildings that make goods from nothing; Glass from stone, not salt"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"
