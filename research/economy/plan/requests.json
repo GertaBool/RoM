@@ -399,6 +399,13 @@
    "kind": "answer",
    "text": "\"Land- or whole-surface scaling\"\n\nThe issue is that maritime resources are also a thing. So for example fish constitute a pretty reliable food source until the point of overfishing. Then there are pearls, oil and other resources found at sea, which have to have their own mechanics, esp. because oil functions more like an ore but not quite. \n\nOtherwise I would rather scale by land yeah.\n\n\"The UI mock-up: your view on it, especially how goods in different units add up within one need\"\n\nSimilar to Anno would make sense to me UI wise. You have basic categories that each good belongs to, but you also separate between basic resources like seeds, timber, ore and leather, and essential needs, artisanal products and industrial goods and luxury goods.\n\nYou should be able to see an overview of each sector and the resource overview within the city screen for each city, as well as a total encompassing overview in the economic advisor screen.\n\nThe UI should be consistent with the rest of the game, it shouldn't look out of place, but rather fit in smoothly and be intuitively accessible from a UX perspective. \n\n\nBtw, wrt food specifically: \n\nMeat, dairy and fish should provide the most nutrition, therefore give the most actual contribution to the satiety of the population, besides that these high protein foods should also establish independent strength bonuses for units other than siege equipment, vehicles, robots and other machines. Cereal products, dried fruit, fermented dairy and cured meat and fish should rank highest when it comes to shelf life and add more to the food storage/\"granary\" so to speak.",
    "led_to": "D25 land scale kept, sea needs its own scale and mechanics (fishing grounds with overfishing; pearls; offshore oil like an ore but not quite); D26 UI like Anno: sectors beside categories, sector and resource overviews per city and in the economic advisor, in the game's own look; D27 food: protein foods most satiety and a strength bonus for living units, preserved foods longest shelf life and most to the store"
+  },
+  {
+   "id": "M58",
+   "date": "2026-11-03",
+   "kind": "answer and request",
+   "text": "\"Should hi-tech, biological, clone, worker, settler and animal units get the protein bonus?\"\n\nNo.\n\n\"Do the sector assignments match what you have in mind? For example, wine and whale are under luxury, and livestock under basic resources.\"\n\nYes.\n\nContinue. Assess the required agricultural, artisanal and industrial production chain, which buildings are or could be meaningfully involved beyond mere percentage modifiers, tech unlocks, and which goods require new entries in which files, and which goods still require a proper texture. \n\nI don't think seeds or livestock necessarily need a new texture, but you should test that assumption.",
+   "led_to": "D27: no protein bonus for hitech, biological, clones, workers, settlers, animals; D26 sectors confirmed; R14: assess the production chains (buildings beyond modifiers, techs, new goods and their files, textures; test whether seeds and livestock need textures)"
   }
  ],
  "requests": [
@@ -781,6 +788,40 @@
      "what": "Cereal products, dried fruit, fermented dairy, cured meat and fish keep longest and add most to the food store",
      "status": "planned",
      "where": "D25-D27"
+    }
+   ]
+  },
+  {
+   "id": "R14",
+   "date": "2026-11-03",
+   "status": "open",
+   "prompt": "M58",
+   "text": "\"Should hi-tech, biological, clone, worker, settler and animal units get the protein bonus?\"\n\nNo.\n\n\"Do the sector assignments match what you have in mind? For example, wine and whale are under luxury, and livestock under basic resources.\"\n\nYes.\n\nContinue. Assess the required agricultural, artisanal and industrial production chain, which buildings are or could be meaningfully involved beyond mere percentage modifiers, tech unlocks, and which goods require new entries in which files, and which goods still require a proper texture. \n\nI don't think seeds or livestock necessarily need a new texture, but you should test that assumption.",
+   "items": [
+    {
+     "id": "R14.1",
+     "what": "The agricultural, artisanal and industrial production chains the economy needs",
+     "status": "open"
+    },
+    {
+     "id": "R14.2",
+     "what": "Which buildings are or could be involved in them beyond percentage modifiers",
+     "status": "open"
+    },
+    {
+     "id": "R14.3",
+     "what": "Which techs unlock each step",
+     "status": "open"
+    },
+    {
+     "id": "R14.4",
+     "what": "Which goods need new entries, in which files",
+     "status": "open"
+    },
+    {
+     "id": "R14.5",
+     "what": "Which goods still need a proper texture; test whether seeds and livestock need one",
+     "status": "open"
     }
    ]
   }
