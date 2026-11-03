@@ -3079,7 +3079,7 @@
   "updated": "2026-11-03",
   "mod_head": "GitLab claude/settlement-economy at a1d9c3f2",
   "in_flight": [
-   "P54/P55 safety runs (tools/safety/p54.sh: root-eco-prf6t2b with a declared scale against root-eco-prf6t2), started 2026-11-03; then commit the evidence with Serves: P54, P55. PR.F6.T1/T2 done (GitLab 857ca9f3, a1d9c3f2; build 598b55c2f4ce, the Python change needs no DLL); in-game checks open for the map-script and scenario paths. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "None. PR.F6.T1/T2 done (GitLab 857ca9f3, a1d9c3f2); P52-P55 corroborated (no failed run; run time 0.997, 1.007); in-game checks open for the map-script and scenario paths. PR.F6.T3 facts in map_scale_facts.tsv; land-based scale proposed to the user (proposals.json production.farmland.method_proposed). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
    "1. After P54/P55: PR.F6.T3: research/economy/plan/map_scale.json (every scenario and map script, plot area and basis, sources), a generator for the BeginEconomy blocks and getPlotAreaKm2 functions, a check that none is missing; then PR.F1.",
