@@ -756,19 +756,19 @@
      "id": "R13.2",
      "what": "UI like Anno: each good has a category and a sector (basic resources such as seeds, timber, ore, leather; essential needs; artisanal products; industrial goods; luxury goods)",
      "status": "planned",
-     "where": "D25-D27"
+     "where": "D26; proposals.json sectors (proposed, 72 goods); UI mock-up v2"
     },
     {
      "id": "R13.3",
      "what": "Sector overview and resource overview in each city's screen; an empire-wide overview in the economic advisor",
      "status": "planned",
-     "where": "D25-D27"
+     "where": "D26; UI mock-up v2 (city screen sectors, domestic advisor goods page)"
     },
     {
      "id": "R13.4",
      "what": "The UI consistent with the rest of the game, not out of place, intuitive to reach",
      "status": "planned",
-     "where": "D25-D27"
+     "where": "D26; UI mock-up v2 in the game's panel style"
     },
     {
      "id": "R13.5",

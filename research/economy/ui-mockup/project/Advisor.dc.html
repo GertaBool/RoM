@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Economic overview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#f2d278}a:hover{color:#fff1c2}
+</style>
+</helmet>
+<div style="width: 1280px; height: 780px; box-sizing: border-box; padding: 14px; background: #11161d; color: #ffffff; font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction: column; gap: 10px">
+  <div style="display: flex; align-items: center; gap: 14px; background: rgba(8,16,28,0.95); border: 1px solid #7d8fa6; border-radius: 4px; padding: 8px 14px">
+    <span style="font-size: 20px; font-weight: 700; color: #f2d278">Domestic Advisor · Goods</span>
+    <span style="font-size: 13px; color: #d6dde6">a page beside the existing ones; one row per city</span>
+    <span style="margin-left: auto; font-size: 13px; color: #d6dde6">5 cities · 412,000 people</span>
+  </div>
+
+  <div style="display: flex; gap: 6px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="6">
+      <button type="button" onClick="{{t.pick}}" style="min-height: 34px; padding: 0 12px; background: {{t.bg}}; border: 1px solid {{t.border}}; border-radius: 4px; color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 13px; cursor: pointer">{{t.name}}</button>
+    </sc-for>
+  </div>
+
+  <div style="background: rgba(8,16,28,0.95); border: 1px solid #7d8fa6; border-radius: 4px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px">
+    <div style="display: grid; grid-template-columns: 160px repeat(6, minmax(0, 1fr)); gap: 0 10px; font-size: 11px; color: #aab6c3; text-transform: uppercase; border-bottom: 1px solid #56677a; padding-bottom: 4px">
+      <sc-for list="{{cols}}" as="c" hint-placeholder-count="7"><span>{{c}}</span></sc-for>
+    </div>
+    <sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+      <div style="display: grid; grid-template-columns: 160px repeat(6, minmax(0, 1fr)); gap: 0 10px; font-size: 13px; padding: 4px 0; border-bottom: 1px solid #1f2d3b">
+        <sc-for list="{{r.cells}}" as="v" hint-placeholder-count="7"><span style="color: {{v.color}}; font-weight: {{v.weight}}">{{v.text}}</span></sc-for>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display: flex; gap: 10px; flex-grow: 1; min-height: 0">
+    <div style="flex: 1 1 0; background: rgba(8,16,28,0.95); border: 1px solid #7d8fa6; border-radius: 4px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 14px; font-weight: 700; color: #f2d278">Empire totals · {{tabName}}</div>
+      <sc-for list="{{totals}}" as="g" hint-placeholder-count="5">
+        <div style="display: grid; grid-template-columns: 130px 80px repeat(3, minmax(0, 1fr)); gap: 0 10px; font-size: 13px; padding: 2px 0; border-bottom: 1px solid #1f2d3b">
+          <span style="font-weight: 700">{{g.name}}</span><span style="color: #c4ccd6">{{g.unit}}</span><span>stock {{g.stock}}</span><span>made {{g.made}}</span><span style="color: {{g.color}}">net {{g.net}}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="width: 380px; background: rgba(8,16,28,0.95); border: 1px solid #7d8fa6; border-radius: 4px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 14px; font-weight: 700; color: #f2d278">Shortfalls</div>
+      <div style="font-size: 13px; line-height: 1.5">Eboracum: clothing 5 of 6 bales, variety 75 %</div>
+      <div style="font-size: 13px; line-height: 1.5">Lindum: fuel 3 of 4 t (no timber in its network)</div>
+      <div style="font-size: 13px; line-height: 1.5; color: #aab6c3">Click a city to open its city screen at the goods panel.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":780}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ok = '#9fd27f', short = '#f0a868';
+    const T = [
+      { id: 'sectors', name: 'Sectors', cols: ['City', 'Basic', 'Essential', 'Artisanal', 'Industrial', 'Luxury', 'Needs met'] },
+      { id: 'basic', name: 'Basic resources', cols: ['City', 'Timber t', 'Wool bales', 'Leather bales', 'Iron t', 'Sheep head', 'Wheat seed t'] },
+      { id: 'essential', name: 'Essential needs', cols: ['City', 'Wheat t', 'Fish t', 'Dairy t', 'Pork t', 'Salt t', 'Food met'] },
+      { id: 'artisan', name: 'Artisanal', cols: ['City', 'Cloth bales', 'Cheese t', '', '', '', ''] },
+      { id: 'industrial', name: 'Industrial', cols: ['City', '', '', '', '', '', ''] },
+      { id: 'luxury', name: 'Luxury', cols: ['City', 'Wine barrels', 'Spices crates', '', '', '', 'Comforts met'] }
+    ];
+    const pick = this.state.tab || 'sectors';
+    const tab = T.find((t) => t.id === pick);
+    const cities = ['Eboracum', 'Lindum', 'Deva', 'Aquae Sulis', 'Isca'];
+    const data = {
+      sectors: [['+3', '+1', '0', '·', '−1', '92 %'], ['−1', '0', '·', '·', '·', '81 %'], ['+2', '+2', '0', '·', '0', '100 %'], ['0', '+1', '·', '·', '+1', '96 %'], ['+1', '−1', '·', '·', '·', '88 %']],
+      basic: [['40 (+1)', '18 (0)', '6 (−1)', '10 (+1)', '120 (+4)', '9 (0)'], ['0 (−1)', '4 (+1)', '2 (0)', '·', '40 (+1)', '3 (0)'], ['55 (+2)', '·', '3 (0)', '6 (+1)', '·', '5 (0)'], ['12 (0)', '9 (0)', '·', '·', '60 (+2)', '4 (0)'], ['8 (+1)', '·', '1 (0)', '·', '·', '2 (0)']],
+      essential: [['64 (+2)', '12 (−1)', '5 (0)', '8 (0)', '4 (0)', '100 %'], ['30 (0)', '·', '2 (0)', '3 (0)', '1 (0)', '92 %'], ['41 (+1)', '20 (+1)', '·', '4 (0)', '2 (0)', '100 %'], ['22 (+1)', '·', '3 (0)', '·', '·', '96 %'], ['18 (−1)', '6 (0)', '·', '2 (0)', '·', '88 %']],
+      artisan: [['7 (0)', '3 (0)', '', '', '', ''], ['·', '·', '', '', '', ''], ['2 (0)', '·', '', '', '', ''], ['·', '1 (0)', '', '', '', ''], ['·', '·', '', '', '', '']],
+      industrial: [['', '', '', '', '', ''], ['', '', '', '', '', ''], ['', '', '', '', '', ''], ['', '', '', '', '', ''], ['', '', '', '', '', '']],
+      luxury: [['3 (−1)', '0 (0)', '', '', '', '75 %'], ['·', '·', '', '', '', '50 %'], ['1 (0)', '·', '', '', '', '60 %'], ['2 (+1)', '·', '', '', '', '80 %'], ['·', '·', '', '', '', '40 %']]
+    };
+    const color = (v) => /−/.test(v) ? short : /\+/.test(v) ? ok : '#ffffff';
+    const rows = cities.map((c, i) => ({ cells: [{ text: c, color: '#f2d278', weight: 700 }].concat(data[pick][i].map((v) => ({ text: v, color: color(v), weight: 400 }))) }));
+    const totals = {
+      sectors: [['Basic resources', 'mixed', '412', '58', '+5'], ['Essential needs', 'tonnes', '250', '64', '+3'], ['Artisanal', 'mixed', '13', '3', '0'], ['Industrial', '', '0', '0', '0'], ['Luxury', 'mixed', '6', '1', '−1']],
+      basic: [['Timber', 'tonnes', '115', '19', '+3'], ['Wool', 'bales', '31', '7', '+1'], ['Iron', 'tonnes', '16', '5', '+2']],
+      essential: [['Wheat', 'tonnes', '175', '41', '+3'], ['Fish', 'tonnes', '38', '14', '0'], ['Dairy', 'tonnes', '10', '6', '0']],
+      artisan: [['Cloth', 'bales', '9', '2', '0'], ['Cheese', 'tonnes', '4', '1', '0']],
+      industrial: [],
+      luxury: [['Wine', 'barrels', '6', '1', '0'], ['Spices', 'crates', '0', '0', '0']]
+    }[pick].map((g) => ({ name: g[0], unit: g[1], stock: g[2], made: g[3], net: g[4], color: color(g[4]) }));
+    return {
+      tabs: T.map((t) => ({ name: t.name, bg: t.id === pick ? 'rgba(60,78,40,0.95)' : 'rgba(8,16,28,0.95)', border: t.id === pick ? '#f2d278' : '#7d8fa6', pick: () => this.setState({ tab: t.id }) })),
+      cols: tab.cols, rows, totals, tabName: tab.name
+    };
+  }
+}
+</script>
+</body>
+</html>
