@@ -223,7 +223,7 @@
    "id": "D3",
    "question": "Number of goods",
    "status": "decided",
-   "choice": "The game's existing resource types, plus three new goods: Timber (from lumber camps and lumbermills on forest), Dairy (from cow and sheep pastures) and Leather (from horse, cow and sheep pastures).",
+   "choice": "The game's existing resource types, plus three new goods: Timber (from lumber camps and lumbermills on forest), Dairy (from cow and sheep pastures) and Leather (from horse, cow and sheep pastures). Extended by D28 (M59): Meat, Bread, Cheese, Cured Meat, Cured Fish, Dried Fruit, Cloth, Charcoal, Tools, Arms, Jewellery, Machinery.",
    "source": "user, 2026-10-26 (request R1, requests.json)"
   },
   {
@@ -452,10 +452,17 @@
   {
    "id": "D28",
    "question": "The production chains: which goods are made where (R14, M58)",
-   "status": "open",
-   "source": "M58",
+   "status": "decided",
+   "source": "M58, M59",
    "facts": "research/economy/production_chains.md sections 1 and 3 (GitLab d2a8f756): converting buildings today use presence not quantity; four buildings make goods from nothing; two need inputs and make nothing; the Vincentz guilds are the artisan trades but make no goods; no granary, mill, bakery, smokehouse, tannery, weaver, sawmill or kiln building exists; Watermill, Windmill and Workshop improvements give nothing",
-   "proposal": "research/economy/production_chains.md section 2: agricultural, artisanal and industrial chains on existing buildings, guilds and improvements; 15 new goods (Flour, Bread, Meat, Cheese, Cured Meat, Cured Fish, Dried Fruit, Canned Food, Cloth, Fine Cloth, Charcoal, Tools, Arms, Jewellery, Machinery); Cow, Pig, Sheep counted in head with Meat as the product; inputs for the four buildings that make goods from nothing; Glass from stone, not salt"
+   "proposal": "research/economy/production_chains.md section 2: agricultural, artisanal and industrial chains on existing buildings, guilds and improvements; 15 new goods (Flour, Bread, Meat, Cheese, Cured Meat, Cured Fish, Dried Fruit, Canned Food, Cloth, Fine Cloth, Charcoal, Tools, Arms, Jewellery, Machinery); Cow, Pig, Sheep counted in head with Meat as the product; inputs for the four buildings that make goods from nothing; Glass from stone, not salt",
+   "choice": "Decided (M59): the four buildings that made goods from nothing get inputs (Oil Refinery: oil; Aluminum Factory: bauxite; Cement Mill: stone and coal; Rubber Factory: rubber and sulphur); steel from iron and coal; machinery at the Factory (and the mechanised-farm stage); the Forge and the Factory make arms, the Forge tools (from ores: copper, iron, lead and the others, bauxite included) and the precious goods; the Armourer and the Jewellery building consume arms and jewellery, they do not make them; Bread Manufactory and Weapons Manufactory raise bread and arms output; the Cannery lengthens the shelf life of the city's goods (no canned-food good); charcoal from timber; no building per production step (the 32-bit executable's limits): the essentials stages (Settlement, Town, City, Metropolitan) carry the core functions; the city makes artisanal goods itself from its base goods and techs, from a communal economy on; mills (Watermill, Windmill) do not make flour; guilds are reworked: national rather than world wonders, an important role but not the source of goods, not a tier system; Cow, Pig, Sheep counted in head with Meat a good, Deer a source of meat too, Fur for clothing",
+   "open": [
+    "Which stage 'communal economies and above' means: the settled economy civics (Agricultural, Pastoral, Coastal and later; Hunter-Gatherer before them) or a city's Settlement Essentials and above",
+    "The guilds' new role",
+    "Rubber Plant's input (oil or chemicals)",
+    "Flour and fine cloth as goods (not decided)"
+   ]
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"

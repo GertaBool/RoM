@@ -1183,7 +1183,7 @@
     },
     {
      "id": "PR.F3",
-     "what": "Processing buildings convert existing goods into other existing goods (D3: no new goods)",
+     "what": "Industrial and workshop buildings make goods from real inputs, used up (D28, M59): Steel Mill (iron and coal: steel), Aluminum Factory (bauxite and energy: aluminum), Oil Refinery (oil: diesel), Cement Mill (stone and coal: cement), Rubber Factory (rubber and sulphur: vulcanized rubber), Rubber Plant (synthetic rubber from oil or chemicals, open), Forge (tools from ores, copper, iron, lead, and later aluminum; arms; jewellery from precious metals and gems), Factory (machinery from steel; arms); boosters and consumers as D28 says",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
@@ -1207,12 +1207,17 @@
      "tasks": [
       {
        "id": "PR.F3.T1",
-       "text": "GoodRecipes on building records: inputs and outputs among existing goods, capacity",
+       "text": "GoodRecipes on building records for the converting buildings: inputs (used up), outputs, capacity; the four buildings that made goods from nothing get their inputs",
        "status": "todo"
       },
       {
        "id": "PR.F3.T2",
-       "text": "Candidates: the buildings that require goods today (catalogue.json buildings_requiring_goods)",
+       "text": "Boosters and consumers: Bread Manufactory raises the city's bread output, Weapons Manufactory its arms output; Armourer requires Arms, Jewellery requires Jewellery (consumers, not makers); Cannery lengthens the shelf life of the city's goods (no canned-food good)",
+       "status": "todo"
+      },
+      {
+       "id": "PR.F3.T3",
+       "text": "Candidates checked against catalogue.json buildings_requiring_goods and research/economy/production_chains.md",
        "status": "todo"
       }
      ],
@@ -2360,7 +2365,7 @@
    "features": [
     {
      "id": "IN.F1",
-     "what": "Recipes with rates and capacities, run in dependency order; the scarcest input limits output",
+     "what": "City recipes (D28, M59): the city itself makes artisanal goods from the base goods it has and the techs its owner knows, from a communal economy on (which stage is open), with no building per step; output limited by the scarcest input",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
@@ -2381,13 +2386,13 @@
      "tasks": [
       {
        "id": "IN.F1.T1",
-       "text": "runRecipes in dependency order inside the pass; output limited by the scarcest input and by capacity",
+       "text": "runRecipes in the pass, in dependency order; output limited by the scarcest input, by the workers the city gives the trade and by the stage",
        "status": "todo"
       },
       {
        "id": "IN.F1.T2",
-       "status": "todo",
-       "text": "Recipes from the material and fuel roles in proposals.json: Timber as charcoal for the Forge, Glasssmith, Brewery and Foundry until coal; Leather as parchment for the School of Scribes and the Library; Wool for the cloth trade"
+       "text": "The recipe list with techs (production_chains.md): bread from grain; meat from cattle, pigs, sheep and deer; cheese from dairy; cured meat and cured fish with salt; dried fruit; cloth from wool, cotton, silk, with fur and leather for clothing; charcoal from timber, the smiths' fuel until coal",
+       "status": "todo"
       }
      ],
      "design": [

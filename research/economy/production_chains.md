@@ -4,6 +4,32 @@ What the mod has today (read from GitLab `d2a8f756`), then the chains proposed f
 files each needs, and the textures. Facts first; proposals are marked as such. Techs are the buildings' own
 `PrereqTech`. Nothing here is built yet: the recipes need the recipe mechanism (IN.F1, PR.F3), the quantities need PR.F1.
 
+## 0. Decided after this assessment (M59, D28)
+
+This section overrides section 2 where they differ.
+
+- **Industrial buildings use real inputs.** Oil Refinery: oil to diesel. Aluminum Factory: bauxite to aluminum. Cement
+  Mill: stone and coal to cement. Rubber Factory: rubber and sulphur to vulcanized rubber. Steel from iron and coal.
+  Machinery at the Factory, which also drives the mechanised-farm stage of production.
+- **The Forge and the Factory make arms; the Forge makes tools** from ores (copper, iron, lead and the others, bauxite
+  included) and the precious goods. The **Armourer** and the **Jewellery** building **consume** arms and jewellery; they
+  do not make them.
+- **Bread Manufactory and Weapons Manufactory raise** the city's bread and arms output, as they raise food and military
+  production today.
+- **The Cannery lengthens the shelf life** of the city's goods; no canned-food good.
+- **Charcoal from timber**, the smiths' fuel until coal.
+- **No building per production step**: the 32-bit executable could not carry them. The essentials stages (Settlement,
+  Town, City, Metropolitan) carry the core functions, each on top of the last.
+- **The city makes artisanal goods itself**, from the base goods it has and the techs its owner knows, from a communal
+  economy on. Open: whether that means the settled economy civics (Agricultural, Pastoral, Coastal and later; Hunter-
+  Gatherer before them; there is no civic named communal) or a city's Settlement Essentials and above.
+- **Mills do not make flour** (Watermill and Windmill come too late for it).
+- **Guilds are reworked**: national rather than world wonders, an important role but not the source of goods, and not a
+  tier system. Their new role is open.
+- **Livestock in head, Meat a good**: Cow, Pig, Sheep, and Deer from camps, give meat; Fur stays a clothing good.
+- **New goods (D3 extended)**: Meat, Bread, Cheese, Cured Meat, Cured Fish, Dried Fruit, Cloth, Charcoal, Tools, Arms,
+  Jewellery, Machinery. Not decided: Flour, Fine Cloth. Dropped: Canned Food.
+
 ## 1. What exists
 
 ### Buildings that turn goods into goods today

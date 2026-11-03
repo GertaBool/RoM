@@ -809,31 +809,31 @@
      "id": "R14.1",
      "what": "The agricultural, artisanal and industrial production chains the economy needs",
      "status": "done",
-     "where": "research/economy/production_chains.md (D28 open)"
+     "where": "production_chains.md section 0 (D28 decided, M59)"
     },
     {
      "id": "R14.2",
      "what": "Which buildings are or could be involved in them beyond percentage modifiers",
      "status": "done",
-     "where": "research/economy/production_chains.md (D28 open)"
+     "where": "production_chains.md section 0 (D28 decided, M59)"
     },
     {
      "id": "R14.3",
      "what": "Which techs unlock each step",
      "status": "done",
-     "where": "research/economy/production_chains.md (D28 open)"
+     "where": "production_chains.md section 0 (D28 decided, M59)"
     },
     {
      "id": "R14.4",
      "what": "Which goods need new entries, in which files",
      "status": "done",
-     "where": "research/economy/production_chains.md (D28 open)"
+     "where": "production_chains.md section 0 (D28 decided, M59)"
     },
     {
      "id": "R14.5",
      "what": "Which goods still need a proper texture; test whether seeds and livestock need one",
      "status": "done",
-     "where": "research/economy/production_chains.md (D28 open)"
+     "where": "production_chains.md section 0 (D28 decided, M59)"
     }
    ]
   }
