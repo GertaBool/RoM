@@ -1329,8 +1329,10 @@
       {
        "id": "PR.F6.T2",
        "text": "Scenarios: CvWBInterface.py reads the BeginEconomy block after WBDesc.read and sets the plot area; writes the block back when the WorldBuilder saves",
-       "status": "todo",
-       "done_when": "CvWBInterface.readAndApplyDesc reads 'plot area km2' from a BeginEconomy block at the end of the file and calls CyMap().setPlotAreaKm2; writeDesc appends the block with the current value; a scenario without the block gets the default and a log line; checked by the harness loading a scenario with the block (wbs2scn.py and HH_loadScenario carry it) and by the user loading one in game"
+       "status": "done",
+       "done_when": "CvWBInterface.readAndApplyDesc reads 'plot area km2' from a BeginEconomy block at the end of the file and calls CyMap().setPlotAreaKm2; writeDesc appends the block with the current value; a scenario without the block gets the default and a log line; checked by the harness loading a scenario with the block (wbs2scn.py and HH_loadScenario carry it) and by the user loading one in game",
+       "done": "2026-11-03",
+       "note": "GitLab a1d9c3f2 (pr_f6_t2_edits.py): CvWBInterface.py readPlotArea/applyPlotArea/writePlotArea; set after applyMap in readAndApplyDesc and applyMapDesc, read in readDesc; appended on WorldBuilder save. Harness carries it (wbs2scn.py MAPSCALE, HH_loadScenario; GitHub 0d0ccf5). Checked: helpers on a copy of Mediterranean Standard with the block read 31250, 0 without, write back on save; harness logs 'declared 31250 km2' / 'undeclared, default 181143 km2'; 150-turn runs identical. In-game check open: a scenario with the block loads in game and CyMap().getPlotAreaKm2() returns its value; a WorldBuilder save keeps the block. Safety runs P54/P55."
       },
       {
        "id": "PR.F6.T3",
@@ -3075,12 +3077,12 @@
  ],
  "current": {
   "updated": "2026-11-03",
-  "mod_head": "GitLab claude/settlement-economy at 857ca9f3",
+  "mod_head": "GitLab claude/settlement-economy at a1d9c3f2",
   "in_flight": [
-   "None. PR.F6.T1 done (GitLab 857ca9f3, build 598b55c2f4ce); P52 (no failed run) and P53 (median same-seed run time 0.997) corroborated; its map-script path and Python read-back need an in-game check. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "P54/P55 safety runs (tools/safety/p54.sh: root-eco-prf6t2b with a declared scale against root-eco-prf6t2), started 2026-11-03; then commit the evidence with Serves: P54, P55. PR.F6.T1/T2 done (GitLab 857ca9f3, a1d9c3f2; build 598b55c2f4ce, the Python change needs no DLL); in-game checks open for the map-script and scenario paths. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. After P52/P53: PR.F6.T2 (scenarios: BeginEconomy block read in CvWBInterface.py, written back on save; wbs2scn.py and the harness carry it) and PR.F6.T3 (map_scale.json values with their basis, automatic edits of 44 scenarios and 39 map scripts); then PR.F1.",
+   "1. After P54/P55: PR.F6.T3: research/economy/plan/map_scale.json (every scenario and map script, plot area and basis, sources), a generator for the BeginEconomy blocks and getPlotAreaKm2 functions, a check that none is missing; then PR.F1.",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
