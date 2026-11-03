@@ -424,6 +424,11 @@
    "PrivateMaps/RoM_Wheel.py"
   ],
   "declaration": "def getPlotAreaKm2(): an Earth-sized planet, 510,100,000 km2 over the map's plots (CyMap grid width x height): the DLL's default rule, declared; scripts generate their land at random, so no real region is measured",
-  "note": "surface-based, while the Earth scenarios are land-based: on Earth Standard the two differ by about 27 % (the scenarios draw land larger than the sea)"
+  "note": "surface-based, while the Earth scenarios are land-based: on Earth Standard the two differ by about 27 % (the scenarios draw land larger than the sea)",
+  "skipped": [
+   "PrivateMaps/RoM_Full_of_Resources_3_00.py",
+   "PrivateMaps/RoM_Planet_Generator_0_68.py"
+  ],
+  "skipped_why": "non-ASCII bytes: the GitLab connector rewrites an edited file in UTF-8; their declaration would equal the DLL's default rule, so they keep the default (a log line names them)"
  }
 }
