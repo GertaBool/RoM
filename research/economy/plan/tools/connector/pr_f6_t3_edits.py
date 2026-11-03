@@ -19,6 +19,14 @@ FUNC = ('\n# Settlement Economy (PR.F6): the map scale, km2 of one plot, asked b
         '\t\treturn 0\n'
         '\treturn max(1, 510100000 // iPlots)\n')
 
+def occurrences(s, sub):
+    # overlapping occurrences: str.count does not see them, and the connector replaces the first (RoM_PerfectWorld.py,
+    # whose five closing blank lines held the four-line anchor twice)
+    n, i = 0, s.find(sub)
+    while i >= 0:
+        n += 1; i = s.find(sub, i + 1)
+    return n
+
 def append(rel, text):
     p = os.path.join(mod, rel)
     b = open(p, 'rb').read()
@@ -34,7 +42,7 @@ def append(rel, text):
     k = 2
     while True:
         old = nl.join(lines[-k:])
-        if s.count(old) == 1 and s.endswith(old):
+        if occurrences(s, old) == 1 and s.endswith(old):
             break
         k += 1
     new = old + text
