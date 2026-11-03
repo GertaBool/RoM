@@ -1321,8 +1321,10 @@
       {
        "id": "PR.F6.T1",
        "text": "CvMap keeps the plot area (km2 per plot): member, getter and setter, saved behind CvMap uiFlag 1; exported to Python (CyMap); a map script's optional getPlotAreaKm2() sets it when a map is generated; a default and a log line when nothing declares it",
-       "status": "todo",
-       "done_when": "CvMap::m_iPlotAreaKm2 with getPlotAreaKm2/setPlotAreaKm2, written and read behind CvMap uiFlag 1 (older saves get the default); CyMap exports both; CvMapGenerator asks the map script for getPlotAreaKm2() and sets it, else the default with a log line naming the script; nothing reads it yet (PR.F1 will); the DLL builds, the 150-turn run is identical, the snapshot round trip and an old snapshot stay identical, and a scratch map script declaring a value shows it read back"
+       "status": "done",
+       "done_when": "CvMap::m_iPlotAreaKm2 with getPlotAreaKm2/setPlotAreaKm2, written and read behind CvMap uiFlag 1 (older saves get the default); CyMap exports both; CvMapGenerator asks the map script for getPlotAreaKm2() and sets it, else the default with a log line naming the script; nothing reads it yet (PR.F1 will); the DLL builds, the 150-turn run is identical, the snapshot round trip and an old snapshot stay identical, and a scratch map script declaring a value shows it read back",
+       "done": "2026-11-03",
+       "note": "GitLab 857ca9f3 (pr_f6_edits.py): CvMap::m_iPlotAreaKm2, getPlotAreaKm2 (else 510,100,000 km2 over the plots), setPlotAreaKm2, isPlotAreaDeclared, saved behind CvMap uiFlag 1; CvMap::reset without init data asks the map script for getPlotAreaKm2(), logs to CvMap_plotArea.log otherwise; CyMap exports. Seed 485959733: 150 turns identical to ba209b49; round trip and ba209b49 snapshot identical to turn 80; snapshot +4 bytes. Not exercised in the harness: the map-script path (its maps come with init data) and the read-back through CyMap: in-game check (a map script declaring a value, CyMap().getPlotAreaKm2() in the Python console). Build 598b55c2f4ce. Safety runs P52/P53."
       },
       {
        "id": "PR.F6.T2",
@@ -3072,13 +3074,13 @@
   "5. New decisions go into design.json, changed features into plan.json, in the same commit as the work."
  ],
  "current": {
-  "updated": "2026-11-02",
-  "mod_head": "GitLab claude/settlement-economy at ba209b49",
+  "updated": "2026-11-03",
+  "mod_head": "GitLab claude/settlement-economy at 857ca9f3",
   "in_flight": [
-   "None. GW.F3, GW.F4, GW.F5 done (GitLab ba209b49, build e42220fcb075); P50 (no failed run) and P51 (median same-seed run time 0.990) corroborated; earlier P47 1.023, P49 0.997. GW open: GW.F2.T2 (user), GW.F6.T2 (with the first sum), GW.F8 (after the system works). LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "P52/P53 safety runs (tools/safety/p52.sh: root-eco-prf6 against root-eco-gwf5), started 2026-11-03; then commit the evidence with Serves: P52, P53. PR.F6.T1 done (GitLab 857ca9f3, build 598b55c2f4ce); its map-script path and Python read-back need an in-game check. LQ.F10.T2 BLOCKED (Commons HTTP 429). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. PR.F6 (map scale, D23 decided M55): T1 DLL field and map-script function, T2 scenarios through CvWBInterface.py, T3 the values table and automatic edits; then PR.F1 (production) uses the plot area for a tile's farmland.",
+   "1. After P52/P53: PR.F6.T2 (scenarios: BeginEconomy block read in CvWBInterface.py, written back on save; wbs2scn.py and the harness carry it) and PR.F6.T3 (map_scale.json values with their basis, automatic edits of 44 scenarios and 39 map scripts); then PR.F1.",
    "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
    "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
   ],
