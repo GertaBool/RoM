@@ -90,6 +90,7 @@ extern "C" __declspec(dllexport) int HH_loadScenario(const char* szPath, const c
 
 	int iW = 0, iH = 0, iTop = 90, iBottom = -90, iStartYear = 0, iGameTurn = 0, iMaxTurns = 0, iPlayers = 0;
 	bool bWrapX = false, bWrapY = false;
+	int iPlotAreaKm2 = 0;	// MAPSCALE (PR.F6): 0 when the scenario declares none
 	std::string szScenarioSpeed = "-";
 	const HandicapTypes eGameHandicap = (HandicapTypes)type(szHandicap);
 	for (size_t r = 0; r < recs.size(); ++r)
@@ -119,6 +120,10 @@ extern "C" __declspec(dllexport) int HH_loadScenario(const char* szPath, const c
 			if (type(a[6]) >= 0) kInit.setClimate((ClimateTypes)type(a[6]));
 			if (type(a[7]) >= 0) kInit.setSeaLevel((SeaLevelTypes)type(a[7]));
 			iTop = num(a[8]); iBottom = num(a[9]);
+		}
+		else if (a[0] == "MAPSCALE" && a.size() >= 2)
+		{
+			iPlotAreaKm2 = num(a[1]);
 		}
 		else if (a[0] == "PLAYER" && a.size() >= 10)
 		{
@@ -151,6 +156,9 @@ extern "C" __declspec(dllexport) int HH_loadScenario(const char* szPath, const c
 	GC.getGameINLINE().init(eGameHandicap);
 	CvMapInitData kMap(iW, iH, iTop, iBottom, bWrapX, bWrapY);
 	GC.getMapINLINE().init(&kMap);
+	// as CvWBInterface.py does after applyMap: the scenario's declared plot area, else the default
+	if (iPlotAreaKm2 > 0) GC.getMapINLINE().setPlotAreaKm2(iPlotAreaKm2);
+	note("map: plot area %s%d km2", GC.getMapINLINE().isPlotAreaDeclared() ? "declared " : "undeclared, default ", GC.getMapINLINE().getPlotAreaKm2());
 
 	for (int i = 0; i < MAX_TEAMS; ++i) GET_TEAM((TeamTypes)i).init((TeamTypes)i);
 	for (int i = 0; i < MAX_PLAYERS; ++i) GET_PLAYER((PlayerTypes)i).init((PlayerTypes)i);

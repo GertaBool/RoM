@@ -13,6 +13,7 @@ Output: one record per line, fields separated by spaces, type names unchanged
   GAME <era> <calendar> <startyear> <gameturn> <maxturns> <speed>
   OPTION <GAMEOPTION_...>            VICTORY <VICTORY_...>
   MAP <w> <h> <wrapX> <wrapY> <worldsize> <climate> <sealevel> <toplat> <botlat>
+  MAPSCALE <km2 per plot>             (from a BeginEconomy block, Settlement Economy PR.F6; absent: undeclared)
   TEAM <id> <revealmap>              TECH <team> <TECH_...>
   CONTACT <team> <otherteam>
   PLAYER <id> <team> <civ> <leader> <handicap> <startX> <startY> <gold> <statereligion>
@@ -47,6 +48,7 @@ def main(src, dst):
     game = {'Era': '-', 'Calendar': '-', 'StartYear': '-', 'GameTurn': '0', 'MaxTurns': '0', 'Speed': '-'}
     options, victories = [], []
     mapinfo = {}
+    economy = {}
     teams, players, plots, units, cities = [], [], [], [], []
     stack = []
     cur = None
@@ -93,6 +95,9 @@ def main(src, dst):
         elif sec == 'Map':
             for k, v in d.items():
                 mapinfo[k.replace(' ', '').lower()] = v
+        elif sec == 'Economy':
+            for k, v in d.items():
+                economy[k.replace(' ', '').lower()] = v
         elif sec == 'Team':
             for k, v in d.items():
                 if k == 'Tech':
@@ -133,6 +138,8 @@ def main(src, dst):
     out.append('MAP %s %s %s %s %s %s %s %s %s' % (m['gridwidth'], m['gridheight'], m.get('wrapx', '0'), m.get('wrapy', '0'),
                                                    val(m.get('worldsize')), val(m.get('climate')), val(m.get('sealevel')),
                                                    m.get('toplatitude', '90'), m.get('bottomlatitude', '-90')))
+    if economy.get('plotareakm2'):
+        out.append('MAPSCALE %s' % economy['plotareakm2'])
     for t in teams:
         tid = t.get('TeamID')
         if tid is None:
