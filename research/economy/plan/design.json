@@ -492,7 +492,8 @@
     "D23 (M54) counts the workers on a tile from these numbers, so one worked tile at size 36 stands for over 600 times the people of one at size 1",
     "Harness games (P18, Mediterranean Standard, 1300 BC): median average city size 6.8 (232,000 people shown at size 7); largest real city in 2000 BC 40,000-65,000, Babylon about 500 BC 150,000-200,000",
     "Growth needs 30 + 10 x size food per step (GlobalDefines) while the people added rise as about size^1.8; each citizen eats 3 food",
-    "Over 21 plots of Mediterranean Standard (4,470 km2), sizes 10-15 give 7-21 people per km2, near England in 1086 (9-15)"
+    "Over 21 plots of Mediterranean Standard (4,470 km2), sizes 10-15 give 7-21 people per km2, near England in 1086 (9-15)",
+    "The mod's shocks are random events: after turn 20 one roll per player and turn at 2-16 % by era, then one of about 300 triggers by weight; a plague takes 3-4 citizens in one city and 1-2 in a few neighbours; no climate, harvest variation, seasons, spreading epidemics or population cycles exist"
    ],
    "proposal": "Research first: the sizes real cities reached in each era, how much of a city's land a citizen works, and what a Civ4 city with its 21 plots stands for (a city alone, or a city with its countryside); then compare with size^2.8 x 1000",
    "options": [
@@ -501,7 +502,7 @@
     "a citizen as a fixed share of a population that grows by births, deaths and migration (a demographic model), the city size following from it",
     "between 2 and 3: keep the food-box citizens and an __int64 people count per city beside them, growing toward a capacity set by citizens, era and food, with an urban share by era"
    ],
-   "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4"
+   "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4; research/economy/shocks_and_cycles.md (R18, M64): cataclysms, harvest variation, seasons, epidemics, long cycles; building blocks A-F"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"

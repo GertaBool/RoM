@@ -967,14 +967,15 @@
   {
    "id": "R18",
    "date": "2026-11-04",
-   "status": "open",
+   "status": "done",
    "prompt": "M64",
    "text": "The issue is that cataclysms and inherent seasonalities and broader historical cycles are missing, so you're essentially modelling human history within a context where you and your enemies are the main variable besides resource constraints",
    "items": [
     {
      "id": "R18.1",
      "what": "Cataclysms, seasonality and long historical cycles (famine, plague, climate, population cycles) researched with sources against what the mod already has, and carried into the population model (D30)",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/shocks_and_cycles.md; design.json D30 research and facts"
     }
    ]
   }

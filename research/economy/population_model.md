@@ -216,6 +216,9 @@ workshop of 5-10), independent of city size, and that needs a population counted
   `CvCityAI` for options 3 and 4, not done yet.
 - Whether citizens should stay tile workers at all in the industrial era (R5).
 
+**Shocks and cycles (R18):** cataclysms, harvest variation, seasons, epidemics and long population cycles, and what
+the mod has of them, are in `shocks_and_cycles.md`; its building blocks need option 3 or 4.
+
 **Open (not researched here):**
 - City sizes in this mod after 875 BC.
 - How much the 21-plot crosses overlap in real games.
