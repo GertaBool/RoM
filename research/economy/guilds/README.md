@@ -111,3 +111,52 @@ environmental protection 1.
 - **"National rather than world wonders" (M59) against these facts:** the three grand halls are already national;
   the 14 master guilds are the world-unique headquarters. Making the master guilds national would let every player
   found every guild, so each guild becomes a domestic institution rather than a race between players.
+
+## 8. Founding and the national question (checked in the DLL, M61)
+
+- A building that founds a corporation can be built only while that corporation is unfounded anywhere
+  (`CvCity::canConstruct`: `isCorporationFounded` refuses it); the first one sets the headquarters once
+  (`CvCity::processBuilding` -> `setHeadquarters`). So the 14 master guilds cannot be made national as they are: a
+  second player cannot found the same guild.
+- Under any civic with `bNoForeignCorporations` (the Guilds civic) only the corporations whose headquarters the
+  player owns are active in that player's cities (`CvPlayer::isActiveCorporation`): a foreign guild's halls do
+  nothing there. The Guilds civic already makes the guilds national in effect for whoever founded them.
+
+## 9. Ideas beyond a modifier (proposals, M61)
+
+What guilds historically did: controlled who could practise a trade, trained apprentices into masters, kept the
+techniques of their trade secret, set prices and quality, supported members, and resisted new machines until they
+were abolished. Each idea below uses that, and each changes what the economy can do rather than adding a percentage.
+
+**A. Guilds hold the techniques of their trade.** Without the guild, a city makes the plain form of a good (coarse
+cloth, simple tools, rough glass, household bread). With the guild's hall, the city can make the trade's refined
+goods at all: fine cloth, steel tools, clear glass, jewellery, white bread. The Master units, which already spread the
+guild, carry the technique; a technique can be traded in a deal as a means of production (TR.F3) or stolen by
+espionage, and the Guilds civic's ban on foreign corporations is a ban on letting secrets out (the Venetian glassmakers
+of Murano were forbidden to leave). Uses: corporation spread, Master units, the civic, the deal items of TR.F3.
+
+**B. Guilds make the skilled workers.** A city's household makes artisanal goods part time and slowly (Settlement
+Essentials, "Early crafts"). A guild hall opens master craftsman places for its trade: citizens there make the trade's
+goods from inputs at a craftsman's rate, so the guild decides how much of a trade a city can carry, not by a percentage
+but by people. Guilds limited entry, so the places are few, and a city chooses between craftsmen and farmers. Uses:
+specialists (the Guilds civic already makes Engineers valid; halls already give free specialists).
+
+**C. Guilds set price and quality, and resist new methods.** Goods made under a guild keep a quality grade, worth more
+in trade and toward needs, and guild cities ride out shortages without price panics; but under the Guilds civic a new
+production stage (the tech stages of D23) reaches guild cities later, as guilds opposed machines, until the guilds are
+abolished (the grand halls already go obsolete at Machine Tools). A trade-off, not a bonus.
+
+**D. Guilds support their members.** Mutual aid keeps a guild city calm when its trade's inputs fail, in the
+Revolution indices the civic already touches.
+
+**How to make them national (if wanted):**
+1. Keep the corporations as they are; the Guilds civic already confines each guild to its founder's cities.
+2. Leave the corporation route: each trade's master guild becomes a national wonder (one per player), its halls
+   ordinary buildings that need it; the 14 building classes are replaced, not added, so the building count stays (the
+   32-bit limit, M59); corporation spread and resource consumption go, and the goods economy's recipes take over
+   what they did.
+3. Both: the national guild per player as in 2, and the world-unique master guild kept as the trade's place of
+   origin, the first to hold its technique (idea A).
+
+Recommendation: A with B, through option 3: the guild is what lets a city make the refined form of its trade, through
+people it trains, and the world-unique master guild is where that knowledge starts.
