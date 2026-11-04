@@ -434,6 +434,13 @@
    "kind": "answer",
    "text": "I'm not sure the defaults should be low quality. Technology, building and resource gating should suffice for normal goods. But I think Guilds should enable the production of very specific luxury goods, but also enable master craftsmen and other forms of highly qualified labor. \n\nSpecific guilds, like Glassmakers for example, should probably remain like corporations you can only found once. \n\n\"The Master units, which already spread guilds, carry the technique. It can be traded in a deal like seeds or breeding stock, or stolen by espionage.\"\n\nI agree with that. \n\n\"A guild hall opens a limited number of master-craftsman places for its trade. Citizens in them make the trade's goods at a craftsman's rate.\"\n\nThe issue here lies with Civ4 citizens in general also not really cleanly mapping to population dynamics that affect productivity, given that the first citizen at pop 1 should realistically produce much less than the citizen at pop 36 because of the exponential population count (perhaps the population modeling in Civ4 should also be more realistic than just exponential or mere linear modeling)\n\n\"Guild goods carry a quality grade worth more in trade and toward needs, and guild cities ride out shortages.\"\n\nI think this can broadly work yes, but we have to specify them.\n\n\"New production methods reach guild cities later, as guilds historically opposed machines, until the guilds go obsolete at Machine Tools as the XML already has them.\"\n\nI think this is untrue up until the Industrialization, where guilds might have genuinely repressed innovation, but I'm even skeptical there, unless you can prove the official narrative. \n\n\"Guilds support their members. Mutual aid keeps a guild city calm when its trade's inputs fail.\"\n\nBut if there is no food, then there is no food. So this adds more questions, how would mutual aid between guild cities work or do you mean inside a city? In that case I don't think guilds are a way to boost public order directly, but I can imagine a socioeconomic and political role with downstream effects.\n\n\"3. Both: national guilds as in option 2, plus one world-unique master guild per trade kept as where its technique originates\"\n\nThis makes the most sense",
    "led_to": "D29: guilds (option 3; luxury goods and master craftsmen; techniques carried, traded, stolen; some guilds once per game; quality grades to specify; no innovation brake without evidence; political and socioeconomic role, not public order); D30 open: population model and productivity per citizen"
+  },
+  {
+   "id": "M63",
+   "date": "2026-11-04",
+   "kind": "request",
+   "text": "Do plenty of research then get back to me",
+   "led_to": "R17: research for D30 (population model): city sizes by era, urban shares, hinterlands and densities, demography, labour shares, what a Civ4 city stands for; report back before deciding"
   }
  ],
  "requests": [
@@ -939,6 +946,20 @@
      "what": "Productivity per citizen against the real population, and perhaps a more realistic population model than the game's exponential one",
      "status": "planned",
      "where": "D30 open (research first)"
+    }
+   ]
+  },
+  {
+   "id": "R17",
+   "date": "2026-11-04",
+   "status": "open",
+   "prompt": "M63",
+   "text": "Do plenty of research then get back to me",
+   "items": [
+    {
+     "id": "R17.1",
+     "what": "Research for the population model (D30) with sources, reported back before any decision",
+     "status": "open"
     }
    ]
   }
