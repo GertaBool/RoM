@@ -1183,7 +1183,7 @@
     },
     {
      "id": "PR.F3",
-     "what": "Industrial and workshop buildings make goods from real inputs, used up (D28, M59): Steel Mill (iron and coal: steel), Aluminum Factory (bauxite and energy: aluminum), Oil Refinery (oil: diesel), Cement Mill (stone and coal: cement), Rubber Factory (rubber and sulphur: vulcanized rubber), Rubber Plant (synthetic rubber from oil or chemicals, open), Forge (tools from ores, copper, iron, lead, and later aluminum; arms; jewellery from precious metals and gems), Factory (machinery from steel; arms); boosters and consumers as D28 says",
+     "what": "Industrial and workshop buildings make goods from real inputs, used up (D28, M59): Steel Mill (iron and coal: steel), Aluminum Factory (bauxite and energy: aluminum), Oil Refinery (oil: diesel), Cement Mill (stone and coal: cement), Rubber Factory (rubber and sulphur: vulcanized rubber), Rubber Plant (synthetic rubber from oil and chemicals), Forge (tools from ores, copper, iron, lead, and later aluminum; arms; jewellery from precious metals and gems), Factory (machinery from steel; arms); boosters and consumers as D28 says",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
@@ -2365,7 +2365,7 @@
    "features": [
     {
      "id": "IN.F1",
-     "what": "City recipes (D28, M59): the city itself makes artisanal goods from the base goods it has and the techs its owner knows, from a communal economy on (which stage is open), with no building per step; output limited by the scarcest input",
+     "what": "City recipes (D28, M59): the city itself makes artisanal goods from the base goods it has and the techs its owner knows, from Town Essentials ('Communal Organization') on, with no building per step; output limited by the scarcest input",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",

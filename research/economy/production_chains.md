@@ -21,11 +21,11 @@ This section overrides section 2 where they differ.
 - **No building per production step**: the 32-bit executable could not carry them. The essentials stages (Settlement,
   Town, City, Metropolitan) carry the core functions, each on top of the last.
 - **The city makes artisanal goods itself**, from the base goods it has and the techs its owner knows, from a communal
-  economy on. Open: whether that means the settled economy civics (Agricultural, Pastoral, Coastal and later; Hunter-
-  Gatherer before them; there is no civic named communal) or a city's Settlement Essentials and above.
+  economy on: Town Essentials, whose name in the game is 'Communal Organization', and above (M60).
 - **Mills do not make flour** (Watermill and Windmill come too late for it).
 - **Guilds are reworked**: national rather than world wonders, an important role but not the source of goods, and not a
-  tier system. Their new role is open.
+  tier system. Their present role, read from every field: research/economy/guilds/README.md.
+- **Rubber Plant**: synthetic rubber from oil and chemicals (M60).
 - **Livestock in head, Meat a good**: Cow, Pig, Sheep, and Deer from camps, give meat; Fur stays a clothing good.
 - **New goods (D3 extended)**: Meat, Bread, Cheese, Cured Meat, Cured Fish, Dried Fruit, Cloth, Charcoal, Tools, Arms,
   Jewellery, Machinery. Not decided: Flour, Fine Cloth. Dropped: Canned Food.

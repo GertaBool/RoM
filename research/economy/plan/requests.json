@@ -847,24 +847,27 @@
   {
    "id": "R15",
    "date": "2026-11-04",
-   "status": "open",
+   "status": "done",
    "prompt": "M60",
    "text": "\"What \"communal economies and above\" means\"\n\nCheck the building XML\n\n\"The guilds' new role, for when we get to them.\"\n\nThey have a role. Check the building XML in detail instead of handpicking references. ALL XML fields potentially matter. \n\n\"What the Rubber Plant uses for synthetic rubber: oil or chemicals.\"\n\nBoth",
    "items": [
     {
      "id": "R15.1",
      "what": "What 'communal economies and above' means, from the building XML",
-     "status": "open"
+     "status": "done",
+     "where": "D28 (M60); production_chains.md section 0"
     },
     {
      "id": "R15.2",
      "what": "The guilds' existing role, from every field of their XML records, not from hand-picked references",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/guilds/ (README.md and field dumps); D28 open: their goods-economy role"
     },
     {
      "id": "R15.3",
      "what": "Rubber Plant makes synthetic rubber from oil and chemicals",
-     "status": "open"
+     "status": "done",
+     "where": "D28 (M60); production_chains.md section 0"
     }
    ]
   }
