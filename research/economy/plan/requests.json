@@ -413,6 +413,13 @@
    "kind": "answer",
    "text": "\"Four buildings make their good from nothing: Oil Refinery, Aluminum Factory, Cement Mill and Rubber Plant.\"\n\nI agree, that needs to change. \n\n\"The Bread Manufactory and Weapons Manufactory need inputs but make no good.\"\n\nCould boost bread and weapons production, as they currently boost food and military unit production.\n\n\"Missing: the mod has no granary, mill, bakery, smokehouse, tannery, weaver, sawmill or kiln. The Watermill, Windmill and Workshop improvements produce no good.\" \n\nIf I add a building for everything, the 32bit .exe won't keep up. Settlement, Town, City and Metropolitan Essentials cover different stages and thus various additional core functions ontop of each other. \n\n\"The Vincentz guilds are the artisan trades already: Bakers, Butchers, Drapers, Carpenters, Blacksmiths, Masons, Fishmongers, Grocers, Glassblowers, Goldsmiths and Equestrians. They consume inputs but produce nothing, which makes them the natural place for artisanal recipes.\"\n\nHas to be reworked though, also can't be the sole source of artisanal goods. Just from the point of basic logic. But I do agree that they should play an important role. Perhaps they shouldn't be world wonders, rather national wonders. \n\n\"grain to Flour at the Watermill or Windmill, then Bread at the Bread Manufactory or Bakers Guild\"\n\nNo. The buildings make little sense in the late stage where they become available for what you're trying to do here.\n\nGuilds are generally not the way to go about these goods. Instead, the city makes these goods solely depending on the available base goods and technologies, since artisanal activity always naturally rises from communal economies and above. \n\n\"Canned Food at the Cannery.\" Might be overkill. I think it should just prolong the shelf-life of available goods in the city. \n\n\n\"Charcoal from timber, the smiths' fuel before coal\" \n\nGood idea. \n\n\"Tools at the Forge\" \n\nDepends. It should require at minimum base ores. Let's not forget that bauxite and lead exist as well, thinking beyond the obvious ones. Guilds against don't really fit here. Maybe they do need to be reworked, but not into a forced copycat minecraft mod tier idea. Keep the historical context and the scope of the plan in mind. \n\n\"Arms at the Armourer and Weapons Manufactory\"\n\nPartially, but the Forge and the factory should really provide arms.\n\n\"Jewellery at the Jewellery building and Goldsmiths Guild.\" \n\nI would assume this makes sense for the Jewellery, but at the same time, you probably again want the Forge to provide the actual food and the Jewellery should depend on the good rather than create it. Same goes for arms and the Armourer, the armourer should depend on arms not create them.\n\n\"give the input-less buildings their inputs: Bauxite for aluminum, Oil for diesel, Stone and Coal for cement, Rubber for vulcanized rubber;\"\n\nYes.\n\n\"Steel from iron plus coal;\" \n\nYes. \n\n\"Machinery at the Factory, which also drives the mechanised-farm stage of the production model.\"\n\nYes.\n\n\"Cow, Pig and Sheep are counted in tonnes as food, which conflicts with them being herds. If they are counted in head, like Horse already is, Meat becomes its own good and needs a texture. The same goes for the preserved foods.\" \n\nYes, deer should be a source of meat as well, let's not forget about the role of fur for clothes either.",
    "led_to": "D28 decided in parts: inputs for the input-less buildings; Bread and Weapons Manufactory boost bread and arms output; no building per step (32-bit exe); essentials stages carry core functions; guilds reworked as national wonders, an important role but not the source of goods; the city makes artisanal goods from its base goods and techs from communal economies on; no mills for flour; Cannery prolongs shelf life; charcoal yes; tools from ores (bauxite and lead too) at the Forge; arms from Forge and Factory, the Armourer and Jewellery consume rather than make; steel from iron and coal; machinery at the Factory; Cow, Pig, Sheep in head with Meat a good, Deer also gives meat, Fur for clothing"
+  },
+  {
+   "id": "M60",
+   "date": "2026-11-04",
+   "kind": "answer",
+   "text": "\"What \"communal economies and above\" means\"\n\nCheck the building XML\n\n\"The guilds' new role, for when we get to them.\"\n\nThey have a role. Check the building XML in detail instead of handpicking references. ALL XML fields potentially matter. \n\n\"What the Rubber Plant uses for synthetic rubber: oil or chemicals.\"\n\nBoth",
+   "led_to": "Read the building XML for 'communal'; read every field of the guild records (buildings, building classes, corporations) and describe their existing role; Rubber Plant uses oil and chemicals"
   }
  ],
  "requests": [
@@ -834,6 +841,30 @@
      "what": "Which goods still need a proper texture; test whether seeds and livestock need one",
      "status": "done",
      "where": "production_chains.md section 0 (D28 decided, M59)"
+    }
+   ]
+  },
+  {
+   "id": "R15",
+   "date": "2026-11-04",
+   "status": "open",
+   "prompt": "M60",
+   "text": "\"What \"communal economies and above\" means\"\n\nCheck the building XML\n\n\"The guilds' new role, for when we get to them.\"\n\nThey have a role. Check the building XML in detail instead of handpicking references. ALL XML fields potentially matter. \n\n\"What the Rubber Plant uses for synthetic rubber: oil or chemicals.\"\n\nBoth",
+   "items": [
+    {
+     "id": "R15.1",
+     "what": "What 'communal economies and above' means, from the building XML",
+     "status": "open"
+    },
+    {
+     "id": "R15.2",
+     "what": "The guilds' existing role, from every field of their XML records, not from hand-picked references",
+     "status": "open"
+    },
+    {
+     "id": "R15.3",
+     "what": "Rubber Plant makes synthetic rubber from oil and chemicals",
+     "status": "open"
     }
    ]
   }
