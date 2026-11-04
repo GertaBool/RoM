@@ -491,7 +491,12 @@
     "Per citizen that is 1,000, 42,224, 219,712, 632,914 people at sizes 1, 8, 20, 36",
     "D23 (M54) counts the workers on a tile from these numbers, so one worked tile at size 36 stands for over 600 times the people of one at size 1"
    ],
-   "proposal": "Research first: the sizes real cities reached in each era, how much of a city's land a citizen works, and what a Civ4 city with its 21 plots stands for (a city alone, or a city with its countryside); then compare with size^2.8 x 1000"
+   "proposal": "Research first: the sizes real cities reached in each era, how much of a city's land a citizen works, and what a Civ4 city with its 21 plots stands for (a city alone, or a city with its countryside); then compare with size^2.8 x 1000",
+   "options": [
+    "keep size^2.8 x 1000 and count workers from it (D23 as decided in M54)",
+    "a new population curve fitted to real settlement sizes by era",
+    "a citizen as a fixed share of a population that grows by births, deaths and migration (a demographic model), the city size following from it"
+   ]
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"
