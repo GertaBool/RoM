@@ -952,14 +952,15 @@
   {
    "id": "R17",
    "date": "2026-11-04",
-   "status": "open",
+   "status": "done",
    "prompt": "M63",
    "text": "Do plenty of research then get back to me",
    "items": [
     {
      "id": "R17.1",
      "what": "Research for the population model (D30) with sources, reported back before any decision",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/population_model.md; design.json D30 research, facts and option 4"
     }
    ]
   }
