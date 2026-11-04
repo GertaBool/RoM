@@ -895,42 +895,50 @@
     {
      "id": "R16.1",
      "what": "Normal goods gated by technology, buildings and resources, with no low-quality default",
-     "status": "open"
+     "status": "done",
+     "where": "D29"
     },
     {
      "id": "R16.2",
      "what": "Guilds enable very specific luxury goods and master craftsmen and other highly qualified labour",
-     "status": "open"
+     "status": "done",
+     "where": "D29"
     },
     {
      "id": "R16.3",
      "what": "Some guilds (Glassmakers for example) stay once-per-game like corporations; national guilds per player with the world-unique master guild as the technique's origin",
-     "status": "open"
+     "status": "done",
+     "where": "D29"
     },
     {
      "id": "R16.4",
      "what": "Techniques carried by Master units, traded in deals, stolen by espionage",
-     "status": "open"
+     "status": "done",
+     "where": "D29"
     },
     {
      "id": "R16.5",
      "what": "Specify the quality grades of guild goods",
-     "status": "open"
+     "status": "planned",
+     "where": "D29 open"
     },
     {
      "id": "R16.6",
      "what": "No innovation brake from guilds unless the evidence shows it",
-     "status": "open"
+     "status": "done",
+     "where": "D29"
     },
     {
      "id": "R16.7",
      "what": "Guilds' socioeconomic and political role with downstream effects, not a direct public-order bonus",
-     "status": "open"
+     "status": "planned",
+     "where": "D29 open"
     },
     {
      "id": "R16.8",
      "what": "Productivity per citizen against the real population, and perhaps a more realistic population model than the game's exponential one",
-     "status": "open"
+     "status": "planned",
+     "where": "D30 open (research first)"
     }
    ]
   }

@@ -160,3 +160,16 @@ Revolution indices the civic already touches.
 
 Recommendation: A with B, through option 3: the guild is what lets a city make the refined form of its trade, through
 people it trains, and the world-unique master guild is where that knowledge starts.
+
+## 10. Decided (M62, design D29)
+
+- Normal goods need no guild; technology, buildings and resources gate them. No low-quality default.
+- Guilds enable very specific luxury goods, and master craftsmen and other highly qualified labour.
+- Option 3: a national guild per trade for each player, plus the world-unique master guild where the technique starts;
+  some guilds (the Glassmakers for example) stay once-per-game like corporations.
+- Techniques: carried by the Master units, traded in deals, stolen by espionage.
+- Quality grades: yes, to be specified.
+- No innovation brake: the evidence is contested (Epstein 1998 and Epstein and Prak 2008: guilds as carriers of skills
+  and techniques; Ogilvie: guilds against quality and innovation; case studies mixed and regional).
+- No direct public-order bonus; a socioeconomic and political role with downstream effects, to be designed.
+- Open: how master craftsmen count against the real population (design D30: the population model).
