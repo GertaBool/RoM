@@ -420,6 +420,13 @@
    "kind": "answer",
    "text": "\"What \"communal economies and above\" means\"\n\nCheck the building XML\n\n\"The guilds' new role, for when we get to them.\"\n\nThey have a role. Check the building XML in detail instead of handpicking references. ALL XML fields potentially matter. \n\n\"What the Rubber Plant uses for synthetic rubber: oil or chemicals.\"\n\nBoth",
    "led_to": "Read the building XML for 'communal'; read every field of the guild records (buildings, building classes, corporations) and describe their existing role; Rubber Plant uses oil and chemicals"
+  },
+  {
+   "id": "M61",
+   "date": "2026-11-04",
+   "kind": "answer",
+   "text": "\"Keep the role, and turn presence into quantity. The city makes the goods; a guild in the city improves its trade: more bread per tonne of grain, cloth from fewer bales, tools from less ore. It still consumes its trade's goods and keeps its specialists, halls and civic.\"\n\nThere could be a better more creative idea than just another modifier stacked on modifiers.\n\n\"Making the master guilds national would let every player found every guild.\"\n\nA bit of an issue because guilds work over the same route as corporations if I'm not wrong, and you can't found duplicate corporations.",
+   "led_to": "Guild role: look for something better than another modifier; check that guilds are corporations in the engine and what founding allows"
   }
  ],
  "requests": [
