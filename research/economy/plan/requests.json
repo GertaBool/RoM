@@ -978,6 +978,20 @@
      "where": "research/economy/shocks_and_cycles.md; design.json D30 research and facts"
     }
    ]
+  },
+  {
+   "id": "R19",
+   "date": "2026-11-05",
+   "status": "open",
+   "prompt": "M65",
+   "text": "I don't think this is the right idea, I would rather like to see better modeling in general, ignoring disasters for a bit. Do research in this regard. Ideally we arrive at an optimized formula that doesn't have 10,000 variables just to increase or decrease  population numbers",
+   "items": [
+    {
+     "id": "R19.1",
+     "what": "Research on population modelling in general (disasters set aside), with sources, toward one compact formula for population growth and decline with few variables (D30)",
+     "status": "open"
+    }
+   ]
   }
  ]
 }
