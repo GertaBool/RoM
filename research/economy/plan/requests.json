@@ -441,6 +441,20 @@
    "kind": "request",
    "text": "Do plenty of research then get back to me",
    "led_to": "R17: research for D30 (population model): city sizes by era, urban shares, hinterlands and densities, demography, labour shares, what a Civ4 city stands for; report back before deciding"
+  },
+  {
+   "id": "M64",
+   "date": "2026-11-04",
+   "kind": "request",
+   "text": "The issue is that cataclysms and inherent seasonalities and broader historical cycles are missing, so you're essentially modelling human history within a context where you and your enemies are the main variable besides resource constraints",
+   "led_to": "R18: cataclysms, seasons and long cycles researched against the mod's events (research/economy/shocks_and_cycles.md)"
+  },
+  {
+   "id": "M65",
+   "date": "2026-11-05",
+   "kind": "request",
+   "text": "I don't think this is the right idea, I would rather like to see better modeling in general, ignoring disasters for a bit. Do research in this regard. Ideally we arrive at an optimized formula that doesn't have 10,000 variables just to increase or decrease  population numbers",
+   "led_to": "R19: general population modelling researched toward a compact formula (research/economy/population_formula.md)"
   }
  ],
  "requests": [
@@ -982,14 +996,15 @@
   {
    "id": "R19",
    "date": "2026-11-05",
-   "status": "open",
+   "status": "done",
    "prompt": "M65",
    "text": "I don't think this is the right idea, I would rather like to see better modeling in general, ignoring disasters for a bit. Do research in this regard. Ideally we arrive at an optimized formula that doesn't have 10,000 variables just to increase or decrease  population numbers",
    "items": [
     {
      "id": "R19.1",
      "what": "Research on population modelling in general (disasters set aside), with sources, toward one compact formula for population growth and decline with few variables (D30)",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/population_formula.md; design.json D30 option and proposal"
     }
    ]
   }
