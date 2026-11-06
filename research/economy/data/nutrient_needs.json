@@ -1,0 +1,20 @@
+{
+ "about": "Daily needs of an adult man for the deficiency model (R37.12, M83). Each value names its source. AR = average requirement (half the people need less); AI = adequate intake, set where no AR exists. Thiamin and niacin are per megajoule in EFSA and are converted here at 2,600 kcal (10.88 MJ).",
+ "reference": {"body_weight_kg": 68.1, "energy_kcal": 2600, "body_weight_source": "EFSA DRVs summary report 2017, Table 17 (adult men)"},
+ "needs": {
+  "protein":    {"value": 45,   "unit": "g",       "kind": "AR", "source": "EFSA 2017: 0.66 g high-quality protein per kg body weight a day x 68.1 kg"},
+  "vit_c":      {"value": 90,   "unit": "mg",      "kind": "AR", "floor": 10, "source": "EFSA 2017 Table 8 (AR set for body saturation, not scurvy); floor: 10 mg a day prevents scurvy (Wikipedia, Scurvy)"},
+  "vit_a_rae":  {"value": 570,  "unit": "ug",      "kind": "AR", "source": "EFSA 2017 Table 8 (ug RE; 1 ug RE = 1 ug retinol = 6 ug beta-carotene). USDA RAE counts beta-carotene at 12:1, so plant foods are slightly undercounted against EFSA"},
+  "thiamin":    {"value": 0.78, "unit": "mg",      "kind": "AR", "source": "EFSA 2017 Table 8: 0.072 mg per MJ x 10.88 MJ"},
+  "niacin":     {"value": 14.1, "unit": "mg",      "kind": "AR", "source": "EFSA 2017 Table 8: 1.3 mg niacin equivalents per MJ x 10.88 MJ. USDA niacin is preformed niacin only (tryptophan not counted), so protein-rich foods are undercounted"},
+  "folate_dfe": {"value": 250,  "unit": "ug",      "kind": "AR", "source": "EFSA 2017 Table 8"},
+  "b12":        {"value": 4,    "unit": "ug",      "kind": "AI", "source": "EFSA 2017 Table 9 (cobalamin AI; no AR set)"},
+  "iron":       {"value": 6,    "unit": "mg",      "kind": "AR", "absorption_assumed": 0.16, "source": "EFSA 2017 Table 4, set with 16 % absorption. FAO/WHO 2004 (ch. 13): about 15 % in a good Western diet, 18 % with very high meat intake, 12 % or 10 % with less meat and fish, low in vegetarian diets; high absorption goes with meat, vitamin C with meals, little phytate-rich cereal, and no coffee or tea within two hours of meals"},
+  "zinc":       {"value": 9.3,  "unit": "mg",      "kind": "AR", "by_phytate_mg": {"300": 7.5, "600": 9.3, "900": 11.0, "1200": 12.7}, "source": "EFSA 2017 Table 4: AR by daily phytate intake"},
+  "calcium":    {"value": 750,  "unit": "mg",      "kind": "AR", "source": "EFSA 2017 Table 4 (men 25 and older)"},
+  "iodine":     {"value": 150,  "unit": "ug",      "kind": "AI", "source": "EFSA 2017 Table 5"},
+  "potassium":  {"value": 3500, "unit": "mg",      "kind": "AI", "source": "EFSA 2017 Table 5"},
+  "sodium":     {"value": 600,  "unit": "mg",      "kind": "AR", "source": "Dietary Reference Intakes for Japanese (2025), minerals chapter 3-1-2: unavoidable losses under 500 mg a day, about 600 mg (1.5 g salt) with 10 % variation, for sedentary adults without sweating; WHO guidance puts the minimum at 200-500 mg a day; heavy sweating in heat or labour loses a corresponding amount of sodium"},
+  "magnesium":  {"value": 350,  "unit": "mg",      "kind": "AI", "source": "EFSA 2017 Table 5"}
+ }
+}

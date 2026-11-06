@@ -98,7 +98,8 @@ prevents scurvy (section 3).
   bananas about 115 g, fresh grapes about 310 g, and boiled potatoes about 80 g. So fruit of every kind helps, and the
   potato is a major source. Ireland got scurvy in 1845 when the potato failed.
 - **Two of the goods you named measure 0 mg in the USDA data:**
-  - **Brewed tea.** Cartier's cure was a needle brew, not tea.
+  - **Brewed tea.** Cartier's cure was a needle brew, not tea. *Corrected in `round_m83.md` section 1: the Japanese
+    food tables (MEXT) measure vitamin C in green tea infusions (gyokuro 19, sencha 6 mg per 100 g); black tea 0.*
   - **Wine.** Fresh wine grapes carry 3.2 mg, raisins 2.3 mg, the wine itself 0 mg.
   - **Proposal:** the Wine plot yields grapes, which count as fruit when eaten fresh or dried; the drink gives
     calories and no vitamin C. Tea counts as a drink (D31, FD.drink) without vitamin C, unless you know a source

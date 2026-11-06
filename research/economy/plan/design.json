@@ -485,7 +485,8 @@
     "Three separate measures (M75, R29): calories (FAO), satiety index per 240 kcal (Holt 1995: potatoes 323, ling fish 225, beef 176, cheese 146, white rice 138, white bread 100), health profile (protein quality, vitamin C, thiamine, niacin, iodine, fat; harms: processed and salted meat (IARC Group 1), sugar and refined starch (caries), grain-only diets (stones)); deficiency diseases: scurvy, beriberi, pellagra, iodine deficiency (round_m75.md section 2)"
    ],
    "open": "Decided (M75): option C refined: spoilage per good = base x tech factor (Pottery, Fermentation, Salt, Refrigeration, the Cannery's process) x store factor (granary, storehouse) x climate factor; no canned good (D28); round_m75.md 1b",
-   "research": "research/economy/food_resources.md (R21, M67): all 80 resources from the XML, FAO nutrition per 100 g, food roles; candidates beyond the present classing: Whale and Horse (protein), Olives and Cotton (oil), Sugar, Wine, Alcohol (calories), Salt (preserving), Lemon (scurvy); research/economy/open_questions.md (R22, M68) section 5 (spoilage per year, salt preserving)"
+   "research": "research/economy/food_resources.md (R21, M67): all 80 resources from the XML, FAO nutrition per 100 g, food roles; candidates beyond the present classing: Whale and Horse (protein), Olives and Cotton (oil), Sugar, Wine, Alcohol (calories), Salt (preserving), Lemon (scurvy); research/economy/open_questions.md (R22, M68) section 5 (spoilage per year, salt preserving)",
+   "m83": "M83 (round_m83.md): one deficiency model over all nutrients: a nutrient vector per good (USDA SR Legacy, MEXT for iodine and tea; data/nutrient_profiles.json), needs from EFSA 2017 and the Japanese DRI 2025 for sodium (data/nutrient_needs.json), absorption for iron and zinc, losses by form, a store per nutrient, effects on health burden, fertility and output through one weight table; excess raises the burden too (health as a band). Tea: green infusions carry vitamin C (MEXT), black next to none. Wine: a luxury drink; the vineyard's grapes count as fruit. Whale: minor food and lamp oil."
   },
   {
    "id": "D28",
@@ -500,7 +501,8 @@
     "Clothing decided in principle (M76): warmth by climate and status; goods: base fibres and skins (Wool, Leather, Cotton, Fur, Silk, hemp, Dye, Flax added), Cloth, Fine Cloth, Coats, Dresses; dress norms from technology, resources, skilled labour, religiosity, secularization, diversity, markets and media; proposal in round_m76.md section 3 (5 new records)",
     "Clothing consumption (M77): garments per person per year = warmth need(climate) / lifetime(material, quality) + status demand x (wealth per head / reference)^0.8 x dress norm; calibrated to clothing at about a quarter of spending (King 1688); round_m77.md section 3"
    ],
-   "research": "research/economy/open_questions.md (R22, M68) section 6 (no Flour; fine cloth a Drapers luxury)"
+   "research": "research/economy/open_questions.md (R22, M68) section 6 (no Flour; fine cloth a Drapers luxury)",
+   "m83": "M83: Flax a base good; Meat from the livestock and deer the city has; Cloth, Fine Cloth, Coats, Dresses from base-good inputs; Charcoal from timber, a fuel good; Steel from ores, an industrial good; machinery, tools, arms manufactured goods, tools and arms also artisanal early. No building per artisanal or industrial step: the city itself makes most goods from its techs, buildings, infrastructure and people (render and AI load; no clicking 200 buildings). Clothing consumption per real person. Ancient Temples and thermal vents stay outside the goods economy; volcanic activity matters for energy and electricity."
   },
   {
    "id": "D29",
@@ -521,7 +523,8 @@
     "Epstein, S. R. and Prak, M. (eds.) (2008) Guilds, Innovation, and the European Economy, 1400-1800, Cambridge: https://www.cambridge.org/core/product/C0D4374A3B5633EEF5A08520A30AF614",
     "Ogilvie, S. (2019) The European Guilds: An Economic Analysis, Princeton (and her earlier papers on guilds, quality and innovation)"
    ],
-   "research": "research/economy/open_questions.md (R22, M68) section 8 (once-per-game by secret technique, luxuries, three grades, guild government, workshops of 5 people)"
+   "research": "research/economy/open_questions.md (R22, M68) section 8 (once-per-game by secret technique, luxuries, three grades, guild government, workshops of 5 people)",
+   "m83": "M83: the remaining guilds make probably no luxury goods (other ideas welcome)."
   },
   {
    "id": "D30",
@@ -543,7 +546,8 @@
     "the fourth version (pop_model_math.md, M79)",
     "keep size^2.8 x 1000 and count workers from it (D23 as decided in M54)"
    ],
-   "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4; research/economy/shocks_and_cycles.md (R18, M64): cataclysms, harvest variation, seasons, epidemics, long cycles; building blocks A-F; research/economy/population_formula.md (R19, M65): a compact Malthusian model, proposed; research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check; research/economy/open_questions.md (R22, M68) section 7 (r, s, s_min sourced; migration; AI translation layer); research/economy/pop_model_math.md (R30.1, M76): hybrid model step by step, seven sourced parameters, eleven edge cases computed by tools/pop_model_sim.py"
+   "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4; research/economy/shocks_and_cycles.md (R18, M64): cataclysms, harvest variation, seasons, epidemics, long cycles; building blocks A-F; research/economy/population_formula.md (R19, M65): a compact Malthusian model, proposed; research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check; research/economy/open_questions.md (R22, M68) section 7 (r, s, s_min sourced; migration; AI translation layer); research/economy/pop_model_math.md (R30.1, M76): hybrid model step by step, seven sourced parameters, eleven edge cases computed by tools/pop_model_sim.py",
+   "m83": "M83: the fourth version liked but possibly incomplete; discussed in full depth in round_m83.md section 4 (equations with every input, balance points and return speeds computed, eight gaps, seven proposals: age groups, size by the inverse curve, the food box, health balance, urban share, child and adult burden, yearly steps)."
   },
   {
    "id": "D31",
