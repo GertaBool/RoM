@@ -490,6 +490,13 @@
    "kind": "correction",
    "text": "\"So do you want satiety measured per calorie, or per tonne with preserved forms carrying the advantage? Either works with the same formula\"\n\nIt's like you ignored everything you've read.",
    "led_to": "R24: D27 applied as decided (per tonne) on a like-for-like basis: food as eaten (cooking water), bioavailability and protein quality (M54), not raw grain against fresh meat; the question withdrawn"
+  },
+  {
+   "id": "M71",
+   "date": "2026-11-06",
+   "kind": "correction",
+   "text": "Liquid milk is as immensely valuable in terms of nutrition as fish or meat is by itself, because it both provides extraordinary hydration as well as highly bioavailable protein and fats. Lactose is a more stable carb source. The hydration aspect changes the equation because you'd have to measure it more like quantities of drinking water or juice per day",
+   "led_to": "R25: drinks measured as a daily quantity (hydration), milk valued as a drink with its protein, fats and lactose; sourced hydration and nutrition values per drink"
   }
  ],
  "requests": [
@@ -1115,6 +1122,20 @@
      "what": "Apply D27 as decided: compare foods per tonne as eaten (cooked, with bioavailability and protein quality, M54), with sources; withdraw the per-calorie/per-tonne question",
      "status": "done",
      "where": "open_questions.md section 4 rewritten (as eaten, DIAAS, k=2.0); food_resources.md; design.json D27 fact replaced"
+    }
+   ]
+  },
+  {
+   "id": "R25",
+   "date": "2026-11-06",
+   "status": "open",
+   "prompt": "M71",
+   "text": "Liquid milk is as immensely valuable in terms of nutrition as fish or meat is by itself, because it both provides extraordinary hydration as well as highly bioavailable protein and fats. Lactose is a more stable carb source. The hydration aspect changes the equation because you'd have to measure it more like quantities of drinking water or juice per day",
+   "items": [
+    {
+     "id": "R25.1",
+     "what": "Measure drinks (water, milk, ale, wine, juice, tea, coffee) as a daily quantity per head for hydration, with sourced hydration values; value liquid milk as a drink with its bioavailable protein, fats and lactose, alongside meat and fish (D27)",
+     "status": "open"
     }
    ]
   }
