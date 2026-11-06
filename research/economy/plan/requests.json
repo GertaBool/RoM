@@ -1458,24 +1458,27 @@
   {
    "id": "R34",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M80",
    "text": "\"The settlement tiers, Market and Harbor have route counts and commerce modifiers only.\"\n\nCheck again. Check trade yield modifiers. \n\"Goods classing (Fish as a staple, Whale as fuel only, Salt as variety) is out of date. I left it unchanged because reclassifying is your call\"\n\nI discussed most of these things in-depth with you already \nI think we need to basically communicate about everything at length again, just to see whether you actually remember the conversation with me correctly and don't let any misunderstanding slip into the plan or the list of tasks.",
    "items": [
     {
      "id": "R34.1",
      "what": "Check the trade yield modifiers again in every building record, modules included, and on GitLab main",
-     "status": "open"
+     "status": "done",
+     "where": "restatement_m80.md 0a; design.json D33 fact; audit_m78.md F"
     },
     {
      "id": "R34.2",
      "what": "Settle the goods classing from what was already discussed (M57, M58, M67-M71, M75) instead of leaving it as the user's call",
-     "status": "open"
+     "status": "done",
+     "where": "restatement_m80.md 0b (sectors and three measures from M57, M58, M69-M71, M75; R21 roles to confirm)"
     },
     {
      "id": "R34.3",
      "what": "Restate the whole conversation topic by topic (what the user said, what was decided, what is open) so the user can confirm or correct it before more enters the plan or task list",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/restatement_m80.md"
     }
    ]
   }

@@ -59,3 +59,10 @@ what I did, and the correction.
 - **The growth model** is restored as the fourth version: the second version's evidence with a health burden instead
   of a death term.
 - **The D34 examples** are rebuilt from the tech tree (`d34_research_modifiers.md`).
+
+## F. Correction after M80
+
+- **Finding 14 was wrong in its reading.** The settlement tiers, markets and harbors do not carry food or production
+  on routes themselves. They add routes and raise route profit, and the civics' trade yield modifiers turn that
+  profit into food and production (`CvCity::calculateTradeYield`). Your system works as you described it
+  (`restatement_m80.md` section 0a).

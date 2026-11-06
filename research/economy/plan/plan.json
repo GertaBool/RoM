@@ -3412,7 +3412,7 @@
   ],
   "next": [
    "ROUTE (implementation_route.md; plan component FD and PR.F7): step 0 PR.F8 (T1-T4 done; T5 three measures and D27 C) -> step 1 FD.F1 (XML fields and readers, no behaviour change) -> step 2 PR.F1 then PR.F7 (tile formula in doGoods produce) -> step 3 FD.F2 (food by satiety, drinks) -> step 4 FD.F3 (population model, after D30) -> step 5 FD.F4 (water, D31) -> then SD, CN, IN, LD, TR, AI as planned. Each step: done_when, prediction registered, code map query, connector generator, toolchain build, harness, computed check.",
-   "Waiting on the user: D30 fourth version (pop_model_math.md); which version holds the settlement-tier and harbor trade-route modifiers (audit_m78.md 14); the goods' reclassification in proposals.json (R21; audit 16); 'per citizen' for clothing (audit 10); the remaining guild luxuries; the M59 'no building per step' rule.",
+   "Waiting on the user: the restatement (research/economy/restatement_m80.md) and its nine questions, before anything more enters the plan or task list.",
    "Art (R28.1): LQ.F10.T2 unblocked: public-domain Library of Congress photo (Highsmith, logs near Mapleton, Oregon); Glass button from Cleveland Museum of Art CC0 photos (research/economy/art_sources.md).",
    "Waiting on the user in game: LQ.F9.T5 and GW.F2.T2 icon checks; PR.F6 scale read-back and WorldBuilder round-trip; a test game with builds/settlement-economy."
   ],
