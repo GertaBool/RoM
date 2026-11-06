@@ -1718,39 +1718,45 @@
   {
    "id": "R39",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M85",
    "text": "\"Food above need is surplus and goes to long-term storage. The harm band is withdrawn, and fat quality is context only.\"\n\nImportant caveat:\n\nMetabolism. If ypu consume more calories, and if you run stimulants like caffeine, you are very likely a lot more active as well. Even in the early 1900s, an ordinary manual laborer may have burned somewhere between 3000-4000 kcal. \n\nThe true ceiling for what people can consume varies based on the food group. Very few people can eat a kilogram of cheese every day. A lot of people can eat a lot of pasta. It's very easy to eat a lot of sugar. You can drink maybe three liters of milk a day. But if you eat more than a pound of ground beef, you might be crying of nocturnal heartburn. You can basically chew through an entire watermelon. \n\n\"Whale is food only for cultures that hunted whales and could reach them.\"\n\nOr in other words: If it's available, it's possible food. \n\n\"Stores: vitamin C lasts about a month, folate months, B12 years. I found no human value yet for thiamin or vitamin A.\"\n\nWe commonly distinguish between water soluble and fat soluble vitamins. \n\n\n\"Why size = (people ÷ 1,000)^(1/2.8) works\"\n\nOverall good. \n\n\n\"Health balance, in plain terms: every city shows green faces (fresh water, forests, Wheat, Aqueduct) and red faces (city size, flood plains, Forge, Factory). Today, when red outnumbers green, the city loses food. The population model needs a health level from 0 to 1. I propose green ÷ (green + red), leaving out the red faces that come from size, because density is now its own term.\"\n\nCheck whether the game already has health related icons and buttons, what the game shows in case of unhealthiness and so forth. Because I remember it always displayed these things.",
    "items": [
     {
      "id": "R39.1",
      "what": "Energy need varies with activity: more calories and stimulants (caffeine) mean more activity; manual labourers in the early 1900s burned about 3,000-4,000 kcal",
-     "status": "open"
+     "status": "done",
+     "where": "round_m85.md; design.json D27/D30 m85"
     },
     {
      "id": "R39.2",
      "what": "Intake ceilings by food group (cheese, pasta, sugar, milk about 3 L, ground beef about a pound, watermelon) instead of one threshold",
-     "status": "open"
+     "status": "done",
+     "where": "round_m85.md; design.json D27/D30 m85"
     },
     {
      "id": "R39.3",
      "what": "Whale: if it is available, it is possible food",
-     "status": "open"
+     "status": "done",
+     "where": "round_m85.md; design.json D27/D30 m85"
     },
     {
      "id": "R39.4",
      "what": "Vitamin stores by water-soluble and fat-soluble groups",
-     "status": "open"
+     "status": "done",
+     "where": "round_m85.md; design.json D27/D30 m85"
     },
     {
      "id": "R39.5",
      "what": "Size by the inverse curve: overall good (accepted)",
-     "status": "open"
+     "status": "done",
+     "where": "round_m85.md; design.json D27/D30 m85"
     },
     {
      "id": "R39.6",
      "what": "Check the game's existing health icons, buttons and displays, and what it shows when a city is unhealthy",
-     "status": "open"
+     "status": "done",
+     "where": "round_m85.md; design.json D27/D30 m85"
     }
    ]
   }
