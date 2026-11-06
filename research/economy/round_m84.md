@@ -162,7 +162,7 @@ Today, if the red count is larger, the city loses that much food every turn. The
 
 **What it shows:**
 - **The city is the same at the same calendar year, whatever the speed.** It is identical to the person up to 1900, where all turns are whole years.
-- After 1900 the turns are months long, and the part steps differ by at most 0.2 %. Blitz's 1950 row is read at its turn end in 1951.
+- After 1900 the turns are months long, and the part steps differ by at most 0.3 %. Blitz's 1950 row is read at its turn end in 1951.
 - **Cost:** about 8,000 steps per city over a whole game, at most 200 in one turn (Blitz's 200-year turns). Each step is a few 64-bit multiplications.
 - **Speed still matters where it should:** a faster speed has fewer turns per year, so fewer decisions per year. The people follow the calendar.
 
