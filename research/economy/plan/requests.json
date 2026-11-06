@@ -476,6 +476,13 @@
    "kind": "request",
    "text": "Look at the plan, do more research, resolve the open questions if you can. If you can't, give detailed proposals.",
    "led_to": "R22: the plan's open decisions and research questions worked through with sources; resolved where the facts settle them, detailed proposals where they do not"
+  },
+  {
+   "id": "M69",
+   "date": "2026-11-06",
+   "kind": "correction",
+   "text": "Another issue I see is that you didn't really recognize the calorie value of animal foods \nHigh protein foods were specifically meant to provide the highest satiety values, we discussed that, but somehow you now attribute calories only to plant foods",
+   "led_to": "R23: animal foods' calories counted in food and checks; satiety from protein (D27) researched with sources and built into the food measure"
   }
  ],
  "requests": [
@@ -1071,6 +1078,20 @@
      "what": "Every open question in the plan (design.json decisions and their open fields, research files' open sections) researched; resolved with sources where possible, otherwise a detailed proposal",
      "status": "done",
      "where": "research/economy/open_questions.md; design.json research pointers on D21, D23, D24, D27-D30"
+    }
+   ]
+  },
+  {
+   "id": "R23",
+   "date": "2026-11-06",
+   "status": "open",
+   "prompt": "M69",
+   "text": "Another issue I see is that you didn't really recognize the calorie value of animal foods \nHigh protein foods were specifically meant to provide the highest satiety values, we discussed that, but somehow you now attribute calories only to plant foods",
+   "items": [
+    {
+     "id": "R23.1",
+     "what": "Count the calories of meat, dairy and fish wherever food is counted, and give high-protein foods the highest satiety (D27) through a sourced satiety measure, correcting food_resources.md and open_questions.md",
+     "status": "open"
     }
    ]
   }
