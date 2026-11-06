@@ -1492,19 +1492,21 @@
   {
    "id": "R35",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M81",
    "text": "\"Routes yield only commerce by default\" Maybe, but actually check the XML\nIf the buildings multiply yield from trade routes, which then generate food and productivity via civic changes, then the buildings themselves multiply the corresponding food and productivity gains from trade",
    "items": [
     {
      "id": "R35.1",
      "what": "Read the trade-route yield defaults in the XML itself: CIV4YieldInfos and any module or define that sets trade yields, and show the records",
-     "status": "open"
+     "status": "done",
+     "where": "restatement_m80.md 0a (CIV4YieldInfos 0/0/100, GlobalDefines trade defines, all TradeYieldModifiers records)"
     },
     {
      "id": "R35.2",
      "what": "Record that the buildings' route counts and route-profit modifiers multiply the food and production gains from trade that civics give, with the arithmetic",
-     "status": "open"
+     "status": "done",
+     "where": "restatement_m80.md 0a (formula from the DLL, worked example); design.json D33 fact"
     }
    ]
   }

@@ -14,27 +14,76 @@ the plan until you answer.
 
 ## 0. The two corrections you asked for in M80
 
-### 0a. Trade yield modifiers (checked again, in the DLL)
+### 0a. Trade yield modifiers (checked in the XML and the DLL; R35, M81)
 
 I had written that the settlement tiers, Market and Harbor carry only route counts and commerce modifiers. That
 described the fields but missed how they act.
 
-**How a trade route's yield is computed** (`CvCity::calculateTradeYield`, `CvCity::totalTradeModifier`):
-- A route's food, production or commerce = route profit × the owner's **trade yield modifier** for that yield ÷ 100.
-- The owner's trade yield modifier comes from:
-  - the yield records: food 0, production 0, commerce 100, so by default routes give only commerce;
-  - traits: Financial +1 commerce;
-  - **civics:** Barter food +20; Metals food +20; Coinage food +25; Usury food +25; Colonial food +40; Protectionism
-    food +40; Corporate food +30; Guilds food +30; Planned food +50 and production +50; National Socialism food +50
-    and production +50; Keynesian food +50; Proletariat production +50; Qualified Labor production +50.
-- Route profit is raised by the city's **trade route modifier**:
-  - the Market +25 % (and +25 % foreign);
-  - the Harbor +50 %, the Port, Commercial Port and International Port +50 % (and +25 % to +50 % foreign);
-  - the Fair, Commodity Market and Commercial Center +30 % to +40 % (and +40 % to +50 % foreign);
-  - city size and the capital.
-- The **number of routes** comes from the buildings:
-  - the settlement tiers: Town and City Essentials +1, Metropolitan Essentials +2;
-  - Harbor +2, Port +3, Commercial Port +4, International Port +5, River Port +1.
+**The XML records, read on the branch (d2a8f756):**
+- `Assets/XML/Terrain/CIV4YieldInfos.xml` is the only yield file (no module overrides it):
+  `YIELD_FOOD` `<iTradeModifier>0</iTradeModifier>`, `YIELD_PRODUCTION` `<iTradeModifier>0</iTradeModifier>`,
+  `YIELD_COMMERCE` `<iTradeModifier>100</iTradeModifier>`.
+- Trade defines (`GlobalDefines.xml`): `TRADE_PROFIT_PERCENT` 20, `THEIR_POPULATION_TRADE_PERCENT` 50,
+  `OUR_POPULATION_TRADE_MODIFIER` 5 with offset −10, `CAPITAL_TRADE_MODIFIER` 25, `OVERSEAS_TRADE_MODIFIER` 50,
+  `FOREIGN_TRADE_MODIFIER` 100, `INITIAL_TRADE_ROUTES` 0, `MAX_TRADE_ROUTES` 16. World size sets the distance
+  factor (`iTradeProfitPercent`: Standard 50, from Duel 80 down to Gigantic 10).
+- `TradeYieldModifiers` (food, production, commerce) exist in three files only: the civics, the Guilds module's
+  civic, and the traits.
+
+| Civic or trait | Food | Production | Commerce |
+|---|---|---|---|
+| Barter | +20 | 0 | −25 |
+| Metals | +20 | 0 | −10 |
+| Coinage, Usury | +25 | 0 | 0 |
+| Colonial | +40 | 0 | 0 |
+| Protectionism | +40 | 0 | +10 |
+| Corporate | +30 | 0 | +25 |
+| Guilds (Guilds module) | +30 | 0 | 0 |
+| Planned, National Socialism | +50 | +50 | 0 |
+| Keynesian | +50 | 0 | +50 |
+| Proletariat, Qualified Labor | 0 | +50 | 0 |
+| Patrician, No Taxes | 0 | 0 | +25 |
+| Agricultural, Pastoral, Coastal | 0 | 0 | −30 |
+| Hunter-Gatherer | 0 | 0 | −50 |
+| Fanaticism | 0 | 0 | −25 |
+| Financial (trait) | 0 | 0 | +1 |
+
+**"Only commerce by default" in its exact sense:** the yield records give food 0 and production 0, and none of the
+starting civics (Patriarch, Oral Law, No Taxes, Hunter-Gatherer, Aboriginal, Homeschooling, Folklore, Tribal
+Warfare, given to 41 civilizations) carries food or production on routes. Routes give food and production only once a
+civic in the table is adopted. From then on the buildings multiply it, as you said.
+
+**How the DLL computes it** (`CvCity::updateTradeRoutes`, `getBaseTradeProfit`, `totalTradeModifier`,
+`calculateTradeYield`, `setTradeYield`; the build defines `_MOD_FRACTRADE`, so profit is kept in hundredths):
+
+```
+base profit per route   = max(100, min(partner population × 50, distance × world factor) × 20 / 100)   (hundredths)
+route profit            = base profit × total trade modifier / 100
+total trade modifier    = 100 + the city's trade route modifier (buildings) + max(0, (population − 10) × 5)
+                          + 25 if connected to the capital + 50 overseas + foreign modifier and peace if foreign
+city trade profit       = sum of route profit over the city's routes (route count from buildings, at most 16)
+city's trade yield Y    = city trade profit × owner's trade yield modifier(Y) / 100 / 100               (whole units)
+```
+
+The trade yield is then added to the city's base yield (`setTradeYield` calls `changeBaseYieldRate`), so the city's
+own yield rate modifiers (production buildings, power, the player's and the area's modifiers) multiply it again, as
+they multiply worked tiles.
+
+**So the buildings multiply the food and production from trade in two ways:** a higher trade route modifier raises
+every route's profit, and more routes add more profits. Both reach food and production in proportion, because the
+civic percentage is applied to the city's total profit.
+
+**Worked example** (a size-12 city connected to the capital, every route to a size-12 city 12 plots away on a
+Standard map: base profit min(600, 600) × 20 / 100 = 120 hundredths per route):
+
+| City | Routes | Total trade modifier | Trade profit | Guilds: food | Planned: food and production | Commerce |
+|---|---|---|---|---|---|---|
+| Town Essentials | 1 | 100 + 10 (size) + 25 (capital) = 135 | 162 | 48 hundredths: 0 | 81: 0 and 0 | 1 |
+| Town Essentials, Market, Harbor | 1 + 2 = 3 | 135 + 25 + 50 = 210 | 3 × 252 = 756 | 226: 2 | 378: 3 and 3 | 7 |
+
+Market and Harbor raise the route profit by 210 / 135 and triple the routes: food from trade rises 4.7-fold
+(48 to 226 hundredths), the same factor as commerce. With few routes the food is lost to rounding, because the city
+total is cut to whole units once; with tiers, harbors and ports it becomes whole food and production.
 
 **What follows.** The settlement tiers, markets and harbors multiply the food and production that the civics put on
 trade routes. That is the supply and migration route you built (M76). The migration model's reach (D33) is
