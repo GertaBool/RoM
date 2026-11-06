@@ -1,0 +1,56 @@
+{
+ "about": "Nutrition, hydration and keeping values per food and drink good of the settlement-economy branch (PR.F8.T2, R23-R25, M69-M71). Per 100 g as bought (FAO retail weight). The generator tools/connector/food_values_edits.py computes the XML values from this file; nothing is typed into the XML by hand.",
+ "sources": {
+  "FAO": "FAO, Food Balance Sheets: a handbook (2001), Annex I food composition tables, per 100 g retail weight: https://www.fao.org/4/X9892E/X9892e05.htm",
+  "DIAAS": "Digestible Indispensable Amino Acid Score (FAO 2013 method), table for the 0.5-3-year reference pattern: https://en.wikipedia.org/wiki/Digestible_Indispensable_Amino_Acid_Score ; 'animal proteins, for example milk, whey and beef, generally have DIAAS greater than 100' (same page)",
+  "Holt1995": "Holt, Miller, Petocz, Farmakalidis, A satiety index of common foods, Eur J Clin Nutr 49 (1995) 675-90; table as reproduced at https://www.nutritionadvance.com/what-is-a-satiety-index-of-common-foods (beef 176, ling fish 225, cheese 146, white bread 100)",
+  "Maughan2016": "Maughan et al., A randomized trial to assess the potential of different beverages to affect hydration status, Am J Clin Nutr 103 (2016) 717-23: full-fat milk 1.50, skimmed milk 1.58, water 1.00; tea, coffee and lager not different from water at 4 h",
+  "extraction": "Stone milling about 80 % extraction, roller milling over 90 %; 60 lb of wheat gave 47-52 lb of flour: https://millsarchive.org/glossary/a-z-glossary/3051",
+  "FAOstorage": "FAO, post-harvest losses: traditional storage about 5 % a year; 20-40 % in poor storage: https://www.fao.org/4/w1544e/W1544E05.htm",
+  "stockfish": "Fish preservation: stockfish keeps several years; barrel-salted herring for long voyages: https://en.wikipedia.org/wiki/Fish_preservation"
+ },
+ "satiety": {
+  "formula": "satiety per kg = kcal per kg as bought x edible x (1 + k x p x q) / (1 + k x p_ref x q_ref); p = protein share of calories (4 kcal per g protein), q = DIAAS capped at 1",
+  "k": 2.0, "p_ref": 0.146, "q_ref": 0.44,
+  "fit": "k fitted so that beef against bread gives Holt's 176 against 100 (wheat's protein share and DIAAS stand in for white bread); checks: demersal fish 2.29 against Holt's ling fish 2.25, cheese 1.35 against 1.46",
+  "q_animal_default": 1.0, "q_animal_basis": "DIAAS: animal proteins generally above 100",
+  "q_plant_default": 0.44, "q_plant_basis": "estimate: wheat's value for plants without a sourced DIAAS"
+ },
+ "spoilage_per_year_percent": {
+  "fresh": {"value": 100, "basis": "eaten in the year it is made"},
+  "grain_granary": {"value": 5, "basis": "FAOstorage, traditional storage"},
+  "grain_open": {"value": 25, "basis": "FAOstorage, 20-40 % in poor storage"},
+  "kept": {"value": 15, "basis": "estimate: cheese, cured meat, salted fish"},
+  "dried": {"value": 10, "basis": "stockfish keeps several years; estimate for dried fruit"},
+  "canned": {"value": 2, "basis": "estimate"},
+  "root": {"value": 50, "basis": "estimate (open): potatoes and roots in store"}
+ },
+ "goods": {
+  "BONUS_WHEAT":   {"fao": "WHEAT", "kcal": 334, "protein": 12.2, "fat": 2.3, "diaas": 0.44, "diaas_basis": "DIAAS wheat 0.40-0.48, middle", "edible": 0.8, "edible_basis": "extraction, stone milling", "form": "grain_granary"},
+  "BONUS_RICE":    {"fao": "RICE PADDY", "kcal": 280, "protein": 6.0, "fat": 1.4, "diaas": 0.47, "diaas_basis": "DIAAS rice", "edible": 1.0, "edible_basis": "FAO paddy row is per paddy weight", "form": "grain_granary"},
+  "BONUS_CORN":    {"fao": "MAIZE", "kcal": 356, "protein": 9.5, "fat": 4.3, "diaas": 0.36, "diaas_basis": "DIAAS maize", "edible": 1.0, "edible_basis": "whole meal (estimate)", "form": "grain_granary"},
+  "BONUS_POTATO":  {"fao": "POTATOES", "kcal": 67, "protein": 1.6, "fat": 0.1, "diaas": null, "edible": 1.0, "edible_basis": "FAO retail", "form": "root"},
+  "BONUS_COW":     {"fao": "BEEF BONELESS", "kcal": 150, "protein": 18.5, "fat": 7.9, "diaas": 1.12, "diaas_basis": "DIAAS beef", "edible": 1.0, "edible_basis": "boneless; per tonne of meat (carcass about 60 % of live weight, 80 % boneless: per head in tile_output)", "form": "fresh"},
+  "BONUS_PIG":     {"fao": "PIGMEAT", "kcal": 326, "protein": 11.0, "fat": 31.0, "diaas": null, "edible": 1.0, "form": "fresh"},
+  "BONUS_SHEEP":   {"fao": "MUTTON AND LAMB", "kcal": 263, "protein": 13.5, "fat": 22.8, "diaas": null, "edible": 1.0, "form": "fresh"},
+  "BONUS_DEER":    {"fao": "GAME MEAT", "kcal": 104, "protein": 18.0, "fat": 3.0, "diaas": null, "edible": 1.0, "form": "fresh"},
+  "BONUS_HORSE":   {"fao": "HORSEMEAT", "kcal": 85, "protein": 15.5, "fat": 2.0, "diaas": null, "edible": 1.0, "form": "fresh", "note": "secondary food use (feasts; the steppe); main role draught and mounts"},
+  "BONUS_FISH":    {"fao": "MARINE FISH NES FRESH", "kcal": 64, "protein": 10.3, "fat": 2.2, "diaas": null, "edible": 1.0, "edible_basis": "FAO retail weight (bones in)", "form": "fresh"},
+  "BONUS_CLAM":    {"fao": "MOLLUSCS FRESH", "kcal": 15, "protein": 2.3, "fat": 0.2, "diaas": null, "edible": 1.0, "edible_basis": "FAO retail weight (shells in)", "form": "fresh"},
+  "BONUS_CRAB":    {"fao": "CRUSTACEANS FRESH", "kcal": 47, "protein": 9.3, "fat": 0.5, "diaas": null, "edible": 1.0, "form": "fresh"},
+  "BONUS_SHRIMP":  {"fao": "CRUSTACEANS FRESH", "kcal": 47, "protein": 9.3, "fat": 0.5, "diaas": null, "edible": 1.0, "form": "fresh"},
+  "BONUS_WHALE":   {"fao": "AQUATIC MAMMALS MEAT", "kcal": 136, "protein": 21.0, "fat": 5.0, "diaas": null, "edible": 1.0, "form": "fresh", "note": "food per tonne of meat; the good is counted in barrels of oil today (proposals.json): unit mapping open"},
+  "BONUS_DAIRY":   {"fao": "COW MILK, WHOLE FRESH", "kcal": 61, "protein": 3.3, "fat": 3.3, "diaas": 1.14, "diaas_basis": "DIAAS whole milk", "edible": 1.0, "form": "fresh", "hydration": 1.50, "hydration_basis": "Maughan2016 full-fat milk"},
+  "BONUS_BANANA":  {"fao": "BANANAS", "kcal": 60, "protein": 0.7, "fat": 0.3, "diaas": null, "edible": 1.0, "form": "fresh"},
+  "BONUS_LEMON":   {"fao": "LEMONS AND LIMES", "kcal": 15, "protein": 0.6, "fat": 0.2, "diaas": null, "edible": 1.0, "form": "fresh"},
+  "BONUS_APPLE":   {"fao": "APPLES", "kcal": 48, "protein": 0.1, "fat": 0.3, "diaas": null, "edible": 1.0, "form": "fresh"},
+  "BONUS_OLIVES":  {"fao": "OLIVES", "kcal": 175, "protein": 1.3, "fat": 17.5, "diaas": null, "edible": 1.0, "form": "kept", "note": "olive oil 884 kcal per 100 g if pressed (recipe, open)"},
+  "BONUS_SUGAR":   {"fao": "SUGAR, CENTRIFUGAL RAW", "kcal": 373, "protein": 0.0, "fat": 0.0, "diaas": null, "edible": 1.0, "form": "dried"},
+  "BONUS_WINE":    {"fao": "WINE", "kcal": 68, "protein": 0.0, "fat": 0.0, "diaas": null, "edible": 1.0, "form": "kept", "hydration": 1.0, "hydration_basis": "estimate: Maughan2016 measured lager, not wine"},
+  "BONUS_ALCOHOL": {"fao": "BEER BARLEY", "kcal": 49, "protein": 0.5, "fat": 0.0, "diaas": null, "edible": 1.0, "form": "kept", "hydration": 1.0, "hydration_basis": "Maughan2016 lager not different from water"},
+  "BONUS_TEA":     {"fao": null, "kcal": 0, "protein": 0.0, "fat": 0.0, "diaas": null, "edible": 1.0, "form": "dried", "hydration": 1.0, "hydration_basis": "Maughan2016 tea not different from water; litres brewed per tonne of leaf open"},
+  "BONUS_COFFEE":  {"fao": null, "kcal": 0, "protein": 0.0, "fat": 0.0, "diaas": null, "edible": 1.0, "form": "dried", "hydration": 1.0, "hydration_basis": "Maughan2016 coffee not different from water; litres brewed per tonne of beans open"},
+  "BONUS_SALT":    {"fao": null, "kcal": 0, "protein": 0.0, "fat": 0.0, "diaas": null, "edible": 0.0, "form": "dried", "role": "preserver (D27 option A): moves meat and fish from fresh to kept"}
+ },
+ "animal_goods": ["BONUS_COW", "BONUS_PIG", "BONUS_SHEEP", "BONUS_DEER", "BONUS_HORSE", "BONUS_FISH", "BONUS_CLAM", "BONUS_CRAB", "BONUS_SHRIMP", "BONUS_WHALE", "BONUS_DAIRY"]
+}

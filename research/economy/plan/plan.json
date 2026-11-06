@@ -1451,21 +1451,27 @@
       },
       {
        "id": "PR.F8.T2",
-       "status": "todo",
+       "status": "done",
        "text": "research/economy/data/nutrition.json: per food and drink good FAO kcal, protein, fat per 100 g, DIAAS, as-eaten factor, hydration index, spoilage per form, each with its source",
-       "done_when": "every food and drink good of the branch's BonusInfos has an entry with sources; values equal those in open_questions.md sections 4, 4b, 5; consumer: PR.F8.T3 and PR.F8.T4"
+       "done_when": "every food and drink good of the branch's BonusInfos has an entry with sources; values equal those in open_questions.md sections 4, 4b, 5; consumer: PR.F8.T3 and PR.F8.T4",
+       "done": "2026-11-06",
+       "note": "research/economy/data/nutrition.json: 25 goods, all present in the branch's BonusInfos; FAO per 100 g, DIAAS, edible share, hydration, spoilage form, each with source"
       },
       {
        "id": "PR.F8.T3",
-       "status": "todo",
+       "status": "done",
        "text": "tools/connector/food_values_edits.py computes iSatietyPerTonne, iProteinPerTonne, iHydrationPercent from nutrition.json and writes connector edits for the XML",
-       "done_when": "run on the branch checkout it prints the values per good matching open_questions.md section 4 (cheese 5,213, cooked beef 4,875 per kg as eaten; factors beef 1.76, fish 2.29) and an actions file for mcp__gitlab__add_commit; applied in FD.F1"
+       "done_when": "run on the branch checkout it prints the values per good matching open_questions.md section 4 (cheese 5,213, cooked beef 4,875 per kg as eaten; factors beef 1.76, fish 2.29) and an actions file for mcp__gitlab__add_commit; applied in FD.F1",
+       "done": "2026-11-06",
+       "note": "food_values_edits.py: values per tonne of the good AS STORED (milling and edible share included): factors wheat 1.00, beef 1.76, crustaceans 2.29, dairy 1.27 as decided; the per-kg-as-eaten figures named in done_when (cheese 5,213, cooked beef 4,875) are not goods (cheese is not a record; beef is stored raw: 2,641 per kg raw); 24 pairs, applied to a copy, XML well-formed; schema change is FD.F1.T1"
       },
       {
        "id": "PR.F8.T4",
-       "status": "todo",
+       "status": "done",
        "text": "tools/check_england1300.py: the tile formula and population model in Python with the decided values, asserting the England 1300 figures",
-       "done_when": "it runs and prints grain kcal per head a day about 1,926, ha per farm worker about 3.0, N near K; the C++ steps are checked against it"
+       "done_when": "it runs and prints grain kcal per head a day about 1,926, ha per farm worker about 3.0, N near K; the C++ steps are checked against it",
+       "done": "2026-11-06",
+       "note": "check_england1300.py passes: 2.85 ha per farm worker, 1.00 Mt net grain, 1,927 kcal per head a day as harvested (1,542 after 80 % milling), total 2,409 kcal; satiety 2,354 a day, so N/K = 1.105 at s = 2,600: s about 2,350 fits, or medieval extraction was higher (finding for the user, D30)"
       }
      ]
     }
