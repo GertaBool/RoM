@@ -135,7 +135,7 @@ Each judgment cites the facts above. "Food role" means what it adds to a diet.
 | Role | Resources | Basis |
 |---|---|---|
 | **Staple energy** (grain and roots) | Wheat, Rice, Corn, Potato; Banana in the tropics | 334-360 kcal per 100 g dry grain; potato 67 and banana 60 fresh, but high yields per hectare (`tile_output.md`) |
-| **Animal protein** (D27 bonus) | Cow, Pig, Sheep, Deer, Dairy, Fish, Clam, Crab, Shrimp; also **Whale** and **Horse** | 15-21 g protein per 100 g of meat, cheese 25; whale meat 21 g; horse meat 15.5 g and mare's milk on the steppe |
+| **Animal foods: energy, protein and the most satiety per calorie** (D27) | Cow, Pig, Sheep, Deer, Dairy, Fish, Clam, Crab, Shrimp; also **Whale** and **Horse** | calories: pigmeat 326 kcal per 100 g, mutton 263, cheese 387, butter 717, beef 150, fish 42-86, whale meat 136; protein: 15-21 g per 100 g of meat, cheese 25; satiety per calorie 1.25-2.4 times grain (`open_questions.md` section 4, Holt 1995); mare's milk and horse meat on the steppe |
 | **Fat and oil** | **Olives** (now commerce), Pig (lard), Dairy (butter), Whale (blubber); later **Cotton** (cottonseed oil) | oils 884 kcal per 100 g; Roman oil about 12 % of calories and 80 % of fat |
 | **Sugar** | **Sugar** (now a comfort) | 373 kcal per 100 g; nearly a fifth of English calories by 1900 (if Mintz's summary holds); a comfort before the 18th century, food energy after |
 | **Fruit and vitamins** | Apple, Lemon, Banana | low energy (lemon 15 kcal); citrus prevents scurvy (Lind, 1795 Navy order) |
@@ -154,18 +154,20 @@ Each judgment cites the facts above. "Food role" means what it adds to a diet.
 5. **Salt** moves from variety to preserving: it lengthens the shelf life of meat and fish.
 6. **Lemon** has a role beyond variety: scurvy at sea.
 7. **Cotton** later gives an oil, and feed for animals.
-8. **Fish** is protein first. It is classed staple now; the D27 nutrition rule already treats it as protein.
+8. **Fish** gives calories (42-86 kcal per 100 g as bought) and the highest satiety per calorie of all the goods
+   (Holt's ling fish 225). It is classed staple now, and D27 counts it with meat and dairy.
 
-## 5. Options for counting food (for the decision; few variables, as M65 asked)
+## 5. Counting food (corrected, R23, M69)
 
-- **(a) One number:** every food good counts in kcal, as the "food" F of the population formula (`F / s`).
-  Protein and variety are left out.
-- **(b) Two numbers:** kcal for F, and protein for D27's strength bonus. The per-100 g values above set both per
-  good.
-- **(c) Two numbers and the number of food groups eaten:** variety as how many of the roles above a city has
-  (staple, protein, fat, sugar, fruit, drink), not as a list of goods.
+The first version offered calories alone, or calories plus protein for the strength bonus only. That left out the
+satiety of protein that D27 decided. The measure is now in `open_questions.md` section 4:
 
-All three take their values per good from section 2, so no new variable is invented per good.
+- **Satiety per kg** = kcal per kg × a protein factor, with one constant fitted to Holt et al. (1995): beef 1.76
+  times grain, fish 2.0-2.4, cheese 1.25.
+- **Animal foods count with their calories and their protein.**
+- **Protein also drives D27's strength bonus.**
+- **Variety** can still be counted as the number of food roles a city covers (staple, animal food, fat, sugar, fruit,
+  drink).
 
 ## Open
 

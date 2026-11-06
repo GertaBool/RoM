@@ -451,7 +451,8 @@
    "choice": "Meat, dairy and fish give the most nutrition per tonne, so the most to satiety; they also give a strength bonus to living units (not siege equipment, vehicles, robots or other machines). Cereal products, dried fruit, fermented dairy, cured meat and cured fish keep longest and add most to the food store. Values per tonne and the bonus size are to be sourced (nutrition per kg, shelf life) Decided (M58): hitech, biological, clone, worker, settler and animal units get no protein bonus.",
    "facts": [
     "Unit combat types (CIV4UnitCombatInfos.xml): living: recon, archer, mounted, melee, gun, spy; machines: siege, wheeled, tracked, helicopter, every ship and aircraft type, assault mech, robot, nanite, missile; unclear: hitech, biological, clones, worker, settler, animal",
-    "Fermentation raises cereals' food value and keeping (M54)"
+    "Fermentation raises cereals' food value and keeping (M54)",
+    "Satiety per calorie (Holt et al. 1995, white bread 100): ling fish 225, beef 176, eggs 150, cheese 146, white rice 138; protein from 15 % to 30 % of energy cut intake by 441 kcal a day (Weigle et al. 2005). Measure (R23): satiety per kg = kcal per kg x (1 + 3.2 p) / (1 + 3.2 x 0.146), p = protein share of calories; beef 1.76, fish 2.0-2.4, cheese 1.25 times grain; animal foods count with their calories (open_questions.md section 4)"
    ],
    "open": "preserved forms (cured meat, dried fruit, cheese) need processing recipes (IN.F1) or a preservation share per good",
    "research": "research/economy/food_resources.md (R21, M67): all 80 resources from the XML, FAO nutrition per 100 g, food roles; candidates beyond the present classing: Whale and Horse (protein), Olives and Cotton (oil), Sugar, Wine, Alcohol (calories), Salt (preserving), Lemon (scurvy); research/economy/open_questions.md (R22, M68) section 5 (spoilage per year, salt preserving)"

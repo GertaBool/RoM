@@ -1084,14 +1084,15 @@
   {
    "id": "R23",
    "date": "2026-11-06",
-   "status": "open",
+   "status": "done",
    "prompt": "M69",
    "text": "Another issue I see is that you didn't really recognize the calorie value of animal foods \nHigh protein foods were specifically meant to provide the highest satiety values, we discussed that, but somehow you now attribute calories only to plant foods",
    "items": [
     {
      "id": "R23.1",
      "what": "Count the calories of meat, dairy and fish wherever food is counted, and give high-protein foods the highest satiety (D27) through a sourced satiety measure, correcting food_resources.md and open_questions.md",
-     "status": "open"
+     "status": "done",
+     "where": "open_questions.md sections 1, 4, 7; food_resources.md roles and section 5; population_formula.md F, s, s_min; design.json D27 fact"
     }
    ]
   }

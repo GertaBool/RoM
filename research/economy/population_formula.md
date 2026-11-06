@@ -69,14 +69,16 @@ u = max(0, 1 − s / q)                  urban share: the people farms do not ne
 ```
 
 **What goes in:**
-- **F** is the city's food for the year, in tonnes of grain equivalent: production (D23), net trade and drawing on
+- **F** is the city's food for the year, in satiety units (kcal times a protein factor, all foods including meat,
+  dairy and fish; `open_questions.md` section 4, R23): production (D23), net trade and drawing on
   stores. It is computed by the goods economy already.
-- **s** is food per head at equilibrium, in tonnes. It is set by the era or techs, and is the only lever on living
+- **s** is food per head at equilibrium, in the same satiety units (about 2,600 a day before the transition;
+  `open_questions.md` section 7). It is set by the era or techs, and is the only lever on living
   standards:
   - the existing health balance lowers it (lower mortality means more people at a lower income: Clark);
   - the demographic-transition techs raise it (fewer births mean a higher income at equilibrium).
 - **r** is the growth rate per year, which sets how fast `N` approaches `K`.
-- **s_min** is the biological minimum, about 1,500 / 2,400 × the 0.33 t of Clark's working ration, so about 0.2 t.
+- **s_min** is the biological minimum, 1,500 kcal a day (Clark), counted in plain kcal.
   It is a constant.
 - **q** is food produced per rural person, from D23's output per worker.
 

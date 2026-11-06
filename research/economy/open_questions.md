@@ -12,7 +12,7 @@ in design.json is changed to "decided" by this file.
 1. Tile yields by good and technology (PR.F1's missing tables) — Resolved for crops; Proposal for animals, timber, ore
 2. Usable land per tile — Proposal
 3. Skill, rotation and diminishing returns — Resolved / Proposal
-4. Counting food: kcal, protein and edible shares — Resolved
+4. Counting food: kcal, protein and satiety — Resolved (corrected, R23)
 5. Keeping and preserved forms (D27) — Proposal
 6. Flour and fine cloth (D28) — Proposal
 7. The population model (D30): parameters, migration and the AI — Proposal with sourced parameters
@@ -46,6 +46,9 @@ wheat bushel = 27.2 kg, hundredweight = 45.4 kg, short ton = 907 kg.
   - **yield stages** (rotation, fertiliser, hybrids, pesticides, gene techs) raise `yield`.
 - Per hectare in food energy (FAO kcal per 100 g): wheat 1866 2.5 million kcal, maize 5.5, potato 4.2, rice 3.6;
   English wheat 1300 net 1.3. That is why maize and potatoes spread wherever they arrived.
+- **Grazing land** gives food too (*estimates* from the animal proposal below): a cow at 600 L of milk a year gives
+  about 0.38 million kcal (61 kcal per 100 g), 0.43 million in satiety units. At one cow per hectare of grazing that
+  is about a third of English wheat land in 1300, plus meat. It comes mostly from land that cannot be cropped.
 
 **Mapping to the mod's farm techs** (the stage list in `proposals.json` production, IMPROVEMENT_FARM
 TechYieldChanges):
@@ -129,24 +132,100 @@ Placed resources keep the bonus multiplier (`fertility`) of D23.
 - **Diminishing returns: Proposal.** Keep D23's `min` (output per worker flat until the land binds). The England 1300
   check matches it without a smooth curve, and it adds no variable.
 
-## 4. Counting food: kcal, protein and edible shares
+## 4. Counting food: kcal, protein and satiety (corrected, R23, M69)
 
-**Resolved, with the per-good values sourced:**
-- Food counts in kcal, for the population formula's `F`, and in protein, for D27's strength bonus. This is option
-  (b) of `food_resources.md`.
-- The values per 100 g come from FAO's *Food Balance Sheets* handbook, Annex I.
+**Correction.** The first version of this section counted animal foods only for D27's strength bonus. Its England
+check counted grain alone. Both were wrong: meat, dairy and fish carry calories, and D27 (M57) decided that
+high-protein foods give the most satiety. This section replaces that version.
 
-**Edible shares (sourced):**
-- milling extraction: stone mills about 80 %, roller mills over 90 %; British white bread flour about 75 %, brown
-  80-85 %; 60 lb of wheat gave 47-52 lb of flour (78-87 %);
-- meat: dressing share as in section 1, times 80 % boneless;
-- FAO's own values are per retail weight, so shells and bones are already out of molluscs and fish.
+**Facts (sourced):**
+- **Calories of animal foods** (FAO, *Food Balance Sheets* handbook, Annex I, per 100 g as bought):
+  - fatty meats and cheese carry as many calories per weight as dry grain: pigmeat 326 kcal, mutton 263,
+    cheese 387, butter 717 (wheat 334);
+  - lean meat and fish carry fewer, because they hold more water: beef 150, game 104, pelagic fish 86, demersal fish
+    42;
+  - most of their energy comes from protein: 49 % of beef's calories, 69 % of game's, 79 % of demersal fish's
+    (4 kcal per g of protein).
+- **Satiety per calorie** (Holt et al. 1995, *Eur J Clin Nutr* 49:675-90; 240 kcal portions, white bread = 100):
 
-**Check:**
-- England 1300 had 1.0 million t of net grain for about 4.75 million people. At 334 kcal per 100 g that is 1,926
-  kcal per head a day from grain.
-- Grain gave up to 80 % of a harvest worker's calories, which means about 2,400 kcal in all.
-- That matches Clark's 2,400 kcal for 2 lb of wheat a day.
+  | Food | Satiety index |
+  |---|---:|
+  | Ling fish | 225 |
+  | Beef | 176 |
+  | Eggs | 150 |
+  | Cheese | 146 |
+  | Wholemeal bread | 157 |
+  | White rice | 138 |
+  | Bananas | 118 |
+  | White bread | 100 |
+  | Croissant | 47 |
+  | Boiled potatoes (highest of the 38 foods; water and bulk) | 323 |
+
+- **Protein holds intake down over weeks** (Weigle et al. 2005, *Am J Clin Nutr*). Raising protein from 15 % to 30 %
+  of energy, at constant carbohydrate, cut people's own intake by 441 ± 63 kcal a day. They lost 4.9 kg over the
+  12 weeks.
+- **Digesting protein costs energy** (Ravn, citing earlier work): the thermic effect is 20-30 % of protein's energy,
+  5-10 % of carbohydrate's and 0-3 % of fat's. Westerterp links this to satiety.
+
+**Resolution: one satiety measure, with one constant fitted to the facts.**
+
+```
+satiety per kg = kcal per kg × (1 + k × p) / (1 + k × p_grain)
+```
+
+- `p` is the share of the good's calories that comes from protein; `p_grain` = 0.146 (wheat).
+- `k` = 3.2, fitted so that beef against grain gives Holt's 176 against 100. Wheat's protein share stands in for
+  white bread's.
+- **Checks:** the formula gives demersal fish 2.41 (Holt's ling fish 2.25) and cheese 1.25 (Holt 1.46). The formula
+  does not capture potatoes' bulk.
+
+**What this gives per good** (factor against grain = 1.00; satiety per kg = kcal per kg × factor):
+
+| Good | kcal per kg | Protein share | Factor | Satiety per kg |
+|---|---:|---:|---:|---:|
+| Wheat | 3,340 | 15 % | 1.00 | 3,340 |
+| Rice, milled | 3,600 | 7 % | 0.84 | 3,035 |
+| Maize | 3,560 | 11 % | 0.91 | 3,253 |
+| Potatoes | 670 | 10 % | 0.89 | 596 |
+| Beef, boneless | 1,500 | 49 % | 1.76 | 2,640 |
+| Pigmeat | 3,260 | 13 % | 0.98 | 3,181 |
+| Mutton and lamb | 2,630 | 21 % | 1.13 | 2,971 |
+| Game meat (Deer) | 1,040 | 69 % | 2.20 | 2,283 |
+| Horsemeat | 850 | 73 % | 2.28 | 1,935 |
+| Cow milk | 610 | 22 % | 1.15 | 704 |
+| Cheese | 3,870 | 26 % | 1.25 | 4,821 |
+| Butter | 7,170 | 1 % | 0.69 | 4,956 |
+| Pelagic fish | 860 | 59 % | 1.96 | 1,688 |
+| Demersal fish | 420 | 79 % | 2.41 | 1,012 |
+| Whale meat | 1,360 | 62 % | 2.03 | 2,764 |
+| Olive oil | 8,840 | 0 % | 0.68 | 6,013 |
+
+**Reading:**
+- **Per calorie,** the protein foods give the most satiety: lean meat 1.8-2.3 times grain, fish 2.0-2.4, cheese
+  1.25. That is D27 as decided.
+- **Per tonne as bought,** cheese, fat (butter, oil, lard) and fatty meat lead. Fresh lean meat and fish fall below
+  dry grain because they are mostly water.
+- **Preserving changes that.** Drying and salting take the water out, so cured meat and dried fish move toward
+  cheese per tonne. Their values per kg come from the FAO rows for cured and dried forms when preserved forms are
+  modelled (section 5).
+- **Fat** satiates less per calorie (croissant 47, cake 65 in Holt), and the formula's floor (0.68 at no protein)
+  points the same way.
+
+**What counts where:**
+- The population formula's `F` is the sum of satiety over all foods, animal foods included.
+- `s` is set in the same unit (section 7).
+- Protein also drives D27's strength bonus for living units.
+- **Edible shares:** milling extraction is about 80 % with stone mills and over 90 % with roller mills (60 lb of wheat
+  gave 47-52 lb of flour). Meat is about 60 % of a cow's live weight as carcass, 50-54 % for sheep and 70-75 % for
+  pigs, and the carcass is about 80 % boneless meat. FAO's values are per retail weight.
+
+**Check, England about 1300, corrected:**
+- Grain gave about 1,926 kcal per head a day: 1.0 million t net for about 4.75 million people at 334 kcal per 100 g.
+- Grain was up to 80 % of a harvest worker's calories, so meat, dairy, fish, pulses and ale gave the other 20 % or
+  more: about 480 kcal of a 2,400 kcal day. Dyer finds the animal share of workers' diets rising strongly after the
+  Black Death.
+- In satiety units at an animal factor of about 1.2-1.7, that diet is worth about 2,500-2,700. The model's `s` is set
+  from it (section 7).
 
 ## 5. Keeping and preserved forms (D27)
 
@@ -182,9 +261,11 @@ Placed resources keep the bonus multiplier (`fertility`) of D23.
 ## 7. The population model (D30)
 
 **Proposal: the compact model with the tile formula, with these sourced parameters.**
-- `s`, food per head at equilibrium: 2,400 kcal a day before the demographic transition (Clark; England 1300 check).
-  It rises with the transition techs to an *estimate* of 3,000 at Medicine and 3,400 at Refrigeration.
-- `s_min`: 1,500 kcal a day (Clark's biological minimum).
+- `s`, food per head at equilibrium, in satiety units (section 4): about 2,600 a day before the demographic transition.
+  That is 2,400 kcal (Clark; England 1300 check) with about a fifth from animal foods at their protein factor. It
+  rises with the transition techs to an *estimate* of 3,300 at Medicine and 3,800 at Refrigeration.
+- `s_min`: 1,500 kcal a day (Clark's biological minimum), counted in plain kcal: the minimum is energy, not
+  satiety.
 - `r`, the growth rate:
   - England grew 0.4-0.5 % a year in 1086-1300 and 0.95 % a year in 1681-1821;
   - it reached about 1.5-1.75 % in the 1820s (Wrigley and Schofield, as tabulated by Munro, Toronto);
