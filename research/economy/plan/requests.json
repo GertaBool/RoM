@@ -511,6 +511,13 @@
    "kind": "decision",
    "text": "I agree with the proposal. Which questions are still open, and what would be the optimal route to implement all these additions and edits in C++, Python and XML? Be aware of the tools you're able to use, like the code map",
    "led_to": "D31 decided (full water and hydration model); R27: the questions still open, and the implementation route in C++, Python and XML, planned with the code map, the connector generators, the toolchain and the harness"
+  },
+  {
+   "id": "M74",
+   "date": "2026-11-07",
+   "kind": "request",
+   "text": "\"The texture download is still blocked\"\n\nJust search the wider web for a proper source with a similarly high quality texture that makes sense.\n\n\"One technical problem the code map surfaced: real-population functions return a 32-bit long, which overflows above about 2.1 billion people. Earth maps will pass that, so I propose counting people as 64-bit inside the DLL and giving Python a value in thousands.\"\n\nThat's fine. \n\n\"Decisions waiting on you:\"\n\nGreatly elaborate on all of these and give me proper options to choose from.\n\n\nMake sure you have the overall plan in mind, you're aware of the tasks at hands, then make sure the full proposed route with its full steps would actually survive a context reset. \n\nThen continue with step 0",
+   "led_to": "R28: textures from other sources than Commons; 64-bit people decided; every open decision elaborated with options; the route written into plan.json so it survives a context reset; step 0 started"
   }
  ],
  "requests": [
@@ -1193,6 +1200,40 @@
      "what": "The implementation route for the food, drink, water and population additions in C++ (DLL), Python and XML, located with the code map and built with the existing tools",
      "status": "done",
      "where": "research/economy/implementation_route.md part 2"
+    }
+   ]
+  },
+  {
+   "id": "R28",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M74",
+   "text": "\"The texture download is still blocked\"\n\nJust search the wider web for a proper source with a similarly high quality texture that makes sense.\n\n\"One technical problem the code map surfaced: real-population functions return a 32-bit long, which overflows above about 2.1 billion people. Earth maps will pass that, so I propose counting people as 64-bit inside the DLL and giving Python a value in thousands.\"\n\nThat's fine. \n\n\"Decisions waiting on you:\"\n\nGreatly elaborate on all of these and give me proper options to choose from.\n\n\nMake sure you have the overall plan in mind, you're aware of the tasks at hands, then make sure the full proposed route with its full steps would actually survive a context reset. \n\nThen continue with step 0",
+   "items": [
+    {
+     "id": "R28.1",
+     "what": "Find a high-quality, suitably licensed texture source other than Wikimedia Commons for the blocked art (LQ.F10.T2, Glass button)",
+     "status": "open"
+    },
+    {
+     "id": "R28.2",
+     "what": "Record: people counted in __int64 inside the DLL, Python given thousands (decided)",
+     "status": "open"
+    },
+    {
+     "id": "R28.3",
+     "what": "Elaborate every decision waiting on the user (D30, D24, D21, and the proposals for D27, D28, D29) with proper options",
+     "status": "open"
+    },
+    {
+     "id": "R28.4",
+     "what": "Write the full implementation route into plan.json (features, tasks with done_when, current.next) so it survives a context reset",
+     "status": "open"
+    },
+    {
+     "id": "R28.5",
+     "what": "Carry out step 0 of the route: code map from the branch, nutrition.json with sources, the value generator, the England 1300 check",
+     "status": "open"
     }
    ]
   }
