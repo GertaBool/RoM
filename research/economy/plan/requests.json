@@ -497,6 +497,13 @@
    "kind": "correction",
    "text": "Liquid milk is as immensely valuable in terms of nutrition as fish or meat is by itself, because it both provides extraordinary hydration as well as highly bioavailable protein and fats. Lactose is a more stable carb source. The hydration aspect changes the equation because you'd have to measure it more like quantities of drinking water or juice per day",
    "led_to": "R25: drinks measured as a daily quantity (hydration), milk valued as a drink with its protein, fats and lactose; sourced hydration and nutrition values per drink"
+  },
+  {
+   "id": "M72",
+   "date": "2026-11-06",
+   "kind": "request",
+   "text": "Continue, and give proposals for how we should implement hydration, water supply mechanics and else",
+   "led_to": "R26: implementation proposals for hydration and water supply (from the mod's water features, buildings and techs read from XML and the DLL, with historical sources), and for the rest of the food, drink and population work"
   }
  ],
  "requests": [
@@ -1137,6 +1144,25 @@
      "what": "Measure drinks (water, milk, ale, wine, juice, tea, coffee) as a daily quantity per head for hydration, with sourced hydration values; value liquid milk as a drink with its bioavailable protein, fats and lactose, alongside meat and fish (D27)",
      "status": "done",
      "where": "open_questions.md section 4b; section 4 milk line; food_resources.md section 5; design.json D27 fact"
+    }
+   ]
+  },
+  {
+   "id": "R26",
+   "date": "2026-11-06",
+   "status": "open",
+   "prompt": "M72",
+   "text": "Continue, and give proposals for how we should implement hydration, water supply mechanics and else",
+   "items": [
+    {
+     "id": "R26.1",
+     "what": "Implementation proposals for hydration and water supply mechanics, built on what the mod already has (fresh water, wells, aqueducts, health) and sourced figures",
+     "status": "open"
+    },
+    {
+     "id": "R26.2",
+     "what": "Implementation proposals for the rest: satiety and drink values on the goods, the population model, and their order in the plan",
+     "status": "open"
     }
    ]
   }
