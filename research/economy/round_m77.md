@@ -71,62 +71,10 @@ cloth per garment            = metres of cloth by garment type (coat, dress)
 **Spending as a check:** in a pre-industrial city the clothing need should take about a quarter of household spending
 at King's prices. The coefficients are calibrated so the economy reproduces that share.
 
-## 4. D34: the research field, with examples
+## 4. D34: the research field
 
-**The field.** `TechResearchModifiers` on BuildingInfo: a list of a tech and a percent. It lowers the research cost
-of that tech for the building's owner. It is applied in `CvPlayer::calculateResearchModifier` beside tech diffusion,
-so the AI sees it there.
-
-**Proposed entries.** Tech and building names are from the records (308 techs; the base buildings and wonders and the
-Guilds module); percents are estimates.
-
-| Building or wonder | Techs made cheaper | % |
-|---|---|---:|
-| Lighthouse | Sailing, Seafaring, Ship Building, Compass | 10 |
-| Great Lighthouse (wonder) | Seafaring, Ship Building, Compass, Map Making, Navigation | 20 |
-| Colossus (wonder) | Bronze Working, Metal Casting, Seafaring, Ship Building | 15 |
-| Harbor | Fishing, Seafaring, Navigation | 10 |
-| Shipyard | Ship Building, Naval Warfare, Naval Tactics | 10 |
-| Drydock | Screw Propeller, Steam Power | 10 |
-| Library | Writing, Alphabet, Literature, Philosophy | 10 |
-| Great Library (wonder) | Literature, Philosophy, Mathematics, Paper, Education | 20 |
-| Archive | Writing, Code of Laws, Civil Service | 10 |
-| Academy | Philosophy, Mathematics, Education | 10 |
-| University | Education, Scientific Method, Physics, Chemistry | 10 |
-| Observatory | Calendar, Astronomy, Optics, Navigation | 10 |
-| Copernicus' Observatory (wonder) | Astronomy, Physics, Scientific Method | 20 |
-| Newton's University (wonder) | Physics, Scientific Method, Theory of Relativity | 20 |
-| Leonardo's Workshop (wonder) | Machinery, Engineering, Replaceable Parts, Perspective | 20 |
-| Forge | Bronze Working, Iron Working, Smithing, Metallurgy | 10 |
-| Siege Workshop | Mathematics, Construction, Siege Warfare | 10 |
-| Stable | Animal Husbandry, Horseback Riding, Horse Breeding, Stirrup | 10 |
-| Market | Currency, Trade, Banking | 10 |
-| Bank | Banking, Economics, Corporation | 10 |
-| Aqueduct | Waterworks, Sanitation, Construction | 10 |
-| Hospital | Medicine, Battlefield Medicine, Anatomy | 10 |
-| Brewery | Fermentation, Biology, Refrigeration | 10 |
-| Theatre | Drama, Literature, Music | 10 |
-| Pyramid (wonder) | Masonry, Construction, Architecture | 15 |
-| Masons guild hall | Masonry, Construction, Architecture, Engineering | 15 |
-| Carpenters guild hall | Machinery, Engineering, Ship Building | 15 |
-| Blacksmiths guild hall | Smithing, Metal Casting, Metallurgy, Armor Crafting | 15 |
-| Glassblowers guild hall | Glass Blowing, Optics, Chemistry | 15 |
-| Goldsmiths guild hall | Metal Casting, Currency, Banking | 15 |
-| Clerks guild hall | Writing, Paper, Printing Press, Civil Service, Accounting-era administration | 15 |
-| Bakers guild hall | Agriculture, Fermentation, Agricultural Tools, Crop Rotation | 15 |
-| Butchers guild hall | Animal Husbandry, Hunting, Refrigeration | 15 |
-| Fishmongers guild hall | Fishing, Seafaring, Refrigeration | 15 |
-| Grocers guild hall | Agriculture, Trade, Mercantilism | 15 |
-| Drapers guild hall | Guilds, Mercantilism, Industrialism | 15 |
-| Equestrians guild hall | Horse Breeding, Stirrup, Chivalry | 15 |
-| Mercers guild hall | Trade, Banking, Mercantilism | 15 |
-| Artists guild hall | Aesthetics, Drama, Music, Oil Painting | 15 |
-
-**Notes:**
-- The administration civics (Tablets, Accounting, Bookkeeping, Double Entry) are civics, not techs; the Clerks' entry
-  names the techs that unlock them.
-- **Stacking:** reductions add across buildings, with a cap per tech of *estimate* 50 %, so a city of halls cannot make
-  a tech free.
+The examples first given here were wrong: they named techs the buildings themselves require. They are withdrawn and
+replaced by `d34_research_modifiers.md` (R33.1, M79), built from the tech tree with a checked rule.
 
 ## 5. The Masons condition for Notre Dame and the J.S. Bach Cathedral
 

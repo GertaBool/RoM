@@ -1424,24 +1424,27 @@
   {
    "id": "R33",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M79",
    "text": "\"The research field (D34): examples\"\n\nThe examples make absolutely zero sense and show an absolute ignorance about the game despite all the efforts. \nNow you're dropping what we discussed after. \nBe consistent and conscientious instead of haphazardly concluding things. \nYou had an actual evidence based growth model I was almost satisfied with, and then you somehow shrunk it. Why?",
    "items": [
     {
      "id": "R33.1",
      "what": "Rebuild the D34 examples from the records: each building's own prerequisite and obsolete techs and the techs that follow in the tree, so a building makes cheaper only techs that are still ahead of its owner and related to it",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/d34_research_modifiers.md (rule checked by script); round_m77.md section 4 withdrawn; design.json D34"
     },
     {
      "id": "R33.2",
      "what": "Restore what later discussion decided where the audit dropped it (spoilage per D27 C, M75 over M50; anything else)",
-     "status": "open"
+     "status": "done",
+     "where": "spoilage restored per M75 (design.json D27; plan FD.F1, FD.F2, PR.F8.T5); audit_m78.md findings 2 and 5 withdrawn"
     },
     {
      "id": "R33.3",
      "what": "Restore the evidence-based growth model (second version) with all its factors and sources, framed as the user asked in M75 (health weighed from its factors lowering or reversing growth, no separate death term), and explain why it was shrunk",
-     "status": "open"
+     "status": "done",
+     "where": "pop_model_math.md fourth version; tools/pop_model_sim.py; design.json D30"
     }
    ]
   }

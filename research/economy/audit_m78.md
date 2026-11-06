@@ -9,10 +9,10 @@ what I did, and the correction.
 | # | Your words | What I did | Correction |
 |---|---|---|---|
 | 1 | M75: "I'm not sure whether a death term is really necessary within the growth equation"; health "has to be weighed from several factors by itself"; "easier to just decrease the rate of growth or turn it negative" | The second version of D30 (R31) built an explicit death rate | Third version: one growth rate; health weighed from five factors slows it or turns it negative; no death term (`pop_model_math.md`) |
-| 2 | M65: "an optimized formula that doesn't have 10,000 variables" | The second version had about 20 parameters and factors | Five numbers plus the health weights |
+| 2 | M65: "an optimized formula that doesn't have 10,000 variables" | (Withdrawn finding, M79.) The third version used M65 to shrink the model, against the later M77; the evidence-based model is restored as the fourth version | Later requests come first |
 | 3 | M75: good food increases "fertility, productivity, commercial, scientific and cultural outputs" | `round_m75.md` and the second version said commerce gets "no separate bonus" | Commerce takes the nutrition multiplier like science and culture (`pop_model_math.md` section 9) |
 | 4 | M75: "rather than just protein 'boosting' strength by a mere margin" | D27's recorded choice still reads as protein giving "the most nutrition per tonne" and a strength bonus | D27 choice rewritten: three measures; strength is one effect among several |
-| 5 | M50/M51: "Let's deal with spoilage later when the system works" | I designed spoilage several times (R22 table, nutrition.json forms, FD.F1 "spoilage base") | Spoilage fields leave FD.F1 (step 1) and wait for the working system (SD.F2); D27 C stays recorded as your later choice (M75) |
+| 5 | M50/M51: "Let's deal with spoilage later when the system works" | (Withdrawn finding, M79.) The audit applied the earlier M50 over the later M75, where you chose how spoilage works; and the goods pass with storage and spoilage (GW.F5) already works | Spoilage stays in the route as decided in M75 (D27 C), without a climate factor until climate exists |
 | 6 | M61: "a better more creative idea than just another modifier stacked on modifiers" | Several of my proposals are percentage modifiers: food-guild spoilage × 0.5, quality × 1.5 to 2.5, the research reductions, migration multipliers | Kept where you accepted them (D29 c, D34). Flagged for review: each new modifier should be checked against M61 before it is built |
 | 7 | M77: "Just fix the limit" | I argued that no limit exists and left M59's rule to you | Two fixes added to the plan: give the game font headroom before 98 resource records are reached, and bring graphics paging (the memory fix) into the settlement-economy branch (D35) |
 | 8 | M75 D29 d: the AI "would be subject but not aware (same goes for everything else)" | Saved only under D29 d | A design principle for everything: P8, every mechanic comes with AI awareness and a UI |
@@ -52,3 +52,10 @@ what I did, and the correction.
   - FD.F1 without spoilage (5);
   - FD.F4.T1 code map step (15);
   - current block (14, 16).
+
+## E. Corrections after M79
+
+- **Findings 2 and 5 were wrong.** They put earlier requests (M65, M50) above later ones (M77, M75). Both are withdrawn.
+- **The growth model** is restored as the fourth version: the second version's evidence with a health burden instead
+  of a death term.
+- **The D34 examples** are rebuilt from the tech tree (`d34_research_modifiers.md`).

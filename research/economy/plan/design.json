@@ -476,7 +476,7 @@
    "question": "Food: nutrition and keeping (M57)",
    "status": "decided",
    "source": "M57, M58",
-   "choice": "Three separate measures per food good (M75): calories (FAO), satiety (Holt's index per calorie, protein share and quality as fallback) and health (nutrient groups covered, harms); meat, dairy and fish are highly satiating and the main complete protein; good food raises fertility, work, commerce, science and culture, and unit strength is one effect among these, not the whole role (M75); cereal products, dried fruit, fermented dairy, cured meat and fish keep longest (M57); drinks count per day with their hydration (M71); spoilage itself after the system works (M50), by technology, storage and, once it exists, climate (M75)",
+   "choice": "Three separate measures per food good (M75): calories (FAO), satiety (Holt's index per calorie, protein share and quality as fallback) and health (nutrient groups covered, harms); meat, dairy and fish are highly satiating and the main complete protein; good food raises fertility, work, commerce, science and culture, and unit strength is one effect among these, not the whole role (M75); cereal products, dried fruit, fermented dairy, cured meat and fish keep longest (M57); drinks count per day with their hydration (M71); spoilage by technology, storage and, once it exists, climate (M75; the goods pass GW.F5 already stores and spoils)",
    "facts": [
     "Unit combat types (CIV4UnitCombatInfos.xml): living: recon, archer, mounted, melee, gun, spy; machines: siege, wheeled, tracked, helicopter, every ship and aircraft type, assault mech, robot, nanite, missile; unclear: hitech, biological, clones, worker, settler, animal",
     "Fermentation raises cereals' food value and keeping (M54)",
@@ -514,7 +514,7 @@
     "d decided (M75): guild councils, fixed prices and limited craftsman places, tied to civics, with UI and AI integration",
     "e decided (M75): workshops come with the guild or guild hall, sized by the population proportion; not specialists",
     "b partly decided (M76): the food guilds raise their goods' quality, give employment and protect local industry; masterwork goods trade higher, perish slower, add health and strength; their main gain is education (D34); the other guilds' luxuries still to discuss",
-    "Decided (M77): food guilds as proposed (round_m76.md 4a); Clerks: science and administration (cheaper writing, paper, printing and administration techs, lower distance maintenance); Notre Dame and the J.S. Bach Cathedral need a Masons guild hall in the city (BuildingClassNeededs BUILDINGCLASS_GUILDHALL_33, round_m77.md section 5); Masons speed building construction (iBuildingProductionModifier) as proposed"
+    "Decided (M77): food guilds as proposed (round_m76.md 4a); Clerks: science and administration (lower distance maintenance; cheaper techs after Paper: Printing Press, Education, Map Making, Political Philosophy, Economics, d34_research_modifiers.md); Notre Dame and the J.S. Bach Cathedral need a Masons guild hall in the city (BuildingClassNeededs BUILDINGCLASS_GUILDHALL_33, round_m77.md section 5); Masons speed building construction (iBuildingProductionModifier) as proposed"
    ],
    "sources": [
     "Epstein, S. R. (1998) Craft guilds, apprenticeship and technological change in preindustrial Europe, Journal of Economic History 58: https://bollettinoadapt.it/wp-content/uploads/epstein1998.pdf",
@@ -538,9 +538,9 @@
     "The mod's shocks are random events: after turn 20 one roll per player and turn at 2-16 % by era, then one of about 300 triggers by weight; a plague takes 3-4 citizens in one city and 1-2 in a few neighbours; no climate, harvest variation, seasons, spreading epidemics or population cycles exist",
     "User principles (M75): growth by nutrient quality and quantity; good food raises fertility, productivity, commerce, science, culture; players decide, not a curve; urban density, economy, war and pillage matter; no era growth rates; health lowers or reverses growth rather than a death term"
    ],
-   "proposal": "Third version (R32.2, M78; pop_model_math.md): g = G_MAX x [food drive x fertility culture x health - KAPPA x (1 - health)]; no death term (M75); health weighed from water, sanitation in dense quarters, nutrient coverage, dietary harms, medicine; fertility culture from economy, town life, norms, education, safety, which also raises the food level where growth stops; starvation cap; five numbers (G_MAX 3 %, A 0.30, K, KAPPA, B) plus health weights; thirteen edge cases in tools/pop_model_sim.py",
+   "proposal": "Fourth version (R33.3, M79; pop_model_math.md): the evidence-based second version with the mortality side as a health burden: growth = fertility - health burden (per 1,000 a year); fertility = B(food) x nutrients x economy x town life x religiosity x education x safety; health burden = base burden(medicine) x (2 - health balance) + underfeeding + famine + deficiency + urban penalty + war; starvation cap; no separate death term (M75)",
    "options": [
-    "the third version (pop_model_math.md, M78)",
+    "the fourth version (pop_model_math.md, M79)",
     "keep size^2.8 x 1000 and count workers from it (D23 as decided in M54)"
    ],
    "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4; research/economy/shocks_and_cycles.md (R18, M64): cataclysms, harvest variation, seasons, epidemics, long cycles; building blocks A-F; research/economy/population_formula.md (R19, M65): a compact Malthusian model, proposed; research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check; research/economy/open_questions.md (R22, M68) section 7 (r, s, s_min sourced; migration; AI translation layer); research/economy/pop_model_math.md (R30.1, M76): hybrid model step by step, seven sourced parameters, eleven edge cases computed by tools/pop_model_sim.py"
@@ -603,7 +603,7 @@
     "both: categories with per-tech overrides"
    ],
    "proposal": "per tech list first (no new tech field needed); round_m76.md section 4b",
-   "choice": "TechResearchModifiers on BuildingInfo (M77): per tech a percent reduction for the owner, applied in CvPlayer::calculateResearchModifier beside tech diffusion, capped per tech; the examples in round_m77.md section 4"
+   "choice": "TechResearchModifiers on BuildingInfo (M77): per tech a percent reduction for the owner, applied in CvPlayer::calculateResearchModifier, capped per tech; only techs not required by the building and not at or after its obsolete tech, following on from its knowledge; the table in d34_research_modifiers.md (R33.1, M79; the round_m77.md examples withdrawn)"
   },
   {
    "id": "D35",
