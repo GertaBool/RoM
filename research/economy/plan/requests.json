@@ -462,6 +462,13 @@
    "kind": "request",
    "text": "\"One number it depends on that isn't set yet: how much of a map plot is actually farmed (open question 3 of D23, the production model)\"\n\nOutput depends on tech, the actual population working the tile, how qualified the workers are, the availability of tools and machinery, tile fertility, the crop or food resource in question (can be meat, dairy or fish, technically also sugar and bananas, as well)\n\nDo more research",
    "led_to": "R20: a tile's output from tech, workers, their skill, tools and machinery, fertility and the good (crops, meat, dairy, fish, sugar, bananas), researched with sources; replaces the farmed-share question"
+  },
+  {
+   "id": "M67",
+   "date": "2026-11-06",
+   "kind": "request",
+   "text": "Dig into the other resources in the game and what could qualify as food",
+   "led_to": "R21: every resource in the mod read from its XML records and classed by whether and how it can be food (staple, protein, fruit, oil, sugar, drink, seasoning, preservative), with sources"
   }
  ],
  "requests": [
@@ -1027,6 +1034,20 @@
      "what": "Research a tile's output as a function of tech, the people working it, their skill, tools and machinery, fertility and the good (grain, rice, roots, meat, dairy, fish, sugar, bananas), with sources, in place of a fixed farmed share (D23, D30)",
      "status": "done",
      "where": "research/economy/tile_output.md; design.json D23 and D30 research"
+    }
+   ]
+  },
+  {
+   "id": "R21",
+   "date": "2026-11-06",
+   "status": "open",
+   "prompt": "M67",
+   "text": "Dig into the other resources in the game and what could qualify as food",
+   "items": [
+    {
+     "id": "R21.1",
+     "what": "Every resource in the mod from its XML records, and which can count as food and in what role, with nutritional sources (D27, PR.F1)",
+     "status": "open"
     }
    ]
   }
