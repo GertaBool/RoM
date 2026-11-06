@@ -1520,24 +1520,27 @@
   {
    "id": "R36",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M82",
    "text": "\"What you haven't approved by name: the extra roles from my food survey. These are Whale as food, Horse meat and milk, Olives as oil, Sugar, Wine and Alcohol counted for calories, Salt as a preserver, and Lemon against scurvy.\" \n\nThese are good roles to keep in mind, but tea, lemons, apples, bananas and really all fruits in kind including wine grapes should help against scurvy. Scurvy is also mostly related to a diet that is really plain and deficient.",
    "items": [
     {
      "id": "R36.1",
      "what": "Record the R21 roles (Whale as food, Horse meat and milk, Olives as oil, Sugar, Wine and Alcohol for calories, Salt as preserver, Lemon against scurvy) as roles to keep in mind",
-     "status": "open"
+     "status": "done",
+     "where": "round_m82.md section 1; restatement_m80.md 0b"
     },
     {
      "id": "R36.2",
      "what": "Anti-scurvy goods: tea, lemons, apples, bananas and all fruit including wine grapes help against scurvy; read the vitamin C of each from sources and the game's resources",
-     "status": "open"
+     "status": "done",
+     "where": "round_m82.md sections 2-4 (USDA SR Legacy vitamin C per good; brewed tea and wine 0 mg flagged)"
     },
     {
      "id": "R36.3",
      "what": "Scurvy follows a plain, deficient diet: model it through the diet's variety and vitamin C coverage, not through one cure good",
-     "status": "open"
+     "status": "done",
+     "where": "round_m82.md section 4 (coverage of the whole diet into D_DEF and fertility nutrients; PR.F8.T5 text)"
     }
    ]
   }

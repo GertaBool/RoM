@@ -111,7 +111,8 @@ said:
   - Salt as a preserver;
   - Lemon against scurvy.
 
-  You did not object, but you did not approve them by name either.
+  **M82:** kept in view as roles. Scurvy is not Lemon's alone: all fruit (wine grapes included), tea and lemons
+  help, and scurvy follows a plain, deficient diet (`round_m82.md`).
 
 ---
 
