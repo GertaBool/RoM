@@ -135,7 +135,9 @@ coverage_i = min(1, a_i × intake_i / (a_ref_i × need_i))
 - **Salt as a need:** salt per person a day = (sodium need + sweat losses − sodium in the food) ÷ 0.39, since salt is 39 % sodium. Then add the salt used for preserving (D27). From the table: a grain city needs salt, a herding or fishing city much less.
 - **Water** (D31) and hydration (FD.drink) stay as decided.
 
-**Excess, the general comment on health:** the same model takes an upper band. Above a safe level, a nutrient or a harm raises the burden: sodium above the band raises blood pressure; sugar and fat above their bands, "fast food", raise the burden of the diseases of plenty. Bladder stones go with plain grain diets. So health is a band for each nutrient: too little harms, and too much harms.
+*(M84: the upper band is withdrawn; food above need is surplus and goes to storage, and fat quality is context only. See `round_m84.md` section 1. The coverage reading above is corrected in `round_m84.md` section 2: liver is rich in vitamin A, and milk gives iodine inland.)*
+
+**Excess, the general comment on health (withdrawn, M84):** the same model takes an upper band. Above a safe level, a nutrient or a harm raises the burden: sodium above the band raises blood pressure; sugar and fat above their bands, "fast food", raise the burden of the diseases of plenty. Bladder stones go with plain grain diets. So health is a band for each nutrient: too little harms, and too much harms.
 
 **Why this is efficient:**
 - One vector per good, about 13 numbers, read from USDA and MEXT.

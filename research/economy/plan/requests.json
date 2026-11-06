@@ -1642,59 +1642,69 @@
   {
    "id": "R38",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M84",
    "text": "\"Too much also harms, which covers your general comment on health: salt, sugar and fat each have an upper band. No good needs a special rule.\"\n\nThat threshold amount just results in excess food and moving leftovers to long-term storage, fat in itself is not necessarily bad, it depends on the diet of the animals, the freshness and Vitamin E content of the unsaturated oils and their omega 3:6 ratio. This does not have to be mapped, it's just a kind of contextual hint as to what the actual model should consider.\n\n\"Grain and meat lack vitamins C and A, plants lack B12, inland foods lack iodine, and milk lacks iron.\"\n\nLiver has PLENTY of Vitamin A, milk is an inland food and provides iodine.\n\n\"Whale is minor: food for the cultures that eat it, and lamp oil.\"\n\nThe cultures that COULD eat it, those that had active whale hunting and access to whales.\n\n\"Still open: absorption per meal, phytate per good (it affects zinc), the size of each nutrient’s store, and the weights. I couldn’t yet source bound niacin in maize, the cause of pellagra; the US health agency’s pages refused automated access.\"\n\nJust search pubmed and similar sites for bioavailability scores etc.\n\n\"Age structure: none; three groups: children, adults, old; or 18 five-year groups.\"\n\nBetter to abstract it away.\n\n\"City size from people: size = (people ÷ 1,000)^(1/2.8), the inverse of today’s curve, with tile output from the real workers; labour units; or a mix of the two.\"\n\nYou will have to show why this works.\n\n\"Food box: progress in people toward the next size; or the food balance.\"\n\nProgress in people toward the next size\n\n\"Health balance from the engine: good ÷ (good + bad); or a version scaled by city size.\"\n\nNo idea what you mean.\n\n\"Urban share: people not working plots, with the unsanitized share set by the water and sewer level; or from city size alone.\"\n\nSanitation levels are very strongly linked to population density and the presence of mitigating infrastructure. If it is not available, and if hygiene is just not a thing, then it doesn't matter whether it's at 500,000 or 10 million\n\nYes I would probably go by people not working plots when it comes to actual urban density\n\n\"Separate burdens for children (water, crowding, vitamin A) and adults (war, famine). This only applies if you pick the three age groups.\"\n\nAgain, would rather see this abstracted\n\n\"Turn length: the model always runs in yearly steps inside a turn.\"\n\nYes I would like to see this.",
    "items": [
     {
      "id": "R38.1",
      "what": "Excess intake is not a harm band: above need, food is surplus and leftovers go to long-term storage; fat quality (animal diet, freshness, vitamin E, omega 3:6) is context for the model, not mapped",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.2",
      "what": "Correct the coverage reading: liver has plenty of vitamin A; milk is an inland food and provides iodine",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.3",
      "what": "Whale as food only for cultures with active whale hunting and access to whales",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.4",
      "what": "Bioavailability, phytate, stores and bound niacin from PubMed and similar sources",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.5",
      "what": "Age structure abstracted away (crude rates); child and adult burdens abstracted",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.6",
      "what": "Show why city size = (people / 1,000)^(1/2.8) works, with tile output from real workers",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.7",
      "what": "Food box: progress in people toward the next size (decided)",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.8",
      "what": "Explain the health balance from the engine in plain terms",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.9",
      "what": "Urban density from people not working plots; the unsanitized penalty set by density and mitigating infrastructure, not by city size",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     },
     {
      "id": "R38.10",
      "what": "Show the model running in yearly steps inside a turn",
-     "status": "open"
+     "status": "done",
+     "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
     }
    ]
   }

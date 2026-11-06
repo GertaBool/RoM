@@ -69,14 +69,14 @@ def health_burden(x, health=1000, medicine=0, nutr=1000, unsan=0, war=0):
     return d
 
 
-def step(N, rem, food, need=2600, **kw):
+def step(N, rem, food, need=2600, months=12, **kw):
     if N <= 0:
         return 0, 0, 0, 0
     x = food * 1000 // (need * N)
     bk = {k: kw[k] for k in ('nutr', 'econ', 'urban', 'relig', 'educ', 'safety') if k in kw}
     dk = {k: kw[k] for k in ('health', 'medicine', 'nutr', 'unsan', 'war') if k in kw}
     b, d = births(x, **bk), health_burden(x, **dk)
-    total = N * (b - d) + rem                             # people x ppm
+    total = N * (b - d) * months // 12 + rem              # people x ppm; a turn of under a year takes its share
     dN, rem = divmod(total, 1000000) if total >= 0 else (-((-total) // 1000000), -((-total) % 1000000))
     N += dN
     cap = food * 1000 // (need * P['MIN_SHARE'])
@@ -100,6 +100,63 @@ def show(title, rows, every):
     for y, n, b, d in rows:
         if y % every == 0 or y == rows[-1][0]:
             print('  year %4d  people %12s  fertility %5.1f  health burden %5.1f  growth %+5.1f per 1,000' % (y, format(n, ','), b / 1000, d / 1000, (b - d) / 1000))
+
+
+# R38.10 (M84): yearly steps inside a turn, from the game speed's turn increments (CIV4GameSpeedInfo.xml,
+# GameTurnInfos: iMonthIncrement for iTurnsPerIncrement turns; START_YEAR -6000). A turn of 600 months runs 50 yearly
+# steps; a turn of 6 months runs one half step.
+SPEEDS = {
+    'NORMAL': [(600, 40), (300, 100), (240, 120), (120, 50), (60, 80), (24, 80), (12, 60), (6, 150), (3, 20)],
+    'MARATHON': [(300, 160), (180, 100), (120, 100), (60, 180), (24, 201), (12, 129), (6, 180), (3, 264), (1, 156)],
+    'BLITZ': [(2400, 10), (1200, 40), (600, 20), (300, 10), (240, 10), (120, 30), (60, 30), (36, 30), (24, 25), (12, 10)],
+}
+
+
+def run_turns(speed, N, food_by_year, kw_by_year, report_years, start_month=-6000 * 12):
+    """Runs the model turn by turn: each turn runs one step per whole year it spans and one part step for the rest.
+    food_by_year and kw_by_year take the calendar year. Returns {year: (turn, N)} at the first turn end at or past
+    each report year, and the number of steps run."""
+    month, rem, turn, steps, out = start_month, 0, 0, 0, {}
+    todo = sorted(report_years)
+    for inc, n in SPEEDS[speed]:
+        for _ in range(n):
+            left = inc
+            while left > 0:
+                m = min(12, left)
+                y = month // 12
+                N, rem, b, d = step(N, rem, food_by_year(y), months=m, **kw_by_year(y))
+                month += m
+                left -= m
+                steps += 1
+            turn += 1
+            while todo and month // 12 >= todo[0]:
+                out[todo.pop(0)] = (turn, month // 12, N)
+    return out, steps, turn
+
+
+def turns_demo():
+    """One city under three game speeds with the same history by calendar year: its people match at the same years."""
+    def food(y):                          # food in satiety units a year: slow growth, faster after 1700, faster after 1900
+        base = 2000.0 * 1.0006 ** (y + 6000)
+        if y > 1700:
+            base *= 1.012 ** (y - 1700)
+        if y > 1900:
+            base *= 1.01 ** (y - 1900)
+        return int(base) * K
+
+    def kw(y):
+        return {'medicine': 0 if y < 1880 else min(1000, (y - 1880) * 12), 'educ': 0 if y < 1920 else min(1000, (y - 1920) * 15)}
+    years = [-4000, -2000, 0, 1000, 1500, 1800, 1900, 1950, 2000, 2050]
+    print('\nYearly steps inside turns (R38.10): one city, the same history by calendar year, three game speeds')
+    res = {}
+    for sp in SPEEDS:
+        out, steps, turns = run_turns(sp, 1000, food, kw, years)
+        res[sp] = out
+        print('  %-9s %4d turns, %5d steps in all' % (sp, turns, steps))
+    print('  %6s ' % 'year' + ''.join('%28s' % sp for sp in SPEEDS))
+    for y in years:
+        print('  %6d ' % y + ''.join('%28s' % ('turn %d (yr %d): %s' % (res[sp][y][0], res[sp][y][1], format(res[sp][y][2], ','))
+                                               if y in res[sp] else '-') for sp in SPEEDS))
 
 
 K = 2600
@@ -129,6 +186,7 @@ CASES = {
     'religion': lambda: show('11. Two cities with food 20 % above need: religious (fertility x 1.1) and secular with schooling (x 0.9, education 0.5)',
                              run(30, 100000, 120000 * K, relig=1100), 10) or show('    secular',
                              run(30, 100000, 120000 * K, relig=900, educ=500), 10),
+    'turns': turns_demo,
     'zero_food': lambda: show('12. All food lost from year 2', run(3, 10000, lambda y: 0 if y >= 2 else 10000 * K), 1),
 }
 
