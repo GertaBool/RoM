@@ -1040,14 +1040,15 @@
   {
    "id": "R21",
    "date": "2026-11-06",
-   "status": "open",
+   "status": "done",
    "prompt": "M67",
    "text": "Dig into the other resources in the game and what could qualify as food",
    "items": [
     {
      "id": "R21.1",
      "what": "Every resource in the mod from its XML records, and which can count as food and in what role, with nutritional sources (D27, PR.F1)",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/food_resources.md; design.json D27 research"
     }
    ]
   }

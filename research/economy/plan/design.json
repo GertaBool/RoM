@@ -451,7 +451,8 @@
     "Unit combat types (CIV4UnitCombatInfos.xml): living: recon, archer, mounted, melee, gun, spy; machines: siege, wheeled, tracked, helicopter, every ship and aircraft type, assault mech, robot, nanite, missile; unclear: hitech, biological, clones, worker, settler, animal",
     "Fermentation raises cereals' food value and keeping (M54)"
    ],
-   "open": "preserved forms (cured meat, dried fruit, cheese) need processing recipes (IN.F1) or a preservation share per good"
+   "open": "preserved forms (cured meat, dried fruit, cheese) need processing recipes (IN.F1) or a preservation share per good",
+   "research": "research/economy/food_resources.md (R21, M67): all 80 resources from the XML, FAO nutrition per 100 g, food roles; candidates beyond the present classing: Whale and Horse (protein), Olives and Cotton (oil), Sugar, Wine, Alcohol (calories), Salt (preserving), Lemon (scurvy)"
   },
   {
    "id": "D28",
