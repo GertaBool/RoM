@@ -33,31 +33,33 @@ Group: game objects. Functions in line order: what each calls (in order of first
 - **198** `CvPlotGroup::getOwner() const`
   - calls: CvPlotGroup::getOwnerINLINE [CvPlotGroup.h]
 - **204** `CvPlotGroup::getNumBonuses(BonusTypes) const`
-  - called by (6): CvPlayer::getNumAvailableBonuses, CvPlot::getPlotGroupConnectedBonus, CvPlot::setPlotCity, CvPlot::setPlotGroup, CvPlotGroup::changeNumBonuses, CvPlotGroup::hasBonus
+  - called by (6): CvPlayer::getNumAvailableBonuses, CvPlot::getPlotGroupConnectedBonus, CvPlot::setPlotCity, CvPlot::setPlotGroup, CvPlotGroup::changeNumBonuses(BonusTypes, int), CvPlotGroup::hasBonus
 - **212** `CvPlotGroup::hasBonus(BonusTypes)`
   - calls: CvPlotGroup::getNumBonuses
 - **218** `CvPlotGroup::changeNumBonuses(BonusTypes, int)`
-  - calls: CvPlotGroup::getNumBonuses, CvPlotGroup::headPlotsNode, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlotGroup::getOwnerINLINE [CvPlotGroup.h], CvCity::changeNumBonuses [CvCity.cpp], CvPlotGroup::nextPlotsNode
+  - calls: CvPlotGroup::getNumBonuses, CvPlotGroup::headPlotsNode, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlotGroup::getOwnerINLINE [CvPlotGroup.h], CvCity::changeNumBonuses(BonusTypes, int) [CvCity.cpp], CvPlotGroup::nextPlotsNode
+- **257** `CvPlotGroup::changeNumBonuses(std::vector<int, std::allocator<int>> const&)`
+  - calls: CvPlotGroup::nextPlotsNode, CvPlotGroup::headPlotsNode, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::plotSorenINLINE [CvMap.h], CvPlot::getPlotCity [CvPlot.cpp], CvCity::getOwnerINLINE [CvCity.h], CvPlotGroup::getOwnerINLINE [CvPlotGroup.h], CvCity::changeNumBonuses(std::vector<int, std::allocator<int>> const&) [CvCity.cpp]
   - called by (1): CvPlot::updatePlotGroupBonus
-- **255** `CvPlotGroup::insertAtEndPlots(XYCoords)`
+- **287** `CvPlotGroup::insertAtEndPlots(XYCoords)`
   - calls: CLinkList<XYCoords>::insertAtEnd [LinkedList.h]
   - called by (1): CvPlotGroup::addPlot
-- **261** `CvPlotGroup::deletePlotsNode(CLLNode<XYCoords>*)`
+- **293** `CvPlotGroup::deletePlotsNode(CLLNode<XYCoords>*)`
   - calls: CLinkList<XYCoords>::deleteNode [LinkedList.h], CvPlotGroup::getLengthPlots, CvPlayer::deletePlotGroup [CvPlayer.cpp], CvPlayerAI::getPlayer [CvPlayerAI.h], CvPlotGroup::getID, CvPlotGroup::getOwnerINLINE [CvPlotGroup.h]
   - called by (3): CvMap::combinePlotGroups, CvPlotGroup::recalculatePlots, CvPlotGroup::removePlot
-- **276** `CvPlotGroup::nextPlotsNode(CLLNode<XYCoords>*)`
+- **308** `CvPlotGroup::nextPlotsNode(CLLNode<XYCoords>*)`
   - calls: CLinkList<XYCoords>::next [LinkedList.h]
-  - called by (2): CvPlotGroup::changeNumBonuses, CvPlotGroup::removePlot
-- **282** `CvPlotGroup::getLengthPlots()`
+  - called by (3): CvPlotGroup::changeNumBonuses(BonusTypes, int), CvPlotGroup::changeNumBonuses(std::vector<int, std::allocator<int>> const&), CvPlotGroup::removePlot
+- **314** `CvPlotGroup::getLengthPlots()`
   - calls: CLinkList<XYCoords>::getLength [LinkedList.h]
   - called by (4): CvMap::combinePlotGroups, CvPlot::updatePlotGroup(PlayerTypes, bool), CvPlotGroup::deletePlotsNode, CvPlotGroup::recalculatePlots
-- **288** `CvPlotGroup::headPlotsNode()`
+- **320** `CvPlotGroup::headPlotsNode()`
   - calls: CLinkList<XYCoords>::head [LinkedList.h]
-  - called by (4): CvMap::combinePlotGroups, CvPlotGroup::changeNumBonuses, CvPlotGroup::recalculatePlots, CvPlotGroup::removePlot
-- **294** `CvPlotGroup::read(FDataStreamBase*)`
+  - called by (5): CvMap::combinePlotGroups, CvPlotGroup::changeNumBonuses(BonusTypes, int), CvPlotGroup::changeNumBonuses(std::vector<int, std::allocator<int>> const&), CvPlotGroup::recalculatePlots, CvPlotGroup::removePlot
+- **326** `CvPlotGroup::read(FDataStreamBase*)`
   - calls: CvPlotGroup::reset, FDataStreamBase::Read [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CLinkList<XYCoords>::Read [LinkedList.h]
   - called by (1): ReadStreamableFFreeListTrashArray<class CvPlotGroup>
-- **313** `CvPlotGroup::write(FDataStreamBase*)`
+- **345** `CvPlotGroup::write(FDataStreamBase*)`
   - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CLinkList<XYCoords>::Write [LinkedList.h]
   - called by (1): WriteStreamableFFreeListTrashArray<class CvPlotGroup>
 - **·** `CvPlotGroup::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)

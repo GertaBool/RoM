@@ -4,10 +4,10 @@ Group: game objects. Functions in line order: what each calls (in order of first
 
 - **63** `CvPlot::isGraphicsPagedOut() const`
   - called by (1): CvGame::pageGraphics
-- **253** `CvPlot::getX_INLINE() const`
+- **254** `CvPlot::getX_INLINE() const`
   - called by (332): CvCity::applyEvent, CvCity::init, CvCity::kill, CvCity::popOrder, CvCity::setRallyPlot, CvCityAI::AI_bestPlotBuild, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::parseActionHelp, CvGame::createAnimals, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGame::doGlobalWarming …
-- **260** `CvPlot::getY_INLINE() const`
+- **261** `CvPlot::getY_INLINE() const`
   - called by (332): CvCity::applyEvent, CvCity::init, CvCity::kill, CvCity::popOrder, CvCity::setRallyPlot, CvCityAI::AI_bestPlotBuild, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::parseActionHelp, CvGame::createAnimals, CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGame::doGlobalWarming …
-- **348** `CvPlot::getOwnerINLINE() const`
+- **349** `CvPlot::getOwnerINLINE() const`
   - called by (133): CvCity::alterWorkingPlot, CvCity::applyEvent, CvCity::canApplyEvent, CvCity::cultureStrength, CvCityAI::AI_calculateCulturePressure, CvCityAI::AI_countNumBonuses, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_stealPlots, CvDLLButtonPopup::launchDeclareWarMovePopup, CvDLLButtonPopup::launchDoEspionagePopup, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLWidgetData::parseActionHelp …
-- **509** `CvPlot::getPlotBuilder()` (exported)
+- **510** `CvPlot::getPlotBuilder()` (exported)

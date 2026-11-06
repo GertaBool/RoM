@@ -1443,9 +1443,11 @@
      "tasks": [
       {
        "id": "PR.F8.T1",
-       "status": "todo",
+       "status": "done",
        "text": "Rebuild the code map from GitLab claude/settlement-economy (codemap/tool/build.sh, DLL only, toolchain in the scratchpad: msvc/, sdk/)",
-       "done_when": "codemap/skeleton.md names the branch commit; query.py find doGoods returns CvPlayer::doGoods; consumer: every later FD and PR.F7 step"
+       "done_when": "codemap/skeleton.md names the branch commit; query.py find doGoods returns CvPlayer::doGoods; consumer: every later FD and PR.F7 step",
+       "done": "2026-11-06",
+       "note": "codemap rebuilt from GitLab claude/settlement-economy d2a8f756c0fd (DLL only; Python tables carried over from 3eb0194): 13,384 functions; query.py find doGoods -> CvPlayer::doGoods CvPlayer.cpp:15425"
       },
       {
        "id": "PR.F8.T2",

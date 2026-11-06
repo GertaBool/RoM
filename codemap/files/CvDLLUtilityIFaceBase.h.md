@@ -111,7 +111,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **130** `CvDLLUtilityIFaceBase::closeSlot(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvPlayer::setAlive, CvPlayer::setNewPlayerAlive
 - **132** `CvDLLUtilityIFaceBase::getMapScriptName(…)` (virtual; pure virtual, provided by the exe)
-  - called by (1): CvMapGenerator::generateRandomMap
+  - called by (2): CvMap::reset, CvMapGenerator::generateRandomMap
 - **133** `CvDLLUtilityIFaceBase::getTransferredMap(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvInitCore::getMapScriptName
 - **134** `CvDLLUtilityIFaceBase::isDescFileName(…)` (virtual; pure virtual, provided by the exe)
@@ -173,7 +173,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **196** `CvDLLUtilityIFaceBase::fileManagerEnabled(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvXMLLoadUtility::LoadCivXml
 - **198** `CvDLLUtilityIFaceBase::logMsg(…)` (virtual; pure virtual, provided by the exe)
-  - called by (15): CvGame::logMsg, CvGame::pageGraphics, CvGame::updateGraphicsPaging, CvGlobals::getInfoTypeForString, CvGlobals::logInfoTypeMap, CvHandicapInfo::copyNonDefaults, CvPlayer::logMsg, CvTeam::logMsg, CvTechInfo::readPass2, CvXMLLoadUtility::logMLF, CvXMLLoadUtility::logMsg, CvXMLLoadUtility::logXmlDependencyTypes …
+  - called by (17): CvGame::logMsg, CvGame::pageGraphics, CvGame::updateGraphicsPaging, CvGlobals::getInfoTypeForString, CvGlobals::logInfoTypeMap, CvHandicapInfo::copyNonDefaults, CvMap::reset, CvPlayer::logMsg, CvTeam::logMsg, CvTechInfo::readPass2, CvXMLLoadUtility::logMLF, CvXMLLoadUtility::logMsg …
 - **199** `CvDLLUtilityIFaceBase::logMemState(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvMap::init, CvMapGenerator::addGameElements
 - **201** `CvDLLUtilityIFaceBase::getSymbolID(…)` (virtual; pure virtual, provided by the exe)

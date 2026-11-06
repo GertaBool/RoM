@@ -19,21 +19,21 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (31): CvGame::graphicsWindowFromCamera, CvMap::getGridWidth, CvMap::getWidthCoords, CvMap::init, CvMap::isPlotINLINE, CvMap::maxPlotDistance, CvMap::maxStepDistance, CvMap::numPlotsINLINE, CvMap::plotByIndexINLINE, CvMap::plotINLINE, CvMap::plotNumINLINE, CvMap::plotX …
 - **169** `CvMap::getGridHeightINLINE() const`
   - called by (28): CvGame::graphicsWindowFromCamera, CvMap::getGridHeight, CvMap::getHeightCoords, CvMap::init, CvMap::isPlotINLINE, CvMap::maxPlotDistance, CvMap::maxStepDistance, CvMap::numPlotsINLINE, CvMap::plotByIndexINLINE, CvMap::plotINLINE, CvMap::plotYToPointY, CvMap::pointYToPlotY …
-- **188** `CvMap::isWrapXINLINE() const`
+- **193** `CvMap::isWrapXINLINE() const`
   - called by (17): CvGame::circumnavigationAvailable, CvMap::getMapFractalFlags, CvMap::isWrapX, CvMap::maxPlotDistance, CvMap::maxStepDistance, CvMap::plotINLINE, CvMap::setup, CvPlot::calculatePathDistanceToPlot, CvPlot::getLatitudeMinutes, CvPlot::getLongitudeMinutes, CvPlot::isHasPathToEnemyCity, CvPlot::isHasPathToPlayerCity …
-- **195** `CvMap::isWrapYINLINE() const`
+- **200** `CvMap::isWrapYINLINE() const`
   - called by (17): CvGame::circumnavigationAvailable, CvMap::getMapFractalFlags, CvMap::isWrapY, CvMap::maxPlotDistance, CvMap::maxStepDistance, CvMap::plotINLINE, CvMap::setup, CvPlot::calculatePathDistanceToPlot, CvPlot::getLatitudeMinutes, CvPlot::getLongitudeMinutes, CvPlot::isHasPathToEnemyCity, CvPlot::isHasPathToPlayerCity …
-- **202** `CvMap::isWrapINLINE() const`
+- **207** `CvMap::isWrapINLINE() const`
   - called by (1): CvMap::isWrap
-- **222** `CvMap::plotByIndexINLINE(int) const`
+- **227** `CvMap::plotByIndexINLINE(int) const`
   - calls: CvMap::getGridWidthINLINE, CvMap::getGridHeightINLINE
   - called by (108): CvArea::calculateTotalBestNatureYield, CvArea::countCoastalLand, CvDLLButtonPopup::launchMainMenuPopup, CvDeal::startTrade, CvGame::assignStartingPlots, CvGame::createBarbarianCities, CvGame::doGlobalWarming, CvGame::doTurn, CvGame::drawBattleEffects, CvGame::foundBarbarianCity, CvGame::initScoreCalculation, CvGame::normalizeAddRiver …
-- **229** `CvMap::plotINLINE(int, int) const`
+- **234** `CvMap::plotINLINE(int, int) const`
   - calls: CvMap::getGridWidthINLINE, CvMap::isWrapXINLINE, coordRange, CvMap::getGridHeightINLINE, CvMap::isWrapYINLINE, CvMap::isPlotINLINE, CvMap::plotNumINLINE
   - called by (61): CvCity::doTask, CvCity::init, CvDLLButtonPopup::launchDeclareWarMovePopup, CvDLLWidgetData::doGotoTurnEvent, CvGame::applyFlyoutMenu, CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvMap::plot, CvMap::pointToPlot, CvMapGenerator::canPlaceBonusAt, CvMapGenerator::canPlaceGoodyAt, CvPlayer::applyEvent …
-- **239** `CvMap::plotSorenINLINE(int, int) const`
+- **244** `CvMap::plotSorenINLINE(int, int) const`
   - calls: CvMap::plotNumINLINE
-  - called by (35): CvCity::getRallyPlot, CvCity::plot, CvMap::combinePlotGroups, CvMap::init, CvMap::syncRandPlot, CvPlayer::getStartingPlot, CvPlayerAI::AI_advancedStartDoRoute, CvPlot::calculateImprovementYieldChange, CvPlot::getInlandCorner, CvPlotGroup::changeNumBonuses, CvPlotGroup::recalculatePlots, CvPlotGroup::removePlot …
+  - called by (36): CvCity::getRallyPlot, CvCity::plot, CvMap::combinePlotGroups, CvMap::init, CvMap::syncRandPlot, CvPlayer::getStartingPlot, CvPlayerAI::AI_advancedStartDoRoute, CvPlot::calculateImprovementYieldChange, CvPlot::getInlandCorner, CvPlotGroup::changeNumBonuses(BonusTypes, int), CvPlotGroup::changeNumBonuses(std::vector<int, std::allocator<int>> const&), CvPlotGroup::recalculatePlots …
 - **·** `CvGame::`vector deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: CvGame::~CvGame [CvGame.cpp], operator delete(void*) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvGame::~CvGame [CvGame.cpp]

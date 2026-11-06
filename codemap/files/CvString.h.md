@@ -3,7 +3,7 @@
 Group: other. Functions in line order: what each calls (in order of first call), what it takes the address of, and who calls it. Callees in another file carry the file. A virtual callee lists its overrides after ⇢.
 
 - **22** `CvWString::CvWString()`
-  - called by (200): CLLNode<CvWString>::CLLNode<class CvWString>, CvCity::CvCity, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::hurry, CvCity::popOrder, CvCity::pushOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay …
+  - called by (201): CLLNode<CvWString>::CLLNode<class CvWString>, CvCity::CvCity, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::hurry, CvCity::popOrder, CvCity::pushOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay …
 - **23** `CvWString::CvWString(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&)`
   - calls: CvWString::Copy
   - called by (9): CvDLLButtonPopup::launchDetailsPopup, CvEventInfo::read(CvXMLLoadUtility*), CvEventTriggerInfo::read(CvXMLLoadUtility*), CvGameTextMgr::setDateStr, CvPlayer::getBestAttackUnitName, CvPlayer::getCivilizationCityName, CvTechInfo::getQuote, CvVoteSourceInfo::getPopupText, CvVoteSourceInfo::getSecretaryGeneralText
@@ -19,12 +19,12 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **28** `CvWString::CvWString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&)`
   - called by (10): CvPlayer::setName, CvWString::format, CyCity::setName, CyGame::addReplayMessage, CyPlayer::addCityName, CyPlayer::addReminder, CyUnit::setName, operator+(CvWString const&, CvWString const&), operator+(CvWString const&, unsigned short const*), operator+(unsigned short const*, CvWString const&)
 - **34** `CvWString::~CvWString()`
-  - called by (624): CLLNode<CvWString>::CLLNode<class CvWString>, CLLNode<CvWString>::~CLLNode<class CvWString>, CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults …
+  - called by (626): CLLNode<CvWString>::CLLNode<class CvWString>, CLLNode<CvWString>::~CLLNode<class CvWString>, CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults …
 - **37** `CvWString::Copy(char const*)`
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (4): CvWString::CvWString(char const*), CvWString::CvWString(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&), CvWString::operator=(char const*), CvWString::operator=(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&)
 - **52** `CvWString::GetCString() const`
-  - called by (211): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults, CvCameraInfo::copyNonDefaults, CvCameraOverlayInfo::copyNonDefaults …
+  - called by (212): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults, CvCameraInfo::copyNonDefaults, CvCameraOverlayInfo::copyNonDefaults …
 - **55** `CvWString::operator unsigned short const *() const`
   - called by (98): CvCity::getNameKey, CvCity::init, CvCity::setHasCorporation, CvCivicInfo::getWeLoveTheKing, CvCivicInfo::getWeLoveTheKingKey, CvCivilizationInfo::getAdjective, CvCivilizationInfo::getAdjectiveKey, CvCivilizationInfo::getShortDescription, CvCivilizationInfo::getShortDescriptionKey, CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::doDealKill …
 - **61** `CvWString::operator=(unsigned short const*)`
@@ -35,7 +35,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: CvWString::Copy
   - called by (1): CvPlayer::getCivilizationCityName
 - **64** `CvWString::operator=(CvWString const&)`
-  - called by (147): CLLNode<CvWString>::CLLNode<class CvWString>, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setName, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup …
+  - called by (148): CLLNode<CvWString>::CLLNode<class CvWString>, CvCity::doCheckProduction, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setName, CvCity::setNumRealBuildingTimed, CvCity::setWeLoveTheKingDay, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup …
 - **70** `CvWString::operator=(char const*)`
   - calls: CvWString::Copy
   - called by (20): CvCivicInfo::setWeLoveTheKingKey, CvInitCore::getCalendarKey, CvInitCore::getCivAdjective, CvInitCore::getCivAdjectiveKey, CvInitCore::getCivDescription, CvInitCore::getCivDescriptionKey, CvInitCore::getCivPassword, CvInitCore::getCivShortDesc, CvInitCore::getCivShortDescKey, CvInitCore::getClimateKey, CvInitCore::getEraKey, CvInitCore::getFlagDecal …
@@ -82,7 +82,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (3): CvWStringBuffer::append(unsigned short const*), CvWStringBuffer::append(unsigned short), CvWStringBuffer::getCString
 - **204** `CvString::CvString()`
-  - called by (303): , , , CvAdvisorInfo::CvAdvisorInfo, CvAdvisorInfo::read, CvAnimationCategoryInfo::CvAnimationCategoryInfo, CvArtInfoAsset::CvArtInfoAsset(), CvArtInfoAsset::read, CvArtInfoBonus::CvArtInfoBonus(), CvArtInfoBonus::read, CvArtInfoBuilding::CvArtInfoBuilding(), CvArtInfoFeature::FeatureArtModel::FeatureArtModel …
+  - called by (305): , , , CvAdvisorInfo::CvAdvisorInfo, CvAdvisorInfo::read, CvAnimationCategoryInfo::CvAnimationCategoryInfo, CvArtInfoAsset::CvArtInfoAsset(), CvArtInfoAsset::read, CvArtInfoBonus::CvArtInfoBonus(), CvArtInfoBonus::read, CvArtInfoBuilding::CvArtInfoBuilding(), CvArtInfoFeature::FeatureArtModel::FeatureArtModel …
 - **205** `CvString::CvString(int)`
   - called by (6): CvPlot::pickFeatureDummyTag, CvUnitInfo::getEarlyArtDefineTag, CvUnitInfo::getLateArtDefineTag, CvUnitInfo::getMiddleArtDefineTag, CvUnitInfo::getUnitNames, CvYieldInfo::getSymbolPath
 - **206** `CvString::CvString(char const*)`
@@ -94,7 +94,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - calls: CvString::Copy
   - called by (13): CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchPythonScreen, CvEventReporter::newGame, CvInitCore::getCivAdjective, CvInitCore::getCivDescription, CvInitCore::getCivShortDesc, CvInitCore::getLeaderName, CvInitCore::getWBMapScript, CvInitCore::refreshCustomMapOptions, CvInitCore::setAdminPassword, CvInitCore::setCivPassword, CvPlayer::getBestAttackUnitName …
 - **209** `CvString::~CvString()`
-  - called by (751): CvAdvisorInfo::CvAdvisorInfo, CvAdvisorInfo::copyNonDefaults, CvAdvisorInfo::read, CvAdvisorInfo::~CvAdvisorInfo, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationCategoryInfo::~CvAnimationCategoryInfo, CvAnimationPathInfo::copyNonDefaults, CvArtInfoAsset::CvArtInfoAsset(), CvArtInfoAsset::CvArtInfoAsset(CvArtInfoAsset const&), CvArtInfoAsset::read, CvArtInfoAsset::~CvArtInfoAsset, CvArtInfoBonus::read …
+  - called by (755): CvAdvisorInfo::CvAdvisorInfo, CvAdvisorInfo::copyNonDefaults, CvAdvisorInfo::read, CvAdvisorInfo::~CvAdvisorInfo, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationCategoryInfo::~CvAnimationCategoryInfo, CvAnimationPathInfo::copyNonDefaults, CvArtInfoAsset::CvArtInfoAsset(), CvArtInfoAsset::CvArtInfoAsset(CvArtInfoAsset const&), CvArtInfoAsset::read, CvArtInfoAsset::~CvArtInfoAsset, CvArtInfoBonus::read …
 - **213** `CvString::Copy(unsigned short const*)`
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (1): CvString::CvString(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>> const&)
@@ -134,7 +134,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (227): CvAdvisorInfo::copyNonDefaults, CvAnimationCategoryInfo::copyNonDefaults, CvAnimationPathInfo::copyNonDefaults, CvAttachableInfo::copyNonDefaults, CvAutomateInfo::copyNonDefaults, CvBonusClassInfo::copyNonDefaults, CvBonusInfo::copyNonDefaults, CvBonusInfo::getButton, CvBuildInfo::copyNonDefaults, CvBuildingClassInfo::copyNonDefaults, CvBuildingInfo::copyNonDefaults, CvBuildingInfo::getButton …
 - **508** `CvString::Format(char const*, ...)`
   - calls: CvString::formatv, CvString::operator=(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&)
-  - called by (122): CvGame::pageGraphics, CvGame::updateGraphicsPaging, CvGlobals::getInfoTypeForString, CvGlobals::logInfoTypeMap, CvHandicapInfo::copyNonDefaults, CvTechInfo::readPass2, CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization> …
+  - called by (124): CvGame::pageGraphics, CvGame::updateGraphicsPaging, CvGlobals::getInfoTypeForString, CvGlobals::logInfoTypeMap, CvHandicapInfo::copyNonDefaults, CvMap::reset, CvTechInfo::readPass2, CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding> …
 - **·** `CvArtInfoAsset::CvArtInfoAsset(CvArtInfoAsset const&)` (written by the compiler)
   - calls: CvAssetInfoBase::~CvAssetInfoBase [CvInfos.h], CvAssetInfoBase::CvAssetInfoBase(CvAssetInfoBase const&), CvString::CvString(CvString const&), CvString::~CvString
   - called by (6): CvArtInfoCivilization::CvArtInfoCivilization(CvArtInfoCivilization const&), CvArtInfoInterface::CvArtInfoInterface(CvArtInfoInterface const&), CvArtInfoLeaderhead::CvArtInfoLeaderhead(CvArtInfoLeaderhead const&), CvArtInfoMovie::CvArtInfoMovie(CvArtInfoMovie const&), CvArtInfoScalableAsset::CvArtInfoScalableAsset(CvArtInfoScalableAsset const&), CvArtInfoTerrain::CvArtInfoTerrain(CvArtInfoTerrain const&)
@@ -229,7 +229,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **·** `CvImprovementBonusInfo::CvImprovementBonusInfo(CvImprovementBonusInfo const&)` (written by the compiler)
   - calls: CvInfoBase::CvInfoBase(CvInfoBase const&)
 - **·** `CvImprovementInfo::CvImprovementInfo(CvImprovementInfo const&)` (written by the compiler)
-  - calls: CvInfoBase::~CvInfoBase [CvInfos.cpp], CvInfoBase::CvInfoBase(CvInfoBase const&), CvString::CvString(CvString const&)
+  - calls: CvInfoBase::~CvInfoBase [CvInfos.cpp], CvInfoBase::CvInfoBase(CvInfoBase const&), CvString::CvString(CvString const&), CvString::~CvString
 - **·** `CvInfoBase::CvInfoBase(CvInfoBase const&)` (written by the compiler)
   - calls: CvString::CvString(CvString const&), CvString::~CvString, CvWString::CvWString(CvWString const&), CvWString::~CvWString
   - called by (50): CvAssetInfoBase::CvAssetInfoBase(CvAssetInfoBase const&), CvBonusClassInfo::CvBonusClassInfo(CvBonusClassInfo const&), CvBonusInfo::CvBonusInfo(CvBonusInfo const&), CvCivicInfo::CvCivicInfo(CvCivicInfo const&), CvCivicOptionInfo::CvCivicOptionInfo(CvCivicOptionInfo const&), CvCivilizationInfo::CvCivilizationInfo(CvCivilizationInfo const&), CvClimateInfo::CvClimateInfo(CvClimateInfo const&), CvColorInfo::CvColorInfo(CvColorInfo const&), CvCommerceInfo::CvCommerceInfo(CvCommerceInfo const&), CvCultureLevelInfo::CvCultureLevelInfo(CvCultureLevelInfo const&), CvDiplomacyInfo::CvDiplomacyInfo(CvDiplomacyInfo const&), CvDiplomacyTextInfo::CvDiplomacyTextInfo(CvDiplomacyTextInfo const&) …
@@ -303,12 +303,8 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - takes the address of: CvTalkingHeadMessage::~CvTalkingHeadMessage [CvTalkingHeadMessage.cpp]
 - **·** `CLLNode<TradeData>::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CLLNode<TradeData>::~CLLNode<struct TradeData> [LinkedList.h]
-- **·** `CvBonusInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvBonusInfo::~CvBonusInfo [CvInfos.cpp]
 - **·** `CvImprovementBonusInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvImprovementBonusInfo::~CvImprovementBonusInfo [CvInfos.cpp]
-- **·** `CvLeaderHeadInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
-  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvLeaderHeadInfo::~CvLeaderHeadInfo [CvInfos.cpp]
 - **·** `CvString::`scalar deleting dtor'(unsigned int)` (written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvString::~CvString
   - called by (1): CvUnitInfo::copyNonDefaults

@@ -20,7 +20,7 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - called by (4): CvGameTextMgr::getImprovementDataForWB, CvGameTextMgr::getTerrainDataForWB, CvInfoBase::copyNonDefaults, CyInfoPythonInterface1
 - **84** `CvInfoBase::getType() const` (exported; Python: getType)
   - calls: CvString::operator char const * [CvString.h]
-  - called by (259): CvActionInfo::getType, CvAssetInfoBase::getTag, CvCity::getBuildQueue, CvDllTranslator::initializeTags, CvGame::loadBuildQueue, CvHandicapInfo::copyNonDefaults, CvInfoBase::copyNonDefaults, CvInfoBase::isMatchForLink, CvInitCore::getCalendarKey, CvInitCore::getClimateKey, CvInitCore::getEraKey, CvInitCore::getGameSpeedKey …
+  - called by (260): CvActionInfo::getType, CvAssetInfoBase::getTag, CvBonusInfo::read(CvXMLLoadUtility*), CvCity::getBuildQueue, CvDllTranslator::initializeTags, CvGame::loadBuildQueue, CvHandicapInfo::copyNonDefaults, CvInfoBase::copyNonDefaults, CvInfoBase::isMatchForLink, CvInitCore::getCalendarKey, CvInitCore::getClimateKey, CvInitCore::getEraKey …
 - **105** `CvInfoBase::getButton() const` (virtual)
   - calls: CvString::operator char const * [CvString.h]
   - called by (41): CvActionInfo::getButton, CvBonusInfo::getButton, CvBuildingInfo::getButton, CvCity::doCheckProduction, CvCity::getCityBillboardProductionIcon, CvCity::popOrder, CvCity::setCultureLevel, CvCity::setHasCorporation, CvCity::setHasReligion, CvCity::setNumRealBuildingTimed, CvCivilizationInfo::getButton, CvDLLButtonPopup::launchChooseTechPopup …
@@ -370,4789 +370,4809 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
 - **2068** `CvTechInfo::copyNonDefaults(CvTechInfo*)`
   - calls: CvInfoBase::copyNonDefaults, CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvTechInfo::getAdvisorType, CvTechInfo::getAIWeight, CvTechInfo::getAITradeModifier, CvTechInfo::getResearchCost, CvTechInfo::getAdvancedStartCost, CvTechInfo::getAdvancedStartCostIncrease, CvTechInfo::getEra, CvTechInfo::getFirstFreeUnitClass, CvTechInfo::getFeatureProductionModifier, CvTechInfo::getWorkerSpeedModifier, CvTechInfo::getTradeRoutes, CvTechInfo::getHealth, CvTechInfo::getHappiness, CvTechInfo::getFirstFreeTechs, CvTechInfo::getAssetValue, CvTechInfo::getPowerValue, CvTechInfo::isRepeat, CvTechInfo::isTrade, CvTechInfo::isDisable, CvTechInfo::isGoodyTech, CvTechInfo::isExtraWaterSeeFrom, CvTechInfo::isMapCentering, CvTechInfo::isMapVisible, CvTechInfo::isMapTrading, CvTechInfo::isTechTrading, CvTechInfo::isGoldTrading, CvTechInfo::isOpenBordersTrading, CvTechInfo::isDefensivePactTrading, CvTechInfo::isPermanentAllianceTrading, CvTechInfo::isVassalStateTrading, CvTechInfo::isBridgeBuilding, CvTechInfo::isIrrigation, CvTechInfo::isIgnoreIrrigation, CvTechInfo::isWaterWork, CvTechInfo::isRiverTrade, CvTechInfo::getGridX, CvTechInfo::getGridY, CvTechInfo::isCommerceFlexible, CvTechInfo::getDomainExtraMoves, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTechInfo::isTerrainTrade, CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvTechInfo::getFlavorValue, CvTechInfo::setQuoteKey, CvTechInfo::getQuoteKey, CvTechInfo::getSound, CvTechInfo::setSound, CvTechInfo::getSoundMP, CvTechInfo::setSoundMP, CvGlobals::getNUM_OR_TECH_PREREQS [CvGlobals.cpp], CvTechInfo::getPrereqOrTechs, CvGlobals::getNUM_AND_TECH_PREREQS [CvGlobals.cpp], CvTechInfo::getPrereqAndTechs
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvTechInfo>
-- **2169** `CvTechInfo::copyNonDefaultsReadPass2(CvTechInfo*)`
+- **2172** `CvTechInfo::copyNonDefaultsReadPass2(CvTechInfo*)`
   - calls: CvGlobals::getNUM_OR_TECH_PREREQS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTechInfo::getPrereqOrTechs, CvGlobals::getNUM_AND_TECH_PREREQS [CvGlobals.cpp], CvTechInfo::getPrereqAndTechs
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvTechInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvTechInfo>
-- **2276** `CvPromotionInfo::CvPromotionInfo()`
+- **2279** `CvPromotionInfo::CvPromotionInfo()`
   - calls: CvHotkeyInfo::CvHotkeyInfo(), CvString::CvString() [CvString.h], CvHotkeyInfo::~CvHotkeyInfo
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvPromotionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvPromotionInfo>, readInfoArray<class CvPromotionInfo>
-- **2287** `CvPromotionInfo::~CvPromotionInfo()` (virtual)
+- **2290** `CvPromotionInfo::~CvPromotionInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h]
   - called by (1): CvPromotionInfo::`scalar deleting dtor'
-- **2300** `CvPromotionInfo::getLayerAnimationPath() const`
+- **2303** `CvPromotionInfo::getLayerAnimationPath() const`
   - called by (2): CvPromotionInfo::copyNonDefaults, CvUnit::getLayerAnimationPaths
-- **2305** `CvPromotionInfo::getPrereqPromotion() const` (Python: getPrereqPromotion)
+- **2308** `CvPromotionInfo::getPrereqPromotion() const` (Python: getPrereqPromotion)
   - called by (5): CvPromotionInfo::copyNonDefaults, CvPromotionInfo::copyNonDefaultsReadPass2, CvUnit::canAcquirePromotion, CyInfoPythonInterface1, isPromotionValid
-- **2310** `CvPromotionInfo::setPrereqPromotion(int)`
-- **2315** `CvPromotionInfo::getPrereqOrPromotion1() const` (Python: getPrereqOrPromotion1)
+- **2313** `CvPromotionInfo::setPrereqPromotion(int)`
+- **2318** `CvPromotionInfo::getPrereqOrPromotion1() const` (Python: getPrereqOrPromotion1)
   - called by (5): CvPromotionInfo::copyNonDefaults, CvPromotionInfo::copyNonDefaultsReadPass2, CvUnit::canAcquirePromotion, CyInfoPythonInterface1, isPromotionValid
-- **2320** `CvPromotionInfo::setPrereqOrPromotion1(int)`
-- **2325** `CvPromotionInfo::getPrereqOrPromotion2() const` (Python: getPrereqOrPromotion2)
+- **2323** `CvPromotionInfo::setPrereqOrPromotion1(int)`
+- **2328** `CvPromotionInfo::getPrereqOrPromotion2() const` (Python: getPrereqOrPromotion2)
   - called by (5): CvPromotionInfo::copyNonDefaults, CvPromotionInfo::copyNonDefaultsReadPass2, CvUnit::canAcquirePromotion, CyInfoPythonInterface1, isPromotionValid
-- **2330** `CvPromotionInfo::setPrereqOrPromotion2(int)`
-- **2335** `CvPromotionInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **2333** `CvPromotionInfo::setPrereqOrPromotion2(int)`
+- **2338** `CvPromotionInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (4): CvGameTextMgr::buildPromotionString, CvPromotionInfo::copyNonDefaults, CvUnit::canAcquirePromotion, CyInfoPythonInterface1
-- **2340** `CvPromotionInfo::getStateReligionPrereq() const` (Python: getStateReligionPrereq)
+- **2343** `CvPromotionInfo::getStateReligionPrereq() const` (Python: getStateReligionPrereq)
   - called by (3): CvPromotionInfo::copyNonDefaults, CvUnit::canAcquirePromotion, CyInfoPythonInterface1
-- **2345** `CvPromotionInfo::getVisibilityChange() const` (Python: getVisibilityChange)
+- **2348** `CvPromotionInfo::getVisibilityChange() const` (Python: getVisibilityChange)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvPlot::updateSeeFromSight, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2350** `CvPromotionInfo::getMovesChange() const` (Python: getMovesChange)
+- **2353** `CvPromotionInfo::getMovesChange() const` (Python: getMovesChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2355** `CvPromotionInfo::getMoveDiscountChange() const` (Python: getMoveDiscountChange)
+- **2358** `CvPromotionInfo::getMoveDiscountChange() const` (Python: getMoveDiscountChange)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2360** `CvPromotionInfo::getAirRangeChange() const` (Python: getAirRangeChange)
+- **2363** `CvPromotionInfo::getAirRangeChange() const` (Python: getAirRangeChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2365** `CvPromotionInfo::getInterceptChange() const` (Python: getInterceptChange)
+- **2368** `CvPromotionInfo::getInterceptChange() const` (Python: getInterceptChange)
   - called by (7): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::isPromotionValid, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2370** `CvPromotionInfo::getEvasionChange() const` (Python: getEvasionChange)
+- **2373** `CvPromotionInfo::getEvasionChange() const` (Python: getEvasionChange)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::isPromotionValid, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2375** `CvPromotionInfo::getWithdrawalChange() const` (Python: getWithdrawalChange)
+- **2378** `CvPromotionInfo::getWithdrawalChange() const` (Python: getWithdrawalChange)
   - called by (7): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::isPromotionValid, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2380** `CvPromotionInfo::getCargoChange() const` (Python: getCargoChange)
+- **2383** `CvPromotionInfo::getCargoChange() const` (Python: getCargoChange)
   - called by (4): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CyInfoPythonInterface1
-- **2385** `CvPromotionInfo::getCollateralDamageChange() const` (Python: getCollateralDamageChange)
+- **2388** `CvPromotionInfo::getCollateralDamageChange() const` (Python: getCollateralDamageChange)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2390** `CvPromotionInfo::getBombardRateChange() const` (Python: getBombardRateChange)
+- **2393** `CvPromotionInfo::getBombardRateChange() const` (Python: getBombardRateChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2395** `CvPromotionInfo::getFirstStrikesChange() const` (Python: getFirstStrikesChange)
+- **2398** `CvPromotionInfo::getFirstStrikesChange() const` (Python: getFirstStrikesChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2400** `CvPromotionInfo::getChanceFirstStrikesChange() const` (Python: getChanceFirstStrikesChange)
+- **2403** `CvPromotionInfo::getChanceFirstStrikesChange() const` (Python: getChanceFirstStrikesChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2405** `CvPromotionInfo::getEnemyHealChange() const` (Python: getEnemyHealChange)
+- **2408** `CvPromotionInfo::getEnemyHealChange() const` (Python: getEnemyHealChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2410** `CvPromotionInfo::getNeutralHealChange() const` (Python: getNeutralHealChange)
+- **2413** `CvPromotionInfo::getNeutralHealChange() const` (Python: getNeutralHealChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2415** `CvPromotionInfo::getFriendlyHealChange() const` (Python: getFriendlyHealChange)
+- **2418** `CvPromotionInfo::getFriendlyHealChange() const` (Python: getFriendlyHealChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2420** `CvPromotionInfo::getSameTileHealChange() const` (Python: getSameTileHealChange)
+- **2423** `CvPromotionInfo::getSameTileHealChange() const` (Python: getSameTileHealChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2425** `CvPromotionInfo::getAdjacentTileHealChange() const` (Python: getAdjacentTileHealChange)
+- **2428** `CvPromotionInfo::getAdjacentTileHealChange() const` (Python: getAdjacentTileHealChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2430** `CvPromotionInfo::getCombatPercent() const` (Python: getCombatPercent)
+- **2433** `CvPromotionInfo::getCombatPercent() const` (Python: getCombatPercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2435** `CvPromotionInfo::getCityAttackPercent() const` (Python: getCityAttackPercent)
+- **2438** `CvPromotionInfo::getCityAttackPercent() const` (Python: getCityAttackPercent)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2440** `CvPromotionInfo::getCityDefensePercent() const` (Python: getCityDefensePercent)
+- **2443** `CvPromotionInfo::getCityDefensePercent() const` (Python: getCityDefensePercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2445** `CvPromotionInfo::getHillsAttackPercent() const` (Python: getHillsAttackPercent)
+- **2448** `CvPromotionInfo::getHillsAttackPercent() const` (Python: getHillsAttackPercent)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2450** `CvPromotionInfo::getHillsDefensePercent() const` (Python: getHillsDefensePercent)
+- **2453** `CvPromotionInfo::getHillsDefensePercent() const` (Python: getHillsDefensePercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2455** `CvPromotionInfo::getCommandType() const` (Python: getCommandType)
+- **2458** `CvPromotionInfo::getCommandType() const` (Python: getCommandType)
   - called by (3): CvActionInfo::getCommandType, CvXMLLoadUtility::SetGlobalActionInfo, CyInfoPythonInterface1
-- **2460** `CvPromotionInfo::setCommandType(int)`
+- **2463** `CvPromotionInfo::setCommandType(int)`
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **2465** `CvPromotionInfo::getRevoltProtection() const` (Python: getRevoltProtection)
+- **2468** `CvPromotionInfo::getRevoltProtection() const` (Python: getRevoltProtection)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2470** `CvPromotionInfo::getCollateralDamageProtection() const` (Python: getCollateralDamageProtection)
+- **2473** `CvPromotionInfo::getCollateralDamageProtection() const` (Python: getCollateralDamageProtection)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2475** `CvPromotionInfo::getPillageChange() const` (Python: getPillageChange)
+- **2478** `CvPromotionInfo::getPillageChange() const` (Python: getPillageChange)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2480** `CvPromotionInfo::getUpgradeDiscount() const` (Python: getUpgradeDiscount)
+- **2483** `CvPromotionInfo::getUpgradeDiscount() const` (Python: getUpgradeDiscount)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2485** `CvPromotionInfo::getExperiencePercent() const` (Python: getExperiencePercent)
+- **2488** `CvPromotionInfo::getExperiencePercent() const` (Python: getExperiencePercent)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvGameTextMgr::setCombatPlotHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2490** `CvPromotionInfo::getKamikazePercent() const` (Python: getKamikazePercent)
+- **2493** `CvPromotionInfo::getKamikazePercent() const` (Python: getKamikazePercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2495** `CvPromotionInfo::isLeader() const` (Python: isLeader)
+- **2498** `CvPromotionInfo::isLeader() const` (Python: isLeader)
   - called by (6): CvPromotionInfo::copyNonDefaults, CvUnit::canPromote, CvUnit::promote, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2500** `CvPromotionInfo::isBlitz() const` (Python: isBlitz)
+- **2503** `CvPromotionInfo::isBlitz() const` (Python: isBlitz)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2505** `CvPromotionInfo::isAmphib() const` (Python: isAmphib)
+- **2508** `CvPromotionInfo::isAmphib() const` (Python: isAmphib)
   - called by (7): CvGameTextMgr::parsePromotionHelp, CvPlayerAI::AI_unitValue, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2510** `CvPromotionInfo::isRiver() const` (Python: isRiver)
+- **2513** `CvPromotionInfo::isRiver() const` (Python: isRiver)
   - called by (6): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1, isPromotionValid
-- **2515** `CvPromotionInfo::isEnemyRoute() const` (Python: isEnemyRoute)
+- **2518** `CvPromotionInfo::isEnemyRoute() const` (Python: isEnemyRoute)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2520** `CvPromotionInfo::isAlwaysHeal() const` (Python: isAlwaysHeal)
+- **2523** `CvPromotionInfo::isAlwaysHeal() const` (Python: isAlwaysHeal)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2525** `CvPromotionInfo::isHillsDoubleMove() const` (Python: isHillsDoubleMove)
+- **2528** `CvPromotionInfo::isHillsDoubleMove() const` (Python: isHillsDoubleMove)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2530** `CvPromotionInfo::isImmuneToFirstStrikes() const` (Python: isImmuneToFirstStrikes)
+- **2533** `CvPromotionInfo::isImmuneToFirstStrikes() const` (Python: isImmuneToFirstStrikes)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2535** `CvPromotionInfo::getSound() const` (Python: getSound)
+- **2538** `CvPromotionInfo::getSound() const` (Python: getSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (4): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::promote, CyInfoPythonInterface1
-- **2540** `CvPromotionInfo::setSound(char const*)`
+- **2543** `CvPromotionInfo::setSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvPromotionInfo::copyNonDefaults, CvPromotionInfo::read(CvXMLLoadUtility*)
-- **2547** `CvPromotionInfo::getTerrainAttackPercent(int) const` (Python: getTerrainAttackPercent)
+- **2550** `CvPromotionInfo::getTerrainAttackPercent(int) const` (Python: getTerrainAttackPercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2554** `CvPromotionInfo::getTerrainDefensePercent(int) const` (Python: getTerrainDefensePercent)
+- **2557** `CvPromotionInfo::getTerrainDefensePercent(int) const` (Python: getTerrainDefensePercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2561** `CvPromotionInfo::getFeatureAttackPercent(int) const` (Python: getFeatureAttackPercent)
+- **2564** `CvPromotionInfo::getFeatureAttackPercent(int) const` (Python: getFeatureAttackPercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2568** `CvPromotionInfo::getFeatureDefensePercent(int) const` (Python: getFeatureDefensePercent)
+- **2571** `CvPromotionInfo::getFeatureDefensePercent(int) const` (Python: getFeatureDefensePercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2575** `CvPromotionInfo::getUnitCombatModifierPercent(int) const` (Python: getUnitCombatModifierPercent)
+- **2578** `CvPromotionInfo::getUnitCombatModifierPercent(int) const` (Python: getUnitCombatModifierPercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2582** `CvPromotionInfo::getDomainModifierPercent(int) const` (Python: getDomainModifierPercent)
+- **2585** `CvPromotionInfo::getDomainModifierPercent(int) const` (Python: getDomainModifierPercent)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2589** `CvPromotionInfo::getTerrainDoubleMove(int) const` (Python: getTerrainDoubleMove)
+- **2592** `CvPromotionInfo::getTerrainDoubleMove(int) const` (Python: getTerrainDoubleMove)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2596** `CvPromotionInfo::getFeatureDoubleMove(int) const` (Python: getFeatureDoubleMove)
+- **2599** `CvPromotionInfo::getFeatureDoubleMove(int) const` (Python: getFeatureDoubleMove)
   - called by (5): CvGameTextMgr::parsePromotionHelp, CvPromotionInfo::copyNonDefaults, CvUnit::setHasPromotion, CvUnitAI::AI_promotionValue, CyInfoPythonInterface1
-- **2603** `CvPromotionInfo::getUnitCombat(int) const` (Python: getUnitCombat)
+- **2606** `CvPromotionInfo::getUnitCombat(int) const` (Python: getUnitCombat)
   - called by (6): CvCity::addProductionExperience, CvCityAI::AI_bestUnitAI, CvPromotionInfo::copyNonDefaults, CvUnitInfo::canAcquireExperience, CyInfoPythonInterface1, isPromotionValid
-- **2610** `CvPromotionInfo::read(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::read(FDataStreamBase*))
+- **2613** `CvPromotionInfo::read(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::read(FDataStreamBase*))
   - calls: CvHotkeyInfo::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp]
-- **2704** `CvPromotionInfo::write(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::write)
+- **2707** `CvPromotionInfo::write(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::write)
   - calls: CvHotkeyInfo::write, FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp]
   - called by (1): writeInfoArray<class CvPromotionInfo>
-- **2772** `CvPromotionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **2775** `CvPromotionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvPromotionInfo::setSound, CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp]
-- **2847** `CvPromotionInfo::readPass2(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::readPass2)
+- **2850** `CvPromotionInfo::readPass2(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::readPass2)
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::operator char const * [CvString.h]
-- **2877** `CvPromotionInfo::copyNonDefaults(CvPromotionInfo*)`
+- **2880** `CvPromotionInfo::copyNonDefaults(CvPromotionInfo*)`
   - calls: CvHotkeyInfo::copyNonDefaults, CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvPromotionInfo::getSound, CvPromotionInfo::setSound, CvPromotionInfo::getLayerAnimationPath, CvPromotionInfo::getTechPrereq, CvPromotionInfo::getStateReligionPrereq, CvPromotionInfo::isLeader, CvPromotionInfo::isBlitz, CvPromotionInfo::isAmphib, CvPromotionInfo::isRiver, CvPromotionInfo::isEnemyRoute, CvPromotionInfo::isAlwaysHeal, CvPromotionInfo::isHillsDoubleMove, CvPromotionInfo::isImmuneToFirstStrikes, CvPromotionInfo::getVisibilityChange, CvPromotionInfo::getMovesChange, CvPromotionInfo::getMoveDiscountChange, CvPromotionInfo::getAirRangeChange, CvPromotionInfo::getInterceptChange, CvPromotionInfo::getEvasionChange, CvPromotionInfo::getWithdrawalChange, CvPromotionInfo::getCargoChange, CvPromotionInfo::getCollateralDamageChange, CvPromotionInfo::getBombardRateChange, CvPromotionInfo::getFirstStrikesChange, CvPromotionInfo::getChanceFirstStrikesChange, CvPromotionInfo::getEnemyHealChange, CvPromotionInfo::getNeutralHealChange, CvPromotionInfo::getFriendlyHealChange, CvPromotionInfo::getSameTileHealChange, CvPromotionInfo::getAdjacentTileHealChange, CvPromotionInfo::getCombatPercent, CvPromotionInfo::getCityAttackPercent, CvPromotionInfo::getCityDefensePercent, CvPromotionInfo::getHillsAttackPercent, CvPromotionInfo::getHillsDefensePercent, CvPromotionInfo::getRevoltProtection, CvPromotionInfo::getCollateralDamageProtection, CvPromotionInfo::getPillageChange, CvPromotionInfo::getUpgradeDiscount, CvPromotionInfo::getExperiencePercent, CvPromotionInfo::getKamikazePercent, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPromotionInfo::getTerrainAttackPercent, CvPromotionInfo::getTerrainDefensePercent, CvPromotionInfo::getTerrainDoubleMove, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvPromotionInfo::getFeatureAttackPercent, CvPromotionInfo::getFeatureDefensePercent, CvPromotionInfo::getFeatureDoubleMove, CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvPromotionInfo::getUnitCombatModifierPercent, CvPromotionInfo::getUnitCombat, CvPromotionInfo::getDomainModifierPercent, CvPromotionInfo::getPrereqPromotion, CvPromotionInfo::getPrereqOrPromotion1, CvPromotionInfo::getPrereqOrPromotion2
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvPromotionInfo>
-- **2991** `CvPromotionInfo::copyNonDefaultsReadPass2(CvPromotionInfo*)` (virtual)
+- **2994** `CvPromotionInfo::copyNonDefaultsReadPass2(CvPromotionInfo*)` (virtual)
   - calls: CvPromotionInfo::getPrereqPromotion, CvPromotionInfo::getPrereqOrPromotion1, CvPromotionInfo::getPrereqOrPromotion2
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvPromotionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvPromotionInfo>
-- **3020** `CvMissionInfo::CvMissionInfo()` (exported)
+- **3023** `CvMissionInfo::CvMissionInfo()` (exported)
   - calls: CvHotkeyInfo::CvHotkeyInfo(), CvString::CvString() [CvString.h], CvHotkeyInfo::~CvHotkeyInfo
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvMissionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvMissionInfo>
-- **3031** `CvMissionInfo::~CvMissionInfo()` (exported; virtual)
+- **3034** `CvMissionInfo::~CvMissionInfo()` (exported; virtual)
   - calls: CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h]
   - called by (1): CvMissionInfo::`vector deleting dtor'
-- **3035** `CvMissionInfo::getTime() const` (exported; Python: getTime)
+- **3038** `CvMissionInfo::getTime() const` (exported; Python: getTime)
   - called by (27): CvMissionInfo::copyNonDefaults, CvSelectionGroup::groupMove, CvSelectionGroup::startMission, CvSelectionGroup::updateMissionTimer, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::archerBombard, CvUnit::bombard …
-- **3040** `CvMissionInfo::isSound() const` (exported; Python: isSound)
+- **3043** `CvMissionInfo::isSound() const` (exported; Python: isSound)
   - called by (3): CvMissionInfo::copyNonDefaults, CvSelectionGroup::pushMission, CyInfoPythonInterface1
-- **3045** `CvMissionInfo::isTarget() const` (exported; Python: isTarget)
+- **3048** `CvMissionInfo::isTarget() const` (exported; Python: isTarget)
   - called by (2): CvMissionInfo::copyNonDefaults, CyInfoPythonInterface1
-- **3050** `CvMissionInfo::isBuild() const` (exported; Python: isBuild)
+- **3053** `CvMissionInfo::isBuild() const` (exported; Python: isBuild)
   - called by (2): CvMissionInfo::copyNonDefaults, CyInfoPythonInterface1
-- **3055** `CvMissionInfo::getVisible() const` (exported; Python: getVisible)
+- **3058** `CvMissionInfo::getVisible() const` (exported; Python: getVisible)
   - called by (3): CvActionInfo::isVisible, CvMissionInfo::copyNonDefaults, CyInfoPythonInterface1
-- **3060** `CvMissionInfo::getWaypoint() const` (exported; Python: getWaypoint)
+- **3063** `CvMissionInfo::getWaypoint() const` (exported; Python: getWaypoint)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvMissionInfo::copyNonDefaults, CyInfoPythonInterface1
-- **3065** `CvMissionInfo::getEntityEvent() const` (exported)
+- **3068** `CvMissionInfo::getEntityEvent() const` (exported)
   - called by (2): CvMissionInfo::copyNonDefaults, CvPlayer::doEspionageMission
-- **3070** `CvMissionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **3073** `CvMissionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp]
-- **3101** `CvMissionInfo::copyNonDefaults(CvMissionInfo*)`
+- **3104** `CvMissionInfo::copyNonDefaults(CvMissionInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvHotkeyInfo::copyNonDefaults, CvMissionInfo::getWaypoint, CvString::operator=(char const*) [CvString.h], CvMissionInfo::getTime, CvMissionInfo::isSound, CvMissionInfo::isTarget, CvMissionInfo::isBuild, CvMissionInfo::getVisible, CvMissionInfo::getEntityEvent
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvMissionInfo>
-- **3139** `CvControlInfo::CvControlInfo()` (exported)
+- **3142** `CvControlInfo::CvControlInfo()` (exported)
   - calls: CvHotkeyInfo::CvHotkeyInfo()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvControlInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvControlInfo>
-- **3150** `CvControlInfo::~CvControlInfo()` (exported; virtual)
+- **3153** `CvControlInfo::~CvControlInfo()` (exported; virtual)
   - calls: CvHotkeyInfo::~CvHotkeyInfo
   - called by (1): CvControlInfo::`vector deleting dtor'
-- **3154** `CvControlInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **3157** `CvControlInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvHotkeyInfo::read(CvXMLLoadUtility*)
-- **3168** `CvControlInfo::copyNonDefaults(CvControlInfo*)`
+- **3171** `CvControlInfo::copyNonDefaults(CvControlInfo*)`
   - calls: CvHotkeyInfo::copyNonDefaults
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvControlInfo>
-- **3191** `CvCommandInfo::CvCommandInfo()` (exported)
+- **3194** `CvCommandInfo::CvCommandInfo()` (exported)
   - calls: CvHotkeyInfo::CvHotkeyInfo()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvCommandInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCommandInfo>
-- **3202** `CvCommandInfo::~CvCommandInfo()` (exported; virtual)
+- **3205** `CvCommandInfo::~CvCommandInfo()` (exported; virtual)
   - calls: CvHotkeyInfo::~CvHotkeyInfo
   - called by (1): CvCommandInfo::`vector deleting dtor'
-- **3206** `CvCommandInfo::getAutomate() const` (exported)
+- **3209** `CvCommandInfo::getAutomate() const` (exported)
   - called by (3): CvActionInfo::getAutomateType, CvActionInfo::getCommandData, CvCommandInfo::copyNonDefaults
-- **3211** `CvCommandInfo::setAutomate(int)` (exported)
+- **3214** `CvCommandInfo::setAutomate(int)` (exported)
   - called by (2): CvCommandInfo::copyNonDefaults, CvCommandInfo::read
-- **3216** `CvCommandInfo::getConfirmCommand() const` (exported)
+- **3219** `CvCommandInfo::getConfirmCommand() const` (exported)
   - called by (2): CvActionInfo::isConfirmCommand, CvCommandInfo::copyNonDefaults
-- **3221** `CvCommandInfo::getVisible() const` (exported)
+- **3224** `CvCommandInfo::getVisible() const` (exported)
   - called by (2): CvActionInfo::isVisible, CvCommandInfo::copyNonDefaults
-- **3226** `CvCommandInfo::getAll() const` (exported)
+- **3229** `CvCommandInfo::getAll() const` (exported)
   - called by (3): CvCommandInfo::copyNonDefaults, CvDLLWidgetData::parseActionHelp, CvNetDoCommand::Execute
-- **3231** `CvCommandInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **3234** `CvCommandInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvGlobals::getTypesEnum [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCommandInfo::setAutomate, CvString::operator char const * [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **3255** `CvCommandInfo::copyNonDefaults(CvCommandInfo*)`
+- **3258** `CvCommandInfo::copyNonDefaults(CvCommandInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvHotkeyInfo::copyNonDefaults, CvCommandInfo::getAutomate, CvCommandInfo::setAutomate, CvCommandInfo::getConfirmCommand, CvCommandInfo::getVisible, CvCommandInfo::getAll
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCommandInfo>
-- **3291** `CvAutomateInfo::CvAutomateInfo()` (exported)
+- **3294** `CvAutomateInfo::CvAutomateInfo()` (exported)
   - calls: CvHotkeyInfo::CvHotkeyInfo()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvAutomateInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvAutomateInfo>
-- **3302** `CvAutomateInfo::~CvAutomateInfo()` (exported; virtual)
+- **3305** `CvAutomateInfo::~CvAutomateInfo()` (exported; virtual)
   - calls: CvHotkeyInfo::~CvHotkeyInfo
   - called by (1): CvAutomateInfo::`vector deleting dtor'
-- **3306** `CvAutomateInfo::getCommand() const` (exported)
+- **3309** `CvAutomateInfo::getCommand() const` (exported)
   - called by (2): CvActionInfo::getCommandType, CvAutomateInfo::copyNonDefaults
-- **3311** `CvAutomateInfo::setCommand(int)` (exported)
+- **3314** `CvAutomateInfo::setCommand(int)` (exported)
   - called by (2): CvAutomateInfo::copyNonDefaults, CvAutomateInfo::read
-- **3316** `CvAutomateInfo::getAutomate() const` (exported)
+- **3319** `CvAutomateInfo::getAutomate() const` (exported)
   - called by (3): CvActionInfo::getAutomateType, CvActionInfo::getCommandData, CvAutomateInfo::copyNonDefaults
-- **3321** `CvAutomateInfo::setAutomate(int)` (exported)
+- **3324** `CvAutomateInfo::setAutomate(int)` (exported)
   - called by (2): CvAutomateInfo::copyNonDefaults, CvAutomateInfo::read
-- **3326** `CvAutomateInfo::getConfirmCommand() const` (exported)
+- **3329** `CvAutomateInfo::getConfirmCommand() const` (exported)
   - called by (2): CvActionInfo::isConfirmCommand, CvAutomateInfo::copyNonDefaults
-- **3331** `CvAutomateInfo::getVisible() const` (exported)
+- **3334** `CvAutomateInfo::getVisible() const` (exported)
   - called by (2): CvActionInfo::isVisible, CvAutomateInfo::copyNonDefaults
-- **3336** `CvAutomateInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **3339** `CvAutomateInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvAutomateInfo::setCommand, CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvGlobals::getTypesEnum [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvAutomateInfo::setAutomate, CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **3360** `CvAutomateInfo::copyNonDefaults(CvAutomateInfo*)`
+- **3363** `CvAutomateInfo::copyNonDefaults(CvAutomateInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvHotkeyInfo::copyNonDefaults, CvAutomateInfo::getCommand, CvAutomateInfo::setCommand, CvAutomateInfo::getAutomate, CvAutomateInfo::setAutomate, CvAutomateInfo::getConfirmCommand, CvAutomateInfo::getVisible
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvAutomateInfo>
-- **3395** `CvActionInfo::CvActionInfo()` (exported)
+- **3398** `CvActionInfo::CvActionInfo()` (exported)
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **3406** `CvActionInfo::~CvActionInfo()` (exported; virtual)
+- **3409** `CvActionInfo::~CvActionInfo()` (exported; virtual)
   - called by (1): CvActionInfo::`vector deleting dtor'
-- **3410** `CvActionInfo::getMissionData() const` (exported; Python: getMissionData)
+- **3413** `CvActionInfo::getMissionData() const` (exported; Python: getMissionData)
   - called by (5): CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::handleAction, CvUnit::isActionRecommended, CyInfoPythonInterface1
-- **3427** `CvActionInfo::getCommandData() const` (exported; Python: getCommandData)
+- **3430** `CvActionInfo::getCommandData() const` (exported; Python: getCommandData)
   - calls: CvGlobals::getCommandInfo(CommandTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCommandInfo::getAutomate, CvGlobals::getAutomateInfo(int) [CvGlobals.cpp], CvAutomateInfo::getAutomate
   - called by (5): CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::handleAction, CyInfoPythonInterface1
-- **3449** `CvActionInfo::getAutomateType() const` (exported; Python: getAutomateType)
+- **3452** `CvActionInfo::getAutomateType() const` (exported; Python: getAutomateType)
   - calls: CvGlobals::getCommandInfo(CommandTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCommandInfo::getAutomate, CvGlobals::getAutomateInfo(int) [CvGlobals.cpp], CvAutomateInfo::getAutomate
   - called by (2): CvDLLWidgetData::parseActionHelp, CyInfoPythonInterface1
-- **3464** `CvActionInfo::getInterfaceModeType() const` (exported; Python: getInterfaceModeType)
+- **3467** `CvActionInfo::getInterfaceModeType() const` (exported; Python: getInterfaceModeType)
   - called by (4): CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::handleAction, CyInfoPythonInterface1
-- **3473** `CvActionInfo::getMissionType() const` (exported; Python: getMissionType)
+- **3476** `CvActionInfo::getMissionType() const` (exported; Python: getMissionType)
   - calls: CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildInfo::getMissionType, CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp], CvReligionInfo::getMissionType, CvGlobals::getCorporationInfo(CorporationTypes) [CvGlobals.cpp], CvCorporationInfo::getMissionType, CvGlobals::getSpecialistInfo(SpecialistTypes) [CvGlobals.cpp], CvSpecialistInfo::getMissionType, CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvBuildingInfo::getMissionType
   - called by (5): CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::handleAction, CvUnit::isActionRecommended, CyInfoPythonInterface1
-- **3503** `CvActionInfo::getCommandType() const` (exported; Python: getCommandType)
+- **3506** `CvActionInfo::getCommandType() const` (exported; Python: getCommandType)
   - calls: CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvPromotionInfo::getCommandType, CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getCommandType, CvGlobals::getAutomateInfo(int) [CvGlobals.cpp], CvAutomateInfo::getCommand
   - called by (6): CvDLLButtonPopup::OnOkClicked, CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::handleAction, CvUnit::isActionRecommended, CyInfoPythonInterface1
-- **3525** `CvActionInfo::getControlType() const` (exported; Python: getControlType)
+- **3528** `CvActionInfo::getControlType() const` (exported; Python: getControlType)
   - called by (4): CvDLLWidgetData::parseActionHelp, CvGame::canHandleAction, CvGame::handleAction, CyInfoPythonInterface1
-- **3534** `CvActionInfo::getOriginalIndex() const` (exported)
+- **3537** `CvActionInfo::getOriginalIndex() const` (exported)
   - called by (1): CvActionInfo::getHotkeyInfo
-- **3539** `CvActionInfo::setOriginalIndex(int)` (exported)
+- **3542** `CvActionInfo::setOriginalIndex(int)` (exported)
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **3544** `CvActionInfo::isConfirmCommand() const` (exported; Python: isConfirmCommand)
+- **3547** `CvActionInfo::isConfirmCommand() const` (exported; Python: isConfirmCommand)
   - calls: CvGlobals::getCommandInfo(CommandTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCommandInfo::getConfirmCommand, CvGlobals::getAutomateInfo(int) [CvGlobals.cpp], CvAutomateInfo::getConfirmCommand
   - called by (2): CvGame::handleAction, CyInfoPythonInterface1
-- **3558** `CvActionInfo::isVisible() const` (exported; Python: isVisible)
+- **3561** `CvActionInfo::isVisible() const` (exported; Python: isVisible)
   - calls: CvGlobals::getCommandInfo(CommandTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCommandInfo::getVisible, CvGlobals::getAutomateInfo(int) [CvGlobals.cpp], CvAutomateInfo::getVisible, CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp], CvMissionInfo::getVisible, CvGlobals::getInterfaceModeInfo(InterfaceModeTypes) [CvGlobals.cpp], CvInterfaceModeInfo::getVisible
   - called by (1): CyInfoPythonInterface1
-- **3585** `CvActionInfo::getSubType() const` (exported)
+- **3588** `CvActionInfo::getSubType() const` (exported)
   - called by (1): CvActionInfo::getHotkeyInfo
-- **3590** `CvActionInfo::setSubType(ActionSubTypes)` (exported)
+- **3593** `CvActionInfo::setSubType(ActionSubTypes)` (exported)
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **3595** `CvActionInfo::getHotkeyInfo() const`
+- **3598** `CvActionInfo::getHotkeyInfo() const`
   - calls: CvActionInfo::getSubType, CvGlobals::getInterfaceModeInfo(InterfaceModeTypes) [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvActionInfo::getOriginalIndex, CvGlobals::getCommandInfo(CommandTypes) [CvGlobals.cpp], CvGlobals::getBuildInfo(BuildTypes) [CvGlobals.cpp], CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvGlobals::getReligionInfo(ReligionTypes) [CvGlobals.cpp], CvGlobals::getCorporationInfo(CorporationTypes) [CvGlobals.cpp], CvGlobals::getSpecialistInfo(SpecialistTypes) [CvGlobals.cpp], CvGlobals::getBuildingInfo(BuildingTypes) [CvGlobals.cpp], CvGlobals::getControlInfo(ControlTypes) [CvGlobals.cpp], CvGlobals::getAutomateInfo(int) [CvGlobals.cpp], CvGlobals::getMissionInfo(MissionTypes) [CvGlobals.cpp]
   - called by (21): CvActionInfo::getActionInfoIndex, CvActionInfo::getButton, CvActionInfo::getCivilopedia, CvActionInfo::getDescription, CvActionInfo::getHelp, CvActionInfo::getHotKey, CvActionInfo::getHotKeyDescription, CvActionInfo::getHotKeyPriority, CvActionInfo::getHotKeyPriorityAlt, CvActionInfo::getHotKeyVal, CvActionInfo::getHotKeyValAlt, CvActionInfo::getOrderPriority …
-- **3641** `CvActionInfo::getType() const` (exported)
+- **3644** `CvActionInfo::getType() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvInfoBase::getType
-- **3651** `CvActionInfo::getDescription() const` (exported)
+- **3654** `CvActionInfo::getDescription() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvInfoBase::getDescription
-- **3661** `CvActionInfo::getCivilopedia() const` (exported)
+- **3664** `CvActionInfo::getCivilopedia() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvInfoBase::getCivilopedia
-- **3671** `CvActionInfo::getHelp() const` (exported)
+- **3674** `CvActionInfo::getHelp() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvInfoBase::getHelp
-- **3681** `CvActionInfo::getStrategy() const` (exported)
+- **3684** `CvActionInfo::getStrategy() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvInfoBase::getStrategy
-- **3691** `CvActionInfo::getButton() const` (exported; virtual)
+- **3694** `CvActionInfo::getButton() const` (exported; virtual)
   - calls: CvActionInfo::getHotkeyInfo, CvInfoBase::getButton ⇢ CvBuildingInfo::getButton, CvUnitInfo::getButton
-- **3701** `CvActionInfo::getTextKeyWide() const` (exported)
+- **3704** `CvActionInfo::getTextKeyWide() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvInfoBase::getTextKeyWide
   - called by (1): CvDLLButtonPopup::launchConfirmCommandPopup
-- **3711** `CvActionInfo::getActionInfoIndex() const` (exported)
+- **3714** `CvActionInfo::getActionInfoIndex() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::getActionInfoIndex
-- **3721** `CvActionInfo::getHotKeyVal() const` (exported)
+- **3724** `CvActionInfo::getHotKeyVal() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::getHotKeyVal
-- **3731** `CvActionInfo::getHotKeyPriority() const` (exported)
+- **3734** `CvActionInfo::getHotKeyPriority() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::getHotKeyPriority
-- **3741** `CvActionInfo::getHotKeyValAlt() const` (exported)
+- **3744** `CvActionInfo::getHotKeyValAlt() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::getHotKeyValAlt
-- **3751** `CvActionInfo::getHotKeyPriorityAlt() const` (exported)
+- **3754** `CvActionInfo::getHotKeyPriorityAlt() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::getHotKeyPriorityAlt
-- **3761** `CvActionInfo::getOrderPriority() const` (exported)
+- **3764** `CvActionInfo::getOrderPriority() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::getOrderPriority
-- **3771** `CvActionInfo::isAltDown() const` (exported)
+- **3774** `CvActionInfo::isAltDown() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::isAltDown
-- **3781** `CvActionInfo::isShiftDown() const` (exported)
+- **3784** `CvActionInfo::isShiftDown() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::isShiftDown
-- **3791** `CvActionInfo::isCtrlDown() const` (exported)
+- **3794** `CvActionInfo::isCtrlDown() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::isCtrlDown
-- **3801** `CvActionInfo::isAltDownAlt() const` (exported)
+- **3804** `CvActionInfo::isAltDownAlt() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::isAltDownAlt
-- **3811** `CvActionInfo::isShiftDownAlt() const` (exported)
+- **3814** `CvActionInfo::isShiftDownAlt() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::isShiftDownAlt
-- **3821** `CvActionInfo::isCtrlDownAlt() const` (exported)
+- **3824** `CvActionInfo::isCtrlDownAlt() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::isCtrlDownAlt
-- **3831** `CvActionInfo::getHotKey() const` (exported; Python: getHotKey)
+- **3834** `CvActionInfo::getHotKey() const` (exported; Python: getHotKey)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::getHotKey
   - called by (1): CyInfoPythonInterface1
-- **3841** `CvActionInfo::getHotKeyDescription() const` (exported)
+- **3844** `CvActionInfo::getHotKeyDescription() const` (exported)
   - calls: CvActionInfo::getHotkeyInfo, CvHotkeyInfo::getHotKeyDescription
   - called by (1): CvDLLWidgetData::parseActionHelp
-- **4076** `CvUnitInfo::CvUnitInfo()`
+- **4079** `CvUnitInfo::CvUnitInfo()`
   - calls: CvHotkeyInfo::CvHotkeyInfo(), CvString::CvString() [CvString.h], CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h]
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvUnitInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvUnitInfo>, readInfoArray<class CvUnitInfo>
-- **4087** `CvUnitInfo::~CvUnitInfo()` (virtual)
+- **4090** `CvUnitInfo::~CvUnitInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvString::`vector deleting dtor', CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h]
   - called by (1): CvUnitInfo::`scalar deleting dtor'
-- **4149** `CvUnitInfo::getDCMBombRange() const`
+- **4152** `CvUnitInfo::getDCMBombRange() const`
   - called by (3): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::getDCMBombRange, CvUnitInfo::copyNonDefaults
-- **4154** `CvUnitInfo::getDCMBombAccuracy() const`
+- **4157** `CvUnitInfo::getDCMBombAccuracy() const`
   - called by (3): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::getDCMBombAccuracy, CvUnitInfo::copyNonDefaults
-- **4161** `CvUnitInfo::getDCMAirBomb1() const`
+- **4164** `CvUnitInfo::getDCMAirBomb1() const`
   - called by (3): CvUnit::airBomb, CvUnit::canAirBomb1, CvUnitInfo::copyNonDefaults
-- **4166** `CvUnitInfo::getDCMAirBomb2() const`
+- **4169** `CvUnitInfo::getDCMAirBomb2() const`
   - called by (3): CvUnit::airBomb, CvUnit::canAirBomb2, CvUnitInfo::copyNonDefaults
-- **4171** `CvUnitInfo::getDCMAirBomb3() const`
+- **4174** `CvUnitInfo::getDCMAirBomb3() const`
   - called by (3): CvUnit::airBomb, CvUnit::canAirBomb3, CvUnitInfo::copyNonDefaults
-- **4176** `CvUnitInfo::getDCMAirBomb4() const`
+- **4179** `CvUnitInfo::getDCMAirBomb4() const`
   - called by (4): CvUnit::airBomb, CvUnit::canAirBomb4, CvUnit::canAirBombAt, CvUnitInfo::copyNonDefaults
-- **4181** `CvUnitInfo::getDCMAirBomb5() const`
+- **4184** `CvUnitInfo::getDCMAirBomb5() const`
   - called by (3): CvUnit::airBomb, CvUnit::canAirBomb5, CvUnitInfo::copyNonDefaults
-- **4187** `CvUnitInfo::getDCMFighterEngage() const`
+- **4190** `CvUnitInfo::getDCMFighterEngage() const`
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvUnit::canFEngage, CvUnitInfo::copyNonDefaults
-- **4196** `CvUnitInfo::getAIWeight() const` (Python: getAIWeight)
+- **4199** `CvUnitInfo::getAIWeight() const` (Python: getAIWeight)
   - called by (3): CvPlayerAI::AI_unitValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4201** `CvUnitInfo::getProductionCost() const` (Python: getProductionCost)
+- **4204** `CvUnitInfo::getProductionCost() const` (Python: getProductionCost)
   - called by (18): AI_isSacrificeWorth, CvCity::getConscriptPopulation, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_trainInquisitor, CvPlayer::canSpyDestroyUnit, CvPlayer::canTrain, CvPlayer::disbandUnit, CvPlayer::getProductionNeeded(UnitTypes) const, CvPlayerAI::AI_disbandUnit, CvPlayerAI::AI_eventValue, CvPlayerAI::AI_techUnitValue, CvUnit::gift …
-- **4206** `CvUnitInfo::getHurryCostModifier() const` (Python: getHurryCostModifier)
+- **4209** `CvUnitInfo::getHurryCostModifier() const` (Python: getHurryCostModifier)
   - called by (3): CvCity::getHurryCostModifier(UnitTypes, bool) const, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4211** `CvUnitInfo::getAdvancedStartCost() const`
+- **4214** `CvUnitInfo::getAdvancedStartCost() const`
   - called by (2): CvPlayer::getAdvancedStartUnitCost, CvUnitInfo::copyNonDefaults
-- **4216** `CvUnitInfo::getAdvancedStartCostIncrease() const`
+- **4219** `CvUnitInfo::getAdvancedStartCostIncrease() const`
   - called by (2): CvPlayer::getAdvancedStartUnitCost, CvUnitInfo::copyNonDefaults
-- **4221** `CvUnitInfo::getMinAreaSize() const` (Python: getMinAreaSize)
+- **4224** `CvUnitInfo::getMinAreaSize() const` (Python: getMinAreaSize)
   - called by (3): CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4226** `CvUnitInfo::getMoves() const` (Python: getMoves)
+- **4229** `CvUnitInfo::getMoves() const` (Python: getMoves)
   - called by (10): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techUnitValue, CvPlayerAI::AI_unitValue, CvUnit::baseMoves, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **4231** `CvUnitInfo::getAirRange() const` (Python: getAirRange)
+- **4234** `CvUnitInfo::getAirRange() const` (Python: getAirRange)
   - called by (8): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_unitValue, CvUnit::airRange, CvUnitAI::AI_pickup, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, PUF_isFiniteRange
-- **4236** `CvUnitInfo::getAirUnitCap() const` (Python: getAirUnitCap)
+- **4239** `CvUnitInfo::getAirUnitCap() const` (Python: getAirUnitCap)
   - called by (5): CvPlot::countNumAirUnits, CvUnit::canMoveInto, CvUnit::shouldLoadOnMove, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4241** `CvUnitInfo::getDropRange() const` (Python: getDropRange)
+- **4244** `CvUnitInfo::getDropRange() const` (Python: getDropRange)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::getDropRange, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4246** `CvUnitInfo::getNukeRange() const` (Python: getNukeRange)
+- **4249** `CvUnitInfo::getNukeRange() const` (Python: getNukeRange)
   - called by (16): CvGame::canTrainNukes, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setProjectHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canConstruct, CvPlayer::canCreate, CvPlayer::canTrain, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_unitValue, CvUnit::init, CvUnit::kill …
-- **4251** `CvUnitInfo::getWorkRate() const` (Python: getWorkRate)
+- **4254** `CvUnitInfo::getWorkRate() const` (Python: getWorkRate)
   - called by (4): CvPlayer::getWorkRate, CvUnit::workRate, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4256** `CvUnitInfo::getBaseDiscover() const` (Python: getBaseDiscover)
+- **4259** `CvUnitInfo::getBaseDiscover() const` (Python: getBaseDiscover)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setTechTradeHelp, CvUnit::getDiscoverResearch, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4261** `CvUnitInfo::getDiscoverMultiplier() const` (Python: getDiscoverMultiplier)
+- **4264** `CvUnitInfo::getDiscoverMultiplier() const` (Python: getDiscoverMultiplier)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setTechTradeHelp, CvUnit::getDiscoverResearch, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4266** `CvUnitInfo::getBaseHurry() const` (Python: getBaseHurry)
+- **4269** `CvUnitInfo::getBaseHurry() const` (Python: getBaseHurry)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::getMaxHurryProduction, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4271** `CvUnitInfo::getHurryMultiplier() const` (Python: getHurryMultiplier)
+- **4274** `CvUnitInfo::getHurryMultiplier() const` (Python: getHurryMultiplier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::getMaxHurryProduction, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4276** `CvUnitInfo::getBaseTrade() const` (Python: getBaseTrade)
+- **4279** `CvUnitInfo::getBaseTrade() const` (Python: getBaseTrade)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::getTradeGold, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4281** `CvUnitInfo::getTradeMultiplier() const` (Python: getTradeMultiplier)
+- **4284** `CvUnitInfo::getTradeMultiplier() const` (Python: getTradeMultiplier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::getTradeGold, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4286** `CvUnitInfo::getGreatWorkCulture() const` (Python: getGreatWorkCulture)
+- **4289** `CvUnitInfo::getGreatWorkCulture() const` (Python: getGreatWorkCulture)
   - called by (5): CvCityAI::AI_specialistValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::getGreatWorkCulture, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4291** `CvUnitInfo::getEspionagePoints() const` (Python: getEspionagePoints)
+- **4294** `CvUnitInfo::getEspionagePoints() const` (Python: getEspionagePoints)
   - called by (7): CvCity::setGreatPeopleUnitRate, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::canTrain, CvPlayer::getTechFreeUnit, CvUnit::getEspionagePoints, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4296** `CvUnitInfo::getCombat() const` (Python: getCombat)
+- **4299** `CvUnitInfo::getCombat() const` (Python: getCombat)
   - called by (21): CvCityAI::AI_chooseProduction, CvCityAI::AI_doHurry, CvCityAI::AI_doPanic, CvCityAI::AI_goldHurryScore, CvDLLWidgetData::doTrain, CvGame::createBarbarianUnits, CvGame::getBestLandUnitCombat, CvGameAI::AI_combatValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::canReceiveGoody, CvPlayerAI::AI_calculateUnitAIViability, CvPlayerAI::AI_cultureVictoryTechValue …
-- **4301** `CvUnitInfo::setCombat(int)` (Python: setCombat)
+- **4304** `CvUnitInfo::setCombat(int)` (Python: setCombat)
   - called by (1): CyInfoPythonInterface1
-- **4306** `CvUnitInfo::getCombatLimit() const` (Python: getCombatLimit)
+- **4309** `CvUnitInfo::getCombatLimit() const` (Python: getCombatLimit)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::combatLimit, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4311** `CvUnitInfo::getAirCombat() const` (Python: getAirCombat)
+- **4314** `CvUnitInfo::getAirCombat() const` (Python: getAirCombat)
   - called by (10): CvCityAI::AI_chooseProduction, CvDLLWidgetData::doTrain, CvGameAI::AI_combatValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_unitValue, CvTeamAI::AI_getRivalAirPower, CvUnit::airBaseCombatStr, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4316** `CvUnitInfo::getAirCombatLimit() const` (Python: getAirCombatLimit)
+- **4319** `CvUnitInfo::getAirCombatLimit() const` (Python: getAirCombatLimit)
   - called by (3): CvUnit::airCombatLimit, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4321** `CvUnitInfo::getXPValueAttack() const` (Python: getXPValueAttack)
+- **4324** `CvUnitInfo::getXPValueAttack() const` (Python: getXPValueAttack)
   - called by (3): CvUnit::attackXPValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4326** `CvUnitInfo::getXPValueDefense() const` (Python: getXPValueDefense)
+- **4329** `CvUnitInfo::getXPValueDefense() const` (Python: getXPValueDefense)
   - called by (3): CvUnit::defenseXPValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4331** `CvUnitInfo::getFirstStrikes() const` (Python: getFirstStrikes)
+- **4334** `CvUnitInfo::getFirstStrikes() const` (Python: getFirstStrikes)
   - called by (6): CvGameAI::AI_combatValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_techUnitValue, CvUnit::firstStrikes, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4336** `CvUnitInfo::getChanceFirstStrikes() const` (Python: getChanceFirstStrikes)
+- **4339** `CvUnitInfo::getChanceFirstStrikes() const` (Python: getChanceFirstStrikes)
   - called by (6): CvGameAI::AI_combatValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_techUnitValue, CvUnit::chanceFirstStrikes, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4341** `CvUnitInfo::getInterceptionProbability() const` (Python: getInterceptionProbability)
+- **4344** `CvUnitInfo::getInterceptionProbability() const` (Python: getInterceptionProbability)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_unitValue, CvUnit::maxInterceptionProbability, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **4346** `CvUnitInfo::getEvasionProbability() const` (Python: getEvasionProbability)
+- **4349** `CvUnitInfo::getEvasionProbability() const` (Python: getEvasionProbability)
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::evasionProbability, CvUnit::nuke, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4351** `CvUnitInfo::getWithdrawalProbability() const` (Python: getWithdrawalProbability)
+- **4354** `CvUnitInfo::getWithdrawalProbability() const` (Python: getWithdrawalProbability)
   - called by (8): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_techUnitValue, CvPlayerAI::AI_unitValue, CvUnit::isPromotionValid, CvUnit::withdrawalProbability, CvUnitAI::AI_promotionValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4356** `CvUnitInfo::getCollateralDamage() const` (Python: getCollateralDamage)
+- **4359** `CvUnitInfo::getCollateralDamage() const` (Python: getCollateralDamage)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_techUnitValue, CvPlayerAI::AI_unitValue, CvUnit::collateralDamage, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **4361** `CvUnitInfo::getCollateralDamageLimit() const` (Python: getCollateralDamageLimit)
+- **4364** `CvUnitInfo::getCollateralDamageLimit() const` (Python: getCollateralDamageLimit)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::collateralDamageLimit, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **4366** `CvUnitInfo::getCollateralDamageMaxUnits() const` (Python: getCollateralDamageMaxUnits)
+- **4369** `CvUnitInfo::getCollateralDamageMaxUnits() const` (Python: getCollateralDamageMaxUnits)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::collateralDamageMaxUnits, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **4371** `CvUnitInfo::getCityAttackModifier() const` (Python: getCityAttackModifier)
+- **4374** `CvUnitInfo::getCityAttackModifier() const` (Python: getCityAttackModifier)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_techUnitValue, CvPlayerAI::AI_unitValue, CvUnit::cityAttackModifier, CvUnitAI::AI_promotionValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4376** `CvUnitInfo::getCityDefenseModifier() const` (Python: getCityDefenseModifier)
+- **4379** `CvUnitInfo::getCityDefenseModifier() const` (Python: getCityDefenseModifier)
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::cityDefenseModifier, CvUnitAI::AI_promotionValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4381** `CvUnitInfo::getAnimalCombatModifier() const` (Python: getAnimalCombatModifier)
+- **4384** `CvUnitInfo::getAnimalCombatModifier() const` (Python: getAnimalCombatModifier)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setCombatPlotHelp, CvUnit::animalCombatModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4386** `CvUnitInfo::getHillsAttackModifier() const` (Python: getHillsAttackModifier)
+- **4389** `CvUnitInfo::getHillsAttackModifier() const` (Python: getHillsAttackModifier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::hillsAttackModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4391** `CvUnitInfo::getHillsDefenseModifier() const` (Python: getHillsDefenseModifier)
+- **4394** `CvUnitInfo::getHillsDefenseModifier() const` (Python: getHillsDefenseModifier)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::hillsDefenseModifier, CvUnitAI::AI_promotionValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4396** `CvUnitInfo::getBombRate() const` (Python: getBombRate)
+- **4399** `CvUnitInfo::getBombRate() const` (Python: getBombRate)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_calculateTotalBombard, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_unitValue, CvUnit::airBombBaseRate, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4401** `CvUnitInfo::getBombardRate() const` (Python: getBombardRate)
+- **4404** `CvUnitInfo::getBombardRate() const` (Python: getBombardRate)
   - called by (9): CvCityAI::AI_chooseProduction, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_calculateTotalBombard, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_techUnitValue, CvPlayerAI::AI_unitValue, CvUnit::bombardRate, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4406** `CvUnitInfo::getSpecialCargo() const` (Python: getSpecialCargo)
+- **4409** `CvUnitInfo::getSpecialCargo() const` (Python: getSpecialCargo)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::getUpgradeCity(UnitTypes, bool, int*) const, CvUnit::specialCargo, CvUnitAI::AI_escortSeaMove, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4411** `CvUnitInfo::getDomainCargo() const` (Python: getDomainCargo)
+- **4414** `CvUnitInfo::getDomainCargo() const` (Python: getDomainCargo)
   - called by (4): CvUnit::domainCargo, CvUnit::getUpgradeCity(UnitTypes, bool, int*) const, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4416** `CvUnitInfo::getCargoSpace() const` (Python: getCargoSpace)
+- **4419** `CvUnitInfo::getCargoSpace() const` (Python: getCargoSpace)
   - called by (11): CvCityAI::AI_chooseProduction, CvCityAI::AI_goldHurryScore, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_techUnitValue, CvPlayerAI::AI_unitValue, CvPlayerAI::AI_updateSettleReach, CvUnit::getUpgradeCity(UnitTypes, bool, int*) const, CvUnit::reset, CvUnitAI::AI_attackAirMove, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4421** `CvUnitInfo::getConscriptionValue() const` (Python: getConscriptionValue)
+- **4424** `CvUnitInfo::getConscriptionValue() const` (Python: getConscriptionValue)
   - called by (3): CvCity::getConscriptUnit, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4426** `CvUnitInfo::getCultureGarrisonValue() const` (Python: getCultureGarrisonValue)
+- **4429** `CvUnitInfo::getCultureGarrisonValue() const` (Python: getCultureGarrisonValue)
   - called by (3): CvCity::cultureGarrison, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4431** `CvUnitInfo::getExtraCost() const` (Python: getExtraCost)
+- **4434** `CvUnitInfo::getExtraCost() const` (Python: getExtraCost)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::disbandUnit, CvPlayerAI::AI_disbandUnit, CvUnit::init, CvUnit::kill, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4436** `CvUnitInfo::getAssetValue() const` (Python: getAssetValue)
+- **4439** `CvUnitInfo::getAssetValue() const` (Python: getAssetValue)
   - called by (6): CvUnit::LFBgetDefenderOdds, CvUnit::init, CvUnit::isBetterDefenderThan(CvUnit const*, CvUnit const*, int*) const, CvUnit::kill, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4441** `CvUnitInfo::getPowerValue() const` (Python: getPowerValue)
+- **4444** `CvUnitInfo::getPowerValue() const` (Python: getPowerValue)
   - called by (7): CvPlot::getUnitPower, CvTeamAI::AI_getRivalAirPower, CvUnit::init, CvUnit::kill, CvUnit::setXY, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4446** `CvUnitInfo::getUnitClassType() const` (Python: getUnitClassType)
+- **4449** `CvUnitInfo::getUnitClassType() const` (Python: getUnitClassType)
   - called by (27): CvCity::doCheckProduction, CvCity::isProductionLimited, CvCity::popOrder, CvCity::pushOrder, CvDLLButtonPopup::launchProductionPopup, CvGame::isUnitEverActive, CvGame::loadBuildQueue, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvPlayer::getProductionNeeded(UnitTypes) const, CvPlayerAI::AI_baseBonusVal …
-- **4451** `CvUnitInfo::getSpecialUnitType() const` (Python: getSpecialUnitType)
+- **4454** `CvUnitInfo::getSpecialUnitType() const` (Python: getSpecialUnitType)
   - called by (7): CvGameTextMgr::setProductionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvPlayer::getProductionModifier(UnitTypes) const, CvUnit::getSpecialUnitType, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4456** `CvUnitInfo::getUnitCaptureClassType() const` (Python: getUnitCaptureClassType)
+- **4459** `CvUnitInfo::getUnitCaptureClassType() const` (Python: getUnitCaptureClassType)
   - called by (4): CvUnit::getCaptureUnitType, CvUnit::setXY, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4461** `CvUnitInfo::getUnitCombatType() const` (Python: getUnitCombatType)
+- **4464** `CvUnitInfo::getUnitCombatType() const` (Python: getUnitCombatType)
   - called by (15): CvCity::canTrain(UnitCombatTypes) const, CvCity::getProductionExperience, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_bestAdvancedStartUnitAI, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_unitValue, CvUnit::canArcherBombard, CvUnit::getUnitCombatType, CvUnit::isTargetOf …
-- **4466** `CvUnitInfo::getDomainType() const` (Python: getDomainType)
+- **4469** `CvUnitInfo::getDomainType() const` (Python: getDomainType)
   - called by (25): CvCity::getProductionExperience, CvCity::getProductionModifier(UnitTypes) const, CvCity::popOrder, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvGame::createBarbarianUnits, CvGame::getUnitDomain, CvGameAI::AI_combatValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setProductionHelp, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_calculateTotalBombard …
-- **4471** `CvUnitInfo::getDefaultUnitAIType() const` (Python: getDefaultUnitAIType)
+- **4474** `CvUnitInfo::getDefaultUnitAIType() const` (Python: getDefaultUnitAIType)
   - called by (15): CvCity::doCheckProduction, CvCity::pushOrder, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_chooseUnit(UnitTypes, UnitAITypes), CvCityAI::AI_updateSpecialYieldMultiplier, CvPlayer::addFreeUnit, CvPlayer::initUnit, CvPlayerAI::AI_bestCityUnitAIValue, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techUnitValue …
-- **4476** `CvUnitInfo::getInvisibleType() const` (Python: getInvisibleType)
+- **4479** `CvUnitInfo::getInvisibleType() const` (Python: getInvisibleType)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::getInvisibleType, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4481** `CvUnitInfo::getSeeInvisibleType(int) const` (Python: getSeeInvisibleType)
+- **4484** `CvUnitInfo::getSeeInvisibleType(int) const` (Python: getSeeInvisibleType)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::getSeeInvisibleType, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4488** `CvUnitInfo::getNumSeeInvisibleTypes() const` (Python: getNumSeeInvisibleTypes)
+- **4491** `CvUnitInfo::getNumSeeInvisibleTypes() const` (Python: getNumSeeInvisibleTypes)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::getNumSeeInvisibleTypes, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4493** `CvUnitInfo::getAdvisorType() const` (Python: getAdvisorType)
+- **4496** `CvUnitInfo::getAdvisorType() const` (Python: getAdvisorType)
   - called by (4): CvCityAI::AI_bestUnitAI, CvDLLButtonPopup::launchProductionPopup, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4503** `CvUnitInfo::getMaxStartEra() const` (Python: getMaxStartEra)
+- **4506** `CvUnitInfo::getMaxStartEra() const` (Python: getMaxStartEra)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4508** `CvUnitInfo::getForceObsoleteTech() const` (Python: getForceObsoleteTech)
+- **4511** `CvUnitInfo::getForceObsoleteTech() const` (Python: getForceObsoleteTech)
   - called by (3): CvPlayer::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4513** `CvUnitInfo::isStateReligion() const` (Python: isStateReligion)
+- **4516** `CvUnitInfo::isStateReligion() const` (Python: isStateReligion)
   - called by (6): CvCity::isPlotTrainable, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4518** `CvUnitInfo::getPrereqGameOption() const` (Python: getPrereqGameOption)
+- **4521** `CvUnitInfo::getPrereqGameOption() const` (Python: getPrereqGameOption)
   - called by (3): CvPlayer::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4523** `CvUnitInfo::getNotGameOption() const` (Python: getNotGameOption)
+- **4526** `CvUnitInfo::getNotGameOption() const` (Python: getNotGameOption)
   - called by (3): CvPlayer::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4531** `CvUnitInfo::getHolyCity() const` (Python: getHolyCity)
+- **4534** `CvUnitInfo::getHolyCity() const` (Python: getHolyCity)
   - called by (4): CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4536** `CvUnitInfo::getReligionType() const` (Python: getReligionType)
+- **4539** `CvUnitInfo::getReligionType() const` (Python: getReligionType)
   - called by (2): CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4541** `CvUnitInfo::getStateReligion() const` (Python: getStateReligion)
+- **4544** `CvUnitInfo::getStateReligion() const` (Python: getStateReligion)
   - called by (3): CvPlayer::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4546** `CvUnitInfo::getPrereqReligion() const` (Python: getPrereqReligion)
+- **4549** `CvUnitInfo::getPrereqReligion() const` (Python: getPrereqReligion)
   - called by (5): CvCityAI::AI_buildingValueThreshold, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
-- **4551** `CvUnitInfo::getPrereqCorporation() const` (Python: getPrereqCorporation)
+- **4554** `CvUnitInfo::getPrereqCorporation() const` (Python: getPrereqCorporation)
   - called by (4): CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
-- **4556** `CvUnitInfo::getPrereqBuilding() const` (Python: getPrereqBuilding)
+- **4559** `CvUnitInfo::getPrereqBuilding() const` (Python: getPrereqBuilding)
   - called by (8): CvCity::isPlotTrainable, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_techBuildingValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
-- **4561** `CvUnitInfo::getPrereqAndTech() const` (Python: getPrereqAndTech)
+- **4564** `CvUnitInfo::getPrereqAndTech() const` (Python: getPrereqAndTech)
   - called by (15): CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_calculateUnitAIViability, CvPlayerAI::AI_doEnemyUnitData, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techUnitValue, CvTeamAI::AI_getTechMonopolyValue …
-- **4566** `CvUnitInfo::getPrereqAndBonus() const` (Python: getPrereqAndBonus)
+- **4569** `CvUnitInfo::getPrereqAndBonus() const` (Python: getPrereqAndBonus)
   - called by (11): CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
-- **4571** `CvUnitInfo::getGroupSize() const` (Python: getGroupSize)
+- **4574** `CvUnitInfo::getGroupSize() const` (Python: getGroupSize)
   - called by (5): CvUnit::getGroupSize, CvUnit::getSubUnitCount, CvUnit::getSubUnitsAlive(int) const, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4576** `CvUnitInfo::getGroupDefinitions() const` (Python: getGroupDefinitions)
+- **4579** `CvUnitInfo::getGroupDefinitions() const` (Python: getGroupDefinitions)
   - called by (6): CvUnit::getGroupDefinitions, CvUnit::isRanged, CvUnitArtStyleTypeInfo::copyNonDefaults, CvUnitArtStyleTypeInfo::read, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4581** `CvUnitInfo::getMeleeWaveSize() const` (Python: getMeleeWaveSize)
+- **4584** `CvUnitInfo::getMeleeWaveSize() const` (Python: getMeleeWaveSize)
   - called by (3): CvUnit::computeWaveSize, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4586** `CvUnitInfo::getRangedWaveSize() const` (Python: getRangedWaveSize)
+- **4589** `CvUnitInfo::getRangedWaveSize() const` (Python: getRangedWaveSize)
   - called by (3): CvUnit::computeWaveSize, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4591** `CvUnitInfo::getNumUnitNames() const` (Python: getNumUnitNames)
+- **4594** `CvUnitInfo::getNumUnitNames() const` (Python: getNumUnitNames)
   - called by (3): CvUnit::init, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4596** `CvUnitInfo::isAnimal() const` (Python: isAnimal)
+- **4599** `CvUnitInfo::isAnimal() const` (Python: isAnimal)
   - called by (5): CvGameTextMgr::setPlotListHelp, CvPlayerAI::AI_unitValue, CvUnit::isAnimal, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4601** `CvUnitInfo::isFoodProduction() const` (Python: isFoodProduction)
+- **4604** `CvUnitInfo::isFoodProduction() const` (Python: isFoodProduction)
   - called by (4): CvCity::isFoodProduction(UnitTypes) const, CvCityAI::AI_updateBestBuild, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4606** `CvUnitInfo::isNoBadGoodies() const` (Python: isNoBadGoodies)
+- **4609** `CvUnitInfo::isNoBadGoodies() const` (Python: isNoBadGoodies)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::isNoBadGoodies, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4611** `CvUnitInfo::isOnlyDefensive() const` (Python: isOnlyDefensive)
+- **4614** `CvUnitInfo::isOnlyDefensive() const` (Python: isOnlyDefensive)
   - called by (8): CvGame::createBarbarianUnits, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::canReceiveGoody, CvPlayerAI::AI_unitValue, CvUnit::isOnlyDefensive, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **4616** `CvUnitInfo::isNoCapture() const` (Python: isNoCapture)
+- **4619** `CvUnitInfo::isNoCapture() const` (Python: isNoCapture)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::isNoCapture, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4621** `CvUnitInfo::isQuickCombat() const`
+- **4624** `CvUnitInfo::isQuickCombat() const`
   - called by (2): CvUnit::isCombatVisible, CvUnitInfo::copyNonDefaults
-- **4626** `CvUnitInfo::isRivalTerritory() const` (Python: isRivalTerritory)
+- **4629** `CvUnitInfo::isRivalTerritory() const` (Python: isRivalTerritory)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::isRivalTerritory, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4631** `CvUnitInfo::isMilitaryHappiness() const` (Python: isMilitaryHappiness)
+- **4634** `CvUnitInfo::isMilitaryHappiness() const` (Python: isMilitaryHappiness)
   - called by (3): CvUnit::isMilitaryHappiness, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4636** `CvUnitInfo::isMilitarySupport() const` (Python: isMilitarySupport)
+- **4639** `CvUnitInfo::isMilitarySupport() const` (Python: isMilitarySupport)
   - called by (6): CvGameTextMgr::getUnitDataForAS, CvPlayer::getAdvancedStartUnitCost, CvUnit::init, CvUnit::kill, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4641** `CvUnitInfo::isMilitaryProduction() const` (Python: isMilitaryProduction)
+- **4644** `CvUnitInfo::isMilitaryProduction() const` (Python: isMilitaryProduction)
   - called by (6): CvCity::getProductionModifier(UnitTypes) const, CvCity::isFoodProduction(UnitTypes) const, CvGameTextMgr::setProductionHelp, CvPlayer::getProductionModifier(UnitTypes) const, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4646** `CvUnitInfo::isPillage() const` (Python: isPillage)
+- **4649** `CvUnitInfo::isPillage() const` (Python: isPillage)
   - called by (4): CvUnit::canPillage, CvUnit::canPlunder, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4651** `CvUnitInfo::isSpy() const` (Python: isSpy)
+- **4654** `CvUnitInfo::isSpy() const` (Python: isSpy)
   - called by (7): CvCity::getProductionExperience, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::canTrain, CvUnit::isSpy, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **4656** `CvUnitInfo::isSabotage() const` (Python: isSabotage)
+- **4659** `CvUnitInfo::isSabotage() const` (Python: isSabotage)
   - called by (4): CvPlayerAI::AI_unitValue, CvUnit::canSabotage, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4661** `CvUnitInfo::isDestroy() const` (Python: isDestroy)
+- **4664** `CvUnitInfo::isDestroy() const` (Python: isDestroy)
   - called by (4): CvPlayerAI::AI_unitValue, CvUnit::canDestroy, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4666** `CvUnitInfo::isStealPlans() const` (Python: isStealPlans)
+- **4669** `CvUnitInfo::isStealPlans() const` (Python: isStealPlans)
   - called by (3): CvUnit::canStealPlans, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4671** `CvUnitInfo::isInvestigate() const` (Python: isInvestigate)
+- **4674** `CvUnitInfo::isInvestigate() const` (Python: isInvestigate)
   - called by (3): CvUnit::isInvestigate, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4676** `CvUnitInfo::isCounterSpy() const` (Python: isCounterSpy)
+- **4679** `CvUnitInfo::isCounterSpy() const` (Python: isCounterSpy)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::isCounterSpy, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4681** `CvUnitInfo::isFound() const` (Python: isFound)
+- **4684** `CvUnitInfo::isFound() const` (Python: isFound)
   - called by (11): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::addFreeUnit, CvPlayer::canReceiveGoody, CvPlayer::canTrain, CvPlayer::init, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects, CvPlayerAI::AI_unitValue, CvUnit::isFound, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4686** `CvUnitInfo::isGoldenAge() const` (Python: isGoldenAge)
+- **4689** `CvUnitInfo::isGoldenAge() const` (Python: isGoldenAge)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::isGoldenAge, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4691** `CvUnitInfo::isInvisible() const` (Python: isInvisible)
+- **4694** `CvUnitInfo::isInvisible() const` (Python: isInvisible)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::alwaysInvisible, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4696** `CvUnitInfo::setInvisible(bool)` (Python: setInvisible)
+- **4699** `CvUnitInfo::setInvisible(bool)` (Python: setInvisible)
   - called by (1): CyInfoPythonInterface1
-- **4701** `CvUnitInfo::isFirstStrikeImmune() const` (Python: isFirstStrikeImmune)
+- **4704** `CvUnitInfo::isFirstStrikeImmune() const` (Python: isFirstStrikeImmune)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::immuneToFirstStrikes, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4706** `CvUnitInfo::isNoDefensiveBonus() const` (Python: isNoDefensiveBonus)
+- **4709** `CvUnitInfo::isNoDefensiveBonus() const` (Python: isNoDefensiveBonus)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::noDefensiveBonus, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4711** `CvUnitInfo::isIgnoreBuildingDefense() const` (Python: isIgnoreBuildingDefense)
+- **4714** `CvUnitInfo::isIgnoreBuildingDefense() const` (Python: isIgnoreBuildingDefense)
   - called by (8): CvCityAI::AI_buildingValueThreshold, CvGame::selectionListIgnoreBuildingDefense, CvPlayerAI::AI_calculateTotalBombard, CvPlayerAI::AI_unitValue, CvUnit::ignoreBuildingDefense, CvUnit::setCombatUnit, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4716** `CvUnitInfo::isCanMoveImpassable() const` (Python: isCanMoveImpassable)
+- **4719** `CvUnitInfo::isCanMoveImpassable() const` (Python: isCanMoveImpassable)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::getAdvancedStartUnitCost, CvUnit::canMoveImpassable, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4721** `CvUnitInfo::isCanMoveAllTerrain() const` (Python: isCanMoveAllTerrain)
+- **4724** `CvUnitInfo::isCanMoveAllTerrain() const` (Python: isCanMoveAllTerrain)
   - called by (3): CvUnit::canMoveAllTerrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4726** `CvUnitInfo::isFlatMovementCost() const` (Python: isFlatMovementCost)
+- **4729** `CvUnitInfo::isFlatMovementCost() const` (Python: isFlatMovementCost)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::flatMovementCost, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4731** `CvUnitInfo::isIgnoreTerrainCost() const` (Python: isIgnoreTerrainCost)
+- **4734** `CvUnitInfo::isIgnoreTerrainCost() const` (Python: isIgnoreTerrainCost)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::ignoreTerrainCost, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **4736** `CvUnitInfo::isNukeImmune() const` (Python: isNukeImmune)
+- **4739** `CvUnitInfo::isNukeImmune() const` (Python: isNukeImmune)
   - called by (3): CvUnit::isNukeImmune, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4741** `CvUnitInfo::isPrereqBonuses() const` (Python: isPrereqBonuses)
+- **4744** `CvUnitInfo::isPrereqBonuses() const` (Python: isPrereqBonuses)
   - called by (3): CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4746** `CvUnitInfo::isPrereqReligion() const` (Python: isPrereqReligion)
+- **4749** `CvUnitInfo::isPrereqReligion() const` (Python: isPrereqReligion)
   - called by (3): CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4751** `CvUnitInfo::isMechUnit() const` (Python: isMechUnit)
+- **4754** `CvUnitInfo::isMechUnit() const` (Python: isMechUnit)
   - called by (3): CvUnit::isMechUnit, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4756** `CvUnitInfo::isRenderBelowWater() const` (Python: isRenderBelowWater)
+- **4759** `CvUnitInfo::isRenderBelowWater() const` (Python: isRenderBelowWater)
   - called by (3): CvUnit::isRenderBelowWater, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4761** `CvUnitInfo::isRenderAlways() const`
+- **4764** `CvUnitInfo::isRenderAlways() const`
   - called by (2): CvUnit::isRenderAlways, CvUnitInfo::copyNonDefaults
-- **4766** `CvUnitInfo::isSuicide() const` (Python: isSuicide)
+- **4769** `CvUnitInfo::isSuicide() const` (Python: isSuicide)
   - called by (7): CvCityAI::AI_bestUnitAI, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_unitValue, CvUnit::canRecon, CvUnit::isSuicide, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4771** `CvUnitInfo::isLineOfSight() const` (Python: isLineOfSight)
+- **4774** `CvUnitInfo::isLineOfSight() const` (Python: isLineOfSight)
   - called by (4): CvUnit::getFacingDirection, CvUnit::setFacingDirection, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4776** `CvUnitInfo::isHiddenNationality() const` (Python: isHiddenNationality)
+- **4779** `CvUnitInfo::isHiddenNationality() const` (Python: isHiddenNationality)
   - called by (13): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setPlotListHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::archerBombard, CvUnit::canEnterTerritory, CvUnit::canLoadUnit, CvUnit::getVisualOwner, CvUnit::setXY, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnitInfo::copyNonDefaults …
-- **4781** `CvUnitInfo::isAlwaysHostile() const` (Python: isAlwaysHostile)
+- **4784** `CvUnitInfo::isAlwaysHostile() const` (Python: isAlwaysHostile)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::isAlwaysHostile, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4786** `CvUnitInfo::isNoRevealMap() const`
+- **4789** `CvUnitInfo::isNoRevealMap() const`
   - called by (5): CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::canMoveInto, CvUnitAI::AI_plotValid, CvUnitInfo::copyNonDefaults
-- **4796** `CvUnitInfo::isInquisitor() const` (Python: isInquisitor)
+- **4799** `CvUnitInfo::isInquisitor() const` (Python: isInquisitor)
   - called by (9): CvCityAI::AI_trainInquisitor, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvUnit::canAutomate, CvUnit::canPerformInquisition, CvUnit::isInquisitor, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4801** `CvUnitInfo::isCanBeRebel() const` (Python: isCanBeRebel)
+- **4804** `CvUnitInfo::isCanBeRebel() const` (Python: isCanBeRebel)
   - called by (1): CyInfoPythonInterface1
-- **4806** `CvUnitInfo::isCanRebelCapture() const` (Python: isCanRebelCapture)
+- **4809** `CvUnitInfo::isCanRebelCapture() const` (Python: isCanRebelCapture)
   - called by (1): CyInfoPythonInterface1
-- **4811** `CvUnitInfo::isCannotDefect() const` (Python: isCannotDeffect)
+- **4814** `CvUnitInfo::isCannotDefect() const` (Python: isCannotDeffect)
   - called by (1): CyInfoPythonInterface1
-- **4816** `CvUnitInfo::isCanQuellRebellion() const` (Python: isCanQuellRebellion)
+- **4819** `CvUnitInfo::isCanQuellRebellion() const` (Python: isCanQuellRebellion)
   - called by (1): CyInfoPythonInterface1
-- **4824** `CvUnitInfo::getUnitMaxSpeed() const` (Python: getUnitMaxSpeed)
+- **4827** `CvUnitInfo::getUnitMaxSpeed() const` (Python: getUnitMaxSpeed)
   - called by (3): CvUnit::getAnimationMaxSpeed, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4829** `CvUnitInfo::getUnitPadTime() const` (Python: getUnitPadTime)
+- **4832** `CvUnitInfo::getUnitPadTime() const` (Python: getUnitPadTime)
   - called by (3): CvUnit::getAnimationPadTime, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4834** `CvUnitInfo::getCommandType() const` (Python: getCommandType)
+- **4837** `CvUnitInfo::getCommandType() const` (Python: getCommandType)
   - called by (3): CvActionInfo::getCommandType, CvXMLLoadUtility::SetGlobalActionInfo, CyInfoPythonInterface1
-- **4839** `CvUnitInfo::setCommandType(int)`
+- **4842** `CvUnitInfo::setCommandType(int)`
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **4848** `CvUnitInfo::canAcquireExperience() const` (Python: canAcquireExperience)
+- **4851** `CvUnitInfo::canAcquireExperience() const` (Python: canAcquireExperience)
   - calls: CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getPromotionInfo(PromotionTypes) [CvGlobals.cpp], CvPromotionInfo::getUnitCombat
   - called by (3): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitExperienceHelp, CyInfoPythonInterface1
-- **4873** `CvUnitInfo::isPrereqOrCivics(int) const` (Python: isPrereqOrCivics)
+- **4876** `CvUnitInfo::isPrereqOrCivics(int) const` (Python: isPrereqOrCivics)
   - called by (5): CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
-- **4880** `CvUnitInfo::isPrereqBuildingClass(int) const` (Python: isPrereqBuildingClass)
+- **4883** `CvUnitInfo::isPrereqBuildingClass(int) const` (Python: isPrereqBuildingClass)
   - called by (6): CvCity::isPlotTrainable, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::isBuildingClassRequiredToTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
-- **4887** `CvUnitInfo::getPrereqBuildingClassOverrideTech(int) const` (Python: getPrereqBuildingClassOverrideTech)
+- **4890** `CvUnitInfo::getPrereqBuildingClassOverrideTech(int) const` (Python: getPrereqBuildingClassOverrideTech)
   - called by (3): CvPlayer::isBuildingClassRequiredToTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4894** `CvUnitInfo::getPrereqBuildingClassOverrideEra(int) const` (Python: getPrereqBuildingClassOverrideEra)
+- **4897** `CvUnitInfo::getPrereqBuildingClassOverrideEra(int) const` (Python: getPrereqBuildingClassOverrideEra)
   - called by (3): CvPlayer::isBuildingClassRequiredToTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4901** `CvUnitInfo::getForceObsoleteUnitClass(int) const` (Python: getForceObsoleteUnitClass)
+- **4904** `CvUnitInfo::getForceObsoleteUnitClass(int) const` (Python: getForceObsoleteUnitClass)
   - called by (3): CvCity::isForceObsoleteUnitClassAvailable, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4911** `CvUnitInfo::getPrereqAndTechs(int) const` (Python: getPrereqAndTechs)
+- **4914** `CvUnitInfo::getPrereqAndTechs(int) const` (Python: getPrereqAndTechs)
   - called by (8): CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canTrain, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_techBuildingValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isTechRequiredForUnit
-- **4918** `CvUnitInfo::getPrereqOrBonuses(int) const` (Python: getPrereqOrBonuses)
+- **4921** `CvUnitInfo::getPrereqOrBonuses(int) const` (Python: getPrereqOrBonuses)
   - called by (11): CvGame::createBarbarianUnits, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::addFreeUnitAI, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_getStrategyHash, CvPlot::canTrain, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent
-- **4925** `CvUnitInfo::getProductionTraits(int) const` (Python: getProductionTraits)
+- **4928** `CvUnitInfo::getProductionTraits(int) const` (Python: getProductionTraits)
   - called by (6): CvGameTextMgr::parseTraits, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setProductionHelp, CvPlayer::getProductionModifier(UnitTypes) const, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4932** `CvUnitInfo::getFlavorValue(int) const` (Python: getFlavorValue)
+- **4935** `CvUnitInfo::getFlavorValue(int) const` (Python: getFlavorValue)
   - called by (4): CvUnit::flavorValue, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, getDiscoveryTech
-- **4939** `CvUnitInfo::getTerrainAttackModifier(int) const` (Python: getTerrainAttackModifier)
+- **4942** `CvUnitInfo::getTerrainAttackModifier(int) const` (Python: getTerrainAttackModifier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::terrainAttackModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4946** `CvUnitInfo::getTerrainDefenseModifier(int) const` (Python: getTerrainDefenseModifier)
+- **4949** `CvUnitInfo::getTerrainDefenseModifier(int) const` (Python: getTerrainDefenseModifier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::terrainDefenseModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4953** `CvUnitInfo::getFeatureAttackModifier(int) const` (Python: getFeatureAttackModifier)
+- **4956** `CvUnitInfo::getFeatureAttackModifier(int) const` (Python: getFeatureAttackModifier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::featureAttackModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4960** `CvUnitInfo::getFeatureDefenseModifier(int) const` (Python: getFeatureDefenseModifier)
+- **4963** `CvUnitInfo::getFeatureDefenseModifier(int) const` (Python: getFeatureDefenseModifier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::featureDefenseModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4967** `CvUnitInfo::getUnitClassAttackModifier(int) const` (Python: getUnitClassAttackModifier)
+- **4970** `CvUnitInfo::getUnitClassAttackModifier(int) const` (Python: getUnitClassAttackModifier)
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::unitClassAttackModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4974** `CvUnitInfo::getUnitClassDefenseModifier(int) const` (Python: getUnitClassDefenseModifier)
+- **4977** `CvUnitInfo::getUnitClassDefenseModifier(int) const` (Python: getUnitClassDefenseModifier)
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::unitClassDefenseModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4981** `CvUnitInfo::getUnitCombatModifier(int) const` (Python: getUnitCombatModifier)
+- **4984** `CvUnitInfo::getUnitCombatModifier(int) const` (Python: getUnitCombatModifier)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_unitValue, CvUnit::unitCombatModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **4988** `CvUnitInfo::getUnitCombatCollateralImmune(int) const`
+- **4991** `CvUnitInfo::getUnitCombatCollateralImmune(int) const`
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::collateralCombat, CvUnitInfo::copyNonDefaults, `anonymous namespace'::forecastCollateral
-- **4995** `CvUnitInfo::getDomainModifier(int) const` (Python: getDomainModifier)
+- **4998** `CvUnitInfo::getDomainModifier(int) const` (Python: getDomainModifier)
   - called by (4): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::domainModifier, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5002** `CvUnitInfo::getBonusProductionModifier(int) const` (Python: getBonusProductionModifier)
+- **5005** `CvUnitInfo::getBonusProductionModifier(int) const` (Python: getBonusProductionModifier)
   - called by (7): CvCity::getProductionModifier(UnitTypes) const, CvGameTextMgr::setProductionHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5009** `CvUnitInfo::getUnitGroupRequired(int) const` (Python: getUnitGroupRequired)
+- **5012** `CvUnitInfo::getUnitGroupRequired(int) const` (Python: getUnitGroupRequired)
   - called by (3): CvUnit::getUnitGroupRequired, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5016** `CvUnitInfo::getUpgradeUnitClass(int) const` (Python: getUpgradeUnitClass)
+- **5019** `CvUnitInfo::getUpgradeUnitClass(int) const` (Python: getUpgradeUnitClass)
   - called by (6): CvCity::allUpgradesAvailable, CvCity::isForceObsoleteUnitClassAvailable, CvUnit::upgradeAvailable, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, `anonymous namespace'::upgradeReach
-- **5023** `CvUnitInfo::getTargetUnitClass(int) const` (Python: getTargetUnitClass)
+- **5026** `CvUnitInfo::getTargetUnitClass(int) const` (Python: getTargetUnitClass)
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::isTargetOf, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5030** `CvUnitInfo::getTargetUnitCombat(int) const` (Python: getTargetUnitCombat)
+- **5033** `CvUnitInfo::getTargetUnitCombat(int) const` (Python: getTargetUnitCombat)
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::isTargetOf, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5037** `CvUnitInfo::getDefenderUnitClass(int) const` (Python: getDefenderUnitClass)
+- **5040** `CvUnitInfo::getDefenderUnitClass(int) const` (Python: getDefenderUnitClass)
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::isTargetOf, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5044** `CvUnitInfo::getDefenderUnitCombat(int) const` (Python: getDefenderUnitCombat)
+- **5047** `CvUnitInfo::getDefenderUnitCombat(int) const` (Python: getDefenderUnitCombat)
   - called by (6): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvPlayerAI::AI_unitValue, CvUnit::isTargetOf, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5051** `CvUnitInfo::getFlankingStrikeUnitClass(int) const` (Python: getFlankingStrikeUnitClass)
+- **5054** `CvUnitInfo::getFlankingStrikeUnitClass(int) const` (Python: getFlankingStrikeUnitClass)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, CvUnit const*, bool, bool), CvUnit::flankingStrikeCombat, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5058** `CvUnitInfo::getUnitAIType(int) const` (Python: getUnitAIType)
+- **5061** `CvUnitInfo::getUnitAIType(int) const` (Python: getUnitAIType)
   - called by (12): CvGame::createAnimals, CvGame::createBarbarianUnits, CvPlayerAI::AI_calculateUnitAIViability, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techUnitValue, CvPlayerAI::AI_unitValue, CvPlayerAI::AI_updateSettleReach, CvUnitAI::AI_promotionValue, CvUnitAI::AI_upgrade, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5065** `CvUnitInfo::getNotUnitAIType(int) const` (Python: getNotUnitAIType)
+- **5068** `CvUnitInfo::getNotUnitAIType(int) const` (Python: getNotUnitAIType)
   - called by (4): CvPlayerAI::AI_unitValue, CvUnitAI::AI_upgrade, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5072** `CvUnitInfo::getBuilds(int) const` (Python: getBuilds)
+- **5075** `CvUnitInfo::getBuilds(int) const` (Python: getBuilds)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::getWorkRate, CvPlayerAI::AI_unitValue, CvUnit::canBuild, CvUnit::canBuildRoute, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5079** `CvUnitInfo::getReligionSpreads(int) const` (Python: getReligionSpreads)
+- **5082** `CvUnitInfo::getReligionSpreads(int) const` (Python: getReligionSpreads)
   - called by (11): CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::countReligionSpreadUnits, CvPlayerAI::AI_unitValue, CvUnit::canSpread, CvUnit::spread, CvUnitAI::AI_spreadReligion, CvUnitAI::AI_spreadReligionAirlift, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5086** `CvUnitInfo::getCorporationSpreads(int) const` (Python: getCorporationSpreads)
+- **5089** `CvUnitInfo::getCorporationSpreads(int) const` (Python: getCorporationSpreads)
   - called by (12): CvCityAI::AI_bestSpreadUnit, CvGame::replaceCorporation, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::countCorporationSpreadUnits, CvPlayerAI::AI_unitValue, CvUnit::canGift, CvUnit::canSpreadCorporation, CvUnit::spreadCorporation, CvUnitAI::AI_spreadCorporation, CvUnitAI::AI_spreadCorporationAirlift, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5093** `CvUnitInfo::getTerrainPassableTech(int) const` (Python: getTerrainPassableTech)
+- **5096** `CvUnitInfo::getTerrainPassableTech(int) const` (Python: getTerrainPassableTech)
   - called by (8): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::getAdvancedStartUnitCost, CvPlayerAI::AI_unitImpassableCount, CvPlayerAI::AI_updateSettleReach, CvUnit::canMoveInto, CvUnit::shouldLoadOnMove, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5100** `CvUnitInfo::getFeaturePassableTech(int) const` (Python: getFeaturePassableTech)
+- **5103** `CvUnitInfo::getFeaturePassableTech(int) const` (Python: getFeaturePassableTech)
   - called by (6): CvPlayer::getAdvancedStartUnitCost, CvPlayerAI::AI_unitImpassableCount, CvPlayerAI::AI_updateSettleReach, CvUnit::canMoveInto, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5107** `CvUnitInfo::getGreatPeoples(int) const` (Python: getGreatPeoples)
+- **5110** `CvUnitInfo::getGreatPeoples(int) const` (Python: getGreatPeoples)
   - called by (5): CvGameTextMgr::setBasicUnitHelpWithCity, CvUnit::canJoin, CvUnitAI::AI_join, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5114** `CvUnitInfo::getBuildings(int) const` (Python: getBuildings)
+- **5117** `CvUnitInfo::getBuildings(int) const` (Python: getBuildings)
   - called by (7): CvCityAI::AI_specialistValue, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvUnit::canConstruct, CvUnitAI::AI_construct, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5121** `CvUnitInfo::getForceBuildings(int) const` (Python: getForceBuildings)
+- **5124** `CvUnitInfo::getForceBuildings(int) const` (Python: getForceBuildings)
   - called by (8): CvCityAI::AI_specialistValue, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CvUnit::canConstruct, CvUnitAI::AI_construct, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5128** `CvUnitInfo::getTerrainImpassable(int) const` (Python: getTerrainImpassable)
+- **5131** `CvUnitInfo::getTerrainImpassable(int) const` (Python: getTerrainImpassable)
   - called by (8): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::getAdvancedStartUnitCost, CvPlayerAI::AI_unitImpassableCount, CvPlayerAI::AI_updateSettleReach, CvUnit::canMoveInto, CvUnit::shouldLoadOnMove, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5135** `CvUnitInfo::getFeatureImpassable(int) const` (Python: getFeatureImpassable)
+- **5138** `CvUnitInfo::getFeatureImpassable(int) const` (Python: getFeatureImpassable)
   - called by (7): CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::getAdvancedStartUnitCost, CvPlayerAI::AI_unitImpassableCount, CvPlayerAI::AI_updateSettleReach, CvUnit::canMoveInto, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5142** `CvUnitInfo::getTerrainNative(int) const` (Python: getTerrainNative)
+- **5145** `CvUnitInfo::getTerrainNative(int) const` (Python: getTerrainNative)
   - called by (3): CvGame::createAnimals, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5149** `CvUnitInfo::getFeatureNative(int) const` (Python: getFeatureNative)
+- **5152** `CvUnitInfo::getFeatureNative(int) const` (Python: getFeatureNative)
   - called by (3): CvGame::createAnimals, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5156** `CvUnitInfo::getFreePromotions(int) const` (Python: getFreePromotions)
+- **5159** `CvUnitInfo::getFreePromotions(int) const` (Python: getFreePromotions)
   - called by (9): CvCityAI::AI_bestUnitAI, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayerAI::AI_bestAdvancedStartUnitAI, CvPlayerAI::AI_unitValue, CvUnit::convert, CvUnit::init, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1, isPromotionValid
-- **5163** `CvUnitInfo::getLeaderPromotion() const` (Python: getLeaderPromotion)
+- **5166** `CvUnitInfo::getLeaderPromotion() const` (Python: getLeaderPromotion)
   - called by (8): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::setCombatExperience, CvUnit::canLead, CvUnit::canPromote, CvUnit::lead, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5168** `CvUnitInfo::getLeaderExperience() const` (Python: getLeaderExperience)
+- **5171** `CvUnitInfo::getLeaderExperience() const` (Python: getLeaderExperience)
   - called by (8): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::setCombatExperience, CvUnit::canGiveExperience, CvUnit::canPromote, CvUnit::getStackExperienceToGive, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5173** `CvUnitInfo::getEarlyArtDefineTag(int, UnitArtStyleTypes) const` (Python: getEarlyArtDefineTag)
+- **5176** `CvUnitInfo::getEarlyArtDefineTag(int, UnitArtStyleTypes) const` (Python: getEarlyArtDefineTag)
   - calls: CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getType, CvGlobals::getUnitArtStyleTypeInfo(UnitArtStyleTypes) [CvGlobals.cpp], CvUnitArtStyleTypeInfo::getEarlyArtDefineTag, CvString::CvString(int) [CvString.h], CvString::~CvString [CvString.h], CvString::operator char const * [CvString.h]
   - called by (3): CvUnitInfo::copyNonDefaults, CvUnitInfo::getArtInfo, CyInfoPythonInterface1
-- **5194** `CvUnitInfo::setEarlyArtDefineTag(int, char const*)`
+- **5197** `CvUnitInfo::setEarlyArtDefineTag(int, char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvUnitInfo::copyNonDefaults, CvUnitInfo::read(CvXMLLoadUtility*)
-- **5201** `CvUnitInfo::getLateArtDefineTag(int, UnitArtStyleTypes) const` (Python: getLateArtDefineTag)
+- **5204** `CvUnitInfo::getLateArtDefineTag(int, UnitArtStyleTypes) const` (Python: getLateArtDefineTag)
   - calls: CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getType, CvGlobals::getUnitArtStyleTypeInfo(UnitArtStyleTypes) [CvGlobals.cpp], CvUnitArtStyleTypeInfo::getLateArtDefineTag, CvString::CvString(int) [CvString.h], CvString::~CvString [CvString.h], CvString::operator char const * [CvString.h]
   - called by (3): CvUnitInfo::copyNonDefaults, CvUnitInfo::getArtInfo, CyInfoPythonInterface1
-- **5223** `CvUnitInfo::setLateArtDefineTag(int, char const*)`
+- **5226** `CvUnitInfo::setLateArtDefineTag(int, char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvUnitInfo::copyNonDefaults, CvUnitInfo::read(CvXMLLoadUtility*)
-- **5230** `CvUnitInfo::getMiddleArtDefineTag(int, UnitArtStyleTypes) const` (Python: getMiddleArtDefineTag)
+- **5233** `CvUnitInfo::getMiddleArtDefineTag(int, UnitArtStyleTypes) const` (Python: getMiddleArtDefineTag)
   - calls: CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::getType, CvGlobals::getUnitArtStyleTypeInfo(UnitArtStyleTypes) [CvGlobals.cpp], CvUnitArtStyleTypeInfo::getMiddleArtDefineTag, CvString::CvString(int) [CvString.h], CvString::~CvString [CvString.h], CvString::operator char const * [CvString.h]
   - called by (3): CvUnitInfo::copyNonDefaults, CvUnitInfo::getArtInfo, CyInfoPythonInterface1
-- **5252** `CvUnitInfo::setMiddleArtDefineTag(int, char const*)`
+- **5255** `CvUnitInfo::setMiddleArtDefineTag(int, char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvUnitInfo::copyNonDefaults, CvUnitInfo::read(CvXMLLoadUtility*)
-- **5259** `CvUnitInfo::getUnitNames(int) const` (Python: getUnitNames)
+- **5262** `CvUnitInfo::getUnitNames(int) const` (Python: getUnitNames)
   - calls: CvString::CvString(int) [CvString.h], CvString::~CvString [CvString.h], CvString::operator char const * [CvString.h]
   - called by (3): CvUnit::init, CvUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **5266** `CvUnitInfo::getFormationType() const`
+- **5269** `CvUnitInfo::getFormationType() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvUnit::getFormationType, CvUnitInfo::copyNonDefaults
-- **5271** `CvUnitInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
+- **5274** `CvUnitInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
   - calls: CvString::operator char const * [CvString.h]
   - called by (10): CvGameTextMgr::getUnitDataForWB, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::archerBombard, CvUnit::bombardRanged, CvUnit::doVictoryInfluence
-- **5276** `CvUnitInfo::updateArtDefineButton()`
+- **5279** `CvUnitInfo::updateArtDefineButton()`
   - calls: CvInfoBase::getButton, CvUnitInfo::getArtInfo, CvString::operator=(char const*) [CvString.h]
   - called by (3): CvUnitInfo::copyNonDefaults, CvUnitInfo::read(CvXMLLoadUtility*), CvUnitInfo::read(FDataStreamBase*)
-- **5281** `CvUnitInfo::getArtInfo(int, EraTypes, UnitArtStyleTypes) const` (Python: getArtInfo)
+- **5284** `CvUnitInfo::getArtInfo(int, EraTypes, UnitArtStyleTypes) const` (Python: getArtInfo)
   - calls: CvGlobals::getNumEraInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getLateArtDefineTag, CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getUnitArtInfo(char const*) const [CvArtFileMgr.cpp], CvUnitInfo::getMiddleArtDefineTag, CvUnitInfo::getEarlyArtDefineTag
   - called by (7): CvCity::popOrder, CvDLLButtonPopup::launchProductionPopup, CvPlayer::getUnitArtInfo, CvPlayer::getUnitButton, CvUnit::getArtInfo, CvUnitInfo::updateArtDefineButton, CyInfoPythonInterface1
-- **5297** `CvUnitInfo::read(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::read(FDataStreamBase*))
+- **5300** `CvUnitInfo::read(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::read(FDataStreamBase*))
   - calls: CvHotkeyInfo::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNUM_UNIT_AND_TECH_PREREQS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNUM_UNIT_PREREQ_OR_BONUSES [CvGlobals.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvString::`vector deleting dtor', FDataStreamBase::ReadString [FDataStreamBase.h], CvUnitInfo::updateArtDefineButton
   - takes the address of: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
-- **5672** `CvUnitInfo::write(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::write)
+- **5675** `CvUnitInfo::write(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::write)
   - calls: CvHotkeyInfo::write, FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNUM_UNIT_AND_TECH_PREREQS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNUM_UNIT_PREREQ_OR_BONUSES [CvGlobals.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], FDataStreamBase::WriteString [FDataStreamBase.h]
   - called by (1): writeInfoArray<class CvUnitInfo>
-- **5913** `CvUnitInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **5916** `CvUnitInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvString::CvString(char const*) [CvString.h], CvString::getTokens [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(CvString**, char const*, int, int, CvString) [CvXMLLoadUtilitySet.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvString::IsEmpty [CvString.h], CvString::`vector deleting dtor', CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, char const*, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getNumEraInfos [CvGlobals.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvGlobals::getNUM_UNIT_AND_TECH_PREREQS [CvGlobals.cpp], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvGlobals::getNUM_UNIT_PREREQ_OR_BONUSES [CvGlobals.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getFlavorTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, CvString*, int, int) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvDLLXmlIFaceBase::NumOfChildrenByTagName [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvUnitInfo::setEarlyArtDefineTag, CvUnitInfo::setLateArtDefineTag, CvUnitInfo::setMiddleArtDefineTag, CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::SetStringList [CvXMLLoadUtility.cpp], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvUnitInfo::updateArtDefineButton, operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
-- **6360** `CvUnitInfo::copyNonDefaults(CvUnitInfo*)`
+- **6363** `CvUnitInfo::copyNonDefaults(CvUnitInfo*)`
   - calls: CvHotkeyInfo::copyNonDefaults, CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvUnitInfo::getUnitClassType, CvUnitInfo::getSpecialUnitType, CvUnitInfo::getUnitCaptureClassType, CvUnitInfo::getUnitCombatType, CvUnitInfo::getDomainType, CvUnitInfo::getDefaultUnitAIType, CvUnitInfo::getInvisibleType, CvUnitInfo::getNumSeeInvisibleTypes, CvUnitInfo::getSeeInvisibleType, CvUnitInfo::getAdvisorType, CvUnitInfo::isAnimal, CvUnitInfo::isFoodProduction, CvUnitInfo::isNoBadGoodies, CvUnitInfo::isOnlyDefensive, CvUnitInfo::isNoCapture, CvUnitInfo::isQuickCombat, CvUnitInfo::isRivalTerritory, CvUnitInfo::isMilitaryHappiness, CvUnitInfo::isMilitarySupport, CvUnitInfo::isMilitaryProduction, CvUnitInfo::isPillage, CvUnitInfo::isSpy, CvUnitInfo::isSabotage, CvUnitInfo::isDestroy, CvUnitInfo::isStealPlans, CvUnitInfo::isInvestigate, CvUnitInfo::isCounterSpy, CvUnitInfo::isFound, CvUnitInfo::isGoldenAge, CvUnitInfo::isInvisible, CvUnitInfo::isFirstStrikeImmune, CvUnitInfo::isNoDefensiveBonus, CvUnitInfo::isIgnoreBuildingDefense, CvUnitInfo::isCanMoveImpassable, CvUnitInfo::isCanMoveAllTerrain, CvUnitInfo::isFlatMovementCost, CvUnitInfo::isIgnoreTerrainCost, CvUnitInfo::isNukeImmune, CvUnitInfo::isPrereqBonuses, CvUnitInfo::isPrereqReligion, CvUnitInfo::isMechUnit, CvUnitInfo::isRenderBelowWater, CvUnitInfo::isRenderAlways, CvUnitInfo::isSuicide, CvUnitInfo::isLineOfSight, CvUnitInfo::isHiddenNationality, CvUnitInfo::isAlwaysHostile, CvUnitInfo::isNoRevealMap, CvUnitInfo::isInquisitor, CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnitInfo::getUpgradeUnitClass, CvUnitInfo::getTargetUnitClass, CvUnitInfo::getDefenderUnitClass, CvUnitInfo::getFlankingStrikeUnitClass, CvUnitInfo::getUnitClassAttackModifier, CvUnitInfo::getUnitClassDefenseModifier, CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvUnitInfo::getTargetUnitCombat, CvUnitInfo::getDefenderUnitCombat, CvUnitInfo::getUnitCombatModifier, CvUnitInfo::getUnitCombatCollateralImmune, CvUnitInfo::getUnitAIType, CvUnitInfo::getNotUnitAIType, CvGlobals::getNumBuildInfos [CvGlobals.cpp], CvUnitInfo::getBuilds, CvGlobals::getNumBuildingInfos [CvGlobals.cpp], CvUnitInfo::getBuildings, CvUnitInfo::getForceBuildings, CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvUnitInfo::getReligionSpreads, CvGlobals::getNumCorporationInfos [CvGlobals.cpp], CvUnitInfo::getCorporationSpreads, CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvUnitInfo::getProductionTraits, CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvUnitInfo::getFlavorValue, CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvUnitInfo::getGreatPeoples, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvUnitInfo::getTerrainImpassable, CvUnitInfo::getTerrainNative, CvUnitInfo::getTerrainAttackModifier, CvUnitInfo::getTerrainDefenseModifier, CvUnitInfo::getTerrainPassableTech, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvUnitInfo::getFeatureImpassable, CvUnitInfo::getFeatureNative, CvUnitInfo::getFeatureAttackModifier, CvUnitInfo::getFeatureDefenseModifier, CvUnitInfo::getFeaturePassableTech, CvUnitInfo::getDomainModifier, CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvUnitInfo::getBonusProductionModifier, CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvUnitInfo::getFreePromotions, CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvUnitInfo::isPrereqOrCivics, CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvUnitInfo::isPrereqBuildingClass, CvUnitInfo::getPrereqBuildingClassOverrideTech, CvUnitInfo::getPrereqBuildingClassOverrideEra, CvUnitInfo::getForceObsoleteUnitClass, CvGlobals::getNUM_UNIT_AND_TECH_PREREQS [CvGlobals.cpp], CvUnitInfo::getPrereqAndTechs, CvGlobals::getNUM_UNIT_PREREQ_OR_BONUSES [CvGlobals.cpp], CvUnitInfo::getPrereqOrBonuses, CvUnitInfo::getMaxStartEra, CvUnitInfo::getForceObsoleteTech, CvUnitInfo::isStateReligion, CvUnitInfo::getPrereqGameOption, CvUnitInfo::getNotGameOption, CvUnitInfo::getHolyCity, CvUnitInfo::getReligionType, CvUnitInfo::getStateReligion, CvUnitInfo::getPrereqReligion, CvUnitInfo::getPrereqCorporation, CvUnitInfo::getPrereqBuilding, CvUnitInfo::getPrereqAndTech, CvUnitInfo::getPrereqAndBonus, CvUnitInfo::getAIWeight, CvUnitInfo::getProductionCost, CvUnitInfo::getHurryCostModifier, CvUnitInfo::getAdvancedStartCost, CvUnitInfo::getAdvancedStartCostIncrease, CvUnitInfo::getMinAreaSize, CvUnitInfo::getMoves, CvUnitInfo::getAirRange, CvUnitInfo::getAirUnitCap, CvUnitInfo::getDropRange, CvUnitInfo::getNukeRange, CvUnitInfo::getWorkRate, CvUnitInfo::getBaseDiscover, CvUnitInfo::getDiscoverMultiplier, CvUnitInfo::getBaseHurry, CvUnitInfo::getHurryMultiplier, CvUnitInfo::getBaseTrade, CvUnitInfo::getTradeMultiplier, CvUnitInfo::getGreatWorkCulture, CvUnitInfo::getEspionagePoints, CvUnitInfo::getCombat, CvUnitInfo::getCombatLimit, CvUnitInfo::getAirCombat, CvUnitInfo::getAirCombatLimit, CvUnitInfo::getXPValueAttack, CvUnitInfo::getXPValueDefense, CvUnitInfo::getFirstStrikes, CvUnitInfo::getChanceFirstStrikes, CvUnitInfo::getInterceptionProbability, CvUnitInfo::getEvasionProbability, CvUnitInfo::getWithdrawalProbability, CvUnitInfo::getCollateralDamage, CvUnitInfo::getCollateralDamageLimit, CvUnitInfo::getCollateralDamageMaxUnits, CvUnitInfo::getCityAttackModifier, CvUnitInfo::getCityDefenseModifier, CvUnitInfo::getAnimalCombatModifier, CvUnitInfo::getHillsAttackModifier, CvUnitInfo::getHillsDefenseModifier, CvUnitInfo::getBombRate, CvUnitInfo::getBombardRate, CvUnitInfo::getSpecialCargo, CvUnitInfo::getDomainCargo, CvUnitInfo::getCargoSpace, CvUnitInfo::getConscriptionValue, CvUnitInfo::getCultureGarrisonValue, CvUnitInfo::getExtraCost, CvUnitInfo::getAssetValue, CvUnitInfo::getPowerValue, CvUnitInfo::getLeaderPromotion, CvUnitInfo::getLeaderExperience, CvUnitInfo::getDCMBombRange, CvUnitInfo::getDCMBombAccuracy, CvUnitInfo::getDCMAirBomb1, CvUnitInfo::getDCMAirBomb2, CvUnitInfo::getDCMAirBomb3, CvUnitInfo::getDCMAirBomb4, CvUnitInfo::getDCMAirBomb5, CvUnitInfo::getDCMFighterEngage, CvUnitInfo::getGroupSize, CvUnitInfo::getGroupDefinitions, CvUnitInfo::getMeleeWaveSize, CvUnitInfo::getRangedWaveSize, CvUnitInfo::getUnitMaxSpeed, CvUnitInfo::getUnitPadTime, operator delete(void*) [CvGameCoreDLL.cpp], CvString::`scalar deleting dtor' [CvString.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvUnitInfo::getUnitGroupRequired, CvUnitInfo::getEarlyArtDefineTag, CvUnitInfo::setEarlyArtDefineTag, CvUnitInfo::getLateArtDefineTag, CvUnitInfo::setLateArtDefineTag, CvUnitInfo::getMiddleArtDefineTag, CvUnitInfo::setMiddleArtDefineTag, CvUnitInfo::getFormationType, CvString::operator=(char const*) [CvString.h], CvUnitInfo::getNumUnitNames, CvUnitInfo::getUnitNames, operator new(unsigned int) [CvGameCoreDLL.cpp], CvXMLLoadUtilityModTools::StringArrayExtend [CvXMLLoadUtilityModTools.cpp], CvString::`vector deleting dtor', CvUnitInfo::updateArtDefineButton, operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvUnitInfo>
-- **6859** `CvUnitFormationInfo::CvUnitFormationInfo()` (exported)
+- **6867** `CvUnitFormationInfo::CvUnitFormationInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvUnitFormationInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvUnitFormationInfo>
-- **6870** `CvUnitFormationInfo::~CvUnitFormationInfo()` (exported; virtual)
+- **6878** `CvUnitFormationInfo::~CvUnitFormationInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvUnitFormationInfo::`vector deleting dtor'
-- **6874** `CvUnitFormationInfo::getFormationType() const` (exported)
+- **6882** `CvUnitFormationInfo::getFormationType() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6884** `CvUnitFormationInfo::getNumEventTypes() const`
+- **6892** `CvUnitFormationInfo::getNumEventTypes() const`
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6889** `CvUnitFormationInfo::getEventType(int) const`
+- **6897** `CvUnitFormationInfo::getEventType(int) const`
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6896** `CvUnitFormationInfo::getEventTypes() const` (exported)
-- **6901** `CvUnitFormationInfo::getNumUnitEntries() const` (exported)
+- **6904** `CvUnitFormationInfo::getEventTypes() const` (exported)
+- **6909** `CvUnitFormationInfo::getNumUnitEntries() const` (exported)
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6906** `CvUnitFormationInfo::getUnitEntry(int) const` (exported)
+- **6914** `CvUnitFormationInfo::getUnitEntry(int) const` (exported)
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6911** `CvUnitFormationInfo::addUnitEntry(CvUnitEntry const&)` (exported)
-- **6916** `CvUnitFormationInfo::getNumGreatUnitEntries() const` (exported)
+- **6919** `CvUnitFormationInfo::addUnitEntry(CvUnitEntry const&)` (exported)
+- **6924** `CvUnitFormationInfo::getNumGreatUnitEntries() const` (exported)
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6921** `CvUnitFormationInfo::getGreatUnitEntry(int) const` (exported)
+- **6929** `CvUnitFormationInfo::getGreatUnitEntry(int) const` (exported)
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6926** `CvUnitFormationInfo::getNumSiegeUnitEntries() const` (exported)
+- **6934** `CvUnitFormationInfo::getNumSiegeUnitEntries() const` (exported)
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6931** `CvUnitFormationInfo::getSiegeUnitEntry(int) const` (exported)
+- **6939** `CvUnitFormationInfo::getSiegeUnitEntry(int) const` (exported)
   - called by (1): CvUnitFormationInfo::copyNonDefaults
-- **6943** `CvUnitFormationInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **6951** `CvUnitFormationInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvUnitEntry::CvUnitEntry [CvInfos.h], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvString::CompareNoCase [CvString.h], CvDLLXmlIFaceBase::LocateNextSiblingNodeByTagName [CvDLLXMLIFaceBase.h]
-- **7016** `CvUnitFormationInfo::copyNonDefaults(CvUnitFormationInfo*)`
+- **7024** `CvUnitFormationInfo::copyNonDefaults(CvUnitFormationInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvUnitFormationInfo::getFormationType, CvString::operator=(char const*) [CvString.h], CvUnitFormationInfo::getNumEventTypes, CvUnitFormationInfo::getEventType, CvUnitFormationInfo::getNumUnitEntries, CvUnitFormationInfo::getUnitEntry, CvUnitFormationInfo::getNumGreatUnitEntries, CvUnitFormationInfo::getGreatUnitEntry, CvUnitFormationInfo::getNumSiegeUnitEntries, CvUnitFormationInfo::getSiegeUnitEntry
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvUnitFormationInfo>
-- **7070** `CvSpecialUnitInfo::CvSpecialUnitInfo()`
+- **7078** `CvSpecialUnitInfo::CvSpecialUnitInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvSpecialUnitInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvSpecialUnitInfo>
-- **7081** `CvSpecialUnitInfo::~CvSpecialUnitInfo()` (virtual)
+- **7089** `CvSpecialUnitInfo::~CvSpecialUnitInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvSpecialUnitInfo::`scalar deleting dtor'
-- **7087** `CvSpecialUnitInfo::isValid() const` (Python: isValid)
+- **7095** `CvSpecialUnitInfo::isValid() const` (Python: isValid)
   - called by (3): CvGame::init, CvSpecialUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7092** `CvSpecialUnitInfo::isCityLoad() const` (Python: isCityLoad)
+- **7100** `CvSpecialUnitInfo::isCityLoad() const` (Python: isCityLoad)
   - called by (3): CvSpecialUnitInfo::copyNonDefaults, CvUnit::canLoadUnit, CyInfoPythonInterface1
-- **7099** `CvSpecialUnitInfo::isCarrierUnitAIType(int) const` (Python: isCarrierUnitAIType)
+- **7107** `CvSpecialUnitInfo::isCarrierUnitAIType(int) const` (Python: isCarrierUnitAIType)
   - called by (3): CvPlayerAI::AI_unitValue, CvSpecialUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7106** `CvSpecialUnitInfo::getProductionTraits(int) const` (Python: getProductionTraits)
+- **7114** `CvSpecialUnitInfo::getProductionTraits(int) const` (Python: getProductionTraits)
   - called by (5): CvGameTextMgr::parseTraits, CvGameTextMgr::setProductionHelp, CvPlayer::getProductionModifier(UnitTypes) const, CvSpecialUnitInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7113** `CvSpecialUnitInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **7121** `CvSpecialUnitInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp]
-- **7134** `CvSpecialUnitInfo::copyNonDefaults(CvSpecialUnitInfo*)`
+- **7142** `CvSpecialUnitInfo::copyNonDefaults(CvSpecialUnitInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvSpecialUnitInfo::isValid, CvSpecialUnitInfo::isCityLoad, CvSpecialUnitInfo::isCarrierUnitAIType, CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvSpecialUnitInfo::getProductionTraits
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvSpecialUnitInfo>
-- **7181** `CvCivicOptionInfo::CvCivicOptionInfo()`
+- **7189** `CvCivicOptionInfo::CvCivicOptionInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvCivicOptionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCivicOptionInfo>
-- **7192** `CvCivicOptionInfo::~CvCivicOptionInfo()` (virtual)
+- **7200** `CvCivicOptionInfo::~CvCivicOptionInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvCivicOptionInfo::`scalar deleting dtor'
-- **7197** `CvCivicOptionInfo::getTraitNoUpkeep(int) const` (Python: getTraitNoUpkeep)
+- **7205** `CvCivicOptionInfo::getTraitNoUpkeep(int) const` (Python: getTraitNoUpkeep)
   - called by (7): CvCivicOptionInfo::copyNonDefaults, CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CyInfoPythonInterface1
-- **7204** `CvCivicOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **7212** `CvCivicOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp]
-- **7220** `CvCivicOptionInfo::copyNonDefaults(CvCivicOptionInfo*)`
+- **7228** `CvCivicOptionInfo::copyNonDefaults(CvCivicOptionInfo*)`
   - calls: CvInfoBase::copyNonDefaults, CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCivicOptionInfo::getTraitNoUpkeep
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCivicOptionInfo>
-- **7340** `CvCivicInfo::CvCivicInfo()`
+- **7348** `CvCivicInfo::CvCivicInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvWString::CvWString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvCivicInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCivicInfo>, readInfoArray<class CvCivicInfo>
-- **7351** `CvCivicInfo::~CvCivicInfo()` (virtual)
+- **7359** `CvCivicInfo::~CvCivicInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvInfoBase::~CvInfoBase, CvWString::~CvWString [CvString.h]
   - called by (1): CvCivicInfo::`scalar deleting dtor'
-- **7377** `CvCivicInfo::getCivicOptionType() const` (Python: getCivicOptionType)
+- **7385** `CvCivicInfo::getCivicOptionType() const` (Python: getCivicOptionType)
   - called by (21): CvCityAI::AI_buildingValueThreshold, CvCivicInfo::copyNonDefaults, CvDeal::startTrade, CvGame::isForceCivicOption, CvGameTextMgr::parseCivicInfo, CvPlayer::canDoCivics, CvPlayer::canRevolution, CvPlayer::doEspionageMission, CvPlayer::getCivicPercentAnger, CvPlayer::getSingleCivicUpkeep, CvPlayer::handleDiploEvent, CvPlayer::verifyCivics …
-- **7382** `CvCivicInfo::getAnarchyLength() const` (Python: getAnarchyLength)
+- **7390** `CvCivicInfo::getAnarchyLength() const` (Python: getAnarchyLength)
   - called by (4): CvCivicInfo::copyNonDefaults, CvPlayer::getCivicAnarchyLength, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7387** `CvCivicInfo::getUpkeep() const` (Python: getUpkeep)
+- **7395** `CvCivicInfo::getUpkeep() const` (Python: getUpkeep)
   - called by (3): CvCivicInfo::copyNonDefaults, CvPlayer::getSingleCivicUpkeep, CyInfoPythonInterface1
-- **7392** `CvCivicInfo::getAIWeight() const` (Python: getAIWeight)
+- **7400** `CvCivicInfo::getAIWeight() const` (Python: getAIWeight)
   - called by (3): CvCivicInfo::copyNonDefaults, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7397** `CvCivicInfo::getGreatPeopleRateModifier() const` (Python: getGreatPeopleRateModifier)
+- **7405** `CvCivicInfo::getGreatPeopleRateModifier() const` (Python: getGreatPeopleRateModifier)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseGreatPeopleHelp, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7402** `CvCivicInfo::getGreatGeneralRateModifier() const` (Python: getGreatGeneralRateModifier)
+- **7410** `CvCivicInfo::getGreatGeneralRateModifier() const` (Python: getGreatGeneralRateModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7407** `CvCivicInfo::getDomesticGreatGeneralRateModifier() const` (Python: getDomesticGreatGeneralRateModifier)
+- **7415** `CvCivicInfo::getDomesticGreatGeneralRateModifier() const` (Python: getDomesticGreatGeneralRateModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7412** `CvCivicInfo::getStateReligionGreatPeopleRateModifier() const` (Python: getStateReligionGreatPeopleRateModifier)
+- **7420** `CvCivicInfo::getStateReligionGreatPeopleRateModifier() const` (Python: getStateReligionGreatPeopleRateModifier)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseGreatPeopleHelp, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7417** `CvCivicInfo::getDistanceMaintenanceModifier() const` (Python: getDistanceMaintenanceModifier)
+- **7425** `CvCivicInfo::getDistanceMaintenanceModifier() const` (Python: getDistanceMaintenanceModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7422** `CvCivicInfo::getNumCitiesMaintenanceModifier() const` (Python: getNumCitiesMaintenanceModifier)
+- **7430** `CvCivicInfo::getNumCitiesMaintenanceModifier() const` (Python: getNumCitiesMaintenanceModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7427** `CvCivicInfo::getCorporationMaintenanceModifier() const` (Python: getCorporationMaintenanceModifier)
+- **7435** `CvCivicInfo::getCorporationMaintenanceModifier() const` (Python: getCorporationMaintenanceModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7432** `CvCivicInfo::getExtraHealth() const` (Python: getExtraHealth)
+- **7440** `CvCivicInfo::getExtraHealth() const` (Python: getExtraHealth)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGame::doGlobalWarming, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7437** `CvCivicInfo::getFreeExperience() const` (Python: getFreeExperience)
+- **7445** `CvCivicInfo::getFreeExperience() const` (Python: getFreeExperience)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7442** `CvCivicInfo::getWorkerSpeedModifier() const` (Python: getWorkerSpeedModifier)
+- **7450** `CvCivicInfo::getWorkerSpeedModifier() const` (Python: getWorkerSpeedModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7447** `CvCivicInfo::getImprovementUpgradeRateModifier() const` (Python: getImprovementUpgradeRateModifier)
+- **7455** `CvCivicInfo::getImprovementUpgradeRateModifier() const` (Python: getImprovementUpgradeRateModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7452** `CvCivicInfo::getMilitaryProductionModifier() const` (Python: getMilitaryProductionModifier)
+- **7460** `CvCivicInfo::getMilitaryProductionModifier() const` (Python: getMilitaryProductionModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7457** `CvCivicInfo::getBaseFreeUnits() const` (Python: getBaseFreeUnits)
+- **7465** `CvCivicInfo::getBaseFreeUnits() const` (Python: getBaseFreeUnits)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7462** `CvCivicInfo::getBaseFreeMilitaryUnits() const` (Python: getBaseFreeMilitaryUnits)
+- **7470** `CvCivicInfo::getBaseFreeMilitaryUnits() const` (Python: getBaseFreeMilitaryUnits)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7467** `CvCivicInfo::getFreeUnitsPopulationPercent() const` (Python: getFreeUnitsPopulationPercent)
+- **7475** `CvCivicInfo::getFreeUnitsPopulationPercent() const` (Python: getFreeUnitsPopulationPercent)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7472** `CvCivicInfo::getFreeMilitaryUnitsPopulationPercent() const` (Python: getFreeMilitaryUnitsPopulationPercent)
+- **7480** `CvCivicInfo::getFreeMilitaryUnitsPopulationPercent() const` (Python: getFreeMilitaryUnitsPopulationPercent)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7477** `CvCivicInfo::getGoldPerUnit() const` (Python: getGoldPerUnit)
+- **7485** `CvCivicInfo::getGoldPerUnit() const` (Python: getGoldPerUnit)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7482** `CvCivicInfo::getGoldPerMilitaryUnit() const` (Python: getGoldPerMilitaryUnit)
+- **7490** `CvCivicInfo::getGoldPerMilitaryUnit() const` (Python: getGoldPerMilitaryUnit)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7487** `CvCivicInfo::getHappyPerMilitaryUnit() const` (Python: getHappyPerMilitaryUnit)
+- **7495** `CvCivicInfo::getHappyPerMilitaryUnit() const` (Python: getHappyPerMilitaryUnit)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7492** `CvCivicInfo::getLargestCityHappiness() const` (Python: getLargestCityHappiness)
+- **7500** `CvCivicInfo::getLargestCityHappiness() const` (Python: getLargestCityHappiness)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7497** `CvCivicInfo::getWarWearinessModifier() const` (Python: getWarWearinessModifier)
+- **7505** `CvCivicInfo::getWarWearinessModifier() const` (Python: getWarWearinessModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7502** `CvCivicInfo::getFreeSpecialist() const` (Python: getFreeSpecialist)
+- **7510** `CvCivicInfo::getFreeSpecialist() const` (Python: getFreeSpecialist)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7507** `CvCivicInfo::getTradeRoutes() const` (Python: getTradeRoutes)
+- **7515** `CvCivicInfo::getTradeRoutes() const` (Python: getTradeRoutes)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7512** `CvCivicInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **7520** `CvCivicInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (9): CvCivicInfo::copyNonDefaults, CvGameTextMgr::buildCivicRevealString, CvGameTextMgr::parseCivicInfo, CvPlayer::canDoCivics, CvPlayer::canTrain, CvPlayerAI::AI_cultureVictoryTechValue, CvPlayerAI::AI_techValue, CvTeam::setHasTech, CyInfoPythonInterface1
-- **7517** `CvCivicInfo::getCivicPercentAnger() const` (Python: getCivicPercentAnger)
+- **7525** `CvCivicInfo::getCivicPercentAnger() const` (Python: getCivicPercentAnger)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::getCivicPercentAnger, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7522** `CvCivicInfo::getMaxConscript() const` (Python: getMaxConscript)
+- **7530** `CvCivicInfo::getMaxConscript() const` (Python: getMaxConscript)
   - called by (3): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1, getWorldSizeMaxConscript
-- **7527** `CvCivicInfo::getStateReligionHappiness() const` (Python: getStateReligionHappiness)
+- **7535** `CvCivicInfo::getStateReligionHappiness() const` (Python: getStateReligionHappiness)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7532** `CvCivicInfo::getNonStateReligionHappiness() const` (Python: getNonStateReligionHappiness)
+- **7540** `CvCivicInfo::getNonStateReligionHappiness() const` (Python: getNonStateReligionHappiness)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_RevCalcCivicRelEffect, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7537** `CvCivicInfo::getStateReligionUnitProductionModifier() const` (Python: getStateReligionUnitProductionModifier)
+- **7545** `CvCivicInfo::getStateReligionUnitProductionModifier() const` (Python: getStateReligionUnitProductionModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7542** `CvCivicInfo::getStateReligionBuildingProductionModifier() const` (Python: getStateReligionBuildingProductionModifier)
+- **7550** `CvCivicInfo::getStateReligionBuildingProductionModifier() const` (Python: getStateReligionBuildingProductionModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7547** `CvCivicInfo::getStateReligionFreeExperience() const` (Python: getStateReligionFreeExperience)
+- **7555** `CvCivicInfo::getStateReligionFreeExperience() const` (Python: getStateReligionFreeExperience)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7552** `CvCivicInfo::getExpInBorderModifier() const` (Python: getExpInBorderModifier)
+- **7560** `CvCivicInfo::getExpInBorderModifier() const` (Python: getExpInBorderModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7562** `CvCivicInfo::isUpgradeAnywhere() const`
+- **7570** `CvCivicInfo::isUpgradeAnywhere() const`
   - called by (4): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue
-- **7567** `CvCivicInfo::isAllowInquisitions() const` (Python: isAllowInquisitions)
+- **7575** `CvCivicInfo::isAllowInquisitions() const` (Python: isAllowInquisitions)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayer::setInquisitionConditions, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7572** `CvCivicInfo::isDisallowInquisitions() const` (Python: isDisallowInquisitions)
+- **7580** `CvCivicInfo::isDisallowInquisitions() const` (Python: isDisallowInquisitions)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayer::setInquisitionConditions, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7577** `CvCivicInfo::getRevIdxLocal() const` (Python: getRevIdxLocal)
+- **7585** `CvCivicInfo::getRevIdxLocal() const` (Python: getRevIdxLocal)
   - called by (3): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CyInfoPythonInterface1
-- **7582** `CvCivicInfo::getRevIdxNational() const` (Python: getRevIdxNational)
+- **7590** `CvCivicInfo::getRevIdxNational() const` (Python: getRevIdxNational)
   - called by (4): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CyInfoPythonInterface1
-- **7587** `CvCivicInfo::getRevIdxDistanceModifier() const` (Python: getRevIdxDistanceModifier)
+- **7595** `CvCivicInfo::getRevIdxDistanceModifier() const` (Python: getRevIdxDistanceModifier)
   - called by (3): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CyInfoPythonInterface1
-- **7592** `CvCivicInfo::getRevIdxHolyCityGood() const` (Python: getRevIdxHolyCityGood)
+- **7600** `CvCivicInfo::getRevIdxHolyCityGood() const` (Python: getRevIdxHolyCityGood)
   - called by (4): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayerAI::AI_RevCalcCivicRelEffect, CyInfoPythonInterface1
-- **7597** `CvCivicInfo::getRevIdxHolyCityBad() const` (Python: getRevIdxHolyCityBad)
+- **7605** `CvCivicInfo::getRevIdxHolyCityBad() const` (Python: getRevIdxHolyCityBad)
   - called by (4): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayerAI::AI_RevCalcCivicRelEffect, CyInfoPythonInterface1
-- **7602** `CvCivicInfo::getRevIdxSwitchTo() const` (Python: getRevIdxSwitchTo)
+- **7610** `CvCivicInfo::getRevIdxSwitchTo() const` (Python: getRevIdxSwitchTo)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7607** `CvCivicInfo::getRevIdxNationalityMod() const` (Python: getRevIdxNationalityMod)
+- **7615** `CvCivicInfo::getRevIdxNationalityMod() const` (Python: getRevIdxNationalityMod)
   - called by (3): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CyInfoPythonInterface1
-- **7612** `CvCivicInfo::getRevIdxBadReligionMod() const` (Python: getRevIdxBadReligionMod)
+- **7620** `CvCivicInfo::getRevIdxBadReligionMod() const` (Python: getRevIdxBadReligionMod)
   - called by (4): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayerAI::AI_RevCalcCivicRelEffect, CyInfoPythonInterface1
-- **7617** `CvCivicInfo::getRevIdxGoodReligionMod() const` (Python: getRevIdxGoodReligionMod)
+- **7625** `CvCivicInfo::getRevIdxGoodReligionMod() const` (Python: getRevIdxGoodReligionMod)
   - called by (4): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayerAI::AI_RevCalcCivicRelEffect, CyInfoPythonInterface1
-- **7622** `CvCivicInfo::getRevViolentMod() const` (Python: getRevViolentMod)
+- **7630** `CvCivicInfo::getRevViolentMod() const` (Python: getRevViolentMod)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7627** `CvCivicInfo::getRevReligiousFreedom() const` (Python: getRevReligiousFreedom)
+- **7635** `CvCivicInfo::getRevReligiousFreedom() const` (Python: getRevReligiousFreedom)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7632** `CvCivicInfo::getRevLaborFreedom() const` (Python: getRevLaborFreedom)
+- **7640** `CvCivicInfo::getRevLaborFreedom() const` (Python: getRevLaborFreedom)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7637** `CvCivicInfo::getRevEnvironmentalProtection() const` (Python: getRevEnvironmentalProtection)
+- **7645** `CvCivicInfo::getRevEnvironmentalProtection() const` (Python: getRevEnvironmentalProtection)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7642** `CvCivicInfo::getRevDemocracyLevel() const` (Python: getRevDemocracyLevel)
+- **7650** `CvCivicInfo::getRevDemocracyLevel() const` (Python: getRevDemocracyLevel)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7647** `CvCivicInfo::isCommunism() const` (Python: isCommunism)
+- **7655** `CvCivicInfo::isCommunism() const` (Python: isCommunism)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7652** `CvCivicInfo::isFreeSpeech() const` (Python: isFreeSpeech)
+- **7660** `CvCivicInfo::isFreeSpeech() const` (Python: isFreeSpeech)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7657** `CvCivicInfo::isCanDoElection() const` (Python: isCanDoElection)
+- **7665** `CvCivicInfo::isCanDoElection() const` (Python: isCanDoElection)
   - called by (2): CvCivicInfo::copyNonDefaults, CyInfoPythonInterface1
-- **7665** `CvCivicInfo::isNoForeignCorporations() const` (Python: isNoForeignCorporations)
+- **7673** `CvCivicInfo::isNoForeignCorporations() const` (Python: isNoForeignCorporations)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7670** `CvCivicInfo::isStateReligion() const` (Python: isStateReligion)
+- **7678** `CvCivicInfo::isStateReligion() const` (Python: isStateReligion)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_RevCalcCivicRelEffect, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7675** `CvCivicInfo::isNoNonStateReligionSpread() const` (Python: isNoNonStateReligionSpread)
+- **7683** `CvCivicInfo::isNoNonStateReligionSpread() const` (Python: isNoNonStateReligionSpread)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_getStrategyHash, CyInfoPythonInterface1
-- **7680** `CvCivicInfo::isMilitaryFoodProduction() const` (Python: isMilitaryFoodProduction)
+- **7688** `CvCivicInfo::isMilitaryFoodProduction() const` (Python: isMilitaryFoodProduction)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7685** `CvCivicInfo::isNoUnhealthyPopulation() const` (Python: isNoUnhealthyPopulation)
+- **7693** `CvCivicInfo::isNoUnhealthyPopulation() const` (Python: isNoUnhealthyPopulation)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7690** `CvCivicInfo::isBuildingOnlyHealthy() const` (Python: isBuildingOnlyHealthy)
+- **7698** `CvCivicInfo::isBuildingOnlyHealthy() const` (Python: isBuildingOnlyHealthy)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7695** `CvCivicInfo::isNoForeignTrade() const` (Python: isNoForeignTrade)
+- **7703** `CvCivicInfo::isNoForeignTrade() const` (Python: isNoForeignTrade)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7700** `CvCivicInfo::isNoCorporations() const` (Python: isNoCorporations)
+- **7708** `CvCivicInfo::isNoCorporations() const` (Python: isNoCorporations)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7705** `CvCivicInfo::getWeLoveTheKing()`
+- **7713** `CvCivicInfo::getWeLoveTheKing()`
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (2): CvCity::setWeLoveTheKingDay, CvCivicInfo::pyGetWeLoveTheKing
-- **7710** `CvCivicInfo::setWeLoveTheKingKey(char const*)`
+- **7718** `CvCivicInfo::setWeLoveTheKingKey(char const*)`
   - calls: CvWString::operator=(char const*) [CvString.h]
   - called by (1): CvCivicInfo::read(CvXMLLoadUtility*)
-- **7719** `CvCivicInfo::getWeLoveTheKingKey()`
+- **7727** `CvCivicInfo::getWeLoveTheKingKey()`
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (1): CvCivicInfo::copyNonDefaults
-- **7729** `CvCivicInfo::getYieldModifier(int) const` (Python: getYieldModifier)
+- **7737** `CvCivicInfo::getYieldModifier(int) const` (Python: getYieldModifier)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::setYieldHelp, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7736** `CvCivicInfo::getYieldModifierArray() const`
+- **7744** `CvCivicInfo::getYieldModifierArray() const`
   - called by (1): CvGameTextMgr::parseCivicInfo
-- **7741** `CvCivicInfo::getCapitalYieldModifier(int) const` (Python: getCapitalYieldModifier)
+- **7749** `CvCivicInfo::getCapitalYieldModifier(int) const` (Python: getCapitalYieldModifier)
   - called by (4): CvCivicInfo::copyNonDefaults, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7748** `CvCivicInfo::getCapitalYieldModifierArray() const`
+- **7756** `CvCivicInfo::getCapitalYieldModifierArray() const`
   - called by (1): CvGameTextMgr::parseCivicInfo
-- **7753** `CvCivicInfo::getTradeYieldModifier(int) const` (Python: getTradeYieldModifier)
+- **7761** `CvCivicInfo::getTradeYieldModifier(int) const` (Python: getTradeYieldModifier)
   - called by (4): CvCivicInfo::copyNonDefaults, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7760** `CvCivicInfo::getTradeYieldModifierArray() const`
+- **7768** `CvCivicInfo::getTradeYieldModifierArray() const`
   - called by (1): CvGameTextMgr::parseCivicInfo
-- **7765** `CvCivicInfo::getCommerceModifier(int) const` (Python: getCommerceModifier)
+- **7773** `CvCivicInfo::getCommerceModifier(int) const` (Python: getCommerceModifier)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::setCommerceHelp, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_cultureVictoryTechValue, CyInfoPythonInterface1
-- **7772** `CvCivicInfo::getCommerceModifierArray() const`
+- **7780** `CvCivicInfo::getCommerceModifierArray() const`
   - called by (1): CvGameTextMgr::parseCivicInfo
-- **7777** `CvCivicInfo::getCapitalCommerceModifier(int) const` (Python: getCapitalCommerceModifier)
+- **7785** `CvCivicInfo::getCapitalCommerceModifier(int) const` (Python: getCapitalCommerceModifier)
   - called by (4): CvCivicInfo::copyNonDefaults, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7784** `CvCivicInfo::getCapitalCommerceModifierArray() const`
+- **7792** `CvCivicInfo::getCapitalCommerceModifierArray() const`
   - called by (1): CvGameTextMgr::parseCivicInfo
-- **7789** `CvCivicInfo::getSpecialistExtraCommerce(int) const` (Python: getSpecialistExtraCommerce)
+- **7797** `CvCivicInfo::getSpecialistExtraCommerce(int) const` (Python: getSpecialistExtraCommerce)
   - called by (4): CvCivicInfo::copyNonDefaults, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7796** `CvCivicInfo::getSpecialistExtraCommerceArray() const`
+- **7804** `CvCivicInfo::getSpecialistExtraCommerceArray() const`
   - called by (1): CvGameTextMgr::parseCivicInfo
-- **7801** `CvCivicInfo::getBuildingHappinessChanges(int) const` (Python: getBuildingHappinessChanges)
+- **7809** `CvCivicInfo::getBuildingHappinessChanges(int) const` (Python: getBuildingHappinessChanges)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7808** `CvCivicInfo::getBuildingHealthChanges(int) const` (Python: getBuildingHealthChanges)
+- **7816** `CvCivicInfo::getBuildingHealthChanges(int) const` (Python: getBuildingHealthChanges)
   - called by (6): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7815** `CvCivicInfo::getFeatureHappinessChanges(int) const` (Python: getFeatureHappinessChanges)
+- **7823** `CvCivicInfo::getFeatureHappinessChanges(int) const` (Python: getFeatureHappinessChanges)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7822** `CvCivicInfo::isHurry(int) const` (Python: isHurry)
+- **7830** `CvCivicInfo::isHurry(int) const` (Python: isHurry)
   - called by (6): CvCivicInfo::copyNonDefaults, CvDLLWidgetData::parseHurryHelp, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7829** `CvCivicInfo::isSpecialBuildingNotRequired(int) const` (Python: isSpecialBuildingNotRequired)
+- **7837** `CvCivicInfo::isSpecialBuildingNotRequired(int) const` (Python: isSpecialBuildingNotRequired)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7836** `CvCivicInfo::isSpecialistValid(int) const` (Python: isSpecialistValid)
+- **7844** `CvCivicInfo::isSpecialistValid(int) const` (Python: isSpecialistValid)
   - called by (5): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CyInfoPythonInterface1
-- **7843** `CvCivicInfo::getImprovementYieldChanges(int, int) const` (Python: getImprovementYieldChanges)
+- **7851** `CvCivicInfo::getImprovementYieldChanges(int, int) const` (Python: getImprovementYieldChanges)
   - called by (7): CvCivicInfo::copyNonDefaults, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setImprovementHelp, CvPlayer::processCivics, CvPlayerAI::AI_civicValue, CvPlot::calculateImprovementYieldChange, CyInfoPythonInterface1
-- **7852** `CvCivicInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **7860** `CvCivicInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumHurryInfos [CvGlobals.cpp], CvGlobals::getNumSpecialBuildingInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], FDataStreamBase::ReadString [FDataStreamBase.h]
-- **8003** `CvCivicInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **8011** `CvCivicInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumHurryInfos [CvGlobals.cpp], CvGlobals::getNumSpecialBuildingInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], FDataStreamBase::WriteString [FDataStreamBase.h]
   - called by (1): writeInfoArray<class CvCivicInfo>
-- **8109** `CvCivicInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **8117** `CvCivicInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::SetCommerce<int> [CvXMLLoadUtility.h], CvGlobals::getNumHurryInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumSpecialBuildingInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvXMLLoadUtility::Init2DIntList [CvXMLLoadUtilityInit.cpp], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvCivicInfo::setWeLoveTheKingKey
-- **8328** `CvCivicInfo::copyNonDefaults(CvCivicInfo*)`
+- **8336** `CvCivicInfo::copyNonDefaults(CvCivicInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvCivicInfo::getCivicOptionType, CvCivicInfo::getTechPrereq, CvCivicInfo::getAnarchyLength, CvCivicInfo::getUpkeep, CvCivicInfo::getAIWeight, CvCivicInfo::getGreatPeopleRateModifier, CvCivicInfo::getGreatGeneralRateModifier, CvCivicInfo::getDomesticGreatGeneralRateModifier, CvCivicInfo::getStateReligionGreatPeopleRateModifier, CvCivicInfo::getDistanceMaintenanceModifier, CvCivicInfo::getNumCitiesMaintenanceModifier, CvCivicInfo::getCorporationMaintenanceModifier, CvCivicInfo::getExtraHealth, CvCivicInfo::getFreeExperience, CvCivicInfo::getWorkerSpeedModifier, CvCivicInfo::getImprovementUpgradeRateModifier, CvCivicInfo::getMilitaryProductionModifier, CvCivicInfo::getBaseFreeUnits, CvCivicInfo::getBaseFreeMilitaryUnits, CvCivicInfo::getFreeUnitsPopulationPercent, CvCivicInfo::getFreeMilitaryUnitsPopulationPercent, CvCivicInfo::getGoldPerUnit, CvCivicInfo::getGoldPerMilitaryUnit, CvCivicInfo::getHappyPerMilitaryUnit, CvCivicInfo::isMilitaryFoodProduction, CvCivicInfo::getMaxConscript, CvCivicInfo::isNoUnhealthyPopulation, CvCivicInfo::isBuildingOnlyHealthy, CvCivicInfo::getLargestCityHappiness, CvCivicInfo::getWarWearinessModifier, CvCivicInfo::getFreeSpecialist, CvCivicInfo::getTradeRoutes, CvCivicInfo::isNoForeignTrade, CvCivicInfo::isNoCorporations, CvCivicInfo::isNoForeignCorporations, CvCivicInfo::getCivicPercentAnger, CvCivicInfo::isStateReligion, CvCivicInfo::isNoNonStateReligionSpread, CvCivicInfo::getStateReligionHappiness, CvCivicInfo::getNonStateReligionHappiness, CvCivicInfo::getStateReligionUnitProductionModifier, CvCivicInfo::getStateReligionBuildingProductionModifier, CvCivicInfo::getStateReligionFreeExperience, CvCivicInfo::getExpInBorderModifier, CvCivicInfo::isUpgradeAnywhere, CvCivicInfo::isAllowInquisitions, CvCivicInfo::isDisallowInquisitions, CvCivicInfo::getRevIdxLocal, CvCivicInfo::getRevIdxNational, CvCivicInfo::getRevIdxDistanceModifier, CvCivicInfo::getRevIdxHolyCityGood, CvCivicInfo::getRevIdxHolyCityBad, CvCivicInfo::getRevIdxSwitchTo, CvCivicInfo::getRevIdxNationalityMod, CvCivicInfo::getRevIdxBadReligionMod, CvCivicInfo::getRevIdxGoodReligionMod, CvCivicInfo::getRevViolentMod, CvCivicInfo::getRevReligiousFreedom, CvCivicInfo::getRevLaborFreedom, CvCivicInfo::getRevEnvironmentalProtection, CvCivicInfo::getRevDemocracyLevel, CvCivicInfo::isCommunism, CvCivicInfo::isFreeSpeech, CvCivicInfo::isCanDoElection, CvCivicInfo::getYieldModifier, CvCivicInfo::getCapitalYieldModifier, CvCivicInfo::getTradeYieldModifier, CvCivicInfo::getCommerceModifier, CvCivicInfo::getCapitalCommerceModifier, CvCivicInfo::getSpecialistExtraCommerce, CvGlobals::getNumHurryInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCivicInfo::isHurry, CvGlobals::getNumSpecialBuildingInfos [CvGlobals.cpp], CvCivicInfo::isSpecialBuildingNotRequired, CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvCivicInfo::isSpecialistValid, CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvCivicInfo::getBuildingHappinessChanges, CvCivicInfo::getBuildingHealthChanges, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvCivicInfo::getFeatureHappinessChanges, CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvCivicInfo::getImprovementYieldChanges, CvCivicInfo::getWeLoveTheKingKey, CvWString::operator=(unsigned short const*) [CvString.h]
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCivicInfo>
-- **8517** `CvDiplomacyInfo::CvDiplomacyInfo()` (exported)
+- **8525** `CvDiplomacyInfo::CvDiplomacyInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetDiplomacyInfo, readInfoArray<class CvDiplomacyInfo>
-- **8528** `CvDiplomacyInfo::~CvDiplomacyInfo()` (exported; virtual)
+- **8536** `CvDiplomacyInfo::~CvDiplomacyInfo()` (exported; virtual)
   - calls: CvDiplomacyInfo::uninit, CvInfoBase::~CvInfoBase
   - called by (1): CvDiplomacyInfo::`vector deleting dtor'
-- **8534** `CvDiplomacyInfo::uninit()` (exported)
+- **8542** `CvDiplomacyInfo::uninit()` (exported)
   - called by (3): CvDiplomacyInfo::read(CvXMLLoadUtility*), CvDiplomacyInfo::read(FDataStreamBase*), CvDiplomacyInfo::~CvDiplomacyInfo
-- **8543** `CvDiplomacyInfo::getResponse(int) const` (exported; Python: getResponse)
+- **8551** `CvDiplomacyInfo::getResponse(int) const` (exported; Python: getResponse)
   - called by (1): CyInfoPythonInterface3
-- **8548** `CvDiplomacyInfo::getNumResponses() const` (exported; Python: getNumResponses)
+- **8556** `CvDiplomacyInfo::getNumResponses() const` (exported; Python: getNumResponses)
   - called by (2): CvDiplomacyInfo::FindResponseIndex, CyInfoPythonInterface3
-- **8553** `CvDiplomacyInfo::getCivilizationTypes(int, int) const` (exported; Python: getCivilizationTypes)
+- **8561** `CvDiplomacyInfo::getCivilizationTypes(int, int) const` (exported; Python: getCivilizationTypes)
   - calls: CvDiplomacyResponse::getCivilizationTypes(int)
   - called by (1): CyInfoPythonInterface3
-- **8562** `CvDiplomacyInfo::getLeaderHeadTypes(int, int) const` (exported; Python: getLeaderHeadTypes)
+- **8570** `CvDiplomacyInfo::getLeaderHeadTypes(int, int) const` (exported; Python: getLeaderHeadTypes)
   - calls: CvDiplomacyResponse::getLeaderHeadTypes(int)
   - called by (3): CvDiplomacyInfo::FindResponseIndex, CvDiplomacyResponse::UpdateDiplomacies, CyInfoPythonInterface3
-- **8571** `CvDiplomacyInfo::getAttitudeTypes(int, int) const` (exported; Python: getAttitudeTypes)
+- **8579** `CvDiplomacyInfo::getAttitudeTypes(int, int) const` (exported; Python: getAttitudeTypes)
   - calls: CvDiplomacyResponse::getAttitudeTypes(int) const
   - called by (3): CvDiplomacyInfo::FindResponseIndex, CvDiplomacyResponse::UpdateDiplomacies, CyInfoPythonInterface3
-- **8580** `CvDiplomacyInfo::getDiplomacyPowerTypes(int, int) const` (exported; Python: getDiplomacyPowerTypes)
+- **8588** `CvDiplomacyInfo::getDiplomacyPowerTypes(int, int) const` (exported; Python: getDiplomacyPowerTypes)
   - calls: CvDiplomacyResponse::getDiplomacyPowerTypes(int)
   - called by (3): CvDiplomacyInfo::FindResponseIndex, CvDiplomacyResponse::UpdateDiplomacies, CyInfoPythonInterface3
-- **8589** `CvDiplomacyInfo::getNumDiplomacyText(int) const` (exported; Python: getNumDiplomacyText)
+- **8597** `CvDiplomacyInfo::getNumDiplomacyText(int) const` (exported; Python: getNumDiplomacyText)
   - calls: CvDiplomacyResponse::getNumDiplomacyText
   - called by (2): CvDiplomacyResponse::UpdateDiplomacies, CyInfoPythonInterface3
-- **8596** `CvDiplomacyInfo::getDiplomacyText(int, int) const` (exported; Python: getDiplomacyText)
+- **8604** `CvDiplomacyInfo::getDiplomacyText(int, int) const` (exported; Python: getDiplomacyText)
   - calls: CvDiplomacyResponse::getDiplomacyText(int) const
   - called by (2): CvDiplomacyResponse::UpdateDiplomacies, CyInfoPythonInterface3
-- **8605** `CvDiplomacyInfo::read(FDataStreamBase*)` (exported; virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **8613** `CvDiplomacyInfo::read(FDataStreamBase*)` (exported; virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], CvDiplomacyInfo::uninit, operator new(unsigned int) [CvGameCoreDLL.cpp], CvDiplomacyResponse::CvDiplomacyResponse, CvDiplomacyResponse::read(FDataStreamBase*), operator delete(void*) [CvGameCoreDLL.cpp]
-- **8626** `CvDiplomacyInfo::write(FDataStreamBase*)` (exported; virtual; overrides CvInfoBase::write)
+- **8634** `CvDiplomacyInfo::write(FDataStreamBase*)` (exported; virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], CvDiplomacyResponse::write
   - called by (1): writeInfoArray<class CvDiplomacyInfo>
-- **8644** `CvDiplomacyInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **8652** `CvDiplomacyInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvDiplomacyInfo::uninit, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::NumOfChildrenByTagName [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvDiplomacyResponse::CvDiplomacyResponse, CvDiplomacyResponse::read(CvXMLLoadUtility*), CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CvXMLLoadUtility::SetDiplomacyInfo
-- **8682** `CvDiplomacyInfo::copyNonDefaults(CvXMLLoadUtility*)`
+- **8690** `CvDiplomacyInfo::copyNonDefaults(CvXMLLoadUtility*)`
   - calls: CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::NumOfChildrenByTagName [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvDiplomacyResponse::CvDiplomacyResponse, CvDiplomacyResponse::read(CvXMLLoadUtility*), CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvDiplomacyResponse::getLeaderHeadTypes(int), CvDiplomacyResponse::getAttitudeTypes(int) const, CvDiplomacyResponse::getDiplomacyPowerTypes(int), CvDiplomacyInfo::FindResponseIndex, CvDiplomacyResponse::UpdateDiplomacies, CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], operator delete(void*) [CvGameCoreDLL.cpp]
   - called by (1): CvXMLLoadUtility::SetDiplomacyInfo
-- **8802** `CvDiplomacyInfo::FindResponseIndex(CvDiplomacyResponse*, int, int*)`
+- **8810** `CvDiplomacyInfo::FindResponseIndex(CvDiplomacyResponse*, int, int*)`
   - calls: CvDiplomacyInfo::getNumResponses, CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvDiplomacyInfo::getLeaderHeadTypes, CvDiplomacyInfo::getAttitudeTypes, CvDiplomacyInfo::getDiplomacyPowerTypes, CvDiplomacyResponse::getLeaderHeadTypes(int), CvDiplomacyResponse::getAttitudeTypes(int) const, CvDiplomacyResponse::getDiplomacyPowerTypes(int)
   - called by (1): CvDiplomacyInfo::copyNonDefaults
-- **9009** `CvUnitClassInfo::CvUnitClassInfo()`
+- **9017** `CvUnitClassInfo::CvUnitClassInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvUnitClassInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvUnitClassInfo>
-- **9020** `CvUnitClassInfo::~CvUnitClassInfo()` (virtual)
+- **9028** `CvUnitClassInfo::~CvUnitClassInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvUnitClassInfo::`scalar deleting dtor'
-- **9024** `CvUnitClassInfo::getMaxGlobalInstances() const` (Python: getMaxGlobalInstances)
+- **9032** `CvUnitClassInfo::getMaxGlobalInstances() const` (Python: getMaxGlobalInstances)
   - called by (8): CvGame::isUnitClassMaxedOut, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvUnit::kill, CvUnitAI::AI_generalMove, CvUnitAI::AI_lead, CvUnitClassInfo::copyNonDefaults, CyInfoPythonInterface1, isWorldUnitClass
-- **9029** `CvUnitClassInfo::getMaxTeamInstances() const` (Python: getMaxTeamInstances)
+- **9037** `CvUnitClassInfo::getMaxTeamInstances() const` (Python: getMaxTeamInstances)
   - called by (5): CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvTeam::isUnitClassMaxedOut, CvUnitClassInfo::copyNonDefaults, CyInfoPythonInterface1, isTeamUnitClass
-- **9034** `CvUnitClassInfo::getMaxPlayerInstances() const` (Python: getMaxPlayerInstances)
+- **9042** `CvUnitClassInfo::getMaxPlayerInstances() const` (Python: getMaxPlayerInstances)
   - called by (5): CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::isUnitClassMaxedOut, CvUnitClassInfo::copyNonDefaults, CyInfoPythonInterface1, isNationalUnitClass
-- **9039** `CvUnitClassInfo::getInstanceCostModifier() const` (Python: getInstanceCostModifier)
+- **9047** `CvUnitClassInfo::getInstanceCostModifier() const` (Python: getInstanceCostModifier)
   - called by (4): CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::getProductionNeeded(UnitTypes) const, CvUnitClassInfo::copyNonDefaults, CyInfoPythonInterface1
-- **9044** `CvUnitClassInfo::getDefaultUnitIndex() const` (Python: getDefaultUnitIndex)
+- **9052** `CvUnitClassInfo::getDefaultUnitIndex() const` (Python: getDefaultUnitIndex)
   - called by (18): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvGameTextMgr::buildFreeUnitString, CvGameTextMgr::parseCivInfos, CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setReligionHelp, CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_calculateUnitAIViability, CvPlayerAI::AI_doEnemyUnitData …
-- **9049** `CvUnitClassInfo::setDefaultUnitIndex(int)`
-- **9059** `CvUnitClassInfo::getDefaultUnitIndexVector()`
+- **9057** `CvUnitClassInfo::setDefaultUnitIndex(int)`
+- **9067** `CvUnitClassInfo::getDefaultUnitIndexVector()`
   - called by (1): CvUnitClassInfo::copyNonDefaults
-- **9063** `CvUnitClassInfo::getDefaultUnitIndexVectorElement(int)`
+- **9071** `CvUnitClassInfo::getDefaultUnitIndexVectorElement(int)`
   - calls: CvString::CvString(CvString const&) [CvString.h]
   - called by (1): CvUnitClassInfo::copyNonDefaults
-- **9071** `CvUnitClassInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **9079** `CvUnitClassInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::~CvString [CvString.h]
-- **9094** `CvUnitClassInfo::copyNonDefaults(CvUnitClassInfo*)`
+- **9102** `CvUnitClassInfo::copyNonDefaults(CvUnitClassInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvUnitClassInfo::getMaxGlobalInstances, CvUnitClassInfo::getMaxTeamInstances, CvUnitClassInfo::getMaxPlayerInstances, CvUnitClassInfo::getInstanceCostModifier, CvUnitClassInfo::getDefaultUnitIndexVector, CvUnitClassInfo::getDefaultUnitIndexVectorElement
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvUnitClassInfo>
-- **9120** `CvUnitClassInfo::readPass3()` (virtual; overrides CvInfoBase::readPass3)
+- **9128** `CvUnitClassInfo::readPass3()` (virtual; overrides CvInfoBase::readPass3)
   - calls: CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::operator char const * [CvString.h]
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
-- **9351** `CvBuildingInfo::CvBuildingInfo()`
+- **9359** `CvBuildingInfo::CvBuildingInfo()`
   - calls: CvHotkeyInfo::CvHotkeyInfo(), CvString::CvString() [CvString.h], CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h]
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvBuildingInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvBuildingInfo>, readInfoArray<class CvBuildingInfo>
-- **9362** `CvBuildingInfo::~CvBuildingInfo()` (virtual)
+- **9370** `CvBuildingInfo::~CvBuildingInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h]
   - called by (1): CvBuildingInfo::`scalar deleting dtor'
-- **9420** `CvBuildingInfo::getBuildingClassType() const` (Python: getBuildingClassType)
+- **9428** `CvBuildingInfo::getBuildingClassType() const` (Python: getBuildingClassType)
   - called by (48): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvCity::doCheckProduction, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getBuildingBadHealth(BuildingTypes) const, CvCity::getBuildingCommerceByBuilding, CvCity::getBuildingGoodHealth(BuildingTypes) const, CvCity::getBuildingHappiness, CvCity::getNumActiveWorldWonders …
-- **9425** `CvBuildingInfo::getVictoryPrereq() const` (Python: getVictoryPrereq)
+- **9433** `CvBuildingInfo::getVictoryPrereq() const` (Python: getVictoryPrereq)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvPlayer::canConstruct, CyInfoPythonInterface1
-- **9430** `CvBuildingInfo::getFreeStartEra() const` (Python: getFreeStartEra)
+- **9438** `CvBuildingInfo::getFreeStartEra() const` (Python: getFreeStartEra)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::setBuildingHelpActual, CvPlayer::found, CvPlayer::getAdvancedStartBuildingCost, CvPlayer::getNewCityProductionValue, CyInfoPythonInterface1
-- **9435** `CvBuildingInfo::getMaxStartEra() const` (Python: getMaxStartEra)
+- **9443** `CvBuildingInfo::getMaxStartEra() const` (Python: getMaxStartEra)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvPlayer::canConstruct, CyInfoPythonInterface1
-- **9440** `CvBuildingInfo::getObsoleteTech() const` (Python: getObsoleteTech)
+- **9448** `CvBuildingInfo::getObsoleteTech() const` (Python: getObsoleteTech)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setTechTradeHelp, CvTeam::processTech, CyInfoPythonInterface1
-- **9445** `CvBuildingInfo::getPrereqAndTech() const` (Python: getPrereqAndTech)
+- **9453** `CvBuildingInfo::getPrereqAndTech() const` (Python: getPrereqAndTech)
   - called by (13): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techValue, CyInfoPythonInterface1, `anonymous namespace'::AI_buildingTechReadinessPercent, `anonymous namespace'::AI_hasBuildingTechs …
-- **9450** `CvBuildingInfo::getNoBonus() const` (Python: getNoBonus)
+- **9458** `CvBuildingInfo::getNoBonus() const` (Python: getNoBonus)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9455** `CvBuildingInfo::getPowerBonus() const` (Python: getPowerBonus)
+- **9463** `CvBuildingInfo::getPowerBonus() const` (Python: getPowerBonus)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusPower, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
-- **9460** `CvBuildingInfo::getFreeBonus() const` (Python: getFreeBonus)
+- **9468** `CvBuildingInfo::getFreeBonus() const` (Python: getFreeBonus)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9465** `CvBuildingInfo::getNumFreeBonuses() const` (Python: getNumFreeBonuses)
+- **9473** `CvBuildingInfo::getNumFreeBonuses() const` (Python: getNumFreeBonuses)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGame::getNumFreeBonuses, CyInfoPythonInterface1
-- **9470** `CvBuildingInfo::getFreeBuildingClass() const` (Python: getFreeBuildingClass)
+- **9478** `CvBuildingInfo::getFreeBuildingClass() const` (Python: getFreeBuildingClass)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_bestBuildingThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9475** `CvBuildingInfo::setNumFreeBuildingClass(int)`
-- **9480** `CvBuildingInfo::getFreePromotion() const` (Python: getFreePromotion)
+- **9483** `CvBuildingInfo::setNumFreeBuildingClass(int)`
+- **9488** `CvBuildingInfo::getFreePromotion() const` (Python: getFreePromotion)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9485** `CvBuildingInfo::getCivicOption() const` (Python: getCivic)
+- **9493** `CvBuildingInfo::getCivicOption() const` (Python: getCivic)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9490** `CvBuildingInfo::getAIWeight() const` (Python: getAIWeight)
+- **9498** `CvBuildingInfo::getAIWeight() const` (Python: getAIWeight)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **9495** `CvBuildingInfo::getProductionCost() const` (Python: getProductionCost)
+- **9503** `CvBuildingInfo::getProductionCost() const` (Python: getProductionCost)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::setBuildingHelpActual, CvPlayer::canConstruct, CvPlayer::canSpyDestroyBuilding, CvPlayer::getProductionNeeded(BuildingTypes) const, CvPlayerAI::AI_espionageVal, CvPlayerAI::AI_eventValue, CvPlayerAI::AI_techBuildingValue, CvUnit::performInquisition, CyInfoPythonInterface1
-- **9500** `CvBuildingInfo::getHurryCostModifier() const` (Python: getHurryCostModifier)
+- **9508** `CvBuildingInfo::getHurryCostModifier() const` (Python: getHurryCostModifier)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvCity::getHurryCostModifier(BuildingTypes, bool) const, CyInfoPythonInterface1
-- **9505** `CvBuildingInfo::getHurryAngerModifier() const` (Python: getHurryAngerModifier)
+- **9513** `CvBuildingInfo::getHurryAngerModifier() const` (Python: getHurryAngerModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9510** `CvBuildingInfo::getAdvancedStartCost() const`
+- **9518** `CvBuildingInfo::getAdvancedStartCost() const`
   - called by (2): CvBuildingInfo::copyNonDefaults, CvPlayer::getAdvancedStartBuildingCost
-- **9515** `CvBuildingInfo::getAdvancedStartCostIncrease() const`
+- **9523** `CvBuildingInfo::getAdvancedStartCostIncrease() const`
   - called by (2): CvBuildingInfo::copyNonDefaults, CvPlayer::getAdvancedStartBuildingCost
-- **9520** `CvBuildingInfo::getMinAreaSize() const` (Python: getMinAreaSize)
+- **9528** `CvBuildingInfo::getMinAreaSize() const` (Python: getMinAreaSize)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::isValidBuildingLocation, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **9525** `CvBuildingInfo::getNumCitiesPrereq() const` (Python: getNumCitiesPrereq)
+- **9533** `CvBuildingInfo::getNumCitiesPrereq() const` (Python: getNumCitiesPrereq)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvPlayer::canConstruct, CyInfoPythonInterface1
-- **9530** `CvBuildingInfo::getNumTeamsPrereq() const` (Python: getNumTeamsPrereq)
+- **9538** `CvBuildingInfo::getNumTeamsPrereq() const` (Python: getNumTeamsPrereq)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvPlayer::canConstruct, CyInfoPythonInterface1
-- **9535** `CvBuildingInfo::getUnitLevelPrereq() const` (Python: getUnitLevelPrereq)
+- **9543** `CvBuildingInfo::getUnitLevelPrereq() const` (Python: getUnitLevelPrereq)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvPlayer::canConstruct, CyInfoPythonInterface1
-- **9540** `CvBuildingInfo::getMinLatitude() const` (Python: getMinLatitude)
+- **9548** `CvBuildingInfo::getMinLatitude() const` (Python: getMinLatitude)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CyInfoPythonInterface1
-- **9545** `CvBuildingInfo::getMaxLatitude() const` (Python: getMaxLatitude)
+- **9553** `CvBuildingInfo::getMaxLatitude() const` (Python: getMaxLatitude)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CyInfoPythonInterface1
-- **9550** `CvBuildingInfo::getGreatPeopleRateModifier() const` (Python: getGreatPeopleRateModifier)
+- **9558** `CvBuildingInfo::getGreatPeopleRateModifier() const` (Python: getGreatPeopleRateModifier)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalGreatPeopleRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9555** `CvBuildingInfo::getGreatGeneralRateModifier() const` (Python: getGreatGeneralRateModifier)
+- **9563** `CvBuildingInfo::getGreatGeneralRateModifier() const` (Python: getGreatGeneralRateModifier)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9560** `CvBuildingInfo::getDomesticGreatGeneralRateModifier() const` (Python: getDomesticGreatGeneralRateModifier)
+- **9568** `CvBuildingInfo::getDomesticGreatGeneralRateModifier() const` (Python: getDomesticGreatGeneralRateModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9565** `CvBuildingInfo::getGlobalGreatPeopleRateModifier() const` (Python: getGlobalGreatPeopleRateModifier)
+- **9573** `CvBuildingInfo::getGlobalGreatPeopleRateModifier() const` (Python: getGlobalGreatPeopleRateModifier)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalGreatPeopleRateModifierByBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9570** `CvBuildingInfo::getAnarchyModifier() const` (Python: getAnarchyModifier)
+- **9578** `CvBuildingInfo::getAnarchyModifier() const` (Python: getAnarchyModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9575** `CvBuildingInfo::getGoldenAgeModifier() const` (Python: getGoldenAgeModifier)
+- **9583** `CvBuildingInfo::getGoldenAgeModifier() const` (Python: getGoldenAgeModifier)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9580** `CvBuildingInfo::getGlobalHurryModifier() const` (Python: getGlobalHurryModifier)
+- **9588** `CvBuildingInfo::getGlobalHurryModifier() const` (Python: getGlobalHurryModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9585** `CvBuildingInfo::getFreeExperience() const` (Python: getFreeExperience)
+- **9593** `CvBuildingInfo::getFreeExperience() const` (Python: getFreeExperience)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9590** `CvBuildingInfo::getGlobalFreeExperience() const` (Python: getGlobalFreeExperience)
+- **9598** `CvBuildingInfo::getGlobalFreeExperience() const` (Python: getGlobalFreeExperience)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9595** `CvBuildingInfo::getFoodKept() const` (Python: getFoodKept)
+- **9603** `CvBuildingInfo::getFoodKept() const` (Python: getFoodKept)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvCityAI::AI_updateSpecialYieldMultiplier, CvGameTextMgr::setBuildingHelpActual, CvPlayer::doAdvancedStartAction, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **9600** `CvBuildingInfo::getAirlift() const` (Python: getAirlift)
+- **9608** `CvBuildingInfo::getAirlift() const` (Python: getAirlift)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9605** `CvBuildingInfo::getAirModifier() const` (Python: getAirModifier)
+- **9613** `CvBuildingInfo::getAirModifier() const` (Python: getAirModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9610** `CvBuildingInfo::getAirUnitCapacity() const` (Python: getAirUnitCapacity)
+- **9618** `CvBuildingInfo::getAirUnitCapacity() const` (Python: getAirUnitCapacity)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9615** `CvBuildingInfo::getNukeModifier() const` (Python: getNukeModifier)
+- **9623** `CvBuildingInfo::getNukeModifier() const` (Python: getNukeModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9620** `CvBuildingInfo::getNukeExplosionRand() const` (Python: getNukeExplosionRand)
+- **9628** `CvBuildingInfo::getNukeExplosionRand() const` (Python: getNukeExplosionRand)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::doMeltdown, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9625** `CvBuildingInfo::getFreeSpecialist() const` (Python: getFreeSpecialist)
+- **9633** `CvBuildingInfo::getFreeSpecialist() const` (Python: getFreeSpecialist)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9630** `CvBuildingInfo::getAreaFreeSpecialist() const` (Python: getAreaFreeSpecialist)
+- **9638** `CvBuildingInfo::getAreaFreeSpecialist() const` (Python: getAreaFreeSpecialist)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CvPlot::processArea, CyInfoPythonInterface1
-- **9635** `CvBuildingInfo::getGlobalFreeSpecialist() const` (Python: getGlobalFreeSpecialist)
+- **9643** `CvBuildingInfo::getGlobalFreeSpecialist() const` (Python: getGlobalFreeSpecialist)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9640** `CvBuildingInfo::getHappiness() const` (Python: getHappiness)
+- **9648** `CvBuildingInfo::getHappiness() const` (Python: getHappiness)
   - called by (8): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBuildingHappiness, CvCity::processBuilding, CvCityAI::AI_doHurry, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_getTechAgendaValue, CyInfoPythonInterface1
-- **9645** `CvBuildingInfo::getAreaHappiness() const` (Python: getAreaHappiness)
+- **9653** `CvBuildingInfo::getAreaHappiness() const` (Python: getAreaHappiness)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CvPlot::processArea, CyInfoPythonInterface1
-- **9650** `CvBuildingInfo::getGlobalHappiness() const` (Python: getGlobalHappiness)
+- **9658** `CvBuildingInfo::getGlobalHappiness() const` (Python: getGlobalHappiness)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9655** `CvBuildingInfo::getStateReligionHappiness() const` (Python: getStateReligionHappiness)
+- **9663** `CvBuildingInfo::getStateReligionHappiness() const` (Python: getStateReligionHappiness)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBuildingHappiness, CvCity::processBuilding, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9660** `CvBuildingInfo::getWorkerSpeedModifier() const` (Python: getWorkerSpeedModifier)
+- **9668** `CvBuildingInfo::getWorkerSpeedModifier() const` (Python: getWorkerSpeedModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9665** `CvBuildingInfo::getMilitaryProductionModifier() const` (Python: getMilitaryProductionModifier)
+- **9673** `CvBuildingInfo::getMilitaryProductionModifier() const` (Python: getMilitaryProductionModifier)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9670** `CvBuildingInfo::getSpaceProductionModifier() const` (Python: getSpaceProductionModifier)
+- **9678** `CvBuildingInfo::getSpaceProductionModifier() const` (Python: getSpaceProductionModifier)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9675** `CvBuildingInfo::getGlobalSpaceProductionModifier() const` (Python: getGlobalSpaceProductionModifier)
+- **9683** `CvBuildingInfo::getGlobalSpaceProductionModifier() const` (Python: getGlobalSpaceProductionModifier)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9680** `CvBuildingInfo::getTradeRoutes() const` (Python: getTradeRoutes)
+- **9688** `CvBuildingInfo::getTradeRoutes() const` (Python: getTradeRoutes)
   - called by (8): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techValue, CyInfoPythonInterface1
-- **9685** `CvBuildingInfo::getCoastalTradeRoutes() const` (Python: getCoastalTradeRoutes)
+- **9693** `CvBuildingInfo::getCoastalTradeRoutes() const` (Python: getCoastalTradeRoutes)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **9690** `CvBuildingInfo::getGlobalTradeRoutes() const` (Python: getGlobalTradeRoutes)
+- **9698** `CvBuildingInfo::getGlobalTradeRoutes() const` (Python: getGlobalTradeRoutes)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **9695** `CvBuildingInfo::getTradeRouteModifier() const` (Python: getTradeRouteModifier)
+- **9703** `CvBuildingInfo::getTradeRouteModifier() const` (Python: getTradeRouteModifier)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setTradeRouteHelp, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techValue, CyInfoPythonInterface1
-- **9700** `CvBuildingInfo::getForeignTradeRouteModifier() const` (Python: getForeignTradeRouteModifier)
+- **9708** `CvBuildingInfo::getForeignTradeRouteModifier() const` (Python: getForeignTradeRouteModifier)
   - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techValue, CyInfoPythonInterface1
-- **9705** `CvBuildingInfo::getAssetValue() const` (Python: getAssetValue)
+- **9713** `CvBuildingInfo::getAssetValue() const` (Python: getAssetValue)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CyInfoPythonInterface1
-- **9710** `CvBuildingInfo::getPowerValue() const` (Python: getPowerValue)
+- **9718** `CvBuildingInfo::getPowerValue() const` (Python: getPowerValue)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvPlot::processArea, CyInfoPythonInterface1
-- **9715** `CvBuildingInfo::getSpecialBuildingType() const` (Python: getSpecialBuildingType)
+- **9723** `CvBuildingInfo::getSpecialBuildingType() const` (Python: getSpecialBuildingType)
   - called by (13): CvBuildingInfo::copyNonDefaults, CvCity::isPlotTrainable, CvDLLWidgetData::parseDisabledCitizenHelp, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setProductionHelp, CvPlayer::canConstruct, CvPlayer::getProductionModifier(BuildingTypes) const, CvPlayerAI::AI_techBuildingValue, CvTeam::processTech, CyInfoPythonInterface1, `anonymous namespace'::AI_unitReadinessPercent …
-- **9720** `CvBuildingInfo::getAdvisorType() const` (Python: getAdvisorType)
+- **9728** `CvBuildingInfo::getAdvisorType() const` (Python: getAdvisorType)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_bestBuildingThreshold, CvDLLButtonPopup::launchProductionPopup, CyInfoPythonInterface1
-- **9730** `CvBuildingInfo::getPrereqGameOption() const` (Python: getPrereqGameOption)
+- **9738** `CvBuildingInfo::getPrereqGameOption() const` (Python: getPrereqGameOption)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvPlayer::canConstruct, CyInfoPythonInterface1
-- **9735** `CvBuildingInfo::getNotGameOption() const` (Python: getNotGameOption)
+- **9743** `CvBuildingInfo::getNotGameOption() const` (Python: getNotGameOption)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvPlayer::canConstruct, CyInfoPythonInterface1
-- **9743** `CvBuildingInfo::getHolyCity() const` (Python: getHolyCity)
+- **9751** `CvBuildingInfo::getHolyCity() const` (Python: getHolyCity)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGame::doUpdateCacheOnTurn, CvGameTextMgr::buildBuildingRequiresString, CyInfoPythonInterface1
-- **9748** `CvBuildingInfo::getReligionType() const` (Python: getReligionType)
+- **9756** `CvBuildingInfo::getReligionType() const` (Python: getReligionType)
   - called by (12): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBuildingCommerceByBuilding, CvCity::getBuildingHappiness, CvCity::processBuilding, CvCity::processVoteSourceBonus, CvGame::doUpdateCacheOnTurn, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_techBuildingValue, CvTeamAI::AI_getTechMonopolyValue, CyInfoPythonInterface1
-- **9753** `CvBuildingInfo::getStateReligion() const` (Python: getStateReligion)
+- **9761** `CvBuildingInfo::getStateReligion() const` (Python: getStateReligion)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvPlayer::canConstruct, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1
-- **9758** `CvBuildingInfo::getPrereqReligion() const` (Python: getPrereqReligion)
+- **9766** `CvBuildingInfo::getPrereqReligion() const` (Python: getPrereqReligion)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvUnit::performInquisition, CyInfoPythonInterface1
-- **9763** `CvBuildingInfo::getPrereqCorporation() const` (Python: getPrereqCorporation)
+- **9771** `CvBuildingInfo::getPrereqCorporation() const` (Python: getPrereqCorporation)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CyInfoPythonInterface1
-- **9768** `CvBuildingInfo::getFoundsCorporation() const` (Python: getFoundsCorporation)
+- **9776** `CvBuildingInfo::getFoundsCorporation() const` (Python: getFoundsCorporation)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9773** `CvBuildingInfo::getGlobalReligionCommerce() const` (Python: getGlobalReligionCommerce)
+- **9781** `CvBuildingInfo::getGlobalReligionCommerce() const` (Python: getGlobalReligionCommerce)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_religionValue, CyInfoPythonInterface1
-- **9778** `CvBuildingInfo::getGlobalCorporationCommerce() const` (Python: getGlobalCorporationCommerce)
+- **9786** `CvBuildingInfo::getGlobalCorporationCommerce() const` (Python: getGlobalCorporationCommerce)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9783** `CvBuildingInfo::getPrereqAndBonus() const` (Python: getPrereqAndBonus)
+- **9791** `CvBuildingInfo::getPrereqAndBonus() const` (Python: getPrereqAndBonus)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
-- **9788** `CvBuildingInfo::getGreatPeopleUnitClass() const` (Python: getGreatPeopleUnitClass)
+- **9796** `CvBuildingInfo::getGreatPeopleUnitClass() const` (Python: getGreatPeopleUnitClass)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9793** `CvBuildingInfo::getGreatPeopleRateChange() const` (Python: getGreatPeopleRateChange)
+- **9801** `CvBuildingInfo::getGreatPeopleRateChange() const` (Python: getGreatPeopleRateChange)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseGreatPeopleRateByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9798** `CvBuildingInfo::getConquestProbability() const` (Python: getConquestProbability)
+- **9806** `CvBuildingInfo::getConquestProbability() const` (Python: getConquestProbability)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvPlayer::acquireCity, CyInfoPythonInterface1
-- **9803** `CvBuildingInfo::getMaintenanceModifier() const` (Python: getMaintenanceModifier)
+- **9811** `CvBuildingInfo::getMaintenanceModifier() const` (Python: getMaintenanceModifier)
   - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::getSavedMaintenanceTimes100ByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **9808** `CvBuildingInfo::getWarWearinessModifier() const` (Python: getWarWearinessModifier)
+- **9816** `CvBuildingInfo::getWarWearinessModifier() const` (Python: getWarWearinessModifier)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9813** `CvBuildingInfo::getGlobalWarWearinessModifier() const` (Python: getGlobalWarWearinessModifier)
+- **9821** `CvBuildingInfo::getGlobalWarWearinessModifier() const` (Python: getGlobalWarWearinessModifier)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9818** `CvBuildingInfo::getEnemyWarWearinessModifier() const` (Python: getEnemyWarWearinessModifier)
+- **9826** `CvBuildingInfo::getEnemyWarWearinessModifier() const` (Python: getEnemyWarWearinessModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvTeam::processBuilding, CyInfoPythonInterface1
-- **9823** `CvBuildingInfo::getHealRateChange() const` (Python: getHealRateChange)
+- **9831** `CvBuildingInfo::getHealRateChange() const` (Python: getHealRateChange)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9828** `CvBuildingInfo::getHealth() const` (Python: getHealth)
+- **9836** `CvBuildingInfo::getHealth() const` (Python: getHealth)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getBuildingBadHealth(BuildingTypes) const, CvCity::getBuildingGoodHealth(BuildingTypes) const, CvCity::processBuilding, CvCityAI::AI_doHurry, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **9833** `CvBuildingInfo::getAreaHealth() const` (Python: getAreaHealth)
+- **9841** `CvBuildingInfo::getAreaHealth() const` (Python: getAreaHealth)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CvPlot::processArea, CyInfoPythonInterface1
-- **9838** `CvBuildingInfo::getGlobalHealth() const` (Python: getGlobalHealth)
+- **9846** `CvBuildingInfo::getGlobalHealth() const` (Python: getGlobalHealth)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9843** `CvBuildingInfo::getGlobalPopulationChange() const` (Python: getGlobalPopulationChange)
+- **9851** `CvBuildingInfo::getGlobalPopulationChange() const` (Python: getGlobalPopulationChange)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::setNumRealBuildingTimed, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9848** `CvBuildingInfo::getFreeTechs() const` (Python: getFreeTechs)
+- **9856** `CvBuildingInfo::getFreeTechs() const` (Python: getFreeTechs)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::setNumRealBuildingTimed, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9853** `CvBuildingInfo::getDefenseModifier() const` (Python: getDefenseModifier)
+- **9861** `CvBuildingInfo::getDefenseModifier() const` (Python: getDefenseModifier)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalDefenseByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9858** `CvBuildingInfo::getBombardDefenseModifier() const` (Python: getBombardDefenseModifier)
+- **9866** `CvBuildingInfo::getBombardDefenseModifier() const` (Python: getBombardDefenseModifier)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBombardDefenseByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9863** `CvBuildingInfo::getAllCityDefenseModifier() const` (Python: getAllCityDefenseModifier)
+- **9871** `CvBuildingInfo::getAllCityDefenseModifier() const` (Python: getAllCityDefenseModifier)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalDefenseByBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9868** `CvBuildingInfo::getEspionageDefenseModifier() const` (Python: getEspionageDefenseModifier)
+- **9876** `CvBuildingInfo::getEspionageDefenseModifier() const` (Python: getEspionageDefenseModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9878** `CvBuildingInfo::getUnitUpgradePriceModifier() const` (Python: getUnitUpgradePriceModifier)
+- **9886** `CvBuildingInfo::getUnitUpgradePriceModifier() const` (Python: getUnitUpgradePriceModifier)
   - called by (3): CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9883** `CvBuildingInfo::getRevIdxLocal() const` (Python: getRevIdxLocal)
+- **9891** `CvBuildingInfo::getRevIdxLocal() const` (Python: getRevIdxLocal)
   - called by (1): CyInfoPythonInterface1
-- **9888** `CvBuildingInfo::getRevIdxNational() const` (Python: getRevIdxNational)
+- **9896** `CvBuildingInfo::getRevIdxNational() const` (Python: getRevIdxNational)
   - called by (2): CvPlayer::processBuilding, CyInfoPythonInterface1
-- **9893** `CvBuildingInfo::getRevIdxDistanceModifier() const` (Python: getRevIdxDistanceModifier)
+- **9901** `CvBuildingInfo::getRevIdxDistanceModifier() const` (Python: getRevIdxDistanceModifier)
   - called by (1): CyInfoPythonInterface1
-- **9901** `CvBuildingInfo::getMissionType() const` (Python: getMissionType)
+- **9909** `CvBuildingInfo::getMissionType() const` (Python: getMissionType)
   - called by (3): CvActionInfo::getMissionType, CvXMLLoadUtility::SetGlobalActionInfo, CyInfoPythonInterface1
-- **9906** `CvBuildingInfo::setMissionType(int)`
+- **9914** `CvBuildingInfo::setMissionType(int)`
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **9911** `CvBuildingInfo::getVoteSourceType() const` (Python: getVoteSourceType)
+- **9919** `CvBuildingInfo::getVoteSourceType() const` (Python: getVoteSourceType)
   - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::setNumRealBuildingTimed, CvCityAI::AI_buildingValueThreshold, CvGame::getSecretaryGeneral, CvGame::processBuilding, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_techBuildingValue, CvTeam::processBuilding, CyInfoPythonInterface1
-- **9916** `CvBuildingInfo::getVisibilityPriority() const`
+- **9924** `CvBuildingInfo::getVisibilityPriority() const`
   - called by (3): CvBuildingInfo::copyNonDefaults, CvCity::getBuildingVisibilityPriority, VisibleBuildingComparator::operator
-- **9921** `CvBuildingInfo::isTeamShare() const` (Python: isTeamShare)
+- **9929** `CvBuildingInfo::isTeamShare() const` (Python: isTeamShare)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCity::setNumRealBuildingTimed, CvTeam::shareItems, CyInfoPythonInterface1
-- **9926** `CvBuildingInfo::isWater() const` (Python: isWater)
+- **9934** `CvBuildingInfo::isWater() const` (Python: isWater)
   - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::isValidBuildingLocation, CvCityAI::AI_buildingValueThreshold, CvGame::isWaterBuilding, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CvPlayerAI::AI_techValue, CyInfoPythonInterface1
-- **9931** `CvBuildingInfo::isRiver() const` (Python: isRiver)
+- **9939** `CvBuildingInfo::isRiver() const` (Python: isRiver)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::isValidBuildingLocation, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **9936** `CvBuildingInfo::isPower() const` (Python: isPower)
+- **9944** `CvBuildingInfo::isPower() const` (Python: isPower)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9941** `CvBuildingInfo::isDirtyPower() const` (Python: isDirtyPower)
+- **9949** `CvBuildingInfo::isDirtyPower() const` (Python: isDirtyPower)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getBonusPower, CvCity::processBuilding, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9946** `CvBuildingInfo::isAreaCleanPower() const` (Python: isAreaCleanPower)
+- **9954** `CvBuildingInfo::isAreaCleanPower() const` (Python: isAreaCleanPower)
   - called by (8): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getAdditionalYieldRateModifierByBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CvPlot::processArea, CyInfoPythonInterface1
-- **9951** `CvBuildingInfo::isAreaBorderObstacle() const` (Python: isAreaBorderObstacle)
+- **9959** `CvBuildingInfo::isAreaBorderObstacle() const` (Python: isAreaBorderObstacle)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::setNumRealBuildingTimed, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CvPlot::processArea, CyInfoPythonInterface1
-- **9956** `CvBuildingInfo::isForceTeamVoteEligible() const` (Python: isForceTeamVoteEligible)
+- **9964** `CvBuildingInfo::isForceTeamVoteEligible() const` (Python: isForceTeamVoteEligible)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::setBuildingHelpActual, CvTeam::processBuilding, CyInfoPythonInterface1
-- **9961** `CvBuildingInfo::isCapital() const` (Python: isCapital)
+- **9969** `CvBuildingInfo::isCapital() const` (Python: isCapital)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::setNumRealBuildingTimed, CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9969** `CvBuildingInfo::getDCMAirbombMission() const`
+- **9977** `CvBuildingInfo::getDCMAirbombMission() const`
   - called by (3): CvUnit::airBomb, CvUnit::airBomb2, CvUnit::airBomb3
-- **9977** `CvBuildingInfo::isGovernmentCenter() const` (Python: isGovernmentCenter)
+- **9985** `CvBuildingInfo::isGovernmentCenter() const` (Python: isGovernmentCenter)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9982** `CvBuildingInfo::isGoldenAge() const` (Python: isGoldenAge)
+- **9990** `CvBuildingInfo::isGoldenAge() const` (Python: isGoldenAge)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::setNumRealBuildingTimed, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9987** `CvBuildingInfo::isMapCentering() const` (Python: isMapCentering)
+- **9995** `CvBuildingInfo::isMapCentering() const` (Python: isMapCentering)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvTeam::processBuilding, CyInfoPythonInterface1
-- **9992** `CvBuildingInfo::isNoUnhappiness() const` (Python: isNoUnhappiness)
+- **10000** `CvBuildingInfo::isNoUnhappiness() const` (Python: isNoUnhappiness)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **9997** `CvBuildingInfo::isNoUnhealthyPopulation() const` (Python: isNoUnhealthyPopulation)
+- **10005** `CvBuildingInfo::isNoUnhealthyPopulation() const` (Python: isNoUnhealthyPopulation)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::processBuilding, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10002** `CvBuildingInfo::isBuildingOnlyHealthy() const` (Python: isBuildingOnlyHealthy)
+- **10010** `CvBuildingInfo::isBuildingOnlyHealthy() const` (Python: isBuildingOnlyHealthy)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::processBuilding, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10007** `CvBuildingInfo::isNeverCapture() const` (Python: isNeverCapture)
+- **10015** `CvBuildingInfo::isNeverCapture() const` (Python: isNeverCapture)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvPlayer::acquireCity, CyInfoPythonInterface1
-- **10012** `CvBuildingInfo::isNukeImmune() const` (Python: isNukeImmune)
+- **10020** `CvBuildingInfo::isNukeImmune() const` (Python: isNukeImmune)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvPlot::nukeExplosion, CyInfoPythonInterface1
-- **10017** `CvBuildingInfo::isPrereqReligion() const` (Python: isPrereqReligion)
+- **10025** `CvBuildingInfo::isPrereqReligion() const` (Python: isPrereqReligion)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CyInfoPythonInterface1
-- **10022** `CvBuildingInfo::isCenterInCity() const` (Python: isCenterInCity)
+- **10030** `CvBuildingInfo::isCenterInCity() const` (Python: isCenterInCity)
   - called by (2): CvBuildingInfo::copyNonDefaults, CyInfoPythonInterface1
-- **10027** `CvBuildingInfo::isStateReligion() const` (Python: isStateReligion)
+- **10035** `CvBuildingInfo::isStateReligion() const` (Python: isStateReligion)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvCity::setNumRealBuildingTimed, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::buildBuildingRequiresString, CyInfoPythonInterface1
-- **10032** `CvBuildingInfo::isAllowsNukes() const` (Python: isAllowsNukes)
+- **10040** `CvBuildingInfo::isAllowsNukes() const` (Python: isAllowsNukes)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::setNumRealBuildingTimed, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canConstruct, CyInfoPythonInterface1
-- **10037** `CvBuildingInfo::getConstructSound() const` (Python: getConstructSound)
+- **10045** `CvBuildingInfo::getConstructSound() const` (Python: getConstructSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::popOrder, CvDLLButtonPopup::launchProductionPopup, CyInfoPythonInterface1
-- **10042** `CvBuildingInfo::setConstructSound(char const*)`
+- **10050** `CvBuildingInfo::setConstructSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*)
-- **10047** `CvBuildingInfo::getArtDefineTag() const` (Python: getArtDefineTag)
+- **10055** `CvBuildingInfo::getArtDefineTag() const` (Python: getArtDefineTag)
   - calls: CvString::operator char const * [CvString.h]
   - called by (4): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::getArtInfo, CvBuildingInfo::getButton, CyInfoPythonInterface1
-- **10052** `CvBuildingInfo::setArtDefineTag(char const*)`
+- **10060** `CvBuildingInfo::setArtDefineTag(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*)
-- **10057** `CvBuildingInfo::getMovieDefineTag() const` (Python: getMovieDefineTag)
+- **10065** `CvBuildingInfo::getMovieDefineTag() const` (Python: getMovieDefineTag)
   - calls: CvString::operator char const * [CvString.h]
   - called by (3): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::getMovieInfo, CyInfoPythonInterface1
-- **10062** `CvBuildingInfo::setMovieDefineTag(char const*)`
+- **10070** `CvBuildingInfo::setMovieDefineTag(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvBuildingInfo::copyNonDefaults, CvBuildingInfo::read(CvXMLLoadUtility*)
-- **10069** `CvBuildingInfo::getYieldChange(int) const` (Python: getYieldChange)
+- **10077** `CvBuildingInfo::getYieldChange(int) const` (Python: getYieldChange)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setFoodHelp, CyInfoPythonInterface1
-- **10076** `CvBuildingInfo::getYieldChangeArray() const`
-- **10081** `CvBuildingInfo::getYieldModifier(int) const` (Python: getYieldModifier)
+- **10084** `CvBuildingInfo::getYieldChangeArray() const`
+- **10089** `CvBuildingInfo::getYieldModifier(int) const` (Python: getYieldModifier)
   - called by (8): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvGameTextMgr::setYieldHelp, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **10088** `CvBuildingInfo::getYieldModifierArray() const`
+- **10096** `CvBuildingInfo::getYieldModifierArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10093** `CvBuildingInfo::getPowerYieldModifier(int) const` (Python: getPowerYieldModifier)
+- **10101** `CvBuildingInfo::getPowerYieldModifier(int) const` (Python: getPowerYieldModifier)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
-- **10100** `CvBuildingInfo::getPowerYieldModifierArray() const`
+- **10108** `CvBuildingInfo::getPowerYieldModifierArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10105** `CvBuildingInfo::getAreaYieldModifier(int) const`
+- **10113** `CvBuildingInfo::getAreaYieldModifier(int) const`
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvPlayer::processBuilding, CvPlot::processArea
-- **10112** `CvBuildingInfo::getAreaYieldModifierArray() const`
+- **10120** `CvBuildingInfo::getAreaYieldModifierArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10117** `CvBuildingInfo::getGlobalYieldModifier(int) const` (Python: getGlobalYieldModifier)
+- **10125** `CvBuildingInfo::getGlobalYieldModifier(int) const` (Python: getGlobalYieldModifier)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setYieldHelp, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **10124** `CvBuildingInfo::getGlobalYieldModifierArray() const`
+- **10132** `CvBuildingInfo::getGlobalYieldModifierArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10129** `CvBuildingInfo::getSeaPlotYieldChange(int) const` (Python: getSeaPlotYieldChange)
+- **10137** `CvBuildingInfo::getSeaPlotYieldChange(int) const` (Python: getSeaPlotYieldChange)
   - called by (8): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingSpecialYieldChangeValue, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvPlot::calculateMaxYield, CyInfoPythonInterface1
-- **10136** `CvBuildingInfo::getSeaPlotYieldChangeArray() const`
+- **10144** `CvBuildingInfo::getSeaPlotYieldChangeArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10141** `CvBuildingInfo::getRiverPlotYieldChange(int) const` (Python: getRiverPlotYieldChange)
+- **10149** `CvBuildingInfo::getRiverPlotYieldChange(int) const` (Python: getRiverPlotYieldChange)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvPlot::calculateMaxYield, CyInfoPythonInterface1
-- **10148** `CvBuildingInfo::getRiverPlotYieldChangeArray() const`
+- **10156** `CvBuildingInfo::getRiverPlotYieldChangeArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10153** `CvBuildingInfo::getGlobalSeaPlotYieldChange(int) const` (Python: getGlobalSeaPlotYieldChange)
+- **10161** `CvBuildingInfo::getGlobalSeaPlotYieldChange(int) const` (Python: getGlobalSeaPlotYieldChange)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvPlayer::processBuilding, CvPlot::calculateMaxYield, CyInfoPythonInterface1
-- **10160** `CvBuildingInfo::getGlobalSeaPlotYieldChangeArray() const`
+- **10168** `CvBuildingInfo::getGlobalSeaPlotYieldChangeArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10165** `CvBuildingInfo::getCommerceChange(int) const` (Python: getCommerceChange)
+- **10173** `CvBuildingInfo::getCommerceChange(int) const` (Python: getCommerceChange)
   - called by (11): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvCityAI::AI_updateSpecialYieldMultiplier, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_cultureVictoryTechValue, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **10172** `CvBuildingInfo::getCommerceChangeArray() const`
-- **10177** `CvBuildingInfo::getObsoleteSafeCommerceChange(int) const` (Python: getObsoleteSafeCommerceChange)
+- **10180** `CvBuildingInfo::getCommerceChangeArray() const`
+- **10185** `CvBuildingInfo::getObsoleteSafeCommerceChange(int) const` (Python: getObsoleteSafeCommerceChange)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvCityAI::AI_updateSpecialYieldMultiplier, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_cultureVictoryTechValue, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **10184** `CvBuildingInfo::getObsoleteSafeCommerceChangeArray() const`
-- **10189** `CvBuildingInfo::getCommerceChangeDoubleTime(int) const` (Python: getCommerceChangeDoubleTime)
+- **10192** `CvBuildingInfo::getObsoleteSafeCommerceChangeArray() const`
+- **10197** `CvBuildingInfo::getCommerceChangeDoubleTime(int) const` (Python: getCommerceChangeDoubleTime)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CyInfoPythonInterface1
-- **10196** `CvBuildingInfo::getCommerceModifier(int) const` (Python: getCommerceModifier)
+- **10204** `CvBuildingInfo::getCommerceModifier(int) const` (Python: getCommerceModifier)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalCommerceRateModifierByBuildingImpl, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvGameTextMgr::setCommerceHelp, CvPlayerAI::AI_cultureVictoryTechValue, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techBuildingValue, CyInfoPythonInterface1
-- **10203** `CvBuildingInfo::getCommerceModifierArray() const`
+- **10211** `CvBuildingInfo::getCommerceModifierArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10208** `CvBuildingInfo::getGlobalCommerceModifier(int) const` (Python: getGlobalCommerceModifier)
+- **10216** `CvBuildingInfo::getGlobalCommerceModifier(int) const` (Python: getGlobalCommerceModifier)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalCommerceRateModifierByBuildingImpl, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setCommerceHelp, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **10215** `CvBuildingInfo::getGlobalCommerceModifierArray() const`
+- **10223** `CvBuildingInfo::getGlobalCommerceModifierArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10220** `CvBuildingInfo::getSpecialistExtraCommerce(int) const`
+- **10228** `CvBuildingInfo::getSpecialistExtraCommerce(int) const`
   - called by (3): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvPlayer::processBuilding
-- **10227** `CvBuildingInfo::getSpecialistExtraCommerceArray() const`
+- **10235** `CvBuildingInfo::getSpecialistExtraCommerceArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10232** `CvBuildingInfo::getStateReligionCommerce(int) const` (Python: getStateReligionCommerce)
+- **10240** `CvBuildingInfo::getStateReligionCommerce(int) const` (Python: getStateReligionCommerce)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **10239** `CvBuildingInfo::getStateReligionCommerceArray() const`
+- **10247** `CvBuildingInfo::getStateReligionCommerceArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10244** `CvBuildingInfo::getCommerceHappiness(int) const` (Python: getCommerceHappiness)
+- **10252** `CvBuildingInfo::getCommerceHappiness(int) const` (Python: getCommerceHappiness)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBuildingHappiness, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10251** `CvBuildingInfo::getReligionChange(int) const` (Python: getReligionChange)
+- **10259** `CvBuildingInfo::getReligionChange(int) const` (Python: getReligionChange)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCity::setNumRealBuildingTimed, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10258** `CvBuildingInfo::getSpecialistCount(int) const` (Python: getSpecialistCount)
+- **10266** `CvBuildingInfo::getSpecialistCount(int) const` (Python: getSpecialistCount)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_doHurry, CvDLLWidgetData::parseDisabledCitizenHelp, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10265** `CvBuildingInfo::getFreeSpecialistCount(int) const` (Python: getFreeSpecialistCount)
+- **10273** `CvBuildingInfo::getFreeSpecialistCount(int) const` (Python: getFreeSpecialistCount)
   - called by (9): CvBuildingInfo::copyNonDefaults, CvCity::getAddedFreeSpecialistCount, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getAdditionalBaseGreatPeopleRateByBuilding, CvCity::getAdditionalBaseYieldRateByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10272** `CvBuildingInfo::getBonusHealthChanges(int) const` (Python: getBonusHealthChanges)
+- **10280** `CvBuildingInfo::getBonusHealthChanges(int) const` (Python: getBonusHealthChanges)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHealthByBuilding(BuildingTypes, int&, int&, int&, int&) const, CvCity::getBonusHealth, CvCity::processBonus, CvCity::processBuilding, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CyInfoPythonInterface1
-- **10279** `CvBuildingInfo::getBonusHappinessChanges(int) const` (Python: getBonusHappinessChanges)
+- **10287** `CvBuildingInfo::getBonusHappinessChanges(int) const` (Python: getBonusHappinessChanges)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getBonusHappiness, CvCity::processBonus, CvCity::processBuilding, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CyInfoPythonInterface1
-- **10286** `CvBuildingInfo::getBonusProductionModifier(int) const` (Python: getBonusProductionModifier)
+- **10294** `CvBuildingInfo::getBonusProductionModifier(int) const` (Python: getBonusProductionModifier)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getProductionModifier(BuildingTypes) const, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setProductionHelp, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
-- **10293** `CvBuildingInfo::getUnitCombatFreeExperience(int) const` (Python: getUnitCombatFreeExperience)
+- **10301** `CvBuildingInfo::getUnitCombatFreeExperience(int) const` (Python: getUnitCombatFreeExperience)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getProductionExperience, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10300** `CvBuildingInfo::getDomainFreeExperience(int) const` (Python: getDomainFreeExperience)
+- **10308** `CvBuildingInfo::getDomainFreeExperience(int) const` (Python: getDomainFreeExperience)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::getProductionExperience, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBasicUnitHelpWithCity, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10307** `CvBuildingInfo::getDomainProductionModifier(int) const` (Python: getDomainProductionModifier)
+- **10315** `CvBuildingInfo::getDomainProductionModifier(int) const` (Python: getDomainProductionModifier)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10314** `CvBuildingInfo::getPrereqAndTechs(int) const` (Python: getPrereqAndTechs)
+- **10322** `CvBuildingInfo::getPrereqAndTechs(int) const` (Python: getPrereqAndTechs)
   - called by (10): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setTechTradeHelp, CvPlayer::canConstruct, CvPlayer::getAdvancedStartTechCost, CvPlayerAI::AI_baseBonusVal, CyInfoPythonInterface1, `anonymous namespace'::AI_buildingTechReadinessPercent, `anonymous namespace'::AI_hasBuildingTechs, isTechRequiredForBuilding
-- **10321** `CvBuildingInfo::getPrereqOrBonuses(int) const` (Python: getPrereqOrBonuses)
+- **10329** `CvBuildingInfo::getPrereqOrBonuses(int) const` (Python: getPrereqOrBonuses)
   - called by (7): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusTrade, CvPlayerAI::AI_bonusUnlockVal, CyInfoPythonInterface1
-- **10328** `CvBuildingInfo::getProductionTraits(int) const` (Python: getProductionTraits)
+- **10336** `CvBuildingInfo::getProductionTraits(int) const` (Python: getProductionTraits)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setProductionHelp, CvPlayer::getProductionModifier(BuildingTypes) const, CyInfoPythonInterface1
-- **10335** `CvBuildingInfo::getHappinessTraits(int) const` (Python: getHappinessTraits)
+- **10343** `CvBuildingInfo::getHappinessTraits(int) const` (Python: getHappinessTraits)
   - called by (8): CvBuildingInfo::copyNonDefaults, CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingHelpActual, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CyInfoPythonInterface1
-- **10342** `CvBuildingInfo::getBuildingHappinessChanges(int) const` (Python: getBuildingHappinessChanges)
+- **10350** `CvBuildingInfo::getBuildingHappinessChanges(int) const` (Python: getBuildingHappinessChanges)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **10349** `CvBuildingInfo::getPrereqNumOfBuildingClass(int) const` (Python: getPrereqNumOfBuildingClass)
+- **10357** `CvBuildingInfo::getPrereqNumOfBuildingClass(int) const` (Python: getPrereqNumOfBuildingClass)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_bestBuildingThreshold, CvGameTextMgr::buildBuildingRequiresString, CvPlayer::getBuildingClassPrereqBuilding, CyInfoPythonInterface1
-- **10356** `CvBuildingInfo::getFlavorValue(int) const` (Python: getFlavorValue)
+- **10364** `CvBuildingInfo::getFlavorValue(int) const` (Python: getFlavorValue)
   - called by (3): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CyInfoPythonInterface1
-- **10363** `CvBuildingInfo::getImprovementFreeSpecialist(int) const` (Python: getImprovementFreeSpecialist)
+- **10371** `CvBuildingInfo::getImprovementFreeSpecialist(int) const` (Python: getImprovementFreeSpecialist)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface1
-- **10370** `CvBuildingInfo::isCommerceFlexible(int) const` (Python: isCommerceFlexible)
+- **10378** `CvBuildingInfo::isCommerceFlexible(int) const` (Python: isCommerceFlexible)
   - called by (5): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvGameTextMgr::setBuildingHelpActual, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **10377** `CvBuildingInfo::isCommerceChangeOriginalOwner(int) const` (Python: isCommerceChangeOriginalOwner)
+- **10385** `CvBuildingInfo::isCommerceChangeOriginalOwner(int) const` (Python: isCommerceChangeOriginalOwner)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CyInfoPythonInterface1
-- **10384** `CvBuildingInfo::isBuildingClassNeededInCity(int) const` (Python: isBuildingClassNeededInCity)
+- **10392** `CvBuildingInfo::isBuildingClassNeededInCity(int) const` (Python: isBuildingClassNeededInCity)
   - called by (6): CvBuildingInfo::copyNonDefaults, CvCity::canConstruct, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setBuildingHelpActual, CvPlayer::getAdvancedStartBuildingCost, CyInfoPythonInterface1
-- **10391** `CvBuildingInfo::getSpecialistYieldChange(int, int) const` (Python: getSpecialistYieldChange)
+- **10399** `CvBuildingInfo::getSpecialistYieldChange(int, int) const` (Python: getSpecialistYieldChange)
   - called by (4): CvBuildingInfo::copyNonDefaults, CvCityAI::AI_buildingValueThreshold, CvPlayer::processBuilding, CyInfoPythonInterface1
-- **10400** `CvBuildingInfo::getSpecialistYieldChangeArray(int) const`
+- **10408** `CvBuildingInfo::getSpecialistYieldChangeArray(int) const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10407** `CvBuildingInfo::getBonusYieldModifier(int, int) const` (Python: getBonusYieldModifier)
+- **10415** `CvBuildingInfo::getBonusYieldModifier(int, int) const` (Python: getBonusYieldModifier)
   - called by (8): CvBuildingInfo::copyNonDefaults, CvCity::getAdditionalYieldRateModifierByBuilding, CvCity::getBonusYieldRateModifier(YieldTypes, BonusTypes) const, CvCity::processBuilding, CvCityAI::AI_buildingValueThreshold, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CyInfoPythonInterface1
-- **10416** `CvBuildingInfo::getBonusYieldModifierArray(int) const`
+- **10424** `CvBuildingInfo::getBonusYieldModifierArray(int) const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **10423** `CvBuildingInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
+- **10431** `CvBuildingInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvBuildingInfo::getArtDefineTag, CvBuildingInfo::getArtInfo, CvInfoBase::getButton
   - called by (7): CvCity::getCityBillboardProductionIcon, CvCity::popOrder, CvDLLButtonPopup::launchDoEspionageTargetPopup, CvDLLButtonPopup::launchProductionPopup, CvGameTextMgr::getBuildingDataForWB, CvGameTextMgr::getCityDataForAS, CvGameTextMgr::setCityBarHelp
-- **10450** `CvBuildingInfo::getArtInfo() const` (Python: getArtInfo)
+- **10458** `CvBuildingInfo::getArtInfo() const` (Python: getArtInfo)
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getBuildingArtInfo(char const*) const [CvArtFileMgr.cpp], CvBuildingInfo::getArtDefineTag
   - called by (5): CvBuildingInfo::getButton, CvCity::getBuildingArtInfo, CvCity::setNumRealBuildingTimed, CvGame::getBuildingArtInfo, CyInfoPythonInterface1
-- **10455** `CvBuildingInfo::getMovieInfo() const`
+- **10463** `CvBuildingInfo::getMovieInfo() const`
   - calls: CvBuildingInfo::getMovieDefineTag, CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getMovieArtInfo(char const*) const [CvArtFileMgr.cpp]
   - called by (1): CvBuildingInfo::getMovie
-- **10468** `CvBuildingInfo::getMovie() const` (Python: getMovie)
+- **10476** `CvBuildingInfo::getMovie() const` (Python: getMovie)
   - calls: CvBuildingInfo::getMovieInfo, CvAssetInfoBase::getPath
   - called by (1): CyInfoPythonInterface1
-- **10486** `CvBuildingInfo::read(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::read(FDataStreamBase*))
+- **10494** `CvBuildingInfo::read(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::read(FDataStreamBase*))
   - calls: CvHotkeyInfo::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNUM_BUILDING_AND_TECH_PREREQS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNUM_BUILDING_PREREQ_OR_BONUSES [CvGlobals.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
-- **10826** `CvBuildingInfo::write(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::write)
+- **10834** `CvBuildingInfo::write(FDataStreamBase*)` (virtual; overrides CvHotkeyInfo::write)
   - calls: CvHotkeyInfo::write, FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvGlobals::getNUM_BUILDING_AND_TECH_PREREQS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNUM_BUILDING_PREREQ_OR_BONUSES [CvGlobals.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
   - called by (1): writeInfoArray<class CvBuildingInfo>
-- **11038** `CvBuildingInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **11046** `CvBuildingInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvBuildingInfo::setArtDefineTag, CvBuildingInfo::setMovieDefineTag, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvGlobals::getNUM_BUILDING_AND_TECH_PREREQS [CvGlobals.cpp], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvGlobals::getNUM_BUILDING_PREREQ_OR_BONUSES [CvGlobals.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::SetCommerce<int> [CvXMLLoadUtility.h], CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvXMLLoadUtility::SetCommerce<bool> [CvXMLLoadUtility.h], CvXMLLoadUtility::InitList<bool> [CvXMLLoadUtility.h], CvBuildingInfo::setConstructSound, CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::Init2DIntList [CvXMLLoadUtilityInit.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getFlavorTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, CvString*, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp]
-- **11688** `CvBuildingInfo::copyNonDefaults(CvBuildingInfo*)`
+- **11696** `CvBuildingInfo::copyNonDefaults(CvBuildingInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvBuildingInfo::getArtDefineTag, CvBuildingInfo::setArtDefineTag, CvBuildingInfo::getMovieDefineTag, CvBuildingInfo::setMovieDefineTag, CvHotkeyInfo::copyNonDefaults, CvBuildingInfo::getBuildingClassType, CvBuildingInfo::getSpecialBuildingType, CvBuildingInfo::getAdvisorType, CvBuildingInfo::getPrereqGameOption, CvBuildingInfo::getNotGameOption, CvBuildingInfo::getHolyCity, CvBuildingInfo::getReligionType, CvBuildingInfo::getStateReligion, CvBuildingInfo::getPrereqReligion, CvBuildingInfo::getPrereqCorporation, CvBuildingInfo::getFoundsCorporation, CvBuildingInfo::getGlobalReligionCommerce, CvBuildingInfo::getGlobalCorporationCommerce, CvBuildingInfo::getVictoryPrereq, CvBuildingInfo::getFreeStartEra, CvBuildingInfo::getMaxStartEra, CvBuildingInfo::getObsoleteTech, CvBuildingInfo::getPrereqAndTech, CvGlobals::getNUM_BUILDING_AND_TECH_PREREQS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildingInfo::getPrereqAndTechs, CvBuildingInfo::getPrereqAndBonus, CvGlobals::getNUM_BUILDING_PREREQ_OR_BONUSES [CvGlobals.cpp], CvBuildingInfo::getPrereqOrBonuses, CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvBuildingInfo::getProductionTraits, CvBuildingInfo::getHappinessTraits, CvBuildingInfo::getNoBonus, CvBuildingInfo::getPowerBonus, CvBuildingInfo::getFreeBonus, CvBuildingInfo::getNumFreeBonuses, CvBuildingInfo::getFreeBuildingClass, CvBuildingInfo::getFreePromotion, CvBuildingInfo::getCivicOption, CvBuildingInfo::getGreatPeopleUnitClass, CvBuildingInfo::getVoteSourceType, CvBuildingInfo::getGreatPeopleRateChange, CvBuildingInfo::isTeamShare, CvBuildingInfo::isWater, CvBuildingInfo::isRiver, CvBuildingInfo::isPower, CvBuildingInfo::isDirtyPower, CvBuildingInfo::isAreaCleanPower, CvBuildingInfo::isAreaBorderObstacle, CvBuildingInfo::isForceTeamVoteEligible, CvBuildingInfo::isCapital, CvBuildingInfo::isGovernmentCenter, CvBuildingInfo::isGoldenAge, CvBuildingInfo::isAllowsNukes, CvBuildingInfo::isMapCentering, CvBuildingInfo::isNoUnhappiness, CvBuildingInfo::isNoUnhealthyPopulation, CvBuildingInfo::isBuildingOnlyHealthy, CvBuildingInfo::isNeverCapture, CvBuildingInfo::isNukeImmune, CvBuildingInfo::isPrereqReligion, CvBuildingInfo::isCenterInCity, CvBuildingInfo::isStateReligion, CvBuildingInfo::getAIWeight, CvBuildingInfo::getProductionCost, CvBuildingInfo::getHurryCostModifier, CvBuildingInfo::getHurryAngerModifier, CvBuildingInfo::getAdvancedStartCost, CvBuildingInfo::getAdvancedStartCostIncrease, CvBuildingInfo::getMinAreaSize, CvBuildingInfo::getConquestProbability, CvBuildingInfo::getNumCitiesPrereq, CvBuildingInfo::getNumTeamsPrereq, CvBuildingInfo::getUnitLevelPrereq, CvBuildingInfo::getMinLatitude, CvBuildingInfo::getMaxLatitude, CvBuildingInfo::getGreatPeopleRateModifier, CvBuildingInfo::getGreatGeneralRateModifier, CvBuildingInfo::getDomesticGreatGeneralRateModifier, CvBuildingInfo::getGlobalGreatPeopleRateModifier, CvBuildingInfo::getAnarchyModifier, CvBuildingInfo::getGoldenAgeModifier, CvBuildingInfo::getGlobalHurryModifier, CvBuildingInfo::getFreeExperience, CvBuildingInfo::getGlobalFreeExperience, CvBuildingInfo::getFoodKept, CvBuildingInfo::getAirlift, CvBuildingInfo::getAirModifier, CvBuildingInfo::getAirUnitCapacity, CvBuildingInfo::getNukeModifier, CvBuildingInfo::getNukeExplosionRand, CvBuildingInfo::getFreeSpecialist, CvBuildingInfo::getAreaFreeSpecialist, CvBuildingInfo::getGlobalFreeSpecialist, CvBuildingInfo::getMaintenanceModifier, CvBuildingInfo::getWarWearinessModifier, CvBuildingInfo::getGlobalWarWearinessModifier, CvBuildingInfo::getEnemyWarWearinessModifier, CvBuildingInfo::getHealRateChange, CvBuildingInfo::getHealth, CvBuildingInfo::getAreaHealth, CvBuildingInfo::getGlobalHealth, CvBuildingInfo::getHappiness, CvBuildingInfo::getAreaHappiness, CvBuildingInfo::getGlobalHappiness, CvBuildingInfo::getStateReligionHappiness, CvBuildingInfo::getWorkerSpeedModifier, CvBuildingInfo::getMilitaryProductionModifier, CvBuildingInfo::getSpaceProductionModifier, CvBuildingInfo::getGlobalSpaceProductionModifier, CvBuildingInfo::getTradeRoutes, CvBuildingInfo::getCoastalTradeRoutes, CvBuildingInfo::getGlobalTradeRoutes, CvBuildingInfo::getTradeRouteModifier, CvBuildingInfo::getForeignTradeRouteModifier, CvBuildingInfo::getGlobalPopulationChange, CvBuildingInfo::getFreeTechs, CvBuildingInfo::getDefenseModifier, CvBuildingInfo::getBombardDefenseModifier, CvBuildingInfo::getAllCityDefenseModifier, CvBuildingInfo::getEspionageDefenseModifier, CvBuildingInfo::getAssetValue, CvBuildingInfo::getPowerValue, CvBuildingInfo::getVisibilityPriority, CvBuildingInfo::getSeaPlotYieldChange, CvBuildingInfo::getRiverPlotYieldChange, CvBuildingInfo::getGlobalSeaPlotYieldChange, CvBuildingInfo::getYieldChange, CvBuildingInfo::getYieldModifier, CvBuildingInfo::getPowerYieldModifier, CvBuildingInfo::getAreaYieldModifier, CvBuildingInfo::getGlobalYieldModifier, CvBuildingInfo::getCommerceChange, CvBuildingInfo::getObsoleteSafeCommerceChange, CvBuildingInfo::getCommerceChangeDoubleTime, CvBuildingInfo::getCommerceModifier, CvBuildingInfo::getGlobalCommerceModifier, CvBuildingInfo::getSpecialistExtraCommerce, CvBuildingInfo::getStateReligionCommerce, CvBuildingInfo::getCommerceHappiness, CvGlobals::getNumReligionInfos [CvGlobals.cpp], CvBuildingInfo::getReligionChange, CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvBuildingInfo::getSpecialistCount, CvBuildingInfo::getFreeSpecialistCount, CvBuildingInfo::isCommerceFlexible, CvBuildingInfo::isCommerceChangeOriginalOwner, CvBuildingInfo::getConstructSound, CvBuildingInfo::setConstructSound, CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvBuildingInfo::getBonusHealthChanges, CvBuildingInfo::getBonusHappinessChanges, CvBuildingInfo::getBonusProductionModifier, CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvBuildingInfo::getUnitCombatFreeExperience, CvBuildingInfo::getDomainFreeExperience, CvBuildingInfo::getDomainProductionModifier, CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvBuildingInfo::getPrereqNumOfBuildingClass, CvBuildingInfo::isBuildingClassNeededInCity, CvBuildingInfo::getSpecialistYieldChange, CvBuildingInfo::getBonusYieldModifier, CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvBuildingInfo::getFlavorValue, CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvBuildingInfo::getImprovementFreeSpecialist, CvBuildingInfo::getBuildingHappinessChanges
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvBuildingInfo>
-- **12127** `CvSpecialBuildingInfo::CvSpecialBuildingInfo()`
+- **12141** `CvSpecialBuildingInfo::CvSpecialBuildingInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvSpecialBuildingInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvSpecialBuildingInfo>
-- **12138** `CvSpecialBuildingInfo::~CvSpecialBuildingInfo()` (virtual)
+- **12152** `CvSpecialBuildingInfo::~CvSpecialBuildingInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvSpecialBuildingInfo::`scalar deleting dtor'
-- **12143** `CvSpecialBuildingInfo::getObsoleteTech() const` (Python: getObsoleteTech)
+- **12157** `CvSpecialBuildingInfo::getObsoleteTech() const` (Python: getObsoleteTech)
   - called by (5): CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setTechTradeHelp, CvSpecialBuildingInfo::copyNonDefaults, CvTeam::processTech, CyInfoPythonInterface1
-- **12148** `CvSpecialBuildingInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **12162** `CvSpecialBuildingInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (5): CvGameTextMgr::buildSpecialBuildingString, CvPlayer::canConstruct, CvSpecialBuildingInfo::copyNonDefaults, CyInfoPythonInterface1, isTechRequiredForBuilding
-- **12153** `CvSpecialBuildingInfo::getTechPrereqAnyone() const`
+- **12167** `CvSpecialBuildingInfo::getTechPrereqAnyone() const`
   - called by (4): CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::buildSpecialBuildingString, CvSpecialBuildingInfo::copyNonDefaults, CvTeam::setHasTech
-- **12158** `CvSpecialBuildingInfo::isValid() const` (Python: isValid)
+- **12172** `CvSpecialBuildingInfo::isValid() const` (Python: isValid)
   - called by (3): CvGame::init, CvSpecialBuildingInfo::copyNonDefaults, CyInfoPythonInterface1
-- **12165** `CvSpecialBuildingInfo::getProductionTraits(int) const` (Python: getProductionTraits)
+- **12179** `CvSpecialBuildingInfo::getProductionTraits(int) const` (Python: getProductionTraits)
   - called by (5): CvGameTextMgr::parseTraits, CvGameTextMgr::setProductionHelp, CvPlayer::getProductionModifier(BuildingTypes) const, CvSpecialBuildingInfo::copyNonDefaults, CyInfoPythonInterface1
-- **12172** `CvSpecialBuildingInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **12186** `CvSpecialBuildingInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp]
-- **12198** `CvSpecialBuildingInfo::copyNonDefaults(CvSpecialBuildingInfo*)`
+- **12212** `CvSpecialBuildingInfo::copyNonDefaults(CvSpecialBuildingInfo*)`
   - calls: CvInfoBase::copyNonDefaults, CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvSpecialBuildingInfo::getObsoleteTech, CvSpecialBuildingInfo::getTechPrereq, CvSpecialBuildingInfo::getTechPrereqAnyone, CvSpecialBuildingInfo::isValid, CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvSpecialBuildingInfo::getProductionTraits
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvSpecialBuildingInfo>
-- **12242** `CvBuildingClassInfo::CvBuildingClassInfo()`
+- **12256** `CvBuildingClassInfo::CvBuildingClassInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvBuildingClassInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvBuildingClassInfo>
-- **12253** `CvBuildingClassInfo::~CvBuildingClassInfo()` (virtual)
+- **12267** `CvBuildingClassInfo::~CvBuildingClassInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvBuildingClassInfo::`scalar deleting dtor'
-- **12258** `CvBuildingClassInfo::getMaxGlobalInstances() const` (Python: getMaxGlobalInstances)
+- **12272** `CvBuildingClassInfo::getMaxGlobalInstances() const` (Python: getMaxGlobalInstances)
   - called by (6): CvBuildingClassInfo::copyNonDefaults, CvGame::isBuildingClassMaxedOut, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface2, isWorldWonderClass, limitedWonderClassLimit
-- **12263** `CvBuildingClassInfo::getMaxTeamInstances() const` (Python: getMaxTeamInstances)
+- **12277** `CvBuildingClassInfo::getMaxTeamInstances() const` (Python: getMaxTeamInstances)
   - called by (6): CvBuildingClassInfo::copyNonDefaults, CvGameTextMgr::setBuildingHelpActual, CvTeam::isBuildingClassMaxedOut, CyInfoPythonInterface2, isTeamWonderClass, limitedWonderClassLimit
-- **12268** `CvBuildingClassInfo::getMaxPlayerInstances() const` (Python: getMaxPlayerInstances)
+- **12282** `CvBuildingClassInfo::getMaxPlayerInstances() const` (Python: getMaxPlayerInstances)
   - called by (6): CvBuildingClassInfo::copyNonDefaults, CvGameTextMgr::setBuildingHelpActual, CvPlayer::isBuildingClassMaxedOut, CyInfoPythonInterface2, isNationalWonderClass, limitedWonderClassLimit
-- **12273** `CvBuildingClassInfo::getExtraPlayerInstances() const` (Python: getExtraPlayerInstances)
+- **12287** `CvBuildingClassInfo::getExtraPlayerInstances() const` (Python: getExtraPlayerInstances)
   - called by (6): CvBuildingClassInfo::copyNonDefaults, CvCity::popOrder, CvCityAI::AI_bestBuildingThreshold, CvPlayer::isBuildingClassMaxedOut, CvPlayer::isProductionMaxedBuildingClass, CyInfoPythonInterface2
-- **12278** `CvBuildingClassInfo::getDefaultBuildingIndex() const` (Python: getDefaultBuildingIndex)
+- **12292** `CvBuildingClassInfo::getDefaultBuildingIndex() const` (Python: getDefaultBuildingIndex)
   - called by (13): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*), CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::parseCivInfos, CvGameTextMgr::parseTraits, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setTechTradeHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayerAI::AI_cultureVictoryTechValue, CvPlayerAI::AI_techBuildingValue, CvXMLLoadUtility::InitBuildingDefaults …
-- **12283** `CvBuildingClassInfo::setDefaultBuildingIndex(int)`
-- **12288** `CvBuildingClassInfo::isNoLimit() const` (Python: isNoLimit)
+- **12297** `CvBuildingClassInfo::setDefaultBuildingIndex(int)`
+- **12302** `CvBuildingClassInfo::isNoLimit() const` (Python: isNoLimit)
   - called by (5): CvBuildingClassInfo::copyNonDefaults, CvCity::canConstruct, CvCity::setNumRealBuildingTimed, CvGameTextMgr::setBuildingHelpActual, CyInfoPythonInterface2
-- **12293** `CvBuildingClassInfo::isMonument() const` (Python: isMonument)
+- **12307** `CvBuildingClassInfo::isMonument() const` (Python: isMonument)
   - called by (2): CvBuildingClassInfo::copyNonDefaults, CyInfoPythonInterface2
-- **12300** `CvBuildingClassInfo::getVictoryThreshold(int) const` (Python: getVictoryThreshold)
+- **12314** `CvBuildingClassInfo::getVictoryThreshold(int) const` (Python: getVictoryThreshold)
   - called by (3): CvBuildingClassInfo::copyNonDefaults, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CyInfoPythonInterface2
-- **12307** `CvBuildingClassInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **12321** `CvBuildingClassInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumVictoryInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::~CvString [CvString.h]
-- **12335** `CvBuildingClassInfo::copyNonDefaults(CvBuildingClassInfo*)`
+- **12349** `CvBuildingClassInfo::copyNonDefaults(CvBuildingClassInfo*)`
   - calls: CvInfoBase::copyNonDefaults, CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvBuildingClassInfo::getMaxGlobalInstances, CvBuildingClassInfo::getMaxTeamInstances, CvBuildingClassInfo::getMaxPlayerInstances, CvBuildingClassInfo::getExtraPlayerInstances, CvBuildingClassInfo::isNoLimit, CvBuildingClassInfo::isMonument, CvGlobals::getNumVictoryInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildingClassInfo::getVictoryThreshold
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvBuildingClassInfo>
-- **12365** `CvBuildingClassInfo::readPass3()` (virtual; overrides CvInfoBase::readPass3)
+- **12379** `CvBuildingClassInfo::readPass3()` (virtual; overrides CvInfoBase::readPass3)
   - calls: CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::operator char const * [CvString.h]
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
-- **12412** `CvRiverInfo::CvRiverInfo()`
+- **12426** `CvRiverInfo::CvRiverInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvRiverInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvRiverInfo>
-- **12423** `CvRiverInfo::~CvRiverInfo()` (virtual)
+- **12437** `CvRiverInfo::~CvRiverInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvRiverInfo::`scalar deleting dtor'
-- **12439** `CvRiverModelInfo::CvRiverModelInfo()` (exported)
+- **12453** `CvRiverModelInfo::CvRiverModelInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvRiverModelInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvRiverModelInfo>
-- **12453** `CvRiverModelInfo::~CvRiverModelInfo()` (exported; virtual)
+- **12467** `CvRiverModelInfo::~CvRiverModelInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvRiverModelInfo::`vector deleting dtor'
-- **12457** `CvRiverModelInfo::getModelFile() const` (exported)
+- **12471** `CvRiverModelInfo::getModelFile() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvRiverModelInfo::copyNonDefaults
-- **12462** `CvRiverModelInfo::setModelFile(char const*)` (exported)
+- **12476** `CvRiverModelInfo::setModelFile(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvRiverModelInfo::copyNonDefaults, CvRiverModelInfo::read
-- **12467** `CvRiverModelInfo::getBorderFile() const` (exported)
+- **12481** `CvRiverModelInfo::getBorderFile() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvRiverModelInfo::copyNonDefaults
-- **12472** `CvRiverModelInfo::setBorderFile(char const*)` (exported)
+- **12486** `CvRiverModelInfo::setBorderFile(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvRiverModelInfo::copyNonDefaults, CvRiverModelInfo::read
-- **12477** `CvRiverModelInfo::getTextureIndex() const` (exported)
+- **12491** `CvRiverModelInfo::getTextureIndex() const` (exported)
   - called by (1): CvRiverModelInfo::copyNonDefaults
-- **12482** `CvRiverModelInfo::getDeltaString() const` (exported)
+- **12496** `CvRiverModelInfo::getDeltaString() const` (exported)
   - called by (1): CvRiverModelInfo::copyNonDefaults
-- **12487** `CvRiverModelInfo::getConnectString() const` (exported)
+- **12501** `CvRiverModelInfo::getConnectString() const` (exported)
   - called by (1): CvRiverModelInfo::copyNonDefaults
-- **12492** `CvRiverModelInfo::getRotateString() const` (exported)
+- **12506** `CvRiverModelInfo::getRotateString() const` (exported)
   - called by (1): CvRiverModelInfo::copyNonDefaults
-- **12497** `CvRiverModelInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **12511** `CvRiverModelInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvRiverModelInfo::setModelFile, CvString::operator char const * [CvString.h], CvRiverModelInfo::setBorderFile, CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(char*, char const*, char*) [CvXMLLoadUtilityGet.cpp]
-- **12526** `CvRiverModelInfo::copyNonDefaults(CvRiverModelInfo*)`
+- **12540** `CvRiverModelInfo::copyNonDefaults(CvRiverModelInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvRiverModelInfo::getModelFile, CvRiverModelInfo::setModelFile, CvRiverModelInfo::getBorderFile, CvRiverModelInfo::setBorderFile, CvRiverModelInfo::getTextureIndex, CvRiverModelInfo::getDeltaString, CvString::operator char const * [CvString.h], CvRiverModelInfo::getConnectString, CvRiverModelInfo::getRotateString
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvRiverModelInfo>
-- **12564** `CvRouteModelInfo::CvRouteModelInfo()` (exported)
+- **12578** `CvRouteModelInfo::CvRouteModelInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvRouteModelInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvRouteModelInfo>
-- **12578** `CvRouteModelInfo::~CvRouteModelInfo()` (exported; virtual)
+- **12592** `CvRouteModelInfo::~CvRouteModelInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvRouteModelInfo::`vector deleting dtor'
-- **12582** `CvRouteModelInfo::getRouteType() const` (exported)
+- **12596** `CvRouteModelInfo::getRouteType() const` (exported)
   - called by (1): CvRouteModelInfo::copyNonDefaults
-- **12587** `CvRouteModelInfo::getModelFile() const` (exported; Python: getModelFile)
+- **12601** `CvRouteModelInfo::getModelFile() const` (exported; Python: getModelFile)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvRouteModelInfo::copyNonDefaults, CyInfoPythonInterface2
-- **12592** `CvRouteModelInfo::setModelFile(char const*)` (exported; Python: setModelFile)
+- **12606** `CvRouteModelInfo::setModelFile(char const*)` (exported; Python: setModelFile)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (3): CvRouteModelInfo::copyNonDefaults, CvRouteModelInfo::read, CyInfoPythonInterface2
-- **12597** `CvRouteModelInfo::getLateModelFile() const` (exported)
+- **12611** `CvRouteModelInfo::getLateModelFile() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvRouteModelInfo::copyNonDefaults
-- **12602** `CvRouteModelInfo::setLateModelFile(char const*)` (exported)
+- **12616** `CvRouteModelInfo::setLateModelFile(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvRouteModelInfo::copyNonDefaults, CvRouteModelInfo::read
-- **12607** `CvRouteModelInfo::getModelFileKey() const` (exported; Python: getModelFileKey)
+- **12621** `CvRouteModelInfo::getModelFileKey() const` (exported; Python: getModelFileKey)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvRouteModelInfo::copyNonDefaults, CyInfoPythonInterface2
-- **12612** `CvRouteModelInfo::setModelFileKey(char const*)` (exported; Python: setModelFileKey)
+- **12626** `CvRouteModelInfo::setModelFileKey(char const*)` (exported; Python: setModelFileKey)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (3): CvRouteModelInfo::copyNonDefaults, CvRouteModelInfo::read, CyInfoPythonInterface2
-- **12617** `CvRouteModelInfo::isAnimated() const` (exported)
+- **12631** `CvRouteModelInfo::isAnimated() const` (exported)
   - called by (1): CvRouteModelInfo::copyNonDefaults
-- **12622** `CvRouteModelInfo::getConnectString() const` (exported; Python: getConnectString)
+- **12636** `CvRouteModelInfo::getConnectString() const` (exported; Python: getConnectString)
   - called by (2): CvRouteModelInfo::copyNonDefaults, CyInfoPythonInterface2
-- **12627** `CvRouteModelInfo::getModelConnectString() const` (exported; Python: getModelConnectString)
+- **12641** `CvRouteModelInfo::getModelConnectString() const` (exported; Python: getModelConnectString)
   - called by (2): CvRouteModelInfo::copyNonDefaults, CyInfoPythonInterface2
-- **12632** `CvRouteModelInfo::getRotateString() const` (exported; Python: getRotateString)
+- **12646** `CvRouteModelInfo::getRotateString() const` (exported; Python: getRotateString)
   - called by (2): CvRouteModelInfo::copyNonDefaults, CyInfoPythonInterface2
-- **12637** `CvRouteModelInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **12651** `CvRouteModelInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], CvRouteModelInfo::setModelFile, CvString::operator char const * [CvString.h], operator delete(void*) [CvGameCoreDLL.cpp], CvRouteModelInfo::setLateModelFile, CvRouteModelInfo::setModelFileKey, CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(char*, char const*, char*) [CvXMLLoadUtilityGet.cpp]
-- **12687** `CvRouteModelInfo::copyNonDefaults(CvRouteModelInfo*)`
+- **12701** `CvRouteModelInfo::copyNonDefaults(CvRouteModelInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvRouteModelInfo::getModelFile, CvRouteModelInfo::setModelFile, CvRouteModelInfo::getLateModelFile, CvRouteModelInfo::setLateModelFile, CvRouteModelInfo::getModelFileKey, CvRouteModelInfo::setModelFileKey, CvRouteModelInfo::isAnimated, CvRouteModelInfo::getRouteType, CvRouteModelInfo::getConnectString, CvString::operator char const * [CvString.h], CvRouteModelInfo::getModelConnectString, CvRouteModelInfo::getRotateString
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvRouteModelInfo>
-- **12745** `CvCivilizationInfo::CvCivilizationInfo()` (exported)
+- **12759** `CvCivilizationInfo::CvCivilizationInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvWString::CvWString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (4): CvXMLLoadUtility::SetGlobalClassInfo<class CvCivilizationInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCivilizationInfo>, CvXMLLoadUtility::SortAlphabetGlobalClassInfo<class CvCivilizationInfo>, readInfoArray<class CvCivilizationInfo>
-- **12756** `CvCivilizationInfo::~CvCivilizationInfo()` (exported; virtual)
+- **12770** `CvCivilizationInfo::~CvCivilizationInfo()` (exported; virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvString::`vector deleting dtor', CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (1): CvCivilizationInfo::`vector deleting dtor'
-- **12769** `CvCivilizationInfo::reset()` (exported; virtual; overrides CvInfoBase::reset)
+- **12783** `CvCivilizationInfo::reset()` (exported; virtual; overrides CvInfoBase::reset)
   - calls: CvInfoBase::reset
-- **12777** `CvCivilizationInfo::getDefaultPlayerColor() const` (exported; Python: getDefaultPlayerColor)
+- **12791** `CvCivilizationInfo::getDefaultPlayerColor() const` (exported; Python: getDefaultPlayerColor)
   - called by (4): CvCivilizationInfo::copyNonDefaults, CvGame::addPlayer, CvPlayer::changeCiv, CyInfoPythonInterface2
-- **12782** `CvCivilizationInfo::getArtStyleType() const` (exported; Python: getArtStyleType)
+- **12796** `CvCivilizationInfo::getArtStyleType() const` (exported; Python: getArtStyleType)
   - called by (4): CvCivilizationInfo::copyNonDefaults, CvPlayer::changeCiv, CvPlayer::getArtStyleType, CyInfoPythonInterface2
-- **12787** `CvCivilizationInfo::getUnitArtStyleType() const` (exported)
+- **12801** `CvCivilizationInfo::getUnitArtStyleType() const` (exported)
   - called by (4): CvCivilizationInfo::copyNonDefaults, CvPlayer::getUnitArtInfo, CvPlayer::getUnitButton, CvUnit::getArtInfo
-- **12792** `CvCivilizationInfo::getNumCityNames() const` (exported; Python: getNumCityNames)
+- **12806** `CvCivilizationInfo::getNumCityNames() const` (exported; Python: getNumCityNames)
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvPlayer::getCivilizationCityName, CyInfoPythonInterface2
-- **12797** `CvCivilizationInfo::getNumLeaders() const` (exported; Python: getNumLeaders)
+- **12811** `CvCivilizationInfo::getNumLeaders() const` (exported; Python: getNumLeaders)
   - called by (1): CyInfoPythonInterface2
-- **12802** `CvCivilizationInfo::getSelectionSoundScriptId() const` (exported; Python: getSelectionSoundScriptId)
+- **12816** `CvCivilizationInfo::getSelectionSoundScriptId() const` (exported; Python: getSelectionSoundScriptId)
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvUnit::getSelectionSoundScript, CyInfoPythonInterface2
-- **12807** `CvCivilizationInfo::getActionSoundScriptId() const` (exported; Python: getActionSoundScriptId)
+- **12821** `CvCivilizationInfo::getActionSoundScriptId() const` (exported; Python: getActionSoundScriptId)
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvSelectionGroup::playActionSound, CyInfoPythonInterface2
-- **12812** `CvCivilizationInfo::isAIPlayable() const` (exported; Python: isAIPlayable)
+- **12826** `CvCivilizationInfo::isAIPlayable() const` (exported; Python: isAIPlayable)
   - called by (4): CvCivilizationInfo::copyNonDefaults, CvPlayer::getSplitEmpireLeaders, CvXMLLoadUtility::LoadPreMenuGlobals, CyInfoPythonInterface2
-- **12817** `CvCivilizationInfo::isPlayable() const` (exported; Python: isPlayable)
+- **12831** `CvCivilizationInfo::isPlayable() const` (exported; Python: isPlayable)
   - called by (6): CvCivilizationInfo::copyNonDefaults, CvGame::initScoreCalculation, CvInitCore::getPlayableCiv, CvPlayer::getSplitEmpireLeaders, CvXMLLoadUtility::LoadPreMenuGlobals, CyInfoPythonInterface2
-- **12822** `CvCivilizationInfo::getShortDescription(unsigned int)` (exported)
+- **12836** `CvCivilizationInfo::getShortDescription(unsigned int)` (exported)
   - calls: CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator unsigned short const * [CvString.h]
   - called by (2): CvCivilizationInfo::pyGetShortDescription, CvPlayer::getCivilizationShortDescription
-- **12832** `CvCivilizationInfo::getShortDescriptionKey() const` (exported)
+- **12846** `CvCivilizationInfo::getShortDescriptionKey() const` (exported)
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (4): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::pyGetShortDescriptionKey, CvPlayer::getCivilizationShortDescriptionKey, CvPlayer::splitEmpire
-- **12837** `CvCivilizationInfo::getAdjective(unsigned int)` (exported)
+- **12851** `CvCivilizationInfo::getAdjective(unsigned int)` (exported)
   - calls: CvDLLUtilityIFaceBase::getObjectText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(CvWString const&) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::operator unsigned short const * [CvString.h]
   - called by (2): CvCivilizationInfo::pyGetAdjective, CvPlayer::getCivilizationAdjective
-- **12847** `CvCivilizationInfo::getAdjectiveKey() const` (exported)
+- **12861** `CvCivilizationInfo::getAdjectiveKey() const` (exported)
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvPlayer::getCivilizationAdjectiveKey, CvUnit::getVisualCivAdjective
-- **12852** `CvCivilizationInfo::getFlagTexture() const` (exported; Python: getFlagTexture)
+- **12866** `CvCivilizationInfo::getFlagTexture() const` (exported; Python: getFlagTexture)
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getCivilizationArtInfo(char const*) const [CvArtFileMgr.cpp], CvCivilizationInfo::getArtDefineTag, CvAssetInfoBase::getPath
   - called by (3): CvPlayer::changeCiv, CvPlayer::getFlagDecal, CyInfoPythonInterface2
-- **12857** `CvCivilizationInfo::getArtDefineTag() const` (exported; Python: getArtDefineTag)
+- **12871** `CvCivilizationInfo::getArtDefineTag() const` (exported; Python: getArtDefineTag)
   - calls: CvString::operator char const * [CvString.h]
   - called by (5): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::getArtInfo, CvCivilizationInfo::getButton, CvCivilizationInfo::getFlagTexture, CyInfoPythonInterface2
-- **12862** `CvCivilizationInfo::setArtDefineTag(char const*)` (exported)
+- **12876** `CvCivilizationInfo::setArtDefineTag(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::read(CvXMLLoadUtility*)
-- **12869** `CvCivilizationInfo::getCivilizationBuildings(int) const` (exported; Python: getCivilizationBuildings)
+- **12883** `CvCivilizationInfo::getCivilizationBuildings(int) const` (exported; Python: getCivilizationBuildings)
   - called by (65): CvCity::applyEvent, CvCity::canApplyEvent, CvCity::canConstruct, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getProductionExperience, CvCity::getTriggerValue, CvCity::init, CvCity::isPlotTrainable, CvCity::setBuildingHappyChange, CvCity::setBuildingHealthChange, CvCity::setBuildingYieldChange, CvCityAI::AI_bestBuildingThreshold …
-- **12876** `CvCivilizationInfo::getCivilizationUnits(int) const` (exported; Python: getCivilizationUnits)
+- **12890** `CvCivilizationInfo::getCivilizationUnits(int) const` (exported; Python: getCivilizationUnits)
   - called by (70): CvCity::allUpgradesAvailable, CvCity::applyEvent, CvCity::canTrain(UnitCombatTypes) const, CvCity::getConscriptUnit, CvCity::isForceObsoleteUnitClassAvailable, CvCity::processBuilding, CvCity::processSpecialist, CvCity::setHeadquarters, CvCityAI::AI_bestSpreadUnit, CvCityAI::AI_bestUnitAI, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction …
-- **12883** `CvCivilizationInfo::getCivilizationFreeUnitsClass(int) const` (exported; Python: getCivilizationFreeUnitsClass)
+- **12897** `CvCivilizationInfo::getCivilizationFreeUnitsClass(int) const` (exported; Python: getCivilizationFreeUnitsClass)
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **12890** `CvCivilizationInfo::getCivilizationInitialCivics(int) const` (exported; Python: getCivilizationInitialCivics)
+- **12904** `CvCivilizationInfo::getCivilizationInitialCivics(int) const` (exported; Python: getCivilizationInitialCivics)
   - called by (7): CvCivilizationInfo::copyNonDefaults, CvPlayer::init, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects, CvPlayer::setCivics, CvPlayerAI::AI_civicTrade, CyInfoPythonInterface2
-- **12897** `CvCivilizationInfo::isLeaders(int) const` (exported; Python: isLeaders)
+- **12911** `CvCivilizationInfo::isLeaders(int) const` (exported; Python: isLeaders)
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvPlayer::getSplitEmpireLeaders, CyInfoPythonInterface2
-- **12904** `CvCivilizationInfo::isCivilizationFreeBuildingClass(int) const` (exported; Python: isCivilizationFreeBuildingClass)
+- **12918** `CvCivilizationInfo::isCivilizationFreeBuildingClass(int) const` (exported; Python: isCivilizationFreeBuildingClass)
   - called by (3): CvCity::init, CvCivilizationInfo::copyNonDefaults, CyInfoPythonInterface2
-- **12911** `CvCivilizationInfo::isCivilizationFreeTechs(int) const` (exported; Python: isCivilizationFreeTechs)
+- **12925** `CvCivilizationInfo::isCivilizationFreeTechs(int) const` (exported; Python: isCivilizationFreeTechs)
   - called by (5): CvCivilizationInfo::copyNonDefaults, CvGame::initFreeState, CvGame::initScoreCalculation, CvGameTextMgr::parseCivInfos, CyInfoPythonInterface2
-- **12918** `CvCivilizationInfo::isCivilizationDisableTechs(int) const` (exported; Python: isCivilizationDisableTechs)
+- **12932** `CvCivilizationInfo::isCivilizationDisableTechs(int) const` (exported; Python: isCivilizationDisableTechs)
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvPlayer::canEverResearch, CyInfoPythonInterface2
-- **12925** `CvCivilizationInfo::getArtInfo() const` (exported)
+- **12939** `CvCivilizationInfo::getArtInfo() const` (exported)
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getCivilizationArtInfo(char const*) const [CvArtFileMgr.cpp], CvCivilizationInfo::getArtDefineTag
   - called by (2): CvCivilizationInfo::getButton, CvPlayer::isWhiteFlag
-- **12941** `CvCivilizationInfo::getButton() const` (exported; virtual; overrides CvInfoBase::getButton)
+- **12955** `CvCivilizationInfo::getButton() const` (exported; virtual; overrides CvInfoBase::getButton)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvCivilizationInfo::getArtDefineTag, CvCivilizationInfo::getArtInfo, CvInfoBase::getButton
   - called by (1): CvGameTextMgr::getTerritoryDataForWB
-- **12960** `CvCivilizationInfo::getCityNames(int) const` (exported; Python: getCityNames)
+- **12974** `CvCivilizationInfo::getCityNames(int) const` (exported; Python: getCityNames)
   - called by (3): CvCivilizationInfo::copyNonDefaults, CvPlayer::getCivilizationCityName, CyInfoPythonInterface2
-- **12967** `CvCivilizationInfo::getDerivativeCiv() const` (exported; Python: getDerivativeCiv)
+- **12981** `CvCivilizationInfo::getDerivativeCiv() const` (exported; Python: getDerivativeCiv)
   - called by (4): CvCivilizationInfo::copyNonDefaults, CvCivilizationInfo::copyNonDefaultsReadPass2, CvPlayer::splitEmpire, CyInfoPythonInterface2
-- **12971** `CvCivilizationInfo::setDerivativeCiv(int)`
-- **12976** `CvCivilizationInfo::read(FDataStreamBase*)` (exported; virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **12985** `CvCivilizationInfo::setDerivativeCiv(int)`
+- **12990** `CvCivilizationInfo::read(FDataStreamBase*)` (exported; virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvString::`vector deleting dtor'
   - takes the address of: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
-- **13037** `CvCivilizationInfo::write(FDataStreamBase*)` (exported; virtual; overrides CvInfoBase::write)
+- **13051** `CvCivilizationInfo::write(FDataStreamBase*)` (exported; virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp]
   - called by (1): writeInfoArray<class CvCivilizationInfo>
-- **13071** `CvCivilizationInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **13085** `CvCivilizationInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>&, char const*, unsigned short*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvCivilizationInfo::setArtDefineTag, CvGlobals::getTypesEnum [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvDLLUtilityIFaceBase::getAudioTagIndex [CvDLLUtilityIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::GetCString [CvString.h], CvString::GetLength [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetStringList [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvXMLLoadUtility::InitBuildingDefaults [CvXMLLoadUtilityInit.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlVal(char*, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getBuildingClassInfo(BuildingClassTypes) [CvGlobals.cpp], CvBuildingClassInfo::getDefaultBuildingIndex, CvXMLLoadUtility::InitUnitDefaults [CvXMLLoadUtilityInit.cpp], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getUnitClassInfo(UnitClassTypes) [CvGlobals.cpp], CvUnitClassInfo::getDefaultUnitIndex, CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp]
-- **13323** `CvCivilizationInfo::readPass2(CvXMLLoadUtility*)` (exported; virtual; overrides CvInfoBase::readPass2)
+- **13337** `CvCivilizationInfo::readPass2(CvXMLLoadUtility*)` (exported; virtual; overrides CvInfoBase::readPass2)
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::operator char const * [CvString.h]
-- **13349** `CvCivilizationInfo::copyNonDefaults(CvCivilizationInfo*)`
+- **13363** `CvCivilizationInfo::copyNonDefaults(CvCivilizationInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvCivilizationInfo::getArtDefineTag, CvCivilizationInfo::setArtDefineTag, CvInfoBase::copyNonDefaults, CvCivilizationInfo::isPlayable, CvCivilizationInfo::isAIPlayable, CvCivilizationInfo::getShortDescriptionKey, CvWString::operator=(unsigned short const*) [CvString.h], CvCivilizationInfo::getAdjectiveKey, CvCivilizationInfo::getDefaultPlayerColor, CvCivilizationInfo::getArtStyleType, CvCivilizationInfo::getUnitArtStyleType, CvCivilizationInfo::getSelectionSoundScriptId, CvCivilizationInfo::getActionSoundScriptId, CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getBuildingClassInfo(BuildingClassTypes) [CvGlobals.cpp], CvBuildingClassInfo::getDefaultBuildingIndex, CvCivilizationInfo::getCivilizationBuildings, CvCivilizationInfo::isCivilizationFreeBuildingClass, CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvGlobals::getUnitClassInfo(UnitClassTypes) [CvGlobals.cpp], CvCivilizationInfo::getCivilizationUnits, CvUnitClassInfo::getDefaultUnitIndex, CvCivilizationInfo::getCivilizationFreeUnitsClass, CvGlobals::getNumTechInfos [CvGlobals.cpp], CvCivilizationInfo::isCivilizationFreeTechs, CvCivilizationInfo::isCivilizationDisableTechs, CvGlobals::getNumCivicOptionInfos [CvGlobals.cpp], CvCivilizationInfo::getCivilizationInitialCivics, CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvCivilizationInfo::isLeaders, CvCivilizationInfo::getDerivativeCiv, CvCivilizationInfo::getNumCityNames, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvCivilizationInfo::getCityNames, CvString::operator=(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&) [CvString.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvXMLLoadUtilityModTools::StringArrayExtend [CvXMLLoadUtilityModTools.cpp], CvString::`vector deleting dtor', operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCivilizationInfo>
-- **13475** `CvCivilizationInfo::copyNonDefaultsReadPass2(CvCivilizationInfo*)`
+- **13489** `CvCivilizationInfo::copyNonDefaultsReadPass2(CvCivilizationInfo*)`
   - calls: CvCivilizationInfo::getDerivativeCiv
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvCivilizationInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCivilizationInfo>
-- **13509** `CvVictoryInfo::CvVictoryInfo()`
+- **13523** `CvVictoryInfo::CvVictoryInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvVictoryInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvVictoryInfo>
-- **13520** `CvVictoryInfo::~CvVictoryInfo()` (virtual)
+- **13534** `CvVictoryInfo::~CvVictoryInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvVictoryInfo::`scalar deleting dtor'
-- **13524** `CvVictoryInfo::getPopulationPercentLead() const` (Python: getPopulationPercentLead)
+- **13538** `CvVictoryInfo::getPopulationPercentLead() const` (Python: getPopulationPercentLead)
   - called by (4): CvGame::getAdjustedPopulationPercent, CvPlayerAI::AI_getDominationVictoryStage, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13529** `CvVictoryInfo::getLandPercent() const` (Python: getLandPercent)
+- **13543** `CvVictoryInfo::getLandPercent() const` (Python: getLandPercent)
   - called by (5): CvGame::getAdjustedLandPercent, CvPlayerAI::AI_getDominationVictoryStage, CvPlayerAI::AI_getStrategyHash, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13534** `CvVictoryInfo::getMinLandPercent() const` (Python: getMinLandPercent)
+- **13548** `CvVictoryInfo::getMinLandPercent() const` (Python: getMinLandPercent)
   - called by (4): CvGame::getAdjustedLandPercent, CvPlayerAI::AI_getStrategyHash, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13539** `CvVictoryInfo::getReligionPercent() const` (Python: getReligionPercent)
+- **13553** `CvVictoryInfo::getReligionPercent() const` (Python: getReligionPercent)
   - called by (5): CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvPlayerAI::AI_setConsiderReligiousVictory, CvPlayerAI::AI_setPushReligiousVictory, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13544** `CvVictoryInfo::getCityCulture() const` (Python: getCityCulture)
+- **13558** `CvVictoryInfo::getCityCulture() const` (Python: getCityCulture)
   - called by (5): CvGame::doUpdateCacheOnTurn, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvPlayerAI::AI_getStrategyHash, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13549** `CvVictoryInfo::getNumCultureCities() const` (Python: getNumCultureCities)
+- **13563** `CvVictoryInfo::getNumCultureCities() const` (Python: getNumCultureCities)
   - called by (4): CvGame::doUpdateCacheOnTurn, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13554** `CvVictoryInfo::getTotalCultureRatio() const` (Python: getTotalCultureRatio)
+- **13568** `CvVictoryInfo::getTotalCultureRatio() const` (Python: getTotalCultureRatio)
   - called by (3): CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13559** `CvVictoryInfo::getVictoryDelayTurns() const` (Python: getVictoryDelayTurns)
+- **13573** `CvVictoryInfo::getVictoryDelayTurns() const` (Python: getVictoryDelayTurns)
   - called by (4): CvGame::victoryDelay, CvPlayerAI::AI_getSpaceVictoryStage, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13564** `CvVictoryInfo::isTargetScore() const` (Python: isTargetScore)
+- **13578** `CvVictoryInfo::isTargetScore() const` (Python: isTargetScore)
   - called by (3): CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13569** `CvVictoryInfo::isEndScore() const` (Python: isEndScore)
+- **13583** `CvVictoryInfo::isEndScore() const` (Python: isEndScore)
   - called by (5): CvGame::init, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvPlayerAI::AI_getStrategyHash, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13574** `CvVictoryInfo::isConquest() const` (Python: isConquest)
+- **13588** `CvVictoryInfo::isConquest() const` (Python: isConquest)
   - called by (5): CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvPlayerAI::AI_getConquestVictoryStage, CvPlayerAI::AI_getStrategyHash, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13579** `CvVictoryInfo::isDiploVote() const` (Python: isDiploVote)
+- **13593** `CvVictoryInfo::isDiploVote() const` (Python: isDiploVote)
   - called by (6): CvGame::showEndGameSequence, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvPlayerAI::AI_getDiplomacyVictoryStage, CvPlayerAI::AI_getStrategyHash, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13584** `CvVictoryInfo::isPermanent() const` (exported; Python: isPermanent)
+- **13598** `CvVictoryInfo::isPermanent() const` (exported; Python: isPermanent)
   - called by (2): CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13589** `CvVictoryInfo::getMovie() const` (Python: getMovie)
+- **13603** `CvVictoryInfo::getMovie() const` (Python: getMovie)
   - calls: CvString::operator char const * [CvString.h]
   - called by (3): CvGame::showEndGameSequence, CvVictoryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13598** `CvVictoryInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **13612** `CvVictoryInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp]
-- **13631** `CvVictoryInfo::copyNonDefaults(CvVictoryInfo*)`
+- **13645** `CvVictoryInfo::copyNonDefaults(CvVictoryInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvVictoryInfo::isTargetScore, CvVictoryInfo::isEndScore, CvVictoryInfo::isConquest, CvVictoryInfo::isDiploVote, CvVictoryInfo::isPermanent, CvVictoryInfo::getPopulationPercentLead, CvVictoryInfo::getLandPercent, CvVictoryInfo::getMinLandPercent, CvVictoryInfo::getReligionPercent, CvVictoryInfo::getCityCulture, CvVictoryInfo::getNumCultureCities, CvVictoryInfo::getTotalCultureRatio, CvVictoryInfo::getVictoryDelayTurns, CvVictoryInfo::getMovie, CvString::operator=(char const*) [CvString.h]
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvVictoryInfo>
-- **13680** `CvHurryInfo::CvHurryInfo()`
+- **13694** `CvHurryInfo::CvHurryInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvHurryInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvHurryInfo>
-- **13691** `CvHurryInfo::~CvHurryInfo()` (virtual)
+- **13705** `CvHurryInfo::~CvHurryInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvHurryInfo::`scalar deleting dtor'
-- **13695** `CvHurryInfo::getGoldPerProduction() const` (Python: getGoldPerProduction)
+- **13709** `CvHurryInfo::getGoldPerProduction() const` (Python: getGoldPerProduction)
   - called by (5): CvCity::getHurryGold, CvHurryInfo::copyNonDefaults, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_doCommerce, CyInfoPythonInterface2
-- **13700** `CvHurryInfo::getProductionPerPopulation() const` (Python: getProductionPerPopulation)
+- **13714** `CvHurryInfo::getProductionPerPopulation() const` (Python: getProductionPerPopulation)
   - called by (8): CvCity::getHurryPopulation, CvCity::hurryOverflow, CvCity::hurryProduction, CvGame::getProductionPerPopulation, CvHurryInfo::copyNonDefaults, CvPlayer::changeHurryCount, CvPlayerAI::AI_civicValue, CyInfoPythonInterface2
-- **13705** `CvHurryInfo::isAnger() const` (Python: isAnger)
+- **13719** `CvHurryInfo::isAnger() const` (Python: isAnger)
   - called by (3): CvCity::hurryAngerLength, CvHurryInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13710** `CvHurryInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **13724** `CvHurryInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **13729** `CvHurryInfo::copyNonDefaults(CvHurryInfo*)`
+- **13743** `CvHurryInfo::copyNonDefaults(CvHurryInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvHurryInfo::getGoldPerProduction, CvHurryInfo::getProductionPerPopulation, CvHurryInfo::isAnger
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvHurryInfo>
-- **13821** `CvHandicapInfo::CvHandicapInfo()`
+- **13835** `CvHandicapInfo::CvHandicapInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvHandicapInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvHandicapInfo>, readInfoArray<class CvHandicapInfo>
-- **13832** `CvHandicapInfo::~CvHandicapInfo()` (virtual)
+- **13846** `CvHandicapInfo::~CvHandicapInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvHandicapInfo::`scalar deleting dtor'
-- **13839** `CvHandicapInfo::getFreeWinsVsBarbs() const` (Python: getFreeWinsVsBarbs)
+- **13853** `CvHandicapInfo::getFreeWinsVsBarbs() const` (Python: getFreeWinsVsBarbs)
   - called by (5): CvGameTextMgr::setCombatPlotHelp, CvHandicapInfo::copyNonDefaults, CvUnit::getDefenderCombatValues, CyInfoPythonInterface2, getCombatOddsSpecific
-- **13844** `CvHandicapInfo::getAnimalAttackProb() const` (Python: getAnimalAttackProb)
+- **13858** `CvHandicapInfo::getAnimalAttackProb() const` (Python: getAnimalAttackProb)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvUnitAI::AI_animalMove, CyInfoPythonInterface2
-- **13849** `CvHandicapInfo::getStartingLocationPercent() const` (Python: getStartingLocationPercent)
+- **13863** `CvHandicapInfo::getStartingLocationPercent() const` (Python: getStartingLocationPercent)
   - called by (3): CvGame::assignStartingPlots, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13854** `CvHandicapInfo::getAdvancedStartPointsMod() const`
+- **13868** `CvHandicapInfo::getAdvancedStartPointsMod() const`
   - called by (2): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits
-- **13859** `CvHandicapInfo::getStartingGold() const` (Python: getStartingGold)
+- **13873** `CvHandicapInfo::getStartingGold() const` (Python: getStartingGold)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeState, CyInfoPythonInterface2
-- **13864** `CvHandicapInfo::getFreeUnits() const` (Python: getFreeUnits)
+- **13878** `CvHandicapInfo::getFreeUnits() const` (Python: getFreeUnits)
   - called by (4): CvHandicapInfo::copyNonDefaults, CvPlayer::calculateUnitCost(int&, int&, int&, int&, int&, int&, int&) const, CvPlayerAI::AI_civicValue, CyInfoPythonInterface2
-- **13869** `CvHandicapInfo::getUnitCostPercent() const` (Python: getUnitCostPercent)
+- **13883** `CvHandicapInfo::getUnitCostPercent() const` (Python: getUnitCostPercent)
   - called by (4): CvHandicapInfo::copyNonDefaults, CvPlayer::calculateUnitCost(int&, int&, int&, int&, int&, int&, int&) const, CvPlayerAI::AI_civicValue, CyInfoPythonInterface2
-- **13874** `CvHandicapInfo::getResearchPercent() const` (Python: getResearchPercent)
+- **13888** `CvHandicapInfo::getResearchPercent() const` (Python: getResearchPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvTeam::getResearchCost, CyInfoPythonInterface2
-- **13879** `CvHandicapInfo::getDistanceMaintenancePercent() const` (Python: getDistanceMaintenancePercent)
+- **13893** `CvHandicapInfo::getDistanceMaintenancePercent() const` (Python: getDistanceMaintenancePercent)
   - called by (3): CvCity::calculateDistanceMaintenanceTimes100, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13884** `CvHandicapInfo::getNumCitiesMaintenancePercent() const` (Python: getNumCitiesMaintenancePercent)
+- **13898** `CvHandicapInfo::getNumCitiesMaintenancePercent() const` (Python: getNumCitiesMaintenancePercent)
   - called by (3): CvCity::calculateNumCitiesMaintenanceTimes100, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13889** `CvHandicapInfo::getMaxNumCitiesMaintenance() const` (Python: getMaxNumCitiesMaintenance)
+- **13903** `CvHandicapInfo::getMaxNumCitiesMaintenance() const` (Python: getMaxNumCitiesMaintenance)
   - called by (3): CvCity::calculateNumCitiesMaintenanceTimes100, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13894** `CvHandicapInfo::getColonyMaintenancePercent() const` (Python: getColonyMaintenancePercent)
+- **13908** `CvHandicapInfo::getColonyMaintenancePercent() const` (Python: getColonyMaintenancePercent)
   - called by (3): CvCity::calculateColonyMaintenanceTimes100, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13899** `CvHandicapInfo::getMaxColonyMaintenance() const` (Python: getMaxColonyMaintenance)
+- **13913** `CvHandicapInfo::getMaxColonyMaintenance() const` (Python: getMaxColonyMaintenance)
   - called by (3): CvCity::calculateColonyMaintenanceTimes100, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13904** `CvHandicapInfo::getCorporationMaintenancePercent() const` (Python: getCorporationMaintenancePercent)
+- **13918** `CvHandicapInfo::getCorporationMaintenancePercent() const` (Python: getCorporationMaintenancePercent)
   - called by (3): CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes) const, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13909** `CvHandicapInfo::getCivicUpkeepPercent() const` (Python: getCivicUpkeepPercent)
+- **13923** `CvHandicapInfo::getCivicUpkeepPercent() const` (Python: getCivicUpkeepPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getSingleCivicUpkeep, CyInfoPythonInterface2
-- **13914** `CvHandicapInfo::getInflationPercent() const` (Python: getInflationPercent)
+- **13928** `CvHandicapInfo::getInflationPercent() const` (Python: getInflationPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::calculateInflationRate, CyInfoPythonInterface2
-- **13919** `CvHandicapInfo::getHealthBonus() const` (Python: getHealthBonus)
+- **13933** `CvHandicapInfo::getHealthBonus() const` (Python: getHealthBonus)
   - called by (6): CvCity::badHealth, CvCity::goodHealth, CvGameTextMgr::setBadHealthHelp, CvGameTextMgr::setGoodHealthHelp, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13924** `CvHandicapInfo::getHappyBonus() const` (Python: getHappyBonus)
+- **13938** `CvHandicapInfo::getHappyBonus() const` (Python: getHappyBonus)
   - called by (6): CvCity::happyLevel, CvCity::unhappyLevel, CvGameTextMgr::setAngerHelp, CvGameTextMgr::setHappyHelp, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13929** `CvHandicapInfo::getAttitudeChange() const` (Python: getAttitudeChange)
+- **13943** `CvHandicapInfo::getAttitudeChange() const` (Python: getAttitudeChange)
   - called by (4): CvHandicapInfo::copyNonDefaults, CvPlayerAI::AI_getAttitudeVal, CvPlayerAI::AI_getFirstImpressionAttitude, CyInfoPythonInterface2
-- **13934** `CvHandicapInfo::getNoTechTradeModifier() const` (Python: getNoTechTradeModifier)
+- **13948** `CvHandicapInfo::getNoTechTradeModifier() const` (Python: getNoTechTradeModifier)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvTeamAI::AI_techTrade, CyInfoPythonInterface2
-- **13939** `CvHandicapInfo::getTechTradeKnownModifier() const` (Python: getTechTradeKnownModifier)
+- **13953** `CvHandicapInfo::getTechTradeKnownModifier() const` (Python: getTechTradeKnownModifier)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvTeamAI::AI_techTrade, CyInfoPythonInterface2
-- **13944** `CvHandicapInfo::getUnownedTilesPerGameAnimal() const` (Python: getUnownedTilesPerGameAnimal)
+- **13958** `CvHandicapInfo::getUnownedTilesPerGameAnimal() const` (Python: getUnownedTilesPerGameAnimal)
   - called by (3): CvGame::createAnimals, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13949** `CvHandicapInfo::getUnownedTilesPerBarbarianUnit() const` (Python: getUnownedTilesPerBarbarianUnit)
+- **13963** `CvHandicapInfo::getUnownedTilesPerBarbarianUnit() const` (Python: getUnownedTilesPerBarbarianUnit)
   - called by (3): CvGame::createBarbarianUnits, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13954** `CvHandicapInfo::getUnownedWaterTilesPerBarbarianUnit() const` (Python: getUnownedWaterTilesPerBarbarianUnit)
+- **13968** `CvHandicapInfo::getUnownedWaterTilesPerBarbarianUnit() const` (Python: getUnownedWaterTilesPerBarbarianUnit)
   - called by (3): CvGame::createBarbarianUnits, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13959** `CvHandicapInfo::getUnownedTilesPerBarbarianCity() const` (Python: getUnownedTilesPerBarbarianCity)
+- **13973** `CvHandicapInfo::getUnownedTilesPerBarbarianCity() const` (Python: getUnownedTilesPerBarbarianCity)
   - called by (3): CvGame::createBarbarianCities, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13964** `CvHandicapInfo::getBarbarianCreationTurnsElapsed() const` (Python: getBarbarianCreationTurnsElapsed)
+- **13978** `CvHandicapInfo::getBarbarianCreationTurnsElapsed() const` (Python: getBarbarianCreationTurnsElapsed)
   - called by (3): CvGame::createBarbarianUnits, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13969** `CvHandicapInfo::getBarbarianCityCreationTurnsElapsed() const` (Python: getBarbarianCityCreationTurnsElapsed)
+- **13983** `CvHandicapInfo::getBarbarianCityCreationTurnsElapsed() const` (Python: getBarbarianCityCreationTurnsElapsed)
   - called by (3): CvGame::createBarbarianCities, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13974** `CvHandicapInfo::getBarbarianCityCreationProb() const` (Python: getBarbarianCityCreationProb)
+- **13988** `CvHandicapInfo::getBarbarianCityCreationProb() const` (Python: getBarbarianCityCreationProb)
   - called by (3): CvGame::createBarbarianCities, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **13979** `CvHandicapInfo::getAnimalCombatModifier() const` (Python: getAnimalCombatModifier)
+- **13993** `CvHandicapInfo::getAnimalCombatModifier() const` (Python: getAnimalCombatModifier)
   - called by (4): CvGameTextMgr::setCombatPlotHelp, CvHandicapInfo::copyNonDefaults, CvUnit::maxCombatStr, CyInfoPythonInterface2
-- **13984** `CvHandicapInfo::getBarbarianCombatModifier() const` (Python: getBarbarianCombatModifier)
+- **13998** `CvHandicapInfo::getBarbarianCombatModifier() const` (Python: getBarbarianCombatModifier)
   - called by (4): CvGameTextMgr::setCombatPlotHelp, CvHandicapInfo::copyNonDefaults, CvUnit::maxCombatStr, CyInfoPythonInterface2
-- **13989** `CvHandicapInfo::getAIAnimalCombatModifier() const` (Python: getAIAnimalCombatModifier)
+- **14003** `CvHandicapInfo::getAIAnimalCombatModifier() const` (Python: getAIAnimalCombatModifier)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvUnit::maxCombatStr, CyInfoPythonInterface2
-- **13994** `CvHandicapInfo::getAIBarbarianCombatModifier() const` (Python: getAIBarbarianCombatModifier)
+- **14008** `CvHandicapInfo::getAIBarbarianCombatModifier() const` (Python: getAIBarbarianCombatModifier)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvUnit::maxCombatStr, CyInfoPythonInterface2
-- **13999** `CvHandicapInfo::getStartingDefenseUnits() const` (Python: getStartingDefenseUnits)
+- **14013** `CvHandicapInfo::getStartingDefenseUnits() const` (Python: getStartingDefenseUnits)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **14004** `CvHandicapInfo::getStartingWorkerUnits() const` (Python: getStartingWorkerUnits)
+- **14018** `CvHandicapInfo::getStartingWorkerUnits() const` (Python: getStartingWorkerUnits)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **14009** `CvHandicapInfo::getStartingExploreUnits() const` (Python: getStartingExploreUnits)
+- **14023** `CvHandicapInfo::getStartingExploreUnits() const` (Python: getStartingExploreUnits)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **14014** `CvHandicapInfo::getAIStartingUnitMultiplier() const` (Python: getAIStartingUnitMultiplier)
+- **14028** `CvHandicapInfo::getAIStartingUnitMultiplier() const` (Python: getAIStartingUnitMultiplier)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **14019** `CvHandicapInfo::getAIStartingDefenseUnits() const` (Python: getAIStartingDefenseUnits)
+- **14033** `CvHandicapInfo::getAIStartingDefenseUnits() const` (Python: getAIStartingDefenseUnits)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **14024** `CvHandicapInfo::getAIStartingWorkerUnits() const` (Python: getAIStartingWorkerUnits)
+- **14038** `CvHandicapInfo::getAIStartingWorkerUnits() const` (Python: getAIStartingWorkerUnits)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **14029** `CvHandicapInfo::getAIStartingExploreUnits() const` (Python: getAIStartingExploreUnits)
+- **14043** `CvHandicapInfo::getAIStartingExploreUnits() const` (Python: getAIStartingExploreUnits)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **14034** `CvHandicapInfo::getBarbarianInitialDefenders() const` (Python: getBarbarianInitialDefenders)
+- **14048** `CvHandicapInfo::getBarbarianInitialDefenders() const` (Python: getBarbarianInitialDefenders)
   - called by (5): CvCityAI::AI_neededDefenders, CvHandicapInfo::copyNonDefaults, CvPlayer::found, CvUnitAI::AI_attackMove, CyInfoPythonInterface2
-- **14039** `CvHandicapInfo::getAIDeclareWarProb() const` (Python: getAIDeclareWarProb)
+- **14053** `CvHandicapInfo::getAIDeclareWarProb() const` (Python: getAIDeclareWarProb)
   - called by (5): CvDLLWidgetData::parseContactCivHelp, CvHandicapInfo::copyNonDefaults, CvTeamAI::AI_doWar, CvTeamAI::AI_performNoWarRolls, CyInfoPythonInterface2
-- **14044** `CvHandicapInfo::getAIWorkRateModifier() const` (Python: getAIWorkRateModifier)
+- **14058** `CvHandicapInfo::getAIWorkRateModifier() const` (Python: getAIWorkRateModifier)
   - called by (4): CvHandicapInfo::copyNonDefaults, CvPlayer::getWorkRate, CvUnit::workRate, CyInfoPythonInterface2
-- **14049** `CvHandicapInfo::getAIGrowthPercent() const` (Python: getAIGrowthPercent)
+- **14063** `CvHandicapInfo::getAIGrowthPercent() const` (Python: getAIGrowthPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getGrowthThreshold, CyInfoPythonInterface2
-- **14054** `CvHandicapInfo::getAITrainPercent() const` (Python: getAITrainPercent)
+- **14068** `CvHandicapInfo::getAITrainPercent() const` (Python: getAITrainPercent)
   - called by (5): CvHandicapInfo::copyNonDefaults, CvPlayer::getProductionNeeded(UnitTypes) const, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_getTotalFloatingDefendersNeeded, CyInfoPythonInterface2
-- **14059** `CvHandicapInfo::getAIWorldTrainPercent() const` (Python: getAIWorldTrainPercent)
+- **14073** `CvHandicapInfo::getAIWorldTrainPercent() const` (Python: getAIWorldTrainPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getProductionNeeded(UnitTypes) const, CyInfoPythonInterface2
-- **14064** `CvHandicapInfo::getAIConstructPercent() const` (Python: getAIConstructPercent)
+- **14078** `CvHandicapInfo::getAIConstructPercent() const` (Python: getAIConstructPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getProductionNeeded(BuildingTypes) const, CyInfoPythonInterface2
-- **14069** `CvHandicapInfo::getAIWorldConstructPercent() const` (Python: getAIWorldConstructPercent)
+- **14083** `CvHandicapInfo::getAIWorldConstructPercent() const` (Python: getAIWorldConstructPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getProductionNeeded(BuildingTypes) const, CyInfoPythonInterface2
-- **14074** `CvHandicapInfo::getAICreatePercent() const` (Python: getAICreatePercent)
+- **14088** `CvHandicapInfo::getAICreatePercent() const` (Python: getAICreatePercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getProductionNeeded(ProjectTypes) const, CyInfoPythonInterface2
-- **14079** `CvHandicapInfo::getAIWorldCreatePercent() const` (Python: getAIWorldCreatePercent)
+- **14093** `CvHandicapInfo::getAIWorldCreatePercent() const` (Python: getAIWorldCreatePercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getProductionNeeded(ProjectTypes) const, CyInfoPythonInterface2
-- **14084** `CvHandicapInfo::getAICivicUpkeepPercent() const` (Python: getAICivicUpkeepPercent)
+- **14098** `CvHandicapInfo::getAICivicUpkeepPercent() const` (Python: getAICivicUpkeepPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getSingleCivicUpkeep, CyInfoPythonInterface2
-- **14089** `CvHandicapInfo::getAIUnitCostPercent() const` (Python: getAIUnitCostPercent)
+- **14103** `CvHandicapInfo::getAIUnitCostPercent() const` (Python: getAIUnitCostPercent)
   - called by (4): CvHandicapInfo::copyNonDefaults, CvPlayer::calculateUnitCost(int&, int&, int&, int&, int&, int&, int&) const, CvPlayerAI::AI_civicValue, CyInfoPythonInterface2
-- **14094** `CvHandicapInfo::getAIUnitSupplyPercent() const` (Python: getAIUnitSupplyPercent)
+- **14108** `CvHandicapInfo::getAIUnitSupplyPercent() const` (Python: getAIUnitSupplyPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::calculateUnitSupply(int&, int&) const, CyInfoPythonInterface2
-- **14099** `CvHandicapInfo::getAIUnitUpgradePercent() const` (Python: getAIUnitUpgradePercent)
+- **14113** `CvHandicapInfo::getAIUnitUpgradePercent() const` (Python: getAIUnitUpgradePercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvUnit::upgradePrice, CyInfoPythonInterface2
-- **14104** `CvHandicapInfo::getAIInflationPercent() const` (Python: getAIInflationPercent)
+- **14118** `CvHandicapInfo::getAIInflationPercent() const` (Python: getAIInflationPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::calculateInflationRate, CyInfoPythonInterface2
-- **14109** `CvHandicapInfo::getAIWarWearinessPercent() const` (Python: getAIWarWearinessPercent)
+- **14123** `CvHandicapInfo::getAIWarWearinessPercent() const` (Python: getAIWarWearinessPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::getModifiedWarWearinessPercentAnger, CyInfoPythonInterface2
-- **14114** `CvHandicapInfo::getAIPerEraModifier() const` (Python: getAIPerEraModifier)
+- **14128** `CvHandicapInfo::getAIPerEraModifier() const` (Python: getAIPerEraModifier)
   - called by (13): CvHandicapInfo::copyNonDefaults, CvPlayer::calculateInflationRate, CvPlayer::calculateUnitCost(int&, int&, int&, int&, int&, int&, int&) const, CvPlayer::calculateUnitSupply(int&, int&) const, CvPlayer::getGrowthThreshold, CvPlayer::getModifiedWarWearinessPercentAnger, CvPlayer::getProductionNeeded(BuildingTypes) const, CvPlayer::getProductionNeeded(ProjectTypes) const, CvPlayer::getProductionNeeded(UnitTypes) const, CvPlayer::getSingleCivicUpkeep, CvPlayerAI::AI_civicValue, CvUnit::upgradePrice …
-- **14119** `CvHandicapInfo::getAIAdvancedStartPercent() const` (Python: getAIAdvancedStartPercent)
+- **14133** `CvHandicapInfo::getAIAdvancedStartPercent() const` (Python: getAIAdvancedStartPercent)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface2
-- **14124** `CvHandicapInfo::getNumGoodies() const` (Python: getNumGoodies)
+- **14138** `CvHandicapInfo::getNumGoodies() const` (Python: getNumGoodies)
   - called by (5): CvHandicapInfo::copyNonDefaults, CvHandicapInfo::read(FDataStreamBase*), CvHandicapInfo::write, CvPlayer::doGoody, CyInfoPythonInterface2
-- **14131** `CvHandicapInfo::getGoodies(int) const` (Python: getGoodies)
+- **14145** `CvHandicapInfo::getGoodies(int) const` (Python: getGoodies)
   - called by (3): CvHandicapInfo::copyNonDefaults, CvPlayer::doGoody, CyInfoPythonInterface2
-- **14138** `CvHandicapInfo::isFreeTechs(int) const` (Python: isFreeTechs)
+- **14152** `CvHandicapInfo::isFreeTechs(int) const` (Python: isFreeTechs)
   - called by (3): CvGame::initFreeState, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14145** `CvHandicapInfo::isAIFreeTechs(int) const` (Python: isAIFreeTechs)
+- **14159** `CvHandicapInfo::isAIFreeTechs(int) const` (Python: isAIFreeTechs)
   - called by (3): CvGame::initFreeState, CvHandicapInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14152** `CvHandicapInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **14166** `CvHandicapInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvHandicapInfo::getNumGoodies, CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
-- **14236** `CvHandicapInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **14250** `CvHandicapInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvHandicapInfo::getNumGoodies, CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
   - called by (1): writeInfoArray<class CvHandicapInfo>
-- **14312** `CvHandicapInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **14326** `CvHandicapInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetStringList [CvXMLLoadUtility.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvString::`vector deleting dtor', CvGlobals::getNumTechInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp]
-- **14413** `CvHandicapInfo::copyNonDefaults(CvHandicapInfo*)`
+- **14427** `CvHandicapInfo::copyNonDefaults(CvHandicapInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvHandicapInfo::getFreeWinsVsBarbs, CvHandicapInfo::getAnimalAttackProb, CvHandicapInfo::getStartingLocationPercent, CvHandicapInfo::getAdvancedStartPointsMod, CvHandicapInfo::getStartingGold, CvHandicapInfo::getFreeUnits, CvHandicapInfo::getUnitCostPercent, CvHandicapInfo::getResearchPercent, CvHandicapInfo::getDistanceMaintenancePercent, CvHandicapInfo::getNumCitiesMaintenancePercent, CvHandicapInfo::getMaxNumCitiesMaintenance, CvHandicapInfo::getColonyMaintenancePercent, CvHandicapInfo::getMaxColonyMaintenance, CvHandicapInfo::getCorporationMaintenancePercent, CvHandicapInfo::getCivicUpkeepPercent, CvHandicapInfo::getInflationPercent, CvHandicapInfo::getHealthBonus, CvHandicapInfo::getHappyBonus, CvHandicapInfo::getAttitudeChange, CvHandicapInfo::getNoTechTradeModifier, CvHandicapInfo::getTechTradeKnownModifier, CvHandicapInfo::getUnownedTilesPerGameAnimal, CvHandicapInfo::getUnownedTilesPerBarbarianUnit, CvHandicapInfo::getUnownedWaterTilesPerBarbarianUnit, CvHandicapInfo::getUnownedTilesPerBarbarianCity, CvHandicapInfo::getBarbarianCreationTurnsElapsed, CvHandicapInfo::getBarbarianCityCreationTurnsElapsed, CvHandicapInfo::getBarbarianCityCreationProb, CvHandicapInfo::getAnimalCombatModifier, CvHandicapInfo::getBarbarianCombatModifier, CvHandicapInfo::getAIAnimalCombatModifier, CvHandicapInfo::getAIBarbarianCombatModifier, CvHandicapInfo::getStartingDefenseUnits, CvHandicapInfo::getStartingWorkerUnits, CvHandicapInfo::getStartingExploreUnits, CvHandicapInfo::getAIStartingUnitMultiplier, CvHandicapInfo::getAIStartingDefenseUnits, CvHandicapInfo::getAIStartingWorkerUnits, CvHandicapInfo::getAIStartingExploreUnits, CvHandicapInfo::getBarbarianInitialDefenders, CvHandicapInfo::getAIDeclareWarProb, CvHandicapInfo::getAIWorkRateModifier, CvHandicapInfo::getAIGrowthPercent, CvHandicapInfo::getAITrainPercent, CvHandicapInfo::getAIWorldTrainPercent, CvHandicapInfo::getAIConstructPercent, CvHandicapInfo::getAIWorldConstructPercent, CvHandicapInfo::getAICreatePercent, CvHandicapInfo::getAIWorldCreatePercent, CvHandicapInfo::getAICivicUpkeepPercent, CvHandicapInfo::getAIUnitCostPercent, CvHandicapInfo::getAIUnitSupplyPercent, CvHandicapInfo::getAIUnitUpgradePercent, CvHandicapInfo::getAIInflationPercent, CvHandicapInfo::getAIWarWearinessPercent, CvHandicapInfo::getAIPerEraModifier, CvHandicapInfo::getAIAdvancedStartPercent, CvString::CvString() [CvString.h], CvInfoBase::getType, CvString::Format [CvString.h], CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvHandicapInfo::getNumGoodies, operator new(unsigned int) [CvGameCoreDLL.cpp], CvHandicapInfo::getGoodies, CvXMLLoadUtilityModTools::isDuplicate(int, int*, int) const [CvXMLLoadUtilityModTools.cpp], CvGlobals::getGoodyInfo(GoodyTypes) [CvGlobals.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvHandicapInfo::isFreeTechs, CvHandicapInfo::isAIFreeTechs
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvHandicapInfo>
-- **14602** `CvGameSpeedInfo::CvGameSpeedInfo()`
+- **14616** `CvGameSpeedInfo::CvGameSpeedInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvGameSpeedInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvGameSpeedInfo>
-- **14613** `CvGameSpeedInfo::~CvGameSpeedInfo()` (virtual)
+- **14627** `CvGameSpeedInfo::~CvGameSpeedInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvGameSpeedInfo::`scalar deleting dtor'
-- **14618** `CvGameSpeedInfo::getGrowthPercent() const` (Python: getGrowthPercent)
+- **14632** `CvGameSpeedInfo::getGrowthPercent() const` (Python: getGrowthPercent)
   - called by (10): CvGameSpeedInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvInitCore::resetAdvancedStartPoints, CvPlayer::applyEvent, CvPlayer::getEspionageMissionBaseCost, CvPlayer::getGrowthThreshold, CvPlayer::getNewCityProductionValue, CvPlayer::receiveGoody, CvPlayerAI::AI_civicValue, CyInfoPythonInterface2
-- **14623** `CvGameSpeedInfo::getTrainPercent() const` (Python: getTrainPercent)
+- **14637** `CvGameSpeedInfo::getTrainPercent() const` (Python: getTrainPercent)
   - called by (18): CvCity::doDecay, CvCity::getUnitProductionDecayTurns, CvCity::isUnitProductionDecay, CvCityAI::AI_chooseProduction, CvCityAI::AI_doHurry, CvGame::createBarbarianUnits, CvGameSpeedInfo::copyNonDefaults, CvPlayer::getProductionNeeded(UnitTypes) const, CvPlayer::greatPeopleThreshold, CvPlayerAI::AI_eventValue, CvPlayerAI::AI_goldTarget, CvPlayerAI::AI_rememberGeneral …
-- **14628** `CvGameSpeedInfo::getConstructPercent() const` (Python: getConstructPercent)
+- **14642** `CvGameSpeedInfo::getConstructPercent() const` (Python: getConstructPercent)
   - called by (15): CvCity::doDecay, CvCity::getBuildingProductionDecayTurns, CvCity::isBuildingProductionDecay, CvCity::isRecentlyAcquired, CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_doHurry, CvGameSpeedInfo::copyNonDefaults, CvPlayer::getProductionNeeded(BuildingTypes) const, CvPlayerAI::AI_eventValue, CvPlayerAI::AI_goldTarget, CvUnit::doPillageInfluence …
-- **14633** `CvGameSpeedInfo::getCreatePercent() const` (Python: getCreatePercent)
+- **14647** `CvGameSpeedInfo::getCreatePercent() const` (Python: getCreatePercent)
   - called by (5): CvCityAI::AI_bestProject, CvCityAI::AI_doHurry, CvGameSpeedInfo::copyNonDefaults, CvPlayer::getProductionNeeded(ProjectTypes) const, CyInfoPythonInterface2
-- **14638** `CvGameSpeedInfo::getResearchPercent() const` (Python: getResearchPercent)
+- **14652** `CvGameSpeedInfo::getResearchPercent() const` (Python: getResearchPercent)
   - called by (12): CvGameSpeedInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestTech, CvPlayerAI::AI_doCommerce, CvPlayerAI::AI_doGoldHurry, CvPlayerAI::AI_goldTarget, CvPlayerAI::AI_maxGoldTrade, CvPlayerAI::AI_techValue, CvTeam::getResearchCost, CyInfoPythonInterface2
-- **14643** `CvGameSpeedInfo::getBuildPercent() const` (Python: getBuildPercent)
+- **14657** `CvGameSpeedInfo::getBuildPercent() const` (Python: getBuildPercent)
   - called by (6): CvGameSpeedInfo::copyNonDefaults, CvPlayer::getAdvancedStartImprovementCost, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getEspionageMissionBaseCost, CvPlot::getBuildTime, CyInfoPythonInterface2
-- **14648** `CvGameSpeedInfo::getImprovementPercent() const` (Python: getImprovementPercent)
+- **14662** `CvGameSpeedInfo::getImprovementPercent() const` (Python: getImprovementPercent)
   - called by (3): CvGame::getImprovementUpgradeTime, CvGameSpeedInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14653** `CvGameSpeedInfo::getGreatPeoplePercent() const` (Python: getGreatPeoplePercent)
+- **14667** `CvGameSpeedInfo::getGreatPeoplePercent() const` (Python: getGreatPeoplePercent)
   - called by (3): CvGameSpeedInfo::copyNonDefaults, CvPlayer::greatPeopleThreshold, CyInfoPythonInterface2
-- **14658** `CvGameSpeedInfo::getAnarchyPercent() const` (Python: getAnarchyPercent)
+- **14672** `CvGameSpeedInfo::getAnarchyPercent() const` (Python: getAnarchyPercent)
   - called by (7): CvGameSpeedInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getCivicAnarchyLength, CvPlayer::getEspionageMissionBaseCost, CvPlayer::getReligionAnarchyLength, CyInfoPythonInterface2
-- **14663** `CvGameSpeedInfo::getBarbPercent() const` (Python: getBarbPercent)
+- **14677** `CvGameSpeedInfo::getBarbPercent() const` (Python: getBarbPercent)
   - called by (4): CvGame::createBarbarianCities, CvGame::createBarbarianUnits, CvGameSpeedInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14668** `CvGameSpeedInfo::getFeatureProductionPercent() const` (Python: getFeatureProductionPercent)
+- **14682** `CvGameSpeedInfo::getFeatureProductionPercent() const` (Python: getFeatureProductionPercent)
   - called by (3): CvGameSpeedInfo::copyNonDefaults, CvPlot::getFeatureProduction, CyInfoPythonInterface2
-- **14673** `CvGameSpeedInfo::getUnitDiscoverPercent() const` (Python: getUnitDiscoverPercent)
+- **14687** `CvGameSpeedInfo::getUnitDiscoverPercent() const` (Python: getUnitDiscoverPercent)
   - called by (3): CvGameSpeedInfo::copyNonDefaults, CvUnit::getDiscoverResearch, CyInfoPythonInterface2
-- **14678** `CvGameSpeedInfo::getUnitHurryPercent() const` (Python: getUnitHurryPercent)
+- **14692** `CvGameSpeedInfo::getUnitHurryPercent() const` (Python: getUnitHurryPercent)
   - called by (3): CvGameSpeedInfo::copyNonDefaults, CvUnit::getMaxHurryProduction, CyInfoPythonInterface2
-- **14683** `CvGameSpeedInfo::getUnitTradePercent() const` (Python: getUnitTradePercent)
+- **14697** `CvGameSpeedInfo::getUnitTradePercent() const` (Python: getUnitTradePercent)
   - called by (3): CvGameSpeedInfo::copyNonDefaults, CvUnit::getTradeGold, CyInfoPythonInterface2
-- **14688** `CvGameSpeedInfo::getUnitGreatWorkPercent() const` (Python: getUnitGreatWorkPercent)
+- **14702** `CvGameSpeedInfo::getUnitGreatWorkPercent() const` (Python: getUnitGreatWorkPercent)
   - called by (7): CvGameSpeedInfo::copyNonDefaults, CvGameTextMgr::setBasicUnitHelpWithCity, CvPlayer::doEspionageMission, CvUnit::getEspionagePoints, CvUnit::getGreatWorkCulture, CvUnit::greatWork, CyInfoPythonInterface2
-- **14693** `CvGameSpeedInfo::getGoldenAgePercent() const` (Python: getGoldenAgePercent)
+- **14707** `CvGameSpeedInfo::getGoldenAgePercent() const` (Python: getGoldenAgePercent)
   - called by (3): CvGame::goldenAgeLength, CvGameSpeedInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14698** `CvGameSpeedInfo::getHurryPercent() const` (Python: getHurryPercent)
+- **14712** `CvGameSpeedInfo::getHurryPercent() const` (Python: getHurryPercent)
   - called by (4): CvGame::getProductionPerPopulation, CvGameSpeedInfo::copyNonDefaults, CvPlayer::getAdvancedStartCultureCost, CyInfoPythonInterface2
-- **14703** `CvGameSpeedInfo::getHurryConscriptAngerPercent() const` (Python: getHurryConscriptAngerPercent)
+- **14717** `CvGameSpeedInfo::getHurryConscriptAngerPercent() const` (Python: getHurryConscriptAngerPercent)
   - called by (8): CvCity::flatConscriptAngerLength, CvCity::flatDefyResolutionAngerLength, CvCity::flatHurryAngerLength, CvCity::getRevRequestPercentAnger, CvCity::getRevSuccessHappiness, CvGameSpeedInfo::copyNonDefaults, CvPlayerAI::AI_eventValue, CyInfoPythonInterface2
-- **14708** `CvGameSpeedInfo::getInflationOffset() const` (Python: getInflationOffset)
+- **14722** `CvGameSpeedInfo::getInflationOffset() const` (Python: getInflationOffset)
   - called by (3): CvGameSpeedInfo::copyNonDefaults, CvPlayer::calculateInflationRate, CyInfoPythonInterface2
-- **14713** `CvGameSpeedInfo::getInflationPercent() const` (Python: getInflationPercent)
+- **14727** `CvGameSpeedInfo::getInflationPercent() const` (Python: getInflationPercent)
   - called by (3): CvGameSpeedInfo::copyNonDefaults, CvPlayer::calculateInflationRate, CyInfoPythonInterface2
-- **14718** `CvGameSpeedInfo::getVictoryDelayPercent() const` (Python: getVictoryDelayPercent)
+- **14732** `CvGameSpeedInfo::getVictoryDelayPercent() const` (Python: getVictoryDelayPercent)
   - called by (9): CvCity::doMeltdown, CvGame::doVoteSelection, CvGame::victoryDelay, CvGameSpeedInfo::copyNonDefaults, CvPlayerAI::AI_eventValue, CvPlot::doFeature, CvPlot::doImprovement, CvTeamAI::AI_doWar, CyInfoPythonInterface2
-- **14723** `CvGameSpeedInfo::getNumTurnIncrements() const` (Python: getNumTurnIncrements)
+- **14737** `CvGameSpeedInfo::getNumTurnIncrements() const` (Python: getNumTurnIncrements)
   - called by (6): CvGame::init, CvGameSpeedInfo::copyNonDefaults, CvGameSpeedInfo::read, CyInfoPythonInterface2, `anonymous namespace'::calendarTurns, getTurnMonthForGame
-- **14728** `CvGameSpeedInfo::getGameTurnInfo(int) const` (Python: getGameTurnInfo)
+- **14742** `CvGameSpeedInfo::getGameTurnInfo(int) const` (Python: getGameTurnInfo)
   - called by (6): CvGame::init, CvGameSpeedInfo::copyNonDefaults, CvGameSpeedInfo::read, CyInfoPythonInterface2, `anonymous namespace'::calendarTurns, getTurnMonthForGame
-- **14733** `CvGameSpeedInfo::allocateGameTurnInfos(int)`
+- **14747** `CvGameSpeedInfo::allocateGameTurnInfos(int)`
   - calls: operator new[](unsigned int) [CvGameCoreDLL.cpp]
   - called by (2): CvGameSpeedInfo::copyNonDefaults, CvGameSpeedInfo::read
-- **14738** `CvGameSpeedInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **14752** `CvGameSpeedInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvGameSpeedInfo::getNumTurnIncrements, CvGameSpeedInfo::allocateGameTurnInfos, CvGameSpeedInfo::getGameTurnInfo, CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h]
-- **14805** `CvGameSpeedInfo::copyNonDefaults(CvGameSpeedInfo*)`
+- **14819** `CvGameSpeedInfo::copyNonDefaults(CvGameSpeedInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvGameSpeedInfo::getGrowthPercent, CvGameSpeedInfo::getTrainPercent, CvGameSpeedInfo::getConstructPercent, CvGameSpeedInfo::getCreatePercent, CvGameSpeedInfo::getResearchPercent, CvGameSpeedInfo::getBuildPercent, CvGameSpeedInfo::getImprovementPercent, CvGameSpeedInfo::getGreatPeoplePercent, CvGameSpeedInfo::getAnarchyPercent, CvGameSpeedInfo::getBarbPercent, CvGameSpeedInfo::getFeatureProductionPercent, CvGameSpeedInfo::getUnitDiscoverPercent, CvGameSpeedInfo::getUnitHurryPercent, CvGameSpeedInfo::getUnitTradePercent, CvGameSpeedInfo::getUnitGreatWorkPercent, CvGameSpeedInfo::getGoldenAgePercent, CvGameSpeedInfo::getHurryPercent, CvGameSpeedInfo::getHurryConscriptAngerPercent, CvGameSpeedInfo::getInflationOffset, CvGameSpeedInfo::getInflationPercent, CvGameSpeedInfo::getVictoryDelayPercent, CvGameSpeedInfo::getNumTurnIncrements, CvGameSpeedInfo::allocateGameTurnInfos, CvGameSpeedInfo::getGameTurnInfo
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvGameSpeedInfo>
-- **14870** `CvTurnTimerInfo::CvTurnTimerInfo()`
+- **14884** `CvTurnTimerInfo::CvTurnTimerInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvTurnTimerInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvTurnTimerInfo>
-- **14881** `CvTurnTimerInfo::~CvTurnTimerInfo()` (virtual)
+- **14895** `CvTurnTimerInfo::~CvTurnTimerInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvTurnTimerInfo::`scalar deleting dtor'
-- **14885** `CvTurnTimerInfo::getBaseTime() const` (Python: getBaseTime)
+- **14899** `CvTurnTimerInfo::getBaseTime() const` (Python: getBaseTime)
   - called by (3): CvGame::getMaxTurnLen, CvTurnTimerInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14890** `CvTurnTimerInfo::getCityBonus() const` (Python: getCityBonus)
+- **14904** `CvTurnTimerInfo::getCityBonus() const` (Python: getCityBonus)
   - called by (3): CvGame::getMaxTurnLen, CvTurnTimerInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14895** `CvTurnTimerInfo::getUnitBonus() const` (Python: getUnitBonus)
+- **14909** `CvTurnTimerInfo::getUnitBonus() const` (Python: getUnitBonus)
   - called by (3): CvGame::getMaxTurnLen, CvTurnTimerInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14900** `CvTurnTimerInfo::getFirstTurnMultiplier() const` (Python: getFirstTurnMultiplier)
+- **14914** `CvTurnTimerInfo::getFirstTurnMultiplier() const` (Python: getFirstTurnMultiplier)
   - called by (3): CvGame::resetTurnTimer, CvTurnTimerInfo::copyNonDefaults, CyInfoPythonInterface2
-- **14905** `CvTurnTimerInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **14919** `CvTurnTimerInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp]
-- **14924** `CvTurnTimerInfo::copyNonDefaults(CvTurnTimerInfo*)`
+- **14938** `CvTurnTimerInfo::copyNonDefaults(CvTurnTimerInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvTurnTimerInfo::getBaseTime, CvTurnTimerInfo::getCityBonus, CvTurnTimerInfo::getUnitBonus, CvTurnTimerInfo::getFirstTurnMultiplier
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvTurnTimerInfo>
-- **14968** `CvBuildInfo::CvBuildInfo()`
+- **14982** `CvBuildInfo::CvBuildInfo()`
   - calls: CvHotkeyInfo::CvHotkeyInfo()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvBuildInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvBuildInfo>
-- **14979** `CvBuildInfo::~CvBuildInfo()` (virtual)
+- **14993** `CvBuildInfo::~CvBuildInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvHotkeyInfo::~CvHotkeyInfo
   - called by (1): CvBuildInfo::`scalar deleting dtor'
-- **14987** `CvBuildInfo::getTime() const` (Python: getTime)
+- **15001** `CvBuildInfo::getTime() const` (Python: getTime)
   - called by (9): CvBuildInfo::copyNonDefaults, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvPlot::getBuildTime, CvUnitAI::AI_betterPlotBuild, CvUnitAI::AI_fortTerritory, CvUnitAI::AI_improveBonus, CvUnitAI::AI_irrigateTerritory, CyInfoPythonInterface2
-- **14992** `CvBuildInfo::getCost() const` (Python: getCost)
+- **15006** `CvBuildInfo::getCost() const` (Python: getCost)
   - called by (3): CvBuildInfo::copyNonDefaults, CvPlayer::getBuildCost, CyInfoPythonInterface2
-- **14997** `CvBuildInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **15011** `CvBuildInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (14): CvBuildInfo::copyNonDefaults, CvCityAI::AI_countNumImprovableBonuses, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildImprovementString, CvGameTextMgr::setPlotHelp, CvPlayer::canBuild, CvPlayer::getAdvancedStartImprovementCost, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techValue, CvTeam::processTech …
-- **15002** `CvBuildInfo::getImprovement() const` (Python: getImprovement)
+- **15016** `CvBuildInfo::getImprovement() const` (Python: getImprovement)
   - called by (30): CvBuildInfo::copyNonDefaults, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere, CvDLLWidgetData::doPediaBuildJump, CvDLLWidgetData::parseActionHelp, CvGame::updateColoredPlots …
-- **15007** `CvBuildInfo::getRoute() const` (Python: getRoute)
+- **15021** `CvBuildInfo::getRoute() const` (Python: getRoute)
   - called by (18): CvBuildInfo::copyNonDefaults, CvCityAI::AI_bestPlotBuild, CvDLLWidgetData::parseActionHelp, CvPlayer::getAdvancedStartRouteCost, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlayerAI::AI_techValue, CvPlot::canBuild, CvPlot::changeBuildProgress, CvPlot::getYieldWithBuild, CvSelectionGroup::getBestBuildRoute …
-- **15012** `CvBuildInfo::getEntityEvent() const` (exported; Python: getEntityEvent)
+- **15026** `CvBuildInfo::getEntityEvent() const` (exported; Python: getEntityEvent)
   - called by (2): CvBuildInfo::copyNonDefaults, CyInfoPythonInterface2
-- **15017** `CvBuildInfo::getMissionType() const` (exported; Python: getMissionType)
+- **15031** `CvBuildInfo::getMissionType() const` (exported; Python: getMissionType)
   - called by (3): CvActionInfo::getMissionType, CvUnit::build, CyInfoPythonInterface2
-- **15022** `CvBuildInfo::setMissionType(int)`
+- **15036** `CvBuildInfo::setMissionType(int)`
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **15027** `CvBuildInfo::isKill() const` (Python: isKill)
+- **15041** `CvBuildInfo::isKill() const` (Python: isKill)
   - called by (5): CvBuildInfo::copyNonDefaults, CvDLLWidgetData::parseActionHelp, CvUnit::build, CvUnitAI::AI_improveBonus, CyInfoPythonInterface2
-- **15034** `CvBuildInfo::getFeatureTech(int) const` (Python: getFeatureTech)
+- **15048** `CvBuildInfo::getFeatureTech(int) const` (Python: getFeatureTech)
   - called by (6): CvBuildInfo::copyNonDefaults, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildImprovementString, CvPlayer::canBuild, CvPlayerAI::AI_techValue, CyInfoPythonInterface2
-- **15041** `CvBuildInfo::getFeatureTime(int) const` (Python: getFeatureTime)
+- **15055** `CvBuildInfo::getFeatureTime(int) const` (Python: getFeatureTime)
   - called by (4): CvBuildInfo::copyNonDefaults, CvCityAI::AI_bestPlotBuild, CvPlot::getBuildTime, CyInfoPythonInterface2
-- **15048** `CvBuildInfo::getFeatureProduction(int) const` (Python: getFeatureProduction)
+- **15062** `CvBuildInfo::getFeatureProduction(int) const` (Python: getFeatureProduction)
   - called by (4): CvBuildInfo::copyNonDefaults, CvPlot::getFeatureProduction, CvSelectionGroup::groupBuild, CyInfoPythonInterface2
-- **15055** `CvBuildInfo::isFeatureRemove(int) const` (Python: isFeatureRemove)
+- **15069** `CvBuildInfo::isFeatureRemove(int) const` (Python: isFeatureRemove)
   - called by (19): CvBuildInfo::copyNonDefaults, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvDLLWidgetData::parseActionHelp, CvPlayer::doAdvancedStartAction, CvPlayer::getAdvancedStartImprovementCost, CvPlot::canBuild, CvPlot::changeBuildProgress …
-- **15062** `CvBuildInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **15076** `CvBuildInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::SetFeatureStruct [CvXMLLoadUtilitySet.cpp]
-- **15093** `CvBuildInfo::copyNonDefaults(CvBuildInfo*)`
+- **15107** `CvBuildInfo::copyNonDefaults(CvBuildInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvHotkeyInfo::copyNonDefaults, CvBuildInfo::getTechPrereq, CvBuildInfo::getTime, CvBuildInfo::getCost, CvBuildInfo::isKill, CvBuildInfo::getImprovement, CvBuildInfo::getRoute, CvBuildInfo::getEntityEvent, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBuildInfo::getFeatureTech, CvBuildInfo::getFeatureTime, CvBuildInfo::getFeatureProduction, CvBuildInfo::isFeatureRemove
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvBuildInfo>
-- **15156** `CvGoodyInfo::CvGoodyInfo()`
+- **15170** `CvGoodyInfo::CvGoodyInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvGoodyInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvGoodyInfo>
-- **15167** `CvGoodyInfo::~CvGoodyInfo()` (virtual)
+- **15181** `CvGoodyInfo::~CvGoodyInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvGoodyInfo::`scalar deleting dtor'
-- **15171** `CvGoodyInfo::getGold() const` (Python: getGold)
+- **15185** `CvGoodyInfo::getGold() const` (Python: getGold)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15176** `CvGoodyInfo::getGoldRand1() const` (Python: getGoldRand1)
+- **15190** `CvGoodyInfo::getGoldRand1() const` (Python: getGoldRand1)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15181** `CvGoodyInfo::getGoldRand2() const` (Python: getGoldRand2)
+- **15195** `CvGoodyInfo::getGoldRand2() const` (Python: getGoldRand2)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15186** `CvGoodyInfo::getMapOffset() const` (Python: getMapOffset)
+- **15200** `CvGoodyInfo::getMapOffset() const` (Python: getMapOffset)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15191** `CvGoodyInfo::getMapRange() const` (Python: getMapRange)
+- **15205** `CvGoodyInfo::getMapRange() const` (Python: getMapRange)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15196** `CvGoodyInfo::getMapProb() const` (Python: getMapProb)
+- **15210** `CvGoodyInfo::getMapProb() const` (Python: getMapProb)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15201** `CvGoodyInfo::getExperience() const` (Python: getExperience)
+- **15215** `CvGoodyInfo::getExperience() const` (Python: getExperience)
   - called by (4): CvGoodyInfo::copyNonDefaults, CvPlayer::canReceiveGoody, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15206** `CvGoodyInfo::getHealing() const` (Python: getHealing)
+- **15220** `CvGoodyInfo::getHealing() const` (Python: getHealing)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15211** `CvGoodyInfo::getDamagePrereq() const` (Python: getDamagePrereq)
+- **15225** `CvGoodyInfo::getDamagePrereq() const` (Python: getDamagePrereq)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::canReceiveGoody, CyInfoPythonInterface2
-- **15216** `CvGoodyInfo::getBarbarianUnitProb() const` (Python: getBarbarianUnitProb)
+- **15230** `CvGoodyInfo::getBarbarianUnitProb() const` (Python: getBarbarianUnitProb)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15221** `CvGoodyInfo::getMinBarbarians() const` (Python: getMinBarbarians)
+- **15235** `CvGoodyInfo::getMinBarbarians() const` (Python: getMinBarbarians)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15226** `CvGoodyInfo::getUnitClassType() const` (Python: getUnitClassType)
+- **15240** `CvGoodyInfo::getUnitClassType() const` (Python: getUnitClassType)
   - called by (4): CvGoodyInfo::copyNonDefaults, CvPlayer::canReceiveGoody, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15231** `CvGoodyInfo::getBarbarianUnitClass() const` (Python: getBarbarianUnitClass)
+- **15245** `CvGoodyInfo::getBarbarianUnitClass() const` (Python: getBarbarianUnitClass)
   - called by (4): CvGoodyInfo::copyNonDefaults, CvPlayer::canReceiveGoody, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15236** `CvGoodyInfo::isTech() const` (Python: isTech)
+- **15250** `CvGoodyInfo::isTech() const` (Python: isTech)
   - called by (4): CvGoodyInfo::copyNonDefaults, CvPlayer::canReceiveGoody, CvPlayer::receiveGoody, CyInfoPythonInterface2
-- **15241** `CvGoodyInfo::isBad() const` (Python: isBad)
+- **15255** `CvGoodyInfo::isBad() const` (Python: isBad)
   - called by (3): CvGoodyInfo::copyNonDefaults, CvPlayer::canReceiveGoody, CyInfoPythonInterface2
-- **15246** `CvGoodyInfo::getSound() const` (Python: getSound)
+- **15260** `CvGoodyInfo::getSound() const` (Python: getSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvGoodyInfo::copyNonDefaults, CyInfoPythonInterface2
-- **15251** `CvGoodyInfo::setSound(char const*)`
+- **15265** `CvGoodyInfo::setSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvGoodyInfo::copyNonDefaults, CvGoodyInfo::read
-- **15256** `CvGoodyInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **15270** `CvGoodyInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvGoodyInfo::setSound, CvString::operator char const * [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp]
-- **15295** `CvGoodyInfo::copyNonDefaults(CvGoodyInfo*)`
+- **15309** `CvGoodyInfo::copyNonDefaults(CvGoodyInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvGoodyInfo::getSound, CvGoodyInfo::setSound, CvGoodyInfo::getGold, CvGoodyInfo::getGoldRand1, CvGoodyInfo::getGoldRand2, CvGoodyInfo::getMapOffset, CvGoodyInfo::getMapRange, CvGoodyInfo::getMapProb, CvGoodyInfo::getExperience, CvGoodyInfo::getHealing, CvGoodyInfo::getDamagePrereq, CvGoodyInfo::isTech, CvGoodyInfo::isBad, CvGoodyInfo::getUnitClassType, CvGoodyInfo::getBarbarianUnitClass, CvGoodyInfo::getBarbarianUnitProb, CvGoodyInfo::getMinBarbarians
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvGoodyInfo>
-- **15350** `CvRouteInfo::CvRouteInfo()`
+- **15364** `CvRouteInfo::CvRouteInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvRouteInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvRouteInfo>
-- **15361** `CvRouteInfo::~CvRouteInfo()` (virtual)
+- **15375** `CvRouteInfo::~CvRouteInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvRouteInfo::`scalar deleting dtor'
-- **15368** `CvRouteInfo::getAdvancedStartCost() const`
+- **15382** `CvRouteInfo::getAdvancedStartCost() const`
   - called by (2): CvPlayer::getAdvancedStartRouteCost, CvRouteInfo::copyNonDefaults
-- **15373** `CvRouteInfo::getAdvancedStartCostIncrease() const`
+- **15387** `CvRouteInfo::getAdvancedStartCostIncrease() const`
   - called by (2): CvPlayer::getAdvancedStartRouteCost, CvRouteInfo::copyNonDefaults
-- **15378** `CvRouteInfo::getValue() const` (Python: getValue)
+- **15392** `CvRouteInfo::getValue() const` (Python: getValue)
   - called by (10): CvCityAI::AI_bestPlotBuild, CvPlayer::getBestRoute, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bestAdvancedStartRoute, CvPlayerAI::AI_bonusUnlockVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CvSelectionGroup::getBestBuildRoute, CvUnitAI::AI_betterPlotBuild, CyInfoPythonInterface2
-- **15383** `CvRouteInfo::getMovementCost() const` (Python: getMovementCost)
+- **15397** `CvRouteInfo::getMovementCost() const` (Python: getMovementCost)
   - called by (6): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::buildMoveString, CvPlot::movementCost, CvRouteInfo::copyNonDefaults, CvUnitAI::AI_minPathStepsPerTurn, CyInfoPythonInterface2
-- **15388** `CvRouteInfo::getFlatMovementCost() const` (Python: getFlatMovementCost)
+- **15402** `CvRouteInfo::getFlatMovementCost() const` (Python: getFlatMovementCost)
   - called by (5): CvDLLWidgetData::parseActionHelp, CvPlot::movementCost, CvRouteInfo::copyNonDefaults, CvUnitAI::AI_minPathStepsPerTurn, CyInfoPythonInterface2
-- **15393** `CvRouteInfo::getPrereqBonus() const` (Python: getPrereqBonus)
+- **15407** `CvRouteInfo::getPrereqBonus() const` (Python: getPrereqBonus)
   - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CyInfoPythonInterface2
-- **15400** `CvRouteInfo::getYieldChange(int) const` (Python: getYieldChange)
+- **15414** `CvRouteInfo::getYieldChange(int) const` (Python: getYieldChange)
   - called by (5): CvPlayerAI::AI_techValue, CvPlot::calculateMaxYield, CvPlot::calculateYield, CvRouteInfo::copyNonDefaults, CyInfoPythonInterface2
-- **15407** `CvRouteInfo::getTechMovementChange(int) const` (Python: getTechMovementChange)
+- **15421** `CvRouteInfo::getTechMovementChange(int) const` (Python: getTechMovementChange)
   - called by (5): CvGameTextMgr::buildMoveString, CvPlayerAI::AI_techValue, CvRouteInfo::copyNonDefaults, CvTeam::processTech, CyInfoPythonInterface2
-- **15414** `CvRouteInfo::getPrereqOrBonus(int) const` (Python: getPrereqOrBonus)
+- **15428** `CvRouteInfo::getPrereqOrBonus(int) const` (Python: getPrereqOrBonus)
   - called by (6): CvDLLWidgetData::parseActionHelp, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusUnlockVal, CvPlot::canBuild, CvRouteInfo::copyNonDefaults, CyInfoPythonInterface2
-- **15419** `CvRouteInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **15433** `CvRouteInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvGlobals::getNUM_ROUTE_PREREQ_OR_BONUSES [CvGlobals.cpp], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp]
-- **15501** `CvRouteInfo::copyNonDefaults(CvRouteInfo*)`
+- **15515** `CvRouteInfo::copyNonDefaults(CvRouteInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvRouteInfo::getAdvancedStartCost, CvRouteInfo::getAdvancedStartCostIncrease, CvRouteInfo::getValue, CvRouteInfo::getMovementCost, CvRouteInfo::getFlatMovementCost, CvRouteInfo::getPrereqBonus, CvRouteInfo::getYieldChange, CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvRouteInfo::getTechMovementChange, CvGlobals::getNUM_ROUTE_PREREQ_OR_BONUSES [CvGlobals.cpp], CvRouteInfo::getPrereqOrBonus
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvRouteInfo>
-- **15564** `CvImprovementBonusInfo::CvImprovementBonusInfo()`
+- **15578** `CvImprovementBonusInfo::CvImprovementBonusInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvImprovementInfo::read(FDataStreamBase*), CvXMLLoadUtility::InitImprovementBonusList
-- **15575** `CvImprovementBonusInfo::~CvImprovementBonusInfo()` (virtual)
+- **15589** `CvImprovementBonusInfo::~CvImprovementBonusInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (4): CvImprovementBonusInfo::`scalar deleting dtor', CvImprovementBonusInfo::`vector deleting dtor', CvImprovementInfo::read(FDataStreamBase*), CvXMLLoadUtility::InitImprovementBonusList
-- **15580** `CvImprovementBonusInfo::getDiscoverRand() const` (Python: getDiscoverRand)
+- **15594** `CvImprovementBonusInfo::getDiscoverRand() const` (Python: getDiscoverRand)
   - called by (1): CyInfoPythonInterface2
-- **15585** `CvImprovementBonusInfo::isBonusMakesValid() const` (Python: isBonusMakesValid)
+- **15599** `CvImprovementBonusInfo::isBonusMakesValid() const` (Python: isBonusMakesValid)
   - called by (1): CyInfoPythonInterface2
-- **15590** `CvImprovementBonusInfo::isBonusTrade() const` (Python: isBonusTrade)
+- **15604** `CvImprovementBonusInfo::isBonusTrade() const` (Python: isBonusTrade)
   - called by (1): CyInfoPythonInterface2
-- **15595** `CvImprovementBonusInfo::getYieldChange(int) const` (Python: getYieldChange)
+- **15609** `CvImprovementBonusInfo::getYieldChange(int) const` (Python: getYieldChange)
   - called by (2): CvImprovementInfo::getImprovementBonusYield, CyInfoPythonInterface2
-- **15602** `CvImprovementBonusInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **15616** `CvImprovementBonusInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp]
-- **15621** `CvImprovementBonusInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **15635** `CvImprovementBonusInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h]
-- **15686** `CvImprovementInfo::CvImprovementInfo()`
-  - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
+- **15700** `CvImprovementInfo::CvImprovementInfo()`
+  - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvImprovementInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvImprovementInfo>, readInfoArray<class CvImprovementInfo>
-- **15697** `CvImprovementInfo::~CvImprovementInfo()` (virtual)
+- **15711** `CvImprovementInfo::~CvImprovementInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumRouteInfos [CvGlobals.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvImprovementInfo::`scalar deleting dtor'
-- **15733** `CvImprovementInfo::getAdvancedStartCost() const`
+- **15747** `CvImprovementInfo::getAdvancedStartCost() const`
   - called by (2): CvImprovementInfo::copyNonDefaults, CvPlayer::getAdvancedStartImprovementCost
-- **15738** `CvImprovementInfo::getAdvancedStartCostIncrease() const`
+- **15752** `CvImprovementInfo::getAdvancedStartCostIncrease() const`
   - called by (2): CvImprovementInfo::copyNonDefaults, CvPlayer::getAdvancedStartImprovementCost
-- **15743** `CvImprovementInfo::getTilesPerGoody() const` (Python: getTilesPerGoody)
+- **15757** `CvImprovementInfo::getTilesPerGoody() const` (Python: getTilesPerGoody)
   - called by (3): CvImprovementInfo::copyNonDefaults, CvMapGenerator::addGoodies, CyInfoPythonInterface2
-- **15748** `CvImprovementInfo::getGoodyUniqueRange() const` (Python: getGoodyUniqueRange)
+- **15762** `CvImprovementInfo::getGoodyUniqueRange() const` (Python: getGoodyUniqueRange)
   - called by (3): CvImprovementInfo::copyNonDefaults, CvMapGenerator::canPlaceGoodyAt, CyInfoPythonInterface2
-- **15753** `CvImprovementInfo::getFeatureGrowthProbability() const` (Python: getFeatureGrowthProbability)
+- **15767** `CvImprovementInfo::getFeatureGrowthProbability() const` (Python: getFeatureGrowthProbability)
   - called by (4): CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlot::doFeature, CyInfoPythonInterface2
-- **15758** `CvImprovementInfo::getUpgradeTime() const` (Python: getUpgradeTime)
+- **15772** `CvImprovementInfo::getUpgradeTime() const` (Python: getUpgradeTime)
   - called by (6): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvGame::getImprovementUpgradeTime, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface2
-- **15763** `CvImprovementInfo::getAirBombDefense() const` (Python: getAirBombDefense)
+- **15777** `CvImprovementInfo::getAirBombDefense() const` (Python: getAirBombDefense)
   - called by (8): CvImprovementInfo::copyNonDefaults, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::bombardRanged, CvUnit::canAirBomb1At, CvUnit::canAirBombAt, CvUnit::canBombardAtRanged, CyInfoPythonInterface2
-- **15768** `CvImprovementInfo::getDefenseModifier() const` (Python: getDefenseModifier)
+- **15782** `CvImprovementInfo::getDefenseModifier() const` (Python: getDefenseModifier)
   - called by (7): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlot::defenseModifier, CvUnit::doVictoryInfluence, CvUnitAI::AI_fortTerritory, CyInfoPythonInterface2
-- **15773** `CvImprovementInfo::getHappiness() const` (Python: getHappiness)
+- **15787** `CvImprovementInfo::getHappiness() const` (Python: getHappiness)
   - called by (9): CvCity::updateFeatureHappiness, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvCityAI::AI_updateBestBuild, CvCityAI::AI_updateWorkersNeededHere, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CyInfoPythonInterface2
-- **15778** `CvImprovementInfo::getPillageGold() const` (Python: getPillageGold)
+- **15792** `CvImprovementInfo::getPillageGold() const` (Python: getPillageGold)
   - called by (5): CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvUnitAI::AI_RbombardPlot, CvUnitAI::AI_pillageValue, CyInfoPythonInterface2
-- **15783** `CvImprovementInfo::isOutsideBorders() const` (Python: isOutsideBorders)
+- **15797** `CvImprovementInfo::isOutsideBorders() const` (Python: isOutsideBorders)
   - called by (6): CvDLLWidgetData::parseActionHelp, CvImprovementInfo::copyNonDefaults, CvPlot::canBuild, CvPlot::doImprovementUpgrade, CvPlot::isCity, CyInfoPythonInterface2
-- **15788** `CvImprovementInfo::getImprovementPillage() const` (Python: getImprovementPillage)
+- **15802** `CvImprovementInfo::getImprovementPillage() const` (Python: getImprovementPillage)
   - called by (12): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvImprovementInfo::copyNonDefaults, CvImprovementInfo::copyNonDefaultsReadPass2, CvPlayer::doEspionageMission, CvSelectionGroup::groupBuild, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::bombardRanged, CvUnit::pillage, CvUnit::sabotage, CyInfoPythonInterface2
-- **15793** `CvImprovementInfo::setImprovementPillage(int)`
-- **15798** `CvImprovementInfo::getImprovementUpgrade() const` (Python: getImprovementUpgrade)
+- **15807** `CvImprovementInfo::setImprovementPillage(int)`
+- **15812** `CvImprovementInfo::getImprovementUpgrade() const` (Python: getImprovementUpgrade)
   - called by (13): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvCityAI::AI_plotValue, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setImprovementHelp, CvGameTextMgr::setPlotHelp, CvImprovementInfo::copyNonDefaults, CvImprovementInfo::copyNonDefaultsReadPass2, CvPlot::doImprovementUpgrade, CvPlot::getYieldWithBuild, CyInfoPythonInterface2 …
-- **15803** `CvImprovementInfo::setImprovementUpgrade(int)`
-- **15808** `CvImprovementInfo::isActsAsCity() const` (Python: isActsAsCity)
+- **15817** `CvImprovementInfo::setImprovementUpgrade(int)`
+- **15822** `CvImprovementInfo::isActsAsCity() const` (Python: isActsAsCity)
   - called by (16): CvCityAI::AI_bestPlotBuild, CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_getPlotAirbaseValue, CvPlayerAI::AI_getPlotCanalValue, CvPlayerAI::AI_techValue, CvPlot::isCity, CvPlot::setImprovementType, CvSelectionGroup::calculateIsStranded, CvUnit::airBomb, CvUnit::canAirBomb4At, CvUnit::canAirBombAt …
-- **15813** `CvImprovementInfo::isHillsMakesValid() const` (Python: isHillsMakesValid)
+- **15827** `CvImprovementInfo::isHillsMakesValid() const` (Python: isHillsMakesValid)
   - called by (5): CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techValue, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15818** `CvImprovementInfo::isFreshWaterMakesValid() const` (Python: isFreshWaterMakesValid)
+- **15832** `CvImprovementInfo::isFreshWaterMakesValid() const` (Python: isFreshWaterMakesValid)
   - called by (4): CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15823** `CvImprovementInfo::isRiverSideMakesValid() const` (Python: isRiverSideMakesValid)
+- **15837** `CvImprovementInfo::isRiverSideMakesValid() const` (Python: isRiverSideMakesValid)
   - called by (4): CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15828** `CvImprovementInfo::isNoFreshWater() const` (Python: isNoFreshWater)
+- **15842** `CvImprovementInfo::isNoFreshWater() const` (Python: isNoFreshWater)
   - called by (4): CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15833** `CvImprovementInfo::isRequiresFlatlands() const` (Python: isRequiresFlatlands)
+- **15847** `CvImprovementInfo::isRequiresFlatlands() const` (Python: isRequiresFlatlands)
   - called by (4): CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15838** `CvImprovementInfo::isRequiresRiverSide() const` (exported; Python: isRequiresRiverSide)
+- **15852** `CvImprovementInfo::isRequiresRiverSide() const` (exported; Python: isRequiresRiverSide)
   - called by (4): CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15843** `CvImprovementInfo::isRequiresIrrigation() const` (Python: isRequiresIrrigation)
+- **15857** `CvImprovementInfo::isRequiresIrrigation() const` (Python: isRequiresIrrigation)
   - called by (4): CvDLLWidgetData::parseActionHelp, CvImprovementInfo::copyNonDefaults, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15848** `CvImprovementInfo::isCarriesIrrigation() const` (Python: isCarriesIrrigation)
+- **15862** `CvImprovementInfo::isCarriesIrrigation() const` (Python: isCarriesIrrigation)
   - called by (9): CvCityAI::AI_bestPlotBuild, CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::canHavePotentialIrrigation, CvPlot::isPotentialIrrigation, CvUnit::isActionRecommended, CvUnitAI::AI_irrigateTerritory, CyInfoPythonInterface2
-- **15853** `CvImprovementInfo::isRequiresFeature() const` (Python: isRequiresFeature)
+- **15867** `CvImprovementInfo::isRequiresFeature() const` (Python: isRequiresFeature)
   - called by (5): CvCityAI::AI_clearFeatureValue, CvImprovementInfo::copyNonDefaults, CvPlot::canHaveImprovement, CvPlot::setFeatureType, CyInfoPythonInterface2
-- **15858** `CvImprovementInfo::isWater() const` (Python: isWater)
+- **15872** `CvImprovementInfo::isWater() const` (Python: isWater)
   - called by (6): CvGame::getWidgetShow(ImprovementTypes) const, CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15863** `CvImprovementInfo::isGoody() const` (exported; Python: isGoody)
+- **15877** `CvImprovementInfo::isGoody() const` (exported; Python: isGoody)
   - called by (5): CvImprovementInfo::copyNonDefaults, CvMapGenerator::addGoodies, CvPlot::isGoody, CvPlot::isRevealedGoody, CyInfoPythonInterface2
-- **15868** `CvImprovementInfo::isPermanent() const` (Python: isPermanent)
+- **15882** `CvImprovementInfo::isPermanent() const` (Python: isPermanent)
   - called by (10): CvCity::applyEvent, CvCity::canApplyEvent, CvImprovementInfo::copyNonDefaults, CvPlayer::applyEvent, CvPlot::canBuild, CvUnit::canAirBomb1At, CvUnit::canAirBombAt, CvUnit::canBombardAtRanged, CvUnit::canPillage, CyInfoPythonInterface2
-- **15873** `CvImprovementInfo::getArtDefineTag() const` (Python: getArtDefineTag)
+- **15887** `CvImprovementInfo::getArtDefineTag() const` (Python: getArtDefineTag)
   - calls: CvString::operator char const * [CvString.h]
   - called by (4): CvImprovementInfo::copyNonDefaults, CvImprovementInfo::getArtInfo, CvImprovementInfo::getButton, CyInfoPythonInterface2
-- **15878** `CvImprovementInfo::setArtDefineTag(char const*)`
+- **15892** `CvImprovementInfo::setArtDefineTag(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvImprovementInfo::copyNonDefaults, CvImprovementInfo::read(CvXMLLoadUtility*)
-- **15883** `CvImprovementInfo::getWorldSoundscapeScriptId() const`
+- **15897** `CvImprovementInfo::getWorldSoundscapeScriptId() const`
   - called by (2): CvImprovementInfo::copyNonDefaults, CvPlot::getSoundScriptId
-- **15890** `CvImprovementInfo::getPrereqNatureYield(int) const` (Python: getPrereqNatureYield)
+- **15904** `CvImprovementInfo::getPrereqNatureYield(int) const` (Python: getPrereqNatureYield)
   - called by (3): CvImprovementInfo::copyNonDefaults, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15897** `CvImprovementInfo::getPrereqNatureYieldArray()`
-- **15902** `CvImprovementInfo::getYieldChange(int) const` (Python: getYieldChange)
+- **15911** `CvImprovementInfo::getPrereqNatureYieldArray()`
+- **15916** `CvImprovementInfo::getYieldChange(int) const` (Python: getYieldChange)
   - called by (8): CvGameTextMgr::setPlotHelp, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CvUnit::isActionRecommended, CyInfoPythonInterface2
-- **15909** `CvImprovementInfo::getYieldChangeArray()`
+- **15923** `CvImprovementInfo::getYieldChangeArray()`
   - called by (1): CvGameTextMgr::setImprovementHelp
-- **15914** `CvImprovementInfo::getRiverSideYieldChange(int) const` (Python: getRiverSideYieldChange)
+- **15928** `CvImprovementInfo::getRiverSideYieldChange(int) const` (Python: getRiverSideYieldChange)
   - called by (4): CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CyInfoPythonInterface2
-- **15921** `CvImprovementInfo::getRiverSideYieldChangeArray()`
+- **15935** `CvImprovementInfo::getRiverSideYieldChangeArray()`
   - called by (1): CvGameTextMgr::setImprovementHelp
-- **15926** `CvImprovementInfo::getHillsYieldChange(int) const` (Python: getHillsYieldChange)
+- **15940** `CvImprovementInfo::getHillsYieldChange(int) const` (Python: getHillsYieldChange)
   - called by (4): CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CyInfoPythonInterface2
-- **15933** `CvImprovementInfo::getHillsYieldChangeArray()`
+- **15947** `CvImprovementInfo::getHillsYieldChangeArray()`
   - called by (1): CvGameTextMgr::setImprovementHelp
-- **15938** `CvImprovementInfo::getIrrigatedYieldChange(int) const` (Python: getIrrigatedYieldChange)
+- **15952** `CvImprovementInfo::getIrrigatedYieldChange(int) const` (Python: getIrrigatedYieldChange)
   - called by (6): CvGameTextMgr::setPlotHelp, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CyInfoPythonInterface2
-- **15945** `CvImprovementInfo::getIrrigatedYieldChangeArray()`
+- **15959** `CvImprovementInfo::getIrrigatedYieldChangeArray()`
   - called by (2): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setImprovementHelp
-- **15950** `CvImprovementInfo::getTerrainMakesValid(int) const` (Python: getTerrainMakesValid)
+- **15964** `CvImprovementInfo::getTerrainMakesValid(int) const` (Python: getTerrainMakesValid)
   - called by (4): CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15957** `CvImprovementInfo::getFeatureMakesValid(int) const` (Python: getFeatureMakesValid)
+- **15971** `CvImprovementInfo::getFeatureMakesValid(int) const` (Python: getFeatureMakesValid)
   - called by (4): CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **15964** `CvImprovementInfo::getTechYieldChanges(int, int) const` (Python: getTechYieldChanges)
+- **15978** `CvImprovementInfo::getTechYieldChanges(int, int) const` (Python: getTechYieldChanges)
   - called by (6): CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CvTeam::processTech, CyInfoPythonInterface2
-- **15973** `CvImprovementInfo::getTechYieldChangesArray(int)`
+- **15987** `CvImprovementInfo::getTechYieldChangesArray(int)`
   - called by (1): CvGameTextMgr::buildYieldChangeString
-- **15978** `CvImprovementInfo::getRouteYieldChanges(int, int) const` (Python: getRouteYieldChanges)
+- **15992** `CvImprovementInfo::getRouteYieldChanges(int, int) const` (Python: getRouteYieldChanges)
   - called by (10): CvCityAI::AI_bestPlotBuild, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_bestAdvancedStartRoute, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CvPlot::getYieldWithBuild, CvUnit::isActionRecommended, CvUnitAI::AI_betterPlotBuild, CvUnitAI::AI_routeTerritory, CyInfoPythonInterface2
-- **15987** `CvImprovementInfo::getRouteYieldChangesArray(int)`
+- **16001** `CvImprovementInfo::getRouteYieldChangesArray(int)`
   - called by (1): CvDLLWidgetData::parseActionHelp
-- **15992** `CvImprovementInfo::getImprovementBonusYield(int, int) const` (Python: getImprovementBonusYield)
+- **16006** `CvImprovementInfo::getImprovementBonusYield(int, int) const` (Python: getImprovementBonusYield)
   - calls: CvImprovementBonusInfo::getYieldChange
   - called by (6): CvGameTextMgr::setPlotHelp, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_techValue, CvPlot::calculateImprovementYieldChange, CyInfoPythonInterface2
-- **16001** `CvImprovementInfo::isImprovementBonusMakesValid(int) const` (Python: isImprovementBonusMakesValid)
+- **16015** `CvImprovementInfo::isImprovementBonusMakesValid(int) const` (Python: isImprovementBonusMakesValid)
   - called by (6): CvGameTextMgr::setBonusTradeHelp, CvImprovementInfo::copyNonDefaults, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_techValue, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **16008** `CvImprovementInfo::isImprovementBonusTrade(int) const` (Python: isImprovementBonusTrade)
+- **16022** `CvImprovementInfo::isImprovementBonusTrade(int) const` (Python: isImprovementBonusTrade)
   - called by (21): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_countNumImprovableBonuses, CvCityAI::AI_getImprovementValue, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setPlotHelp, CvImprovementInfo::copyNonDefaults, CvPlayer::countUnimprovedBonuses, CvPlayerAI::AI_advancedStartRouteTerritory, CvPlayerAI::AI_techValue, CvPlot::getVisibleBonusState, CvPlot::updatePlotGroupBonus …
-- **16015** `CvImprovementInfo::getImprovementBonusDiscoverRand(int) const` (Python: getImprovementBonusDiscoverRand)
+- **16029** `CvImprovementInfo::getImprovementBonusDiscoverRand(int) const` (Python: getImprovementBonusDiscoverRand)
   - called by (8): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvCityAI::AI_plotValue, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setImprovementHelp, CvImprovementInfo::copyNonDefaults, CvPlot::doImprovement, CyInfoPythonInterface2
-- **16022** `CvImprovementInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
+- **16036** `CvImprovementInfo::getNumProducedBonuses() const`
+  - called by (5): CvCityAI::AI_bestPlotBuild, CvGameTextMgr::setImprovementHelp, CvImprovementInfo::isProducedBonus, CvPlot::isBonusTech, CvPlot::updatePlotGroupBonus
+- **16041** `CvImprovementInfo::getProducedBonus(int) const`
+  - called by (4): CvCityAI::AI_bestPlotBuild, CvGameTextMgr::setImprovementHelp, CvPlot::isBonusTech, CvPlot::updatePlotGroupBonus
+- **16048** `CvImprovementInfo::getProducedBonusPrereq(int) const`
+  - called by (2): CvGameTextMgr::setImprovementHelp, CvPlot::updatePlotGroupBonus
+- **16055** `CvImprovementInfo::isProducedBonus(BonusTypes, BonusTypes) const`
+  - calls: CvImprovementInfo::getNumProducedBonuses
+  - called by (1): CvCityAI::AI_bestPlotBuild
+- **16067** `CvImprovementInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvImprovementInfo::getArtDefineTag, CvImprovementInfo::getArtInfo, CvInfoBase::getButton
   - called by (4): CvCity::applyEvent, CvGameTextMgr::getImprovementDataForAS, CvGameTextMgr::getImprovementDataForWB, CvPlayer::applyEvent
-- **16046** `CvImprovementInfo::getArtInfo() const` (exported)
+- **16091** `CvImprovementInfo::getArtInfo() const` (exported)
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getImprovementArtInfo(char const*) const [CvArtFileMgr.cpp], CvImprovementInfo::getArtDefineTag
   - called by (1): CvImprovementInfo::getButton
-- **16051** `CvArtInfoImprovement::getShaderNIF() const` (exported)
+- **16096** `CvArtInfoImprovement::getShaderNIF() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **16055** `CvArtInfoImprovement::setShaderNIF(char const*)` (exported)
+- **16100** `CvArtInfoImprovement::setShaderNIF(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvArtInfoImprovement::read
-- **16060** `CvImprovementInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
-  - calls: CvInfoBase::read(FDataStreamBase*) ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getNumRouteInfos [CvGlobals.cpp]
+- **16105** `CvImprovementInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+  - calls: CvInfoBase::read(FDataStreamBase*) ⇢ CvBuildingInfo::read(FDataStreamBase*), CvCivilizationInfo::read(FDataStreamBase*), CvHandicapInfo::read(FDataStreamBase*), CvImprovementBonusInfo::read, CvImprovementInfo::read(FDataStreamBase*), CvBonusInfo::read(FDataStreamBase*), CvTechInfo::read(FDataStreamBase*), CvLeaderHeadInfo::read(FDataStreamBase*), CvPromotionInfo::read(FDataStreamBase*), CvDiplomacyTextInfo::read(FDataStreamBase*), CvEventTriggerInfo::read(FDataStreamBase*), CvEventInfo::read(FDataStreamBase*), CvUnitInfo::read(FDataStreamBase*), CvHotkeyInfo::read(FDataStreamBase*), CvCivicInfo::read(FDataStreamBase*), CvDiplomacyInfo::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getNumRouteInfos [CvGlobals.cpp]
   - takes the address of: CvImprovementBonusInfo::CvImprovementBonusInfo(), CvImprovementBonusInfo::~CvImprovementBonusInfo
-- **16171** `CvImprovementInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **16230** `CvImprovementInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write ⇢ CvBuildingInfo::write, CvCivilizationInfo::write, CvHandicapInfo::write, CvImprovementBonusInfo::write, CvImprovementInfo::write, CvBonusInfo::write, CvTechInfo::write, CvLeaderHeadInfo::write, CvDiplomacyTextInfo::write, CvPromotionInfo::write, CvEventTriggerInfo::write, CvEventInfo::write, CvUnitInfo::write, CvHotkeyInfo::write, CvCivicInfo::write, CvDiplomacyInfo::write, FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvGlobals::getNumRouteInfos [CvGlobals.cpp]
   - called by (1): writeInfoArray<class CvImprovementInfo>
-- **16237** `CvImprovementInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
-  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvImprovementInfo::setArtDefineTag, CvString::operator char const * [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvXMLLoadUtility::SetImprovementBonuses [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvXMLLoadUtility::InitImprovementBonusList [CvXMLLoadUtilityInit.cpp], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvXMLLoadUtility::Init2DIntList [CvXMLLoadUtilityInit.cpp], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvGlobals::getNumRouteInfos [CvGlobals.cpp], CvString::GetLength [CvString.h], CvDLLUtilityIFaceBase::getAudioTagIndex [CvDLLUtilityIFaceBase.h], CvString::GetCString [CvString.h]
-- **16451** `CvImprovementInfo::readPass2(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::readPass2)
+- **16303** `CvImprovementInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvImprovementInfo::setArtDefineTag, CvString::operator char const * [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvXMLLoadUtility::SetImprovementBonuses [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvXMLLoadUtility::InitImprovementBonusList [CvXMLLoadUtilityInit.cpp], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvString::GetLength [CvString.h], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvGlobals::getNumTechInfos [CvGlobals.cpp], CvXMLLoadUtility::Init2DIntList [CvXMLLoadUtilityInit.cpp], operator delete[](void*) [CvGameCoreDLL.cpp], CvGlobals::getNumRouteInfos [CvGlobals.cpp], CvDLLUtilityIFaceBase::getAudioTagIndex [CvDLLUtilityIFaceBase.h], CvString::GetCString [CvString.h]
+- **16550** `CvImprovementInfo::readPass2(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::readPass2)
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::operator char const * [CvString.h]
-- **16480** `CvImprovementInfo::copyNonDefaults(CvImprovementInfo*)`
+- **16579** `CvImprovementInfo::copyNonDefaults(CvImprovementInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvImprovementInfo::getArtDefineTag, CvImprovementInfo::setArtDefineTag, CvInfoBase::copyNonDefaults, CvImprovementInfo::getPrereqNatureYield, CvImprovementInfo::getYieldChange, CvImprovementInfo::getRiverSideYieldChange, CvImprovementInfo::getHillsYieldChange, CvImprovementInfo::getIrrigatedYieldChange, CvImprovementInfo::getAdvancedStartCost, CvImprovementInfo::getAdvancedStartCostIncrease, CvImprovementInfo::getTilesPerGoody, CvImprovementInfo::getGoodyUniqueRange, CvImprovementInfo::getFeatureGrowthProbability, CvImprovementInfo::getUpgradeTime, CvImprovementInfo::getAirBombDefense, CvImprovementInfo::getDefenseModifier, CvImprovementInfo::getHappiness, CvImprovementInfo::getPillageGold, CvImprovementInfo::isActsAsCity, CvImprovementInfo::isHillsMakesValid, CvImprovementInfo::isFreshWaterMakesValid, CvImprovementInfo::isRiverSideMakesValid, CvImprovementInfo::isNoFreshWater, CvImprovementInfo::isRequiresFlatlands, CvImprovementInfo::isRequiresRiverSide, CvImprovementInfo::isRequiresIrrigation, CvImprovementInfo::isCarriesIrrigation, CvImprovementInfo::isRequiresFeature, CvImprovementInfo::isWater, CvImprovementInfo::isGoody, CvImprovementInfo::isPermanent, CvImprovementInfo::isOutsideBorders, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvImprovementInfo::getTerrainMakesValid, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvImprovementInfo::getFeatureMakesValid, CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvImprovementInfo::isImprovementBonusMakesValid, CvImprovementInfo::isImprovementBonusTrade, CvImprovementInfo::getImprovementBonusDiscoverRand, CvImprovementInfo::getImprovementBonusYield, CvGlobals::getNumTechInfos [CvGlobals.cpp], CvImprovementInfo::getTechYieldChanges, CvGlobals::getNumRouteInfos [CvGlobals.cpp], CvImprovementInfo::getRouteYieldChanges, CvImprovementInfo::getWorldSoundscapeScriptId, CvImprovementInfo::getImprovementPillage, CvImprovementInfo::getImprovementUpgrade
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvImprovementInfo>
-- **16606** `CvImprovementInfo::copyNonDefaultsReadPass2(CvImprovementInfo*)`
+- **16706** `CvImprovementInfo::copyNonDefaultsReadPass2(CvImprovementInfo*)`
   - calls: CvImprovementInfo::getImprovementPillage, CvImprovementInfo::getImprovementUpgrade
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvImprovementInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvImprovementInfo>
-- **16629** `CvBonusClassInfo::CvBonusClassInfo()`
+- **16729** `CvBonusClassInfo::CvBonusClassInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvBonusClassInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvBonusClassInfo>
-- **16640** `CvBonusClassInfo::~CvBonusClassInfo()` (virtual)
+- **16740** `CvBonusClassInfo::~CvBonusClassInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvBonusClassInfo::`scalar deleting dtor'
-- **16644** `CvBonusClassInfo::getUniqueRange() const` (Python: getUniqueRange)
+- **16744** `CvBonusClassInfo::getUniqueRange() const` (Python: getUniqueRange)
   - called by (3): CvBonusClassInfo::copyNonDefaults, CvMapGenerator::canPlaceBonusAt, CyInfoPythonInterface2
-- **16649** `CvBonusClassInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **16749** `CvBonusClassInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp]
-- **16665** `CvBonusClassInfo::copyNonDefaults(CvBonusClassInfo*)`
+- **16765** `CvBonusClassInfo::copyNonDefaults(CvBonusClassInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvBonusClassInfo::getUniqueRange
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvBonusClassInfo>
-- **16728** `CvBonusInfo::CvBonusInfo()`
+- **16830** `CvBonusInfo::CvBonusInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvBonusInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvBonusInfo>, readInfoArray<class CvBonusInfo>
-- **16739** `CvBonusInfo::~CvBonusInfo()` (virtual)
+- **16841** `CvBonusInfo::~CvBonusInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvBonusInfo::`scalar deleting dtor'
-- **16748** `CvBonusInfo::getBonusClassType() const` (Python: getBonusClassType)
+- **16850** `CvBonusInfo::getBonusClassType() const` (Python: getBonusClassType)
   - called by (6): CvBonusInfo::copyNonDefaults, CvGameTextMgr::setPlotHelp, CvMapGenerator::canPlaceBonusAt, CvPlayerAI::AI_bestTech, CvPlayerAI::AI_techValue, CyInfoPythonInterface2
-- **16753** `CvBonusInfo::getChar() const` (Python: getChar)
+- **16855** `CvBonusInfo::getChar() const` (Python: getChar)
   - called by (10): CvDLLWidgetData::parseActionHelp, CvGameTextMgr::getFontSymbols, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setCorporationHelpCity, CvGameTextMgr::setImprovementHelp, CvGameTextMgr::setPlotHelp, CvGlobals::StoreExeSettings, CyInfoPythonInterface2, createTestFontString
-- **16758** `CvBonusInfo::setChar(int)`
+- **16860** `CvBonusInfo::setChar(int)`
   - called by (2): CvGameTextMgr::assignFontIds, CvGlobals::LoadExeSettings
-- **16774** `CvBonusInfo::getTechReveal() const` (Python: getTechReveal)
-  - called by (16): CvBonusInfo::copyNonDefaults, CvCityAI::AI_plotValue, CvDLLWidgetData::parseActionHelp, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::buildBonusRevealString, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setPlotHelp, CvPlayer::canDoEvent, CvPlayerAI::AI_bestTech, CvPlayerAI::AI_techValue, CvPlot::doImprovement …
-- **16779** `CvBonusInfo::getTechCityTrade() const` (Python: getTechCityTrade)
-  - called by (9): CvBonusInfo::copyNonDefaults, CvCity::updateCorporationBonus, CvGame::createBarbarianUnits, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::setPlotHelp, CvPlot::updatePlotGroupBonus, CvTeam::setHasTech, CyInfoPythonInterface2
-- **16784** `CvBonusInfo::getTechObsolete() const` (Python: getTechObsolete)
-  - called by (5): CvBonusInfo::copyNonDefaults, CvGameTextMgr::setTechTradeHelp, CvTeam::isBonusObsolete, CvTeam::setHasTech, CyInfoPythonInterface2
-- **16789** `CvBonusInfo::getAITradeModifier() const` (Python: getAITradeModifier)
+- **16876** `CvBonusInfo::getTechReveal() const` (Python: getTechReveal)
+  - called by (17): CvBonusInfo::copyNonDefaults, CvCityAI::AI_plotValue, CvDLLWidgetData::parseActionHelp, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::buildBonusRevealString, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setPlotHelp, CvPlayer::canDoEvent, CvPlayerAI::AI_bestTech, CvPlayerAI::AI_techValue, CvPlot::doImprovement …
+- **16881** `CvBonusInfo::getTechCityTrade() const` (Python: getTechCityTrade)
+  - called by (10): CvBonusInfo::copyNonDefaults, CvCity::updateCorporationBonus, CvCityAI::AI_bestPlotBuild, CvGame::createBarbarianUnits, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvGameTextMgr::setPlotHelp, CvPlot::isBonusTech, CvPlot::updatePlotGroupBonus, CyInfoPythonInterface2
+- **16886** `CvBonusInfo::getTechObsolete() const` (Python: getTechObsolete)
+  - called by (5): CvBonusInfo::copyNonDefaults, CvGameTextMgr::setTechTradeHelp, CvPlot::isBonusTech, CvTeam::isBonusObsolete, CyInfoPythonInterface2
+- **16891** `CvBonusInfo::getAITradeModifier() const` (Python: getAITradeModifier)
   - called by (3): CvBonusInfo::copyNonDefaults, CvPlayerAI::AI_bonusTradeVal, CyInfoPythonInterface2
-- **16794** `CvBonusInfo::getAIObjective() const` (Python: getAIObjective)
+- **16896** `CvBonusInfo::getAIObjective() const` (Python: getAIObjective)
   - called by (5): CvBonusInfo::copyNonDefaults, CvTeamAI::AI_calculatePlotWarValue, CvUnitAI::AI_guardBonus, CvUnitAI::AI_improveBonus, CyInfoPythonInterface2
-- **16799** `CvBonusInfo::getHealth() const` (Python: getHealth)
+- **16901** `CvBonusInfo::getHealth() const` (Python: getHealth)
   - called by (12): CvBonusInfo::copyNonDefaults, CvCity::getBonusHealth, CvCity::processBonus, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setPlotHelp, CvPlayer::getResourceLayerColors, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface2
-- **16804** `CvBonusInfo::getHappiness() const` (Python: getHappiness)
+- **16906** `CvBonusInfo::getHappiness() const` (Python: getHappiness)
   - called by (12): CvBonusInfo::copyNonDefaults, CvCity::getBonusHappiness, CvCity::processBonus, CvDLLWidgetData::parseActionHelp, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setPlotHelp, CvPlayer::getResourceLayerColors, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_bonusCityValue, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface2
-- **16809** `CvBonusInfo::getMinAreaSize() const` (Python: getMinAreaSize)
+- **16911** `CvBonusInfo::getMinAreaSize() const` (Python: getMinAreaSize)
   - called by (3): CvBonusInfo::copyNonDefaults, CvPlot::canHaveBonus, CyInfoPythonInterface2
-- **16814** `CvBonusInfo::getMinLatitude() const` (Python: getMinLatitude)
+- **16916** `CvBonusInfo::getMinLatitude() const` (Python: getMinLatitude)
   - called by (3): CvBonusInfo::copyNonDefaults, CvPlot::canHaveBonus, CyInfoPythonInterface2
-- **16819** `CvBonusInfo::getMaxLatitude() const` (Python: getMaxLatitude)
+- **16921** `CvBonusInfo::getMaxLatitude() const` (Python: getMaxLatitude)
   - called by (3): CvBonusInfo::copyNonDefaults, CvPlot::canHaveBonus, CyInfoPythonInterface2
-- **16824** `CvBonusInfo::getPlacementOrder() const` (Python: getPlacementOrder)
+- **16926** `CvBonusInfo::getPlacementOrder() const` (Python: getPlacementOrder)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::addBonuses, CyInfoPythonInterface2
-- **16829** `CvBonusInfo::getConstAppearance() const` (Python: getConstAppearance)
+- **16931** `CvBonusInfo::getConstAppearance() const` (Python: getConstAppearance)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::calculateNumBonusesToAdd, CyInfoPythonInterface2
-- **16834** `CvBonusInfo::getRandAppearance1() const` (Python: getRandAppearance1)
+- **16936** `CvBonusInfo::getRandAppearance1() const` (Python: getRandAppearance1)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::calculateNumBonusesToAdd, CyInfoPythonInterface2
-- **16839** `CvBonusInfo::getRandAppearance2() const` (Python: getRandAppearance2)
+- **16941** `CvBonusInfo::getRandAppearance2() const` (Python: getRandAppearance2)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::calculateNumBonusesToAdd, CyInfoPythonInterface2
-- **16844** `CvBonusInfo::getRandAppearance3() const` (Python: getRandAppearance3)
+- **16946** `CvBonusInfo::getRandAppearance3() const` (Python: getRandAppearance3)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::calculateNumBonusesToAdd, CyInfoPythonInterface2
-- **16849** `CvBonusInfo::getRandAppearance4() const` (Python: getRandAppearance4)
+- **16951** `CvBonusInfo::getRandAppearance4() const` (Python: getRandAppearance4)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::calculateNumBonusesToAdd, CyInfoPythonInterface2
-- **16854** `CvBonusInfo::getPercentPerPlayer() const` (Python: getPercentPerPlayer)
+- **16956** `CvBonusInfo::getPercentPerPlayer() const` (Python: getPercentPerPlayer)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::calculateNumBonusesToAdd, CyInfoPythonInterface2
-- **16859** `CvBonusInfo::getTilesPer() const` (Python: getTilesPer)
+- **16961** `CvBonusInfo::getTilesPer() const` (Python: getTilesPer)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::calculateNumBonusesToAdd, CyInfoPythonInterface2
-- **16864** `CvBonusInfo::getMinLandPercent() const` (Python: getMinLandPercent)
+- **16966** `CvBonusInfo::getMinLandPercent() const` (Python: getMinLandPercent)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::canPlaceBonusAt, CyInfoPythonInterface2
-- **16869** `CvBonusInfo::getUniqueRange() const` (Python: getUniqueRange)
+- **16971** `CvBonusInfo::getUniqueRange() const` (Python: getUniqueRange)
   - called by (3): CvBonusInfo::copyNonDefaults, CvMapGenerator::canPlaceBonusAt, CyInfoPythonInterface2
-- **16874** `CvBonusInfo::getGroupRange() const` (Python: getGroupRange)
+- **16976** `CvBonusInfo::getGroupRange() const` (Python: getGroupRange)
   - called by (4): CvBonusInfo::copyNonDefaults, CvMapGenerator::addNonUniqueBonusType, CvMapGenerator::addUniqueBonusType, CyInfoPythonInterface2
-- **16879** `CvBonusInfo::getGroupRand() const` (Python: getGroupRand)
+- **16981** `CvBonusInfo::getGroupRand() const` (Python: getGroupRand)
   - called by (4): CvBonusInfo::copyNonDefaults, CvMapGenerator::addNonUniqueBonusType, CvMapGenerator::addUniqueBonusType, CyInfoPythonInterface2
-- **16884** `CvBonusInfo::isOneArea() const` (Python: isOneArea)
+- **16986** `CvBonusInfo::isOneArea() const` (Python: isOneArea)
   - called by (4): CvArea::countNumUniqueBonusTypes, CvBonusInfo::copyNonDefaults, CvMapGenerator::addBonuses, CyInfoPythonInterface2
-- **16889** `CvBonusInfo::isHills() const` (Python: isHills)
+- **16991** `CvBonusInfo::isHills() const` (Python: isHills)
   - called by (4): CvBonusInfo::copyNonDefaults, CvGame::normalizeAddExtras, CvPlot::canHaveBonus, CyInfoPythonInterface2
-- **16894** `CvBonusInfo::isFlatlands() const` (Python: isFlatlands)
+- **16996** `CvBonusInfo::isFlatlands() const` (Python: isFlatlands)
   - called by (3): CvBonusInfo::copyNonDefaults, CvPlot::canHaveBonus, CyInfoPythonInterface2
-- **16899** `CvBonusInfo::isNoRiverSide() const` (Python: isNoRiverSide)
+- **17001** `CvBonusInfo::isNoRiverSide() const` (Python: isNoRiverSide)
   - called by (3): CvBonusInfo::copyNonDefaults, CvPlot::canHaveBonus, CyInfoPythonInterface2
-- **16904** `CvBonusInfo::isNormalize() const` (Python: isNormalize)
+- **17006** `CvBonusInfo::isNormalize() const` (Python: isNormalize)
   - called by (4): CvBonusInfo::copyNonDefaults, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CyInfoPythonInterface2
-- **16909** `CvBonusInfo::getArtDefineTag() const` (Python: getArtDefineTag)
+- **17011** `CvBonusInfo::getArtDefineTag() const` (Python: getArtDefineTag)
   - calls: CvString::operator char const * [CvString.h]
   - called by (4): CvBonusInfo::copyNonDefaults, CvBonusInfo::getArtInfo, CvBonusInfo::getButton, CyInfoPythonInterface2
-- **16914** `CvBonusInfo::setArtDefineTag(char const*)`
+- **17016** `CvBonusInfo::setArtDefineTag(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvBonusInfo::copyNonDefaults, CvBonusInfo::read(CvXMLLoadUtility*)
-- **16921** `CvBonusInfo::getYieldChange(int) const` (Python: getYieldChange)
+- **17023** `CvBonusInfo::getYieldChange(int) const` (Python: getYieldChange)
   - called by (7): CvBonusInfo::copyNonDefaults, CvGame::normalizeAddExtras, CvGame::normalizeAddFoodBonuses, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_techValue, CvPlot::calculateNatureYield, CyInfoPythonInterface2
-- **16928** `CvBonusInfo::getYieldChangeArray()`
+- **17030** `CvBonusInfo::getYieldChangeArray()`
   - called by (1): CvGameTextMgr::setBonusTradeHelp
-- **16933** `CvBonusInfo::getImprovementChange(int) const`
-- **16940** `CvBonusInfo::isTerrain(int) const` (Python: isTerrain)
+- **17035** `CvBonusInfo::getImprovementChange(int) const`
+- **17042** `CvBonusInfo::isTerrain(int) const` (Python: isTerrain)
   - called by (4): CvBonusInfo::copyNonDefaults, CvGame::getWidgetShow(BonusTypes) const, CvPlot::canHaveBonus, CyInfoPythonInterface2
-- **16947** `CvBonusInfo::isFeature(int) const` (Python: isFeature)
+- **17049** `CvBonusInfo::isFeature(int) const` (Python: isFeature)
   - called by (5): CvBonusInfo::copyNonDefaults, CvGame::getWidgetShow(BonusTypes) const, CvPlot::canHaveBonus, CvPlot::doFeature, CyInfoPythonInterface2
-- **16954** `CvBonusInfo::isFeatureTerrain(int) const` (Python: isFeatureTerrain)
+- **17056** `CvBonusInfo::isFeatureTerrain(int) const` (Python: isFeatureTerrain)
   - called by (3): CvBonusInfo::copyNonDefaults, CvPlot::canHaveBonus, CyInfoPythonInterface2
-- **16961** `CvBonusInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
+- **17071** `findGoodName(CvString const&, char const*const*, int, char const*, char const*)`
+  - calls: CvString::CvString() [CvString.h], CvString::Format [CvString.h], CvDLLUtilityIFaceBase::logMsg [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::~CvString [CvString.h]
+  - called by (1): CvBonusInfo::read(CvXMLLoadUtility*)
+- **17091** `CvBonusInfo::getGoodUnit() const`
+  - called by (1): CvBonusInfo::copyNonDefaults
+- **17096** `CvBonusInfo::getGoodCategory() const`
+  - called by (1): CvBonusInfo::copyNonDefaults
+- **17101** `CvBonusInfo::getNumGoodUnits()` (static)
+- **17106** `CvBonusInfo::getGoodUnitName(int)` (static)
+- **17112** `CvBonusInfo::getNumGoodCategories()` (static)
+- **17117** `CvBonusInfo::getGoodCategoryName(int)` (static)
+- **17123** `CvBonusInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvBonusInfo::getArtDefineTag, CvBonusInfo::getArtInfo, CvInfoBase::getButton
   - called by (6): CvDLLButtonPopup::launchVassalDemandTributePopup, CvGameTextMgr::getBonusDataForWB, CvPlayer::getItemTradeString, CvPlayer::getResourceLayerColors, CvPlot::doImprovement, CvTeam::setHasTech
-- **16988** `CvBonusInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **17150** `CvBonusInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp]
-- **17051** `CvBonusInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **17221** `CvBonusInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp]
   - called by (1): writeInfoArray<class CvBonusInfo>
-- **17100** `CvBonusInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
-  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvBonusInfo::setArtDefineTag, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp]
-- **17178** `CvBonusInfo::copyNonDefaults(CvBonusInfo*)`
-  - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvBonusInfo::getArtDefineTag, CvBonusInfo::setArtDefineTag, CvInfoBase::copyNonDefaults, CvBonusInfo::getBonusClassType, CvBonusInfo::getTechReveal, CvBonusInfo::getTechCityTrade, CvBonusInfo::getTechObsolete, CvBonusInfo::getYieldChange, CvBonusInfo::getAITradeModifier, CvBonusInfo::getAIObjective, CvBonusInfo::getHealth, CvBonusInfo::getHappiness, CvBonusInfo::getMinAreaSize, CvBonusInfo::getMinLatitude, CvBonusInfo::getMaxLatitude, CvBonusInfo::getPlacementOrder, CvBonusInfo::getConstAppearance, CvBonusInfo::getRandAppearance1, CvBonusInfo::getRandAppearance2, CvBonusInfo::getRandAppearance3, CvBonusInfo::getRandAppearance4, CvBonusInfo::getPercentPerPlayer, CvBonusInfo::getTilesPer, CvBonusInfo::getMinLandPercent, CvBonusInfo::getUniqueRange, CvBonusInfo::getGroupRange, CvBonusInfo::getGroupRand, CvBonusInfo::isOneArea, CvBonusInfo::isHills, CvBonusInfo::isFlatlands, CvBonusInfo::isNoRiverSide, CvBonusInfo::isNormalize, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBonusInfo::isTerrain, CvBonusInfo::isFeatureTerrain, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvBonusInfo::isFeature
+- **17273** `CvBonusInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+  - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvBonusInfo::setArtDefineTag, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumFeatureInfos [CvGlobals.cpp], findGoodName, CvInfoBase::getType
+- **17356** `CvBonusInfo::copyNonDefaults(CvBonusInfo*)`
+  - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvBonusInfo::getArtDefineTag, CvBonusInfo::setArtDefineTag, CvInfoBase::copyNonDefaults, CvBonusInfo::getBonusClassType, CvBonusInfo::getTechReveal, CvBonusInfo::getTechCityTrade, CvBonusInfo::getTechObsolete, CvBonusInfo::getYieldChange, CvBonusInfo::getAITradeModifier, CvBonusInfo::getAIObjective, CvBonusInfo::getHealth, CvBonusInfo::getHappiness, CvBonusInfo::getMinAreaSize, CvBonusInfo::getMinLatitude, CvBonusInfo::getMaxLatitude, CvBonusInfo::getPlacementOrder, CvBonusInfo::getConstAppearance, CvBonusInfo::getRandAppearance1, CvBonusInfo::getRandAppearance2, CvBonusInfo::getRandAppearance3, CvBonusInfo::getRandAppearance4, CvBonusInfo::getPercentPerPlayer, CvBonusInfo::getTilesPer, CvBonusInfo::getMinLandPercent, CvBonusInfo::getUniqueRange, CvBonusInfo::getGroupRange, CvBonusInfo::getGroupRand, CvBonusInfo::isOneArea, CvBonusInfo::isHills, CvBonusInfo::isFlatlands, CvBonusInfo::isNoRiverSide, CvBonusInfo::isNormalize, CvBonusInfo::getGoodUnit, CvBonusInfo::getGoodCategory, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvBonusInfo::isTerrain, CvBonusInfo::isFeatureTerrain, CvGlobals::getNumFeatureInfos [CvGlobals.cpp], CvBonusInfo::isFeature
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvBonusInfo>
-- **17292** `CvFeatureInfo::CvFeatureInfo()`
+- **17472** `CvFeatureInfo::CvFeatureInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvFeatureInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvFeatureInfo>
-- **17303** `CvFeatureInfo::~CvFeatureInfo()` (virtual)
+- **17483** `CvFeatureInfo::~CvFeatureInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvFeatureInfo::`scalar deleting dtor'
-- **17312** `CvFeatureInfo::getMovementCost() const` (Python: getMovementCost)
+- **17492** `CvFeatureInfo::getMovementCost() const` (Python: getMovementCost)
   - called by (7): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setFeatureHelp, CvPlot::movementCost, CvUnitAI::AI_betterPlotBuild, CvUnitAI::AI_improveCity, CvUnitAI::AI_improveLocalPlot, CyInfoPythonInterface2
-- **17317** `CvFeatureInfo::getSeeThroughChange() const` (Python: getSeeThroughChange)
+- **17497** `CvFeatureInfo::getSeeThroughChange() const` (Python: getSeeThroughChange)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvPlot::seeThroughLevel, CvPlot::setFeatureType, CyInfoPythonInterface2
-- **17322** `CvFeatureInfo::getHealthPercent() const` (Python: getHealthPercent)
+- **17502** `CvFeatureInfo::getHealthPercent() const` (Python: getHealthPercent)
   - called by (12): CvCity::updateFeatureHealth, CvCityAI::AI_bestPlotBuild, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_getImprovementValue, CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setBadHealthHelp, CvGameTextMgr::setFeatureHelp, CvGameTextMgr::setGoodHealthHelp, CvPlayerAI::AI_eventValue, CvPlayerAI::AI_foundValue, CvPlayerAI::AI_techValue, CyInfoPythonInterface2
-- **17327** `CvFeatureInfo::getAppearanceProbability() const` (Python: getAppearanceProbability)
+- **17507** `CvFeatureInfo::getAppearanceProbability() const` (Python: getAppearanceProbability)
   - called by (5): CvCity::kill, CvFeatureInfo::copyNonDefaults, CvGame::normalizeAddRiver, CvMapGenerator::addFeatures, CyInfoPythonInterface2
-- **17332** `CvFeatureInfo::getDisappearanceProbability() const` (Python: getDisappearanceProbability)
+- **17512** `CvFeatureInfo::getDisappearanceProbability() const` (Python: getDisappearanceProbability)
   - called by (3): CvFeatureInfo::copyNonDefaults, CvPlot::doFeature, CyInfoPythonInterface2
-- **17337** `CvFeatureInfo::getGrowthProbability() const` (Python: getGrowthProbability)
+- **17517** `CvFeatureInfo::getGrowthProbability() const` (Python: getGrowthProbability)
   - called by (3): CvFeatureInfo::copyNonDefaults, CvPlot::doFeature, CyInfoPythonInterface2
-- **17342** `CvFeatureInfo::getDefenseModifier() const` (Python: getDefenseModifier)
+- **17522** `CvFeatureInfo::getDefenseModifier() const` (Python: getDefenseModifier)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setFeatureHelp, CvPlot::defenseModifier, CyInfoPythonInterface2
-- **17347** `CvFeatureInfo::getAdvancedStartRemoveCost() const` (Python: getAdvancedStartRemoveCost)
+- **17527** `CvFeatureInfo::getAdvancedStartRemoveCost() const` (Python: getAdvancedStartRemoveCost)
   - called by (3): CvFeatureInfo::copyNonDefaults, CvPlayer::getAdvancedStartImprovementCost, CyInfoPythonInterface2
-- **17352** `CvFeatureInfo::getTurnDamage() const` (Python: getTurnDamage)
+- **17532** `CvFeatureInfo::getTurnDamage() const` (Python: getTurnDamage)
   - called by (8): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setPlotHelp, CvUnit::doTurn, CvUnitAI::AI_exploreMove, CvUnitAI::AI_exploreSeaMove, CvUnitAI::AI_heal, CyInfoPythonInterface2, pathCost
-- **17357** `CvFeatureInfo::getWarmingDefense() const` (Python: getWarmingDefense)
+- **17537** `CvFeatureInfo::getWarmingDefense() const` (Python: getWarmingDefense)
   - called by (2): CvGame::doGlobalWarming, CyInfoPythonInterface2
-- **17362** `CvFeatureInfo::isNoCoast() const` (Python: isNoCoast)
+- **17542** `CvFeatureInfo::isNoCoast() const` (Python: isNoCoast)
   - called by (3): CvFeatureInfo::copyNonDefaults, CvPlot::canHaveFeature, CyInfoPythonInterface2
-- **17367** `CvFeatureInfo::isNoRiver() const` (Python: isNoRiver)
+- **17547** `CvFeatureInfo::isNoRiver() const` (Python: isNoRiver)
   - called by (3): CvFeatureInfo::copyNonDefaults, CvPlot::canHaveFeature, CyInfoPythonInterface2
-- **17372** `CvFeatureInfo::isNoAdjacent() const` (Python: isNoAdjacent)
+- **17552** `CvFeatureInfo::isNoAdjacent() const` (Python: isNoAdjacent)
   - called by (3): CvFeatureInfo::copyNonDefaults, CvPlot::canHaveFeature, CyInfoPythonInterface2
-- **17377** `CvFeatureInfo::isRequiresFlatlands() const` (Python: isRequiresFlatlands)
+- **17557** `CvFeatureInfo::isRequiresFlatlands() const` (Python: isRequiresFlatlands)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvGame::normalizeAddExtras, CvPlot::canHaveFeature, CyInfoPythonInterface2
-- **17382** `CvFeatureInfo::isRequiresRiver() const` (Python: isRequiresRiver)
+- **17562** `CvFeatureInfo::isRequiresRiver() const` (Python: isRequiresRiver)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvGame::normalizeAddRiver, CvPlot::canHaveFeature, CyInfoPythonInterface2
-- **17387** `CvFeatureInfo::isAddsFreshWater() const` (Python: isAddsFreshWater)
+- **17567** `CvFeatureInfo::isAddsFreshWater() const` (Python: isAddsFreshWater)
   - called by (5): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setFeatureHelp, CvPlot::getAqueductSourceWeight, CvPlot::isFreshWater, CyInfoPythonInterface2
-- **17392** `CvFeatureInfo::isImpassable() const` (Python: isImpassable)
+- **17572** `CvFeatureInfo::isImpassable() const` (Python: isImpassable)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setFeatureHelp, CvPlot::isImpassable, CyInfoPythonInterface2
-- **17397** `CvFeatureInfo::isNoCity() const` (Python: isNoCity)
+- **17577** `CvFeatureInfo::isNoCity() const` (Python: isNoCity)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setFeatureHelp, CvPlayer::canFound, CyInfoPythonInterface2
-- **17402** `CvFeatureInfo::isNoImprovement() const` (Python: isNoImprovement)
+- **17582** `CvFeatureInfo::isNoImprovement() const` (Python: isNoImprovement)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setFeatureHelp, CvPlot::canHaveImprovement, CyInfoPythonInterface2
-- **17407** `CvFeatureInfo::isVisibleAlways() const` (Python: isVisibleAlways)
+- **17587** `CvFeatureInfo::isVisibleAlways() const` (Python: isVisibleAlways)
   - called by (3): CvFeatureInfo::copyNonDefaults, CvPlot::updateFeatureSymbolVisibility, CyInfoPythonInterface2
-- **17412** `CvFeatureInfo::isNukeImmune() const` (Python: isNukeImmune)
+- **17592** `CvFeatureInfo::isNukeImmune() const` (Python: isNukeImmune)
   - called by (3): CvFeatureInfo::copyNonDefaults, CvPlot::nukeExplosion, CyInfoPythonInterface2
-- **17417** `CvFeatureInfo::getOnUnitChangeTo() const`
+- **17597** `CvFeatureInfo::getOnUnitChangeTo() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvFeatureInfo::copyNonDefaults, CvUnit::move
-- **17422** `CvFeatureInfo::getArtDefineTag() const`
+- **17602** `CvFeatureInfo::getArtDefineTag() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (3): CvFeatureInfo::copyNonDefaults, CvFeatureInfo::getArtInfo, CvFeatureInfo::getButton
-- **17427** `CvFeatureInfo::setArtDefineTag(char const*)`
+- **17607** `CvFeatureInfo::setArtDefineTag(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvFeatureInfo::copyNonDefaults, CvFeatureInfo::read
-- **17432** `CvFeatureInfo::getWorldSoundscapeScriptId() const`
+- **17612** `CvFeatureInfo::getWorldSoundscapeScriptId() const`
   - called by (2): CvFeatureInfo::copyNonDefaults, CvPlot::getSoundScriptId
-- **17442** `CvFeatureInfo::getGrowthSound() const`
+- **17622** `CvFeatureInfo::getGrowthSound() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvPlot::doFeature
-- **17447** `CvFeatureInfo::setGrowthSound(char const*)`
+- **17627** `CvFeatureInfo::setGrowthSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvFeatureInfo::read
-- **17455** `CvFeatureInfo::getEffectType() const`
+- **17635** `CvFeatureInfo::getEffectType() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvFeatureInfo::copyNonDefaults, CvUnit::move
-- **17460** `CvFeatureInfo::getEffectProbability() const`
+- **17640** `CvFeatureInfo::getEffectProbability() const`
   - called by (2): CvFeatureInfo::copyNonDefaults, CvUnit::move
-- **17467** `CvFeatureInfo::getYieldChange(int) const` (Python: getYieldChange)
+- **17647** `CvFeatureInfo::getYieldChange(int) const` (Python: getYieldChange)
   - called by (21): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_clearFeatureValue, CvCityAI::AI_countWorkedPoorTiles, CvCityAI::AI_getGoodTileCount, CvCityAI::AI_getImprovementValue, CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvDLLWidgetData::parseActionHelp, CvFeatureInfo::copyNonDefaults, CvGame::normalizeAddExtras, CvGame::normalizeAddGoodTerrain, CvGame::normalizeRemoveBadFeatures …
-- **17474** `CvFeatureInfo::getRiverYieldChange(int) const` (Python: getRiverYieldChange)
+- **17654** `CvFeatureInfo::getRiverYieldChange(int) const` (Python: getRiverYieldChange)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setFeatureHelp, CvPlot::calculateNatureYield, CyInfoPythonInterface2
-- **17481** `CvFeatureInfo::getHillsYieldChange(int) const` (Python: getHillsYieldChange)
+- **17661** `CvFeatureInfo::getHillsYieldChange(int) const` (Python: getHillsYieldChange)
   - called by (4): CvFeatureInfo::copyNonDefaults, CvGameTextMgr::setFeatureHelp, CvPlot::calculateNatureYield, CyInfoPythonInterface2
-- **17488** `CvFeatureInfo::get3DAudioScriptFootstepIndex(int) const`
+- **17668** `CvFeatureInfo::get3DAudioScriptFootstepIndex(int) const`
   - called by (2): CvFeatureInfo::copyNonDefaults, CvPlot::get3DAudioScriptFootstepIndex
-- **17495** `CvFeatureInfo::isTerrain(int) const` (Python: isTerrain)
+- **17675** `CvFeatureInfo::isTerrain(int) const` (Python: isTerrain)
   - called by (5): CvFeatureInfo::copyNonDefaults, CvGame::normalizeAddGoodTerrain, CvGame::normalizeRemoveBadTerrain, CvPlot::canHaveFeature, CyInfoPythonInterface2
-- **17502** `CvFeatureInfo::getNumVarieties() const` (Python: getNumVarieties)
+- **17682** `CvFeatureInfo::getNumVarieties() const` (Python: getNumVarieties)
   - calls: CvFeatureInfo::getArtInfo, CvArtInfoFeature::getNumVarieties
   - called by (1): CyInfoPythonInterface2
-- **17507** `CvFeatureInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
+- **17687** `CvFeatureInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvFeatureInfo::getArtDefineTag, CvFeatureInfo::getArtInfo, CvInfoBase::getButton
   - called by (3): CvPlot::changeBuildProgress, CvPlot::doFeature, CvSelectionGroup::groupBuild
-- **17534** `CvFeatureInfo::getArtInfo() const` (exported)
+- **17714** `CvFeatureInfo::getArtInfo() const` (exported)
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getFeatureArtInfo(char const*) const [CvArtFileMgr.cpp], CvFeatureInfo::getArtDefineTag
   - called by (5): CvFeatureInfo::getButton, CvFeatureInfo::getNumVarieties, CvGameTextMgr::getTerrainDataForWB, CvPlot::setFeatureType, CvPlot::updateFeatureSymbolEntity
-- **17539** `CvFeatureInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **17719** `CvFeatureInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvFeatureInfo::setArtDefineTag, CvString::operator char const * [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumFootstepAudioTypes [CvGlobals.cpp], CvGlobals::getFootstepAudioTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int**, char const*, CvString*, int, int) [CvXMLLoadUtilitySet.cpp], CvString::GetLength [CvString.h], CvDLLUtilityIFaceBase::getAudioTagIndex [CvDLLUtilityIFaceBase.h], CvString::GetCString [CvString.h], CvFeatureInfo::setGrowthSound, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp]
-- **17639** `CvFeatureInfo::copyNonDefaults(CvFeatureInfo*)`
+- **17819** `CvFeatureInfo::copyNonDefaults(CvFeatureInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvFeatureInfo::getArtDefineTag, CvFeatureInfo::setArtDefineTag, CvInfoBase::copyNonDefaults, CvFeatureInfo::getYieldChange, CvFeatureInfo::getRiverYieldChange, CvFeatureInfo::getHillsYieldChange, CvFeatureInfo::getMovementCost, CvFeatureInfo::getSeeThroughChange, CvFeatureInfo::getHealthPercent, CvFeatureInfo::getDefenseModifier, CvFeatureInfo::getAdvancedStartRemoveCost, CvFeatureInfo::getTurnDamage, CvFeatureInfo::getAppearanceProbability, CvFeatureInfo::getDisappearanceProbability, CvFeatureInfo::getGrowthProbability, CvFeatureInfo::isNoCoast, CvFeatureInfo::isNoRiver, CvFeatureInfo::isNoAdjacent, CvFeatureInfo::isRequiresFlatlands, CvFeatureInfo::isRequiresRiver, CvFeatureInfo::isAddsFreshWater, CvFeatureInfo::isImpassable, CvFeatureInfo::isNoCity, CvFeatureInfo::isNoImprovement, CvFeatureInfo::isVisibleAlways, CvFeatureInfo::isNukeImmune, CvFeatureInfo::getOnUnitChangeTo, CvString::operator=(char const*) [CvString.h], CvGlobals::getNumFootstepAudioTypes [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvFeatureInfo::get3DAudioScriptFootstepIndex, CvFeatureInfo::getWorldSoundscapeScriptId, CvFeatureInfo::getEffectType, CvFeatureInfo::getEffectProbability, CvGlobals::getNumTerrainInfos [CvGlobals.cpp], CvFeatureInfo::isTerrain
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvFeatureInfo>
-- **17731** `CvCommerceInfo::CvCommerceInfo()`
+- **17913** `CvCommerceInfo::CvCommerceInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvCommerceInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCommerceInfo>
-- **17742** `CvCommerceInfo::~CvCommerceInfo()` (virtual)
+- **17924** `CvCommerceInfo::~CvCommerceInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvCommerceInfo::`scalar deleting dtor'
-- **17746** `CvCommerceInfo::getChar() const` (Python: getChar)
+- **17928** `CvCommerceInfo::getChar() const` (Python: getChar)
   - called by (27): CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseHurryHelp, CvDllTranslator::initializeTags, CvGameTextMgr::buildAdjustString, CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::buildFinanceCivicUpkeepString, CvGameTextMgr::buildFinanceForeignIncomeString, CvGameTextMgr::getFontSymbols, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingAdditionalCommerceHelp, CvGameTextMgr::setBuildingHelpActual …
-- **17751** `CvCommerceInfo::setChar(int)`
+- **17933** `CvCommerceInfo::setChar(int)`
   - called by (2): CvGameTextMgr::assignFontIds, CvGlobals::LoadExeSettings
-- **17756** `CvCommerceInfo::getInitialPercent() const` (Python: getInitialPercent)
+- **17938** `CvCommerceInfo::getInitialPercent() const` (Python: getInitialPercent)
   - called by (4): CvCommerceInfo::copyNonDefaults, CvPlayer::init, CvPlayer::initInGame, CyInfoPythonInterface2
-- **17761** `CvCommerceInfo::getInitialHappiness() const` (Python: getInitialHappiness)
+- **17943** `CvCommerceInfo::getInitialHappiness() const` (Python: getInitialHappiness)
   - called by (3): CvCity::init, CvCommerceInfo::copyNonDefaults, CyInfoPythonInterface2
-- **17766** `CvCommerceInfo::getAIWeightPercent() const` (Python: getAIWeightPercent)
+- **17948** `CvCommerceInfo::getAIWeightPercent() const` (Python: getAIWeightPercent)
   - called by (3): CvCommerceInfo::copyNonDefaults, CvPlayerAI::AI_commerceWeight, CyInfoPythonInterface2
-- **17771** `CvCommerceInfo::isFlexiblePercent() const` (Python: isFlexiblePercent)
+- **17953** `CvCommerceInfo::isFlexiblePercent() const` (Python: isFlexiblePercent)
   - called by (3): CvCommerceInfo::copyNonDefaults, CvPlayer::isCommerceFlexible, CyInfoPythonInterface2
-- **17776** `CvCommerceInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **17958** `CvCommerceInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **17795** `CvCommerceInfo::copyNonDefaults(CvCommerceInfo*)`
+- **17977** `CvCommerceInfo::copyNonDefaults(CvCommerceInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvCommerceInfo::getInitialPercent, CvCommerceInfo::getInitialHappiness, CvCommerceInfo::getAIWeightPercent, CvCommerceInfo::isFlexiblePercent
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCommerceInfo>
-- **17842** `CvYieldInfo::CvYieldInfo()`
+- **18024** `CvYieldInfo::CvYieldInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvYieldInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvYieldInfo>
-- **17854** `CvYieldInfo::~CvYieldInfo()` (virtual)
+- **18036** `CvYieldInfo::~CvYieldInfo()` (virtual)
   - calls: CvString::`vector deleting dtor', CvInfoBase::~CvInfoBase
   - called by (1): CvYieldInfo::`scalar deleting dtor'
-- **17859** `CvYieldInfo::getChar() const` (Python: getChar)
+- **18041** `CvYieldInfo::getChar() const` (Python: getChar)
   - called by (24): CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseHurryHelp, CvDLLWidgetData::parseProductionHelp, CvDllTranslator::initializeTags, CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::getFontSymbols, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::parseTraits, CvGameTextMgr::setBuildingAdditionalYieldHelp, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setCityBarHelp, CvGameTextMgr::setCorporationHelp …
-- **17864** `CvYieldInfo::setChar(int)`
+- **18046** `CvYieldInfo::setChar(int)`
   - called by (2): CvGameTextMgr::assignFontIds, CvGlobals::LoadExeSettings
-- **17869** `CvYieldInfo::getHillsChange() const` (Python: getHillsChange)
+- **18051** `CvYieldInfo::getHillsChange() const` (Python: getHillsChange)
   - called by (3): CvPlot::calculateNatureYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17874** `CvYieldInfo::getPeakChange() const` (Python: getPeakChange)
+- **18056** `CvYieldInfo::getPeakChange() const` (Python: getPeakChange)
   - called by (3): CvPlot::calculateNatureYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17879** `CvYieldInfo::getLakeChange() const` (Python: getLakeChange)
+- **18061** `CvYieldInfo::getLakeChange() const` (Python: getLakeChange)
   - called by (3): CvPlot::calculateNatureYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17884** `CvYieldInfo::getCityChange() const` (Python: getCityChange)
+- **18066** `CvYieldInfo::getCityChange() const` (Python: getCityChange)
   - called by (4): CvPlayerAI::AI_foundValue, CvPlot::calculateYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17889** `CvYieldInfo::getPopulationChangeOffset() const` (Python: getPopulationChangeOffset)
+- **18071** `CvYieldInfo::getPopulationChangeOffset() const` (Python: getPopulationChangeOffset)
   - called by (3): CvPlot::calculateYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17894** `CvYieldInfo::getPopulationChangeDivisor() const` (Python: getPopulationChangeDivisor)
+- **18076** `CvYieldInfo::getPopulationChangeDivisor() const` (Python: getPopulationChangeDivisor)
   - called by (3): CvPlot::calculateYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17899** `CvYieldInfo::getMinCity() const` (Python: getMinCity)
+- **18081** `CvYieldInfo::getMinCity() const` (Python: getMinCity)
   - called by (6): CvCityAI::AI_getYieldMultipliers, CvCityAI::AI_updateBestBuild, CvPlayerAI::AI_foundValue, CvPlot::calculateYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17904** `CvYieldInfo::getTradeModifier() const` (Python: getTradeModifier)
+- **18086** `CvYieldInfo::getTradeModifier() const` (Python: getTradeModifier)
   - called by (4): CvPlayer::init, CvPlayer::initInGame, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17909** `CvYieldInfo::getGoldenAgeYield() const` (Python: getGoldenAgeYield)
+- **18091** `CvYieldInfo::getGoldenAgeYield() const` (Python: getGoldenAgeYield)
   - called by (4): CvPlayerAI::AI_calculateGoldenAgeValue, CvPlot::calculateYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17914** `CvYieldInfo::getGoldenAgeYieldThreshold() const` (Python: getGoldenAgeYieldThreshold)
+- **18096** `CvYieldInfo::getGoldenAgeYieldThreshold() const` (Python: getGoldenAgeYieldThreshold)
   - called by (4): CvPlayerAI::AI_calculateGoldenAgeValue, CvPlot::calculateYield, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17919** `CvYieldInfo::getAIWeightPercent() const` (Python: getAIWeightPercent)
+- **18101** `CvYieldInfo::getAIWeightPercent() const` (Python: getAIWeightPercent)
   - called by (3): CvPlayerAI::AI_yieldWeight, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17924** `CvYieldInfo::getColorType() const` (Python: getColorType)
+- **18106** `CvYieldInfo::getColorType() const` (Python: getColorType)
   - called by (4): CvGameTextMgr::getCityBillboardFoodbarColors, CvGameTextMgr::getCityBillboardProductionbarColors, CvYieldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **17931** `CvYieldInfo::getSymbolPath(int) const`
+- **18113** `CvYieldInfo::getSymbolPath(int) const`
   - calls: CvString::CvString(int) [CvString.h], CvString::~CvString [CvString.h], CvString::operator char const * [CvString.h]
   - called by (1): CvYieldInfo::copyNonDefaults
-- **17938** `CvYieldInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **18120** `CvYieldInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator=(CvString const&) [CvString.h], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvString::CvString(char const*) [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
-- **18017** `CvYieldInfo::copyNonDefaults(CvYieldInfo*)`
+- **18199** `CvYieldInfo::copyNonDefaults(CvYieldInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvYieldInfo::getHillsChange, CvYieldInfo::getPeakChange, CvYieldInfo::getLakeChange, CvYieldInfo::getCityChange, CvYieldInfo::getPopulationChangeOffset, CvYieldInfo::getPopulationChangeDivisor, CvYieldInfo::getMinCity, CvYieldInfo::getTradeModifier, CvYieldInfo::getGoldenAgeYield, CvYieldInfo::getGoldenAgeYieldThreshold, CvYieldInfo::getAIWeightPercent, CvYieldInfo::getColorType, CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvYieldInfo::getSymbolPath, CvString::operator=(char const*) [CvString.h]
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvYieldInfo>
-- **18080** `CvTerrainInfo::CvTerrainInfo()`
+- **18262** `CvTerrainInfo::CvTerrainInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvTerrainInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvTerrainInfo>
-- **18091** `CvTerrainInfo::~CvTerrainInfo()` (virtual)
+- **18273** `CvTerrainInfo::~CvTerrainInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvTerrainInfo::`scalar deleting dtor'
-- **18099** `CvTerrainInfo::getMovementCost() const` (Python: getMovementCost)
+- **18281** `CvTerrainInfo::getMovementCost() const` (Python: getMovementCost)
   - called by (6): CvGameTextMgr::setTerrainHelp, CvPlot::movementCost, CvTerrainInfo::copyNonDefaults, CvUnitAI::AI_improveCity, CvUnitAI::AI_improveLocalPlot, CyInfoPythonInterface3
-- **18104** `CvTerrainInfo::getSeeFromLevel() const` (Python: getSeeFromLevel)
+- **18286** `CvTerrainInfo::getSeeFromLevel() const` (Python: getSeeFromLevel)
   - called by (4): CvPlot::seeFromLevel, CvPlot::setTerrainType, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18109** `CvTerrainInfo::getSeeThroughLevel() const` (Python: getSeeThroughLevel)
+- **18291** `CvTerrainInfo::getSeeThroughLevel() const` (Python: getSeeThroughLevel)
   - called by (4): CvPlot::seeThroughLevel, CvPlot::setTerrainType, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18114** `CvTerrainInfo::getBuildModifier() const` (Python: getBuildModifier)
+- **18296** `CvTerrainInfo::getBuildModifier() const` (Python: getBuildModifier)
   - called by (4): CvGameTextMgr::setTerrainHelp, CvPlot::getBuildTime, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18119** `CvTerrainInfo::getDefenseModifier() const` (Python: getDefenseModifier)
+- **18301** `CvTerrainInfo::getDefenseModifier() const` (Python: getDefenseModifier)
   - called by (4): CvGameTextMgr::setTerrainHelp, CvPlot::defenseModifier, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18124** `CvTerrainInfo::isWater() const` (Python: isWater)
+- **18306** `CvTerrainInfo::isWater() const` (Python: isWater)
   - called by (11): CvCityAI::AI_chooseProduction, CvGame::getWidgetShow(BonusTypes) const, CvGame::normalizeAddGoodTerrain, CvGame::normalizeRemoveBadTerrain, CvPlayerAI::AI_getStrategicContext, CvPlayerAI::AI_getTechAgendaValue, CvPlayerAI::AI_techValue, CvPlot::setPlotType, CvPlot::setTerrainType, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18129** `CvTerrainInfo::isImpassable() const` (Python: isImpassable)
+- **18311** `CvTerrainInfo::isImpassable() const` (Python: isImpassable)
   - called by (4): CvGameTextMgr::setTerrainHelp, CvPlot::isImpassable, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18134** `CvTerrainInfo::isFound() const` (Python: isFound)
+- **18316** `CvTerrainInfo::isFound() const` (Python: isFound)
   - called by (4): CvGameTextMgr::setTerrainHelp, CvPlayer::canFound, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18139** `CvTerrainInfo::isFoundCoast() const` (Python: isFoundCoast)
+- **18321** `CvTerrainInfo::isFoundCoast() const` (Python: isFoundCoast)
   - called by (4): CvGameTextMgr::setTerrainHelp, CvPlayer::canFound, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18144** `CvTerrainInfo::isFoundFreshWater() const` (Python: isFoundFreshWater)
+- **18326** `CvTerrainInfo::isFoundFreshWater() const` (Python: isFoundFreshWater)
   - called by (4): CvGameTextMgr::setTerrainHelp, CvPlayer::canFound, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18149** `CvTerrainInfo::getArtDefineTag() const` (exported)
+- **18331** `CvTerrainInfo::getArtDefineTag() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (3): CvTerrainInfo::copyNonDefaults, CvTerrainInfo::getArtInfo, CvTerrainInfo::getButton
-- **18154** `CvTerrainInfo::setArtDefineTag(char const*)`
+- **18336** `CvTerrainInfo::setArtDefineTag(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvTerrainInfo::copyNonDefaults, CvTerrainInfo::read
-- **18159** `CvTerrainInfo::getWorldSoundscapeScriptId() const`
+- **18341** `CvTerrainInfo::getWorldSoundscapeScriptId() const`
   - called by (2): CvPlot::getSoundScriptId, CvTerrainInfo::copyNonDefaults
-- **18166** `CvTerrainInfo::getYield(int) const` (Python: getYield)
+- **18348** `CvTerrainInfo::getYield(int) const` (Python: getYield)
   - called by (7): CvGame::normalizeAddGoodTerrain, CvGame::normalizeRemoveBadTerrain, CvGameTextMgr::setTerrainHelp, CvPlayerAI::AI_doAdvancedStart, CvPlot::calculateNatureYield, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18173** `CvTerrainInfo::getRiverYieldChange(int) const` (Python: getRiverYieldChange)
+- **18355** `CvTerrainInfo::getRiverYieldChange(int) const` (Python: getRiverYieldChange)
   - called by (4): CvGameTextMgr::setTerrainHelp, CvPlot::calculateNatureYield, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18180** `CvTerrainInfo::getHillsYieldChange(int) const` (Python: getHillsYieldChange)
+- **18362** `CvTerrainInfo::getHillsYieldChange(int) const` (Python: getHillsYieldChange)
   - called by (4): CvGameTextMgr::setTerrainHelp, CvPlot::calculateNatureYield, CvTerrainInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18187** `CvTerrainInfo::get3DAudioScriptFootstepIndex(int) const`
+- **18369** `CvTerrainInfo::get3DAudioScriptFootstepIndex(int) const`
   - called by (2): CvPlot::get3DAudioScriptFootstepIndex, CvTerrainInfo::copyNonDefaults
-- **18194** `CvTerrainInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **18376** `CvTerrainInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvTerrainInfo::setArtDefineTag, CvString::operator char const * [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumFootstepAudioTypes [CvGlobals.cpp], CvGlobals::getFootstepAudioTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int**, char const*, CvString*, int, int) [CvXMLLoadUtilitySet.cpp], CvString::GetLength [CvString.h], CvDLLUtilityIFaceBase::getAudioTagIndex [CvDLLUtilityIFaceBase.h], CvString::GetCString [CvString.h]
-- **18262** `CvTerrainInfo::copyNonDefaults(CvTerrainInfo*)`
+- **18444** `CvTerrainInfo::copyNonDefaults(CvTerrainInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvTerrainInfo::getArtDefineTag, CvTerrainInfo::setArtDefineTag, CvInfoBase::copyNonDefaults, CvTerrainInfo::getYield, CvTerrainInfo::getRiverYieldChange, CvTerrainInfo::getHillsYieldChange, CvTerrainInfo::isWater, CvTerrainInfo::isImpassable, CvTerrainInfo::isFound, CvTerrainInfo::isFoundCoast, CvTerrainInfo::isFoundFreshWater, CvTerrainInfo::getMovementCost, CvTerrainInfo::getSeeFromLevel, CvTerrainInfo::getSeeThroughLevel, CvTerrainInfo::getBuildModifier, CvTerrainInfo::getDefenseModifier, CvGlobals::getNumFootstepAudioTypes [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTerrainInfo::get3DAudioScriptFootstepIndex, CvTerrainInfo::getWorldSoundscapeScriptId
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvTerrainInfo>
-- **18317** `CvTerrainInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
+- **18499** `CvTerrainInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvTerrainInfo::getArtDefineTag, CvTerrainInfo::getArtInfo, CvInfoBase::getButton
   - called by (1): CvGameTextMgr::getTerrainDataForWB
-- **18344** `CvTerrainInfo::getArtInfo() const`
+- **18526** `CvTerrainInfo::getArtInfo() const`
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getTerrainArtInfo(char const*) const [CvArtFileMgr.cpp], CvTerrainInfo::getArtDefineTag
   - called by (1): CvTerrainInfo::getButton
-- **18367** `CvInterfaceModeInfo::CvInterfaceModeInfo()` (exported)
+- **18549** `CvInterfaceModeInfo::CvInterfaceModeInfo()` (exported)
   - calls: CvHotkeyInfo::CvHotkeyInfo()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvInterfaceModeInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvInterfaceModeInfo>
-- **18378** `CvInterfaceModeInfo::~CvInterfaceModeInfo()` (exported; virtual)
+- **18560** `CvInterfaceModeInfo::~CvInterfaceModeInfo()` (exported; virtual)
   - calls: CvHotkeyInfo::~CvHotkeyInfo
   - called by (1): CvInterfaceModeInfo::`vector deleting dtor'
-- **18382** `CvInterfaceModeInfo::getCursorIndex() const` (exported; Python: getCursorIndex)
+- **18564** `CvInterfaceModeInfo::getCursorIndex() const` (exported; Python: getCursorIndex)
   - called by (2): CvInterfaceModeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18387** `CvInterfaceModeInfo::getMissionType() const` (exported; Python: getMissionType)
+- **18569** `CvInterfaceModeInfo::getMissionType() const` (exported; Python: getMissionType)
   - called by (2): CvInterfaceModeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18392** `CvInterfaceModeInfo::getVisible() const` (exported; Python: getVisible)
+- **18574** `CvInterfaceModeInfo::getVisible() const` (exported; Python: getVisible)
   - called by (3): CvActionInfo::isVisible, CvInterfaceModeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18397** `CvInterfaceModeInfo::getGotoPlot() const` (exported; Python: getGotoPlot)
+- **18579** `CvInterfaceModeInfo::getGotoPlot() const` (exported; Python: getGotoPlot)
   - called by (2): CvInterfaceModeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18402** `CvInterfaceModeInfo::getHighlightPlot() const` (exported; Python: getHighlightPlot)
+- **18584** `CvInterfaceModeInfo::getHighlightPlot() const` (exported; Python: getHighlightPlot)
   - called by (3): CvGame::getNewHighlightPlot, CvInterfaceModeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18407** `CvInterfaceModeInfo::getSelectType() const` (exported; Python: getSelectType)
+- **18589** `CvInterfaceModeInfo::getSelectType() const` (exported; Python: getSelectType)
   - called by (3): CvGame::handleAction, CvInterfaceModeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18412** `CvInterfaceModeInfo::getSelectAll() const` (exported; Python: getSelectAll)
+- **18594** `CvInterfaceModeInfo::getSelectAll() const` (exported; Python: getSelectAll)
   - called by (3): CvGame::handleAction, CvInterfaceModeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18417** `CvInterfaceModeInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **18599** `CvInterfaceModeInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **18444** `CvInterfaceModeInfo::copyNonDefaults(CvInterfaceModeInfo*)`
+- **18626** `CvInterfaceModeInfo::copyNonDefaults(CvInterfaceModeInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvHotkeyInfo::copyNonDefaults, CvInterfaceModeInfo::getCursorIndex, CvInterfaceModeInfo::getMissionType, CvInterfaceModeInfo::getVisible, CvInterfaceModeInfo::getGotoPlot, CvInterfaceModeInfo::getHighlightPlot, CvInterfaceModeInfo::getSelectType, CvInterfaceModeInfo::getSelectAll
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvInterfaceModeInfo>
-- **18480** `CvAdvisorInfo::CvAdvisorInfo()`
+- **18662** `CvAdvisorInfo::CvAdvisorInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvAdvisorInfo>
-- **18491** `CvAdvisorInfo::~CvAdvisorInfo()` (virtual)
+- **18673** `CvAdvisorInfo::~CvAdvisorInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvAdvisorInfo::`scalar deleting dtor'
-- **18495** `CvAdvisorInfo::getTexture() const`
+- **18677** `CvAdvisorInfo::getTexture() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvAdvisorInfo::copyNonDefaults
-- **18500** `CvAdvisorInfo::setTexture(char const*)`
+- **18682** `CvAdvisorInfo::setTexture(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvAdvisorInfo::copyNonDefaults, CvAdvisorInfo::read
-- **18505** `CvAdvisorInfo::getNumCodes() const`
+- **18687** `CvAdvisorInfo::getNumCodes() const`
   - called by (1): CvAdvisorInfo::copyNonDefaults
-- **18510** `CvAdvisorInfo::getEnableCode(unsigned int) const`
+- **18692** `CvAdvisorInfo::getEnableCode(unsigned int) const`
   - called by (1): CvAdvisorInfo::copyNonDefaults
-- **18516** `CvAdvisorInfo::getDisableCode(unsigned int) const`
+- **18698** `CvAdvisorInfo::getDisableCode(unsigned int) const`
   - called by (1): CvAdvisorInfo::copyNonDefaults
-- **18522** `CvAdvisorInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **18704** `CvAdvisorInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvAdvisorInfo::setTexture, CvString::operator char const * [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::LocateNextSiblingNodeByTagName [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h]
-- **18550** `CvAdvisorInfo::copyNonDefaults(CvAdvisorInfo*)`
+- **18732** `CvAdvisorInfo::copyNonDefaults(CvAdvisorInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvAdvisorInfo::getTexture, CvAdvisorInfo::setTexture, CvAdvisorInfo::getNumCodes, CvAdvisorInfo::getEnableCode, CvAdvisorInfo::getDisableCode
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvAdvisorInfo>
-- **18689** `CvLeaderHeadInfo::CvLeaderHeadInfo()`
+- **18871** `CvLeaderHeadInfo::CvLeaderHeadInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (4): CvXMLLoadUtility::SetGlobalClassInfo<class CvLeaderHeadInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvLeaderHeadInfo>, CvXMLLoadUtility::SortAlphabetGlobalClassInfo<class CvLeaderHeadInfo>, readInfoArray<class CvLeaderHeadInfo>
-- **18700** `CvLeaderHeadInfo::~CvLeaderHeadInfo()` (virtual)
+- **18882** `CvLeaderHeadInfo::~CvLeaderHeadInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvLeaderHeadInfo::`scalar deleting dtor'
-- **18717** `CvLeaderHeadInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
+- **18899** `CvLeaderHeadInfo::getButton() const` (virtual; overrides CvInfoBase::getButton)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvLeaderHeadInfo::getArtDefineTag, CvLeaderHeadInfo::getArtInfo, CvInfoBase::getButton
-- **18744** `CvLeaderHeadInfo::getWonderConstructRand() const` (Python: getWonderConstructRand)
+- **18926** `CvLeaderHeadInfo::getWonderConstructRand() const` (Python: getWonderConstructRand)
   - called by (4): CvCityAI::AI_bestBuildingThreshold, CvCityAI::AI_chooseProduction, CvLeaderHeadInfo::copyNonDefaults, CyInfoPythonInterface3
-- **18749** `CvLeaderHeadInfo::getBaseAttitude() const` (Python: getBaseAttitude)
+- **18931** `CvLeaderHeadInfo::getBaseAttitude() const` (Python: getBaseAttitude)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getAttitudeVal, CvPlayerAI::AI_getFirstImpressionAttitude, CyInfoPythonInterface3
-- **18754** `CvLeaderHeadInfo::getBasePeaceWeight() const` (Python: getBasePeaceWeight)
+- **18936** `CvLeaderHeadInfo::getBasePeaceWeight() const` (Python: getBasePeaceWeight)
   - called by (5): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_diploVote, CvPlayerAI::AI_getFirstImpressionAttitude, CvPlayerAI::AI_init, CyInfoPythonInterface3
-- **18759** `CvLeaderHeadInfo::getPeaceWeightRand() const` (Python: getPeaceWeightRand)
+- **18941** `CvLeaderHeadInfo::getPeaceWeightRand() const` (Python: getPeaceWeightRand)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_init, CyInfoPythonInterface3
-- **18764** `CvLeaderHeadInfo::getWarmongerRespect() const` (Python: getWarmongerRespect)
+- **18946** `CvLeaderHeadInfo::getWarmongerRespect() const` (Python: getWarmongerRespect)
   - called by (5): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_diploVote, CvPlayerAI::AI_getAttitudeVal, CvPlayerAI::AI_getFirstImpressionAttitude, CyInfoPythonInterface3
-- **18769** `CvLeaderHeadInfo::getEspionageWeight() const` (Python: getEspionageWeight)
+- **18951** `CvLeaderHeadInfo::getEspionageWeight() const` (Python: getEspionageWeight)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doCommerce, CvPlayerAI::AI_init, CyInfoPythonInterface3
-- **18774** `CvLeaderHeadInfo::getRefuseToTalkWarThreshold() const` (Python: getRefuseToTalkWarThreshold)
+- **18956** `CvLeaderHeadInfo::getRefuseToTalkWarThreshold() const` (Python: getRefuseToTalkWarThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_isWillingToTalk, CyInfoPythonInterface3
-- **18779** `CvLeaderHeadInfo::getNoTechTradeThreshold() const` (Python: getNoTechTradeThreshold)
+- **18961** `CvLeaderHeadInfo::getNoTechTradeThreshold() const` (Python: getNoTechTradeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_noTechTradeThreshold, CyInfoPythonInterface3
-- **18784** `CvLeaderHeadInfo::getTechTradeKnownPercent() const` (Python: getTechTradeKnownPercent)
+- **18966** `CvLeaderHeadInfo::getTechTradeKnownPercent() const` (Python: getTechTradeKnownPercent)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_techTradeKnownPercent, CyInfoPythonInterface3
-- **18789** `CvLeaderHeadInfo::getMaxGoldTradePercent() const` (Python: getMaxGoldTradePercent)
+- **18971** `CvLeaderHeadInfo::getMaxGoldTradePercent() const` (Python: getMaxGoldTradePercent)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_maxGoldTrade, CyInfoPythonInterface3
-- **18794** `CvLeaderHeadInfo::getMaxGoldPerTurnTradePercent() const` (Python: getMaxGoldPerTurnTradePercent)
+- **18976** `CvLeaderHeadInfo::getMaxGoldPerTurnTradePercent() const` (Python: getMaxGoldPerTurnTradePercent)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_maxGoldPerTurnTrade, CyInfoPythonInterface3
-- **18804** `CvLeaderHeadInfo::getCultureVictoryWeight() const`
+- **18986** `CvLeaderHeadInfo::getCultureVictoryWeight() const`
   - called by (1): CvPlayerAI::AI_getCultureVictoryStage
-- **18809** `CvLeaderHeadInfo::getSpaceVictoryWeight() const`
+- **18991** `CvLeaderHeadInfo::getSpaceVictoryWeight() const`
   - called by (1): CvPlayerAI::AI_getSpaceVictoryStage
-- **18814** `CvLeaderHeadInfo::getConquestVictoryWeight() const`
+- **18996** `CvLeaderHeadInfo::getConquestVictoryWeight() const`
   - called by (1): CvPlayerAI::AI_getConquestVictoryStage
-- **18819** `CvLeaderHeadInfo::getDominationVictoryWeight() const`
+- **19001** `CvLeaderHeadInfo::getDominationVictoryWeight() const`
   - called by (1): CvPlayerAI::AI_getDominationVictoryStage
-- **18824** `CvLeaderHeadInfo::getDiplomacyVictoryWeight() const`
+- **19006** `CvLeaderHeadInfo::getDiplomacyVictoryWeight() const`
   - called by (1): CvPlayerAI::AI_getDiplomacyVictoryStage
-- **18832** `CvLeaderHeadInfo::getMaxWarRand() const` (Python: getMaxWarRand)
+- **19014** `CvLeaderHeadInfo::getMaxWarRand() const` (Python: getMaxWarRand)
   - called by (5): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_getStrategyHash, CvTeamAI::AI_maxWarRand, CyInfoPythonInterface3
-- **18837** `CvLeaderHeadInfo::getMaxWarNearbyPowerRatio() const` (Python: getMaxWarNearbyPowerRatio)
+- **19019** `CvLeaderHeadInfo::getMaxWarNearbyPowerRatio() const` (Python: getMaxWarNearbyPowerRatio)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getTotalFloatingDefendersNeeded, CvTeamAI::AI_maxWarNearbyPowerRatio, CyInfoPythonInterface3
-- **18842** `CvLeaderHeadInfo::getMaxWarDistantPowerRatio() const` (Python: getMaxWarDistantPowerRatio)
+- **19024** `CvLeaderHeadInfo::getMaxWarDistantPowerRatio() const` (Python: getMaxWarDistantPowerRatio)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_maxWarDistantPowerRatio, CyInfoPythonInterface3
-- **18847** `CvLeaderHeadInfo::getMaxWarMinAdjacentLandPercent() const` (Python: getMaxWarMinAdjacentLandPercent)
+- **19029** `CvLeaderHeadInfo::getMaxWarMinAdjacentLandPercent() const` (Python: getMaxWarMinAdjacentLandPercent)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_maxWarMinAdjacentLandPercent, CyInfoPythonInterface3
-- **18852** `CvLeaderHeadInfo::getLimitedWarRand() const` (Python: getLimitedWarRand)
+- **19034** `CvLeaderHeadInfo::getLimitedWarRand() const` (Python: getLimitedWarRand)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_limitedWarRand, CyInfoPythonInterface3
-- **18857** `CvLeaderHeadInfo::getLimitedWarPowerRatio() const` (Python: getLimitedWarPowerRatio)
+- **19039** `CvLeaderHeadInfo::getLimitedWarPowerRatio() const` (Python: getLimitedWarPowerRatio)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_limitedWarPowerRatio, CyInfoPythonInterface3
-- **18862** `CvLeaderHeadInfo::getDogpileWarRand() const` (Python: getDogpileWarRand)
+- **19044** `CvLeaderHeadInfo::getDogpileWarRand() const` (Python: getDogpileWarRand)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_dogpileWarRand, CyInfoPythonInterface3
-- **18867** `CvLeaderHeadInfo::getMakePeaceRand() const` (Python: getMakePeaceRand)
+- **19049** `CvLeaderHeadInfo::getMakePeaceRand() const` (Python: getMakePeaceRand)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_makePeaceRand, CyInfoPythonInterface3
-- **18872** `CvLeaderHeadInfo::getDeclareWarTradeRand() const` (Python: getDeclareWarTradeRand)
+- **19054** `CvLeaderHeadInfo::getDeclareWarTradeRand() const` (Python: getDeclareWarTradeRand)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doDiplo, CyInfoPythonInterface3
-- **18877** `CvLeaderHeadInfo::getDemandRebukedSneakProb() const` (Python: getDemandRebukedSneakProb)
+- **19059** `CvLeaderHeadInfo::getDemandRebukedSneakProb() const` (Python: getDemandRebukedSneakProb)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_demandRebukedSneak, CyInfoPythonInterface3
-- **18882** `CvLeaderHeadInfo::getDemandRebukedWarProb() const` (Python: getDemandRebukedWarProb)
+- **19064** `CvLeaderHeadInfo::getDemandRebukedWarProb() const` (Python: getDemandRebukedWarProb)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_beginDiplomacy, CvPlayerAI::AI_demandRebukedWar, CyInfoPythonInterface3
-- **18887** `CvLeaderHeadInfo::getRazeCityProb() const` (Python: getRazeCityProb)
+- **19069** `CvLeaderHeadInfo::getRazeCityProb() const` (Python: getRazeCityProb)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_conquerCity, CyInfoPythonInterface3
-- **18892** `CvLeaderHeadInfo::getBuildUnitProb() const` (Python: getBuildUnitProb)
+- **19074** `CvLeaderHeadInfo::getBuildUnitProb() const` (Python: getBuildUnitProb)
   - called by (6): CvCityAI::AI_buildUnitProb, CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_diploVote, CvPlayerAI::AI_doAdvancedStart, CvPlayerAI::AI_getStrategyHash, CyInfoPythonInterface3
-- **18897** `CvLeaderHeadInfo::getBaseAttackOddsChange() const` (Python: getBaseAttackOddsChange)
+- **19079** `CvLeaderHeadInfo::getBaseAttackOddsChange() const` (Python: getBaseAttackOddsChange)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doMilitary, CyInfoPythonInterface3
-- **18902** `CvLeaderHeadInfo::getAttackOddsChangeRand() const` (Python: getAttackOddsChangeRand)
+- **19084** `CvLeaderHeadInfo::getAttackOddsChangeRand() const` (Python: getAttackOddsChangeRand)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doMilitary, CyInfoPythonInterface3
-- **18907** `CvLeaderHeadInfo::getWorseRankDifferenceAttitudeChange() const` (Python: getWorseRankDifferenceAttitudeChange)
+- **19089** `CvLeaderHeadInfo::getWorseRankDifferenceAttitudeChange() const` (Python: getWorseRankDifferenceAttitudeChange)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getAttitudeVal, CvPlayerAI::AI_getWorseRankDifferenceAttitude, CyInfoPythonInterface3
-- **18912** `CvLeaderHeadInfo::getBetterRankDifferenceAttitudeChange() const` (Python: getBetterRankDifferenceAttitudeChange)
+- **19094** `CvLeaderHeadInfo::getBetterRankDifferenceAttitudeChange() const` (Python: getBetterRankDifferenceAttitudeChange)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getAttitudeVal, CvPlayerAI::AI_getBetterRankDifferenceAttitude, CyInfoPythonInterface3
-- **18917** `CvLeaderHeadInfo::getCloseBordersAttitudeChange() const` (Python: getCloseBordersAttitudeChange)
+- **19099** `CvLeaderHeadInfo::getCloseBordersAttitudeChange() const` (Python: getCloseBordersAttitudeChange)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getCloseBordersAttitude, CyInfoPythonInterface3
-- **18922** `CvLeaderHeadInfo::getLostWarAttitudeChange() const` (Python: getLostWarAttitudeChange)
+- **19104** `CvLeaderHeadInfo::getLostWarAttitudeChange() const` (Python: getLostWarAttitudeChange)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getAttitudeVal, CvPlayerAI::AI_getLostWarAttitude, CyInfoPythonInterface3
-- **18927** `CvLeaderHeadInfo::getAtWarAttitudeDivisor() const` (Python: getAtWarAttitudeDivisor)
+- **19109** `CvLeaderHeadInfo::getAtWarAttitudeDivisor() const` (Python: getAtWarAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getWarAttitude, CyInfoPythonInterface3
-- **18932** `CvLeaderHeadInfo::getAtWarAttitudeChangeLimit() const` (Python: getAtWarAttitudeChangeLimit)
+- **19114** `CvLeaderHeadInfo::getAtWarAttitudeChangeLimit() const` (Python: getAtWarAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getWarAttitude, CyInfoPythonInterface3
-- **18937** `CvLeaderHeadInfo::getAtPeaceAttitudeDivisor() const` (Python: getAtPeaceAttitudeDivisor)
+- **19119** `CvLeaderHeadInfo::getAtPeaceAttitudeDivisor() const` (Python: getAtPeaceAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getPeaceAttitude, CyInfoPythonInterface3
-- **18942** `CvLeaderHeadInfo::getAtPeaceAttitudeChangeLimit() const` (Python: getAtPeaceAttitudeChangeLimit)
+- **19124** `CvLeaderHeadInfo::getAtPeaceAttitudeChangeLimit() const` (Python: getAtPeaceAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getPeaceAttitude, CyInfoPythonInterface3
-- **18947** `CvLeaderHeadInfo::getSameReligionAttitudeChange() const` (Python: getSameReligionAttitudeChange)
+- **19129** `CvLeaderHeadInfo::getSameReligionAttitudeChange() const` (Python: getSameReligionAttitudeChange)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getSameReligionAttitude, CyInfoPythonInterface3
-- **18952** `CvLeaderHeadInfo::getSameReligionAttitudeDivisor() const` (Python: getSameReligionAttitudeDivisor)
+- **19134** `CvLeaderHeadInfo::getSameReligionAttitudeDivisor() const` (Python: getSameReligionAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getSameReligionAttitude, CyInfoPythonInterface3
-- **18957** `CvLeaderHeadInfo::getSameReligionAttitudeChangeLimit() const` (Python: getSameReligionAttitudeChangeLimit)
+- **19139** `CvLeaderHeadInfo::getSameReligionAttitudeChangeLimit() const` (Python: getSameReligionAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getSameReligionAttitude, CyInfoPythonInterface3
-- **18962** `CvLeaderHeadInfo::getDifferentReligionAttitudeChange() const` (Python: getDifferentReligionAttitudeChange)
+- **19144** `CvLeaderHeadInfo::getDifferentReligionAttitudeChange() const` (Python: getDifferentReligionAttitudeChange)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getDifferentReligionAttitude, CyInfoPythonInterface3
-- **18967** `CvLeaderHeadInfo::getDifferentReligionAttitudeDivisor() const` (Python: getDifferentReligionAttitudeDivisor)
+- **19149** `CvLeaderHeadInfo::getDifferentReligionAttitudeDivisor() const` (Python: getDifferentReligionAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getDifferentReligionAttitude, CyInfoPythonInterface3
-- **18972** `CvLeaderHeadInfo::getDifferentReligionAttitudeChangeLimit() const` (Python: getDifferentReligionAttitudeChangeLimit)
+- **19154** `CvLeaderHeadInfo::getDifferentReligionAttitudeChangeLimit() const` (Python: getDifferentReligionAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getDifferentReligionAttitude, CyInfoPythonInterface3
-- **18977** `CvLeaderHeadInfo::getBonusTradeAttitudeDivisor() const` (Python: getBonusTradeAttitudeDivisor)
+- **19159** `CvLeaderHeadInfo::getBonusTradeAttitudeDivisor() const` (Python: getBonusTradeAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getBonusTradeAttitude, CyInfoPythonInterface3
-- **18982** `CvLeaderHeadInfo::getBonusTradeAttitudeChangeLimit() const` (Python: getBonusTradeAttitudeChangeLimit)
+- **19164** `CvLeaderHeadInfo::getBonusTradeAttitudeChangeLimit() const` (Python: getBonusTradeAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getBonusTradeAttitude, CyInfoPythonInterface3
-- **18987** `CvLeaderHeadInfo::getOpenBordersAttitudeDivisor() const` (Python: getOpenBordersAttitudeDivisor)
+- **19169** `CvLeaderHeadInfo::getOpenBordersAttitudeDivisor() const` (Python: getOpenBordersAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getOpenBordersAttitude, CyInfoPythonInterface3
-- **18992** `CvLeaderHeadInfo::getOpenBordersAttitudeChangeLimit() const` (Python: getOpenBordersAttitudeChangeLimit)
+- **19174** `CvLeaderHeadInfo::getOpenBordersAttitudeChangeLimit() const` (Python: getOpenBordersAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getOpenBordersAttitude, CyInfoPythonInterface3
-- **18997** `CvLeaderHeadInfo::getDefensivePactAttitudeDivisor() const` (Python: getDefensivePactAttitudeDivisor)
+- **19179** `CvLeaderHeadInfo::getDefensivePactAttitudeDivisor() const` (Python: getDefensivePactAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getDefensivePactAttitude, CyInfoPythonInterface3
-- **19002** `CvLeaderHeadInfo::getDefensivePactAttitudeChangeLimit() const` (Python: getDefensivePactAttitudeChangeLimit)
+- **19184** `CvLeaderHeadInfo::getDefensivePactAttitudeChangeLimit() const` (Python: getDefensivePactAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getDefensivePactAttitude, CyInfoPythonInterface3
-- **19007** `CvLeaderHeadInfo::getShareWarAttitudeChange() const` (Python: getShareWarAttitudeChange)
+- **19189** `CvLeaderHeadInfo::getShareWarAttitudeChange() const` (Python: getShareWarAttitudeChange)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getShareWarAttitude, CyInfoPythonInterface3
-- **19012** `CvLeaderHeadInfo::getShareWarAttitudeDivisor() const` (Python: getShareWarAttitudeDivisor)
+- **19194** `CvLeaderHeadInfo::getShareWarAttitudeDivisor() const` (Python: getShareWarAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getShareWarAttitude, CyInfoPythonInterface3
-- **19017** `CvLeaderHeadInfo::getShareWarAttitudeChangeLimit() const` (Python: getShareWarAttitudeChangeLimit)
+- **19199** `CvLeaderHeadInfo::getShareWarAttitudeChangeLimit() const` (Python: getShareWarAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getShareWarAttitude, CyInfoPythonInterface3
-- **19022** `CvLeaderHeadInfo::getFavoriteCivicAttitudeChange() const` (Python: getFavoriteCivicAttitudeChange)
+- **19204** `CvLeaderHeadInfo::getFavoriteCivicAttitudeChange() const` (Python: getFavoriteCivicAttitudeChange)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getFavoriteCivicAttitude, CyInfoPythonInterface3
-- **19027** `CvLeaderHeadInfo::getFavoriteCivicAttitudeDivisor() const` (Python: getFavoriteCivicAttitudeDivisor)
+- **19209** `CvLeaderHeadInfo::getFavoriteCivicAttitudeDivisor() const` (Python: getFavoriteCivicAttitudeDivisor)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getFavoriteCivicAttitude, CyInfoPythonInterface3
-- **19032** `CvLeaderHeadInfo::getFavoriteCivicAttitudeChangeLimit() const` (Python: getFavoriteCivicAttitudeChangeLimit)
+- **19214** `CvLeaderHeadInfo::getFavoriteCivicAttitudeChangeLimit() const` (Python: getFavoriteCivicAttitudeChangeLimit)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getFavoriteCivicAttitude, CyInfoPythonInterface3
-- **19037** `CvLeaderHeadInfo::getDemandTributeAttitudeThreshold() const` (Python: getDemandTributeAttitudeThreshold)
+- **19219** `CvLeaderHeadInfo::getDemandTributeAttitudeThreshold() const` (Python: getDemandTributeAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doDiplo, CyInfoPythonInterface3
-- **19042** `CvLeaderHeadInfo::getNoGiveHelpAttitudeThreshold() const` (Python: getNoGiveHelpAttitudeThreshold)
+- **19224** `CvLeaderHeadInfo::getNoGiveHelpAttitudeThreshold() const` (Python: getNoGiveHelpAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doDiplo, CyInfoPythonInterface3
-- **19047** `CvLeaderHeadInfo::getTechRefuseAttitudeThreshold() const` (Python: getTechRefuseAttitudeThreshold)
+- **19229** `CvLeaderHeadInfo::getTechRefuseAttitudeThreshold() const` (Python: getTechRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_techTrade, CyInfoPythonInterface3
-- **19052** `CvLeaderHeadInfo::getStrategicBonusRefuseAttitudeThreshold() const` (Python: getStrategicBonusRefuseAttitudeThreshold)
+- **19234** `CvLeaderHeadInfo::getStrategicBonusRefuseAttitudeThreshold() const` (Python: getStrategicBonusRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface3
-- **19057** `CvLeaderHeadInfo::getHappinessBonusRefuseAttitudeThreshold() const` (Python: getHappinessBonusRefuseAttitudeThreshold)
+- **19239** `CvLeaderHeadInfo::getHappinessBonusRefuseAttitudeThreshold() const` (Python: getHappinessBonusRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface3
-- **19062** `CvLeaderHeadInfo::getHealthBonusRefuseAttitudeThreshold() const` (Python: getHealthBonusRefuseAttitudeThreshold)
+- **19244** `CvLeaderHeadInfo::getHealthBonusRefuseAttitudeThreshold() const` (Python: getHealthBonusRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_bonusTrade, CyInfoPythonInterface3
-- **19067** `CvLeaderHeadInfo::getMapRefuseAttitudeThreshold() const` (Python: getMapRefuseAttitudeThreshold)
+- **19249** `CvLeaderHeadInfo::getMapRefuseAttitudeThreshold() const` (Python: getMapRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_mapTrade, CyInfoPythonInterface3
-- **19072** `CvLeaderHeadInfo::getDeclareWarRefuseAttitudeThreshold() const` (Python: getDeclareWarRefuseAttitudeThreshold)
+- **19254** `CvLeaderHeadInfo::getDeclareWarRefuseAttitudeThreshold() const` (Python: getDeclareWarRefuseAttitudeThreshold)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_diploVote, CvTeamAI::AI_declareWarTrade, CyInfoPythonInterface3
-- **19077** `CvLeaderHeadInfo::getDeclareWarThemRefuseAttitudeThreshold() const` (Python: getDeclareWarThemRefuseAttitudeThreshold)
+- **19259** `CvLeaderHeadInfo::getDeclareWarThemRefuseAttitudeThreshold() const` (Python: getDeclareWarThemRefuseAttitudeThreshold)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_diploVote, CvTeamAI::AI_declareWarTrade, CyInfoPythonInterface3
-- **19082** `CvLeaderHeadInfo::getStopTradingRefuseAttitudeThreshold() const` (Python: getStopTradingRefuseAttitudeThreshold)
+- **19264** `CvLeaderHeadInfo::getStopTradingRefuseAttitudeThreshold() const` (Python: getStopTradingRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_stopTradingTrade, CyInfoPythonInterface3
-- **19087** `CvLeaderHeadInfo::getStopTradingThemRefuseAttitudeThreshold() const` (Python: getStopTradingThemRefuseAttitudeThreshold)
+- **19269** `CvLeaderHeadInfo::getStopTradingThemRefuseAttitudeThreshold() const` (Python: getStopTradingThemRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_stopTradingTrade, CyInfoPythonInterface3
-- **19092** `CvLeaderHeadInfo::getAdoptCivicRefuseAttitudeThreshold() const` (Python: getAdoptCivicRefuseAttitudeThreshold)
+- **19274** `CvLeaderHeadInfo::getAdoptCivicRefuseAttitudeThreshold() const` (Python: getAdoptCivicRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_civicTrade, CyInfoPythonInterface3
-- **19097** `CvLeaderHeadInfo::getConvertReligionRefuseAttitudeThreshold() const` (Python: getConvertReligionRefuseAttitudeThreshold)
+- **19279** `CvLeaderHeadInfo::getConvertReligionRefuseAttitudeThreshold() const` (Python: getConvertReligionRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_religionTrade, CyInfoPythonInterface3
-- **19102** `CvLeaderHeadInfo::getOpenBordersRefuseAttitudeThreshold() const` (Python: getOpenBordersRefuseAttitudeThreshold)
+- **19284** `CvLeaderHeadInfo::getOpenBordersRefuseAttitudeThreshold() const` (Python: getOpenBordersRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_openBordersTrade, CyInfoPythonInterface3
-- **19107** `CvLeaderHeadInfo::getDefensivePactRefuseAttitudeThreshold() const` (Python: getDefensivePactRefuseAttitudeThreshold)
+- **19289** `CvLeaderHeadInfo::getDefensivePactRefuseAttitudeThreshold() const` (Python: getDefensivePactRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_defensivePactTrade, CyInfoPythonInterface3
-- **19112** `CvLeaderHeadInfo::getPermanentAllianceRefuseAttitudeThreshold() const` (Python: getPermanentAllianceRefuseAttitudeThreshold)
+- **19294** `CvLeaderHeadInfo::getPermanentAllianceRefuseAttitudeThreshold() const` (Python: getPermanentAllianceRefuseAttitudeThreshold)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_permanentAllianceTrade, CyInfoPythonInterface3
-- **19117** `CvLeaderHeadInfo::getVassalRefuseAttitudeThreshold() const` (Python: getVassalRefuseAttitudeThreshold)
+- **19299** `CvLeaderHeadInfo::getVassalRefuseAttitudeThreshold() const` (Python: getVassalRefuseAttitudeThreshold)
   - called by (5): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_diploVote, CvTeamAI::AI_surrenderTrade, CyInfoPythonInterface3
-- **19122** `CvLeaderHeadInfo::getVassalPowerModifier() const` (Python: getVassalPowerModifier)
+- **19304** `CvLeaderHeadInfo::getVassalPowerModifier() const` (Python: getVassalPowerModifier)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvTeamAI::AI_surrenderTrade, CyInfoPythonInterface3
-- **19127** `CvLeaderHeadInfo::getFavoriteCivic() const` (Python: getFavoriteCivic)
+- **19309** `CvLeaderHeadInfo::getFavoriteCivic() const` (Python: getFavoriteCivic)
   - called by (10): CvLeaderHeadInfo::copyNonDefaults, CvPlayer::handleDiploEvent, CvPlayerAI::AI_civicTrade, CvPlayerAI::AI_civicValue, CvPlayerAI::AI_doCounter, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_getFavoriteCivicAttitude, CvPlayerAI::AI_getStrategyHash, CvPlayerAI::AI_techValue, CyInfoPythonInterface3
-- **19132** `CvLeaderHeadInfo::getFavoriteReligion() const` (Python: getFavoriteReligion)
+- **19314** `CvLeaderHeadInfo::getFavoriteReligion() const` (Python: getFavoriteReligion)
   - called by (5): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_bestReligion, CvPlayerAI::AI_chooseReligion, CvPlayerAI::AI_techValue, CyInfoPythonInterface3
-- **19137** `CvLeaderHeadInfo::getFreedomAppreciation() const` (Python: getFreedomAppreciation)
+- **19319** `CvLeaderHeadInfo::getFreedomAppreciation() const` (Python: getFreedomAppreciation)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getColonyAttitude, CyInfoPythonInterface3
-- **19142** `CvLeaderHeadInfo::getArtDefineTag() const` (Python: getArtDefineTag)
+- **19324** `CvLeaderHeadInfo::getArtDefineTag() const` (Python: getArtDefineTag)
   - calls: CvString::operator char const * [CvString.h]
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvLeaderHeadInfo::getArtInfo, CvLeaderHeadInfo::getButton, CyInfoPythonInterface3
-- **19147** `CvLeaderHeadInfo::setArtDefineTag(char const*)`
+- **19329** `CvLeaderHeadInfo::setArtDefineTag(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvLeaderHeadInfo::copyNonDefaults, CvLeaderHeadInfo::read(CvXMLLoadUtility*)
-- **19154** `CvLeaderHeadInfo::hasTrait(int) const` (Python: hasTrait)
+- **19336** `CvLeaderHeadInfo::hasTrait(int) const` (Python: hasTrait)
   - called by (5): CvGameTextMgr::parseLeaderShortTraits, CvGameTextMgr::parseLeaderTraits, CvLeaderHeadInfo::copyNonDefaults, CvPlayer::hasTrait, CyInfoPythonInterface3
-- **19161** `CvLeaderHeadInfo::getFlavorValue(int) const` (Python: getFlavorValue)
+- **19343** `CvLeaderHeadInfo::getFlavorValue(int) const` (Python: getFlavorValue)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getFlavorValue, CyInfoPythonInterface3
-- **19168** `CvLeaderHeadInfo::getContactRand(int) const` (Python: getContactRand)
+- **19350** `CvLeaderHeadInfo::getContactRand(int) const` (Python: getContactRand)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CyInfoPythonInterface3
-- **19175** `CvLeaderHeadInfo::getContactDelay(int) const` (Python: getContactDelay)
+- **19357** `CvLeaderHeadInfo::getContactDelay(int) const` (Python: getContactDelay)
   - called by (4): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CyInfoPythonInterface3
-- **19182** `CvLeaderHeadInfo::getMemoryDecayRand(int) const` (Python: getMemoryDecayRand)
+- **19364** `CvLeaderHeadInfo::getMemoryDecayRand(int) const` (Python: getMemoryDecayRand)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_doCounter, CyInfoPythonInterface3
-- **19189** `CvLeaderHeadInfo::getMemoryAttitudePercent(int) const` (Python: getMemoryAttitudePercent)
+- **19371** `CvLeaderHeadInfo::getMemoryAttitudePercent(int) const` (Python: getMemoryAttitudePercent)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_getMemoryAttitude, CyInfoPythonInterface3
-- **19196** `CvLeaderHeadInfo::getNoWarAttitudeProb(int) const` (Python: getNoWarAttitudeProb)
+- **19378** `CvLeaderHeadInfo::getNoWarAttitudeProb(int) const` (Python: getNoWarAttitudeProb)
   - called by (5): CvLeaderHeadInfo::copyNonDefaults, CvPlayerAI::AI_diploVote, CvPlayerAI::AI_getStrategyHash, CvTeamAI::AI_noWarAttitudeProb, CyInfoPythonInterface3
-- **19203** `CvLeaderHeadInfo::getUnitAIWeightModifier(int) const` (Python: getUnitAIWeightModifier)
+- **19385** `CvLeaderHeadInfo::getUnitAIWeightModifier(int) const` (Python: getUnitAIWeightModifier)
   - called by (3): CvCityAI::AI_bestUnit, CvLeaderHeadInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19210** `CvLeaderHeadInfo::getImprovementWeightModifier(int) const` (Python: getImprovementWeightModifier)
+- **19392** `CvLeaderHeadInfo::getImprovementWeightModifier(int) const` (Python: getImprovementWeightModifier)
   - called by (4): CvCityAI::AI_bestPlotBuild, CvCityAI::AI_getImprovementValue, CvLeaderHeadInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19217** `CvLeaderHeadInfo::getDiploPeaceIntroMusicScriptIds(int) const` (Python: getDiploPeaceIntroMusicScriptIds)
+- **19399** `CvLeaderHeadInfo::getDiploPeaceIntroMusicScriptIds(int) const` (Python: getDiploPeaceIntroMusicScriptIds)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayer::getIntroMusicScriptId, CyInfoPythonInterface3
-- **19224** `CvLeaderHeadInfo::getDiploPeaceMusicScriptIds(int) const` (Python: getDiploPeaceMusicScriptIds)
+- **19406** `CvLeaderHeadInfo::getDiploPeaceMusicScriptIds(int) const` (Python: getDiploPeaceMusicScriptIds)
   - called by (4): CvCity::getMusicScriptId, CvLeaderHeadInfo::copyNonDefaults, CvPlayer::getMusicScriptId, CyInfoPythonInterface3
-- **19231** `CvLeaderHeadInfo::getDiploWarIntroMusicScriptIds(int) const` (Python: getDiploWarIntroMusicScriptIds)
+- **19413** `CvLeaderHeadInfo::getDiploWarIntroMusicScriptIds(int) const` (Python: getDiploWarIntroMusicScriptIds)
   - called by (3): CvLeaderHeadInfo::copyNonDefaults, CvPlayer::getIntroMusicScriptId, CyInfoPythonInterface3
-- **19238** `CvLeaderHeadInfo::getDiploWarMusicScriptIds(int) const` (Python: getDiploWarMusicScriptIds)
+- **19420** `CvLeaderHeadInfo::getDiploWarMusicScriptIds(int) const` (Python: getDiploWarMusicScriptIds)
   - called by (4): CvCity::getMusicScriptId, CvLeaderHeadInfo::copyNonDefaults, CvPlayer::getMusicScriptId, CyInfoPythonInterface3
-- **19245** `CvLeaderHeadInfo::getLeaderHead() const` (Python: getLeaderHead)
+- **19427** `CvLeaderHeadInfo::getLeaderHead() const` (Python: getLeaderHead)
   - calls: CvLeaderHeadInfo::getArtInfo, CvArtInfoAsset::getNIF
   - called by (1): CyInfoPythonInterface3
-- **19259** `CvLeaderHeadInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **19441** `CvLeaderHeadInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getNumEraInfos [CvGlobals.cpp]
-- **19413** `CvLeaderHeadInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **19595** `CvLeaderHeadInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getNumEraInfos [CvGlobals.cpp]
   - called by (1): writeInfoArray<class CvLeaderHeadInfo>
-- **19537** `CvLeaderHeadInfo::getArtInfo() const` (exported)
+- **19719** `CvLeaderHeadInfo::getArtInfo() const` (exported)
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getLeaderheadArtInfo(char const*) const [CvArtFileMgr.cpp], CvLeaderHeadInfo::getArtDefineTag
   - called by (2): CvLeaderHeadInfo::getButton, CvLeaderHeadInfo::getLeaderHead
-- **19542** `CvLeaderHeadInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **19724** `CvLeaderHeadInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvLeaderHeadInfo::setArtDefineTag, CvString::operator char const * [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getFlavorTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, CvString*, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getContactTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvGlobals::getNumEraInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int**, char const*, int, int) [CvXMLLoadUtilitySet.cpp]
-- **19700** `CvLeaderHeadInfo::copyNonDefaults(CvLeaderHeadInfo*)`
+- **19882** `CvLeaderHeadInfo::copyNonDefaults(CvLeaderHeadInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvLeaderHeadInfo::getArtDefineTag, CvLeaderHeadInfo::setArtDefineTag, CvInfoBase::copyNonDefaults, CvLeaderHeadInfo::getWonderConstructRand, CvLeaderHeadInfo::getBaseAttitude, CvLeaderHeadInfo::getBasePeaceWeight, CvLeaderHeadInfo::getPeaceWeightRand, CvLeaderHeadInfo::getWarmongerRespect, CvLeaderHeadInfo::getEspionageWeight, CvLeaderHeadInfo::getRefuseToTalkWarThreshold, CvLeaderHeadInfo::getNoTechTradeThreshold, CvLeaderHeadInfo::getTechTradeKnownPercent, CvLeaderHeadInfo::getMaxGoldTradePercent, CvLeaderHeadInfo::getMaxGoldPerTurnTradePercent, CvLeaderHeadInfo::getMaxWarRand, CvLeaderHeadInfo::getMaxWarNearbyPowerRatio, CvLeaderHeadInfo::getMaxWarDistantPowerRatio, CvLeaderHeadInfo::getMaxWarMinAdjacentLandPercent, CvLeaderHeadInfo::getLimitedWarRand, CvLeaderHeadInfo::getLimitedWarPowerRatio, CvLeaderHeadInfo::getDogpileWarRand, CvLeaderHeadInfo::getMakePeaceRand, CvLeaderHeadInfo::getDeclareWarTradeRand, CvLeaderHeadInfo::getDemandRebukedSneakProb, CvLeaderHeadInfo::getDemandRebukedWarProb, CvLeaderHeadInfo::getRazeCityProb, CvLeaderHeadInfo::getBuildUnitProb, CvLeaderHeadInfo::getBaseAttackOddsChange, CvLeaderHeadInfo::getAttackOddsChangeRand, CvLeaderHeadInfo::getWorseRankDifferenceAttitudeChange, CvLeaderHeadInfo::getBetterRankDifferenceAttitudeChange, CvLeaderHeadInfo::getCloseBordersAttitudeChange, CvLeaderHeadInfo::getLostWarAttitudeChange, CvLeaderHeadInfo::getAtWarAttitudeDivisor, CvLeaderHeadInfo::getAtWarAttitudeChangeLimit, CvLeaderHeadInfo::getAtPeaceAttitudeDivisor, CvLeaderHeadInfo::getAtPeaceAttitudeChangeLimit, CvLeaderHeadInfo::getSameReligionAttitudeChange, CvLeaderHeadInfo::getSameReligionAttitudeDivisor, CvLeaderHeadInfo::getSameReligionAttitudeChangeLimit, CvLeaderHeadInfo::getDifferentReligionAttitudeChange, CvLeaderHeadInfo::getDifferentReligionAttitudeDivisor, CvLeaderHeadInfo::getDifferentReligionAttitudeChangeLimit, CvLeaderHeadInfo::getBonusTradeAttitudeDivisor, CvLeaderHeadInfo::getBonusTradeAttitudeChangeLimit, CvLeaderHeadInfo::getOpenBordersAttitudeDivisor, CvLeaderHeadInfo::getOpenBordersAttitudeChangeLimit, CvLeaderHeadInfo::getDefensivePactAttitudeDivisor, CvLeaderHeadInfo::getDefensivePactAttitudeChangeLimit, CvLeaderHeadInfo::getShareWarAttitudeChange, CvLeaderHeadInfo::getShareWarAttitudeDivisor, CvLeaderHeadInfo::getShareWarAttitudeChangeLimit, CvLeaderHeadInfo::getFavoriteCivicAttitudeChange, CvLeaderHeadInfo::getFavoriteCivicAttitudeDivisor, CvLeaderHeadInfo::getFavoriteCivicAttitudeChangeLimit, CvLeaderHeadInfo::getVassalPowerModifier, CvLeaderHeadInfo::getFreedomAppreciation, CvLeaderHeadInfo::getDemandTributeAttitudeThreshold, CvLeaderHeadInfo::getNoGiveHelpAttitudeThreshold, CvLeaderHeadInfo::getTechRefuseAttitudeThreshold, CvLeaderHeadInfo::getStrategicBonusRefuseAttitudeThreshold, CvLeaderHeadInfo::getHappinessBonusRefuseAttitudeThreshold, CvLeaderHeadInfo::getHealthBonusRefuseAttitudeThreshold, CvLeaderHeadInfo::getMapRefuseAttitudeThreshold, CvLeaderHeadInfo::getDeclareWarRefuseAttitudeThreshold, CvLeaderHeadInfo::getDeclareWarThemRefuseAttitudeThreshold, CvLeaderHeadInfo::getStopTradingRefuseAttitudeThreshold, CvLeaderHeadInfo::getStopTradingThemRefuseAttitudeThreshold, CvLeaderHeadInfo::getAdoptCivicRefuseAttitudeThreshold, CvLeaderHeadInfo::getConvertReligionRefuseAttitudeThreshold, CvLeaderHeadInfo::getOpenBordersRefuseAttitudeThreshold, CvLeaderHeadInfo::getDefensivePactRefuseAttitudeThreshold, CvLeaderHeadInfo::getPermanentAllianceRefuseAttitudeThreshold, CvLeaderHeadInfo::getVassalRefuseAttitudeThreshold, CvLeaderHeadInfo::getFavoriteCivic, CvLeaderHeadInfo::getFavoriteReligion, CvGlobals::getNumTraitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvLeaderHeadInfo::hasTrait, CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvLeaderHeadInfo::getFlavorValue, CvLeaderHeadInfo::getContactRand, CvLeaderHeadInfo::getContactDelay, CvLeaderHeadInfo::getMemoryDecayRand, CvLeaderHeadInfo::getMemoryAttitudePercent, CvLeaderHeadInfo::getNoWarAttitudeProb, CvLeaderHeadInfo::getUnitAIWeightModifier, CvGlobals::getNumImprovementInfos [CvGlobals.cpp], CvLeaderHeadInfo::getImprovementWeightModifier, CvGlobals::getNumEraInfos [CvGlobals.cpp], CvLeaderHeadInfo::getDiploPeaceIntroMusicScriptIds, CvLeaderHeadInfo::getDiploPeaceMusicScriptIds, CvLeaderHeadInfo::getDiploWarIntroMusicScriptIds, CvLeaderHeadInfo::getDiploWarMusicScriptIds
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvLeaderHeadInfo>
-- **19904** `CvWorldInfo::CvWorldInfo()`
+- **20092** `CvWorldInfo::CvWorldInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvWorldInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvWorldInfo>
-- **19915** `CvWorldInfo::~CvWorldInfo()` (virtual)
+- **20103** `CvWorldInfo::~CvWorldInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvWorldInfo::`scalar deleting dtor'
-- **19919** `CvWorldInfo::getDefaultPlayers() const` (exported; Python: getDefaultPlayers)
+- **20107** `CvWorldInfo::getDefaultPlayers() const` (exported; Python: getDefaultPlayers)
   - called by (3): CvGame::createBarbarianCities, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19924** `CvWorldInfo::getUnitNameModifier() const` (Python: getUnitNameModifier)
+- **20112** `CvWorldInfo::getUnitNameModifier() const` (Python: getUnitNameModifier)
   - called by (2): CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19929** `CvWorldInfo::getTargetNumCities() const` (Python: getTargetNumCities)
+- **20117** `CvWorldInfo::getTargetNumCities() const` (Python: getTargetNumCities)
   - called by (6): CvCity::getLargestCityHappiness, CvGameTextMgr::parseCivicInfo, CvPlayer::startingPlotRange, CvPlayerAI::AI_civicValue, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19934** `CvWorldInfo::getNumFreeBuildingBonuses() const` (Python: getNumFreeBuildingBonuses)
+- **20122** `CvWorldInfo::getNumFreeBuildingBonuses() const` (Python: getNumFreeBuildingBonuses)
   - called by (3): CvGame::getNumFreeBonuses, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19939** `CvWorldInfo::getBuildingClassPrereqModifier() const` (Python: getBuildingClassPrereqModifier)
+- **20127** `CvWorldInfo::getBuildingClassPrereqModifier() const` (Python: getBuildingClassPrereqModifier)
   - called by (3): CvPlayer::getBuildingClassPrereqBuilding, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19944** `CvWorldInfo::getMaxConscriptModifier() const` (Python: getMaxConscriptModifier)
+- **20132** `CvWorldInfo::getMaxConscriptModifier() const` (Python: getMaxConscriptModifier)
   - called by (3): CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3, getWorldSizeMaxConscript
-- **19949** `CvWorldInfo::getWarWearinessModifier() const` (Python: getWarWearinessModifier)
+- **20137** `CvWorldInfo::getWarWearinessModifier() const` (Python: getWarWearinessModifier)
   - called by (3): CvPlayer::getModifiedWarWearinessPercentAnger, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19954** `CvWorldInfo::getGridWidth() const` (Python: getGridWidth)
+- **20142** `CvWorldInfo::getGridWidth() const` (Python: getGridWidth)
   - called by (3): CvMap::reset, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19959** `CvWorldInfo::getGridHeight() const` (Python: getGridHeight)
+- **20147** `CvWorldInfo::getGridHeight() const` (Python: getGridHeight)
   - called by (3): CvMap::reset, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19964** `CvWorldInfo::getTerrainGrainChange() const` (Python: getTerrainGrainChange)
+- **20152** `CvWorldInfo::getTerrainGrainChange() const` (Python: getTerrainGrainChange)
   - called by (2): CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19969** `CvWorldInfo::getFeatureGrainChange() const` (Python: getFeatureGrainChange)
+- **20157** `CvWorldInfo::getFeatureGrainChange() const` (Python: getFeatureGrainChange)
   - called by (2): CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19974** `CvWorldInfo::getResearchPercent() const` (Python: getResearchPercent)
+- **20162** `CvWorldInfo::getResearchPercent() const` (Python: getResearchPercent)
   - called by (3): CvTeam::getResearchCost, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19979** `CvWorldInfo::getTradeProfitPercent() const` (Python: getTradeProfitPercent)
+- **20167** `CvWorldInfo::getTradeProfitPercent() const` (Python: getTradeProfitPercent)
   - called by (3): CvCity::getBaseTradeProfit, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19984** `CvWorldInfo::getDistanceMaintenancePercent() const` (Python: getDistanceMaintenancePercent)
+- **20172** `CvWorldInfo::getDistanceMaintenancePercent() const` (Python: getDistanceMaintenancePercent)
   - called by (3): CvCity::calculateDistanceMaintenanceTimes100, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19989** `CvWorldInfo::getNumCitiesMaintenancePercent() const` (Python: getNumCitiesMaintenancePercent)
+- **20177** `CvWorldInfo::getNumCitiesMaintenancePercent() const` (Python: getNumCitiesMaintenancePercent)
   - called by (3): CvCity::calculateNumCitiesMaintenanceTimes100, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19994** `CvWorldInfo::getColonyMaintenancePercent() const` (Python: getColonyMaintenancePercent)
+- **20182** `CvWorldInfo::getColonyMaintenancePercent() const` (Python: getColonyMaintenancePercent)
   - called by (3): CvCity::calculateColonyMaintenanceTimes100, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **19999** `CvWorldInfo::getCorporationMaintenancePercent() const` (Python: getCorporationMaintenancePercent)
+- **20187** `CvWorldInfo::getCorporationMaintenancePercent() const` (Python: getCorporationMaintenancePercent)
   - called by (7): CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes) const, CvCity::getCorporationCommerceByCorporation, CvCity::getCorporationYieldByCorporation, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setCorporationHelpCity, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20004** `CvWorldInfo::getNumCitiesAnarchyPercent() const` (Python: getNumCitiesAnarchyPercent)
+- **20192** `CvWorldInfo::getNumCitiesAnarchyPercent() const` (Python: getNumCitiesAnarchyPercent)
   - called by (4): CvPlayer::getCivicAnarchyLength, CvPlayer::getReligionAnarchyLength, CvWorldInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20009** `CvWorldInfo::getAdvancedStartPointsMod() const`
+- **20197** `CvWorldInfo::getAdvancedStartPointsMod() const`
   - called by (2): CvInitCore::resetAdvancedStartPoints, CvWorldInfo::copyNonDefaults
-- **20014** `CvWorldInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **20202** `CvWorldInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp]
-- **20047** `CvWorldInfo::copyNonDefaults(CvWorldInfo*)`
+- **20235** `CvWorldInfo::copyNonDefaults(CvWorldInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvWorldInfo::getDefaultPlayers, CvWorldInfo::getUnitNameModifier, CvWorldInfo::getTargetNumCities, CvWorldInfo::getNumFreeBuildingBonuses, CvWorldInfo::getBuildingClassPrereqModifier, CvWorldInfo::getMaxConscriptModifier, CvWorldInfo::getWarWearinessModifier, CvWorldInfo::getGridWidth, CvWorldInfo::getGridHeight, CvWorldInfo::getTerrainGrainChange, CvWorldInfo::getFeatureGrainChange, CvWorldInfo::getResearchPercent, CvWorldInfo::getTradeProfitPercent, CvWorldInfo::getDistanceMaintenancePercent, CvWorldInfo::getNumCitiesMaintenancePercent, CvWorldInfo::getColonyMaintenancePercent, CvWorldInfo::getCorporationMaintenancePercent, CvWorldInfo::getNumCitiesAnarchyPercent, CvWorldInfo::getAdvancedStartPointsMod
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvWorldInfo>
-- **20097** `CvClimateInfo::CvClimateInfo()`
+- **20285** `CvClimateInfo::CvClimateInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvClimateInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvClimateInfo>
-- **20101** `CvClimateInfo::~CvClimateInfo()` (virtual)
+- **20289** `CvClimateInfo::~CvClimateInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvClimateInfo::`scalar deleting dtor'
-- **20105** `CvClimateInfo::getDesertPercentChange() const` (Python: getDesertPercentChange)
+- **20293** `CvClimateInfo::getDesertPercentChange() const` (Python: getDesertPercentChange)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20110** `CvClimateInfo::getJungleLatitude() const` (Python: getJungleLatitude)
+- **20298** `CvClimateInfo::getJungleLatitude() const` (Python: getJungleLatitude)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20115** `CvClimateInfo::getHillRange() const` (Python: getHillRange)
+- **20303** `CvClimateInfo::getHillRange() const` (Python: getHillRange)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20120** `CvClimateInfo::getPeakPercent() const` (Python: getPeakPercent)
+- **20308** `CvClimateInfo::getPeakPercent() const` (Python: getPeakPercent)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20125** `CvClimateInfo::getSnowLatitudeChange() const` (Python: getSnowLatitudeChange)
+- **20313** `CvClimateInfo::getSnowLatitudeChange() const` (Python: getSnowLatitudeChange)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20130** `CvClimateInfo::getTundraLatitudeChange() const` (Python: getTundraLatitudeChange)
+- **20318** `CvClimateInfo::getTundraLatitudeChange() const` (Python: getTundraLatitudeChange)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20135** `CvClimateInfo::getGrassLatitudeChange() const` (Python: getGrassLatitudeChange)
+- **20323** `CvClimateInfo::getGrassLatitudeChange() const` (Python: getGrassLatitudeChange)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20140** `CvClimateInfo::getDesertBottomLatitudeChange() const` (Python: getDesertBottomLatitudeChange)
+- **20328** `CvClimateInfo::getDesertBottomLatitudeChange() const` (Python: getDesertBottomLatitudeChange)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20145** `CvClimateInfo::getDesertTopLatitudeChange() const` (Python: getDesertTopLatitudeChange)
+- **20333** `CvClimateInfo::getDesertTopLatitudeChange() const` (Python: getDesertTopLatitudeChange)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20150** `CvClimateInfo::getIceLatitude() const` (Python: getIceLatitude)
+- **20338** `CvClimateInfo::getIceLatitude() const` (Python: getIceLatitude)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20155** `CvClimateInfo::getRandIceLatitude() const` (Python: getRandIceLatitude)
+- **20343** `CvClimateInfo::getRandIceLatitude() const` (Python: getRandIceLatitude)
   - called by (2): CvClimateInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20160** `CvClimateInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **20348** `CvClimateInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp]
-- **20187** `CvClimateInfo::copyNonDefaults(CvClimateInfo*)`
+- **20375** `CvClimateInfo::copyNonDefaults(CvClimateInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvClimateInfo::getDesertPercentChange, CvClimateInfo::getJungleLatitude, CvClimateInfo::getHillRange, CvClimateInfo::getPeakPercent, CvClimateInfo::getSnowLatitudeChange, CvClimateInfo::getTundraLatitudeChange, CvClimateInfo::getGrassLatitudeChange, CvClimateInfo::getDesertBottomLatitudeChange, CvClimateInfo::getDesertTopLatitudeChange, CvClimateInfo::getIceLatitude, CvClimateInfo::getRandIceLatitude
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvClimateInfo>
-- **20220** `CvSeaLevelInfo::CvSeaLevelInfo()`
+- **20408** `CvSeaLevelInfo::CvSeaLevelInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvSeaLevelInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvSeaLevelInfo>
-- **20224** `CvSeaLevelInfo::~CvSeaLevelInfo()` (virtual)
+- **20412** `CvSeaLevelInfo::~CvSeaLevelInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvSeaLevelInfo::`scalar deleting dtor'
-- **20228** `CvSeaLevelInfo::getSeaLevelChange() const` (Python: getSeaLevelChange)
+- **20416** `CvSeaLevelInfo::getSeaLevelChange() const` (Python: getSeaLevelChange)
   - called by (2): CvSeaLevelInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20233** `CvSeaLevelInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **20421** `CvSeaLevelInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp]
-- **20249** `CvSeaLevelInfo::copyNonDefaults(CvSeaLevelInfo*)`
+- **20437** `CvSeaLevelInfo::copyNonDefaults(CvSeaLevelInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvSeaLevelInfo::getSeaLevelChange
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvSeaLevelInfo>
-- **20280** `CvProcessInfo::CvProcessInfo()`
+- **20468** `CvProcessInfo::CvProcessInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvProcessInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvProcessInfo>
-- **20291** `CvProcessInfo::~CvProcessInfo()` (virtual)
+- **20479** `CvProcessInfo::~CvProcessInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvProcessInfo::`scalar deleting dtor'
-- **20296** `CvProcessInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **20484** `CvProcessInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (5): CvGameTextMgr::buildProcessInfoString, CvPlayer::canMaintain, CvPlayerAI::AI_techValue, CvProcessInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20303** `CvProcessInfo::getProductionToCommerceModifier(int) const` (Python: getProductionToCommerceModifier)
+- **20491** `CvProcessInfo::getProductionToCommerceModifier(int) const` (Python: getProductionToCommerceModifier)
   - called by (7): CvCity::processProcess, CvCity::setCultureLevel, CvCityAI::AI_processValue(ProcessTypes, CommerceTypes), CvGameTextMgr::setProcessHelp, CvPlayerAI::AI_techValue, CvProcessInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20310** `CvProcessInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **20498** `CvProcessInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetCommerce<int> [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h]
-- **20338** `CvProcessInfo::copyNonDefaults(CvProcessInfo*)`
+- **20526** `CvProcessInfo::copyNonDefaults(CvProcessInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvProcessInfo::getTechPrereq, CvProcessInfo::getProductionToCommerceModifier
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvProcessInfo>
-- **20393** `CvVoteInfo::CvVoteInfo()`
+- **20581** `CvVoteInfo::CvVoteInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvVoteInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvVoteInfo>
-- **20404** `CvVoteInfo::~CvVoteInfo()` (virtual)
+- **20592** `CvVoteInfo::~CvVoteInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvVoteInfo::`scalar deleting dtor'
-- **20410** `CvVoteInfo::getPopulationThreshold() const` (Python: getPopulationThreshold)
+- **20598** `CvVoteInfo::getPopulationThreshold() const` (Python: getPopulationThreshold)
   - called by (3): CvGame::getVoteRequired, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20415** `CvVoteInfo::getStateReligionVotePercent() const` (Python: getStateReligionVotePercent)
+- **20603** `CvVoteInfo::getStateReligionVotePercent() const` (Python: getStateReligionVotePercent)
   - called by (3): CvPlayer::getVotes, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20420** `CvVoteInfo::getTradeRoutes() const` (Python: getTradeRoutes)
+- **20608** `CvVoteInfo::getTradeRoutes() const` (Python: getTradeRoutes)
   - called by (4): CvGame::processVote, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20425** `CvVoteInfo::getMinVoters() const` (Python: getMinVoters)
+- **20613** `CvVoteInfo::getMinVoters() const` (Python: getMinVoters)
   - called by (3): CvGame::isValidVoteSelection, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20430** `CvVoteInfo::isSecretaryGeneral() const` (Python: isSecretaryGeneral)
+- **20618** `CvVoteInfo::isSecretaryGeneral() const` (Python: isSecretaryGeneral)
   - called by (9): CvGame::canHaveSecretaryGeneral, CvGame::clearSecretaryGeneral, CvGame::doVoteResults, CvGame::doVoteSelection, CvGame::getSecretaryGeneral, CvGame::isChooseElection, CvGame::isTeamVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20435** `CvVoteInfo::isVictory() const` (Python: isVictory)
+- **20623** `CvVoteInfo::isVictory() const` (Python: isVictory)
   - called by (6): CvGame::canDoResolution, CvGame::isTeamVote, CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20440** `CvVoteInfo::isFreeTrade() const` (Python: isFreeTrade)
+- **20628** `CvVoteInfo::isFreeTrade() const` (Python: isFreeTrade)
   - called by (4): CvGame::processVote, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20445** `CvVoteInfo::isNoNukes() const` (Python: isNoNukes)
+- **20633** `CvVoteInfo::isNoNukes() const` (Python: isNoNukes)
   - called by (4): CvGame::processVote, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20450** `CvVoteInfo::isCityVoting() const` (Python: isCityVoting)
+- **20638** `CvVoteInfo::isCityVoting() const` (Python: isCityVoting)
   - called by (3): CvPlayer::getVotes, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20455** `CvVoteInfo::isCivVoting() const` (Python: isCivVoting)
+- **20643** `CvVoteInfo::isCivVoting() const` (Python: isCivVoting)
   - called by (3): CvPlayer::getVotes, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20460** `CvVoteInfo::isDefensivePact() const` (Python: isDefensivePact)
+- **20648** `CvVoteInfo::isDefensivePact() const` (Python: isDefensivePact)
   - called by (8): CvGame::addVoteSelection, CvGame::isValidVoteSelection, CvGame::processVote, CvPlayer::canDefyResolution, CvPlayer::canDoResolution, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20465** `CvVoteInfo::isOpenBorders() const` (Python: isOpenBorders)
+- **20653** `CvVoteInfo::isOpenBorders() const` (Python: isOpenBorders)
   - called by (8): CvGame::addVoteSelection, CvGame::isValidVoteSelection, CvGame::processVote, CvPlayer::canDefyResolution, CvPlayer::canDoResolution, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20470** `CvVoteInfo::isForcePeace() const` (Python: isForcePeace)
+- **20658** `CvVoteInfo::isForcePeace() const` (Python: isForcePeace)
   - called by (8): CvGame::addVoteSelection, CvGame::isValidVoteSelection, CvGame::processVote, CvPlayer::canDefyResolution, CvPlayer::canDoResolution, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20475** `CvVoteInfo::isForceNoTrade() const` (Python: isForceNoTrade)
+- **20663** `CvVoteInfo::isForceNoTrade() const` (Python: isForceNoTrade)
   - called by (8): CvGame::addVoteSelection, CvGame::isValidVoteSelection, CvGame::processVote, CvPlayer::canDefyResolution, CvPlayer::canDoResolution, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20480** `CvVoteInfo::isForceWar() const` (Python: isForceWar)
+- **20668** `CvVoteInfo::isForceWar() const` (Python: isForceWar)
   - called by (8): CvGame::addVoteSelection, CvGame::isValidVoteSelection, CvGame::processVote, CvPlayer::canDefyResolution, CvPlayer::canDoResolution, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20485** `CvVoteInfo::isAssignCity() const` (Python: isAssignCity)
+- **20673** `CvVoteInfo::isAssignCity() const` (Python: isAssignCity)
   - called by (9): CvGame::addVoteSelection, CvGame::castVote, CvGame::isValidVoteSelection, CvGame::processVote, CvPlayer::canDefyResolution, CvPlayer::canDoResolution, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20490** `CvVoteInfo::isForceCivic(int) const` (Python: isForceCivic)
+- **20678** `CvVoteInfo::isForceCivic(int) const` (Python: isForceCivic)
   - called by (4): CvGame::processVote, CvPlayerAI::AI_diploVote, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20497** `CvVoteInfo::isVoteSourceType(int) const` (Python: isVoteSourceType)
+- **20685** `CvVoteInfo::isVoteSourceType(int) const` (Python: isVoteSourceType)
   - called by (8): CvGame::addVoteSelection, CvGame::canHaveSecretaryGeneral, CvGame::clearSecretaryGeneral, CvGame::doVoteSelection, CvGame::getSecretaryGeneral, CvPlayer::getVotes, CvVoteInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20504** `CvVoteInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **20692** `CvVoteInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumVoteSourceInfos [CvGlobals.cpp]
-- **20539** `CvVoteInfo::copyNonDefaults(CvVoteInfo*)`
+- **20727** `CvVoteInfo::copyNonDefaults(CvVoteInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvVoteInfo::getPopulationThreshold, CvVoteInfo::getStateReligionVotePercent, CvVoteInfo::getTradeRoutes, CvVoteInfo::getMinVoters, CvVoteInfo::isSecretaryGeneral, CvVoteInfo::isVictory, CvVoteInfo::isFreeTrade, CvVoteInfo::isNoNukes, CvVoteInfo::isCityVoting, CvVoteInfo::isCivVoting, CvVoteInfo::isDefensivePact, CvVoteInfo::isOpenBorders, CvVoteInfo::isForcePeace, CvVoteInfo::isForceNoTrade, CvVoteInfo::isForceWar, CvVoteInfo::isAssignCity, CvGlobals::getNumCivicInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvVoteInfo::isForceCivic, CvGlobals::getNumVoteSourceInfos [CvGlobals.cpp], CvVoteInfo::isVoteSourceType
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvVoteInfo>
-- **20611** `CvProjectInfo::CvProjectInfo()`
+- **20799** `CvProjectInfo::CvProjectInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvProjectInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvProjectInfo>
-- **20622** `CvProjectInfo::~CvProjectInfo()` (virtual)
+- **20810** `CvProjectInfo::~CvProjectInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvProjectInfo::`scalar deleting dtor'
-- **20630** `CvProjectInfo::getVictoryPrereq() const` (Python: getVictoryPrereq)
+- **20818** `CvProjectInfo::getVictoryPrereq() const` (Python: getVictoryPrereq)
   - called by (10): CvCity::popOrder, CvGame::getSpaceVictory, CvGameTextMgr::setProjectHelp, CvPlayer::canCreate, CvPlayer::canDoEvent, CvPlayer::canSpyDestroyProject, CvPlayerAI::AI_getSpaceVictoryStage, CvPlayerAI::AI_techValue, CvProjectInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20635** `CvProjectInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **20823** `CvProjectInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (11): CvGame::cheatSpaceship, CvGameTextMgr::setTechTradeHelp, CvPlayer::canCreate, CvPlayerAI::AI_baseBonusVal, CvPlayerAI::AI_getSpaceVictoryStage, CvPlayerAI::AI_techValue, CvProjectInfo::copyNonDefaults, CvTeamAI::AI_getTechMonopolyValue, CvTeamAI::AI_techTrade, CyInfoPythonInterface3, isTechRequiredForProject
-- **20640** `CvProjectInfo::getAnyoneProjectPrereq() const` (Python: getAnyoneProjectPrereq)
+- **20828** `CvProjectInfo::getAnyoneProjectPrereq() const` (Python: getAnyoneProjectPrereq)
   - called by (5): CvGameTextMgr::setProjectHelp, CvPlayer::canCreate, CvProjectInfo::copyNonDefaults, CvProjectInfo::copyNonDefaultsReadPass2, CyInfoPythonInterface3
-- **20645** `CvProjectInfo::setAnyoneProjectPrereq(int)`
-- **20650** `CvProjectInfo::getMaxGlobalInstances() const` (Python: getMaxGlobalInstances)
+- **20833** `CvProjectInfo::setAnyoneProjectPrereq(int)`
+- **20838** `CvProjectInfo::getMaxGlobalInstances() const` (Python: getMaxGlobalInstances)
   - called by (5): CvGame::isProjectMaxedOut, CvGameTextMgr::setProjectHelp, CvProjectInfo::copyNonDefaults, CyInfoPythonInterface3, isWorldProject
-- **20655** `CvProjectInfo::getMaxTeamInstances() const` (Python: getMaxTeamInstances)
+- **20843** `CvProjectInfo::getMaxTeamInstances() const` (Python: getMaxTeamInstances)
   - called by (9): CvGame::cheatSpaceship, CvGameTextMgr::setProjectHelp, CvPlayerAI::AI_espionageVal, CvProjectInfo::copyNonDefaults, CvTeam::getProjectPartNumber, CvTeam::isProjectAndArtMaxedOut, CvTeam::isProjectMaxedOut, CyInfoPythonInterface3, isTeamProject
-- **20660** `CvProjectInfo::getProductionCost() const` (Python: getProductionCost)
+- **20848** `CvProjectInfo::getProductionCost() const` (Python: getProductionCost)
   - called by (6): CvGameTextMgr::setProjectHelp, CvPlayer::canCreate, CvPlayer::canSpyDestroyProject, CvPlayer::getProductionNeeded(ProjectTypes) const, CvProjectInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20665** `CvProjectInfo::getNukeInterception() const` (Python: getNukeInterception)
+- **20853** `CvProjectInfo::getNukeInterception() const` (Python: getNukeInterception)
   - called by (5): CvCityAI::AI_projectValue, CvGameTextMgr::setProjectHelp, CvProjectInfo::copyNonDefaults, CvTeam::changeProjectCount, CyInfoPythonInterface3
-- **20670** `CvProjectInfo::getTechShare() const` (Python: getTechShare)
+- **20858** `CvProjectInfo::getTechShare() const` (Python: getTechShare)
   - called by (5): CvCityAI::AI_projectValue, CvGameTextMgr::setProjectHelp, CvProjectInfo::copyNonDefaults, CvTeam::changeProjectCount, CyInfoPythonInterface3
-- **20675** `CvProjectInfo::getEveryoneSpecialUnit() const` (Python: getEveryoneSpecialUnit)
+- **20863** `CvProjectInfo::getEveryoneSpecialUnit() const` (Python: getEveryoneSpecialUnit)
   - called by (6): CvCityAI::AI_bestProject, CvGameTextMgr::setProjectHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvProjectInfo::copyNonDefaults, CvTeam::changeProjectCount, CyInfoPythonInterface3
-- **20680** `CvProjectInfo::getEveryoneSpecialBuilding() const` (Python: getEveryoneSpecialBuilding)
+- **20868** `CvProjectInfo::getEveryoneSpecialBuilding() const` (Python: getEveryoneSpecialBuilding)
   - called by (6): CvCityAI::AI_bestProject, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::setProjectHelp, CvProjectInfo::copyNonDefaults, CvTeam::changeProjectCount, CyInfoPythonInterface3
-- **20685** `CvProjectInfo::getVictoryDelayPercent() const` (Python: getVictoryDelayPercent)
+- **20873** `CvProjectInfo::getVictoryDelayPercent() const` (Python: getVictoryDelayPercent)
   - called by (3): CvProjectInfo::copyNonDefaults, CvTeam::getVictoryDelay, CyInfoPythonInterface3
-- **20690** `CvProjectInfo::getSuccessRate() const` (Python: getSuccessRate)
+- **20878** `CvProjectInfo::getSuccessRate() const` (Python: getSuccessRate)
   - called by (3): CvProjectInfo::copyNonDefaults, CvTeam::getLaunchSuccessRate, CyInfoPythonInterface3
-- **20695** `CvProjectInfo::isSpaceship() const` (Python: isSpaceship)
+- **20883** `CvProjectInfo::isSpaceship() const` (Python: isSpaceship)
   - called by (13): CvCity::getProductionModifier(ProjectTypes) const, CvCity::popOrder, CvDLLButtonPopup::launchProductionPopup, CvGame::cheatSpaceship, CvGame::getSpaceVictory, CvGameTextMgr::setProductionHelp, CvPlayer::canDoEvent, CvPlayer::canSpyDestroyProject, CvPlayer::getProductionModifier(ProjectTypes) const, CvPlayerAI::AI_techValue, CvProjectInfo::copyNonDefaults, CvTeam::getCompletedSpaceshipProjects …
-- **20700** `CvProjectInfo::isAllowsNukes() const` (Python: isAllowsNukes)
+- **20888** `CvProjectInfo::isAllowsNukes() const` (Python: isAllowsNukes)
   - called by (7): CvCityAI::AI_bestProject, CvGameTextMgr::setProjectHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvPlayer::canCreate, CvProjectInfo::copyNonDefaults, CvTeam::changeProjectCount, CyInfoPythonInterface3
-- **20705** `CvProjectInfo::getMovieArtDef() const` (Python: getMovieArtDef)
+- **20893** `CvProjectInfo::getMovieArtDef() const` (Python: getMovieArtDef)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvProjectInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20710** `CvProjectInfo::getCreateSound() const` (Python: getCreateSound)
+- **20898** `CvProjectInfo::getCreateSound() const` (Python: getCreateSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (4): CvCity::popOrder, CvDLLButtonPopup::launchProductionPopup, CvProjectInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20715** `CvProjectInfo::setCreateSound(char const*)`
+- **20903** `CvProjectInfo::setCreateSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvProjectInfo::copyNonDefaults, CvProjectInfo::read
-- **20722** `CvProjectInfo::getBonusProductionModifier(int) const` (Python: getBonusProductionModifier)
+- **20910** `CvProjectInfo::getBonusProductionModifier(int) const` (Python: getBonusProductionModifier)
   - called by (6): CvCity::getProductionModifier(ProjectTypes) const, CvGameTextMgr::setProductionHelp, CvGameTextMgr::setProjectHelp, CvPlayerAI::AI_baseBonusVal, CvProjectInfo::copyNonDefaults, CyInfoPythonInterface3
-- **20729** `CvProjectInfo::getVictoryThreshold(int) const` (Python: getVictoryThreshold)
+- **20917** `CvProjectInfo::getVictoryThreshold(int) const` (Python: getVictoryThreshold)
   - called by (9): CvCityAI::AI_projectValue, CvGameTextMgr::setProjectHelp, CvProjectInfo::copyNonDefaults, CvProjectInfo::getVictoryMinThreshold, CvTeam::changeProjectCount, CvTeam::getLaunchSuccessRate, CvTeam::getVictoryDelay, CvTeamAI::AI_techTrade, CyInfoPythonInterface3
-- **20736** `CvProjectInfo::getVictoryMinThreshold(int) const` (Python: getVictoryMinThreshold)
+- **20924** `CvProjectInfo::getVictoryMinThreshold(int) const` (Python: getVictoryMinThreshold)
   - calls: CvProjectInfo::getVictoryThreshold
   - called by (7): CvGame::testVictory(VictoryTypes, TeamTypes, bool*) const, CvGameTextMgr::setProjectHelp, CvProjectInfo::copyNonDefaults, CvTeam::getLaunchSuccessRate, CvTeam::getVictoryDelay, CvTeam::resetVictoryProgress, CyInfoPythonInterface3
-- **20749** `CvProjectInfo::getProjectsNeeded(int) const` (Python: getProjectsNeeded)
+- **20937** `CvProjectInfo::getProjectsNeeded(int) const` (Python: getProjectsNeeded)
   - called by (8): CvCityAI::AI_projectValue, CvGame::cheatSpaceship, CvGameTextMgr::setProjectHelp, CvPlayer::canCreate, CvProjectInfo::copyNonDefaults, CvProjectInfo::copyNonDefaultsReadPass2, CvTeam::changeProjectCount, CyInfoPythonInterface3
-- **20756** `CvProjectInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **20944** `CvProjectInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumVictoryInfos [CvGlobals.cpp], CvProjectInfo::setCreateSound
-- **20798** `CvProjectInfo::readPass2(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::readPass2)
+- **20986** `CvProjectInfo::readPass2(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::readPass2)
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvGlobals::getNumProjectInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvString::operator char const * [CvString.h]
-- **20826** `CvProjectInfo::copyNonDefaults(CvProjectInfo*)`
+- **21014** `CvProjectInfo::copyNonDefaults(CvProjectInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvProjectInfo::getVictoryPrereq, CvProjectInfo::getTechPrereq, CvProjectInfo::getEveryoneSpecialUnit, CvProjectInfo::getEveryoneSpecialBuilding, CvProjectInfo::getMaxGlobalInstances, CvProjectInfo::getMaxTeamInstances, CvProjectInfo::getProductionCost, CvProjectInfo::getNukeInterception, CvProjectInfo::getTechShare, CvProjectInfo::isSpaceship, CvProjectInfo::isAllowsNukes, CvProjectInfo::getMovieArtDef, CvString::operator=(char const*) [CvString.h], CvGlobals::getNumBonusInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvProjectInfo::getBonusProductionModifier, CvGlobals::getNumVictoryInfos [CvGlobals.cpp], CvProjectInfo::getVictoryThreshold, CvProjectInfo::getVictoryMinThreshold, CvProjectInfo::getVictoryDelayPercent, CvProjectInfo::getSuccessRate, CvProjectInfo::getCreateSound, CvProjectInfo::setCreateSound, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumProjectInfos [CvGlobals.cpp], CvProjectInfo::getProjectsNeeded, CvProjectInfo::getAnyoneProjectPrereq
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvProjectInfo>
-- **20906** `CvProjectInfo::copyNonDefaultsReadPass2(CvProjectInfo*)`
+- **21094** `CvProjectInfo::copyNonDefaultsReadPass2(CvProjectInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumProjectInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvProjectInfo::getProjectsNeeded, CvProjectInfo::getAnyoneProjectPrereq
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvProjectInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvProjectInfo>
-- **20977** `CvReligionInfo::CvReligionInfo()`
+- **21165** `CvReligionInfo::CvReligionInfo()`
   - calls: CvHotkeyInfo::CvHotkeyInfo(), CvString::CvString() [CvString.h], CvWString::CvWString() [CvString.h], CvInfoBase::reset, CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (4): CvXMLLoadUtility::AddTGABogus<class CvReligionInfo>, CvXMLLoadUtility::ArrangeTGA<class CvReligionInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvReligionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvReligionInfo>
-- **20989** `CvReligionInfo::~CvReligionInfo()` (virtual)
+- **21177** `CvReligionInfo::~CvReligionInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (1): CvReligionInfo::`scalar deleting dtor'
-- **20996** `CvReligionInfo::getChar() const` (Python: getChar)
+- **21184** `CvReligionInfo::getChar() const` (Python: getChar)
   - called by (12): CvDLLButtonPopup::launchChangeReligionPopup, CvGameTextMgr::buildBuildingRequiresString, CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::getFontSymbols, CvGameTextMgr::parseCivicInfo, CvGameTextMgr::setBuildingHelpActual, CvGameTextMgr::setPlotHelp, CvGameTextMgr::setUnitHelp(CvWStringBuffer&, UnitTypes, bool, bool, bool, CvCity*), CvGlobals::StoreExeSettings, CvUnit::spread, CyInfoPythonInterface3, createTestFontString
-- **21013** `CvReligionInfo::getTGAIndex() const` (Python: getTGAIndex)
+- **21201** `CvReligionInfo::getTGAIndex() const` (Python: getTGAIndex)
   - called by (6): CvReligionInfo::copyNonDefaults, CvXMLLoadUtility::AddTGABogus<class CvCorporationInfo>, CvXMLLoadUtility::AddTGABogus<class CvReligionInfo>, CvXMLLoadUtility::ArrangeTGA<class CvCorporationInfo>, CvXMLLoadUtility::ArrangeTGA<class CvReligionInfo>, CyInfoPythonInterface3
-- **21018** `CvReligionInfo::setTGAIndex(int)`
-- **21025** `CvReligionInfo::setChar(int)`
+- **21206** `CvReligionInfo::setTGAIndex(int)`
+- **21213** `CvReligionInfo::setChar(int)`
   - called by (2): CvGameTextMgr::assignFontIds, CvGlobals::LoadExeSettings
-- **21041** `CvReligionInfo::getHolyCityChar() const` (Python: getHolyCityChar)
+- **21229** `CvReligionInfo::getHolyCityChar() const` (Python: getHolyCityChar)
   - called by (4): CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::getFontSymbols, CyInfoPythonInterface3, createTestFontString
-- **21046** `CvReligionInfo::setHolyCityChar(int)`
+- **21234** `CvReligionInfo::setHolyCityChar(int)`
   - called by (1): CvGameTextMgr::assignFontIds
-- **21062** `CvReligionInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **21250** `CvReligionInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (14): CvDLLButtonPopup::launchChooseTechPopup, CvGame::countNumReligionTechsDiscovered, CvGame::doHolyCity, CvGame::reset, CvGameTextMgr::buildFoundReligionString, CvGameTextMgr::setReligionHelp, CvGameTextMgr::setReligionHelpCity, CvPlayer::foundReligion, CvPlayerAI::AI_isFirstTech, CvPlayerAI::AI_techValue, CvReligionInfo::copyNonDefaults, CvTeam::setHasTech …
-- **21067** `CvReligionInfo::getFreeUnitClass() const` (Python: getFreeUnitClass)
+- **21255** `CvReligionInfo::getFreeUnitClass() const` (Python: getFreeUnitClass)
   - called by (4): CvGameTextMgr::setReligionHelp, CvPlayer::foundReligion, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21072** `CvReligionInfo::getNumFreeUnits() const` (Python: getNumFreeUnits)
+- **21260** `CvReligionInfo::getNumFreeUnits() const` (Python: getNumFreeUnits)
   - called by (4): CvGameTextMgr::setReligionHelp, CvPlayer::foundReligion, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21077** `CvReligionInfo::getSpreadFactor() const` (Python: getSpreadFactor)
+- **21265** `CvReligionInfo::getSpreadFactor() const` (Python: getSpreadFactor)
   - called by (3): CvCity::doReligion, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21082** `CvReligionInfo::getMissionType() const` (Python: getMissionType)
+- **21270** `CvReligionInfo::getMissionType() const` (Python: getMissionType)
   - called by (3): CvActionInfo::getMissionType, CvXMLLoadUtility::SetGlobalActionInfo, CyInfoPythonInterface3
-- **21087** `CvReligionInfo::setMissionType(int)`
+- **21275** `CvReligionInfo::setMissionType(int)`
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **21092** `CvReligionInfo::getTechButton() const` (Python: getTechButton)
+- **21280** `CvReligionInfo::getTechButton() const` (Python: getTechButton)
   - calls: CvString::operator char const * [CvString.h]
   - called by (3): CvDLLButtonPopup::launchChooseTechPopup, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21097** `CvReligionInfo::setTechButton(char const*)`
+- **21285** `CvReligionInfo::setTechButton(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvReligionInfo::copyNonDefaults, CvReligionInfo::read
-- **21102** `CvReligionInfo::getGenericTechButton() const` (Python: getGenericTechButton)
+- **21290** `CvReligionInfo::getGenericTechButton() const` (Python: getGenericTechButton)
   - calls: CvString::operator char const * [CvString.h]
   - called by (3): CvDLLButtonPopup::launchChooseTechPopup, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21107** `CvReligionInfo::setGenericTechButton(char const*)`
+- **21295** `CvReligionInfo::setGenericTechButton(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvReligionInfo::copyNonDefaults, CvReligionInfo::read
-- **21112** `CvReligionInfo::getMovieFile() const` (Python: getMovieFile)
+- **21300** `CvReligionInfo::getMovieFile() const` (Python: getMovieFile)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21117** `CvReligionInfo::setMovieFile(char const*)`
+- **21305** `CvReligionInfo::setMovieFile(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvReligionInfo::copyNonDefaults, CvReligionInfo::read
-- **21122** `CvReligionInfo::getMovieSound() const` (Python: getMovieSound)
+- **21310** `CvReligionInfo::getMovieSound() const` (Python: getMovieSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21127** `CvReligionInfo::setMovieSound(char const*)`
+- **21315** `CvReligionInfo::setMovieSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvReligionInfo::copyNonDefaults, CvReligionInfo::read
-- **21132** `CvReligionInfo::getButtonDisabled() const` (Python: getButtonDisabled)
+- **21320** `CvReligionInfo::getButtonDisabled() const` (Python: getButtonDisabled)
   - calls: CvInfoBase::getButton
   - called by (1): CyInfoPythonInterface3
-- **21148** `CvReligionInfo::getSound() const` (Python: getSound)
+- **21336** `CvReligionInfo::getSound() const` (Python: getSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (5): CvCity::setHasReligion, CvGame::setHolyCity, CvGame::setVoteSourceReligion, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21153** `CvReligionInfo::setSound(char const*)`
+- **21341** `CvReligionInfo::setSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvReligionInfo::copyNonDefaults, CvReligionInfo::read
-- **21158** `CvReligionInfo::setAdjectiveKey(char const*)`
+- **21346** `CvReligionInfo::setAdjectiveKey(char const*)`
   - calls: CvWString::operator=(char const*) [CvString.h]
   - called by (2): CvReligionInfo::copyNonDefaults, CvReligionInfo::read
-- **21163** `CvReligionInfo::getAdjectiveKey() const`
+- **21351** `CvReligionInfo::getAdjectiveKey() const`
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (5): CvGame::setVoteSourceReligion, CvPlayer::applyEvent, CvPlayer::initTriggeredData, CvReligionInfo::copyNonDefaults, CvReligionInfo::pyGetAdjectiveKey
-- **21170** `CvReligionInfo::getGlobalReligionCommerce(int) const` (Python: getGlobalReligionCommerce)
+- **21358** `CvReligionInfo::getGlobalReligionCommerce(int) const` (Python: getGlobalReligionCommerce)
   - called by (6): CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CvPlayerAI::AI_religionValue, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21177** `CvReligionInfo::getGlobalReligionCommerceArray() const`
+- **21365** `CvReligionInfo::getGlobalReligionCommerceArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **21182** `CvReligionInfo::getHolyCityCommerce(int) const` (Python: getHolyCityCommerce)
+- **21370** `CvReligionInfo::getHolyCityCommerce(int) const` (Python: getHolyCityCommerce)
   - called by (4): CvCity::getReligionCommerceByReligion, CvGameTextMgr::setReligionHelpCity, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21189** `CvReligionInfo::getHolyCityCommerceArray() const`
+- **21377** `CvReligionInfo::getHolyCityCommerceArray() const`
   - called by (1): CvGameTextMgr::setReligionHelp
-- **21194** `CvReligionInfo::getStateReligionCommerce(int) const` (Python: getStateReligionCommerce)
+- **21382** `CvReligionInfo::getStateReligionCommerce(int) const` (Python: getStateReligionCommerce)
   - called by (4): CvCity::getReligionCommerceByReligion, CvGameTextMgr::setReligionHelpCity, CvReligionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21201** `CvReligionInfo::getStateReligionCommerceArray() const`
+- **21389** `CvReligionInfo::getStateReligionCommerceArray() const`
   - called by (1): CvGameTextMgr::setReligionHelp
-- **21209** `CvReligionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **21397** `CvReligionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetCommerce<int> [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvReligionInfo::setTechButton, CvReligionInfo::setGenericTechButton, CvReligionInfo::setMovieFile, CvReligionInfo::setMovieSound, CvReligionInfo::setSound, CvReligionInfo::setAdjectiveKey
-- **21321** `CvReligionInfo::copyNonDefaults(CvReligionInfo*)`
+- **21509** `CvReligionInfo::copyNonDefaults(CvReligionInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvHotkeyInfo::copyNonDefaults, CvReligionInfo::getTechPrereq, CvReligionInfo::getFreeUnitClass, CvReligionInfo::getNumFreeUnits, CvReligionInfo::getSpreadFactor, CvReligionInfo::getTGAIndex, CvReligionInfo::getGlobalReligionCommerce, CvReligionInfo::getHolyCityCommerce, CvReligionInfo::getStateReligionCommerce, CvReligionInfo::getTechButton, CvReligionInfo::setTechButton, CvReligionInfo::getGenericTechButton, CvReligionInfo::setGenericTechButton, CvReligionInfo::getMovieFile, CvReligionInfo::setMovieFile, CvReligionInfo::getMovieSound, CvReligionInfo::setMovieSound, CvReligionInfo::getSound, CvReligionInfo::setSound, CvReligionInfo::setAdjectiveKey, CvReligionInfo::getAdjectiveKey
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvReligionInfo>
-- **21409** `CvCorporationInfo::CvCorporationInfo()`
+- **21597** `CvCorporationInfo::CvCorporationInfo()`
   - calls: CvHotkeyInfo::CvHotkeyInfo(), CvString::CvString() [CvString.h], CvInfoBase::reset, CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h]
   - called by (4): CvXMLLoadUtility::AddTGABogus<class CvCorporationInfo>, CvXMLLoadUtility::ArrangeTGA<class CvCorporationInfo>, CvXMLLoadUtility::SetGlobalClassInfo<class CvCorporationInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCorporationInfo>
-- **21421** `CvCorporationInfo::~CvCorporationInfo()` (virtual)
+- **21609** `CvCorporationInfo::~CvCorporationInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvHotkeyInfo::~CvHotkeyInfo, CvString::~CvString [CvString.h]
   - called by (1): CvCorporationInfo::`scalar deleting dtor'
-- **21429** `CvCorporationInfo::getChar() const` (Python: getChar)
+- **21617** `CvCorporationInfo::getChar() const` (Python: getChar)
   - called by (8): CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::getFontSymbols, CvGameTextMgr::setBonusTradeHelp, CvGameTextMgr::setBuildingHelpActual, CvGlobals::StoreExeSettings, CvUnit::spreadCorporation, CyInfoPythonInterface3, createTestFontString
-- **21439** `CvCorporationInfo::getTGAIndex() const`
+- **21627** `CvCorporationInfo::getTGAIndex() const`
   - called by (5): CvCorporationInfo::copyNonDefaults, CvXMLLoadUtility::AddTGABogus<class CvCorporationInfo>, CvXMLLoadUtility::AddTGABogus<class CvReligionInfo>, CvXMLLoadUtility::ArrangeTGA<class CvCorporationInfo>, CvXMLLoadUtility::ArrangeTGA<class CvReligionInfo>
-- **21444** `CvCorporationInfo::setTGAIndex(int)`
-- **21451** `CvCorporationInfo::setChar(int)`
+- **21632** `CvCorporationInfo::setTGAIndex(int)`
+- **21639** `CvCorporationInfo::setChar(int)`
   - calls: CvGlobals::getTGA_RELIGIONS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
   - called by (2): CvGameTextMgr::assignFontIds, CvGlobals::LoadExeSettings
-- **21467** `CvCorporationInfo::getHeadquarterChar() const` (Python: getHeadquarterChar)
+- **21655** `CvCorporationInfo::getHeadquarterChar() const` (Python: getHeadquarterChar)
   - called by (4): CvGameTextMgr::buildCityBillboardIconString, CvGameTextMgr::getFontSymbols, CyInfoPythonInterface3, createTestFontString
-- **21472** `CvCorporationInfo::setHeadquarterChar(int)`
+- **21660** `CvCorporationInfo::setHeadquarterChar(int)`
   - calls: CvGlobals::getTGA_RELIGIONS [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h]
   - called by (1): CvGameTextMgr::assignFontIds
-- **21488** `CvCorporationInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **21676** `CvCorporationInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (10): CvCorporationInfo::copyNonDefaults, CvGame::doHeadquarters, CvGameTextMgr::buildFoundCorporationString, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setCorporationHelpCity, CvPlayer::foundCorporation, CvPlayerAI::AI_techValue, CvTeam::setHasTech, CyInfoPythonInterface3, isCorporationTech
-- **21493** `CvCorporationInfo::getFreeUnitClass() const` (Python: getFreeUnitClass)
+- **21681** `CvCorporationInfo::getFreeUnitClass() const` (Python: getFreeUnitClass)
   - called by (4): CvCity::setHeadquarters, CvCorporationInfo::copyNonDefaults, CvGameTextMgr::setCorporationHelp, CyInfoPythonInterface3
-- **21498** `CvCorporationInfo::getSpreadFactor() const` (Python: getSpreadFactor)
+- **21686** `CvCorporationInfo::getSpreadFactor() const` (Python: getSpreadFactor)
   - called by (3): CvCorporationInfo::copyNonDefaults, CvUnit::spreadCorporationCost, CyInfoPythonInterface3
-- **21503** `CvCorporationInfo::getSpreadCost() const` (Python: getSpreadCost)
+- **21691** `CvCorporationInfo::getSpreadCost() const` (Python: getSpreadCost)
   - called by (5): CvCityAI::AI_bestSpreadUnit, CvCorporationInfo::copyNonDefaults, CvPlayerAI::AI_goldTarget, CvUnit::spreadCorporationCost, CyInfoPythonInterface3
-- **21508** `CvCorporationInfo::getMaintenance() const` (Python: getMaintenance)
+- **21696** `CvCorporationInfo::getMaintenance() const` (Python: getMaintenance)
   - called by (3): CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes) const, CvCorporationInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21513** `CvCorporationInfo::getMissionType() const` (Python: getMissionType)
+- **21701** `CvCorporationInfo::getMissionType() const` (Python: getMissionType)
   - called by (3): CvActionInfo::getMissionType, CvXMLLoadUtility::SetGlobalActionInfo, CyInfoPythonInterface3
-- **21518** `CvCorporationInfo::setMissionType(int)`
+- **21706** `CvCorporationInfo::setMissionType(int)`
   - called by (1): CvXMLLoadUtility::SetGlobalActionInfo
-- **21523** `CvCorporationInfo::getBonusProduced() const`
+- **21711** `CvCorporationInfo::getBonusProduced() const`
   - called by (5): CvCity::updateCorporationBonus, CvCorporationInfo::copyNonDefaults, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setCorporationHelpCity, CvPlayerAI::AI_corporationValue
-- **21528** `CvCorporationInfo::getMovieFile() const` (Python: getMovieFile)
+- **21716** `CvCorporationInfo::getMovieFile() const` (Python: getMovieFile)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvCorporationInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21533** `CvCorporationInfo::setMovieFile(char const*)`
+- **21721** `CvCorporationInfo::setMovieFile(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvCorporationInfo::copyNonDefaults, CvCorporationInfo::read
-- **21538** `CvCorporationInfo::getMovieSound() const` (Python: getMovieSound)
+- **21726** `CvCorporationInfo::getMovieSound() const` (Python: getMovieSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvCorporationInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21543** `CvCorporationInfo::setMovieSound(char const*)`
+- **21731** `CvCorporationInfo::setMovieSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvCorporationInfo::copyNonDefaults, CvCorporationInfo::read
-- **21549** `CvCorporationInfo::getSound() const` (Python: getSound)
+- **21737** `CvCorporationInfo::getSound() const` (Python: getSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (4): CvCity::setHasCorporation, CvCorporationInfo::copyNonDefaults, CvGame::setHeadquarters, CyInfoPythonInterface3
-- **21554** `CvCorporationInfo::setSound(char const*)`
+- **21742** `CvCorporationInfo::setSound(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvCorporationInfo::copyNonDefaults, CvCorporationInfo::read
-- **21561** `CvCorporationInfo::getPrereqBonus(int) const` (Python: getPrereqBonus)
+- **21749** `CvCorporationInfo::getPrereqBonus(int) const` (Python: getPrereqBonus)
   - called by (21): CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes) const, CvCity::canConstruct, CvCity::getCorporationCommerceByCorporation, CvCity::getCorporationYieldByCorporation, CvCity::isActiveCorporation, CvCity::isCorporationBonus, CvCity::setHasCorporation, CvCity::updateCorporationBonus, CvCorporationInfo::copyNonDefaults, CvDLLWidgetData::parseActionHelp, CvGame::doHeadquarters, CvGame::isCompetingCorporation …
-- **21568** `CvCorporationInfo::getHeadquarterCommerce(int) const` (Python: getHeadquarterCommerce)
+- **21756** `CvCorporationInfo::getHeadquarterCommerce(int) const` (Python: getHeadquarterCommerce)
   - called by (6): CvCity::calculateCorporationMaintenanceTimes100(CorporationTypes) const, CvCity::getAdditionalBaseCommerceRateByBuildingImpl, CvCity::getBuildingCommerceByBuilding, CvCityAI::AI_buildingValueThreshold, CvCorporationInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21575** `CvCorporationInfo::getHeadquarterCommerceArray() const`
+- **21763** `CvCorporationInfo::getHeadquarterCommerceArray() const`
   - called by (1): CvGameTextMgr::setBuildingHelpActual
-- **21580** `CvCorporationInfo::getCommerceProduced(int) const` (Python: getCommerceProduced)
+- **21768** `CvCorporationInfo::getCommerceProduced(int) const` (Python: getCommerceProduced)
   - called by (7): CvCity::getCorporationCommerceByCorporation, CvCorporationInfo::copyNonDefaults, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setCorporationHelpCity, CvPlayerAI::AI_corporationBonusVal, CvPlayerAI::AI_corporationValue, CyInfoPythonInterface3
-- **21587** `CvCorporationInfo::getCommerceProducedArray() const`
-- **21592** `CvCorporationInfo::getYieldProduced(int) const` (Python: getYieldProduced)
+- **21775** `CvCorporationInfo::getCommerceProducedArray() const`
+- **21780** `CvCorporationInfo::getYieldProduced(int) const` (Python: getYieldProduced)
   - called by (7): CvCity::getCorporationYieldByCorporation, CvCorporationInfo::copyNonDefaults, CvGameTextMgr::setCorporationHelp, CvGameTextMgr::setCorporationHelpCity, CvPlayerAI::AI_corporationBonusVal, CvPlayerAI::AI_corporationValue, CyInfoPythonInterface3
-- **21599** `CvCorporationInfo::getYieldProducedArray() const`
-- **21607** `CvCorporationInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
+- **21787** `CvCorporationInfo::getYieldProducedArray() const`
+- **21795** `CvCorporationInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvHotkeyInfo::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvHotkeyInfo::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetCommerce<int> [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvGlobals::getNUM_CORPORATION_PREREQ_BONUSES [CvGlobals.cpp], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvCorporationInfo::setMovieFile, CvCorporationInfo::setMovieSound, CvCorporationInfo::setSound
-- **21740** `CvCorporationInfo::copyNonDefaults(CvCorporationInfo*)`
+- **21928** `CvCorporationInfo::copyNonDefaults(CvCorporationInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvHotkeyInfo::copyNonDefaults, CvCorporationInfo::getTechPrereq, CvCorporationInfo::getFreeUnitClass, CvCorporationInfo::getSpreadFactor, CvCorporationInfo::getSpreadCost, CvCorporationInfo::getMaintenance, CvCorporationInfo::getTGAIndex, CvCorporationInfo::getHeadquarterCommerce, CvCorporationInfo::getCommerceProduced, CvCorporationInfo::getYieldProduced, CvGlobals::getNUM_CORPORATION_PREREQ_BONUSES [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCorporationInfo::getPrereqBonus, CvCorporationInfo::getBonusProduced, CvCorporationInfo::getMovieFile, CvCorporationInfo::setMovieFile, CvCorporationInfo::getMovieSound, CvCorporationInfo::setMovieSound, CvCorporationInfo::getSound, CvCorporationInfo::setSound
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCorporationInfo>
-- **21854** `CvTraitInfo::CvTraitInfo()`
+- **22042** `CvTraitInfo::CvTraitInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvTraitInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvTraitInfo>
-- **21865** `CvTraitInfo::~CvTraitInfo()` (virtual)
+- **22053** `CvTraitInfo::~CvTraitInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvTraitInfo::`scalar deleting dtor'
-- **21875** `CvTraitInfo::getHealth() const` (Python: getHealth)
+- **22063** `CvTraitInfo::getHealth() const` (Python: getHealth)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21880** `CvTraitInfo::getHappiness() const` (Python: getHappiness)
+- **22068** `CvTraitInfo::getHappiness() const` (Python: getHappiness)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21885** `CvTraitInfo::getMaxAnarchy() const` (Python: getMaxAnarchy)
+- **22073** `CvTraitInfo::getMaxAnarchy() const` (Python: getMaxAnarchy)
   - called by (4): CvGameTextMgr::parseTraits, CvPlayer::updateMaxAnarchyTurns, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21890** `CvTraitInfo::getUpkeepModifier() const` (Python: getUpkeepModifier)
+- **22078** `CvTraitInfo::getUpkeepModifier() const` (Python: getUpkeepModifier)
   - called by (9): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvPlayerAI::AI_conquerCity, CvPlayerAI::AI_foundValue, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21895** `CvTraitInfo::getLevelExperienceModifier() const` (Python: getLevelExperienceModifier)
+- **22083** `CvTraitInfo::getLevelExperienceModifier() const` (Python: getLevelExperienceModifier)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21900** `CvTraitInfo::getGreatPeopleRateModifier() const` (Python: getGreatPeopleRateModifier)
+- **22088** `CvTraitInfo::getGreatPeopleRateModifier() const` (Python: getGreatPeopleRateModifier)
   - called by (8): CvGameTextMgr::parseGreatPeopleHelp, CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21905** `CvTraitInfo::getGreatGeneralRateModifier() const` (Python: getGreatGeneralRateModifier)
+- **22093** `CvTraitInfo::getGreatGeneralRateModifier() const` (Python: getGreatGeneralRateModifier)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21910** `CvTraitInfo::getDomesticGreatGeneralRateModifier() const` (Python: getDomesticGreatGeneralRateModifier)
+- **22098** `CvTraitInfo::getDomesticGreatGeneralRateModifier() const` (Python: getDomesticGreatGeneralRateModifier)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21915** `CvTraitInfo::getMaxGlobalBuildingProductionModifier() const` (Python: getMaxGlobalBuildingProductionModifier)
+- **22103** `CvTraitInfo::getMaxGlobalBuildingProductionModifier() const` (Python: getMaxGlobalBuildingProductionModifier)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21920** `CvTraitInfo::getMaxTeamBuildingProductionModifier() const` (Python: getMaxTeamBuildingProductionModifier)
+- **22108** `CvTraitInfo::getMaxTeamBuildingProductionModifier() const` (Python: getMaxTeamBuildingProductionModifier)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21925** `CvTraitInfo::getMaxPlayerBuildingProductionModifier() const` (Python: getMaxPlayerBuildingProductionModifier)
+- **22113** `CvTraitInfo::getMaxPlayerBuildingProductionModifier() const` (Python: getMaxPlayerBuildingProductionModifier)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21936** `CvTraitInfo::getRevIdxLocal() const` (Python: getRevIdxLocal)
+- **22124** `CvTraitInfo::getRevIdxLocal() const` (Python: getRevIdxLocal)
   - called by (2): CvGameTextMgr::parseTraits, CyInfoPythonInterface3
-- **21941** `CvTraitInfo::getRevIdxNational() const` (Python: getRevIdxNational)
+- **22129** `CvTraitInfo::getRevIdxNational() const` (Python: getRevIdxNational)
   - called by (6): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CyInfoPythonInterface3
-- **21946** `CvTraitInfo::getRevIdxDistanceModifier() const` (Python: getRevIdxDistanceModifier)
+- **22134** `CvTraitInfo::getRevIdxDistanceModifier() const` (Python: getRevIdxDistanceModifier)
   - called by (2): CvGameTextMgr::parseTraits, CyInfoPythonInterface3
-- **21951** `CvTraitInfo::getRevIdxHolyCityGood() const` (Python: getRevIdxHolyCityGood)
+- **22139** `CvTraitInfo::getRevIdxHolyCityGood() const` (Python: getRevIdxHolyCityGood)
   - called by (2): CvGameTextMgr::parseTraits, CyInfoPythonInterface3
-- **21956** `CvTraitInfo::getRevIdxHolyCityBad() const` (Python: getRevIdxHolyCityBad)
+- **22144** `CvTraitInfo::getRevIdxHolyCityBad() const` (Python: getRevIdxHolyCityBad)
   - called by (2): CvGameTextMgr::parseTraits, CyInfoPythonInterface3
-- **21961** `CvTraitInfo::getRevIdxNationalityMod() const` (Python: getRevIdxNationalityMod)
+- **22149** `CvTraitInfo::getRevIdxNationalityMod() const` (Python: getRevIdxNationalityMod)
   - called by (2): CvGameTextMgr::parseTraits, CyInfoPythonInterface3
-- **21966** `CvTraitInfo::getRevIdxBadReligionMod() const` (Python: getRevIdxBadReligionMod)
+- **22154** `CvTraitInfo::getRevIdxBadReligionMod() const` (Python: getRevIdxBadReligionMod)
   - called by (2): CvGameTextMgr::parseTraits, CyInfoPythonInterface3
-- **21971** `CvTraitInfo::getRevIdxGoodReligionMod() const` (Python: getRevIdxGoodReligionMod)
+- **22159** `CvTraitInfo::getRevIdxGoodReligionMod() const` (Python: getRevIdxGoodReligionMod)
   - called by (2): CvGameTextMgr::parseTraits, CyInfoPythonInterface3
-- **21976** `CvTraitInfo::isNonStateReligionCommerce() const`
+- **22164** `CvTraitInfo::isNonStateReligionCommerce() const`
   - called by (2): CvGameTextMgr::parseTraits, CvPlayer::init
-- **21981** `CvTraitInfo::isUpgradeAnywhere() const`
+- **22169** `CvTraitInfo::isUpgradeAnywhere() const`
   - called by (2): CvGameTextMgr::parseTraits, CvPlayer::init
-- **21989** `CvTraitInfo::getShortDescription() const` (Python: getShortDescription)
+- **22177** `CvTraitInfo::getShortDescription() const` (Python: getShortDescription)
   - calls: CvString::operator char const * [CvString.h]
   - called by (3): CvGameTextMgr::parseLeaderShortTraits, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **21994** `CvTraitInfo::setShortDescription(char const*)`
+- **22182** `CvTraitInfo::setShortDescription(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvTraitInfo::copyNonDefaults, CvTraitInfo::read
-- **22001** `CvTraitInfo::getExtraYieldThreshold(int) const` (Python: getExtraYieldThreshold)
+- **22189** `CvTraitInfo::getExtraYieldThreshold(int) const` (Python: getExtraYieldThreshold)
   - called by (5): CvGameTextMgr::parseTraits, CvPlayer::updateExtraYieldThreshold, CvPlot::calculateMaxYield, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **22006** `CvTraitInfo::getTradeYieldModifier(int) const` (Python: getTradeYieldModifier)
+- **22194** `CvTraitInfo::getTradeYieldModifier(int) const` (Python: getTradeYieldModifier)
   - called by (7): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **22011** `CvTraitInfo::getCommerceChange(int) const` (Python: getCommerceChange)
+- **22199** `CvTraitInfo::getCommerceChange(int) const` (Python: getCommerceChange)
   - called by (9): CvGameTextMgr::parseTraits, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::found, CvPlayer::init, CvPlayer::initInGame, CvPlayerAI::AI_foundValue, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **22016** `CvTraitInfo::getCommerceModifier(int) const` (Python: getCommerceModifier)
+- **22204** `CvTraitInfo::getCommerceModifier(int) const` (Python: getCommerceModifier)
   - called by (8): CvGameTextMgr::parseTraits, CvGameTextMgr::setCommerceHelp, CvPlayer::addTraitBonuses, CvPlayer::clearTraitBonuses, CvPlayer::init, CvPlayer::initInGame, CvTraitInfo::copyNonDefaults, CyInfoPythonInterface3
-- **22021** `CvTraitInfo::isFreePromotion(int) const` (Python: isFreePromotion)
+- **22209** `CvTraitInfo::isFreePromotion(int) const` (Python: isFreePromotion)
   - called by (6): CvCityAI::AI_bestUnitAI, CvGameTextMgr::parseTraits, CvPlayerAI::AI_bestAdvancedStartUnitAI, CvTraitInfo::copyNonDefaults, CvUnit::init, CyInfoPythonInterface3
-- **22026** `CvTraitInfo::isFreePromotionUnitCombat(int) const`
+- **22214** `CvTraitInfo::isFreePromotionUnitCombat(int) const`
   - called by (5): CvCityAI::AI_bestUnitAI, CvGameTextMgr::parseTraits, CvPlayerAI::AI_bestAdvancedStartUnitAI, CvTraitInfo::copyNonDefaults, CvUnit::init
-- **22031** `CvTraitInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **22219** `CvTraitInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvTraitInfo::setShortDescription, CvString::operator char const * [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::SetCommerce<int> [CvXMLLoadUtility.h], CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp]
-- **22124** `CvTraitInfo::copyNonDefaults(CvTraitInfo*)`
+- **22312** `CvTraitInfo::copyNonDefaults(CvTraitInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvTraitInfo::getShortDescription, CvTraitInfo::setShortDescription, CvInfoBase::copyNonDefaults, CvTraitInfo::getHealth, CvTraitInfo::getHappiness, CvTraitInfo::getMaxAnarchy, CvTraitInfo::getUpkeepModifier, CvTraitInfo::getLevelExperienceModifier, CvTraitInfo::getGreatPeopleRateModifier, CvTraitInfo::getGreatGeneralRateModifier, CvTraitInfo::getDomesticGreatGeneralRateModifier, CvTraitInfo::getMaxGlobalBuildingProductionModifier, CvTraitInfo::getMaxTeamBuildingProductionModifier, CvTraitInfo::getMaxPlayerBuildingProductionModifier, CvTraitInfo::getExtraYieldThreshold, CvTraitInfo::getTradeYieldModifier, CvTraitInfo::getCommerceChange, CvTraitInfo::getCommerceModifier, CvGlobals::getNumPromotionInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvTraitInfo::isFreePromotion, CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvTraitInfo::isFreePromotionUnitCombat
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvTraitInfo>
-- **22202** `CvCursorInfo::CvCursorInfo()`
+- **22401** `CvCursorInfo::CvCursorInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvCursorInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCursorInfo>
-- **22213** `CvCursorInfo::~CvCursorInfo()` (virtual)
+- **22412** `CvCursorInfo::~CvCursorInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvCursorInfo::`scalar deleting dtor'
-- **22217** `CvCursorInfo::getPath()` (exported)
+- **22416** `CvCursorInfo::getPath()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvCursorInfo::copyNonDefaults
-- **22222** `CvCursorInfo::setPath(char const*)`
+- **22421** `CvCursorInfo::setPath(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvCursorInfo::copyNonDefaults, CvCursorInfo::read
-- **22227** `CvCursorInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **22426** `CvCursorInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvCursorInfo::setPath, CvString::operator char const * [CvString.h]
-- **22245** `CvCursorInfo::copyNonDefaults(CvCursorInfo*)`
+- **22444** `CvCursorInfo::copyNonDefaults(CvCursorInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvCursorInfo::getPath, CvCursorInfo::setPath
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCursorInfo>
-- **22274** `CvThroneRoomCamera::CvThroneRoomCamera()`
+- **22473** `CvThroneRoomCamera::CvThroneRoomCamera()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvThroneRoomCamera>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvThroneRoomCamera>
-- **22285** `CvThroneRoomCamera::~CvThroneRoomCamera()` (virtual)
+- **22484** `CvThroneRoomCamera::~CvThroneRoomCamera()` (virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvThroneRoomCamera::`scalar deleting dtor'
-- **22289** `CvThroneRoomCamera::getFileName()` (exported)
+- **22488** `CvThroneRoomCamera::getFileName()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvThroneRoomCamera::copyNonDefaults
-- **22294** `CvThroneRoomCamera::setFileName(char const*)`
+- **22493** `CvThroneRoomCamera::setFileName(char const*)`
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvThroneRoomCamera::copyNonDefaults, CvThroneRoomCamera::read
-- **22299** `CvThroneRoomCamera::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **22498** `CvThroneRoomCamera::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvThroneRoomCamera::setFileName, CvString::operator char const * [CvString.h]
-- **22317** `CvThroneRoomCamera::copyNonDefaults(CvThroneRoomCamera*)`
+- **22516** `CvThroneRoomCamera::copyNonDefaults(CvThroneRoomCamera*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvThroneRoomCamera::getFileName, CvThroneRoomCamera::setFileName
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvThroneRoomCamera>
-- **22349** `CvThroneRoomInfo::CvThroneRoomInfo()` (exported)
+- **22548** `CvThroneRoomInfo::CvThroneRoomInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvThroneRoomInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvThroneRoomInfo>
-- **22360** `CvThroneRoomInfo::~CvThroneRoomInfo()` (exported; virtual)
+- **22559** `CvThroneRoomInfo::~CvThroneRoomInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvThroneRoomInfo::`vector deleting dtor'
-- **22364** `CvThroneRoomInfo::getEvent()` (exported)
+- **22563** `CvThroneRoomInfo::getEvent()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvThroneRoomInfo::copyNonDefaults
-- **22369** `CvThroneRoomInfo::setEvent(char const*)` (exported)
+- **22568** `CvThroneRoomInfo::setEvent(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvThroneRoomInfo::copyNonDefaults, CvThroneRoomInfo::read
-- **22374** `CvThroneRoomInfo::getNodeName()` (exported)
+- **22573** `CvThroneRoomInfo::getNodeName()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvThroneRoomInfo::copyNonDefaults
-- **22379** `CvThroneRoomInfo::setNodeName(char const*)` (exported)
+- **22578** `CvThroneRoomInfo::setNodeName(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvThroneRoomInfo::copyNonDefaults, CvThroneRoomInfo::read
-- **22384** `CvThroneRoomInfo::getFromState()` (exported)
+- **22583** `CvThroneRoomInfo::getFromState()` (exported)
   - called by (1): CvThroneRoomInfo::copyNonDefaults
-- **22389** `CvThroneRoomInfo::setFromState(int)` (exported)
+- **22588** `CvThroneRoomInfo::setFromState(int)` (exported)
   - called by (2): CvThroneRoomInfo::copyNonDefaults, CvThroneRoomInfo::read
-- **22394** `CvThroneRoomInfo::getToState()` (exported)
+- **22593** `CvThroneRoomInfo::getToState()` (exported)
   - called by (1): CvThroneRoomInfo::copyNonDefaults
-- **22399** `CvThroneRoomInfo::setToState(int)` (exported)
+- **22598** `CvThroneRoomInfo::setToState(int)` (exported)
   - called by (2): CvThroneRoomInfo::copyNonDefaults, CvThroneRoomInfo::read
-- **22404** `CvThroneRoomInfo::getAnimation()` (exported)
+- **22603** `CvThroneRoomInfo::getAnimation()` (exported)
   - called by (1): CvThroneRoomInfo::copyNonDefaults
-- **22409** `CvThroneRoomInfo::setAnimation(int)` (exported)
+- **22608** `CvThroneRoomInfo::setAnimation(int)` (exported)
   - called by (2): CvThroneRoomInfo::copyNonDefaults, CvThroneRoomInfo::read
-- **22414** `CvThroneRoomInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **22613** `CvThroneRoomInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvThroneRoomInfo::setEvent, CvString::operator char const * [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvThroneRoomInfo::setFromState, CvThroneRoomInfo::setToState, CvThroneRoomInfo::setNodeName, CvThroneRoomInfo::setAnimation
-- **22441** `CvThroneRoomInfo::copyNonDefaults(CvThroneRoomInfo*)`
+- **22640** `CvThroneRoomInfo::copyNonDefaults(CvThroneRoomInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvThroneRoomInfo::getEvent, CvThroneRoomInfo::setEvent, CvThroneRoomInfo::getFromState, CvThroneRoomInfo::setFromState, CvThroneRoomInfo::getToState, CvThroneRoomInfo::setToState, CvThroneRoomInfo::getNodeName, CvThroneRoomInfo::setNodeName, CvThroneRoomInfo::getAnimation, CvThroneRoomInfo::setAnimation
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvThroneRoomInfo>
-- **22474** `CvThroneRoomStyleInfo::CvThroneRoomStyleInfo()` (exported)
+- **22673** `CvThroneRoomStyleInfo::CvThroneRoomStyleInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvThroneRoomStyleInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvThroneRoomStyleInfo>
-- **22485** `CvThroneRoomStyleInfo::~CvThroneRoomStyleInfo()` (exported; virtual)
+- **22684** `CvThroneRoomStyleInfo::~CvThroneRoomStyleInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvThroneRoomStyleInfo::`vector deleting dtor'
-- **22489** `CvThroneRoomStyleInfo::getArtStyleType()` (exported)
+- **22688** `CvThroneRoomStyleInfo::getArtStyleType()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvThroneRoomStyleInfo::copyNonDefaults
-- **22494** `CvThroneRoomStyleInfo::setArtStyleType(char const*)` (exported)
+- **22693** `CvThroneRoomStyleInfo::setArtStyleType(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvThroneRoomStyleInfo::copyNonDefaults, CvThroneRoomStyleInfo::read
-- **22499** `CvThroneRoomStyleInfo::getEraType()` (exported)
+- **22698** `CvThroneRoomStyleInfo::getEraType()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvThroneRoomStyleInfo::copyNonDefaults
-- **22504** `CvThroneRoomStyleInfo::setEraType(char const*)` (exported)
+- **22703** `CvThroneRoomStyleInfo::setEraType(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvThroneRoomStyleInfo::copyNonDefaults, CvThroneRoomStyleInfo::read
-- **22509** `CvThroneRoomStyleInfo::getFileName()` (exported)
+- **22708** `CvThroneRoomStyleInfo::getFileName()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvThroneRoomStyleInfo::copyNonDefaults
-- **22514** `CvThroneRoomStyleInfo::setFileName(char const*)` (exported)
+- **22713** `CvThroneRoomStyleInfo::setFileName(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvThroneRoomStyleInfo::copyNonDefaults, CvThroneRoomStyleInfo::read
-- **22519** `CvThroneRoomStyleInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **22718** `CvThroneRoomStyleInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvThroneRoomStyleInfo::setArtStyleType, CvString::operator char const * [CvString.h], CvThroneRoomStyleInfo::setEraType, CvThroneRoomStyleInfo::setFileName, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::LocateNextSiblingNodeByTagName [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h]
-- **22563** `CvThroneRoomStyleInfo::copyNonDefaults(CvThroneRoomStyleInfo*)`
+- **22762** `CvThroneRoomStyleInfo::copyNonDefaults(CvThroneRoomStyleInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvThroneRoomStyleInfo::getArtStyleType, CvThroneRoomStyleInfo::setArtStyleType, CvThroneRoomStyleInfo::getEraType, CvThroneRoomStyleInfo::setEraType, CvThroneRoomStyleInfo::getFileName, CvThroneRoomStyleInfo::setFileName
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvThroneRoomStyleInfo>
-- **22600** `CvSlideShowInfo::CvSlideShowInfo()` (exported)
+- **22799** `CvSlideShowInfo::CvSlideShowInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvSlideShowInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvSlideShowInfo>
-- **22611** `CvSlideShowInfo::~CvSlideShowInfo()` (exported; virtual)
+- **22810** `CvSlideShowInfo::~CvSlideShowInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvSlideShowInfo::`vector deleting dtor'
-- **22615** `CvSlideShowInfo::getPath()` (exported)
+- **22814** `CvSlideShowInfo::getPath()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvSlideShowInfo::copyNonDefaults
-- **22620** `CvSlideShowInfo::setPath(char const*)` (exported)
+- **22819** `CvSlideShowInfo::setPath(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvSlideShowInfo::copyNonDefaults, CvSlideShowInfo::read
-- **22625** `CvSlideShowInfo::getTransitionType()` (exported)
+- **22824** `CvSlideShowInfo::getTransitionType()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvSlideShowInfo::copyNonDefaults
-- **22630** `CvSlideShowInfo::setTransitionType(char const*)` (exported)
+- **22829** `CvSlideShowInfo::setTransitionType(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvSlideShowInfo::copyNonDefaults, CvSlideShowInfo::read
-- **22635** `CvSlideShowInfo::getStartTime()` (exported)
+- **22834** `CvSlideShowInfo::getStartTime()` (exported)
   - called by (1): CvSlideShowInfo::copyNonDefaults
-- **22640** `CvSlideShowInfo::setStartTime(float)` (exported)
+- **22839** `CvSlideShowInfo::setStartTime(float)` (exported)
   - called by (2): CvSlideShowInfo::copyNonDefaults, CvSlideShowInfo::read
-- **22645** `CvSlideShowInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **22844** `CvSlideShowInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvSlideShowInfo::setPath, CvString::operator char const * [CvString.h], CvSlideShowInfo::setTransitionType, CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvSlideShowInfo::setStartTime
-- **22679** `CvSlideShowInfo::copyNonDefaults(CvSlideShowInfo*)`
+- **22878** `CvSlideShowInfo::copyNonDefaults(CvSlideShowInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvSlideShowInfo::getPath, CvSlideShowInfo::setPath, CvSlideShowInfo::getTransitionType, CvSlideShowInfo::setTransitionType, CvSlideShowInfo::getStartTime, CvSlideShowInfo::setStartTime
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvSlideShowInfo>
-- **22710** `CvSlideShowRandomInfo::CvSlideShowRandomInfo()` (exported)
+- **22909** `CvSlideShowRandomInfo::CvSlideShowRandomInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvSlideShowRandomInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvSlideShowRandomInfo>
-- **22721** `CvSlideShowRandomInfo::~CvSlideShowRandomInfo()` (exported; virtual)
+- **22920** `CvSlideShowRandomInfo::~CvSlideShowRandomInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvSlideShowRandomInfo::`vector deleting dtor'
-- **22725** `CvSlideShowRandomInfo::getPath()` (exported)
+- **22924** `CvSlideShowRandomInfo::getPath()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvSlideShowRandomInfo::copyNonDefaults
-- **22730** `CvSlideShowRandomInfo::setPath(char const*)` (exported)
+- **22929** `CvSlideShowRandomInfo::setPath(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvSlideShowRandomInfo::copyNonDefaults, CvSlideShowRandomInfo::read
-- **22735** `CvSlideShowRandomInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **22934** `CvSlideShowRandomInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvSlideShowRandomInfo::setPath, CvString::operator char const * [CvString.h]
-- **22764** `CvSlideShowRandomInfo::copyNonDefaults(CvSlideShowRandomInfo*)`
+- **22963** `CvSlideShowRandomInfo::copyNonDefaults(CvSlideShowRandomInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvSlideShowRandomInfo::getPath, CvSlideShowRandomInfo::setPath
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvSlideShowRandomInfo>
-- **22793** `CvWorldPickerInfo::CvWorldPickerInfo()` (exported)
+- **22992** `CvWorldPickerInfo::CvWorldPickerInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvWorldPickerInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvWorldPickerInfo>
-- **22804** `CvWorldPickerInfo::~CvWorldPickerInfo()` (exported; virtual)
+- **23003** `CvWorldPickerInfo::~CvWorldPickerInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvWorldPickerInfo::`vector deleting dtor'
-- **22808** `CvWorldPickerInfo::getMapName()` (exported)
+- **23007** `CvWorldPickerInfo::getMapName()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22813** `CvWorldPickerInfo::setMapName(char const*)` (exported)
+- **23012** `CvWorldPickerInfo::setMapName(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvWorldPickerInfo::copyNonDefaults, CvWorldPickerInfo::read
-- **22818** `CvWorldPickerInfo::getModelFile()` (exported)
+- **23017** `CvWorldPickerInfo::getModelFile()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22823** `CvWorldPickerInfo::setModelFile(char const*)` (exported)
+- **23022** `CvWorldPickerInfo::setModelFile(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvWorldPickerInfo::copyNonDefaults, CvWorldPickerInfo::read
-- **22828** `CvWorldPickerInfo::getNumSizes()` (exported)
+- **23027** `CvWorldPickerInfo::getNumSizes()` (exported)
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22833** `CvWorldPickerInfo::getSize(int)` (exported)
+- **23032** `CvWorldPickerInfo::getSize(int)` (exported)
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22838** `CvWorldPickerInfo::getNumClimates()` (exported)
+- **23037** `CvWorldPickerInfo::getNumClimates()` (exported)
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22843** `CvWorldPickerInfo::getClimatePath(int)` (exported)
+- **23042** `CvWorldPickerInfo::getClimatePath(int)` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22848** `CvWorldPickerInfo::getNumWaterLevelDecals()` (exported)
+- **23047** `CvWorldPickerInfo::getNumWaterLevelDecals()` (exported)
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22853** `CvWorldPickerInfo::getWaterLevelDecalPath(int)` (exported)
+- **23052** `CvWorldPickerInfo::getWaterLevelDecalPath(int)` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22858** `CvWorldPickerInfo::getNumWaterLevelGloss()` (exported)
+- **23057** `CvWorldPickerInfo::getNumWaterLevelGloss()` (exported)
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22863** `CvWorldPickerInfo::getWaterLevelGlossPath(int)` (exported)
+- **23062** `CvWorldPickerInfo::getWaterLevelGlossPath(int)` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvWorldPickerInfo::copyNonDefaults
-- **22868** `CvWorldPickerInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **23067** `CvWorldPickerInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvWorldPickerInfo::setMapName, CvString::operator char const * [CvString.h], CvWorldPickerInfo::setModelFile, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::GetXmlVal(float*, float) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::LocateNextSiblingNodeByTagName [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp]
-- **22953** `CvWorldPickerInfo::copyNonDefaults(CvWorldPickerInfo*)`
+- **23152** `CvWorldPickerInfo::copyNonDefaults(CvWorldPickerInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvWorldPickerInfo::getMapName, CvWorldPickerInfo::setMapName, CvWorldPickerInfo::getModelFile, CvWorldPickerInfo::setModelFile, CvWorldPickerInfo::getNumSizes, CvWorldPickerInfo::getSize, CvWorldPickerInfo::getNumClimates, CvWorldPickerInfo::getClimatePath, CvWorldPickerInfo::getNumWaterLevelDecals, CvWorldPickerInfo::getWaterLevelDecalPath, CvWorldPickerInfo::getNumWaterLevelGloss, CvWorldPickerInfo::getWaterLevelGlossPath
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvWorldPickerInfo>
-- **23021** `CvSpaceShipInfo::CvSpaceShipInfo()` (exported)
+- **23220** `CvSpaceShipInfo::CvSpaceShipInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvSpaceShipInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvSpaceShipInfo>
-- **23032** `CvSpaceShipInfo::~CvSpaceShipInfo()` (exported; virtual)
+- **23231** `CvSpaceShipInfo::~CvSpaceShipInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvSpaceShipInfo::`vector deleting dtor'
-- **23036** `CvSpaceShipInfo::getNodeName()` (exported)
+- **23235** `CvSpaceShipInfo::getNodeName()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvSpaceShipInfo::copyNonDefaults
-- **23041** `CvSpaceShipInfo::setNodeName(char const*)` (exported)
+- **23240** `CvSpaceShipInfo::setNodeName(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvSpaceShipInfo::copyNonDefaults, CvSpaceShipInfo::read
-- **23046** `CvSpaceShipInfo::getProjectName()` (exported)
+- **23245** `CvSpaceShipInfo::getProjectName()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvSpaceShipInfo::copyNonDefaults
-- **23051** `CvSpaceShipInfo::setProjectName(char const*)` (exported)
+- **23250** `CvSpaceShipInfo::setProjectName(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::operator char const * [CvString.h]
   - called by (2): CvSpaceShipInfo::copyNonDefaults, CvSpaceShipInfo::read
-- **23057** `CvSpaceShipInfo::getProjectType()` (exported)
-- **23062** `CvSpaceShipInfo::getCameraUpAxis()` (exported)
-- **23067** `CvSpaceShipInfo::getSpaceShipInfoType()` (exported)
-- **23072** `CvSpaceShipInfo::getPartNumber()` (exported)
+- **23256** `CvSpaceShipInfo::getProjectType()` (exported)
+- **23261** `CvSpaceShipInfo::getCameraUpAxis()` (exported)
+- **23266** `CvSpaceShipInfo::getSpaceShipInfoType()` (exported)
+- **23271** `CvSpaceShipInfo::getPartNumber()` (exported)
   - called by (1): CvSpaceShipInfo::copyNonDefaults
-- **23077** `CvSpaceShipInfo::getArtType()` (exported)
+- **23276** `CvSpaceShipInfo::getArtType()` (exported)
   - called by (1): CvSpaceShipInfo::copyNonDefaults
-- **23082** `CvSpaceShipInfo::getEventCode()` (exported)
+- **23281** `CvSpaceShipInfo::getEventCode()` (exported)
   - called by (1): CvSpaceShipInfo::copyNonDefaults
-- **23087** `CvSpaceShipInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **23286** `CvSpaceShipInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvSpaceShipInfo::setNodeName, CvString::operator char const * [CvString.h], CvSpaceShipInfo::setProjectName, CvString::CompareNoCase [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvString::~CvString [CvString.h]
-- **23159** `CvSpaceShipInfo::copyNonDefaults(CvSpaceShipInfo*)`
+- **23358** `CvSpaceShipInfo::copyNonDefaults(CvSpaceShipInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvSpaceShipInfo::getNodeName, CvSpaceShipInfo::setNodeName, CvSpaceShipInfo::getProjectName, CvSpaceShipInfo::setProjectName, CvSpaceShipInfo::getPartNumber, CvSpaceShipInfo::getArtType, CvSpaceShipInfo::getEventCode
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvSpaceShipInfo>
-- **23197** `CvAnimationPathInfo::CvAnimationPathInfo()` (exported)
+- **23396** `CvAnimationPathInfo::CvAnimationPathInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvInfoBase::~CvInfoBase
   - called by (3): CvXMLLoadUtility::SetGlobalAnimationPathInfo, CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvAnimationPathInfo>
-- **23208** `CvAnimationPathInfo::~CvAnimationPathInfo()` (exported; virtual)
+- **23407** `CvAnimationPathInfo::~CvAnimationPathInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (2): CvAnimationPathInfo::`vector deleting dtor', CvXMLLoadUtility::SetGlobalAnimationPathInfo
-- **23212** `CvAnimationPathInfo::getPathCategory(int)` (exported)
+- **23411** `CvAnimationPathInfo::getPathCategory(int)` (exported)
   - called by (1): CvAnimationPathInfo::copyNonDefaults
-- **23217** `CvAnimationPathInfo::getPathParameter(int)` (exported)
+- **23416** `CvAnimationPathInfo::getPathParameter(int)` (exported)
   - called by (1): CvAnimationPathInfo::copyNonDefaults
-- **23222** `CvAnimationPathInfo::getNumPathDefinitions()` (exported)
-- **23227** `CvAnimationPathInfo::getPath()` (exported)
-- **23232** `CvAnimationPathInfo::isMissionPath() const` (exported)
+- **23421** `CvAnimationPathInfo::getNumPathDefinitions()` (exported)
+- **23426** `CvAnimationPathInfo::getPath()` (exported)
+- **23431** `CvAnimationPathInfo::isMissionPath() const` (exported)
   - called by (1): CvAnimationPathInfo::copyNonDefaults
-- **23243** `CvAnimationPathInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **23442** `CvAnimationPathInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::GetLastNodeText [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(char*, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvGlobals::getTypesEnum [CvGlobals.cpp], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h]
-- **23288** `CvAnimationPathInfo::copyNonDefaults(CvAnimationPathInfo*)`
+- **23487** `CvAnimationPathInfo::copyNonDefaults(CvAnimationPathInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvAnimationPathInfo::isMissionPath, CvAnimationPathInfo::getPathCategory, CvAnimationPathInfo::getPathParameter
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationPathInfo>
-- **23330** `CvAnimationCategoryInfo::CvAnimationCategoryInfo()` (exported)
+- **23529** `CvAnimationCategoryInfo::CvAnimationCategoryInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvAnimationCategoryInfo>
-- **23342** `CvAnimationCategoryInfo::~CvAnimationCategoryInfo()` (exported; virtual)
+- **23541** `CvAnimationCategoryInfo::~CvAnimationCategoryInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvAnimationCategoryInfo::`vector deleting dtor'
-- **23346** `CvAnimationCategoryInfo::getCategoryBaseID()` (exported)
+- **23545** `CvAnimationCategoryInfo::getCategoryBaseID()` (exported)
   - called by (1): CvAnimationCategoryInfo::copyNonDefaults
-- **23351** `CvAnimationCategoryInfo::getCategoryDefaultTo()` (exported)
+- **23550** `CvAnimationCategoryInfo::getCategoryDefaultTo()` (exported)
   - calls: CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp]
   - called by (1): CvAnimationCategoryInfo::copyNonDefaults
-- **23361** `CvAnimationCategoryInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **23560** `CvAnimationCategoryInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp]
-- **23379** `CvAnimationCategoryInfo::copyNonDefaults(CvAnimationCategoryInfo*)`
+- **23578** `CvAnimationCategoryInfo::copyNonDefaults(CvAnimationCategoryInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvAnimationCategoryInfo::getCategoryBaseID, CvAnimationCategoryInfo::getCategoryDefaultTo
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvAnimationCategoryInfo>
-- **23403** `CvEntityEventInfo::CvEntityEventInfo()` (exported)
+- **23602** `CvEntityEventInfo::CvEntityEventInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvEntityEventInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvEntityEventInfo>
-- **23407** `CvEntityEventInfo::~CvEntityEventInfo()` (exported; virtual)
+- **23606** `CvEntityEventInfo::~CvEntityEventInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvEntityEventInfo::`vector deleting dtor'
-- **23411** `CvEntityEventInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **23610** `CvEntityEventInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **23501** `CvEntityEventInfo::copyNonDefaults(CvEntityEventInfo*)`
+- **23700** `CvEntityEventInfo::copyNonDefaults(CvEntityEventInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvEntityEventInfo::getAnimationPathCount, CvEntityEventInfo::getAnimationPathType, CvEntityEventInfo::getEffectTypeCount, CvEntityEventInfo::getEffectType, CvEntityEventInfo::getUpdateFormation
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvEntityEventInfo>
-- **23551** `CvEntityEventInfo::getAnimationPathType(int) const` (exported)
+- **23750** `CvEntityEventInfo::getAnimationPathType(int) const` (exported)
   - called by (1): CvEntityEventInfo::copyNonDefaults
-- **23556** `CvEntityEventInfo::getEffectType(int) const` (exported)
+- **23755** `CvEntityEventInfo::getEffectType(int) const` (exported)
   - called by (2): CvEntityEventInfo::copyNonDefaults, CvPlayer::doEspionageMission
-- **23561** `CvEntityEventInfo::getAnimationPathCount() const` (exported)
+- **23760** `CvEntityEventInfo::getAnimationPathCount() const` (exported)
   - called by (1): CvEntityEventInfo::copyNonDefaults
-- **23566** `CvEntityEventInfo::getEffectTypeCount() const` (exported)
+- **23765** `CvEntityEventInfo::getEffectTypeCount() const` (exported)
   - called by (1): CvEntityEventInfo::copyNonDefaults
-- **23571** `CvEntityEventInfo::getUpdateFormation() const` (exported)
+- **23770** `CvEntityEventInfo::getUpdateFormation() const` (exported)
   - called by (1): CvEntityEventInfo::copyNonDefaults
-- **23580** `CvAssetInfoBase::getTag() const` (exported; Python: getTag)
+- **23779** `CvAssetInfoBase::getTag() const` (exported; Python: getTag)
   - calls: CvInfoBase::getType
   - called by (13): CvAssetArtInfoItem::buildMap, CvBonusArtInfoItem::buildMap, CvBuildingArtInfoItem::buildMap, CvCivilizationArtInfoItem::buildMap, CvFeatureArtInfoItem::buildMap, CvImprovementArtInfoItem::buildMap, CvInterfaceArtInfoItem::buildMap, CvLeaderheadArtInfoItem::buildMap, CvMiscArtInfoItem::buildMap, CvMovieArtInfoItem::buildMap, CvTerrainArtInfoItem::buildMap, CvUnitArtInfoItem::buildMap …
-- **23585** `CvAssetInfoBase::setTag(char const*)` (exported; Python: setTag)
+- **23784** `CvAssetInfoBase::setTag(char const*)` (exported; Python: setTag)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **23590** `CvAssetInfoBase::getPath() const` (exported; Python: getPath)
+- **23789** `CvAssetInfoBase::getPath() const` (exported; Python: getPath)
   - calls: CvString::operator char const * [CvString.h]
   - called by (32): CvArtInfoTerrain::getBaseTexture, CvBuildingInfo::getMovie, CvCity::doFoundMessage, CvCity::doMeltdown, CvCity::getCityBillboardProductionIcon, CvCity::liberate, CvCity::setWeLoveTheKingDay, CvCivilizationInfo::getFlagTexture, CvDLLButtonPopup::launchChangeCivicsPopup, CvDLLButtonPopup::launchChangeReligionPopup, CvDLLButtonPopup::launchChooseTechPopup, CvDLLButtonPopup::launchDoEspionagePopup …
-- **23595** `CvAssetInfoBase::setPath(char const*)` (exported; Python: setPath)
+- **23794** `CvAssetInfoBase::setPath(char const*)` (exported; Python: setPath)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (3): CvArtInfoTerrain::setBaseTexture, CvAssetInfoBase::read, CyInfoPythonInterface3
-- **23600** `CvAssetInfoBase::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **23799** `CvAssetInfoBase::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvAssetInfoBase::setPath, CvString::operator char const * [CvString.h]
   - called by (1): CvArtInfoAsset::read
-- **23629** `CvArtInfoAsset::getNIF() const` (exported; Python: getNIF)
+- **23828** `CvArtInfoAsset::getNIF() const` (exported; Python: getNIF)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvLeaderHeadInfo::getLeaderHead, CyInfoPythonInterface3
-- **23634** `CvArtInfoAsset::getKFM() const` (exported; Python: getKFM)
+- **23833** `CvArtInfoAsset::getKFM() const` (exported; Python: getKFM)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **23639** `CvArtInfoAsset::setNIF(char const*)` (exported; Python: setNIF)
+- **23838** `CvArtInfoAsset::setNIF(char const*)` (exported; Python: setNIF)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvArtInfoAsset::read, CyInfoPythonInterface3
-- **23644** `CvArtInfoAsset::setKFM(char const*)` (exported; Python: setKFM)
+- **23843** `CvArtInfoAsset::setKFM(char const*)` (exported; Python: setKFM)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvArtInfoAsset::read, CyInfoPythonInterface3
-- **23649** `CvArtInfoAsset::read(CvXMLLoadUtility*)` (virtual; overrides CvAssetInfoBase::read)
+- **23848** `CvArtInfoAsset::read(CvXMLLoadUtility*)` (virtual; overrides CvAssetInfoBase::read)
   - calls: CvString::CvString() [CvString.h], CvAssetInfoBase::read, CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoAsset::setNIF, CvString::operator char const * [CvString.h], CvArtInfoAsset::setKFM
   - called by (4): CvArtInfoCivilization::read, CvArtInfoLeaderhead::read, CvArtInfoScalableAsset::read, CvArtInfoTerrain::read
-- **23692** `CvArtInfoAsset::copyNonDefaults(CvArtInfoAsset*)`
+- **23891** `CvArtInfoAsset::copyNonDefaults(CvArtInfoAsset*)`
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoInterface>, CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMovie>
-- **23704** `CvArtInfoBonus::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
+- **23903** `CvArtInfoBonus::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
   - calls: CvArtInfoScalableAsset::read, CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoBonus::setShaderNIF, CvString::operator char const * [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvString::~CvString [CvString.h]
-- **23735** `CvArtInfoBonus::copyNonDefaults(CvArtInfoBonus*)`
+- **23934** `CvArtInfoBonus::copyNonDefaults(CvArtInfoBonus*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>
-- **23743** `CvArtInfoBonus::CvArtInfoBonus()` (exported)
+- **23942** `CvArtInfoBonus::CvArtInfoBonus()` (exported)
   - calls: CvArtInfoScalableAsset::CvArtInfoScalableAsset(), CvString::CvString() [CvString.h], CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBonus>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvArtInfoBonus>
-- **23748** `CvArtInfoBonus::getFontButtonIndex() const` (exported)
+- **23947** `CvArtInfoBonus::getFontButtonIndex() const` (exported)
   - called by (1): CvGameTextMgr::assignFontIds
-- **23753** `CvArtInfoBonus::getShaderNIF() const` (exported)
+- **23952** `CvArtInfoBonus::getShaderNIF() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **23757** `CvArtInfoBonus::setShaderNIF(char const*)` (exported)
+- **23956** `CvArtInfoBonus::setShaderNIF(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvArtInfoBonus::read
-- **23762** `CvBonusInfo::getArtInfo() const` (exported; Python: getArtInfo)
+- **23961** `CvBonusInfo::getArtInfo() const` (exported; Python: getArtInfo)
   - calls: CvArtFileMgr::GetInstance [CvArtFileMgr.cpp], CvArtFileMgr::getBonusArtInfo(char const*) const [CvArtFileMgr.cpp], CvBonusInfo::getArtDefineTag
   - called by (3): CvBonusInfo::getButton, CvGameTextMgr::assignFontIds, CyInfoPythonInterface2
-- **23793** `CvArtInfoUnit::CvArtInfoUnit()` (exported)
+- **23992** `CvArtInfoUnit::CvArtInfoUnit()` (exported)
   - calls: CvArtInfoScalableAsset::CvArtInfoScalableAsset(), CvString::CvString() [CvString.h], CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h], CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoUnit>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvArtInfoUnit>
-- **23797** `CvArtInfoUnit::~CvArtInfoUnit()` (exported; virtual)
+- **23996** `CvArtInfoUnit::~CvArtInfoUnit()` (exported; virtual)
   - calls: CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h], CvString::~CvString [CvString.h]
   - called by (1): CvArtInfoUnit::`vector deleting dtor'
-- **23801** `CvArtInfoUnit::getActAsRanged() const` (exported)
+- **24000** `CvArtInfoUnit::getActAsRanged() const` (exported)
   - called by (1): CvUnit::isRanged
-- **23806** `CvArtInfoUnit::getActAsLand() const` (exported)
-- **23811** `CvArtInfoUnit::getActAsAir() const` (exported)
-- **23816** `CvArtInfoUnit::getShaderNIF() const` (exported)
+- **24005** `CvArtInfoUnit::getActAsLand() const` (exported)
+- **24010** `CvArtInfoUnit::getActAsAir() const` (exported)
+- **24015** `CvArtInfoUnit::getShaderNIF() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **23821** `CvArtInfoUnit::setShaderNIF(char const*)` (exported)
+- **24020** `CvArtInfoUnit::setShaderNIF(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvArtInfoUnit::read
-- **23826** `CvArtInfoUnit::getShadowNIF() const` (exported)
+- **24025** `CvArtInfoUnit::getShadowNIF() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **23831** `CvArtInfoUnit::getShadowScale() const` (exported)
-- **23836** `CvArtInfoUnit::getShadowAttachNode() const` (exported)
+- **24030** `CvArtInfoUnit::getShadowScale() const` (exported)
+- **24035** `CvArtInfoUnit::getShadowAttachNode() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **23841** `CvArtInfoUnit::getDamageStates() const` (exported)
-- **23847** `CvArtInfoUnit::getTrailTexture() const` (exported)
+- **24040** `CvArtInfoUnit::getDamageStates() const` (exported)
+- **24046** `CvArtInfoUnit::getTrailTexture() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **23852** `CvArtInfoUnit::getTrailWidth() const` (exported)
-- **23857** `CvArtInfoUnit::getTrailLength() const` (exported)
-- **23862** `CvArtInfoUnit::getTrailTaper() const` (exported)
-- **23867** `CvArtInfoUnit::getTrailFadeStarTime() const` (exported)
-- **23872** `CvArtInfoUnit::getTrailFadeFalloff() const` (exported)
-- **23877** `CvArtInfoUnit::getBattleDistance() const` (exported)
-- **23882** `CvArtInfoUnit::getRangedDeathTime() const` (exported)
-- **23887** `CvArtInfoUnit::getExchangeAngle() const` (exported)
-- **23892** `CvArtInfoUnit::getCombatExempt() const` (exported)
-- **23897** `CvArtInfoUnit::getSmoothMove() const` (exported)
-- **23902** `CvArtInfoUnit::getAngleInterpRate() const` (exported)
-- **23907** `CvArtInfoUnit::getBankRate() const` (exported)
-- **23912** `CvArtInfoUnit::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
+- **24051** `CvArtInfoUnit::getTrailWidth() const` (exported)
+- **24056** `CvArtInfoUnit::getTrailLength() const` (exported)
+- **24061** `CvArtInfoUnit::getTrailTaper() const` (exported)
+- **24066** `CvArtInfoUnit::getTrailFadeStarTime() const` (exported)
+- **24071** `CvArtInfoUnit::getTrailFadeFalloff() const` (exported)
+- **24076** `CvArtInfoUnit::getBattleDistance() const` (exported)
+- **24081** `CvArtInfoUnit::getRangedDeathTime() const` (exported)
+- **24086** `CvArtInfoUnit::getExchangeAngle() const` (exported)
+- **24091** `CvArtInfoUnit::getCombatExempt() const` (exported)
+- **24096** `CvArtInfoUnit::getSmoothMove() const` (exported)
+- **24101** `CvArtInfoUnit::getAngleInterpRate() const` (exported)
+- **24106** `CvArtInfoUnit::getBankRate() const` (exported)
+- **24111** `CvArtInfoUnit::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
   - calls: CvArtInfoScalableAsset::read, CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getAudioTagIndex [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvString::GetCString [CvString.h], CvString::GetLength [CvString.h], CvArtInfoUnit::setTrainSound, CvString::operator char const * [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoUnit::setShaderNIF, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvGlobals::getFootstepAudioTypeByTag [CvGlobals.cpp], CvString::CvString(CvString const&) [CvString.h], CvString::~CvString [CvString.h]
-- **24024** `CvArtInfoUnit::copyNonDefaults(CvArtInfoUnit*)`
+- **24223** `CvArtInfoUnit::copyNonDefaults(CvArtInfoUnit*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoUnit>
-- **24032** `CvArtInfoUnit::getTrainSound() const` (exported)
+- **24231** `CvArtInfoUnit::getTrainSound() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvCity::popOrder, CvDLLButtonPopup::launchProductionPopup
-- **24037** `CvArtInfoUnit::setTrainSound(char const*)` (exported)
+- **24236** `CvArtInfoUnit::setTrainSound(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvArtInfoUnit::read
-- **24042** `CvArtInfoUnit::getRunLoopSoundTag() const` (exported)
-- **24047** `CvArtInfoUnit::getRunEndSoundTag() const` (exported)
-- **24052** `CvArtInfoUnit::getPatrolSoundTag() const` (exported)
-- **24057** `CvArtInfoUnit::getSelectionSoundScriptId() const` (exported)
+- **24241** `CvArtInfoUnit::getRunLoopSoundTag() const` (exported)
+- **24246** `CvArtInfoUnit::getRunEndSoundTag() const` (exported)
+- **24251** `CvArtInfoUnit::getPatrolSoundTag() const` (exported)
+- **24256** `CvArtInfoUnit::getSelectionSoundScriptId() const` (exported)
   - called by (1): CvUnit::getSelectionSoundScript
-- **24062** `CvArtInfoUnit::getActionSoundScriptId() const` (exported)
+- **24261** `CvArtInfoUnit::getActionSoundScriptId() const` (exported)
   - called by (1): CvSelectionGroup::playActionSound
-- **24072** `CvArtInfoBuilding::CvArtInfoBuilding()` (exported)
+- **24271** `CvArtInfoBuilding::CvArtInfoBuilding()` (exported)
   - calls: CvArtInfoScalableAsset::CvArtInfoScalableAsset(), CvString::CvString() [CvString.h], CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvArtInfoBuilding>
-- **24076** `CvArtInfoBuilding::~CvArtInfoBuilding()` (exported; virtual)
+- **24275** `CvArtInfoBuilding::~CvArtInfoBuilding()` (exported; virtual)
   - calls: CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h], CvString::~CvString [CvString.h]
   - called by (1): CvArtInfoBuilding::`vector deleting dtor'
-- **24080** `CvArtInfoBuilding::isAnimated() const` (exported)
+- **24279** `CvArtInfoBuilding::isAnimated() const` (exported)
   - called by (1): CyInfoPythonInterface3
-- **24085** `CvArtInfoBuilding::getLSystemName() const` (exported)
+- **24284** `CvArtInfoBuilding::getLSystemName() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **24090** `CvArtInfoBuilding::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
+- **24289** `CvArtInfoBuilding::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
   - calls: CvArtInfoScalableAsset::read, CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **24107** `CvArtInfoBuilding::copyNonDefaults(CvArtInfoBuilding*)`
+- **24306** `CvArtInfoBuilding::copyNonDefaults(CvArtInfoBuilding*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoBuilding>
-- **24120** `CvArtInfoCivilization::CvArtInfoCivilization()` (exported)
+- **24319** `CvArtInfoCivilization::CvArtInfoCivilization()` (exported)
   - calls: CvArtInfoAsset::CvArtInfoAsset() [CvInfos.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvArtInfoCivilization>
-- **24124** `CvArtInfoCivilization::~CvArtInfoCivilization()` (exported; virtual)
+- **24323** `CvArtInfoCivilization::~CvArtInfoCivilization()` (exported; virtual)
   - calls: CvArtInfoAsset::~CvArtInfoAsset [CvInfos.h]
   - called by (1): CvArtInfoCivilization::`vector deleting dtor'
-- **24128** `CvArtInfoCivilization::isWhiteFlag() const` (exported; Python: isWhiteFlag)
+- **24327** `CvArtInfoCivilization::isWhiteFlag() const` (exported; Python: isWhiteFlag)
   - called by (2): CvPlayer::isWhiteFlag, CyInfoPythonInterface3
-- **24133** `CvArtInfoCivilization::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoAsset::read)
+- **24332** `CvArtInfoCivilization::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoAsset::read)
   - calls: CvArtInfoAsset::read, CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **24148** `CvArtInfoCivilization::copyNonDefaults(CvArtInfoCivilization*)`
+- **24347** `CvArtInfoCivilization::copyNonDefaults(CvArtInfoCivilization*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoCivilization>
-- **24160** `CvArtInfoLeaderhead::getNoShaderNIF() const` (exported)
+- **24359** `CvArtInfoLeaderhead::getNoShaderNIF() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **24165** `CvArtInfoLeaderhead::setNoShaderNIF(char const*)` (exported)
+- **24364** `CvArtInfoLeaderhead::setNoShaderNIF(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvArtInfoLeaderhead::read
-- **24170** `CvArtInfoLeaderhead::getBackgroundKFM() const` (exported)
+- **24369** `CvArtInfoLeaderhead::getBackgroundKFM() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **24175** `CvArtInfoLeaderhead::setBackgroundKFM(char const*)` (exported)
+- **24374** `CvArtInfoLeaderhead::setBackgroundKFM(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvArtInfoLeaderhead::read
-- **24180** `CvArtInfoLeaderhead::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoAsset::read)
+- **24379** `CvArtInfoLeaderhead::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoAsset::read)
   - calls: CvString::CvString() [CvString.h], CvArtInfoAsset::read, CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoLeaderhead::setNoShaderNIF, CvString::operator char const * [CvString.h], CvArtInfoLeaderhead::setBackgroundKFM
-- **24225** `CvArtInfoLeaderhead::copyNonDefaults(CvArtInfoLeaderhead*)`
+- **24424** `CvArtInfoLeaderhead::copyNonDefaults(CvArtInfoLeaderhead*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoLeaderhead>
-- **24237** `CvArtInfoScalableAsset::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoAsset::read)
+- **24436** `CvArtInfoScalableAsset::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoAsset::read)
   - calls: CvArtInfoAsset::read, CvScalableInfo::read
   - called by (5): CvArtInfoBonus::read, CvArtInfoBuilding::read, CvArtInfoFeature::read, CvArtInfoImprovement::read, CvArtInfoUnit::read
-- **24251** `CvArtInfoScalableAsset::copyNonDefaults(CvArtInfoScalableAsset*)`
+- **24450** `CvArtInfoScalableAsset::copyNonDefaults(CvArtInfoScalableAsset*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoMisc>
-- **24264** `CvArtInfoImprovement::CvArtInfoImprovement()` (exported)
+- **24463** `CvArtInfoImprovement::CvArtInfoImprovement()` (exported)
   - calls: CvArtInfoScalableAsset::CvArtInfoScalableAsset(), CvString::CvString() [CvString.h], CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvArtInfoImprovement>
-- **24268** `CvArtInfoImprovement::~CvArtInfoImprovement()` (exported; virtual)
+- **24467** `CvArtInfoImprovement::~CvArtInfoImprovement()` (exported; virtual)
   - calls: CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h], CvString::~CvString [CvString.h]
   - called by (1): CvArtInfoImprovement::`vector deleting dtor'
-- **24272** `CvArtInfoImprovement::isExtraAnimations() const` (exported)
+- **24471** `CvArtInfoImprovement::isExtraAnimations() const` (exported)
   - called by (1): CyInfoPythonInterface3
-- **24277** `CvArtInfoImprovement::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
+- **24476** `CvArtInfoImprovement::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
   - calls: CvArtInfoScalableAsset::read, CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoImprovement::setShaderNIF, CvString::operator char const * [CvString.h], CvString::~CvString [CvString.h]
-- **24308** `CvArtInfoImprovement::copyNonDefaults(CvArtInfoImprovement*)`
+- **24507** `CvArtInfoImprovement::copyNonDefaults(CvArtInfoImprovement*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoImprovement>
-- **24324** `CvArtInfoTerrain::CvArtInfoTerrain()` (exported)
+- **24523** `CvArtInfoTerrain::CvArtInfoTerrain()` (exported)
   - calls: CvArtInfoAsset::CvArtInfoAsset() [CvInfos.h], CvString::CvString() [CvString.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoAsset::~CvArtInfoAsset [CvInfos.h], CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoTerrain>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvArtInfoTerrain>
-- **24334** `CvArtInfoTerrain::~CvArtInfoTerrain()` (exported; virtual)
+- **24533** `CvArtInfoTerrain::~CvArtInfoTerrain()` (exported; virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvArtInfoAsset::~CvArtInfoAsset [CvInfos.h], CvString::~CvString [CvString.h]
   - called by (1): CvArtInfoTerrain::`vector deleting dtor'
-- **24343** `CvArtInfoTerrain::getBaseTexture()` (exported)
+- **24542** `CvArtInfoTerrain::getBaseTexture()` (exported)
   - calls: CvAssetInfoBase::getPath
-- **24348** `CvArtInfoTerrain::setBaseTexture(char const*)` (exported)
+- **24547** `CvArtInfoTerrain::setBaseTexture(char const*)` (exported)
   - calls: CvAssetInfoBase::setPath
-- **24353** `CvArtInfoTerrain::getGridTexture()` (exported)
+- **24552** `CvArtInfoTerrain::getGridTexture()` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **24358** `CvArtInfoTerrain::setGridTexture(char const*)` (exported)
+- **24557** `CvArtInfoTerrain::setGridTexture(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvArtInfoTerrain::read
-- **24363** `CvArtInfoTerrain::getDetailTexture()` (exported)
+- **24562** `CvArtInfoTerrain::getDetailTexture()` (exported)
   - calls: CvString::operator char const * [CvString.h]
-- **24368** `CvArtInfoTerrain::setDetailTexture(char const*)` (exported)
+- **24567** `CvArtInfoTerrain::setDetailTexture(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvArtInfoTerrain::read
-- **24373** `CvArtInfoTerrain::getLayerOrder()` (exported)
-- **24378** `CvArtInfoTerrain::useAlphaShader()` (exported)
-- **24383** `CvArtInfoTerrain::getBlendList(int)` (exported)
-- **24389** `BuildSlotList(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int>>>&, CvString&)`
+- **24572** `CvArtInfoTerrain::getLayerOrder()` (exported)
+- **24577** `CvArtInfoTerrain::useAlphaShader()` (exported)
+- **24582** `CvArtInfoTerrain::getBlendList(int)` (exported)
+- **24588** `BuildSlotList(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int>>>&, CvString&)`
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvArtInfoTerrain::read
-- **24406** `CvArtInfoTerrain::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoAsset::read)
+- **24605** `CvArtInfoTerrain::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoAsset::read)
   - calls: CvString::CvString() [CvString.h], CvArtInfoAsset::read, CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoTerrain::setGridTexture, CvString::operator char const * [CvString.h], CvArtInfoTerrain::setDetailTexture, CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], BuildSlotList
-- **24468** `CvArtInfoTerrain::copyNonDefaults(CvArtInfoTerrain*)`
+- **24667** `CvArtInfoTerrain::copyNonDefaults(CvArtInfoTerrain*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoTerrain>
-- **24484** `CvArtInfoFeature::CvArtInfoFeature()` (exported)
+- **24683** `CvArtInfoFeature::CvArtInfoFeature()` (exported)
   - calls: CvArtInfoScalableAsset::CvArtInfoScalableAsset(), CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvArtInfoFeature>
-- **24488** `CvArtInfoFeature::~CvArtInfoFeature()` (exported; virtual)
+- **24687** `CvArtInfoFeature::~CvArtInfoFeature()` (exported; virtual)
   - calls: CvArtInfoScalableAsset::~CvArtInfoScalableAsset [CvInfos.h]
   - called by (1): CvArtInfoFeature::`vector deleting dtor'
-- **24492** `CvArtInfoFeature::isAnimated() const` (exported)
+- **24691** `CvArtInfoFeature::isAnimated() const` (exported)
   - called by (1): CyInfoPythonInterface3
-- **24497** `CvArtInfoFeature::isRiverArt() const` (exported)
+- **24696** `CvArtInfoFeature::isRiverArt() const` (exported)
   - called by (3): CvPlot::setFeatureType, CvPlot::updateFeatureSymbolEntity, CyInfoPythonInterface3
-- **24502** `CvArtInfoFeature::getTileArtType() const` (exported)
+- **24701** `CvArtInfoFeature::getTileArtType() const` (exported)
   - called by (1): CvPlot::updateFeatureSymbolEntity
-- **24507** `CvArtInfoFeature::getLightType() const` (exported)
-- **24512** `CvArtInfoFeature::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
+- **24706** `CvArtInfoFeature::getLightType() const` (exported)
+- **24711** `CvArtInfoFeature::read(CvXMLLoadUtility*)` (virtual; overrides CvArtInfoScalableAsset::read)
   - calls: CvArtInfoScalableAsset::read, CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvString::CvString() [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::CompareNoCase [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvArtInfoFeature::FeatureVariety::FeatureVariety [CvInfos.h], CvArtInfoFeature::getConnectionMaskFromString, CvXMLLoadUtility::GetXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvArtInfoFeature::FeatureVariety::createFeatureArtPieceFromConnectionMask [CvInfos.h], CvArtInfoFeature::FeatureArtModel::FeatureArtModel [CvInfos.h], CvArtInfoFeature::getRotatedConnectionMask, CvDLLXmlIFaceBase::LocateNextSiblingNodeByTagName [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvArtInfoFeature::FeatureVariety::createFeatureDummyNode [CvInfos.h], CvString::~CvString [CvString.h]
-- **24668** `CvArtInfoFeature::copyNonDefaults(CvArtInfoFeature*)`
+- **24867** `CvArtInfoFeature::copyNonDefaults(CvArtInfoFeature*)`
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvArtInfoFeature>
-- **24676** `CvArtInfoFeature::getVariety(int) const` (exported)
+- **24875** `CvArtInfoFeature::getVariety(int) const` (exported)
   - called by (2): CvArtInfoFeature::getFeatureDummyNodeName, CvGameTextMgr::getTerrainDataForWB
-- **24682** `CvArtInfoFeature::getNumVarieties() const` (exported)
+- **24881** `CvArtInfoFeature::getNumVarieties() const` (exported)
   - called by (3): CvFeatureInfo::getNumVarieties, CvGameTextMgr::getTerrainDataForWB, CvPlot::setFeatureType
-- **24687** `CvArtInfoFeature::getFeatureDummyNodeName(int, std::basic_string<char, std::char_traits<char>, std::allocator<char>>)` (exported)
+- **24886** `CvArtInfoFeature::getFeatureDummyNodeName(int, std::basic_string<char, std::char_traits<char>, std::allocator<char>>)` (exported)
   - calls: CvArtInfoFeature::getVariety, CvArtInfoFeature::FeatureVariety::getFeatureDummyNodeName [CvInfos.h], CvString::CvString(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&) [CvString.h], CvString::~CvString [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **24692** `CvArtInfoFeature::getConnectionMaskFromString(CvString const&)`
+- **24891** `CvArtInfoFeature::getConnectionMaskFromString(CvString const&)`
   - calls: CvString::IsEmpty [CvString.h], CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::getTokens [CvString.h], CvString::CompareNoCase [CvString.h]
   - called by (1): CvArtInfoFeature::read
-- **24733** `CvArtInfoFeature::getRotatedConnectionMask(int, RotationTypes)`
+- **24932** `CvArtInfoFeature::getRotatedConnectionMask(int, RotationTypes)`
   - called by (1): CvArtInfoFeature::read
-- **24761** `CvEmphasizeInfo::CvEmphasizeInfo()`
+- **24960** `CvEmphasizeInfo::CvEmphasizeInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvEmphasizeInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvEmphasizeInfo>
-- **24772** `CvEmphasizeInfo::~CvEmphasizeInfo()` (virtual)
+- **24971** `CvEmphasizeInfo::~CvEmphasizeInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvEmphasizeInfo::`scalar deleting dtor'
-- **24778** `CvEmphasizeInfo::isAvoidGrowth() const` (Python: isAvoidGrowth)
+- **24977** `CvEmphasizeInfo::isAvoidGrowth() const` (Python: isAvoidGrowth)
   - called by (3): CvCityAI::AI_setEmphasize, CvEmphasizeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **24783** `CvEmphasizeInfo::isGreatPeople() const` (Python: isGreatPeople)
+- **24982** `CvEmphasizeInfo::isGreatPeople() const` (Python: isGreatPeople)
   - called by (4): CvCityAI::AI_doEmphasize, CvCityAI::AI_setEmphasize, CvEmphasizeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **24790** `CvEmphasizeInfo::getYieldChange(int) const` (Python: getYieldChange)
+- **24989** `CvEmphasizeInfo::getYieldChange(int) const` (Python: getYieldChange)
   - called by (4): CvCityAI::AI_doEmphasize, CvCityAI::AI_setEmphasize, CvEmphasizeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **24797** `CvEmphasizeInfo::getCommerceChange(int) const` (Python: getCommerceChange)
+- **24996** `CvEmphasizeInfo::getCommerceChange(int) const` (Python: getCommerceChange)
   - called by (4): CvCityAI::AI_doEmphasize, CvCityAI::AI_setEmphasize, CvEmphasizeInfo::copyNonDefaults, CyInfoPythonInterface3
-- **24807** `CvEmphasizeInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **25006** `CvEmphasizeInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetYields [CvXMLLoadUtilitySet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvXMLLoadUtility::SetCommerce<int> [CvXMLLoadUtility.h]
-- **24844** `CvEmphasizeInfo::copyNonDefaults(CvEmphasizeInfo*)`
+- **25043** `CvEmphasizeInfo::copyNonDefaults(CvEmphasizeInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvEmphasizeInfo::isAvoidGrowth, CvEmphasizeInfo::isGreatPeople, CvEmphasizeInfo::getYieldChange, CvEmphasizeInfo::getCommerceChange
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvEmphasizeInfo>
-- **24886** `CvUpkeepInfo::CvUpkeepInfo()`
+- **25085** `CvUpkeepInfo::CvUpkeepInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvUpkeepInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvUpkeepInfo>
-- **24890** `CvUpkeepInfo::~CvUpkeepInfo()` (virtual)
+- **25089** `CvUpkeepInfo::~CvUpkeepInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvUpkeepInfo::`scalar deleting dtor'
-- **24894** `CvUpkeepInfo::getPopulationPercent() const` (Python: getPopulationPercent)
+- **25093** `CvUpkeepInfo::getPopulationPercent() const` (Python: getPopulationPercent)
   - called by (3): CvPlayer::getSingleCivicUpkeep, CvUpkeepInfo::copyNonDefaults, CyInfoPythonInterface3
-- **24899** `CvUpkeepInfo::getCityPercent() const` (Python: getCityPercent)
+- **25098** `CvUpkeepInfo::getCityPercent() const` (Python: getCityPercent)
   - called by (3): CvPlayer::getSingleCivicUpkeep, CvUpkeepInfo::copyNonDefaults, CyInfoPythonInterface3
-- **24904** `CvUpkeepInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **25103** `CvUpkeepInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp]
-- **24921** `CvUpkeepInfo::copyNonDefaults(CvUpkeepInfo*)`
+- **25120** `CvUpkeepInfo::copyNonDefaults(CvUpkeepInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvUpkeepInfo::getPopulationPercent, CvUpkeepInfo::getCityPercent
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvUpkeepInfo>
-- **24947** `CvCultureLevelInfo::CvCultureLevelInfo()`
+- **25146** `CvCultureLevelInfo::CvCultureLevelInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvCultureLevelInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvCultureLevelInfo>
-- **24951** `CvCultureLevelInfo::~CvCultureLevelInfo()` (virtual)
+- **25150** `CvCultureLevelInfo::~CvCultureLevelInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase
   - called by (1): CvCultureLevelInfo::`scalar deleting dtor'
-- **24956** `CvCultureLevelInfo::getCityDefenseModifier() const` (Python: getCityDefenseModifier)
+- **25155** `CvCultureLevelInfo::getCityDefenseModifier() const` (Python: getCityDefenseModifier)
   - called by (3): CvCity::getNaturalDefense, CvCultureLevelInfo::copyNonDefaults, CyInfoPythonInterface3
-- **24961** `CvCultureLevelInfo::getSpeedThreshold(int) const` (Python: getSpeedThreshold)
+- **25160** `CvCultureLevelInfo::getSpeedThreshold(int) const` (Python: getSpeedThreshold)
   - called by (3): CvCultureLevelInfo::copyNonDefaults, CvGame::getCultureThreshold, CyInfoPythonInterface3
-- **24968** `CvCultureLevelInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **25167** `CvCultureLevelInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvGlobals::getNumGameSpeedInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp]
-- **24986** `CvCultureLevelInfo::copyNonDefaults(CvCultureLevelInfo*)`
+- **25185** `CvCultureLevelInfo::copyNonDefaults(CvCultureLevelInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvCultureLevelInfo::getCityDefenseModifier, CvGlobals::getNumGameSpeedInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvCultureLevelInfo::getSpeedThreshold
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCultureLevelInfo>
-- **25053** `CvEraInfo::CvEraInfo()`
+- **25252** `CvEraInfo::CvEraInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvEraInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvEraInfo>
-- **25057** `CvEraInfo::~CvEraInfo()` (virtual)
+- **25256** `CvEraInfo::~CvEraInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvEraInfo::`scalar deleting dtor'
-- **25063** `CvEraInfo::getStartingUnitMultiplier() const` (Python: getStartingUnitMultiplier)
+- **25262** `CvEraInfo::getStartingUnitMultiplier() const` (Python: getStartingUnitMultiplier)
   - called by (4): CvEraInfo::copyNonDefaults, CvGame::initScoreCalculation, CvPlayer::initFreeUnits, CyInfoPythonInterface3
-- **25068** `CvEraInfo::getStartingDefenseUnits() const` (Python: getStartingDefenseUnits)
+- **25267** `CvEraInfo::getStartingDefenseUnits() const` (Python: getStartingDefenseUnits)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface3
-- **25073** `CvEraInfo::getStartingWorkerUnits() const` (Python: getStartingWorkerUnits)
+- **25272** `CvEraInfo::getStartingWorkerUnits() const` (Python: getStartingWorkerUnits)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface3
-- **25078** `CvEraInfo::getStartingExploreUnits() const` (Python: getStartingExploreUnits)
+- **25277** `CvEraInfo::getStartingExploreUnits() const` (Python: getStartingExploreUnits)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::initFreeUnits, CyInfoPythonInterface3
-- **25083** `CvEraInfo::getAdvancedStartPoints() const`
+- **25282** `CvEraInfo::getAdvancedStartPoints() const`
   - called by (2): CvEraInfo::copyNonDefaults, CvInitCore::resetAdvancedStartPoints
-- **25088** `CvEraInfo::getStartingGold() const` (Python: getStartingGold)
+- **25287** `CvEraInfo::getStartingGold() const` (Python: getStartingGold)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::initFreeState, CyInfoPythonInterface3
-- **25093** `CvEraInfo::getFreePopulation() const` (Python: getFreePopulation)
+- **25292** `CvEraInfo::getFreePopulation() const` (Python: getFreePopulation)
   - called by (6): CvCity::init, CvEraInfo::copyNonDefaults, CvGame::initScoreCalculation, CvPlayer::getAdvancedStartPopCost, CvPlayer::getNewCityProductionValue, CyInfoPythonInterface3
-- **25098** `CvEraInfo::getStartPercent() const` (Python: getStartPercent)
+- **25297** `CvEraInfo::getStartPercent() const` (Python: getStartPercent)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::init, CyInfoPythonInterface3
-- **25103** `CvEraInfo::getGrowthPercent() const` (Python: getGrowthPercent)
+- **25302** `CvEraInfo::getGrowthPercent() const` (Python: getGrowthPercent)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::getGrowthThreshold, CyInfoPythonInterface3
-- **25108** `CvEraInfo::getTrainPercent() const` (Python: getTrainPercent)
+- **25307** `CvEraInfo::getTrainPercent() const` (Python: getTrainPercent)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::getProductionNeeded(UnitTypes) const, CyInfoPythonInterface3
-- **25113** `CvEraInfo::getConstructPercent() const` (Python: getConstructPercent)
+- **25312** `CvEraInfo::getConstructPercent() const` (Python: getConstructPercent)
   - called by (5): CvEraInfo::copyNonDefaults, CvPlayer::getProductionNeeded(BuildingTypes) const, CvUnit::doPillageInfluence, CvUnit::influencePlots, CyInfoPythonInterface3
-- **25118** `CvEraInfo::getCreatePercent() const` (Python: getCreatePercent)
+- **25317** `CvEraInfo::getCreatePercent() const` (Python: getCreatePercent)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::getProductionNeeded(ProjectTypes) const, CyInfoPythonInterface3
-- **25123** `CvEraInfo::getResearchPercent() const` (Python: getResearchPercent)
+- **25322** `CvEraInfo::getResearchPercent() const` (Python: getResearchPercent)
   - called by (3): CvEraInfo::copyNonDefaults, CvTeam::getResearchCost, CyInfoPythonInterface3
-- **25133** `CvEraInfo::getTechCostModifier() const`
+- **25332** `CvEraInfo::getTechCostModifier() const`
   - called by (1): CvPlayer::calculateResearchModifier
-- **25141** `CvEraInfo::getBuildPercent() const` (Python: getBuildPercent)
+- **25340** `CvEraInfo::getBuildPercent() const` (Python: getBuildPercent)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlot::getBuildTime, CyInfoPythonInterface3
-- **25146** `CvEraInfo::getImprovementPercent() const` (Python: getImprovementPercent)
+- **25345** `CvEraInfo::getImprovementPercent() const` (Python: getImprovementPercent)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::getImprovementUpgradeTime, CyInfoPythonInterface3
-- **25151** `CvEraInfo::getGreatPeoplePercent() const` (Python: getGreatPeoplePercent)
+- **25350** `CvEraInfo::getGreatPeoplePercent() const` (Python: getGreatPeoplePercent)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::greatPeopleThreshold, CyInfoPythonInterface3
-- **25156** `CvEraInfo::getAnarchyPercent() const` (Python: getAnarchyPercent)
+- **25355** `CvEraInfo::getAnarchyPercent() const` (Python: getAnarchyPercent)
   - called by (4): CvEraInfo::copyNonDefaults, CvPlayer::getCivicAnarchyLength, CvPlayer::getReligionAnarchyLength, CyInfoPythonInterface3
-- **25161** `CvEraInfo::getEventChancePerTurn() const` (Python: getEventChancePerTurn)
+- **25360** `CvEraInfo::getEventChancePerTurn() const` (Python: getEventChancePerTurn)
   - called by (3): CvEraInfo::copyNonDefaults, CvPlayer::doEvents, CyInfoPythonInterface3
-- **25166** `CvEraInfo::getSoundtrackSpace() const` (Python: getSoundtrackSpace)
+- **25365** `CvEraInfo::getSoundtrackSpace() const` (Python: getSoundtrackSpace)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::getSoundtrackSpace, CyInfoPythonInterface3
-- **25171** `CvEraInfo::isFirstSoundtrackFirst() const` (Python: isFirstSoundtrackFirst)
+- **25370** `CvEraInfo::isFirstSoundtrackFirst() const` (Python: isFirstSoundtrackFirst)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::getNextSoundtrack, CyInfoPythonInterface3
-- **25176** `CvEraInfo::getNumSoundtracks() const` (Python: getNumSoundtracks)
+- **25375** `CvEraInfo::getNumSoundtracks() const` (Python: getNumSoundtracks)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::getNextSoundtrack, CyInfoPythonInterface3
-- **25181** `CvEraInfo::getAudioUnitVictoryScript() const` (Python: getAudioUnitVictoryScript)
+- **25380** `CvEraInfo::getAudioUnitVictoryScript() const` (Python: getAudioUnitVictoryScript)
   - calls: CvString::operator char const * [CvString.h]
   - called by (6): CvEraInfo::copyNonDefaults, CvUnit::archerBombard, CvUnit::flankingStrikeCombat, CvUnit::updateCombat, CvUnit::updateStackCombat, CyInfoPythonInterface3
-- **25186** `CvEraInfo::getAudioUnitDefeatScript() const` (Python: getAudioUnitDefeatScript)
+- **25385** `CvEraInfo::getAudioUnitDefeatScript() const` (Python: getAudioUnitDefeatScript)
   - calls: CvString::operator char const * [CvString.h]
   - called by (7): CvEraInfo::copyNonDefaults, CvUnit::archerBombard, CvUnit::flankingStrikeCombat, CvUnit::kill, CvUnit::updateCombat, CvUnit::updateStackCombat, CyInfoPythonInterface3
-- **25191** `CvEraInfo::isNoGoodies() const` (Python: isNoGoodies)
+- **25390** `CvEraInfo::isNoGoodies() const` (Python: isNoGoodies)
   - called by (3): CvEraInfo::copyNonDefaults, CvMapGenerator::addGoodies, CyInfoPythonInterface3
-- **25196** `CvEraInfo::isNoAnimals() const` (Python: isNoAnimals)
+- **25395** `CvEraInfo::isNoAnimals() const` (Python: isNoAnimals)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::createAnimals, CyInfoPythonInterface3
-- **25201** `CvEraInfo::isNoBarbUnits() const` (Python: isNoBarbUnits)
+- **25400** `CvEraInfo::isNoBarbUnits() const` (Python: isNoBarbUnits)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::createBarbarianUnits, CyInfoPythonInterface3
-- **25206** `CvEraInfo::isNoBarbCities() const` (Python: isNoBarbCities)
+- **25405** `CvEraInfo::isNoBarbCities() const` (Python: isNoBarbCities)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::createBarbarianCities, CyInfoPythonInterface3
-- **25213** `CvEraInfo::getSoundtracks(int) const` (Python: getSoundtracks)
+- **25412** `CvEraInfo::getSoundtracks(int) const` (Python: getSoundtracks)
   - called by (3): CvEraInfo::copyNonDefaults, CvGame::getNextSoundtrack, CyInfoPythonInterface3
-- **25220** `CvEraInfo::getCitySoundscapeSciptId(int) const` (Python: getCitySoundscapeSciptId)
+- **25419** `CvEraInfo::getCitySoundscapeSciptId(int) const` (Python: getCitySoundscapeSciptId)
   - called by (3): CvCity::getSoundscapeScriptId, CvEraInfo::copyNonDefaults, CyInfoPythonInterface3
-- **25227** `CvEraInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **25426** `CvEraInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetStringList [CvXMLLoadUtility.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvDLLUtilityIFaceBase::getAudioDisabled [CvDLLUtilityIFaceBase.h], CvDLLUtilityIFaceBase::getAudioTagIndex [CvDLLUtilityIFaceBase.h], CvString::operator char const * [CvString.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvString::`vector deleting dtor', CvGlobals::getCitySizeTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPairForAudioScripts(int**, char const*, CvString*, int, int) [CvXMLLoadUtilitySet.cpp]
-- **25304** `CvEraInfo::copyNonDefaults(CvEraInfo*)`
+- **25503** `CvEraInfo::copyNonDefaults(CvEraInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvEraInfo::isNoGoodies, CvEraInfo::isNoAnimals, CvEraInfo::isNoBarbUnits, CvEraInfo::isNoBarbCities, CvEraInfo::getStartingUnitMultiplier, CvEraInfo::getStartingDefenseUnits, CvEraInfo::getStartingWorkerUnits, CvEraInfo::getStartingExploreUnits, CvEraInfo::getAdvancedStartPoints, CvEraInfo::getStartingGold, CvEraInfo::getFreePopulation, CvEraInfo::getStartPercent, CvEraInfo::getGrowthPercent, CvEraInfo::getTrainPercent, CvEraInfo::getConstructPercent, CvEraInfo::getCreatePercent, CvEraInfo::getResearchPercent, CvEraInfo::getBuildPercent, CvEraInfo::getImprovementPercent, CvEraInfo::getGreatPeoplePercent, CvEraInfo::getAnarchyPercent, CvEraInfo::getEventChancePerTurn, CvEraInfo::getSoundtrackSpace, CvEraInfo::isFirstSoundtrackFirst, CvEraInfo::getAudioUnitVictoryScript, CvString::operator=(char const*) [CvString.h], CvEraInfo::getAudioUnitDefeatScript, CvEraInfo::getNumSoundtracks, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvEraInfo::getSoundtracks, operator delete[](void*) [CvGameCoreDLL.cpp], CvGlobals::getNumCitySizeTypes [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEraInfo::getCitySoundscapeSciptId
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvEraInfo>
-- **25385** `CvColorInfo::CvColorInfo()` (exported)
+- **25586** `CvColorInfo::CvColorInfo()` (exported)
   - calls: NiColorA::NiColorA() [CvGameCoreDLL.h], CvInfoBase::CvInfoBase(), CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvColorInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvColorInfo>
-- **25396** `CvColorInfo::~CvColorInfo()` (exported; virtual)
+- **25597** `CvColorInfo::~CvColorInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvColorInfo::`vector deleting dtor'
-- **25400** `CvColorInfo::getColor() const` (exported; Python: getColor)
+- **25601** `CvColorInfo::getColor() const` (exported; Python: getColor)
   - called by (59): CvCity::getCityBillboardSizeIconColors, CvDLLButtonPopup::launchEventPopup, CvDLLWidgetData::parseActionHelp, CvDLLWidgetData::parseConscriptHelp, CvDLLWidgetData::parseContactCivHelp, CvDLLWidgetData::parseFlagHelp, CvDLLWidgetData::parseTradeItem, CvDllTranslator::initializeTags, CvGame::updateBlockadedPlots, CvGame::updateColoredPlots, CvGameTextMgr::buildBonusRevealString, CvGameTextMgr::buildCivicRevealString …
-- **25405** `CvColorInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **25606** `CvColorInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], NiColorA::NiColorA(float, float, float, float) [CvGameCoreDLL.h]
-- **25428** `CvColorInfo::copyNonDefaults(CvColorInfo*)`
+- **25629** `CvColorInfo::copyNonDefaults(CvColorInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvColorInfo>
-- **25457** `CvPlayerColorInfo::CvPlayerColorInfo()` (exported)
+- **25658** `CvPlayerColorInfo::CvPlayerColorInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvPlayerColorInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvPlayerColorInfo>
-- **25468** `CvPlayerColorInfo::~CvPlayerColorInfo()` (exported; virtual)
+- **25669** `CvPlayerColorInfo::~CvPlayerColorInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvPlayerColorInfo::`vector deleting dtor'
-- **25472** `CvPlayerColorInfo::getColorTypePrimary() const` (exported; Python: getColorTypePrimary)
+- **25673** `CvPlayerColorInfo::getColorTypePrimary() const` (exported; Python: getColorTypePrimary)
   - called by (9): CvCity::getCityBillboardSizeIconColors, CvGame::updateColoredPlots, CvPlayer::getCultureLayerColors, CvPlayer::getResourceLayerColors, CvPlayer::getUnitLayerColors, CvPlayerColorInfo::copyNonDefaults, CvPlot::plotMinimapColor, CvReplayInfo::createInfo, CyInfoPythonInterface3
-- **25477** `CvPlayerColorInfo::getColorTypeSecondary() const` (exported; Python: getColorTypeSecondary)
+- **25678** `CvPlayerColorInfo::getColorTypeSecondary() const` (exported; Python: getColorTypeSecondary)
   - called by (3): CvCity::getCityBillboardSizeIconColors, CvPlayerColorInfo::copyNonDefaults, CyInfoPythonInterface3
-- **25482** `CvPlayerColorInfo::getTextColorType() const` (exported; Python: getTextColorType)
+- **25683** `CvPlayerColorInfo::getTextColorType() const` (exported; Python: getTextColorType)
   - called by (6): CvPlayer::getPlayerTextColorA, CvPlayer::getPlayerTextColorB, CvPlayer::getPlayerTextColorG, CvPlayer::getPlayerTextColorR, CvPlayerColorInfo::copyNonDefaults, CyInfoPythonInterface3
-- **25487** `CvPlayerColorInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **25688** `CvPlayerColorInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp]
-- **25511** `CvPlayerColorInfo::copyNonDefaults(CvPlayerColorInfo*)`
+- **25712** `CvPlayerColorInfo::copyNonDefaults(CvPlayerColorInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvPlayerColorInfo::getColorTypePrimary, CvPlayerColorInfo::getColorTypeSecondary, CvPlayerColorInfo::getTextColorType
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvPlayerColorInfo>
-- **25552** `CvLandscapeInfo::CvLandscapeInfo()` (exported)
+- **25753** `CvLandscapeInfo::CvLandscapeInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvLandscapeInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvLandscapeInfo>
-- **25556** `CvLandscapeInfo::getFogR() const` (exported)
+- **25757** `CvLandscapeInfo::getFogR() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25561** `CvLandscapeInfo::getFogG() const` (exported)
+- **25762** `CvLandscapeInfo::getFogG() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25566** `CvLandscapeInfo::getFogB() const` (exported)
+- **25767** `CvLandscapeInfo::getFogB() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25571** `CvLandscapeInfo::getHorizontalGameCell() const` (exported)
+- **25772** `CvLandscapeInfo::getHorizontalGameCell() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25576** `CvLandscapeInfo::getVerticalGameCell() const` (exported)
+- **25777** `CvLandscapeInfo::getVerticalGameCell() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25581** `CvLandscapeInfo::getPlotsPerCellX() const` (exported)
+- **25782** `CvLandscapeInfo::getPlotsPerCellX() const` (exported)
   - called by (2): CvLandscapeInfo::copyNonDefaults, CvMap::reset
-- **25586** `CvLandscapeInfo::getPlotsPerCellY() const` (exported)
+- **25787** `CvLandscapeInfo::getPlotsPerCellY() const` (exported)
   - called by (2): CvLandscapeInfo::copyNonDefaults, CvMap::reset
-- **25591** `CvLandscapeInfo::getHorizontalVertCnt() const` (exported)
-- **25596** `CvLandscapeInfo::getVerticalVertCnt() const` (exported)
-- **25601** `CvLandscapeInfo::getWaterHeight() const` (exported)
+- **25792** `CvLandscapeInfo::getHorizontalVertCnt() const` (exported)
+- **25797** `CvLandscapeInfo::getVerticalVertCnt() const` (exported)
+- **25802** `CvLandscapeInfo::getWaterHeight() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25606** `CvLandscapeInfo::getTextureScaleX() const` (exported)
+- **25807** `CvLandscapeInfo::getTextureScaleX() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25611** `CvLandscapeInfo::getTextureScaleY() const` (exported)
+- **25812** `CvLandscapeInfo::getTextureScaleY() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25616** `CvLandscapeInfo::getZScale() const` (exported)
+- **25817** `CvLandscapeInfo::getZScale() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25621** `CvLandscapeInfo::isUseTerrainShader() const` (exported)
+- **25822** `CvLandscapeInfo::isUseTerrainShader() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25626** `CvLandscapeInfo::isUseLightmap() const` (exported)
+- **25827** `CvLandscapeInfo::isUseLightmap() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25630** `CvLandscapeInfo::getPeakScale() const` (exported)
+- **25831** `CvLandscapeInfo::getPeakScale() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25635** `CvLandscapeInfo::getHillScale() const` (exported)
+- **25836** `CvLandscapeInfo::getHillScale() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25640** `CvLandscapeInfo::isRandomMap() const` (exported)
+- **25841** `CvLandscapeInfo::isRandomMap() const` (exported)
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25645** `CvLandscapeInfo::getSkyArt()` (exported)
+- **25846** `CvLandscapeInfo::getSkyArt()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25650** `CvLandscapeInfo::setSkyArt(char const*)` (exported)
+- **25851** `CvLandscapeInfo::setSkyArt(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvLandscapeInfo::copyNonDefaults, CvLandscapeInfo::read
-- **25655** `CvLandscapeInfo::getHeightMap()` (exported)
+- **25856** `CvLandscapeInfo::getHeightMap()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25660** `CvLandscapeInfo::setHeightMap(char const*)` (exported)
+- **25861** `CvLandscapeInfo::setHeightMap(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvLandscapeInfo::copyNonDefaults, CvLandscapeInfo::read
-- **25665** `CvLandscapeInfo::getTerrainMap()` (exported)
+- **25866** `CvLandscapeInfo::getTerrainMap()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25670** `CvLandscapeInfo::setTerrainMap(char const*)` (exported)
+- **25871** `CvLandscapeInfo::setTerrainMap(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvLandscapeInfo::copyNonDefaults, CvLandscapeInfo::read
-- **25675** `CvLandscapeInfo::getNormalMap()` (exported)
+- **25876** `CvLandscapeInfo::getNormalMap()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25680** `CvLandscapeInfo::setNormalMap(char const*)` (exported)
+- **25881** `CvLandscapeInfo::setNormalMap(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvLandscapeInfo::copyNonDefaults, CvLandscapeInfo::read
-- **25685** `CvLandscapeInfo::getBlendMap()` (exported)
+- **25886** `CvLandscapeInfo::getBlendMap()` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvLandscapeInfo::copyNonDefaults
-- **25690** `CvLandscapeInfo::setBlendMap(char const*)` (exported)
+- **25891** `CvLandscapeInfo::setBlendMap(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvLandscapeInfo::copyNonDefaults, CvLandscapeInfo::read
-- **25698** `CvLandscapeInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **25899** `CvLandscapeInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvLandscapeInfo::setHeightMap, CvString::operator char const * [CvString.h], CvLandscapeInfo::setTerrainMap, CvLandscapeInfo::setNormalMap, CvLandscapeInfo::setBlendMap, CvLandscapeInfo::setSkyArt, CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp]
-- **25754** `CvLandscapeInfo::copyNonDefaults(CvLandscapeInfo*)`
+- **25955** `CvLandscapeInfo::copyNonDefaults(CvLandscapeInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvLandscapeInfo::getWaterHeight, CvLandscapeInfo::isRandomMap, CvLandscapeInfo::getHeightMap, CvLandscapeInfo::setHeightMap, CvLandscapeInfo::getTerrainMap, CvLandscapeInfo::setTerrainMap, CvLandscapeInfo::getNormalMap, CvLandscapeInfo::setNormalMap, CvLandscapeInfo::getBlendMap, CvLandscapeInfo::setBlendMap, CvLandscapeInfo::getSkyArt, CvLandscapeInfo::setSkyArt, CvLandscapeInfo::getFogR, CvLandscapeInfo::getFogG, CvLandscapeInfo::getFogB, CvLandscapeInfo::getTextureScaleX, CvLandscapeInfo::getTextureScaleY, CvLandscapeInfo::getHorizontalGameCell, CvLandscapeInfo::getVerticalGameCell, CvLandscapeInfo::getPlotsPerCellX, CvLandscapeInfo::getPlotsPerCellY, CvLandscapeInfo::getZScale, CvLandscapeInfo::isUseTerrainShader, CvLandscapeInfo::isUseLightmap, CvLandscapeInfo::getPeakScale, CvLandscapeInfo::getHillScale
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvLandscapeInfo>
-- **25802** `CvGameText::getNumLanguages() const` (exported; Python: getNumLanguages)
+- **26003** `CvGameText::getNumLanguages() const` (exported; Python: getNumLanguages)
   - called by (1): CyInfoPythonInterface3
-- **25806** `CvGameText::setNumLanguages(int)` (exported)
-- **25813** `CvGameText::CvGameText()` (exported)
+- **26007** `CvGameText::setNumLanguages(int)` (exported)
+- **26014** `CvGameText::CvGameText()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvWString::CvWString() [CvString.h], CvWString::CvWString(char const*) [CvString.h], CvInfoBase::~CvInfoBase, CvWString::~CvWString [CvString.h]
   - called by (1): CvXMLLoadUtility::SetGameText
-- **25817** `CvGameText::getText() const`
+- **26018** `CvGameText::getText() const`
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (2): CvGameText::pyGetText, CvXMLLoadUtility::SetGameText
-- **25822** `CvGameText::setText(unsigned short const*)` (Python: setText)
+- **26023** `CvGameText::setText(unsigned short const*)` (Python: setText)
   - calls: CvWString::operator=(unsigned short const*) [CvString.h]
   - called by (2): CvGameText::read, CyInfoPythonInterface3
-- **25827** `CvGameText::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **26028** `CvGameText::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvWString::CvWString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::GetXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvGameTextMgr::getCurrentLanguage [CvGameTextMgr.cpp], CvGameTextMgr::GetInstance [CvGameTextMgr.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>&, char const*, unsigned short*) [CvXMLLoadUtilityGet.cpp], CvGameText::setText, CvWString::operator unsigned short const * [CvString.h], CvXMLLoadUtility::GetXmlVal(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>&, unsigned short*) [CvXMLLoadUtilityGet.cpp], CvGameText::setGender [CvInfos.h], CvGameText::setPlural [CvInfos.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h]
   - called by (1): CvXMLLoadUtility::SetGameText
-- **25900** `CvDiplomacyTextInfo::CvDiplomacyTextInfo()` (exported)
+- **26101** `CvDiplomacyTextInfo::CvDiplomacyTextInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase()
-- **25905** `CvDiplomacyTextInfo::init(int)` (exported)
+- **26106** `CvDiplomacyTextInfo::init(int)` (exported)
   - calls: CvDiplomacyTextInfo::uninit, operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvDiplomacyTextInfo::Response::Response [CvInfos.h], CvDiplomacyTextInfo::Response::~Response [CvInfos.h]
   - called by (2): CvDiplomacyTextInfo::read(CvXMLLoadUtility*), CvDiplomacyTextInfo::read(FDataStreamBase*)
-- **25912** `CvDiplomacyTextInfo::uninit()` (exported)
+- **26113** `CvDiplomacyTextInfo::uninit()` (exported)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (2): CvDiplomacyTextInfo::init, CvDiplomacyTextInfo::~CvDiplomacyTextInfo
-- **25917** `CvDiplomacyTextInfo::getNumResponses() const` (exported; Python: getNumResponses)
+- **26118** `CvDiplomacyTextInfo::getNumResponses() const` (exported; Python: getNumResponses)
   - called by (1): CyInfoPythonInterface3
-- **25922** `CvDiplomacyTextInfo::getCivilizationTypes(int, int) const` (exported; Python: getCivilizationTypes)
+- **26123** `CvDiplomacyTextInfo::getCivilizationTypes(int, int) const` (exported; Python: getCivilizationTypes)
   - called by (1): CyInfoPythonInterface3
-- **25931** `CvDiplomacyTextInfo::getLeaderHeadTypes(int, int) const` (exported; Python: getLeaderHeadTypes)
+- **26132** `CvDiplomacyTextInfo::getLeaderHeadTypes(int, int) const` (exported; Python: getLeaderHeadTypes)
   - called by (1): CyInfoPythonInterface3
-- **25940** `CvDiplomacyTextInfo::getAttitudeTypes(int, int) const` (exported; Python: getAttitudeTypes)
+- **26141** `CvDiplomacyTextInfo::getAttitudeTypes(int, int) const` (exported; Python: getAttitudeTypes)
   - called by (1): CyInfoPythonInterface3
-- **25949** `CvDiplomacyTextInfo::getDiplomacyPowerTypes(int, int) const` (exported; Python: getDiplomacyPowerTypes)
+- **26150** `CvDiplomacyTextInfo::getDiplomacyPowerTypes(int, int) const` (exported; Python: getDiplomacyPowerTypes)
   - called by (1): CyInfoPythonInterface3
-- **25958** `CvDiplomacyTextInfo::getNumDiplomacyText(int) const` (exported; Python: getNumDiplomacyText)
+- **26159** `CvDiplomacyTextInfo::getNumDiplomacyText(int) const` (exported; Python: getNumDiplomacyText)
   - called by (1): CyInfoPythonInterface3
-- **25965** `CvDiplomacyTextInfo::getDiplomacyText(int, int) const` (exported; Python: getDiplomacyText)
+- **26166** `CvDiplomacyTextInfo::getDiplomacyText(int, int) const` (exported; Python: getDiplomacyText)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **25974** `CvDiplomacyTextInfo::Response::read(FDataStreamBase*)`
+- **26175** `CvDiplomacyTextInfo::Response::read(FDataStreamBase*)`
   - calls: FDataStreamBase::Read [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumCivilizationInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvString::`vector deleting dtor', FDataStreamBase::ReadString [FDataStreamBase.h]
   - takes the address of: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h]
   - called by (1): CvDiplomacyTextInfo::read(FDataStreamBase*)
-- **25999** `CvDiplomacyTextInfo::Response::write(FDataStreamBase*)`
+- **26200** `CvDiplomacyTextInfo::Response::write(FDataStreamBase*)`
   - calls: FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumCivilizationInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], FDataStreamBase::WriteString [FDataStreamBase.h]
   - called by (1): CvDiplomacyTextInfo::write
-- **26010** `CvDiplomacyTextInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **26211** `CvDiplomacyTextInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], CvDiplomacyTextInfo::init, CvDiplomacyTextInfo::Response::read
-- **26029** `CvDiplomacyTextInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **26230** `CvDiplomacyTextInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], CvDiplomacyTextInfo::Response::write
-- **26046** `CvDiplomacyTextInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **26247** `CvDiplomacyTextInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::NumOfChildrenByTagName [CvDLLXMLIFaceBase.h], CvDiplomacyTextInfo::init, CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvGlobals::getNumCivilizationInfos [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, int, int, bool) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumLeaderHeadInfos [CvGlobals.cpp], CvGlobals::getDiplomacyPowerTypes() [CvGlobals.cpp], CvXMLLoadUtility::SetVariableListTagPair(bool**, char const*, CvString*, int, bool) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::SetStringList [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h]
-- **26117** `CvEffectInfo::CvEffectInfo()` (exported)
+- **26318** `CvEffectInfo::CvEffectInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvScalableInfo::CvScalableInfo [CvInfos.h], CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvEffectInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvEffectInfo>
-- **26121** `CvEffectInfo::~CvEffectInfo()` (exported; virtual)
+- **26322** `CvEffectInfo::~CvEffectInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvEffectInfo::`vector deleting dtor'
-- **26130** `CvEffectInfo::isBattleEffect() const`
+- **26331** `CvEffectInfo::isBattleEffect() const`
   - called by (2): CvEffectInfo::copyNonDefaults, CvPlot::setBattleEffect
-- **26138** `CvEffectInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **26339** `CvEffectInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvScalableInfo::read, CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvEffectInfo::setPath [CvInfos.h], CvString::operator char const * [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(float*, char const*, float) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **26187** `CvEffectInfo::copyNonDefaults(CvEffectInfo*)`
+- **26388** `CvEffectInfo::copyNonDefaults(CvEffectInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvScalableInfo::copyNonDefaults, CvEffectInfo::getPath [CvInfos.h], CvEffectInfo::setPath [CvInfos.h], CvEffectInfo::getUpdateRate [CvInfos.h], CvEffectInfo::isProjectile [CvInfos.h], CvEffectInfo::getProjectileSpeed [CvInfos.h], CvEffectInfo::getProjectileArc [CvInfos.h], CvEffectInfo::isSticky [CvInfos.h], CvEffectInfo::isBattleEffect
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvEffectInfo>
-- **26232** `CvAttachableInfo::CvAttachableInfo()` (exported)
+- **26433** `CvAttachableInfo::CvAttachableInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvScalableInfo::CvScalableInfo [CvInfos.h], CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvAttachableInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvAttachableInfo>
-- **26236** `CvAttachableInfo::~CvAttachableInfo()` (exported; virtual)
+- **26437** `CvAttachableInfo::~CvAttachableInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvAttachableInfo::`vector deleting dtor'
-- **26240** `CvAttachableInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **26441** `CvAttachableInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvScalableInfo::read, CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvAttachableInfo::setPath [CvInfos.h], CvString::operator char const * [CvString.h]
-- **26271** `CvAttachableInfo::copyNonDefaults(CvAttachableInfo*)`
+- **26472** `CvAttachableInfo::copyNonDefaults(CvAttachableInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvScalableInfo::copyNonDefaults, CvAttachableInfo::getPath [CvInfos.h], CvAttachableInfo::setPath [CvInfos.h]
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvAttachableInfo>
-- **26296** `CvCameraInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **26497** `CvCameraInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], operator new(unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getModDir [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtilityModTools::setLocationName [CvXMLLoadUtilityModTools.cpp], operator delete(void*) [CvGameCoreDLL.cpp], CvCameraInfo::setPath [CvInfos.h], CvString::operator char const * [CvString.h]
-- **26325** `CvCameraInfo::copyNonDefaults(CvCameraInfo*)`
+- **26526** `CvCameraInfo::copyNonDefaults(CvCameraInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvCameraInfo::getPath [CvInfos.h], CvCameraInfo::setPath [CvInfos.h]
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvCameraInfo>
-- **26354** `CvQuestInfo::CvQuestInfo()` (exported)
+- **26555** `CvQuestInfo::CvQuestInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvString::operator=(char const*) [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvQuestInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvQuestInfo>
-- **26359** `CvQuestInfo::~CvQuestInfo()` (exported; virtual)
+- **26560** `CvQuestInfo::~CvQuestInfo()` (exported; virtual)
   - calls: CvQuestInfo::reset, CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvQuestInfo::`vector deleting dtor'
-- **26365** `CvQuestInfo::reset()` (exported; virtual; overrides CvInfoBase::reset)
+- **26566** `CvQuestInfo::reset()` (exported; virtual; overrides CvInfoBase::reset)
   - calls: CvInfoBase::reset, CvString::`vector deleting dtor', CvQuestInfo::QuestLink::`vector deleting dtor'
   - called by (2): CvQuestInfo::initQuestLinks, CvQuestInfo::~CvQuestInfo
-- **26373** `CvQuestInfo::initQuestLinks(int)` (exported)
+- **26574** `CvQuestInfo::initQuestLinks(int)` (exported)
   - calls: CvQuestInfo::reset, operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvQuestInfo::QuestLink::~QuestLink, CvQuestInfo::QuestLink::QuestLink [CvInfos.h]
   - called by (1): CvQuestInfo::read
-- **26385** `CvQuestInfo::getQuestObjective() const` (exported; Python: getQuestObjective)
+- **26586** `CvQuestInfo::getQuestObjective() const` (exported; Python: getQuestObjective)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26390** `CvQuestInfo::getQuestBodyText() const` (exported; Python: getQuestBodyText)
+- **26591** `CvQuestInfo::getQuestBodyText() const` (exported; Python: getQuestBodyText)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26395** `CvQuestInfo::getNumQuestMessages() const` (exported; Python: getNumQuestMessages)
+- **26596** `CvQuestInfo::getNumQuestMessages() const` (exported; Python: getNumQuestMessages)
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26400** `CvQuestInfo::getQuestMessages(int) const` (exported; Python: getQuestMessages)
+- **26601** `CvQuestInfo::getQuestMessages(int) const` (exported; Python: getQuestMessages)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::operator char const * [CvString.h]
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26405** `CvQuestInfo::getNumQuestLinks() const` (exported; Python: getNumQuestLinks)
+- **26606** `CvQuestInfo::getNumQuestLinks() const` (exported; Python: getNumQuestLinks)
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26410** `CvQuestInfo::getQuestLinkType(int) const` (exported; Python: getQuestLinkType)
+- **26611** `CvQuestInfo::getQuestLinkType(int) const` (exported; Python: getQuestLinkType)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26415** `CvQuestInfo::getQuestLinkName(int) const` (exported; Python: getQuestLinkName)
+- **26616** `CvQuestInfo::getQuestLinkName(int) const` (exported; Python: getQuestLinkName)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26420** `CvQuestInfo::getNumQuestSounds() const` (exported; Python: getNumQuestSounds)
+- **26621** `CvQuestInfo::getNumQuestSounds() const` (exported; Python: getNumQuestSounds)
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26425** `CvQuestInfo::getQuestSounds(int) const` (exported; Python: getQuestSounds)
+- **26626** `CvQuestInfo::getQuestSounds(int) const` (exported; Python: getQuestSounds)
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::operator char const * [CvString.h]
   - called by (2): CvQuestInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26430** `CvQuestInfo::getQuestScript() const` (exported)
+- **26631** `CvQuestInfo::getQuestScript() const` (exported)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CvQuestInfo::copyNonDefaults
-- **26435** `CvQuestInfo::setQuestObjective(char const*)` (exported; Python: setQuestObjective)
+- **26636** `CvQuestInfo::setQuestObjective(char const*)` (exported; Python: setQuestObjective)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (3): CvQuestInfo::copyNonDefaults, CvQuestInfo::read, CyInfoPythonInterface3
-- **26440** `CvQuestInfo::setQuestBodyText(char const*)` (exported; Python: setQuestBodyText)
+- **26641** `CvQuestInfo::setQuestBodyText(char const*)` (exported; Python: setQuestBodyText)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (3): CvQuestInfo::copyNonDefaults, CvQuestInfo::read, CyInfoPythonInterface3
-- **26445** `CvQuestInfo::setNumQuestMessages(int)` (exported; Python: setNumQuestMessages)
+- **26646** `CvQuestInfo::setNumQuestMessages(int)` (exported; Python: setNumQuestMessages)
   - called by (1): CyInfoPythonInterface3
-- **26450** `CvQuestInfo::setQuestMessages(int, char const*)` (exported; Python: setQuestMessages)
+- **26651** `CvQuestInfo::setQuestMessages(int, char const*)` (exported; Python: setQuestMessages)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **26455** `CvQuestInfo::setNumQuestSounds(int)` (exported)
-- **26460** `CvQuestInfo::setQuestSounds(int, char const*)` (exported)
+- **26656** `CvQuestInfo::setNumQuestSounds(int)` (exported)
+- **26661** `CvQuestInfo::setQuestSounds(int, char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
-- **26465** `CvQuestInfo::setQuestScript(char const*)` (exported)
+- **26666** `CvQuestInfo::setQuestScript(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvQuestInfo::copyNonDefaults, CvQuestInfo::read
-- **26470** `CvQuestInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **26671** `CvQuestInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvQuestInfo::setQuestObjective, CvString::operator char const * [CvString.h], CvQuestInfo::setQuestBodyText, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetStringList [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::NumOfChildrenByTagName [CvDLLXMLIFaceBase.h], CvQuestInfo::initQuestLinks, CvString::operator=(CvString const&) [CvString.h], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvQuestInfo::setQuestScript
-- **26531** `CvQuestInfo::copyNonDefaults(CvQuestInfo*)`
+- **26732** `CvQuestInfo::copyNonDefaults(CvQuestInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvQuestInfo::getQuestObjective, CvQuestInfo::setQuestObjective, CvQuestInfo::getQuestBodyText, CvQuestInfo::setQuestBodyText, CvQuestInfo::getNumQuestMessages, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvQuestInfo::getQuestMessages, CvString::operator=(char const*) [CvString.h], operator new(unsigned int) [CvGameCoreDLL.cpp], CvXMLLoadUtilityModTools::StringArrayExtend [CvXMLLoadUtilityModTools.cpp], CvString::`vector deleting dtor', CvQuestInfo::getNumQuestLinks, CvQuestInfo::getQuestLinkType, CvQuestInfo::getQuestLinkName, CvQuestInfo::QuestLink::`vector deleting dtor', CvString::operator=(CvString const&) [CvString.h], CvQuestInfo::getNumQuestSounds, CvQuestInfo::getQuestSounds, CvQuestInfo::getQuestScript, CvQuestInfo::setQuestScript, operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvString::CvString() [CvString.h], CvString::~CvString [CvString.h], CvQuestInfo::QuestLink::~QuestLink, CvQuestInfo::QuestLink::QuestLink [CvInfos.h]
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvQuestInfo>
-- **26619** `CvTutorialMessage::CvTutorialMessage()` (exported)
+- **26820** `CvTutorialMessage::CvTutorialMessage()` (exported)
   - calls: CvString::CvString() [CvString.h], CvString::operator=(char const*) [CvString.h], CvString::~CvString [CvString.h]
   - called by (1): CvTutorialInfo::initTutorialMessages
-- **26626** `CvTutorialMessage::~CvTutorialMessage()` (exported; virtual)
+- **26827** `CvTutorialMessage::~CvTutorialMessage()` (exported; virtual)
   - calls: CvString::`vector deleting dtor', CvString::~CvString [CvString.h]
   - called by (2): CvTutorialInfo::initTutorialMessages, CvTutorialMessage::`vector deleting dtor'
-- **26631** `CvTutorialMessage::getText() const` (exported; Python: getText)
+- **26832** `CvTutorialMessage::getText() const` (exported; Python: getText)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **26636** `CvTutorialMessage::getImage() const` (exported; Python: getImage)
+- **26837** `CvTutorialMessage::getImage() const` (exported; Python: getImage)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **26641** `CvTutorialMessage::getSound() const` (exported; Python: getSound)
+- **26842** `CvTutorialMessage::getSound() const` (exported; Python: getSound)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **26646** `CvTutorialMessage::setText(char const*)` (exported)
+- **26847** `CvTutorialMessage::setText(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvTutorialMessage::read
-- **26651** `CvTutorialMessage::setImage(char const*)` (exported)
+- **26852** `CvTutorialMessage::setImage(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvTutorialMessage::read
-- **26656** `CvTutorialMessage::setSound(char const*)` (exported)
+- **26857** `CvTutorialMessage::setSound(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (1): CvTutorialMessage::read
-- **26661** `CvTutorialMessage::getNumTutorialScripts() const` (exported; Python: getNumTutorialScripts)
+- **26862** `CvTutorialMessage::getNumTutorialScripts() const` (exported; Python: getNumTutorialScripts)
   - called by (1): CyInfoPythonInterface3
-- **26666** `CvTutorialMessage::getTutorialScriptByIndex(int) const` (exported; Python: getTutorialScriptByIndex)
+- **26867** `CvTutorialMessage::getTutorialScriptByIndex(int) const` (exported; Python: getTutorialScriptByIndex)
   - calls: CvString::operator char const * [CvString.h]
   - called by (1): CyInfoPythonInterface3
-- **26671** `CvTutorialMessage::read(CvXMLLoadUtility*)`
+- **26872** `CvTutorialMessage::read(CvXMLLoadUtility*)`
   - calls: CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvString::CvString() [CvString.h], CvXMLLoadUtility::MapChildren [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvTutorialMessage::setText, CvString::operator char const * [CvString.h], CvTutorialMessage::setImage, CvTutorialMessage::setSound, CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetStringList [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvString::~CvString [CvString.h]
   - called by (1): CvTutorialInfo::read
-- **26704** `CvTutorialInfo::CvTutorialInfo()` (exported)
+- **26905** `CvTutorialInfo::CvTutorialInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvString::operator=(char const*) [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvTutorialInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvTutorialInfo>
-- **26709** `CvTutorialInfo::~CvTutorialInfo()` (exported; virtual)
+- **26910** `CvTutorialInfo::~CvTutorialInfo()` (exported; virtual)
   - calls: CvTutorialInfo::resetMessages, CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvTutorialInfo::`vector deleting dtor'
-- **26714** `CvTutorialInfo::getNextTutorialInfoType()` (exported; Python: getNextTutorialInfoType)
+- **26915** `CvTutorialInfo::getNextTutorialInfoType()` (exported; Python: getNextTutorialInfoType)
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvTutorialInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26719** `CvTutorialInfo::setNextTutorialInfoType(char const*)` (exported)
+- **26920** `CvTutorialInfo::setNextTutorialInfoType(char const*)` (exported)
   - calls: CvString::operator=(char const*) [CvString.h]
   - called by (2): CvTutorialInfo::copyNonDefaults, CvTutorialInfo::read
-- **26724** `CvTutorialInfo::initTutorialMessages(int)` (exported)
+- **26925** `CvTutorialInfo::initTutorialMessages(int)` (exported)
   - calls: CvTutorialInfo::resetMessages, operator new[](unsigned int) [CvGameCoreDLL.cpp], operator delete[](void*) [CvGameCoreDLL.cpp]
   - takes the address of: CvTutorialMessage::CvTutorialMessage(), CvTutorialMessage::~CvTutorialMessage
   - called by (1): CvTutorialInfo::read
-- **26732** `CvTutorialInfo::resetMessages()` (exported)
+- **26933** `CvTutorialInfo::resetMessages()` (exported)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (2): CvTutorialInfo::initTutorialMessages, CvTutorialInfo::~CvTutorialInfo
-- **26738** `CvTutorialInfo::getNumTutorialMessages() const` (exported; Python: getNumTutorialMessages)
+- **26939** `CvTutorialInfo::getNumTutorialMessages() const` (exported; Python: getNumTutorialMessages)
   - called by (1): CyInfoPythonInterface3
-- **26743** `CvTutorialInfo::getTutorialMessage(int) const` (exported; Python: getTutorialMessage)
+- **26944** `CvTutorialInfo::getTutorialMessage(int) const` (exported; Python: getTutorialMessage)
   - called by (1): CyInfoPythonInterface3
-- **26748** `CvTutorialInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **26949** `CvTutorialInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvString::CvString() [CvString.h], CvXMLLoadUtility::MapChildren [CvXMLLoadUtility.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvTutorialInfo::setNextTutorialInfoType, CvString::operator char const * [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::NumOfChildrenByTagName [CvDLLXMLIFaceBase.h], CvTutorialInfo::initTutorialMessages, CvTutorialMessage::read, CvString::~CvString [CvString.h], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h]
-- **26793** `CvTutorialInfo::copyNonDefaults(CvTutorialInfo*)`
+- **26994** `CvTutorialInfo::copyNonDefaults(CvTutorialInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvTutorialInfo::getNextTutorialInfoType, CvTutorialInfo::setNextTutorialInfoType
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvTutorialInfo>
-- **26849** `CvGameOptionInfo::CvGameOptionInfo()` (exported)
+- **27050** `CvGameOptionInfo::CvGameOptionInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvGameOptionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvGameOptionInfo>
-- **26853** `CvGameOptionInfo::~CvGameOptionInfo()` (exported; virtual)
+- **27054** `CvGameOptionInfo::~CvGameOptionInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvGameOptionInfo::`vector deleting dtor'
-- **26857** `CvGameOptionInfo::getDefault() const` (exported; Python: getDefault)
+- **27058** `CvGameOptionInfo::getDefault() const` (exported; Python: getDefault)
   - called by (3): CvGameOptionInfo::copyNonDefaults, CvInitCore::setDefaults, CyInfoPythonInterface3
-- **26862** `CvGameOptionInfo::getVisible() const` (exported; Python: getVisible)
+- **27063** `CvGameOptionInfo::getVisible() const` (exported; Python: getVisible)
   - called by (2): CvGameOptionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26867** `CvGameOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **27068** `CvGameOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **26884** `CvGameOptionInfo::copyNonDefaults(CvGameOptionInfo*)`
+- **27085** `CvGameOptionInfo::copyNonDefaults(CvGameOptionInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvGameOptionInfo::getDefault, CvGameOptionInfo::getVisible
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvGameOptionInfo>
-- **26910** `CvMPOptionInfo::CvMPOptionInfo()` (exported)
+- **27111** `CvMPOptionInfo::CvMPOptionInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvMPOptionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvMPOptionInfo>
-- **26914** `CvMPOptionInfo::~CvMPOptionInfo()` (exported; virtual)
+- **27115** `CvMPOptionInfo::~CvMPOptionInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvMPOptionInfo::`vector deleting dtor'
-- **26918** `CvMPOptionInfo::getDefault() const` (exported; Python: getDefault)
+- **27119** `CvMPOptionInfo::getDefault() const` (exported; Python: getDefault)
   - called by (3): CvInitCore::setDefaults, CvMPOptionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26923** `CvMPOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **27124** `CvMPOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **26939** `CvMPOptionInfo::copyNonDefaults(CvMPOptionInfo*)`
+- **27140** `CvMPOptionInfo::copyNonDefaults(CvMPOptionInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvMPOptionInfo::getDefault
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvMPOptionInfo>
-- **26964** `CvForceControlInfo::CvForceControlInfo()` (exported)
+- **27165** `CvForceControlInfo::CvForceControlInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvForceControlInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvForceControlInfo>
-- **26968** `CvForceControlInfo::~CvForceControlInfo()` (exported; virtual)
+- **27169** `CvForceControlInfo::~CvForceControlInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvForceControlInfo::`vector deleting dtor'
-- **26972** `CvForceControlInfo::getDefault() const` (exported; Python: getDefault)
+- **27173** `CvForceControlInfo::getDefault() const` (exported; Python: getDefault)
   - called by (2): CvForceControlInfo::copyNonDefaults, CyInfoPythonInterface3
-- **26977** `CvForceControlInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **27178** `CvForceControlInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **26993** `CvForceControlInfo::copyNonDefaults(CvForceControlInfo*)`
+- **27194** `CvForceControlInfo::copyNonDefaults(CvForceControlInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvForceControlInfo::getDefault
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvForceControlInfo>
-- **27018** `CvPlayerOptionInfo::CvPlayerOptionInfo()` (exported)
+- **27219** `CvPlayerOptionInfo::CvPlayerOptionInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvPlayerOptionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvPlayerOptionInfo>
-- **27022** `CvPlayerOptionInfo::~CvPlayerOptionInfo()` (exported; virtual)
+- **27223** `CvPlayerOptionInfo::~CvPlayerOptionInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvPlayerOptionInfo::`vector deleting dtor'
-- **27026** `CvPlayerOptionInfo::getDefault() const` (exported; Python: getDefault)
+- **27227** `CvPlayerOptionInfo::getDefault() const` (exported; Python: getDefault)
   - called by (2): CvPlayerOptionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **27031** `CvPlayerOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **27232** `CvPlayerOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **27047** `CvPlayerOptionInfo::copyNonDefaults(CvPlayerOptionInfo*)`
+- **27248** `CvPlayerOptionInfo::copyNonDefaults(CvPlayerOptionInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvPlayerOptionInfo::getDefault
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvPlayerOptionInfo>
-- **27072** `CvGraphicOptionInfo::CvGraphicOptionInfo()` (exported)
+- **27273** `CvGraphicOptionInfo::CvGraphicOptionInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvGraphicOptionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvGraphicOptionInfo>
-- **27076** `CvGraphicOptionInfo::~CvGraphicOptionInfo()` (exported; virtual)
+- **27277** `CvGraphicOptionInfo::~CvGraphicOptionInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvGraphicOptionInfo::`vector deleting dtor'
-- **27080** `CvGraphicOptionInfo::getDefault() const` (exported; Python: getDefault)
+- **27281** `CvGraphicOptionInfo::getDefault() const` (exported; Python: getDefault)
   - called by (2): CvGraphicOptionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **27085** `CvGraphicOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **27286** `CvGraphicOptionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **27101** `CvGraphicOptionInfo::copyNonDefaults(CvGraphicOptionInfo*)`
+- **27302** `CvGraphicOptionInfo::copyNonDefaults(CvGraphicOptionInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvGraphicOptionInfo::getDefault
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvGraphicOptionInfo>
-- **27173** `CvEventTriggerInfo::CvEventTriggerInfo()`
+- **27374** `CvEventTriggerInfo::CvEventTriggerInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvEventTriggerInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvEventTriggerInfo>, readInfoArray<class CvEventTriggerInfo>
-- **27177** `CvEventTriggerInfo::~CvEventTriggerInfo()` (virtual)
+- **27378** `CvEventTriggerInfo::~CvEventTriggerInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvEventTriggerInfo::`scalar deleting dtor'
-- **27181** `CvEventTriggerInfo::getPercentGamesActive() const` (Python: getPercentGamesActive)
+- **27382** `CvEventTriggerInfo::getPercentGamesActive() const` (Python: getPercentGamesActive)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvGame::initEvents, CyInfoPythonInterface3
-- **27186** `CvEventTriggerInfo::getProbability() const` (Python: getProbability)
+- **27387** `CvEventTriggerInfo::getProbability() const` (Python: getProbability)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27191** `CvEventTriggerInfo::getUnitRequired(int) const` (Python: getUnitRequired)
+- **27392** `CvEventTriggerInfo::getUnitRequired(int) const` (Python: getUnitRequired)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvUnit::getTriggerValue, CyInfoPythonInterface3
-- **27196** `CvEventTriggerInfo::getNumUnitsRequired() const` (Python: getNumUnitsRequired)
+- **27397** `CvEventTriggerInfo::getNumUnitsRequired() const` (Python: getNumUnitsRequired)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvUnit::getTriggerValue, CyInfoPythonInterface3, isPlotEventTrigger
-- **27201** `CvEventTriggerInfo::getBuildingRequired(int) const` (Python: getBuildingRequired)
+- **27402** `CvEventTriggerInfo::getBuildingRequired(int) const` (Python: getBuildingRequired)
   - called by (5): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27206** `CvEventTriggerInfo::getNumBuildingsRequired() const` (Python: getNumBuildingsRequired)
+- **27407** `CvEventTriggerInfo::getNumBuildingsRequired() const` (Python: getNumBuildingsRequired)
   - called by (5): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27211** `CvEventTriggerInfo::getNumUnits() const` (Python: getNumUnits)
+- **27412** `CvEventTriggerInfo::getNumUnits() const` (Python: getNumUnits)
   - called by (5): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CvPlayer::initTriggeredData, CvUnit::getTriggerValue, CyInfoPythonInterface3
-- **27216** `CvEventTriggerInfo::getNumBuildings() const` (Python: getNumBuildings)
+- **27417** `CvEventTriggerInfo::getNumBuildings() const` (Python: getNumBuildings)
   - called by (5): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27221** `CvEventTriggerInfo::getNumUnitsGlobal() const` (Python: getNumUnitsGlobal)
+- **27422** `CvEventTriggerInfo::getNumUnitsGlobal() const` (Python: getNumUnitsGlobal)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27226** `CvEventTriggerInfo::getNumBuildingsGlobal() const` (Python: getNumBuildingsGlobal)
+- **27427** `CvEventTriggerInfo::getNumBuildingsGlobal() const` (Python: getNumBuildingsGlobal)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27231** `CvEventTriggerInfo::getNumPlotsRequired() const` (Python: getNumPlotsRequired)
+- **27432** `CvEventTriggerInfo::getNumPlotsRequired() const` (Python: getNumPlotsRequired)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CyInfoPythonInterface3, isPlotEventTrigger
-- **27236** `CvEventTriggerInfo::getPlotType() const` (Python: getPlotsType)
+- **27437** `CvEventTriggerInfo::getPlotType() const` (Python: getPlotsType)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3, isPlotEventTrigger
-- **27241** `CvEventTriggerInfo::getNumReligions() const` (Python: getNumReligions)
+- **27442** `CvEventTriggerInfo::getNumReligions() const` (Python: getNumReligions)
   - called by (4): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27246** `CvEventTriggerInfo::getNumCorporations() const` (Python: getNumCorporations)
+- **27447** `CvEventTriggerInfo::getNumCorporations() const` (Python: getNumCorporations)
   - called by (4): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27251** `CvEventTriggerInfo::getOtherPlayerShareBorders() const` (Python: getOtherPlayerShareBorders)
+- **27452** `CvEventTriggerInfo::getOtherPlayerShareBorders() const` (Python: getOtherPlayerShareBorders)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::canTrigger, CyInfoPythonInterface3
-- **27256** `CvEventTriggerInfo::getOtherPlayerHasTech() const` (Python: getOtherPlayerHasTech)
+- **27457** `CvEventTriggerInfo::getOtherPlayerHasTech() const` (Python: getOtherPlayerHasTech)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::canTrigger, CyInfoPythonInterface3
-- **27261** `CvEventTriggerInfo::getCivic() const` (Python: getCivic)
+- **27462** `CvEventTriggerInfo::getCivic() const` (Python: getCivic)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlayer::checkExpireEvent, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27266** `CvEventTriggerInfo::getMinPopulation() const` (Python: getMinPopulation)
+- **27467** `CvEventTriggerInfo::getMinPopulation() const` (Python: getMinPopulation)
   - called by (4): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27271** `CvEventTriggerInfo::getMaxPopulation() const` (Python: getMaxPopulation)
+- **27472** `CvEventTriggerInfo::getMaxPopulation() const` (Python: getMaxPopulation)
   - called by (4): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27276** `CvEventTriggerInfo::getMinMapLandmass() const` (Python: getMinMapLandmass)
+- **27477** `CvEventTriggerInfo::getMinMapLandmass() const` (Python: getMinMapLandmass)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27281** `CvEventTriggerInfo::getMinOurLandmass() const` (Python: getMinOurLandmass)
+- **27482** `CvEventTriggerInfo::getMinOurLandmass() const` (Python: getMinOurLandmass)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27286** `CvEventTriggerInfo::getMaxOurLandmass() const` (Python: getMaxOurLandmass)
+- **27487** `CvEventTriggerInfo::getMaxOurLandmass() const` (Python: getMaxOurLandmass)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27291** `CvEventTriggerInfo::getMinDifficulty() const` (Python: getMinDifficulty)
+- **27492** `CvEventTriggerInfo::getMinDifficulty() const` (Python: getMinDifficulty)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27296** `CvEventTriggerInfo::getAngry() const` (Python: getAngry)
+- **27497** `CvEventTriggerInfo::getAngry() const` (Python: getAngry)
   - called by (3): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CyInfoPythonInterface3
-- **27301** `CvEventTriggerInfo::getUnhealthy() const` (Python: getUnhealthy)
+- **27502** `CvEventTriggerInfo::getUnhealthy() const` (Python: getUnhealthy)
   - called by (3): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CyInfoPythonInterface3
-- **27306** `CvEventTriggerInfo::getUnitDamagedWeight() const` (Python: getUnitDamagedWeight)
+- **27507** `CvEventTriggerInfo::getUnitDamagedWeight() const` (Python: getUnitDamagedWeight)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvUnit::getTriggerValue, CyInfoPythonInterface3
-- **27311** `CvEventTriggerInfo::getUnitDistanceWeight() const` (Python: getUnitDistanceWeight)
+- **27512** `CvEventTriggerInfo::getUnitDistanceWeight() const` (Python: getUnitDistanceWeight)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvUnit::getTriggerValue, CyInfoPythonInterface3
-- **27316** `CvEventTriggerInfo::getUnitExperienceWeight() const` (Python: getUnitExperienceWeight)
+- **27517** `CvEventTriggerInfo::getUnitExperienceWeight() const` (Python: getUnitExperienceWeight)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvUnit::getTriggerValue, CyInfoPythonInterface3
-- **27321** `CvEventTriggerInfo::getMinTreasury() const` (Python: getMinTreasury)
+- **27522** `CvEventTriggerInfo::getMinTreasury() const` (Python: getMinTreasury)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27326** `CvEventTriggerInfo::getEvent(int) const` (Python: getEvent)
+- **27527** `CvEventTriggerInfo::getEvent(int) const` (Python: getEvent)
   - called by (4): CvDLLButtonPopup::launchEventPopup, CvEventTriggerInfo::copyNonDefaults, CvPlayerAI::AI_chooseEvent, CyInfoPythonInterface3
-- **27331** `CvEventTriggerInfo::getNumEvents() const` (Python: getNumEvents)
+- **27532** `CvEventTriggerInfo::getNumEvents() const` (Python: getNumEvents)
   - called by (4): CvDLLButtonPopup::launchEventPopup, CvEventTriggerInfo::copyNonDefaults, CvPlayerAI::AI_chooseEvent, CyInfoPythonInterface3
-- **27336** `CvEventTriggerInfo::getPrereqEvent(int) const` (Python: getPrereqEvent)
+- **27537** `CvEventTriggerInfo::getPrereqEvent(int) const` (Python: getPrereqEvent)
   - called by (6): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::canDoEvent, CvPlayer::getEventTriggerWeight, CvPlot::canTrigger, CyInfoPythonInterface3
-- **27341** `CvEventTriggerInfo::getNumPrereqEvents() const` (Python: getNumPrereqEvents)
+- **27542** `CvEventTriggerInfo::getNumPrereqEvents() const` (Python: getNumPrereqEvents)
   - called by (6): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::canDoEvent, CvPlayer::getEventTriggerWeight, CvPlot::canTrigger, CyInfoPythonInterface3
-- **27346** `CvEventTriggerInfo::getPrereqOrTechs(int) const` (Python: getPrereqOrTechs)
+- **27547** `CvEventTriggerInfo::getPrereqOrTechs(int) const` (Python: getPrereqOrTechs)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27351** `CvEventTriggerInfo::getNumPrereqOrTechs() const` (Python: getNumPrereqOrTechs)
+- **27552** `CvEventTriggerInfo::getNumPrereqOrTechs() const` (Python: getNumPrereqOrTechs)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27356** `CvEventTriggerInfo::getPrereqAndTechs(int) const` (Python: getPrereqAndTechs)
+- **27557** `CvEventTriggerInfo::getPrereqAndTechs(int) const` (Python: getPrereqAndTechs)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27361** `CvEventTriggerInfo::getNumPrereqAndTechs() const` (Python: getNumPrereqAndTechs)
+- **27562** `CvEventTriggerInfo::getNumPrereqAndTechs() const` (Python: getNumPrereqAndTechs)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27366** `CvEventTriggerInfo::getObsoleteTech(int) const` (Python: getObsoleteTech)
+- **27567** `CvEventTriggerInfo::getObsoleteTech(int) const` (Python: getObsoleteTech)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlayer::checkExpireEvent, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27371** `CvEventTriggerInfo::getNumObsoleteTechs() const` (Python: getNumObsoleteTechs)
+- **27572** `CvEventTriggerInfo::getNumObsoleteTechs() const` (Python: getNumObsoleteTechs)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlayer::checkExpireEvent, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27376** `CvEventTriggerInfo::getFeatureRequired(int) const` (Python: getFeatureRequired)
+- **27577** `CvEventTriggerInfo::getFeatureRequired(int) const` (Python: getFeatureRequired)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3
-- **27381** `CvEventTriggerInfo::getNumFeaturesRequired() const` (Python: getNumFeaturesRequired)
+- **27582** `CvEventTriggerInfo::getNumFeaturesRequired() const` (Python: getNumFeaturesRequired)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3, isPlotEventTrigger
-- **27386** `CvEventTriggerInfo::getTerrainRequired(int) const` (Python: getTerrainRequired)
+- **27587** `CvEventTriggerInfo::getTerrainRequired(int) const` (Python: getTerrainRequired)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3
-- **27391** `CvEventTriggerInfo::getNumTerrainsRequired() const` (Python: getNumTerrainsRequired)
+- **27592** `CvEventTriggerInfo::getNumTerrainsRequired() const` (Python: getNumTerrainsRequired)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3, isPlotEventTrigger
-- **27396** `CvEventTriggerInfo::getImprovementRequired(int) const` (Python: getImprovementRequired)
+- **27597** `CvEventTriggerInfo::getImprovementRequired(int) const` (Python: getImprovementRequired)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3
-- **27401** `CvEventTriggerInfo::getNumImprovementsRequired() const` (Python: getNumImprovementsRequired)
+- **27602** `CvEventTriggerInfo::getNumImprovementsRequired() const` (Python: getNumImprovementsRequired)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3, isPlotEventTrigger
-- **27406** `CvEventTriggerInfo::getBonusRequired(int) const` (Python: getBonusRequired, getReligionRequired)
+- **27607** `CvEventTriggerInfo::getBonusRequired(int) const` (Python: getBonusRequired, getReligionRequired)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3
-- **27411** `CvEventTriggerInfo::getNumBonusesRequired() const` (Python: getNumBonusesRequired)
+- **27612** `CvEventTriggerInfo::getNumBonusesRequired() const` (Python: getNumBonusesRequired)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3, isPlotEventTrigger
-- **27416** `CvEventTriggerInfo::getRouteRequired(int) const` (Python: getRouteRequired)
+- **27617** `CvEventTriggerInfo::getRouteRequired(int) const` (Python: getRouteRequired)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3
-- **27421** `CvEventTriggerInfo::getNumRoutesRequired() const` (Python: getNumRoutesRequired)
+- **27622** `CvEventTriggerInfo::getNumRoutesRequired() const` (Python: getNumRoutesRequired)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3, isPlotEventTrigger
-- **27426** `CvEventTriggerInfo::getReligionRequired(int) const`
+- **27627** `CvEventTriggerInfo::getReligionRequired(int) const`
   - called by (4): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CvPlayer::isValidTriggerReligion
-- **27431** `CvEventTriggerInfo::getNumReligionsRequired() const` (Python: getNumReligionsRequired)
+- **27632** `CvEventTriggerInfo::getNumReligionsRequired() const` (Python: getNumReligionsRequired)
   - called by (5): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CvPlayer::isValidTriggerReligion, CyInfoPythonInterface3
-- **27436** `CvEventTriggerInfo::getCorporationRequired(int) const` (Python: getCorporationRequired)
+- **27637** `CvEventTriggerInfo::getCorporationRequired(int) const` (Python: getCorporationRequired)
   - called by (5): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CvPlayer::isValidTriggerCorporation, CyInfoPythonInterface3
-- **27441** `CvEventTriggerInfo::getNumCorporationsRequired() const` (Python: getNumCorporationsRequired)
+- **27642** `CvEventTriggerInfo::getNumCorporationsRequired() const` (Python: getNumCorporationsRequired)
   - called by (5): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CvPlayer::isValidTriggerCorporation, CyInfoPythonInterface3
-- **27446** `CvEventTriggerInfo::isSinglePlayer() const` (Python: isSinglePlayer)
+- **27647** `CvEventTriggerInfo::isSinglePlayer() const` (Python: isSinglePlayer)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27451** `CvEventTriggerInfo::isTeam() const` (Python: isTeam)
+- **27652** `CvEventTriggerInfo::isTeam() const` (Python: isTeam)
   - called by (5): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects, CvPlayer::setTriggerFired, CyInfoPythonInterface3
-- **27456** `CvEventTriggerInfo::getText(int) const`
+- **27657** `CvEventTriggerInfo::getText(int) const`
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData
-- **27462** `CvEventTriggerInfo::getTextEra(int) const`
+- **27663** `CvEventTriggerInfo::getTextEra(int) const`
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData
-- **27468** `CvEventTriggerInfo::getNumTexts() const`
+- **27669** `CvEventTriggerInfo::getNumTexts() const`
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData
-- **27474** `CvEventTriggerInfo::getWorldNews(int) const`
+- **27675** `CvEventTriggerInfo::getWorldNews(int) const`
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData
-- **27480** `CvEventTriggerInfo::getNumWorldNews() const`
+- **27681** `CvEventTriggerInfo::getNumWorldNews() const`
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData
-- **27485** `CvEventTriggerInfo::isRecurring() const` (Python: isRecurring)
+- **27686** `CvEventTriggerInfo::isRecurring() const` (Python: isRecurring)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlayer::canDoEvent, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27490** `CvEventTriggerInfo::isGlobal() const` (Python: isGlobal)
+- **27691** `CvEventTriggerInfo::isGlobal() const` (Python: isGlobal)
   - called by (5): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initInGame, CvPlayer::resetCivTypeEffects, CvPlayer::setTriggerFired, CyInfoPythonInterface3
-- **27495** `CvEventTriggerInfo::isPickPlayer() const` (Python: isPickPlayer)
+- **27696** `CvEventTriggerInfo::isPickPlayer() const` (Python: isPickPlayer)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlayer::canTrigger, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27500** `CvEventTriggerInfo::isOtherPlayerWar() const`
+- **27701** `CvEventTriggerInfo::isOtherPlayerWar() const`
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::canTrigger
-- **27505** `CvEventTriggerInfo::isOtherPlayerHasReligion() const` (Python: isOtherPlayerHasReligion)
+- **27706** `CvEventTriggerInfo::isOtherPlayerHasReligion() const` (Python: isOtherPlayerHasReligion)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::canTrigger, CyInfoPythonInterface3
-- **27510** `CvEventTriggerInfo::isOtherPlayerHasOtherReligion() const` (Python: isOtherPlayerHasOtherReligion)
+- **27711** `CvEventTriggerInfo::isOtherPlayerHasOtherReligion() const` (Python: isOtherPlayerHasOtherReligion)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::canTrigger, CyInfoPythonInterface3
-- **27515** `CvEventTriggerInfo::isOtherPlayerAI() const` (Python: isOtherPlayerAI)
+- **27716** `CvEventTriggerInfo::isOtherPlayerAI() const` (Python: isOtherPlayerAI)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::canTrigger, CyInfoPythonInterface3
-- **27520** `CvEventTriggerInfo::isPickCity() const` (Python: isPickCity, isPickOtherPlayerCity)
+- **27721** `CvEventTriggerInfo::isPickCity() const` (Python: isPickCity, isPickOtherPlayerCity)
   - called by (5): CvDLLButtonPopup::launchEventPopup, CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData, CyInfoPythonInterface3, isPlotEventTrigger
-- **27525** `CvEventTriggerInfo::isPickOtherPlayerCity() const`
+- **27726** `CvEventTriggerInfo::isPickOtherPlayerCity() const`
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData
-- **27530** `CvEventTriggerInfo::isShowPlot() const`
+- **27731** `CvEventTriggerInfo::isShowPlot() const`
   - called by (4): CvDLLButtonPopup::launchEventPopup, CvEventTriggerInfo::copyNonDefaults, CvPlayer::applyEvent, CvPlayer::setTriggerFired
-- **27535** `CvEventTriggerInfo::getCityFoodWeight() const` (Python: getCityFoodWeight)
+- **27736** `CvEventTriggerInfo::getCityFoodWeight() const` (Python: getCityFoodWeight)
   - called by (3): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CyInfoPythonInterface3
-- **27540** `CvEventTriggerInfo::isUnitsOnPlot() const` (Python: isUnitsOnPlot)
+- **27741** `CvEventTriggerInfo::isUnitsOnPlot() const` (Python: isUnitsOnPlot)
   - called by (5): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CvUnit::getTriggerValue, CyInfoPythonInterface3, isPlotEventTrigger
-- **27545** `CvEventTriggerInfo::isOwnPlot() const` (Python: isOwnPlot)
+- **27746** `CvEventTriggerInfo::isOwnPlot() const` (Python: isOwnPlot)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3
-- **27550** `CvEventTriggerInfo::isPickReligion() const` (Python: isPickReligion)
+- **27751** `CvEventTriggerInfo::isPickReligion() const` (Python: isPickReligion)
   - called by (4): CvEventTriggerInfo::copyNonDefaults, CvPlayer::checkExpireEvent, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27555** `CvEventTriggerInfo::isStateReligion() const` (Python: isStateReligion)
+- **27756** `CvEventTriggerInfo::isStateReligion() const` (Python: isStateReligion)
   - called by (6): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::canTrigger, CvPlayer::checkExpireEvent, CvPlayer::initTriggeredData, CyInfoPythonInterface3
-- **27560** `CvEventTriggerInfo::isHolyCity() const`
+- **27761** `CvEventTriggerInfo::isHolyCity() const`
   - called by (3): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::isValidTriggerReligion
-- **27565** `CvEventTriggerInfo::isPickCorporation() const`
+- **27766** `CvEventTriggerInfo::isPickCorporation() const`
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData
-- **27570** `CvEventTriggerInfo::isHeadquarters() const`
+- **27771** `CvEventTriggerInfo::isHeadquarters() const`
   - called by (3): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlayer::isValidTriggerCorporation
-- **27575** `CvEventTriggerInfo::isProbabilityUnitMultiply() const` (Python: isProbabilityUnitMultiply)
+- **27776** `CvEventTriggerInfo::isProbabilityUnitMultiply() const` (Python: isProbabilityUnitMultiply)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27580** `CvEventTriggerInfo::isProbabilityBuildingMultiply() const` (Python: isProbabilityBuildingMultiply)
+- **27781** `CvEventTriggerInfo::isProbabilityBuildingMultiply() const` (Python: isProbabilityBuildingMultiply)
   - called by (3): CvEventTriggerInfo::copyNonDefaults, CvPlayer::getEventTriggerWeight, CyInfoPythonInterface3
-- **27585** `CvEventTriggerInfo::isPrereqEventCity() const` (Python: isPrereqEventCity)
+- **27786** `CvEventTriggerInfo::isPrereqEventCity() const` (Python: isPrereqEventCity)
   - called by (5): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults, CvPlot::canTrigger, CyInfoPythonInterface3, isPlotEventTrigger
-- **27590** `CvEventTriggerInfo::getPythonCallback() const`
+- **27791** `CvEventTriggerInfo::getPythonCallback() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::setTriggerFired
-- **27595** `CvEventTriggerInfo::getPythonCanDo() const`
+- **27796** `CvEventTriggerInfo::getPythonCanDo() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvPlayer::initTriggeredData
-- **27600** `CvEventTriggerInfo::getPythonCanDoCity() const`
+- **27801** `CvEventTriggerInfo::getPythonCanDoCity() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvCity::getTriggerValue, CvEventTriggerInfo::copyNonDefaults
-- **27605** `CvEventTriggerInfo::getPythonCanDoUnit() const`
+- **27806** `CvEventTriggerInfo::getPythonCanDoUnit() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvEventTriggerInfo::copyNonDefaults, CvUnit::getTriggerValue
-- **27610** `CvEventTriggerInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **27811** `CvEventTriggerInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvWString::CvWString() [CvString.h], CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], FDataStreamBase::ReadString [FDataStreamBase.h], CvWString::~CvWString [CvString.h]
-- **27812** `CvEventTriggerInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **28013** `CvEventTriggerInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], FDataStreamBase::WriteString [FDataStreamBase.h]
   - called by (1): writeInfoArray<class CvEventTriggerInfo>
-- **27962** `CvEventTriggerInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **28163** `CvEventTriggerInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvWString::CvWString(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&) [CvString.h], CvWString::~CvWString [CvString.h], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp]
-- **28503** `CvEventTriggerInfo::copyNonDefaults(CvEventTriggerInfo*)`
+- **28704** `CvEventTriggerInfo::copyNonDefaults(CvEventTriggerInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvEventTriggerInfo::getPercentGamesActive, CvEventTriggerInfo::getProbability, CvEventTriggerInfo::getNumUnits, CvEventTriggerInfo::getNumBuildings, CvEventTriggerInfo::getNumUnitsGlobal, CvEventTriggerInfo::getNumBuildingsGlobal, CvEventTriggerInfo::getNumPlotsRequired, CvEventTriggerInfo::getPlotType, CvEventTriggerInfo::getNumReligions, CvEventTriggerInfo::getNumCorporations, CvEventTriggerInfo::getOtherPlayerShareBorders, CvEventTriggerInfo::getMinPopulation, CvEventTriggerInfo::getMaxPopulation, CvEventTriggerInfo::getMinMapLandmass, CvEventTriggerInfo::getMinOurLandmass, CvEventTriggerInfo::getMaxOurLandmass, CvEventTriggerInfo::getMinDifficulty, CvEventTriggerInfo::getAngry, CvEventTriggerInfo::getUnhealthy, CvEventTriggerInfo::getUnitDamagedWeight, CvEventTriggerInfo::getUnitDistanceWeight, CvEventTriggerInfo::getUnitExperienceWeight, CvEventTriggerInfo::getMinTreasury, CvEventTriggerInfo::getNumUnitsRequired, CvEventTriggerInfo::getUnitRequired, operator new(unsigned int) [CvGameCoreDLL.cpp], CvXMLLoadUtilityModTools::isDuplicate(int, int*, int) const [CvXMLLoadUtilityModTools.cpp], CvEventTriggerInfo::getNumBuildingsRequired, CvEventTriggerInfo::getBuildingRequired, CvEventTriggerInfo::getNumPrereqOrTechs, CvEventTriggerInfo::getPrereqOrTechs, CvEventTriggerInfo::getNumPrereqAndTechs, CvEventTriggerInfo::getPrereqAndTechs, CvEventTriggerInfo::getOtherPlayerHasTech, CvEventTriggerInfo::getCivic, CvEventTriggerInfo::getNumObsoleteTechs, CvEventTriggerInfo::getObsoleteTech, CvEventTriggerInfo::getNumEvents, CvEventTriggerInfo::getEvent, CvEventTriggerInfo::getNumPrereqEvents, CvEventTriggerInfo::getPrereqEvent, CvEventTriggerInfo::getNumFeaturesRequired, CvEventTriggerInfo::getFeatureRequired, CvEventTriggerInfo::getNumTerrainsRequired, CvEventTriggerInfo::getTerrainRequired, CvEventTriggerInfo::getNumImprovementsRequired, CvEventTriggerInfo::getImprovementRequired, CvEventTriggerInfo::getNumBonusesRequired, CvEventTriggerInfo::getBonusRequired, CvEventTriggerInfo::getNumRoutesRequired, CvEventTriggerInfo::getRouteRequired, CvEventTriggerInfo::getNumReligionsRequired, CvEventTriggerInfo::getReligionRequired, CvEventTriggerInfo::getNumCorporationsRequired, CvEventTriggerInfo::getCorporationRequired, CvEventTriggerInfo::getNumTexts, CvEventTriggerInfo::getText, CvWString::operator unsigned short const * [CvString.h], CvWString::CvWString(CvWString const&) [CvString.h], CvXMLLoadUtilityModTools::isDuplicate(int, CvWString*, CvWString) const [CvXMLLoadUtilityModTools.cpp], CvEventTriggerInfo::getTextEra, CvWString::operator=(CvWString const&) [CvString.h], CvEventTriggerInfo::getNumWorldNews, CvEventTriggerInfo::getWorldNews, CvEventTriggerInfo::isSinglePlayer, CvEventTriggerInfo::isTeam, CvEventTriggerInfo::isRecurring, CvEventTriggerInfo::isGlobal, CvEventTriggerInfo::isPickPlayer, CvEventTriggerInfo::isOtherPlayerWar, CvEventTriggerInfo::isOtherPlayerHasReligion, CvEventTriggerInfo::isOtherPlayerHasOtherReligion, CvEventTriggerInfo::isOtherPlayerAI, CvEventTriggerInfo::isPickCity, CvEventTriggerInfo::isPickOtherPlayerCity, CvEventTriggerInfo::isShowPlot, CvEventTriggerInfo::getCityFoodWeight, CvEventTriggerInfo::isUnitsOnPlot, CvEventTriggerInfo::isOwnPlot, CvEventTriggerInfo::isPickReligion, CvEventTriggerInfo::isStateReligion, CvEventTriggerInfo::isHolyCity, CvEventTriggerInfo::isPickCorporation, CvEventTriggerInfo::isHeadquarters, CvEventTriggerInfo::isProbabilityUnitMultiply, CvEventTriggerInfo::isProbabilityBuildingMultiply, CvEventTriggerInfo::isPrereqEventCity, CvEventTriggerInfo::getPythonCallback, CvString::operator=(char const*) [CvString.h], CvEventTriggerInfo::getPythonCanDo, CvEventTriggerInfo::getPythonCanDoCity, CvEventTriggerInfo::getPythonCanDoUnit
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvEventTriggerInfo>
-- **28852** `CvEventInfo::CvEventInfo()`
+- **29053** `CvEventInfo::CvEventInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvWString::CvWString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (3): CvXMLLoadUtility::SetGlobalClassInfo<class CvEventInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvEventInfo>, readInfoArray<class CvEventInfo>
-- **28856** `CvEventInfo::~CvEventInfo()` (virtual)
+- **29057** `CvEventInfo::~CvEventInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (1): CvEventInfo::`scalar deleting dtor'
-- **28868** `CvEventInfo::isGlobal() const` (Python: isGlobal)
+- **29069** `CvEventInfo::isGlobal() const` (Python: isGlobal)
   - called by (4): CvEventInfo::copyNonDefaults, CvPlayer::applyEvent, CvPlayer::setEventOccured, CyInfoPythonInterface3
-- **28873** `CvEventInfo::isQuest() const` (Python: isQuest)
+- **29074** `CvEventInfo::isQuest() const` (Python: isQuest)
   - called by (6): CvEventInfo::copyNonDefaults, CvPlayer::canDoEvent, CvPlayer::checkExpireEvent, CvPlayer::expireEvent, CvPlayer::setEventOccured, CyInfoPythonInterface3
-- **28878** `CvEventInfo::isTeam() const` (Python: isTeam)
+- **29079** `CvEventInfo::isTeam() const` (Python: isTeam)
   - called by (4): CvEventInfo::copyNonDefaults, CvPlayer::applyEvent, CvPlayer::setEventOccured, CyInfoPythonInterface3
-- **28883** `CvEventInfo::isCityEffect() const` (Python: isCityEffect)
+- **29084** `CvEventInfo::isCityEffect() const` (Python: isCityEffect)
   - called by (8): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28888** `CvEventInfo::isOtherPlayerCityEffect() const` (Python: isOtherPlayerCityEffect)
+- **29089** `CvEventInfo::isOtherPlayerCityEffect() const` (Python: isOtherPlayerCityEffect)
   - called by (8): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28893** `CvEventInfo::isGoldToPlayer() const` (Python: isGoldToPlayer)
+- **29094** `CvEventInfo::isGoldToPlayer() const` (Python: isGoldToPlayer)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::eventGoldHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28898** `CvEventInfo::isGoldenAge() const` (Python: isGoldenAge)
+- **29099** `CvEventInfo::isGoldenAge() const` (Python: isGoldenAge)
   - called by (5): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28903** `CvEventInfo::isDeclareWar() const` (Python: isDeclareWar)
+- **29104** `CvEventInfo::isDeclareWar() const` (Python: isDeclareWar)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28908** `CvEventInfo::isDisbandUnit() const` (Python: isDisbandUnit)
+- **29109** `CvEventInfo::isDisbandUnit() const` (Python: isDisbandUnit)
   - called by (5): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvUnit::applyEvent, CyInfoPythonInterface3
-- **28913** `CvEventInfo::getGold() const` (Python: getGold)
+- **29114** `CvEventInfo::getGold() const` (Python: getGold)
   - called by (3): CvEventInfo::copyNonDefaults, CvPlayer::getEventCost, CyInfoPythonInterface3
-- **28918** `CvEventInfo::getRandomGold() const` (Python: getRandomGold)
+- **29119** `CvEventInfo::getRandomGold() const` (Python: getRandomGold)
   - called by (3): CvEventInfo::copyNonDefaults, CvPlayer::getEventCost, CyInfoPythonInterface3
-- **28923** `CvEventInfo::getCulture() const` (Python: getCulture)
+- **29124** `CvEventInfo::getCulture() const` (Python: getCulture)
   - called by (7): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28928** `CvEventInfo::getEspionagePoints() const` (Python: getEspionagePoints)
+- **29129** `CvEventInfo::getEspionagePoints() const` (Python: getEspionagePoints)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28933** `CvEventInfo::getTech() const` (Python: getTech)
+- **29134** `CvEventInfo::getTech() const` (Python: getTech)
   - called by (4): CvEventInfo::copyNonDefaults, CvPlayer::getBestEventTech, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28938** `CvEventInfo::getTechPercent() const` (Python: getTechPercent)
+- **29139** `CvEventInfo::getTechPercent() const` (Python: getTechPercent)
   - called by (8): CvEventInfo::copyNonDefaults, CvGameTextMgr::eventTechHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayer::getBestEventTech, CvPlayer::isValidEventTech, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28943** `CvEventInfo::getTechCostPercent() const` (Python: getTechCostPercent)
+- **29144** `CvEventInfo::getTechCostPercent() const` (Python: getTechCostPercent)
   - called by (6): CvEventInfo::copyNonDefaults, CvPlayer::canDoEvent, CvPlayer::getBestEventTech, CvPlayer::getEventCost, CvPlayer::isValidEventTech, CyInfoPythonInterface3
-- **28948** `CvEventInfo::getTechMinTurnsLeft() const` (Python: getTechMinTurnsLeft)
+- **29149** `CvEventInfo::getTechMinTurnsLeft() const` (Python: getTechMinTurnsLeft)
   - called by (3): CvEventInfo::copyNonDefaults, CvPlayer::isValidEventTech, CyInfoPythonInterface3
-- **28953** `CvEventInfo::getPrereqTech() const` (Python: getPrereqTech)
+- **29154** `CvEventInfo::getPrereqTech() const` (Python: getPrereqTech)
   - called by (4): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::canDoEvent, CyInfoPythonInterface3
-- **28958** `CvEventInfo::getUnitClass() const` (Python: getUnitClass)
+- **29159** `CvEventInfo::getUnitClass() const` (Python: getUnitClass)
   - called by (7): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28963** `CvEventInfo::getNumUnits() const`
+- **29164** `CvEventInfo::getNumUnits() const`
   - called by (5): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue
-- **28968** `CvEventInfo::getUnitExperience() const` (Python: getUnitExperience)
+- **29169** `CvEventInfo::getUnitExperience() const` (Python: getUnitExperience)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvUnit::applyEvent, CvUnit::canApplyEvent, CyInfoPythonInterface3
-- **28973** `CvEventInfo::getUnitImmobileTurns() const` (Python: getUnitImmobileTurns)
+- **29174** `CvEventInfo::getUnitImmobileTurns() const` (Python: getUnitImmobileTurns)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvUnit::applyEvent, CvUnit::canApplyEvent, CyInfoPythonInterface3
-- **28978** `CvEventInfo::getBuildingClass() const` (Python: getBuildingClass)
+- **29179** `CvEventInfo::getBuildingClass() const` (Python: getBuildingClass)
   - called by (6): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28983** `CvEventInfo::getBuildingChange() const` (Python: getBuildingChange)
+- **29184** `CvEventInfo::getBuildingChange() const` (Python: getBuildingChange)
   - called by (6): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28988** `CvEventInfo::getHappy() const` (Python: getHappy)
+- **29189** `CvEventInfo::getHappy() const` (Python: getHappy)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28993** `CvEventInfo::getHealth() const` (Python: getHealth)
+- **29194** `CvEventInfo::getHealth() const` (Python: getHealth)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **28998** `CvEventInfo::getHurryAnger() const` (Python: getHurryAnger)
+- **29199** `CvEventInfo::getHurryAnger() const` (Python: getHurryAnger)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29003** `CvEventInfo::getHappyTurns() const` (Python: getHappyTurns)
+- **29204** `CvEventInfo::getHappyTurns() const` (Python: getHappyTurns)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29008** `CvEventInfo::getFood() const` (Python: getFood)
+- **29209** `CvEventInfo::getFood() const` (Python: getFood)
   - called by (7): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29013** `CvEventInfo::getFoodPercent() const` (Python: getFoodPercent)
+- **29214** `CvEventInfo::getFoodPercent() const` (Python: getFoodPercent)
   - called by (7): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29018** `CvEventInfo::getFeature() const` (Python: getFeature)
+- **29219** `CvEventInfo::getFeature() const` (Python: getFeature)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvPlot::applyEvent, CvPlot::canApplyEvent, CyInfoPythonInterface3
-- **29023** `CvEventInfo::getFeatureChange() const` (Python: getFeatureChange)
+- **29224** `CvEventInfo::getFeatureChange() const` (Python: getFeatureChange)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvPlot::applyEvent, CvPlot::canApplyEvent, CyInfoPythonInterface3
-- **29028** `CvEventInfo::getImprovement() const` (Python: getImprovement)
+- **29229** `CvEventInfo::getImprovement() const` (Python: getImprovement)
   - called by (5): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlot::applyEvent, CvPlot::canApplyEvent, CyInfoPythonInterface3
-- **29033** `CvEventInfo::getImprovementChange() const` (Python: getImprovementChange)
+- **29234** `CvEventInfo::getImprovementChange() const` (Python: getImprovementChange)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvPlot::applyEvent, CvPlot::canApplyEvent, CyInfoPythonInterface3
-- **29038** `CvEventInfo::getBonus() const` (Python: getBonus)
+- **29239** `CvEventInfo::getBonus() const` (Python: getBonus)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvPlot::applyEvent, CvPlot::canApplyEvent, CyInfoPythonInterface3
-- **29043** `CvEventInfo::getBonusChange() const` (Python: getBonusChange)
+- **29244** `CvEventInfo::getBonusChange() const` (Python: getBonusChange)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvPlot::applyEvent, CvPlot::canApplyEvent, CyInfoPythonInterface3
-- **29048** `CvEventInfo::getRoute() const` (Python: getRoute)
+- **29249** `CvEventInfo::getRoute() const` (Python: getRoute)
   - called by (4): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlot::applyEvent, CyInfoPythonInterface3
-- **29053** `CvEventInfo::getRouteChange() const` (Python: getRouteChange)
+- **29254** `CvEventInfo::getRouteChange() const` (Python: getRouteChange)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvPlot::applyEvent, CvPlot::canApplyEvent, CyInfoPythonInterface3
-- **29058** `CvEventInfo::getBonusRevealed() const` (Python: getBonusRevealed)
+- **29259** `CvEventInfo::getBonusRevealed() const` (Python: getBonusRevealed)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29063** `CvEventInfo::getBonusGift() const` (Python: getBonusGift)
+- **29264** `CvEventInfo::getBonusGift() const` (Python: getBonusGift)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29068** `CvEventInfo::getConvertOwnCities() const` (Python: getConvertOwnCities)
+- **29269** `CvEventInfo::getConvertOwnCities() const` (Python: getConvertOwnCities)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29073** `CvEventInfo::getConvertOtherCities() const` (Python: getConvertOtherCities)
+- **29274** `CvEventInfo::getConvertOtherCities() const` (Python: getConvertOtherCities)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29078** `CvEventInfo::getMaxNumReligions() const` (Python: getMaxNumReligions)
+- **29279** `CvEventInfo::getMaxNumReligions() const` (Python: getMaxNumReligions)
   - called by (5): CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvPlayer::applyEvent, CvPlayer::canDoEvent, CyInfoPythonInterface3
-- **29083** `CvEventInfo::getOurAttitudeModifier() const` (Python: getOurAttitudeModifier)
+- **29284** `CvEventInfo::getOurAttitudeModifier() const` (Python: getOurAttitudeModifier)
   - called by (4): CvEventInfo::copyNonDefaults, CvPlayer::applyEvent, CvPlayer::canDoEvent, CyInfoPythonInterface3
-- **29088** `CvEventInfo::getAttitudeModifier() const` (Python: getAttitudeModifier)
+- **29289** `CvEventInfo::getAttitudeModifier() const` (Python: getAttitudeModifier)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29093** `CvEventInfo::getTheirEnemyAttitudeModifier() const` (Python: getTheirEnemyAttitudeModifier)
+- **29294** `CvEventInfo::getTheirEnemyAttitudeModifier() const` (Python: getTheirEnemyAttitudeModifier)
   - called by (6): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29098** `CvEventInfo::getPopulationChange() const` (Python: getPopulationChange)
+- **29299** `CvEventInfo::getPopulationChange() const` (Python: getPopulationChange)
   - called by (7): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29103** `CvEventInfo::getRevoltTurns() const` (Python: getRevoltTurns)
+- **29304** `CvEventInfo::getRevoltTurns() const` (Python: getRevoltTurns)
   - called by (5): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29108** `CvEventInfo::getMinPillage() const` (Python: getMinPillage)
+- **29309** `CvEventInfo::getMinPillage() const` (Python: getMinPillage)
   - called by (7): CvCity::applyEvent, CvCity::canApplyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29113** `CvEventInfo::getMaxPillage() const` (Python: getMaxPillage)
+- **29314** `CvEventInfo::getMaxPillage() const` (Python: getMaxPillage)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29118** `CvEventInfo::getUnitPromotion() const` (Python: getUnitPromotion)
+- **29319** `CvEventInfo::getUnitPromotion() const` (Python: getUnitPromotion)
   - called by (5): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvUnit::applyEvent, CvUnit::canApplyEvent, CyInfoPythonInterface3
-- **29123** `CvEventInfo::getFreeUnitSupport() const` (Python: getFreeUnitSupport)
+- **29324** `CvEventInfo::getFreeUnitSupport() const` (Python: getFreeUnitSupport)
   - called by (5): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29128** `CvEventInfo::getInflationModifier() const` (Python: getInflationModifier)
+- **29329** `CvEventInfo::getInflationModifier() const` (Python: getInflationModifier)
   - called by (5): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29133** `CvEventInfo::getSpaceProductionModifier() const` (Python: getSpaceProductionModifier)
+- **29334** `CvEventInfo::getSpaceProductionModifier() const` (Python: getSpaceProductionModifier)
   - called by (7): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayer::canDoEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29138** `CvEventInfo::getAIValue() const` (Python: getAIValue)
+- **29339** `CvEventInfo::getAIValue() const` (Python: getAIValue)
   - called by (3): CvEventInfo::copyNonDefaults, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29143** `CvEventInfo::getAdditionalEventChance(int) const` (Python: getAdditionalEventChance)
+- **29344** `CvEventInfo::getAdditionalEventChance(int) const` (Python: getAdditionalEventChance)
   - called by (6): CvEventInfo::copyNonDefaults, CvEventInfo::copyNonDefaultsReadPass2, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29149** `CvEventInfo::getAdditionalEventTime(int) const` (Python: getAdditionalEventTime)
+- **29350** `CvEventInfo::getAdditionalEventTime(int) const` (Python: getAdditionalEventTime)
   - called by (5): CvEventInfo::copyNonDefaults, CvEventInfo::copyNonDefaultsReadPass2, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CyInfoPythonInterface3
-- **29155** `CvEventInfo::getClearEventChance(int) const` (Python: getClearEventChance)
+- **29356** `CvEventInfo::getClearEventChance(int) const` (Python: getClearEventChance)
   - called by (5): CvEventInfo::copyNonDefaults, CvEventInfo::copyNonDefaultsReadPass2, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29161** `CvEventInfo::getTechFlavorValue(int) const` (Python: getTechFlavorValue)
+- **29362** `CvEventInfo::getTechFlavorValue(int) const` (Python: getTechFlavorValue)
   - called by (4): CvEventInfo::copyNonDefaults, CvPlayer::getBestEventTech, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29168** `CvEventInfo::getPlotExtraYield(int) const` (Python: getPlotExtraYield)
+- **29369** `CvEventInfo::getPlotExtraYield(int) const` (Python: getPlotExtraYield)
   - called by (5): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CvPlot::applyEvent, CyInfoPythonInterface3
-- **29175** `CvEventInfo::getFreeSpecialistCount(int) const` (Python: getFreeSpecialistCount)
+- **29376** `CvEventInfo::getFreeSpecialistCount(int) const` (Python: getFreeSpecialistCount)
   - called by (5): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29182** `CvEventInfo::getUnitCombatPromotion(int) const` (Python: getUnitCombatPromotion)
+- **29383** `CvEventInfo::getUnitCombatPromotion(int) const` (Python: getUnitCombatPromotion)
   - called by (5): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29189** `CvEventInfo::getUnitClassPromotion(int) const` (Python: getUnitClassPromotion)
+- **29390** `CvEventInfo::getUnitClassPromotion(int) const` (Python: getUnitClassPromotion)
   - called by (4): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CyInfoPythonInterface3
-- **29196** `CvEventInfo::getWorldNews(int) const`
+- **29397** `CvEventInfo::getWorldNews(int) const`
   - called by (2): CvEventInfo::copyNonDefaults, CvPlayer::applyEvent
-- **29202** `CvEventInfo::getNumWorldNews() const`
+- **29403** `CvEventInfo::getNumWorldNews() const`
   - called by (2): CvEventInfo::copyNonDefaults, CvPlayer::applyEvent
-- **29207** `CvEventInfo::getBuildingYieldChange(int, int) const` (Python: getBuildingYieldChange)
+- **29408** `CvEventInfo::getBuildingYieldChange(int, int) const` (Python: getBuildingYieldChange)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29220** `CvEventInfo::getNumBuildingYieldChanges() const` (Python: getNumBuildingYieldChanges)
+- **29421** `CvEventInfo::getNumBuildingYieldChanges() const` (Python: getNumBuildingYieldChanges)
   - called by (5): CvCity::applyEvent, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29225** `CvEventInfo::getBuildingCommerceChange(int, int) const` (Python: getBuildingCommerceChange)
+- **29426** `CvEventInfo::getBuildingCommerceChange(int, int) const` (Python: getBuildingCommerceChange)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29238** `CvEventInfo::getNumBuildingCommerceChanges() const` (Python: getNumBuildingCommerceChanges)
+- **29439** `CvEventInfo::getNumBuildingCommerceChanges() const` (Python: getNumBuildingCommerceChanges)
   - called by (5): CvCity::applyEvent, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29243** `CvEventInfo::getNumBuildingHappyChanges() const` (Python: getNumBuildingHappyChanges)
+- **29444** `CvEventInfo::getNumBuildingHappyChanges() const` (Python: getNumBuildingHappyChanges)
   - called by (5): CvCity::applyEvent, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29248** `CvEventInfo::getBuildingHappyChange(int) const` (Python: getBuildingHappyChange)
+- **29449** `CvEventInfo::getBuildingHappyChange(int) const` (Python: getBuildingHappyChange)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29261** `CvEventInfo::getNumBuildingHealthChanges() const` (Python: getNumBuildingHealthChanges)
+- **29462** `CvEventInfo::getNumBuildingHealthChanges() const` (Python: getNumBuildingHealthChanges)
   - called by (5): CvCity::applyEvent, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29266** `CvEventInfo::getBuildingHealthChange(int) const` (Python: getBuildingHealthChange)
+- **29467** `CvEventInfo::getBuildingHealthChange(int) const` (Python: getBuildingHealthChange)
   - called by (6): CvCity::applyEvent, CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp, CvPlayer::applyEvent, CvPlayerAI::AI_eventValue, CyInfoPythonInterface3
-- **29279** `CvEventInfo::getPythonCallback() const`
+- **29480** `CvEventInfo::getPythonCallback() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvEventInfo::copyNonDefaults, CvPlayer::applyEvent
-- **29284** `CvEventInfo::getPythonExpireCheck() const`
+- **29485** `CvEventInfo::getPythonExpireCheck() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvEventInfo::copyNonDefaults, CvPlayer::checkExpireEvent
-- **29289** `CvEventInfo::getPythonCanDo() const`
+- **29490** `CvEventInfo::getPythonCanDo() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvEventInfo::copyNonDefaults, CvPlayer::canDoEvent
-- **29294** `CvEventInfo::getPythonHelp() const`
+- **29495** `CvEventInfo::getPythonHelp() const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvEventInfo::copyNonDefaults, CvGameTextMgr::setEventHelp
-- **29299** `CvEventInfo::getUnitNameKey() const`
+- **29500** `CvEventInfo::getUnitNameKey() const`
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (2): CvEventInfo::copyNonDefaults, CvUnit::applyEvent
-- **29304** `CvEventInfo::getQuestFailTextKey() const`
+- **29505** `CvEventInfo::getQuestFailTextKey() const`
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (2): CvEventInfo::copyNonDefaults, CvPlayer::expireEvent
-- **29309** `CvEventInfo::getLocalInfoTextKey() const`
+- **29510** `CvEventInfo::getLocalInfoTextKey() const`
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (2): CvEventInfo::copyNonDefaults, CvPlayer::applyEvent
-- **29314** `CvEventInfo::getOtherPlayerPopup() const`
+- **29515** `CvEventInfo::getOtherPlayerPopup() const`
   - calls: CvWString::operator unsigned short const * [CvString.h]
   - called by (2): CvEventInfo::copyNonDefaults, CvPlayer::applyEvent
-- **29319** `CvEventInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
+- **29520** `CvEventInfo::read(FDataStreamBase*)` (virtual; overrides CvInfoBase::read(FDataStreamBase*))
   - calls: CvInfoBase::read(FDataStreamBase*), FDataStreamBase::Read [FDataStreamBase.h], operator delete[](void*) [CvGameCoreDLL.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumEventInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvWString::CvWString() [CvString.h], FDataStreamBase::ReadString [FDataStreamBase.h], BuildingYieldChange::read [CvStructs.cpp], BuildingCommerceChange::read [CvStructs.cpp], CvWString::~CvWString [CvString.h]
-- **29474** `CvEventInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
+- **29675** `CvEventInfo::write(FDataStreamBase*)` (virtual; overrides CvInfoBase::write)
   - calls: CvInfoBase::write, FDataStreamBase::Write [FDataStreamBase.h], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvGlobals::getNumEventInfos [CvGlobals.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], FDataStreamBase::WriteString [FDataStreamBase.h], BuildingYieldChange::write [CvStructs.cpp], BuildingCommerceChange::write [CvStructs.cpp]
   - called by (1): writeInfoArray<class CvEventInfo>
-- **29588** `CvEventInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **29789** `CvEventInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getFlavorTypes() [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, CvString*, int, int) [CvXMLLoadUtilitySet.cpp], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp], CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvString::CvString(char const*) [CvString.h], CvXMLLoadUtility::SetVariableListTagPair(CvString**, char const*, int, int, CvString) [CvXMLLoadUtilitySet.cpp], CvString::`vector deleting dtor', CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<unsigned short, std::char_traits<unsigned short>, std::allocator<unsigned short>>&, char const*, unsigned short*) [CvXMLLoadUtilityGet.cpp], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvWString::CvWString(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&) [CvString.h], CvWString::~CvWString [CvString.h], CvXMLLoadUtility::GetNextXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetNextXmlVal(int*, int) [CvXMLLoadUtilityGet.cpp], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h]
-- **29895** `CvEventInfo::readPass2(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::readPass2)
+- **30096** `CvEventInfo::readPass2(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::readPass2)
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvGlobals::getNumEventInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvXMLLoadUtility::SetVariableListTagPair(int**, char const*, int, int, int) [CvXMLLoadUtilitySet.cpp]
-- **29920** `CvEventInfo::copyNonDefaults(CvEventInfo*)`
+- **30121** `CvEventInfo::copyNonDefaults(CvEventInfo*)`
   - calls: CvString::CvString() [CvString.h], CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvEventInfo::isQuest, CvEventInfo::isGlobal, CvEventInfo::isTeam, CvEventInfo::isCityEffect, CvEventInfo::isOtherPlayerCityEffect, CvEventInfo::isGoldToPlayer, CvEventInfo::isGoldenAge, CvEventInfo::isDeclareWar, CvEventInfo::getGold, CvEventInfo::getRandomGold, CvEventInfo::getCulture, CvEventInfo::getEspionagePoints, CvEventInfo::getTech, CvEventInfo::getTechPercent, CvEventInfo::getTechCostPercent, CvEventInfo::getTechMinTurnsLeft, CvEventInfo::getPrereqTech, CvEventInfo::getUnitClass, CvEventInfo::getNumUnits, CvEventInfo::isDisbandUnit, CvEventInfo::getUnitExperience, CvEventInfo::getUnitImmobileTurns, CvEventInfo::getBuildingClass, CvEventInfo::getBuildingChange, CvEventInfo::getHappy, CvEventInfo::getHealth, CvEventInfo::getHurryAnger, CvEventInfo::getHappyTurns, CvEventInfo::getFood, CvEventInfo::getFoodPercent, CvEventInfo::getFeature, CvEventInfo::getFeatureChange, CvEventInfo::getImprovement, CvEventInfo::getImprovementChange, CvEventInfo::getBonus, CvEventInfo::getBonusChange, CvEventInfo::getRouteChange, CvEventInfo::getRoute, CvEventInfo::getBonusRevealed, CvEventInfo::getBonusGift, CvGlobals::getNumFlavorTypes [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getTechFlavorValue, CvEventInfo::getPlotExtraYield, CvGlobals::getNumSpecialistInfos [CvGlobals.cpp], CvEventInfo::getFreeSpecialistCount, CvEventInfo::getConvertOwnCities, CvEventInfo::getConvertOtherCities, CvEventInfo::getMaxNumReligions, CvEventInfo::getOurAttitudeModifier, CvEventInfo::getAttitudeModifier, CvEventInfo::getTheirEnemyAttitudeModifier, CvEventInfo::getPopulationChange, CvEventInfo::getRevoltTurns, CvEventInfo::getMinPillage, CvEventInfo::getMaxPillage, CvEventInfo::getUnitPromotion, CvEventInfo::getFreeUnitSupport, CvEventInfo::getInflationModifier, CvEventInfo::getSpaceProductionModifier, CvEventInfo::getAIValue, CvGlobals::getNumUnitCombatInfos [CvGlobals.cpp], CvEventInfo::getUnitCombatPromotion, CvGlobals::getNumUnitClassInfos [CvGlobals.cpp], CvEventInfo::getUnitClassPromotion, CvEventInfo::getUnitNameKey, CvWString::operator=(unsigned short const*) [CvString.h], CvEventInfo::getOtherPlayerPopup, CvEventInfo::getQuestFailTextKey, CvEventInfo::getLocalInfoTextKey, CvEventInfo::getPythonCallback, CvString::operator=(char const*) [CvString.h], CvEventInfo::getPythonExpireCheck, CvEventInfo::getPythonCanDo, CvEventInfo::getPythonHelp, CvWString::CvWString() [CvString.h], CvEventInfo::getNumWorldNews, CvEventInfo::getWorldNews, CvWString::operator=(CvWString const&) [CvString.h], CvGlobals::getNumBuildingClassInfos [CvGlobals.cpp], CvEventInfo::getBuildingYieldChange, CvEventInfo::getBuildingCommerceChange, CvEventInfo::getBuildingHappyChange, CvEventInfo::getBuildingHealthChange, operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumEventInfos [CvGlobals.cpp], CvEventInfo::getAdditionalEventChance, CvEventInfo::getAdditionalEventTime, CvEventInfo::getClearEventChance
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvEventInfo>
-- **30159** `CvEventInfo::copyNonDefaultsReadPass2(CvEventInfo*)`
+- **30360** `CvEventInfo::copyNonDefaultsReadPass2(CvEventInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvGlobals::getNumEventInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvEventInfo::getAdditionalEventChance, CvEventInfo::getAdditionalEventTime, CvEventInfo::getClearEventChance
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvEventInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvEventInfo>
-- **30207** `CvEspionageMissionInfo::CvEspionageMissionInfo()`
+- **30408** `CvEspionageMissionInfo::CvEspionageMissionInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvEspionageMissionInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvEspionageMissionInfo>
-- **30218** `CvEspionageMissionInfo::~CvEspionageMissionInfo()` (virtual)
+- **30419** `CvEspionageMissionInfo::~CvEspionageMissionInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvEspionageMissionInfo::`scalar deleting dtor'
-- **30222** `CvEspionageMissionInfo::getCost() const` (Python: getCost)
+- **30423** `CvEspionageMissionInfo::getCost() const` (Python: getCost)
   - called by (3): CvEspionageMissionInfo::copyNonDefaults, CvPlayer::getEspionageMissionBaseCost, CyInfoPythonInterface3
-- **30227** `CvEspionageMissionInfo::isPassive() const` (Python: isPassive)
+- **30428** `CvEspionageMissionInfo::isPassive() const` (Python: isPassive)
   - called by (8): CvCity::canBeSelected, CvCity::updateEspionageVisibility, CvDLLButtonPopup::launchDoEspionagePopup, CvEspionageMissionInfo::copyNonDefaults, CvPlayer::canSpiesEnterBorders, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_doCommerce, CyInfoPythonInterface3
-- **30232** `CvEspionageMissionInfo::isTwoPhases() const` (Python: isTwoPhases)
+- **30433** `CvEspionageMissionInfo::isTwoPhases() const` (Python: isTwoPhases)
   - called by (4): CvDLLButtonPopup::launchDoEspionagePopup, CvEspionageMissionInfo::copyNonDefaults, CvUnit::espionage, CyInfoPythonInterface3
-- **30237** `CvEspionageMissionInfo::isTargetsCity() const` (Python: isTargetsCity)
+- **30438** `CvEspionageMissionInfo::isTargetsCity() const` (Python: isTargetsCity)
   - called by (5): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::getEspionageMissionBaseCost, CvPlayer::getEspionageMissionCostModifier, CyInfoPythonInterface3
-- **30242** `CvEspionageMissionInfo::isSelectPlot() const` (Python: isSelectPlot)
+- **30443** `CvEspionageMissionInfo::isSelectPlot() const` (Python: isSelectPlot)
   - called by (5): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::getEspionageMissionBaseCost, CvPlayer::getEspionageMissionCostModifier, CyInfoPythonInterface3
-- **30247** `CvEspionageMissionInfo::getTechPrereq() const` (Python: getTechPrereq)
+- **30448** `CvEspionageMissionInfo::getTechPrereq() const` (Python: getTechPrereq)
   - called by (3): CvEspionageMissionInfo::copyNonDefaults, CvPlayer::canDoEspionageMission, CyInfoPythonInterface3
-- **30252** `CvEspionageMissionInfo::getVisibilityLevel() const` (Python: getVisibilityLevel)
+- **30453** `CvEspionageMissionInfo::getVisibilityLevel() const` (Python: getVisibilityLevel)
   - called by (3): CvCity::updateEspionageVisibility, CvEspionageMissionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30257** `CvEspionageMissionInfo::isInvestigateCity() const` (Python: isInvestigateCity)
+- **30458** `CvEspionageMissionInfo::isInvestigateCity() const` (Python: isInvestigateCity)
   - called by (3): CvCity::canBeSelected, CvEspionageMissionInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30262** `CvEspionageMissionInfo::isSeeDemographics() const` (Python: isSeeDemographics)
+- **30463** `CvEspionageMissionInfo::isSeeDemographics() const` (Python: isSeeDemographics)
   - called by (3): CvEspionageMissionInfo::copyNonDefaults, CvPlayerAI::AI_doCommerce, CyInfoPythonInterface3
-- **30267** `CvEspionageMissionInfo::isNoActiveMissions() const` (Python: isNoActiveMissions)
+- **30468** `CvEspionageMissionInfo::isNoActiveMissions() const` (Python: isNoActiveMissions)
   - called by (3): CvEspionageMissionInfo::copyNonDefaults, CvPlayer::canSpiesEnterBorders, CyInfoPythonInterface3
-- **30272** `CvEspionageMissionInfo::isSeeResearch() const` (Python: isSeeResearch)
+- **30473** `CvEspionageMissionInfo::isSeeResearch() const` (Python: isSeeResearch)
   - called by (3): CvEspionageMissionInfo::copyNonDefaults, CvPlayerAI::AI_doCommerce, CyInfoPythonInterface3
-- **30277** `CvEspionageMissionInfo::isDestroyImprovement() const` (Python: isDestroyImprovement)
+- **30478** `CvEspionageMissionInfo::isDestroyImprovement() const` (Python: isDestroyImprovement)
   - called by (7): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30282** `CvEspionageMissionInfo::getDestroyBuildingCostFactor() const` (Python: getDestroyBuildingCostFactor)
+- **30483** `CvEspionageMissionInfo::getDestroyBuildingCostFactor() const` (Python: getDestroyBuildingCostFactor)
   - called by (8): CvDLLButtonPopup::launchDoEspionageTargetPopup, CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30287** `CvEspionageMissionInfo::getDestroyUnitCostFactor() const` (Python: getDestroyUnitCostFactor)
+- **30488** `CvEspionageMissionInfo::getDestroyUnitCostFactor() const` (Python: getDestroyUnitCostFactor)
   - called by (9): CvDLLButtonPopup::launchDoEspionageTargetPopup, CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::canDoEspionageMission, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30292** `CvEspionageMissionInfo::getDestroyProjectCostFactor() const`
+- **30493** `CvEspionageMissionInfo::getDestroyProjectCostFactor() const`
   - called by (7): CvDLLButtonPopup::launchDoEspionageTargetPopup, CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal
-- **30297** `CvEspionageMissionInfo::getDestroyProductionCostFactor() const`
+- **30498** `CvEspionageMissionInfo::getDestroyProductionCostFactor() const`
   - called by (6): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal
-- **30302** `CvEspionageMissionInfo::getBuyUnitCostFactor() const` (Python: getBuyUnitCostFactor)
+- **30503** `CvEspionageMissionInfo::getBuyUnitCostFactor() const` (Python: getBuyUnitCostFactor)
   - called by (8): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::canDoEspionageMission, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30307** `CvEspionageMissionInfo::getBuyCityCostFactor() const` (Python: getBuyCityCostFactor)
+- **30508** `CvEspionageMissionInfo::getBuyCityCostFactor() const` (Python: getBuyCityCostFactor)
   - called by (6): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30312** `CvEspionageMissionInfo::getStealTreasuryTypes() const` (Python: getStealTreasuryTypes)
+- **30513** `CvEspionageMissionInfo::getStealTreasuryTypes() const` (Python: getStealTreasuryTypes)
   - called by (7): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30317** `CvEspionageMissionInfo::getCityInsertCultureAmountFactor() const` (Python: getCityInsertCultureAmountFactor)
+- **30518** `CvEspionageMissionInfo::getCityInsertCultureAmountFactor() const` (Python: getCityInsertCultureAmountFactor)
   - called by (6): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30322** `CvEspionageMissionInfo::getCityInsertCultureCostFactor() const` (Python: getCityInsertCultureCostFactor)
+- **30523** `CvEspionageMissionInfo::getCityInsertCultureCostFactor() const` (Python: getCityInsertCultureCostFactor)
   - called by (5): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CyInfoPythonInterface3
-- **30327** `CvEspionageMissionInfo::getCityPoisonWaterCounter() const` (Python: getCityPoisonWaterCounter)
+- **30528** `CvEspionageMissionInfo::getCityPoisonWaterCounter() const` (Python: getCityPoisonWaterCounter)
   - called by (7): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30332** `CvEspionageMissionInfo::getCityUnhappinessCounter() const` (Python: getCityUnhappinessCounter)
+- **30533** `CvEspionageMissionInfo::getCityUnhappinessCounter() const` (Python: getCityUnhappinessCounter)
   - called by (6): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30337** `CvEspionageMissionInfo::getCityRevoltCounter() const` (Python: getCityRevoltCounter)
+- **30538** `CvEspionageMissionInfo::getCityRevoltCounter() const` (Python: getCityRevoltCounter)
   - called by (8): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CvUnitAI::AI_revoltCitySpy, CyInfoPythonInterface3
-- **30342** `CvEspionageMissionInfo::getBuyTechCostFactor() const` (Python: getBuyTechCostFactor)
+- **30543** `CvEspionageMissionInfo::getBuyTechCostFactor() const` (Python: getBuyTechCostFactor)
   - called by (8): CvDLLButtonPopup::launchDoEspionageTargetPopup, CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30347** `CvEspionageMissionInfo::getSwitchCivicCostFactor() const` (Python: getSwitchCivicCostFactor)
+- **30548** `CvEspionageMissionInfo::getSwitchCivicCostFactor() const` (Python: getSwitchCivicCostFactor)
   - called by (7): CvDLLButtonPopup::launchDoEspionageTargetPopup, CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30352** `CvEspionageMissionInfo::getSwitchReligionCostFactor() const` (Python: getSwitchReligionCostFactor)
+- **30553** `CvEspionageMissionInfo::getSwitchReligionCostFactor() const` (Python: getSwitchReligionCostFactor)
   - called by (7): CvDLLButtonPopup::launchDoEspionageTargetPopup, CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30357** `CvEspionageMissionInfo::getPlayerAnarchyCounter() const` (Python: getPlayerAnarchyCounter)
+- **30558** `CvEspionageMissionInfo::getPlayerAnarchyCounter() const` (Python: getPlayerAnarchyCounter)
   - called by (8): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CvUnitAI::AI_revoltCitySpy, CyInfoPythonInterface3
-- **30362** `CvEspionageMissionInfo::getCounterespionageNumTurns() const` (Python: getCounterespionageNumTurns)
+- **30563** `CvEspionageMissionInfo::getCounterespionageNumTurns() const` (Python: getCounterespionageNumTurns)
   - called by (6): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayerAI::AI_bestPlotEspionage, CvPlayerAI::AI_espionageVal, CyInfoPythonInterface3
-- **30367** `CvEspionageMissionInfo::getCounterespionageMod() const` (Python: getCounterespionageMod)
+- **30568** `CvEspionageMissionInfo::getCounterespionageMod() const` (Python: getCounterespionageMod)
   - called by (5): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvPlayer::doEspionageMission, CvPlayer::getEspionageMissionBaseCost, CyInfoPythonInterface3
-- **30372** `CvEspionageMissionInfo::getDifficultyMod() const` (Python: getDifficultyMod)
+- **30573** `CvEspionageMissionInfo::getDifficultyMod() const` (Python: getDifficultyMod)
   - called by (4): CvEspionageMissionInfo::copyNonDefaults, CvGameTextMgr::setEspionageCostHelp, CvUnit::espionage, CyInfoPythonInterface3
-- **30377** `CvEspionageMissionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **30578** `CvEspionageMissionInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp]
-- **30428** `CvEspionageMissionInfo::copyNonDefaults(CvEspionageMissionInfo*)`
+- **30629** `CvEspionageMissionInfo::copyNonDefaults(CvEspionageMissionInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvEspionageMissionInfo::getCost, CvEspionageMissionInfo::isPassive, CvEspionageMissionInfo::isTwoPhases, CvEspionageMissionInfo::isTargetsCity, CvEspionageMissionInfo::isSelectPlot, CvEspionageMissionInfo::getTechPrereq, CvEspionageMissionInfo::getVisibilityLevel, CvEspionageMissionInfo::isInvestigateCity, CvEspionageMissionInfo::isSeeDemographics, CvEspionageMissionInfo::isNoActiveMissions, CvEspionageMissionInfo::isSeeResearch, CvEspionageMissionInfo::isDestroyImprovement, CvEspionageMissionInfo::getDestroyBuildingCostFactor, CvEspionageMissionInfo::getDestroyUnitCostFactor, CvEspionageMissionInfo::getDestroyProjectCostFactor, CvEspionageMissionInfo::getDestroyProductionCostFactor, CvEspionageMissionInfo::getBuyUnitCostFactor, CvEspionageMissionInfo::getBuyCityCostFactor, CvEspionageMissionInfo::getStealTreasuryTypes, CvEspionageMissionInfo::getCityInsertCultureAmountFactor, CvEspionageMissionInfo::getCityInsertCultureCostFactor, CvEspionageMissionInfo::getCityPoisonWaterCounter, CvEspionageMissionInfo::getCityUnhappinessCounter, CvEspionageMissionInfo::getCityRevoltCounter, CvEspionageMissionInfo::getBuyTechCostFactor, CvEspionageMissionInfo::getSwitchCivicCostFactor, CvEspionageMissionInfo::getSwitchReligionCostFactor, CvEspionageMissionInfo::getPlayerAnarchyCounter, CvEspionageMissionInfo::getCounterespionageNumTurns, CvEspionageMissionInfo::getCounterespionageMod, CvEspionageMissionInfo::getDifficultyMod
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvEspionageMissionInfo>
-- **30486** `CvUnitArtStyleTypeInfo::CvUnitArtStyleTypeInfo()`
+- **30687** `CvUnitArtStyleTypeInfo::CvUnitArtStyleTypeInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvUnitArtStyleTypeInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvUnitArtStyleTypeInfo>
-- **30490** `CvUnitArtStyleTypeInfo::~CvUnitArtStyleTypeInfo()` (virtual)
+- **30691** `CvUnitArtStyleTypeInfo::~CvUnitArtStyleTypeInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvUnitArtStyleTypeInfo::`scalar deleting dtor'
-- **30494** `CvUnitArtStyleTypeInfo::getEarlyArtDefineTag(int, int) const`
+- **30695** `CvUnitArtStyleTypeInfo::getEarlyArtDefineTag(int, int) const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvUnitArtStyleTypeInfo::copyNonDefaults, CvUnitInfo::getEarlyArtDefineTag
-- **30512** `CvUnitArtStyleTypeInfo::setEarlyArtDefineTag(int, int, char const*)`
+- **30713** `CvUnitArtStyleTypeInfo::setEarlyArtDefineTag(int, int, char const*)`
   - calls: CvString::operator=(char const*) [CvString.h], CvUnitArtStyleTypeInfo::ArtDefneTag::ArtDefneTag, CvUnitArtStyleTypeInfo::ArtDefneTag::~ArtDefneTag
   - called by (2): CvUnitArtStyleTypeInfo::copyNonDefaults, CvUnitArtStyleTypeInfo::read
-- **30535** `CvUnitArtStyleTypeInfo::getLateArtDefineTag(int, int) const`
+- **30736** `CvUnitArtStyleTypeInfo::getLateArtDefineTag(int, int) const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvUnitArtStyleTypeInfo::copyNonDefaults, CvUnitInfo::getLateArtDefineTag
-- **30553** `CvUnitArtStyleTypeInfo::setLateArtDefineTag(int, int, char const*)`
+- **30754** `CvUnitArtStyleTypeInfo::setLateArtDefineTag(int, int, char const*)`
   - calls: CvString::operator=(char const*) [CvString.h], CvUnitArtStyleTypeInfo::ArtDefneTag::ArtDefneTag, CvUnitArtStyleTypeInfo::ArtDefneTag::~ArtDefneTag
   - called by (2): CvUnitArtStyleTypeInfo::copyNonDefaults, CvUnitArtStyleTypeInfo::read
-- **30576** `CvUnitArtStyleTypeInfo::getMiddleArtDefineTag(int, int) const`
+- **30777** `CvUnitArtStyleTypeInfo::getMiddleArtDefineTag(int, int) const`
   - calls: CvString::operator char const * [CvString.h]
   - called by (2): CvUnitArtStyleTypeInfo::copyNonDefaults, CvUnitInfo::getMiddleArtDefineTag
-- **30594** `CvUnitArtStyleTypeInfo::setMiddleArtDefineTag(int, int, char const*)`
+- **30795** `CvUnitArtStyleTypeInfo::setMiddleArtDefineTag(int, int, char const*)`
   - calls: CvString::operator=(char const*) [CvString.h], CvUnitArtStyleTypeInfo::ArtDefneTag::ArtDefneTag, CvUnitArtStyleTypeInfo::ArtDefneTag::~ArtDefneTag
   - called by (2): CvUnitArtStyleTypeInfo::copyNonDefaults, CvUnitArtStyleTypeInfo::read
-- **30617** `CvUnitArtStyleTypeInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **30818** `CvUnitArtStyleTypeInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvString::CvString() [CvString.h], CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::operator char const * [CvString.h], CvXMLLoadUtility::FindInInfoClass [CvXMLLoadUtility.cpp], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getGroupDefinitions, CvUnitArtStyleTypeInfo::setEarlyArtDefineTag, CvUnitArtStyleTypeInfo::setLateArtDefineTag, CvUnitArtStyleTypeInfo::setMiddleArtDefineTag, CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h]
-- **30688** `CvUnitArtStyleTypeInfo::copyNonDefaults(CvUnitArtStyleTypeInfo*)`
+- **30889** `CvUnitArtStyleTypeInfo::copyNonDefaults(CvUnitArtStyleTypeInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvGlobals::getNumUnitInfos [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getUnitInfo(UnitTypes) [CvGlobals.cpp], CvUnitInfo::getGroupDefinitions, CvUnitArtStyleTypeInfo::getEarlyArtDefineTag, CvUnitArtStyleTypeInfo::setEarlyArtDefineTag, CvUnitArtStyleTypeInfo::getLateArtDefineTag, CvUnitArtStyleTypeInfo::setLateArtDefineTag, CvUnitArtStyleTypeInfo::getMiddleArtDefineTag, CvUnitArtStyleTypeInfo::setMiddleArtDefineTag
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvUnitArtStyleTypeInfo>
-- **30739** `CvVoteSourceInfo::CvVoteSourceInfo()`
+- **30940** `CvVoteSourceInfo::CvVoteSourceInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvString::CvString() [CvString.h], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvVoteSourceInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvVoteSourceInfo>
-- **30744** `CvVoteSourceInfo::~CvVoteSourceInfo()` (virtual)
+- **30945** `CvVoteSourceInfo::~CvVoteSourceInfo()` (virtual)
   - calls: operator delete[](void*) [CvGameCoreDLL.cpp], CvInfoBase::~CvInfoBase, CvString::~CvString [CvString.h]
   - called by (1): CvVoteSourceInfo::`scalar deleting dtor'
-- **30750** `CvVoteSourceInfo::getVoteInterval() const` (Python: getVoteInterval)
+- **30951** `CvVoteSourceInfo::getVoteInterval() const` (Python: getVoteInterval)
   - called by (3): CvGame::doVoteSelection, CvVoteSourceInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30755** `CvVoteSourceInfo::getFreeSpecialist() const` (Python: getFreeSpecialist)
+- **30956** `CvVoteSourceInfo::getFreeSpecialist() const` (Python: getFreeSpecialist)
   - called by (3): CvCity::processVoteSourceBonus, CvVoteSourceInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30760** `CvVoteSourceInfo::getCivic() const` (Python: getCivic)
+- **30961** `CvVoteSourceInfo::getCivic() const` (Python: getCivic)
   - called by (3): CvPlayer::isFullMember, CvVoteSourceInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30765** `CvVoteSourceInfo::getReligionYield(int) const` (Python: getReligionYield)
+- **30966** `CvVoteSourceInfo::getReligionYield(int) const` (Python: getReligionYield)
   - called by (3): CvCity::processVoteSourceBonus, CvVoteSourceInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30771** `CvVoteSourceInfo::getReligionCommerce(int) const` (Python: getReligionCommerce)
+- **30972** `CvVoteSourceInfo::getReligionCommerce(int) const` (Python: getReligionCommerce)
   - called by (3): CvCity::processVoteSourceBonus, CvVoteSourceInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30777** `CvVoteSourceInfo::getPopupText() const`
+- **30978** `CvVoteSourceInfo::getPopupText() const`
   - calls: CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&) [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (2): CvDLLButtonPopup::launchChooseElectionPopup, CvVoteSourceInfo::copyNonDefaults
-- **30782** `CvVoteSourceInfo::getSecretaryGeneralText() const`
+- **30983** `CvVoteSourceInfo::getSecretaryGeneralText() const`
   - calls: CvDLLUtilityIFaceBase::getText [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvWString::CvWString(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const&) [CvString.h], CvWString::~CvWString [CvString.h]
   - called by (2): CvVoteSourceInfo::copyNonDefaults, CvVoteSourceInfo::pyGetSecretaryGeneralText
-- **30791** `CvVoteSourceInfo::getCopyPopupText() const`
+- **30992** `CvVoteSourceInfo::getCopyPopupText() const`
   - called by (1): CvVoteSourceInfo::copyNonDefaults
-- **30796** `CvVoteSourceInfo::getCopySecretaryGeneralText() const`
+- **30997** `CvVoteSourceInfo::getCopySecretaryGeneralText() const`
   - called by (1): CvVoteSourceInfo::copyNonDefaults
-- **30804** `CvVoteSourceInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **31005** `CvVoteSourceInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp], CvString::CvString() [CvString.h], CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::operator char const * [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SetCommerce<int> [CvXMLLoadUtility.h], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::InitList<int> [CvXMLLoadUtility.h], CvString::~CvString [CvString.h]
-- **30849** `CvVoteSourceInfo::copyNonDefaults(CvVoteSourceInfo*)`
+- **31050** `CvVoteSourceInfo::copyNonDefaults(CvVoteSourceInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvVoteSourceInfo::getVoteInterval, CvVoteSourceInfo::getPopupText, CvVoteSourceInfo::getCopyPopupText, CvString::operator=(CvString const&) [CvString.h], CvVoteSourceInfo::getSecretaryGeneralText, CvVoteSourceInfo::getCopySecretaryGeneralText, CvVoteSourceInfo::getFreeSpecialist, CvVoteSourceInfo::getCivic, CvVoteSourceInfo::getReligionYield, CvVoteSourceInfo::getReligionCommerce
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvVoteSourceInfo>
-- **30889** `CvVoteSourceInfo::readPass3()` (virtual; overrides CvInfoBase::readPass3)
+- **31090** `CvVoteSourceInfo::readPass3()` (virtual; overrides CvInfoBase::readPass3)
   - calls: CvGlobals::getInfoTypeForString [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvString::operator char const * [CvString.h]
   - called by (1): CvXMLLoadUtility::LoadPreMenuGlobals
-- **30924** `CvMainMenuInfo::CvMainMenuInfo()` (exported)
+- **31125** `CvMainMenuInfo::CvMainMenuInfo()` (exported)
   - calls: CvInfoBase::CvInfoBase(), CvInfoBase::~CvInfoBase
   - called by (2): CvXMLLoadUtility::SetGlobalClassInfo<class CvMainMenuInfo>, CvXMLLoadUtility::SetGlobalClassInfoTwoPassReplacement<class CvMainMenuInfo>
-- **30929** `CvMainMenuInfo::~CvMainMenuInfo()` (exported; virtual)
+- **31130** `CvMainMenuInfo::~CvMainMenuInfo()` (exported; virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvMainMenuInfo::`vector deleting dtor'
-- **30933** `CvMainMenuInfo::getScene() const` (exported; Python: getScene)
+- **31134** `CvMainMenuInfo::getScene() const` (exported; Python: getScene)
   - called by (2): CvMainMenuInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30938** `CvMainMenuInfo::getSceneNoShader() const` (exported; Python: getSceneNoShader)
+- **31139** `CvMainMenuInfo::getSceneNoShader() const` (exported; Python: getSceneNoShader)
   - called by (2): CvMainMenuInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30943** `CvMainMenuInfo::getSoundtrack() const` (exported; Python: getSoundtrack)
+- **31144** `CvMainMenuInfo::getSoundtrack() const` (exported; Python: getSoundtrack)
   - called by (2): CvMainMenuInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30948** `CvMainMenuInfo::getLoading() const` (exported; Python: getLoading)
+- **31149** `CvMainMenuInfo::getLoading() const` (exported; Python: getLoading)
   - called by (2): CvMainMenuInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30953** `CvMainMenuInfo::getLoadingSlideshow() const` (exported; Python: getLoadingSlideshow)
+- **31154** `CvMainMenuInfo::getLoadingSlideshow() const` (exported; Python: getLoadingSlideshow)
   - called by (2): CvMainMenuInfo::copyNonDefaults, CyInfoPythonInterface3
-- **30958** `CvMainMenuInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **31159** `CvMainMenuInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char const*, char*) [CvXMLLoadUtilityGet.cpp]
-- **30979** `CvMainMenuInfo::copyNonDefaults(CvMainMenuInfo*)`
+- **31180** `CvMainMenuInfo::copyNonDefaults(CvMainMenuInfo*)`
   - calls: CvString::CvString(char const*) [CvString.h], CvString::~CvString [CvString.h], CvString::GetCString [CvString.h], CvString::format [CvString.h], CvWString::CvWString(unsigned short const*) [CvString.h], CvWString::~CvWString [CvString.h], CvWString::format [CvString.h], CvWString::GetCString [CvString.h], CvInfoBase::copyNonDefaults, CvMainMenuInfo::getScene, CvMainMenuInfo::getSceneNoShader, CvMainMenuInfo::getSoundtrack, CvMainMenuInfo::getLoading, CvMainMenuInfo::getLoadingSlideshow
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvMainMenuInfo>
-- **31016** `CvPythonModulesInfo::CvPythonModulesInfo()`
+- **31217** `CvPythonModulesInfo::CvPythonModulesInfo()`
   - calls: CvInfoBase::CvInfoBase()
   - called by (1): CvXMLLoadUtility::SetGlobalClassInfo<class CvPythonModulesInfo>
-- **31020** `CvPythonModulesInfo::~CvPythonModulesInfo()` (virtual)
+- **31221** `CvPythonModulesInfo::~CvPythonModulesInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvPythonModulesInfo::`scalar deleting dtor'
-- **31024** `CvPythonModulesInfo::isMainInterfaceScreen()` (exported; Python: isMainInterfaceScreen)
+- **31225** `CvPythonModulesInfo::isMainInterfaceScreen()` (exported; Python: isMainInterfaceScreen)
   - called by (1): CyInfoPythonInterface3
-- **31029** `CvPythonModulesInfo::isCivicScreen()` (exported; Python: isCivicScreen)
+- **31230** `CvPythonModulesInfo::isCivicScreen()` (exported; Python: isCivicScreen)
   - called by (1): CyInfoPythonInterface3
-- **31034** `CvPythonModulesInfo::isCorporationScreen()` (exported; Python: isCorporationScreen)
+- **31235** `CvPythonModulesInfo::isCorporationScreen()` (exported; Python: isCorporationScreen)
   - called by (1): CyInfoPythonInterface3
-- **31039** `CvPythonModulesInfo::isDomesticAdvisor()` (exported; Python: isDomesticAdvisor)
+- **31240** `CvPythonModulesInfo::isDomesticAdvisor()` (exported; Python: isDomesticAdvisor)
   - called by (1): CyInfoPythonInterface3
-- **31044** `CvPythonModulesInfo::isEspionageAdvisor()` (exported; Python: isEspionageAdvisor)
+- **31245** `CvPythonModulesInfo::isEspionageAdvisor()` (exported; Python: isEspionageAdvisor)
   - called by (1): CyInfoPythonInterface3
-- **31049** `CvPythonModulesInfo::isForeignAdvisor()` (exported; Python: isForeignAdvisor)
+- **31250** `CvPythonModulesInfo::isForeignAdvisor()` (exported; Python: isForeignAdvisor)
   - called by (1): CyInfoPythonInterface3
-- **31054** `CvPythonModulesInfo::isMilitaryAdvisor()` (exported; Python: isMilitaryAdvisor)
+- **31255** `CvPythonModulesInfo::isMilitaryAdvisor()` (exported; Python: isMilitaryAdvisor)
   - called by (1): CyInfoPythonInterface3
-- **31059** `CvPythonModulesInfo::isVictoryScreen()` (exported; Python: isVictoryScreen)
+- **31260** `CvPythonModulesInfo::isVictoryScreen()` (exported; Python: isVictoryScreen)
   - called by (1): CyInfoPythonInterface3
-- **31064** `CvPythonModulesInfo::getScreen()` (exported; Python: getScreen)
+- **31265** `CvPythonModulesInfo::getScreen()` (exported; Python: getScreen)
   - called by (1): CyInfoPythonInterface3
-- **31069** `CvPythonModulesInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
+- **31270** `CvPythonModulesInfo::read(CvXMLLoadUtility*)` (virtual; overrides CvInfoBase::read(CvXMLLoadUtility*))
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvXMLLoadUtility::GetChildXmlValByName(bool*, char const*, bool) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetChildXmlValByName(int*, char const*, int) [CvXMLLoadUtilityGet.cpp]
-- **31089** `CvModLoadControlInfo::CvModLoadControlInfo()`
+- **31290** `CvModLoadControlInfo::CvModLoadControlInfo()`
   - calls: CvInfoBase::CvInfoBase(), CvInfoBase::~CvInfoBase
   - called by (1): CvXMLLoadUtility::SetModLoadControlInfo<class CvModLoadControlInfo>
-- **31093** `CvModLoadControlInfo::~CvModLoadControlInfo()` (virtual)
+- **31294** `CvModLoadControlInfo::~CvModLoadControlInfo()` (virtual)
   - calls: CvInfoBase::~CvInfoBase
   - called by (1): CvModLoadControlInfo::`scalar deleting dtor'
-- **31097** `CvModLoadControlInfo::isLoad(int)`
+- **31298** `CvModLoadControlInfo::isLoad(int)`
   - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo<class CvModLoadControlInfo>, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
-- **31104** `CvModLoadControlInfo::setLoad(int, bool)`
-- **31111** `CvModLoadControlInfo::getNumModules()`
+- **31305** `CvModLoadControlInfo::setLoad(int, bool)`
+- **31312** `CvModLoadControlInfo::getNumModules()`
   - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo<class CvModLoadControlInfo>, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
-- **31116** `CvModLoadControlInfo::getDirDepth()`
+- **31317** `CvModLoadControlInfo::getDirDepth()`
   - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo<class CvModLoadControlInfo>, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
-- **31121** `CvModLoadControlInfo::getModuleFolder(int)`
+- **31322** `CvModLoadControlInfo::getModuleFolder(int)`
   - called by (2): CvXMLLoadUtility::LoadModLoadControlInfo<class CvModLoadControlInfo>, CvXMLLoadUtilitySetMod::setModLoadControlDirArray
-- **31128** `CvModLoadControlInfo::getParentFolder()`
+- **31329** `CvModLoadControlInfo::getParentFolder()`
   - called by (1): CvXMLLoadUtilitySetMod::setModLoadControlDirArray
-- **31133** `CvModLoadControlInfo::read(CvXMLLoadUtility*, CvString, int)`
+- **31334** `CvModLoadControlInfo::read(CvXMLLoadUtility*, CvString, int)`
   - calls: CvInfoBase::read(CvXMLLoadUtility*), CvString::~CvString [CvString.h], CvString::CvString() [CvString.h], CvDLLUtilityIFaceBase::getXMLIFace [CvDLLUtilityIFaceBase.h], CvDLLXmlIFaceBase::SetToChildByTagName [CvDLLXMLIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvXMLLoadUtility::GetXML [CvXMLLoadUtility.h], CvXMLLoadUtility::SkipToNextVal [CvXMLLoadUtility.cpp], CvDLLXmlIFaceBase::GetNumChildren [CvDLLXMLIFaceBase.h], operator new[](unsigned int) [CvGameCoreDLL.cpp], CvDLLXmlIFaceBase::SetToChild [CvDLLXMLIFaceBase.h], CvXMLLoadUtility::GetChildXmlVal(std::basic_string<char, std::char_traits<char>, std::allocator<char>>&, char*) [CvXMLLoadUtilityGet.cpp], CvXMLLoadUtility::GetNextXmlVal(bool*, bool) [CvXMLLoadUtilityGet.cpp], CvGlobals::setTotalNumModules [CvGlobals.cpp], CvDLLXmlIFaceBase::SetToParent [CvDLLXMLIFaceBase.h], CvDLLXmlIFaceBase::NextSibling [CvDLLXMLIFaceBase.h], operator delete[](void*) [CvGameCoreDLL.cpp]
   - called by (1): CvXMLLoadUtility::SetModLoadControlInfo<class CvModLoadControlInfo>
 - **·** `CvUnitArtStyleTypeInfo::ArtDefneTag::ArtDefneTag()` (written by the compiler)
@@ -5290,6 +5310,8 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvAdvisorInfo::~CvAdvisorInfo
 - **·** `CvBonusClassInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvBonusClassInfo::~CvBonusClassInfo
+- **·** `CvBonusInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvBonusInfo::~CvBonusInfo
 - **·** `CvBuildInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvBuildInfo::~CvBuildInfo
 - **·** `CvBuildingClassInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
@@ -5334,6 +5356,8 @@ Group: game data and XML loading. Functions in line order: what each calls (in o
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvHurryInfo::~CvHurryInfo
 - **·** `CvImprovementInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvImprovementInfo::~CvImprovementInfo
+- **·** `CvLeaderHeadInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
+  - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvLeaderHeadInfo::~CvLeaderHeadInfo
 - **·** `CvModLoadControlInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)
   - calls: operator delete(void*) [CvGameCoreDLL.cpp], CvModLoadControlInfo::~CvModLoadControlInfo
 - **·** `CvProcessInfo::`scalar deleting dtor'(unsigned int)` (virtual; written by the compiler)

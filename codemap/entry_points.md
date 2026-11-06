@@ -186,7 +186,7 @@ Pure virtual methods of classes the source never derives from and never implemen
 - **CvDLLXmlIFaceBase** (20, 20 called from the source)
 - **FDataStreamBase** (5, 5 called from the source)
 
-## Called from Python: functions exposed by boost::python (3892)
+## Called from Python: functions exposed by boost::python (3895)
 
 Per C++ class: how many functions are exposed. The full list with Python names is `map/python_defs.tsv`.
 
@@ -273,7 +273,7 @@ Per C++ class: how many functions are exposed. The full list with Python names i
 | CyGameTextMgr | 35 |
 | CyGlobalContext | 275 |
 | CyHallOfFameInfo | 3 |
-| CyMap | 52 |
+| CyMap | 55 |
 | CyMapGenerator | 21 |
 | CyMessageControl | 13 |
 | CyPlayer | 441 |
