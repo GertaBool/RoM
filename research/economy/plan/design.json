@@ -385,7 +385,7 @@
   {
    "id": "D21",
    "question": "Entertainment media as goods",
-   "status": "open",
+   "status": "decided",
    "options": [
     "finished goods made by their buildings (Broadway, Rock'n'Roll, Hollywood) in quantities and consumed as comforts by the market chain",
     "services: produced and consumed in the same settlement or network, not stored or shipped",
@@ -393,7 +393,8 @@
    ],
    "proposal": "keep today's form until CN, then decide",
    "why": "The user: still valuable goods, but maybe reworked (M35)",
-   "research": "research/economy/open_questions.md (R22, M68) section 10 (services)"
+   "research": "research/economy/open_questions.md (R22, M68) section 10 (services)",
+   "choice": "Media are services that can be imported and exported, by reach (M75): reach scales with technology, buildings and infrastructure and applies across the country where they exist (as the Forge unlocks Gold); drama local until broadcasting, music regional then national with recording and radio, movies by cinema then television, cable, satellite and the internet (round_m75.md 1a)"
   },
   {
    "id": "D22",
@@ -422,7 +423,7 @@
   {
    "id": "D24",
    "question": "What a map declares in its BeginEconomy block, and how map, XML and game options layer (R12, M56)",
-   "status": "open",
+   "status": "decided",
    "source": "M56",
    "why": "The user: the block can carry many values so the game need not precompute them per tile; ideas: finite ore deposits, fertility ranges, starter seeds, trade-route settings, switchable economy screens and mechanics tied to civics",
    "facts": [
@@ -438,7 +439,8 @@
     "Economy screens and mechanics as game options and a Config/Economy.xml, as Revolution does: import/export trade, loans and bonds, a national budget (hurry from a central panel), national debt, central planning; some opened by civics (a Roman senate), with the AI reading them"
    ],
    "proposal": "Record now, design when each part's component comes: the layering for LD (fertility, deposits) and TR.F3 (seeds); the screens as a new component after TR and AI, its mechanics designed with the user first (what a loan, a bond, a budget does), each behind a game option",
-   "research": "research/economy/open_questions.md (R22, M68) section 9 (block schema, three layers)"
+   "research": "research/economy/open_questions.md (R22, M68) section 9 (block schema, three layers)",
+   "choice": "B (M75): three layers: XML defaults, the map's map-wide values, per-plot values (deposit good, reserve, grade; fertility per good), per-player starting stocks, then the saved state; Config/Economy.xml with game options; built with LD and TR.F3"
   },
   {
    "id": "D25",
@@ -473,9 +475,10 @@
     "Unit combat types (CIV4UnitCombatInfos.xml): living: recon, archer, mounted, melee, gun, spy; machines: siege, wheeled, tracked, helicopter, every ship and aircraft type, assault mech, robot, nanite, missile; unclear: hitech, biological, clones, worker, settler, animal",
     "Fermentation raises cereals' food value and keeping (M54)",
     "Satiety per tonne as eaten (R24, open_questions.md section 4): kcal per kg as eaten x (1 + 2.0 p q) / (1 + 2.0 x 0.146 x 0.44), p = protein share of calories, q = DIAAS capped at 1 (beef 1.12, milk 1.14, wheat 0.40-0.48, rice 0.47, maize 0.36), fitted to Holt et al. 1995 (beef 176 against bread 100), checked on fish (2.29 against 2.25) and cheese (1.35 against 1.46). Per kg as eaten: cheese 5,213, cooked beef 4,875, cooked cod 2,401, bread 2,380, cooked rice 1,232",
-    "Drinks (R25, open_questions.md section 4b): a drink need of about 1.6-2.0 L per head a day (EFSA 2010: 2.0-2.5 L total water, about 20 % from food); each litre counts x its hydration index (Maughan et al. 2016: skimmed milk 1.58, full-fat milk 1.50, water 1.00; tea, coffee, lager about water) and adds its satiety to food; liquid milk (DIAAS 1.14, about 80 % casein, lactose GI 46) is valued as a drink with meat and fish; water is the city's supply, not a stored good"
+    "Drinks (R25, open_questions.md section 4b): a drink need of about 1.6-2.0 L per head a day (EFSA 2010: 2.0-2.5 L total water, about 20 % from food); each litre counts x its hydration index (Maughan et al. 2016: skimmed milk 1.58, full-fat milk 1.50, water 1.00; tea, coffee, lager about water) and adds its satiety to food; liquid milk (DIAAS 1.14, about 80 % casein, lactose GI 46) is valued as a drink with meat and fish; water is the city's supply, not a stored good",
+    "Three separate measures (M75, R29): calories (FAO), satiety index per 240 kcal (Holt 1995: potatoes 323, ling fish 225, beef 176, cheese 146, white rice 138, white bread 100), health profile (protein quality, vitamin C, thiamine, niacin, iodine, fat; harms: processed and salted meat (IARC Group 1), sugar and refined starch (caries), grain-only diets (stones)); deficiency diseases: scurvy, beriberi, pellagra, iodine deficiency (round_m75.md section 2)"
    ],
-   "open": "preserved forms (cured meat, dried fruit, cheese) need processing recipes (IN.F1) or a preservation share per good",
+   "open": "Decided (M75): option C refined: spoilage per good = base x tech factor (Pottery, Fermentation, Salt, Refrigeration, the Cannery's process) x store factor (granary, storehouse) x climate factor; no canned good (D28); round_m75.md 1b",
    "research": "research/economy/food_resources.md (R21, M67): all 80 resources from the XML, FAO nutrition per 100 g, food roles; candidates beyond the present classing: Whale and Horse (protein), Olives and Cotton (oil), Sugar, Wine, Alcohol (calories), Salt (preserving), Lemon (scurvy); research/economy/open_questions.md (R22, M68) section 5 (spoilage per year, salt preserving)"
   },
   {
@@ -487,8 +490,8 @@
    "proposal": "research/economy/production_chains.md section 2: agricultural, artisanal and industrial chains on existing buildings, guilds and improvements; 15 new goods (Flour, Bread, Meat, Cheese, Cured Meat, Cured Fish, Dried Fruit, Canned Food, Cloth, Fine Cloth, Charcoal, Tools, Arms, Jewellery, Machinery); Cow, Pig, Sheep counted in head with Meat as the product; inputs for the four buildings that make goods from nothing; Glass from stone, not salt",
    "choice": "Decided (M59): the four buildings that made goods from nothing get inputs (Oil Refinery: oil; Aluminum Factory: bauxite; Cement Mill: stone and coal; Rubber Factory: rubber and sulphur); steel from iron and coal; machinery at the Factory (and the mechanised-farm stage); the Forge and the Factory make arms, the Forge tools (from ores: copper, iron, lead and the others, bauxite included) and the precious goods; the Armourer and the Jewellery building consume arms and jewellery, they do not make them; Bread Manufactory and Weapons Manufactory raise bread and arms output; the Cannery lengthens the shelf life of the city's goods (no canned-food good); charcoal from timber; no building per production step (the 32-bit executable's limits): the essentials stages (Settlement, Town, City, Metropolitan) carry the core functions; the city makes artisanal goods itself from its base goods and techs, from a communal economy on; mills (Watermill, Windmill) do not make flour; guilds are reworked: national rather than world wonders, an important role but not the source of goods, not a tier system; Cow, Pig, Sheep counted in head with Meat a good, Deer a source of meat too, Fur for clothing; decided (M60): 'communal economies and above' is Town Essentials ('Communal Organization' in the game's text) and above (City Essentials 'Civil Schema', Metropolitan Essentials 'Municipal Services'), Settlement Essentials being 'Early crafts and foodstuffs'; the Rubber Plant makes synthetic rubber from oil and chemicals",
    "open": [
-    "The guilds' role: not another modifier (M61); founding is once per game for a corporation (checked in the DLL); ideas A-D and three ways to make them national in research/economy/guilds/README.md sections 8-9 (recommended: techniques and skilled workers, national guilds with the world master guild as origin)",
-    "Flour and fine cloth as goods (not decided)"
+    "No Flour (M75): bread from grain by the city's recipe at the extraction rate",
+    "Clothes: to discuss in depth (round_m75.md section 7)"
    ],
    "research": "research/economy/open_questions.md (R22, M68) section 6 (no Flour; fine cloth a Drapers luxury)"
   },
@@ -499,11 +502,11 @@
    "source": "M61, M62",
    "choice": "Normal goods need no guild: technology, buildings and resources gate them, with no low-quality default. Guilds enable very specific luxury goods and master craftsmen and other highly qualified labour. Structure (option 3): a national guild per trade for each player, plus one world-unique master guild per trade where its technique originates; some guilds (the Glassmakers for example) stay once-per-game like corporations (the engine founds a corporation once, CvCity::canConstruct, M61). Techniques are carried by the Master units, traded in deals as means of production (TR.F3) and stolen by espionage. Guild goods carry quality grades, to be specified. No innovation brake: the evidence is contested (Epstein 1998 for guilds as carriers of skills and techniques, Ogilvie against, Epstein and Prak 2008 mixed and regional). No direct public-order bonus: guilds get a socioeconomic and political role with downstream effects, to be designed",
    "open": [
-    "Which guilds are once-per-game and which national",
-    "The luxury goods each guild enables",
-    "The quality grades and what they change",
-    "The political and socioeconomic role",
-    "How master craftsmen are counted against the real population (D30)"
+    "a decided (M75): once per game only where the luxury rests on a secret technique (Glassblowers, Drapers); the other twelve national",
+    "b to discuss again: the luxury goods per guild (round_m75.md section 8)",
+    "c decided (M75): three grades: common; fine x 1.5; masterwork x 2-2.5",
+    "d decided (M75): guild councils, fixed prices and limited craftsman places, tied to civics, with UI and AI integration",
+    "e decided (M75): workshops come with the guild or guild hall, sized by the population proportion; not specialists"
    ],
    "sources": [
     "Epstein, S. R. (1998) Craft guilds, apprenticeship and technological change in preindustrial Europe, Journal of Economic History 58: https://bollettinoadapt.it/wp-content/uploads/epstein1998.pdf",
@@ -524,15 +527,17 @@
     "Harness games (P18, Mediterranean Standard, 1300 BC): median average city size 6.8 (232,000 people shown at size 7); largest real city in 2000 BC 40,000-65,000, Babylon about 500 BC 150,000-200,000",
     "Growth needs 30 + 10 x size food per step (GlobalDefines) while the people added rise as about size^1.8; each citizen eats 3 food",
     "Over 21 plots of Mediterranean Standard (4,470 km2), sizes 10-15 give 7-21 people per km2, near England in 1086 (9-15)",
-    "The mod's shocks are random events: after turn 20 one roll per player and turn at 2-16 % by era, then one of about 300 triggers by weight; a plague takes 3-4 citizens in one city and 1-2 in a few neighbours; no climate, harvest variation, seasons, spreading epidemics or population cycles exist"
+    "The mod's shocks are random events: after turn 20 one roll per player and turn at 2-16 % by era, then one of about 300 triggers by weight; a plague takes 3-4 citizens in one city and 1-2 in a few neighbours; no climate, harvest variation, seasons, spreading epidemics or population cycles exist",
+    "User principles (M75): growth by nutrient quality and quantity; good food raises fertility, productivity, commerce, science, culture; players decide, not a curve; urban density, economy, war and pillage matter; no era growth rates; health lowers or reverses growth rather than a death term"
    ],
-   "proposal": "Proposed (R19): the compact Malthusian model in research/economy/population_formula.md; it needs the tile's farmed share (D23 question 3) and r and s per era, sourced",
+   "proposal": "Reworked (R29, round_m75.md section 3): g = a(nutrition - 1) + b(economy) - c(bad health) - d(density x (1 - sanitation)) - e(war pressure); N <- N(1+g); coefficients calibrated on England 1300, the Dutch Hunger Winter and US cities 1900-1936; good food also raises productivity (Fogel) and cognition (iodine); open: additive or multiplicative, size from people, migration",
    "options": [
     "keep size^2.8 x 1000 and count workers from it (D23 as decided in M54)",
     "a new population curve fitted to real settlement sizes by era",
     "a citizen as a fixed share of a population that grows by births, deaths and migration (a demographic model), the city size following from it",
     "between 2 and 3: keep the food-box citizens and an __int64 people count per city beside them, growing toward a capacity set by citizens, era and food, with an urban share by era",
-    "a compact Malthusian model (R19): people N per city (__int64) grow logistically toward K = food / food per head s at rate r, capped at food / biological minimum; urban share 1 - s / food per rural person; city size = (N/1000)^(1/2.8); three numbers to set (r, s, s_min)"
+    "a compact Malthusian model (R19): people N per city (__int64) grow logistically toward K = food / food per head s at rate r, capped at food / biological minimum; urban share 1 - s / food per rural person; city size = (N/1000)^(1/2.8); three numbers to set (r, s, s_min)",
+    "the reworked growth rate from the game state (R29): nutrition, economy, health, density with sanitation, war pressure; no era rates, no separate death term"
    ],
    "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4; research/economy/shocks_and_cycles.md (R18, M64): cataclysms, harvest variation, seasons, epidemics, long cycles; building blocks A-F; research/economy/population_formula.md (R19, M65): a compact Malthusian model, proposed; research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check; research/economy/open_questions.md (R22, M68) section 7 (r, s, s_min sourced; migration; AI translation layer)"
   },

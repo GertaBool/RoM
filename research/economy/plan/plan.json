@@ -1472,6 +1472,12 @@
        "done_when": "it runs and prints grain kcal per head a day about 1,926, ha per farm worker about 3.0, N near K; the C++ steps are checked against it",
        "done": "2026-11-06",
        "note": "check_england1300.py passes: 2.85 ha per farm worker, 1.00 Mt net grain, 1,927 kcal per head a day as harvested (1,542 after 80 % milling), total 2,409 kcal; satiety 2,354 a day, so N/K = 1.105 at s = 2,600: s about 2,350 fits, or medieval extraction was higher (finding for the user, D30)"
+      },
+      {
+       "id": "PR.F8.T5",
+       "status": "todo",
+       "text": "nutrition.json and food_values_edits.py to three separate measures (M75): calories, satiety index (Holt where measured, protein fallback), health profile (nutrient groups and harms); remove the canned form; spoilage by D27 C (base x tech x store x climate)",
+       "done_when": "nutrition.json carries kcal, satiety index with source, health profile per good; the generator writes iCaloriesPerTonne, iSatietyIndex, health fields; no canned form; check_england1300.py still passes; consumer: FD.F1"
       }
      ]
     }
@@ -3208,7 +3214,7 @@
    "features": [
     {
      "id": "FD.F1",
-     "what": "Route step 1: new XML fields and their C++ readers, no behaviour change: BonusInfo iSatietyPerTonne, iProteinPerTonne, iHydrationPercent, spoilage per form; BuildingInfo iWaterSupply, iWaterUse, iWaterQualityChange; ImprovementInfo iWaterSupply, bLivestockWater; GlobalDefines WATER_*",
+     "what": "Route step 1: new XML fields and their C++ readers, no behaviour change: BonusInfo iCaloriesPerTonne, iSatietyIndex, iProteinPerTonne, health profile (nutrient groups, harms), iHydrationPercent, spoilage base; BuildingInfo iWaterSupply, iWaterUse, iWaterQualityChange, storage factor; ImprovementInfo iWaterSupply, bLivestockWater; GlobalDefines WATER_*",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
@@ -3402,11 +3408,11 @@
   "updated": "2026-11-07",
   "mod_head": "GitLab claude/settlement-economy at d2a8f756",
   "in_flight": [
-   "Step 0 (PR.F8) done: code map from the branch d2a8f756 (754858f), nutrition.json, food_values_edits.py, check_england1300.py (1a4cb59). Finding for D30: with 80 % milling the England 1300 diet gives 2,354 satiety a day, N/K = 1.105 at s = 2,600 (s about 2,350, or higher medieval extraction). Next: step 1 FD.F1 (XML fields and readers; needs a prediction registered first). D31 and D32 decided. Decisions D30, D24, D21 and the open items of D27-D29 wait on the user (research/economy/decisions_open.md). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "M75 round (R29): D24 B, D21 media by reach, D27 C refined, no Flour, D29 a/c/d/e decided; D30 reworked from the user's principles (round_m75.md section 3) waits on the user; three separate food measures (calories, satiety, health) mapped; PR.F8.T5 revises nutrition.json and the generator before step 1. Food box: the exe only asks the DLL for bar fractions, size class, size string and colours, so growth can be replaced and the same exports refilled (round_m75.md section 4). Discussions waiting: migration, clothes, guild luxuries (round_m75.md 6-8). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "ROUTE (implementation_route.md; plan component FD and PR.F7): step 0 PR.F8 (T1 code map from the branch, T2 nutrition.json, T3 food_values_edits.py, T4 check_england1300.py) -> step 1 FD.F1 (XML fields and readers, no behaviour change) -> step 2 PR.F1 then PR.F7 (tile formula in doGoods produce) -> step 3 FD.F2 (food by satiety, drinks) -> step 4 FD.F3 (population model, after D30) -> step 5 FD.F4 (water, D31) -> then SD, CN, IN, LD, TR, AI as planned. Each step: done_when, prediction registered, code map query, connector generator, toolchain build, harness, computed check.",
-   "Waiting on the user: decisions in research/economy/decisions_open.md (D30, D24, D21; open items of D27, D28, D29).",
+   "ROUTE (implementation_route.md; plan component FD and PR.F7): step 0 PR.F8 (T1-T4 done; T5 three measures and D27 C) -> step 1 FD.F1 (XML fields and readers, no behaviour change) -> step 2 PR.F1 then PR.F7 (tile formula in doGoods produce) -> step 3 FD.F2 (food by satiety, drinks) -> step 4 FD.F3 (population model, after D30) -> step 5 FD.F4 (water, D31) -> then SD, CN, IN, LD, TR, AI as planned. Each step: done_when, prediction registered, code map query, connector generator, toolchain build, harness, computed check.",
+   "Waiting on the user: D30 (reworked, round_m75.md section 3); discussions on migration, clothes (D28) and guild luxuries (D29 b) (round_m75.md sections 6-8).",
    "Art (R28.1): LQ.F10.T2 unblocked: public-domain Library of Congress photo (Highsmith, logs near Mapleton, Oregon); Glass button from Cleveland Museum of Art CC0 photos (research/economy/art_sources.md).",
    "Waiting on the user in game: LQ.F9.T5 and GW.F2.T2 icon checks; PR.F6 scale read-back and WorldBuilder round-trip; a test game with builds/settlement-economy."
   ],
