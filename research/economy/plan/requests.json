@@ -560,6 +560,13 @@
    "kind": "correction",
    "text": "\"The settlement tiers, Market and Harbor have route counts and commerce modifiers only.\"\n\nCheck again. Check trade yield modifiers. \n\"Goods classing (Fish as a staple, Whale as fuel only, Salt as variety) is out of date. I left it unchanged because reclassifying is your call\"\n\nI discussed most of these things in-depth with you already \nI think we need to basically communicate about everything at length again, just to see whether you actually remember the conversation with me correctly and don't let any misunderstanding slip into the plan or the list of tasks.",
    "led_to": "R34: trade yield modifiers checked again in every building and module record; the goods classing settled from what was already discussed; a full restatement of the conversation's decisions, topic by topic, for the user to confirm before anything more enters the plan"
+  },
+  {
+   "id": "M81",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "\"Routes yield only commerce by default\" Maybe, but actually check the XML\nIf the buildings multiply yield from trade routes, which then generate food and productivity via civic changes, then the buildings themselves multiply the corresponding food and productivity gains from trade",
+   "led_to": "R35: the trade-route yield defaults read from the XML itself (yield records, defines, modules, every file that can set them); the buildings' route counts and profit modifiers recorded as multipliers of the food and production that civics put on routes"
   }
  ],
  "requests": [
@@ -1479,6 +1486,25 @@
      "what": "Restate the whole conversation topic by topic (what the user said, what was decided, what is open) so the user can confirm or correct it before more enters the plan or task list",
      "status": "done",
      "where": "research/economy/restatement_m80.md"
+    }
+   ]
+  },
+  {
+   "id": "R35",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M81",
+   "text": "\"Routes yield only commerce by default\" Maybe, but actually check the XML\nIf the buildings multiply yield from trade routes, which then generate food and productivity via civic changes, then the buildings themselves multiply the corresponding food and productivity gains from trade",
+   "items": [
+    {
+     "id": "R35.1",
+     "what": "Read the trade-route yield defaults in the XML itself: CIV4YieldInfos and any module or define that sets trade yields, and show the records",
+     "status": "open"
+    },
+    {
+     "id": "R35.2",
+     "what": "Record that the buildings' route counts and route-profit modifiers multiply the food and production gains from trade that civics give, with the arithmetic",
+     "status": "open"
     }
    ]
   }
