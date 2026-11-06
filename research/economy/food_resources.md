@@ -167,6 +167,9 @@ satiety of protein that D27 decided. The measure is now in `open_questions.md` s
   bread 2,380 (D27).
 - **Animal foods count with their calories and their protein.**
 - **Protein also drives D27's strength bonus.**
+- **Drinks** (milk, ale, wine, tea, coffee, water) count per day for hydration, each litre × its hydration index
+  (milk 1.5, the others about 1.0), and add their satiety to food (`open_questions.md` section 4b). Liquid milk
+  stands with meat and fish.
 - **Variety** can still be counted as the number of food roles a city covers (staple, animal food, fat, sugar, fruit,
   drink).
 

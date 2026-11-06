@@ -1128,14 +1128,15 @@
   {
    "id": "R25",
    "date": "2026-11-06",
-   "status": "open",
+   "status": "done",
    "prompt": "M71",
    "text": "Liquid milk is as immensely valuable in terms of nutrition as fish or meat is by itself, because it both provides extraordinary hydration as well as highly bioavailable protein and fats. Lactose is a more stable carb source. The hydration aspect changes the equation because you'd have to measure it more like quantities of drinking water or juice per day",
    "items": [
     {
      "id": "R25.1",
      "what": "Measure drinks (water, milk, ale, wine, juice, tea, coffee) as a daily quantity per head for hydration, with sourced hydration values; value liquid milk as a drink with its bioavailable protein, fats and lactose, alongside meat and fish (D27)",
-     "status": "open"
+     "status": "done",
+     "where": "open_questions.md section 4b; section 4 milk line; food_resources.md section 5; design.json D27 fact"
     }
    ]
   }

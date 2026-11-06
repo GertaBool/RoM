@@ -13,6 +13,7 @@ in design.json is changed to "decided" by this file.
 2. Usable land per tile — Proposal
 3. Skill, rotation and diminishing returns — Resolved / Proposal
 4. Counting food: satiety per tonne as eaten (D27) — Resolved (corrected, R23, R24)
+   4b. Drinks: hydration per day and milk as a drink — Resolved (R25)
 5. Keeping and preserved forms (D27) — Proposal
 6. Flour and fine cloth (D28) — Proposal
 7. The population model (D30): parameters, migration and the AI — Proposal with sourced parameters
@@ -177,15 +178,14 @@ satiety per kg as eaten = kcal per kg as eaten × (1 + k × p × q) / (1 + k × 
 | Cod, cooked | 1,050 | 2.29 | 2,401 |
 | Bread | 2,380 | 1.00 | 2,380 |
 | Rice, cooked | 1,300 | 0.95 | 1,232 |
-| Milk (a drink) | 610 | 1.27 | 774 |
 
 Factors of the other animal foods: game (Deer) 2.11, whale meat 1.99, mutton 1.25, pork 1.13.
 
 **Result:**
 - Per tonne as eaten, the animal foods give the most satiety: cheese and cooked meat about twice bread, and fish
   equal to bread with far fewer calories. That is D27.
-- Liquid milk is low per tonne. Its kept forms, cheese and butter, are where dairy's value sits, which D27's keeping
-  rule already points to.
+- Liquid milk is a drink and is counted per day, with its hydration and its nutrition together (section 4b), not per
+  tonne against solid food.
 
 **How the goods economy uses it.** Goods are stored and traded as they come from the land (grain in tonnes, animals
 in head, meat in tonnes). Each good carries one number, the satiety of one tonne of it once eaten. That number
@@ -200,6 +200,53 @@ includes:
 - Grain gave about 1,926 kcal per head a day, up to 80 % of a worker's calories.
 - Meat, dairy, fish, pulses and ale gave the rest, about 480 kcal of a 2,400 kcal day.
 - In satiety units that diet is about 2,500-2,700 a day, which sets `s` (section 7).
+
+## 4b. Drinks: hydration per day, and milk as a drink (R25, M71)
+
+**Correction.** Section 4 compared liquid milk per tonne with solid food. Milk is drunk: it belongs with water,
+juice, ale and wine as a daily quantity. As a drink it brings hydration and nutrition together.
+
+**Facts (sourced):**
+- **How much people need to drink.** EFSA (2010) sets adequate total water intake at 2.5 L a day for men and 2.0 L for
+  women, and assumes food gives about 20 % of it. The US Institute of Medicine sets 3.7 L and 2.7 L, about 80 % from
+  drinks.
+- **How well a drink hydrates** (Beverage Hydration Index; Maughan et al. 2016, *Am J Clin Nutr* 103:717-23). This is
+  the water a drink keeps in the body after 2 h, against still water = 1.00:
+
+  | Drink | Hydration index |
+  |---|---:|
+  | Skimmed milk | 1.58 |
+  | Oral rehydration solution | 1.54 |
+  | Full-fat milk | 1.50 |
+  | Water | 1.00 |
+
+  Cola, tea, coffee and lager did not differ from water in urine output at 4 h.
+- **Milk's nutrition** (FAO Annex I, per 100 g): 61 kcal, 3.3 g protein, 3.3 g fat.
+  - Its protein is of the highest quality (DIAAS 1.14) and is about 80 % casein, a slow protein that satiates for
+    longer, and 20 % whey.
+  - Lactose has a low glycemic index (46), and a cup of milk about 37. Milk fat slows gastric emptying.
+- **People drank water.** The idea that pre-modern people drank only ale is a myth: city records show work to supply
+  water, and medical texts praised good water. Ale was still a large share of what was drunk; St Paul's allowed a
+  gallon a day in the late 13th century.
+
+**Resolution: a drink need in litres per day, alongside the food need.**
+- **The need:** each person drinks a daily quantity, about 1.6-2.0 L (EFSA and IOM totals less the share from food).
+- **A drink's hydration:** each litre counts as litres × its hydration index. Milk at 1.5 covers the need with a
+  third less volume than water; ale, wine, tea and coffee count as about 1.0 (as the 4 h results show).
+- **A drink's nutrition:** each drink also adds its satiety to food (section 4 measure). A litre of milk gives 610 kcal
+  with high-quality protein (factor 1.27): 774 satiety units, a third of a kilogram of bread (2,380 per kg). Ale
+  and wine add their calories (beer 49 kcal, wine 68 per 100 g). Water adds none.
+- **What milk is worth together:** one litre of milk a day covers about 0.75-0.95 of a person's drink need. It also
+  gives about 33 g of protein of the highest quality and 774 satiety units. That is why milk stands with meat and fish in D27, and why pastoral peoples could live
+  largely on their herds' milk (the Mongol diet: dairy and meat from the herds, animals kept alive for their milk;
+  kumis).
+- **Water** is not a stored good. It is the city's water supply: fresh water and wells (IMPROVEMENT_WELL exists) up
+  to a capacity. Milk, ale, wine, juice, tea and coffee are goods that relieve that supply and add nutrition. A
+  city short of water must drink goods; a city with good water drinks goods for their nutrition and comfort.
+- **Variables added:** one need (litres per head a day) and one number per drink (its hydration index). The satiety of
+  drinks uses the measure of section 4.
+
+**Open:** milk intake of pastoral peoples in litres a day (not found yet); hydration indices of fruit juices.
 
 ## 5. Keeping and preserved forms (D27)
 
