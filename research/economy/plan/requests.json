@@ -483,6 +483,13 @@
    "kind": "correction",
    "text": "Another issue I see is that you didn't really recognize the calorie value of animal foods \nHigh protein foods were specifically meant to provide the highest satiety values, we discussed that, but somehow you now attribute calories only to plant foods",
    "led_to": "R23: animal foods' calories counted in food and checks; satiety from protein (D27) researched with sources and built into the food measure"
+  },
+  {
+   "id": "M70",
+   "date": "2026-11-06",
+   "kind": "correction",
+   "text": "\"So do you want satiety measured per calorie, or per tonne with preserved forms carrying the advantage? Either works with the same formula\"\n\nIt's like you ignored everything you've read.",
+   "led_to": "R24: D27 applied as decided (per tonne) on a like-for-like basis: food as eaten (cooking water), bioavailability and protein quality (M54), not raw grain against fresh meat; the question withdrawn"
   }
  ],
  "requests": [
@@ -1093,6 +1100,20 @@
      "what": "Count the calories of meat, dairy and fish wherever food is counted, and give high-protein foods the highest satiety (D27) through a sourced satiety measure, correcting food_resources.md and open_questions.md",
      "status": "done",
      "where": "open_questions.md sections 1, 4, 7; food_resources.md roles and section 5; population_formula.md F, s, s_min; design.json D27 fact"
+    }
+   ]
+  },
+  {
+   "id": "R24",
+   "date": "2026-11-06",
+   "status": "open",
+   "prompt": "M70",
+   "text": "\"So do you want satiety measured per calorie, or per tonne with preserved forms carrying the advantage? Either works with the same formula\"\n\nIt's like you ignored everything you've read.",
+   "items": [
+    {
+     "id": "R24.1",
+     "what": "Apply D27 as decided: compare foods per tonne as eaten (cooked, with bioavailability and protein quality, M54), with sources; withdraw the per-calorie/per-tonne question",
+     "status": "open"
     }
    ]
   }
