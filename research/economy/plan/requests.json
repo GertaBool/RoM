@@ -1298,34 +1298,39 @@
   {
    "id": "R30",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M76",
    "text": "\"D30: do the five factors and the additive form look right?\" \n\nI think it deserves a lot more research and mathematical modeling, also for me to understand, and some respect for edge cases. \n\nMigration:\n\n\"Do people move on their own between your cities, or only as you allow through civics?\"\n\nMight actually we wise to add a migration parameter to civics. We then would have to look at what would apply to each civic. \n\n\"Should cities grow beyond their own births only through migration?\"\n\nYes certainly, I've tried to simulate commercial supply and migration routes via the food and productivity modifiers on trade route yields in various places, mostly civics, settlement tiers, marketplaces and harbors. \n\n\"Do skills and culture move with people?\"\n\nThey absolutely should. The burden that comes with them should as well, since it's a two edged sword, depending on who migrates. You can have a great culture with an excess of skilled labor moving to more rural foreign countries overseas, but you can also have angry foreigners that settle in your capital after you smashed their home country with literal nuclear bombs. \n\n\"Is clothing a need for warmth scaled by climate, or also a status good?\"\n\nAbsolutely both. \n\n\"Which steps are goods: fibre, yarn, cloth, garments?\"\n\nWool, leather, cotton, fur, silk, hemp, dye and other base ingredients, but also cloth, fine cloth, various coats and other full dresses (modern clothing being a type of coat or dress as well).\n\n\"Should flax/linen be added?\" Yes. \n\n\"Which textile machines matter, and how long do clothes last?\"\n\nClothes, or more broadly speaking the way people dressed, coats, dresses and other various furnishments, depended on the availabie technologies, resources, tools, machines, skilled labor and the religiosity and culture (whether it was poor and prudish or highly fertile and overly sexual, like the boomer generation, or poor and prudish like some prior centuries), you generally see this shift depending on religious and ethnic diversity, secularization and open/closed markets and unregulated/censored media. \n\n\nGuild luxuries:\n\n\"Do the four food guilds make luxuries, or improve the city's food health and keeping instead?\" \n\nThey raise the quality of the particular goods, provide employment and protect the local industry. \n\nThey can provide masterwork quality goods that have a higher export or import value, perish slower, they really do boost stats like health and strength, but their real gain is the education that comes with them. So cheaper adjacent technologies make sense, maybe this deserves a new XML field for all buildings and wonders (if you built the Lighthouse of Alexandria or the Colossus of Rhodes for example, logically you should be able to research maritime technologies quicker)\n\n\"Are the Masons' and Clerks' goods luxuries, or building and science effects?\" \n\nTake a look at them. I think masons should boost building production speed and enable some of the Cathedral wonders, which come via Architecture.",
    "items": [
     {
      "id": "R30.1",
      "what": "D30: more research and a mathematical model of population growth, explained step by step, with edge cases simulated",
-     "status": "open"
+     "status": "done",
+     "where": "pop_model_math.md; tools/pop_model_sim.py"
     },
     {
      "id": "R30.2",
      "what": "Migration: a migration parameter per civic (examined civic by civic); cities grow beyond births only through migration, building on the trade route food and production modifiers of civics, settlement tiers, marketplaces and harbors; skills, culture and burdens (grievances) move with people",
-     "status": "open"
+     "status": "done",
+     "where": "round_m76.md section 2; design.json D33"
     },
     {
      "id": "R30.3",
      "what": "Clothing: warmth by climate and status; goods: base fibres and skins (wool, leather, cotton, fur, silk, hemp, dye, flax/linen added), cloth, fine cloth, coats and full dresses; dress shaped by technology, resources, tools, machines, skilled labour, religiosity, culture, diversity, secularization, markets and media",
-     "status": "open"
+     "status": "done",
+     "where": "round_m76.md section 3; design.json D28"
     },
     {
      "id": "R30.4",
      "what": "Guilds: food guilds raise quality, employment and protect local industry; masterwork goods trade higher, perish slower, add health and strength; education makes adjacent technologies cheaper, through a new XML field for buildings and wonders (Lighthouse, Colossus and maritime techs)",
-     "status": "open"
+     "status": "done",
+     "where": "round_m76.md section 4; design.json D29, D34"
     },
     {
      "id": "R30.5",
      "what": "Examine the Masons and Clerks; Masons to speed building production and enable the cathedral wonders that come with Architecture",
-     "status": "open"
+     "status": "done",
+     "where": "round_m76.md section 5"
     }
    ]
   }
