@@ -546,6 +546,13 @@
    "kind": "correction",
    "text": "I said something about not including deaths in the formula. Look where else I was ignored in your deliberations, and what information was forgotten or not even saved.",
    "led_to": "R32: audit of every prompt against the design and research files: where the user was ignored, what was forgotten or not saved; corrections, starting with D30 without a death term"
+  },
+  {
+   "id": "M79",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "\"The research field (D34): examples\"\n\nThe examples make absolutely zero sense and show an absolute ignorance about the game despite all the efforts. \nNow you're dropping what we discussed after. \nBe consistent and conscientious instead of haphazardly concluding things. \nYou had an actual evidence based growth model I was almost satisfied with, and then you somehow shrunk it. Why?",
+   "led_to": "R33: D34 examples rebuilt from the tech tree and the building records; later discussion takes precedence over earlier (spoilage, the evidence-based model); the second-version growth model restored with its evidence, framed without a death term; an honest account of why it was shrunk"
   }
  ],
  "requests": [
@@ -1411,6 +1418,30 @@
      "what": "Correct each finding in the files, D30 first: growth slowed or turned negative by a health measure weighed from several factors, no death term",
      "status": "done",
      "where": "pop_model_math.md third version; tools/pop_model_sim.py; design.json D27, D30, D35, CN.needs, P8; plan.json FD.F1, FD.F2, FD.F4, PR.F8.T5, current"
+    }
+   ]
+  },
+  {
+   "id": "R33",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M79",
+   "text": "\"The research field (D34): examples\"\n\nThe examples make absolutely zero sense and show an absolute ignorance about the game despite all the efforts. \nNow you're dropping what we discussed after. \nBe consistent and conscientious instead of haphazardly concluding things. \nYou had an actual evidence based growth model I was almost satisfied with, and then you somehow shrunk it. Why?",
+   "items": [
+    {
+     "id": "R33.1",
+     "what": "Rebuild the D34 examples from the records: each building's own prerequisite and obsolete techs and the techs that follow in the tree, so a building makes cheaper only techs that are still ahead of its owner and related to it",
+     "status": "open"
+    },
+    {
+     "id": "R33.2",
+     "what": "Restore what later discussion decided where the audit dropped it (spoilage per D27 C, M75 over M50; anything else)",
+     "status": "open"
+    },
+    {
+     "id": "R33.3",
+     "what": "Restore the evidence-based growth model (second version) with all its factors and sources, framed as the user asked in M75 (health weighed from its factors lowering or reversing growth, no separate death term), and explain why it was shrunk",
+     "status": "open"
     }
    ]
   }
