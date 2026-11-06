@@ -372,7 +372,8 @@
     "keep today's form (a building gives the resource) until CN, then decide"
    ],
    "proposal": "keep today's form until CN, then decide",
-   "why": "The user: still valuable goods, but maybe reworked (M35)"
+   "why": "The user: still valuable goods, but maybe reworked (M35)",
+   "research": "research/economy/open_questions.md (R22, M68) section 10 (services)"
   },
   {
    "id": "D22",
@@ -393,7 +394,7 @@
    ],
    "proposal": "the model in proposals.json production. Decided (M54): flows per year while turns last a year or more, the turn's fraction of a year below that; workers from the game's real population per citizen. Corrected (M54): Fermentation raises the food value of cereals and how they keep, not the harvest. Decided (M55): each map or scenario declares its area per tile (option i); the mod's scenarios and map scripts are edited automatically to declare it (PR.F6). Open: none in the model; the per-map values are data (PR.F6.T3)",
    "choice": "the model in proposals.json production. Decided (M54): flows per year while turns last a year or more, the turn's fraction of a year below that; workers from the game's real population per citizen. Corrected (M54): Fermentation raises the food value of cereals and how they keep, not the harvest. Decided (M55): each map or scenario declares its area per tile (option i); the mod's scenarios and map scripts are edited automatically to declare it (PR.F6). Open: none in the model; the per-map values are data (PR.F6.T3)",
-   "research": "research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check",
+   "research": "research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check; research/economy/open_questions.md (R22, M68) sections 1-3 (NASS yield tables, usable land, skill)",
    "facts": [
     "England and Wales about 1300: 10.7 million acres arable (29 % of the land), 60 % under grain; at 0.385 t/ha net that is 0.20-0.22 t per head for 4.5-5 million people, and about 3 ha per farm worker at a 40 % working share (tile_output.md)"
    ]
@@ -416,7 +417,8 @@
     "Seeds: starting stocks of means-of-production goods per player or city, so they can be traded from turn 1 (TR.F3 with GW.F3 accounts)",
     "Economy screens and mechanics as game options and a Config/Economy.xml, as Revolution does: import/export trade, loans and bonds, a national budget (hurry from a central panel), national debt, central planning; some opened by civics (a Roman senate), with the AI reading them"
    ],
-   "proposal": "Record now, design when each part's component comes: the layering for LD (fertility, deposits) and TR.F3 (seeds); the screens as a new component after TR and AI, its mechanics designed with the user first (what a loan, a bond, a budget does), each behind a game option"
+   "proposal": "Record now, design when each part's component comes: the layering for LD (fertility, deposits) and TR.F3 (seeds); the screens as a new component after TR and AI, its mechanics designed with the user first (what a loan, a bond, a budget does), each behind a game option",
+   "research": "research/economy/open_questions.md (R22, M68) section 9 (block schema, three layers)"
   },
   {
    "id": "D25",
@@ -452,7 +454,7 @@
     "Fermentation raises cereals' food value and keeping (M54)"
    ],
    "open": "preserved forms (cured meat, dried fruit, cheese) need processing recipes (IN.F1) or a preservation share per good",
-   "research": "research/economy/food_resources.md (R21, M67): all 80 resources from the XML, FAO nutrition per 100 g, food roles; candidates beyond the present classing: Whale and Horse (protein), Olives and Cotton (oil), Sugar, Wine, Alcohol (calories), Salt (preserving), Lemon (scurvy)"
+   "research": "research/economy/food_resources.md (R21, M67): all 80 resources from the XML, FAO nutrition per 100 g, food roles; candidates beyond the present classing: Whale and Horse (protein), Olives and Cotton (oil), Sugar, Wine, Alcohol (calories), Salt (preserving), Lemon (scurvy); research/economy/open_questions.md (R22, M68) section 5 (spoilage per year, salt preserving)"
   },
   {
    "id": "D28",
@@ -465,7 +467,8 @@
    "open": [
     "The guilds' role: not another modifier (M61); founding is once per game for a corporation (checked in the DLL); ideas A-D and three ways to make them national in research/economy/guilds/README.md sections 8-9 (recommended: techniques and skilled workers, national guilds with the world master guild as origin)",
     "Flour and fine cloth as goods (not decided)"
-   ]
+   ],
+   "research": "research/economy/open_questions.md (R22, M68) section 6 (no Flour; fine cloth a Drapers luxury)"
   },
   {
    "id": "D29",
@@ -484,7 +487,8 @@
     "Epstein, S. R. (1998) Craft guilds, apprenticeship and technological change in preindustrial Europe, Journal of Economic History 58: https://bollettinoadapt.it/wp-content/uploads/epstein1998.pdf",
     "Epstein, S. R. and Prak, M. (eds.) (2008) Guilds, Innovation, and the European Economy, 1400-1800, Cambridge: https://www.cambridge.org/core/product/C0D4374A3B5633EEF5A08520A30AF614",
     "Ogilvie, S. (2019) The European Guilds: An Economic Analysis, Princeton (and her earlier papers on guilds, quality and innovation)"
-   ]
+   ],
+   "research": "research/economy/open_questions.md (R22, M68) section 8 (once-per-game by secret technique, luxuries, three grades, guild government, workshops of 5 people)"
   },
   {
    "id": "D30",
@@ -508,7 +512,7 @@
     "between 2 and 3: keep the food-box citizens and an __int64 people count per city beside them, growing toward a capacity set by citizens, era and food, with an urban share by era",
     "a compact Malthusian model (R19): people N per city (__int64) grow logistically toward K = food / food per head s at rate r, capped at food / biological minimum; urban share 1 - s / food per rural person; city size = (N/1000)^(1/2.8); three numbers to set (r, s, s_min)"
    ],
-   "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4; research/economy/shocks_and_cycles.md (R18, M64): cataclysms, harvest variation, seasons, epidemics, long cycles; building blocks A-F; research/economy/population_formula.md (R19, M65): a compact Malthusian model, proposed; research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check"
+   "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4; research/economy/shocks_and_cycles.md (R18, M64): cataclysms, harvest variation, seasons, epidemics, long cycles; building blocks A-F; research/economy/population_formula.md (R19, M65): a compact Malthusian model, proposed; research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check; research/economy/open_questions.md (R22, M68) section 7 (r, s, s_min sourced; migration; AI translation layer)"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"

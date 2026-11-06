@@ -1062,14 +1062,15 @@
   {
    "id": "R22",
    "date": "2026-11-06",
-   "status": "open",
+   "status": "done",
    "prompt": "M68",
    "text": "Look at the plan, do more research, resolve the open questions if you can. If you can't, give detailed proposals.",
    "items": [
     {
      "id": "R22.1",
      "what": "Every open question in the plan (design.json decisions and their open fields, research files' open sections) researched; resolved with sources where possible, otherwise a detailed proposal",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/open_questions.md; design.json research pointers on D21, D23, D24, D27-D30"
     }
    ]
   }
