@@ -1206,7 +1206,7 @@
   {
    "id": "R28",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M74",
    "text": "\"The texture download is still blocked\"\n\nJust search the wider web for a proper source with a similarly high quality texture that makes sense.\n\n\"One technical problem the code map surfaced: real-population functions return a 32-bit long, which overflows above about 2.1 billion people. Earth maps will pass that, so I propose counting people as 64-bit inside the DLL and giving Python a value in thousands.\"\n\nThat's fine. \n\n\"Decisions waiting on you:\"\n\nGreatly elaborate on all of these and give me proper options to choose from.\n\n\nMake sure you have the overall plan in mind, you're aware of the tasks at hands, then make sure the full proposed route with its full steps would actually survive a context reset. \n\nThen continue with step 0",
    "items": [
@@ -1237,7 +1237,8 @@
     {
      "id": "R28.5",
      "what": "Carry out step 0 of the route: code map from the branch, nutrition.json with sources, the value generator, the England 1300 check",
-     "status": "open"
+     "status": "done",
+     "where": "PR.F8.T1-T4: codemap (754858f), nutrition.json, food_values_edits.py, check_england1300.py (1a4cb59)"
     }
    ]
   }
