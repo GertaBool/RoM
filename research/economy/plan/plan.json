@@ -3214,7 +3214,7 @@
    "features": [
     {
      "id": "FD.F1",
-     "what": "Route step 1: new XML fields and their C++ readers, no behaviour change: BonusInfo iCaloriesPerTonne, iSatietyIndex, iProteinPerTonne, health profile (nutrient groups, harms), iHydrationPercent, spoilage base; BuildingInfo iWaterSupply, iWaterUse, iWaterQualityChange, storage factor; ImprovementInfo iWaterSupply, bLivestockWater; GlobalDefines WATER_*",
+     "what": "Route step 1: new XML fields and their C++ readers, no behaviour change: BonusInfo iCaloriesPerTonne, iSatietyIndex, iProteinPerTonne, health profile (nutrient groups, harms), iHydrationPercent, spoilage base; BuildingInfo iWaterSupply, iWaterUse, iWaterQualityChange, storage factor; ImprovementInfo iWaterSupply, bLivestockWater; GlobalDefines WATER_*; BuildingInfo TechResearchModifiers (D34) and iBuildingProductionModifier (Masons); clothing fields (warmth, lifetime, cloth per garment); Notre Dame and J.S. Bach Cathedral BuildingClassNeededs Masons hall",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
@@ -3412,7 +3412,7 @@
   ],
   "next": [
    "ROUTE (implementation_route.md; plan component FD and PR.F7): step 0 PR.F8 (T1-T4 done; T5 three measures and D27 C) -> step 1 FD.F1 (XML fields and readers, no behaviour change) -> step 2 PR.F1 then PR.F7 (tile formula in doGoods produce) -> step 3 FD.F2 (food by satiety, drinks) -> step 4 FD.F3 (population model, after D30) -> step 5 FD.F4 (water, D31) -> then SD, CN, IN, LD, TR, AI as planned. Each step: done_when, prediction registered, code map query, connector generator, toolchain build, harness, computed check.",
-   "Waiting on the user: D30 (pop_model_math.md: form, the seven parameters, size from people), D33 migration (round_m76.md 2, civic values 2c), D34 research field, clothing and Masons and Clerks proposals (round_m76.md 3, 5), the other guild luxuries.",
+   "Waiting on the user: D30 second version (pop_model_math.md), the size-from-people choice, the estimates to source first; the remaining guild luxuries; whether to keep the M59 'no building per step' rule now that D35 found no measured limit.",
    "Art (R28.1): LQ.F10.T2 unblocked: public-domain Library of Congress photo (Highsmith, logs near Mapleton, Oregon); Glass button from Cleveland Museum of Art CC0 photos (research/economy/art_sources.md).",
    "Waiting on the user in game: LQ.F9.T5 and GW.F2.T2 icon checks; PR.F6 scale read-back and WorldBuilder round-trip; a test game with builds/settlement-economy."
   ],

@@ -1,95 +1,135 @@
-"""R30.1 (D30): the population growth model in integer yearly steps, run on edge cases.
+"""R31.1 (D30, second version): births and deaths from their causes, in integer yearly steps, on edge cases.
 
-Model (research/economy/pop_model_math.md explains each part and its sources):
-  x  = satiety per head / need                     food sufficiency (1.0 = exactly fed)
-  Q  = drive from food:  x >= 1: min(1, (x - 1) / A)        surplus raises growth up to the ceiling
-                         x <  1: (x - 1) * K_FAMINE / N_MAX  shortfall turns growth negative (scaled below)
-  multipliers on positive growth (each in [0, 1]): health h, nutrient coverage c, economy e, safety w
-  penalties (per year, subtracted): urban penalty U x density share unsanitized, war P_WAR x war pressure,
-                                    bad health P_HEALTH x (1 - h)
-  n  = N_MAX x Q x h x c x e x w - penalties      (when Q < 0 the shortfall term is used without the multipliers)
-  N' = N + N n, in integers with the remainder carried, capped at food / biological minimum (starvation)
-Every parameter is listed in PARAMS with its source or 'estimate'. Python ints stand for the C++ __int64.
-usage: pop_model_sim.py [case]   (no argument: all cases)"""
+research/economy/pop_model_math.md explains each part and its sources. All rates are per 1,000 people a year
+(per mille) unless named otherwise; inputs between 0 and 1 are given in per mille (1000 = 1.0).
+
+  x   food sufficiency: satiety per head / need (per mille)
+  BIRTHS b = B(x) x f_nutrients x f_economy x f_urban x f_religion x f_education x f_safety
+         B(x): 30 at x = 0.9, rising to 45 at x = 1.3 (earlier marriage when prosperous); below 0.9 it falls to 0
+               at the biological minimum (the Hunger Winter: conceptions fell below a calorie threshold, dose-response)
+  DEATHS d = D_med x (2 - h)                         base mortality by medicine, doubled at the worst health
+           + D_NUT x clamp((1.3 - x) / 0.4)           weakness and disease of the underfed (0 at x >= 1.3)
+           + K_FAMINE x (1 - x) when x < 1            famine
+           + D_DEF x (1 - c)                          deficiency diseases (scurvy, beriberi, pellagra, iodine)
+           + U x unsanitized urban share              the urban penalty (infant deaths in towns)
+           + P_WAR x war pressure
+  N' = N + N (b - d) / 1000 (+ migration, not here), capped at food / minimum (starvation)
+Python ints stand for the C++ __int64; rates are carried in parts per million with remainders.
+usage: pop_model_sim.py [case ...]"""
 import sys
 
 PARAMS = {
-    'N_MAX': (30, 'per mille a year: max natural increase; birth rates up to 50-60 per 1,000 (Clark), deaths about 20-25 in good years; Hutterite TFR 10.9 (Coale)'),
-    'A': (300, 'per mille: food surplus at which growth reaches N_MAX (estimate; calibrate on England 1086-1300, 0.4-0.5 % a year)'),
-    'K_FAMINE': (200, 'per mille a year per unit shortfall: x = 0.7 for two years loses about 12 % (Great Famine 1315-17: 10-15 %)'),
-    'S_MIN_SHARE': (577, 'per mille of need: biological minimum 1,500 of 2,600 (Clark; open_questions.md section 7)'),
-    'U': (13, 'per mille a year: urban penalty of a large city without sanitation (London about 1700 needed about 8,000 migrants a year; about 1 % of its people, population figure to source)'),
-    'P_WAR': (25, 'per mille a year at full war pressure (Thirty Years War: 15-20 % over 30 years on average, over 50 % in the worst regions, mostly by plunder, famine and plague)'),
-    'P_HEALTH': (10, 'per mille a year at no health (estimate; clean water about 43-50 % of the US urban mortality decline 1900-1936, Cutler and Miller)'),
+    'B_LOW': (30, 'births per 1,000 at x = 0.9 (pre-industrial England below 30 at times, Clark)'),
+    'B_HIGH': (45, 'births per 1,000 at x >= 1.3 (birth rates up to 50-60 observed, Clark; Hutterite TFR 10.9)'),
+    'D_PRE': (22, 'deaths per 1,000 in good health before modern medicine (life expectancy = 1 / death rate: 33 per 1,000 is 30 years, Clark)'),
+    'D_MOD': (8, 'deaths per 1,000 with modern medicine and sanitation (estimate, to source)'),
+    'D_NUT': (12, 'deaths per 1,000 from weakness of the underfed between x = 1.3 and 0.9 (estimate: sets b = d near x = 1)'),
+    'K_FAMINE': (200, 'deaths per 1,000 per unit shortfall below x = 1 (Great Famine 1315-17: 10-15 %)'),
+    'D_DEF': (15, 'deaths per 1,000 at no nutrient coverage (estimate; beriberi struck 30 % of the Japanese navy a year; 27,000 deaths in 211,600 cases in 1904-05)'),
+    'U': (13, 'deaths per 1,000 in fully unsanitized dense quarters (London infant mortality 300-400 per 1,000 births against 180 nationally, mid-1700s; London needed about 8,000 migrants a year about 1700)'),
+    'P_WAR': (25, 'deaths per 1,000 at full war pressure (Thirty Years War, with plunder and plague)'),
+    'MIN_SHARE': (577, 'biological minimum as per mille of need (1,500 of 2,600, Clark)'),
 }
 P = {k: v[0] for k, v in PARAMS.items()}
 
 
-def step(N, rem, food, need, h=1000, c=1000, e=1000, w=1000, dens_unsan=0, war=0):
-    """One year. Parameters and multipliers in per mille; the rate n and food sufficiency x in parts per million,
-    so that growth does not stall short of the food limit through rounding. Returns (N, remainder)."""
-    if N <= 0:
-        return 0, 0
-    x = food * 1000000 // (need * N)                           # ppm; food x 10^6 < 2^63 for food < 9 x 10^12
-    if x >= 1000000:
-        q = min(1000000, (x - 1000000) * 1000 // P['A'])       # ppm
-        n = P['N_MAX'] * q // 1000 * h // 1000 * c // 1000 * e // 1000 * w // 1000   # ppm
+def clamp(v, lo, hi):
+    return max(lo, min(hi, v))
+
+
+def births(x, nutr=1000, econ=1000, urban=0, relig=1000, educ=0, safety=1000):
+    """per million (ppm of people a year)"""
+    if x >= 900:
+        base = P['B_LOW'] * 1000 + (P['B_HIGH'] - P['B_LOW']) * 1000 * min(x - 900, 400) // 400
     else:
-        n = (x - 1000000) * P['K_FAMINE'] // 1000              # ppm, negative
-    n -= (P['U'] * dens_unsan + P['P_WAR'] * war + P['P_HEALTH'] * (1000 - h))      # per mille x per mille = ppm
-    total = N * n + rem                                        # people x ppm, __int64 in C++
+        base = P['B_LOW'] * 1000 * max(0, x - P['MIN_SHARE']) // (900 - P['MIN_SHARE'])
+    f = base
+    f = f * (800 + 200 * nutr // 1000) // 1000          # nutrient gaps lower fertility a little (estimate)
+    f = f * econ // 1000                                  # economy acts through marriage (Wrigley and Schofield; Rostock)
+    f = f * (1000 - 200 * urban // 1000) // 1000          # towns: fewer married, later (Rostock; Prussia after 1875)
+    f = f * relig // 1000                                 # religiosity: more children (Europe surveys), 900-1100
+    f = f * (1000 - 650 * educ // 1000) // 1000           # education and contraception: the transition (to source)
+    f = f * safety // 1000
+    return f
+
+
+def deaths(x, health=1000, medicine=0, nutr=1000, unsan=0, war=0):
+    """per million"""
+    d_base = (P['D_PRE'] * 1000 - (P['D_PRE'] - P['D_MOD']) * medicine) * (2000 - health) // 1000
+    d = d_base
+    d += P['D_NUT'] * 1000 * clamp(1300 - x, 0, 400) // 400
+    if x < 1000:
+        d += P['K_FAMINE'] * (1000 - x)
+    d += P['D_DEF'] * (1000 - nutr)
+    d += P['U'] * unsan + P['P_WAR'] * war
+    return d
+
+
+def step(N, rem, food, need=2600, **kw):
+    if N <= 0:
+        return 0, 0, 0, 0
+    x = food * 1000 // (need * N)
+    bk = {k: kw[k] for k in ('nutr', 'econ', 'urban', 'relig', 'educ', 'safety') if k in kw}
+    dk = {k: kw[k] for k in ('health', 'medicine', 'nutr', 'unsan', 'war') if k in kw}
+    b, d = births(x, **bk), deaths(x, **dk)
+    total = N * (b - d) + rem                             # people x ppm
     dN, rem = divmod(total, 1000000) if total >= 0 else (-((-total) // 1000000), -((-total) % 1000000))
-    N = N + dN
-    cap = food * 1000 // (need * P['S_MIN_SHARE'])             # starvation: beyond food / minimum cannot live
+    N += dN
+    cap = food * 1000 // (need * P['MIN_SHARE'])
     if N > cap:
         N, rem = cap, 0
-    return max(N, 0), rem
+    return max(N, 0), rem, b, d
 
 
-def run(name, years, N, food_fn, **kw_fn):
+def run(years, N, food, **kw):
     rem, rows = 0, []
     for y in range(1, years + 1):
-        kw = {k: f(y) if callable(f) else f for k, f in kw_fn.items()}
-        N, rem = step(N, rem, food_fn(y), 2600, **kw)
-        rows.append((y, N))
+        f = food(y) if callable(food) else food
+        args = {k: (v(y) if callable(v) else v) for k, v in kw.items()}
+        N, rem, b, d = step(N, rem, f, **args)
+        rows.append((y, N, b, d))
     return rows
 
 
 def show(title, rows, every):
     print('\n' + title)
-    print('  ' + '  '.join('y%d %s' % (y, format(n, ',')) for y, n in rows if y % every == 0 or y == rows[-1][0]))
+    for y, n, b, d in rows:
+        if y % every == 0 or y == rows[-1][0]:
+            print('  year %4d  people %12s  births %5.1f  deaths %5.1f per 1,000' % (y, format(n, ','), b / 1000, d / 1000))
 
 
+K = 2600
 CASES = {
-    'small_city': lambda: show('1. A town of 1,000 with land for 50,000 (food fixed): growth, then the food limit',
-                               run('', 400, 1000, lambda y: 50000 * 2600), 50),
-    'rounding': lambda: show('2. A hamlet of 10 people, 1 % growth: the carried remainder keeps it from stalling',
-                             run('', 100, 10, lambda y: 20 * 2600 * 2), 20),
-    'famine': lambda: show('3. Famine: 100,000 fed, then two harvests at 70 % (years 11-12), then normal again',
-                           run('', 30, 100000, lambda y: (70 if y in (11, 12) else 100) * 1000 * 2600), 1),
-    'blockade': lambda: show('4. A city of 1 million fed half by imports; imports cut in year 6 (blockade): starvation cap and shrinking',
-                             run('', 20, 1000000, lambda y: (500000 if y >= 6 else 1000000) * 2600), 1),
-    'urban_penalty': lambda: show('5. A city of 500,000, food just enough, no sanitation (all urban): it shrinks without migrants',
-                                  run('', 50, 500000, lambda y: 500000 * 2600, dens_unsan=1000), 10),
-    'sanitation': lambda: show('6. The same city with sanitation from year 26: the decline stops',
-                               run('', 50, 500000, lambda y: 500000 * 2600, dens_unsan=lambda y: 1000 if y <= 25 else 0), 5),
-    'war': lambda: show('7. A region of 1 million under full war pressure for 30 years, food unchanged (the penalty alone)',
-                        run('', 30, 1000000, lambda y: 1100000 * 2600, war=1000), 5),
-    'war_pillage': lambda: show('7b. The same with pillage: a third of the food lost while the war lasts (years 1-30), then peace',
-                        run('', 60, 1000000, lambda y: (733000 if y <= 30 else 1100000) * 2600, war=lambda y: 1000 if y <= 30 else 0), 5),
-    'surplus_cap': lambda: show('8. Huge surplus (food for 10x the people): growth stays at the 3 % ceiling, no explosion',
-                                run('', 50, 100000, lambda y: 1000000 * 2600), 10),
-    'bad_health': lambda: show('9. Fed, but health half: growth slowed by the multiplier and turned negative by the penalty',
-                               run('', 30, 100000, lambda y: 100000 * 2600, h=500), 5),
-    'long_turn': lambda: show('10. A 50-year turn is 50 yearly steps: the same path as case 1, no overshoot',
-                              run('', 50, 1000, lambda y: 50000 * 2600), 10),
-    'zero_food': lambda: show('11. All food lost: the starvation cap empties the city in one year (the engine keeps size 1 as now)',
-                              run('', 3, 10000, lambda y: 0 if y >= 2 else 10000 * 2600), 1),
+    'equilibrium': lambda: show('1. Pre-industrial city at its food limit (x = 1): births and deaths balance near 34 per 1,000',
+                                run(30, 100000, 100000 * K), 10),
+    'frontier': lambda: show('2. A town of 1,000 with food for 50,000: growth near 2.3 % a year, then the food limit',
+                             run(300, 1000, 50000 * K), 50),
+    'famine': lambda: show('3. Famine: harvests at 70 % in years 11-12',
+                           run(20, 100000, lambda y: (70000 if y in (11, 12) else 100000) * K), 1),
+    'urban': lambda: show('4. A city of 500,000 at its food limit, all in unsanitized dense quarters, no migrants',
+                          run(40, 500000, 500000 * K, urban=1000, unsan=1000), 10),
+    'transition': lambda: show('5. Demographic transition: medicine and sanitation from year 21 (deaths fall), education from year 61 (births fall); food grows 2 % a year',
+                               run(140, 1000000, lambda y: int(1050000 * 1.02 ** y) * K,
+                                   medicine=lambda y: 0 if y <= 20 else min(1000, (y - 20) * 25),
+                                   educ=lambda y: 0 if y <= 60 else min(1000, (y - 60) * 20)), 10),
+    'beriberi': lambda: show('6. A rice city fed on polished rice: thiamine missing (nutrient coverage 60 %), then barley and meat from year 16',
+                             run(30, 200000, 210000 * K, nutr=lambda y: 600 if y <= 15 else 1000), 5),
+    'war_pillage': lambda: show('7. War for 30 years with a third of the food pillaged, then peace',
+                                run(60, 1000000, lambda y: (733000 if y <= 30 else 1100000) * K, war=lambda y: 1000 if y <= 30 else 0, safety=lambda y: 800 if y <= 30 else 1000), 5),
+    'blockade': lambda: show('8. A city of 1 million fed half by imports; imports cut in year 6',
+                             run(15, 1000000, lambda y: (500000 if y >= 6 else 1000000) * K), 1),
+    'hamlet': lambda: show('9. A hamlet of 10 with food for 40: remainders carried',
+                           run(150, 10, 40 * K), 25),
+    'bad_health': lambda: show('10. Fed, health balance at half (bad water, no aqueduct)',
+                               run(30, 100000, 100000 * K, health=500), 10),
+    'religion': lambda: show('11. Two cities with food 20 % above need: religious (fertility x 1.1) and secular with schooling (x 0.9, education 0.5)',
+                             run(30, 100000, 120000 * K, relig=1100), 10) or show('    secular',
+                             run(30, 100000, 120000 * K, relig=900, educ=500), 10),
+    'zero_food': lambda: show('12. All food lost from year 2', run(3, 10000, lambda y: 0 if y >= 2 else 10000 * K), 1),
 }
 
-
 if __name__ == '__main__':
-    for k, (v, src) in PARAMS.items():
-        print('%-11s %5d  %s' % (k, v, src))
+    for k, (v, s) in PARAMS.items():
+        print('%-10s %5d  %s' % (k, v, s))
     for name in (sys.argv[1:] or CASES):
         CASES[name]()

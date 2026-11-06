@@ -1344,39 +1344,45 @@
   {
    "id": "R31",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M77",
    "text": "\"The population model (D30)\"\n\nHealth, fertiiity and much of what we discussed still seems missing.\n\n\"Migration (decided in principle; model proposed as D33)\"\n\nSeems alright \n\n\"Clothing (decided in principle)\"\n\n\"That is 5 new records, which counts against the 32-bit limit.\" Just fix the limit. \n\nSeems alright. \n\n\"Still open: how long clothes lasted, and cloth per person per year.\" \n\nClothes have a consumption rate per citizen that should map these two factors correctly, but also the wealth of the city.\n\n\"Guilds, the research field and Masons/Clerks\"\n\nThe food guilds as proposed seem good. \n\n\"The research field (D34)\"\n\nYeah and I desire these examples. \n\n\"The Masons master guild comes with Architecture, and so do Notre Dame and the J.S. Bach Cathedral.\"\n\nSo then the Masons guild presence should be a condition for the construction of these wonders. \n\n\"Clerks: science and administration rather than a luxury good: cheaper writing, paper, printing and administration techs, and lower distance maintenance.\"\n\nGood.",
    "items": [
     {
      "id": "R31.1",
      "what": "D30 revised: fertility and health explicit (births and deaths from their causes), with every factor discussed (calories, satiety, nutrient coverage, hydration and water, sanitation, density, economy, war and pillage, civics and religion, education, medicine), sourced and simulated",
-     "status": "open"
+     "status": "done",
+     "where": "pop_model_math.md (second version); tools/pop_model_sim.py"
     },
     {
      "id": "R31.2",
      "what": "Record D33 (migration) as accepted",
-     "status": "open"
+     "status": "done",
+     "where": "design.json D33"
     },
     {
      "id": "R31.3",
      "what": "Fix the 32-bit record limit instead of counting new records against it: find what the limit is and how to lift it",
-     "status": "open"
+     "status": "done",
+     "where": "round_m77.md section 2; design.json D35"
     },
     {
      "id": "R31.4",
      "what": "Clothing consumption rate per citizen from garment lifetime, cloth per person and city wealth, sourced",
-     "status": "open"
+     "status": "done",
+     "where": "round_m77.md section 3; design.json D28"
     },
     {
      "id": "R31.5",
      "what": "D34: the TechResearchModifiers examples for buildings and wonders, from the tech and building records",
-     "status": "open"
+     "status": "done",
+     "where": "round_m77.md section 4; design.json D34"
     },
     {
      "id": "R31.6",
      "what": "Record: the Masons guild's presence is a condition for Notre Dame and the J.S. Bach Cathedral; food guilds and Clerks proposals accepted",
-     "status": "open"
+     "status": "done",
+     "where": "round_m77.md section 5; design.json D29"
     }
    ]
   }
