@@ -588,6 +588,13 @@
    "kind": "decision",
    "text": "\"Too much also harms, which covers your general comment on health: salt, sugar and fat each have an upper band. No good needs a special rule.\"\n\nThat threshold amount just results in excess food and moving leftovers to long-term storage, fat in itself is not necessarily bad, it depends on the diet of the animals, the freshness and Vitamin E content of the unsaturated oils and their omega 3:6 ratio. This does not have to be mapped, it's just a kind of contextual hint as to what the actual model should consider.\n\n\"Grain and meat lack vitamins C and A, plants lack B12, inland foods lack iodine, and milk lacks iron.\"\n\nLiver has PLENTY of Vitamin A, milk is an inland food and provides iodine.\n\n\"Whale is minor: food for the cultures that eat it, and lamp oil.\"\n\nThe cultures that COULD eat it, those that had active whale hunting and access to whales.\n\n\"Still open: absorption per meal, phytate per good (it affects zinc), the size of each nutrient’s store, and the weights. I couldn’t yet source bound niacin in maize, the cause of pellagra; the US health agency’s pages refused automated access.\"\n\nJust search pubmed and similar sites for bioavailability scores etc.\n\n\"Age structure: none; three groups: children, adults, old; or 18 five-year groups.\"\n\nBetter to abstract it away.\n\n\"City size from people: size = (people ÷ 1,000)^(1/2.8), the inverse of today’s curve, with tile output from the real workers; labour units; or a mix of the two.\"\n\nYou will have to show why this works.\n\n\"Food box: progress in people toward the next size; or the food balance.\"\n\nProgress in people toward the next size\n\n\"Health balance from the engine: good ÷ (good + bad); or a version scaled by city size.\"\n\nNo idea what you mean.\n\n\"Urban share: people not working plots, with the unsanitized share set by the water and sewer level; or from city size alone.\"\n\nSanitation levels are very strongly linked to population density and the presence of mitigating infrastructure. If it is not available, and if hygiene is just not a thing, then it doesn't matter whether it's at 500,000 or 10 million\n\nYes I would probably go by people not working plots when it comes to actual urban density\n\n\"Separate burdens for children (water, crowding, vitamin A) and adults (war, famine). This only applies if you pick the three age groups.\"\n\nAgain, would rather see this abstracted\n\n\"Turn length: the model always runs in yearly steps inside a turn.\"\n\nYes I would like to see this.",
    "led_to": "R38: excess food to storage, fat quality as context; liver and milk corrected; whale by whaling cultures; bioavailability from PubMed; age and child burden abstracted; why the inverse size curve works; food box by people; health balance explained; sanitation by density and infrastructure; yearly steps shown"
+  },
+  {
+   "id": "M85",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "\"Food above need is surplus and goes to long-term storage. The harm band is withdrawn, and fat quality is context only.\"\n\nImportant caveat:\n\nMetabolism. If ypu consume more calories, and if you run stimulants like caffeine, you are very likely a lot more active as well. Even in the early 1900s, an ordinary manual laborer may have burned somewhere between 3000-4000 kcal. \n\nThe true ceiling for what people can consume varies based on the food group. Very few people can eat a kilogram of cheese every day. A lot of people can eat a lot of pasta. It's very easy to eat a lot of sugar. You can drink maybe three liters of milk a day. But if you eat more than a pound of ground beef, you might be crying of nocturnal heartburn. You can basically chew through an entire watermelon. \n\n\"Whale is food only for cultures that hunted whales and could reach them.\"\n\nOr in other words: If it's available, it's possible food. \n\n\"Stores: vitamin C lasts about a month, folate months, B12 years. I found no human value yet for thiamin or vitamin A.\"\n\nWe commonly distinguish between water soluble and fat soluble vitamins. \n\n\n\"Why size = (people ÷ 1,000)^(1/2.8) works\"\n\nOverall good. \n\n\n\"Health balance, in plain terms: every city shows green faces (fresh water, forests, Wheat, Aqueduct) and red faces (city size, flood plains, Forge, Factory). Today, when red outnumbers green, the city loses food. The population model needs a health level from 0 to 1. I propose green ÷ (green + red), leaving out the red faces that come from size, because density is now its own term.\"\n\nCheck whether the game already has health related icons and buttons, what the game shows in case of unhealthiness and so forth. Because I remember it always displayed these things.",
+   "led_to": "R39: energy need by activity and stimulants; intake ceilings by food group; whale food wherever available; water- and fat-soluble vitamin stores; size curve accepted; the game's existing health icons, buttons and displays checked"
   }
  ],
  "requests": [
@@ -1705,6 +1712,45 @@
      "what": "Show the model running in yearly steps inside a turn",
      "status": "done",
      "where": "round_m84.md; design.json D27/D30 m84; tools size_curve_check.py, pop_model_sim.py turns"
+    }
+   ]
+  },
+  {
+   "id": "R39",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M85",
+   "text": "\"Food above need is surplus and goes to long-term storage. The harm band is withdrawn, and fat quality is context only.\"\n\nImportant caveat:\n\nMetabolism. If ypu consume more calories, and if you run stimulants like caffeine, you are very likely a lot more active as well. Even in the early 1900s, an ordinary manual laborer may have burned somewhere between 3000-4000 kcal. \n\nThe true ceiling for what people can consume varies based on the food group. Very few people can eat a kilogram of cheese every day. A lot of people can eat a lot of pasta. It's very easy to eat a lot of sugar. You can drink maybe three liters of milk a day. But if you eat more than a pound of ground beef, you might be crying of nocturnal heartburn. You can basically chew through an entire watermelon. \n\n\"Whale is food only for cultures that hunted whales and could reach them.\"\n\nOr in other words: If it's available, it's possible food. \n\n\"Stores: vitamin C lasts about a month, folate months, B12 years. I found no human value yet for thiamin or vitamin A.\"\n\nWe commonly distinguish between water soluble and fat soluble vitamins. \n\n\n\"Why size = (people ÷ 1,000)^(1/2.8) works\"\n\nOverall good. \n\n\n\"Health balance, in plain terms: every city shows green faces (fresh water, forests, Wheat, Aqueduct) and red faces (city size, flood plains, Forge, Factory). Today, when red outnumbers green, the city loses food. The population model needs a health level from 0 to 1. I propose green ÷ (green + red), leaving out the red faces that come from size, because density is now its own term.\"\n\nCheck whether the game already has health related icons and buttons, what the game shows in case of unhealthiness and so forth. Because I remember it always displayed these things.",
+   "items": [
+    {
+     "id": "R39.1",
+     "what": "Energy need varies with activity: more calories and stimulants (caffeine) mean more activity; manual labourers in the early 1900s burned about 3,000-4,000 kcal",
+     "status": "open"
+    },
+    {
+     "id": "R39.2",
+     "what": "Intake ceilings by food group (cheese, pasta, sugar, milk about 3 L, ground beef about a pound, watermelon) instead of one threshold",
+     "status": "open"
+    },
+    {
+     "id": "R39.3",
+     "what": "Whale: if it is available, it is possible food",
+     "status": "open"
+    },
+    {
+     "id": "R39.4",
+     "what": "Vitamin stores by water-soluble and fat-soluble groups",
+     "status": "open"
+    },
+    {
+     "id": "R39.5",
+     "what": "Size by the inverse curve: overall good (accepted)",
+     "status": "open"
+    },
+    {
+     "id": "R39.6",
+     "what": "Check the game's existing health icons, buttons and displays, and what it shows when a city is unhealthy",
+     "status": "open"
     }
    ]
   }
