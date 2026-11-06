@@ -1150,19 +1150,21 @@
   {
    "id": "R26",
    "date": "2026-11-06",
-   "status": "open",
+   "status": "done",
    "prompt": "M72",
    "text": "Continue, and give proposals for how we should implement hydration, water supply mechanics and else",
    "items": [
     {
      "id": "R26.1",
      "what": "Implementation proposals for hydration and water supply mechanics, built on what the mod already has (fresh water, wells, aqueducts, health) and sourced figures",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/water_and_implementation.md parts A-B; design.json D31"
     },
     {
      "id": "R26.2",
      "what": "Implementation proposals for the rest: satiety and drink values on the goods, the population model, and their order in the plan",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/water_and_implementation.md part C"
     }
    ]
   }
