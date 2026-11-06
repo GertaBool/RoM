@@ -567,6 +567,13 @@
    "kind": "correction",
    "text": "\"Routes yield only commerce by default\" Maybe, but actually check the XML\nIf the buildings multiply yield from trade routes, which then generate food and productivity via civic changes, then the buildings themselves multiply the corresponding food and productivity gains from trade",
    "led_to": "R35: the trade-route yield defaults read from the XML itself (yield records, defines, modules, every file that can set them); the buildings' route counts and profit modifiers recorded as multipliers of the food and production that civics put on routes"
+  },
+  {
+   "id": "M82",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "\"What you haven't approved by name: the extra roles from my food survey. These are Whale as food, Horse meat and milk, Olives as oil, Sugar, Wine and Alcohol counted for calories, Salt as a preserver, and Lemon against scurvy.\" \n\nThese are good roles to keep in mind, but tea, lemons, apples, bananas and really all fruits in kind including wine grapes should help against scurvy. Scurvy is also mostly related to a diet that is really plain and deficient.",
+   "led_to": "R36: the R21 food roles kept in view; scurvy prevented by all fruit (grapes included), tea and lemons through vitamin C; scurvy tied to a plain, deficient diet"
   }
  ],
  "requests": [
@@ -1507,6 +1514,30 @@
      "what": "Record that the buildings' route counts and route-profit modifiers multiply the food and production gains from trade that civics give, with the arithmetic",
      "status": "done",
      "where": "restatement_m80.md 0a (formula from the DLL, worked example); design.json D33 fact"
+    }
+   ]
+  },
+  {
+   "id": "R36",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M82",
+   "text": "\"What you haven't approved by name: the extra roles from my food survey. These are Whale as food, Horse meat and milk, Olives as oil, Sugar, Wine and Alcohol counted for calories, Salt as a preserver, and Lemon against scurvy.\" \n\nThese are good roles to keep in mind, but tea, lemons, apples, bananas and really all fruits in kind including wine grapes should help against scurvy. Scurvy is also mostly related to a diet that is really plain and deficient.",
+   "items": [
+    {
+     "id": "R36.1",
+     "what": "Record the R21 roles (Whale as food, Horse meat and milk, Olives as oil, Sugar, Wine and Alcohol for calories, Salt as preserver, Lemon against scurvy) as roles to keep in mind",
+     "status": "open"
+    },
+    {
+     "id": "R36.2",
+     "what": "Anti-scurvy goods: tea, lemons, apples, bananas and all fruit including wine grapes help against scurvy; read the vitamin C of each from sources and the game's resources",
+     "status": "open"
+    },
+    {
+     "id": "R36.3",
+     "what": "Scurvy follows a plain, deficient diet: model it through the diet's variety and vitamin C coverage, not through one cure good",
+     "status": "open"
     }
    ]
   }
