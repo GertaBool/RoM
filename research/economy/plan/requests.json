@@ -455,6 +455,13 @@
    "kind": "request",
    "text": "I don't think this is the right idea, I would rather like to see better modeling in general, ignoring disasters for a bit. Do research in this regard. Ideally we arrive at an optimized formula that doesn't have 10,000 variables just to increase or decrease  population numbers",
    "led_to": "R19: general population modelling researched toward a compact formula (research/economy/population_formula.md)"
+  },
+  {
+   "id": "M66",
+   "date": "2026-11-06",
+   "kind": "request",
+   "text": "\"One number it depends on that isn't set yet: how much of a map plot is actually farmed (open question 3 of D23, the production model)\"\n\nOutput depends on tech, the actual population working the tile, how qualified the workers are, the availability of tools and machinery, tile fertility, the crop or food resource in question (can be meat, dairy or fish, technically also sugar and bananas, as well)\n\nDo more research",
+   "led_to": "R20: a tile's output from tech, workers, their skill, tools and machinery, fertility and the good (crops, meat, dairy, fish, sugar, bananas), researched with sources; replaces the farmed-share question"
   }
  ],
  "requests": [
@@ -1005,6 +1012,20 @@
      "what": "Research on population modelling in general (disasters set aside), with sources, toward one compact formula for population growth and decline with few variables (D30)",
      "status": "done",
      "where": "research/economy/population_formula.md; design.json D30 option and proposal"
+    }
+   ]
+  },
+  {
+   "id": "R20",
+   "date": "2026-11-06",
+   "status": "open",
+   "prompt": "M66",
+   "text": "\"One number it depends on that isn't set yet: how much of a map plot is actually farmed (open question 3 of D23, the production model)\"\n\nOutput depends on tech, the actual population working the tile, how qualified the workers are, the availability of tools and machinery, tile fertility, the crop or food resource in question (can be meat, dairy or fish, technically also sugar and bananas, as well)\n\nDo more research",
+   "items": [
+    {
+     "id": "R20.1",
+     "what": "Research a tile's output as a function of tech, the people working it, their skill, tools and machinery, fertility and the good (grain, rice, roots, meat, dairy, fish, sugar, bananas), with sources, in place of a fixed farmed share (D23, D30)",
+     "status": "open"
     }
    ]
   }
