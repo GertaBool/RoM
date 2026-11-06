@@ -469,6 +469,13 @@
    "kind": "request",
    "text": "Dig into the other resources in the game and what could qualify as food",
    "led_to": "R21: every resource in the mod read from its XML records and classed by whether and how it can be food (staple, protein, fruit, oil, sugar, drink, seasoning, preservative), with sources"
+  },
+  {
+   "id": "M68",
+   "date": "2026-11-06",
+   "kind": "request",
+   "text": "Look at the plan, do more research, resolve the open questions if you can. If you can't, give detailed proposals.",
+   "led_to": "R22: the plan's open decisions and research questions worked through with sources; resolved where the facts settle them, detailed proposals where they do not"
   }
  ],
  "requests": [
@@ -1049,6 +1056,20 @@
      "what": "Every resource in the mod from its XML records, and which can count as food and in what role, with nutritional sources (D27, PR.F1)",
      "status": "done",
      "where": "research/economy/food_resources.md; design.json D27 research"
+    }
+   ]
+  },
+  {
+   "id": "R22",
+   "date": "2026-11-06",
+   "status": "open",
+   "prompt": "M68",
+   "text": "Look at the plan, do more research, resolve the open questions if you can. If you can't, give detailed proposals.",
+   "items": [
+    {
+     "id": "R22.1",
+     "what": "Every open question in the plan (design.json decisions and their open fields, research files' open sections) researched; resolved with sources where possible, otherwise a detailed proposal",
+     "status": "open"
     }
    ]
   }
