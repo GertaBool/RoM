@@ -532,6 +532,13 @@
    "kind": "decision",
    "text": "\"D30: do the five factors and the additive form look right?\" \n\nI think it deserves a lot more research and mathematical modeling, also for me to understand, and some respect for edge cases. \n\nMigration:\n\n\"Do people move on their own between your cities, or only as you allow through civics?\"\n\nMight actually we wise to add a migration parameter to civics. We then would have to look at what would apply to each civic. \n\n\"Should cities grow beyond their own births only through migration?\"\n\nYes certainly, I've tried to simulate commercial supply and migration routes via the food and productivity modifiers on trade route yields in various places, mostly civics, settlement tiers, marketplaces and harbors. \n\n\"Do skills and culture move with people?\"\n\nThey absolutely should. The burden that comes with them should as well, since it's a two edged sword, depending on who migrates. You can have a great culture with an excess of skilled labor moving to more rural foreign countries overseas, but you can also have angry foreigners that settle in your capital after you smashed their home country with literal nuclear bombs. \n\n\"Is clothing a need for warmth scaled by climate, or also a status good?\"\n\nAbsolutely both. \n\n\"Which steps are goods: fibre, yarn, cloth, garments?\"\n\nWool, leather, cotton, fur, silk, hemp, dye and other base ingredients, but also cloth, fine cloth, various coats and other full dresses (modern clothing being a type of coat or dress as well).\n\n\"Should flax/linen be added?\" Yes. \n\n\"Which textile machines matter, and how long do clothes last?\"\n\nClothes, or more broadly speaking the way people dressed, coats, dresses and other various furnishments, depended on the availabie technologies, resources, tools, machines, skilled labor and the religiosity and culture (whether it was poor and prudish or highly fertile and overly sexual, like the boomer generation, or poor and prudish like some prior centuries), you generally see this shift depending on religious and ethnic diversity, secularization and open/closed markets and unregulated/censored media. \n\n\nGuild luxuries:\n\n\"Do the four food guilds make luxuries, or improve the city's food health and keeping instead?\" \n\nThey raise the quality of the particular goods, provide employment and protect the local industry. \n\nThey can provide masterwork quality goods that have a higher export or import value, perish slower, they really do boost stats like health and strength, but their real gain is the education that comes with them. So cheaper adjacent technologies make sense, maybe this deserves a new XML field for all buildings and wonders (if you built the Lighthouse of Alexandria or the Colossus of Rhodes for example, logically you should be able to research maritime technologies quicker)\n\n\"Are the Masons' and Clerks' goods luxuries, or building and science effects?\" \n\nTake a look at them. I think masons should boost building production speed and enable some of the Cathedral wonders, which come via Architecture.",
    "led_to": "R30: D30 researched and modelled mathematically with edge cases, explained; migration through a civic parameter, cities growing beyond births by migration, skills, culture and burdens moving with people; clothing as warmth and status with the goods named and flax/linen added; dress shaped by technology, resources, skill, religion, culture and markets; food guilds raising quality, employment and protection with masterwork goods and tech cost reductions (a new XML field for buildings and wonders); Masons and Clerks examined"
+  },
+  {
+   "id": "M77",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "\"The population model (D30)\"\n\nHealth, fertiiity and much of what we discussed still seems missing.\n\n\"Migration (decided in principle; model proposed as D33)\"\n\nSeems alright \n\n\"Clothing (decided in principle)\"\n\n\"That is 5 new records, which counts against the 32-bit limit.\" Just fix the limit. \n\nSeems alright. \n\n\"Still open: how long clothes lasted, and cloth per person per year.\" \n\nClothes have a consumption rate per citizen that should map these two factors correctly, but also the wealth of the city.\n\n\"Guilds, the research field and Masons/Clerks\"\n\nThe food guilds as proposed seem good. \n\n\"The research field (D34)\"\n\nYeah and I desire these examples. \n\n\"The Masons master guild comes with Architecture, and so do Notre Dame and the J.S. Bach Cathedral.\"\n\nSo then the Masons guild presence should be a condition for the construction of these wonders. \n\n\"Clerks: science and administration rather than a luxury good: cheaper writing, paper, printing and administration techs, and lower distance maintenance.\"\n\nGood.",
+   "led_to": "R31: D30 with health, fertility and everything discussed made explicit; D33 accepted; the 32-bit record limit fixed rather than worked around; clothing consumption per citizen from garment lifetime, cloth per person and city wealth; food guilds accepted; D34 with full examples; the Masons guild's presence required for Notre Dame and the J.S. Bach Cathedral; Clerks accepted"
   }
  ],
  "requests": [
@@ -1331,6 +1338,45 @@
      "what": "Examine the Masons and Clerks; Masons to speed building production and enable the cathedral wonders that come with Architecture",
      "status": "done",
      "where": "round_m76.md section 5"
+    }
+   ]
+  },
+  {
+   "id": "R31",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M77",
+   "text": "\"The population model (D30)\"\n\nHealth, fertiiity and much of what we discussed still seems missing.\n\n\"Migration (decided in principle; model proposed as D33)\"\n\nSeems alright \n\n\"Clothing (decided in principle)\"\n\n\"That is 5 new records, which counts against the 32-bit limit.\" Just fix the limit. \n\nSeems alright. \n\n\"Still open: how long clothes lasted, and cloth per person per year.\" \n\nClothes have a consumption rate per citizen that should map these two factors correctly, but also the wealth of the city.\n\n\"Guilds, the research field and Masons/Clerks\"\n\nThe food guilds as proposed seem good. \n\n\"The research field (D34)\"\n\nYeah and I desire these examples. \n\n\"The Masons master guild comes with Architecture, and so do Notre Dame and the J.S. Bach Cathedral.\"\n\nSo then the Masons guild presence should be a condition for the construction of these wonders. \n\n\"Clerks: science and administration rather than a luxury good: cheaper writing, paper, printing and administration techs, and lower distance maintenance.\"\n\nGood.",
+   "items": [
+    {
+     "id": "R31.1",
+     "what": "D30 revised: fertility and health explicit (births and deaths from their causes), with every factor discussed (calories, satiety, nutrient coverage, hydration and water, sanitation, density, economy, war and pillage, civics and religion, education, medicine), sourced and simulated",
+     "status": "open"
+    },
+    {
+     "id": "R31.2",
+     "what": "Record D33 (migration) as accepted",
+     "status": "open"
+    },
+    {
+     "id": "R31.3",
+     "what": "Fix the 32-bit record limit instead of counting new records against it: find what the limit is and how to lift it",
+     "status": "open"
+    },
+    {
+     "id": "R31.4",
+     "what": "Clothing consumption rate per citizen from garment lifetime, cloth per person and city wealth, sourced",
+     "status": "open"
+    },
+    {
+     "id": "R31.5",
+     "what": "D34: the TechResearchModifiers examples for buildings and wonders, from the tech and building records",
+     "status": "open"
+    },
+    {
+     "id": "R31.6",
+     "what": "Record: the Masons guild's presence is a condition for Notre Dame and the J.S. Bach Cathedral; food guilds and Clerks proposals accepted",
+     "status": "open"
     }
    ]
   }
