@@ -581,6 +581,13 @@
    "kind": "decision",
    "text": "\"You warned me off fixating on food (M12). Should the next stretch turn to production chains, industry and trade?\"\n\nWait a second.\n\n\"Which new items are goods, and which are recipes inside the city like bread? (Flax, Cloth, Fine Cloth, Coats, Dresses, Meat, charcoal, steel, machinery, tools, arms.)\"\n\nFlax is a base good\n\nMeat depends on the available livestock and deer\n\nCloth and Fine Cloth depend on base good inputs, the same holds true for Coats and Dresses.\n\nCharcoal depends on timber and is a fuel good.\n\nSteel depends on ores and is an industrial good.\n\nmachinery, tools and arms are generally manufactured goods, but tools and arms can also be artisanal goods, especially in the beginning. \n\n\"Is fast food meant as a new good or just an example? And did you mean kidney stones? My sources only cover bladder stones on grain diets.\"\n\nJust a general comment on how health is supposed to work. \n\n\"Is the fourth population model right? Should city size follow people through the inverse of today's curve, or as labour units?\"\n\nGiven the context available to you, we should discuss it once again in full depth, mathematically, and if need be you ask me delicately via many proposals if you are unsure about something. But I did like the latest model, it may just not be very complete.\n\n\"For clothing, does \"per citizen\" mean per real person?\" \n\nYes. \n\n\"With no measured record limit found, do you keep the \"no building per step\" rule?\"\n\nIt's about not having a building for each singular artisanal or industrial step, and instead having the city itself output most of the goods according to the techs, buildings, infrastructure and population it already has, not a \"Trinketmaker\" or a \"Sand gatherer\", because at some point the game will just give up facing what it has to consider and render. And it's really no fun to click for 200 buildings across fifty cities.\n\n\"What luxury goods should the remaining guilds make?\" \n\nProbably none, but you can have different ideas. \n\n\"Do Ancient Temples and thermal vents stay outside the goods economy?\"\n\nYes absolutely. But volcanic activity is relevant for energy/electricity production.\n\n\n\n\"Brewed tea: USDA measures 0 mg, black and green alike. Cartier's famous scurvy cure in 1536 was a \"tea\" brewed from conifer needles, not tea leaves. My proposal is that tea counts as a drink without vitamin C, unless you know a source that says otherwise.\"\n\nPlenty of teas carry significant nutritional value when it comes to the prevention of such illnesses, trust me on that one.\n\n\"Wine: fresh grapes have 3.2 mg, but wine itself has 0 mg. My proposal is that the Wine plot yields grapes, which count as fruit when eaten fresh or dried, and the drink gives calories only\"\n\nWine should probably be a luxury good, but the actual good itself, which requires a vineyard, should probably be counted as a kind of food. \n\n\"Still open: Whale. The USDA file has no value for muktuk (whale skin and blubber), so I need a source on Arctic foods.\"\n\nMostly relevant for the Japanese and other cultures, not necessarily a huge variable though. Whale blubber was used for lamps and perfume iirc, \n\n\n\"Proposal for the model: vitamin C coverage = the vitamin C of what each person eats per day, after storage and cooking losses, divided by 10 mg. If coverage stays below 1 for about a month, the deficiency part of the health burden rises and fertility falls a little. A varied diet is covered; a city, army or fleet living on staples is not. This is now part of the task that adds the three food measures to the nutrition data (PR.F8.T5).\"\n\nThe game really needs a more efficient mathematical model for all kinds of deficiencies that covers all food sources, ideally without drifting away too much from what we've discussed, but like I said, fruit does help as well, but sea food and milk provide iodine for example, and animal foods provide most bioavailable nutrients, electrolytes are as important for life as are macronutrients to feed and build the body.",
    "led_to": "R37: answers to the restatement questions recorded; one deficiency model over all nutrients and all food sources; the population model discussed again in full mathematical depth with proposals"
+  },
+  {
+   "id": "M84",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "\"Too much also harms, which covers your general comment on health: salt, sugar and fat each have an upper band. No good needs a special rule.\"\n\nThat threshold amount just results in excess food and moving leftovers to long-term storage, fat in itself is not necessarily bad, it depends on the diet of the animals, the freshness and Vitamin E content of the unsaturated oils and their omega 3:6 ratio. This does not have to be mapped, it's just a kind of contextual hint as to what the actual model should consider.\n\n\"Grain and meat lack vitamins C and A, plants lack B12, inland foods lack iodine, and milk lacks iron.\"\n\nLiver has PLENTY of Vitamin A, milk is an inland food and provides iodine.\n\n\"Whale is minor: food for the cultures that eat it, and lamp oil.\"\n\nThe cultures that COULD eat it, those that had active whale hunting and access to whales.\n\n\"Still open: absorption per meal, phytate per good (it affects zinc), the size of each nutrient’s store, and the weights. I couldn’t yet source bound niacin in maize, the cause of pellagra; the US health agency’s pages refused automated access.\"\n\nJust search pubmed and similar sites for bioavailability scores etc.\n\n\"Age structure: none; three groups: children, adults, old; or 18 five-year groups.\"\n\nBetter to abstract it away.\n\n\"City size from people: size = (people ÷ 1,000)^(1/2.8), the inverse of today’s curve, with tile output from the real workers; labour units; or a mix of the two.\"\n\nYou will have to show why this works.\n\n\"Food box: progress in people toward the next size; or the food balance.\"\n\nProgress in people toward the next size\n\n\"Health balance from the engine: good ÷ (good + bad); or a version scaled by city size.\"\n\nNo idea what you mean.\n\n\"Urban share: people not working plots, with the unsanitized share set by the water and sewer level; or from city size alone.\"\n\nSanitation levels are very strongly linked to population density and the presence of mitigating infrastructure. If it is not available, and if hygiene is just not a thing, then it doesn't matter whether it's at 500,000 or 10 million\n\nYes I would probably go by people not working plots when it comes to actual urban density\n\n\"Separate burdens for children (water, crowding, vitamin A) and adults (war, famine). This only applies if you pick the three age groups.\"\n\nAgain, would rather see this abstracted\n\n\"Turn length: the model always runs in yearly steps inside a turn.\"\n\nYes I would like to see this.",
+   "led_to": "R38: excess food to storage, fat quality as context; liver and milk corrected; whale by whaling cultures; bioavailability from PubMed; age and child burden abstracted; why the inverse size curve works; food box by people; health balance explained; sanitation by density and infrastructure; yearly steps shown"
   }
  ],
  "requests": [
@@ -1629,6 +1636,65 @@
      "what": "One efficient deficiency model over all nutrients and all food sources: fruit, iodine from seafood and milk, bioavailable nutrients from animal foods, electrolytes",
      "status": "done",
      "where": "round_m83.md section 2; data/nutrient_profiles.json, data/nutrient_needs.json; tools nutrient_profile.py, diet_coverage.py"
+    }
+   ]
+  },
+  {
+   "id": "R38",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M84",
+   "text": "\"Too much also harms, which covers your general comment on health: salt, sugar and fat each have an upper band. No good needs a special rule.\"\n\nThat threshold amount just results in excess food and moving leftovers to long-term storage, fat in itself is not necessarily bad, it depends on the diet of the animals, the freshness and Vitamin E content of the unsaturated oils and their omega 3:6 ratio. This does not have to be mapped, it's just a kind of contextual hint as to what the actual model should consider.\n\n\"Grain and meat lack vitamins C and A, plants lack B12, inland foods lack iodine, and milk lacks iron.\"\n\nLiver has PLENTY of Vitamin A, milk is an inland food and provides iodine.\n\n\"Whale is minor: food for the cultures that eat it, and lamp oil.\"\n\nThe cultures that COULD eat it, those that had active whale hunting and access to whales.\n\n\"Still open: absorption per meal, phytate per good (it affects zinc), the size of each nutrient’s store, and the weights. I couldn’t yet source bound niacin in maize, the cause of pellagra; the US health agency’s pages refused automated access.\"\n\nJust search pubmed and similar sites for bioavailability scores etc.\n\n\"Age structure: none; three groups: children, adults, old; or 18 five-year groups.\"\n\nBetter to abstract it away.\n\n\"City size from people: size = (people ÷ 1,000)^(1/2.8), the inverse of today’s curve, with tile output from the real workers; labour units; or a mix of the two.\"\n\nYou will have to show why this works.\n\n\"Food box: progress in people toward the next size; or the food balance.\"\n\nProgress in people toward the next size\n\n\"Health balance from the engine: good ÷ (good + bad); or a version scaled by city size.\"\n\nNo idea what you mean.\n\n\"Urban share: people not working plots, with the unsanitized share set by the water and sewer level; or from city size alone.\"\n\nSanitation levels are very strongly linked to population density and the presence of mitigating infrastructure. If it is not available, and if hygiene is just not a thing, then it doesn't matter whether it's at 500,000 or 10 million\n\nYes I would probably go by people not working plots when it comes to actual urban density\n\n\"Separate burdens for children (water, crowding, vitamin A) and adults (war, famine). This only applies if you pick the three age groups.\"\n\nAgain, would rather see this abstracted\n\n\"Turn length: the model always runs in yearly steps inside a turn.\"\n\nYes I would like to see this.",
+   "items": [
+    {
+     "id": "R38.1",
+     "what": "Excess intake is not a harm band: above need, food is surplus and leftovers go to long-term storage; fat quality (animal diet, freshness, vitamin E, omega 3:6) is context for the model, not mapped",
+     "status": "open"
+    },
+    {
+     "id": "R38.2",
+     "what": "Correct the coverage reading: liver has plenty of vitamin A; milk is an inland food and provides iodine",
+     "status": "open"
+    },
+    {
+     "id": "R38.3",
+     "what": "Whale as food only for cultures with active whale hunting and access to whales",
+     "status": "open"
+    },
+    {
+     "id": "R38.4",
+     "what": "Bioavailability, phytate, stores and bound niacin from PubMed and similar sources",
+     "status": "open"
+    },
+    {
+     "id": "R38.5",
+     "what": "Age structure abstracted away (crude rates); child and adult burdens abstracted",
+     "status": "open"
+    },
+    {
+     "id": "R38.6",
+     "what": "Show why city size = (people / 1,000)^(1/2.8) works, with tile output from real workers",
+     "status": "open"
+    },
+    {
+     "id": "R38.7",
+     "what": "Food box: progress in people toward the next size (decided)",
+     "status": "open"
+    },
+    {
+     "id": "R38.8",
+     "what": "Explain the health balance from the engine in plain terms",
+     "status": "open"
+    },
+    {
+     "id": "R38.9",
+     "what": "Urban density from people not working plots; the unsanitized penalty set by density and mitigating infrastructure, not by city size",
+     "status": "open"
+    },
+    {
+     "id": "R38.10",
+     "what": "Show the model running in yearly steps inside a turn",
+     "status": "open"
     }
    ]
   }
