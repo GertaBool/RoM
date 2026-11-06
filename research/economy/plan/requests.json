@@ -1213,22 +1213,26 @@
     {
      "id": "R28.1",
      "what": "Find a high-quality, suitably licensed texture source other than Wikimedia Commons for the blocked art (LQ.F10.T2, Glass button)",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/art_sources.md and art_sources/; LQ.F10.T2 note"
     },
     {
      "id": "R28.2",
      "what": "Record: people counted in __int64 inside the DLL, Python given thousands (decided)",
-     "status": "open"
+     "status": "done",
+     "where": "design.json D32"
     },
     {
      "id": "R28.3",
      "what": "Elaborate every decision waiting on the user (D30, D24, D21, and the proposals for D27, D28, D29) with proper options",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/decisions_open.md"
     },
     {
      "id": "R28.4",
      "what": "Write the full implementation route into plan.json (features, tasks with done_when, current.next) so it survives a context reset",
-     "status": "open"
+     "status": "done",
+     "where": "plan.json component FD, PR.F7, PR.F8 with done_when; current.next ROUTE line; design elements FD.*, PR.formula"
     },
     {
      "id": "R28.5",

@@ -390,7 +390,7 @@
        "id": "LQ.F10.T2",
        "status": "todo",
        "text": "Art: an art define reusing an existing camp or lumbermill model, and a button made with the studio",
-       "note": "Art define ART_DEF_IMPROVEMENT_LUMBER_CAMP reuses the camp model (Art/Structures/Improvements/Camp); the button is the camp's (BuildCamp.dds). Own button with the studio still to make 2026-10-27 (M46): a change to goods_batch.py making the glyph optional (a908aa2) was reverted: the tool frames every button with the median of the mod's RESOURCE buttons, so it would give the lumber camp a resource-style button, not a build button; it was not run once; and each run writes its own ASSETS.json and font_patch.json, which installed as they are would replace the goods' records. The camp's button needs the frame of the mod's build buttons (Actions_Builds atlas style) and an output that adds to the existing art patch. Build-button family established (2026-10-27, read only): the mod's own build buttons are 21 files in RoMPak0/1.FPK (art/interface/buttons/builds/: orchard, buildtreefarm, extraction_facility, buildpavedroad, geothermal_borehole ...) plus 12 loose files under Assets/art/ (latifundium 1-5, shaft and modern mine, tree farm ...); the base game's (BuildCamp, BuildMine, BuildFarm ...) sit in its Actions_Builds atlas. Compared side by side with resource buttons (contact sheet): a build button is a SCENE, the improvement in its landscape filling the whole rounded tile under a thin light rim; a resource button is an isolated object on a dark ground inside a bevelled frame. font_index_map.packed_buttons reads the FPKs (992 buttons) but walks only Assets/Art, so it misses the loose files under Assets/art (case) - noted, not changed. Means (planned, not built): a photograph of a woodcutters' camp or log stack in forest, filled over the whole tile (the studio's 'Make a button' Fill crop through app/core.js); the rim from the median outer band of the mod's build buttons (goods_batch.py's method applied to the build family); a new small helper, goods_batch.py unchanged; its output adds one file and one ASSETS record to the art patch. BLOCKED 2026-10-27: Wikimedia Commons answers HTTP 429 to this session (several tries over the day).",
+       "note": "Art define ART_DEF_IMPROVEMENT_LUMBER_CAMP reuses the camp model (Art/Structures/Improvements/Camp); the button is the camp's (BuildCamp.dds). Own button with the studio still to make 2026-10-27 (M46): a change to goods_batch.py making the glyph optional (a908aa2) was reverted: the tool frames every button with the median of the mod's RESOURCE buttons, so it would give the lumber camp a resource-style button, not a build button; it was not run once; and each run writes its own ASSETS.json and font_patch.json, which installed as they are would replace the goods' records. The camp's button needs the frame of the mod's build buttons (Actions_Builds atlas style) and an output that adds to the existing art patch. Build-button family established (2026-10-27, read only): the mod's own build buttons are 21 files in RoMPak0/1.FPK (art/interface/buttons/builds/: orchard, buildtreefarm, extraction_facility, buildpavedroad, geothermal_borehole ...) plus 12 loose files under Assets/art/ (latifundium 1-5, shaft and modern mine, tree farm ...); the base game's (BuildCamp, BuildMine, BuildFarm ...) sit in its Actions_Builds atlas. Compared side by side with resource buttons (contact sheet): a build button is a SCENE, the improvement in its landscape filling the whole rounded tile under a thin light rim; a resource button is an isolated object on a dark ground inside a bevelled frame. font_index_map.packed_buttons reads the FPKs (992 buttons) but walks only Assets/Art, so it misses the loose files under Assets/art (case) - noted, not changed. Means (planned, not built): a photograph of a woodcutters' camp or log stack in forest, filled over the whole tile (the studio's 'Make a button' Fill crop through app/core.js); the rim from the median outer band of the mod's build buttons (goods_batch.py's method applied to the build family); a new small helper, goods_batch.py unchanged; its output adds one file and one ASSETS record to the art patch. BLOCKED 2026-10-27: Wikimedia Commons answers HTTP 429 to this session (several tries over the day). UNBLOCKED 2026-11-07 (R28): Commons and Flickr block this container (HTTP 429, CIDR); source chosen elsewhere: Library of Congress, Carol M. Highsmith Archive, 'Logs piled high at a lumberyard near Mapleton, Oregon' (loc.gov/item/2018698735, public domain), see research/economy/art_sources.md. Next: the build-button helper (rim from the median outer band of the build family), then the button.",
        "done_when": "BUILD_LUMBER_CAMP and ART_DEF_IMPROVEMENT_LUMBER_CAMP point to the camp's own 64x64 DDS button in the family of the mod's build buttons: a scene of the camp in forest (felled logs, stacks, a woodcutters' camp) filling the whole rounded tile under the same thin light rim as orchard.dds or buildtreefarm.dds, not an isolated object in the resource-button frame; from a photograph whose licence allows use, source and licence recorded next to the existing art records without replacing them; installed through the art patch (Tools/GameFontPatch adds files only after their SHA-256 checks); checked by apply_font_patch.py --check on the branch and by a contact sheet of the new button beside the camp, lumbermill and the mod's build buttons"
       },
       {
@@ -1360,6 +1360,111 @@
      "design": [
       "AR.dll",
       "AR.xml"
+     ]
+    },
+    {
+     "id": "PR.F7",
+     "what": "Route step 2: the tile formula in the produce step of the goods pass, with the sourced yield tables per tech stage, usable land per plot type, ha per worker and skill (D23 refined, R20, R22)",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
+       "anchor": "void CvPlayer::doGoods()"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvMap.cpp",
+       "anchor": "int CvMap::getPlotAreaKm2() const"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
+       "text": "tileFormulaOutput"
+      }
+     ],
+     "after": [
+      "PR.F1"
+     ],
+     "design": [
+      "PR.formula",
+      "PR.tiles",
+      "PR.labour"
+     ],
+     "tasks": [
+      {
+       "id": "PR.F7.T1",
+       "status": "todo",
+       "text": "Yield and ha-per-worker tables per good and tech stage in XML, generated from research/economy/data (NASS 1866-2025, Pretty 1990, rice, sugar, bananas; open_questions.md section 1)",
+       "done_when": "the generator writes the tables into the goods XML on the branch; xml_fields.py dump shows every food good with a yield per farm-tech stage; values trace to research/economy/data with sources; consumer: the produce step (PR.F7.T3)"
+      },
+      {
+       "id": "PR.F7.T2",
+       "status": "todo",
+       "text": "Usable land (arable, grazing) per terrain and feature (open_questions.md section 2)",
+       "done_when": "the terrain and feature records carry arable and grazing shares; consumer: PR.F7.T3; a mixed landscape averages near England 1086 (35 % arable, 25 % pasture) in tools/check_england1300.py"
+      },
+      {
+       "id": "PR.F7.T3",
+       "status": "todo",
+       "text": "The produce step computes each worked plot's goods by the tile formula from plot area, usable land, workers from the city's people, skill and the stage tables",
+       "done_when": "one deterministic harness run's goods quantities match tools/check_england1300.py within its stated tolerance; 5-seed safety runs show no failure only with the change and median slowdown <= 5 %; prediction registered before the runs"
+      }
+     ]
+    },
+    {
+     "id": "PR.F8",
+     "what": "Route step 0: groundwork tools in the plan repository (no game change): the code map from the branch, the sourced nutrition table, the value generator, the England 1300 check",
+     "code": [
+      {
+       "file": "research/economy/data/nutrition.json",
+       "anchor": "(new)"
+      },
+      {
+       "file": "research/economy/plan/tools/connector/food_values_edits.py",
+       "anchor": "(new)"
+      },
+      {
+       "file": "research/economy/plan/tools/check_england1300.py",
+       "anchor": "(new)"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "research/economy/data/nutrition.json",
+       "text": "DIAAS"
+      }
+     ],
+     "design": [
+      "FD.satiety",
+      "FD.drink",
+      "PR.formula"
+     ],
+     "tasks": [
+      {
+       "id": "PR.F8.T1",
+       "status": "todo",
+       "text": "Rebuild the code map from GitLab claude/settlement-economy (codemap/tool/build.sh, DLL only, toolchain in the scratchpad: msvc/, sdk/)",
+       "done_when": "codemap/skeleton.md names the branch commit; query.py find doGoods returns CvPlayer::doGoods; consumer: every later FD and PR.F7 step"
+      },
+      {
+       "id": "PR.F8.T2",
+       "status": "todo",
+       "text": "research/economy/data/nutrition.json: per food and drink good FAO kcal, protein, fat per 100 g, DIAAS, as-eaten factor, hydration index, spoilage per form, each with its source",
+       "done_when": "every food and drink good of the branch's BonusInfos has an entry with sources; values equal those in open_questions.md sections 4, 4b, 5; consumer: PR.F8.T3 and PR.F8.T4"
+      },
+      {
+       "id": "PR.F8.T3",
+       "status": "todo",
+       "text": "tools/connector/food_values_edits.py computes iSatietyPerTonne, iProteinPerTonne, iHydrationPercent from nutrition.json and writes connector edits for the XML",
+       "done_when": "run on the branch checkout it prints the values per good matching open_questions.md section 4 (cheese 5,213, cooked beef 4,875 per kg as eaten; factors beef 1.76, fish 2.29) and an actions file for mcp__gitlab__add_commit; applied in FD.F1"
+      },
+      {
+       "id": "PR.F8.T4",
+       "status": "todo",
+       "text": "tools/check_england1300.py: the tile formula and population model in Python with the decided values, asserting the England 1300 figures",
+       "done_when": "it runs and prints grain kcal per head a day about 1,926, ha per farm worker about 3.0, N near K; the C++ steps are checked against it"
+      }
      ]
     }
    ]
@@ -3072,6 +3177,209 @@
      ]
     }
    ]
+  },
+  {
+   "id": "FD",
+   "title": "Food, drink, water and people",
+   "statement": [
+    "3.2",
+    "3.3"
+   ],
+   "depends_on": [
+    "GW",
+    "PR"
+   ],
+   "decisions": [
+    "D23",
+    "D27",
+    "D30",
+    "D31",
+    "D32"
+   ],
+   "player_sees": "Food counted by satiety with animal foods valued as they are; drinks and water per day; a city water supply with its level and quality; cities that grow and shrink with their food, health and water, in real people.",
+   "features": [
+    {
+     "id": "FD.F1",
+     "what": "Route step 1: new XML fields and their C++ readers, no behaviour change: BonusInfo iSatietyPerTonne, iProteinPerTonne, iHydrationPercent, spoilage per form; BuildingInfo iWaterSupply, iWaterUse, iWaterQualityChange; ImprovementInfo iWaterSupply, bLivestockWater; GlobalDefines WATER_*",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "bool CvBonusInfo::read(CvXMLLoadUtility* pXML)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "bool CvBuildingInfo::read(CvXMLLoadUtility* pXML)"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "anchor": "bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
+       "text": "iSatietyPerTonne"
+      }
+     ],
+     "after": [
+      "PR.F8"
+     ],
+     "design": [
+      "FD.satiety",
+      "FD.drink",
+      "G.catalogue",
+      "AR.xml",
+      "AR.dll"
+     ],
+     "tasks": [
+      {
+       "id": "FD.F1.T1",
+       "status": "todo",
+       "text": "Schemas and values: the new fields in the schema files and the records (values by the generator)",
+       "done_when": "xml_fields.py dump shows the fields on every food, drink and water record; the game's XML loads (harness run starts)"
+      },
+      {
+       "id": "FD.F1.T2",
+       "status": "todo",
+       "text": "C++ readers: read(XML), read/write(stream), copyNonDefaults, getters, Python exposure (CyInfoInterface)",
+       "done_when": "the DLL builds; 5-seed safety runs give the same games as the base build (nothing reads the fields yet); prediction registered first"
+      }
+     ]
+    },
+    {
+     "id": "FD.F2",
+     "what": "Route step 3: food by satiety and drinks per day in the consume step of the goods pass (__int64 sums)",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
+       "anchor": "void CvPlayer::doGoods()"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvPlayer.cpp",
+       "text": "consumeSatiety"
+      }
+     ],
+     "after": [
+      "FD.F1",
+      "PR.F7"
+     ],
+     "design": [
+      "FD.satiety",
+      "FD.drink",
+      "CN.needs"
+     ],
+     "tasks": [
+      {
+       "id": "FD.F2.T1",
+       "status": "todo",
+       "text": "Each person eats s satiety a day and drinks 1.8 L x hydration index, drinks before water; stores in satiety; spoilage by form (D27 option chosen)",
+       "done_when": "a deterministic run's city food balance matches tools/check_england1300.py; safety runs pass; prediction registered first"
+      }
+     ]
+    },
+    {
+     "id": "FD.F3",
+     "what": "Route step 4 (after D30): the population model: m_llPeople, logistic year loop in doGrowth, size from people, the translation layer for growthThreshold and foodDifference, 64-bit sums and thousands for Python (D32)",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvCity.cpp",
+       "anchor": "void CvCity::doGrowth()"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvCity.cpp",
+       "anchor": "long CvCity::getRealPopulation() const"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvCity.cpp",
+       "anchor": "int CvCity::growthThreshold() const"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvCity.cpp",
+       "text": "m_llPeople"
+      }
+     ],
+     "after": [
+      "FD.F2"
+     ],
+     "design": [
+      "FD.people"
+     ],
+     "tasks": [
+      {
+       "id": "FD.F3.T1",
+       "status": "todo",
+       "text": "People, the year loop and size from people; save behind a new uiFlag",
+       "done_when": "a deterministic run reproduces tools/check_england1300.py's N and K; old saves load"
+      },
+      {
+       "id": "FD.F3.T2",
+       "status": "todo",
+       "text": "Translation layer: growthThreshold() and foodDifference() in food units from the people model; callers unchanged (CvCityAI, CvGameTextMgr, CvDLLWidgetData, CvMainInterface.py, Revolution.py, advisors)",
+       "done_when": "30 seeded runs per arm against fixed opponents: AI city sizes not lower than the base build (Welch on ranks); safety passes"
+      },
+      {
+       "id": "FD.F3.T3",
+       "status": "todo",
+       "text": "64-bit people and thousands for Python (D32)",
+       "done_when": "CvPlayer sums in __int64; new Python accessors in thousands; CvInfoScreen shows correct totals above 2^31 on an Earth map test"
+      }
+     ]
+    },
+    {
+     "id": "FD.F4",
+     "what": "Route step 5: water supply, quality and health (D31): m_iWaterSupply, m_iWaterQuality, updateWaterSupply beside updateFreshWaterHealth, water terms in goodHealth and badHealth, a city screen line",
+     "code": [
+      {
+       "file": "Assets/CvGameCoreDLL/CvCity.cpp",
+       "anchor": "void CvCity::updateFreshWaterHealth()"
+      },
+      {
+       "file": "Assets/CvGameCoreDLL/CvCity.cpp",
+       "anchor": "int CvCity::goodHealth() const"
+      },
+      {
+       "file": "Assets/Python/Screens/CvMainInterface.py",
+       "anchor": "def updateCityScreen"
+      }
+     ],
+     "checks": [
+      {
+       "kind": "added",
+       "file": "Assets/CvGameCoreDLL/CvCity.cpp",
+       "text": "updateWaterSupply"
+      }
+     ],
+     "after": [
+      "FD.F2"
+     ],
+     "design": [
+      "FD.drink",
+      "CN.effects",
+      "AR.python"
+     ],
+     "tasks": [
+      {
+       "id": "FD.F4.T1",
+       "status": "todo",
+       "text": "Supply and quality computed from fresh water, wells, Groundwater Wells, Aqueduct, Pont du Gard, Water Treatment Plant; update points from the rebuilt code map",
+       "done_when": "a computed check of access levels on one deterministic run matches water_and_implementation.md B2"
+      },
+      {
+       "id": "FD.F4.T2",
+       "status": "todo",
+       "text": "Water health terms and help text; one city screen line",
+       "done_when": "health help text names the water terms; safety runs pass; the user checks the line in game"
+      }
+     ]
+    }
+   ]
   }
  ],
  "resume": [
@@ -3086,12 +3394,13 @@
   "updated": "2026-11-07",
   "mod_head": "GitLab claude/settlement-economy at d2a8f756",
   "in_flight": [
-   "None. PR.F6 done (GitLab 857ca9f3, a1d9c3f2, c194903a..d2a8f756); P52-P57 corroborated (no failed run; run time 0.997, 1.007, 0.995); in-game checks open: a map script's and a scenario's scale read back with CyMap().getPlotAreaKm2(), a WorldBuilder save keeps the block. Land-based method proposed to the user, may be overruled. D24 (R12 ideas) open. LQ.F10.T2 BLOCKED (Commons HTTP 429). D30 population research reported (research/economy/population_model.md, R17; shocks_and_cycles.md, R18; population_formula.md, R19: compact model proposed; tile_output.md, R20: tile output formula proposed; food_resources.md, R21: food roles of all resources; open_questions.md, R22: resolutions and proposals for D21, D23, D24, D27-D30 wait on the user; water_and_implementation.md, R26: D31 decided (M73); implementation_route.md, R27: open list and route; next: step 0 (rebuild the code map from the branch, nutrition.json, generator, England 1300 check)); D30 waits on the user. R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "Code map rebuild from the branch running (PR.F8.T1). D31 and D32 decided (M73, M74). Decisions D30, D24, D21 and the open items of D27, D28, D29 wait on the user (research/economy/decisions_open.md). Research files of this round: population_model.md (R17), shocks_and_cycles.md (R18), population_formula.md (R19), tile_output.md (R20), food_resources.md (R21), open_questions.md (R22-R25), water_and_implementation.md (R26), implementation_route.md (R27). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
-   "1. After P56/P57: PR.F1 (production into the accounts, D23): write its done_when from proposals.json production (area worked = min(tile farmland from the plot area, workers x ha per worker) x yield x land quality x (1 - seed)); the other goods' tables with sources first (rice, corn, potato, livestock, timber, ore).",
-   "2. Then GW in D18 order; LQ.F10.T2 when Commons answers again.",
-   "Waiting on the user: LQ.F9.T5 and GW.F2.T2 in-game icon checks; a test game with builds/settlement-economy (LQ.F10, LQ.F11, LQ.F12 in-game checks)."
+   "ROUTE (implementation_route.md; plan component FD and PR.F7): step 0 PR.F8 (T1 code map from the branch, T2 nutrition.json, T3 food_values_edits.py, T4 check_england1300.py) -> step 1 FD.F1 (XML fields and readers, no behaviour change) -> step 2 PR.F1 then PR.F7 (tile formula in doGoods produce) -> step 3 FD.F2 (food by satiety, drinks) -> step 4 FD.F3 (population model, after D30) -> step 5 FD.F4 (water, D31) -> then SD, CN, IN, LD, TR, AI as planned. Each step: done_when, prediction registered, code map query, connector generator, toolchain build, harness, computed check.",
+   "Waiting on the user: decisions in research/economy/decisions_open.md (D30, D24, D21; open items of D27, D28, D29).",
+   "Art (R28.1): LQ.F10.T2 unblocked: public-domain Library of Congress photo (Highsmith, logs near Mapleton, Oregon); Glass button from Cleveland Museum of Art CC0 photos (research/economy/art_sources.md).",
+   "Waiting on the user in game: LQ.F9.T5 and GW.F2.T2 icon checks; PR.F6 scale read-back and WorldBuilder round-trip; a test game with builds/settlement-economy."
   ],
   "environment": [
    "Context is wiped without warning (M37): the files are the memory. Save every prompt in requests.json first, in its own commit; update this 'current' block and task notes in the same commit as the work.",
