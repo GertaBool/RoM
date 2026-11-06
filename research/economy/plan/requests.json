@@ -574,6 +574,13 @@
    "kind": "decision",
    "text": "\"What you haven't approved by name: the extra roles from my food survey. These are Whale as food, Horse meat and milk, Olives as oil, Sugar, Wine and Alcohol counted for calories, Salt as a preserver, and Lemon against scurvy.\" \n\nThese are good roles to keep in mind, but tea, lemons, apples, bananas and really all fruits in kind including wine grapes should help against scurvy. Scurvy is also mostly related to a diet that is really plain and deficient.",
    "led_to": "R36: the R21 food roles kept in view; scurvy prevented by all fruit (grapes included), tea and lemons through vitamin C; scurvy tied to a plain, deficient diet"
+  },
+  {
+   "id": "M83",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "\"You warned me off fixating on food (M12). Should the next stretch turn to production chains, industry and trade?\"\n\nWait a second.\n\n\"Which new items are goods, and which are recipes inside the city like bread? (Flax, Cloth, Fine Cloth, Coats, Dresses, Meat, charcoal, steel, machinery, tools, arms.)\"\n\nFlax is a base good\n\nMeat depends on the available livestock and deer\n\nCloth and Fine Cloth depend on base good inputs, the same holds true for Coats and Dresses.\n\nCharcoal depends on timber and is a fuel good.\n\nSteel depends on ores and is an industrial good.\n\nmachinery, tools and arms are generally manufactured goods, but tools and arms can also be artisanal goods, especially in the beginning. \n\n\"Is fast food meant as a new good or just an example? And did you mean kidney stones? My sources only cover bladder stones on grain diets.\"\n\nJust a general comment on how health is supposed to work. \n\n\"Is the fourth population model right? Should city size follow people through the inverse of today's curve, or as labour units?\"\n\nGiven the context available to you, we should discuss it once again in full depth, mathematically, and if need be you ask me delicately via many proposals if you are unsure about something. But I did like the latest model, it may just not be very complete.\n\n\"For clothing, does \"per citizen\" mean per real person?\" \n\nYes. \n\n\"With no measured record limit found, do you keep the \"no building per step\" rule?\"\n\nIt's about not having a building for each singular artisanal or industrial step, and instead having the city itself output most of the goods according to the techs, buildings, infrastructure and population it already has, not a \"Trinketmaker\" or a \"Sand gatherer\", because at some point the game will just give up facing what it has to consider and render. And it's really no fun to click for 200 buildings across fifty cities.\n\n\"What luxury goods should the remaining guilds make?\" \n\nProbably none, but you can have different ideas. \n\n\"Do Ancient Temples and thermal vents stay outside the goods economy?\"\n\nYes absolutely. But volcanic activity is relevant for energy/electricity production.\n\n\n\n\"Brewed tea: USDA measures 0 mg, black and green alike. Cartier's famous scurvy cure in 1536 was a \"tea\" brewed from conifer needles, not tea leaves. My proposal is that tea counts as a drink without vitamin C, unless you know a source that says otherwise.\"\n\nPlenty of teas carry significant nutritional value when it comes to the prevention of such illnesses, trust me on that one.\n\n\"Wine: fresh grapes have 3.2 mg, but wine itself has 0 mg. My proposal is that the Wine plot yields grapes, which count as fruit when eaten fresh or dried, and the drink gives calories only\"\n\nWine should probably be a luxury good, but the actual good itself, which requires a vineyard, should probably be counted as a kind of food. \n\n\"Still open: Whale. The USDA file has no value for muktuk (whale skin and blubber), so I need a source on Arctic foods.\"\n\nMostly relevant for the Japanese and other cultures, not necessarily a huge variable though. Whale blubber was used for lamps and perfume iirc, \n\n\n\"Proposal for the model: vitamin C coverage = the vitamin C of what each person eats per day, after storage and cooking losses, divided by 10 mg. If coverage stays below 1 for about a month, the deficiency part of the health burden rises and fertility falls a little. A varied diet is covered; a city, army or fleet living on staples is not. This is now part of the task that adds the three food measures to the nutrition data (PR.F8.T5).\"\n\nThe game really needs a more efficient mathematical model for all kinds of deficiencies that covers all food sources, ideally without drifting away too much from what we've discussed, but like I said, fruit does help as well, but sea food and milk provide iodine for example, and animal foods provide most bioavailable nutrients, electrolytes are as important for life as are macronutrients to feed and build the body.",
+   "led_to": "R37: answers to the restatement questions recorded; one deficiency model over all nutrients and all food sources; the population model discussed again in full mathematical depth with proposals"
   }
  ],
  "requests": [
@@ -1541,6 +1548,75 @@
      "what": "Scurvy follows a plain, deficient diet: model it through the diet's variety and vitamin C coverage, not through one cure good",
      "status": "done",
      "where": "round_m82.md section 4 (coverage of the whole diet into D_DEF and fertility nutrients; PR.F8.T5 text)"
+    }
+   ]
+  },
+  {
+   "id": "R37",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M83",
+   "text": "\"You warned me off fixating on food (M12). Should the next stretch turn to production chains, industry and trade?\"\n\nWait a second.\n\n\"Which new items are goods, and which are recipes inside the city like bread? (Flax, Cloth, Fine Cloth, Coats, Dresses, Meat, charcoal, steel, machinery, tools, arms.)\"\n\nFlax is a base good\n\nMeat depends on the available livestock and deer\n\nCloth and Fine Cloth depend on base good inputs, the same holds true for Coats and Dresses.\n\nCharcoal depends on timber and is a fuel good.\n\nSteel depends on ores and is an industrial good.\n\nmachinery, tools and arms are generally manufactured goods, but tools and arms can also be artisanal goods, especially in the beginning. \n\n\"Is fast food meant as a new good or just an example? And did you mean kidney stones? My sources only cover bladder stones on grain diets.\"\n\nJust a general comment on how health is supposed to work. \n\n\"Is the fourth population model right? Should city size follow people through the inverse of today's curve, or as labour units?\"\n\nGiven the context available to you, we should discuss it once again in full depth, mathematically, and if need be you ask me delicately via many proposals if you are unsure about something. But I did like the latest model, it may just not be very complete.\n\n\"For clothing, does \"per citizen\" mean per real person?\" \n\nYes. \n\n\"With no measured record limit found, do you keep the \"no building per step\" rule?\"\n\nIt's about not having a building for each singular artisanal or industrial step, and instead having the city itself output most of the goods according to the techs, buildings, infrastructure and population it already has, not a \"Trinketmaker\" or a \"Sand gatherer\", because at some point the game will just give up facing what it has to consider and render. And it's really no fun to click for 200 buildings across fifty cities.\n\n\"What luxury goods should the remaining guilds make?\" \n\nProbably none, but you can have different ideas. \n\n\"Do Ancient Temples and thermal vents stay outside the goods economy?\"\n\nYes absolutely. But volcanic activity is relevant for energy/electricity production.\n\n\n\n\"Brewed tea: USDA measures 0 mg, black and green alike. Cartier's famous scurvy cure in 1536 was a \"tea\" brewed from conifer needles, not tea leaves. My proposal is that tea counts as a drink without vitamin C, unless you know a source that says otherwise.\"\n\nPlenty of teas carry significant nutritional value when it comes to the prevention of such illnesses, trust me on that one.\n\n\"Wine: fresh grapes have 3.2 mg, but wine itself has 0 mg. My proposal is that the Wine plot yields grapes, which count as fruit when eaten fresh or dried, and the drink gives calories only\"\n\nWine should probably be a luxury good, but the actual good itself, which requires a vineyard, should probably be counted as a kind of food. \n\n\"Still open: Whale. The USDA file has no value for muktuk (whale skin and blubber), so I need a source on Arctic foods.\"\n\nMostly relevant for the Japanese and other cultures, not necessarily a huge variable though. Whale blubber was used for lamps and perfume iirc, \n\n\n\"Proposal for the model: vitamin C coverage = the vitamin C of what each person eats per day, after storage and cooking losses, divided by 10 mg. If coverage stays below 1 for about a month, the deficiency part of the health burden rises and fertility falls a little. A varied diet is covered; a city, army or fleet living on staples is not. This is now part of the task that adds the three food measures to the nutrition data (PR.F8.T5).\"\n\nThe game really needs a more efficient mathematical model for all kinds of deficiencies that covers all food sources, ideally without drifting away too much from what we've discussed, but like I said, fruit does help as well, but sea food and milk provide iodine for example, and animal foods provide most bioavailable nutrients, electrolytes are as important for life as are macronutrients to feed and build the body.",
+   "items": [
+    {
+     "id": "R37.1",
+     "what": "Do not turn away from food yet (\"Wait a second\")",
+     "status": "open"
+    },
+    {
+     "id": "R37.2",
+     "what": "Goods classing: Flax base good; Meat from available livestock and deer; Cloth, Fine Cloth, Coats, Dresses from base-good inputs; Charcoal from timber, a fuel good; Steel from ores, an industrial good; machinery, tools, arms manufactured goods, tools and arms also artisanal goods early",
+     "status": "open"
+    },
+    {
+     "id": "R37.3",
+     "what": "Fast food and stones: a general comment on how health works, not a good",
+     "status": "open"
+    },
+    {
+     "id": "R37.4",
+     "what": "Population model: discuss again in full mathematical depth, completing the fourth version; proposals where unsure",
+     "status": "open"
+    },
+    {
+     "id": "R37.5",
+     "what": "Clothing per citizen means per real person",
+     "status": "open"
+    },
+    {
+     "id": "R37.6",
+     "what": "No building per step: the city itself outputs most goods from its techs, buildings, infrastructure and population; no building per artisanal or industrial step (render and AI load, clicking)",
+     "status": "open"
+    },
+    {
+     "id": "R37.7",
+     "what": "Guild luxuries: probably none; other ideas welcome",
+     "status": "open"
+    },
+    {
+     "id": "R37.8",
+     "what": "Ancient Temples and thermal vents stay outside the goods economy; volcanic activity is relevant for energy and electricity",
+     "status": "open"
+    },
+    {
+     "id": "R37.9",
+     "what": "Tea: many teas carry significant nutritional value against deficiency diseases",
+     "status": "open"
+    },
+    {
+     "id": "R37.10",
+     "what": "Wine: a luxury good; the vineyard's good counts as a kind of food",
+     "status": "open"
+    },
+    {
+     "id": "R37.11",
+     "what": "Whale: minor, mostly for the Japanese and other cultures; blubber for lamps (and perfume)",
+     "status": "open"
+    },
+    {
+     "id": "R37.12",
+     "what": "One efficient deficiency model over all nutrients and all food sources: fruit, iodine from seafood and milk, bioavailable nutrients from animal foods, electrolytes",
+     "status": "open"
     }
    ]
   }
