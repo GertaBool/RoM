@@ -553,6 +553,13 @@
    "kind": "correction",
    "text": "\"The research field (D34): examples\"\n\nThe examples make absolutely zero sense and show an absolute ignorance about the game despite all the efforts. \nNow you're dropping what we discussed after. \nBe consistent and conscientious instead of haphazardly concluding things. \nYou had an actual evidence based growth model I was almost satisfied with, and then you somehow shrunk it. Why?",
    "led_to": "R33: D34 examples rebuilt from the tech tree and the building records; later discussion takes precedence over earlier (spoilage, the evidence-based model); the second-version growth model restored with its evidence, framed without a death term; an honest account of why it was shrunk"
+  },
+  {
+   "id": "M80",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "\"The settlement tiers, Market and Harbor have route counts and commerce modifiers only.\"\n\nCheck again. Check trade yield modifiers. \n\"Goods classing (Fish as a staple, Whale as fuel only, Salt as variety) is out of date. I left it unchanged because reclassifying is your call\"\n\nI discussed most of these things in-depth with you already \nI think we need to basically communicate about everything at length again, just to see whether you actually remember the conversation with me correctly and don't let any misunderstanding slip into the plan or the list of tasks.",
+   "led_to": "R34: trade yield modifiers checked again in every building and module record; the goods classing settled from what was already discussed; a full restatement of the conversation's decisions, topic by topic, for the user to confirm before anything more enters the plan"
   }
  ],
  "requests": [
@@ -1445,6 +1452,30 @@
      "what": "Restore the evidence-based growth model (second version) with all its factors and sources, framed as the user asked in M75 (health weighed from its factors lowering or reversing growth, no separate death term), and explain why it was shrunk",
      "status": "done",
      "where": "pop_model_math.md fourth version; tools/pop_model_sim.py; design.json D30"
+    }
+   ]
+  },
+  {
+   "id": "R34",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M80",
+   "text": "\"The settlement tiers, Market and Harbor have route counts and commerce modifiers only.\"\n\nCheck again. Check trade yield modifiers. \n\"Goods classing (Fish as a staple, Whale as fuel only, Salt as variety) is out of date. I left it unchanged because reclassifying is your call\"\n\nI discussed most of these things in-depth with you already \nI think we need to basically communicate about everything at length again, just to see whether you actually remember the conversation with me correctly and don't let any misunderstanding slip into the plan or the list of tasks.",
+   "items": [
+    {
+     "id": "R34.1",
+     "what": "Check the trade yield modifiers again in every building record, modules included, and on GitLab main",
+     "status": "open"
+    },
+    {
+     "id": "R34.2",
+     "what": "Settle the goods classing from what was already discussed (M57, M58, M67-M71, M75) instead of leaving it as the user's call",
+     "status": "open"
+    },
+    {
+     "id": "R34.3",
+     "what": "Restate the whole conversation topic by topic (what the user said, what was decided, what is open) so the user can confirm or correct it before more enters the plan or task list",
+     "status": "open"
     }
    ]
   }
