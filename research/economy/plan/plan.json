@@ -1476,7 +1476,7 @@
       {
        "id": "PR.F8.T5",
        "status": "todo",
-       "text": "nutrition.json and food_values_edits.py to three separate measures (M75): calories, satiety index (Holt where measured, protein fallback), health profile (nutrient groups and harms); remove the canned form; spoilage by D27 C (base x tech x store x climate)",
+       "text": "nutrition.json and food_values_edits.py to three separate measures (M75): calories, satiety index (Holt where measured, protein fallback), health profile (nutrient groups and harms); remove the canned form",
        "done_when": "nutrition.json carries kcal, satiety index with source, health profile per good; the generator writes iCaloriesPerTonne, iSatietyIndex, health fields; no canned form; check_england1300.py still passes; consumer: FD.F1"
       }
      ]
@@ -3214,7 +3214,7 @@
    "features": [
     {
      "id": "FD.F1",
-     "what": "Route step 1: new XML fields and their C++ readers, no behaviour change: BonusInfo iCaloriesPerTonne, iSatietyIndex, iProteinPerTonne, health profile (nutrient groups, harms), iHydrationPercent, spoilage base; BuildingInfo iWaterSupply, iWaterUse, iWaterQualityChange, storage factor; ImprovementInfo iWaterSupply, bLivestockWater; GlobalDefines WATER_*; BuildingInfo TechResearchModifiers (D34) and iBuildingProductionModifier (Masons); clothing fields (warmth, lifetime, cloth per garment); Notre Dame and J.S. Bach Cathedral BuildingClassNeededs Masons hall",
+     "what": "Route step 1: new XML fields and their C++ readers, no behaviour change: BonusInfo iCaloriesPerTonne, iSatietyIndex, iProteinPerTonne, health profile (nutrient groups, harms), iHydrationPercent; BuildingInfo iWaterSupply, iWaterUse, iWaterQualityChange, storage factor; ImprovementInfo iWaterSupply, bLivestockWater; GlobalDefines WATER_*; BuildingInfo TechResearchModifiers (D34) and iBuildingProductionModifier (Masons); clothing fields (warmth, lifetime, cloth per garment); Notre Dame and J.S. Bach Cathedral BuildingClassNeededs Masons hall (spoilage fields wait for the working system, M50: SD.F2)",
      "code": [
       {
        "file": "Assets/CvGameCoreDLL/CvInfos.cpp",
@@ -3290,7 +3290,7 @@
       {
        "id": "FD.F2.T1",
        "status": "todo",
-       "text": "Each person eats s satiety a day and drinks 1.8 L x hydration index, drinks before water; stores in satiety; spoilage by form (D27 option chosen)",
+       "text": "Each person eats s satiety a day and drinks 1.8 L x hydration index, drinks before water; stores in satiety",
        "done_when": "a deterministic run's city food balance matches tools/check_england1300.py; safety runs pass; prediction registered first"
       }
      ]
@@ -3382,7 +3382,7 @@
       {
        "id": "FD.F4.T1",
        "status": "todo",
-       "text": "Supply and quality computed from fresh water, wells, Groundwater Wells, Aqueduct, Pont du Gard, Water Treatment Plant; update points from the rebuilt code map",
+       "text": "Supply and quality computed from fresh water, wells, Groundwater Wells, Aqueduct, Pont du Gard, Water Treatment Plant; update points from the rebuilt code map; first: query.py callers CvCity::processBuilding 2 and the plot and improvement setters on the rebuilt map (audit_m78.md finding 15)",
        "done_when": "a computed check of access levels on one deterministic run matches water_and_implementation.md B2"
       },
       {
@@ -3408,11 +3408,11 @@
   "updated": "2026-11-07",
   "mod_head": "GitLab claude/settlement-economy at d2a8f756",
   "in_flight": [
-   "M75 round (R29): D24 B, D21 media by reach, D27 C refined, no Flour, D29 a/c/d/e decided; D30 reworked from the user's principles (round_m75.md section 3) waits on the user; three separate food measures (calories, satiety, health) mapped; PR.F8.T5 revises nutrition.json and the generator before step 1. Food box: the exe only asks the DLL for bar fractions, size class, size string and colours, so growth can be replaced and the same exports refilled (round_m75.md section 4). Discussions waiting: migration, clothes, guild luxuries (round_m75.md 6-8). M76 round (R30): pop_model_math.md and tools/pop_model_sim.py; round_m76.md (migration with civic values, clothing, food guilds, D34 research field, Masons and Clerks). R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
+   "M75 round (R29): D24 B, D21 media by reach, D27 C refined, no Flour, D29 a/c/d/e decided; D30 reworked from the user's principles (round_m75.md section 3) waits on the user; three separate food measures (calories, satiety, health) mapped; PR.F8.T5 revises nutrition.json and the generator before step 1. Food box: the exe only asks the DLL for bar fractions, size class, size string and colours, so growth can be replaced and the same exports refilled (round_m75.md section 4). Discussions waiting: migration, clothes, guild luxuries (round_m75.md 6-8). M76 round (R30): pop_model_math.md and tools/pop_model_sim.py; round_m76.md (migration with civic values, clothing, food guilds, D34 research field, Masons and Clerks). M78 audit (audit_m78.md): D30 third version without a death term; D27 choice, CN.needs, P8, D35 fixes corrected. R9.1 UI mock-up https://claude.ai/artifact/JjCX63Da4ix16sN4oCX1mD waits on the user's judgement."
   ],
   "next": [
    "ROUTE (implementation_route.md; plan component FD and PR.F7): step 0 PR.F8 (T1-T4 done; T5 three measures and D27 C) -> step 1 FD.F1 (XML fields and readers, no behaviour change) -> step 2 PR.F1 then PR.F7 (tile formula in doGoods produce) -> step 3 FD.F2 (food by satiety, drinks) -> step 4 FD.F3 (population model, after D30) -> step 5 FD.F4 (water, D31) -> then SD, CN, IN, LD, TR, AI as planned. Each step: done_when, prediction registered, code map query, connector generator, toolchain build, harness, computed check.",
-   "Waiting on the user: D30 second version (pop_model_math.md), the size-from-people choice, the estimates to source first; the remaining guild luxuries; whether to keep the M59 'no building per step' rule now that D35 found no measured limit.",
+   "Waiting on the user: D30 third version (pop_model_math.md); which version holds the settlement-tier and harbor trade-route modifiers (audit_m78.md 14); the goods' reclassification in proposals.json (R21; audit 16); 'per citizen' for clothing (audit 10); the remaining guild luxuries; the M59 'no building per step' rule.",
    "Art (R28.1): LQ.F10.T2 unblocked: public-domain Library of Congress photo (Highsmith, logs near Mapleton, Oregon); Glass button from Cleveland Museum of Art CC0 photos (research/economy/art_sources.md).",
    "Waiting on the user in game: LQ.F9.T5 and GW.F2.T2 icon checks; PR.F6 scale read-back and WorldBuilder round-trip; a test game with builds/settlement-economy."
   ],

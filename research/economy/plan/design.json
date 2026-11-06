@@ -95,7 +95,7 @@
   {
    "id": "CN.needs",
    "section": "3.3",
-   "text": "- **Needs per citizen,** set by era and by the settlement's level of development:\n  - staple food;\n  - dietary variety: dairy, meat, fruit, oil;\n  - fuel: wood, then coal, then oil;\n  - clothing: wool, cotton, linen;\n  - comforts and luxuries: coffee, wine, spices, fine goods."
+   "text": "- **Needs per person,** set by era and by the settlement's development (M57, M71, M75, M76):\n  - food, counted by calories, satiety and health (three separate measures);\n  - drink per day, met by drinks by their hydration and by water;\n  - fuel: wood, then coal, then oil;\n  - clothing for warmth (by climate) and for status (by wealth and dress norms);\n  - comforts and luxuries."
   },
   {
    "id": "CN.effects",
@@ -222,6 +222,12 @@
    "id": "PR.formula",
    "section": "3.2",
    "text": "**Tile formula:** output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); yields from USDA NASS and pre-modern sources; usable land per plot type (tile_output.md, open_questions.md sections 1-3)."
+  },
+  {
+   "id": "P8",
+   "section": "1",
+   "text": "**Every mechanic comes with AI awareness and a UI** (M75: otherwise the AI would be subject to it but not aware of it, and the same goes for everything else).",
+   "cross_cutting": true
   }
  ],
  "decisions": [
@@ -470,7 +476,7 @@
    "question": "Food: nutrition and keeping (M57)",
    "status": "decided",
    "source": "M57, M58",
-   "choice": "Meat, dairy and fish give the most nutrition per tonne, so the most to satiety; they also give a strength bonus to living units (not siege equipment, vehicles, robots or other machines). Cereal products, dried fruit, fermented dairy, cured meat and cured fish keep longest and add most to the food store. Values per tonne and the bonus size are to be sourced (nutrition per kg, shelf life) Decided (M58): hitech, biological, clone, worker, settler and animal units get no protein bonus.",
+   "choice": "Three separate measures per food good (M75): calories (FAO), satiety (Holt's index per calorie, protein share and quality as fallback) and health (nutrient groups covered, harms); meat, dairy and fish are highly satiating and the main complete protein; good food raises fertility, work, commerce, science and culture, and unit strength is one effect among these, not the whole role (M75); cereal products, dried fruit, fermented dairy, cured meat and fish keep longest (M57); drinks count per day with their hydration (M71); spoilage itself after the system works (M50), by technology, storage and, once it exists, climate (M75)",
    "facts": [
     "Unit combat types (CIV4UnitCombatInfos.xml): living: recon, archer, mounted, melee, gun, spy; machines: siege, wheeled, tracked, helicopter, every ship and aircraft type, assault mech, robot, nanite, missile; unclear: hitech, biological, clones, worker, settler, animal",
     "Fermentation raises cereals' food value and keeping (M54)",
@@ -532,14 +538,10 @@
     "The mod's shocks are random events: after turn 20 one roll per player and turn at 2-16 % by era, then one of about 300 triggers by weight; a plague takes 3-4 citizens in one city and 1-2 in a few neighbours; no climate, harvest variation, seasons, spreading epidemics or population cycles exist",
     "User principles (M75): growth by nutrient quality and quantity; good food raises fertility, productivity, commerce, science, culture; players decide, not a curve; urban density, economy, war and pillage matter; no era growth rates; health lowers or reverses growth rather than a death term"
    ],
-   "proposal": "Second version (R31.1, pop_model_math.md): births = B(food) x nutrients x economy x town life x religiosity x education x safety; deaths = base mortality(medicine) x (2 - health) + weakness of the underfed + famine + deficiency + urban penalty + war; starvation cap; life expectancy = 1000 / deaths; twelve edge cases computed by tools/pop_model_sim.py",
+   "proposal": "Third version (R32.2, M78; pop_model_math.md): g = G_MAX x [food drive x fertility culture x health - KAPPA x (1 - health)]; no death term (M75); health weighed from water, sanitation in dense quarters, nutrient coverage, dietary harms, medicine; fertility culture from economy, town life, norms, education, safety, which also raises the food level where growth stops; starvation cap; five numbers (G_MAX 3 %, A 0.30, K, KAPPA, B) plus health weights; thirteen edge cases in tools/pop_model_sim.py",
    "options": [
-    "keep size^2.8 x 1000 and count workers from it (D23 as decided in M54)",
-    "a new population curve fitted to real settlement sizes by era",
-    "a citizen as a fixed share of a population that grows by births, deaths and migration (a demographic model), the city size following from it",
-    "between 2 and 3: keep the food-box citizens and an __int64 people count per city beside them, growing toward a capacity set by citizens, era and food, with an urban share by era",
-    "a compact Malthusian model (R19): people N per city (__int64) grow logistically toward K = food / food per head s at rate r, capped at food / biological minimum; urban share 1 - s / food per rural person; city size = (N/1000)^(1/2.8); three numbers to set (r, s, s_min)",
-    "the reworked growth rate from the game state (R29): nutrition, economy, health, density with sanitation, war pressure; no era rates, no separate death term"
+    "the third version (pop_model_math.md, M78)",
+    "keep size^2.8 x 1000 and count workers from it (D23 as decided in M54)"
    ],
    "research": "research/economy/population_model.md (R17, M63): facts with sources in sections 1-4, readings R1-R6, options 1-4; research/economy/shocks_and_cycles.md (R18, M64): cataclysms, harvest variation, seasons, epidemics, long cycles; building blocks A-F; research/economy/population_formula.md (R19, M65): a compact Malthusian model, proposed; research/economy/tile_output.md (R20, M66): output = yield(good, tech) x fertility x cropped(rotation) x min(usable area, workers x skill x ha per worker(tools, draught, machinery)); England 1300 check; research/economy/open_questions.md (R22, M68) section 7 (r, s, s_min sourced; migration; AI translation layer); research/economy/pop_model_math.md (R30.1, M76): hybrid model step by step, seven sourced parameters, eleven edge cases computed by tools/pop_model_sim.py"
   },
@@ -608,7 +610,7 @@
    "question": "The record limit (M77: 'just fix the limit')",
    "status": "decided",
    "source": "M77",
-   "choice": "No record-count limit for goods and buildings below the game font's capacity (98 resource records at WOC_GAMEFONT_RESOURCE_FIX 8725; beyond it, move the pin by a row of 25 and extend both font atlases); memory is set by graphics, handled by graphics paging (builds/graphics-paging); the M59 rule 'no building per step' rests on no measured limit and is the user's to keep or drop",
+   "choice": "No record-count limit for goods and buildings below the game font's capacity (98 resource records at WOC_GAMEFONT_RESOURCE_FIX 8725; beyond it, move the pin by a row of 25 and extend both font atlases); memory is set by graphics, handled by graphics paging (builds/graphics-paging); the M59 rule 'no building per step' rests on no measured limit and is the user's to keep or drop; fixes to carry out (M77 'just fix the limit', R32): raise the font pin by one row before resource records pass 98, and bring graphics paging (builds/graphics-paging) into the settlement-economy branch",
    "facts": [
     "Civ4BeyondSword.exe (2009-05-14) is large-address-aware; the DLL links /LARGEADDRESSAWARE",
     "The DLL's data was about 111 MB at turns 356-386 (research/graphics/README.md R-A); memory grows with unit models, city layouts and plot graphics (R-C)",

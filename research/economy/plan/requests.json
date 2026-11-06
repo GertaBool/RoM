@@ -1396,19 +1396,21 @@
   {
    "id": "R32",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M78",
    "text": "I said something about not including deaths in the formula. Look where else I was ignored in your deliberations, and what information was forgotten or not even saved.",
    "items": [
     {
      "id": "R32.1",
      "what": "Audit every prompt against design.json, plan.json, proposals.json and the research files: where the user was ignored, what was forgotten or not saved; write the findings",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/audit_m78.md"
     },
     {
      "id": "R32.2",
      "what": "Correct each finding in the files, D30 first: growth slowed or turned negative by a health measure weighed from several factors, no death term",
-     "status": "open"
+     "status": "done",
+     "where": "pop_model_math.md third version; tools/pop_model_sim.py; design.json D27, D30, D35, CN.needs, P8; plan.json FD.F1, FD.F2, FD.F4, PR.F8.T5, current"
     }
    ]
   }
