@@ -12,7 +12,7 @@ in design.json is changed to "decided" by this file.
 1. Tile yields by good and technology (PR.F1's missing tables) — Resolved for crops; Proposal for animals, timber, ore
 2. Usable land per tile — Proposal
 3. Skill, rotation and diminishing returns — Resolved / Proposal
-4. Counting food: kcal, protein and satiety — Resolved (corrected, R23)
+4. Counting food: satiety per tonne as eaten (D27) — Resolved (corrected, R23, R24)
 5. Keeping and preserved forms (D27) — Proposal
 6. Flour and fine cloth (D28) — Proposal
 7. The population model (D30): parameters, migration and the AI — Proposal with sourced parameters
@@ -132,100 +132,74 @@ Placed resources keep the bonus multiplier (`fertility`) of D23.
 - **Diminishing returns: Proposal.** Keep D23's `min` (output per worker flat until the land binds). The England 1300
   check matches it without a smooth curve, and it adds no variable.
 
-## 4. Counting food: kcal, protein and satiety (corrected, R23, M69)
+## 4. Counting food: satiety per tonne as eaten (D27; corrected R23, R24)
 
-**Correction.** The first version of this section counted animal foods only for D27's strength bonus. Its England
-check counted grain alone. Both were wrong: meat, dairy and fish carry calories, and D27 (M57) decided that
-high-protein foods give the most satiety. This section replaces that version.
+**D27 as decided (M57):** meat, dairy and fish give the most nutrition per tonne, so the most to satiety. Fermentation
+raises the food value of cereals through bioavailability (M54). This section counts food so that D27 holds on a
+like-for-like basis.
+
+**Earlier mistakes, corrected here:**
+- The R22 version gave animal foods no satiety role.
+- The R23 version compared raw dry grain with fresh meat. Grain is not eaten raw: it takes up water when baked or
+  boiled, while meat loses water when cooked.
+- The R23 version also ignored protein quality and digestibility.
+- It then asked you to choose between per calorie and per tonne. That question is withdrawn: D27 already answers it.
 
 **Facts (sourced):**
-- **Calories of animal foods** (FAO, *Food Balance Sheets* handbook, Annex I, per 100 g as bought):
-  - fatty meats and cheese carry as many calories per weight as dry grain: pigmeat 326 kcal, mutton 263,
-    cheese 387, butter 717 (wheat 334);
-  - lean meat and fish carry fewer, because they hold more water: beef 150, game 104, pelagic fish 86, demersal fish
-    42;
-  - most of their energy comes from protein: 49 % of beef's calories, 69 % of game's, 79 % of demersal fish's
-    (4 kcal per g of protein).
-- **Satiety per calorie** (Holt et al. 1995, *Eur J Clin Nutr* 49:675-90; 240 kcal portions, white bread = 100):
+- **Energy per 100 g as eaten** (USDA values as reproduced by third-party tables): white bread 238 kcal, cooked white
+  rice 130, cooked cod 105, cooked ground beef (70 % lean) 277. Raw, as bought (FAO Annex I): wheat 334, beef 150,
+  cheese 387, cow milk 61.
+- **Protein quality (DIAAS,** FAO 2013 method; Wikipedia table, 0.5-3-year reference pattern): beef 1.12, whole milk
+  1.14, egg 1.13; wheat 0.40-0.48, rice 0.47, maize 0.36. Lysine limits every cereal.
+- **Protein digestibility:** plant proteins about 75-80 %, animal proteins about 90-95 % (review, as cited).
+- **Satiety per calorie** (Holt et al. 1995, white bread 100): ling fish 225, beef 176, eggs 150, cheese 146, white
+  rice 138. Raising protein from 15 % to 30 % of energy cut intake by 441 kcal a day (Weigle et al. 2005). Protein's
+  thermic effect is 20-30 % of its energy, against 5-10 % for carbohydrate and 0-3 % for fat.
 
-  | Food | Satiety index |
-  |---|---:|
-  | Ling fish | 225 |
-  | Beef | 176 |
-  | Eggs | 150 |
-  | Cheese | 146 |
-  | Wholemeal bread | 157 |
-  | White rice | 138 |
-  | Bananas | 118 |
-  | White bread | 100 |
-  | Croissant | 47 |
-  | Boiled potatoes (highest of the 38 foods; water and bulk) | 323 |
-
-- **Protein holds intake down over weeks** (Weigle et al. 2005, *Am J Clin Nutr*). Raising protein from 15 % to 30 %
-  of energy, at constant carbohydrate, cut people's own intake by 441 ± 63 kcal a day. They lost 4.9 kg over the
-  12 weeks.
-- **Digesting protein costs energy** (Ravn, citing earlier work): the thermic effect is 20-30 % of protein's energy,
-  5-10 % of carbohydrate's and 0-3 % of fat's. Westerterp links this to satiety.
-
-**Resolution: one satiety measure, with one constant fitted to the facts.**
+**The measure:**
 
 ```
-satiety per kg = kcal per kg × (1 + k × p) / (1 + k × p_grain)
+satiety per kg as eaten = kcal per kg as eaten × (1 + k × p × q) / (1 + k × p_bread × q_wheat)
 ```
 
-- `p` is the share of the good's calories that comes from protein; `p_grain` = 0.146 (wheat).
-- `k` = 3.2, fitted so that beef against grain gives Holt's 176 against 100. Wheat's protein share stands in for
-  white bread's.
-- **Checks:** the formula gives demersal fish 2.41 (Holt's ling fish 2.25) and cheese 1.25 (Holt 1.46). The formula
-  does not capture potatoes' bulk.
+- `p` is the share of calories from protein, and `q` is protein quality (DIAAS, capped at 1).
+- Bread is the reference: `p` = 0.146 and `q` = 0.44 (wheat).
+- `k` = 2.0, fitted so that beef against bread gives Holt's 176 against 100.
+- **Checks against Holt:** fish 2.29 (Holt's ling fish 2.25) and cheese 1.35 (Holt 1.46). Rice comes out at 0.95
+  against Holt's 1.38: the formula does not capture cooked rice's bulk.
 
-**What this gives per good** (factor against grain = 1.00; satiety per kg = kcal per kg × factor):
+**Per tonne as eaten:**
 
-| Good | kcal per kg | Protein share | Factor | Satiety per kg |
-|---|---:|---:|---:|---:|
-| Wheat | 3,340 | 15 % | 1.00 | 3,340 |
-| Rice, milled | 3,600 | 7 % | 0.84 | 3,035 |
-| Maize | 3,560 | 11 % | 0.91 | 3,253 |
-| Potatoes | 670 | 10 % | 0.89 | 596 |
-| Beef, boneless | 1,500 | 49 % | 1.76 | 2,640 |
-| Pigmeat | 3,260 | 13 % | 0.98 | 3,181 |
-| Mutton and lamb | 2,630 | 21 % | 1.13 | 2,971 |
-| Game meat (Deer) | 1,040 | 69 % | 2.20 | 2,283 |
-| Horsemeat | 850 | 73 % | 2.28 | 1,935 |
-| Cow milk | 610 | 22 % | 1.15 | 704 |
-| Cheese | 3,870 | 26 % | 1.25 | 4,821 |
-| Butter | 7,170 | 1 % | 0.69 | 4,956 |
-| Pelagic fish | 860 | 59 % | 1.96 | 1,688 |
-| Demersal fish | 420 | 79 % | 2.41 | 1,012 |
-| Whale meat | 1,360 | 62 % | 2.03 | 2,764 |
-| Olive oil | 8,840 | 0 % | 0.68 | 6,013 |
+| Food as eaten | kcal per kg | Factor | Satiety per kg |
+|---|---:|---:|---:|
+| Cheese | 3,870 | 1.35 | 5,213 |
+| Beef, cooked | 2,770 | 1.76 | 4,875 |
+| Cod, cooked | 1,050 | 2.29 | 2,401 |
+| Bread | 2,380 | 1.00 | 2,380 |
+| Rice, cooked | 1,300 | 0.95 | 1,232 |
+| Milk (a drink) | 610 | 1.27 | 774 |
 
-**Reading:**
-- **Per calorie,** the protein foods give the most satiety: lean meat 1.8-2.3 times grain, fish 2.0-2.4, cheese
-  1.25. That is D27 as decided.
-- **Per tonne as bought,** cheese, fat (butter, oil, lard) and fatty meat lead. Fresh lean meat and fish fall below
-  dry grain because they are mostly water.
-- **Preserving changes that.** Drying and salting take the water out, so cured meat and dried fish move toward
-  cheese per tonne. Their values per kg come from the FAO rows for cured and dried forms when preserved forms are
-  modelled (section 5).
-- **Fat** satiates less per calorie (croissant 47, cake 65 in Holt), and the formula's floor (0.68 at no protein)
-  points the same way.
+Factors of the other animal foods: game (Deer) 2.11, whale meat 1.99, mutton 1.25, pork 1.13.
 
-**What counts where:**
-- The population formula's `F` is the sum of satiety over all foods, animal foods included.
-- `s` is set in the same unit (section 7).
-- Protein also drives D27's strength bonus for living units.
-- **Edible shares:** milling extraction is about 80 % with stone mills and over 90 % with roller mills (60 lb of wheat
-  gave 47-52 lb of flour). Meat is about 60 % of a cow's live weight as carcass, 50-54 % for sheep and 70-75 % for
-  pigs, and the carcass is about 80 % boneless meat. FAO's values are per retail weight.
+**Result:**
+- Per tonne as eaten, the animal foods give the most satiety: cheese and cooked meat about twice bread, and fish
+  equal to bread with far fewer calories. That is D27.
+- Liquid milk is low per tonne. Its kept forms, cheese and butter, are where dairy's value sits, which D27's keeping
+  rule already points to.
 
-**Check, England about 1300, corrected:**
-- Grain gave about 1,926 kcal per head a day: 1.0 million t net for about 4.75 million people at 334 kcal per 100 g.
-- Grain was up to 80 % of a harvest worker's calories, so meat, dairy, fish, pulses and ale gave the other 20 % or
-  more: about 480 kcal of a 2,400 kcal day. Dyer finds the animal share of workers' diets rising strongly after the
-  Black Death.
-- In satiety units at an animal factor of about 1.2-1.7, that diet is worth about 2,500-2,700. The model's `s` is set
-  from it (section 7).
+**How the goods economy uses it.** Goods are stored and traded as they come from the land (grain in tonnes, animals
+in head, meat in tonnes). Each good carries one number, the satiety of one tonne of it once eaten. That number
+includes:
+- **For grain:** milling extraction, about 0.8 with stone mills and over 0.9 with roller mills. One tonne of wheat
+  makes about 1.1 t of bread (3,340 Mcal × 0.8 / 2,380 kcal per kg; derived). Fermentation raises the factor through
+  bioavailability (M54).
+- **For animals:** dressing share (cattle about 60 %, sheep 50-54 %, pigs 70-75 %) × 80 % boneless meat. Cooking
+  keeps the calories and removes water.
+
+**Check, England about 1300:**
+- Grain gave about 1,926 kcal per head a day, up to 80 % of a worker's calories.
+- Meat, dairy, fish, pulses and ale gave the rest, about 480 kcal of a 2,400 kcal day.
+- In satiety units that diet is about 2,500-2,700 a day, which sets `s` (section 7).
 
 ## 5. Keeping and preserved forms (D27)
 

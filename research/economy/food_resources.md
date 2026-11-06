@@ -135,7 +135,7 @@ Each judgment cites the facts above. "Food role" means what it adds to a diet.
 | Role | Resources | Basis |
 |---|---|---|
 | **Staple energy** (grain and roots) | Wheat, Rice, Corn, Potato; Banana in the tropics | 334-360 kcal per 100 g dry grain; potato 67 and banana 60 fresh, but high yields per hectare (`tile_output.md`) |
-| **Animal foods: energy, protein and the most satiety per calorie** (D27) | Cow, Pig, Sheep, Deer, Dairy, Fish, Clam, Crab, Shrimp; also **Whale** and **Horse** | calories: pigmeat 326 kcal per 100 g, mutton 263, cheese 387, butter 717, beef 150, fish 42-86, whale meat 136; protein: 15-21 g per 100 g of meat, cheese 25; satiety per calorie 1.25-2.4 times grain (`open_questions.md` section 4, Holt 1995); mare's milk and horse meat on the steppe |
+| **Animal foods: energy, protein and the most satiety per tonne as eaten** (D27) | Cow, Pig, Sheep, Deer, Dairy, Fish, Clam, Crab, Shrimp; also **Whale** and **Horse** | calories: pigmeat 326 kcal per 100 g, mutton 263, cheese 387, butter 717, beef 150, fish 42-86, whale meat 136; protein: 15-21 g per 100 g of meat, cheese 25; the most satiety per tonne as eaten: cheese and cooked meat about twice bread (`open_questions.md` section 4); mare's milk and horse meat on the steppe |
 | **Fat and oil** | **Olives** (now commerce), Pig (lard), Dairy (butter), Whale (blubber); later **Cotton** (cottonseed oil) | oils 884 kcal per 100 g; Roman oil about 12 % of calories and 80 % of fat |
 | **Sugar** | **Sugar** (now a comfort) | 373 kcal per 100 g; nearly a fifth of English calories by 1900 (if Mintz's summary holds); a comfort before the 18th century, food energy after |
 | **Fruit and vitamins** | Apple, Lemon, Banana | low energy (lemon 15 kcal); citrus prevents scurvy (Lind, 1795 Navy order) |
@@ -162,8 +162,9 @@ Each judgment cites the facts above. "Food role" means what it adds to a diet.
 The first version offered calories alone, or calories plus protein for the strength bonus only. That left out the
 satiety of protein that D27 decided. The measure is now in `open_questions.md` section 4:
 
-- **Satiety per kg** = kcal per kg × a protein factor, with one constant fitted to Holt et al. (1995): beef 1.76
-  times grain, fish 2.0-2.4, cheese 1.25.
+- **Satiety per tonne as eaten** = kcal per kg as eaten × a factor for protein share and protein quality (DIAAS),
+  with one constant fitted to Holt et al. (1995). Per kg as eaten: cheese 5,213, cooked beef 4,875, cooked cod 2,401,
+  bread 2,380 (D27).
 - **Animal foods count with their calories and their protein.**
 - **Protein also drives D27's strength bonus.**
 - **Variety** can still be counted as the number of food roles a city covers (staple, animal food, fat, sugar, fruit,

@@ -1106,14 +1106,15 @@
   {
    "id": "R24",
    "date": "2026-11-06",
-   "status": "open",
+   "status": "done",
    "prompt": "M70",
    "text": "\"So do you want satiety measured per calorie, or per tonne with preserved forms carrying the advantage? Either works with the same formula\"\n\nIt's like you ignored everything you've read.",
    "items": [
     {
      "id": "R24.1",
      "what": "Apply D27 as decided: compare foods per tonne as eaten (cooked, with bioavailability and protein quality, M54), with sources; withdraw the per-calorie/per-tonne question",
-     "status": "open"
+     "status": "done",
+     "where": "open_questions.md section 4 rewritten (as eaten, DIAAS, k=2.0); food_resources.md; design.json D27 fact replaced"
     }
    ]
   }
