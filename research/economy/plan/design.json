@@ -519,8 +519,8 @@
   {
    "id": "D31",
    "question": "Hydration and water supply (R25, R26, M71, M72)",
-   "status": "open",
-   "source": "M71, M72",
+   "status": "decided",
+   "source": "M71, M72, M73",
    "why": "The user: milk and drinks valued as daily quantities for hydration; proposals for hydration, water supply mechanics and the rest",
    "facts": [
     "The mod has fresh-water health (FRESH_WATER_HEALTH_CHANGE 1), the Aqueduct (+5 health), Bath House (+3, needs Aqueduct), Water Treatment Plant (+2), Pont du Gard (+6, area +2), Oasis and Swamp adding fresh water, farms valid by fresh water, the Groundwater Well carrying irrigation (research/economy/water_and_implementation.md A1)",
@@ -531,7 +531,8 @@
     "health only: the WHO access level and water quality set health; no drink goods",
     "drinks only: hydration from drink goods and water at fresh-water cities; no supply capacity"
    ],
-   "proposal": "the full model, built after PR.F1 and FG and before or with CN (water_and_implementation.md part C)"
+   "proposal": "the full model, built after PR.F1 and FG and before or with CN (water_and_implementation.md part C)",
+   "choice": "the full model (M73): two needs per person (drink 1.8 L a day by hydration index; domestic water by WHO levels 20/50/100 L), city water supply in m3 a day from fresh water, wells, aqueducts and treatment, water quality, effects through the engine's health, drinks as goods, water for livestock; built after PR.F1 and FG, with CN (water_and_implementation.md)"
   }
  ],
  "compared_with_today": "| | Today | Proposed |\n|---|---|---|\n| Resource | A token on one tile; you have it or you don't | A quantity, produced and used up |\n| Source | The one tile holding the token | Tiles, improvements, buildings, specialists, labour |\n| Demand | None; one copy serves every city | Each settlement uses goods in proportion to its size |\n| Luxury | +1 happiness per city, whatever its size | Contentment that grows with supply per head |\n| Industry | Buildings need inputs present and use nothing | Buildings convert inputs into outputs |\n| Units | Need a resource present | Cost goods; armies use supplies |\n| Diplomacy | Lease a resource for gold per turn | Shipments, seeds, contracts, packages |"

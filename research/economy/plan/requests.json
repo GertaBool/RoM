@@ -504,6 +504,13 @@
    "kind": "request",
    "text": "Continue, and give proposals for how we should implement hydration, water supply mechanics and else",
    "led_to": "R26: implementation proposals for hydration and water supply (from the mod's water features, buildings and techs read from XML and the DLL, with historical sources), and for the rest of the food, drink and population work"
+  },
+  {
+   "id": "M73",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "I agree with the proposal. Which questions are still open, and what would be the optimal route to implement all these additions and edits in C++, Python and XML? Be aware of the tools you're able to use, like the code map",
+   "led_to": "D31 decided (full water and hydration model); R27: the questions still open, and the implementation route in C++, Python and XML, planned with the code map, the connector generators, the toolchain and the harness"
   }
  ],
  "requests": [
@@ -1165,6 +1172,27 @@
      "what": "Implementation proposals for the rest: satiety and drink values on the goods, the population model, and their order in the plan",
      "status": "done",
      "where": "research/economy/water_and_implementation.md part C"
+    }
+   ]
+  },
+  {
+   "id": "R27",
+   "date": "2026-11-07",
+   "status": "done",
+   "prompt": "M73",
+   "text": "I agree with the proposal. Which questions are still open, and what would be the optimal route to implement all these additions and edits in C++, Python and XML? Be aware of the tools you're able to use, like the code map",
+   "items": [
+    {
+     "id": "R27.1",
+     "what": "List every question still open across design.json and the research files",
+     "status": "done",
+     "where": "research/economy/implementation_route.md part 1"
+    },
+    {
+     "id": "R27.2",
+     "what": "The implementation route for the food, drink, water and population additions in C++ (DLL), Python and XML, located with the code map and built with the existing tools",
+     "status": "done",
+     "where": "research/economy/implementation_route.md part 2"
     }
    ]
   }
