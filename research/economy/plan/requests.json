@@ -1018,14 +1018,15 @@
   {
    "id": "R20",
    "date": "2026-11-06",
-   "status": "open",
+   "status": "done",
    "prompt": "M66",
    "text": "\"One number it depends on that isn't set yet: how much of a map plot is actually farmed (open question 3 of D23, the production model)\"\n\nOutput depends on tech, the actual population working the tile, how qualified the workers are, the availability of tools and machinery, tile fertility, the crop or food resource in question (can be meat, dairy or fish, technically also sugar and bananas, as well)\n\nDo more research",
    "items": [
     {
      "id": "R20.1",
      "what": "Research a tile's output as a function of tech, the people working it, their skill, tools and machinery, fertility and the good (grain, rice, roots, meat, dairy, fish, sugar, bananas), with sources, in place of a fixed farmed share (D23, D30)",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/tile_output.md; design.json D23 and D30 research"
     }
    ]
   }
