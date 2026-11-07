@@ -777,6 +777,13 @@
    "kind": "correction",
    "text": "Okay\n\nPick up the regular protocol. I still want you to actually keep track of things the way I told you. I don't like how you dropped that. That was by no means a \"ceremony\", it was supposed to prevent you from messing up.",
    "led_to": "R63: the tracking protocol (requests saved first, check_plan summary, items marked in the same commit as the work) is binding, not optional; resume it"
+  },
+  {
+   "id": "M112",
+   "date": "2026-11-07",
+   "kind": "instruction",
+   "text": "Now, apply the correct sources by rewriting the key files for the mathematical model of the food consumption of ingame city populations. \nI need you to actually use the correct tables, you are required to uphold standards of process efficiency and deterministic information accuracy.",
+   "led_to": "R64: rewrite the key files of the food consumption model (needs data, model specification, model tool) from nutrition_record.md tables 2i/2j and the composition records"
   }
  ],
  "requests": [
@@ -2604,6 +2611,30 @@
      "what": "Audit requests R55-R62 for items left open or marked done without the work, and report them",
      "status": "done",
      "where": "requests.json notes on R54.1-5 and R55.1-5; stale 'where' fixed on R57.1, R59.2, R61.2; plan.json current updated (it had not been updated for R56-R62)"
+    }
+   ]
+  },
+  {
+   "id": "R64",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M112",
+   "text": "Now, apply the correct sources by rewriting the key files for the mathematical model of the food consumption of ingame city populations. \nI need you to actually use the correct tables, you are required to uphold standards of process efficiency and deterministic information accuracy.",
+   "items": [
+    {
+     "id": "R64.1",
+     "what": "Rewrite the needs data (nutrient_needs.json) from nutrition_record.md 2i: four levels per nutrient, standard units, scaling with energy, weight and labour, each value with its source",
+     "status": "open"
+    },
+    {
+     "id": "R64.2",
+     "what": "Rewrite the model specification of food consumption for a city population from the record (variables, equations, legend), replacing the archived specification",
+     "status": "open"
+    },
+    {
+     "id": "R64.3",
+     "what": "Rewrite the model tool to read the new needs data and run it on a real case; check every consumer of its output",
+     "status": "open"
     }
    ]
   }
