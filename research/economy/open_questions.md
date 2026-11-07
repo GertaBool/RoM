@@ -1,7 +1,7 @@
 # The plan's open questions: resolutions and proposals (R22, M68)
 
 This file works through every open question in `research/economy/plan/design.json` and the open sections of the
-research files (`population_formula.md`, `tile_output.md`, `food_resources.md`, `guilds/README.md`).
+research files (`population_formula.md`, `tile_output.md`, `archive/nutrition/food_resources.md`, `guilds/README.md`).
 
 Each item is marked **Resolved** (the facts settle it) or **Proposal** (the facts do not; a detailed proposal for
 your decision). Every number is marked as sourced (with its source) or *estimate*. Decisions stay with you; nothing

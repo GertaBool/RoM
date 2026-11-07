@@ -2377,19 +2377,21 @@
   {
    "id": "R56",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M104",
    "text": "Clean up your entire notes on nutrition and anything relevant tied to food groups. Only retain correct, verified assumptions as well as inputs from me.",
    "items": [
     {
      "id": "R56.1",
      "what": "One clean record of nutrition and food groups: only verified facts with their sources, and the user's inputs",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/nutrition_record.md"
     },
     {
      "id": "R56.2",
      "what": "Move superseded notes, models, PDFs and tools out of the working notes into an archive, with a note on why",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/archive/nutrition/ (README)"
     }
    ]
   }

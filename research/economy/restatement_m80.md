@@ -112,7 +112,7 @@ said:
   - Lemon against scurvy.
 
   **M82:** kept in view as roles. Scurvy is not Lemon's alone: all fruit (wine grapes included), tea and lemons
-  help, and scurvy follows a plain, deficient diet (`round_m82.md`).
+  help, and scurvy follows a plain, deficient diet (`archive/nutrition/round_m82.md`).
 
 ---
 

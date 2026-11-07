@@ -1476,7 +1476,7 @@
       {
        "id": "PR.F8.T5",
        "status": "todo",
-       "text": "nutrition.json and food_values_edits.py to three separate measures (M75): calories, satiety index (Holt where measured, protein fallback), health profile (nutrient groups and harms; vitamin C per good and form from USDA SR Legacy, round_m82.md section 2, coverage against 10 mg a day as in section 4); remove the canned form; spoilage base per good by D27 C (no canned form; climate once it exists)",
+       "text": "nutrition.json and food_values_edits.py to three separate measures (M75): calories, satiety index (Holt where measured, protein fallback), health profile (nutrient groups and harms; vitamin C per good and form from USDA SR Legacy, archive/nutrition/round_m82.md section 2, coverage against 10 mg a day as in section 4); remove the canned form; spoilage base per good by D27 C (no canned form; climate once it exists)",
        "done_when": "nutrition.json carries kcal, satiety index with source, health profile per good; the generator writes iCaloriesPerTonne, iSatietyIndex, health fields; no canned form; check_england1300.py still passes; consumer: FD.F1"
       }
      ]
