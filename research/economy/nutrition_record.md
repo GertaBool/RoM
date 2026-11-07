@@ -26,6 +26,7 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 | M83 | Many teas carry real nutritional value against deficiency diseases. |
 | M83, M85 | Wine is a luxury good; the vineyard's good counts as a kind of food. Whale: if it is available, it is possible food. |
 | M91 | Fish is the whole animal as eaten historically: its fat, cod liver and roe, not lean fillet. |
+| M113 | Fat was highly prized; people lived on fish and anything they could gather locally without many issues, which cannot be if all they ate were fillet. The lactose limit is for pasteurised dairy and lactose in isolation, not for dairy cultures, lactase-persistent people or raw dairy; those studies involve too little information in too small a context. |
 | M84 | Fat is not bad in itself. Its value depends on the animals' diet, freshness, the vitamin E of unsaturated oils and the omega-3:6 ratio. This is context, not something to map. |
 | M85 | Water-soluble and fat-soluble vitamins are the usual distinction for stores. |
 | M83 | Fast food and stones were a general comment on how health works. |
@@ -257,6 +258,10 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 - **Calcium in milk:** about 110 mg per 100 ml; lactose and casein phosphopeptides keep it soluble (Aoe 2018, PMID 29593135).
 - **Calcium in bone broth:** cooking bones in water extracts little; lowering pH from 8.38 to 5.32 and cooking over 8 h raised extraction, but home-made and commercial broths held no more than a few tenths of a mg of calcium per serving, under 5 % of the daily need; lead and cadmium were a few µg per serving (Hsu et al. 2017, PMID 28804437). The bones themselves, eaten, are the calcium (whole small fish above; dried powdered bone is about 31 % calcium, PMID 33310253).
 - **Parts of a cod** as % of whole ungutted weight (Torry Research Station, Advisory Note 17, reissued by FAO 2001; a measurement record, not a recommendation): head 21, guts 5-8 (average 7), liver 2-7 (5), roe 1-7 (4), backbone etc. 14, fins and lugs 10, skin 3, skinned fillet 36. "Weights of liver, guts, roe, etc., can fluctuate enormously with season, ground, condition of fish."
+- **Whole herring fat by season:** herring measured with head and intestines held 7.9 % fat in May, rising to 19.5 % about 1 August (Faroese and Atlanto-Scandian herring, 1950s; Fróðskaparrit); Canadian Atlantic herring averaged 9.82 % (1966) and 11.17 % (1967), June to mid-October.
+- **Cod heads and viscera:** heads 13.9-16.4 % protein and 0.9-10.9 % fat; viscera 13.0-15.3 % protein and 2.0-19.1 % fat (Bechtel 2003, pollock and cod by-products).
+- **Farmed cod liver:** liver lipid 719-785 g/kg on high-lipid feeds, 83-88 % of body lipid (Stirling study; farmed fish).
+- **Mølje, the coastal meal of northern Norway:** cod, cod liver, fresh cod-liver oil and hard roe; three mølje meals supplied about 54 times the recommended daily vitamin D (Brustad et al. 2004, *Public Health Nutrition*, Skjervøy). Stockfish was eaten with cod-liver oil or butter.
 - **Cod liver index** (liver weight ÷ body weight) in 200 Norwegian coastal cod: 0.039 north, 0.027 west, 0.026 east; range 0.010-0.107 (Valdersnes et al. 2017, PMC5439708, Table 1).
 - **Small fish eaten whole** (with bone, head and eyes) are nutrient-dense animal food, rich in haem iron, zinc and especially calcium, with preformed vitamin A (Kongsbak et al. 2008, PMID 17925053).
 - **Iodine in milk:**
@@ -315,6 +320,7 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 
 - **Fat:** healthy subjects given corn and olive oil up to 639 g a day absorbed more than 98 % over 20 days; one tolerated 500-600 g without symptoms; daily fat of 300-400 g regularly caused marked sweating (Kasper 1970, PMID 5495429, abstract).
 - **Fructose alone:** no healthy subject malabsorbed 15 g; 10 % malabsorbed 25 g (without symptoms); 80 % malabsorbed 50 g and 55 % had symptoms (Rao et al. 2007, PMID 17625977). With an equal amount of glucose, 50 g fructose was absorbed by all; sucrose up to 100 g was absorbed by all (Rumessen and Gudmand-Høyer 1986, PMID 3781328). Fruit high in free fructose therefore has a ceiling that sugar does not.
+- **Lactose in fermented milk:** 18 g lactose in live-culture yogurt gave about one third of the breath hydrogen of the same lactose in milk, with fewer symptoms, in 10 lactase-deficient adults; the cultures' lactase digests it in the gut, and pasteurisation destroys that lactase (Kolars et al. 1984, NEJM 310:1).
 - **Lactose:** lactose malabsorption has a global prevalence of 68 % (PMID 31953721). Most people with lactose intolerance tolerate 12-15 g lactose (about one cup of milk); symptoms grow above 12 g, are appreciable after 24 g, and 50 g causes symptoms in most (systematic review, Wilt et al. 2010, PMID 20629478). Women who maldigest lactose ate a dairy diet with about 1,500 mg calcium a day without major symptoms (Suarez et al. 1998, PMID 9808231).
 - **Protein:** see section 2e (Bilsborough and Mann 2006).
 - **Alcohol and fat together:** ad libitum, alcohol and a high-fat diet added up to 2.8 MJ a day of overfeeding (Tremblay et al. 1995, PMID 7661127).
