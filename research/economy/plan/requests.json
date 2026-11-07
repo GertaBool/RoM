@@ -2565,7 +2565,7 @@
      "id": "R62.1",
      "what": "Fill every open minimum, optimum and ceiling in section 2i with LD50, toxic dose, recommended intake, athletes' intake or upper end of recommended range, labelled by kind",
      "status": "done",
-     "where": "nutrition_record.md 2i (minimums) and 2j"
+     "where": "nutrition_record.md 2i (all cells), 2j (all cells), 4"
     }
    ]
   }
