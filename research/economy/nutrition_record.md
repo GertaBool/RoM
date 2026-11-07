@@ -400,18 +400,18 @@ Kept apart from section 2i because they are of a different kind:
 | Vitamin B12 | 2.4 µg (RDA) | no separate range (PMC12845069) | none set; 2,000 µg used to treat deficiency | none by mouth in trials up to 7 years; rare acne with injections (PMC8377299) | mouse and rat: > 5,000 mg/kg cyanocobalamin |
 | Vitamin C | 90 mg men, 75 mg women (RDA); 30-75 mg across countries | 200-500 mg reduced soreness; larger doses may blunt training adaptation (secondary sources; PMC12845069) | 2,000 mg (US); none (EFSA, insufficient data) | urinary oxalate and urate rose at 1,000 mg (Levine 1996) | rat: 11,900 mg/kg ascorbic acid |
 
-## 3. Known faults in the data files (to fix before any model uses them)
+## 3. Known faults in the data files, and their status (R64, M112)
 
-| File | Fault |
-|---|---|
-| `nutrition.json` and `nutrient_profiles.json` | **Two bases.** Energy, protein and fat come from FAO "as bought" records (beef 150 kcal per 100 g); vitamins and minerals come from USDA records of a different form (beef carcass 291 kcal). A model mixing them mismatches energy and nutrients. One record per good, all values from the same food form, is needed. |
-| `nutrient_profiles.json` | **Niacin.** USDA gives preformed niacin in mg; the need is in niacin equivalents, which include tryptophan / 60 (section 2c). Tryptophan (USDA nutrient 1210) must be added. |
-| `nutrient_needs.json` | **Thiamin and niacin** are converted at a fixed 2,600 kcal. Section 2b gives thiamin per 1,000 kcal (Sauberlich) and niacin per 1,000 kcal (Carpenter and Lewin), so they must follow the actual energy turnover. |
-| `nutrient_needs.json` | **All needs** are the EFSA values, one number per nutrient that mixes the levels. They must be replaced by the four separate levels of section 2i. |
-| `nutrient_needs.json` | **Sodium** is fixed. Sweat losses of 4.8-6 g per shift in heat (section 2b) must be added with labour and heat. |
-| `nutrient_needs.json` | **Water** is a fixed 2,250 ml. It must rise with labour and heat (M103); the Yamada equation (section 2b) gives about 1,000 ml per unit of PAL and per 30 °C. |
-| `nutrient_needs.json` | **Vitamin C** uses EFSA's 90 mg. Section 2b gives 10 mg against scurvy and about 100 mg for a full pool and white-cell saturation. |
-| Fish | The "whole fish" shares used earlier (50 % herring, 45 % cod, 5 % liver) were unsourced. The starving fishing village came from these shares and from taking the low end of the protein range. Both are removed. |
+| File | Fault | Status |
+|---|---|---|
+| `nutrition.json` and `nutrient_profiles.json` | **Two bases.** Energy, protein and fat in `nutrition.json` come from FAO "as bought" records (beef 150 kcal per 100 g); vitamins and minerals from USDA records of another form (beef carcass 291 kcal). | **Fixed for the food model:** `food_model.py` takes every value, energy included, from `nutrient_profiles.json` (one USDA form per good). **Open for the goods XML:** `nutrition.json` still feeds `tools/connector/food_values_edits.py`. |
+| `nutrient_profiles.json` | **Niacin** was preformed only. | **Fixed:** tryptophan (USDA 1210) added; the model counts NE = niacin + tryptophan mg / 60. |
+| `nutrient_needs.json` | **Thiamin and niacin** at a fixed 2,600 kcal. | **Fixed:** version 2 scales thiamin per 1,000 kcal; niacin's minimum per 1,000 kcal. |
+| `nutrient_needs.json` | **All needs** were single EFSA values mixing the levels. | **Fixed:** version 2 holds the four levels of section 2i and the values of section 2j. |
+| `nutrient_needs.json` | **Sodium** fixed. | **Fixed:** sweat losses per hot shift added with the case's share of hot-shift days. |
+| `nutrient_needs.json` | **Water** fixed at 2,250 ml. | **Fixed:** the Yamada equation. |
+| `nutrient_needs.json` | **Vitamin C** at 90 mg. | **Fixed:** minimum 10, optimum 100, ceiling 1,000. |
+| Fish | The earlier "whole fish" shares (50 % herring, 45 % cod, 5 % liver) were unsourced. | **Replaced:** the whole cod by Torry part shares (fillet 36, liver 5, roe 4). The catch mix of a coast is not set from a source (`food_model.md` section 8). |
 
 ## 4. Limits of the record
 
