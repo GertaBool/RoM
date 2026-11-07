@@ -595,6 +595,13 @@
    "kind": "decision",
    "text": "\"Food above need is surplus and goes to long-term storage. The harm band is withdrawn, and fat quality is context only.\"\n\nImportant caveat:\n\nMetabolism. If ypu consume more calories, and if you run stimulants like caffeine, you are very likely a lot more active as well. Even in the early 1900s, an ordinary manual laborer may have burned somewhere between 3000-4000 kcal. \n\nThe true ceiling for what people can consume varies based on the food group. Very few people can eat a kilogram of cheese every day. A lot of people can eat a lot of pasta. It's very easy to eat a lot of sugar. You can drink maybe three liters of milk a day. But if you eat more than a pound of ground beef, you might be crying of nocturnal heartburn. You can basically chew through an entire watermelon. \n\n\"Whale is food only for cultures that hunted whales and could reach them.\"\n\nOr in other words: If it's available, it's possible food. \n\n\"Stores: vitamin C lasts about a month, folate months, B12 years. I found no human value yet for thiamin or vitamin A.\"\n\nWe commonly distinguish between water soluble and fat soluble vitamins. \n\n\n\"Why size = (people ÷ 1,000)^(1/2.8) works\"\n\nOverall good. \n\n\n\"Health balance, in plain terms: every city shows green faces (fresh water, forests, Wheat, Aqueduct) and red faces (city size, flood plains, Forge, Factory). Today, when red outnumbers green, the city loses food. The population model needs a health level from 0 to 1. I propose green ÷ (green + red), leaving out the red faces that come from size, because density is now its own term.\"\n\nCheck whether the game already has health related icons and buttons, what the game shows in case of unhealthiness and so forth. Because I remember it always displayed these things.",
    "led_to": "R39: energy need by activity and stimulants; intake ceilings by food group; whale food wherever available; water- and fat-soluble vitamin stores; size curve accepted; the game's existing health icons, buttons and displays checked"
+  },
+  {
+   "id": "M86",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "\"My proposal: keep the whole display and add lines to the hover for water, sanitation and density, missing nutrients, and war. Two questions for you:\n\n    Food penalty: should the extra food eaten be replaced by the population model’s effect on growth? Keeping both would count bad health twice. I recommend replacing it.\n    Unhealthy faces from city size: should these be replaced by the density term, since density now covers that? I recommend replacing them.\"\n\nWrt the food penalty\n\nLook at the actual code and compare it with what we are trying to implement\n\nUnhealthy faces are the most intuitive way to convey that the city is lacking key infrastructure, but you can implement the lines to the hover for water, sanitation and density, missing nutrients, and war\n\n\n\"Energy need now follows activity:\"\n\nGive a full, proper model, assume that the watermelon example is representative of fruits in general",
+   "led_to": "R40: the food penalty compared in the code with the population model; unhealthy faces kept as the infrastructure signal with hover lines added; a full energy and intake model, fruit behaving like watermelon"
   }
  ],
  "requests": [
@@ -1757,6 +1764,30 @@
      "what": "Check the game's existing health icons, buttons and displays, and what it shows when a city is unhealthy",
      "status": "done",
      "where": "round_m85.md; design.json D27/D30 m85"
+    }
+   ]
+  },
+  {
+   "id": "R40",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M86",
+   "text": "\"My proposal: keep the whole display and add lines to the hover for water, sanitation and density, missing nutrients, and war. Two questions for you:\n\n    Food penalty: should the extra food eaten be replaced by the population model’s effect on growth? Keeping both would count bad health twice. I recommend replacing it.\n    Unhealthy faces from city size: should these be replaced by the density term, since density now covers that? I recommend replacing them.\"\n\nWrt the food penalty\n\nLook at the actual code and compare it with what we are trying to implement\n\nUnhealthy faces are the most intuitive way to convey that the city is lacking key infrastructure, but you can implement the lines to the hover for water, sanitation and density, missing nutrients, and war\n\n\n\"Energy need now follows activity:\"\n\nGive a full, proper model, assume that the watermelon example is representative of fruits in general",
+   "items": [
+    {
+     "id": "R40.1",
+     "what": "Food penalty: read the actual code and compare it with what the population model implements",
+     "status": "open"
+    },
+    {
+     "id": "R40.2",
+     "what": "Keep the unhealthy faces as the intuitive sign of missing infrastructure; add hover lines for water, sanitation and density, missing nutrients and war",
+     "status": "open"
+    },
+    {
+     "id": "R40.3",
+     "what": "A full, proper energy and intake model, with the watermelon example representative of fruit in general",
+     "status": "open"
     }
    ]
   }
