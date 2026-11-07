@@ -2361,31 +2361,36 @@
      "id": "R54.1",
      "what": "Rebuild the food model from first principles with robust mathematics and few variables; replace the old specification (fresh start)",
      "status": "done",
-     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/",
+     "note": "M104/R56 archived the deliverables named in 'where' to research/economy/archive/nutrition/; done as delivered then, superseded since; any new model starts from nutrition_record.md"
     },
     {
      "id": "R54.2",
      "what": "Harm terms for alcohol and tobacco",
      "status": "done",
-     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/",
+     "note": "M104/R56 archived the deliverables named in 'where' to research/economy/archive/nutrition/; done as delivered then, superseded since; any new model starts from nutrition_record.md"
     },
     {
      "id": "R54.3",
      "what": "Hydration index = hydration from a volume of the drink relative to the same volume of water; F15 withdrawn",
      "status": "done",
-     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/",
+     "note": "M104/R56 archived the deliverables named in 'where' to research/economy/archive/nutrition/; done as delivered then, superseded since; any new model starts from nutrition_record.md"
     },
     {
      "id": "R54.4",
      "what": "No body store (it is in the city growth formula), no seasons (long turns), one city population as a whole",
      "status": "done",
-     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/",
+     "note": "M104/R56 archived the deliverables named in 'where' to research/economy/archive/nutrition/; done as delivered then, superseded since; any new model starts from nutrition_record.md"
     },
     {
      "id": "R54.5",
      "what": "Prices to be established so that they fit the game; the model applies to a city's population as a whole",
      "status": "done",
-     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/",
+     "note": "M104/R56 archived the deliverables named in 'where' to research/economy/archive/nutrition/; done as delivered then, superseded since; any new model starts from nutrition_record.md"
     }
    ]
   },
@@ -2399,27 +2404,32 @@
     {
      "id": "R55.1",
      "what": "Needs are not fixed: nutrients and water that scale with energy turnover scale in the model",
-     "status": "open"
+     "status": "open",
+     "note": "Facts gathered (nutrition_record.md 2a, 2b, 2i: water by Yamada equation, sweat sodium, thiamin and niacin per 1,000 kcal); no model applies them yet because the model was archived (M104). Stays open."
     },
     {
      "id": "R55.2",
      "what": "Audit the provenance and units of every per-good value (energy, nutrients, fullness, reward); correct what is wrong; mark what has no solid record",
-     "status": "open"
+     "status": "open",
+     "note": "Data faults listed in nutrition_record.md section 3; the data files (nutrition.json, nutrient_profiles.json, nutrient_needs.json) are not yet corrected. Stays open."
     },
     {
      "id": "R55.3",
      "what": "Well-being with reward (dopamine), lightness after eating, and repetition",
-     "status": "open"
+     "status": "open",
+     "note": "Per-food evidence gathered (nutrition_record.md 2e, 4); no well-being formula built. Stays open."
     },
     {
      "id": "R55.4",
      "what": "Stage 3: people draw on the higher-quality stocks; prices come later and are not baked into nutrition",
-     "status": "open"
+     "status": "open",
+     "note": "Not started; needs a new model. Stays open."
     },
     {
      "id": "R55.5",
      "what": "M103: hydration needs scale with labour; a fishing people with fish available does not starve: trace both errors to their cause and correct them from the sources",
-     "status": "open"
+     "status": "open",
+     "note": "Water now scales with labour in the record (2b, 2i); the fish error's causes (unsourced shares, low end of the protein range) are recorded and removed (section 3, 5); no model run confirms the correction. Stays open."
     }
    ]
   },
@@ -2455,7 +2465,7 @@
      "id": "R57.1",
      "what": "Replace institutional sources (FAO, EFSA, Japanese DRI, Wikipedia) in the nutrition record with PubMed references",
      "status": "done",
-     "where": "research/economy/nutrition_record.md sections 2a-2h"
+     "where": "research/economy/nutrition_record.md section 2 (numbering since changed by R58-R62)"
     },
     {
      "id": "R57.2",
@@ -2503,7 +2513,7 @@
      "id": "R59.2",
      "what": "Whole-animal shares: liver and organ shares of fish and cattle, fillet yield, whole-fish composition",
      "status": "done",
-     "where": "nutrition_record.md 2d (cod parts, liver index); cattle open in 4"
+     "where": "nutrition_record.md 2d (cod parts, liver index); cattle and pig organ weights in section 4 since R62"
     },
     {
      "id": "R59.3",
@@ -2557,7 +2567,7 @@
      "id": "R61.2",
      "what": "Fill each level for every nutrient in the record from studies; search the missing means and ceilings; mark a level open when no study gives it",
      "status": "done",
-     "where": "nutrition_record.md 2i (table; open cells marked)"
+     "where": "nutrition_record.md 2i (table); open cells filled by R62"
     }
    ]
   },
@@ -2579,19 +2589,21 @@
   {
    "id": "R63",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M111",
    "text": "Okay\n\nPick up the regular protocol. I still want you to actually keep track of things the way I told you. I don't like how you dropped that. That was by no means a \"ceremony\", it was supposed to prevent you from messing up.",
    "items": [
     {
      "id": "R63.1",
      "what": "Resume the regular protocol: save each prompt verbatim first, run check_plan --summary before economy work, mark items in the same commit as the work",
-     "status": "open"
+     "status": "done",
+     "where": "plan.json current.environment (save prompts first, update current and notes in the same commit); applied from this commit on"
     },
     {
      "id": "R63.2",
      "what": "Audit requests R55-R62 for items left open or marked done without the work, and report them",
-     "status": "open"
+     "status": "done",
+     "where": "requests.json notes on R54.1-5 and R55.1-5; stale 'where' fixed on R57.1, R59.2, R61.2; plan.json current updated (it had not been updated for R56-R62)"
     }
    ]
   }
