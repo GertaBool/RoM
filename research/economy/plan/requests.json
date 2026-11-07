@@ -2103,24 +2103,27 @@
   {
    "id": "R48",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M95",
    "text": "Instead of doing random stuff, you HAVE to provide a mathematical model that is straightforward to understand, and elaborate which variables were added, removed or changed. I cannot stand random intransparent edits.",
    "items": [
     {
      "id": "R48.1",
      "what": "One straightforward mathematical model of the food model: variables, equations, parameters with their source or estimate",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md (version 1); food_model.py header; design.json D27 m95"
     },
     {
      "id": "R48.2",
      "what": "A change log: every variable added, removed or changed, with the round and the reason",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md (version 1); food_model.py header; design.json D27 m95"
     },
     {
      "id": "R48.3",
      "what": "No more untraceable edits: the code follows the specification, and changes go through the specification first",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md (version 1); food_model.py header; design.json D27 m95"
     }
    ]
   }

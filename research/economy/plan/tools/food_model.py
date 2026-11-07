@@ -1,4 +1,9 @@
-"""R44 (M91): the food model on the game's goods, one city-year at a time (third version).
+"""The food model on the game's goods, one city-year at a time.
+
+SPECIFICATION: research/economy/food_model_spec.md (version 1, M95) is the authority; this code implements its
+equations (E1)-(E26). Any change goes into the specification's change log first (M95).
+
+History: R44 (M91) third version; M92-M94 changes as logged in the specification.
 
   stocks (tonnes)  ->  grams per head a day  ->  what is eaten: one allocation with diminishing returns over three
   motives (satiety, nutrition, well-being), within the body's ceilings  ->  energy, nutrients, water  ->  x, coverage,
