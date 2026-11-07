@@ -20,7 +20,12 @@
   "potassium": "mg",
   "sodium": "mg",
   "iodine": "ug",
-  "selenium": "ug"
+  "selenium": "ug",
+  "tryptophan": "g",
+  "carbohydrate": "g",
+  "sugars": "g",
+  "fiber": "g",
+  "alcohol": "g"
  },
  "goods": {
   "BONUS_WHEAT": [
@@ -47,7 +52,12 @@
     "potassium": 363.0,
     "sodium": 2.0,
     "iodine": null,
-    "selenium": 70.7
+    "selenium": 70.7,
+    "tryptophan": 0.16,
+    "carbohydrate": 71.18,
+    "sugars": 0.41,
+    "fiber": 12.2,
+    "alcohol": 0.0
    }
   ],
   "BONUS_RICE": [
@@ -74,7 +84,12 @@
     "potassium": 250.0,
     "sodium": 5.0,
     "iodine": null,
-    "selenium": 17.1
+    "selenium": 17.1,
+    "tryptophan": 0.101,
+    "carbohydrate": 76.25,
+    "sugars": 0.66,
+    "fiber": 3.6,
+    "alcohol": 0.0
    },
    {
     "form": "polished",
@@ -99,7 +114,12 @@
     "potassium": 115.0,
     "sodium": 5.0,
     "iodine": null,
-    "selenium": 15.1
+    "selenium": 15.1,
+    "tryptophan": 0.083,
+    "carbohydrate": 79.95,
+    "sugars": 0.12,
+    "fiber": 1.3,
+    "alcohol": 0.0
    }
   ],
   "BONUS_CORN": [
@@ -126,7 +146,12 @@
     "potassium": 287.0,
     "sodium": 35.0,
     "iodine": null,
-    "selenium": 15.5
+    "selenium": 15.5,
+    "tryptophan": 0.067,
+    "carbohydrate": 74.26,
+    "sugars": 0.64,
+    "fiber": 7.3,
+    "alcohol": 0.0
    }
   ],
   "BONUS_POTATO": [
@@ -153,7 +178,12 @@
     "potassium": 425.0,
     "sodium": 6.0,
     "iodine": null,
-    "selenium": 0.4
+    "selenium": 0.4,
+    "tryptophan": 0.021,
+    "carbohydrate": 17.49,
+    "sugars": 0.82,
+    "fiber": 2.1,
+    "alcohol": 0.0
    },
    {
     "form": "boiled",
@@ -178,7 +208,12 @@
     "potassium": 379.0,
     "sodium": 4.0,
     "iodine": null,
-    "selenium": 0.3
+    "selenium": 0.3,
+    "tryptophan": 0.029,
+    "carbohydrate": 20.13,
+    "sugars": 0.91,
+    "fiber": 1.8,
+    "alcohol": 0.0
    }
   ],
   "BONUS_COW": [
@@ -205,7 +240,12 @@
     "potassium": 267.0,
     "sodium": 59.0,
     "iodine": null,
-    "selenium": 18.1
+    "selenium": 18.1,
+    "tryptophan": 0.201,
+    "carbohydrate": 0.0,
+    "sugars": null,
+    "fiber": 0.0,
+    "alcohol": 0.0
    },
    {
     "form": "liver",
@@ -230,7 +270,12 @@
     "potassium": 313.0,
     "sodium": 69.0,
     "iodine": null,
-    "selenium": 39.7
+    "selenium": 39.7,
+    "tryptophan": 0.263,
+    "carbohydrate": 3.89,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_PIG": [
@@ -257,7 +302,12 @@
     "potassium": 356.0,
     "sodium": 50.0,
     "iodine": null,
-    "selenium": 33.2
+    "selenium": 33.2,
+    "tryptophan": 0.244,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    },
    {
     "form": "liver",
@@ -282,7 +332,12 @@
     "potassium": 273.0,
     "sodium": 87.0,
     "iodine": null,
-    "selenium": 52.7
+    "selenium": 52.7,
+    "tryptophan": 0.301,
+    "carbohydrate": 2.47,
+    "sugars": null,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_SHEEP": [
@@ -309,7 +364,12 @@
     "potassium": 239.0,
     "sodium": 59.0,
     "iodine": null,
-    "selenium": 19.7
+    "selenium": 19.7,
+    "tryptophan": 0.205,
+    "carbohydrate": 0.0,
+    "sugars": null,
+    "fiber": 0.0,
+    "alcohol": null
    }
   ],
   "BONUS_DEER": [
@@ -336,7 +396,12 @@
     "potassium": 318.0,
     "sodium": 51.0,
     "iodine": null,
-    "selenium": 9.7
+    "selenium": 9.7,
+    "tryptophan": null,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_HORSE": [
@@ -363,7 +428,12 @@
     "potassium": 360.0,
     "sodium": 53.0,
     "iodine": null,
-    "selenium": 10.1
+    "selenium": 10.1,
+    "tryptophan": 0.265,
+    "carbohydrate": 0.0,
+    "sugars": null,
+    "fiber": 0.0,
+    "alcohol": null
    }
   ],
   "BONUS_FISH": [
@@ -390,7 +460,12 @@
     "potassium": 413.0,
     "sodium": 54.0,
     "iodine": null,
-    "selenium": 33.1
+    "selenium": 33.1,
+    "tryptophan": 0.199,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    },
    {
     "form": "herring",
@@ -415,7 +490,12 @@
     "potassium": 327.0,
     "sodium": 90.0,
     "iodine": null,
-    "selenium": 36.5
+    "selenium": 36.5,
+    "tryptophan": 0.201,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    },
    {
     "form": "salt cod",
@@ -440,7 +520,12 @@
     "potassium": 1458.0,
     "sodium": 7027.0,
     "iodine": null,
-    "selenium": 147.8
+    "selenium": 147.8,
+    "tryptophan": 0.704,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_CLAM": [
@@ -467,7 +552,12 @@
     "potassium": 46.0,
     "sodium": 601.0,
     "iodine": null,
-    "selenium": 30.6
+    "selenium": 30.6,
+    "tryptophan": 0.205,
+    "carbohydrate": 3.57,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_CRAB": [
@@ -494,7 +584,12 @@
     "potassium": 329.0,
     "sodium": 293.0,
     "iodine": null,
-    "selenium": 37.4
+    "selenium": 37.4,
+    "tryptophan": 0.251,
+    "carbohydrate": 0.04,
+    "sugars": null,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_SHRIMP": [
@@ -521,7 +616,12 @@
     "potassium": 113.0,
     "sodium": 566.0,
     "iodine": null,
-    "selenium": 29.6
+    "selenium": 29.6,
+    "tryptophan": 0.155,
+    "carbohydrate": 0.91,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_WHALE": [
@@ -548,7 +648,12 @@
     "potassium": 283.0,
     "sodium": 78.0,
     "iodine": null,
-    "selenium": 36.5
+    "selenium": 36.5,
+    "tryptophan": null,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_DAIRY": [
@@ -575,7 +680,12 @@
     "potassium": 132.0,
     "sodium": 43.0,
     "iodine": null,
-    "selenium": 3.7
+    "selenium": 3.7,
+    "tryptophan": 0.04,
+    "carbohydrate": 4.78,
+    "sugars": 5.05,
+    "fiber": 0.0,
+    "alcohol": 0.0
    },
    {
     "form": "cheese",
@@ -600,7 +710,12 @@
     "potassium": 76.0,
     "sodium": 653.0,
     "iodine": null,
-    "selenium": 28.5
+    "selenium": 28.5,
+    "tryptophan": 0.547,
+    "carbohydrate": 3.37,
+    "sugars": 0.48,
+    "fiber": 0.0,
+    "alcohol": 0.0
    },
    {
     "form": "butter",
@@ -625,7 +740,12 @@
     "potassium": 24.0,
     "sodium": 643.0,
     "iodine": null,
-    "selenium": 1.0
+    "selenium": 1.0,
+    "tryptophan": 0.012,
+    "carbohydrate": 0.06,
+    "sugars": 0.06,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_BANANA": [
@@ -652,7 +772,12 @@
     "potassium": 358.0,
     "sodium": 1.0,
     "iodine": null,
-    "selenium": 1.0
+    "selenium": 1.0,
+    "tryptophan": 0.009,
+    "carbohydrate": 22.84,
+    "sugars": 12.23,
+    "fiber": 2.6,
+    "alcohol": 0.0
    }
   ],
   "BONUS_LEMON": [
@@ -679,7 +804,12 @@
     "potassium": 138.0,
     "sodium": 2.0,
     "iodine": null,
-    "selenium": 0.4
+    "selenium": 0.4,
+    "tryptophan": null,
+    "carbohydrate": 9.32,
+    "sugars": 2.5,
+    "fiber": 2.8,
+    "alcohol": 0.0
    },
    {
     "form": "juice",
@@ -704,7 +834,12 @@
     "potassium": 103.0,
     "sodium": 1.0,
     "iodine": null,
-    "selenium": 0.1
+    "selenium": 0.1,
+    "tryptophan": null,
+    "carbohydrate": 6.9,
+    "sugars": 2.52,
+    "fiber": 0.3,
+    "alcohol": 0.0
    }
   ],
   "BONUS_APPLE": [
@@ -731,7 +866,12 @@
     "potassium": 107.0,
     "sodium": 1.0,
     "iodine": null,
-    "selenium": 0.0
+    "selenium": 0.0,
+    "tryptophan": 0.001,
+    "carbohydrate": 13.81,
+    "sugars": 10.39,
+    "fiber": 2.4,
+    "alcohol": 0.0
    },
    {
     "form": "dried",
@@ -756,7 +896,12 @@
     "potassium": 450.0,
     "sodium": 87.0,
     "iodine": null,
-    "selenium": 1.3
+    "selenium": 1.3,
+    "tryptophan": 0.009,
+    "carbohydrate": 65.89,
+    "sugars": 57.19,
+    "fiber": 8.7,
+    "alcohol": 0.0
    }
   ],
   "BONUS_OLIVES": [
@@ -783,7 +928,12 @@
     "potassium": 8.0,
     "sodium": 735.0,
     "iodine": null,
-    "selenium": 0.9
+    "selenium": 0.9,
+    "tryptophan": null,
+    "carbohydrate": 6.04,
+    "sugars": 0.0,
+    "fiber": 1.6,
+    "alcohol": 0.0
    },
    {
     "form": "oil",
@@ -808,7 +958,12 @@
     "potassium": 1.0,
     "sodium": 2.0,
     "iodine": null,
-    "selenium": 0.0
+    "selenium": 0.0,
+    "tryptophan": 0.0,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_SUGAR": [
@@ -835,7 +990,12 @@
     "potassium": 133.0,
     "sodium": 28.0,
     "iodine": null,
-    "selenium": 1.2
+    "selenium": 1.2,
+    "tryptophan": null,
+    "carbohydrate": 98.09,
+    "sugars": 97.02,
+    "fiber": 0.0,
+    "alcohol": 0.0
    },
    {
     "form": "molasses",
@@ -860,7 +1020,12 @@
     "potassium": 1464.0,
     "sodium": 37.0,
     "iodine": null,
-    "selenium": 17.8
+    "selenium": 17.8,
+    "tryptophan": null,
+    "carbohydrate": 74.73,
+    "sugars": 74.72,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_WINE": [
@@ -887,7 +1052,12 @@
     "potassium": 191.0,
     "sodium": 2.0,
     "iodine": null,
-    "selenium": 0.1
+    "selenium": 0.1,
+    "tryptophan": 0.011,
+    "carbohydrate": 18.1,
+    "sugars": 15.48,
+    "fiber": 0.9,
+    "alcohol": 0.0
    },
    {
     "form": "raisins",
@@ -912,7 +1082,12 @@
     "potassium": 744.0,
     "sodium": 26.0,
     "iodine": null,
-    "selenium": 0.6
+    "selenium": 0.6,
+    "tryptophan": null,
+    "carbohydrate": 79.32,
+    "sugars": 65.18,
+    "fiber": 4.5,
+    "alcohol": 0.0
    },
    {
     "form": "wine",
@@ -937,7 +1112,12 @@
     "potassium": 127.0,
     "sodium": 4.0,
     "iodine": null,
-    "selenium": 0.2
+    "selenium": 0.2,
+    "tryptophan": null,
+    "carbohydrate": 2.61,
+    "sugars": 0.62,
+    "fiber": 0.0,
+    "alcohol": 10.6
    }
   ],
   "BONUS_ALCOHOL": [
@@ -964,7 +1144,12 @@
     "potassium": 27.0,
     "sodium": 4.0,
     "iodine": null,
-    "selenium": 0.6
+    "selenium": 0.6,
+    "tryptophan": 0.0,
+    "carbohydrate": 3.55,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 3.9
    }
   ],
   "BONUS_TEA": [
@@ -991,7 +1176,12 @@
     "potassium": 37.0,
     "sodium": 3.0,
     "iodine": null,
-    "selenium": 0.0
+    "selenium": 0.0,
+    "tryptophan": 0.0,
+    "carbohydrate": 0.3,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    },
    {
     "form": "green, brewed",
@@ -1016,7 +1206,12 @@
     "potassium": 8.0,
     "sodium": 1.0,
     "iodine": null,
-    "selenium": 0.0
+    "selenium": 0.0,
+    "tryptophan": null,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_SALT": [
@@ -1043,7 +1238,12 @@
     "potassium": 8.0,
     "sodium": 38758.0,
     "iodine": null,
-    "selenium": 0.1
+    "selenium": 0.1,
+    "tryptophan": 0.0,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "REF_EGG": [
@@ -1070,7 +1270,12 @@
     "potassium": 138.0,
     "sodium": 142.0,
     "iodine": null,
-    "selenium": 30.7
+    "selenium": 30.7,
+    "tryptophan": 0.167,
+    "carbohydrate": 0.72,
+    "sugars": 0.37,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "REF_KELP": [
@@ -1097,7 +1302,12 @@
     "potassium": 89.0,
     "sodium": 233.0,
     "iodine": null,
-    "selenium": 0.7
+    "selenium": 0.7,
+    "tryptophan": 0.048,
+    "carbohydrate": 9.57,
+    "sugars": 0.6,
+    "fiber": 1.3,
+    "alcohol": 0.0
    }
   ],
   "REF_LENTILS": [
@@ -1124,7 +1334,12 @@
     "potassium": 677.0,
     "sodium": 6.0,
     "iodine": null,
-    "selenium": 0.1
+    "selenium": 0.1,
+    "tryptophan": 0.221,
+    "carbohydrate": 63.35,
+    "sugars": 2.03,
+    "fiber": 10.7,
+    "alcohol": 0.0
    }
   ],
   "REF_CABBAGE": [
@@ -1151,7 +1366,12 @@
     "potassium": 170.0,
     "sodium": 18.0,
     "iodine": null,
-    "selenium": 0.3
+    "selenium": 0.3,
+    "tryptophan": 0.011,
+    "carbohydrate": 5.8,
+    "sugars": 3.2,
+    "fiber": 2.5,
+    "alcohol": 0.0
    }
   ],
   "REF_BARLEY": [
@@ -1178,7 +1398,12 @@
     "potassium": 452.0,
     "sodium": 12.0,
     "iodine": null,
-    "selenium": 37.7
+    "selenium": 37.7,
+    "tryptophan": 0.208,
+    "carbohydrate": 73.48,
+    "sugars": 0.8,
+    "fiber": 17.3,
+    "alcohol": 0.0
    }
   ],
   "REF_RYE": [
@@ -1205,7 +1430,12 @@
     "potassium": 510.0,
     "sodium": 2.0,
     "iodine": null,
-    "selenium": 13.9
+    "selenium": 13.9,
+    "tryptophan": 0.108,
+    "carbohydrate": 75.86,
+    "sugars": 0.98,
+    "fiber": 15.1,
+    "alcohol": 0.0
    }
   ],
   "REF_ONION": [
@@ -1232,7 +1462,12 @@
     "potassium": 146.0,
     "sodium": 4.0,
     "iodine": null,
-    "selenium": 0.5
+    "selenium": 0.5,
+    "tryptophan": 0.014,
+    "carbohydrate": 9.34,
+    "sugars": 4.24,
+    "fiber": 1.7,
+    "alcohol": 0.0
    }
   ],
   "REF_WATERMELON": [
@@ -1259,7 +1494,12 @@
     "potassium": 112.0,
     "sodium": 1.0,
     "iodine": null,
-    "selenium": 0.4
+    "selenium": 0.4,
+    "tryptophan": 0.007,
+    "carbohydrate": 7.55,
+    "sugars": 6.2,
+    "fiber": 0.4,
+    "alcohol": 0.0
    }
   ],
   "REF_PASTA": [
@@ -1286,7 +1526,12 @@
     "potassium": 44.0,
     "sodium": 1.0,
     "iodine": null,
-    "selenium": 26.4
+    "selenium": 26.4,
+    "tryptophan": 0.081,
+    "carbohydrate": 30.86,
+    "sugars": 0.56,
+    "fiber": 1.8,
+    "alcohol": 0.0
    }
   ],
   "REF_GROUND_BEEF": [
@@ -1313,7 +1558,12 @@
     "potassium": 270.0,
     "sodium": 66.0,
     "iodine": null,
-    "selenium": 15.0
+    "selenium": 15.0,
+    "tryptophan": 0.087,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "REF_ORANGE": [
@@ -1340,7 +1590,12 @@
     "potassium": 181.0,
     "sodium": 0.0,
     "iodine": null,
-    "selenium": 0.5
+    "selenium": 0.5,
+    "tryptophan": 0.009,
+    "carbohydrate": 11.75,
+    "sugars": 9.35,
+    "fiber": 2.4,
+    "alcohol": 0.0
    }
   ],
   "REF_SUGAR": [
@@ -1367,7 +1622,12 @@
     "potassium": 2.0,
     "sodium": 1.0,
     "iodine": null,
-    "selenium": 0.6
+    "selenium": 0.6,
+    "tryptophan": null,
+    "carbohydrate": 99.98,
+    "sugars": 99.8,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ]
  },

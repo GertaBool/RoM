@@ -23,6 +23,10 @@ NUTRIENTS = {  # USDA nutrient id: (key, unit)
     '1190': ('folate_dfe', 'ug'), '1178': ('b12', 'ug'),
     '1089': ('iron', 'mg'), '1095': ('zinc', 'mg'), '1087': ('calcium', 'mg'), '1090': ('magnesium', 'mg'),
     '1092': ('potassium', 'mg'), '1093': ('sodium', 'mg'), '1100': ('iodine', 'ug'), '1103': ('selenium', 'ug'),
+    # R64 (M112): tryptophan for niacin equivalents (NE = niacin + tryptophan mg / 60); carbohydrate, sugars, fibre and
+    # alcohol for the hyper-palatability criteria, Holt's fullness drivers and the alcohol harm term
+    '1210': ('tryptophan', 'g'), '1005': ('carbohydrate', 'g'), '2000': ('sugars', 'g'), '1079': ('fiber', 'g'),
+    '1018': ('alcohol', 'g'),
 }
 
 # game good -> list of (form, fdc id); the first form is the good as eaten by default
