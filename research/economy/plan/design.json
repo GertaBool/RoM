@@ -498,7 +498,8 @@
    "m93": "M93 (round_m93.md): fullness as Holt measured it kept; fed = fullness / (1.36 x need) (being fed), energy x for strength and work, nutrients for health; eating order by value per fullness unit = (energy + nutrient density + well-being) / satiety; fat per good 250 g. Proposed: famine and fertility read fed, weakness and work read energy. Open: nutrient weight against energy (meat ranks low).",
    "m94": "M94 (round_m94.md): nutrient score corrected to density against requirement density (per kcal against need / 2,600 kcal, capped at 1, averaged; beef 0.71, fish 0.92, milk 0.79); Cow and Pig as the whole animal with 3 % liver (estimate); preference = protein satisfaction + nutrition + well-being; Holt fullness only stops eating; the M93 division by fullness withdrawn.",
    "m95": "M95: food_model_spec.md (version 1) is the authority for the food model: notation, equations E1-E26, parameters with source or estimate, and a change log of every variable added, removed or changed since M85. Changes go through it first.",
-   "m96": "M96 (round_m96.md; food_model_spec.md version 2): nutrition (satisfaction + nutrient density) and well-being are two separate keys and two sorted lists; pass 1 on the nutrition list until fed, pass 2 on the well-being list up to the fullness capacity; the summed preference removed."
+   "m96": "M96 (round_m96.md; food_model_spec.md version 2): nutrition (satisfaction + nutrient density) and well-being are two separate keys and two sorted lists; pass 1 on the nutrition list until fed, pass 2 on the well-being list up to the fullness capacity; the summed preference removed.",
+   "m98": "M98: food_model_spec.md version 3 restates version 2 in standard notation (sets, parameters with domain, unit and source, variables, equations (1)-(30), Algorithm 1, properties P1-P3); food_model_worked_example.md redone in the same notation. No model change."
   },
   {
    "id": "D28",

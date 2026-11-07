@@ -2199,24 +2199,27 @@
   {
    "id": "R51",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M98",
    "text": "Incoherent presentation. \n\nApply abstract thinking for this problem. \n\nResearch how to actually present mathematical models in their proper notation, how to present a full legend of variables, and show your work again.",
    "items": [
     {
      "id": "R51.1",
      "what": "Research how mathematical models are presented in proper notation, with a full legend of variables",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md version 3 (sections 0-9); food_model_worked_example.md"
     },
     {
      "id": "R51.2",
      "what": "Restate the food model abstractly in that notation (no model change)",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md version 3 (sections 0-9); food_model_worked_example.md"
     },
     {
      "id": "R51.3",
      "what": "Show the work again in the same notation",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md version 3 (sections 0-9); food_model_worked_example.md"
     }
    ]
   }
