@@ -26,15 +26,18 @@ def size_of(n):
 
 
 # health of the buildings proposed as sanitation (iHealth, economy branch CIV4BuildingInfos.xml) and fresh water (BTS: 2)
-SAN = {'fresh water': 2, 'Town Essentials': 3, 'City Essentials': 6, 'Metropolitan Essentials': 12, 'Aqueduct': 5,
-       'Bath House': 3, 'Water Treatment Plant': 2, 'Recycling Center': 3}
+# M88: of the Essentials tiers only Metropolitan Essentials (municipal services) is sanitation; water works count
+SAN = {'fresh water': 2, 'Metropolitan Essentials': 12, 'Aqueduct': 5, 'Bath House': 3, 'Water Treatment Plant': 2,
+       'Recycling Center': 3}
 
 CASES = [  # name, people, share working plots, sanitation present, other good faces, other bad faces
     ('farming district, no works', 1000000, 0.80, [], 4, 1),
-    ('farming district, fresh water, Town Essentials', 1000000, 0.80, ['fresh water', 'Town Essentials'], 4, 1),
+    ('farming district, fresh water', 1000000, 0.80, ['fresh water'], 4, 1),
+    ('farming district, fresh water, Aqueduct', 1000000, 0.80, ['fresh water', 'Aqueduct'], 4, 1),
     ('trade city, no works', 1000000, 0.20, [], 4, 1),
     ('trade city, fresh water, Aqueduct', 1000000, 0.20, ['fresh water', 'Aqueduct'], 4, 1),
-    ('trade city, + City Essentials, Bath House', 1000000, 0.20, ['fresh water', 'Aqueduct', 'City Essentials', 'Bath House'], 4, 1),
+    ('trade city, + Bath House', 1000000, 0.20, ['fresh water', 'Aqueduct', 'Bath House'], 4, 1),
+    ('trade city, + Bath House, Water Treatment Plant', 1000000, 0.20, ['fresh water', 'Aqueduct', 'Bath House', 'Water Treatment Plant'], 4, 1),
     ('ancient town, 50,000, fresh water', 50000, 0.20, ['fresh water'], 2, 0),
     ('city of 500,000, no works', 500000, 0.10, [], 3, 1),
     ('metropolis of 10 million, no works', 10000000, 0.10, [], 3, 1),
