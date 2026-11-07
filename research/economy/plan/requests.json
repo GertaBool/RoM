@@ -826,6 +826,13 @@
    "kind": "input",
    "text": "Unironically I think clams are such an extremely nutritious food, I would argue that excesses in nutrition, if they approach the optimum for athletes and very active manual laborers, should give strong benefits. Iodine for example is shown to raise IQ beyond the sufficiency threshold. I do believe though that eating only fish, brown rice or pork is probably pretty bad, partly because of heavy metals, partly because iodine does reach plausible toxicity doses (not yet LD50 though) and because pork has parasites",
    "led_to": "R70: record the input; sources for benefits above sufficiency (iodine and IQ), heavy metals in fish, shellfish and rice, iodine toxicity, pork parasites; a proposal for benefits up to athletes' levels and harms of one-sided diets"
+  },
+  {
+   "id": "M119",
+   "date": "2026-11-07",
+   "kind": "instruction",
+   "text": "\"Not yet applied (specification section 9 gives the reasons):\nSatiety as the gauge of being fed: a satiety index exists for only 11 of the goods.\nThe dessert step: nothing is eaten beyond the energy need.\nThe rich city's dairy and bread: this needs conversion yields from a source.\nFood effects in the game: this is a design decision for you.\nWhale blubber and pig organs: no source read gives their shares.\nLemons: you haven't given a ceiling value yet.\"\n\nGive me all the figures you need, all the entries that require nuance, and I'll just hand you a CSV file",
+   "led_to": "R71: a CSV template of every figure and nuanced entry the food model needs from the user, with current values and sources, for the user to fill"
   }
  ],
  "requests": [
@@ -2898,6 +2905,20 @@
      "what": "Propose how the model counts benefits above the optimum up to athletes' levels and the harms of one-sided diets, from what the record supports",
      "status": "open",
      "note": "Proposal in food_model.md section 10; waits on the user."
+    }
+   ]
+  },
+  {
+   "id": "R71",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M119",
+   "text": "\"Not yet applied (specification section 9 gives the reasons):\nSatiety as the gauge of being fed: a satiety index exists for only 11 of the goods.\nThe dessert step: nothing is eaten beyond the energy need.\nThe rich city's dairy and bread: this needs conversion yields from a source.\nFood effects in the game: this is a design decision for you.\nWhale blubber and pig organs: no source read gives their shares.\nLemons: you haven't given a ceiling value yet.\"\n\nGive me all the figures you need, all the entries that require nuance, and I'll just hand you a CSV file",
+   "items": [
+    {
+     "id": "R71.1",
+     "what": "Write the CSV template (generated from the data files): every missing figure and every entry needing nuance, with unit, purpose, current value and source, and empty columns for the user's value and source",
+     "status": "open"
     }
    ]
   }
