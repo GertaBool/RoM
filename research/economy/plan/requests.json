@@ -2624,7 +2624,8 @@
     {
      "id": "R64.1",
      "what": "Rewrite the needs data (nutrient_needs.json) from nutrition_record.md 2i: four levels per nutrient, standard units, scaling with energy, weight and labour, each value with its source",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/data/nutrient_needs.json v2 (nutrient_needs_build.py), satiety_index.json"
     },
     {
      "id": "R64.2",

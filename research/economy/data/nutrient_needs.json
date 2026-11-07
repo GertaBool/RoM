@@ -1,20 +1,748 @@
 {
- "about": "Daily needs of an adult man for the deficiency model (R37.12, M83). Each value names its source. AR = average requirement (half the people need less); AI = adequate intake, set where no AR exists. Thiamin and niacin are per megajoule in EFSA and are converted here at 2,600 kcal (10.88 MJ).",
- "reference": {"body_weight_kg": 68.1, "energy_kcal": 2600, "body_weight_source": "EFSA DRVs summary report 2017, Table 17 (adult men)"},
- "needs": {
-  "protein":    {"value": 45,   "unit": "g",       "kind": "AR", "source": "EFSA 2017: 0.66 g high-quality protein per kg body weight a day x 68.1 kg"},
-  "vit_c":      {"value": 90,   "unit": "mg",      "kind": "AR", "floor": 10, "source": "EFSA 2017 Table 8 (AR set for body saturation, not scurvy); floor: 10 mg a day prevents scurvy (Wikipedia, Scurvy)"},
-  "vit_a_rae":  {"value": 570,  "unit": "ug",      "kind": "AR", "source": "EFSA 2017 Table 8 (ug RE; 1 ug RE = 1 ug retinol = 6 ug beta-carotene). USDA RAE counts beta-carotene at 12:1, so plant foods are slightly undercounted against EFSA"},
-  "thiamin":    {"value": 0.78, "unit": "mg",      "kind": "AR", "source": "EFSA 2017 Table 8: 0.072 mg per MJ x 10.88 MJ"},
-  "niacin":     {"value": 14.1, "unit": "mg",      "kind": "AR", "source": "EFSA 2017 Table 8: 1.3 mg niacin equivalents per MJ x 10.88 MJ. USDA niacin is preformed niacin only (tryptophan not counted), so protein-rich foods are undercounted"},
-  "folate_dfe": {"value": 250,  "unit": "ug",      "kind": "AR", "source": "EFSA 2017 Table 8"},
-  "b12":        {"value": 4,    "unit": "ug",      "kind": "AI", "source": "EFSA 2017 Table 9 (cobalamin AI; no AR set)"},
-  "iron":       {"value": 6,    "unit": "mg",      "kind": "AR", "absorption_assumed": 0.16, "source": "EFSA 2017 Table 4, set with 16 % absorption. FAO/WHO 2004 (ch. 13): about 15 % in a good Western diet, 18 % with very high meat intake, 12 % or 10 % with less meat and fish, low in vegetarian diets; high absorption goes with meat, vitamin C with meals, little phytate-rich cereal, and no coffee or tea within two hours of meals"},
-  "zinc":       {"value": 9.3,  "unit": "mg",      "kind": "AR", "by_phytate_mg": {"300": 7.5, "600": 9.3, "900": 11.0, "1200": 12.7}, "source": "EFSA 2017 Table 4: AR by daily phytate intake"},
-  "calcium":    {"value": 750,  "unit": "mg",      "kind": "AR", "source": "EFSA 2017 Table 4 (men 25 and older)"},
-  "iodine":     {"value": 150,  "unit": "ug",      "kind": "AI", "source": "EFSA 2017 Table 5"},
-  "potassium":  {"value": 3500, "unit": "mg",      "kind": "AI", "source": "EFSA 2017 Table 5"},
-  "sodium":     {"value": 600,  "unit": "mg",      "kind": "AR", "source": "Dietary Reference Intakes for Japanese (2025), minerals chapter 3-1-2: unavoidable losses under 500 mg a day, about 600 mg (1.5 g salt) with 10 % variation, for sedentary adults without sweating; WHO guidance puts the minimum at 200-500 mg a day; heavy sweating in heat or labour loses a corresponding amount of sodium"},
-  "magnesium":  {"value": 350,  "unit": "mg",      "kind": "AI", "source": "EFSA 2017 Table 5"}
+ "about": "Needs of the food consumption model (R64, M112), version 2. Every value is copied from research/economy/nutrition_record.md (section 2i: four levels; 2j: recommended intake, athletes, upper limit, toxic and lethal doses; 2a-2f: energy, water, absorption, gut limits). Levels: minimum = lowest intake keeping deficiency signs absent or balance kept; mean = what a population eats (not a target); optimum = intake where a marker levels off; ceiling = lowest intake with observed harm in people, in daily intake units. A value is a number or [low, high]. Basis says how a level scales: per_day; per_kg (body weight); per_1000_kcal (energy turnover); per_g_protein (protein eaten); absorbed (amount taken up, before dividing by absorption).",
+ "version": 2,
+ "record": "research/economy/nutrition_record.md",
+ "model_target_rule": "The adequacy target of a nutrient is its optimum; where the record finds no plateau (potassium, magnesium) it is the recommended intake of section 2j. The deficiency threshold is the minimum. The ceiling is the observed-harm level; where the observed harm is not in daily intake units (iodine) the upper limit of section 2j is used, named as such.",
+ "energy": {
+  "ree_kcal": {
+   "value": {
+    "per_kg": 15.1,
+    "constant": 371
+   },
+   "source": "Mifflin et al. 1990, PMID 2305711: weight-only equation REE = 15.1 W + 371 (R2 0.56); the full equation with height, age and sex is 9.99 W + 6.25 H - 4.92 A + 166 S - 161"
+  },
+  "pal_limits": {
+   "value": {
+    "lowest": 1.2,
+    "general_population_upper": [
+     2.2,
+     2.5
+    ],
+    "alimentary_ceiling": 2.5,
+    "elite_limit": 4.5
+   },
+   "source": "Black 1996 (1.2-4.5); Westerterp 2001 (2.2-2.5); Thurber 2019 (food intake limits supply at about 2.5 x basal rate; beyond it body stores are drawn down)"
+  },
+  "pal_examples": {
+   "value": {
+    "rwandan_farmers": 2.41
+   },
+   "source": "Harris et al. 2025, PMID 40970487"
+  },
+  "caffeine": {
+   "value": {
+    "dose_mg": 600,
+    "extra_kcal": 150
+   },
+   "source": "Dulloo et al. 1989, PMID 2912010: 100 mg every 2 h over 12 h, +150 kcal a day in lean adults"
+  }
+ },
+ "water": {
+  "turnover_ml": {
+   "value": {
+    "pal": 1076,
+    "body_weight_kg": 14.34,
+    "sex_male": 374.9,
+    "humidity_pct": 5.823,
+    "athlete": 1070,
+    "hdi_group": 104.6,
+    "altitude_m": 0.4726,
+    "age_sq": -0.3529,
+    "age": 24.78,
+    "temp_sq": 1.865,
+    "temp_c": -19.66,
+    "constant": -713.1
+   },
+   "source": "Yamada et al. 2022, PMID 36423296, PMC9764345: WT (ml/d) = sum of coefficient x variable; sex 1 male 0 female; HDI group 0 high, 1 middle, 2 low; explains 47.1 % of the variation"
+  },
+  "metabolic_water_ml": {
+   "value": 500,
+   "source": "Tipton, Exp Physiol 2025 (review): about 0.5 L a day at rest"
+  },
+  "minimum_drink_l": {
+   "value": 1.0,
+   "source": "Tipton 2025: about 1 L to drink at rest in mild conditions; urine at least about 0.5 L"
+  },
+  "renal_ceiling_l_per_h": {
+   "value": [
+    0.8,
+    0.9
+   ],
+   "source": "Noakes et al. 2001, PMID 11732457: peak urine 778 ml/h; excretion above about 900 ml/h not possible"
+  },
+  "hydration_index": {
+   "value": {
+    "water": 1.0,
+    "milk_full_fat": 1.5,
+    "milk_skimmed": 1.58,
+    "tea": 1.0,
+    "coffee": 1.0,
+    "lager": 1.0,
+    "orange_juice": 1.0
+   },
+   "source": "Maughan et al. 2016, PMID 26702122: water retained 2 h after 1 L relative to still water; tea, coffee, lager, juice not different from water (1.0)"
+  }
+ },
+ "nutrients": {
+  "protein": {
+   "unit": "g",
+   "basis": "per_kg",
+   "minimum": {
+    "value": 0.65,
+    "source": "Rand et al. 2003, PMID 12499330 (nitrogen balance, average)"
+   },
+   "mean": {
+    "value": 1.2,
+    "source": "PMID 42549120 (adults aged about 64)"
+   },
+   "optimum": {
+    "value": 1.62,
+    "source": "Morton et al. 2018, BJSM (no further fat-free mass gain above it; 95 % CI 1.03-2.20)"
+   },
+   "ceiling": {
+    "value": 2.5,
+    "source": "Bilsborough and Mann 2006, PMID 16779921: 2-2.5 g/kg suggested maximum, about 25 % of energy",
+    "energy_share_harm": 0.35
+   },
+   "recommended": {
+    "value": 0.8,
+    "source": "RDA (2j)"
+   },
+   "athletes": {
+    "value": [
+     1.4,
+     2.0
+    ],
+    "source": "ISSN 2017, PMC5477153"
+   }
+  },
+  "sodium": {
+   "unit": "mg",
+   "basis": "per_day",
+   "minimum": {
+    "value": 21,
+    "source": "Mancilha-Carvalho 1989, PMID 2810327 (healthy Yanomamo excrete 0.9 mmol a day)"
+   },
+   "mean": {
+    "value": 3950,
+    "source": "Powles et al. 2013, PMID 24366578 (global mean 2010)"
+   },
+   "optimum": {
+    "value": [
+     4000,
+     5990
+    ],
+    "source": "O'Donnell et al. 2014, PMID 25119607 (reference range; observational, urinary excretion)"
+   },
+   "ceiling": {
+    "value": 7000,
+    "source": "O'Donnell 2014 (risk raised at >= 7,000; >= 6,000 with hypertension)"
+   },
+   "sweat_per_hot_shift": {
+    "value": [
+     4800,
+     6000
+    ],
+    "source": "Bates and Miller 2008, PMID 18226265 (10-15 g salt per work shift in heat)"
+   },
+   "recommended": {
+    "value": 1500,
+    "source": "AI, National Academies 2019 (2j); reduce above 2,300"
+   }
+  },
+  "potassium": {
+   "unit": "mg",
+   "basis": "per_day",
+   "minimum": {
+    "value": [
+     980,
+     1170
+    ],
+    "source": "Squires and Huth 1959, PMID 13664789 (25-30 mmol: urine fell to equal intake; below 14 mmol loss exceeded intake)"
+   },
+   "mean": {
+    "value": 2490,
+    "source": "Fulgoni et al. 2011, PMC3174857 (US median, naturally occurring)"
+   },
+   "optimum": {
+    "value": null,
+    "source": "no plateau: risk fell as excretion rose above 1,500 (O'Donnell 2014); target by rule = recommended"
+   },
+   "ceiling": {
+    "value": null,
+    "source": "none with healthy kidneys (National Academies 2019, 2j); supplements above about 3,100 extra raised blood pressure (Filippini 2020)"
+   },
+   "recommended": {
+    "value": {
+     "male": 3400,
+     "female": 2600
+    },
+    "source": "AI, National Academies 2019 (2j)"
+   }
+  },
+  "calcium": {
+   "unit": "mg",
+   "basis": "per_day",
+   "minimum": {
+    "value": 741,
+    "source": "Hunt and Johnson 2007, PMID 17921384 (neutral balance)",
+    "per_kcal": 0.28
+   },
+   "mean": {
+    "value": 828,
+    "source": "Fulgoni 2011"
+   },
+   "optimum": {
+    "value": 800,
+    "source": "dose-response meta-analysis, PMC4199062 (cardiovascular mortality lowest near 800; all-cause no further fall above 900)"
+   },
+   "ceiling": {
+    "value": 4000,
+    "source": "milk-alkali syndrome classically above 4 g a day (PMC3875933)"
+   },
+   "recommended": {
+    "value": 1000,
+    "source": "RDA (2j)"
+   }
+  },
+  "magnesium": {
+   "unit": "mg",
+   "basis": "per_day",
+   "minimum": {
+    "value": 165,
+    "source": "Hunt and Johnson 2006, PMID 17023712 (neutral balance)",
+    "per_kcal": 0.075
+   },
+   "mean": {
+    "value": 254,
+    "source": "Fulgoni 2011"
+   },
+   "optimum": {
+    "value": null,
+    "source": "no plateau: all-cause mortality -6 % per +100 mg (PMC8321838); target by rule = recommended"
+   },
+   "ceiling": {
+    "value": null,
+    "source": "none for food; 350 mg applies to supplements only (PMID 37487817)"
+   },
+   "recommended": {
+    "value": {
+     "male": 410,
+     "female": 315
+    },
+    "source": "RDA 400-420 men, 310-320 women (2j); midpoints"
+   }
+  },
+  "iron": {
+   "unit": "mg",
+   "basis": "absorbed",
+   "minimum": {
+    "value": {
+     "male": 1.18,
+     "female": 1.58
+    },
+    "source": "Hunt et al. 2009, PMID 19386738 (median losses; 2.84 for 95 % of menstruating women, Hallberg 1991)"
+   },
+   "mean": {
+    "value": 9.4,
+    "source": "Fulgoni 2011 (eaten)"
+   },
+   "optimum": {
+    "value": {
+     "male": 8,
+     "female": 18.9
+    },
+    "source": "dietary iron covering the absorbed need at 15 % absorption (Hallberg 1991, PMID 1957820)"
+   },
+   "ceiling": {
+    "value": 80,
+    "source": "PMID 39582678: 80 mg supplemental iron raised constipation"
+   },
+   "recommended": {
+    "value": {
+     "male": 8,
+     "female": 18
+    },
+    "source": "RDA (2j)"
+   }
+  },
+  "zinc": {
+   "unit": "mg",
+   "basis": "absorbed",
+   "minimum": {
+    "value": {
+     "male": 3.9,
+     "female": 3.2
+    },
+    "source": "Hambidge, Miller and Krebs 2011, Int J Vitam Nutr Res 81:1"
+   },
+   "mean": {
+    "value": 10.3,
+    "source": "Fulgoni 2011 (eaten)"
+   },
+   "optimum": {
+    "value": {
+     "male": 9.4,
+     "female": 6.8
+    },
+    "source": "dietary average requirement cited by Hambidge 2011"
+   },
+   "ceiling": {
+    "value": 60,
+    "source": "60 mg a day for 10 weeks lowered copper status (PMID 38999082)"
+   },
+   "recommended": {
+    "value": {
+     "male": 11,
+     "female": 8
+    },
+    "source": "RDA (2j)"
+   }
+  },
+  "iodine": {
+   "unit": "ug",
+   "basis": "per_day",
+   "minimum": {
+    "value": [
+     51,
+     58
+    ],
+    "source": "obligatory loss in three balance studies (Biomed Environ Sci 2025)"
+   },
+   "mean": {
+    "value": {
+     "male": [
+      240,
+      300
+     ],
+     "female": [
+      190,
+      210
+     ]
+    },
+    "source": "US food iodine (older estimate, CDC nutrition report)"
+   },
+   "optimum": {
+    "value": [
+     150,
+     250
+    ],
+    "source": "Zimmermann 2009, PMID 19460960"
+   },
+   "ceiling": {
+    "value": 1100,
+    "source": "upper limit (US) used by rule: the observed harm (urinary iodine >= 300 ug/L, PMID 40274899) is a concentration"
+   },
+   "recommended": {
+    "value": 150,
+    "source": "RDA (2j)"
+   }
+  },
+  "selenium": {
+   "unit": "ug",
+   "basis": "per_day",
+   "minimum": {
+    "value": 17,
+    "source": "Yang and Xia 1995, PMID 8561918 (prevents Keshan disease)"
+   },
+   "mean": {
+    "value": 101,
+    "source": "Fulgoni 2011"
+   },
+   "optimum": {
+    "value": 49,
+    "source": "Xia et al. 2010, PMID 20573787 (selenoprotein P optimised; 40 keeps glutathione peroxidase at plateau)"
+   },
+   "ceiling": {
+    "value": 1600,
+    "source": "Yang and Xia 1995 (kept selenosis fingernail changes; recovery at 819)"
+   },
+   "recommended": {
+    "value": 55,
+    "source": "RDA (2j)"
+   }
+  },
+  "vit_a_rae": {
+   "unit": "ug",
+   "basis": "per_day",
+   "minimum": {
+    "value": [
+     150,
+     200
+    ],
+    "source": "Japanese DRI 2025 estimate (institutional): offsets daily elimination"
+   },
+   "mean": {
+    "value": 380,
+    "source": "Fulgoni 2011"
+   },
+   "optimum": {
+    "value": [
+     362,
+     571
+    ],
+    "source": "Haskell et al. 2011, PMID 21248191 (keeps the body pool, 70 kg man)"
+   },
+   "ceiling": {
+    "value": 2000,
+    "source": "Myhre et al. 2003, PMID 14668278: chronic toxicity at 2 mg retinol per kg a day in oil (water-miscible forms 0.2 mg/kg)",
+    "basis_ceiling": "per_kg"
+   },
+   "recommended": {
+    "value": {
+     "male": 900,
+     "female": 700
+    },
+    "source": "RDA (2j)"
+   }
+  },
+  "thiamin": {
+   "unit": "mg",
+   "basis": "per_1000_kcal",
+   "minimum": {
+    "value": 0.3,
+    "source": "Sauberlich et al. 1979, PMID 495541"
+   },
+   "mean": {
+    "value": 0.9,
+    "source": "Fulgoni 2011 (mg a day)",
+    "basis_mean": "per_day"
+   },
+   "optimum": {
+    "value": 0.4,
+    "source": "EFSA 2016 reference for adequate status (erythrocyte transketolase activation coefficient < 1.15); institutional"
+   },
+   "ceiling": {
+    "value": null,
+    "source": "none by mouth (LiverTox); 100-500 mg a day without side effects"
+   },
+   "recommended": {
+    "value": {
+     "male": 1.2,
+     "female": 1.1
+    },
+    "source": "RDA (2j), mg a day"
+   }
+  },
+  "riboflavin": {
+   "unit": "mg",
+   "basis": "per_day",
+   "minimum": {
+    "value": 0.5,
+    "source": "Public Health Reports 1941: 6 of 10 women on about 0.5 a day developed ariboflavinosis (the minimum lies above 0.5)",
+    "exclusive": true
+   },
+   "mean": {
+    "value": 1.6,
+    "source": "Fulgoni 2011"
+   },
+   "optimum": {
+    "value": 1.4,
+    "source": "Guo et al. 2016, PMID 27188899 (plasma and urinary break point)"
+   },
+   "ceiling": {
+    "value": null,
+    "source": "none reported; absorption tops out at about 27 mg per dose (EU SCF)"
+   },
+   "recommended": {
+    "value": {
+     "male": 1.3,
+     "female": 1.1
+    },
+    "source": "RDA (2j)"
+   }
+  },
+  "niacin_ne": {
+   "unit": "mg NE",
+   "basis": "per_day",
+   "computed": "niacin + tryptophan (mg) / 60",
+   "minimum": {
+    "value": 4.4,
+    "source": "Elgin State Hospital studies (Horwitt): 8.8 NE for the first 2,000 kcal is the pellagra base line",
+    "basis_minimum": "per_1000_kcal"
+   },
+   "mean": {
+    "value": 16.3,
+    "source": "Fulgoni 2011 (preformed niacin only)"
+   },
+   "optimum": {
+    "value": 19,
+    "source": "Jacob et al. 1989, PMID 2522982 (19 NE a day gave normal metabolites)"
+   },
+   "ceiling": {
+    "value": null,
+    "source": "none for food niacin; flushing from 30-50 mg nicotinic acid applies to supplements"
+   },
+   "recommended": {
+    "value": {
+     "male": 16,
+     "female": 14
+    },
+    "source": "RDA (2j)"
+   },
+   "tryptophan_factor": {
+    "value": {
+     "conventional": 60,
+     "measured": 67
+    },
+    "source": "Fukuwatari et al. 2004, PMID 15895512"
+   }
+  },
+  "vit_b6": {
+   "unit": "mg",
+   "basis": "per_g_protein",
+   "minimum": {
+    "value": 0.6,
+    "source": "US depletion studies (abstracts via Scilit): 0.6-0.9 mg a day reversed the changes of 0.16 mg a day",
+    "basis_minimum": "per_day"
+   },
+   "mean": {
+    "value": 1.5,
+    "source": "Fulgoni 2011 (mg a day)",
+    "basis_mean": "per_day"
+   },
+   "optimum": {
+    "value": 0.015,
+    "source": "Kretsch et al. 1995, PMID 7733034 (normalised most markers; 0.020 all but one)"
+   },
+   "ceiling": {
+    "value": 117,
+    "source": "Dalton and Dalton 1987, PMID 3630649 (neuropathy at a mean of 117 mg a day)",
+    "basis_ceiling": "per_day"
+   },
+   "recommended": {
+    "value": 1.3,
+    "source": "RDA to age 50 (2j)"
+   }
+  },
+  "folate_dfe": {
+   "unit": "ug",
+   "basis": "per_day",
+   "minimum": {
+    "value": 300,
+    "source": "O'Keefe et al. 1995, PMID 7562109: serum folate fell at 200 and 300 (the minimum lies above 300)",
+    "exclusive": true
+   },
+   "mean": {
+    "value": 189,
+    "source": "Fulgoni 2011"
+   },
+   "optimum": {
+    "value": 400,
+    "source": "O'Keefe 1995 (serum folate rose)"
+   },
+   "ceiling": {
+    "value": null,
+    "source": "none for food folate; above 1,000 ug synthetic folic acid can mask B12 deficiency"
+   },
+   "recommended": {
+    "value": 400,
+    "source": "RDA (2j)"
+   }
+  },
+  "b12": {
+   "unit": "ug",
+   "basis": "per_day",
+   "minimum": {
+    "value": 1,
+    "source": "Darby; West and Reisner (1965 NEJM review); Carmel 2008, Blood (daily loss about 1 ug)"
+   },
+   "mean": {
+    "value": 4.0,
+    "source": "Fulgoni 2011"
+   },
+   "optimum": {
+    "value": [
+     4.2,
+     7.0
+    ],
+    "source": "Bor et al. 2010, PMID 20071646 (all markers level off)"
+   },
+   "ceiling": {
+    "value": null,
+    "source": "none: oral high-dose trials up to 7 years without side effects (PMC8377299)"
+   },
+   "recommended": {
+    "value": 2.4,
+    "source": "RDA (2j)"
+   }
+  },
+  "vit_c": {
+   "unit": "mg",
+   "basis": "per_day",
+   "minimum": {
+    "value": 10,
+    "source": "Hodges et al. 1971, PMID 5090631 (just under 10 prevents or cures scurvy)"
+   },
+   "mean": {
+    "value": 63,
+    "source": "Fulgoni 2011"
+   },
+   "optimum": {
+    "value": 100,
+    "source": "Kallner 1979, PMID 420145 (pool full for 95 %); Levine 1996, PMID 8623000 (white cells saturated)"
+   },
+   "ceiling": {
+    "value": 1000,
+    "source": "Levine 1996 (urinary oxalate and urate rose)"
+   },
+   "recommended": {
+    "value": {
+     "male": 90,
+     "female": 75
+    },
+    "source": "RDA (2j)"
+   }
+  }
+ },
+ "absorption": {
+  "iron_fraction": {
+   "value": {
+    "mixed_diet": [
+     0.14,
+     0.18
+    ],
+    "vegetarian": [
+     0.05,
+     0.12
+    ],
+    "no_stores_whole_diet": [
+     0.14,
+     0.166
+    ]
+   },
+   "source": "Hurrell and Egli 2010, PMID 20200263; Hallberg 1991"
+  },
+  "iron_inhibitors": {
+   "value": {
+    "tea": -0.64,
+    "coffee": -0.39
+   },
+   "source": "PMID 6402915 (fall in absorption from a meal)"
+  },
+  "calcium_fraction": {
+   "value": {
+    "milk": [
+     0.28,
+     0.36
+    ],
+    "small_fish_with_bones": 0.238,
+    "mineral_water": [
+     0.216,
+     0.226
+    ],
+    "kale": 0.41,
+    "calcium_oxalate": 0.1,
+    "spinach": 0.051
+   },
+   "source": "section 2c table: Hansen 1998; PMID 15365401; Heaney and Weaver 1989, 1990; Heaney 1988"
+  },
+  "calcium_load": {
+   "value": {
+    "300_mg": 0.36,
+    "1000_mg": 0.284
+   },
+   "source": "Heaney et al. 1999, PMID 10367025"
+  },
+  "zinc_equation": {
+   "value": {
+    "A_MAX": 0.084,
+    "K_T": 0.069,
+    "K_P": 0.44,
+    "B_Ca": 0.017,
+    "B_Pr": 0.012,
+    "units": "mmol/d; protein g/d"
+   },
+   "source": "Miller et al. 2013, PMID 22617116, eq. 2 and Table 3 (augmented data)"
+  },
+  "phytate_mg_per_100g_dry": {
+   "value": {
+    "unrefined_cereals_legumes": 600,
+    "refined_cereals": 100,
+    "roots_tubers": 20
+   },
+   "source": "PMID 20715598 (roots and tubers under 20)"
+  },
+  "niacin_cereal_available": {
+   "value": 0.3333333333333333,
+   "source": "Carpenter 1983, PMID 6357846 (maize, wheat, rice without alkali treatment)"
+  },
+  "b12_absorbed": {
+   "value": {
+    "fish": 0.42,
+    "mutton": [
+     0.56,
+     0.89
+    ],
+    "chicken": [
+     0.61,
+     0.66
+    ],
+    "egg": 0.09,
+    "per_meal_saturation_ug": [
+     1.5,
+     2.0
+    ]
+   },
+   "source": "Watanabe 2007, PMID 17959839"
+  }
+ },
+ "gut_limits": {
+  "fat_g": {
+   "value": {
+    "absorbed_over_98pct_up_to": 639,
+    "sweating_from": [
+     300,
+     400
+    ]
+   },
+   "source": "Kasper 1970, PMID 5495429"
+  },
+  "fructose_free_g": {
+   "value": {
+    "all_absorb": 15,
+    "10pct_malabsorb": 25,
+    "80pct_malabsorb": 50,
+    "with_equal_glucose_absorbed": 50
+   },
+   "source": "Rao et al. 2007, PMID 17625977; Rumessen and Gudmand-Hoyer 1986, PMID 3781328"
+  },
+  "lactose_g": {
+   "value": {
+    "malabsorption_prevalence": 0.68,
+    "tolerated_by_intolerant": [
+     12,
+     15
+    ],
+    "symptoms_appreciable_from": 24
+   },
+   "source": "PMID 31953721; Wilt et al. 2010, PMID 20629478"
+  },
+  "protein": "see nutrients.protein.ceiling"
+ },
+ "harm": {
+  "alcohol_g_per_week": {
+   "value": {
+    "lowest_all_cause_risk_up_to": 100,
+    "life_expectancy_loss_at_40": {
+     "100-200": "about 6 months",
+     "200-350": "1-2 years",
+     ">350": "4-5 years"
+    },
+    "minimum_harm": 0
+   },
+   "source": "Wood et al. 2018, PMID 29676281; GBD 2018, PMID 30146330"
+  },
+  "tobacco": {
+   "value": {
+    "1-4_per_day_all_cause_RR": {
+     "men": 1.57,
+     "women": 1.47
+    },
+    "under_1_per_day_HR": 1.64,
+    "1-10_per_day_HR": 1.87
+   },
+   "source": "Bjartveit 2005; Inoue-Choi 2017"
+  }
  }
 }
