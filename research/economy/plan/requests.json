@@ -770,6 +770,13 @@
    "kind": "instruction",
    "text": "Keywords: \n\nLD50 value\n\nRecommended intake \n\n\"For athletes\"\n\nToxic dose\n\nHigher limit of the recommended range \n\n\nNow, stop pacing basic search competencies, you can just look for stuff and GET IT",
    "led_to": "R62: fill the open cells of section 2i using LD50, toxic dose, recommended intake, athletes' intake and upper end of recommended ranges"
+  },
+  {
+   "id": "M111",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "Okay\n\nPick up the regular protocol. I still want you to actually keep track of things the way I told you. I don't like how you dropped that. That was by no means a \"ceremony\", it was supposed to prevent you from messing up.",
+   "led_to": "R63: the tracking protocol (requests saved first, check_plan summary, items marked in the same commit as the work) is binding, not optional; resume it"
   }
  ],
  "requests": [
@@ -2566,6 +2573,25 @@
      "what": "Fill every open minimum, optimum and ceiling in section 2i with LD50, toxic dose, recommended intake, athletes' intake or upper end of recommended range, labelled by kind",
      "status": "done",
      "where": "nutrition_record.md 2i (all cells), 2j (all cells), 4"
+    }
+   ]
+  },
+  {
+   "id": "R63",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M111",
+   "text": "Okay\n\nPick up the regular protocol. I still want you to actually keep track of things the way I told you. I don't like how you dropped that. That was by no means a \"ceremony\", it was supposed to prevent you from messing up.",
+   "items": [
+    {
+     "id": "R63.1",
+     "what": "Resume the regular protocol: save each prompt verbatim first, run check_plan --summary before economy work, mark items in the same commit as the work",
+     "status": "open"
+    },
+    {
+     "id": "R63.2",
+     "what": "Audit requests R55-R62 for items left open or marked done without the work, and report them",
+     "status": "open"
     }
    ]
   }
