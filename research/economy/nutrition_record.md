@@ -1,9 +1,9 @@
-# Nutrition and food: the clean record (R56, M104; PubMed sources R57, M105)
+# Nutrition and food: the clean record (R56, M104; PubMed sources R57-R58, M105-M106)
 
 This file replaces every earlier note on nutrition and food groups. It holds only two kinds of content:
 
 - **Section 1** is your inputs, quoted or condensed, with the prompt they come from.
-- **Section 2** is facts read in a PubMed record during this work; facts still resting on an institution are listed apart in 2g.
+- **Section 2** is facts read in a PubMed record during this work.
 
 Section 3 lists known faults in the data files, section 4 the open gaps, and section 5 what was removed.
 
@@ -68,12 +68,25 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 
 ## 2. Verified facts
 
-Every fact cites a PubMed record (PMID) whose abstract or full text was read. Facts that still rest only on an institution's report are listed apart in section 2g, until a PubMed source replaces them (R57, M105).
+Every fact cites a PubMed record (PMID) whose abstract or full text was read (R57, M105; R58, M106). No fact rests on an institution's report.
 
 ### 2a. Energy
 
 - **Energy need = basal rate × physical activity level (PAL).** PAL is total expenditure measured by doubly labelled water divided by basal rate (Black et al. 1996, 574 measurements, PMID 8641250).
-- **Basal rate** is predicted from weight, or weight and height, by sex and age (Schofield 1985, PMID 4044297). Subjects from developing countries had lower rates per kg than European or North American subjects. The coefficients are not in the abstract (section 2g).
+- **Resting rate** (Mifflin et al. 1990, 498 adults aged 19-78, measured by indirect calorimetry, R² 0.71; PMID 2305711):
+
+  REE (kcal/d) = 9.99 W + 6.25 H − 4.92 A + 166 S − 161
+
+  | Symbol | Meaning | Unit |
+  |---|---|---|
+  | REE | resting energy expenditure | kcal per day |
+  | W | body weight | kg |
+  | H | height | cm |
+  | A | age | years |
+  | S | 1 male, 0 female | — |
+
+  Weight alone gives REE = 15.1 W + 371 (R² 0.56); fat-free mass alone gives 19.7 FFM + 413 (R² 0.64). The Harris-Benedict equations of 1919 overestimated measured REE by 5 %.
+- Earlier basal-rate equations by age band come from Schofield 1985 (PMID 4044297). They overestimate basal rate in many communities; 47 % of their subjects were Italian (Henry 2005, PMID 16277825). Subjects from developing countries had lower rates per kg (Schofield).
 - **Range of PAL:**
   - the limits of daily expenditure are about 1.2 × and 4.5 × basal rate (non-ambulant people and elite endurance athletes; Black 1996, PMID 8641250);
   - PAL values of active people tend to be higher than assumed in the 1985 recommendations (same source);
@@ -88,15 +101,73 @@ Every fact cites a PubMed record (PMID) whose abstract or full text was read. Fa
 
 ### 2b. Needs
 
+Each need below is the intake at which a measured marker (balance, a blood or urine level, a body store) stops changing. Where the study gives a need per energy, per kg or per gram of protein, that form is given too, because it scales with the city's work.
+
 **Protein:** a meta-analysis of nitrogen balance in 235 adults gave an average requirement of 105 mg N/kg a day (0.65 g good-quality protein/kg) and a 97.5th percentile of 132 mg N/kg (0.83 g/kg). Climate, age, sex and protein source had no significant effect (Rand et al. 2003, PMID 12499330).
 
 **Calcium:** neutral balance in 155 adults was reached at 741 mg a day (95 % prediction interval 507-1,035), or 9.4 mg/kg, or 0.28 mg per kcal; age and sex had no effect (Hunt and Johnson 2007, PMID 17921384).
+
+**Magnesium:** neutral balance in 243 adults (27 controlled studies) at 165 mg a day (95 % prediction interval 113-237), or 2.36 mg/kg, or 0.075 mg per kcal; age and sex had no effect (Hunt and Johnson 2006, PMID 17023712).
+
+**Iron:**
+- body iron excretion measured by isotope turnover: median 1.18 mg a day in 29 men, 1.58 mg in 19 menstruating women (1.66 without hormonal contraception), 0.99 mg in 5 postmenopausal women; menstrual iron explained 90 % of the variation in women (Hunt et al. 2009, PMID 19386738);
+- absorbed iron needed by adult menstruating women, 95th percentile: 2.84 mg a day. Whole-diet absorption in people without iron stores: 14 % (Swedish diet), 16 % (French), 16.6 % (US) (Hallberg and Rossander-Hultén 1991, PMID 1957820).
+
+**Zinc absorption** (Miller et al. 2013, isotope studies in healthy adults, R² 0.88; PMID 22617116, equation 2 and Table 3 of the full text, PMC3683099):
+
+  TAZ = ½ [ X + A_MAX + Z − √( (X + A_MAX + Z)² − 4 A_MAX Z ) ], with Z = TDZ (1 + B_Pr TDPr) and X = K_T (1 + TDP (1 − B_Ca TDC) / K_P)
+
+  | Symbol | Meaning | Unit | Estimate (augmented data, n 54) |
+  |---|---|---|---|
+  | TAZ | total daily absorbed zinc | mmol/d | — |
+  | TDZ | total daily dietary zinc | mmol/d | — |
+  | TDP | total daily dietary phytate | mmol/d | — |
+  | TDC | total daily dietary calcium | mmol/d | — |
+  | TDPr | total daily dietary protein | g/d | — |
+  | A_MAX | maximum zinc absorption | mmol/d | 0.084 (95 % CI 0.076-0.095) |
+  | K_T | zinc-transporter dissociation constant | mmol/d | 0.069 (0.022-0.38) |
+  | K_P | zinc-phytate dissociation constant | mmol/d | 0.44 (0.19-0.90) |
+  | B_Ca | calcium parameter | per mmol/d | 0.017 (0.0091-0.022) |
+  | B_Pr | protein parameter | per g/d | 0.012 (0.0017-0.092) |
+
+  Iron had no discernible effect and was dropped. In the 43 diets fitted, absorbed zinc averaged 3.04 mg a day (1.44-5.10) from 10.6 mg eaten, a fractional absorption of 0.32 (0.14-0.69). In the full text the phytate term TDP (1 − B_Ca TDC) is a fraction over K_P.
+
+**Selenium:** in 98 Chinese adults eating 14 µg a day, plasma selenoprotein P was optimised by a 35 µg supplement, i.e. 49 µg a day in total; about 75 µg a day is postulated for full expression of selenoproteins in US residents after adjusting for weight and individual variation (Xia et al. 2010, PMID 20573787).
+
+**Potassium:**
+- 159 reconstructed Stone Age diets averaged 400 ± 125 mEq potassium a day, more than four times current intakes (Sebastian et al. 2006, PMID 17275582);
+- the Yanomamo, without salt, excreted 60 mmol potassium a day (women) and 67 (men) with no hypertension (Mancilha-Carvalho et al. 1989, PMID 2810327);
+- in 32 trials of 30-140 mmol supplements, the blood-pressure fall weakened above an extra 30 mmol a day and reversed above about 80 mmol (Filippini et al. 2020, PMID 32500831).
+- No study read gives a minimum need.
+
+**Sodium without sweating:**
+- Yanomamo adults excreted 0.9 mmol (21 mg) sodium a day; 84 % excreted under 1 mmol; blood pressure did not rise with age (Mancilha-Carvalho et al. 1989, PMID 2810327); renin and aldosterone were raised, as in acutely salt-restricted people (Oliver et al. 1975, PMID 1132118);
+- in balance studies, the sodium intake needed to keep calcium and magnesium balance positive was 68 mg/kg a day (Nishimuta et al. 2018, PMID 29710036).
+
+**Thiamin:** young men on a metabolic ward at 2,800 or 3,600 kcal: the minimum need was 0.30 mg per 1,000 kcal when the extra calories came from carbohydrate; need rises with energy intake and expenditure (Sauberlich et al. 1979, PMID 495541).
+
+**Niacin:**
+- in US Public Health Service studies of 1920-1936, fifty of over 400 women developed pellagra on diets now calculated to give 7.2-10.6 mg niacin equivalents (NE) per 1,000 kcal; most of these diets had under 60 % of the riboflavin allowance (Carpenter and Lewin 1985, PMID 3998856);
+- men on 6.1 and 10.1 NE a day showed low urinary niacin metabolites against 19 NE a day (Jacob et al. 1989, PMID 2522982);
+- in Japanese women the tryptophan-to-niacin factor was 67 mg tryptophan per mg niacin, against the conventional 60 (Fukuwatari et al. 2004, PMID 15895512).
+
+**Riboflavin:** in 78 Chinese men spending 15.4 MJ a day, plasma and urinary riboflavin rose sharply above a total intake of about 1.4 mg a day, the estimated average need (Guo et al. 2016, PMID 27188899).
+
+**Vitamin B6:** 0.015 mg per g of protein normalised most status markers in young women on 1.55 g protein/kg; 0.020 mg/g normalised all but one (Kretsch et al. 1995, PMID 7733034). Combined data from five studies give an average need of 1.2 mg a day, or 0.015 mg/g protein (Hansen et al. 2001, PMID 11385067).
+
+**Folate:** 17 women on 200, 300 or 400 µg a day for 70 days: serum folate fell at 200 and 300 µg, with low values, and rose at 400 µg (O'Keefe et al. 1995, PMID 7562109).
+
+**Vitamin B12:** all status markers levelled off at a dietary intake of 4.2-7.0 µg a day in 299 adults aged 18-50 (Bor et al. 2010, PMID 20071646) and at about 6 µg in 98 postmenopausal women (Bor et al. 2006, PMID 16400049).
+
+**Vitamin A:** the intake that kept the body pool unchanged was 254-400 µg a day in Bangladeshi men, equal to 362-571 µg for a 70 kg man (Haskell et al. 2011, PMID 21248191); 285-330 µg RAE a day in US women (Sheftel et al. 2021, PMID 32492125).
 
 **Iodine:** an optimal adult intake is 150-250 µg a day; about 50 % of Europe remains mildly deficient (Zimmermann 2009, PMID 19460960).
 
 **Vitamin C:**
 - seven volunteers on under 5 mg a day, then seven doses from 30 to 2,500 mg: plasma level against dose is sigmoid, steepest between 30 and 100 mg a day; white cells saturate at 100 mg, plasma at 1,000 mg; no vitamin C appears in urine below 100 mg (Levine et al. 1996, PMID 8623000);
-- volunteers deprived for 3 months developed signs of scurvy (Abboud et al. 1970, PMID 5411783; the depletion studies are Hodges et al. 1969 and 1971, PMID 4977512 and 5090631, which have no abstract on PubMed).
+- 10 mg a day prevents scurvy (the 1953 Sheffield study, as reported by Hemilä 2026, PMID 41424103; also Riddoch et al. 1998, PMID 9505156);
+- the body pool rises to about 20 mg/kg with intake and is reached by 95 % of people at about 100 mg a day (Kallner et al. 1979, PMID 420145); smokers need at least 140 mg for the same pool (Kallner et al. 1981, PMID 7258125);
+- volunteers deprived for 3 months developed signs of scurvy (Abboud et al. 1970, PMID 5411783). The Iowa depletion papers (Hodges 1969 and 1971, Baker 1971; PMID 4977512, 5090631, 5090632) have no abstract on PubMed and are closed access.
 
 **Water, rising with labour and heat:**
 - a daily total water intake of 3.7 L for men and 2.7 L for women meets the needs of most people; strenuous exercise and heat stress can greatly increase it (Sawka et al. 2005, PMID 16028570);
@@ -206,24 +277,14 @@ Every fact cites a PubMed record (PMID) whose abstract or full text was read. Fa
 
 ### 2f. Harm
 
-- **Alcohol:** across 195 countries the level of consumption that minimised harm across health outcomes was zero (95 % UI 0.0-0.8) standard drinks a week; a standard drink is 10 g ethanol (GBD 2016 Alcohol Collaborators 2018, PMID 30146330).
+- **Alcohol, dose-response:** in 599,912 current drinkers (83 studies), all-cause mortality rose curvilinearly with intake, lowest at or below 100 g a week. Stroke rose by HR 1.14 per 100 g a week, fatal hypertensive disease by 1.24, heart failure by 1.09; myocardial infarction fell (HR 0.94). Against >0-100 g a week, life expectancy at 40 was about 6 months lower at 100-200 g, 1-2 years at 200-350 g and 4-5 years above 350 g (Wood et al. 2018, PMID 29676281).
+- **Alcohol, minimum:** across 195 countries the level of consumption that minimised harm across health outcomes was zero (95 % UI 0.0-0.8) standard drinks a week; a standard drink is 10 g ethanol (GBD 2016 Alcohol Collaborators 2018, PMID 30146330).
 - **Tobacco:**
   - 1-4 cigarettes a day against never smoking: ischaemic heart disease death RR 2.74 in men and 2.94 in women; death from any cause RR 1.57 and 1.47 (Bjartveit and Tverdal 2005, PMID 16183982);
-  - lifelong consistent smokers of under 1 cigarette a day: all-cause mortality HR 1.64; 1-10 a day: HR 1.87 (Inoue-Choi et al. 2017, PMID 27918784).
+  - lifelong consistent smokers of under 1 cigarette a day: all-cause mortality HR 1.64; 1-10 a day: HR 1.87 (Inoue-Choi et al. 2017, PMID 27918784);
+  - British doctors born 1900-1930 who kept smoking cigarettes died about 10 years younger than lifelong non-smokers; stopping at 60, 50, 40 or 30 gained about 3, 6, 9 or 10 years (Doll et al. 2004, PMID 15213107).
 
-### 2g. Still resting on institutions only (to replace with PubMed sources)
-
-| Fact | Institutional source | PubMed status |
-|---|---|---|
-| Basal rate coefficients, men 18-30: 15.057 × weight + 692.2 kcal; women 14.818 × weight + 486.6 | FAO/WHO/UNU 2004 tabulation of Schofield | Schofield 1985 (PMID 4044297) abstract has no coefficients |
-| Thiamin 0.072 mg per MJ; niacin 1.3 mg NE per MJ | EFSA 2017 | not found in PubMed searches |
-| Vitamin A 570 µg RE, folate 250 µg DFE, riboflavin 1.3 mg, B6 1.5 mg, B12 4 µg, magnesium 350 mg, selenium 70 µg, potassium 3,500 mg | EFSA 2017 | not found (potassium: PMID 32500831 gives a blood-pressure dose response, not a need) |
-| Iron 6 mg at 16 % absorption; zinc 7.5-12.7 mg by phytate intake | EFSA 2017 | absorption facts in section 2c are PubMed; the needs are not |
-| Sodium need without sweating, 600 mg | Japanese DRI 2025 | not found |
-| Scurvy prevented at about 10 mg vitamin C a day | earlier read on Wikipedia | Hodges 1971 (PMID 5090631) has no abstract; not verified |
-| Reference weights 68.1 kg men, 58.5 kg women | EFSA 2017 | not needed once a weight is chosen |
-
-### 2h. Measures
+### 2g. Measures
 
 - **Mean adequacy ratio:** the average over nutrients of intake ÷ requirement, each capped at 1. A standard measure of diet adequacy, approved by you (M102).
 - **Hydration index:** the hydration a drink gives relative to the same volume of water (M101). Measured as water retained 2 h after 1 L, relative to still water, in 72 men: full-fat milk 1.50, skimmed milk 1.58, oral rehydration solution 1.54; cola, tea, coffee, lager, orange juice and sports drink did not differ from water (Maughan et al. 2016, PMID 26702122; also PMID 42884730).
@@ -234,21 +295,22 @@ Every fact cites a PubMed record (PMID) whose abstract or full text was read. Fa
 |---|---|
 | `nutrition.json` and `nutrient_profiles.json` | **Two bases.** Energy, protein and fat come from FAO "as bought" records (beef 150 kcal per 100 g); vitamins and minerals come from USDA records of a different form (beef carcass 291 kcal). A model mixing them mismatches energy and nutrients. One record per good, all values from the same food form, is needed. |
 | `nutrient_profiles.json` | **Niacin.** USDA gives preformed niacin in mg; the need is in niacin equivalents, which include tryptophan / 60 (section 2c). Tryptophan (USDA nutrient 1210) must be added. |
-| `nutrient_needs.json` | **Thiamin and niacin** are converted at a fixed 2,600 kcal. They are set per MJ (section 2g), so they must follow the actual energy turnover. |
+| `nutrient_needs.json` | **Thiamin and niacin** are converted at a fixed 2,600 kcal. Section 2b gives thiamin per 1,000 kcal (Sauberlich) and niacin per 1,000 kcal (Carpenter and Lewin), so they must follow the actual energy turnover. |
+| `nutrient_needs.json` | **All needs** are the EFSA values. They must be replaced by the study values in section 2b. |
 | `nutrient_needs.json` | **Sodium** is fixed. Sweat losses of 4.8-6 g per shift in heat (section 2b) must be added with labour and heat. |
 | `nutrient_needs.json` | **Water** is a fixed 2,250 ml. It must rise with labour and heat (M103); the Yamada equation (section 2b) gives about 1,000 ml per unit of PAL and per 30 °C. |
-| `nutrient_needs.json` | **Vitamin C** uses EFSA's 90 mg. Levine (section 2b) shows the steep part of the curve at 30-100 mg and cell saturation at 100 mg; the dose that prevents scurvy is open (section 2g). |
+| `nutrient_needs.json` | **Vitamin C** uses EFSA's 90 mg. Section 2b gives 10 mg against scurvy and about 100 mg for a full pool and white-cell saturation. |
 | Fish | The "whole fish" shares used earlier (50 % herring, 45 % cod, 5 % liver) were unsourced. The starving fishing village came from these shares and from taking the low end of the protein range. Both are removed. |
 
 ## 4. Open: what has no solid record yet
 
-- **PubMed sources for the needs in section 2g.**
+- **A minimum potassium need:** the studies read give intakes and blood-pressure effects, not a need.
 - **A per-food measure of reward or dopamine:** no per-food values exist in the sources read. Section 2e gives the direction (fat with sugar, processing, glycemic load, alcohol, caffeine), not values per good.
 - **Lightness per food:** only the direction is known (fat increases sleepiness; Holt's water and weight correlations).
 - **Fullness per food:** only Holt's 38 foods are measured. A fitted formula reached R² 0.46 and is not a verified record.
 - **Daily ceilings per food:** the values are yours (milk, fat per good, lemons, fruit as a watermelon). The liver's protein capacity is from Bilsborough and Mann; others have no source.
 - **Whole-animal and catch compositions:** liver and roe shares for fish, cattle and pigs. A search for cod liver weight returned nothing.
-- **Harm per amount:** section 2f gives the minimum (zero) and the risks at low doses; the full dose-response curves are not yet extracted.
+- **Harm per amount:** section 2f gives the alcohol curve by 100 g a week and the tobacco risks; a tobacco curve per cigarette is not yet extracted.
 - **Prices:** to be established in the goods economy.
 
 ## 5. Removed

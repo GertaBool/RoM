@@ -2433,19 +2433,21 @@
   {
    "id": "R58",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M106",
    "text": "I don't think you understand me. \n\nYou CAN find EVERYTHING, every number, every reference, on Pubmed, or if necessary on Google Scholar",
    "items": [
     {
      "id": "R58.1",
      "what": "Find primary studies on PubMed or Google Scholar for every fact in section 2g (basal rate equation, thiamin, niacin, riboflavin, B6, folate, B12, vitamin A, magnesium, selenium, potassium, iron, zinc, sodium minimum, scurvy dose) and move them into section 2 with their numbers",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/nutrition_record.md sections 2a, 2b (section 2g removed)"
     },
     {
      "id": "R58.2",
      "what": "Search the remaining open numbers of section 4 (dose-response of alcohol and tobacco, whole-animal compositions, per-food fullness, reward and lightness) and add what is found",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/nutrition_record.md sections 2f, 4"
     }
    ]
   }
