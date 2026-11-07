@@ -1,17 +1,67 @@
 {
- "about": "Cases for plan/tools/food_model.py (R64.3). Body weight 70 kg is the reference man of Haskell 2011 (record 2i, vitamin A); PAL 2.41 is the measured value of Rwandan farmers (Harris 2025, record 2a); climate and goods available are game inputs, stated here, not record facts. Goods available are grams per person per day. The fishing village has fish beyond what anyone can eat (3 kg a day) and little grain, to test M103 (a fishing people with fish available does not starve); per M113 it lives on fish and what it gathers locally: whole cod as eaten (fillet, liver, roe), herring eaten whole (fat by season: 7.9 % in May, 19.5 % in August) and clams; two runs, May and August. The farming town is a dairy culture.",
+ "about": "Cases for plan/tools/food_model.py (R64.3, R68). Body weight 70 kg (60 kg in the rice town) is a case input; 70 kg is the reference man of Haskell 2011 (record 2i). PAL 2.41 is the measured value of Rwandan farmers (Harris 2025, record 2a). Climate and goods available are game inputs, not record facts; goods available are grams per person per day; a good's form is chosen as GOOD:form (USDA) or GOOD:mext:form (MEXT). Year-round compositions only: the model has no seasons (M101). The fishing village eats the fatty fish fishing peoples ate (M113, M116): herring, mackerel and cod as eaten (fillet, liver, roe), with clams it gathers. The rice town eats polished rice (stated choice; brown rice is the other record), small fish eaten whole (pond smelt, MEXT 10276), bananas and green tea (sencha infusion, MEXT 16037), drunk with meals. The farming town is a dairy culture.",
  "cases": [
-  {"name": "farming town, temperate", "male_share": 0.5, "body_weight_kg": 70, "age": 30, "pal": 2.41,
-   "temp_c": 12, "humidity_pct": 75, "altitude_m": 50, "hdi_group": 2, "hot_shift_share": 0.0, "lactase_persistent": true, "dairy_culture": true,
-   "available_g": {"BONUS_WHEAT": 900, "BONUS_PIG": 150, "BONUS_DAIRY": 600, "BONUS_APPLE": 200, "BONUS_SALT": 15}},
-  {"name": "fishing village, cool coast, May", "male_share": 0.5, "body_weight_kg": 70, "age": 30, "pal": 2.41,
-   "temp_c": 8, "humidity_pct": 85, "altitude_m": 5, "hdi_group": 2, "hot_shift_share": 0.0, "lactase_persistent": true,
-   "available_g": {"BONUS_FISH": 2000, "BONUS_FISH:herring whole, May": 2000, "BONUS_CLAM": 300, "BONUS_WHEAT": 250, "BONUS_SALT": 15}},
-  {"name": "fishing village, cool coast, August", "male_share": 0.5, "body_weight_kg": 70, "age": 30, "pal": 2.41,
-   "temp_c": 13, "humidity_pct": 85, "altitude_m": 5, "hdi_group": 2, "hot_shift_share": 0.0, "lactase_persistent": true,
-   "available_g": {"BONUS_FISH": 2000, "BONUS_FISH:herring whole, August": 2000, "BONUS_CLAM": 300, "BONUS_WHEAT": 250, "BONUS_SALT": 15}},
-  {"name": "rice town, hot season labour", "male_share": 0.5, "body_weight_kg": 60, "age": 30, "pal": 2.41,
-   "temp_c": 30, "humidity_pct": 70, "altitude_m": 20, "hdi_group": 2, "hot_shift_share": 0.5, "lactase_persistent": false,
-   "available_g": {"BONUS_RICE": 900, "BONUS_FISH": 150, "BONUS_BANANA": 200, "BONUS_TEA": 600, "BONUS_SALT": 20}}
+  {
+   "name": "farming town, temperate",
+   "male_share": 0.5,
+   "body_weight_kg": 70,
+   "age": 30,
+   "pal": 2.41,
+   "temp_c": 12,
+   "humidity_pct": 75,
+   "altitude_m": 50,
+   "hdi_group": 2,
+   "hot_shift_share": 0.0,
+   "lactase_persistent": true,
+   "dairy_culture": true,
+   "available_g": {
+    "BONUS_WHEAT": 900,
+    "BONUS_PIG": 150,
+    "BONUS_DAIRY": 600,
+    "BONUS_APPLE": 200,
+    "BONUS_SALT": 15
+   }
+  },
+  {
+   "name": "fishing village, cool coast",
+   "male_share": 0.5,
+   "body_weight_kg": 70,
+   "age": 30,
+   "pal": 2.41,
+   "temp_c": 8,
+   "humidity_pct": 85,
+   "altitude_m": 5,
+   "hdi_group": 2,
+   "hot_shift_share": 0.0,
+   "lactase_persistent": true,
+   "available_g": {
+    "BONUS_FISH": 1000,
+    "BONUS_FISH:herring": 1500,
+    "BONUS_FISH:Atlantic mackerel": 1000,
+    "BONUS_CLAM": 300,
+    "BONUS_WHEAT": 250,
+    "BONUS_SALT": 15
+   }
+  },
+  {
+   "name": "rice town, hot season labour",
+   "male_share": 0.5,
+   "body_weight_kg": 60,
+   "age": 30,
+   "pal": 2.41,
+   "temp_c": 30,
+   "humidity_pct": 70,
+   "altitude_m": 20,
+   "hdi_group": 2,
+   "hot_shift_share": 0.5,
+   "lactase_persistent": false,
+   "available_g": {
+    "BONUS_RICE:polished": 900,
+    "BONUS_FISH:mext:pond smelt, whole": 200,
+    "BONUS_BANANA": 200,
+    "BONUS_TEA:mext:sencha infusion": 600,
+    "BONUS_SALT": 20
+   }
+  }
  ]
 }

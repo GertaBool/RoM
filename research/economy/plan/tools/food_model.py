@@ -3,11 +3,12 @@
 Reads research/economy/data/nutrient_needs.json (version 2), nutrient_profiles.json and satiety_index.json, and a case
 file (city inputs and goods available per person per day). Solves, per person of the city (adult equivalent):
 
-  stage 1 (function): maximise the mean coverage of the minima: every nutrient minimum and the energy of basal
-                      function (1.2 x REE, the lowest daily expenditure); starving and deficient are read here (M114)
-  stage 2 (labour):   maximise z = energy eaten / energy need; labour capacity = (energy / REE - 1.2) / (PAL - 1.2)
-  stage 3 (adequacy): maximise the mean adequacy ratio MAR = mean_i min(1, intake_i / target_i)
-  stage 4 (quality):  minimise energy taken from lower-quality goods (people draw on the better stocks)
+  stage 1 (basal):    energy of basal function, up to 1.2 x REE (the lowest daily expenditure; M114)
+  stage 2 (fed):      maximise z = energy eaten / energy need (M93: being fed is the baseline);
+                      labour capacity = (energy / REE - 1.2) / (PAL - 1.2)
+  stage 3 (minima):   maximise the mean coverage of the nutrient minima; deficient = below a minimum (M114)
+  stage 4 (adequacy): maximise the mean adequacy ratio MAR = mean_i min(1, intake_i / target_i)
+  stage 5 (quality):  minimise energy taken from lower-quality goods (people draw on the better stocks)
 each stage holds the optimum of the stages before it
 
 subject to: availability per good, energy eaten <= need, the user's ceilings per good (milk 3 L, fat 250 g per good,
@@ -73,19 +74,25 @@ def composition(profiles, whole):
             base = {k: (forms[0].get(k) or 0.0) for k in profiles['units']}
         out[g] = finish(g, base, forms[0], profiles)
         for f in forms[1:]:                                          # other forms, chosen in a case as 'GOOD:form'
-            out[g + ':' + f['form']] = finish(g, {k: (f.get(k) or 0.0) for k in profiles['units']}, f, profiles)
+            out[g + ':' + f['form']] = finish(g, {k: (f.get(k) or 0.0) for k in profiles['units']}, f, profiles, False)
+        for f in profiles['mext'].get(g, []):                        # MEXT forms, chosen as 'GOOD:mext:form' (R68)
+            b3 = {k: (f.get(k) or 0.0) for k in profiles['units']}
+            pg = finish(g, b3, dict(f, iodine=f.get('iodine') if f.get('iodine') is not None else 0.0), profiles, False)
+            pg['niacin_ne'] = (f.get('niacin_ne') or 0.0) / 100.0      # MEXT gives niacin equivalents directly
+            out[g + ':mext:' + f['form']] = pg
         if g == 'BONUS_FISH':                                        # whole herring by season (fat only changes)
             h = [f for f in forms if f['form'] == 'herring'][0]
             for season, fat in whole['herring_whole_fat_pct']['value'].items():
                 b2 = {k: (h.get(k) or 0.0) for k in profiles['units']}
                 b2['fat'] = fat
                 b2['kcal'] = 4 * b2['protein'] + 9 * fat + 4 * b2['carbohydrate']
-                out[g + ':herring whole, ' + season] = finish(g, b2, h, profiles)
+                out[g + ':herring whole, ' + season] = finish(g, b2, h, profiles, False)
     return out
 
 
-def finish(g, base, form, profiles):
-    if form.get('iodine') is None and profiles['mext'].get(g):        # SR Legacy holds no iodine: MEXT (record 2d)
+def finish(g, base, form, profiles, default=True):
+    if default and form.get('iodine') is None and profiles['mext'].get(g):   # SR Legacy holds no iodine: MEXT of the
+        # same good's default form (record 2d); other forms keep 0 where no iodine record exists
         iod = profiles['mext'][g][0].get('iodine')
         base['iodine'] = iod if iod is not None else 0.0
     per_g = {k: v / 100.0 for k, v in base.items()}
@@ -121,6 +128,9 @@ def solve(case):
     sweat_na = num(nut['sodium']['sweat_per_hot_shift']['value'], ms) * hot
     animal = any(g.split(':')[0] in ANIMAL for g in goods)
     fe_abs = num(needs['absorption']['iron_fraction']['value']['mixed_diet' if animal else 'vegetarian'], ms)
+    tea = any(g.split(':')[0] == 'BONUS_TEA' for g in goods) and case.get('tea_with_meals', True)
+    if tea:                                                          # tea with meals: iron absorbed -64 % (record 2c)
+        fe_abs *= 1.0 + needs['absorption']['iron_inhibitors']['value']['tea']
 
     def scaled(k, lvl):
         e = nut[k][lvl]
@@ -217,23 +227,28 @@ def solve(case):
         if r.status != 0:
             raise SystemExit('LP failed: ' + r.message)
         return r
-    # stage 1: biological function -- the minima and the basal energy, mean coverage (M114)
-    c1 = [0.0] * nv
-    for j in range(mm + 1):
-        c1[iu + j] = -1.0 / (mm + 1)
-    S = -lp(c1, A, b).fun
-    A.append(list(c1)); b.append(-(S - TOL))
-    # stage 2: energy for labour, up to the need
+    # stage 1: basal function -- energy up to 1.2 x REE (M114)
+    c1 = [0.0] * nv; c1[iu + mm] = -1.0
+    uE = -lp(c1, A, b).fun
+    A.append(list(c1)); b.append(-(uE - TOL))
+    # stage 2: being fed -- energy for labour up to the need (M93: satiety being met is the baseline)
     c2 = [0.0] * nv; c2[iz] = -1.0
     z = -lp(c2, A, b).fun
-    A.append([0.0] * iz + [-1.0] + [0.0] * (nv - iz - 1)); b.append(-(z - TOL))
-    # stage 3: nutrition, the mean adequacy ratio against the targets
+    A.append(list(c2)); b.append(-(z - TOL))
+    # stage 3: the nutrient minima, mean coverage (M114: the body's functions)
+    c3m = [0.0] * nv
+    for j in range(mm):
+        c3m[iu + j] = -1.0 / mm
+    Sm = -lp(c3m, A, b).fun
+    A.append(list(c3m)); b.append(-(Sm - TOL))
+    S = (Sm * mm + uE) / (mm + 1)
+    # stage 4: nutrition, the mean adequacy ratio against the targets
     c3 = [0.0] * nv
     for j in range(m):
         c3[iv + j] = -1.0 / m
     mar = -lp(c3, A, b).fun
     A.append(list(c3)); b.append(-(mar - TOL))
-    # stage 4: the better stocks first
+    # stage 5: the better stocks first
     q = {g: quality(comp[g], target, E) for g in goods}
     c4 = [(1.0 - q[g]) * comp[g]['kcal'] for g in goods] + [0.0] * (nv - n)
     r4 = lp(c4, A, b)
@@ -309,6 +324,7 @@ def report(case, needs, comp, sat, goods, x, E, ree, pal, z, mar, q, target, min
                      'below_minimum': bool(minimum.get(k) is not None and intake[k] < minimum[k] - TOL),
                      'ceiling': None if k not in ceiling else round(ceiling[k], 3),
                      'above_ceiling': bool(k in ceiling and intake[k] > ceiling[k] + TOL)})
+    contrib = {k: {g: round(float(comp[g][k] * x[g]), 3) for g in goods if comp[g][k] * x[g] > 0} for k in target}
     satm = sat['map']
     sat_e = sum(sat['holt'][satm[g]] / 100.0 * comp[g]['kcal'] * x[g] for g in goods if g in satm)
     sat_cov = sum(comp[g]['kcal'] * x[g] for g in goods if g in satm)
@@ -320,7 +336,7 @@ def report(case, needs, comp, sat, goods, x, E, ree, pal, z, mar, q, target, min
         'case': case.get('name'), 'ree_kcal': round(ree, 1), 'pal_used': pal, 'pal_asked': case['pal'],
         'energy_need_kcal': round(E, 1), 'energy_share_of_need': round(z, 4), 'mar': round(mar, 4),
         'eaten_g': {g: round(float(x[g]), 1) for g in goods}, 'left_in_store_g': {g: round(case['available_g'][g] - x[g], 1) for g in goods},
-        'quality': {g: round(q[g], 3) for g in goods}, 'nutrients': rows,
+        'quality': {g: round(q[g], 3) for g in goods}, 'nutrients': rows, 'contributions': contrib,
         'zinc_absorbed_mg': round(zinc_abs, 2), 'zinc_absorbed_minimum_mg': round(zmin, 2),
         'iron_absorption_fraction': fe_abs,
         'water_ml': {'turnover': round(water_turnover), 'from_food': round(food_water), 'metabolic': metabolic,

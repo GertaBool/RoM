@@ -15,7 +15,7 @@ This file replaces `archive/nutrition/food_model_spec.md`. Every parameter comes
 | P1 | A city eats only what it holds; what is not eaten stays in store (surplus) | M84, M102 |
 | P2 | The population is one average adult-equivalent person; body reserves belong to the growth formula; no seasons | M101 |
 | P3 | Needs are not fixed: energy follows work; thiamin and niacin follow energy; protein and vitamin A follow body weight; B6 follows protein; water follows work, weight and climate; sodium follows sweat | M102, M103 |
-| P4 | First the body's functions (every nutrient minimum and the energy of basal function), then energy for labour, then nutrition (mean adequacy ratio), then the better stocks first; well-being is a separate sorted list, never added to nutrition | M88, M93, M96, M102, M114 |
+| P4 | First the energy of basal function, then being fed (energy for labour; satiety being met is the baseline), then the nutrient minima (the body's functions), then nutrition (mean adequacy ratio), then the better stocks first; well-being is a separate sorted list, never added to nutrition | M88, M93, M96, M102, M114, M116 |
 | P4a | Starvation is the body no longer able to fulfil its functions and people no longer able to labour; it is read from the minima, not from the energy need. Energy short of the need lowers the work people can do | M114 |
 | P5 | Harm is a consequence, not a motive: harm thresholds are reported, never constraints | M101 |
 | P6 | Only limits on what the body can take in, and the user's ceilings per good, constrain eating | M85, M86, M88, M93 |
@@ -52,12 +52,13 @@ Ranges $[\ell,h]$ in the data enter as their midpoint; values by sex enter as $s
 
 ## 3. Composition
 
-- Each good is its first, as-eaten form in `nutrient_profiles.json`.
+- Each good is its first form in `nutrient_profiles.json` unless the case names another form: `GOOD:form` (USDA) or `GOOD:mext:form` (MEXT; niacin equivalents taken as MEXT gives them). MEXT iodine fills a USDA gap only for the good's default form.
 - **Fish is the whole animal as eaten, not fillet** (M91, M113). The parts and their sources are in `nutrient_needs.json` `whole_animal`:
   - **cod as eaten** (`BONUS_FISH`): the coastal meal *mølje* is cod, cod liver, fresh cod-liver oil and roe (Skjervøy, northern Norway; Brustad et al. 2004). By the Torry part shares (fillet 36, liver 5, roe 4 % of round weight), $c_{\text{fish}}=(36\,c_{\text{cod}}+5\,c_{\text{liver}}+4\,c_{\text{roe}})/45$: 125 kcal, 16.9 g protein, 5.8 g fat per 100 g. The liver record is lingcod liver (42 % fat; no raw cod liver record exists); its vitamin A is cod liver oil's 30,000 µg/100 g times the liver fat share.
   - **herring eaten whole** (`BONUS_FISH:herring whole, May` and `…, August`): the USDA herring record with the fat of whole herring measured with head and intestines, 7.9 % in May and 19.5 % about 1 August (Faroese data, 1950s); energy by Atwater factors: 143 and 247 kcal per 100 g.
   - Heads and viscera (Bechtel 2003) and farmed-cod liver lipid are recorded but not used: no source shows heads and viscera eaten as food, and the liver figure is from farmed fish.
-- A case can choose any other form of a good as `GOOD:form`.
+- Fatty fish eaten year-round: Atlantic herring (USDA 175116, 9.0 g fat), Pacific herring (173669, 13.9 g), Atlantic mackerel (175119, 13.9 g). Small fish eaten whole: pond smelt (MEXT 10276, calcium 450 mg/100 g), loach (10213, 1,100 mg), whole dried sardine (10053, 18.9 g fat).
+- **Tea with meals** lowers the iron absorbed by 64 % (record 2c); applied when the case drinks tea with meals.
 - **Niacin equivalents:** $c_{g,\text{NE}}=\beta_g\,c_{g,\text{niacin}}+1000\,c_{g,\text{tryptophan}}/60$, with $\beta_g=1/3$ for wheat, rice and maize (Carpenter 1983), else 1.
 - **Iodine:** SR Legacy holds none for these goods; the MEXT value of the same good is used.
 
@@ -82,10 +83,11 @@ $$u_k\,m_k\le\sum_g c_{g,k}x_g,\qquad u_E\,E^0\le\sum_g c_{g,\text{kcal}}x_g,\qq
 
 with every $u,z,v\in[0,1]$. Each stage holds the optimum of the stages before it.
 
-1. **Body functions:** $S^*=\max\frac{1}{K'+1}\left(\sum_{k}u_k+u_E\right)$ over the nutrients with a minimum and the basal energy.
-2. **Labour:** $z^*=\max z$.
-3. **Nutrition:** $\text{MAR}^*=\max\frac1K\sum_k v_k$.
-4. **Better stocks first:** $\min\sum_g(1-q_g)\,c_{g,\text{kcal}}\,x_g$.
+1. **Basal function:** $u_E^*=\max u_E$.
+2. **Being fed:** $z^*=\max z$ (M93: satiety being met is the baseline; energy is its measure here).
+3. **Nutrient minima:** $S^*=\max\frac{1}{K'}\sum_k u_k$ over the nutrients with a minimum.
+4. **Nutrition:** $\text{MAR}^*=\max\frac1K\sum_k v_k$.
+5. **Better stocks first:** $\min\sum_g(1-q_g)\,c_{g,\text{kcal}}\,x_g$.
 
 Energy eaten is capped at $E$: food beyond the need stays in store (P1). Protein counts as energy at 4 kcal/g up to $P^{\lim}$ (P7). The lactose limit comes from studies of pasteurised milk or lactose in water in lactase-deficient people (Wilt 2010); it is not applied to lactase-persistent people or dairy cultures (M113), and live-culture yogurt is digested in the gut (Kolars 1984). Harm ceilings $c^{\max}_k$ are not constraints (P5).
 
@@ -106,6 +108,7 @@ the mean adequacy of a diet of good $g$ alone at the energy need.
 |---|---|---|
 | body functions, starving, deficient, labour | $S^*$; energy $<E^0$; intake $<m_k$; $L$ | §5 |
 | energy share, MAR | $z^*$, $\text{MAR}^*$ | §5 |
+| contributions | $c_{g,k}x_g$ for every nutrient and good: where each nutrient comes from | §3 |
 | deficiencies | nutrients with intake $<m_k$ | §4 |
 | harms | nutrients with intake $>c^{\max}_k$; protein $>2.5\,W$ or $>35\,\%$ of energy; fat $\ge300$ g (sweating) | `nutrients.*.ceiling`, `gut_limits.fat_g` |
 | protein per meal | $\frac13\sum_g c_{g,\text{protein}}x_g$, and the hours to absorb it at 10 and 1.3 g an hour | `nutrients.protein.gut_absorption_g_per_h` (Bilsborough and Mann 2006) |
@@ -117,14 +120,84 @@ the mean adequacy of a diet of good $g$ alone at the energy need.
 
 ## 8. Cases (`food_model_cases.json`, run 2026-11-07)
 
-| Case | Energy need (kcal) | Minima covered | Starving | Deficient | Labour capacity (PAL reached) | MAR | Harms |
-|---|---|---|---|---|---|---|---|
-| farming town, temperate, dairy culture (wheat, pig, dairy, apple, salt) | 3,442 | 1.000 | no | none | 1.000 (2.41) | 0.864 | none |
-| fishing village, cool coast, May (cod as eaten 2 kg, whole herring at 7.9 % fat 2 kg, clams 300 g, wheat 250 g, salt 15 g) | 3,442 | 0.990 | no | folate | 0.627 (1.96) | 0.924 | iodine; protein above 2.5 g/kg and 35 % of energy |
-| fishing village, cool coast, August (the same with whole herring at 19.5 % fat) | 3,442 | 0.983 | no | calcium, folate | 1.000 (2.41) | 0.918 | sodium, iodine; protein above 2.5 g/kg |
-| rice town, hot-season labour (rice, fish, banana, tea, salt) | 3,078 | 0.941 | no | calcium, folate | 1.000 (2.41) | 0.816 | none |
+Year-round compositions only (P2). Each table gives intake, target, minimum and the goods it comes from (share of the intake).
 
-**The fishing village.** No one starves in either season. In August the village does all its work. In May whole herring carries 7.9 % fat; with protein at the liver's daily capacity (284 g, about 95 g a meal) the energy eaten allows 63 % of the asked work: the village is fed but labours less. Folate falls below its minimum in both seasons (no green food in the case), calcium in August. The year's fat comes from what is kept (dried fish, liver oil, grain); in the model that is the store (P1), and the turn is long enough to hold seasons (P2). The May and August runs bound the year; neither is a season inside the model.
+| Case | Energy need (kcal) | Starving | Labour capacity (PAL reached) | Minima covered | Deficient | MAR | Harms |
+|---|---|---|---|---|---|---|---|
+| farming town, temperate | 3,442 | no | 1.000 (2.41) | 1.000 | none | 0.864 | none |
+| fishing village, cool coast | 3,442 | no | 1.000 (2.41) | 0.926 | calcium, folate_dfe, vit_c | 0.875 | sodium, protein above 2.5 g/kg |
+| rice town, hot season labour | 3,078 | no | 1.000 (2.41) | 0.905 | iron, thiamin, folate_dfe | 0.759 | none |
+
+**farming town, temperate** — eaten per person per day: wheat 818 g; pig 150 g; dairy 600 g; apple 200 g; salt 15 g.
+
+| Nutrient | Intake | Target | Minimum | Where it comes from |
+|---|---|---|---|---|
+| protein (g) | 152.2 | 113.4 | 45.5 | wheat 68 %, pig 19 %, dairy 12 % |
+| sodium (mg) | 6165.1 | 4995 | 21 | salt 94 % |
+| potassium (mg) | 4510.1 | 3000 | 1075 | wheat 66 %, dairy 18 %, pig 12 % |
+| calcium (mg) | 957.8 | 800 | 741 | dairy 71 %, wheat 25 % |
+| magnesium (mg) | 1132.2 | 362.5 | 165 | wheat 91 %, dairy 5 % |
+| iron (mg) | 27.7 | 13.4 | 8.6 | wheat 94 % |
+| zinc (mg) | 26.6 | 8.1 | — | wheat 81 %, pig 10 %, dairy 8 % |
+| iodine (µg) | 97.7 | 200 | 54.5 | dairy 98 % |
+| selenium (µg) | 650.3 | 49 | 17 | wheat 89 %, pig 8 % |
+| vit_a_rae (µg RAE) | 285 | 466.5 | 175 | dairy 97 % |
+| thiamin (mg) | 4.8 | 1.4 | 1 | wheat 65 %, pig 28 %, dairy 6 % |
+| riboflavin (mg) | 2.4 | 1.4 | 0.5 | dairy 43 %, wheat 40 %, pig 16 % |
+| niacin_ne (mg NE) | 54.4 | 19 | 15.1 | wheat 67 %, pig 24 %, dairy 8 % |
+| vit_b6 (mg) | 3.5 | 1.7 | 0.6 | wheat 71 %, pig 20 %, dairy 6 % |
+| folate_dfe (µg DFE) | 348.3 | 400 | 300 | wheat 89 %, dairy 9 % |
+| b12 (µg) | 3.5 | 5.6 | 1 | dairy 77 %, pig 23 % |
+| vit_c (mg) | 10.1 | 100 | 10 | apple 91 %, pig 9 % |
+
+**fishing village, cool coast** — eaten per person per day: fish 55 g; fish: herring 320 g; fish: atlantic mackerel 1,000 g; wheat 250 g; salt 15 g.
+
+| Nutrient | Intake | Target | Minimum | Where it comes from |
+|---|---|---|---|---|
+| protein (g) | 284.2 | 113.4 | 45.5 | fish: atlantic mackerel 65 %, fish: herring 20 %, wheat 11 % |
+| sodium (mg) | 7034.5 | 4995 | 21 | salt 83 %, fish: atlantic mackerel 13 % |
+| potassium (mg) | 5286.4 | 3000 | 1075 | fish: atlantic mackerel 59 %, fish: herring 20 %, wheat 17 % |
+| calcium (mg) | 386.7 (below minimum) | 800 | 741 | fish: herring 47 %, fish: atlantic mackerel 31 %, wheat 19 % |
+| magnesium (mg) | 1192.5 | 362.5 | 165 | fish: atlantic mackerel 64 %, wheat 26 %, fish: herring 9 % |
+| iron (mg) | 28.1 | 13.4 | 8.6 | fish: atlantic mackerel 58 %, wheat 28 %, fish: herring 13 % |
+| zinc (mg) | 16.4 | 8.1 | — | wheat 41 %, fish: atlantic mackerel 39 %, fish: herring 19 % |
+| iodine (µg) | 192.9 | 200 | 54.5 | fish 100 % |
+| selenium (µg) | 751 | 49 | 17 | fish: atlantic mackerel 59 %, wheat 24 %, fish: herring 16 % |
+| vit_a_rae (µg RAE) | 1370.2 | 466.5 | 175 | fish 57 %, fish: atlantic mackerel 36 %, fish: herring 7 % |
+| thiamin (mg) | 3.1 | 1.4 | 1 | fish: atlantic mackerel 57 %, wheat 31 %, fish: herring 10 % |
+| riboflavin (mg) | 4.2 | 1.4 | 0.5 | fish: atlantic mackerel 74 %, fish: herring 18 %, wheat 7 % |
+| niacin_ne (mg NE) | 160.6 | 19 | 15.1 | fish: atlantic mackerel 78 %, fish: herring 13 %, wheat 7 % |
+| vit_b6 (mg) | 5.8 | 1.7 | 0.6 | fish: atlantic mackerel 69 %, fish: herring 17 %, wheat 13 % |
+| folate_dfe (µg DFE) | 144 (below minimum) | 400 | 300 | wheat 66 %, fish: herring 22 %, fish: atlantic mackerel 7 % |
+| b12 (µg) | 131.7 | 5.6 | 1 | fish: atlantic mackerel 66 %, fish: herring 33 % |
+| vit_c (mg) | 7.5 (below minimum) | 100 | 10 | fish: atlantic mackerel 54 %, fish: herring 30 %, fish 16 % |
+
+**rice town, hot season labour** — eaten per person per day: rice: polished 752 g; fish:  pond smelt, whole 200 g; banana 200 g; tea:  sencha infusion 600 g; salt 20 g.
+
+| Nutrient | Intake | Target | Minimum | Where it comes from |
+|---|---|---|---|---|
+| protein (g) | 85.8 | 97.2 | 39 | rice: polished 62 %, fish:  pond smelt, whole 34 % |
+| sodium (mg) | 8209.2 | 7695 | 2721 | salt 94 % |
+| potassium (mg) | 1984.6 | 3000 | 1075 | rice: polished 44 %, banana 36 %, fish:  pond smelt, whole 12 %, tea:  sencha infusion 8 % |
+| calcium (mg) | 1143.4 | 800 | 741 | fish:  pond smelt, whole 79 %, rice: polished 18 % |
+| magnesium (mg) | 304.3 | 362.5 | 165 | rice: polished 62 %, banana 18 %, fish:  pond smelt, whole 16 % |
+| iron (mg) | 9.6 (below minimum) | 13.4 | 24 | rice: polished 63 %, fish:  pond smelt, whole 19 %, tea:  sencha infusion 12 %, banana 5 % |
+| zinc (mg) | 12.5 | 8.1 | — | rice: polished 65 %, fish:  pond smelt, whole 32 % |
+| iodine (µg) | 58.2 | 200 | 54.5 | fish:  pond smelt, whole 100 % |
+| selenium (µg) | 159.6 | 49 | 17 | rice: polished 71 %, fish:  pond smelt, whole 28 % |
+| vit_a_rae (µg RAE) | 204 | 466.5 | 175 | fish:  pond smelt, whole 97 % |
+| thiamin (mg) | 0.6 (below minimum) | 1.2 | 0.9 | rice: polished 87 %, banana 10 % |
+| riboflavin (mg) | 1.1 | 1.4 | 0.5 | rice: polished 34 %, tea:  sencha infusion 27 %, fish:  pond smelt, whole 26 %, banana 13 % |
+| niacin_ne (mg NE) | 25.8 | 19 | 13.5 | rice: polished 56 %, fish:  pond smelt, whole 31 %, tea:  sencha infusion 7 %, banana 6 % |
+| vit_b6 (mg) | 2.4 | 1.5 | 0.6 | rice: polished 52 %, banana 31 %, fish:  pond smelt, whole 14 % |
+| folate_dfe (µg DFE) | 100.2 (below minimum) | 400 | 300 | rice: polished 60 %, banana 40 % |
+| b12 (µg) | 15.8 | 5.6 | 1 | fish:  pond smelt, whole 100 % |
+| vit_c (mg) | 55.4 | 100 | 10 | tea:  sencha infusion 65 %, banana 31 % |
+
+**What the results rest on.**
+- **Fishing village:** fed in full by mackerel and herring, protein at the liver's daily capacity (284 g, about 95 g a meal). Calcium, folate and vitamin C fall below their minima because the case holds fish fillet records (no bones), wheat and no gathered plants: the records of fish eaten with their bones, and of the shore plants and berries a fishing people gathers (M113), are not in the case.
+- **Rice town:** fed in full. Thiamin falls below its minimum because the rice is polished (0.07 mg per 100 g; brown rice 0.541): beriberi is the deficiency of polished-rice diets. Iron falls below its minimum because tea with meals cuts absorption by 64 %, raising the dietary minimum to 24 mg. Calcium is covered by small fish eaten whole (pond smelt, 79 % of calcium). Folate is short: no greens in the case.
+- **Farming town:** fed in full, every minimum met; vitamin C is exactly at its minimum (apples).
 
 ## 9. What the data files do not yet give
 
