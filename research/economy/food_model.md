@@ -48,7 +48,11 @@ Ranges $[\ell,h]$ in the data enter as their midpoint; values by sex enter as $s
 ## 3. Composition
 
 - Each good is its first, as-eaten form in `nutrient_profiles.json`.
-- **Fish** (M91: the whole animal) is the whole cod by the Torry part shares, edible parts only: fillet 36, liver 5, roe 4 (% of round weight), so $c_{\text{fish}}=(36\,c_{\text{cod}}+5\,c_{\text{liver}}+4\,c_{\text{roe}})/45$. The liver record is lingcod liver (no raw cod liver record exists); its vitamin A is taken from the liver's oil: cod liver oil 30,000 µg/100 g × liver fat 42 %.
+- **Fish is the whole animal as eaten, not fillet** (M91, M113). The parts and their sources are in `nutrient_needs.json` `whole_animal`:
+  - **cod as eaten** (`BONUS_FISH`): the coastal meal *mølje* is cod, cod liver, fresh cod-liver oil and roe (Skjervøy, northern Norway; Brustad et al. 2004). By the Torry part shares (fillet 36, liver 5, roe 4 % of round weight), $c_{\text{fish}}=(36\,c_{\text{cod}}+5\,c_{\text{liver}}+4\,c_{\text{roe}})/45$: 125 kcal, 16.9 g protein, 5.8 g fat per 100 g. The liver record is lingcod liver (42 % fat; no raw cod liver record exists); its vitamin A is cod liver oil's 30,000 µg/100 g times the liver fat share.
+  - **herring eaten whole** (`BONUS_FISH:herring whole, May` and `…, August`): the USDA herring record with the fat of whole herring measured with head and intestines, 7.9 % in May and 19.5 % about 1 August (Faroese data, 1950s); energy by Atwater factors: 143 and 247 kcal per 100 g.
+  - Heads and viscera (Bechtel 2003) and farmed-cod liver lipid are recorded but not used: no source shows heads and viscera eaten as food, and the liver figure is from farmed fish.
+- A case can choose any other form of a good as `GOOD:form`.
 - **Niacin equivalents:** $c_{g,\text{NE}}=\beta_g\,c_{g,\text{niacin}}+1000\,c_{g,\text{tryptophan}}/60$, with $\beta_g=1/3$ for wheat, rice and maize (Carpenter 1983), else 1.
 - **Iodine:** SR Legacy holds none for these goods; the MEXT value of the same good is used.
 
@@ -68,7 +72,9 @@ Constraints, all stages:
 
 $$0\le x_g\le\bar a_g,\qquad \bar a_g=\min\!\left(a_g,\ \tfrac{250}{c_{g,\text{fat}}},\ 3000\ \text{if }g=\text{dairy}\right)$$
 $$\sum_g c_{g,\text{kcal}}x_g\le E,\qquad zE\le\sum_g c_{g,\text{kcal}}x_g,\qquad \sum_g c_{g,\text{protein}}x_g\le P^{\lim}$$
-$$\sum_{g\in\text{fruit}}x_g\le 4518\ \text{g (one watermelon)},\qquad \sum_g c_{g,\text{lactose}}x_g\le 13.5\ \text{g if the people lack lactase persistence}$$
+$$\sum_{g\in\text{fruit}}x_g\le 4518\ \text{g (one watermelon)},\qquad c_{\text{milk},\text{lactose}}\,x_{\text{dairy}}\le 13.5\ \text{g only if the people are neither lactase persistent nor a dairy culture}$$
+
+The lactose limit comes from studies of pasteurised milk or lactose in water in lactase-deficient people (Wilt 2010); it is not applied to lactase-persistent people or dairy cultures (M113), and live-culture yogurt is digested in the gut (one third of the breath hydrogen of the same lactose in milk; Kolars 1984).
 $$v_k\,t_k\le\sum_g c_{g,k}x_g,\qquad 0\le v_k\le 1$$
 
 1. **Fed:** $z^*=\max z$.
@@ -100,11 +106,12 @@ the mean adequacy of a diet of good $g$ alone at the energy need.
 
 | Case | Energy need (kcal) | Fed | MAR | Below minimum | Above a harm ceiling | What binds |
 |---|---|---|---|---|---|---|
-| farming town, temperate (wheat, pig, dairy, apple, salt) | 3,442 | 1.000 | 0.864 | none | none | energy need; pig, dairy, salt eaten in full |
-| fishing village, cool coast (fish 3 kg, wheat 250 g, salt) | 3,442 | 0.784 | 0.908 | calcium, folate | iodine; protein above 2.5 g/kg and 35 % of energy | the liver's urea capacity (284 g protein) |
+| farming town, temperate, dairy culture (wheat, pig, dairy, apple, salt) | 3,442 | 1.000 | 0.864 | none | none | energy need; pig, dairy, salt eaten in full |
+| fishing village, cool coast, May (cod as eaten 2 kg, whole herring at 7.9 % fat 2 kg, clams, wheat 250 g, salt) | 3,442 | 0.822 | 0.914 | folate, vitamin C | sodium, iodine; protein above 2.5 g/kg and 35 % of energy | the liver's urea capacity (284 g protein) |
+| fishing village, cool coast, August (the same with whole herring at 19.5 % fat) | 3,442 | 1.000 | 0.918 | calcium, folate | sodium, iodine; protein above 2.5 g/kg | energy need; protein at the urea capacity |
 | rice town, hot-season labour (rice, fish, banana, tea, salt) | 3,078 | 1.000 | 0.816 | calcium, folate | none | energy need; fish, banana, salt eaten in full |
 
-**The fishing village.** The whole cod gives 125 kcal and 16.9 g protein per 100 g. At $P^{\lim}=284$ g a person can eat about 1.5 kg of it, 1,880 kcal; with 250 g wheat the village reaches 78 % of a labourer's 3,442 kcal. A people living on fish is fed only if it has fat or grain besides the lean flesh. The cod's liver is in the composition at its Torry share; the catch mix of a coast (fatty fish such as herring, 158 kcal per 100 g; seal or whale fat) is a case input not yet set from a source.
+**The fishing village.** Fish eaten whole feeds a labouring fishing people when its fat is in the diet: with herring at its August fat it is fed in full. In May, whole herring carries 7.9 % fat and the protein limit caps fish at about 1.4 kg, so the village reaches 82 % of 3,442 kcal from fish and 250 g of grain. The year's fat comes from what is kept: dried fish, liver oil and grain carried from the fat season; in the model that is the store (P1), and the turn is long enough to hold seasons (P2). The May and August runs bound the year; neither is a season inside the model.
 
 ## 9. What the data files do not yet give
 
@@ -112,4 +119,4 @@ the mean adequacy of a diet of good $g$ alone at the energy need.
 - **Free fructose:** the profiles hold total sugars only, so the fructose limit (25 g alone; Rao 2007) is not applied.
 - **Iron inhibitors:** tea (−64 %) and coffee (−39 %) are in the data but not applied, because their effect depends on whether they are drunk with meals.
 - **Well-being:** the reward, lightness and repetition measures are listed per good; how they combine into one ordering beyond the sort above is open (R55.3).
-- **Catch mix of fish:** see §8.
+- **Annual fat of the catch:** the model runs on one composition per good; the year's mean fat of whole herring is not in the sources read (seasonal values 7.9-19.5 %; Canadian annual means of 9.8 and 11.2 % cover June to October only).

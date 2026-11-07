@@ -2653,19 +2653,21 @@
   {
    "id": "R65",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M113",
    "text": "The lactose limit is for pasteurized dairy and lactose in isolation, not for cultures that specialized in dairy cattle and or are significantly lactose persistent or consume raw dairy. Those particular studies distort the picture because they involve too little information in too small of a context. \n\n\"lean fish\"\n\nHistorically, fat was highly prized, people lived on fish and anything they could gather locally without many issues. This cannot be the case if all they ate were fillet which we previously extensively repeatedly elaborated on to a mind boggling extent.",
    "items": [
     {
      "id": "R65.1",
      "what": "Record the user's input; the lactose limit applies only to people neither lactase persistent nor of a dairy culture, and never to raw or fermented dairy by default",
-     "status": "open"
+     "status": "done",
+     "where": "nutrient_needs.json gut_limits.lactose_context; food_model.py lactose limit only without lactase persistence and dairy culture; food_model.md section 5; record 1a, 2f"
     },
     {
      "id": "R65.2",
      "what": "Fish as the whole animal as eaten, not fillet: whole-body composition from sources (fat-rich parts, liver oil, head, roe; fatty catch such as herring) and local gathering in the fishing case; rerun the model",
-     "status": "open"
+     "status": "done",
+     "where": "nutrient_needs.json whole_animal; food_model.py composition (cod as eaten, whole herring by season, GOOD:form); cases rerun: fishing village fed 0.822 in May, 1.000 in August"
     }
    ]
   }

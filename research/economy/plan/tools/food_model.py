@@ -45,11 +45,9 @@ ANIMAL = {'BONUS_COW', 'BONUS_PIG', 'BONUS_SHEEP', 'BONUS_DEER', 'BONUS_HORSE', 
           'BONUS_CRAB', 'BONUS_SHRIMP', 'BONUS_WHALE', 'BONUS_DAIRY'}
 FRUIT = {'BONUS_APPLE', 'BONUS_BANANA', 'BONUS_LEMON'}
 DRINK_HI = {'BONUS_DAIRY': 'milk_full_fat', 'BONUS_ALCOHOL': 'lager', 'BONUS_TEA': 'tea'}
-COD_PARTS = {'cod': 36, 'liver (lingcod)': 5, 'roe': 4}         # Torry Advisory Note 17, % of whole ungutted cod
-COD_LIVER_OIL_VIT_A = 30000.0                                   # ug RAE per 100 g, USDA 173577 (record 2d)
 
 
-def composition(profiles):
+def composition(profiles, whole):
     """Per good: nutrients per gram, from the first (as-eaten) form; the whole cod for BONUS_FISH."""
     out = {}
     for g, forms in profiles['goods'].items():
@@ -57,23 +55,38 @@ def composition(profiles):
             continue
         if g == 'BONUS_FISH':
             parts = {f['form']: f for f in forms}
+            cod = whole['cod_as_eaten']['value']
+            COD_PARTS = cod['parts_pct_of_round_weight']
             tot = float(sum(COD_PARTS.values()))
             row = {}
             for k in profiles['units']:
                 row[k] = sum((parts[p].get(k) or 0.0) * w for p, w in COD_PARTS.items()) / tot
             liver = parts['liver (lingcod)']
-            row['vit_a_rae'] += COD_LIVER_OIL_VIT_A * liver['fat'] / 100.0 * COD_PARTS['liver (lingcod)'] / tot
+            row['vit_a_rae'] += cod['liver_oil_vit_a_ug_per_100g'] * liver['fat'] / 100.0 * COD_PARTS['liver (lingcod)'] / tot
             base = {k: v for k, v in row.items()}
         else:
             base = {k: (forms[0].get(k) or 0.0) for k in profiles['units']}
-        if forms[0].get('iodine') is None and profiles['mext'].get(g):   # SR Legacy holds no iodine: MEXT (record 2d)
-            iod = profiles['mext'][g][0].get('iodine')
-            base['iodine'] = iod if iod is not None else 0.0
-        per_g = {k: v / 100.0 for k, v in base.items()}
-        niacin = per_g['niacin'] * (1 / 3.0 if g in CEREALS else 1.0)
-        per_g['niacin_ne'] = niacin + per_g['tryptophan'] * 1000.0 / 60.0
-        out[g] = per_g
+        out[g] = finish(g, base, forms[0], profiles)
+        for f in forms[1:]:                                          # other forms, chosen in a case as 'GOOD:form'
+            out[g + ':' + f['form']] = finish(g, {k: (f.get(k) or 0.0) for k in profiles['units']}, f, profiles)
+        if g == 'BONUS_FISH':                                        # whole herring by season (fat only changes)
+            h = [f for f in forms if f['form'] == 'herring'][0]
+            for season, fat in whole['herring_whole_fat_pct']['value'].items():
+                b2 = {k: (h.get(k) or 0.0) for k in profiles['units']}
+                b2['fat'] = fat
+                b2['kcal'] = 4 * b2['protein'] + 9 * fat + 4 * b2['carbohydrate']
+                out[g + ':herring whole, ' + season] = finish(g, b2, h, profiles)
     return out
+
+
+def finish(g, base, form, profiles):
+    if form.get('iodine') is None and profiles['mext'].get(g):        # SR Legacy holds no iodine: MEXT (record 2d)
+        iod = profiles['mext'][g][0].get('iodine')
+        base['iodine'] = iod if iod is not None else 0.0
+    per_g = {k: v / 100.0 for k, v in base.items()}
+    niacin = per_g['niacin'] * (1 / 3.0 if g in CEREALS else 1.0)
+    per_g['niacin_ne'] = niacin + per_g['tryptophan'] * 1000.0 / 60.0
+    return per_g
 
 
 def quality(c, target, E):
@@ -87,7 +100,7 @@ def quality(c, target, E):
 def solve(case):
     needs, profiles, sat = load('nutrient_needs.json'), load('nutrient_profiles.json'), load('satiety_index.json')
     ms, W = case['male_share'], case['body_weight_kg']
-    comp = composition(profiles)
+    comp = composition(profiles, needs['whole_animal'])
     goods = [g for g in case['available_g'] if case['available_g'][g] > 0]
     for g in goods:
         if g not in comp:
@@ -101,7 +114,7 @@ def solve(case):
     protein_target = num(nut['protein']['optimum']['value'], ms) * W
     hot = case.get('hot_shift_share', 0.0)
     sweat_na = num(nut['sodium']['sweat_per_hot_shift']['value'], ms) * hot
-    animal = any(g in ANIMAL for g in goods)
+    animal = any(g.split(':')[0] in ANIMAL for g in goods)
     fe_abs = num(needs['absorption']['iron_fraction']['value']['mixed_diet' if animal else 'vegetarian'], ms)
 
     def scaled(k, lvl):
@@ -168,11 +181,13 @@ def solve(case):
     b.append(0.0)
     A.append(row([comp[g]['protein'] for g in goods]))               # liver's urea capacity (Bilsborough and Mann)
     b.append(protein_limit)
-    fruit = [i for i, g in enumerate(goods) if g in FRUIT]
+    fruit = [i for i, g in enumerate(goods) if g.split(':')[0] in FRUIT]
     if fruit:
         A.append(row([1.0 if i in fruit else 0.0 for i in range(n)]))  # user: fruit at most one watermelon (M86)
         b.append(4518.0)
-    if not case.get('lactase_persistent', True) and 'BONUS_DAIRY' in goods:
+    # lactose limit (Wilt 2010) only for people neither lactase persistent nor of a dairy culture, and only on fresh
+    # milk: fermented dairy with live cultures is digested in the gut (Kolars 1984); M113
+    if not case.get('lactase_persistent', True) and not case.get('dairy_culture', False) and 'BONUS_DAIRY' in goods:
         lac = num(needs['gut_limits']['lactose_g']['value']['tolerated_by_intolerant'], ms)
         A.append(row([comp[g]['sugars'] if g == 'BONUS_DAIRY' else 0.0 for g in goods]))
         b.append(lac)
@@ -250,8 +265,8 @@ def report(case, needs, comp, sat, goods, x, E, ree, pal, z, mar, q, target, min
     water_drawn = max(0.0, water_turnover - food_water - metabolic - drink_hydration)
     p = needs['absorption']['zinc_equation']['value']
     phy = needs['absorption']['phytate_mg_per_100g_dry']['value']
-    phytate = sum(x[g] * (1 - comp[g]['water']) * (phy['unrefined_cereals_legumes'] if g in CEREALS else
-                                                   phy['roots_tubers'] if g == 'BONUS_POTATO' else 0.0) / 100.0
+    phytate = sum(x[g] * (1 - comp[g]['water']) * (phy['unrefined_cereals_legumes'] if g.split(':')[0] in CEREALS else
+                                                   phy['roots_tubers'] if g.split(':')[0] == 'BONUS_POTATO' else 0.0) / 100.0
                   for g in goods)
     zinc_abs = miller_zinc(intake['zinc'], phytate, intake['calcium'], intake['protein'], p)
     zmin = num(needs['nutrients']['zinc']['minimum']['value'], ms)

@@ -143,7 +143,14 @@ needs={
    'fat_g':L({'absorbed_over_98pct_up_to':639,'sweating_from':[300,400]},'Kasper 1970, PMID 5495429'),
    'fructose_free_g':L({'all_absorb':15,'10pct_malabsorb':25,'80pct_malabsorb':50,'with_equal_glucose_absorbed':50},'Rao et al. 2007, PMID 17625977; Rumessen and Gudmand-Hoyer 1986, PMID 3781328'),
    'lactose_g':L({'malabsorption_prevalence':0.68,'tolerated_by_intolerant':[12,15],'symptoms_appreciable_from':24},'PMID 31953721; Wilt et al. 2010, PMID 20629478'),
-   'protein':'see nutrients.protein.ceiling'},
+   'protein':'see nutrients.protein.ceiling',
+   'lactose_context':'The limit comes from studies of pasteurised milk or lactose in water in lactase-deficient people; it does not apply to lactase-persistent people or dairy cultures (M113). Live-culture yogurt: 18 g lactose gave about one third of the breath hydrogen of the same lactose in milk (Kolars et al. 1984, NEJM 310:1); pasteurisation destroys the lactase of the cultures.'},
+ 'whole_animal':{
+   'about':'Goods eaten as the whole animal (M91, M113): composition built from part records by part shares. Atwater factors 4/9/4 kcal per g protein/fat/carbohydrate recompute energy where only the fat changes.',
+   'cod_as_eaten':L({'parts_pct_of_round_weight':{'cod':36,'liver (lingcod)':5,'roe':4},'liver_oil_vit_a_ug_per_100g':30000},'Torry Advisory Note 17 (FAO 2001) part shares; the coastal meal moelje is cod, cod liver, fresh cod-liver oil and roe (Skjervoy, northern Norway; Public Health Nutrition 2004, Brustad et al.); liver record: lingcod liver (USDA 169810, 42 % fat); vitamin A of the liver from cod liver oil (USDA 173577) times the liver fat share'),
+   'herring_whole_fat_pct':L({'May':7.9,'August':19.5},'Faroese and Atlanto-Scandian herring measured with head and intestines, 1950s (Frodskaparrit, ojs.setur.fo, article 275): lowest in May, highest about 1 August'),
+   'cod_liver_lipid_farmed':L([0.719,0.785],'farmed cod on high-lipid feeds: liver lipid 719-785 g/kg, 83-88 % of body lipid (Stirling study); not used: farmed, not wild'),
+   'cod_head_viscera':L({'head_protein_pct':[13.9,16.4],'head_fat_pct':[0.9,10.9],'viscera_protein_pct':[13.0,15.3],'viscera_fat_pct':[2.0,19.1]},'Bechtel 2003 (pollock and cod processing by-products); not used: no record that heads and viscera were eaten as food')},
  'harm':{
    'alcohol_g_per_week':L({'lowest_all_cause_risk_up_to':100,'life_expectancy_loss_at_40':{'100-200':'about 6 months','200-350':'1-2 years','>350':'4-5 years'},'minimum_harm':0},'Wood et al. 2018, PMID 29676281; GBD 2018, PMID 30146330'),
    'tobacco':L({'1-4_per_day_all_cause_RR':{'men':1.57,'women':1.47},'under_1_per_day_HR':1.64,'1-10_per_day_HR':1.87},'Bjartveit 2005; Inoue-Choi 2017')},

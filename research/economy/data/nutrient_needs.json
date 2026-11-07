@@ -726,7 +726,57 @@
    },
    "source": "PMID 31953721; Wilt et al. 2010, PMID 20629478"
   },
-  "protein": "see nutrients.protein.ceiling"
+  "protein": "see nutrients.protein.ceiling",
+  "lactose_context": "The limit comes from studies of pasteurised milk or lactose in water in lactase-deficient people; it does not apply to lactase-persistent people or dairy cultures (M113). Live-culture yogurt: 18 g lactose gave about one third of the breath hydrogen of the same lactose in milk (Kolars et al. 1984, NEJM 310:1); pasteurisation destroys the lactase of the cultures."
+ },
+ "whole_animal": {
+  "about": "Goods eaten as the whole animal (M91, M113): composition built from part records by part shares. Atwater factors 4/9/4 kcal per g protein/fat/carbohydrate recompute energy where only the fat changes.",
+  "cod_as_eaten": {
+   "value": {
+    "parts_pct_of_round_weight": {
+     "cod": 36,
+     "liver (lingcod)": 5,
+     "roe": 4
+    },
+    "liver_oil_vit_a_ug_per_100g": 30000
+   },
+   "source": "Torry Advisory Note 17 (FAO 2001) part shares; the coastal meal moelje is cod, cod liver, fresh cod-liver oil and roe (Skjervoy, northern Norway; Public Health Nutrition 2004, Brustad et al.); liver record: lingcod liver (USDA 169810, 42 % fat); vitamin A of the liver from cod liver oil (USDA 173577) times the liver fat share"
+  },
+  "herring_whole_fat_pct": {
+   "value": {
+    "May": 7.9,
+    "August": 19.5
+   },
+   "source": "Faroese and Atlanto-Scandian herring measured with head and intestines, 1950s (Frodskaparrit, ojs.setur.fo, article 275): lowest in May, highest about 1 August"
+  },
+  "cod_liver_lipid_farmed": {
+   "value": [
+    0.719,
+    0.785
+   ],
+   "source": "farmed cod on high-lipid feeds: liver lipid 719-785 g/kg, 83-88 % of body lipid (Stirling study); not used: farmed, not wild"
+  },
+  "cod_head_viscera": {
+   "value": {
+    "head_protein_pct": [
+     13.9,
+     16.4
+    ],
+    "head_fat_pct": [
+     0.9,
+     10.9
+    ],
+    "viscera_protein_pct": [
+     13.0,
+     15.3
+    ],
+    "viscera_fat_pct": [
+     2.0,
+     19.1
+    ]
+   },
+   "source": "Bechtel 2003 (pollock and cod processing by-products); not used: no record that heads and viscera were eaten as food"
+  }
  },
  "harm": {
   "alcohol_g_per_week": {
