@@ -2557,14 +2557,15 @@
   {
    "id": "R62",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M110",
    "text": "Keywords: \n\nLD50 value\n\nRecommended intake \n\n\"For athletes\"\n\nToxic dose\n\nHigher limit of the recommended range \n\n\nNow, stop pacing basic search competencies, you can just look for stuff and GET IT",
    "items": [
     {
      "id": "R62.1",
      "what": "Fill every open minimum, optimum and ceiling in section 2i with LD50, toxic dose, recommended intake, athletes' intake or upper end of recommended range, labelled by kind",
-     "status": "open"
+     "status": "done",
+     "where": "nutrition_record.md 2i (minimums) and 2j"
     }
    ]
   }

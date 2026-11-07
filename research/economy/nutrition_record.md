@@ -351,23 +351,56 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 | Nutrient | Unit | Minimum | Mean / median intake | Optimum | Ceiling |
 |---|---|---|---|---|---|
 | Protein | g/kg | 0.65 (nitrogen balance, average; Rand 2003) | 1.2 mean in adults aged about 64 (PMID 42549120) | open | 2-2.5 suggested maximum, about 25 % of energy; above 35 % of energy dangerous (Bilsborough and Mann 2006) |
-| Water | L | open | 3.8 turnover in active students (Ruby 2003) | 3.7 men, 2.7 women meet the needs of most people at rest (Sawka 2005); rises with PAL, weight and heat (Yamada 2022) | kidneys excrete at most about 0.8-0.9 L per hour; above that, plasma sodium falls (Noakes et al. 2001, PMID 11732457) |
+| Water | L | about 1 to drink at rest in mild conditions (total about 1.5, of which about 0.5 is metabolic water); urine at least about 0.5 to clear a 600 mOsm solute load (Tipton, *Exp Physiol* 2025, review) | 3.8 turnover in active students (Ruby 2003) | 3.7 men, 2.7 women meet the needs of most people at rest (Sawka 2005); rises with PAL, weight and heat (Yamada 2022) | kidneys excrete at most about 0.8-0.9 L per hour; above that, plasma sodium falls (Noakes et al. 2001, PMID 11732457) |
 | Sodium | mg | 21 excreted by healthy Yanomamo (Mancilha-Carvalho 1989) | 3,950 global mean, 2010 (Powles et al. 2013, PMID 24366578) | 4,000-5,990 was the reference range in 17 countries; below 3,000 the risk of death and cardiovascular events was higher (OR 1.27), as it was at ≥ 7,000 (O'Donnell et al. 2014, PMID 25119607; observational, from estimated urinary excretion); plus sweat losses of 4,800-6,000 per hot work shift (Bates and Miller 2008) | ≥ 7,000 raised risk; ≥ 6,000 in people with hypertension (O'Donnell 2014) |
 | Potassium | mg | 980-1,170 (25-30 mmol): urine fell to equal intake; below 550 (14 mmol) loss exceeded intake (Squires and Huth 1959) | 2,490 | open; risk fell as excretion rose above 1,500 (O'Donnell 2014) (Stone Age diets 15,600 ± 4,900, i.e. 400 ± 125 mmol, Sebastian 2006, is an intake, not an optimum) | supplements above about 3,100 (80 mmol) extra a day raised blood pressure (Filippini 2020) |
 | Calcium | mg | 741 (neutral balance; 0.28 mg/kcal) (Hunt and Johnson 2007) | 828; national averages 175-1,233 across 74 countries (Balk et al. 2017, PMID 29026938) | open | open |
 | Magnesium | mg | 165 (neutral balance; 0.075 mg/kcal) (Hunt and Johnson 2006) | 254 | open | open |
 | Iron (absorbed) | mg absorbed | 1.18 men, 1.58 menstruating women (median losses; Hunt 2009); 2.84 for 95 % of menstruating women (Hallberg 1991) | 9.4 eaten (about 14-16.6 % absorbed from whole diets, Hallberg 1991) | open | 80 mg supplemental iron raised constipation; 20-60 mg showed no dose effect (PMID 39582678) |
-| Zinc | mg | open (absorption by equation, Miller 2013) | 10.3 | open | open |
-| Iodine | µg | open | open (Zhejiang adults: median urinary iodine 158 µg/L, a concentration, PMID 40274899) | 150-250 (Zimmermann 2009) | urinary iodine ≥ 300 µg/L raised subclinical hypothyroidism, OR 1.45 (PMID 40274899); a concentration, not an intake |
+| Zinc | mg absorbed | 3.9 men, 3.2 women absorbed a day to offset endogenous losses (Hambidge, Miller and Krebs 2011, *Int J Vitam Nutr Res* 81:1); dietary amount by Miller's absorption equation (section 2b) | 10.3 | open | open |
+| Iodine | µg | 51-58: minimum iodine excretion in three balance studies (obligatory loss; *Biomed Environ Sci* 2025) | open (Zhejiang adults: median urinary iodine 158 µg/L, a concentration, PMID 40274899) | 150-250 (Zimmermann 2009) | urinary iodine ≥ 300 µg/L raised subclinical hypothyroidism, OR 1.45 (PMID 40274899); a concentration, not an intake |
 | Selenium | µg | 17 prevents Keshan disease (Yang and Xia 1995, PMID 8561918) | 101 | 40 keeps glutathione peroxidase at plateau (Yang and Xia 1995); 49 optimises selenoprotein P, about 75 after adjustment (Xia 2010) | about 1,600 kept selenosis fingernail changes; patients recovered at 819 ± 126 (Yang and Xia 1995); intoxication outbreak at 4,990 mean (Yang et al. 1983, PMID 6846228) |
-| Vitamin A | µg RAE | open | 380 | 362-571 keeps the body pool for a 70 kg man (Haskell 2011) | chronic toxicity at 2 mg retinol/kg a day in oil for months, 0.2 mg/kg in water-miscible forms within weeks (Myhre et al. 2003, PMID 14668278); high dietary retinol raised hip fracture risk, RR 1.23 (meta-analysis, PMID 34105132) |
+| Vitamin A | µg RAE | 150-200 offsets daily elimination (Japanese DRI 2025 estimate; institutional) | 380 | 362-571 keeps the body pool for a 70 kg man (Haskell 2011) | chronic toxicity at 2 mg retinol/kg a day in oil for months, 0.2 mg/kg in water-miscible forms within weeks (Myhre et al. 2003, PMID 14668278); high dietary retinol raised hip fracture risk, RR 1.23 (meta-analysis, PMID 34105132) |
 | Thiamin | mg per 1,000 kcal | 0.30 (Sauberlich 1979) | 0.9 mg a day | open | open |
-| Riboflavin | mg | open | 1.6 | 1.4: plasma and urinary riboflavin break point (Guo 2016) | open |
-| Niacin | mg NE | open: 6.1 and 10.1 NE a day gave low metabolites (Jacob 1989); pellagra appeared at 7.2-10.6 NE per 1,000 kcal on riboflavin-poor diets (Carpenter and Lewin 1985) | 16.3 mg preformed niacin | 19 NE a day gave normal metabolites (Jacob 1989) | open |
-| Vitamin B6 | mg per g protein | open | 1.5 mg a day | 0.015 normalised most markers, 0.020 all but one (Kretsch 1995) | neuropathy at a mean of 117 mg a day (Dalton and Dalton 1987, PMID 3630649) |
+| Riboflavin | mg | above 0.5: 6 of 10 women on about 0.5 a day developed ariboflavinosis (*Public Health Reports* 1941) | 1.6 | 1.4: plasma and urinary riboflavin break point (Guo 2016) | open |
+| Niacin | mg NE | 8.8 NE for the first 2,000 kcal is the base line for pellagra (Elgin State Hospital studies, Horwitt); 6.1 and 10.1 NE a day gave low metabolites (Jacob 1989); pellagra appeared at 7.2-10.6 NE per 1,000 kcal on riboflavin-poor diets (Carpenter and Lewin 1985) | 16.3 mg preformed niacin | 19 NE a day gave normal metabolites (Jacob 1989) | open |
+| Vitamin B6 | mg per g protein | on 0.16 mg a day blood B6 vanished within 25 days; 0.6-0.9 mg a day reversed the changes (US depletion studies, abstracts via Scilit) | 1.5 mg a day | 0.015 normalised most markers, 0.020 all but one (Kretsch 1995) | neuropathy at a mean of 117 mg a day (Dalton and Dalton 1987, PMID 3630649) |
 | Folate | µg DFE | above 300: serum folate fell at 200 and 300 (O'Keefe 1995) | 189 | 400: serum folate rose (O'Keefe 1995) | open |
-| Vitamin B12 | µg | open | 4.0 | 4.2-7.0: all markers level off (Bor 2010) | open |
+| Vitamin B12 | µg | about 1: 0.25-1.0 µg injected daily gave reticulocyte responses in pernicious anaemia, 0.1 µg did not (Darby; West and Reisner; 1965 *NEJM* review); about 1 µg is the daily loss (Carmel 2008, *Blood*) | 4.0 | 4.2-7.0: all markers level off (Bor 2010) | open |
 | Vitamin C | mg | just under 10 prevents or cures scurvy (Hodges 1971) | 63 | about 100: body pool full for 95 % (Kallner 1979), white cells saturated (Levine 1996) | at 1,000 urinary oxalate and urate rose; above 500 per dose the absorbed excess is excreted (Levine 1996) |
+
+
+### 2j. Recommendations, athletes' intakes, upper limits, toxic and lethal doses (R62, M110)
+
+Kept apart from section 2i because they are of a different kind:
+- **Recommended intake**: set by an institution to cover nearly everyone (US National Academies RDA or AI). It lies above the minimum and is not the optimum.
+- **For athletes**: a sports-nutrition body's range. A 2025 review notes reference intakes for athletes are not differentiated from the general population for most vitamins and minerals (PMC12845069).
+- **Upper limit (UL)**: an institution's intake judged safe over time; harm usually starts well above it.
+- **Toxic dose**: where harm has been seen in people.
+- **Lethal dose**: acute fatal dose in people, and the rat oral LD50 (single dose killing half the rats, mg per kg body weight, from safety data sheets and RTECS). Both describe poisoning, not diet.
+
+| Nutrient | Recommended intake, adults | For athletes | Upper limit (UL) | Toxic dose in people | Lethal dose (people) / LD50 (rat, oral) |
+|---|---|---|---|---|---|
+| Protein | 0.8 g/kg (RDA) | 1.4-2.0 g/kg; 2.3-3.1 g/kg to keep lean mass in an energy deficit; 0.25 g/kg or 20-40 g per meal (ISSN position stand 2017, PMC5477153) | — | above 35 % of energy (Bilsborough and Mann 2006) | — |
+| Water | 1 ml per kcal spent, often 1.5 ml per kcal (US National Research Council) | towards 4 L and more when active in heat (Tipton 2025) | — | drinking faster than about 0.9 L an hour lowers plasma sodium (Noakes 2001) | — |
+| Sodium | 2,300 mg (general limit) | sweat holds 200-2,000 mg per L; sports drinks 500-700 mg per L; some athletes may need over 10,000 mg a day; targeted replacement needed only beyond 4 h, sweat over 1.8 L/h and drinking over 70 % of losses (PMID 35616504) | — | replacing 100 % of losses in under-hydrated athletes risks hypernatraemia | people: 0.75-3 g NaCl per kg (case literature); rat: about 3,000 mg/kg NaCl |
+| Potassium | 4,700 mg (AI) | — | — | severe hyperkalaemia in 5 of 13 oral overdoses of 6-120 g KCl (median 24 g); rare with normal kidneys (Australian case review) | rat: 2,600-3,020 mg/kg KCl |
+| Calcium | 1,000 mg; 1,200 mg women from 51, men from 71 (RDA) | 1,000-1,500 mg; 1,500 mg with the female athlete triad (consumer sources) | 2,000-3,000 mg by age (US); 2,500 mg (EU SCF 2003) | milk-alkali syndrome classically above 4 g a day, lower with high vitamin D or kidney disease (PMC3875933) | — |
+| Magnesium | 310-420 mg | 250-900 mg, endurance athletes at the top (consumer handout); supplementation shows no performance effect (JISSN 2005 review) | 350 mg from supplements only, set for mild diarrhoea; a 2023 review argues for raising it (PMID 37487817) | — | — |
+| Iron | 8 mg men, 18 mg women 19-50 (RDA) | 10-15 mg (consumer handout); critical in heavy endurance training (German Nutrition Society 2020) | 45 mg (NIH) | acute: under 20 mg/kg non-toxic, 20-60 mg/kg moderate, above 60 mg/kg severe | people: above 100-120 mg/kg often fatal |
+| Zinc | 11 mg men, 8 mg women (RDA) | — | 40 mg (US); 25 mg (EFSA) | 60 mg a day for 10 weeks lowered copper status; 450-1,600 mg a day caused anaemia, copper deficiency and myeloneuropathy (PMID 38999082) | rat: 1,710 mg/kg zinc sulfate dihydrate |
+| Iodine | 150 µg (RDA) | — | 1,100 µg (US, set on thyrotropin response) | goitre protection needs 100-160 µg (older endemic-goitre studies) | — |
+| Selenium | — | — | 400 µg (US); 300 µg (EFSA, older value) | about 1,600 µg (section 2i) | rat: 7-12.7 mg/kg sodium selenite |
+| Vitamin A | 900 µg RAE men, 700 µg women (RDA) | no athlete value; evidence sparse (PMC12845069) | 3,000 µg preformed (US and EFSA) | section 2i (2 mg/kg in oil, 0.2 mg/kg water-miscible) | mouse: 4,100 mg/kg retinyl acetate |
+| Thiamin | 1.2 mg men, 1.1 mg women (RDA) | — | none; 100 mg supplemental as guidance (UK EVM, no adverse effects found) | — | rat: 3,710 mg/kg thiamine hydrochloride |
+| Riboflavin | 1.3 mg men, 1.1 mg women (RDA) | — | none; single doses up to 60 mg without effects; absorption tops out at about 27 mg per dose (EU SCF) | — | — |
+| Niacin | 16 mg NE men, 14 mg women (RDA) | — | 35 mg supplemental (US), set on flushing | flushing from 30-50 mg nicotinic acid; liver damage mainly with extended-release forms at lipid-lowering doses | rat: 6,450-7,000 mg/kg nicotinic acid |
+| Vitamin B6 | 1.3 mg (RDA) | — | 100 mg (US); 25 mg (EFSA 2023) | section 2i (neuropathy at a mean of 117 mg) | — |
+| Folate | 400 µg DFE (RDA) | — | 1,000 µg synthetic folic acid (US); concern is masking B12 deficiency | — | — |
+| Vitamin B12 | 2.4 µg (RDA) | — | none set; 2,000 µg used to treat deficiency | — | — |
+| Vitamin C | 90 mg men, 75 mg women (RDA); 30-75 mg across countries | 200-500 mg reduced soreness, larger doses may blunt training adaptation (secondary sources; PMC12845069) | 2,000 mg (US); none (EFSA, insufficient data) | section 2i (oxalate rises at 1,000 mg) | rat: 11,900 mg/kg ascorbic acid |
+
+"—" means no value found yet. Riboflavin, niacin, folate and vitamin C RDAs are the standard US values; the other RDA and AI figures are from the National Academies DRI tables as reproduced in the search results.
 
 ## 3. Known faults in the data files (to fix before any model uses them)
 
