@@ -25,7 +25,7 @@ NUTRIENTS = {  # USDA nutrient id: (key, unit)
     '1092': ('potassium', 'mg'), '1093': ('sodium', 'mg'), '1100': ('iodine', 'ug'), '1103': ('selenium', 'ug'),
     # R64 (M112): tryptophan for niacin equivalents (NE = niacin + tryptophan mg / 60); carbohydrate, sugars, fibre and
     # alcohol for the hyper-palatability criteria, Holt's fullness drivers and the alcohol harm term
-    '1210': ('tryptophan', 'g'), '1005': ('carbohydrate', 'g'), '2000': ('sugars', 'g'), '1079': ('fiber', 'g'),
+    '1175': ('vit_b6', 'mg'), '1210': ('tryptophan', 'g'), '1005': ('carbohydrate', 'g'), '2000': ('sugars', 'g'), '1079': ('fiber', 'g'),
     '1018': ('alcohol', 'g'),
 }
 
@@ -40,7 +40,10 @@ GOODS = {
     'BONUS_SHEEP': [('meat', '172545')],
     'BONUS_DEER': [('meat', '173855')],
     'BONUS_HORSE': [('meat', '175086')],
-    'BONUS_FISH': [('cod', '171955'), ('herring', '175116'), ('salt cod', '174190')],
+    # R64: roe and liver for the whole cod (Torry Advisory Note 17 part shares); SR Legacy has no raw Atlantic cod liver,
+    # so the nearest record, lingcod liver (Alaska Native), stands for it and is named as such
+    'BONUS_FISH': [('cod', '171955'), ('herring', '175116'), ('salt cod', '174190'), ('roe', '175132'),
+                   ('liver (lingcod)', '169810')],
     'BONUS_CLAM': [('raw', '174214')],
     'BONUS_CRAB': [('raw', '174204')],
     'BONUS_SHRIMP': [('raw', '174210')],
