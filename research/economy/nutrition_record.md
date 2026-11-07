@@ -333,6 +333,42 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 - **Mean adequacy ratio:** the average over nutrients of intake ÷ requirement, each capped at 1. A standard measure of diet adequacy, approved by you (M102).
 - **Hydration index:** the hydration a drink gives relative to the same volume of water (M101). Measured as water retained 2 h after 1 L, relative to still water, in 72 men: full-fat milk 1.50, skimmed milk 1.58, oral rehydration solution 1.54; cola, tea, coffee, lager, orange juice and sports drink did not differ from water (Maughan et al. 2016, PMID 26702122; also PMID 42884730).
 
+### 2i. Four levels per nutrient (R61, M109)
+
+**The four levels are kept apart:**
+
+| Level | Meaning | What a study must show |
+|---|---|---|
+| **Minimum** | the lowest intake at which a deficiency sign stays absent, or balance is kept | depletion, balance or deficiency-disease studies |
+| **Mean / median intake** | what a population actually eats; not a target | intake surveys or 24 h urine collections |
+| **Optimum** | the intake at which a status marker levels off (plateau, saturation, store kept) | dose-response studies on a marker |
+| **Ceiling** | the intake above which a harm appears | toxicity, intolerance or risk studies |
+
+**Units.** Each nutrient has one unit, per person per day. Where a study ties the need to energy, body weight or protein, that form is the unit, because it scales with the city's work and diet. Conversions are by molar mass: 1 mmol (mEq) sodium = 23.0 mg; 1 mmol potassium = 39.1 mg. "Open" means no study read gives that level.
+
+**Mean / median source.** Unless stated, the mean or median is the US usual intake from naturally occurring sources only (no fortification, no supplements), NHANES 2003-2006, people aged 2 and older (Fulgoni et al. 2011, PMC3174857, Table 1, 50th percentile). This is one modern population, kept for consistency; it is not a target.
+
+| Nutrient | Unit | Minimum | Mean / median intake | Optimum | Ceiling |
+|---|---|---|---|---|---|
+| Protein | g/kg | 0.65 (nitrogen balance, average; Rand 2003) | 1.2 mean in adults aged about 64 (PMID 42549120) | open | 2-2.5 suggested maximum, about 25 % of energy; above 35 % of energy dangerous (Bilsborough and Mann 2006) |
+| Water | L | open | 3.8 turnover in active students (Ruby 2003) | 3.7 men, 2.7 women meet the needs of most people at rest (Sawka 2005); rises with PAL, weight and heat (Yamada 2022) | kidneys excrete at most about 0.8-0.9 L per hour; above that, plasma sodium falls (Noakes et al. 2001, PMID 11732457) |
+| Sodium | mg | 21 excreted by healthy Yanomamo (Mancilha-Carvalho 1989) | 3,950 global mean, 2010 (Powles et al. 2013, PMID 24366578) | 4,000-5,990 was the reference range in 17 countries; below 3,000 the risk of death and cardiovascular events was higher (OR 1.27), as it was at ≥ 7,000 (O'Donnell et al. 2014, PMID 25119607; observational, from estimated urinary excretion); plus sweat losses of 4,800-6,000 per hot work shift (Bates and Miller 2008) | ≥ 7,000 raised risk; ≥ 6,000 in people with hypertension (O'Donnell 2014) |
+| Potassium | mg | 980-1,170 (25-30 mmol): urine fell to equal intake; below 550 (14 mmol) loss exceeded intake (Squires and Huth 1959) | 2,490 | open; risk fell as excretion rose above 1,500 (O'Donnell 2014) (Stone Age diets 15,600 ± 4,900, i.e. 400 ± 125 mmol, Sebastian 2006, is an intake, not an optimum) | supplements above about 3,100 (80 mmol) extra a day raised blood pressure (Filippini 2020) |
+| Calcium | mg | 741 (neutral balance; 0.28 mg/kcal) (Hunt and Johnson 2007) | 828; national averages 175-1,233 across 74 countries (Balk et al. 2017, PMID 29026938) | open | open |
+| Magnesium | mg | 165 (neutral balance; 0.075 mg/kcal) (Hunt and Johnson 2006) | 254 | open | open |
+| Iron (absorbed) | mg absorbed | 1.18 men, 1.58 menstruating women (median losses; Hunt 2009); 2.84 for 95 % of menstruating women (Hallberg 1991) | 9.4 eaten (about 14-16.6 % absorbed from whole diets, Hallberg 1991) | open | 80 mg supplemental iron raised constipation; 20-60 mg showed no dose effect (PMID 39582678) |
+| Zinc | mg | open (absorption by equation, Miller 2013) | 10.3 | open | open |
+| Iodine | µg | open | open (Zhejiang adults: median urinary iodine 158 µg/L, a concentration, PMID 40274899) | 150-250 (Zimmermann 2009) | urinary iodine ≥ 300 µg/L raised subclinical hypothyroidism, OR 1.45 (PMID 40274899); a concentration, not an intake |
+| Selenium | µg | 17 prevents Keshan disease (Yang and Xia 1995, PMID 8561918) | 101 | 40 keeps glutathione peroxidase at plateau (Yang and Xia 1995); 49 optimises selenoprotein P, about 75 after adjustment (Xia 2010) | about 1,600 kept selenosis fingernail changes; patients recovered at 819 ± 126 (Yang and Xia 1995); intoxication outbreak at 4,990 mean (Yang et al. 1983, PMID 6846228) |
+| Vitamin A | µg RAE | open | 380 | 362-571 keeps the body pool for a 70 kg man (Haskell 2011) | chronic toxicity at 2 mg retinol/kg a day in oil for months, 0.2 mg/kg in water-miscible forms within weeks (Myhre et al. 2003, PMID 14668278); high dietary retinol raised hip fracture risk, RR 1.23 (meta-analysis, PMID 34105132) |
+| Thiamin | mg per 1,000 kcal | 0.30 (Sauberlich 1979) | 0.9 mg a day | open | open |
+| Riboflavin | mg | open | 1.6 | 1.4: plasma and urinary riboflavin break point (Guo 2016) | open |
+| Niacin | mg NE | open: 6.1 and 10.1 NE a day gave low metabolites (Jacob 1989); pellagra appeared at 7.2-10.6 NE per 1,000 kcal on riboflavin-poor diets (Carpenter and Lewin 1985) | 16.3 mg preformed niacin | 19 NE a day gave normal metabolites (Jacob 1989) | open |
+| Vitamin B6 | mg per g protein | open | 1.5 mg a day | 0.015 normalised most markers, 0.020 all but one (Kretsch 1995) | neuropathy at a mean of 117 mg a day (Dalton and Dalton 1987, PMID 3630649) |
+| Folate | µg DFE | above 300: serum folate fell at 200 and 300 (O'Keefe 1995) | 189 | 400: serum folate rose (O'Keefe 1995) | open |
+| Vitamin B12 | µg | open | 4.0 | 4.2-7.0: all markers level off (Bor 2010) | open |
+| Vitamin C | mg | just under 10 prevents or cures scurvy (Hodges 1971) | 63 | about 100: body pool full for 95 % (Kallner 1979), white cells saturated (Levine 1996) | at 1,000 urinary oxalate and urate rose; above 500 per dose the absorbed excess is excreted (Levine 1996) |
+
 ## 3. Known faults in the data files (to fix before any model uses them)
 
 | File | Fault |
@@ -340,7 +376,7 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 | `nutrition.json` and `nutrient_profiles.json` | **Two bases.** Energy, protein and fat come from FAO "as bought" records (beef 150 kcal per 100 g); vitamins and minerals come from USDA records of a different form (beef carcass 291 kcal). A model mixing them mismatches energy and nutrients. One record per good, all values from the same food form, is needed. |
 | `nutrient_profiles.json` | **Niacin.** USDA gives preformed niacin in mg; the need is in niacin equivalents, which include tryptophan / 60 (section 2c). Tryptophan (USDA nutrient 1210) must be added. |
 | `nutrient_needs.json` | **Thiamin and niacin** are converted at a fixed 2,600 kcal. Section 2b gives thiamin per 1,000 kcal (Sauberlich) and niacin per 1,000 kcal (Carpenter and Lewin), so they must follow the actual energy turnover. |
-| `nutrient_needs.json` | **All needs** are the EFSA values. They must be replaced by the study values in section 2b. |
+| `nutrient_needs.json` | **All needs** are the EFSA values, one number per nutrient that mixes the levels. They must be replaced by the four separate levels of section 2i. |
 | `nutrient_needs.json` | **Sodium** is fixed. Sweat losses of 4.8-6 g per shift in heat (section 2b) must be added with labour and heat. |
 | `nutrient_needs.json` | **Water** is a fixed 2,250 ml. It must rise with labour and heat (M103); the Yamada equation (section 2b) gives about 1,000 ml per unit of PAL and per 30 °C. |
 | `nutrient_needs.json` | **Vitamin C** uses EFSA's 90 mg. Section 2b gives 10 mg against scurvy and about 100 mg for a full pool and white-cell saturation. |

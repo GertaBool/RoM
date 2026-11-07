@@ -2529,19 +2529,21 @@
   {
    "id": "R61",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M109",
    "text": "Standardize the units for each nutrient in a sensible way, distinguish between the absolute minimum, the mean or median intake, the optimum intake and the ceiling. Do not confuse these.",
    "items": [
     {
      "id": "R61.1",
      "what": "Define the four levels and one standard unit per nutrient (per day, and per 1,000 kcal or per kg where the need scales)",
-     "status": "open"
+     "status": "done",
+     "where": "nutrition_record.md 2i (definitions, units)"
     },
     {
      "id": "R61.2",
      "what": "Fill each level for every nutrient in the record from studies; search the missing means and ceilings; mark a level open when no study gives it",
-     "status": "open"
+     "status": "done",
+     "where": "nutrition_record.md 2i (table; open cells marked)"
     }
    ]
   }
