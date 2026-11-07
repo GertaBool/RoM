@@ -686,6 +686,13 @@
    "kind": "correction",
    "text": "Incoherent presentation. \n\nApply abstract thinking for this problem. \n\nResearch how to actually present mathematical models in their proper notation, how to present a full legend of variables, and show your work again.",
    "led_to": "R51: notation conventions researched; the specification rewritten in proper mathematical notation (sets, indices, parameters, variables, equations, algorithm) with a full legend; the worked example redone in the same notation"
+  },
+  {
+   "id": "M99",
+   "date": "2026-11-07",
+   "kind": "request",
+   "text": "Okay output these as PDFs",
+   "led_to": "R52: the specification and the worked example as PDFs"
   }
  ],
  "requests": [
@@ -2220,6 +2227,20 @@
      "what": "Show the work again in the same notation",
      "status": "done",
      "where": "food_model_spec.md version 3 (sections 0-9); food_model_worked_example.md"
+    }
+   ]
+  },
+  {
+   "id": "R52",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M99",
+   "text": "Okay output these as PDFs",
+   "items": [
+    {
+     "id": "R52.1",
+     "what": "food_model_spec.md and food_model_worked_example.md as PDFs with the mathematics typeset",
+     "status": "open"
     }
    ]
   }
