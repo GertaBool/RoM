@@ -679,6 +679,13 @@
    "kind": "correction",
    "text": "You are again refusing to provide an actual formula for the mathematical model, you just talk to me and I have no direct insight as to why numbers changed, you're narrating results to me and I cannot accept it",
    "led_to": "R50: the formulas given directly, with a worked trace from input data to every intermediate value and result, and the version 1 to version 2 differences attributed to the variables that caused them"
+  },
+  {
+   "id": "M98",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "Incoherent presentation. \n\nApply abstract thinking for this problem. \n\nResearch how to actually present mathematical models in their proper notation, how to present a full legend of variables, and show your work again.",
+   "led_to": "R51: notation conventions researched; the specification rewritten in proper mathematical notation (sets, indices, parameters, variables, equations, algorithm) with a full legend; the worked example redone in the same notation"
   }
  ],
  "requests": [
@@ -2186,6 +2193,30 @@
      "what": "Explain why numbers changed between versions, variable by variable",
      "status": "done",
      "where": "food_model_worked_example.md; plan/tools/food_model_trace.py"
+    }
+   ]
+  },
+  {
+   "id": "R51",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M98",
+   "text": "Incoherent presentation. \n\nApply abstract thinking for this problem. \n\nResearch how to actually present mathematical models in their proper notation, how to present a full legend of variables, and show your work again.",
+   "items": [
+    {
+     "id": "R51.1",
+     "what": "Research how mathematical models are presented in proper notation, with a full legend of variables",
+     "status": "open"
+    },
+    {
+     "id": "R51.2",
+     "what": "Restate the food model abstractly in that notation (no model change)",
+     "status": "open"
+    },
+    {
+     "id": "R51.3",
+     "what": "Show the work again in the same notation",
+     "status": "open"
     }
    ]
   }
