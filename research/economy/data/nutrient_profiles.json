@@ -605,6 +605,68 @@
     "sugars": null,
     "fiber": null,
     "alcohol": null
+   },
+   {
+    "form": "Pacific herring",
+    "fdc_id": 173669,
+    "usda": "Fish, herring, Pacific, raw",
+    "kcal": 195.0,
+    "protein": 16.39,
+    "fat": 13.88,
+    "water": 71.52,
+    "vit_c": 0.0,
+    "vit_a_rae": 32.0,
+    "vit_d": null,
+    "thiamin": 0.06,
+    "riboflavin": 0.2,
+    "niacin": 2.2,
+    "folate_dfe": 5.0,
+    "b12": 10.0,
+    "iron": 1.12,
+    "zinc": 0.53,
+    "calcium": 83.0,
+    "magnesium": 32.0,
+    "potassium": 423.0,
+    "sodium": 74.0,
+    "iodine": null,
+    "selenium": 36.5,
+    "vit_b6": 0.45,
+    "tryptophan": 0.184,
+    "carbohydrate": 0.0,
+    "sugars": null,
+    "fiber": 0.0,
+    "alcohol": null
+   },
+   {
+    "form": "Atlantic mackerel",
+    "fdc_id": 175119,
+    "usda": "Fish, mackerel, Atlantic, raw",
+    "kcal": 205.0,
+    "protein": 18.6,
+    "fat": 13.89,
+    "water": 63.55,
+    "vit_c": 0.4,
+    "vit_a_rae": 50.0,
+    "vit_d": 16.1,
+    "thiamin": 0.176,
+    "riboflavin": 0.312,
+    "niacin": 9.08,
+    "folate_dfe": 1.0,
+    "b12": 8.71,
+    "iron": 1.63,
+    "zinc": 0.63,
+    "calcium": 12.0,
+    "magnesium": 76.0,
+    "potassium": 314.0,
+    "sodium": 90.0,
+    "iodine": null,
+    "selenium": 44.1,
+    "vit_b6": 0.399,
+    "tryptophan": 0.208,
+    "carbohydrate": 0.0,
+    "sugars": 0.0,
+    "fiber": 0.0,
+    "alcohol": 0.0
    }
   ],
   "BONUS_CLAM": [
@@ -1769,7 +1831,17 @@
     "niacin": 0.6,
     "b12": 0.0,
     "folate": 9.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 1.5,
+    "water": 14.0,
+    "magnesium": 12.0,
+    "selenium": 4.0,
+    "riboflavin": 0.03,
+    "vit_b6": 0.03,
+    "carbohydrate": 75.8,
+    "fiber": 2.5,
+    "niacin_ne": 2.4,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_RICE": [
@@ -1790,7 +1862,17 @@
     "niacin": 1.2,
     "b12": 0.0,
     "folate": 12.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 0.9,
+    "water": 14.9,
+    "magnesium": 23.0,
+    "selenium": 2.0,
+    "riboflavin": 0.02,
+    "vit_b6": 0.12,
+    "carbohydrate": 77.6,
+    "fiber": 0.5,
+    "niacin_ne": 2.6,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_CORN": [
@@ -1811,7 +1893,17 @@
     "niacin": 2.0,
     "b12": 0.0,
     "folate": 28.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 5.0,
+    "water": 14.5,
+    "magnesium": 75.0,
+    "selenium": 6.0,
+    "riboflavin": 0.1,
+    "vit_b6": 0.39,
+    "carbohydrate": 70.6,
+    "fiber": 9.0,
+    "niacin_ne": 3.0,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_POTATO": [
@@ -1835,7 +1927,17 @@
     "niacin": 1.5,
     "b12": 0.0,
     "folate": 20.0,
-    "vit_c": 28.0
+    "vit_c": 28.0,
+    "fat": 0.1,
+    "water": 79.8,
+    "magnesium": 19.0,
+    "selenium": 0.0,
+    "riboflavin": 0.03,
+    "vit_b6": 0.2,
+    "carbohydrate": 17.3,
+    "fiber": 8.9,
+    "niacin_ne": 1.8,
+    "refuse_pct": 10.0
    }
   ],
   "BONUS_COW": [
@@ -1859,7 +1961,17 @@
     "niacin": 3.9,
     "b12": 2.8,
     "folate": 6.0,
-    "vit_c": 1.0
+    "vit_c": 1.0,
+    "fat": 19.8,
+    "water": 62.0,
+    "magnesium": 18.0,
+    "selenium": 14.0,
+    "riboflavin": 0.2,
+    "vit_b6": 0.33,
+    "carbohydrate": 0.3,
+    "fiber": 0.0,
+    "niacin_ne": 6.7,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_PIG": [
@@ -1880,7 +1992,17 @@
     "niacin": 7.3,
     "b12": 0.3,
     "folate": 1.0,
-    "vit_c": 1.0
+    "vit_c": 1.0,
+    "fat": 19.2,
+    "water": 60.4,
+    "magnesium": 22.0,
+    "selenium": 21.0,
+    "riboflavin": 0.15,
+    "vit_b6": 0.32,
+    "carbohydrate": 0.2,
+    "fiber": 0.0,
+    "niacin_ne": 11.0,
+    "refuse_pct": 0.0
    },
    {
     "form": "liver",
@@ -1899,7 +2021,17 @@
     "niacin": 14.0,
     "b12": 25.0,
     "folate": 810.0,
-    "vit_c": 20.0
+    "vit_c": 20.0,
+    "fat": 3.4,
+    "water": 72.0,
+    "magnesium": 20.0,
+    "selenium": 67.0,
+    "riboflavin": 3.6,
+    "vit_b6": 0.57,
+    "carbohydrate": 2.5,
+    "fiber": 0.0,
+    "niacin_ne": 19.0,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_FISH": [
@@ -1923,7 +2055,17 @@
     "vit_c": 0,
     "trace": [
      "vit_c"
-    ]
+    ],
+    "fat": 0.2,
+    "water": 80.9,
+    "magnesium": 24.0,
+    "selenium": 31.0,
+    "riboflavin": 0.1,
+    "vit_b6": 0.07,
+    "carbohydrate": 0.1,
+    "fiber": 0.0,
+    "niacin_ne": 4.4,
+    "refuse_pct": 0.0
    },
    {
     "form": "sardine",
@@ -1942,7 +2084,17 @@
     "niacin": 7.2,
     "b12": 16.0,
     "folate": 10.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 9.2,
+    "water": 68.9,
+    "magnesium": 30.0,
+    "selenium": 48.0,
+    "riboflavin": 0.39,
+    "vit_b6": 0.49,
+    "carbohydrate": 0.2,
+    "fiber": 0.0,
+    "niacin_ne": 11.0,
+    "refuse_pct": 60.0
    },
    {
     "form": "salmon",
@@ -1961,7 +2113,17 @@
     "niacin": 6.7,
     "b12": 5.9,
     "folate": 20.0,
-    "vit_c": 1.0
+    "vit_c": 1.0,
+    "fat": 4.1,
+    "water": 72.3,
+    "magnesium": 28.0,
+    "selenium": 31.0,
+    "riboflavin": 0.21,
+    "vit_b6": 0.64,
+    "carbohydrate": 0.1,
+    "fiber": 0.0,
+    "niacin_ne": 11.0,
+    "refuse_pct": 0.0
    },
    {
     "form": "bonito",
@@ -1983,7 +2145,110 @@
     "vit_c": 0,
     "trace": [
      "vit_c"
-    ]
+    ],
+    "fat": 0.5,
+    "water": 72.2,
+    "magnesium": 42.0,
+    "selenium": 43.0,
+    "riboflavin": 0.17,
+    "vit_b6": 0.76,
+    "carbohydrate": 0.1,
+    "fiber": 0.0,
+    "niacin_ne": 24.0,
+    "refuse_pct": 0.0
+   },
+   {
+    "form": "pond smelt, whole",
+    "mext_no": "10276",
+    "mext_name": "＜魚類＞ わかさぎ 生",
+    "kcal": 71.0,
+    "protein": 14.4,
+    "sodium": 200.0,
+    "potassium": 120.0,
+    "calcium": 450.0,
+    "iron": 0.9,
+    "zinc": 2.0,
+    "iodine": 29.0,
+    "vit_a_rae": 99.0,
+    "thiamin": 0.01,
+    "niacin": 1.6,
+    "b12": 7.9,
+    "folate": 21.0,
+    "vit_c": 1.0,
+    "fat": 1.7,
+    "water": 81.8,
+    "magnesium": 25.0,
+    "selenium": 22.0,
+    "riboflavin": 0.14,
+    "vit_b6": 0.17,
+    "carbohydrate": 0.1,
+    "fiber": 0.0,
+    "niacin_ne": 4.0,
+    "refuse_pct": 0.0
+   },
+   {
+    "form": "loach, whole",
+    "mext_no": "10213",
+    "mext_name": "＜魚類＞ どじょう 生",
+    "kcal": 72.0,
+    "protein": 16.1,
+    "sodium": 96.0,
+    "potassium": 290.0,
+    "calcium": 1100.0,
+    "iron": 5.6,
+    "zinc": 2.9,
+    "iodine": null,
+    "vit_a_rae": 15.0,
+    "thiamin": 0.09,
+    "niacin": 4.0,
+    "b12": 8.5,
+    "folate": 16.0,
+    "vit_c": 1.0,
+    "fat": 1.2,
+    "water": 79.1,
+    "magnesium": 42.0,
+    "selenium": null,
+    "riboflavin": 1.09,
+    "vit_b6": 0.1,
+    "carbohydrate": 0,
+    "trace": [
+     "carbohydrate"
+    ],
+    "fiber": 0.0,
+    "niacin_ne": 6.7,
+    "refuse_pct": 0.0
+   },
+   {
+    "form": "dried sardine, whole (mezashi)",
+    "mext_no": "10053",
+    "mext_name": "＜魚類＞ （いわし類） めざし 生",
+    "kcal": 206.0,
+    "protein": 18.2,
+    "sodium": 1100.0,
+    "potassium": 170.0,
+    "calcium": 180.0,
+    "iron": 2.6,
+    "zinc": 1.2,
+    "iodine": null,
+    "vit_a_rae": 77.0,
+    "thiamin": 0.01,
+    "niacin": 10.0,
+    "b12": 15.0,
+    "folate": 34.0,
+    "vit_c": 0,
+    "trace": [
+     "vit_c"
+    ],
+    "fat": 18.9,
+    "water": 59.0,
+    "magnesium": 31.0,
+    "selenium": null,
+    "riboflavin": 0.21,
+    "vit_b6": 0.37,
+    "carbohydrate": 0.5,
+    "fiber": 0.0,
+    "niacin_ne": 14.0,
+    "refuse_pct": 15.0
    }
   ],
   "BONUS_CLAM": [
@@ -2004,7 +2269,17 @@
     "niacin": 1.3,
     "b12": 44.8,
     "folate": 11.0,
-    "vit_c": 1.0
+    "vit_c": 1.0,
+    "fat": 0.7,
+    "water": 90.3,
+    "magnesium": 92.0,
+    "selenium": 35.0,
+    "riboflavin": 0.16,
+    "vit_b6": 0.03,
+    "carbohydrate": 0.4,
+    "fiber": 0.0,
+    "niacin_ne": 2.2,
+    "refuse_pct": 70.0
    },
    {
     "form": "oyster",
@@ -2023,7 +2298,17 @@
     "niacin": 1.5,
     "b12": 23.0,
     "folate": 39.0,
-    "vit_c": 3.0
+    "vit_c": 3.0,
+    "fat": 2.2,
+    "water": 85.0,
+    "magnesium": 65.0,
+    "selenium": 46.0,
+    "riboflavin": 0.14,
+    "vit_b6": 0.07,
+    "carbohydrate": 4.9,
+    "fiber": 0.0,
+    "niacin_ne": 2.6,
+    "refuse_pct": 75.0
    }
   ],
   "BONUS_WHALE": [
@@ -2044,7 +2329,17 @@
     "niacin": 12.0,
     "b12": 2.0,
     "folate": 4.0,
-    "vit_c": 1.0
+    "vit_c": 1.0,
+    "fat": 0.4,
+    "water": 74.3,
+    "magnesium": 29.0,
+    "selenium": 32.0,
+    "riboflavin": 0.23,
+    "vit_b6": 0.46,
+    "carbohydrate": 0.2,
+    "fiber": 0.0,
+    "niacin_ne": 17.0,
+    "refuse_pct": 0.0
    },
    {
     "form": "skin (honkawa)",
@@ -2063,7 +2358,17 @@
     "niacin": 0.5,
     "b12": 0.4,
     "folate": 1.0,
-    "vit_c": 5.0
+    "vit_c": 5.0,
+    "fat": 68.8,
+    "water": 21.0,
+    "magnesium": 3.0,
+    "selenium": null,
+    "riboflavin": 0.05,
+    "vit_b6": 0.01,
+    "carbohydrate": 0.2,
+    "fiber": 0.0,
+    "niacin_ne": 2.1,
+    "refuse_pct": 0.0
    },
    {
     "form": "belly (unesu)",
@@ -2082,7 +2387,17 @@
     "niacin": 2.4,
     "b12": 0.7,
     "folate": 3.0,
-    "vit_c": 6.0
+    "vit_c": 6.0,
+    "fat": 31.4,
+    "water": 49.0,
+    "magnesium": 10.0,
+    "selenium": null,
+    "riboflavin": 0.2,
+    "vit_b6": 0.06,
+    "carbohydrate": 0.2,
+    "fiber": 0.0,
+    "niacin_ne": 5.5,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_DAIRY": [
@@ -2103,7 +2418,17 @@
     "niacin": 0.1,
     "b12": 0.3,
     "folate": 5.0,
-    "vit_c": 1.0
+    "vit_c": 1.0,
+    "fat": 3.8,
+    "water": 87.4,
+    "magnesium": 10.0,
+    "selenium": 3.0,
+    "riboflavin": 0.15,
+    "vit_b6": 0.03,
+    "carbohydrate": 4.8,
+    "fiber": 0.0,
+    "niacin_ne": 0.9,
+    "refuse_pct": 0.0
    },
    {
     "form": "processed cheese",
@@ -2122,7 +2447,17 @@
     "niacin": 0.1,
     "b12": 3.2,
     "folate": 27.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 26.0,
+    "water": 45.0,
+    "magnesium": 19.0,
+    "selenium": 13.0,
+    "riboflavin": 0.38,
+    "vit_b6": 0.01,
+    "carbohydrate": 1.3,
+    "fiber": 0.0,
+    "niacin_ne": 5.0,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_LEMON": [
@@ -2143,7 +2478,17 @@
     "niacin": 0.2,
     "b12": 0.0,
     "folate": 31.0,
-    "vit_c": 100.0
+    "vit_c": 100.0,
+    "fat": 0.7,
+    "water": 85.3,
+    "magnesium": 11.0,
+    "selenium": 1.0,
+    "riboflavin": 0.07,
+    "vit_b6": 0.08,
+    "carbohydrate": 12.5,
+    "fiber": 4.9,
+    "niacin_ne": 0.4,
+    "refuse_pct": 3.0
    }
   ],
   "BONUS_APPLE": [
@@ -2167,7 +2512,17 @@
     "niacin": 0.1,
     "b12": 0.0,
     "folate": 3.0,
-    "vit_c": 6.0
+    "vit_c": 6.0,
+    "fat": 0.3,
+    "water": 83.1,
+    "magnesium": 5.0,
+    "selenium": 0.0,
+    "riboflavin": 0.01,
+    "vit_b6": 0.04,
+    "carbohydrate": 16.2,
+    "fiber": 1.9,
+    "niacin_ne": 0.1,
+    "refuse_pct": 8.0
    }
   ],
   "BONUS_BANANA": [
@@ -2191,7 +2546,17 @@
     "niacin": 0.7,
     "b12": 0.0,
     "folate": 26.0,
-    "vit_c": 16.0
+    "vit_c": 16.0,
+    "fat": 0.2,
+    "water": 75.4,
+    "magnesium": 32.0,
+    "selenium": 1.0,
+    "riboflavin": 0.04,
+    "vit_b6": 0.38,
+    "carbohydrate": 22.5,
+    "fiber": 1.1,
+    "niacin_ne": 0.9,
+    "refuse_pct": 40.0
    }
   ],
   "BONUS_WINE": [
@@ -2212,7 +2577,17 @@
     "niacin": 0.1,
     "b12": 0.0,
     "folate": 4.0,
-    "vit_c": 2.0
+    "vit_c": 2.0,
+    "fat": 0.1,
+    "water": 83.5,
+    "magnesium": 6.0,
+    "selenium": 0.0,
+    "riboflavin": 0.01,
+    "vit_b6": 0.04,
+    "carbohydrate": 15.7,
+    "fiber": 0.5,
+    "niacin_ne": 0.1,
+    "refuse_pct": 15.0
    },
    {
     "form": "raisins",
@@ -2233,8 +2608,19 @@
     "folate": 9.0,
     "vit_c": 0,
     "trace": [
-     "vit_c"
-    ]
+     "vit_c",
+     "selenium"
+    ],
+    "fat": 0.2,
+    "water": 14.5,
+    "magnesium": 31.0,
+    "selenium": 0,
+    "riboflavin": 0.03,
+    "vit_b6": 0.23,
+    "carbohydrate": 80.3,
+    "fiber": 4.1,
+    "niacin_ne": 1.0,
+    "refuse_pct": 0.0
    },
    {
     "form": "red wine",
@@ -2249,7 +2635,8 @@
     "zinc": 0,
     "trace": [
      "zinc",
-     "iodine"
+     "iodine",
+     "fat"
     ],
     "iodine": 0,
     "vit_a_rae": 0.0,
@@ -2257,7 +2644,17 @@
     "niacin": 0.1,
     "b12": 0.0,
     "folate": 0.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 0,
+    "water": 88.7,
+    "magnesium": 9.0,
+    "selenium": 0.0,
+    "riboflavin": 0.01,
+    "vit_b6": 0.03,
+    "carbohydrate": 1.5,
+    "fiber": null,
+    "niacin_ne": 0.1,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_TEA": [
@@ -2281,7 +2678,17 @@
     "niacin": 0.2,
     "b12": 0.0,
     "folate": 16.0,
-    "vit_c": 6.0
+    "vit_c": 6.0,
+    "fat": 0.0,
+    "water": 99.4,
+    "magnesium": 2.0,
+    "selenium": 0.0,
+    "riboflavin": 0.05,
+    "vit_b6": 0.01,
+    "carbohydrate": 0.2,
+    "fiber": null,
+    "niacin_ne": 0.3,
+    "refuse_pct": 0.0
    },
    {
     "form": "gyokuro infusion",
@@ -2300,7 +2707,20 @@
     "niacin": 0.6,
     "b12": 0.0,
     "folate": 150.0,
-    "vit_c": 19.0
+    "vit_c": 19.0,
+    "fat": 0.0,
+    "water": 97.8,
+    "magnesium": 15.0,
+    "selenium": null,
+    "riboflavin": 0.11,
+    "vit_b6": 0.07,
+    "carbohydrate": 0,
+    "trace": [
+     "carbohydrate"
+    ],
+    "fiber": null,
+    "niacin_ne": 1.0,
+    "refuse_pct": 0.0
    },
    {
     "form": "kamairi infusion",
@@ -2314,7 +2734,8 @@
     "iron": 0,
     "trace": [
      "iron",
-     "zinc"
+     "zinc",
+     "carbohydrate"
     ],
     "zinc": 0,
     "iodine": null,
@@ -2323,7 +2744,17 @@
     "niacin": 0.1,
     "b12": 0.0,
     "folate": 18.0,
-    "vit_c": 4.0
+    "vit_c": 4.0,
+    "fat": 0.0,
+    "water": 99.7,
+    "magnesium": 1.0,
+    "selenium": null,
+    "riboflavin": 0.04,
+    "vit_b6": 0.01,
+    "carbohydrate": 0,
+    "fiber": null,
+    "niacin_ne": 0.1,
+    "refuse_pct": 0.0
    },
    {
     "form": "bancha infusion",
@@ -2346,7 +2777,17 @@
     "niacin": 0.2,
     "b12": 0.0,
     "folate": 7.0,
-    "vit_c": 3.0
+    "vit_c": 3.0,
+    "fat": 0.0,
+    "water": 99.8,
+    "magnesium": 1.0,
+    "selenium": null,
+    "riboflavin": 0.03,
+    "vit_b6": 0.01,
+    "carbohydrate": 0.1,
+    "fiber": null,
+    "niacin_ne": 0.2,
+    "refuse_pct": 0.0
    },
    {
     "form": "black tea infusion",
@@ -2368,7 +2809,17 @@
     "niacin": 0.1,
     "b12": 0.0,
     "folate": 3.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 0.0,
+    "water": 99.7,
+    "magnesium": 1.0,
+    "selenium": 0.0,
+    "riboflavin": 0.01,
+    "vit_b6": 0.01,
+    "carbohydrate": 0.1,
+    "fiber": null,
+    "niacin_ne": 0.1,
+    "refuse_pct": 0.0
    },
    {
     "form": "matcha powder",
@@ -2387,7 +2838,17 @@
     "niacin": 4.0,
     "b12": 0.0,
     "folate": 1200.0,
-    "vit_c": 60.0
+    "vit_c": 60.0,
+    "fat": 5.3,
+    "water": 5.0,
+    "magnesium": 230.0,
+    "selenium": null,
+    "riboflavin": 1.35,
+    "vit_b6": 0.96,
+    "carbohydrate": 39.5,
+    "fiber": 38.5,
+    "niacin_ne": 12.0,
+    "refuse_pct": 0.0
    },
    {
     "form": "sencha leaves",
@@ -2406,7 +2867,17 @@
     "niacin": 4.1,
     "b12": 0.0,
     "folate": 1300.0,
-    "vit_c": 260.0
+    "vit_c": 260.0,
+    "fat": 4.7,
+    "water": 2.8,
+    "magnesium": 200.0,
+    "selenium": 3.0,
+    "riboflavin": 1.43,
+    "vit_b6": 0.46,
+    "carbohydrate": 47.7,
+    "fiber": 46.5,
+    "niacin_ne": 11.0,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_SALT": [
@@ -2431,7 +2902,17 @@
     "niacin": 0.0,
     "b12": 0.0,
     "folate": 0.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 0.0,
+    "water": 0.1,
+    "magnesium": 18.0,
+    "selenium": 1.0,
+    "riboflavin": 0.0,
+    "vit_b6": 0.0,
+    "carbohydrate": 0.0,
+    "fiber": 0.0,
+    "niacin_ne": 0.0,
+    "refuse_pct": 0.0
    }
   ],
   "BONUS_SUGAR": [
@@ -2446,7 +2927,8 @@
     "calcium": 1.0,
     "iron": 0,
     "trace": [
-     "iron"
+     "iron",
+     "magnesium"
     ],
     "zinc": 0.0,
     "iodine": 0.0,
@@ -2455,7 +2937,17 @@
     "niacin": 0.0,
     "b12": 0.0,
     "folate": 0.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 0.0,
+    "water": 0.7,
+    "magnesium": 0,
+    "selenium": 0.0,
+    "riboflavin": 0.0,
+    "vit_b6": 0.0,
+    "carbohydrate": 99.3,
+    "fiber": 0.0,
+    "niacin_ne": 0.0,
+    "refuse_pct": 0.0
    }
   ],
   "REF_EGG": [
@@ -2476,7 +2968,17 @@
     "niacin": 0.1,
     "b12": 1.1,
     "folate": 49.0,
-    "vit_c": 0.0
+    "vit_c": 0.0,
+    "fat": 10.2,
+    "water": 75.0,
+    "magnesium": 10.0,
+    "selenium": 24.0,
+    "riboflavin": 0.37,
+    "vit_b6": 0.09,
+    "carbohydrate": 0.4,
+    "fiber": 0.0,
+    "niacin_ne": 3.2,
+    "refuse_pct": 14.0
    }
   ],
   "REF_KELP": [
@@ -2497,7 +2999,17 @@
     "niacin": 1.3,
     "b12": 0.0,
     "folate": 240.0,
-    "vit_c": 29.0
+    "vit_c": 29.0,
+    "fat": 1.3,
+    "water": 9.5,
+    "magnesium": 530.0,
+    "selenium": 2.0,
+    "riboflavin": 0.31,
+    "vit_b6": 0.03,
+    "carbohydrate": 64.3,
+    "fiber": 32.1,
+    "niacin_ne": 2.3,
+    "refuse_pct": 0.0
    }
   ],
   "REF_CABBAGE": [
@@ -2518,7 +3030,17 @@
     "niacin": 0.2,
     "b12": 0.0,
     "folate": 66.0,
-    "vit_c": 38.0
+    "vit_c": 38.0,
+    "fat": 0.1,
+    "water": 92.9,
+    "magnesium": 14.0,
+    "selenium": 0.0,
+    "riboflavin": 0.03,
+    "vit_b6": 0.1,
+    "carbohydrate": 5.2,
+    "fiber": 1.8,
+    "niacin_ne": 0.4,
+    "refuse_pct": 15.0
    }
   ]
  }

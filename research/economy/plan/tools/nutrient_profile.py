@@ -43,7 +43,7 @@ GOODS = {
     # R64: roe and liver for the whole cod (Torry Advisory Note 17 part shares); SR Legacy has no raw Atlantic cod liver,
     # so the nearest record, lingcod liver (Alaska Native), stands for it and is named as such
     'BONUS_FISH': [('cod', '171955'), ('herring', '175116'), ('salt cod', '174190'), ('roe', '175132'),
-                   ('liver (lingcod)', '169810')],
+                   ('liver (lingcod)', '169810'), ('Pacific herring', '173669'), ('Atlantic mackerel', '175119')],
     'BONUS_CLAM': [('raw', '174214')],
     'BONUS_CRAB': [('raw', '174204')],
     'BONUS_SHRIMP': [('raw', '174210')],
@@ -73,7 +73,9 @@ GOODS = {
 MEXT = {
     'BONUS_WHEAT': [('soft flour', '01015')], 'BONUS_RICE': [('polished', '01083')], 'BONUS_CORN': [('grain', '01131')],
     'BONUS_POTATO': [('raw', '02017')], 'BONUS_COW': [('shoulder', '11030')], 'BONUS_PIG': [('loin', '11123'), ('liver', '11166')],
-    'BONUS_FISH': [('cod', '10205'), ('sardine', '10047'), ('salmon', '10134'), ('bonito', '10086')],
+    # R68: small fish eaten whole (refuse 0-15 %) for rice and river cultures, and a whole dried sardine
+    'BONUS_FISH': [('cod', '10205'), ('sardine', '10047'), ('salmon', '10134'), ('bonito', '10086'),
+                   ('pond smelt, whole', '10276'), ('loach, whole', '10213'), ('dried sardine, whole (mezashi)', '10053')],
     'BONUS_CLAM': [('asari clam', '10281'), ('oyster', '10292')],
     'BONUS_WHALE': [('red meat', '11110'), ('skin (honkawa)', '11112'), ('belly (unesu)', '11111')],
     'BONUS_DAIRY': [('milk', '13003'), ('processed cheese', '13040')], 'BONUS_LEMON': [('whole fruit', '07155')],
@@ -87,7 +89,10 @@ MEXT = {
 }
 MEXT_COLS = {'ENERC_KCAL': 'kcal', 'PROT-': 'protein', 'NA': 'sodium', 'K': 'potassium', 'CA': 'calcium', 'FE': 'iron',
              'ZN': 'zinc', 'ID': 'iodine', 'VITA_RAE': 'vit_a_rae', 'THIA': 'thiamin', 'NIA': 'niacin', 'VITB12': 'b12',
-             'FOL': 'folate', 'VITC': 'vit_c'}
+             'FOL': 'folate', 'VITC': 'vit_c',
+             # R68: fat, water, magnesium, selenium, riboflavin, B6, carbohydrate, fibre and niacin equivalents (MEXT gives NE)
+             'FAT-': 'fat', 'WATER': 'water', 'MG': 'magnesium', 'SE': 'selenium', 'RIBF': 'riboflavin', 'VITB6A': 'vit_b6',
+             'CHOCDF-': 'carbohydrate', 'FIB-': 'fiber', 'NE': 'niacin_ne', 'REFUSE': 'refuse_pct'}
 
 
 def read_mext(path):
