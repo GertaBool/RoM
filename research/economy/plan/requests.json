@@ -749,6 +749,13 @@
    "kind": "correction",
    "text": "I reiterate\n\nYuu can find EVERYTHING on public records. There is a study for EVERYTHING involving this task. You NEED to effectively use your search tools and avoid being STIFF with terminology. Inquire the semantics, not the syntax.",
    "led_to": "R59: the remaining open items searched by meaning, with varied terms, until a study is found for each"
+  },
+  {
+   "id": "M108",
+   "date": "2026-11-07",
+   "kind": "input",
+   "text": "It's clearly NOT a complete list of nutrients, which is fine, but\n\n- Calcium is important \n\nIt's very bad to ignore calcium. It's sourced from drinking water and food. The most effective calcium sources are dairy and animal bones, as well as cooked small fish like sardines.",
+   "led_to": "R60: calcium given full treatment in the record: sources (drinking water, dairy, bones, small fish), absorption per source, need"
   }
  ],
  "requests": [
@@ -2488,6 +2495,25 @@
      "what": "Daily ceilings per food from physiology: fat absorption capacity, fructose and lactose absorption limits, protein ceiling, milk volume",
      "status": "done",
      "where": "nutrition_record.md 2f"
+    }
+   ]
+  },
+  {
+   "id": "R60",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M108",
+   "text": "It's clearly NOT a complete list of nutrients, which is fine, but\n\n- Calcium is important \n\nIt's very bad to ignore calcium. It's sourced from drinking water and food. The most effective calcium sources are dairy and animal bones, as well as cooked small fish like sardines.",
+   "items": [
+    {
+     "id": "R60.1",
+     "what": "Record the user's input on calcium (section 1)",
+     "status": "open"
+    },
+    {
+     "id": "R60.2",
+     "what": "Find studies on calcium from drinking water (content, absorption), dairy, animal bones and small fish eaten with bones, and absorption per source; add to section 2",
+     "status": "open"
     }
    ]
   }
