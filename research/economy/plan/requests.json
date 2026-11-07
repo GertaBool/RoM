@@ -2635,7 +2635,8 @@
     {
      "id": "R64.3",
      "what": "Rewrite the model tool to read the new needs data and run it on a real case; check every consumer of its output",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/plan/tools/food_model.py; run on research/economy/food_model_cases.json (3 cases); consumers: none besides food_model.md"
     }
    ]
   }
