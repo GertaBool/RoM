@@ -602,6 +602,13 @@
    "kind": "decision",
    "text": "\"My proposal: keep the whole display and add lines to the hover for water, sanitation and density, missing nutrients, and war. Two questions for you:\n\n    Food penalty: should the extra food eaten be replaced by the population model’s effect on growth? Keeping both would count bad health twice. I recommend replacing it.\n    Unhealthy faces from city size: should these be replaced by the density term, since density now covers that? I recommend replacing them.\"\n\nWrt the food penalty\n\nLook at the actual code and compare it with what we are trying to implement\n\nUnhealthy faces are the most intuitive way to convey that the city is lacking key infrastructure, but you can implement the lines to the hover for water, sanitation and density, missing nutrients, and war\n\n\n\"Energy need now follows activity:\"\n\nGive a full, proper model, assume that the watermelon example is representative of fruits in general",
    "led_to": "R40: the food penalty compared in the code with the population model; unhealthy faces kept as the infrastructure signal with hover lines added; a full energy and intake model, fruit behaving like watermelon"
+  },
+  {
+   "id": "M87",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "\"The faces\n\n    Kept, as you said, as the sign of missing infrastructure.\n    Hover lines: water, sanitation and density, missing nutrients, war, and the resulting burden.\n    Proposal 1: the “from population” faces count the people not working plots (the dense population) instead of city size. Then a farming district shows few faces and a trade city many, until aqueducts, baths and sewers balance them.\n    Proposal 2: the share of people in unsanitized quarters comes from the density faces that the sanitation buildings don’t cover. Without hygiene, 500,000 and 10 million fare the same.\"\n\nOkay I need you to actually elaborate on these proposals\n\n\"The energy and intake model\"\n\nStill not a clear mathematical model that actually fits the goods of the game and doesn't seem fully integrated with nutrition figures and other markers",
+   "led_to": "R41: the two face proposals elaborated with the buildings' health records and worked cases; one mathematical food model on the game's goods, integrated with calories, satiety, nutrients, drink, spoilage and the population model"
   }
  ],
  "requests": [
@@ -1791,6 +1798,25 @@
      "what": "A full, proper energy and intake model, with the watermelon example representative of fruit in general",
      "status": "done",
      "where": "round_m86.md; design.json D27/D30 m86; tools energy_intake.py, nutrient_profile.py (water, reference foods)"
+    }
+   ]
+  },
+  {
+   "id": "R41",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M87",
+   "text": "\"The faces\n\n    Kept, as you said, as the sign of missing infrastructure.\n    Hover lines: water, sanitation and density, missing nutrients, war, and the resulting burden.\n    Proposal 1: the “from population” faces count the people not working plots (the dense population) instead of city size. Then a farming district shows few faces and a trade city many, until aqueducts, baths and sewers balance them.\n    Proposal 2: the share of people in unsanitized quarters comes from the density faces that the sanitation buildings don’t cover. Without hygiene, 500,000 and 10 million fare the same.\"\n\nOkay I need you to actually elaborate on these proposals\n\n\"The energy and intake model\"\n\nStill not a clear mathematical model that actually fits the goods of the game and doesn't seem fully integrated with nutrition figures and other markers",
+   "items": [
+    {
+     "id": "R41.1",
+     "what": "Elaborate face proposal 1 (faces from the dense population) and proposal 2 (unsanitized share from uncovered density faces): records, formulas, worked cases, edge cases, display and AI",
+     "status": "open"
+    },
+    {
+     "id": "R41.2",
+     "what": "One clear mathematical food model that fits the game's goods and is integrated with the nutrition figures and the other markers (calories, satiety, nutrients, drink, spoilage, health, population model)",
+     "status": "open"
     }
    ]
   }
