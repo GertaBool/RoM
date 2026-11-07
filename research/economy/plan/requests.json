@@ -2137,19 +2137,21 @@
   {
    "id": "R49",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M96",
    "text": "It was very well established that well-being and nutrition are two separate variables and two separate sorted arrays",
    "items": [
     {
      "id": "R49.1",
      "what": "Specification version 2: nutrition and well-being as two separate variables and two separate sorted lists, not one summed preference; change log entry first",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md v2 (E16, E17, change log M96); food_model.py; round_m96.md"
     },
     {
      "id": "R49.2",
      "what": "Code and rerun from the specification",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md v2 (E16, E17, change log M96); food_model.py; round_m96.md"
     }
    ]
   }

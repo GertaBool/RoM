@@ -1,6 +1,6 @@
 """The food model on the game's goods, one city-year at a time.
 
-SPECIFICATION: research/economy/food_model_spec.md (version 1, M95) is the authority; this code implements its
+SPECIFICATION: research/economy/food_model_spec.md (version 2, M96) is the authority; this code implements its
 equations (E1)-(E26). Any change goes into the specification's change log first (M95).
 
 History: R44 (M91) third version; M92-M94 changes as logged in the specification.
@@ -179,11 +179,9 @@ def satisfaction(g):
     return _FVE.V[g]['factor']
 
 
-def value(g):
-    """M94: what people prefer per kcal (M88: the goods that offer the most nutrition, health and satiety):
-    satisfaction (protein factor) + nutrient density against requirement + well-being. Holt's fullness (satiety(g))
-    does not enter the preference; it only decides when eating stops (fullness capacity, M92/M93)."""
-    return satisfaction(g) + nutrition(g) + wellbeing(g)
+def nutrition_key(g):
+    """(E16) nutrition list key: satisfaction + nutrient density (M96: separate from well-being)"""
+    return satisfaction(g) + nutrition(g)
 
 
 def grams_per_day(t, n):
@@ -220,33 +218,39 @@ def city_year(people, work, stocks, step_kcal=10.0):
         if g == 'BONUS_LEMON':
             c = min(c, LEMON_MAX_G)
         cap[g] = c
-    vals = {g: value(g) for g in foods}
+    keys = {1: {g: nutrition_key(g) for g in foods}, 2: {g: wellbeing(g) for g in foods}}
     s_cap = (HOLT_MEAN ** SAT_EXP) * e_max
+    s_fed = (HOLT_MEAN ** SAT_EXP) * e_need
     sat = 0.0
     e, p, fruit = 0.0, 0.0, 0.0
     p_max = PROTEIN_MAX_SHARE * e_max / 4.0
-    # one allocation: each step of 10 kcal goes to the good whose next serving is worth most: value / (1 + q / serving);
-    # eating stops when fullness (Holt) reaches the capacity
-    while e < e_max - 1e-9 and sat < s_cap - 1e-9:
-        best, bm = None, 0.0
-        for g in foods:
-            dq = step_kcal / per[g]['kc']
-            if q[g] + dq > cap[g] + 1e-9 or p + dq * per[g]['pr'] > p_max:
-                continue
-            if g in FRUIT and fruit + dq * per[g]['ed'] > FRUIT_MAX_G:
-                continue
-            mv = vals[g] / (1.0 + q[g] / SERVING_G[g])
-            if mv > bm:
-                best, bm = g, mv
-        if best is None:
-            break
-        dq = step_kcal / per[best]['kc']
-        q[best] += dq
-        e += step_kcal
-        sat += step_kcal * satiety(best) ** SAT_EXP
-        p += dq * per[best]['pr']
-        if best in FRUIT:
-            fruit += dq * per[best]['ed']
+    pass_of = {}
+    # (E17) two passes: 1 on the nutrition list until fed, 2 on the well-being list up to the fullness capacity
+    for pas, s_stop in ((1, s_fed), (2, s_cap)):
+        while e < e_max - 1e-9 and sat < s_stop - 1e-9:
+            best, bm = None, 0.0
+            for g in foods:
+                key = keys[pas][g]
+                if key <= 0:
+                    continue
+                dq = step_kcal / per[g]['kc']
+                if q[g] + dq > cap[g] + 1e-9 or p + dq * per[g]['pr'] > p_max:
+                    continue
+                if g in FRUIT and fruit + dq * per[g]['ed'] > FRUIT_MAX_G:
+                    continue
+                mv = key / (1.0 + q[g] / SERVING_G[g])
+                if mv > bm:
+                    best, bm = g, mv
+            if best is None:
+                break
+            dq = step_kcal / per[best]['kc']
+            q[best] += dq
+            pass_of.setdefault(best, set()).add(pas)
+            e += step_kcal
+            sat += step_kcal * satiety(best) ** SAT_EXP
+            p += dq * per[best]['pr']
+            if best in FRUIT:
+                fruit += dq * per[best]['ed']
     intake = {k: 0.0 for k in NUTRIENTS}
     food_water, drink_water, animal_p = 0.0, 0.0, 0.0
     for g, x in q.items():
@@ -274,7 +278,7 @@ def city_year(people, work, stocks, step_kcal=10.0):
     left = {g: stocks[g] - used[g] for g in stocks}
     spoiled = {g: left[g] * SPOIL[NUT['goods'][g]['form']] / 100 for g in left if g in NUT['goods']}
     s_need = HOLT_MEAN * e_need                  # fed (M93): satiety met at the need, eating average foods
-    return dict(fed=sat / s_need, sat=sat, s_cap=s_cap, e_need=e_need, e_max=e_max, e_in=e, x=e / e_need, prot=p, prot_share=4 * p / e if e else 0,
+    return dict(pass_of=pass_of, fed=sat / s_need, sat=sat, s_cap=s_cap, e_need=e_need, e_max=e_max, e_in=e, x=e / e_need, prot=p, prot_share=4 * p / e if e else 0,
                 food_water=food_water, drink_water=drink_water, plain_water=plain_water, caf=caf, pal_act=pal_act,
                 work=workf, q=q, cov=cov, a_fe=a_fe, used=used, left=left, spoiled=spoiled)
 
@@ -312,20 +316,26 @@ SHORT = {'vit_c': 'C', 'vit_a_rae': 'A', 'thiamin': 'B1', 'niacin': 'B3', 'folat
 def main():
     print('BMR %.0f kcal; whole fish per 100 g as stored: %.0f kcal, %.1f g protein, %.1f g fat, %.0f ug vitamin A'
           % (BMR, WF['kcal'], WF['protein'], WF['fat'], WF['vit_a_rae']))
-    print('\n| Good | Satisfaction (protein factor) | Nutrition (0-1) | Well-being | Preference per kcal | Fullness per kcal (Holt) | Serving g |')
-    print('|---|---|---|---|---|---|---|')
     gs = [g for g in NUT['goods'] if NUT['goods'][g]['kcal']]
-    for g in sorted(gs, key=lambda g: -value(g)):
-        print('| %s | %.2f | %.2f | %.2f | %.2f | %.2f | %s |' % (g[6:].title(), satisfaction(g), nutrition(g), wellbeing(g),
-                                                                value(g), satiety(g), SERVING_G[g]))
+    print('\nNutrition list (E16: satisfaction + nutrient density):')
+    print('| Rank | Good | Satisfaction | Nutrient density | Key N_g | Fullness per kcal |')
+    print('|---|---|---|---|---|---|')
+    for i, g in enumerate(sorted(gs, key=lambda g: -nutrition_key(g)), 1):
+        print('| %d | %s | %.2f | %.2f | %.2f | %.2f |' % (i, g[6:].title(), satisfaction(g), nutrition(g), nutrition_key(g), satiety(g)))
+    print('\nWell-being list (E16: key beta_g; only goods above 0 are taken in pass 2):')
+    print('| Rank | Good | Well-being |')
+    print('|---|---|---|')
+    for i, g in enumerate(sorted(gs, key=lambda g: -wellbeing(g)), 1):
+        print('| %d | %s | %.2f |' % (i, g[6:].title(), wellbeing(g)))
     for name, n, work, stocks in CITIES:
         r = city_year(n, work, stocks)
         print('\n#### %s' % name)
-        print('| Good | Stock t | Per head g/day | Eaten g/day | Left t | Spoiled t |')
-        print('|---|---|---|---|---|---|')
+        print('| Good | Stock t | Per head g/day | Eaten g/day | Pass | Left t | Spoiled t |')
+        print('|---|---|---|---|---|---|---|')
         for g in stocks:
-            print('| %s | %s | %.0f | %.0f | %s | %s |' % (g[6:].title(), format(stocks[g], ','), grams_per_day(stocks[g], n),
-                  r['q'].get(g, 0), format(round(r['left'][g]), ','), format(round(r['spoiled'].get(g, 0)), ',')))
+            ps = '+'.join(str(x) for x in sorted(r['pass_of'].get(g, []))) or '-'
+            print('| %s | %s | %.0f | %.0f | %s | %s | %s |' % (g[6:].title(), format(stocks[g], ','), grams_per_day(stocks[g], n),
+                  r['q'].get(g, 0), ps, format(round(r['left'][g]), ','), format(round(r['spoiled'].get(g, 0)), ',')))
         print('\n| Fed (fullness / need) | Fullness eaten / capacity | Need kcal | Ceiling kcal | Eaten kcal | x (energy) | Protein g (share) | Water from food ml | from drinks ml | plain water ml | Caffeine mg | PAL | Work |')
         print('|---|---|---|---|---|---|---|---|---|---|---|---|---|')
         print('| %.2f | %d / %d | %d | %d | %d | %.2f | %d (%d %%) | %d | %d | %d | %d | %.2f | %.2f |' % (

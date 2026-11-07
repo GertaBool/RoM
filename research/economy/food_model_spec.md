@@ -1,4 +1,4 @@
-# The food model: specification (version 1, M95)
+# The food model: specification (version 2, M96)
 
 This file is the authority for the food model. The code (`plan/tools/food_model.py`) implements it equation by equation, and the round files (`round_m85.md` to `round_m94.md`) are history. Every later change is first written here, as a change log entry (section 6), and only then made in the code.
 
@@ -29,7 +29,7 @@ It runs in the goods pass, in the `consumeGoods` step (GW.F5), once per yearly s
 | `s_g` | satisfaction per kcal of `g` (protein factor) | |
 | `ν_g` | nutrient density of `g` against the requirement (0 to 1) | |
 | `β_g` | well-being per kcal of `g` | |
-| `V_g` | preference per kcal of `g` | |
+| `N_g` | nutrition key: satisfaction + nutrient density | |
 | `m_g` | one serving of `g` | g |
 
 ## 3. The model
@@ -76,16 +76,19 @@ It runs in the goods pass, in the `consumeGoods` step (GW.F5), once per yearly s
 (E14) ν_g = average over the 13 nutrients i of  min(1, (n_gi per kcal) ÷ (need_i ÷ 2,600))
 (E15) β_g = sugar share + 2 × fat share × carbohydrate share + alcohol share
             + min(1, water per kcal ÷ 3 g) − 0.5 × fat share
-(E16) V_g = s_g + ν_g + β_g
+(E16) two separate sorted lists (M96; M88: "steak and potatoes, then dessert"):
+      nutrition list:  key N_g = s_g + ν_g            (nutrition, health and satiety)
+      well-being list: key β_g                        (lightness, reward)
 ```
 
-**3d. The allocation:** steps of 10 kcal. Each step goes to the good with the highest marginal preference, among goods still within their limits:
+**3d. The allocation, in two passes over the two lists.** Steps of 10 kcal. In each pass, each step goes to the good with the highest marginal value on that pass's list, among goods still within their limits. A good's ceiling is shared between the passes.
 
 ```
-(E17) marginal_g = V_g ÷ (1 + q_g ÷ m_g)
+(E17) marginal_g = key_g ÷ (1 + q_g ÷ m_g)              key = N_g in pass 1, β_g in pass 2 (only goods with β_g > 0)
       limits: q_g ≤ cap_g;  Σ q_g p_g ≤ P_max;  Σ fruit eaten ≤ 4,518 g
       each step: E += 10;  F += 10 × σ_g
-      stop when E ≥ E_max, or F ≥ F_cap, or no good is within its limits
+      pass 1 (nutrition):  until F ≥ 1.36 × E_need (fed), or E ≥ E_max, or no good within its limits
+      pass 2 (well-being): from there until F ≥ F_cap, or E ≥ E_max, or no good with β_g > 0 within its limits
 ```
 
 ### Step 4. Outcomes
@@ -188,6 +191,8 @@ Each row is a variable that was added, removed or changed. "Now" refers to secti
 | M94 | nutrient density `ν_g` | changed | per 100 kcal ÷ daily need (beef 0.07) → per kcal ÷ requirement per kcal (beef 0.71) (E14) | scaling error |
 | M94 | Cow, Pig | changed | muscle only → 97 % meat + 3 % liver | the user: liver; the whole animal |
 | M94 | preference `V_g` | changed | Holt satiety + ν + β → protein satisfaction + ν + β (E16); Holt only for fullness (E12, E17) | the user (M88, M69): prefer nutrition, health, satiety |
+| M96 | preference `V_g` | removed | one summed key → two keys, `N_g = s_g + ν_g` and `β_g` (E16) | the user: nutrition and well-being are two separate variables and two sorted lists |
+| M96 | allocation | changed | one pass on `V_g` → pass 1 on the nutrition list until fed, pass 2 on the well-being list up to the fullness capacity (E17) | M88: the best goods by nutrition, health and satiety first, then other things ("then dessert") |
 
 ## 7. Rules for changes
 
