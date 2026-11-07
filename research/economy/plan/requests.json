@@ -791,6 +791,13 @@
    "kind": "correction",
    "text": "The lactose limit is for pasteurized dairy and lactose in isolation, not for cultures that specialized in dairy cattle and or are significantly lactose persistent or consume raw dairy. Those particular studies distort the picture because they involve too little information in too small of a context. \n\n\"lean fish\"\n\nHistorically, fat was highly prized, people lived on fish and anything they could gather locally without many issues. This cannot be the case if all they ate were fillet which we previously extensively repeatedly elaborated on to a mind boggling extent.",
    "led_to": "R65: lactose limit only outside dairy cultures; fish as the whole animal as eaten (fat-rich parts, fatty catch) plus local gathering; rerun"
+  },
+  {
+   "id": "M114",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "The issue with that starvation model is that nutrient minima aren't being used despite them being collected over and over again, and you are basing starvation figures on energy thresholds being reached which is not actual starvation. Actual starvation is when your body cannot fulfill its biological functions and people are no longer able to perform any real labor. \nAdditionally, excess proteins are broken down into carbohydrates. And nobody eats 300g of protein in a single meal. People have three meals.\nWith all this taken into account, fix your mistakes and actually apply real knowledge, don't bump into old code again trying to reference some fallacy",
+   "led_to": "R66: first stage covers the minima (biological function: survival energy and nutrient minima); labour capacity from energy above survival; protein is energy, its urea limit a reported harm, spread over three meals; rerun"
   }
  ],
  "requests": [
@@ -2668,6 +2675,35 @@
      "what": "Fish as the whole animal as eaten, not fillet: whole-body composition from sources (fat-rich parts, liver oil, head, roe; fatty catch such as herring) and local gathering in the fishing case; rerun the model",
      "status": "done",
      "where": "nutrient_needs.json whole_animal; food_model.py composition (cod as eaten, whole herring by season, GOOD:form); cases rerun: fishing village fed 0.822 in May, 1.000 in August"
+    }
+   ]
+  },
+  {
+   "id": "R66",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M114",
+   "text": "The issue with that starvation model is that nutrient minima aren't being used despite them being collected over and over again, and you are basing starvation figures on energy thresholds being reached which is not actual starvation. Actual starvation is when your body cannot fulfill its biological functions and people are no longer able to perform any real labor. \nAdditionally, excess proteins are broken down into carbohydrates. And nobody eats 300g of protein in a single meal. People have three meals.\nWith all this taken into account, fix your mistakes and actually apply real knowledge, don't bump into old code again trying to reference some fallacy",
+   "items": [
+    {
+     "id": "R66.1",
+     "what": "Starvation as loss of biological function: stage 1 covers the minima (energy for basal function at the lowest PAL, 1.2 x REE, and every nutrient minimum); starving and deficient are read from it, not from the energy need",
+     "status": "open"
+    },
+    {
+     "id": "R66.2",
+     "what": "Labour capacity: the share of the asked work the energy above survival allows, (E eaten / REE - 1.2) / (PAL asked - 1.2)",
+     "status": "open"
+    },
+    {
+     "id": "R66.3",
+     "what": "Protein: excess protein is energy (gluconeogenesis); the urea capacity is no constraint but a reported harm; protein per meal over three meals reported against the gut's absorption rate",
+     "status": "open"
+    },
+    {
+     "id": "R66.4",
+     "what": "Rerun the cases; rewrite the specification sections that change; remove the old protein cap from the data rule",
+     "status": "open"
     }
    ]
   }
