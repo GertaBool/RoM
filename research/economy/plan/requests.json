@@ -707,6 +707,27 @@
    "kind": "decision",
    "text": "Okay. These are way too many mistakes. I need you to work from first principles, start over again and with robust mathematics assemble a model that makes sense, without adding too many variables. I'm fine with the harm term for alcohol and tobacco. \n\n\"Milk is counted as 150 % water. The hydration index measures how well a drink is retained, not how much water it contains (F15).\"\n\nShows your total lack of understanding of basic logic, right there. Hydration is an index for how much you get compared to the same unit of water. \n\n\"There is no body fat store\"\n\nBaked into the city growth formula. \n\n\"There are no seasons\"\n\nBecause of fifty year turns and so on. \n\n\"There is one representative person per city, and no prices\"\n\nPrices have to be established, and ideally it fits the game, so these formulas can be applied to one city population as a whole.",
    "led_to": "R54: the food model rebuilt from first principles with few variables (version 4, replacing versions 1-3); harm for alcohol and tobacco; hydration index as hydration relative to the same volume of water (F15 withdrawn); no body store (in the growth formula), no seasons (long turns); one city population as a whole; prices as an interface to be established"
+  },
+  {
+   "id": "M102",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "\"energy follows the work people do; nutrients and water have fixed daily needs.\"\n\nNo\n\n\"A city can only eat what it holds.\"\n\nEconomical assumptions aside, yes. \n\n\"The body sets ceilings: fullness, energy turnover, how much protein the liver can handle, and a ceiling for each food.\" \n\nYes, except you probably have no solid record of nutrients, calories per food, the actual dopamine signal per food, fullness per food etc. And you're probably getting the units entirely wrong.\n\n\"Nutrition comes first and well-being second. They are separate quantities, ranked and never added together.\"\n\nYes\n\n\"Harm (alcohol, tobacco) is a consequence, not a motive.\"\n\nYes\n\n\"The city is treated as one population, with everything per person.\"\n\nYes\n\n\"Nutrition adequacy A is the mean adequacy ratio, a standard in diet assessment...\"\n\nGreat\n\n\"Well-being Ψ is Σ ln(1 + kcal/100) over every good except the plain staples (grains, potatoes, salt). Each further 100 kcal of the same good adds less, so variety pleases more than repetition.\"\n\nIt adds one particular dimension (repetitiveness) while removing dopamine signalling and how light the person feels after eating the food. That's wrong.\n\n\"The program, three stages in strict order, each keeping the result of the one before:\nMaximise A.\nMaximise Ψ without lowering A.\nAmong diets tied on both, draw more from the larger stocks.\"\n\nNo, people draw upon the higher quality stocks. Prices will adjust things after. Don't bake them into basic human nutrition.",
+   "led_to": "R55: needs not fixed (they scale with energy turnover where the sources say so); data provenance and units audited and corrected; well-being with reward, lightness and repetition; stage 3 by quality of the stocks, not their size"
+  },
+  {
+   "id": "M103",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "You literally did HEAPS of research on pubmed on the most minute things, and you're still concluding things like \"hydration needs do not scale with labor\" and \"local fish available means people starve\"???",
+   "led_to": "R55 extended: water and sweat-dependent needs scale with labour; the fish result traced to unsourced composition shares and the low end of the protein range, and corrected from sources"
+  },
+  {
+   "id": "M104",
+   "date": "2026-11-07",
+   "kind": "request",
+   "text": "Clean up your entire notes on nutrition and anything relevant tied to food groups. Only retain correct, verified assumptions as well as inputs from me.",
+   "led_to": "R56: one clean nutrition record (verified facts with sources and the user's inputs); superseded notes, models and tools moved to an archive"
   }
  ],
  "requests": [
@@ -2316,6 +2337,59 @@
      "what": "Prices to be established so that they fit the game; the model applies to a city's population as a whole",
      "status": "done",
      "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
+    }
+   ]
+  },
+  {
+   "id": "R55",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M102",
+   "text": "\"energy follows the work people do; nutrients and water have fixed daily needs.\"\n\nNo\n\n\"A city can only eat what it holds.\"\n\nEconomical assumptions aside, yes. \n\n\"The body sets ceilings: fullness, energy turnover, how much protein the liver can handle, and a ceiling for each food.\" \n\nYes, except you probably have no solid record of nutrients, calories per food, the actual dopamine signal per food, fullness per food etc. And you're probably getting the units entirely wrong.\n\n\"Nutrition comes first and well-being second. They are separate quantities, ranked and never added together.\"\n\nYes\n\n\"Harm (alcohol, tobacco) is a consequence, not a motive.\"\n\nYes\n\n\"The city is treated as one population, with everything per person.\"\n\nYes\n\n\"Nutrition adequacy A is the mean adequacy ratio, a standard in diet assessment...\"\n\nGreat\n\n\"Well-being Ψ is Σ ln(1 + kcal/100) over every good except the plain staples (grains, potatoes, salt). Each further 100 kcal of the same good adds less, so variety pleases more than repetition.\"\n\nIt adds one particular dimension (repetitiveness) while removing dopamine signalling and how light the person feels after eating the food. That's wrong.\n\n\"The program, three stages in strict order, each keeping the result of the one before:\nMaximise A.\nMaximise Ψ without lowering A.\nAmong diets tied on both, draw more from the larger stocks.\"\n\nNo, people draw upon the higher quality stocks. Prices will adjust things after. Don't bake them into basic human nutrition.",
+   "items": [
+    {
+     "id": "R55.1",
+     "what": "Needs are not fixed: nutrients and water that scale with energy turnover scale in the model",
+     "status": "open"
+    },
+    {
+     "id": "R55.2",
+     "what": "Audit the provenance and units of every per-good value (energy, nutrients, fullness, reward); correct what is wrong; mark what has no solid record",
+     "status": "open"
+    },
+    {
+     "id": "R55.3",
+     "what": "Well-being with reward (dopamine), lightness after eating, and repetition",
+     "status": "open"
+    },
+    {
+     "id": "R55.4",
+     "what": "Stage 3: people draw on the higher-quality stocks; prices come later and are not baked into nutrition",
+     "status": "open"
+    },
+    {
+     "id": "R55.5",
+     "what": "M103: hydration needs scale with labour; a fishing people with fish available does not starve: trace both errors to their cause and correct them from the sources",
+     "status": "open"
+    }
+   ]
+  },
+  {
+   "id": "R56",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M104",
+   "text": "Clean up your entire notes on nutrition and anything relevant tied to food groups. Only retain correct, verified assumptions as well as inputs from me.",
+   "items": [
+    {
+     "id": "R56.1",
+     "what": "One clean record of nutrition and food groups: only verified facts with their sources, and the user's inputs",
+     "status": "open"
+    },
+    {
+     "id": "R56.2",
+     "what": "Move superseded notes, models, PDFs and tools out of the working notes into an archive, with a note on why",
+     "status": "open"
     }
    ]
   }
