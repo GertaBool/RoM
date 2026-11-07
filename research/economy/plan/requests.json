@@ -658,6 +658,13 @@
    "kind": "correction",
    "text": "\"Meat and fish rank low in the new order, and drinks rank high. Meat's calories count like any other, and its nutrient score is small next to energy (beef scores 0.07)\"\n\nThat's total nonsense though, you assigned a completely wrong nutrient value. You actually did research on beef liver, we discussed several times over huge studies how animal foods provide the most nutrition and you're still going to assign a 0 to beef. Makes no sense, you made a mistake. \n\nAnd where is well-being? Did you just remove all other variables and go full potato mode? What is actually going on",
    "led_to": "R47: the nutrient score's scaling error found and fixed (density against requirement density); land animals as the whole animal with liver; the three motives shown per good; cities rerun"
+  },
+  {
+   "id": "M95",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "Instead of doing random stuff, you HAVE to provide a mathematical model that is straightforward to understand, and elaborate which variables were added, removed or changed. I cannot stand random intransparent edits.",
+   "led_to": "R48: one specification of the food model (variables, equations, parameters with sources) and a change log of every variable added, removed or changed since M85; future edits only through it"
   }
  ],
  "requests": [
@@ -2090,6 +2097,30 @@
      "what": "Show where well-being and the other motives are in the eating order, and rerun",
      "status": "done",
      "where": "round_m94.md; food_model.py (nutrition, WHOLE_ANIMAL, value); design.json D27 m94"
+    }
+   ]
+  },
+  {
+   "id": "R48",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M95",
+   "text": "Instead of doing random stuff, you HAVE to provide a mathematical model that is straightforward to understand, and elaborate which variables were added, removed or changed. I cannot stand random intransparent edits.",
+   "items": [
+    {
+     "id": "R48.1",
+     "what": "One straightforward mathematical model of the food model: variables, equations, parameters with their source or estimate",
+     "status": "open"
+    },
+    {
+     "id": "R48.2",
+     "what": "A change log: every variable added, removed or changed, with the round and the reason",
+     "status": "open"
+    },
+    {
+     "id": "R48.3",
+     "what": "No more untraceable edits: the code follows the specification, and changes go through the specification first",
+     "status": "open"
     }
    ]
   }
