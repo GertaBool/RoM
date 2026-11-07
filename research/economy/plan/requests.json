@@ -2255,19 +2255,21 @@
   {
    "id": "R53",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M100",
    "text": "Apply abstract mathematical thinking.\n\nAssess how the mathematical equations can be improved from a semantic perspective, what they are lacking in representativeness, and whether they make any sense at all. \n\nGive me fully reasoned proposals, showcasing which variables would change.",
    "items": [
     {
      "id": "R53.1",
      "what": "Assess each equation semantically: units, meaning, whether it makes sense, what it fails to represent",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_assessment.md (findings F1-F19, proposals A-J); pdf/food_model_assessment.pdf"
     },
     {
      "id": "R53.2",
      "what": "Fully reasoned proposals, each with the variables added, removed or changed",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_assessment.md (findings F1-F19, proposals A-J); pdf/food_model_assessment.pdf"
     }
    ]
   }
