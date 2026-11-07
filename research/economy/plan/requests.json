@@ -819,6 +819,13 @@
    "kind": "instruction",
    "text": "When you do these case runs:\n\nBe very specific about the variables at play in the first place. It just wasn't informative at all and I thought all they could do is eat rice. \n\"Brown rice. The model eats the first form listed for each good, and for rice that is brown rice. Nobody chose that from a source. Brown rice has 7.7 times the thiamin of polished rice, and thiamin is exactly what a polished-rice diet lacks (beriberi). The same unexamined default makes potatoes raw, wine grapes and tea black tea.\nThe fish is North Atlantic cod with its liver. The liver gives the vitamin A, and the cod value gives the iodine. A rice town's fish would be small fish eaten whole, with bones. The record has those: Kongsbak, and Hansen showing their calcium is absorbed as well as milk's. The model doesn't use them, which is also why calcium sits at 13 %.\nTea counts nothing. The model uses USDA black tea, which has no vitamin C. That ignores the MEXT green tea values and your input that teas help against scurvy (M82, M83).\nIron is overstated. Tea drunk with meals cuts iron absorption by 64 % (record section 2c); the model doesn't apply it.\nA capped average hides deficiency. Surpluses the body can't use sit next to severe gaps.\"\n\nI told you what to do, and you yet again make completely unnecessary mistakes that could be circumvented with prudence and deterministic tooling. You apply either that is transparent. I wouldn't be surprised if you just filled each table by hand. \nIt's a very specific tea that is drunk that inhibits iron absorption. I hate hate hate that you skim texts like you don't care at all. I'm almost done working with you. \n\"What the model ignores from your inputs (the review lists all of them with prompt numbers):\nSatiety as the gauge of being fed (M92, M93): only reported, never used.\nFood-group ceilings (M85, M88): a pound of ground beef and a kilogram of cheese aren't applied, and lemons need a limit (M92).\n\"Steak and potatoes, then dessert\" (M88): the dessert step, eating well-being goods once nutrition is met, isn't modelled.\nWell-being (M89–M91, M102): health effects and repetition are missing.\nLiver and organs of land animals (M84, M94): eaten as muscle only. Whale blubber is missing too.\nCaffeine raising activity (M85).\nHow long foods keep (M57) and spoilage (decisions D2, D5).\nThe rich city's dairy and bread (M91).\nFood effects in the game (M57, M75): fertility, productivity, strength bonuses.\nRecord facts not applied:\ncalcium absorption by source;\nB12 absorption capped at 1.5–2 µg per meal, which matters with three meals;\ntea and coffee lowering iron absorption;\nmaize niacin released by alkali treatment;\nthe fructose limit;\nalcohol with fat raising intake.\"\n\nThe fructose limit is bullshit. Otherwise\n\nDecent list. Now actually do your job.",
    "led_to": "R69: case inputs stated first and every case table written by the tool; tea iron inhibition only for the tea studied; fructose limit dropped; the listed unapplied inputs and facts applied"
+  },
+  {
+   "id": "M118",
+   "date": "2026-11-07",
+   "kind": "input",
+   "text": "Unironically I think clams are such an extremely nutritious food, I would argue that excesses in nutrition, if they approach the optimum for athletes and very active manual laborers, should give strong benefits. Iodine for example is shown to raise IQ beyond the sufficiency threshold. I do believe though that eating only fish, brown rice or pork is probably pretty bad, partly because of heavy metals, partly because iodine does reach plausible toxicity doses (not yet LD50 though) and because pork has parasites",
+   "led_to": "R70: record the input; sources for benefits above sufficiency (iodine and IQ), heavy metals in fish, shellfish and rice, iodine toxicity, pork parasites; a proposal for benefits up to athletes' levels and harms of one-sided diets"
   }
  ],
  "requests": [
@@ -2864,6 +2871,30 @@
      "what": "Calcium absorption by source; B12 absorption per meal over three meals; maize niacin with alkali treatment; alcohol with fat raising intake",
      "status": "done",
      "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
+    }
+   ]
+  },
+  {
+   "id": "R70",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M118",
+   "text": "Unironically I think clams are such an extremely nutritious food, I would argue that excesses in nutrition, if they approach the optimum for athletes and very active manual laborers, should give strong benefits. Iodine for example is shown to raise IQ beyond the sufficiency threshold. I do believe though that eating only fish, brown rice or pork is probably pretty bad, partly because of heavy metals, partly because iodine does reach plausible toxicity doses (not yet LD50 though) and because pork has parasites",
+   "items": [
+    {
+     "id": "R70.1",
+     "what": "Record the input (clams; benefits of intakes towards athletes' levels; one-sided diets harmful through heavy metals, iodine and parasites)",
+     "status": "open"
+    },
+    {
+     "id": "R70.2",
+     "what": "Find studies: iodine and IQ above sufficiency; heavy metals (mercury, cadmium, arsenic) in fish, clams and rice; iodine toxicity doses; Trichinella and Taenia in pork; add to the record",
+     "status": "open"
+    },
+    {
+     "id": "R70.3",
+     "what": "Propose how the model counts benefits above the optimum up to athletes' levels and the harms of one-sided diets, from what the record supports",
+     "status": "open"
     }
    ]
   }
