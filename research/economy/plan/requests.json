@@ -728,6 +728,13 @@
    "kind": "request",
    "text": "Clean up your entire notes on nutrition and anything relevant tied to food groups. Only retain correct, verified assumptions as well as inputs from me.",
    "led_to": "R56: one clean nutrition record (verified facts with sources and the user's inputs); superseded notes, models and tools moved to an archive"
+  },
+  {
+   "id": "M105",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "Reference pubmed instead of some bullshit institutions, and you will find literally everything",
+   "led_to": "R57: every fact of the nutrition record referenced to PubMed studies instead of institutions; the open gaps searched on PubMed"
   }
  ],
  "requests": [
@@ -2392,6 +2399,25 @@
      "what": "Move superseded notes, models, PDFs and tools out of the working notes into an archive, with a note on why",
      "status": "done",
      "where": "research/economy/archive/nutrition/ (README)"
+    }
+   ]
+  },
+  {
+   "id": "R57",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M105",
+   "text": "Reference pubmed instead of some bullshit institutions, and you will find literally everything",
+   "items": [
+    {
+     "id": "R57.1",
+     "what": "Replace institutional sources (FAO, EFSA, Japanese DRI, Wikipedia) in the nutrition record with PubMed references",
+     "status": "open"
+    },
+    {
+     "id": "R57.2",
+     "what": "Search PubMed for the open gaps (water need with labour, sweat sodium, maximal sustained energy, per-food reward, lightness, fish body composition, alcohol and tobacco harm) and add what is found",
+     "status": "open"
     }
    ]
   }
