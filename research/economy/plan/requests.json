@@ -665,6 +665,13 @@
    "kind": "correction",
    "text": "Instead of doing random stuff, you HAVE to provide a mathematical model that is straightforward to understand, and elaborate which variables were added, removed or changed. I cannot stand random intransparent edits.",
    "led_to": "R48: one specification of the food model (variables, equations, parameters with sources) and a change log of every variable added, removed or changed since M85; future edits only through it"
+  },
+  {
+   "id": "M96",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "It was very well established that well-being and nutrition are two separate variables and two separate sorted arrays",
+   "led_to": "R49: specification version 2: nutrition (with satisfaction) and well-being as two separate variables and two sorted lists; nutrition list until fed, then the well-being list (steak and potatoes, then dessert, M88)"
   }
  ],
  "requests": [
@@ -2124,6 +2131,25 @@
      "what": "No more untraceable edits: the code follows the specification, and changes go through the specification first",
      "status": "done",
      "where": "food_model_spec.md (version 1); food_model.py header; design.json D27 m95"
+    }
+   ]
+  },
+  {
+   "id": "R49",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M96",
+   "text": "It was very well established that well-being and nutrition are two separate variables and two separate sorted arrays",
+   "items": [
+    {
+     "id": "R49.1",
+     "what": "Specification version 2: nutrition and well-being as two separate variables and two separate sorted lists, not one summed preference; change log entry first",
+     "status": "open"
+    },
+    {
+     "id": "R49.2",
+     "what": "Code and rerun from the specification",
+     "status": "open"
     }
    ]
   }
