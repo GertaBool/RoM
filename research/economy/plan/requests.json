@@ -2884,17 +2884,20 @@
     {
      "id": "R70.1",
      "what": "Record the input (clams; benefits of intakes towards athletes' levels; one-sided diets harmful through heavy metals, iodine and parasites)",
-     "status": "open"
+     "status": "done",
+     "where": "nutrition_record.md section 1 (M118)"
     },
     {
      "id": "R70.2",
      "what": "Find studies: iodine and IQ above sufficiency; heavy metals (mercury, cadmium, arsenic) in fish, clams and rice; iodine toxicity doses; Trichinella and Taenia in pork; add to the record",
-     "status": "open"
+     "status": "done",
+     "where": "nutrition_record.md section 2f: iodine trials (abstracts read), clams, contaminants and pork parasites (search summaries, marked as such)"
     },
     {
      "id": "R70.3",
      "what": "Propose how the model counts benefits above the optimum up to athletes' levels and the harms of one-sided diets, from what the record supports",
-     "status": "open"
+     "status": "open",
+     "note": "Proposal in food_model.md section 10; waits on the user."
     }
    ]
   }

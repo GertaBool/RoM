@@ -146,3 +146,15 @@ The case report is `food_model_cases_report.md`, written by `plan/tools/food_mod
 | Rich city: surplus milk into dairy products, bread (M91) | needs conversion yields (milk to cheese and butter, grain to bread) from a source |
 | Food effects in the game (M57, M75) | a design decision: how labour capacity, deficiencies and harms map to fertility, productivity and strength |
 | Children and the elderly | the record holds adult levels only |
+
+## 10. Proposal (R70, M118): benefits above the optimum and harms of one-sided diets
+
+**Benefits towards athletes' levels.** Stage 4 caps each nutrient's adequacy at its optimum. Your input is that intakes approaching the levels of athletes and heavy labourers give strong benefits. What the record supports:
+- protein: athletes 1.4-2.0 g/kg, 2.3-3.1 g/kg in an energy deficit (ISSN 2017); lean-mass gain levels off at 1.62 g/kg (Morton 2018);
+- sodium and water: sweat losses with labour and heat are already in the need;
+- other nutrients: reference intakes for athletes are not set apart from the general population (record 2j); iodine's cognitive gains are shown up to sufficiency, not beyond it (section 2e of the record, Zimmermann 2006, Gordon 2009).
+
+Proposed change: the cap of each adequacy rises from the optimum to the athletes' level where the record holds one (protein 2.0 g/kg for labour at PAL above 2.0); elsewhere it stays at the optimum. A town eating towards that level scores higher; clams would then be valued for B12, selenium and iodine as the other goods' surpluses are now.
+
+**Harms of one-sided diets.** Proposed outputs, per person per week, from each good's share: mercury from fish, cadmium from shellfish, inorganic arsenic from rice (brown above white), against tolerable weekly intakes once their sources are read; iodine above its ceiling (already reported); a parasite risk for undercooked pork from the prevalence in pigs, with cooking as the case variable. These need per-good contaminant concentrations from primary surveys, not yet read.
+
