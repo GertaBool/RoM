@@ -1,6 +1,6 @@
 # The food model: specification (version 2, M96)
 
-This file is the authority for the food model. The code (`plan/tools/food_model.py`) implements it equation by equation, and the round files (`round_m85.md` to `round_m94.md`) are history. Every later change is first written here, as a change log entry (section 6), and only then made in the code.
+This file is the authority for the food model. A worked example, term by term from the data, is in `food_model_worked_example.md` (`plan/tools/food_model_trace.py`). The code (`plan/tools/food_model.py`) implements it equation by equation, and the round files (`round_m85.md` to `round_m94.md`) are history. Every later change is first written here, as a change log entry (section 6), and only then made in the code.
 
 ## 1. What it does
 

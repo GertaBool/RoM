@@ -2165,24 +2165,27 @@
   {
    "id": "R50",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M97",
    "text": "You are again refusing to provide an actual formula for the mathematical model, you just talk to me and I have no direct insight as to why numbers changed, you're narrating results to me and I cannot accept it",
    "items": [
     {
      "id": "R50.1",
      "what": "Give the model's formulas directly, not narrated",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_worked_example.md; plan/tools/food_model_trace.py"
     },
     {
      "id": "R50.2",
      "what": "A worked trace: input data to every intermediate value to the result, for goods and a city",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_worked_example.md; plan/tools/food_model_trace.py"
     },
     {
      "id": "R50.3",
      "what": "Explain why numbers changed between versions, variable by variable",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_worked_example.md; plan/tools/food_model_trace.py"
     }
    ]
   }
