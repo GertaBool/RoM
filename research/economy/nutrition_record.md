@@ -26,6 +26,7 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 | M83 | Many teas carry real nutritional value against deficiency diseases. |
 | M83, M85 | Wine is a luxury good; the vineyard's good counts as a kind of food. Whale: if it is available, it is possible food. |
 | M91 | Fish is the whole animal as eaten historically: its fat, cod liver and roe, not lean fillet. |
+| M117 | Case runs must state the variables at play first and be written by deterministic tooling. Only a specific tea inhibits iron absorption. The fructose limit is wrong and is dropped. |
 | M114 | Starvation is when the body cannot fulfil its biological functions and people can no longer perform real labour; it is not an energy threshold. The nutrient minima must be used. Excess protein is broken down into carbohydrate. Nobody eats 300 g of protein in a single meal; people have three meals. |
 | M113 | Fat was highly prized; people lived on fish and anything they could gather locally without many issues, which cannot be if all they ate were fillet. The lactose limit is for pasteurised dairy and lactose in isolation, not for dairy cultures, lactase-persistent people or raw dairy; those studies involve too little information in too small a context. |
 | M84 | Fat is not bad in itself. Its value depends on the animals' diet, freshness, the vitamin E of unsaturated oils and the omega-3:6 ratio. This is context, not something to map. |
@@ -230,7 +231,9 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 
 - **Iron:**
   - absorbed 14-18 % from mixed diets and 5-12 % from vegetarian diets (Hurrell and Egli 2010, PMID 20200263);
-  - tea cut absorption from a meal by 64 % and coffee by 39 % (PMID 6402915);
+  - one cup of tea with a hamburger meal cut non-haem iron absorption 64 %, a cup of coffee 39 %; coffee 1 h before the meal had no effect, 1 h after the same effect as with it (Morck et al. 1983, PMID 6402915; US study, the tea not named in the abstract);
+  - tea 1 h after a porridge meal left iron absorption unchanged (5.7 % against 5.7 % with water; 3.6 % with tea at the meal; Ahmad Fuzi et al. 2017, PMID 29046302);
+  - no study read measures green tea's effect on iron absorption;
   - vitamin C and animal tissue raise absorption (PMID 11124756).
 - **Zinc and phytate:**
   - phytate is about 600 mg per 100 g dry in unrefined cereals and legumes, about 100 in refined cereals and under 20 in roots and tubers (PMID 20715598);
@@ -258,6 +261,7 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 - **Calcium in drinking water:** Chinese public water held 2.5-155 mg/L (mean 40.4); in high-calcium cities water could supply up to 52 % of the adult average need (PMID 36342636). In a UK cohort, domestic water averaged 52.6 mg/L calcium (PMID 39784501).
 - **Calcium in milk:** about 110 mg per 100 ml; lactose and casein phosphopeptides keep it soluble (Aoe 2018, PMID 29593135).
 - **Calcium in bone broth:** cooking bones in water extracts little; lowering pH from 8.38 to 5.32 and cooking over 8 h raised extraction, but home-made and commercial broths held no more than a few tenths of a mg of calcium per serving, under 5 % of the daily need; lead and cadmium were a few µg per serving (Hsu et al. 2017, PMID 28804437). The bones themselves, eaten, are the calcium (whole small fish above; dried powdered bone is about 31 % calcium, PMID 33310253).
+- **Carcass and lean of cattle:** young bulls of 541 kg live weight dressed out at 607 g/kg (hot carcass); the carcass held 682 g/kg lean, 127 g/kg dissectable fat and 163 g/kg bone (Bruna dels Pirineus, Serra et al. 2004, PMID 22064146).
 - **Parts of a cod** as % of whole ungutted weight (Torry Research Station, Advisory Note 17, reissued by FAO 2001; a measurement record, not a recommendation): head 21, guts 5-8 (average 7), liver 2-7 (5), roe 1-7 (4), backbone etc. 14, fins and lugs 10, skin 3, skinned fillet 36. "Weights of liver, guts, roe, etc., can fluctuate enormously with season, ground, condition of fish."
 - **Whole herring fat by season:** herring measured with head and intestines held 7.9 % fat in May, rising to 19.5 % about 1 August (Faroese and Atlanto-Scandian herring, 1950s; Fróðskaparrit); Canadian Atlantic herring averaged 9.82 % (1966) and 11.17 % (1967), June to mid-October.
 - **Cod heads and viscera:** heads 13.9-16.4 % protein and 0.9-10.9 % fat; viscera 13.0-15.3 % protein and 2.0-19.1 % fat (Bechtel 2003, pollock and cod by-products).
@@ -320,7 +324,7 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 ### 2f. Daily ceilings set by the gut
 
 - **Fat:** healthy subjects given corn and olive oil up to 639 g a day absorbed more than 98 % over 20 days; one tolerated 500-600 g without symptoms; daily fat of 300-400 g regularly caused marked sweating (Kasper 1970, PMID 5495429, abstract).
-- **Fructose alone:** no healthy subject malabsorbed 15 g; 10 % malabsorbed 25 g (without symptoms); 80 % malabsorbed 50 g and 55 % had symptoms (Rao et al. 2007, PMID 17625977). With an equal amount of glucose, 50 g fructose was absorbed by all; sucrose up to 100 g was absorbed by all (Rumessen and Gudmand-Høyer 1986, PMID 3781328). Fruit high in free fructose therefore has a ceiling that sugar does not.
+- **Fructose alone** (recorded; not used, M117): no healthy subject malabsorbed 15 g; 10 % malabsorbed 25 g (without symptoms); 80 % malabsorbed 50 g and 55 % had symptoms (Rao et al. 2007, PMID 17625977). With an equal amount of glucose, 50 g fructose was absorbed by all; sucrose up to 100 g was absorbed by all (Rumessen and Gudmand-Høyer 1986, PMID 3781328). Fruit high in free fructose therefore has a ceiling that sugar does not.
 - **Lactose in fermented milk:** 18 g lactose in live-culture yogurt gave about one third of the breath hydrogen of the same lactose in milk, with fewer symptoms, in 10 lactase-deficient adults; the cultures' lactase digests it in the gut, and pasteurisation destroys that lactase (Kolars et al. 1984, NEJM 310:1).
 - **Lactose:** lactose malabsorption has a global prevalence of 68 % (PMID 31953721). Most people with lactose intolerance tolerate 12-15 g lactose (about one cup of milk); symptoms grow above 12 g, are appreciable after 24 g, and 50 g causes symptoms in most (systematic review, Wilt et al. 2010, PMID 20629478). Women who maldigest lactose ate a dairy diet with about 1,500 mg calcium a day without major symptoms (Suarez et al. 1998, PMID 9808231).
 - **Protein:** see section 2e (Bilsborough and Mann 2006).
@@ -425,7 +429,7 @@ Kept apart from section 2i because they are of a different kind:
 - **Reward per food:** no study measures dopamine per food. What exists per food: the hyper-palatability criteria from composition (Fazzino 2019), palatability and desire-to-eat ratings for 568 foods (food-pics, Blechert 2014), and the attributes that predict addictive-like eating (processing, fat, glycemic load; Schulte 2015) (section 2e).
 - **Lightness per food:** no per-food scale exists. Stomach residence rises with energy density (Hunt and Stubbs 1975); a solid meal causes sleepiness against water, but fat and carbohydrate meals did not differ (Orr 1997), while Wells 1997 found more sleepiness after a high-fat meal (section 2e).
 - **Fullness per food:** the satiety index is measured for Holt's 38 foods and for breads in a later study (PMID 11478473); other foods follow the measured drivers: weight, water, fibre and protein raise fullness, fat and palatability lower it (Holt 1995), and energy density and eating rate set intake (PMID 40516651, 42176807).
-- **Daily ceilings per food:** gut limits for fat, fructose, lactose and protein are in section 2f; your values for milk, lemons and fruit are the inputs beyond them.
+- **Daily ceilings per food:** gut limits for fat, lactose and protein are in section 2f (the fructose limit is dropped, M117); your values for milk, lemons and fruit are the inputs beyond them.
 - **Cattle and pig organs:**
   - steers of 500 and 600 kg: liver 1.12 % and 1.09 %, heart 0.37 % and 0.32 %, kidneys 0.18 % and 0.17 % (Serbian Domestic Spotted steers, *Tehnologija mesa* 27(4); the base, live or carcass weight, is not stated in the excerpt read);
   - beef animals: liver about 3.6-5.4 kg (8-12 lb), heart 1.4-2.3 kg (3-5 lb), tongue 0.5-1.4 kg (1-3 lb) (Michigan State extension bulletin E-1609, 1982);

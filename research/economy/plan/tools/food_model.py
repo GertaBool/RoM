@@ -50,10 +50,11 @@ CEREALS = {'BONUS_WHEAT', 'BONUS_RICE', 'BONUS_CORN'}           # niacin about 1
 ANIMAL = {'BONUS_COW', 'BONUS_PIG', 'BONUS_SHEEP', 'BONUS_DEER', 'BONUS_HORSE', 'BONUS_FISH', 'BONUS_CLAM',
           'BONUS_CRAB', 'BONUS_SHRIMP', 'BONUS_WHALE', 'BONUS_DAIRY'}
 FRUIT = {'BONUS_APPLE', 'BONUS_BANANA', 'BONUS_LEMON'}
+MEAT = {'BONUS_COW', 'BONUS_PIG', 'BONUS_SHEEP', 'BONUS_DEER', 'BONUS_HORSE'}
 DRINK_HI = {'BONUS_DAIRY': 'milk_full_fat', 'BONUS_ALCOHOL': 'lager', 'BONUS_TEA': 'tea'}
 
 
-def composition(profiles, whole):
+def composition(profiles, whole, alkali=False):
     """Per good: nutrients per gram, from the first (as-eaten) form; the whole cod for BONUS_FISH."""
     out = {}
     for g, forms in profiles['goods'].items():
@@ -70,10 +71,15 @@ def composition(profiles, whole):
             liver = parts['liver (lingcod)']
             row['vit_a_rae'] += cod['liver_oil_vit_a_ug_per_100g'] * liver['fat'] / 100.0 * COD_PARTS['liver (lingcod)'] / tot
             base = {k: v for k, v in row.items()}
+        elif g == 'BONUS_COW':                                       # the whole cow as eaten (M84, M94; R69)
+            parts = {f['form']: f for f in forms}
+            P = whole['cow_as_eaten']['value']['parts_pct_of_live_weight']
+            tot = float(sum(P.values()))
+            base = {k: sum((parts[pp].get(k) or 0.0) * w for pp, w in P.items()) / tot for k in profiles['units']}
         else:
             base = {k: (forms[0].get(k) or 0.0) for k in profiles['units']}
-        out[g] = finish(g, base, forms[0], profiles)
-        for f in forms[1:]:                                          # other forms, chosen in a case as 'GOOD:form'
+        out[g] = finish(g, base, forms[0], profiles, True, alkali)
+        for f in (forms if g in ('BONUS_FISH', 'BONUS_COW') else forms[1:]):                                          # other forms, chosen in a case as 'GOOD:form'
             out[g + ':' + f['form']] = finish(g, {k: (f.get(k) or 0.0) for k in profiles['units']}, f, profiles, False)
         for f in profiles['mext'].get(g, []):                        # MEXT forms, chosen as 'GOOD:mext:form' (R68)
             b3 = {k: (f.get(k) or 0.0) for k in profiles['units']}
@@ -90,13 +96,13 @@ def composition(profiles, whole):
     return out
 
 
-def finish(g, base, form, profiles, default=True):
+def finish(g, base, form, profiles, default=True, alkali=False):
     if default and form.get('iodine') is None and profiles['mext'].get(g):   # SR Legacy holds no iodine: MEXT of the
         # same good's default form (record 2d); other forms keep 0 where no iodine record exists
         iod = profiles['mext'][g][0].get('iodine')
         base['iodine'] = iod if iod is not None else 0.0
     per_g = {k: v / 100.0 for k, v in base.items()}
-    niacin = per_g['niacin'] * (1 / 3.0 if g in CEREALS else 1.0)
+    niacin = per_g['niacin'] * (1 / 3.0 if g in CEREALS and not (alkali and g == 'BONUS_CORN') else 1.0)
     per_g['niacin_ne'] = niacin + per_g['tryptophan'] * 1000.0 / 60.0
     return per_g
 
@@ -109,10 +115,10 @@ def quality(c, target, E):
     return sum(min(1.0, c[i] * grams / t) for i, t in target.items()) / len(target)
 
 
-def solve(case):
+def solve(case, extra_kcal=0.0):
     needs, profiles, sat = load('nutrient_needs.json'), load('nutrient_profiles.json'), load('satiety_index.json')
     ms, W = case['male_share'], case['body_weight_kg']
-    comp = composition(profiles, needs['whole_animal'])
+    comp = composition(profiles, needs['whole_animal'], case.get('maize_alkali_treated', False))
     goods = [g for g in case['available_g'] if case['available_g'][g] > 0]
     for g in goods:
         if g not in comp:
@@ -121,16 +127,24 @@ def solve(case):
     ree = en['ree_kcal']['value']['per_kg'] * W + en['ree_kcal']['value']['constant']
     pal_ceiling = en['pal_limits']['value']['alimentary_ceiling']
     pal = min(case['pal'], pal_ceiling)
-    E = pal * ree
+    E = pal * ree + extra_kcal                                       # caffeine raises expenditure (Dulloo 1989; M85)
     nut = needs['nutrients']
     protein_target = num(nut['protein']['optimum']['value'], ms) * W
     hot = case.get('hot_shift_share', 0.0)
     sweat_na = num(nut['sodium']['sweat_per_hot_shift']['value'], ms) * hot
     animal = any(g.split(':')[0] in ANIMAL for g in goods)
     fe_abs = num(needs['absorption']['iron_fraction']['value']['mixed_diet' if animal else 'vegetarian'], ms)
-    tea = any(g.split(':')[0] == 'BONUS_TEA' for g in goods) and case.get('tea_with_meals', True)
-    if tea:                                                          # tea with meals: iron absorbed -64 % (record 2c)
-        fe_abs *= 1.0 + needs['absorption']['iron_inhibitors']['value']['tea']
+    inh = needs['absorption']['iron_inhibitors']['value']
+    when = case.get('tea_timing', 'with_meal')                       # 'with_meal' or '1h_after_meal'
+    tea = [g for g in goods if g in inh['tea_forms']]                # only the tea the study used (black tea; R69)
+    coffee = [g for g in goods if g in inh['coffee_forms']]
+    iron_note = 'no inhibitor'
+    if tea:
+        fe_abs *= 1.0 + (inh['tea_with_meal'] if when == 'with_meal' else inh['tea_1h_after_meal'])
+        iron_note = 'black tea ' + when.replace('_', ' ')
+    elif coffee and when == 'with_meal':
+        fe_abs *= 1.0 + inh['coffee_with_meal']
+        iron_note = 'coffee with meal'
 
     def scaled(k, lvl):
         e = nut[k][lvl]
@@ -179,13 +193,18 @@ def solve(case):
     # variables: x_g (n) | u_k for the minima and energy floor (mm + 1) | z (1) | v_k for the targets (m)
     iu, iz, iv = n, n + mm + 1, n + mm + 2
     nv = n + mm + 2 + m
+    uc = needs['user_ceilings_g']['value']
     caps = []
     for g in goods:
         cap = case['available_g'][g]
         if comp[g]['fat'] > 0:
-            cap = min(cap, 250.0 / comp[g]['fat'])                 # user: 250 g fat from one good (M93)
+            cap = min(cap, uc['fat_per_good'] / comp[g]['fat'])    # user: 250 g fat from one good (M93)
+        if g.split(':')[0] in MEAT:
+            cap = min(cap, uc['meat_per_good'])                      # user: more than a pound of meat gives heartburn (M85)
+        if g == 'BONUS_DAIRY:cheese':
+            cap = min(cap, uc['cheese'])                             # user: very few eat a kilogram of cheese (M85)
         if g == 'BONUS_DAIRY':
-            cap = min(cap, 3000.0)                                   # user: about 3 L milk a day (M88)
+            cap = min(cap, uc['milk'])                               # user: about 3 L milk a day (M88)
         caps.append(cap)
     bounds = [(0, c) for c in caps] + [(0, 1)] * (mm + 1) + [(0, 1)] + [(0, 1)] * m
     A, b = [], []
@@ -208,7 +227,7 @@ def solve(case):
     A.append(xrow([comp[g]['protein'] for g in goods])); b.append(protein_limit)
     fruit = [i for i, g in enumerate(goods) if g.split(':')[0] in FRUIT]
     if fruit:
-        A.append(xrow([1.0 if i in fruit else 0.0 for i in range(n)])); b.append(4518.0)   # user: one watermelon (M86)
+        A.append(xrow([1.0 if i in fruit else 0.0 for i in range(n)])); b.append(uc['fruit_total'])   # user: one watermelon (M86)
     # lactose limit (Wilt 2010) only for people neither lactase persistent nor of a dairy culture, and only on fresh
     # milk: fermented dairy with live cultures is digested in the gut (Kolars 1984); M113
     if not case.get('lactase_persistent', True) and not case.get('dairy_culture', False) and 'BONUS_DAIRY' in goods:
@@ -264,7 +283,7 @@ def solve(case):
     gut = nut['protein'].get('gut_absorption_g_per_h', {}).get('value', [1.3, 10.0])
     out['function'] = {'basal_energy_kcal': round(floor, 1), 'minima_coverage': round(S, 4),
                        'starving': bool(K < floor - TOL),
-                       'deficient': [k for k in mkeys if sum(comp[g][k] * x[g] for g in goods) < minimum[k] - TOL],
+                       'deficient': [k for k in mkeys if sum(comp[g][k] * x[g] for g in goods) < minimum[k] * (1 - 1e-4)],
                        'pal_reached': round(pal_reached, 3), 'labour_capacity': round(labour, 3)}
     out['harms'] = {'protein_g': round(P, 1), 'protein_per_meal_g': round(meal, 1),
                     'protein_meal_absorption_h': [round(meal / gut[1], 1), round(meal / gut[0], 1)],
@@ -274,6 +293,31 @@ def solve(case):
                     'fat_g': round(F, 1),
                     'fat_in_sweating_range': bool(F >= needs['gut_limits']['fat_g']['value']['sweating_from'][0])}
     out['goods_exhausted'] = [g for g in goods if x[g] >= case['available_g'][g] - 1e-3]
+    cafd = needs['caffeine_mg_per_100g']['value']
+    out['caffeine_mg'] = round(sum(cafd.get(g, 0.0) / 100.0 * x[g] for g in goods), 1)
+    out['caffeine_extra_kcal'] = round(extra_kcal, 1)
+    out['iron'] = {'absorption_fraction': round(fe_abs, 4), 'inhibitor': iron_note}
+    caf = needs['absorption']['calcium_fraction_by_good']['value']
+    known = {g: x[g] * comp[g]['calcium'] for g in goods if g in caf and x[g] > TOL}
+    out['calcium_absorbed'] = {'mg_from_goods_with_a_measured_fraction': round(sum(caf[g] * v for g, v in known.items()), 1),
+                               'goods_measured': sorted(known),
+                               'goods_without_measured_fraction': sorted(g for g in goods if g not in caf and x[g] * comp[g]['calcium'] > 1)}
+    b12m = num(needs['absorption']['b12_absorbed']['value']['per_meal_saturation_ug'], ms)
+    out['b12_absorbed_ceiling_three_meals_ug'] = round(3 * b12m, 2)
+    out['alcohol_with_fat'] = bool(any(comp[g]['alcohol'] > 0 and x[g] > TOL for g in goods) and F > 0)
+    eaten_kcal = {g: comp[g]['kcal'] * x[g] for g in goods}
+    big = max(eaten_kcal.values()) / K if K else 0.0
+    out['wellbeing'] = {'goods_over_5pct_energy': sum(1 for v in eaten_kcal.values() if K and v / K >= 0.05),
+                        'largest_good_energy_share': round(big, 3),
+                        'nutrients_below_minimum': len(out['function']['deficient']),
+                        'harm_flags': [n['nutrient'] for n in out['nutrients'] if n['above_ceiling']]}
+    nutr = load('nutrition.json')
+    sp = nutr['spoilage_per_year_percent']
+    out['keeping'] = {g: {'left_g_per_day': round(case['available_g'][g] - x[g], 1),
+                          'keep_class': nutr['goods'].get(g.split(':')[0], {}).get('form'),
+                          'spoilage_per_year_pct': sp.get(nutr['goods'].get(g.split(':')[0], {}).get('form'), {}).get('value'),
+                          'basis': sp.get(nutr['goods'].get(g.split(':')[0], {}).get('form'), {}).get('basis')}
+                      for g in goods}
     return out
 
 
@@ -321,9 +365,9 @@ def report(case, needs, comp, sat, goods, x, E, ree, pal, z, mar, q, target, min
         rows.append({'nutrient': k, 'intake': round(intake[k], 3), 'target': round(target[k], 3),
                      'adequacy': round(min(1.0, intake[k] / target[k]), 3) if target[k] else None,
                      'minimum': None if minimum.get(k) is None else round(minimum[k], 3),
-                     'below_minimum': bool(minimum.get(k) is not None and intake[k] < minimum[k] - TOL),
+                     'below_minimum': bool(minimum.get(k) is not None and intake[k] < minimum[k] * (1 - 1e-4)),   # LP tolerance
                      'ceiling': None if k not in ceiling else round(ceiling[k], 3),
-                     'above_ceiling': bool(k in ceiling and intake[k] > ceiling[k] + TOL)})
+                     'above_ceiling': bool(k in ceiling and intake[k] > ceiling[k] * (1 + 1e-4))})
     contrib = {k: {g: round(float(comp[g][k] * x[g]), 3) for g in goods if comp[g][k] * x[g] > 0} for k in target}
     satm = sat['map']
     sat_e = sum(sat['holt'][satm[g]] / 100.0 * comp[g]['kcal'] * x[g] for g in goods if g in satm)
@@ -348,11 +392,111 @@ def report(case, needs, comp, sat, goods, x, E, ree, pal, z, mar, q, target, min
     }
 
 
+UNITS = {'protein': 'g', 'sodium': 'mg', 'potassium': 'mg', 'calcium': 'mg', 'magnesium': 'mg', 'iron': 'mg', 'zinc': 'mg',
+         'iodine': 'µg', 'selenium': 'µg', 'vit_a_rae': 'µg RAE', 'thiamin': 'mg', 'riboflavin': 'mg', 'niacin_ne': 'mg NE',
+         'vit_b6': 'mg', 'folate_dfe': 'µg DFE', 'b12': 'µg', 'vit_c': 'mg'}
+
+
+def record_of(g, profiles):
+    """Where a good's composition comes from, for the report."""
+    base, _, form = g.partition(':')
+    if form.startswith('mext:'):
+        f = [x for x in profiles['mext'][base] if x['form'] == form[5:]][0]
+        return 'MEXT %s (%s)' % (f['mext_no'], form[5:])
+    if g == 'BONUS_FISH':
+        return 'cod as eaten: USDA 171955 cod, 175132 roe, 169810 lingcod liver (Torry shares 36:4:5)'
+    if g == 'BONUS_COW':
+        return 'cow as eaten: USDA 169430 meat, 169451 liver, 168625 heart, 169449 kidneys (41.4:1.12:0.37:0.18)'
+    if form.startswith('herring whole'):
+        return 'USDA 175116 herring with whole-fish fat of %s' % form
+    forms = profiles['goods'][base]
+    f = [x for x in forms if x['form'] == form][0] if form else forms[0]
+    return 'USDA %d (%s)' % (f['fdc_id'], f['usda'])
+
+
+def markdown(cases, results, comp, profiles):
+    """The case report, written from the tool's own output (R69): inputs first, then results."""
+    L = ['# Food model: case report', '', 'Written by `plan/tools/food_model.py --md`; every number below comes from the run, nothing is typed by hand.', '']
+    for c, r in zip(cases, results):
+        L += ['## ' + c['name'], '', '### Inputs', '',
+              '| Variable | Value |', '|---|---|',
+              '| body weight | %s kg |' % c['body_weight_kg'], '| share of men | %s |' % c['male_share'], '| age | %s years |' % c['age'],
+              '| activity level asked (PAL) | %s |' % c['pal'], '| air temperature | %s °C |' % c['temp_c'],
+              '| relative humidity | %s %% |' % c['humidity_pct'], '| altitude | %s m |' % c['altitude_m'],
+              '| development group (Yamada HDI) | %s |' % c['hdi_group'], '| share of days with a hot work shift | %s |' % c.get('hot_shift_share', 0),
+              '| lactase persistent | %s |' % c.get('lactase_persistent', True), '| dairy culture | %s |' % c.get('dairy_culture', False),
+              '| tea timing | %s |' % c.get('tea_timing', 'with_meal'), '| maize treated with alkali | %s |' % c.get('maize_alkali_treated', False), '',
+              '| Good available | Composition record | g per person per day | kcal / protein g / fat g per 100 g |', '|---|---|---|---|']
+        for g, a in c['available_g'].items():
+            k = comp[g]
+            L.append('| %s | %s | %s | %.0f / %.1f / %.1f |' % (g, record_of(g, profiles), a, 100 * k['kcal'], 100 * k['protein'], 100 * k['fat']))
+        f = r['function']
+        L += ['', '### Results', '',
+              '| Measure | Value |', '|---|---|',
+              '| resting expenditure | %s kcal |' % r['ree_kcal'],
+              '| energy need (PAL x REE + caffeine) | %s kcal (caffeine %s mg, +%s kcal) |' % (r['energy_need_kcal'], r['caffeine_mg'], r['caffeine_extra_kcal']),
+              '| energy of basal function (1.2 x REE) | %s kcal |' % f['basal_energy_kcal'],
+              '| starving | %s |' % ('yes' if f['starving'] else 'no'),
+              '| labour capacity (PAL reached) | %s (%s) |' % (f['labour_capacity'], f['pal_reached']),
+              '| nutrient minima covered (mean) | %s |' % f['minima_coverage'],
+              '| deficient (below minimum) | %s |' % (', '.join(f['deficient']) or 'none'),
+              '| mean adequacy ratio | %s |' % r['mar'],
+              '| iron absorbed fraction | %s (%s) |' % (r['iron']['absorption_fraction'], r['iron']['inhibitor']),
+              '| calcium absorbed, goods with a measured fraction | %s mg (%s); no measured fraction: %s |' % (
+                  r['calcium_absorbed']['mg_from_goods_with_a_measured_fraction'], ', '.join(r['calcium_absorbed']['goods_measured']) or 'none',
+                  ', '.join(r['calcium_absorbed']['goods_without_measured_fraction']) or 'none'),
+              '| zinc absorbed (Miller) / minimum | %s / %s mg |' % (r['zinc_absorbed_mg'], r['zinc_absorbed_minimum_mg']),
+              '| B12 absorbed at most (3 meals x per-meal saturation) | %s µg |' % r['b12_absorbed_ceiling_three_meals_ug'],
+              '| protein, per meal, absorption hours at 10 and 1.3 g/h | %s g, %s g, %s h |' % (r['harms']['protein_g'], r['harms']['protein_per_meal_g'], r['harms']['protein_meal_absorption_h']),
+              '| urea capacity | %s g |' % r['harms']['urea_capacity_g'],
+              '| fat | %s g (sweating range: %s) |' % (r['harms']['fat_g'], r['harms']['fat_in_sweating_range']),
+              '| alcohol | %s g a week (with fat: %s) |' % (r['alcohol_g_per_week'], r['alcohol_with_fat']),
+              '| water: turnover / from food / metabolic / from drinks / to draw | %s / %s / %s / %s / %s ml |' % tuple(r['water_ml'][k] for k in ['turnover', 'from_food', 'metabolic', 'from_drinks', 'water_to_draw']),
+              '| fullness (Holt index, where measured) | %s over %s of energy |' % (r['fullness_index_mean_where_measured'], r['energy_share_with_measured_satiety']),
+              '| repetition: goods over 5 %% of energy / largest share | %s / %s |' % (r['wellbeing']['goods_over_5pct_energy'], r['wellbeing']['largest_good_energy_share']),
+              '', '| Good | Eaten g | Left g | Quality | Keep class (spoilage % a year; basis) |', '|---|---|---|---|---|']
+        for g in c['available_g']:
+            kp = r['keeping'][g]
+            L.append('| %s | %s | %s | %s | %s (%s; %s) |' % (g, r['eaten_g'][g], kp['left_g_per_day'], r['quality'][g], kp['keep_class'], kp['spoilage_per_year_pct'], kp['basis']))
+        L += ['', '| Nutrient | Intake | Target | Minimum | Ceiling | Where it comes from (share of intake) |', '|---|---|---|---|---|---|']
+        for n in r['nutrients']:
+            cc = r['contributions'][n['nutrient']]
+            tot = sum(cc.values()) or 1.0
+            src = ', '.join('%s %d %%' % (g, round(100 * v / tot)) for g, v in sorted(cc.items(), key=lambda t: -t[1]) if v / tot >= 0.05)
+            L.append('| %s (%s) | %s%s | %s | %s | %s%s | %s |' % (n['nutrient'], UNITS[n['nutrient']], n['intake'], ' **below minimum**' if n['below_minimum'] else '',
+                                                           n['target'], '—' if n['minimum'] is None else n['minimum'],
+                                                           '—' if n['ceiling'] is None else n['ceiling'], ' **above**' if n['above_ceiling'] else '', src or '—'))
+        L += ['', '| Well-being list (separate from nutrition) | g | hyper-palatable | kcal per g | satiety index |', '|---|---|---|---|---|']
+        for w in r['wellbeing_list']:
+            L.append('| %s | %s | %s | %s | %s |' % (w['good'], w['grams'], w['hyper_palatable'], w['kcal_per_g'], w['satiety_index'] if w['satiety_index'] is not None else 'not measured'))
+        L.append('')
+    return '\n'.join(L) + '\n'
+
+
+def run(case):
+    """Solve; caffeine raises expenditure, so iterate until the caffeine eaten and the energy need agree."""
+    extra, r = 0.0, None
+    for _ in range(10):
+        r = solve(case, extra)
+        new = 150.0 * min(r['caffeine_mg'], 600.0) / 600.0           # Dulloo 1989: +150 kcal at 600 mg
+        if abs(new - extra) < 0.5:
+            break
+        extra = new
+    return r
+
+
 def main():
     args = sys.argv[1:]
     with open(args[0], encoding='utf-8') as fh:
         cases = json.load(fh)
-    out = [solve(c) for c in cases['cases']]
+    out = [run(c) for c in cases['cases']]
+    if '--md' in args:
+        prof = load('profiles' if False else 'nutrient_profiles.json')
+        comp = {}
+        for c in cases['cases']:
+            comp.update(composition(prof, load('nutrient_needs.json')['whole_animal'], c.get('maize_alkali_treated', False)))
+        with open(args[args.index('--md') + 1], 'w', encoding='utf-8') as fh:
+            fh.write(markdown(cases['cases'], out, comp, prof))
     if '--json' in args:
         with open(args[args.index('--json') + 1], 'w', encoding='utf-8') as fh:
             json.dump(out, fh, indent=1, ensure_ascii=False)

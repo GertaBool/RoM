@@ -1,5 +1,5 @@
 {
- "about": "Cases for plan/tools/food_model.py (R64.3, R68). Body weight 70 kg (60 kg in the rice town) is a case input; 70 kg is the reference man of Haskell 2011 (record 2i). PAL 2.41 is the measured value of Rwandan farmers (Harris 2025, record 2a). Climate and goods available are game inputs, not record facts; goods available are grams per person per day; a good's form is chosen as GOOD:form (USDA) or GOOD:mext:form (MEXT). Year-round compositions only: the model has no seasons (M101). The fishing village eats the fatty fish fishing peoples ate (M113, M116): herring, mackerel and cod as eaten (fillet, liver, roe), with clams it gathers. The rice town eats polished rice (stated choice; brown rice is the other record), small fish eaten whole (pond smelt, MEXT 10276), bananas and green tea (sencha infusion, MEXT 16037), drunk with meals. The farming town is a dairy culture.",
+ "about": "Cases for plan/tools/food_model.py (R64.3, R68). Body weight 70 kg (60 kg in the rice town) is a case input; 70 kg is the reference man of Haskell 2011 (record 2i). PAL 2.41 is the measured value of Rwandan farmers (Harris 2025, record 2a). Climate and goods available are game inputs, not record facts; goods available are grams per person per day; a good's form is chosen as GOOD:form (USDA) or GOOD:mext:form (MEXT). Year-round compositions only: the model has no seasons (M101). The fishing village eats the fatty fish fishing peoples ate (M113, M116): herring, mackerel and cod as eaten (fillet, liver, roe), with clams it gathers. The rice town eats polished rice (stated choice; brown rice is the other record), small fish eaten whole (pond smelt, MEXT 10276), bananas and green tea (sencha infusion, MEXT 16037) with meals; no study read measures green tea's effect on iron, so none is applied. The farming town is a dairy culture and eats the whole cow (meat, liver, heart, kidneys) besides pork muscle (pig organ shares have no stated base).",
  "cases": [
   {
    "name": "farming town, temperate",
@@ -16,6 +16,7 @@
    "dairy_culture": true,
    "available_g": {
     "BONUS_WHEAT": 900,
+    "BONUS_COW": 150,
     "BONUS_PIG": 150,
     "BONUS_DAIRY": 600,
     "BONUS_APPLE": 200,

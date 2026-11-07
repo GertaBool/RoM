@@ -2790,67 +2790,80 @@
     {
      "id": "R69.1",
      "what": "Case report written by the tool (no hand-filled tables): inputs first (every good with form, record id and amount; person, climate and culture variables), then results and per-nutrient sources",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
     },
     {
      "id": "R69.2",
      "what": "Tea iron inhibition only for the tea and coffee the study used, read from the abstract; other teas by their own source or none",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
     },
     {
      "id": "R69.3",
      "what": "Drop the fructose limit (user, M117)",
-     "status": "open"
+     "status": "done",
+     "where": "fructose limit removed from nutrient_needs.json, food_model.md; record marks it unused (M117)"
     },
     {
      "id": "R69.4",
      "what": "Satiety as the gauge of being fed (M92, M93)",
-     "status": "open"
+     "status": "open",
+     "note": "Not applied: reason in food_model.md section 9; stays open."
     },
     {
      "id": "R69.5",
      "what": "Food-group ceilings: ground beef above a pound, cheese about a kilogram (M85, M88); lemons (M92)",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
     },
     {
      "id": "R69.6",
      "what": "Steak and potatoes, then dessert (M88): well-being goods after nutrition is met",
-     "status": "open"
+     "status": "open",
+     "note": "Not applied: reason in food_model.md section 9; stays open."
     },
     {
      "id": "R69.7",
      "what": "Well-being list with health effects and repetition (M89-M91, M102)",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
     },
     {
      "id": "R69.8",
      "what": "Liver and organs of land animals (M84, M94); whale blubber (M83, M85)",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
     },
     {
      "id": "R69.9",
      "what": "Caffeine raising activity (M85; Dulloo 1989)",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
     },
     {
      "id": "R69.10",
      "what": "Keeping and spoilage of what is left (M57; D2, D5)",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
     },
     {
      "id": "R69.11",
      "what": "Rich city: surplus milk to dairy products, bread (M91)",
-     "status": "open"
+     "status": "open",
+     "note": "Not applied: reason in food_model.md section 9; stays open."
     },
     {
      "id": "R69.12",
      "what": "Food effects in the game: fertility, productivity, strength (M57, M75)",
-     "status": "open"
+     "status": "open",
+     "note": "Not applied: reason in food_model.md section 9; stays open."
     },
     {
      "id": "R69.13",
      "what": "Calcium absorption by source; B12 absorption per meal over three meals; maize niacin with alkali treatment; alcohol with fat raising intake",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py, food_model_cases_report.md (generated), food_model.md sections 3, 5, 7, 8, 9"
     }
    ]
   }
