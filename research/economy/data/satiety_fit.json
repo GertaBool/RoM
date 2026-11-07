@@ -1,0 +1,37 @@
+{
+ "about": "Satiety index (white bread 100) fitted to Holt 1995 by satiety_fit.py (R44.9); coefficients for ln(SI/100) on [1, ln(W/W_bread), protein share, fibre per 100 kcal, fat share]",
+ "coefficients": [
+  0.0796,
+  0.2218,
+  0.6614,
+  0.0308,
+  -0.2127
+ ],
+ "r2": 0.461,
+ "goods": {
+  "BONUS_WHEAT": 131,
+  "BONUS_RICE": 135,
+  "BONUS_CORN": 165,
+  "BONUS_POTATO": 156,
+  "BONUS_COW": 155,
+  "BONUS_PIG": 133,
+  "BONUS_SHEEP": 115,
+  "BONUS_DEER": 206,
+  "BONUS_HORSE": 181,
+  "BONUS_FISH": 147,
+  "BONUS_CLAM": 214,
+  "BONUS_CRAB": 235,
+  "BONUS_SHRIMP": 235,
+  "BONUS_WHALE": 245,
+  "BONUS_DAIRY": 155,
+  "BONUS_BANANA": 155,
+  "BONUS_LEMON": 258,
+  "BONUS_APPLE": 181,
+  "BONUS_OLIVES": 116,
+  "BONUS_SUGAR": 100,
+  "BONUS_WINE": 140,
+  "BONUS_ALCOHOL": 167,
+  "REF_CHEESE": 98,
+  "REF_BUTTER": 70
+ }
+}

@@ -1,5 +1,7 @@
 # Fruit and drinks: a different priority, the same satiety (R43, M89, M90)
 
+*Withdrawn in M91: there is no priority tier. Fruit and drinks enter one allocation with their own values (`round_m91.md` section 4).*
+
 ## Recorded
 
 - **M89:** "Fruit are not for satiety but well-being, the same goes for many drinks."
