@@ -784,6 +784,13 @@
    "kind": "instruction",
    "text": "Now, apply the correct sources by rewriting the key files for the mathematical model of the food consumption of ingame city populations. \nI need you to actually use the correct tables, you are required to uphold standards of process efficiency and deterministic information accuracy.",
    "led_to": "R64: rewrite the key files of the food consumption model (needs data, model specification, model tool) from nutrition_record.md tables 2i/2j and the composition records"
+  },
+  {
+   "id": "M113",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "The lactose limit is for pasteurized dairy and lactose in isolation, not for cultures that specialized in dairy cattle and or are significantly lactose persistent or consume raw dairy. Those particular studies distort the picture because they involve too little information in too small of a context. \n\n\"lean fish\"\n\nHistorically, fat was highly prized, people lived on fish and anything they could gather locally without many issues. This cannot be the case if all they ate were fillet which we previously extensively repeatedly elaborated on to a mind boggling extent.",
+   "led_to": "R65: lactose limit only outside dairy cultures; fish as the whole animal as eaten (fat-rich parts, fatty catch) plus local gathering; rerun"
   }
  ],
  "requests": [
@@ -2640,6 +2647,25 @@
      "what": "Rewrite the model tool to read the new needs data and run it on a real case; check every consumer of its output",
      "status": "done",
      "where": "research/economy/plan/tools/food_model.py; run on research/economy/food_model_cases.json (3 cases); consumers: none besides food_model.md"
+    }
+   ]
+  },
+  {
+   "id": "R65",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M113",
+   "text": "The lactose limit is for pasteurized dairy and lactose in isolation, not for cultures that specialized in dairy cattle and or are significantly lactose persistent or consume raw dairy. Those particular studies distort the picture because they involve too little information in too small of a context. \n\n\"lean fish\"\n\nHistorically, fat was highly prized, people lived on fish and anything they could gather locally without many issues. This cannot be the case if all they ate were fillet which we previously extensively repeatedly elaborated on to a mind boggling extent.",
+   "items": [
+    {
+     "id": "R65.1",
+     "what": "Record the user's input; the lactose limit applies only to people neither lactase persistent nor of a dairy culture, and never to raw or fermented dairy by default",
+     "status": "open"
+    },
+    {
+     "id": "R65.2",
+     "what": "Fish as the whole animal as eaten, not fillet: whole-body composition from sources (fat-rich parts, liver oil, head, roe; fatty catch such as herring) and local gathering in the fishing case; rerun the model",
+     "status": "open"
     }
    ]
   }
