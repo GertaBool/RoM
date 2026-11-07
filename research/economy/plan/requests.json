@@ -644,6 +644,13 @@
    "kind": "decision",
    "text": "\"The fishing village now eats 2,170 kcal against a 3,193 kcal need. What stops it now is the 100 g fat-per-food limit, not protein.\"\n\nMaybe checking for satiety units rather than calories is the wise move then, although calories are definitely part of the equation. The whole point is that physiologically the person feels like enough nutrients have been delivered, so if the person feels full from all the food it's probably a better gauge than calories.\n\n\"Should the 100 g fat limit apply to whole fish? Fishing and sea-mammal peoples ate more fat than that.\"\n\nIt's probably an erroneous limit, however it's a pretty heuristic for the maximum amount of a good people usually consume. \n\n\"Do the well-being weights look right, and should taste be added? Lemons rank high but are sour.\"\n\nI think no one will eat kilograms of lemons, so there has to be an upper limit to the amount of lemons that a person would consume.",
    "led_to": "R45: appetite gauged by fullness (satiety units) with calories still counted; the 100 g fat per good kept as a heuristic for the usual maximum of a good; an upper limit for lemons"
+  },
+  {
+   "id": "M93",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "\"The problem: Holt's scores make potato-rich cities feel full while underfed\"\n\nThat's exactly what is going on though. Grains and tubers kept people fed, nutrition actually makes them strong and healthy. The baseline I think is satiety being met, but ideally people can consume all the calories they need from the most ideal foods. \n\n\"Fishing village: it is still held back by the 100 g fat rule. 1.26 kg of whole fish holds 100 g of fat, so it reaches 2,170 kcal against a 3,193 kcal nee\"\n\nRaise the limit to 250g of fat",
+   "led_to": "R46: fullness as Holt measured it kept (option A); being fed = satiety met, strength and health from energy and nutrients; fat per good raised to 250 g"
   }
  ],
  "requests": [
@@ -2028,6 +2035,25 @@
      "what": "An upper limit for lemons: no one eats kilograms of lemons",
      "status": "done",
      "where": "round_m92.md; food_model.py (fullness, LEMON_MAX_G); design.json D27 m92"
+    }
+   ]
+  },
+  {
+   "id": "R46",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M93",
+   "text": "\"The problem: Holt's scores make potato-rich cities feel full while underfed\"\n\nThat's exactly what is going on though. Grains and tubers kept people fed, nutrition actually makes them strong and healthy. The baseline I think is satiety being met, but ideally people can consume all the calories they need from the most ideal foods. \n\n\"Fishing village: it is still held back by the 100 g fat rule. 1.26 kg of whole fish holds 100 g of fat, so it reaches 2,170 kcal against a 3,193 kcal nee\"\n\nRaise the limit to 250g of fat",
+   "items": [
+    {
+     "id": "R46.1",
+     "what": "Keep fullness as Holt measured it: staple-fed people are full; satiety met is the baseline of being fed; energy and nutrients make people strong and healthy; ideally all calories come from the best foods",
+     "status": "open"
+    },
+    {
+     "id": "R46.2",
+     "what": "Raise the fat limit per good to 250 g",
+     "status": "open"
     }
    ]
   }
