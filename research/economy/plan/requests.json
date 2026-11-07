@@ -672,6 +672,13 @@
    "kind": "correction",
    "text": "It was very well established that well-being and nutrition are two separate variables and two separate sorted arrays",
    "led_to": "R49: specification version 2: nutrition (with satisfaction) and well-being as two separate variables and two sorted lists; nutrition list until fed, then the well-being list (steak and potatoes, then dessert, M88)"
+  },
+  {
+   "id": "M97",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "You are again refusing to provide an actual formula for the mathematical model, you just talk to me and I have no direct insight as to why numbers changed, you're narrating results to me and I cannot accept it",
+   "led_to": "R50: the formulas given directly, with a worked trace from input data to every intermediate value and result, and the version 1 to version 2 differences attributed to the variables that caused them"
   }
  ],
  "requests": [
@@ -2152,6 +2159,30 @@
      "what": "Code and rerun from the specification",
      "status": "done",
      "where": "food_model_spec.md v2 (E16, E17, change log M96); food_model.py; round_m96.md"
+    }
+   ]
+  },
+  {
+   "id": "R50",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M97",
+   "text": "You are again refusing to provide an actual formula for the mathematical model, you just talk to me and I have no direct insight as to why numbers changed, you're narrating results to me and I cannot accept it",
+   "items": [
+    {
+     "id": "R50.1",
+     "what": "Give the model's formulas directly, not narrated",
+     "status": "open"
+    },
+    {
+     "id": "R50.2",
+     "what": "A worked trace: input data to every intermediate value to the result, for goods and a city",
+     "status": "open"
+    },
+    {
+     "id": "R50.3",
+     "what": "Explain why numbers changed between versions, variable by variable",
+     "status": "open"
     }
    ]
   }
