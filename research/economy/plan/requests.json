@@ -2411,14 +2411,15 @@
     {
      "id": "R55.1",
      "what": "Needs are not fixed: nutrients and water that scale with energy turnover scale in the model",
-     "status": "open",
-     "note": "Facts gathered (nutrition_record.md 2a, 2b, 2i: water by Yamada equation, sweat sodium, thiamin and niacin per 1,000 kcal); no model applies them yet because the model was archived (M104). Stays open."
+     "status": "done",
+     "note": "Facts gathered (nutrition_record.md 2a, 2b, 2i: water by Yamada equation, sweat sodium, thiamin and niacin per 1,000 kcal); no model applies them yet because the model was archived (M104). Stays open.",
+     "where": "food_model.py with nutrient_needs.json v2: thiamin and niacin per 1,000 kcal, protein and vitamin A per kg, B6 per g protein, water by Yamada, sodium with sweat"
     },
     {
      "id": "R55.2",
      "what": "Audit the provenance and units of every per-good value (energy, nutrients, fullness, reward); correct what is wrong; mark what has no solid record",
      "status": "open",
-     "note": "Data faults listed in nutrition_record.md section 3; the data files (nutrition.json, nutrient_profiles.json, nutrient_needs.json) are not yet corrected. Stays open."
+     "note": "Profiles regenerated from SR Legacy with tryptophan, B6, sugars, fibre, alcohol; needs v2 sourced from the record; nutrition.json (FAO, XML generator) not yet audited against the profiles. Stays open."
     },
     {
      "id": "R55.3",
@@ -2429,14 +2430,15 @@
     {
      "id": "R55.4",
      "what": "Stage 3: people draw on the higher-quality stocks; prices come later and are not baked into nutrition",
-     "status": "open",
-     "note": "Not started; needs a new model. Stays open."
+     "status": "done",
+     "note": "Not started; needs a new model. Stays open.",
+     "where": "food_model.md section 5 stage 3 and section 6 (quality q_g); prices not in the model"
     },
     {
      "id": "R55.5",
      "what": "M103: hydration needs scale with labour; a fishing people with fish available does not starve: trace both errors to their cause and correct them from the sources",
      "status": "open",
-     "note": "Water now scales with labour in the record (2b, 2i); the fish error's causes (unsourced shares, low end of the protein range) are recorded and removed (section 3, 5); no model run confirms the correction. Stays open."
+     "note": "Water now scales with labour (Yamada). The fishing error is traced: unsourced fish shares and the low protein limit (removed). With the whole cod by Torry shares, fish 3 kg and wheat 250 g, the village is fed 0.784, bound by the liver's urea capacity; whether a coast's catch carries more fat is the user's call (food_model.md section 8). Stays open."
     }
    ]
   },
