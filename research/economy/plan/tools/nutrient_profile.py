@@ -35,8 +35,8 @@ GOODS = {
     'BONUS_RICE': [('brown', '169703'), ('polished', '169756')],
     'BONUS_CORN': [('grain', '170288')],
     'BONUS_POTATO': [('raw', '170026'), ('boiled', '170438')],
-    'BONUS_COW': [('meat', '169430'), ('liver', '169451')],
-    'BONUS_PIG': [('meat', '167818'), ('liver', '167862')],
+    'BONUS_COW': [('meat', '169430'), ('liver', '169451'), ('heart', '168625'), ('kidneys', '169449')],   # R69: organs
+    'BONUS_PIG': [('meat', '167818'), ('liver', '167862'), ('heart', '168267'), ('kidneys', '168270')],
     'BONUS_SHEEP': [('meat', '172545')],
     'BONUS_DEER': [('meat', '173855')],
     'BONUS_HORSE': [('meat', '175086')],

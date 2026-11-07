@@ -134,7 +134,8 @@ needs={
     'recommended':L({'male':90,'female':75},'RDA (2j)')}},
  'absorption':{
    'iron_fraction':L({'mixed_diet':[0.14,0.18],'vegetarian':[0.05,0.12],'no_stores_whole_diet':[0.14,0.166]},'Hurrell and Egli 2010, PMID 20200263; Hallberg 1991'),
-   'iron_inhibitors':L({'tea':-0.64,'coffee':-0.39},'PMID 6402915 (fall in absorption from a meal)'),
+   'iron_inhibitors':L({'tea_with_meal':-0.64,'coffee_with_meal':-0.39,'tea_1h_after_meal':0.0,'tea_forms':['BONUS_TEA','BONUS_TEA:black, brewed','BONUS_TEA:mext:black tea infusion'],'coffee_forms':['BONUS_COFFEE']},'Morck et al. 1983, PMID 6402915: one cup of tea with a hamburger meal lowered non-haem iron absorption 64 %, a cup of coffee 39 % (US study; the abstract does not name the tea; black tea assumed, the usual US tea); coffee 1 h before the meal had no effect. Ahmad Fuzi et al. 2017, PMID 29046302: tea 1 h after a porridge meal left absorption unchanged (5.7 % vs 5.7 %; with the meal 3.6 %). No study read measures green tea: no inhibition is applied to green tea.'),
+   'calcium_fraction_by_good':L({'BONUS_DAIRY':0.32,'BONUS_FISH:mext:pond smelt, whole':0.238,'BONUS_FISH:mext:loach, whole':0.238},'section 2c: milk 0.28-0.36 (midpoint); small soft-boned fish eaten whole 0.238 (Hansen 1998); other goods have no measured fraction'),
    'calcium_fraction':L({'milk':[0.28,0.36],'small_fish_with_bones':0.238,'mineral_water':[0.216,0.226],'kale':0.41,'calcium_oxalate':0.10,'spinach':0.051},'section 2c table: Hansen 1998; PMID 15365401; Heaney and Weaver 1989, 1990; Heaney 1988'),
    'calcium_load':L({'300_mg':0.36,'1000_mg':0.284},'Heaney et al. 1999, PMID 10367025'),
    'zinc_equation':L({'A_MAX':0.084,'K_T':0.069,'K_P':0.44,'B_Ca':0.017,'B_Pr':0.012,'units':'mmol/d; protein g/d'},'Miller et al. 2013, PMID 22617116, eq. 2 and Table 3 (augmented data)'),
@@ -143,15 +144,17 @@ needs={
    'b12_absorbed':L({'fish':0.42,'mutton':[0.56,0.89],'chicken':[0.61,0.66],'egg':0.09,'per_meal_saturation_ug':[1.5,2.0]},'Watanabe 2007, PMID 17959839')},
  'gut_limits':{
    'fat_g':L({'absorbed_over_98pct_up_to':639,'sweating_from':[300,400]},'Kasper 1970, PMID 5495429'),
-   'fructose_free_g':L({'all_absorb':15,'10pct_malabsorb':25,'80pct_malabsorb':50,'with_equal_glucose_absorbed':50},'Rao et al. 2007, PMID 17625977; Rumessen and Gudmand-Hoyer 1986, PMID 3781328'),
    'lactose_g':L({'malabsorption_prevalence':0.68,'tolerated_by_intolerant':[12,15],'symptoms_appreciable_from':24},'PMID 31953721; Wilt et al. 2010, PMID 20629478'),
    'protein':'see nutrients.protein.ceiling',
    'lactose_context':'The limit comes from studies of pasteurised milk or lactose in water in lactase-deficient people; it does not apply to lactase-persistent people or dairy cultures (M113). Live-culture yogurt: 18 g lactose gave about one third of the breath hydrogen of the same lactose in milk (Kolars et al. 1984, NEJM 310:1); pasteurisation destroys the lactase of the cultures.'},
+ 'user_ceilings_g':L({'meat_per_good':453.6,'cheese':1000,'milk':3000,'fat_per_good':250,'fruit_total':4518},'the user: more than a pound (453.6 g) of ground beef gives heartburn, very few people can eat a kilogram of cheese a day, about 3 L of milk (M85, M88); 250 g fat from one good (M93); fruit at most one whole watermelon of 4,518 g (M86, USDA portion)'),
+ 'caffeine_mg_per_100g':L({'BONUS_TEA':30,'BONUS_TEA:black, brewed':30,'BONUS_TEA:mext:black tea infusion':30,'BONUS_TEA:mext:sencha infusion':20,'BONUS_TEA:green, brewed':20,'BONUS_COFFEE':60},'MEXT brewing (record 2d): black tea infusion 30, sencha infusion 20, coffee infusion 60 mg per 100 g'),
  'whole_animal':{
    'about':'Goods eaten as the whole animal (M91, M113): composition built from part records by part shares. Atwater factors 4/9/4 kcal per g protein/fat/carbohydrate recompute energy where only the fat changes.',
    'cod_as_eaten':L({'parts_pct_of_round_weight':{'cod':36,'liver (lingcod)':5,'roe':4},'liver_oil_vit_a_ug_per_100g':30000},'Torry Advisory Note 17 (FAO 2001) part shares; the coastal meal moelje is cod, cod liver, fresh cod-liver oil and roe (Skjervoy, northern Norway; Public Health Nutrition 2004, Brustad et al.); liver record: lingcod liver (USDA 169810, 42 % fat); vitamin A of the liver from cod liver oil (USDA 173577) times the liver fat share'),
    'herring_whole_fat_pct':L({'May':7.9,'August':19.5},'Faroese and Atlanto-Scandian herring measured with head and intestines, 1950s (Frodskaparrit, ojs.setur.fo, article 275): lowest in May, highest about 1 August'),
    'cod_liver_lipid_farmed':L([0.719,0.785],'farmed cod on high-lipid feeds: liver lipid 719-785 g/kg, 83-88 % of body lipid (Stirling study); not used: farmed, not wild'),
+   'cow_as_eaten':L({'parts_pct_of_live_weight':{'meat':41.4,'liver':1.12,'heart':0.37,'kidneys':0.18}},'meat: carcass 607 g/kg of live weight x lean 682 g/kg of carcass = 41.4 % (Bruna dels Pirineus young bulls, Serra et al. 2004, PMID 22064146); liver 1.12, heart 0.37, kidneys 0.18 % (Domestic Spotted steers, Tehnologija mesa 27(4); the excerpt read does not state whether the base is live or carcass weight; consistent with liver 3.6-5.4 kg in a beef animal, MSU E-1609)'),
    'cod_head_viscera':L({'head_protein_pct':[13.9,16.4],'head_fat_pct':[0.9,10.9],'viscera_protein_pct':[13.0,15.3],'viscera_fat_pct':[2.0,19.1]},'Bechtel 2003 (pollock and cod processing by-products); not used: no record that heads and viscera were eaten as food')},
  'harm':{
    'alcohol_g_per_week':L({'lowest_all_cause_risk_up_to':100,'life_expectancy_loss_at_40':{'100-200':'about 6 months','200-350':'1-2 years','>350':'4-5 years'},'minimum_harm':0},'Wood et al. 2018, PMID 29676281; GBD 2018, PMID 30146330'),
