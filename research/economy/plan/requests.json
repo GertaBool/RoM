@@ -756,6 +756,13 @@
    "kind": "input",
    "text": "It's clearly NOT a complete list of nutrients, which is fine, but\n\n- Calcium is important \n\nIt's very bad to ignore calcium. It's sourced from drinking water and food. The most effective calcium sources are dairy and animal bones, as well as cooked small fish like sardines.",
    "led_to": "R60: calcium given full treatment in the record: sources (drinking water, dairy, bones, small fish), absorption per source, need"
+  },
+  {
+   "id": "M109",
+   "date": "2026-11-07",
+   "kind": "instruction",
+   "text": "Standardize the units for each nutrient in a sensible way, distinguish between the absolute minimum, the mean or median intake, the optimum intake and the ceiling. Do not confuse these.",
+   "led_to": "R61: one table per nutrient with standard units and four separate levels (absolute minimum, mean or median intake, optimum, ceiling), each from a study"
   }
  ],
  "requests": [
@@ -2516,6 +2523,25 @@
      "what": "Find studies on calcium from drinking water (content, absorption), dairy, animal bones and small fish eaten with bones, and absorption per source; add to section 2",
      "status": "done",
      "where": "nutrition_record.md 2b, 2c, 2d (calcium)"
+    }
+   ]
+  },
+  {
+   "id": "R61",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M109",
+   "text": "Standardize the units for each nutrient in a sensible way, distinguish between the absolute minimum, the mean or median intake, the optimum intake and the ceiling. Do not confuse these.",
+   "items": [
+    {
+     "id": "R61.1",
+     "what": "Define the four levels and one standard unit per nutrient (per day, and per 1,000 kcal or per kg where the need scales)",
+     "status": "open"
+    },
+    {
+     "id": "R61.2",
+     "what": "Fill each level for every nutrient in the record from studies; search the missing means and ceilings; mark a level open when no study gives it",
+     "status": "open"
     }
    ]
   }
