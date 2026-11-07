@@ -3,12 +3,17 @@
 Reads research/economy/data/nutrient_needs.json (version 2), nutrient_profiles.json and satiety_index.json, and a case
 file (city inputs and goods available per person per day). Solves, per person of the city (adult equivalent):
 
-  stage 1 (fed):      maximise z = energy eaten / energy need, z <= 1
-  stage 2 (adequacy): maximise the mean adequacy ratio MAR = mean_i min(1, intake_i / target_i), z held at stage 1
-  stage 3 (quality):  minimise energy taken from lower-quality goods, z and MAR held (people draw on the better stocks)
+  stage 1 (function): maximise the mean coverage of the minima: every nutrient minimum and the energy of basal
+                      function (1.2 x REE, the lowest daily expenditure); starving and deficient are read here (M114)
+  stage 2 (labour):   maximise z = energy eaten / energy need; labour capacity = (energy / REE - 1.2) / (PAL - 1.2)
+  stage 3 (adequacy): maximise the mean adequacy ratio MAR = mean_i min(1, intake_i / target_i)
+  stage 4 (quality):  minimise energy taken from lower-quality goods (people draw on the better stocks)
+each stage holds the optimum of the stages before it
 
-subject to: availability per good, ceilings per nutrient, the protein ceiling, the fat limit and the user's ceilings
-per good (milk 3 L, fat 250 g per good, fruit at most one watermelon). The specification is
+subject to: availability per good, energy eaten <= need, the user's ceilings per good (milk 3 L, fat 250 g per good,
+fruit at most one watermelon) and lactose where it applies. Protein is energy like any other (excess is turned into
+glucose) up to the liver's daily urea capacity, spread over three meals; the nutrient ceilings, the protein ceiling
+and fat are harms, reported (M101, M114). The specification is
 research/economy/food_model.md; every equation there maps to a line here.
 
 usage: food_model.py <case.json> [--json out.json]
@@ -157,78 +162,103 @@ def solve(case):
     ceiling['sodium'] += sweat_na
     protein_ceiling = num(nut['protein']['ceiling']['value'], ms) * W
     protein_limit = num(nut['protein']['intake_limit']['value'], ms) * W
+    floor = en['pal_limits']['value']['lowest'] * ree        # energy of basal function: the lowest daily expenditure
     keys = list(target)
-    n, m = len(goods), len(keys)
-    # variables: x_g (n), z (1), v_i (m)
-    avail = [case['available_g'][g] for g in goods]
+    mkeys = [k for k in keys if minimum.get(k) is not None]
+    n, m, mm = len(goods), len(keys), len(mkeys)
+    # variables: x_g (n) | u_k for the minima and energy floor (mm + 1) | z (1) | v_k for the targets (m)
+    iu, iz, iv = n, n + mm + 1, n + mm + 2
+    nv = n + mm + 2 + m
     caps = []
     for g in goods:
-        cap = avail[goods.index(g)]
+        cap = case['available_g'][g]
         if comp[g]['fat'] > 0:
             cap = min(cap, 250.0 / comp[g]['fat'])                 # user: 250 g fat from one good (M93)
         if g == 'BONUS_DAIRY':
             cap = min(cap, 3000.0)                                   # user: about 3 L milk a day (M88)
         caps.append(cap)
-    bounds = [(0, c) for c in caps] + [(0, 1)] + [(0, 1)] * m
+    bounds = [(0, c) for c in caps] + [(0, 1)] * (mm + 1) + [(0, 1)] + [(0, 1)] * m
     A, b = [], []
 
-    def row(coef_x, coef_z=0.0, coef_v=None):
-        r = list(coef_x) + [coef_z] + (coef_v or [0.0] * m)
+    def row(**coef):
+        r = [0.0] * nv
+        for i, v in coef.items():
+            r[int(i[1:])] = v
         return r
-    A.append(row([comp[g]['kcal'] for g in goods]))                  # energy eaten <= E (surplus stays in store)
-    b.append(E)
-    A.append(row([-comp[g]['kcal'] for g in goods], E))              # z * E <= energy eaten
-    b.append(0.0)
-    A.append(row([comp[g]['protein'] for g in goods]))               # liver's urea capacity (Bilsborough and Mann)
-    b.append(protein_limit)
+
+    def xrow(vals, extra=None):
+        r = list(vals) + [0.0] * (nv - n)
+        for i, v in (extra or {}).items():
+            r[i] = v
+        return r
+    kcal = [comp[g]['kcal'] for g in goods]
+    A.append(xrow(kcal)); b.append(E)                                 # energy eaten <= need (surplus stays in store)
+    # protein is energy (excess is turned into glucose), up to what the liver can turn into urea in a day, spread over the
+    # day's three meals (Bilsborough and Mann 2006: 285-365 g a day for 80 kg); beyond it no more protein can be used (M114)
+    A.append(xrow([comp[g]['protein'] for g in goods])); b.append(protein_limit)
     fruit = [i for i, g in enumerate(goods) if g.split(':')[0] in FRUIT]
     if fruit:
-        A.append(row([1.0 if i in fruit else 0.0 for i in range(n)]))  # user: fruit at most one watermelon (M86)
-        b.append(4518.0)
+        A.append(xrow([1.0 if i in fruit else 0.0 for i in range(n)])); b.append(4518.0)   # user: one watermelon (M86)
     # lactose limit (Wilt 2010) only for people neither lactase persistent nor of a dairy culture, and only on fresh
     # milk: fermented dairy with live cultures is digested in the gut (Kolars 1984); M113
     if not case.get('lactase_persistent', True) and not case.get('dairy_culture', False) and 'BONUS_DAIRY' in goods:
         lac = num(needs['gut_limits']['lactose_g']['value']['tolerated_by_intolerant'], ms)
-        A.append(row([comp[g]['sugars'] if g == 'BONUS_DAIRY' else 0.0 for g in goods]))
-        b.append(lac)
-    # nutrient ceilings, the protein ceiling and the fat sweating onset are harms: reported, not constraints (M101)
+        A.append(xrow([comp[g]['sugars'] if g == 'BONUS_DAIRY' else 0.0 for g in goods])); b.append(lac)
+    # harms (nutrient ceilings, protein above 2.5 g/kg or 35 % of energy, fat sweating) are reported, never constraints (M101)
+    for j, k in enumerate(mkeys):                                     # u_k * minimum_k <= intake_k
+        A.append(xrow([-comp[g][k] for g in goods], {iu + j: minimum[k]})); b.append(0.0)
+    A.append(xrow([-c for c in kcal], {iu + mm: floor})); b.append(0.0)  # u_E * floor <= energy eaten
+    A.append(xrow([-c for c in kcal], {iz: E})); b.append(0.0)         # z * E <= energy eaten
     for j, k in enumerate(keys):                                      # v_k * target_k <= intake_k
-        v = [0.0] * m
-        v[j] = target[k]
-        A.append(row([-comp[g][k] for g in goods], 0.0, v))
-        b.append(0.0)
-    nv = n + 1 + m
+        A.append(xrow([-comp[g][k] for g in goods], {iv + j: target[k]})); b.append(0.0)
+
+    def lp(c, A_, b_):
+        r = linprog(c, A_ub=A_, b_ub=b_, bounds=bounds, method='highs')
+        if r.status != 0:
+            raise SystemExit('LP failed: ' + r.message)
+        return r
+    # stage 1: biological function -- the minima and the basal energy, mean coverage (M114)
     c1 = [0.0] * nv
-    c1[n] = -1.0
-    r1 = linprog(c1, A_ub=A, b_ub=b, bounds=bounds, method='highs')
-    if r1.status != 0:
-        raise SystemExit('stage 1 failed: ' + r1.message)
-    z = r1.x[n]
-    A2, b2 = A + [[-1.0 if i == n else 0.0 for i in range(nv)]], b + [-(z - TOL)]
-    c2 = [0.0] * nv
+    for j in range(mm + 1):
+        c1[iu + j] = -1.0 / (mm + 1)
+    S = -lp(c1, A, b).fun
+    A.append(list(c1)); b.append(-(S - TOL))
+    # stage 2: energy for labour, up to the need
+    c2 = [0.0] * nv; c2[iz] = -1.0
+    z = -lp(c2, A, b).fun
+    A.append([0.0] * iz + [-1.0] + [0.0] * (nv - iz - 1)); b.append(-(z - TOL))
+    # stage 3: nutrition, the mean adequacy ratio against the targets
+    c3 = [0.0] * nv
     for j in range(m):
-        c2[n + 1 + j] = -1.0 / m
-    r2 = linprog(c2, A_ub=A2, b_ub=b2, bounds=bounds, method='highs')
-    mar = -r2.fun
+        c3[iv + j] = -1.0 / m
+    mar = -lp(c3, A, b).fun
+    A.append(list(c3)); b.append(-(mar - TOL))
+    # stage 4: the better stocks first
     q = {g: quality(comp[g], target, E) for g in goods}
-    A3 = A2 + [[0.0] * (n + 1) + [-1.0 / m] * m]
-    b3 = b2 + [-(mar - TOL)]
-    c3 = [(1.0 - q[g]) * comp[g]['kcal'] for g in goods] + [0.0] * (1 + m)
-    r3 = linprog(c3, A_ub=A3, b_ub=b3, bounds=bounds, method='highs')
-    x = {g: r3.x[i] for i, g in enumerate(goods)}
-    P = float(sum(comp[g]['protein'] * x[g] for g in goods))
+    c4 = [(1.0 - q[g]) * comp[g]['kcal'] for g in goods] + [0.0] * (nv - n)
+    r4 = lp(c4, A, b)
+    x = {g: float(r4.x[i]) for i, g in enumerate(goods)}
     K = float(sum(comp[g]['kcal'] * x[g] for g in goods))
+    P = float(sum(comp[g]['protein'] * x[g] for g in goods))
     F = float(sum(comp[g]['fat'] * x[g] for g in goods))
-    harms = {'protein_g': round(P, 1), 'protein_limit_g': round(protein_limit, 1),
-             'protein_above_ceiling_g_per_kg': bool(P > protein_ceiling + TOL),
-             'protein_energy_share': round(4 * P / max(TOL, K), 3),
-             'protein_energy_share_harm': bool(4 * P / max(TOL, K) > nut['protein']['ceiling']['energy_share_harm']),
-             'fat_g': round(F, 1),
-             'fat_in_sweating_range': bool(F >= needs['gut_limits']['fat_g']['value']['sweating_from'][0])}
+    pal_reached = K / ree
+    low = en['pal_limits']['value']['lowest']
+    labour = max(0.0, min(1.0, (pal_reached - low) / (case['pal'] - low))) if case['pal'] > low else 1.0
     out = report(case, needs, comp, sat, goods, x, E, ree, pal, z, mar, q, target, minimum, ceiling, fe_abs, ms, W)
-    out['harms'] = harms
-    out['binding_limits'] = {'protein_at_urea_capacity': bool(harms['protein_g'] >= protein_limit - 1e-3),
-                             'goods_exhausted': [g for g in goods if x[g] >= case['available_g'][g] - 1e-3]}
+    meal = P / 3.0
+    gut = nut['protein'].get('gut_absorption_g_per_h', {}).get('value', [1.3, 10.0])
+    out['function'] = {'basal_energy_kcal': round(floor, 1), 'minima_coverage': round(S, 4),
+                       'starving': bool(K < floor - TOL),
+                       'deficient': [k for k in mkeys if sum(comp[g][k] * x[g] for g in goods) < minimum[k] - TOL],
+                       'pal_reached': round(pal_reached, 3), 'labour_capacity': round(labour, 3)}
+    out['harms'] = {'protein_g': round(P, 1), 'protein_per_meal_g': round(meal, 1),
+                    'protein_meal_absorption_h': [round(meal / gut[1], 1), round(meal / gut[0], 1)],
+                    'protein_above_urea_capacity': bool(P > protein_limit + TOL), 'urea_capacity_g': round(protein_limit, 1),
+                    'protein_above_ceiling_g_per_kg': bool(P > protein_ceiling + TOL),
+                    'protein_energy_share': round(4 * P / max(TOL, K), 3),
+                    'fat_g': round(F, 1),
+                    'fat_in_sweating_range': bool(F >= needs['gut_limits']['fat_g']['value']['sweating_from'][0])}
+    out['goods_exhausted'] = [g for g in goods if x[g] >= case['available_g'][g] - 1e-3]
     return out
 
 
@@ -288,7 +318,7 @@ def report(case, needs, comp, sat, goods, x, E, ree, pal, z, mar, q, target, min
                         for g in goods if x[g] > TOL), key=lambda r: (not r['hyper_palatable'], r['kcal_per_g']))
     return {
         'case': case.get('name'), 'ree_kcal': round(ree, 1), 'pal_used': pal, 'pal_asked': case['pal'],
-        'energy_need_kcal': round(E, 1), 'fed_z': round(z, 4), 'mar': round(mar, 4),
+        'energy_need_kcal': round(E, 1), 'energy_share_of_need': round(z, 4), 'mar': round(mar, 4),
         'eaten_g': {g: round(float(x[g]), 1) for g in goods}, 'left_in_store_g': {g: round(case['available_g'][g] - x[g], 1) for g in goods},
         'quality': {g: round(q[g], 3) for g in goods}, 'nutrients': rows,
         'zinc_absorbed_mg': round(zinc_abs, 2), 'zinc_absorbed_minimum_mg': round(zmin, 2),
@@ -312,11 +342,12 @@ def main():
             json.dump(out, fh, indent=1, ensure_ascii=False)
             fh.write('\n')
     for r in out:
-        print('==', r['case'], '| E', r['energy_need_kcal'], 'kcal | fed', r['fed_z'], '| MAR', r['mar'])
+        f = r['function']
+        print('==', r['case'], '| E need', r['energy_need_kcal'], '| minima', f['minima_coverage'], '| starving', f['starving'],
+              '| deficient', f['deficient'] or 'none', '| labour', f['labour_capacity'], '(PAL', f['pal_reached'], ') | MAR', r['mar'])
         print('   eaten g:', r['eaten_g'])
-        print('   below minimum:', [n['nutrient'] for n in r['nutrients'] if n['below_minimum']] or 'none',
-              '| above ceiling:', [n['nutrient'] for n in r['nutrients'] if n['above_ceiling']] or 'none')
-        print('   harms:', r['harms'], '| binding:', r['binding_limits'])
+        print('   above ceiling:', [n['nutrient'] for n in r['nutrients'] if n['above_ceiling']] or 'none')
+        print('   harms:', r['harms'], '| exhausted:', r['goods_exhausted'])
         print('   water ml:', r['water_ml'], '| zinc absorbed', r['zinc_absorbed_mg'], '/ min', r['zinc_absorbed_minimum_mg'])
 
 

@@ -15,9 +15,11 @@ This file replaces `archive/nutrition/food_model_spec.md`. Every parameter comes
 | P1 | A city eats only what it holds; what is not eaten stays in store (surplus) | M84, M102 |
 | P2 | The population is one average adult-equivalent person; body reserves belong to the growth formula; no seasons | M101 |
 | P3 | Needs are not fixed: energy follows work; thiamin and niacin follow energy; protein and vitamin A follow body weight; B6 follows protein; water follows work, weight and climate; sodium follows sweat | M102, M103 |
-| P4 | Being fed first, then nutrition (mean adequacy ratio), then the better stocks first; well-being is a separate sorted list, never added to nutrition | M88, M93, M96, M102 |
+| P4 | First the body's functions (every nutrient minimum and the energy of basal function), then energy for labour, then nutrition (mean adequacy ratio), then the better stocks first; well-being is a separate sorted list, never added to nutrition | M88, M93, M96, M102, M114 |
+| P4a | Starvation is the body no longer able to fulfil its functions and people no longer able to labour; it is read from the minima, not from the energy need. Energy short of the need lowers the work people can do | M114 |
 | P5 | Harm is a consequence, not a motive: harm thresholds are reported, never constraints | M101 |
 | P6 | Only limits on what the body can take in, and the user's ceilings per good, constrain eating | M85, M86, M88, M93 |
+| P7 | Protein is energy: excess protein is turned into glucose, up to the liver's daily capacity to make urea, a rate spread over the day's three meals | M114 |
 
 ## 2. Legend
 
@@ -35,8 +37,11 @@ This file replaces `archive/nutrition/food_model_spec.md`. Every parameter comes
 | $c_{g,k}$ | nutrient $k$ per gram of good $g$ | unit/g | `nutrient_profiles.json` (first form; whole cod for fish, §3) |
 | $t_k$ | adequacy target of nutrient $k$ | unit/d | `nutrients.k.optimum`, or `recommended` where no plateau (§4) |
 | $m_k$ | minimum (deficiency threshold) | unit/d | `nutrients.k.minimum` |
-| $u_k$ | ceiling of harm | unit/d | `nutrients.k.ceiling` |
-| $P^{\lim}$ | protein the liver can turn into urea, $4.06\,W$ (285-365 g for 80 kg) | g/d | `nutrients.protein.intake_limit` (Bilsborough and Mann 2006) |
+| $c^{\max}_k$ | ceiling of harm | unit/d | `nutrients.k.ceiling` |
+| $P^{\lim}$ | protein the liver can turn into urea in a day, $4.06\,W$ (285-365 g for 80 kg), about a third per meal | g/d | `nutrients.protein.intake_limit` (Bilsborough and Mann 2006) |
+| $E^{0}$ | energy of basal function, $1.2\,R$ (the lowest daily expenditure, non-ambulant people) | kcal/d | `energy.pal_limits.lowest` (Black 1996) |
+| $u_k$, $u_E$ | coverage of minimum $k$ and of $E^0$, $\le1$ | – | model |
+| $L$ | labour capacity, share of the asked work | – | model |
 | $\phi$ | iron absorbed from the diet: 0.16 with animal foods, 0.085 without | – | `absorption.iron_fraction` (midpoints) |
 | $h$ | share of days with a work shift in heat | – | case |
 | $z$ | share of the energy need eaten (being fed) | – | model |
@@ -71,17 +76,23 @@ by the basis of nutrient $k$ (per day, per kg, per 1,000 kcal, per g protein). P
 Constraints, all stages:
 
 $$0\le x_g\le\bar a_g,\qquad \bar a_g=\min\!\left(a_g,\ \tfrac{250}{c_{g,\text{fat}}},\ 3000\ \text{if }g=\text{dairy}\right)$$
-$$\sum_g c_{g,\text{kcal}}x_g\le E,\qquad zE\le\sum_g c_{g,\text{kcal}}x_g,\qquad \sum_g c_{g,\text{protein}}x_g\le P^{\lim}$$
+$$\sum_g c_{g,\text{kcal}}x_g\le E,\qquad \sum_g c_{g,\text{protein}}x_g\le P^{\lim}$$
 $$\sum_{g\in\text{fruit}}x_g\le 4518\ \text{g (one watermelon)},\qquad c_{\text{milk},\text{lactose}}\,x_{\text{dairy}}\le 13.5\ \text{g only if the people are neither lactase persistent nor a dairy culture}$$
+$$u_k\,m_k\le\sum_g c_{g,k}x_g,\qquad u_E\,E^0\le\sum_g c_{g,\text{kcal}}x_g,\qquad zE\le\sum_g c_{g,\text{kcal}}x_g,\qquad v_k\,t_k\le\sum_g c_{g,k}x_g$$
 
-The lactose limit comes from studies of pasteurised milk or lactose in water in lactase-deficient people (Wilt 2010); it is not applied to lactase-persistent people or dairy cultures (M113), and live-culture yogurt is digested in the gut (one third of the breath hydrogen of the same lactose in milk; Kolars 1984).
-$$v_k\,t_k\le\sum_g c_{g,k}x_g,\qquad 0\le v_k\le 1$$
+with every $u,z,v\in[0,1]$. Each stage holds the optimum of the stages before it.
 
-1. **Fed:** $z^*=\max z$.
-2. **Nutrition:** $\text{MAR}^*=\max \frac1K\sum_k v_k$ with $z\ge z^*$.
-3. **Better stocks first:** $\min\sum_g(1-q_g)\,c_{g,\text{kcal}}\,x_g$ with $z\ge z^*$, $\text{MAR}\ge\text{MAR}^*$.
+1. **Body functions:** $S^*=\max\frac{1}{K'+1}\left(\sum_{k}u_k+u_E\right)$ over the nutrients with a minimum and the basal energy.
+2. **Labour:** $z^*=\max z$.
+3. **Nutrition:** $\text{MAR}^*=\max\frac1K\sum_k v_k$.
+4. **Better stocks first:** $\min\sum_g(1-q_g)\,c_{g,\text{kcal}}\,x_g$.
 
-Energy eaten is capped at $E$: food beyond the need stays in store (P1). Harm ceilings $u_k$ are not constraints (P5).
+Energy eaten is capped at $E$: food beyond the need stays in store (P1). Protein counts as energy at 4 kcal/g up to $P^{\lim}$ (P7). The lactose limit comes from studies of pasteurised milk or lactose in water in lactase-deficient people (Wilt 2010); it is not applied to lactase-persistent people or dairy cultures (M113), and live-culture yogurt is digested in the gut (Kolars 1984). Harm ceilings $c^{\max}_k$ are not constraints (P5).
+
+**Reading starvation and labour (P4a):**
+- **starving** when energy eaten $<E^0$: the body cannot keep its basal functions;
+- **deficient in $k$** when intake $<m_k$;
+- **labour capacity** $L=\min\!\left(1,\max\!\left(0,\ \dfrac{\sum_g c_{g,\text{kcal}}x_g/R-1.2}{\Lambda-1.2}\right)\right)$: the share of the asked work the energy above basal function allows.
 
 ## 6. Quality of a good
 
@@ -93,9 +104,11 @@ the mean adequacy of a diet of good $g$ alone at the energy need.
 
 | Output | Equation | Source |
 |---|---|---|
-| fed, MAR | $z^*$, $\text{MAR}^*$ | §5 |
+| body functions, starving, deficient, labour | $S^*$; energy $<E^0$; intake $<m_k$; $L$ | §5 |
+| energy share, MAR | $z^*$, $\text{MAR}^*$ | §5 |
 | deficiencies | nutrients with intake $<m_k$ | §4 |
-| harms | nutrients with intake $>u_k$; protein $>2.5\,W$ or $>35\,\%$ of energy; fat $\ge300$ g (sweating) | `nutrients.*.ceiling`, `gut_limits.fat_g` |
+| harms | nutrients with intake $>c^{\max}_k$; protein $>2.5\,W$ or $>35\,\%$ of energy; fat $\ge300$ g (sweating) | `nutrients.*.ceiling`, `gut_limits.fat_g` |
+| protein per meal | $\frac13\sum_g c_{g,\text{protein}}x_g$, and the hours to absorb it at 10 and 1.3 g an hour | `nutrients.protein.gut_absorption_g_per_h` (Bilsborough and Mann 2006) |
 | absorbed zinc | Miller 2013 eq. 2 with dietary zinc, phytate (600 mg/100 g dry for cereals, 20 for tubers), calcium and protein | `absorption.zinc_equation`, `absorption.phytate_mg_per_100g_dry` |
 | water to draw | $\text{WT}-\text{water in food}-500-\sum_{\text{drinks}}\text{HI}_g x_g$ | Yamada 2022 (WT), Tipton 2025 (500 ml metabolic), Maughan 2016 (HI: milk 1.5, tea and beer 1.0) |
 | alcohol | $7\sum_g c_{g,\text{alcohol}}x_g$ g a week, against Wood 2018 bands | `harm.alcohol_g_per_week` |
@@ -104,14 +117,14 @@ the mean adequacy of a diet of good $g$ alone at the energy need.
 
 ## 8. Cases (`food_model_cases.json`, run 2026-11-07)
 
-| Case | Energy need (kcal) | Fed | MAR | Below minimum | Above a harm ceiling | What binds |
-|---|---|---|---|---|---|---|
-| farming town, temperate, dairy culture (wheat, pig, dairy, apple, salt) | 3,442 | 1.000 | 0.864 | none | none | energy need; pig, dairy, salt eaten in full |
-| fishing village, cool coast, May (cod as eaten 2 kg, whole herring at 7.9 % fat 2 kg, clams, wheat 250 g, salt) | 3,442 | 0.822 | 0.914 | folate, vitamin C | sodium, iodine; protein above 2.5 g/kg and 35 % of energy | the liver's urea capacity (284 g protein) |
-| fishing village, cool coast, August (the same with whole herring at 19.5 % fat) | 3,442 | 1.000 | 0.918 | calcium, folate | sodium, iodine; protein above 2.5 g/kg | energy need; protein at the urea capacity |
-| rice town, hot-season labour (rice, fish, banana, tea, salt) | 3,078 | 1.000 | 0.816 | calcium, folate | none | energy need; fish, banana, salt eaten in full |
+| Case | Energy need (kcal) | Minima covered | Starving | Deficient | Labour capacity (PAL reached) | MAR | Harms |
+|---|---|---|---|---|---|---|---|
+| farming town, temperate, dairy culture (wheat, pig, dairy, apple, salt) | 3,442 | 1.000 | no | none | 1.000 (2.41) | 0.864 | none |
+| fishing village, cool coast, May (cod as eaten 2 kg, whole herring at 7.9 % fat 2 kg, clams 300 g, wheat 250 g, salt 15 g) | 3,442 | 0.990 | no | folate | 0.627 (1.96) | 0.924 | iodine; protein above 2.5 g/kg and 35 % of energy |
+| fishing village, cool coast, August (the same with whole herring at 19.5 % fat) | 3,442 | 0.983 | no | calcium, folate | 1.000 (2.41) | 0.918 | sodium, iodine; protein above 2.5 g/kg |
+| rice town, hot-season labour (rice, fish, banana, tea, salt) | 3,078 | 0.941 | no | calcium, folate | 1.000 (2.41) | 0.816 | none |
 
-**The fishing village.** Fish eaten whole feeds a labouring fishing people when its fat is in the diet: with herring at its August fat it is fed in full. In May, whole herring carries 7.9 % fat and the protein limit caps fish at about 1.4 kg, so the village reaches 82 % of 3,442 kcal from fish and 250 g of grain. The year's fat comes from what is kept: dried fish, liver oil and grain carried from the fat season; in the model that is the store (P1), and the turn is long enough to hold seasons (P2). The May and August runs bound the year; neither is a season inside the model.
+**The fishing village.** No one starves in either season. In August the village does all its work. In May whole herring carries 7.9 % fat; with protein at the liver's daily capacity (284 g, about 95 g a meal) the energy eaten allows 63 % of the asked work: the village is fed but labours less. Folate falls below its minimum in both seasons (no green food in the case), calcium in August. The year's fat comes from what is kept (dried fish, liver oil, grain); in the model that is the store (P1), and the turn is long enough to hold seasons (P2). The May and August runs bound the year; neither is a season inside the model.
 
 ## 9. What the data files do not yet give
 

@@ -2681,29 +2681,33 @@
   {
    "id": "R66",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M114",
    "text": "The issue with that starvation model is that nutrient minima aren't being used despite them being collected over and over again, and you are basing starvation figures on energy thresholds being reached which is not actual starvation. Actual starvation is when your body cannot fulfill its biological functions and people are no longer able to perform any real labor. \nAdditionally, excess proteins are broken down into carbohydrates. And nobody eats 300g of protein in a single meal. People have three meals.\nWith all this taken into account, fix your mistakes and actually apply real knowledge, don't bump into old code again trying to reference some fallacy",
    "items": [
     {
      "id": "R66.1",
      "what": "Starvation as loss of biological function: stage 1 covers the minima (energy for basal function at the lowest PAL, 1.2 x REE, and every nutrient minimum); starving and deficient are read from it, not from the energy need",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py stage 1 (minima and basal energy 1.2 x REE); starving and deficient read from it; food_model.md section 5"
     },
     {
      "id": "R66.2",
      "what": "Labour capacity: the share of the asked work the energy above survival allows, (E eaten / REE - 1.2) / (PAL asked - 1.2)",
-     "status": "open"
+     "status": "done",
+     "where": "food_model.py labour capacity; food_model.md section 5"
     },
     {
      "id": "R66.3",
      "what": "Protein: excess protein is energy (gluconeogenesis); the urea capacity is no constraint but a reported harm; protein per meal over three meals reported against the gut's absorption rate",
-     "status": "open"
+     "status": "done",
+     "where": "protein counts as energy up to the daily urea capacity (a rate over three meals); protein per meal and absorption hours reported; nutrient_needs.json protein.as_energy, gut_absorption_g_per_h"
     },
     {
      "id": "R66.4",
      "what": "Rerun the cases; rewrite the specification sections that change; remove the old protein cap from the data rule",
-     "status": "open"
+     "status": "done",
+     "where": "cases rerun; food_model.md sections 1, 2, 5, 7, 8; model_constraint_rule rewritten"
     }
    ]
   }
