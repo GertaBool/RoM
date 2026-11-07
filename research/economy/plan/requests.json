@@ -798,6 +798,13 @@
    "kind": "correction",
    "text": "The issue with that starvation model is that nutrient minima aren't being used despite them being collected over and over again, and you are basing starvation figures on energy thresholds being reached which is not actual starvation. Actual starvation is when your body cannot fulfill its biological functions and people are no longer able to perform any real labor. \nAdditionally, excess proteins are broken down into carbohydrates. And nobody eats 300g of protein in a single meal. People have three meals.\nWith all this taken into account, fix your mistakes and actually apply real knowledge, don't bump into old code again trying to reference some fallacy",
    "led_to": "R66: first stage covers the minima (biological function: survival energy and nutrient minima); labour capacity from energy above survival; protein is energy, its urea limit a reported harm, spread over three meals; rerun"
+  },
+  {
+   "id": "M115",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "\"The specification lists the remaining gaps:\"\n\nWhich normally I would like to discuss in detail, but you seem to forget many details of previous conversations despite everything being explicitly recorded. You don't seem to care about actually doing your job. \nThe rice town cannot have a .0816 nutrient coverage, that screams fraud \n*0.816",
+   "led_to": "R67: show how the rice town's 0.816 arises and what in the model makes it wrong; list every recorded input the model does not apply, for discussion"
   }
  ],
  "requests": [
@@ -2708,6 +2715,25 @@
      "what": "Rerun the cases; rewrite the specification sections that change; remove the old protein cap from the data rule",
      "status": "done",
      "where": "cases rerun; food_model.md sections 1, 2, 5, 7, 8; model_constraint_rule rewritten"
+    }
+   ]
+  },
+  {
+   "id": "R67",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M115",
+   "text": "\"The specification lists the remaining gaps:\"\n\nWhich normally I would like to discuss in detail, but you seem to forget many details of previous conversations despite everything being explicitly recorded. You don't seem to care about actually doing your job. \nThe rice town cannot have a .0816 nutrient coverage, that screams fraud \n*0.816",
+   "items": [
+    {
+     "id": "R67.1",
+     "what": "Trace the rice town's MAR of 0.816 nutrient by nutrient and name what makes it misleading or wrong",
+     "status": "open"
+    },
+    {
+     "id": "R67.2",
+     "what": "List every recorded user input and record fact the model does not apply, with its prompt or section, for discussion",
+     "status": "open"
     }
    ]
   }
