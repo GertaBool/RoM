@@ -735,6 +735,13 @@
    "kind": "correction",
    "text": "Reference pubmed instead of some bullshit institutions, and you will find literally everything",
    "led_to": "R57: every fact of the nutrition record referenced to PubMed studies instead of institutions; the open gaps searched on PubMed"
+  },
+  {
+   "id": "M106",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "I don't think you understand me. \n\nYou CAN find EVERYTHING, every number, every reference, on Pubmed, or if necessary on Google Scholar",
+   "led_to": "R58: every fact left on institutions (section 2g) and every open number found in primary studies on PubMed or Google Scholar"
   }
  ],
  "requests": [
@@ -2420,6 +2427,25 @@
      "what": "Search PubMed for the open gaps (water need with labour, sweat sodium, maximal sustained energy, per-food reward, lightness, fish body composition, alcohol and tobacco harm) and add what is found",
      "status": "done",
      "where": "research/economy/nutrition_record.md sections 2b, 2e, 2f, 3, 4"
+    }
+   ]
+  },
+  {
+   "id": "R58",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M106",
+   "text": "I don't think you understand me. \n\nYou CAN find EVERYTHING, every number, every reference, on Pubmed, or if necessary on Google Scholar",
+   "items": [
+    {
+     "id": "R58.1",
+     "what": "Find primary studies on PubMed or Google Scholar for every fact in section 2g (basal rate equation, thiamin, niacin, riboflavin, B6, folate, B12, vitamin A, magnesium, selenium, potassium, iron, zinc, sodium minimum, scurvy dose) and move them into section 2 with their numbers",
+     "status": "open"
+    },
+    {
+     "id": "R58.2",
+     "what": "Search the remaining open numbers of section 4 (dose-response of alcohol and tobacco, whole-animal compositions, per-food fullness, reward and lightness) and add what is found",
+     "status": "open"
     }
    ]
   }
