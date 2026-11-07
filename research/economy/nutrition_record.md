@@ -26,6 +26,7 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 | M83 | Many teas carry real nutritional value against deficiency diseases. |
 | M83, M85 | Wine is a luxury good; the vineyard's good counts as a kind of food. Whale: if it is available, it is possible food. |
 | M91 | Fish is the whole animal as eaten historically: its fat, cod liver and roe, not lean fillet. |
+| M114 | Starvation is when the body cannot fulfil its biological functions and people can no longer perform real labour; it is not an energy threshold. The nutrient minima must be used. Excess protein is broken down into carbohydrate. Nobody eats 300 g of protein in a single meal; people have three meals. |
 | M113 | Fat was highly prized; people lived on fish and anything they could gather locally without many issues, which cannot be if all they ate were fillet. The lactose limit is for pasteurised dairy and lactose in isolation, not for dairy cultures, lactase-persistent people or raw dairy; those studies involve too little information in too small a context. |
 | M84 | Fat is not bad in itself. Its value depends on the animals' diet, freshness, the vitamin E of unsaturated oils and the omega-3:6 ratio. This is context, not something to map. |
 | M85 | Water-soluble and fat-soluble vitamins are the usual distinction for stores. |
