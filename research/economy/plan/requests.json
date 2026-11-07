@@ -2617,7 +2617,7 @@
   {
    "id": "R64",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M112",
    "text": "Now, apply the correct sources by rewriting the key files for the mathematical model of the food consumption of ingame city populations. \nI need you to actually use the correct tables, you are required to uphold standards of process efficiency and deterministic information accuracy.",
    "items": [
@@ -2630,7 +2630,8 @@
     {
      "id": "R64.2",
      "what": "Rewrite the model specification of food consumption for a city population from the record (variables, equations, legend), replacing the archived specification",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/food_model.md (replaces archive/nutrition/food_model_spec.md)"
     },
     {
      "id": "R64.3",
