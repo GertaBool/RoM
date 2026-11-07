@@ -623,6 +623,13 @@
    "kind": "correction",
    "text": "Fruit are not for satiety but well-being, the same goes for many drinks",
    "led_to": "R43: fruit and well-being drinks taken out of the satiety order; eaten for well-being up to their ceilings, with their nutrients and energy counted"
+  },
+  {
+   "id": "M90",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "Fruit does provide satiety as well, I am just saying there is a different set of priorities",
+   "led_to": "R43.3: fruit and well-being drinks keep their satiety, energy and nutrients; only their priority differs (taken for well-being, not ranked by satiety)"
   }
  ],
  "requests": [
@@ -1896,19 +1903,27 @@
   {
    "id": "R43",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M89",
    "text": "Fruit are not for satiety but well-being, the same goes for many drinks",
    "items": [
     {
      "id": "R43.1",
      "what": "Fruit and many drinks (wine, beer, tea, coffee) are for well-being, not satiety: take them out of the satiety eating order",
-     "status": "open"
+     "status": "done",
+     "where": "round_m89.md; food_model.py (WELLBEING); design.json D27 m89"
     },
     {
      "id": "R43.2",
      "what": "Rerun the cities and record how well-being goods are consumed and what they feed",
-     "status": "open"
+     "status": "done",
+     "where": "round_m89.md; food_model.py (WELLBEING); design.json D27 m89"
+    },
+    {
+     "id": "R43.3",
+     "what": "Fruit still provides satiety (counted with its energy and nutrients); it differs in priority, not in what it gives (M90)",
+     "status": "done",
+     "where": "round_m89.md; food_model.py (WELLBEING); design.json D27 m89"
     }
    ]
   }

@@ -61,6 +61,7 @@ MEXT_FORM = {'BONUS_WHEAT': 'soft flour', 'BONUS_RICE': 'polished', 'BONUS_CORN'
              'BONUS_BANANA': 'raw', 'BONUS_WINE': 'red wine', 'BONUS_TEA': 'sencha infusion', 'BONUS_SALT': 'salt',
              'BONUS_SUGAR': 'white sugar'}
 DRINKS = {'BONUS_DAIRY', 'BONUS_WINE', 'BONUS_ALCOHOL', 'BONUS_TEA', 'BONUS_COFFEE'}
+WELLBEING = {'BONUS_BANANA', 'BONUS_LEMON', 'BONUS_APPLE', 'BONUS_WINE', 'BONUS_ALCOHOL'}   # M89 (tea, coffee: BREW)
 FRUIT = {'BONUS_BANANA', 'BONUS_LEMON', 'BONUS_APPLE'}
 ANIMAL = set(NUT['animal_goods'])
 NUTRIENTS = ['vit_c', 'vit_a_rae', 'thiamin', 'niacin', 'folate_dfe', 'b12', 'iron', 'zinc', 'calcium', 'iodine',
@@ -134,9 +135,11 @@ def city_year(people, work, stocks):
     pal_work = sum(s * PAL[k] for k, s in work.items())
     e_need = BMR * pal_work + CAFFEINE_KCAL_MAX * c_caf
     e_max = BMR * PAL_MAX + CAFFEINE_KCAL_MAX * c_caf
-    # 3. eat in order of quality, each good up to its ceiling and the room left
+    # 3. well-being goods (M89: fruit and drinks such as wine and beer are for well-being, not satiety) are taken up to
+    #    their own ceilings first, outside the satiety order; their energy and nutrients count. Then the foods by quality.
     e_room, p_room, fruit_room = e_max, PROTEIN_MAX_SHARE * e_max / 4.0, FRUIT_MAX_G
-    order = sorted([g for g in avail if g not in BREW], key=lambda g: -quality(g))
+    order = ([g for g in avail if g in WELLBEING] +
+             sorted([g for g in avail if g not in BREW and g not in WELLBEING], key=lambda g: -quality(g)))
     binding = {}
     for g in order:
         v = NUT['goods'][g]
@@ -231,10 +234,11 @@ SHORT = {'vit_c': 'C', 'vit_a_rae': 'A', 'thiamin': 'B1', 'niacin': 'B3', 'folat
 
 def main():
     print('BMR %.0f kcal a day (abstracted adult)' % BMR)
-    print('\nEating order (quality = satiety factor x (1 + nutrient density per 100 kcal)):')
+    print('\nWell-being goods first, up to their ceilings: fruit (one watermelon in all), wine, beer; tea and coffee up to 600 mg caffeine.')
+    print('\nThen the foods in order of quality (satiety factor x (1 + nutrient density per 100 kcal)):')
     print('| Rank | Good | Satiety (Holt where measured) | Quality |')
     print('|---|---|---|---|')
-    rank = sorted([g for g in NUT['goods'] if NUT['goods'][g]['kcal']], key=lambda g: -quality(g))
+    rank = sorted([g for g in NUT['goods'] if NUT['goods'][g]['kcal'] and g not in WELLBEING], key=lambda g: -quality(g))
     for i, g in enumerate(rank, 1):
         print('| %d | %s | %.2f%s | %.2f |' % (i, g[6:].title(), satiety_factor(g), ' (Holt)' if g in SI_MEASURED else '', quality(g)))
     for name, people, work, stocks in CITIES:

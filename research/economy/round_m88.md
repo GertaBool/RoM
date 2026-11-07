@@ -105,6 +105,8 @@ F_water    = round(F_dense × level)        sanitation faces from the water supp
   - Holt's abstract gives the reason the formula alone fell short: water (r 0.64), fibre (0.46) and protein (0.37) raise satiety, and fat lowers it (−0.43). The formula carried only protein.
 - **Nutrient density:** as in the Nutrient Rich Foods index (Drewnowski and Fulgoni 2011, PMID 21272703). Per 100 kcal, each of the 12 nutrients and protein is taken as a share of its daily need, capped at 1, and averaged.
 
+*(M89, M90: fruit and drinks are taken for well-being before the satiety order, keeping their satiety and energy; see `round_m89.md`.)*
+
 **Eating:**
 1. Tea and coffee first, as much as there is, up to 600 mg caffeine.
 2. Then each food good in order of quality, as much as there is, up to its own ceilings and the energy and protein room left.
