@@ -30,7 +30,7 @@ WATER_NEED_ML = 2250       # EFSA 2010 adequate intake of total water: men 2.5 L
 
 # ---- the body's ceilings ----
 PROTEIN_MAX_SHARE = 0.35   # Bilsborough and Mann 2006
-FAT_PER_GOOD_G = 100       # accepted (M88)
+FAT_PER_GOOD_G = 250       # M93 (was 100, M88): heuristic for the usual maximum of one good
 MILK_MAX_G = 3000          # the user (M86, M88, M91): milk's own ceiling, one part of a person's water
 FRUIT_MAX_G = 4518         # one whole watermelon (USDA SR Legacy portion), all fruit together (M86)
 SALT_MAX_G = 10            # ESTIMATE
@@ -149,7 +149,9 @@ def wellbeing(g):
 
 
 def value(g):
-    return satiety(g) + nutrition(g) + wellbeing(g)
+    """M93: fullness is the limit, so the eating order weighs what a good delivers per unit of fullness: energy (1 per
+    kcal), nutrients and well-being, divided by its satiety. Staples fill; the best foods deliver the calories."""
+    return (1.0 + nutrition(g) + wellbeing(g)) / satiety(g)
 
 
 def grams_per_day(t, n):
@@ -191,7 +193,8 @@ def city_year(people, work, stocks, step_kcal=10.0):
     sat = 0.0
     e, p, fruit = 0.0, 0.0, 0.0
     p_max = PROTEIN_MAX_SHARE * e_max / 4.0
-    # one allocation: each step of 10 kcal goes to the good whose next serving is worth most: value / (1 + q / serving)
+    # one allocation: each step of 10 kcal goes to the good whose next serving is worth most per unit of fullness:
+    # value / (1 + q / serving)
     while e < e_max - 1e-9 and sat < s_cap - 1e-9:
         best, bm = None, 0.0
         for g in foods:
@@ -238,7 +241,8 @@ def city_year(people, work, stocks, step_kcal=10.0):
     used = {g: q.get(g, 0) * people * 365 / 1e6 for g in stocks}
     left = {g: stocks[g] - used[g] for g in stocks}
     spoiled = {g: left[g] * SPOIL[NUT['goods'][g]['form']] / 100 for g in left if g in NUT['goods']}
-    return dict(sat=sat, s_cap=s_cap, e_need=e_need, e_max=e_max, e_in=e, x=e / e_need, prot=p, prot_share=4 * p / e if e else 0,
+    s_need = HOLT_MEAN * e_need                  # fed (M93): satiety met at the need, eating average foods
+    return dict(fed=sat / s_need, sat=sat, s_cap=s_cap, e_need=e_need, e_max=e_max, e_in=e, x=e / e_need, prot=p, prot_share=4 * p / e if e else 0,
                 food_water=food_water, drink_water=drink_water, plain_water=plain_water, caf=caf, pal_act=pal_act,
                 work=workf, q=q, cov=cov, a_fe=a_fe, used=used, left=left, spoiled=spoiled)
 
@@ -276,7 +280,7 @@ SHORT = {'vit_c': 'C', 'vit_a_rae': 'A', 'thiamin': 'B1', 'niacin': 'B3', 'folat
 def main():
     print('BMR %.0f kcal; whole fish per 100 g as stored: %.0f kcal, %.1f g protein, %.1f g fat, %.0f ug vitamin A'
           % (BMR, WF['kcal'], WF['protein'], WF['fat'], WF['vit_a_rae']))
-    print('\n| Good | Satiety | Nutrition | Well-being | Value per kcal | Serving g |')
+    print('\n| Good | Satiety | Nutrition | Well-being | Value per fullness unit | Serving g |')
     print('|---|---|---|---|---|---|')
     gs = [g for g in NUT['goods'] if NUT['goods'][g]['kcal']]
     for g in sorted(gs, key=lambda g: -value(g)):
@@ -290,10 +294,10 @@ def main():
         for g in stocks:
             print('| %s | %s | %.0f | %.0f | %s | %s |' % (g[6:].title(), format(stocks[g], ','), grams_per_day(stocks[g], n),
                   r['q'].get(g, 0), format(round(r['left'][g]), ','), format(round(r['spoiled'].get(g, 0)), ',')))
-        print('\n| Fullness eaten / capacity | Need kcal | Ceiling kcal | Eaten kcal | x | Protein g (share) | Water from food ml | from drinks ml | plain water ml | Caffeine mg | PAL | Work |')
-        print('|---|---|---|---|---|---|---|---|---|---|---|---|')
-        print('| %d / %d | %d | %d | %d | %.2f | %d (%d %%) | %d | %d | %d | %d | %.2f | %.2f |' % (
-            r['sat'], r['s_cap'], r['e_need'], r['e_max'], r['e_in'], r['x'], r['prot'], round(100 * r['prot_share']), r['food_water'],
+        print('\n| Fed (fullness / need) | Fullness eaten / capacity | Need kcal | Ceiling kcal | Eaten kcal | x (energy) | Protein g (share) | Water from food ml | from drinks ml | plain water ml | Caffeine mg | PAL | Work |')
+        print('|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+        print('| %.2f | %d / %d | %d | %d | %d | %.2f | %d (%d %%) | %d | %d | %d | %d | %.2f | %.2f |' % (
+            r['fed'], r['sat'], r['s_cap'], r['e_need'], r['e_max'], r['e_in'], r['x'], r['prot'], round(100 * r['prot_share']), r['food_water'],
             r['drink_water'], r['plain_water'], r['caf'], r['pal_act'], r['work']))
         print('\n| ' + ' | '.join(SHORT[k] for k in NUTRIENTS) + ' |')
         print('|' + '---|' * len(NUTRIENTS))

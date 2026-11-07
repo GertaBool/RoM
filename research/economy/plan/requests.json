@@ -2041,19 +2041,21 @@
   {
    "id": "R46",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M93",
    "text": "\"The problem: Holt's scores make potato-rich cities feel full while underfed\"\n\nThat's exactly what is going on though. Grains and tubers kept people fed, nutrition actually makes them strong and healthy. The baseline I think is satiety being met, but ideally people can consume all the calories they need from the most ideal foods. \n\n\"Fishing village: it is still held back by the 100 g fat rule. 1.26 kg of whole fish holds 100 g of fat, so it reaches 2,170 kcal against a 3,193 kcal nee\"\n\nRaise the limit to 250g of fat",
    "items": [
     {
      "id": "R46.1",
      "what": "Keep fullness as Holt measured it: staple-fed people are full; satiety met is the baseline of being fed; energy and nutrients make people strong and healthy; ideally all calories come from the best foods",
-     "status": "open"
+     "status": "done",
+     "where": "round_m93.md; food_model.py (fed, value per fullness, FAT_PER_GOOD_G 250); design.json D27 m93"
     },
     {
      "id": "R46.2",
      "what": "Raise the fat limit per good to 250 g",
-     "status": "open"
+     "status": "done",
+     "where": "round_m93.md; food_model.py (fed, value per fullness, FAT_PER_GOOD_G 250); design.json D27 m93"
     }
    ]
   }
