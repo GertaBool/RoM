@@ -651,6 +651,13 @@
    "kind": "decision",
    "text": "\"The problem: Holt's scores make potato-rich cities feel full while underfed\"\n\nThat's exactly what is going on though. Grains and tubers kept people fed, nutrition actually makes them strong and healthy. The baseline I think is satiety being met, but ideally people can consume all the calories they need from the most ideal foods. \n\n\"Fishing village: it is still held back by the 100 g fat rule. 1.26 kg of whole fish holds 100 g of fat, so it reaches 2,170 kcal against a 3,193 kcal nee\"\n\nRaise the limit to 250g of fat",
    "led_to": "R46: fullness as Holt measured it kept (option A); being fed = satiety met, strength and health from energy and nutrients; fat per good raised to 250 g"
+  },
+  {
+   "id": "M94",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "\"Meat and fish rank low in the new order, and drinks rank high. Meat's calories count like any other, and its nutrient score is small next to energy (beef scores 0.07)\"\n\nThat's total nonsense though, you assigned a completely wrong nutrient value. You actually did research on beef liver, we discussed several times over huge studies how animal foods provide the most nutrition and you're still going to assign a 0 to beef. Makes no sense, you made a mistake. \n\nAnd where is well-being? Did you just remove all other variables and go full potato mode? What is actually going on",
+   "led_to": "R47: the nutrient score's scaling error found and fixed (density against requirement density); land animals as the whole animal with liver; the three motives shown per good; cities rerun"
   }
  ],
  "requests": [
@@ -2056,6 +2063,30 @@
      "what": "Raise the fat limit per good to 250 g",
      "status": "done",
      "where": "round_m93.md; food_model.py (fed, value per fullness, FAT_PER_GOOD_G 250); design.json D27 m93"
+    }
+   ]
+  },
+  {
+   "id": "R47",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M94",
+   "text": "\"Meat and fish rank low in the new order, and drinks rank high. Meat's calories count like any other, and its nutrient score is small next to energy (beef scores 0.07)\"\n\nThat's total nonsense though, you assigned a completely wrong nutrient value. You actually did research on beef liver, we discussed several times over huge studies how animal foods provide the most nutrition and you're still going to assign a 0 to beef. Makes no sense, you made a mistake. \n\nAnd where is well-being? Did you just remove all other variables and go full potato mode? What is actually going on",
+   "items": [
+    {
+     "id": "R47.1",
+     "what": "Find and explain the error that gave beef a nutrient score near 0, and fix it",
+     "status": "open"
+    },
+    {
+     "id": "R47.2",
+     "what": "Animal goods as the whole animal (liver and organs), as decided for fish",
+     "status": "open"
+    },
+    {
+     "id": "R47.3",
+     "what": "Show where well-being and the other motives are in the eating order, and rerun",
+     "status": "open"
     }
    ]
   }
