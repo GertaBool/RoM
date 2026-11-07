@@ -763,6 +763,13 @@
    "kind": "instruction",
    "text": "Standardize the units for each nutrient in a sensible way, distinguish between the absolute minimum, the mean or median intake, the optimum intake and the ceiling. Do not confuse these.",
    "led_to": "R61: one table per nutrient with standard units and four separate levels (absolute minimum, mean or median intake, optimum, ceiling), each from a study"
+  },
+  {
+   "id": "M110",
+   "date": "2026-11-07",
+   "kind": "instruction",
+   "text": "Keywords: \n\nLD50 value\n\nRecommended intake \n\n\"For athletes\"\n\nToxic dose\n\nHigher limit of the recommended range \n\n\nNow, stop pacing basic search competencies, you can just look for stuff and GET IT",
+   "led_to": "R62: fill the open cells of section 2i using LD50, toxic dose, recommended intake, athletes' intake and upper end of recommended ranges"
   }
  ],
  "requests": [
@@ -2544,6 +2551,20 @@
      "what": "Fill each level for every nutrient in the record from studies; search the missing means and ceilings; mark a level open when no study gives it",
      "status": "done",
      "where": "nutrition_record.md 2i (table; open cells marked)"
+    }
+   ]
+  },
+  {
+   "id": "R62",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M110",
+   "text": "Keywords: \n\nLD50 value\n\nRecommended intake \n\n\"For athletes\"\n\nToxic dose\n\nHigher limit of the recommended range \n\n\nNow, stop pacing basic search competencies, you can just look for stuff and GET IT",
+   "items": [
+    {
+     "id": "R62.1",
+     "what": "Fill every open minimum, optimum and ceiling in section 2i with LD50, toxic dose, recommended intake, athletes' intake or upper end of recommended range, labelled by kind",
+     "status": "open"
     }
    ]
   }
