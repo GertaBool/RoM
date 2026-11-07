@@ -1,22 +1,17 @@
-"""The food model on the game's goods, one city-year at a time.
+"""The food model, version 4 (M101): first principles, few variables, exact solution.
 
-SPECIFICATION: research/economy/food_model_spec.md (version 3, M98) is the authority; this code implements its
-equations (1)-(30) and Algorithm 1. Any change goes into the specification's change log first (M95).
-
-History: R44 (M91) third version; M92-M94 changes as logged in the specification.
-
-  stocks (tonnes)  ->  grams per head a day  ->  what is eaten: one allocation with diminishing returns over three
-  motives (satiety, nutrition, well-being), within the body's ceilings  ->  energy, nutrients, water  ->  x, coverage,
-  hydration, activity, work  ->  tonnes used, left, spoiled.
-
-Data, read from files: nutrition.json (energy, protein, fat, edible share, keeping form, hydration index),
-nutrient_profiles.json (USDA SR Legacy and MEXT: nutrients, water), nutrient_needs.json (EFSA 2017; Japanese DRI 2025
-for sodium), satiety_fit.json (Holt 1995 fit, satiety_fit.py). Literature values are named where they are set;
-estimates are marked ESTIMATE.
+SPECIFICATION: research/economy/food_model_spec.md (version 4) is the authority. This file is the reference
+implementation: it solves the three-stage lexicographic program (stage 1 nutrition adequacy, stage 2 well-being,
+stage 3 even use of supply) exactly as linear programs (scipy.optimize.linprog, HiGHS), and reports the outcomes and
+the scarcity values (shadow prices of the stocks). Equation numbers refer to the specification.
 usage: food_model.py
 """
 import json
+import math
 import os
+
+import numpy as np
+from scipy.optimize import linprog
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, '..', '..', 'data')
@@ -25,76 +20,65 @@ PROF = json.load(open(os.path.join(DATA, 'nutrient_profiles.json'), encoding='ut
 NEED = json.load(open(os.path.join(DATA, 'nutrient_needs.json'), encoding='utf-8'))
 SFIT = json.load(open(os.path.join(DATA, 'satiety_fit.json'), encoding='utf-8'))
 
-# ---- need (FAO/WHO/UNU 2004; EFSA weights; Dulloo 1989) ----
-BMR = ((15.057 * 68.1 + 692.2) + (14.818 * 58.5 + 486.6)) / 2
-PAL = {'vigorous': 2.25, 'active': 1.76, 'sedentary': 1.53}
-PAL_MIN, PAL_MAX = 1.40, 2.40
-CAFFEINE_KCAL_MAX, CAFFEINE_MG_MAX = 150, 600
-BREW = {'BONUS_TEA': (43.0, 200.0), 'BONUS_COFFEE': (15.0, 600.0)}   # MEXT: litres per kg, mg caffeine per litre
-WATER_NEED_ML = 2250       # EFSA 2010 adequate intake of total water: men 2.5 L, women 2.0 L (water from food included)
+# ---------------- scalars (specification section 3b) ----------------
+B = ((15.057 * 68.1 + 692.2) + (14.818 * 58.5 + 486.6)) / 2      # basal rate, kcal/(p d); FAO 2004, EFSA weights
+LAMBDA = {'vigorous': 2.25, 'active': 1.76, 'sedentary': 1.53}    # FAO 2004 Table 5.1
+L_MIN, L_MAX = 1.40, 2.40                                         # FAO 2004 Table 5.3
+KAPPA, GAMMA = 150.0, 600.0                                       # caffeine: kcal at mg (Dulloo 1989)
+SIGMA_BAR = 1.36                                                  # mean Holt index / 100 (Holt 1995)
+P_ABS = 3.6 * 63.3                                                # protein ceiling g/(p d): liver capacity (Bilsborough and Mann 2006) x EFSA mean weight
+Q_FRUIT = 4518.0                                                  # all fruit g/(p d): one watermelon (USDA portion)
+W_NEED = 2250.0                                                   # total water ml/(p d) (EFSA 2010)
+M_E = 100.0                                                       # the unit of diminishing returns: 100 kcal of a good
+SEGMENTS = [0.5, 1, 2, 3, 5, 8, 12, 20, 30]                       # breakpoints (units of 100 kcal) of ln(1+n), stage 2
 
-# ---- the body's ceilings ----
-PROTEIN_MAX_SHARE = 0.35   # Bilsborough and Mann 2006
-FAT_PER_GOOD_G = 250       # M93 (was 100, M88): heuristic for the usual maximum of one good
-MILK_MAX_G = 3000          # the user (M86, M88, M91): milk's own ceiling, one part of a person's water
-FRUIT_MAX_G = 4518         # one whole watermelon (USDA SR Legacy portion), all fruit together (M86)
-SALT_MAX_G = 10            # ESTIMATE
-LEMON_MAX_G = 116          # ESTIMATE (M92: no one eats kilograms of lemons): two lemons a day (USDA NLEA serving 58 g)
-# fullness (M92): people eat until they feel full, counted in satiety units (white-bread kcal). The capacity is the
-# energy ceiling at the mean satiety of Holt's 38 foods (136): a person eating average foods is full at PAL 2.40.
-HOLT_MEAN = 1.36           # mean of the 38 SI values in Holt et al. 1995 (as reproduced on Wikipedia)
-SAT_EXP = 1.0              # fullness per kcal = satiety ** SAT_EXP (1.0 = Holt's index as measured; option B uses 0.5)
+# ---------------- sets (section 2) ----------------
+DRINKS = {'BONUS_DAIRY', 'BONUS_WINE', 'BONUS_ALCOHOL', 'BONUS_TEA', 'BONUS_COFFEE'}
+BREWED = {'BONUS_TEA': (43.0, 200.0), 'BONUS_COFFEE': (15.0, 600.0)}  # litres per kg, mg caffeine per litre (MEXT)
+FRUIT = {'BONUS_BANANA', 'BONUS_LEMON', 'BONUS_APPLE'}
+STAPLES = {'BONUS_WHEAT', 'BONUS_RICE', 'BONUS_CORN', 'BONUS_POTATO', 'BONUS_SALT'}
+WELLBEING = set(NUT['goods']) - STAPLES - set(['BONUS_TEA', 'BONUS_COFFEE'])
+#   W: every food good except the plain staples and salt; tea and coffee are well-being goods taken in stage 0
+#   (caffeine); tobacco joins W when it has data
+HARMFUL = {'BONUS_WINE': 10.6, 'BONUS_ALCOHOL': 3.9}              # alcohol g per 100 g (USDA SR Legacy); tobacco to add
+ANIMAL = set(NUT['animal_goods'])
+MICRO = ['vit_c', 'vit_a_rae', 'thiamin', 'niacin', 'folate_dfe', 'b12', 'iron', 'zinc', 'calcium', 'iodine',
+         'potassium', 'sodium']
+ADEQ = ['fullness', 'energy', 'protein'] + MICRO                  # the 15 components of adequacy
 
-# ---- servings: the step of diminishing returns (USDA SR Legacy household portions) ----
-SERVING_G = {'BONUS_WHEAT': 64, 'BONUS_RICE': 158, 'BONUS_CORN': 234, 'BONUS_POTATO': 300, 'BONUS_COW': 85,
-             'BONUS_PIG': 113, 'BONUS_SHEEP': 85, 'BONUS_DEER': 85, 'BONUS_HORSE': 85, 'BONUS_FISH': 85,
-             'BONUS_CLAM': 85, 'BONUS_CRAB': 85, 'BONUS_SHRIMP': 85, 'BONUS_WHALE': 85, 'BONUS_DAIRY': 244,
-             'BONUS_BANANA': 126, 'BONUS_LEMON': 58, 'BONUS_APPLE': 242, 'BONUS_OLIVES': 42, 'BONUS_SUGAR': 4.2,
-             'BONUS_WINE': 147, 'BONUS_ALCOHOL': 356, 'BONUS_SALT': 5}
-# wheat 2 slices of bread; rice 1 cup cooked; maize 1 cup porridge; potato 1 large; meat and fish 3 oz; milk 1 cup;
-# banana, lemon, apple NLEA serving; olives 5 tbsp (ESTIMATE); sugar 1 tsp; wine 5 fl oz; beer 1 can
-
-PROFILE_FORM = {
-    'BONUS_WHEAT': 'grain', 'BONUS_RICE': 'brown', 'BONUS_CORN': 'grain', 'BONUS_POTATO': 'boiled',
-    'BONUS_COW': 'meat', 'BONUS_PIG': 'meat', 'BONUS_SHEEP': 'meat', 'BONUS_DEER': 'meat', 'BONUS_HORSE': 'meat',
-    'BONUS_FISH': 'cod', 'BONUS_CLAM': 'raw', 'BONUS_CRAB': 'raw', 'BONUS_SHRIMP': 'raw', 'BONUS_WHALE': 'meat',
-    'BONUS_DAIRY': 'milk', 'BONUS_BANANA': 'raw', 'BONUS_LEMON': 'raw', 'BONUS_APPLE': 'raw', 'BONUS_OLIVES': 'olives',
-    'BONUS_SUGAR': 'brown', 'BONUS_WINE': 'wine', 'BONUS_ALCOHOL': 'beer', 'BONUS_TEA': 'green, brewed',
-    'BONUS_SALT': 'table salt',
-}
+# ---------------- per-good data (section 3a) ----------------
+CEIL_SPECIFIC = {'BONUS_DAIRY': 3000.0, 'BONUS_LEMON': 116.0}     # the user (M86); estimate (M92)
+FAT_PER_GOOD = 250.0                                              # the user (M93)
+HOLT = {'BONUS_POTATO': 323, 'BONUS_COW': 176, 'BONUS_RICE': 138, 'BONUS_APPLE': 197, 'BONUS_BANANA': 118,
+        'BONUS_WHEAT': 157, 'BONUS_LEMON': 202}
+DRINK_FULLNESS = 0.5                                              # estimate (liquid calories satiate less, PMID 14649371)
+PROFILE_FORM = {'BONUS_WHEAT': 'grain', 'BONUS_RICE': 'brown', 'BONUS_CORN': 'grain', 'BONUS_POTATO': 'boiled',
+                'BONUS_COW': 'meat', 'BONUS_PIG': 'meat', 'BONUS_SHEEP': 'meat', 'BONUS_DEER': 'meat',
+                'BONUS_HORSE': 'meat', 'BONUS_FISH': 'cod', 'BONUS_CLAM': 'raw', 'BONUS_CRAB': 'raw',
+                'BONUS_SHRIMP': 'raw', 'BONUS_WHALE': 'meat', 'BONUS_DAIRY': 'milk', 'BONUS_BANANA': 'raw',
+                'BONUS_LEMON': 'raw', 'BONUS_APPLE': 'raw', 'BONUS_OLIVES': 'olives', 'BONUS_SUGAR': 'brown',
+                'BONUS_WINE': 'wine', 'BONUS_ALCOHOL': 'beer', 'BONUS_TEA': 'green, brewed', 'BONUS_SALT': 'table salt'}
 MEXT_FORM = {'BONUS_WHEAT': 'soft flour', 'BONUS_RICE': 'polished', 'BONUS_CORN': 'grain', 'BONUS_POTATO': 'raw',
              'BONUS_COW': 'shoulder', 'BONUS_PIG': 'loin', 'BONUS_FISH': 'cod', 'BONUS_CLAM': 'asari clam',
              'BONUS_WHALE': 'red meat', 'BONUS_DAIRY': 'milk', 'BONUS_LEMON': 'whole fruit', 'BONUS_APPLE': 'with skin',
              'BONUS_BANANA': 'raw', 'BONUS_WINE': 'red wine', 'BONUS_TEA': 'sencha infusion', 'BONUS_SALT': 'salt',
              'BONUS_SUGAR': 'white sugar'}
-DRINKS = {'BONUS_DAIRY', 'BONUS_WINE', 'BONUS_ALCOHOL', 'BONUS_TEA', 'BONUS_COFFEE'}
-FRUIT = {'BONUS_BANANA', 'BONUS_LEMON', 'BONUS_APPLE'}
-ANIMAL = set(NUT['animal_goods'])
-NUTRIENTS = ['vit_c', 'vit_a_rae', 'thiamin', 'niacin', 'folate_dfe', 'b12', 'iron', 'zinc', 'calcium', 'iodine',
-             'potassium', 'sodium']
+WHOLE_FISH = [(0.50, dict(kcal=195, protein=16.39, fat=13.88, vit_a_rae=32)),
+              (0.45, dict(kcal=82, protein=17.81, fat=0.67, vit_a_rae=12)),
+              (0.05, dict(kcal=424, protein=5.6, fat=42.0, vit_a_rae=30000 * 0.42))]
+WF = {k: sum(s * c.get(k, 0) for s, c in WHOLE_FISH) for k in ('kcal', 'protein', 'fat', 'vit_a_rae')}
+WHOLE_ANIMAL = {'BONUS_COW': [('meat', 0.97), ('liver', 0.03)], 'BONUS_PIG': [('meat', 0.97), ('liver', 0.03)]}
+# bioavailability b_gi: iron absorbed 18 % from animal, 10 % from plant foods, against EFSA's assumed 16 %
+# (FAO/WHO 2004; Hurrell and Egli 2010); maize niacin one third available (Carpenter 1983)
+B_IRON_ANIMAL, B_IRON_PLANT, B_NIACIN_MAIZE = 0.18 / 0.16, 0.10 / 0.16, 1 / 3
 SPOIL = {k: v['value'] for k, v in NUT['spoilage_per_year_percent'].items()}
-
-# ---- the Fish good as the whole animal eaten (M91): a catch of fatty and lean fish, with liver ----
-# shares are ESTIMATES to source (catch composition; cod liver about 5 % of body weight). Composition USDA SR Legacy:
-# herring, Pacific, raw (173669); cod, Atlantic, raw (171955); lingcod liver (169810, 42 g fat), its vitamin A scaled
-# from cod liver oil (173577: 30,000 ug RAE per 100 g) by the liver's fat share.
-WHOLE_FISH = {'herring': (0.50, dict(kcal=195, protein=16.39, fat=13.88, vit_a_rae=32)),
-              'cod flesh': (0.45, dict(kcal=82, protein=17.81, fat=0.67, vit_a_rae=12)),
-              'liver': (0.05, dict(kcal=424, protein=5.6, fat=42.0, vit_a_rae=30000 * 0.42))}
-WF = {k: sum(s * c.get(k, 0) for s, c in WHOLE_FISH.values()) for k in ('kcal', 'protein', 'fat', 'vit_a_rae')}
 
 
 def good(g):
-    """energy, protein, fat per 100 g as stored, eaten share; the Fish good as the whole animal"""
     v = dict(NUT['goods'][g])
     if g == 'BONUS_FISH':
-        v.update(kcal=WF['kcal'], protein=WF['protein'], fat=WF['fat'], edible=0.85)   # ESTIMATE: 15 % bones, fins
+        v.update(kcal=WF['kcal'], protein=WF['protein'], fat=WF['fat'], edible=0.85)
     return v
-
-
-# M94: land animals as the whole animal eaten, muscle with liver (liver about 3 % of the edible yield: ESTIMATE to
-# source). USDA SR Legacy: beef liver 169451 (4,968 ug vitamin A, 59 ug B12 per 100 g), pork liver 167862.
-WHOLE_ANIMAL = {'BONUS_COW': [('meat', 0.97), ('liver', 0.03)], 'BONUS_PIG': [('meat', 0.97), ('liver', 0.03)]}
 
 
 def micro(g):
@@ -103,10 +87,10 @@ def micro(g):
         return None
     if g in WHOLE_ANIMAL:
         parts = [(next(x for x in PROF['goods'][g] if x['form'] == pf), sh) for pf, sh in WHOLE_ANIMAL[g]]
-        r = {k: sum((u.get(k) or 0.0) * sh for u, sh in parts) for k in NUTRIENTS + ['kcal', 'water']}
+        r = {k: sum((u.get(k) or 0.0) * sh for u, sh in parts) for k in MICRO + ['kcal', 'water']}
     else:
         u = next(x for x in PROF['goods'][g] if x['form'] == f)
-        r = {k: (u.get(k) or 0.0) for k in NUTRIENTS + ['kcal', 'water']}
+        r = {k: (u.get(k) or 0.0) for k in MICRO + ['kcal', 'water']}
     m = next((x for x in PROF.get('mext', {}).get(g, []) if x['form'] == MEXT_FORM.get(g)), None)
     r['iodine'] = (m['iodine'] or 0.0) if m else 0.0
     if g == 'BONUS_TEA' and m:
@@ -116,234 +100,213 @@ def micro(g):
     return r
 
 
-# ---- the three motives, per kcal ----
-SUGARS = {'BONUS_WHEAT': 4.34, 'BONUS_DAIRY': 5.05, 'BONUS_BANANA': 12.23, 'BONUS_LEMON': 2.5, 'BONUS_APPLE': 10.39,
-          'BONUS_SUGAR': 99.8, 'BONUS_WINE': 0.62, 'BONUS_POTATO': 0.89, 'BONUS_CORN': 0.27, 'BONUS_RICE': 0.05}
-ALCOHOL_G = {'BONUS_WINE': 10.6, 'BONUS_ALCOHOL': 3.9}            # USDA SR Legacy, g per 100 g (sugars likewise)
-LIQUID_SATIETY = 0.5        # ESTIMATE: liquid energy satiates less (Almiron-Roig et al. 2003, PMID 14649371)
-HOLT = {'BONUS_POTATO': 323, 'BONUS_COW': 176, 'BONUS_RICE': 138, 'BONUS_APPLE': 197, 'BONUS_BANANA': 118,
-        'BONUS_WHEAT': 157, 'BONUS_LEMON': 202}     # wheat as wholemeal bread; lemon as Holt's oranges
-
-
-def satiety(g):
-    """Holt where measured (white bread = 1.00), the fitted formula otherwise; drinks reduced"""
+def sigma(g):
     s = HOLT.get(g, SFIT['goods'].get(g, 100)) / 100.0
-    return s * (LIQUID_SATIETY if g in DRINKS else 1.0)
+    return s * (DRINK_FULLNESS if g in DRINKS else 1.0)
 
 
-def nutrition(g):
-    """M94 (corrects M88-M93): nutrient density against the requirement density. For each nutrient, the amount per kcal
-    in the food divided by the amount per kcal a person needs (daily need / 2,600 kcal), capped at 1, averaged over
-    protein and the 12 nutrients. 1 = every kcal of this food carries its full share of every nutrient. The earlier score
-    divided each nutrient per 100 kcal by the whole day's need, which kept every food near 0 (beef 0.07)."""
+def bio(g, i):
+    if i == 'iron':
+        return B_IRON_ANIMAL if g in ANIMAL else B_IRON_PLANT
+    if i == 'niacin' and g == 'BONUS_CORN':
+        return B_NIACIN_MAIZE
+    return 1.0
+
+
+def row(g):
+    """per gram as stored: energy, protein, digestible protein, fat, fullness, nutrients (bioavailable), water"""
     v, m = good(g), micro(g)
-    if not v['kcal']:
-        return 0.0
-    e_ref = NEED['reference']['energy_kcal']
-    sh = [min(1.0, (v['protein'] / v['kcal']) / (NEED['needs']['protein']['value'] / e_ref))]
-    if m is not None and m['kcal']:
-        sh += [min(1.0, (m[k] / m['kcal']) / (NEED['needs'][k]['value'] / e_ref)) for k in NUTRIENTS]
-    return sum(sh) / len(sh)
+    ed = v['edible'] if g != 'BONUS_SALT' else 1.0
+    dq = v['diaas'] if v.get('diaas') is not None else (1.0 if g in ANIMAL else 0.44)
+    r = dict(e=v['kcal'] * ed / 100.0, p=v['protein'] * ed / 100.0, pd=v['protein'] * ed / 100.0 * min(dq, 1.0),
+             f=v['fat'] * ed / 100.0, ed=ed)
+    r['F'] = sigma(g) * r['e'] if r['e'] else 0.0
+    r['n'] = {i: (ed / 100.0) * bio(g, i) * (m[i] if m else 0.0) for i in MICRO}
+    r['water'] = (ed / 100.0) * (m['water'] if m else 0.0)
+    return r
 
 
-def wellbeing(g):
-    """well-being per kcal (ESTIMATE weights on sourced effects):
-       reward    sugar's share of energy; fat together with carbohydrate (supra-additive reward, DiFeliceantonio et al.
-                 2018, PMID 29909968; a fat-sugar milkshake released striatal dopamine, PMID 37375579); alcohol's share
-                 of energy (striatal dopamine release at low doses, meta-analysis PMID 39729041)
-       lightness water per kcal (fresh, light foods), less fat (a high-fat meal raised sleepiness and fatigue 2-3 h
-                 later, Wells et al. 1997, PMID 9145937)"""
-    v, m = good(g), micro(g)
-    if not v['kcal']:
-        return 0.0
-    kc = v['kcal']
-    sugar = 4 * SUGARS.get(g, 0.0) / kc
-    fat = min(1.0, 9 * v['fat'] / kc)
-    alcohol = 7 * ALCOHOL_G.get(g, 0.0) / kc
-    carb = max(0.0, 1 - fat - 4 * v['protein'] / kc - alcohol)
-    water = (m['water'] / m['kcal']) if (m and m['kcal']) else 0.0
-    light = min(1.0, water / 3.0) - 0.5 * fat
-    return sugar + 2.0 * fat * carb + alcohol + light
+def R_e(g):
+    v = good(g)
+    return v['kcal'] * (v['edible'] if g != 'BONUS_SALT' else 1.0) / 100.0
 
 
-def satisfaction(g):
-    """how satisfying a good is per kcal for choosing it (M69, M88: high-protein foods satisfy most): the protein
-    factor of the generator (protein share x DIAAS, fitted to Holt's beef against bread; food_values_edits.py)"""
-    import importlib.util
-    global _FVE
-    if '_FVE' not in globals():
-        spec = importlib.util.spec_from_file_location('fve', os.path.join(HERE, 'connector', 'food_values_edits.py'))
-        _FVE = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(_FVE)
-        _FVE.V = _FVE.values(NUT)
-    return _FVE.V[g]['factor']
-
-
-def nutrition_key(g):
-    """(E16) nutrition list key: satisfaction + nutrient density (M96: separate from well-being)"""
-    return satisfaction(g) + nutrition(g)
-
-
-def grams_per_day(t, n):
-    return t * 1e6 / (n * 365.0)
-
-
-def city_year(people, work, stocks, step_kcal=10.0):
-    avail = {g: grams_per_day(t, people) for g, t in stocks.items() if g in NUT['goods']}
-    q = {g: 0.0 for g in avail}
-    caf = 0.0
-    for g, (lpk, mgl) in BREW.items():                  # tea and coffee carry no energy; drunk up to 600 mg caffeine
+def solve(people, work, stocks):
+    avail = {g: t * 1e6 / (365.0 * people) for g, t in stocks.items()}           # (1)
+    q0, caf = {}, 0.0                                                             # stage 0: brewed drinks (2)
+    for g, (lpk, mgl) in BREWED.items():
         if g in avail:
-            q[g] = min(avail[g], max(0.0, CAFFEINE_MG_MAX - caf) / (lpk * mgl / 1000.0))
-            caf += q[g] * lpk * mgl / 1000.0
-    c_caf = min(1.0, caf / CAFFEINE_MG_MAX)
-    pal_work = sum(s * PAL[k] for k, s in work.items())
-    e_need = BMR * pal_work + CAFFEINE_KCAL_MAX * c_caf
-    e_max = BMR * PAL_MAX + CAFFEINE_KCAL_MAX * c_caf
-    if 'BONUS_SALT' in avail:
-        q['BONUS_SALT'] = min(avail['BONUS_SALT'], SALT_MAX_G)
-    foods = [g for g in avail if g not in BREW and g != 'BONUS_SALT' and good(g)['kcal']]
-    per = {}
-    for g in foods:
-        v = good(g)
-        per[g] = dict(kc=v['kcal'] * v['edible'] / 100.0, pr=v['protein'] * v['edible'] / 100.0,
-                      ft=v['fat'] * v['edible'] / 100.0, ed=v['edible'])
-    cap = {}
-    for g in foods:
-        c = avail[g]
-        if per[g]['ft'] > 0:
-            c = min(c, FAT_PER_GOOD_G / per[g]['ft'])
-        if g == 'BONUS_DAIRY':
-            c = min(c, MILK_MAX_G)
-        if g == 'BONUS_LEMON':
-            c = min(c, LEMON_MAX_G)
-        cap[g] = c
-    keys = {1: {g: nutrition_key(g) for g in foods}, 2: {g: wellbeing(g) for g in foods}}
-    s_cap = (HOLT_MEAN ** SAT_EXP) * e_max
-    s_fed = (HOLT_MEAN ** SAT_EXP) * e_need
-    sat = 0.0
-    e, p, fruit = 0.0, 0.0, 0.0
-    p_max = PROTEIN_MAX_SHARE * e_max / 4.0
-    pass_of = {}
-    # (E17) two passes: 1 on the nutrition list until fed, 2 on the well-being list up to the fullness capacity
-    for pas, s_stop in ((1, s_fed), (2, s_cap)):
-        while e < e_max - 1e-9 and sat < s_stop - 1e-9:
-            best, bm = None, 0.0
-            for g in foods:
-                key = keys[pas][g]
-                if key <= 0:
-                    continue
-                dq = step_kcal / per[g]['kc']
-                if q[g] + dq > cap[g] + 1e-9 or p + dq * per[g]['pr'] > p_max:
-                    continue
-                if g in FRUIT and fruit + dq * per[g]['ed'] > FRUIT_MAX_G:
-                    continue
-                mv = key / (1.0 + q[g] / SERVING_G[g])
-                if mv > bm:
-                    best, bm = g, mv
-            if best is None:
-                break
-            dq = step_kcal / per[best]['kc']
-            q[best] += dq
-            pass_of.setdefault(best, set()).add(pas)
-            e += step_kcal
-            sat += step_kcal * satiety(best) ** SAT_EXP
-            p += dq * per[best]['pr']
-            if best in FRUIT:
-                fruit += dq * per[best]['ed']
-    intake = {k: 0.0 for k in NUTRIENTS}
-    food_water, drink_water, animal_p = 0.0, 0.0, 0.0
-    for g, x in q.items():
-        v, m = good(g), micro(g)
-        if g in BREW:
-            drink_water += x * BREW[g][0]
-            eaten_100g = x * BREW[g][0] / 100.0
-        else:
-            eaten_100g = x * (1.0 if g == 'BONUS_SALT' else v['edible']) / 100.0
-            if g in DRINKS:
-                drink_water += x * v['edible'] * (v.get('hydration') or 1.0)
-            elif m is not None:
-                food_water += eaten_100g * m['water']
-        if m is not None:
-            for k in NUTRIENTS:
-                intake[k] += eaten_100g * m[k]
-        if g in ANIMAL:
-            animal_p += x * v['protein'] * v['edible'] / 100.0
-    a_fe = 0.10 + 0.08 * (animal_p / p if p else 0)
-    cov = {k: intake[k] * (a_fe / 0.16 if k == 'iron' else 1.0) / NEED['needs'][k]['value'] for k in NUTRIENTS}
-    plain_water = max(0.0, WATER_NEED_ML - food_water - drink_water)
-    pal_act = max(PAL_MIN, min(PAL_MAX, e / BMR))
-    workf = max(0.0, min(1.2, (pal_act - PAL_MIN) / (pal_work - PAL_MIN)))
-    used = {g: q.get(g, 0) * people * 365 / 1e6 for g in stocks}
+            q0[g] = min(avail[g], max(0.0, GAMMA - caf) / (lpk * mgl / 1000.0))
+            caf += q0[g] * lpk * mgl / 1000.0
+    c = min(1.0, caf / GAMMA)
+    lam_w = sum(s * LAMBDA[k] for k, s in work.items())                           # (3)
+    e_need = B * lam_w + KAPPA * c                                                 # (4)
+    e_max = B * L_MAX + KAPPA * c                                                  # (5)
+    f_fed, f_max = SIGMA_BAR * e_need, SIGMA_BAR * e_max                           # (6)
+    need = {'fullness': f_fed, 'energy': e_need, 'protein': NEED['needs']['protein']['value']}
+    need.update({i: NEED['needs'][i]['value'] for i in MICRO})
+    const = {i: 0.0 for i in ADEQ}                                                 # nutrients of the brewed drinks
+    for g, x in q0.items():
+        m = micro(g)
+        if m:
+            for i in MICRO:
+                const[i] += x * BREWED[g][0] / 100.0 * m[i]
+    goods = [g for g in avail if g not in BREWED]
+    R = {g: row(g) for g in goods}
+    ub = {}
+    for g in goods:                                                                # (7)
+        u = avail[g]
+        if R[g]['f'] > 0:
+            u = min(u, FAT_PER_GOOD / R[g]['f'])
+        if g in CEIL_SPECIFIC:
+            u = min(u, CEIL_SPECIFIC[g])
+        ub[g] = u
+    nG, nI = len(goods), len(ADEQ)
+    W = [g for g in goods if g in WELLBEING and R_e(g) > 0]
+    nS = len(SEGMENTS)
+    nV = nG + nI + len(W) * nS
+    iq = {g: k for k, g in enumerate(goods)}
+    iy = {i: nG + k for k, i in enumerate(ADEQ)}
+    isg = {(g, k): nG + nI + w * nS + k for w, g in enumerate(W) for k in range(nS)}
+
+    def coef(g, i):
+        if i == 'fullness':
+            return R[g]['F']
+        if i == 'energy':
+            return R[g]['e']
+        if i == 'protein':
+            return R[g]['pd']
+        return R[g]['n'][i]
+
+    A_ub, b_ub = [], []
+    for i in ADEQ:                                                                 # y_i <= c_i(q)
+        a = np.zeros(nV)
+        a[iy[i]] = 1.0
+        for g in goods:
+            a[iq[g]] = -coef(g, i) / need[i]
+        A_ub.append(a)
+        b_ub.append(const[i] / need[i])
+    for vec, cap in ((lambda g: R[g]['F'], f_max), (lambda g: R[g]['e'], e_max), (lambda g: R[g]['p'], P_ABS),
+                     (lambda g: R[g]['ed'] if g in FRUIT else 0.0, Q_FRUIT)):     # (8)-(11)
+        a = np.zeros(nV)
+        for g in goods:
+            a[iq[g]] = vec(g)
+        A_ub.append(a)
+        b_ub.append(cap)
+    A_eq, b_eq = [], []
+    for g in W:                                                                    # units of 100 kcal = sum of segments
+        a = np.zeros(nV)
+        a[iq[g]] = R[g]['e'] / M_E
+        for k in range(nS):
+            a[isg[(g, k)]] = -1.0
+        A_eq.append(a)
+        b_eq.append(0.0)
+    bounds = [(0, ub[g]) for g in goods] + [(0, 1)] * nI
+    for g in W:
+        prev = 0.0
+        for k, bp in enumerate(SEGMENTS):
+            bounds.append((0, (bp - prev) if k < nS - 1 else None))
+            prev = bp
+    slopes, prev = [], 0.0
+    for bp in SEGMENTS:
+        slopes.append((math.log(1 + bp) - math.log(1 + prev)) / (bp - prev))
+        prev = bp
+    A_ub, b_ub = np.array(A_ub), np.array(b_ub)
+    A_eq = np.array(A_eq) if A_eq else None
+    b_eq = np.array(b_eq) if b_eq else None
+
+    def lp(cvec, extra=None, extra_b=None):
+        Au, bu = A_ub, b_ub
+        if extra is not None:
+            Au, bu = np.vstack([A_ub] + extra), np.concatenate([b_ub, extra_b])
+        r = linprog(cvec, A_ub=Au, b_ub=bu, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method='highs')
+        assert r.status == 0, r.message
+        return r
+
+    c1 = np.zeros(nV)                                                              # stage 1 (12)
+    for i in ADEQ:
+        c1[iy[i]] = -1.0 / nI
+    r1 = lp(c1)
+    a_star = -r1.fun
+    c2 = np.zeros(nV)                                                              # stage 2 (13)
+    for g in W:
+        for k in range(nS):
+            c2[isg[(g, k)]] = -slopes[k]
+    keepA = [c1.reshape(1, -1)]
+    r2 = lp(c2, keepA, np.array([-a_star + 1e-7]))
+    psi_star = -r2.fun
+    c3 = np.zeros(nV)                                                              # stage 3 (14)
+    for g in goods:
+        c3[iq[g]] = 1.0 / avail[g] if avail[g] > 0 else 0.0
+    r3 = lp(c3, keepA + [c2.reshape(1, -1)], np.array([-a_star + 1e-7, -psi_star + 1e-7]))
+    q = {g: r3.x[iq[g]] for g in goods}
+    q.update(q0)
+    sv1 = {g: max(0.0, -r1.upper.marginals[iq[g]]) if ub[g] == avail[g] else 0.0 for g in goods}
+    sv2 = {g: max(0.0, -r2.upper.marginals[iq[g]]) if ub[g] == avail[g] else 0.0 for g in goods}
+    E = sum(R[g]['e'] * q[g] for g in goods)                                       # outcomes (15)-(22)
+    F = sum(R[g]['F'] * q[g] for g in goods)
+    P = sum(R[g]['p'] * q[g] for g in goods)
+    cov = {i: (sum(coef(g, i) * q[g] for g in goods) + const[i]) / need[i] for i in ADEQ}
+    A = sum(min(1.0, cov[i]) for i in ADEQ) / nI
+    psi = sum(math.log(1 + R[g]['e'] * q[g] / M_E) for g in W)
+    alcohol = sum(q[g] * good(g)['edible'] * HARMFUL[g] / 100.0 for g in HARMFUL if g in q)
+    w_food = sum(R[g]['water'] * q[g] for g in goods if g not in DRINKS)
+    w_drink = sum(q[g] * R[g]['ed'] * (good(g).get('hydration') or 1.0) for g in goods if g in DRINKS)
+    w_drink += sum(q0[g] * BREWED[g][0] for g in q0)
+    w_plain = max(0.0, W_NEED - w_food - w_drink)
+    work = min(1.0, E / e_need)                                                     # (20)
+    used = {g: q.get(g, 0.0) * 365 * people / 1e6 for g in stocks}
     left = {g: stocks[g] - used[g] for g in stocks}
-    spoiled = {g: left[g] * SPOIL[NUT['goods'][g]['form']] / 100 for g in left if g in NUT['goods']}
-    s_need = HOLT_MEAN * e_need                  # fed (M93): satiety met at the need, eating average foods
-    return dict(pass_of=pass_of, fed=sat / s_need, sat=sat, s_cap=s_cap, e_need=e_need, e_max=e_max, e_in=e, x=e / e_need, prot=p, prot_share=4 * p / e if e else 0,
-                food_water=food_water, drink_water=drink_water, plain_water=plain_water, caf=caf, pal_act=pal_act,
-                work=workf, q=q, cov=cov, a_fe=a_fe, used=used, left=left, spoiled=spoiled)
+    spoiled = {g: left[g] * SPOIL[NUT['goods'][g]['form']] / 100.0 for g in stocks}
+    return dict(avail=avail, ub=ub, q=q, e_need=e_need, e_max=e_max, f_fed=f_fed, f_max=f_max, caf=caf, lam_w=lam_w,
+                A_star=a_star, psi_star=psi_star, E=E, F=F, P=P, x=E / e_need, fed=F / f_fed, cov=cov, A=A, psi=psi,
+                alcohol=alcohol, w_food=w_food, w_drink=w_drink, w_plain=w_plain, work=work, used=used, left=left,
+                spoiled=spoiled, sv1=sv1, sv2=sv2, R=R)
 
 
 CITIES = [
-    ('A. Market town, 20,000; 70 % vigorous, 20 % active, 10 % sedentary', 20000,
-     {'vigorous': 0.7, 'active': 0.2, 'sedentary': 0.1},
+    ('A. Market town, 20,000', 20000, {'vigorous': 0.7, 'active': 0.2, 'sedentary': 0.1},
      {'BONUS_WHEAT': 7000, 'BONUS_DAIRY': 4000, 'BONUS_PIG': 600, 'BONUS_APPLE': 1500, 'BONUS_ALCOHOL': 3000, 'BONUS_SALT': 60}),
-    ('B. Coastal city, 200,000; 50 % vigorous, 30 % active, 20 % sedentary', 200000,
-     {'vigorous': 0.5, 'active': 0.3, 'sedentary': 0.2},
+    ('B. Coastal city, 200,000', 200000, {'vigorous': 0.5, 'active': 0.3, 'sedentary': 0.2},
      {'BONUS_RICE': 75000, 'BONUS_FISH': 35000, 'BONUS_TEA': 600, 'BONUS_BANANA': 15000, 'BONUS_SALT': 500}),
-    ('C. Industrial city, 1,000,000; 40 % vigorous, 30 % active, 30 % sedentary', 1000000,
-     {'vigorous': 0.4, 'active': 0.3, 'sedentary': 0.3},
+    ('C. Industrial city, 1,000,000', 1000000, {'vigorous': 0.4, 'active': 0.3, 'sedentary': 0.3},
      {'BONUS_WHEAT': 220000, 'BONUS_POTATO': 600000, 'BONUS_SUGAR': 30000, 'BONUS_DAIRY': 250000, 'BONUS_COW': 40000,
       'BONUS_COFFEE': 3000, 'BONUS_SALT': 3000}),
-    ('E. Rich city, 100,000, everything in surplus; 20 % vigorous, 40 % active, 40 % sedentary', 100000,
-     {'vigorous': 0.2, 'active': 0.4, 'sedentary': 0.4},
+    ('E. Rich city, 100,000', 100000, {'vigorous': 0.2, 'active': 0.4, 'sedentary': 0.4},
      {'BONUS_COW': 20000, 'BONUS_DAIRY': 150000, 'BONUS_POTATO': 60000, 'BONUS_WHEAT': 40000, 'BONUS_APPLE': 20000,
       'BONUS_SUGAR': 8000, 'BONUS_WINE': 15000, 'BONUS_TEA': 400, 'BONUS_SALT': 500}),
-    ('F. Fishing village, 5,000, fish (whole animal) and crab in plenty; 70 % vigorous', 5000,
-     {'vigorous': 0.7, 'active': 0.2, 'sedentary': 0.1},
+    ('F. Fishing village, 5,000', 5000, {'vigorous': 0.7, 'active': 0.2, 'sedentary': 0.1},
      {'BONUS_FISH': 6000, 'BONUS_CRAB': 2000, 'BONUS_SALT': 15}),
-    ('G. Potato labourers, 10,000, potatoes and milk in plenty; 80 % vigorous', 10000,
-     {'vigorous': 0.8, 'active': 0.1, 'sedentary': 0.1}, {'BONUS_POTATO': 30000, 'BONUS_DAIRY': 6000, 'BONUS_SALT': 30}),
-    ('H. Lemon groves, 5,000, lemons, wheat and fish', 5000,
-     {'vigorous': 0.6, 'active': 0.3, 'sedentary': 0.1}, {'BONUS_LEMON': 6000, 'BONUS_WHEAT': 1500, 'BONUS_FISH': 600, 'BONUS_SALT': 15}),
-    ('D. Besieged town, 20,000, grain and salt pork only', 20000,
-     {'vigorous': 0.7, 'active': 0.2, 'sedentary': 0.1},
+    ('G. Potato labourers, 10,000', 10000, {'vigorous': 0.8, 'active': 0.1, 'sedentary': 0.1},
+     {'BONUS_POTATO': 30000, 'BONUS_DAIRY': 6000, 'BONUS_SALT': 30}),
+    ('D. Besieged town, 20,000', 20000, {'vigorous': 0.7, 'active': 0.2, 'sedentary': 0.1},
      {'BONUS_WHEAT': 3000, 'BONUS_PIG': 400, 'BONUS_SALT': 60}),
 ]
-SHORT = {'vit_c': 'C', 'vit_a_rae': 'A', 'thiamin': 'B1', 'niacin': 'B3', 'folate_dfe': 'fol', 'b12': 'B12',
-         'iron': 'Fe', 'zinc': 'Zn', 'calcium': 'Ca', 'iodine': 'I', 'potassium': 'K', 'sodium': 'Na'}
+SHORT = {'fullness': 'F', 'energy': 'E', 'protein': 'prot', 'vit_c': 'C', 'vit_a_rae': 'A', 'thiamin': 'B1',
+         'niacin': 'B3', 'folate_dfe': 'fol', 'b12': 'B12', 'iron': 'Fe', 'zinc': 'Zn', 'calcium': 'Ca', 'iodine': 'I',
+         'potassium': 'K', 'sodium': 'Na'}
 
 
 def main():
-    print('BMR %.0f kcal; whole fish per 100 g as stored: %.0f kcal, %.1f g protein, %.1f g fat, %.0f ug vitamin A'
-          % (BMR, WF['kcal'], WF['protein'], WF['fat'], WF['vit_a_rae']))
-    gs = [g for g in NUT['goods'] if NUT['goods'][g]['kcal']]
-    print('\nNutrition list (E16: satisfaction + nutrient density):')
-    print('| Rank | Good | Satisfaction | Nutrient density | Key N_g | Fullness per kcal |')
-    print('|---|---|---|---|---|---|')
-    for i, g in enumerate(sorted(gs, key=lambda g: -nutrition_key(g)), 1):
-        print('| %d | %s | %.2f | %.2f | %.2f | %.2f |' % (i, g[6:].title(), satisfaction(g), nutrition(g), nutrition_key(g), satiety(g)))
-    print('\nWell-being list (E16: key beta_g; only goods above 0 are taken in pass 2):')
-    print('| Rank | Good | Well-being |')
-    print('|---|---|---|')
-    for i, g in enumerate(sorted(gs, key=lambda g: -wellbeing(g)), 1):
-        print('| %d | %s | %.2f |' % (i, g[6:].title(), wellbeing(g)))
+    print('| City | A* | Psi* | fed | x | protein g | alcohol g | plain water ml | work | eaten g/(p d) |')
+    print('|---|---|---|---|---|---|---|---|---|---|')
+    res = {}
     for name, n, work, stocks in CITIES:
-        r = city_year(n, work, stocks)
-        print('\n#### %s' % name)
-        print('| Good | Stock t | Per head g/day | Eaten g/day | Pass | Left t | Spoiled t |')
-        print('|---|---|---|---|---|---|---|')
-        for g in stocks:
-            ps = '+'.join(str(x) for x in sorted(r['pass_of'].get(g, []))) or '-'
-            print('| %s | %s | %.0f | %.0f | %s | %s | %s |' % (g[6:].title(), format(stocks[g], ','), grams_per_day(stocks[g], n),
-                  r['q'].get(g, 0), ps, format(round(r['left'][g]), ','), format(round(r['spoiled'].get(g, 0)), ',')))
-        print('\n| Fed (fullness / need) | Fullness eaten / capacity | Need kcal | Ceiling kcal | Eaten kcal | x (energy) | Protein g (share) | Water from food ml | from drinks ml | plain water ml | Caffeine mg | PAL | Work |')
-        print('|---|---|---|---|---|---|---|---|---|---|---|---|---|')
-        print('| %.2f | %d / %d | %d | %d | %d | %.2f | %d (%d %%) | %d | %d | %d | %d | %.2f | %.2f |' % (
-            r['fed'], r['sat'], r['s_cap'], r['e_need'], r['e_max'], r['e_in'], r['x'], r['prot'], round(100 * r['prot_share']), r['food_water'],
-            r['drink_water'], r['plain_water'], r['caf'], r['pal_act'], r['work']))
-        print('\n| ' + ' | '.join(SHORT[k] for k in NUTRIENTS) + ' |')
-        print('|' + '---|' * len(NUTRIENTS))
-        print('| ' + ' | '.join('%.2f' % r['cov'][k] for k in NUTRIENTS) + ' |')
+        r = solve(n, work, stocks)
+        res[name] = r
+        eaten = ', '.join('%s %d' % (g[6:].lower(), v) for g, v in r['q'].items() if v >= 0.5)
+        print('| %s | %.3f | %.2f | %.2f | %.2f | %d | %.1f | %d | %.2f | %s |' % (name, r['A_star'], r['psi_star'], r['fed'],
+              r['x'], r['P'], r['alcohol'], r['w_plain'], r['work'], eaten))
+    print('\n| City | ' + ' | '.join(SHORT[i] for i in ADEQ) + ' |')
+    print('|---|' + '---|' * len(ADEQ))
+    for name, r in res.items():
+        print('| %s | ' % name + ' | '.join('%.2f' % min(9.99, r['cov'][i]) for i in ADEQ) + ' |')
+    print('\n| City | scarce goods: shadow value in stage 1 (adequacy per kg) / stage 2 (well-being per kg) |')
+    print('|---|---|')
+    for name, r in res.items():
+        s = ', '.join('%s %.4f / %.4f' % (g[6:].lower(), 1000 * r['sv1'][g], 1000 * r['sv2'][g])
+                      for g in r['sv1'] if r['sv1'][g] > 1e-12 or r['sv2'][g] > 1e-12)
+        print('| %s | %s |' % (name, s or 'none'))
 
 
 if __name__ == '__main__':

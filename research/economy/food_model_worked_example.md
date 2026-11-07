@@ -1,129 +1,85 @@
-# The food model, worked example (specification version 3, M98)
+# The food model, worked example (specification version 4, M101)
 
-The equation numbers and symbols are those of `food_model_spec.md`. All values are computed by `plan/tools/food_model.py` and `plan/tools/food_model_trace.py` from the data files, and are rounded for display.
+City E: $N=100{,}000$; $\mathbf w=(0.2,\,0.4,\,0.4)$ for vigorous, active and sedentary work. Values are computed by `plan/tools/food_model.py` from the data files and rounded for display.
 
-**City E (rich city):**
-- $N=100{,}000$;
-- $\mathbf w=(w_{\mathrm{vig}},w_{\mathrm{act}},w_{\mathrm{sed}})=(0.2,\,0.4,\,0.4)$;
-- stocks $S_g$ in tonnes: Cow 20,000; Dairy 150,000; Potato 60,000; Wheat 40,000; Apple 20,000; Sugar 8,000; Wine 15,000; Tea 400; Salt 500.
+## Availability (1) and the per-good data (section 3a)
 
-## M1. Availability, equation (1)
+| $g$ | $S_g$ [t] | $a_g$ [g/(p·d)] | $u_g$ | $e_g$ [kcal/g] | $p_g$ [g/g] | $f_g$ [g/g] | $\sigma_g$ | in $\mathcal W$ |
+|---|---|---|---|---|---|---|---|---|
+| Cow | 20,000 | 547.9 | 547.9 | 1.500 | 0.185 | 0.079 | 1.76 | yes |
+| Dairy | 150,000 | 4,109.6 | 3,000 | 0.610 | 0.033 | 0.033 | 0.78 | yes |
+| Potato | 60,000 | 1,643.8 | 1,643.8 | 0.670 | 0.016 | 0.001 | 3.23 | no |
+| Wheat | 40,000 | 1,095.9 | 1,095.9 | 2.672 | 0.098 | 0.018 | 1.57 | no |
+| Apple | 20,000 | 547.9 | 547.9 | 0.480 | 0.001 | 0.003 | 1.97 | yes |
+| Sugar | 8,000 | 219.2 | 219.2 | 3.730 | 0 | 0 | 1.00 | yes |
+| Wine | 15,000 | 411.0 | 411.0 | 0.680 | 0 | 0 | 0.70 | yes |
+| Tea | 400 | 11.0 | – | – | – | – | – | stage 0 |
+| Salt | 500 | 13.7 | 13.7 | 0 | 0 | 0 | – | no |
 
-$$
-a_g=\frac{S_g\cdot10^6}{365\cdot100{,}000}
-$$
-
-| $g$ | Cow | Dairy | Potato | Wheat | Apple | Sugar | Wine | Tea | Salt |
-|---|---|---|---|---|---|---|---|---|---|
-| $a_g$ [g/(p·d)] | 547.9 | 4,109.6 | 1,643.8 | 1,095.9 | 547.9 | 219.2 | 411.0 | 11.0 | 13.7 |
-
-## M2. Need and bounds, equations (2)-(8)
-
-$$
-\begin{aligned}
-(2)\quad & \text{tea: } \ell\chi/1000=43\cdot200/1000=8.6\ \text{mg/g};\qquad q_{\mathrm{tea}}=\min(11.0,\;600/8.6)=11.0\ \text{g}\\
-& \text{caffeine}=11.0\cdot8.6=94.2\ \text{mg};\qquad c=94.2/600=0.157\\
-(3)\quad & \Lambda^{\mathrm w}=0.2\cdot2.25+0.4\cdot1.76+0.4\cdot1.53=1.766\\
-(4)\quad & E^{\mathrm{need}}=1536\cdot1.766+150\cdot0.157=2{,}735\ \text{kcal}\\
-(5)\quad & E^{\max}=1536\cdot2.40+150\cdot0.157=3{,}709\ \text{kcal}\\
-(6)\quad & F^{\mathrm{fed}}=1.36\cdot2{,}735=3{,}720;\qquad F^{\max}=1.36\cdot3{,}709=5{,}044\\
-(7)\quad & P^{\max}=0.35\cdot3{,}709/4=324.5\ \text{g}\\
-(8)\quad & q_{\mathrm{salt}}=\min(13.7,\,10)=10\ \text{g}
-\end{aligned}
-$$
-
-## M3. Indicators per good, equations (9)-(16)
-
-**Inputs from the data:**
-
-| $g$ | $\varepsilon_g$ | $\pi_g$ | $\varphi_g$ | $\eta_g$ | $\delta_g$ | Holt $H_g$ |
-|---|---|---|---|---|---|---|
-| Cow (composite, 28) | 150 | 18.5 | 7.9 | 1.0 | 1.12 | 176 |
-| Dairy | 61 | 3.3 | 3.3 | 1.0 | 1.14 | – (formula: 155) |
-| Potato | 67 | 1.6 | 0.1 | 1.0 | 0.44 | 323 |
-| Wheat | 334 | 12.2 | 2.3 | 0.8 | 0.44 | 157 (wholemeal bread) |
-| Apple | 48 | 0.1 | 0.3 | 1.0 | 0.44 | 197 |
-| Sugar | 373 | 0 | 0 | 1.0 | 0.44 | – (formula: 100) |
-| Wine | 68 | 0 | 0 | 1.0 | 0.44 | – (formula: 140) |
-
-**Results of (9)-(16):**
-
-| $g$ | $e_g$ (9) | $p_g$ (10) | $\sigma_g$ (11) | $s_g$ (12) | $\nu_g$ (13) | $\beta_g$ (14) | $K^{(1)}_g$ (15) | $K^{(2)}_g$ (15) | $\bar q_g$ (16) |
-|---|---|---|---|---|---|---|---|---|---|
-| Cow | 1.500 | 0.493 | 1.76 | 1.760 | 0.710 | −0.139 | 2.470 | −0.139 | 548 |
-| Dairy | 0.610 | 0.216 | 0.78 | 1.270 | 0.795 | 0.858 | 2.065 | 0.858 | 3,000 |
-| Potato | 0.670 | 0.096 | 3.23 | 0.961 | 0.659 | 0.365 | 1.620 | 0.365 | 1,644 |
-| Wheat | 2.672 | 0.146 | 1.57 | 1.000 | 0.551 | 0.133 | 1.551 | 0.133 | 1,096 |
-| Apple | 0.480 | 0.008 | 1.97 | 0.893 | 0.462 | 1.491 | 1.355 | 1.491 | 548 |
-| Sugar | 3.730 | 0.000 | 1.00 | 0.886 | 0.173 | 1.071 | 1.059 | 1.071 | 219 |
-| Wine | 0.680 | 0.000 | 0.70 | 0.886 | 0.292 | 1.467 | 1.178 | 1.467 | 411 |
-
-Units: $e_g$ in kcal/g; $\bar q_g$ in g/(p·d); the rest are dimensionless.
-
-**One row in full: Cow.**
+## Stage 0 and the needs, (2)-(4)
 
 $$
 \begin{aligned}
-(9)\quad & e=150\cdot1.0/100=1.500;\qquad \hat\varphi=7.9/100=0.079\\
-(10)\quad & p=4\cdot18.5/150=0.493;\quad f=9\cdot7.9/150=0.474;\quad k=1-0.474-0.493=0.033;\quad z=l=0\\
-(11)\quad & \sigma=176/100=1.76\\
-(12)\quad & s=\frac{1+2.0\cdot0.493\cdot1}{1+2.0\cdot0.146\cdot0.44}=\frac{1.986}{1.128}=1.760\\
-(13)\quad & \nu=\tfrac{1}{13}\bigl(\underbrace{1}_{\text{prot}}+\underbrace{0}_{\text{C}}+\underbrace{1}_{\text{A}}+\underbrace{0.97}_{\text{B1}}+\underbrace{1}_{\text{B3}}+\underbrace{0.56}_{\text{fol}}+\underbrace{1}_{\text{B12}}\\
-& \qquad+\underbrace{1}_{\text{Fe}}+\underbrace{1}_{\text{Zn}}+\underbrace{0.10}_{\text{Ca}}+\underbrace{0}_{\text{I}}+\underbrace{0.70}_{\text{K}}+\underbrace{0.90}_{\text{Na}}\bigr)=\tfrac{9.226}{13}=0.710\\
-(14)\quad & \beta=1\cdot0+2\cdot0.474\cdot0.033+1\cdot0+1\cdot\min(1,0.201/3)-0.5\cdot0.474=0.031+0.067-0.237=-0.139\\
-(15)\quad & K^{(1)}=1.760+0.710=2.470;\qquad K^{(2)}=-0.139\\
-(16)\quad & \bar q=\min(547.9,\;250/0.079,\;\cdot)=\min(547.9,\,3165)=547.9
+&q_{\mathrm{tea}}=\min(11.0,\ 600/8.6)=11.0\ \text{g};\qquad c=11.0\cdot8.6/600=0.157\\
+&E^{\mathrm{need}}=1536\,(0.2\cdot2.25+0.4\cdot1.76+0.4\cdot1.53)+150\cdot0.157=1536\cdot1.766+23.6=2{,}735\ \text{kcal}\\
+&E^{\max}=1536\cdot2.40+23.6=3{,}709\ \text{kcal}\\
+&r_{\mathrm{fullness}}=1.36\cdot2{,}735=3{,}720;\qquad F^{\max}=1.36\cdot3{,}709=5{,}044;\qquad P^{\max}=228\ \text{g}
 \end{aligned}
 $$
 
-## M4. Allocation, Algorithm 1 with (17)-(18)
+## The program (10)-(12)
 
-| Pass | Key | Stops at | Ends with |
-|---|---|---|---|
-| 1 | $K^{(1)}$ (nutrition) | $F\ge F^{\mathrm{fed}}=3{,}720$ | $E=2{,}120$ kcal, $F=3{,}735$ |
-| 2 | $K^{(2)}$ (well-being; only $K^{(2)}>0$, so Cow is out) | $F\ge F^{\max}=5{,}044$ | $E=3{,}300$ kcal, $F=5{,}062$ |
+| Stage | Objective | Optimum |
+|---|---|---|
+| 1 | $\max A$ | $A^*=1.000$: all 15 components reach their need |
+| 2 | $\max\Psi$ with $A\ge1$ | $\Psi^*=9.65$; the energy ceiling $E^{\max}$ binds |
+| 3 | $\min\sum_gq_g/a_g$ with $A\ge1,\ \Psi\ge9.65$ | the diet below |
 
-Result:
-
-| $g$ | $q_g$ [g] | $e_gq_g$ [kcal] | $\sigma_ge_gq_g$ [fullness] | taken in pass |
+| $g$ | $q^*_g$ [g/(p·d)] | $e_gq^*_g$ [kcal] | $\ln(1+e_gq^*_g/100)$ | $\lambda^{(2)}_g$ [well-being per kg] |
 |---|---|---|---|---|
-| Cow | 333 | 500 | 880 | 1 |
-| Dairy | 1,934 | 1,180 | 920 | 1, 2 |
-| Potato | 851 | 570 | 1,841 | 1, 2 |
-| Wheat | 135 | 360 | 565 | 1 |
-| Apple | 542 | 260 | 512 | 1, 2 (stock) |
-| Sugar | 43 | 160 | 160 | 1, 2 |
-| Wine | 397 | 270 | 189 | 1, 2 (stock) |
-| **Σ** | | **3,300** | **5,062** | |
+| Cow | 547.9 (whole stock) | 822 | 2.22 | 0.76 |
+| Dairy | 2,146.0 | 1,309 | 2.65 | 0 |
+| Potato | 351.3 | 235 | – (staple) | 0 |
+| Wheat | 0 | 0 | – (staple) | 0 |
+| Apple | 547.9 (whole stock) | 263 | 1.29 | 1.01 |
+| Sugar | 214.5 | 800 | 2.20 | 0 |
+| Wine | 411.0 (whole stock) | 279 | 1.33 | 1.14 |
+| **Σ** | | **3,709** $=E^{\max}$ | **9.69** (the linear program's piecewise value: 9.65 $=\Psi^*$) | |
 
-A good can appear in both passes because (17) declines with $q_g$. Pass 2 continues the good from where pass 1 left it.
+**How the program reads:**
+- **Stage 1** needs only part of these goods to reach $A=1$.
+- **Stage 2** then spends the remaining room up to $E^{\max}$ on the goods in $\mathcal W$. Because of the logarithm, it spreads the room across all of them; beef, apples and wine run out of stock.
+- **The positive $\lambda^{(2)}$:** for these three goods, more stock would raise well-being.
+- **Potatoes** (351 g) are needed only to keep fullness at its need while the energy room goes to well-being goods. Wheat is not needed.
+- **Stage-1 shadow values** are 0 for every good: no stock limits nutrition here.
 
-Check of property (P1), equation (29): $\tilde\sigma=5{,}062/3{,}300=1.534$, so $E=F/\tilde\sigma=3{,}300$ kcal. The stop overshoots $F^{\max}$ by 18, within one step (P3).
-
-## M5. Outcomes, equations (19)-(27)
+## Outcomes (13)-(17)
 
 $$
 \begin{aligned}
-(19)\quad & \textit{fed}=5{,}062/3{,}720=1.36;\qquad x=3{,}300/2{,}735=1.21\\
-(21)\quad & a^{\mathrm{Fe}}=0.10+0.08\cdot(\text{animal protein}/P)=0.166;\qquad P=152.8\ \text{g}\ (18.5\,\%\ \text{of energy})\\
-(23)\quad & W^{\mathrm{food}}=1{,}325\ \text{ml};\qquad W^{\mathrm{drink}}=\underbrace{1934\cdot1.5}_{\text{milk}}+\underbrace{397}_{\text{wine}}+\underbrace{11.0\cdot43}_{\text{tea}}=3{,}770\ \text{ml}\\
-(24)\quad & W^{\mathrm{plain}}=\max(0,\;2{,}250-1{,}325-3{,}770)=0\\
-(25)\quad & \Lambda^{\mathrm{act}}=\min(2.40,\max(1.40,\;3{,}300/1{,}536))=2.149\\
-(26)\quad & \textit{work}=\min(1.20,\;(2.149-1.40)/(1.766-1.40))=\min(1.20,\,2.05)=1.20
+(13)\quad & x=3{,}709/2{,}735=1.36;\qquad \textit{fed}=4{,}735/3{,}720=1.27;\qquad A^*=1;\qquad \Psi^*=9.65\\
+(14)\quad & \textit{harm}_{\mathrm{alcohol}}=411.0\cdot0.106=43.6\ \text{g alcohol}/(\text{p·d})\\
+(15)\quad & W^{\mathrm{in}}=\underbrace{1{,}058}_{\text{food water}}+\underbrace{2{,}146\cdot1.5}_{\text{milk}}+\underbrace{411\cdot1.0}_{\text{wine}}+\underbrace{11.0\cdot43}_{\text{tea}}=5{,}159\ \text{ml};\qquad W^{\mathrm{plain}}=0\\
+(16)\quad & \textit{work}=\min(1,\,1.36)=1
 \end{aligned}
 $$
 
-**Coverage, (20) and (22):**
+**Coverage $c_i$:**
 
-| $i$ | C | A | B1 | B3 | folate | B12 | Fe | Zn | Ca | I | K | Na |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| $c_i$ | 1.82 | 2.46 | 3.37 | 2.42 | 1.18 | 5.82 | 2.76 | 2.73 | 3.18 | 2.12 | 2.36 | 8.30 |
+| fullness | energy | protein | C | A | B1 | B3 | folate | B12 | Fe | Zn | Ca | I | K | Na |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1.27 | 1.36 | 3.89 | 1.10 | 3.19 | 2.52 | 2.11 | 1.00 | 8.40 | 2.65 | 3.18 | 3.64 | 2.31 | 2.02 | 2.25 |
 
-**Stocks, (27), in tonnes:**
+**Stocks (17), in tonnes:**
 
-| $g$ | Cow | Dairy | Potato | Wheat | Apple | Sugar | Wine | Tea | Salt |
-|---|---|---|---|---|---|---|---|---|---|
-| $L_g$ | 7,833 | 79,393 | 28,948 | 35,082 | 229 | 6,434 | 507 | 0 | 135 |
-| $D_g$ | 7,833 | 79,393 | 14,474 | 1,754 | 229 | 643 | 76 | 0 | 14 |
+| $g$ | Cow | Dairy | Potato | Wheat | Apple | Sugar | Wine | Salt |
+|---|---|---|---|---|---|---|---|---|
+| $U_g$ | 20,000 | 78,328 | 12,823 | 0 | 20,000 | 7,828 | 15,000 | 0 |
+| $L_g$ | 0 | 71,672 | 47,177 | 40,000 | 0 | 172 | 0 | 500 |
+| $D_g$ | 0 | 71,672 | 23,588 | 2,000 | 0 | 17 | 0 | 50 |
 
-Fresh goods ($\bar\delta=1$) spoil whole; grain, sugar and wine keep. Milk converted to cheese before eating (recipes) is not in this example.
+## Points for decision
+
+1. **Harmful and sweet goods are eaten up to their stock.** Harm is not a motive (P5), so with 411 g of wine per person available, all of it is drunk (43.6 g alcohol a day); sugar reaches 214 g a day. If people should hold back, a per-good ceiling $u_g$ for wine, beer and sugar is the one-parameter way (values to source).
+2. **The harm coefficients** that turn (14) into a health burden, and the data for tobacco.
+3. **Prices:** how the shadow values (18) become gold prices in the goods economy.

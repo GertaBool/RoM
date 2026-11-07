@@ -2283,34 +2283,39 @@
   {
    "id": "R54",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M101",
    "text": "Okay. These are way too many mistakes. I need you to work from first principles, start over again and with robust mathematics assemble a model that makes sense, without adding too many variables. I'm fine with the harm term for alcohol and tobacco. \n\n\"Milk is counted as 150 % water. The hydration index measures how well a drink is retained, not how much water it contains (F15).\"\n\nShows your total lack of understanding of basic logic, right there. Hydration is an index for how much you get compared to the same unit of water. \n\n\"There is no body fat store\"\n\nBaked into the city growth formula. \n\n\"There are no seasons\"\n\nBecause of fifty year turns and so on. \n\n\"There is one representative person per city, and no prices\"\n\nPrices have to be established, and ideally it fits the game, so these formulas can be applied to one city population as a whole.",
    "items": [
     {
      "id": "R54.1",
      "what": "Rebuild the food model from first principles with robust mathematics and few variables; replace the old specification (fresh start)",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
     },
     {
      "id": "R54.2",
      "what": "Harm terms for alcohol and tobacco",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
     },
     {
      "id": "R54.3",
      "what": "Hydration index = hydration from a volume of the drink relative to the same volume of water; F15 withdrawn",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
     },
     {
      "id": "R54.4",
      "what": "No body store (it is in the city growth formula), no seasons (long turns), one city population as a whole",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
     },
     {
      "id": "R54.5",
      "what": "Prices to be established so that they fit the game; the model applies to a city's population as a whole",
-     "status": "open"
+     "status": "done",
+     "where": "food_model_spec.md version 4; food_model.py (exact LP); food_model_worked_example.md; pdf/"
     }
    ]
   }

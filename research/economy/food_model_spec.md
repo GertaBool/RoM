@@ -1,346 +1,193 @@
-# The food model: specification (version 3, M98)
+# The food model: specification (version 4, M101)
 
-Version 3 restates version 2 in standard mathematical notation. No variable, parameter or equation changed (change log, section 8). The code (`plan/tools/food_model.py`) implements equations (1)-(30) and Algorithm 1. A full worked example in the same notation is in `food_model_worked_example.md`.
+Version 4 is a new model built from first principles. It replaces versions 1-3; their history is in the round files and in section 9. The reference implementation is `plan/tools/food_model.py`, which solves the model exactly. A worked example is in `food_model_worked_example.md`.
 
-## 0. Conventions
+## 1. Principles
 
-| Convention | Rule here | Basis |
+| | Principle | What it fixes in the model |
 |---|---|---|
-| Order of declaration | sets and indices, then parameters (given data), then variables, then equations, then the procedure. Nothing is used before it is declared | the algebraic modelling layout of the GAMS tutorial (indices, given data, decision variables, constraints) |
-| Symbols | one Latin or Greek letter per quantity, with sub- and superscripts; italic in the formulas | ISO/IEC 80000: quantity symbols are single italic letters |
-| Legend | every symbol has a name, a domain (the set it is indexed over), a unit and a source | GAMS: each entity has a domain and a description; units stated with every quantity |
-| Procedure | an algorithm with numbered lines; `←` is assignment | the usual pseudocode form |
-| Units | in square brackets; `d` = day, `t` = tonne, `p` = person | |
+| (P1) | **Conservation.** A city eats only what it holds. | consumption ≤ availability |
+| (P2) | **Physiology bounds intake.** The stomach (fullness), energy turnover, the liver's capacity for protein and the tolerance for single foods set ceilings. | four constraints and a ceiling per good |
+| (P3) | **Needs are absolute.** Energy follows work; nutrients and water have fixed daily needs. | the adequacy terms |
+| (P4) | **Priority** (M88, M96). Nutrition first: being fed and covering needs. Then well-being. Nutrition and well-being are separate quantities, ordered, never added. | a lexicographic program |
+| (P5) | **Harm is a consequence, not a motive.** People do not ration alcohol or tobacco by their harm; the harm is an outcome. | harm terms as outputs |
+| (P6) | **The city as a whole** (M101). All quantities are per person of the city's population, averaged. Body reserves belong to the growth formula; seasons are below the turn length. | no classes, stores or seasons |
 
-## 1. The model as a map
+## 2. Sets
 
-For one city and one year:
+| Symbol | Meaning |
+|---|---|
+| $\mathcal G$, index $g$ | food, drink and stimulant goods |
+| $\mathcal S\subset\mathcal G$ | staples: Wheat, Rice, Corn, Potato, Salt |
+| $\mathcal W=\mathcal G\setminus\mathcal S$ | goods that also give well-being: animal foods, fruit, sugar, olives, wine, beer, tea, coffee, tobacco |
+| $\mathcal D\subset\mathcal G$ | drinks: Dairy, Wine, Alcohol, Tea, Coffee |
+| $\mathcal T\subset\mathcal D$ | brewed stimulants without energy: Tea, Coffee |
+| $\mathcal F\subset\mathcal G$ | fruit: Apple, Banana, Lemon |
+| $\mathcal H\subset\mathcal G$ | harmful goods: Wine, Alcohol (alcohol); Tobacco |
+| $\mathcal I$, index $i$ | adequacy components (15): fullness, energy, digestible protein, vitamins C, A, B1, B3, folate, B12, iron, zinc, calcium, iodine, potassium, sodium |
 
-$$
-\Phi:\;(N,\;\mathbf S,\;\mathbf w)\;\longmapsto\;\bigl(\mathbf q,\;\textit{fed},\;x,\;\mathbf c,\;W^{\mathrm{plain}},\;\mathbf L,\;\mathbf D\bigr)
-$$
+## 3. Parameters
 
-**Inputs:**
-- the people $N$;
-- the stocks $\mathbf S=(S_g)$;
-- the shares of people in each kind of work $\mathbf w=(w_k)$.
-
-**Outputs:**
-- grams eaten per person a day $\mathbf q$;
-- how fed the people are, $\textit{fed}$;
-- energy sufficiency $x$;
-- nutrient coverage $\mathbf c$;
-- plain water still needed $W^{\mathrm{plain}}$;
-- stock left $\mathbf L$ and spoiled $\mathbf D$.
-
-The model has five modules: availability (M1), need and bounds (M2), indicators per good (M3), allocation (M4), outcomes (M5).
-
-## 2. Sets and indices
-
-| Symbol | Meaning | Members |
-|---|---|---|
-| $\mathcal G$, index $g$ | food and drink goods | the branch's food goods (nutrition.json) |
-| $\mathcal G^{\mathrm{A}}\subset\mathcal G$ | animal goods | Cow, Pig, Sheep, Deer, Horse, Fish, Clam, Crab, Shrimp, Whale, Dairy |
-| $\mathcal G^{\mathrm{D}}\subset\mathcal G$ | drinks | Dairy, Wine, Alcohol, Tea, Coffee |
-| $\mathcal G^{\mathrm{F}}\subset\mathcal G$ | fruit | Apple, Banana, Lemon |
-| $\mathcal G^{\mathrm{T}}\subset\mathcal G$ | brewed drinks (no energy) | Tea, Coffee |
-| $\mathcal G^{\mathrm{E}}=\mathcal G\setminus(\mathcal G^{\mathrm T}\cup\{\text{Salt}\})$ | goods eaten for energy | |
-| $\mathcal I$, index $i$ | nutrients, $\lvert\mathcal I\rvert=13$ | protein, vitamin C, vitamin A, thiamin, niacin, folate, B12, iron, zinc, calcium, iodine, potassium, sodium |
-| $\mathcal K$, index $k$ | kinds of work | vigorous, active, sedentary |
-| $\mathcal P$, index $\rho$ | passes of the allocation | 1 (nutrition), 2 (well-being) |
-
-## 3. Parameters (given data)
-
-### 3a. Per good $g\in\mathcal G$ (data files)
+### 3a. Per good (data files; one row per good)
 
 | Symbol | Meaning | Unit | Source |
 |---|---|---|---|
-| $\varepsilon_g$ | energy per 100 g as stored | kcal / 100 g | nutrition.json (FAO) |
-| $\pi_g$ | protein per 100 g as stored | g / 100 g | nutrition.json |
-| $\varphi_g$ | fat per 100 g as stored | g / 100 g | nutrition.json |
-| $\eta_g$ | edible share | – | nutrition.json |
-| $\delta_g$ | protein quality (DIAAS); defaults 1.0 animal, 0.44 plant | – | nutrition.json |
-| $n_{gi}$ | nutrient $i$ per 100 g eaten | mg or µg / 100 g | nutrient_profiles.json (USDA SR Legacy, MEXT) |
-| $\epsilon^{\mathrm U}_g$ | energy per 100 g of the USDA form behind $n_{gi}$ | kcal / 100 g | nutrient_profiles.json |
-| $\omega_g$ | water per 100 g eaten | g / 100 g | nutrient_profiles.json |
-| $\theta_g$ | sugars per 100 g | g / 100 g | USDA SR Legacy |
-| $\alpha_g$ | alcohol per 100 g | g / 100 g | USDA SR Legacy |
-| $h_g$ | hydration index (drinks) | – | nutrition.json |
-| $m_g$ | one serving | g | USDA household portions |
-| $H_g$ | Holt satiety index, where measured (white bread = 100) | – | Holt et al. 1995 |
-| $\bar\delta_g$ | spoilage of a year's leftover by keeping form | – | nutrition.json (FAO storage) |
-| $\ell_g,\;\chi_g$ | brewing: litres of drink per kg; caffeine per litre ($g\in\mathcal G^{\mathrm T}$) | L/kg; mg/L | MEXT (43, 200 tea; 15, 600 coffee) |
+| $e_g$ | energy per gram as stored, eaten share included | kcal/g | nutrition.json (FAO) |
+| $p_g,\ f_g$ | protein, fat per gram | g/g | nutrition.json |
+| $d_g$ | protein quality (DIAAS, capped at 1) | – | nutrition.json |
+| $n_{gi}$ | nutrient $i$ per gram, after bioavailability $b_{gi}$ | mg or µg/g | USDA SR Legacy, MEXT; $b_{gi}$: iron 0.18/0.16 animal, 0.10/0.16 plant (FAO/WHO 2004); maize niacin 1/3 (Carpenter 1983); otherwise 1 |
+| $\sigma_g$ | fullness per kcal (white bread = 1); drinks × 0.5 | – | Holt et al. 1995 where measured; fitted formula otherwise (`satiety_fit.py`) |
+| $\omega_g$ | water per gram of food eaten | ml/g | USDA SR Legacy |
+| $h_g$ | hydration index ($g\in\mathcal D$): hydration from a volume of the drink relative to the same volume of water | – | nutrition.json (milk 1.5) |
+| $u_g$ | ceiling per good: $\min(250\ \text{g}/f_g,\ 3{,}000\ \text{g milk},\ 116\ \text{g lemon})$ | g/(p·d) | the user (M86, M93); estimate (lemons) |
+| $\alpha_g$ | harmful substance per gram ($g\in\mathcal H$): alcohol; tobacco | g/g | USDA SR Legacy; tobacco to add |
+| $\delta_g$ | share of a year's leftover that spoils | – | nutrition.json (FAO storage) |
+| $\ell_g\chi_g$ | caffeine per gram ($g\in\mathcal T$) | mg/g | MEXT brewing: tea 43 L/kg × 200 mg/L, coffee 15 L/kg × 600 mg/L |
 
 ### 3b. Scalars
 
-| Symbol | Meaning | Value | Unit | Source |
-|---|---|---|---|---|
-| $B$ | basal metabolic rate of the abstracted adult | 1,536 | kcal / (p·d) | FAO/WHO/UNU 2004; EFSA weights |
-| $\Lambda_k$ | activity level of work kind $k$ | 2.25, 1.76, 1.53 | – | FAO 2004, Table 5.1 |
-| $\Lambda^{\min},\Lambda^{\max}$ | activity range | 1.40, 2.40 | – | FAO 2004, Table 5.3 |
-| $\kappa$ | energy effect of caffeine at the dose $\gamma$ | 150 | kcal / (p·d) | Dulloo et al. 1989 |
-| $\gamma$ | caffeine dose for the full effect | 600 | mg / (p·d) | Dulloo et al. 1989 |
-| $E^{\mathrm{ref}}$ | reference energy for nutrient densities | 2,600 | kcal / (p·d) | nutrient_needs.json |
-| $r_i$ | daily need of nutrient $i$ | per nutrient | mg, µg or g / (p·d) | EFSA 2017; Japanese DRI 2025 (sodium) |
-| $\bar\sigma$ | mean Holt index of Holt's 38 foods ÷ 100 | 1.36 | – | Holt et al. 1995 |
-| $\lambda$ | fullness factor of drinks | 0.5 | – | estimate (PMID 14649371) |
-| $b_0,\dots,b_4$ | fitted satiety formula | 0.0796, 0.2218, 0.6614, 0.0308, −0.2127 | – | fitted to 29 Holt foods (`satiety_fit.py`) |
-| $\kappa_s,\;\bar p,\;\bar\delta$ | protein factor: slope, bread's protein share, wheat's DIAAS | 2.0, 0.146, 0.44 | – | fitted to Holt's beef against bread |
-| $u_1,\dots,u_5$ | well-being weights | 1, 2, 1, 1, 0.5 | – | estimates on sourced effects |
-| $\beta^{\mathrm W}$ | water per kcal at which lightness is full | 3 | g / kcal | estimate |
-| $\pi^{\max}$ | protein ceiling, share of energy | 0.35 | – | Bilsborough and Mann 2006 |
-| $\Phi^{\max}$ | fat from one good | 250 | g / (p·d) | the user (M93) |
-| $Q^{\mathrm{milk}},Q^{\mathrm{lemon}},Q^{\mathrm{fruit}},Q^{\mathrm{salt}}$ | ceilings: milk, lemons, all fruit, salt | 3,000; 116; 4,518; 10 | g / (p·d) | the user; estimate; USDA watermelon; estimate |
-| $W^{\mathrm{need}}$ | total water need | 2,250 | ml / (p·d) | EFSA 2010 |
-| $a_0,a_1,a^{\mathrm{ref}}$ | iron absorption: base, slope by animal protein share, EFSA's assumption | 0.10, 0.08, 0.16 | – | FAO/WHO 2004; EFSA 2017 |
-| $\Omega$ | ceiling of the work factor | 1.20 | – | estimate |
-| $\Delta$ | step of the allocation | 10 | kcal | numerical |
+| Symbol | Meaning | Value | Source |
+|---|---|---|---|
+| $B$ | basal metabolic rate of the average adult | 1,536 kcal/(p·d) | FAO/WHO/UNU 2004; EFSA weights |
+| $\Lambda_k$ | activity level of work kind $k$ (vigorous, active, sedentary) | 2.25, 1.76, 1.53 | FAO 2004, Table 5.1 |
+| $\Lambda^{\max}$ | highest sustainable activity level | 2.40 | FAO 2004, Table 5.3 |
+| $\kappa,\gamma$ | caffeine: extra expenditure at the dose | 150 kcal at 600 mg | Dulloo et al. 1989 |
+| $\bar\sigma$ | fullness per kcal of an average food | 1.36 | mean of Holt's 38 foods |
+| $P^{\max}$ | protein the liver can handle | 3.6 g/kg × 63.3 kg = 228 g/(p·d) | Bilsborough and Mann 2006; EFSA mean weight |
+| $Q^{\mathcal F}$ | all fruit | 4,518 g/(p·d) | one watermelon (USDA portion; M86) |
+| $r_i$ | daily need of component $i$ | per nutrient | EFSA 2017; Japanese DRI 2025 (sodium) |
+| $W^{\mathrm{need}}$ | total water | 2,250 ml/(p·d) | EFSA 2010 |
+| $m$ | unit of diminishing returns in well-being | 100 kcal | definition |
 
-## 4. Variables
+## 4. Inputs and variables
 
 | Symbol | Meaning | Domain | Unit |
 |---|---|---|---|
-| $q_g$ | grams eaten per person a day | $g\in\mathcal G$, $q_g\ge0$ | g / (p·d) |
-| $E$ | energy eaten | $E\ge0$ | kcal / (p·d) |
-| $F$ | fullness eaten | $F\ge0$ | fullness units (white-bread kcal) / (p·d) |
-| $P$ | protein eaten | $P\ge0$ | g / (p·d) |
-| $R$ | fruit eaten | $R\ge0$ | g / (p·d) |
+| $N$ | people of the city | $N>0$ | persons |
+| $S_g$ | stock available this year | $S_g\ge0$ | t |
+| $w_k$ | share of people in work kind $k$ | $\sum_kw_k=1$ | – |
+| $q_g$ | **decision:** grams eaten per person a day | $q_g\ge0$ | g/(p·d) |
 
-## 5. Equations
+## 5. Definitions
 
-### M1. Availability
-
+**Availability:**
 $$
-a_g=\frac{S_g\cdot10^{6}}{365\,N}\qquad g\in\mathcal G \tag{1}
+a_g=\frac{10^6\,S_g}{365\,N} \tag{1}
 $$
 
-### M2. Need and bounds
+**Stimulants (stage 0)** are drunk while available, up to the dose $\gamma$:
+$$
+q_g=\min\Bigl(a_g,\ \frac{\gamma-\text{caffeine already drunk}}{\ell_g\chi_g}\Bigr)\quad(g\in\mathcal T),\qquad c=\frac{\sum_{g\in\mathcal T}\ell_g\chi_gq_g}{\gamma} \tag{2}
+$$
 
+**Need and ceilings:**
+$$
+E^{\mathrm{need}}=B\sum_kw_k\Lambda_k+\kappa c,\qquad E^{\max}=B\Lambda^{\max}+\kappa c \tag{3}
+$$
+$$
+r_{\mathrm{energy}}=E^{\mathrm{need}},\qquad r_{\mathrm{fullness}}=\bar\sigma E^{\mathrm{need}},\qquad F^{\max}=\bar\sigma E^{\max} \tag{4}
+$$
+
+**What a diet $\mathbf q$ delivers:**
+$$
+E(\mathbf q)=\sum_ge_gq_g,\quad F(\mathbf q)=\sum_g\sigma_ge_gq_g,\quad P(\mathbf q)=\sum_gp_gq_g,\quad P^{\mathrm d}(\mathbf q)=\sum_gd_gp_gq_g \tag{5}
+$$
+$$
+c_i(\mathbf q)=\frac{\text{amount of } i \text{ delivered}}{r_i}:\quad c_{\mathrm{fullness}}=\frac{F}{r_{\mathrm{fullness}}},\ c_{\mathrm{energy}}=\frac{E}{r_{\mathrm{energy}}},\ c_{\mathrm{protein}}=\frac{P^{\mathrm d}}{r_{\mathrm{protein}}},\ c_i=\frac{\sum_gn_{gi}q_g}{r_i} \tag{6}
+$$
+
+**Nutrition adequacy:** the mean adequacy ratio. Each component counts up to its need, so a surplus of one cannot make up a lack of another:
+$$
+A(\mathbf q)=\frac{1}{\lvert\mathcal I\rvert}\sum_{i\in\mathcal I}\min\bigl(1,\ c_i(\mathbf q)\bigr) \tag{7}
+$$
+
+**Well-being:** diminishing returns per 100 kcal of each good, so variety pleases more than repetition:
+$$
+\Psi(\mathbf q)=\sum_{g\in\mathcal W}\ln\Bigl(1+\frac{e_gq_g}{m}\Bigr) \tag{8}
+$$
+
+## 6. The program
+
+**Feasible diets:**
+$$
+\mathcal Q=\Bigl\{\mathbf q:\ 0\le q_g\le\min(a_g,u_g);\ \ F(\mathbf q)\le F^{\max};\ \ E(\mathbf q)\le E^{\max};\ \ P(\mathbf q)\le P^{\max};\ \ \sum_{g\in\mathcal F}q_g\le Q^{\mathcal F}\Bigr\} \tag{9}
+$$
+
+**Three stages, each keeping the optimum of the one before** (lexicographic optimisation):
 $$
 \begin{aligned}
-q_g&=\min\!\Bigl(a_g,\;\frac{1000\,\bigl(\gamma-\textstyle\sum_{g'<g}q_{g'}\ell_{g'}\chi_{g'}/1000\bigr)}{\ell_g\chi_g}\Bigr)\qquad g\in\mathcal G^{\mathrm T}\\
-c&=\min\!\Bigl(1,\;\frac{1}{\gamma}\sum_{g\in\mathcal G^{\mathrm T}} q_g\,\frac{\ell_g\chi_g}{1000}\Bigr)
-\end{aligned} \tag{2}
+\text{Stage 1 (nutrition):}\quad & A^*=\max_{\mathbf q\in\mathcal Q}A(\mathbf q) && (10)\\
+\text{Stage 2 (well-being):}\quad & \Psi^*=\max_{\mathbf q\in\mathcal Q}\ \Psi(\mathbf q)\ \ \text{s.t.}\ \ A(\mathbf q)\ge A^* && (11)\\
+\text{Stage 3 (even use of supply):}\quad & \mathbf q^*=\arg\min_{\mathbf q\in\mathcal Q}\ \sum_g\frac{q_g}{a_g}\ \ \text{s.t.}\ \ A\ge A^*,\ \Psi\ge\Psi^* && (12)
+\end{aligned}
 $$
 
-$$
-\Lambda^{\mathrm w}=\sum_{k\in\mathcal K} w_k\Lambda_k \tag{3}
-$$
+- **Stage 3** decides only among diets equal in nutrition and well-being: it takes from the more plentiful stocks.
+- **Each stage is a linear program.** In (7), $\min(1,c_i)$ becomes auxiliary variables $y_i\le1$, $y_i\le c_i$. In (8), $\ln(1+\cdot)$ becomes a concave piecewise-linear function with breakpoints at 0.5, 1, 2, 3, 5, 8, 12, 20 and 30 units of 100 kcal.
+- **The game** solves the same three small programs, about 25 goods and 20 constraints per city per yearly step, with a bounded simplex method. The reference implementation uses HiGHS.
+
+## 7. Outcomes
 
 $$
-E^{\mathrm{need}}=B\,\Lambda^{\mathrm w}+\kappa c \tag{4}
+x=\frac{E(\mathbf q^*)}{E^{\mathrm{need}}},\qquad \textit{fed}=\frac{F(\mathbf q^*)}{r_{\mathrm{fullness}}},\qquad c_i=c_i(\mathbf q^*),\qquad A^*,\ \Psi^* \tag{13}
+$$
+$$
+\textit{harm}_{\mathrm{alcohol}}=\sum_{g\in\mathcal H}\alpha_gq^*_g,\qquad \textit{harm}_{\mathrm{tobacco}}=\alpha_{\mathrm{tob}}q^*_{\mathrm{tob}} \tag{14}
+$$
+$$
+W^{\mathrm{in}}=\sum_{g\notin\mathcal D}\omega_gq^*_g+\sum_{g\in\mathcal D}h_gq^*_g,\qquad W^{\mathrm{plain}}=\max\bigl(0,\ W^{\mathrm{need}}-W^{\mathrm{in}}\bigr) \tag{15}
+$$
+$$
+\textit{work}=\min(1,\ x) \tag{16}
+$$
+$$
+U_g=\frac{365\,N\,q^*_g}{10^6},\qquad L_g=S_g-U_g,\qquad D_g=\delta_gL_g \tag{17}
+$$
+$$
+\lambda^{(1)}_g=\frac{\partial A^*}{\partial a_g},\qquad \lambda^{(2)}_g=\frac{\partial\Psi^*}{\partial a_g} \tag{18}
 $$
 
-$$
-E^{\max}=B\,\Lambda^{\max}+\kappa c \tag{5}
-$$
+- **(13)** $x$ (energy sufficiency) feeds the growth formula, which also holds body reserves. $\textit{fed}$, the coverage $c_i$ and $A^*$ feed fertility and the deficiency burden. $\Psi^*$ feeds the happiness line.
+- **(14)** feeds the health burden. Its harm coefficients are still to be sourced.
+- **(15)** In the hydration equation, $h_g$ counts each ml of a drink as $h_g$ ml of water: 1 L of milk gives 1.5 L of water equivalent. Plain water comes from the city's supply (D31).
+- **(16)** A shortfall of energy lowers work. Surplus energy goes to activity and to the growth formula, not to extra output.
+- **(18)** These are the shadow values of the stocks: what one more gram of stock would add to adequacy, or to well-being. They are zero for goods in surplus. They are the basis for prices (section 8).
 
-$$
-F^{\mathrm{fed}}=\bar\sigma E^{\mathrm{need}},\qquad F^{\max}=\bar\sigma E^{\max} \tag{6}
-$$
+## 8. Prices (interface, to be established)
 
-$$
-P^{\max}=\frac{\pi^{\max}E^{\max}}{4} \tag{7}
-$$
+The model gives each good two scarcity values per city, $\lambda^{(1)}_g$ and $\lambda^{(2)}_g$, in adequacy and well-being per gram.
+- A good that is plentiful has value 0. A good whose stock limits nutrition or well-being has a positive value.
+- These are the quantities a price must reflect for the city's population as a whole.
+- How they become gold prices in the game (a scale per currency, costs of production, trade between cities) belongs to the goods economy and is not set here.
 
-$$
-q_{\mathrm{salt}}=\min(a_{\mathrm{salt}},Q^{\mathrm{salt}}) \tag{8}
-$$
+## 9. Change log
 
-### M3. Indicators per good $g\in\mathcal G^{\mathrm E}$
-
-**Energy, protein and fat per gram eaten:**
-
-$$
-e_g=\frac{\varepsilon_g\eta_g}{100},\qquad \hat\pi_g=\frac{\pi_g\eta_g}{100},\qquad \hat\varphi_g=\frac{\varphi_g\eta_g}{100} \tag{9}
-$$
-
-**Energy shares:**
-
-$$
-p_g=\frac{4\pi_g}{\varepsilon_g},\quad f_g=\min\!\Bigl(1,\frac{9\varphi_g}{\varepsilon_g}\Bigr),\quad l_g=\frac{7\alpha_g}{\varepsilon_g},\quad k_g=\max(0,\,1-f_g-p_g-l_g),\quad z_g=\frac{4\theta_g}{\varepsilon_g} \tag{10}
-$$
-
-**Fullness per kcal:**
-
-$$
-\sigma_g=\Bigl[\frac{H_g}{100}\ \text{if measured, else}\ \exp\bigl(b_0+b_1\ln\tfrac{W_g}{W_{\mathrm{bread}}}+b_2p_g+b_3\,\mathrm{fib}_g+b_4f_g\bigr)\Bigr]\cdot\begin{cases}\lambda& g\in\mathcal G^{\mathrm D}\\1&\text{otherwise}\end{cases} \tag{11}
-$$
-
-Here $W_g$ is the grams in 240 kcal and $\mathrm{fib}_g$ the fibre in g per 100 kcal.
-
-**Satisfaction (protein factor):**
-
-$$
-s_g=\frac{1+\kappa_s\,p_g\min(\delta_g,1)}{1+\kappa_s\,\bar p\,\bar\delta} \tag{12}
-$$
-
-**Nutrient density against the requirement density:**
-
-$$
-\nu_g=\frac{1}{\lvert\mathcal I\rvert}\sum_{i\in\mathcal I}\min\!\Bigl(1,\;\frac{n_{gi}/\epsilon^{\mathrm U}_g}{r_i/E^{\mathrm{ref}}}\Bigr) \tag{13}
-$$
-
-For protein, $n_{gi}/\epsilon^{\mathrm U}_g$ is replaced by $\pi_g/\varepsilon_g$.
-
-**Well-being:**
-
-$$
-\beta_g=u_1z_g+u_2f_gk_g+u_3l_g+u_4\min\!\Bigl(1,\frac{\omega_g/\epsilon^{\mathrm U}_g}{\beta^{\mathrm W}}\Bigr)-u_5f_g \tag{14}
-$$
-
-**The two keys** (two separate sorted lists, M96):
-
-$$
-K^{(1)}_g=s_g+\nu_g\quad\text{(nutrition)},\qquad K^{(2)}_g=\beta_g\quad\text{(well-being)} \tag{15}
-$$
-
-**The ceiling of each good:**
-
-$$
-\bar q_g=\min\Bigl(a_g,\;\frac{\Phi^{\max}}{\hat\varphi_g},\;Q^{\mathrm{milk}}\,[g=\text{Dairy}],\;Q^{\mathrm{lemon}}\,[g=\text{Lemon}]\Bigr) \tag{16}
-$$
-
-A bracketed condition means the term applies only to that good.
-
-### M4. Allocation
-
-The marginal value of the next $\Delta$ kcal of good $g$ in pass $\rho$ falls with what has been eaten:
-
-$$
-\mu^{(\rho)}_g(q_g)=\frac{K^{(\rho)}_g}{1+q_g/m_g} \tag{17}
-$$
-
-A good is admissible when the next step keeps it within its own ceiling, the protein ceiling and the fruit ceiling:
-
-$$
-\mathcal A(\mathbf q)=\Bigl\{g\in\mathcal G^{\mathrm E}:\;q_g+\tfrac{\Delta}{e_g}\le\bar q_g,\;\;P+\tfrac{\Delta}{e_g}\hat\pi_g\le P^{\max},\;\;[g\in\mathcal G^{\mathrm F}]\Rightarrow R+\tfrac{\Delta}{e_g}\eta_g\le Q^{\mathrm{fruit}}\Bigr\} \tag{18}
-$$
-
-**Algorithm 1 (allocation):**
-```
- 1  q_g ← 0 for all g ∈ G^E;  E ← 0;  F ← 0;  P ← 0;  R ← 0
- 2  for ρ in (1, 2):
- 3      F^stop ← F^fed if ρ = 1 else F^max
- 4      while E < E^max and F < F^stop:
- 5          A* ← { g ∈ A(q) : K^(ρ)_g > 0 }
- 6          if A* is empty: break
- 7          g* ← argmax over g ∈ A* of μ^(ρ)_g(q_g)
- 8          q_g* ← q_g* + Δ / e_g*
- 9          E ← E + Δ;   F ← F + Δ σ_g*;   P ← P + (Δ / e_g*) π̂_g*
-10          if g* ∈ G^F: R ← R + (Δ / e_g*) η_g*
-11  return q, E, F, P
-```
-
-### M5. Outcomes
-
-$$
-\textit{fed}=\frac{F}{F^{\mathrm{fed}}},\qquad x=\frac{E}{E^{\mathrm{need}}} \tag{19}
-$$
-
-$$
-I_i=\sum_{g\in\mathcal G}\frac{q_g\eta_g}{100}\,n_{gi}\quad(\text{for } g\in\mathcal G^{\mathrm T}\text{, } q_g\eta_g \text{ is replaced by } q_g\ell_g) \tag{20}
-$$
-
-$$
-a^{\mathrm{Fe}}=a_0+a_1\frac{\sum_{g\in\mathcal G^{\mathrm A}}q_g\hat\pi_g}{P} \tag{21}
-$$
-
-$$
-c_i=\frac{I_i}{r_i}\cdot\begin{cases}a^{\mathrm{Fe}}/a^{\mathrm{ref}}&i=\text{iron}\\1&\text{otherwise}\end{cases} \tag{22}
-$$
-
-$$
-W^{\mathrm{food}}=\sum_{g\notin\mathcal G^{\mathrm D}}\frac{q_g\eta_g}{100}\,\omega_g,\qquad
-W^{\mathrm{drink}}=\sum_{g\in\mathcal G^{\mathrm D}\setminus\mathcal G^{\mathrm T}}q_g\eta_gh_g+\sum_{g\in\mathcal G^{\mathrm T}}q_g\ell_g \tag{23}
-$$
-
-$$
-W^{\mathrm{plain}}=\max\bigl(0,\;W^{\mathrm{need}}-W^{\mathrm{food}}-W^{\mathrm{drink}}\bigr) \tag{24}
-$$
-
-$$
-\Lambda^{\mathrm{act}}=\min\bigl(\Lambda^{\max},\max(\Lambda^{\min},E/B)\bigr) \tag{25}
-$$
-
-$$
-\textit{work}=\min\Bigl(\Omega,\max\bigl(0,\tfrac{\Lambda^{\mathrm{act}}-\Lambda^{\min}}{\Lambda^{\mathrm w}-\Lambda^{\min}}\bigr)\Bigr) \tag{26}
-$$
-
-$$
-U_g=\frac{365\,N\,q_g}{10^{6}},\qquad L_g=S_g-U_g,\qquad D_g=\bar\delta_g L_g \tag{27}
-$$
-
-The Fish, Cow and Pig goods are composites (whole animals). Their $\varepsilon,\pi,\varphi,n_{gi}$ are weighted means of their parts:
-
-$$
-\varepsilon_g=\sum_j\xi_{gj}\varepsilon_{gj},\ \dots \qquad \text{Fish: } \xi=(0.50\ \text{herring},\ 0.45\ \text{cod},\ 0.05\ \text{liver});\ \text{Cow, Pig: } (0.97\ \text{meat},\ 0.03\ \text{liver}) \tag{28}
-$$
-
-## 6. Properties
-
-**(P1) Energy at a fullness stop.** From Algorithm 1, line 9, $F=\sum_g\sigma_g\,e_gq_g$ and $E=\sum_g e_gq_g$. When eating stops because $F$ reached $F^{\mathrm{stop}}$:
-
-$$
-E=\frac{F^{\mathrm{stop}}}{\tilde\sigma},\qquad \tilde\sigma=\frac{\sum_g\sigma_g\,e_gq_g}{\sum_g e_gq_g}, \tag{29}
-$$
-
-the energy-weighted mean fullness of the diet. Filling diets give less energy at the same fullness.
-
-**(P2) What each pass optimises.** The marginal value (17) is the derivative, per kcal, of
-
-$$
-V^{(\rho)}_g(q_g)=K^{(\rho)}_g\,e_g\,m_g\ln\!\Bigl(1+\frac{q_g}{m_g}\Bigr). \tag{30}
-$$
-
-Taking always the largest marginal value in equal energy steps is the greedy method for a separable concave objective under one linear budget. So each pass approximates, to within one step $\Delta$:
-
-$$
-\max_{\mathbf q}\ \sum_{g}V^{(\rho)}_g(q_g)\quad\text{subject to}\quad \sum_g e_gq_g\le E^{(\rho)},\ \ q_g\le\bar q_g,\ \ P\le P^{\max},\ \ R\le Q^{\mathrm{fruit}},
-$$
-
-where $E^{(\rho)}$ is the energy at which the pass stops (fullness or $E^{\max}$).
-
-**(P3) Step overshoot.** $F$ and $E$ can exceed their stop by at most one step: $\Delta\max_g\sigma_g$ and $\Delta$.
-
-## 7. What the outcomes feed (proposed, M93)
-
-| Outcome | Feeds |
+| Version | Change |
 |---|---|
-| $\textit{fed}$ | fertility and the famine term of the population model |
-| $x$, $\textit{work}$ | the weakness of the underfed; physical output |
-| $c_i$ | the deficiency burden, the nutrients factor of fertility, output |
-| $W^{\mathrm{plain}}$ | demand on the water supply (D31) |
-| $L_g$, $D_g$ | stock, storage, trade, recipes |
+| 1-3 (M85-M98) | the earlier models; history in `round_m85.md` to `round_m96.md`, `food_model_assessment.md` |
+| 4 (M101) | **New model.** |
 
-## 8. Change log
+**Removed in version 4:**
+- the satisfaction factor $s_g$ and its constants;
+- the nutrient score $\nu_g$ and $E^{\mathrm{ref}}$;
+- the well-being formula $\beta_g$ and its five weights and lightness constant;
+- the keys $K^{(1)},K^{(2)}$, the two passes and the greedy algorithm;
+- servings $m_g$ per good;
+- the work bonus $\Omega$ and the activity floor in work;
+- the iron absorption line ($a_0,a_1$);
+- the salt ceiling;
+- the protein ceiling tied to $E^{\max}$.
 
-| Version (round) | Variable | Change | Before → after | Reason |
-|---|---|---|---|---|
-| 1 (M85) | $E^{\mathrm{need}}$ | changed | 2,600 kcal → (4) | the user: activity and stimulants |
-| 1 (M86) | $E^{\max}$ | added | → (5) | FAO PAL ceiling |
-| 1 (M86) | $x$ | changed | satiety ÷ 2,600 → $E/E^{\mathrm{need}}$ (19) | need varies with work |
-| 1 (M86) | $\textit{work}$, $\Omega$ | added | → (26) | Fogel |
-| 1 (M87) | $a_g$ | added | → (1) | the goods pass counts tonnes |
-| 1 (M87) | $c_i$, $a^{\mathrm{Fe}}$ | added | → (20)-(22) | deficiency model |
-| 1 (M88) | headroom, food mass, drink cap | removed | 0.15, 6 kg, 3.5 L → none | the user |
-| 1 (M88) | $Q^{\mathrm{fruit}}$; brewing $\ell_g,\chi_g$; $\gamma$ | added | → 4,518 g; MEXT; 600 mg | the user |
-| 1 (M91) | $W^{\mathrm{need}}$, (23)-(24) | changed | drink 1.8 L → total water 2,250 ml | the user: one hydration equation |
-| 1 (M91) | $m_g$, (17) | added | → diminishing returns per serving | the user: no tiers |
-| 1 (M91) | $\sigma_g$ formula, $\lambda$ | added | → (11) | the user: a correct formula |
-| 1 (M91) | $\beta_g$ | added | → (14) | the user: well-being |
-| 1 (M91) | Fish | changed | fillet → composite (28) | the user: whole animal |
-| 1 (M92) | $F^{\max}$, $\bar\sigma$; $Q^{\mathrm{lemon}}$ | added | → (6); 116 g | the user: fullness; lemons |
-| 1 (M93) | $\Phi^{\max}$ | changed | 100 → 250 g | the user |
-| 1 (M93) | $\textit{fed}$, $F^{\mathrm{fed}}$ | added | → (6), (19) | the user: satiety is the baseline |
-| 1 (M94) | $\nu_g$ | changed | per 100 kcal ÷ daily need → (13) | scaling error (beef 0.07 → 0.71) |
-| 1 (M94) | Cow, Pig | changed | muscle → composite with liver (28) | the user |
-| 2 (M96) | preference $V_g=s_g+\nu_g+\beta_g$ | removed | one key → $K^{(1)},K^{(2)}$ (15) | the user: two separate variables and sorted lists |
-| 2 (M96) | allocation | changed | one pass → two passes (Algorithm 1) | M88: nutrition first, then well-being |
-| 3 (M98) | — | presentation only | prose and code-style formulas → sets, parameters, variables, equations (1)-(30), Algorithm 1, legend | the user: proper notation and a full legend |
+**Added in version 4:**
+- the mean adequacy ratio $A$ (7) with fullness and energy as components;
+- well-being $\Psi$ (8) per 100 kcal;
+- the staples set $\mathcal S$ and the well-being set $\mathcal W$;
+- the lexicographic program (10)-(12), solved exactly;
+- bioavailability $b_{gi}$;
+- the liver ceiling $P^{\max}$;
+- harm outcomes (14);
+- shadow values (18).
 
-## 9. Rules for changes
-
-1. A change is written here first, in sections 2-5, with a row in section 8.
-2. The code changes only what the row names; the commit names the row.
-3. Results are published with the version they come from.
+**Corrected in version 4:**
+- F15 of the assessment is withdrawn: the hydration index is hydration relative to the same volume of water, as used in (15).
+- Body reserves, seasons and classes are not part of this model (P6).
