@@ -609,6 +609,13 @@
    "kind": "correction",
    "text": "\"The faces\n\n    Kept, as you said, as the sign of missing infrastructure.\n    Hover lines: water, sanitation and density, missing nutrients, war, and the resulting burden.\n    Proposal 1: the “from population” faces count the people not working plots (the dense population) instead of city size. Then a farming district shows few faces and a trade city many, until aqueducts, baths and sewers balance them.\n    Proposal 2: the share of people in unsanitized quarters comes from the density faces that the sanitation buildings don’t cover. Without hygiene, 500,000 and 10 million fare the same.\"\n\nOkay I need you to actually elaborate on these proposals\n\n\"The energy and intake model\"\n\nStill not a clear mathematical model that actually fits the goods of the game and doesn't seem fully integrated with nutrition figures and other markers",
    "led_to": "R41: the two face proposals elaborated with the buildings' health records and worked cases; one mathematical food model on the game's goods, integrated with calories, satiety, nutrients, drink, spoilage and the population model"
+  },
+  {
+   "id": "M88",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "\"Do the three Essentials tiers stand for municipal sanitation? And should Commercial Center (+8 health) and Commodity Market (+5) keep their health, since the XML gives no reason for it?\"\n\nBasically hints at the adoption of modern logistics technology, just-in-time delivery and refrigeration as well as commoditization of various nutritional goods, making all kinds of food stuffs, nutraceuticals and medicines available on the market. \n\nThe essential tiers provide a whole host of functions, they represent different stages of settlement development, and how the infrastructure expands and modernizes. Actual sanitation only comes with the last tier.\n\n\"Should the water supply levels from the water decision (wells, aqueduct, piped water) add sanitation faces through the same tag?\" Sure\n\n\"the appetite headroom (15 %, your choice from last round);\"\n\nSeems reasonable, but it should really just be set based on how much humans are actually physiologically capable of eating, and what is plausible. The way I elaborated it, meaning you can only really eat X amount of cheese and X amount of meat as a regular individual.\n\n\"the fat-per-food, food-weight and drink limits;\"\n\nfood-weight would greatly overcomplicate it, like I said watermelons are roughly equivalent to fruits in that example\n\n\"fat-per-food limits\" 100g seems reasonable.\n\n\"drink limits\" I would argue it's kind of nonsense the way it's proposed, people drink up to 3 liters of water, sometimes going beyond that, which is why I said people can really only drink three liters of milk\n\n\"caffeine per kg of tea and coffee, and how much infusion a kilogram of tea makes;\"\n\nQuote pubmed\n\n\"whether people prefer some goods over others (right now everything is eaten in proportion to stock).\"\n\nThey obviously prefer the highest quality goods that offer the most nutrition, health and satiety, then after hitting the limit there they eat other things as well, via a \"steak and potatoes, then dessert\" kind of logic",
+   "led_to": "R42: Commercial Center and Commodity Market health kept (logistics, refrigeration, commoditized food and medicine); only Metropolitan Essentials is sanitation; water supply levels as sanitation faces; appetite from physiological per-food ceilings; no food-weight limit, fruit ceiling as a watermelon; fat 100 g per good; only milk capped among drinks; caffeine and infusion from PubMed; eating order by quality (steak and potatoes, then dessert)"
   }
  ],
  "requests": [
@@ -1819,6 +1826,55 @@
      "what": "One clear mathematical food model that fits the game's goods and is integrated with the nutrition figures and the other markers (calories, satiety, nutrients, drink, spoilage, health, population model)",
      "status": "done",
      "where": "round_m87.md; design.json D27/D30 m87; tools faces_check.py, food_model.py"
+    }
+   ]
+  },
+  {
+   "id": "R42",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M88",
+   "text": "\"Do the three Essentials tiers stand for municipal sanitation? And should Commercial Center (+8 health) and Commodity Market (+5) keep their health, since the XML gives no reason for it?\"\n\nBasically hints at the adoption of modern logistics technology, just-in-time delivery and refrigeration as well as commoditization of various nutritional goods, making all kinds of food stuffs, nutraceuticals and medicines available on the market. \n\nThe essential tiers provide a whole host of functions, they represent different stages of settlement development, and how the infrastructure expands and modernizes. Actual sanitation only comes with the last tier.\n\n\"Should the water supply levels from the water decision (wells, aqueduct, piped water) add sanitation faces through the same tag?\" Sure\n\n\"the appetite headroom (15 %, your choice from last round);\"\n\nSeems reasonable, but it should really just be set based on how much humans are actually physiologically capable of eating, and what is plausible. The way I elaborated it, meaning you can only really eat X amount of cheese and X amount of meat as a regular individual.\n\n\"the fat-per-food, food-weight and drink limits;\"\n\nfood-weight would greatly overcomplicate it, like I said watermelons are roughly equivalent to fruits in that example\n\n\"fat-per-food limits\" 100g seems reasonable.\n\n\"drink limits\" I would argue it's kind of nonsense the way it's proposed, people drink up to 3 liters of water, sometimes going beyond that, which is why I said people can really only drink three liters of milk\n\n\"caffeine per kg of tea and coffee, and how much infusion a kilogram of tea makes;\"\n\nQuote pubmed\n\n\"whether people prefer some goods over others (right now everything is eaten in proportion to stock).\"\n\nThey obviously prefer the highest quality goods that offer the most nutrition, health and satiety, then after hitting the limit there they eat other things as well, via a \"steak and potatoes, then dessert\" kind of logic",
+   "items": [
+    {
+     "id": "R42.1",
+     "what": "Commercial Center and Commodity Market keep their health: modern logistics, just-in-time delivery, refrigeration, commoditized foods, nutraceuticals and medicines",
+     "status": "open"
+    },
+    {
+     "id": "R42.2",
+     "what": "Essentials tiers are stages of settlement development; only the last tier (Metropolitan Essentials) is sanitation",
+     "status": "open"
+    },
+    {
+     "id": "R42.3",
+     "what": "Water supply levels (wells, aqueduct, piped water) add sanitation faces",
+     "status": "open"
+    },
+    {
+     "id": "R42.4",
+     "what": "Appetite set by physiological per-food ceilings (how much cheese, meat and so on a person can eat), not a headroom",
+     "status": "open"
+    },
+    {
+     "id": "R42.5",
+     "what": "No food-weight limit; fruit's ceiling as a watermelon; fat 100 g per good accepted",
+     "status": "open"
+    },
+    {
+     "id": "R42.6",
+     "what": "Drinks: no total drink cap (people drink 3 L of water or more); only milk is capped at 3 L",
+     "status": "open"
+    },
+    {
+     "id": "R42.7",
+     "what": "Caffeine per kg of tea and coffee and infusion per kg of tea, quoted from PubMed",
+     "status": "open"
+    },
+    {
+     "id": "R42.8",
+     "what": "Eating order: best goods first by nutrition, health and satiety up to their ceilings, then the rest (steak and potatoes, then dessert)",
+     "status": "open"
     }
    ]
   }
