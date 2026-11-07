@@ -2007,24 +2007,27 @@
   {
    "id": "R45",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M92",
    "text": "\"The fishing village now eats 2,170 kcal against a 3,193 kcal need. What stops it now is the 100 g fat-per-food limit, not protein.\"\n\nMaybe checking for satiety units rather than calories is the wise move then, although calories are definitely part of the equation. The whole point is that physiologically the person feels like enough nutrients have been delivered, so if the person feels full from all the food it's probably a better gauge than calories.\n\n\"Should the 100 g fat limit apply to whole fish? Fishing and sea-mammal peoples ate more fat than that.\"\n\nIt's probably an erroneous limit, however it's a pretty heuristic for the maximum amount of a good people usually consume. \n\n\"Do the well-being weights look right, and should taste be added? Lemons rank high but are sour.\"\n\nI think no one will eat kilograms of lemons, so there has to be an upper limit to the amount of lemons that a person would consume.",
    "items": [
     {
      "id": "R45.1",
      "what": "Gauge appetite by fullness in satiety units rather than calories; calories stay part of the equation (food sufficiency)",
-     "status": "open"
+     "status": "done",
+     "where": "round_m92.md; food_model.py (fullness, LEMON_MAX_G); design.json D27 m92"
     },
     {
      "id": "R45.2",
      "what": "Keep the 100 g fat per good as a heuristic for the usual maximum of a good, not a physiological law",
-     "status": "open"
+     "status": "done",
+     "where": "round_m92.md; food_model.py (fullness, LEMON_MAX_G); design.json D27 m92"
     },
     {
      "id": "R45.3",
      "what": "An upper limit for lemons: no one eats kilograms of lemons",
-     "status": "open"
+     "status": "done",
+     "where": "round_m92.md; food_model.py (fullness, LEMON_MAX_G); design.json D27 m92"
     }
    ]
   }

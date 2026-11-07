@@ -34,6 +34,11 @@ FAT_PER_GOOD_G = 100       # accepted (M88)
 MILK_MAX_G = 3000          # the user (M86, M88, M91): milk's own ceiling, one part of a person's water
 FRUIT_MAX_G = 4518         # one whole watermelon (USDA SR Legacy portion), all fruit together (M86)
 SALT_MAX_G = 10            # ESTIMATE
+LEMON_MAX_G = 116          # ESTIMATE (M92: no one eats kilograms of lemons): two lemons a day (USDA NLEA serving 58 g)
+# fullness (M92): people eat until they feel full, counted in satiety units (white-bread kcal). The capacity is the
+# energy ceiling at the mean satiety of Holt's 38 foods (136): a person eating average foods is full at PAL 2.40.
+HOLT_MEAN = 1.36           # mean of the 38 SI values in Holt et al. 1995 (as reproduced on Wikipedia)
+SAT_EXP = 1.0              # fullness per kcal = satiety ** SAT_EXP (1.0 = Holt's index as measured; option B uses 0.5)
 
 # ---- servings: the step of diminishing returns (USDA SR Legacy household portions) ----
 SERVING_G = {'BONUS_WHEAT': 64, 'BONUS_RICE': 158, 'BONUS_CORN': 234, 'BONUS_POTATO': 300, 'BONUS_COW': 85,
@@ -178,12 +183,16 @@ def city_year(people, work, stocks, step_kcal=10.0):
             c = min(c, FAT_PER_GOOD_G / per[g]['ft'])
         if g == 'BONUS_DAIRY':
             c = min(c, MILK_MAX_G)
+        if g == 'BONUS_LEMON':
+            c = min(c, LEMON_MAX_G)
         cap[g] = c
     vals = {g: value(g) for g in foods}
+    s_cap = (HOLT_MEAN ** SAT_EXP) * e_max
+    sat = 0.0
     e, p, fruit = 0.0, 0.0, 0.0
     p_max = PROTEIN_MAX_SHARE * e_max / 4.0
     # one allocation: each step of 10 kcal goes to the good whose next serving is worth most: value / (1 + q / serving)
-    while e < e_max - 1e-9:
+    while e < e_max - 1e-9 and sat < s_cap - 1e-9:
         best, bm = None, 0.0
         for g in foods:
             dq = step_kcal / per[g]['kc']
@@ -199,6 +208,7 @@ def city_year(people, work, stocks, step_kcal=10.0):
         dq = step_kcal / per[best]['kc']
         q[best] += dq
         e += step_kcal
+        sat += step_kcal * satiety(best) ** SAT_EXP
         p += dq * per[best]['pr']
         if best in FRUIT:
             fruit += dq * per[best]['ed']
@@ -228,7 +238,7 @@ def city_year(people, work, stocks, step_kcal=10.0):
     used = {g: q.get(g, 0) * people * 365 / 1e6 for g in stocks}
     left = {g: stocks[g] - used[g] for g in stocks}
     spoiled = {g: left[g] * SPOIL[NUT['goods'][g]['form']] / 100 for g in left if g in NUT['goods']}
-    return dict(e_need=e_need, e_max=e_max, e_in=e, x=e / e_need, prot=p, prot_share=4 * p / e if e else 0,
+    return dict(sat=sat, s_cap=s_cap, e_need=e_need, e_max=e_max, e_in=e, x=e / e_need, prot=p, prot_share=4 * p / e if e else 0,
                 food_water=food_water, drink_water=drink_water, plain_water=plain_water, caf=caf, pal_act=pal_act,
                 work=workf, q=q, cov=cov, a_fe=a_fe, used=used, left=left, spoiled=spoiled)
 
@@ -251,6 +261,10 @@ CITIES = [
     ('F. Fishing village, 5,000, fish (whole animal) and crab in plenty; 70 % vigorous', 5000,
      {'vigorous': 0.7, 'active': 0.2, 'sedentary': 0.1},
      {'BONUS_FISH': 6000, 'BONUS_CRAB': 2000, 'BONUS_SALT': 15}),
+    ('G. Potato labourers, 10,000, potatoes and milk in plenty; 80 % vigorous', 10000,
+     {'vigorous': 0.8, 'active': 0.1, 'sedentary': 0.1}, {'BONUS_POTATO': 30000, 'BONUS_DAIRY': 6000, 'BONUS_SALT': 30}),
+    ('H. Lemon groves, 5,000, lemons, wheat and fish', 5000,
+     {'vigorous': 0.6, 'active': 0.3, 'sedentary': 0.1}, {'BONUS_LEMON': 6000, 'BONUS_WHEAT': 1500, 'BONUS_FISH': 600, 'BONUS_SALT': 15}),
     ('D. Besieged town, 20,000, grain and salt pork only', 20000,
      {'vigorous': 0.7, 'active': 0.2, 'sedentary': 0.1},
      {'BONUS_WHEAT': 3000, 'BONUS_PIG': 400, 'BONUS_SALT': 60}),
@@ -276,10 +290,10 @@ def main():
         for g in stocks:
             print('| %s | %s | %.0f | %.0f | %s | %s |' % (g[6:].title(), format(stocks[g], ','), grams_per_day(stocks[g], n),
                   r['q'].get(g, 0), format(round(r['left'][g]), ','), format(round(r['spoiled'].get(g, 0)), ',')))
-        print('\n| Need kcal | Ceiling kcal | Eaten kcal | x | Protein g (share) | Water from food ml | from drinks ml | plain water ml | Caffeine mg | PAL | Work |')
-        print('|---|---|---|---|---|---|---|---|---|---|---|')
-        print('| %d | %d | %d | %.2f | %d (%d %%) | %d | %d | %d | %d | %.2f | %.2f |' % (
-            r['e_need'], r['e_max'], r['e_in'], r['x'], r['prot'], round(100 * r['prot_share']), r['food_water'],
+        print('\n| Fullness eaten / capacity | Need kcal | Ceiling kcal | Eaten kcal | x | Protein g (share) | Water from food ml | from drinks ml | plain water ml | Caffeine mg | PAL | Work |')
+        print('|---|---|---|---|---|---|---|---|---|---|---|---|')
+        print('| %d / %d | %d | %d | %d | %.2f | %d (%d %%) | %d | %d | %d | %d | %.2f | %.2f |' % (
+            r['sat'], r['s_cap'], r['e_need'], r['e_max'], r['e_in'], r['x'], r['prot'], round(100 * r['prot_share']), r['food_water'],
             r['drink_water'], r['plain_water'], r['caf'], r['pal_act'], r['work']))
         print('\n| ' + ' | '.join(SHORT[k] for k in NUTRIENTS) + ' |')
         print('|' + '---|' * len(NUTRIENTS))
