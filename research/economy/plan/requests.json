@@ -2405,19 +2405,21 @@
   {
    "id": "R57",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M105",
    "text": "Reference pubmed instead of some bullshit institutions, and you will find literally everything",
    "items": [
     {
      "id": "R57.1",
      "what": "Replace institutional sources (FAO, EFSA, Japanese DRI, Wikipedia) in the nutrition record with PubMed references",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/nutrition_record.md sections 2a-2h"
     },
     {
      "id": "R57.2",
      "what": "Search PubMed for the open gaps (water need with labour, sweat sodium, maximal sustained energy, per-food reward, lightness, fish body composition, alcohol and tobacco harm) and add what is found",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/nutrition_record.md sections 2b, 2e, 2f, 3, 4"
     }
    ]
   }

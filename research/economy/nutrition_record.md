@@ -1,9 +1,9 @@
-# Nutrition and food: the clean record (R56, M104)
+# Nutrition and food: the clean record (R56, M104; PubMed sources R57, M105)
 
 This file replaces every earlier note on nutrition and food groups. It holds only two kinds of content:
 
 - **Section 1** is your inputs, quoted or condensed, with the prompt they come from.
-- **Section 2** is facts that were read in a named source during this work.
+- **Section 2** is facts read in a PubMed record during this work; facts still resting on an institution are listed apart in 2g.
 
 Section 3 lists known faults in the data files, section 4 the open gaps, and section 5 what was removed.
 
@@ -68,13 +68,18 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 
 ## 2. Verified facts
 
+Every fact cites a PubMed record (PMID) whose abstract or full text was read. Facts that still rest only on an institution's report are listed apart in section 2g, until a PubMed source replaces them (R57, M105).
+
 ### 2a. Energy
 
-- **Energy need = basal rate × physical activity level** (FAO/WHO/UNU, *Human energy requirements*, 2004).
-  - Basal rate, men aged 18-30: 15.057 × weight + 692.2 kcal; women: 14.818 × weight + 486.6 kcal.
-  - Lifestyle activity levels: sedentary 1.40-1.69, active 1.70-1.99, vigorous 2.00-2.40. Levels above 2.40 are hard to keep up.
-  - Worked examples: 1.53, 1.76 and 2.25. The vigorous example is non-mechanized farm work, giving 3,925 kcal for a man with a basal rate of 1,745 kcal.
-- **Reference weights:** 68.1 kg for men and 58.5 kg for women (EFSA DRV summary report 2017, Table 17).
+- **Energy need = basal rate × physical activity level (PAL).** PAL is total expenditure measured by doubly labelled water divided by basal rate (Black et al. 1996, 574 measurements, PMID 8641250).
+- **Basal rate** is predicted from weight, or weight and height, by sex and age (Schofield 1985, PMID 4044297). Subjects from developing countries had lower rates per kg than European or North American subjects. The coefficients are not in the abstract (section 2g).
+- **Range of PAL:**
+  - the limits of daily expenditure are about 1.2 × and 4.5 × basal rate (non-ambulant people and elite endurance athletes; Black 1996, PMID 8641250);
+  - PAL values of active people tend to be higher than assumed in the 1985 recommendations (same source);
+  - the general population has an upper PAL of 2.2-2.5; endurance athletes keep energy balance at 4.0-5.0 (Westerterp 2001, PMID 11581332);
+  - over events of 0.5 to 250+ days, sustained expenditure falls with duration and levels off below 3 × basal rate; food intake limits supply at about 2.5 × basal rate, beyond which body stores are drawn down (Thurber et al. 2019, PMID 31183404).
+- **Hunter-gatherers:** Hadza foragers had a higher PAL than Westerners, but the same daily expenditure after adjusting for body size (Pontzer et al. 2012, PMID 22848382).
 - **Caffeine** (Dulloo et al. 1989, PMID 2912010):
   - 100 mg raised the resting rate by 3-4 % for 150 minutes;
   - 100 mg every 2 h over 12 h raised expenditure by 8-11 %;
@@ -83,28 +88,41 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 
 ### 2b. Needs
 
-**EFSA 2017 (DRV summary report) for adult men:**
-- **Protein:** average requirement 0.66 g/kg a day.
-- **Vitamin average requirements:** C 90 mg, A 570 µg RE, thiamin 0.072 mg per MJ, niacin 1.3 mg NE per MJ, folate 250 µg DFE, riboflavin 1.3 mg, B6 1.5 mg.
-- **Adequate intakes:** B12 4 µg, iodine 150 µg, potassium 3,500 mg, magnesium 350 mg, selenium 70 µg.
-- **Mineral average requirements:**
-  - calcium 750 mg (25 and older);
-  - iron 6 mg, set assuming 16 % absorption;
-  - zinc 7.5, 9.3, 11.0 or 12.7 mg at phytate intakes of 300, 600, 900 and 1,200 mg.
-- **Thiamin and niacin are set per MJ of energy:** their needs rise with energy turnover.
+**Protein:** a meta-analysis of nitrogen balance in 235 adults gave an average requirement of 105 mg N/kg a day (0.65 g good-quality protein/kg) and a 97.5th percentile of 132 mg N/kg (0.83 g/kg). Climate, age, sex and protein source had no significant effect (Rand et al. 2003, PMID 12499330).
 
-**Sodium** (Dietary Reference Intakes for Japanese 2025, minerals chapter):
-- the average requirement is 600 mg a day for adults who do not sweat;
-- WHO puts the minimum at 200-500 mg;
-- heavy sweating in heat or labour loses a corresponding amount of sodium;
-- fluid replacement then needs a little salt added.
+**Calcium:** neutral balance in 155 adults was reached at 741 mg a day (95 % prediction interval 507-1,035), or 9.4 mg/kg, or 0.28 mg per kcal; age and sex had no effect (Hunt and Johnson 2007, PMID 17921384).
 
-**Water:** total water 2.5 L a day for men and 2.0 L for women, water in food included (EFSA 2010, as recorded in the D31 research).
+**Iodine:** an optimal adult intake is 150-250 µg a day; about 50 % of Europe remains mildly deficient (Zimmermann 2009, PMID 19460960).
 
-**Vitamin C and scurvy:**
-- about 10 mg a day prevents scurvy (Wikipedia, *Scurvy*);
-- symptoms appear after at least a month without it; the Iowa prison study saw them at about four weeks;
-- volunteers deprived for 3 months were scorbutic (PMID 5411783).
+**Vitamin C:**
+- seven volunteers on under 5 mg a day, then seven doses from 30 to 2,500 mg: plasma level against dose is sigmoid, steepest between 30 and 100 mg a day; white cells saturate at 100 mg, plasma at 1,000 mg; no vitamin C appears in urine below 100 mg (Levine et al. 1996, PMID 8623000);
+- volunteers deprived for 3 months developed signs of scurvy (Abboud et al. 1970, PMID 5411783; the depletion studies are Hodges et al. 1969 and 1971, PMID 4977512 and 5090631, which have no abstract on PubMed).
+
+**Water, rising with labour and heat:**
+- a daily total water intake of 3.7 L for men and 2.7 L for women meets the needs of most people; strenuous exercise and heat stress can greatly increase it (Sawka et al. 2005, PMID 16028570);
+- **water turnover equation** (Yamada et al. 2022, *Science*, 5,604 people in 23 countries, PMID 36423296; equation from the full text, PMC9764345):
+
+  WT (ml/d) = 1076 PAL + 14.34 BW + 374.9 Sex + 5.823 Hum + 1070 Ath + 104.6 HDI + 0.4726 Alt − 0.3529 Age² + 24.78 Age + 1.865 T² − 19.66 T − 713.1
+
+  | Symbol | Meaning | Unit |
+  |---|---|---|
+  | WT | water turnover: all water in (drink, food, metabolic water) and out | ml per day |
+  | PAL | physical activity level | ratio |
+  | BW | body weight | kg |
+  | Sex | 1 male, 0 female | — |
+  | Hum | relative humidity | % |
+  | Ath | 1 athlete, 0 not | — |
+  | HDI | human development index group: 0 high, 1 middle, 2 low | — |
+  | Alt | altitude | m |
+  | Age | age | years |
+  | T | air temperature | °C |
+
+  It explains 47.1 % of the variation. One unit more PAL adds about 1,000 ml a day; 30 °C adds about 1,000 ml over the 0-10 °C minimum. Hunter-gatherers, subsistence farmers and manual labourers had higher size-adjusted turnover.
+- wildland firefighters in arduous work had a water turnover of 6.7 L a day, against 3.8 L in active students, and lost body water over 5 days (Ruby et al. 2003, PMID 14523317).
+
+**Sodium lost in sweat:**
+- men working in heat: predicted losses of 4.8-6 g sodium per work shift, equal to 10-15 g salt; more in unacclimatised men (Bates and Miller 2008, PMID 18226265);
+- 1,303 athletes: sweat rates 0.83-1.51 L per hour and sodium losses 27-56 mmol (0.6-1.3 g) per hour by sport (Barnes et al. 2019, PMID 31230518).
 
 **Vitamin stores:**
 - fat-soluble vitamins are stored in fat and liver; water-soluble ones wash out (PMID 30860745);
@@ -140,6 +158,7 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
   - Pacific herring 195 kcal, 16.4 g protein and 13.9 g fat per 100 g (USDA 173669);
   - cod liver oil 30,000 µg vitamin A per 100 g (USDA 173577);
   - MEXT cod 350 µg iodine per 100 g.
+- **Small fish eaten whole** (with bone, head and eyes) are nutrient-dense animal food, rich in haem iron, zinc and especially calcium, with preformed vitamin A (Kongsbak et al. 2008, PMID 17925053).
 - **Iodine in milk:**
   - 5.5-49.9 µg per 100 g across 34 countries, median 17.3, higher in winter (PMID 39033567);
   - concentration follows the cows' iodine intake;
@@ -163,7 +182,7 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 - **Holt et al. 1995** (PMID 7498104):
   - isoenergetic 240 kcal servings of 38 foods, white bread = 100;
   - boiled potatoes 323 (highest), croissant 47 (lowest);
-  - the full list is as reproduced on Wikipedia, *Satiety value*.
+  - the full list of 38 foods is in the paper's table.
   - Satiety rose with serving weight (r 0.66), water (0.64), fibre (0.46) and protein (0.37), and fell with fat (−0.43) and palatability (−0.64).
   - Holt measured satiety over 2 hours.
 - **Fixed weight:** people tend to eat a consistent weight of food (Rolls 2009, PMID 19303887).
@@ -181,33 +200,55 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
   - a high-fat, low-carbohydrate meal left people sleepier and more tired 2-3 h later than a low-fat, high-carbohydrate meal (Wells 1997, PMID 9145937);
   - a calorie-rich meal brings postprandial fatigue (PMID 29705519).
 - **Sensory-specific satiety** is a short-term satiety signal (PMID 1752065).
-- **Protein leverage:** evidence for the protein leverage hypothesis exists (PMID 37820518).
+- **Protein leverage:** protein is about 15 % of dietary energy and nearly constant across populations; the hypothesis is that people eat until a protein target is met, so a diet diluted in protein raises total energy intake (Simpson and Raubenheimer 2005, PMID 15836464; evidence reviewed in PMID 37820518).
+- **Milk and later intake:** 34 boys given low-fat milk with breakfast ate 1,010 kcal at a buffet lunch 5 h later, against 1,059 after apple juice and 1,236 after water, and reported more satiety (Mehrabani et al. 2016, PMID 26099369).
+- **Which foods draw addictive-like eating:** among 35 foods, processing was a large positive predictor; fat and glycemic load were large positive predictors in a separate model (Schulte et al. 2015, PMID 25692302). This ranks attributes, not a dopamine value per food.
 
-### 2f. Measures
+### 2f. Harm
+
+- **Alcohol:** across 195 countries the level of consumption that minimised harm across health outcomes was zero (95 % UI 0.0-0.8) standard drinks a week; a standard drink is 10 g ethanol (GBD 2016 Alcohol Collaborators 2018, PMID 30146330).
+- **Tobacco:**
+  - 1-4 cigarettes a day against never smoking: ischaemic heart disease death RR 2.74 in men and 2.94 in women; death from any cause RR 1.57 and 1.47 (Bjartveit and Tverdal 2005, PMID 16183982);
+  - lifelong consistent smokers of under 1 cigarette a day: all-cause mortality HR 1.64; 1-10 a day: HR 1.87 (Inoue-Choi et al. 2017, PMID 27918784).
+
+### 2g. Still resting on institutions only (to replace with PubMed sources)
+
+| Fact | Institutional source | PubMed status |
+|---|---|---|
+| Basal rate coefficients, men 18-30: 15.057 × weight + 692.2 kcal; women 14.818 × weight + 486.6 | FAO/WHO/UNU 2004 tabulation of Schofield | Schofield 1985 (PMID 4044297) abstract has no coefficients |
+| Thiamin 0.072 mg per MJ; niacin 1.3 mg NE per MJ | EFSA 2017 | not found in PubMed searches |
+| Vitamin A 570 µg RE, folate 250 µg DFE, riboflavin 1.3 mg, B6 1.5 mg, B12 4 µg, magnesium 350 mg, selenium 70 µg, potassium 3,500 mg | EFSA 2017 | not found (potassium: PMID 32500831 gives a blood-pressure dose response, not a need) |
+| Iron 6 mg at 16 % absorption; zinc 7.5-12.7 mg by phytate intake | EFSA 2017 | absorption facts in section 2c are PubMed; the needs are not |
+| Sodium need without sweating, 600 mg | Japanese DRI 2025 | not found |
+| Scurvy prevented at about 10 mg vitamin C a day | earlier read on Wikipedia | Hodges 1971 (PMID 5090631) has no abstract; not verified |
+| Reference weights 68.1 kg men, 58.5 kg women | EFSA 2017 | not needed once a weight is chosen |
+
+### 2h. Measures
 
 - **Mean adequacy ratio:** the average over nutrients of intake ÷ requirement, each capped at 1. A standard measure of diet adequacy, approved by you (M102).
-- **Hydration index:** the hydration a drink gives relative to the same volume of water (M101; the Beverage Hydration Index compares a drink's fluid retention with water's, PMID 42884730).
+- **Hydration index:** the hydration a drink gives relative to the same volume of water (M101). Measured as water retained 2 h after 1 L, relative to still water, in 72 men: full-fat milk 1.50, skimmed milk 1.58, oral rehydration solution 1.54; cola, tea, coffee, lager, orange juice and sports drink did not differ from water (Maughan et al. 2016, PMID 26702122; also PMID 42884730).
 
 ## 3. Known faults in the data files (to fix before any model uses them)
 
 | File | Fault |
 |---|---|
 | `nutrition.json` and `nutrient_profiles.json` | **Two bases.** Energy, protein and fat come from FAO "as bought" records (beef 150 kcal per 100 g); vitamins and minerals come from USDA records of a different form (beef carcass 291 kcal). A model mixing them mismatches energy and nutrients. One record per good, all values from the same food form, is needed. |
-| `nutrient_profiles.json` | **Niacin.** USDA gives preformed niacin in mg; EFSA's need is in niacin equivalents, which include tryptophan / 60. Tryptophan (USDA nutrient 1210) must be added. |
-| `nutrient_needs.json` | **Thiamin and niacin** are converted at a fixed 2,600 kcal. EFSA sets them per MJ, so they must follow the actual energy turnover. |
-| `nutrient_needs.json` | **Water** is a fixed 2,250 ml. It must rise with labour and heat (M103); the slope is not yet sourced (section 4). |
-| `nutrient_needs.json` | **Vitamin C** uses EFSA's 90 mg, which is set for body saturation. Scurvy is prevented at about 10 mg; both thresholds have a role. |
+| `nutrient_profiles.json` | **Niacin.** USDA gives preformed niacin in mg; the need is in niacin equivalents, which include tryptophan / 60 (section 2c). Tryptophan (USDA nutrient 1210) must be added. |
+| `nutrient_needs.json` | **Thiamin and niacin** are converted at a fixed 2,600 kcal. They are set per MJ (section 2g), so they must follow the actual energy turnover. |
+| `nutrient_needs.json` | **Sodium** is fixed. Sweat losses of 4.8-6 g per shift in heat (section 2b) must be added with labour and heat. |
+| `nutrient_needs.json` | **Water** is a fixed 2,250 ml. It must rise with labour and heat (M103); the Yamada equation (section 2b) gives about 1,000 ml per unit of PAL and per 30 °C. |
+| `nutrient_needs.json` | **Vitamin C** uses EFSA's 90 mg. Levine (section 2b) shows the steep part of the curve at 30-100 mg and cell saturation at 100 mg; the dose that prevents scurvy is open (section 2g). |
 | Fish | The "whole fish" shares used earlier (50 % herring, 45 % cod, 5 % liver) were unsourced. The starving fishing village came from these shares and from taking the low end of the protein range. Both are removed. |
 
 ## 4. Open: what has no solid record yet
 
-- **Water need per unit of labour or energy turnover:** a source is needed. That it scales is your input (M103) and follows from sweat losses (section 2b, sodium).
-- **A per-food measure of reward or dopamine:** no per-food data exist in the sources read. Section 2e gives the direction of the effects (fat with sugar, alcohol, caffeine), not values per good.
+- **PubMed sources for the needs in section 2g.**
+- **A per-food measure of reward or dopamine:** no per-food values exist in the sources read. Section 2e gives the direction (fat with sugar, processing, glycemic load, alcohol, caffeine), not values per good.
 - **Lightness per food:** only the direction is known (fat increases sleepiness; Holt's water and weight correlations).
 - **Fullness per food:** only Holt's 38 foods are measured. A fitted formula reached R² 0.46 and is not a verified record.
 - **Daily ceilings per food:** the values are yours (milk, fat per good, lemons, fruit as a watermelon). The liver's protein capacity is from Bilsborough and Mann; others have no source.
-- **Whole-animal and catch compositions:** liver and roe shares for fish, cattle and pigs.
-- **Harm per gram** of alcohol and tobacco, and the tobacco data.
+- **Whole-animal and catch compositions:** liver and roe shares for fish, cattle and pigs. A search for cod liver weight returned nothing.
+- **Harm per amount:** section 2f gives the minimum (zero) and the risks at low doses; the full dose-response curves are not yet extracted.
 - **Prices:** to be established in the goods economy.
 
 ## 5. Removed
