@@ -10,6 +10,7 @@ needs={
           'Levels: minimum = lowest intake keeping deficiency signs absent or balance kept; mean = what a population eats (not a target); optimum = intake where a marker levels off; ceiling = lowest intake with observed harm in people, in daily intake units. '
           'A value is a number or [low, high]. Basis says how a level scales: per_day; per_kg (body weight); per_1000_kcal (energy turnover); per_g_protein (protein eaten); absorbed (amount taken up, before dividing by absorption).'),
  'version':2,'record':R,
+ 'model_constraint_rule':'Only limits on what the body can take in constrain eating: the liver\'s urea capacity for protein (nutrients.protein.intake_limit), lactose for people without lactase persistence, the user\'s ceilings per good (milk 3 L, 250 g fat from one good, fruit at most one watermelon; M86, M88, M93) and the energy need. Ceilings of harm (nutrient ceilings, the protein ceiling of 2-2.5 g/kg and 35 % of energy, fat above 300-400 g with sweating, alcohol) are consequences, reported, never constraints (M101: harm is a consequence, not a motive).',
  'model_target_rule':'The adequacy target of a nutrient is its optimum; where the record finds no plateau (potassium, magnesium) it is the recommended intake of section 2j. The deficiency threshold is the minimum. The ceiling is the observed-harm level; where the observed harm is not in daily intake units (iodine) the upper limit of section 2j is used, named as such.',
  'energy':{
    'ree_kcal':L({'per_kg':15.1,'constant':371},'Mifflin et al. 1990, PMID 2305711: weight-only equation REE = 15.1 W + 371 (R2 0.56); the full equation with height, age and sex is 9.99 W + 6.25 H - 4.92 A + 166 S - 161'),
@@ -29,7 +30,8 @@ needs={
     'mean':L(1.2,'PMID 42549120 (adults aged about 64)'),
     'optimum':L(1.62,'Morton et al. 2018, BJSM (no further fat-free mass gain above it; 95 % CI 1.03-2.20)'),
     'ceiling':L(2.5,'Bilsborough and Mann 2006, PMID 16779921: 2-2.5 g/kg suggested maximum, about 25 % of energy',energy_share_harm=0.35),
-    'recommended':L(0.8,'RDA (2j)'),'athletes':L([1.4,2.0],'ISSN 2017, PMC5477153')},
+    'recommended':L(0.8,'RDA (2j)'),'athletes':L([1.4,2.0],'ISSN 2017, PMC5477153'),
+    'intake_limit':L([3.56,4.56],'Bilsborough and Mann 2006 (record 2e): theoretical safe maximum 285-365 g a day for 80 kg, set by the liver\'s capacity to make urea; per kg = 285/80 to 365/80')},
   'sodium':{'unit':'mg','basis':'per_day',
     'minimum':L(21,'Mancilha-Carvalho 1989, PMID 2810327 (healthy Yanomamo excrete 0.9 mmol a day)'),
     'mean':L(3950,'Powles et al. 2013, PMID 24366578 (global mean 2010)'),
