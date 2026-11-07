@@ -20,6 +20,7 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 | M71 | Liquid milk is as valuable as fish or meat: extraordinary hydration, highly bioavailable protein and fat, and lactose as a stable carbohydrate. Drinks are measured as quantities per day, like drinking water or juice. |
 | M75 | Population follows nutrient quality and quantity. Good food raises fertility, productivity, and commercial, scientific and cultural output. It is more than protein boosting strength by a margin. Calories, satiety and health are separate measures. |
 | M84, M94 | Liver has plenty of vitamin A. Milk is an inland food and gives iodine. Animal foods provide the most bioavailable nutrition. |
+| M108 | Calcium is important and must not be ignored. It comes from drinking water and food. The most effective sources are dairy, animal bones and cooked small fish such as sardines. |
 | M83 | Seafood and milk provide iodine. Electrolytes are as important for life as macronutrients. The game needs one efficient model of deficiencies that covers all food sources. |
 | M82 | Tea, lemons, apples, bananas and all fruits, wine grapes included, help against scurvy. Scurvy follows a plain, deficient diet. |
 | M83 | Many teas carry real nutritional value against deficiency diseases. |
@@ -107,7 +108,7 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 
 **Protein:** a meta-analysis of nitrogen balance in 235 adults gave an average requirement of 105 mg N/kg a day (0.65 g good-quality protein/kg) and a 97.5th percentile of 132 mg N/kg (0.83 g/kg). Climate, age, sex and protein source had no significant effect (Rand et al. 2003, PMID 12499330).
 
-**Calcium:** neutral balance in 155 adults was reached at 741 mg a day (95 % prediction interval 507-1,035), or 9.4 mg/kg, or 0.28 mg per kcal; age and sex had no effect (Hunt and Johnson 2007, PMID 17921384).
+**Calcium need:** neutral balance in 155 adults was reached at 741 mg a day (95 % prediction interval 507-1,035), or 9.4 mg/kg, or 0.28 mg per kcal; age and sex had no effect (Hunt and Johnson 2007, PMID 17921384).
 
 **Magnesium:** neutral balance in 243 adults (27 controlled studies) at 165 mg a day (95 % prediction interval 113-237), or 2.36 mg/kg, or 0.075 mg per kcal; age and sex had no effect (Hunt and Johnson 2006, PMID 17023712).
 
@@ -208,6 +209,23 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 
 ### 2c. Absorption (bioavailability)
 
+- **Calcium, by source** (fraction absorbed, measured with calcium isotopes in the same people where stated):
+
+  | Source | Absorbed | Compared with | Study |
+  |---|---|---|---|
+  | Milk | 0.28-0.36 at 200-300 mg loads | — | the studies below |
+  | Small soft-boned fish eaten whole (Bengali fish, 397 mg Ca in a meal) | 23.8 % | skimmed milk 21.8 % (no difference) | Hansen et al. 1998, PMID 9857327, 19 adults |
+  | Calcium-rich mineral water (30 mg tracer load) | 21.6-22.6 % | milk 23.2 % | PMID 15365401 |
+  | High-calcium mineral waters, pooled | equal to milk or slightly better | milk | Heaney 2006, PMID 16895885 |
+  | Kale (low oxalate), 300 mg | 0.41 | milk 0.32 in the same 11 women | Heaney and Weaver 1990, PMID 2321572 |
+  | Calcium oxalate | 0.10 alone, 0.14 with milk | milk 0.36 | Heaney and Weaver 1989, PMID 2801588 |
+  | Spinach, 200 mg | 5.1 % | milk 27.6 % in the same 13 adults | Heaney et al. 1988, PMID 3354496 |
+  | Ice cream | 26-28 % | milk 31 % | PMID 19394469 |
+
+- **Load:** absorption of calcium salts with a light breakfast was 36.0 % at a 300 mg load and 28.4 % at 1,000 mg (Heaney et al. 1999, PMID 10367025). In rats, fractional absorption fell with both the meal's calcium and the previous intake, from 89 % to 11 % (PMID 8881718).
+- **Vitamin D:** vitamin D and its metabolites raised calcium absorption from a 300 mg load (Heaney et al. 1997, PMID 9398723); serum 25(OH)D correlated with absorption from milk and from a plant source (PMID 25809682).
+- **Plants in general:** the quantity of vegetables needed for sufficient calcium makes an exclusively plant diet impractical for most people without fortified foods or supplements; salt, protein and caffeine lower calcium retention (Weaver et al. 1999, PMID 10479229).
+
 - **Iron:**
   - absorbed 14-18 % from mixed diets and 5-12 % from vegetarian diets (Hurrell and Egli 2010, PMID 20200263);
   - tea cut absorption from a meal by 64 % and coffee by 39 % (PMID 6402915);
@@ -235,6 +253,9 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
   - Pacific herring 195 kcal, 16.4 g protein and 13.9 g fat per 100 g (USDA 173669);
   - cod liver oil 30,000 µg vitamin A per 100 g (USDA 173577);
   - MEXT cod 350 µg iodine per 100 g.
+- **Calcium in drinking water:** Chinese public water held 2.5-155 mg/L (mean 40.4); in high-calcium cities water could supply up to 52 % of the adult average need (PMID 36342636). In a UK cohort, domestic water averaged 52.6 mg/L calcium (PMID 39784501).
+- **Calcium in milk:** about 110 mg per 100 ml; lactose and casein phosphopeptides keep it soluble (Aoe 2018, PMID 29593135).
+- **Calcium in bone broth:** cooking bones in water extracts little; lowering pH from 8.38 to 5.32 and cooking over 8 h raised extraction, but home-made and commercial broths held no more than a few tenths of a mg of calcium per serving, under 5 % of the daily need; lead and cadmium were a few µg per serving (Hsu et al. 2017, PMID 28804437). The bones themselves, eaten, are the calcium (whole small fish above; dried powdered bone is about 31 % calcium, PMID 33310253).
 - **Parts of a cod** as % of whole ungutted weight (Torry Research Station, Advisory Note 17, reissued by FAO 2001; a measurement record, not a recommendation): head 21, guts 5-8 (average 7), liver 2-7 (5), roe 1-7 (4), backbone etc. 14, fins and lugs 10, skin 3, skinned fillet 36. "Weights of liver, guts, roe, etc., can fluctuate enormously with season, ground, condition of fish."
 - **Cod liver index** (liver weight ÷ body weight) in 200 Norwegian coastal cod: 0.039 north, 0.027 west, 0.026 east; range 0.010-0.107 (Valdersnes et al. 2017, PMC5439708, Table 1).
 - **Small fish eaten whole** (with bone, head and eyes) are nutrient-dense animal food, rich in haem iron, zinc and especially calcium, with preformed vitamin A (Kongsbak et al. 2008, PMID 17925053).

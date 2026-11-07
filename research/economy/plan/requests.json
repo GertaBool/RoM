@@ -2501,19 +2501,21 @@
   {
    "id": "R60",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M108",
    "text": "It's clearly NOT a complete list of nutrients, which is fine, but\n\n- Calcium is important \n\nIt's very bad to ignore calcium. It's sourced from drinking water and food. The most effective calcium sources are dairy and animal bones, as well as cooked small fish like sardines.",
    "items": [
     {
      "id": "R60.1",
      "what": "Record the user's input on calcium (section 1)",
-     "status": "open"
+     "status": "done",
+     "where": "nutrition_record.md 1a (M108)"
     },
     {
      "id": "R60.2",
      "what": "Find studies on calcium from drinking water (content, absorption), dairy, animal bones and small fish eaten with bones, and absorption per source; add to section 2",
-     "status": "open"
+     "status": "done",
+     "where": "nutrition_record.md 2b, 2c, 2d (calcium)"
     }
    ]
   }
