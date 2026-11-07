@@ -1,4 +1,4 @@
-# Nutrition and food: the clean record (R56, M104; PubMed sources R57-R58, M105-M106)
+# Nutrition and food: the clean record (R56, M104; PubMed sources R57-R59, M105-M107)
 
 This file replaces every earlier note on nutrition and food groups. It holds only two kinds of content:
 
@@ -68,7 +68,7 @@ Earlier notes, models and tools are in `archive/nutrition/` (see its README). Th
 
 ## 2. Verified facts
 
-Every fact cites a PubMed record (PMID) whose abstract or full text was read (R57, M105; R58, M106). No fact rests on an institution's report.
+Every fact cites a primary study, by PMID where PubMed indexes it, whose abstract or full text was read (R57-R59, M105-M107). Where only the abstract was reachable through another index, or the record is a research station's measurement note, the entry says so. No fact rests on an institution's recommendation.
 
 ### 2a. Energy
 
@@ -92,6 +92,8 @@ Every fact cites a PubMed record (PMID) whose abstract or full text was read (R5
   - PAL values of active people tend to be higher than assumed in the 1985 recommendations (same source);
   - the general population has an upper PAL of 2.2-2.5; endurance athletes keep energy balance at 4.0-5.0 (Westerterp 2001, PMID 11581332);
   - over events of 0.5 to 250+ days, sustained expenditure falls with duration and levels off below 3 × basal rate; food intake limits supply at about 2.5 × basal rate, beyond which body stores are drawn down (Thurber et al. 2019, PMID 31183404).
+- **Farmers and labourers:** Rwandan farmers had a PAL of 2.41, 1.5 times that of urban office workers (Harris et al. 2025, PMID 40970487); rural Gambian men spent 3,880 ± 994 kcal a day by doubly labelled water, 64 kcal/kg (Heini et al. 1996, PMID 8735308).
+- **Ceiling by duration:** sustained expenditure falls from about 10 × basal rate for 1-day events to about 2.5 × at about 28 weeks; tested in 14 ultra-endurance athletes (Best et al. 2025, PMID 41118725, testing the Thurber model).
 - **Hunter-gatherers:** Hadza foragers had a higher PAL than Westerners, but the same daily expenditure after adjusting for body size (Pontzer et al. 2012, PMID 22848382).
 - **Caffeine** (Dulloo et al. 1989, PMID 2912010):
   - 100 mg raised the resting rate by 3-4 % for 150 minutes;
@@ -138,7 +140,7 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 - 159 reconstructed Stone Age diets averaged 400 ± 125 mEq potassium a day, more than four times current intakes (Sebastian et al. 2006, PMID 17275582);
 - the Yanomamo, without salt, excreted 60 mmol potassium a day (women) and 67 (men) with no hypertension (Mancilha-Carvalho et al. 1989, PMID 2810327);
 - in 32 trials of 30-140 mmol supplements, the blood-pressure fall weakened above an extra 30 mmol a day and reversed above about 80 mmol (Filippini et al. 2020, PMID 32500831).
-- No study read gives a minimum need.
+- **minimum need:** in 14 balance studies on 11 healthy men, urinary potassium fell to equal intake within 4-7 days at 25-30 mEq a day; at 14 mEq a day it fell to 19-27 mEq by day 8, and urinary loss stayed above intake whenever intake was below 14 mEq; at under 1 mEq a day it fell to about 9-13 mEq by day 8 and 4.2 mEq in the third week. Skin loss at normal intake is about 4 mEq a day (Squires and Huth 1959, PMID 13664789, read from the full text).
 
 **Sodium without sweating:**
 - Yanomamo adults excreted 0.9 mmol (21 mg) sodium a day; 84 % excreted under 1 mmol; blood pressure did not rise with age (Mancilha-Carvalho et al. 1989, PMID 2810327); renin and aldosterone were raised, as in acutely salt-restricted people (Oliver et al. 1975, PMID 1132118);
@@ -165,7 +167,10 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 
 **Vitamin C:**
 - seven volunteers on under 5 mg a day, then seven doses from 30 to 2,500 mg: plasma level against dose is sigmoid, steepest between 30 and 100 mg a day; white cells saturate at 100 mg, plasma at 1,000 mg; no vitamin C appears in urine below 100 mg (Levine et al. 1996, PMID 8623000);
-- 10 mg a day prevents scurvy (the 1953 Sheffield study, as reported by Hemilä 2026, PMID 41424103; also Riddoch et al. 1998, PMID 9505156);
+- "the minimal amount of ascorbic acid necessary to prevent or cure scurvy appears to be slightly less than 10 mg daily"; "the full clinical syndrome does not appear until the normal body pool has been depleted to less than 300 mg" (Hodges et al. 1971, PMID 5090631; abstract as indexed by Scilit, the paper itself is closed access);
+- frank scurvy appeared in all subjects when the pool fell to 300 mg; depletion is exponential, repletion linear and proportional to intake (Baker et al. 1971, PMID 5090632, same route); symptoms began at about 300 mg, when catabolism had fallen below 2.5 mg a day (Hodges et al. 1969, PMID 4977512, same route);
+- the 1953 Sheffield study found 10 mg a day prevents scurvy (as reported by Hemilä 2026, PMID 41424103; also Riddoch et al. 1998, PMID 9505156);
+- half-life 10-20 days, depending on plasma level; a pool of 20 mg/kg is kept by a turnover of 60 mg a day (Hornig 1981, PMID 7029735);
 - the body pool rises to about 20 mg/kg with intake and is reached by 95 % of people at about 100 mg a day (Kallner et al. 1979, PMID 420145); smokers need at least 140 mg for the same pool (Kallner et al. 1981, PMID 7258125);
 - volunteers deprived for 3 months developed signs of scurvy (Abboud et al. 1970, PMID 5411783). The Iowa depletion papers (Hodges 1969 and 1971, Baker 1971; PMID 4977512, 5090631, 5090632) have no abstract on PubMed and are closed access.
 
@@ -189,6 +194,7 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
   | T | air temperature | °C |
 
   It explains 47.1 % of the variation. One unit more PAL adds about 1,000 ml a day; 30 °C adds about 1,000 ml over the 0-10 °C minimum. Hunter-gatherers, subsistence farmers and manual labourers had higher size-adjusted turnover.
+- in miners, construction workers in hot climates and soldiers, daily water losses can reach 10-12 L (Maughan and Shirreffs review, PMID 26290298);
 - wildland firefighters in arduous work had a water turnover of 6.7 L a day, against 3.8 L in active students, and lost body water over 5 days (Ruby et al. 2003, PMID 14523317).
 
 **Sodium lost in sweat:**
@@ -229,6 +235,8 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
   - Pacific herring 195 kcal, 16.4 g protein and 13.9 g fat per 100 g (USDA 173669);
   - cod liver oil 30,000 µg vitamin A per 100 g (USDA 173577);
   - MEXT cod 350 µg iodine per 100 g.
+- **Parts of a cod** as % of whole ungutted weight (Torry Research Station, Advisory Note 17, reissued by FAO 2001; a measurement record, not a recommendation): head 21, guts 5-8 (average 7), liver 2-7 (5), roe 1-7 (4), backbone etc. 14, fins and lugs 10, skin 3, skinned fillet 36. "Weights of liver, guts, roe, etc., can fluctuate enormously with season, ground, condition of fish."
+- **Cod liver index** (liver weight ÷ body weight) in 200 Norwegian coastal cod: 0.039 north, 0.027 west, 0.026 east; range 0.010-0.107 (Valdersnes et al. 2017, PMC5439708, Table 1).
 - **Small fish eaten whole** (with bone, head and eyes) are nutrient-dense animal food, rich in haem iron, zinc and especially calcium, with preformed vitamin A (Kongsbak et al. 2008, PMID 17925053).
 - **Iodine in milk:**
   - 5.5-49.9 µg per 100 g across 34 countries, median 17.3, higher in winter (PMID 39033567);
@@ -270,12 +278,27 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 - **Lightness:**
   - a high-fat, low-carbohydrate meal left people sleepier and more tired 2-3 h later than a low-fat, high-carbohydrate meal (Wells 1997, PMID 9145937);
   - a calorie-rich meal brings postprandial fatigue (PMID 29705519).
+- **How long food stays in the stomach:** across 33 studies of meals of 50-1,250 ml, the denser the meal in kcal per ml, the less volume left the stomach per minute, but energy delivered per minute still rose with density (Hunt and Stubbs 1975, PMID 1127608). A larger, denser meal therefore stays longer.
+- **Meal type and sleepiness:** a solid meal shortened sleep latency against an equal volume of water, but high-fat, high-carbohydrate and mixed meals did not differ (Orr et al. 1997, PMID 9284488). This contrasts with Wells 1997 above.
+- **Texture and eating rate:** hard ultra-processed meals were eaten at 25.9 g/min against 61.2 g/min for soft ones and gave 32 % more fullness for the same energy (PMID 42176807); slow eating of low energy-density food gave 573 kcal (50 %) less intake than fast eating of high energy-density food (PMID 40516651).
+- **Eggs:** an egg breakfast cut intake over the next 24 hours in 21 men against an isoenergetic bagel breakfast (Ratliff et al. 2010, PMID 20226994).
 - **Sensory-specific satiety** is a short-term satiety signal (PMID 1752065).
 - **Protein leverage:** protein is about 15 % of dietary energy and nearly constant across populations; the hypothesis is that people eat until a protein target is met, so a diet diluted in protein raises total energy intake (Simpson and Raubenheimer 2005, PMID 15836464; evidence reviewed in PMID 37820518).
 - **Milk and later intake:** 34 boys given low-fat milk with breakfast ate 1,010 kcal at a buffet lunch 5 h later, against 1,059 after apple juice and 1,236 after water, and reported more satiety (Mehrabani et al. 2016, PMID 26099369).
+- **Hyper-palatable foods, defined from composition** (Fazzino et al. 2019, PMID 31689013): fat and sodium (> 25 % of kcal from fat, ≥ 0.30 % sodium by weight); fat and simple sugars (> 20 % kcal from fat, > 20 % from sugar); carbohydrate and sodium (> 40 % kcal from carbohydrate, ≥ 0.20 % sodium). 62 % of 7,757 foods in the US food database met a criterion. This gives a per-food classification from composition alone.
+- **Per-food palatability ratings:** the food-pics database holds normative ratings of palatability and desire to eat for 568 foods from 1,988 people (Blechert et al. 2014, PMID 25009514).
+- **Palatable food and dopamine:** palatable food intake releases dopamine in two phases, at tasting and after ingestion (Thanarajah et al. 2019, PMID 30595479).
 - **Which foods draw addictive-like eating:** among 35 foods, processing was a large positive predictor; fat and glycemic load were large positive predictors in a separate model (Schulte et al. 2015, PMID 25692302). This ranks attributes, not a dopamine value per food.
 
-### 2f. Harm
+### 2f. Daily ceilings set by the gut
+
+- **Fat:** healthy subjects given corn and olive oil up to 639 g a day absorbed more than 98 % over 20 days; one tolerated 500-600 g without symptoms; daily fat of 300-400 g regularly caused marked sweating (Kasper 1970, PMID 5495429, abstract).
+- **Fructose alone:** no healthy subject malabsorbed 15 g; 10 % malabsorbed 25 g (without symptoms); 80 % malabsorbed 50 g and 55 % had symptoms (Rao et al. 2007, PMID 17625977). With an equal amount of glucose, 50 g fructose was absorbed by all; sucrose up to 100 g was absorbed by all (Rumessen and Gudmand-Høyer 1986, PMID 3781328). Fruit high in free fructose therefore has a ceiling that sugar does not.
+- **Lactose:** lactose malabsorption has a global prevalence of 68 % (PMID 31953721). Most people with lactose intolerance tolerate 12-15 g lactose (about one cup of milk); symptoms grow above 12 g, are appreciable after 24 g, and 50 g causes symptoms in most (systematic review, Wilt et al. 2010, PMID 20629478). Women who maldigest lactose ate a dairy diet with about 1,500 mg calcium a day without major symptoms (Suarez et al. 1998, PMID 9808231).
+- **Protein:** see section 2e (Bilsborough and Mann 2006).
+- **Alcohol and fat together:** ad libitum, alcohol and a high-fat diet added up to 2.8 MJ a day of overfeeding (Tremblay et al. 1995, PMID 7661127).
+
+### 2g. Harm
 
 - **Alcohol, dose-response:** in 599,912 current drinkers (83 studies), all-cause mortality rose curvilinearly with intake, lowest at or below 100 g a week. Stroke rose by HR 1.14 per 100 g a week, fatal hypertensive disease by 1.24, heart failure by 1.09; myocardial infarction fell (HR 0.94). Against >0-100 g a week, life expectancy at 40 was about 6 months lower at 100-200 g, 1-2 years at 200-350 g and 4-5 years above 350 g (Wood et al. 2018, PMID 29676281).
 - **Alcohol, minimum:** across 195 countries the level of consumption that minimised harm across health outcomes was zero (95 % UI 0.0-0.8) standard drinks a week; a standard drink is 10 g ethanol (GBD 2016 Alcohol Collaborators 2018, PMID 30146330).
@@ -284,7 +307,7 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
   - lifelong consistent smokers of under 1 cigarette a day: all-cause mortality HR 1.64; 1-10 a day: HR 1.87 (Inoue-Choi et al. 2017, PMID 27918784);
   - British doctors born 1900-1930 who kept smoking cigarettes died about 10 years younger than lifelong non-smokers; stopping at 60, 50, 40 or 30 gained about 3, 6, 9 or 10 years (Doll et al. 2004, PMID 15213107).
 
-### 2g. Measures
+### 2h. Measures
 
 - **Mean adequacy ratio:** the average over nutrients of intake ÷ requirement, each capped at 1. A standard measure of diet adequacy, approved by you (M102).
 - **Hydration index:** the hydration a drink gives relative to the same volume of water (M101). Measured as water retained 2 h after 1 L, relative to still water, in 72 men: full-fat milk 1.50, skimmed milk 1.58, oral rehydration solution 1.54; cola, tea, coffee, lager, orange juice and sports drink did not differ from water (Maughan et al. 2016, PMID 26702122; also PMID 42884730).
@@ -304,12 +327,11 @@ Each need below is the intake at which a measured marker (balance, a blood or ur
 
 ## 4. Open: what has no solid record yet
 
-- **A minimum potassium need:** the studies read give intakes and blood-pressure effects, not a need.
 - **A per-food measure of reward or dopamine:** no per-food values exist in the sources read. Section 2e gives the direction (fat with sugar, processing, glycemic load, alcohol, caffeine), not values per good.
-- **Lightness per food:** only the direction is known (fat increases sleepiness; Holt's water and weight correlations).
+- **Lightness per food:** the evidence is mixed (Wells 1997 against Orr 1997); stomach residence rises with energy density (Hunt and Stubbs). No per-food scale.
 - **Fullness per food:** only Holt's 38 foods are measured. A fitted formula reached R² 0.46 and is not a verified record.
-- **Daily ceilings per food:** the values are yours (milk, fat per good, lemons, fruit as a watermelon). The liver's protein capacity is from Bilsborough and Mann; others have no source.
-- **Whole-animal and catch compositions:** liver and roe shares for fish, cattle and pigs. A search for cod liver weight returned nothing.
+- **Daily ceilings per food:** fat, fructose, lactose and protein now have gut limits (section 2f). Your values for milk, lemons and fruit remain the inputs where these do not reach.
+- **Cattle and pig organ shares:** search results gave cattle liver at 1.5-1.9 % (base not stated) and total by-products at about 44 % of cattle live weight, but the sources were not read in full; not yet verified.
 - **Harm per amount:** section 2f gives the alcohol curve by 100 g a week and the tobacco risks; a tobacco curve per cigarette is not yet extracted.
 - **Prices:** to be established in the goods economy.
 
