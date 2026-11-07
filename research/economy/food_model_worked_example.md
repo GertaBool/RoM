@@ -21,7 +21,8 @@ $$
 
 $$
 \begin{aligned}
-(2)\quad & \text{tea: } \ell\chi/1000=43\cdot200/1000=8.6\ \text{mg/g};\quad q_{\mathrm{tea}}=\min(11.0,\;600/8.6)=11.0\ \text{g};\quad \text{caffeine}=94.2\ \text{mg};\quad c=94.2/600=0.157\\
+(2)\quad & \text{tea: } \ell\chi/1000=43\cdot200/1000=8.6\ \text{mg/g};\qquad q_{\mathrm{tea}}=\min(11.0,\;600/8.6)=11.0\ \text{g}\\
+& \text{caffeine}=11.0\cdot8.6=94.2\ \text{mg};\qquad c=94.2/600=0.157\\
 (3)\quad & \Lambda^{\mathrm w}=0.2\cdot2.25+0.4\cdot1.76+0.4\cdot1.53=1.766\\
 (4)\quad & E^{\mathrm{need}}=1536\cdot1.766+150\cdot0.157=2{,}735\ \text{kcal}\\
 (5)\quad & E^{\max}=1536\cdot2.40+150\cdot0.157=3{,}709\ \text{kcal}\\
@@ -67,7 +68,8 @@ $$
 (10)\quad & p=4\cdot18.5/150=0.493;\quad f=9\cdot7.9/150=0.474;\quad k=1-0.474-0.493=0.033;\quad z=l=0\\
 (11)\quad & \sigma=176/100=1.76\\
 (12)\quad & s=\frac{1+2.0\cdot0.493\cdot1}{1+2.0\cdot0.146\cdot0.44}=\frac{1.986}{1.128}=1.760\\
-(13)\quad & \nu=\tfrac{1}{13}\bigl(\underbrace{1}_{\text{prot}}+\underbrace{0}_{\text{C}}+\underbrace{1}_{\text{A}}+\underbrace{0.97}_{\text{B1}}+\underbrace{1}_{\text{B3}}+\underbrace{0.56}_{\text{fol}}+\underbrace{1}_{\text{B12}}+\underbrace{1}_{\text{Fe}}+\underbrace{1}_{\text{Zn}}+\underbrace{0.10}_{\text{Ca}}+\underbrace{0}_{\text{I}}+\underbrace{0.70}_{\text{K}}+\underbrace{0.90}_{\text{Na}}\bigr)=\tfrac{9.226}{13}=0.710\\
+(13)\quad & \nu=\tfrac{1}{13}\bigl(\underbrace{1}_{\text{prot}}+\underbrace{0}_{\text{C}}+\underbrace{1}_{\text{A}}+\underbrace{0.97}_{\text{B1}}+\underbrace{1}_{\text{B3}}+\underbrace{0.56}_{\text{fol}}+\underbrace{1}_{\text{B12}}\\
+& \qquad+\underbrace{1}_{\text{Fe}}+\underbrace{1}_{\text{Zn}}+\underbrace{0.10}_{\text{Ca}}+\underbrace{0}_{\text{I}}+\underbrace{0.70}_{\text{K}}+\underbrace{0.90}_{\text{Na}}\bigr)=\tfrac{9.226}{13}=0.710\\
 (14)\quad & \beta=1\cdot0+2\cdot0.474\cdot0.033+1\cdot0+1\cdot\min(1,0.201/3)-0.5\cdot0.474=0.031+0.067-0.237=-0.139\\
 (15)\quad & K^{(1)}=1.760+0.710=2.470;\qquad K^{(2)}=-0.139\\
 (16)\quad & \bar q=\min(547.9,\;250/0.079,\;\cdot)=\min(547.9,\,3165)=547.9

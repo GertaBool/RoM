@@ -117,8 +117,10 @@ $$
 ### M2. Need and bounds
 
 $$
-c=\min\!\Bigl(1,\;\frac{1}{\gamma}\sum_{g\in\mathcal G^{\mathrm T}} q_g\,\frac{\ell_g\chi_g}{1000}\Bigr),\qquad
-q_g=\min\!\Bigl(a_g,\;\frac{1000\,(\gamma-\textstyle\sum_{g'<g}q_{g'}\ell_{g'}\chi_{g'}/1000)}{\ell_g\chi_g}\Bigr)\;\;(g\in\mathcal G^{\mathrm T}) \tag{2}
+\begin{aligned}
+q_g&=\min\!\Bigl(a_g,\;\frac{1000\,\bigl(\gamma-\textstyle\sum_{g'<g}q_{g'}\ell_{g'}\chi_{g'}/1000\bigr)}{\ell_g\chi_g}\Bigr)\qquad g\in\mathcal G^{\mathrm T}\\
+c&=\min\!\Bigl(1,\;\frac{1}{\gamma}\sum_{g\in\mathcal G^{\mathrm T}} q_g\,\frac{\ell_g\chi_g}{1000}\Bigr)
+\end{aligned} \tag{2}
 $$
 
 $$

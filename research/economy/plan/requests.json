@@ -2233,14 +2233,15 @@
   {
    "id": "R52",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M99",
    "text": "Okay output these as PDFs",
    "items": [
     {
      "id": "R52.1",
      "what": "food_model_spec.md and food_model_worked_example.md as PDFs with the mathematics typeset",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/pdf/food_model_spec.pdf (8 pages), research/economy/pdf/food_model_worked_example.pdf (3 pages)"
     }
    ]
   }
