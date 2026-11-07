@@ -2721,19 +2721,21 @@
   {
    "id": "R67",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M115",
    "text": "\"The specification lists the remaining gaps:\"\n\nWhich normally I would like to discuss in detail, but you seem to forget many details of previous conversations despite everything being explicitly recorded. You don't seem to care about actually doing your job. \nThe rice town cannot have a .0816 nutrient coverage, that screams fraud \n*0.816",
    "items": [
     {
      "id": "R67.1",
      "what": "Trace the rice town's MAR of 0.816 nutrient by nutrient and name what makes it misleading or wrong",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/food_model_review_m115.md section 1"
     },
     {
      "id": "R67.2",
      "what": "List every recorded user input and record fact the model does not apply, with its prompt or section, for discussion",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/food_model_review_m115.md section 2"
     }
    ]
   }
