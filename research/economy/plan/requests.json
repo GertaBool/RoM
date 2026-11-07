@@ -630,6 +630,13 @@
    "kind": "correction",
    "text": "Fruit does provide satiety as well, I am just saying there is a different set of priorities",
    "led_to": "R43.3: fruit and well-being drinks keep their satiety, energy and nutrients; only their priority differs (taken for well-being, not ranked by satiety)"
+  },
+  {
+   "id": "M91",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "\"Drinks: no overall cap; only milk stops at 3 L.\"\n\nThat's pure nonsense as well. 3L would be the limit for milk. It's only part of an equation for the hydration of an individual. How did you miss this?\n\n\"Food weight: that limit is dropped, and fruit counts as watermelon.\"\n\nNO clue what you meant by that.\n\n\"Well-being goods first: fruit, wine and beer up to their ceilings, and tea and coffee up to 600 mg of caffeine.\nThen the foods by quality:\"\n\nNo. Not at all. I said fruit and drinks matter for different reasons, not that they receive explicit an explicit highest tier priority. \n\n\"Rich city: apples, wine, potatoes and beef, then milk up to the energy ceiling. Bread and sugar are left in stock, and the leftover fresh milk spoils.\"\n\nThat's probably not a good model, because the milk is partially turned into dairy products, bread would be consumed to some extent but not the same as if there was only bread you could eat, and sugar is likely going to be consumed the way it would be today or in 1900s Britain. It's just not realistic for a rich city to ignore sugar, meaning it also contributes to well-being\n\n\"Fishing village with only seafood: it stops at the protein ceiling with 1,885 kcal against a 3,193 kcal need, so seafood alone starves people the way lean game does.\"\n\nFish actually has fat, and people use cod liver, it's not very representative to only look at canned tuna for example, fish would have to be represented by looking at the whole animal being consumed like it was historically.\n\n\"Water supply faces: a city’s water supply covers its density faces in proportion to the WHO level it reaches. That would be a quarter at 20 L per person a day, half at 50 L, and all at 100 L. These replace the fixed health of the water buildings, so a growing city can outgrow its aqueduct.\"\n\nI think that water supply could be part of the general health equation, but yeah I think this makes sense.\n\n\"Markets and spoilage: Commercial Center and Commodity Market also cut spoilage of fresh food by half and of kept food by a quarter. These are my estimates.\"\n\nYeah.\n\n\"Well-being output: fruit, wine, beer, tea and coffee could feed the happiness line, the way luxuries do now. The exact rule is still to be proposed.\" \n\nCheck which other food goods could technically feed the happiness line and actually belong to the well-being priority, you might actually want to rank how different food goods would affect how light a person feels, the dopamine hit, and health effects.\n\n\"Missing Holt values: milk, pork, mutton, other seafood, maize, sugar, wine, beer and olives have no measured value, so the formula stands in for them.\"\n\nFind other references to check, but it's not necessarily bad to have a formula, it just has to be correct.",
+   "led_to": "R44: hydration as one equation (food water, drinks, water) with milk's 3 L as a good ceiling; the food-weight wording explained; no priority tier: one allocation with diminishing returns over satiety, nutrition and well-being; milk to dairy products, bread and sugar eaten in a rich city; fish as the whole animal; water supply in the general health; market spoilage accepted; well-being ranking of food goods; a correct satiety formula checked against references"
   }
  ],
  "requests": [
@@ -1924,6 +1931,60 @@
      "what": "Fruit still provides satiety (counted with its energy and nutrients); it differs in priority, not in what it gives (M90)",
      "status": "done",
      "where": "round_m89.md; food_model.py (WELLBEING); design.json D27 m89"
+    }
+   ]
+  },
+  {
+   "id": "R44",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M91",
+   "text": "\"Drinks: no overall cap; only milk stops at 3 L.\"\n\nThat's pure nonsense as well. 3L would be the limit for milk. It's only part of an equation for the hydration of an individual. How did you miss this?\n\n\"Food weight: that limit is dropped, and fruit counts as watermelon.\"\n\nNO clue what you meant by that.\n\n\"Well-being goods first: fruit, wine and beer up to their ceilings, and tea and coffee up to 600 mg of caffeine.\nThen the foods by quality:\"\n\nNo. Not at all. I said fruit and drinks matter for different reasons, not that they receive explicit an explicit highest tier priority. \n\n\"Rich city: apples, wine, potatoes and beef, then milk up to the energy ceiling. Bread and sugar are left in stock, and the leftover fresh milk spoils.\"\n\nThat's probably not a good model, because the milk is partially turned into dairy products, bread would be consumed to some extent but not the same as if there was only bread you could eat, and sugar is likely going to be consumed the way it would be today or in 1900s Britain. It's just not realistic for a rich city to ignore sugar, meaning it also contributes to well-being\n\n\"Fishing village with only seafood: it stops at the protein ceiling with 1,885 kcal against a 3,193 kcal need, so seafood alone starves people the way lean game does.\"\n\nFish actually has fat, and people use cod liver, it's not very representative to only look at canned tuna for example, fish would have to be represented by looking at the whole animal being consumed like it was historically.\n\n\"Water supply faces: a city’s water supply covers its density faces in proportion to the WHO level it reaches. That would be a quarter at 20 L per person a day, half at 50 L, and all at 100 L. These replace the fixed health of the water buildings, so a growing city can outgrow its aqueduct.\"\n\nI think that water supply could be part of the general health equation, but yeah I think this makes sense.\n\n\"Markets and spoilage: Commercial Center and Commodity Market also cut spoilage of fresh food by half and of kept food by a quarter. These are my estimates.\"\n\nYeah.\n\n\"Well-being output: fruit, wine, beer, tea and coffee could feed the happiness line, the way luxuries do now. The exact rule is still to be proposed.\" \n\nCheck which other food goods could technically feed the happiness line and actually belong to the well-being priority, you might actually want to rank how different food goods would affect how light a person feels, the dopamine hit, and health effects.\n\n\"Missing Holt values: milk, pork, mutton, other seafood, maize, sugar, wine, beer and olives have no measured value, so the formula stands in for them.\"\n\nFind other references to check, but it's not necessarily bad to have a formula, it just has to be correct.",
+   "items": [
+    {
+     "id": "R44.1",
+     "what": "Hydration: one equation for a person's water (food water + drinks by hydration index + plain water) against the need; milk's 3 L is only that good's ceiling",
+     "status": "open"
+    },
+    {
+     "id": "R44.2",
+     "what": "Explain what the dropped food-weight limit and 'fruit counts as watermelon' meant",
+     "status": "open"
+    },
+    {
+     "id": "R44.3",
+     "what": "No explicit priority tier for fruit and drinks: they matter for different reasons; one allocation that weighs satiety, nutrition and well-being",
+     "status": "open"
+    },
+    {
+     "id": "R44.4",
+     "what": "Rich city: surplus milk partly into dairy products; bread eaten to some extent; sugar eaten as today or in 1900s Britain, contributing to well-being",
+     "status": "open"
+    },
+    {
+     "id": "R44.5",
+     "what": "Fish as the whole animal eaten historically (fat, cod liver, roe), not lean fillet",
+     "status": "open"
+    },
+    {
+     "id": "R44.6",
+     "what": "Water supply faces: also part of the general health equation; the WHO-level proposal accepted",
+     "status": "open"
+    },
+    {
+     "id": "R44.7",
+     "what": "Markets cut spoilage: fresh by half, kept by a quarter (accepted)",
+     "status": "open"
+    },
+    {
+     "id": "R44.8",
+     "what": "Which food goods feed the happiness line and belong to well-being; rank goods by lightness, the dopamine hit and health effects",
+     "status": "open"
+    },
+    {
+     "id": "R44.9",
+     "what": "Satiety for goods without a Holt value: other references; a formula is fine if it is correct",
+     "status": "open"
     }
    ]
   }
