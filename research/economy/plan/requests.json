@@ -1804,19 +1804,21 @@
   {
    "id": "R41",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M87",
    "text": "\"The faces\n\n    Kept, as you said, as the sign of missing infrastructure.\n    Hover lines: water, sanitation and density, missing nutrients, war, and the resulting burden.\n    Proposal 1: the “from population” faces count the people not working plots (the dense population) instead of city size. Then a farming district shows few faces and a trade city many, until aqueducts, baths and sewers balance them.\n    Proposal 2: the share of people in unsanitized quarters comes from the density faces that the sanitation buildings don’t cover. Without hygiene, 500,000 and 10 million fare the same.\"\n\nOkay I need you to actually elaborate on these proposals\n\n\"The energy and intake model\"\n\nStill not a clear mathematical model that actually fits the goods of the game and doesn't seem fully integrated with nutrition figures and other markers",
    "items": [
     {
      "id": "R41.1",
      "what": "Elaborate face proposal 1 (faces from the dense population) and proposal 2 (unsanitized share from uncovered density faces): records, formulas, worked cases, edge cases, display and AI",
-     "status": "open"
+     "status": "done",
+     "where": "round_m87.md; design.json D27/D30 m87; tools faces_check.py, food_model.py"
     },
     {
      "id": "R41.2",
      "what": "One clear mathematical food model that fits the game's goods and is integrated with the nutrition figures and the other markers (calories, satiety, nutrients, drink, spoilage, health, population model)",
-     "status": "open"
+     "status": "done",
+     "where": "round_m87.md; design.json D27/D30 m87; tools faces_check.py, food_model.py"
     }
    ]
   }
