@@ -87,12 +87,21 @@ def good(g):
     return v
 
 
+# M94: land animals as the whole animal eaten, muscle with liver (liver about 3 % of the edible yield: ESTIMATE to
+# source). USDA SR Legacy: beef liver 169451 (4,968 ug vitamin A, 59 ug B12 per 100 g), pork liver 167862.
+WHOLE_ANIMAL = {'BONUS_COW': [('meat', 0.97), ('liver', 0.03)], 'BONUS_PIG': [('meat', 0.97), ('liver', 0.03)]}
+
+
 def micro(g):
     f = PROFILE_FORM.get(g)
     if not f:
         return None
-    u = next(x for x in PROF['goods'][g] if x['form'] == f)
-    r = {k: (u.get(k) or 0.0) for k in NUTRIENTS + ['kcal', 'water']}
+    if g in WHOLE_ANIMAL:
+        parts = [(next(x for x in PROF['goods'][g] if x['form'] == pf), sh) for pf, sh in WHOLE_ANIMAL[g]]
+        r = {k: sum((u.get(k) or 0.0) * sh for u, sh in parts) for k in NUTRIENTS + ['kcal', 'water']}
+    else:
+        u = next(x for x in PROF['goods'][g] if x['form'] == f)
+        r = {k: (u.get(k) or 0.0) for k in NUTRIENTS + ['kcal', 'water']}
     m = next((x for x in PROF.get('mext', {}).get(g, []) if x['form'] == MEXT_FORM.get(g)), None)
     r['iodine'] = (m['iodine'] or 0.0) if m else 0.0
     if g == 'BONUS_TEA' and m:
@@ -118,13 +127,17 @@ def satiety(g):
 
 
 def nutrition(g):
-    """nutrient density per 100 kcal, as the Nutrient Rich Foods index: shares of daily need capped at 1, averaged"""
+    """M94 (corrects M88-M93): nutrient density against the requirement density. For each nutrient, the amount per kcal
+    in the food divided by the amount per kcal a person needs (daily need / 2,600 kcal), capped at 1, averaged over
+    protein and the 12 nutrients. 1 = every kcal of this food carries its full share of every nutrient. The earlier score
+    divided each nutrient per 100 kcal by the whole day's need, which kept every food near 0 (beef 0.07)."""
     v, m = good(g), micro(g)
     if not v['kcal']:
         return 0.0
-    sh = [min(1.0, v['protein'] * 100.0 / v['kcal'] / NEED['needs']['protein']['value'])]
+    e_ref = NEED['reference']['energy_kcal']
+    sh = [min(1.0, (v['protein'] / v['kcal']) / (NEED['needs']['protein']['value'] / e_ref))]
     if m is not None and m['kcal']:
-        sh += [min(1.0, m[k] * 100.0 / m['kcal'] / NEED['needs'][k]['value']) for k in NUTRIENTS]
+        sh += [min(1.0, (m[k] / m['kcal']) / (NEED['needs'][k]['value'] / e_ref)) for k in NUTRIENTS]
     return sum(sh) / len(sh)
 
 
@@ -148,10 +161,24 @@ def wellbeing(g):
     return sugar + 2.0 * fat * carb + alcohol + light
 
 
+def satisfaction(g):
+    """how satisfying a good is per kcal for choosing it (M69, M88: high-protein foods satisfy most): the protein
+    factor of the generator (protein share x DIAAS, fitted to Holt's beef against bread; food_values_edits.py)"""
+    import importlib.util
+    global _FVE
+    if '_FVE' not in globals():
+        spec = importlib.util.spec_from_file_location('fve', os.path.join(HERE, 'connector', 'food_values_edits.py'))
+        _FVE = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_FVE)
+        _FVE.V = _FVE.values(NUT)
+    return _FVE.V[g]['factor']
+
+
 def value(g):
-    """M93: fullness is the limit, so the eating order weighs what a good delivers per unit of fullness: energy (1 per
-    kcal), nutrients and well-being, divided by its satiety. Staples fill; the best foods deliver the calories."""
-    return (1.0 + nutrition(g) + wellbeing(g)) / satiety(g)
+    """M94: what people prefer per kcal (M88: the goods that offer the most nutrition, health and satiety):
+    satisfaction (protein factor) + nutrient density against requirement + well-being. Holt's fullness (satiety(g))
+    does not enter the preference; it only decides when eating stops (fullness capacity, M92/M93)."""
+    return satisfaction(g) + nutrition(g) + wellbeing(g)
 
 
 def grams_per_day(t, n):
@@ -193,8 +220,8 @@ def city_year(people, work, stocks, step_kcal=10.0):
     sat = 0.0
     e, p, fruit = 0.0, 0.0, 0.0
     p_max = PROTEIN_MAX_SHARE * e_max / 4.0
-    # one allocation: each step of 10 kcal goes to the good whose next serving is worth most per unit of fullness:
-    # value / (1 + q / serving)
+    # one allocation: each step of 10 kcal goes to the good whose next serving is worth most: value / (1 + q / serving);
+    # eating stops when fullness (Holt) reaches the capacity
     while e < e_max - 1e-9 and sat < s_cap - 1e-9:
         best, bm = None, 0.0
         for g in foods:
@@ -280,12 +307,12 @@ SHORT = {'vit_c': 'C', 'vit_a_rae': 'A', 'thiamin': 'B1', 'niacin': 'B3', 'folat
 def main():
     print('BMR %.0f kcal; whole fish per 100 g as stored: %.0f kcal, %.1f g protein, %.1f g fat, %.0f ug vitamin A'
           % (BMR, WF['kcal'], WF['protein'], WF['fat'], WF['vit_a_rae']))
-    print('\n| Good | Satiety | Nutrition | Well-being | Value per fullness unit | Serving g |')
-    print('|---|---|---|---|---|---|')
+    print('\n| Good | Satisfaction (protein factor) | Nutrition (0-1) | Well-being | Preference per kcal | Fullness per kcal (Holt) | Serving g |')
+    print('|---|---|---|---|---|---|---|')
     gs = [g for g in NUT['goods'] if NUT['goods'][g]['kcal']]
     for g in sorted(gs, key=lambda g: -value(g)):
-        print('| %s | %.2f | %.2f | %.2f | %.2f | %s |' % (g[6:].title(), satiety(g), nutrition(g), wellbeing(g),
-                                                          value(g), SERVING_G[g]))
+        print('| %s | %.2f | %.2f | %.2f | %.2f | %.2f | %s |' % (g[6:].title(), satisfaction(g), nutrition(g), wellbeing(g),
+                                                                value(g), satiety(g), SERVING_G[g]))
     for name, n, work, stocks in CITIES:
         r = city_year(n, work, stocks)
         print('\n#### %s' % name)

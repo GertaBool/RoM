@@ -1,5 +1,7 @@
 # Fed by satiety, strong by energy and nutrients; fat limit 250 g (R46, M93)
 
+*Corrected in M94 (`round_m94.md`): the nutrient score was scaled wrongly, beef and pork lacked their liver, and the division of the preference by fullness is withdrawn. Fed, energy and the 250 g fat limit stand.*
+
 ## 1. Recorded (M93)
 
 - **Fullness as Holt measured it stays** (option A of `round_m92.md`). Grains and tubers kept people fed: they are full. Nutrition makes people strong and healthy.

@@ -2069,24 +2069,27 @@
   {
    "id": "R47",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M94",
    "text": "\"Meat and fish rank low in the new order, and drinks rank high. Meat's calories count like any other, and its nutrient score is small next to energy (beef scores 0.07)\"\n\nThat's total nonsense though, you assigned a completely wrong nutrient value. You actually did research on beef liver, we discussed several times over huge studies how animal foods provide the most nutrition and you're still going to assign a 0 to beef. Makes no sense, you made a mistake. \n\nAnd where is well-being? Did you just remove all other variables and go full potato mode? What is actually going on",
    "items": [
     {
      "id": "R47.1",
      "what": "Find and explain the error that gave beef a nutrient score near 0, and fix it",
-     "status": "open"
+     "status": "done",
+     "where": "round_m94.md; food_model.py (nutrition, WHOLE_ANIMAL, value); design.json D27 m94"
     },
     {
      "id": "R47.2",
      "what": "Animal goods as the whole animal (liver and organs), as decided for fish",
-     "status": "open"
+     "status": "done",
+     "where": "round_m94.md; food_model.py (nutrition, WHOLE_ANIMAL, value); design.json D27 m94"
     },
     {
      "id": "R47.3",
      "what": "Show where well-being and the other motives are in the eating order, and rerun",
-     "status": "open"
+     "status": "done",
+     "where": "round_m94.md; food_model.py (nutrition, WHOLE_ANIMAL, value); design.json D27 m94"
     }
    ]
   }
