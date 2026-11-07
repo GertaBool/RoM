@@ -805,6 +805,13 @@
    "kind": "correction",
    "text": "\"The specification lists the remaining gaps:\"\n\nWhich normally I would like to discuss in detail, but you seem to forget many details of previous conversations despite everything being explicitly recorded. You don't seem to care about actually doing your job. \nThe rice town cannot have a .0816 nutrient coverage, that screams fraud \n*0.816",
    "led_to": "R67: show how the rice town's 0.816 arises and what in the model makes it wrong; list every recorded input the model does not apply, for discussion"
+  },
+  {
+   "id": "M116",
+   "date": "2026-11-07",
+   "kind": "correction",
+   "text": "This is totally backwards. \nThe results of the case runs are false on first glance. No, you cannot do mental gymnastics like \"Eating so much fish kills you\". They ate fatty fish. They do not work less than cultures that only eat rice. You're being a scammer. \n\"What I kept: the daily urea capacity as the one protein limit, read as a rate spread over three meals: about 95 g a meal at 284 g a day. Protein within it counts fully as energy.\"\n\nThat's fine but your case runs are off and you have refused to check the actual nutrition behind the rice town outcomes. You have again acted intransparent and in plain bad faith.",
+   "led_to": "R68: fishing cases with the fatty fish fishing peoples ate, year-round (no seasonal runs, M101); rice town with the forms actually eaten; per-good contributions to every nutrient shown; rerun and check each result against the composition"
   }
  ],
  "requests": [
@@ -2736,6 +2743,30 @@
      "what": "List every recorded user input and record fact the model does not apply, with its prompt or section, for discussion",
      "status": "done",
      "where": "research/economy/food_model_review_m115.md section 2"
+    }
+   ]
+  },
+  {
+   "id": "R68",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M116",
+   "text": "This is totally backwards. \nThe results of the case runs are false on first glance. No, you cannot do mental gymnastics like \"Eating so much fish kills you\". They ate fatty fish. They do not work less than cultures that only eat rice. You're being a scammer. \n\"What I kept: the daily urea capacity as the one protein limit, read as a rate spread over three meals: about 95 g a meal at 284 g a day. Protein within it counts fully as energy.\"\n\nThat's fine but your case runs are off and you have refused to check the actual nutrition behind the rice town outcomes. You have again acted intransparent and in plain bad faith.",
+   "items": [
+    {
+     "id": "R68.1",
+     "what": "Fishing case: fatty fish as eaten (herring, mackerel, sardine records), year-round composition; drop the May/August runs (no seasons, M101)",
+     "status": "open"
+    },
+    {
+     "id": "R68.2",
+     "what": "Rice town: the forms actually eaten (polished or hand-pounded rice stated, small fish eaten whole, green tea with its vitamin C, tea's effect on iron)",
+     "status": "open"
+    },
+    {
+     "id": "R68.3",
+     "what": "Transparency: the tool reports each good's contribution to every nutrient; every case result checked against the composition and shown",
+     "status": "open"
     }
    ]
   }
