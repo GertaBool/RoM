@@ -17,7 +17,7 @@ import os
 import sys
 
 NUTRIENTS = {  # USDA nutrient id: (key, unit)
-    '1008': ('kcal', 'kcal'), '1003': ('protein', 'g'), '1004': ('fat', 'g'),
+    '1008': ('kcal', 'kcal'), '1003': ('protein', 'g'), '1004': ('fat', 'g'), '1051': ('water', 'g'),
     '1162': ('vit_c', 'mg'), '1106': ('vit_a_rae', 'ug'), '1114': ('vit_d', 'ug'),
     '1165': ('thiamin', 'mg'), '1166': ('riboflavin', 'mg'), '1167': ('niacin', 'mg'),
     '1190': ('folate_dfe', 'ug'), '1178': ('b12', 'ug'),
@@ -55,6 +55,10 @@ GOODS = {
     'REF_EGG': [('raw', '171287')], 'REF_KELP': [('raw', '168457')], 'REF_LENTILS': [('raw', '172420')],
     'REF_CABBAGE': [('raw', '169975')], 'REF_BARLEY': [('hulled', '170283')], 'REF_RYE': [('grain', '168884')],
     'REF_ONION': [('raw', '170000')],
+    # references for the intake ceilings (R40.3): fruit as watermelon (M86), pasta, ground beef, oranges
+    'REF_WATERMELON': [('raw', '167765')], 'REF_PASTA': [('cooked', '169737')],
+    'REF_GROUND_BEEF': [('80/20 raw', '174036')], 'REF_ORANGE': [('raw', '169097')],
+    'REF_SUGAR': [('granulated', '169655')],
 }
 
 

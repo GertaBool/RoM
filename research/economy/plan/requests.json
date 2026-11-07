@@ -1770,24 +1770,27 @@
   {
    "id": "R40",
    "date": "2026-11-07",
-   "status": "open",
+   "status": "done",
    "prompt": "M86",
    "text": "\"My proposal: keep the whole display and add lines to the hover for water, sanitation and density, missing nutrients, and war. Two questions for you:\n\n    Food penalty: should the extra food eaten be replaced by the population model’s effect on growth? Keeping both would count bad health twice. I recommend replacing it.\n    Unhealthy faces from city size: should these be replaced by the density term, since density now covers that? I recommend replacing them.\"\n\nWrt the food penalty\n\nLook at the actual code and compare it with what we are trying to implement\n\nUnhealthy faces are the most intuitive way to convey that the city is lacking key infrastructure, but you can implement the lines to the hover for water, sanitation and density, missing nutrients, and war\n\n\n\"Energy need now follows activity:\"\n\nGive a full, proper model, assume that the watermelon example is representative of fruits in general",
    "items": [
     {
      "id": "R40.1",
      "what": "Food penalty: read the actual code and compare it with what the population model implements",
-     "status": "open"
+     "status": "done",
+     "where": "round_m86.md; design.json D27/D30 m86; tools energy_intake.py, nutrient_profile.py (water, reference foods)"
     },
     {
      "id": "R40.2",
      "what": "Keep the unhealthy faces as the intuitive sign of missing infrastructure; add hover lines for water, sanitation and density, missing nutrients and war",
-     "status": "open"
+     "status": "done",
+     "where": "round_m86.md; design.json D27/D30 m86; tools energy_intake.py, nutrient_profile.py (water, reference foods)"
     },
     {
      "id": "R40.3",
      "what": "A full, proper energy and intake model, with the watermelon example representative of fruit in general",
-     "status": "open"
+     "status": "done",
+     "where": "round_m86.md; design.json D27/D30 m86; tools energy_intake.py, nutrient_profile.py (water, reference foods)"
     }
    ]
   }
