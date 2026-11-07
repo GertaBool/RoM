@@ -700,6 +700,13 @@
    "kind": "request",
    "text": "Apply abstract mathematical thinking.\n\nAssess how the mathematical equations can be improved from a semantic perspective, what they are lacking in representativeness, and whether they make any sense at all. \n\nGive me fully reasoned proposals, showcasing which variables would change.",
    "led_to": "R53: a semantic assessment of every equation of specification version 3 (units, meaning, representativeness) and reasoned proposals, each with the variables it adds, removes or changes; no model change until decided"
+  },
+  {
+   "id": "M101",
+   "date": "2026-11-07",
+   "kind": "decision",
+   "text": "Okay. These are way too many mistakes. I need you to work from first principles, start over again and with robust mathematics assemble a model that makes sense, without adding too many variables. I'm fine with the harm term for alcohol and tobacco. \n\n\"Milk is counted as 150 % water. The hydration index measures how well a drink is retained, not how much water it contains (F15).\"\n\nShows your total lack of understanding of basic logic, right there. Hydration is an index for how much you get compared to the same unit of water. \n\n\"There is no body fat store\"\n\nBaked into the city growth formula. \n\n\"There are no seasons\"\n\nBecause of fifty year turns and so on. \n\n\"There is one representative person per city, and no prices\"\n\nPrices have to be established, and ideally it fits the game, so these formulas can be applied to one city population as a whole.",
+   "led_to": "R54: the food model rebuilt from first principles with few variables (version 4, replacing versions 1-3); harm for alcohol and tobacco; hydration index as hydration relative to the same volume of water (F15 withdrawn); no body store (in the growth formula), no seasons (long turns); one city population as a whole; prices as an interface to be established"
   }
  ],
  "requests": [
@@ -2270,6 +2277,40 @@
      "what": "Fully reasoned proposals, each with the variables added, removed or changed",
      "status": "done",
      "where": "food_model_assessment.md (findings F1-F19, proposals A-J); pdf/food_model_assessment.pdf"
+    }
+   ]
+  },
+  {
+   "id": "R54",
+   "date": "2026-11-07",
+   "status": "open",
+   "prompt": "M101",
+   "text": "Okay. These are way too many mistakes. I need you to work from first principles, start over again and with robust mathematics assemble a model that makes sense, without adding too many variables. I'm fine with the harm term for alcohol and tobacco. \n\n\"Milk is counted as 150 % water. The hydration index measures how well a drink is retained, not how much water it contains (F15).\"\n\nShows your total lack of understanding of basic logic, right there. Hydration is an index for how much you get compared to the same unit of water. \n\n\"There is no body fat store\"\n\nBaked into the city growth formula. \n\n\"There are no seasons\"\n\nBecause of fifty year turns and so on. \n\n\"There is one representative person per city, and no prices\"\n\nPrices have to be established, and ideally it fits the game, so these formulas can be applied to one city population as a whole.",
+   "items": [
+    {
+     "id": "R54.1",
+     "what": "Rebuild the food model from first principles with robust mathematics and few variables; replace the old specification (fresh start)",
+     "status": "open"
+    },
+    {
+     "id": "R54.2",
+     "what": "Harm terms for alcohol and tobacco",
+     "status": "open"
+    },
+    {
+     "id": "R54.3",
+     "what": "Hydration index = hydration from a volume of the drink relative to the same volume of water; F15 withdrawn",
+     "status": "open"
+    },
+    {
+     "id": "R54.4",
+     "what": "No body store (it is in the city growth formula), no seasons (long turns), one city population as a whole",
+     "status": "open"
+    },
+    {
+     "id": "R54.5",
+     "what": "Prices to be established so that they fit the game; the model applies to a city's population as a whole",
+     "status": "open"
     }
    ]
   }
