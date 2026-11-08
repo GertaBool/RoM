@@ -867,6 +867,24 @@
    "led_to": [
     "R74"
    ]
+  },
+  {
+   "id": "M124",
+   "date": "2026-11-08",
+   "kind": "correction",
+   "text": "\"The check fails with your values\" yeah because your model SUCKS\nAnd you aren't meant to check or test the model",
+   "led_to": [
+    "R74"
+   ]
+  },
+  {
+   "id": "M125",
+   "date": "2026-11-08",
+   "kind": "request",
+   "text": "Assess whether all the columns and rows have been FAITHFULLY translated",
+   "led_to": [
+    "R75"
+   ]
   }
  ],
  "requests": [
@@ -3023,6 +3041,30 @@
     {
      "id": "R74.2",
      "what": "Explain the health profile of PR.F8.T5 in depth and transparently: what it is for in the plan, who reads it, what the options mean with a worked example; decide it with the user before writing fields",
+     "status": "open"
+    },
+    {
+     "id": "R74.3",
+     "what": "Do not check or test the model (M124): check_england1300.py is not the measure of the user's values; no check results are to be reported as findings against them",
+     "status": "open"
+    }
+   ]
+  },
+  {
+   "id": "R75",
+   "date": "2026-11-08",
+   "status": "open",
+   "prompt": "M125",
+   "text": "Assess whether all the columns and rows have been FAITHFULLY translated",
+   "items": [
+    {
+     "id": "R75.1",
+     "what": "Audit, cell by cell and with a tool, that every column and row of user_inputs_m120.ods reached the CSV export unchanged",
+     "status": "open"
+    },
+    {
+     "id": "R75.2",
+     "what": "Audit that every row and column of the CSV reached user_inputs.json (and nutrition.json) faithfully: each value and note used as written, or listed as not used, with every deviation named",
      "status": "open"
     }
    ]
