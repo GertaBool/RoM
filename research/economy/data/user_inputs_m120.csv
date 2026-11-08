@@ -1,0 +1,228 @@
+id,section,item,unit,needed_for,nuance,your_value,your_nuance
+U001,satiety,satiety index of BONUS_WHEAT,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,157
+U002,satiety,satiety index of BONUS_RICE,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,138
+U003,satiety,satiety index of BONUS_RICE:polished,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,100
+U004,satiety,satiety index of BONUS_CORN,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,100
+U005,satiety,satiety index of BONUS_POTATO,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,(not relevant)
+U006,satiety,satiety index of BONUS_POTATO:boiled,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,180
+U007,satiety,satiety index of BONUS_COW,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,300
+U008,satiety,satiety index of BONUS_COW:liver,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,400
+U009,satiety,satiety index of BONUS_COW:heart,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,400
+U010,satiety,satiety index of BONUS_COW:kidneys,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,400
+U011,satiety,satiety index of BONUS_PIG,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,260
+U012,satiety,satiety index of BONUS_PIG:liver,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,350
+U013,satiety,satiety index of BONUS_PIG:heart,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,350
+U014,satiety,satiety index of BONUS_PIG:kidneys,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,350
+U015,satiety,satiety index of BONUS_SHEEP,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,320
+U016,satiety,satiety index of BONUS_DEER,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,280
+U017,satiety,satiety index of BONUS_HORSE,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,280
+U018,satiety,satiety index of BONUS_FISH,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,225
+U019,satiety,satiety index of BONUS_FISH:herring,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,230
+U020,satiety,satiety index of BONUS_FISH:salt cod,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U021,satiety,satiety index of BONUS_FISH:roe,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U022,satiety,satiety index of BONUS_FISH:liver (lingcod),"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,400
+U023,satiety,satiety index of BONUS_FISH:Pacific herring,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U024,satiety,satiety index of BONUS_FISH:Atlantic mackerel,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U025,satiety,satiety index of BONUS_CLAM,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,400
+U026,satiety,satiety index of BONUS_CRAB,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,225
+U027,satiety,satiety index of BONUS_SHRIMP,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,225
+U028,satiety,satiety index of BONUS_WHALE,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,300
+U029,satiety,satiety index of BONUS_DAIRY,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,350
+U030,satiety,satiety index of BONUS_DAIRY:cheese,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,500
+U031,satiety,satiety index of BONUS_DAIRY:butter,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U032,satiety,satiety index of BONUS_BANANA,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,118
+U033,satiety,satiety index of BONUS_LEMON,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U034,satiety,satiety index of BONUS_LEMON:juice,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U035,satiety,satiety index of BONUS_APPLE,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,197
+U036,satiety,satiety index of BONUS_APPLE:dried,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,180
+U037,satiety,satiety index of BONUS_OLIVES,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,180
+U038,satiety,satiety index of BONUS_OLIVES:oil,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,160
+U039,satiety,satiety index of BONUS_SUGAR,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,80
+U040,satiety,satiety index of BONUS_SUGAR:molasses,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,120
+U041,satiety,satiety index of BONUS_WINE,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,197
+U042,satiety,satiety index of BONUS_WINE:raisins,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,180
+U043,satiety,satiety index of BONUS_WINE:wine,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U044,satiety,satiety index of BONUS_ALCOHOL,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,75
+U045,satiety,satiety index of BONUS_TEA,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U046,satiety,"satiety index of BONUS_TEA:green, brewed","white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U047,satiety,satiety index of BONUS_SALT,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,200
+U048,satiety,satiety index of BONUS_WHEAT:mext:soft flour,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,100
+U049,satiety,satiety index of BONUS_RICE:mext:polished,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,100
+U050,satiety,satiety index of BONUS_CORN:mext:grain,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,100
+U051,satiety,satiety index of BONUS_POTATO:mext:raw,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,0
+U052,satiety,satiety index of BONUS_COW:mext:shoulder,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,300
+U053,satiety,satiety index of BONUS_PIG:mext:loin,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U054,satiety,satiety index of BONUS_PIG:mext:liver,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,350
+U055,satiety,satiety index of BONUS_FISH:mext:cod,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,225
+U056,satiety,satiety index of BONUS_FISH:mext:sardine,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,300
+U057,satiety,satiety index of BONUS_FISH:mext:salmon,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U058,satiety,satiety index of BONUS_FISH:mext:bonito,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,225
+U059,satiety,"satiety index of BONUS_FISH:mext:pond smelt, whole","white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,225
+U060,satiety,"satiety index of BONUS_FISH:mext:loach, whole","white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,225
+U061,satiety,"satiety index of BONUS_FISH:mext:dried sardine, whole (mezashi)","white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,300
+U062,satiety,satiety index of BONUS_CLAM:mext:asari clam,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,300
+U063,satiety,satiety index of BONUS_CLAM:mext:oyster,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,350
+U064,satiety,satiety index of BONUS_WHALE:mext:red meat,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,300
+U065,satiety,satiety index of BONUS_WHALE:mext:skin (honkawa),"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,200
+U066,satiety,satiety index of BONUS_WHALE:mext:belly (unesu),"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U067,satiety,satiety index of BONUS_DAIRY:mext:milk,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,350
+U068,satiety,satiety index of BONUS_DAIRY:mext:processed cheese,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,500
+U069,satiety,satiety index of BONUS_LEMON:mext:whole fruit,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U070,satiety,satiety index of BONUS_APPLE:mext:with skin,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,197
+U071,satiety,satiety index of BONUS_BANANA:mext:raw,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,197
+U072,satiety,satiety index of BONUS_WINE:mext:grapes,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,197
+U073,satiety,satiety index of BONUS_WINE:mext:raisins,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,180
+U074,satiety,satiety index of BONUS_WINE:mext:red wine,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U075,satiety,satiety index of BONUS_TEA:mext:sencha infusion,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U076,satiety,satiety index of BONUS_TEA:mext:gyokuro infusion,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U077,satiety,satiety index of BONUS_TEA:mext:kamairi infusion,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U078,satiety,satiety index of BONUS_TEA:mext:bancha infusion,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U079,satiety,satiety index of BONUS_TEA:mext:black tea infusion,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U080,satiety,satiety index of BONUS_TEA:mext:matcha powder,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U081,satiety,satiety index of BONUS_TEA:mext:sencha leaves,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U082,satiety,satiety index of BONUS_SALT:mext:salt,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,200
+U083,satiety,satiety index of BONUS_SUGAR:mext:white sugar,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,80
+U084,satiety,satiety index of REF_EGG:mext:raw,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,200
+U085,satiety,"satiety index of REF_KELP:mext:ma-kombu, dried","white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,75
+U086,satiety,satiety index of REF_CABBAGE:mext:raw,"white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,50
+U087,satiety,"satiety index of BONUS_FISH:herring whole, May","white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U088,satiety,"satiety index of BONUS_FISH:herring whole, August","white bread = 100, per 240 kcal","satiety as the gauge of being fed (M92, M93)",Holt measured 38 foods,250
+U089,satiety,fullness level that counts as fed,"mean satiety index of the day's energy, or another measure you name",stage 2: being fed by satiety instead of energy,"how fullness and the energy need combine: e.g. fed when both are met, or fullness first",3000
+U090,satiety,satiety of drinks,factor on the satiety of the same energy as food,"milk, beer, wine, tea in the being-fed measure","the record: liquid calories satiate less, compensation incomplete (PMID 14649371, 36771409); no factor given",0.8
+U091,dessert,goods that count as dessert or well-being goods,list of goods,"""steak and potatoes, then dessert"" (M88)","fruit, sugar, wine, beer, tea, olives?","BONUS_BANANA, BONUS_LEMON  BONUS_LEMON:juice  BONUS_APPLE  BONUS_APPLE:dried  BONUS_OLIVES  BONUS_OLIVES:oil  BONUS_SUGAR  BONUS_SUGAR:molasses  BONUS_WINE  BONUS_WINE:raisins  BONUS_WINE:wine  BONUS_ALCOHOL  BONUS_TEA  BONUS_TEA:green, brewed                        BONUS_LEMON:mext:whole fruit  BONUS_APPLE:mext:with skin  BONUS_BANANA:mext:raw  BONUS_WINE:mext:grapes  BONUS_WINE:mext:raisins  BONUS_WINE:mext:red wine  BONUS_TEA:mext:sencha infusion  BONUS_TEA:mext:gyokuro infusion  BONUS_TEA:mext:kamairi infusion  BONUS_TEA:mext:bancha infusion  BONUS_TEA:mext:black tea infusion  BONUS_TEA:mext:matcha powder  BONUS_TEA:mext:sencha leaves BONUS_SUGAR:mext:white sugar "
+U092,dessert,energy allowed beyond the need for dessert,"kcal per person per day, or % of the need",dessert intake after nutrition is met,or: dessert replaces lower-quality staple energy within the need,100.00%
+U093,dessert,order within dessert,rule,which dessert good first,"by reward (hyper-palatable), lightness, health, repetition (M91, M102)","Sugar first, Fruit second. Wine:wine and Alcohol third, Tea and Olives fourth"
+U094,rich city,milk to cheese,kg milk per kg cheese,rich city (M91),"by cheese type: fresh, hard",10.00kg
+U095,rich city,milk to butter,kg milk per kg butter,rich city (M91),,20.00kg
+U096,rich city,grain to bread,kg bread per kg grain,rich city (M91),extraction and water added,0.60kg
+U097,rich city,share of surplus milk turned into dairy products,%,rich city (M91),by city size or market building,70.00%
+U098,rich city,trigger of the rich city,"building, tier or wealth",rich city (M91),"Commercial Center, Commodity Market, Fair (M88)","BUILDINGCLASS_METROPOLITAN_ESSENTIALS, POPULATION > 10, RIVER PORT AND ABOVE, MARKET AND ABOVE ","In theory, this would all be equivalent to a wealthy city ingame, but a rich city is not really a triggered state, rather a plain description for an ingame city used for targeted simulations, which imagines a large well supplied city with access to trade routes and various resources"
+U099,rich city,sugar intake of a rich city,g per person per day,rich city (M91),today or 1900s Britain (M91),50g of sugar per person per day,OECD–FAO
+U100,game effects,labour capacity to production,function,"food effects in the game (M57, M75)",e.g. hammers or tile output x labour capacity,needs to be discussed
+U101,game effects,deficiency to health,function,"food effects in the game (M57, M75)","unhealthy faces per nutrient below its minimum, or by severity",By severity
+U102,game effects,harms to health,function,"food effects in the game (M57, M75)","nutrient ceilings, protein above 2.5 g/kg, alcohol, contaminants","Toxicity thresholds, alcohol consumptions, tobacco consumption, contaminants, poisoning, pesticides, environmental pollutants"
+U103,game effects,nutrition (MAR) to growth or fertility,function,"food effects in the game (M57, M75)",M75: good food raises fertility,"Strength: Logarithmic relationship to protein consumption and health
+
+Fertility: Function where excess energy and nutrients boost fertility under the condition that toxicity thresholds aren’t reached, harmful substances harm fertility, animal foods and desserts disproportionately boost fertility, clams disproportionately boost fertility"
+U104,game effects,"nutrition to commerce, science, culture",function,"food effects in the game (M57, M75)",M75,"Excess energy and nutrition boost commerce (commerce is the yield, gold science culture espionage are the outputs), under the condition that toxicity thresholds aren’t reached"
+U105,game effects,high-protein foods to unit strength,% strength,"food effects in the game (M57, M75)","M57: not siege, vehicles, robots, machines","Logarithmic relationship of unit strength to protein consumption, minimal protein consumption (50g of protein a day) provide a unit at 30% of the regular strength, adequate protein consumption (1.6g per kg of bodyweight) provides a unit at 80% of the unit strength, high protein consumption (above adequacy capped at the liver limit (roughly 288g per day)) raises the strength of the unit, capped at 200%"
+U106,game effects,starving to population,function,"food effects in the game (M57, M75)",energy below 1.2 x REE: deaths or decline per turn,Decline per turn or a negative growth rate,"Population doesn’t breed, possible mass die-off"
+U107,game effects,iodine to research or culture,function,"food effects in the game (M57, M75)",M118: cognition,"Iodine below 150 µg: Decline from 100 IQ down to possibly two standard deviations less (limit: 70 IQ)
+
+Iodine at 150 µg: 100 IQ
+
+Iodine above 150 µg: Rise from 100IQ up to possibly one standard deviations (limit: 115 IQ)
+
+Iodine above 1mg: IQ remains stable until 5mg
+
+Iodine above 5mg: Toxicity, IQ declines from 115 until complete annihilation at 5g","Independent IQ variable, every point above and below 100 has an exponentially larger effect on output (positive and negative)
+
+IQ is a complex variable that has its own function, and relates to the output in all yields (food, production, commerce (gold, research, culture, espionage outputs of commerce))
+
+Proper yields impossible below 70IQ, only subsistence can be achieved there on a very small scale (1000-2000 pop), barely any commerce, low IQ a is genuine civilizational extinction level threat"
+U108,whale,whale meat share,% of live or carcass weight (say which),"whale as eaten (M83, M85)","species; MEXT holds red meat (11110), skin with blubber honkawa (11112), belly unesu (11111)",30.00%,"ResearchGate, Memorial University of Newfoundland"
+U109,whale,whale blubber share,% of live or carcass weight (say which),"whale as eaten (M83, M85)","species; MEXT holds red meat (11110), skin with blubber honkawa (11112), belly unesu (11111)",40.00%,"ResearchGate, Memorial University of Newfoundland"
+U110,whale,whale liver share,% of live or carcass weight (say which),"whale as eaten (M83, M85)","species; MEXT holds red meat (11110), skin with blubber honkawa (11112), belly unesu (11111)",2.00%,"ResearchGate, Memorial University of Newfoundland"
+U111,whale,whale other organs eaten share,% of live or carcass weight (say which),"whale as eaten (M83, M85)","species; MEXT holds red meat (11110), skin with blubber honkawa (11112), belly unesu (11111)",12.00%,"ResearchGate, Memorial University of Newfoundland"
+U112,pig,pig meat (lean) share,% of live weight,"pig as eaten (M84, M94)","record: pig liver 1.5 % of slaughter by-products, base not stated",55.00%
+U113,pig,pig liver share,% of live weight,"pig as eaten (M84, M94)","record: pig liver 1.5 % of slaughter by-products, base not stated",2.00%
+U114,pig,pig heart share,% of live weight,"pig as eaten (M84, M94)","record: pig liver 1.5 % of slaughter by-products, base not stated",0.40%
+U115,pig,pig kidneys share,% of live weight,"pig as eaten (M84, M94)","record: pig liver 1.5 % of slaughter by-products, base not stated",0.40%
+U116,pig,"pig fat eaten (lard, back fat) share",% of live weight,"pig as eaten (M84, M94)","record: pig liver 1.5 % of slaughter by-products, base not stated",30.00%
+U117,cow,"Cow as eaten: meat, fat and organ shares",% of live weight,cow as eaten,,"60%, 20%, 2.5%"
+U118,sheep,"sheep as eaten: meat, fat and organ shares",% of live weight,"whole animal (M84, M94)",,"60%, 25%, 2.5%"
+U119,deer,"deer as eaten: meat, fat and organ shares",% of live weight,"whole animal (M84, M94)",,"70%, 10%, 3%"
+U120,horse,"horse as eaten: meat, fat and organ shares",% of live weight,"whole animal (M84, M94)",,"65%, 15%, 2.5%"
+U121,ceilings,lemons per day,g per person per day,M92,whole fruit or juice,"Lemon fruit: 30g
+
+Lemon cider: 1L (equivalent to 30g)"
+U122,ceilings,meat per day,g,M85,applies to every meat good? to the whole animal or muscle only? an Indian wrote this,"Median: 150g
+
+Upper end: 400g
+
+Maximum: 1kg","Actual population consumption of the meat in total
+
+Each livestock (cattle, pig, sheep, horse) and deer count towards “meat”, even though the game might distinguish between beef and mutton and pork etc"
+U123,ceilings,cheese per day,g,M85,,1000
+U124,ceilings,milk per day,g,M88,,3000
+U125,ceilings,fat from one good per day,g,M93,,250
+U126,ceilings,"fruit per day, all fruit",g,M86,,4518
+U127,ceilings,ceiling of BONUS_SUGAR,g per person per day,what a person can physically take (P6),,300
+U128,ceilings,ceiling of BONUS_OLIVES,g per person per day,what a person can physically take (P6),,200
+U129,ceilings,ceiling of BONUS_WINE (wine),g per person per day,what a person can physically take (P6),,2000,2000g = 2L of wine
+U130,ceilings,ceiling of BONUS_ALCOHOL (beer),g per person per day,what a person can physically take (P6),,2000
+U131,ceilings,ceiling of BONUS_SALT,g per person per day,what a person can physically take (P6),,20,"could physically take above that threshold, but toxicity is documented for acute one-time doses, 20g across the day however is physiologically manageable, although potentially harmful like alcohol"
+U132,ceilings,ceiling of BONUS_TEA,g per person per day,what a person can physically take (P6),,2000,Brewed tea in liters
+U133,ceilings,ceiling of BONUS_COFFEE,g per person per day,what a person can physically take (P6),,2000,Brewed coffee in liters
+U134,ceilings,ceiling of BONUS_CLAM,g per person per day,what a person can physically take (P6),,800
+U135,ceilings,ceiling of BONUS_WHALE,g per person per day,what a person can physically take (P6),,800
+U136,forms,form of BONUS_WHEAT eaten by default,form name,composition of the good,"options: grain, mext:soft flour; by culture, era or region?",Bread,"People usually make bread, plain grain is not nutritious and has to be cooked to porridge or made to flour and bread, ideally fermented"
+U137,forms,form of BONUS_RICE eaten by default,form name,composition of the good,"options: brown, polished, mext:polished; by culture, era or region?",Polished,Brown rice carries too many contaminants and heavy metals
+U138,forms,form of BONUS_CORN eaten by default,form name,composition of the good,"options: grain, mext:grain; by culture, era or region?",Grain,"It’s possible to eat cooked grain, however corn is also made to flour and into bread"
+U139,forms,form of BONUS_POTATO eaten by default,form name,composition of the good,"options: raw, boiled, mext:raw; by culture, era or region?",Boiled,Raw potatoes are poisonous
+U140,forms,form of BONUS_COW eaten by default,form name,composition of the good,"options: meat, liver, heart, kidneys, mext:shoulder; by culture, era or region?",whole animal as eaten
+U141,forms,form of BONUS_PIG eaten by default,form name,composition of the good,"options: meat, liver, heart, kidneys, mext:loin, mext:liver; by culture, era or region?",whole animal as eaten
+U142,forms,form of BONUS_FISH eaten by default,form name,composition of the good,"options: cod, herring, salt cod, roe, liver (lingcod), Pacific herring, Atlantic mackerel, mext:cod, mext:sardine, mext:salmon, mext:bonito, mext:pond smelt, whole, mext:loach, whole, mext:dried sardine, whole (mezashi); by culture, era or region?",whole animal as eaten
+U143,forms,form of BONUS_CLAM eaten by default,form name,composition of the good,"options: raw, mext:asari clam, mext:oyster; by culture, era or region?",raw
+U144,forms,form of BONUS_WHALE eaten by default,form name,composition of the good,"options: meat, mext:red meat, mext:skin (honkawa), mext:belly (unesu); by culture, era or region?",whole animal as eaten
+U145,forms,form of BONUS_DAIRY eaten by default,form name,composition of the good,"options: milk, cheese, butter, mext:milk, mext:processed cheese; by culture, era or region?",milk,"everything was eaten, but fresh milk was preferred to cheese, which was a way to preserve the nutrients in milk, and butter, which is more of a baking ingredient or cooking fat"
+U146,forms,form of BONUS_BANANA eaten by default,form name,composition of the good,"options: raw, mext:raw; by culture, era or region?",raw
+U147,forms,form of BONUS_LEMON eaten by default,form name,composition of the good,"options: raw, juice, mext:whole fruit; by culture, era or region?",juice,Cider in particular
+U148,forms,form of BONUS_APPLE eaten by default,form name,composition of the good,"options: raw, dried, mext:with skin; by culture, era or region?",raw
+U149,forms,form of BONUS_OLIVES eaten by default,form name,composition of the good,"options: olives, oil; by culture, era or region?",oil,eaten with salads
+U150,forms,form of BONUS_SUGAR eaten by default,form name,composition of the good,"options: brown, molasses, mext:white sugar; by culture, era or region?",brown,"molasses are a lot more nutritious but are consumed with bread, brown sugar is more nutritious but not consumed as much recently"
+U151,forms,form of BONUS_WINE eaten by default,form name,composition of the good,"options: grapes, raisins, wine, mext:grapes, mext:raisins, mext:red wine; by culture, era or region?",grapes
+U152,forms,form of BONUS_TEA eaten by default,form name,composition of the good,"options: black, brewed, green, brewed, mext:sencha infusion, mext:gyokuro infusion, mext:kamairi infusion, mext:bancha infusion, mext:black tea infusion, mext:matcha powder, mext:sencha leaves; by culture, era or region?","depends on the culture, brewed","Greeks had Mountain tea, thyme tea, various cultures made tea from sage and other herbs, better to group them together"
+U153,forms,form of BONUS_SALT eaten by default,form name,composition of the good,"options: table salt, mext:salt; by culture, era or region?",table salt
+U154,forms,fish catch by coast or region,shares of forms,BONUS_FISH by terrain and culture,"North Atlantic: cod, herring, mackerel; rivers and paddies: small fish eaten whole; ...",Fish category Asia Europe Africa Latin America N. America Oceania Freshwater fish 55% 4% 27% 13% 8% 3% Small pelagic 14% 20% 34% 37% 12% 12% Large pelagic 7% 7% 8% 12% 12% 35% Demersal 13% 32% 13% 12% 38% 20% Salmonids 2% 22% 1% 17% 15% 20% Other marine fish 9% 15% 17% 9% 15% 10% Total 100% 100% 100% 100% 100% 100%
+U155,forms,year-round fat of whole herring,% fat,herring as eaten, Canadian means 9.8 and 11.2 (June-October),12.00%
+U156,forms,"are fish bones eaten (dried, fermented, small fish)",yes/no by form,calcium of fishing peoples,MEXT dried whole sardine maruboshi 570 mg calcium per 100 g,Only small fish (cooked or fermented)
+U157,people,PAL by work: Manual labor,ratio,case variables,,2
+U158,people,PAL by work: Sedentary,ratio,case variables,,1.5
+U159,people,PAL by work: Soldier,ratio,case variables,,2.5
+U160,people,PAL by work: Slaves in quarries or mines,ratio,case variables,record: miners lose 10-12 L water a day,3
+U161,people,body weight by era or people,kg,case variables,,"Depends on food composition, can range from 50kg to 120kg"
+U162,people,"share of children, and their adult equivalent",% and factor,case variables,the record has adult levels only,not relevant
+U163,people,lactase persistence by culture,yes/no,case variables,dairy cultures (M113),"Germanic: 90%
+Southern European: 50%
+Eastern European: 75%
+Indians: 40%
+East Asians: 10%
+Steppe people, beduins and pastoralists: 90%
+Africans: 30%","Raw milk is universally digestable, fewer cultures can easily deal with pasteurized milk, fermentation into dairy products makes the nutrition a lot more accessible"
+U164,people,tea type by culture (black or green),type,case variables,only black tea and coffee inhibit iron in the model,Not relevant
+U165,people,tea timing by culture,with meals / after,case variables,,Not relevant
+U166,people,maize treated with alkali by culture,yes/no,case variables,nixtamalisation,Not relevant
+U167,people,pork cooked through by culture or era,yes/no,case variables,parasite risk (M118),Not relevant
+U168,spoilage,"spoilage per year, cured and salted and fermented",% per year,"keeping of what is left (M57; D2, D5)","estimate in nutrition.json, needs a source",15.00%,Spoilage rate
+U169,spoilage,"spoilage per year, dried",% per year,"keeping of what is left (M57; D2, D5)",estimate for dried fruit,10.00%,"Includes tea leaves, coffee beans etc."
+U170,spoilage,"spoilage per year, canned",% per year,"keeping of what is left (M57; D2, D5)","estimate in nutrition.json, needs a source",2.00%
+U171,spoilage,"spoilage per year, root and grains",% per year,"keeping of what is left (M57; D2, D5)","estimate in nutrition.json, needs a source",50.00%
+U172,spoilage,"Spoilage per year, others",% per year,keeping,"salt is in class ""dried"" whose basis names stockfish and dried fruit",90.00%
+U173,athletes,athletes' or heavy labourers' optimum of protein,g,benefits towards athletes' levels (M118),only protein has a value in the record,300,140kg wrestler
+U174,athletes,athletes' or heavy labourers' optimum of sodium,g,benefits towards athletes' levels (M118),only protein has a value in the record,10
+U175,athletes,athletes' or heavy labourers' optimum of potassium,mg,benefits towards athletes' levels (M118),only protein has a value in the record,5000
+U176,athletes,athletes' or heavy labourers' optimum of calcium,mg,benefits towards athletes' levels (M118),only protein has a value in the record,3000
+U177,athletes,athletes' or heavy labourers' optimum of magnesium,mg,benefits towards athletes' levels (M118),only protein has a value in the record,1000
+U178,athletes,athletes' or heavy labourers' optimum of iron,mg,benefits towards athletes' levels (M118),only protein has a value in the record,15
+U179,athletes,athletes' or heavy labourers' optimum of zinc,mg,benefits towards athletes' levels (M118),only protein has a value in the record,40
+U180,athletes,athletes' or heavy labourers' optimum of iodine,mcg,benefits towards athletes' levels (M118),only protein has a value in the record,1000
+U181,athletes,athletes' or heavy labourers' optimum of selenium,mcg,benefits towards athletes' levels (M118),only protein has a value in the record,500
+U182,athletes,athletes' or heavy labourers' optimum of vitamin A,mcg,benefits towards athletes' levels (M118),only protein has a value in the record,3000
+U183,athletes,athletes' or heavy labourers' optimum of thiamin,mg,benefits towards athletes' levels (M118),only protein has a value in the record,100
+U184,athletes,athletes' or heavy labourers' optimum of riboflavin,mg,benefits towards athletes' levels (M118),only protein has a value in the record,50
+U185,athletes,athletes' or heavy labourers' optimum of niacin_ne,mg NE,benefits towards athletes' levels (M118),only protein has a value in the record,100
+U186,athletes,athletes' or heavy labourers' optimum of vit_b6,mg,benefits towards athletes' levels (M118),only protein has a value in the record,100
+U187,athletes,athletes' or heavy labourers' optimum of folate_dfe,mcg,benefits towards athletes' levels (M118),only protein has a value in the record,1000
+U188,athletes,athletes' or heavy labourers' optimum of b12,mcg,benefits towards athletes' levels (M118),only protein has a value in the record,5000
+U189,athletes,athletes' or heavy labourers' optimum of vit_c,mg,benefits towards athletes' levels (M118),only protein has a value in the record,2000
+U190,athletes,iodine study showing cognitive gains above sufficiency,citation,M118,trials read stop at 145-172 ug/L,Not relevant/you are incompetent
+U191,contaminants,mercury concentration in fish by form,mg per kg,harms of one-sided diets (M118),primary surveys not yet read,Ranges from 0.01 to 0.20
+U192,contaminants,tolerable daily intake of mercury,mcg per kg body weight,harms of one-sided diets,,0.3
+U193,contaminants,"cadmium concentration in shellfish, offal",mg per kg,harms of one-sided diets (M118),primary surveys not yet read,0.317
+U194,contaminants,tolerable daily intake of cadmium,mcg per kg body weight per week,harms of one-sided diets,,5
+U195,contaminants,"inorganic arsenic concentration in rice brown and polished, shellfish",mg per kg,harms of one-sided diets (M118),primary surveys not yet read,"Brown: 0.15
+White: 0.10
+Shellfish: 0.01"
+U196,contaminants,tolerable daily intake of inorganic arsenic,mcg per kg body weight per week,harms of one-sided diets,,0.06
+U197,contaminants,parasite risk of undercooked pork,"cases per kg eaten, or a rule",M118,,Not relevant

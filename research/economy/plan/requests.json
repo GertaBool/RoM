@@ -2940,7 +2940,8 @@
     {
      "id": "R72.1",
      "what": "Read the ODS as the user edited it (columns removed, values and notes added); store it and a faithful CSV export in the repository",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/data/user_inputs_m120.ods (byte-identical to the upload), user_inputs_m120.csv (plan/tools/ods_read.py export, 198 rows x 8 columns)"
     },
     {
      "id": "R72.2",
