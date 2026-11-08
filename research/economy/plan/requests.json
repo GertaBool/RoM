@@ -3053,19 +3053,21 @@
   {
    "id": "R75",
    "date": "2026-11-08",
-   "status": "open",
+   "status": "done",
    "prompt": "M125",
    "text": "Assess whether all the columns and rows have been FAITHFULLY translated",
    "items": [
     {
      "id": "R75.1",
      "what": "Audit, cell by cell and with a tool, that every column and row of user_inputs_m120.ods reached the CSV export unchanged",
-     "status": "open"
+     "status": "done",
+     "where": "plan/tools/ods_audit.py; research/economy/user_inputs_audit_m125.md step 1"
     },
     {
      "id": "R75.2",
      "what": "Audit that every row and column of the CSV reached user_inputs.json (and nutrition.json) faithfully: each value and note used as written, or listed as not used, with every deviation named",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/user_inputs_audit_m125.md step 2 (A-D)"
     }
    ]
   }
