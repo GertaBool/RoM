@@ -885,6 +885,15 @@
    "led_to": [
     "R75"
    ]
+  },
+  {
+   "id": "M126",
+   "date": "2026-11-08",
+   "kind": "request",
+   "text": "Redesign the process to obtain data from ODS and transfer it to CSV, maintain deterministic data accuracy, with zero mistakes, paying attention to format changes and semantic intricacies\n\nAny real questions you have, you will have to ask me for, even if you have 200 questions",
+   "led_to": [
+    "R76"
+   ]
   }
  ],
  "requests": [
@@ -3068,6 +3077,35 @@
      "what": "Audit that every row and column of the CSV reached user_inputs.json (and nutrition.json) faithfully: each value and note used as written, or listed as not used, with every deviation named",
      "status": "done",
      "where": "research/economy/user_inputs_audit_m125.md step 2 (A-D)"
+    }
+   ]
+  },
+  {
+   "id": "R76",
+   "date": "2026-11-08",
+   "status": "open",
+   "prompt": "M126",
+   "text": "Redesign the process to obtain data from ODS and transfer it to CSV, maintain deterministic data accuracy, with zero mistakes, paying attention to format changes and semantic intricacies\n\nAny real questions you have, you will have to ask me for, even if you have 200 questions",
+   "items": [
+    {
+     "id": "R76.1",
+     "what": "Lossless extraction: every cell of every sheet with its shown text, stored value and type, number format, formula, note, merged and hidden state; checked against an independent reader (LibreOffice); any difference stops the run",
+     "status": "open"
+    },
+    {
+     "id": "R76.2",
+     "what": "Every column read, the template columns included: every edit the user made to item, unit, needed_for or nuance is detected against the template sent and handled, never ignored",
+     "status": "open"
+    },
+    {
+     "id": "R76.3",
+     "what": "Translation to values only through explicit per-row rules; a cell that does not match its rule, a unit that differs from the one asked, free text needing structure, or any reading the user did not state becomes a question, never a guess",
+     "status": "open"
+    },
+    {
+     "id": "R76.4",
+     "what": "Ask the user every real question (all of them), quoting the cell; apply only the answers",
+     "status": "open"
     }
    ]
   }
