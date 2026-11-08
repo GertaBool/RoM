@@ -840,6 +840,15 @@
    "kind": "input",
    "text": "@\"/root/.claude/uploads/cd72ee4b-5cb9-57d5-996a-fd6ca15cd65f/1af53463-user_inputs_template.ods\" I think you'll manage this ODS file. I heavily edited the document, removed entire columns, you'll get to see",
    "led_to": "R72: read the user's edited inputs file (ODS) exactly as edited, store it in the repository, and apply its values to the data files and the model"
+  },
+  {
+   "id": "M121",
+   "date": "2026-11-08",
+   "kind": "correction",
+   "text": "\"the rich-city conversion (milk to cheese and butter, grain to bread)\"\n\nWhat are you talking about\nIf you don't understand something about what I filled in at the .ods file,\n\nASK\n[Request interrupted by user]\n\"A fault I found and fixed. In the first run the rice town ate no fish at all. The Asian fish mix had no satiety index of its own, so it counted as zero fullness, and the fullness step pushed fish out. A mix now takes the energy-weighted index of its parts.\"\n\nThat's because we're not even there yet. Your model sucks balls, we have to remake the ENTIRE model",
+   "led_to": [
+    "R73"
+   ]
   }
  ],
  "requests": [
@@ -2954,6 +2963,25 @@
      "what": "Rerun the cases and regenerate the report",
      "status": "done",
      "where": "research/economy/food_model_cases_report.md (food_model.py --md), cases in food_model_cases.json"
+    }
+   ]
+  },
+  {
+   "id": "R73",
+   "date": "2026-11-08",
+   "status": "open",
+   "prompt": "M121",
+   "text": "\"the rich-city conversion (milk to cheese and butter, grain to bread)\"\n\nWhat are you talking about\nIf you don't understand something about what I filled in at the .ods file,\n\nASK\n[Request interrupted by user]\n\"A fault I found and fixed. In the first run the rice town ate no fish at all. The Asian fish mix had no satiety index of its own, so it counted as zero fullness, and the fullness step pushed fish out. A mix now takes the energy-weighted index of its parts.\"\n\nThat's because we're not even there yet. Your model sucks balls, we have to remake the ENTIRE model",
+   "items": [
+    {
+     "id": "R73.1",
+     "what": "Ask the user about every entry in the ODS that is not understood, quoting it, before using it; the rich city (U094-U099, U098 note: a description of a well-supplied city for targeted simulations, not a triggered state) was misread as a conversion step",
+     "status": "open"
+    },
+    {
+     "id": "R73.2",
+     "what": "Remake the entire food model from scratch (fresh start: replace, do not patch), in the order the user sets; the fullness stage and its composite fix came before their place in that order",
+     "status": "open"
     }
    ]
   }
