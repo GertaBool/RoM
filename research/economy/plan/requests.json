@@ -849,6 +849,15 @@
    "led_to": [
     "R73"
    ]
+  },
+  {
+   "id": "M122",
+   "date": "2026-11-08",
+   "kind": "answer",
+   "text": "Answers to three questions (AskUserQuestion), verbatim:\nQ1 rich city figures (U094-U099): \"Literally like I told you: These are artisanal or industrial processes. WHETHER A CITY IS RICH OR NOT DOESN'T MATTER\"\nQ2 where the remade model starts: \"STICK TO THE FUCKING PLAN\"\nQ3 U089 3000: \"Bread-equivalent fullness\"",
+   "led_to": [
+    "R73"
+   ]
   }
  ],
  "requests": [
@@ -2981,6 +2990,11 @@
     {
      "id": "R73.2",
      "what": "Remake the entire food model from scratch (fresh start: replace, do not patch), in the order the user sets; the fullness stage and its composite fix came before their place in that order",
+     "status": "open"
+    },
+    {
+     "id": "R73.3",
+     "what": "Cheese 10 kg milk/kg, butter 20 kg milk/kg, bread 0.6 kg/kg grain, 70 % of surplus milk to dairy, sugar 50 g/day: artisanal or industrial processes, independent of whether a city is rich; the remade model follows the existing plan; U089 confirmed as bread-equivalent fullness",
      "status": "open"
     }
    ]
