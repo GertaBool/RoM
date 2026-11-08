@@ -2933,7 +2933,7 @@
   {
    "id": "R72",
    "date": "2026-11-08",
-   "status": "open",
+   "status": "done",
    "prompt": "M120",
    "text": "@\"/root/.claude/uploads/cd72ee4b-5cb9-57d5-996a-fd6ca15cd65f/1af53463-user_inputs_template.ods\" I think you'll manage this ODS file. I heavily edited the document, removed entire columns, you'll get to see",
    "items": [
@@ -2946,12 +2946,14 @@
     {
      "id": "R72.2",
      "what": "Apply every value and note to the data files and the model through a reader tool; list anything that cannot be applied and why",
-     "status": "open"
+     "status": "done",
+     "where": "plan/tools/user_inputs_apply.py -> data/user_inputs.json -> plan/tools/food_model.py; not applied, with reasons: food_model.md section 9"
     },
     {
      "id": "R72.3",
      "what": "Rerun the cases and regenerate the report",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/food_model_cases_report.md (food_model.py --md), cases in food_model_cases.json"
     }
    ]
   }

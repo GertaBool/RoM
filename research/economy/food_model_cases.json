@@ -1,19 +1,16 @@
 {
- "about": "Cases for plan/tools/food_model.py (R64.3, R68). Body weight 70 kg (60 kg in the rice town) is a case input; 70 kg is the reference man of Haskell 2011 (record 2i). PAL 2.41 is the measured value of Rwandan farmers (Harris 2025, record 2a). Climate and goods available are game inputs, not record facts; goods available are grams per person per day; a good's form is chosen as GOOD:form (USDA) or GOOD:mext:form (MEXT). Year-round compositions only: the model has no seasons (M101). The fishing village eats the fatty fish fishing peoples ate (M113, M116): herring, mackerel and cod as eaten (fillet, liver, roe), with clams it gathers. The rice town eats polished rice (stated choice; brown rice is the other record), small fish eaten whole (pond smelt, MEXT 10276), bananas and green tea (sencha infusion, MEXT 16037) with meals; no study read measures green tea's effect on iron, so none is applied. The farming town is a dairy culture and eats the whole cow (meat, liver, heart, kidneys) besides pork muscle (pig organ shares have no stated base).",
+ "about": "Cases for plan/tools/food_model.py (R64.3, R68, R72). Every value not listed here comes from the user's inputs (data/user_inputs.json, M120): PAL from the work class (U157-U160), each bare good in its default form (U136-U153), fish by the region's catch (U154), ceilings (U121-U135), lactase persistence by culture (U163; raw milk digestible by all). Body weight 70 kg (60 kg in the rice town) is a case input (Haskell 2011 reference man, record 2i). Climate and goods available are game inputs (grams per person per day). Year-round compositions only (M101). Farming town: Germanic dairy culture, raw milk, whole cow and whole pig. Fishing village: Europe's catch (U154) plus whole herring and clams. Rice town: East Asian, polished rice (default), Asia's catch, bananas, herbal tea (default form).",
  "cases": [
   {
    "name": "farming town, temperate",
    "male_share": 0.5,
    "body_weight_kg": 70,
    "age": 30,
-   "pal": 2.41,
    "temp_c": 12,
    "humidity_pct": 75,
    "altitude_m": 50,
    "hdi_group": 2,
    "hot_shift_share": 0.0,
-   "lactase_persistent": true,
-   "dairy_culture": true,
    "available_g": {
     "BONUS_WHEAT": 900,
     "BONUS_COW": 150,
@@ -21,48 +18,52 @@
     "BONUS_DAIRY": 600,
     "BONUS_APPLE": 200,
     "BONUS_SALT": 15
-   }
+   },
+   "work": "manual labour",
+   "culture": "Germanic",
+   "milk_pasteurized": false
   },
   {
    "name": "fishing village, cool coast",
    "male_share": 0.5,
    "body_weight_kg": 70,
    "age": 30,
-   "pal": 2.41,
    "temp_c": 8,
    "humidity_pct": 85,
    "altitude_m": 5,
    "hdi_group": 2,
    "hot_shift_share": 0.0,
-   "lactase_persistent": true,
    "available_g": {
-    "BONUS_FISH": 1000,
-    "BONUS_FISH:herring": 1500,
-    "BONUS_FISH:Atlantic mackerel": 1000,
+    "BONUS_FISH:region:Europe": 2500,
+    "BONUS_FISH:herring whole, year-round": 1000,
     "BONUS_CLAM": 300,
     "BONUS_WHEAT": 250,
     "BONUS_SALT": 15
-   }
+   },
+   "work": "manual labour",
+   "culture": "Germanic",
+   "milk_pasteurized": false
   },
   {
    "name": "rice town, hot season labour",
    "male_share": 0.5,
    "body_weight_kg": 60,
    "age": 30,
-   "pal": 2.41,
    "temp_c": 30,
    "humidity_pct": 70,
    "altitude_m": 20,
    "hdi_group": 2,
    "hot_shift_share": 0.5,
-   "lactase_persistent": false,
    "available_g": {
-    "BONUS_RICE:polished": 900,
-    "BONUS_FISH:mext:pond smelt, whole": 200,
+    "BONUS_RICE": 900,
+    "BONUS_FISH:region:Asia": 200,
     "BONUS_BANANA": 200,
-    "BONUS_TEA:mext:sencha infusion": 600,
+    "BONUS_TEA": 600,
     "BONUS_SALT": 20
-   }
+   },
+   "work": "manual labour",
+   "culture": "East Asians",
+   "milk_pasteurized": false
   }
  ]
 }
