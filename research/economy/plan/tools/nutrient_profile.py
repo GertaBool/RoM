@@ -31,23 +31,26 @@ NUTRIENTS = {  # USDA nutrient id: (key, unit)
 
 # game good -> list of (form, fdc id); the first form is the good as eaten by default
 GOODS = {
-    'BONUS_WHEAT': [('grain', '168890')],
+    'BONUS_WHEAT': [('grain', '168890'), ('bread', '172690')],   # R72: bread is the default form (user U136); home recipe, not enriched
     'BONUS_RICE': [('brown', '169703'), ('polished', '169756')],
     'BONUS_CORN': [('grain', '170288')],
     'BONUS_POTATO': [('raw', '170026'), ('boiled', '170438')],
-    'BONUS_COW': [('meat', '169430'), ('liver', '169451'), ('heart', '168625'), ('kidneys', '169449')],   # R69: organs
-    'BONUS_PIG': [('meat', '167818'), ('liver', '167862'), ('heart', '168267'), ('kidneys', '168270')],
-    'BONUS_SHEEP': [('meat', '172545')],
+    'BONUS_COW': [('meat', '169430'), ('liver', '169451'), ('heart', '168625'), ('kidneys', '169449'), ('lean', '174760'),
+                  ('fat (suet)', '170193')],   # R69 organs; R72 lean and fat for the whole animal (user U117)
+    'BONUS_PIG': [('meat', '167818'), ('liver', '167862'), ('heart', '168267'), ('kidneys', '168270'), ('lean', '168220'),
+                  ('fat (backfat)', '167811')],
+    'BONUS_SHEEP': [('meat', '172545'), ('lean', '174307'), ('liver', '172531'), ('heart', '172527'), ('kidneys', '174354')],
     'BONUS_DEER': [('meat', '173855')],
     'BONUS_HORSE': [('meat', '175086')],
     # R64: roe and liver for the whole cod (Torry Advisory Note 17 part shares); SR Legacy has no raw Atlantic cod liver,
     # so the nearest record, lingcod liver (Alaska Native), stands for it and is named as such
     'BONUS_FISH': [('cod', '171955'), ('herring', '175116'), ('salt cod', '174190'), ('roe', '175132'),
-                   ('liver (lingcod)', '169810'), ('Pacific herring', '173669'), ('Atlantic mackerel', '175119')],
+                   ('liver (lingcod)', '169810'), ('Pacific herring', '173669'), ('Atlantic mackerel', '175119'),
+                   ('tuna (bluefin)', '173706'), ('salmon (Atlantic, wild)', '173686'), ('anchovy', '174182')],
     'BONUS_CLAM': [('raw', '174214')],
     'BONUS_CRAB': [('raw', '174204')],
     'BONUS_SHRIMP': [('raw', '174210')],
-    'BONUS_WHALE': [('meat', '169797')],
+    'BONUS_WHALE': [('meat', '169797'), ('blubber (bowhead)', '167623'), ('liver', '168980'), ('oil (beluga)', '168981')],   # R72 (user U108-U111)
     'BONUS_DAIRY': [('milk', '172217'), ('cheese', '173414'), ('butter', '173410')],
     'BONUS_BANANA': [('raw', '173944')],
     'BONUS_LEMON': [('raw', '167746'), ('juice', '167747')],
@@ -56,7 +59,7 @@ GOODS = {
     'BONUS_SUGAR': [('brown', '168833'), ('molasses', '168820')],
     'BONUS_WINE': [('grapes', '174683'), ('raisins', '168165'), ('wine', '173190')],
     'BONUS_ALCOHOL': [('beer', '168746')],
-    'BONUS_TEA': [('black, brewed', '173227'), ('green, brewed', '171917')],
+    'BONUS_TEA': [('black, brewed', '173227'), ('green, brewed', '171917'), ('herbal, brewed', '173232')],   # R72: herbal teas grouped (user U152)
     'BONUS_SALT': [('table salt', '173468')],
     # references, not game goods (garden and field foods the city may grow without a resource)
     'REF_EGG': [('raw', '171287')], 'REF_KELP': [('raw', '168457')], 'REF_LENTILS': [('raw', '172420')],

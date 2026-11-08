@@ -1,0 +1,612 @@
+{
+ "about": "Values the user gave in user_inputs_m120.ods (M120), parsed by plan/tools/user_inputs_apply.py; \"text\" is the user's own wording.",
+ "satiety_index": {
+  "BONUS_WHEAT": 157.0,
+  "BONUS_RICE": 138.0,
+  "BONUS_RICE:polished": 100.0,
+  "BONUS_CORN": 100.0,
+  "BONUS_POTATO": null,
+  "BONUS_POTATO:boiled": 180.0,
+  "BONUS_COW": 300.0,
+  "BONUS_COW:liver": 400.0,
+  "BONUS_COW:heart": 400.0,
+  "BONUS_COW:kidneys": 400.0,
+  "BONUS_PIG": 260.0,
+  "BONUS_PIG:liver": 350.0,
+  "BONUS_PIG:heart": 350.0,
+  "BONUS_PIG:kidneys": 350.0,
+  "BONUS_SHEEP": 320.0,
+  "BONUS_DEER": 280.0,
+  "BONUS_HORSE": 280.0,
+  "BONUS_FISH": 225.0,
+  "BONUS_FISH:herring": 230.0,
+  "BONUS_FISH:salt cod": 250.0,
+  "BONUS_FISH:roe": 250.0,
+  "BONUS_FISH:liver (lingcod)": 400.0,
+  "BONUS_FISH:Pacific herring": 250.0,
+  "BONUS_FISH:Atlantic mackerel": 250.0,
+  "BONUS_CLAM": 400.0,
+  "BONUS_CRAB": 225.0,
+  "BONUS_SHRIMP": 225.0,
+  "BONUS_WHALE": 300.0,
+  "BONUS_DAIRY": 350.0,
+  "BONUS_DAIRY:cheese": 500.0,
+  "BONUS_DAIRY:butter": 250.0,
+  "BONUS_BANANA": 118.0,
+  "BONUS_LEMON": 50.0,
+  "BONUS_LEMON:juice": 50.0,
+  "BONUS_APPLE": 197.0,
+  "BONUS_APPLE:dried": 180.0,
+  "BONUS_OLIVES": 180.0,
+  "BONUS_OLIVES:oil": 160.0,
+  "BONUS_SUGAR": 80.0,
+  "BONUS_SUGAR:molasses": 120.0,
+  "BONUS_WINE": 197.0,
+  "BONUS_WINE:raisins": 180.0,
+  "BONUS_WINE:wine": 50.0,
+  "BONUS_ALCOHOL": 75.0,
+  "BONUS_TEA": 50.0,
+  "BONUS_TEA:green, brewed": 50.0,
+  "BONUS_SALT": 200.0,
+  "BONUS_WHEAT:mext:soft flour": 100.0,
+  "BONUS_RICE:mext:polished": 100.0,
+  "BONUS_CORN:mext:grain": 100.0,
+  "BONUS_POTATO:mext:raw": 0.0,
+  "BONUS_COW:mext:shoulder": 300.0,
+  "BONUS_PIG:mext:loin": 250.0,
+  "BONUS_PIG:mext:liver": 350.0,
+  "BONUS_FISH:mext:cod": 225.0,
+  "BONUS_FISH:mext:sardine": 300.0,
+  "BONUS_FISH:mext:salmon": 250.0,
+  "BONUS_FISH:mext:bonito": 225.0,
+  "BONUS_FISH:mext:pond smelt, whole": 225.0,
+  "BONUS_FISH:mext:loach, whole": 225.0,
+  "BONUS_FISH:mext:dried sardine, whole (mezashi)": 300.0,
+  "BONUS_CLAM:mext:asari clam": 300.0,
+  "BONUS_CLAM:mext:oyster": 350.0,
+  "BONUS_WHALE:mext:red meat": 300.0,
+  "BONUS_WHALE:mext:skin (honkawa)": 200.0,
+  "BONUS_WHALE:mext:belly (unesu)": 250.0,
+  "BONUS_DAIRY:mext:milk": 350.0,
+  "BONUS_DAIRY:mext:processed cheese": 500.0,
+  "BONUS_LEMON:mext:whole fruit": 50.0,
+  "BONUS_APPLE:mext:with skin": 197.0,
+  "BONUS_BANANA:mext:raw": 197.0,
+  "BONUS_WINE:mext:grapes": 197.0,
+  "BONUS_WINE:mext:raisins": 180.0,
+  "BONUS_WINE:mext:red wine": 50.0,
+  "BONUS_TEA:mext:sencha infusion": 50.0,
+  "BONUS_TEA:mext:gyokuro infusion": 50.0,
+  "BONUS_TEA:mext:kamairi infusion": 50.0,
+  "BONUS_TEA:mext:bancha infusion": 50.0,
+  "BONUS_TEA:mext:black tea infusion": 50.0,
+  "BONUS_TEA:mext:matcha powder": 50.0,
+  "BONUS_TEA:mext:sencha leaves": 50.0,
+  "BONUS_SALT:mext:salt": 200.0,
+  "BONUS_SUGAR:mext:white sugar": 80.0,
+  "REF_EGG:mext:raw": 200.0,
+  "REF_KELP:mext:ma-kombu, dried": 75.0,
+  "REF_CABBAGE:mext:raw": 50.0,
+  "BONUS_FISH:herring whole, May": 250.0,
+  "BONUS_FISH:herring whole, August": 250.0
+ },
+ "not_relevant": [
+  "share of children, and their adult equivalent",
+  "tea type by culture (black or green)",
+  "tea timing by culture",
+  "maize treated with alkali by culture",
+  "pork cooked through by culture or era",
+  "parasite risk of undercooked pork"
+ ],
+ "fed_fullness": {
+  "value": 3000.0,
+  "unit": "satiety-weighted kcal: sum of (satiety index / 100) x kcal",
+  "text": "3000",
+  "reading": "fullness of 3,000 kcal of white bread counts as fed"
+ },
+ "drink_satiety_factor": {
+  "value": 0.8,
+  "text": "0.8"
+ },
+ "dessert": {
+  "goods": [
+   "BONUS_BANANA",
+   "BONUS_LEMON",
+   "BONUS_LEMON:juice",
+   "BONUS_APPLE",
+   "BONUS_APPLE:dried",
+   "BONUS_OLIVES",
+   "BONUS_OLIVES:oil",
+   "BONUS_SUGAR",
+   "BONUS_SUGAR:molasses",
+   "BONUS_WINE",
+   "BONUS_WINE:raisins",
+   "BONUS_WINE:wine",
+   "BONUS_ALCOHOL",
+   "BONUS_TEA",
+   "BONUS_TEA:green, brewed",
+   "BONUS_LEMON:mext:whole fruit",
+   "BONUS_APPLE:mext:with skin",
+   "BONUS_BANANA:mext:raw",
+   "BONUS_WINE:mext:grapes",
+   "BONUS_WINE:mext:raisins",
+   "BONUS_WINE:mext:red wine",
+   "BONUS_TEA:mext:sencha infusion",
+   "BONUS_TEA:mext:gyokuro infusion",
+   "BONUS_TEA:mext:kamairi infusion",
+   "BONUS_TEA:mext:bancha infusion",
+   "BONUS_TEA:mext:black tea infusion",
+   "BONUS_TEA:mext:matcha powder",
+   "BONUS_TEA:mext:sencha leaves",
+   "BONUS_SUGAR:mext:white sugar"
+  ],
+  "text_goods": "BONUS_BANANA, BONUS_LEMON  BONUS_LEMON:juice  BONUS_APPLE  BONUS_APPLE:dried  BONUS_OLIVES  BONUS_OLIVES:oil  BONUS_SUGAR  BONUS_SUGAR:molasses  BONUS_WINE  BONUS_WINE:raisins  BONUS_WINE:wine  BONUS_ALCOHOL  BONUS_TEA  BONUS_TEA:green, brewed                        BONUS_LEMON:mext:whole fruit  BONUS_APPLE:mext:with skin  BONUS_BANANA:mext:raw  BONUS_WINE:mext:grapes  BONUS_WINE:mext:raisins  BONUS_WINE:mext:red wine  BONUS_TEA:mext:sencha infusion  BONUS_TEA:mext:gyokuro infusion  BONUS_TEA:mext:kamairi infusion  BONUS_TEA:mext:bancha infusion  BONUS_TEA:mext:black tea infusion  BONUS_TEA:mext:matcha powder  BONUS_TEA:mext:sencha leaves BONUS_SUGAR:mext:white sugar",
+  "energy_beyond_need_share": 1.0,
+  "text_energy": "100.00%",
+  "order": [
+   {
+    "bases": [
+     "BONUS_SUGAR"
+    ]
+   },
+   {
+    "bases": [
+     "BONUS_BANANA",
+     "BONUS_LEMON",
+     "BONUS_APPLE",
+     "BONUS_WINE"
+    ],
+    "except": [
+     "BONUS_WINE:wine",
+     "BONUS_WINE:mext:red wine"
+    ]
+   },
+   {
+    "goods": [
+     "BONUS_WINE:wine",
+     "BONUS_WINE:mext:red wine"
+    ],
+    "bases": [
+     "BONUS_ALCOHOL"
+    ]
+   },
+   {
+    "bases": [
+     "BONUS_TEA",
+     "BONUS_OLIVES"
+    ]
+   }
+  ],
+  "text_order": "Sugar first, Fruit second. Wine:wine and Alcohol third, Tea and Olives fourth",
+  "order_reading": "sugar (all forms); then fruit: banana, lemon, apple and the grape forms of BONUS_WINE (grapes, raisins); then wine and beer; then tea and olives (all forms)"
+ },
+ "rich_city": {
+  "milk_kg_per_kg_cheese": 10.0,
+  "milk_kg_per_kg_butter": 20.0,
+  "bread_kg_per_kg_grain": 0.6,
+  "surplus_milk_to_dairy_share": 0.7,
+  "trigger": "BUILDINGCLASS_METROPOLITAN_ESSENTIALS, POPULATION > 10, RIVER PORT AND ABOVE, MARKET AND ABOVE",
+  "trigger_note": "In theory, this would all be equivalent to a wealthy city ingame, but a rich city is not really a triggered state, rather a plain description for an ingame city used for targeted simulations, which imagines a large well supplied city with access to trade routes and various resources",
+  "sugar_g_per_day": 50.0,
+  "sugar_source": "OECD–FAO"
+ },
+ "game_effects": {
+  "labour capacity to production": {
+   "text": "needs to be discussed",
+   "note": ""
+  },
+  "deficiency to health": {
+   "text": "By severity",
+   "note": ""
+  },
+  "harms to health": {
+   "text": "Toxicity thresholds, alcohol consumptions, tobacco consumption, contaminants, poisoning, pesticides, environmental pollutants",
+   "note": ""
+  },
+  "nutrition (MAR) to growth or fertility": {
+   "text": "Strength: Logarithmic relationship to protein consumption and health\n\nFertility: Function where excess energy and nutrients boost fertility under the condition that toxicity thresholds aren’t reached, harmful substances harm fertility, animal foods and desserts disproportionately boost fertility, clams disproportionately boost fertility",
+   "note": ""
+  },
+  "nutrition to commerce, science, culture": {
+   "text": "Excess energy and nutrition boost commerce (commerce is the yield, gold science culture espionage are the outputs), under the condition that toxicity thresholds aren’t reached",
+   "note": ""
+  },
+  "high-protein foods to unit strength": {
+   "text": "Logarithmic relationship of unit strength to protein consumption, minimal protein consumption (50g of protein a day) provide a unit at 30% of the regular strength, adequate protein consumption (1.6g per kg of bodyweight) provides a unit at 80% of the unit strength, high protein consumption (above adequacy capped at the liver limit (roughly 288g per day)) raises the strength of the unit, capped at 200%",
+   "note": ""
+  },
+  "starving to population": {
+   "text": "Decline per turn or a negative growth rate",
+   "note": "Population doesn’t breed, possible mass die-off"
+  },
+  "iodine to research or culture": {
+   "text": "Iodine below 150 µg: Decline from 100 IQ down to possibly two standard deviations less (limit: 70 IQ)\n\nIodine at 150 µg: 100 IQ\n\nIodine above 150 µg: Rise from 100IQ up to possibly one standard deviations (limit: 115 IQ)\n\nIodine above 1mg: IQ remains stable until 5mg\n\nIodine above 5mg: Toxicity, IQ declines from 115 until complete annihilation at 5g",
+   "note": "Independent IQ variable, every point above and below 100 has an exponentially larger effect on output (positive and negative)\n\nIQ is a complex variable that has its own function, and relates to the output in all yields (food, production, commerce (gold, research, culture, espionage outputs of commerce))\n\nProper yields impossible below 70IQ, only subsistence can be achieved there on a very small scale (1000-2000 pop), barely any commerce, low IQ a is genuine civilizational extinction level threat"
+  }
+ },
+ "strength_anchors": {
+  "protein_g_30pct": 50.0,
+  "protein_per_kg_80pct": 1.6,
+  "protein_cap_g_200pct": "liver limit (urea capacity), user: roughly 288 g",
+  "cap_pct": 200,
+  "text": "Logarithmic relationship of unit strength to protein consumption, minimal protein consumption (50g of protein a day) provide a unit at 30% of the regular strength, adequate protein consumption (1.6g per kg of bodyweight) provides a unit at 80% of the unit strength, high protein consumption (above adequacy capped at the liver limit (roughly 288g per day)) raises the strength of the unit, capped at 200%",
+  "shape": "logarithmic (user); the tool interpolates linearly in ln(protein) between the anchors"
+ },
+ "iq_from_iodine_anchors": {
+  "points_ug_iq": [
+   [
+    150,
+    100
+   ],
+   [
+    1000,
+    115
+   ],
+   [
+    5000,
+    115
+   ],
+   [
+    5000000,
+    0
+   ]
+  ],
+  "floor_iq": 70,
+  "below_150_to": 70,
+  "text": "Iodine below 150 µg: Decline from 100 IQ down to possibly two standard deviations less (limit: 70 IQ)\n\nIodine at 150 µg: 100 IQ\n\nIodine above 150 µg: Rise from 100IQ up to possibly one standard deviations (limit: 115 IQ)\n\nIodine above 1mg: IQ remains stable until 5mg\n\nIodine above 5mg: Toxicity, IQ declines from 115 until complete annihilation at 5g",
+  "note": "Independent IQ variable, every point above and below 100 has an exponentially larger effect on output (positive and negative)\n\nIQ is a complex variable that has its own function, and relates to the output in all yields (food, production, commerce (gold, research, culture, espionage outputs of commerce))\n\nProper yields impossible below 70IQ, only subsistence can be achieved there on a very small scale (1000-2000 pop), barely any commerce, low IQ a is genuine civilizational extinction level threat",
+  "shape": "the tool interpolates linearly in log10(iodine) between the anchors; below 150 ug it falls towards 70 at 15 ug (one tenth), a reading of \"possibly two standard deviations less\""
+ },
+ "whale_shares": {
+  "meat": 0.3,
+  "blubber": 0.4,
+  "liver": 0.02,
+  "other_organs": 0.12,
+  "source": "ResearchGate, Memorial University of Newfoundland",
+  "base": "not stated (live or carcass)"
+ },
+ "pig_shares": {
+  "lean": 0.55,
+  "liver": 0.02,
+  "heart": 0.004,
+  "kidneys": 0.004,
+  "fat": 0.3
+ },
+ "cow_shares": {
+  "lean": 0.6,
+  "fat": 0.2,
+  "organs": 0.025,
+  "text": "60%, 20%, 2.5%"
+ },
+ "sheep_shares": {
+  "lean": 0.6,
+  "fat": 0.25,
+  "organs": 0.025,
+  "text": "60%, 25%, 2.5%"
+ },
+ "deer_shares": {
+  "lean": 0.7,
+  "fat": 0.1,
+  "organs": 0.03,
+  "text": "70%, 10%, 3%"
+ },
+ "horse_shares": {
+  "lean": 0.65,
+  "fat": 0.15,
+  "organs": 0.025,
+  "text": "65%, 15%, 2.5%"
+ },
+ "ceilings_g": {
+  "BONUS_LEMON": 30.0,
+  "BONUS_LEMON:juice": 1000.0,
+  "text_lemon": "Lemon fruit: 30g\n\nLemon cider: 1L (equivalent to 30g)",
+  "meat_total": {
+   "median": 150.0,
+   "upper": 400.0,
+   "max": 1000.0,
+   "text": "Median: 150g\n\nUpper end: 400g\n\nMaximum: 1kg",
+   "note": "Actual population consumption of the meat in total\n\nEach livestock (cattle, pig, sheep, horse) and deer count towards “meat”, even though the game might distinguish between beef and mutton and pork etc"
+  },
+  "cheese": 1000.0,
+  "milk": 3000.0,
+  "fat_per_good": 250.0,
+  "fruit_total": 4518.0,
+  "BONUS_SUGAR": 300.0,
+  "BONUS_OLIVES": 200.0,
+  "BONUS_WINE:wine": 2000.0,
+  "BONUS_ALCOHOL": 2000.0,
+  "BONUS_SALT": 20.0,
+  "BONUS_TEA": 2000.0,
+  "BONUS_COFFEE": 2000.0,
+  "BONUS_CLAM": 800.0,
+  "BONUS_WHALE": 800.0,
+  "salt_note": "could physically take above that threshold, but toxicity is documented for acute one-time doses, 20g across the day however is physiologically manageable, although potentially harmful like alcohol"
+ },
+ "default_form": {
+  "BONUS_WHEAT": {
+   "form": "bread",
+   "text": "Bread",
+   "note": "People usually make bread, plain grain is not nutritious and has to be cooked to porridge or made to flour and bread, ideally fermented"
+  },
+  "BONUS_RICE": {
+   "form": "polished",
+   "text": "Polished",
+   "note": "Brown rice carries too many contaminants and heavy metals"
+  },
+  "BONUS_CORN": {
+   "form": "grain",
+   "text": "Grain",
+   "note": "It’s possible to eat cooked grain, however corn is also made to flour and into bread"
+  },
+  "BONUS_POTATO": {
+   "form": "boiled",
+   "text": "Boiled",
+   "note": "Raw potatoes are poisonous"
+  },
+  "BONUS_COW": {
+   "form": "whole",
+   "text": "whole animal as eaten",
+   "note": ""
+  },
+  "BONUS_PIG": {
+   "form": "whole",
+   "text": "whole animal as eaten",
+   "note": ""
+  },
+  "BONUS_FISH": {
+   "form": "whole",
+   "text": "whole animal as eaten",
+   "note": ""
+  },
+  "BONUS_CLAM": {
+   "form": "raw",
+   "text": "raw",
+   "note": ""
+  },
+  "BONUS_WHALE": {
+   "form": "whole",
+   "text": "whole animal as eaten",
+   "note": ""
+  },
+  "BONUS_DAIRY": {
+   "form": "milk",
+   "text": "milk",
+   "note": "everything was eaten, but fresh milk was preferred to cheese, which was a way to preserve the nutrients in milk, and butter, which is more of a baking ingredient or cooking fat"
+  },
+  "BONUS_BANANA": {
+   "form": "raw",
+   "text": "raw",
+   "note": ""
+  },
+  "BONUS_LEMON": {
+   "form": "juice",
+   "text": "juice",
+   "note": "Cider in particular"
+  },
+  "BONUS_APPLE": {
+   "form": "raw",
+   "text": "raw",
+   "note": ""
+  },
+  "BONUS_OLIVES": {
+   "form": "oil",
+   "text": "oil",
+   "note": "eaten with salads"
+  },
+  "BONUS_SUGAR": {
+   "form": "brown",
+   "text": "brown",
+   "note": "molasses are a lot more nutritious but are consumed with bread, brown sugar is more nutritious but not consumed as much recently"
+  },
+  "BONUS_WINE": {
+   "form": "grapes",
+   "text": "grapes",
+   "note": ""
+  },
+  "BONUS_TEA": {
+   "form": "herbal, brewed",
+   "text": "depends on the culture, brewed",
+   "note": "Greeks had Mountain tea, thyme tea, various cultures made tea from sage and other herbs, better to group them together"
+  },
+  "BONUS_SALT": {
+   "form": "table salt",
+   "text": "table salt",
+   "note": ""
+  }
+ },
+ "fish_catch_by_region": {
+  "shares": {
+   "Asia": {
+    "Freshwater fish": 0.55,
+    "Small pelagic": 0.14,
+    "Large pelagic": 0.07,
+    "Demersal": 0.13,
+    "Salmonids": 0.02,
+    "Other marine fish": 0.09
+   },
+   "Europe": {
+    "Freshwater fish": 0.04,
+    "Small pelagic": 0.2,
+    "Large pelagic": 0.07,
+    "Demersal": 0.32,
+    "Salmonids": 0.22,
+    "Other marine fish": 0.15
+   },
+   "Africa": {
+    "Freshwater fish": 0.27,
+    "Small pelagic": 0.34,
+    "Large pelagic": 0.08,
+    "Demersal": 0.13,
+    "Salmonids": 0.01,
+    "Other marine fish": 0.17
+   },
+   "Latin America": {
+    "Freshwater fish": 0.13,
+    "Small pelagic": 0.37,
+    "Large pelagic": 0.12,
+    "Demersal": 0.12,
+    "Salmonids": 0.17,
+    "Other marine fish": 0.09
+   },
+   "N. America": {
+    "Freshwater fish": 0.08,
+    "Small pelagic": 0.12,
+    "Large pelagic": 0.12,
+    "Demersal": 0.38,
+    "Salmonids": 0.15,
+    "Other marine fish": 0.15
+   },
+   "Oceania": {
+    "Freshwater fish": 0.03,
+    "Small pelagic": 0.12,
+    "Large pelagic": 0.35,
+    "Demersal": 0.2,
+    "Salmonids": 0.2,
+    "Other marine fish": 0.1
+   }
+  },
+  "text": "Fish category Asia Europe Africa Latin America N. America Oceania Freshwater fish 55% 4% 27% 13% 8% 3% Small pelagic 14% 20% 34% 37% 12% 12% Large pelagic 7% 7% 8% 12% 12% 35% Demersal 13% 32% 13% 12% 38% 20% Salmonids 2% 22% 1% 17% 15% 20% Other marine fish 9% 15% 17% 9% 15% 10% Total 100% 100% 100% 100% 100% 100%"
+ },
+ "herring_year_round_fat": 0.12,
+ "fish_bones_eaten": "Only small fish (cooked or fermented)",
+ "pal_by_work": {
+  "manual labour": 2.0,
+  "sedentary": 1.5,
+  "soldier": 2.5,
+  "slaves in quarries or mines": 3.0
+ },
+ "body_weight": {
+  "text": "Depends on food composition, can range from 50kg to 120kg"
+ },
+ "lactase_persistence": {
+  "shares": {
+   "Germanic": 0.9,
+   "Southern European": 0.5,
+   "Eastern European": 0.75,
+   "Indians": 0.4,
+   "East Asians": 0.1,
+   "Steppe people, beduins and pastoralists": 0.9,
+   "Africans": 0.3
+  },
+  "note": "Raw milk is universally digestable, fewer cultures can easily deal with pasteurized milk, fermentation into dairy products makes the nutrition a lot more accessible"
+ },
+ "spoilage_per_year": {
+  "cured, salted, fermented": 0.15,
+  "dried": 0.1,
+  "canned": 0.02,
+  "roots and grains": 0.5,
+  "others": 0.9,
+  "notes": {
+   "spoilage per year, cured and salted and fermented": "Spoilage rate",
+   "spoilage per year, dried": "Includes tea leaves, coffee beans etc."
+  }
+ },
+ "athletes_optimum": {
+  "protein": {
+   "value": 300.0,
+   "unit_given": "g",
+   "note": "140kg wrestler"
+  },
+  "sodium": {
+   "value": 10000.0,
+   "unit_given": "g",
+   "note": ""
+  },
+  "potassium": {
+   "value": 5000.0,
+   "unit_given": "mg",
+   "note": ""
+  },
+  "calcium": {
+   "value": 3000.0,
+   "unit_given": "mg",
+   "note": ""
+  },
+  "magnesium": {
+   "value": 1000.0,
+   "unit_given": "mg",
+   "note": ""
+  },
+  "iron": {
+   "value": 15.0,
+   "unit_given": "mg",
+   "note": ""
+  },
+  "zinc": {
+   "value": 40.0,
+   "unit_given": "mg",
+   "note": ""
+  },
+  "iodine": {
+   "value": 1000.0,
+   "unit_given": "mcg",
+   "note": ""
+  },
+  "selenium": {
+   "value": 500.0,
+   "unit_given": "mcg",
+   "note": ""
+  },
+  "vit_a_rae": {
+   "value": 3000.0,
+   "unit_given": "mcg",
+   "note": ""
+  },
+  "thiamin": {
+   "value": 100.0,
+   "unit_given": "mg",
+   "note": ""
+  },
+  "riboflavin": {
+   "value": 50.0,
+   "unit_given": "mg",
+   "note": ""
+  },
+  "niacin_ne": {
+   "value": 100.0,
+   "unit_given": "mg NE",
+   "note": ""
+  },
+  "vit_b6": {
+   "value": 100.0,
+   "unit_given": "mg",
+   "note": ""
+  },
+  "folate_dfe": {
+   "value": 1000.0,
+   "unit_given": "mcg",
+   "note": ""
+  },
+  "b12": {
+   "value": 5000.0,
+   "unit_given": "mcg",
+   "note": ""
+  },
+  "vit_c": {
+   "value": 2000.0,
+   "unit_given": "mg",
+   "note": ""
+  }
+ },
+ "iodine_above_sufficiency_study": "Not relevant/you are incompetent",
+ "contaminants": {
+  "mercury_fish_mg_per_kg": [
+   0.01,
+   0.2
+  ],
+  "mercury_tolerable_ug_per_kg_bw_day": 0.3,
+  "cadmium_shellfish_offal_mg_per_kg": 0.317,
+  "cadmium_tolerable_ug_per_kg_bw_week": 5.0,
+  "arsenic_inorganic_mg_per_kg": {
+   "rice brown": 0.15,
+   "rice polished": 0.1,
+   "shellfish": 0.01
+  },
+  "arsenic_inorganic_tolerable_ug_per_kg_bw_week": 0.06,
+  "units_as_given": {
+   "tolerable daily intake of mercury": "mcg per kg body weight",
+   "tolerable daily intake of cadmium": "mcg per kg body weight per week",
+   "tolerable daily intake of inorganic arsenic": "mcg per kg body weight per week"
+  }
+ }
+}
