@@ -858,6 +858,15 @@
    "led_to": [
     "R73"
    ]
+  },
+  {
+   "id": "M123",
+   "date": "2026-11-08",
+   "kind": "answer",
+   "text": "Answers to four questions (AskUserQuestion), verbatim:\nQ1 drinks, is 0.8 inside the indices or multiplied: \"Multiply\"\nQ2 potato good takes boiled potato's 180: \"Boiled, 180\"\nQ3 the vineyard's good: \"Grapes\"\nQ4 health profile fields in the XML: \"Discuss in depth because I have no clue what you are talking about, it's an intransparent question\"",
+   "led_to": [
+    "R74"
+   ]
   }
  ],
  "requests": [
@@ -2995,6 +3004,25 @@
     {
      "id": "R73.3",
      "what": "Cheese 10 kg milk/kg, butter 20 kg milk/kg, bread 0.6 kg/kg grain, 70 % of surplus milk to dairy, sugar 50 g/day: artisanal or industrial processes, independent of whether a city is rich; the remade model follows the existing plan; U089 confirmed as bread-equivalent fullness",
+     "status": "open"
+    }
+   ]
+  },
+  {
+   "id": "R74",
+   "date": "2026-11-08",
+   "status": "open",
+   "prompt": "M123",
+   "text": "Answers to four questions (AskUserQuestion), verbatim:\nQ1 drinks, is 0.8 inside the indices or multiplied: \"Multiply\"\nQ2 potato good takes boiled potato's 180: \"Boiled, 180\"\nQ3 the vineyard's good: \"Grapes\"\nQ4 health profile fields in the XML: \"Discuss in depth because I have no clue what you are talking about, it's an intransparent question\"",
+   "items": [
+    {
+     "id": "R74.1",
+     "what": "PR.F8.T5 calories and satiety: satiety index per game good from the user (the row of the stored form; potato 180 boiled; BONUS_WINE is grapes, 197); drinks x 0.8; fed level 3,000 bread-equivalent; generator writes iCaloriesPerTonne and iSatietyIndex; check_england1300.py rerun and its result reported as it is",
+     "status": "open"
+    },
+    {
+     "id": "R74.2",
+     "what": "Explain the health profile of PR.F8.T5 in depth and transparently: what it is for in the plan, who reads it, what the options mean with a worked example; decide it with the user before writing fields",
      "status": "open"
     }
    ]
