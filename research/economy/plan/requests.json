@@ -833,6 +833,13 @@
    "kind": "instruction",
    "text": "\"Not yet applied (specification section 9 gives the reasons):\nSatiety as the gauge of being fed: a satiety index exists for only 11 of the goods.\nThe dessert step: nothing is eaten beyond the energy need.\nThe rich city's dairy and bread: this needs conversion yields from a source.\nFood effects in the game: this is a design decision for you.\nWhale blubber and pig organs: no source read gives their shares.\nLemons: you haven't given a ceiling value yet.\"\n\nGive me all the figures you need, all the entries that require nuance, and I'll just hand you a CSV file",
    "led_to": "R71: a CSV template of every figure and nuanced entry the food model needs from the user, with current values and sources, for the user to fill"
+  },
+  {
+   "id": "M120",
+   "date": "2026-11-08",
+   "kind": "input",
+   "text": "@\"/root/.claude/uploads/cd72ee4b-5cb9-57d5-996a-fd6ca15cd65f/1af53463-user_inputs_template.ods\" I think you'll manage this ODS file. I heavily edited the document, removed entire columns, you'll get to see",
+   "led_to": "R72: read the user's edited inputs file (ODS) exactly as edited, store it in the repository, and apply its values to the data files and the model"
   }
  ],
  "requests": [
@@ -2920,6 +2927,30 @@
      "what": "Write the CSV template (generated from the data files): every missing figure and every entry needing nuance, with unit, purpose, current value and source, and empty columns for the user's value and source",
      "status": "done",
      "where": "research/economy/data/user_inputs_template.csv (197 rows), written by plan/tools/user_inputs_template.py"
+    }
+   ]
+  },
+  {
+   "id": "R72",
+   "date": "2026-11-08",
+   "status": "open",
+   "prompt": "M120",
+   "text": "@\"/root/.claude/uploads/cd72ee4b-5cb9-57d5-996a-fd6ca15cd65f/1af53463-user_inputs_template.ods\" I think you'll manage this ODS file. I heavily edited the document, removed entire columns, you'll get to see",
+   "items": [
+    {
+     "id": "R72.1",
+     "what": "Read the ODS as the user edited it (columns removed, values and notes added); store it and a faithful CSV export in the repository",
+     "status": "open"
+    },
+    {
+     "id": "R72.2",
+     "what": "Apply every value and note to the data files and the model through a reader tool; list anything that cannot be applied and why",
+     "status": "open"
+    },
+    {
+     "id": "R72.3",
+     "what": "Rerun the cases and regenerate the report",
+     "status": "open"
     }
    ]
   }
