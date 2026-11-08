@@ -1,4 +1,6 @@
-"""R72 (M120): read the user's edited inputs (data/user_inputs_m120.csv, exported from user_inputs_m120.ods by ods_read.py)
+"""SUPERSEDED (R76, M126): it read only two columns and added readings the user did not write (user_inputs_audit_m125.md). Do not use; the values are translated only from the user's answers to data/user_inputs_m120.questions.ods.
+
+R72 (M120): read the user's edited inputs (data/user_inputs_m120.csv, exported from user_inputs_m120.ods by ods_read.py)
 and write data/user_inputs.json, the structured values the food model reads. Each row is parsed by its id; a row whose
 text does not match the expected shape stops the run, so nothing is guessed. The user's text is kept verbatim beside
 each parsed value.

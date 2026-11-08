@@ -1,4 +1,6 @@
-"""R72 (M120): read an OpenDocument spreadsheet (.ods) with the standard library only, every sheet as rows of cell text,
+"""SUPERSEDED (R76, M126) by ods_extract.py, which keeps stored values, types, formats and notes and checks every cell against LibreOffice. Kept for the record.
+
+R72 (M120): read an OpenDocument spreadsheet (.ods) with the standard library only, every sheet as rows of cell text,
 and write each sheet as CSV. Repeated cells and rows are expanded; trailing empty cells and rows are dropped.
 Cell text keeps line breaks within a cell as '\\n'; a cell's annotation (comment) is appended after ' [note: ...]'.
 

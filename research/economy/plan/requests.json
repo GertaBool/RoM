@@ -3090,17 +3090,20 @@
     {
      "id": "R76.1",
      "what": "Lossless extraction: every cell of every sheet with its shown text, stored value and type, number format, formula, note, merged and hidden state; checked against an independent reader (LibreOffice); any difference stops the run",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/user_inputs_process.md; plan/tools/ods_extract.py, user_inputs_questions.py; data/user_inputs_m120.cells.csv, .rows.csv, .questions.csv/.ods"
     },
     {
      "id": "R76.2",
      "what": "Every column read, the template columns included: every edit the user made to item, unit, needed_for or nuance is detected against the template sent and handled, never ignored",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/user_inputs_process.md; plan/tools/ods_extract.py, user_inputs_questions.py; data/user_inputs_m120.cells.csv, .rows.csv, .questions.csv/.ods"
     },
     {
      "id": "R76.3",
      "what": "Translation to values only through explicit per-row rules; a cell that does not match its rule, a unit that differs from the one asked, free text needing structure, or any reading the user did not state becomes a question, never a guess",
-     "status": "open"
+     "status": "done",
+     "where": "research/economy/user_inputs_process.md; plan/tools/ods_extract.py, user_inputs_questions.py; data/user_inputs_m120.cells.csv, .rows.csv, .questions.csv/.ods"
     },
     {
      "id": "R76.4",
