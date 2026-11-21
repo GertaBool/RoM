@@ -1,0 +1,1403 @@
+function	cls	field	string	call	file	line
+CvCityAI::AI_reset	CvCityAI	m_pbEmphasize	m_pbEmphasize not NULL!!!	FAssertMsg	CvCityAI.cpp	175
+CvCityAI::AI_isEmphasize	CvCityAI	m_pbEmphasize	m_pbEmphasize is not expected to be equal with NULL	FAssertMsg	CvCityAI.cpp	6600
+CvCityAI::AI_updateBestBuild	CvCityAI	m_aeBestBuild	      City %S switches best build on plot %d, %d from %S (%d) to %S (%d) with worker count %d	logBBAI	CvCityAI.cpp	8312
+CvDLLWidgetData::parseHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	\"%s	Format	CvDLLWidgetData.cpp	159
+CvDLLWidgetData::parseHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	\"%s	Format	CvDLLWidgetData.cpp	574
+CvDLLWidgetData::parseActionHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	\"%s%s	CvWString::format	CvDLLWidgetData.cpp	3139
+CvDLLWidgetData::parseActionHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	\"%s%s	CvWString::format	CvDLLWidgetData.cpp	3222
+CvDLLWidgetData::parseActionHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	\"%s%s	CvWString::format	CvDLLWidgetData.cpp	3230
+CvDLLWidgetData::parseActionHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	\"%s%s	CvWString::format	CvDLLWidgetData.cpp	3239
+CvDLLWidgetData::parseActionHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	\"%s%s	CvWString::format	CvDLLWidgetData.cpp	3247
+CvDLLWidgetData::parseChangeSpecialistHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_MAX_SPECIALISTS	getText	CvDLLWidgetData.cpp	3404
+CvDLLWidgetData::parseChangeSpecialistHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_REMOVE_SPECIALIST	getText	CvDLLWidgetData.cpp	3411
+CvDLLWidgetData::parseChangeSpecialistHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_FORCED_SPECIALIST	getText	CvDLLWidgetData.cpp	3425
+CvDLLWidgetData::parseChangePercentHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_INCREASE_RATE	getText	CvDLLWidgetData.cpp	3467
+CvDLLWidgetData::parseChangePercentHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_DECREASE_RATE	getText	CvDLLWidgetData.cpp	3471
+CvDLLWidgetData::parseSetPercentHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_SET_RATE	getText	CvDLLWidgetData.cpp	3478
+CvDLLWidgetData::parseContactCivHelp	CvStartWarInfo	bIsVictory4	\"land	CvWString::format	CvDLLWidgetData.cpp	4294
+CvDLLWidgetData::parseContactCivHelp	CvStartWarInfo	bIsVictory4	\"sea	CvWString::format	CvDLLWidgetData.cpp	4303
+CvDLLWidgetData::parseContactCivHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_REV_CONTACT_MINOR	getText	CvDLLWidgetData.cpp	4352
+CvDLLWidgetData::parseContactCivHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_CONTACT_LEADER	getText	CvDLLWidgetData.cpp	4368
+CvDLLWidgetData::parseConvertHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_CONVERT_TO_REL	getText	CvDLLWidgetData.cpp	4489
+CvDLLWidgetData::parseTradeItem	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData2	TXT_KEY_TRADE_MAKE_PEACE	getText	CvDLLWidgetData.cpp	4686
+CvDLLWidgetData::parseTradeItem	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData2	TXT_KEY_TRADE_MAKE_WAR	getText	CvDLLWidgetData.cpp	4689
+CvDLLWidgetData::parseTradeItem	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData2	TXT_KEY_TRADE_STOP_TRADING	getText	CvDLLWidgetData.cpp	4692
+CvDLLWidgetData::parseTradeItem	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData2	TXT_KEY_TRADE_ADOPT_CIVIC	getText	CvDLLWidgetData.cpp	4695
+CvDLLWidgetData::parseTradeItem	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData2	TXT_KEY_TRADE_CONVERT_RELIGION	getText	CvDLLWidgetData.cpp	4698
+CvDLLWidgetData::parseTechPrereqHelp	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	TXT_KEY_MISC_TECH_REQUIRES_KNOWLEDGE_OF	getText	CvDLLWidgetData.cpp	5297
+CvDeal::startTrade	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	    Player %d (%S) trades tech %S due to TRADE_TECHNOLOGIES with player %d (%S)	logBBAI	CvDeal.cpp	717
+CvDeal::startTrade	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	    Player %d (%S) trades bonus type %S due to TRADE_RESOURCES with %d (%S)	logBBAI	CvDeal.cpp	752
+CvDeal::startTrade	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	    Player %d (%S) trades gold %d due to TRADE_GOLD with player %d (%S)	logBBAI	CvDeal.cpp	792
+CvDeal::startTrade	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	    Player %d (%S) trades gold per turn %d due to TRADE_GOLD_PER_TURN with player %d (%S)	logBBAI	CvDeal.cpp	814
+CvDeal::startTrade	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	    Team %d (%S) makes peace with team %d due to TRADE_PEACE with %d (%S)	logBBAI	CvDeal.cpp	905
+CvDeal::startTrade	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	    Team %d (%S) declares war on team %d due to TRADE_WAR with %d (%S)	logBBAI	CvDeal.cpp	921
+CvDeal::startTrade	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	    Player %d (%S) signs embargo against team %d due to TRADE_EMBARGO with player %d (%S)	logBBAI	CvDeal.cpp	960
+CvDllTranslator::initializeTags	NiColor,NiColorA	r	\"<color=%i,%i,%i,%i>	Format	CvDllTranslator.cpp	57
+CvFractal::getHeight	CvFractal	m_iXs	iX out of range	FAssertMsg	CvFractal.cpp	286
+CvFractal::getHeight	CvFractal	m_iYs	iY out of range	FAssertMsg	CvFractal.cpp	287
+CvGame::reset	CvGame	m_paiUnitCreatedCount	about to leak memory, CvGame::m_paiUnitCreatedCount	FAssertMsg	CvGame.cpp	582
+CvGame::reset	CvGame	m_paiUnitClassCreatedCount	about to leak memory, CvGame::m_paiUnitClassCreatedCount	FAssertMsg	CvGame.cpp	589
+CvGame::reset	CvGame	m_paiBuildingClassCreatedCount	about to leak memory, CvGame::m_paiBuildingClassCreatedCount	FAssertMsg	CvGame.cpp	596
+CvGame::reset	CvGame	m_paiProjectCreatedCount	about to leak memory, CvGame::m_paiProjectCreatedCount	FAssertMsg	CvGame.cpp	603
+CvGame::reset	CvGame	m_paiForceCivicCount	about to leak memory, CvGame::m_paiForceCivicCount	FAssertMsg	CvGame.cpp	610
+CvGame::reset	CvGame	m_paiVoteOutcome	about to leak memory, CvGame::m_paiVoteOutcome	FAssertMsg	CvGame.cpp	618
+CvGame::reset	CvGame	m_aiDiploVote	about to leak memory, CvGame::m_aiDiploVote	FAssertMsg	CvGame.cpp	626
+CvGame::reset	CvGame	m_pabSpecialUnitValid	about to leak memory, CvGame::m_pabSpecialUnitValid	FAssertMsg	CvGame.cpp	633
+CvGame::reset	CvGame	m_pabSpecialBuildingValid	about to leak memory, CvGame::m_pabSpecialBuildingValid	FAssertMsg	CvGame.cpp	640
+CvGame::reset	CvGame	m_paiReligionGameTurnFounded	about to leak memory, CvGame::m_paiReligionGameTurnFounded	FAssertMsg	CvGame.cpp	647
+CvGame::reset	CvGame	m_abReligionSlotTaken	about to leak memory, CvGame::m_abReligionSlotTaken	FAssertMsg	CvGame.cpp	649
+CvGame::reset	CvGame	m_paHolyCity	about to leak memory, CvGame::m_paHolyCity	FAssertMsg	CvGame.cpp	651
+CvGame::reset	CvGame	m_abTechCanFoundReligion	about to leak memory, CvGame::m_abTechCanFoundReligion	FAssertMsg	CvGame.cpp	664
+CvGame::reset	CvGame	m_paiCorporationGameTurnFounded	about to leak memory, CvGame::m_paiCorporationGameTurnFounded	FAssertMsg	CvGame.cpp	679
+CvGame::reset	CvGame	m_aiShrineBuilding	about to leak memory, CvGame::m_aiShrineBuilding	FAssertMsg	CvGame.cpp	688
+CvGame::reset	CvGame	m_aiShrineReligion	about to leak memory, CvGame::m_aiShrineReligion	FAssertMsg	CvGame.cpp	689
+CvGame::reset	CvGame	m_aiSecretaryGeneralTimer	about to leak memory, CvGame::m_aiSecretaryGeneralTimer	FAssertMsg	CvGame.cpp	698
+CvGame::reset	CvGame	m_aiVoteTimer	about to leak memory, CvGame::m_aiVoteTimer	FAssertMsg	CvGame.cpp	699
+CvGame::update	CvGame	m_iNumGameTurnActive	Turn-active count repaired from %d to %d on turn %d	logBBAI	CvGame.cpp	2204
+CvGame::beginBulkReveal	CvGame	m_eBulkRevealTeam	Nested bulk reveals must use the receiving team	FAssertMsg	CvGame.cpp	2303
+CvGame::endBulkReveal	CvGame	m_iBulkRevealDepth	Unbalanced bulk reveal scope	FAssertMsg	CvGame.cpp	2310
+CvGame::processDeferredReveals	CvGame	m_aiDeferredRevealPlots	turn %d bulk reveal: refreshed %d, queued %d	Format	CvGame.cpp	2387
+CvGame::updateGraphicsPaging	CvGame	m_iPagingX	turn %d look (%d,%d) %s: window west %d east %d north %d south %d margin %d	Format	CvGame.cpp	2532
+CvGame::pageGraphics	CvGame	m_iPagingX	turn %d look (%d,%d) %s: in plots %d units %d cities %d, out plots %d units %d cities %d; paged out plots %d units %d cities %d	Format	CvGame.cpp	2869
+CvGame::selectUnit	CLLNode	m_data	null entity in selection group	FAssertMsg	CvGame.cpp	3123
+CvGame::processVote	VoteTriggeredData	kVoteOption	  Vote for assigning %S to %d (%S) passes	logBBAI	CvGame.cpp	8604
+CvGame::read	CvGame	m_iNumSessions	TXT_KEY_MISC_RELOAD	getText	CvGame.cpp	9176
+CvGame::getShrineBuilding	CvGame	m_iShrineBuildingCount	invalid index to CvGame::getShrineBuilding	FAssertMsg	CvGame.cpp	9818
+CvGame::changeShrineBuilding	CvGame	m_iShrineBuildingCount	trying to add too many buildings to CvGame::changeShrineBuilding	FAssertMsg	CvGame.cpp	9846
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPEN_BORDERS	getText	CvGame.cpp	9994
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_DEFENSIVE_PACT	getText	CvGame.cpp	10002
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_PEACE	getText	CvGame.cpp	10018
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_NO_TRADE	getText	CvGame.cpp	10036
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_FORCE_WAR	getText	CvGame.cpp	10054
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_ASSIGN_CITY	getText	CvGame.cpp	10078
+CvGame::addVoteSelection	VoteSelectionSubData	eVote	TXT_KEY_POPUP_ELECTION_OPTION	getText	CvGame.cpp	10087
+CvGame::doVoteResults	VoteTriggeredData	kVoteOption	TXT_KEY_VOTE_RESULTS	getText	CvGame.cpp	10376
+stepAdd	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData1	node->m_iData1 is expected to be non-negative (invalid Index)	FAssertMsg	CvGameCoreUtils.cpp	2470
+warLogCities	CLLNode	m_data	Y\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%s\\t%d\\t%d\\t%d\\t%s\\t%d\\t%d\\t%d	Format	CvGameCoreUtils.cpp	3627
+warLogDeal	CLLNode	m_data	%d:%d,	CvString::format	CvGameCoreUtils.cpp	3751
+warUnitLine	CLLNode	m_data	L\\t%d\\t%d\\t%d\\t%d\\t%s\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%d\\t%s	CvString::format	CvGameCoreUtils.cpp	3785
+CvGame::startFlyoutMenu	CvNetDoCommand,CvNetDoTask,CvNetModNetMessage,CvNetPushMission,CvPopupInfo,CvWidgetDataStruct,FAStarNode	m_iData2	TXT_KEY_FLYOUT_MENU_MOVE_TO	getText	CvGameInterface.cpp	2240
+CvGameTextMgr::setPlotListHelp	CvGameTextMgr	m_apbPromotion	\"%d<img=%S size=16></img>	CvWString::format	CvGameTextMgr.cpp	1943
+CvGameTextMgr::getTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	TXT_KEY_MISC_GOLD	getText	CvGameTextMgr.cpp	15446
+CvGameTextMgr::getTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	TXT_KEY_MISC_GOLD_PER_TURN	getText	CvGameTextMgr.cpp	15449
+CvGameTextMgr::getTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	\"%s	CvWString::format	CvGameTextMgr.cpp	15473
+CvGameTextMgr::getTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	\"%s	CvWString::format	CvGameTextMgr.cpp	15476
+CvGameTextMgr::getTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	\"%s	CvWString::format	CvGameTextMgr.cpp	15479
+CvGameTextMgr::getTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	\"%s	CvWString::format	CvGameTextMgr.cpp	15484
+CvGameTextMgr::getTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	\"%s	CvWString::format	CvGameTextMgr.cpp	15487
+CvGameTextMgr::getTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	\"%s	CvWString::format	CvGameTextMgr.cpp	15490
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_GIFT_BONUS_TO_PLAYER	getText	CvGameTextMgr.cpp	17875
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_HAPPY_FROM_PLAYER	getText	CvGameTextMgr.cpp	17885
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_HAPPY_TO_PLAYER	getText	CvGameTextMgr.cpp	17890
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_HEALTH_FROM_PLAYER	getText	CvGameTextMgr.cpp	17931
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_HEALTH_TO_PLAYER	getText	CvGameTextMgr.cpp	17936
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_ATTITUDE_GOOD	getText	CvGameTextMgr.cpp	18410
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_ATTITUDE_BAD	getText	CvGameTextMgr.cpp	18415
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_ESPIONAGE_POINTS	getText	CvGameTextMgr.cpp	18442
+CvGameTextMgr::setEventHelp	EventTriggeredData	m_eOtherPlayer	TXT_KEY_EVENT_DECLARE_WAR	getText	CvGameTextMgr.cpp	18472
+CvGlobals::readBuildingInfoArray	CvGlobals	m_paBuildingInfo	CvBuildingInfo	readInfoArray	CvGlobals.cpp	3608
+CvGlobals::readTechInfoArray	CvGlobals	m_paTechInfo	CvTechInfo	readInfoArray	CvGlobals.cpp	3618
+CvGlobals::readUnitInfoArray	CvGlobals	m_paUnitInfo	CvUnitInfo	readInfoArray	CvGlobals.cpp	3628
+CvGlobals::readLeaderHeadInfoArray	CvGlobals	m_paLeaderHeadInfo	CvLeaderHeadInfo	readInfoArray	CvGlobals.cpp	3638
+CvGlobals::readCivilizationInfoArray	CvGlobals	m_paCivilizationInfo	CvCivilizationInfo	readInfoArray	CvGlobals.cpp	3648
+CvGlobals::readPromotionInfoArray	CvGlobals	m_paPromotionInfo	CvPromotionInfo	readInfoArray	CvGlobals.cpp	3658
+CvGlobals::readDiplomacyInfoArray	CvGlobals	m_paDiplomacyInfo	CvDiplomacyInfo	readInfoArray	CvGlobals.cpp	3668
+CvGlobals::readCivicInfoArray	CvGlobals	m_paCivicInfo	CvCivicInfo	readInfoArray	CvGlobals.cpp	3678
+CvGlobals::readHandicapInfoArray	CvGlobals	m_paHandicapInfo	CvHandicapInfo	readInfoArray	CvGlobals.cpp	3688
+CvGlobals::readBonusInfoArray	CvGlobals	m_paBonusInfo	CvBonusInfo	readInfoArray	CvGlobals.cpp	3698
+CvGlobals::readImprovementInfoArray	CvGlobals	m_paImprovementInfo	CvImprovementInfo	readInfoArray	CvGlobals.cpp	3708
+CvGlobals::readEventInfoArray	CvGlobals	m_paEventInfo	CvEventInfo	readInfoArray	CvGlobals.cpp	3718
+CvGlobals::readEventTriggerInfoArray	CvGlobals	m_paEventTriggerInfo	CvEventTriggerInfo	readInfoArray	CvGlobals.cpp	3728
+CvGlobals::setTypesEnum	CvGlobals	m_typesMap	types entry already exists	FAssertMsg	CvGlobals.cpp	3757
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialDiffuse	r	GetChildXmlValByName	CvInfoWater.cpp	116
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialDiffuse	g	GetChildXmlValByName	CvInfoWater.cpp	117
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialDiffuse	b	GetChildXmlValByName	CvInfoWater.cpp	118
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialSpecular	r	GetChildXmlValByName	CvInfoWater.cpp	123
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialSpecular	g	GetChildXmlValByName	CvInfoWater.cpp	124
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialSpecular	b	GetChildXmlValByName	CvInfoWater.cpp	125
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialEmmisive	r	GetChildXmlValByName	CvInfoWater.cpp	130
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialEmmisive	g	GetChildXmlValByName	CvInfoWater.cpp	131
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_kMaterialEmmisive	b	GetChildXmlValByName	CvInfoWater.cpp	132
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_fMaterialAlpha	MaterialAlpha	GetChildXmlValByName	CvInfoWater.cpp	138
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_BaseTextureScale	TextureScaling	GetChildXmlValByName	CvInfoWater.cpp	150
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_fURate	URate	GetChildXmlValByName	CvInfoWater.cpp	151
+CvWaterPlaneInfo::read	CvWaterPlaneInfo	m_fVRate	VRate	GetChildXmlValByName	CvInfoWater.cpp	152
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfoWater.cpp	276
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_bGroundPlane	bGroundPlane	GetChildXmlValByName	CvInfoWater.cpp	277
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_fMaterialAlpha	MaterialAlpha	GetChildXmlValByName	CvInfoWater.cpp	278
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_fCloseAlpha	CloseAlpha	GetChildXmlValByName	CvInfoWater.cpp	279
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_BaseTextureScaleU	TextureScalingU	GetChildXmlValByName	CvInfoWater.cpp	284
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_BaseTextureScaleV	TextureScalingV	GetChildXmlValByName	CvInfoWater.cpp	285
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_fURate	URate	GetChildXmlValByName	CvInfoWater.cpp	286
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_fVRate	VRate	GetChildXmlValByName	CvInfoWater.cpp	287
+CvTerrainPlaneInfo::read	CvTerrainPlaneInfo	m_fZHeight	ZHeight	GetChildXmlValByName	CvInfoWater.cpp	288
+CvCameraOverlayInfo::read	CvCameraOverlayInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfoWater.cpp	398
+CvInfoBase::read	CvInfoBase	m_bGraphicalOnly	bGraphicalOnly	GetChildXmlValByName	CvInfos.cpp	232
+CvInfoBase::read	CvInfoBase	m_szType	Type	GetChildXmlValByName	CvInfos.cpp	235
+CvInfoBase::read	CvInfoBase	m_szTextKey	Description	GetChildXmlValByName	CvInfos.cpp	313
+CvInfoBase::read	CvInfoBase	m_szCivilopediaKey	Civilopedia	GetChildXmlValByName	CvInfos.cpp	316
+CvInfoBase::read	CvInfoBase	m_szHelpKey	Help	GetChildXmlValByName	CvInfos.cpp	319
+CvInfoBase::read	CvInfoBase	m_szStrategyKey	Strategy	GetChildXmlValByName	CvInfos.cpp	322
+CvInfoBase::read	CvInfoBase	m_szButton	Button	GetChildXmlValByName	CvInfos.cpp	325
+CvHotkeyInfo::getHotKeyDescription	CvHotkeyInfo	m_szHotKeyAltDescriptionKey	\"%s (%s)	Format	CvInfos.cpp	879
+CvDiplomacyResponse::read	CvDiplomacyResponse	m_pbCivilizationTypes	Civilizations	SetVariableListTagPair	CvInfos.cpp	1085
+CvDiplomacyResponse::read	CvDiplomacyResponse	m_pbLeaderHeadTypes	Leaders	SetVariableListTagPair	CvInfos.cpp	1087
+CvDiplomacyResponse::read	CvDiplomacyResponse	m_pbAttitudeTypes	Attitudes	SetVariableListTagPair	CvInfos.cpp	1089
+CvDiplomacyResponse::read	CvDiplomacyResponse	m_pbDiplomacyPowerTypes	DiplomacyPowers	SetVariableListTagPair	CvInfos.cpp	1091
+CvSpecialistInfo::read	CvSpecialistInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfos.cpp	1280
+CvSpecialistInfo::read	CvSpecialistInfo	m_iGreatPeopleRateChange	iGreatPeopleRateChange	GetChildXmlValByName	CvInfos.cpp	1285
+CvSpecialistInfo::read	CvSpecialistInfo	m_iExperience	iExperience	GetChildXmlValByName	CvInfos.cpp	1307
+CvSpecialistInfo::read	CvSpecialistInfo	m_piFlavorValue	Flavors	SetVariableListTagPair	CvInfos.cpp	1309
+CvTechInfo::read	CvTechInfo	m_iAIWeight	iAIWeight	GetChildXmlValByName	CvInfos.cpp	1877
+CvTechInfo::read	CvTechInfo	m_iAITradeModifier	iAITradeModifier	GetChildXmlValByName	CvInfos.cpp	1878
+CvTechInfo::read	CvTechInfo	m_iResearchCost	iCost	GetChildXmlValByName	CvInfos.cpp	1879
+CvTechInfo::read	CvTechInfo	m_iAdvancedStartCost	iAdvancedStartCost	GetChildXmlValByName	CvInfos.cpp	1880
+CvTechInfo::read	CvTechInfo	m_iAdvancedStartCostIncrease	iAdvancedStartCostIncrease	GetChildXmlValByName	CvInfos.cpp	1881
+CvTechInfo::read	CvTechInfo	m_iFeatureProductionModifier	iFeatureProductionModifier	GetChildXmlValByName	CvInfos.cpp	1889
+CvTechInfo::read	CvTechInfo	m_iWorkerSpeedModifier	iWorkerSpeedModifier	GetChildXmlValByName	CvInfos.cpp	1890
+CvTechInfo::read	CvTechInfo	m_iTradeRoutes	iTradeRoutes	GetChildXmlValByName	CvInfos.cpp	1891
+CvTechInfo::read	CvTechInfo	m_iHealth	iHealth	GetChildXmlValByName	CvInfos.cpp	1892
+CvTechInfo::read	CvTechInfo	m_iHappiness	iHappiness	GetChildXmlValByName	CvInfos.cpp	1893
+CvTechInfo::read	CvTechInfo	m_iFirstFreeTechs	iFirstFreeTechs	GetChildXmlValByName	CvInfos.cpp	1894
+CvTechInfo::read	CvTechInfo	m_iAssetValue	iAsset	GetChildXmlValByName	CvInfos.cpp	1895
+CvTechInfo::read	CvTechInfo	m_iPowerValue	iPower	GetChildXmlValByName	CvInfos.cpp	1896
+CvTechInfo::read	CvTechInfo	m_bRepeat	bRepeat	GetChildXmlValByName	CvInfos.cpp	1897
+CvTechInfo::read	CvTechInfo	m_bTrade	bTrade	GetChildXmlValByName	CvInfos.cpp	1898
+CvTechInfo::read	CvTechInfo	m_bDisable	bDisable	GetChildXmlValByName	CvInfos.cpp	1899
+CvTechInfo::read	CvTechInfo	m_bGoodyTech	bGoodyTech	GetChildXmlValByName	CvInfos.cpp	1900
+CvTechInfo::read	CvTechInfo	m_bExtraWaterSeeFrom	bExtraWaterSeeFrom	GetChildXmlValByName	CvInfos.cpp	1901
+CvTechInfo::read	CvTechInfo	m_bMapCentering	bMapCentering	GetChildXmlValByName	CvInfos.cpp	1902
+CvTechInfo::read	CvTechInfo	m_bMapVisible	bMapVisible	GetChildXmlValByName	CvInfos.cpp	1903
+CvTechInfo::read	CvTechInfo	m_bMapTrading	bMapTrading	GetChildXmlValByName	CvInfos.cpp	1904
+CvTechInfo::read	CvTechInfo	m_bTechTrading	bTechTrading	GetChildXmlValByName	CvInfos.cpp	1905
+CvTechInfo::read	CvTechInfo	m_bGoldTrading	bGoldTrading	GetChildXmlValByName	CvInfos.cpp	1906
+CvTechInfo::read	CvTechInfo	m_bOpenBordersTrading	bOpenBordersTrading	GetChildXmlValByName	CvInfos.cpp	1907
+CvTechInfo::read	CvTechInfo	m_bDefensivePactTrading	bDefensivePactTrading	GetChildXmlValByName	CvInfos.cpp	1908
+CvTechInfo::read	CvTechInfo	m_bPermanentAllianceTrading	bPermanentAllianceTrading	GetChildXmlValByName	CvInfos.cpp	1909
+CvTechInfo::read	CvTechInfo	m_bVassalStateTrading	bVassalTrading	GetChildXmlValByName	CvInfos.cpp	1910
+CvTechInfo::read	CvTechInfo	m_bBridgeBuilding	bBridgeBuilding	GetChildXmlValByName	CvInfos.cpp	1911
+CvTechInfo::read	CvTechInfo	m_bIrrigation	bIrrigation	GetChildXmlValByName	CvInfos.cpp	1912
+CvTechInfo::read	CvTechInfo	m_bIgnoreIrrigation	bIgnoreIrrigation	GetChildXmlValByName	CvInfos.cpp	1913
+CvTechInfo::read	CvTechInfo	m_bWaterWork	bWaterWork	GetChildXmlValByName	CvInfos.cpp	1914
+CvTechInfo::read	CvTechInfo	m_bRiverTrade	bRiverTrade	GetChildXmlValByName	CvInfos.cpp	1915
+CvTechInfo::read	CvTechInfo	m_iGridX	iGridX	GetChildXmlValByName	CvInfos.cpp	1916
+CvTechInfo::read	CvTechInfo	m_iGridY	iGridY	GetChildXmlValByName	CvInfos.cpp	1917
+CvTechInfo::read	CvTechInfo	m_bDCMAirBombTech1	bDCMAirBombTech1	GetChildXmlValByName	CvInfos.cpp	1921
+CvTechInfo::read	CvTechInfo	m_bDCMAirBombTech2	bDCMAirBombTech2	GetChildXmlValByName	CvInfos.cpp	1922
+CvTechInfo::read	CvTechInfo	m_piDomainExtraMoves	DomainExtraMoves	SetVariableListTagPair	CvInfos.cpp	1936
+CvTechInfo::read	CvTechInfo	m_pbTerrainTrade	TerrainTrades	SetVariableListTagPair	CvInfos.cpp	1937
+CvTechInfo::read	CvTechInfo	m_piFlavorValue	Flavors	SetVariableListTagPair	CvInfos.cpp	1938
+CvPromotionInfo::read	CvPromotionInfo	m_bLeader	bLeader	GetChildXmlValByName	CvInfos.cpp	2791
+CvPromotionInfo::read	CvPromotionInfo	m_bBlitz	bBlitz	GetChildXmlValByName	CvInfos.cpp	2796
+CvPromotionInfo::read	CvPromotionInfo	m_bAmphib	bAmphib	GetChildXmlValByName	CvInfos.cpp	2797
+CvPromotionInfo::read	CvPromotionInfo	m_bRiver	bRiver	GetChildXmlValByName	CvInfos.cpp	2798
+CvPromotionInfo::read	CvPromotionInfo	m_bEnemyRoute	bEnemyRoute	GetChildXmlValByName	CvInfos.cpp	2799
+CvPromotionInfo::read	CvPromotionInfo	m_bAlwaysHeal	bAlwaysHeal	GetChildXmlValByName	CvInfos.cpp	2800
+CvPromotionInfo::read	CvPromotionInfo	m_bHillsDoubleMove	bHillsDoubleMove	GetChildXmlValByName	CvInfos.cpp	2801
+CvPromotionInfo::read	CvPromotionInfo	m_bImmuneToFirstStrikes	bImmuneToFirstStrikes	GetChildXmlValByName	CvInfos.cpp	2802
+CvPromotionInfo::read	CvPromotionInfo	m_iVisibilityChange	iVisibilityChange	GetChildXmlValByName	CvInfos.cpp	2803
+CvPromotionInfo::read	CvPromotionInfo	m_iMovesChange	iMovesChange	GetChildXmlValByName	CvInfos.cpp	2804
+CvPromotionInfo::read	CvPromotionInfo	m_iMoveDiscountChange	iMoveDiscountChange	GetChildXmlValByName	CvInfos.cpp	2805
+CvPromotionInfo::read	CvPromotionInfo	m_iAirRangeChange	iAirRangeChange	GetChildXmlValByName	CvInfos.cpp	2806
+CvPromotionInfo::read	CvPromotionInfo	m_iInterceptChange	iInterceptChange	GetChildXmlValByName	CvInfos.cpp	2807
+CvPromotionInfo::read	CvPromotionInfo	m_iEvasionChange	iEvasionChange	GetChildXmlValByName	CvInfos.cpp	2808
+CvPromotionInfo::read	CvPromotionInfo	m_iWithdrawalChange	iWithdrawalChange	GetChildXmlValByName	CvInfos.cpp	2809
+CvPromotionInfo::read	CvPromotionInfo	m_iCargoChange	iCargoChange	GetChildXmlValByName	CvInfos.cpp	2810
+CvPromotionInfo::read	CvPromotionInfo	m_iCollateralDamageChange	iCollateralDamageChange	GetChildXmlValByName	CvInfos.cpp	2811
+CvPromotionInfo::read	CvPromotionInfo	m_iBombardRateChange	iBombardRateChange	GetChildXmlValByName	CvInfos.cpp	2812
+CvPromotionInfo::read	CvPromotionInfo	m_iFirstStrikesChange	iFirstStrikesChange	GetChildXmlValByName	CvInfos.cpp	2813
+CvPromotionInfo::read	CvPromotionInfo	m_iChanceFirstStrikesChange	iChanceFirstStrikesChange	GetChildXmlValByName	CvInfos.cpp	2814
+CvPromotionInfo::read	CvPromotionInfo	m_iEnemyHealChange	iEnemyHealChange	GetChildXmlValByName	CvInfos.cpp	2815
+CvPromotionInfo::read	CvPromotionInfo	m_iNeutralHealChange	iNeutralHealChange	GetChildXmlValByName	CvInfos.cpp	2816
+CvPromotionInfo::read	CvPromotionInfo	m_iFriendlyHealChange	iFriendlyHealChange	GetChildXmlValByName	CvInfos.cpp	2817
+CvPromotionInfo::read	CvPromotionInfo	m_iSameTileHealChange	iSameTileHealChange	GetChildXmlValByName	CvInfos.cpp	2818
+CvPromotionInfo::read	CvPromotionInfo	m_iAdjacentTileHealChange	iAdjacentTileHealChange	GetChildXmlValByName	CvInfos.cpp	2819
+CvPromotionInfo::read	CvPromotionInfo	m_iCombatPercent	iCombatPercent	GetChildXmlValByName	CvInfos.cpp	2820
+CvPromotionInfo::read	CvPromotionInfo	m_iCityAttackPercent	iCityAttack	GetChildXmlValByName	CvInfos.cpp	2821
+CvPromotionInfo::read	CvPromotionInfo	m_iCityDefensePercent	iCityDefense	GetChildXmlValByName	CvInfos.cpp	2822
+CvPromotionInfo::read	CvPromotionInfo	m_iHillsAttackPercent	iHillsAttack	GetChildXmlValByName	CvInfos.cpp	2823
+CvPromotionInfo::read	CvPromotionInfo	m_iHillsDefensePercent	iHillsDefense	GetChildXmlValByName	CvInfos.cpp	2824
+CvPromotionInfo::read	CvPromotionInfo	m_iRevoltProtection	iRevoltProtection	GetChildXmlValByName	CvInfos.cpp	2825
+CvPromotionInfo::read	CvPromotionInfo	m_iCollateralDamageProtection	iCollateralDamageProtection	GetChildXmlValByName	CvInfos.cpp	2826
+CvPromotionInfo::read	CvPromotionInfo	m_iPillageChange	iPillageChange	GetChildXmlValByName	CvInfos.cpp	2827
+CvPromotionInfo::read	CvPromotionInfo	m_iUpgradeDiscount	iUpgradeDiscount	GetChildXmlValByName	CvInfos.cpp	2828
+CvPromotionInfo::read	CvPromotionInfo	m_iExperiencePercent	iExperiencePercent	GetChildXmlValByName	CvInfos.cpp	2829
+CvPromotionInfo::read	CvPromotionInfo	m_iKamikazePercent	iKamikazePercent	GetChildXmlValByName	CvInfos.cpp	2830
+CvPromotionInfo::read	CvPromotionInfo	m_piTerrainAttackPercent	TerrainAttacks	SetVariableListTagPair	CvInfos.cpp	2832
+CvPromotionInfo::read	CvPromotionInfo	m_piTerrainDefensePercent	TerrainDefenses	SetVariableListTagPair	CvInfos.cpp	2833
+CvPromotionInfo::read	CvPromotionInfo	m_piFeatureAttackPercent	FeatureAttacks	SetVariableListTagPair	CvInfos.cpp	2834
+CvPromotionInfo::read	CvPromotionInfo	m_piFeatureDefensePercent	FeatureDefenses	SetVariableListTagPair	CvInfos.cpp	2835
+CvPromotionInfo::read	CvPromotionInfo	m_piUnitCombatModifierPercent	UnitCombatMods	SetVariableListTagPair	CvInfos.cpp	2836
+CvPromotionInfo::read	CvPromotionInfo	m_piDomainModifierPercent	DomainMods	SetVariableListTagPair	CvInfos.cpp	2837
+CvPromotionInfo::read	CvPromotionInfo	m_pbTerrainDoubleMove	TerrainDoubleMoves	SetVariableListTagPair	CvInfos.cpp	2839
+CvPromotionInfo::read	CvPromotionInfo	m_pbFeatureDoubleMove	FeatureDoubleMoves	SetVariableListTagPair	CvInfos.cpp	2840
+CvPromotionInfo::read	CvPromotionInfo	m_pbUnitCombat	UnitCombats	SetVariableListTagPair	CvInfos.cpp	2841
+CvMissionInfo::read	CvMissionInfo	m_szWaypoint	Waypoint	GetChildXmlValByName	CvInfos.cpp	3077
+CvMissionInfo::read	CvMissionInfo	m_iTime	iTime	GetChildXmlValByName	CvInfos.cpp	3078
+CvMissionInfo::read	CvMissionInfo	m_bSound	bSound	GetChildXmlValByName	CvInfos.cpp	3079
+CvMissionInfo::read	CvMissionInfo	m_bTarget	bTarget	GetChildXmlValByName	CvInfos.cpp	3080
+CvMissionInfo::read	CvMissionInfo	m_bBuild	bBuild	GetChildXmlValByName	CvInfos.cpp	3081
+CvMissionInfo::read	CvMissionInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfos.cpp	3082
+CvCommandInfo::read	CvCommandInfo	m_bConfirmCommand	bConfirmCommand	GetChildXmlValByName	CvInfos.cpp	3243
+CvCommandInfo::read	CvCommandInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfos.cpp	3244
+CvCommandInfo::read	CvCommandInfo	m_bAll	bAll	GetChildXmlValByName	CvInfos.cpp	3245
+CvAutomateInfo::read	CvAutomateInfo	m_bConfirmCommand	bConfirmCommand	GetChildXmlValByName	CvInfos.cpp	3349
+CvAutomateInfo::read	CvAutomateInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfos.cpp	3350
+CvUnitInfo::read	CvUnitInfo	m_bAnimal	bAnimal	GetChildXmlValByName	CvInfos.cpp	5961
+CvUnitInfo::read	CvUnitInfo	m_bFoodProduction	bFood	GetChildXmlValByName	CvInfos.cpp	5962
+CvUnitInfo::read	CvUnitInfo	m_bNoBadGoodies	bNoBadGoodies	GetChildXmlValByName	CvInfos.cpp	5963
+CvUnitInfo::read	CvUnitInfo	m_bOnlyDefensive	bOnlyDefensive	GetChildXmlValByName	CvInfos.cpp	5964
+CvUnitInfo::read	CvUnitInfo	m_bNoCapture	bNoCapture	GetChildXmlValByName	CvInfos.cpp	5965
+CvUnitInfo::read	CvUnitInfo	m_bQuickCombat	bQuickCombat	GetChildXmlValByName	CvInfos.cpp	5966
+CvUnitInfo::read	CvUnitInfo	m_bRivalTerritory	bRivalTerritory	GetChildXmlValByName	CvInfos.cpp	5967
+CvUnitInfo::read	CvUnitInfo	m_bMilitaryHappiness	bMilitaryHappiness	GetChildXmlValByName	CvInfos.cpp	5968
+CvUnitInfo::read	CvUnitInfo	m_bMilitarySupport	bMilitarySupport	GetChildXmlValByName	CvInfos.cpp	5969
+CvUnitInfo::read	CvUnitInfo	m_bMilitaryProduction	bMilitaryProduction	GetChildXmlValByName	CvInfos.cpp	5970
+CvUnitInfo::read	CvUnitInfo	m_bPillage	bPillage	GetChildXmlValByName	CvInfos.cpp	5971
+CvUnitInfo::read	CvUnitInfo	m_bSpy	bSpy	GetChildXmlValByName	CvInfos.cpp	5972
+CvUnitInfo::read	CvUnitInfo	m_bSabotage	bSabotage	GetChildXmlValByName	CvInfos.cpp	5973
+CvUnitInfo::read	CvUnitInfo	m_bDestroy	bDestroy	GetChildXmlValByName	CvInfos.cpp	5974
+CvUnitInfo::read	CvUnitInfo	m_bStealPlans	bStealPlans	GetChildXmlValByName	CvInfos.cpp	5975
+CvUnitInfo::read	CvUnitInfo	m_bInvestigate	bInvestigate	GetChildXmlValByName	CvInfos.cpp	5976
+CvUnitInfo::read	CvUnitInfo	m_bCounterSpy	bCounterSpy	GetChildXmlValByName	CvInfos.cpp	5977
+CvUnitInfo::read	CvUnitInfo	m_bFound	bFound	GetChildXmlValByName	CvInfos.cpp	5978
+CvUnitInfo::read	CvUnitInfo	m_bGoldenAge	bGoldenAge	GetChildXmlValByName	CvInfos.cpp	5979
+CvUnitInfo::read	CvUnitInfo	m_bInvisible	bInvisible	GetChildXmlValByName	CvInfos.cpp	5980
+CvUnitInfo::read	CvUnitInfo	m_bFirstStrikeImmune	bFirstStrikeImmune	GetChildXmlValByName	CvInfos.cpp	5981
+CvUnitInfo::read	CvUnitInfo	m_bNoDefensiveBonus	bNoDefensiveBonus	GetChildXmlValByName	CvInfos.cpp	5982
+CvUnitInfo::read	CvUnitInfo	m_bIgnoreBuildingDefense	bIgnoreBuildingDefense	GetChildXmlValByName	CvInfos.cpp	5983
+CvUnitInfo::read	CvUnitInfo	m_bCanMoveImpassable	bCanMoveImpassable	GetChildXmlValByName	CvInfos.cpp	5984
+CvUnitInfo::read	CvUnitInfo	m_bCanMoveAllTerrain	bCanMoveAllTerrain	GetChildXmlValByName	CvInfos.cpp	5985
+CvUnitInfo::read	CvUnitInfo	m_bFlatMovementCost	bFlatMovementCost	GetChildXmlValByName	CvInfos.cpp	5986
+CvUnitInfo::read	CvUnitInfo	m_bIgnoreTerrainCost	bIgnoreTerrainCost	GetChildXmlValByName	CvInfos.cpp	5987
+CvUnitInfo::read	CvUnitInfo	m_bNukeImmune	bNukeImmune	GetChildXmlValByName	CvInfos.cpp	5988
+CvUnitInfo::read	CvUnitInfo	m_bPrereqBonuses	bPrereqBonuses	GetChildXmlValByName	CvInfos.cpp	5989
+CvUnitInfo::read	CvUnitInfo	m_bPrereqReligion	bPrereqReligion	GetChildXmlValByName	CvInfos.cpp	5990
+CvUnitInfo::read	CvUnitInfo	m_bMechanized	bMechanized	GetChildXmlValByName	CvInfos.cpp	5991
+CvUnitInfo::read	CvUnitInfo	m_bRenderBelowWater	bRenderBelowWater	GetChildXmlValByName	CvInfos.cpp	5992
+CvUnitInfo::read	CvUnitInfo	m_bRenderAlways	bRenderAlways	GetChildXmlValByName	CvInfos.cpp	5993
+CvUnitInfo::read	CvUnitInfo	m_bSuicide	bSuicide	GetChildXmlValByName	CvInfos.cpp	5994
+CvUnitInfo::read	CvUnitInfo	m_bLineOfSight	bLineOfSight	GetChildXmlValByName	CvInfos.cpp	5995
+CvUnitInfo::read	CvUnitInfo	m_bHiddenNationality	bHiddenNationality	GetChildXmlValByName	CvInfos.cpp	5996
+CvUnitInfo::read	CvUnitInfo	m_bAlwaysHostile	bAlwaysHostile	GetChildXmlValByName	CvInfos.cpp	5997
+CvUnitInfo::read	CvUnitInfo	m_bNoRevealMap	bNoRevealMap	GetChildXmlValByName	CvInfos.cpp	5998
+CvUnitInfo::read	CvUnitInfo	m_bInquisitor	bInquisitor	GetChildXmlValByName	CvInfos.cpp	6004
+CvUnitInfo::read	CvUnitInfo	m_bCanBeRebel	bCanBeRebel	GetChildXmlValByName	CvInfos.cpp	6005
+CvUnitInfo::read	CvUnitInfo	m_bCanRebelCapture	bCanRebelCapture	GetChildXmlValByName	CvInfos.cpp	6006
+CvUnitInfo::read	CvUnitInfo	m_bCannotDefect	bCannotDefect	GetChildXmlValByName	CvInfos.cpp	6007
+CvUnitInfo::read	CvUnitInfo	m_bCanQuellRebellion	bCanQuellRebellion	GetChildXmlValByName	CvInfos.cpp	6008
+CvUnitInfo::read	CvUnitInfo	m_pbUpgradeUnitClass	UnitClassUpgrades	SetVariableListTagPair	CvInfos.cpp	6013
+CvUnitInfo::read	CvUnitInfo	m_pbTargetUnitClass	UnitClassTargets	SetVariableListTagPair	CvInfos.cpp	6014
+CvUnitInfo::read	CvUnitInfo	m_pbTargetUnitCombat	UnitCombatTargets	SetVariableListTagPair	CvInfos.cpp	6015
+CvUnitInfo::read	CvUnitInfo	m_pbDefenderUnitClass	UnitClassDefenders	SetVariableListTagPair	CvInfos.cpp	6016
+CvUnitInfo::read	CvUnitInfo	m_pbDefenderUnitCombat	UnitCombatDefenders	SetVariableListTagPair	CvInfos.cpp	6017
+CvUnitInfo::read	CvUnitInfo	m_piFlankingStrikeUnitClass	FlankingStrikes	SetVariableListTagPair	CvInfos.cpp	6018
+CvUnitInfo::read	CvUnitInfo	m_pbUnitAIType	UnitAIs	SetVariableListTagPair	CvInfos.cpp	6019
+CvUnitInfo::read	CvUnitInfo	m_pbNotUnitAIType	NotUnitAIs	SetVariableListTagPair	CvInfos.cpp	6020
+CvUnitInfo::read	CvUnitInfo	m_pbBuilds	Builds	SetVariableListTagPair	CvInfos.cpp	6022
+CvUnitInfo::read	CvUnitInfo	m_piReligionSpreads	ReligionSpreads	SetVariableListTagPair	CvInfos.cpp	6024
+CvUnitInfo::read	CvUnitInfo	m_piCorporationSpreads	CorporationSpreads	SetVariableListTagPair	CvInfos.cpp	6025
+CvUnitInfo::read	CvUnitInfo	m_pbGreatPeoples	GreatPeoples	SetVariableListTagPair	CvInfos.cpp	6044
+CvUnitInfo::read	CvUnitInfo	m_pbBuildings	Buildings	SetVariableListTagPair	CvInfos.cpp	6046
+CvUnitInfo::read	CvUnitInfo	m_pbForceBuildings	ForceBuildings	SetVariableListTagPair	CvInfos.cpp	6047
+CvUnitInfo::read	CvUnitInfo	m_bStateReligion	bStateReligion	GetChildXmlValByName	CvInfos.cpp	6060
+CvUnitInfo::read	CvUnitInfo	m_pbPrereqOrCivics	PrereqOrCivics	SetVariableListTagPair	CvInfos.cpp	6068
+CvUnitInfo::read	CvUnitInfo	m_pbPrereqBuildingClass	PrereqBuildingClasses	SetVariableListTagPair	CvInfos.cpp	6070
+CvUnitInfo::read	CvUnitInfo	m_piPrereqBuildingClassOverrideTech	PrereqBuildingClasses	SetVariableListTagPair	CvInfos.cpp	6072
+CvUnitInfo::read	CvUnitInfo	m_piPrereqBuildingClassOverrideEra	PrereqBuildingClasses	SetVariableListTagPair	CvInfos.cpp	6075
+CvUnitInfo::read	CvUnitInfo	m_pbForceObsoleteUnitClass	ForceObsoleteUnitClasses	SetVariableListTagPair	CvInfos.cpp	6078
+CvUnitInfo::read	CvUnitInfo	m_piProductionTraits	ProductionTraits	SetVariableListTagPair	CvInfos.cpp	6191
+CvUnitInfo::read	CvUnitInfo	m_piFlavorValue	Flavors	SetVariableListTagPair	CvInfos.cpp	6193
+CvUnitInfo::read	CvUnitInfo	m_iAIWeight	iAIWeight	GetChildXmlValByName	CvInfos.cpp	6195
+CvUnitInfo::read	CvUnitInfo	m_iProductionCost	iCost	GetChildXmlValByName	CvInfos.cpp	6196
+CvUnitInfo::read	CvUnitInfo	m_iHurryCostModifier	iHurryCostModifier	GetChildXmlValByName	CvInfos.cpp	6197
+CvUnitInfo::read	CvUnitInfo	m_iAdvancedStartCost	iAdvancedStartCost	GetChildXmlValByName	CvInfos.cpp	6198
+CvUnitInfo::read	CvUnitInfo	m_iAdvancedStartCostIncrease	iAdvancedStartCostIncrease	GetChildXmlValByName	CvInfos.cpp	6199
+CvUnitInfo::read	CvUnitInfo	m_iMinAreaSize	iMinAreaSize	GetChildXmlValByName	CvInfos.cpp	6200
+CvUnitInfo::read	CvUnitInfo	m_iMoves	iMoves	GetChildXmlValByName	CvInfos.cpp	6201
+CvUnitInfo::read	CvUnitInfo	m_iAirRange	iAirRange	GetChildXmlValByName	CvInfos.cpp	6202
+CvUnitInfo::read	CvUnitInfo	m_iAirUnitCap	iAirUnitCap	GetChildXmlValByName	CvInfos.cpp	6203
+CvUnitInfo::read	CvUnitInfo	m_iDropRange	iDropRange	GetChildXmlValByName	CvInfos.cpp	6204
+CvUnitInfo::read	CvUnitInfo	m_iNukeRange	iNukeRange	GetChildXmlValByName	CvInfos.cpp	6205
+CvUnitInfo::read	CvUnitInfo	m_iWorkRate	iWorkRate	GetChildXmlValByName	CvInfos.cpp	6206
+CvUnitInfo::read	CvUnitInfo	m_iBaseDiscover	iBaseDiscover	GetChildXmlValByName	CvInfos.cpp	6207
+CvUnitInfo::read	CvUnitInfo	m_iDiscoverMultiplier	iDiscoverMultiplier	GetChildXmlValByName	CvInfos.cpp	6208
+CvUnitInfo::read	CvUnitInfo	m_iBaseHurry	iBaseHurry	GetChildXmlValByName	CvInfos.cpp	6209
+CvUnitInfo::read	CvUnitInfo	m_iHurryMultiplier	iHurryMultiplier	GetChildXmlValByName	CvInfos.cpp	6210
+CvUnitInfo::read	CvUnitInfo	m_iBaseTrade	iBaseTrade	GetChildXmlValByName	CvInfos.cpp	6211
+CvUnitInfo::read	CvUnitInfo	m_iTradeMultiplier	iTradeMultiplier	GetChildXmlValByName	CvInfos.cpp	6212
+CvUnitInfo::read	CvUnitInfo	m_iGreatWorkCulture	iGreatWorkCulture	GetChildXmlValByName	CvInfos.cpp	6213
+CvUnitInfo::read	CvUnitInfo	m_iEspionagePoints	iEspionagePoints	GetChildXmlValByName	CvInfos.cpp	6214
+CvUnitInfo::read	CvUnitInfo	m_pbTerrainImpassable	TerrainImpassables	SetVariableListTagPair	CvInfos.cpp	6216
+CvUnitInfo::read	CvUnitInfo	m_pbFeatureImpassable	FeatureImpassables	SetVariableListTagPair	CvInfos.cpp	6217
+CvUnitInfo::read	CvUnitInfo	m_iCombat	iCombat	GetChildXmlValByName	CvInfos.cpp	6219
+CvUnitInfo::read	CvUnitInfo	m_iCombatLimit	iCombatLimit	GetChildXmlValByName	CvInfos.cpp	6220
+CvUnitInfo::read	CvUnitInfo	m_iAirCombat	iAirCombat	GetChildXmlValByName	CvInfos.cpp	6221
+CvUnitInfo::read	CvUnitInfo	m_iAirCombatLimit	iAirCombatLimit	GetChildXmlValByName	CvInfos.cpp	6222
+CvUnitInfo::read	CvUnitInfo	m_iXPValueAttack	iXPValueAttack	GetChildXmlValByName	CvInfos.cpp	6223
+CvUnitInfo::read	CvUnitInfo	m_iXPValueDefense	iXPValueDefense	GetChildXmlValByName	CvInfos.cpp	6224
+CvUnitInfo::read	CvUnitInfo	m_iFirstStrikes	iFirstStrikes	GetChildXmlValByName	CvInfos.cpp	6225
+CvUnitInfo::read	CvUnitInfo	m_iChanceFirstStrikes	iChanceFirstStrikes	GetChildXmlValByName	CvInfos.cpp	6226
+CvUnitInfo::read	CvUnitInfo	m_iInterceptionProbability	iInterceptionProbability	GetChildXmlValByName	CvInfos.cpp	6227
+CvUnitInfo::read	CvUnitInfo	m_iEvasionProbability	iEvasionProbability	GetChildXmlValByName	CvInfos.cpp	6228
+CvUnitInfo::read	CvUnitInfo	m_iWithdrawalProbability	iWithdrawalProb	GetChildXmlValByName	CvInfos.cpp	6229
+CvUnitInfo::read	CvUnitInfo	m_iCollateralDamage	iCollateralDamage	GetChildXmlValByName	CvInfos.cpp	6230
+CvUnitInfo::read	CvUnitInfo	m_iCollateralDamageLimit	iCollateralDamageLimit	GetChildXmlValByName	CvInfos.cpp	6231
+CvUnitInfo::read	CvUnitInfo	m_iCollateralDamageMaxUnits	iCollateralDamageMaxUnits	GetChildXmlValByName	CvInfos.cpp	6232
+CvUnitInfo::read	CvUnitInfo	m_iCityAttackModifier	iCityAttack	GetChildXmlValByName	CvInfos.cpp	6233
+CvUnitInfo::read	CvUnitInfo	m_iCityDefenseModifier	iCityDefense	GetChildXmlValByName	CvInfos.cpp	6234
+CvUnitInfo::read	CvUnitInfo	m_iAnimalCombatModifier	iAnimalCombat	GetChildXmlValByName	CvInfos.cpp	6235
+CvUnitInfo::read	CvUnitInfo	m_iHillsAttackModifier	iHillsAttack	GetChildXmlValByName	CvInfos.cpp	6236
+CvUnitInfo::read	CvUnitInfo	m_iHillsDefenseModifier	iHillsDefense	GetChildXmlValByName	CvInfos.cpp	6237
+CvUnitInfo::read	CvUnitInfo	m_pbTerrainNative	TerrainNatives	SetVariableListTagPair	CvInfos.cpp	6239
+CvUnitInfo::read	CvUnitInfo	m_pbFeatureNative	FeatureNatives	SetVariableListTagPair	CvInfos.cpp	6240
+CvUnitInfo::read	CvUnitInfo	m_piTerrainAttackModifier	TerrainAttacks	SetVariableListTagPair	CvInfos.cpp	6242
+CvUnitInfo::read	CvUnitInfo	m_piTerrainDefenseModifier	TerrainDefenses	SetVariableListTagPair	CvInfos.cpp	6243
+CvUnitInfo::read	CvUnitInfo	m_piFeatureAttackModifier	FeatureAttacks	SetVariableListTagPair	CvInfos.cpp	6244
+CvUnitInfo::read	CvUnitInfo	m_piFeatureDefenseModifier	FeatureDefenses	SetVariableListTagPair	CvInfos.cpp	6245
+CvUnitInfo::read	CvUnitInfo	m_piUnitClassAttackModifier	UnitClassAttackMods	SetVariableListTagPair	CvInfos.cpp	6247
+CvUnitInfo::read	CvUnitInfo	m_piUnitClassDefenseModifier	UnitClassDefenseMods	SetVariableListTagPair	CvInfos.cpp	6248
+CvUnitInfo::read	CvUnitInfo	m_piUnitCombatModifier	UnitCombatMods	SetVariableListTagPair	CvInfos.cpp	6250
+CvUnitInfo::read	CvUnitInfo	m_piUnitCombatCollateralImmune	UnitCombatCollateralImmunes	SetVariableListTagPair	CvInfos.cpp	6251
+CvUnitInfo::read	CvUnitInfo	m_piDomainModifier	DomainMods	SetVariableListTagPair	CvInfos.cpp	6252
+CvUnitInfo::read	CvUnitInfo	m_piBonusProductionModifier	BonusProductionModifiers	SetVariableListTagPair	CvInfos.cpp	6254
+CvUnitInfo::read	CvUnitInfo	m_iBombRate	iBombRate	GetChildXmlValByName	CvInfos.cpp	6256
+CvUnitInfo::read	CvUnitInfo	m_iBombardRate	iBombardRate	GetChildXmlValByName	CvInfos.cpp	6257
+CvUnitInfo::read	CvUnitInfo	m_iCargoSpace	iCargo	GetChildXmlValByName	CvInfos.cpp	6265
+CvUnitInfo::read	CvUnitInfo	m_iConscriptionValue	iConscription	GetChildXmlValByName	CvInfos.cpp	6266
+CvUnitInfo::read	CvUnitInfo	m_iCultureGarrisonValue	iCultureGarrison	GetChildXmlValByName	CvInfos.cpp	6267
+CvUnitInfo::read	CvUnitInfo	m_iExtraCost	iExtraCost	GetChildXmlValByName	CvInfos.cpp	6268
+CvUnitInfo::read	CvUnitInfo	m_iAssetValue	iAsset	GetChildXmlValByName	CvInfos.cpp	6269
+CvUnitInfo::read	CvUnitInfo	m_iPowerValue	iPower	GetChildXmlValByName	CvInfos.cpp	6270
+CvUnitInfo::read	CvUnitInfo	m_iGroupSize	iGroupSize	GetChildXmlValByName	CvInfos.cpp	6275
+CvUnitInfo::read	CvUnitInfo	m_iUnitMeleeWaveSize	iMeleeWaveSize	GetChildXmlValByName	CvInfos.cpp	6278
+CvUnitInfo::read	CvUnitInfo	m_iUnitRangedWaveSize	iRangedWaveSize	GetChildXmlValByName	CvInfos.cpp	6279
+CvUnitInfo::read	CvUnitInfo	m_fUnitMaxSpeed	fMaxSpeed	GetChildXmlValByName	CvInfos.cpp	6280
+CvUnitInfo::read	CvUnitInfo	m_fUnitPadTime	fPadTime	GetChildXmlValByName	CvInfos.cpp	6281
+CvUnitInfo::read	CvUnitInfo	m_piUnitGroupRequired	iRequired	GetChildXmlValByName	CvInfos.cpp	6290
+CvUnitInfo::read	CvUnitInfo	m_szFormationType	FormationType	GetChildXmlValByName	CvInfos.cpp	6304
+CvUnitInfo::read	CvUnitInfo	m_pbFreePromotions	FreePromotions	SetVariableListTagPair	CvInfos.cpp	6312
+CvUnitInfo::read	CvUnitInfo	m_iLeaderExperience	iLeaderExperience	GetChildXmlValByName	CvInfos.cpp	6317
+CvUnitInfo::read	CvUnitInfo	m_iDCMBombRange	iDCMBombRange	GetChildXmlValByName	CvInfos.cpp	6320
+CvUnitInfo::read	CvUnitInfo	m_iDCMBombAccuracy	iDCMBombAccuracy	GetChildXmlValByName	CvInfos.cpp	6321
+CvUnitInfo::read	CvUnitInfo	m_bDCMAirBomb1	bDCMAirBomb1	GetChildXmlValByName	CvInfos.cpp	6324
+CvUnitInfo::read	CvUnitInfo	m_bDCMAirBomb2	bDCMAirBomb2	GetChildXmlValByName	CvInfos.cpp	6325
+CvUnitInfo::read	CvUnitInfo	m_bDCMAirBomb3	bDCMAirBomb3	GetChildXmlValByName	CvInfos.cpp	6326
+CvUnitInfo::read	CvUnitInfo	m_bDCMAirBomb4	bDCMAirBomb4	GetChildXmlValByName	CvInfos.cpp	6327
+CvUnitInfo::read	CvUnitInfo	m_bDCMAirBomb5	bDCMAirBomb5	GetChildXmlValByName	CvInfos.cpp	6328
+CvUnitInfo::read	CvUnitInfo	m_bDCMFighterEngage	bDCMFighterEngage	GetChildXmlValByName	CvInfos.cpp	6331
+CvUnitFormationInfo::read	CvUnitFormationInfo	m_szFormationType	FormationType	GetChildXmlValByName	CvInfos.cpp	6953
+CvUnitFormationInfo::read	CvUnitEntry	m_position	x	GetChildXmlValByName	CvInfos.cpp	6982
+CvUnitFormationInfo::read	CvUnitEntry	m_position	y	GetChildXmlValByName	CvInfos.cpp	6983
+CvUnitFormationInfo::read	CvUnitEntry	m_fRadius	PositionRadius	GetChildXmlValByName	CvInfos.cpp	6986
+CvUnitFormationInfo::read	CvUnitEntry	m_fFacingDirection	Direction	GetChildXmlValByName	CvInfos.cpp	6987
+CvUnitFormationInfo::read	CvUnitEntry	m_fFacingVariance	DirVariation	GetChildXmlValByName	CvInfos.cpp	6988
+CvUnitFormationInfo::read	CvUnitFormationInfo	m_vctGreatUnitEntries	[Jason] Formation missing great general entry.	FAssertMsg	CvInfos.cpp	7005
+CvUnitFormationInfo::read	CvUnitFormationInfo	m_vctSiegeUnitEntries	[Jason] Formation missing siege tower entry.	FAssertMsg	CvInfos.cpp	7006
+CvSpecialUnitInfo::read	CvSpecialUnitInfo	m_bValid	bValid	GetChildXmlValByName	CvInfos.cpp	7119
+CvSpecialUnitInfo::read	CvSpecialUnitInfo	m_bCityLoad	bCityLoad	GetChildXmlValByName	CvInfos.cpp	7120
+CvSpecialUnitInfo::read	CvSpecialUnitInfo	m_pbCarrierUnitAITypes	CarrierUnitAITypes	SetVariableListTagPair	CvInfos.cpp	7122
+CvSpecialUnitInfo::read	CvSpecialUnitInfo	m_piProductionTraits	ProductionTraits	SetVariableListTagPair	CvInfos.cpp	7124
+CvCivicOptionInfo::read	CvCivicOptionInfo	m_pabTraitNoUpkeep	TraitNoUpkeeps	SetVariableListTagPair	CvInfos.cpp	7210
+CvCivicInfo::read	CvCivicInfo	m_iAnarchyLength	iAnarchyLength	GetChildXmlValByName	CvInfos.cpp	8126
+CvCivicInfo::read	CvCivicInfo	m_iAIWeight	iAIWeight	GetChildXmlValByName	CvInfos.cpp	8131
+CvCivicInfo::read	CvCivicInfo	m_iGreatPeopleRateModifier	iGreatPeopleRateModifier	GetChildXmlValByName	CvInfos.cpp	8132
+CvCivicInfo::read	CvCivicInfo	m_iGreatGeneralRateModifier	iGreatGeneralRateModifier	GetChildXmlValByName	CvInfos.cpp	8133
+CvCivicInfo::read	CvCivicInfo	m_iDomesticGreatGeneralRateModifier	iDomesticGreatGeneralRateModifier	GetChildXmlValByName	CvInfos.cpp	8134
+CvCivicInfo::read	CvCivicInfo	m_iStateReligionGreatPeopleRateModifier	iStateReligionGreatPeopleRateModifier	GetChildXmlValByName	CvInfos.cpp	8135
+CvCivicInfo::read	CvCivicInfo	m_iDistanceMaintenanceModifier	iDistanceMaintenanceModifier	GetChildXmlValByName	CvInfos.cpp	8136
+CvCivicInfo::read	CvCivicInfo	m_iNumCitiesMaintenanceModifier	iNumCitiesMaintenanceModifier	GetChildXmlValByName	CvInfos.cpp	8137
+CvCivicInfo::read	CvCivicInfo	m_iCorporationMaintenanceModifier	iCorporationMaintenanceModifier	GetChildXmlValByName	CvInfos.cpp	8138
+CvCivicInfo::read	CvCivicInfo	m_iExtraHealth	iExtraHealth	GetChildXmlValByName	CvInfos.cpp	8139
+CvCivicInfo::read	CvCivicInfo	m_iFreeExperience	iFreeExperience	GetChildXmlValByName	CvInfos.cpp	8140
+CvCivicInfo::read	CvCivicInfo	m_iWorkerSpeedModifier	iWorkerSpeedModifier	GetChildXmlValByName	CvInfos.cpp	8141
+CvCivicInfo::read	CvCivicInfo	m_iImprovementUpgradeRateModifier	iImprovementUpgradeRateModifier	GetChildXmlValByName	CvInfos.cpp	8142
+CvCivicInfo::read	CvCivicInfo	m_iMilitaryProductionModifier	iMilitaryProductionModifier	GetChildXmlValByName	CvInfos.cpp	8143
+CvCivicInfo::read	CvCivicInfo	m_iBaseFreeUnits	iBaseFreeUnits	GetChildXmlValByName	CvInfos.cpp	8144
+CvCivicInfo::read	CvCivicInfo	m_iBaseFreeMilitaryUnits	iBaseFreeMilitaryUnits	GetChildXmlValByName	CvInfos.cpp	8145
+CvCivicInfo::read	CvCivicInfo	m_iFreeUnitsPopulationPercent	iFreeUnitsPopulationPercent	GetChildXmlValByName	CvInfos.cpp	8146
+CvCivicInfo::read	CvCivicInfo	m_iFreeMilitaryUnitsPopulationPercent	iFreeMilitaryUnitsPopulationPercent	GetChildXmlValByName	CvInfos.cpp	8147
+CvCivicInfo::read	CvCivicInfo	m_iGoldPerUnit	iGoldPerUnit	GetChildXmlValByName	CvInfos.cpp	8148
+CvCivicInfo::read	CvCivicInfo	m_iGoldPerMilitaryUnit	iGoldPerMilitaryUnit	GetChildXmlValByName	CvInfos.cpp	8149
+CvCivicInfo::read	CvCivicInfo	m_iHappyPerMilitaryUnit	iHappyPerMilitaryUnit	GetChildXmlValByName	CvInfos.cpp	8150
+CvCivicInfo::read	CvCivicInfo	m_bMilitaryFoodProduction	bMilitaryFoodProduction	GetChildXmlValByName	CvInfos.cpp	8151
+CvCivicInfo::read	CvCivicInfo	m_iMaxConscript	iMaxConscript	GetChildXmlValByName	CvInfos.cpp	8152
+CvCivicInfo::read	CvCivicInfo	m_bNoUnhealthyPopulation	bNoUnhealthyPopulation	GetChildXmlValByName	CvInfos.cpp	8153
+CvCivicInfo::read	CvCivicInfo	m_bBuildingOnlyHealthy	bBuildingOnlyHealthy	GetChildXmlValByName	CvInfos.cpp	8154
+CvCivicInfo::read	CvCivicInfo	m_iLargestCityHappiness	iLargestCityHappiness	GetChildXmlValByName	CvInfos.cpp	8155
+CvCivicInfo::read	CvCivicInfo	m_iWarWearinessModifier	iWarWearinessModifier	GetChildXmlValByName	CvInfos.cpp	8156
+CvCivicInfo::read	CvCivicInfo	m_iFreeSpecialist	iFreeSpecialist	GetChildXmlValByName	CvInfos.cpp	8157
+CvCivicInfo::read	CvCivicInfo	m_iTradeRoutes	iTradeRoutes	GetChildXmlValByName	CvInfos.cpp	8158
+CvCivicInfo::read	CvCivicInfo	m_bNoForeignTrade	bNoForeignTrade	GetChildXmlValByName	CvInfos.cpp	8159
+CvCivicInfo::read	CvCivicInfo	m_bNoCorporations	bNoCorporations	GetChildXmlValByName	CvInfos.cpp	8160
+CvCivicInfo::read	CvCivicInfo	m_bNoForeignCorporations	bNoForeignCorporations	GetChildXmlValByName	CvInfos.cpp	8161
+CvCivicInfo::read	CvCivicInfo	m_iCivicPercentAnger	iCivicPercentAnger	GetChildXmlValByName	CvInfos.cpp	8162
+CvCivicInfo::read	CvCivicInfo	m_bStateReligion	bStateReligion	GetChildXmlValByName	CvInfos.cpp	8163
+CvCivicInfo::read	CvCivicInfo	m_bNoNonStateReligionSpread	bNoNonStateReligionSpread	GetChildXmlValByName	CvInfos.cpp	8164
+CvCivicInfo::read	CvCivicInfo	m_iStateReligionHappiness	iStateReligionHappiness	GetChildXmlValByName	CvInfos.cpp	8165
+CvCivicInfo::read	CvCivicInfo	m_iNonStateReligionHappiness	iNonStateReligionHappiness	GetChildXmlValByName	CvInfos.cpp	8166
+CvCivicInfo::read	CvCivicInfo	m_iStateReligionUnitProductionModifier	iStateReligionUnitProductionModifier	GetChildXmlValByName	CvInfos.cpp	8167
+CvCivicInfo::read	CvCivicInfo	m_iStateReligionBuildingProductionModifier	iStateReligionBuildingProductionModifier	GetChildXmlValByName	CvInfos.cpp	8168
+CvCivicInfo::read	CvCivicInfo	m_iStateReligionFreeExperience	iStateReligionFreeExperience	GetChildXmlValByName	CvInfos.cpp	8169
+CvCivicInfo::read	CvCivicInfo	m_iExpInBorderModifier	iExpInBorderModifier	GetChildXmlValByName	CvInfos.cpp	8170
+CvCivicInfo::read	CvCivicInfo	m_bUpgradeAnywhere	bUpgradeAnywhere	GetChildXmlValByName	CvInfos.cpp	8177
+CvCivicInfo::read	CvCivicInfo	m_bAllowInquisitions	bAllowInquisitions	GetChildXmlValByName	CvInfos.cpp	8178
+CvCivicInfo::read	CvCivicInfo	m_bDisallowInquisitions	bDisallowInquisitions	GetChildXmlValByName	CvInfos.cpp	8179
+CvCivicInfo::read	CvCivicInfo	m_iRevIdxLocal	iRevIdxLocal	GetChildXmlValByName	CvInfos.cpp	8180
+CvCivicInfo::read	CvCivicInfo	m_iRevIdxNational	iRevIdxNational	GetChildXmlValByName	CvInfos.cpp	8181
+CvCivicInfo::read	CvCivicInfo	m_iRevIdxDistanceModifier	iRevIdxDistanceModifier	GetChildXmlValByName	CvInfos.cpp	8182
+CvCivicInfo::read	CvCivicInfo	m_iRevIdxHolyCityGood	iRevIdxHolyCityGood	GetChildXmlValByName	CvInfos.cpp	8183
+CvCivicInfo::read	CvCivicInfo	m_iRevIdxHolyCityBad	iRevIdxHolyCityBad	GetChildXmlValByName	CvInfos.cpp	8184
+CvCivicInfo::read	CvCivicInfo	m_iRevIdxSwitchTo	iRevIdxSwitchTo	GetChildXmlValByName	CvInfos.cpp	8185
+CvCivicInfo::read	CvCivicInfo	m_fRevIdxNationalityMod	fRevIdxNationalityMod	GetChildXmlValByName	CvInfos.cpp	8186
+CvCivicInfo::read	CvCivicInfo	m_fRevIdxBadReligionMod	fRevIdxBadReligionMod	GetChildXmlValByName	CvInfos.cpp	8187
+CvCivicInfo::read	CvCivicInfo	m_fRevIdxGoodReligionMod	fRevIdxGoodReligionMod	GetChildXmlValByName	CvInfos.cpp	8188
+CvCivicInfo::read	CvCivicInfo	m_fRevViolentMod	fRevViolentMod	GetChildXmlValByName	CvInfos.cpp	8189
+CvCivicInfo::read	CvCivicInfo	m_iRevReligiousFreedom	iRevReligiousFreedom	GetChildXmlValByName	CvInfos.cpp	8190
+CvCivicInfo::read	CvCivicInfo	m_iRevLaborFreedom	iRevLaborFreedom	GetChildXmlValByName	CvInfos.cpp	8191
+CvCivicInfo::read	CvCivicInfo	m_iRevEnvironmentalProtection	iRevEnvironmentalProtection	GetChildXmlValByName	CvInfos.cpp	8192
+CvCivicInfo::read	CvCivicInfo	m_iRevDemocracyLevel	iRevDemocracyLevel	GetChildXmlValByName	CvInfos.cpp	8193
+CvCivicInfo::read	CvCivicInfo	m_bCommunism	bCommunism	GetChildXmlValByName	CvInfos.cpp	8194
+CvCivicInfo::read	CvCivicInfo	m_bFreeSpeech	bFreeSpeech	GetChildXmlValByName	CvInfos.cpp	8195
+CvCivicInfo::read	CvCivicInfo	m_bCanDoElection	bCanDoElection	GetChildXmlValByName	CvInfos.cpp	8196
+CvCivicInfo::read	CvCivicInfo	m_pabHurry	Hurrys	SetVariableListTagPair	CvInfos.cpp	8261
+CvCivicInfo::read	CvCivicInfo	m_pabSpecialBuildingNotRequired	SpecialBuildingNotRequireds	SetVariableListTagPair	CvInfos.cpp	8262
+CvCivicInfo::read	CvCivicInfo	m_pabSpecialistValid	SpecialistValids	SetVariableListTagPair	CvInfos.cpp	8263
+CvCivicInfo::read	CvCivicInfo	m_paiBuildingHappinessChanges	BuildingHappinessChanges	SetVariableListTagPair	CvInfos.cpp	8265
+CvCivicInfo::read	CvCivicInfo	m_paiBuildingHealthChanges	BuildingHealthChanges	SetVariableListTagPair	CvInfos.cpp	8266
+CvCivicInfo::read	CvCivicInfo	m_paiFeatureHappinessChanges	FeatureHappinessChanges	SetVariableListTagPair	CvInfos.cpp	8267
+CvUnitClassInfo::read	CvUnitClassInfo	m_iMaxGlobalInstances	iMaxGlobalInstances	GetChildXmlValByName	CvInfos.cpp	9077
+CvUnitClassInfo::read	CvUnitClassInfo	m_iMaxTeamInstances	iMaxTeamInstances	GetChildXmlValByName	CvInfos.cpp	9078
+CvUnitClassInfo::read	CvUnitClassInfo	m_iMaxPlayerInstances	iMaxPlayerInstances	GetChildXmlValByName	CvInfos.cpp	9079
+CvUnitClassInfo::read	CvUnitClassInfo	m_iInstanceCostModifier	iInstanceCostModifier	GetChildXmlValByName	CvInfos.cpp	9080
+CvBuildingInfo::read	CvBuildingInfo	m_piProductionTraits	ProductionTraits	SetVariableListTagPair	CvInfos.cpp	11239
+CvBuildingInfo::read	CvBuildingInfo	m_piHappinessTraits	HappinessTraits	SetVariableListTagPair	CvInfos.cpp	11241
+CvBuildingInfo::read	CvBuildingInfo	m_iNumFreeBonuses	iNumFreeBonuses	GetChildXmlValByName	CvInfos.cpp	11251
+CvBuildingInfo::read	CvBuildingInfo	m_iGreatPeopleRateChange	iGreatPeopleRateChange	GetChildXmlValByName	CvInfos.cpp	11268
+CvBuildingInfo::read	CvBuildingInfo	m_bTeamShare	bTeamShare	GetChildXmlValByName	CvInfos.cpp	11269
+CvBuildingInfo::read	CvBuildingInfo	m_bWater	bWater	GetChildXmlValByName	CvInfos.cpp	11270
+CvBuildingInfo::read	CvBuildingInfo	m_bRiver	bRiver	GetChildXmlValByName	CvInfos.cpp	11271
+CvBuildingInfo::read	CvBuildingInfo	m_bPower	bPower	GetChildXmlValByName	CvInfos.cpp	11272
+CvBuildingInfo::read	CvBuildingInfo	m_bDirtyPower	bDirtyPower	GetChildXmlValByName	CvInfos.cpp	11273
+CvBuildingInfo::read	CvBuildingInfo	m_bAreaCleanPower	bAreaCleanPower	GetChildXmlValByName	CvInfos.cpp	11274
+CvBuildingInfo::read	CvBuildingInfo	m_bAreaBorderObstacle	bBorderObstacle	GetChildXmlValByName	CvInfos.cpp	11275
+CvBuildingInfo::read	CvBuildingInfo	m_bForceTeamVoteEligible	bForceTeamVoteEligible	GetChildXmlValByName	CvInfos.cpp	11276
+CvBuildingInfo::read	CvBuildingInfo	m_bCapital	bCapital	GetChildXmlValByName	CvInfos.cpp	11277
+CvBuildingInfo::read	CvBuildingInfo	m_iDCMAirbombMission	iDCMAirbombMission	GetChildXmlValByName	CvInfos.cpp	11282
+CvBuildingInfo::read	CvBuildingInfo	m_bGovernmentCenter	bGovernmentCenter	GetChildXmlValByName	CvInfos.cpp	11287
+CvBuildingInfo::read	CvBuildingInfo	m_bGoldenAge	bGoldenAge	GetChildXmlValByName	CvInfos.cpp	11288
+CvBuildingInfo::read	CvBuildingInfo	m_bAllowsNukes	bAllowsNukes	GetChildXmlValByName	CvInfos.cpp	11289
+CvBuildingInfo::read	CvBuildingInfo	m_bMapCentering	bMapCentering	GetChildXmlValByName	CvInfos.cpp	11290
+CvBuildingInfo::read	CvBuildingInfo	m_bNoUnhappiness	bNoUnhappiness	GetChildXmlValByName	CvInfos.cpp	11291
+CvBuildingInfo::read	CvBuildingInfo	m_bNoUnhealthyPopulation	bNoUnhealthyPopulation	GetChildXmlValByName	CvInfos.cpp	11292
+CvBuildingInfo::read	CvBuildingInfo	m_bBuildingOnlyHealthy	bBuildingOnlyHealthy	GetChildXmlValByName	CvInfos.cpp	11293
+CvBuildingInfo::read	CvBuildingInfo	m_bNeverCapture	bNeverCapture	GetChildXmlValByName	CvInfos.cpp	11294
+CvBuildingInfo::read	CvBuildingInfo	m_bNukeImmune	bNukeImmune	GetChildXmlValByName	CvInfos.cpp	11295
+CvBuildingInfo::read	CvBuildingInfo	m_bPrereqReligion	bPrereqReligion	GetChildXmlValByName	CvInfos.cpp	11296
+CvBuildingInfo::read	CvBuildingInfo	m_bCenterInCity	bCenterInCity	GetChildXmlValByName	CvInfos.cpp	11297
+CvBuildingInfo::read	CvBuildingInfo	m_bStateReligion	bStateReligion	GetChildXmlValByName	CvInfos.cpp	11298
+CvBuildingInfo::read	CvBuildingInfo	m_iAIWeight	iAIWeight	GetChildXmlValByName	CvInfos.cpp	11299
+CvBuildingInfo::read	CvBuildingInfo	m_iProductionCost	iCost	GetChildXmlValByName	CvInfos.cpp	11300
+CvBuildingInfo::read	CvBuildingInfo	m_iHurryCostModifier	iHurryCostModifier	GetChildXmlValByName	CvInfos.cpp	11301
+CvBuildingInfo::read	CvBuildingInfo	m_iHurryAngerModifier	iHurryAngerModifier	GetChildXmlValByName	CvInfos.cpp	11302
+CvBuildingInfo::read	CvBuildingInfo	m_iAdvancedStartCost	iAdvancedStartCost	GetChildXmlValByName	CvInfos.cpp	11303
+CvBuildingInfo::read	CvBuildingInfo	m_iAdvancedStartCostIncrease	iAdvancedStartCostIncrease	GetChildXmlValByName	CvInfos.cpp	11304
+CvBuildingInfo::read	CvBuildingInfo	m_iMinAreaSize	iMinAreaSize	GetChildXmlValByName	CvInfos.cpp	11305
+CvBuildingInfo::read	CvBuildingInfo	m_iConquestProbability	iConquestProb	GetChildXmlValByName	CvInfos.cpp	11306
+CvBuildingInfo::read	CvBuildingInfo	m_iNumCitiesPrereq	iCitiesPrereq	GetChildXmlValByName	CvInfos.cpp	11307
+CvBuildingInfo::read	CvBuildingInfo	m_iNumTeamsPrereq	iTeamsPrereq	GetChildXmlValByName	CvInfos.cpp	11308
+CvBuildingInfo::read	CvBuildingInfo	m_iUnitLevelPrereq	iLevelPrereq	GetChildXmlValByName	CvInfos.cpp	11309
+CvBuildingInfo::read	CvBuildingInfo	m_iMinLatitude	iMinLatitude	GetChildXmlValByName	CvInfos.cpp	11310
+CvBuildingInfo::read	CvBuildingInfo	m_iMaxLatitude	iMaxLatitude	GetChildXmlValByName	CvInfos.cpp	11311
+CvBuildingInfo::read	CvBuildingInfo	m_iGreatPeopleRateModifier	iGreatPeopleRateModifier	GetChildXmlValByName	CvInfos.cpp	11312
+CvBuildingInfo::read	CvBuildingInfo	m_iGreatGeneralRateModifier	iGreatGeneralRateModifier	GetChildXmlValByName	CvInfos.cpp	11313
+CvBuildingInfo::read	CvBuildingInfo	m_iDomesticGreatGeneralRateModifier	iDomesticGreatGeneralRateModifier	GetChildXmlValByName	CvInfos.cpp	11314
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalGreatPeopleRateModifier	iGlobalGreatPeopleRateModifier	GetChildXmlValByName	CvInfos.cpp	11315
+CvBuildingInfo::read	CvBuildingInfo	m_iAnarchyModifier	iAnarchyModifier	GetChildXmlValByName	CvInfos.cpp	11316
+CvBuildingInfo::read	CvBuildingInfo	m_iGoldenAgeModifier	iGoldenAgeModifier	GetChildXmlValByName	CvInfos.cpp	11317
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalHurryModifier	iGlobalHurryModifier	GetChildXmlValByName	CvInfos.cpp	11318
+CvBuildingInfo::read	CvBuildingInfo	m_iFreeExperience	iExperience	GetChildXmlValByName	CvInfos.cpp	11319
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalFreeExperience	iGlobalExperience	GetChildXmlValByName	CvInfos.cpp	11320
+CvBuildingInfo::read	CvBuildingInfo	m_iFoodKept	iFoodKept	GetChildXmlValByName	CvInfos.cpp	11321
+CvBuildingInfo::read	CvBuildingInfo	m_iAirlift	iAirlift	GetChildXmlValByName	CvInfos.cpp	11322
+CvBuildingInfo::read	CvBuildingInfo	m_iAirModifier	iAirModifier	GetChildXmlValByName	CvInfos.cpp	11323
+CvBuildingInfo::read	CvBuildingInfo	m_iAirUnitCapacity	iAirUnitCapacity	GetChildXmlValByName	CvInfos.cpp	11324
+CvBuildingInfo::read	CvBuildingInfo	m_iNukeModifier	iNukeModifier	GetChildXmlValByName	CvInfos.cpp	11325
+CvBuildingInfo::read	CvBuildingInfo	m_iNukeExplosionRand	iNukeExplosionRand	GetChildXmlValByName	CvInfos.cpp	11326
+CvBuildingInfo::read	CvBuildingInfo	m_iFreeSpecialist	iFreeSpecialist	GetChildXmlValByName	CvInfos.cpp	11327
+CvBuildingInfo::read	CvBuildingInfo	m_iAreaFreeSpecialist	iAreaFreeSpecialist	GetChildXmlValByName	CvInfos.cpp	11328
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalFreeSpecialist	iGlobalFreeSpecialist	GetChildXmlValByName	CvInfos.cpp	11329
+CvBuildingInfo::read	CvBuildingInfo	m_iMaintenanceModifier	iMaintenanceModifier	GetChildXmlValByName	CvInfos.cpp	11330
+CvBuildingInfo::read	CvBuildingInfo	m_iWarWearinessModifier	iWarWearinessModifier	GetChildXmlValByName	CvInfos.cpp	11331
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalWarWearinessModifier	iGlobalWarWearinessModifier	GetChildXmlValByName	CvInfos.cpp	11332
+CvBuildingInfo::read	CvBuildingInfo	m_iEnemyWarWearinessModifier	iEnemyWarWearinessModifier	GetChildXmlValByName	CvInfos.cpp	11333
+CvBuildingInfo::read	CvBuildingInfo	m_iHealRateChange	iHealRateChange	GetChildXmlValByName	CvInfos.cpp	11334
+CvBuildingInfo::read	CvBuildingInfo	m_iHealth	iHealth	GetChildXmlValByName	CvInfos.cpp	11335
+CvBuildingInfo::read	CvBuildingInfo	m_iAreaHealth	iAreaHealth	GetChildXmlValByName	CvInfos.cpp	11336
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalHealth	iGlobalHealth	GetChildXmlValByName	CvInfos.cpp	11337
+CvBuildingInfo::read	CvBuildingInfo	m_iHappiness	iHappiness	GetChildXmlValByName	CvInfos.cpp	11338
+CvBuildingInfo::read	CvBuildingInfo	m_iAreaHappiness	iAreaHappiness	GetChildXmlValByName	CvInfos.cpp	11339
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalHappiness	iGlobalHappiness	GetChildXmlValByName	CvInfos.cpp	11340
+CvBuildingInfo::read	CvBuildingInfo	m_iStateReligionHappiness	iStateReligionHappiness	GetChildXmlValByName	CvInfos.cpp	11341
+CvBuildingInfo::read	CvBuildingInfo	m_iWorkerSpeedModifier	iWorkerSpeedModifier	GetChildXmlValByName	CvInfos.cpp	11342
+CvBuildingInfo::read	CvBuildingInfo	m_iMilitaryProductionModifier	iMilitaryProductionModifier	GetChildXmlValByName	CvInfos.cpp	11343
+CvBuildingInfo::read	CvBuildingInfo	m_iSpaceProductionModifier	iSpaceProductionModifier	GetChildXmlValByName	CvInfos.cpp	11344
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalSpaceProductionModifier	iGlobalSpaceProductionModifier	GetChildXmlValByName	CvInfos.cpp	11345
+CvBuildingInfo::read	CvBuildingInfo	m_iTradeRoutes	iTradeRoutes	GetChildXmlValByName	CvInfos.cpp	11346
+CvBuildingInfo::read	CvBuildingInfo	m_iCoastalTradeRoutes	iCoastalTradeRoutes	GetChildXmlValByName	CvInfos.cpp	11347
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalTradeRoutes	iGlobalTradeRoutes	GetChildXmlValByName	CvInfos.cpp	11348
+CvBuildingInfo::read	CvBuildingInfo	m_iTradeRouteModifier	iTradeRouteModifier	GetChildXmlValByName	CvInfos.cpp	11349
+CvBuildingInfo::read	CvBuildingInfo	m_iForeignTradeRouteModifier	iForeignTradeRouteModifier	GetChildXmlValByName	CvInfos.cpp	11350
+CvBuildingInfo::read	CvBuildingInfo	m_iGlobalPopulationChange	iGlobalPopulationChange	GetChildXmlValByName	CvInfos.cpp	11351
+CvBuildingInfo::read	CvBuildingInfo	m_iFreeTechs	iFreeTechs	GetChildXmlValByName	CvInfos.cpp	11352
+CvBuildingInfo::read	CvBuildingInfo	m_iDefenseModifier	iDefense	GetChildXmlValByName	CvInfos.cpp	11353
+CvBuildingInfo::read	CvBuildingInfo	m_iBombardDefenseModifier	iBombardDefense	GetChildXmlValByName	CvInfos.cpp	11354
+CvBuildingInfo::read	CvBuildingInfo	m_iAllCityDefenseModifier	iAllCityDefense	GetChildXmlValByName	CvInfos.cpp	11355
+CvBuildingInfo::read	CvBuildingInfo	m_iEspionageDefenseModifier	iEspionageDefense	GetChildXmlValByName	CvInfos.cpp	11356
+CvBuildingInfo::read	CvBuildingInfo	m_iUnitUpgradePriceModifier	iUnitUpgradePriceModifier	GetChildXmlValByName	CvInfos.cpp	11363
+CvBuildingInfo::read	CvBuildingInfo	m_iRevIdxLocal	iRevIdxLocal	GetChildXmlValByName	CvInfos.cpp	11364
+CvBuildingInfo::read	CvBuildingInfo	m_iRevIdxNational	iRevIdxNational	GetChildXmlValByName	CvInfos.cpp	11365
+CvBuildingInfo::read	CvBuildingInfo	m_iRevIdxDistanceModifier	iRevIdxDistanceModifier	GetChildXmlValByName	CvInfos.cpp	11366
+CvBuildingInfo::read	CvBuildingInfo	m_iAssetValue	iAsset	GetChildXmlValByName	CvInfos.cpp	11371
+CvBuildingInfo::read	CvBuildingInfo	m_iPowerValue	iPower	GetChildXmlValByName	CvInfos.cpp	11372
+CvBuildingInfo::read	CvBuildingInfo	m_fVisibilityPriority	fVisibilityPriority	GetChildXmlValByName	CvInfos.cpp	11373
+CvBuildingInfo::read	CvBuildingInfo	m_piReligionChange	ReligionChanges	SetVariableListTagPair	CvInfos.cpp	11551
+CvBuildingInfo::read	CvBuildingInfo	m_piSpecialistCount	SpecialistCounts	SetVariableListTagPair	CvInfos.cpp	11553
+CvBuildingInfo::read	CvBuildingInfo	m_piFreeSpecialistCount	FreeSpecialistCounts	SetVariableListTagPair	CvInfos.cpp	11554
+CvBuildingInfo::read	CvBuildingInfo	m_piBonusHealthChanges	BonusHealthChanges	SetVariableListTagPair	CvInfos.cpp	11579
+CvBuildingInfo::read	CvBuildingInfo	m_piBonusHappinessChanges	BonusHappinessChanges	SetVariableListTagPair	CvInfos.cpp	11580
+CvBuildingInfo::read	CvBuildingInfo	m_piBonusProductionModifier	BonusProductionModifiers	SetVariableListTagPair	CvInfos.cpp	11581
+CvBuildingInfo::read	CvBuildingInfo	m_piUnitCombatFreeExperience	UnitCombatFreeExperiences	SetVariableListTagPair	CvInfos.cpp	11583
+CvBuildingInfo::read	CvBuildingInfo	m_piDomainFreeExperience	DomainFreeExperiences	SetVariableListTagPair	CvInfos.cpp	11585
+CvBuildingInfo::read	CvBuildingInfo	m_piDomainProductionModifier	DomainProductionModifiers	SetVariableListTagPair	CvInfos.cpp	11586
+CvBuildingInfo::read	CvBuildingInfo	m_piPrereqNumOfBuildingClass	PrereqBuildingClasses	SetVariableListTagPair	CvInfos.cpp	11588
+CvBuildingInfo::read	CvBuildingInfo	m_pbBuildingClassNeededInCity	BuildingClassNeededs	SetVariableListTagPair	CvInfos.cpp	11589
+CvBuildingInfo::read	CvBuildingInfo	m_piFlavorValue	Flavors	SetVariableListTagPair	CvInfos.cpp	11674
+CvBuildingInfo::read	CvBuildingInfo	m_piImprovementFreeSpecialist	ImprovementFreeSpecialists	SetVariableListTagPair	CvInfos.cpp	11675
+CvBuildingInfo::read	CvBuildingInfo	m_piBuildingHappinessChanges	BuildingHappinessChanges	SetVariableListTagPair	CvInfos.cpp	11677
+CvSpecialBuildingInfo::read	CvSpecialBuildingInfo	m_bValid	bValid	GetChildXmlValByName	CvInfos.cpp	12186
+CvSpecialBuildingInfo::read	CvSpecialBuildingInfo	m_piProductionTraits	ProductionTraits	SetVariableListTagPair	CvInfos.cpp	12188
+CvBuildingClassInfo::read	CvBuildingClassInfo	m_iMaxGlobalInstances	iMaxGlobalInstances	GetChildXmlValByName	CvInfos.cpp	12313
+CvBuildingClassInfo::read	CvBuildingClassInfo	m_iMaxTeamInstances	iMaxTeamInstances	GetChildXmlValByName	CvInfos.cpp	12314
+CvBuildingClassInfo::read	CvBuildingClassInfo	m_iMaxPlayerInstances	iMaxPlayerInstances	GetChildXmlValByName	CvInfos.cpp	12315
+CvBuildingClassInfo::read	CvBuildingClassInfo	m_iExtraPlayerInstances	iExtraPlayerInstances	GetChildXmlValByName	CvInfos.cpp	12316
+CvBuildingClassInfo::read	CvBuildingClassInfo	m_bNoLimit	bNoLimit	GetChildXmlValByName	CvInfos.cpp	12318
+CvBuildingClassInfo::read	CvBuildingClassInfo	m_bMonument	bMonument	GetChildXmlValByName	CvInfos.cpp	12319
+CvBuildingClassInfo::read	CvBuildingClassInfo	m_piVictoryThreshold	VictoryThresholds	SetVariableListTagPair	CvInfos.cpp	12321
+CvRiverModelInfo::read	CvRiverModelInfo	m_iTextureIndex	TextureIndex	GetChildXmlValByName	CvInfos.cpp	12513
+CvRiverModelInfo::read	CvRiverModelInfo	m_szDeltaString	DeltaType	GetChildXmlValByName	CvInfos.cpp	12514
+CvRiverModelInfo::read	CvRiverModelInfo	m_szConnectString	Connections	GetChildXmlValByName	CvInfos.cpp	12515
+CvRiverModelInfo::read	CvRiverModelInfo	m_szRotateString	Rotations	GetChildXmlValByName	CvInfos.cpp	12516
+CvRouteModelInfo::read	CvRouteModelInfo	m_bAnimated	Animated	GetChildXmlValByName	CvInfos.cpp	12671
+CvRouteModelInfo::read	CvRouteModelInfo	m_szConnectString	Connections	GetChildXmlValByName	CvInfos.cpp	12675
+CvRouteModelInfo::read	CvRouteModelInfo	m_szModelConnectString	ModelConnections	GetChildXmlValByName	CvInfos.cpp	12676
+CvRouteModelInfo::read	CvRouteModelInfo	m_szRotateString	Rotations	GetChildXmlValByName	CvInfos.cpp	12677
+CvCivilizationInfo::read	CvCivilizationInfo	m_szShortDescriptionKey	ShortDescription	GetChildXmlValByName	CvInfos.cpp	13082
+CvCivilizationInfo::read	CvCivilizationInfo	m_szAdjectiveKey	Adjective	GetChildXmlValByName	CvInfos.cpp	13085
+CvCivilizationInfo::read	CvCivilizationInfo	m_bPlayable	bPlayable	GetChildXmlValByName	CvInfos.cpp	13106
+CvCivilizationInfo::read	CvCivilizationInfo	m_bAIPlayable	bAIPlayable	GetChildXmlValByName	CvInfos.cpp	13107
+CvCivilizationInfo::read	CvCivilizationInfo	m_piCivilizationFreeUnitsClass	FreeUnitClasses	SetVariableListTagPair	CvInfos.cpp	13267
+CvCivilizationInfo::read	CvCivilizationInfo	m_pbCivilizationFreeBuildingClass	FreeBuildingClasses	SetVariableListTagPair	CvInfos.cpp	13269
+CvCivilizationInfo::read	CvCivilizationInfo	m_pbCivilizationFreeTechs	FreeTechs	SetVariableListTagPair	CvInfos.cpp	13271
+CvCivilizationInfo::read	CvCivilizationInfo	m_pbCivilizationDisableTechs	DisableTechs	SetVariableListTagPair	CvInfos.cpp	13272
+CvCivilizationInfo::read	CvCivilizationInfo	m_pbLeaders	Leaders	SetVariableListTagPair	CvInfos.cpp	13315
+CvVictoryInfo::read	CvVictoryInfo	m_bTargetScore	bTargetScore	GetChildXmlValByName	CvInfos.cpp	13605
+CvVictoryInfo::read	CvVictoryInfo	m_bEndScore	bEndScore	GetChildXmlValByName	CvInfos.cpp	13606
+CvVictoryInfo::read	CvVictoryInfo	m_bConquest	bConquest	GetChildXmlValByName	CvInfos.cpp	13607
+CvVictoryInfo::read	CvVictoryInfo	m_bDiploVote	bDiploVote	GetChildXmlValByName	CvInfos.cpp	13608
+CvVictoryInfo::read	CvVictoryInfo	m_bPermanent	bPermanent	GetChildXmlValByName	CvInfos.cpp	13609
+CvVictoryInfo::read	CvVictoryInfo	m_iPopulationPercentLead	iPopulationPercentLead	GetChildXmlValByName	CvInfos.cpp	13610
+CvVictoryInfo::read	CvVictoryInfo	m_iLandPercent	iLandPercent	GetChildXmlValByName	CvInfos.cpp	13611
+CvVictoryInfo::read	CvVictoryInfo	m_iMinLandPercent	iMinLandPercent	GetChildXmlValByName	CvInfos.cpp	13612
+CvVictoryInfo::read	CvVictoryInfo	m_iReligionPercent	iReligionPercent	GetChildXmlValByName	CvInfos.cpp	13613
+CvVictoryInfo::read	CvVictoryInfo	m_iNumCultureCities	iNumCultureCities	GetChildXmlValByName	CvInfos.cpp	13618
+CvVictoryInfo::read	CvVictoryInfo	m_iTotalCultureRatio	iTotalCultureRatio	GetChildXmlValByName	CvInfos.cpp	13619
+CvVictoryInfo::read	CvVictoryInfo	m_iVictoryDelayTurns	iVictoryDelayTurns	GetChildXmlValByName	CvInfos.cpp	13620
+CvVictoryInfo::read	CvVictoryInfo	m_szMovie	VictoryMovie	GetChildXmlValByName	CvInfos.cpp	13621
+CvHurryInfo::read	CvHurryInfo	m_iGoldPerProduction	iGoldPerProduction	GetChildXmlValByName	CvInfos.cpp	13716
+CvHurryInfo::read	CvHurryInfo	m_iProductionPerPopulation	iProductionPerPopulation	GetChildXmlValByName	CvInfos.cpp	13717
+CvHurryInfo::read	CvHurryInfo	m_bAnger	bAnger	GetChildXmlValByName	CvInfos.cpp	13719
+CvHandicapInfo::read	CvHandicapInfo	m_iFreeWinsVsBarbs	iFreeWinsVsBarbs	GetChildXmlValByName	CvInfos.cpp	14320
+CvHandicapInfo::read	CvHandicapInfo	m_iAnimalAttackProb	iAnimalAttackProb	GetChildXmlValByName	CvInfos.cpp	14321
+CvHandicapInfo::read	CvHandicapInfo	m_iStartingLocationPercent	iStartingLocPercent	GetChildXmlValByName	CvInfos.cpp	14322
+CvHandicapInfo::read	CvHandicapInfo	m_iAdvancedStartPointsMod	iAdvancedStartPointsMod	GetChildXmlValByName	CvInfos.cpp	14323
+CvHandicapInfo::read	CvHandicapInfo	m_iStartingGold	iGold	GetChildXmlValByName	CvInfos.cpp	14324
+CvHandicapInfo::read	CvHandicapInfo	m_iFreeUnits	iFreeUnits	GetChildXmlValByName	CvInfos.cpp	14325
+CvHandicapInfo::read	CvHandicapInfo	m_iUnitCostPercent	iUnitCostPercent	GetChildXmlValByName	CvInfos.cpp	14326
+CvHandicapInfo::read	CvHandicapInfo	m_iResearchPercent	iResearchPercent	GetChildXmlValByName	CvInfos.cpp	14327
+CvHandicapInfo::read	CvHandicapInfo	m_iDistanceMaintenancePercent	iDistanceMaintenancePercent	GetChildXmlValByName	CvInfos.cpp	14328
+CvHandicapInfo::read	CvHandicapInfo	m_iNumCitiesMaintenancePercent	iNumCitiesMaintenancePercent	GetChildXmlValByName	CvInfos.cpp	14329
+CvHandicapInfo::read	CvHandicapInfo	m_iMaxNumCitiesMaintenance	iMaxNumCitiesMaintenance	GetChildXmlValByName	CvInfos.cpp	14330
+CvHandicapInfo::read	CvHandicapInfo	m_iColonyMaintenancePercent	iColonyMaintenancePercent	GetChildXmlValByName	CvInfos.cpp	14331
+CvHandicapInfo::read	CvHandicapInfo	m_iMaxColonyMaintenance	iMaxColonyMaintenance	GetChildXmlValByName	CvInfos.cpp	14332
+CvHandicapInfo::read	CvHandicapInfo	m_iCorporationMaintenancePercent	iCorporationMaintenancePercent	GetChildXmlValByName	CvInfos.cpp	14333
+CvHandicapInfo::read	CvHandicapInfo	m_iCivicUpkeepPercent	iCivicUpkeepPercent	GetChildXmlValByName	CvInfos.cpp	14334
+CvHandicapInfo::read	CvHandicapInfo	m_iInflationPercent	iInflationPercent	GetChildXmlValByName	CvInfos.cpp	14335
+CvHandicapInfo::read	CvHandicapInfo	m_iHealthBonus	iHealthBonus	GetChildXmlValByName	CvInfos.cpp	14336
+CvHandicapInfo::read	CvHandicapInfo	m_iHappyBonus	iHappyBonus	GetChildXmlValByName	CvInfos.cpp	14337
+CvHandicapInfo::read	CvHandicapInfo	m_iAttitudeChange	iAttitudeChange	GetChildXmlValByName	CvInfos.cpp	14338
+CvHandicapInfo::read	CvHandicapInfo	m_iNoTechTradeModifier	iNoTechTradeModifier	GetChildXmlValByName	CvInfos.cpp	14339
+CvHandicapInfo::read	CvHandicapInfo	m_iTechTradeKnownModifier	iTechTradeKnownModifier	GetChildXmlValByName	CvInfos.cpp	14340
+CvHandicapInfo::read	CvHandicapInfo	m_iUnownedTilesPerGameAnimal	iUnownedTilesPerGameAnimal	GetChildXmlValByName	CvInfos.cpp	14341
+CvHandicapInfo::read	CvHandicapInfo	m_iUnownedTilesPerBarbarianUnit	iUnownedTilesPerBarbarianUnit	GetChildXmlValByName	CvInfos.cpp	14342
+CvHandicapInfo::read	CvHandicapInfo	m_iUnownedWaterTilesPerBarbarianUnit	iUnownedWaterTilesPerBarbarianUnit	GetChildXmlValByName	CvInfos.cpp	14343
+CvHandicapInfo::read	CvHandicapInfo	m_iUnownedTilesPerBarbarianCity	iUnownedTilesPerBarbarianCity	GetChildXmlValByName	CvInfos.cpp	14344
+CvHandicapInfo::read	CvHandicapInfo	m_iBarbarianCreationTurnsElapsed	iBarbarianCreationTurnsElapsed	GetChildXmlValByName	CvInfos.cpp	14345
+CvHandicapInfo::read	CvHandicapInfo	m_iBarbarianCityCreationTurnsElapsed	iBarbarianCityCreationTurnsElapsed	GetChildXmlValByName	CvInfos.cpp	14346
+CvHandicapInfo::read	CvHandicapInfo	m_iBarbarianCityCreationProb	iBarbarianCityCreationProb	GetChildXmlValByName	CvInfos.cpp	14347
+CvHandicapInfo::read	CvHandicapInfo	m_iAnimalCombatModifier	iAnimalBonus	GetChildXmlValByName	CvInfos.cpp	14348
+CvHandicapInfo::read	CvHandicapInfo	m_iBarbarianCombatModifier	iBarbarianBonus	GetChildXmlValByName	CvInfos.cpp	14349
+CvHandicapInfo::read	CvHandicapInfo	m_iAIAnimalCombatModifier	iAIAnimalBonus	GetChildXmlValByName	CvInfos.cpp	14350
+CvHandicapInfo::read	CvHandicapInfo	m_iAIBarbarianCombatModifier	iAIBarbarianBonus	GetChildXmlValByName	CvInfos.cpp	14351
+CvHandicapInfo::read	CvHandicapInfo	m_iStartingDefenseUnits	iStartingDefenseUnits	GetChildXmlValByName	CvInfos.cpp	14352
+CvHandicapInfo::read	CvHandicapInfo	m_iStartingWorkerUnits	iStartingWorkerUnits	GetChildXmlValByName	CvInfos.cpp	14353
+CvHandicapInfo::read	CvHandicapInfo	m_iStartingExploreUnits	iStartingExploreUnits	GetChildXmlValByName	CvInfos.cpp	14354
+CvHandicapInfo::read	CvHandicapInfo	m_iAIStartingUnitMultiplier	iAIStartingUnitMultiplier	GetChildXmlValByName	CvInfos.cpp	14355
+CvHandicapInfo::read	CvHandicapInfo	m_iAIStartingDefenseUnits	iAIStartingDefenseUnits	GetChildXmlValByName	CvInfos.cpp	14356
+CvHandicapInfo::read	CvHandicapInfo	m_iAIStartingWorkerUnits	iAIStartingWorkerUnits	GetChildXmlValByName	CvInfos.cpp	14357
+CvHandicapInfo::read	CvHandicapInfo	m_iAIStartingExploreUnits	iAIStartingExploreUnits	GetChildXmlValByName	CvInfos.cpp	14358
+CvHandicapInfo::read	CvHandicapInfo	m_iBarbarianInitialDefenders	iBarbarianDefenders	GetChildXmlValByName	CvInfos.cpp	14359
+CvHandicapInfo::read	CvHandicapInfo	m_iAIDeclareWarProb	iAIDeclareWarProb	GetChildXmlValByName	CvInfos.cpp	14360
+CvHandicapInfo::read	CvHandicapInfo	m_iAIWorkRateModifier	iAIWorkRateModifier	GetChildXmlValByName	CvInfos.cpp	14361
+CvHandicapInfo::read	CvHandicapInfo	m_iAIGrowthPercent	iAIGrowthPercent	GetChildXmlValByName	CvInfos.cpp	14362
+CvHandicapInfo::read	CvHandicapInfo	m_iAITrainPercent	iAITrainPercent	GetChildXmlValByName	CvInfos.cpp	14363
+CvHandicapInfo::read	CvHandicapInfo	m_iAIWorldTrainPercent	iAIWorldTrainPercent	GetChildXmlValByName	CvInfos.cpp	14364
+CvHandicapInfo::read	CvHandicapInfo	m_iAIConstructPercent	iAIConstructPercent	GetChildXmlValByName	CvInfos.cpp	14365
+CvHandicapInfo::read	CvHandicapInfo	m_iAIWorldConstructPercent	iAIWorldConstructPercent	GetChildXmlValByName	CvInfos.cpp	14366
+CvHandicapInfo::read	CvHandicapInfo	m_iAICreatePercent	iAICreatePercent	GetChildXmlValByName	CvInfos.cpp	14367
+CvHandicapInfo::read	CvHandicapInfo	m_iAIWorldCreatePercent	iAIWorldCreatePercent	GetChildXmlValByName	CvInfos.cpp	14368
+CvHandicapInfo::read	CvHandicapInfo	m_iAICivicUpkeepPercent	iAICivicUpkeepPercent	GetChildXmlValByName	CvInfos.cpp	14369
+CvHandicapInfo::read	CvHandicapInfo	m_iAIUnitCostPercent	iAIUnitCostPercent	GetChildXmlValByName	CvInfos.cpp	14370
+CvHandicapInfo::read	CvHandicapInfo	m_iAIUnitSupplyPercent	iAIUnitSupplyPercent	GetChildXmlValByName	CvInfos.cpp	14371
+CvHandicapInfo::read	CvHandicapInfo	m_iAIUnitUpgradePercent	iAIUnitUpgradePercent	GetChildXmlValByName	CvInfos.cpp	14372
+CvHandicapInfo::read	CvHandicapInfo	m_iAIInflationPercent	iAIInflationPercent	GetChildXmlValByName	CvInfos.cpp	14373
+CvHandicapInfo::read	CvHandicapInfo	m_iAIWarWearinessPercent	iAIWarWearinessPercent	GetChildXmlValByName	CvInfos.cpp	14374
+CvHandicapInfo::read	CvHandicapInfo	m_iAIPerEraModifier	iAIPerEraModifier	GetChildXmlValByName	CvInfos.cpp	14375
+CvHandicapInfo::read	CvHandicapInfo	m_iAIAdvancedStartPercent	iAIAdvancedStartPercent	GetChildXmlValByName	CvInfos.cpp	14376
+CvHandicapInfo::read	CvHandicapInfo	m_pbFreeTechs	FreeTechs	SetVariableListTagPair	CvInfos.cpp	14402
+CvHandicapInfo::read	CvHandicapInfo	m_pbAIFreeTechs	AIFreeTechs	SetVariableListTagPair	CvInfos.cpp	14403
+CvHandicapInfo::copyNonDefaults	CvHandicapInfo	m_iNumGoodies	Added: %i (vs. %i before).	Format	CvInfos.cpp	14506
+CvHandicapInfo::copyNonDefaults	CvHandicapInfo	m_piGoodies	* Processing goody index %i, ID %i == %s	Format	CvInfos.cpp	14515
+CvHandicapInfo::copyNonDefaults	CvHandicapInfo	m_iNumGoodies	=== %s: %i goodies ===	Format	CvInfos.cpp	14533
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iGrowthPercent	iGrowthPercent	GetChildXmlValByName	CvInfos.cpp	14746
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iTrainPercent	iTrainPercent	GetChildXmlValByName	CvInfos.cpp	14747
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iConstructPercent	iConstructPercent	GetChildXmlValByName	CvInfos.cpp	14748
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iCreatePercent	iCreatePercent	GetChildXmlValByName	CvInfos.cpp	14749
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iResearchPercent	iResearchPercent	GetChildXmlValByName	CvInfos.cpp	14750
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iBuildPercent	iBuildPercent	GetChildXmlValByName	CvInfos.cpp	14751
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iImprovementPercent	iImprovementPercent	GetChildXmlValByName	CvInfos.cpp	14752
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iGreatPeoplePercent	iGreatPeoplePercent	GetChildXmlValByName	CvInfos.cpp	14753
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iAnarchyPercent	iAnarchyPercent	GetChildXmlValByName	CvInfos.cpp	14754
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iBarbPercent	iBarbPercent	GetChildXmlValByName	CvInfos.cpp	14755
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iFeatureProductionPercent	iFeatureProductionPercent	GetChildXmlValByName	CvInfos.cpp	14756
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iUnitDiscoverPercent	iUnitDiscoverPercent	GetChildXmlValByName	CvInfos.cpp	14757
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iUnitHurryPercent	iUnitHurryPercent	GetChildXmlValByName	CvInfos.cpp	14758
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iUnitTradePercent	iUnitTradePercent	GetChildXmlValByName	CvInfos.cpp	14759
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iUnitGreatWorkPercent	iUnitGreatWorkPercent	GetChildXmlValByName	CvInfos.cpp	14760
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iGoldenAgePercent	iGoldenAgePercent	GetChildXmlValByName	CvInfos.cpp	14761
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iHurryPercent	iHurryPercent	GetChildXmlValByName	CvInfos.cpp	14762
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iHurryConscriptAngerPercent	iHurryConscriptAngerPercent	GetChildXmlValByName	CvInfos.cpp	14763
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iInflationOffset	iInflationOffset	GetChildXmlValByName	CvInfos.cpp	14764
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iInflationPercent	iInflationPercent	GetChildXmlValByName	CvInfos.cpp	14765
+CvGameSpeedInfo::read	CvGameSpeedInfo	m_iVictoryDelayPercent	iVictoryDelayPercent	GetChildXmlValByName	CvInfos.cpp	14766
+CvTurnTimerInfo::read	CvTurnTimerInfo	m_iBaseTime	iBaseTime	GetChildXmlValByName	CvInfos.cpp	14911
+CvTurnTimerInfo::read	CvTurnTimerInfo	m_iCityBonus	iCityBonus	GetChildXmlValByName	CvInfos.cpp	14912
+CvTurnTimerInfo::read	CvTurnTimerInfo	m_iUnitBonus	iUnitBonus	GetChildXmlValByName	CvInfos.cpp	14913
+CvTurnTimerInfo::read	CvTurnTimerInfo	m_iFirstTurnMultiplier	iFirstTurnMultiplier	GetChildXmlValByName	CvInfos.cpp	14914
+CvBuildInfo::read	CvBuildInfo	m_iTime	iTime	GetChildXmlValByName	CvInfos.cpp	15072
+CvBuildInfo::read	CvBuildInfo	m_iCost	iCost	GetChildXmlValByName	CvInfos.cpp	15073
+CvBuildInfo::read	CvBuildInfo	m_bKill	bKill	GetChildXmlValByName	CvInfos.cpp	15074
+CvGoodyInfo::read	CvGoodyInfo	m_iGold	iGold	GetChildXmlValByName	CvInfos.cpp	15266
+CvGoodyInfo::read	CvGoodyInfo	m_iGoldRand1	iGoldRand1	GetChildXmlValByName	CvInfos.cpp	15267
+CvGoodyInfo::read	CvGoodyInfo	m_iGoldRand2	iGoldRand2	GetChildXmlValByName	CvInfos.cpp	15268
+CvGoodyInfo::read	CvGoodyInfo	m_iMapOffset	iMapOffset	GetChildXmlValByName	CvInfos.cpp	15269
+CvGoodyInfo::read	CvGoodyInfo	m_iMapRange	iMapRange	GetChildXmlValByName	CvInfos.cpp	15270
+CvGoodyInfo::read	CvGoodyInfo	m_iMapProb	iMapProb	GetChildXmlValByName	CvInfos.cpp	15271
+CvGoodyInfo::read	CvGoodyInfo	m_iExperience	iExperience	GetChildXmlValByName	CvInfos.cpp	15272
+CvGoodyInfo::read	CvGoodyInfo	m_iHealing	iHealing	GetChildXmlValByName	CvInfos.cpp	15273
+CvGoodyInfo::read	CvGoodyInfo	m_iDamagePrereq	iDamagePrereq	GetChildXmlValByName	CvInfos.cpp	15274
+CvGoodyInfo::read	CvGoodyInfo	m_bTech	bTech	GetChildXmlValByName	CvInfos.cpp	15275
+CvGoodyInfo::read	CvGoodyInfo	m_bBad	bBad	GetChildXmlValByName	CvInfos.cpp	15276
+CvGoodyInfo::read	CvGoodyInfo	m_iBarbarianUnitProb	iBarbarianUnitProb	GetChildXmlValByName	CvInfos.cpp	15284
+CvGoodyInfo::read	CvGoodyInfo	m_iMinBarbarians	iMinBarbarians	GetChildXmlValByName	CvInfos.cpp	15285
+CvRouteInfo::read	CvRouteInfo	m_iAdvancedStartCost	iAdvancedStartCost	GetChildXmlValByName	CvInfos.cpp	15426
+CvRouteInfo::read	CvRouteInfo	m_iAdvancedStartCostIncrease	iAdvancedStartCostIncrease	GetChildXmlValByName	CvInfos.cpp	15427
+CvRouteInfo::read	CvRouteInfo	m_iValue	iValue	GetChildXmlValByName	CvInfos.cpp	15429
+CvRouteInfo::read	CvRouteInfo	m_iMovementCost	iMovement	GetChildXmlValByName	CvInfos.cpp	15430
+CvRouteInfo::read	CvRouteInfo	m_iFlatMovementCost	iFlatMovement	GetChildXmlValByName	CvInfos.cpp	15431
+CvRouteInfo::read	CvRouteInfo	m_piTechMovementChange	TechMovementChanges	SetVariableListTagPair	CvInfos.cpp	15449
+CvImprovementInfo::read	CvImprovementInfo	m_iAdvancedStartCost	iAdvancedStartCost	GetChildXmlValByName	CvInfos.cpp	16304
+CvImprovementInfo::read	CvImprovementInfo	m_iAdvancedStartCostIncrease	iAdvancedStartCostIncrease	GetChildXmlValByName	CvInfos.cpp	16305
+CvImprovementInfo::read	CvImprovementInfo	m_bActsAsCity	bActsAsCity	GetChildXmlValByName	CvInfos.cpp	16306
+CvImprovementInfo::read	CvImprovementInfo	m_bHillsMakesValid	bHillsMakesValid	GetChildXmlValByName	CvInfos.cpp	16307
+CvImprovementInfo::read	CvImprovementInfo	m_bFreshWaterMakesValid	bFreshWaterMakesValid	GetChildXmlValByName	CvInfos.cpp	16308
+CvImprovementInfo::read	CvImprovementInfo	m_bRiverSideMakesValid	bRiverSideMakesValid	GetChildXmlValByName	CvInfos.cpp	16309
+CvImprovementInfo::read	CvImprovementInfo	m_bNoFreshWater	bNoFreshWater	GetChildXmlValByName	CvInfos.cpp	16310
+CvImprovementInfo::read	CvImprovementInfo	m_bRequiresFlatlands	bRequiresFlatlands	GetChildXmlValByName	CvInfos.cpp	16311
+CvImprovementInfo::read	CvImprovementInfo	m_bRequiresRiverSide	bRequiresRiverSide	GetChildXmlValByName	CvInfos.cpp	16312
+CvImprovementInfo::read	CvImprovementInfo	m_bRequiresIrrigation	bRequiresIrrigation	GetChildXmlValByName	CvInfos.cpp	16313
+CvImprovementInfo::read	CvImprovementInfo	m_bCarriesIrrigation	bCarriesIrrigation	GetChildXmlValByName	CvInfos.cpp	16314
+CvImprovementInfo::read	CvImprovementInfo	m_bRequiresFeature	bRequiresFeature	GetChildXmlValByName	CvInfos.cpp	16315
+CvImprovementInfo::read	CvImprovementInfo	m_bWater	bWater	GetChildXmlValByName	CvInfos.cpp	16316
+CvImprovementInfo::read	CvImprovementInfo	m_bGoody	bGoody	GetChildXmlValByName	CvInfos.cpp	16317
+CvImprovementInfo::read	CvImprovementInfo	m_bPermanent	bPermanent	GetChildXmlValByName	CvInfos.cpp	16318
+CvImprovementInfo::read	CvImprovementInfo	m_iTilesPerGoody	iTilesPerGoody	GetChildXmlValByName	CvInfos.cpp	16319
+CvImprovementInfo::read	CvImprovementInfo	m_iGoodyUniqueRange	iGoodyRange	GetChildXmlValByName	CvInfos.cpp	16320
+CvImprovementInfo::read	CvImprovementInfo	m_iFeatureGrowthProbability	iFeatureGrowth	GetChildXmlValByName	CvInfos.cpp	16321
+CvImprovementInfo::read	CvImprovementInfo	m_iUpgradeTime	iUpgradeTime	GetChildXmlValByName	CvInfos.cpp	16322
+CvImprovementInfo::read	CvImprovementInfo	m_iAirBombDefense	iAirBombDefense	GetChildXmlValByName	CvInfos.cpp	16323
+CvImprovementInfo::read	CvImprovementInfo	m_iDefenseModifier	iDefenseModifier	GetChildXmlValByName	CvInfos.cpp	16324
+CvImprovementInfo::read	CvImprovementInfo	m_iHappiness	iHappiness	GetChildXmlValByName	CvInfos.cpp	16325
+CvImprovementInfo::read	CvImprovementInfo	m_iPillageGold	iPillageGold	GetChildXmlValByName	CvInfos.cpp	16326
+CvImprovementInfo::read	CvImprovementInfo	m_bOutsideBorders	bOutsideBorders	GetChildXmlValByName	CvInfos.cpp	16327
+CvImprovementInfo::read	CvImprovementInfo	m_pbTerrainMakesValid	TerrainMakesValids	SetVariableListTagPair	CvInfos.cpp	16329
+CvImprovementInfo::read	CvImprovementInfo	m_pbFeatureMakesValid	FeatureMakesValids	SetVariableListTagPair	CvInfos.cpp	16330
+CvBonusClassInfo::read	CvBonusClassInfo	m_iUniqueRange	iUnique	GetChildXmlValByName	CvInfos.cpp	16655
+CvBonusInfo::read	CvBonusInfo	m_iAITradeModifier	iAITradeModifier	GetChildXmlValByName	CvInfos.cpp	17132
+CvBonusInfo::read	CvBonusInfo	m_iAIObjective	iAIObjective	GetChildXmlValByName	CvInfos.cpp	17133
+CvBonusInfo::read	CvBonusInfo	m_iHealth	iHealth	GetChildXmlValByName	CvInfos.cpp	17134
+CvBonusInfo::read	CvBonusInfo	m_iHappiness	iHappiness	GetChildXmlValByName	CvInfos.cpp	17135
+CvBonusInfo::read	CvBonusInfo	m_iMinAreaSize	iMinAreaSize	GetChildXmlValByName	CvInfos.cpp	17136
+CvBonusInfo::read	CvBonusInfo	m_iMinLatitude	iMinLatitude	GetChildXmlValByName	CvInfos.cpp	17137
+CvBonusInfo::read	CvBonusInfo	m_iMaxLatitude	iMaxLatitude	GetChildXmlValByName	CvInfos.cpp	17138
+CvBonusInfo::read	CvBonusInfo	m_iPlacementOrder	iPlacementOrder	GetChildXmlValByName	CvInfos.cpp	17139
+CvBonusInfo::read	CvBonusInfo	m_iConstAppearance	iConstAppearance	GetChildXmlValByName	CvInfos.cpp	17140
+CvBonusInfo::read	CvBonusInfo	m_iRandAppearance1	iRandApp1	GetChildXmlValByName	CvInfos.cpp	17145
+CvBonusInfo::read	CvBonusInfo	m_iRandAppearance2	iRandApp2	GetChildXmlValByName	CvInfos.cpp	17146
+CvBonusInfo::read	CvBonusInfo	m_iRandAppearance3	iRandApp3	GetChildXmlValByName	CvInfos.cpp	17147
+CvBonusInfo::read	CvBonusInfo	m_iRandAppearance4	iRandApp4	GetChildXmlValByName	CvInfos.cpp	17148
+CvBonusInfo::read	CvBonusInfo	m_iPercentPerPlayer	iPlayer	GetChildXmlValByName	CvInfos.cpp	17154
+CvBonusInfo::read	CvBonusInfo	m_iTilesPer	iTilesPer	GetChildXmlValByName	CvInfos.cpp	17155
+CvBonusInfo::read	CvBonusInfo	m_iMinLandPercent	iMinLandPercent	GetChildXmlValByName	CvInfos.cpp	17156
+CvBonusInfo::read	CvBonusInfo	m_iUniqueRange	iUnique	GetChildXmlValByName	CvInfos.cpp	17157
+CvBonusInfo::read	CvBonusInfo	m_iGroupRange	iGroupRange	GetChildXmlValByName	CvInfos.cpp	17158
+CvBonusInfo::read	CvBonusInfo	m_iGroupRand	iGroupRand	GetChildXmlValByName	CvInfos.cpp	17159
+CvBonusInfo::read	CvBonusInfo	m_bOneArea	bArea	GetChildXmlValByName	CvInfos.cpp	17160
+CvBonusInfo::read	CvBonusInfo	m_bHills	bHills	GetChildXmlValByName	CvInfos.cpp	17161
+CvBonusInfo::read	CvBonusInfo	m_bFlatlands	bFlatlands	GetChildXmlValByName	CvInfos.cpp	17162
+CvBonusInfo::read	CvBonusInfo	m_bNoRiverSide	bNoRiverSide	GetChildXmlValByName	CvInfos.cpp	17163
+CvBonusInfo::read	CvBonusInfo	m_bNormalize	bNormalize	GetChildXmlValByName	CvInfos.cpp	17164
+CvBonusInfo::read	CvBonusInfo	m_pbTerrain	TerrainBooleans	SetVariableListTagPair	CvInfos.cpp	17166
+CvBonusInfo::read	CvBonusInfo	m_pbFeature	FeatureBooleans	SetVariableListTagPair	CvInfos.cpp	17167
+CvBonusInfo::read	CvBonusInfo	m_pbFeatureTerrain	FeatureTerrainBooleans	SetVariableListTagPair	CvInfos.cpp	17168
+CvFeatureInfo::read	CvFeatureInfo	m_iMovementCost	iMovement	GetChildXmlValByName	CvInfos.cpp	17579
+CvFeatureInfo::read	CvFeatureInfo	m_iSeeThroughChange	iSeeThrough	GetChildXmlValByName	CvInfos.cpp	17580
+CvFeatureInfo::read	CvFeatureInfo	m_iHealthPercent	iHealthPercent	GetChildXmlValByName	CvInfos.cpp	17581
+CvFeatureInfo::read	CvFeatureInfo	m_iDefenseModifier	iDefense	GetChildXmlValByName	CvInfos.cpp	17582
+CvFeatureInfo::read	CvFeatureInfo	m_iAdvancedStartRemoveCost	iAdvancedStartRemoveCost	GetChildXmlValByName	CvInfos.cpp	17583
+CvFeatureInfo::read	CvFeatureInfo	m_iTurnDamage	iTurnDamage	GetChildXmlValByName	CvInfos.cpp	17584
+CvFeatureInfo::read	CvFeatureInfo	m_iWarmingDefense	iWarmingDefense	GetChildXmlValByName	CvInfos.cpp	17585
+CvFeatureInfo::read	CvFeatureInfo	m_iAppearanceProbability	iAppearance	GetChildXmlValByName	CvInfos.cpp	17586
+CvFeatureInfo::read	CvFeatureInfo	m_iDisappearanceProbability	iDisappearance	GetChildXmlValByName	CvInfos.cpp	17587
+CvFeatureInfo::read	CvFeatureInfo	m_iGrowthProbability	iGrowth	GetChildXmlValByName	CvInfos.cpp	17588
+CvFeatureInfo::read	CvFeatureInfo	m_bNoCoast	bNoCoast	GetChildXmlValByName	CvInfos.cpp	17589
+CvFeatureInfo::read	CvFeatureInfo	m_bNoRiver	bNoRiver	GetChildXmlValByName	CvInfos.cpp	17590
+CvFeatureInfo::read	CvFeatureInfo	m_bNoAdjacent	bNoAdjacent	GetChildXmlValByName	CvInfos.cpp	17591
+CvFeatureInfo::read	CvFeatureInfo	m_bRequiresFlatlands	bRequiresFlatlands	GetChildXmlValByName	CvInfos.cpp	17592
+CvFeatureInfo::read	CvFeatureInfo	m_bRequiresRiver	bRequiresRiver	GetChildXmlValByName	CvInfos.cpp	17593
+CvFeatureInfo::read	CvFeatureInfo	m_bAddsFreshWater	bAddsFreshWater	GetChildXmlValByName	CvInfos.cpp	17594
+CvFeatureInfo::read	CvFeatureInfo	m_bImpassable	bImpassable	GetChildXmlValByName	CvInfos.cpp	17595
+CvFeatureInfo::read	CvFeatureInfo	m_bNoCity	bNoCity	GetChildXmlValByName	CvInfos.cpp	17596
+CvFeatureInfo::read	CvFeatureInfo	m_bNoImprovement	bNoImprovement	GetChildXmlValByName	CvInfos.cpp	17597
+CvFeatureInfo::read	CvFeatureInfo	m_bVisibleAlways	bVisibleAlways	GetChildXmlValByName	CvInfos.cpp	17598
+CvFeatureInfo::read	CvFeatureInfo	m_bNukeImmune	bNukeImmune	GetChildXmlValByName	CvInfos.cpp	17599
+CvFeatureInfo::read	CvFeatureInfo	m_szOnUnitChangeTo	OnUnitChangeTo	GetChildXmlValByName	CvInfos.cpp	17600
+CvFeatureInfo::read	CvFeatureInfo	m_pi3DAudioScriptFootstepIndex	FootstepSounds	SetVariableListTagPairForAudioScripts	CvInfos.cpp	17602
+CvFeatureInfo::read	CvFeatureInfo	m_szEffectType	EffectType	GetChildXmlValByName	CvInfos.cpp	17625
+CvFeatureInfo::read	CvFeatureInfo	m_iEffectProbability	iEffectProbability	GetChildXmlValByName	CvInfos.cpp	17626
+CvFeatureInfo::read	CvFeatureInfo	m_pbTerrain	TerrainBooleans	SetVariableListTagPair	CvInfos.cpp	17628
+CvCommerceInfo::read	CvCommerceInfo	m_iInitialPercent	iInitialPercent	GetChildXmlValByName	CvInfos.cpp	17782
+CvCommerceInfo::read	CvCommerceInfo	m_iInitialHappiness	iInitialHappiness	GetChildXmlValByName	CvInfos.cpp	17783
+CvCommerceInfo::read	CvCommerceInfo	m_iAIWeightPercent	iAIWeightPercent	GetChildXmlValByName	CvInfos.cpp	17784
+CvCommerceInfo::read	CvCommerceInfo	m_bFlexiblePercent	bFlexiblePercent	GetChildXmlValByName	CvInfos.cpp	17785
+CvYieldInfo::read	CvYieldInfo	m_iHillsChange	iHillsChange	GetChildXmlValByName	CvInfos.cpp	17947
+CvYieldInfo::read	CvYieldInfo	m_iPeakChange	iPeakChange	GetChildXmlValByName	CvInfos.cpp	17948
+CvYieldInfo::read	CvYieldInfo	m_iLakeChange	iLakeChange	GetChildXmlValByName	CvInfos.cpp	17949
+CvYieldInfo::read	CvYieldInfo	m_iCityChange	iCityChange	GetChildXmlValByName	CvInfos.cpp	17950
+CvYieldInfo::read	CvYieldInfo	m_iPopulationChangeOffset	iPopulationChangeOffset	GetChildXmlValByName	CvInfos.cpp	17951
+CvYieldInfo::read	CvYieldInfo	m_iPopulationChangeDivisor	iPopulationChangeDivisor	GetChildXmlValByName	CvInfos.cpp	17952
+CvYieldInfo::read	CvYieldInfo	m_iMinCity	iMinCity	GetChildXmlValByName	CvInfos.cpp	17953
+CvYieldInfo::read	CvYieldInfo	m_iTradeModifier	iTradeModifier	GetChildXmlValByName	CvInfos.cpp	17954
+CvYieldInfo::read	CvYieldInfo	m_iGoldenAgeYield	iGoldenAgeYield	GetChildXmlValByName	CvInfos.cpp	17955
+CvYieldInfo::read	CvYieldInfo	m_iGoldenAgeYieldThreshold	iGoldenAgeYieldThreshold	GetChildXmlValByName	CvInfos.cpp	17956
+CvYieldInfo::read	CvYieldInfo	m_iAIWeightPercent	iAIWeightPercent	GetChildXmlValByName	CvInfos.cpp	17957
+CvTerrainInfo::read	CvTerrainInfo	m_bWater	bWater	GetChildXmlValByName	CvInfos.cpp	18234
+CvTerrainInfo::read	CvTerrainInfo	m_bImpassable	bImpassable	GetChildXmlValByName	CvInfos.cpp	18235
+CvTerrainInfo::read	CvTerrainInfo	m_bFound	bFound	GetChildXmlValByName	CvInfos.cpp	18236
+CvTerrainInfo::read	CvTerrainInfo	m_bFoundCoast	bFoundCoast	GetChildXmlValByName	CvInfos.cpp	18237
+CvTerrainInfo::read	CvTerrainInfo	m_bFoundFreshWater	bFoundFreshWater	GetChildXmlValByName	CvInfos.cpp	18238
+CvTerrainInfo::read	CvTerrainInfo	m_iMovementCost	iMovement	GetChildXmlValByName	CvInfos.cpp	18240
+CvTerrainInfo::read	CvTerrainInfo	m_iSeeFromLevel	iSeeFrom	GetChildXmlValByName	CvInfos.cpp	18241
+CvTerrainInfo::read	CvTerrainInfo	m_iSeeThroughLevel	iSeeThrough	GetChildXmlValByName	CvInfos.cpp	18242
+CvTerrainInfo::read	CvTerrainInfo	m_iBuildModifier	iBuildModifier	GetChildXmlValByName	CvInfos.cpp	18243
+CvTerrainInfo::read	CvTerrainInfo	m_iDefenseModifier	iDefense	GetChildXmlValByName	CvInfos.cpp	18244
+CvTerrainInfo::read	CvTerrainInfo	m_pi3DAudioScriptFootstepIndex	FootstepSounds	SetVariableListTagPairForAudioScripts	CvInfos.cpp	18246
+CvInterfaceModeInfo::read	CvInterfaceModeInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfos.cpp	18430
+CvInterfaceModeInfo::read	CvInterfaceModeInfo	m_bGotoPlot	bGotoPlot	GetChildXmlValByName	CvInfos.cpp	18431
+CvInterfaceModeInfo::read	CvInterfaceModeInfo	m_bHighlightPlot	bHighlightPlot	GetChildXmlValByName	CvInfos.cpp	18432
+CvInterfaceModeInfo::read	CvInterfaceModeInfo	m_bSelectType	bSelectType	GetChildXmlValByName	CvInfos.cpp	18433
+CvInterfaceModeInfo::read	CvInterfaceModeInfo	m_bSelectAll	bSelectAll	GetChildXmlValByName	CvInfos.cpp	18434
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iWonderConstructRand	iWonderConstructRand	GetChildXmlValByName	CvInfos.cpp	19552
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iBaseAttitude	iBaseAttitude	GetChildXmlValByName	CvInfos.cpp	19553
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iBasePeaceWeight	iBasePeaceWeight	GetChildXmlValByName	CvInfos.cpp	19554
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iPeaceWeightRand	iPeaceWeightRand	GetChildXmlValByName	CvInfos.cpp	19555
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iWarmongerRespect	iWarmongerRespect	GetChildXmlValByName	CvInfos.cpp	19556
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iEspionageWeight	iEspionageWeight	GetChildXmlValByName	CvInfos.cpp	19557
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iRefuseToTalkWarThreshold	iRefuseToTalkWarThreshold	GetChildXmlValByName	CvInfos.cpp	19558
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iNoTechTradeThreshold	iNoTechTradeThreshold	GetChildXmlValByName	CvInfos.cpp	19559
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iTechTradeKnownPercent	iTechTradeKnownPercent	GetChildXmlValByName	CvInfos.cpp	19560
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iMaxGoldTradePercent	iMaxGoldTradePercent	GetChildXmlValByName	CvInfos.cpp	19561
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iMaxGoldPerTurnTradePercent	iMaxGoldPerTurnTradePercent	GetChildXmlValByName	CvInfos.cpp	19562
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iCultureVictoryWeight	iCultureVictoryWeight	GetChildXmlValByName	CvInfos.cpp	19568
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iSpaceVictoryWeight	iSpaceVictoryWeight	GetChildXmlValByName	CvInfos.cpp	19569
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iConquestVictoryWeight	iConquestVictoryWeight	GetChildXmlValByName	CvInfos.cpp	19570
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDominationVictoryWeight	iDominationVictoryWeight	GetChildXmlValByName	CvInfos.cpp	19571
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDiplomacyVictoryWeight	iDiplomacyVictoryWeight	GetChildXmlValByName	CvInfos.cpp	19572
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iMaxWarRand	iMaxWarRand	GetChildXmlValByName	CvInfos.cpp	19576
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iMaxWarNearbyPowerRatio	iMaxWarNearbyPowerRatio	GetChildXmlValByName	CvInfos.cpp	19577
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iMaxWarDistantPowerRatio	iMaxWarDistantPowerRatio	GetChildXmlValByName	CvInfos.cpp	19578
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iMaxWarMinAdjacentLandPercent	iMaxWarMinAdjacentLandPercent	GetChildXmlValByName	CvInfos.cpp	19579
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iLimitedWarRand	iLimitedWarRand	GetChildXmlValByName	CvInfos.cpp	19580
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iLimitedWarPowerRatio	iLimitedWarPowerRatio	GetChildXmlValByName	CvInfos.cpp	19581
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDogpileWarRand	iDogpileWarRand	GetChildXmlValByName	CvInfos.cpp	19582
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iMakePeaceRand	iMakePeaceRand	GetChildXmlValByName	CvInfos.cpp	19583
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDeclareWarTradeRand	iDeclareWarTradeRand	GetChildXmlValByName	CvInfos.cpp	19584
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDemandRebukedSneakProb	iDemandRebukedSneakProb	GetChildXmlValByName	CvInfos.cpp	19585
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDemandRebukedWarProb	iDemandRebukedWarProb	GetChildXmlValByName	CvInfos.cpp	19586
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iRazeCityProb	iRazeCityProb	GetChildXmlValByName	CvInfos.cpp	19587
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iBuildUnitProb	iBuildUnitProb	GetChildXmlValByName	CvInfos.cpp	19588
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iBaseAttackOddsChange	iBaseAttackOddsChange	GetChildXmlValByName	CvInfos.cpp	19589
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iAttackOddsChangeRand	iAttackOddsChangeRand	GetChildXmlValByName	CvInfos.cpp	19590
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iWorseRankDifferenceAttitudeChange	iWorseRankDifferenceAttitudeChange	GetChildXmlValByName	CvInfos.cpp	19591
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iBetterRankDifferenceAttitudeChange	iBetterRankDifferenceAttitudeChange	GetChildXmlValByName	CvInfos.cpp	19592
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iCloseBordersAttitudeChange	iCloseBordersAttitudeChange	GetChildXmlValByName	CvInfos.cpp	19593
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iLostWarAttitudeChange	iLostWarAttitudeChange	GetChildXmlValByName	CvInfos.cpp	19594
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iAtWarAttitudeDivisor	iAtWarAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19595
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iAtWarAttitudeChangeLimit	iAtWarAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19596
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iAtPeaceAttitudeDivisor	iAtPeaceAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19597
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iAtPeaceAttitudeChangeLimit	iAtPeaceAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19598
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iSameReligionAttitudeChange	iSameReligionAttitudeChange	GetChildXmlValByName	CvInfos.cpp	19599
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iSameReligionAttitudeDivisor	iSameReligionAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19600
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iSameReligionAttitudeChangeLimit	iSameReligionAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19601
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDifferentReligionAttitudeChange	iDifferentReligionAttitudeChange	GetChildXmlValByName	CvInfos.cpp	19602
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDifferentReligionAttitudeDivisor	iDifferentReligionAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19603
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDifferentReligionAttitudeChangeLimit	iDifferentReligionAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19604
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iBonusTradeAttitudeDivisor	iBonusTradeAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19605
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iBonusTradeAttitudeChangeLimit	iBonusTradeAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19606
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iOpenBordersAttitudeDivisor	iOpenBordersAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19607
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iOpenBordersAttitudeChangeLimit	iOpenBordersAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19608
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDefensivePactAttitudeDivisor	iDefensivePactAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19609
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iDefensivePactAttitudeChangeLimit	iDefensivePactAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19610
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iShareWarAttitudeChange	iShareWarAttitudeChange	GetChildXmlValByName	CvInfos.cpp	19611
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iShareWarAttitudeDivisor	iShareWarAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19612
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iShareWarAttitudeChangeLimit	iShareWarAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19613
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iFavoriteCivicAttitudeChange	iFavoriteCivicAttitudeChange	GetChildXmlValByName	CvInfos.cpp	19614
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iFavoriteCivicAttitudeDivisor	iFavoriteCivicAttitudeDivisor	GetChildXmlValByName	CvInfos.cpp	19615
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iFavoriteCivicAttitudeChangeLimit	iFavoriteCivicAttitudeChangeLimit	GetChildXmlValByName	CvInfos.cpp	19616
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iVassalPowerModifier	iVassalPowerModifier	GetChildXmlValByName	CvInfos.cpp	19617
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_iFreedomAppreciation	iFreedomAppreciation	GetChildXmlValByName	CvInfos.cpp	19618
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_pbTraits	Traits	SetVariableListTagPair	CvInfos.cpp	19677
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piFlavorValue	Flavors	SetVariableListTagPair	CvInfos.cpp	19679
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piContactRand	ContactRands	SetVariableListTagPair	CvInfos.cpp	19680
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piContactDelay	ContactDelays	SetVariableListTagPair	CvInfos.cpp	19681
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piMemoryDecayRand	MemoryDecays	SetVariableListTagPair	CvInfos.cpp	19682
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piMemoryAttitudePercent	MemoryAttitudePercents	SetVariableListTagPair	CvInfos.cpp	19683
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piNoWarAttitudeProb	NoWarAttitudeProbs	SetVariableListTagPair	CvInfos.cpp	19684
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piUnitAIWeightModifier	UnitAIWeightModifiers	SetVariableListTagPair	CvInfos.cpp	19685
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piImprovementWeightModifier	ImprovementWeightModifiers	SetVariableListTagPair	CvInfos.cpp	19686
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piDiploPeaceIntroMusicScriptIds	DiplomacyIntroMusicPeace	SetVariableListTagPairForAudioScripts	CvInfos.cpp	19687
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piDiploPeaceMusicScriptIds	DiplomacyMusicPeace	SetVariableListTagPairForAudioScripts	CvInfos.cpp	19688
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piDiploWarIntroMusicScriptIds	DiplomacyIntroMusicWar	SetVariableListTagPairForAudioScripts	CvInfos.cpp	19689
+CvLeaderHeadInfo::read	CvLeaderHeadInfo	m_piDiploWarMusicScriptIds	DiplomacyMusicWar	SetVariableListTagPairForAudioScripts	CvInfos.cpp	19690
+CvWorldInfo::read	CvWorldInfo	m_iDefaultPlayers	iDefaultPlayers	GetChildXmlValByName	CvInfos.cpp	20020
+CvWorldInfo::read	CvWorldInfo	m_iUnitNameModifier	iUnitNameModifier	GetChildXmlValByName	CvInfos.cpp	20021
+CvWorldInfo::read	CvWorldInfo	m_iTargetNumCities	iTargetNumCities	GetChildXmlValByName	CvInfos.cpp	20022
+CvWorldInfo::read	CvWorldInfo	m_iNumFreeBuildingBonuses	iNumFreeBuildingBonuses	GetChildXmlValByName	CvInfos.cpp	20023
+CvWorldInfo::read	CvWorldInfo	m_iBuildingClassPrereqModifier	iBuildingClassPrereqModifier	GetChildXmlValByName	CvInfos.cpp	20024
+CvWorldInfo::read	CvWorldInfo	m_iMaxConscriptModifier	iMaxConscriptModifier	GetChildXmlValByName	CvInfos.cpp	20025
+CvWorldInfo::read	CvWorldInfo	m_iWarWearinessModifier	iWarWearinessModifier	GetChildXmlValByName	CvInfos.cpp	20026
+CvWorldInfo::read	CvWorldInfo	m_iGridWidth	iGridWidth	GetChildXmlValByName	CvInfos.cpp	20027
+CvWorldInfo::read	CvWorldInfo	m_iGridHeight	iGridHeight	GetChildXmlValByName	CvInfos.cpp	20028
+CvWorldInfo::read	CvWorldInfo	m_iTerrainGrainChange	iTerrainGrainChange	GetChildXmlValByName	CvInfos.cpp	20029
+CvWorldInfo::read	CvWorldInfo	m_iFeatureGrainChange	iFeatureGrainChange	GetChildXmlValByName	CvInfos.cpp	20030
+CvWorldInfo::read	CvWorldInfo	m_iResearchPercent	iResearchPercent	GetChildXmlValByName	CvInfos.cpp	20031
+CvWorldInfo::read	CvWorldInfo	m_iTradeProfitPercent	iTradeProfitPercent	GetChildXmlValByName	CvInfos.cpp	20032
+CvWorldInfo::read	CvWorldInfo	m_iDistanceMaintenancePercent	iDistanceMaintenancePercent	GetChildXmlValByName	CvInfos.cpp	20033
+CvWorldInfo::read	CvWorldInfo	m_iNumCitiesMaintenancePercent	iNumCitiesMaintenancePercent	GetChildXmlValByName	CvInfos.cpp	20034
+CvWorldInfo::read	CvWorldInfo	m_iColonyMaintenancePercent	iColonyMaintenancePercent	GetChildXmlValByName	CvInfos.cpp	20035
+CvWorldInfo::read	CvWorldInfo	m_iCorporationMaintenancePercent	iCorporationMaintenancePercent	GetChildXmlValByName	CvInfos.cpp	20036
+CvWorldInfo::read	CvWorldInfo	m_iNumCitiesAnarchyPercent	iNumCitiesAnarchyPercent	GetChildXmlValByName	CvInfos.cpp	20037
+CvWorldInfo::read	CvWorldInfo	m_iAdvancedStartPointsMod	iAdvancedStartPointsMod	GetChildXmlValByName	CvInfos.cpp	20038
+CvClimateInfo::read	CvClimateInfo	m_iDesertPercentChange	iDesertPercentChange	GetChildXmlValByName	CvInfos.cpp	20166
+CvClimateInfo::read	CvClimateInfo	m_iJungleLatitude	iJungleLatitude	GetChildXmlValByName	CvInfos.cpp	20167
+CvClimateInfo::read	CvClimateInfo	m_iHillRange	iHillRange	GetChildXmlValByName	CvInfos.cpp	20168
+CvClimateInfo::read	CvClimateInfo	m_iPeakPercent	iPeakPercent	GetChildXmlValByName	CvInfos.cpp	20169
+CvClimateInfo::read	CvClimateInfo	m_fSnowLatitudeChange	fSnowLatitudeChange	GetChildXmlValByName	CvInfos.cpp	20171
+CvClimateInfo::read	CvClimateInfo	m_fTundraLatitudeChange	fTundraLatitudeChange	GetChildXmlValByName	CvInfos.cpp	20172
+CvClimateInfo::read	CvClimateInfo	m_fGrassLatitudeChange	fGrassLatitudeChange	GetChildXmlValByName	CvInfos.cpp	20173
+CvClimateInfo::read	CvClimateInfo	m_fDesertBottomLatitudeChange	fDesertBottomLatitudeChange	GetChildXmlValByName	CvInfos.cpp	20174
+CvClimateInfo::read	CvClimateInfo	m_fDesertTopLatitudeChange	fDesertTopLatitudeChange	GetChildXmlValByName	CvInfos.cpp	20175
+CvClimateInfo::read	CvClimateInfo	m_fIceLatitude	fIceLatitude	GetChildXmlValByName	CvInfos.cpp	20176
+CvClimateInfo::read	CvClimateInfo	m_fRandIceLatitude	fRandIceLatitude	GetChildXmlValByName	CvInfos.cpp	20177
+CvSeaLevelInfo::read	CvSeaLevelInfo	m_iSeaLevelChange	iSeaLevelChange	GetChildXmlValByName	CvInfos.cpp	20239
+CvVoteInfo::read	CvVoteInfo	m_iPopulationThreshold	iPopulationThreshold	GetChildXmlValByName	CvInfos.cpp	20510
+CvVoteInfo::read	CvVoteInfo	m_iStateReligionVotePercent	iStateReligionVotePercent	GetChildXmlValByName	CvInfos.cpp	20511
+CvVoteInfo::read	CvVoteInfo	m_iTradeRoutes	iTradeRoutes	GetChildXmlValByName	CvInfos.cpp	20512
+CvVoteInfo::read	CvVoteInfo	m_iMinVoters	iMinVoters	GetChildXmlValByName	CvInfos.cpp	20513
+CvVoteInfo::read	CvVoteInfo	m_bSecretaryGeneral	bSecretaryGeneral	GetChildXmlValByName	CvInfos.cpp	20515
+CvVoteInfo::read	CvVoteInfo	m_bVictory	bVictory	GetChildXmlValByName	CvInfos.cpp	20516
+CvVoteInfo::read	CvVoteInfo	m_bFreeTrade	bFreeTrade	GetChildXmlValByName	CvInfos.cpp	20517
+CvVoteInfo::read	CvVoteInfo	m_bNoNukes	bNoNukes	GetChildXmlValByName	CvInfos.cpp	20518
+CvVoteInfo::read	CvVoteInfo	m_bCityVoting	bCityVoting	GetChildXmlValByName	CvInfos.cpp	20519
+CvVoteInfo::read	CvVoteInfo	m_bCivVoting	bCivVoting	GetChildXmlValByName	CvInfos.cpp	20520
+CvVoteInfo::read	CvVoteInfo	m_bDefensivePact	bDefensivePact	GetChildXmlValByName	CvInfos.cpp	20521
+CvVoteInfo::read	CvVoteInfo	m_bOpenBorders	bOpenBorders	GetChildXmlValByName	CvInfos.cpp	20522
+CvVoteInfo::read	CvVoteInfo	m_bForcePeace	bForcePeace	GetChildXmlValByName	CvInfos.cpp	20523
+CvVoteInfo::read	CvVoteInfo	m_bForceNoTrade	bForceNoTrade	GetChildXmlValByName	CvInfos.cpp	20524
+CvVoteInfo::read	CvVoteInfo	m_bForceWar	bForceWar	GetChildXmlValByName	CvInfos.cpp	20525
+CvVoteInfo::read	CvVoteInfo	m_bAssignCity	bAssignCity	GetChildXmlValByName	CvInfos.cpp	20526
+CvVoteInfo::read	CvVoteInfo	m_pbForceCivic	ForceCivics	SetVariableListTagPair	CvInfos.cpp	20528
+CvVoteInfo::read	CvVoteInfo	m_abVoteSourceTypes	DiploVotes	SetVariableListTagPair	CvInfos.cpp	20529
+CvProjectInfo::read	CvProjectInfo	m_iMaxGlobalInstances	iMaxGlobalInstances	GetChildXmlValByName	CvInfos.cpp	20769
+CvProjectInfo::read	CvProjectInfo	m_iMaxTeamInstances	iMaxTeamInstances	GetChildXmlValByName	CvInfos.cpp	20770
+CvProjectInfo::read	CvProjectInfo	m_iProductionCost	iCost	GetChildXmlValByName	CvInfos.cpp	20771
+CvProjectInfo::read	CvProjectInfo	m_iNukeInterception	iNukeInterception	GetChildXmlValByName	CvInfos.cpp	20772
+CvProjectInfo::read	CvProjectInfo	m_iTechShare	iTechShare	GetChildXmlValByName	CvInfos.cpp	20773
+CvProjectInfo::read	CvProjectInfo	m_bSpaceship	bSpaceship	GetChildXmlValByName	CvInfos.cpp	20781
+CvProjectInfo::read	CvProjectInfo	m_bAllowsNukes	bAllowsNukes	GetChildXmlValByName	CvInfos.cpp	20782
+CvProjectInfo::read	CvProjectInfo	m_szMovieArtDef	MovieDefineTag	GetChildXmlValByName	CvInfos.cpp	20783
+CvProjectInfo::read	CvProjectInfo	m_piBonusProductionModifier	BonusProductionModifiers	SetVariableListTagPair	CvInfos.cpp	20785
+CvProjectInfo::read	CvProjectInfo	m_piVictoryThreshold	VictoryThresholds	SetVariableListTagPair	CvInfos.cpp	20786
+CvProjectInfo::read	CvProjectInfo	m_piVictoryMinThreshold	VictoryMinThresholds	SetVariableListTagPair	CvInfos.cpp	20787
+CvProjectInfo::read	CvProjectInfo	m_iVictoryDelayPercent	iVictoryDelayPercent	GetChildXmlValByName	CvInfos.cpp	20788
+CvProjectInfo::read	CvProjectInfo	m_iSuccessRate	iSuccessRate	GetChildXmlValByName	CvInfos.cpp	20789
+CvProjectInfo::readPass2	CvProjectInfo	m_piProjectsNeeded	PrereqProjects	SetVariableListTagPair	CvInfos.cpp	20813
+CvReligionInfo::read	CvReligionInfo	m_iNumFreeUnits	iFreeUnits	GetChildXmlValByName	CvInfos.cpp	21222
+CvReligionInfo::read	CvReligionInfo	m_iSpreadFactor	iSpreadFactor	GetChildXmlValByName	CvInfos.cpp	21223
+CvReligionInfo::read	CvReligionInfo	m_iTGAIndex	iTGAIndex	GetChildXmlValByName	CvInfos.cpp	21229
+CvCorporationInfo::read	CvCorporationInfo	m_iSpreadFactor	iSpreadFactor	GetChildXmlValByName	CvInfos.cpp	21620
+CvCorporationInfo::read	CvCorporationInfo	m_iSpreadCost	iSpreadCost	GetChildXmlValByName	CvInfos.cpp	21621
+CvCorporationInfo::read	CvCorporationInfo	m_iMaintenance	iMaintenance	GetChildXmlValByName	CvInfos.cpp	21622
+CvCorporationInfo::read	CvCorporationInfo	m_iTGAIndex	iTGAIndex	GetChildXmlValByName	CvInfos.cpp	21628
+CvTraitInfo::read	CvTraitInfo	m_iHealth	iHealth	GetChildXmlValByName	CvInfos.cpp	22041
+CvTraitInfo::read	CvTraitInfo	m_iHappiness	iHappiness	GetChildXmlValByName	CvInfos.cpp	22042
+CvTraitInfo::read	CvTraitInfo	m_iMaxAnarchy	iMaxAnarchy	GetChildXmlValByName	CvInfos.cpp	22043
+CvTraitInfo::read	CvTraitInfo	m_iUpkeepModifier	iUpkeepModifier	GetChildXmlValByName	CvInfos.cpp	22044
+CvTraitInfo::read	CvTraitInfo	m_iLevelExperienceModifier	iLevelExperienceModifier	GetChildXmlValByName	CvInfos.cpp	22045
+CvTraitInfo::read	CvTraitInfo	m_iGreatPeopleRateModifier	iGreatPeopleRateModifier	GetChildXmlValByName	CvInfos.cpp	22046
+CvTraitInfo::read	CvTraitInfo	m_iGreatGeneralRateModifier	iGreatGeneralRateModifier	GetChildXmlValByName	CvInfos.cpp	22047
+CvTraitInfo::read	CvTraitInfo	m_iDomesticGreatGeneralRateModifier	iDomesticGreatGeneralRateModifier	GetChildXmlValByName	CvInfos.cpp	22048
+CvTraitInfo::read	CvTraitInfo	m_iMaxGlobalBuildingProductionModifier	iMaxGlobalBuildingProductionModifier	GetChildXmlValByName	CvInfos.cpp	22049
+CvTraitInfo::read	CvTraitInfo	m_iMaxTeamBuildingProductionModifier	iMaxTeamBuildingProductionModifier	GetChildXmlValByName	CvInfos.cpp	22050
+CvTraitInfo::read	CvTraitInfo	m_iMaxPlayerBuildingProductionModifier	iMaxPlayerBuildingProductionModifier	GetChildXmlValByName	CvInfos.cpp	22051
+CvTraitInfo::read	CvTraitInfo	m_iRevIdxLocal	iRevIdxLocal	GetChildXmlValByName	CvInfos.cpp	22058
+CvTraitInfo::read	CvTraitInfo	m_iRevIdxNational	iRevIdxNational	GetChildXmlValByName	CvInfos.cpp	22059
+CvTraitInfo::read	CvTraitInfo	m_iRevIdxDistanceModifier	iRevIdxDistanceModifier	GetChildXmlValByName	CvInfos.cpp	22060
+CvTraitInfo::read	CvTraitInfo	m_iRevIdxHolyCityGood	iRevIdxHolyCityGood	GetChildXmlValByName	CvInfos.cpp	22061
+CvTraitInfo::read	CvTraitInfo	m_iRevIdxHolyCityBad	iRevIdxHolyCityBad	GetChildXmlValByName	CvInfos.cpp	22062
+CvTraitInfo::read	CvTraitInfo	m_fRevIdxNationalityMod	fRevIdxNationalityMod	GetChildXmlValByName	CvInfos.cpp	22063
+CvTraitInfo::read	CvTraitInfo	m_fRevIdxBadReligionMod	fRevIdxBadReligionMod	GetChildXmlValByName	CvInfos.cpp	22064
+CvTraitInfo::read	CvTraitInfo	m_fRevIdxGoodReligionMod	fRevIdxGoodReligionMod	GetChildXmlValByName	CvInfos.cpp	22065
+CvTraitInfo::read	CvTraitInfo	m_bNonStateReligionCommerce	bNonStateReligionCommerce	GetChildXmlValByName	CvInfos.cpp	22066
+CvTraitInfo::read	CvTraitInfo	m_bUpgradeAnywhere	bUpgradeAnywhere	GetChildXmlValByName	CvInfos.cpp	22067
+CvTraitInfo::read	CvTraitInfo	m_pabFreePromotion	FreePromotions	SetVariableListTagPair	CvInfos.cpp	22112
+CvTraitInfo::read	CvTraitInfo	m_pabFreePromotionUnitCombat	FreePromotionUnitCombats	SetVariableListTagPair	CvInfos.cpp	22114
+CvSpaceShipInfo::read	CvSpaceShipInfo	m_iPartNumber	PartNumber	GetChildXmlValByName	CvInfos.cpp	23112
+CvSpaceShipInfo::read	CvSpaceShipInfo	m_iArtType	ArtType	GetChildXmlValByName	CvInfos.cpp	23113
+CvSpaceShipInfo::read	CvSpaceShipInfo	m_iEventCode	EventCode	GetChildXmlValByName	CvInfos.cpp	23114
+CvAnimationPathInfo::read	CvAnimationPathInfo	m_bMissionPath	bMissionPath	GetChildXmlValByName	CvInfos.cpp	23253
+CvAnimationCategoryInfo::read	CvAnimationCategoryInfo	m_szDefaultTo	DefaultTo	GetChildXmlValByName	CvInfos.cpp	23368
+CvEntityEventInfo::read	CvEntityEventInfo	m_bUpdateFormation	bUpdateFormation	GetChildXmlValByName	CvInfos.cpp	23491
+CvArtInfoBonus::read	CvArtInfoBonus	m_iFontButtonIndex	FontButtonIndex	GetChildXmlValByName	CvInfos.cpp	23725
+CvArtInfoUnit::read	CvArtInfoUnit	m_bActAsRanged	bActAsRanged	GetChildXmlValByName	CvInfos.cpp	23930
+CvArtInfoUnit::read	CvArtInfoUnit	m_bActAsLand	bActAsLand	GetChildXmlValByName	CvInfos.cpp	23931
+CvArtInfoUnit::read	CvArtInfoUnit	m_bActAsAir	bActAsAir	GetChildXmlValByName	CvInfos.cpp	23932
+CvArtInfoUnit::read	CvArtInfoUnit	m_bCombatExempt	bCombatExempt	GetChildXmlValByName	CvInfos.cpp	23933
+CvArtInfoUnit::read	CvArtInfoUnit	m_fExchangeAngle	fExchangeAngle	GetChildXmlValByName	CvInfos.cpp	23934
+CvArtInfoUnit::read	CvArtInfoUnit	m_bSmoothMove	bSmoothMove	GetChildXmlValByName	CvInfos.cpp	23935
+CvArtInfoUnit::read	CvArtInfoUnit	m_fAngleInterRate	fAngleInterpRate	GetChildXmlValByName	CvInfos.cpp	23936
+CvArtInfoUnit::read	CvArtInfoUnit	m_fBankRate	fBankRate	GetChildXmlValByName	CvInfos.cpp	23937
+CvArtInfoUnit::read	CvArtInfoUnit	m_szShadowAttach	ShadowAttachNode	GetChildXmlValByName	CvInfos.cpp	23955
+CvArtInfoUnit::read	CvArtInfoUnit	m_szShadowNIF	ShadowNIF	GetChildXmlValByName	CvInfos.cpp	23966
+CvArtInfoUnit::read	CvArtInfoUnit	m_fShadowScale	fShadowScale	GetChildXmlValByName	CvInfos.cpp	23977
+CvArtInfoUnit::read	CvArtInfoUnit	m_iDamageStates	iDamageStates	GetChildXmlValByName	CvInfos.cpp	23981
+CvArtInfoUnit::read	CvArtInfoUnit	m_fBattleDistance	fBattleDistance	GetChildXmlValByName	CvInfos.cpp	23982
+CvArtInfoUnit::read	CvArtInfoUnit	m_fRangedDeathTime	fRangedDeathTime	GetChildXmlValByName	CvInfos.cpp	23983
+CvArtInfoUnit::read	CvArtInfoUnit	m_szTrailTexture	Texture	GetChildXmlValByName	CvInfos.cpp	23988
+CvArtInfoUnit::read	CvArtInfoUnit	m_fTrailWidth	fWidth	GetChildXmlValByName	CvInfos.cpp	23999
+CvArtInfoUnit::read	CvArtInfoUnit	m_fTrailLength	fLength	GetChildXmlValByName	CvInfos.cpp	24000
+CvArtInfoUnit::read	CvArtInfoUnit	m_fTrailTaper	fTaper	GetChildXmlValByName	CvInfos.cpp	24001
+CvArtInfoUnit::read	CvArtInfoUnit	m_fTrailFadeStartTime	fFadeStartTime	GetChildXmlValByName	CvInfos.cpp	24002
+CvArtInfoUnit::read	CvArtInfoUnit	m_fTrailFadeFalloff	fFadeFalloff	GetChildXmlValByName	CvInfos.cpp	24003
+CvArtInfoBuilding::read	CvArtInfoBuilding	m_szLSystemName	LSystem	GetChildXmlValByName	CvInfos.cpp	24096
+CvArtInfoBuilding::read	CvArtInfoBuilding	m_bAnimated	bAnimated	GetChildXmlValByName	CvInfos.cpp	24098
+CvArtInfoCivilization::read	CvArtInfoCivilization	m_bWhiteFlag	bWhiteFlag	GetChildXmlValByName	CvInfos.cpp	24139
+CvArtInfoImprovement::read	CvArtInfoImprovement	m_bExtraAnimations	bExtraAnimations	GetChildXmlValByName	CvInfos.cpp	24283
+CvArtInfoTerrain::read	CvArtInfoTerrain	m_iLayerOrder	LayerOrder	GetChildXmlValByName	CvInfos.cpp	24438
+CvArtInfoTerrain::read	CvArtInfoTerrain	m_bAlphaShader	AlphaShader	GetChildXmlValByName	CvInfos.cpp	24439
+CvArtInfoFeature::read	CvArtInfoFeature	m_bAnimated	bAnimated	GetChildXmlValByName	CvInfos.cpp	24518
+CvArtInfoFeature::read	CvArtInfoFeature	m_bRiverArt	bRiverArt	GetChildXmlValByName	CvInfos.cpp	24519
+CvArtInfoFeature::read	FeatureVariety	m_szVarietyButton	VarietyButton	GetChildXmlValByName	CvInfos.cpp	24642
+CvArtInfoFeature::getVariety	CvArtInfoFeature	m_aFeatureVarieties	[Jason] Feature Variety index out of range.	FAssertMsg	CvInfos.cpp	24677
+CvEmphasizeInfo::read	CvEmphasizeInfo	m_bAvoidGrowth	bAvoidGrowth	GetChildXmlValByName	CvInfos.cpp	24813
+CvEmphasizeInfo::read	CvEmphasizeInfo	m_bGreatPeople	bGreatPeople	GetChildXmlValByName	CvInfos.cpp	24814
+CvUpkeepInfo::read	CvUpkeepInfo	m_iPopulationPercent	iPopulationPercent	GetChildXmlValByName	CvInfos.cpp	24910
+CvUpkeepInfo::read	CvUpkeepInfo	m_iCityPercent	iCityPercent	GetChildXmlValByName	CvInfos.cpp	24911
+CvCultureLevelInfo::read	CvCultureLevelInfo	m_iCityDefenseModifier	iCityDefenseModifier	GetChildXmlValByName	CvInfos.cpp	24974
+CvCultureLevelInfo::read	CvCultureLevelInfo	m_paiSpeedThreshold	SpeedThresholds	SetVariableListTagPair	CvInfos.cpp	24976
+CvEraInfo::read	CvEraInfo	m_bNoGoodies	bNoGoodies	GetChildXmlValByName	CvInfos.cpp	25233
+CvEraInfo::read	CvEraInfo	m_bNoAnimals	bNoAnimals	GetChildXmlValByName	CvInfos.cpp	25234
+CvEraInfo::read	CvEraInfo	m_bNoBarbUnits	bNoBarbUnits	GetChildXmlValByName	CvInfos.cpp	25235
+CvEraInfo::read	CvEraInfo	m_bNoBarbCities	bNoBarbCities	GetChildXmlValByName	CvInfos.cpp	25236
+CvEraInfo::read	CvEraInfo	m_iStartingUnitMultiplier	iStartingUnitMultiplier	GetChildXmlValByName	CvInfos.cpp	25237
+CvEraInfo::read	CvEraInfo	m_iStartingDefenseUnits	iStartingDefenseUnits	GetChildXmlValByName	CvInfos.cpp	25238
+CvEraInfo::read	CvEraInfo	m_iStartingWorkerUnits	iStartingWorkerUnits	GetChildXmlValByName	CvInfos.cpp	25239
+CvEraInfo::read	CvEraInfo	m_iStartingExploreUnits	iStartingExploreUnits	GetChildXmlValByName	CvInfos.cpp	25240
+CvEraInfo::read	CvEraInfo	m_iAdvancedStartPoints	iAdvancedStartPoints	GetChildXmlValByName	CvInfos.cpp	25241
+CvEraInfo::read	CvEraInfo	m_iStartingGold	iStartingGold	GetChildXmlValByName	CvInfos.cpp	25242
+CvEraInfo::read	CvEraInfo	m_iFreePopulation	iFreePopulation	GetChildXmlValByName	CvInfos.cpp	25243
+CvEraInfo::read	CvEraInfo	m_iStartPercent	iStartPercent	GetChildXmlValByName	CvInfos.cpp	25244
+CvEraInfo::read	CvEraInfo	m_iGrowthPercent	iGrowthPercent	GetChildXmlValByName	CvInfos.cpp	25245
+CvEraInfo::read	CvEraInfo	m_iTrainPercent	iTrainPercent	GetChildXmlValByName	CvInfos.cpp	25246
+CvEraInfo::read	CvEraInfo	m_iConstructPercent	iConstructPercent	GetChildXmlValByName	CvInfos.cpp	25247
+CvEraInfo::read	CvEraInfo	m_iCreatePercent	iCreatePercent	GetChildXmlValByName	CvInfos.cpp	25248
+CvEraInfo::read	CvEraInfo	m_iResearchPercent	iResearchPercent	GetChildXmlValByName	CvInfos.cpp	25249
+CvEraInfo::read	CvEraInfo	m_iTechCostModifier	iTechCostModifier	GetChildXmlValByName	CvInfos.cpp	25255
+CvEraInfo::read	CvEraInfo	m_iBuildPercent	iBuildPercent	GetChildXmlValByName	CvInfos.cpp	25259
+CvEraInfo::read	CvEraInfo	m_iImprovementPercent	iImprovementPercent	GetChildXmlValByName	CvInfos.cpp	25260
+CvEraInfo::read	CvEraInfo	m_iGreatPeoplePercent	iGreatPeoplePercent	GetChildXmlValByName	CvInfos.cpp	25261
+CvEraInfo::read	CvEraInfo	m_iAnarchyPercent	iAnarchyPercent	GetChildXmlValByName	CvInfos.cpp	25262
+CvEraInfo::read	CvEraInfo	m_iEventChancePerTurn	iEventChancePerTurn	GetChildXmlValByName	CvInfos.cpp	25263
+CvEraInfo::read	CvEraInfo	m_iSoundtrackSpace	iSoundtrackSpace	GetChildXmlValByName	CvInfos.cpp	25264
+CvEraInfo::read	CvEraInfo	m_bFirstSoundtrackFirst	bFirstSoundtrackFirst	GetChildXmlValByName	CvInfos.cpp	25265
+CvEraInfo::read	CvEraInfo	m_szAudioUnitVictoryScript	AudioUnitVictoryScript	GetChildXmlValByName	CvInfos.cpp	25266
+CvEraInfo::read	CvEraInfo	m_szAudioUnitDefeatScript	AudioUnitDefeatScript	GetChildXmlValByName	CvInfos.cpp	25267
+CvEraInfo::read	CvEraInfo	m_paiCitySoundscapeSciptIds	CitySoundscapes	SetVariableListTagPairForAudioScripts	CvInfos.cpp	25294
+CvLandscapeInfo::read	CvLandscapeInfo	m_iWaterHeight	iWaterHeight	GetChildXmlValByName	CvInfos.cpp	25705
+CvLandscapeInfo::read	CvLandscapeInfo	m_bRandomMap	bRandomMap	GetChildXmlValByName	CvInfos.cpp	25706
+CvLandscapeInfo::read	CvLandscapeInfo	m_iFogR	iFogR	GetChildXmlValByName	CvInfos.cpp	25723
+CvLandscapeInfo::read	CvLandscapeInfo	m_iFogG	iFogG	GetChildXmlValByName	CvInfos.cpp	25724
+CvLandscapeInfo::read	CvLandscapeInfo	m_iFogB	iFogB	GetChildXmlValByName	CvInfos.cpp	25725
+CvLandscapeInfo::read	CvLandscapeInfo	m_fTextureScaleX	fTextureScaleX	GetChildXmlValByName	CvInfos.cpp	25727
+CvLandscapeInfo::read	CvLandscapeInfo	m_fTextureScaleY	fTextureScaleY	GetChildXmlValByName	CvInfos.cpp	25728
+CvLandscapeInfo::read	CvLandscapeInfo	m_iHorizontalGameCell	iGameCellSizeX	GetChildXmlValByName	CvInfos.cpp	25730
+CvLandscapeInfo::read	CvLandscapeInfo	m_iVerticalGameCell	iGameCellSizeY	GetChildXmlValByName	CvInfos.cpp	25731
+CvLandscapeInfo::read	CvLandscapeInfo	m_iPlotsPerCellX	iPlotsPerCellX	GetChildXmlValByName	CvInfos.cpp	25733
+CvLandscapeInfo::read	CvLandscapeInfo	m_iPlotsPerCellY	iPlotsPerCellY	GetChildXmlValByName	CvInfos.cpp	25734
+CvLandscapeInfo::read	CvLandscapeInfo	m_fZScale	fZScale	GetChildXmlValByName	CvInfos.cpp	25739
+CvLandscapeInfo::read	CvLandscapeInfo	m_bUseTerrainShader	bTerrainShader	GetChildXmlValByName	CvInfos.cpp	25740
+CvLandscapeInfo::read	CvLandscapeInfo	m_bUseLightmap	bUseLightmap	GetChildXmlValByName	CvInfos.cpp	25741
+CvLandscapeInfo::read	CvLandscapeInfo	m_fPeakScale	fPeakScale	GetChildXmlValByName	CvInfos.cpp	25742
+CvLandscapeInfo::read	CvLandscapeInfo	m_fHillScale	fHillScale	GetChildXmlValByName	CvInfos.cpp	25743
+CvDiplomacyTextInfo::read	CvDiplomacyTextInfo	m_pResponses	Civilizations	SetVariableListTagPair	CvInfos.cpp	26068
+CvDiplomacyTextInfo::read	CvDiplomacyTextInfo	m_pResponses	Leaders	SetVariableListTagPair	CvInfos.cpp	26070
+CvDiplomacyTextInfo::read	CvDiplomacyTextInfo	m_pResponses	Attitudes	SetVariableListTagPair	CvInfos.cpp	26072
+CvDiplomacyTextInfo::read	CvDiplomacyTextInfo	m_pResponses	DiplomacyPowers	SetVariableListTagPair	CvInfos.cpp	26074
+CvEffectInfo::read	CvEffectInfo	m_fUpdateRate	fUpdateRate	GetChildXmlValByName	CvInfos.cpp	26161
+CvEffectInfo::read	CvEffectInfo	m_fProjectileSpeed	fSpeed	GetChildXmlValByName	CvInfos.cpp	26167
+CvEffectInfo::read	CvEffectInfo	m_fProjectileArc	fArcValue	GetChildXmlValByName	CvInfos.cpp	26168
+CvEffectInfo::read	CvEffectInfo	m_bSticky	bSticky	GetChildXmlValByName	CvInfos.cpp	26169
+CvEffectInfo::read	CvEffectInfo	m_bBattleEffect	bBattleEffect	GetChildXmlValByName	CvInfos.cpp	26175
+CvGameOptionInfo::read	CvGameOptionInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	26873
+CvGameOptionInfo::read	CvGameOptionInfo	m_bVisible	bVisible	GetChildXmlValByName	CvInfos.cpp	26874
+CvMPOptionInfo::read	CvMPOptionInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	26929
+CvForceControlInfo::read	CvForceControlInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	26983
+CvPlayerOptionInfo::read	CvPlayerOptionInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	27037
+CvGraphicOptionInfo::read	CvGraphicOptionInfo	m_bDefault	bDefault	GetChildXmlValByName	CvInfos.cpp	27091
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iPercentGamesActive	iPercentGamesActive	GetChildXmlValByName	CvInfos.cpp	27970
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iProbability	iWeight	GetChildXmlValByName	CvInfos.cpp	27971
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iNumUnits	iNumUnits	GetChildXmlValByName	CvInfos.cpp	27973
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iNumBuildings	iNumBuildings	GetChildXmlValByName	CvInfos.cpp	27974
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iNumUnitsGlobal	iNumUnitsGlobal	GetChildXmlValByName	CvInfos.cpp	27975
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iNumBuildingsGlobal	iNumBuildingsGlobal	GetChildXmlValByName	CvInfos.cpp	27976
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iNumPlotsRequired	iNumPlotsRequired	GetChildXmlValByName	CvInfos.cpp	27978
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iPlotType	iPlotType	GetChildXmlValByName	CvInfos.cpp	27979
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iNumReligions	iNumReligions	GetChildXmlValByName	CvInfos.cpp	27981
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iNumCorporations	iNumCorporations	GetChildXmlValByName	CvInfos.cpp	27982
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iOtherPlayerShareBorders	iOtherPlayerShareBorders	GetChildXmlValByName	CvInfos.cpp	27984
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iMinPopulation	iMinPopulation	GetChildXmlValByName	CvInfos.cpp	27986
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iMaxPopulation	iMaxPopulation	GetChildXmlValByName	CvInfos.cpp	27987
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iMinMapLandmass	iMinMapLandmass	GetChildXmlValByName	CvInfos.cpp	27989
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iMinOurLandmass	iMinOurLandmass	GetChildXmlValByName	CvInfos.cpp	27990
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iMaxOurLandmass	iMaxOurLandmass	GetChildXmlValByName	CvInfos.cpp	27991
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iAngry	iAngry	GetChildXmlValByName	CvInfos.cpp	27994
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iUnhealthy	iUnhealthy	GetChildXmlValByName	CvInfos.cpp	27995
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iUnitDamagedWeight	iUnitDamagedWeight	GetChildXmlValByName	CvInfos.cpp	27996
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iUnitDistanceWeight	iUnitDistanceWeight	GetChildXmlValByName	CvInfos.cpp	27997
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iUnitExperienceWeight	iUnitExperienceWeight	GetChildXmlValByName	CvInfos.cpp	27998
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iMinTreasury	iMinTreasury	GetChildXmlValByName	CvInfos.cpp	27999
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bSinglePlayer	bSinglePlayer	GetChildXmlValByName	CvInfos.cpp	28466
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bTeam	bTeam	GetChildXmlValByName	CvInfos.cpp	28467
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bRecurring	bRecurring	GetChildXmlValByName	CvInfos.cpp	28468
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bGlobal	bGlobal	GetChildXmlValByName	CvInfos.cpp	28469
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bPickPlayer	bPickPlayer	GetChildXmlValByName	CvInfos.cpp	28470
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bOtherPlayerWar	bOtherPlayerWar	GetChildXmlValByName	CvInfos.cpp	28471
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bOtherPlayerHasReligion	bOtherPlayerHasReligion	GetChildXmlValByName	CvInfos.cpp	28472
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bOtherPlayerHasOtherReligion	bOtherPlayerHasOtherReligion	GetChildXmlValByName	CvInfos.cpp	28473
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bOtherPlayerAI	bOtherPlayerAI	GetChildXmlValByName	CvInfos.cpp	28474
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bPickCity	bPickCity	GetChildXmlValByName	CvInfos.cpp	28475
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bPickOtherPlayerCity	bPickOtherPlayerCity	GetChildXmlValByName	CvInfos.cpp	28476
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bShowPlot	bShowPlot	GetChildXmlValByName	CvInfos.cpp	28477
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_iCityFoodWeight	iCityFoodWeight	GetChildXmlValByName	CvInfos.cpp	28478
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bUnitsOnPlot	bUnitsOnPlot	GetChildXmlValByName	CvInfos.cpp	28479
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bOwnPlot	bOwnPlot	GetChildXmlValByName	CvInfos.cpp	28480
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bPickReligion	bPickReligion	GetChildXmlValByName	CvInfos.cpp	28481
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bStateReligion	bStateReligion	GetChildXmlValByName	CvInfos.cpp	28482
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bHolyCity	bHolyCity	GetChildXmlValByName	CvInfos.cpp	28483
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bPickCorporation	bPickCorporation	GetChildXmlValByName	CvInfos.cpp	28484
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bHeadquarters	bHeadquarters	GetChildXmlValByName	CvInfos.cpp	28485
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bProbabilityUnitMultiply	bProbabilityUnitMultiply	GetChildXmlValByName	CvInfos.cpp	28486
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bProbabilityBuildingMultiply	bProbabilityBuildingMultiply	GetChildXmlValByName	CvInfos.cpp	28487
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_bPrereqEventCity	bPrereqEventPlot	GetChildXmlValByName	CvInfos.cpp	28488
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_szPythonCallback	PythonCallback	GetChildXmlValByName	CvInfos.cpp	28490
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_szPythonCanDo	PythonCanDo	GetChildXmlValByName	CvInfos.cpp	28491
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_szPythonCanDoCity	PythonCanDoCity	GetChildXmlValByName	CvInfos.cpp	28492
+CvEventTriggerInfo::read	CvEventTriggerInfo	m_szPythonCanDoUnit	PythonCanDoUnit	GetChildXmlValByName	CvInfos.cpp	28493
+CvEventInfo::read	CvEventInfo	m_bQuest	bQuest	GetChildXmlValByName	CvInfos.cpp	29596
+CvEventInfo::read	CvEventInfo	m_bGlobal	bGlobal	GetChildXmlValByName	CvInfos.cpp	29597
+CvEventInfo::read	CvEventInfo	m_bTeam	bTeam	GetChildXmlValByName	CvInfos.cpp	29598
+CvEventInfo::read	CvEventInfo	m_bCityEffect	bPickCity	GetChildXmlValByName	CvInfos.cpp	29599
+CvEventInfo::read	CvEventInfo	m_bOtherPlayerCityEffect	bPickOtherPlayerCity	GetChildXmlValByName	CvInfos.cpp	29600
+CvEventInfo::read	CvEventInfo	m_bGoldToPlayer	bGoldToPlayer	GetChildXmlValByName	CvInfos.cpp	29601
+CvEventInfo::read	CvEventInfo	m_bGoldenAge	bGoldenAge	GetChildXmlValByName	CvInfos.cpp	29602
+CvEventInfo::read	CvEventInfo	m_bDeclareWar	bDeclareWar	GetChildXmlValByName	CvInfos.cpp	29603
+CvEventInfo::read	CvEventInfo	m_iGold	iGold	GetChildXmlValByName	CvInfos.cpp	29604
+CvEventInfo::read	CvEventInfo	m_iRandomGold	iRandomGold	GetChildXmlValByName	CvInfos.cpp	29605
+CvEventInfo::read	CvEventInfo	m_iCulture	iCulture	GetChildXmlValByName	CvInfos.cpp	29606
+CvEventInfo::read	CvEventInfo	m_iEspionagePoints	iEspionagePoints	GetChildXmlValByName	CvInfos.cpp	29607
+CvEventInfo::read	CvEventInfo	m_iTechPercent	iTechPercent	GetChildXmlValByName	CvInfos.cpp	29610
+CvEventInfo::read	CvEventInfo	m_iTechCostPercent	iTechCostPercent	GetChildXmlValByName	CvInfos.cpp	29611
+CvEventInfo::read	CvEventInfo	m_iTechMinTurnsLeft	iTechMinTurnsLeft	GetChildXmlValByName	CvInfos.cpp	29612
+CvEventInfo::read	CvEventInfo	m_iNumUnits	iNumFreeUnits	GetChildXmlValByName	CvInfos.cpp	29617
+CvEventInfo::read	CvEventInfo	m_bDisbandUnit	bDisbandUnit	GetChildXmlValByName	CvInfos.cpp	29618
+CvEventInfo::read	CvEventInfo	m_iUnitExperience	iUnitExperience	GetChildXmlValByName	CvInfos.cpp	29619
+CvEventInfo::read	CvEventInfo	m_iUnitImmobileTurns	iUnitImmobileTurns	GetChildXmlValByName	CvInfos.cpp	29620
+CvEventInfo::read	CvEventInfo	m_iBuildingChange	iBuildingChange	GetChildXmlValByName	CvInfos.cpp	29623
+CvEventInfo::read	CvEventInfo	m_iHappy	iHappy	GetChildXmlValByName	CvInfos.cpp	29625
+CvEventInfo::read	CvEventInfo	m_iHealth	iHealth	GetChildXmlValByName	CvInfos.cpp	29626
+CvEventInfo::read	CvEventInfo	m_iHurryAnger	iHurryAnger	GetChildXmlValByName	CvInfos.cpp	29627
+CvEventInfo::read	CvEventInfo	m_iHappyTurns	iHappyTurns	GetChildXmlValByName	CvInfos.cpp	29628
+CvEventInfo::read	CvEventInfo	m_iFood	iFood	GetChildXmlValByName	CvInfos.cpp	29629
+CvEventInfo::read	CvEventInfo	m_iFoodPercent	iFoodPercent	GetChildXmlValByName	CvInfos.cpp	29630
+CvEventInfo::read	CvEventInfo	m_iFeatureChange	iFeatureChange	GetChildXmlValByName	CvInfos.cpp	29634
+CvEventInfo::read	CvEventInfo	m_iImprovementChange	iImprovementChange	GetChildXmlValByName	CvInfos.cpp	29638
+CvEventInfo::read	CvEventInfo	m_iBonusChange	iBonusChange	GetChildXmlValByName	CvInfos.cpp	29642
+CvEventInfo::read	CvEventInfo	m_iRouteChange	iRouteChange	GetChildXmlValByName	CvInfos.cpp	29646
+CvEventInfo::read	CvEventInfo	m_piTechFlavorValue	TechFlavors	SetVariableListTagPair	CvInfos.cpp	29654
+CvEventInfo::read	CvEventInfo	m_piPlotExtraYields	PlotExtraYields	SetVariableListTagPair	CvInfos.cpp	29655
+CvEventInfo::read	CvEventInfo	m_piFreeSpecialistCount	FreeSpecialistCounts	SetVariableListTagPair	CvInfos.cpp	29656
+CvEventInfo::read	CvEventInfo	m_iConvertOwnCities	iConvertOwnCities	GetChildXmlValByName	CvInfos.cpp	29658
+CvEventInfo::read	CvEventInfo	m_iConvertOtherCities	iConvertOtherCities	GetChildXmlValByName	CvInfos.cpp	29659
+CvEventInfo::read	CvEventInfo	m_iMaxNumReligions	iMaxNumReligions	GetChildXmlValByName	CvInfos.cpp	29660
+CvEventInfo::read	CvEventInfo	m_iOurAttitudeModifier	iOurAttitudeModifier	GetChildXmlValByName	CvInfos.cpp	29661
+CvEventInfo::read	CvEventInfo	m_iAttitudeModifier	iAttitudeModifier	GetChildXmlValByName	CvInfos.cpp	29662
+CvEventInfo::read	CvEventInfo	m_iTheirEnemyAttitudeModifier	iTheirEnemyAttitudeModifier	GetChildXmlValByName	CvInfos.cpp	29663
+CvEventInfo::read	CvEventInfo	m_iPopulationChange	iPopulationChange	GetChildXmlValByName	CvInfos.cpp	29664
+CvEventInfo::read	CvEventInfo	m_iRevoltTurns	iRevoltTurns	GetChildXmlValByName	CvInfos.cpp	29665
+CvEventInfo::read	CvEventInfo	m_iMinPillage	iMinPillage	GetChildXmlValByName	CvInfos.cpp	29666
+CvEventInfo::read	CvEventInfo	m_iMaxPillage	iMaxPillage	GetChildXmlValByName	CvInfos.cpp	29667
+CvEventInfo::read	CvEventInfo	m_iFreeUnitSupport	iFreeUnitSupport	GetChildXmlValByName	CvInfos.cpp	29670
+CvEventInfo::read	CvEventInfo	m_iInflationModifier	iInflationMod	GetChildXmlValByName	CvInfos.cpp	29671
+CvEventInfo::read	CvEventInfo	m_iSpaceProductionModifier	iSpaceProductionMod	GetChildXmlValByName	CvInfos.cpp	29672
+CvEventInfo::read	CvEventInfo	m_iAIValue	iAIValue	GetChildXmlValByName	CvInfos.cpp	29673
+CvEventInfo::read	CvEventInfo	m_piUnitCombatPromotions	Memory leak	FAssertMsg	CvInfos.cpp	29676
+CvEventInfo::read	CvEventInfo	m_piUnitClassPromotions	Memory leak	FAssertMsg	CvInfos.cpp	29685
+CvEventInfo::read	CvEventInfo	m_szUnitName	UnitName	GetChildXmlValByName	CvInfos.cpp	29694
+CvEventInfo::read	CvEventInfo	m_szOtherPlayerPopup	OtherPlayerPopup	GetChildXmlValByName	CvInfos.cpp	29695
+CvEventInfo::read	CvEventInfo	m_szQuestFailText	QuestFailText	GetChildXmlValByName	CvInfos.cpp	29696
+CvEventInfo::read	CvEventInfo	m_szLocalInfoText	LocalInfoText	GetChildXmlValByName	CvInfos.cpp	29697
+CvEventInfo::read	CvEventInfo	m_szPythonCallback	PythonCallback	GetChildXmlValByName	CvInfos.cpp	29698
+CvEventInfo::read	CvEventInfo	m_szPythonExpireCheck	PythonExpireCheck	GetChildXmlValByName	CvInfos.cpp	29699
+CvEventInfo::read	CvEventInfo	m_szPythonCanDo	PythonCanDo	GetChildXmlValByName	CvInfos.cpp	29700
+CvEventInfo::read	CvEventInfo	m_szPythonHelp	PythonHelp	GetChildXmlValByName	CvInfos.cpp	29701
+CvEventInfo::readPass2	CvEventInfo	m_piAdditionalEventChance	AdditionalEvents	SetVariableListTagPair	CvInfos.cpp	29908
+CvEventInfo::readPass2	CvEventInfo	m_piAdditionalEventTime	EventTimes	SetVariableListTagPair	CvInfos.cpp	29909
+CvEventInfo::readPass2	CvEventInfo	m_piClearEventChance	ClearEvents	SetVariableListTagPair	CvInfos.cpp	29910
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iCost	iCost	GetChildXmlValByName	CvInfos.cpp	30384
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bIsPassive	bIsPassive	GetChildXmlValByName	CvInfos.cpp	30385
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bIsTwoPhases	bIsTwoPhases	GetChildXmlValByName	CvInfos.cpp	30386
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bTargetsCity	bTargetsCity	GetChildXmlValByName	CvInfos.cpp	30387
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bSelectPlot	bSelectPlot	GetChildXmlValByName	CvInfos.cpp	30388
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iVisibilityLevel	iVisibilityLevel	GetChildXmlValByName	CvInfos.cpp	30393
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bInvestigateCity	bInvestigateCity	GetChildXmlValByName	CvInfos.cpp	30394
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bSeeDemographics	bSeeDemographics	GetChildXmlValByName	CvInfos.cpp	30395
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bNoActiveMissions	bNoActiveMissions	GetChildXmlValByName	CvInfos.cpp	30396
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bSeeResearch	bSeeResearch	GetChildXmlValByName	CvInfos.cpp	30397
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_bDestroyImprovement	bDestroyImprovement	GetChildXmlValByName	CvInfos.cpp	30399
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iDestroyBuildingCostFactor	iDestroyBuildingCostFactor	GetChildXmlValByName	CvInfos.cpp	30400
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iDestroyUnitCostFactor	iDestroyUnitCostFactor	GetChildXmlValByName	CvInfos.cpp	30401
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iDestroyProjectCostFactor	iDestroyProjectCostFactor	GetChildXmlValByName	CvInfos.cpp	30402
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iDestroyProductionCostFactor	iDestroyProductionCostFactor	GetChildXmlValByName	CvInfos.cpp	30403
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iBuyUnitCostFactor	iBuyUnitCostFactor	GetChildXmlValByName	CvInfos.cpp	30404
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iBuyCityCostFactor	iBuyCityCostFactor	GetChildXmlValByName	CvInfos.cpp	30405
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iStealTreasuryTypes	iStealTreasuryTypes	GetChildXmlValByName	CvInfos.cpp	30406
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iCityInsertCultureAmountFactor	iCityInsertCultureAmountFactor	GetChildXmlValByName	CvInfos.cpp	30407
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iCityInsertCultureCostFactor	iCityInsertCultureCostFactor	GetChildXmlValByName	CvInfos.cpp	30408
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iCityPoisonWaterCounter	iCityPoisonWaterCounter	GetChildXmlValByName	CvInfos.cpp	30409
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iCityUnhappinessCounter	iCityUnhappinessCounter	GetChildXmlValByName	CvInfos.cpp	30410
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iCityRevoltCounter	iCityRevoltCounter	GetChildXmlValByName	CvInfos.cpp	30411
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iBuyTechCostFactor	iBuyTechCostFactor	GetChildXmlValByName	CvInfos.cpp	30412
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iSwitchCivicCostFactor	iSwitchCivicCostFactor	GetChildXmlValByName	CvInfos.cpp	30413
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iSwitchReligionCostFactor	iSwitchReligionCostFactor	GetChildXmlValByName	CvInfos.cpp	30414
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iPlayerAnarchyCounter	iPlayerAnarchyCounter	GetChildXmlValByName	CvInfos.cpp	30415
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iCounterespionageNumTurns	iCounterespionageNumTurns	GetChildXmlValByName	CvInfos.cpp	30416
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iCounterespionageMod	iCounterespionageMod	GetChildXmlValByName	CvInfos.cpp	30417
+CvEspionageMissionInfo::read	CvEspionageMissionInfo	m_iDifficultyMod	iDifficultyMod	GetChildXmlValByName	CvInfos.cpp	30418
+CvVoteSourceInfo::read	CvVoteSourceInfo	m_iVoteInterval	iVoteInterval	GetChildXmlValByName	CvInfos.cpp	30810
+CvVoteSourceInfo::read	CvVoteSourceInfo	m_szPopupText	PopupText	GetChildXmlValByName	CvInfos.cpp	30811
+CvVoteSourceInfo::read	CvVoteSourceInfo	m_szSecretaryGeneralText	SecretaryGeneralText	GetChildXmlValByName	CvInfos.cpp	30812
+CvMainMenuInfo::read	CvMainMenuInfo	m_szScene	Scene	GetChildXmlValByName	CvInfos.cpp	30964
+CvMainMenuInfo::read	CvMainMenuInfo	m_szSceneNoShader	SceneNoShader	GetChildXmlValByName	CvInfos.cpp	30965
+CvMainMenuInfo::read	CvMainMenuInfo	m_szSoundtrack	Soundtrack	GetChildXmlValByName	CvInfos.cpp	30966
+CvMainMenuInfo::read	CvMainMenuInfo	m_szLoading	Loading	GetChildXmlValByName	CvInfos.cpp	30967
+CvMainMenuInfo::read	CvMainMenuInfo	m_szLoadingSlideshow	LoadingSlideshow	GetChildXmlValByName	CvInfos.cpp	30968
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_bMainInterfaceScreen	bMainInterfaceScreen	GetChildXmlValByName	CvInfos.cpp	31074
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_bCivicScreen	bCivicScreen	GetChildXmlValByName	CvInfos.cpp	31075
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_bCorporationScreen	bCorporationScreen	GetChildXmlValByName	CvInfos.cpp	31076
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_bDomesticAdvisor	bDomesticAdvisor	GetChildXmlValByName	CvInfos.cpp	31077
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_bEspionageAdvisor	bEspionageAdvisor	GetChildXmlValByName	CvInfos.cpp	31078
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_bForeignAdvisor	bForeignAdvisor	GetChildXmlValByName	CvInfos.cpp	31079
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_bMilitaryAdvisor	bMilitaryAdvisor	GetChildXmlValByName	CvInfos.cpp	31080
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_bVictoryScreen	bVictoryScreen	GetChildXmlValByName	CvInfos.cpp	31081
+CvPythonModulesInfo::read	CvPythonModulesInfo	m_iScreen	iScreen	GetChildXmlValByName	CvInfos.cpp	31082
+CvArtInfoFeature::FeatureArtPiece::getArtModel	FeatureArtPiece	m_aArtModels	[Jason] Invalid feature model file index.	FAssertMsg	CvInfos.h	6059
+CvArtInfoFeature::FeatureVariety::getFeatureArtPiece	FeatureVariety	m_aFeatureArtPieces	[Jason] Invalid feature art index.	FAssertMsg	CvInfos.h	6108
+CvInitCore::getCustomMapOption	CvInitCore	m_iNumCustomMapOptions	CvInitCore::getCustomMapOptions	FASSERT_BOUNDS	CvInitCore.cpp	1123
+CvInitCore::setCustomMapOption	CvInitCore	m_iNumCustomMapOptions	CvInitCore::setCustomMapOption	FASSERT_BOUNDS	CvInitCore.cpp	1136
+CvInitCore::getVictory	CvInitCore	m_iNumVictories	CvInitCore::getVictory	FASSERT_BOUNDS	CvInitCore.cpp	1162
+CvInitCore::setVictory	CvInitCore	m_iNumVictories	CvInitCore::setVictory	FASSERT_BOUNDS	CvInitCore.cpp	1175
+CvMap::reset	CvMap	m_iGridWidth	the width and height returned by python getGridSize() must be positive	FAssertMsg	CvMap.cpp	153
+CvMap::reset	CvMap	m_paiNumBonus	mem leak m_paiNumBonus	FAssertMsg	CvMap.cpp	227
+CvMap::reset	CvMap	m_paiNumBonusOnLand	mem leak m_paiNumBonusOnLand	FAssertMsg	CvMap.cpp	229
+CvNetExtendedGame::Debug	CvNetExtendedGame	m_ePlayer	Extended Game, %d	sprintf	CvMessageData.cpp	94
+CvNetAutoMoves::Debug	CvNetAutoMoves	m_ePlayer	Auto Moves, %d	sprintf	CvMessageData.cpp	121
+CvNetAutoMoves::Execute	CvNetAutoMoves	m_ePlayer	AUTOMOVES	warLogAction	CvMessageData.cpp	126
+CvNetTurnComplete::Debug	CvNetTurnComplete	m_ePlayer	Turn Complete, %d	sprintf	CvMessageData.cpp	149
+CvNetTurnComplete::Execute	CvNetTurnComplete	m_ePlayer	TURN	warLogAction	CvMessageData.cpp	154
+CvNetPushOrder::Debug	CvNetPushOrder	m_eOrder	Pushing an order at the city, order is %d, data is %d	sprintf	CvMessageData.cpp	181
+CvNetPushOrder::Execute	CvNetPushOrder	m_ePlayer	ORDER\\t%s\\t%d\\t%s\\t%d%d%d	CvString::format	CvMessageData.cpp	186
+CvNetPopOrder::Debug	CvNetPopOrder	m_iCityID	Pop Order at City, city ID is %d	sprintf	CvMessageData.cpp	234
+CvNetPopOrder::Execute	CvNetPopOrder	m_ePlayer	POP\\t%s\\t%d	CvString::format	CvMessageData.cpp	239
+CvNetDoTask::Debug	CvNetDoTask	m_iCityID	Do Task at City, city ID is %d	sprintf	CvMessageData.cpp	279
+CvNetDoTask::Execute	CvNetDoTask	m_ePlayer	TASK\\t%s\\t%d\\t%d\\t%d\\t%d	CvString::format	CvMessageData.cpp	284
+CvNetUpdateCivics::Debug	CvNetUpdateCivics	m_ePlayer	Update Civics, ePlayer is %d	sprintf	CvMessageData.cpp	332
+CvNetResearch::Debug	CvNetResearch	m_eTech	Research, %d	sprintf	CvMessageData.cpp	372
+CvNetResearch::Execute	CvNetResearch	m_eTech	RESEARCH\\t%s\\t%d\\t%d	CvString::format	CvMessageData.cpp	377
+CvNetEspionageChange::Debug	CvNetEspionageChange	m_eTargetTeam	TargetTeam: %d, Espionage Change: %d	sprintf	CvMessageData.cpp	442
+CvNetEspionageChange::Execute	CvNetEspionageChange	m_eTargetTeam	ESPIONAGE\\t%d\\t%d	CvString::format	CvMessageData.cpp	447
+CvNetConvert::Debug	CvNetConvert	m_eReligion	Religion: %d	sprintf	CvMessageData.cpp	552
+CvNetConvert::Execute	CvNetConvert	m_eReligion	CONVERT\\t%d	CvString::format	CvMessageData.cpp	557
+CvNetEventTriggered::Execute	CvNetEventTriggered	m_eEvent	EVENT\\t%s	CvString::format	CvMessageData.cpp	686
+CvNetJoinGroup::Debug	CvNetJoinGroup	m_iUnitID	Join Group unit %d -> head unit %d	sprintf	CvMessageData.cpp	717
+CvNetJoinGroup::Execute	CvNetJoinGroup	m_ePlayer	GROUP\\t%s\\t%d\\t%d	CvString::format	CvMessageData.cpp	722
+CvNetPushMission::Debug	CvNetPushMission	m_ePlayer	Do Mission, who is %d, unit ID is %d, mission is %S	sprintf	CvMessageData.cpp	765
+CvNetPushMission::Execute	CvNetPushMission	m_ePlayer	MISSION\\t%s\\t%s\\t%s\\t%d\\t%d\\t%d\\t%d	CvString::format	CvMessageData.cpp	770
+CvNetAutoMission::Debug	CvNetAutoMission	m_iUnitID	Auto Mission, unit ID is %d	sprintf	CvMessageData.cpp	817
+CvNetAutoMission::Execute	CvNetAutoMission	m_ePlayer	AUTOMISSION\\t%s\\t%d	CvString::format	CvMessageData.cpp	822
+CvNetDoCommand::Debug	CvNetDoCommand	m_ePlayer	Do Command, who is %d, unit ID is %d, command is %d	sprintf	CvMessageData.cpp	859
+CvNetDoCommand::Execute	CvNetDoCommand	m_ePlayer	COMMAND\\t%s\\t%s\\t%s\\t%d\\t%d\\t%d	CvString::format	CvMessageData.cpp	864
+CvNetPercentChange::Debug	CvNetPercentChange	m_eCommerce	Commerce: %d, Percent Change: %d	sprintf	CvMessageData.cpp	935
+CvNetPercentChange::Execute	CvNetPercentChange	m_eCommerce	PERCENT\\t%d\\t%d	CvString::format	CvMessageData.cpp	940
+CvNetChangeVassal::Debug	CvNetChangeVassal	m_eMasterTeam	Change Vassal, master team is %d	sprintf	CvMessageData.cpp	971
+CvNetChangeVassal::Execute	CvNetChangeVassal	m_eMasterTeam	VASSAL\\t%d\\t%d\\t%d	CvString::format	CvMessageData.cpp	976
+CvNetChooseElection::Debug	CvNetChooseElection	m_iSelection	Choose Election: %d	sprintf	CvMessageData.cpp	1010
+CvNetChooseElection::Execute	CvNetChooseElection	m_iVoteId	ELECTION\\t%d\\t%d	CvString::format	CvMessageData.cpp	1015
+CvNetDiploVote::Debug	CvNetDiploVote	m_iVoteId	Diplo Vote for %d; Choice is %d	sprintf	CvMessageData.cpp	1043
+CvNetDiploVote::Execute	CvNetDiploVote	m_iVoteId	VOTE\\t%d\\t%d	CvString::format	CvMessageData.cpp	1048
+CvNetChangeWar::Debug	CvNetChangeWar	m_eRivalTeam	Change War, rival team is %d	sprintf	CvMessageData.cpp	1076
+CvNetChangeWar::Execute	CvNetChangeWar	m_eRivalTeam	CHANGEWAR\\t%d\\t%d	CvString::format	CvMessageData.cpp	1081
+CvNetAddReminder::Debug	CvNetAddReminder	m_ePlayer	Add Reminder, player %d on turn %d: %s	sprintf	CvMessageData.cpp	1158
+CvPlayer::reset	CvPlayer	m_paiBonusExport	about to leak memory, CvPlayer::m_paiBonusExport	FAssertMsg	CvPlayer.cpp	1060
+CvPlayer::reset	CvPlayer	m_paiBonusImport	about to leak memory, CvPlayer::m_paiBonusImport	FAssertMsg	CvPlayer.cpp	1062
+CvPlayer::reset	CvPlayer	m_paiImprovementCount	about to leak memory, CvPlayer::m_paiImprovementCount	FAssertMsg	CvPlayer.cpp	1071
+CvPlayer::reset	CvPlayer	m_paiFreeBuildingCount	about to leak memory, CvPlayer::m_paiFreeBuildingCount	FAssertMsg	CvPlayer.cpp	1078
+CvPlayer::reset	CvPlayer	m_paiExtraBuildingHappiness	about to leak memory, CvPlayer::m_paiExtraBuildingHappiness	FAssertMsg	CvPlayer.cpp	1080
+CvPlayer::reset	CvPlayer	m_paiExtraBuildingHealth	about to leak memory, CvPlayer::m_paiExtraBuildingHealth	FAssertMsg	CvPlayer.cpp	1082
+CvPlayer::reset	CvPlayer	m_paiFeatureHappiness	about to leak memory, CvPlayer::m_paiFeatureHappiness	FAssertMsg	CvPlayer.cpp	1091
+CvPlayer::reset	CvPlayer	m_paiUnitClassCount	about to leak memory, CvPlayer::m_paiUnitClassCount	FAssertMsg	CvPlayer.cpp	1098
+CvPlayer::reset	CvPlayer	m_paiUnitClassMaking	about to leak memory, CvPlayer::m_paiUnitClassMaking	FAssertMsg	CvPlayer.cpp	1100
+CvPlayer::reset	CvPlayer	m_paiBuildingClassCount	about to leak memory, CvPlayer::m_paiBuildingClassCount	FAssertMsg	CvPlayer.cpp	1108
+CvPlayer::reset	CvPlayer	m_paiBuildingClassMaking	about to leak memory, CvPlayer::m_paiBuildingClassMaking	FAssertMsg	CvPlayer.cpp	1110
+CvPlayer::reset	CvPlayer	m_paiHurryCount	about to leak memory, CvPlayer::m_paiHurryCount	FAssertMsg	CvPlayer.cpp	1118
+CvPlayer::reset	CvPlayer	m_paiSpecialBuildingNotRequiredCount	about to leak memory, CvPlayer::m_paiSpecialBuildingNotRequiredCount	FAssertMsg	CvPlayer.cpp	1125
+CvPlayer::reset	CvPlayer	m_paiHasCivicOptionCount	about to leak memory, CvPlayer::m_paiHasCivicOptionCount	FAssertMsg	CvPlayer.cpp	1132
+CvPlayer::reset	CvPlayer	m_paiNoCivicUpkeepCount	about to leak memory, CvPlayer::m_paiNoCivicUpkeepCount	FAssertMsg	CvPlayer.cpp	1134
+CvPlayer::reset	CvPlayer	m_paeCivics	about to leak memory, CvPlayer::m_paeCivics	FAssertMsg	CvPlayer.cpp	1136
+CvPlayer::reset	CvPlayer	m_paiHasReligionCount	about to leak memory, CvPlayer::m_paiHasReligionCount	FAssertMsg	CvPlayer.cpp	1145
+CvPlayer::reset	CvPlayer	m_paiHasCorporationCount	about to leak memory, CvPlayer::m_paiHasReligionCount	FAssertMsg	CvPlayer.cpp	1152
+CvPlayer::reset	CvPlayer	m_pabResearchingTech	about to leak memory, CvPlayer::m_pabResearchingTech	FAssertMsg	CvPlayer.cpp	1159
+CvPlayer::reset	CvPlayer	m_pabLoyalMember	about to leak memory, CvPlayer::m_pabLoyalMember	FAssertMsg	CvPlayer.cpp	1166
+CvPlayer::reset	CvPlayer	m_paiUpkeepCount	about to leak memory, CvPlayer::m_paiUpkeepCount	FAssertMsg	CvPlayer.cpp	1174
+CvPlayer::reset	CvPlayer	m_paiSpecialistValidCount	about to leak memory, CvPlayer::m_paiSpecialistValidCount	FAssertMsg	CvPlayer.cpp	1182
+CvPlayer::reset	CvPlayer	m_ppaaiSpecialistExtraYield	about to leak memory, CvPlayer::m_ppaaiSpecialistExtraYield	FAssertMsg	CvPlayer.cpp	1190
+CvPlayer::reset	CvPlayer	m_ppaaiImprovementYieldChange	about to leak memory, CvPlayer::m_ppaaiImprovementYieldChange	FAssertMsg	CvPlayer.cpp	1201
+CvPlayer::canTradeItem	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	item.m_iData is expected to be non-negative (invalid Index)	FAssertMsg	CvPlayer.cpp	5439
+CvPlayer::canTradeItem	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	iData is expected to be non-negative	FAssertMsg	CvPlayer.cpp	5454
+CvPlayer::getUpkeepCount	CvPlayer	m_paiUpkeepCount	m_paiUpkeepCount is not expected to be equal with NULL	FAssertMsg	CvPlayer.cpp	14068
+CvPlayer::changeUpkeepCount	CvPlayer	m_paiUpkeepCount	m_paiUpkeepCount is not expected to be equal with NULL	FAssertMsg	CvPlayer.cpp	14080
+CvPlayer::getSpecialistValidCount	CvPlayer	m_paiSpecialistValidCount	m_paiSpecialistValidCount is not expected to be equal with NULL	FAssertMsg	CvPlayer.cpp	14096
+CvPlayer::changeSpecialistValidCount	CvPlayer	m_paiSpecialistValidCount	m_paiSpecialistValidCount is not expected to be equal with NULL	FAssertMsg	CvPlayer.cpp	14114
+CvPlayer::setTriggerFired	EventTriggeredData	m_szGlobalText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19778
+CvPlayer::setTriggerFired	EventTriggeredData	m_szGlobalText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19782
+CvPlayer::setTriggerFired	CvGameText,CvPopupInfo,CvReplayMessage,EventTriggeredData	m_szText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19804
+CvPlayer::setTriggerFired	CvGameText,CvPopupInfo,CvReplayMessage,EventTriggeredData	m_szText	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	19808
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer	    Team %d (%S) declares war on team %d due to event	logBBAI	CvPlayer.cpp	20772
+CvPlayer::applyEvent	EventTriggeredData	m_eOtherPlayer	AS2D_PILLAGED	addMessage	CvPlayer.cpp	20958
+CvPlayer::applyEvent	CvReplayMessage,EventTriggeredData	m_iPlotX	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	21287
+CvPlayer::applyEvent	CvReplayMessage,EventTriggeredData	m_iPlotX	AS2D_CIVIC_ADOPT	addMessage	CvPlayer.cpp	21332
+CvPlayer::getItemTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	TXT_KEY_TRADE_GOLD_NUM	getText	CvPlayer.cpp	24032
+CvPlayer::getItemTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	TXT_KEY_TRADE_GOLD_PER_TURN_NUM	getText	CvPlayer.cpp	24042
+CvPlayer::getItemTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	TXT_KEY_TRADE_RESOURCE	getText	CvPlayer.cpp	24082
+CvPlayer::getItemTradeString	CvDiploParameters,CvNetAdvancedStartAction,CvNetPushOrder,TradeData	m_iData	\"%s (%d)	Format	CvPlayer.cpp	24087
+CvPlayerAI::AI_updateAgenda	CvPlayerAI	m_iBadStartMask	    Player %d (%S) bad start mask %d severity %d chooses agenda %d	logBBAI	CvPlayerAI.cpp	4807
+CvPlayerAI::AI_techValue	CvPlayerAI	m_iAIAgenda	      Player %d agenda %d adds %d to tech %S	logBBAI	CvPlayerAI.cpp	6108
+CvPlayerAI::AI_dealVal	CLLNode	m_data	(pNode->m_data.m_bHidden) did not return false as expected	FAssertMsg	CvPlayerAI.cpp	8839
+CvPlayerAI::AI_updateMilitaryOperations	AIOperationData,IDInfo	iID	    Player %d operation %d captured %S: occupation reduced %d%%	logBBAI	CvPlayerAI.cpp	16041
+CvPlayerAI::AI_updateMilitaryOperations	AIOperationData,IDInfo	iID	    Operation %d state %d -> %d health %d ratio %d field %d capture %d urgency %d	logBBAI	CvPlayerAI.cpp	16207
+CvPlayerAI::AI_updateMilitaryOperations	AIOperationData,IDInfo	iID	    Player %d creates operation %d general %d personality %d target %S group %d	logBBAI	CvPlayerAI.cpp	16482
+CvPlot::setFeatureDummyVisibility	CvPlot	m_pFeatureSymbol	[Jason] No feature symbol.	FAssertMsg	CvPlot.cpp	5682
+CvPlot::addFeatureDummyModel	CvPlot	m_pFeatureSymbol	[Jason] No feature symbol.	FAssertMsg	CvPlot.cpp	5691
+CvPlot::setFeatureDummyTexture	CvPlot	m_pFeatureSymbol	[Jason] No feature symbol.	FAssertMsg	CvPlot.cpp	5700
+CvPlot::pickFeatureDummyTag	CvPlot	m_pFeatureSymbol	[Jason] No feature symbol.	FAssertMsg	CvPlot.cpp	5709
+CvPlot::resetFeatureModel	CvPlot	m_pFeatureSymbol	[Jason] No feature symbol.	FAssertMsg	CvPlot.cpp	5720
+CvPlot::updateFeatureSymbolEntity	CvPlot	m_pFeatureSymbol	m_pFeatureSymbol is not expected to be equal with NULL	FAssertMsg	CvPlot.cpp	8126
+CvPlot::updateRouteSymbol	CvPlot	m_pRouteSymbol	m_pRouteSymbol is not expected to be equal with NULL	FAssertMsg	CvPlot.cpp	8185
+CvPlot::updateRiverSymbol	CvPlot	m_pRiverSymbol	m_pRiverSymbol is not expected to be equal with NULL	FAssertMsg	CvPlot.cpp	8244
+CvPlot::removeUnit	CLLNode	m_data	The current unit instance is expected to be at getX_INLINE and getY_INLINE	FAssertMsg	CvPlot.cpp	8672
+CvPopupInfo::getPythonButtonText	CvPopupInfo	m_aPythonButtons	index out of range	FAssertMsg	CvPopupInfo.cpp	101
+CvPopupInfo::getPythonButtonArt	CvPopupInfo	m_aPythonButtons	index out of range	FAssertMsg	CvPopupInfo.cpp	107
+CvBattleDefinition::checkBattleRound	CvBattleDefinition	m_aBattleRounds	[Jason] Invalid battle round index.	FAssertMsg	CvStructs.cpp	499
+CvTeam::reset	CvTeam	m_abCanLaunch	about to leak memory, CvTeam::m_abCanLaunch	FAssertMsg	CvTeam.cpp	306
+CvTeam::reset	CvTeam	m_paiRouteChange	about to leak memory, CvTeam::m_paiRouteChange	FAssertMsg	CvTeam.cpp	313
+CvTeam::reset	CvTeam	m_paiProjectCount	about to leak memory, CvPlayer::m_paiProjectCount	FAssertMsg	CvTeam.cpp	320
+CvTeam::reset	CvTeam	m_paiProjectDefaultArtTypes	about to leak memory, CvPlayer::m_paiProjectDefaultArtTypes	FAssertMsg	CvTeam.cpp	322
+CvTeam::reset	CvTeam	m_pavProjectArtTypes	about to leak memory, CvPlayer::m_pavProjectArtTypes	FAssertMsg	CvTeam.cpp	324
+CvTeam::reset	CvTeam	m_paiProjectMaking	about to leak memory, CvPlayer::m_paiProjectMaking	FAssertMsg	CvTeam.cpp	326
+CvTeam::reset	CvTeam	m_paiUnitClassCount	about to leak memory, CvTeam::m_paiUnitClassCount	FAssertMsg	CvTeam.cpp	335
+CvTeam::reset	CvTeam	m_paiBuildingClassCount	about to leak memory, CvTeam::m_paiBuildingClassCount	FAssertMsg	CvTeam.cpp	342
+CvTeam::reset	CvTeam	m_paiObsoleteBuildingCount	about to leak memory, CvTeam::m_paiObsoleteBuildingCount	FAssertMsg	CvTeam.cpp	349
+CvTeam::reset	CvTeam	m_paiResearchProgress	about to leak memory, CvPlayer::m_paiResearchProgress	FAssertMsg	CvTeam.cpp	356
+CvTeam::reset	CvTeam	m_paiTechCount	about to leak memory, CvPlayer::m_paiTechCount	FAssertMsg	CvTeam.cpp	358
+CvTeam::reset	CvTeam	m_paiTerrainTradeCount	about to leak memory, CvTeam::m_paiTerrainTradeCount	FAssertMsg	CvTeam.cpp	366
+CvTeam::reset	CvTeam	m_aiVictoryCountdown	about to leak memory, CvTeam::m_aiVictoryCountdown	FAssertMsg	CvTeam.cpp	373
+CvTeam::reset	CvTeam	m_pabHasTech	about to leak memory, CvTeam::m_pabHasTech	FAssertMsg	CvTeam.cpp	380
+CvTeam::reset	CvTeam	m_pabNoTradeTech	about to leak memory, CvTeam::m_pabNoTradeTech	FAssertMsg	CvTeam.cpp	382
+CvTeam::reset	CvTeam	m_ppaaiImprovementYieldChange	about to leak memory, CvTeam::m_ppaaiImprovementYieldChange	FAssertMsg	CvTeam.cpp	390
+CvTeam::reset	CvTeam	m_aiForceTeamVoteEligibilityCount	about to leak memory, CvTeam::m_aiForceTeamVoteEligibilityCount	FAssertMsg	CvTeam.cpp	401
+CvTeam::changeProjectCount	CvTeam	m_pavProjectArtTypes	[Jason] Unbalanced project art types.	FAssertMsg	CvTeam.cpp	5360
+CvTeam::isHasTech	CvTeam	m_pabHasTech	m_pabHasTech is not expected to be equal with NULL	FAssertMsg	CvTeam.cpp	5924
+CvUnit::getName	CvUnit	m_szName	\"%s (%s)	Format	CvUnit.cpp	12399
+CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_PLAGUE	addMessage	CvUnit.cpp	17269
+CvUnit::performInquisition	CvUnit	m_pUnitInfo	AS2D_SABOTAGE	addMessage	CvUnit.cpp	17298
+CvUnitAI::AI_load	CvUnit	m_iGroupID	splitGroup failed to put unit in the new group	FAssertMsg	CvUnitAI.cpp	11313
+CvXMLLoadUtility::InitImprovementBonusList	CvBonusInfo,CvBuildingInfo,CvFeatureInfo,CvImprovementBonusInfo,CvImprovementInfo,CvRouteInfo,CvSpecialistInfo	m_piYieldChange	mem leak	FAssertMsg	CvXMLLoadUtilityInit.cpp	232
+CvXMLLoadUtility::ReadGlobalDefines	CvXMLLoadUtility	m_pFXml	Civ4Defines/Define	LocateNode	CvXMLLoadUtilitySet.cpp	54
+CvXMLLoadUtility::SetGlobalTypes	CvXMLLoadUtility	m_pFXml	xml/GlobalTypes.xml	LoadCivXml	CvXMLLoadUtilitySet.cpp	508
+CvXMLLoadUtility::SetFeatureStruct	CvXMLLoadUtility	m_pFXml	FeatureStructs	SetToChildByTagName	CvXMLLoadUtilitySet.cpp	2732
+CvXMLLoadUtility::SetFeatureStruct	CvXMLLoadUtility	m_pFXml	FeatureStruct	SetToChildByTagName	CvXMLLoadUtilitySet.cpp	2738
+CvXMLLoadUtility::SetImprovementBonuses	CvXMLLoadUtility	m_pFXml	YieldChanges	SetToChildByTagName	CvXMLLoadUtilitySet.cpp	2833
+CvXMLLoadUtility::LoadModLoadControlInfo	CvXMLLoadUtility	m_pFXml	Civ4ModularLoadControls/DefaultConfiguration	LocateNode	CvXMLLoadUtilitySet.cpp	3790
+CvXMLLoadUtility::LoadModLoadControlInfo	CvXMLLoadUtility	m_pFXml	Civ4ModularLoadControls/DefaultConfiguration	LocateNode	CvXMLLoadUtilitySet.cpp	3850
+CvXMLLoadUtility::SetModLoadControlInfo	CvXMLLoadUtility	m_pFXml	Civ4ModularLoadControls/ConfigurationInfos/ConfigurationInfo	LocateNode	CvXMLLoadUtilitySet.cpp	3882
+CyArgsList::push_back	CyArgsList	m_iCnt	increase cyArgsList::MAX_CY_ARGS	FAssertMsg	CyArgsList.h	29

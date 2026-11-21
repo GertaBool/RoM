@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RoM DLL code graph</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root { color-scheme: light;
+  --surface-1:#fcfcfb; --surface-2:#f3f2ee; --line:#dedcd5; --text-primary:#1f1e1c; --text-secondary:#5c5a55; --muted:#8b8982;
+  --accent:#2a78d6;
+  --g0:#2a78d6; --g1:#eb6834; --g2:#1baf7a; --g3:#eda100; --g4:#e87ba4; --g5:#008300; --g6:#6250d6; }
+:root[data-theme="dark"] { color-scheme: dark;
+  --surface-1:#1a1a19; --surface-2:#242422; --line:#3a3936; --text-primary:#f0efec; --text-secondary:#c3c2b7; --muted:#8f8d86;
+  --accent:#3987e5;
+  --g0:#3987e5; --g1:#d95926; --g2:#199e70; --g3:#c98500; --g4:#d55181; --g5:#0ca30c; --g6:#9085e9; }
+* { box-sizing:border-box; }
+body { margin:0; font:13px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--surface-1); color:var(--text-primary);
+  display:flex; flex-direction:column; height:100vh; }
+header { display:flex; gap:10px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+header h1 { font-size:14px; margin:0 8px 0 0; font-weight:600; }
+.seg button, header > button { background:var(--surface-2); color:var(--text-primary); border:1px solid var(--line); padding:4px 10px; cursor:pointer; font:inherit; }
+.seg button:first-child { border-radius:6px 0 0 6px; } .seg button:last-child { border-radius:0 6px 6px 0; margin-left:-1px; }
+.seg button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+header > button { border-radius:6px; }
+#searchwrap { position:relative; flex:1; min-width:260px; max-width:560px; }
+#q { width:100%; padding:5px 9px; border:1px solid var(--line); border-radius:6px; background:var(--surface-1); color:var(--text-primary); font:inherit; }
+#sugg { position:absolute; top:100%; left:0; right:0; background:var(--surface-1); border:1px solid var(--line); border-radius:6px; z-index:10;
+  max-height:60vh; overflow:auto; display:none; box-shadow:0 4px 16px rgba(0,0,0,.15); }
+#sugg div { padding:4px 9px; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#sugg div.act, #sugg div:hover { background:var(--surface-2); }
+#sugg small { color:var(--muted); margin-left:6px; }
+main { flex:1; display:flex; min-height:0; }
+#viz { flex:1; position:relative; min-width:0; }
+svg { width:100%; height:100%; display:block; }
+aside { width:400px; border-left:1px solid var(--line); overflow:auto; padding:10px 14px; }
+aside h2 { font-size:14px; margin:4px 0 6px; word-break:break-all; } aside h3 { font-size:12px; margin:14px 0 4px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:.04em; }
+aside table { border-collapse:collapse; width:100%; } aside td { padding:1px 4px; border-bottom:1px solid var(--line); vertical-align:top; }
+aside td.n { text-align:right; font-variant-numeric:tabular-nums; color:var(--text-secondary); white-space:nowrap; }
+a.l { color:var(--accent); cursor:pointer; text-decoration:none; } a.l:hover { text-decoration:underline; }
+.dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; vertical-align:baseline; }
+.legend { position:absolute; right:10px; bottom:10px; background:var(--surface-1); border:1px solid var(--line); border-radius:6px; padding:6px 9px; font-size:12px; }
+.legend div { white-space:nowrap; }
+.tip { position:absolute; pointer-events:none; background:var(--surface-1); border:1px solid var(--line); border-radius:6px; padding:5px 8px;
+  font-size:12px; box-shadow:0 2px 10px rgba(0,0,0,.18); display:none; max-width:420px; z-index:5; }
+.muted { color:var(--muted); } .small { font-size:12px; }
+text { fill:var(--text-primary); font-size:11px; }
+.edge { stroke:var(--muted); fill:none; }
+.nodebox { stroke:var(--surface-1); stroke-width:2; }
+.colhead { fill:var(--text-secondary); font-size:12px; font-weight:600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>RoM DLL code graph</h1>
+  <div class="seg"><button id="bFiles" class="on">Files</button><button id="bImpact">Impact</button></div>
+  <div id="searchwrap"><input id="q" placeholder="Search a function, member (m_...), XML tag (<tag>), define (#NAME) or file" autocomplete="off"><div id="sugg"></div></div>
+  <button id="theme">Dark</button>
+</header>
+<main><div id="viz"><svg id="svg"></svg><div class="legend" id="legend"></div><div class="tip" id="tip"></div></div><aside id="side"></aside></main>
+<script>
+const D = /*DATA*/null;
+const $ = s => document.querySelector(s), svg = $('#svg'), side = $('#side'), tip = $('#tip');
+const NS = 'http://www.w3.org/2000/svg';
+const gcol = g => `var(--g${g})`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+const fileOf = i => D.files[D.fn[i][1]][0], groupOf = i => D.files[D.fn[i][1]][1];
+const fnsInFile = D.files.map(() => []); D.fn.forEach((f, i) => fnsInFile[f[1]].push(i));
+const fieldsInFile = {}; D.fields.forEach((f, k) => (fieldsInFile[f[3]] = fieldsInFile[f[3]] || []).push(k));
+const down = D.fn.map(() => []); D.up.forEach((cs, i) => cs.forEach(c => down[c].push(i)));
+const fileIx = Object.fromEntries(D.files.map((f, k) => [f[0], k]));
+
+// legend
+$('#legend').innerHTML = D.groups.map((g, k) => `<div><span class="dot" style="background:${gcol(k)}"></span>${esc(g)}</div>`).join('');
+
+// theme
+$('#theme').onclick = () => { const d = document.documentElement; const dark = d.dataset.theme !== 'dark'; d.dataset.theme = dark ? 'dark' : 'light'; $('#theme').textContent = dark ? 'Light' : 'Dark'; };
+if (matchMedia('(prefers-color-scheme: dark)').matches) $('#theme').click();
+
+// ---------- search ----------
+const index = [];
+D.fn.forEach((f, i) => index.push([f[0], 'function', i]));
+D.fields.forEach((f, k) => index.push([f[0] + '::' + f[1], 'member', k]));
+Object.keys(D.tags).forEach(t => index.push(['<' + t + '>', 'XML tag', t]));
+Object.keys(D.defines).forEach(d => index.push(['#' + d, 'define', d]));
+D.files.forEach((f, k) => index.push([f[0], 'file', k]));
+const lower = index.map(x => x[0].toLowerCase());
+let act = -1, hits = [];
+$('#q').addEventListener('input', () => {
+  const q = $('#q').value.trim().toLowerCase(); act = -1;
+  if (!q) { $('#sugg').style.display = 'none'; return; }
+  hits = [];
+  for (let k = 0; k < index.length && hits.length < 400; k++) if (lower[k].includes(q)) hits.push(k);
+  hits.sort((a, b) => (lower[a].endsWith(q) ? 0 : 1) - (lower[b].endsWith(q) ? 0 : 1) || lower[a].length - lower[b].length);
+  hits = hits.slice(0, 40);
+  $('#sugg').innerHTML = hits.map((k, n) => `<div data-n="${n}">${esc(index[k][0])}<small>${index[k][1]}</small></div>`).join('') || '<div class="muted">no match</div>';
+  $('#sugg').style.display = 'block';
+});
+$('#sugg').addEventListener('mousedown', e => { const d = e.target.closest('[data-n]'); if (d) pick(hits[+d.dataset.n]); });
+$('#q').addEventListener('keydown', e => {
+  const items = [...$('#sugg').querySelectorAll('[data-n]')];
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { act = Math.max(0, Math.min(items.length - 1, act + (e.key === 'ArrowDown' ? 1 : -1))); items.forEach((x, n) => x.classList.toggle('act', n === act)); e.preventDefault(); }
+  if (e.key === 'Enter' && hits.length) pick(hits[Math.max(act, 0)]);
+  if (e.key === 'Escape') $('#sugg').style.display = 'none';
+});
+function pick(k) { $('#sugg').style.display = 'none'; const [label, kind, ref] = index[k]; $('#q').value = label; open(kind, ref); }
+function open(kind, ref) {
+  if (kind === 'file') { setMode('files'); selectFile(ref); return; }
+  setMode('impact'); impact(kind, ref);
+}
+window.go = (kind, ref) => open(kind, ref);
+
+// ---------- modes ----------
+let mode = 'files';
+function setMode(m) { mode = m; $('#bFiles').classList.toggle('on', m === 'files'); $('#bImpact').classList.toggle('on', m === 'impact'); if (m === 'files') drawFiles(); }
+$('#bFiles').onclick = () => { setMode('files'); fileSide(); };
+$('#bImpact').onclick = () => { setMode('impact'); if (!lastImpact) { svg.innerHTML = ''; side.innerHTML = '<p class="muted">Search for a function, member, XML tag or define.</p>'; } else impact(...lastImpact); };
+
+// ---------- file graph ----------
+const N = D.files.length;
+const fsize = D.files.map((f, k) => fnsInFile[k].length);
+const strong = D.file_edges.slice().sort((a, b) => b[2] - a[2]).slice(0, 700);
+let pos = null, selFile = -1;
+function layout(W, H) {
+  const p = D.files.map((f, k) => { const a = 2 * Math.PI * (f[1] + k / N) / D.groups.length; const r = Math.min(W, H) * 0.32; return {x: W / 2 + r * Math.cos(a) + (k % 7) * 3, y: H / 2 + r * Math.sin(a) + (k % 5) * 3, vx: 0, vy: 0}; });
+  const lw = strong.map(e => Math.log(1 + e[2])), rad = fsize.map(n => 3 + Math.sqrt(n) * 0.9);
+  for (let it = 0; it < 320; it++) {
+    const t = 1 - it / 320;
+    for (let a = 0; a < N; a++) for (let b = a + 1; b < N; b++) {
+      let dx = p[a].x - p[b].x, dy = p[a].y - p[b].y, d2 = dx * dx + dy * dy + 0.01; const f = 260 * (rad[a] + 4) * (rad[b] + 4) / 12 / d2; const d = Math.sqrt(d2);
+      p[a].vx += dx / d * f; p[a].vy += dy / d * f; p[b].vx -= dx / d * f; p[b].vy -= dy / d * f;
+    }
+    strong.forEach((e, k) => { const a = p[e[0]], b = p[e[1]]; const dx = b.x - a.x, dy = b.y - a.y; const f = 0.0016 * lw[k]; a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f; });
+    p.forEach(q => { q.vx += (W / 2 - q.x) * 0.004; q.vy += (H / 2 - q.y) * 0.004; q.x += Math.max(-20, Math.min(20, q.vx)) * t; q.y += Math.max(-20, Math.min(20, q.vy)) * t; q.vx *= 0.5; q.vy *= 0.5;
+      q.x = Math.max(30, Math.min(W - 30, q.x)); q.y = Math.max(20, Math.min(H - 20, q.y)); });
+  }
+  return p;
+}
+function drawFiles() {
+  const W = svg.clientWidth || 900, H = svg.clientHeight || 700;
+  if (!pos || pos.W !== W || pos.H !== H) { pos = layout(W, H); pos.W = W; pos.H = H; }
+  svg.innerHTML = ''; svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const ge = el('g', {}, svg), gn = el('g', {}, svg);
+  const maxw = strong[0] ? strong[0][2] : 1;
+  const nb = new Set();
+  strong.forEach(e => {
+    const on = selFile >= 0 && (e[0] === selFile || e[1] === selFile);
+    if (on) { nb.add(e[0]); nb.add(e[1]); }
+    el('line', {x1: pos[e[0]].x, y1: pos[e[0]].y, x2: pos[e[1]].x, y2: pos[e[1]].y, class: 'edge',
+      'stroke-width': on ? 1.5 + 2 * e[2] / maxw : 0.6, 'stroke-opacity': selFile < 0 ? 0.08 + 0.5 * Math.sqrt(e[2] / maxw) : (on ? 0.85 : 0.04),
+      stroke: on ? (e[0] === selFile ? 'var(--accent)' : 'var(--g1)') : null}, ge);
+  });
+  D.files.forEach((f, k) => {
+    const r = 3 + Math.sqrt(fsize[k]) * 0.9, dim = selFile >= 0 && !nb.has(k) && k !== selFile;
+    const c = el('circle', {cx: pos[k].x, cy: pos[k].y, r, fill: gcol(f[1]), class: 'nodebox', opacity: dim ? 0.18 : 1, style: 'cursor:pointer'}, gn);
+    c.onmouseenter = ev => showTip(ev, `<b>${esc(f[0])}</b><br>${esc(D.groups[f[1]])} &middot; ${fsize[k]} functions`);
+    c.onmouseleave = hideTip; c.onclick = () => selectFile(k);
+    if (fsize[k] > 250 || k === selFile || (selFile >= 0 && nb.has(k)))
+      el('text', {x: pos[k].x + r + 3, y: pos[k].y + 4, opacity: dim ? 0.3 : 1, 'font-weight': k === selFile ? 700 : 400}, gn).textContent = f[0];
+  });
+}
+function selectFile(k) { selFile = k; drawFiles(); fileSide(); }
+function fileSide() {
+  if (selFile < 0) {
+    side.innerHTML = `<h2>Files and the calls between them</h2><p class="small">${D.fn.length} functions in ${N} files. A node is a source file (area: number of functions), coloured by group (by file name only). Lines: the ${strong.length} strongest file-to-file links by number of calling pairs. Click a file. Search above for any function, member, XML tag or define to see what reaches it.</p><p class="small muted">${esc(D.commit)}</p>`;
+    return;
+  }
+  const outE = D.file_edges.filter(e => e[0] === selFile).sort((a, b) => b[2] - a[2]);
+  const inE = D.file_edges.filter(e => e[1] === selFile).sort((a, b) => b[2] - a[2]);
+  const row = (k, n) => `<tr><td><span class="dot" style="background:${gcol(D.files[k][1])}"></span><a class="l" onclick="go('file',${k})">${esc(D.files[k][0])}</a></td><td class="n">${n}</td></tr>`;
+  const fl = (fieldsInFile[D.files[selFile][0]] || []);
+  side.innerHTML = `<h2>${esc(D.files[selFile][0])}</h2><div class="small muted">${esc(D.groups[D.files[selFile][1]])} &middot; ${fsize[selFile]} functions &middot; ${fl.length} members declared</div>
+   <h3>Calls into (calling pairs)</h3><table>${outE.slice(0, 25).map(e => row(e[1], e[2])).join('')}</table>${outE.length > 25 ? `<div class="muted small">+${outE.length - 25} more</div>` : ''}
+   <h3>Called from</h3><table>${inE.slice(0, 25).map(e => row(e[0], e[2])).join('')}</table>${inE.length > 25 ? `<div class="muted small">+${inE.length - 25} more</div>` : ''}
+   <h3>Functions</h3><div class="small">${fnsInFile[selFile].slice().sort((a, b) => D.fn[a][2] - D.fn[b][2]).map(i => `<a class="l" onclick="go('function',${i})">${esc(D.fn[i][0])}</a> <span class="muted">${D.fn[i][2]}</span>`).join('<br>')}</div>
+   <h3>Members declared</h3><div class="small">${fl.map(k => `<a class="l" onclick="go('member',${k})">${esc(D.fields[k][0] + '::' + D.fields[k][1])}</a> <span class="muted">${esc(D.fields[k][2])}</span>`).join('<br>') || '<span class="muted">none</span>'}</div>`;
+}
+
+// ---------- impact ----------
+let lastImpact = null;
+const KIND = ['read', 'write', 'address passed', 'method called'];
+function readersOf(fk) { const a = D.acc[fk] || []; const r = new Set(), w = new Set(); a.forEach(([s, k]) => { (k === 1 ? w : r).add(s); if (k >= 2) { r.add(s); w.add(s); } }); return {r: [...r], w: [...w], rows: a}; }
+const toFn = s => D.sf_to_fn[s] || [];
+function bfs(seeds) {
+  const lv = new Map(); seeds.forEach(s => lv.set(s, 0)); let fr = [...seeds], d = 0;
+  while (fr.length) { d++; const nx = []; fr.forEach(f => D.up[f].forEach(c => { if (!lv.has(c)) { lv.set(c, d); nx.push(c); } })); fr = nx; }
+  return lv;
+}
+function impact(kind, ref) {
+  lastImpact = [kind, ref];
+  let title, head = '', seeds = [], label0 = '';
+  if (kind === 'function') { title = D.fn[ref][0]; seeds = [ref]; label0 = 'the function'; head = `<div class="small muted">${esc(fileOf(ref))}:${D.fn[ref][2]}</div>`; }
+  else if (kind === 'member') {
+    const f = D.fields[ref], R = readersOf(ref); title = f[0] + '::' + f[1]; label0 = 'readers of the member';
+    seeds = [...new Set(R.r.flatMap(toFn))];
+    const tagsFor = Object.entries(D.tags).filter(([t, v]) => v[0].includes(ref));
+    const save = [...new Set(R.rows.map(x => D.sfnames[x[0]]).filter(n => /::(read|write)$/.test(n)))];
+    head = `<div class="small muted">${esc(f[2])} &middot; ${esc(f[3])}:${f[4]}</div>
+      <h3>Written in (${R.w.length})</h3><div class="small">${R.w.map(s => fnLinkS(s)).join('<br>') || '<span class="muted">none</span>'}</div>
+      <h3>Read in (${R.r.length})</h3><div class="small">${R.r.map(s => fnLinkS(s)).join('<br>') || '<span class="muted">none</span>'}</div>
+      ${save.length ? `<h3>Save game</h3><div class="small">Read or written in ${save.map(esc).join(', ')}: a change of its type, or of the order of reads and writes, changes the save format.</div>` : ''}
+      ${tagsFor.length ? `<h3>XML</h3><div class="small">${tagsFor.map(([t, v]) => `filled from <a class="l" onclick="go('XML tag','${esc(t)}')">&lt;${esc(t)}&gt;</a>, in ${v[1].length} file(s): ${v[1].slice(0, 8).map(x => esc(x[0])).join(', ')}`).join('<br>')}</div>` : ''}`;
+  } else if (kind === 'XML tag') {
+    const v = D.tags[ref]; title = '<' + ref + '>'; label0 = 'readers of the members it fills';
+    seeds = [...new Set(v[0].flatMap(k => readersOf(k).r.flatMap(toFn)))];
+    head = `<h3>In XML files (${v[1].length})</h3><div class="small">${v[1].map(x => `${esc(x[0])} <span class="muted">${x[1]}</span>`).join('<br>')}</div>
+      <h3>Fills</h3><div class="small">${v[0].map(k => `<a class="l" onclick="go('member',${k})">${esc(D.fields[k][0] + '::' + D.fields[k][1])}</a>`).join('<br>')}</div>`;
+  } else if (kind === 'define') {
+    const v = D.defines[ref]; title = '#' + ref; label0 = 'functions reading it';
+    seeds = [...new Set(v[0].flatMap(toFn))];
+    head = `<div class="small muted">defined in ${esc(v[1] || 'no XML file of the scan')}</div><h3>Read directly in</h3><div class="small">${v[0].map(s => fnLinkS(s)).join('<br>')}</div>`;
+  }
+  const lv = bfs(seeds);
+  const levels = []; lv.forEach((d, i) => (levels[d] = levels[d] || []).push(i));
+  drawImpact(title, levels, lv, label0);
+  const all = [...lv.keys()];
+  const filesC = {}; all.forEach(i => filesC[fileOf(i)] = (filesC[fileOf(i)] || 0) + 1);
+  const ex = all.filter(i => D.fn[i][3] & 1), pb = all.filter(i => D.fn[i][3] & 2);
+  const mods = new Set(); all.forEach(i => (D.py[i] || []).forEach(m => mods.add(D.pymods[m])));
+  side.innerHTML = `<h2>${esc(title)}</h2>${head}
+    <h3>Reach through calls</h3><div class="small">${all.length - (levels[0] || []).length} caller function(s) beyond ${(levels[0] || []).length} start function(s) (${esc(label0)}).<br>Per level: ${levels.map((l, d) => `${d}: ${l.length}`).join(', ')}</div>
+    <h3>Exits from the DLL</h3><div class="small">called by the exe (exported): ${ex.length}<br>bound for Python: ${pb.length}<br>Python modules calling them: ${mods.size}${mods.size ? ' &mdash; ' + [...mods].sort().slice(0, 30).map(esc).join(', ') : ''}</div>
+    <h3>Files reached</h3><table>${Object.entries(filesC).sort((a, b) => b[1] - a[1]).slice(0, 40).map(([f, n]) => `<tr><td><span class="dot" style="background:${gcol(D.files[fileIx[f]][1])}"></span><a class="l" onclick="go('file',${fileIx[f]})">${esc(f)}</a></td><td class="n">${n}</td></tr>`).join('')}</table>
+    ${kind === 'function' ? `<h3>Calls (${down[ref].length})</h3><div class="small">${down[ref].map(i => fnLink(i)).join('<br>')}</div>` : ''}
+    <p class="small muted">Callers: compiler call graph, virtual calls followed into overrides. Members: read from the source. ${esc(D.commit)}</p>`;
+}
+function fnLink(i) { return `<a class="l" onclick="go('function',${i})">${esc(D.fn[i][0])}</a>`; }
+function fnLinkS(s) { const t = toFn(s); return t.length ? fnLink(t[0]) : `${esc(D.sfnames[s])} <span class="muted">(not in compiler map)</span>`; }
+function drawImpact(title, levels, lv, label0) {
+  const W = svg.clientWidth || 900, H = svg.clientHeight || 700, MAXN = 28;
+  svg.innerHTML = ''; const show = Math.min(levels.length, Math.max(2, Math.floor((W - 40) / 190)));
+  const colW = Math.min(240, (W - 40) / Math.max(1, show)), rowH = Math.max(13, Math.min(22, (H - 60) / (MAXN + 1)));
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const ge = el('g', {}, svg), gn = el('g', {}, svg), P = new Map();
+  for (let d = 0; d < show; d++) {
+    const x = W - 20 - (d + 1) * colW + 8, list = (levels[d] || []).slice().sort((a, b) => groupOf(a) - groupOf(b) || D.fn[a][0].localeCompare(D.fn[b][0]));
+    el('text', {x, y: 18, class: 'colhead'}, gn).textContent = d === 0 ? `start: ${label0} (${list.length})` : `level ${d} callers (${list.length})`;
+    list.slice(0, MAXN).forEach((i, n) => {
+      const y = 36 + n * rowH; P.set(i, [x, y]);
+      el('rect', {x, y: y - 4, width: 8, height: 8, rx: 2, fill: gcol(groupOf(i))}, gn);
+      const t = el('text', {x: x + 12, y: y + 4, style: 'cursor:pointer'}, gn);
+      const nm = D.fn[i][0]; t.textContent = nm.length > colW / 6.2 ? '…' + nm.slice(-Math.floor(colW / 6.2)) : nm;
+      t.onmouseenter = ev => showTip(ev, `<b>${esc(nm)}</b><br>${esc(fileOf(i))}:${D.fn[i][2]}<br>${D.up[i].length} direct callers${D.fn[i][3] & 1 ? ' &middot; exported' : ''}${D.fn[i][3] & 2 ? ' &middot; Python-bound' : ''}`);
+      t.onmouseleave = hideTip; t.onclick = () => { $('#q').value = nm; impact('function', i); };
+    });
+    if (list.length > MAXN) el('text', {x: x + 12, y: 36 + MAXN * rowH + 4, class: 'colhead'}, gn).textContent = `+${list.length - MAXN} more`;
+  }
+  P.forEach(([x, y], i) => { const d = lv.get(i); if (d === 0) return;
+    down[i].forEach(c => { const q = P.get(c); if (q && lv.get(c) === d - 1) { const x1 = x + colW - 14, x2 = q[0] - 2; el('path', {d: `M${x1},${y} C${(x1 + x2) / 2},${y} ${(x1 + x2) / 2},${q[1]} ${x2},${q[1]}`, class: 'edge', 'stroke-opacity': 0.35, 'stroke-width': 1}, ge); } }); });
+  if (!levels.length || !(levels[0] || []).length) el('text', {x: 20, y: 40}, gn).textContent = 'Nothing in the compiler map to start from.';
+}
+function showTip(ev, html) { tip.innerHTML = html; tip.style.display = 'block'; const r = $('#viz').getBoundingClientRect(); tip.style.left = Math.min(ev.clientX - r.left + 12, r.width - 300) + 'px'; tip.style.top = (ev.clientY - r.top + 12) + 'px'; }
+function hideTip() { tip.style.display = 'none'; }
+window.addEventListener('resize', () => { if (mode === 'files') drawFiles(); else if (lastImpact) impact(...lastImpact); });
+drawFiles(); fileSide();
+</script>
+</body>
+</html>

@@ -33,6 +33,8 @@ one the DLL is built with, so every call is the call the compiler made.
   takes the address of, and who calls it.
 - `map/`: the data, as tab-separated tables (below).
 - `tool/query.py`: questions the pages don't answer directly.
+- `graph.html`, `tool/impact.py`: the interactive graph, and what a change reaches (functions, members,
+  saves, XML, Python). See "Variables, XML, defines and what a change reaches" below.
 
 ```sh
 python3 codemap/tool/query.py find 'AI_chooseProduction'          # find a function
@@ -46,6 +48,66 @@ python3 codemap/tool/query.py rank 12                              # the functio
 (A dominates B). Calls from outside enter at every function the exe or Python can call: exported functions,
 functions bound for Python, and functions with no caller in the DLL. A function's rank is the number of
 functions it dominates.
+
+## Variables, XML, defines and what a change reaches
+
+The compiler map has calls only. A second layer, read straight from the source with
+[tree-sitter](https://tree-sitter.github.io/) (a C++ parser: no compiler, no headers, about 7 seconds for the
+whole DLL), adds the data side. It can be rerun on any checkout, so it can be newer than the compiler map.
+`map/syntax_meta.tsv` names its commit.
+
+- `fields.tsv`: every data member of every class and struct, with its declared type.
+- `field_access.tsv`: every use of a member inside a function: `read`, `write`, `ref` (`&m_x` passed on, as
+  in `pStream->Read(&m_x)`), `call` (a method of the member, as in `m_aUnits.push_back`).
+- `field_strings.tsv`: a member and a string passed to the same call. For the XML loaders this is the tag
+  that fills the member (`GetChildXmlValByName(&m_iCost, "iCost")`).
+- `defines_used.tsv`: `getDefineINT("NAME")` and the like; `xml_defines.tsv`: the XML file defining each name.
+- `xml_tags.tsv`: every XML element name, with the files that hold it and how often.
+- `syntax_functions.tsv`, `syntax_calls.tsv`: function extents, and calls of names the compiler map does not
+  define (callers of code added after the map's commit).
+
+```sh
+pip install tree-sitter tree-sitter-cpp
+python3 codemap/tool/syntax.py <checkout>/Assets/CvGameCoreDLL <checkout>/Assets/XML      # refresh the layer
+python3 codemap/tool/impact.py diff <checkout> origin/main origin/<branch>   # what a branch changes, and what that reaches
+python3 codemap/tool/impact.py func CvPlot::setRevealed
+python3 codemap/tool/impact.py field CvCity::m_iPopulation                     # writers, readers, save, XML, callers
+python3 codemap/tool/impact.py tag iCost                                       # XML tag -> members -> readers -> callers
+python3 codemap/tool/impact.py define GRAPHICS_PAGING_MAX_IN
+python3 codemap/tool/graph_html.py                                             # rebuild graph.html
+```
+
+`impact.py` reaches like this:
+1. A changed function reaches its callers, level by level, in the compiler call graph (virtual calls followed
+   into overrides, as `query.py` does).
+2. A changed member reaches every function that reads it, and from each of those its callers.
+3. For each member it also reports whether the save reads or writes it (`read`/`write(FDataStreamBase*)`), the
+   XML tag that fills it and the XML files holding that tag.
+4. Among everything reached, it lists the exits from the DLL: exported functions, functions bound for Python,
+   and the Python modules calling them.
+
+`diff` parses both commits itself, so changed and added functions and members are always current. Only the
+callers come from the compiler map. A function newer than the map is followed by name (marked "name match")
+until it reaches functions the map knows.
+
+`graph.html` is one self-contained page (open it in a browser, no server needed):
+- **Files**: every source file, coloured by group, linked by the calls between them. Click a file for its
+  neighbours, functions and members.
+- **Impact**: search a function, member, `<XML tag>`, `#DEFINE` or file. It shows the callers in columns by
+  level, the files reached, the exits, and for a member its writers, readers, save and XML.
+- The page does not do name matching. Code newer than the compiler map shows as "not in compiler map"; use
+  `impact.py` for it.
+
+Limits of this layer: it is a parser, not a compiler.
+- Members are matched by name. Inside a method, an unqualified name is that class's member (or a base's)
+  unless a local or parameter hides it. `obj->m_x` is counted for every class that declares `m_x`.
+- Every `#ifdef` branch is read.
+- MSVC words tree-sitter does not know (`DllExport` and similar) are blanked before parsing. The parse
+  errors left are counted per file in `syntax_parse.tsv`.
+- Checked by hand: the uses of `CvCity::m_iPopulation` and `CvPlot::m_bRevealedRouteDirty` match a grep of
+  the source line for line.
+
+`impact/` holds reports written with `impact.py diff`.
 
 ## How it is made
 
