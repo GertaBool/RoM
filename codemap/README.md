@@ -143,12 +143,12 @@ The whole map was rebuilt at `9627e508fedc` on a cloud machine, with `build.sh`'
 |---|---|---|
 | Visual C++ Toolkit 2003, Platform SDK | the user's Drive folder `platformsdk` | SHA-256 as in `builds/0009/provenance.json` |
 | Boost 1.32, Python 2.4 headers | `beyond-the-sword-sdk-develop-functional.tar.gz`, GitLab repository root | SHA-256 as in the provenance |
-| original SDK (for `hardcoded.py`) | github `max-zanko/civ4-beyond-the-sword-sdk`, `CvGameCoreDLL/` | no mod markers; the tarball's copy is modded (BBAI, BUG, DCM in `CvEnums.h`, `CvGame.cpp`), which is why it is not used. The statuses of the 12 key functions are the same with either. |
+| original SDK (for `hardcoded.py`) | github `max-zanko/civ4-beyond-the-sword-sdk`, `CvGameCoreDLL/` (open: to be replaced by the user's copy of the unmodified SDK) | no mod markers, and its results equal the previous map's (e.g. `MissionTypes`: 49 values in the original SDK, 13 added by the mod). The tarball's copy is modded (BBAI, BUG, DCM in `CvEnums.h`, `CvGame.cpp`): with it the statuses stay the same, but the enum counts hide the mod's additions (62 values "in the original SDK") and the share of original code lines rises. |
 | Python 2.4 (`python.exe` for `py24_scan.py`) | python.org `python-2.4.4.msi` | good PGP signature, key 0EDDC5F26A45C816 (Anthony Baxter) |
 | mod's Python, XML, Config | GitLab `9627e508` | |
-| Beyond the Sword's Python | github `max-zanko/civ4-beyond-the-sword-sdk`, commit `a350405` "Original BTS Python files" | open: the BTS version (3.17 or 3.19) is not confirmed |
+| Beyond the Sword's Python | the user's Drive folder `prereq_original_files_civ4_bts/Python (2)` | has `Screens/CvCorporationScreen.py` and the corporation events; the scan gives the same tables as github `max-zanko/civ4-beyond-the-sword-sdk` (code identical, whitespace aside) |
 | Civilization IV's Python | the user's Drive folder `prereq_original_files_civ4_bts/Python (1)` | scanned with the mod at `2a8b9a83`, it reproduces the previous map's Python tables row for row |
-| Beyond the Sword's and Civilization IV's XML | the same Drive folder: `XML_BTSsubfolder`, `XML (1)` (the " (1)" suffixes removed) | |
+| Beyond the Sword's and Civilization IV's XML | the same Drive folder: `XML (2)`, `XML (1)` (the " (1)" suffixes removed) | |
 
 Results:
 - **DLL:** all 105 units compiled, with 0 warnings and 0 errors.
@@ -159,7 +159,6 @@ Results:
   include the corporation events and `ModNetMessage`; the previous map had 57.
 - **Hard-coded entries:** the report reproduces the previous map's 251 entries, plus one new fork change
   (`b8741b50f4be`). Files the games pack in `.FPK` archives stay "missing", as before.
-- **`Python_BTSsubfolder`** of the Drive folder is the mod's own Python at `2a8b9a83`, not Beyond the Sword's.
 
 Two snags of the machine, for whoever builds next:
 - Wine 9.0 aborted at start-up (`free(): invalid pointer`) when run with that session's environment. It ran when
