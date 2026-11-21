@@ -30,8 +30,8 @@ one the DLL is built with, so every call is the call the compiler made.
   takes the address of, and who calls it.
 - `map/`: the data, as tab-separated tables (below).
 - `tool/query.py`: questions the pages don't answer directly.
-- `graph.html`, `tool/impact.py`: the interactive graph, and what a change reaches (functions, members,
-  saves, XML, Python). See "Variables, XML, defines and what a change reaches" below.
+- `graph.html`, `tool/impact.py`, `tool/graph.py`: the whole graph (C++, Python, members, XML, defines) and what a
+  change reaches. See "The whole graph, and what a change reaches" below.
 
 ```sh
 python3 codemap/tool/query.py find 'AI_chooseProduction'          # find a function
@@ -58,44 +58,77 @@ whole DLL), adds the data side. It can be rerun on any checkout, so it can be ne
   in `pStream->Read(&m_x)`), `call` (a method of the member, as in `m_aUnits.push_back`).
 - `field_strings.tsv`: a member and a string passed to the same call. For the XML loaders this is the tag
   that fills the member (`GetChildXmlValByName(&m_iCost, "iCost")`).
-- `defines_used.tsv`: `getDefineINT("NAME")` and the like; `xml_defines.tsv`: the XML file defining each name.
-- `xml_tags.tsv`: every XML element name, with the files that hold it and how often.
+- `defines_used.tsv`: `getDefineINT("NAME")` and the like.
+- `xml_tags.tsv`, `xml_defines.tsv`: every XML element name and every `<DefineName>`, with the files that hold
+  them in each layer the game reads (`mod`, `bts`, `civ4`), and whether the game loads that file: a file of the
+  mod shadows the base game's file of the same path.
+- `xml_classes.tsv`: which XML file fills which info class (`LoadGlobalClassInfo(GC.getTechInfo(),
+  "CIV4TechInfos", "Technologies", ...)`, with the class from `std::vector<CvTechInfo*>& getTechInfo()`).
 - `syntax_functions.tsv`, `syntax_calls.tsv`: function extents, and calls of names the compiler map does not
   define (callers of code added after the map's commit).
 
 ```sh
 pip install tree-sitter tree-sitter-cpp
-python3 codemap/tool/syntax.py <checkout>/Assets/CvGameCoreDLL <checkout>/Assets/XML      # refresh the layer
-python3 codemap/tool/impact.py diff <checkout> origin/main origin/<branch>   # what a branch changes, and what that reaches
+python3 codemap/tool/syntax.py <checkout>/Assets/CvGameCoreDLL <checkout>/Assets/XML <BTS XML> <Civ4 XML>
+```
+
+## The whole graph, and what a change reaches
+
+`tool/graph.py` joins every table into one dependency graph. Its nodes are C++ functions, Python functions,
+member variables, XML tags and defines. An edge from A to B means a change of A reaches B:
+
+| link | from | to | source |
+|---|---|---|---|
+| `call` | C++ function | its C++ callers (virtual calls into overrides) | `calls.tsv` |
+| `py>cpp` | C++ function bound for Python | the Python functions calling it (name match) | `py_to_cpp.tsv` |
+| `py>py` | Python function | its Python callers: same module, or a name defined in one module only | `py_calls.tsv` |
+| `cpp>py` | Python function | the C++ functions calling it | `cpp_to_py.tsv` |
+| `event` | Python event handler | the C++ function posting its event | `event_handlers.tsv` |
+| `read` | member variable | the functions reading it | `field_access.tsv` |
+| `fill` | XML tag | the members it fills | `field_strings.tsv` |
+| `define` | define | the functions reading it | `defines_used.tsv` |
+| `writes` | changed C++ function | the members it writes (only from the changed functions themselves) | `field_access.tsv` |
+
+Each member also carries the XML files it is filled from (its class's files, from `xml_classes.tsv`, that hold
+the tag, with the base-game copies they shadow), and whether `read`/`write(FDataStreamBase*)` serializes it.
+
+```sh
+python3 codemap/tool/impact.py diff <checkout> origin/main origin/<branch>   # C++, Python and XML changes of a branch
 python3 codemap/tool/impact.py func CvPlot::setRevealed
-python3 codemap/tool/impact.py field CvCity::m_iPopulation                     # writers, readers, save, XML, callers
-python3 codemap/tool/impact.py tag iCost                                       # XML tag -> members -> readers -> callers
+python3 codemap/tool/impact.py py CvEventManager.py:CvEventManager.onCityBuilt
+python3 codemap/tool/impact.py field CvTechInfo::m_iResearchCost              # writers, readers, XML files, serialization
+python3 codemap/tool/impact.py tag iCost                                       # XML tag -> members -> readers -> C++ and Python
 python3 codemap/tool/impact.py define GRAPHICS_PAGING_MAX_IN
+python3 codemap/tool/impact.py file Units/CIV4UnitInfos.xml                    # every tag the DLL reads from it
 python3 codemap/tool/graph_html.py                                             # rebuild graph.html
 ```
 
-`impact.py` reaches like this:
-1. A changed function reaches its callers, level by level, in the compiler call graph (virtual calls followed
-   into overrides, as `query.py` does).
-2. A changed member reaches every function that reads it, and from each of those its callers.
-3. For each member it also reports whether the save reads or writes it (`read`/`write(FDataStreamBase*)`), the
-   XML tag that fills it and the XML files holding that tag.
-4. Among everything reached, it lists the exits from the DLL: exported functions, functions bound for Python,
-   and the Python modules calling them.
+A report lists, level by level, every node reached, with the node it was reached from and the link. It also
+gives the members reached (serialization, XML files), the tags and defines, the exits (C++ functions the exe
+calls, functions bound for Python, Python event handlers) and the C++ files and Python modules touched.
 
-`diff` parses both commits itself, so changed and added functions and members are always current. Only the
-callers come from the compiler map. When the source moves past the map's commit, a function newer than the map
-is followed by name (marked "name match") until it reaches functions the map knows.
+`diff` reads both commits itself:
+- **C++:** changed, added and removed functions, member declarations, members written on changed lines, and
+  defines read on changed lines.
+- **Python:** changed functions, found by indentation.
+- **XML:** tags on changed lines, and the `<DefineName>` of a changed define value.
+
+When the source has moved past the compiler map's commit, a C++ function newer than the map is followed by name
+("call (name match)").
 
 `graph.html` is one self-contained page (open it in a browser, no server needed):
-- **Files**: every source file, coloured by group, linked by the calls between them. Click a file for its
-  neighbours, functions and members.
-- **Impact**: search a function, member, `<XML tag>`, `#DEFINE` or file. It shows the callers in columns by
-  level, the files reached, the exits, and for a member its writers, readers, save and XML.
-- The page does not do name matching. Code newer than the compiler map shows as "not in compiler map"; use
-  `impact.py` for it.
+- **Files**: every C++ file, Python module and loaded XML file, linked by the function-level links above,
+  summed per pair of files. Click a file for what it depends on and what depends on it, its functions, members
+  or tags, and what a change of it reaches.
+- **Impact**: search any C++ or Python function, member, `<tag>`, `#DEFINE` or file. The page shows every level
+  of the reach in columns across C++, Python, members, tags and defines, each node with the link that reached
+  it. For a member it shows its writers, readers, XML files and serialization.
 
-Limits of this layer: it is a parser, not a compiler.
+Limits:
+- Python links are name matches: Python resolves names when it runs.
+- A `py>py` link across modules is made only when the name is defined in one module.
+
+Limits of the member layer: it is a parser, not a compiler.
 - Members are matched by name. Inside a method, an unqualified name is that class's member (or a base's)
   unless a local or parameter hides it. `obj->m_x` is counted for every class that declares `m_x`.
 - Every `#ifdef` branch is read.
@@ -225,7 +258,7 @@ tarball supplies only the Boost 1.32 and Python 2.4 headers. The source commit i
 | `py_event_registrations.tsv` | every registration of a Python event handler, for any event name |
 | `py_modules.tsv` | Python module the game loads, with its layer (mod, Beyond the Sword, Civilization IV) and file |
 | `python_classes.tsv`, `python_bindings.tsv`, `py_api.tsv`, `py_targets.tsv`, `py_api_check.tsv` | see "Python: what lands in the DLL and what in the exe" |
-| `fields.tsv`, `field_access.tsv`, `field_strings.tsv`, `defines_used.tsv`, `xml_tags.tsv`, `xml_defines.tsv`, `syntax_*.tsv` | see "Variables, XML, defines and what a change reaches" |
+| `fields.tsv`, `field_access.tsv`, `field_strings.tsv`, `defines_used.tsv`, `xml_tags.tsv`, `xml_defines.tsv`, `xml_classes.tsv`, `syntax_*.tsv` | see "Variables, XML, defines and what a change reaches" |
 
 ## Checks, and limits
 

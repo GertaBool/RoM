@@ -1,92 +1,117 @@
 #!/usr/bin/env python3
-"""Write codemap/graph.html: one self-contained page to browse the map and see what a change reaches.
+"""Write codemap/graph.html: the whole map (graph.py) in one self-contained page.
 
 usage: graph_html.py [<out.html>]
 
-It reads only codemap/map/*.tsv (the compiler map and the syntactic layer from syntax.py) and embeds them.
 Views:
-  Files    every source file as a node, coloured by group (render.py's rules), linked by the calls between
-           them; click a file for its neighbours, functions and members.
-  Impact   search a function, member variable, XML tag, global define or file: the item on the right, its
-           callers level by level to the left (compiler call graph, overrides followed as in query.py),
-           with counts per level, the files reached, and the exits (exe, Python).
+  Files    every C++ source file, Python module and loaded XML file as a node, linked by the C++ calls between
+           files, Python calls into C++ and C++ calls into Python (event handlers included), Python calls
+           between modules, and XML files to the C++ files whose functions read the members they fill.
+  Impact   search any C++ or Python function, member, XML tag, define or file: what a change of it reaches,
+           level by level, across C++, Python, members, XML and defines, each node with the link it came by.
 """
 import collections, json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import query as Q
 import render
-from impact import read, exported, py_bound, py_callers, xml_files, define_file
+import graph as GR
 
 out_path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', 'graph.html')
+g = GR.Graph()
+KIND = ['cpp', 'new', 'py', 'member', 'tag', 'define']
+LINK = ['call', 'py>cpp', 'py>py', 'cpp>py', 'event', 'read', 'fill', 'define', 'writes', 'call (name match)']
+groups = [x for x, _ in render.GROUPS] + ['Python']
+ids = sorted(g.info, key=lambda n: (KIND.index(g.info[n]['kind']), g.info[n]['label']))
+ix = {n: k for k, n in enumerate(ids)}
+files, fx = [], {}
 
-ids = sorted(i for i, r in Q.F.items() if r['definition'] == '1')
-ix = {i: k for k, i in enumerate(ids)}
-files = sorted({Q.F[i]['file'] for i in ids})
-fx = {f: k for k, f in enumerate(files)}
-groups = [g for g, _ in render.GROUPS]
-fn = []
-for i in ids:
-    r = Q.F[i]
-    flags = (1 if i in exported else 0) | (2 if i in py_bound else 0)
-    fn.append([(r['scope'] + '::' if r['scope'] else '') + r['name'], fx[r['file']], int(r['line'] or 0), flags])
-up = [sorted(ix[c] for c in Q.up.get(i, ()) if c in ix) for i in ids]
-pymods = sorted({m for i in ids for m in py_callers.get(i, ())})
-pmx = {m: k for k, m in enumerate(pymods)}
-py = {ix[i]: sorted(pmx[m] for m in py_callers[i]) for i in ids if i in py_callers}
 
+def fi(f):
+    if f not in fx:
+        fx[f] = len(files)
+        files.append(f)
+    return fx[f]
+
+
+K, L, F, LN, GP, FL = [], [], [], [], [], []
+extra = {}
+for n in ids:
+    i = g.info[n]
+    k = i['kind']
+    K.append(KIND.index(k))
+    L.append(i['label'].split(' ', 1)[1] if k == 'py' else i['label'])
+    F.append(fi(i.get('file', '')))
+    LN.append(i.get('line', 0))
+    GP.append(groups.index(render.group(i['file'])) if k in ('cpp', 'new') and i['file'] else (len(groups) - 1 if k == 'py' else -1))
+    FL.append((1 if i.get('exported') else 0) | (2 if i.get('bound') else 0) | (4 if i.get('saved') else 0))
+    if k == 'member':
+        extra[ix[n]] = dict(type=i['type'], xml=[[t, [[r['file'], r['layer'], int(r['loaded'])] for r in rows], known]
+                                                 for t, (rows, known) in sorted(i.get('xml', {}).items())])
+    elif k == 'tag':
+        extra[ix[n]] = dict(files=[[r['file'], r['layer'], int(r['loaded']), int(r['count'])] for r in i['files']])
+    elif k == 'define':
+        extra[ix[n]] = dict(files=[[r['file'], r['layer'], int(r['loaded'])] for r in i['files']])
+    elif k == 'py' and i.get('events'):
+        extra[ix[n]] = dict(events=sorted(i['events']))
+D = {}
+for a, deps in g.dep.items():
+    if a in ix:
+        flat = []
+        for b, link in deps.items():
+            if b in ix:
+                flat += [ix[b], LINK.index(link)]
+        if flat:
+            D[ix[a]] = flat
+W = {ix[a]: sorted(ix[m] for m in ms if m in ix) for a, ms in g.writes.items() if a in ix and ms}
+
+# the file graph: C++ files, Python modules, loaded XML files
+fnode, fkind = {}, []
+
+
+def fnode_of(name, kind):
+    if (name, kind) not in fnode:
+        fnode[(name, kind)] = len(fkind)
+        fkind.append([name, kind, groups.index(render.group(name)) if kind == 'cpp' else (len(groups) - 1 if kind == 'py' else -1), 0])
+    return fnode[(name, kind)]
+
+
+for n in ids:
+    i = g.info[n]
+    if i['kind'] in ('cpp', 'py') and i['file']:
+        fkind[fnode_of(i['file'], i['kind'])][3] += 1
 fe = collections.Counter()
-for i in ids:
-    for c in Q.up.get(i, ()):
-        if c in ix and Q.F[c]['file'] != Q.F[i]['file']:
-            fe[(fx[Q.F[c]['file']], fx[Q.F[i]['file']])] += 1
-file_edges = [[a, b, n] for (a, b), n in fe.items()]
+for a, deps in g.dep.items():
+    ia = g.info.get(a)
+    if not ia:
+        continue
+    for b, link in deps.items():
+        ib = g.info.get(b)
+        if not ib:
+            continue
+        if ia['kind'] in ('cpp', 'py') and ib['kind'] in ('cpp', 'py') and ia['file'] and ib['file'] and ia['file'] != ib['file']:
+            # b depends on a: b's file calls into a's file
+            fe[(fnode_of(ib['file'], ib['kind']), fnode_of(ia['file'], ia['kind']), link)] += 1
+        elif ia['kind'] == 'member' and ib['kind'] in ('cpp', 'new') and ib['file']:
+            for t, (rows, known) in ia.get('xml', {}).items():
+                for r in rows:
+                    if r['loaded'] == '1':
+                        fe[(fnode_of(ib['file'], 'cpp'), fnode_of(r['file'], 'xml'), 'xml')] += 1
+agg = collections.defaultdict(lambda: [0, set()])
+for (a, b, link), c in fe.items():
+    agg[(a, b)][0] += c
+    agg[(a, b)][1].add(link)
+file_edges = [[a, b, c, sorted(ls)] for (a, b), (c, ls) in agg.items()]
 
-name_ix = collections.defaultdict(list)
-for k, r in enumerate(fn):
-    name_ix[r[0]].append(k)
-sf = {}   # syntactic function name -> string index
-
-
-def sfi(name):
-    if name not in sf:
-        sf[name] = len(sf)
-    return sf[name]
-
-
-fields = read('fields.tsv')
-fk = {(r['cls'], r['field']): k for k, r in enumerate(fields)}
-acc = collections.defaultdict(list)
-KIND = {'read': 0, 'write': 1, 'ref': 2, 'call': 3}
-for a in read('field_access.tsv'):
-    for c in a['cls'].split(','):
-        if (c, a['field']) in fk:
-            acc[fk[(c, a['field'])]].append([sfi(a['function']), KIND[a['kind']]])
-fill = collections.defaultdict(set)
-for s in read('field_strings.tsv'):
-    if 'XmlVal' in s['call'] or 'TagPair' in s['call'] or s['call'].startswith(('Set', 'Get')):
-        for c in s['cls'].split(','):
-            if (c, s['field']) in fk:
-                fill[s['string']].add(fk[(c, s['field'])])
-tags = {t: [sorted(fill[t]), xml_files.get(t, [])[:40]] for t in fill}
-defs = collections.defaultdict(set)
-for d in read('defines_used.tsv'):
-    defs[d['define']].add(sfi(d['function']))
-defines = {d: [sorted(v), define_file.get(d, '')] for d, v in defs.items()}
-sfnames = sorted(sf, key=sf.get)
-sf_to_fn = [name_ix.get(n, []) for n in sfnames]
-
-data = dict(groups=groups, files=[[f, groups.index(render.group(f))] for f in files], fn=fn, up=up,
-            pymods=pymods, py=py, file_edges=file_edges,
-            fields=[[r['cls'], r['field'], r['type'], r['file'], int(r['line'])] for r in fields],
-            acc={k: v for k, v in acc.items()}, sfnames=sfnames, sf_to_fn=sf_to_fn, tags=tags, defines=defines,
-            commit=open(os.path.join(HERE, '..', 'map', 'syntax_meta.tsv')).read().strip().split('\n')[-1]
-            if os.path.exists(os.path.join(HERE, '..', 'map', 'syntax_meta.tsv')) else '')
+meta = open(os.path.join(HERE, '..', 'map', 'syntax_meta.tsv')).read().strip().split('\n')[-1]
+data = dict(kinds=KIND, links=LINK, groups=groups, files=files, K=K, L=L, F=F, LN=LN, GP=GP, FL=FL, D=D, W=W,
+            extra=extra, fnodes=fkind, fedges=file_edges, commit=meta)
 blob = json.dumps(data, separators=(',', ':'))
 with open(os.path.join(HERE, 'graph_template.html'), encoding='utf-8') as h:
     page = h.read().replace('/*DATA*/null', blob)
 with open(out_path, 'w', encoding='utf-8') as h:
     h.write(page)
-print('wrote %s (%.1f MB): %d functions, %d files, %d file links, %d members' %
-      (out_path, len(page) / 1e6, len(fn), len(files), len(file_edges), len(fields)))
+c = collections.Counter(K)
+print('wrote %s (%.1f MB): %s; %d dependency links; file graph %d nodes, %d links' % (
+    out_path, len(page) / 1e6, ', '.join('%s %d' % (KIND[k], v) for k, v in sorted(c.items())),
+    sum(len(v) // 2 for v in D.values()), len(fkind), len(file_edges)))

@@ -1,69 +1,36 @@
 #!/usr/bin/env python3
-"""What a change reaches: functions, member variables, saves, XML and Python, down the call graph.
+"""What a change reaches, across the whole map: C++ and Python functions, member variables, XML, defines.
 
-usage: impact.py diff <rise-of-mankind checkout> <base> [<head>]   a change between two commits (head: HEAD)
-       impact.py func <Scope::name | regex>                         one function
-       impact.py field <Class::m_x | m_x>                            one member variable
-       impact.py tag <XML element>                                  the members an XML tag fills, and on
-       impact.py define <NAME>                                      a global define and who reads it
-       impact.py file <file.cpp|file.h>                             every function of one file
-options: --depth N    caller levels listed by name (default 2; all levels are always counted)
+usage: impact.py diff <rise-of-mankind checkout> <base> [<head>]   a change between two commits (head: HEAD):
+                                                                   C++, Python and XML files
+       impact.py func <Scope::name | regex>                         C++ function(s)
+       impact.py py <module path>[:<name>]                          Python function(s), e.g. CvEventManager.py:CvEventManager.onCityBuilt
+       impact.py field <Class::m_x | m_x>                            member variable(s)
+       impact.py tag <XML element>                                  an XML tag: the members it fills, and on
+       impact.py define <NAME>                                      a global define
+       impact.py file <file.cpp | module.py | XML path>             every function of a file; for XML, every tag in it
+options: --depth N    levels listed by name (default 3; all levels are always counted)
          --src DIR    CvGameCoreDLL dir to read the syntactic layer from live (default: codemap/map tables)
 
-How it reaches:
-  1. A changed function reaches its callers, level by level, in the compiler call graph (map/calls.tsv, with
-     virtual calls followed into the overrides of the object's class, as query.py does).
-  2. A changed member variable reaches every function that reads it (map/field_access.tsv or the live scan),
-     and from each of those its callers.
-  3. Each member is also checked for: the save (read or written in a read/write(FDataStreamBase) function),
-     the XML tag that fills it (field_strings.tsv) and the XML files holding that tag (xml_tags.tsv).
-  4. Exits from the DLL among everything reached: functions the exe can call (exported), functions bound for
-     Python and the Python modules that call them (py_to_cpp.tsv).
-A function the compiler map does not know (added after the map's commit) is followed by name through the
-calls the syntactic scan saw (marked "name match").
+The reach follows the links of graph.py: C++ callers, Python callers of a C++ function, Python callers of a
+Python function, C++ code calling a Python function, the DLL event a Python handler serves, readers of a member,
+members an XML tag fills, readers of a define. Members a changed function writes are followed too (for diff: the
+members written on changed lines). Every listed node shows the node it was reached from and the link.
 """
 import collections, csv, os, re, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 M = os.path.join(HERE, '..', 'map')
-DLL = 'Assets/CvGameCoreDLL'
+DLL, PY, XML = 'Assets/CvGameCoreDLL', 'Assets/Python', 'Assets/XML'
 
 
 def read(n):
     p = os.path.join(M, n)
     if not os.path.exists(p):
         return []
-    with open(p, encoding='utf-8') as f:
+    with open(p, encoding='utf-8', errors='replace') as f:
         return list(csv.DictReader(f, delimiter='\t', quoting=csv.QUOTE_NONE))
-
-
-import query as Q   # compiler map: Q.F, Q.name, Q.up (callers, overrides included)
-
-TPL = re.compile(r'<.*?>')
-
-
-def key(scope, name):
-    return (TPL.sub('', scope or ''), TPL.sub('', name or ''))
-
-
-by_key = collections.defaultdict(list)
-for i, r in Q.F.items():
-    if r['definition'] == '1':
-        by_key[key(r['scope'], r['name'])].append(i)
-exported = {i for i, r in Q.F.items() if r['exported'] == '1'}
-py_bound = collections.defaultdict(list)
-for r in read('python_defs.tsv'):
-    py_bound[int(r['function'])].append(r['python_name'])
-py_callers = collections.defaultdict(set)
-for r in read('py_to_cpp.tsv'):
-    for f in r['functions'].split(','):
-        if f.strip().isdigit():
-            py_callers[int(f)].add(r['module'])
-xml_files = collections.defaultdict(list)
-for r in read('xml_tags.tsv'):
-    xml_files[r['tag']].append((r['file'], int(r['count'])))
-define_file = {r['define']: r['file'] for r in read('xml_defines.tsv')}
 
 
 class Layer:
@@ -75,29 +42,15 @@ class Layer:
             s = syntax.scan(files if files is not None else syntax.read_sources(src))
             self.functions, self.fields, self.access = s['functions'], s['fields'], s['access']
             self.strings, self.defines, self.calls = s['strings'], s['defines'], s['calls']
-            for r in self.functions:
-                r['line'], r['end'] = int(r['line']), int(r['end'])
         else:
             self.functions = read('syntax_functions.tsv')
-            for r in self.functions:
-                r['line'], r['end'] = int(r['line']), int(r['end'])
             self.fields, self.access = read('fields.tsv'), read('field_access.tsv')
             self.strings, self.defines, self.calls = read('field_strings.tsv'), read('defines_used.tsv'), read('syntax_calls.tsv')
-        self.uses = collections.defaultdict(list)          # (cls, field) -> access rows
-        for a in self.access:
-            for c in a['cls'].split(','):
-                self.uses[(c, a['field'])].append(a)
-        self.fill = collections.defaultdict(list)          # (cls, field) -> XML strings
-        for s in self.strings:
-            if 'XmlVal' in s['call'] or 'TagPair' in s['call'] or s['call'].startswith(('Set', 'Get')):
-                for c in s['cls'].split(','):
-                    self.fill[(c, s['field'])].append(s)
-        self.call_rows = collections.defaultdict(list)    # callee's last name -> call rows
+        for r in self.functions:
+            r['line'], r['end'] = int(r['line']), int(r['end'])
+        self.call_rows = collections.defaultdict(list)
         for c in self.calls:
             self.call_rows[c['callee'].split('::')[-1]].append(c)
-        self.defined_in = collections.defaultdict(set)   # name -> scopes defining it
-        for r in self.functions:
-            self.defined_in[r['name']].add(r['scope'])
 
     def callers_by_name(self, fid):
         """Callers of Scope::name seen by the scan: an unqualified call only from the same scope, a qualified
@@ -105,168 +58,163 @@ class Layer:
         scope, _, nm = fid.rpartition('::')
         res = set()
         for c in self.call_rows.get(nm, ()):
-            if c['form'] == 'self' and c['function'].rpartition('::')[0] != scope:
+            if c.get('form') == 'self' and c['function'].rpartition('::')[0] != scope:
                 continue
-            if c['form'] == 'qualified' and c['callee'].rpartition('::')[0].split('::')[-1] != scope.split('::')[-1]:
+            if c.get('form') == 'qualified' and c['callee'].rpartition('::')[0].split('::')[-1] != scope.split('::')[-1]:
                 continue
-            if c['function'] == fid:
-                continue
-            res.add(c['function'])
+            if c['function'] != fid:
+                res.add(c['function'])
         return res
 
-    def field_rows(self, q):
-        if '::' in q:
-            c, f = q.rsplit('::', 1)
-            return [r for r in self.fields if r['cls'] == c and r['field'] == f]
-        return [r for r in self.fields if r['field'] == q]
+
+def graph(layer):
+    import graph as G
+    g = G.Graph(layer)
+    # functions newer than the compiler map: callers by name
+    for nid in [n for n, i in g.info.items() if i['kind'] == 'new']:
+        for f in layer.callers_by_name(g.info[nid]['label']):
+            g.dep[nid].setdefault(g.cnode(f), 'call (name match)')
+    return g
 
 
-def ids_of(fid):
-    scope, _, name = fid.rpartition('::')
-    return by_key.get(key(scope, name), [])
+# ---------- the report ----------
+
+KINDS = [('member', 'member variables'), ('cpp', 'C++ functions'), ('new', 'C++ functions newer than the map'),
+         ('py', 'Python functions'), ('tag', 'XML tags'), ('define', 'defines')]
 
 
-def callers(seeds):
-    """{id: level} of every transitive caller of the seed ids (seeds at level 0)."""
-    level = {s: 0 for s in seeds}
-    frontier = list(seeds)
-    d = 0
-    while frontier:
-        d += 1
-        nxt = []
-        for f in frontier:
-            for c in Q.up.get(f, ()):
-                if c not in level:
-                    level[c] = d
-                    nxt.append(c)
-        frontier = nxt
-    return level
+def label(g, n):
+    i = g.info[n]
+    if i['kind'] in ('cpp', 'new', 'py'):
+        return '%s  (%s:%s)' % (i['label'] if i['kind'] != 'py' else i['label'].split(' ', 1)[1], i['file'], i['line'])
+    return i['label']
 
 
-def short(i):
-    r = Q.F[i]
-    return '%s%s  (%s:%s)' % (r['scope'] + '::' if r['scope'] else '', r['name'], r['file'], r['line'])
+def xml_where(g, tag):
+    rows = g.xml.get(tag, [])
+    loaded = ['%s [%s]' % (r['file'], r['layer']) for r in rows if r['loaded'] == '1']
+    shadow = sum(1 for r in rows if r['loaded'] != '1')
+    return ', '.join(loaded[:8]) + (' ...' if len(loaded) > 8 else '') + \
+        ('; %d shadowed copies in the base game' % shadow if shadow else '') if rows else 'in no XML file of the scan'
 
 
-def field_report(L, cls, field, out):
-    rows = L.uses.get((cls, field), [])
-    w = sorted({r['function'] for r in rows if r['kind'] in ('write', 'ref', 'call')})
-    rd = sorted({r['function'] for r in rows if r['kind'] in ('read', 'ref', 'call')})
-    out.append('- **%s::%s**: written in %d function(s), read in %d' % (cls, field, len(w), len(rd)))
-    if w:
-        out.append('  - written (or passed by address / method called): ' + ', '.join(w[:12]) + (' ...' if len(w) > 12 else ''))
-    if rd:
-        out.append('  - read: ' + ', '.join(rd[:12]) + (' ...' if len(rd) > 12 else ''))
-    save = sorted({r['function'] for r in rows if r['function'].split('::')[-1] in ('read', 'write')
-                   and r['file'] != ''})
-    if save:
-        out.append('  - **save game**: in %s; a change of its type or of the order of reads/writes changes the save format'
-                   % ', '.join(save))
-    for s in L.fill.get((cls, field), []):
-        files = xml_files.get(s['string'], [])
-        out.append('  - **XML**: filled from tag `%s` (%s, %s:%s); tag found in %d XML file(s)%s'
-                   % (s['string'], s['call'], s['file'], s['line'], len(files),
-                      ': ' + ', '.join(f for f, _ in files[:6]) + (' ...' if len(files) > 6 else '') if files else ''))
-    return rd
+def member_line(g, m):
+    i = g.info[m]
+    bits = [i['type']]
+    if i['saved']:
+        bits.append('serialized in read/write(FDataStreamBase*): a change of type or order changes the stream (save) format')
+    for t in sorted(i['tags']):
+        rows, known = i.get('xml', {}).get(t, ([], False))
+        if known:
+            ld = ['%s [%s]' % (r['file'], r['layer']) for r in rows if r['loaded'] == '1']
+            sh = ['%s [%s]' % (r['file'], r['layer']) for r in rows if r['loaded'] != '1']
+            bits.append('filled from XML <%s> in %s%s' % (t, ', '.join(ld) or 'no loaded file holding the tag',
+                                                        (' (shadowed: %s)' % ', '.join(sh)) if sh else ''))
+        else:
+            bits.append('filled from XML <%s> (loader of the class not found; files holding the tag: %s)' % (t, xml_where(g, t)))
+    return '- %s (%s:%s): %s' % (i['label'], i['file'], i['line'], '; '.join(bits))
 
 
-def reach_report(seed_ids, seed_names, depth, out, title='Callers'):
-    lv = callers(seed_ids)
-    reached = [i for i, d in lv.items() if d > 0]
-    out.append('\n## %s (compiler call graph)\n' % title)
-    if not seed_ids:
-        out.append('No seed is in the compiler map.')
-    by_level = collections.defaultdict(list)
-    for i in reached:
-        by_level[lv[i]].append(i)
-    out.append('%d function(s) reach the changed code through calls; per level: %s'
-               % (len(reached), ', '.join('%d: %d' % (d, len(by_level[d])) for d in sorted(by_level)) or 'none'))
-    for d in sorted(by_level):
-        if d > depth:
-            break
-        names = sorted(short(i) for i in by_level[d])
-        out.append('\n### level %d (%d)\n' % (d, len(names)))
-        out += ['- ' + n for n in names[:60]]
-        if len(names) > 60:
-            out.append('- ... %d more' % (len(names) - 60))
-    files = collections.Counter(Q.F[i]['file'] for i in lv)
-    out.append('\n### files touched by the reach (functions per file)\n')
-    out.append(', '.join('%s %d' % kv for kv in files.most_common(40)))
-    all_ids = set(lv)
-    ex = sorted(short(i) for i in all_ids & exported)
-    pb = sorted(i for i in all_ids if i in py_bound)
-    mods = sorted({m for i in all_ids for m in py_callers.get(i, ())})
-    out.append('\n## Exits from the DLL among them\n')
-    out.append('- called by the exe (exported): %d%s' % (len(ex), (': ' + '; '.join(ex[:15]) + (' ...' if len(ex) > 15 else '')) if ex else ''))
-    out.append('- bound for Python: %d%s' % (len(pb), (': ' + ', '.join(sorted({n for i in pb for n in py_bound[i]})[:25])) if pb else ''))
-    out.append('- Python modules calling them: %d%s' % (len(mods), (': ' + ', '.join(mods[:25]) + (' ...' if len(mods) > 25 else '')) if mods else ''))
+def report(g, seeds, out, depth, follow_writes=True, title=None):
+    seeds = [s for s in dict.fromkeys(seeds) if s in g.info]
+    if title:
+        out.append(title)
+    if not seeds:
+        out.append('\nNothing in the map to start from.')
+        return {}
+    lv = g.reach(seeds, follow_writes)
+    by = collections.defaultdict(lambda: collections.defaultdict(list))
+    for n, (d, via, link) in lv.items():
+        by[g.info[n]['kind']][d].append(n)
+    out.append('\n## Reach\n')
+    out.append('| | start | reached | per level |')
+    out.append('|---|---|---|---|')
+    for k, name in KINDS:
+        if k in by:
+            lvls = by[k]
+            out.append('| %s | %d | %d | %s |' % (name, len(lvls.get(0, [])), sum(len(v) for d, v in lvls.items() if d),
+                                                 ', '.join('%d: %d' % (d, len(lvls[d])) for d in sorted(lvls) if d)))
+    nodes = list(lv)
+    ex = [n for n in nodes if g.info[n].get('exported')]
+    pb = [n for n in nodes if g.info[n].get('bound')]
+    ev = [n for n in nodes if g.info[n].get('events')]
+    mods = collections.Counter(g.info[n]['file'] for n in nodes if g.info[n]['kind'] == 'py')
+    cfiles = collections.Counter(g.info[n]['file'] for n in nodes if g.info[n]['kind'] == 'cpp')
+    out.append('\n- C++ functions the exe calls (exported): %d%s' % (len(ex), (': ' + ', '.join(sorted(g.info[n]['label'] for n in ex)[:12]) + (' ...' if len(ex) > 12 else '')) if ex else ''))
+    out.append('- C++ functions bound for Python: %d' % len(pb))
+    out.append('- Python event handlers: %d%s' % (len(ev), (': ' + ', '.join(sorted('%s (%s)' % (g.info[n]['label'].split(' ', 1)[1], ','.join(sorted(g.info[n]['events']))) for n in ev)[:12])) if ev else ''))
+    out.append('- C++ files: ' + (', '.join('%s %d' % kv for kv in cfiles.most_common(25)) or 'none'))
+    out.append('- Python modules: ' + (', '.join('%s %d' % kv for kv in mods.most_common(25)) or 'none'))
+    mem = sorted((n for n in nodes if g.info[n]['kind'] == 'member'), key=lambda n: (lv[n][0], n))
+    if mem:
+        out.append('\n## Member variables (%d)\n' % len(mem))
+        for n in mem[:80]:
+            d, via, link = lv[n]
+            out.append(member_line(g, n) + ('' if d == 0 else '  [level %d, %s %s]' % (d, link, g.info[via]['label'])))
+        if len(mem) > 80:
+            out.append('- ... %d more' % (len(mem) - 80))
+    tags = [n for n in nodes if g.info[n]['kind'] in ('tag', 'define')]
+    if tags:
+        out.append('\n## XML tags and defines\n')
+        for n in sorted(tags):
+            i = g.info[n]
+            where = xml_where(g, i['label'][1:-1]) if i['kind'] == 'tag' else \
+                ', '.join('%s [%s]' % (r['file'], r['layer']) for r in i['files'] if r['loaded'] == '1') or 'in no XML file of the scan'
+            out.append('- %s %s: %s' % (i['kind'], i['label'], where))
+    for k, name in (('cpp', 'C++ functions'), ('new', 'C++ functions newer than the map'), ('py', 'Python functions')):
+        if k not in by:
+            continue
+        out.append('\n## %s, level by level\n' % name)
+        for d in sorted(by[k]):
+            if d > depth:
+                out.append('\n(levels above %d: %d more)' % (depth, sum(len(v) for dd, v in by[k].items() if dd > depth)))
+                break
+            ns = sorted(by[k][d], key=lambda n: g.info[n]['label'])
+            out.append('\n### level %d (%d)\n' % (d, len(ns)))
+            for n in ns[:50]:
+                _, via, link = lv[n]
+                out.append('- %s%s' % (label(g, n), '' if via is None else '  <- %s %s' % (link, g.info[via]['label'])))
+            if len(ns) > 50:
+                out.append('- ... %d more' % (len(ns) - 50))
+    if len(seeds) > 1:
+        out.append('\n## Reach per start node\n')
+        out.append('| start | reached | C++ | Python | members |')
+        out.append('|---|---|---|---|---|')
+        rows = []
+        for s in seeds:
+            r = g.reach([s], follow_writes)
+            c = collections.Counter(g.info[n]['kind'] for n in r if n != s)
+            rows.append((len(r) - 1, g.info[s]['label'], c['cpp'] + c['new'], c['py'], c['member']))
+        for n, lab, c, p, m in sorted(rows, reverse=True)[:60]:
+            out.append('| %s | %d | %d | %d | %d |' % (lab, n, c, p, m))
     return lv
 
 
-def name_match(L, fids, out, seen=None):
-    """Callers by name, for functions not in the compiler map; followed through other new functions until
-    functions the compiler map knows are reached."""
-    seen = set(fids) if seen is None else seen
-    found = []
-    for fid in fids:
-        nm = fid.split('::')[-1]
-        c = sorted(L.callers_by_name(fid)) if L.calls else []
-        others = sorted(L.defined_in.get(nm, set()) - {fid.rpartition('::')[0]})
-        out.append('- %s is not in the compiler map (newer than its commit); name match: called from %d function(s)%s%s'
-                   % (fid, len(c), ': ' + ', '.join(c[:15]) if c else '',
-                      ('; the name is also defined in %s, so calls through an object may be theirs' % ', '.join(others[:6])) if others else ''))
-        for f in c:
-            ids = ids_of(f)
-            if ids:
-                found += ids
-            elif f not in seen:
-                seen.add(f)
-                found += name_match(L, [f], out, seen)
-    return found
+# ---------- Python source: function extents ----------
+
+DEF = re.compile(r'^(\s*)(def|class)\s+(\w+)')
 
 
-def analyse(L, seed_funcs, seed_fields, depth, out, written_fields=()):
-    """seed_funcs: Scope::name strings; seed_fields: (cls, field)."""
-    ids, unknown = [], []
-    for f in seed_funcs:
-        x = ids_of(f)
-        (ids.extend(x) if x else unknown.append(f))
-    nm_ids = set()
-    if unknown:
-        out.append('\n## Functions outside the compiler map\n')
-        for f in unknown:
-            nm_ids.update(name_match(L, [f], out))
-        ids += sorted(nm_ids - set(ids))
-    readers = set()
-    fields = list(seed_fields) + [f for f in written_fields if f not in seed_fields]
-    if fields:
-        out.append('\n## Member variables\n')
-        for cls, field in fields:
-            readers.update(field_report(L, cls, field, out))
-    fr = {i for f in readers for i in ids_of(f)}
-    new_readers = sorted(f for f in readers if not ids_of(f) and f not in seed_funcs)
-    if new_readers:
-        out.append('\nReaders outside the compiler map, followed by name:')
-        fr.update(name_match(L, new_readers, out))
-    if fr:
-        out.append('\nThe readers above are added to the reach (%d in the compiler map).' % len(fr))
-    seeds = sorted(set(ids) | fr)
-    if len(seeds) > 1:
-        out.append('\n## Reach per changed function\n')
-        out.append('| function | direct callers | all callers | exported reached | Python-bound reached |')
-        out.append('|---|---|---|---|---|')
-        rows = []
-        for i in seeds:
-            lv = callers([i])
-            rows.append((len(lv) - 1, sum(1 for d in lv.values() if d == 1), Q.name[i].split('(')[0],
-                         len(set(lv) & exported), sum(1 for x in lv if x in py_bound)))
-        for n, d1, nm, ex, pb in sorted(rows, reverse=True):
-            out.append('| %s | %d | %d | %d | %d |' % (nm, d1, n, ex, pb))
-        if nm_ids:
-            out.append('\nRows include callers of functions newer than the map (name match), standing in for the new code they lead to.')
-        if fr:
-            out.append('\nRows include the readers of changed members.')
-    reach_report(seeds, seed_funcs, depth, out)
+def py_extents(text):
+    """[(qualname, first, last)] of the defs and classes of a Python 2 file, by indentation."""
+    lines = text.split('\n')
+    out, stack = [], []
+    for k, line in enumerate(lines, 1):
+        s = line.expandtabs(4)
+        if not s.strip() or s.lstrip().startswith('#'):
+            continue
+        ind = len(s) - len(s.lstrip())
+        while stack and ind <= stack[-1][0]:
+            q = stack.pop()
+            out.append((q[1], q[2], q[3]))
+        m = DEF.match(s)
+        if m:
+            q = '.'.join([x[1].split('.')[-1] for x in stack] + [m.group(3)]) if stack else m.group(3)
+            stack.append([ind, q, k, k])
+        for x in stack:
+            x[3] = k
+    out += [(q[1], q[2], q[3]) for q in stack]
+    return out
 
 
 # ---------- diff ----------
@@ -275,16 +223,16 @@ def git(repo, *a):
     return subprocess.run(['git', '-C', repo] + list(a), capture_output=True, check=True).stdout
 
 
-def hunks(repo, base, head):
-    """{file: (head_lines, base_lines)} changed lines per source file of the DLL."""
-    d = git(repo, 'diff', '-U0', base, head, '--', DLL).decode('latin-1')
+def hunks(repo, base, head, root):
+    """{path under root: (head_lines, base_lines)} changed lines per file."""
+    d = git(repo, 'diff', '-U0', base, head, '--', root).decode('latin-1')
     out = collections.defaultdict(lambda: (set(), set()))
     f = None
     for line in d.split('\n'):
-        if line.startswith('+++ '):
-            f = os.path.basename(line[6:]) if line[4:] != '/dev/null' else None
-        elif line.startswith('--- ') and line[4:] != '/dev/null':
-            f = os.path.basename(line[6:])
+        if line.startswith('--- ') and line[4:] != '/dev/null':
+            f = line[6:][len(root) + 1:]
+        elif line.startswith('+++ ') and line[4:] != '/dev/null':
+            f = line[6:][len(root) + 1:]
         elif line.startswith('@@') and f:
             m = re.match(r'@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@', line)
             b0, bn, h0, hn = int(m.group(1)), int(m.group(2) or 1), int(m.group(3)), int(m.group(4) or 1)
@@ -296,46 +244,51 @@ def hunks(repo, base, head):
 def files_at(repo, rev):
     names = git(repo, 'ls-tree', '--name-only', rev, DLL + '/').decode().split()
     import syntax
-    out = {}
-    for p in names:
-        if p.endswith(syntax.SRC_EXT):
-            out[os.path.basename(p)] = git(repo, 'show', '%s:%s' % (rev, p))
-    return out
+    return {os.path.basename(p): git(repo, 'show', '%s:%s' % (rev, p)) for p in names if p.endswith(syntax.SRC_EXT)}
+
+
+def show(repo, rev, path):
+    try:
+        return git(repo, 'show', '%s:%s' % (rev, path)).decode('latin-1')
+    except subprocess.CalledProcessError:
+        return ''
+
+
+def fid(f):
+    return (f['scope'] + '::' if f['scope'] else '') + f['name']
 
 
 def diff(repo, base, head, depth):
     out = []
     hb = git(repo, 'rev-parse', '--short=12', base).decode().strip()
     hh = git(repo, 'rev-parse', '--short=12', head).decode().strip()
-    H = hunks(repo, base, head)
     out.append('# Impact of %s..%s\n' % (hb, hh))
-    log = git(repo, 'log', '--format=- %h %ad %s', '--date=short', '%s..%s' % (base, head)).decode()
-    out.append('Commits:\n\n' + log)
+    out.append('Commits:\n\n' + git(repo, 'log', '--format=- %h %ad %s', '--date=short', '%s..%s' % (base, head)).decode())
+    out.append('```\n' + git(repo, 'diff', '--stat', base, head).decode() + '```')
     LH, LB = Layer(files=files_at(repo, head)), Layer(files=files_at(repo, base))
-    stat = git(repo, 'diff', '--stat', base, head).decode()
-    out.append('```\n' + stat + '```')
+    g = graph(LH)
+    seeds = []
+    # C++
+    H = {os.path.basename(k): v for k, v in hunks(repo, base, head, DLL).items()}
 
     def touched(L, side):
         res = collections.OrderedDict()
         for fn in L.functions:
             lines = H.get(fn['file'], (set(), set()))[side]
             if lines and any(fn['line'] <= x <= fn['end'] for x in lines):
-                res[(fn['scope'] + '::' if fn['scope'] else '') + fn['name']] = fn
+                res[fid(fn)] = fn
         return res
 
     th, tb = touched(LH, 0), touched(LB, 1)
-    hn = {(f['scope'] + '::' if f['scope'] else '') + f['name'] for f in LH.functions}
-    bn = {(f['scope'] + '::' if f['scope'] else '') + f['name'] for f in LB.functions}
-    added = [f for f in th if f not in bn]
-    removed = [f for f in tb if f not in hn]
-    changed = [f for f in th if f in bn]
-    out.append('\n## Functions\n')
+    hn, bn = {fid(f) for f in LH.functions}, {fid(f) for f in LB.functions}
+    added, removed, changed = [f for f in th if f not in bn], [f for f in tb if f not in hn], [f for f in th if f in bn]
+    out.append('\n## C++ functions\n')
     out.append('- changed: %d; added: %d; removed: %d' % (len(changed), len(added), len(removed)))
     for lab, lst, L in (('changed', changed, th), ('added', added, th), ('removed', removed, tb)):
         for f in lst:
-            r = L[f]
-            out.append('  - %s %s  (%s:%d-%d)' % (lab, f, r['file'], r['line'], r['end']))
-    # member variables: declarations added/removed/retyped
+            out.append('  - %s %s  (%s:%d-%d)' % (lab, f, L[f]['file'], L[f]['line'], L[f]['end']))
+    for f in changed + added:
+        seeds += g.cnodes(f)
     fh = {(r['cls'], r['field']): r for r in LH.fields}
     fb = {(r['cls'], r['field']): r for r in LB.fields}
     decl = []
@@ -349,42 +302,77 @@ def diff(repo, base, head, depth):
             decl.append(('retyped %s -> %s' % (b['type'], a['type']), k, ''))
     out.append('\n## Member declarations\n')
     out += ['- %s %s::%s %s' % (d, k[0], k[1], t) for d, k, t in decl] or ['- none changed']
-    # members written on changed lines
     wr = set()
     for a in LH.access:
-        lines = H.get(a['file'], (set(), set()))[0]
-        if int(a['line']) in lines and a['kind'] in ('write', 'ref', 'call'):
+        if int(a['line']) in H.get(a['file'], (set(), set()))[0] and a['kind'] in ('write', 'ref', 'call'):
             for c in a['cls'].split(','):
-                wr.add((c, a['field']))
+                wr.add('m:%s::%s' % (c, a['field']))
+    wr |= {'m:%s::%s' % k for d, k, t in decl if d != 'removed'}
     if wr:
-        out.append('\n## Members written on changed lines\n')
-        out.append(', '.join('%s::%s' % k for k in sorted(wr)))
-    for d, k, t in decl:
-        if d != 'removed':
-            wr.add(k)
-    # defines read on changed lines
-    dl = sorted({(d['define'], d['function']) for d in LH.defines
-                 if int(d['line']) in H.get(d['file'], (set(), set()))[0]})
+        out.append('\n## Members written on changed lines, or declared new\n')
+        out.append(', '.join(sorted(w[2:] for w in wr)))
+    seeds += sorted(wr)
+    dl = sorted({d['define'] for d in LH.defines if int(d['line']) in H.get(d['file'], (set(), set()))[0]})
     if dl:
-        out.append('\n## Global defines read on changed lines\n')
-        out += ['- %s in %s (defined in %s)' % (n, f, define_file.get(n, 'no XML file of the scan')) for n, f in dl]
-    xmlch = [l for l in stat.split('\n') if '.xml' in l.lower()]
-    if xmlch:
-        out.append('\n## XML files changed\n')
-        out += ['- ' + l.strip() for l in xmlch]
-    out.append('\n_Member uses and functions are read from the source at each commit; callers come from the '
-               'compiler map at its own commit (see skeleton.md), so callers added since then are found only by name._')
-    analyse(LH, changed + added, [], depth, out, written_fields=sorted(wr))
+        out.append('\n## Defines read on changed lines\n')
+        out.append(', '.join(dl))
+        seeds += ['d:' + d for d in dl]
+    # Python
+    P = hunks(repo, base, head, PY)
+    if P:
+        out.append('\n## Python\n')
+        for path, (hl, bl) in sorted(P.items()):
+            if not path.endswith('.py'):
+                continue
+            eh, eb = py_extents(show(repo, head, PY + '/' + path)), py_extents(show(repo, base, PY + '/' + path))
+            ch = {q for q, a, b in eh if any(a <= x <= b for x in hl)}
+            cb = {q for q, a, b in eb if any(a <= x <= b for x in bl)}
+            inner = lambda ext, qs: {q for q in qs if not any(o != q and o.startswith(q + '.') for o in qs)}
+            ch, cb = inner(eh, ch), inner(eb, cb)
+            hq, bq = {q for q, a, b in eh}, {q for q, a, b in eb}
+            out.append('- %s: changed %s; added %s; removed %s' % (
+                path, ', '.join(sorted(q for q in ch if q in bq)) or 'module-level code',
+                ', '.join(sorted(q for q in ch if q not in bq)) or 'none', ', '.join(sorted(q for q in cb if q not in hq)) or 'none'))
+            for q in (ch or {'<module>'}):
+                nid = 'p:%s:%s' % (path, q)
+                if nid in g.info:
+                    seeds.append(nid)
+                else:
+                    out.append('  - %s is not in the map\'s Python scan (newer than the map)' % q)
+    # XML
+    X = hunks(repo, base, head, XML)
+    if X:
+        out.append('\n## XML\n')
+        tag_re = re.compile(r'<([A-Za-z_][\w.:-]*)[\s>/]')
+        for path, (hl, bl) in sorted(X.items()):
+            if not path.lower().endswith('.xml'):
+                continue
+            tags, defs = set(), set()
+            for rev, lines in ((head, hl), (base, bl)):
+                text = show(repo, rev, XML + '/' + path).split('\n')
+                for x in sorted(lines):
+                    if 1 <= x <= len(text):
+                        tags.update(m.group(1) for m in tag_re.finditer(text[x - 1] + ' '))
+                        for k in range(x - 1, max(-1, x - 8), -1):   # the <DefineName> of a changed define value
+                            m = re.search(r'<DefineName>\s*([^<\s]+)', text[k])
+                            if m:
+                                defs.add(m.group(1))
+                                break
+            tags -= {'DefineName', 'Define', 'iDefineIntVal', 'fDefineFloatVal', 'DefineTextVal'} if defs else set()
+            out.append('- %s: tags on changed lines: %s%s' % (path, ', '.join(sorted(tags)) or 'none',
+                                                              ('; defines: ' + ', '.join(sorted(defs))) if defs else ''))
+            seeds += ['t:' + t for t in sorted(tags) if 't:' + t in g.info] + ['d:' + d for d in sorted(defs) if 'd:' + d in g.info]
+    report(g, seeds, out, depth, follow_writes=False)
     if removed:
-        out.append('\n## Callers of removed functions (at the map\'s commit)\n')
+        out.append('\n## Callers of removed C++ functions\n')
         for f in removed:
-            out += ['- %s <- %s' % (f, ', '.join(sorted({Q.name[c] for i in ids_of(f) for c in Q.up.get(i, ())})[:15]) or 'none')]
+            cs = sorted({g.info[c]['label'] for n in g.cnodes(f) for c in g.dep.get(n, {})})
+            out.append('- %s <- %s' % (f, ', '.join(cs[:15]) or 'none'))
     return '\n'.join(out)
 
 
 def main(argv):
-    depth = 2
-    src = None
+    depth, src = 3, None
     if '--depth' in argv:
         k = argv.index('--depth'); depth = int(argv[k + 1]); del argv[k:k + 2]
     if '--src' in argv:
@@ -396,36 +384,30 @@ def main(argv):
         print(diff(args[0], args[1], args[2] if len(args) > 2 else 'HEAD', depth))
         return
     L = Layer(src=src)
-    out = []
+    g = graph(L)
+    out, seeds = [], []
+    q = args[0]
     if cmd == 'func':
-        fs = sorted({(f['scope'] + '::' if f['scope'] else '') + f['name'] for f in L.functions
-                     if re.fullmatch(args[0], (f['scope'] + '::' if f['scope'] else '') + f['name'])})
-        if not fs:
-            fs = sorted({Q.name[i].split('(')[0] for i in [Q.resolve(args[0])]})
-        out.append('# Impact of %s\n' % ', '.join(fs))
-        analyse(L, fs, [], depth, out)
+        seeds = [n for n, i in g.info.items() if i['kind'] in ('cpp', 'new') and re.fullmatch(q, i['label'])]
+    elif cmd == 'py':
+        mod, _, name = q.partition(':')
+        seeds = [n for n, i in g.info.items() if i['kind'] == 'py' and (i['file'] == mod or i['file'].endswith('/' + mod))
+                 and (not name or n.split(':', 2)[2] == name)]
     elif cmd == 'field':
-        rows = L.field_rows(args[0])
-        out.append('# Impact of member %s\n' % args[0])
-        for r in rows:
-            out.append('- declared %s %s::%s (%s:%s)' % (r['type'], r['cls'], r['field'], r['file'], r['line']))
-        analyse(L, [], [(r['cls'], r['field']) for r in rows], depth, out)
+        seeds = [n for n in g.info if n.startswith('m:') and (n[2:] == q or n.endswith('::' + q))]
     elif cmd == 'tag':
-        out.append('# XML tag `%s`\n' % args[0])
-        out.append('Found in: ' + (', '.join('%s (%d)' % x for x in xml_files.get(args[0], [])) or 'no XML file of the scan'))
-        flds = sorted({(c, s['field']) for k, v in L.fill.items() for s in v if s['string'] == args[0] for c in [k[0]]})
-        analyse(L, [], flds, depth, out)
+        seeds = ['t:' + q]
     elif cmd == 'define':
-        out.append('# Define `%s` (in %s)\n' % (args[0], define_file.get(args[0], 'no XML file of the scan')))
-        fs = sorted({d['function'] for d in L.defines if d['define'] == args[0]})
-        out.append('Read directly in: ' + (', '.join(fs) or 'nothing (it may be read through a variable)'))
-        analyse(L, fs, [], depth, out)
+        seeds = ['d:' + q]
     elif cmd == 'file':
-        fs = sorted({(f['scope'] + '::' if f['scope'] else '') + f['name'] for f in L.functions if f['file'] == args[0]})
-        out.append('# Impact of every function of %s (%d)\n' % (args[0], len(fs)))
-        analyse(L, fs, [], depth, out)
+        if q.lower().endswith('.xml'):
+            seeds = ['t:' + t for t, rows in g.xml.items() if any(r['file'] == q and r['loaded'] == '1' for r in rows) and 't:' + t in g.info]
+        else:
+            seeds = [n for n, i in g.info.items() if i['kind'] in ('cpp', 'py') and (i['file'] == q or i['file'].endswith('/' + q))]
     else:
         sys.exit(__doc__)
+    report(g, seeds, out, depth, follow_writes=cmd in ('func', 'py', 'file'),
+           title='# Impact of %s %s (%d start node%s)' % (cmd, q, len(seeds), '' if len(seeds) == 1 else 's'))
     print('\n'.join(out))
 
 

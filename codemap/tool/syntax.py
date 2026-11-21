@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Syntactic layer of the code map: functions, member variables and what touches them, read from the source.
 
-usage: syntax.py <CvGameCoreDLL dir> [<XML dir>] [--out <dir>]   write the tables (default: codemap/map/)
+usage: syntax.py <CvGameCoreDLL dir> [<XML dir> ...] [--out <dir>]   write the tables (default: codemap/map/)
+  XML dirs in the game's order: the mod's, Beyond the Sword's, Civilization IV's (named mod, bts, civ4; or name=dir)
 
 The compiler map (calls.tsv and the rest) gives exact calls at the commit it was built from. This layer is
 read straight from the source with tree-sitter (a C++ parser; no compiler, no headers), so it can be rerun
@@ -13,8 +14,11 @@ on any checkout in seconds. It adds what the compiler map does not have:
   field_strings.tsv     a member and a string literal passed to the same call, e.g.
                         pXML->GetChildXmlValByName(&m_iCost, "iCost"): the XML tag that fills the member
   defines_used.tsv      GC.getDefineINT("NAME") and the like: which function reads which global define
-  xml_tags.tsv          for each XML element name: the XML files that hold it, and how often
-  xml_defines.tsv       for each <DefineName>: the XML file that defines it
+  xml_tags.tsv          for each XML element name: the XML files that hold it, their layer, whether the game
+                        loads that file (a file of the mod shadows the base game's file of the same path),
+                        and how often
+  xml_classes.tsv       which XML file fills which info class (LoadGlobalClassInfo calls)
+  xml_defines.tsv       for each <DefineName>: the XML file and layer that define it, and whether it is loaded
   syntax_calls.tsv      calls of names the compiler map (functions.tsv) does not define: the callers of code
                         added after the map's commit, matched by name
   syntax_parse.tsv      per file: parse errors tree-sitter reported (MSVC macros it could not read)
@@ -306,24 +310,58 @@ def scan(files):
     return out
 
 
-def scan_xml(xml_dir):
+def scan_loaders(files):
+    """Which XML file fills which info class: LoadGlobalClassInfo(GC.getTechInfo(), "CIV4TechInfos",
+    "Technologies", ...) with std::vector<CvTechInfo*>& getTechInfo() from the headers, and
+    ARTFILEMGR.getUnitArtInfo() for CvArtInfoUnit (ART_INFO_DECL(Unit))."""
+    vec = {}
+    for f, d in files.items():
+        if f.endswith('.h'):
+            t = d.decode('latin-1')
+            for m in re.finditer(r'std::vector<\s*(\w+)\s*\*\s*>\s*&\s*(get\w+)\s*\(', t):
+                vec[m.group(2)] = m.group(1)
+            for m in re.finditer(r'ART_INFO_DECL\((\w+)\)', t):
+                vec['get%sArtInfo' % m.group(1)] = 'CvArtInfo' + m.group(1)
+    rows = []
+    for f, d in sorted(files.items()):
+        if not f.endswith('.cpp'):
+            continue
+        t = d.decode('latin-1')
+        for m in re.finditer(r'LoadGlobalClassInfo\(\s*[\w.]*?(get\w+)\(\)\s*,\s*"([^"]+)"\s*,\s*"([^"]+)"\s*,\s*"([^"]+)"', t):
+            if t.rfind('//', t.rfind('\n', 0, m.start()), m.start()) != -1:
+                continue
+            rows.append(dict(cls=vec.get(m.group(1), ''), getter=m.group(1), file='%s/%s.xml' % (m.group(3), m.group(2)),
+                             xpath=m.group(4), src=f, line=t.count('\n', 0, m.start()) + 1))
+    return rows
+
+
+def scan_xml(layers):
+    """layers: [(name, dir)] in the order the game looks (the mod's XML first). The game loads a file from the
+    first layer that has its path; the same path in a later layer is shadowed (loaded = 0)."""
     tags = collections.defaultdict(collections.Counter)
     defines = []
+    seen = set()
     tag_re = re.compile(rb'<([A-Za-z_][\w.:-]*)[\s>/]')
     def_re = re.compile(rb'<DefineName>\s*([^<\s]+)\s*</DefineName>')
-    for root, _, fs in os.walk(xml_dir):
-        for f in fs:
-            if not f.lower().endswith('.xml'):
-                continue
-            p = os.path.join(root, f)
-            rel = os.path.relpath(p, xml_dir)
-            with open(p, 'rb') as h:
-                d = h.read()
-            for m in tag_re.finditer(d):
-                tags[m.group(1).decode('latin-1')][rel] += 1
-            for m in def_re.finditer(d):
-                defines.append(dict(define=m.group(1).decode('latin-1'), file=rel))
-    rows = [dict(tag=t, file=f, count=n) for t in sorted(tags) for f, n in sorted(tags[t].items())]
+    for layer, xml_dir in layers:
+        mine = set()
+        for root, _, fs in os.walk(xml_dir):
+            for f in fs:
+                if not f.lower().endswith('.xml'):
+                    continue
+                p = os.path.join(root, f)
+                rel = os.path.relpath(p, xml_dir).replace(os.sep, '/')
+                loaded = int(rel.lower() not in seen)
+                mine.add(rel.lower())
+                with open(p, 'rb') as h:
+                    d = h.read()
+                for m in tag_re.finditer(d):
+                    tags[m.group(1).decode('latin-1')][(rel, layer, loaded)] += 1
+                for m in def_re.finditer(d):
+                    defines.append(dict(define=m.group(1).decode('latin-1'), file=rel, layer=layer, loaded=loaded))
+        seen |= mine
+    rows = [dict(tag=t, file=f, layer=l, loaded=ld, count=n) for t in sorted(tags)
+            for (f, l, ld), n in sorted(tags[t].items(), key=lambda kv: (-kv[0][2], kv[0][0]))]
     return rows, defines
 
 
@@ -351,6 +389,8 @@ def main(argv):
     write(os.path.join(out_dir, 'field_strings.tsv'), s['strings'], ['function', 'cls', 'field', 'string', 'call', 'file', 'line'])
     write(os.path.join(out_dir, 'defines_used.tsv'), s['defines'], ['function', 'define', 'kind', 'file', 'line'])
     write(os.path.join(out_dir, 'syntax_parse.tsv'), s['errors'], ['file', 'errors'])
+    write(os.path.join(out_dir, 'xml_classes.tsv'), scan_loaders(read_sources(args[0])),
+          ['cls', 'getter', 'file', 'xpath', 'src', 'line'])
     # calls of names the compiler map does not define (functions newer than the map): impact.py follows them by name
     known = set()
     fpath = os.path.join(out_dir, 'functions.tsv')
@@ -369,9 +409,11 @@ def main(argv):
         h.write('source\nSyntactic layer (members, XML tags, defines) read from the source at %s; callers from the '
                 'compiler map at the commit named in skeleton.md\n' % rev)
     if len(args) > 1:
-        tags, defs = scan_xml(args[1])
-        write(os.path.join(out_dir, 'xml_tags.tsv'), tags, ['tag', 'file', 'count'])
-        write(os.path.join(out_dir, 'xml_defines.tsv'), defs, ['define', 'file'])
+        names = ['mod', 'bts', 'civ4']
+        layers = [(a.split('=', 1) if '=' in a else (names[k] if k < 3 else 'base%d' % k, a)) for k, a in enumerate(args[1:])]
+        tags, defs = scan_xml(layers)
+        write(os.path.join(out_dir, 'xml_tags.tsv'), tags, ['tag', 'file', 'layer', 'loaded', 'count'])
+        write(os.path.join(out_dir, 'xml_defines.tsv'), defs, ['define', 'file', 'layer', 'loaded'])
     print('functions %d, fields %d, member uses %d, member+string %d, define reads %d, files with parse errors %d'
           % (len(s['functions']), len(s['fields']), len(s['access']), len(s['strings']), len(s['defines']),
              sum(1 for e in s['errors'] if e['errors'])))
