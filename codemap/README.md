@@ -23,9 +23,6 @@ one the DLL is built with, so every call is the call the compiler made.
   - What is exposed to Python, and where the DLL calls Python.
   - The events posted to Python, with every handler registered for them.
 - `python.md`: the Python modules and how many of their calls reach DLL functions.
-- `hardcoded.md`: the key functions (`query.py rank`) and every entry hard-coded in them, each with what
-  outside the function depends on it, checked against the files that hold the other end. It is for
-  rewriting one of them: what a new version has to keep.
 - `guides/`: written by hand, from the same source commit.
   - `key-functions.md`: the functions that rank above the rest, what each does, and what a rewrite keeps.
   - `loans-and-bonds.md`: where loans and a bond market would go, in the DLL and the UI.
@@ -143,12 +140,10 @@ The whole map was rebuilt at `9627e508fedc` on a cloud machine, with `build.sh`'
 |---|---|---|
 | Visual C++ Toolkit 2003, Platform SDK | the user's Drive folder `platformsdk` | SHA-256 as in `builds/0009/provenance.json` |
 | Boost 1.32, Python 2.4 headers | `beyond-the-sword-sdk-develop-functional.tar.gz`, GitLab repository root | SHA-256 as in the provenance |
-| original SDK (for `hardcoded.py`) | github `max-zanko/civ4-beyond-the-sword-sdk`, `CvGameCoreDLL/` (open: to be replaced by the user's copy of the unmodified SDK) | no mod markers, and its results equal the previous map's (e.g. `MissionTypes`: 49 values in the original SDK, 13 added by the mod). The tarball's copy is modded (BBAI, BUG, DCM in `CvEnums.h`, `CvGame.cpp`): with it the statuses stay the same, but the enum counts hide the mod's additions (62 values "in the original SDK") and the share of original code lines rises. |
 | Python 2.4 (`python.exe` for `py24_scan.py`) | python.org `python-2.4.4.msi` | good PGP signature, key 0EDDC5F26A45C816 (Anthony Baxter) |
 | mod's Python, XML, Config | GitLab `9627e508` | |
 | Beyond the Sword's Python | the user's Drive folder `prereq_original_files_civ4_bts/Python (2)` | has `Screens/CvCorporationScreen.py` and the corporation events; the scan gives the same tables as github `max-zanko/civ4-beyond-the-sword-sdk` (code identical, whitespace aside) |
 | Civilization IV's Python | the user's Drive folder `prereq_original_files_civ4_bts/Python (1)` | scanned with the mod at `2a8b9a83`, it reproduces the previous map's Python tables row for row |
-| Beyond the Sword's and Civilization IV's XML | the same Drive folder: `XML (2)`, `XML (1)` (the " (1)" suffixes removed) | |
 
 Results:
 - **DLL:** all 105 units compiled, with 0 warnings and 0 errors.
@@ -157,8 +152,6 @@ Results:
   Civilization IV's. That layer is now in place. `map/py_modules.tsv` gives each module's layer: 189 mod,
   33 BTS, 55 Civilization IV. The event manager's handler map now has the 77 events of the BTS file, which
   include the corporation events and `ModNetMessage`; the previous map had 57.
-- **Hard-coded entries:** the report reproduces the previous map's 251 entries, plus one new fork change
-  (`b8741b50f4be`). Files the games pack in `.FPK` archives stay "missing", as before.
 
 Two snags of the machine, for whoever builds next:
 - Wine 9.0 aborted at start-up (`free(): invalid pointer`) when run with that session's environment. It ran when
@@ -168,10 +161,11 @@ Two snags of the machine, for whoever builds next:
 
 ## How it is made
 
-`tool/build.sh <rise-of-mankind checkout> <base game Python dir> <Python 2.4 dir> <original SDK dir> <XML dir>...`
-rebuilds everything, in a few minutes. The original SDK dir is the `CvGameCoreDLL` folder of the BTS 3.19 SDK as
-Firaxis shipped it; the XML dirs are the folders the game falls back to after the mod's (Beyond the Sword's,
-then Civilization IV's). The source commit is written at the top of `skeleton.md`.
+`tool/build.sh <rise-of-mankind checkout> <Python 2.4 dir> <base game Python dir>...` rebuilds everything, in a
+few minutes. The base game Python dirs are the folders the game falls back to after the mod's, in its order:
+Beyond the Sword's, then Civilization IV's. The DLL is compiled from the checkout's `Assets/CvGameCoreDLL`; the SDK
+tarball supplies only the Boost 1.32 and Python 2.4 headers. The source commit is written at the top of
+`skeleton.md`.
 
 1. **`tool/compile.sh` compiles every `.cpp` with Visual C++ Toolkit 2003 under Wine.** It uses the source's
    own release flags and defines (`NDEBUG`, `FINAL_RELEASE`), with two changes:
@@ -208,15 +202,6 @@ then Civilization IV's). The source commit is written at the top of `skeleton.md
    - Links into the DLL and the event handlers are then matched by name. The handlers include the BUG
      configuration XML.
 4. **`tool/render.py` writes the pages.** Every count on them is computed there from the tables.
-5. **`tool/hardcoded.py` lists the hard-coded entries of the key functions** (`hardcoded.md`). It reads each
-   function's own lines and checks each entry against the other end:
-   - exports and calls into the exe against the original SDK;
-   - enum values against the original SDK's `CvEnums.h`, which the exe was compiled with;
-   - XML files, their element paths and record order against the files the game would load (mod first);
-   - defines, BUG options, text keys and sounds against the XML that holds them;
-   - Python calls and events against the Python functions and registered handlers;
-   - log formats against the tools of this repository that read them;
-   - lines changed since the file entered the mod's repository, by commit (`git blame`).
 
 ## The tables in `map/`
 
@@ -241,7 +226,6 @@ then Civilization IV's). The source commit is written at the top of `skeleton.md
 | `py_modules.tsv` | Python module the game loads, with its layer (mod, Beyond the Sword, Civilization IV) and file |
 | `python_classes.tsv`, `python_bindings.tsv`, `py_api.tsv`, `py_targets.tsv`, `py_api_check.tsv` | see "Python: what lands in the DLL and what in the exe" |
 | `fields.tsv`, `field_access.tsv`, `field_strings.tsv`, `defines_used.tsv`, `xml_tags.tsv`, `xml_defines.tsv`, `syntax_*.tsv` | see "Variables, XML, defines and what a change reaches" |
-| `hardcoded.tsv` | hard-coded entry of a key function: kind, entry, line, what depends on it, its status |
 
 ## Checks, and limits
 

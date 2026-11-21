@@ -2,7 +2,7 @@
 
 The twelve functions that rank above the rest, what each does, and what a hand rewrite of one has to keep.
 Written by hand from the source at commit `2a8b9a83eb5b`, the commit the map was built from; line numbers
-refer to it. The hard-coded entries are listed in full, and checked, in `../hardcoded.md`.
+refer to it.
 
 ## How they rank
 
@@ -98,8 +98,6 @@ through one large cycle of calls. That is why the rank counts what only one func
 
 ## What a rewrite has to keep
 
-Each point is checked in `../hardcoded.md`, with the lines it rests on.
-
 1. **The exported names.** `CvGame::update`, `CvPlayer::setTurnActive`, both XML loaders and `parseHelp`
    are called by the exe by their compiled names. Name, argument types, class and `const` must stay as in
    the original SDK; what happens inside may change.
@@ -124,8 +122,8 @@ Each point is checked in `../hardcoded.md`, with the lines it rests on.
    its callers break out of their loops on it.
 9. **Shared counters.** The active-turn count, a player's turn flag and a group's attack flag are also set
    by other functions, which a rewrite must stay consistent with.
-10. **This fork's own fixes.** Lines changed since each file entered the mod's repository are listed by
-    commit in `../hardcoded.md` (the turn-count repair, the unit-update watchdog, the border-danger reset,
+10. **This fork's own fixes.** Lines changed since each file entered the mod's repository (`git blame`;
+    the turn-count repair, the unit-update watchdog, the border-danger reset,
     the war-AI range strike, the war-log call and others). A rewrite from the original SDK would lose them.
 11. **Logs our tools read.** The war log written from `setTurnActive` is read by the war-analysis tools,
     and one AI log line ("setTurnActive for turn") by `research/rome-and-settlers/tools/settlebal.py`.
