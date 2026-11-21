@@ -21,11 +21,11 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **32** `CvDLLSymbolIFaceBase::setTypeYield(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::updateSymbols
 - **38** `CvDLLFeatureIFaceBase::createFeature(…)` (virtual; pure virtual, provided by the exe)
-  - called by (1): CvPlot::updateFeatureSymbol
+  - called by (1): CvPlot::updateFeatureSymbolEntity
 - **39** `CvDLLFeatureIFaceBase::init(…)` (virtual; pure virtual, provided by the exe)
-  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateFeatureSymbol, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData> …
+  - called by (14): CvGame::init, CvMap::init, CvPlayer::init, CvPlayer::initInGame, CvPlot::updateFeatureSymbolEntity, ReadStreamableFFreeListTrashArray<class CvArea>, ReadStreamableFFreeListTrashArray<class CvCityAI>, ReadStreamableFFreeListTrashArray<class CvDeal>, ReadStreamableFFreeListTrashArray<class CvPlotGroup>, ReadStreamableFFreeListTrashArray<class CvSelectionGroupAI>, ReadStreamableFFreeListTrashArray<class CvUnitAI>, ReadStreamableFFreeListTrashArray<struct EventTriggeredData> …
 - **40** `CvDLLFeatureIFaceBase::getFeature(…)` (virtual; pure virtual, provided by the exe)
-  - called by (1): CvPlot::updateFeatureSymbol
+  - called by (1): CvPlot::updateFeatureSymbolEntity
 - **41** `CvDLLFeatureIFaceBase::setDummyVisibility(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::setFeatureDummyVisibility
 - **42** `CvDLLFeatureIFaceBase::addDummyModel(…)` (virtual; pure virtual, provided by the exe)
@@ -37,7 +37,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **45** `CvDLLFeatureIFaceBase::resetModel(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvPlot::resetFeatureModel
 - **48** `CvDLLFeatureIFaceBase::destroy(…)` (virtual; declared, not defined in the source)
-  - called by (2): CvPlot::uninit, CvPlot::updateFeatureSymbol
+  - called by (3): CvPlot::pageGraphics, CvPlot::uninit, CvPlot::updateFeatureSymbolEntity
 - **49** `CvDLLFeatureIFaceBase::Hide(…)` (virtual; declared, not defined in the source)
   - called by (1): CvPlot::updateFeatureSymbolVisibility
 - **50** `CvDLLFeatureIFaceBase::IsHidden(…)` (virtual; declared, not defined in the source)

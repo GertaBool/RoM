@@ -4,7 +4,7 @@ Group: Python wrappers. Functions in line order: what each calls (in order of fi
 
 - **11** `CyArgsList::add(int)` (exported)
   - calls: CyArgsList::push_back [CyArgsList.h]
-  - called by (151): CvCity::canConstruct, CvCity::canCreate, CvCity::canMaintain, CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const, CvCity::doPlotCulture, CvCity::getConscriptUnit, CvCity::getProductionNeeded(BuildingTypes) const, CvCity::getTriggerValue, CvCity::init, CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChooseTechPopup …
+  - called by (152): CvCity::canConstruct, CvCity::canCreate, CvCity::canMaintain, CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const, CvCity::doPlotCulture, CvCity::getConscriptUnit, CvCity::getProductionNeeded(BuildingTypes) const, CvCity::getTriggerValue, CvCity::init, CvDLLButtonPopup::OnFocus, CvDLLButtonPopup::OnOkClicked, CvDLLButtonPopup::launchChooseTechPopup …
 - **16** `CyArgsList::add(float)` (exported)
   - calls: CyArgsList::push_back [CyArgsList.h]
   - called by (1): CvDllPythonEvents::reportUpdate
@@ -28,4 +28,4 @@ Group: Python wrappers. Functions in line order: what each calls (in order of fi
   - called by (3): CvDllPythonEvents::reportMouseEvent, CvDllPythonEvents::reportPlayerRevolution, CvDllPythonEvents::reportSelectionGroupPushMission
 - **93** `CyArgsList::makeFunctionArgs()` (exported)
   - calls: CvDLLPythonIFaceBase::MakeFunctionArgs [CvDLLPythonIFaceBase.h], CvDLLUtilityIFaceBase::getPythonIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h]
-  - called by (110): CvCity::canConstruct, CvCity::canCreate, CvCity::canMaintain, CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const, CvCity::doCulture, CvCity::doGreatPeople, CvCity::doGrowth, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doProduction, CvCity::doReligion, CvCity::getConscriptUnit …
+  - called by (111): CvCity::canConstruct, CvCity::canCreate, CvCity::canMaintain, CvCity::canTrain(UnitTypes, bool, bool, bool, bool) const, CvCity::doCulture, CvCity::doGreatPeople, CvCity::doGrowth, CvCity::doMeltdown, CvCity::doPlotCulture, CvCity::doProduction, CvCity::doReligion, CvCity::getConscriptUnit …

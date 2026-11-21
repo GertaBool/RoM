@@ -5,7 +5,7 @@ Group: other. Functions in line order: what each calls (in order of first call),
 - **44** `getSign<int>(int)`
   - called by (1): CvPlot::canSeeDisplacementPlot
 - **47** `range(int, int, int)`
-  - called by (66): CvCity::angryPopulation, CvCity::changeDefenseDamage, CvCity::doGrowth, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getCitySizeType, CvCity::getRevoltTestProbability, CvCity::setRevIndexAverage, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_updateLocalGovernor, CvCityAI::AI_yieldValue, CvDLLWidgetData::parseContactCivHelp …
+  - called by (67): CvCity::angryPopulation, CvCity::changeDefenseDamage, CvCity::doGrowth, CvCity::getAdditionalHappinessByBuilding(BuildingTypes, int&, int&, int&) const, CvCity::getCitySizeType, CvCity::getRevoltTestProbability, CvCity::setRevIndexAverage, CvCityAI::AI_buildingValueThreshold, CvCityAI::AI_chooseProduction, CvCityAI::AI_updateLocalGovernor, CvCityAI::AI_yieldValue, CvDLLWidgetData::parseContactCivHelp …
 - **65** `range(float, float, float)`
   - called by (1): cyFloatRange
 - **83** `coordDistance(int, int, int, bool)`
@@ -20,10 +20,10 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (3): CvUnitAI::AI_explore, plotDistance, stepDistance
 - **120** `dxWrap(int)`
   - calls: wrapCoordDifference, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h], CvMap::isWrapXINLINE [CvMap.h]
-  - called by (7): CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvPlot::canSeePlot, cyDxWrap, directionXY(CvPlot const*, CvPlot const*), estimateDirection(CvPlot const*, CvPlot const*), plotCityXY(CvCity const*, CvPlot const*)
+  - called by (9): CvGame::isInGraphicsWindow, CvGame::updateGraphicsPaging, CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvPlot::canSeePlot, cyDxWrap, directionXY(CvPlot const*, CvPlot const*), estimateDirection(CvPlot const*, CvPlot const*), plotCityXY(CvCity const*, CvPlot const*)
 - **125** `dyWrap(int)`
   - calls: wrapCoordDifference, CvGlobals::getInstance [CvGlobals.h], CvGlobals::getMapINLINE [CvGlobals.h], CvMap::getGridHeightINLINE [CvMap.h], CvMap::isWrapYINLINE [CvMap.h]
-  - called by (7): CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvPlot::canSeePlot, cyDyWrap, directionXY(CvPlot const*, CvPlot const*), estimateDirection(CvPlot const*, CvPlot const*), plotCityXY(CvCity const*, CvPlot const*)
+  - called by (9): CvGame::isInGraphicsWindow, CvGame::updateGraphicsPaging, CvGameTextMgr::setPlotListHelp, CvMap::findCity, CvPlot::canSeePlot, cyDyWrap, directionXY(CvPlot const*, CvPlot const*), estimateDirection(CvPlot const*, CvPlot const*), plotCityXY(CvCity const*, CvPlot const*)
 - **145** `plotDistance(int, int, int, int)`
   - calls: xDistance, yDistance
   - called by (68): CvCity::calculateDistanceMaintenanceTimes100, CvCity::cultureDistance, CvCity::doReligion, CvCity::getBaseTradeProfit, CvCity::getLiberationPlayer, CvCityAI::AI_updateRouteToCity, CvGame::normalizeRemoveBadFeatures, CvGame::normalizeRemoveBadTerrain, CvGame::normalizeStartingPlotLocations, CvGame::updateColoredPlots, CvGameTextMgr::setEspionageCostHelp, CvMap::findCity …

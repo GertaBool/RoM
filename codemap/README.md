@@ -87,8 +87,8 @@ python3 codemap/tool/graph_html.py                                             #
    and the Python modules calling them.
 
 `diff` parses both commits itself, so changed and added functions and members are always current. Only the
-callers come from the compiler map. A function newer than the map is followed by name (marked "name match")
-until it reaches functions the map knows.
+callers come from the compiler map. When the source moves past the map's commit, a function newer than the map
+is followed by name (marked "name match") until it reaches functions the map knows.
 
 `graph.html` is one self-contained page (open it in a browser, no server needed):
 - **Files**: every source file, coloured by group, linked by the calls between them. Click a file for its
@@ -108,6 +108,29 @@ Limits of this layer: it is a parser, not a compiler.
   the source line for line.
 
 `impact/` holds reports written with `impact.py diff`.
+
+### The build at 9627e508 (GitLab Graphics-Paging-Fix-Test)
+
+The compiler map was rebuilt at `9627e508fedc` on a cloud machine:
+- The toolkit and Platform SDK came from the user's Drive folder, and the BTS SDK from the tarball at the GitLab
+  repository root. Their SHA-256 values match `builds/0009/provenance.json`.
+- All 105 units compiled, with 0 warnings and 0 errors.
+
+Two inputs of `build.sh` were not on that machine: the base game's Python and XML (Beyond the Sword,
+Civilization IV), and the game's Python 2.4. So:
+- **Python:** the Python 2.4 parse is the one from the previous map (`2a8b9a83eb5b`). It was relinked to the new
+  DLL tables with `extract_py.py link`; the event manager's handler map, which comes from the base game's
+  `CvEventManager.py`, was carried over as it was. Between the two commits the mod's Python changed in one file:
+  `EntryPoints/CvScreensInterface.py` gained 31 lines, which this map does not contain.
+- **Hard-coded entries:** `hardcoded.md` was checked against the BTS SDK from the tarball (every SDK status
+  matches the previous map) and the mod's XML only. The 42 entries whose other end is a base-game file are
+  marked "not checked here", and the 5 record-order checks on those files are absent.
+
+Two snags of the machine, for whoever builds next:
+- Wine 9.0 aborted at start-up (`free(): invalid pointer`) when run with that session's environment. It ran when
+  started with `env -i HOME=/root PATH=/usr/bin:/bin` and the toolchain variables.
+- `toolchain/setup_toolchain.sh` stops after unpacking. Under `set -e`, its case-alias loop ends with a false
+  `[ ... ] && ln`, which ends the script. The remaining steps (aliases, `vctk` link, `wineboot`) were run by hand.
 
 ## How it is made
 

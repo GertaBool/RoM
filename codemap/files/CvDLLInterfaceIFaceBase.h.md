@@ -9,7 +9,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **28** `CvDLLInterfaceIFaceBase::canDoInterfaceMode(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvGame::canHandleAction, CvGame::handleAction
 - **30** `CvDLLInterfaceIFaceBase::getLookAtPlot(…)` (virtual; pure virtual, provided by the exe)
-  - called by (2): CvGame::canDoControl, CvGame::cycleSelectionGroups
+  - called by (3): CvGame::canDoControl, CvGame::cycleSelectionGroups, CvGame::updateGraphicsPaging
 - **31** `CvDLLInterfaceIFaceBase::getSelectionPlot(…)` (virtual; pure virtual, provided by the exe)
   - called by (11): CvDLLWidgetData::doPlotList, CvDLLWidgetData::parsePlotListHelp, CvGame::canDoControl, CvGame::doControl, CvGame::updateSelectionList, CvSelectionGroup::setActivityType, CvUnit::joinGroup, CvUnit::setCombatUnit, CvUnit::setDamage, CvUnit::setMoves, CvUnit::setXY
 - **32** `CvDLLInterfaceIFaceBase::getInterfacePlotUnit(…)` (virtual; pure virtual, provided by the exe)
@@ -41,7 +41,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **52** `CvDLLInterfaceIFaceBase::getGotoPlot(…)` (virtual; pure virtual, provided by the exe)
   - called by (2): CvGameTextMgr::getPlotHelp, CvUnit::isActionRecommended
 - **53** `CvDLLInterfaceIFaceBase::getSingleMoveGotoPlot(…)` (virtual; pure virtual, provided by the exe)
-  - called by (1): CvPlot::updateFlagSymbol
+  - called by (2): CvPlot::canPageGraphicsOut, CvPlot::updateFlagSymbol
 - **54** `CvDLLInterfaceIFaceBase::getOriginalPlot(…)` (virtual; pure virtual, provided by the exe)
   - called by (1): CvGame::updateSelectionList
 - **56** `CvDLLInterfaceIFaceBase::playGeneralSound(…)` (virtual; pure virtual, provided by the exe)

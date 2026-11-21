@@ -5,7 +5,7 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
 - **13** `AIDiplomacyPolicy::goldForValueGap(int, int, bool)`
   - called by (3): CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace
 - **30** `AIDiplomacyPolicy::valueFromGold(int, int)`
-  - called by (3): CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace
+  - called by (4): CvPlayerAI::AI_counterPropose, CvPlayerAI::AI_doDiplo, CvPlayerAI::AI_doPeace, CvPlayerAI::AI_goldPerTurnTradeVal
 - **44** `AIDiplomacyPolicy::scaleByRatio(int, int, int)`
   - called by (4): CvPlayerAI::AI_considerOffer, CvPlayerAI::AI_getStrategyHash, CvTeamAI::AI_endWarVal, CvTeamAI::AI_surrenderTrade
 - **52** `AIDiplomacyPolicy::saturatingAdd(int, int)`

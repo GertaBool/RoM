@@ -93,11 +93,12 @@ Group: other. Functions in line order: what each calls (in order of first call),
   - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
 - **314** `CvMissionDefinition::getUnit(BattleUnitTypes) const` (exported)
   - calls: checkBattleUnitType
-  - called by (4): CvAirMissionDefinition::isDead, CvUnit::computeUnitsToDie, CvUnit::increaseBattleRounds, CvUnit::planBattle
+  - called by (5): CvAirMissionDefinition::isDead, CvUnit::computeUnitsToDie, CvUnit::increaseBattleRounds, CvUnit::planBattle, addEntityMission
 - **320** `CvMissionDefinition::setUnit(BattleUnitTypes, CvUnit*)` (exported)
   - calls: checkBattleUnitType
   - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
 - **326** `CvMissionDefinition::getPlot() const` (exported)
+  - called by (1): addEntityMission
 - **331** `CvMissionDefinition::setPlot(CvPlot const*)` (exported)
   - called by (24): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::bombard, CvUnit::bombardRanged, CvUnit::doActiveDefense …
 - **342** `CvBattleDefinition::CvBattleDefinition()` (exported)

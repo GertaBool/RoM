@@ -262,9 +262,10 @@ def analyse(L, seed_funcs, seed_fields, depth, out, written_fields=()):
                          len(set(lv) & exported), sum(1 for x in lv if x in py_bound)))
         for n, d1, nm, ex, pb in sorted(rows, reverse=True):
             out.append('| %s | %d | %d | %d | %d |' % (nm, d1, n, ex, pb))
-        if nm_ids or fr:
-            out.append('\nRows include callers of functions newer than the map (name match) and readers of changed members, '
-                       'standing in for the new code they lead to.')
+        if nm_ids:
+            out.append('\nRows include callers of functions newer than the map (name match), standing in for the new code they lead to.')
+        if fr:
+            out.append('\nRows include the readers of changed members.')
     reach_report(seeds, seed_funcs, depth, out)
 
 

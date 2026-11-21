@@ -76,10 +76,10 @@ Group: AI. Functions in line order: what each calls (in order of first call), wh
   - calls: CvGlobals::getCOMBAT_DIE_SIDES [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::currCombatStr [CvUnit.cpp], CvUnit::currFirepower [CvUnit.cpp], CvUnit::maxHitPoints [CvUnit.cpp], CvGlobals::getCOMBAT_DAMAGE [CvGlobals.cpp], CvUnit::combatLimit [CvUnit.cpp], CvUnit::currHitPoints [CvUnit.cpp], CvUnit::firstStrikes [CvUnit.cpp], CvUnit::immuneToFirstStrikes [CvUnit.cpp], CvUnit::chanceFirstStrikes [CvUnit.cpp], `anonymous namespace'::forecastBinomial, `anonymous namespace'::forecastRounds, CvUnit::withdrawalProbability [CvUnit.cpp]
   - called by (3): AI_assaultForecast, AI_forecastFightWinPermille, AI_isSacrificeWorth
 - **1130** ``anonymous namespace'::forecastCollateral(CvUnit const*, CvUnit const*, int)`
-  - calls: CvUnit::baseCombatStr [CvUnit.cpp], CvUnit::collateralDamage [CvUnit.cpp], CvUnit::getExtraCollateralDamage [CvUnit.cpp], CvUnitInfo::getUnitCombatCollateralImmune [CvInfos.cpp], CvUnit::getUnitInfo [CvUnit.cpp], CvUnit::getUnitCombatType [CvUnit.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getCollateralDamageProtection [CvUnit.cpp], CvUnit::collateralDamageLimit [CvUnit.cpp], CvUnit::maxHitPoints [CvUnit.cpp]
+  - calls: CvUnit::collateralDamage [CvUnit.cpp], CvUnit::baseCombatStr [CvUnit.cpp], CvUnit::getExtraCollateralDamage [CvUnit.cpp], CvUnitInfo::getUnitCombatCollateralImmune [CvInfos.cpp], CvUnit::getUnitInfo [CvUnit.cpp], CvUnit::getUnitCombatType [CvUnit.cpp], CvGlobals::getDefineINT(char const*) const [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvUnit::getCollateralDamageProtection [CvUnit.cpp], CvUnit::collateralDamageLimit [CvUnit.cpp], CvUnit::maxHitPoints [CvUnit.cpp]
   - called by (1): AI_assaultForecast
 - **1155** ``anonymous namespace'::forecastIsSiege(CvUnit const*)`
-  - calls: CvUnit::maxHitPoints [CvUnit.cpp], CvUnit::combatLimit [CvUnit.cpp], CvUnit::collateralDamage [CvUnit.cpp]
+  - calls: CvUnit::collateralDamage [CvUnit.cpp], CvUnit::maxHitPoints [CvUnit.cpp], CvUnit::combatLimit [CvUnit.cpp]
   - called by (1): AI_assaultForecast
 - **1161** `AI_forecastFightWinPermille(CvUnit const*, CvUnit const*)`
   - calls: `anonymous namespace'::ForecastFight::ForecastFight, `anonymous namespace'::forecastFight, CvUnit::plot [CvUnit.cpp], CvUnit::currHitPoints [CvUnit.cpp], CvUnit::maxCombatStr [CvUnit.cpp], `anonymous namespace'::ForecastFight::~ForecastFight

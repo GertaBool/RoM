@@ -113,13 +113,13 @@ Group: game objects. Functions in line order: what each calls (in order of first
   - called by (1): CvMap::pointToPlot
 - **932** `CvMap::plotXToPointX(int)` (exported)
   - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvMap::getGridWidthINLINE [CvMap.h]
-  - called by (2): CvPlayer::getResourceLayerColors, CvPlot::getPointX
+  - called by (3): CvGame::graphicsWindowFromCamera, CvPlayer::getResourceLayerColors, CvPlot::getPointX
 - **940** `CvMap::pointYToPlotY(float)` (exported)
   - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvMap::getGridHeightINLINE [CvMap.h]
   - called by (1): CvMap::pointToPlot
 - **948** `CvMap::plotYToPointY(int)` (exported)
   - calls: CvDLLEngineIFaceBase::GetLandscapeGameDimensions [CvDLLEngineIFaceBase.h], CvDLLUtilityIFaceBase::getEngineIFace [CvDLLUtilityIFaceBase.h], CvGlobals::getInstance [CvGlobals.h], CvGlobals::getDLLIFace [CvGlobals.h], CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvMap::getGridHeightINLINE [CvMap.h]
-  - called by (2): CvPlayer::getResourceLayerColors, CvPlot::getPointY
+  - called by (3): CvGame::graphicsWindowFromCamera, CvPlayer::getResourceLayerColors, CvPlot::getPointY
 - **956** `CvMap::getWidthCoords()`
   - calls: CvGlobals::getPLOT_SIZE [CvGlobals.cpp], CvGlobals::getInstance [CvGlobals.h], CvMap::getGridWidthINLINE [CvMap.h]
 - **962** `CvMap::getHeightCoords()`

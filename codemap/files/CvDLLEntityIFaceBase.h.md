@@ -15,7 +15,7 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **30** `CvDLLEntityIFaceBase::destroyEntity(…)` (virtual; declared, not defined in the source)
   - called by (1): CvDLLEntity::destroyEntity
 - **31** `CvDLLEntityIFaceBase::updatePosition(…)` (virtual; declared, not defined in the source)
-  - called by (3): CvPlot::updateFeatureSymbol, CvPlot::updateRiverSymbol, CvPlot::updateRouteSymbol
+  - called by (3): CvPlot::updateFeatureSymbolEntity, CvPlot::updateRiverSymbol, CvPlot::updateRouteSymbol
 - **32** `CvDLLEntityIFaceBase::setupFloodPlains(…)` (virtual; declared, not defined in the source)
   - called by (1): CvPlot::updateRiverSymbolArt
 - **34** `CvDLLEntityIFaceBase::IsSelected(…)` (virtual; declared, not defined in the source)
@@ -35,13 +35,13 @@ Group: engine interface. Functions in line order: what each calls (in order of f
 - **42** `CvDLLEntityIFaceBase::SetPosition(…)` (virtual; declared, not defined in the source)
   - called by (1): CvDLLEntity::SetPosition
 - **43** `CvDLLEntityIFaceBase::AddMission(…)` (virtual; declared, not defined in the source)
-  - called by (25): CvSelectionGroup::startMission, CvUnit::airBomb, CvUnit::airBomb1, CvUnit::airBomb2, CvUnit::airBomb3, CvUnit::airBomb4, CvUnit::airBomb5, CvUnit::airCircle, CvUnit::archerBombard, CvUnit::attackForDamage, CvUnit::bombard, CvUnit::bombardRanged …
+  - called by (1): addEntityMission
 - **44** `CvDLLEntityIFaceBase::RemoveUnitFromBattle(…)` (virtual; declared, not defined in the source)
-  - called by (6): CvUnit::airCircle, CvUnit::kill, CvUnit::reloadEntity, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnit::~CvUnit
+  - called by (7): CvUnit::airCircle, CvUnit::kill, CvUnit::pageGraphics, CvUnit::reloadEntity, CvUnit::updateCombat, CvUnit::updateStackCombat, CvUnit::~CvUnit
 - **45** `CvDLLEntityIFaceBase::showPromotionGlow(…)` (virtual; declared, not defined in the source)
   - called by (1): CvUnit::setPromotionReady
 - **46** `CvDLLEntityIFaceBase::updateEnemyGlow(…)` (virtual; declared, not defined in the source)
-  - called by (3): CvGame::updateUnitEnemyGlow, CvPlayer::doWarnings, CvUnit::setXY
+  - called by (4): CvGame::updateUnitEnemyGlow, CvPlayer::doWarnings, CvUnit::pageGraphics, CvUnit::setXY
 - **47** `CvDLLEntityIFaceBase::updatePromotionLayers(…)` (virtual; declared, not defined in the source)
   - called by (1): CvUnit::setHasPromotion
 - **48** `CvDLLEntityIFaceBase::updateGraphicEra(…)` (virtual; declared, not defined in the source)
