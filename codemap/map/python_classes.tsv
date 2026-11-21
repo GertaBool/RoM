@@ -1,0 +1,121 @@
+python_class	cpp_class	bases	file	line
+CyCity	CyCity		CvDLLPython.cpp	72
+CyPlayer	CyPlayer		CvDLLPython.cpp	84
+CyUnit	CyUnit		CvDLLPython.cpp	88
+CyPlot	CyPlot		CvDLLPython.cpp	91
+CyGlobalContext	CyGlobalContext		CvDLLPython.cpp	94
+CyArea	CyArea		CyAreaInterface.cpp	12
+CyArtFileMgr	CyArtFileMgr		CyArtFileMgrInterface.cpp	13
+CyGame	CyGame		CyGameInterface.cpp	16
+CyDeal	CyDeal		CyGameInterface.cpp	349
+CyGameTextMgr	CyGameTextMgr		CyGameTextMgrInterface.cpp	12
+CyReplayInfo	CyReplayInfo		CyHallOfFameInterface.cpp	14
+CyHallOfFameInfo	CyHallOfFameInfo		CyHallOfFameInterface.cpp	72
+CvInfoBase	CvInfoBase		CyInfoInterface1.cpp	13
+CvScalableInfo	CvScalableInfo		CyInfoInterface1.cpp	31
+CvSpecialistInfo	CvSpecialistInfo	CvInfoBase	CyInfoInterface1.cpp	36
+CvTechInfo	CvTechInfo	CvInfoBase	CyInfoInterface1.cpp	51
+CvPromotionInfo	CvPromotionInfo	CvInfoBase	CyInfoInterface1.cpp	103
+CvMissionInfo	CvMissionInfo	CvInfoBase	CyInfoInterface1.cpp	167
+CvActionInfo	CvActionInfo		CyInfoInterface1.cpp	178
+CvUnitInfo	CvUnitInfo	CvInfoBase,CvScalableInfo	CyInfoInterface1.cpp	195
+CvSpecialUnitInfo	CvSpecialUnitInfo	CvInfoBase	CyInfoInterface1.cpp	417
+CvCivicOptionInfo	CvCivicOptionInfo	CvInfoBase	CyInfoInterface1.cpp	425
+CvCivicInfo	CvCivicInfo	CvInfoBase	CyInfoInterface1.cpp	429
+CvUnitClassInfo	CvUnitClassInfo	CvInfoBase	CyInfoInterface1.cpp	526
+CvBuildingInfo	CvBuildingInfo	CvInfoBase,CvScalableInfo	CyInfoInterface1.cpp	534
+CvSpecialBuildingInfo	CvSpecialBuildingInfo	CvInfoBase	CyInfoInterface1.cpp	720
+CvBuildingClassInfo	CvBuildingClassInfo	CvInfoBase	CyInfoInterface2.cpp	13
+CvRouteModelInfo	CvRouteModelInfo	CvInfoBase	CyInfoInterface2.cpp	28
+CvCivilizationInfo	CvCivilizationInfo	CvInfoBase	CyInfoInterface2.cpp	40
+CvVictoryInfo	CvVictoryInfo	CvInfoBase	CyInfoInterface2.cpp	76
+CvHurryInfo	CvHurryInfo	CvInfoBase	CyInfoInterface2.cpp	95
+CvHandicapInfo	CvHandicapInfo	CvInfoBase	CyInfoInterface2.cpp	102
+CvGameSpeedInfo	CvGameSpeedInfo	CvInfoBase	CyInfoInterface2.cpp	169
+CvTurnTimerInfo	CvTurnTimerInfo	CvInfoBase	CyInfoInterface2.cpp	196
+CvBuildInfo	CvBuildInfo	CvInfoBase	CyInfoInterface2.cpp	203
+CvGoodyInfo	CvGoodyInfo	CvInfoBase	CyInfoInterface2.cpp	223
+CvRouteInfo	CvRouteInfo	CvInfoBase	CyInfoInterface2.cpp	244
+CvImprovementBonusInfo	CvImprovementBonusInfo	CvInfoBase	CyInfoInterface2.cpp	257
+CvImprovementInfo	CvImprovementInfo	CvInfoBase	CyInfoInterface2.cpp	268
+CvBonusClassInfo	CvBonusClassInfo	CvInfoBase	CyInfoInterface2.cpp	329
+CvBonusInfo	CvBonusInfo	CvInfoBase	CyInfoInterface2.cpp	333
+CvFeatureInfo	CvFeatureInfo	CvInfoBase	CyInfoInterface2.cpp	380
+CvCommerceInfo	CvCommerceInfo	CvInfoBase	CyInfoInterface2.cpp	415
+CvYieldInfo	CvYieldInfo	CvInfoBase	CyInfoInterface3.cpp	13
+CvTerrainInfo	CvTerrainInfo	CvInfoBase	CyInfoInterface3.cpp	29
+CvInterfaceModeInfo	CvInterfaceModeInfo	CvInfoBase	CyInfoInterface3.cpp	52
+CvLeaderHeadInfo	CvLeaderHeadInfo	CvInfoBase	CyInfoInterface3.cpp	71
+CvProcessInfo	CvProcessInfo	CvInfoBase	CyInfoInterface3.cpp	172
+CvVoteInfo	CvVoteInfo	CvInfoBase	CyInfoInterface3.cpp	180
+CvProjectInfo	CvProjectInfo	CvInfoBase	CyInfoInterface3.cpp	205
+CvReligionInfo	CvReligionInfo	CvInfoBase	CyInfoInterface3.cpp	233
+CvCorporationInfo	CvCorporationInfo	CvInfoBase	CyInfoInterface3.cpp	257
+CvTraitInfo	CvTraitInfo	CvInfoBase	CyInfoInterface3.cpp	290
+CvWorldInfo	CvWorldInfo	CvInfoBase	CyInfoInterface3.cpp	329
+CvClimateInfo	CvClimateInfo	CvInfoBase	CyInfoInterface3.cpp	350
+CvSeaLevelInfo	CvSeaLevelInfo	CvInfoBase	CyInfoInterface3.cpp	365
+CvAssetInfoBase	CvAssetInfoBase		CyInfoInterface3.cpp	369
+CvArtInfoAsset	CvArtInfoAsset	CvAssetInfoBase	CyInfoInterface3.cpp	376
+CvArtInfoScalableAsset	CvArtInfoScalableAsset	CvArtInfoAsset,CvScalableInfo	CyInfoInterface3.cpp	384
+CvArtInfoInterface	CvArtInfoInterface	CvArtInfoAsset	CyInfoInterface3.cpp	387
+CvArtInfoMovie	CvArtInfoMovie	CvArtInfoAsset	CyInfoInterface3.cpp	390
+CvArtInfoMisc	CvArtInfoMisc	CvArtInfoAsset	CyInfoInterface3.cpp	393
+CvArtInfoUnit	CvArtInfoUnit	CvArtInfoScalableAsset	CyInfoInterface3.cpp	396
+CvArtInfoBuilding	CvArtInfoBuilding	CvArtInfoScalableAsset	CyInfoInterface3.cpp	401
+CvArtInfoCivilization	CvArtInfoCivilization	CvArtInfoAsset	CyInfoInterface3.cpp	405
+CvArtInfoLeaderhead	CvArtInfoLeaderhead	CvArtInfoAsset	CyInfoInterface3.cpp	409
+CvArtInfoBonus	CvArtInfoBonus	CvArtInfoScalableAsset	CyInfoInterface3.cpp	412
+CvArtInfoImprovement	CvArtInfoImprovement	CvArtInfoScalableAsset	CyInfoInterface3.cpp	415
+CvArtInfoTerrain	CvArtInfoTerrain	CvArtInfoAsset	CyInfoInterface3.cpp	419
+CvArtInfoFeature	CvArtInfoFeature	CvArtInfoScalableAsset	CyInfoInterface3.cpp	422
+CvEmphasizeInfo	CvEmphasizeInfo	CvInfoBase	CyInfoInterface3.cpp	428
+CvUpkeepInfo	CvUpkeepInfo	CvInfoBase	CyInfoInterface3.cpp	438
+CvCultureLevelInfo	CvCultureLevelInfo	CvInfoBase	CyInfoInterface3.cpp	443
+CvEraInfo	CvEraInfo	CvInfoBase	CyInfoInterface3.cpp	449
+CvColorInfo	CvColorInfo	CvInfoBase	CyInfoInterface3.cpp	484
+CvPlayerColorInfo	CvPlayerColorInfo	CvInfoBase	CyInfoInterface3.cpp	488
+CvGameText	CvGameText	CvInfoBase	CyInfoInterface3.cpp	494
+CvDiplomacyTextInfo	CvDiplomacyTextInfo	CvInfoBase	CyInfoInterface3.cpp	500
+CvDiplomacyInfo	CvDiplomacyInfo	CvInfoBase	CyInfoInterface3.cpp	514
+CvEffectInfo	CvEffectInfo	CvInfoBase,CvScalableInfo	CyInfoInterface3.cpp	528
+CvControlInfo	CvControlInfo	CvInfoBase	CyInfoInterface3.cpp	533
+CvQuestInfo	CvQuestInfo	CvInfoBase	CyInfoInterface3.cpp	537
+CvTutorialMessage	CvTutorialMessage		CyInfoInterface3.cpp	556
+CvTutorialInfo	CvTutorialInfo	CvInfoBase	CyInfoInterface3.cpp	565
+CvAutomateInfo	CvAutomateInfo	CvInfoBase	CyInfoInterface3.cpp	572
+CvCommandInfo	CvCommandInfo	CvInfoBase	CyInfoInterface3.cpp	575
+CvGameOptionInfo	CvGameOptionInfo	CvInfoBase	CyInfoInterface3.cpp	578
+CvMPOptionInfo	CvMPOptionInfo	CvInfoBase	CyInfoInterface3.cpp	583
+CvForceControlInfo	CvForceControlInfo	CvInfoBase	CyInfoInterface3.cpp	587
+CvPlayerOptionInfo	CvPlayerOptionInfo	CvInfoBase	CyInfoInterface3.cpp	591
+CvGraphicOptionInfo	CvGraphicOptionInfo	CvInfoBase	CyInfoInterface3.cpp	595
+CvEventTriggerInfo	CvEventTriggerInfo	CvInfoBase	CyInfoInterface3.cpp	599
+CvEventInfo	CvEventInfo	CvInfoBase	CyInfoInterface3.cpp	675
+CvEspionageMissionInfo	CvEspionageMissionInfo	CvInfoBase	CyInfoInterface3.cpp	751
+CvVoteSourceInfo	CvVoteSourceInfo	CvInfoBase	CyInfoInterface3.cpp	783
+CvMainMenuInfo	CvMainMenuInfo	CvInfoBase	CyInfoInterface3.cpp	792
+CvPythonModulesInfo	CvPythonModulesInfo	CvInfoBase	CyInfoInterface3.cpp	806
+CyMapGenerator	CyMapGenerator		CyMapGeneratorInterface.cpp	15
+CyMap	CyMap		CyMapInterface.cpp	20
+CyMessageControl	CyMessageControl		CyMessageControlInterface.cpp	10
+CyRandom	CvRandom		CyRandomInterface.cpp	15
+CySelectionGroup	CySelectionGroup		CySelectionGroupInterface.cpp	18
+NiPoint3	NiPoint3		CyStructsInterface1.cpp	16
+NiPoint2	NiPoint2		CyStructsInterface1.cpp	23
+NiColorA	NiColorA		CyStructsInterface1.cpp	29
+POINT	POINT		CyStructsInterface1.cpp	37
+XYCoords	XYCoords		CyStructsInterface1.cpp	42
+IDInfo	IDInfo		CyStructsInterface1.cpp	48
+GameTurnInfo	GameTurnInfo		CyStructsInterface1.cpp	53
+OrderData	OrderData		CyStructsInterface1.cpp	58
+MissionData	MissionData		CyStructsInterface1.cpp	65
+TradeData	TradeData		CyStructsInterface1.cpp	73
+EventTriggeredData	EventTriggeredData		CyStructsInterface1.cpp	80
+EventMessage	EventMessage		CyStructsInterface1.cpp	96
+FOWVis	FOWVis		CyStructsInterface1.cpp	101
+PBGameSetupData	PBGameSetupData		CyStructsInterface1.cpp	106
+PBPlayerSetupData	PBPlayerSetupData		CyStructsInterface1.cpp	125
+PBPlayerAdminData	PBPlayerAdminData		CyStructsInterface1.cpp	134
+CombatDetails	CombatDetails		CyStructsInterface1.cpp	143
+CyTeam	CyTeam		CyTeamInterface.cpp	13

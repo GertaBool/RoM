@@ -1,0 +1,278 @@
+module	layer	file
+AbandonCityEventManager.py	mod (GitLab 9627e508)	AbandonCityEventManager.py
+AugustusAIProfiler.py	mod (GitLab 9627e508)	AugustusAIProfiler.py
+BUFFY/Buffy.py	mod (GitLab 9627e508)	BUFFY/Buffy.py
+BUFFY/GameSetUpCheck.py	mod (GitLab 9627e508)	BUFFY/GameSetUpCheck.py
+BUG/AttitudeUtil.py	mod (GitLab 9627e508)	BUG/AttitudeUtil.py
+BUG/BugConfig.py	mod (GitLab 9627e508)	BUG/BugConfig.py
+BUG/BugConfigTracker.py	mod (GitLab 9627e508)	BUG/BugConfigTracker.py
+BUG/BugCore.py	mod (GitLab 9627e508)	BUG/BugCore.py
+BUG/BugData.py	mod (GitLab 9627e508)	BUG/BugData.py
+BUG/BugDll.py	mod (GitLab 9627e508)	BUG/BugDll.py
+BUG/BugEventManager.py	mod (GitLab 9627e508)	BUG/BugEventManager.py
+BUG/BugFile.py	mod (GitLab 9627e508)	BUG/BugFile.py
+BUG/BugGameUtils.py	mod (GitLab 9627e508)	BUG/BugGameUtils.py
+BUG/BugHelp.py	mod (GitLab 9627e508)	BUG/BugHelp.py
+BUG/BugInit.py	mod (GitLab 9627e508)	BUG/BugInit.py
+BUG/BugOptions.py	mod (GitLab 9627e508)	BUG/BugOptions.py
+BUG/BugOptionsScreen.py	mod (GitLab 9627e508)	BUG/BugOptionsScreen.py
+BUG/BugOptionsTab.py	mod (GitLab 9627e508)	BUG/BugOptionsTab.py
+BUG/BugPath.py	mod (GitLab 9627e508)	BUG/BugPath.py
+BUG/BugScreen.py	mod (GitLab 9627e508)	BUG/BugScreen.py
+BUG/BugTypes.py	mod (GitLab 9627e508)	BUG/BugTypes.py
+BUG/BugUnitPlot.py	mod (GitLab 9627e508)	BUG/BugUnitPlot.py
+BUG/BugUpdateChecker.py	mod (GitLab 9627e508)	BUG/BugUpdateChecker.py
+BUG/BugUtil.py	mod (GitLab 9627e508)	BUG/BugUtil.py
+BUG/CityUtil.py	mod (GitLab 9627e508)	BUG/CityUtil.py
+BUG/ColorUtil.py	mod (GitLab 9627e508)	BUG/ColorUtil.py
+BUG/DealUtil.py	mod (GitLab 9627e508)	BUG/DealUtil.py
+BUG/DiplomacyUtil.py	mod (GitLab 9627e508)	BUG/DiplomacyUtil.py
+BUG/FontUtil.py	mod (GitLab 9627e508)	BUG/FontUtil.py
+BUG/GGUtil.py	mod (GitLab 9627e508)	BUG/GGUtil.py
+BUG/GPUtil.py	mod (GitLab 9627e508)	BUG/GPUtil.py
+BUG/GameUtil.py	mod (GitLab 9627e508)	BUG/GameUtil.py
+BUG/InputUtil.py	mod (GitLab 9627e508)	BUG/InputUtil.py
+BUG/PlayerUtil.py	mod (GitLab 9627e508)	BUG/PlayerUtil.py
+BUG/ProgressBarUtil.py	mod (GitLab 9627e508)	BUG/ProgressBarUtil.py
+BUG/RawYields.py	mod (GitLab 9627e508)	BUG/RawYields.py
+BUG/ReligionUtil.py	mod (GitLab 9627e508)	BUG/ReligionUtil.py
+BUG/Scoreboard.py	mod (GitLab 9627e508)	BUG/Scoreboard.py
+BUG/SpyUtil.py	mod (GitLab 9627e508)	BUG/SpyUtil.py
+BUG/SvnUtil.py	mod (GitLab 9627e508)	BUG/SvnUtil.py
+BUG/Tabs/BugACOOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugACOOptionsTab.py
+BUG/Tabs/BugAdvisorOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugAdvisorOptionsTab.py
+BUG/Tabs/BugAlertsOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugAlertsOptionsTab.py
+BUG/Tabs/BugAutologOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugAutologOptionsTab.py
+BUG/Tabs/BugCityScreenOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugCityScreenOptionsTab.py
+BUG/Tabs/BugConfigTrackerTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugConfigTrackerTab.py
+BUG/Tabs/BugCreditsOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugCreditsOptionsTab.py
+BUG/Tabs/BugErrorOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugErrorOptionsTab.py
+BUG/Tabs/BugGeneralOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugGeneralOptionsTab.py
+BUG/Tabs/BugMapOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugMapOptionsTab.py
+BUG/Tabs/BugNJAGCOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugNJAGCOptionsTab.py
+BUG/Tabs/BugPleOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugPleOptionsTab.py
+BUG/Tabs/BugScoreOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugScoreOptionsTab.py
+BUG/Tabs/BugSystemOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugSystemOptionsTab.py
+BUG/Tabs/BugUnitNameOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/BugUnitNameOptionsTab.py
+BUG/Tabs/RevDCMOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/RevDCMOptionsTab.py
+BUG/Tabs/RoMOptionsTab.py	mod (GitLab 9627e508)	BUG/Tabs/RoMOptionsTab.py
+BUG/TechPrefs.py	mod (GitLab 9627e508)	BUG/TechPrefs.py
+BUG/TechUtil.py	mod (GitLab 9627e508)	BUG/TechUtil.py
+BUG/TradeUtil.py	mod (GitLab 9627e508)	BUG/TradeUtil.py
+BUG/TraitUtil.py	mod (GitLab 9627e508)	BUG/TraitUtil.py
+BUG/UnitGrouper.py	mod (GitLab 9627e508)	BUG/UnitGrouper.py
+BUG/UnitPlotListUtil.py	mod (GitLab 9627e508)	BUG/UnitPlotListUtil.py
+BUG/UnitUtil.py	mod (GitLab 9627e508)	BUG/UnitUtil.py
+BUG/WidgetUtil.py	mod (GitLab 9627e508)	BUG/WidgetUtil.py
+BUG/configobj.py	mod (GitLab 9627e508)	BUG/configobj.py
+Contrib/AStarTools.py	mod (GitLab 9627e508)	Contrib/AStarTools.py
+Contrib/AutoSave.py	mod (GitLab 9627e508)	Contrib/AutoSave.py
+Contrib/Civ4lerts.py	mod (GitLab 9627e508)	Contrib/Civ4lerts.py
+Contrib/CvAllErasDawnOfManScreenEventManager.py	mod (GitLab 9627e508)	Contrib/CvAllErasDawnOfManScreenEventManager.py
+Contrib/CvModFolder.py	mod (GitLab 9627e508)	Contrib/CvModFolder.py
+Contrib/CvModName.py	mod (GitLab 9627e508)	Contrib/CvModName.py
+Contrib/CvOverlayScreenUtils.py	mod (GitLab 9627e508)	Contrib/CvOverlayScreenUtils.py
+Contrib/CvStrategyOverlay.py	mod (GitLab 9627e508)	Contrib/CvStrategyOverlay.py
+Contrib/EspionageEventManager.py	mod (GitLab 9627e508)	Contrib/EspionageEventManager.py
+Contrib/EventSigns.py	mod (GitLab 9627e508)	Contrib/EventSigns.py
+Contrib/FavoriteCivicDetector.py	mod (GitLab 9627e508)	Contrib/FavoriteCivicDetector.py
+Contrib/MapFinder.py	mod (GitLab 9627e508)	Contrib/MapFinder.py
+Contrib/MapFinderStatusScreen.py	mod (GitLab 9627e508)	Contrib/MapFinderStatusScreen.py
+Contrib/MonkeyTools.py	mod (GitLab 9627e508)	Contrib/MonkeyTools.py
+Contrib/MoreCiv4lerts.py	mod (GitLab 9627e508)	Contrib/MoreCiv4lerts.py
+Contrib/MovieMod.py	mod (GitLab 9627e508)	Contrib/MovieMod.py
+Contrib/PlotListEnhancements.py	mod (GitLab 9627e508)	Contrib/PlotListEnhancements.py
+Contrib/RandomNameUtils.py	mod (GitLab 9627e508)	Contrib/RandomNameUtils.py
+Contrib/ReminderEventManager.py	mod (GitLab 9627e508)	Contrib/ReminderEventManager.py
+Contrib/RevDCM.py	mod (GitLab 9627e508)	Contrib/RevDCM.py
+Contrib/RevDCMReligionControl.py	mod (GitLab 9627e508)	Contrib/RevDCMReligionControl.py
+Contrib/Roman.py	mod (GitLab 9627e508)	Contrib/Roman.py
+Contrib/RuffEcho.py	mod (GitLab 9627e508)	Contrib/RuffEcho.py
+Contrib/SdToolKit.py	mod (GitLab 9627e508)	Contrib/SdToolKit.py
+Contrib/Sevopedia/SevoPediaBonus.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaBonus.py
+Contrib/Sevopedia/SevoPediaBuilding.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaBuilding.py
+Contrib/Sevopedia/SevoPediaCivic.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaCivic.py
+Contrib/Sevopedia/SevoPediaCivilization.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaCivilization.py
+Contrib/Sevopedia/SevoPediaCorporation.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaCorporation.py
+Contrib/Sevopedia/SevoPediaFeature.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaFeature.py
+Contrib/Sevopedia/SevoPediaHistory.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaHistory.py
+Contrib/Sevopedia/SevoPediaImprovement.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaImprovement.py
+Contrib/Sevopedia/SevoPediaIndex.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaIndex.py
+Contrib/Sevopedia/SevoPediaLeader.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaLeader.py
+Contrib/Sevopedia/SevoPediaMain.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaMain.py
+Contrib/Sevopedia/SevoPediaProject.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaProject.py
+Contrib/Sevopedia/SevoPediaPromotion.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaPromotion.py
+Contrib/Sevopedia/SevoPediaReligion.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaReligion.py
+Contrib/Sevopedia/SevoPediaSpecialist.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaSpecialist.py
+Contrib/Sevopedia/SevoPediaTech.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaTech.py
+Contrib/Sevopedia/SevoPediaTerrain.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaTerrain.py
+Contrib/Sevopedia/SevoPediaTrait.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaTrait.py
+Contrib/Sevopedia/SevoPediaUnit.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaUnit.py
+Contrib/Sevopedia/SevoPediaUnitChart.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaUnitChart.py
+Contrib/Sevopedia/SevoPediaUtil.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoPediaUtil.py
+Contrib/Sevopedia/SevoScreenEnums.py	mod (GitLab 9627e508)	Contrib/Sevopedia/SevoScreenEnums.py
+Contrib/StatusDump.py	mod (GitLab 9627e508)	Contrib/StatusDump.py
+Contrib/StatusDumpEventManager.py	mod (GitLab 9627e508)	Contrib/StatusDumpEventManager.py
+Contrib/TechWindow.py	mod (GitLab 9627e508)	Contrib/TechWindow.py
+Contrib/TechWindowWide.py	mod (GitLab 9627e508)	Contrib/TechWindowWide.py
+Contrib/UnitNameEventManager.py	mod (GitLab 9627e508)	Contrib/UnitNameEventManager.py
+Contrib/UnitUpgradesGraph.py	mod (GitLab 9627e508)	Contrib/UnitUpgradesGraph.py
+Contrib/autolog.py	mod (GitLab 9627e508)	Contrib/autolog.py
+Contrib/autologEventManager.py	mod (GitLab 9627e508)	Contrib/autologEventManager.py
+CvAdvisorUtils.py	mod (GitLab 9627e508)	CvAdvisorUtils.py
+CvConfigParser.py	mod (GitLab 9627e508)	CvConfigParser.py
+CvDiplomacy.py	mod (GitLab 9627e508)	CvDiplomacy.py
+CvMapGeneratorUtil.py	mod (GitLab 9627e508)	CvMapGeneratorUtil.py
+CvUtil.py	mod (GitLab 9627e508)	CvUtil.py
+EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py	mod (GitLab 9627e508)	EnhancedTechConquestUtils/CvEnhancedTechConquestEventManager.py
+EnhancedTechConquestUtils/EnhancedTechConquest.py	mod (GitLab 9627e508)	EnhancedTechConquestUtils/EnhancedTechConquest.py
+EntryPoints/CvAppInterface.py	mod (GitLab 9627e508)	EntryPoints/CvAppInterface.py
+EntryPoints/CvEventInterface.py	mod (GitLab 9627e508)	EntryPoints/CvEventInterface.py
+EntryPoints/CvGameInterfaceFile.py	mod (GitLab 9627e508)	EntryPoints/CvGameInterfaceFile.py
+EntryPoints/CvOptionsScreenCallbackInterface.py	mod (GitLab 9627e508)	EntryPoints/CvOptionsScreenCallbackInterface.py
+EntryPoints/CvRandomEventInterface.py	mod (GitLab 9627e508)	EntryPoints/CvRandomEventInterface.py
+EntryPoints/CvScreenUtilsInterface.py	mod (GitLab 9627e508)	EntryPoints/CvScreenUtilsInterface.py
+EntryPoints/CvScreensInterface.py	mod (GitLab 9627e508)	EntryPoints/CvScreensInterface.py
+EntryPoints/CvWBInterface.py	mod (GitLab 9627e508)	EntryPoints/CvWBInterface.py
+GodsOfOld.py	mod (GitLab 9627e508)	GodsOfOld.py
+ModTools/ModTools.py	mod (GitLab 9627e508)	ModTools/ModTools.py
+ModTools/ModToolsUtils.py	mod (GitLab 9627e508)	ModTools/ModToolsUtils.py
+OOSLogger.py	mod (GitLab 9627e508)	OOSLogger.py
+PyHelpers.py	mod (GitLab 9627e508)	PyHelpers.py
+Revolution/Development/ChangePlayer.py	mod (GitLab 9627e508)	Revolution/Development/ChangePlayer.py
+Revolution/Development/Tester.py	mod (GitLab 9627e508)	Revolution/Development/Tester.py
+Revolution/Gameready/AIAutoPlay.py	mod (GitLab 9627e508)	Revolution/Gameready/AIAutoPlay.py
+Revolution/Gameready/BarbarianCiv.py	mod (GitLab 9627e508)	Revolution/Gameready/BarbarianCiv.py
+Revolution/Gameready/DynamicCivNames.py	mod (GitLab 9627e508)	Revolution/Gameready/DynamicCivNames.py
+Revolution/Gameready/Revolt.py	mod (GitLab 9627e508)	Revolution/Gameready/Revolt.py
+Revolution/Gameready/Revolution.py	mod (GitLab 9627e508)	Revolution/Gameready/Revolution.py
+Revolution/Gameready/StartAsMinors.py	mod (GitLab 9627e508)	Revolution/Gameready/StartAsMinors.py
+Revolution/Gameready/TechDiffusion.py	mod (GitLab 9627e508)	Revolution/Gameready/TechDiffusion.py
+Revolution/LeaderCivNames.py	mod (GitLab 9627e508)	Revolution/LeaderCivNames.py
+Revolution/RebelTypes.py	mod (GitLab 9627e508)	Revolution/RebelTypes.py
+Revolution/RevBuildingsUtils.py	mod (GitLab 9627e508)	Revolution/RevBuildingsUtils.py
+Revolution/RevCivicsUtils.py	mod (GitLab 9627e508)	Revolution/RevCivicsUtils.py
+Revolution/RevData.py	mod (GitLab 9627e508)	Revolution/RevData.py
+Revolution/RevDefs.py	mod (GitLab 9627e508)	Revolution/RevDefs.py
+Revolution/RevEvents.py	mod (GitLab 9627e508)	Revolution/RevEvents.py
+Revolution/RevInstances.py	mod (GitLab 9627e508)	Revolution/RevInstances.py
+Revolution/RevTraitsUtils.py	mod (GitLab 9627e508)	Revolution/RevTraitsUtils.py
+Revolution/RevUtils.py	mod (GitLab 9627e508)	Revolution/RevUtils.py
+Revolution/RevolutionInit.py	mod (GitLab 9627e508)	Revolution/RevolutionInit.py
+Revolution/TextUtils.py	mod (GitLab 9627e508)	Revolution/TextUtils.py
+RoMEventManager.py	mod (GitLab 9627e508)	RoMEventManager.py
+RoMGameUtils.py	mod (GitLab 9627e508)	RoMGameUtils.py
+Screens/BugFinanceAdvisor.py	mod (GitLab 9627e508)	Screens/BugFinanceAdvisor.py
+Screens/CvBUGMilitaryAdvisor.py	mod (GitLab 9627e508)	Screens/CvBUGMilitaryAdvisor.py
+Screens/CvCivicsScreen.py	mod (GitLab 9627e508)	Screens/CvCivicsScreen.py
+Screens/CvCorporationScreen.py	mod (GitLab 9627e508)	Screens/CvCorporationScreen.py
+Screens/CvCustomizableDomesticAdvisor.py	mod (GitLab 9627e508)	Screens/CvCustomizableDomesticAdvisor.py
+Screens/CvDawnOfMan.py	mod (GitLab 9627e508)	Screens/CvDawnOfMan.py
+Screens/CvDotMapOverlayScreen.py	mod (GitLab 9627e508)	Screens/CvDotMapOverlayScreen.py
+Screens/CvEspionageAdvisor.py	mod (GitLab 9627e508)	Screens/CvEspionageAdvisor.py
+Screens/CvExoticForeignAdvisor.py	mod (GitLab 9627e508)	Screens/CvExoticForeignAdvisor.py
+Screens/CvForeignAdvisor.py	mod (GitLab 9627e508)	Screens/CvForeignAdvisor.py
+Screens/CvHallOfFameScreen.py	mod (GitLab 9627e508)	Screens/CvHallOfFameScreen.py
+Screens/CvInfoScreen.py	mod (GitLab 9627e508)	Screens/CvInfoScreen.py
+Screens/CvMainInterface.py	mod (GitLab 9627e508)	Screens/CvMainInterface.py
+Screens/CvPediaHistory.py	mod (GitLab 9627e508)	Screens/CvPediaHistory.py
+Screens/CvPediaMain.py	mod (GitLab 9627e508)	Screens/CvPediaMain.py
+Screens/CvReligionScreen.py	mod (GitLab 9627e508)	Screens/CvReligionScreen.py
+Screens/CvScreenEnums.py	mod (GitLab 9627e508)	Screens/CvScreenEnums.py
+Screens/CvTechChooser.py	mod (GitLab 9627e508)	Screens/CvTechChooser.py
+Screens/CvVictoryScreen.py	mod (GitLab 9627e508)	Screens/CvVictoryScreen.py
+Screens/IconGrid.py	mod (GitLab 9627e508)	Screens/IconGrid.py
+Screens/IconGrid_BUG.py	mod (GitLab 9627e508)	Screens/IconGrid_BUG.py
+Screens/PLE.py	mod (GitLab 9627e508)	Screens/PLE.py
+Screens/RevolutionWatchAdvisor.py	mod (GitLab 9627e508)	Screens/RevolutionWatchAdvisor.py
+SdToolKitCustom.py	mod (GitLab 9627e508)	SdToolKitCustom.py
+SettlementTrainingProfiler.py	mod (GitLab 9627e508)	SettlementTrainingProfiler.py
+zCivics.py	mod (GitLab 9627e508)	zCivics.py
+base/CvCameraControls.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	CvCameraControls.py
+base/CvDebugTools.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	CvDebugTools.py
+base/CvEventManager.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	CvEventManager.py
+base/CvGameUtils.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	CvGameUtils.py
+base/CvPerfTest.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	CvPerfTest.py
+base/DomPyHelpers.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	DomPyHelpers.py
+base/EntryPoints/CvGameInterface.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	EntryPoints/CvGameInterface.py
+base/EntryPoints/CvTranslator.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	EntryPoints/CvTranslator.py
+base/EntryPoints/PbMain.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	EntryPoints/PbMain.py
+base/PitBoss/PbAdmin.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	PitBoss/PbAdmin.py
+base/PitBoss/PbWizard.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	PitBoss/PbWizard.py
+base/Screens/CvDomesticAdvisor.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvDomesticAdvisor.py
+base/Screens/CvIntroMovieScreen.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvIntroMovieScreen.py
+base/Screens/CvMilitaryAdvisor.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvMilitaryAdvisor.py
+base/Screens/CvOptionsScreen.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvOptionsScreen.py
+base/Screens/CvPediaBonus.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaBonus.py
+base/Screens/CvPediaBuilding.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaBuilding.py
+base/Screens/CvPediaCivilization.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaCivilization.py
+base/Screens/CvPediaCorporation.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaCorporation.py
+base/Screens/CvPediaImprovement.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaImprovement.py
+base/Screens/CvPediaLeader.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaLeader.py
+base/Screens/CvPediaProject.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaProject.py
+base/Screens/CvPediaPromotion.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaPromotion.py
+base/Screens/CvPediaTech.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaTech.py
+base/Screens/CvPediaUnit.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaUnit.py
+base/Screens/CvPediaUnitChart.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvPediaUnitChart.py
+base/Screens/CvSpaceShipScreen.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvSpaceShipScreen.py
+base/Screens/CvTechSplashScreen.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvTechSplashScreen.py
+base/Screens/CvWonderMovieScreen.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvWonderMovieScreen.py
+base/Screens/CvWorldBuilderDiplomacyScreen.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvWorldBuilderDiplomacyScreen.py
+base/Screens/CvWorldBuilderScreen.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/CvWorldBuilderScreen.py
+base/Screens/TechTree.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	Screens/TechTree.py
+base/pyWB/CvWBDesc.py	BTS (github max-zanko/civ4-beyond-the-sword-sdk a350405 "Original BTS Python files")	pyWB/CvWBDesc.py
+base/CvDefineEditor.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	CvDefineEditor.py
+base/CvQuestManager.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	CvQuestManager.py
+base/CvScreenUtils.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	CvScreenUtils.py
+base/EntryPoints/CvDebugInterface.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	EntryPoints (1)/CvDebugInterface.py
+base/EntryPoints/CvDiplomacyInterface.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	EntryPoints (1)/CvDiplomacyInterface.py
+base/EntryPoints/CvMapScriptInterface.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	EntryPoints (1)/CvMapScriptInterface.py
+base/EntryPoints/CvPopupInterface.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	EntryPoints (1)/CvPopupInterface.py
+base/EntryPoints/CvUnitControlInterface.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	EntryPoints (1)/CvUnitControlInterface.py
+base/ScreenInput.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	ScreenInput.py
+base/Screens/CvAdvisorScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvAdvisorScreen.py
+base/Screens/CvDanQuayle.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvDanQuayle.py
+base/Screens/CvDebugInfoScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvDebugInfoScreen.py
+base/Screens/CvEraMovieScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvEraMovieScreen.py
+base/Screens/CvFinanceAdvisor.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvFinanceAdvisor.py
+base/Screens/CvGFCScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvGFCScreen.py
+base/Screens/CvPediaCivic.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvPediaCivic.py
+base/Screens/CvPediaFeature.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvPediaFeature.py
+base/Screens/CvPediaReligion.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvPediaReligion.py
+base/Screens/CvPediaScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvPediaScreen.py
+base/Screens/CvPediaSpecialist.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvPediaSpecialist.py
+base/Screens/CvPediaTerrain.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvPediaTerrain.py
+base/Screens/CvReplayScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvReplayScreen.py
+base/Screens/CvScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvScreen.py
+base/Screens/CvTopCivs.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvTopCivs.py
+base/Screens/CvTutorialQuestScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvTutorialQuestScreen.py
+base/Screens/CvUNVictoryScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvUNVictoryScreen.py
+base/Screens/CvVictoryMovieScreen.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	Screens (1)/CvVictoryMovieScreen.py
+base/System/email/Charset.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Charset.py
+base/System/email/Encoders.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Encoders.py
+base/System/email/Errors.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Errors.py
+base/System/email/FeedParser.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/FeedParser.py
+base/System/email/Generator.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Generator.py
+base/System/email/Header.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Header.py
+base/System/email/Iterators.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Iterators.py
+base/System/email/MIMEAudio.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/MIMEAudio.py
+base/System/email/MIMEBase.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/MIMEBase.py
+base/System/email/MIMEImage.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/MIMEImage.py
+base/System/email/MIMEMessage.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/MIMEMessage.py
+base/System/email/MIMEMultipart.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/MIMEMultipart.py
+base/System/email/MIMENonMultipart.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/MIMENonMultipart.py
+base/System/email/MIMEText.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/MIMEText.py
+base/System/email/Message.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Message.py
+base/System/email/Parser.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Parser.py
+base/System/email/Utils.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/Utils.py
+base/System/email/__init__.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/__init__.py
+base/System/email/_parseaddr.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/_parseaddr.py
+base/System/email/base64MIME.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/base64MIME.py
+base/System/email/quopriMIME.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	System/email/quopriMIME.py
+base/_DebugTools/AudioLogParser.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	_DebugTools/AudioLogParser.py
+base/pyHelper/Popup.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	pyHelper/Popup.py
+base/pyHelper/Unit.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	pyHelper/Unit.py
+base/pyHelper/UnitEntity.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	pyHelper/UnitEntity.py
+base/pyUnit/CvUnitController.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	pyUnit/CvUnitController.py
+base/pyWB/CvWBPopups.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	pyWB/CvWBPopups.py
+base/vector.py	Civilization IV (Drive prereq_original_files_civ4_bts/Python (1))	vector.py

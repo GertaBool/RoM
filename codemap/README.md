@@ -109,22 +109,57 @@ Limits of this layer: it is a parser, not a compiler.
 
 `impact/` holds reports written with `impact.py diff`.
 
-### The build at 9627e508 (GitLab Graphics-Paging-Fix-Test)
+## Python: what lands in the DLL and what in the exe
 
-The compiler map was rebuilt at `9627e508fedc` on a cloud machine:
-- The toolkit and Platform SDK came from the user's Drive folder, and the BTS SDK from the tarball at the GitLab
-  repository root. Their SHA-256 values match `builds/0009/provenance.json`.
-- All 105 units compiled, with 0 warnings and 0 errors.
+The game's Python reaches C++ only through the classes of `CvPythonExtensions`. The DLL registers some
+(`python::class_<C>("Name")`); the exe registers the rest (`CyInterface`, `CyEngine`, `CyCamera`, `CyPopup`,
+`CyUserProfile` ...). The code map sees only the DLL, so `tool/pyapi.py` adds the class reference of the BUG
+project ([civ4bug PythonAPI](https://civ4bug.sourceforge.net/PythonAPI/), BTS 3.17, generated from the game's
+docstrings):
 
-Two inputs of `build.sh` were not on that machine: the base game's Python and XML (Beyond the Sword,
-Civilization IV), and the game's Python 2.4. So:
-- **Python:** the Python 2.4 parse is the one from the previous map (`2a8b9a83eb5b`). It was relinked to the new
-  DLL tables with `extract_py.py link`; the event manager's handler map, which comes from the base game's
-  `CvEventManager.py`, was carried over as it was. Between the two commits the mod's Python changed in one file:
-  `EntryPoints/CvScreensInterface.py` gained 31 lines, which this map does not contain.
-- **Hard-coded entries:** `hardcoded.md` was checked against the BTS SDK from the tarball (every SDK status
-  matches the previous map) and the mod's XML only. The 42 entries whose other end is a base-game file are
-  marked "not checked here", and the 5 record-order checks on those files are absent.
+```sh
+curl -sS -o /tmp/AllClasses.html https://civ4bug.sourceforge.net/PythonAPI/AllClasses.html
+python3 codemap/tool/pyapi.py /tmp/AllClasses.html <checkout>/Assets/CvGameCoreDLL
+```
+
+- `python_classes.tsv`, `python_bindings.tsv`: every class the DLL registers, with its C++ class and bases, and
+  every `.def("name", &f)` with the class it is chained to. Both are read from the source.
+  `python_defs.tsv` (from the compiler) misses 37 of the 3,842 bindings at 9627e508:
+  - 5 are virtual methods, all `getButton`: the listing pushes a vcall thunk, not the function;
+  - 24 point at functions no unit compiles;
+  - 8 are not yet explained (open).
+- `py_api.tsv`: every method of the reference, and whether its class is registered by the DLL or by the exe.
+- `py_targets.tsv`: every attribute call in the Python (`x.f()`), and where the name lands: `dll`, `exe`,
+  `both` (both bind the name), or `python`. The match is by name, as Python resolves names when it runs.
+- `py_api_check.tsv`: for each class the DLL registers, methods of the reference it does not bind (`missing`)
+  and methods it binds that the reference lacks (`added`, mostly the mod's own, e.g. the Revolution getters of
+  `CvCivicInfo`).
+
+## The build at 9627e508 (GitLab Graphics-Paging-Fix-Test)
+
+The whole map was rebuilt at `9627e508fedc` on a cloud machine, with `build.sh`'s steps run one by one.
+
+| input | source | check |
+|---|---|---|
+| Visual C++ Toolkit 2003, Platform SDK | the user's Drive folder `platformsdk` | SHA-256 as in `builds/0009/provenance.json` |
+| Boost 1.32, Python 2.4 headers | `beyond-the-sword-sdk-develop-functional.tar.gz`, GitLab repository root | SHA-256 as in the provenance |
+| original SDK (for `hardcoded.py`) | github `max-zanko/civ4-beyond-the-sword-sdk`, `CvGameCoreDLL/` | no mod markers; the tarball's copy is modded (BBAI, BUG, DCM in `CvEnums.h`, `CvGame.cpp`), which is why it is not used. The statuses of the 12 key functions are the same with either. |
+| Python 2.4 (`python.exe` for `py24_scan.py`) | python.org `python-2.4.4.msi` | good PGP signature, key 0EDDC5F26A45C816 (Anthony Baxter) |
+| mod's Python, XML, Config | GitLab `9627e508` | |
+| Beyond the Sword's Python | github `max-zanko/civ4-beyond-the-sword-sdk`, commit `a350405` "Original BTS Python files" | open: the BTS version (3.17 or 3.19) is not confirmed |
+| Civilization IV's Python | the user's Drive folder `prereq_original_files_civ4_bts/Python (1)` | scanned with the mod at `2a8b9a83`, it reproduces the previous map's Python tables row for row |
+| Beyond the Sword's and Civilization IV's XML | the same Drive folder: `XML_BTSsubfolder`, `XML (1)` (the " (1)" suffixes removed) | |
+
+Results:
+- **DLL:** all 105 units compiled, with 0 warnings and 0 errors.
+- **Python:** the game imports by module name, from the mod's folder, then Beyond the Sword's, then Civilization
+  IV's. The previous map had no Beyond the Sword layer: its base modules, `CvEventManager.py` among them, were
+  Civilization IV's. That layer is now in place. `map/py_modules.tsv` gives each module's layer: 189 mod,
+  33 BTS, 55 Civilization IV. The event manager's handler map now has the 77 events of the BTS file, which
+  include the corporation events and `ModNetMessage`; the previous map had 57.
+- **Hard-coded entries:** the report reproduces the previous map's 251 entries, plus one new fork change
+  (`b8741b50f4be`). Files the games pack in `.FPK` archives stay "missing", as before.
+- **`Python_BTSsubfolder`** of the Drive folder is the mod's own Python at `2a8b9a83`, not Beyond the Sword's.
 
 Two snags of the machine, for whoever builds next:
 - Wine 9.0 aborted at start-up (`free(): invalid pointer`) when run with that session's environment. It ran when
@@ -204,6 +239,9 @@ then Civilization IV's). The source commit is written at the top of `skeleton.md
 | `cpp_to_py.tsv` | DLL call into Python, with the Python function it lands in |
 | `event_handlers.tsv` | event and each handler registered for it |
 | `py_event_registrations.tsv` | every registration of a Python event handler, for any event name |
+| `py_modules.tsv` | Python module the game loads, with its layer (mod, Beyond the Sword, Civilization IV) and file |
+| `python_classes.tsv`, `python_bindings.tsv`, `py_api.tsv`, `py_targets.tsv`, `py_api_check.tsv` | see "Python: what lands in the DLL and what in the exe" |
+| `fields.tsv`, `field_access.tsv`, `field_strings.tsv`, `defines_used.tsv`, `xml_tags.tsv`, `xml_defines.tsv`, `syntax_*.tsv` | see "Variables, XML, defines and what a change reaches" |
 | `hardcoded.tsv` | hard-coded entry of a key function: kind, entry, line, what depends on it, its status |
 
 ## Checks, and limits
