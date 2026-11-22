@@ -36,6 +36,10 @@ one the DLL is built with, so every call is the call the compiler made.
   takes the address of, and who calls it.
 - `map/`: the data, as tab-separated tables (below).
 - `tool/query.py`: questions the pages don't answer directly.
+- `tool/flow.py`: where a value comes from and goes, from the graph only: the writers of a member and the call
+  chains above them, the callers of a function, the readers of a member or value function, and every call chain
+  from matching functions to a target. It stops unless the map was built from the checkout it is asked about
+  (`--src`), so an answer always describes the code in question (CLAUDE.md, rule 11).
 - `graph.html`, `tool/impact.py`, `tool/graph.py`: the whole graph (C++, Python, members, XML, defines) and what a
   change reaches. See "The whole graph, and what a change reaches" below.
 

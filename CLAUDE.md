@@ -37,5 +37,10 @@ Hard rules (details in the protocol):
     registered prediction (`method/mission/register.json`, append-only) on an essential
     variable, made before its evidence; changes to the checks carry `Method: <reason>`.
 
+11. **Code questions go through the code graph.** Who calls, writes, reads or spends something is answered
+    by `codemap/tool/flow.py` (or `query.py`, `impact.py`), whose map must be built from the code being
+    analysed: `flow.py` refuses a map built from another commit. Rebuild it first (`codemap/tool/build.sh`).
+    Reading the source is for the lines the graph points to, not for finding them; grep alone is not an answer.
+
 Everything the checks and the gate need is in `method/` (see `method/README.md`); a new session or
 clone enables it with `sh method/setup.sh` (the SessionStart hook runs it).
