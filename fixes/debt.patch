@@ -1,0 +1,2869 @@
+diff --git a/Assets/CvGameCoreDLL/AIDebtPolicy.h b/Assets/CvGameCoreDLL/AIDebtPolicy.h
+new file mode 100644
+index 0000000..97407c5
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/AIDebtPolicy.h
+@@ -0,0 +1,234 @@
++// Added: deterministic, engine-independent arithmetic for debt contracts (loans and bonds).
++// Every quantity is an integer: gold, turns, and rates in parts per million per turn (ppm).
++// Floating point is avoided so that every machine of a network game computes the same numbers.
++// The functions take no game objects, so they compile and are checked natively
++// (fixes/debt/tests/test_debt_policy.cpp in the analysis repository).
++#ifndef AI_DEBT_POLICY_H
++#define AI_DEBT_POLICY_H
++
++#include <climits>
++
++namespace AIDebtPolicy
++{
++static const long long PPM = 1000000;
++
++inline int clampInt(long long value)
++{
++	return value < INT_MIN ? INT_MIN : (value > INT_MAX ? INT_MAX : (int)value);
++}
++
++inline int clampRange(int value, int low, int high)
++{
++	return value < low ? low : (value > high ? high : value);
++}
++
++// Interest of one turn on an amount, rounded up so that a positive rate on a positive amount
++// always charges something.
++inline int interestFor(int amount, int ratePpm)
++{
++	if (amount <= 0 || ratePpm <= 0)
++	{
++		return 0;
++	}
++	const long long numerator = (long long)amount * ratePpm;
++	return clampInt((numerator + PPM - 1) / PPM);
++}
++
++// (1 + r)^turns in units of PPM, saturated far below overflow.
++inline long long growthFactor(int ratePpm, int turns)
++{
++	long long factor = PPM;
++	const long long step = PPM + (ratePpm > 0 ? ratePpm : 0);
++	for (int i = 0; i < turns; ++i)
++	{
++		factor = (factor * step) / PPM;
++		if (factor > (long long)1000000 * PPM)
++		{
++			return (long long)1000000 * PPM;
++		}
++	}
++	return factor;
++}
++
++// Equal payment per turn that repays a principal with interest over a term (an annuity):
++// A = P r / (1 - (1+r)^-T) = P r F / (F - 1), F = (1+r)^T. Rounded up; never below the
++// interest of the first turn, so the principal never grows while every payment is made.
++inline int annuityPayment(int principal, int ratePpm, int turns)
++{
++	if (principal <= 0)
++	{
++		return 0;
++	}
++	if (turns <= 0)
++	{
++		return principal;
++	}
++	if (ratePpm <= 0)
++	{
++		return clampInt(((long long)principal + turns - 1) / turns);
++	}
++	const long long factor = growthFactor(ratePpm, turns);
++	const long long denominator = (factor - PPM) * PPM;
++	if (denominator <= 0)
++	{
++		return clampInt(((long long)principal + turns - 1) / turns);
++	}
++	// P * r * F / ((F - 1) * PPM), with r and F in PPM units; split to stay inside 64 bits.
++	const long long rateTimesFactor = ((long long)ratePpm * factor) / PPM; // r*F in PPM units
++	const long long numerator = (long long)principal * rateTimesFactor;
++	long long payment = (numerator + (factor - PPM) - 1) / (factor - PPM);
++	const int firstInterest = interestFor(principal, ratePpm);
++	if (payment < firstInterest + 1)
++	{
++		payment = firstInterest + 1;
++	}
++	return clampInt(payment);
++}
++
++// Coupon of a bond: the interest of one turn on its principal.
++inline int couponPayment(int principal, int ratePpm)
++{
++	return interestFor(principal, ratePpm);
++}
++
++// Present value of a stream of equal payments for a number of turns, discounted at a rate,
++// plus a final lump (the principal of a bond at maturity).
++inline int presentValue(int payment, int turns, int finalLump, int discountPpm)
++{
++	long long value = 0;
++	long long factor = PPM;
++	const long long step = PPM + (discountPpm > 0 ? discountPpm : 0);
++	for (int i = 0; i < turns; ++i)
++	{
++		factor = (factor * step) / PPM;
++		if (factor <= 0)
++		{
++			break;
++		}
++		value += ((long long)payment * PPM) / factor;
++	}
++	if (finalLump > 0 && factor > 0)
++	{
++		value += ((long long)finalLump * PPM) / factor;
++	}
++	return clampInt(value);
++}
++
++// The rate per turn of a game speed whose game is iLengthPercent percent as many turns as a
++// Normal game, such that compounding over the same share of the game gives the same growth as
++// iNormalRatePpm per Normal turn: (1 + r)^L = (1 + rN)^100. Found by bisection on integers.
++inline int rateForSpeed(int iNormalRatePpm, int iLengthPercent)
++{
++	if (iNormalRatePpm <= 0)
++	{
++		return 0;
++	}
++	if (iLengthPercent <= 0 || iLengthPercent == 100)
++	{
++		return iNormalRatePpm;
++	}
++	const long long target = growthFactor(iNormalRatePpm, 100);
++	int low = 0;
++	int high = (iLengthPercent < 100) ? (int)(((long long)iNormalRatePpm * 100) / iLengthPercent) * 2 + 1 : iNormalRatePpm;
++	while (low < high)
++	{
++		const int middle = low + (high - low) / 2;
++		if (growthFactor(middle, iLengthPercent) < target)
++		{
++			low = middle + 1;
++		}
++		else
++		{
++			high = middle;
++		}
++	}
++	return low;
++}
++
++// Turns scaled from Normal speed to a game speed of iLengthPercent, at least one.
++inline int scaleTurns(int iNormalTurns, int iLengthPercent)
++{
++	const long long turns = ((long long)iNormalTurns * (iLengthPercent > 0 ? iLengthPercent : 100) + 50) / 100;
++	return turns < 1 ? 1 : clampInt(turns);
++}
++
++// A credit score from 0 (no credit) to 100 (best), from the borrower's own figures.
++//   iServicePercent   payments owed per turn, percent of gross gold plus research commerce
++//   bTrouble          the funded-percent test of financial trouble holds
++//   iDefaultTurns     turns left of the market's exclusion after a default (0 when none)
++//   bAtWar            at war with anyone
++//   bLosingWar        lost cities in war recently
++//   iCities           number of cities
++inline int creditScore(int iServicePercent, bool bTrouble, int iDefaultTurns, bool bAtWar,
++	bool bLosingWar, int iCities)
++{
++	int score = 75;
++	score -= clampRange(iServicePercent, 0, 60);
++	if (bTrouble)
++	{
++		score -= 15;
++	}
++	if (iDefaultTurns > 0)
++	{
++		score -= 25 + clampRange(iDefaultTurns / 4, 0, 25);
++	}
++	if (bAtWar)
++	{
++		score -= 5;
++	}
++	if (bLosingWar)
++	{
++		score -= 10;
++	}
++	score += clampRange(iCities / 2, 0, 15);
++	return clampRange(score, 0, 100);
++}
++
++// The spread a borrower pays above the base rate: none at score 100, iMaxSpreadPpm at score 0,
++// rising with the square of the shortfall so that good credit is cheap and bad credit dear.
++inline int creditSpread(int iScore, int iMaxSpreadPpm)
++{
++	const int shortfall = 100 - clampRange(iScore, 0, 100);
++	return clampInt(((long long)iMaxSpreadPpm * shortfall * shortfall) / 10000);
++}
++
++// The largest principal whose payment keeps total debt service within iMaxServicePercent of
++// gross commerce. iDue is what is owed per turn already. Found by bisection on the annuity
++// (loan) or the coupon (bond); iCap bounds the search.
++inline int borrowingLimit(int iGrossCommerce, int iMaxServicePercent, int iDue, int ratePpm,
++	int turns, bool bBond, int iCap)
++{
++	const long long room = ((long long)iGrossCommerce * iMaxServicePercent) / 100 - iDue;
++	if (room <= 0 || iCap <= 0)
++	{
++		return 0;
++	}
++	int low = 0;
++	int high = iCap;
++	while (low < high)
++	{
++		const int middle = low + (high - low + 1) / 2;
++		const int payment = bBond ? couponPayment(middle, ratePpm) : annuityPayment(middle, ratePpm, turns);
++		if (payment <= room)
++		{
++			low = middle;
++		}
++		else
++		{
++			high = middle - 1;
++		}
++	}
++	return low;
++}
++
++// Expected value to a lender of a loan: the present value of its payments at the lender's
++// hurdle rate, times the chance in percent that the payments continue, minus the principal.
++inline int loanValueToLender(int principal, int payment, int turns, int finalLump, int hurdlePpm,
++	int iContinuePercent)
++{
++	const long long pv = presentValue(payment, turns, finalLump, hurdlePpm);
++	return clampInt((pv * clampRange(iContinuePercent, 0, 100)) / 100 - principal);
++}
++}
++
++#endif
+diff --git a/Assets/CvGameCoreDLL/CvDebt.cpp b/Assets/CvGameCoreDLL/CvDebt.cpp
+new file mode 100644
+index 0000000..55eaa15
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/CvDebt.cpp
+@@ -0,0 +1,1696 @@
++// Debt contracts: loans and bonds between civilizations and with the open market.
++// Design: codemap/guides/loans-and-bonds.md in the analysis repository (written at 1d9a473).
++//
++// Where things happen:
++//   CvGame::doDebt                 once per game turn, after doDeals: market rate and capital,
++//                                  market bonds, floating rates, wars, deaths, defaults, offers
++//   CvPlayer::doGold               the borrower pays (CvGame::recordDebtPayments) only what it has;
++//                                  receipts are credited to the lender at its next doGold
++//   CvPlayer::calculateBaseNetGold reads the per-player caches; never loops over contracts
++//   CvNetModNetMessage::Execute    ids 7000-7099: actions from the screens, run on every machine
++//   CvTeam::declareWar             a borrower declaring war on its lender defaults
++// All arithmetic is in integers (AIDebtPolicy.h).
++
++#include "CvGameCoreDLL.h"
++#include "CvDebt.h"
++#include "AIDebtPolicy.h"
++#include "CvGameAI.h"
++#include "CvPlayerAI.h"
++#include "CvTeamAI.h"
++#include "CvGlobals.h"
++#include "CvDLLInterfaceIFaceBase.h"
++
++// ---------------------------------------------------------------------------------------------
++// Records
++
++CvDebtContract::CvDebtContract() :
++	iID(-1), eKind(DEBT_LOAN), eBorrower(NO_PLAYER), eLender(NO_PLAYER), iPrincipal(0),
++	iOutstanding(0), iRatePpm(0), iSpreadPpm(0), iPayment(0), iSignTurn(0), iMaturityTurn(0),
++	iArrears(0), iMissedTurns(0), eCollateral(DEBT_COLLATERAL_NONE), iCollateralData(-1),
++	iConditions(DEBT_CONDITION_NONE)
++{
++}
++
++void CvDebtContract::read(FDataStreamBase* pStream)
++{
++	uint uiFlag = 0;
++	pStream->Read(&uiFlag);
++	pStream->Read(&iID);
++	pStream->Read(&eKind);
++	pStream->Read(&eBorrower);
++	pStream->Read(&eLender);
++	pStream->Read(&iPrincipal);
++	pStream->Read(&iOutstanding);
++	pStream->Read(&iRatePpm);
++	pStream->Read(&iSpreadPpm);
++	pStream->Read(&iPayment);
++	pStream->Read(&iSignTurn);
++	pStream->Read(&iMaturityTurn);
++	pStream->Read(&iArrears);
++	pStream->Read(&iMissedTurns);
++	pStream->Read(&eCollateral);
++	pStream->Read(&iCollateralData);
++	pStream->Read(&iConditions);
++}
++
++void CvDebtContract::write(FDataStreamBase* pStream) const
++{
++	uint uiFlag = 0;
++	pStream->Write(uiFlag);
++	pStream->Write(iID);
++	pStream->Write(eKind);
++	pStream->Write(eBorrower);
++	pStream->Write(eLender);
++	pStream->Write(iPrincipal);
++	pStream->Write(iOutstanding);
++	pStream->Write(iRatePpm);
++	pStream->Write(iSpreadPpm);
++	pStream->Write(iPayment);
++	pStream->Write(iSignTurn);
++	pStream->Write(iMaturityTurn);
++	pStream->Write(iArrears);
++	pStream->Write(iMissedTurns);
++	pStream->Write(eCollateral);
++	pStream->Write(iCollateralData);
++	pStream->Write(iConditions);
++}
++
++CvDebtOffer::CvDebtOffer() :
++	iID(-1), eFrom(NO_PLAYER), eTo(NO_PLAYER), bFromLends(true), eKind(DEBT_LOAN), iAmount(0),
++	iTermIndex(0), eCollateral(DEBT_COLLATERAL_NONE), iCollateralData(-1),
++	iConditions(DEBT_CONDITION_NONE), iRatePpm(0), iExpireTurn(0)
++{
++}
++
++void CvDebtOffer::read(FDataStreamBase* pStream)
++{
++	uint uiFlag = 0;
++	pStream->Read(&uiFlag);
++	pStream->Read(&iID);
++	pStream->Read(&eFrom);
++	pStream->Read(&eTo);
++	pStream->Read(&bFromLends);
++	pStream->Read(&eKind);
++	pStream->Read(&iAmount);
++	pStream->Read(&iTermIndex);
++	pStream->Read(&eCollateral);
++	pStream->Read(&iCollateralData);
++	pStream->Read(&iConditions);
++	pStream->Read(&iRatePpm);
++	pStream->Read(&iExpireTurn);
++}
++
++void CvDebtOffer::write(FDataStreamBase* pStream) const
++{
++	uint uiFlag = 0;
++	pStream->Write(uiFlag);
++	pStream->Write(iID);
++	pStream->Write(eFrom);
++	pStream->Write(eTo);
++	pStream->Write(bFromLends);
++	pStream->Write(eKind);
++	pStream->Write(iAmount);
++	pStream->Write(iTermIndex);
++	pStream->Write(eCollateral);
++	pStream->Write(iCollateralData);
++	pStream->Write(iConditions);
++	pStream->Write(iRatePpm);
++	pStream->Write(iExpireTurn);
++}
++
++// ---------------------------------------------------------------------------------------------
++// Helpers
++
++namespace
++{
++int debtDefine(const char* szName)
++{
++	return GC.getDefineINT(szName);
++}
++
++bool isCivPlayer(int ePlayer)
++{
++	return ePlayer >= 0 && ePlayer < MAX_CIV_PLAYERS;
++}
++
++bool isLivingCiv(int ePlayer)
++{
++	return isCivPlayer(ePlayer) && GET_PLAYER((PlayerTypes)ePlayer).isAlive() &&
++		!GET_PLAYER((PlayerTypes)ePlayer).isBarbarian();
++}
++
++// "1.25" for 12500 ppm: the rate per turn in percent with two decimals.
++CvWString rateString(int iRatePpm)
++{
++	CvWString szRate;
++	const int iHundredths = (iRatePpm + 50) / 100;
++	szRate.Format(L"%d.%02d", iHundredths / 100, iHundredths % 100);
++	return szRate;
++}
++
++CvWString partyName(int ePlayer)
++{
++	if (!isCivPlayer(ePlayer))
++	{
++		return gDLL->getText("TXT_KEY_DEBT_MARKET_NAME");
++	}
++	return GET_PLAYER((PlayerTypes)ePlayer).getCivilizationShortDescription();
++}
++
++void tellPlayer(int ePlayer, const CvWString& szText)
++{
++	if (isLivingCiv(ePlayer) && GET_PLAYER((PlayerTypes)ePlayer).isHuman())
++	{
++		gDLL->getInterfaceIFace()->addMessage((PlayerTypes)ePlayer, false, GC.getEVENT_MESSAGE_TIME(), szText,
++			"AS2D_COINS", MESSAGE_TYPE_INFO, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_YELLOW"));
++	}
++}
++
++bool atWarBetween(int ePlayer, int eOther)
++{
++	if (!isCivPlayer(ePlayer) || !isCivPlayer(eOther))
++	{
++		return false;
++	}
++	return GET_TEAM(GET_PLAYER((PlayerTypes)ePlayer).getTeam()).isAtWar(GET_PLAYER((PlayerTypes)eOther).getTeam());
++}
++}
++
++// ---------------------------------------------------------------------------------------------
++// CvPlayer: caches and credit
++
++int CvPlayer::getDebtDuePerTurn() const
++{
++	return m_iDebtDuePerTurn;
++}
++
++int CvPlayer::getDebtIncomePerTurn() const
++{
++	return m_iDebtIncomePerTurn;
++}
++
++int CvPlayer::getDebtOutstanding() const
++{
++	return m_iDebtOutstanding;
++}
++
++int CvPlayer::getDebtHeld() const
++{
++	return m_iDebtHeld;
++}
++
++int CvPlayer::getDebtReceivable() const
++{
++	return m_iDebtReceivable;
++}
++
++void CvPlayer::changeDebtReceivable(int iChange)
++{
++	m_iDebtReceivable += iChange;
++}
++
++int CvPlayer::getDebtDefaultTurns() const
++{
++	return m_iDebtDefaultTurns;
++}
++
++void CvPlayer::setDebtDefaultTurns(int iTurns)
++{
++	m_iDebtDefaultTurns = std::max(0, iTurns);
++}
++
++void CvPlayer::setDebtCaches(int iDue, int iIncome, int iOutstanding, int iHeld)
++{
++	m_iDebtDuePerTurn = iDue;
++	m_iDebtIncomePerTurn = iIncome;
++	m_iDebtOutstanding = iOutstanding;
++	m_iDebtHeld = iHeld;
++}
++
++// Gross commerce that debt service is measured against: gold and research, plus gold per turn
++// received from other civilizations.
++int CvPlayer::getDebtGrossCommerce() const
++{
++	return std::max(1, getCommerceRate(COMMERCE_GOLD) + getCommerceRate(COMMERCE_RESEARCH) + std::max(0, getGoldPerTurn()));
++}
++
++int CvPlayer::getCreditScore() const
++{
++	if (!isAlive() || isBarbarian())
++	{
++		return 0;
++	}
++	const int iServicePercent = (getDebtDuePerTurn() * 100) / getDebtGrossCommerce();
++	const CvTeamAI& kTeam = GET_TEAM(getTeam());
++	const bool bAtWar = kTeam.getAtWarCount(true) > 0;
++	bool bLosing = false;
++	if (bAtWar)
++	{
++		int iTheirSuccess = 0;
++		int iOurSuccess = 0;
++		for (int iTeam = 0; iTeam < MAX_CIV_TEAMS; ++iTeam)
++		{
++			if (iTeam != getTeam() && GET_TEAM((TeamTypes)iTeam).isAlive() && kTeam.isAtWar((TeamTypes)iTeam))
++			{
++				iTheirSuccess += GET_TEAM((TeamTypes)iTeam).AI_getWarSuccess(getTeam());
++				iOurSuccess += kTeam.AI_getWarSuccess((TeamTypes)iTeam);
++			}
++		}
++		bLosing = iTheirSuccess > iOurSuccess * 2 && iTheirSuccess > 0;
++	}
++	return AIDebtPolicy::creditScore(iServicePercent, GET_PLAYER(getID()).AI_isFinancialTrouble(),
++		getDebtDefaultTurns(), bAtWar, bLosing, getNumCities());
++}
++
++// ---------------------------------------------------------------------------------------------
++// CvGame: access
++
++int CvGame::getNumDebts() const
++{
++	return (int)m_aDebts.size();
++}
++
++const CvDebtContract* CvGame::getDebtByIndex(int iIndex) const
++{
++	if (iIndex < 0 || iIndex >= (int)m_aDebts.size())
++	{
++		return NULL;
++	}
++	return &m_aDebts[iIndex];
++}
++
++CvDebtContract* CvGame::getDebt(int iID)
++{
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		if (m_aDebts[i].iID == iID)
++		{
++			return &m_aDebts[i];
++		}
++	}
++	return NULL;
++}
++
++int CvGame::getDebtField(int iIndex, int eField) const
++{
++	const CvDebtContract* pDebt = getDebtByIndex(iIndex);
++	if (pDebt == NULL)
++	{
++		return -1;
++	}
++	switch (eField)
++	{
++	case DEBT_FIELD_ID: return pDebt->iID;
++	case DEBT_FIELD_KIND: return pDebt->eKind;
++	case DEBT_FIELD_BORROWER: return pDebt->eBorrower;
++	case DEBT_FIELD_LENDER: return pDebt->eLender;
++	case DEBT_FIELD_PRINCIPAL: return pDebt->iPrincipal;
++	case DEBT_FIELD_OUTSTANDING: return pDebt->iOutstanding;
++	case DEBT_FIELD_RATE_PPM: return pDebt->iRatePpm;
++	case DEBT_FIELD_PAYMENT: return pDebt->iPayment;
++	case DEBT_FIELD_SIGN_TURN: return pDebt->iSignTurn;
++	case DEBT_FIELD_MATURITY_TURN: return pDebt->iMaturityTurn;
++	case DEBT_FIELD_ARREARS: return pDebt->iArrears;
++	case DEBT_FIELD_MISSED_TURNS: return pDebt->iMissedTurns;
++	case DEBT_FIELD_COLLATERAL: return pDebt->eCollateral;
++	case DEBT_FIELD_COLLATERAL_DATA: return pDebt->iCollateralData;
++	case DEBT_FIELD_CONDITIONS: return pDebt->iConditions;
++	case DEBT_FIELD_FROZEN: return isDebtFrozen(*pDebt) ? 1 : 0;
++	case DEBT_FIELD_DUE: return getDebtDue(*pDebt);
++	}
++	return -1;
++}
++
++int CvGame::getNumDebtOffers() const
++{
++	return (int)m_aDebtOffers.size();
++}
++
++int CvGame::getDebtOfferField(int iIndex, int eField) const
++{
++	if (iIndex < 0 || iIndex >= (int)m_aDebtOffers.size())
++	{
++		return -1;
++	}
++	const CvDebtOffer& kOffer = m_aDebtOffers[iIndex];
++	switch (eField)
++	{
++	case DEBT_OFFER_FIELD_ID: return kOffer.iID;
++	case DEBT_OFFER_FIELD_FROM: return kOffer.eFrom;
++	case DEBT_OFFER_FIELD_TO: return kOffer.eTo;
++	case DEBT_OFFER_FIELD_FROM_LENDS: return kOffer.bFromLends ? 1 : 0;
++	case DEBT_OFFER_FIELD_KIND: return kOffer.eKind;
++	case DEBT_OFFER_FIELD_AMOUNT: return kOffer.iAmount;
++	case DEBT_OFFER_FIELD_TERM_INDEX: return kOffer.iTermIndex;
++	case DEBT_OFFER_FIELD_COLLATERAL: return kOffer.eCollateral;
++	case DEBT_OFFER_FIELD_COLLATERAL_DATA: return kOffer.iCollateralData;
++	case DEBT_OFFER_FIELD_CONDITIONS: return kOffer.iConditions;
++	case DEBT_OFFER_FIELD_RATE_PPM: return kOffer.iRatePpm;
++	case DEBT_OFFER_FIELD_EXPIRE_TURN: return kOffer.iExpireTurn;
++	}
++	return -1;
++}
++
++int CvGame::getMarketBaseRatePpm() const
++{
++	return m_iMarketBaseRatePpm;
++}
++
++int CvGame::getMarketCapital() const
++{
++	return m_iMarketCapital;
++}
++
++bool CvGame::isDebtEnabled() const
++{
++	return debtDefine("DEBT_ENABLE") > 0;
++}
++
++// Total turns of this game speed, percent of a Normal game (Normal 700 turns, Marathon 1470: 210).
++// Game speed does not change during a game, so the value is cached until the next reset.
++int CvGame::getDebtLengthPercent() const
++{
++	if (m_iDebtLengthPercent > 0)
++	{
++		return m_iDebtLengthPercent;
++	}
++	int iTurns = 0;
++	if (getGameSpeedType() != NO_GAMESPEED)
++	{
++		const CvGameSpeedInfo& kSpeed = GC.getGameSpeedInfo(getGameSpeedType());
++		for (int i = 0; i < kSpeed.getNumTurnIncrements(); ++i)
++		{
++			iTurns += kSpeed.getGameTurnInfo(i).iNumGameTurnsPerIncrement;
++		}
++	}
++	int iNormalTurns = 0;
++	const int eNormal = GC.getInfoTypeForString("GAMESPEED_NORMAL");
++	if (eNormal >= 0)
++	{
++		const CvGameSpeedInfo& kNormal = GC.getGameSpeedInfo((GameSpeedTypes)eNormal);
++		for (int i = 0; i < kNormal.getNumTurnIncrements(); ++i)
++		{
++			iNormalTurns += kNormal.getGameTurnInfo(i).iNumGameTurnsPerIncrement;
++		}
++	}
++	m_iDebtLengthPercent = (iTurns > 0 && iNormalTurns > 0) ? std::max(1, (iTurns * 100 + iNormalTurns / 2) / iNormalTurns) : 100;
++	return m_iDebtLengthPercent;
++}
++
++// A rate stated in basis points per Normal turn, as parts per million per turn of this speed.
++int CvGame::getDebtRateForSpeed(int iNormalBp) const
++{
++	return AIDebtPolicy::rateForSpeed(iNormalBp * 100, getDebtLengthPercent());
++}
++
++int CvGame::getDebtTermTurns(int iTermIndex) const
++{
++	static const char* aszTerms[NUM_DEBT_TERMS] = { "DEBT_TERM_0", "DEBT_TERM_1", "DEBT_TERM_2", "DEBT_TERM_3" };
++	const int iIndex = AIDebtPolicy::clampRange(iTermIndex, 0, NUM_DEBT_TERMS - 1);
++	return AIDebtPolicy::scaleTurns(std::max(1, debtDefine(aszTerms[iIndex])), getDebtLengthPercent());
++}
++
++int CvGame::getDebtScaledTurns(const char* szDefine) const
++{
++	return AIDebtPolicy::scaleTurns(std::max(0, debtDefine(szDefine)), getDebtLengthPercent());
++}
++
++// ---------------------------------------------------------------------------------------------
++// Pricing
++
++// The rate a borrower pays, per turn in ppm: the market base rate, the borrower's credit spread,
++// a premium per term step, and the conditions. Between civilizations the same rate is the
++// reference price; the market's capital and exclusion do not apply there.
++int CvGame::getDebtRateFor(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions) const
++{
++	int iRate = getMarketBaseRatePpm();
++	iRate += AIDebtPolicy::creditSpread(GET_PLAYER(eBorrower).getCreditScore(), getDebtRateForSpeed(debtDefine("DEBT_MAX_SPREAD_BP")));
++	iRate += getDebtRateForSpeed(debtDefine("DEBT_TERM_PREMIUM_BP")) * AIDebtPolicy::clampRange(iTermIndex, 0, NUM_DEBT_TERMS - 1);
++	if (iConditions & DEBT_CONDITION_WAR_BOND)
++	{
++		iRate += getDebtRateForSpeed(debtDefine("DEBT_WAR_BOND_PREMIUM_BP"));
++	}
++	if (iConditions & DEBT_CONDITION_DEVELOPMENT)
++	{
++		iRate -= std::min(getDebtRateForSpeed(debtDefine("DEBT_DEVELOPMENT_DISCOUNT_BP")), getMarketBaseRatePpm() / 2);
++	}
++	return std::max(1, iRate);
++}
++
++// Why the market would refuse a borrower these conditions; NULL when it would not.
++const char* CvGame::getMarketRefusal(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions) const
++{
++	if (!isDebtEnabled())
++	{
++		return "TXT_KEY_DEBT_REFUSE_DISABLED";
++	}
++	if (!isLivingCiv(eBorrower) || GET_PLAYER(eBorrower).getNumCities() == 0)
++	{
++		return "TXT_KEY_DEBT_REFUSE_NO_CITIES";
++	}
++	if (eKind != DEBT_LOAN && eKind != DEBT_BOND)
++	{
++		return "TXT_KEY_DEBT_REFUSE_TERMS";
++	}
++	if (iTermIndex < 0 || iTermIndex >= NUM_DEBT_TERMS)
++	{
++		return "TXT_KEY_DEBT_REFUSE_TERMS";
++	}
++	if (GET_PLAYER(eBorrower).getDebtDefaultTurns() > 0)
++	{
++		return "TXT_KEY_DEBT_REFUSE_DEFAULTED";
++	}
++	if ((iConditions & DEBT_CONDITION_WAR_BOND) && GET_TEAM(GET_PLAYER(eBorrower).getTeam()).getAtWarCount(true) == 0)
++	{
++		return "TXT_KEY_DEBT_REFUSE_NOT_AT_WAR";
++	}
++	if (iConditions & DEBT_CONDITION_DEVELOPMENT)
++	{
++		int iTotal = 0;
++		int iCount = 0;
++		for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++		{
++			if (isLivingCiv(iPlayer))
++			{
++				iTotal += getPlayerScore((PlayerTypes)iPlayer);
++				++iCount;
++			}
++		}
++		if (iCount > 0 && getPlayerScore(eBorrower) * iCount >= iTotal)
++		{
++			return "TXT_KEY_DEBT_REFUSE_NOT_BEHIND";
++		}
++	}
++	return NULL;
++}
++
++int CvGame::getMarketQuote(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions) const
++{
++	if (getMarketRefusal(eBorrower, eKind, iTermIndex, iConditions) != NULL)
++	{
++		return -1;
++	}
++	return getDebtRateFor(eBorrower, eKind, iTermIndex, iConditions);
++}
++
++// The largest principal the market lends this borrower on these terms: total payments within
++// DEBT_MAX_SERVICE_PERCENT of gross commerce (DEBT_WAR_BOND_SERVICE_PERCENT for war bonds), at
++// most DEBT_PRINCIPAL_CAP_TURNS turns of gross commerce, and no more than the market holds.
++int CvGame::getMarketLimit(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions) const
++{
++	const int iRate = getMarketQuote(eBorrower, eKind, iTermIndex, iConditions);
++	if (iRate < 0)
++	{
++		return 0;
++	}
++	return getDebtCapacity(eBorrower, eKind, iTermIndex, iConditions, iRate, std::max(0, getMarketCapital()));
++}
++
++int CvGame::getDebtCapacity(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions, int iRatePpm, int iCap) const
++{
++	const CvPlayer& kBorrower = GET_PLAYER(eBorrower);
++	const int iGross = kBorrower.getDebtGrossCommerce();
++	const int iServicePercent = debtDefine((iConditions & DEBT_CONDITION_WAR_BOND) ? "DEBT_WAR_BOND_SERVICE_PERCENT" : "DEBT_MAX_SERVICE_PERCENT");
++	const int iPrincipalCap = (int)std::min((long long)iCap, (long long)iGross * std::max(1, getDebtScaledTurns("DEBT_PRINCIPAL_CAP_TURNS")));
++	return AIDebtPolicy::borrowingLimit(iGross, iServicePercent, kBorrower.getDebtDuePerTurn(), iRatePpm,
++		getDebtTermTurns(iTermIndex), eKind == DEBT_BOND, iPrincipalCap);
++}
++
++// The rate the market pays on the bonds it issues: a share of the base rate plus the term premium.
++int CvGame::getMarketDepositRate(int iTermIndex) const
++{
++	const int iRate = (getMarketBaseRatePpm() * std::max(0, debtDefine("DEBT_DEPOSIT_PERCENT"))) / 100;
++	return std::max(1, iRate + getDebtRateForSpeed(debtDefine("DEBT_TERM_PREMIUM_BP")) * AIDebtPolicy::clampRange(iTermIndex, 0, NUM_DEBT_TERMS - 1));
++}
++
++// What the market pays for a claim held by a civilization: the present value of the payments
++// left, at the borrower's market rate (the base rate for the market's own bonds). -1 if the
++// market would not buy it.
++int CvGame::getDebtSalePrice(int iID) const
++{
++	const CvDebtContract* pDebt = NULL;
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		if (m_aDebts[i].iID == iID)
++		{
++			pDebt = &m_aDebts[i];
++		}
++	}
++	if (pDebt == NULL || !isCivPlayer(pDebt->eLender) || isDebtFrozen(*pDebt) || pDebt->iArrears > 0)
++	{
++		return -1;
++	}
++	const int iTurnsLeft = std::max(0, pDebt->iMaturityTurn - GC.getGameINLINE().getGameTurn());
++	int iDiscount = getMarketBaseRatePpm();
++	if (isCivPlayer(pDebt->eBorrower))
++	{
++		iDiscount = getDebtRateFor((PlayerTypes)pDebt->eBorrower, pDebt->eKind, NUM_DEBT_TERMS - 1, DEBT_CONDITION_NONE);
++	}
++	int iPrice;
++	if (pDebt->eKind == DEBT_BOND)
++	{
++		iPrice = AIDebtPolicy::presentValue(pDebt->iPayment, iTurnsLeft, pDebt->iOutstanding, iDiscount);
++	}
++	else
++	{
++		const int iTurns = std::max(1, iTurnsLeft);
++		const int iPayment = AIDebtPolicy::annuityPayment(pDebt->iOutstanding, pDebt->iRatePpm, iTurns);
++		iPrice = AIDebtPolicy::presentValue(iPayment, iTurns, 0, iDiscount);
++	}
++	iPrice = std::min(iPrice, pDebt->iOutstanding + pDebt->iOutstanding / 2);
++	return (iPrice > 0 && iPrice <= getMarketCapital()) ? iPrice : -1;
++}
++
++// ---------------------------------------------------------------------------------------------
++// Payment rules
++
++bool CvGame::isDebtFrozen(const CvDebtContract& kDebt) const
++{
++	return atWarBetween(kDebt.eBorrower, kDebt.eLender);
++}
++
++// What the borrower owes this turn: the scheduled payment plus arrears, capped at what is owed;
++// at or after maturity, everything owed. Interest of the turn is included.
++int CvGame::getDebtDue(const CvDebtContract& kDebt) const
++{
++	if (!isCivPlayer(kDebt.eBorrower) || isDebtFrozen(kDebt))
++	{
++		return 0;
++	}
++	const int iOwed = kDebt.iOutstanding + AIDebtPolicy::interestFor(kDebt.iOutstanding, kDebt.iRatePpm);
++	if (GC.getGameINLINE().getGameTurn() >= kDebt.iMaturityTurn)
++	{
++		return iOwed;
++	}
++	return std::min(iOwed, kDebt.iPayment + kDebt.iArrears);
++}
++
++void CvGame::updateDebtCaches(PlayerTypes ePlayer)
++{
++	if (!isCivPlayer(ePlayer))
++	{
++		return;
++	}
++	int iDue = 0;
++	int iIncome = 0;
++	int iOutstanding = 0;
++	int iHeld = 0;
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		const CvDebtContract& kDebt = m_aDebts[i];
++		if (kDebt.eBorrower == ePlayer)
++		{
++			iDue += getDebtDue(kDebt);
++			iOutstanding += kDebt.iOutstanding;
++		}
++		if (kDebt.eLender == ePlayer)
++		{
++			iHeld += kDebt.iOutstanding;
++			if (!isDebtFrozen(kDebt))
++			{
++				// The market pays its coupons and principal in doDebt; civilizations as they can.
++				iIncome += isCivPlayer(kDebt.eBorrower) ? getDebtDue(kDebt) :
++					((GC.getGameINLINE().getGameTurn() >= kDebt.iMaturityTurn) ? kDebt.iOutstanding + kDebt.iPayment : kDebt.iPayment);
++			}
++		}
++	}
++	GET_PLAYER(ePlayer).setDebtCaches(iDue, iIncome, iOutstanding, iHeld);
++}
++
++void CvGame::updateAllDebtCaches()
++{
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++	{
++		updateDebtCaches((PlayerTypes)iPlayer);
++	}
++}
++
++void CvGame::creditDebtLender(int eLender, int iAmount)
++{
++	if (iAmount <= 0)
++	{
++		return;
++	}
++	if (isCivPlayer(eLender))
++	{
++		GET_PLAYER((PlayerTypes)eLender).changeDebtReceivable(iAmount);
++	}
++	else
++	{
++		m_iMarketCapital += iAmount;
++	}
++}
++
++// Called by the borrower's doGold with what it actually paid this turn (its due less the part
++// it could not pay). The payment is spread over its contracts, oldest first; each contract's
++// unpaid part becomes arrears, with a penalty. Lenders receive what was paid, at their next doGold.
++void CvGame::recordDebtPayments(PlayerTypes eBorrower, int iPaid)
++{
++	int iLeft = std::max(0, iPaid);
++	bool abTouched[MAX_CIV_PLAYERS];
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++	{
++		abTouched[iPlayer] = false;
++	}
++	abTouched[eBorrower] = true;
++	const int iPenaltyPpm = getDebtRateForSpeed(debtDefine("DEBT_ARREARS_PENALTY_BP"));
++	bool bEnded = false;
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		CvDebtContract& kDebt = m_aDebts[i];
++		if (kDebt.eBorrower != eBorrower || isDebtFrozen(kDebt))
++		{
++			continue;
++		}
++		const int iDue = getDebtDue(kDebt);
++		const int iInterest = AIDebtPolicy::interestFor(kDebt.iOutstanding, kDebt.iRatePpm);
++		const int iPay = std::min(iLeft, iDue);
++		iLeft -= iPay;
++		kDebt.iOutstanding = std::max(0, kDebt.iOutstanding + iInterest - iPay);
++		const int iShort = iDue - iPay;
++		if (GC.getGameINLINE().getGameTurn() >= kDebt.iMaturityTurn)
++		{
++			kDebt.iArrears = kDebt.iOutstanding;
++		}
++		else
++		{
++			kDebt.iArrears = std::max(0, std::min(kDebt.iOutstanding, kDebt.iArrears + kDebt.iPayment - iPay));
++		}
++		if (iShort > 0)
++		{
++			kDebt.iOutstanding += AIDebtPolicy::interestFor(iShort, iPenaltyPpm);
++			++kDebt.iMissedTurns;
++		}
++		else
++		{
++			kDebt.iMissedTurns = 0;
++		}
++		creditDebtLender(kDebt.eLender, iPay);
++		if (isCivPlayer(kDebt.eLender))
++		{
++			abTouched[kDebt.eLender] = true;
++		}
++		if (kDebt.iOutstanding <= 0)
++		{
++			bEnded = true;
++		}
++	}
++	if (bEnded)
++	{
++		removeEndedDebts();
++	}
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++	{
++		if (abTouched[iPlayer])
++		{
++			updateDebtCaches((PlayerTypes)iPlayer);
++		}
++	}
++}
++
++void CvGame::removeEndedDebts()
++{
++	std::vector<CvDebtContract> aKept;
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		const CvDebtContract& kDebt = m_aDebts[i];
++		if (kDebt.iOutstanding > 0)
++		{
++			aKept.push_back(kDebt);
++		}
++		else
++		{
++			const CvWString szText = gDLL->getText("TXT_KEY_DEBT_REPAID", partyName(kDebt.eBorrower).GetCString(), partyName(kDebt.eLender).GetCString());
++			tellPlayer(kDebt.eBorrower, szText);
++			tellPlayer(kDebt.eLender, szText);
++		}
++	}
++	m_aDebts.swap(aKept);
++}
++
++// ---------------------------------------------------------------------------------------------
++// Signing and ending
++
++// A new contract; moves the principal from lender to borrower (from the market's capital when
++// the lender is the market, into it when the borrower is). Returns the id, or -1.
++int CvGame::signDebt(int eKind, int eBorrower, int eLender, int iAmount, int iTermIndex, int iRatePpm,
++	int iSpreadPpm, int eCollateral, int iCollateralData, int iConditions)
++{
++	if (iAmount <= 0 || (eBorrower == eLender) || (!isCivPlayer(eBorrower) && !isCivPlayer(eLender)))
++	{
++		return -1;
++	}
++	if (isCivPlayer(eLender))
++	{
++		if (GET_PLAYER((PlayerTypes)eLender).getGold() < iAmount)
++		{
++			return -1;
++		}
++	}
++	else if (getMarketCapital() < iAmount)
++	{
++		return -1;
++	}
++
++	CvDebtContract kDebt;
++	kDebt.iID = m_iNextDebtID++;
++	kDebt.eKind = eKind;
++	kDebt.eBorrower = eBorrower;
++	kDebt.eLender = eLender;
++	kDebt.iPrincipal = iAmount;
++	kDebt.iOutstanding = iAmount;
++	kDebt.iRatePpm = std::max(1, iRatePpm);
++	kDebt.iSpreadPpm = iSpreadPpm;
++	const int iTurns = getDebtTermTurns(iTermIndex);
++	kDebt.iPayment = (eKind == DEBT_BOND) ? AIDebtPolicy::couponPayment(iAmount, kDebt.iRatePpm) :
++		AIDebtPolicy::annuityPayment(iAmount, kDebt.iRatePpm, iTurns);
++	kDebt.iSignTurn = GC.getGameINLINE().getGameTurn();
++	kDebt.iMaturityTurn = GC.getGameINLINE().getGameTurn() + iTurns;
++	kDebt.eCollateral = eCollateral;
++	kDebt.iCollateralData = iCollateralData;
++	kDebt.iConditions = iConditions;
++
++	if (isCivPlayer(eLender))
++	{
++		GET_PLAYER((PlayerTypes)eLender).changeGold(-iAmount);
++	}
++	else
++	{
++		m_iMarketCapital -= iAmount;
++	}
++	if (isCivPlayer(eBorrower))
++	{
++		GET_PLAYER((PlayerTypes)eBorrower).changeGold(iAmount);
++	}
++	else
++	{
++		m_iMarketCapital += iAmount;
++	}
++	m_aDebts.push_back(kDebt);
++	updateDebtCaches((PlayerTypes)eBorrower);
++	updateDebtCaches((PlayerTypes)eLender);
++
++	if (isCivPlayer(eBorrower))
++	{
++		tellPlayer(eBorrower, gDLL->getText("TXT_KEY_DEBT_SIGNED_BORROW", iAmount, partyName(eLender).GetCString(),
++			rateString(kDebt.iRatePpm).GetCString(), iTurns));
++	}
++	if (isCivPlayer(eLender))
++	{
++		tellPlayer(eLender, gDLL->getText("TXT_KEY_DEBT_SIGNED_LEND", iAmount, partyName(eBorrower).GetCString(),
++			rateString(kDebt.iRatePpm).GetCString(), iTurns));
++	}
++	return kDebt.iID;
++}
++
++bool CvGame::borrowFromMarket(PlayerTypes eBorrower, int eKind, int iAmount, int iTermIndex, int iConditions)
++{
++	iConditions &= (DEBT_CONDITION_WAR_BOND | DEBT_CONDITION_DEVELOPMENT | DEBT_CONDITION_FLOATING);
++	const int iRate = getMarketQuote(eBorrower, eKind, iTermIndex, iConditions);
++	if (iRate < 0 || iAmount < std::max(1, debtDefine("DEBT_MIN_AMOUNT")) ||
++		iAmount > getMarketLimit(eBorrower, eKind, iTermIndex, iConditions))
++	{
++		tellPlayer(eBorrower, gDLL->getText("TXT_KEY_DEBT_REFUSED"));
++		return false;
++	}
++	return signDebt(eKind, eBorrower, NO_PLAYER, iAmount, iTermIndex, iRate, iRate - getMarketBaseRatePpm(),
++		DEBT_COLLATERAL_NONE, -1, iConditions) >= 0;
++}
++
++// A civilization buys a bond of the market: it lends to the market at the market's deposit rate.
++bool CvGame::lendToMarket(PlayerTypes eLender, int iAmount, int iTermIndex)
++{
++	if (!isDebtEnabled() || !isLivingCiv(eLender) || iTermIndex < 0 || iTermIndex >= NUM_DEBT_TERMS ||
++		iAmount < std::max(1, debtDefine("DEBT_MIN_AMOUNT")) || GET_PLAYER(eLender).getGold() < iAmount)
++	{
++		tellPlayer(eLender, gDLL->getText("TXT_KEY_DEBT_REFUSED"));
++		return false;
++	}
++	return signDebt(DEBT_BOND, NO_PLAYER, eLender, iAmount, iTermIndex, getMarketDepositRate(iTermIndex), 0,
++		DEBT_COLLATERAL_NONE, -1, DEBT_CONDITION_NONE) >= 0;
++}
++
++// The borrower repays everything owed, plus DEBT_EARLY_REPAY_TURNS turns of interest before maturity.
++bool CvGame::repayDebt(PlayerTypes eBorrower, int iID)
++{
++	CvDebtContract* pDebt = getDebt(iID);
++	if (pDebt == NULL || pDebt->eBorrower != eBorrower)
++	{
++		return false;
++	}
++	int iCost = pDebt->iOutstanding;
++	if (GC.getGameINLINE().getGameTurn() < pDebt->iMaturityTurn)
++	{
++		iCost += AIDebtPolicy::interestFor(pDebt->iOutstanding, pDebt->iRatePpm) * std::max(0, debtDefine("DEBT_EARLY_REPAY_TURNS"));
++	}
++	if (GET_PLAYER(eBorrower).getGold() < iCost)
++	{
++		tellPlayer(eBorrower, gDLL->getText("TXT_KEY_DEBT_REFUSED"));
++		return false;
++	}
++	GET_PLAYER(eBorrower).changeGold(-iCost);
++	const int eLender = pDebt->eLender;
++	creditDebtLender(eLender, iCost);
++	pDebt->iOutstanding = 0;
++	removeEndedDebts();
++	updateDebtCaches(eBorrower);
++	updateDebtCaches((PlayerTypes)eLender);
++	return true;
++}
++
++// The holder sells its claim to the market for getDebtSalePrice. A bond of the market itself is
++// redeemed and ends; any other claim passes to the market, which the borrower then pays.
++bool CvGame::sellDebt(PlayerTypes eLender, int iID)
++{
++	CvDebtContract* pDebt = getDebt(iID);
++	if (pDebt == NULL || pDebt->eLender != eLender)
++	{
++		return false;
++	}
++	const int iPrice = getDebtSalePrice(iID);
++	if (iPrice < 0)
++	{
++		tellPlayer(eLender, gDLL->getText("TXT_KEY_DEBT_REFUSED"));
++		return false;
++	}
++	m_iMarketCapital -= iPrice;
++	GET_PLAYER(eLender).changeGold(iPrice);
++	const int eBorrower = pDebt->eBorrower;
++	if (isCivPlayer(eBorrower))
++	{
++		pDebt->eLender = NO_PLAYER;
++	}
++	else
++	{
++		pDebt->iOutstanding = 0;
++		removeEndedDebts();
++	}
++	tellPlayer(eLender, gDLL->getText("TXT_KEY_DEBT_SOLD", iPrice));
++	updateDebtCaches(eLender);
++	updateDebtCaches((PlayerTypes)eBorrower);
++	return true;
++}
++
++// Default: the collateral goes to the lender, the borrower is shut out of the market for
++// DEBT_DEFAULT_EXCLUSION_TURNS, a civilization lender remembers it, and the claim is written off.
++void CvGame::defaultDebt(int iID)
++{
++	CvDebtContract* pDebt = getDebt(iID);
++	if (pDebt == NULL)
++	{
++		return;
++	}
++	const CvDebtContract kDebt = *pDebt;
++	pDebt->iOutstanding = 0;
++
++	if (isLivingCiv(kDebt.eBorrower))
++	{
++		CvPlayerAI& kBorrower = GET_PLAYER((PlayerTypes)kDebt.eBorrower);
++		kBorrower.setDebtDefaultTurns(getDebtScaledTurns("DEBT_DEFAULT_EXCLUSION_TURNS"));
++		if (isLivingCiv(kDebt.eLender))
++		{
++			CvPlayerAI& kLender = GET_PLAYER((PlayerTypes)kDebt.eLender);
++			kLender.AI_changeDebtDefaultMemory((PlayerTypes)kDebt.eBorrower, getDebtScaledTurns("DEBT_DEFAULT_MEMORY_TURNS"));
++			if (kDebt.eCollateral == DEBT_COLLATERAL_RESOURCE && kDebt.iCollateralData >= 0 &&
++				kDebt.iCollateralData < GC.getNumBonusInfos() &&
++				kBorrower.getNumTradeableBonuses((BonusTypes)kDebt.iCollateralData) > 0 &&
++				!atWarBetween(kDebt.eBorrower, kDebt.eLender))
++			{
++				CLinkList<TradeData> ourList;
++				CLinkList<TradeData> theirList;
++				TradeData item;
++				setTradeItem(&item, TRADE_RESOURCES, kDebt.iCollateralData);
++				ourList.insertAtEnd(item);
++				implementDeal((PlayerTypes)kDebt.eBorrower, (PlayerTypes)kDebt.eLender, &ourList, &theirList, true);
++			}
++			else if (kDebt.eCollateral == DEBT_COLLATERAL_CITY)
++			{
++				CvCity* pCity = kBorrower.getCity(kDebt.iCollateralData);
++				if (pCity != NULL && !pCity->isCapital() && kBorrower.getNumCities() > 1)
++				{
++					kLender.acquireCity(pCity, false, true, true);
++				}
++			}
++		}
++	}
++
++	const CvWString szText = gDLL->getText("TXT_KEY_DEBT_DEFAULT", partyName(kDebt.eBorrower).GetCString(),
++		kDebt.iOutstanding, partyName(kDebt.eLender).GetCString());
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++	{
++		if (iPlayer == kDebt.eBorrower || iPlayer == kDebt.eLender ||
++			(isLivingCiv(iPlayer) && isCivPlayer(kDebt.eBorrower) &&
++			 GET_TEAM(GET_PLAYER((PlayerTypes)iPlayer).getTeam()).isHasMet(GET_PLAYER((PlayerTypes)kDebt.eBorrower).getTeam())))
++		{
++			tellPlayer(iPlayer, szText);
++		}
++	}
++
++	// removeEndedDebts would report a repayment; drop the contract silently instead.
++	std::vector<CvDebtContract> aKept;
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		if (m_aDebts[i].iID != iID)
++		{
++			aKept.push_back(m_aDebts[i]);
++		}
++	}
++	m_aDebts.swap(aKept);
++	updateDebtCaches((PlayerTypes)kDebt.eBorrower);
++	updateDebtCaches((PlayerTypes)kDebt.eLender);
++}
++
++// From CvTeam::declareWar: every contract a member of the declaring team owes to a member of
++// the target team is in default. Contracts the other way are frozen while the war lasts.
++void CvGame::onDebtWarDeclared(TeamTypes eDeclarer, TeamTypes eTarget)
++{
++	std::vector<int> aiDefaults;
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		const CvDebtContract& kDebt = m_aDebts[i];
++		if (isCivPlayer(kDebt.eBorrower) && isCivPlayer(kDebt.eLender) &&
++			GET_PLAYER((PlayerTypes)kDebt.eBorrower).getTeam() == eDeclarer &&
++			GET_PLAYER((PlayerTypes)kDebt.eLender).getTeam() == eTarget)
++		{
++			aiDefaults.push_back(kDebt.iID);
++		}
++	}
++	for (uint i = 0; i < aiDefaults.size(); ++i)
++	{
++		defaultDebt(aiDefaults[i]);
++	}
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++	{
++		const TeamTypes eTeam = GET_PLAYER((PlayerTypes)iPlayer).getTeam();
++		if (eTeam == eDeclarer || eTeam == eTarget)
++		{
++			updateDebtCaches((PlayerTypes)iPlayer);
++		}
++	}
++}
++
++// ---------------------------------------------------------------------------------------------
++// Offers between civilizations
++
++// Why an offer between two civilizations cannot be made or accepted now; NULL when it can.
++const char* CvGame::getDebtOfferRefusal(const CvDebtOffer& kOffer) const
++{
++	if (!isDebtEnabled())
++	{
++		return "TXT_KEY_DEBT_REFUSE_DISABLED";
++	}
++	if (!isLivingCiv(kOffer.eFrom) || !isLivingCiv(kOffer.eTo) || kOffer.eFrom == kOffer.eTo)
++	{
++		return "TXT_KEY_DEBT_REFUSE_TERMS";
++	}
++	const CvPlayer& kFrom = GET_PLAYER((PlayerTypes)kOffer.eFrom);
++	const CvPlayer& kTo = GET_PLAYER((PlayerTypes)kOffer.eTo);
++	if (kFrom.getTeam() == kTo.getTeam() || !GET_TEAM(kFrom.getTeam()).isHasMet(kTo.getTeam()) ||
++		GET_TEAM(kFrom.getTeam()).isAtWar(kTo.getTeam()))
++	{
++		return "TXT_KEY_DEBT_REFUSE_RELATIONS";
++	}
++	if ((kOffer.eKind != DEBT_LOAN && kOffer.eKind != DEBT_BOND) || kOffer.iTermIndex < 0 || kOffer.iTermIndex >= NUM_DEBT_TERMS ||
++		kOffer.iAmount < std::max(1, debtDefine("DEBT_MIN_AMOUNT")))
++	{
++		return "TXT_KEY_DEBT_REFUSE_TERMS";
++	}
++	const CvPlayer& kLender = kOffer.bFromLends ? kFrom : kTo;
++	const CvPlayer& kBorrower = kOffer.bFromLends ? kTo : kFrom;
++	if (kLender.getGold() < kOffer.iAmount)
++	{
++		return "TXT_KEY_DEBT_REFUSE_GOLD";
++	}
++	if (kBorrower.getNumCities() == 0)
++	{
++		return "TXT_KEY_DEBT_REFUSE_NO_CITIES";
++	}
++	if (kOffer.eCollateral == DEBT_COLLATERAL_RESOURCE)
++	{
++		if (kOffer.iCollateralData < 0 || kOffer.iCollateralData >= GC.getNumBonusInfos() ||
++			kBorrower.getNumTradeableBonuses((BonusTypes)kOffer.iCollateralData) <= 0)
++		{
++			return "TXT_KEY_DEBT_REFUSE_COLLATERAL";
++		}
++	}
++	else if (kOffer.eCollateral == DEBT_COLLATERAL_CITY)
++	{
++		const CvCity* pCity = kBorrower.getCity(kOffer.iCollateralData);
++		if (pCity == NULL || pCity->isCapital())
++		{
++			return "TXT_KEY_DEBT_REFUSE_COLLATERAL";
++		}
++	}
++	else if (kOffer.eCollateral != DEBT_COLLATERAL_NONE)
++	{
++		return "TXT_KEY_DEBT_REFUSE_COLLATERAL";
++	}
++	return NULL;
++}
++
++// A proposal between civilizations. An AI answers at once (on every machine, from synced
++// state); a human answers through the Debt screen before the offer expires. Returns the
++// offer id, or -1 when it was refused or answered at once.
++int CvGame::makeDebtOffer(PlayerTypes eFrom, PlayerTypes eTo, bool bFromLends, int eKind, int iAmount,
++	int iTermIndex, int eCollateral, int iCollateralData, int iConditions)
++{
++	CvDebtOffer kOffer;
++	kOffer.iID = m_iNextDebtID++;
++	kOffer.eFrom = eFrom;
++	kOffer.eTo = eTo;
++	kOffer.bFromLends = bFromLends;
++	kOffer.eKind = eKind;
++	kOffer.iAmount = iAmount;
++	kOffer.iTermIndex = iTermIndex;
++	kOffer.eCollateral = eCollateral;
++	kOffer.iCollateralData = iCollateralData;
++	kOffer.iConditions = (iConditions & DEBT_CONDITION_NO_WAR);
++	kOffer.iExpireTurn = GC.getGameINLINE().getGameTurn() + getDebtScaledTurns("DEBT_OFFER_TURNS");
++	const char* szRefusal = getDebtOfferRefusal(kOffer);
++	if (szRefusal != NULL)
++	{
++		tellPlayer(eFrom, gDLL->getText(szRefusal));
++		return -1;
++	}
++	const PlayerTypes eBorrower = bFromLends ? eTo : eFrom;
++	kOffer.iRatePpm = getDebtRateFor(eBorrower, eKind, iTermIndex, DEBT_CONDITION_NONE);
++	// Collateral lowers the price: the lender's loss on default is smaller.
++	if (eCollateral != DEBT_COLLATERAL_NONE)
++	{
++		kOffer.iRatePpm = std::max(getMarketBaseRatePpm(), kOffer.iRatePpm - (kOffer.iRatePpm - getMarketBaseRatePpm()) / 2);
++	}
++
++	if (!GET_PLAYER(eTo).isHuman())
++	{
++		const bool bAccept = GET_PLAYER(eTo).AI_considerLoan(eFrom, !bFromLends, eKind, iAmount, iTermIndex,
++			kOffer.iRatePpm, eCollateral, iCollateralData);
++		if (bAccept)
++		{
++			signDebtOffer(kOffer);
++		}
++		else
++		{
++			tellPlayer(eFrom, gDLL->getText("TXT_KEY_DEBT_OFFER_REFUSED", partyName(eTo).GetCString()));
++		}
++		return -1;
++	}
++
++	// One pending offer per pair and direction: a new one replaces the old.
++	std::vector<CvDebtOffer> aKept;
++	for (uint i = 0; i < m_aDebtOffers.size(); ++i)
++	{
++		if (!(m_aDebtOffers[i].eFrom == eFrom && m_aDebtOffers[i].eTo == eTo))
++		{
++			aKept.push_back(m_aDebtOffers[i]);
++		}
++	}
++	m_aDebtOffers.swap(aKept);
++	m_aDebtOffers.push_back(kOffer);
++	tellPlayer(eTo, gDLL->getText(bFromLends ? "TXT_KEY_DEBT_OFFER_RECEIVED_LEND" : "TXT_KEY_DEBT_OFFER_RECEIVED_BORROW",
++		partyName(eFrom).GetCString(), iAmount, rateString(kOffer.iRatePpm).GetCString(), getDebtTermTurns(iTermIndex)));
++	return kOffer.iID;
++}
++
++void CvGame::signDebtOffer(const CvDebtOffer& kOffer)
++{
++	const int eLender = kOffer.bFromLends ? kOffer.eFrom : kOffer.eTo;
++	const int eBorrower = kOffer.bFromLends ? kOffer.eTo : kOffer.eFrom;
++	signDebt(kOffer.eKind, eBorrower, eLender, kOffer.iAmount, kOffer.iTermIndex, kOffer.iRatePpm, 0,
++		kOffer.eCollateral, kOffer.iCollateralData, kOffer.iConditions | DEBT_CONDITION_NO_WAR);
++}
++
++bool CvGame::acceptDebtOffer(PlayerTypes eBy, int iOfferID)
++{
++	for (uint i = 0; i < m_aDebtOffers.size(); ++i)
++	{
++		if (m_aDebtOffers[i].iID == iOfferID && m_aDebtOffers[i].eTo == eBy)
++		{
++			const CvDebtOffer kOffer = m_aDebtOffers[i];
++			m_aDebtOffers.erase(m_aDebtOffers.begin() + i);
++			const char* szRefusal = getDebtOfferRefusal(kOffer);
++			if (szRefusal != NULL)
++			{
++				tellPlayer(eBy, gDLL->getText(szRefusal));
++				return false;
++			}
++			signDebtOffer(kOffer);
++			return true;
++		}
++	}
++	return false;
++}
++
++void CvGame::refuseDebtOffer(PlayerTypes eBy, int iOfferID)
++{
++	for (uint i = 0; i < m_aDebtOffers.size(); ++i)
++	{
++		if (m_aDebtOffers[i].iID == iOfferID && (m_aDebtOffers[i].eTo == eBy || m_aDebtOffers[i].eFrom == eBy))
++		{
++			const CvDebtOffer kOffer = m_aDebtOffers[i];
++			m_aDebtOffers.erase(m_aDebtOffers.begin() + i);
++			if (kOffer.eTo == eBy)
++			{
++				tellPlayer(kOffer.eFrom, gDLL->getText("TXT_KEY_DEBT_OFFER_REFUSED", partyName(eBy).GetCString()));
++			}
++			return;
++		}
++	}
++}
++
++// ---------------------------------------------------------------------------------------------
++// Network messages (CvNetModNetMessage::Execute). Every machine runs the same code on the same
++// synced state, so no screen ever changes the game itself.
++
++bool CvGame::handleDebtMessage(int iData1, int iData2, int iData3, int iData4, int iData5)
++{
++	if (iData1 < DEBT_MESSAGE_FIRST || iData1 > DEBT_MESSAGE_LAST)
++	{
++		return false;
++	}
++	const int ePlayer = iData2 & 0xFF;
++	if (!isLivingCiv(ePlayer))
++	{
++		return true;
++	}
++	const PlayerTypes eActor = (PlayerTypes)ePlayer;
++	switch (iData1)
++	{
++	case DEBT_MESSAGE_BORROW:
++		borrowFromMarket(eActor, (iData2 >> 8) & 0xF, iData3, iData4, (iData2 >> 12) & DEBT_CONDITION_ALL);
++		break;
++	case DEBT_MESSAGE_LEND_MARKET:
++		lendToMarket(eActor, iData3, iData4);
++		break;
++	case DEBT_MESSAGE_REPAY:
++		repayDebt(eActor, iData3);
++		break;
++	case DEBT_MESSAGE_SELL:
++		sellDebt(eActor, iData3);
++		break;
++	case DEBT_MESSAGE_OFFER:
++		{
++			const int eOther = (iData2 >> 8) & 0xFF;
++			if (isLivingCiv(eOther))
++			{
++				makeDebtOffer(eActor, (PlayerTypes)eOther, ((iData2 >> 16) & 1) != 0, (iData2 >> 17) & 3, iData3, iData4,
++					(iData2 >> 19) & 7, iData5, ((iData2 >> 22) & 1) ? DEBT_CONDITION_NO_WAR : DEBT_CONDITION_NONE);
++			}
++		}
++		break;
++	case DEBT_MESSAGE_ACCEPT:
++		acceptDebtOffer(eActor, iData3);
++		break;
++	case DEBT_MESSAGE_REFUSE:
++		refuseDebtOffer(eActor, iData3);
++		break;
++	}
++	return true;
++}
++
++// ---------------------------------------------------------------------------------------------
++// Once per game turn, after doDeals.
++
++void CvGame::doDebt()
++{
++	if (!isDebtEnabled())
++	{
++		return;
++	}
++	PROFILE_FUNC();
++
++	int iWorldGold = 0;
++	int iAlive = 0;
++	int iInflation100 = 0;
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++	{
++		if (isLivingCiv(iPlayer))
++		{
++			const CvPlayer& kPlayer = GET_PLAYER((PlayerTypes)iPlayer);
++			iWorldGold += std::max(0, kPlayer.getCommerceRate(COMMERCE_GOLD));
++			iInflation100 += kPlayer.calculateInflationRate() * 100;
++			++iAlive;
++		}
++	}
++	iInflation100 = (iAlive > 0) ? iInflation100 / iAlive : 0;
++
++	// The market: its capital starts with DEBT_MARKET_START_CAPITAL per civilization and
++	// grows by DEBT_MARKET_INFLOW_PERCENT of the world's gold commerce each turn.
++	if (!m_bMarketInitialized)
++	{
++		m_iMarketCapital = std::max(0, debtDefine("DEBT_MARKET_START_CAPITAL")) * std::max(1, iAlive);
++		m_iMarketLastInflation100 = iInflation100;
++		m_iMarketBaseRatePpm = getDebtRateForSpeed(debtDefine("DEBT_REAL_RATE_BP"));
++		m_bMarketInitialized = true;
++	}
++	const int iInflow = (iWorldGold * std::max(0, debtDefine("DEBT_MARKET_INFLOW_PERCENT"))) / 100;
++	m_iMarketCapital += iInflow;
++
++	// The base rate moves an eighth of the way to its target each turn: a real rate, plus the
++	// rise of the average price level (inflation) over the last turn, dearer when capital is
++	// scarce and cheaper when it is plentiful.
++	{
++		int iReal = getDebtRateForSpeed(debtDefine("DEBT_REAL_RATE_BP"));
++		const long long iTarget = (long long)std::max(1, iInflow) * std::max(1, getDebtScaledTurns("DEBT_MARKET_TARGET_TURNS"));
++		if ((long long)m_iMarketCapital * 4 < iTarget)
++		{
++			iReal = (iReal * 3) / 2;
++		}
++		else if ((long long)m_iMarketCapital > iTarget * 2)
++		{
++			iReal = (iReal * 3) / 4;
++		}
++		const int iInflationPpm = std::max(0, (int)(((long long)(iInflation100 - m_iMarketLastInflation100) * 1000000) / (10000 + std::max(0, m_iMarketLastInflation100))));
++		m_iMarketLastInflation100 = iInflation100;
++		const int iTargetRate = std::max(1, iReal + std::min(iInflationPpm, 100000));
++		int iStep = (iTargetRate - m_iMarketBaseRatePpm) / 8;
++		if (iStep == 0 && iTargetRate != m_iMarketBaseRatePpm)
++		{
++			iStep = (iTargetRate > m_iMarketBaseRatePpm) ? 1 : -1;
++		}
++		m_iMarketBaseRatePpm = std::max(1, m_iMarketBaseRatePpm + iStep);
++	}
++
++	std::vector<int> aiDefaults;
++	const int iGrace = std::max(1, getDebtScaledTurns("DEBT_GRACE_TURNS"));
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		CvDebtContract& kDebt = m_aDebts[i];
++
++		// A dead party ends the contract: a dead borrower's debts are written off, a dead
++		// lender's claims lapse.
++		if ((isCivPlayer(kDebt.eBorrower) && !GET_PLAYER((PlayerTypes)kDebt.eBorrower).isAlive()) ||
++			(isCivPlayer(kDebt.eLender) && !GET_PLAYER((PlayerTypes)kDebt.eLender).isAlive()))
++		{
++			kDebt.iOutstanding = 0;
++			continue;
++		}
++
++		// War between the parties freezes the contract and moves its maturity on.
++		if (isDebtFrozen(kDebt))
++		{
++			++kDebt.iMaturityTurn;
++			continue;
++		}
++
++		// A floating rate follows the base rate; a loan's payment is set again over the turns left.
++		if ((kDebt.iConditions & DEBT_CONDITION_FLOATING) && !isCivPlayer(kDebt.eLender))
++		{
++			kDebt.iRatePpm = std::max(1, m_iMarketBaseRatePpm + kDebt.iSpreadPpm);
++			if (kDebt.eKind == DEBT_BOND)
++			{
++				kDebt.iPayment = AIDebtPolicy::couponPayment(kDebt.iPrincipal, kDebt.iRatePpm);
++			}
++			else if (GC.getGameINLINE().getGameTurn() < kDebt.iMaturityTurn)
++			{
++				kDebt.iPayment = AIDebtPolicy::annuityPayment(kDebt.iOutstanding, kDebt.iRatePpm, kDebt.iMaturityTurn - GC.getGameINLINE().getGameTurn());
++			}
++		}
++
++		// The market's own bonds: it pays the coupon each turn and the principal at maturity.
++		if (!isCivPlayer(kDebt.eBorrower))
++		{
++			int iPay = kDebt.iPayment;
++			if (GC.getGameINLINE().getGameTurn() >= kDebt.iMaturityTurn)
++			{
++				iPay += kDebt.iOutstanding;
++				kDebt.iOutstanding = 0;
++			}
++			m_iMarketCapital -= iPay;
++			creditDebtLender(kDebt.eLender, iPay);
++			continue;
++		}
++
++		if (kDebt.iMissedTurns >= iGrace)
++		{
++			aiDefaults.push_back(kDebt.iID);
++		}
++	}
++	for (uint i = 0; i < aiDefaults.size(); ++i)
++	{
++		defaultDebt(aiDefaults[i]);
++	}
++	{
++		// Contracts ended by death or maturity of the market's bonds.
++		std::vector<CvDebtContract> aKept;
++		for (uint i = 0; i < m_aDebts.size(); ++i)
++		{
++			if (m_aDebts[i].iOutstanding > 0)
++			{
++				aKept.push_back(m_aDebts[i]);
++			}
++		}
++		m_aDebts.swap(aKept);
++	}
++
++	// Offers expire.
++	{
++		std::vector<CvDebtOffer> aKept;
++		for (uint i = 0; i < m_aDebtOffers.size(); ++i)
++		{
++			if (m_aDebtOffers[i].iExpireTurn > GC.getGameINLINE().getGameTurn() && isLivingCiv(m_aDebtOffers[i].eFrom) && isLivingCiv(m_aDebtOffers[i].eTo))
++			{
++				aKept.push_back(m_aDebtOffers[i]);
++			}
++		}
++		m_aDebtOffers.swap(aKept);
++	}
++
++	for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++	{
++		CvPlayer& kPlayer = GET_PLAYER((PlayerTypes)iPlayer);
++		if (kPlayer.getDebtDefaultTurns() > 0)
++		{
++			kPlayer.setDebtDefaultTurns(kPlayer.getDebtDefaultTurns() - 1);
++		}
++	}
++	updateAllDebtCaches();
++}
++
++void CvGame::resetDebt()
++{
++	m_aDebts.clear();
++	m_aDebtOffers.clear();
++	m_iNextDebtID = 0;
++	m_iMarketBaseRatePpm = 0;
++	m_iMarketCapital = 0;
++	m_iMarketLastInflation100 = 0;
++	m_bMarketInitialized = false;
++	m_iDebtLengthPercent = -1;
++}
++
++void CvGame::readDebt(FDataStreamBase* pStream)
++{
++	uint uiFlag = 0;
++	pStream->Read(&uiFlag);
++	pStream->Read(&m_iNextDebtID);
++	pStream->Read(&m_iMarketBaseRatePpm);
++	pStream->Read(&m_iMarketCapital);
++	pStream->Read(&m_iMarketLastInflation100);
++	pStream->Read(&m_bMarketInitialized);
++	uint iSize = 0;
++	pStream->Read(&iSize);
++	m_aDebts.clear();
++	for (uint i = 0; i < iSize; ++i)
++	{
++		CvDebtContract kDebt;
++		kDebt.read(pStream);
++		m_aDebts.push_back(kDebt);
++	}
++	pStream->Read(&iSize);
++	m_aDebtOffers.clear();
++	for (uint i = 0; i < iSize; ++i)
++	{
++		CvDebtOffer kOffer;
++		kOffer.read(pStream);
++		m_aDebtOffers.push_back(kOffer);
++	}
++}
++
++void CvGame::writeDebt(FDataStreamBase* pStream)
++{
++	uint uiFlag = 0;
++	pStream->Write(uiFlag);
++	pStream->Write(m_iNextDebtID);
++	pStream->Write(m_iMarketBaseRatePpm);
++	pStream->Write(m_iMarketCapital);
++	pStream->Write(m_iMarketLastInflation100);
++	pStream->Write(m_bMarketInitialized);
++	pStream->Write((uint)m_aDebts.size());
++	for (uint i = 0; i < m_aDebts.size(); ++i)
++	{
++		m_aDebts[i].write(pStream);
++	}
++	pStream->Write((uint)m_aDebtOffers.size());
++	for (uint i = 0; i < m_aDebtOffers.size(); ++i)
++	{
++		m_aDebtOffers[i].write(pStream);
++	}
++}
++
++// ---------------------------------------------------------------------------------------------
++// The AI (called from CvPlayerAI::AI_doTurnPost after AI_doDiplo)
++
++int CvPlayerAI::AI_getDebtDefaultMemory(PlayerTypes eIndex) const
++{
++	return (eIndex >= 0 && eIndex < MAX_PLAYERS) ? m_aiDebtDefaultMemory[eIndex] : 0;
++}
++
++void CvPlayerAI::AI_changeDebtDefaultMemory(PlayerTypes eIndex, int iChange)
++{
++	if (eIndex >= 0 && eIndex < MAX_PLAYERS)
++	{
++		m_aiDebtDefaultMemory[eIndex] = std::max(0, m_aiDebtDefaultMemory[eIndex] + iChange);
++		AI_invalidateAttitudeCache(eIndex);
++	}
++}
++
++// A default against us costs attitude while it is remembered: DEBT_ATTITUDE_DEFAULT at first,
++// fading with the memory. A loan being repaid to us is worth one point, like trade.
++int CvPlayerAI::AI_getDebtAttitude(PlayerTypes ePlayer) const
++{
++	if (ePlayer < 0 || ePlayer >= MAX_CIV_PLAYERS || !GC.getGameINLINE().isDebtEnabled())
++	{
++		return 0;
++	}
++	int iAttitude = 0;
++	const int iMemory = AI_getDebtDefaultMemory(ePlayer);
++	if (iMemory > 0)
++	{
++		const int iFull = std::max(1, GC.getGameINLINE().getDebtScaledTurns("DEBT_DEFAULT_MEMORY_TURNS"));
++		const int iMax = std::max(0, GC.getDefineINT("DEBT_ATTITUDE_DEFAULT"));
++		iAttitude -= std::max(1, (iMax * std::min(iMemory, iFull) + iFull - 1) / iFull);
++	}
++	const CvGame& kGame = GC.getGameINLINE();
++	for (int i = 0; i < kGame.getNumDebts(); ++i)
++	{
++		const CvDebtContract* pDebt = kGame.getDebtByIndex(i);
++		if (pDebt->eLender == getID() && pDebt->eBorrower == ePlayer && pDebt->iArrears == 0 && !kGame.isDebtFrozen(*pDebt))
++		{
++			iAttitude += 1;
++			break;
++		}
++	}
++	return iAttitude;
++}
++
++// Would this AI agree to a loan with eOther? bWeLend: this AI lends iAmount to eOther; otherwise
++// eOther lends it to this AI. The rate and terms are those of the offer.
++bool CvPlayerAI::AI_considerLoan(PlayerTypes eOther, bool bWeLend, int eKind, int iAmount, int iTermIndex,
++	int iRatePpm, int eCollateral, int iCollateralData) const
++{
++	const CvGame& kGame = GC.getGameINLINE();
++	if (!kGame.isDebtEnabled() || isHuman() || eOther == getID() || iAmount <= 0)
++	{
++		return false;
++	}
++	const TeamTypes eOtherTeam = GET_PLAYER(eOther).getTeam();
++	const bool bWarPlan = GET_TEAM(getTeam()).AI_getWarPlan(eOtherTeam) != NO_WARPLAN;
++	const int iTurns = kGame.getDebtTermTurns(iTermIndex);
++	const int iPayment = (eKind == DEBT_BOND) ? AIDebtPolicy::couponPayment(iAmount, iRatePpm) :
++		AIDebtPolicy::annuityPayment(iAmount, iRatePpm, iTurns);
++
++	if (bWeLend)
++	{
++		// Never lend to a team we plan war on (it would strengthen a future enemy, and the
++		// war would freeze the payments), nor to one that defaulted on us, nor beyond spare gold.
++		if (bWarPlan || AI_getDebtDefaultMemory(eOther) > 0 || AI_getAttitude(eOther) <= ATTITUDE_ANNOYED)
++		{
++			return false;
++		}
++		if (iAmount > getGold() - AI_goldTarget())
++		{
++			return false;
++		}
++		// The chance that payments continue: high with friends and good credit, lower otherwise.
++		int iContinue = 70;
++		switch (AI_getAttitude(eOther))
++		{
++		case ATTITUDE_FRIENDLY: iContinue = 95; break;
++		case ATTITUDE_PLEASED: iContinue = 90; break;
++		case ATTITUDE_CAUTIOUS: iContinue = 80; break;
++		default: break;
++		}
++		iContinue -= (100 - GET_PLAYER(eOther).getCreditScore()) / 3;
++		if (eCollateral != DEBT_COLLATERAL_NONE)
++		{
++			iContinue += 10;
++		}
++		if (GET_TEAM(eOtherTeam).getAtWarCount(true) > 0)
++		{
++			iContinue -= 5;
++		}
++		iContinue = AIDebtPolicy::clampRange(iContinue, 0, 98);
++		const int iHurdle = kGame.getMarketBaseRatePpm() + kGame.getDebtRateForSpeed(GC.getDefineINT("DEBT_AI_HURDLE_BP"));
++		const int iLump = (eKind == DEBT_BOND) ? iAmount : 0;
++		return AIDebtPolicy::loanValueToLender(iAmount, iPayment, iTurns, iLump, iHurdle, iContinue) > 0;
++	}
++
++	// We borrow. Not from a team we plan war on: declaring that war would be default.
++	if (bWarPlan || getDebtDefaultTurns() > 0)
++	{
++		return false;
++	}
++	// No city as collateral unless the treasury is in trouble.
++	if (eCollateral == DEBT_COLLATERAL_CITY && !AI_isFinancialTrouble())
++	{
++		return false;
++	}
++	// The payments must fit: within the service limit, and the payer's cost of the payment
++	// (AI_goldPerTurnCostVal, up to twice its trade value when uncovered) below what the gold
++	// is worth to us now.
++	if (iAmount > kGame.getDebtCapacity(getID(), eKind, iTermIndex, DEBT_CONDITION_NONE, iRatePpm, iAmount))
++	{
++		return false;
++	}
++	const bool bNeed = AI_isFinancialTrouble() || getGold() < AI_goldTarget() ||
++		GET_TEAM(getTeam()).getAnyWarPlanCount(true) > 0;
++	if (!bNeed)
++	{
++		return false;
++	}
++	// Cheaper than or equal to what the market would charge us, or the market would refuse us.
++	const int iMarketRate = kGame.getMarketQuote(getID(), eKind, iTermIndex, DEBT_CONDITION_NONE);
++	return iMarketRate < 0 || iRatePpm <= iMarketRate;
++}
++
++void CvPlayerAI::AI_doDebt()
++{
++	CvGame& kGame = GC.getGameINLINE();
++	for (int iPlayer = 0; iPlayer < MAX_PLAYERS; ++iPlayer)
++	{
++		if (m_aiDebtDefaultMemory[iPlayer] > 0)
++		{
++			--m_aiDebtDefaultMemory[iPlayer];
++			if (m_aiDebtDefaultMemory[iPlayer] == 0)
++			{
++				AI_invalidateAttitudeCache((PlayerTypes)iPlayer);
++			}
++		}
++	}
++	if (!kGame.isDebtEnabled() || isHuman() || isBarbarian() || isMinorCiv() || getNumCities() == 0)
++	{
++		return;
++	}
++	kGame.updateDebtCaches(getID());
++	const int iMinAmount = std::max(1, GC.getDefineINT("DEBT_MIN_AMOUNT"));
++	bool bInArrears = false;
++	for (int i = 0; i < kGame.getNumDebts(); ++i)
++	{
++		const CvDebtContract* pDebt = kGame.getDebtByIndex(i);
++		if (pDebt->eBorrower == getID() && pDebt->iArrears > 0)
++		{
++			bInArrears = true;
++		}
++	}
++
++	// 1. Avoid a strike: borrow from the market the gold that next turn's deficit would take,
++	//    for the shortest term's worth of turns, as far as the market lends.
++	const int iNextGold = getGold() + calculateGoldRate();
++	if (iNextGold < 0 && !bInArrears)
++	{
++		const int iNeed = std::max(iMinAmount, -iNextGold * kGame.getDebtTermTurns(0) / 2);
++		const int iLimit = kGame.getMarketLimit(getID(), DEBT_LOAN, 0, DEBT_CONDITION_NONE);
++		const int iAmount = std::min(iNeed, iLimit);
++		if (iAmount >= std::max(iMinAmount, -iNextGold))
++		{
++			kGame.borrowFromMarket(getID(), DEBT_LOAN, iAmount, 0, DEBT_CONDITION_NONE);
++			return;
++		}
++	}
++
++	// 2. A war chest: at war or preparing one, with a sound treasury below its target and good
++	//    credit, borrow up to the target (a war bond at war, a loan before).
++	const bool bAtWar = GET_TEAM(getTeam()).getAtWarCount(true) > 0;
++	if ((bAtWar || GET_TEAM(getTeam()).getAnyWarPlanCount(true) > 0) && !bInArrears && !AI_isFinancialTrouble() &&
++		getGold() < AI_goldTarget() && getCreditScore() >= 50 && getDebtDuePerTurn() == 0)
++	{
++		const int iConditions = bAtWar ? DEBT_CONDITION_WAR_BOND : DEBT_CONDITION_NONE;
++		const int iKind = bAtWar ? DEBT_BOND : DEBT_LOAN;
++		const int iAmount = std::min(AI_goldTarget() - getGold(), kGame.getMarketLimit(getID(), iKind, 1, iConditions));
++		if (iAmount >= iMinAmount * 2)
++		{
++			kGame.borrowFromMarket(getID(), iKind, iAmount, 1, iConditions);
++			return;
++		}
++	}
++
++	// 3. Repay early the dearest debt when gold is well above the target.
++	if (getDebtOutstanding() > 0 && !AI_isFinancialTrouble())
++	{
++		int iBestID = -1;
++		int iBestRate = 0;
++		int iBestCost = 0;
++		for (int i = 0; i < kGame.getNumDebts(); ++i)
++		{
++			const CvDebtContract* pDebt = kGame.getDebtByIndex(i);
++			if (pDebt->eBorrower == getID() && pDebt->iRatePpm > iBestRate && !kGame.isDebtFrozen(*pDebt))
++			{
++				iBestID = pDebt->iID;
++				iBestRate = pDebt->iRatePpm;
++				iBestCost = pDebt->iOutstanding + AIDebtPolicy::interestFor(pDebt->iOutstanding, pDebt->iRatePpm) *
++					std::max(0, GC.getDefineINT("DEBT_EARLY_REPAY_TURNS"));
++			}
++		}
++		if (iBestID >= 0 && getGold() - iBestCost > 2 * AI_goldTarget())
++		{
++			kGame.repayDebt(getID(), iBestID);
++			return;
++		}
++	}
++
++	// 4. Lend spare gold: gold beyond twice the target, with a sound treasury and no war planned.
++	const int iSpare = getGold() - 2 * AI_goldTarget();
++	if (iSpare < iMinAmount * 2 || AI_isFinancialTrouble() || GET_TEAM(getTeam()).getAnyWarPlanCount(true) > 0)
++	{
++		return;
++	}
++	// 4a. Every DEBT_AI_OFFER_INTERVAL turns, offer a loan to the civilization we like best that
++	//     is short of gold. An AI answers at once; a human sees the offer on its Debt screen.
++	const int iInterval = std::max(1, kGame.getDebtScaledTurns("DEBT_AI_OFFER_INTERVAL"));
++	if ((kGame.getGameTurn() + getID()) % iInterval == 0)
++	{
++		PlayerTypes eBest = NO_PLAYER;
++		int iBestAttitude = MIN_INT;
++		for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; ++iPlayer)
++		{
++			const CvPlayerAI& kOther = GET_PLAYER((PlayerTypes)iPlayer);
++			if (iPlayer == getID() || !kOther.isAlive() || kOther.isMinorCiv() || kOther.getTeam() == getTeam() ||
++				!GET_TEAM(getTeam()).isHasMet(kOther.getTeam()) || GET_TEAM(getTeam()).isAtWar(kOther.getTeam()) ||
++				kOther.getNumCities() == 0 || kOther.getDebtDefaultTurns() > 0 ||
++				!canContact((PlayerTypes)iPlayer) || AI_getAttitude((PlayerTypes)iPlayer) < ATTITUDE_PLEASED)
++			{
++				continue;
++			}
++			const bool bShort = kOther.AI_isFinancialTrouble() || kOther.getGold() + kOther.calculateGoldRate() < 0;
++			if (!bShort)
++			{
++				continue;
++			}
++			const int iValue = AI_getAttitudeVal((PlayerTypes)iPlayer);
++			if (iValue > iBestAttitude)
++			{
++				iBestAttitude = iValue;
++				eBest = (PlayerTypes)iPlayer;
++			}
++		}
++		if (eBest != NO_PLAYER)
++		{
++			const int iRate = kGame.getDebtRateFor(eBest, DEBT_LOAN, 1, DEBT_CONDITION_NONE);
++			const int iAmount = std::min(iSpare / 2, kGame.getDebtCapacity(eBest, DEBT_LOAN, 1, DEBT_CONDITION_NONE, iRate, iSpare / 2));
++			if (iAmount >= iMinAmount && AI_considerLoan(eBest, true, DEBT_LOAN, iAmount, 1, iRate, DEBT_COLLATERAL_NONE, -1))
++			{
++				kGame.makeDebtOffer(getID(), eBest, true, DEBT_LOAN, iAmount, 1, DEBT_COLLATERAL_NONE, -1, DEBT_CONDITION_NO_WAR);
++				return;
++			}
++		}
++	}
++	// 4b. Otherwise buy a bond of the market with half the spare gold, up to twice the gold target held.
++	if (getDebtHeld() < 2 * AI_goldTarget())
++	{
++		const int iAmount = std::min(iSpare / 2, 2 * AI_goldTarget() - getDebtHeld());
++		if (iAmount >= iMinAmount)
++		{
++			kGame.lendToMarket(getID(), iAmount, 1);
++		}
++	}
++}
+diff --git a/Assets/CvGameCoreDLL/CvDebt.h b/Assets/CvGameCoreDLL/CvDebt.h
+new file mode 100644
+index 0000000..9b58b07
+--- /dev/null
++++ b/Assets/CvGameCoreDLL/CvDebt.h
+@@ -0,0 +1,144 @@
++#pragma once
++
++// Debt contracts: loans and bonds between civilizations and with the open market.
++// Held by CvGame (CvGame::m_aDebts), saved with it from save flag 2. The rules are in CvDebt.cpp;
++// the arithmetic in AIDebtPolicy.h. Design: codemap/guides/loans-and-bonds.md (analysis repository).
++
++#ifndef CIV4_DEBT_H
++#define CIV4_DEBT_H
++
++class FDataStreamBase;
++
++// The kinds of contract. Not seen by the exe.
++enum DebtKinds
++{
++	NO_DEBT_KIND = -1,
++	DEBT_LOAN,		// equal payments each turn (annuity) until repaid
++	DEBT_BOND,		// a coupon each turn, the principal at maturity
++	NUM_DEBT_KINDS
++};
++
++// What a defaulting borrower forfeits. Only between civilizations: the market takes none.
++enum DebtCollateral
++{
++	DEBT_COLLATERAL_NONE = 0,
++	DEBT_COLLATERAL_RESOURCE,	// iCollateralData: BonusTypes; given to the lender as an annual deal
++	DEBT_COLLATERAL_CITY,		// iCollateralData: city id of the borrower; ceded to the lender
++	NUM_DEBT_COLLATERALS
++};
++
++// Conditions, as bit flags.
++enum DebtConditionFlags
++{
++	DEBT_CONDITION_NONE = 0,
++	DEBT_CONDITION_WAR_BOND = 1,		// market: only at war; higher limit, higher rate
++	DEBT_CONDITION_DEVELOPMENT = 2,		// market: only below the average score; lower rate
++	DEBT_CONDITION_FLOATING = 4,		// market: the rate follows the market base rate
++	DEBT_CONDITION_NO_WAR = 8,			// between civilizations: declaring war on the lender is default
++	DEBT_CONDITION_ALL = 15
++};
++
++// Network message ids handled in C++ (CvNetModNetMessage::Execute). The mod's Python uses
++// 100, 101, 410, 411, 500, 501, 5088 and 5656; this range is free.
++enum DebtMessages
++{
++	DEBT_MESSAGE_FIRST = 7000,
++	DEBT_MESSAGE_BORROW = 7000,			// iData2 player | kind<<8 | conditions<<12; iData3 amount; iData4 term index
++	DEBT_MESSAGE_LEND_MARKET = 7001,	// iData2 player | kind<<8; iData3 amount; iData4 term index
++	DEBT_MESSAGE_REPAY = 7002,			// iData2 player; iData3 contract id
++	DEBT_MESSAGE_SELL = 7003,			// iData2 player; iData3 contract id
++	DEBT_MESSAGE_OFFER = 7010,			// iData2 player | other<<8 | proposer lends<<16 | kind<<17 | collateral<<19 | no-war<<22;
++										// iData3 amount; iData4 term index; iData5 collateral data
++	DEBT_MESSAGE_ACCEPT = 7011,			// iData2 player; iData3 offer id
++	DEBT_MESSAGE_REFUSE = 7012,			// iData2 player; iData3 offer id
++	DEBT_MESSAGE_LAST = 7099
++};
++
++// Fields of a contract as Python reads them (CyGame::getDebtField).
++enum DebtFields
++{
++	DEBT_FIELD_ID = 0,
++	DEBT_FIELD_KIND,
++	DEBT_FIELD_BORROWER,
++	DEBT_FIELD_LENDER,
++	DEBT_FIELD_PRINCIPAL,
++	DEBT_FIELD_OUTSTANDING,
++	DEBT_FIELD_RATE_PPM,
++	DEBT_FIELD_PAYMENT,
++	DEBT_FIELD_SIGN_TURN,
++	DEBT_FIELD_MATURITY_TURN,
++	DEBT_FIELD_ARREARS,
++	DEBT_FIELD_MISSED_TURNS,
++	DEBT_FIELD_COLLATERAL,
++	DEBT_FIELD_COLLATERAL_DATA,
++	DEBT_FIELD_CONDITIONS,
++	DEBT_FIELD_FROZEN,
++	DEBT_FIELD_DUE,
++	NUM_DEBT_FIELDS
++};
++
++// Fields of a pending offer between civilizations (CyGame::getDebtOfferField).
++enum DebtOfferFields
++{
++	DEBT_OFFER_FIELD_ID = 0,
++	DEBT_OFFER_FIELD_FROM,
++	DEBT_OFFER_FIELD_TO,
++	DEBT_OFFER_FIELD_FROM_LENDS,
++	DEBT_OFFER_FIELD_KIND,
++	DEBT_OFFER_FIELD_AMOUNT,
++	DEBT_OFFER_FIELD_TERM_INDEX,
++	DEBT_OFFER_FIELD_COLLATERAL,
++	DEBT_OFFER_FIELD_COLLATERAL_DATA,
++	DEBT_OFFER_FIELD_CONDITIONS,
++	DEBT_OFFER_FIELD_RATE_PPM,
++	DEBT_OFFER_FIELD_EXPIRE_TURN,
++	NUM_DEBT_OFFER_FIELDS
++};
++
++#define NUM_DEBT_TERMS 4
++
++struct CvDebtContract
++{
++	int iID;
++	int eKind;				// DebtKinds
++	int eBorrower;			// PlayerTypes; NO_PLAYER = the market
++	int eLender;			// PlayerTypes; NO_PLAYER = the market
++	int iPrincipal;			// gold at signing
++	int iOutstanding;		// owed now: principal not yet repaid plus unpaid interest
++	int iRatePpm;			// per turn, parts per million
++	int iSpreadPpm;			// above the market base rate, for a floating rate
++	int iPayment;			// scheduled per turn: annuity (loan) or coupon (bond)
++	int iSignTurn;
++	int iMaturityTurn;
++	int iArrears;			// scheduled payments not made, carried forward
++	int iMissedTurns;		// consecutive turns with arrears
++	int eCollateral;		// DebtCollateral
++	int iCollateralData;
++	int iConditions;		// DebtConditionFlags
++
++	CvDebtContract();
++	void read(FDataStreamBase* pStream);
++	void write(FDataStreamBase* pStream) const;
++};
++
++struct CvDebtOffer
++{
++	int iID;
++	int eFrom;				// the civilization that proposes
++	int eTo;
++	bool bFromLends;		// true: the proposer lends; false: the proposer borrows
++	int eKind;
++	int iAmount;
++	int iTermIndex;
++	int eCollateral;
++	int iCollateralData;
++	int iConditions;
++	int iRatePpm;			// fixed when the offer is made, from the market quote for the borrower
++	int iExpireTurn;
++
++	CvDebtOffer();
++	void read(FDataStreamBase* pStream);
++	void write(FDataStreamBase* pStream) const;
++};
++
++#endif
+diff --git a/Assets/CvGameCoreDLL/CvGame.cpp b/Assets/CvGameCoreDLL/CvGame.cpp
+index ba78de4..de03408 100644
+--- a/Assets/CvGameCoreDLL/CvGame.cpp
++++ b/Assets/CvGameCoreDLL/CvGame.cpp
+@@ -543,6 +543,7 @@ void CvGame::reset(HandicapTypes eHandicap, bool bConstructorCall)
+ 	m_iBulkRevealDepth = 0;
+ 	m_eBulkRevealTeam = NO_TEAM;
+ 	m_aiDeferredRevealPlots.clear();
++	resetDebt();
+ 	m_bPbemTurnSent = false;
+ 	m_bHotPbemBetweenTurns = false;
+ 	m_bPlayerOptionsSent = false;
+@@ -6823,6 +6824,7 @@ void CvGame::doTurn()
+ 	updateScore();
+ 
+ 	doDeals();
++	doDebt();
+ 
+ 	for (iI = 0; iI < MAX_TEAMS; iI++)
+ 	{
+@@ -9406,6 +9408,12 @@ void CvGame::read(FDataStreamBase* pStream)
+ 	pStream->Read(GC.getNumBuildingInfos(), m_aiShrineReligion);
+ 	pStream->Read(&m_iNumCultureVictoryCities);
+ 	pStream->Read(&m_eCultureVictoryCultureLevel);
++
++	// Flag 2: debt contracts, offers and the market (CvDebt.cpp). Older saves have none.
++	if (uiFlag >= 2)
++	{
++		readDebt(pStream);
++	}
+ }
+ 
+ 
+@@ -9413,7 +9421,7 @@ void CvGame::write(FDataStreamBase* pStream)
+ {
+ 	int iI;
+ 
+-	uint uiFlag=1;
++	uint uiFlag=2;	// 2: debt (CvDebt.cpp) at the end
+ 	pStream->Write(uiFlag);		// flag for expansion
+ 
+ 	pStream->Write(m_iElapsedGameTurns);
+@@ -9580,6 +9588,8 @@ void CvGame::write(FDataStreamBase* pStream)
+ 	pStream->Write(GC.getNumBuildingInfos(), m_aiShrineReligion);
+ 	pStream->Write(m_iNumCultureVictoryCities);
+ 	pStream->Write(m_eCultureVictoryCultureLevel);
++
++	writeDebt(pStream);
+ }
+ 
+ void CvGame::writeReplay(FDataStreamBase& stream, PlayerTypes ePlayer)
+diff --git a/Assets/CvGameCoreDLL/CvGame.h b/Assets/CvGameCoreDLL/CvGame.h
+index 31cd705..227dacc 100644
+--- a/Assets/CvGameCoreDLL/CvGame.h
++++ b/Assets/CvGameCoreDLL/CvGame.h
+@@ -8,6 +8,7 @@
+ //#include "CvStructs.h"
+ #include "CvDeal.h"
+ #include "CvRandom.h"
++#include "CvDebt.h"
+ 
+ class CvPlot;
+ class CvCity;
+@@ -524,6 +525,48 @@ public:
+ 	DllExport virtual void AI_updateAssignWork() = 0;
+ 	DllExport virtual int AI_combatValue(UnitTypes eUnit) = 0;
+ 
++
++	// Debt: loans and bonds between civilizations and with the open market (CvDebt.cpp).
++	bool isDebtEnabled() const;
++	int getNumDebts() const;
++	const CvDebtContract* getDebtByIndex(int iIndex) const;
++	CvDebtContract* getDebt(int iID);
++	int getDebtField(int iIndex, int eField) const;													// Exposed to Python
++	int getNumDebtOffers() const;																	// Exposed to Python
++	int getDebtOfferField(int iIndex, int eField) const;											// Exposed to Python
++	int getMarketBaseRatePpm() const;																// Exposed to Python
++	int getMarketCapital() const;																	// Exposed to Python
++	int getDebtLengthPercent() const;																// Exposed to Python
++	int getDebtRateForSpeed(int iNormalBp) const;
++	int getDebtTermTurns(int iTermIndex) const;														// Exposed to Python
++	int getDebtScaledTurns(const char* szDefine) const;
++	int getDebtRateFor(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions) const;	// Exposed to Python
++	const char* getMarketRefusal(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions) const;
++	int getMarketQuote(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions) const;	// Exposed to Python
++	int getMarketLimit(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions) const;	// Exposed to Python
++	int getDebtCapacity(PlayerTypes eBorrower, int eKind, int iTermIndex, int iConditions, int iRatePpm, int iCap) const;
++	int getMarketDepositRate(int iTermIndex) const;													// Exposed to Python
++	int getDebtSalePrice(int iID) const;															// Exposed to Python
++	bool isDebtFrozen(const CvDebtContract& kDebt) const;
++	int getDebtDue(const CvDebtContract& kDebt) const;
++	void updateDebtCaches(PlayerTypes ePlayer);
++	void updateAllDebtCaches();
++	void recordDebtPayments(PlayerTypes eBorrower, int iPaid);
++	int signDebt(int eKind, int eBorrower, int eLender, int iAmount, int iTermIndex, int iRatePpm,
++		int iSpreadPpm, int eCollateral, int iCollateralData, int iConditions);
++	bool borrowFromMarket(PlayerTypes eBorrower, int eKind, int iAmount, int iTermIndex, int iConditions);
++	bool lendToMarket(PlayerTypes eLender, int iAmount, int iTermIndex);
++	bool repayDebt(PlayerTypes eBorrower, int iID);
++	bool sellDebt(PlayerTypes eLender, int iID);
++	void defaultDebt(int iID);
++	void onDebtWarDeclared(TeamTypes eDeclarer, TeamTypes eTarget);
++	const char* getDebtOfferRefusal(const CvDebtOffer& kOffer) const;
++	int makeDebtOffer(PlayerTypes eFrom, PlayerTypes eTo, bool bFromLends, int eKind, int iAmount,
++		int iTermIndex, int eCollateral, int iCollateralData, int iConditions);
++	bool acceptDebtOffer(PlayerTypes eBy, int iOfferID);
++	void refuseDebtOffer(PlayerTypes eBy, int iOfferID);
++	bool handleDebtMessage(int iData1, int iData2, int iData3, int iData4, int iData5);
++
+ 	CvReplayInfo* getReplayInfo() const;
+ 	DllExport void setReplayInfo(CvReplayInfo* pReplay);
+ 	void saveReplay(PlayerTypes ePlayer);
+@@ -691,6 +734,15 @@ protected:
+ 	int m_iBulkRevealDepth;
+ 	TeamTypes m_eBulkRevealTeam;
+ 	std::vector<int> m_aiDeferredRevealPlots;
++	// Debt (CvDebt.cpp); saved from CvGame save flag 2.
++	std::vector<CvDebtContract> m_aDebts;
++	std::vector<CvDebtOffer> m_aDebtOffers;
++	int m_iNextDebtID;
++	int m_iMarketBaseRatePpm;
++	int m_iMarketCapital;
++	int m_iMarketLastInflation100;
++	bool m_bMarketInitialized;
++	mutable int m_iDebtLengthPercent;	// cache of the game speed's length, not saved
+ 	bool m_bPbemTurnSent;
+ 	bool m_bHotPbemBetweenTurns;
+ 	bool m_bPlayerOptionsSent;
+@@ -773,6 +825,13 @@ protected:
+ 
+ 	void doTurn();
+ 	void doDeals();
++	void doDebt();
++	void resetDebt();
++	void readDebt(FDataStreamBase* pStream);
++	void writeDebt(FDataStreamBase* pStream);
++	void creditDebtLender(int eLender, int iAmount);
++	void removeEndedDebts();
++	void signDebtOffer(const CvDebtOffer& kOffer);
+ 	void doGlobalWarming();
+ 	void doHolyCity();
+ 	void doHeadquarters();
+diff --git a/Assets/CvGameCoreDLL/CvMessageData.cpp b/Assets/CvGameCoreDLL/CvMessageData.cpp
+index db468ed..fc72acc 100644
+--- a/Assets/CvGameCoreDLL/CvMessageData.cpp
++++ b/Assets/CvGameCoreDLL/CvMessageData.cpp
+@@ -522,6 +522,11 @@ void CvNetModNetMessage::Debug(char* szAddendum)
+ 
+ void CvNetModNetMessage::Execute()
+ {
++	// Debt actions (ids 7000-7099, CvDebt.h) are rules of the DLL, run here on every machine.
++	if (GC.getGameINLINE().handleDebtMessage(m_iData1, m_iData2, m_iData3, m_iData4, m_iData5))
++	{
++		return;
++	}
+ 	CvEventReporter::getInstance().reportModNetMessage(m_iData1, m_iData2, m_iData3, m_iData4, m_iData5);
+ }
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.cpp b/Assets/CvGameCoreDLL/CvPlayer.cpp
+index 0e31b45..fa42f7a 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayer.cpp
+@@ -913,6 +913,12 @@ void CvPlayer::reset(PlayerTypes eID, bool bConstructorCall)
+ 	m_iCombatExperience = 0;
+ 	m_iPopRushHurryCount = 0;
+ 	m_iInflationModifier = 0;
++	m_iDebtDuePerTurn = 0;
++	m_iDebtIncomePerTurn = 0;
++	m_iDebtOutstanding = 0;
++	m_iDebtHeld = 0;
++	m_iDebtReceivable = 0;
++	m_iDebtDefaultTurns = 0;
+ 	m_uiStartTime = 0;
+ 
+ 	m_bAlive = false;
+@@ -8345,6 +8351,10 @@ int CvPlayer::calculateBaseNetGold() const
+ 	iNetGold = (getCommerceRate(COMMERCE_GOLD) + getGoldPerTurn());
+ 
+ 	iNetGold -= calculateInflatedCosts();
++
++	// Debt: what is owed this turn and what is expected from debtors, both nominal (not
++	// inflated). Cached members only: this path is called very often.
++	iNetGold += m_iDebtIncomePerTurn - m_iDebtDuePerTurn;
+ 	
+ 	return iNetGold;
+ }
+@@ -15309,12 +15319,34 @@ void CvPlayer::doGold()
+ /************************************************************************************************/
+ /* Afforess	                     END                                                            */
+ /************************************************************************************************/
++	// Debt: refresh this player's caches for this turn (a contract may have matured since the last
++	// update), so that the rate and the payments below use the same amounts.
++	GC.getGameINLINE().updateDebtCaches(getID());
++
+ 	iGoldChange = calculateGoldRate();
+ 
++	// Debt: the rate counts the income expected from debtors; what they actually paid last
++	// turn (credited by CvGame::recordDebtPayments) replaces it.
++	const int iDebtDue = m_iDebtDuePerTurn;
++	iGoldChange += m_iDebtReceivable - m_iDebtIncomePerTurn;
++	m_iDebtReceivable = 0;
++
+ 	FAssert(isHuman() || isBarbarian() || ((getGold() + iGoldChange) >= 0) || isAnarchy());
+ 
+ 	changeGold(iGoldChange);
+ 
++	// Debt: the rate also took this turn's payments. A borrower without the gold pays only what
++	// it has: the unpaid part is given back and becomes arrears. No gold is created for lenders.
++	if (iDebtDue > 0)
++	{
++		const int iUnpaid = (getGold() < 0) ? std::min(-getGold(), iDebtDue) : 0;
++		if (iUnpaid > 0)
++		{
++			changeGold(iUnpaid);
++		}
++		GC.getGameINLINE().recordDebtPayments(getID(), iDebtDue - iUnpaid);
++	}
++
+ 	bStrike = false;
+ 
+ 	if (getGold() < 0)
+@@ -18997,6 +19029,18 @@ void CvPlayer::read(FDataStreamBase* pStream)
+ 	pStream->Read(&m_iPopRushHurryCount);
+ 	pStream->Read(&m_iInflationModifier);
+ 
++	// Flag 2: debt caches (CvDebt.cpp). Saved rather than rebuilt, because the exe decides
++	// whether CvGame or the players are read first.
++	if (uiFlag >= 2)
++	{
++		pStream->Read(&m_iDebtDuePerTurn);
++		pStream->Read(&m_iDebtIncomePerTurn);
++		pStream->Read(&m_iDebtOutstanding);
++		pStream->Read(&m_iDebtHeld);
++		pStream->Read(&m_iDebtReceivable);
++		pStream->Read(&m_iDebtDefaultTurns);
++	}
++
+     // Repair the derived empire cache from authoritative city caches. No-espionage
+     // getters fold espionage into culture, so only repair unfolded channels there.
+     for (int iCommerce = 0; iCommerce < NUM_COMMERCE_TYPES; ++iCommerce)
+@@ -19019,7 +19063,7 @@ void CvPlayer::write(FDataStreamBase* pStream)
+ {
+ 	int iI;
+ 
+-	uint uiFlag = 1;
++	uint uiFlag = 2;	// 2: debt caches at the end
+ 	pStream->Write(uiFlag);		// flag for expansion
+ 
+ 	pStream->Write(m_iStartingX);
+@@ -19499,6 +19543,13 @@ void CvPlayer::write(FDataStreamBase* pStream)
+ 
+ 	pStream->Write(m_iPopRushHurryCount);
+ 	pStream->Write(m_iInflationModifier);
++
++	pStream->Write(m_iDebtDuePerTurn);
++	pStream->Write(m_iDebtIncomePerTurn);
++	pStream->Write(m_iDebtOutstanding);
++	pStream->Write(m_iDebtHeld);
++	pStream->Write(m_iDebtReceivable);
++	pStream->Write(m_iDebtDefaultTurns);
+ }
+ 
+ void CvPlayer::createGreatPeople(UnitTypes eGreatPersonUnit, bool bIncrementThreshold, bool bIncrementExperience, int iX, int iY)
+diff --git a/Assets/CvGameCoreDLL/CvPlayer.h b/Assets/CvGameCoreDLL/CvPlayer.h
+index 0ba642b..b2b1f7f 100644
+--- a/Assets/CvGameCoreDLL/CvPlayer.h
++++ b/Assets/CvGameCoreDLL/CvPlayer.h
+@@ -311,6 +311,19 @@ public:
+ /* REVOLUTION_MOD                          END                                                  */
+ /************************************************************************************************/
+ 
++	// Debt (CvDebt.cpp): per-player caches kept by CvGame; read on the gold hot path.
++	int getDebtDuePerTurn() const;																// Exposed to Python
++	int getDebtIncomePerTurn() const;															// Exposed to Python
++	int getDebtOutstanding() const;																// Exposed to Python
++	int getDebtHeld() const;																	// Exposed to Python
++	int getDebtReceivable() const;
++	void changeDebtReceivable(int iChange);
++	int getDebtDefaultTurns() const;															// Exposed to Python
++	void setDebtDefaultTurns(int iTurns);
++	void setDebtCaches(int iDue, int iIncome, int iOutstanding, int iHeld);
++	int getDebtGrossCommerce() const;
++	int getCreditScore() const;																	// Exposed to Python
++
+ 	int calculateBaseNetGold() const;
+ 	int calculateBaseNetResearch(TechTypes eTech = NO_TECH) const;   // Exposed to Python
+ 	int calculateResearchModifier(TechTypes eTech) const;   // Exposed to Python
+@@ -1348,6 +1361,13 @@ protected:
+ 	int m_iCombatExperience;
+ 	int m_iPopRushHurryCount;
+ 	int m_iInflationModifier;
++	// Debt (CvDebt.cpp), saved from CvPlayer save flag 2.
++	int m_iDebtDuePerTurn;
++	int m_iDebtIncomePerTurn;
++	int m_iDebtOutstanding;
++	int m_iDebtHeld;
++	int m_iDebtReceivable;
++	int m_iDebtDefaultTurns;
+ 
+ 	uint m_uiStartTime;  // XXX save these?
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.cpp b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+index 569c45d..fcfec41 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.cpp
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.cpp
+@@ -403,6 +403,7 @@ void CvPlayerAI::AI_reset(bool bConstructor)
+ /*                                                                                              */
+ /* Efficiency                                                                                   */
+ /************************************************************************************************/
++		m_aiDebtDefaultMemory[iI] = 0;
+ 		// From Sanguo Mod Performance, ie the CAR Mod
+ 		// Attitude cache
+ 		m_aiAttitudeCache[iI] = MAX_INT;
+@@ -559,6 +560,7 @@ void CvPlayerAI::AI_doTurnPost()
+ 	}
+ 
+ 	AI_doDiplo();
++	AI_doDebt();
+ /************************************************************************************************/
+ /* UNOFFICIAL_PATCH                       06/16/09                                jdog5000      */
+ /*                                                                                              */
+@@ -4135,6 +4137,9 @@ bool CvPlayerAI::AI_isFinancialTrouble() const
+ 		int iNetExpenses = calculateInflatedCosts() + std::min(0, getGoldPerTurn());
+ */
+ 		int iNetExpenses = calculateInflatedCosts() + std::max(0, -getGoldPerTurn());
++		// Debt: payments owed count as expenses, payments expected from debtors as income.
++		iNetCommerce += getDebtIncomePerTurn();
++		iNetExpenses += getDebtDuePerTurn();
+ /************************************************************************************************/
+ /* UNOFFICIAL_PATCH                        END                                                  */
+ /************************************************************************************************/		
+@@ -4290,7 +4295,8 @@ int CvPlayerAI::AI_goldTarget() const
+ 		}
+ 	}
+ 
+-	return iGold + AI_getExtraGoldTarget();
++	// Debt: keep three turns of payments in hand.
++	return iGold + AI_getExtraGoldTarget() + 3 * getDebtDuePerTurn();
+ }
+ 
+ void CvPlayerAI::AI_updateBadStart()
+@@ -7485,6 +7491,7 @@ int CvPlayerAI::AI_getAttitudeVal(PlayerTypes ePlayer, bool bForced) const
+ 
+ 	iAttitude += AI_getColonyAttitude(ePlayer);
+ 	iAttitude += AI_getAttitudeExtra(ePlayer);
++	iAttitude += AI_getDebtAttitude(ePlayer);
+ 
+ /************************************************************************************************/
+ /* REVOLUTION_MOD                         05/18/08                                jdog5000      */
+@@ -19549,6 +19556,12 @@ void CvPlayerAI::read(FDataStreamBase* pStream)
+ 		pStream->Read(NUM_AI_BUDGET_TYPES, m_aiAIAgendaBudget);
+ 	}
+ 
++	// Version 7: the memory of debt defaults (CvDebt.cpp).
++	if (uiFlag >= 7)
++	{
++		pStream->Read(MAX_PLAYERS, m_aiDebtDefaultMemory);
++	}
++
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                      09/03/09                       poyuzhe & jdog5000     */
+ /*                                                                                              */
+@@ -19581,7 +19594,7 @@ void CvPlayerAI::write(FDataStreamBase* pStream)
+ 	uint uiFlag=0;
+ */
+ 	// Flag for type of save
+-	uint uiFlag=6;
++	uint uiFlag=7;	// 7: debt default memory
+ /************************************************************************************************/
+ /* BETTER_BTS_AI_MOD                       END                                                  */
+ /************************************************************************************************/		
+@@ -19722,6 +19735,7 @@ void CvPlayerAI::write(FDataStreamBase* pStream)
+ 	pStream->Write(m_iAIWarPosture);
+ 	pStream->Write(m_iAIIntentAtWar);
+ 	pStream->Write(NUM_AI_BUDGET_TYPES, m_aiAIAgendaBudget);
++	pStream->Write(MAX_PLAYERS, m_aiDebtDefaultMemory);
+ 
+ }
+ 
+diff --git a/Assets/CvGameCoreDLL/CvPlayerAI.h b/Assets/CvGameCoreDLL/CvPlayerAI.h
+index 1c37870..ff82a95 100644
+--- a/Assets/CvGameCoreDLL/CvPlayerAI.h
++++ b/Assets/CvGameCoreDLL/CvPlayerAI.h
+@@ -442,6 +442,14 @@ public:
+ 	int AI_getGoldTradedTo(PlayerTypes eIndex) const;
+ 	void AI_changeGoldTradedTo(PlayerTypes eIndex, int iChange);
+ 
++	// Debt (CvDebt.cpp): borrowing, lending, and the memory of defaults.
++	void AI_doDebt();
++	bool AI_considerLoan(PlayerTypes eOther, bool bWeLend, int eKind, int iAmount, int iTermIndex,
++		int iRatePpm, int eCollateral, int iCollateralData) const;
++	int AI_getDebtDefaultMemory(PlayerTypes eIndex) const;
++	void AI_changeDebtDefaultMemory(PlayerTypes eIndex, int iChange);
++	int AI_getDebtAttitude(PlayerTypes ePlayer) const;
++
+ 	int AI_getAttitudeExtra(PlayerTypes eIndex) const;
+ 	void AI_setAttitudeExtra(PlayerTypes eIndex, int iNewValue);
+ 	void AI_changeAttitudeExtra(PlayerTypes eIndex, int iChange);
+@@ -681,6 +689,7 @@ protected:
+ 	int m_iAIAgendaScore;
+ 	int m_iAIAgendaUpdateTurn;
+ 	int m_aiAIAgendaBudget[NUM_AI_BUDGET_TYPES];
++	int m_aiDebtDefaultMemory[MAX_PLAYERS];	// turns left of the memory of a default against us; save flag 7
+ 	int m_iAINavalPriority;
+ 	int m_iAILogisticsPriority;
+ 	int m_iAIStrategicRiskTolerance;
+diff --git a/Assets/CvGameCoreDLL/CvTeam.cpp b/Assets/CvGameCoreDLL/CvTeam.cpp
+index 853a593..a271fa0 100644
+--- a/Assets/CvGameCoreDLL/CvTeam.cpp
++++ b/Assets/CvGameCoreDLL/CvTeam.cpp
+@@ -1423,6 +1423,9 @@ void CvTeam::declareWar(TeamTypes eTeam, bool bNewDiplo, WarPlanTypes eWarPlan,
+ 
+ 	if (!isAtWar(eTeam))
+ 	{
++		// Debt: a borrower that declares war on its lender defaults (CvDebt.cpp).
++		GC.getGameINLINE().onDebtWarDeclared(getID(), eTeam);
++
+ 		// War log: the plan passed in, else the plan this team holds toward eTeam as it declares (most
+ 		// callers pass NO_WARPLAN and leave the plan they prepared in place; it is set below).
+ 		warLogWar(getID(), eTeam, (eWarPlan != NO_WARPLAN) ? eWarPlan : AI_getWarPlan(eTeam), false);
+diff --git a/Assets/CvGameCoreDLL/CyGame.cpp b/Assets/CvGameCoreDLL/CyGame.cpp
+index 46f8bd6..a4d6746 100644
+--- a/Assets/CvGameCoreDLL/CyGame.cpp
++++ b/Assets/CvGameCoreDLL/CyGame.cpp
+@@ -173,6 +173,83 @@ int CyGame::countCivPlayersAlive()
+ 	return m_pGame ? m_pGame->countCivPlayersAlive() : -1;
+ }
+ 
++int CyGame::getDebtField(int iIndex, int eField)
++{
++	return m_pGame ? m_pGame->getDebtField(iIndex, eField) : -1;
++}
++
++int CyGame::getNumDebts()
++{
++	return m_pGame ? m_pGame->getNumDebts() : -1;
++}
++
++int CyGame::getNumDebtOffers()
++{
++	return m_pGame ? m_pGame->getNumDebtOffers() : -1;
++}
++
++int CyGame::getDebtOfferField(int iIndex, int eField)
++{
++	return m_pGame ? m_pGame->getDebtOfferField(iIndex, eField) : -1;
++}
++
++int CyGame::getMarketBaseRatePpm()
++{
++	return m_pGame ? m_pGame->getMarketBaseRatePpm() : -1;
++}
++
++int CyGame::getMarketCapital()
++{
++	return m_pGame ? m_pGame->getMarketCapital() : -1;
++}
++
++int CyGame::getDebtLengthPercent()
++{
++	return m_pGame ? m_pGame->getDebtLengthPercent() : -1;
++}
++
++int CyGame::getDebtTermTurns(int iTermIndex)
++{
++	return m_pGame ? m_pGame->getDebtTermTurns(iTermIndex) : -1;
++}
++
++int CyGame::getDebtRateFor(int ePlayer, int eKind, int iTermIndex, int iConditions)
++{
++	return m_pGame ? m_pGame->getDebtRateFor((PlayerTypes)ePlayer, eKind, iTermIndex, iConditions) : -1;
++}
++
++int CyGame::getMarketQuote(int ePlayer, int eKind, int iTermIndex, int iConditions)
++{
++	return m_pGame ? m_pGame->getMarketQuote((PlayerTypes)ePlayer, eKind, iTermIndex, iConditions) : -1;
++}
++
++int CyGame::getMarketLimit(int ePlayer, int eKind, int iTermIndex, int iConditions)
++{
++	return m_pGame ? m_pGame->getMarketLimit((PlayerTypes)ePlayer, eKind, iTermIndex, iConditions) : -1;
++}
++
++std::string CyGame::getMarketRefusalKey(int ePlayer, int eKind, int iTermIndex, int iConditions)
++{
++	if (m_pGame == NULL) return "";
++	const char* szKey = m_pGame->getMarketRefusal((PlayerTypes)ePlayer, eKind, iTermIndex, iConditions);
++	return szKey ? szKey : "";
++}
++
++int CyGame::getMarketDepositRate(int iTermIndex)
++{
++	return m_pGame ? m_pGame->getMarketDepositRate(iTermIndex) : -1;
++}
++
++int CyGame::getDebtSalePrice(int iID)
++{
++	return m_pGame ? m_pGame->getDebtSalePrice(iID) : -1;
++}
++
++bool CyGame::isDebtEnabled()
++{
++	return m_pGame ? m_pGame->isDebtEnabled() : false;
++}
++
+ int CyGame::countCivPlayersEverAlive()
+ {
+ 	return m_pGame ? m_pGame->countCivPlayersEverAlive() : -1;
+diff --git a/Assets/CvGameCoreDLL/CyGame.h b/Assets/CvGameCoreDLL/CyGame.h
+index 652fec3..8dc2b4b 100644
+--- a/Assets/CvGameCoreDLL/CyGame.h
++++ b/Assets/CvGameCoreDLL/CyGame.h
+@@ -62,6 +62,21 @@ public:
+ 	void setVoteSourceReligion(int /*VoteSourceTypes*/ eVoteSource, int /*ReligionTypes*/ eReligion, bool bAnnounce);
+ 
+ 	int countCivPlayersAlive();
++	int getDebtField(int iIndex, int eField);
++	int getNumDebts();
++	int getNumDebtOffers();
++	int getDebtOfferField(int iIndex, int eField);
++	int getMarketBaseRatePpm();
++	int getMarketCapital();
++	int getDebtLengthPercent();
++	int getDebtTermTurns(int iTermIndex);
++	int getDebtRateFor(int ePlayer, int eKind, int iTermIndex, int iConditions);
++	int getMarketQuote(int ePlayer, int eKind, int iTermIndex, int iConditions);
++	int getMarketLimit(int ePlayer, int eKind, int iTermIndex, int iConditions);
++	std::string getMarketRefusalKey(int ePlayer, int eKind, int iTermIndex, int iConditions);
++	int getMarketDepositRate(int iTermIndex);
++	int getDebtSalePrice(int iID);
++	bool isDebtEnabled();
+ 	int countCivPlayersEverAlive();
+ 	int countCivTeamsAlive();
+ 	int countCivTeamsEverAlive();
+diff --git a/Assets/CvGameCoreDLL/CyGameInterface.cpp b/Assets/CvGameCoreDLL/CyGameInterface.cpp
+index 5f3ee85..7997b24 100644
+--- a/Assets/CvGameCoreDLL/CyGameInterface.cpp
++++ b/Assets/CvGameCoreDLL/CyGameInterface.cpp
+@@ -53,6 +53,21 @@ void CyGamePythonInterface()
+ 		.def("setVoteSourceReligion", &CyGame::setVoteSourceReligion, "void (int /*VoteSourceTypes*/ eVoteSource, int /*ReligionTypes*/ eReligion, bool bAnnounce)")
+ 
+ 		.def("countCivPlayersAlive", &CyGame::countCivPlayersAlive, "int ()")
++		.def("getDebtField", &CyGame::getDebtField, "int (int iIndex, int eField) - a field of the contract at iIndex (DebtFields in CvDebt.h); -1 if none")
++		.def("getNumDebts", &CyGame::getNumDebts, "int () - debt contracts in force")
++		.def("getNumDebtOffers", &CyGame::getNumDebtOffers, "int () - pending loan offers between civilizations")
++		.def("getDebtOfferField", &CyGame::getDebtOfferField, "int (int iIndex, int eField) - a field of the offer at iIndex (DebtOfferFields in CvDebt.h)")
++		.def("getMarketBaseRatePpm", &CyGame::getMarketBaseRatePpm, "int () - the market base rate per turn, parts per million")
++		.def("getMarketCapital", &CyGame::getMarketCapital, "int () - gold the market can lend")
++		.def("getDebtLengthPercent", &CyGame::getDebtLengthPercent, "int () - turns of this game speed, percent of a Normal game")
++		.def("getDebtTermTurns", &CyGame::getDebtTermTurns, "int (int iTermIndex) - turns of a term (0-3) at this speed")
++		.def("getDebtRateFor", &CyGame::getDebtRateFor, "int (int ePlayer, int eKind, int iTermIndex, int iConditions) - the rate a borrower pays, ppm per turn")
++		.def("getMarketQuote", &CyGame::getMarketQuote, "int (int ePlayer, int eKind, int iTermIndex, int iConditions) - the market rate for a borrower, ppm per turn; -1 if refused")
++		.def("getMarketLimit", &CyGame::getMarketLimit, "int (int ePlayer, int eKind, int iTermIndex, int iConditions) - the most the market lends a borrower")
++		.def("getMarketRefusalKey", &CyGame::getMarketRefusalKey, "str (int ePlayer, int eKind, int iTermIndex, int iConditions) - text key of why the market refuses; empty if it would lend")
++		.def("getMarketDepositRate", &CyGame::getMarketDepositRate, "int (int iTermIndex) - the rate the market pays on its bonds, ppm per turn")
++		.def("getDebtSalePrice", &CyGame::getDebtSalePrice, "int (int iID) - what the market pays for a claim; -1 if it would not buy")
++		.def("isDebtEnabled", &CyGame::isDebtEnabled, "bool () - DEBT_ENABLE")
+ 		.def("countCivPlayersEverAlive", &CyGame::countCivPlayersEverAlive, "int ()")
+ 		.def("countCivTeamsAlive", &CyGame::countCivTeamsAlive, "int ()")
+ 		.def("countCivTeamsEverAlive", &CyGame::countCivTeamsEverAlive, "int ()")
+diff --git a/Assets/CvGameCoreDLL/CyPlayer.cpp b/Assets/CvGameCoreDLL/CyPlayer.cpp
+index 786721c..86ce0e7 100644
+--- a/Assets/CvGameCoreDLL/CyPlayer.cpp
++++ b/Assets/CvGameCoreDLL/CyPlayer.cpp
+@@ -675,6 +675,36 @@ int CyPlayer::calculateGoldRate()
+ 	return m_pPlayer ? m_pPlayer->calculateGoldRate() : -1;
+ }
+ 
++int CyPlayer::getDebtDuePerTurn()
++{
++	return m_pPlayer ? m_pPlayer->getDebtDuePerTurn() : 0;
++}
++
++int CyPlayer::getDebtIncomePerTurn()
++{
++	return m_pPlayer ? m_pPlayer->getDebtIncomePerTurn() : 0;
++}
++
++int CyPlayer::getDebtOutstanding()
++{
++	return m_pPlayer ? m_pPlayer->getDebtOutstanding() : 0;
++}
++
++int CyPlayer::getDebtHeld()
++{
++	return m_pPlayer ? m_pPlayer->getDebtHeld() : 0;
++}
++
++int CyPlayer::getDebtDefaultTurns()
++{
++	return m_pPlayer ? m_pPlayer->getDebtDefaultTurns() : 0;
++}
++
++int CyPlayer::getCreditScore()
++{
++	return m_pPlayer ? m_pPlayer->getCreditScore() : 0;
++}
++
+ int CyPlayer::calculateTotalCommerce()
+ {
+ 	return m_pPlayer ? m_pPlayer->calculateTotalCommerce() : -1;
+diff --git a/Assets/CvGameCoreDLL/CyPlayer.h b/Assets/CvGameCoreDLL/CyPlayer.h
+index 87c0a1d..2585238 100644
+--- a/Assets/CvGameCoreDLL/CyPlayer.h
++++ b/Assets/CvGameCoreDLL/CyPlayer.h
+@@ -209,6 +209,12 @@ public:
+ /* REVOLUTION_MOD                          END                                                  */
+ /************************************************************************************************/
+ 	int calculateGoldRate();
++	int getDebtDuePerTurn();
++	int getDebtIncomePerTurn();
++	int getDebtOutstanding();
++	int getDebtHeld();
++	int getDebtDefaultTurns();
++	int getCreditScore();
+ 	int calculateTotalCommerce();
+ 	int calculateResearchRate(int /*TechTypes*/ eTech);
+ 	int calculateResearchModifier(int /*TechTypes*/ eTech);
+diff --git a/Assets/CvGameCoreDLL/CyPlayerInterface2.cpp b/Assets/CvGameCoreDLL/CyPlayerInterface2.cpp
+index 215523d..b679fc3 100644
+--- a/Assets/CvGameCoreDLL/CyPlayerInterface2.cpp
++++ b/Assets/CvGameCoreDLL/CyPlayerInterface2.cpp
+@@ -23,6 +23,12 @@ void CyPlayerPythonInterface2(python::class_<CyPlayer>& x)
+ 		.def("AI_updateFoundValues", &CyPlayer::AI_updateFoundValues, "void (bool bStartingLoc)")
+ 		.def("AI_foundValue", &CyPlayer::AI_foundValue, "int (int, int, int, bool)")
+ 		.def("AI_isFinancialTrouble", &CyPlayer::AI_isFinancialTrouble, "bool ()")
++		.def("getDebtDuePerTurn", &CyPlayer::getDebtDuePerTurn, "int () - gold owed this turn on debts")
++		.def("getDebtIncomePerTurn", &CyPlayer::getDebtIncomePerTurn, "int () - gold expected this turn from debtors")
++		.def("getDebtOutstanding", &CyPlayer::getDebtOutstanding, "int () - gold owed on all debts")
++		.def("getDebtHeld", &CyPlayer::getDebtHeld, "int () - gold owed to this player on its claims")
++		.def("getDebtDefaultTurns", &CyPlayer::getDebtDefaultTurns, "int () - turns left of the market exclusion after a default")
++		.def("getCreditScore", &CyPlayer::getCreditScore, "int () - 0 (none) to 100 (best)")
+ 		.def("AI_demandRebukedWar", &CyPlayer::AI_demandRebukedWar, "bool (int /*PlayerTypes*/)")
+ 		.def("AI_getAttitude", &CyPlayer::AI_getAttitude, "AttitudeTypes (int /*PlayerTypes*/) - Gets the attitude of the player towards the player passed in")
+ 		.def("AI_unitValue", &CyPlayer::AI_unitValue, "int (int /*UnitTypes*/ eUnit, int /*UnitAITypes*/ eUnitAI, CyArea* pArea)")
+diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
+index b16e844..be15cc1 100644
+--- a/Assets/XML/GlobalDefinesAlt.xml
++++ b/Assets/XML/GlobalDefinesAlt.xml
+@@ -1037,4 +1037,137 @@
+ 		<DefineName>GRAPHICS_PAGING_LOG</DefineName>
+ 		<iDefineIntVal>0</iDefineIntVal>
+ 	</Define>
++	<!-- Debt: loans and bonds between civilizations and with the open market (CvDebt.cpp; codemap/guides/loans-and-bonds.md in the analysis repository). 1 on, 0 off: no contract can be made, and the market does not run. -->
++	<Define>
++		<DefineName>DEBT_ENABLE</DefineName>
++		<iDefineIntVal>1</iDefineIntVal>
++	</Define>
++	<!-- Rates are basis points (1/100 of a percent) per turn at Normal speed; at other speeds they are converted so that the same share of the game compounds alike. Turns are Normal-speed turns, scaled by the length of the game speed (Marathon 210 percent). -->
++	<!-- DEBT_REAL_RATE_BP: the market's real rate; the base rate adds inflation of the price level each turn -->
++	<Define>
++		<DefineName>DEBT_REAL_RATE_BP</DefineName>
++		<iDefineIntVal>40</iDefineIntVal>
++	</Define>
++	<!-- DEBT_MAX_SPREAD_BP: spread above the base rate at credit score 0 (none at 100, rising with the square of the shortfall) -->
++	<Define>
++		<DefineName>DEBT_MAX_SPREAD_BP</DefineName>
++		<iDefineIntVal>120</iDefineIntVal>
++	</Define>
++	<!-- DEBT_TERM_PREMIUM_BP: added per step of term (terms 0 to 3) -->
++	<Define>
++		<DefineName>DEBT_TERM_PREMIUM_BP</DefineName>
++		<iDefineIntVal>5</iDefineIntVal>
++	</Define>
++	<!-- DEBT_WAR_BOND_PREMIUM_BP: added for a war bond -->
++	<Define>
++		<DefineName>DEBT_WAR_BOND_PREMIUM_BP</DefineName>
++		<iDefineIntVal>40</iDefineIntVal>
++	</Define>
++	<!-- DEBT_DEVELOPMENT_DISCOUNT_BP: taken off for a development loan (at most half the base rate) -->
++	<Define>
++		<DefineName>DEBT_DEVELOPMENT_DISCOUNT_BP</DefineName>
++		<iDefineIntVal>20</iDefineIntVal>
++	</Define>
++	<!-- DEBT_AI_HURDLE_BP: the AI lends to another civilization only above the base rate plus this, after the risk of default -->
++	<Define>
++		<DefineName>DEBT_AI_HURDLE_BP</DefineName>
++		<iDefineIntVal>20</iDefineIntVal>
++	</Define>
++	<!-- DEBT_DEPOSIT_PERCENT: the market pays this percent of its base rate (plus the term premium) on the bonds it sells -->
++	<Define>
++		<DefineName>DEBT_DEPOSIT_PERCENT</DefineName>
++		<iDefineIntVal>75</iDefineIntVal>
++	</Define>
++	<!-- DEBT_MAX_SERVICE_PERCENT: the market lends while all payments stay within this percent of gross gold and research commerce -->
++	<Define>
++		<DefineName>DEBT_MAX_SERVICE_PERCENT</DefineName>
++		<iDefineIntVal>25</iDefineIntVal>
++	</Define>
++	<!-- DEBT_WAR_BOND_SERVICE_PERCENT: the same, for war bonds -->
++	<Define>
++		<DefineName>DEBT_WAR_BOND_SERVICE_PERCENT</DefineName>
++		<iDefineIntVal>40</iDefineIntVal>
++	</Define>
++	<!-- DEBT_PRINCIPAL_CAP_TURNS: and while the principal stays within this many turns of gross commerce -->
++	<Define>
++		<DefineName>DEBT_PRINCIPAL_CAP_TURNS</DefineName>
++		<iDefineIntVal>20</iDefineIntVal>
++	</Define>
++	<Define>
++		<DefineName>DEBT_TERM_0</DefineName>
++		<iDefineIntVal>10</iDefineIntVal>
++	</Define>
++	<Define>
++		<DefineName>DEBT_TERM_1</DefineName>
++		<iDefineIntVal>20</iDefineIntVal>
++	</Define>
++	<Define>
++		<DefineName>DEBT_TERM_2</DefineName>
++		<iDefineIntVal>30</iDefineIntVal>
++	</Define>
++	<!-- DEBT_TERM_3: the four terms offered, in turns -->
++	<Define>
++		<DefineName>DEBT_TERM_3</DefineName>
++		<iDefineIntVal>50</iDefineIntVal>
++	</Define>
++	<!-- DEBT_EARLY_REPAY_TURNS: early repayment costs this many turns of interest -->
++	<Define>
++		<DefineName>DEBT_EARLY_REPAY_TURNS</DefineName>
++		<iDefineIntVal>2</iDefineIntVal>
++	</Define>
++	<!-- DEBT_ARREARS_PENALTY_BP: unpaid amounts accrue this much on top of the contract rate -->
++	<Define>
++		<DefineName>DEBT_ARREARS_PENALTY_BP</DefineName>
++		<iDefineIntVal>100</iDefineIntVal>
++	</Define>
++	<!-- DEBT_GRACE_TURNS: turns in a row with arrears before default -->
++	<Define>
++		<DefineName>DEBT_GRACE_TURNS</DefineName>
++		<iDefineIntVal>5</iDefineIntVal>
++	</Define>
++	<!-- DEBT_DEFAULT_EXCLUSION_TURNS: after a default the market lends nothing to the defaulter for this many turns -->
++	<Define>
++		<DefineName>DEBT_DEFAULT_EXCLUSION_TURNS</DefineName>
++		<iDefineIntVal>30</iDefineIntVal>
++	</Define>
++	<!-- DEBT_DEFAULT_MEMORY_TURNS: a lender remembers a default against it for this many turns -->
++	<Define>
++		<DefineName>DEBT_DEFAULT_MEMORY_TURNS</DefineName>
++		<iDefineIntVal>50</iDefineIntVal>
++	</Define>
++	<!-- DEBT_ATTITUDE_DEFAULT: attitude lost towards a defaulter at first, fading with the memory -->
++	<Define>
++		<DefineName>DEBT_ATTITUDE_DEFAULT</DefineName>
++		<iDefineIntVal>4</iDefineIntVal>
++	</Define>
++	<!-- DEBT_MARKET_START_CAPITAL: the market's capital at the start, per civilization -->
++	<Define>
++		<DefineName>DEBT_MARKET_START_CAPITAL</DefineName>
++		<iDefineIntVal>150</iDefineIntVal>
++	</Define>
++	<!-- DEBT_MARKET_INFLOW_PERCENT: percent of the world's gold commerce added to the market's capital each turn -->
++	<Define>
++		<DefineName>DEBT_MARKET_INFLOW_PERCENT</DefineName>
++		<iDefineIntVal>3</iDefineIntVal>
++	</Define>
++	<!-- DEBT_MARKET_TARGET_TURNS: capital below a quarter of this many turns of inflow raises the real rate by half; above twice it, lowers it by a quarter -->
++	<Define>
++		<DefineName>DEBT_MARKET_TARGET_TURNS</DefineName>
++		<iDefineIntVal>25</iDefineIntVal>
++	</Define>
++	<!-- DEBT_OFFER_TURNS: an offer to a human expires after this many turns -->
++	<Define>
++		<DefineName>DEBT_OFFER_TURNS</DefineName>
++		<iDefineIntVal>3</iDefineIntVal>
++	</Define>
++	<!-- DEBT_AI_OFFER_INTERVAL: an AI with spare gold considers offering a loan this often -->
++	<Define>
++		<DefineName>DEBT_AI_OFFER_INTERVAL</DefineName>
++		<iDefineIntVal>10</iDefineIntVal>
++	</Define>
++	<!-- DEBT_MIN_AMOUNT: the smallest contract, in gold -->
++	<Define>
++		<DefineName>DEBT_MIN_AMOUNT</DefineName>
++		<iDefineIntVal>10</iDefineIntVal>
++	</Define>
+ </Civ4Defines>
