@@ -2725,6 +2725,548 @@ index 215523d..b679fc3 100644
  		.def("AI_demandRebukedWar", &CyPlayer::AI_demandRebukedWar, "bool (int /*PlayerTypes*/)")
  		.def("AI_getAttitude", &CyPlayer::AI_getAttitude, "AttitudeTypes (int /*PlayerTypes*/) - Gets the attitude of the player towards the player passed in")
  		.def("AI_unitValue", &CyPlayer::AI_unitValue, "int (int /*UnitTypes*/ eUnit, int /*UnitAITypes*/ eUnitAI, CyArea* pArea)")
+diff --git a/Assets/Python/EntryPoints/CvScreensInterface.py b/Assets/Python/EntryPoints/CvScreensInterface.py
+index 05f11ab..d50587a 100644
+--- a/Assets/Python/EntryPoints/CvScreensInterface.py
++++ b/Assets/Python/EntryPoints/CvScreensInterface.py
+@@ -6,6 +6,7 @@ import CvForeignAdvisor
+ import CvExoticForeignAdvisor
+ import CvReligionScreen
+ import CvCorporationScreen
++import CvDebtScreen
+ import CvCivicsScreen
+ import CvVictoryScreen
+ import CvEspionageAdvisor
+@@ -130,6 +131,12 @@ def showFinanceAdvisor():
+ 	if (-1 != CyGame().getActivePlayer()):
+ 		financeAdvisor.interfaceScreen()
+ 
++# Debt: loans and bonds between civilizations and with the market (CvDebtScreen.py; rules in CvDebt.cpp)
++debtScreen = CvDebtScreen.CvDebtScreen()
++def showDebtScreen():
++	if (-1 != CyGame().getActivePlayer()):
++		debtScreen.interfaceScreen()
++
+ # BUG - CustDomAdv - start
+ domesticAdvisor = None
+ def createDomesticAdvisor():
+@@ -1145,6 +1152,7 @@ HandleInputMap = {  MAIN_INTERFACE : mainInterface,
+ #					DOMESTIC_ADVISOR : domesticAdvisor,
+ 					RELIGION_SCREEN : religionScreen,
+ 					CORPORATION_SCREEN : corporationScreen,
++					DEBT_SCREEN : debtScreen,
+ 					CIVICS_SCREEN : civicScreen,
+ 					TECH_CHOOSER : techChooser,
+ 					FOREIGN_ADVISOR : foreignAdvisor,
+diff --git a/Assets/Python/Revolution/Gameready/Revolution.py b/Assets/Python/Revolution/Gameready/Revolution.py
+index ac88350..fe0d6af 100644
+--- a/Assets/Python/Revolution/Gameready/Revolution.py
++++ b/Assets/Python/Revolution/Gameready/Revolution.py
+@@ -1855,6 +1855,9 @@ class Revolution :
+ 		# This is calculation AI does to figure out if it's in financial trouble
+ 		iNetCommerce = 1 + pPlayer.getCommerceRate(CommerceTypes.COMMERCE_GOLD) + pPlayer.getCommerceRate(CommerceTypes.COMMERCE_RESEARCH) + max([0, pPlayer.getGoldPerTurn()])
+ 		iNetExpenses = pPlayer.calculateInflatedCosts() + max([0, -pPlayer.getGoldPerTurn()])
++		# Debt (CvDebt.cpp): payments owed count as expenses, payments expected as income, as in the DLL's test
++		iNetCommerce += pPlayer.getDebtIncomePerTurn()
++		iNetExpenses += pPlayer.getDebtDuePerTurn()
+ 		iFundedPercent = (100 * (iNetCommerce - iNetExpenses)) / max([1, iNetCommerce])
+ 
+ 		iThresholdPercent = 75
+diff --git a/Assets/Python/Screens/BugFinanceAdvisor.py b/Assets/Python/Screens/BugFinanceAdvisor.py
+index c7e2449..c477c88 100644
+--- a/Assets/Python/Screens/BugFinanceAdvisor.py
++++ b/Assets/Python/Screens/BugFinanceAdvisor.py
+@@ -83,6 +83,10 @@ class BugFinanceAdvisor:
+ 				if (gc.getPlayer(j).isAlive()):
+ 					screen.addPullDownString(self.szDropdownName, gc.getPlayer(j).getName(), j, j, False )
+ 
++		# Debt: the button that opens the Debt screen (CvDebtScreen.py)
++		if CyGame().isDebtEnabled():
++			screen.setText("FinanceDebtButton", "Background", u"<font=4>" + localText.getText("TXT_KEY_DEBT_SCREEN_TITLE", ()).upper() + "</font>", CvUtil.FONT_LEFT_JUSTIFY, 30, self.Y_EXIT, self.Z_CONTROLS, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
++
+ 		# draw the contents
+ 		self.drawContents()
+ 
+@@ -374,6 +378,13 @@ class BugFinanceAdvisor:
+ 			screen.setLabel(self.getNextWidgetName(), "Background", u"<font=3>" + unicode(int(fWealth)) + "</font>", CvUtil.FONT_RIGHT_JUSTIFY, self.X_INCOME + self.PANE_WIDTH - self.TEXT_MARGIN, yLocation + self.TEXT_MARGIN, self.Z_CONTROLS + self.DZ, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+ 		
+ 		iIncome = goldCommerce
++		# Debt: interest and repayments expected from debtors (CvDebt.cpp)
++		iDebtIncome = player.getDebtIncomePerTurn()
++		if (iDebtIncome > 0):
++			yLocation += self.Y_SPACING
++			screen.setLabel(self.getNextWidgetName(), "Background", u"<font=3>" + localText.getText("TXT_KEY_DEBT_FINANCE_INCOME", ()) + "</font>", CvUtil.FONT_LEFT_JUSTIFY, self.X_INCOME + self.TEXT_MARGIN, yLocation + self.TEXT_MARGIN, self.Z_CONTROLS + self.DZ, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
++			screen.setLabel(self.getNextWidgetName(), "Background", u"<font=3>" + unicode(iDebtIncome) + "</font>", CvUtil.FONT_RIGHT_JUSTIFY, self.X_INCOME + self.PANE_WIDTH - self.TEXT_MARGIN, yLocation + self.TEXT_MARGIN, self.Z_CONTROLS + self.DZ, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
++			iIncome += iDebtIncome
+ 		if (goldFromCivs > 0):
+ 			yLocation += self.Y_SPACING
+ 			szText = unicode(goldFromCivs) + " : " + localText.getText("TXT_KEY_FINANCIAL_ADVISOR_PER_TURN", ())
+@@ -416,6 +427,14 @@ class BugFinanceAdvisor:
+ 			screen.setLabel(self.getNextWidgetName(), "Background", u"<font=3>" + unicode(-goldFromCivs) + "</font>", CvUtil.FONT_RIGHT_JUSTIFY, self.X_EXPENSES + self.PANE_WIDTH - self.TEXT_MARGIN, yLocation + self.TEXT_MARGIN, self.Z_CONTROLS + self.DZ, FontTypes.GAME_FONT, WidgetTypes.WIDGET_HELP_FINANCE_FOREIGN_INCOME, self.iActiveLeader, 1)
+ 			iExpenses -= goldFromCivs
+ 
++		# Debt: payments owed this turn (CvDebt.cpp); not inflated
++		iDebtDue = player.getDebtDuePerTurn()
++		if (iDebtDue > 0):
++			yLocation += self.Y_SPACING
++			screen.setLabel(self.getNextWidgetName(), "Background", u"<font=3>" + localText.getText("TXT_KEY_DEBT_FINANCE_PAYMENTS", ()) + "</font>", CvUtil.FONT_LEFT_JUSTIFY, self.X_EXPENSES + self.TEXT_MARGIN, yLocation + self.TEXT_MARGIN, self.Z_CONTROLS + self.DZ, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
++			screen.setLabel(self.getNextWidgetName(), "Background", u"<font=3>" + unicode(iDebtDue) + "</font>", CvUtil.FONT_RIGHT_JUSTIFY, self.X_EXPENSES + self.PANE_WIDTH - self.TEXT_MARGIN, yLocation + self.TEXT_MARGIN, self.Z_CONTROLS + self.DZ, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
++			iExpenses += iDebtDue
++
+ 		yLocation += self.Y_SPACING
+ 		iInflation = totalInflatedCosts - totalPreInflatedCosts
+ 		screen.setLabel(self.getNextWidgetName(), "Background", u"<font=3>" + localText.getText("TXT_KEY_FINANCIAL_ADVISOR_INFLATION", ()) + "</font>", CvUtil.FONT_LEFT_JUSTIFY, self.X_EXPENSES + self.TEXT_MARGIN, yLocation + self.TEXT_MARGIN, self.Z_CONTROLS + self.DZ, FontTypes.GAME_FONT, WidgetTypes.WIDGET_HELP_FINANCE_INFLATED_COSTS, self.iActiveLeader, 1)
+@@ -447,6 +466,11 @@ class BugFinanceAdvisor:
+ 	# Will handle the input for this screen...
+ 	def handleInput (self, inputClass):
+ 		'Calls function mapped in FinanceAdvisorInputMap'
++		if (inputClass.getNotifyCode() == NotifyCode.NOTIFY_CLICKED and inputClass.getFunctionName() == "FinanceDebtButton"):
++			self.getScreen().hideScreen()
++			import CvScreensInterface
++			CvScreensInterface.showDebtScreen()
++			return 1
+ 		if (inputClass.getNotifyCode() == NotifyCode.NOTIFY_LISTBOX_ITEM_SELECTED):
+ 			screen = self.getScreen()
+ 			iIndex = screen.getSelectedPullDownID(self.DEBUG_DROPDOWN_ID)
+diff --git a/Assets/Python/Screens/CvDebtScreen.py b/Assets/Python/Screens/CvDebtScreen.py
+new file mode 100644
+index 0000000..9883e7c
+--- /dev/null
++++ b/Assets/Python/Screens/CvDebtScreen.py
+@@ -0,0 +1,420 @@
++## Debt screen: loans and bonds between civilizations and with the open market.
++## The rules live in the DLL (CvDebt.cpp). This screen only shows them and sends network
++## messages (ids 7000-7099), which every machine runs in C++, so it never changes the game itself.
++## Opened from the Finance Advisor.
++from CvPythonExtensions import *
++import CvUtil
++import CvScreenEnums
++
++gc = CyGlobalContext()
++ArtFileMgr = CyArtFileMgr()
++localText = CyTranslator()
++
++# Network message ids and layouts (CvDebt.h, DebtMessages)
++MSG_BORROW = 7000
++MSG_LEND_MARKET = 7001
++MSG_REPAY = 7002
++MSG_SELL = 7003
++MSG_OFFER = 7010
++MSG_ACCEPT = 7011
++MSG_REFUSE = 7012
++
++# CvDebt.h enums
++DEBT_LOAN = 0
++DEBT_BOND = 1
++COLLATERAL_NONE = 0
++COLLATERAL_RESOURCE = 1
++COLLATERAL_CITY = 2
++COND_WAR_BOND = 1
++COND_DEVELOPMENT = 2
++COND_FLOATING = 4
++COND_NO_WAR = 8
++
++F_ID, F_KIND, F_BORROWER, F_LENDER, F_PRINCIPAL, F_OUTSTANDING, F_RATE, F_PAYMENT, F_SIGN, F_MATURITY, F_ARREARS, F_MISSED, F_COLLATERAL, F_COLLATERAL_DATA, F_CONDITIONS, F_FROZEN, F_DUE = range(17)
++O_ID, O_FROM, O_TO, O_FROM_LENDS, O_KIND, O_AMOUNT, O_TERM, O_COLLATERAL, O_COLLATERAL_DATA, O_CONDITIONS, O_RATE, O_EXPIRE = range(12)
++
++NUM_TERMS = 4
++
++# The products the market offers: (text key, kind, conditions)
++PRODUCTS = [
++	("TXT_KEY_DEBT_PRODUCT_LOAN", DEBT_LOAN, 0),
++	("TXT_KEY_DEBT_PRODUCT_FLOATING_LOAN", DEBT_LOAN, COND_FLOATING),
++	("TXT_KEY_DEBT_PRODUCT_BOND", DEBT_BOND, 0),
++	("TXT_KEY_DEBT_PRODUCT_WAR_BOND", DEBT_BOND, COND_WAR_BOND),
++	("TXT_KEY_DEBT_PRODUCT_DEVELOPMENT_LOAN", DEBT_LOAN, COND_DEVELOPMENT),
++]
++SHARES = [25, 50, 100]
++
++def txt(szKey, args=()):
++	return localText.getText(szKey, args)
++
++def rateText(iPpm):
++	"rate per turn in percent, two decimals"
++	if iPpm < 0:
++		return u"-"
++	return u"%.2f%%" % (iPpm / 10000.0)
++
++def partyName(iPlayer):
++	if iPlayer < 0:
++		return txt("TXT_KEY_DEBT_MARKET_NAME")
++	return gc.getPlayer(iPlayer).getCivilizationShortDescription(0)
++
++
++class CvDebtScreen:
++
++	def __init__(self):
++		self.SCREEN_NAME = "DebtScreen"
++		self.WIDGET_ID = "DebtWidget"
++		self.W_SCREEN = 1024
++		self.H_SCREEN = 768
++		self.Z = -2.3
++		self.nWidgetCount = 0
++		self.iPlayer = -1
++		self.iProduct = 0
++		self.iTerm = 1
++		self.iOther = -1
++		self.bWeLend = True
++		self.iCollateral = -1		# -1: none; otherwise a bonus id of ours when we borrow
++		self.szSignature = ""
++
++	def getScreen(self):
++		return CyGInterfaceScreen(self.SCREEN_NAME, CvScreenEnums.DEBT_SCREEN)
++
++	def interfaceScreen(self):
++		self.iPlayer = CyGame().getActivePlayer()
++		if self.iPlayer < 0:
++			return
++		screen = self.getScreen()
++		if screen.isActive():
++			return
++		screen.setRenderInterfaceOnly(True)
++		screen.showScreen(PopupStates.POPUPSTATE_IMMEDIATE, False)
++		screen.setDimensions(screen.centerX(0), screen.centerY(0), self.W_SCREEN, self.H_SCREEN)
++		screen.addDDSGFC("DebtBackground", ArtFileMgr.getInterfaceArtInfo("MAINMENU_SLIDESHOW_LOAD").getPath(), 0, 0, self.W_SCREEN, self.H_SCREEN, WidgetTypes.WIDGET_GENERAL, -1, -1)
++		screen.addPanel("DebtTopPanel", u"", u"", True, False, 0, 0, self.W_SCREEN, 55, PanelStyles.PANEL_STYLE_TOPBAR)
++		screen.addPanel("DebtBottomPanel", u"", u"", True, False, 0, 713, self.W_SCREEN, 55, PanelStyles.PANEL_STYLE_BOTTOMBAR)
++		screen.showWindowBackground(False)
++		screen.setText("DebtExit", "Background", u"<font=4>" + txt("TXT_KEY_PEDIA_SCREEN_EXIT").upper() + u"</font>", CvUtil.FONT_RIGHT_JUSTIFY, 994, 726, self.Z, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_CLOSE_SCREEN, -1, -1)
++		screen.setLabel("DebtHeader", "Background", u"<font=4b>" + txt("TXT_KEY_DEBT_SCREEN_TITLE").upper() + u"</font>", CvUtil.FONT_CENTER_JUSTIFY, self.W_SCREEN / 2, 12, self.Z, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
++		self.drawContents()
++
++	# ------------------------------------------------------------------ drawing
++
++	def name(self):
++		szName = self.WIDGET_ID + str(self.nWidgetCount)
++		self.nWidgetCount += 1
++		return szName
++
++	def deleteAllWidgets(self):
++		screen = self.getScreen()
++		i = self.nWidgetCount - 1
++		while i >= 0:
++			screen.deleteWidget(self.WIDGET_ID + str(i))
++			i -= 1
++		self.nWidgetCount = 0
++		for szName in self.aFixedWidgets():
++			screen.deleteWidget(szName)
++
++	def aFixedWidgets(self):
++		return ["DebtProductList", "DebtTermList", "DebtOtherList", "DebtDirectionList", "DebtCollateralList"]
++
++	def label(self, szText, x, y, iJustify=CvUtil.FONT_LEFT_JUSTIFY, iFont=3):
++		self.getScreen().setLabel(self.name(), "Background", u"<font=%d>" % iFont + szText + u"</font>", iJustify, x, y, self.Z, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
++
++	def button(self, szFunction, iData, szText, x, y):
++		"a clickable text; its widget name is szFunction followed by iData (ScreenInput splits them)"
++		self.getScreen().setText(szFunction + str(iData), "Background", u"<font=3>[" + szText + u"]</font>", CvUtil.FONT_LEFT_JUSTIFY, x, y, self.Z, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
++		self.aButtons.append(szFunction + str(iData))
++
++	def signature(self):
++		game = CyGame()
++		player = gc.getPlayer(self.iPlayer)
++		parts = [game.getGameTurn(), player.getGold(), game.getNumDebts(), game.getNumDebtOffers(), game.getMarketCapital(), player.getDebtOutstanding(), player.getDebtHeld()]
++		return ",".join([str(x) for x in parts])
++
++	def drawContents(self):
++		screen = self.getScreen()
++		for szName in getattr(self, "aButtons", []):
++			screen.deleteWidget(szName)
++		self.aButtons = []
++		self.deleteAllWidgets()
++		self.szSignature = self.signature()
++		game = CyGame()
++		player = gc.getPlayer(self.iPlayer)
++
++		if not game.isDebtEnabled():
++			self.label(txt("TXT_KEY_DEBT_DISABLED"), self.W_SCREEN / 2, 80, CvUtil.FONT_CENTER_JUSTIFY)
++			return
++
++		# Summary
++		y = 62
++		self.label(txt("TXT_KEY_DEBT_SUMMARY", (player.getGold(), player.getDebtOutstanding(), player.getDebtDuePerTurn(), player.getDebtHeld(), player.getDebtIncomePerTurn(), player.getCreditScore())), 30, y)
++		y += 22
++		self.label(txt("TXT_KEY_DEBT_MARKET_SUMMARY", (rateText(game.getMarketBaseRatePpm()), game.getMarketCapital())), 30, y)
++		if player.getDebtDefaultTurns() > 0:
++			self.label(txt("TXT_KEY_DEBT_EXCLUDED", (player.getDebtDefaultTurns(),)), 600, y)
++
++		self.drawContracts(115)
++		self.drawMarket(415)
++		self.drawCivs(415)
++
++	def drawContracts(self, yTop):
++		screen = self.getScreen()
++		game = CyGame()
++		screen.addPanel(self.name(), u"", u"", True, True, 20, yTop, 984, 290, PanelStyles.PANEL_STYLE_MAIN)
++		self.label(txt("TXT_KEY_DEBT_CONTRACTS").upper(), 512, yTop + 8, CvUtil.FONT_CENTER_JUSTIFY)
++		y = yTop + 32
++		columns = [(35, "TXT_KEY_DEBT_COL_KIND"), (170, "TXT_KEY_DEBT_COL_PARTY"), (330, "TXT_KEY_DEBT_COL_OUTSTANDING"), (440, "TXT_KEY_DEBT_COL_RATE"), (530, "TXT_KEY_DEBT_COL_PAYMENT"), (630, "TXT_KEY_DEBT_COL_TURNS"), (720, "TXT_KEY_DEBT_COL_STATE")]
++		for x, szKey in columns:
++			self.label(u"<color=200,200,255>" + txt(szKey) + u"</color>", x, y)
++		y += 22
++		iShown = 0
++		iTurn = game.getGameTurn()
++		for i in range(game.getNumDebts()):
++			iBorrower = game.getDebtField(i, F_BORROWER)
++			iLender = game.getDebtField(i, F_LENDER)
++			if iBorrower != self.iPlayer and iLender != self.iPlayer:
++				continue
++			if iShown >= 10:
++				self.label(txt("TXT_KEY_DEBT_MORE", (self.countOwnContracts() - iShown,)), 35, y)
++				break
++			iID = game.getDebtField(i, F_ID)
++			bOwe = (iBorrower == self.iPlayer)
++			iKind = game.getDebtField(i, F_KIND)
++			iConditions = game.getDebtField(i, F_CONDITIONS)
++			szKind = txt(self.kindKey(iKind, iConditions))
++			if bOwe:
++				szParty = txt("TXT_KEY_DEBT_OWED_TO", (partyName(iLender),))
++			else:
++				szParty = txt("TXT_KEY_DEBT_OWED_BY", (partyName(iBorrower),))
++			szState = txt("TXT_KEY_DEBT_STATE_CURRENT")
++			if game.getDebtField(i, F_FROZEN):
++				szState = txt("TXT_KEY_DEBT_STATE_FROZEN")
++			elif game.getDebtField(i, F_ARREARS) > 0:
++				szState = txt("TXT_KEY_DEBT_STATE_ARREARS", (game.getDebtField(i, F_ARREARS), game.getDebtField(i, F_MISSED)))
++			self.label(szKind, 35, y)
++			self.label(szParty, 170, y)
++			self.label(unicode(game.getDebtField(i, F_OUTSTANDING)), 330, y)
++			self.label(rateText(game.getDebtField(i, F_RATE)), 440, y)
++			self.label(unicode(game.getDebtField(i, F_PAYMENT)), 530, y)
++			self.label(unicode(max(0, game.getDebtField(i, F_MATURITY) - iTurn)), 630, y)
++			self.label(szState, 720, y)
++			if bOwe:
++				self.button("DebtRepay", iID, txt("TXT_KEY_DEBT_REPAY"), 880, y)
++			else:
++				iPrice = game.getDebtSalePrice(iID)
++				if iPrice > 0:
++					self.button("DebtSell", iID, txt("TXT_KEY_DEBT_SELL", (iPrice,)), 860, y)
++			y += 22
++			iShown += 1
++		if iShown == 0:
++			self.label(txt("TXT_KEY_DEBT_NONE"), 35, y)
++
++		# Offers addressed to us, or made by us and waiting
++		y = yTop + 32 + 22 * 12
++		for i in range(game.getNumDebtOffers()):
++			iFrom = game.getDebtOfferField(i, O_FROM)
++			iTo = game.getDebtOfferField(i, O_TO)
++			if iTo != self.iPlayer and iFrom != self.iPlayer:
++				continue
++			iID = game.getDebtOfferField(i, O_ID)
++			iAmount = game.getDebtOfferField(i, O_AMOUNT)
++			iTurns = game.getDebtTermTurns(game.getDebtOfferField(i, O_TERM))
++			szRate = rateText(game.getDebtOfferField(i, O_RATE))
++			if iTo == self.iPlayer:
++				if game.getDebtOfferField(i, O_FROM_LENDS):
++					szText = txt("TXT_KEY_DEBT_OFFER_LINE_LEND", (partyName(iFrom), iAmount, szRate, iTurns))
++				else:
++					szText = txt("TXT_KEY_DEBT_OFFER_LINE_BORROW", (partyName(iFrom), iAmount, szRate, iTurns))
++				self.label(szText, 35, y)
++				self.button("DebtAccept", iID, txt("TXT_KEY_DEBT_ACCEPT"), 760, y)
++				self.button("DebtRefuse", iID, txt("TXT_KEY_DEBT_REFUSE"), 870, y)
++			else:
++				self.label(txt("TXT_KEY_DEBT_OFFER_LINE_WAITING", (partyName(iTo), iAmount, szRate, iTurns)), 35, y)
++				self.button("DebtRefuse", iID, txt("TXT_KEY_DEBT_WITHDRAW"), 870, y)
++			y -= 22
++
++	def countOwnContracts(self):
++		game = CyGame()
++		iCount = 0
++		for i in range(game.getNumDebts()):
++			if game.getDebtField(i, F_BORROWER) == self.iPlayer or game.getDebtField(i, F_LENDER) == self.iPlayer:
++				iCount += 1
++		return iCount
++
++	def kindKey(self, iKind, iConditions):
++		if iConditions & COND_WAR_BOND:
++			return "TXT_KEY_DEBT_PRODUCT_WAR_BOND"
++		if iConditions & COND_DEVELOPMENT:
++			return "TXT_KEY_DEBT_PRODUCT_DEVELOPMENT_LOAN"
++		if iKind == DEBT_BOND:
++			return "TXT_KEY_DEBT_PRODUCT_BOND"
++		if iConditions & COND_FLOATING:
++			return "TXT_KEY_DEBT_PRODUCT_FLOATING_LOAN"
++		return "TXT_KEY_DEBT_PRODUCT_LOAN"
++
++	def drawMarket(self, yTop):
++		screen = self.getScreen()
++		game = CyGame()
++		player = gc.getPlayer(self.iPlayer)
++		screen.addPanel(self.name(), u"", u"", True, True, 20, yTop, 487, 290, PanelStyles.PANEL_STYLE_MAIN)
++		self.label(txt("TXT_KEY_DEBT_MARKET").upper(), 263, yTop + 8, CvUtil.FONT_CENTER_JUSTIFY)
++
++		y = yTop + 36
++		screen.addDropDownBoxGFC("DebtProductList", 35, y, 220, WidgetTypes.WIDGET_GENERAL, -1, -1, FontTypes.GAME_FONT)
++		for i in range(len(PRODUCTS)):
++			screen.addPullDownString("DebtProductList", txt(PRODUCTS[i][0]), i, i, i == self.iProduct)
++		screen.addDropDownBoxGFC("DebtTermList", 270, y, 220, WidgetTypes.WIDGET_GENERAL, -1, -1, FontTypes.GAME_FONT)
++		for i in range(NUM_TERMS):
++			screen.addPullDownString("DebtTermList", txt("TXT_KEY_DEBT_TERM", (game.getDebtTermTurns(i),)), i, i, i == self.iTerm)
++
++		szKey, iKind, iConditions = PRODUCTS[self.iProduct]
++		y += 36
++		iRate = game.getMarketQuote(self.iPlayer, iKind, self.iTerm, iConditions)
++		if iRate < 0:
++			szWhy = game.getMarketRefusalKey(self.iPlayer, iKind, self.iTerm, iConditions)
++			self.label(txt("TXT_KEY_DEBT_MARKET_REFUSES", (txt(szWhy),)), 35, y)
++		else:
++			iLimit = game.getMarketLimit(self.iPlayer, iKind, self.iTerm, iConditions)
++			self.label(txt("TXT_KEY_DEBT_QUOTE", (rateText(iRate), iLimit)), 35, y)
++			y += 24
++			for iShare in SHARES:
++				iAmount = iLimit * iShare / 100
++				if iAmount >= gc.getDefineINT("DEBT_MIN_AMOUNT"):
++					self.button("DebtBorrow", iShare, txt("TXT_KEY_DEBT_BORROW_AMOUNT", (iAmount,)), 35 + (SHARES.index(iShare) * 150), y)
++
++		y += 48
++		self.label(txt("TXT_KEY_DEBT_DEPOSIT_QUOTE", (rateText(game.getMarketDepositRate(self.iTerm)), game.getDebtTermTurns(self.iTerm))), 35, y)
++		y += 24
++		for iShare in [10, 25, 50]:
++			iAmount = player.getGold() * iShare / 100
++			if iAmount >= gc.getDefineINT("DEBT_MIN_AMOUNT"):
++				self.button("DebtDeposit", iShare, txt("TXT_KEY_DEBT_DEPOSIT_AMOUNT", (iAmount,)), 35 + ([10, 25, 50].index(iShare) * 150), y)
++		y += 40
++		self.label(u"<color=180,180,180>" + txt("TXT_KEY_DEBT_MARKET_HELP") + u"</color>", 35, y, CvUtil.FONT_LEFT_JUSTIFY, 2)
++
++	def drawCivs(self, yTop):
++		screen = self.getScreen()
++		game = CyGame()
++		player = gc.getPlayer(self.iPlayer)
++		screen.addPanel(self.name(), u"", u"", True, True, 517, yTop, 487, 290, PanelStyles.PANEL_STYLE_MAIN)
++		self.label(txt("TXT_KEY_DEBT_CIVS").upper(), 760, yTop + 8, CvUtil.FONT_CENTER_JUSTIFY)
++
++		aOthers = []
++		team = gc.getTeam(player.getTeam())
++		for i in range(gc.getMAX_CIV_PLAYERS()):
++			other = gc.getPlayer(i)
++			if i != self.iPlayer and other.isAlive() and not other.isMinorCiv() and other.getTeam() != player.getTeam() and team.isHasMet(other.getTeam()) and not team.isAtWar(other.getTeam()) and other.getNumCities() > 0:
++				aOthers.append(i)
++		y = yTop + 36
++		if len(aOthers) == 0:
++			self.label(txt("TXT_KEY_DEBT_NO_PARTNERS"), 532, y)
++			return
++		if self.iOther not in aOthers:
++			self.iOther = aOthers[0]
++		screen.addDropDownBoxGFC("DebtOtherList", 532, y, 220, WidgetTypes.WIDGET_GENERAL, -1, -1, FontTypes.GAME_FONT)
++		for i in aOthers:
++			screen.addPullDownString("DebtOtherList", partyName(i), i, i, i == self.iOther)
++		screen.addDropDownBoxGFC("DebtDirectionList", 767, y, 220, WidgetTypes.WIDGET_GENERAL, -1, -1, FontTypes.GAME_FONT)
++		screen.addPullDownString("DebtDirectionList", txt("TXT_KEY_DEBT_WE_LEND"), 1, 1, self.bWeLend)
++		screen.addPullDownString("DebtDirectionList", txt("TXT_KEY_DEBT_WE_BORROW"), 0, 0, not self.bWeLend)
++
++		y += 36
++		if not self.bWeLend:
++			# Collateral: none, or one of our tradeable resources
++			screen.addDropDownBoxGFC("DebtCollateralList", 532, y, 455, WidgetTypes.WIDGET_GENERAL, -1, -1, FontTypes.GAME_FONT)
++			screen.addPullDownString("DebtCollateralList", txt("TXT_KEY_DEBT_NO_COLLATERAL"), -1, -1, self.iCollateral < 0)
++			for eBonus in range(gc.getNumBonusInfos()):
++				if player.getNumTradeableBonuses(eBonus) > 0:
++					screen.addPullDownString("DebtCollateralList", txt("TXT_KEY_DEBT_PLEDGE", (gc.getBonusInfo(eBonus).getDescription(),)), eBonus, eBonus, eBonus == self.iCollateral)
++			y += 36
++
++		if self.bWeLend:
++			iBorrower = self.iOther
++			iLenderGold = player.getGold()
++		else:
++			iBorrower = self.iPlayer
++			iLenderGold = gc.getPlayer(self.iOther).getGold()
++		iRate = game.getDebtRateFor(iBorrower, DEBT_LOAN, self.iTerm, 0)
++		self.label(txt("TXT_KEY_DEBT_CIV_QUOTE", (rateText(iRate), game.getDebtTermTurns(self.iTerm), partyName(iBorrower), gc.getPlayer(iBorrower).getCreditScore())), 532, y)
++		y += 24
++		for iShare in [10, 25, 50]:
++			iAmount = iLenderGold * iShare / 100
++			if iAmount >= gc.getDefineINT("DEBT_MIN_AMOUNT"):
++				if self.bWeLend:
++					szText = txt("TXT_KEY_DEBT_OFFER_LEND", (iAmount,))
++				else:
++					szText = txt("TXT_KEY_DEBT_OFFER_BORROW", (iAmount,))
++				self.button("DebtOffer", iShare, szText, 532 + ([10, 25, 50].index(iShare) * 150), y)
++		y += 40
++		self.label(u"<color=180,180,180>" + txt("TXT_KEY_DEBT_CIVS_HELP") + u"</color>", 532, y, CvUtil.FONT_LEFT_JUSTIFY, 2)
++
++	# ------------------------------------------------------------------ input
++
++	def handleInput(self, inputClass):
++		screen = self.getScreen()
++		szName = inputClass.getFunctionName()
++		iCode = inputClass.getNotifyCode()
++		if iCode == NotifyCode.NOTIFY_LISTBOX_ITEM_SELECTED:
++			iIndex = screen.getSelectedPullDownID(szName)
++			iData = screen.getPullDownData(szName, iIndex)
++			if szName == "DebtProductList":
++				self.iProduct = iData
++			elif szName == "DebtTermList":
++				self.iTerm = iData
++			elif szName == "DebtOtherList":
++				self.iOther = iData
++			elif szName == "DebtDirectionList":
++				self.bWeLend = (iData == 1)
++				self.iCollateral = -1
++			elif szName == "DebtCollateralList":
++				self.iCollateral = iData
++			self.drawContents()
++			return 1
++		if iCode != NotifyCode.NOTIFY_CLICKED:
++			return 0
++		iData = inputClass.getID()
++		game = CyGame()
++		player = gc.getPlayer(self.iPlayer)
++		if szName == "DebtRepay":
++			CyMessageControl().sendModNetMessage(MSG_REPAY, self.iPlayer, iData, 0, 0)
++		elif szName == "DebtSell":
++			CyMessageControl().sendModNetMessage(MSG_SELL, self.iPlayer, iData, 0, 0)
++		elif szName == "DebtAccept":
++			CyMessageControl().sendModNetMessage(MSG_ACCEPT, self.iPlayer, iData, 0, 0)
++		elif szName == "DebtRefuse":
++			CyMessageControl().sendModNetMessage(MSG_REFUSE, self.iPlayer, iData, 0, 0)
++		elif szName == "DebtBorrow":
++			szKey, iKind, iConditions = PRODUCTS[self.iProduct]
++			iAmount = game.getMarketLimit(self.iPlayer, iKind, self.iTerm, iConditions) * iData / 100
++			CyMessageControl().sendModNetMessage(MSG_BORROW, self.iPlayer | (iKind << 8) | (iConditions << 12), iAmount, self.iTerm, 0)
++		elif szName == "DebtDeposit":
++			iAmount = player.getGold() * iData / 100
++			CyMessageControl().sendModNetMessage(MSG_LEND_MARKET, self.iPlayer | (DEBT_BOND << 8), iAmount, self.iTerm, 0)
++		elif szName == "DebtOffer":
++			if self.bWeLend:
++				iAmount = player.getGold() * iData / 100
++			else:
++				iAmount = gc.getPlayer(self.iOther).getGold() * iData / 100
++			iCollateral = COLLATERAL_NONE
++			iCollateralData = -1
++			if not self.bWeLend and self.iCollateral >= 0:
++				iCollateral = COLLATERAL_RESOURCE
++				iCollateralData = self.iCollateral
++			iFromLends = 0
++			if self.bWeLend:
++				iFromLends = 1
++			iData2 = self.iPlayer | (self.iOther << 8) | (iFromLends << 16) | (DEBT_LOAN << 17) | (iCollateral << 19) | (1 << 22)
++			CyMessageControl().sendModNetMessage(MSG_OFFER, iData2, iAmount, self.iTerm, iCollateralData)
++		else:
++			return 0
++		return 1
++
++	def update(self, fDelta):
++		if self.iPlayer < 0:
++			return
++		if self.signature() != self.szSignature:
++			self.drawContents()
++
++	def onClose(self):
++		return 0
+diff --git a/Assets/Python/Screens/CvScreenEnums.py b/Assets/Python/Screens/CvScreenEnums.py
+index b80ad1a..8a40705 100644
+--- a/Assets/Python/Screens/CvScreenEnums.py
++++ b/Assets/Python/Screens/CvScreenEnums.py
+@@ -37,6 +37,8 @@ SPACE_SHIP_SCREEN = 28
+ CORPORATION_SCREEN = 29
+ #RevolutionDCM
+ REVOLUTION_WATCH_ADVISOR = 30
++# Debt: loans and bonds (CvDebtScreen.py)
++DEBT_SCREEN = 31
+ 
+ MAIN_INTERFACE = 99
+ DEBUG_INFO_SCREEN = 100
 diff --git a/Assets/XML/GlobalDefinesAlt.xml b/Assets/XML/GlobalDefinesAlt.xml
 index b16e844..be15cc1 100644
 --- a/Assets/XML/GlobalDefinesAlt.xml
@@ -2867,3 +3409,591 @@ index b16e844..be15cc1 100644
 +		<iDefineIntVal>10</iDefineIntVal>
 +	</Define>
  </Civ4Defines>
+diff --git a/Assets/XML/Text/Debt_CIV4GameText.xml b/Assets/XML/Text/Debt_CIV4GameText.xml
+new file mode 100644
+index 0000000..78b2011
+--- /dev/null
++++ b/Assets/XML/Text/Debt_CIV4GameText.xml
+@@ -0,0 +1,582 @@
++<?xml version="1.0" encoding="ISO-8859-1" ?>
++<!--
++	Debt: loans and bonds (CvDebt.cpp, CvDebtScreen.py). English only so far; the other languages repeat it.
++  -->
++<Civ4GameText xmlns="http://www.firaxis.com">
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_MARKET_NAME</Tag>
++		<English>the market</English>
++		<French>the market</French>
++		<German>the market</German>
++		<Italian>the market</Italian>
++		<Spanish>the market</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_SCREEN_TITLE</Tag>
++		<English>Debt</English>
++		<French>Debt</French>
++		<German>Debt</German>
++		<Italian>Debt</Italian>
++		<Spanish>Debt</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_DISABLED</Tag>
++		<English>Debt is switched off in this game (DEBT_ENABLE).</English>
++		<French>Debt is switched off in this game (DEBT_ENABLE).</French>
++		<German>Debt is switched off in this game (DEBT_ENABLE).</German>
++		<Italian>Debt is switched off in this game (DEBT_ENABLE).</Italian>
++		<Spanish>Debt is switched off in this game (DEBT_ENABLE).</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_SUMMARY</Tag>
++		<English>Treasury %d1[ICON_GOLD]   Owed %d2[ICON_GOLD] (%d3[ICON_GOLD] this turn)   Held %d4[ICON_GOLD] (%d5[ICON_GOLD] expected)   Credit score %d6/100</English>
++		<French>Treasury %d1[ICON_GOLD]   Owed %d2[ICON_GOLD] (%d3[ICON_GOLD] this turn)   Held %d4[ICON_GOLD] (%d5[ICON_GOLD] expected)   Credit score %d6/100</French>
++		<German>Treasury %d1[ICON_GOLD]   Owed %d2[ICON_GOLD] (%d3[ICON_GOLD] this turn)   Held %d4[ICON_GOLD] (%d5[ICON_GOLD] expected)   Credit score %d6/100</German>
++		<Italian>Treasury %d1[ICON_GOLD]   Owed %d2[ICON_GOLD] (%d3[ICON_GOLD] this turn)   Held %d4[ICON_GOLD] (%d5[ICON_GOLD] expected)   Credit score %d6/100</Italian>
++		<Spanish>Treasury %d1[ICON_GOLD]   Owed %d2[ICON_GOLD] (%d3[ICON_GOLD] this turn)   Held %d4[ICON_GOLD] (%d5[ICON_GOLD] expected)   Credit score %d6/100</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_MARKET_SUMMARY</Tag>
++		<English>Market base rate %s1 per turn   Market capital %d2[ICON_GOLD]</English>
++		<French>Market base rate %s1 per turn   Market capital %d2[ICON_GOLD]</French>
++		<German>Market base rate %s1 per turn   Market capital %d2[ICON_GOLD]</German>
++		<Italian>Market base rate %s1 per turn   Market capital %d2[ICON_GOLD]</Italian>
++		<Spanish>Market base rate %s1 per turn   Market capital %d2[ICON_GOLD]</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_EXCLUDED</Tag>
++		<English>After a default, the market lends you nothing for %d1 more turns.</English>
++		<French>After a default, the market lends you nothing for %d1 more turns.</French>
++		<German>After a default, the market lends you nothing for %d1 more turns.</German>
++		<Italian>After a default, the market lends you nothing for %d1 more turns.</Italian>
++		<Spanish>After a default, the market lends you nothing for %d1 more turns.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_CONTRACTS</Tag>
++		<English>Your debts and claims</English>
++		<French>Your debts and claims</French>
++		<German>Your debts and claims</German>
++		<Italian>Your debts and claims</Italian>
++		<Spanish>Your debts and claims</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_COL_KIND</Tag>
++		<English>Kind</English>
++		<French>Kind</French>
++		<German>Kind</German>
++		<Italian>Kind</Italian>
++		<Spanish>Kind</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_COL_PARTY</Tag>
++		<English>With</English>
++		<French>With</French>
++		<German>With</German>
++		<Italian>With</Italian>
++		<Spanish>With</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_COL_OUTSTANDING</Tag>
++		<English>Owed</English>
++		<French>Owed</French>
++		<German>Owed</German>
++		<Italian>Owed</Italian>
++		<Spanish>Owed</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_COL_RATE</Tag>
++		<English>Rate/turn</English>
++		<French>Rate/turn</French>
++		<German>Rate/turn</German>
++		<Italian>Rate/turn</Italian>
++		<Spanish>Rate/turn</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_COL_PAYMENT</Tag>
++		<English>Payment</English>
++		<French>Payment</French>
++		<German>Payment</German>
++		<Italian>Payment</Italian>
++		<Spanish>Payment</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_COL_TURNS</Tag>
++		<English>Turns left</English>
++		<French>Turns left</French>
++		<German>Turns left</German>
++		<Italian>Turns left</Italian>
++		<Spanish>Turns left</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_COL_STATE</Tag>
++		<English>State</English>
++		<French>State</French>
++		<German>State</German>
++		<Italian>State</Italian>
++		<Spanish>State</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OWED_TO</Tag>
++		<English>owed to %s1</English>
++		<French>owed to %s1</French>
++		<German>owed to %s1</German>
++		<Italian>owed to %s1</Italian>
++		<Spanish>owed to %s1</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OWED_BY</Tag>
++		<English>owed by %s1</English>
++		<French>owed by %s1</French>
++		<German>owed by %s1</German>
++		<Italian>owed by %s1</Italian>
++		<Spanish>owed by %s1</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_STATE_CURRENT</Tag>
++		<English>current</English>
++		<French>current</French>
++		<German>current</German>
++		<Italian>current</Italian>
++		<Spanish>current</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_STATE_FROZEN</Tag>
++		<English>frozen by war</English>
++		<French>frozen by war</French>
++		<German>frozen by war</German>
++		<Italian>frozen by war</Italian>
++		<Spanish>frozen by war</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_STATE_ARREARS</Tag>
++		<English>%d1[ICON_GOLD] unpaid, %d2 turns</English>
++		<French>%d1[ICON_GOLD] unpaid, %d2 turns</French>
++		<German>%d1[ICON_GOLD] unpaid, %d2 turns</German>
++		<Italian>%d1[ICON_GOLD] unpaid, %d2 turns</Italian>
++		<Spanish>%d1[ICON_GOLD] unpaid, %d2 turns</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_MORE</Tag>
++		<English>... and %d1 more</English>
++		<French>... and %d1 more</French>
++		<German>... and %d1 more</German>
++		<Italian>... and %d1 more</Italian>
++		<Spanish>... and %d1 more</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_NONE</Tag>
++		<English>No debts or claims.</English>
++		<French>No debts or claims.</French>
++		<German>No debts or claims.</German>
++		<Italian>No debts or claims.</Italian>
++		<Spanish>No debts or claims.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REPAY</Tag>
++		<English>Repay</English>
++		<French>Repay</French>
++		<German>Repay</German>
++		<Italian>Repay</Italian>
++		<Spanish>Repay</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_SELL</Tag>
++		<English>Sell for %d1[ICON_GOLD]</English>
++		<French>Sell for %d1[ICON_GOLD]</French>
++		<German>Sell for %d1[ICON_GOLD]</German>
++		<Italian>Sell for %d1[ICON_GOLD]</Italian>
++		<Spanish>Sell for %d1[ICON_GOLD]</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_ACCEPT</Tag>
++		<English>Accept</English>
++		<French>Accept</French>
++		<German>Accept</German>
++		<Italian>Accept</Italian>
++		<Spanish>Accept</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE</Tag>
++		<English>Refuse</English>
++		<French>Refuse</French>
++		<German>Refuse</German>
++		<Italian>Refuse</Italian>
++		<Spanish>Refuse</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_WITHDRAW</Tag>
++		<English>Withdraw</English>
++		<French>Withdraw</French>
++		<German>Withdraw</German>
++		<Italian>Withdraw</Italian>
++		<Spanish>Withdraw</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OFFER_LINE_LEND</Tag>
++		<English>%s1 offers to lend you %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</English>
++		<French>%s1 offers to lend you %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</French>
++		<German>%s1 offers to lend you %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</German>
++		<Italian>%s1 offers to lend you %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</Italian>
++		<Spanish>%s1 offers to lend you %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OFFER_LINE_BORROW</Tag>
++		<English>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3 per turn for %d4 turns.</English>
++		<French>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3 per turn for %d4 turns.</French>
++		<German>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3 per turn for %d4 turns.</German>
++		<Italian>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3 per turn for %d4 turns.</Italian>
++		<Spanish>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3 per turn for %d4 turns.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OFFER_LINE_WAITING</Tag>
++		<English>Waiting for %s1: %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</English>
++		<French>Waiting for %s1: %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</French>
++		<German>Waiting for %s1: %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</German>
++		<Italian>Waiting for %s1: %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</Italian>
++		<Spanish>Waiting for %s1: %d2[ICON_GOLD] at %s3 per turn for %d4 turns.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_PRODUCT_LOAN</Tag>
++		<English>Loan</English>
++		<French>Loan</French>
++		<German>Loan</German>
++		<Italian>Loan</Italian>
++		<Spanish>Loan</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_PRODUCT_FLOATING_LOAN</Tag>
++		<English>Floating-rate loan</English>
++		<French>Floating-rate loan</French>
++		<German>Floating-rate loan</German>
++		<Italian>Floating-rate loan</Italian>
++		<Spanish>Floating-rate loan</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_PRODUCT_BOND</Tag>
++		<English>Bond</English>
++		<French>Bond</French>
++		<German>Bond</German>
++		<Italian>Bond</Italian>
++		<Spanish>Bond</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_PRODUCT_WAR_BOND</Tag>
++		<English>War bond</English>
++		<French>War bond</French>
++		<German>War bond</German>
++		<Italian>War bond</Italian>
++		<Spanish>War bond</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_PRODUCT_DEVELOPMENT_LOAN</Tag>
++		<English>Development loan</English>
++		<French>Development loan</French>
++		<German>Development loan</German>
++		<Italian>Development loan</Italian>
++		<Spanish>Development loan</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_MARKET</Tag>
++		<English>The market</English>
++		<French>The market</French>
++		<German>The market</German>
++		<Italian>The market</Italian>
++		<Spanish>The market</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_TERM</Tag>
++		<English>%d1 turns</English>
++		<French>%d1 turns</French>
++		<German>%d1 turns</German>
++		<Italian>%d1 turns</Italian>
++		<Spanish>%d1 turns</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_MARKET_REFUSES</Tag>
++		<English>The market will not lend: %s1</English>
++		<French>The market will not lend: %s1</French>
++		<German>The market will not lend: %s1</German>
++		<Italian>The market will not lend: %s1</Italian>
++		<Spanish>The market will not lend: %s1</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_QUOTE</Tag>
++		<English>Rate %s1 per turn; the market lends you up to %d2[ICON_GOLD].</English>
++		<French>Rate %s1 per turn; the market lends you up to %d2[ICON_GOLD].</French>
++		<German>Rate %s1 per turn; the market lends you up to %d2[ICON_GOLD].</German>
++		<Italian>Rate %s1 per turn; the market lends you up to %d2[ICON_GOLD].</Italian>
++		<Spanish>Rate %s1 per turn; the market lends you up to %d2[ICON_GOLD].</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_BORROW_AMOUNT</Tag>
++		<English>Borrow %d1[ICON_GOLD]</English>
++		<French>Borrow %d1[ICON_GOLD]</French>
++		<German>Borrow %d1[ICON_GOLD]</German>
++		<Italian>Borrow %d1[ICON_GOLD]</Italian>
++		<Spanish>Borrow %d1[ICON_GOLD]</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_DEPOSIT_QUOTE</Tag>
++		<English>Market bonds pay %s1 per turn and repay after %d2 turns.</English>
++		<French>Market bonds pay %s1 per turn and repay after %d2 turns.</French>
++		<German>Market bonds pay %s1 per turn and repay after %d2 turns.</German>
++		<Italian>Market bonds pay %s1 per turn and repay after %d2 turns.</Italian>
++		<Spanish>Market bonds pay %s1 per turn and repay after %d2 turns.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_DEPOSIT_AMOUNT</Tag>
++		<English>Buy %d1[ICON_GOLD]</English>
++		<French>Buy %d1[ICON_GOLD]</French>
++		<German>Buy %d1[ICON_GOLD]</German>
++		<Italian>Buy %d1[ICON_GOLD]</Italian>
++		<Spanish>Buy %d1[ICON_GOLD]</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_MARKET_HELP</Tag>
++		<English>A loan is repaid in equal payments; a bond pays interest each turn and the principal at maturity. A floating rate follows the base rate. War bonds need a war; development loans are for civilizations below the average score. Unpaid payments become arrears; after a few turns in arrears the debt is in default.</English>
++		<French>A loan is repaid in equal payments; a bond pays interest each turn and the principal at maturity. A floating rate follows the base rate. War bonds need a war; development loans are for civilizations below the average score. Unpaid payments become arrears; after a few turns in arrears the debt is in default.</French>
++		<German>A loan is repaid in equal payments; a bond pays interest each turn and the principal at maturity. A floating rate follows the base rate. War bonds need a war; development loans are for civilizations below the average score. Unpaid payments become arrears; after a few turns in arrears the debt is in default.</German>
++		<Italian>A loan is repaid in equal payments; a bond pays interest each turn and the principal at maturity. A floating rate follows the base rate. War bonds need a war; development loans are for civilizations below the average score. Unpaid payments become arrears; after a few turns in arrears the debt is in default.</Italian>
++		<Spanish>A loan is repaid in equal payments; a bond pays interest each turn and the principal at maturity. A floating rate follows the base rate. War bonds need a war; development loans are for civilizations below the average score. Unpaid payments become arrears; after a few turns in arrears the debt is in default.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_CIVS</Tag>
++		<English>Other civilizations</English>
++		<French>Other civilizations</French>
++		<German>Other civilizations</German>
++		<Italian>Other civilizations</Italian>
++		<Spanish>Other civilizations</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_NO_PARTNERS</Tag>
++		<English>No civilization you have met and are at peace with.</English>
++		<French>No civilization you have met and are at peace with.</French>
++		<German>No civilization you have met and are at peace with.</German>
++		<Italian>No civilization you have met and are at peace with.</Italian>
++		<Spanish>No civilization you have met and are at peace with.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_WE_LEND</Tag>
++		<English>We lend to them</English>
++		<French>We lend to them</French>
++		<German>We lend to them</German>
++		<Italian>We lend to them</Italian>
++		<Spanish>We lend to them</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_WE_BORROW</Tag>
++		<English>We borrow from them</English>
++		<French>We borrow from them</French>
++		<German>We borrow from them</German>
++		<Italian>We borrow from them</Italian>
++		<Spanish>We borrow from them</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_NO_COLLATERAL</Tag>
++		<English>No collateral</English>
++		<French>No collateral</French>
++		<German>No collateral</German>
++		<Italian>No collateral</Italian>
++		<Spanish>No collateral</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_PLEDGE</Tag>
++		<English>Pledge %s1</English>
++		<French>Pledge %s1</French>
++		<German>Pledge %s1</German>
++		<Italian>Pledge %s1</Italian>
++		<Spanish>Pledge %s1</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_CIV_QUOTE</Tag>
++		<English>Reference rate %s1 per turn for %d2 turns (%s3, credit %d4/100).</English>
++		<French>Reference rate %s1 per turn for %d2 turns (%s3, credit %d4/100).</French>
++		<German>Reference rate %s1 per turn for %d2 turns (%s3, credit %d4/100).</German>
++		<Italian>Reference rate %s1 per turn for %d2 turns (%s3, credit %d4/100).</Italian>
++		<Spanish>Reference rate %s1 per turn for %d2 turns (%s3, credit %d4/100).</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OFFER_LEND</Tag>
++		<English>Offer %d1[ICON_GOLD]</English>
++		<French>Offer %d1[ICON_GOLD]</French>
++		<German>Offer %d1[ICON_GOLD]</German>
++		<Italian>Offer %d1[ICON_GOLD]</Italian>
++		<Spanish>Offer %d1[ICON_GOLD]</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OFFER_BORROW</Tag>
++		<English>Ask for %d1[ICON_GOLD]</English>
++		<French>Ask for %d1[ICON_GOLD]</French>
++		<German>Ask for %d1[ICON_GOLD]</German>
++		<Italian>Ask for %d1[ICON_GOLD]</Italian>
++		<Spanish>Ask for %d1[ICON_GOLD]</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_CIVS_HELP</Tag>
++		<English>An AI answers at once; a human answers on this screen. Declaring war on your lender is a default. A war between the two parties freezes the debt until peace.</English>
++		<French>An AI answers at once; a human answers on this screen. Declaring war on your lender is a default. A war between the two parties freezes the debt until peace.</French>
++		<German>An AI answers at once; a human answers on this screen. Declaring war on your lender is a default. A war between the two parties freezes the debt until peace.</German>
++		<Italian>An AI answers at once; a human answers on this screen. Declaring war on your lender is a default. A war between the two parties freezes the debt until peace.</Italian>
++		<Spanish>An AI answers at once; a human answers on this screen. Declaring war on your lender is a default. A war between the two parties freezes the debt until peace.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_FINANCE_INCOME</Tag>
++		<English>Debts owed to you</English>
++		<French>Debts owed to you</French>
++		<German>Debts owed to you</German>
++		<Italian>Debts owed to you</Italian>
++		<Spanish>Debts owed to you</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_FINANCE_PAYMENTS</Tag>
++		<English>Debt payments</English>
++		<French>Debt payments</French>
++		<German>Debt payments</German>
++		<Italian>Debt payments</Italian>
++		<Spanish>Debt payments</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REPAID</Tag>
++		<English>The debt between %s1 and %s2 is repaid.</English>
++		<French>The debt between %s1 and %s2 is repaid.</French>
++		<German>The debt between %s1 and %s2 is repaid.</German>
++		<Italian>The debt between %s1 and %s2 is repaid.</Italian>
++		<Spanish>The debt between %s1 and %s2 is repaid.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_SIGNED_BORROW</Tag>
++		<English>You have borrowed %d1[ICON_GOLD] from %s2 at %s3%% per turn for %d4 turns.</English>
++		<French>You have borrowed %d1[ICON_GOLD] from %s2 at %s3%% per turn for %d4 turns.</French>
++		<German>You have borrowed %d1[ICON_GOLD] from %s2 at %s3%% per turn for %d4 turns.</German>
++		<Italian>You have borrowed %d1[ICON_GOLD] from %s2 at %s3%% per turn for %d4 turns.</Italian>
++		<Spanish>You have borrowed %d1[ICON_GOLD] from %s2 at %s3%% per turn for %d4 turns.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_SIGNED_LEND</Tag>
++		<English>You have lent %d1[ICON_GOLD] to %s2 at %s3%% per turn for %d4 turns.</English>
++		<French>You have lent %d1[ICON_GOLD] to %s2 at %s3%% per turn for %d4 turns.</French>
++		<German>You have lent %d1[ICON_GOLD] to %s2 at %s3%% per turn for %d4 turns.</German>
++		<Italian>You have lent %d1[ICON_GOLD] to %s2 at %s3%% per turn for %d4 turns.</Italian>
++		<Spanish>You have lent %d1[ICON_GOLD] to %s2 at %s3%% per turn for %d4 turns.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_DEFAULT</Tag>
++		<English>%s1 has defaulted on %d2[ICON_GOLD] owed to %s3.</English>
++		<French>%s1 has defaulted on %d2[ICON_GOLD] owed to %s3.</French>
++		<German>%s1 has defaulted on %d2[ICON_GOLD] owed to %s3.</German>
++		<Italian>%s1 has defaulted on %d2[ICON_GOLD] owed to %s3.</Italian>
++		<Spanish>%s1 has defaulted on %d2[ICON_GOLD] owed to %s3.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OFFER_RECEIVED_LEND</Tag>
++		<English>%s1 offers to lend you %d2[ICON_GOLD] at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</English>
++		<French>%s1 offers to lend you %d2[ICON_GOLD] at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</French>
++		<German>%s1 offers to lend you %d2[ICON_GOLD] at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</German>
++		<Italian>%s1 offers to lend you %d2[ICON_GOLD] at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</Italian>
++		<Spanish>%s1 offers to lend you %d2[ICON_GOLD] at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OFFER_RECEIVED_BORROW</Tag>
++		<English>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</English>
++		<French>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</French>
++		<German>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</German>
++		<Italian>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</Italian>
++		<Spanish>%s1 asks to borrow %d2[ICON_GOLD] from you at %s3%% per turn for %d4 turns. Answer on the Debt screen (Finance Advisor).</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_OFFER_REFUSED</Tag>
++		<English>%s1 refuses the loan.</English>
++		<French>%s1 refuses the loan.</French>
++		<German>%s1 refuses the loan.</German>
++		<Italian>%s1 refuses the loan.</Italian>
++		<Spanish>%s1 refuses the loan.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSED</Tag>
++		<English>The request was refused.</English>
++		<French>The request was refused.</French>
++		<German>The request was refused.</German>
++		<Italian>The request was refused.</Italian>
++		<Spanish>The request was refused.</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_SOLD</Tag>
++		<English>You sold a claim to the market for %d1[ICON_GOLD].</English>
++		<French>You sold a claim to the market for %d1[ICON_GOLD].</French>
++		<German>You sold a claim to the market for %d1[ICON_GOLD].</German>
++		<Italian>You sold a claim to the market for %d1[ICON_GOLD].</Italian>
++		<Spanish>You sold a claim to the market for %d1[ICON_GOLD].</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_DISABLED</Tag>
++		<English>debt is switched off</English>
++		<French>debt is switched off</French>
++		<German>debt is switched off</German>
++		<Italian>debt is switched off</Italian>
++		<Spanish>debt is switched off</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_NO_CITIES</Tag>
++		<English>the borrower has no cities</English>
++		<French>the borrower has no cities</French>
++		<German>the borrower has no cities</German>
++		<Italian>the borrower has no cities</Italian>
++		<Spanish>the borrower has no cities</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_TERMS</Tag>
++		<English>these terms are not offered</English>
++		<French>these terms are not offered</French>
++		<German>these terms are not offered</German>
++		<Italian>these terms are not offered</Italian>
++		<Spanish>these terms are not offered</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_DEFAULTED</Tag>
++		<English>a recent default</English>
++		<French>a recent default</French>
++		<German>a recent default</German>
++		<Italian>a recent default</Italian>
++		<Spanish>a recent default</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_NOT_AT_WAR</Tag>
++		<English>war bonds are sold only at war</English>
++		<French>war bonds are sold only at war</French>
++		<German>war bonds are sold only at war</German>
++		<Italian>war bonds are sold only at war</Italian>
++		<Spanish>war bonds are sold only at war</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_NOT_BEHIND</Tag>
++		<English>development loans are for civilizations below the average score</English>
++		<French>development loans are for civilizations below the average score</French>
++		<German>development loans are for civilizations below the average score</German>
++		<Italian>development loans are for civilizations below the average score</Italian>
++		<Spanish>development loans are for civilizations below the average score</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_RELATIONS</Tag>
++		<English>the two civilizations must have met, be at peace and be on different teams</English>
++		<French>the two civilizations must have met, be at peace and be on different teams</French>
++		<German>the two civilizations must have met, be at peace and be on different teams</German>
++		<Italian>the two civilizations must have met, be at peace and be on different teams</Italian>
++		<Spanish>the two civilizations must have met, be at peace and be on different teams</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_GOLD</Tag>
++		<English>the lender has not that much gold</English>
++		<French>the lender has not that much gold</French>
++		<German>the lender has not that much gold</German>
++		<Italian>the lender has not that much gold</Italian>
++		<Spanish>the lender has not that much gold</Spanish>
++	</TEXT>
++	<TEXT>
++		<Tag>TXT_KEY_DEBT_REFUSE_COLLATERAL</Tag>
++		<English>the collateral is not the borrower's to pledge</English>
++		<French>the collateral is not the borrower's to pledge</French>
++		<German>the collateral is not the borrower's to pledge</German>
++		<Italian>the collateral is not the borrower's to pledge</Italian>
++		<Spanish>the collateral is not the borrower's to pledge</Spanish>
++	</TEXT>
++</Civ4GameText>
