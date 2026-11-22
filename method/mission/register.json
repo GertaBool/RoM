@@ -557,5 +557,64 @@
    "fixes/graphics-paging-camera/",
    "builds/graphics-paging-camera/"
   ]
+ },
+ {
+  "id": "H9",
+  "type": "hypothesis",
+  "line": "debt",
+  "text": "Debt contracts between civilizations and with an open market (codemap/guides/loans-and-bonds.md at 1d9a473: loans and bonds held in CvGame, paid once per player turn without creating gold, priced from a market base rate and a credit score, AI borrowing to avoid strikes and lending spare gold) can be added to the DLL without breaking play: games run to the end, old saves load, and no state changes from a screen except through network messages handled in C++."
+ },
+ {
+  "id": "P14",
+  "type": "prediction",
+  "line": "debt",
+  "hypotheses": [
+   "H9"
+  ],
+  "variable": "completed",
+  "evidence": "runs",
+  "change": "On GitLab Graphics-Paging-Fix-Test 1d9a473: the debt mechanic of codemap/guides/loans-and-bonds.md, phases 1-5 except the exe trade-window item (route B, untested): CvDebtContract in CvGame (save flag 2), market base rate and capital, per-player caches in CvPlayer (save flag 2) added to calculateBaseNetGold, shortfall-safe payment in doGold with receipts credited the next turn, default with collateral and memory, war freezes and borrower-declared war defaults, ModNetMessage ids 7000-7099 handled in C++, AI borrowing (strike avoidance, war bonds), AI lending (market bonds, loans to other civilizations), the Debt screen and finance-advisor rows. Arm a: this build; arm b: the 1d9a473 build. Both from the same harness scenario, all seats AI, seeds from ledger.py seeds. Runs reach their result line no less often with debt than without.",
+  "claim": {
+   "direction": "a>=b",
+   "alpha": 0.05,
+   "min_effect": 0.6,
+   "min_n": 5,
+   "seat": 0
+  },
+  "paths": [
+   "gitlab:Assets/CvGameCoreDLL/AIDebtPolicy.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDebt.h",
+   "gitlab:Assets/CvGameCoreDLL/CvDebt.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvEnums.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.h",
+   "gitlab:Assets/CvGameCoreDLL/CvPlayerAI.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvTeam.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvMessageData.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLWidgetData.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvDLLWidgetData.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.h",
+   "gitlab:Assets/CvGameCoreDLL/CvGameTextMgr.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CyGame.h",
+   "gitlab:Assets/CvGameCoreDLL/CyGame.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CyGameInterface.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CyPlayer.h",
+   "gitlab:Assets/CvGameCoreDLL/CyPlayer.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CyPlayerInterface1.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CyPlayerInterface2.cpp",
+   "gitlab:Assets/CvGameCoreDLL/CvGameCoreDLL.h",
+   "gitlab:Assets/Python/Screens/CvDebtScreen.py",
+   "gitlab:Assets/Python/Screens/CvScreenEnums.py",
+   "gitlab:Assets/Python/EntryPoints/CvScreensInterface.py",
+   "gitlab:Assets/Python/Screens/BugFinanceAdvisor.py",
+   "gitlab:Assets/Python/Revolution/Gameready/Revolution.py",
+   "gitlab:Assets/XML/GlobalDefinesAlt.xml",
+   "fixes/debt.patch",
+   "fixes/debt/",
+   "builds/debt/"
+  ]
  }
 ]
